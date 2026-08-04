@@ -213,7 +213,7 @@ static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 // The backlight is a digital line on the CH422G (on/off only — no PWM), so the
 // idle state is simply the backlight off and the animation paused. The first
 // touch turns it back on and resumes. Instant off / instant on.
-#define IDLE_TIMEOUT_MS 60000  // inactivity before the backlight turns off
+static uint32_t idleTimeoutMs = 60000;  // inactivity before the backlight turns off — SETUP sets it
 
 static unsigned long lastInputTime = 0;
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
@@ -404,14 +404,15 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   return touched;
 }
 
-// Turn the backlight back on and resume the animation (instant). Always resets
-// the idle timer. A tap calls this — "tap to bring the backlight back on."
+// Turn the backlight back on (instant) and put the panel back on HOME. Always resets the
+// idle timer. A tap calls this — "tap to bring the backlight back on."
 static void wake() {
   lastInputTime = millis();
   if (screenIdle || !backlightOn) {
     screenIdle = false;
     setBacklight(true);
-    if (animTimer) lv_timer_resume(animTimer);
+    if (uiReady) showPage(PAGE_HOME);
+    else if (animTimer) lv_timer_resume(animTimer);
   }
 }
 
@@ -483,17 +484,68 @@ static void animTimerCb(lv_timer_t *t) {
 // the base's U7 keeps receiving and cancels its own, a layer below its ProtoLink.
 static HdlcLink j9;
 
+// The base's last StatusPayload, and when it landed. Nothing else on this board knows the
+// controller's uptime or its build.
+static StatusPayload ctrlStatus = {};
+static unsigned long ctrlStatusMs = 0;
+static unsigned long statusAskedMs = 0;
+
+// A prime hold: the finger is down on the pad and ticks are going out under it.
+static bool holding = false;
+static unsigned long holdStartMs = 0, holdTickMs = 0;
+
+static void setPrimeMsg(const char *s);
+static void setCleanMsg(const char *s);
+static void refreshStatusPage();
+static void refreshLinkDot();
+
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   (void)link;
   uint8_t type = msgType(frame);
   const uint8_t *payload = msgPayload(frame);
   uint16_t plen = msgPayloadLen(len);
+  char buf[64];
 
   if (type == MSG_RESP_PUMP_DONE && plen >= sizeof(ResponsePayload)) {
-    char buf[48];
-    snprintf(buf, sizeof(buf), "pump %c ran", payload[0] == 1 ? 'B' : 'A');
     Serial.printf("[J9] MSG_RESP_PUMP_DONE ch=%u\n", payload[0]);
-    setStatus(buf);
+    return;
+  }
+
+  if (type == MSG_RESP_PRIME && plen >= sizeof(PrimeStatePayload)) {
+    PrimeStatePayload st;
+    memcpy(&st, payload, sizeof(st));
+    Serial.printf("[J9] MSG_RESP_PRIME state=%u ch=%u ms=%lu\n",
+                  st.state, st.channel, (unsigned long)st.ms);
+    switch (st.state) {
+      case PRIME_RUNNING: snprintf(buf, sizeof(buf), "pump turning"); break;
+      case PRIME_STOPPED: snprintf(buf, sizeof(buf), "stopped after %lu.%lu s",
+                                   (unsigned long)st.ms / 1000, ((unsigned long)st.ms % 1000) / 100); break;
+      case PRIME_TIMEOUT: snprintf(buf, sizeof(buf), "controller lost the hold"); break;
+      case PRIME_LIMIT:   snprintf(buf, sizeof(buf), "stopped at the %lu s ceiling",
+                                   (unsigned long)(PRIME_MAX_MS / 1000)); break;
+      default:            snprintf(buf, sizeof(buf), "controller refused"); break;
+    }
+    setPrimeMsg(buf);
+    return;
+  }
+
+  if (type == MSG_RESP_STATUS && plen >= sizeof(StatusPayload)) {
+    memcpy(&ctrlStatus, payload, sizeof(ctrlStatus));
+    ctrlStatus.version[sizeof(ctrlStatus.version) - 1] = '\0';
+    ctrlStatusMs = millis();
+    refreshStatusPage();
+    refreshLinkDot();
+    return;
+  }
+
+  if (type == MSG_ERR_UNSUPPORTED) {
+    setCleanMsg("this controller drives no valves");
+    Serial.println("[J9] MSG_ERR_UNSUPPORTED");
+    return;
+  }
+
+  if (type == MSG_ERR_BUSY) {
+    setPrimeMsg("controller busy");
     return;
   }
 
@@ -514,34 +566,557 @@ static void j9Begin() {
   Serial.printf("RS485: rx=GPIO%d tx=GPIO%d @ %d\n", rs485Rx, rs485Tx, RS485_BAUD);
 }
 
-// The bench button. One MSG_PUMP_RUN naming the channel, the duty and the run length —
-// the base answers MSG_RESP_PUMP_DONE once the run has finished, so the label changes
-// after the motor stops rather than when the press lands.
-static void pumpBtnCb(lv_event_t *e) {
-  (void)e;
-  PumpRunPayload req{PUMP_CHANNEL_B, 1000};
+// One MSG_PUMP_RUN naming the channel and the run length. The base answers
+// MSG_RESP_PUMP_DONE once the run has finished.
+static void sendPumpRun(uint8_t channel, uint16_t ms) {
+  PumpRunPayload req{channel, ms};
   int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
   Serial.printf("[J9] MSG_PUMP_RUN ch=%u ms=%u -> send()=%d, bytesTx=%lu bytesRx=%lu\n",
                 req.channel, req.ms, r,
                 (unsigned long)j9.bytesTx, (unsigned long)j9.bytesRx);
-  setStatus(r >= 0 ? "pump B requested" : "send failed");
 }
 
-static void buildStatus(lv_obj_t *scr) {
-  statusLabel = lv_label_create(scr);
-  lv_obj_set_style_text_color(statusLabel, lv_color_hex(0x8888aa), 0);
-  lv_label_set_text(statusLabel, "J9 idle");
-  lv_obj_align(statusLabel, LV_ALIGN_BOTTOM_MID, 0, -24);
+// ════════════════════════════════════════════════════════════
+//  UI — a rail of pages, and a pane that changes shape
+// ════════════════════════════════════════════════════════════
 
-  lv_obj_t *btn = lv_btn_create(scr);
-  lv_obj_set_size(btn, 320, 96);
-  lv_obj_align(btn, LV_ALIGN_BOTTOM_MID, 0, -64);
-  lv_obj_set_style_bg_color(btn, lv_color_hex(0xe94560), 0);
-  lv_obj_add_event_cb(btn, pumpBtnCb, LV_EVENT_CLICKED, NULL);
+static lv_obj_t *mkText(lv_obj_t *parent, const char *s, const lv_font_t *font, uint32_t color) {
+  lv_obj_t *l = lv_label_create(parent);
+  lv_label_set_text(l, s);
+  lv_obj_set_style_text_font(l, font, 0);
+  lv_obj_set_style_text_color(l, lv_color_hex(color), 0);
+  return l;
+}
 
-  lv_obj_t *lbl = lv_label_create(btn);
-  lv_label_set_text(lbl, "RUN PUMP B");
-  lv_obj_center(lbl);
+// A flat panel. LVGL's default object carries a border and a shadow; neither reads well
+// against a dark background at arm's length.
+static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
+  lv_obj_t *o = lv_obj_create(parent);
+  lv_obj_set_size(o, w, h);
+  lv_obj_set_style_bg_color(o, lv_color_hex(COL_CARD), 0);
+  lv_obj_set_style_border_width(o, 0, 0);
+  lv_obj_set_style_radius(o, 14, 0);
+  lv_obj_set_style_pad_all(o, 14, 0);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE);
+  return o;
+}
+
+static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg) {
+  lv_obj_t *b = lv_btn_create(parent);
+  lv_obj_set_size(b, w, h);
+  lv_obj_set_style_radius(b, 14, 0);
+  lv_obj_set_style_shadow_width(b, 0, 0);
+  lv_obj_set_style_bg_color(b, lv_color_hex(bg), 0);
+  lv_obj_set_style_bg_color(b, lv_color_hex(COL_CARD_ON), LV_PART_MAIN | LV_STATE_PRESSED);
+  return b;
+}
+
+// A card-sized target with an icon over a word.
+static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
+                           const char *icon, const char *label,
+                           lv_event_cb_t cb, void *user) {
+  lv_obj_t *b = mkBtn(parent, w, h, COL_CARD);
+  lv_obj_add_event_cb(b, cb, LV_EVENT_CLICKED, user);
+  lv_obj_t *ic = mkText(b, icon, &lv_font_montserrat_48, COL_ACCENT);
+  lv_obj_align(ic, LV_ALIGN_CENTER, 0, -34);
+  lv_obj_t *lb = mkText(b, label, &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(lb, LV_ALIGN_CENTER, 0, 26);
+  return b;
+}
+
+static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
+  lv_obj_t *b = mkBtn(parent, 150, 58, COL_CARD);
+  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_add_event_cb(b, cb, LV_EVENT_CLICKED, user);
+  lv_obj_center(mkText(b, LV_SYMBOL_LEFT "  BACK", &lv_font_montserrat_20, COL_TEXT));
+  return b;
+}
+
+// A full-bleed layer inside a page. One of a page's views is visible at a time.
+static lv_obj_t *mkView(lv_obj_t *parent) {
+  lv_obj_t *o = lv_obj_create(parent);
+  lv_obj_set_size(o, LV_PCT(100), LV_PCT(100));
+  lv_obj_set_style_bg_opa(o, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(o, 0, 0);
+  lv_obj_set_style_pad_all(o, 0, 0);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE);
+  return o;
+}
+
+static void showOnly(lv_obj_t **objs, int n, int which) {
+  for (int i = 0; i < n; i++) {
+    if (i == which) lv_obj_clear_flag(objs[i], LV_OBJ_FLAG_HIDDEN);
+    else            lv_obj_add_flag(objs[i], LV_OBJ_FLAG_HIDDEN);
+  }
+}
+
+// ── Text the link writes into ──
+static void setPrimeMsg(const char *s) { if (primeMsg) lv_label_set_text(primeMsg, s); }
+static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMsg, s); }
+
+static void refreshLinkDot() {
+  static int shown = -1;
+  if (!linkDot) return;
+  int ok = (j9.framesRx > 0 && millis() - j9.lastRxMs < 10000) ? 1 : 0;
+  if (ok == shown) return;
+  shown = ok;
+  lv_label_set_text(linkDot, ok ? LV_SYMBOL_OK "  J9" : LV_SYMBOL_WARNING "  J9");
+  lv_obj_set_style_text_color(linkDot, lv_color_hex(ok ? COL_GOOD : COL_WARN), 0);
+}
+
+static void refreshFlavorText() {
+  char a[16], b[16];
+  snprintf(a, sizeof(a), "1:%u", flavorRatio[0]);
+  snprintf(b, sizeof(b), "1:%u", flavorRatio[1]);
+  if (flvCardLbl[0]) lv_label_set_text(flvCardLbl[0], a);
+  if (flvCardLbl[1]) lv_label_set_text(flvCardLbl[1], b);
+  if (homeFlavorLine) {
+    char line[64];
+    snprintf(line, sizeof(line), "FLAVOR 1  %s        FLAVOR 2  %s", a, b);
+    lv_label_set_text(homeFlavorLine, line);
+  }
+  if (flvDetailName)  lv_label_set_text(flvDetailName, kFlavorName[flavorSel]);
+  if (flvDetailRatio) lv_label_set_text(flvDetailRatio, flavorSel ? b : a);
+}
+
+static void refreshStatusPage() {
+  if (!statUptime) return;
+  char buf[48];
+  unsigned long up = ctrlStatus.uptimeS;
+  if (up < 3600) snprintf(buf, sizeof(buf), "%lu:%02lu", up / 60, up % 60);
+  else           snprintf(buf, sizeof(buf), "%luh %lum", up / 3600, (up % 3600) / 60);
+  lv_label_set_text(statUptime, buf);
+
+  snprintf(buf, sizeof(buf), "%lu K", (unsigned long)ctrlStatus.freeHeap / 1024);
+  lv_label_set_text(statHeap, buf);
+
+  snprintf(buf, sizeof(buf), "%u mV", ctrlStatus.gasMv);
+  lv_label_set_text(statGas, buf);
+  lv_bar_set_value(statGasBar, ctrlStatus.gasMv, LV_ANIM_OFF);
+
+  snprintf(buf, sizeof(buf), "%lu / %lu", (unsigned long)ctrlStatus.framesRx,
+           (unsigned long)ctrlStatus.framesTx);
+  lv_label_set_text(statFrames, buf);
+
+  if (ctrlStatusMs == 0) {
+    lv_label_set_text(statFoot, "controller has not answered");
+    lv_obj_set_style_text_color(statFoot, lv_color_hex(COL_WARN), 0);
+  } else {
+    snprintf(buf, sizeof(buf), "build %s   ·   read %lu s ago", ctrlStatus.version,
+             (millis() - ctrlStatusMs) / 1000);
+    lv_label_set_text(statFoot, buf);
+    lv_obj_set_style_text_color(statFoot, lv_color_hex(COL_DIM), 0);
+  }
+  if (setupCtrlVer) lv_label_set_text(setupCtrlVer, ctrlStatusMs ? ctrlStatus.version : "--");
+}
+
+// ── Prime — the hold, and the ticks under it ──
+static void primeSend(uint8_t type) {
+  ChannelPayload p{flavorSel};
+  j9.send(type, &p, sizeof(p));
+}
+
+static void primeHoldEnd() {
+  if (!holding) return;
+  holding = false;
+  primeSend(MSG_PRIME_STOP);
+  lv_label_set_text(primePadLbl, "HOLD TO PRIME");
+  lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
+  Serial.printf("[J9] MSG_PRIME_STOP ch=%u after %lu ms\n",
+                flavorSel, millis() - holdStartMs);
+}
+
+static void primeHoldBegin() {
+  if (holding) return;
+  holding = true;
+  holdStartMs = holdTickMs = millis();
+  primeSend(MSG_PRIME_START);
+  lv_label_set_text(primePadLbl, "PRIMING");
+  lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
+  setPrimeMsg("holding");
+  Serial.printf("[J9] MSG_PRIME_START ch=%u\n", flavorSel);
+}
+
+// The pad answers the press and the lift, not the click. PRESS_LOST is the finger sliding
+// off the pad, which ends the hold the same way lifting it does.
+static void primePadCb(lv_event_t *e) {
+  lv_event_code_t code = lv_event_get_code(e);
+  if (code == LV_EVENT_PRESSED)                                       primeHoldBegin();
+  else if (code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST)  primeHoldEnd();
+}
+
+// ── Navigation ──
+static void railCb(lv_event_t *e)     { showPage((Page)(intptr_t)lv_event_get_user_data(e)); }
+static void flvViewCb(lv_event_t *e)  { showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e)); }
+static void svcViewCb(lv_event_t *e)  { showService((ServiceView)(intptr_t)lv_event_get_user_data(e)); }
+
+static void flavorPickCb(lv_event_t *e) {
+  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  refreshFlavorText();
+  showFlavor(FLV_DETAIL);
+}
+
+static void primePickCb(lv_event_t *e) {
+  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  showService(SVC_PRIME_HOLD);
+}
+
+static void cleanPickCb(lv_event_t *e) {
+  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  showService(SVC_CLEAN_CONFIRM);
+}
+
+static void flavorToPrimeCb(lv_event_t *e) {
+  (void)e;
+  showPage(PAGE_SERVICE);
+  showService(SVC_PRIME_HOLD);
+}
+
+static void cleanStartCb(lv_event_t *e) {
+  (void)e;
+  ChannelPayload p{flavorSel};
+  j9.send(MSG_CLEAN_START, &p, sizeof(p));
+  setCleanMsg("asked the controller ...");
+}
+
+static void ratioStepCb(lv_event_t *e) {
+  int r = flavorRatio[flavorSel] + (int)(intptr_t)lv_event_get_user_data(e);
+  if (r < 6)  r = 6;    // the range the base's SET:Fn_RATIO accepts
+  if (r > 24) r = 24;
+  flavorRatio[flavorSel] = (uint8_t)r;
+  refreshFlavorText();
+}
+
+// ── Page builders ──
+
+static void buildRail(lv_obj_t *scr) {
+  static const struct { const char *icon; const char *label; } kRail[PAGE_COUNT] = {
+      {LV_SYMBOL_HOME,     "HOME"},
+      {LV_SYMBOL_TINT,     "FLAVOR"},
+      {LV_SYMBOL_LOOP,     "SERVICE"},
+      {LV_SYMBOL_CHARGE,   "STATUS"},
+      {LV_SYMBOL_SETTINGS, "SETUP"},
+  };
+  for (int i = 0; i < PAGE_COUNT; i++) {
+    lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
+    lv_obj_set_pos(b, 6, 8 + i * (RAIL_ITEM_H + 6));
+    lv_obj_set_style_pad_all(b, 6, 0);
+    lv_obj_add_event_cb(b, railCb, LV_EVENT_CLICKED, (void *)(intptr_t)i);
+    lv_obj_align(mkText(b, kRail[i].icon, &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_TOP_MID, 0, 2);
+    lv_obj_align(mkText(b, kRail[i].label, &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
+    railBtn[i] = b;
+  }
+  linkDot = mkText(scr, LV_SYMBOL_WARNING "  J9", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_set_width(linkDot, RAIL_W);
+  lv_obj_set_style_text_align(linkDot, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_pos(linkDot, 0, 8 + PAGE_COUNT * (RAIL_ITEM_H + 6) + 4);
+}
+
+static lv_obj_t *buildPane(lv_obj_t *scr) {
+  lv_obj_t *o = lv_obj_create(scr);
+  lv_obj_set_size(o, PANE_W, SCREEN_H);
+  lv_obj_set_pos(o, RAIL_W, 0);
+  lv_obj_set_style_bg_color(o, THEME_BG, 0);
+  lv_obj_set_style_border_width(o, 0, 0);
+  lv_obj_set_style_radius(o, 0, 0);
+  lv_obj_set_style_pad_all(o, PANE_PAD, 0);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE);
+  return o;
+}
+
+// A picture and two numbers.
+static void buildHome(lv_obj_t *page) {
+  lv_obj_align(mkText(page, "READY", &lv_font_montserrat_40, COL_TEXT), LV_ALIGN_TOP_MID, 0, 0);
+  logoImg = lv_img_create(page);
+  lv_img_set_src(logoImg, &frameDsc[0]);
+  lv_obj_align(logoImg, LV_ALIGN_TOP_MID, 0, 50);
+  homeFlavorLine = mkText(page, "", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(homeFlavorLine, LV_ALIGN_BOTTOM_MID, 0, 0);
+}
+
+// A split of two, and a drill-down behind each.
+static void buildFlavor(lv_obj_t *page) {
+  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
+
+  lv_obj_t *both = mkView(page);
+  lv_obj_align(mkText(both, "FLAVORS", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  for (int i = 0; i < 2; i++) {
+    lv_obj_t *b = mkBtn(both, cw, 360, COL_CARD);
+    lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
+    lv_obj_add_event_cb(b, flavorPickCb, LV_EVENT_CLICKED, (void *)(intptr_t)i);
+    lv_obj_align(mkText(b, LV_SYMBOL_TINT, &lv_font_montserrat_48, COL_ACCENT), LV_ALIGN_TOP_MID, 0, 20);
+    lv_obj_align(mkText(b, kFlavorName[i], &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_CENTER, 0, -10);
+    flvCardLbl[i] = mkText(b, "1:12", &lv_font_montserrat_48, COL_TEXT);
+    lv_obj_align(flvCardLbl[i], LV_ALIGN_CENTER, 0, 60);
+    lv_obj_align(mkText(b, "LEVEL  --", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_BOTTOM_MID, 0, -8);
+  }
+  flvView[FLV_BOTH] = both;
+
+  lv_obj_t *det = mkView(page);
+  mkBack(det, flvViewCb, (void *)(intptr_t)FLV_BOTH);
+  flvDetailName = mkText(det, "FLAVOR 2", &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, 8);
+
+  lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, 130);
+  lv_obj_align(row, LV_ALIGN_TOP_MID, 0, 90);
+  lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
+  lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_add_event_cb(minus, ratioStepCb, LV_EVENT_CLICKED, (void *)(intptr_t)-1);
+  lv_obj_center(mkText(minus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT));
+  lv_obj_t *plus = mkBtn(row, 84, 72, COL_CARD_ON);
+  lv_obj_align(plus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_add_event_cb(plus, ratioStepCb, LV_EVENT_CLICKED, (void *)(intptr_t)1);
+  lv_obj_center(mkText(plus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT));
+  flvDetailRatio = mkText(row, "1:12", &lv_font_montserrat_48, COL_TEXT);
+  lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
+
+  lv_obj_t *lvl = mkCard(det, PANE_W - 2 * PANE_PAD, 92);
+  lv_obj_align(lvl, LV_ALIGN_TOP_MID, 0, 234);
+  lv_obj_align(mkText(lvl, "LEVEL", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_align(mkText(lvl, "--", &lv_font_montserrat_40, COL_DIM), LV_ALIGN_BOTTOM_LEFT, 0, 0);
+
+  lv_obj_t *pr = mkBtn(det, PANE_W - 2 * PANE_PAD, 82, COL_ACCENT);
+  lv_obj_align(pr, LV_ALIGN_BOTTOM_MID, 0, 0);
+  lv_obj_add_event_cb(pr, flavorToPrimeCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(pr, "PRIME THIS FLAVOR", &lv_font_montserrat_28, COL_TEXT));
+  flvView[FLV_DETAIL] = det;
+}
+
+// Two flavor targets, side by side, under a title.
+static void buildFlavorPicker(lv_obj_t *view, const char *title, lv_event_cb_t cb) {
+  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
+  lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_RIGHT, 0, 14);
+  for (int i = 0; i < 2; i++) {
+    lv_obj_t *b = mkTapCard(view, cw, 300, LV_SYMBOL_TINT, kFlavorName[i], cb, (void *)(intptr_t)i);
+    lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
+  }
+}
+
+static void buildService(lv_obj_t *page) {
+  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
+  const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
+
+  lv_obj_t *menu = mkView(page);
+  lv_obj_align(mkText(menu, "SERVICE", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_align(mkTapCard(menu, cw, 360, LV_SYMBOL_TINT, "PRIME", svcViewCb,
+                         (void *)(intptr_t)SVC_PRIME_PICK), LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_align(mkTapCard(menu, cw, 360, LV_SYMBOL_LOOP, "CLEAN", svcViewCb,
+                         (void *)(intptr_t)SVC_CLEAN_PICK), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  svcView[SVC_MENU] = menu;
+
+  lv_obj_t *pick = mkView(page);
+  mkBack(pick, svcViewCb, (void *)(intptr_t)SVC_MENU);
+  buildFlavorPicker(pick, "PRIME WHICH", primePickCb);
+  svcView[SVC_PRIME_PICK] = pick;
+
+  // The hold pad. It fills the pane because it is meant to be found without looking.
+  lv_obj_t *hold = mkView(page);
+  mkBack(hold, svcViewCb, (void *)(intptr_t)SVC_PRIME_PICK);
+  primeTitle = mkText(hold, "PRIME FLAVOR 2", &lv_font_montserrat_28, COL_DIM);
+  lv_obj_align(primeTitle, LV_ALIGN_TOP_RIGHT, 0, 14);
+
+  primePad = mkBtn(hold, fw, 200, COL_ACCENT);
+  lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, 78);
+  lv_obj_add_event_cb(primePad, primePadCb, LV_EVENT_ALL, NULL);
+  primePadLbl = mkText(primePad, "HOLD TO PRIME", &lv_font_montserrat_48, COL_TEXT);
+  lv_obj_center(primePadLbl);
+
+  primeElapsed = mkText(hold, "0.0 s", &lv_font_montserrat_48, COL_TEXT);
+  lv_obj_align(primeElapsed, LV_ALIGN_TOP_MID, 0, 294);
+
+  primeBar = lv_bar_create(hold);
+  lv_obj_set_size(primeBar, fw, 18);
+  lv_obj_align(primeBar, LV_ALIGN_TOP_MID, 0, 366);
+  lv_bar_set_range(primeBar, 0, (int32_t)PRIME_MAX_MS);
+  lv_bar_set_value(primeBar, 0, LV_ANIM_OFF);
+  lv_obj_set_style_bg_color(primeBar, lv_color_hex(COL_CARD), LV_PART_MAIN);
+  lv_obj_set_style_bg_color(primeBar, lv_color_hex(COL_ACCENT), LV_PART_INDICATOR);
+
+  primeMsg = mkText(hold, "idle", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(primeMsg, LV_ALIGN_BOTTOM_MID, 0, 0);
+  svcView[SVC_PRIME_HOLD] = hold;
+
+  lv_obj_t *cpick = mkView(page);
+  mkBack(cpick, svcViewCb, (void *)(intptr_t)SVC_MENU);
+  buildFlavorPicker(cpick, "CLEAN WHICH", cleanPickCb);
+  svcView[SVC_CLEAN_PICK] = cpick;
+
+  lv_obj_t *conf = mkView(page);
+  mkBack(conf, svcViewCb, (void *)(intptr_t)SVC_CLEAN_PICK);
+  cleanTitle = mkText(conf, "CLEAN FLAVOR 2", &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_align(cleanTitle, LV_ALIGN_TOP_MID, 0, 84);
+  lv_obj_t *body = mkText(conf, "Three rounds: fill the line with water,\n"
+                                "then pump it through to the nozzle.",
+                          &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_style_text_align(body, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(body, LV_ALIGN_TOP_MID, 0, 150);
+  lv_obj_t *go = mkBtn(conf, fw, 96, COL_ACCENT);
+  lv_obj_align(go, LV_ALIGN_TOP_MID, 0, 240);
+  lv_obj_add_event_cb(go, cleanStartCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(go, "START CLEAN CYCLE", &lv_font_montserrat_28, COL_TEXT));
+  cleanMsg = mkText(conf, "", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(cleanMsg, LV_ALIGN_BOTTOM_MID, 0, 0);
+  svcView[SVC_CLEAN_CONFIRM] = conf;
+}
+
+// Numbers and a bar, all of it read off the controller.
+static lv_obj_t *statTile(lv_obj_t *page, const char *cap, lv_coord_t w, lv_coord_t h,
+                          lv_coord_t x, lv_coord_t y, lv_obj_t **out) {
+  lv_obj_t *c = mkCard(page, w, h);
+  lv_obj_align(c, LV_ALIGN_TOP_LEFT, x, y);
+  lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  *out = mkText(c, "--", &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_align(*out, LV_ALIGN_LEFT_MID, 0, 8);
+  return c;
+}
+
+static void buildStatusPage(lv_obj_t *page) {
+  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 14) / 2;
+  lv_obj_align(mkText(page, "CONTROLLER", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  statTile(page, "UPTIME",     cw, 150, 0,       46,  &statUptime);
+  statTile(page, "FREE HEAP",  cw, 150, cw + 14, 46,  &statHeap);
+  lv_obj_t *gas = statTile(page, "GAS SENSOR", cw, 150, 0, 210, &statGas);
+  statGasBar = lv_bar_create(gas);
+  lv_obj_set_size(statGasBar, cw - 28, 14);
+  lv_obj_align(statGasBar, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_bar_set_range(statGasBar, 0, 3300);
+  lv_obj_set_style_bg_color(statGasBar, lv_color_hex(COL_CARD_ON), LV_PART_MAIN);
+  lv_obj_set_style_bg_color(statGasBar, lv_color_hex(COL_GOOD), LV_PART_INDICATOR);
+  statTile(page, "J9 FRAMES RX / TX", cw, 150, cw + 14, 210, &statFrames);
+  statFoot = mkText(page, "controller has not answered", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(statFoot, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+}
+
+// The one page tall enough to scroll.
+static lv_obj_t *setupRow(lv_obj_t *col, const char *cap, lv_obj_t **valueOut) {
+  lv_obj_t *c = mkCard(col, LV_PCT(100), 80);
+  lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
+  if (valueOut) {
+    *valueOut = mkText(c, "--", &lv_font_montserrat_28, COL_TEXT);
+    lv_obj_align(*valueOut, LV_ALIGN_RIGHT_MID, 0, 0);
+  }
+  return c;
+}
+
+static void blToggleCb(lv_event_t *e) {
+  (void)e;
+  setBacklight(!backlightOn);
+  lv_label_set_text(setupBl, backlightOn ? "ON" : "OFF");
+}
+
+static void sleepCycleCb(lv_event_t *e) {
+  (void)e;
+  idleTimeoutMs = idleTimeoutMs == 30000 ? 60000 : idleTimeoutMs == 60000 ? 120000 : 30000;
+  char b[12];
+  snprintf(b, sizeof(b), "%lu s", (unsigned long)idleTimeoutMs / 1000);
+  lv_label_set_text(setupSleep, b);
+}
+
+static void restartCb(lv_event_t *e) { (void)e; ESP.restart(); }
+static void linkSwapCb(lv_event_t *e);   // shares the swap the USB command runs
+
+static void buildSetup(lv_obj_t *page) {
+  lv_obj_t *col = lv_obj_create(page);
+  lv_obj_set_size(col, LV_PCT(100), LV_PCT(100));
+  lv_obj_set_style_bg_opa(col, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(col, 0, 0);
+  lv_obj_set_style_pad_all(col, 0, 0);
+  lv_obj_set_style_pad_row(col, 12, 0);
+  lv_obj_set_flex_flow(col, LV_FLEX_FLOW_COLUMN);
+  lv_obj_set_scroll_dir(col, LV_DIR_VER);
+
+  lv_obj_t *v;
+  setupRow(col, "DISPLAY BUILD", &v);
+  lv_label_set_text(v, FW_VERSION);
+  setupRow(col, "CONTROLLER BUILD", &setupCtrlVer);
+
+  lv_obj_t *r = setupRow(col, "RS485 PINS", &setupLinkPins);
+  lv_obj_t *sw = mkBtn(r, 130, 56, COL_CARD_ON);
+  lv_obj_align(sw, LV_ALIGN_RIGHT_MID, 0, 0);
+  lv_obj_add_event_cb(sw, linkSwapCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(sw, "SWAP", &lv_font_montserrat_20, COL_TEXT));
+  lv_obj_align(setupLinkPins, LV_ALIGN_RIGHT_MID, -146, 0);
+
+  r = setupRow(col, "BACKLIGHT", nullptr);
+  lv_obj_t *blb = mkBtn(r, 130, 56, COL_CARD_ON);
+  lv_obj_align(blb, LV_ALIGN_RIGHT_MID, 0, 0);
+  lv_obj_add_event_cb(blb, blToggleCb, LV_EVENT_CLICKED, NULL);
+  setupBl = mkText(blb, "ON", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_center(setupBl);
+
+  r = setupRow(col, "SLEEP AFTER", nullptr);
+  lv_obj_t *slb = mkBtn(r, 130, 56, COL_CARD_ON);
+  lv_obj_align(slb, LV_ALIGN_RIGHT_MID, 0, 0);
+  lv_obj_add_event_cb(slb, sleepCycleCb, LV_EVENT_CLICKED, NULL);
+  setupSleep = mkText(slb, "60 s", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_center(setupSleep);
+
+  setupRow(col, "LAST TOUCH", &setupTouch);
+
+  r = mkBtn(col, LV_PCT(100), 80, COL_CARD);
+  lv_obj_add_event_cb(r, restartCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(r, LV_SYMBOL_POWER "   RESTART DISPLAY", &lv_font_montserrat_28, COL_ACCENT));
+}
+
+// GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
+// variable and this exchanges it; the base answering is what settles which way it runs.
+static void rs485Swap() {
+  int t = rs485Rx; rs485Rx = rs485Tx; rs485Tx = t;
+  j9.end();
+  Serial1.end();
+  j9Begin();
+  if (setupLinkPins) {
+    char b[24];
+    snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
+    lv_label_set_text(setupLinkPins, b);
+  }
+}
+
+static void linkSwapCb(lv_event_t *e) { (void)e; rs485Swap(); }
+
+// ── Page switching ──
+
+static void animRun(bool on) {
+  if (!animTimer) return;
+  if (on) lv_timer_resume(animTimer); else lv_timer_pause(animTimer);
+}
+
+static void showFlavor(FlavorView v) {
+  showOnly(flvView, FLV_COUNT, v);
+  refreshFlavorText();
+}
+
+static void showService(ServiceView v) {
+  if (v != SVC_PRIME_HOLD) primeHoldEnd();
+  showOnly(svcView, SVC_COUNT, v);
+  if (v == SVC_PRIME_HOLD) {
+    char b[32];
+    snprintf(b, sizeof(b), "PRIME %s", kFlavorName[flavorSel]);
+    lv_label_set_text(primeTitle, b);
+    lv_label_set_text(primeElapsed, "0.0 s");
+    lv_bar_set_value(primeBar, 0, LV_ANIM_OFF);
+    setPrimeMsg("idle");
+  } else if (v == SVC_CLEAN_CONFIRM) {
+    char b[32];
+    snprintf(b, sizeof(b), "CLEAN %s", kFlavorName[flavorSel]);
+    lv_label_set_text(cleanTitle, b);
+    setCleanMsg("");
+  }
+}
+
+static void showPage(Page p) {
+  primeHoldEnd();
+  showOnly(pageObj, PAGE_COUNT, p);
+  for (int i = 0; i < PAGE_COUNT; i++)
+    lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(i == p ? COL_ACCENT : COL_CARD), 0);
+  activePage = p;
+  // Nothing repaints a page that is not on screen — the animation is the only thing on
+  // this panel that invalidates on its own.
+  animRun(p == PAGE_HOME && !screenIdle);
+  if (p == PAGE_FLAVOR)  showFlavor(FLV_BOTH);
+  if (p == PAGE_SERVICE) showService(SVC_MENU);
+  if (p == PAGE_STATUS)  { statusAskedMs = 0; refreshStatusPage(); }
 }
 
 static void buildUi() {
@@ -558,11 +1133,22 @@ static void buildUi() {
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
   lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
 
-  logoImg = lv_img_create(scr);
-  lv_img_set_src(logoImg, &frameDsc[0]);
-  lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, -80);
+  buildRail(scr);
+  for (int i = 0; i < PAGE_COUNT; i++) pageObj[i] = buildPane(scr);
+  buildHome(pageObj[PAGE_HOME]);
+  buildFlavor(pageObj[PAGE_FLAVOR]);
+  buildService(pageObj[PAGE_SERVICE]);
+  buildStatusPage(pageObj[PAGE_STATUS]);
+  buildSetup(pageObj[PAGE_SETUP]);
 
-  buildStatus(scr);
+  uiReady = true;
+  refreshFlavorText();
+  {
+    char b[24];
+    snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
+    lv_label_set_text(setupLinkPins, b);
+  }
+  showPage(PAGE_HOME);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -573,9 +1159,10 @@ static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
-    Serial.printf("DIAG:heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
+    Serial.printf("DIAG:page=%d,holding=%d,heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
                   "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
                   "link=%s,maxLoopMs=%lu,uptime=%lus\n",
+                  (int)activePage, holding ? 1 : 0,
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)ESP.getPsramSize(),
@@ -612,8 +1199,29 @@ static void processTextLine(const char *line) {
       Serial.println("ERR:IDLE expects 0 or 1");
     }
   } else if (strcmp(line, "PUMP") == 0) {
-    pumpBtnCb(nullptr);           // the button's own frame, without a finger on the glass
+    sendPumpRun(PUMP_CHANNEL_B, 1000);
     Serial.println("OK:PUMP");
+  } else if (strncmp(line, "PAGE:", 5) == 0) {
+    int p = atoi(line + 5);
+    if (p < 0 || p >= PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
+    else { showPage((Page)p); Serial.printf("OK:PAGE=%d\n", p); }
+  } else if (strncmp(line, "PRIME:START:", 12) == 0) {
+    // The pad's own handlers, without a finger on the glass — same frames, same ticks.
+    int f = atoi(line + 12);
+    if (f != 1 && f != 2) { Serial.println("ERR:PRIME:START expects 1 or 2"); }
+    else {
+      flavorSel = (uint8_t)(f - 1);
+      showPage(PAGE_SERVICE);
+      showService(SVC_PRIME_HOLD);
+      primeHoldBegin();
+      Serial.printf("OK:PRIME:START=%d\n", f);
+    }
+  } else if (strcmp(line, "PRIME:STOP") == 0) {
+    primeHoldEnd();
+    Serial.println("OK:PRIME:STOP");
+  } else if (strcmp(line, "STATUS") == 0) {
+    j9.send(MSG_STATUS_REQ, nullptr, 0);
+    Serial.println("OK:STATUS requested");
   } else if (strcmp(line, "LINK") == 0) {
     Serial.printf("LINK:rx=GPIO%d,tx=GPIO%d,framesRx=%lu,framesTx=%lu,%s\n", rs485Rx, rs485Tx,
                   (unsigned long)j9.framesRx, (unsigned long)j9.framesTx,
@@ -659,10 +1267,7 @@ static void processTextLine(const char *line) {
     Serial.printf("OK:LOOP rx=GPIO%d tx=GPIO%d got='%s' %s\n", rs485Rx, rs485Tx, got,
                   strcmp(got, probe) == 0 ? "closes" : "no echo");
   } else if (strcmp(line, "RS485:SWAP") == 0) {
-    int t = rs485Rx; rs485Rx = rs485Tx; rs485Tx = t;
-    j9.end();
-    Serial1.end();
-    j9Begin();
+    rs485Swap();
     Serial.printf("OK:RS485 rx=GPIO%d tx=GPIO%d\n", rs485Rx, rs485Tx);
   } else if (strncmp(line, "RS485:", 6) == 0) {
     int r = j9.send(MSG_TEXT, line + 6, strlen(line + 6));
@@ -768,9 +1373,50 @@ void loop() {
 
   j9.service();
 
+  // A held pad feeds the controller a tick under it, and moves its own readouts at 10 Hz.
+  if (holding) {
+    unsigned long now = millis();
+    if (now - holdTickMs >= PRIME_TICK_MS) { primeSend(MSG_PRIME_TICK); holdTickMs = now; }
+    static unsigned long lastHoldUi = 0;
+    if (now - lastHoldUi >= 100) {
+      lastHoldUi = now;
+      unsigned long el = now - holdStartMs;
+      char b[16];
+      snprintf(b, sizeof(b), "%lu.%lu s", el / 1000, (el % 1000) / 100);
+      lv_label_set_text(primeElapsed, b);
+      lv_bar_set_value(primeBar, (int32_t)(el > PRIME_MAX_MS ? PRIME_MAX_MS : el), LV_ANIM_OFF);
+    }
+  }
+
+  if (uiReady && activePage == PAGE_STATUS && !screenIdle &&
+      millis() - statusAskedMs >= 2000) {
+    statusAskedMs = millis();
+    j9.send(MSG_STATUS_REQ, nullptr, 0);
+  }
+
+  // Once a second: the rail's link indicator, and whichever page shows something live.
+  if (uiReady) {
+    static unsigned long lastSlow = 0;
+    if (millis() - lastSlow >= 1000) {
+      lastSlow = millis();
+      refreshLinkDot();
+      if (activePage == PAGE_STATUS) refreshStatusPage();
+      if (activePage == PAGE_SETUP && setupTouch) {
+        static uint32_t shownXY = 0xFFFFFFFF;
+        uint32_t xy = ((uint32_t)lastTouchX << 16) | lastTouchY;
+        if (xy != shownXY) {
+          shownXY = xy;
+          char b[24];
+          snprintf(b, sizeof(b), "%u / %u", lastTouchX, lastTouchY);
+          lv_label_set_text(setupTouch, b);
+        }
+      }
+    }
+  }
+
   // Idle: after inactivity, turn the backlight off and pause the animation
   // (no point repainting a dark screen). A touch wakes it — see wake().
-  if (displayReady && !screenIdle && millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
+  if (displayReady && !screenIdle && !holding && millis() - lastInputTime >= idleTimeoutMs) {
     screenIdle = true;
     setBacklight(false);
     if (animTimer) lv_timer_pause(animTimer);
