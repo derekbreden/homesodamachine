@@ -728,20 +728,19 @@ DIVIDER_HALF = _ydiv.HALF          # stem / outlet collet face from the body cen
 DIVIDER_OUTLET_X = _ydiv.OUTLET_Y  # each outlet's offset from the divider axis, once turned
 # The divider's outlets are 14.7 apart and the valve collets they join are a seat pitch
 # (34.25) apart, so each leg closes `(pitch − 2 × DIVIDER_OUTLET_X) / 2` on its way through.
-# How far AHEAD the divider stands is that offset divided by the lean a leg is allowed —
-# the run it needs to close the gap gently instead of cornering. Soft LLDPE with a stub off
-# each collet takes the rest, so the reach follows the lean rather than being picked and
-# then checked.
+# How far AHEAD the divider stands is that offset over the tangent of the lean its collets
+# allow, and at that reach EACH LEG IS ONE STRAIGHT LENGTH OF TUBE: a push-to-connect collet
+# grips all round and takes a run up to `FLAVOR_SKEW` off its own axis, so a straight leaving
+# both mouths at that lean closes `reach · tan(FLAVOR_SKEW)` of cross between them, and where
+# that equals the offset the two leans are collinear and no corner stands between them.
 #
-# The lean places the forward face of the pair that meets at the divider: it hangs
+# The reach places the forward face of the pair that meets at the divider: it hangs
 # `divider_reach()` off its own collets, and the slab that leaves is as wide as the tray column
-# and as tall as the pair leaning through it, holding nothing but their legs. What bounds the
-# lean is the leg's own corners: `bent` seats a tangent arc of `LLDPE_BEND` at each, and
-# `divider_reach` raises when either the leaning straight or the collet stub is too short to
-# seat one on with `DIVIDER_LEG_STRAIGHT` of tube still running straight.
-DIVIDER_LEAN = 60.0         # the most a leaning leg runs off its valve's own axis
-DIVIDER_LEG_LEAD = 6.0      # the straight each leg leaves its collet and enters its outlet on
+# and as tall as the pair leaning through it, holding nothing but their legs.
 DIVIDER_LEG_STRAIGHT = 3.0  # tube still running straight after an arc seats, at either end
+# How far off a collet's own axis a soft-LLDPE run may leave or enter as ONE STRAIGHT LENGTH,
+# past the rigid-copper `COLLET_SKEW`. `_lines.FLAVOR_SKEW` is bound to this name.
+FLAVOR_SKEW = 22.0
 # The radius 1/4" LLDPE is drawn at, and `_lines.WBEND` is this. It lives on the PACK's side
 # because a divider's pose depends on it: the reach above is bounded by what each leg's two
 # corners cost at this radius, and a pack that read the routing module back to place a
@@ -1578,13 +1577,13 @@ def _build():
                    else y_e_pos() if name == "tee-y-e"
                    else pump_row_tee_pos(name))
 
-    # Y-H last, and seated by its EAST FACE rather than its origin. It hangs on the pair's west
-    # flank, so what has to hold is the gap between two placed bodies — and a divider's origin
-    # is not its own bbox centre. Read off the seated plate, the gap is the gap whatever the
+    # Y-H last, and seated by its EAST FACE rather than its origin. It stands on the pair's west
+    # flank, so what has to hold is the reach between two placed bodies — and a divider's origin
+    # is not its own bbox centre. Read off the seated plate, the reach is the reach whatever the
     # fitting's frame calls its middle.
     _yh = y_h_pos()
     pack.place("divider-y-h", _load(Y_DIVIDER), turn=DIVIDER_H_TURNS,
-               east=at(pack.box("bag-b-tray-assembly").xmin - LINE_HUG),
+               east=at(pack.box("bag-b-tray-assembly").xmin - divider_reach()),
                org_y=at(_yh[1]), org_z=at(_yh[2]))
 
     out = {n: (s, COLORS[n]) for n, s in placed.items()}
@@ -2253,31 +2252,56 @@ def bag_a_tray_port(name):
     return _tray_port("bag-a-tray-assembly", name, BAG_A_TRAY_COLLETS)
 
 
+_DIVIDER_REACH: float | None = None
+
+
 def divider_reach():
     """How far off the collets it joins a divider's own outlet faces stand: the offset each
-    leg closes, over the tangent of the lean it is allowed, plus the straight each end
-    leaves on. `_lines` builds the legs to exactly this, so the reach follows the lean
-    instead of being picked and then checked against it.
+    leg closes, over the tangent of the lean the collet allows.
 
-    The lean has a bound each leg's own corners carry. Each leg is three straights — the collet
-    stub, the leaning run, the outlet stub — and `bent` rounds both corners with a tangent arc of
-    `LLDPE_BEND`, which eats `LLDPE_BEND · tan(lean/2)` off every straight it meets. Steepening
-    the lean shortens the leaning run and lengthens what the arcs take out of it from both ends
-    at once, so this is the bound that ends the sweep, and it is measured here rather than left
-    for whoever reads the reach as a picked number."""
+    Each leg is ONE STRAIGHT LENGTH OF TUBE at this reach. The outlet and the collet face each
+    other down their own axis with the offset square to it, so a straight between them leaves
+    each mouth `atan(offset / reach)` off that axis; at `offset / tan(FLAVOR_SKEW)` that angle
+    is the whole of what a push-to-connect collet grips through, and the leg carries the offset
+    with no corner in it. `_lines` draws both of Y-H's legs to exactly this.
+
+    Shorter, and the leg breaks into two corners — and the reach it takes then is the LEAST
+    that seats a stock arc in them, because every millimetre past that is deck spent on the
+    other side of the pair, where the collets facing east have their own runs to leave in.
+    `_lines` builds both legs to whichever this returns."""
     offset = (_tray.pitch - 2.0 * DIVIDER_OUTLET_X) / 2.0
-    lean = math.radians(DIVIDER_LEAN)
-    tangent = LLDPE_BEND * math.tan(lean / 2.0)               # each arc, off each of its legs
-    leaning = offset / math.sin(lean)                         # the run, corner to corner
-    for what, straight in (("the leaning run", leaning - 2.0 * tangent),
-                           ("each collet stub", DIVIDER_LEG_LEAD - tangent)):
-        if straight < DIVIDER_LEG_STRAIGHT:
-            _short(f"divider-reach ({what})",
-                   f"DIVIDER_LEAN = {DIVIDER_LEAN}° leaves {straight:.2f} mm of straight tube in "
-                   f"{what}, under DIVIDER_LEG_STRAIGHT ({DIVIDER_LEG_STRAIGHT}) — an R"
-                   f"{LLDPE_BEND} arc at this lean takes {tangent:.2f} mm off each end it "
-                   f"meets. Shallow the lean, or lengthen DIVIDER_LEG_LEAD.")
-    return 2.0 * DIVIDER_LEG_LEAD + offset / math.tan(lean)
+    straight_reach = offset / math.tan(math.radians(FLAVOR_SKEW))
+
+    def seats(reach):
+        """The roundest arc the two corners hold at this reach, over every lead and lean the
+        collet allows. Symmetric: the two mouths face each other with the offset square
+        between them, so what one lead takes the other takes."""
+        best = 0.0
+        for i in range(1, 61):                        # the lean, up to the collet's own
+            th = math.radians(FLAVOR_SKEW * i / 60.0)
+            for j in range(1, 121):                   # the lead, out to half the reach
+                lead = DIVIDER_LEG_STRAIGHT + 0.25 * j
+                px, py = lead * math.cos(th), lead * math.sin(th)
+                gx, gy = reach - 2.0 * px, offset - 2.0 * py
+                leg = math.hypot(gx, gy)
+                if gx <= 0.0 or leg < LINE_HUG:        # the leg must travel toward the far mouth
+                    continue
+                turn = abs(math.atan2(gy, gx) - th)
+                k = math.tan(turn / 2.0)
+                r = min(LLDPE_STOCK_BEND, (lead - DIVIDER_LEG_STRAIGHT) / k) if k > 1e-6 \
+                    else LLDPE_STOCK_BEND
+                if 2.0 * r * k <= leg - LINE_HUG:      # a straight still left between the arcs
+                    best = max(best, r)
+        return best
+
+    global _DIVIDER_REACH
+    if _DIVIDER_REACH is None:
+        lo, hi = 0.0, straight_reach
+        for _ in range(30):
+            mid = (lo + hi) / 2.0
+            lo, hi = (lo, mid) if seats(mid) >= LLDPE_STOCK_BEND - 1e-9 else (mid, hi)
+        _DIVIDER_REACH = hi
+    return _DIVIDER_REACH
 
 
 def _divider_pos(origin, collet):
@@ -2839,15 +2863,71 @@ def bag_b_tray_pos():
     """The bag-B pair's own origin in world — the WEST lane's forward seat.
 
     This pair is the one row of the manifold that is not on the east lane. It takes the band
-    forward of the pump, on the EAST FACE THE TRAY COLUMN UNDER IT STANDS ON — the source,
-    selects and bag-A plates share that plane, so the west lane is one column from the hopper
-    drain down to this pair, and what the turn leaves west of it is the flank Y-H and the
-    conduit run down. Turned, the plate's own reach to that face is `port_half`.
+    forward of the pump, and its WEST FACE STANDS WHERE THE FLANK ENDS: the two cap conduits'
+    own column, the standoff the stem's corner takes off it (`stem_standoff`), Y-H's body, and
+    the `divider_reach()` the trident's two legs run straight through. Turned, the plate's own
+    reach to that face is `port_half`.
+
+    Nothing else is on this deck between the conduits and the +X wall, so the flank is cut to
+    the stack that stands in it and the rest of the deck is east of the plate.
 
     Y is `bag_b_tray_y()` plus the turned plate's own half-depth; Z is the cap."""
-    return (packed().box("source-tray-assembly").xmax - _tray.port_half,
+    return (min(y_h_stem_x() + 2.0 * DIVIDER_HALF + divider_reach() + _tray.port_half,
+                bag_b_east_limit() - _tray.port_half),
             bag_b_tray_y() + _tray.half_x,
             aft_tray_z())
+
+
+def bag_b_east_limit():
+    """The eastmost the pair's own EAST FACE goes — what the deck on that side is worth.
+
+    V-I-I opens east off the turned plate and water-3 falls down V-K's own column across that
+    deck on its way into the valve, so what a leg leaving that collet has to turn in is the
+    band between the two: a `LINE_PITCH` off the fall, and the collet's own
+    `JUNCTION_LEG_LEAD` of straight before anything turns. The flank west of the plate wants
+    more travel than this; the deck is what there is."""
+    # Read off the row's own seat rather than a placed plate: V-K's row is packed onto the
+    # SeaFlo's flank (`aft_tray_x`) and this pair is seated before it, so the column is the
+    # stand's west face and half a seat pitch, which stands before either plate is in.
+    return (aft_tray_x() + _tray.half_x + _tray.pitch / 2.0) - LINE_PITCH - JUNCTION_LEG_LEAD
+
+
+def y_h_stem_x():
+    """Where Y-H's STEM collet stands in X, and with it the divider's own west face.
+
+    `stem_standoff()` east of reservoir B's bore — the reach the corner off that conduit turns
+    on. That standoff already clears `conduit_column_east()`, which `_short` holds."""
+    stem = foam_shell_port("reservoir-b")[0][0] + stem_standoff()
+    if stem < conduit_column_east():
+        _short("y-h-stem",
+               f"Y-H's stem stands at x {stem:.2f}, west of the {conduit_column_east():.2f} the "
+               f"cap conduits' own column leaves a body. The standoff the corner wants is "
+               f"under the tube and floor the column is.")
+    return stem
+
+
+def conduit_column_east():
+    """The east side of the CAP CONDUITS' column, as a body sees it — the westmost plane
+    anything on this deck can stand on.
+
+    Two lines leave the lid on this flank: water-5 falls the deck's whole height on `water-in`'s
+    bore and fluid-25 climbs out of `reservoir-b`'s. The conduits stand a millimetre apart in X,
+    so the two bores are one column, and what a body holds off is the westerly of them with a
+    tube's half-section and the pack's own floor over it."""
+    bores = [foam_shell_port(c)[0][0] for c in ("water-in", "reservoir-b")]
+    return max(bores) + 6.35 / 2.0 + LINE_HUG
+
+
+def stem_standoff():
+    """How far east of the conduits' column Y-H's STEM stands — the corner between reservoir
+    B's climb out of the lid and the run east into the stem.
+
+    The conduit opens +Z on the lid and the stem faces −X on the pair's port plane, so the two
+    mouths are square to each other and the leg between them is one corner with a rise and a
+    reach for legs. The rise is the port plane's own height over the lid, and the reach is
+    struck equal to it: the corner sits square in section and neither leg binds before the
+    other."""
+    return aft_port_z() - foam_shell_port("reservoir-b")[0][2]
 
 
 def vk_tray_pos():
@@ -2948,29 +3028,26 @@ def aft_stand_east_face():
 
 
 def y_h_pos():
-    """Y-H's body centre in world — ahead of the bag-B pair's two FORWARD collets, V-I's
-    outlet where the pump returns to the bag and V-H's inlet where the bag draws. Reservoir B
-    is on its STEM, so one line reaches the cold core's face and the fill and the draw share
-    it.
+    """Y-H's body centre in world — `_divider_pos`'s relation, read across the machine because
+    the pair it joins is turned. Ahead of the bag-B pair's two WEST collets, V-I's outlet where
+    the pump returns to the bag and V-H's inlet where the bag draws; reservoir B is on its
+    STEM, so one line reaches the cold core's face and the fill and the draw share it.
 
     It stands on the FLANK WEST OF THE PAIR, the face those two collets open on once the plate
-    is turned (`BAG_B_TRAY_YAW`). Reservoir B's port opens +Z on that same flank at x 11, so
-    the stem's fall and the two legs share one column and neither leg is a crossing.
-    The trident takes the pair's own quarter turn with it (`DIVIDER_H_TURNS`), which is what
-    puts its outlets back on the axis of the collets they feed.
+    is turned (`BAG_B_TRAY_YAW`), one `divider_reach()` off them and a body half-length past
+    its own outlet faces. The trident takes the pair's own quarter turn with it
+    (`DIVIDER_H_TURNS`), which is what puts its outlets back on the axis of the collets they
+    feed. X is the axis the reach lies on here; Y is the midpoint of the two collets it joins;
+    Z is their own port plane, so the junction lies in one plane with the two valves and
+    neither leg climbs.
 
-    The pair's CROWN is Y-F's alone (`aft_row_tee_pos`). What that leaves free on this flank is
-    the column the DISCHARGE CHAIN stands on and the run that leaves its forward collet — a
-    fitting on the crown here stands in the chain's own band, and the two lines this trident
-    carries are not what that column is for.
-
-    Y is the midpoint of the two collets it joins; Z is the crown it is fed from, so both legs
-    fall out of the fitting rather than climbing into it."""
-    plate = packed().box("bag-b-tray-assembly")
+    The flank it stands in is the width `bag_b_tray_pos` cuts for it: the two cap conduits'
+    column on one side and the plate's west face on the other, with the stem's own corner
+    between the conduit and the collet."""
     fore, aft = bag_b_tray_port("V-H-I")[0], bag_b_tray_port("V-I-O")[0]
-    return (plate.xmin - LINE_HUG - DIVIDER_HALF,
+    return (packed().box("bag-b-tray-assembly").xmin - divider_reach() - DIVIDER_HALF,
             (fore[1] + aft[1]) / 2.0,
-            plate.zmax + LINE_HUG + DIVIDER_HALF)
+            fore[2])
 
 
 # V-I sits on the WEST seat here where V-F sits on the EAST one at bag A, so the two outlets
@@ -3052,10 +3129,12 @@ def aft_row_tee_pos(tee):
 # Y-F: the run lies along the lane with the bag draw arriving at its aft collet and the pump's
 # suction leaving the fore one, and the branch stands UP under the shared source's crossing.
 _Y_F_LOCAL = _tee_local(zp="Y-F-3", zn="Y-F-2", branch="Y-F-1")
-# Y-G: the stem is the climb to the pump's high barb, and the two outlets fall on the column
-# the bag's fill valve and the nozzle gate share — the WEST outlet at the bag pair behind it,
-# the EAST at the nozzle pair ahead.
-_Y_G_LOCAL = _divider_local("Y-G-1", west="Y-G-2", east="Y-G-3")
+# Y-G: the stem is the climb to the pump's high barb, and the two outlets fall between the bag's
+# fill valve and the nozzle gate — the EAST outlet over the bag pair, whose plate takes the deck
+# east of the flank Y-H stands in, and the WEST over the nozzle pair packed on the SeaFlo's own
+# flank. Which outlet reaches which valve is the seating's, the same way Y-H's two are numbered
+# the other way round from Y-E's.
+_Y_G_LOCAL = _divider_local("Y-G-1", west="Y-G-3", east="Y-G-2")
 
 
 def y_f_port(name):
@@ -3070,10 +3149,16 @@ def y_g_pos():
     pair's turned east face and V-J-I opens −Y off the east row's forward face, so the strip
     between those two plates is the one band both collets look into, and `vk_tray_y` cuts it
     to this fitting's own section with a `LINE_HUG` at each plate.
-    In X it stands on the midpoint of the two collets it joins, so neither leg carries more of
-    the crossing than the other; in Z it keeps the climb its stem makes to the pump's barb."""
-    west, east = bag_b_tray_port("V-I-I")[0], vk_tray_port("V-J-I")[0]
-    return ((west[0] + east[0]) / 2.0,
+    IN X IT STANDS CLEAR OF THE COLUMN FLUID-17 COMES AFT ON. That run crosses the bay on the
+    nozzle pair's own station and this fitting's STEM stands proud of the trays' crown, so the
+    two want the same air unless the trident holds off by its own half-section and a line's
+    floor. East is the side that has it, and east is also where V-I-I points: standing there
+    puts the outlet the bag's fill climbs into ahead of that collet rather than behind it, and
+    the crossing between the two collets goes whole to V-J-I's leg, which opens ALONG the bay
+    and has the bay's own lead to turn it in.
+    In Z it keeps the climb its stem makes to the pump's barb."""
+    return (packed().box("nozzle-tray-assembly").xmin + _tray1.half_x
+            + _ydiv.HALF_W + 6.35 / 2.0 + LINE_HUG,
             packed().box("bag-b-tray-assembly").ymax + LINE_HUG + _ydiv.HALF_W,
             aft_port_z() + Y_G_CLIMB + DIVIDER_HALF)
 

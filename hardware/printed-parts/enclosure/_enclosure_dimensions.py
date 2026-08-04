@@ -10,6 +10,7 @@ dimensions in the drawings.
 Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
 """
 
+import math as _math
 import sys
 from pathlib import Path
 
@@ -89,11 +90,16 @@ SRC_HEADROOM_LEFT = _scorecard._solid_gap(_PACK["source-tray-assembly"][0],
 SRC_PORT_PLANE = _contents.source_tray_port("V-A-I")[0][2]
 SRC_AFT_BAND = _contents.SOURCE_TRAY_AFT_BAND
 DIVIDER_REACH = _contents.divider_reach()
+# The reach at which the two leans are collinear and each leg is one straight length — the
+# offset over the tangent of the collet's own allowance, and the ceiling the solved reach
+# sits under.
+DIVIDER_STRAIGHT_REACH = ((_contents._tray.pitch - 2.0 * _contents.DIVIDER_OUTLET_X) / 2.0
+                          / _math.tan(_math.radians(_contents.FLAVOR_SKEW)))
 # The lean is what the bag circuit costs: the reach follows it, Y-E's forward face follows the
 # reach, and the stem column follows that. So the prose that spends the pocket behind the front
-# wall reads the same numbers the pose is built from, including what bounds the lean itself —
-# the bend radius each leg's corners are seated on and the straight that has to survive them.
-DIVIDER_LEAN = _contents.DIVIDER_LEAN
+# wall reads the same number the pose is built from — the collet's own allowance, which is what
+# a leg leaving as one straight length leans by.
+DIVIDER_LEAN = _contents.FLAVOR_SKEW
 DIVIDER_LEG_STRAIGHT = _contents.DIVIDER_LEG_STRAIGHT
 # The bag-A junction's own forward face. It stands ACROSS the strip between the pump row and the
 # head column, so what puts this face where it is is that strip and not the lean.
@@ -260,6 +266,7 @@ def main():
         "SRC_PORT_PLANE": f"{SRC_PORT_PLANE:.4g}",
         "SRC_AFT_BAND": f"{SRC_AFT_BAND:.4g}",
         "DIVIDER_REACH": f"{DIVIDER_REACH:.4g}",
+        "DIVIDER_STRAIGHT_REACH": f"{DIVIDER_STRAIGHT_REACH:.4g}",
         "DIVIDER_LEAN": f"{DIVIDER_LEAN:.4g}",
         "DIVIDER_LEG_STRAIGHT": f"{DIVIDER_LEG_STRAIGHT:.4g}",
         "BAG_TEE_FRONT_Y": f"{BAG_TEE_FRONT_Y:.4g}",
@@ -325,15 +332,15 @@ def main():
             "SRC_HEADROOM_LEFT": 1,
             "SRC_PORT_PLANE": 1,
             "SRC_AFT_BAND": 2,       # the band both trays' aft collets stand in
-            "DIVIDER_REACH": 4,   # Y-A ahead of the source pair, Y-H ahead of bag B twice, and the loft-vs-column reading
-            "DIVIDER_LEAN": 1,       # what places the loft divider's own forward face
+            "DIVIDER_REACH": 5,   # Y-A ahead of the source pair, Y-H off bag B's west face twice, the junctions' own paragraph, and the loft-vs-column reading
+            "DIVIDER_STRAIGHT_REACH": 1,  # the reach a leg with no corner in it would want
+            "DIVIDER_LEAN": 1,       # the lean a leg leaves its collet at
             "DIVIDER_LEG_STRAIGHT": 1,  # the straight that has to survive both a leg's arcs
             "BAG_TEE_FRONT_Y": 2,    # where the bag-A junction's face lands: in that pair's
                                      #   own paragraph, and again in the junctions one, which
                                      #   lists all three forward faces together
             "BAG_TEE_STRIP": 1,      # and the strip it stands across
             "JUNCTION_FRONT_Y": 1,   # and where the source/selects junction's lands
-            "WBEND": 1,              # the radius a leg's arcs are seated on
             "FRONT_POCKET_D": 1,     # what the head column leaves between the wall and itself
             "HOPPER_DROP": 1,
             "STACK_PITCH": 1,

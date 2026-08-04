@@ -387,7 +387,7 @@ deck_mount_cap_gap = 1.5
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
-    "bag-b-tray":  DeckMount((105.25, -10.37),   0.00,  49.50,   0.0,  9.00, 16.0),
+    "bag-b-tray":  DeckMount((105.25,  17.02),   0.00,  49.50,   0.0,  9.00, 16.0),
     "vk-tray":     DeckMount(( 21.30,  44.75),  49.50,   0.00,   0.0,  9.00, 16.0),
     "nozzle-tray": DeckMount(( -79.92,  34.97),  49.50,   0.00,   0.0,  9.00, 16.0),
 }
@@ -490,13 +490,15 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 #   reservoir-b stands over the +Y BAND, not over a port: its line crosses the pocket wall at
 # the bulkhead's own height, comes about in the band and climbs the shell's whole height in
 # it, potted where it crosses, and this bore is where it reaches the deck. Its X in the cap's
-# frame is the y the FITTING it feeds wants — the divider's stem takes a stock arc's worth of
-# straight before its collet, so the conduit stands that far ahead of the stem's plane and the
-# run above the lid is one lean and no more; its Y is the band's own lane, held off the corner
-# boss by the pour gap. Nothing else uses the +Y band, so the lane is a bore wide the whole way.
+# frame is set by the FITTING it feeds and by the conduit beside it: the divider's stem faces
+# −X across the deck, so the run above the lid wants this bore on the stem's own plane, and
+# `water-in` stands a millimetre away in the other axis with a line falling the deck's whole
+# height on it — so the two bores hold a `LINE_PITCH` between them and this one takes the plane
+# nearest the stem that leaves it. Its Y is the band's own lane, held off the corner boss by
+# the pour gap. Nothing else uses the +Y band, so the lane is a bore wide the whole way.
 cap_conduits = {
     "water-in": (102.0, -80.5),
-    "reservoir-b": (120.0, -79.5),
+    "reservoir-b": (109.35, -79.5),
 }
 
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
