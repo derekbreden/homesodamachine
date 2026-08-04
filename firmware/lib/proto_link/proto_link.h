@@ -214,6 +214,7 @@ struct HdlcLink : public tinyproto::Hdlc {
   Stream *serial = nullptr;
   const char *name = "";
   uint32_t framesRx = 0, framesTx = 0;
+  uint32_t bytesTx = 0, bytesRx = 0;
   unsigned long lastRxMs = 0;
 
   void (*onMessage)(HdlcLink *link, const uint8_t *data, uint16_t len) = nullptr;
@@ -235,6 +236,7 @@ struct HdlcLink : public tinyproto::Hdlc {
       int want = avail > (int)sizeof(rx) ? (int)sizeof(rx) : avail;
       int got = serial->readBytes(rx, want);
       if (got <= 0) break;
+      bytesRx += got;
       run_rx(rx, got);
       avail -= got;
     }
@@ -242,6 +244,7 @@ struct HdlcLink : public tinyproto::Hdlc {
       uint8_t tx[128];
       int len = run_tx(tx, sizeof(tx));
       if (len <= 0) break;
+      bytesTx += len;
       serial->write(tx, len);
     }
   }
@@ -263,6 +266,7 @@ struct HdlcLink : public tinyproto::Hdlc {
       uint8_t tx[128];
       int n = run_tx(tx, sizeof(tx));
       if (n <= 0) break;
+      bytesTx += n;
       serial->write(tx, n);
     }
     framesTx++;
