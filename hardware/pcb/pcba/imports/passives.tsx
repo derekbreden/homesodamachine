@@ -126,7 +126,7 @@ const CAD: Record<string, any> = {
     pcbRotationOffset: 0,
     modelOriginPosition: { x: 0, y: 0, z: -0.4 },
   },
-  C25900: {
+  C100444: {  // 4.7k 0402 (CR0402FF4701G) — same 0402 body as the other 0402 resistors
     objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25900.obj?uuid=026a4a15ab5c4a92ac0e421d6d013717",
     stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25900.step?uuid=026a4a15ab5c4a92ac0e421d6d013717",
     pcbRotationOffset: 0,
@@ -177,7 +177,7 @@ const LAND: Record<string, () => any> = {
   C15850: CAP_0805,
   C45783: CAP_0805,
   C15849: CAP_0603,
-  C25900: RES_0402,
+  C100444: RES_0402,  // 4.7k (CR0402FF4701G) — R22 flow-meter pull-up
   C11702: RES_0402,
   C25091: RES_0402,   // 220Ω (UNI-ROYAL 0402WGF2200) — R26/R27 faucet-UART series backstop
   C60491: RES_0402,   // 100k (YAGEO RC0402FR-07100KL) — R23 gate pulldown + R24 interlock B-node pulldown
