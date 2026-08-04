@@ -192,6 +192,38 @@ finds it. They are pictures of a pose the pack does not hold; the sidecar is emp
   pair's own west cell at +20.01: 83 mm³. This one is not a fence of its own. The gate follows
   the lane its feed rides, so it moves when the pair does and not before.
 
+## The aft stand walked west
+
+`vk_tray_pos` and `nozzle_b_tray_pos` both pack onto the SeaFlo's own flank now, one behind the
+other on ONE column, and V-K's plate stands forward on the plane its junction opens on. Both of
+V-K's ends are west of it — the split's branch and the pump's suction — so the runs that read
+that column get shorter, and the deck their corners turn on goes with them.
+
+    fluid-23   R 6.62 F 2c  46.9mm  ->  R 0.94 F 2c   53.4mm
+    fluid-27   R13.92 D 2c  98.7mm  ->  R 6.14 F 4c  136.4mm
+    fluid-28   R 5.83 F 4c 167.5mm  ->  R 5.83 F 4c  159.5mm
+    water-3    R17.34 D 5c 277.9mm  ->  R 7.48 F 5c  174.9mm
+    water-4    R 5.47 F 3c 131.9mm  ->  R 1.86 F 3c   70.8mm
+
+    corners at spec 36/98 -> 32/100   runs graded F 22 -> 24   tube -127.9 mm
+
+[`vk-west.aft-stand.png`](vk-west.aft-stand.png) is the plan. **The same millimetres do both
+things.** `water-3` loses its forward excursion over the bag pair and comes almost straight down
+onto the collet — and its fall now lands in the bay between that plate and V-K's rather than out
+on open deck, so the leg its bottom corner turns on is what the bay leaves. `water-4` leaves
+V-K's outlet 29 mm from the barb it is reaching, and its reversal in Y has to happen inside those
+29 mm, so the leg its two corners share is 3.7. `fluid-23`'s exit lead is struck off V-K's inlet
+column and sits on its `DIVIDER_LEG_STRAIGHT` floor at any column west of the pair's own face.
+
+`fluid-27` goes round the plate's EAST flank, which is the one lane there is: V-K's plate stands
+between the gate and the outlet that feeds it, and west of the plate is the SeaFlo. Coming from
+the east it reaches the trident's east outlet without crossing the west one's climb, so **Y-G's
+two outlets are numbered the other way round** — `Y-G-2` takes the nozzle-B feed and `Y-G-3` the
+bag-B draw, each the nearer of the two to the collet it comes from.
+
+Isolated: V-K's FORWARD travel is nearly free — it moves path and no radius (`water-3` 187.3 →
+174.9, `water-4` 53.5 → 70.8, every corner identical). Every radius above is the WEST travel.
+
 ## V-K's own travel in X
 
 The fill valve stands on the one-seat plate now (`vk_tray_pos`), so its column moves without

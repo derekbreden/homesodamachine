@@ -1204,7 +1204,7 @@ def _declare_ports():
         # The bag's two ends face FORWARD at Y-H; V-H-O and V-I-I face AFT at channel B's pump.
         _p("V-H-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-H-I"), 6.35, "divider-y-h Y-H-3 — fluid segment 26", "Beduan 1/4\" QC collet, facing forward (−Y) at the divider the bag draws through"),
         _p("V-H-O", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-H-O"), 6.35, "tee-y-f Y-F-2 — fluid segment 20", "Beduan 1/4\" QC collet, facing aft (+Y) into the junction bay at Y-F's branch"),
-        _p("V-I-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-I"), 6.35, "divider-y-g Y-G-2 — fluid segment 23", "Beduan 1/4\" QC collet, facing aft (+Y) into the bay, its leg climbing into Y-G's west outlet overhead"),
+        _p("V-I-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-I"), 6.35, "divider-y-g Y-G-3 — fluid segment 23", "Beduan 1/4\" QC collet, facing aft (+Y) into the bay, its leg climbing into Y-G's WEST outlet overhead"),
         _p("V-I-O", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-O"), 6.35, "divider-y-h Y-H-1 — fluid segment 24", "Beduan 1/4\" QC collet, facing forward (−Y) at the divider the pump returns through"),
         # Y-H's three, numbered from the stem the BAG rides, as Y-E's are from its own bag end.
         _p("Y-H-1", "divider-y-h", "fluid", *contents.y_h_port("Y-H-1"), 6.35, "bag-b-tray-assembly V-I-O — fluid segment 24", "PP2308E 1/4\" PTC outlet, the EAST of the two, facing aft (+Y) at V-I"),
@@ -1214,7 +1214,7 @@ def _declare_ports():
         # one in the front column, one in this loft — and both OUTLETS aft at the rear panel.
         _p("V-G-I", "nozzle-tray-assembly", "fluid", *contents.nozzle_tray_port("V-G-I"), 6.35, "tee-y-d Y-D-3 — fluid segment 17", "Beduan 1/4\" QC collet, facing forward (−Y) into the junction bay at the storey-and-a-half climb from channel A's pump row"),
         _p("V-G-O", "nozzle-tray-assembly", "fluid", *contents.nozzle_tray_port("V-G-O"), 6.35, "bulkhead-flavor-a tube-in — fluid segment 18", "Beduan 1/4\" QC collet, facing aft (+Y) at the rear panel's flavor-A bulkhead"),
-        _p("V-J-I", "nozzle-b-tray-assembly", "fluid", *contents.nozzle_b_tray_port("V-J-I"), 6.35, "divider-y-g Y-G-3 — fluid segment 27", "Beduan 1/4\" QC collet, facing forward (−Y) into the bay, its leg climbing into Y-G's east outlet overhead"),
+        _p("V-J-I", "nozzle-b-tray-assembly", "fluid", *contents.nozzle_b_tray_port("V-J-I"), 6.35, "divider-y-g Y-G-2 — fluid segment 27", "Beduan 1/4\" QC collet, facing forward (−Y) down the stand's east lane, round V-K's plate and west under the trident into Y-G's EAST outlet"),
         _p("V-J-O", "nozzle-b-tray-assembly", "fluid", *contents.nozzle_b_tray_port("V-J-O"), 6.35, "bulkhead-flavor-b tube-in — fluid segment 28", "Beduan 1/4\" QC collet, facing aft (+Y) at the rear panel's flavor-B bulkhead"),
         # Channel B's pump row. Y-F's run lies along the loft's pump lane with its branch reaching
         # west at the bag pair; Y-G's run is the straight line the bay already holds, with its
@@ -1223,8 +1223,8 @@ def _declare_ports():
         _p("Y-F-2", "tee-y-f", "fluid", *contents.y_f_port("Y-F-2"), 6.35, "bag-b-tray-assembly V-H-O — fluid segment 20", "PP0208E 1/4\" PTC BRANCH, facing west (−X) across the junction bay at the bag-B draw"),
         _p("Y-F-3", "tee-y-f", "fluid", *contents.y_f_port("Y-F-3"), 6.35, "pump-a P-A-I — fluid segment 21", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump A's low barb"),
         _p("Y-G-1", "divider-y-g", "fluid", *contents.y_g_port("Y-G-1"), 6.35, "pump-a P-A-O — fluid segment 22", "PP2308E 1/4\" PTC STEM, facing up (+Z) at the climb to pump A's high barb"),
-        _p("Y-G-2", "divider-y-g", "fluid", *contents.y_g_port("Y-G-2"), 6.35, "bag-b-tray-assembly V-I-I — fluid segment 23", "PP2308E 1/4\" PTC outlet, the WEST of the two, facing down (−Z) over the bag's fill gate"),
-        _p("Y-G-3", "divider-y-g", "fluid", *contents.y_g_port("Y-G-3"), 6.35, "nozzle-b-tray-assembly V-J-I — fluid segment 27", "PP2308E 1/4\" PTC outlet, the EAST of the two, facing down (−Z) over the nozzle-B gate"),
+        _p("Y-G-2", "divider-y-g", "fluid", *contents.y_g_port("Y-G-2"), 6.35, "nozzle-b-tray-assembly V-J-I — fluid segment 27", "PP2308E 1/4\" PTC outlet, the EAST of the two, facing down (−Z) over the bay, on the lane the nozzle-B feed comes west down"),
+        _p("Y-G-3", "divider-y-g", "fluid", *contents.y_g_port("Y-G-3"), 6.35, "bag-b-tray-assembly V-I-I — fluid segment 23", "PP2308E 1/4\" PTC outlet, the WEST of the two, facing down (−Z) over the bay, on the column the bag pair's own draw collet stands on"),
         # The two pumps' barbs. Each is the part's own station (`kamoer_kphm400.arch_xs` on its
         # head's +Y face at the arch plane) carried through the turn and seat the body takes. A
         # peristaltic head has no fixed sense — the rotor's direction is the motor's wiring — so

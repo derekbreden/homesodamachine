@@ -104,7 +104,7 @@ bound it:
     Both of the loft's trays present their eight collets on it, so fluid-24 and fluid-26 are
     the bag-A pair's two legs read again a storey up, and fluid-18 and fluid-28 leave it on
     the level before they climb.
-  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [118.1](LOFT_BAY) mm between the
+  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [126.1](LOFT_BAY) mm between the
     two trays, and the loft's answer to the front column's aft band, except that here the two
     pairs face each OTHER collet for collet. So its depth is a FITTING's: Y-G stands in it on
     the one column V-I-I and V-J-I share, and fluid-23 and fluid-27 are the two straight
@@ -893,25 +893,56 @@ def _authored_runs() -> list:
     # them is the stand's seat and not a plate's crown. The leg reaches to one `LINE_HUG` over
     # that seat, which is the whole of the climb plus the port plane's own height on it.
     y_g_drop = y_g.at("Y-G-2")[2] - contents.aft_tray_z() - contents.LINE_HUG
-    runs.append(R.bent("fluid-27", "nozzle-b-tray-assembly.V-J-I", "divider-y-g.Y-G-3",
-                       kind="fluid", skew=FLAVOR_SKEW,
-                       lead=(bay_lead, y_g_drop - y_g_rise),
-                       note="nozzle B gate ← Y-G: out of the collet along the bay, about, and "
-                            "up into the outlet standing over it"))
+    # WHICH SIDE OF V-K'S PLATE THE GATE'S FEED PASSES. The gate stands aft of that plate and
+    # the outlet it is fed from stands forward of it, so the plate is between them: a straight
+    # between the two mouths goes through it. West of the plate is the SeaFlo's flank, one
+    # `LINE_HUG` of it, so the run takes the EAST lane — the deck between the stand's own east
+    # face and the electrical flank, which is open the plate's whole depth. It leaves forward
+    # off the collet, steps east onto that lane a `PUMP_ROW_TURN` clear of the plate, runs
+    # forward down it past the plate, and comes west under the trident onto the column its
+    # outlet stands on, where the last leg climbs into a mouth that faces down.
+    #   Where the plate does NOT stand between them the straight is the run, and the two legs
+    # off the mouths are a lead each — the bay's own and the outlet's drop.
+    gate, outlet = nzb.at("V-J-I"), y_g.at("Y-G-2")
+    f27_between = (min(gate[1], outlet[1]) < vk.bb.ymax and vk.bb.ymin < max(gate[1], outlet[1])
+                   and min(gate[0], outlet[0]) - 6.35 / 2.0 < vk.bb.xmax
+                   and vk.bb.xmin < max(gate[0], outlet[0]) + 6.35 / 2.0)
+    if f27_between:
+        # The lane clears the whole of what stands in the strip it runs down — V-K's plate for
+        # the aft half of it and the TRIDENT for the forward half, whose own east face is the
+        # far side of the column fluid-23's exit lead turns on.
+        f27_lane = max(vk.bb.xmax, y_g.bb.xmax) + contents.PUMP_ROW_TURN
+        f27_aft = vk.bb.ymax + contents.PUMP_ROW_TURN
+        runs.append(R.bent(
+            "fluid-27", "nozzle-b-tray-assembly.V-J-I",
+            (gate[0], f27_aft, gate[2]),      # forward off the collet onto the plate's own band
+            (f27_lane, f27_aft, gate[2]),     # east onto the lane the stand's east face leaves
+            (f27_lane, outlet[1], gate[2]),   # forward down it, past the plate
+            (outlet[0], outlet[1], gate[2]),  # west under the trident onto the outlet's column
+            "divider-y-g.Y-G-2",              # and up into the mouth standing over it
+            kind="fluid", skew=FLAVOR_SKEW,
+            note="nozzle B gate ← Y-G: forward off the collet, east onto the stand's own lane, "
+                 "forward past V-K's plate, and west under the trident into the outlet"))
+    else:
+        runs.append(R.bent("fluid-27", "nozzle-b-tray-assembly.V-J-I", "divider-y-g.Y-G-3",
+                           kind="fluid", skew=FLAVOR_SKEW,
+                           lead=(bay_lead, y_g_drop - y_g_rise),
+                           note="nozzle B gate ← Y-G: out of the collet along the bay, about, and "
+                                "up into the outlet standing over it"))
 
     # fluid-23 takes the same climb from the other side of the bay, and its collet does not
     # face the fitting: V-I-I opens EAST off the turned plate while Y-G-2 stands
-    # [-7.35](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
+    # [7.35](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
     # comes straight back — the corner past square again. WHAT BOUNDS THE EXIT is water-3's own
-    # fall, which holds the column [15.3](F23_EAST_AIR) mm east of this collet on its way to V-K:
+    # fall, which holds the column [-18.9](F23_EAST_AIR) mm east of this collet on its way to V-K:
     # the lead stops a `LINE_PITCH` short of it, which is the whole of the deck this run has.
     F23_LEAD = max(contents.DIVIDER_LEG_STRAIGHT + contents.LINE_HUG,
                    vk.at("V-K-I")[0] - LINE_PITCH - bb.at("V-I-I")[0])
     (w1, w2), f23_lean, f23_r, _f23_turns = lean_into(
-        *_mouth(f, "bag-b-tray-assembly.V-I-I"), *_mouth(f, "divider-y-g.Y-G-2"),
+        *_mouth(f, "bag-b-tray-assembly.V-I-I"), *_mouth(f, "divider-y-g.Y-G-3"),
         (F23_LEAD, y_g_drop))
     runs.append(R.bent(
-        "fluid-23", "bag-b-tray-assembly.V-I-I", w1, w2, "divider-y-g.Y-G-2",
+        "fluid-23", "bag-b-tray-assembly.V-I-I", w1, w2, "divider-y-g.Y-G-3",
         kind="fluid", skew=FLAVOR_SKEW, bend=f23_r,
         note=f"bag B fill ← Y-G: out of the collet along the bay and up into the outlet "
              f"standing over it, on leads leaning {f23_lean[0]:.1f}°/{f23_lean[1]:.1f}° into "
@@ -1314,20 +1345,28 @@ def _authored_runs() -> list:
     y_h = f["divider-y-h"]
     y_g = f["divider-y-g"]
     vk_stock = R.stock_min("water", vk.diam("V-K-I"))
-    # How far forward of its own collet this fall comes down. TWO floors want that plane and the
-    # longer one takes it. The CLOSING CORNER wants a stock arc with the collet's own lead still
-    # standing in front of it. And Y-G STANDS ON THIS COLUMN — the trident's east face and V-K's
-    # own column are one plane, so the fall may not come down inside the fitting's band at all:
-    # it stops a tube and a floor FORWARD of it, and the aft leg that leaves runs under the
-    # trident's floor on the port plane. Whichever backoff is longer is the one the run takes,
-    # and the extra is slack on a leg it was travelling anyway.
-    # And a THIRD floor, which is usually the longest: the leg between the crossing and the fall
-    # carries a corner at each end, so it seats a stock arc for both only at twice the stock
-    # radius. The run holds the split's own Y the whole way across, so that leg is exactly what
-    # this backoff leaves of it.
-    w3_back = max(vk_stock + contents.JUNCTION_LEG_LEAD,
-                  vk.at("V-K-I")[1] - (y_g.bb.ymin - CLIMB_HUG - 6.35 / 2.0),
-                  vk.at("V-K-I")[1] - (sp.at("to-vk")[1] - 2.0 * vk_stock))
+    # How far forward of its own collet this fall comes down. THREE floors want that plane and
+    # the longest takes it, and a CEILING holds all three. The CLOSING CORNER wants a stock arc
+    # with the collet's own lead still standing in front of it. Y-G stands in this bay, and
+    # where the fall's column meets the trident in X the fall may not come down inside its band
+    # at all: it stops a tube and a floor FORWARD of it, and the aft leg that leaves runs under
+    # the trident's floor on the port plane. Where the column stands clear of the trident in X
+    # the fitting is beside the fall rather than under it and asks for nothing. And the leg
+    # between the crossing and the fall carries a corner at each end, so it seats a stock arc
+    # for both only at twice the stock radius; the run holds the split's own Y the whole way
+    # across, so that leg is exactly what this backoff leaves of it.
+    #   THE CEILING IS THE BAG PAIR'S OWN AFT FACE. This fall comes down in the bay between that
+    # plate and V-K's, and a backoff longer than the bay walks it onto the plate's crown. What
+    # the bay leaves is what the floors get; where it leaves less than the closing corner wants,
+    # the corner takes the bay.
+    w3_column_meets_y_g = (y_g.bb.xmin - 6.35 / 2.0 <= vk.at("V-K-I")[0]
+                           <= y_g.bb.xmax + 6.35 / 2.0)
+    w3_floor = max(vk_stock + contents.JUNCTION_LEG_LEAD,
+                   (vk.at("V-K-I")[1] - (y_g.bb.ymin - CLIMB_HUG - 6.35 / 2.0)
+                    if w3_column_meets_y_g else 0.0),
+                   vk.at("V-K-I")[1] - (sp.at("to-vk")[1] - 2.0 * vk_stock))
+    w3_back = min(w3_floor,
+                  vk.at("V-K-I")[1] - (bb.bb.ymax + contents.PUMP_ROW_TURN))
     runs.append(route(
         "water-3", "water-split.to-vk",
         {"z": nz.bb.zmax + contents.PUMP_ROW_TURN + 6.35},
@@ -1346,7 +1385,7 @@ def _authored_runs() -> list:
              "across the machine onto the valve's column and down the far side of the trays"))
 
     # water-4 — V-K's outlet to the SeaFlo's suction barb, a hop across the lane between the
-    # east stand and the pump. Its two ends stand [67.3](W4_SPAN) mm apart and BOTH FACE INTO
+    # east stand and the pump. Its two ends stand [34.2](W4_SPAN) mm apart and BOTH FACE INTO
     # THE BAY: the valve discharges aft at y [333.4](W4_BARB_Y), the barb opens EAST on that
     # same plane, and the bay behind the valve's plate is the one band on this deck with no
     # plate in it. So the run never leaves the valves' own port stratum to cross — it comes
@@ -1358,18 +1397,24 @@ def _authored_runs() -> list:
     #   The descent column stands in the LANE BETWEEN THE BARB TIP AND THE PLATE'S WEST
     # FACE — `R.channel` puts it on that gap's midpoint, and the gap is the whole of what
     # the pump leaves the east lane at this depth, since the casting's own reach here is the
-    # barb and not the foot pad ([44.2](W4_LANE) mm). What the lean buys is the barb's
+    # barb and not the foot pad ([10](W4_LANE) mm). What the lean buys is the barb's
     # [17.7](W4_RISE) mm of Z and the half-bay of Y together, one leg carrying both, and its
     # two corners are the run's roundest: the crossing and the closing lead are what they
     # seat on.
     #   The come-about off the mouth turns on the plane its own arc wants
-    # ([33.4](W4_STUB) mm off the plate's face, `aft_turn_lane`) — a stock tangent with the
+    # ([25.6](W4_STUB) mm off the plate's face, `aft_turn_lane`) — a stock tangent with the
     # collet's lead surviving in front of it.
     suction = sea.at("suction")
     # THREE RUNS TURN IN THIS BAND and each stands on its own column: this one off V-K-O at the
     # stand's east end, the nozzle-B gate off V-J-O, and the nozzle-A feed descending on V-G's.
     # None is within a tube of another in X, so each takes the whole band's depth for its turn.
+    #   The lane stands where its own corner wants it, and forward of the NOZZLE-B PLATE where
+    # that plate stands in the band: the turn is a body's width of tube laid across the deck and
+    # the plate is a body on the same deck, so the two cannot share a Y. What the band leaves
+    # between the two plates is what the turn gets.
     w4_lane = aft_turn_lane(R.stock_min("water", vk.diam("V-K-O")))
+    if vk.bb.xmax > nzb.bb.xmin and nzb.bb.xmax > vk.bb.xmin:
+        w4_lane = min(w4_lane, nzb.bb.ymin - contents.PUMP_ROW_TURN)
     # The descent column stands ONE STOCK ARC EAST OF THE BARB, which is what its closing corner
     # turns on. Nothing closes that lane: at the barb's own depth the pump's reach IS the barb,
     # the east stand is forward of it and the aft row is behind it, so the band from the tip to
