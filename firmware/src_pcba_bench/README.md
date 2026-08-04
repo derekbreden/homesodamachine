@@ -21,6 +21,11 @@ A board and a USB-C cable. Nothing else is required, and nothing is hand-wired.
 Off-board connectors (J1–J9, J11, J13) can stay empty. The console reads them either way,
 and reads *empty* correctly — a floating input and an unlit divider are the expected result.
 
+The one connector worth populating is **J13**: a Kamoer KPHM400 on the `AM2`/`AM1` pair
+(pump A) or the `BM2`/`BM1` pair (pump B) turns the two DRV8870s into an audible test,
+which is what `pump` below is for. Both pins of a pair go to the same motor and either
+polarity is a pass — the head is bidirectional, so which way it turns carries no verdict.
+
 ## Use
 
 ```sh
@@ -44,6 +49,7 @@ It runs a full sweep at boot, then idles as a console (`RUN` blinks as the heart
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
 | `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain (audible) |
 | `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
+| `pump` | Run a peristaltic pump on J13 through a DRV8870 (audible) |
 | `all` | The whole sweep |
 
 `watch` walks a whole net — ESP32 pad, via, trace, connector barrel — with nothing but a
@@ -63,6 +69,28 @@ one at a level for metering, and the arming lapses after 120 s:
 | `IO19` | U15 interlock → J5 relay — compressor AC switch |
 | `IO17` | U11 DRV8870 — pump A |
 | `IO4` | U12 DRV8870 — pump B |
+
+## Pumps
+
+`pump a` / `pump b` is the whole DRV8870 block on one command, and it needs no meter —
+a peristaltic head is loud enough that the room is the instrument. It announces itself,
+counts down three seconds, then runs ~20 s: three full-duty jabs (the head twitches), a
+0→100% ramp, 3 s at full speed, and a 100/75/50/25% step-down. Any key stops it.
+
+Two of those stages carry the verdict. **The ramp asks for a keypress at the moment the
+head starts turning and prints the duty** — break-away is a property of the driver and
+the motor together, so pump A's number beside pump B's on the same pump is the check that
+neither bridge is delivering less than its twin. **The step-down is what proves `IN1` is
+modulating** rather than stuck: a pin shorted high or a bridge latched on sounds identical
+at 25% and at 100%.
+
+`pump <a|b> <duty%> [seconds]` holds one duty (max 60 s) for a longer listen or a meter on
+the OUT pair; `pump stop` parks both. PWM is 20 kHz, above hearing, so nothing the pump
+makes is electrical. Drive is one direction only — `IN2` is on the GND plane, so `IN1`
+high drives and `IN1` low coasts, which also means a brownout reset stops the motor: the
+pin reverts to an input and the DRV8870's own input pull-down coasts the bridge. `ISEN`
+sits on GND with no sense resistor, so the chip's current limit never trips and the motor
+sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 
 The same care governs the MCP probe. The MCP23017 GPA/GPB pins reach the TBD62083 valve
 drivers, whose inputs are high-impedance DMOS gates: `IODIR` is never written (every pin
