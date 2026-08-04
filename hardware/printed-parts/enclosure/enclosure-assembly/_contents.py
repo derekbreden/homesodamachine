@@ -2935,11 +2935,13 @@ def vk_tray_pos():
     """V-K's plate's own origin in world — the stand's middle row, one `AFT_TRAY_BAY` behind the
     bag-B pair, on the west face all three rows share.
 
-    Its outlet faces the SeaFlo's suction barb east of the plate, and the pump's own front face
-    is read off that collet plane (`seaflo_front_y`). One valve, one seat, the family's one-seat
-    part — so the plate's own reach either side of the seat is all it takes across the machine."""
+    Its outlet faces the SeaFlo's suction barb and its inlet the fall out of the fittings loft,
+    and BOTH OF THOSE STAND WEST OF IT — the pump in the lane beside the stand, the split at the
+    far end of the machine — so the plate packs west onto the casting's own flank (`aft_tray_x`)
+    like every row of this stand, and the one-seat plate's reach to that face is its own
+    half-length. The pump's front face is read off its outlet's plane (`seaflo_front_y`)."""
     _bx, _y, z = bag_b_tray_pos()
-    return (nozzle_b_tray_pos()[0] + _tray.pitch, vk_tray_y(), z)
+    return (aft_tray_x() + _tray1.half_x, vk_tray_y(), z)
 
 
 def nozzle_b_tray_pos():
@@ -2961,9 +2963,9 @@ def nozzle_b_tray_y():
     the electronics field on the lane it closes into the bulkhead on. That lane is the ASSE
     CHAIN'S OWN AFT FACE a `PUMP_ROW_TURN` clear — the chain stands in the panel's stratum
     across this bulkhead's column, so the approach comes about aft of the chain, which is the
-    aft of the two planes the closing straight could take. One `JUNCTION_LEG_LEAD` and one
-    stock arc forward of that lane is where the come-about and the approach are ONE turn, and
-    the plate's own `port_half` stands its origin ahead of the collet.
+    aft of the two planes the closing straight could take. ONE STOCK ARC forward of that lane
+    is where the come-about and the approach are one turn and the band behind the plate is that
+    turn's own tangent, and the plate's own `port_half` stands its origin ahead of the collet.
 
     Forward of here the two planes stand apart and the band carries both turns; aft of here
     the leg between the collet and the lane is shorter than the arc it seats.
@@ -2972,7 +2974,7 @@ def nozzle_b_tray_y():
     reason — a pose that read the routing module would be a cycle in the build order."""
     appr = max(bulkhead_water_mouth()[1] - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD,
                packed().box("asse1022-assembly").ymax + PUMP_ROW_TURN)
-    return appr - JUNCTION_LEG_LEAD - LLDPE_STOCK_BEND - _tray1.port_half
+    return appr - LLDPE_STOCK_BEND - _tray1.port_half
 
 
 def nozzle_gate_in_x():
@@ -3067,16 +3069,6 @@ def vk_tray_port(name):
 
 def nozzle_b_tray_port(name):
     return _tray_port("nozzle-b-tray-assembly", name, NOZZLE_B_TRAY_COLLETS, _tray1)
-
-
-def aft_stand_east_face():
-    """The east wall of the slot between the aft stand and the SeaFlo's flank — V-K's seated
-    valve, whose declared X keep-out is its own cell's reach.
-
-    The plate under it is a floor one `single_valve_tray.top_z` tall and the slot is a corridor
-    for the whole height of the stand, so this face is the one a run in the slot holds off.
-    Read off the seat, so it follows a re-clocked plate."""
-    return vk_tray_port("V-K-O")[0][0] + _tray1.half_x
 
 
 def y_h_pos():
