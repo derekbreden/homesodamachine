@@ -7048,15 +7048,15 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T20:12:09+00:00",
-    "commit": "d16760520f29b413df01391fe5a12ad609adf0ee",
+    "generated": "2026-08-04T20:38:27+00:00",
+    "commit": "8ac967d18b8beb338fa2e99e9ea698471375a0a1",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
       "hardware/cut-parts/compressor-shroud/compressor_shroud.py": "sha256:be802be9d63ebcee",
       "hardware/printed-parts/cadlib/snap.py": "sha256:c4a25328d3b20635",
       "hardware/printed-parts/cadlib/world_workplane.py": "sha256:6fc15b2371091f65",
-      "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:493ac207e2a5053b",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:c6b279d3570a83f4",
       "hardware/printed-parts/cold-core/_port_cuts.py": "sha256:4c408f68edf9faf0",
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "sha256:51e6c039156d8018",
       "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "stat:1832799:1785804018162959052",
