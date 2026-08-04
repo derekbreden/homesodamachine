@@ -27,11 +27,13 @@ from _cold_core_interface import (  # noqa: E402
     gasket_thickness,
     insert_pocket_depth,
     insert_pocket_radius,
+    lldpe_bend_radius,
     outer_shell_x_length,
     outer_shell_y_length,
     port_hole_radius,
     reservoir_bulkhead_port_x,
     reservoir_clearance,
+    top_band_to_cap,
     wall_and_floor_thickness,
 )
 from _reed_channels import (  # noqa: E402
@@ -101,6 +103,11 @@ def main():
         # CO2 inlet Y — the vessel's own port axis. The bore, the vessel
         # elbow and the tube all stand on it.
         "COTWO_INLET_Y": f"{co2_inlet_y:.4g}",
+        # The band the water inlet's line turns and runs in — the top plate's
+        # own lateral axis up to the cap's floor — against the arc the stock
+        # wants, which is what makes the corner off that elbow the tight one.
+        "TOP_BAND": f"{top_band_to_cap:.4g}",
+        "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
         # The two pocket-wall holes per reservoir side: flavor line inboard,
         # reed cable outboard of the bulkhead axis. There is no matching pair of
         # outer-wall holes — each run turns onto the port lane and leaves through
@@ -148,6 +155,8 @@ def main():
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 5,
             "COTWO_INLET_Y": 1,
+            "TOP_BAND": 1,
+            "LLDPE_BEND_R": 1,
             "FLAVOR_HOLE_X": 1,
             "CABLE_HOLE_X": 2,
             "RESERVOIR_GAP": 1,
