@@ -1381,21 +1381,28 @@ def _authored_runs() -> list:
     # at the wall; the hose comes about in the pocket between them on its own radius and
     # runs forward leaning gently back onto the chain's barb, which stands east of the
     # discharge's own column for exactly this leg.
-    #   The pocket is what sets the exit stub. The wall's inner face stands at x 195 and the
-    # barb tip at x 177, so the hose's own half-section and one clearance floor leave 9.45 mm
-    # for the stub to reach into before the sweep's corner touches the piece — and the corner
-    # IS the reach, a quarter turn putting its far tangent on the waypoint itself. 9.0 takes
-    # that room and keeps the 8.00 the port wants to leave on axis; the quarter turn then
-    # rounds under its stock minimum, which is the pocket's depth and not a number to raise.
+    #   BOTH REACHES ARE FENCED, AND NEITHER IS THE CORNER. The pocket sets the exit: the wall's
+    # inner face stands at x 195 and the barb tip at x 177, so the hose's own half-section and
+    # one clearance floor leave 9.45 mm before a sweep touches the piece, and 9.0 takes it. The
+    # approach is the COLLET'S OWN LEAD and no more — the basin stands aft of this barb at
+    # exactly that reach (`_contents` hangs its front wall off this station), so a closing
+    # straight longer than the lead is a straight drawn inside the basin.
+    #   What is left is the DIRECTION of each. This hose is CLAMPED ONTO A BARB, so the straight
+    # a joint needs is the barb itself and lies upstream of this run's first point — the route
+    # owes none of its own, and every millimetre of both reaches goes to the corner. `lean_into`
+    # spends the [14](W6_SKEW)° a braided stub takes at each end: [9.09](W6_LEAN_OUT)° off the
+    # discharge and [14](W6_LEAN_IN)° off the chain's barb, bringing both turns back from past
+    # square to [92.4](W6_TURN_OUT)° and [85.6](W6_TURN_IN)°.
+    w6_lead = (9.0, contents.JUNCTION_LEG_LEAD)
+    (w1, w2), w6_lean, w6_r, _w6_turns = lean_into(
+        *_mouth(f, "seaflo-pump.discharge"), *_mouth(f, "discharge-chain.barb-tip"),
+        w6_lead, radius=HOSE_BEND, straight=0.0, skew=14.0)
     runs.append(R.bent(
-        "water-6", "seaflo-pump.discharge", "discharge-chain.barb-tip",
-        # The approach is the COLLET'S OWN LEAD and no more. The basin stands aft of this barb
-        # at exactly that reach (`_contents` hangs its front wall off this station), so a
-        # closing straight longer than the lead is a straight drawn inside the basin.
-        kind="water", bend=HOSE_BEND, skew=14.0,
-        lead=(9.0, contents.JUNCTION_LEG_LEAD),
-        note="carb water: SeaFlo discharge barb → discharge chain, one leaning sweep in "
-             "the wall pocket (3/8\" braided PVC, two clamps)"))
+        "water-6", "seaflo-pump.discharge", w1, w2, "discharge-chain.barb-tip",
+        kind="water", bend=w6_r, skew=14.0,
+        note=f"carb water: SeaFlo discharge barb → discharge chain, one leaning sweep in the "
+             f"wall pocket on reaches leaning {w6_lean[0]:.1f}°/{w6_lean[1]:.1f}° into it "
+             f"(3/8\" braided PVC, two clamps)"))
 
     # water-5 — the chain's forward collet to the core's water inlet, and the tap-water path's
     # one fall. THE INLET IS UNDER THE PUMP. The conduit opens +Z out of the top cap at
@@ -1730,6 +1737,13 @@ def lane_stations() -> dict:
         # against the port's own outward normal — negated, it reads the supplement.
         "F25_LEAN":         f"{R.leg_skew(runs['fluid-25'].pts[-1], runs['fluid-25'].pts[-2], _frames()['divider-y-h'].normal('Y-H-2')):.3g}",
         "F25_TURN":         f"{runs['fluid-25'].bends[-1][1]:.3g}",
+        # water-6's two leans and the turns they leave, off the built run. A braided stub takes
+        # more off its barb's axis than a rigid line does off a collet's.
+        "W6_SKEW":          "14",
+        "W6_LEAN_OUT":      f"{R.leg_skew(runs['water-6'].pts[0], runs['water-6'].pts[1], _frames()['seaflo-pump'].normal('discharge')):.3g}",
+        "W6_LEAN_IN":       f"{R.leg_skew(runs['water-6'].pts[-1], runs['water-6'].pts[-2], _frames()['discharge-chain'].normal('barb-tip')):.3g}",
+        "W6_TURN_OUT":      f"{runs['water-6'].bends[0][1]:.3g}",
+        "W6_TURN_IN":       f"{runs['water-6'].bends[-1][1]:.3g}",
         "LOFT_BAY":         f"{runs['fluid-27'].pts[0][1] - runs['fluid-23'].pts[0][1]:.4g}",
         "PORT_ROW_Z":       f"{runs['fluid-18'].pts[-1][2]:.4g}",
         # The outlet lane: what the band has spare once its one rung is struck, the pitch the
