@@ -254,6 +254,29 @@ static void parkStraps() {
 // ERR hangs off 3V3: LOW lights it. RUN and ACT run to GND and light on HIGH.
 static void led(int pin, bool on) { digitalWrite(pin, pin == PIN_LED_ERR ? !on : on); }
 
+// The heartbeat is RUN's, which is what pcba.tsx gives IO12; ACT is "activity, not a
+// strap" and answers only while something runs. RUN is a boot strap, so it lives parked on
+// its internal pull-down and each beat is a brief excursion out and straight back — a
+// reset landing between beats finds MTDI already where the 3.3 V flash setting wants it.
+static const unsigned long BEAT_ON_MS = 30;
+static const unsigned long BEAT_PERIOD_MS = 2000;
+
+static void heartbeat() {
+    static unsigned long lastBeat = 0;
+    static unsigned long beatEnds = 0;
+    if (beatEnds) {
+        if (millis() >= beatEnds) {
+            pinMode(PIN_LED_RUN, INPUT_PULLDOWN);   // back to the strap-safe park
+            beatEnds = 0;
+        }
+    } else if (millis() - lastBeat >= BEAT_PERIOD_MS) {
+        lastBeat = millis();
+        pinMode(PIN_LED_RUN, OUTPUT);
+        led(PIN_LED_RUN, true);
+        beatEnds = lastBeat + BEAT_ON_MS;
+    }
+}
+
 // R19/R20 (4.7k to 3V3) sit on the far side of J8's barrel junction, so they are
 // visible from IO21/IO22 only while that junction carries. Against the ESP32's
 // ~45k internal pulldown a 4.7k pull-up divides to ~3.0 V and reads HIGH.
@@ -645,16 +668,17 @@ static void pumpExercise(const Pump &p) {
     pumpMark(p.mark);
 }
 
-// What MSG_PUMP_RUN reaches. The string commands parse down to this too, so a run asked
-// for over J9 and a run typed at the console are the same run.
-static bool pumpRun(uint8_t channel, uint8_t duty, uint16_t ms) {
+// What MSG_PUMP_RUN reaches: one channel, full power, for a bounded time. `pump <a|b>
+// <duty%>` at the console still drives any duty — that is a DRV8870 test, and the ramp and
+// step-down are how both bridges were read by ear.
+static bool pumpRun(uint8_t channel, uint16_t ms) {
     if (channel > 1) return false;
     const Pump *p = &kPump[channel];
-    if (duty > 100) duty = 100;
+    const int duty = 100;
     unsigned long hold = ms;
     if (hold > (unsigned long)PUMP_MAX_S * 1000) hold = (unsigned long)PUMP_MAX_S * 1000;
-    Serial.printf("\n-- pump %s at %u%% for %lu ms (IO%d -> %s.IN1 -> J13.%s) --\n",
-                  p->who, duty, hold, p->pin, p->driver, p->j13);
+    Serial.printf("\n-- pump %s at full for %lu ms (IO%d -> %s.IN1 -> J13.%s) --\n",
+                  p->who, hold, p->pin, p->driver, p->j13);
     if (!ledcAttach(p->pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
         Serial.printf("  ledcAttach(IO%d) failed — no LEDC channel free; nothing driven\n", p->pin);
         pinMode(p->pin, INPUT);
@@ -870,9 +894,9 @@ static bool dispatch(const String &line) {
                       (unsigned)j9Stream.echoOutstanding());
     }
     else if (line == "pumpmsg") {
-        PumpRunPayload req{1, 60, 1000};   // the frame the display's button sends
+        PumpRunPayload req{PUMP_CHANNEL_B, 1000};   // the frame the display's button sends
         int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
-        Serial.printf("\nMSG_PUMP_RUN ch=1 duty=60 ms=1000 -> send()=%d\n", r);
+        Serial.printf("\nMSG_PUMP_RUN ch=%u ms=%u -> send()=%d\n", req.channel, req.ms, r);
     }
     else if (line == "watch") probeBegin();
     else if (line == "wifi")  cmdWifi();
@@ -899,10 +923,10 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_PUMP_RUN && plen >= sizeof(PumpRunPayload)) {
         PumpRunPayload req;
         memcpy(&req, payload, sizeof(req));
-        Serial.printf("\n[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u\n", req.channel, req.duty, req.ms);
+        Serial.printf("\n[J9] MSG_PUMP_RUN ch=%u ms=%u\n", req.channel, req.ms);
         if (probeOn) { probeOn = false; probeRollCall(); }
         digitalWrite(PIN_LED_ACT, HIGH);
-        bool ok = pumpRun(req.channel, req.duty, req.ms);
+        bool ok = pumpRun(req.channel, req.ms);
         digitalWrite(PIN_LED_ACT, LOW);
         link->sendResponse(ok ? MSG_RESP_PUMP_DONE : MSG_ERR_SLOT_INVALID, req.channel);
         Serial.println("\n> ");
@@ -924,12 +948,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 }
 
 void loop() {
-    // Heartbeat on ACT — IO14 carries no boot strap.
-    static unsigned long last = 0;
-    if (millis() - last > 1000) {
-        last = millis();
-        digitalWrite(PIN_LED_ACT, !digitalRead(PIN_LED_ACT));
-    }
+    heartbeat();
 
     if (probeOn) probePoll();
 

@@ -156,16 +156,16 @@ two ends collide on their own schedules and fall out of CONNECTED every 2 s.
 One `RUN PUMP B` button under the logo sends a typed frame:
 
 ```
-MSG_PUMP_RUN { channel = PUMP_CHANNEL_B, duty = 100, ms = 1000 }
+MSG_PUMP_RUN { channel = PUMP_CHANNEL_B, ms = 1000 }
 ```
 
 The base runs the pump and answers `MSG_RESP_PUMP_DONE` with the channel that ran, sent
 after the run has finished — so the status label changes when the motor stops, not when
 the press lands.
 
-Full power, because a Kamoer head does not break away part-throttle: 60% for a second
-turns nothing, and the appliance meters flavor by how long the pump is on rather than by
-how hard it is driven.
+The run is at full power and the message carries no duty. A Kamoer head does not break
+away part-throttle — 60% for a second turns nothing — and the appliance meters flavor by
+how long the pump is on, so a duty field could only ever hold one value.
 
 ## Integration seams (not implemented)
 

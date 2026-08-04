@@ -96,9 +96,11 @@ motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 ## The J9 link
 
 IO32 and IO34 carry a 115200 8N1 UART out to **J9** (`B · A · GND · V12`), where the
-front-face display hangs. `MSG_PUMP_RUN` arriving there names a channel, a duty and a run
-length; the run happens and `MSG_RESP_PUMP_DONE` goes back naming the channel, sent after
-the run has finished. What the run prints still goes to the USB console.
+front-face display hangs. `MSG_PUMP_RUN` arriving there names a channel and a run length —
+the run is at full power, because a head does not break away part-throttle and flavor is
+metered by time, so how hard to drive is not the caller's to say. `MSG_RESP_PUMP_DONE` goes
+back naming the channel, sent after the run has finished. What the run prints still goes to
+the USB console.
 
 The transport is `HdlcLink` — TinyProto's framing layer with CRC16, no connection and no
 keepalives. `Fd` collides with itself here: two ends transmitting on their own schedules
@@ -121,8 +123,13 @@ interpreted and never reaches a pin.
 
 Two of the three firmware LEDs sit on boot straps — `RUN` on IO12 (MTDI, VDD_SDIO select)
 and `ERR` on IO15 (MTDO, ROM boot log). An LED to GND is high-impedance below its forward
-voltage, so neither pin has a level of its own between resets. The rig holds them on the
-ESP32's internal pulls (`parkStraps()`), and only `walk` drives them.
+voltage, so neither pin has a level of its own between resets, and the rig parks both on
+the ESP32's internal pulls (`parkStraps()`).
+
+`pcba.tsx` gives the heartbeat to `RUN` and calls `ACT` *"activity, not a strap"*, and the
+rig follows that. RUN being a strap is why the beat is 30 ms and not a square wave: the pin
+lives parked on its pull-down and each beat steps out and straight back, so a reset landing
+between beats finds MTDI already low, where the 3.3 V flash setting wants it.
 
 ## Tear-down
 
