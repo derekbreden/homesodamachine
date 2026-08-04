@@ -7090,15 +7090,15 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T00:31:19+00:00",
-    "commit": "a25a1df02f628fcde3f9fa5e3e99b47e9794e49d",
+    "generated": "2026-08-04T00:38:20+00:00",
+    "commit": "5e64853e2d49587dab411d5d377a9fdb9a892135",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
       "hardware/cut-parts/compressor-shroud/compressor_shroud.py": "sha256:be802be9d63ebcee",
       "hardware/printed-parts/cadlib/snap.py": "sha256:c4a25328d3b20635",
       "hardware/printed-parts/cadlib/world_workplane.py": "sha256:6fc15b2371091f65",
-      "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:48aa352350e4e7ac",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:16dd9c21c1e22c38",
       "hardware/printed-parts/cold-core/_port_cuts.py": "sha256:4c408f68edf9faf0",
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "sha256:51e6c039156d8018",
       "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "stat:1832737:1785803074982672299",
@@ -7114,7 +7114,7 @@
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
       "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:fb3fa5ce234eb675",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:2cc07f1c361dfbf1",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:7e7ff1d422f9ba46",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
