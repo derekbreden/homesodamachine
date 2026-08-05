@@ -913,12 +913,11 @@ PUMP_PORT_RISE = _kamoer.arch_plane_z - _kamoer.head_front_z
 # mains gear, and the run from the panel's inlet to the PSU's AC block is a lead, not a
 # crossing.
 # The JUNCTION BAY — the band between the two trays. The bag pair's two aft collets look
-# straight down the nozzle pair's two forward ones and Y-G feeds both, standing ACROSS the
-# bay rather than along it: a trident on its own native axis, stem up at the pump and both
-# outlets facing DOWN, so what the bay carries in Y is `2 × y_divider.HALF_W`, the fitting's
-# own short section, and not its length. Y-G stands on the bay's midpoint (`y_g_pos`), so each
-# leg has half the bay to reach it in: an `AFT_BAY_LEAD` of straight off its collet, then the
-# diagonal that climbs `Y_G_CLIMB` into the outlet standing over it.
+# straight down the nozzle pair's two forward ones, and Y-G used to stand ACROSS this bay and
+# feed both from inside it. It does not any more — it lies in the lane east of V-K's plate
+# (`y_g_pos`), where the leg that reached it already ran. SO THE BAY CARRIES NO FITTING, only
+# the runs that cross it, and what sets its depth is the reach each of those needs: an
+# `AFT_BAY_LEAD` of straight off its collet before it may turn.
 #   A corner turns at what its own two legs carry — an arc eats `R·tan(turn/2)` off each —
 # so the pair's four corners are bound below by the LEAD and above by the CLIMB, and the
 # bay that sets the lead is pinned at both faces, each link priced by instrument:
@@ -964,21 +963,17 @@ NOZZLE_B_TRAY_EAST = 7.0
 # anywhere along it, so the plate's east face closes on that leg; and its turn off the nozzle-B
 # gate stands across the plate's aft path. Both are measured against the swept tube rather than
 # the run's authored corners — a square corner is not where a tube is.
+# The rails' own floor under the tap-water stack, and so the whole stack's height. HELD, not
+# read: the fences that reach for it are the pump's crown below and the back panel's Z SEAM
+# above, and the seam is the tighter of the two — the port field's bulkheads straddle it a
+# millimetre and a half higher and the hole stops being one piece's to cut. So this is the
+# figure the wall can carry, and `port_row_z` reports what the casting wanted against it.
+PORT_ROW_RAILS = 324.70
 VK_TRAY_EAST = 10.0
-VK_TRAY_AFT = 15.0
-# Outlet face over the stand's own port plane — the long side of the diagonal fluid-23 and
-# fluid-27's corners turn on, and the figure the whole tap-water stack stands on: Y-G's stem
-# faces UP needing its `JUNCTION_LEG_LEAD` of clear bore under the basin's rails, and
-# `port_row_z` reads this climb up through the rails and the basin to the chain and the rear
-# port row. 9.5 is where the outlet legs' own solve stops: the diagonal keeps the 5.0 of
-# rise that leaves its bay-lead corner the whole cap, the half-millimetre over that rides
-# the approach lead (`_lines`), and the corner that lead lengthens caps on the diagonal's
-# remainder once the lead corner has taken its share — so more climb lifts the row for
-# corners that cannot rise. The row itself has ceiling left and this figure does not spend
-# it: at 9.5 the row lands at 373.7, the tallest thing riding it is the C14's flange
-# topping out at 388.3, and the interior ceiling is stated at 394 — ≈ 4.7 mm at the pack's
-# floor, the wall sequence's mount stint's to spend, stated here so it is not re-measured.
-Y_G_CLIMB = 9.5
+# The band this plate leaves in front of itself, off the west lane's aft face. It carries no
+# body — `water-3`'s fall and `fluid-23`'s reach cross it and nothing stands in it — so it is
+# stated rather than derived until one of those two is solved to a fence.
+VK_TRAY_FORWARD = 33.2
 # CHANNEL B'S PUMP stands in the FRONT COLUMN beside channel A's, and the two are one pose read
 # twice: same part, same native turn, motor down and both barbs out the +Y face at the lane
 # behind them. What the pack has to find for the second one is a strip 62.61 mm wide, which is
@@ -1673,20 +1668,31 @@ def port_row_z():
 
     That stack hangs off this row and reads DOWN to the manifold's aft stand — the ASSE chain,
     `drip_pan.VENT_GAP` of air under the vent it weeps from, the basin, the rails that carry
-    it, and then the stand. So the row is that column read the other way up, from the highest
-    reach anything on the stand takes: Y-G's stem faces UP out of the junction bay, and what it
-    needs over its own collet face is the `JUNCTION_LEG_LEAD` its run turns on
-    (`scorecard.port_leads`) and a clearance floor over that for the rails.
+    it, and then the stand. So the row is that column read the other way up, from the RAILS'
+    OWN FLOOR, and two things reach for that floor. Whichever is higher is the answer:
+
+      * the CASTING. The basin's rails run the length of the pump's own aft half, so their
+        feet clear its crown by a `LINE_HUG`. This is the one that binds, and it is the same
+        fence `drip_pan_seat` takes when it reads this column back DOWN — the two readings
+        name one body now instead of one of them naming a fitting and the other the metal.
+      * the STAND'S OWN TALLEST FITTING. Y-G's branch faces UP out of the lane, and what it
+        needs over its collet face is the `JUNCTION_LEG_LEAD` its run turns on
+        (`scorecard.port_leads`) and a clearance floor over that for the rails.
 
     `drip_pan_seat()` is the same column read back down, and it raises when it runs out."""
-    # This column is HELD, not read: the whole tap-water stack hangs off it, and Y-G — which
-    # used to be the stand's tallest reach and is what set it — now lies in the lane on the port
-    # plane with its branch standing only `TEE_BRANCH_REACH` off it. So the reach below is no
-    # longer any body's: it is the room the stack is built to and the figure the rails, the
-    # basin and the chain are all seated from. What actually stands tallest on the stand now is
-    # Y-F, and re-reading this column off it is a move of its own — it lowers the whole loft.
-    stem = aft_port_z() + Y_G_CLIMB + 2.0 * DIVIDER_HALF
-    rails = stem + JUNCTION_LEG_LEAD + LINE_HUG      # the stem's own lead, and a floor over it
+    stand = aft_port_z() + TEE_BRANCH_REACH + JUNCTION_LEG_LEAD + LINE_HUG
+    casting = packed().box("seaflo-pump").zmax + LINE_HUG
+    rails = max(stand, PORT_ROW_RAILS)
+    if casting > rails + 1e-9:
+        # The casting asks for more than the wall can give. `drip_pan_seat` takes this same
+        # `max` when it reads the column back down, so the BASIN lifts to clear the crown while
+        # the CHAIN placed off this row does not — and the vent gap between them is short by the
+        # difference. Reported so the figure is visible rather than absorbed.
+        _short("port-row-rails",
+               f"the basin's rails clear the pump's crown at z={casting:.4f}, but this row is "
+               f"held at {rails:.4f} — {casting - rails:.4f} mm of it comes off `drip_pan"
+               f".VENT_GAP` under the chain. Raise `PORT_ROW_RAILS` and the back panel's Z seam "
+               f"with it, or take section off the basin.")
     # The chain's own drop — flow axis to whatever of it hangs lowest at the roll it is built
     # with. The vent stub is that only while it points DOWN, so this row cannot go on paying
     # for a stub that has been rolled off the bottom (`_asse_axis_drop`).
@@ -2777,15 +2783,15 @@ def vk_tray_y():
     forward onto its own fence leaves the band aft of it deep enough to take a bracket as well
     as a body.
 
-    THE BAND IN FRONT OF THIS FACE IS Y-G'S. V-J's inlet collet faces −Y and Y-G is what feeds
-    it, so what stands between this plate and the west lane's aft face is that one trident on
-    its own two floors — the fitting's own section, a `LINE_HUG` off each plate. The strip is
-    the whole gap between the two lanes' facing rows, and `y_g_pos` stands the trident in it.
+    THE BAND IN FRONT OF THIS FACE CARRIES NO BODY. Y-G stood in it once and now lies in the
+    lane east of this plate, so what the band holds is RUNS — `water-3`'s fall onto this
+    plate's own inlet and `fluid-23`'s reach across to the bag pair's. Neither is solved to a
+    fence yet, so the band is a STATED reach like `NOZZLE_B_TRAY_EAST`, not a derived one, and
+    `VK_TRAY_FORWARD` is the whole of it off the west lane's aft face.
 
     Everything forward of that band is open: the condenser's aft face is a lane's length ahead
     and nothing of this row's reaches it."""
-    return (packed().box("bag-b-tray-assembly").ymax
-            + LINE_HUG + 2.0 * _ydiv.HALF_W + LINE_HUG + _tray.port_half + VK_TRAY_AFT)
+    return packed().box("bag-b-tray-assembly").ymax + VK_TRAY_FORWARD + _tray.port_half
 
 
 def nozzle_tray_y():
