@@ -10,6 +10,7 @@ from _cold_core_interface import (
     bulkhead_elbow_exit_z,
     port_hole_radius,
     reed_x_depth,
+    level_rod_y,
     front_port_z,
     make_box,
     cut_pour_band_pass_through,
@@ -25,9 +26,10 @@ reeds_per_reservoir = 4
 # drop in from above before the lid goes on. Cavity depth (reed_x_depth) is
 # shared via the interface — the outer_shell X width is sized to butt it.
 
-# Matches the reservoir's ROD_POSITION_Y: reeds sit opposite the
-# float-on-rod across the bag-pocket wall.
-reed_y_center = 45.0
+# The reservoir's own ROD_POSITION_Y: reeds sit opposite the float-on-rod
+# across the bag-pocket wall, so this is not a second station that has to be
+# kept level with that one — it IS that one (`_cold_core_interface.level_rod_y`).
+reed_y_center = level_rod_y
 reed_y_half_w = 4.0
 
 # Cavity rests on the foam-shell floor at z=w; envelope bottom at z=0.

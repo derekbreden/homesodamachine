@@ -36,6 +36,7 @@ from _cold_core_interface import (
     reservoir_fill_port_x,
     reservoir_fill_port_y,
     reservoir_fill_side,
+    level_rod_y,
     bulkhead_floor_clearance,
     bulkhead_elbow_exit_z,
     make_box,
@@ -233,7 +234,8 @@ fill_position_y = reservoir_fill_port_y
 # y=0) where the donut float has clearance, clear of all screw bosses and
 # the vent boss.
 rod_position_x = 107.0  # |x| of the rod centerline; mirrors with `side`
-rod_position_y = 45.0  # y of the rod centerline; does NOT mirror with side
+rod_position_y = level_rod_y  # y of the rod centerline; does NOT mirror with side —
+# the reed column outside stands on this same station (`_cold_core_interface.level_rod_y`)
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD
 # [3.675 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.
 rod_bore = rod_diameter + 0.5  # ~0.5 mm radial slip-fit clearance; shared by body anchor boss and cap register boss
@@ -487,7 +489,7 @@ reservoir_rod_len = (
     - (floor_trough_z + floor_slope_rate * (abs(rod_position_y) - floor_trough_half_width_y)
        + rod_anchor_boss_floor)
     - reservoir_rod_clearance
-)  # [174 mm (6.85 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 1 mm
+)  # [175.4 mm (6.91 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 1 mm
 # Floor wedge extrusion top — above the highest slope point so the
 # slope half-spaces cut a clean upper face on the wedge fill.
 floor_wedge_top_z = floor_trough_z + floor_slope_rise + 2.0
