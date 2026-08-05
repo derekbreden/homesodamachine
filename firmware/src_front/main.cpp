@@ -962,6 +962,15 @@ static void primePadCb(lv_event_t *e) {
 
 // ── Navigation ──
 static void railCb(lv_event_t *e)     { showPage((Page)(intptr_t)lv_event_get_user_data(e)); }
+
+// The accent leaves the old page in the same repaint it arrives on the new one. The pressed
+// button already carries it from its own pressed style, so clearing every resting colour
+// here moves both halves at once; showPage() makes it stick when the finger lifts.
+static void railPressCb(lv_event_t *e) {
+  (void)e;
+  for (int i = 0; i < PAGE_COUNT; i++)
+    lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(COL_CARD), LV_PART_MAIN);
+}
 static void flvViewCb(lv_event_t *e)  { showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e)); }
 static void svcViewCb(lv_event_t *e)  { showService((ServiceView)(intptr_t)lv_event_get_user_data(e)); }
 
@@ -1022,6 +1031,7 @@ static void buildRail(lv_obj_t *scr) {
     lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_add_event_cb(b, railCb, LV_EVENT_CLICKED, (void *)(intptr_t)i);
+    lv_obj_add_event_cb(b, railPressCb, LV_EVENT_PRESSED, NULL);
     lv_obj_align(mkText(b, kRail[i].icon, &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_TOP_MID, 0, 2);
     lv_obj_align(mkText(b, kRail[i].label, &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
     railBtn[i] = b;
