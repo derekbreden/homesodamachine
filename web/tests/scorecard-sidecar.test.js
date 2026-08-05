@@ -19,8 +19,6 @@ const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "printed-parts", "enclosure",
   "enclosure-assembly", "enclosure-assembly.scorecard.json");
 const SIDECAR = sidecarIn("hardware");
-// The thin edition — the one carrying the two focus axes (lib/editions.js).
-const THIN_SIDECAR = sidecarIn("thin", "hardware");
 
 test("enclosure scorecard sidecar conforms to the contract", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
@@ -41,16 +39,15 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
     assert.ok(c.detail.every((d) => typeof d === "string"), "detail rows are strings");
   }
 
-  // The five goal axes exist by id, and the focus/deferred split is encoded in `active`.
+  // The six goal axes exist by id, and the live/deferred split is encoded in `active`.
   const goalById = Object.fromEntries(goals.map((c) => [c.id, c]));
-  for (const id of ["placed", "located", "shaped", "routed", "held"]) {
+  for (const id of ["placed", "located", "shaped", "routed", "held", "mounted"]) {
     assert.ok(goalById[id], `goal axis ${id} present`);
   }
-  assert.equal(goalById.placed.active, true, "placed is a focus axis");
-  assert.equal(goalById.located.active, true, "located is a focus axis");
-  assert.equal(goalById.shaped.active, true, "shaped is a focus axis");
-  assert.equal(goalById.routed.active, false, "routed is deferred");
-  assert.equal(goalById.held.active, false, "held is deferred");
+  assert.equal(goalById.mounted.active, true, "mounted is the live axis");
+  for (const id of ["placed", "located", "shaped", "routed", "held"]) {
+    assert.equal(goalById[id].active, false, `${id} is deferred`);
+  }
 });
 
 test("the port inventory carries a coordinate and a bore for every located connector", (t) => {
@@ -81,10 +78,10 @@ test("scorecardPathFor maps a STEP path to its sidecar", () => {
 // ── Focus ───────────────────────────────────────────────────────────────────────────────────
 // The bar says the two focus axes and the modal leads with them, both counted off `bends` and
 // `mounts`. A producer that emits an axis without its table draws a bar reading 0/0.
-test("the thin sidecar carries both focus axes and the tables their counts read", (t) => {
-  if (!fs.existsSync(THIN_SIDECAR)) return t.skip("no built thin scorecard sidecar");
-  const sc = JSON.parse(fs.readFileSync(THIN_SIDECAR, "utf8"));
-  assert.ok(isScorecard(sc), "thin sidecar passes isScorecard");
+test("the sidecar carries both focus axes and the tables their counts read", (t) => {
+  if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
+  const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
+  assert.ok(isScorecard(sc), "sidecar passes isScorecard");
 
   const byId = Object.fromEntries(sc.checks.map((c) => [c.id, c]));
   for (const id of FOCUS_IDS) assert.ok(byId[id], `focus axis ${id} present as a check`);
@@ -112,8 +109,8 @@ test("the thin sidecar carries both focus axes and the tables their counts read"
 });
 
 test("the focus panels itemize down to the body a fix moves", (t) => {
-  if (!fs.existsSync(THIN_SIDECAR)) return t.skip("no built thin scorecard sidecar");
-  const sc = JSON.parse(fs.readFileSync(THIN_SIDECAR, "utf8"));
+  if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
+  const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
 
   // Unmounted rows are exactly the gap the axis reports, one row each.
   const loose = unmountedComponents(sc);
