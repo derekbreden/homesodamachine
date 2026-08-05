@@ -100,15 +100,31 @@
   z-index: 10;
   pointer-events: none;
 }
+/* Scrim across the viewport, message centered on it, toggled by the loaders.
+   Drags pass through to the view underneath. */
 .cad-wrapper > .cad-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  display: none; /* the loaders flip this to block */
+  background: rgba(10, 10, 24, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+.cad-wrapper > .cad-loading > span {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--text-2);
+  padding: 12px 22px;
+  background: rgba(35, 35, 66, 0.95);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
   font-size: 15px;
-  z-index: 11;
-  display: none;
+  white-space: nowrap;
 }
 .cad-wrapper > .ruler-toggle {
   position: absolute;

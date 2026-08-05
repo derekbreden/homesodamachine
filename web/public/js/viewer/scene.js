@@ -43,6 +43,35 @@ controls.panSpeed = 0.2;
 controls.staticMoving = false;
 controls.dynamicDampingFactor = 0.12;
 
+// --- Gesture gate ---
+// occt's wasm STEP reader holds the main thread for the length of a parse — ~10 s
+// on the 20 MB enclosure assembly. Work that heavy waits for the pointer to come
+// up: afterGesture() resolves immediately when nothing is being dragged, and on
+// the controls' `end` event when something is. TrackballControls brackets every
+// rotate/pan/zoom gesture with start/end; a wheel zoom fires both in one tick.
+let gesturing = false;
+const gestureWaiters = [];
+
+function endGesture() {
+  if (!gesturing) return;
+  gesturing = false;
+  for (const resolve of gestureWaiters.splice(0)) resolve();
+}
+
+controls.addEventListener("start", () => { gesturing = true; });
+controls.addEventListener("end", endGesture);
+// Safety net for a pointerup that never reaches the controls (capture lost,
+// gesture cancelled). Capture phase on document, alongside the gizmo handlers
+// below — their stopPropagation doesn't reach listeners on the same node in the
+// same phase.
+document.addEventListener("pointerup", endGesture, true);
+document.addEventListener("pointercancel", endGesture, true);
+
+export function afterGesture() {
+  if (!gesturing) return Promise.resolve();
+  return new Promise((resolve) => gestureWaiters.push(resolve));
+}
+
 scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
 dirLight.position.set(1, 2, 1.5);
@@ -306,11 +335,33 @@ export function resizeRenderer() {
   controls.screen.width = controls.screen.height;
 }
 
+// A frame gap this long is the main thread having been blocked, or the tab
+// hidden — rAF didn't run. The gesture deltas TrackballControls accumulated
+// across the gap describe seconds of hand travel, and the next update() spends
+// them as one frame of motion: _rotateCamera applies the whole delta at once and
+// seeds _lastAngle with it, which dynamic damping re-applies every frame after,
+// decayed by only sqrt(1 - dynamicDampingFactor) ≈ 0.94 — tens of radians of
+// spin over the two seconds that follow. Pan and zoom damp the same way off
+// _panStart / _zoomStart.
+const STALL_MS = 400;
+
+function dropStalledGesture() {
+  // three@0.170.0 internals; the importmap pins that exact build.
+  controls._movePrev?.copy(controls._moveCurr);  // rotate: the stale delta
+  controls._panStart?.copy(controls._panEnd);    // pan: same shape
+  controls._zoomStart?.copy(controls._zoomEnd);  // zoom: same shape
+  controls._lastAngle = 0;                       // and the rotation flywheel
+}
+
 let animating = false;
 let animateRafId = 0;
+let lastFrameAt = 0;
 function animate() {
   if (!animating) { animateRafId = 0; return; }
   animateRafId = requestAnimationFrame(animate);
+  const now = performance.now();
+  if (lastFrameAt && now - lastFrameAt > STALL_MS) dropStalledGesture();
+  lastFrameAt = now;
   controls.update();
   renderer.render(scene, camera);
   renderGizmo();
@@ -318,6 +369,7 @@ function animate() {
 export function startAnimate() {
   if (animating) return;
   animating = true;
+  lastFrameAt = 0; // a closed modal is not a stall
   animate();
 }
 export function stopAnimate() {
