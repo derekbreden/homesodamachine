@@ -120,6 +120,18 @@ for hw in $editions; do
     gate "$hw machine-time totals" python3 "$root/$hw/scripts/_machine_time.py" --check
   fi
 
+  # The fluid-topology charts against the enclosure assembly: every edge gated against the
+  # run it names, every length read off the built centreline. Rebuilds the pack to ask,
+  # ~45 s. A commit that moves the GEOMETRY under the charts instead of the charts
+  # themselves is caught by the mtime warning in the enclosure block below.
+  if staged "$hw/topology/" "$hw/topology/_fluid_topology_sync.py"; then
+    if [ -x "$py" ]; then
+      gate "$hw fluid-topology charts" "$py" "$root/$hw/topology/_fluid_topology_sync.py" --check
+    else
+      echo "pre-commit: no cad-venv — $hw fluid-topology charts skipped" >&2
+    fi
+  fi
+
   # Walks every .py under the edition for `raise SystemExit` in a lock-taking
   # script, so only a staged Python file can change its answer. Pathspec can't
   # express "*.py at any depth" portably — filter the staged list instead.
@@ -161,6 +173,16 @@ if pack is not None and pack["status"] != "pass":
                "$root/$hw/printed-parts/enclosure/enclosure/enclosure.py"; do
       if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
         echo "pre-commit: $hw enclosure scorecard sidecar may be behind $(basename "$src") — rebuild: tools/cad-venv/bin/python enclosure_assembly.py" >&2
+        break
+      fi
+    done
+
+    # Same reading for the charts: they quote lengths off these runs, so a chart older
+    # than the geometry is quoting stock the machine no longer cuts.
+    mmd="$root/$hw/topology/fluid-topology-manifold.mmd"
+    for src in "$enc/_lines.py" "$enc/_contents.py" "$enc/_routing.py"; do
+      if [ -f "$src" ] && [ -f "$mmd" ] && [ "$src" -nt "$mmd" ]; then
+        echo "pre-commit: $hw fluid-topology charts may be behind $(basename "$src") — resync: tools/cad-venv/bin/python $hw/topology/_fluid_topology_sync.py" >&2
         break
       fi
     done

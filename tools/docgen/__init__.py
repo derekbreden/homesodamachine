@@ -9,9 +9,16 @@ Syntax: [value](VARIABLE_NAME)
 - The variable name is literally in the source for any reader (agent or
   human) to see. The value is never authoritative; the script's variable is.
 
-Two substituters with the same signature and semantics:
+Three substituters with the same signature and semantics:
 
 - substitute_md(md_path, ...) — rewrites inside a markdown file.
+- substitute_mmd(mmd_path, ...) — rewrites inside the `%%` comment lines of a
+  mermaid chart. A mermaid comment never reaches the renderer, so a marker
+  there is invisible in the drawn chart; the diagram body is left alone,
+  because `[value](NAME)` in a node or edge label WOULD draw, literally.
+  No Sources section: mermaid has nowhere to put one — a `## Sources`
+  heading in a .mmd is a parse error — so a .mmd names its own driver in
+  its header comment instead.
 - substitute_py_comments(py_path, ...) — rewrites inside `#` line comments
   AND docstrings of a Python file. A string literal is only touched if it
   already carries one of the caller's managed [value](NAME) markers, so
@@ -226,6 +233,84 @@ def substitute_md(
 
     if new_text != text:
         md_path.write_text(new_text)
+
+
+def substitute_mmd(
+    mmd_path: Path | str,
+    variables: dict[str, Any],
+    expected_counts: dict[str, int],
+) -> None:
+    """Rewrite [value](NAME) → [current_value](NAME) inside the `%%` comment
+    lines of a mermaid chart.
+
+    Only comment lines are scanned. Mermaid strips them before drawing, so a
+    marker there is a note to the reader of the source and nothing in the
+    picture; a marker in a node or edge label would be drawn literally, so the
+    diagram body is never touched and a chart that wants a managed number ON a
+    label has its driver write the label text instead.
+
+    Same skip-unknown-names semantics as substitute_md, so several scripts can
+    contribute to one chart. Idempotent: rerunning with the same values
+    produces no write. No Sources section is appended — see the module
+    docstring.
+
+    Args:
+        mmd_path: Path to the .mmd file (updated in place when a value changes).
+        variables: name → current value. Each value is str-cast for insertion.
+        expected_counts: name → expected number of [value](NAME) occurrences
+            across the comment lines. Every name here must also appear in
+            `variables`.
+
+    Raises:
+        ValueError: if expected_counts has names with no variable value, or if
+            any expected count doesn't match the actual count.
+    """
+    mmd_path = Path(mmd_path)
+
+    missing_vars = sorted(set(expected_counts) - set(variables))
+    if missing_vars:
+        raise ValueError(
+            f"{mmd_path}: expected_counts has names with no variable value: "
+            f"{missing_vars}"
+        )
+
+    text = mmd_path.read_text()
+    lines = text.splitlines(keepends=True)
+
+    name_counts: dict[str, int] = {}
+    for line in lines:
+        if not line.lstrip().startswith("%%"):
+            continue
+        for match in _LINK_RE.finditer(line):
+            name = match.group(2)
+            if name in variables:
+                name_counts[name] = name_counts.get(name, 0) + 1
+
+    count_errors: list[str] = []
+    for name, expected in expected_counts.items():
+        actual = name_counts.get(name, 0)
+        if actual != expected:
+            count_errors.append(f"  {name}: expected {expected}, found {actual}")
+    if count_errors:
+        raise ValueError(
+            f"{mmd_path}: variable reference count mismatch:\n"
+            + "\n".join(count_errors)
+        )
+
+    def repl(match: re.Match) -> str:
+        name = match.group(2)
+        if name in variables:
+            return f"[{variables[name]}]({name})"
+        return match.group(0)  # unknown — leave alone
+
+    new_lines = [
+        _LINK_RE.sub(repl, line) if line.lstrip().startswith("%%") else line
+        for line in lines
+    ]
+    new_text = "".join(new_lines)
+
+    if new_text != text:
+        mmd_path.write_text(new_text)
 
 
 def substitute_py_comments(

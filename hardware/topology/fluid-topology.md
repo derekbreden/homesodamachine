@@ -25,7 +25,7 @@ Eight 3-port junctions. **Y-H is a PP2308E Y-divider** (a trident: one stem, two
 
 Which of the two a junction wants follows from the placed geometry more than from the circuit: a **divider** joins two ports side by side — its outlets are parallel, which is the shape two valves standing beside each other present — and a **Tee** joins two ports one corridor serves, the run taking those and the branch turning to the third. What decides it is the pair's own sitting AND the room the fitting has: a trident is 38.5 mm from stem tip to outlet face and needs that much clear ahead of the pair it joins, where a Tee standing across a band needs only its own 13.7 mm diameter.
 
-No junction is carried by a tray: the [two-valve tray](/hardware/printed-parts/valve-manifold/two-valve-tray/README.md) seats valves only, so each fitting hangs on the two collets it joins. All five trays are placed. A tray carries no valve above another — nothing holds a valve down, so every tray in the machine lies plate-up and its two seats stand side by side — so **a junction reaching between trays can only ever be a Tee**, and that is six of the eight. The other two join one tray's own pair, and there the room decides: **Y-H** has a column ahead of it in the loft and is the trident; **Y-E** has a 16.9 mm strip between the pump row and the head column, and stands a Tee ACROSS it.
+No junction is carried by a tray: a tray seats valves only, so each fitting hangs on the two collets it joins. [7](TRAY_COUNT) trays carry the [11](TRAY_VALVE_COUNT) valves and all of them are placed — [4](TWO_VALVE_COUNT) of the [two-valve](/hardware/printed-parts/valve-manifold/two-valve-tray/README.md) plate and [3](ONE_VALVE_COUNT) of the [single-valve](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md) one, because a plate takes a second seat only where a PAIR meets at one junction and three valves in this machine stand alone. A tray carries no valve above another — nothing holds a valve down, so every tray in the machine lies plate-up, and where a plate has two seats they stand side by side — so **a junction reaching between trays can only ever be a Tee**, and that is six of the eight. The other two join one tray's own pair, and there the room decides: **Y-H** has a column ahead of it in the loft and is the trident; **Y-E** has a 16.9 mm strip between the pump row and the head column, and stands a Tee ACROSS it.
 
 Which two of a Tee's three ports take the **run** follows from the geometry the same way the divider/Tee choice does. A Tee's run is a **lane** — one straight length of tube passing through the fitting — and its branch is the leg that leaves that lane. So the run takes the two ports the same corridor serves and the branch takes the one that departs it, and the port numbering below is a naming rather than a claim about which is which: the table says where each port goes, and [`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)'s `_tee_local` is where a name meets a run end or a branch.
 
@@ -185,3 +185,7 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 - Pump A: ON
 - Path: Bag B → V-H → P-A → V-J → Nozzle B
 - (Same as Dispense B)
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/topology/_fluid_topology_sync.py`
