@@ -508,7 +508,11 @@ static bool touchWakesOnly = false;
 // A lift has to be reported for this long before it reaches a widget. One poll finding no
 // finger, between two that do, is a dropped report — every widget on this panel inherits
 // the bridge from here, the same way it inherits the wake suppression above.
+// A lift is bridged only once a press has outlasted a tap. Bridging exists so one dropped
+// report cannot end a hold; on a tap it is pure delay, and an expensive one — LVGL sees the
+// release this much later, and the click and its repaint follow that.
 #define TOUCH_RELEASE_MS 150
+#define TOUCH_TAP_MS     300   // a press shorter than this is a tap, and lifts at once
 
 static uint32_t touchBridged = 0;   // polls carried across a dropped report
 
@@ -516,14 +520,16 @@ static uint32_t touchBridged = 0;   // polls carried across a dropped report
 // slides off them is LV_OBJ_FLAG_PRESS_LOCK's job, per object — see mkBtn().
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   static bool prevTouch = false;
-  static unsigned long lastDownMs = 0;
+  static unsigned long lastDownMs = 0, pressStartMs = 0;
   static uint32_t bridgedRun = 0;
   uint16_t x = 0, y = 0;
   bool now = gt911ReadTouch(&x, &y);
+  bool wasHeld = pressStartMs && (lastDownMs - pressStartMs) >= TOUCH_TAP_MS;
 
   if (now) {
     lastDownMs = millis();
     if (!prevTouch && bridgedRun == 0) {
+      pressStartMs = lastDownMs;
       touchCount++;  // count press edges
       touchWakesOnly = screenIdle || !backlightOn;
       lastTouchX = x;
@@ -538,7 +544,7 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     data->point.x = x;
     data->point.y = y;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
-  } else if (lastDownMs && millis() - lastDownMs < TOUCH_RELEASE_MS) {
+  } else if (wasHeld && millis() - lastDownMs < TOUCH_RELEASE_MS) {
     // gt911ReadTouch leaves x,y at the last point it actually saw. lastTouchX/Y is where
     // the press began, which a tap never leaves and a drag leaves entirely: reporting it
     // here teleports the finger back to the start of the drag, and the scroll follows.
@@ -549,9 +555,11 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
     if (lastDownMs) {
-      Serial.printf("[touch] up  (%lu poll(s) bridged, %lu stale)\n",
+      Serial.printf("[touch] up after %lu ms  (%lu poll(s) bridged, %lu stale)\n",
+                    (unsigned long)(lastDownMs - pressStartMs),
                     (unsigned long)bridgedRun, (unsigned long)gt911Stale);
       lastDownMs = 0;
+      pressStartMs = 0;
       bridgedRun = 0;
     }
     touchWakesOnly = false;   // finger lifted — the next press is the user's own
