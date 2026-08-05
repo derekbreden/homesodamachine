@@ -36,6 +36,7 @@ import { renderPcbThumbnail } from "./pcb.js";
 import { mountCardThumbnail } from "./cards.js";
 import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { afterGesture } from "./scene.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { isCardPath } from "/contracts/cards.js";
 import { isMounted } from "./lazy.js";
@@ -165,12 +166,29 @@ function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
 
+// One deferred reload per open file. The gate holds a reload for the length of a
+// drag, every save inside that window lands on the same key, and the ETag that
+// turns a repeat into a 304 isn't set until a load finishes.
+const pendingCadReloads = new Map();
+
 // Re-load a CAD part into the open modal, in place, camera preserved. Resolves
 // the loader through getLoader so a code edit / deploy is reflected — the fresh
-// leaf talks to the same live scene + state, so nothing is torn down.
+// leaf talks to the same live scene + state, so nothing is torn down. Waits out
+// any gesture in flight (the gate in scene.js).
 async function reloadCad(type, file) {
-  const load = await getLoader(type);
-  return load(file, { preserveCamera: true });
+  const key = `${type}:${file}`;
+  const pending = pendingCadReloads.get(key);
+  if (pending) return pending;
+  const run = (async () => {
+    await afterGesture();
+    pendingCadReloads.delete(key);
+    // The modal may have closed, or swapped files, while the gesture ran on.
+    if (!isOpenAs(type, file)) return;
+    const load = await getLoader(type);
+    return load(file, { preserveCamera: true });
+  })();
+  pendingCadReloads.set(key, run);
+  return run;
 }
 
 window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
@@ -180,7 +198,11 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
       // Reload the model in place, then re-mount the scorecard bar so a live rebuild's fresh
       // verdict (the sidecar is rewritten alongside the .step) replaces the stale one.
       if (isOpenAs("step", file)) {
-        reloadCad("step", file).then(() => mountScorecard(state.currentCadWrapper, file));
+        // A deferred reload can outlive the modal; mountScorecard reads the
+        // wrapper's isConnected.
+        reloadCad("step", file).then(() => {
+          if (state.currentCadWrapper) mountScorecard(state.currentCadWrapper, file);
+        });
       }
     } else if (file.endsWith(".dxf")) {
       refreshDxfCard(file);
