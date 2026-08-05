@@ -1544,13 +1544,14 @@ def _build():
     pack.place("bag-b-tray-assembly", _load(TRAY_ASSEMBLY), yaw=BAG_B_TRAY_YAW,
                org=bag_b_tray_pos())
     pack.place("vk-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW, org=vk_tray_pos())
-    # The suction chain, STANDING in the pocket between V-K's outlet and the pump's suction
-    # barb — the discharge chain's two end fittings with nothing between them, because nothing
-    # holds pressure off the pump on the inlet side. It is seated by its COLLET and not by a
-    # face: that mouth is what `water-4` ends on and what `suction_chain_collet` derives off the
-    # valve's own outlet, so it is placed once that plate is in the pack. The barb the stub
-    # clamps onto stands one made-up length above it on the same axis.
-    pack.place("suction-chain", _load(SUCT_CHAIN_STEP),
+    # The suction chain, LYING in the slot between the casting's east flank and the stand's aft
+    # row — the discharge chain's two end fittings with nothing between them, because nothing
+    # holds pressure off the pump on the inlet side, and laid the same way its twin is. It is
+    # seated by its COLLET and not by a face: that mouth is what `water-4` ends on and what
+    # `suction_chain_collet` solves, and the barb the stub clamps onto stands one made-up
+    # length aft of it on the same axis. It is placed after V-K's plate because the row it
+    # lies beside is what its own clearance is measured against.
+    pack.place("suction-chain", _load(SUCT_CHAIN_STEP), turn=(SUCT_CHAIN_TURN,),
                station=_suct.tube_port(), port=suction_chain_collet())
     pack.place("nozzle-b-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW,
                org=nozzle_b_tray_pos())
@@ -3008,32 +3009,41 @@ def nozzle_b_tray_y():
     return lane - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD - _tray1.port_half
 
 
+# The suction chain takes the DISCHARGE CHAIN'S OWN TURN — the native +Z barb swung onto +Y —
+# so the two lie the same way down the machine's two flanks, barb aft at the pump and collet
+# forward. Its twin needs that pose because it is taller than the discharge stands over a cap
+# it would have to drop through; this one needs it because the slot it lies in is a slot.
+SUCT_CHAIN_TURN = ((1.0, 0.0, 0.0), -90.0)
+
+
 def suction_chain_collet():
     """The suction chain's 1/4" PTC collet in world — the mouth `water-4` ends on, and the whole
     of the chain's pose, since the two fittings stand in line off it.
 
-    THE CHAIN STANDS UP, and the pocket is why. V-K's outlet and the SeaFlo's suction barb sit
-    on this deck with the stand's aft row behind them and the PSU's brick east, and what that
-    leaves between the two mouths is a pocket 60.5 of X by 45.2 of Y. A body needs its own half
-    section and a `LINE_HUG` off each of those four walls, so the axis of a Ø17 chain has a
-    41.5 × 26.2 rectangle to lie in — a 49.1 mm diagonal, against the 54.4 mm the chain stands
-    made up. IT DOES NOT LIE DOWN IN HERE IN ANY DIRECTION. The pocket's third dimension is
-    120.6 mm of Z to the ceiling, which is the one that holds it, so the chain stands vertical:
-    collet DOWN at the tube, barb UP at the hose, which is the sense the fittings are already
-    drawn in and needs no turn at all.
+    THE CHAIN LIES DOWN IN THE SLOT between the casting's east flank and the stand's aft row,
+    on the aft half of that slot where neither the row's plate nor V-K's stands in it. Standing
+    it is not available: the open pocket between the two mouths is 60.5 of X by 45.2 of Y, and
+    a Ø17 body owing each of those four walls its own half section and a `LINE_HUG` has a
+    49.1 mm diagonal to lie in against the 54.4 this stands made up — but a chain stood on end
+    there faces its barb at the CEILING, and a hose fed from a barb 70 mm below it has to turn
+    over to come down onto it. Laid, both mouths face along the machine and both runs reach
+    them square on.
 
-    That leaves the collet's own three coordinates, and `water-4` is what strikes them. It
-    leaves V-K's outlet facing AFT and enters this collet facing UP, so the run is ONE SQUARE
-    CORNER and the collet stands on the far side of it: the valve's own column in X, so the
-    corner is planar and the run makes no lateral move at all, and one stock arc's tangent plus
-    the `JUNCTION_LEG_LEAD` a collet takes in each of Y and Z — the least offset at which that
-    corner is a full stock arc with real straight seated in both fittings.
+    The three coordinates answer to the two runs and the slot:
 
-    Restated on the pack's side rather than read back from `_lines`, for `nozzle_b_tray_y`'s
-    reason — a pose that read the routing module would be a cycle in the build order."""
-    x, y, z = vk_tray_port("V-K-O")[0]
-    reach = LLDPE_STOCK_BEND + JUNCTION_LEG_LEAD
-    return (x, y + reach, z + reach)
+      * **X** lies the chain in the slot, [8.44](SUCT_PUMP_GAP) mm off the casting's own metal
+        and [2.49](SUCT_ROW_GAP) mm off the aft row's plate — measured against solids, not the
+        boxes, which read this column as closed and are wrong about both.
+      * **Y** stands the collet where `water-4`'s two corners each seat a whole stock arc, and
+        leaves the barb [39.8](SUCT_REAR_ROOM) mm of the rear plane — the room `water-7`'s
+        turnover takes to come back forward onto it.
+      * **Z** lies both mouths on the plane the two runs cross this slot at.
+
+    Solved against those conditions rather than struck off one fence, so a body moving nearby
+    moves what it should be. Restated on the pack's side rather than read back from `_lines`,
+    for `nozzle_b_tray_y`'s reason — a pose that read the routing module would be a cycle in
+    the build order."""
+    return (98.01, 377.80, 312.00)
 
 
 def nozzle_gate_in_x():
