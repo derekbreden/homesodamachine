@@ -20,6 +20,7 @@ and runnable in CI.
 
 from __future__ import annotations
 
+import math
 import sys
 
 import cadquery as cq
@@ -32,20 +33,26 @@ def box(x, y, z, dx=10.0, dy=10.0, dz=10.0):
     return cq.Solid.makeBox(dx, dy, dz, cq.Vector(x, y, z))
 
 
+def run_of(*pts, diam=6.35, bend=25.4):
+    """A run stand-in: waypoints, a bore Ø, and a `bend` radius at every interior corner —
+    the fields `_routing.tube` and `scorecard.tube_depth` each read a run through."""
+    import types
+
+    n = len(pts)
+    return types.SimpleNamespace(
+        pts=list(pts), diam=diam,
+        radii={i: bend for i in range(1, n - 1)},
+        bends=[(i, 90.0, 0.0, 0.0) for i in range(1, n - 1)])
+
+
 def swept(*pts, diam=6.35, bend=25.4):
     """A tube through `_routing.tube` itself — a circle carried along the waypoints with a
     tangent arc at each interior corner. Boxes cannot stand in for one here: the clash a
     single boolean goes blind to is a property of SWEPT surfaces meeting tangentially, and a
     fixture built any other way passes whether the gate works or not."""
-    import types
-
     import _routing
 
-    n = len(pts)
-    return _routing.tube(types.SimpleNamespace(
-        pts=list(pts), diam=diam,
-        radii={i: bend for i in range(1, n - 1)},
-        bends=[(i, 90.0, 0.0, 0.0) for i in range(1, n - 1)]))
+    return _routing.tube(run_of(*pts, diam=diam, bend=bend))
 
 
 # Each case returns (ok, message). `check(name, ok, msg)` records and prints it.
@@ -118,6 +125,39 @@ def test_lines_clear() -> None:
         {}, {"t1": {"A", "B"}, "t2": {"C", "D"}})
     check("silent on the same pair one stratum apart", len(parted) == 0,
           f"got {len(parted)} clash(es)")
+    # DEPTH, against geometry whose answer is known by construction: two tubes crossing at
+    # right angles with their axes a set distance apart stand `2r - d` inside each other, and
+    # a pair further apart than their two radii stands 0.
+    # Two straights crossing at right angles, their axes a set distance apart: each stands
+    # `2r - d` inside the other, and a pair further apart than the two radii stands 0.
+    far = 200.0
+    for apart, want in ((0.0, 6.35), (3.0, 3.35), (6.0, 0.35), (6.35, 0.0), (10.0, 0.0)):
+        a = run_of((0.0, -far, 0.0), (0.0, far, 0.0))
+        b = run_of((-far, 0.0, apart), (far, 0.0, apart))
+        got = sc.tube_depth(a, b)
+        check(f"crossing tubes {apart:g} mm apart stand {want:g} mm inside",
+              abs(got - want) < 0.02, f"got {got:.4f} mm")
+    # An arc is WALKED, not chorded from tangent to tangent. A 90° corner's arc bulges toward
+    # its own vertex, coming `r/cos45 - r` off it, while the chord between the two tangent
+    # points stands `r·tan45/√2` off — a whole tube further out. So a run laid down the arc's
+    # own midpoint is dead on the tube's centreline, a full bore deep, and stands clear of the
+    # chord. Chord the corner and this reads 0.
+    #   Walking it is worth `CHORD` of depth: the sampled points sit on the arc and the steps
+    # between them cut inside it, so the reading is that much shy of the whole bore.
+    bend = 25.4
+    to_arc = bend / math.cos(math.radians(45.0)) - bend
+    to_chord = bend * math.tan(math.radians(45.0)) / math.sqrt(2.0)
+    half = math.sqrt(0.5)
+    arc_mid = (to_arc * half, -to_arc * half, 0.0)
+    turn = run_of((0.0, -far, 0.0), (0.0, 0.0, 0.0), (far, 0.0, 0.0), bend=bend)
+    down_arc = run_of(tuple(arc_mid[k] - far * (half, half, 0.0)[k] for k in range(3)),
+                      tuple(arc_mid[k] + far * (half, half, 0.0)[k] for k in range(3)))
+    deep = sc.tube_depth(turn, down_arc)
+    check("a tube down the arc's own midpoint is a full bore deep",
+          abs(deep - 6.35) <= sc.CHORD,
+          f"arc comes {to_arc:.2f} mm off the vertex and its chord stands {to_chord:.2f} mm "
+          f"out — got {deep:.4f} mm, within the {sc.CHORD} mm the walk allows")
+
     # Wiring: lines_clear_check turns a clash into a red 'lines-clear' gate, and none into green.
     orig = sc.line_clashes
     try:
