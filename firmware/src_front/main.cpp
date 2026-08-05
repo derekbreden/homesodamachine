@@ -461,8 +461,22 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
 // what this board can do to a shifted frame short of a reboot: esp_lcd_panel_reset() plus
 // esp_lcd_panel_init() both return ESP_OK and leave the panel scanning white, because the
 // framebuffers are bound at esp_lcd_new_rgb_panel() and init does not re-bind them.
-#define WAKE_QUIET_MS 400
+#define WAKE_QUIET_MS 200
 static unsigned long animResumeDue = 0;
+
+// A wake resets the panel before it lights it. Everything else tried here acts on the
+// ESP32's side of the wire — the driver's own every-VSYNC restart, a quiet bus, a slower
+// pixel clock — and the frame still comes up shifted. LCD_RST is the ST7262's, on CH422G
+// EXIO3, the same line ch422gBringUp() pulses at boot: it makes the panel re-acquire the
+// sync it is being sent, and leaves the framebuffers bound, which esp_lcd_panel_init() does
+// not. This panel takes no command sequence, so a reset costs only its recovery.
+//
+// Staged from loop() rather than run inline: wake() is reached from the indev read, inside
+// lv_timer_handler, which is no place to block for 140 ms.
+static uint8_t kickStage = 0;
+static unsigned long kickAt = 0;
+
+static void panelKick() { kickStage = 1; kickAt = millis(); }
 
 static void panelRealign() {
   if (!panel) return;
@@ -474,19 +488,13 @@ static void panelRealign() {
 static void wake() {
   lastInputTime = millis();
   if (screenIdle || !backlightOn) {
+    if (kickStage) return;   // a wake is already on its way through the stages
     screenIdle = false;
     idleStage = 0;
-    setBacklight(true);
     // Whatever the dark decided to keep or throw away is already on screen — waking shows
-    // it rather than moving to it.
-    //
-    // The animation waits a moment before it starts again. The driver restarts the scan-out
-    // DMA in every VSYNC handler and that handler runs from flash, which this firmware reads
-    // ~4 MB of animation frames out of while it renders; a shifted frame clears itself over
-    // a sleep, which is the one stretch where nothing renders. So a wake hands it the same
-    // quiet a sleep does, before the frames start moving again.
-    if (uiReady) animResumeDue = millis() + WAKE_QUIET_MS;
-    else if (animTimer) lv_timer_resume(animTimer);
+    // it rather than moving to it. The light comes back once the panel has been reset.
+    if (uiReady) panelKick();
+    else { setBacklight(true); if (animTimer) lv_timer_resume(animTimer); }
   }
 }
 
@@ -1512,6 +1520,9 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "PANEL:REALIGN") == 0) {
     panelRealign();
     Serial.println("OK:PANEL:REALIGN");
+  } else if (strcmp(line, "PANEL:KICK") == 0) {
+    panelKick();                  // the wake sequence, without waiting for a sleep
+    Serial.println("OK:PANEL:KICK");
   } else if (strcmp(line, "STATUS") == 0) {
     j9.send(MSG_STATUS_REQ, nullptr, 0);
     Serial.println("OK:STATUS requested");
@@ -1665,6 +1676,23 @@ void loop() {
   }
 
   j9.service();
+
+  // Panel reset, then the light, then the frames start moving again.
+  if (kickStage) {
+    unsigned long now = millis();
+    if (kickStage == 1) {
+      setBacklight(false);
+      exioState &= ~EXIO_LCD_RST; exioApply();
+      kickAt = now + 20; kickStage = 2;
+    } else if (kickStage == 2 && now >= kickAt) {
+      exioState |= EXIO_LCD_RST; exioApply();
+      kickAt = now + 120; kickStage = 3;      // reset recovery, the same as at boot
+    } else if (kickStage == 3 && now >= kickAt) {
+      setBacklight(true);
+      animResumeDue = now + WAKE_QUIET_MS;
+      kickStage = 0;
+    }
+  }
 
   if (animResumeDue && millis() >= animResumeDue) {
     animResumeDue = 0;
