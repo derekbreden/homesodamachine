@@ -1,70 +1,91 @@
 flowchart LR
 
-  %% Valve-manifold fluid topology grouped by physical carrier. Every box is one
-  %% printed two-valve tray — five of them, all the same part — and the two
-  %% valves inside are the pair that meets at one junction. The junctions
-  %% themselves have no carrier: no fitting seats on the tray, so each follows
-  %% from where its pair's two ports land rather than from the tray. Blue links
-  %% reach a pair's own junction; gray ones cross to another pair or to a pump.
-  %% Hexagons are Y-dividers — the fitting a pair joined SIDE BY SIDE takes where
-  %% there is room ahead of it for a trident, which is Y-H alone; orange nodes are
-  %% Tees (in-line run + branch), which is every junction reaching two ports on
-  %% DIFFERENT trays, plus Y-E, whose own pair leaves it a strip a fitting's
-  %% diameter deep and so stands it ACROSS that strip. Y-A and Y-B are the pair to read that
-  %% way: the source tray stands in the selects tray's own two seats, so each of
-  %% them takes one port from each tray down one column, and the edge between
-  %% them is the crossbar that puts all four on one node. Source, pump, bag and
-  %% nozzle are omitted
-  %% — this is the condensed view; the complete chart is
-  %% fluid-topology-manifold.mmd, every endpoint present and every edge
-  %% labelled with its route ID.
+  %% The valve manifold grouped by PHYSICAL CARRIER — the condensed view: valves and
+  %% junctions only, sources, pumps, reservoirs and nozzles omitted. The complete chart,
+  %% every endpoint present and every edge labelled with its route ID and its measured
+  %% length, is fluid-topology-manifold.mmd.
 
-  subgraph TraySrc["Tray — V-A · V-B"]
+  %% Source of truth: the enclosure assembly's placed pack. Every box below is one
+  %% placed tray and holds exactly the valves that tray seats;
+  %% `_fluid_topology_sync.py` gates it against `_contents.build()`.
+
+  %% [7](TRAY_COUNT) trays carry the [11](TRAY_VALVE_COUNT) valves, in two stands.
+  %% [4](TWO_VALVE_COUNT) are the two-seat plate and [3](ONE_VALVE_COUNT) the one-seat
+  %% plate: a plate takes a second seat only where a PAIR meets at one junction, and
+  %% three valves in this machine stand alone.
+
+  %% Every tray lies FLAT — plate down, valves up, ports along Y. Nothing holds a valve
+  %% down, so a tray carries one plate-up, and a yaw is the only turn any of them has.
+
+  %% The junctions have no carrier. No fitting seats on a tray, so each hangs on the two
+  %% collets it joins and follows from where its pair's ports land. Blue links reach a
+  %% pair's own junction; grey ones cross to another tray or to a pump.
+
+  %% =========================
+  %% Head column — front, three two-valve trays one under the next
+  %% =========================
+  subgraph TSrc["source-tray-assembly &middot; two-valve"]
     VA["V-A"]
     VB["V-B"]
   end
 
-  subgraph TraySel["Tray — V-C · V-D"]
+  subgraph TSel["selects-tray-assembly &middot; two-valve"]
     VC["V-C"]
     VD["V-D"]
   end
 
-  subgraph TrayBagA["Tray — V-E · V-F"]
+  subgraph TBagA["bag-a-tray-assembly &middot; two-valve"]
     VE["V-E"]
     VF["V-F"]
   end
 
-  subgraph TrayBagB["Tray — V-H · V-I"]
+  %% =========================
+  %% Aft stand — four trays on the foam cap, all on one storey
+  %% =========================
+  subgraph TBagB["bag-b-tray-assembly &middot; two-valve"]
     VH["V-H"]
     VI["V-I"]
   end
 
-  subgraph TrayNoz["Tray — V-G · V-J"]
+  subgraph TNozA["nozzle-tray-assembly &middot; one-valve"]
     VG["V-G"]
+  end
+
+  subgraph TVK["vk-tray-assembly &middot; one-valve"]
+    VK["V-K<br/>carbonator fill"]
+  end
+
+  subgraph TNozB["nozzle-b-tray-assembly &middot; one-valve"]
     VJ["V-J"]
   end
 
-  YA{{"Y-A"}}
-  YB{{"Y-B"}}
-  YC{{"Y-C"}}
-  YD{{"Y-D"}}
+  %% =========================
+  %% Junctions — carried by nothing, hanging on the collets they join
+  %% =========================
+  YA["Y-A"]
+  YB["Y-B"]
+  YC["Y-C"]
+  YD["Y-D"]
   YE["Y-E"]
-  YF{{"Y-F"}}
-  YG{{"Y-G"}}
+  YF["Y-F"]
+  YG["Y-G"]
   YH{{"Y-H"}}
 
-  %% ---- A tray's two valves to the junction they share (blue) ----
+  %% ---- A tray's own pair to the junction it shares ----
   VF --> YE
   YE --> VE
   VI --> YH
   YH --> VH
 
-  %% ---- Everything that crosses to another pair or a pump (gray) ----
+  %% ---- Everything that crosses to another tray or a pump ----
+  %% Y-A and Y-B are the pair to read that way: the source tray stands in the selects
+  %% tray's own two seats, so each of them takes one port from each tray down one
+  %% column, and the crossbar between them puts all four ports on one node.
   VA --> YA
   YA --> VC
   VB --> YB
   YB --> VD
-  YA --> YB
+  YA <--> YB
   VC --> YC
   VD --> YF
   VE --> YC
@@ -75,7 +96,24 @@ flowchart LR
   YG --> VJ
 
   %% ---- Styling ----
+  %% Y-H is the one PP2308E Y-divider — a trident, and the hexagon. The other seven are
+  %% PP0208E Tees. Which of the two a junction wants follows from the placed geometry
+  %% more than from the circuit: a divider joins two ports SIDE BY SIDE, which is the
+  %% shape a pair standing beside each other presents, and a Tee joins two ports one
+  %% corridor serves. What decides it is the pair's own sitting AND the room the fitting
+  %% has — a trident is 38.5 mm from stem tip to outlet face and needs that much clear
+  %% ahead of the pair, where a Tee standing across a band needs only its own 13.7 mm
+  %% diameter. Six of the eight reach BETWEEN trays and can only ever be Tees. The other
+  %% two join one tray's own pair, and there the room decides: Y-H has a column ahead of
+  %% it and is the trident; Y-E has a strip a fitting's diameter deep and stands a Tee
+  %% ACROSS it.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YA,YB,YC,YF,YD,YG,YE tee;
+  class YA,YB,YC,YD,YE,YF,YG tee;
+  classDef divider fill:#1d4ed8,stroke:#1e3a8a,color:#ffffff,stroke-width:2px;
+  class YH divider;
+  %% V-K rides this stand but not this circuit: it gates the carbonator fill, and its
+  %% two runs are fluid-topology-carbonator.mmd's.
+  classDef offcircuit fill:#3a3a3a,stroke:#666,color:#cccccc,stroke-width:1px;
+  class VK offcircuit;
   linkStyle 0,1,2,3 stroke:#09f,stroke-width:2px
   linkStyle 4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
