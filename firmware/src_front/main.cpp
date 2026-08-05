@@ -203,11 +203,13 @@ static lv_obj_t *flvDetailName, *flvDetailRatio;
 static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
 static lv_obj_t *cleanTitle, *cleanMsg;
 static lv_obj_t *statUptime, *statHeap, *statGas, *statGasBar, *statFrames, *statFoot;
-static lv_obj_t *setupCtrlVer, *setupTouch, *setupLinkPins, *setupSleep, *setupBl;
+static lv_obj_t *setupCtrlVer, *setupTouch, *setupLinkPins, *setupFrames, *setupReinits;
+static lv_obj_t *setupTouchCnt, *setupHeap, *setupPsram, *setupLoop, *setupUptime;
+static lv_obj_t *setupCol, *setupUp, *setupDown, *setupTrack, *setupThumb;
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
 // changed here is this display's own until one sends it somewhere.
-static uint8_t flavorRatio[2] = {12, 12};
+static uint8_t flavorRatio[2] = {20, 20};
 static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold pages act on
 static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 
@@ -215,7 +217,7 @@ static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 // The backlight is a digital line on the CH422G (on/off only — no PWM), so the
 // idle state is simply the backlight off and the animation paused. The first
 // touch turns it back on and resumes. Instant off / instant on.
-static uint32_t idleTimeoutMs = 60000;  // inactivity before the backlight turns off — SETUP sets it
+#define IDLE_TIMEOUT_MS 60000  // inactivity before the backlight turns off
 
 static unsigned long lastInputTime = 0;
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
@@ -447,10 +449,16 @@ static bool touchWakesOnly = false;
 
 static uint32_t touchBridged = 0;   // polls carried across a dropped report
 
+// LVGL acts on the release, and a release that has wandered off the pressed object is a
+// press lost — no click, and on a scrollable parent the wander scrolls instead. So the
+// press is reported at the point it began for its whole length: put a finger on a target,
+// slide anywhere, lift, and that target is what fires. Nothing on this panel is dragged,
+// so nothing wants the moving point.
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   static bool prevTouch = false;
   static unsigned long lastDownMs = 0;
   static uint32_t bridgedRun = 0;
+  static uint16_t pressX = 0, pressY = 0;
   uint16_t x = 0, y = 0;
   bool now = gt911ReadTouch(&x, &y);
 
@@ -459,23 +467,23 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     if (!prevTouch && bridgedRun == 0) {
       touchCount++;  // count press edges
       touchWakesOnly = screenIdle || !backlightOn;
+      pressX = lastTouchX = x;
+      pressY = lastTouchY = y;
       Serial.printf("[touch] x=%u y=%u  status=0x%02X raw=%02X %02X %02X %02X %02X %02X %02X %02X%s\n",
                     x, y, lastStatus, lastRaw[0], lastRaw[1], lastRaw[2], lastRaw[3],
                     lastRaw[4], lastRaw[5], lastRaw[6], lastRaw[7],
                     touchWakesOnly ? " (dark — wakes only)" : "");
     }
     bridgedRun = 0;
-    lastTouchX = x;
-    lastTouchY = y;
     wake();
-    data->point.x = x;
-    data->point.y = y;
+    data->point.x = pressX;
+    data->point.y = pressY;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else if (lastDownMs && millis() - lastDownMs < TOUCH_RELEASE_MS) {
     bridgedRun++;
     touchBridged++;
-    data->point.x = lastTouchX;
-    data->point.y = lastTouchY;
+    data->point.x = pressX;
+    data->point.y = pressY;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
     if (lastDownMs) {
@@ -769,6 +777,32 @@ static void refreshFlavorText() {
   }
   if (flvDetailName)  lv_label_set_text(flvDetailName, kFlavorName[flavorSel]);
   if (flvDetailRatio) lv_label_set_text(flvDetailRatio, flavorSel ? b : a);
+}
+
+// SETUP is read-outs, so it is repainted from here rather than from the widgets.
+static void refreshSetupPage() {
+  if (!setupFrames) return;
+  char b[40];
+  snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
+  lv_label_set_text(setupLinkPins, b);
+  snprintf(b, sizeof(b), "%lu / %lu", (unsigned long)j9.framesRx, (unsigned long)j9.framesTx);
+  lv_label_set_text(setupFrames, b);
+  snprintf(b, sizeof(b), "%lu", (unsigned long)linkReinits);
+  lv_label_set_text(setupReinits, b);
+  snprintf(b, sizeof(b), "%lu / %lu", (unsigned long)touchBridged, (unsigned long)gt911Stale);
+  lv_label_set_text(setupTouchCnt, b);
+  snprintf(b, sizeof(b), "%u / %u", lastTouchX, lastTouchY);
+  lv_label_set_text(setupTouch, b);
+  snprintf(b, sizeof(b), "%lu K", (unsigned long)ESP.getFreeHeap() / 1024);
+  lv_label_set_text(setupHeap, b);
+  snprintf(b, sizeof(b), "%lu K", (unsigned long)ESP.getFreePsram() / 1024);
+  lv_label_set_text(setupPsram, b);
+  snprintf(b, sizeof(b), "%lu ms", (unsigned long)maxLoopMs);
+  lv_label_set_text(setupLoop, b);
+  unsigned long up = millis() / 1000;
+  snprintf(b, sizeof(b), "%lu:%02lu", up / 60, up % 60);
+  lv_label_set_text(setupUptime, b);
+  lv_label_set_text(setupCtrlVer, ctrlStatusMs ? ctrlStatus.version : "--");
 }
 
 static void refreshStatusPage() {
@@ -1096,7 +1130,12 @@ static void buildStatusPage(lv_obj_t *page) {
   lv_obj_align(statFoot, LV_ALIGN_BOTTOM_LEFT, 0, 0);
 }
 
-// The one page tall enough to scroll.
+// The one page tall enough to scroll. It is read-outs and one restart; a control that
+// changes how the appliance behaves belongs on the page for the thing it changes.
+#define SETUP_STRIP_W 92     // the scroll column: two targets with a track between them
+#define SETUP_BTN_H   104
+#define SETUP_PAGE_PX 340    // one press of UP or DOWN
+
 static lv_obj_t *setupRow(lv_obj_t *col, const char *cap, lv_obj_t **valueOut) {
   lv_obj_t *c = mkCard(col, LV_PCT(100), 80);
   lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
@@ -1107,64 +1146,101 @@ static lv_obj_t *setupRow(lv_obj_t *col, const char *cap, lv_obj_t **valueOut) {
   return c;
 }
 
-static void blToggleCb(lv_event_t *e) {
-  (void)e;
-  setBacklight(!backlightOn);
-  lv_label_set_text(setupBl, backlightOn ? "ON" : "OFF");
-}
-
-static void sleepCycleCb(lv_event_t *e) {
-  (void)e;
-  idleTimeoutMs = idleTimeoutMs == 30000 ? 60000 : idleTimeoutMs == 60000 ? 120000 : 30000;
-  char b[12];
-  snprintf(b, sizeof(b), "%lu s", (unsigned long)idleTimeoutMs / 1000);
-  lv_label_set_text(setupSleep, b);
-}
-
 static void restartCb(lv_event_t *e) { (void)e; ESP.restart(); }
-static void linkSwapCb(lv_event_t *e);   // shares the swap the USB command runs
+
+static void setupScrollRefresh() {
+  if (!setupCol) return;
+  lv_coord_t above = lv_obj_get_scroll_top(setupCol);
+  lv_coord_t below = lv_obj_get_scroll_bottom(setupCol);
+  lv_coord_t view  = lv_obj_get_height(setupCol);
+  lv_coord_t total = above + below + view;
+  if (total < view) total = view;
+
+  lv_coord_t trackH = lv_obj_get_height(setupTrack);
+  lv_coord_t thumbH = (lv_coord_t)((int32_t)trackH * view / total);
+  if (thumbH < 56) thumbH = 56;
+  if (thumbH > trackH) thumbH = trackH;
+  lv_coord_t span = trackH - thumbH;
+  lv_coord_t off = (above + below) > 0 ? (lv_coord_t)((int32_t)span * above / (above + below)) : 0;
+  lv_obj_set_height(setupThumb, thumbH);
+  lv_obj_align(setupThumb, LV_ALIGN_TOP_MID, 0, off);
+
+  // A target that cannot act says so by being dim and by not answering.
+  struct { lv_obj_t *b; bool on; } ends[2] = {{setupUp, above > 0}, {setupDown, below > 0}};
+  for (auto &e : ends) {
+    if (e.on) lv_obj_clear_state(e.b, LV_STATE_DISABLED);
+    else      lv_obj_add_state(e.b, LV_STATE_DISABLED);
+    lv_obj_set_style_bg_color(e.b, lv_color_hex(e.on ? COL_CARD_ON : COL_CARD), 0);
+  }
+}
+
+static void setupScrollCb(lv_event_t *e) {
+  int dir = (int)(intptr_t)lv_event_get_user_data(e);
+  // No animation: every frame of one would repaint the whole 800x480.
+  lv_obj_scroll_by(setupCol, 0, -dir * SETUP_PAGE_PX, LV_ANIM_OFF);
+  setupScrollRefresh();
+}
 
 static void buildSetup(lv_obj_t *page) {
-  lv_obj_t *col = lv_obj_create(page);
-  lv_obj_set_size(col, LV_PCT(100), LV_PCT(100));
-  lv_obj_set_style_bg_opa(col, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_border_width(col, 0, 0);
-  lv_obj_set_style_pad_all(col, 0, 0);
-  lv_obj_set_style_pad_row(col, 12, 0);
-  lv_obj_set_flex_flow(col, LV_FLEX_FLOW_COLUMN);
-  lv_obj_set_scroll_dir(col, LV_DIR_VER);
+  const lv_coord_t paneW = PANE_W - 2 * PANE_PAD;
+  const lv_coord_t colW  = paneW - SETUP_STRIP_W - 14;
+
+  setupCol = lv_obj_create(page);
+  lv_obj_set_size(setupCol, colW, LV_PCT(100));
+  lv_obj_align(setupCol, LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_set_style_bg_opa(setupCol, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(setupCol, 0, 0);
+  lv_obj_set_style_pad_all(setupCol, 0, 0);
+  lv_obj_set_style_pad_row(setupCol, 12, 0);
+  lv_obj_set_flex_flow(setupCol, LV_FLEX_FLOW_COLUMN);
+  lv_obj_set_scroll_dir(setupCol, LV_DIR_VER);
+  lv_obj_set_scrollbar_mode(setupCol, LV_SCROLLBAR_MODE_OFF);
 
   lv_obj_t *v;
-  setupRow(col, "DISPLAY BUILD", &v);
+  setupRow(setupCol, "DISPLAY BUILD", &v);
   lv_label_set_text(v, FW_VERSION);
-  setupRow(col, "CONTROLLER BUILD", &setupCtrlVer);
+  setupRow(setupCol, "CONTROLLER BUILD", &setupCtrlVer);
+  setupRow(setupCol, "RS485 PINS", &setupLinkPins);
+  setupRow(setupCol, "J9 FRAMES RX / TX", &setupFrames);
+  setupRow(setupCol, "LINK REINITS", &setupReinits);
+  setupRow(setupCol, "TOUCH BRIDGED / STALE", &setupTouchCnt);
+  setupRow(setupCol, "LAST TOUCH", &setupTouch);
+  setupRow(setupCol, "FREE HEAP", &setupHeap);
+  setupRow(setupCol, "FREE PSRAM", &setupPsram);
+  setupRow(setupCol, "LOOP HIGH-WATER", &setupLoop);
+  setupRow(setupCol, "UPTIME", &setupUptime);
 
-  lv_obj_t *r = setupRow(col, "RS485 PINS", &setupLinkPins);
-  lv_obj_t *sw = mkBtn(r, 130, 56, COL_CARD_ON);
-  lv_obj_align(sw, LV_ALIGN_RIGHT_MID, 0, 0);
-  lv_obj_add_event_cb(sw, linkSwapCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(sw, "SWAP", &lv_font_montserrat_20, COL_TEXT));
-  lv_obj_align(setupLinkPins, LV_ALIGN_RIGHT_MID, -146, 0);
-
-  r = setupRow(col, "BACKLIGHT", nullptr);
-  lv_obj_t *blb = mkBtn(r, 130, 56, COL_CARD_ON);
-  lv_obj_align(blb, LV_ALIGN_RIGHT_MID, 0, 0);
-  lv_obj_add_event_cb(blb, blToggleCb, LV_EVENT_CLICKED, NULL);
-  setupBl = mkText(blb, "ON", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_center(setupBl);
-
-  r = setupRow(col, "SLEEP AFTER", nullptr);
-  lv_obj_t *slb = mkBtn(r, 130, 56, COL_CARD_ON);
-  lv_obj_align(slb, LV_ALIGN_RIGHT_MID, 0, 0);
-  lv_obj_add_event_cb(slb, sleepCycleCb, LV_EVENT_CLICKED, NULL);
-  setupSleep = mkText(slb, "60 s", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_center(setupSleep);
-
-  setupRow(col, "LAST TOUCH", &setupTouch);
-
-  r = mkBtn(col, LV_PCT(100), 80, COL_CARD);
+  lv_obj_t *r = mkBtn(setupCol, LV_PCT(100), 80, COL_CARD);
   lv_obj_add_event_cb(r, restartCb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(r, LV_SYMBOL_POWER "   RESTART DISPLAY", &lv_font_montserrat_28, COL_ACCENT));
+
+  // The scroll column, right of the rows: a page up, a track that shows where you are,
+  // a page down.
+  setupUp = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
+  lv_obj_align(setupUp, LV_ALIGN_TOP_RIGHT, 0, 0);
+  lv_obj_add_event_cb(setupUp, setupScrollCb, LV_EVENT_CLICKED, (void *)(intptr_t)-1);
+  lv_obj_center(mkText(setupUp, LV_SYMBOL_UP, &lv_font_montserrat_40, COL_TEXT));
+
+  setupDown = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
+  lv_obj_align(setupDown, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_add_event_cb(setupDown, setupScrollCb, LV_EVENT_CLICKED, (void *)(intptr_t)1);
+  lv_obj_center(mkText(setupDown, LV_SYMBOL_DOWN, &lv_font_montserrat_40, COL_TEXT));
+
+  setupTrack = lv_obj_create(page);
+  lv_obj_set_size(setupTrack, 22, 448 - 2 * SETUP_BTN_H - 24);
+  lv_obj_align(setupTrack, LV_ALIGN_TOP_RIGHT, -(SETUP_STRIP_W - 22) / 2, SETUP_BTN_H + 12);
+  lv_obj_set_style_bg_color(setupTrack, lv_color_hex(COL_CARD), 0);
+  lv_obj_set_style_border_width(setupTrack, 0, 0);
+  lv_obj_set_style_radius(setupTrack, 11, 0);
+  lv_obj_set_style_pad_all(setupTrack, 0, 0);
+  lv_obj_clear_flag(setupTrack, LV_OBJ_FLAG_SCROLLABLE);
+
+  setupThumb = lv_obj_create(setupTrack);
+  lv_obj_set_width(setupThumb, 22);
+  lv_obj_set_style_bg_color(setupThumb, lv_color_hex(COL_ACCENT), 0);
+  lv_obj_set_style_border_width(setupThumb, 0, 0);
+  lv_obj_set_style_radius(setupThumb, 11, 0);
+  lv_obj_clear_flag(setupThumb, LV_OBJ_FLAG_SCROLLABLE);
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -1180,8 +1256,6 @@ static void rs485Swap() {
     lv_label_set_text(setupLinkPins, b);
   }
 }
-
-static void linkSwapCb(lv_event_t *e) { (void)e; rs485Swap(); }
 
 // ── Page switching ──
 
@@ -1225,6 +1299,11 @@ static void showPage(Page p) {
   if (p == PAGE_FLAVOR)  showFlavor(FLV_BOTH);
   if (p == PAGE_SERVICE) showService(SVC_MENU);
   if (p == PAGE_STATUS)  { statusAskedMs = 0; refreshStatusPage(); }
+  if (p == PAGE_SETUP) {
+    refreshSetupPage();
+    lv_obj_update_layout(setupCol);   // the scroll extents are only real once laid out
+    setupScrollRefresh();
+  }
 }
 
 static void buildUi() {
@@ -1530,22 +1609,13 @@ void loop() {
       padWatch();
       refreshLinkDot();
       if (activePage == PAGE_STATUS) refreshStatusPage();
-      if (activePage == PAGE_SETUP && setupTouch) {
-        static uint32_t shownXY = 0xFFFFFFFF;
-        uint32_t xy = ((uint32_t)lastTouchX << 16) | lastTouchY;
-        if (xy != shownXY) {
-          shownXY = xy;
-          char b[24];
-          snprintf(b, sizeof(b), "%u / %u", lastTouchX, lastTouchY);
-          lv_label_set_text(setupTouch, b);
-        }
-      }
+      if (activePage == PAGE_SETUP)  refreshSetupPage();
     }
   }
 
   // Idle: after inactivity, turn the backlight off and pause the animation
   // (no point repainting a dark screen). A touch wakes it — see wake().
-  if (displayReady && !screenIdle && !holding && millis() - lastInputTime >= idleTimeoutMs) {
+  if (displayReady && !screenIdle && !holding && millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
     screenIdle = true;
     setBacklight(false);
     if (animTimer) lv_timer_pause(animTimer);
