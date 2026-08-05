@@ -2,7 +2,7 @@
 
 Attended human minutes to build one finished appliance, one row per hand operation, grouped into the ten kinds of work the build asks for. Companion to [bom.md](/hardware/ledger/bom.md): that file is what a unit costs in parts, this one is what it costs in time.
 
-**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the ~200 printer-hours are all real and none of them are in this file — the operator is elsewhere. What is counted is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage.
+**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the ~100 printer-hours are all real and none of them are in this file — the operator is elsewhere. What is counted is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
 **An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per vessel), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
 
@@ -115,11 +115,11 @@ Every wetted and gas joint in the unit: the vessel's four elbow stacks, the seve
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.3 kg of filament across the twenty-one §7 lines is on the order of 200 printer-hours per unit, but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the 42 heat-set inserts and the 42 machine screws that close the build.
+Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.3 kg of filament across the twenty-one §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the 42 heat-set inserts and the 42 machine screws that close the build.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.3 kg over ~200 printer-hours; only the load/unload passes are counted | 25 |
+| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.3 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
 | Press 42 heat-set inserts — foam caps, reservoir caps, touch-flo pods | CC-05 | FX-888D + T18 tip kit, twelve of them in the shell faces alone | 10 |
 | Drive the 42 machine screws that close the build | — | 12 foam-cap, 12 reservoir-cap, 3 touch-flo, 15 shelf | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
@@ -186,7 +186,7 @@ The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM)
 
 ## Not counted here
 
-- **Unattended process time** — the 30-minute hydro hold, the two 15-minute vacuum holds, the 30–60 minute passivation soak, the silicone cure and post-cure bake, the foam rise, the ~200 printer-hours, the 8-hour burn-in, and the first chill-down from tap temperature to service temperature.
+- **Unattended process time** — every hour a machine is busy and nobody is on it. That is its own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which holds the print, the cures and bakes, the hydro and vacuum holds, the passivation soak, the chill-down and the burn-in, and derives turnaround and throughput from them. Nothing there is costed.
 - **Shipping and receiving** — unpacking orders, kitting, inventory.
 - **Design, CAD, firmware and documentation** — this file costs building a unit, not developing one.
 - **Contract labor already capitalized in dollars** — JLCPCB assembly of the controller board, SendCutSend's cutting. Those arrive as parts and are priced in [bom.md](/hardware/ledger/bom.md).
