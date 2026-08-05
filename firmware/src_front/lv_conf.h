@@ -32,6 +32,11 @@
 #define LV_FONT_MONTSERRAT_48 1
 #define LV_FONT_DEFAULT &lv_font_montserrat_20
 
+/* No state-change animation. The default theme interpolates bg colour, transform and
+ * translate over 80 ms when a widget is pressed, and 80 ms is shorter than one repaint of
+ * this panel — the animation can only render as a single frame caught somewhere along it. */
+#define LV_THEME_DEFAULT_TRANSITION_TIME 0
+
 /* Disable debug monitors */
 #define LV_USE_PERF_MONITOR 0
 #define LV_USE_MEM_MONITOR 0
