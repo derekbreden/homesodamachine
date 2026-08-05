@@ -121,8 +121,8 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # it is a hole into a sealed pocket. A's fill takes its own station when its own
 # junction is dissolved; `reservoir_fill_side` is which cap is cut.
 reservoir_fill_side = 1
-reservoir_fill_port_x = 95.0
-reservoir_fill_port_y = 55.0
+reservoir_fill_port_x = 88.0
+reservoir_fill_port_y = 43.5
 
 # Outer footprint. The ±Y (front/back) gap is the tank's foam blanket out to the
 # shell wall. The ±X width is set by the reservoir + its reed channel butted
@@ -409,7 +409,7 @@ deck_mounts = {
     "bag-b-tray":  DeckMount((105.25,  17.02),   0.00,  49.50,   0.0,  9.00, 16.0),
     "vk-tray":     DeckMount((  6.30,  37.62),  49.50,   0.00,   0.0,  9.00, 16.0),
     "nozzle-b-tray": DeckMount((-82.92, 34.62), 49.50,   0.00,   0.0,  9.00, 16.0),
-    "nozzle-tray": DeckMount((  65.62, -37.51),   0.00,  49.50,   0.0,  9.00, 16.0),
+    "nozzle-tray": DeckMount(( 109.75, -68.325), 49.50,   0.00,   0.0,  9.00, 16.0),
 }
 
 
@@ -509,13 +509,14 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # potted where it turns.
 #   reservoir-b stands over the +Y BAND, not over a port: its line crosses the pocket wall at
 # the bulkhead's own height, comes about in the band and climbs the shell's whole height in
-# it, potted where it crosses, and this bore is where it reaches the deck. Its X in the cap's
-# frame is set by the FITTING it feeds and by the conduit beside it: the divider's stem faces
-# −X across the deck, so the run above the lid wants this bore on the stem's own plane, and
-# `water-in` stands a millimetre away in the other axis with a line falling the deck's whole
-# height on it — so the two bores hold a `LINE_PITCH` between them and this one takes the plane
-# nearest the stem that leaves it. Its Y is the band's own lane, held off the corner boss by
-# the pour gap. Nothing else uses the +Y band, so the lane is a bore wide the whole way.
+# it, potted where it crosses, and this bore is where it reaches the deck. Its Y in the cap's
+# frame is the band's own lane, held off the corner boss by the pour gap; nothing else uses
+# that band, so the lane is a bore wide the whole way and both of these two ride it.
+#   Their X is the DECK ABOVE. The nozzle-A gate's plate lies on the lid across the whole
+# forward end of this flank, so both bores stand aft of its footprint, in the strip between
+# that plate and the pump's own — and there they stand the pour gap apart rather than merged,
+# with `water-in` the forward of the two, on the leg the discharge chain's collet hands its
+# fall down.
 #   The two RESERVOIR FILLS stand over their own reservoirs rather than over a
 # band: each is the column between a valve on the deck and the bore in the cap
 # of the reservoir it fills (`reservoir_fill_port_x`, `reservoir_fill_port_y`),
@@ -523,8 +524,8 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # the two features meet face to face with nothing between them to cross. In the
 # cap's frame that station is the port's own X and the negated Y.
 cap_conduits = {
-    "water-in": (102.0, -80.5),
-    "reservoir-b": (109.35, -79.5),
+    "water-in": (75.0, -80.5),
+    "reservoir-b": (62.0, -79.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
 }
 
