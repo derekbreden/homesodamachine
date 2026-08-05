@@ -67,9 +67,8 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
-    "Drip pan + slide rails": [
+    "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",
-        "enclosure/drip-pan/drip-pan-rails.step",
     ],
     # One part, five off — the same solid five times, which is what the row's Qty
     # says and what its mass has to be: the front column's three and the aft

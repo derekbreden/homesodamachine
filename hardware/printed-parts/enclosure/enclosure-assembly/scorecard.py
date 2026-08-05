@@ -156,8 +156,7 @@ COMPONENTS = [
     _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly). Runs FRONT TO BACK down the fittings lane west of the pump — the lane is narrower than the chain is long — with its 1/4\" PTC inlet AFT under the rear-panel water bulkhead it is fed from and its 1/4\" PTC outlet forward at the split. Vent in its native pose, weeping down its own column onto the pan's ground below it. Its Z is not free: the basin's rim and section set it. Nothing holds it: 140 mm of brass with no mounting ear on it, tube-hung on the line. Holder TBD"),
     _c("water-split",       "real",        True,  "none",      "JG PP0208E 1/4\" union tee (reference/water-split); second fitting of the WALL SEQUENCE — tube-hung on the chain's own axis in all three coordinates, its supply mouth one JUNCTION_LEG_LEAD down the line from the chain's outlet. Run along the wall, supply aft at the chain, flavor tap forward at the regulator inline ahead, branch falling to V-K. Chain, split and regulator are one family on one line. Nothing holds any of the three — a push-fit union tee has no ear to bolt. Holder TBD"),
     _c("flow-regulator",    "real",        True,  "none",      "neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Third fitting of the WALL SEQUENCE: inline on the split's flavor collet, quarter-turned so both collets lie on Y, its inlet one JUNCTION_LEG_LEAD of straight from the mouth that feeds it — so fluid-1 is that straight, and the outlet fires forward down the wall's open strip with fluid-2 one lean onto V-A's inlet. Every coordinate reads off the split's collet (`contents.flowreg_lane`), so it follows the sequence. Its needle stem stands up, reached over the shelf from the bay. Nothing holds it, as with the two fittings ahead of it. Holder TBD"),
-    _c("drip-pan",          "real",        True,  "rails", "Printed PETG catch basin (printed-parts/enclosure/drip-pan). Stands in the fittings loft under the ASSE chain on its own rails, hung at the plane the chain's underside leaves (drip_pan_seat), its west wall a stated inset west of the vent column. Carried on its own floor edge, no fasteners. Draws aft in +Y along the rails to be emptied, rising at no point in that travel"),
-    _c("drip-pan-rails",    "real",        True,  "none",  "Printed PETG rail pair (printed-parts/enclosure/drip-pan, `build_rails`), a mirrored L each side of the basin: web, and a foot and shelf both turning inboard off it, plus a forward home stop. The shelves' top face is the basin's floor plane and the webs fence it in X on a 0.3 mm slip per side. Their feet stand in the loft's air — the cap under them is the loft trays' ground, not theirs — so what carries the pair is Open: bracket TBD"),
+    _c("drip-pan",          "real",        True,  "none",  "Printed PETG catch basin (printed-parts/enclosure/drip-pan). Stands in the fittings loft under the ASSE chain, hung at the plane the chain's underside leaves (drip_pan_seat), its west wall a stated inset west of the vent column. NOTHING STANDS UNDER ITS FLOOR — the basin lies over the casting, so section beneath it is height charged twice and it comes out of the vent gap above. What carries it takes hold of its FLANGE, outboard of the shell (`drip_pan.FLANGE_W`, now 0). Draws aft in +Y to be emptied. Carrier TBD"),
     _c("digiten-flow",      "real",        True,  "none", "DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser where it crosses the LOFT, yawed a quarter turn so the flow runs aft with the riser and the pigtail boss stands up at the J4 loom. Its rigid axis hangs over the SeaFlo's crown in the loft's EAST pocket, clear east of pump A's two loft lines — which is also the column that keeps the riser monotonic, the cold core's outlet standing east of the meter and the blue-ringed bulkhead west of it. The loft's west lane cannot hold it: pump A's suction and discharge run that lane's whole length a tube over the pump's crown, and a body this long laid there stands in one or the other at every height. Cradle TBD"),
     # The CO2 chain — the side-wall inlet's two inline bodies, wall-hung in the machine
     # corridor behind the refrigeration stratum.
@@ -268,7 +267,6 @@ MADE_UP = [
 TOUCHING_OK = {
     frozenset(p) for p in [
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
-        ("drip-pan", "drip-pan-rails"),         # the basin's floor edge riding its own rail shelves
         ("foam-assembly", "bag-b-tray-assembly"),    # the aft stand's forward plate flat on the cap
         ("foam-assembly", "nozzle-tray-assembly"),   # and the wide plate behind it (`aft_tray_z`)
         ("foam-assembly", "vk-tray-assembly"),       # and the middle row's, on the same lid
@@ -507,13 +505,10 @@ def _declare_placement_rules():
         "flow-regulator":    [("near", "water-split", contents.JUNCTION_LEG_LEAD + 4.0),
                               ("clear", "hopper-funnel", 1.0)],
         # The pan is centred on the vent column rather than posed, so its rules read the seat
-        # and the neighbours that bound the strip it stands in: it rides its rails, keeps the
-        # lane it draws aft along clear of the pump, and stands off the chain overhead.
-        "drip-pan":          [("near", "drip-pan-rails", 0.5),
-                              ("clear", "seaflo-pump", 3.0),
+        # and the two bodies that bound its column: the casting its floor stands over, and the
+        # chain overhead whose underside it hangs from.
+        "drip-pan":          [("clear", "seaflo-pump", 3.0),
                               ("clear", "asse1022-assembly", 3.0)],
-        "drip-pan-rails":    [("near", "drip-pan", 0.5),
-                              ("clear", "seaflo-pump", 3.0)],
         # The electrical block stands in two columns on the machine's east flank. On the WALL:
         # the brick, and the board a storey over it reading that brick's own crown as its floor,
         # so the `near` that matters for the board is the body under it and not the cap it left.
@@ -1292,7 +1287,7 @@ def __getattr__(name):
 # port. The basin catches the vent's drip and is drawn out to be emptied by hand, and its rails
 # are structure; nothing joins either. A name here must own no PORTS entry (asserted in
 # ports_audit).
-PASSIVE_NO_PORTS: frozenset = frozenset({"drip-pan", "drip-pan-rails"})
+PASSIVE_NO_PORTS: frozenset = frozenset({"drip-pan"})
 
 
 def _on_bbox_surface(pos, bb, tol) -> bool:

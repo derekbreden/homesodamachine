@@ -1,10 +1,10 @@
 {
   "gatesPass": false,
-  "placed": 64,
+  "placed": 65,
   "located": 100,
   "shaped": 98,
   "routed": 59,
-  "held": 32,
+  "held": 30,
   "mounted": 14,
   "checks": [
     {
@@ -12,7 +12,7 @@
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "44/44 placed declared",
+      "value": "43/43 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -31,12 +31,10 @@
       "id": "room-holds",
       "label": "Every derived pose has the room its own construction states",
       "kind": "gate",
-      "status": "fail",
-      "value": "1 short",
+      "status": "pass",
+      "value": "0 short",
       "target": "0 short",
-      "detail": [
-        "port-row-rails: the basin's rails clear the pump's crown at z=326.4000, but this row is held at 324.7000 \u2014 1.7000 mm of it comes off `drip_pan.VENT_GAP` under the chain. Raise `PORT_ROW_RAILS` and the back panel's Z seam with it, or take section off the basin."
-      ],
+      "detail": [],
       "active": true
     },
     {
@@ -127,32 +125,30 @@
         "foam-assembly \u2014 seaflo-pump: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 0.00 mm \u2014 CONTACT (declared ok)",
         "gasher-co2 \u2014 co2-inlet: 0.00 mm \u2014 CONTACT (declared ok)",
-        "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 psu: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 bag-b-tray-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 vk-tray-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 nozzle-b-tray-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 nozzle-tray-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
-        "seaflo-pump \u2014 drip-pan-rails: 1.00 mm",
         "psu \u2014 relay-1: 1.00 mm",
         "relay-1 \u2014 ac-hub: 1.00 mm",
         "bag-b-tray-assembly \u2014 tee-y-f: 1.25 mm",
         "pump-b \u2014 pump-a: 1.74 mm",
         "flow-regulator \u2014 hopper-funnel: 2.28 mm",
-        "asse1022-assembly \u2014 drip-pan: 2.42 mm",
         "suction-chain \u2014 nozzle-b-tray-assembly: 2.49 mm",
         "condenser+fan \u2014 bag-b-tray-assembly: 2.50 mm",
         "foam-assembly \u2014 condenser+fan: 2.50 mm",
         "vk-tray-assembly \u2014 tee-y-g: 2.62 mm",
         "bag-a-tray-assembly \u2014 tee-y-c: 2.62 mm",
+        "seaflo-pump \u2014 drip-pan: 2.77 mm",
         "seaflo-pump \u2014 nozzle-tray-assembly: 3.00 mm",
         "ac-hub \u2014 ground-stack: 3.00 mm",
         "source-tray-assembly \u2014 hopper-funnel: 3.37 mm",
         "pump-a \u2014 tee-y-e: 3.44 mm",
         "compressor-shroud \u2014 wr1110: 3.50 mm",
         "tee-y-a \u2014 tee-y-b: 4.01 mm",
+        "asse1022-assembly \u2014 drip-pan: 4.07 mm",
         "condenser+fan \u2014 tee-y-f: 4.13 mm",
-        "seaflo-pump \u2014 drip-pan: 4.29 mm",
         "bag-a-tray-assembly \u2014 tee-y-e: 4.68 mm",
         "bag-b-tray-assembly \u2014 nozzle-tray-assembly: 5.04 mm",
         "compressor-shroud \u2014 gasher-co2: 5.50 mm",
@@ -195,8 +191,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "44/44",
-      "target": "44/44",
+      "value": "43/43",
+      "target": "43/43",
       "detail": [],
       "active": true
     },
@@ -205,7 +201,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "64% (28/44)",
+      "value": "65% (28/43)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -216,11 +212,10 @@
         "\u2713 seaflo-pump: y+ 8.5 near foam-assembly 0.0 clear discharge-chain 11.9 mm",
         "\u2717 discharge-chain: near seaflo-pump 11.9(>2) mm",
         "\u2713 suction-chain: clear nozzle-b-tray-assembly 2.5 clear seaflo-pump 8.4 mm",
-        "\u2717 asse1022-assembly: near bulkhead-water 10.0 fall vent-tip onto drip-pan 18.8 clear seaflo-pump 19.3(<30) mm",
+        "\u2717 asse1022-assembly: near bulkhead-water 10.0 fall vent-tip onto drip-pan 20.5 clear seaflo-pump 19.3(<30) mm",
         "\u2713 water-split: near asse1022-assembly 8.0 clear hopper-funnel 6.4 clear flow-regulator 11.8 mm",
         "\u2713 flow-regulator: near water-split 11.8 clear hopper-funnel 2.3 mm",
-        "\u2717 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 4.3 clear asse1022-assembly 2.4(<3) mm",
-        "\u2717 drip-pan-rails: near drip-pan 0.0 clear seaflo-pump 1.0(<3) mm",
+        "\u2717 drip-pan: clear seaflo-pump 2.8(<3) clear asse1022-assembly 4.1 mm",
         "\u2713 psu: near foam-assembly 0.0 clear seaflo-pump 60.5 mm",
         "\u2717 pcba: near psu 60.7(>10) clear seaflo-pump 91.2 clear c14-inlet 160.7 mm",
         "\u2713 relay-1: near psu 1.0 clear seaflo-pump 87.8 clear c14-inlet 27.4 mm",
@@ -247,7 +242,8 @@
         "\u2717 bulkhead-water: y+ 12.5 z+ 24.4(>21) near c14-inlet 106.3(>9) clear c14-inlet 106.3 clear asse1022-assembly 10.0 mm",
         "\u2717 bulkhead-flavor-b: y+ 12.5 z+ 24.4(>21) near bulkhead-carb 7.0 clear bulkhead-carb 7.0 clear c14-inlet 76.5 mm",
         "\u2717 bulkhead-carb: y+ 12.5 z+ 24.4(>21) near bulkhead-flavor-a 7.0 clear bulkhead-flavor-a 7.0 clear bulkhead-flavor-b 7.0 mm",
-        "\u2717 bulkhead-flavor-a: y+ 12.5 z+ 24.4(>21) near bulkhead-carb 7.0 clear bulkhead-carb 7.0 clear nozzle-tray-assembly 185.9 mm"
+        "\u2717 bulkhead-flavor-a: y+ 12.5 z+ 24.4(>21) near bulkhead-carb 7.0 clear bulkhead-carb 7.0 clear nozzle-tray-assembly 185.9 mm",
+        "\u2717 c14-inlet: y+ 9.0 z+ 21.2(>20) near bulkhead-water 106.3(>9) clear bulkhead-water 106.3 clear nozzle-tray-assembly 193.6 mm"
       ],
       "active": false
     },
@@ -256,7 +252,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "pass",
-      "value": "100% (44/44)",
+      "value": "100% (43/43)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -307,7 +303,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "98% (43/44)",
+      "value": "98% (42/43)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block with the factory filter-drier brazed to its outlet, standing over the shroud on its 151 with its airflow axis ACROSS the machine and its exhaust face +X, the wall it stands against. Only its 56 runs across, at the +X end, so a 125 mm lane stays open at the \u2212X end of the band. Shelf, ear pads and the two side grilles the crossing needs: TBD",
@@ -361,7 +357,7 @@
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 8.0 mm, 0 bends at R25.4 \u2014 nearest 12.33 mm to discharge-chain",
         "\u2713 water-3: water-split.to-vk \u2192 vk-tray-assembly.V-K-I \u2014 \u00d86.35 \u00d7 195.0 mm, 5 bends at R25.4 \u2014 nearest 4.93 mm to bag-b-tray-assembly",
         "\u2713 water-4: vk-tray-assembly.V-K-O \u2192 suction-chain.tube-port \u2014 \u00d86.35 \u00d7 67.4 mm, 2 bends at R25.4 \u2014 nearest 3.67 mm to fluid-27",
-        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 57.5 mm, 2 bends at R8.6 \u2014 nearest 2.64 mm to drip-pan",
+        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 57.5 mm, 2 bends at R8.6 \u2014 nearest 2.46 mm to drip-pan",
         "\u2713 water-7: seaflo-pump.suction \u2192 suction-chain.barb-tip \u2014 \u00d815.1 \u00d7 157.7 mm, 3 bends at R15.9 \u2014 nearest 5.28 mm to foam-assembly",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 100.6 mm, 1 bends at R25.4 \u2014 nearest 0.00 mm to fluid-25",
         "\u2713 co2-1: gasher-co2.outlet \u2192 wr1110.inlet \u2014 \u00d86.35 \u00d7 10.0 mm, 0 bends at R3.0 \u2014 nearest 10.83 mm to compressor-shroud",
@@ -376,10 +372,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "32% (14/44)",
+      "value": "30% (13/43)",
       "target": "100%",
       "detail": [
-        "14 held (foam-assembly by floor-capture, display by shell-facet, drip-pan by rails, gasher-co2 by wall-capture, bulkhead-flavor-a by wall-capture, bulkhead-flavor-b by wall-capture, bulkhead-carb by wall-capture, bulkhead-water by wall-capture, c14-inlet by wall-capture, co2-inlet by wall-capture, bag-b-tray-assembly by cap, vk-tray-assembly by cap, nozzle-b-tray-assembly by cap, nozzle-tray-assembly by cap); 30 loose internal parts unheld"
+        "13 held (foam-assembly by floor-capture, display by shell-facet, gasher-co2 by wall-capture, bulkhead-flavor-a by wall-capture, bulkhead-flavor-b by wall-capture, bulkhead-carb by wall-capture, bulkhead-water by wall-capture, c14-inlet by wall-capture, co2-inlet by wall-capture, bag-b-tray-assembly by cap, vk-tray-assembly by cap, nozzle-b-tray-assembly by cap, nozzle-tray-assembly by cap); 30 loose internal parts unheld"
       ],
       "active": false
     },
@@ -388,12 +384,12 @@
       "label": "The feature that fastens each component is printed into another part",
       "kind": "goal",
       "status": "warn",
-      "value": "14% (6/44)",
+      "value": "14% (6/43)",
       "target": "100%",
       "detail": [
         "enclosure_back_top carries 1: c14-inlet",
         "foam-assembly carries 5: bag-b-tray-assembly, ground-stack, nozzle-b-tray-assembly, nozzle-tray-assembly, vk-tray-assembly",
-        "38 with nothing fastening them \u2014 a body resting on another is not mounted, and neither is one captured by a pocket or stuck down. One row each, below.",
+        "37 with nothing fastening them \u2014 a body resting on another is not mounted, and neither is one captured by a pocket or stuck down. One row each, below.",
         "ac-hub: nothing fastens it \u2014 nothing holds it at all",
         "asse1022-assembly: nothing fastens it \u2014 nothing holds it at all",
         "bag-a-tray-assembly: nothing fastens it \u2014 nothing holds it at all",
@@ -402,7 +398,7 @@
         "digiten-flow: nothing fastens it \u2014 nothing holds it at all",
         "discharge-chain: nothing fastens it \u2014 nothing holds it at all",
         "divider-y-h: nothing fastens it \u2014 nothing holds it at all",
-        "drip-pan-rails: nothing fastens it \u2014 nothing holds it at all",
+        "drip-pan: nothing fastens it \u2014 nothing holds it at all",
         "flow-regulator: nothing fastens it \u2014 nothing holds it at all",
         "hopper-funnel: nothing fastens it \u2014 nothing holds it at all",
         "pcba: nothing fastens it \u2014 nothing holds it at all",
@@ -429,7 +425,6 @@
         "bulkhead-water: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
         "co2-inlet: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
         "display: nothing fastens it \u2014 held by shell-facet, which is not a printed-in feature",
-        "drip-pan: nothing fastens it \u2014 held by rails, which is not a printed-in feature",
         "foam-assembly: nothing fastens it \u2014 held by floor-capture, which is not a printed-in feature",
         "gasher-co2: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature"
       ],
@@ -2659,37 +2654,13 @@
         [
           -3.855,
           349.95,
-          329.4,
+          327.7,
           49.145,
           425.95,
-          339.4
+          337.7
         ]
       ],
       "fill": 0.4085,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "drip-pan-rails",
-      "boxes": [
-        [
-          -7.155,
-          346.95,
-          326.4,
-          -0.155,
-          425.95,
-          335.4
-        ],
-        [
-          45.445,
-          346.95,
-          326.4,
-          52.445,
-          425.95,
-          335.4
-        ]
-      ],
-      "fill": 0.6335,
       "primitive": false,
       "declared": "real"
     },
@@ -6851,12 +6822,6 @@
     {
       "component": "drip-pan",
       "by": null,
-      "held": "rails",
-      "kind": "real"
-    },
-    {
-      "component": "drip-pan-rails",
-      "by": null,
       "held": "none",
       "kind": "real"
     },
@@ -7126,11 +7091,6 @@
       "settled": null
     },
     {
-      "name": "drip-pan-rails",
-      "pose": "provisional",
-      "settled": null
-    },
-    {
       "name": "flow-regulator",
       "pose": "provisional",
       "settled": null
@@ -7252,8 +7212,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-05T05:26:01+00:00",
-    "commit": "cdabea353a2331f53e341a22b6915121a7b51eff",
+    "generated": "2026-08-05T06:17:43+00:00",
+    "commit": "c73e6a4a7419021495cfc3d275e87573d767eccd",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7271,18 +7231,17 @@
       "hardware/printed-parts/electronics/module_tray.py": "sha256:41a7e9977a86ee89",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "stat:1460565:1785814373649082520",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "sha256:0e1444d2fc050af8",
-      "hardware/printed-parts/enclosure/drip-pan/drip-pan-rails.step": "stat:53058:1785704163331899670",
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:117259:1785686863767739385",
-      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
+      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:5599669fa0aaa1d1",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:14703a125da383d7",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:37a64c295bac0b19",
       "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:53445d289a15ed13",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:a8b60a31bc577466",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:9d489d58a72c5b60",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:3582e2212966af84",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726302:1785705962150479625",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:766665:1785735313209124048",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785705952324899942",
