@@ -104,6 +104,36 @@ idiom solved that corner on the first solve, one turn later, at D. The chain had
 Do not wait for this register to tell you a thing was wanted. It is the receipt for turns
 that are already gone.
 
+## He does not read the end of your turn
+
+He has described how he reads, precisely, and it is not linear:
+
+> I started at the top and persisted until I felt a desire to respond. I then looked at
+> between 1 and 8 words at the start of each paragraph. I found a couple points throughout
+> there to stop and look at a collection of ~8 words in the middle or end of a paragraph. I
+> then looked at a bit of the end. Then I started typing this message.
+> — [`sessions/Comments are a code smell.md`](sessions/<Comments are a code smell.md>)
+
+It is not a complaint he keeps to himself, either: *"I couldn't read more than a few words
+of what you said, so please don't take my response as affirming anything you said."* *"Look,
+I couldn't read all that you said."* *"here is where I stopped reading."* *"I did not even
+read far enough to see your offer."*
+
+Two consequences for anything you write:
+
+**The first eight words of a paragraph are the paragraph.** Lead every one with the fact.
+A hedge, a preamble, or a restatement of his own question in the lead position is the part
+he samples, and it is what he will answer.
+
+**The closing offer is in the least-read position on the page.** It is a stall and it is
+parked where he does not look, which is how a turn ends with him having read nothing that
+happened and nothing having landed on main. He said this outright in
+[Routes 20](<discretion/Routes 20.md>): *"Your offer came after you said everything I copied
+and pasted there — I did not even read far enough to see your offer."*
+
+The channel he actually reads is the repository. *"It is easier for me to review your 3D
+placement and commits than it is for me to review your words."* Put the result there.
+
 ## The costs are not symmetric
 
 You stop because an unbidden action feels like the dangerous error. In this repo it is the
