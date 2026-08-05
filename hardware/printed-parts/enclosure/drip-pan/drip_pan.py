@@ -209,7 +209,8 @@ def main():
     print(f"  Rim flange {FLANGE_W:g} all four ways at z {flange_z():g} — "
           f"{PAN_X + 2 * FLANGE_W:g} x {PAN_Y + 2 * FLANGE_W:g} over the rim, "
           f"r{CORNER_R + FLANGE_W:g}, {bearing_w():.2f} of flat bearing a side")
-    print(f"  Withdraws −X: {PAN_X + FLANGE_W:g} mm of travel takes the rim clear of the wall")
+    print(f"  Withdraws −X: {PAN_X + 2 * FLANGE_W:g} mm long on that axis, so it draws its own "
+          f"length plus the wall's section to come clear")
     for shape, name in ((pan, "drip-pan.step"),):
         out = _here.parent / name
         export_step(shape, str(out))
