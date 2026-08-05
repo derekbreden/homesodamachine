@@ -258,6 +258,12 @@ DISCH_CHAIN_STEP = _hw / "reference" / "seaflo-discharge-chain" / "seaflo-discha
 # chain stands one `LINE_HUG` under it — which is what lets the hose leave forward beneath the
 # basin instead of having to clear it.
 DISCH_CHAIN_DROP = 16.7
+# How far aft of the discharge's own plane the chain lies. THE CASTING IS THE FENCE: at this
+# reach the body stands one `LINE_HUG` short of the pump's own solid, measured against solids
+# and not against the box, which reads this column closed a whole storey lower than the metal
+# is. What the reach buys is `water-5`'s leg — the collet stands this much further ahead of the
+# bore it falls into, and the corner between them turns on the difference.
+DISCH_CHAIN_AFT = 17.7
 SUCT_CHAIN_STEP  = _hw / "reference" / "seaflo-suction-chain" / "seaflo-suction-chain.step"
 ASSE_STEP        = _hw / "reference" / "asse1022-assembly" / "asse1022-assembly.step"
 WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
@@ -641,17 +647,14 @@ TRAY_YAW = 0.0
 # flank reservoir B's port opens on at x 11: Y-H hangs off that flank (`y_h_pos`) with the
 # bag on its stem.
 BAG_B_TRAY_YAW = 270.0
-# THE NOZZLE-A GATE stands turned a quarter, alone in the west lane's aft end rather than on
-# the aft stand. It carries one valve, so its plate is the family's one-seat part.
-#   Turned, its collets face ±X and its length lies ACROSS the lane. That is what both its runs
-# want, and they want it in opposite directions: the inlet opens WEST down the front column's
-# own lane, which is the lane that feeds it, and the outlet opens EAST toward the column its
-# bulkhead stands on. Unturned, both would leave along the lane and each would owe a corner to
-# get across it.
-#   Standing here rather than on the stand is what makes the outlet's run one straight length:
-# the plate is FORWARD of the pump's front face, so the bulkhead's whole column is open from
-# this row's port plane to the panel's own stratum and nothing of the aft field stands in it.
-NOZZLE_TRAY_YAW = 270.0
+# THE NOZZLE-A GATE stands UNTURNED, alone in the west lane's FORWARD end. It carries one
+# valve, so its plate is the family's one-seat part.
+#   Its collets face ±Y and its length lies ALONG the lane. Both of its runs travel that lane:
+# the INLET opens FORWARD, on the column `fluid-17` climbs out of the front column onto, so the
+# leg that closes on it is the collet's own axis; the OUTLET opens AFT into the band between
+# this plate and the pump's front face, which is where `fluid-18` takes its whole climb to the
+# panel's stratum.
+NOZZLE_TRAY_YAW = 0.0
 #
 # THE SOURCE PAIR is the pair whose pose is not chosen: V-B gates a GRAVITY drain, so its
 # inlet has to stand under the funnel's spout with nothing between, and the spout's column
@@ -942,7 +945,7 @@ PUMP_PORT_RISE = _kamoer.arch_plane_z - _kamoer.head_front_z
 #     the front column's air, and is not what pins this any more.
 #   * not AFT: nothing pins it. The stand's aft face used to ride the rear corner column's
 #     face; the whole band behind it is now the outlet lane's and the shelf's, and it runs
-#     [188](OUTLET_LANE) mm deep — the three aft-facing outlets turn on it and climb to the
+#     [222](OUTLET_LANE) mm deep — the three aft-facing outlets turn on it and climb to the
 #     rear panel a lane behind the deck they leave.
 #   * the LEAD is the bay's own turn construction: two legs come about on the shared
 #     column and pass a `LINE_PITCH` apart, so each turn stands
@@ -1447,7 +1450,7 @@ def _build():
     # the room it always had.
     pack.place("discharge-chain", _load(DISCH_CHAIN_STEP), turn=(DISCH_CHAIN_TURN,),
                west=at(CORE_WEST_FACE + LINE_HUG),
-               aft=at(seaflo_terminal("discharge")[0][1]),
+               aft=at(seaflo_terminal("discharge")[0][1] + DISCH_CHAIN_AFT),
                foot=off("seaflo-pump", "crown", LINE_HUG - DISCH_CHAIN_DROP))
     # The carb riser's flow meter, aloft over the pump on the riser's own aft leg.
     pack.place("digiten-flow", _load(DIGITEN_STEP), yaw=DIGITEN_YAW,
@@ -1498,21 +1501,12 @@ def _build():
     # fixes it across the machine. `drip_pan_west` lands the rim's west edge on that face, and
     # `_pan_room` reads the vent tip back against the floor it leaves.
     _pan_x = drip_pan_west()
-    # Y centres on the vent, held off the DISCHARGE CHAIN'S BARB by what a hose leaving that
-    # barb needs on its own axis. The barb faces aft into this basin's front wall, so a basin
-    # centred on the vent alone stands in the mouth of the line it is nothing to do with. The
-    # vent's column has the basin's whole depth to sit anywhere in, and the barb's lead has
-    # none — so the barb sets the floor and the vent takes what is left, which `_pan_room`
-    # reads back. The floor is the lead PLUS the stub's own half-section and a hug: what has
-    # to clear this wall is the hose, and a hose on its lead is a tube and not a centreline —
-    # its OUTSIDE, over the barb, and not the bore the barb is sized by.
-    #   The floor is the RIM's and not the wall's: the flange reaches one `FLANGE_W` ahead of
-    # the front wall, so it and not the basin is what arrives at the barb's lead first. The
-    # basin stands that flange back off the floor, which walks the whole station aft by exactly
-    # the rim it grew.
-    _pan_y = max(_vent_xy[1] - DRIP_PAN_Y / 2.0,
-                 disch_terminal("barb-tip")[0][1] + JUNCTION_LEG_LEAD
-                 + _disch.HOSE_OD / 2.0 + LINE_HUG + _pan.FLANGE_W)
+    # Y CENTRES ON THE VENT and answers to nothing else. The discharge chain lies one
+    # `LINE_HUG` beneath this basin's floor (`DISCH_CHAIN_DROP`), so its barb and the hose made
+    # up on it pass UNDER the basin rather than into its front wall, and the whole of the
+    # vent's own column is available to a basin that has depth to spare on this axis.
+    # `_pan_room` reads the tip back against the floor it lands on.
+    _pan_y = _vent_xy[1] - DRIP_PAN_Y / 2.0
     _pan_z = drip_pan_seat()
     _pan_room(_pan_x, _pan_y, _vent_xy)
     # Seated on its ORIGIN, which the part puts at the basin's own wall corner; the rim hangs a
@@ -2916,19 +2910,17 @@ def vk_tray_y():
 
 
 def nozzle_tray_y():
-    """The nozzle-A gate's plate's origin in Y — PACKED AFT AGAINST THE PUMP'S FRONT FACE.
+    """The nozzle-A gate's plate's origin in Y — PACKED FORWARD ONTO THE CAP'S COLUMN LIMIT.
 
-    The plate stands in the one band the west lane leaves between the bag pair's own flank and
-    the casting: Y-H hangs forward of it in the pair's port plane, the SeaFlo packs aft against
-    the core (`seaflo_front_y`), and what is left between them is this plate's whole allowance.
-    Turned, the plate spends its NARROW side on that band.
+    The plate is bolted through the two mount ears its module carries, one on the centreline a
+    `single_valve_tray.ear_y` either side of the origin, and unturned that pitch lies along Y.
+    The forward ear is a column of the cup, so it stands on `fore_deck_column_face()` — the
+    forwardmost plane a deck mount may take — and the plate reaches aft from there.
 
-    IT TAKES THE AFT END OF THE BAND, a line's clearance off the casting, because the slack
-    belongs FORWARD. Forward is where `fluid-17` comes down off Y-H's crown into this plate's
-    own bay, and a fall wants every millimetre it can get between the trident it clears and the
-    collet it lands on — the two corners that fall share that leg and each turns on half of it.
-    Aft of the plate there is nothing to give the slack to: the casting's face is a wall."""
-    return seaflo_front_y() - LINE_HUG - _tray1.half_x
+    THE BAND BEHIND THE PLATE is what this pose leaves. `fluid-18` leaves V-G-O aft and turns
+    its whole climb in the strip between this plate's aft face and the pump's own
+    (`seaflo_front_y`), and the corner off that collet turns on the length of it."""
+    return fore_deck_column_face() + _tray1.ear_y
 
 
 def _pan_room(pan_x, pan_y, vent):
@@ -3196,42 +3188,38 @@ def suction_chain_collet():
     return (98.01, 377.80, 312.00)
 
 
-def nozzle_gate_in_x():
-    """V-G's INLET COLUMN — the westmost X at which `fluid-17`'s closing corner is still bound
-    by its own FALL and not by the straight it closes on.
+def nozzle_tray_x():
+    """V-G's own COLUMN — the plane both of the gate's runs ride, and with it the plate's
+    centreline.
 
-    The gate's inlet faces west down the front column's lane, and that lane cannot run at this
-    plate's port plane: the cap conduit's column stands in it (`water-in`, a `LINE_PITCH`
-    wide) and Y-H's west flank stands east of that, and the two fences cross. So the feed
-    crosses OVER Y-H's crown instead and takes its fall in this plate's own bay — and the two
-    corners that fall share the fall's whole length, each turning on half.
-
-    That halves is the figure this column is struck from. West of here the closing straight is
-    shorter than the fall leaves those corners and it becomes the binder; east of here the
-    straight is slack the corners cannot use, and every millimetre of it comes off the lead
-    `fluid-18` turns its own first corner on. So the column stands exactly where the two stop
-    trading: the conduit's lane, plus half the fall.
-
-    Restated on the pack's side rather than read back from `_lines`, for `LLDPE_BEND`'s own
-    reason — a pose that read the routing module would be a cycle in the build order."""
-    lane = foam_shell_port("water-in")[0][0] + LINE_PITCH
-    fall = _ydiv.HALF_W + LINE_HUG + TUBE_HALF      # Y-H's crown over the port plane, at the hug
-    return lane + fall / 2.0
+    The inlet is entered along this column and the outlet's climb stands in it: `fluid-18`
+    leaves V-G-O aft and takes its whole storey here, crossing the band the DISCHARGE CHAIN
+    lies in on its way to the panel's stratum. So the column stands off that chain's east
+    flank by a tube's own half-section and the pack's floor, and the plate reaches half its
+    depth west of it."""
+    x = packed().box("discharge-chain").xmax + LINE_HUG + TUBE_HALF
+    if x - _tray1.half_x < CORE_WEST_FACE + LINE_HUG:
+        _short("nozzle-gate-flank",
+               f"the gate's column stands at x {x:.2f} and its plate reaches "
+               f"{_tray1.half_x:.2f} west of it, past the {CORE_WEST_FACE + LINE_HUG:.2f} the "
+               f"−X rib band leaves a body. The chain's flank and the wall's are the same "
+               f"strip here.")
+    return x
 
 
 def nozzle_tray_pos():
-    """The nozzle-A gate's own origin in world — turned, in the WEST LANE'S AFT END, forward of
-    the pump's face and on the port plane the whole loft shares.
+    """The nozzle-A gate's own origin in world — unturned, in the WEST LANE'S FORWARD end and
+    on the port plane the whole loft shares.
 
     It carries no junction of its own and it joins no row: V-G-I is fed by Y-D, a storey and a
     half down in the front column, and V-G-O runs alone to its bulkhead. So the plate is placed
-    by the two runs and by nothing else — its X by the inlet's column (`nozzle_gate_in_x`), its
-    Y by the band the lane leaves it (`nozzle_tray_y`), and its Z by the loft's own plane.
+    by the two runs and by nothing else — its X by the column they share (`nozzle_tray_x`), its
+    Y by the plane its forward ear may stand on (`nozzle_tray_y`), and its Z by the loft's own
+    plane.
 
-    The inlet collet stands on the plate's own WEST face, so the column and the face are one
-    figure and the plate reaches east from it by its own half-length."""
-    _bx, _y, z = bag_b_tray_pos()
-    return (nozzle_gate_in_x() + _tray.port_half, nozzle_tray_y(), z)
+    Both collets stand ON that column, one `single_valve_tray.port_half` either side of the
+    origin in Y."""
+    return (nozzle_tray_x(), nozzle_tray_y(), aft_tray_z())
 
 
 # The bag-B pair reads like bag A in its clocking — the bag's two ends are V-H's INLET and

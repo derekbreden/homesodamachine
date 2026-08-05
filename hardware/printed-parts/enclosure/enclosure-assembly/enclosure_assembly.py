@@ -403,13 +403,13 @@ def main():
                                                 "LOFT_TEE_HEADROOM": 1, "SUCT_PUMP_GAP": 1,
                                                 "SUCT_ROW_GAP": 1, "SUCT_REAR_ROOM": 1})
         print("-> _contents.py")
-        # water-5's cut instruction quotes the run it is cutting — two legs, the lean the
-        # first leaves its collet on, the arc the corner between them turns at, and what the
-        # deck leaves between this bore and reservoir B's riser. The builder reads the same
-        # figures the tube was drawn along.
+        # water-5's cut instruction quotes the run it is cutting — the reach and the fall its
+        # two mouths stand apart by, the arc the turns between them take, and what the deck
+        # leaves between this bore and reservoir B's. The builder reads the same figures the
+        # tube was drawn along.
         substitute_md(_repo / "hardware" / "assembly" / "internal-plumbing.md",
                       variables=stations,
-                      expected_counts={"W5_LEG": 1, "W5_FALL": 1, "W5_LEAN": 1,
+                      expected_counts={"W5_LEG": 1, "W5_FALL": 1,
                                        "W5_RISER_GAP": 1, "LLDPE_MIN_BEND": 1})
         print("-> internal-plumbing.md")
 
