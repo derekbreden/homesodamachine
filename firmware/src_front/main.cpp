@@ -457,19 +457,13 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
 // second means that handler runs from flash, and this firmware reads ~4 MB of animation
 // frames out of flash while it renders.
 //
-// PANEL:REALIGN asks for the restart the driver already performs; PANEL:REINIT reconfigures
-// the peripheral from scratch. Which of them clears a shifted frame says whether this is
-// recoverable in software at all.
+// PANEL:REALIGN asks for the restart the driver already performs, which is the whole of
+// what this board can do to a shifted frame short of a reboot: esp_lcd_panel_reset() plus
+// esp_lcd_panel_init() both return ESP_OK and leave the panel scanning white, because the
+// framebuffers are bound at esp_lcd_new_rgb_panel() and init does not re-bind them.
 static void panelRealign() {
   if (!panel) return;
   Serial.printf("PANEL: restart=%d\n", (int)esp_lcd_rgb_panel_restart(panel));
-}
-
-static void panelReinit() {
-  if (!panel) return;
-  esp_err_t r = esp_lcd_panel_reset(panel);
-  esp_err_t i = esp_lcd_panel_init(panel);
-  Serial.printf("PANEL: reset=%d init=%d\n", (int)r, (int)i);
 }
 
 // Turn the backlight back on (instant) and put the panel back on HOME. Always resets the
@@ -1509,9 +1503,6 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "PANEL:REALIGN") == 0) {
     panelRealign();
     Serial.println("OK:PANEL:REALIGN");
-  } else if (strcmp(line, "PANEL:REINIT") == 0) {
-    panelReinit();
-    Serial.println("OK:PANEL:REINIT");
   } else if (strcmp(line, "STATUS") == 0) {
     j9.send(MSG_STATUS_REQ, nullptr, 0);
     Serial.println("OK:STATUS requested");
