@@ -65,6 +65,7 @@ static const uint16_t *animFrames[] = {
 #define COL_DIM      0x8888aa
 #define COL_GOOD     0x37c98b
 #define COL_WARN     0xf0a83c
+#define COL_OFF      0x3a3a55   // a control at the end of its travel
 
 // ════════════════════════════════════════════════════════════
 //  Pin map — fixed by the Waveshare ESP32-S3-Touch-LCD-4.3B
@@ -206,6 +207,7 @@ static lv_obj_t *statUptime, *statHeap, *statGas, *statGasBar, *statFrames, *sta
 static lv_obj_t *setupCtrlVer, *setupTouch, *setupLinkPins, *setupFrames, *setupReinits;
 static lv_obj_t *setupTouchCnt, *setupHeap, *setupPsram, *setupLoop, *setupUptime;
 static lv_obj_t *setupCol, *setupUp, *setupDown, *setupTrack, *setupThumb;
+static lv_obj_t *setupUpLbl, *setupDownLbl;
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
 // changed here is this display's own until one sends it somewhere.
@@ -308,8 +310,9 @@ static bool panelInit() {
   // Bounce buffer: the scan-out DMA reads pixels from this small internal-SRAM
   // buffer (refilled from the PSRAM framebuffer in the background) instead of
   // straight from PSRAM. That's what stops the horizontal shearing: CPU writes
-  // to PSRAM (the render) can no longer starve the live scanline. 10 lines.
-  cfg.bounce_buffer_size_px = SCREEN_W * 10;
+  // to PSRAM (the render) can no longer starve the live scanline. 20 lines, two
+  // of them, is 64 KB of the 320 KB internal RAM.
+  cfg.bounce_buffer_size_px = SCREEN_W * 20;
   cfg.dma_burst_size = 64;
   cfg.hsync_gpio_num = LCD_HSYNC;
   cfg.vsync_gpio_num = LCD_VSYNC;
@@ -423,6 +426,18 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   return heldDown;
 }
 
+// When the scan-out DMA cannot keep up with the panel, it does not recover its place: the
+// whole image sits shifted right and down by however far it fell behind, and stays there.
+// esp_lcd_rgb_panel_restart() sets a flag the driver acts on at the next VSYNC, which puts
+// the DMA back at the top of the frame. Derek saw the shift twice on waking, so a wake asks
+// for one — and again once the animation has been running a moment, which is where the
+// PSRAM write burst that starves it actually lands.
+static unsigned long panelRestartDue = 0;
+
+static void panelRealign() {
+  if (panel) esp_lcd_rgb_panel_restart(panel);
+}
+
 // Turn the backlight back on (instant) and put the panel back on HOME. Always resets the
 // idle timer. A tap calls this — "tap to bring the backlight back on."
 static void wake() {
@@ -430,6 +445,8 @@ static void wake() {
   if (screenIdle || !backlightOn) {
     screenIdle = false;
     setBacklight(true);
+    panelRealign();
+    panelRestartDue = millis() + 800;
     if (uiReady) showPage(PAGE_HOME);
     else if (animTimer) lv_timer_resume(animTimer);
   }
@@ -449,16 +466,12 @@ static bool touchWakesOnly = false;
 
 static uint32_t touchBridged = 0;   // polls carried across a dropped report
 
-// LVGL acts on the release, and a release that has wandered off the pressed object is a
-// press lost — no click, and on a scrollable parent the wander scrolls instead. So the
-// press is reported at the point it began for its whole length: put a finger on a target,
-// slide anywhere, lift, and that target is what fires. Nothing on this panel is dragged,
-// so nothing wants the moving point.
+// The live point goes to LVGL, so a drag is still a drag. Which objects hold a press that
+// slides off them is LV_OBJ_FLAG_PRESS_LOCK's job, per object — see mkBtn().
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   static bool prevTouch = false;
   static unsigned long lastDownMs = 0;
   static uint32_t bridgedRun = 0;
-  static uint16_t pressX = 0, pressY = 0;
   uint16_t x = 0, y = 0;
   bool now = gt911ReadTouch(&x, &y);
 
@@ -467,8 +480,8 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     if (!prevTouch && bridgedRun == 0) {
       touchCount++;  // count press edges
       touchWakesOnly = screenIdle || !backlightOn;
-      pressX = lastTouchX = x;
-      pressY = lastTouchY = y;
+      lastTouchX = x;
+      lastTouchY = y;
       Serial.printf("[touch] x=%u y=%u  status=0x%02X raw=%02X %02X %02X %02X %02X %02X %02X %02X%s\n",
                     x, y, lastStatus, lastRaw[0], lastRaw[1], lastRaw[2], lastRaw[3],
                     lastRaw[4], lastRaw[5], lastRaw[6], lastRaw[7],
@@ -476,14 +489,14 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     }
     bridgedRun = 0;
     wake();
-    data->point.x = pressX;
-    data->point.y = pressY;
+    data->point.x = x;
+    data->point.y = y;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else if (lastDownMs && millis() - lastDownMs < TOUCH_RELEASE_MS) {
     bridgedRun++;
     touchBridged++;
-    data->point.x = pressX;
-    data->point.y = pressY;
+    data->point.x = lastTouchX;
+    data->point.y = lastTouchY;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
     if (lastDownMs) {
@@ -701,6 +714,11 @@ static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
   return o;
 }
 
+// LVGL re-searches under the finger on every poll while pressed, so a press that slides off
+// its target is lost — no click, and inside a scrollable parent the slide scrolls instead.
+// PRESS_LOCK stops the re-search: the press stays on the object it began on and a release
+// anywhere fires its click. Every button here takes it, and the two that commit something —
+// START CLEAN CYCLE and RESTART DISPLAY — give it back, so sliding off those still cancels.
 static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg) {
   lv_obj_t *b = lv_btn_create(parent);
   lv_obj_set_size(b, w, h);
@@ -708,6 +726,7 @@ static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg
   lv_obj_set_style_shadow_width(b, 0, 0);
   lv_obj_set_style_bg_color(b, lv_color_hex(bg), 0);
   lv_obj_set_style_bg_color(b, lv_color_hex(COL_CARD_ON), LV_PART_MAIN | LV_STATE_PRESSED);
+  lv_obj_add_flag(b, LV_OBJ_FLAG_PRESS_LOCK);
   return b;
 }
 
@@ -1095,6 +1114,7 @@ static void buildService(lv_obj_t *page) {
   lv_obj_align(body, LV_ALIGN_TOP_MID, 0, 150);
   lv_obj_t *go = mkBtn(conf, fw, 96, COL_ACCENT);
   lv_obj_align(go, LV_ALIGN_TOP_MID, 0, 240);
+  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
   lv_obj_add_event_cb(go, cleanStartCb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(go, "START CLEAN CYCLE", &lv_font_montserrat_28, COL_TEXT));
   cleanMsg = mkText(conf, "", &lv_font_montserrat_20, COL_WARN);
@@ -1165,21 +1185,25 @@ static void setupScrollRefresh() {
   lv_obj_set_height(setupThumb, thumbH);
   lv_obj_align(setupThumb, LV_ALIGN_TOP_MID, 0, off);
 
-  // A target that cannot act says so by being dim and by not answering.
-  struct { lv_obj_t *b; bool on; } ends[2] = {{setupUp, above > 0}, {setupDown, below > 0}};
+  // A target at the end of its travel sinks into the background and its arrow goes dark.
+  struct { lv_obj_t *b; lv_obj_t *l; bool on; } ends[2] =
+      {{setupUp, setupUpLbl, above > 0}, {setupDown, setupDownLbl, below > 0}};
   for (auto &e : ends) {
     if (e.on) lv_obj_clear_state(e.b, LV_STATE_DISABLED);
     else      lv_obj_add_state(e.b, LV_STATE_DISABLED);
-    lv_obj_set_style_bg_color(e.b, lv_color_hex(e.on ? COL_CARD_ON : COL_CARD), 0);
+    lv_obj_set_style_bg_color(e.b, e.on ? lv_color_hex(COL_CARD_ON) : THEME_BG, 0);
+    lv_obj_set_style_text_color(e.l, lv_color_hex(e.on ? COL_TEXT : COL_OFF), 0);
   }
 }
 
 static void setupScrollCb(lv_event_t *e) {
   int dir = (int)(intptr_t)lv_event_get_user_data(e);
-  // No animation: every frame of one would repaint the whole 800x480.
-  lv_obj_scroll_by(setupCol, 0, -dir * SETUP_PAGE_PX, LV_ANIM_OFF);
-  setupScrollRefresh();
+  lv_obj_scroll_by(setupCol, 0, -dir * SETUP_PAGE_PX, LV_ANIM_ON);
 }
+
+// The scroll animation moves the column without going through setupScrollCb, and a drag
+// does not go through it at all, so the track follows the scroll itself.
+static void setupScrolledCb(lv_event_t *e) { (void)e; setupScrollRefresh(); }
 
 static void buildSetup(lv_obj_t *page) {
   const lv_coord_t paneW = PANE_W - 2 * PANE_PAD;
@@ -1195,6 +1219,7 @@ static void buildSetup(lv_obj_t *page) {
   lv_obj_set_flex_flow(setupCol, LV_FLEX_FLOW_COLUMN);
   lv_obj_set_scroll_dir(setupCol, LV_DIR_VER);
   lv_obj_set_scrollbar_mode(setupCol, LV_SCROLLBAR_MODE_OFF);
+  lv_obj_add_event_cb(setupCol, setupScrolledCb, LV_EVENT_SCROLL, NULL);
 
   lv_obj_t *v;
   setupRow(setupCol, "DISPLAY BUILD", &v);
@@ -1211,6 +1236,7 @@ static void buildSetup(lv_obj_t *page) {
   setupRow(setupCol, "UPTIME", &setupUptime);
 
   lv_obj_t *r = mkBtn(setupCol, LV_PCT(100), 80, COL_CARD);
+  lv_obj_clear_flag(r, LV_OBJ_FLAG_PRESS_LOCK);   // a drag that started here scrolls, and
   lv_obj_add_event_cb(r, restartCb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(r, LV_SYMBOL_POWER "   RESTART DISPLAY", &lv_font_montserrat_28, COL_ACCENT));
 
@@ -1219,12 +1245,14 @@ static void buildSetup(lv_obj_t *page) {
   setupUp = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
   lv_obj_align(setupUp, LV_ALIGN_TOP_RIGHT, 0, 0);
   lv_obj_add_event_cb(setupUp, setupScrollCb, LV_EVENT_CLICKED, (void *)(intptr_t)-1);
-  lv_obj_center(mkText(setupUp, LV_SYMBOL_UP, &lv_font_montserrat_40, COL_TEXT));
+  setupUpLbl = mkText(setupUp, LV_SYMBOL_UP, &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_center(setupUpLbl);
 
   setupDown = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
   lv_obj_align(setupDown, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
   lv_obj_add_event_cb(setupDown, setupScrollCb, LV_EVENT_CLICKED, (void *)(intptr_t)1);
-  lv_obj_center(mkText(setupDown, LV_SYMBOL_DOWN, &lv_font_montserrat_40, COL_TEXT));
+  setupDownLbl = mkText(setupDown, LV_SYMBOL_DOWN, &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_center(setupDownLbl);
 
   setupTrack = lv_obj_create(page);
   lv_obj_set_size(setupTrack, 22, 448 - 2 * SETUP_BTN_H - 24);
@@ -1410,6 +1438,9 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "PRIME:STOP") == 0) {
     primeHoldEnd();
     Serial.println("OK:PRIME:STOP");
+  } else if (strcmp(line, "PANEL:REALIGN") == 0) {
+    panelRealign();
+    Serial.println("OK:PANEL:REALIGN");
   } else if (strcmp(line, "STATUS") == 0) {
     j9.send(MSG_STATUS_REQ, nullptr, 0);
     Serial.println("OK:STATUS requested");
@@ -1563,6 +1594,11 @@ void loop() {
   }
 
   j9.service();
+
+  if (panelRestartDue && millis() >= panelRestartDue) {
+    panelRestartDue = 0;
+    panelRealign();
+  }
 
   // A held pad feeds the controller a tick under it, and moves its own readouts at 10 Hz.
   if (holding) {
