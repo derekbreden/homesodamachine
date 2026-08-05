@@ -250,6 +250,14 @@ COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.ste
 FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
 SEAFLO_STEP      = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 DISCH_CHAIN_STEP = _hw / "reference" / "seaflo-discharge-chain" / "seaflo-discharge-chain.step"
+
+# How far the discharge chain hangs below the seat the pump's own crown would give it. The
+# crown is the motor's and the chain lies nowhere near it: measured under this body's own
+# footprint the casting reaches only z 290.6, so the chain had 35.8 mm of air beneath it and
+# a seat that claimed to rest on metal. The fence overhead is the drip pan's floor, and the
+# chain stands one `LINE_HUG` under it — which is what lets the hose leave forward beneath the
+# basin instead of having to clear it.
+DISCH_CHAIN_DROP = 16.7
 SUCT_CHAIN_STEP  = _hw / "reference" / "seaflo-suction-chain" / "seaflo-suction-chain.step"
 ASSE_STEP        = _hw / "reference" / "asse1022-assembly" / "asse1022-assembly.step"
 WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
@@ -1431,10 +1439,16 @@ def _build():
     # pump is reach, and what it owes the box is to stand out of the ±X rib band. It rides the
     # casting's crown and holds its west face one `LINE_HUG` inboard of `CORE_WEST_FACE`; its
     # aft end still stands on the discharge's own plane, which is the axis the hose leaves on.
+    #   IT DOES NOT RIDE THE CROWN. The pump's crown is its MOTOR's, and the motor stands
+    # eighty millimetres east of where this body lies — under the chain's own footprint the
+    # casting's top is `DISCH_CASTING_TOP`, and a seat struck on the crown hangs the chain a
+    # whole storey over air. What is actually overhead is the DRIP PAN's floor, which the
+    # chain passes beneath, so the drop is stated against that and the casting is left with
+    # the room it always had.
     pack.place("discharge-chain", _load(DISCH_CHAIN_STEP), turn=(DISCH_CHAIN_TURN,),
                west=at(CORE_WEST_FACE + LINE_HUG),
                aft=at(seaflo_terminal("discharge")[0][1]),
-               foot=off("seaflo-pump", "crown", LINE_HUG))
+               foot=off("seaflo-pump", "crown", LINE_HUG - DISCH_CHAIN_DROP))
     # The carb riser's flow meter, aloft over the pump on the riser's own aft leg.
     pack.place("digiten-flow", _load(DIGITEN_STEP), yaw=DIGITEN_YAW,
                org=(DIGITEN_POS[0], DIGITEN_POS[1], digiten_seat()))

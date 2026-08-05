@@ -1472,16 +1472,16 @@ def _authored_runs() -> list:
     # −X wall's inner face at x [-14](W6_WALL_X) out to the barb tip at x [9](W6_BARB_X), and
     # the hose's own half-section and one clearance floor leave [14.45](W6_POCKET_FREE) mm of
     # it before a sweep touches the piece — more than this reach spends, so the sweep stands
-    # [8.16](W6_WALL_CLEAR) mm off that wall built. The approach is the COLLET'S OWN LEAD and
+    # [8.88](W6_WALL_CLEAR) mm off that wall built. The approach is the COLLET'S OWN LEAD and
     # no more — the basin stands aft of this barb at exactly that reach (`_contents` hangs its
     # front wall off this station), so a closing straight longer than the lead is a straight
     # drawn inside the basin.
     #   What is left is the DIRECTION of each. This hose is CLAMPED ONTO A BARB, so the straight
     # a joint needs is the barb itself and lies upstream of this run's first point — the route
     # owes none of its own, and every millimetre of both reaches goes to the corner. `lean_into`
-    # spends the [14](W6_SKEW)° a braided stub takes at each end: [9.09](W6_LEAN_OUT)° off the
+    # spends the [14](W6_SKEW)° a braided stub takes at each end: [9.97](W6_LEAN_OUT)° off the
     # discharge and [14](W6_LEAN_IN)° off the chain's barb, bringing both turns back from past
-    # square to [92.4](W6_TURN_OUT)° and [85.6](W6_TURN_IN)°.
+    # square to [97.5](W6_TURN_OUT)° and [90.7](W6_TURN_IN)°.
     w6_lead = (9.0, contents.JUNCTION_LEG_LEAD)
     (w1, w2), w6_lean, w6_r, _w6_turns = lean_into(
         *_mouth(f, "seaflo-pump.discharge"), *_mouth(f, "discharge-chain.barb-tip"),
@@ -1523,7 +1523,7 @@ def _authored_runs() -> list:
     # end, facing FORWARD, and `_cold_core_interface.cap_conduits` stands the inlet's bore
     # ahead of it on very nearly that column — so the run is one horizontal leg out to the
     # bore's own station and one fall straight down it, and the corner between them has a
-    # [30](W5_LEG) mm leg on one side and the whole [81.5](W5_FALL) mm of the fall on the
+    # [30](W5_LEG) mm leg on one side and the whole [64.8](W5_FALL) mm of the fall on the
     # other. Both hold a stock arc, which is what this line turns at.
     #   The horizontal leg carries the whole plan move, so it leaves the collet
     # [0.955](W5_LEAN)° off its axis — inside the `FLAVOR_SKEW` a push-to-connect takes — and
