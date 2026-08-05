@@ -347,7 +347,7 @@
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 33.5 mm, 2 bends at R25.4 \u2014 nearest 1.00 mm to fluid-22",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 tee-y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 22.3 mm, 2 bends at R25.4 \u2014 nearest 22.62 mm to tee-y-c",
         "\u2713 fluid-13: tee-y-d.Y-D-2 \u2192 bag-a-tray-assembly.V-F-I \u2014 \u00d86.35 \u00d7 120.0 mm, 2 bends at R25.4 \u2014 nearest 1.00 mm to fluid-10",
-        "\u2713 fluid-27: nozzle-b-tray-assembly.V-J-I \u2192 divider-y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 147.8 mm, 4 bends at R25.4 \u2014 nearest 4.06 mm to water-4",
+        "\u2713 fluid-27: nozzle-b-tray-assembly.V-J-I \u2192 divider-y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 147.8 mm, 4 bends at R25.4 \u2014 nearest 4.78 mm to pcba",
         "\u2713 fluid-23: bag-b-tray-assembly.V-I-I \u2192 divider-y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 53.4 mm, 2 bends at R0.9 \u2014 nearest 1.24 mm to foam-assembly",
         "\u2713 fluid-20: bag-b-tray-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 98.9 mm, 4 bends at R25.4 \u2014 nearest 4.68 mm to fluid-22",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 237.1 mm, 5 bends at R25.4 \u2014 nearest 0.80 mm to carb-1",
@@ -3375,7 +3375,7 @@
           "ratio": 0.6206,
           "grade": "D",
           "legs": [
-            41.05,
+            33.9,
             31.53
           ]
         },
@@ -3387,7 +3387,7 @@
           "grade": "D",
           "legs": [
             31.53,
-            72.28
+            79.43
           ]
         },
         {
@@ -3397,7 +3397,7 @@
           "ratio": 0.2416,
           "grade": "F",
           "legs": [
-            72.28,
+            79.43,
             12.28
           ]
         },
@@ -7188,8 +7188,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-05T01:19:57+00:00",
-    "commit": "3fe0b73e10e81473ea5e8517069f640e7a249ee0",
+    "generated": "2026-08-05T01:46:38+00:00",
+    "commit": "d9685d3bcc3abd47dd8315efa63fc60b510a7106",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7212,7 +7212,7 @@
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
       "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:bb28ac85459ffd47",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:1ce90a82b2909706",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:ed48a299db0fac68",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
