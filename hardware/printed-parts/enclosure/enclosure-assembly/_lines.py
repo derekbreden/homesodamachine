@@ -531,21 +531,30 @@ def _authored_runs() -> list:
         note="hopper drain → V-B inlet: down the spout's own column, one corner, and in — "
              "every leg falls or is level"))
 
-    # fluid-24 / fluid-26 — the bag-B pair to its divider, and each is ONE STRAIGHT LENGTH OF
-    # TUBE. The outlets are [14.7](DIVIDER_SPAN) apart and the two collets they join a seat
-    # pitch ([34.25](SEAT_PITCH)) apart, so each leg closes [9.775](LEG_LEAN) mm of cross on
-    # its way through; `_contents.y_h_pos` stands the trident on the pair's own port plane a
-    # `divider_reach()` off their faces, which is that offset over the tangent of the lean a
-    # collet takes. So the straight between each pair of mouths leaves both of them
-    # [28](YH_LEG_LEAN)° off axis, and there is no corner on either run to seat an arc in.
+    # fluid-24 / fluid-26 — the bag-B pair to its divider. The outlets are [14.7](DIVIDER_SPAN)
+    # apart and the two collets they join a seat pitch ([34.25](SEAT_PITCH)) apart, so each leg
+    # closes [9.775](LEG_LEAN) mm of cross on its way through, and `_contents.y_h_pos` stands the
+    # trident on the pair's own port plane a `divider_reach()` off their faces.
+    #   THAT REACH IS THE BENT ONE, SO THESE LEGS BEND. Standing the fitting far enough off to
+    # carry the cross on one straight length would lean both mouths the whole
+    # `atan(offset / reach)`, and that is deck this pair cannot spare — the reach is struck
+    # instead at the least that still seats a STOCK ARC in the two corners a shorter leg breaks
+    # into. `divider_leg_lead()` is the straight each leg leaves its collet on before the first
+    # of those corners, and it comes off the same solve the reach does, because a leg drawn on a
+    # lead its reach was never sized for is a leg neither number describes.
+    #   So each run is a lead off each mouth, leaning [22](YH_LEG_LEAN)° into the one leg between
+    # them, and the two corners share that leg — the same shape as fluid-23 in the loft, read
+    # symmetrically because these two mouths face each other square.
     for cid, frm, to, who in (
         ("fluid-24", "bag-b-tray-assembly.V-I-O", "divider-y-h.Y-H-1", "pump return → Y-H"),
         ("fluid-26", "divider-y-h.Y-H-3", "bag-b-tray-assembly.V-H-I", "Y-H → bag B draw"),
     ):
+        (w1, w2), lean, rad, _turns = lean_into(
+            *_mouth(f, frm), *_mouth(f, to), contents.divider_leg_lead())
         runs.append(R.bent(
-            cid, frm, to, kind="fluid", skew=FLAVOR_SKEW,
-            note=f"{who}: one straight length across the reach, leaving each collet at the "
-                 f"lean the fitting's own standoff is struck on"))
+            cid, frm, w1, w2, to, kind="fluid", skew=FLAVOR_SKEW, bend=rad,
+            note=f"{who}: a lead off each collet leaning {lean[0]:.1f}°/{lean[1]:.1f}° into the "
+                 f"single leg between them, a stock arc in each of its two corners"))
 
     # fluid-14 / fluid-16 — the bag-A pair to Y-E, which stands ACROSS the strip ahead of them
     # rather than along the plane they share (`_contents.y_e_pos`). So neither of these is the
@@ -949,14 +958,20 @@ def _authored_runs() -> list:
                            note="nozzle B gate ← Y-G: out of the collet along the bay, about, and "
                                 "up into the outlet standing over it"))
 
-    # fluid-23 takes the same climb from the other side of the bay, and its collet does not
-    # face the fitting: V-I-I opens EAST off the turned plate while Y-G-2 stands
-    # [-18.1](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
-    # comes straight back — the corner past square again. WHAT BOUNDS THE EXIT is water-3's own
-    # fall, which holds the column [-8.9](F23_EAST_AIR) mm east of this collet on its way to V-K:
-    # the lead stops a `LINE_PITCH` short of it, which is the whole of the deck this run has.
+    # fluid-23 reaches the same fitting from the bag pair's own east face, and its collet does not
+    # face it: V-I-I opens EAST off the turned plate while Y-G-3 faces FORWARD down the lane, so
+    # the run leaves one mouth square to the other's axis and the single leg between them carries
+    # the whole quarter turn.
+    #   WHAT THE EXIT LEAD HAS IS THE WHOLE REACH BETWEEN THE TWO COLUMNS — the outlet it feeds
+    # stands [18.1](F23_LEAD_REACH) mm EAST of this collet, and that deck is open end to end: the
+    # tee's own body does not begin until a bay further aft, and water-3's fall is on the far
+    # side, WEST of this collet on its way down to V-K. Nothing of this run's is in front of it.
+    #   The lead spends that whole reach, and it is what the corner's arc is seated in. A lead
+    # cut short here is not a shorter run but a sharper one: `DIVIDER_LEG_STRAIGHT` comes off it
+    # first for the collet to grip, and the arc turns in whatever is left — so the last
+    # millimetres of reach are worth more radius than any other millimetre this run has.
     F23_LEAD = max(contents.DIVIDER_LEG_STRAIGHT + contents.LINE_HUG,
-                   vk.at("V-K-I")[0] - LINE_PITCH - bb.at("V-I-I")[0])
+                   y_g.at("Y-G-3")[0] - bb.at("V-I-I")[0])
     # The junction's own reach is now ALONG THE LANE and not down a stem: Y-G-3 faces FORWARD
     # off the tee's near end, so what this lead may spend is the band between that collet and
     # the bag pair's aft face — [29](F23_IN_REACH) mm of it, a `PUMP_ROW_TURN` off the plate.
@@ -1772,10 +1787,9 @@ def lane_stations() -> dict:
         "F22_STUB":         f"{math.dist(runs['fluid-22'].pts[0], runs['fluid-22'].pts[1]):.3g}",
         "F22_CLIMB":        f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]):.3g}",
         "F22_STUB_CAP":     f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]) - contents.LLDPE_STOCK_BEND:.3g}",
-        # fluid-23's exit lead, the deck east of its collet that water-3's fall leaves it, and
-        # how far west of that collet the outlet it feeds stands.
-        "F23_EAST_AIR":     f"{_frames()['vk-tray-assembly'].at('V-K-I')[0] - runs['fluid-23'].pts[0][0]:.3g}",
-        "F23_BACKTRACK":    f"{runs['fluid-23'].pts[0][0] - runs['fluid-23'].pts[-1][0]:.3g}",
+        # fluid-23's exit lead: the reach between its own collet's column and the one the outlet
+        # it feeds stands on, which is the whole of the open deck east of the bag pair here.
+        "F23_LEAD_REACH":   f"{_frames()['tee-y-g'].at('Y-G-3')[0] - runs['fluid-23'].pts[0][0]:.3g}",
         # The strip the bag-A junction stands across: the pump row's aft face to that pair's own
         # forward collets, off the placed pump rather than off the number its seat was built from.
         "BAG_STRIP":        f"{contents.bag_a_tray_port('V-F-O')[0][1] - _boxes.boxed(solids['pump-a']).ymax:.4g}",
