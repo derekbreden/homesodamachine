@@ -912,23 +912,22 @@ def _authored_runs() -> list:
         # the aft half of it and the TRIDENT for the forward half, whose own east face is the
         # far side of the column fluid-23's exit lead turns on.
         f27_lane = max(vk.bb.xmax, y_g.bb.xmax) + contents.PUMP_ROW_TURN
-        # WHERE IT TURNS EAST, AND WHY IT IS NOT THE PLATE. This run only has to get PAST V-K's
-        # plate, and turning one `PUMP_ROW_TURN` aft of it spent the whole column between the
-        # gate and that plate on a straight — [41](F27_OLD_LEG) mm of tube lying in the one
-        # band the plate and `water-4` would have to move through, and pinned to the plate's own
-        # face so it followed the plate instead of leaving it room.
-        #   THE TURN BELONGS AS FAR AFT AS IT WILL GO. Its business is the lane, and every
-        # millimetre it turns sooner is a millimetre of this column given back. Two things stop
-        # it, and the run takes whichever comes first:
-        #     * the east step crosses the PSU'S OWN COLUMN, so it stands one `PUMP_ROW_TURN`
-        #       forward of the brick's face — [345.7](F27_PSU_FACE), and that is the binding one
-        #     * the leg off the collet has to seat this corner's own tangent with the collet's
-        #       lead in front of it
-        # The step's two corners share its length and each turns on half, so the tangent is
-        # known before the turn is placed.
+        # WHERE IT TURNS EAST, AND IT IS NOT THE PLATE THAT SAYS. This run only has to get PAST
+        # V-K's plate; turning off that plate's own face would lay the whole column between the
+        # gate and the plate down as straight, in the one band the plate and `water-4` have to
+        # move through, and would pin the run to the plate so it followed instead of leaving
+        # room. The turn belongs as far AFT as it will go — its business is the lane, and every
+        # millimetre it turns sooner is a millimetre of this column given back.
+        #   THE COLLET IS WHAT STOPS IT. The leg off the gate has to seat this corner's own
+        # tangent with the collet's lead in front of it, and the step's two corners SHARE the
+        # step and each turn on half of it — so the tangent is known before the turn is placed
+        # and the leg is struck at exactly what the pair costs: [23.8](F27_LEG) mm.
+        #   NOTHING EAST OF IT BINDS. The step reaches toward the PSU's brick, but a square
+        # corner is not where the tube is: the arc rounds it away, so the run does not stand on
+        # the step's own east end until a whole tangent FORWARD of the turn, and measured
+        # against the casting rather than its box the tube keeps [9.87](F27_PSU_CLEAR) mm of it.
         f27_step = (f27_lane - gate[0]) / 2.0
-        f27_aft = min(f["psu"].bb.ymin - contents.PUMP_ROW_TURN,
-                      gate[1] - f27_step - contents.JUNCTION_LEG_LEAD)
+        f27_aft = gate[1] - f27_step - contents.JUNCTION_LEG_LEAD
         runs.append(R.bent(
             "fluid-27", "nozzle-b-tray-assembly.V-J-I",
             (gate[0], f27_aft, gate[2]),      # forward off the collet, only as far as the turn
@@ -1864,10 +1863,12 @@ def lane_stations() -> dict:
         "SUCT_PUMP_GAP":    f"{scorecard._solid_gap(solids['suction-chain'], solids['seaflo-pump']):.3g}",
         "SUCT_ROW_GAP":     f"{scorecard._solid_gap(solids['suction-chain'], solids['nozzle-b-tray-assembly']):.3g}",
         "SUCT_REAR_ROOM":   f"{contents.REAR_PLANE_Y - _boxes.boxed(solids['suction-chain']).ymax:.4g}",
-        # fluid-27's turn: the straight it used to lie down this column on when it was pinned to
-        # V-K's plate, and the brick's own face, which is what stops it turning sooner still.
-        "F27_OLD_LEG":      f"{_frames()['nozzle-b-tray-assembly'].at('V-J-I')[1] - (_boxes.boxed(solids['vk-tray-assembly']).ymax + contents.PUMP_ROW_TURN):.3g}",
-        "F27_PSU_FACE":     f"{_boxes.boxed(solids['psu']).ymin:.4g}",
+        # fluid-27's turn: the leg its own corner and the collet's lead cost off the gate, which
+        # is what places it, and what the tube keeps off the PSU's casting there — measured
+        # against the SWEPT SOLID and the casting itself, because the square corner the run is
+        # authored on is not where the tube stands and the brick's box is not where its metal is.
+        "F27_LEG":          f"{_frames()['nozzle-b-tray-assembly'].at('V-J-I')[1] - runs['fluid-27'].pts[1][1]:.3g}",
+        "F27_PSU_CLEAR":    f"{scorecard._solid_gap(R.tube(runs['fluid-27']), solids['psu']):.3g}",
         # The nozzle-B gate's own three fences, each one a figure a BOUNDING BOX got wrong.
         # The band its collet and its mouth leave between them, which is not two stock arcs;
         # how far forward of the chain's box the chain's own material on that column stops;
