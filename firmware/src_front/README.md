@@ -39,6 +39,31 @@ app partition). The panel is initialized on a watchdog'd background task: if
 `esp_lcd` ever blocks, `setup()` times out and `loop()` keeps serial alive, so
 the board stays flashable without a manual BOOT-button recovery.
 
+### The shifted frame
+
+A frame sometimes comes up displaced right and down by ~100 px, the bottom-right corner off
+the glass, and stays there until something resyncs it. Backlight, LVGL and `maxLoopMs` all
+read healthy through it — they measure the ESP32's side of the wire and cannot see whether
+the glass locked.
+
+What the build this links against already does, and what it costs to find out otherwise:
+
+| | |
+|---|---|
+| `CONFIG_LCD_RGB_RESTART_IN_VSYNC` | **1** — the driver restarts the scan-out DMA in every VSYNC handler already |
+| `CONFIG_LCD_RGB_ISR_IRAM_SAFE` | not set — that handler runs from flash, which this firmware reads ~4 MB of animation frames out of while it renders |
+| `esp_lcd_rgb_panel_restart()` | asks for the restart above; adds nothing |
+| `esp_lcd_panel_reset()` + `_init()` | both `ESP_OK`, and the panel scans white: the framebuffers bind at `esp_lcd_new_rgb_panel()` and `init` does not re-bind them |
+| `pclk_hz = 14 MHz` | repaint 105 ms instead of 117, and the panel does not lock to the porches below at that clock — lit backlight, LVGL cycling, nothing on the glass |
+| holding the render still at wake | no effect on its own |
+
+**LCD_RST is the panel's own**, on CH422G `EXIO3`, the line `ch422gBringUp()` pulses at
+boot. Resetting the ST7262 makes it re-acquire the sync it is being sent and leaves the
+framebuffers bound. A wake runs it before it lights the screen — backlight off, `EXIO3` low
+20 ms, high, 120 ms recovery, backlight on, then `WAKE_QUIET_MS` before the animation moves
+— which is the ~350 ms between a tap and a lit screen. `PANEL:KICK` runs the same sequence
+without waiting for a sleep.
+
 ## Loading animation
 
 The 16-frame glass/bubbles loop (the same animation the config display uses) is
@@ -128,6 +153,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:4` → show one page (HOME, FLAVOR, SERVICE, STATUS, SETUP)
+- `PANEL:KICK` → the wake sequence — dark, panel reset, light, quiet, animation
+- `PANEL:REALIGN` → ask the RGB driver for the DMA restart it already does each VSYNC
 - `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
   the glass: same frames, same ticks, same readouts
 - `STATUS` → ask the base for one `StatusPayload`
@@ -193,16 +220,21 @@ SETUP to the top of its column. Each rung runs while the screen is dark, so a wa
 the answer rather than jumping to it. `IDLE:0`..`IDLE:3` walk the ladder without waiting,
 and `GET_DIAG` reports `page=`, `svc=`, `flv=` and `stage=`.
 
-**A press reports the point it began at, for its whole length.** LVGL acts on the release,
-and a release that has wandered off the pressed object is a press lost — no click, and on a
-scrollable parent the wander scrolls instead. So the indev holds the first point: put a
-finger on a target, slide anywhere, lift, and that target is what fires. Nothing on this
-panel is dragged, which is why SETUP scrolls by button rather than by finger.
+**A button holds a press that slides off it.** LVGL acts on the release and re-searches
+under the finger on every poll while pressed, so a press that wanders is lost — no click,
+and inside a scrollable parent the wander scrolls instead. `LV_OBJ_FLAG_PRESS_LOCK` stops
+the re-search per object: `mkBtn()` sets it, so put a finger on a target, slide anywhere,
+lift, and that target fires. `START CLEAN CYCLE` and `RESTART DISPLAY` clear it — they
+commit something, and RESTART sits inside the scrolling column where locking it would turn
+a drag into a reboot.
 
-**SETUP scrolls a page at a time.** A track between an UP and a DOWN target, each 92×104,
-each dim and unanswering at its end of the travel; the thumb sizes itself to the viewport's
-share of the whole. One press moves 340 px with no animation — a frame of one would repaint
-the whole 800×480.
+**SETUP scrolls by finger or by page.** A track between an UP and a DOWN target, each
+92×104; a spent one takes the background colour with its arrow at `0x3a3a55` — not
+`LV_STATE_DISABLED`, whose theme styling outweighs a colour set for the default state, but
+`LV_OBJ_FLAG_CLICKABLE` cleared. The thumb sizes itself to the viewport's share of the whole
+and follows `LV_EVENT_SCROLL`, so a drag moves it too. A press pages 340 px through
+`lv_obj_scroll_by_bounded` — the unbounded call travels what it is asked and does not stop
+at the ends.
 
 Nothing on SETUP changes how the appliance behaves. It carries builds, link and touch
 counters, memory, loop high-water, uptime, and a restart.
