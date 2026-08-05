@@ -123,12 +123,13 @@ column's own west face is 70, so the tray itself fits — and what a pair that
 meets at a divider wants beyond it is `divider_reach()` plus a body length past its
 far collet, with a turn's worth of room beyond each end for the tube to leave on:
 7 + 59 + 56.1 + 7 = 129.1 mm against the 139 the column has west of the block's
-intake face. That arithmetic is a function of `DIVIDER_LEAN`: this is the one place
-in the pack where the lean decides which BODY may stand where rather than only how
-far a fitting hangs, and a lean shallow enough carries it past 139 and leaves the
-lane to the pump alone. The pump is the one body that wants only its own 73,
-because its two barbs already face down the lane its lines run in and neither needs
-a fitting turned onto it.
+intake face. That arithmetic is a function of `FLAVOR_SKEW`, the lean a leg leaves
+its collet at: this is the one place in the pack where that lean decides which BODY
+may stand where rather than only how far a fitting hangs, and a collet shallow
+enough — its legs leaning less, so `divider_reach()` standing the pair further
+apart — carries it past 139 and leaves the lane to the pump alone. The pump is the
+one body that wants only its own 73, because its two barbs already face down the
+lane its lines run in and neither needs a fitting turned onto it.
 
 Both pumps have the lane, side by side, and the bag-B pair and the nozzle gates go
 aloft. Width does not exclude the alternative — standing a divider-joined pair in

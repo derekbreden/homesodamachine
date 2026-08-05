@@ -102,7 +102,7 @@ FACES = {"x+": (1.0, 0.0, 0.0), "x-": (-1.0, 0.0, 0.0),
 # The straight a collet needs before the tube may turn — the lead every leg in this machine
 # is already drawn with. A corner nearer a collet face than this is a corner the tube cannot
 # be bent to, so it is the lattice's own step as well as its offset.
-LEAD = _c.DIVIDER_LEG_LEAD
+LEAD = _c.DIVIDER_LEG_STRAIGHT
 
 # What a corner is worth against a millimetre of tube. A bend is not free — it is a fixture,
 # a spring-back and a place the bore necks — and this is the exchange rate the ranking uses.
