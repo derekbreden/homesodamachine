@@ -138,9 +138,12 @@ export function openCadDetail(type, file, pushHistory = true) {
   wrapper.className = "cad-wrapper";
   wrapper.appendChild(renderer.domElement);
   wrapper.appendChild(gizmoCanvas);
+  // Scrim + centered pill. The loaders toggle the scrim's display.
   const loadingEl = document.createElement("div");
   loadingEl.className = "cad-loading";
-  loadingEl.textContent = "Loading...";
+  const loadingPill = document.createElement("span");
+  loadingPill.textContent = "Loading...";
+  loadingEl.appendChild(loadingPill);
   wrapper.appendChild(loadingEl);
   wrapper.appendChild(makeRulerToggle());
   // X-ray + edge picker + find box only for STEP — DXF is a single flat
