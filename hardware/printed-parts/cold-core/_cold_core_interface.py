@@ -140,6 +140,13 @@ outer_shell_y_length = 2 * (
     bag_pocket_width / 2 + outer_shell_foam_gap + wall_and_floor_thickness
 )
 
+# The ±X FORWARD BAND — what is left between the bag pocket's far wall and the outer shell's
+# inner face. It is the reed channel's own depth and wall and nothing else, because that pair
+# is what set `outer_shell_x_length`: the band exists at every y BECAUSE the reed channel is
+# in it at one. A line climbing this band is potted in the pour beside the reed column, and
+# there is a bore's width of it to climb.
+forward_band_width = reed_x_depth + wall_and_floor_thickness
+
 # The −Y pour band — the open gap between the bag-pocket wall's outer face
 # and the outer shell's inner face, poured full of foam around the
 # reservoirs. Every front-wall pass-through crosses it, so each is two
@@ -507,16 +514,23 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # legs seat a stock arc. The band is [14](TOP_BAND) mm against the [25.4 mm](LLDPE_BEND_R) a
 # stock arc wants, so the corner OFF THE ELBOW is the one this move buys with, and it is
 # potted where it turns.
-#   reservoir-b stands over the +Y BAND, not over a port: its line crosses the pocket wall at
-# the bulkhead's own height, comes about in the band and climbs the shell's whole height in
-# it, potted where it crosses, and this bore is where it reaches the deck. Its Y in the cap's
-# frame is the band's own lane, held off the corner boss by the pour gap; nothing else uses
-# that band, so the lane is a bore wide the whole way and both of these two ride it.
-#   Their X is the DECK ABOVE. The nozzle-A gate's plate lies on the lid across the whole
-# forward end of this flank, so both bores stand aft of its footprint, in the strip between
-# that plate and the pump's own — and there they stand the pour gap apart rather than merged,
-# with `water-in` the forward of the two, on the leg the discharge chain's collet hands its
+#   water-in's Y in the cap's frame is the +Y BAND's own lane, held off the corner boss by
+# the pour gap, and its X is the DECK ABOVE: the nozzle-A gate's plate lies on the lid across
+# the whole forward end of that flank, so the bore stands aft of its footprint, in the strip
+# between that plate and the pump's own, on the leg the discharge chain's collet hands its
 # fall down.
+#   reservoir-b stands over the FORWARD BAND — the strip between the pocket's own wall and
+# the shell's, [8 mm](FORWARD_BAND) of it (`forward_band_width`). Its line crosses the pocket
+# wall at the bulkhead's own height, comes forward in the +Y band, turns east along this strip
+# and climbs it potted, and this bore is where it reaches the deck. A ⌀[6.5](PORT_HOLE_DIAMETER)
+# bore leaves the tube a `LINE_HUG` of foam either side; what pins the station in Y is that, and
+# what pins it in X is reservoir B's own reed channel, which the bore stands clear of to the
+# east.
+#   IT IS A MERGED COLUMN and not a standing one. The strip is forward of everything in the
+# cup, so a post over it stands inside the pour gap the perimeter wall wants — and a conduit
+# has the same two states against that wall it has against another conduit
+# (`cap_conduit_wall_neck`): the column fuses into the wall and the bore runs up a local
+# thickening of it, carrying a wall's material outboard.
 #   The two RESERVOIR FILLS stand over their own reservoirs rather than over a
 # band: each is the column between a valve on the deck and the bore in the cap
 # of the reservoir it fills (`reservoir_fill_port_x`, `reservoir_fill_port_y`),
@@ -525,7 +539,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # cap's frame that station is the port's own X and the negated Y.
 cap_conduits = {
     "water-in": (75.0, -80.5),
-    "reservoir-b": (62.0, -79.5),
+    "reservoir-b": (135.5, -33.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
 }
 
@@ -536,12 +550,30 @@ top_band_to_cap = foam_shell_outer_height - (tank_top_plate_z + hole_shift_from_
 lldpe_bend_radius = 4.0 * 6.35   # [25.4 mm](LLDPE_BEND_R) — 4 × OD, `_routing.BEND_RATIO`
 
 
+def cap_conduit_wall_neck(x, y):
+    """What a conduit standing near the cup's PERIMETER leaves: `(mm, what)`.
+
+    The same two states a pair of conduits has (`cap_conduit_pair_neck`), read against the
+    wall instead of against another column. APART, with the pour gap between the column and
+    the wall's inner face, so foam reaches down behind it. Or MERGED into the wall, and then
+    what carries the joint is the material left OUTBOARD of the bore, which must be a wall
+    thick — the column is no longer a post in the pour, it is a local thickening of the wall
+    the bore runs up.
+    A column that neither clears the wall nor reaches it stands tangent, which closes the
+    same knife edge a tangent pair does."""
+    to_outer = min(outer_shell_x_length / 2.0 - abs(x), outer_shell_y_length / 2.0 - abs(y))
+    if to_outer - wall_and_floor_thickness >= cap_conduit_boss_radius:
+        return (to_outer - wall_and_floor_thickness - cap_conduit_boss_radius,
+                "the pour gap behind a standing column")
+    return (to_outer - cap_conduit_bore_radius, "the wall left outboard of a merged bore")
+
+
 def cap_conduit_room(name):
-    """The least room this conduit leaves to anything else standing in the cup:
-    `(mm, what)` — a screw boss, the cavity wall, a deck mount's column."""
+    """The least room this conduit leaves to anything else STANDING in the cup:
+    `(mm, what)` — a screw boss, a deck mount's column. The perimeter wall is not one of
+    these: a column may merge into it, and `cap_conduit_wall_neck` is what prices that."""
     x, y = cap_conduits[name]
-    room = [(min(outer_shell_x_length / 2.0 - abs(x), outer_shell_y_length / 2.0 - abs(y))
-             - wall_and_floor_thickness - cap_conduit_boss_radius, "the cavity wall")]
+    room = []
     for bx, by in attachment_xy_positions:
         room.append((math.hypot(x - bx, y - by)
                      - screw_boss_size / 2.0 - cap_conduit_boss_radius, "a screw boss"))
@@ -558,6 +590,11 @@ for _name in cap_conduits:
     assert _room >= deck_mount_cap_gap - 1e-9, (
         f"cap conduit {_name}: the column stands {_room:.3f} mm off {_what}, inside the "
         f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
+    _neck, _what = cap_conduit_wall_neck(*cap_conduits[_name])
+    _want = deck_mount_cap_gap if _what.startswith("the pour") else cap_conduit_wall
+    assert _neck >= _want - 1e-9, (
+        f"cap conduit {_name}: {_what} is {_neck:.3f} mm, under the {_want:g} mm it takes "
+        f"— a column either stands the pour gap off the wall or merges into it")
 
 
 def foam_cap_lid_pour_xy():
@@ -812,6 +849,7 @@ if __name__ == "__main__":
         "VESSEL_PORT_PITCH": f"{2 * vessel_port_offset / 25.4:.4g}\"",
         "VESSEL_PORT_OFFSET": f"{vessel_port_offset:.4g} mm",
         "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
+        "FORWARD_BAND": f"{forward_band_width:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -821,7 +859,7 @@ if __name__ == "__main__":
             "COIL_RADIAL_CLEARANCE": 1,
             "ABOVE_TANK_ELBOWS_HEIGHT": 1,
             "BELOW_TANK_ELBOWS_HEIGHT": 1,
-            "PORT_HOLE_DIAMETER": 2,
+            "PORT_HOLE_DIAMETER": 3,
             "SCREW_CLEARANCE_DIAMETER": 1,
             "INSERT_POCKET_DIAMETER": 1,
             "SCREW_BOSS_SIZE": 1,
@@ -833,6 +871,7 @@ if __name__ == "__main__":
             "VESSEL_PORT_PITCH": 1,
             "VESSEL_PORT_OFFSET": 1,
             "LLDPE_BEND_R": 2,
+            "FORWARD_BAND": 2,
         },
     )
     print("-> _cold_core_interface.py (self)")
