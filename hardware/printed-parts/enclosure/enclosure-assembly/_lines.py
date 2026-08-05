@@ -1222,26 +1222,22 @@ def _authored_runs() -> list:
     # machine from the aft stand. It ends on the rear panel's own port row and the vk plate
     # stands in the loft's west lane ahead of it.
     #
-    # It leaves AFT into the OUTLET LANE behind the plate (`_contents.aft_outlet_lane`), and
-    # the band they turn in is the panel field's own footing: the water bulkhead's body stands
-    # on V-J's column from the port row down, and the C14's on V-G's.
-    #   So each climbs only as far as the SHELF — the band between the AFT STAND'S OWN CROWN
-    # and the lowest body in that field (the header's shelf bullet: the plate's coil row is
-    # what runs under these crossings, not the SeaFlo, whose tall half ends forward of them).
-    # Each crosses it in ONE LEAN, east and forward together, onto its bulkhead's own column
-    # ahead of the body, and climbs the last storey there.
-    #   The pair are TWINS and are built as twins: one lane, one shelf level, one approach
-    # rule, and the only thing that differs between them is which bulkhead each is aimed at.
-    # The two turns behind the plate stand a whole seat pitch apart in X
-    # ([19.96](GATE_SEAT_PITCH) mm) and the two leans diverge from there — but the panel's
-    # port row is ONE z, so both runs finish on that one stratum and fluid-28's west leg
-    # drives clean through fluid-18's aft leg where their columns cross:
-    # [175.3](GATE_PAIR_OVERLAP) mm³ of one tube inside the other.
-    #   THAT CLASH IS HELD, NOT MISSED. `lines-clear` names it every build and the pack reads
-    # NOT BUILD-READY on it. Parting them wants a second level under one of the two, and the
-    # routes that buys read worse here than the overlap does; the gate carries the debt until
-    # the pair is redrawn. Both come about on the outlet lane's one rung, the deepest
-    # the band holds, and water-4's turn is the third station on it.
+    # It leaves AFT into the OUTLET LANE behind the plate (`_contents.aft_outlet_lane`), and the
+    # band it turns in is the panel field's own footing: the water bulkhead's body stands on
+    # V-J's column from the port row down, and the C14's on V-G's.
+    #   It takes its height in that lane, in the one band this gate has behind it, and crosses
+    # the field on a stratum below the port row — so what runs under the crossing is the plate's
+    # coil row, not the SeaFlo, whose tall half ends forward of it. The last of the climb is a
+    # RAMP on the approach lane, and the run reaches the port row on the bulkhead's own column.
+    #   THE TWO GATES' LONG LEGS CROSS IN PLAN, SO ONE OF THEM RUNS UNDER. Their columns stand
+    # one seat pitch apart in X ([19.96](GATE_SEAT_PITCH) mm — closer than a tube) and their
+    # bulkheads a station apart the other way, so no lane in X parts them and only height does.
+    # fluid-18 holds the panel's own stratum: its closing leg is its collet's axis, and a run
+    # that finishes down the axis it is entered on has no other height to be at. This one takes
+    # a storey beneath it, and the same storey carries it under the CARB LINE leaning across
+    # the lane aft of that crossing.
+    #   It comes about on the outlet lane's one rung, the deepest the band holds, and water-4's
+    # turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
     # plate runs one `aft_outlet_lane()` deeper than one lane's own minimum — spare the
     # PLATE cannot pack into (V-J's rim on the corner column, `_contents.bag_b_tray_y`) —
@@ -1328,45 +1324,48 @@ def _authored_runs() -> list:
         # so the column steps west of that body before it rises.
         meter_w = f["digiten-flow"].bb.xmin - contents.PUMP_ROW_TURN
         lane_x = min(gate[0], meter_w) if gate[0] + 6.35 / 2.0 > meter_w else gate[0]
-        # THE TWO GATES SHARE A STRATUM, AND ON IT THEIR LONG LEGS CROSS. Their columns stand
-        # one seat pitch apart ([19.96](GATE_COLUMN_PITCH) mm — closer than a tube), their
-        # bulkheads stand a station apart the other way, and the westmost of the two has to
-        # cross the whole field AFT of the ASSE chain: so each one's long leg runs through the
-        # other's column, and no lane in X parts them. Only height can, and only `crosses_row`
-        # buys it — a gate held UNDER the aft row crosses over that row's own crown, one tube
-        # and its floor above it, and climbs its last step on its own bulkhead's column where
-        # nothing else stands. Neither gate is held under that row, so neither takes the step,
-        # both finish on `panel_z`, and the crossing is a real interpenetration the header
-        # above states and `lines-clear` fails the pack on every build.
-        #   Were the step taken, that stratum would be the AFT ROW'S OWN CROWN: the middle
-        # row's gate is the only one of the two with a plate standing between it and the panel,
-        # so the row it climbs over is what its crossing height would be for, and everything
-        # else in that field — the basin, the backflow chain, the meter's outlet lean — stands
-        # clear above or west of the two legs it spends there.
-        #   THE CROSSING ANSWERS TO WHAT STANDS IN ITS OWN LANE. A gate held under that row
-        # crossed AFT over it; this one crosses FORWARD on the approach lane, and the row's own
-        # band stands [141.3](CROSS_ROW_SLACK) mm away from it — so there is nothing to climb
-        # under and the crossing takes the panel's stratum whole, on one climb rather than two.
-        crosses_row = (nz.bb.ymin - contents.PUMP_ROW_TURN <= appr_y
-                       <= nz.bb.ymax + contents.PUMP_ROW_TURN)
-        cross_z = (panel_z if plate is nz or not crosses_row
-                   else nz.bb.zmax + 2.0 * contents.PUMP_ROW_TURN)
+        # THE CROSSING STRATUM STANDS UNDER THE FIELD, NOT ON IT. Two tubes lie across this
+        # run's path at the panel's own height: `fluid-18`'s long leg, on the column a seat
+        # pitch east of this one, and the CARB LINE, leaning over the lane between the meter
+        # and its own bulkhead. Neither has height to give — one closes on its collet's axis
+        # and the other is climbing to the same port row — so this run holds a storey below
+        # both and comes up onto the panel's stratum only after it is west of them.
+        #   The drop is STATED. What it clears is two runs rather than a face, so the figure
+        # answers to the pair and the pair is measured: at this drop the crossing keeps
+        # [7.65](GATE_F18_CLEAR) mm of air off fluid-18 and [4.53](GATE_CARB_CLEAR) mm off the
+        # carb line. Both are SURFACE gaps between swept tubes, and both crossings are skew —
+        # the ramp climbs across each of them at an angle — so each reads shorter than the
+        # drop in Z that buys it.
+        GATE_CROSS_DROP = 28.2
+        cross_z = panel_z - GATE_CROSS_DROP
+        # THE WHOLE RISE IS ON ONE LEG, AND IT IS THE APPROACH LANE'S. The lane between the
+        # outlet lane and this one carries three corners already — up, forward, and west — and
+        # what it has between the last two is [51.01](GATE_LANE_BAND) mm, which is two stock arcs
+        # and [0.21](GATE_LANE_SLACK) mm over. A ramp taking part of its rise there would turn a
+        # fourth corner on a leg that has no tangent left to sell, so the lane stays level the
+        # whole way and the climb is the WEST leg's alone.
+        #   WHERE THE RAMP'S FOOT STANDS AND WHAT GRADE IT CLIMBS SET EACH OTHER. The closing
+        # turn onto the bulkhead's column spends a whole stock tangent on the leg the ramp
+        # shares with it; the ramp's own corner spends `tan(grade/2)` of another on that same
+        # leg; and the grade is the drop over whatever run the ramp is left with once both are
+        # paid. So the two are settled together rather than either being struck first.
+        ramp_w_x = tin[0] + gate_stock
+        for _ in range(32):
+            grade = math.atan2(GATE_CROSS_DROP, lane_x - ramp_w_x)
+            ramp_w_x = tin[0] + gate_stock * (1.0 + math.tan(grade / 2.0))
         nzb_climb_y = climb_y
-        legs = [(lane_x, climb_y, gate[2]),  # aft off the gate into the outlet lane
-                (lane_x, climb_y, cross_z),  # and up the storey there, clear of the field
-                (lane_x, appr_y, cross_z)]   # forward onto the approach lane
-        if abs(climb_y - appr_y) < 1e-6:     # one lane serves both where the band allows it
-            legs = legs[:2]
-        legs.append((tin[0], appr_y, cross_z))       # west onto the bulkhead's column
-        if cross_z != panel_z:
-            legs.append((tin[0], appr_y, panel_z))   # the last step, on that column alone
+        legs = [(lane_x, climb_y, gate[2]),      # aft off the gate into the outlet lane
+                (lane_x, climb_y, cross_z),      # up to the crossing storey, under both tubes
+                (lane_x, appr_y, cross_z),       # forward onto the approach lane, still under
+                (ramp_w_x, appr_y, panel_z)]     # west up the ramp onto the panel's stratum
+        legs.append((tin[0], appr_y, panel_z))   # and level onto the bulkhead's own column
         runs.append(R.bent(
             cid, f"{body}.{port}", *legs,
             f"{panel}.tube-in",              # and aft into the collet
             kind="fluid", skew=FLAVOR_SKEW, bend=gate_stock,
-            note=f"{who}: nozzle gate → rear panel, aft off the collet into the outlet lane, "
-                 f"up its whole storey there, forward onto the approach lane and west across "
-                 f"the electronics field to the bulkhead's own column"))
+            note=f"{who}: nozzle gate → rear panel, aft off the collet into the outlet lane, up "
+                 f"to the crossing storey there, forward and west under both tubes that lie "
+                 f"across it, and up the ramp onto the bulkhead's own column"))
 
     # --- The TAP-WATER PATH: rear bulkhead → ASSE 1022 → split → V-K → SeaFlo → the core's
     # water inlet. Six runs on the water deck and down the front column, at the pigtails'
@@ -1848,16 +1847,19 @@ def lane_stations() -> dict:
         "W6_WALL_CLEAR":    f"{_boxes.boxed(R.tube(runs['water-6'])).xmin - (contents.CORE_WEST_FACE - contents.SIDE_RIB_INSET):.3g}",
         "LOFT_BAY":         f"{runs['fluid-27'].pts[0][1] - runs['fluid-23'].pts[0][1]:.4g}",
         "PORT_ROW_Z":       f"{runs['fluid-18'].pts[-1][2]:.4g}",
-        # The outlet lane: what the band has spare once its one rung is struck, the pitch the
-        # three turns on it stand apart, and how much of one twin gate's tube is inside the
-        # other's. OVERLAP, not gap: `_solid_gap` reads 0 for a graze and 0 for a run driving
-        # clean through, so on this pair the gap is the one number that cannot tell the
-        # difference — and this pair drives through. Zero here means parted.
+        # The outlet lane: what the band has spare once its one rung is struck, and the pitch
+        # the three turns on it stand apart.
         "OUTLET_LANE":      f"{contents.aft_outlet_lane():.3g}",
         "GATE_SEAT_PITCH":  f"{abs(runs['fluid-18'].pts[1][0] - runs['fluid-28'].pts[1][0]):.4g}",
-        # The two gates' own columns, at that same pitch.
-        "GATE_COLUMN_PITCH": f"{abs(runs['fluid-18'].pts[1][0] - runs['fluid-28'].pts[1][0]):.4g}",
-        "GATE_PAIR_OVERLAP": f"{scorecard._common_volume(R.tube(runs['fluid-18']), R.tube(runs['fluid-28'])):.4g}",
+        # What the nozzle-B gate's crossing storey buys it under the two tubes lying across its
+        # path. Both off the SWEPT SOLIDS: the ramp and the corner it turns are where this run
+        # actually is, and its authored waypoints are not.
+        "GATE_F18_CLEAR":   f"{scorecard._solid_gap(R.tube(runs['fluid-28']), R.tube(runs['fluid-18'])):.3g}",
+        "GATE_CARB_CLEAR":  f"{scorecard._solid_gap(R.tube(runs['fluid-28']), R.tube(runs['carb-2'])):.3g}",
+        # The approach lane's own band, and what it has left once its two square corners have
+        # taken their stock tangents — the reason the whole rise is the west leg's.
+        "GATE_LANE_BAND":   f"{runs['fluid-28'].pts[1][1] - runs['fluid-28'].pts[3][1]:.4g}",
+        "GATE_LANE_SLACK":  f"{runs['fluid-28'].pts[1][1] - runs['fluid-28'].pts[3][1] - 2.0 * contents.LLDPE_STOCK_BEND:.2g}",
         # The shelf, off the two bodies that actually bound it: the aft stand's coil crown
         # under it and the lowest body of the port field over it. The SeaFlo does not bound
         # it — its tall half ends forward of every crossing up here — and `seaflo_aft_step`
@@ -1903,13 +1905,11 @@ def lane_stations() -> dict:
         "F27_TANGENT":      f"{runs['fluid-27'].radii[1]:.3g}",
         "F23_IN_REACH":     f"{_frames()['tee-y-g'].at('Y-G-3')[1] - (_boxes.boxed(solids['bag-b-tray-assembly']).ymax + contents.PUMP_ROW_TURN):.3g}",
         "F27_PSU_CLEAR":    f"{scorecard._solid_gap(R.tube(runs['fluid-27']), solids['psu']):.3g}",
-        # The nozzle-B gate's own three fences, each one a figure a BOUNDING BOX got wrong.
-        # The band its collet and its mouth leave between them, which is not two stock arcs;
-        # how far forward of the chain's box the chain's own material on that column stops;
-        # and how far the crossing now runs from the row its height was once held under.
+        # The nozzle-B gate's own two fences, each one a figure a BOUNDING BOX got wrong: the
+        # band its collet and its mouth leave between them, which is not two stock arcs, and
+        # how far forward of the chain's box the chain's own material on that column stops.
         "GATE_MOUTH_BAND":  f"{runs['fluid-28'].pts[-1][1] - runs['fluid-28'].pts[0][1]:.4g}",
         "CHAIN_COLUMN_SLACK": f"{_boxes.boxed(solids['asse1022-assembly']).ymax - max(b.ymax for b in (s.BoundingBox() for s in solids['asse1022-assembly'].Solids()) if b.xmax > runs['fluid-28'].pts[-1][0] - 6.35 / 2.0 and b.xmin < runs['fluid-28'].pts[-1][0] + 6.35 / 2.0):.3g}",
-        "CROSS_ROW_SLACK":  f"{runs['fluid-28'].pts[-2][1] - _boxes.boxed(solids['nozzle-tray-assembly']).ymax:.4g}",
         # water-3's exit reach off the split, and what its exit corner seats on it. The corner
         # is the FALL's to bound once the reach clears its own tangent, so the two figures part
         # company at the point the standoff stops being the binding one.
