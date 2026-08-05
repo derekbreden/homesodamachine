@@ -4,6 +4,11 @@
 // scoring so a blob copied out of the viewer (or composed by the agent
 // from CAD coordinates) round-trips back into a highlighted entity.
 //
+// The same box also takes a NAME — `fluid-17`, `seaflo-pump` — because a
+// coordinate is what you have after you've found the thing, and a name is
+// what you have before. Names need no format: they are matched on letters
+// and digits alone (parseNames / matchNames).
+//
 // Deliberately dependency-free: points are plain {x, y, z} objects
 // (THREE.Vector3 satisfies the shape), so node:test can exercise parsing
 // and matching without a browser or three.js.
@@ -32,8 +37,9 @@ export function formatFace(face) {
 // --- parsing ---
 // Accepts the copy-all blob format, individual rows, or any mix — one
 // pick per line. Labels ("edge:", "faceA:", "click:", …) are optional;
-// lines are recognized by content. Returns { picks, files } where picks
-// carry a `kind` and a `line` (the trimmed source text for status UI).
+// lines are recognized by content. Returns { picks, files, names } where
+// picks carry a `kind` and a `line` (the trimmed source text for status
+// UI) and names are the typed component names (parseNames).
 const TRIPLE_RE = /x=(-?\d+(?:\.\d+)?)\s+y=(-?\d+(?:\.\d+)?)\s+z=(-?\d+(?:\.\d+)?)/g;
 const NUM = "(-?\\d+(?:\\.\\d+)?)";
 
@@ -68,9 +74,32 @@ export function pickFileToViewerPath(file, roots) {
   return s;
 }
 
+// A line carrying no coordinates at all is a name — what the user typed
+// instead of pasted. It counts as one only if every word on it is shaped
+// like a name (word characters and the separators names actually use: `-`,
+// `_`, `+`, `.`) and there are few enough of them to be a list. Prose fails
+// on its punctuation or its length, so pasting a whole agent message still
+// highlights only the picks in it.
+//
+// The line is then cut on COMMAS alone, not on spaces: a space is as likely
+// to be a typed separator inside one name (`fluid 17`) as between two, and
+// matchNames is the half that can tell — it knows what the model holds.
+const NAME_WORD = /^[A-Za-z0-9][A-Za-z0-9_+.-]*$/;
+const NAME_WORD_MAX = 4;
+
+export function parseNames(body) {
+  const line = String(body || "").trim();
+  const words = line.split(/[\s,]+/).filter(Boolean);
+  if (!words.length || words.length > NAME_WORD_MAX) return [];
+  if (!words.every((w) => NAME_WORD.test(w))) return [];
+  return line.split(",").map((q) => q.trim()).filter(Boolean);
+}
+
 export function parsePicks(text) {
   const picks = [];
   const files = [];
+  const names = [];
+  const solids = [];
   for (const raw of String(text || "").split("\n")) {
     const line = raw.trim();
     if (!line) continue;
@@ -80,7 +109,7 @@ export function parsePicks(text) {
     const body = m ? m[2] : line;
 
     if (label === "file") { files.push(body.trim()); continue; }
-    if (label === "solid") continue;
+    if (label === "solid") { solids.push(...parseNames(body)); continue; }
 
     if (/circle\s*[⌀ø]/i.test(body)) {
       const d = numAfter(body, new RegExp(`[⌀ø]\\s*${NUM}`));
@@ -122,9 +151,69 @@ export function parsePicks(text) {
     }
     // anything else holding coordinate triples: point markers
     // (click:, old endpoints: rows, curved-face "near" lines, bare points)
-    for (const p of triples(body)) picks.push({ kind: "point", p, line });
+    const pts = triples(body);
+    if (pts.length) {
+      for (const p of pts) picks.push({ kind: "point", p, line });
+      continue;
+    }
+    names.push(...parseNames(body));
   }
-  return { picks, files };
+  // A copy-all blob's `solid:` line names the body its picks came off — the
+  // container, not the target, so it stands only when nothing else does. A
+  // paste of just that one line is someone asking for the whole part.
+  if (!picks.length) names.push(...solids);
+  return { picks, files, names };
+}
+
+// --- name matching ---
+// Case and separators are noise: `fluid-17`, `Fluid 17` and `FLUID_17` are
+// one query, and so is a scorecard's `fluid-17` inside `tee-y-d.Y-D-3`.
+export function normalizeName(s) {
+  return String(s).toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+// An exact hit stands alone — `fluid-1` is fluid-1, not fluid-1 and the ten
+// runs it prefixes. Only when nothing is exact does the query widen to every
+// name containing it, which is what makes `fluid` mean all of them and `tee`
+// mean the seven Y-junctions. Widening needs two characters to go on: one
+// letter is a hand still typing, and it would sweep most of an assembly.
+const WIDEN_MIN = 2;
+
+function lookup(query, entries) {
+  const k = normalizeName(query);
+  if (!k) return [];
+  const exact = entries.filter(([norm]) => norm === k);
+  if (exact.length) return exact.map(([, raw]) => raw);
+  if (k.length < WIDEN_MIN) return [];
+  return entries.filter(([norm]) => norm.includes(k)).map(([, raw]) => raw);
+}
+
+// A dotted query missing whole falls back to its head, so the scorecard's own
+// `<component>.<port>` vocabulary (`tee-y-d.Y-D-3`) pastes straight in and
+// lands on the component.
+function resolve(query, entries) {
+  const hits = lookup(query, entries);
+  if (hits.length || !query.includes(".")) return hits;
+  return lookup(query.split(".")[0], entries);
+}
+
+// Match every parsed name against the scene's component names (a Set or
+// array). Returns one result per query: { query, names: [...] }, empty when
+// the model holds nothing by that name. A query holding spaces is tried
+// WHOLE first — `fluid 17` is one name typed loosely — and only then as
+// separate names, which is what makes `fluid-17 water-3` two.
+export function matchNames(queries, sceneNames) {
+  const entries = [...(sceneNames || [])]
+    .filter(Boolean)
+    .map((raw) => [normalizeName(raw), raw])
+    .sort((a, b) => a[1].localeCompare(b[1], undefined, { numeric: true }));
+  return (queries || []).map((query) => {
+    let names = resolve(query, entries);
+    if (!names.length && /\s/.test(query)) {
+      names = [...new Set(query.split(/\s+/).flatMap((w) => resolve(w, entries)))];
+    }
+    return { query, names };
+  });
 }
 
 // --- match scoring (lower is better; Infinity = not a candidate) ---

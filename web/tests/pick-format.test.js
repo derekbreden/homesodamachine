@@ -12,7 +12,10 @@ import { fileURLToPath } from "node:url";
 
 import {
   parsePicks,
+  parseNames,
   matchPicks,
+  matchNames,
+  normalizeName,
   scoreEdge,
   formatFace,
   fpt,
@@ -82,17 +85,112 @@ test("parses a whole copy-all blob with file, solid, faces, click", () => {
 });
 
 test("prose between pick lines parses to nothing", () => {
-  const { picks } = parsePicks(
+  const { picks, names } = parsePicks(
     "And so 14.300 - 10.682 = 3.618 is the distance to extend.\n" +
     "Which I only mention in passing so that you know where I get 10.682 from",
   );
   assert.equal(picks.length, 0);
+  // Neither line is name-shaped: the first carries bare numbers and an `=`,
+  // the second is longer than any list of names.
+  assert.deepEqual(names, []);
 });
 
 test("old standalone endpoints rows still parse as point markers", () => {
   const { picks } = parsePicks("endpoints: x=1.000 y=2.000 z=3.000 · x=4.000 y=5.000 z=6.000");
   assert.equal(picks.length, 2);
   assert.ok(picks.every((p) => p.kind === "point"));
+});
+
+// --- names ---
+// Verbatim component names off the kitchen enclosure assembly — what
+// export_assembly writes into the STEP and step.js stamps onto each mesh.
+const SCENE_NAMES = new Set([
+  "bag-a-tray-assembly", "co2-1", "co2-2", "condenser+fan", "display",
+  "enclosure_back_top", "fluid-1", "fluid-17", "fluid-18", "fluid-2",
+  "foam-assembly", "pcba", "psu", "seaflo-pump", "tee-y-a", "tee-y-d",
+  "tee-y-e", "water-3",
+]);
+
+// What the find box does end to end: type into it, get parts back. Every
+// name case goes through BOTH halves — a query the parser splits before the
+// matcher can weigh it is a query that doesn't work, whatever each half
+// says on its own.
+const found = (typed) => {
+  const { names } = parsePicks(typed);
+  return [...new Set(matchNames(names, SCENE_NAMES).flatMap((h) => h.names))];
+};
+
+test("a bare name is a name query", () => {
+  const { picks, files, names } = parsePicks("fluid-17");
+  assert.equal(picks.length, 0);
+  assert.equal(files.length, 0);
+  assert.deepEqual(names, ["fluid-17"]);
+  assert.deepEqual(found("fluid-17"), ["fluid-17"]);
+});
+
+test("several names on one line, comma- or space-separated", () => {
+  assert.deepEqual(found("fluid-17, fluid-18"), ["fluid-17", "fluid-18"]);
+  assert.deepEqual(found("fluid-17 water-3"), ["fluid-17", "water-3"]);
+});
+
+test("case and separators are noise", () => {
+  assert.equal(normalizeName("Fluid_17"), "fluid17");
+  // Including a SPACE where the name has a hyphen: `fluid 17` is one name
+  // typed loosely, not two, and only the matcher can know that.
+  for (const q of ["fluid-17", "FLUID-17", "Fluid 17", "fluid_17", "fluid.17", "  fluid-17  "]) {
+    assert.deepEqual(found(q), ["fluid-17"], q);
+  }
+});
+
+test("an exact name stands alone against the prefixes it shares", () => {
+  // `fluid-1` must not drag in fluid-17 and fluid-18 — the run you asked for
+  // is the run you get.
+  assert.deepEqual(found("fluid-1"), ["fluid-1"]);
+});
+
+test("a name nothing matches exactly widens to every name holding it", () => {
+  assert.deepEqual(found("fluid"), ["fluid-1", "fluid-2", "fluid-17", "fluid-18"]);
+  assert.deepEqual(found("tee"), ["tee-y-a", "tee-y-d", "tee-y-e"]);
+});
+
+test("a single character does not sweep the assembly", () => {
+  assert.deepEqual(found("f"), []);
+});
+
+test("a name the model doesn't hold comes back empty, carrying the query", () => {
+  const [hit] = matchNames(["flud-17"], SCENE_NAMES);
+  assert.equal(hit.query, "flud-17");
+  assert.deepEqual(hit.names, []);
+});
+
+test("a scorecard's component.port reference lands on the component", () => {
+  assert.deepEqual(found("tee-y-d.Y-D-3"), ["tee-y-d"]);
+  assert.deepEqual(found("foam-assembly.reservoir-B"), ["foam-assembly"]);
+});
+
+test("a copy blob's solid: line stands alone but never over its own picks", () => {
+  assert.deepEqual(parsePicks("solid: fluid-17").names, ["fluid-17"]);
+  const blob = ["solid: fluid-17", STRAIGHT_LINE].join("\n");
+  const { picks, names } = parsePicks(blob);
+  assert.equal(picks.length, 1);
+  assert.deepEqual(names, []); // the picks are the target; the solid is the container
+});
+
+test("a name query survives the words around it", () => {
+  assert.deepEqual(found("show me fluid-17"), ["fluid-17"]);
+});
+
+test("parseNames keeps a line whole but for its commas", () => {
+  assert.deepEqual(parseNames("fluid 17"), ["fluid 17"]);       // one loose name
+  assert.deepEqual(parseNames("psu, pcba"), ["psu", "pcba"]);   // two
+  assert.deepEqual(parseNames("condenser+fan"), ["condenser+fan"]);
+  assert.deepEqual(parseNames("enclosure_back_top"), ["enclosure_back_top"]);
+});
+
+test("parseNames rejects what isn't a name", () => {
+  assert.deepEqual(parseNames("a = b"), []);                    // punctuation no name carries
+  assert.deepEqual(parseNames("one two three four five"), []);  // too long to be a list
+  assert.deepEqual(parseNames("  "), []);
 });
 
 // --- matching ---
