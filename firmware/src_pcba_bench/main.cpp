@@ -331,14 +331,20 @@ public:
     int peek() override      { drain(); return ser.peek(); }
     void flush() override    { ser.flush(); }
     size_t echoOutstanding() const { return pending; }
+    size_t echoSwallowed() const { return swallowed; }
+    size_t echoHighWater() const { return highWater; }
 private:
-    void drain() { while (pending && ser.available()) { ser.read(); pending--; } }
+    void drain() {
+        while (pending && ser.available()) { ser.read(); pending--; swallowed++; }
+        if (pending > highWater) highWater = pending;
+    }
     HardwareSerial &ser;
-    size_t pending = 0;
+    size_t pending = 0, swallowed = 0, highWater = 0;
 };
 
 static const long RS485_BAUD = 115200;
 static bool rs485Up = false;
+static unsigned long maxLoopMs = 0;   // the base metering a pump cannot afford a stall
 static EchoCancel j9Stream(Serial1);
 static HdlcLink j9;
 
@@ -872,7 +878,8 @@ static void cmdHelp() {
     Serial.println("  scan   I2C bus scan");
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
     Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
-    Serial.println("  link   J9 TinyProto state — up/down, connected, echo outstanding, prime");
+    Serial.println("  link   J9 state — frames, bytes, echo, prime, loop high-water");
+    Serial.println("  j9raw  raw bytes off IO34 for 5 s, below HDLC");
     Serial.println("  pumpmsg  send the display's own MSG_PUMP_RUN frame back at it");
     Serial.println("  rs485link  bring the J9 link back after 'rs485' or 'drive io32'");
     Serial.println("  watch  restart the continuity probe (it also runs from boot)");
@@ -966,6 +973,14 @@ static bool dispatch(const String &line) {
                       (unsigned long)j9.framesRx, (unsigned long)j9.framesTx,
                       j9.lastRxMs ? (unsigned long)(millis() - j9.lastRxMs) : 0UL,
                       (unsigned)j9Stream.echoOutstanding());
+        // bytes rx climbing while frames rx does not is the pair carrying and the framing
+        // failing; both flat is nothing arriving at IO34 at all.
+        Serial.printf("   bytes rx %lu / tx %lu, echo swallowed %lu (high water %u), loop max %lu ms\n",
+                      (unsigned long)j9.bytesRx, (unsigned long)j9.bytesTx,
+                      (unsigned long)j9Stream.echoSwallowed(),
+                      (unsigned)j9Stream.echoHighWater(),
+                      (unsigned long)maxLoopMs);
+        maxLoopMs = 0;
         if (primeActive)
             Serial.printf("   prime %s running %lu ms, last tick %lu ms ago\n",
                           kPump[primeChannel].who, (unsigned long)(millis() - primeStartMs),
@@ -975,6 +990,22 @@ static bool dispatch(const String &line) {
         PumpRunPayload req{PUMP_CHANNEL_B, 1000};   // the frame the display's button sends
         int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
         Serial.printf("\nMSG_PUMP_RUN ch=%u ms=%u -> send()=%d\n", req.channel, req.ms, r);
+    }
+    else if (line == "j9raw") {
+        // Straight off IO34 for 5 s, below both HDLC and the echo canceller.
+        Serial.println("\nRAW: listening 5 s below HDLC");
+        bool wasUp = rs485Up;
+        if (wasUp) rs485End();
+        Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
+        unsigned long t0 = millis();
+        uint32_t n = 0;
+        while (millis() - t0 < 5000) {
+            while (Serial1.available()) { Serial.printf(" %02X", Serial1.read()); n++; }
+            delay(2);
+        }
+        Serial.printf("\nRAW: %lu byte(s)\n", (unsigned long)n);
+        Serial1.end();
+        if (wasUp) rs485Begin();
     }
     else if (line == "watch") probeBegin();
     else if (line == "wifi")  cmdWifi();
@@ -1065,12 +1096,16 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 }
 
 void loop() {
+    unsigned long loopStart = millis();
     heartbeat();
 
     if (probeOn) probePoll();
 
     if (rs485Up) j9.service();
     primeService();
+
+    unsigned long loopMs = millis() - loopStart;
+    if (loopMs > maxLoopMs) maxLoopMs = loopMs;
 
     static String line;
     while (Serial.available()) {

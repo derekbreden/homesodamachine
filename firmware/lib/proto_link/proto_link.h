@@ -228,17 +228,24 @@ struct HdlcLink : public tinyproto::Hdlc {
 
   // Pump RX then TX. A reply queued from inside onMessage goes out on this same call,
   // because run_rx is drained before run_tx is asked for anything.
+  //
+  // The bytes come off with read(), one at a time, and never readBytes(): Stream::readBytes
+  // waits out _timeout — 1000 ms as it comes — for a count available() reported and the
+  // stream then did not hand over, and this runs inside loop() on a board that is also
+  // metering a pump.
   void service() {
     if (!serial) return;
     uint8_t rx[128];
-    int avail = serial->available();
-    while (avail > 0) {
-      int want = avail > (int)sizeof(rx) ? (int)sizeof(rx) : avail;
-      int got = serial->readBytes(rx, want);
-      if (got <= 0) break;
-      bytesRx += got;
-      run_rx(rx, got);
-      avail -= got;
+    for (;;) {
+      int n = 0;
+      while (n < (int)sizeof(rx) && serial->available() > 0) {
+        int c = serial->read();
+        if (c < 0) break;
+        rx[n++] = (uint8_t)c;
+      }
+      if (n <= 0) break;
+      bytesRx += n;
+      run_rx(rx, n);
     }
     for (;;) {
       uint8_t tx[128];
