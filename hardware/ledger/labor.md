@@ -6,6 +6,8 @@ Attended human minutes to build one finished appliance, one row per hand operati
 
 **An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per vessel), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
 
+**The pace is a line's, not a bench's.** Twenty units an hour — three minutes an operation — is a relaxed rate for the repetitive work, so an operation of that shape gets 5 minutes, not 10. Forty-two machine screws is seven seconds each with a driver; forty-two heat-set inserts is fourteen seconds each with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
+
 **Costed at [$100](LABOR_RATE) per hour of attended time.** That rate is what [`/cost`](/cost) prices the labor column with; it reads the number from the marker above, so this file sets it.
 
 **Every estimate lands on one of these increments,** and nothing in between:
@@ -87,14 +89,14 @@ Twelve harness assemblies off the bench plus the in-cabinet runs — roughly six
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Build the twelve harness assemblies — cut, strip, crimp, sleeve, ring out | CA-01, CA-02 | ~60 terminations; batch-built against the harness schedule | 60 |
+| Build the twelve harness assemblies — cut, strip, crimp, sleeve, ring out | CA-01, CA-02 | ~60 terminations; batch-built against the harness schedule | 45 |
 | AC distribution + ground bus on the shelf; land the pigtails | ES-02, ES-04 | Ferrules into 221s, rings to the ground stud | 10 |
-| DC distribution + 12 V branches; land the RELAYS J5 loom | ES-05, ES-06 | | 10 |
+| DC distribution + 12 V branches; land the RELAYS J5 loom | ES-05, ES-06 | | 5 |
 | Chassis-ground bonds; C14 to compressor and PSU | WR-01, WR-02 | | 10 |
 | Dielectric + continuity check, AC side | ES-07, WR-03 | Pre-power isolation proof — nothing gets energized before it passes | 10 |
 | Cabinet 12 V runs and signal looms | WR-04, WR-05 | Label both 7P housings; J4 and J7 share a shell | 10 |
-| Bundle, route, strain-relieve | WR-06 | | 10 |
-| **Wiring** | | | **[120](LAB_SEC6)** |
+| Bundle, route, strain-relieve | WR-06 | | 5 |
+| **Wiring** | | | **[95](LAB_SEC6)** |
 
 ## 7. Plumbing
 
@@ -117,19 +119,19 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.3 kg over ~200 printer-hours; only the load/unload passes are counted | 45 |
-| Press 42 heat-set inserts — foam caps, reservoir caps, touch-flo pods | CC-05 | FX-888D + T18 tip kit, twelve of them in the shell faces alone | 15 |
-| Drive the 42 machine screws that close the build | — | 12 foam-cap, 12 reservoir-cap, 3 touch-flo, 15 shelf | 10 |
+| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.3 kg over ~200 printer-hours; only the load/unload passes are counted | 25 |
+| Press 42 heat-set inserts — foam caps, reservoir caps, touch-flo pods | CC-05 | FX-888D + T18 tip kit, twelve of them in the shell faces alone | 10 |
+| Drive the 42 machine screws that close the build | — | 12 foam-cap, 12 reservoir-cap, 3 touch-flo, 15 shelf | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
 | Dress the vessel wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
-| Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 20 |
-| Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 10 |
-| Prepare the shelf trays; mount PSU, relays, PCBA | ES-01, ES-03 | Onto the top cap's fifteen deck-mount columns | 10 |
-| Stage shell and back panel; compressor shroud, condenser and fan | EN-01, EN-02, EN-03 | | 15 |
-| Seat the cold core; drip pan, hopper, back panel, electronics shelf | EN-04, EN-05, EN-06, EN-07, EN-08 | | 15 |
+| Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
+| Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
+| Prepare the shelf trays; mount PSU, relays, PCBA | ES-01, ES-03 | Onto the top cap's fifteen deck-mount columns | 5 |
+| Stage shell and back panel; compressor shroud, condenser and fan | EN-01, EN-02, EN-03 | | 10 |
+| Seat the cold core; drip pan, hopper, back panel, electronics shelf | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-04, FU-05 | Three LLDPE tubes, braid, install-kit bag | 10 |
-| Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 10 |
-| **Assembly** | | | **[180](LAB_SEC8)** |
+| Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 5 |
+| **Assembly** | | | **[120](LAB_SEC8)** |
 
 ## 9. Power-on & testing
 
@@ -141,10 +143,10 @@ The unit is fully built. Now it gets plugged in for the first time: load the fir
 | Load the firmware onto the three ESP32s | FC-02 | Base, config display, faucet display | 5 |
 | Read every sensor and confirm it reports | FC-03 | Both DS18x20s, flow, moisture, reeds, cap-sense, gas | 10 |
 | Fire every valve and pump; run the compressor and set its setpoints | FC-04, FC-05 | | 10 |
-| First dispenses — water, flavor A, flavor B | AB-03 | | 10 |
+| First dispenses — water, flavor A, flavor B | AB-03 | | 5 |
 | Clean cycle, air purge, level-sensing transitions | AB-04, AB-05 | | 10 |
 | Burn-in check-ins at 1 h, 4 h and 8 h | AB-06 | The 8-hour window itself is not counted | 10 |
-| **Power-on & testing** | | | **[60](LAB_SEC9)** |
+| **Power-on & testing** | | | **[55](LAB_SEC9)** |
 
 ## 10. Finishing & packing
 
@@ -153,12 +155,12 @@ The unit passed. Empty it, clean it up, name it, box it.
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Drain and air-purge for transit | AB-07 | Nothing wet ships | 5 |
-| Wipe down + final inspection | FS-01 | | 10 |
-| Drain dry, nameplate, sign the plaque | FS-02 | Pigment ink in the recess, then let it set | 10 |
+| Wipe down + final inspection | FS-01 | | 5 |
+| Drain dry, nameplate, sign the plaque | FS-02 | Pigment ink in the recess, then let it set | 5 |
 | Cap the inlets + photograph | FS-03 | | 5 |
 | Pack the install kit and carton | FS-04 | | 10 |
 | Weigh, label, hand off | FS-05 | | 5 |
-| **Finishing & packing** | | | **[45](LAB_SEC10)** |
+| **Finishing & packing** | | | **[35](LAB_SEC10)** |
 
 ## Totals
 
@@ -169,18 +171,18 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 3. Pressure testing & leak checks | [55 m](LAB_HM3) | [$91.67](LAB_USD3) |
 | 4. Silicone casting | [35 m](LAB_HM4) | [$58.33](LAB_USD4) |
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
-| 6. Wiring | [2 h](LAB_HM6) | [$200.00](LAB_USD6) |
+| 6. Wiring | [1 h 35 m](LAB_HM6) | [$158.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
-| 8. Assembly | [3 h](LAB_HM8) | [$300.00](LAB_USD8) |
-| 9. Power-on & testing | [1 h](LAB_HM9) | [$100.00](LAB_USD9) |
-| 10. Finishing & packing | [45 m](LAB_HM10) | [$75.00](LAB_USD10) |
-| **Per-unit total** | **[11 h 35 m](LAB_HM)** | **[$1,158.33](LAB_USD)** |
+| 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
+| 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
+| 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
+| **Per-unit total** | **[9 h 55 m](LAB_HM)** | **[$991.67](LAB_USD)** |
 
-The target is 10 hours attended per unit. Bottom-up this says [11 h 35 m](LAB_HM). The gap is one wiring block wide, and that is where the next jig pays for itself:
+The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM). Where the remaining time sits:
 
-- **Wiring** ([2 h](LAB_HM6)) — a crimp jig and a batch cut list against the harness schedule, not a loom at a time.
-- **Assembly** ([3 h](LAB_HM8), the largest category) — printer tending and heat-sets are both pure setup work; a second printer and an insert fixture take the setup out of the unit.
-- **Machining** — the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
+- **Assembly** ([2 h](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
+- **Wiring** ([1 h 35 m](LAB_HM6)) — three quarters of it is the twelve harnesses. A crimp jig and a batch cut list against the harness schedule move that number; nothing else in the section will.
+- **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build, and the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
 
 ## Not counted here
 
