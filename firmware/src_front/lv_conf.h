@@ -32,9 +32,12 @@
 #define LV_FONT_MONTSERRAT_48 1
 #define LV_FONT_DEFAULT &lv_font_montserrat_20
 
-/* No state-change animation. The default theme interpolates bg colour, transform and
- * translate over 80 ms when a widget is pressed, and 80 ms is shorter than one repaint of
- * this panel — the animation can only render as a single frame caught somewhere along it. */
+/* A pressed button keeps its size and arrives at its colour in one step. The default theme
+ * gives every lv_btn a `grow` style on LV_STATE_PRESSED — transform_width and
+ * transform_height of lv_disp_dpx(3), which is 2 px a side at LV_DPI_DEF 130 — and
+ * interpolates colour, transform and translate over 80 ms, which is shorter than one
+ * repaint of this panel. */
+#define LV_THEME_DEFAULT_GROW 0
 #define LV_THEME_DEFAULT_TRANSITION_TIME 0
 
 /* Disable debug monitors */
