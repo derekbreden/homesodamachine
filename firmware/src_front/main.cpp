@@ -185,6 +185,8 @@ static lv_obj_t *railBtn[PAGE_COUNT];
 static lv_obj_t *flvView[FLV_COUNT];
 static lv_obj_t *svcView[SVC_COUNT];
 static Page activePage = PAGE_HOME;
+static ServiceView activeSvc = SVC_MENU;
+static FlavorView  activeFlv = FLV_BOTH;
 static bool uiReady = false;
 
 static void showPage(Page p);
@@ -1318,12 +1320,14 @@ static void animRun(bool on) {
 }
 
 static void showFlavor(FlavorView v) {
+  activeFlv = v;
   showOnly(flvView, FLV_COUNT, v);
   refreshFlavorText();
 }
 
 static void showService(ServiceView v) {
   if (v != SVC_PRIME_HOLD) primeHoldEnd();
+  activeSvc = v;
   showOnly(svcView, SVC_COUNT, v);
   if (v == SVC_PRIME_HOLD) {
     char b[32];
@@ -1413,7 +1417,7 @@ static void processTextLine(const char *line) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
     Serial.printf("DIAG:scrollTop=%d,scrollBot=%d,scrollY=%d,"
-                  "page=%d,holding=%d,reinits=%lu,unanswered=%u,"
+                  "page=%d,svc=%d,flv=%d,stage=%u,holding=%d,reinits=%lu,unanswered=%u,"
                   "bridged=%lu,stale=%lu,sendErr=%d,"
                   "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
                   "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
@@ -1421,7 +1425,8 @@ static void processTextLine(const char *line) {
                   setupCol ? (int)lv_obj_get_scroll_top(setupCol) : -1,
                   setupCol ? (int)lv_obj_get_scroll_bottom(setupCol) : -1,
                   setupCol ? (int)lv_obj_get_scroll_y(setupCol) : -1,
-                  (int)activePage, holding ? 1 : 0,
+                  (int)activePage, (int)activeSvc, (int)activeFlv, (unsigned)idleStage,
+                  holding ? 1 : 0,
                   (unsigned long)linkReinits, (unsigned)unanswered,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale, lastSendErr,
                   (unsigned long)ESP.getFreeHeap(),
