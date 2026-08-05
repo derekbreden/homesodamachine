@@ -12,6 +12,7 @@ QUANTITY markers); this owns the COST rollups.
 
 Run:  python3 hardware/scripts/_bom_totals.py            # recompute + write markers
       python3 hardware/scripts/_bom_totals.py --audit     # + flag rows where line$ != qty×unit$
+      python3 hardware/scripts/_bom_totals.py --check     # exit 1 if a marker is stale
 """
 import os
 import re
@@ -77,6 +78,24 @@ def main():
     variables["BOM_GRAND"] = fmt(grand)
     counts = {k: 1 for k in variables}
     counts["BOM_SEC7"] = 2  # Totals table + §7's inline "Printed parts total"
+
+    # --check is the commit gate (.githooks/pre-commit, keyed on bom.md). It
+    # exists because the totals went stale twice inside two days: a row's cost
+    # moved, nobody reran this, and the ledger's printed total disagreed with
+    # the rows under it — which /cost sums itself and so quietly contradicted.
+    if "--check" in sys.argv:
+        text = open(BOM, encoding="utf-8").read()
+        stale = [f"  [{m.group(1)}]({name}) should be [{v}]({name})"
+                 for name, v in variables.items()
+                 for m in [re.search(r"\[([^\]]*)\]\(%s\)" % name, text)]
+                 if m and m.group(1) != v]
+        if stale:
+            print("bom.md totals are stale — run _bom_totals.py:")
+            print("\n".join(stale))
+            return 1
+        print("bom.md totals ✓")
+        return 0
+
     substitute_md(BOM, variables, counts)
 
     for n in sorted(sums):
@@ -85,7 +104,8 @@ def main():
     if "--audit" in sys.argv and audit:
         print("\nline$ != qty×unit$:")
         print("\n".join(audit))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

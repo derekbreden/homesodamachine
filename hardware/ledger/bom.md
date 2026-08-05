@@ -277,7 +277,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | [$178.46](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$207.08](BOM_SEC2) |
-| 3. Water inlet | [$223.09](BOM_SEC3) |
+| 3. Water inlet | [$223.17](BOM_SEC3) |
 | 4. CO2 subsystem | [$102.23](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
@@ -289,7 +289,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,331.87](BOM_GRAND)** |
+| **Total** | **[$1,331.95](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

@@ -4,20 +4,30 @@
 # Two jobs, in order:
 #
 #   1. GATES (hard fail — a red check blocks the commit):
-#      The ledger and printed-parts drivers live under hardware/, and each gate below runs
-#      only when the commit stages a file beneath the tree that gate reads.
-#      - commit touches hardware/           → check_pinmap.py, the BOM<->pinout<->PCB
+#      Each gate is keyed to EXACTLY the files it reads, so a commit pays only for
+#      the answers it could have changed. A commit touching no gate's inputs runs no
+#      Python at all.
+#      - pcba.tsx / esp32-pinout.mmd / bom.md / the two assembly sync drivers
+#                                           → check_pinmap.py, the BOM<->pinout<->PCB
 #        drift guard (pcba.tsx is canonical; pinout/BOM/sync-drivers are derived and
 #        hand-maintained, so they drift).
-#      - commit touches hardware/printed-parts/ or its bom.md → _bom_masses.py --check,
-#        which reads §7's masses off the parts' own STEP solids. A part's geometry and
-#        its ledger row land together or not at all.
-#      - commit touches hardware/pcb/pcba/  → the render scorecard's fab-ready gates
+#      - ledger/bom.md                      → _bom_categories.py --check (every row
+#        carries a known category tag) + _bom_totals.py --check (the printed subtotals
+#        match the rows under them).
+#      - ledger/labor.md                    → _labor_totals.py --check (subtotals, and
+#        every estimate on the believable-increment ladder).
+#      - ledger/machine-time.md or bom.md   → _machine_time.py --check (print hours are
+#        derived from §7's masses, so a printed part moves them).
+#      - any staged *.py under hardware/    → check_build_exit.py.
+#      - printed-parts/ or its bom.md       → _bom_masses.py --check, which reads §7's
+#        masses off the parts' own STEP solids. A part's geometry and its ledger row
+#        land together or not at all. ~4 s — the expensive one.
+#      - hardware/pcb/pcba/                 → the render scorecard's fab-ready gates
 #        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
-#      - commit touches hardware/ enclosure → reported, never gated. A pack that does not
+#      - hardware/ enclosure                → reported, never gated. A pack that does not
 #        close prints its clash count and lands, .step and sidecar intact for the editor
 #        to open. Rebuild-and-compare across every generator is `npm --prefix web run
 #        build:check`; the enclosure gates' own inject-defect run is `scorecard_selftest.py`.
@@ -62,27 +72,63 @@ gate() {
 }
 
 # ── 1. Gates ──────────────────────────────────────────────────────────────
+# staged <pathspec…> — true when the commit stages anything under these paths.
+#
+# EVERY GATE IS KEYED TO EXACTLY THE FILES IT READS, plus its own script. A gate
+# keyed wider than its inputs charges every unrelated commit for an answer that
+# could not have changed; a gate keyed narrower than its inputs silently stops
+# running. So when a script grows an input, widen its key here in the same
+# breath — the pathspec below IS the claim about what the script reads.
+staged() {
+  git diff --cached --name-only -- "$@" | grep -q .
+}
+
 for hw in $editions; do
-  touches_hw=false
   touches_enclosure=false
-  touches_printed=false
-  git diff --cached --name-only -- "$hw/" | grep -q . && touches_hw=true
   git diff --cached --name-only -- "$hw/printed-parts/enclosure/" | grep -q . && touches_enclosure=true
-  git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
   enc="$root/$hw/printed-parts/enclosure/enclosure-assembly"
 
-  if $touches_hw; then
+  # BOM <-> pinout <-> PCB drift. Reads the board source, the pinout diagram,
+  # bom.md, and the two assembly sync drivers — nothing else moves its answer.
+  if staged "$hw/pcb/pcba/pcba.tsx" "$hw/wiring/esp32-pinout.mmd" "$hw/ledger/bom.md" \
+            "$hw/assembly/_electronics_shelf_sync.py" \
+            "$hw/assembly/_firmware_and_commissioning_sync.py" \
+            "$hw/scripts/check_pinmap.py"; then
     gate "$hw pin-map drift check" python3 "$root/$hw/scripts/check_pinmap.py"
+  fi
+
+  # bom.md's own two gates: every row carries a known category tag, and the
+  # printed subtotals match the rows under them. The totals gate exists because
+  # they went stale twice inside two days — a row's cost moved and the ledger's
+  # own total disagreed with /cost, which sums the rows itself.
+  if staged "$hw/ledger/bom.md" "$hw/scripts/_bom_categories.py" "$hw/scripts/_bom_totals.py"; then
     gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
-    gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
-    # The two time ledgers. labor.md's gate also rejects an estimate off the
-    # believable-increment ladder; machine-time.md's also rejects a bom.md §7
-    # printed part with no print-rate group, so a new part cannot escape the
-    # print-hours estimate that turnaround and throughput are read off.
+    gate "$hw bom totals" python3 "$root/$hw/scripts/_bom_totals.py" --check
+  fi
+
+  # Attended-minute ledger: subtotals summed, and every estimate on the
+  # believable-increment ladder.
+  if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
     gate "$hw labor totals" python3 "$root/$hw/scripts/_labor_totals.py" --check
+  fi
+
+  # Machine-hours ledger. Keyed on bom.md too: it reads §7's masses to derive
+  # the print hours, so a printed part that changes shape moves this ledger, and
+  # a §7 row with no print-rate group has to fail here rather than vanish from
+  # the turnaround and throughput figures.
+  if staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" "$hw/scripts/_machine_time.py"; then
     gate "$hw machine-time totals" python3 "$root/$hw/scripts/_machine_time.py" --check
   fi
 
+  # Walks every .py under the edition for `raise SystemExit` in a lock-taking
+  # script, so only a staged Python file can change its answer. Pathspec can't
+  # express "*.py at any depth" portably — filter the staged list instead.
+  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
+    gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
+  fi
+
+  touches_printed=false
+  git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
   if $touches_printed; then
     # bom.md §7 reads its masses off the parts' own solids. A geometry change that
     # lands without carrying its mass leaves the ledger quoting a part that is not
