@@ -7212,8 +7212,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-05T07:29:34+00:00",
-    "commit": "cf01974984c8f7fd72fd06ed261a49b6603bf1e4",
+    "generated": "2026-08-05T13:49:06+00:00",
+    "commit": "ddd29693fca677a101597996279400cdf30bdbb5",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7232,21 +7232,21 @@
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "stat:1460565:1785814373649082520",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "sha256:0e1444d2fc050af8",
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:159198:1785913234053377583",
-      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:0d1738411e3fde71",
+      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:21b3ef98fcd46857",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:c39d719717a5c3d8",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:bb0f8fb87b472308",
       "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:53445d289a15ed13",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:a8b60a31bc577466",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:afa514668ff8f525",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:fbccefc2dbaedaff",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726216:1785913769097486432",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:831009:1785914017677247033",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:846132:1785937332320425563",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785705952324899942",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "stat:793903:1785705957124176867",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "sha256:cc8d9b28f2f3b2b2",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "sha256:cd6d7f5d888f4ff8",
       "hardware/printed-parts/flavor/pump-case/pump_case.py": "sha256:734de3a4768bcd1a",
       "hardware/printed-parts/valve-manifold/single-tray/single_tray.py": "sha256:a17f46c09dfb98e1",
       "hardware/printed-parts/valve-manifold/single-valve-tray/single-valve-assembly.step": "stat:323845:1785710991593337905",
@@ -7305,7 +7305,7 @@
       "hardware/scripts/_measuring.py": "sha256:3978b06f38f46681",
       "hardware/scripts/_run_lock.py": "sha256:2afd16c4a76cf964",
       "hardware/scripts/_seating.py": "sha256:fbbbb542da0ee7a4",
-      "tools/docgen/__init__.py": "sha256:7c70a81e05041ac4"
+      "tools/docgen/__init__.py": "sha256:6e90c21a507a531e"
     }
   }
 }

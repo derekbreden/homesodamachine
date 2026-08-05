@@ -84,6 +84,15 @@ wall's inner face and running east under the rim — the axis a rail is laid on 
 the axis the thing on it travels. Their two inboard arrises take the tray's two
 haunches and hold it on its column.
 
+A **stop bar** closes their east ends (`_contents.drip_pan_stop`), so the three
+members are one U and how far the tray goes in is a face and not a judgement: it
+is pushed east until the rim's east edge meets that bar, which lands the rim's
+west edge flush with the wall's inner face at the other end. The bar spans the
+rim's whole width because the rim's own r[16](PAN_RIM_CORNER_R) plan corners
+carry its east edge as much as one flange-and-radius back west in the rails' own
+bands — what the rim presents square to the east is the straight run between
+those arcs, and the bar reaches it and lands on both rails at once.
+
 Service is one motion — **draw the tray west**, out through the slot in that same
 wall (`_contents.west_wall_ports`). The slot is the tray's own silhouette: rim-wide
 above the flange's underside, haunch-wide below it. The step between the two is the

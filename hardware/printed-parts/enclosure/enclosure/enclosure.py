@@ -1678,13 +1678,13 @@ def build_back_half(box):
 
 
 def _pan_rails(solid, z0, z1):
-    """The drip tray's rail pair fused onto a −X wall, for the rails whose top lies in
-    `z0..z1`.
+    """The drip tray's carry fused onto a −X wall, for the members whose top lies in `z0..z1`.
 
-    `_contents.drip_pan_rails` states each as a world box, rooted on the wall's inner face and
-    running east under the tray's rim. The pair is the whole of the carry — the tray hangs
-    between them off its own flange, and nothing stands under its floor."""
-    for x0, x1, y0, y1, rz0, rz1 in _contents.drip_pan_rails():
+    `_contents.drip_pan_rails` states the pair as world boxes, rooted on the wall's inner face
+    and running east under the tray's rim; `_contents.drip_pan_stop` closes their east ends
+    with the bar the tray comes to rest against. Three members and one U — the tray hangs
+    between the rails off its own flange, and nothing stands under its floor."""
+    for x0, x1, y0, y1, rz0, rz1 in (_contents.drip_pan_rails() + [_contents.drip_pan_stop()]):
         if not z0 <= rz1 <= z1:
             continue
         solid = solid.fuse(_ybox(x0, x1, y0, y1, rz0, rz1))
