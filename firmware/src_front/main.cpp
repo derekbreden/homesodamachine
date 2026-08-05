@@ -190,6 +190,8 @@ static bool uiReady = false;
 static void showPage(Page p);
 static void showFlavor(FlavorView v);
 static void showService(ServiceView v);
+static void animRun(bool on);
+static void idleReset(uint8_t stage);
 
 // ── UI objects ──
 static lv_obj_t *logoImg;
@@ -219,9 +221,20 @@ static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 // The backlight is a digital line on the CH422G (on/off only — no PWM), so the
 // idle state is simply the backlight off and the animation paused. The first
 // touch turns it back on and resumes. Instant off / instant on.
-#define IDLE_TIMEOUT_MS 60000  // inactivity before the backlight turns off
+// Three timers, and the last two run from the moment the screen goes dark so that changing
+// how long it stays lit does not move them.
+//
+// Someone who stepped away for the flavor bottle comes back to the pad they were holding.
+// Someone back after a few minutes comes back to the area they were working in, without
+// the view inside it that would have acted on a tap — a confirm, a hold pad, a stepper.
+// Someone back much later arrives at HOME, because by then they may not be the same person.
+#define IDLE_TIMEOUT_MS   90000   // touch -> dark
+#define KEEP_VIEW_MS     120000   // dark -> the root of the page you were on
+#define KEEP_AREA_MS     600000   // dark -> HOME
 
 static unsigned long lastInputTime = 0;
+static unsigned long darkSince = 0;
+static uint8_t idleStage = 0;    // 0 lit · 1 dark · 2 at the page's root · 3 home
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
 
 // ── Touch (GT911) ──
@@ -445,10 +458,13 @@ static void wake() {
   lastInputTime = millis();
   if (screenIdle || !backlightOn) {
     screenIdle = false;
+    idleStage = 0;
     setBacklight(true);
     panelRealign();
     panelRestartDue = millis() + 800;
-    if (uiReady) showPage(PAGE_HOME);
+    // Whatever the dark decided to keep or throw away is already on screen — waking shows
+    // it rather than moving to it.
+    if (uiReady) animRun(activePage == PAGE_HOME);
     else if (animTimer) lv_timer_resume(animTimer);
   }
 }
@@ -1324,6 +1340,19 @@ static void showService(ServiceView v) {
   }
 }
 
+// The rungs the dark climbs. Done while the screen is off, so a wake shows the answer
+// rather than jumping to it under the user's eyes.
+static void idleReset(uint8_t stage) {
+  if (!uiReady) return;
+  if (stage == 2) {
+    if (activePage == PAGE_SERVICE)     showService(SVC_MENU);
+    else if (activePage == PAGE_FLAVOR) showFlavor(FLV_BOTH);
+    else if (activePage == PAGE_SETUP)  { lv_obj_scroll_to_y(setupCol, 0, LV_ANIM_OFF); setupScrollRefresh(); }
+  } else if (stage == 3) {
+    showPage(PAGE_HOME);
+  }
+}
+
 static void showPage(Page p) {
   primeHoldEnd();
   showOnly(pageObj, PAGE_COUNT, p);
@@ -1417,18 +1446,23 @@ static void processTextLine(const char *line) {
       Serial.printf("OK:BL=%d\n", backlightOn ? 1 : 0);
     }
   } else if (strncmp(line, "IDLE:", 5) == 0) {
-    // Force the idle state for testing (bypasses the 60 s timeout):
-    // IDLE:1 = backlight off + pause animation; IDLE:0 = wake.
-    if (line[5] == '1') {
-      screenIdle = true;
-      setBacklight(false);
-      if (animTimer) lv_timer_pause(animTimer);
-      Serial.println("OK:IDLE=1");
-    } else if (line[5] == '0') {
+    // Walk the idle ladder without waiting it out. 0 wakes; 1 goes dark; 2 and 3 take the
+    // rungs the dark would have taken at KEEP_VIEW_MS and KEEP_AREA_MS.
+    char s = line[5];
+    if (s == '0') {
       wake();
       Serial.println("OK:IDLE=0");
+    } else if (s >= '1' && s <= '3') {
+      screenIdle = true;
+      idleStage = (uint8_t)(s - '0');
+      darkSince = millis();
+      setBacklight(false);
+      if (animTimer) lv_timer_pause(animTimer);
+      if (idleStage >= 2) idleReset(2);
+      if (idleStage >= 3) idleReset(3);
+      Serial.printf("OK:IDLE=%c page=%d\n", s, (int)activePage);
     } else {
-      Serial.println("ERR:IDLE expects 0 or 1");
+      Serial.println("ERR:IDLE expects 0..3");
     }
   } else if (strcmp(line, "PUMP") == 0) {
     sendPumpRun(PUMP_CHANNEL_B, 1000);
@@ -1662,12 +1696,20 @@ void loop() {
     }
   }
 
-  // Idle: after inactivity, turn the backlight off and pause the animation
-  // (no point repainting a dark screen). A touch wakes it — see wake().
+  // Idle: after inactivity, turn the backlight off and pause the animation (no point
+  // repainting a dark screen). A touch wakes it — see wake().
   if (displayReady && !screenIdle && !holding && millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
     screenIdle = true;
+    idleStage = 1;
+    darkSince = millis();
     setBacklight(false);
     if (animTimer) lv_timer_pause(animTimer);
+  }
+
+  if (screenIdle) {
+    unsigned long dark = millis() - darkSince;
+    if (idleStage < 2 && dark >= KEEP_VIEW_MS) { idleStage = 2; idleReset(2); }
+    if (idleStage < 3 && dark >= KEEP_AREA_MS) { idleStage = 3; idleReset(3); }
   }
 
   if (displayReady) lv_timer_handler();
