@@ -233,6 +233,7 @@ def main():
         "PAN_BEARING": f"{bearing_w():.2f}",
         "PAN_RIM_LEN": f"{PAN_X + 2 * FLANGE_W:g}",
         "PAN_RIM_DEPTH": f"{PAN_Y + 2 * FLANGE_W:g}",
+        "PAN_RIM_CORNER_R": f"{CORNER_R + FLANGE_W:g}",
     }
     substitute_py_comments(
         Path(__file__),
@@ -252,7 +253,7 @@ def main():
             "PAN_CAPACITY": 1, "PAN_CORNER_R": 1, "PAN_COVE_R": 1,
             "PLATE_LEN": 1, "PLATE_DEPTH": 1, "PLATE_SLIP_MM": 1,
             "PAN_FLANGE": 2, "PAN_BEARING": 1,
-            "PAN_RIM_LEN": 1, "PAN_RIM_DEPTH": 1,
+            "PAN_RIM_LEN": 1, "PAN_RIM_DEPTH": 1, "PAN_RIM_CORNER_R": 1,
         },
     )
     print("-> README.md")
