@@ -47,7 +47,7 @@
       "value": "1 clash",
       "target": "0 clash",
       "detail": [
-        "fluid-18 \u2229 fluid-28: 175.3 mm\u00b3"
+        "fluid-18 \u2229 fluid-28: 6.35 mm deep, 175.3 mm\u00b3"
       ],
       "active": true
     },
@@ -7243,8 +7243,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-05T04:31:55+00:00",
-    "commit": "58040d72d8b8458571aafded9a4007c7340bcf3c",
+    "generated": "2026-08-05T04:47:00+00:00",
+    "commit": "e2190bf706f2a3e850924dd5eb7f05bcfddedcca",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7273,7 +7273,7 @@
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:a8b60a31bc577466",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:eba30515652c143d",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:9d489d58a72c5b60",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726302:1785705962150479625",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:766665:1785735313209124048",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785705952324899942",

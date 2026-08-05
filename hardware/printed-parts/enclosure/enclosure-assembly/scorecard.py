@@ -1632,6 +1632,100 @@ def clash_solids(solids: dict, pieces: dict, limit: int = DETAIL_MAX) -> list:
     return out
 
 
+# ── How deep one tube stands inside another ─────────────────────────────────────────────────
+# A run is a centreline and a radius, so two runs are two chains of capsules: they overlap
+# where their centrelines pass closer than the two radii together, and the amount under is how
+# far one tube stands inside the other. `line_clashes` gates on VOLUME, which is the measure
+# that carries every pair — a tube against a printed piece has no centreline to compare — and
+# this is what a tube-against-tube row is read in. A third of a millimetre and a bore driven
+# dead through its neighbour are 1 mm³ and 175 mm³; they are 0.32 mm and 6.35 mm.
+#
+# CHORD is the sag allowed when an arc is walked as segments, so a depth is that much coarse.
+# It answers for a tube the sweep can make: a corner turning tighter than the tube's own radius
+# sweeps a surface that closes on itself, where the distance-to-centreline reading and the solid
+# part company. `bend-radius` is the gate that fails those corners.
+CHORD = 0.05
+
+
+def _run_polyline(run) -> list:
+    """The run's centreline as points — straights whole, each arc walked at a step whose chord
+    sag stays under CHORD."""
+    pts = run.pts
+    corner = {i: (run.radii[i], turn) for i, turn, _a, _b in run.bends}
+    out = [tuple(pts[0])]
+    for i in range(1, len(pts) - 1):
+        if i not in corner:
+            continue
+        r, turn = corner[i]
+        rad = math.radians(turn)
+        tan = r * math.tan(rad / 2.0)
+        din, dout = _unit_to(pts[i - 1], pts[i]), _unit_to(pts[i], pts[i + 1])
+        p1 = [pts[i][k] - din[k] * tan for k in range(3)]
+        p2 = [pts[i][k] + dout[k] * tan for k in range(3)]
+        bis = _normalize([dout[k] - din[k] for k in range(3)])
+        ctr = [pts[i][k] + bis[k] * (r / math.cos(rad / 2.0)) for k in range(3)]
+        u = [(p1[k] - ctr[k]) / r for k in range(3)]
+        v = [(p2[k] - ctr[k]) / r for k in range(3)]
+        steps = max(1, math.ceil(rad / (2.0 * math.acos(max(-1.0, 1.0 - CHORD / r)))))
+        out.append(tuple(p1))
+        sweep = math.sin(rad)
+        if sweep > 1e-12:
+            for s in range(1, steps):
+                f = s / steps
+                a1, a2 = math.sin((1 - f) * rad) / sweep, math.sin(f * rad) / sweep
+                out.append(tuple(ctr[k] + r * (a1 * u[k] + a2 * v[k]) for k in range(3)))
+        out.append(tuple(p2))
+    out.append(tuple(pts[-1]))
+    return out
+
+
+def _unit_to(a, b) -> list:
+    return _normalize([b[k] - a[k] for k in range(3)])
+
+
+def _normalize(v) -> list:
+    ln = math.sqrt(sum(c * c for c in v)) or 1.0
+    return [c / ln for c in v]
+
+
+def _segment_gap(p1, q1, p2, q2) -> float:
+    """Closest distance between two 3D segments (Ericson, Real-Time Collision Detection
+    §5.1.9). Segments that lie parallel fall out of clamping s to [0, 1]."""
+    d1 = [q1[i] - p1[i] for i in range(3)]
+    d2 = [q2[i] - p2[i] for i in range(3)]
+    r = [p1[i] - p2[i] for i in range(3)]
+    a = sum(c * c for c in d1)
+    e = sum(c * c for c in d2)
+    f = sum(d2[i] * r[i] for i in range(3))
+    c = sum(d1[i] * r[i] for i in range(3))
+    if a <= 1e-12 or e <= 1e-12:
+        s = 0.0 if a <= 1e-12 else max(0.0, min(1.0, -c / a))
+        t = max(0.0, min(1.0, f / e)) if e > 1e-12 else 0.0
+    else:
+        b = sum(d1[i] * d2[i] for i in range(3))
+        denom = a * e - b * b
+        s = max(0.0, min(1.0, (b * f - c * e) / denom)) if denom > 1e-12 else 0.0
+        t = (b * s + f) / e
+        if t < 0.0:
+            t, s = 0.0, max(0.0, min(1.0, -c / a))
+        elif t > 1.0:
+            t, s = 1.0, max(0.0, min(1.0, (b - c) / a))
+    c1 = [p1[i] + d1[i] * s for i in range(3)]
+    c2 = [p2[i] + d2[i] * t for i in range(3)]
+    return math.sqrt(sum((c1[i] - c2[i]) ** 2 for i in range(3)))
+
+
+def tube_depth(run_a, run_b) -> float:
+    """How far the deeper of two runs stands inside the other, mm. 0.0 where they are clear."""
+    reach = run_a.diam / 2.0 + run_b.diam / 2.0
+    pa, pb = _run_polyline(run_a), _run_polyline(run_b)
+    worst = 0.0
+    for s1, s2 in zip(pa, pa[1:]):
+        for u1, u2 in zip(pb, pb[1:]):
+            worst = max(worst, reach - _segment_gap(s1, s2, u1, u2))
+    return max(0.0, worst)
+
+
 def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, float]]:
     """Every routed tube that INTERPENETRATES another tube, or a placed solid it does not
     terminate on, by overlap volume over CLASH_TOL — the routed analogue of pack_clashes. A tube
@@ -2095,9 +2189,17 @@ def lines_clear_check(solids: dict, pieces: dict) -> Check:
     lines = {r.id: R.tube(r) for r in runs}
     ends = {r.id: {r.frm.split(".")[0], r.to.split(".")[0]} for r in runs}
     clashes = line_clashes(lines, {**solids, **pieces}, ends)
+    by_id = {r.id: r for r in runs}
+    rows = []
+    for a, b, v in clashes[:DETAIL_MAX]:
+        # A run against a run is read in mm of tube inside tube; everything else has only
+        # the volume, since a printed piece carries no centreline to stand off.
+        if a in by_id and b in by_id:
+            rows.append(f"{a} ∩ {b}: {tube_depth(by_id[a], by_id[b]):.2f} mm deep, {v:.1f} mm³")
+        else:
+            rows.append(f"{a} ∩ {b}: {v:.1f} mm³")
     return Check("lines-clear", "No routed tube intersects a part, a piece or another tube", "gate",
-                 "pass" if not clashes else "fail", f"{len(clashes)} clash", "0 clash",
-                 [f"{a} ∩ {b}: {v:.1f} mm³" for a, b, v in clashes][:DETAIL_MAX])
+                 "pass" if not clashes else "fail", f"{len(clashes)} clash", "0 clash", rows)
 
 
 def bend_radius_check() -> tuple:
