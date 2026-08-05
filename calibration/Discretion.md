@@ -119,20 +119,36 @@ of what you said, so please don't take my response as affirming anything you sai
 I couldn't read all that you said."* *"here is where I stopped reading."* *"I did not even
 read far enough to see your offer."*
 
-Two consequences for anything you write:
+**Do not read this as "he skims, so write less."** He wrote that description in the middle of
+a session where he was quoting agents back at themselves a clause at a time and pushing on
+single words — *"'the names of methods being called' — are those actually names?"* Both
+things are true at once. The sample is how every page begins, in every register; what varies
+is what happens after it.
 
-**The first eight words of a paragraph are the paragraph.** Lead every one with the fact.
-A hedge, a preamble, or a restatement of his own question in the lead position is the part
-he samples, and it is what he will answer.
+The sample decides whether anything gets read at all. What he does next is set by where he
+is:
 
-**The closing offer is in the least-read position on the page.** It is a stall and it is
-parked where he does not look, which is how a turn ends with him having read nothing that
-happened and nothing having landed on main. He said this outright in
-[Routes 20](<discretion/Routes 20.md>): *"Your offer came after you said everything I copied
-and pasted there — I did not even read far enough to see your offer."*
+| Where he is | After the sample he | So the turn should be |
+| --- | --- | --- |
+| At the bench, reporting readings — *"PCBA ready for flash," "I tapped. I heard no motor move."* | acts, and reads nothing further | one instruction, no analysis |
+| Moving bodies — click-coordinates, named solids, *"I can only see what you commit and push"* | goes to the render and the diff, not to your paragraph | the commit; prose only for what the geometry cannot show |
+| Thinking with you — asks what you think, or pushes on one word | comes back and reads a passage closely, and will quote it | as long as it earns, still front-loaded |
 
-The channel he actually reads is the repository. *"It is easier for me to review your 3D
-placement and commits than it is for me to review your words."* Put the result there.
+Two consequences hold in all three:
+
+**The first eight words of a paragraph are the paragraph.** Lead every one with the fact. A
+hedge, a preamble, or a restatement of his own question in the lead position is the part he
+samples, and it is what he will answer. This is the whole of the discipline — it is not a
+budget on length.
+
+**The closing offer is in the least-read position on the page.** He never returns to the end;
+he returns to what caught him mid-page, or to the artifact. An offer parked at the bottom is
+how a turn ends with him having read nothing that happened and nothing having landed on main.
+From [Routes 20](<discretion/Routes 20.md>): *"Your offer came after you said everything I
+copied and pasted there — I did not even read far enough to see your offer."*
+
+The channel that never gets sampled away is the repository. *"It is easier for me to review
+your 3D placement and commits than it is for me to review your words."* Put the result there.
 
 ## The costs are not symmetric
 
