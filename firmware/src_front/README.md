@@ -97,9 +97,10 @@ then write the output byte to `0x38` where `EXIO_n = bit n`.
 
 ## Idle backlight-off + touch
 
-After 60 s of no touch the screen sleeps — backlight off, animation paused — and
-the first touch turns it back on and resumes. Same idle/wake behavior as the
-faucet display; the difference is the backlight itself:
+After 90 s of no touch the screen sleeps — backlight off, animation paused — and
+the first touch turns it back on and resumes, on whatever the dark left up (see the
+ladder above). Same idle/wake behavior as the faucet display; the difference is the
+backlight itself:
 
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
   line on the CH422G (EXIO2) — on/off only, no PWM, and I²C is too slow to fake
@@ -120,11 +121,12 @@ faucet display; the difference is the backlight itself:
 Newline-terminated, 115200 baud over the native USB CDC:
 
 - `GET_VERSION` → `VERSION:FRONT=<fw>`
-- `GET_DIAG` → page / holding / link reinits / unanswered polls / bridged touch polls /
-  stale GT911 polls / last send error / heap / PSRAM / backlight / frame / GT911 addr /
-  touch count / last XY / idle state / loop high-water / uptime
+- `GET_DIAG` → SETUP's scroll extents / page, sub-view and idle rung / holding /
+  link reinits / unanswered polls / bridged touch polls / stale GT911 polls / last send
+  error / heap / PSRAM / backlight / frame / GT911 addr / touch count / last XY /
+  idle state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
-- `IDLE:0` / `IDLE:1` → wake / force the idle state (test without the 60 s wait)
+- `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:4` → show one page (HOME, FLAVOR, SERVICE, STATUS, SETUP)
 - `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
   the glass: same frames, same ticks, same readouts
@@ -176,7 +178,20 @@ remaining 610 px is the pane, and it takes a different shape on each page:
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
 render. Every page is built at boot and switching hides one and shows another.
 
-Waking from idle lands on HOME with every drill-down reset.
+**The dark gives your place up in stages.** The last two run from the moment the screen
+goes dark, so changing how long it stays lit does not move them.
+
+| After | | Total absence |
+|---|---|---|
+| 90 s of no touch | backlight off, animation paused | 90 s |
+| 2 min dark | back to the root of the page you were on | 3.5 min |
+| 10 min dark | back to HOME | 11.5 min |
+
+The middle rung is what discards the views that would act on a tap — a confirm, a hold pad,
+a stepper mid-adjustment — while keeping which area you were working in. It also returns
+SETUP to the top of its column. Each rung runs while the screen is dark, so a wake shows
+the answer rather than jumping to it. `IDLE:0`..`IDLE:3` walk the ladder without waiting,
+and `GET_DIAG` reports `page=`, `svc=`, `flv=` and `stage=`.
 
 **A press reports the point it began at, for its whole length.** LVGL acts on the release,
 and a release that has wandered off the pressed object is a press lost — no click, and on a
