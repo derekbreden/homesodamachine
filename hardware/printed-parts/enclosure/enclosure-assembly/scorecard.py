@@ -13,8 +13,7 @@ Modeled on the board's `hardware/pcb/pcba/scorecard.ts`. Two kinds of check:
            `score` (0..100), not a gate — the box still builds while it converts.
 
 The board had ONE goal (take every connection off the autorouter onto deliberate hand
-copper). The enclosure has FIVE axes, one per thing every component owes — and today
-only the first three are the focus (the other two render, dimmed, but are not yet worked):
+copper). The enclosure has SIX axes, one per thing every component owes:
 
     mounted — FOCUS. The feature that fastens the component is printed INTO another placed
               part, the way the board's four boss columns stand in the cold core's cap.
