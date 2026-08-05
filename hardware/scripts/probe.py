@@ -20,6 +20,12 @@ raises instead of being skipped; a boolean that fails raises with the body's
 name; a cast that never contacts anything says so rather than reporting its own
 limit as a clearance. Nothing here returns 0.0 for "I could not measure".
 
+That last promise is why every overlap goes through `scorecard._common` rather
+than one `intersect`: a boolean that FAILS is loud already, and the quiet one is
+a boolean that succeeds and hands back nothing — which is what OCCT does for two
+bodies whose surfaces are tangent where they cross. Two swept tubes of one Ø on
+one stratum are exactly that, and the pack authors them on purpose.
+
 Use from anywhere in the repo:
 
     import sys
@@ -82,6 +88,39 @@ PIECE = "piece"         # the source tag a printed enclosure piece carries
 SKIP_PIECES = "HSM_SKIP_PIECES"     # env flag that leaves the printed pieces out
 
 
+# --- the overlap boolean --------------------------------------------------
+# Every occupancy question here — what a volume runs into, how far a body slides, what a
+# cast hits — is one boolean, and it is the GATE'S boolean, not a second one written beside
+# it. `scorecard._common` asks OCCT twice: once exactly, and again with a small fuzz
+# whenever the exact ask comes back EMPTY. The comment above it says why, and the short of
+# it is that an exact Common returns no solid at all — IsDone, no error — for two bodies
+# whose surfaces are tangent where they cross, which is what two swept tubes of one Ø on one
+# stratum are.
+#
+# A single ask here would fail in the direction this instrument exists to rule out. `hits`
+# would answer CLEAR for a volume `pack_clashes` fails the build on, and it would answer it
+# in the file whose own docstring promises that nothing returns 0.0 for "I could not
+# measure" — a placement picked against that answer is picked against nothing.
+_COMMON = None
+
+
+def _common(a, b) -> tuple:
+    """The solid two bodies share and its volume, as (shape, mm³), through the gate's own
+    boolean. Raises if the boolean does not resolve, so an unresolved pair is never counted
+    as a clear one."""
+    global _COMMON
+    if _COMMON is None:
+        _ensure_paths()
+        import scorecard
+        _COMMON = scorecard._common
+    return _COMMON(a, b)
+
+
+def _common_volume(a, b) -> float:
+    """Just the mm³ of `_common`, for the queries that only threshold on it."""
+    return _common(a, b)[1]
+
+
 # --- normalizing what the pack hands back ---------------------------------
 
 def shape(obj, label: str = "?"):
@@ -140,6 +179,27 @@ def corridor(pts, dia: float = TUBE_OD):
     if out is None:
         raise ValueError("corridor collapsed to a point")
     return out
+
+
+def _swept_tube(*pts, diam: float = TUBE_OD, bend: float = 25.4):
+    """A tube built the way the ROUTED RUNS are — `_routing.tube`, a circle carried along
+    the waypoints with a tangent arc at each interior corner.
+
+    `corridor` above answers a different question and cannot stand in for this one. It fuses
+    rods and spheres, and a fused primitive resolves cleanly against anything; the overlap a
+    single boolean goes blind to is a property of two SWEPT surfaces meeting tangentially.
+    Only a body made the way `world()`'s tubes are made puts that question, which is why the
+    selftest's tangent-crossing control is built here and not out of `corridor`."""
+    import types
+
+    _ensure_paths()
+    import _routing
+
+    n = len(pts)
+    return _routing.tube(types.SimpleNamespace(
+        pts=list(pts), diam=diam,
+        radii={i: bend for i in range(1, n - 1)},
+        bends=[(i, 90.0, 0.0, 0.0) for i in range(1, n - 1)]))
 
 
 # --- results --------------------------------------------------------------
@@ -384,8 +444,7 @@ class World:
             if name in skip:
                 continue
             try:
-                inter = v.intersect(self.solids[name])
-                overlap = inter.Volume()
+                inter, overlap = _common(v, self.solids[name])
             except Exception as exc:
                 raise RuntimeError(
                     f"intersection with {name} failed ({exc}) — this body's "
@@ -442,7 +501,7 @@ class World:
             # Touching at rest. Everywhere the mover can reach lies inside its swept box, so a
             # body outside that box is exactly one this slide never meets.
             try:
-                if _swept_box(solid, d, limit).intersect(other).Volume() <= tol:
+                if _common_volume(_swept_box(solid, d, limit), other) <= tol:
                     sliding.append(name)
                     continue
             except Exception as exc:
@@ -451,7 +510,7 @@ class World:
                     f"body is unknown, not clear") from exc
 
             def blocked(t):
-                return moved(t).intersect(other).Volume() > tol
+                return _common_volume(moved(t), other) > tol
 
             if blocked(0.0):
                 stops.append(Stop(0.0, name, seated=True))
@@ -497,8 +556,8 @@ class World:
             if name in skip:
                 continue
             try:
-                inter = probe_rod.intersect(self.solids[name])
-                if inter.Volume() <= tol:
+                inter, overlap = _common(probe_rod, self.solids[name])
+                if overlap <= tol:
                     continue
             except Exception as exc:
                 raise RuntimeError(
@@ -777,7 +836,7 @@ def wall_sample(w: World = None, side: float = 10.0):
             if not buried:
                 tried.append(f"({cx:.0f}, {cy:.0f}) is not in a piece")
                 continue
-            sample = cut.intersect(w.solid(buried[0].name))
+            sample, _vol = _common(cut, w.solid(buried[0].name))
             loose = w.hits(sample, skip=w.pieces)
             if loose:
                 tried.append(f"({cx:.0f}, {cy:.0f}) shares the slab with {loose[0].name}")
@@ -935,6 +994,42 @@ def selftest() -> int:
           f"says so out loud{'':7s} got {held.measured!r}")
     if "NO printed" not in held.measured:
         fails.append("held-out world is loud")
+
+    print("controls — the overlap a single boolean cannot see:")
+    # The defect this instrument's whole promise rests on. Two swept tubes of one Ø crossing
+    # at right angles ON ONE STRATUM, out where the pack stands: their surfaces are tangent
+    # at the two poles of the crossing, and one exact `intersect` returns an empty solid for
+    # the whole Steinmetz region. Boxes, rods and `corridor()` all resolve cleanly at the
+    # same crossing, so only a fixture built through `_routing.tube` — the sweep the routed
+    # tubes in `world()` are made of — puts the question. A world that answers CLEAR here
+    # answers CLEAR for a pair `lines-clear` fails the build on.
+    tx, ty, tz = 105.0, 417.0, 358.0
+    t1 = _swept_tube((tx, ty - 60, tz - 60), (tx, ty - 60, tz), (tx, ty + 33, tz))
+    t2 = _swept_tube((tx + 20, ty + 51, tz), (tx + 20, ty, tz), (tx - 60, ty, tz))
+    tw2 = World({"tube-a": t1}, {"tube-a": "run"})
+    tangent = tw2.hits(t2)
+    print(f"  {'ok  ' if tangent else 'FAIL'}  a tube crossing tangent on one stratum is a "
+          f"hit{'':6s} got {[h.name for h in tangent]}  want ['tube-a']")
+    if [h.name for h in tangent] != ["tube-a"]:
+        fails.append("tangent crossing")
+    else:
+        # A Steinmetz solid of two Ø6.35 cylinders is 16r³/3; the arcs either side of the
+        # crossing carry a little more. Reported as a real volume, not a token one.
+        steinmetz = 16.0 * (TUBE_OD / 2.0) ** 3 / 3.0
+        print(f"  {'ok  ' if tangent[0].volume > steinmetz else 'FAIL'}  and carries the "
+              f"whole overlap, not a sliver{'':4s} got {tangent[0].volume:.1f}  "
+              f"want > {steinmetz:.1f} mm³")
+        if tangent[0].volume <= steinmetz:
+            fails.append("tangent crossing volume")
+    # The control: the same pair with one lifted a tube's width and a clearance floor off
+    # that stratum. The move that parts them must read clear.
+    lift = TUBE_OD + 1.0
+    t2_up = _swept_tube((tx + 20, ty + 51, tz + lift), (tx + 20, ty, tz + lift),
+                        (tx - 60, ty, tz + lift))
+    print(f"  {'ok  ' if tw2.clear(t2_up) else 'FAIL'}  the same pair one stratum apart is "
+          f"clear{'':6s} got {[h.name for h in tw2.hits(t2_up)]}  want []")
+    if not tw2.clear(t2_up):
+        fails.append("tangent crossing control")
 
     print("controls — refusals:")
     for label, thunk in (
