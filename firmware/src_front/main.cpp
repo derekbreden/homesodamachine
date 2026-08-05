@@ -1016,6 +1016,11 @@ static void buildRail(lv_obj_t *scr) {
     lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
     lv_obj_set_pos(b, 6, 8 + i * (RAIL_ITEM_H + 6));
     lv_obj_set_style_pad_all(b, 6, 0);
+    // These carry a selected colour, so a press goes straight to it. A shade in between
+    // reads as a slow tween toward a colour the button is about to take anyway, rather
+    // than as confirmation — the buttons with nothing to become keep mkBtn's press shade.
+    lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
+    lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_add_event_cb(b, railCb, LV_EVENT_CLICKED, (void *)(intptr_t)i);
     lv_obj_align(mkText(b, kRail[i].icon, &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_TOP_MID, 0, 2);
     lv_obj_align(mkText(b, kRail[i].label, &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
