@@ -1213,10 +1213,15 @@ def _authored_runs() -> list:
     # ahead of the body, and climbs the last storey there.
     #   The pair are TWINS and are built as twins: one lane, one shelf level, one approach
     # rule, and the only thing that differs between them is which bulkhead each is aimed at.
-    # What holds them apart is the aim itself — the two turns behind the plate stand a whole
-    # seat pitch apart in X ([19.96](GATE_SEAT_PITCH) mm) and the two leans diverge from
-    # there, never closing nearer than [0](GATE_PAIR_GAP) mm of tube — so neither owes the
-    # other a Y lane or a level. Both come about on the outlet lane's one rung, the deepest
+    # The two turns behind the plate stand a whole seat pitch apart in X
+    # ([19.96](GATE_SEAT_PITCH) mm) and the two leans diverge from there — but the panel's
+    # port row is ONE z, so both runs finish on that one stratum and fluid-28's west leg
+    # drives clean through fluid-18's aft leg where their columns cross:
+    # [175.3](GATE_PAIR_OVERLAP) mm³ of one tube inside the other.
+    #   THAT CLASH IS HELD, NOT MISSED. `lines-clear` names it every build and the pack reads
+    # NOT BUILD-READY on it. Parting them wants a second level under one of the two, and the
+    # routes that buys read worse here than the overlap does; the gate carries the debt until
+    # the pair is redrawn. Both come about on the outlet lane's one rung, the deepest
     # the band holds, and water-4's turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
     # plate runs one `aft_outlet_lane()` deeper than one lane's own minimum — spare the
@@ -1304,19 +1309,21 @@ def _authored_runs() -> list:
         # so the column steps west of that body before it rises.
         meter_w = f["digiten-flow"].bb.xmin - contents.PUMP_ROW_TURN
         lane_x = min(gate[0], meter_w) if gate[0] + 6.35 / 2.0 > meter_w else gate[0]
-        # THE TWO GATES DO NOT SHARE A STRATUM. Their columns stand one seat pitch apart
-        # ([19.96](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
-        # apart the other way, and the westmost of the two has to cross the whole field AFT of
-        # the ASSE chain: so each one's long leg runs through the other's column, and no lane in
-        # X parts them. What parts them is height. The AFT ROW'S gate keeps the panel's own row
-        # — its bulkhead is east of the chain and its approach is the shorter of the two — and
-        # the MIDDLE ROW'S crosses a tube and its floor under that row, climbing the last step
-        # on its own bulkhead's column where nothing else stands.
-        #   That stratum is the AFT ROW'S OWN CROWN, one tube and its floor over it: the middle
+        # THE TWO GATES SHARE A STRATUM, AND ON IT THEIR LONG LEGS CROSS. Their columns stand
+        # one seat pitch apart ([19.96](GATE_COLUMN_PITCH) mm — closer than a tube), their
+        # bulkheads stand a station apart the other way, and the westmost of the two has to
+        # cross the whole field AFT of the ASSE chain: so each one's long leg runs through the
+        # other's column, and no lane in X parts them. Only height can, and only `crosses_row`
+        # buys it — a gate held UNDER the aft row crosses over that row's own crown, one tube
+        # and its floor above it, and climbs its last step on its own bulkhead's column where
+        # nothing else stands. Neither gate is held under that row, so neither takes the step,
+        # both finish on `panel_z`, and the crossing is a real interpenetration the header
+        # above states and `lines-clear` fails the pack on every build.
+        #   Were the step taken, that stratum would be the AFT ROW'S OWN CROWN: the middle
         # row's gate is the only one of the two with a plate standing between it and the panel,
-        # so the row it climbs over is what its crossing height is for, and everything else in
-        # that field — the basin, the backflow chain, the meter's outlet lean — stands clear
-        # above or west of the two legs it spends there.
+        # so the row it climbs over is what its crossing height would be for, and everything
+        # else in that field — the basin, the backflow chain, the meter's outlet lean — stands
+        # clear above or west of the two legs it spends there.
         #   THE CROSSING ANSWERS TO WHAT STANDS IN ITS OWN LANE. A gate held under that row
         # crossed AFT over it; this one crosses FORWARD on the approach lane, and the row's own
         # band stands [141.3](CROSS_ROW_SLACK) mm away from it — so there is nothing to climb
@@ -1824,12 +1831,15 @@ def lane_stations() -> dict:
         "LOFT_BAY":         f"{runs['fluid-27'].pts[0][1] - runs['fluid-23'].pts[0][1]:.4g}",
         "PORT_ROW_Z":       f"{runs['fluid-18'].pts[-1][2]:.4g}",
         # The outlet lane: what the band has spare once its one rung is struck, the pitch the
-        # three turns on it stand apart, and the closest the twin gates' tubes ever come.
+        # three turns on it stand apart, and how much of one twin gate's tube is inside the
+        # other's. OVERLAP, not gap: `_solid_gap` reads 0 for a graze and 0 for a run driving
+        # clean through, so on this pair the gap is the one number that cannot tell the
+        # difference — and this pair drives through. Zero here means parted.
         "OUTLET_LANE":      f"{contents.aft_outlet_lane():.3g}",
         "GATE_SEAT_PITCH":  f"{abs(runs['fluid-18'].pts[1][0] - runs['fluid-28'].pts[1][0]):.4g}",
         # The two gates' own columns, at that same pitch.
         "GATE_COLUMN_PITCH": f"{abs(runs['fluid-18'].pts[1][0] - runs['fluid-28'].pts[1][0]):.4g}",
-        "GATE_PAIR_GAP":    f"{scorecard._solid_gap(R.tube(runs['fluid-18']), R.tube(runs['fluid-28'])):.3g}",
+        "GATE_PAIR_OVERLAP": f"{scorecard._common_volume(R.tube(runs['fluid-18']), R.tube(runs['fluid-28'])):.4g}",
         # The shelf, off the two bodies that actually bound it: the aft stand's coil crown
         # under it and the lowest body of the port field over it. The SeaFlo does not bound
         # it — its tall half ends forward of every crossing up here — and `seaflo_aft_step`
