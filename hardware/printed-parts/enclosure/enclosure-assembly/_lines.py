@@ -1521,7 +1521,7 @@ def _authored_runs() -> list:
     # on the shorter of the reach and the fall, and the reach is the shorter by three times.
     # Leaning both leads takes the ninety apart into two turns on a leg that is neither — the
     # slant across the fall — and each of them has that whole leg to seat its arc in.
-    #   Nothing stands under it: reservoir B's own draw climbs [76.6](W5_RISER_GAP) mm aft of this
+    #   Nothing stands under it: reservoir B's own draw climbs [70.9](W5_RISER_GAP) mm aft of this
     # bore, and the gate's plate closes the deck forward of both.
     chain = f["discharge-chain"]
     w5_stock = R.stock_min("water", chain.diam("tube-port"))

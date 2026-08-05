@@ -65,6 +65,19 @@ port_hole_radius = 3.25
 # _reed_channels.py too.
 reed_x_depth = 6.0
 
+# WHERE THE LEVEL SENSOR STANDS along the reservoir — the float rod inside
+# (`reservoir.rod_position_y`) and the reed column outside (`_reed_channels.reed_y_center`),
+# which are ONE station and not two: a reed reads the float's magnet across the pocket wall
+# and nothing else, so the two cannot drift apart (`reservoir/level-sensing.md` carries the
+# bench-measured magnet-to-reed path). The pair rides the reservoir's +Y half, clear of the
+# bulkhead exit on the −Y front, and the donut has its whole travel clear of both cavity
+# walls anywhere along that half.
+#   What pins it HERE is the FORWARD BAND overhead: the reed channel's envelope and
+# reservoir B's draw conduit both stand in that band's 8 mm, on the same face of the shell,
+# and a ⌀6.5 bore and a reed cavity cannot share one lane. The conduit takes the lane its
+# own deck wants and the reed column steps off it.
+level_rod_y = 32.5
+
 # Bag pocket. Width and depth are the reservoir's own dimensions — sized to the
 # flavor charge it carries (each usable window, Reed 1 low → Reed 4 full over
 # 135 mm of float travel, holds 2 × SodaStream 0.44 L bottles). They are NOT tied
@@ -539,7 +552,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # cap's frame that station is the port's own X and the negated Y.
 cap_conduits = {
     "water-in": (75.0, -80.5),
-    "reservoir-b": (135.5, -33.5),
+    "reservoir-b": (135.5, -43.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
 }
 
