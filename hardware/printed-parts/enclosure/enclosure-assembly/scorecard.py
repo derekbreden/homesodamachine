@@ -82,6 +82,10 @@ try:
     from OCP.BRep import BRep_Builder
     from OCP.TopoDS import TopoDS_Compound
     from OCP.gp import gp_Pnt
+    from OCP.BRepAlgoAPI import BRepAlgoAPI_Common
+    from OCP.TopTools import TopTools_ListOfShape
+    from OCP.GProp import GProp_GProps
+    from OCP.BRepGProp import BRepGProp
     _HAVE_EXACT = True
 except Exception:  # pragma: no cover - environment guard
     _HAVE_EXACT = False
@@ -1464,6 +1468,67 @@ def _solid_gap(a, b) -> float:
     return dss.Value()
 
 
+# The overlap every clash check reads, and it takes OCCT's boolean TWICE, because one ask is
+# not a measurement.
+#
+# An exact Common hands back an EMPTY result — IsDone, no error, no solid — for two bodies
+# whose surfaces are exactly TANGENT along the crossing. Two tubes of one Ø meeting on one
+# stratum are that case, and the pack builds it deliberately: a port row fixes both runs to a
+# single z, so their axes meet inside a plane, the two surfaces touch at the poles of the
+# crossing and the section curve is singular at those two points. On sweeps this long, this
+# far from the origin, the section step cannot resolve that node inside Precision::Confusion
+# and returns nothing at all — a whole Steinmetz solid of interpenetration reported as zero,
+# so the one arrangement most likely to be wrong is the one a single ask cannot see.
+#
+# So an empty exact result is asked again with a fuzz, and only then. The retry is bounded on
+# both sides. Under 1e-5 the tangency is still unresolved (1e-6 returns the same nothing); far
+# over it a fuzz SWALLOWS a real overlap shallower than itself, and CLASH_TOL is reached by a
+# thin wide one (1 mm³ is 1e-5 mm over 100,000 mm²) as readily as by a deep narrow one. What
+# it cannot do is invent an overlap: a fuzz raises the tolerance for merging coincident
+# geometry, it does not grow the solids, so two bodies that merely touch — a tray on its lid,
+# a foot on the floor slab — still measure zero however large it is, and the gate stays quiet
+# on every seated part.
+CLASH_FUZZ = 1e-5
+
+
+def _common(a, b) -> tuple:
+    """The solid two bodies share and its volume, as (shape, mm³). Empty is (shape, 0.0)."""
+    if not _HAVE_EXACT:
+        raise RuntimeError(
+            "the exact boolean is unavailable — OCP.BRepAlgoAPI did not import, so no overlap "
+            "here is a measurement")
+    shape, vol = _common_at(a, b, 0.0)
+    return (shape, vol) if vol > 0.0 else _common_at(a, b, CLASH_FUZZ)
+
+
+def _common_at(a, b, fuzz: float) -> tuple:
+    """One Common at one fuzz, as (cq shape, volume). Raises rather than reporting an
+    unresolved boolean as a clean pair."""
+    import cadquery as cq
+
+    args, tools = TopTools_ListOfShape(), TopTools_ListOfShape()
+    args.Append(a.wrapped)
+    tools.Append(b.wrapped)
+    op = BRepAlgoAPI_Common()
+    op.SetArguments(args)
+    op.SetTools(tools)
+    if fuzz:
+        op.SetFuzzyValue(fuzz)
+    op.Build()
+    if not op.IsDone():
+        raise RuntimeError(
+            f"an intersection did not resolve between two solids (fuzz {fuzz:g}) — the overlap "
+            f"is unknown, not absent")
+    props = GProp_GProps()
+    BRepGProp.VolumeProperties_s(op.Shape(), props)
+    return cq.Shape.cast(op.Shape()), props.Mass()
+
+
+def _common_volume(a, b) -> float:
+    """Just the mm³ of `_common` — what the gates threshold against CLASH_TOL."""
+    return _common(a, b)[1]
+
+
 # ── Shape (the shaped axis) — the boxes a component really occupies ─────────────────────────
 # A component is a set of bodies, and its boxes are their boxes: one per solid it is built from,
 # following the part's own construction. The single box drawn around all of them is a different
@@ -1517,7 +1582,7 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
         for b in names[i + 1:]:
             if _bbox_gap(bbs[a], bbs[b]) > 0:
                 continue
-            v = solids[a].intersect(solids[b]).Volume()
+            v = _common_volume(solids[a], solids[b])
             if v > CLASH_TOL:
                 out.append((a, b, v))
     for hn, hs in pieces.items():
@@ -1525,7 +1590,7 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
         for n in names:
             if _bbox_gap(hbb, bbs[n]) > 0:
                 continue
-            v = hs.intersect(solids[n]).Volume()
+            v = _common_volume(hs, solids[n])
             if v > CLASH_TOL:
                 out.append((hn, n, v))
     return out
@@ -1543,8 +1608,8 @@ def clash_solids(solids: dict, pieces: dict, limit: int = DETAIL_MAX) -> list:
 
     def add(a, b, sa, sb):
         try:
-            inter = sa.intersect(sb)
-            if inter.Volume() > CLASH_TOL:
+            inter, vol = _common(sa, sb)
+            if vol > CLASH_TOL:
                 out.append((a, b, inter))
         except Exception:
             pass  # a boolean that OCCT can't resolve just doesn't get a body — the gate still fails
@@ -1577,7 +1642,9 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
 
     Volume, not distance, is the test that matters here: BRepExtrema (the `_solid_gap` the routed
     clearance detail reads) returns 0 for a tube that just grazes another AND for one that drives
-    clean through it — so only the overlap volume separates a kiss from an intersection.
+    clean through it — so only the overlap volume separates a kiss from an intersection. And the
+    volume is `_common`, not one `intersect`: two tubes are the shape whose exact boolean comes
+    back empty from an overlap, and a run pair is where that arrangement is authored on purpose.
 
     The printed pieces are in `solids` too. A wall is not a part a run may terminate on — every
     through-wall penetration is a panel BODY's (a bulkhead's), and the run stops at that body's
@@ -1592,7 +1659,7 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
         for b in ids[i + 1:]:
             if _bbox_gap(lbb[a], lbb[b]) > 0:
                 continue
-            v = lines[a].intersect(lines[b]).Volume()
+            v = _common_volume(lines[a], lines[b])
             if v > CLASH_TOL:
                 out.append((a, b, v))
     for i in ids:                                                 # tube ∩ part it does not join
@@ -1601,7 +1668,7 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
                 continue
             if _bbox_gap(lbb[i], sbb[n]) > 0:
                 continue
-            v = lines[i].intersect(s).Volume()
+            v = _common_volume(lines[i], s)
             if v > CLASH_TOL:
                 out.append((i, n, v))
     return out
