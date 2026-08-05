@@ -41,6 +41,8 @@ from _cold_core_interface import (
     cap_conduits,
     cap_conduit_bore_radius,
     cap_conduit_boss_radius,
+    outer_shell_x_length,
+    outer_shell_y_length,
 )
 from docgen import substitute_py_comments
 
@@ -51,8 +53,36 @@ lid_z_height = wall_and_floor_thickness
 
 
 
+def _circle_beyond(d, r):
+    """The area of a circle of radius `r` lying beyond a chord its centre stands `d` from —
+    signed, so a centre on the far side of that line (`d` < 0) reports most of the circle."""
+    if d >= r:
+        return 0.0
+    if d <= -r:
+        return math.pi * r ** 2
+    return r * r * math.acos(d / r) - d * math.sqrt(max(r * r - d * d, 0.0))
+
+
+def _conduit_wall_overlap_area(x, y):
+    """The part of one column's section that is ALREADY the cup's perimeter wall.
+
+    A column merged into that wall (`_cold_core_interface.cap_conduit_wall_neck`) adds only
+    what stands INBOARD of the cavity face — the rest of its circle is wall the cup already
+    carried, and counting it twice is what makes the stack's volume disagree with its parts.
+    A column may merge into one face and no more: two at once is a corner, where the cup's
+    own fillet is, and the section there is not this figure."""
+    over = [d for d in (outer_shell_x_length / 2.0 - wall_and_floor_thickness - abs(x),
+                        outer_shell_y_length / 2.0 - wall_and_floor_thickness - abs(y))
+            if d < cap_conduit_boss_radius]
+    assert len(over) <= 1, (
+        f"cap conduit at ({x:g}, {y:g}) merges into two walls at once — that is the cup's "
+        f"filleted corner, and a circle-and-chord does not describe the section there")
+    return _circle_beyond(over[0], cap_conduit_boss_radius) if over else 0.0
+
+
 def _conduit_section_area():
-    """The conduit columns' section as ONE figure — the union of their circles.
+    """The conduit columns' section as ONE figure — the union of their circles, less the
+    part of any of them the perimeter wall already holds.
 
     Where two columns overlap they are a single post, so the lens they share is area the
     pack holds once. `build_conduit_columns` unions them for the same reason."""
@@ -65,7 +95,7 @@ def _conduit_section_area():
             if d < 2.0 * r:
                 area -= (2.0 * r ** 2 * math.acos(d / (2.0 * r))
                          - (d / 2.0) * math.sqrt(4.0 * r ** 2 - d ** 2))
-    return area
+    return area - sum(_conduit_wall_overlap_area(*c) for c in centres)
 
 
 def deck_boss_z_top(name):

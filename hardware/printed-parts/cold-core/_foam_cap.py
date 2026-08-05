@@ -64,14 +64,21 @@ def build_conduit_columns(height):
     return columns
 
 
-def build_conduit_bores(height, radius=cap_conduit_bore_radius):
-    """Every cap conduit's bore, extruded +Z by height from z=0."""
+def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0):
+    """Every cap conduit's bore, extruded +Z by height from z=0.
+
+    `overshoot` starts the cut that far BELOW the floor and lengthens it to match. A bore
+    whose start face is coincident with the floor's own outer face leaves the cut sharing a
+    plane with the solid it is cutting, and where the column it runs up is FUSED INTO THE
+    PERIMETER WALL — three faces meeting on that plane instead of two — the cut lands in
+    the cavity and leaves the floor under it standing. Starting off the plane is what makes
+    it a through-cut."""
     return (
         WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
+        .workplane(offset=-overshoot)
         .pushPoints(list(cap_conduits.values()))
         .circle(radius)
-        .extrude(height)
+        .extrude(height + overshoot)
     )
 
 
@@ -121,7 +128,7 @@ def build_foam_cap(open_down=False):
         cap = cap.union(build_conduit_columns(foam_cap_height))
     cap = cap.cut(relief).cut(clearances)
     if not open_down:
-        cap = cap.cut(build_conduit_bores(foam_cap_height))
+        cap = cap.cut(build_conduit_bores(foam_cap_height, overshoot=wall_and_floor_thickness))
     return cap.unwrap()
 
 

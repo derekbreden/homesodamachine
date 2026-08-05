@@ -570,12 +570,17 @@ def _authored_runs() -> list:
                     continue
                 yield got
 
-    #   THE FILL is that pair. Its bore stands in reservoir B's own cap in the open patch of
-    # deck between the gate's plate and the pair's west face, so the collet and the bore see
-    # each other across one leg and the solve is the whole run.
+    #   BOTH ARE THAT PAIR, and they are the same shape twice. Each bore stands in the open
+    # patch of deck between the gate's plate and the pair's west face — the FILL over
+    # reservoir B's own cap, the DRAW over the forward band at the shell's own edge
+    # (`_cold_core_interface.cap_conduits`) — so in both the collet and the bore see each
+    # other across one leg and the solve is the whole run. Neither owes a corner to anything
+    # standing between them, because between them there is nothing.
     for cid, frm, to, who in (
         ("fluid-24", "bag-b-tray-assembly.V-I-O", "foam-assembly.reservoir-b-fill",
          "pump return → reservoir B fill"),
+        ("fluid-26", "foam-assembly.reservoir-B", "bag-b-tray-assembly.V-H-I",
+         "reservoir B draw → bag B inlet"),
     ):
         (w1, w2), lean, rad, _turns = max(_drop_trials(frm, to), key=lambda got: got[2])
         runs.append(R.bent(
@@ -583,33 +588,6 @@ def _authored_runs() -> list:
             note=f"{who}: a lead off each mouth leaning {lean[0]:.1f}°/{lean[1]:.1f}° into the "
                  f"single leg between them"))
 
-    # fluid-26 — THE DRAW, and the one run on this flank that does not join its two mouths on a
-    # single leg. Its bore is pinned over the shell's +Y band at the deck's west edge and the
-    # NOZZLE-A GATE'S PLATE lies on the lid across the whole forward end of that flank, so the
-    # run leaves the deck AFT of the plate, crosses east behind it, and comes forward onto the
-    # collet's own lane before it turns in.
-    #   IT CROSSES A STOREY ABOVE THE PORT PLANE. `fluid-18` holds that plane from the gate's
-    # own column out to the bulkhead's, so the strip behind the plate carries this run higher:
-    # it rises out of the bore to a stratum of its own, crosses east on it, and comes down the
-    # slant onto the collet's own lane. The rise is what the first corner wants and no less than
-    # a `LINE_PITCH` over the plane it crosses.
-    #   WHAT THE THREE CORNERS SHARE IS THE FLANK'S WIDTH. The east leg carries two of them and
-    # the closing leg into the collet carries the third, so the lane stands a third of the way
-    # back from the collet and each corner has the same arc to seat.
-    bb26 = f["bag-b-tray-assembly"]
-    draw, vhi = f["foam-assembly"].at("reservoir-B"), bb26.at("V-H-I")
-    f26_stock = R.stock_min("fluid", bb26.diam("V-H-I"))
-    f26_r = min(f26_stock, (vhi[0] - draw[0]) / 3.0)
-    f26_z = max(vhi[2] + LINE_PITCH, draw[2] + f26_r)
-    runs.append(R.bent(
-        "fluid-26", "foam-assembly.reservoir-B",
-        (draw[0], draw[1], f26_z),           # up out of the bore onto its own stratum
-        (vhi[0] - f26_r, draw[1], f26_z),    # east across the strip behind the gate's plate
-        (vhi[0] - f26_r, vhi[1], vhi[2]),    # down the slant onto the collet's own lane
-        "bag-b-tray-assembly.V-H-I",         # and east into the collet, on its own axis
-        kind="fluid", skew=FLAVOR_SKEW, bend=f26_stock,
-        note="reservoir B draw → bag B inlet: up out of the bore onto its own stratum, east "
-             "behind the gate's plate, and down the slant onto the collet's lane"))
 
     # fluid-14 / fluid-16 — the bag-A pair to Y-E, which stands ACROSS the strip ahead of them
     # rather than along the plane they share (`_contents.y_e_pos`). So neither of these is the
@@ -1543,7 +1521,7 @@ def _authored_runs() -> list:
     # on the shorter of the reach and the fall, and the reach is the shorter by three times.
     # Leaning both leads takes the ninety apart into two turns on a leg that is neither — the
     # slant across the fall — and each of them has that whole leg to seat its arc in.
-    #   Nothing stands under it: reservoir B's own draw climbs [13](W5_RISER_GAP) mm aft of this
+    #   Nothing stands under it: reservoir B's own draw climbs [76.6](W5_RISER_GAP) mm aft of this
     # bore, and the gate's plate closes the deck forward of both.
     chain = f["discharge-chain"]
     w5_stock = R.stock_min("water", chain.diam("tube-port"))
