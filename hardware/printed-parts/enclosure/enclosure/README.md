@@ -245,7 +245,8 @@ plane, held at one height for the rail's whole length, so it cannot be reached a
 45° from the wall it grows out of. Ceiling-down it is that face and not the
 underside that hangs, and what stands over it is the vent gap (`drip_pan.VENT_GAP`),
 which is air by construction. So the pair prints on support, two strips 73 mm long
-by the bearing width, in the band above the tray's slot.
+by the bearing width, in the band above the tray's slot — as does the stop bar
+that closes their east ends, whose own top face is flat at the rim's height.
 
 ## Display housing
 

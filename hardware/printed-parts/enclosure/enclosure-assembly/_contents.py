@@ -500,6 +500,9 @@ DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 # The rail's own section under the flange's bearing face — the depth of the rib, the flat band
 # `drip_pan.bearing_w()` gives it being the width. `drip_pan_rails` lays the pair.
 DRIP_RAIL_H = 3.0
+# The stop bar's section on the withdrawal axis, at the east end of that pair — how much of the
+# push it has to take in compression. `drip_pan_stop` lays it.
+DRIP_STOP_T = 3.0
 # V-K — the fill/shutoff solenoid, between the split and the SeaFlo suction — is not posed
 # here. It is the same Beduan the manifold's trays carry, and it rides a ONE-SEAT plate of its
 # own (`vk-tray-assembly`, `VK_TRAY_COLLETS`) on the aft stand's middle row; `vk_terminal` reads
@@ -2012,6 +2015,26 @@ def drip_pan_rails():
     band = _pan.bearing_w()                   # the flat band of underside, per side
     return [(x0, x1, pan.ymin, pan.ymin + band, top - DRIP_RAIL_H, top),
             (x0, x1, pan.ymax - band, pan.ymax, top - DRIP_RAIL_H, top)]
+
+
+def drip_pan_stop():
+    """The stop at the east end of the rail pair, as one world box — how far in the tray goes.
+
+    The tray is pushed east until its rim's east edge meets this face, so the placed pose IS
+    the seated pose and the rim comes to rest flush with the wall's inner face at the other end.
+
+    A BAR ACROSS BOTH RAILS, and the rim's own corners are why. `drip_pan.CORNER_R` plus the
+    flange rounds the rim's plan corners at r16, which in the rails' own Y bands has already
+    carried its east edge as much as 16 mm back west — a lug on either rail's end would sit in
+    that gap and the tray would run past it. What the rim presents square to the east is the
+    straight band between those arcs, so the bar spans the rim's whole width to reach it, and
+    it lands on both rails at once.
+
+    It stands from the rails' own underside to the rim's top face, so the whole flange section
+    butts against it."""
+    pan = packed().box("drip-pan")
+    foot = pan.zmax - _pan.FLANGE_T - DRIP_RAIL_H
+    return (pan.xmax, pan.xmax + DRIP_STOP_T, pan.ymin, pan.ymax, foot, pan.zmax)
 
 
 def west_wall_ports():
