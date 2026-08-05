@@ -307,10 +307,10 @@ static bool panelInit() {
 
   esp_lcd_rgb_panel_config_t cfg = {};
   cfg.clk_src = LCD_CLK_SRC_DEFAULT;
-  // 14 MHz, not the 16 the Waveshare examples use: the scan-out consumes a pixel every
-  // clock, so a slower one is 12.5% more time for the bounce buffer to be refilled ahead of
-  // it, and the refresh it costs (~31 Hz to ~27 Hz) is nowhere near what this panel draws.
-  cfg.timings.pclk_hz = 14 * 1000 * 1000;
+  // 16 MHz. The porches below are the panel's, and it does not lock to them at 14: the
+  // repaint measured 105 ms instead of 117 and the screen stayed blank, backlight lit and
+  // LVGL still cycling frames into a buffer nothing was drawing.
+  cfg.timings.pclk_hz = 16 * 1000 * 1000;
   cfg.timings.h_res = SCREEN_W;
   cfg.timings.v_res = SCREEN_H;
   cfg.timings.hsync_pulse_width = 48;
