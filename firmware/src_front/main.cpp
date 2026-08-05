@@ -494,10 +494,13 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     data->point.y = y;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else if (lastDownMs && millis() - lastDownMs < TOUCH_RELEASE_MS) {
+    // gt911ReadTouch leaves x,y at the last point it actually saw. lastTouchX/Y is where
+    // the press began, which a tap never leaves and a drag leaves entirely: reporting it
+    // here teleports the finger back to the start of the drag, and the scroll follows.
     bridgedRun++;
     touchBridged++;
-    data->point.x = lastTouchX;
-    data->point.y = lastTouchY;
+    data->point.x = x;
+    data->point.y = y;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
     if (lastDownMs) {

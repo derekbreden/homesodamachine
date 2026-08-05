@@ -384,10 +384,12 @@ def main():
     # is described by the numbers a tube was built along, not a second hand-kept copy of them.
     stations = _lines.lane_stations()
     if stations:
-        # Every station reads once in _lines' own prose except the two that read in
-        # _contents' instead — the front chain's, in the aft band comment, and the loft
-        # tee's headroom, in the turn that lays its branch west.
-        _in_contents = ("FRONT_CHAIN_GAP", "LOFT_TEE_HEADROOM")
+        # Every station reads once in _lines' own prose except those that read in
+        # _contents' instead — the front chain's, in the aft band comment; the loft tee's
+        # headroom, in the turn that lays its branch west; and the suction chain's three
+        # clearances, in the pose that lies it in the slot beside the casting.
+        _in_contents = ("FRONT_CHAIN_GAP", "LOFT_TEE_HEADROOM",
+                        "SUCT_PUMP_GAP", "SUCT_ROW_GAP", "SUCT_REAR_ROOM")
         substitute_py_comments(Path(_lines.__file__), variables=stations,
                                expected_counts={k: 1 for k in stations
                                                 if k not in _in_contents})
@@ -398,7 +400,8 @@ def main():
         # numbers the tubes were built along too.
         substitute_py_comments(Path(contents.__file__), variables=stations,
                                expected_counts={"OUTLET_LANE": 1, "FRONT_CHAIN_GAP": 1,
-                                                "LOFT_TEE_HEADROOM": 1})
+                                                "LOFT_TEE_HEADROOM": 1, "SUCT_PUMP_GAP": 1,
+                                                "SUCT_ROW_GAP": 1, "SUCT_REAR_ROOM": 1})
         print("-> _contents.py")
         # water-5's cut instruction quotes the run it is cutting — two legs, the lean the
         # first leaves its collet on, the arc the corner between them turns at, and what the
