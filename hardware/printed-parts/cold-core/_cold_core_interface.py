@@ -114,9 +114,15 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # boss, the rod's register boss and all six screw bosses leave empty. The cap
 # reads it (`reservoir.build_reservoir_cap`) and so does the conduit standing
 # over it (`cap_conduits`), so the bore and the column it feeds cannot drift
-# apart. Mirrored across x=0 for the other reservoir.
-reservoir_fill_port_x = 82.0
-reservoir_fill_port_y = 45.0
+# apart.
+#   Only reservoir B carries it. The two reservoirs stand under different decks
+# — B under the loft's west flank, A under the aft stand — so the station that
+# is open over one is not open over the other, and a bore with no conduit over
+# it is a hole into a sealed pocket. A's fill takes its own station when its own
+# junction is dissolved; `reservoir_fill_side` is which cap is cut.
+reservoir_fill_side = 1
+reservoir_fill_port_x = 95.0
+reservoir_fill_port_y = 55.0
 
 # Outer footprint. The ±Y (front/back) gap is the tank's foam blanket out to the
 # shell wall. The ±X width is set by the reservoir + its reed channel butted
@@ -515,11 +521,10 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # of the reservoir it fills (`reservoir_fill_port_x`, `reservoir_fill_port_y`),
 # and the reservoir's own cap sits one reservoir_clearance under this one, so
 # the two features meet face to face with nothing between them to cross. In the
-# cap's frame that station is the port's own X and the negated Y, one per side.
+# cap's frame that station is the port's own X and the negated Y.
 cap_conduits = {
     "water-in": (102.0, -80.5),
     "reservoir-b": (109.35, -79.5),
-    "reservoir-a-fill": (-reservoir_fill_port_x, -reservoir_fill_port_y),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
 }
 
