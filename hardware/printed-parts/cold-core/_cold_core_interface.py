@@ -106,6 +106,18 @@ reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_oute
 # of the bag-pocket −Y (front, toward the user) wall outer face.
 reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 
+# The reservoir's SECOND mouth, in its own cap. The draw leaves by the bulkhead
+# at the bottom of the wet V; the fill arrives up here, above the liquid, so the
+# two never share a mouth and everything entering has to cross the cavity to
+# leave by the trough. Its station is the corner of the cap FURTHEST from that
+# drain — the +Y centerward quadrant, which is also the one corner the vent
+# boss, the rod's register boss and all six screw bosses leave empty. The cap
+# reads it (`reservoir.build_reservoir_cap`) and so does the conduit standing
+# over it (`cap_conduits`), so the bore and the column it feeds cannot drift
+# apart. Mirrored across x=0 for the other reservoir.
+reservoir_fill_port_x = 82.0
+reservoir_fill_port_y = 45.0
+
 # Outer footprint. The ±Y (front/back) gap is the tank's foam blanket out to the
 # shell wall. The ±X width is set by the reservoir + its reed channel butted
 # against the shell wall — no outboard foam there; it moved to the cylinder side.
@@ -498,9 +510,17 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # height on it — so the two bores hold a `LINE_PITCH` between them and this one takes the plane
 # nearest the stem that leaves it. Its Y is the band's own lane, held off the corner boss by
 # the pour gap. Nothing else uses the +Y band, so the lane is a bore wide the whole way.
+#   The two RESERVOIR FILLS stand over their own reservoirs rather than over a
+# band: each is the column between a valve on the deck and the bore in the cap
+# of the reservoir it fills (`reservoir_fill_port_x`, `reservoir_fill_port_y`),
+# and the reservoir's own cap sits one reservoir_clearance under this one, so
+# the two features meet face to face with nothing between them to cross. In the
+# cap's frame that station is the port's own X and the negated Y, one per side.
 cap_conduits = {
     "water-in": (102.0, -80.5),
     "reservoir-b": (109.35, -79.5),
+    "reservoir-a-fill": (-reservoir_fill_port_x, -reservoir_fill_port_y),
+    "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
 }
 
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
