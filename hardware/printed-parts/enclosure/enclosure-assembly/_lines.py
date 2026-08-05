@@ -918,16 +918,20 @@ def _authored_runs() -> list:
         # move through, and would pin the run to the plate so it followed instead of leaving
         # room. The turn belongs as far AFT as it will go — its business is the lane, and every
         # millimetre it turns sooner is a millimetre of this column given back.
-        #   THE COLLET IS WHAT STOPS IT. The leg off the gate has to seat this corner's own
-        # tangent with the collet's lead in front of it, and the step's two corners SHARE the
-        # step and each turn on half of it — so the tangent is known before the turn is placed
-        # and the leg is struck at exactly what the pair costs: [23.8](F27_LEG) mm.
+        #   THE COLLET IS WHAT STOPS IT, AND WHAT IT ASKS IS THE TANGENT AND A LITTLE MORE. The
+        # arc cannot start before its own tangent point — that is geometry — and after it the
+        # tube owes the fitting `DIVIDER_LEG_STRAIGHT`, the run of straight a collet still has
+        # to grip once the arc seats. It does NOT owe a whole `JUNCTION_LEG_LEAD` on top: that
+        # reach is 2 bend radii, which is a stub AND a tangent at the default radius, and this
+        # corner's tangent is already [15.8](F27_TANGENT) mm on its own. The step's two corners
+        # share the step and each turn on half of it, so that tangent is known before the turn
+        # is placed and the leg is struck at what the pair actually costs: [18.8](F27_LEG) mm.
         #   NOTHING EAST OF IT BINDS. The step reaches toward the PSU's brick, but a square
         # corner is not where the tube is: the arc rounds it away, so the run does not stand on
         # the step's own east end until a whole tangent FORWARD of the turn, and measured
-        # against the casting rather than its box the tube keeps [9.87](F27_PSU_CLEAR) mm of it.
+        # against the casting rather than its box the tube keeps [6.1](F27_PSU_CLEAR) mm of it.
         f27_step = (f27_lane - gate[0]) / 2.0
-        f27_aft = gate[1] - f27_step - contents.JUNCTION_LEG_LEAD
+        f27_aft = gate[1] - f27_step - contents.DIVIDER_LEG_STRAIGHT
         runs.append(R.bent(
             "fluid-27", "nozzle-b-tray-assembly.V-J-I",
             (gate[0], f27_aft, gate[2]),      # forward off the collet, only as far as the turn
@@ -1868,6 +1872,7 @@ def lane_stations() -> dict:
         # against the SWEPT SOLID and the casting itself, because the square corner the run is
         # authored on is not where the tube stands and the brick's box is not where its metal is.
         "F27_LEG":          f"{_frames()['nozzle-b-tray-assembly'].at('V-J-I')[1] - runs['fluid-27'].pts[1][1]:.3g}",
+        "F27_TANGENT":      f"{runs['fluid-27'].radii[1]:.3g}",
         "F27_PSU_CLEAR":    f"{scorecard._solid_gap(R.tube(runs['fluid-27']), solids['psu']):.3g}",
         # The nozzle-B gate's own three fences, each one a figure a BOUNDING BOX got wrong.
         # The band its collet and its mouth leave between them, which is not two stock arcs;
