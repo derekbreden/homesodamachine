@@ -75,6 +75,12 @@ for hw in $editions; do
     gate "$hw pin-map drift check" python3 "$root/$hw/scripts/check_pinmap.py"
     gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
     gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
+    # The two time ledgers. labor.md's gate also rejects an estimate off the
+    # believable-increment ladder; machine-time.md's also rejects a bom.md §7
+    # printed part with no print-rate group, so a new part cannot escape the
+    # print-hours estimate that turnaround and throughput are read off.
+    gate "$hw labor totals" python3 "$root/$hw/scripts/_labor_totals.py" --check
+    gate "$hw machine-time totals" python3 "$root/$hw/scripts/_machine_time.py" --check
   fi
 
   if $touches_printed; then

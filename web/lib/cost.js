@@ -200,6 +200,54 @@ export function readLaborRollup(hardwareDir) {
   };
 }
 
+// Parse machine-time.md → { print, printWall, printers, unitsYear, turnDays,
+// procs: [{ section, name, machine, hours }] }. Hours a MACHINE is busy, which
+// is not costed and never reaches the topline — it answers turnaround and
+// throughput, not price. The numbered sections carry the process rows (hours in
+// the last cell); the derived figures come off the ledger's own docgen markers,
+// which hardware/scripts/_machine_time.py writes from bom.md §7's masses.
+export function readMachineRollup(hardwareDir) {
+  const text = fs.readFileSync(path.join(hardwareDir, "ledger", "machine-time.md"), "utf-8");
+  const marker = (name) => {
+    const m = text.match(new RegExp(`\\[~?([0-9][0-9,]*(?:\\.[0-9]+)?)[^\\]]*\\]\\(${name}\\)`));
+    return m ? parseFloat(m[1].replace(/,/g, "")) : 0;
+  };
+
+  const SECTION_LABEL = { 1: "Printing", 2: "Curing & baking", 3: "Soaking & holding", 4: "Running" };
+  const procs = [];
+  let section = null;
+  for (const raw of text.split("\n")) {
+    if (raw.startsWith("## ")) {
+      const m = raw.match(/^## (\d+)\./);
+      section = m ? parseInt(m[1], 10) : null;
+      continue;
+    }
+    if (section === null || !raw.startsWith("|")) continue;
+    const cells = raw.replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+    if (cells.length < 4 || cells.every((c) => /^[-:\s]*$/.test(c))) continue;
+    if (cells[0].startsWith("**") || /^(process|group)$/i.test(cells[0])) continue;
+    const h = parseFloat(cells[cells.length - 1].replace(/^\[|\]\(\w+\)$/g, ""));
+    if (!isFinite(h)) continue;
+    // §1 is Group | Parts | Rate | Mass | Hours; §2-4 are Process | Machine |
+    // Notes | Hours. The annotation column differs, the last cell does not.
+    // Strip the cell back to prose: markdown links (both docgen markers and
+    // real hrefs) down to their text, and emphasis off entirely.
+    const note = (section === 1 ? cells[2] : cells[1])
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+      .replace(/\*\*?/g, "");
+    procs.push({ section: SECTION_LABEL[section] || "", name: cells[0], machine: note, hours: h });
+  }
+
+  return {
+    print: marker("MT_H_PRINT"),
+    printWall: marker("MT_H_PRINT_WALL"),
+    printers: marker("MT_PRINTERS"),
+    unitsYear: marker("MT_UNITS_YEAR"),
+    turnDays: marker("MT_DAYS_TURN"),
+    procs,
+  };
+}
+
 // Minutes → "h m" the way a person says it: 45 m, 2 h, 1 h 15 m. Mirrors
 // _labor_totals.py's hm(). The ledger's estimates land on a coarse increment
 // ladder on purpose; a decimal hour would put back exactly the false precision
@@ -296,6 +344,15 @@ const COST_CSS = `
 .cost-bar.lab { grid-template-columns: minmax(130px, 1.6fr) minmax(60px, 3fr) 4.9rem 4.4rem; }
 .cost-bar.lab .cost-bf { background: var(--chart-purple); }
 .cost-hero.lab .cost-big, .cost-total.lab .v { color: var(--chart-purple); }
+/* Machine time — a third colour because it is a third ledger, and because it
+   must not read as money. Two derived figures lead; the processes sit under
+   them, grouped the way the ledger groups them. */
+.cost-hero.mach .cost-big { color: var(--chart-pink); }
+.cost-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.75rem; margin: 1.25rem 0 0.5rem; }
+.cost-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.15rem 1.25rem; }
+.cost-statv { font-size: 1.9rem; font-weight: 700; line-height: 1.05; color: var(--chart-pink); font-variant-numeric: tabular-nums; }
+.cost-cap { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); margin-top: 0.2rem; }
+.cost-statn { font-size: 0.78rem; color: var(--text-3); margin-top: 0.6rem; line-height: 1.45; }
 .cost-items th {
   padding: 0.4rem 1rem 0.15rem; border-top: 1px solid var(--border); font-weight: 500;
   font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
@@ -351,6 +408,46 @@ ${details}
 `;
 }
 
+// Machine time: hours a machine is busy, grouped the way the ledger groups them.
+// Deliberately NOT costed and deliberately below the labor total — the two
+// derived figures (throughput, turnaround) are the point, so they lead.
+function renderMachineSection(mach) {
+  const { print, printWall, printers, unitsYear, turnDays, procs } = mach;
+  const groups = [...new Set(procs.map((p) => p.section))];
+
+  const details = groups.map((g) => {
+    const rows = procs.filter((p) => p.section === g);
+    const sum = rows.reduce((s, p) => s + p.hours, 0);
+    const body = rows.map((p) => `<tr>
+        <td>${escape(p.name)}${p.machine ? ` <span class="cost-secs">${escape(p.machine)}</span>` : ""}</td>
+        <td class="cost-num">${hm(Math.round(p.hours * 60))}</td>
+      </tr>`).join("");
+    return `<details class="cost-cat"><summary>${escape(g)} <span class="cost-dt">${hm(Math.round(sum * 60))} &middot; ${rows.length} process${rows.length === 1 ? "" : "es"}</span></summary>
+      <table class="cost-items"><tbody>${body}</tbody></table></details>`;
+  }).join("\n");
+
+  return `<hr class="cost-rule">
+  <h1 class="cost-title" id="machine">Machine time</h1>
+  <div class="cost-hero mach">
+    <div class="cost-big">${hm(Math.round(print * 60))}</div>
+    <div class="cost-lbl">printer time per finished unit &mdash; ${hm(Math.round(printWall * 60))} of wall clock across ${printers} H2Cs, and the longest pole in the build by an order of magnitude</div>
+  </div>
+  <p class="cost-note"><strong>Not in the total above.</strong> These are the hours a machine is busy and nobody is on it, which is what turnaround and throughput are read off &mdash; not what a unit is worth. The attended minutes are the labor section; the two ledgers share no rows.</p>
+  <div class="cost-stats">
+    <div class="cost-stat">
+      <div class="cost-statv">~${unitsYear.toLocaleString("en-US")}</div><div class="cost-cap">units a year</div>
+      <div class="cost-statn">At 65&nbsp;% printer duty. The printers are the constraint and nothing else is within an order of magnitude &mdash; a third H2C is the only purchase that moves this number.</div>
+    </div>
+    <div class="cost-stat">
+      <div class="cost-statv">${turnDays} days</div><div class="cost-cap">turnaround, one unit</div>
+      <div class="cost-statn">Cold start to packed carton, with everything that can overlap the print doing so. A second unit behind the first costs only the bottleneck&rsquo;s ${hm(Math.round(printWall * 60))}.</div>
+    </div>
+  </div>
+  <h2 class="cost-h2">Every process a machine owns</h2>
+${details}
+`;
+}
+
 // The topline: the only place the two ledgers are added together, and the first
 // thing on the page.
 function renderTopline(total, labor) {
@@ -369,7 +466,7 @@ function renderTopline(total, labor) {
 `;
 }
 
-function renderCostBody(rollup, labor) {
+function renderCostBody(rollup, labor, mach) {
   const { total, rowCount, cats } = rollup;
   const mx = Math.max(...cats.map((c) => c.sum), 1);
 
@@ -427,7 +524,7 @@ ${bars}
   <h2 class="cost-h2">Full itemization</h2>
 ${details}
   <div class="cost-total"><span>Per-unit total</span><span class="v">${money(total)}</span></div>
-${labor ? renderLaborSection(labor) : ""}</main>
+${labor ? renderLaborSection(labor) : ""}${mach ? renderMachineSection(mach) : ""}</main>
 `;
 }
 
@@ -439,11 +536,15 @@ export function mountCostRoutes(app, { hardwareDir }) {
     // Labor is optional: a checkout without labor.md renders the parts half
     // alone rather than losing the page.
     let labor = null;
+    let mach = null;
     try {
       labor = readLaborRollup(hardwareDir);
     } catch (e) { /* no labor.md */ }
     try {
-      body = renderCostBody(readCostRollup(hardwareDir), labor);
+      mach = readMachineRollup(hardwareDir);
+    } catch (e) { /* no machine-time.md */ }
+    try {
+      body = renderCostBody(readCostRollup(hardwareDir), labor, mach);
     } catch (e) {
       // A stripped checkout (no bom.md) shouldn't 500 — render an empty state.
       body = `<main class="cost-wrap"><h1 class="cost-title">Cost by category</h1><p class="cost-note">Cost data unavailable.</p></main>`;
