@@ -310,9 +310,10 @@ static bool panelInit() {
   // Bounce buffer: the scan-out DMA reads pixels from this small internal-SRAM
   // buffer (refilled from the PSRAM framebuffer in the background) instead of
   // straight from PSRAM. That's what stops the horizontal shearing: CPU writes
-  // to PSRAM (the render) can no longer starve the live scanline. 20 lines, two
-  // of them, is 64 KB of the 320 KB internal RAM.
-  cfg.bounce_buffer_size_px = SCREEN_W * 20;
+  // to PSRAM (the render) can no longer starve the live scanline. 10 lines: at 20
+  // the refill work costs 1.3 fps on HOME and 28 ms on SETUP's repaint, and a frame
+  // the DMA has fallen behind on is what esp_lcd_rgb_panel_restart() is for.
+  cfg.bounce_buffer_size_px = SCREEN_W * 10;
   cfg.dma_burst_size = 64;
   cfg.hsync_gpio_num = LCD_HSYNC;
   cfg.vsync_gpio_num = LCD_VSYNC;
