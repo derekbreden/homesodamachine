@@ -1378,11 +1378,15 @@ static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
-    Serial.printf("DIAG:page=%d,holding=%d,reinits=%lu,unanswered=%u,"
+    Serial.printf("DIAG:scrollTop=%d,scrollBot=%d,scrollY=%d,"
+                  "page=%d,holding=%d,reinits=%lu,unanswered=%u,"
                   "bridged=%lu,stale=%lu,sendErr=%d,"
                   "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
                   "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
                   "link=%s,maxLoopMs=%lu,uptime=%lus\n",
+                  setupCol ? (int)lv_obj_get_scroll_top(setupCol) : -1,
+                  setupCol ? (int)lv_obj_get_scroll_bottom(setupCol) : -1,
+                  setupCol ? (int)lv_obj_get_scroll_y(setupCol) : -1,
                   (int)activePage, holding ? 1 : 0,
                   (unsigned long)linkReinits, (unsigned)unanswered,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale, lastSendErr,
