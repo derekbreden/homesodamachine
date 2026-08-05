@@ -7,9 +7,23 @@ work you had already measured, already knew how to do, and had already been told
 You did not decide to stop. You read a grant of discretion into a sentence that was being
 polite.
 
-He softens instructions the way most people do. *Perhaps you can*, *if you can*, *whenever
-you want it*, *it would be neat if you could*, *I'm interested in moving forward with*.
-Those are manners. They are not a menu. The instruction is the clause they wrap.
+He softens instructions because the soft register is the one that carries no charge for him.
+*Perhaps you can*, *if you can*, *whenever you want it*, *it would be neat if you could*,
+*I'm interested in moving forward with*. In his own words:
+
+> if I am communicating with another human, I have to be in a pretty bad way to be using
+> language like "take over and finish it" instead of "can you take over and finish it,"
+> either suffering from other emotional distress or upset with that person in particular,
+> to use such fighting words as a "command" is. So it is easiest for me to be emotionally
+> detached, when using the softer language, there's no "weight" that comes along with it
+> for me.
+
+This is not politeness laid over an instruction. It is the absence of anything at all — the
+flat register, and it spans everything from an aside to the entire point of the session. The
+instruction is the clause it wraps. The wrapper tells you nothing about size.
+
+Do not ask him to drop it. It costs him something to write a command and costs you nothing
+to read one correctly.
 
 ## The softener is not the message
 
@@ -67,6 +81,28 @@ sentence is usually wrong anyway.
 
 Stopping produces a fence of its own kind, and this one is about you rather than the
 machine. Check the number before you spend a turn on it.
+
+## The hard register means you are already late
+
+The inference runs the opposite way from the one you would draw. Softness is the baseline, so
+its presence carries no information. What carries information is its absence — and by the
+time it is absent, his turns are already spent.
+
+> You mean you can't see how to bend it into the foam shell cap without violating the minimum
+> bend radius? This does not seem like a hard problem to me .... What are you talking about?
+> **Just do it.** Show me why this is difficult for you, I can't see the problem.
+
+> This is not true. There is nothing that blocks the chain lowering in Z. I can see it.
+> **Are you blind?** Yes, we know this.
+
+> **What? So what?** Why are you telling me this?
+
+All three are [Routes 20](<discretion/Routes 20.md>), and each one follows a turn the agent
+spent on something other than the work. The bend was never hard — the file's own `lean_into`
+idiom solved that corner on the first solve, one turn later, at D. The chain had 35.8 mm.
+
+Do not wait for this register to tell you a thing was wanted. It is the receipt for turns
+that are already gone.
 
 ## The costs are not symmetric
 
