@@ -256,7 +256,6 @@ WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
 FLOWREG_STEP     = _hw / "reference" / "neofit-flow-control" / "neofit-flow-control.step"
 BEDUAN_STEP      = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
 DRIP_PAN_STEP    = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.step"
-DRIP_RAILS_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan-rails.step"
 MEANWELL_STEP    = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_BOARD       = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 AC_HUB_ASSEMBLY  = (_hw / "printed-parts" / "electronics" / "ac-hub"
@@ -963,12 +962,14 @@ NOZZLE_B_TRAY_EAST = 7.0
 # anywhere along it, so the plate's east face closes on that leg; and its turn off the nozzle-B
 # gate stands across the plate's aft path. Both are measured against the swept tube rather than
 # the run's authored corners — a square corner is not where a tube is.
-# The rails' own floor under the tap-water stack, and so the whole stack's height. HELD, not
+# The BASIN'S OWN FLOOR under the tap-water stack, and so the whole stack's height. HELD, not
 # read: the fences that reach for it are the pump's crown below and the back panel's Z SEAM
 # above, and the seam is the tighter of the two — the port field's bulkheads straddle it a
 # millimetre and a half higher and the hole stops being one piece's to cut. So this is the
 # figure the wall can carry, and `port_row_z` reports what the casting wanted against it.
-PORT_ROW_RAILS = 324.70
+#   Nothing stands under this floor. What carries the basin takes hold of its FLANGE, outboard
+# of it (`drip_pan.FLANGE_W`), so the plane the stack is struck from is the basin's own.
+PORT_ROW_RAILS = 327.70
 VK_TRAY_EAST = 10.0
 # The band this plate leaves in front of itself, off the west lane's aft face. It carries no
 # body — `water-3`'s fall and `fluid-23`'s reach cross it and nothing stands in it — so it is
@@ -1080,7 +1081,6 @@ COLORS = {
     "vk-fill-valve":     cq.Color(0.45, 0.45, 0.50),
     "flow-regulator":    cq.Color(0.85, 0.85, 0.88),
     "drip-pan":          cq.Color(0.35, 0.55, 0.75, 0.60),
-    "drip-pan-rails":    cq.Color(0.35, 0.55, 0.75),
     # Zone B — the electronics shelf
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "psu":               cq.Color(0.20, 0.20, 0.24),
@@ -1472,15 +1472,15 @@ def _build():
     # chain's underside (`drip_pan_seat`). `_pan_room` is the reading that the tip still
     # stands over the inner floor.
     _vent_xy = bfp_terminal("vent-tip")[0]
-    _rail_dx, _rail_dy, _rail_dz = _pan.rail_offset()
-    # The RAIL is the widest thing this assembly has, so it and not the basin is what answers
-    # to the rib inset — the basin may not set the machine's width, which is what keeps
-    # `enclosure._dims` striking the width off the core at both flanks. That inset is a FLOOR
-    # under the station and not the station itself: driven onto it the basin leaves the vent
-    # it is under, so the chain's own centre stands the pan and the inset only catches it.
+    # The basin's own FLANGE is the widest thing this assembly has, so it and not the shell is
+    # what answers to the rib inset — this station may not set the machine's width, which is
+    # what keeps `enclosure._dims` striking the width off the core at both flanks. That inset
+    # is a FLOOR under the station and not the station itself: driven onto it the basin leaves
+    # the vent it is under, so the chain's own centre stands the pan and the inset only
+    # catches it.
     _asse_box = pack.box("asse1022-assembly")
     _pan_x = max((_asse_box.xmin + _asse_box.xmax) / 2.0 - DRIP_PAN_X / 2.0,
-                 -SIDE_RIB_INSET - _rail_dx)
+                 -SIDE_RIB_INSET + _pan.FLANGE_W)
     # Y centres on the vent, held off the DISCHARGE CHAIN'S BARB by what a hose leaving that
     # barb needs on its own axis. The barb faces aft into this basin's front wall, so a basin
     # centred on the vent alone stands in the mouth of the line it is nothing to do with. The
@@ -1496,10 +1496,6 @@ def _build():
     _pan_room(_pan_x, _pan_y, _vent_xy)
     pack.place("drip-pan", _load(DRIP_PAN_STEP),
                west=at(_pan_x), front=at(_pan_y), foot=at(_pan_z))
-    pack.place("drip-pan-rails", _load(DRIP_RAILS_STEP),
-               west=flush("drip-pan", "west") + _rail_dx,
-               front=flush("drip-pan", "front") + _rail_dy,
-               foot=flush("drip-pan", "foot") + _rail_dz)
 
     # The power block on the +X wall. Its three seats are three faces of the machine and not
     # three numbers: EAST on `CORE_EAST_FACE`, the plane the ±X rib band ends on, so the brick
@@ -1696,7 +1692,7 @@ def port_row_z():
     # The chain's own drop — flow axis to whatever of it hangs lowest at the roll it is built
     # with. The vent stub is that only while it points DOWN, so this row cannot go on paying
     # for a stub that has been rolled off the bottom (`_asse_axis_drop`).
-    return rails + _pan.RAIL_LIFT + _pan.PAN_Z + _pan.VENT_GAP + _asse_axis_drop()
+    return rails + _pan.PAN_Z + _pan.VENT_GAP + _asse_axis_drop()
 
 
 def foam_cap_top():
@@ -1945,27 +1941,28 @@ def bfp_terminal(name):
 
 
 def drip_pan_seat():
-    """The Z the drip pan's floor stands at — the top face of its rails.
+    """The Z the drip pan's own floor stands at.
 
     The basin hangs off the chain, `drip_pan.VENT_GAP` of air between its rim and the placed
-    chain's underside. The rail is the bracket that carries a shelf out to the plane that
-    leaves; its mount is `drip_pan.py`'s own open item.
+    chain's underside. What carries it there is `drip_pan.py`'s own open item, and the one
+    thing that answer may not do is stand UNDER the floor: the basin lies over the casting,
+    so section beneath it is height charged twice — once for the crown's own clearance and
+    again for the carrier — and it comes out of the vent gap above.
 
-    The column that leaves runs out of deck when the basin's rails — hanging
-    `drip_pan.RAIL_LIFT` under its floor — reach past the cap the manifold's aft stand stands
-    on. `room-holds` carries that reading; the seat is the chain's either way."""
-    # The chain sets it, unless the CASTING under it sets it higher: the basin's rails run
-    # the length of the pump's own aft half, so their feet have to clear its crown. Both
-    # floors stay in the reading and whichever binds is the answer.
+    The column runs out of deck when that floor reaches past the cap the manifold's aft stand
+    stands on. `room-holds` carries that reading; the seat is the chain's either way."""
+    # The chain sets it, unless the CASTING under it sets it higher: the basin lies the
+    # length of the pump's own aft half, so its floor has to clear that crown. Both floors
+    # stay in the reading and whichever binds is the answer. NOTHING STANDS UNDER THE FLOOR,
+    # so what the casting asks for is the basin's own air and not a carrier's section too.
     seat = max(asse_underside() - _pan.VENT_GAP - _pan.PAN_Z,
-               packed().box("seaflo-pump").zmax + LINE_HUG + _pan.RAIL_LIFT)
-    under = seat - _pan.RAIL_LIFT - foam_cap_top()
+               packed().box("seaflo-pump").zmax + LINE_HUG)
+    under = seat - foam_cap_top()
     if under < 0.0:
         _short("drip-pan-seat",
                f"the basin hangs off a chain whose underside is z={asse_underside():.4f}, which "
-               f"puts its floor at {seat:.4f} and its rails' feet {-under:.4f} mm BELOW the foam "
-               f"cap at {foam_cap_top():.4f}. Raise `asse_axis()`'s stratum, or take section off "
-               f"the basin.")
+               f"puts its floor {-under:.4f} mm BELOW the foam cap at {foam_cap_top():.4f}. "
+               f"Raise `asse_axis()`'s stratum, or take section off the basin.")
     return seat
 
 
@@ -1988,7 +1985,7 @@ def aft_tray_headroom():
     What the stand puts in it is not the coils but Y-G — its stem stands proud of the crown and
     faces up, so `port_row_z()` sizes this band on that stem's own reach rather than on this
     figure."""
-    return (drip_pan_seat() - _pan.RAIL_LIFT) - aft_stand_crown()
+    return drip_pan_seat() - aft_stand_crown()
 
 
 def flowreg_lane():
