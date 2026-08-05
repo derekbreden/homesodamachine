@@ -49,7 +49,7 @@ bound it:
     to the nozzle gate.
   * the SHELF CROSSING, the stratum over the electronics shelf — a lane standing [7.86](SHELF_STEP)
     mm over the tallest lid standing under it. On the cap itself the modules stand shoulder to
-    shoulder, the widest lane between them [0](SHELF_GAP) mm against a 1/4" line's own
+    shoulder, the widest lane between them [36.7](SHELF_GAP) mm against a 1/4" line's own
     [6.35](TUBE_OD): the shelf is a FLOOR at this end of the machine and not a field of lanes, so
     what crosses it crosses over. fluid-19 does, from the front column to the strip aft of the
     ground stack, where the cap carries nothing and the fall to the loft's plane is clear.
@@ -138,7 +138,7 @@ bound it:
     every tray and rail — its stratum is ranked against fluid-19's fall on the column a pitch
     short of its own (the west-column table below) — and holds V-K's column down to the third
     `LINE_PITCH` ahead of the bay's own turn lane, whose lead seats its foot corner at stock.
-  * the loft's OUTLET LANE (`_contents.aft_outlet_lane`), [188](OUTLET_LANE) mm of spare
+  * the loft's OUTLET LANE (`_contents.aft_outlet_lane`), [222](OUTLET_LANE) mm of spare
     between the nozzle plate's aft face and the stated wall beyond its one lane's own minimum
     — spare the plate's own pin (V-J's aft collet rim on the rear corner column,
     `_contents.bag_b_tray_y`) leaves to the lane, which is struck off the wall and carries it
@@ -262,6 +262,10 @@ PWBEND = 3.0
 CBEND = 3.0
 # The 3/8" braided-PVC discharge stub's minimum bend radius (neoPure PVCR-0610 spec).
 HOSE_BEND = 15.9
+# How far the discharge stub's EXIT may stand off the pump's own barb: the width of the wall
+# pocket the barb points into, less the hose's half-section and the pack's floor. Past it the
+# sweep is inside the piece.
+W6_POCKET = 9.0
 # How far off a collet's own axis a soft-LLDPE run may leave or enter as one straight length,
 # past the rigid-copper `COLLET_SKEW`. Y-H's two legs are a straight at exactly this lean and
 # the reach that stands the fitting off its pair is struck on it (`_contents.divider_reach`),
@@ -531,71 +535,81 @@ def _authored_runs() -> list:
         note="hopper drain → V-B inlet: down the spout's own column, one corner, and in — "
              "every leg falls or is level"))
 
-    # fluid-24 / fluid-26 — the bag-B pair to its RESERVOIR, one leg each and no fitting
-    # standing between them. The reservoir carries a mouth for each: the FILL bore in its own
-    # cap (`_cold_core_interface.reservoir_fill_port_x`), which the pump return falls into, and
-    # the `reservoir-b` conduit at the head of the +Y band, which the draw climbs out of. So
-    # the fill and the draw never meet, and everything entering has to cross the cavity to
-    # leave by the trough the floor's V runs to.
-    #   Both runs join a collet facing WEST on the pair's own port plane to a bore opening +Z
-    # on the lid [14.3](BAG_B_DROP) mm beneath it. Two mouths square to each other and one
-    # corner between them, and what the two leads spend of that drop is SOLVED rather than
-    # picked: past where they overshoot each other the leg between them shortens faster than
-    # the turns open, so the pair that seats the roundest corner is the pair to draw.
-    def _drop_trials(frm, to, under=None):
-        """Every lead pair on the drop between the two mouths, less the ones whose two arcs
-        eat the whole leg between them — a leg with no straight left in it is a pair of arcs
-        and not a route.
+    # fluid-24 / fluid-26 — the bag-B pair to its RESERVOIR, with no fitting standing between
+    # them. The reservoir carries a mouth for each: the FILL bore in its own cap
+    # (`_cold_core_interface.reservoir_fill_port_x`), which the pump return falls into, and the
+    # `reservoir-b` conduit at the head of the +Y band, which the draw climbs out of. So the
+    # fill and the draw never meet, and everything entering has to cross the cavity to leave by
+    # the trough the floor's V runs to.
+    #   Both join a collet facing WEST on the pair's own port plane to a bore opening +Z on the
+    # lid [14.3](BAG_B_DROP) mm beneath it, and what a run spends of that drop is SOLVED rather
+    # than picked: past where two leads overshoot each other the leg between them shortens
+    # faster than the turns open, so the pair that seats the roundest corner is the pair to draw.
+    def _drop_trials(frm, to, radius=contents.LLDPE_STOCK_BEND,
+                     straight=contents.DIVIDER_LEG_STRAIGHT, skew=FLAVOR_SKEW,
+                     reach=(None, None)):
+        """Every lead pair between the two mouths, less the ones whose two arcs eat the whole
+        leg between them — a leg with no straight left in it is a pair of arcs and not a route.
 
-        `under` is a (x_limit, z_max) ceiling a trial must stay beneath everywhere it is still
-        west of x_limit: the draw crosses a lane another run holds, and the crossing is what
-        decides the lead rather than the roundest corner being free to take it."""
+        Unfenced, a lead sweeps as far as the two mouths stand apart: past that it has overshot
+        the other end, and past the overshoot the leg shortens faster than the turns open, so the
+        radius is already coming back down. `reach` caps an end whose air runs out first —
+        a mouth standing in a pocket has only the pocket to stand its lead off in."""
         (ff, pf), (ft, pt) = _mouth(f, frm), _mouth(f, to)
         a0, b0 = ff.at(pf), ft.at(pt)
-        room = abs(a0[2] - b0[2])
-        for a in range(7, int(2.0 * room) + 1):
-            for b in range(7, int(2.0 * room) + 1):
-                got = lean_into(*_mouth(f, frm), *_mouth(f, to), (0.5 * a, 0.5 * b))
+        room = math.dist(a0, b0)
+        ra, rb = (room if r is None else r for r in reach)
+        for a in range(7, int(2.0 * ra) + 1):
+            for b in range(7, int(2.0 * rb) + 1):
+                got = lean_into(*_mouth(f, frm), *_mouth(f, to), (0.5 * a, 0.5 * b),
+                                radius=radius, straight=straight, skew=skew)
                 (p, q), _lean, r, (t1, t2) = got
                 spent = r * (math.tan(math.radians(t1) / 2.0)
                              + math.tan(math.radians(t2) / 2.0))
                 if spent > math.dist(p, q) - contents.LINE_HUG:
                     continue
-                if under is not None:
-                    x_limit, z_max = under
-                    poly, over = [a0, p, q, b0], False
-                    for u, v in zip(poly, poly[1:]):
-                        for i in range(21):
-                            t = i / 20.0
-                            x = u[0] + t * (v[0] - u[0])
-                            z = u[2] + t * (v[2] - u[2])
-                            if x <= x_limit and z > z_max:
-                                over = True
-                                break
-                        if over:
-                            break
-                    if over:
-                        continue
                 yield got
 
-    #   THE DRAW CROSSES UNDER fluid-17. Its conduit is pinned over the shell's +Y band, which
-    # stands WEST of the lane the nozzle-A gate's run holds, so this run leaves the deck on the
-    # far side of that lane and has to pass beneath it before it climbs. That crossing is the
-    # fence on its rise, not the roundest corner: a `LINE_PITCH` under the gate's own port
-    # plane, held everywhere the run is still west of the lane.
-    f17_lane = f["foam-assembly"].at("water-in")[0] + LINE_PITCH
-    f17_plane = f["nozzle-tray-assembly"].at("V-G-I")[2] - LINE_PITCH
-    for cid, frm, to, who, under in (
+    #   THE FILL is that pair. Its bore stands in reservoir B's own cap in the open patch of
+    # deck between the gate's plate and the pair's west face, so the collet and the bore see
+    # each other across one leg and the solve is the whole run.
+    for cid, frm, to, who in (
         ("fluid-24", "bag-b-tray-assembly.V-I-O", "foam-assembly.reservoir-b-fill",
-         "pump return → reservoir B fill", None),
-        ("fluid-26", "foam-assembly.reservoir-B", "bag-b-tray-assembly.V-H-I",
-         "reservoir B draw → bag B", (f17_lane, f17_plane)),
+         "pump return → reservoir B fill"),
     ):
-        (w1, w2), lean, rad, _turns = max(_drop_trials(frm, to, under), key=lambda got: got[2])
+        (w1, w2), lean, rad, _turns = max(_drop_trials(frm, to), key=lambda got: got[2])
         runs.append(R.bent(
             cid, frm, w1, w2, to, kind="fluid", skew=FLAVOR_SKEW, bend=rad,
             note=f"{who}: a lead off each mouth leaning {lean[0]:.1f}°/{lean[1]:.1f}° into the "
                  f"single leg between them"))
+
+    # fluid-26 — THE DRAW, and the one run on this flank that does not join its two mouths on a
+    # single leg. Its bore is pinned over the shell's +Y band at the deck's west edge and the
+    # NOZZLE-A GATE'S PLATE lies on the lid across the whole forward end of that flank, so the
+    # run leaves the deck AFT of the plate, crosses east behind it, and comes forward onto the
+    # collet's own lane before it turns in.
+    #   IT CROSSES A STOREY ABOVE THE PORT PLANE. `fluid-18` holds that plane from the gate's
+    # own column out to the bulkhead's, so the strip behind the plate carries this run higher:
+    # it rises out of the bore to a stratum of its own, crosses east on it, and comes down the
+    # slant onto the collet's own lane. The rise is what the first corner wants and no less than
+    # a `LINE_PITCH` over the plane it crosses.
+    #   WHAT THE THREE CORNERS SHARE IS THE FLANK'S WIDTH. The east leg carries two of them and
+    # the closing leg into the collet carries the third, so the lane stands a third of the way
+    # back from the collet and each corner has the same arc to seat.
+    bb26 = f["bag-b-tray-assembly"]
+    draw, vhi = f["foam-assembly"].at("reservoir-B"), bb26.at("V-H-I")
+    f26_stock = R.stock_min("fluid", bb26.diam("V-H-I"))
+    f26_r = min(f26_stock, (vhi[0] - draw[0]) / 3.0)
+    f26_z = max(vhi[2] + LINE_PITCH, draw[2] + f26_r)
+    runs.append(R.bent(
+        "fluid-26", "foam-assembly.reservoir-B",
+        (draw[0], draw[1], f26_z),           # up out of the bore onto its own stratum
+        (vhi[0] - f26_r, draw[1], f26_z),    # east across the strip behind the gate's plate
+        (vhi[0] - f26_r, vhi[1], vhi[2]),    # down the slant onto the collet's own lane
+        "bag-b-tray-assembly.V-H-I",         # and east into the collet, on its own axis
+        kind="fluid", skew=FLAVOR_SKEW, bend=f26_stock,
+        note="reservoir B draw → bag B inlet: up out of the bore onto its own stratum, east "
+             "behind the gate's plate, and down the slant onto the collet's lane"))
 
     # fluid-14 / fluid-16 — the bag-A pair to Y-E, which stands ACROSS the strip ahead of them
     # rather than along the plane they share (`_contents.y_e_pos`). So neither of these is the
@@ -1153,55 +1167,57 @@ def _authored_runs() -> list:
 
     # fluid-17 — channel A's discharge tee to the nozzle-A gate. Both ends stand in the FRONT
     # COLUMN'S WEST LANE: Y-D's branch faces UP off the lane's own floor, and the gate's inlet
-    # faces WEST down the lane from the far end of it. So the run never leaves the lane — it
-    # steps east off the tee, climbs the storey, comes aft the length of the lane on the gate's
-    # own port plane, and turns east into the collet.
+    # faces FORWARD down the lane from the far end of it. So the run never leaves the lane, and
+    # the leg that closes on the collet is the collet's own axis — there is no closing corner.
     #
-    # THE GATE'S OWN PORT PLANE IS THE LANE. Between the tee and the gate the run crosses the
-    # band the bag pair's west flank stands in, and what stands in that band at this height is
-    # a column apiece: the −X boss chain, then the two cap conduits the reservoir's draw and the
-    # tap water's inlet climb out of. All of them are columns, so the corridor between the
-    # eastmost of them and the pair's own flank is open the whole storey, and the lane is struck
-    # a `LINE_PITCH` clear of the conduit's own column, which is the eastmost.
-    #   So the run climbs ONCE, to the gate's own port plane, and holds it the length of the
-    # lane into the collet — no stratum over the band and no fall into the bay at the far end.
+    # TWO CORNERS AND ONE LEAN. The east step onto the gate's column and the climb to its port
+    # plane are ONE LEG, taken diagonally out of the branch's own stub: the step is a quarter of
+    # the climb, so the leg leaves the collet barely off the vertical it is drilled at and the
+    # corner that starts it turns a fifth of a right angle. What that buys is the whole of the
+    # branch's short stub for a stock arc, where a square step would spend it twice.
+    #   Then ONE corner onto the gate's plane, and the run holds that plane the length of the
+    # lane into the collet. Nothing stands in the column between them: the tray stack's west
+    # face is a lane further east and the core's own crown is a storey below.
     vg_stock = R.stock_min("fluid", nz.diam("V-G-I"))
     vg_stub = 7.45                           # the straight Y-D's branch collet takes before it turns
-    gate_in = nz.at("V-G-I")
-    lane_x = f["foam-assembly"].at("water-in")[0] + LINE_PITCH
-    runs.append(route(
+    gate_in, yd3 = nz.at("V-G-I"), f["tee-y-d"].at("Y-D-3")
+    runs.append(R.bent(
         "fluid-17", "tee-y-d.Y-D-3",
-        {"x": lane_x},                       # east out of the −X boss chain the tee stands
-                                             # inside, onto the lane the conduits' columns leave
-        {"z": gate_in[2]},                   # up the storey onto the gate's own port plane
-        {"y": gate_in[1]},                   # aft along it the length of the lane
-        "nozzle-tray-assembly.V-G-I",        # and east into the collet, on the collet's own axis
-        kind="fluid", skew=FLAVOR_SKEW, stub=(vg_stub, 1.0),
+        (gate_in[0], yd3[1], gate_in[2]),    # east and up in one lean, onto the gate's own
+                                             # column and its port plane together
+        "nozzle-tray-assembly.V-G-I",        # and aft along the column into the collet, on the
+                                             # collet's own axis
+        kind="fluid", skew=FLAVOR_SKEW, lead=(vg_stub, contents.LINE_HUG),
         bend=vg_stock,
-        note="Y-D branch → nozzle A gate: east onto the lane the conduits' columns leave, up "
-             "onto the gate's own port plane, and aft along it into the collet"))
+        note="Y-D branch → nozzle A gate: one leaning leg east and up onto the gate's own "
+             "column, and aft along it into the collet"))
 
-    # fluid-18 — the nozzle-A gate to its rear bulkhead. V-G-O faces EAST off the turned plate,
-    # standing forward of the pump and one lane west of its bulkhead's column, and those three
-    # facts are the whole run: east onto that column, up the storey in the open band forward of
-    # the pump, and AFT ALONG THE COLUMN INTO THE COLLET.
+    # fluid-18 — the nozzle-A gate to its rear bulkhead. V-G-O faces AFT off the plate, into the
+    # band the pump's front face leaves, and that band is where the whole storey is climbed:
+    # aft off the collet onto the lane a `PUMP_ROW_TURN` ahead of the casting, up the gate's own
+    # column to the panel's stratum, east along that stratum onto the bulkhead's column, and
+    # AFT ALONG IT INTO THE COLLET.
     #   THE CLOSING LEG IS THE COLLET'S OWN AXIS, so there is no closing corner: the column the
     # run climbs is the bulkhead's own X and the stratum it turns onto is the bulkhead's own Z,
-    # and what is left between them is one straight length of tube. The climb's corner has that
-    # whole leg to turn on and rises to stock; the corner off the collet turns on the Δx between
-    # the gate and the bulkhead, which is the only plan this run owes.
+    # and what is left between them is one straight length of tube.
+    #   THE LANE IS THE ONE THIS BAND ALREADY HAS. `water-3` crosses the same band holding the
+    # split's own Y, a storey and a half above the port plane and again on the way down, so this
+    # run takes the lane a `LINE_PITCH` forward of it — clear of that crossing on the climb, and
+    # still aft of the bag pair's own plate by the width of the bay. The corner off the collet
+    # turns on what that lane leaves ahead of the plate, which is the only leg this run owes.
     gate18, tin18 = nz.at("V-G-O"), f["bulkhead-flavor-a"].at("tube-in")
     stock18 = R.stock_min("fluid", nz.diam("V-G-O"))
+    climb18_y = f["water-split"].at("to-vk")[1] - LINE_PITCH
     runs.append(R.bent(
         "fluid-18", "nozzle-tray-assembly.V-G-O",
-        (tin18[0], gate18[1], gate18[2]),    # east onto the bulkhead's own column, on the
-                                             # collet's axis, clear of the pump's flank
-        (tin18[0], gate18[1], tin18[2]),     # up the storey in the band forward of the pump,
-                                             # onto the panel's own stratum
+        (gate18[0], climb18_y, gate18[2]),   # aft onto that lane, off the plate's own face
+        (tin18[0], climb18_y, gate18[2]),    # east along it at the port plane, over the deck
+                                             # the pair's aft face leaves
+        (tin18[0], climb18_y, tin18[2]),     # up the storey on the bulkhead's own column
         "bulkhead-flavor-a.tube-in",         # and straight aft into the collet
         kind="fluid", skew=FLAVOR_SKEW, bend=stock18,
-        note="nozzle A: gate → rear panel, east onto the bulkhead's column, up the storey "
-             "forward of the pump, and one straight run aft into the collet"))
+        note="nozzle A: gate → rear panel, aft onto the lane the tap-water crossing leaves, "
+             "east along it at the port plane, and up the bulkhead's column into the collet"))
 
     # fluid-28 — the nozzle-B gate to its rear bulkhead, the line the manifold sends OUT of the
     # machine from the aft stand. It ends on the rear panel's own port row and the vk plate
@@ -1215,7 +1231,7 @@ def _authored_runs() -> list:
     # coil row, not the SeaFlo, whose tall half ends forward of it. The last of the climb is a
     # RAMP on the approach lane, and the run reaches the port row on the bulkhead's own column.
     #   THE TWO GATES' LONG LEGS CROSS IN PLAN, SO ONE OF THEM RUNS UNDER. Their columns stand
-    # one seat pitch apart in X ([19.96](GATE_SEAT_PITCH) mm — closer than a tube) and their
+    # one seat pitch apart in X ([102.7](GATE_SEAT_PITCH) mm — closer than a tube) and their
     # bulkheads a station apart the other way, so no lane in X parts them and only height does.
     # fluid-18 holds the panel's own stratum: its closing leg is its collet's axis, and a run
     # that finishes down the axis it is entered on has no other height to be at. This one takes
@@ -1468,24 +1484,24 @@ def _authored_runs() -> list:
     # at the wall; the hose comes about in the pocket between them on its own radius and
     # climbs the pump's west flank, closing forward and up onto the chain's barb, which
     # stands over the discharge's own column for exactly this leg.
-    #   THE APPROACH IS FENCED AND THE EXIT IS NOT. The pocket the exit turns in runs from the
-    # −X wall's inner face at x [-14](W6_WALL_X) out to the barb tip at x [9](W6_BARB_X), and
-    # the hose's own half-section and one clearance floor leave [14.45](W6_POCKET_FREE) mm of
-    # it before a sweep touches the piece — more than this reach spends, so the sweep stands
-    # [8.88](W6_WALL_CLEAR) mm off that wall built. The approach is the COLLET'S OWN LEAD and
-    # no more — the basin stands aft of this barb at exactly that reach (`_contents` hangs its
-    # front wall off this station), so a closing straight longer than the lead is a straight
-    # drawn inside the basin.
+    #   THE EXIT IS FENCED BY THE POCKET AND THE APPROACH IS NOT. The pocket the exit turns in
+    # runs from the −X wall's inner face at x [-14](W6_WALL_X) out to the barb tip at
+    # x [9](W6_BARB_X), and the hose's own half-section and one clearance floor leave
+    # [14.45](W6_POCKET_FREE) mm of it before a sweep touches the piece — so `W6_POCKET` is the
+    # whole of that reach and the sweep stands [7.94](W6_WALL_CLEAR) mm off the wall built.
+    #   The APPROACH runs the slot the chain lies in, beneath the basin's own floor
+    # (`_contents.DISCH_CHAIN_DROP`), and nothing stands in that. It takes whatever reach seats
+    # the roundest corner, the way the bag pair's leads do.
     #   What is left is the DIRECTION of each. This hose is CLAMPED ONTO A BARB, so the straight
     # a joint needs is the barb itself and lies upstream of this run's first point — the route
     # owes none of its own, and every millimetre of both reaches goes to the corner. `lean_into`
-    # spends the [14](W6_SKEW)° a braided stub takes at each end: [9.97](W6_LEAN_OUT)° off the
-    # discharge and [14](W6_LEAN_IN)° off the chain's barb, bringing both turns back from past
-    # square to [97.5](W6_TURN_OUT)° and [90.7](W6_TURN_IN)°.
-    w6_lead = (9.0, contents.JUNCTION_LEG_LEAD)
-    (w1, w2), w6_lean, w6_r, _w6_turns = lean_into(
-        *_mouth(f, "seaflo-pump.discharge"), *_mouth(f, "discharge-chain.barb-tip"),
-        w6_lead, radius=HOSE_BEND, straight=0.0, skew=14.0)
+    # spends the [14](W6_SKEW)° a braided stub takes at each end: [14](W6_LEAN_OUT)° off the
+    # discharge and [0](W6_LEAN_IN)° off the chain's barb, bringing both turns back from past
+    # square to [86.5](W6_TURN_OUT)° and [149](W6_TURN_IN)°.
+    (w1, w2), w6_lean, w6_r, _w6_turns = max(
+        _drop_trials("seaflo-pump.discharge", "discharge-chain.barb-tip",
+                     radius=HOSE_BEND, straight=0.0, skew=14.0, reach=(W6_POCKET, None)),
+        key=lambda got: got[2])
     runs.append(R.bent(
         "water-6", "seaflo-pump.discharge", w1, w2, "discharge-chain.barb-tip",
         kind="water", bend=w6_r, skew=14.0,
@@ -1519,27 +1535,30 @@ def _authored_runs() -> list:
              "two clamps)"))
 
     # water-5 — the chain's forward collet to the core's water inlet, and the tap-water path's
-    # one fall. TWO LEGS AND ONE CORNER. The chain hands the water over on the deck's own west
-    # end, facing FORWARD, and `_cold_core_interface.cap_conduits` stands the inlet's bore
-    # ahead of it on very nearly that column — so the run is one horizontal leg out to the
-    # bore's own station and one fall straight down it, and the corner between them has a
-    # [30](W5_LEG) mm leg on one side and the whole [64.8](W5_FALL) mm of the fall on the
-    # other. Both hold a stock arc, which is what this line turns at.
-    #   The horizontal leg carries the whole plan move, so it leaves the collet
-    # [0.955](W5_LEAN)° off its axis — inside the `FLAVOR_SKEW` a push-to-connect takes — and
-    # the fall enters the bore dead on the vertical it is drilled at. Nothing stands under the
-    # leg: the deck's west end carries reservoir B's own riser [7.42](W5_RISER_GAP) mm off this
-    # bore, and the bag pair closes the band east of both.
+    # one fall. ONE SLANT BETWEEN TWO LEADS. The chain hands the water over on the deck's own
+    # west end facing FORWARD, `_cold_core_interface.cap_conduits` stands the inlet's bore
+    # ahead of it on very nearly that column, and the two are [20.7](W5_LEG) mm apart along the
+    # deck against a [64.8](W5_FALL) mm fall.
+    #   THE SLANT IS WHAT THE CORNERS TURN ON. A square corner between these two mouths seats
+    # on the shorter of the reach and the fall, and the reach is the shorter by three times.
+    # Leaning both leads takes the ninety apart into two turns on a leg that is neither — the
+    # slant across the fall — and each of them has that whole leg to seat its arc in.
+    #   Nothing stands under it: reservoir B's own draw climbs [13](W5_RISER_GAP) mm aft of this
+    # bore, and the gate's plate closes the deck forward of both.
     chain = f["discharge-chain"]
+    w5_stock = R.stock_min("water", chain.diam("tube-port"))
+    # The sweep stops a degree inside the collet's own bound: this pair's best lean sits ON it,
+    # and a lean solved exactly there rounds to either side through the tilt that places the
+    # waypoint and the arc-cosine `bent` measures the drawn leg back with.
+    (w5a, w5b), w5_lean, w5_r, _w5_turns = max(
+        _drop_trials("discharge-chain.tube-port", "foam-assembly.water-in",
+                     radius=w5_stock, skew=FLAVOR_SKEW - 1.0),
+        key=lambda got: got[2])
     runs.append(R.bent(
-        "water-5", "discharge-chain.tube-port",
-        (foam.at("water-in")[0], foam.at("water-in")[1], chain.at("tube-port")[2]),
-                                             # out to the bore's own station, holding the deck's
-                                             # height the whole way
-        "foam-assembly.water-in",            # and one fall straight down the bore
-        kind="water", skew=FLAVOR_SKEW, lead=(0.0, 0.0),
-        note="carb water: discharge chain → cold-core water inlet, one leg out to the conduit's "
-             "own station and one fall down it"))
+        "water-5", "discharge-chain.tube-port", w5a, w5b, "foam-assembly.water-in",
+        kind="water", skew=FLAVOR_SKEW, bend=w5_r,
+        note=f"carb water: discharge chain → cold-core water inlet, one slant across the fall "
+             f"on leads leaning {w5_lean[0]:.1f}°/{w5_lean[1]:.1f}° into it"))
 
     # --- The CO2 path: the front-wall chain to the core's CO2 bore. The check is made up
     # on the DERPIPE's stub and carries no line, so the path is one short hop and one long
@@ -1885,11 +1904,10 @@ def lane_stations() -> dict:
         "YG_COLUMN":        f"{_boxes.boxed(contents.placed_funnel()).zmin - _boxes.boxed(solids['tee-y-g']).zmax:.3g}",
         # water-5's fall, and the two figures the casting sets it: the slot its head leaves
         # over the conduit's own column, and the window between the bag pair and its front face.
-        # water-5's two legs, the lean the horizontal one leaves its collet on, and what the
-        # deck's own west end leaves between this bore and reservoir B's riser.
-        "W5_LEG":           f"{math.dist(runs['water-5'].pts[0], runs['water-5'].pts[1]):.3g}",
-        "W5_FALL":          f"{math.dist(runs['water-5'].pts[1], runs['water-5'].pts[2]):.3g}",
-        "W5_LEAN":          f"{R.leg_skew(runs['water-5'].pts[0], runs['water-5'].pts[1], _frames()['discharge-chain'].normal('tube-port')):.3g}",
+        # What water-5's two mouths stand apart by — the reach across the deck and the fall
+        # down it — and what the deck's own west end leaves between this bore and reservoir B's.
+        "W5_LEG":           f"{math.dist(runs['water-5'].pts[0][:2], runs['water-5'].pts[-1][:2]):.3g}",
+        "W5_FALL":          f"{runs['water-5'].pts[0][2] - runs['water-5'].pts[-1][2]:.3g}",
         "W5_RISER_GAP":     f"{math.dist(runs['water-5'].pts[-1][:2], runs['fluid-26'].pts[0][:2]):.3g}",
         # The shelf crossing, off the shelf itself: how far over the tallest lid on the cap the
         # crossing's own lane stands, and the widest lane those modules leave between them.
