@@ -127,7 +127,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PETG | 1.325 | $14.84 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.178 | $1.99 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.177 | $1.98 <!--@printed--> |
 | Cold-core foam cap lid — top | 1 | PETG | 0.129 | $1.45 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.169 | $1.89 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.130 | $1.45 <!--@printed--> |
@@ -146,9 +146,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Valve tray — single-valve (1 off) | 1 | PETG | 0.016 | $0.18 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~7.29** | **[$86.31](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.29** | **[$86.30](BOM_SEC7)** |
 
-By material: PETG ≈ 7.13 kg / $79.86 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 7.13 kg / $79.85 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the [15](DECK_INSERTS) deck-mount columns the whole electronics shelf bolts to — the controller board, the AC hub, relay #1, the ground stud and the PSU — which is why it outweighs the bottom one.
 
@@ -166,7 +166,6 @@ Soft seals print in Bambu TPU 90A from per-unit-trivial stock, not costed here: 
 | [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | **Rear-panel umbilical port** — [3](PP1208E_PANEL) bulkheads on the enclosure back panel accepting the 3-tube under-cabinet-faucet umbilical (1 carbonated water + 2 flavors), one bulkhead marked with a blue accent ring to match the blue-color-coded carbonated-water tube per [printed-parts/enclosure/back-panel/README.md](/hardware/printed-parts/enclosure/back-panel/README.md). Black PP, NSF 51 + NSF 61, FDA-compliant materials, EPDM O-ring, 150 psi @ 70°F. Amazon 112-6407862 May 11: $23.11 + $1.68 tax = $24.79 ÷ 10 = $2.479/ea; at [4](PP1208E_TOTAL)/build (these 3 + the §3 water inlet) a 10-pk = ~2.5 builds of stock | [3](PP1208E_PANEL) (of 10 pk) | $2.48 | $7.44 <!--@plumbing--> |
 | [PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)](https://www.amazon.com/dp/B0968K4JRN) | **Reservoir floor/trough outlet port** — single-piece right-angle PTC bulkhead through the reservoir floor trough per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md); the integral 90° elbow routes the syrup line laterally, so no separate union elbow is needed at the reservoir. White PP, water/RO/beverage-rated; ships without a panel o-ring — the panel seal is sourced separately (purchased silicone wet washer + printed TPU dry washer; see the silicone-washer row below). ⌀16 mm mounting hole. 1 per reservoir × [2](RESERVOIRS) = 2/build. Amazon B0968K4JRN: $10.99 ÷ 5 = $2.198/ea; 5-pk = 2.5 builds of stock | [2](RESERVOIRS) (of 5 pk) | $2.20 | $4.40 <!--@plumbing--> |
 | [uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear (10-pk)](https://www.amazon.com/dp/B07D23JJMR) | **Reservoir bulkhead wet-side face seal** — the primary seal where the PureSec barrel passes up through the reservoir floor; sits in the wet-side counterbore, compressed by the bulkhead hex nut, per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md). Food-reasonable silicone (food-grade implied, not certified) — qualified by the wetted-surface screen, not a cert, per [`printed-parts/cold-core/reservoir/wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md). The dry-side washer is printed TPU. 1 per reservoir × 2 reservoirs = 2/build. Amazon 112-8819640-4433810 Jun 7: $7.50 ÷ 10 = $0.75/ea; 10-pk = 5 builds of stock | 2 (of 10 pk) | $0.75 | $1.50 <!--@plumbing--> |
-| [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | Y-H (reservoir B's fill and draw) per fluid-topology.md (trident, parallel-outlet geometry — the shape that joins two ports lying side by side, which is what that pair presents on its own tray, with the room ahead of it in the loft a 38.5 mm fitting needs), [1](Y_DIVIDERS) per unit; FWS WEBFWS100673541 May 9: 2 bags of 10 @ $61.66 = $30.83/bag = $3.083/ea pre-tax/ship; 1 bag = 5 builds of stock | [1](Y_DIVIDERS) (of 1 bag) | $3.083 | $3.08 <!--@plumbing--> |
 | [John Guest PP0208E 1/4" union tee, black polypropylene (bag of 10)](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | manifold Tees Y-A/B/C/D/E/F/G per fluid-topology-trays.mmd — six of them reach BETWEEN trays rather than joining one tray's own pair, each standing on the lane its run shares with two of its three ports and turning its branch off it. For Y-A and Y-B that lane is a COLUMN: the source pair stands in the selects pair's own seats, so each takes one port from each tray down one run and the two branches meet on a crossbar. Y-E is the seventh: it joins one pair, like Y-H, and takes this fitting rather than the trident because what that pair leaves ahead of it is a strip 13.72 mm deep — so it stands ACROSS the strip, run along it and branch down. [7](TEES) per unit; same JG black-PP NSF 51 + 61 family as the §3 install-kit tee. FWS WEBFWS100681220 Jun 8: 2 bags of 10 @ $42.68 = $21.34/bag = $2.134/ea pre-tax/ship | [7](TEES) (of 2 bags) | $2.134 | $14.94 <!--@plumbing--> |
 | [Siptenk 1/4" OD brass tube stiffener insert (100-pk)](https://www.amazon.com/dp/B0FM77LLM1) | required on the LLDPE side of the carbonated-water tube end that lands in the Westbrass body's upstream compression port (per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2) so the brass ferrule does not crush the soft tube; 1 stiffener per build ($8.99/100) | 1 (of 100 pk) | $0.09 | $0.09 <!--@plumbing--> |
 | [BBDINO 40A food-contact platinum silicone, 2.42 lb kit, 1:1](https://www.amazon.com/dp/B0FHHBGSQK) | **Cast silicone hopper funnel** (Zone C, [printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)) — the removable, dishwasher-safe flavor-fill funnel, cast in a two-piece printed mold (the vacuum chamber + Orion pump + post-cure oven are tooling, in [purchases.md](/hardware/ledger/purchases.md) §21). ~78 g of mixed silicone per funnel (CAD shell volume 68.8 mL × ~1.13 g/mL) ≈ ~13 funnels per kit. Amazon 112-8255970 Jun 22: $35.16 ÷ 13 | 1 (~78 g) | $2.70 | $2.70 <!--@funnel-casting--> |
@@ -280,15 +279,15 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$102.23](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$86.31](BOM_SEC7) |
-| 8. Flavor subsystem | [$206.64](BOM_SEC8) |
+| 7. Printed parts (PETG + PET-CF) | [$86.30](BOM_SEC7) |
+| 8. Flavor subsystem | [$203.56](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$28.30](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,332.02](BOM_GRAND)** |
+| **Total** | **[$1,328.93](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
