@@ -488,14 +488,18 @@ ASSE_INLET_HOP = 10.0        # the least tube between the panel's mouth and the 
 # anything. Holder TBD — and it does not come out of the top wall: a collar grown down from
 # there stands beside the hopper's collar for its whole height, and the basin is a whole
 # rectangle (`assembly/enclosure-mechanical.md`).
-# The drip pan is not posed. In X the basin CENTRES ON THE CHAIN'S PLAN BOX, so what stands
-# over the floor is the whole length a drip can leave from; in Y the vent falls on the basin's
-# own centre — the axis the basin has depth to spare on, and the one it withdraws along. The
-# basin is SECTIONED to the vent and STATIONED to the chain: `ASSE1022_ROLL` lays that stub
-# horizontal so it sheds off its own outside rather than straight down, and `_pan_room` is the
-# reading that the tip still stands over the inner floor. `drip_pan_seat()` hangs it off the
-# placed chain's underside.
+# The drip pan is not posed. In X the basin's rim lands on the −X wall's inner face
+# (`drip_pan_west`), the face it withdraws through; in Y the vent falls on the basin's own
+# centre, the axis it has depth to spare on. The basin is SECTIONED to the vent and STATIONED
+# to the wall and the chain: `ASSE1022_ROLL` lays that stub horizontal so it sheds off its own
+# outside rather than straight down, and `_pan_room` is the reading that the tip still stands
+# over the inner floor. `drip_pan_seat()` hangs it off the placed chain's underside.
+#   `DRIP_PAN_X/Y` are the BASIN's, wall face to wall face. The rim reaches one
+# `_pan.FLANGE_W` past each of them.
 DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
+# The rail's own section under the flange's bearing face — the depth of the rib, the flat band
+# `drip_pan.bearing_w()` gives it being the width. `drip_pan_rails` lays the pair.
+DRIP_RAIL_H = 3.0
 # V-K — the fill/shutoff solenoid, between the split and the SeaFlo suction — is not posed
 # here. It is the same Beduan the manifold's trays carry, and it rides a ONE-SEAT plate of its
 # own (`vk-tray-assembly`, `VK_TRAY_COLLETS`) on the aft stand's middle row; `vk_terminal` reads
@@ -1472,15 +1476,11 @@ def _build():
     # chain's underside (`drip_pan_seat`). `_pan_room` is the reading that the tip still
     # stands over the inner floor.
     _vent_xy = bfp_terminal("vent-tip")[0]
-    # The basin's own FLANGE is the widest thing this assembly has, so it and not the shell is
-    # what answers to the rib inset — this station may not set the machine's width, which is
-    # what keeps `enclosure._dims` striking the width off the core at both flanks. That inset
-    # is a FLOOR under the station and not the station itself: driven onto it the basin leaves
-    # the vent it is under, so the chain's own centre stands the pan and the inset only
-    # catches it.
-    _asse_box = pack.box("asse1022-assembly")
-    _pan_x = max((_asse_box.xmin + _asse_box.xmax) / 2.0 - DRIP_PAN_X / 2.0,
-                 -SIDE_RIB_INSET + _pan.FLANGE_W)
+    # X is the WALL's: the tray draws west through the slot in it (`west_wall_ports`) on rails
+    # rooted in its inner face (`drip_pan_rails`), so the face it withdraws through is what
+    # fixes it across the machine. `drip_pan_west` lands the rim's west edge on that face, and
+    # `_pan_room` reads the vent tip back against the floor it leaves.
+    _pan_x = drip_pan_west()
     # Y centres on the vent, held off the DISCHARGE CHAIN'S BARB by what a hose leaving that
     # barb needs on its own axis. The barb faces aft into this basin's front wall, so a basin
     # centred on the vent alone stands in the mouth of the line it is nothing to do with. The
@@ -1489,13 +1489,19 @@ def _build():
     # reads back. The floor is the lead PLUS the stub's own half-section and a hug: what has
     # to clear this wall is the hose, and a hose on its lead is a tube and not a centreline —
     # its OUTSIDE, over the barb, and not the bore the barb is sized by.
+    #   The floor is the RIM's and not the wall's: the flange reaches one `FLANGE_W` ahead of
+    # the front wall, so it and not the basin is what arrives at the barb's lead first. The
+    # basin stands that flange back off the floor, which walks the whole station aft by exactly
+    # the rim it grew.
     _pan_y = max(_vent_xy[1] - DRIP_PAN_Y / 2.0,
                  disch_terminal("barb-tip")[0][1] + JUNCTION_LEG_LEAD
-                 + _disch.HOSE_OD / 2.0 + LINE_HUG)
+                 + _disch.HOSE_OD / 2.0 + LINE_HUG + _pan.FLANGE_W)
     _pan_z = drip_pan_seat()
     _pan_room(_pan_x, _pan_y, _vent_xy)
+    # Seated on its ORIGIN, which the part puts at the basin's own wall corner; the rim hangs a
+    # `FLANGE_W` outboard of it on both plan axes, and every fence above is struck on the walls.
     pack.place("drip-pan", _load(DRIP_PAN_STEP),
-               west=at(_pan_x), front=at(_pan_y), foot=at(_pan_z))
+               org_x=at(_pan_x), org_y=at(_pan_y), org_z=at(_pan_z))
 
     # The power block on the +X wall. Its three seats are three faces of the machine and not
     # three numbers: EAST on `CORE_EAST_FACE`, the plane the ±X rib band ends on, so the brick
@@ -1944,10 +1950,10 @@ def drip_pan_seat():
     """The Z the drip pan's own floor stands at.
 
     The basin hangs off the chain, `drip_pan.VENT_GAP` of air between its rim and the placed
-    chain's underside. What carries it there is `drip_pan.py`'s own open item, and the one
-    thing that answer may not do is stand UNDER the floor: the basin lies over the casting,
-    so section beneath it is height charged twice — once for the crown's own clearance and
-    again for the carrier — and it comes out of the vent gap above.
+    chain's underside. What carries it there takes hold of the RIM (`drip_pan_rails`), and
+    nothing stands UNDER the floor: the basin lies over the casting, so section beneath it is
+    height charged twice — once for the crown's own clearance and again for the carrier — and
+    it comes out of the vent gap above.
 
     The column runs out of deck when that floor reaches past the cap the manifold's aft stand
     stands on. `room-holds` carries that reading; the seat is the chain's either way."""
@@ -1964,6 +1970,80 @@ def drip_pan_seat():
                f"puts its floor {-under:.4f} mm BELOW the foam cap at {foam_cap_top():.4f}. "
                f"Raise `asse_axis()`'s stratum, or take section off the basin.")
     return seat
+
+
+def west_wall_x():
+    """The −X side wall's INNER face — the cold core's west face less the boss chain the ±X
+    walls stand off it, the same rule `enclosure._dims` strikes the interior by and the mirror
+    of `east_wall_x`."""
+    return CORE_WEST_FACE - SIDE_RIB_INSET
+
+
+def drip_pan_west():
+    """The X the basin's own WEST WALL outer face stands on — one `FLANGE_W` inboard of
+    `west_wall_x()`, so the RIM's west edge lands on that face.
+
+    The tray draws west through the slot in that wall (`west_wall_ports`) on rails hung off its
+    inner face (`drip_pan_rails`). The rim reaches this plane and stops on it, which is the
+    plane `enclosure._dims` strikes the interior's west face on. `_pan_room` reads the other
+    end: the vent's tip still stands over the floor once this one is fixed."""
+    return west_wall_x() + _pan.FLANGE_W
+
+
+def drip_pan_rails():
+    """The rail pair the basin's rim rides, as world boxes `(x0, x1, y0, y1, z0, z1)`, fused
+    onto the back-top piece's −X wall by `enclosure.build_back_half`.
+
+    Rooted on that wall's inner face and running EAST, the axis the tray travels — out through
+    the wall the rails stand in. Each rail's top face IS the flange's underside; its outboard
+    flank is flush with the rim's edge and its inboard flank stands one `PAN_SLIP` off the
+    haunch's toe, so the two inboard arrises take the tray's two 45° haunches and hold it on
+    its column. Nothing of the pair reaches under the floor (`drip_pan_seat`).
+
+    They run the rim's whole length, wall to east edge: a seated tray stands on rail from end
+    to end, and a withdrawing one keeps rail under it until the rim is clear of the wall.
+
+    The bearing face is the piece's one overhang in the ceiling-down print — the vent gap over
+    it is air (`drip_pan.VENT_GAP`), so it prints on support, as the Y-seam lip and the floor
+    shiplap do (`../enclosure/README.md`)."""
+    pan = packed().box("drip-pan")
+    top = pan.zmax - _pan.FLANGE_T            # the flange's underside — the bearing plane
+    x0, x1 = west_wall_x(), pan.xmax          # wall face to the rim's east edge
+    band = _pan.bearing_w()                   # the flat band of underside, per side
+    return [(x0, x1, pan.ymin, pan.ymin + band, top - DRIP_RAIL_H, top),
+            (x0, x1, pan.ymax - band, pan.ymax, top - DRIP_RAIL_H, top)]
+
+
+def west_wall_ports():
+    """Through-holes the −X side wall needs: (kind, y, z, *size), the shapes of
+    `back_wall_ports` read on that wall's own plane. enclosure.py cuts these through the BACK
+    pieces' −X wall — the tray stands aft of the Y seam and over both Z seams, so the whole
+    opening falls in one piece.
+
+    ONE OPENING IN TWO RECTANGLES, cut at what the tray is WIDEST at each height. Above the
+    flange's underside that is the rim. Below it, it is the HAUNCH — the 45° flare carries the
+    section three millimetres past the basin's wall on the way up to the rim, so a rectangle
+    cut at the basin alone stops the tray a corner's length out of the wall.
+
+    The two meet on the flange's underside, the plane the tray bears on, and the lower one's
+    flank falls exactly where `drip_pan_rails` puts the rail's inboard face — both are the
+    haunch's toe less the fit. So the rail stands beside the opening at full width and the
+    wall under the rim, outboard of it, is what carries the pair.
+
+    The slip goes where the tray can move: a `PAN_SLIP` on both flanks of each rectangle, under
+    the floor and over the rim. Square corners — `CORNER_R` rounds the tray in PLAN, and this
+    is the section across it, where floor meets wall at a right angle."""
+    pan = packed().box("drip-pan")
+    s = _pan.PAN_SLIP
+    reach = _pan.FLANGE_W - _pan.FLANGE_HAUNCH      # rim edge inboard to the haunch's toe
+    haunch_y0, haunch_y1 = pan.ymin + reach, pan.ymax - reach
+    z_flange = pan.zmax - _pan.FLANGE_T
+    return [
+        ("rect", (haunch_y0 + haunch_y1) / 2.0, (pan.zmin - s + z_flange) / 2.0,
+         haunch_y1 - haunch_y0 + 2 * s, z_flange - pan.zmin + s, 0.0),
+        ("rect", (pan.ymin + pan.ymax) / 2.0, (z_flange + pan.zmax + s) / 2.0,
+         pan.ymax - pan.ymin + 2 * s, pan.zmax + s - z_flange, 0.0),
+    ]
 
 
 def aft_tray_z():
@@ -2832,8 +2912,9 @@ def _pan_room(pan_x, pan_y, vent):
 
     And `enclosure._dims` strikes the interior's west face off whatever body reaches furthest
     west, while `funnel_centre` is that interior's midpoint and the gravity drain stands on it
-    (`_funnel_column`). The rail is this part's outermost feature, so it stays inboard of the rib
-    inset: a basin that sets the width takes the drain off its own column two derivations later."""
+    (`_funnel_column`). The RIM is this part's outermost feature, and `drip_pan_west` lands it
+    ON the rib inset and no further: a basin that sets the width takes the drain off its own
+    column two derivations later."""
     w = _pan.WALL
     for axis, i, lo, hi in (("x", 0, pan_x + w, pan_x + DRIP_PAN_X - w),
                             ("y", 1, pan_y + w, pan_y + DRIP_PAN_Y - w)):

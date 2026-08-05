@@ -271,8 +271,10 @@ z_lip_y_margin = 2.0
 #   splits        the bottom↔top seam height per Y column, (front, back)
 #   front_ports   / back_ports   panel through-holes, in _contents' format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
+#   west_ports    −X side-wall through-holes, same shape — the drip tray's slot
 #   hopper        whether the top wall carries the funnel throat
-Box = namedtuple("Box", "inner outer y_joint splits front_ports back_ports east_ports hopper")
+Box = namedtuple(
+    "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports hopper")
 
 
 # --- primitives -------------------------------------------------------------
@@ -770,7 +772,8 @@ def _dims():
     by0, by1 = _y_corner_back(inner, y_joint)
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return Box(inner, outer, y_joint, splits,
-               _contents.front_wall_ports(), ports, _contents.east_wall_ports(), True)
+               _contents.front_wall_ports(), ports, _contents.east_wall_ports(),
+               _contents.west_wall_ports(), True)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1571,7 +1574,7 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), False)
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), False)
 
 
 def build_front_half(box):
@@ -1666,7 +1669,26 @@ def build_back_half(box):
     for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
     back = _c14_bosses(back, inner, outer, outer[4] - 1.0, outer[5] + 1.0)
+    # The drip tray's withdrawal slot through the −X wall, and the rail pair it rides. Cut the
+    # slot first: the rails stand on the wall the two rectangles leave between them.
+    for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, inner[0] + 5.0):
+        back = back.cut(cutter)
+    back = _pan_rails(back, outer[4] - 1.0, outer[5] + 1.0)
     return cq.Workplane(obj=back)
+
+
+def _pan_rails(solid, z0, z1):
+    """The drip tray's rail pair fused onto a −X wall, for the rails whose top lies in
+    `z0..z1`.
+
+    `_contents.drip_pan_rails` states each as a world box, rooted on the wall's inner face and
+    running east under the tray's rim. The pair is the whole of the carry — the tray hangs
+    between them off its own flange, and nothing stands under its floor."""
+    for x0, x1, y0, y1, rz0, rz1 in _contents.drip_pan_rails():
+        if not z0 <= rz1 <= z1:
+            continue
+        solid = solid.fuse(_ybox(x0, x1, y0, y1, rz0, rz1))
+    return solid
 
 
 def _c14_bosses(solid, inner, outer, z0, z1):

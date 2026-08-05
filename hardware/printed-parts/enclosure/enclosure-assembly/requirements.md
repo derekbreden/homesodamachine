@@ -389,7 +389,7 @@ is where the pack itself, and what is open about it, is described.
   [`_routing.py`](_routing.py); see [`tube-routing.md`](tube-routing.md).
 - **held** — a printed holder for every component. Held: the foam assembly by the floor, which
   carries it while the seam posts fence it (unfastened by design); the display by the shell
-  facet it is let into; the drip basin by its own rails and those rails by VHB to the cap; the
+  facet it is let into; the drip basin by its own rim on rails printed into the −X wall; the
   five shelf modules by the cap's own deck-mount columns; the rear-panel bodies by the wall
   their nuts clamp; and the wall sequence's three fittings by the top wall's own clamp collars.
   Loose: the compressor shroud, whose seat, plan register and capture bosses

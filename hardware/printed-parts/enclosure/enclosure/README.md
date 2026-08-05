@@ -238,6 +238,15 @@ open air (the back's bed-side half fills under it only once assembled), so it
 prints on a thin support strip at the seam, the ceiling tongue's twin one slab
 down. The side-wall segments, vertical to the bed, are free.
 
+The **drip tray's rail pair** in the back-top piece costs the same, and it is the
+one feature in the box that does. Each rail is a ledge off the −X wall running
+east on the withdrawal axis, and its bearing face is the tray's seat — a flat
+plane, held at one height for the rail's whole length, so it cannot be reached at
+45° from the wall it grows out of. Ceiling-down it is that face and not the
+underside that hangs, and what stands over it is the vent gap (`drip_pan.VENT_GAP`),
+which is air by construction. So the pair prints on support, two strips 73 mm long
+by the bearing width, in the band above the tray's slot.
+
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries

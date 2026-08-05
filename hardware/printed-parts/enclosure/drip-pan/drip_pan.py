@@ -5,23 +5,30 @@ pools in the basin and wets the plate, tripping the moisture alarm. Watertight
 
 One printed part: the BASIN — an open-top rounded-corner box, [53](PAN_LEN) x
 [76](PAN_DEPTH) outer x [10](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
-[3](PAN_FLOOR) mm floor, floor-to-wall coved.
+[3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [10](PAN_FLANGE) mm RIM
+FLANGE turned out all four ways at the top — a baking tray, at tray scale.
+
+ONE SILHOUETTE, ONE RADIUS. The plan outline is a single rounded rectangle at
+[6](PAN_CORNER_R) mm and everything else is that outline offset: the floor slab and
+the walls are the outline itself, the flange is the outline plus `FLANGE_W`, and
+the cavity is the outline less `WALL`. A corner is the same corner at every height,
+so a hand runs down one arris from the rim to the floor.
 
 The column reads down from the chain: `VENT_GAP` of air under its underside, then
 the basin, and under the basin nothing but the air it needs over the SeaFlo's
 crown. `_contents.drip_pan_seat` is the plane the basin's own floor reaches.
 
-WHAT CARRIES IT IS OPEN, AND THE OPEN QUESTION HAS A SHAPE. The basin stands over
-the casting, so anything under its floor is height the basin pays for twice —
-once to clear the pump and again to carry the load. So the carry belongs on the
-basin's OWN FLANGE, the way a baking tray's rim is what its oven rack holds:
-`FLANGE_W` grows off the wall at a plane up the basin's height, rails stand
-outboard of the basin at that plane, and the basin hangs between them with its
-floor free to sit at its own clearance over the crown. Nothing under the floor,
-so nothing under the floor to pay for.
+NOTHING STANDS UNDER THE FLOOR. The basin lies over the casting, so section
+beneath it is height the basin pays for twice — once to clear the pump and again
+to carry the load. So the carry takes hold of the RIM instead: the flange's flat
+underside is the bearing face, `_contents.drip_pan_rails` stands a rail pair under
+it off the west wall, and the floor is left free at its own clearance over the
+crown. Nothing under the floor, so nothing under the floor to pay for.
 
-Frame: +X long axis, +Y depth (the withdrawal direction), +Z up; origin at the
-basin's lower-front-left outer corner of the WALLS. Open top (+Z).
+Frame: +X long axis (the withdrawal direction — the tray draws WEST through
+`_contents.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
+lower-front-left outer corner of the WALLS, so the flange reaches −`FLANGE_W` of
+it on both plan axes. Open top (+Z).
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py
@@ -55,19 +62,38 @@ from docgen import substitute_md, substitute_py_comments
 # column once the basin's floor has taken its own air over the casting.
 PAN_X, PAN_Y, PAN_Z = 53.0, 76.0, 10.0
 WALL, FLOOR = 2.5, 3.0
-CORNER_R = 6.0        # outer vertical-corner radius
+# The PLAN OUTLINE's radius, and the only one this part has. Floor slab, walls, cavity
+# and flange are all the one outline at their own offset, so the corner a hand runs down
+# is one corner from the floor to the rim.
+CORNER_R = 6.0
 # Floor-to-wall fillet — water sheeting + cleanability. It eats the flat floor from
 # both ±Y walls, and the moisture plate's long edge has to land inside what is left.
 FLOOR_COVE = 2.0
-# The slab's reach past each wall. Zero — the basin carries no flange yet, and
-# nothing is under it: it stands free at the plane `_contents.drip_pan_seat`
-# gives it, one `LINE_HUG` over the SeaFlo's crown.
-#   This is the number the CARRY is waiting on. A flange grown here, at a plane
-# up the wall rather than at the floor, is what rails outboard of the basin hold
-# — the aft strip's east end belongs to V-K and the umbilical cluster and its
-# west end to the board, so what the pair may spend in X is the wall's own
-# footprint and the slip, and what it may not spend is anything under the floor.
-FLANGE_W = 0.0
+
+# The rim flange's reach past each wall, ALL FOUR WAYS, at the rim plane rather than at
+# the floor — the basin lies over the casting, so a carry under the floor is height
+# charged twice and this is the face that spares it.
+#   ONE NUMBER FOR TWO GRIPS, and the HAND sets it: the west lip is hooked with a
+# fingertip to draw the tray out through the wall, and a lip a finger pulls on wants ten.
+# The MACHINE takes what that lip leaves — the flat band of underside a rail bears on,
+# which is the reach less the haunch's `FLANGE_HAUNCH` and the fit's `PAN_SLIP`,
+# [6.70](PAN_BEARING) mm of it, `bearing_w()`. One rim runs all four sides at the one
+# figure.
+FLANGE_W = 10.0
+# The flange's own section — the wall turned out, so the rim is the gauge the tray is.
+FLANGE_T = WALL
+# The 45° haunch filling the corner between the wall's outer face and the flange's
+# underside. The tray prints floor-down, so that underside is an overhang: the haunch is
+# what the first courses of it grow out of, and it cuts the unsupported reach to
+# `FLANGE_W - FLANGE_HAUNCH`. It also takes the rail's inboard arris, which is what
+# centres the tray across the pair.
+FLANGE_HAUNCH = 3.0
+# A hair of vertical face left under the haunch so the 45° is a chamfer and not a
+# degenerate one — at the full height OCC declines the cut.
+FLANGE_HAUNCH_SKIRT = 0.5
+# Per side, tray to whatever holds it: flange underside to rail flank, and tray
+# silhouette to the wall slot it draws through.
+PAN_SLIP = 0.3
 
 # The Shutao LM393 module's conductivity plate (bom.md §sensors, B0B2W76MB1), lying
 # flat on the basin floor with its long edge down the basin's Y — the withdrawal
@@ -98,6 +124,21 @@ def flat_floor():
     return (PAN_X - 2 * WALL - 2 * FLOOR_COVE, PAN_Y - 2 * WALL - 2 * FLOOR_COVE)
 
 
+def flange_z():
+    """The flange's UNDERSIDE, in the part's own frame — the bearing plane, and the plane a
+    rail's top face reaches. The flange's top is the rim, so this is one section down from it."""
+    return PAN_Z - FLANGE_T
+
+
+def bearing_w():
+    """The flat band of flange underside a rail may stand under, per side.
+
+    Not the whole flange: the haunch takes the inboard `FLANGE_HAUNCH` of it at 45°, and the
+    fit takes a `PAN_SLIP` off the outboard end so the rail's flank never becomes the thing
+    that stops the tray. What is left is flat, and it is what carries the tray."""
+    return FLANGE_W - FLANGE_HAUNCH - PAN_SLIP
+
+
 def check_plate():
     """Raises unless the flat floor takes the plate with its slip on every side. The
     plate lies turned — its long edge down the basin's Y — so the width it asks of the
@@ -116,9 +157,12 @@ def check_plate():
 
 
 def build():
-    """Rounded-corner open basin on a flanged floor slab: outer shell minus a
-    filleted inner cavity, unioned with the slab that overhangs it on ±X."""
+    """The one plan outline at four offsets: shell, rim flange and haunch fused, then the
+    cavity cut back out of the lot — cut LAST, so the flange that laps the rim does not
+    roof the basin it belongs to."""
     check_plate()
+    # Floor slab and walls together, on the outline itself. One prism, so the base cannot
+    # take a radius of its own.
     outer = _rounded_prism(PAN_X, PAN_Y, PAN_Z, CORNER_R)
     # Inner cavity: rounded vertical corners + a filleted bottom, so subtracting
     # it leaves a floor-to-wall cove. Sits on the FLOOR-thick base, open at top.
@@ -127,12 +171,22 @@ def build():
         .edges("<Z").fillet(FLOOR_COVE)
         .translate((WALL, WALL, FLOOR))
     )
-    # The flange the carry is waiting on, at the floor plane where the slab already
-    # is. At `FLANGE_W` 0 it reaches nowhere and the basin is the shell alone.
+    # The RIM FLANGE — the outline plus `FLANGE_W`, one section thick, its top face flush
+    # with the rim so the flange costs the column nothing above the basin.
     flange = _rounded_prism(
-        PAN_X + 2 * FLANGE_W, PAN_Y, FLOOR, 3.0
-    ).translate((-FLANGE_W, 0.0, 0.0))
-    return outer.cut(cavity).union(flange)
+        PAN_X + 2 * FLANGE_W, PAN_Y + 2 * FLANGE_W, FLANGE_T, CORNER_R + FLANGE_W
+    ).translate((-FLANGE_W, -FLANGE_W, flange_z()))
+    # The haunch under it: a prism on the outline plus `FLANGE_HAUNCH`, its lower edge
+    # chamfered the full haunch back to the outline itself — so its underside leaves the
+    # wall at 45° and the flange's overhang starts from something.
+    haunch = (
+        _rounded_prism(PAN_X + 2 * FLANGE_HAUNCH, PAN_Y + 2 * FLANGE_HAUNCH,
+                       FLANGE_HAUNCH + FLANGE_HAUNCH_SKIRT, CORNER_R + FLANGE_HAUNCH)
+        .edges("<Z").chamfer(FLANGE_HAUNCH)
+        .translate((-FLANGE_HAUNCH, -FLANGE_HAUNCH,
+                    flange_z() - FLANGE_HAUNCH - FLANGE_HAUNCH_SKIRT))
+    )
+    return outer.union(flange).union(haunch).cut(cavity)
 
 
 def capacity_ml():
@@ -152,9 +206,10 @@ def main():
     fx, fy = flat_floor()
     print(f"  Flat floor {fx:g} x {fy:g} inside the coves — "
           f"plate {PLATE_X:g} x {PLATE_Y:g} with {PLATE_SLIP:g} slip a side")
-    print(f"  Flange {FLANGE_W:g} per side — the carry stands on it, and on nothing under "
-          f"the floor")
-    print(f"  Withdraws +Y: {PAN_Y:g} mm of travel takes it clear")
+    print(f"  Rim flange {FLANGE_W:g} all four ways at z {flange_z():g} — "
+          f"{PAN_X + 2 * FLANGE_W:g} x {PAN_Y + 2 * FLANGE_W:g} over the rim, "
+          f"r{CORNER_R + FLANGE_W:g}, {bearing_w():.2f} of flat bearing a side")
+    print(f"  Withdraws −X: {PAN_X + FLANGE_W:g} mm of travel takes the rim clear of the wall")
     for shape, name in ((pan, "drip-pan.step"),):
         out = _here.parent / name
         export_step(shape, str(out))
@@ -174,6 +229,9 @@ def main():
         "PAN_CORNER_R": f"{CORNER_R:g}",
         "PAN_COVE_R": f"{FLOOR_COVE:g}",
         "PAN_FLANGE": f"{FLANGE_W:g}",
+        "PAN_BEARING": f"{bearing_w():.2f}",
+        "PAN_RIM_LEN": f"{PAN_X + 2 * FLANGE_W:g}",
+        "PAN_RIM_DEPTH": f"{PAN_Y + 2 * FLANGE_W:g}",
     }
     substitute_py_comments(
         Path(__file__),
@@ -181,6 +239,7 @@ def main():
         expected_counts={
             "PAN_LEN": 2, "PAN_DEPTH": 2, "PAN_HEIGHT": 2,
             "PAN_WALL": 1, "PAN_FLOOR": 1,
+            "PAN_FLANGE": 1, "PAN_CORNER_R": 1, "PAN_BEARING": 1,
         },
     )
     substitute_md(
@@ -191,6 +250,8 @@ def main():
             "PAN_FLOOR": 1, "PAN_VENT_GAP": 1,
             "PAN_CAPACITY": 1, "PAN_CORNER_R": 1, "PAN_COVE_R": 1,
             "PLATE_LEN": 1, "PLATE_DEPTH": 1, "PLATE_SLIP_MM": 1,
+            "PAN_FLANGE": 2, "PAN_BEARING": 1,
+            "PAN_RIM_LEN": 1, "PAN_RIM_DEPTH": 1,
         },
     )
     print("-> README.md")
