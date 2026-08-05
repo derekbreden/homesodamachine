@@ -171,12 +171,26 @@ remaining 610 px is the pane, and it takes a different shape on each page:
 | FLAVOR | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
 | SERVICE | PRIME \| CLEAN → a flavor → the hold pad or the confirm | **the base** |
 | STATUS | four tiles and a bar, polled every 2 s | **the base** |
-| SETUP | a scrolling column of rows | display-local, plus the base's build |
+| SETUP | a paged column of read-outs and one restart | display-local, plus the base's build |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
 render. Every page is built at boot and switching hides one and shows another.
 
 Waking from idle lands on HOME with every drill-down reset.
+
+**A press reports the point it began at, for its whole length.** LVGL acts on the release,
+and a release that has wandered off the pressed object is a press lost — no click, and on a
+scrollable parent the wander scrolls instead. So the indev holds the first point: put a
+finger on a target, slide anywhere, lift, and that target is what fires. Nothing on this
+panel is dragged, which is why SETUP scrolls by button rather than by finger.
+
+**SETUP scrolls a page at a time.** A track between an UP and a DOWN target, each 92×104,
+each dim and unanswering at its end of the travel; the thumb sizes itself to the viewport's
+share of the whole. One press moves 340 px with no animation — a frame of one would repaint
+the whole 800×480.
+
+Nothing on SETUP changes how the appliance behaves. It carries builds, link and touch
+counters, memory, loop high-water, uptime, and a restart.
 
 ### Prime
 
@@ -211,8 +225,9 @@ manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it a
 
 The animation runs on HOME and is paused everywhere else. Measured on the panel with the
 rail up: **~9.4 fps against the 10 fps timer**, one full-screen repaint ~117 ms. FLAVOR,
-SERVICE and SETUP sit at `maxLoopMs=0` — nothing on them invalidates, so nothing repaints.
-`GET_DIAG` reports the high-water mark and clears it.
+FLAVOR and SERVICE sit at `maxLoopMs=0` — nothing on them invalidates, so nothing repaints;
+STATUS and SETUP take one repaint a second for their read-outs. `GET_DIAG` reports the
+high-water mark and clears it.
 
 ## Integration seams (not implemented)
 
