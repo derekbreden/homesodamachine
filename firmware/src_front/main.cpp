@@ -1203,9 +1203,11 @@ static void setupScrollRefresh() {
   }
 }
 
+// Bounded: lv_obj_scroll_by moves what it is asked to and keeps going past the ends, so a
+// page step taken with less than a page of travel left lands off the column.
 static void setupScrollCb(lv_event_t *e) {
   int dir = (int)(intptr_t)lv_event_get_user_data(e);
-  lv_obj_scroll_by(setupCol, 0, -dir * SETUP_PAGE_PX, LV_ANIM_ON);
+  lv_obj_scroll_by_bounded(setupCol, 0, -dir * SETUP_PAGE_PX, LV_ANIM_ON);
 }
 
 // The scroll animation moves the column without going through setupScrollCb, and a drag
