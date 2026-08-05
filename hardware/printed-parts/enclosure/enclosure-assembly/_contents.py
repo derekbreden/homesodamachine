@@ -1621,15 +1621,6 @@ def _build():
                    else y_g_pos() if name == "tee-y-g"
                    else pump_row_tee_pos(name))
 
-    # Y-H last, and seated by its EAST FACE rather than its origin. It stands on the pair's west
-    # flank, so what has to hold is the reach between two placed bodies — and a divider's origin
-    # is not its own bbox centre. Read off the seated plate, the reach is the reach whatever the
-    # fitting's frame calls its middle.
-    _yh = y_h_pos()
-    pack.place("divider-y-h", _load(Y_DIVIDER), turn=DIVIDER_H_TURNS,
-               east=at(pack.box("bag-b-tray-assembly").xmin - divider_reach()),
-               org_y=at(_yh[1]), org_z=at(_yh[2]))
-
     out = {n: (s, COLORS[n]) for n, s in placed.items()}
     if os.environ.get("HSM_PACK_CACHE"):
         _pack_cache_save(key, pack, out)

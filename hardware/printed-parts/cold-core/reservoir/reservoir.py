@@ -35,6 +35,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_y,
     reservoir_fill_port_x,
     reservoir_fill_port_y,
+    reservoir_fill_side,
     bulkhead_floor_clearance,
     bulkhead_elbow_exit_z,
     make_box,
@@ -1107,6 +1108,14 @@ def build_reservoir_cap(side=1):
     # register boss hangs in, so it takes its length from below the rim rather
     # than standing proud of the top face — the foam cap seats a
     # reservoir_clearance above that face and leaves nothing to stand in.
+    if side == reservoir_fill_side:
+        cap = _add_fill_port(cap, side)
+
+    return cap.unwrap()
+
+
+def _add_fill_port(cap, side):
+    """The cap's fill bore and the boss that carries it."""
     fill_anchor_xy = (fill_position_x * side, fill_position_y)
     cap = cap.union(_z_cylinder(
         fill_anchor_xy,
@@ -1118,8 +1127,7 @@ def build_reservoir_cap(side=1):
         (-fill_boss_drop - 0.1, cap_total_height + 0.1),
         fill_bore_diameter,
     ))
-
-    return cap.unwrap()
+    return cap
 
 
 def build_reservoir_gasket(side=1):

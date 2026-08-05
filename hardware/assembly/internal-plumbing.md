@@ -36,7 +36,6 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 (
 | John Guest PP450822E 1/4" NPT F × 1/4" PTC adapter | FWS, 10-pk | The mirror of the above, for a joint that faces a male thread. 3 per build per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md): 2 water path (§3, the pump's suction and discharge), 1 CO2 path (§4, off the GASHER check's outlet stub) |
 | John Guest PP0308E 1/4" union elbow, PTC × PTC | FWS, 10-pk | Routing-elbow on PTC tubing runs. 4 per build per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4, all on the two Kamoer pump outlet pairs; every valve-tray collet runs bare until the trays are placed (Open item 4) |
 | Beduan 12 V 1/4" NC solenoid valve | B07NWCQJK9 | 10 valves per build — V-A through V-J per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) |
-| John Guest PP2308E two-way Y-divider, 1/4" | FWS, 10-pk | 1 Y-divider per build — Y-H (reservoir B's fill and draw) per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md). Reservoir A's pair meets on one tray the same way, and takes a Tee: the room ahead of it is a strip a fitting's own diameter deep |
 | John Guest PP0208E union tee, 1/4", black PP | FWS WEBFWS100681220 (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8) | 6 Tees per build — Y-A, Y-B, Y-C, Y-D, Y-F, Y-G per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md), the six junctions that reach between trays rather than joining one tray's own pair; same JG black-PP NSF 51+61 family as the §3 install-kit tee |
 | Kamoer KPHM400-SW3B25 12 V peristaltic pump | B09MS6C91D | 2 pumps per build (off-the-shelf assemblies); enclosure mount is an open item |
 | Female faston receptacles (pump leads) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | Pump-lead electrical connection — one + / GND pair crimped onto the DC-5 harness per pump, landing on the pump-motor spade tabs |
@@ -50,7 +49,7 @@ Tooling: Mudder PTFE tubing cutter (also shipped in the install kit per [`/hardw
 
 ## Procedure
 
-Order of work: CO2 path first (dry, simpler — four NPT joints inside the enclosure and two short tube hops, no soft hose), then the water path (more joints, mixed barb/NPT/PTC), then the flavor manifold (ten valves, one Y-divider + seven Tees, two pumps — the bulk of the bench labor). Three risers up to the back-panel umbilical bulkheads last, after the manifold is closed so the riser routing has the rest of the enclosure laid out around it.
+Order of work: CO2 path first (dry, simpler — four NPT joints inside the enclosure and two short tube hops, no soft hose), then the water path (more joints, mixed barb/NPT/PTC), then the flavor manifold (ten valves, seven Tees, two pumps — the bulk of the bench labor). Three risers up to the back-panel umbilical bulkheads last, after the manifold is closed so the riser routing has the rest of the enclosure laid out around it.
 
 ### 1. CO2 path: front-panel DERPIPE → WR1110 → cold-core CO2 stub
 
@@ -100,7 +99,7 @@ Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topol
 
 Pre-build sequencing — bench sub-assembly vs. in-place build is **TBD; see Open items**. The remainder of this step is written for a bench sub-assembly that drops in afterward, with the understanding that an in-place build of the same parts list would carry the same ordering arguments.
 
-On the bench, lay out all ten Beduan solenoid valves with their inlet/outlet legends visible. Lay out the PP2308E Y-divider and seven PP0208E Tees between them in the topology positions. Pre-cut every tube segment from the [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Tube Segments" tables to length from the 1/4" OD LLDPE reel, square-cut both ends with the Mudder cutter, tag each segment with masking tape labelled by segment number from the topology doc.
+On the bench, lay out all ten Beduan solenoid valves with their inlet/outlet legends visible. Lay out the seven PP0208E Tees between them in the topology positions. Pre-cut every tube segment from the [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Tube Segments" tables to length from the 1/4" OD LLDPE reel, square-cut both ends with the Mudder cutter, tag each segment with masking tape labelled by segment number from the topology doc.
 
 Build outward from the two channel-A and channel-B pump rosettes:
 
@@ -144,7 +143,7 @@ A finished internally-plumbed appliance:
 - CO2 path closed dry from the front-panel DERPIPE bulkhead through the GASHER check, across to the WR1110 regulator lying in the band, and on into the cold core's front-face CO2 bore
 - Water path closed dry from the rear-panel PP1208E 1/4" JG QC bulkhead through the PP010822E + GAGIRA 316L SS reducing coupling, the Multiplex 19-0897 ASSE 1022 backflow preventer, the PI4512F6S + PP061208W outlet stack, 1/4" LLDPE to the PP0208E water split, V-K, the PP450822E + MAACFLOW suction adapter and its clamped PVC stub, the SeaFlo pump, the clamped discharge stub and the made-up MAACFLOW + GASHER + PP450822E chain, into the cold-core water-inlet
 - Multiplex atmospheric vent terminating in the internal drip pan over the moisture sensor
-- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): 10 Beduan valves, 1 PP2308E Y-divider + 7 PP0208E Tees, 2 Kamoer pumps (enclosure mount per Open items)
+- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): 10 Beduan valves, 7 PP0208E Tees, 2 Kamoer pumps (enclosure mount per Open items)
 - Three risers exiting the enclosure top, landing on the three back-panel PP1208E umbilical bulkheads (blue LLDPE on the blue-ringed bulkhead for carbonated water; black LLDPE on the two flavor bulkheads)
 - Carbonated-water riser insulated with CARGEN nitrile-rubber pipe foam in segments from the cold-core exit to the inboard face of the blue-ringed bulkhead
 - Every NPT joint PTFE-taped and torqued past hand-tight, no thread tape past half-engagement
