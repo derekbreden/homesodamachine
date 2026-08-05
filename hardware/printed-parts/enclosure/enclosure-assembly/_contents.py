@@ -2320,30 +2320,35 @@ def bag_a_tray_port(name):
 
 
 _DIVIDER_REACH: float | None = None
+_DIVIDER_LEG_LEAD: float | None = None
 
 
 def divider_reach():
-    """How far off the collets it joins a divider's own outlet faces stand: the offset each
-    leg closes, over the tangent of the lean the collet allows.
+    """How far off the collets it joins a divider's own outlet faces stand.
 
-    Each leg is ONE STRAIGHT LENGTH OF TUBE at this reach. The outlet and the collet face each
+    Two reaches would carry the offset, and THIS RETURNS THE SHORTER — the one whose legs bend.
+
+    THE STRAIGHT REACH is `offset / tan(FLAVOR_SKEW)`. The outlet and the collet face each
     other down their own axis with the offset square to it, so a straight between them leaves
-    each mouth `atan(offset / reach)` off that axis; at `offset / tan(FLAVOR_SKEW)` that angle
-    is the whole of what a push-to-connect collet grips through, and the leg carries the offset
-    with no corner in it. `_lines` draws both of Y-H's legs to exactly this.
+    each mouth `atan(offset / reach)` off that axis, and at that reach the angle is the whole
+    of what a push-to-connect collet grips through — one length of tube, no corner in it.
 
-    Shorter, and the leg breaks into two corners — and the reach it takes then is the LEAST
-    that seats a stock arc in them, because every millimetre past that is deck spent on the
-    other side of the pair, where the collets facing east have their own runs to leave in.
-    `_lines` builds both legs to whichever this returns."""
+    THE BENT REACH, WHICH IS THIS ONE, is shorter, so the leg breaks into two corners and the
+    reach is struck at the LEAST that still seats a stock arc in them: every millimetre past
+    that is deck spent on the other side of the pair, where the collets facing east have their
+    own runs to leave in. The lead those corners turn on falls out of the same search —
+    `divider_leg_lead()` — and `_lines` draws both of Y-H's legs to the pair of them."""
     offset = (_tray.pitch - 2.0 * DIVIDER_OUTLET_X) / 2.0
     straight_reach = offset / math.tan(math.radians(FLAVOR_SKEW))
 
     def seats(reach):
-        """The roundest arc the two corners hold at this reach, over every lead and lean the
-        collet allows. Symmetric: the two mouths face each other with the offset square
-        between them, so what one lead takes the other takes."""
-        best = 0.0
+        """The roundest arc the two corners hold at this reach and THE LEAD IT SEATS ON, over
+        every lead and lean the collet allows. Symmetric: the two mouths face each other with
+        the offset square between them, so what one lead takes the other takes.
+
+        The lead comes back with the radius because the leg cannot be drawn without it — one
+        solve answers both, and `divider_leg_lead()` hands `_lines` the half it needs."""
+        best, at = 0.0, 0.0
         for i in range(1, 61):                        # the lean, up to the collet's own
             th = math.radians(FLAVOR_SKEW * i / 60.0)
             for j in range(1, 121):                   # the lead, out to half the reach
@@ -2357,18 +2362,29 @@ def divider_reach():
                 k = math.tan(turn / 2.0)
                 r = min(LLDPE_STOCK_BEND, (lead - DIVIDER_LEG_STRAIGHT) / k) if k > 1e-6 \
                     else LLDPE_STOCK_BEND
-                if 2.0 * r * k <= leg - LINE_HUG:      # a straight still left between the arcs
-                    best = max(best, r)
-        return best
+                if 2.0 * r * k <= leg - LINE_HUG and r > best:   # a straight left between arcs
+                    best, at = r, lead
+        return best, at
 
-    global _DIVIDER_REACH
+    global _DIVIDER_REACH, _DIVIDER_LEG_LEAD
     if _DIVIDER_REACH is None:
         lo, hi = 0.0, straight_reach
         for _ in range(30):
             mid = (lo + hi) / 2.0
-            lo, hi = (lo, mid) if seats(mid) >= LLDPE_STOCK_BEND - 1e-9 else (mid, hi)
-        _DIVIDER_REACH = hi
+            lo, hi = (lo, mid) if seats(mid)[0] >= LLDPE_STOCK_BEND - 1e-9 else (mid, hi)
+        _DIVIDER_REACH, _DIVIDER_LEG_LEAD = hi, seats(hi)[1]
     return _DIVIDER_REACH
+
+
+def divider_leg_lead():
+    """The straight each of a divider's two legs leaves its collet on, before its first corner.
+
+    `divider_reach()` settles the reach by finding the LEAST that still seats a stock arc, and
+    that search names a lead as well as a radius. The leg is drawn to both or to neither: a
+    reach solved on one lead and a leg drawn on another is a leg the reach was never sized for.
+    So this reads the same solve rather than striking a second one."""
+    divider_reach()
+    return _DIVIDER_LEG_LEAD
 
 
 def _divider_pos(origin, collet):
