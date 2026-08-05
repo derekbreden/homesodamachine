@@ -526,42 +526,69 @@ def test_bend_radius() -> None:
 
 
 def test_divider_reach() -> None:
-    """`divider_reach` is the only thing standing between `DIVIDER_LEAN` and the front of the
-    machine, and the lean is a number a future session will want to push. What stops it is
-    each leg's two corners: an R`WBEND` arc eats `WBEND · tan(lean/2)` off every straight it
-    meets, from both ends of the leaning run at once. These are the controls on that bound —
-    that it is silent where the tube still runs straight, and records on each of the two ends
-    it can run out at, so nobody has to read the reach as a number somebody picked."""
+    """`divider_reach` is what stands between the collet's own lean and the front of the
+    machine, and it is SOLVED rather than picked: the least reach at which the two mouths'
+    leads, each leaning by `FLAVOR_SKEW`, still seat a stock arc with `DIVIDER_LEG_STRAIGHT`
+    running straight into every collet. The lean is not a divider constant — it is what a
+    push-to-connect collet grips through, and `_enclosure_dimensions.DIVIDER_LEAN` is the
+    name the prose reads it under.
+
+    So the controls are on the SOLVE. It must land under the reach at which the two leans
+    would be collinear and each leg one straight length with no corner in it, and it must
+    MOVE when any of the three things it is solved against moves. A reach that sat still
+    under them would be a number somebody picked, which is exactly what this rules out.
+
+    Every case clears `_DIVIDER_REACH` first: the solve is memoized for the life of the
+    process, and a cached reach answers for the constants it was solved under."""
+    import math
+
     import _contents as c
 
     print("divider reach (the lean's own bound)")
-    lean, lead = c.DIVIDER_LEAN, c.DIVIDER_LEG_LEAD
-    keep = dict(c.SHORT)
-    try:
-        c.SHORT.clear()
-        check("silent at the lean the machine is built to",
-              c.divider_reach() > 2 * lead and not c.SHORT,
-              f"lean {lean}° → reach {c.divider_reach():.2f} mm")
+    kept = {k: getattr(c, k)
+            for k in ("FLAVOR_SKEW", "LLDPE_STOCK_BEND", "DIVIDER_LEG_STRAIGHT")}
 
-        # The leaning run: steepen far enough and the two arcs meet in the middle of it.
-        c.SHORT.clear()
-        c.DIVIDER_LEAN = 85.0
-        c.divider_reach()
-        check("records the leaning run that cannot seat both arcs",
-              any("the leaning run" in v for v in c.SHORT.values()),
-              "; ".join(c.SHORT)[:58] or "no record")
+    def reach(**over):
+        """The reach solved under `over`, with every constant and the memo put back after."""
+        try:
+            for k, v in over.items():
+                setattr(c, k, v)
+            c._DIVIDER_REACH = None
+            return c.divider_reach()
+        finally:
+            for k, v in kept.items():
+                setattr(c, k, v)
+            c._DIVIDER_REACH = None
 
-        # The collet stub: the same arc eats into the 6 mm straight off the valve's own port.
-        c.SHORT.clear()
-        c.DIVIDER_LEAN, c.DIVIDER_LEG_LEAD = 60.0, 3.5
-        c.divider_reach()
-        check("records the collet stub that cannot seat its arc",
-              any("each collet stub" in v for v in c.SHORT.values()),
-              "; ".join(c.SHORT)[:58] or "no record")
-    finally:
-        c.DIVIDER_LEAN, c.DIVIDER_LEG_LEAD = lean, lead
-        c.SHORT.clear()
-        c.SHORT.update(keep)
+    offset = (c._tray.pitch - 2.0 * c.DIVIDER_OUTLET_X) / 2.0
+    collinear = offset / math.tan(math.radians(c.FLAVOR_SKEW))
+    built = reach()
+    # Under the collinear reach, and still long enough to keep both collets their straight.
+    check("the solved reach stands under the collinear one",
+          2.0 * c.DIVIDER_LEG_STRAIGHT < built < collinear,
+          f"reach {built:.2f} mm, under the {collinear:.2f} mm at which each leg is one "
+          f"straight length")
+
+    # Solved against the ARC: a rounder stock needs more room to seat the two corners in.
+    bend = 2.0 * c.LLDPE_STOCK_BEND
+    rounder = reach(LLDPE_STOCK_BEND=bend)
+    check("a rounder stock arc buys a longer reach", rounder > built,
+          f"R{bend:.1f} → {rounder:.2f} mm over R{c.LLDPE_STOCK_BEND:.1f} → {built:.2f} mm")
+
+    # Solved against the LEAN: a collet gripping through more angle carries the same offset
+    # in less reach, and the collinear ceiling falls with it.
+    skew = 1.5 * c.FLAVOR_SKEW
+    steeper = reach(FLAVOR_SKEW=skew)
+    check("a collet that leans further shortens it", steeper < built,
+          f"{skew:.0f}° → {steeper:.2f} mm under {c.FLAVOR_SKEW:.0f}° → {built:.2f} mm")
+
+    # Solved against the STRAIGHT each collet keeps: more straight is less of the leg left
+    # for the arcs, so the pair has to stand further apart to seat them.
+    straight = 2.0 * c.DIVIDER_LEG_STRAIGHT
+    longer = reach(DIVIDER_LEG_STRAIGHT=straight)
+    check("a longer straight into each collet lengthens it", longer > built,
+          f"{straight:.1f} mm straight → {longer:.2f} mm over {c.DIVIDER_LEG_STRAIGHT:.1f} mm "
+          f"→ {built:.2f} mm")
 
 
 # ── room-holds: a derivation short of its own stated band = a red gate ───────

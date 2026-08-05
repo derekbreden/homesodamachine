@@ -873,7 +873,7 @@ def _fall_first(pos, dia, reach, solids: dict, skip=()) -> tuple:
 # world.
 #
 # What the cast may hit is the body the port is JOINED to — a divider's outlet stands
-# `DIVIDER_LEG_LEAD` off the valve collet it feeds, and a tee's run collet stands
+# `divider_reach()` off the valve collet it feeds, and a tee's run collet stands
 # `TEE_RUN_LEAD` off its, both by construction — so the mate is held out. The mate is read off
 # the AUTHORED RUNS rather than from prose: a run names `component.port` at each end, so the
 # body at the far end of every run terminating on this port is what the lead is allowed to end
