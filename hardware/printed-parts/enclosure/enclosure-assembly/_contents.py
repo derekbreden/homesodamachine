@@ -823,6 +823,11 @@ TEE_TURNS = {
     # column, so the turn is there for the branch: local +Y goes to −sign X, which lays the
     # west tee's branch east and the east tee's west, and the two face each other down the
     # crossbar's line.
+    # Y-G lies along the LANE `fluid-27` already runs down, so its run takes a roll of the
+    # opposite sign to the pump row's: local +Z goes to −Y, which puts the FORWARD collet at the
+    # bag pair's draw and the AFT one at the nozzle gate, one valve on each end of the run. The
+    # branch comes UP on the same roll, into the loft `fluid-22` crosses at.
+    "tee-y-g": (((1.0, 0.0, 0.0), 90.0),),
     "tee-y-a": (((0.0, 0.0, 1.0), -90.0),),
     "tee-y-b": (((0.0, 0.0, 1.0), +90.0),),
 }
@@ -1108,7 +1113,7 @@ COLORS = {
     "vk-tray-assembly": cq.Color(0.85, 0.78, 0.62),
     "pump-a":               cq.Color(0.55, 0.35, 0.55),
     "tee-y-f":              cq.Color(0.92, 0.92, 0.92),
-    "divider-y-g":          cq.Color(0.92, 0.92, 0.92),
+    "tee-y-g":              cq.Color(0.92, 0.92, 0.92),
     # Panel bodies, seated through the rear wall
     "bulkhead-flavor-a": cq.Color(0.85, 0.85, 0.88),
     "bulkhead-flavor-b": cq.Color(0.85, 0.85, 0.88),
@@ -1569,7 +1574,6 @@ def _build():
                org=nozzle_b_tray_pos())
     pack.place("nozzle-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=NOZZLE_TRAY_YAW,
                org=nozzle_tray_pos())
-    pack.place("divider-y-g", _load(Y_DIVIDER), turn=DIVIDER_G_TURNS, org=y_g_pos())
     # The controller board STANDS ON THE WET SIDE'S OWN FLANK, forward of the electrical stack
     # rather than over it. The air above the brick is spoken for three bodies deep — the relay
     # on its crown, the hub over that, the ground stack over that — and this board is longer
@@ -1609,11 +1613,12 @@ def _build():
     # run joins, Y-F in the lane pump A's lines run down (`aft_row_tee_pos`); Y-E stands across
     # the strip ahead of the bag-A pair (`y_e_pos`). Each takes the turns `TEE_TURNS` gives it,
     # the same ones its ports are carried through.
-    for name in JUNCTION_TEES + tuple(TEE_LANE) + AFT_ROW_TEES + ("tee-y-e",):
+    for name in JUNCTION_TEES + tuple(TEE_LANE) + AFT_ROW_TEES + ("tee-y-e", "tee-y-g"):
         pack.place(name, _load(TEE_CONNECTOR), turn=TEE_TURNS[name],
                    org=junction_tee_pos(name) if name in JUNCTION_TEES
                    else aft_row_tee_pos(name) if name in AFT_ROW_TEES
                    else y_e_pos() if name == "tee-y-e"
+                   else y_g_pos() if name == "tee-y-g"
                    else pump_row_tee_pos(name))
 
     # Y-H last, and seated by its EAST FACE rather than its origin. It stands on the pair's west
@@ -1674,8 +1679,13 @@ def port_row_z():
     (`scorecard.port_leads`) and a clearance floor over that for the rails.
 
     `drip_pan_seat()` is the same column read back down, and it raises when it runs out."""
-    stem = (aft_port_z()                             # the stand's own port plane
-            + Y_G_CLIMB + 2.0 * DIVIDER_HALF)        # up through the trident to its stem face
+    # This column is HELD, not read: the whole tap-water stack hangs off it, and Y-G — which
+    # used to be the stand's tallest reach and is what set it — now lies in the lane on the port
+    # plane with its branch standing only `TEE_BRANCH_REACH` off it. So the reach below is no
+    # longer any body's: it is the room the stack is built to and the figure the rails, the
+    # basin and the chain are all seated from. What actually stands tallest on the stand now is
+    # Y-F, and re-reading this column off it is a move of its own — it lowers the whole loft.
+    stem = aft_port_z() + Y_G_CLIMB + 2.0 * DIVIDER_HALF
     rails = stem + JUNCTION_LEG_LEAD + LINE_HUG      # the stem's own lead, and a floor over it
     # The chain's own drop — flow axis to whatever of it hangs lowest at the roll it is built
     # with. The vent stub is that only while it points DOWN, so this row cannot go on paying
@@ -3259,7 +3269,7 @@ _Y_F_LOCAL = _tee_local(zp="Y-F-3", zn="Y-F-2", branch="Y-F-1")
 # east of the flank Y-H stands in, and the WEST over the nozzle pair packed on the SeaFlo's own
 # flank. Which outlet reaches which valve is the seating's, the same way Y-H's two are numbered
 # the other way round from Y-E's.
-_Y_G_LOCAL = _divider_local("Y-G-1", west="Y-G-3", east="Y-G-2")
+_Y_G_LOCAL = _tee_local(zp="Y-G-3", zn="Y-G-2", branch="Y-G-1")
 
 
 def y_f_port(name):
@@ -3267,27 +3277,31 @@ def y_f_port(name):
 
 
 def y_g_pos():
-    """Y-G's body centre in world — in the STRIP BETWEEN THE LANES, east of the bag-B pair and
-    forward of the pump, on the stand's own port plane.
+    """Y-G's body centre in world — IN THE LANE, standing on the stand's own port plane beside
+    V-K's plate, with its run lying along the lane and its branch UP.
 
-    IT STANDS IN THE STRIP THE TWO LANES' FACING ROWS LEAVE. V-I-I opens EAST off the west
-    pair's turned east face and V-J-I opens −Y off the east row's forward face, so the strip
-    between those two plates is the one band both collets look into, and `vk_tray_y` cuts it
-    to this fitting's own section with a `LINE_HUG` at each plate.
-    IN X IT STANDS ON V-I-I'S OWN COLUMN — one of the two collets it feeds, and the one whose
-    leg opens along the strip rather than across it. A junction standing on a port it joins is
-    a leg with no plan to cross: `fluid-23` leaves that collet and climbs, and the whole of the
-    crossing between the two collets goes to V-J-I's leg, which opens ALONG the bay and has the
-    bay's own lead to turn it in. Read off the collet, so a re-clocked or re-stood bag-B pair
-    carries the trident with it.
-    In Z it keeps the climb its stem makes to the pump's barb."""
-    return (bag_b_tray_port("V-I-I")[0][0],
-            packed().box("bag-b-tray-assembly").ymax + LINE_HUG + _ydiv.HALF_W,
-            aft_port_z() + Y_G_CLIMB + DIVIDER_HALF)
+    THE LANE IS ALREADY THERE. `fluid-27` runs forward down the strip east of V-K's plate to
+    reach this junction at all, so the junction stands IN that strip rather than across the bay
+    at the far end of it: the run it lies along is the corridor its own leg already takes, and
+    what was a crossing becomes a straight.
+    IN X it stands off the plate's east face by its own radius and a `LINE_HUG` — that face is
+    the widest thing on this stretch, and the lane is struck from it.
+    IN Y its FORWARD collet stands on the plate's own forward face, so the fitting spends the
+    lane alongside the plate and nothing forward of it, where the bag pair's own band is.
+    IN Z it lies on `aft_port_z`, the plane every one of the stand's collets presents on — so
+    neither run leg climbs, and only the branch does.
+
+    Its two run collets face the two valves it feeds, one on each end: AFT at the nozzle-B
+    gate's inlet, FORWARD at the bag pair's fill valve. The branch takes pump A's feed down out
+    of the loft `fluid-22` crosses at."""
+    plate = packed().box("vk-tray-assembly")
+    return (plate.xmax + LINE_HUG + TEE_HALF_W,
+            plate.ymin + TEE_RUN_HALF,
+            aft_port_z())
 
 
 def y_g_port(name):
-    return _divider_port("divider-y-g", name, _Y_G_LOCAL)
+    return _tee_port("tee-y-g", name, _Y_G_LOCAL)
 
 
 def _port_frame():
