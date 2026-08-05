@@ -67,6 +67,10 @@ static const uint16_t *animFrames[] = {
 #define COL_WARN     0xf0a83c
 #define COL_OFF      0x3a3a55   // a control at the end of its travel
 
+// What a target answers to. START CLEAN CYCLE and RESTART DISPLAY answer to
+// LV_EVENT_CLICKED instead.
+#define ACT_EVENT LV_EVENT_PRESSED
+
 // ════════════════════════════════════════════════════════════
 //  Pin map — fixed by the Waveshare ESP32-S3-Touch-LCD-4.3B
 // ════════════════════════════════════════════════════════════
@@ -792,7 +796,7 @@ static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
                            const char *icon, const char *label,
                            lv_event_cb_t cb, void *user) {
   lv_obj_t *b = mkBtn(parent, w, h, COL_CARD);
-  lv_obj_add_event_cb(b, cb, LV_EVENT_CLICKED, user);
+  lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
   lv_obj_t *ic = mkText(b, icon, &lv_font_montserrat_48, COL_ACCENT);
   lv_obj_align(ic, LV_ALIGN_CENTER, 0, -34);
   lv_obj_t *lb = mkText(b, label, &lv_font_montserrat_28, COL_TEXT);
@@ -803,7 +807,7 @@ static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
 static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
   lv_obj_t *b = mkBtn(parent, 150, 58, COL_CARD);
   lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_add_event_cb(b, cb, LV_EVENT_CLICKED, user);
+  lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
   lv_obj_center(mkText(b, LV_SYMBOL_LEFT "  BACK", &lv_font_montserrat_20, COL_TEXT));
   return b;
 }
@@ -963,14 +967,6 @@ static void primePadCb(lv_event_t *e) {
 // ── Navigation ──
 static void railCb(lv_event_t *e)     { showPage((Page)(intptr_t)lv_event_get_user_data(e)); }
 
-// The accent leaves the old page in the same repaint it arrives on the new one. The pressed
-// button already carries it from its own pressed style, so clearing every resting colour
-// here moves both halves at once; showPage() makes it stick when the finger lifts.
-static void railPressCb(lv_event_t *e) {
-  (void)e;
-  for (int i = 0; i < PAGE_COUNT; i++)
-    lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(COL_CARD), LV_PART_MAIN);
-}
 static void flvViewCb(lv_event_t *e)  { showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e)); }
 static void svcViewCb(lv_event_t *e)  { showService((ServiceView)(intptr_t)lv_event_get_user_data(e)); }
 
@@ -1030,8 +1026,7 @@ static void buildRail(lv_obj_t *scr) {
     // than as confirmation — the buttons with nothing to become keep mkBtn's press shade.
     lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
-    lv_obj_add_event_cb(b, railCb, LV_EVENT_CLICKED, (void *)(intptr_t)i);
-    lv_obj_add_event_cb(b, railPressCb, LV_EVENT_PRESSED, NULL);
+    lv_obj_add_event_cb(b, railCb, ACT_EVENT, (void *)(intptr_t)i);
     lv_obj_align(mkText(b, kRail[i].icon, &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_TOP_MID, 0, 2);
     lv_obj_align(mkText(b, kRail[i].label, &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
     railBtn[i] = b;
@@ -1076,7 +1071,7 @@ static void buildFlavor(lv_obj_t *page) {
   for (int i = 0; i < 2; i++) {
     lv_obj_t *b = mkBtn(both, cw, 360, COL_CARD);
     lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
-    lv_obj_add_event_cb(b, flavorPickCb, LV_EVENT_CLICKED, (void *)(intptr_t)i);
+    lv_obj_add_event_cb(b, flavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
     lv_obj_align(mkText(b, LV_SYMBOL_TINT, &lv_font_montserrat_48, COL_ACCENT), LV_ALIGN_TOP_MID, 0, 20);
     lv_obj_align(mkText(b, kFlavorName[i], &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_CENTER, 0, -10);
     flvCardLbl[i] = mkText(b, "1:12", &lv_font_montserrat_48, COL_TEXT);
@@ -1095,11 +1090,11 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
   lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
   lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  lv_obj_add_event_cb(minus, ratioStepCb, LV_EVENT_CLICKED, (void *)(intptr_t)-1);
+  lv_obj_add_event_cb(minus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)-1);
   lv_obj_center(mkText(minus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT));
   lv_obj_t *plus = mkBtn(row, 84, 72, COL_CARD_ON);
   lv_obj_align(plus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_add_event_cb(plus, ratioStepCb, LV_EVENT_CLICKED, (void *)(intptr_t)1);
+  lv_obj_add_event_cb(plus, ratioStepCb, ACT_EVENT, (void *)(intptr_t)1);
   lv_obj_center(mkText(plus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT));
   flvDetailRatio = mkText(row, "1:12", &lv_font_montserrat_48, COL_TEXT);
   lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
@@ -1111,7 +1106,7 @@ static void buildFlavor(lv_obj_t *page) {
 
   lv_obj_t *pr = mkBtn(det, PANE_W - 2 * PANE_PAD, 82, COL_ACCENT);
   lv_obj_align(pr, LV_ALIGN_BOTTOM_MID, 0, 0);
-  lv_obj_add_event_cb(pr, flavorToPrimeCb, LV_EVENT_CLICKED, NULL);
+  lv_obj_add_event_cb(pr, flavorToPrimeCb, ACT_EVENT, NULL);
   lv_obj_center(mkText(pr, "PRIME THIS FLAVOR", &lv_font_montserrat_28, COL_TEXT));
   flvView[FLV_DETAIL] = det;
 }
@@ -1321,13 +1316,13 @@ static void buildSetup(lv_obj_t *page) {
   // a page down.
   setupUp = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
   lv_obj_align(setupUp, LV_ALIGN_TOP_RIGHT, 0, 0);
-  lv_obj_add_event_cb(setupUp, setupScrollCb, LV_EVENT_CLICKED, (void *)(intptr_t)-1);
+  lv_obj_add_event_cb(setupUp, setupScrollCb, ACT_EVENT, (void *)(intptr_t)-1);
   setupUpLbl = mkText(setupUp, LV_SYMBOL_UP, &lv_font_montserrat_40, COL_TEXT);
   lv_obj_center(setupUpLbl);
 
   setupDown = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
   lv_obj_align(setupDown, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_add_event_cb(setupDown, setupScrollCb, LV_EVENT_CLICKED, (void *)(intptr_t)1);
+  lv_obj_add_event_cb(setupDown, setupScrollCb, ACT_EVENT, (void *)(intptr_t)1);
   setupDownLbl = mkText(setupDown, LV_SYMBOL_DOWN, &lv_font_montserrat_40, COL_TEXT);
   lv_obj_center(setupDownLbl);
 
