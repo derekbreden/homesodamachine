@@ -461,6 +461,9 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
 // what this board can do to a shifted frame short of a reboot: esp_lcd_panel_reset() plus
 // esp_lcd_panel_init() both return ESP_OK and leave the panel scanning white, because the
 // framebuffers are bound at esp_lcd_new_rgb_panel() and init does not re-bind them.
+#define WAKE_QUIET_MS 400
+static unsigned long animResumeDue = 0;
+
 static void panelRealign() {
   if (!panel) return;
   Serial.printf("PANEL: restart=%d\n", (int)esp_lcd_rgb_panel_restart(panel));
@@ -476,7 +479,13 @@ static void wake() {
     setBacklight(true);
     // Whatever the dark decided to keep or throw away is already on screen — waking shows
     // it rather than moving to it.
-    if (uiReady) animRun(activePage == PAGE_HOME);
+    //
+    // The animation waits a moment before it starts again. The driver restarts the scan-out
+    // DMA in every VSYNC handler and that handler runs from flash, which this firmware reads
+    // ~4 MB of animation frames out of while it renders; a shifted frame clears itself over
+    // a sleep, which is the one stretch where nothing renders. So a wake hands it the same
+    // quiet a sleep does, before the frames start moving again.
+    if (uiReady) animResumeDue = millis() + WAKE_QUIET_MS;
     else if (animTimer) lv_timer_resume(animTimer);
   }
 }
@@ -1656,6 +1665,11 @@ void loop() {
   }
 
   j9.service();
+
+  if (animResumeDue && millis() >= animResumeDue) {
+    animResumeDue = 0;
+    animRun(activePage == PAGE_HOME);
+  }
 
   // A held pad feeds the controller a tick under it, and moves its own readouts at 10 Hz.
   if (holding) {
