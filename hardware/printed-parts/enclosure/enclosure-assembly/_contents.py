@@ -950,6 +950,17 @@ VK_TRAY_BAY = 3.0 * LINE_PITCH + 2.0 * LINE_HUG
 # holds its radius the whole way across; what ends the strip is `fluid-28`, whose climb takes a
 # fifth corner and comes off stock past it, well before the brick is met.
 NOZZLE_B_TRAY_EAST = 7.0
+# V-K's plate off the row's own west face, and off the band in front of it. Alone among the
+# stand's rows this one is placed by ITS OWN TWO RUNS rather than by a face it packs onto:
+# `water-3` closes on the inlet down the plate's far side and `water-4` crosses from the outlet
+# to the suction chain, and both spend their closing corners in the room the plate leaves.
+# Packed west on the casting and forward on the trident's band it left them none.
+#   WHAT ENDS BOTH REACHES IS `fluid-27`. Its lane leg runs forward at the widest thing standing
+# anywhere along it, so the plate's east face closes on that leg; and its turn off the nozzle-B
+# gate stands across the plate's aft path. Both are measured against the swept tube rather than
+# the run's authored corners — a square corner is not where a tube is.
+VK_TRAY_EAST = 10.0
+VK_TRAY_AFT = 15.0
 # Outlet face over the stand's own port plane — the long side of the diagonal fluid-23 and
 # fluid-27's corners turn on, and the figure the whole tap-water stack stands on: Y-G's stem
 # faces UP needing its `JUNCTION_LEG_LEAD` of clear bore under the basin's rails, and
@@ -2764,7 +2775,7 @@ def vk_tray_y():
     Everything forward of that band is open: the condenser's aft face is a lane's length ahead
     and nothing of this row's reaches it."""
     return (packed().box("bag-b-tray-assembly").ymax
-            + LINE_HUG + 2.0 * _ydiv.HALF_W + LINE_HUG + _tray.port_half)
+            + LINE_HUG + 2.0 * _ydiv.HALF_W + LINE_HUG + _tray.port_half + VK_TRAY_AFT)
 
 
 def nozzle_tray_y():
@@ -2974,7 +2985,7 @@ def vk_tray_pos():
     like every row of this stand, and the one-seat plate's reach to that face is its own
     half-length. The pump's front face is read off its outlet's plane (`seaflo_front_y`)."""
     _bx, _y, z = bag_b_tray_pos()
-    return (aft_tray_x() + _tray1.half_x, vk_tray_y(), z)
+    return (aft_tray_x() + _tray1.half_x + VK_TRAY_EAST, vk_tray_y(), z)
 
 
 def nozzle_b_tray_pos():

@@ -953,7 +953,7 @@ def _authored_runs() -> list:
     # face the fitting: V-I-I opens EAST off the turned plate while Y-G-2 stands
     # [7.35](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
     # comes straight back — the corner past square again. WHAT BOUNDS THE EXIT is water-3's own
-    # fall, which holds the column [-18.9](F23_EAST_AIR) mm east of this collet on its way to V-K:
+    # fall, which holds the column [-8.9](F23_EAST_AIR) mm east of this collet on its way to V-K:
     # the lead stops a `LINE_PITCH` short of it, which is the whole of the deck this run has.
     F23_LEAD = max(contents.DIVIDER_LEG_STRAIGHT + contents.LINE_HUG,
                    vk.at("V-K-I")[0] - LINE_PITCH - bb.at("V-I-I")[0])
@@ -1440,21 +1440,21 @@ def _authored_runs() -> list:
     # water-4 — V-K's outlet to the suction chain's collet, and TWO GENTLE LEANS is the whole of
     # it. BOTH MOUTHS FACE ALONG Y: the valve discharges AFT, and the chain lying in the slot
     # beside the casting opens FORWARD at it. So the run leaves and enters on ONE AXIS, and
-    # everything it has to do in between is an OFFSET — [20.1](W4_DX) mm west onto the slot's
-    # column and [44.3](W4_DZ) mm up onto its plane, taken across [47.6](W4_DY) mm of Y.
+    # everything it has to do in between is an OFFSET — [30.1](W4_DX) mm west onto the slot's
+    # column and [44.3](W4_DZ) mm up onto its plane, taken across [32.6](W4_DY) mm of Y.
     #   AN OFFSET IS NOT A CORNER, and that is the whole economy of it. A square turn spends its
-    # entire radius as tangent in each of the two legs it sits in; a [44](W4_TURN1)° and a
-    # [34](W4_TURN2)° lean spend `R·tan(θ/2)`, under HALF of it — so both corners seat a
-    # WHOLE [25.4](W4_R) mm ARC on a run only [70](W4_LEN) mm long, [1.03](W4_SPRAWL)× the
-    # [68.1](W4_SPAN) mm span it crosses.
+    # entire radius as tangent in each of the two legs it sits in; a [70](W4_TURN1)° and a
+    # [70](W4_TURN2)° lean spend `R·tan(θ/2)`, under HALF of it — so both corners seat a
+    # WHOLE [25.4](W4_R) mm ARC on a run only [67.4](W4_LEN) mm long, [1.08](W4_SPRAWL)× the
+    # [62.7](W4_SPAN) mm span it crosses.
     #   THE MOUTH IS WHAT MOVED. Run onto `seaflo-pump.suction` — the 3/8" barb moulded into
     # the head casting — the two ends stood 34.2 mm apart and NINETY DEGREES apart, and no
     # all-stock path across that span is anything but a coil: an R25.4 corner spends its whole
     # radius as tangent in each leg it touches, and four of them want more straight than 34 mm
     # holds anywhere in it. The chain is what takes the 3/8" off that barb, and how its collet
     # lies is ours to choose; laid along Y it faces this run square on.
-    W4_LEAN = ((119.73, 340.41, 271.50),    # off the collet, barely leaning out of its own axis
-               ( 98.86, 369.87, 308.91))    # onto the slot's column and plane, square on the
+    W4_LEAN = ((124.40, 362.08, 273.41),    # off the collet, barely leaning out of its own axis
+               (102.37, 360.88, 306.74))    # onto the slot's column and plane, square on the
                                             # mouth it closes on
     runs.append(R.bent(
         "water-4", "vk-tray-assembly.V-K-O", *W4_LEAN, "suction-chain.tube-port",
