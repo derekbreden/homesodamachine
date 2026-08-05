@@ -109,13 +109,19 @@ faucet display; the difference is the backlight itself:
   on reset timing, so it's probed at init; reset is released via CH422G EXIO1,
   INT is GPIO4. It's registered as an LVGL pointer indev, so it's ready for the
   real UX, not just wake. The first touch while idle is consumed (wake only).
+- Bit 7 of `0x814E` is raised when the GT911 has a new frame and cleared by reading it.
+  Between frames the last one stands, so a poll finding the flag clear answers with the
+  state it last read, and a lift must be reported for 150 ms before it reaches a widget —
+  a tap needs one PRESSED sample, a hold needs every poll it spans. `GET_DIAG` counts
+  these as `stale=` and `bridged=`.
 
 ## USB-serial commands (bring-up / diagnostics)
 
 Newline-terminated, 115200 baud over the native USB CDC:
 
 - `GET_VERSION` → `VERSION:FRONT=<fw>`
-- `GET_DIAG` → page / holding / heap / PSRAM / backlight / frame / GT911 addr /
+- `GET_DIAG` → page / holding / link reinits / unanswered polls / bridged touch polls /
+  stale GT911 polls / last send error / heap / PSRAM / backlight / frame / GT911 addr /
   touch count / last XY / idle state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0` / `IDLE:1` → wake / force the idle state (test without the 60 s wait)
@@ -189,6 +195,11 @@ elapsed seconds against a bar scaled to that ceiling.
 
 A tick goes out every ~550 ms in practice: the hold view repaints its readout at 10 Hz and
 one repaint of this panel takes ~110 ms, so the 500 ms check lands a loop late.
+
+A `MSG_PRIME_START` with no answer inside 700 ms resets both pads, restarts `Serial1` and
+sends one more START — the pad reads "link reset — retrying" and the hold carries on under
+the finger. Three unanswered status polls do the same between holds. `GET_DIAG` counts
+them as `reinits=`.
 
 ### Clean
 

@@ -29,6 +29,10 @@ the end.
 - **ERR (D2) reads inverted** under the current bench firmware, which drives IO15 LOW to
   light it — batch 1 wires D2 the other way up. Faint red at idle is `parkStraps()` holding
   MTDO on its ~45 kΩ internal pull-up, ~28 µA through the LED.
+- **With a 4.3B also on USB, name the port when flashing this board.** `tools/flash.sh`
+  lets PlatformIO pick, and it picks the S3: esptool opens that port, drops the display into
+  download mode, and only then fails on the chip id, leaving the panel dark until it is
+  reflashed. `PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-* pio run -e pcba_bench -t upload`.
 
 ### Answered
 
@@ -60,7 +64,14 @@ That is more than the `rs485` loopback proves. The loopback closes on-board at R
 passes whether or not J9's barrels carry — these frames went out through them, into a
 cable, and back. Both hauls and both barrels are exercised.
 
-Two facts that cost hours and are not the board's:
+**Hold-to-prime, same day.** The panel's Service page holds a pad, and the pump turns for
+as long as a finger stays on it: `MSG_PRIME_START`, a `MSG_PRIME_TICK` every 500 ms under
+the finger, `MSG_PRIME_STOP` on lift, and the board parks the pin if a tick runs later than
+2 s or the hold reaches 60 s. Measured over 32 consecutive holds: **base loop high-water
+1 ms, echo swallowed 1242 bytes against 1242 transmitted, and every one of the 77 frames
+the board sent arrived.**
+
+Three facts that cost hours and are not the board's:
 
 - **The 4.3B's RS485 sits on GPIO43/44, which are U0TXD/U0RXD.** The bootloader leaves
   UART0 holding GPIO43, and `Serial1.begin()` maps it as RX without releasing that
@@ -69,6 +80,16 @@ Two facts that cost hours and are not the board's:
 - **A Kamoer head does not break away part-throttle.** `pump b 60 1` prints a clean
   1001 ms run and turns nothing; at 100% it turns. The console's own report says only
   that IN1 was driven — the room says whether the head moved.
+- **`Stream::readBytes` waits out a 1000 ms timeout** for a count `available()` reported
+  and the stream then did not hand over. `HdlcLink::service()` drew its bytes that way,
+  inside the `loop()` that meters a pump: the board ran a pump 1321 ms for a hold released
+  at 322 ms, and frames on both sides of the stall went missing. It reads what is there and
+  returns; `link` reports the loop high-water so the next stall names itself.
+
+`link`'s byte counts are what separate the three ways this link fails: bytes rx climbing
+while frames rx does not is the pair carrying and the framing failing; both flat is nothing
+reaching IO34 at all; echo swallowed running ahead of bytes tx is the canceller eating real
+traffic. `j9raw` dumps the wire below all of it.
 
 Both runs drove jabs, a ten-step ramp 10→100%, 3 s at full, then 75/50/25%, and the head
 turned through all of it on both channels. The step-down is the half that discriminates:
