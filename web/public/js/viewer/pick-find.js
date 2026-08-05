@@ -1,14 +1,18 @@
-// Find box — the edge picker's round trip. Paste any pick text (a copy-all
-// blob, a single row, or a whole multi-pick message from either side of the
-// conversation) and every recognizable pick in it is matched against the
-// loaded model's reconstructed edges and classified faces, highlighted in
-// one go, and framed by the camera. The agent composes pick lines from CAD
-// coordinates; this is how they come back as geometry on screen.
+// Find box — the edge picker's round trip, and the way in for anyone who
+// only knows what a thing is CALLED. Type a component name (`fluid-17`,
+// `seaflo-pump`, or just `tee` for all seven) and every solid answering to
+// it lights up. Paste pick text — a copy-all blob, a single row, a whole
+// multi-pick message from either side of the conversation — and every
+// recognizable pick in it is matched against the loaded model's
+// reconstructed edges and classified faces. Both land in one overlay,
+// framed by one camera move: the box finds things, however you name them.
 //
-// Matching is nearest-entity with a tolerance (pick-format.js), so the
+// Name matching ignores case and separators and widens to substrings only
+// when nothing matches exactly (pick-format.js), so there is no format to
+// memorize. Pick matching is nearest-entity with a tolerance, so the
 // 3-decimal rounding in copied blobs and agent-composed lines is fine.
-// Unmatched lines just count against the status readout — a stale pick
-// from an older revision of a part fails soft.
+// Whatever fails to match just counts against the status readout — a stale
+// pick from an older revision of a part fails soft.
 
 import * as THREE from "three";
 import { Line2 } from "three/addons/lines/Line2.js";
@@ -16,11 +20,13 @@ import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
-import { parsePicks, matchPicks, pickFileToViewerPath } from "./pick-format.js";
+import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick-format.js";
 import { getFindData, faceHighlightGeometry } from "./edge-picker.js";
+import { scenePartNames } from "./part-highlight.js";
 import { loadStepFile } from "./step.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
+const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
 
 // --- overlay ---
 const overlay = new THREE.Group();
@@ -69,6 +75,33 @@ function addFaceHighlight(gid, box) {
   const mesh = new THREE.Mesh(geo, mat);
   mesh.renderOrder = 997;
   overlay.add(mesh);
+}
+
+// A whole named solid: its feature edges plus a faint shell, depth-test off
+// so it reads through the enclosure walls. Same shape as part-highlight.js's
+// scorecard highlight, in the find box's own magenta — one color for
+// everything this box turned up, whether it was named or pasted.
+function addPartHighlight(name, box) {
+  if (!state.currentGroup) return;
+  const seen = new Set();
+  for (const mesh of state.currentGroup.children) {
+    if (!mesh.isMesh || mesh.name !== name || seen.has(mesh.geometry)) continue;
+    seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
+    const edges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG),
+      new THREE.LineBasicMaterial({ color: FIND, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false }),
+    );
+    edges.renderOrder = 998;
+    overlay.add(edges);
+    const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
+      color: FIND, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
+      depthWrite: false, depthTest: false,
+    }));
+    shell.renderOrder = 997;
+    overlay.add(shell);
+    if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
+    box.union(mesh.geometry.boundingBox);
+  }
 }
 
 function addPointHighlight(p, box) {
@@ -141,8 +174,14 @@ function buildPanel() {
   textarea = document.createElement("textarea");
   textarea.className = "pick-find-input";
   textarea.rows = 5;
-  textarea.placeholder = "Paste pick text — edge / face / click lines, one or many";
+  textarea.placeholder = "Type a part name — fluid-17, seaflo-pump, tee\nor paste pick text — edge / face / click lines";
   textarea.spellcheck = false;
+  // Enter runs it, because a name is one word and reaching for a button to
+  // finish typing one word is the wrong shape. Shift+Enter still breaks the
+  // line, for a hand-assembled list.
+  textarea.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); runFind(); }
+  });
   panel.appendChild(textarea);
 
   const buttons = document.createElement("div");
@@ -178,11 +217,32 @@ function setPanelOpen(open) {
   if (panelOpen) textarea.focus();
 }
 
+// What the name half of a run turned up: the parts it lit, then whatever it
+// couldn't place. Both halves matter — an unknown name is usually a typo or
+// a part that lives in a different file, and saying so beats a silent zero.
+const SHOWN_NAMES = 6;
+
+function nameStatus(hits) {
+  const out = [];
+  const found = [...new Set(hits.flatMap((h) => h.names))];
+  if (found.length) {
+    const head = found.slice(0, SHOWN_NAMES).join(", ");
+    const rest = found.length > SHOWN_NAMES ? ` +${found.length - SHOWN_NAMES}` : "";
+    out.push(`${found.length} part${found.length === 1 ? "" : "s"}: ${head}${rest}`);
+  }
+  const missed = hits.filter((h) => !h.names.length).map((h) => h.query);
+  if (missed.length) out.push(`nothing named ${missed.join(", ")}`);
+  return out.join(" · ");
+}
+
 async function runFind() {
   if (!state.mountedDetail || state.mountedDetail.type !== "step") return;
-  const { picks, files } = parsePicks(textarea.value);
+  const { picks, files, names } = parsePicks(textarea.value);
   clearOverlay();
-  if (!picks.length && !files.length) { setStatus("nothing recognizable in the paste"); return; }
+  if (!picks.length && !files.length && !names.length) {
+    setStatus("nothing recognizable — type a part name, or paste pick text");
+    return;
+  }
 
   // A file: line names where the picks live — go there first. The load
   // swaps the model inside the open modal (same flow live.js uses); the
@@ -201,19 +261,32 @@ async function runFind() {
     const pill = document.querySelector(".cv-filename");
     if (pill) pill.textContent = wanted.split("/").pop().replace(/\.step$/i, "");
   }
-  if (!picks.length) { setStatus("opened — no picks to highlight"); return; }
-
-  const { edges, faces } = getFindData();
-  const results = matchPicks(picks, edges, faces);
+  if (!picks.length && !names.length) { setStatus("opened — nothing to highlight"); return; }
 
   const box = new THREE.Box3();
-  let matched = 0;
-  for (const r of results) {
-    if (r.type === "edge") { addEdgeHighlight(edges[r.index], box); matched++; }
-    else if (r.type === "face") { addFaceHighlight(r.index, box); matched++; }
-    else if (r.type === "point") { addPointHighlight(r.pick.p, box); matched++; }
+  const status = [];
+
+  // Names first — they're resolved against the meshes, which are already
+  // built, while the picks may still be waiting on the edge reconstruction.
+  const nameHits = matchNames(names, scenePartNames());
+  if (nameHits.length) {
+    for (const name of new Set(nameHits.flatMap((h) => h.names))) addPartHighlight(name, box);
+    status.push(nameStatus(nameHits));
   }
-  setStatus(`${matched}/${results.length} matched`);
+
+  if (picks.length) {
+    const { edges, faces } = getFindData();
+    const results = matchPicks(picks, edges, faces);
+    let matched = 0;
+    for (const r of results) {
+      if (r.type === "edge") { addEdgeHighlight(edges[r.index], box); matched++; }
+      else if (r.type === "face") { addFaceHighlight(r.index, box); matched++; }
+      else if (r.type === "point") { addPointHighlight(r.pick.p, box); matched++; }
+    }
+    status.push(`${matched}/${results.length} picks matched`);
+  }
+
+  setStatus(status.filter(Boolean).join(" · "));
   flyToBox(box);
 }
 
@@ -228,8 +301,8 @@ export function makePickFindToggle() {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "pick-find-toggle";
-  btn.textContent = "Find picks";
-  btn.title = "Paste pick text to highlight it on the model";
+  btn.textContent = "Find";
+  btn.title = "Type a part name, or paste pick text, to highlight it on the model";
   btn.addEventListener("click", () => setPanelOpen(!panelOpen));
   return btn;
 }
