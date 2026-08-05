@@ -32,6 +32,22 @@ def box(x, y, z, dx=10.0, dy=10.0, dz=10.0):
     return cq.Solid.makeBox(dx, dy, dz, cq.Vector(x, y, z))
 
 
+def swept(*pts, diam=6.35, bend=25.4):
+    """A tube through `_routing.tube` itself — a circle carried along the waypoints with a
+    tangent arc at each interior corner. Boxes cannot stand in for one here: the clash a
+    single boolean goes blind to is a property of SWEPT surfaces meeting tangentially, and a
+    fixture built any other way passes whether the gate works or not."""
+    import types
+
+    import _routing
+
+    n = len(pts)
+    return _routing.tube(types.SimpleNamespace(
+        pts=list(pts), diam=diam,
+        radii={i: bend for i in range(1, n - 1)},
+        bends=[(i, 90.0, 0.0, 0.0) for i in range(1, n - 1)]))
+
+
 # Each case returns (ok, message). `check(name, ok, msg)` records and prints it.
 _failures = 0
 
@@ -80,6 +96,28 @@ def test_lines_clear() -> None:
     wide = sc.line_clashes({"t1": box(0, 0, 0), "t2": box(50, 50, 50)},
                            {"part": box(200, 0, 0)}, {"t1": {"A"}, "t2": {"B"}})
     check("silent on tubes clear of everything", len(wide) == 0, f"got {len(wide)} clash(es)")
+    # Defect a SINGLE boolean cannot see: two swept tubes of one Ø crossing at right angles
+    # ON ONE STRATUM, out where the pack actually stands. Their surfaces are tangent at the
+    # two poles of the crossing, so the section curve is singular there and one `intersect`
+    # hands back an empty solid for the whole Steinmetz region — `scorecard._common` is what
+    # asks a second time. This is the arrangement a shared port row authors on purpose, which
+    # is why the gate has to be proved against it and not only against boxes.
+    x, y, z = 105.0, 417.0, 358.0
+    tangent = sc.line_clashes(
+        {"t1": swept((x, y - 60, z - 60), (x, y - 60, z), (x, y + 33, z)),
+         "t2": swept((x + 20, y + 51, z), (x + 20, y, z), (x - 60, y, z))},
+        {}, {"t1": {"A", "B"}, "t2": {"C", "D"}})
+    check("fires on two tubes crossing tangent on one stratum", len(tangent) == 1,
+          f"got {len(tangent)} clash(es)")
+    # Control: the same pair with one lifted a tube's width and the clearance floor off that
+    # stratum — the move that would clear it, and the gate must go quiet when it is made.
+    lift = 6.35 + sc.CLEARANCE_FLOOR
+    parted = sc.line_clashes(
+        {"t1": swept((x, y - 60, z - 60), (x, y - 60, z), (x, y + 33, z)),
+         "t2": swept((x + 20, y + 51, z + lift), (x + 20, y, z + lift), (x - 60, y, z + lift))},
+        {}, {"t1": {"A", "B"}, "t2": {"C", "D"}})
+    check("silent on the same pair one stratum apart", len(parted) == 0,
+          f"got {len(parted)} clash(es)")
     # Wiring: lines_clear_check turns a clash into a red 'lines-clear' gate, and none into green.
     orig = sc.line_clashes
     try:
