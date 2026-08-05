@@ -59,11 +59,12 @@ Strata, floor to ceiling:
              feet the lowest thing the column puts over that roof.
   * Zone C aloft: the rest of the manifold, in the LOFT — the band between the
              water deck's crown and the ceiling, over the whole of Zone B. The
-             BAG-B pair with Y-H ahead of it and the NOZZLE GATES (V-G, V-J)
-             behind it take its west lane, parted by a JUNCTION BAY: the two
-             pairs face each other collet for collet, so what stands between
-             them is a fitting and not a gap — Y-G, whose run is the one straight
-             line V-I-I and V-J-I already share. CHANNEL B'S PUMP is not up
+             BAG-B pair and the NOZZLE GATES (V-G, V-J) take its west lane,
+             V-G forward of the pair on the lid's own flank and V-J behind it,
+             parted by a JUNCTION BAY: the pair and the aft gate face each other
+             collet for collet, so what stands between them is a fitting and not
+             a gap — Y-G, whose run is the one straight line V-I-I and V-J-I
+             already share. CHANNEL B'S PUMP is not up
              here — both stand in the front column — and the strip east of the
              loft's trays is its own PUMP LANE, where Y-F stands. The
              nozzle gates are up here because their two outlets are the only
@@ -644,8 +645,8 @@ TRAY_YAW = 0.0
 #   Its EAST face carries V-I's fill and V-H's draw-out, looking across the strip the east
 # lane's forward row opens on: Y-G stands in that strip (`y_g_pos`) and Y-F over V-H-O's own
 # collet (`aft_lane_x`). Its WEST face carries V-I's return and V-H's inlet, looking down the
-# flank reservoir B's port opens on at x 11: Y-H hangs off that flank (`y_h_pos`) with the
-# bag on its stem.
+# flank the reservoir's own two mouths reach the deck on — the fill bore under this plate's
+# band (`conduit_column_east`) and the draw's conduit aft of the nozzle-A gate's plate.
 BAG_B_TRAY_YAW = 270.0
 # THE NOZZLE-A GATE stands UNTURNED, alone in the west lane's FORWARD end. It carries one
 # valve, so its plate is the family's one-seat part.
@@ -734,11 +735,11 @@ SOURCE_TRAY_HEADROOM = 3.0
 # so at this gap a valve lifts straight out of its seat with the stack made up.
 TRAY_STACK_GAP = _tray.top_z
 
-# The Y-DIVIDER — Y-H, where reservoir B's fill and draw meet. It is the JG PP2308E
-# (`reference/y-divider`), it joins the bag-B pair, and the bag rides its STEM — one line out to
-# that reservoir's port on the cold core's face, with the fill and the draw the two outlets that
-# share it. Reservoir A's junction is the same three connections in the same order and it is a
-# TEE, because the room it stands in is a band and not a column (`y_e_pos`).
+# The Y-DIVIDER — the JG PP2308E (`reference/y-divider`), the family's one three-outlet
+# fitting. No junction in the machine is one: reservoir A's is a TEE, because the room it
+# stands in is a band and not a column (`y_e_pos`), and reservoir B carries a mouth for its
+# fill and a mouth for its draw so nothing joins them. What the block below still supplies is
+# the trident's own reach construction, which `_enclosure_dimensions` reads for the flank.
 # A TRIDENT: stem and two parallel outlets, all three coaxial, the outlets
 # 2 × `DIVIDER_OUTLET_X` apart. Native long axis is +Z with the stem up, so two turns carry
 # it: the yaw lays the outlet offsets onto world X, and the roll stands the axis along Y with
@@ -886,7 +887,7 @@ PUMP_ROW_TURN = TUBE_HALF + LINE_HUG
 # its two lines run down to Y-C and Y-D in the aft band. Z stands its two barbs on the BAG-A
 # PAIR'S OWN PORT PLANE: Y-C and Y-D each join this pump to a collet on that plane, so the
 # junctions lie in one plane with the ports they join and no leg climbs — the same relation
-# `_divider_pos` gives Y-H.
+# `_divider_pos` gives a trident's outlets.
 PUMP_B_LANE_X = -10.0
 # The pumps' front faces, at the pack's floor off the FRONT-WEST CORNER's seam furniture: the
 # front wall's inner face (the shroud's stated front less `FRONT_STANDOFF`, −3), the front-wall
@@ -941,8 +942,7 @@ PUMP_PORT_RISE = _kamoer.arch_plane_z - _kamoer.head_front_z
 #   * not FORWARD: the pin is the bag pair's own forward MOUNT EAR standing on
 #     `fore_deck_column_face` — the cup wants `deck_mount_cap_gap` of liquid foam between a
 #     column and the cavity wall beside it, and that gap read on the cap's FRONT edge is the
-#     forwardmost plane any station on this deck can take. Y-H reaches past that edge, over
-#     the front column's air, and is not what pins this any more.
+#     forwardmost plane any station on this deck can take.
 #   * not AFT: nothing pins it. The stand's aft face used to ride the rear corner column's
 #     face; the whole band behind it is now the outlet lane's and the shelf's, and it runs
 #     [222](OUTLET_LANE) mm deep — the three aft-facing outlets turn on it and climb to the
@@ -1120,7 +1120,6 @@ COLORS = {
     "tee-y-d":              cq.Color(0.92, 0.92, 0.92),
     # Zone C — the manifold's second stand, in the service bay's loft
     "bag-b-tray-assembly":  cq.Color(0.85, 0.78, 0.62),
-    "divider-y-h":          cq.Color(0.85, 0.85, 0.88),
     "nozzle-tray-assembly": cq.Color(0.85, 0.78, 0.62),
     "nozzle-b-tray-assembly": cq.Color(0.85, 0.78, 0.62),
     "vk-tray-assembly": cq.Color(0.85, 0.78, 0.62),
@@ -1562,9 +1561,9 @@ def _build():
                            ("bag-a-tray-assembly", bag_a_tray_pos())):
         pack.place(name, _load(TRAY_ASSEMBLY), yaw=TRAY_YAW, org=tray_pos)
     # --- Zone C's second stand: both pumps under the head column's own lane, and the AFT STAND
-    # on the water deck carrying the rest of channel B — the bag-B pair with Y-H ahead of it,
-    # and three LONE VALVES each on the family's one-seat plate (`single_valve_tray`): the
-    # tap-water fill valve and the two nozzle gates. The bag pair is the one pair here, so it
+    # on the water deck carrying the rest of channel B — the bag-B pair, and three LONE VALVES
+    # each on the family's one-seat plate (`single_valve_tray`): the tap-water fill valve and
+    # the two nozzle gates. The bag pair is the one pair here, so it
     # is the one two-seat plate, and each of the other three is placed by its OWN runs.
     pack.place("bag-b-tray-assembly", _load(TRAY_ASSEMBLY), yaw=BAG_B_TRAY_YAW,
                org=bag_b_tray_pos())
@@ -2436,7 +2435,7 @@ def divider_reach():
     reach is struck at the LEAST that still seats a stock arc in them: every millimetre past
     that is deck spent on the other side of the pair, where the collets facing east have their
     own runs to leave in. The lead those corners turn on falls out of the same search —
-    `divider_leg_lead()` — and `_lines` draws both of Y-H's legs to the pair of them."""
+    `divider_leg_lead()` — and a trident's two legs are drawn to the pair of them."""
     offset = (_tray.pitch - 2.0 * DIVIDER_OUTLET_X) / 2.0
     straight_reach = offset / math.tan(math.radians(FLAVOR_SKEW))
 
@@ -2581,16 +2580,12 @@ DIVIDER_TURNS = (((0, 0, 1), DIVIDER_YAW), ((1, 0, 0), DIVIDER_ROLL))
 # lays the outlet offsets across the machine. Standing on its short section it costs the
 # junction bay 2 x `y_divider.HALF_W` of depth instead of its own length.
 DIVIDER_G_TURNS = (((0, 0, 1), -90.0),)
-# Y-H takes the sequence and then the QUARTER TURN ITS OWN PAIR TOOK (`BAG_B_TRAY_YAW`), so its
-# two outlets come to rest on the axis of the two collets they feed. The turn rides the plate's
-# own figure: a pair re-clocked carries this fitting round with it.
-DIVIDER_H_TURNS = DIVIDER_TURNS + (((0, 0, 1), BAG_B_TRAY_YAW),)
 
 
 # A divider's three ports in its OWN frame: the stem on the axis at +Z, the two outlets
 # facing −Z, offset ±Y. The two turns put local −Y on the machine's WEST, so the west outlet
 # is the one that reaches the west seat. The topology numbers the fitting from its own end —
-# Y-H takes the bag on its stem with a valve on each outlet.
+# the stem takes what the two outlets share.
 def _divider_local(stem, west, east):
     at = _ydiv.stations()
     return {west: at["-y"], east: at["+y"], stem: at["stem"]}
@@ -2704,9 +2699,8 @@ def y_d_port(name):
 
 
 # --- Y-E: the bag-A junction, across the strip ahead of its pair -----------
-# Y-E joins what Y-H joins, in the same order: V-F's outlet where the pump returns to the bag,
-# V-E's inlet where the bag draws, and one line out to reservoir A's port on the cold core's
-# face. It stands in the STRIP between the pump row's aft faces and the tray column's forward
+# Y-E joins three: V-F's outlet where the pump returns to the bag, V-E's inlet where the bag
+# draws, and one line out to reservoir A's port on the cold core's face. It stands in the STRIP between the pump row's aft faces and the tray column's forward
 # one, and it stands ACROSS it — both collet axes square to Y, all three collets in one vertical
 # plane, the body's own diameter the whole of the depth it takes.
 #
@@ -2996,8 +2990,9 @@ def bag_b_tray_y():
     a cap deck column may reach (`fore_deck_column_face`) is read here as a second floor and
     the aft of the two wins.
 
-    Reservoir B's port opens +Z out of the cap at x 11, on the flank this plate's west face
-    looks down; the column it stands in is Y-H's (`y_h_pos`), west of the plate entirely."""
+    Reservoir B's FILL bore opens +Z out of the cap under this plate's own band, and its DRAW
+    conduit stands at x 11 aft of the nozzle-A gate's plate; `conduit_column_east` is the one of
+    the two a body on this deck holds off."""
     return max(packed().box("foam-assembly").ymin,
                fore_deck_column_face() - _tray.half_x)
 
@@ -3037,19 +3032,23 @@ def bag_b_tray_pos():
     """The bag-B pair's own origin in world — the WEST lane's forward seat.
 
     This pair is the one row of the manifold that is not on the east lane. It takes the band
-    forward of the pump, and its WEST FACE STANDS WHERE THE FLANK ENDS: the two cap conduits'
-    own column, the standoff the stem's corner takes off it (`stem_standoff`), Y-H's body, and
-    the `divider_reach()` the trident's two legs run straight through. Turned, the plate's own
-    reach to that face is `port_half`.
+    forward of the pump, and IT PACKS EAST onto `bag_b_east_limit()`, the plane V-I-I's own leg
+    leaves it before `water-3` falls down V-K's column. Turned, the plate's reach to either
+    face is `port_half`.
 
-    Nothing else is on this deck between the conduits and the +X wall, so the flank is cut to
-    the stack that stands in it and the rest of the deck is east of the plate.
+    WHAT ITS WEST FACE ANSWERS TO IS A MOUTH, not a body. Everything else on this flank stands
+    forward of or beneath the plate — the nozzle-A gate on the lid ahead of it, the two band
+    conduits aft of that — and the one feature under the plate's own footprint is reservoir B's
+    FILL BORE, which a plate lying over it would close (`conduit_column_east`).
 
     Y is `bag_b_tray_y()` plus the turned plate's own half-depth; Z is the cap."""
-    return (min(y_h_stem_x() + 2.0 * DIVIDER_HALF + divider_reach() + _tray.port_half,
-                bag_b_east_limit() - _tray.port_half),
-            bag_b_tray_y() + _tray.half_x,
-            aft_tray_z())
+    x = bag_b_east_limit() - _tray.port_half
+    if x - _tray.port_half < conduit_column_east():
+        _short("bag-b-flank",
+               f"the pair's west face stands at x {x - _tray.port_half:.2f}, west of the "
+               f"{conduit_column_east():.2f} reservoir B's fill bore leaves a body on this "
+               f"deck — the plate lies over the mouth it is fed through.")
+    return (x, bag_b_tray_y() + _tray.half_x, aft_tray_z())
 
 
 def bag_b_east_limit():
@@ -3067,42 +3066,16 @@ def bag_b_east_limit():
     return (aft_tray_x() + _tray1.half_x + _tray.pitch) - LINE_PITCH - JUNCTION_LEG_LEAD
 
 
-def y_h_stem_x():
-    """Where Y-H's STEM collet stands in X, and with it the divider's own west face.
-
-    `stem_standoff()` east of reservoir B's bore — the reach the corner off that conduit turns
-    on. That standoff already clears `conduit_column_east()`, which `_short` holds."""
-    stem = foam_shell_port("reservoir-b")[0][0] + stem_standoff()
-    if stem < conduit_column_east():
-        _short("y-h-stem",
-               f"Y-H's stem stands at x {stem:.2f}, west of the {conduit_column_east():.2f} the "
-               f"cap conduits' own column leaves a body. The standoff the corner wants is "
-               f"under the tube and floor the column is.")
-    return stem
-
-
 def conduit_column_east():
-    """The east side of the CAP CONDUITS' column, as a body sees it — the westmost plane
-    anything on this deck can stand on.
+    """The east side of reservoir B's FILL BORE, as a body on this deck sees it — the westmost
+    plane the bag-B pair's own plate can stand on.
 
-    Two lines leave the lid on this flank: water-5 falls the deck's whole height on `water-in`'s
-    bore and fluid-25 climbs out of `reservoir-b`'s. The conduits stand a millimetre apart in X,
-    so the two bores are one column, and what a body holds off is the westerly of them with a
-    tube's half-section and the pack's own floor over it."""
-    bores = [foam_shell_port(c)[0][0] for c in ("water-in", "reservoir-b")]
-    return max(bores) + 6.35 / 2.0 + LINE_HUG
-
-
-def stem_standoff():
-    """How far east of the conduits' column Y-H's STEM stands — the corner between reservoir
-    B's climb out of the lid and the run east into the stem.
-
-    The conduit opens +Z on the lid and the stem faces −X on the pair's port plane, so the two
-    mouths are square to each other and the leg between them is one corner with a rise and a
-    reach for legs. The rise is the port plane's own height over the lid, and the reach is
-    struck equal to it: the corner sits square in section and neither leg binds before the
-    other."""
-    return aft_port_z() - foam_shell_port("reservoir-b")[0][2]
+    Three lines leave the lid on this flank and two of them stand aft of the loft's forward
+    plates: water-5 falls the deck's whole height on `water-in`'s bore and the bag draw climbs
+    out of `reservoir-b`'s, both in the strip between the nozzle-A gate and the pump. The third
+    is under the pair's own band — `reservoir-b-fill`, which `fluid-24` falls into — so it is
+    the one a body here holds off, by a tube's half-section and the pack's own floor."""
+    return foam_shell_port("reservoir-b-fill")[0][0] + 6.35 / 2.0 + LINE_HUG
 
 
 def vk_tray_pos():
@@ -3223,7 +3196,8 @@ def nozzle_tray_pos():
 
 
 # The bag-B pair reads like bag A in its clocking — the bag's two ends are V-H's INLET and
-# V-I's OUTLET, so those two face FORWARD at Y-H and V-H-O and V-I-I face AFT into the bay —
+# V-I's OUTLET, so those two face WEST at the reservoir's own two mouths and V-H-O and V-I-I
+# face EAST into the bay —
 # but its two valves are seated the other way ROUND on the tray, and that is what makes the
 # bay work. V-I-I takes the WEST seat, which is the seat V-J-I takes on the tray facing it
 # (`NOZZLE_TRAY_COLLETS`), so the two collets Y-G feeds sit on ONE COLUMN with the bay between
@@ -3276,39 +3250,6 @@ def vk_tray_port(name):
 
 def nozzle_b_tray_port(name):
     return _tray_port("nozzle-b-tray-assembly", name, NOZZLE_B_TRAY_COLLETS, _tray1)
-
-
-def y_h_pos():
-    """Y-H's body centre in world — `_divider_pos`'s relation, read across the machine because
-    the pair it joins is turned. Ahead of the bag-B pair's two WEST collets, V-I's outlet where
-    the pump returns to the bag and V-H's inlet where the bag draws; reservoir B is on its
-    STEM, so one line reaches the cold core's face and the fill and the draw share it.
-
-    It stands on the FLANK WEST OF THE PAIR, the face those two collets open on once the plate
-    is turned (`BAG_B_TRAY_YAW`), one `divider_reach()` off them and a body half-length past
-    its own outlet faces. The trident takes the pair's own quarter turn with it
-    (`DIVIDER_H_TURNS`), which is what puts its outlets back on the axis of the collets they
-    feed. X is the axis the reach lies on here; Y is the midpoint of the two collets it joins;
-    Z is their own port plane, so the junction lies in one plane with the two valves and
-    neither leg climbs.
-
-    The flank it stands in is the width `bag_b_tray_pos` cuts for it: the two cap conduits'
-    column on one side and the plate's west face on the other, with the stem's own corner
-    between the conduit and the collet."""
-    fore, aft = bag_b_tray_port("V-H-I")[0], bag_b_tray_port("V-I-O")[0]
-    return (packed().box("bag-b-tray-assembly").xmin - divider_reach() - DIVIDER_HALF,
-            (fore[1] + aft[1]) / 2.0,
-            fore[2])
-
-
-# V-I sits on the WEST seat here where V-F sits on the EAST one at bag A, so the two outlets
-# are numbered the other way round from Y-E's: the geometry is the same trident, and which
-# outlet reaches which valve is the seating's business.
-_Y_H_LOCAL = _divider_local("Y-H-2", west="Y-H-1", east="Y-H-3")   # Y-H-1 takes V-I, Y-H-3 feeds V-H
-
-
-def y_h_port(name):
-    return _divider_port("divider-y-h", name, _Y_H_LOCAL)
 
 
 # --- The AFT STAND'S PUMP ROW: channel B's two tees --------------------------

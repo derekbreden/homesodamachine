@@ -7060,8 +7060,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-05T21:31:09+00:00",
-    "commit": "0611b3920a0c38e0cba94bfa11a80a66fb937cec",
+    "generated": "2026-08-05T21:44:56+00:00",
+    "commit": "f4e842c1f4be7387a4aeb702fc05cf753080caf1",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7082,7 +7082,7 @@
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:159198:1785913234053377583",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:21b3ef98fcd46857",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:042eace2bfe2bffc",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:fb10f069e79ee1e5",
       "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:4c5a1bbc6b5650f8",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
