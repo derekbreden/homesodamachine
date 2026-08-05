@@ -31,10 +31,12 @@
       "id": "room-holds",
       "label": "Every derived pose has the room its own construction states",
       "kind": "gate",
-      "status": "pass",
-      "value": "0 short",
+      "status": "fail",
+      "value": "1 short",
       "target": "0 short",
-      "detail": [],
+      "detail": [
+        "port-row-rails: the basin's rails clear the pump's crown at z=326.4000, but this row is held at 324.7000 \u2014 1.7000 mm of it comes off `drip_pan.VENT_GAP` under the chain. Raise `PORT_ROW_RAILS` and the back panel's Z seam with it, or take section off the basin."
+      ],
       "active": true
     },
     {
@@ -7167,8 +7169,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-05T04:04:29+00:00",
-    "commit": "09e814e8f821fa995e149d0ddb90fb4d4b5ebc90",
+    "generated": "2026-08-05T04:23:26+00:00",
+    "commit": "9283f0c9b442fa0765344a988f84a9d5a3811c16",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7190,8 +7192,8 @@
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:117259:1785686863767739385",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:b7f3d7dbe7dc68a7",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:85258806a4b073f0",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:4b23f033fddca1b9",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:06a05d0722a8ffc1",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
