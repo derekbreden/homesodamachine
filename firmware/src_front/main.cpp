@@ -1187,13 +1187,16 @@ static void setupScrollRefresh() {
   lv_obj_align(setupThumb, LV_ALIGN_TOP_MID, 0, off);
 
   // A target at the end of its travel sinks into the background and its arrow goes dark.
+  // Not LV_STATE_DISABLED: the default theme styles that state itself, at a higher state
+  // weight than a colour set here for LV_STATE_DEFAULT, so the theme's grey is what shows.
+  // Clearing CLICKABLE stops the press without handing the look to anyone else.
   struct { lv_obj_t *b; lv_obj_t *l; bool on; } ends[2] =
       {{setupUp, setupUpLbl, above > 0}, {setupDown, setupDownLbl, below > 0}};
   for (auto &e : ends) {
-    if (e.on) lv_obj_clear_state(e.b, LV_STATE_DISABLED);
-    else      lv_obj_add_state(e.b, LV_STATE_DISABLED);
-    lv_obj_set_style_bg_color(e.b, e.on ? lv_color_hex(COL_CARD_ON) : THEME_BG, 0);
-    lv_obj_set_style_text_color(e.l, lv_color_hex(e.on ? COL_TEXT : COL_OFF), 0);
+    if (e.on) lv_obj_add_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
+    else      lv_obj_clear_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_set_style_bg_color(e.b, e.on ? lv_color_hex(COL_CARD_ON) : THEME_BG, LV_PART_MAIN);
+    lv_obj_set_style_text_color(e.l, lv_color_hex(e.on ? COL_TEXT : COL_OFF), LV_PART_MAIN);
   }
 }
 
