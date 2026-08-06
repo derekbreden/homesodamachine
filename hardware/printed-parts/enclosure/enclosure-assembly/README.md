@@ -11,6 +11,35 @@ The export prints the pack envelope and verifies every pair of placed solids
 non-intersecting (and the connector bodies against the enclosure walls); a
 clash fails the run.
 
+## Looking at it
+
+[`tools/around.sh`](/tools/around.sh) is this assembly read the way the viewer reads it: every
+body solid in its own colour, the four enclosure quadrants and the funnel off, perspective, no
+labels. It walks a CIRCLE rather than standing on one of six named views —
+
+```
+tools/around.sh                              # one slow turn, 15° a frame, 24 frames
+tools/around.sh --spin x                     # tumble front→top→back instead of turntable
+tools/around.sh --at 73,127,261 --near 0.95  # stand close to a point and turn there
+tools/around.sh --click 500,350              # what is at that pixel? (amber, named)
+tools/around.sh --show tee-y-a               # light a body you can already name
+```
+
+— and the frames are meant to be read IN ORDER. A silhouette that is ambiguous at one angle is
+resolved by the frame either side of it, which is the thing three elevations cannot show. One
+STEP parse serves the whole sweep, so a finer step costs milliseconds a frame.
+
+`--click` casts from that pixel exactly as the viewer's component picker does and paints what it
+hit in the picker's own amber. **That is the check**, not a convenience: a name is the name of the
+thing you meant only when the thing that lit up is the thing you meant. Look at the frame before
+quoting the name. `--show` is the same amber addressed by name instead — depth-test off, so a body
+behind another still reads.
+
+Both are `--pick` and `--select` on [`render-view.js`](/tools/render/render-view.js), with
+`--orbit`, and work on any STEP in the tree. `look.sh` is the other question: it names a subject
+and drops everything else to edges, for *where is this body*. This one is *what is this thing, and
+what is it next to*.
+
 ## Regenerate
 
 The enclosure sizes itself from the contents bbox and the funnel seats itself

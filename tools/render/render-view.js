@@ -216,6 +216,46 @@ const VIEWS = {
   iso:    { cam: [ 1, -1,  1], up: [0, 0,  1] },
 };
 
+// One turn of an orbit, as the cam/up pair the shot loop already speaks. The
+// angle rides an orthonormal pair in the plane the axis is normal to, so the
+// sweep is a circle and the step is an arc, not a lerp between two poses.
+//
+// A turntable about +Z keeps up at +Z — the machine stands still and you walk
+// around it. A tumble about X or Y passes THROUGH the pole, where a fixed up is
+// degenerate, so up rides the same circle a quarter-turn ahead and the frame
+// rolls with the camera the way a hand turning a part does.
+const ORBIT = {
+  z: (a, el) => {
+    const [c, s, ce, se] = [Math.cos(a), Math.sin(a), Math.cos(el), Math.sin(el)];
+    return { cam: [c * ce, s * ce, se], up: [0, 0, 1] };
+  },
+  x: (a) => ({ cam: [0, -Math.cos(a), Math.sin(a)], up: [0, Math.sin(a), Math.cos(a)] }),
+  y: (a) => ({ cam: [Math.cos(a), 0, Math.sin(a)], up: [-Math.sin(a), 0, Math.cos(a)] }),
+};
+
+// Every shot an --orbit asks for, in sweep order. The label is the axis and the
+// degrees, zero-padded, so the files sort into the order they were flown in —
+// which is the order they have to be READ in for the turn to be a turn.
+function orbitShots(o) {
+  const out = [];
+  const dir = o.to >= o.from ? 1 : -1;
+  const n = Math.floor(Math.abs(o.to - o.from) / o.step + 1e-9);
+  for (let i = 0; i <= n; i++) {
+    const deg = o.from + dir * i * o.step;
+    // A full turn closes on its own start; the duplicate frame is dropped.
+    if (i === n && Math.abs(((deg - o.from) % 360) - 0) < 1e-9 && n > 0) break;
+    const { cam, up } = ORBIT[o.axis]((deg * Math.PI) / 180, (o.elev * Math.PI) / 180);
+    const round = (v) => +v.toFixed(6);
+    out.push({
+      label: `${o.axis}${String(Math.round(((deg % 360) + 360) % 360)).padStart(3, "0")}`,
+      cam: cam.map(round),
+      up: up.map(round),
+      orbit: `${o.axis} ${deg.toFixed(0)}°${o.elev ? ` elev ${o.elev}°` : ""}`,
+    });
+  }
+  return out;
+}
+
 function usage(msg) {
   if (msg) console.error(`render-view: ${msg}`);
   console.error(
@@ -224,6 +264,7 @@ function usage(msg) {
       "       [--context ghost|hide|solid|xray] [--no-tint]\n" +
       "       [--view right|left|front|back|top|bottom|iso] [--cam x,y,z] [--up x,y,z]\n" +
       "       [--target x,y,z] [--span mm] [--ortho] [--zoom f] [--label|--no-label]\n" +
+      "       [--orbit x|y|z:from,to,step[,elev]] [--pick px,py] [--select globs]\n" +
       "       [--grid|--no-grid] [--clip x|y|z:lo,hi] [--ports] [--caption text]\n" +
       "       [--size WxH] [--bg #hex] [--edition id]\n" +
       "       node tools/render/render-view.js <step-rel> --list",
@@ -265,6 +306,9 @@ function parseArgs(argv) {
     clips: [],
     gaps: [],
     rays: [],
+    picks: [],
+    select: [],
+    orbits: [],
     ports: false,
     caption: null,
     width: 1400,
@@ -295,6 +339,26 @@ function parseArgs(argv) {
     else if (a.startsWith("--views")) opts.views = globs(val("views"));
     else if (a.startsWith("--view")) opts.view = val("view");
     else if (a.startsWith("--caption")) opts.caption = val("caption");
+    else if (a.startsWith("--select")) opts.select = globs(val("select"));
+    else if (a.startsWith("--pick")) {
+      const raw = String(val("pick"));
+      const m = raw.match(/^(-?[\d.]+)\s*,\s*(-?[\d.]+)$/);
+      if (!m) usage(`bad --pick ${raw} (want x,y in pixels)`);
+      opts.picks.push({ x: Number(m[1]), y: Number(m[2]) });
+    } else if (a.startsWith("--orbit")) {
+      const raw = String(val("orbit"));
+      const m = raw.match(/^([xyz])\s*[:=]\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*(-?[\d.]+))?$/i);
+      if (!m) usage(`bad --orbit ${raw} (want axis:from,to,step[,elev])`);
+      const step = Number(m[4]);
+      if (!(step > 0)) usage(`bad --orbit ${raw} (step must be positive)`);
+      opts.orbits.push({
+        axis: m[1].toLowerCase(),
+        from: Number(m[2]),
+        to: Number(m[3]),
+        step,
+        elev: m[5] === undefined ? 0 : Number(m[5]),
+      });
+    }
     else if (a.startsWith("--cam")) opts.cam = vec(val("cam"), "--cam");
     else if (a.startsWith("--up")) opts.up = vec(val("up"), "--up");
     else if (a.startsWith("--target")) opts.target = vec(val("target"), "--target");
@@ -405,7 +469,8 @@ async function inPageCompose(o) {
 
   // Names the caller asked for that no body answers to. Reported.
   const unmatched = [];
-  for (const [flag, pats] of [["only", o.only], ["xray", o.xray], ["ghost", o.ghost], ["hide", o.hide]]) {
+  for (const [flag, pats] of [["only", o.only], ["xray", o.xray], ["ghost", o.ghost],
+                              ["hide", o.hide], ["select", o.select]]) {
     for (const p of pats || []) {
       const r = rx(p);
       if (![...byName.keys()].some((n) => r.test(n))) unmatched.push(`--${flag} ${p}`);
@@ -567,6 +632,87 @@ async function inPageCompose(o) {
   const mmPerPx = cornerLo.distanceTo(
     new THREE.Vector3(1, -1, ndcZ).unproject(cam),
   ) / W;
+
+  // --- Picks and selection -------------------------------------------------
+  // The viewer's component picker, at the command line. Casting a ray from a
+  // pixel through the posed camera is what a CLICK is; the amber is what makes
+  // the answer checkable, because a name is the name of the thing you meant only
+  // when the thing that lights up is the thing you meant. Same colour, same
+  // opacities, same depth-test-off as component-picker.js, so the frame here and
+  // the screen there agree.
+  const SEL = 0xffa733;
+  const SEL_EDGE_DEG = 30;
+
+  // Scene-level and rebuilt every shot: an orbit would otherwise leave one amber
+  // shell per frame standing in the next.
+  let selOverlay = scene.getObjectByName("__rv-select");
+  if (selOverlay) {
+    for (const c of [...selOverlay.children]) {
+      selOverlay.remove(c);
+      c.geometry.dispose();   // every geometry under here is one this pass made
+      c.material.dispose();
+    }
+  } else {
+    selOverlay = new THREE.Group();
+    selOverlay.name = "__rv-select";
+    selOverlay.renderOrder = 994;
+    scene.add(selOverlay);
+  }
+
+  // You cannot click what you cannot see: front faces of bodies on the frame.
+  // A ghost has no faces, a hidden body has none either, and neither answers.
+  const pickable = currentGroup.children.filter(
+    (c) => c.isMesh && c.userData.side === "front" && c.visible !== false && c.name,
+  );
+  const inClips = (p) => (o.clips || []).every((c) => p[c.axis] >= c.lo && p[c.axis] <= c.hi);
+
+  const picks = [];
+  const pickRc = new THREE.Raycaster();
+  for (const p of o.picks || []) {
+    pickRc.setFromCamera(new THREE.Vector2((p.x / W) * 2 - 1, -(p.y / H) * 2 + 1), cam);
+    // The first hit standing inside every clip band. A section takes geometry off
+    // the frame, so it has to take it off the pick too — otherwise the click lands
+    // on a face that is not in the picture.
+    const h = pickRc.intersectObjects(pickable, false).find((i) => inClips(i.point));
+    picks.push({
+      px: [p.x, p.y],
+      name: h ? h.object.name : null,
+      at: h ? h.point.toArray().map((v) => +v.toFixed(2)) : null,
+      mm: h ? +h.distance.toFixed(2) : null,
+    });
+  }
+
+  // Everything to light: what the picks landed on, plus what --select named.
+  const selM = matchers(o.select);
+  const selLit = [...byName.keys()].filter((n) => hit(selM, n) && mode.get(n) !== "hidden").sort();
+  const lit = [...new Set([...picks.filter((p) => p.name).map((p) => p.name), ...selLit])].sort();
+
+  const selEdgeMat = new THREE.LineBasicMaterial({
+    color: SEL, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false,
+  });
+  for (const name of lit) {
+    const seen = new Set();
+    for (const mesh of byName.get(name) || []) {
+      // Front and back share one geometry — one outline per solid, not two.
+      if (seen.has(mesh.geometry)) continue;
+      seen.add(mesh.geometry);
+      // The overlay hangs off the scene, so each piece carries the mesh's own
+      // world matrix rather than assuming the model group sits at the origin.
+      const wear = (obj) => {
+        obj.matrixAutoUpdate = false;
+        obj.matrix.copy(mesh.matrixWorld);
+        selOverlay.add(obj);
+      };
+      wear(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, SEL_EDGE_DEG), selEdgeMat.clone()));
+      const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
+        color: SEL, transparent: true, opacity: 0.18, side: THREE.DoubleSide,
+        depthWrite: false, depthTest: false,
+      }));
+      shell.renderOrder = 993;
+      wear(shell);
+    }
+  }
+  selEdgeMat.dispose();
 
   // --- Annotation ----------------------------------------------------------
   // Computed here, drawn in node over the screenshot. A DOM overlay is composited
@@ -747,7 +893,8 @@ async function inPageCompose(o) {
   lines.push(o.title);
   lines.push(
     `${o.ortho ? `ortho span ±${spanUsed.toFixed(1)} mm` : `persp zoom ${o.zoom}`}` +
-      `  cam ${o.cam.join(",")}  up ${o.up.join(",")}  target ${target.toArray().map((v) => v.toFixed(1)).join(",")}`,
+      `  cam ${o.cam.join(",")}  up ${o.up.join(",")}  target ${target.toArray().map((v) => v.toFixed(1)).join(",")}` +
+      (o.orbit ? `  orbit ${o.orbit}` : ""),
   );
   lines.push(
     `${counts.solid} solid  ${counts.xray ? `${counts.xray} x-ray  ` : ""}` +
@@ -771,6 +918,17 @@ async function inPageCompose(o) {
         ? `ray  ${c.from.join(",")} → ${c.dir.join(",")}  no contact in ${c.limit} mm (the cast's limit)`
         : `ray  ${c.from.join(",")} → ${c.dir.join(",")}  ${c.mm} mm to ${c.who} at ${c.at.join(",")}`,
     );
+  }
+  for (const p of picks) {
+    lines.push(
+      p.name
+        ? `pick  ${p.px.join(",")} px → ${p.name} — AMBER — at ${p.at.join(",")}, ${p.mm} mm from the eye`
+        : `pick  ${p.px.join(",")} px → nothing; the frame is empty at that pixel`,
+    );
+  }
+  if (o.select.length) {
+    lines.push(`select  ${o.select.join(" ")} → ` +
+               (selLit.length ? `${selLit.join(" ")} — AMBER` : "no body on this frame"));
   }
   if (gridInfo.drawn) lines.push(`grid  ${gridInfo.step} mm on ${gridInfo.axes}`);
   if (!o.ports) lines.push("port markers off");
@@ -841,9 +999,12 @@ async function inPageCompose(o) {
       labels,
       dims: dims.filter((d) => d.onScreen),
       casts: casts.filter((c) => c.onScreen),
+      picks: picks.map((p) => ({ x: p.px[0], y: p.px[1], name: p.name })),
       scale: { x: W - barPx - 26, y: H - 24, px: barPx, mm: barMM },
       legend: lines,
     },
+    picks,
+    lit,
     names: [...byName.keys()].sort(),
     mode: Object.fromEntries(mode),
     counts,
@@ -966,6 +1127,26 @@ function annotationSvg(a) {
     p.push(
       `<rect x="${(mx - w / 2).toFixed(1)}" y="${(my + 8).toFixed(1)}" width="${w.toFixed(1)}" height="16" rx="3" fill="#1a1a2e" fill-opacity="0.94" stroke="${ink}" stroke-width="1"/>` +
         `<text x="${(mx - w / 2 + 4).toFixed(1)}" y="${(my + 20).toFixed(1)}" fill="${ink}" font-weight="600">${esc(txt)}</text>`,
+    );
+  }
+
+  // The pick crosshair: the pixel that was clicked, and the name of what the ray
+  // met there. The name is on the frame beside the amber it lit, so the picture
+  // carries its own proof — read the two together or neither.
+  for (const k of a.picks || []) {
+    const ink = k.name ? "#ffa733" : "#ff8fa3";
+    const txt = k.name || "nothing here";
+    const w = txt.length * CH + 10;
+    const lx = Math.min(Math.max(k.x + 14, 6), W - w - 6);
+    const ly = Math.min(Math.max(k.y - 16, 6), H - 26);
+    p.push(
+      `<circle cx="${k.x.toFixed(1)}" cy="${k.y.toFixed(1)}" r="9" fill="none" stroke="${ink}" stroke-width="1.8"/>` +
+        `<line x1="${(k.x - 16).toFixed(1)}" y1="${k.y.toFixed(1)}" x2="${(k.x - 4).toFixed(1)}" y2="${k.y.toFixed(1)}" stroke="${ink}" stroke-width="1.8"/>` +
+        `<line x1="${(k.x + 4).toFixed(1)}" y1="${k.y.toFixed(1)}" x2="${(k.x + 16).toFixed(1)}" y2="${k.y.toFixed(1)}" stroke="${ink}" stroke-width="1.8"/>` +
+        `<line x1="${k.x.toFixed(1)}" y1="${(k.y - 16).toFixed(1)}" x2="${k.x.toFixed(1)}" y2="${(k.y - 4).toFixed(1)}" stroke="${ink}" stroke-width="1.8"/>` +
+        `<line x1="${k.x.toFixed(1)}" y1="${(k.y + 4).toFixed(1)}" x2="${k.x.toFixed(1)}" y2="${(k.y + 16).toFixed(1)}" stroke="${ink}" stroke-width="1.8"/>` +
+        `<rect x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" width="${w.toFixed(1)}" height="19" rx="3" fill="#1a1a2e" fill-opacity="0.94" stroke="${ink}" stroke-width="1.2"/>` +
+        `<text x="${(lx + 5).toFixed(1)}" y="${(ly + 14).toFixed(1)}" fill="${ink}" font-weight="700">${esc(txt)}</text>`,
     );
   }
 
@@ -1113,8 +1294,13 @@ async function main() {
   fs.mkdirSync(path.dirname(outAbs), { recursive: true });
 
   // One boot, one shot per view. The scene is mounted once and each view only moves the camera
-  // and recomposes, so a set costs the parse plus milliseconds a frame.
-  const shots = opts.views.length ? opts.views : [null];
+  // and recomposes, so a set costs the parse plus milliseconds a frame. Named views first, then
+  // each orbit's sweep in order — one flight plan, however it was asked for.
+  const planned = [
+    ...opts.views.map((v) => ({ label: v, view: v, cam: VIEWS[v].cam, up: VIEWS[v].up })),
+    ...opts.orbits.flatMap(orbitShots),
+  ];
+  const shots = planned.length ? planned : [null];
   const taken = await withViewer({ stepRel, opts }, async (page) => {
     // Chrome hidden as in render-step.js. Applied before the overlay is built,
     // so none of these rules catch it.
@@ -1136,9 +1322,9 @@ async function main() {
 
     const out = [];
     for (const v of shots) {
-      // A named view carries its own camera. An explicit --cam/--up given alongside --views would
-      // aim every shot the same way, so the view's own pair wins for the set.
-      const shot = v ? { ...opts, view: v, cam: VIEWS[v].cam, up: VIEWS[v].up } : opts;
+      // A planned shot carries its own camera. An explicit --cam/--up given alongside --views or
+      // --orbit would aim every shot the same way, so the shot's own pair wins for the set.
+      const shot = v ? { ...opts, view: v.view || null, cam: v.cam, up: v.up, orbit: v.orbit || null } : opts;
       // Labels on when a subject was named; grid on under ortho, where a
       // millimetre is the same length everywhere in the frame.
       const resolved = {
@@ -1161,8 +1347,8 @@ async function main() {
         .composite([{ input: annotationSvg(info.annot), top: 0, left: 0 }])
         .png({ compressionLevel: 9 })
         .toBuffer();
-      // A set writes one file per view beside the name given; a single shot takes that name.
-      const dest = v ? outAbs.replace(/\.png$/i, `.${v}.png`) : outAbs;
+      // A set writes one file per shot beside the name given; a single shot takes that name.
+      const dest = v ? outAbs.replace(/\.png$/i, `.${v.label}.png`) : outAbs;
       fs.writeFileSync(dest, buf);
       out.push({ dest, info, shot });
     }
@@ -1172,7 +1358,7 @@ async function main() {
   // The legend, on stdout as well as in the frame — one block per shot taken.
   for (const { dest: outFile, info, shot } of taken) {
   console.log(`\nwrote ${outFile}  (${opts.width}x${opts.height})`);
-  console.log(`  view      ${shot.view || "custom"}  cam ${shot.cam.join(",")}  up ${shot.up.join(",")}`);
+  console.log(`  view      ${shot.view || shot.orbit || "custom"}  cam ${shot.cam.join(",")}  up ${shot.up.join(",")}`);
   console.log(
     `  framing   ${shot.ortho ? `ortho, span ±${info.spanUsed.toFixed(2)} mm` : `perspective, zoom ${shot.zoom}`}` +
       `  target ${info.target.join(",")}  ${info.mmPerPx.toFixed(4)} mm/px  scale bar ${info.barMM} mm`,
@@ -1191,7 +1377,7 @@ async function main() {
   );
   if (info.hiddenNames.length) console.log(`  hiding    ${info.hiddenNames.join(" ")}`);
   for (const l of info.annot.legend) {
-    if (/^(gap|ray) /.test(l)) console.log(`  ${l.replace(/^(gap|ray)\s+/, (m) => m.padEnd(10))}`);
+    if (/^(gap|ray|pick|select) /.test(l)) console.log(`  ${l.replace(/^(gap|ray|pick|select)\s+/, (m) => m.padEnd(10))}`);
   }
   if (info.grid.drawn) console.log(`  grid      ${info.grid.step} mm on ${info.grid.axes}`);
   if (info.labels.length) console.log(`  labelled  ${info.labels.map((l) => l.name).join(" ")}`);
