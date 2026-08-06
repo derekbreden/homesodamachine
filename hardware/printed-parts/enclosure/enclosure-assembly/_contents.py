@@ -683,7 +683,7 @@ NOZZLE_TRAY_YAW = 0.0
 # advance on the chain-fixed tee plane, and each millimetre comes off the four column legs'
 # forward standoff, which stands level with their drop budget and buys those eight corners
 # nothing back. Y-E recentres in the strip behind the pumps and follows
-# ([3.4](FRONT_CHAIN_GAP) to their aft faces). The source pair's own two feeds turn in the
+# ([19](FRONT_CHAIN_GAP) to their aft faces). The source pair's own two feeds turn in the
 # same band a storey up, where only the climb shares it.
 SOURCE_TRAY_AFT_BAND = 24.0
 # The column stands on the refrigeration stratum's ROOF, and this is the band its LOWEST body
@@ -906,6 +906,18 @@ PUMP_B_LANE_X = -10.0
 # through the wall.
 FRONT_CORNER_POD = 16.3                 # = 2 × enclosure.socket_r, as REAR_CORNER_COLUMN aft
 PUMP_B_FRONT_BAND = FRONT_CORNER_POD - FRONT_STANDOFF + LINE_HUG              # 14.3
+# CHANNEL B'S PUMP DOES NOT ANSWER TO THAT POD. The pod is CORNER furniture: it runs from the
+# −X wall's inner face east to x 0 and nothing stands behind the front wall past it, so a body
+# whose west face is east of that column meets the WALL and not the post. Pump A's is, by its
+# twin's own width — so its front band is the wall's own inner face (the pack's y datum) and one
+# `LINE_HUG`, and it stands [13.3](PUMP_A_GAIN) mm forward of the row it used to share a plane
+# with. That is the depth the BAG STRIP gains: the bag pair's collets and Y-E all stand over
+# THIS pump's span, not its twin's, so the strip ahead of them is what this face leaves
+# (`y_e_pos`, and `_lines`' fluid-16 and fluid-22).
+#   The twin cannot follow. Clearing the pod puts its west face at x 1.5, and the pair then
+# reaches x 128.5 against a condenser fence at 124.0 — so pump B keeps the pod's own band and
+# the two pumps no longer stand on one plane.
+PUMP_A_FRONT_BAND = LINE_HUG
 # How far a barb stands over the pump's own bounding box, off the part
 # (`kamoer_kphm400`): the arch plane over the head's front face. One number for both pumps —
 # they are one part twice — and it is what lets a pump's SEAT be derived from the plane its
@@ -1614,7 +1626,7 @@ def _build():
                foot=at(bag_a_tray_pos()[2] + _tray.port_z - PUMP_PORT_RISE))
     pack.place("pump-a", turned_pump("pump-a"),
                west=flush("pump-b", "west") + pump_barb_span("pump-b") + PUMP_TWIN_PITCH,
-               front=flush("pump-b", "front"), foot=flush("pump-b", "foot"))
+               front=at(PUMP_A_FRONT_BAND), foot=flush("pump-b", "foot"))
     # The seven tees. The manifold's own junction stands on the two columns its four ports make
     # (`junction_tee_pos`); channel A's pump row stands in the lane pump B's own two lines run
     # down (`pump_row_tee_pos`); channel B's stands on the aft stand — Y-G on the column its
@@ -2722,19 +2734,36 @@ def y_e_pos():
 
     Short when the strip has closed to where this fitting no longer stands across it."""
     collet, _face = bag_a_tray_port("V-F-O")
-    twin = packed().box("pump-b")
-    strip = collet[1] - twin.ymax
+    # CHANNEL B'S PUMP IS THE ONE IN FRONT OF THIS FITTING, not channel A's: the bag pair's four
+    # collets and this whole body stand over pump A's span in X, and pump A stands a
+    # `PUMP_A_FRONT_BAND` off the wall while its twin keeps the corner pod's band.
+    ahead = packed().box("pump-a")
+    strip = collet[1] - ahead.ymax
     body = 2.0 * TEE_HALF_W + 2.0 * 1.0        # one `scorecard.CLEARANCE_FLOOR` either side
     if strip < body:
         _short("y-e-strip",
-               f"the strip between the pump row's aft face (y={twin.ymax:.2f}) and the bag pair's "
+               f"the strip between pump A's aft face (y={ahead.ymax:.2f}) and the bag pair's "
                f"forward collets (y={collet[1]:.2f}) is {strip:.2f} mm, and Y-E across it is "
                f"{2 * TEE_HALF_W:.2f} mm of body with a clearance floor owed either side "
                f"({body:.2f}). Step the pump row {body - strip:.2f} forward, or the head column "
                f"that much aft.")
-    return (collet[0],
-            (twin.ymax + collet[1]) / 2.0,
-            collet[2] + JUNCTION_LEG_LEAD + TEE_BRANCH_REACH)
+    # IT STANDS OFF THE PAIR BY THE LEG ITS OWN BRANCH LEG WANTS. fluid-14 leaves V-F-O forward
+    # and turns once, straight up the column into the branch, so its corner seats the SHORTER of
+    # that forward leg and the `JUNCTION_LEG_LEAD` the branch collet stands over the port plane
+    # by — and the two are equal here, so neither is the short one. Nearer the pair than this and
+    # the leg runs inside the stub `_lines` leaves the collet on, which turns the run back on
+    # itself; further and the branch height is the whole of the corner anyway.
+    #   What the strip has past this body is the run the pump row's own two lines leave in
+    # (`_lines`, fluid-22's climb across pump B's crown).
+    stand = collet[1] - JUNCTION_LEG_LEAD
+    if collet[1] - (stand + TEE_HALF_W) < 1.0:
+        _short("y-e-pair",
+               f"Y-E stands {JUNCTION_LEG_LEAD:.2f} mm off the bag pair's forward collets so "
+               f"fluid-14's corner seats its branch height, and its own body reaches "
+               f"{TEE_HALF_W:.2f} mm of that — leaving "
+               f"{collet[1] - (stand + TEE_HALF_W):.2f} mm to the pair's face, under the "
+               f"clearance floor. The branch lead and the fitting's half-width have crossed.")
+    return (collet[0], stand, collet[2] + JUNCTION_LEG_LEAD + TEE_BRANCH_REACH)
 
 
 # Under `TEE_TURNS`, local +Z is the run's WEST collet and local −Z its EAST; the branch is DOWN.
