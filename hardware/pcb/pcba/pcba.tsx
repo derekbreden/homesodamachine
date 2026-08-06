@@ -437,10 +437,11 @@ export default () => (
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM decoupling per chip.
-        DRIVE: the dosing pumps run ONE direction (dispense — peristaltic tubing occlusion stops
-        backflow, no reverse-purge), so this is single-direction fast-decay drive: IN2 tied to GND,
-        only IN1 PWM'd from the ESP. That halves the IN bus to one trace per pump and frees IO16/IO18.
-        (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
+        DRIVE: the dosing pumps run ONE direction (dispense), so this is single-direction fast-decay
+        drive: IN2 tied to GND, only IN1 PWM'd from the ESP. That halves the IN bus to one trace per
+        pump and frees IO16/IO18. The head seals nothing at rest — a parked KPHM400 passes flow both
+        ways, and the manifold's NC solenoids hold every line (fluid-topology.md) — so direction buys
+        operations, not sealing: reverse fill and nozzle suck-back are what IN2->IO16/IO18 is for. */}
     {U11El}
     <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={22.75} rot={90} side="W" />
     <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.35} rot={180} side="N" />{/* nudged S so the N ref-des clears U11's GND pad */}

@@ -17,6 +17,8 @@
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
+**A stopped pump is not a closed valve.** A parked KPHM400 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap pressure crosses an idle pump to reach a bag.
+
 > **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It gates the carbonator fill line on the water-split's run to the SeaFlo suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the board's spare `J2.OUT3` channel.
 
 ## Junctions
