@@ -2,15 +2,17 @@
 flavor-line pass-throughs, CO2 inlet bore, and the shared
 copper/PRV-vent slot.
 
-All but one open on the shell's −X FACE, on the port lane
+All but two open on the shell's −X FACE, on the port lane
 (`_cold_core_interface`, §"The front face, and the lane that reaches it"). None of
 them reaches that face head-on: each is two features — an inner bore where the
 fitting inside points, and a station on the front field — with the line turning
 through the lane between them, west to the wall and up it to the station.
 
-The one is reservoir B's flavor line, which takes the +Y band instead and leaves by
-the TOP. It is the same shape — an inner bore, a band, a second feature — with the
-second feature in the cap (`cap_conduits`) rather than in this wall.
+The two are reservoir B's flavor line and the vessel's carbonated-water outlet, both of
+which leave by the TOP. They are the same shape — an inner bore, a band, a second feature
+— with the second feature in the cap (`cap_conduits`) rather than in this wall, and the
+band a climb rather than a reach: B's is the +Y band and the carb water's is the port lane
+itself, which every front-field line crosses and only this one goes up.
 """
 
 import cadquery as cq
@@ -39,9 +41,10 @@ from _cold_core_interface import (
 # [17](FRONT_FACE_PORT_Z) — Z of the vessel's two bottom-plate lines where they
 # leave their own fittings: the water outlet and the CO2 inlet, both
 # hole_shift_from_edge in from the +Z outer face of the shell's floor. One band of
-# the shell's height carries both, one either side of the plate's own axis in Y. Where each of them CROSSES
-# THE WALL is a front-field station (`front_port_z`), which is higher: the line
-# climbs the lane to get there.
+# the shell's height carries both, one either side of the plate's own axis in Y. Both land
+# on the lane here and neither crosses the wall here: the CO2 climbs a little way to its
+# front-field station (`front_port_z`) and turns west, the water outlet climbs the whole
+# shell to the cap. So the lane holds them apart from the point they share.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
 # −Y (front, toward the user) start of the water-outlet and copper/PRV-vent
@@ -80,7 +83,10 @@ flavor_line_minus_x_xyz = (-reservoir_bulkhead_port_x, -reservoir_bulkhead_port_
 def cut_circular_port_holes(foam_shell):
     # The water outlet leaves the vessel's bottom plate on the tank's own centre
     # line and turns onto the lane: no pocket stands behind it, so its inner bore
-    # is one reach from the fitting out to the lane.
+    # is one reach from the fitting out to the lane. It has no second bore in the
+    # shell either — the lane it lands in runs clear to the shell's open top at every
+    # height, and the feature at the far end of it is the cap's `carb-water-out`
+    # conduit. Every other line on this lane turns west here; this one turns up.
     foam_shell = foam_shell.cut(
         build_hole_punch(
             origin=water_outlet_xyz,
@@ -89,8 +95,6 @@ def cut_circular_port_holes(foam_shell):
             direction=-1,
         )
     )
-    foam_shell = cut_front_exit(foam_shell, z=front_port_z("carb-water-out"),
-                                hole_punch_radius=port_hole_radius)
     # Reservoir A pierces its pocket's −Y wall where its bulkhead elbow points, and the
     # −X wall at its own station; the port lane joins the two.
     foam_shell = cut_pour_band_pass_through(

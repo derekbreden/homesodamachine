@@ -343,7 +343,7 @@ CO2_SEGMENTS = [
 # collet at each end, so each half anchors on its own port rather than being one run with
 # a fitting drawn on it.
 CARB_SEGMENTS = [
-    ("carb-1", "foam-assembly carb-water-out (PP010822E on the vessel's bottom-plate Port 3)", "digiten-flow inlet (1/4\" PTC collet)"),
+    ("carb-1", "foam-assembly carb-water-out (cap conduit over the port lane, off the PP010822E on the vessel's bottom-plate Port 3)", "digiten-flow inlet (1/4\" PTC collet)"),
     ("carb-2", "digiten-flow outlet (1/4\" PTC collet)", "bulkhead-carb tube-in (JG PP1208E, inboard)"),
 ]
 
@@ -1035,17 +1035,17 @@ def _declare_ports():
     _BACK_C14   = contents.back_port_station("c14-inlet")
 
     declared = [
-        # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits.
-        # NINE on the shell's −X face, which the yaw puts at the machine's front: six take their own
+        # foam-assembly — 9 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits.
+        # SEVEN on the shell's −X face, which the yaw puts at the machine's front: four take their own
         # round bore on the front port field, three share the slot above it, and every one of them
         # reaches that face along the port lane rather than head-on — so a station's Z is where its
-        # line crosses the wall, not where its fitting sits. The tenth leaves by the TOP CAP, whose
-        # outer face is the service bay's floor. Ø: the beverage/flavor lines run the
+        # line crosses the wall, not where its fitting sits. The other FOUR leave by the TOP CAP,
+        # whose outer face is the service bay's floor. Ø: the beverage/flavor lines run the
         # foam shell's Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4"
         # tube; the water-in takes the SeaFlo's 3/8" discharge on the warm side; the copper legs are
         # 1/4" ACR = 6.35. Every mate named here is a body the thin pack has not placed yet, so each
         # of these is a located end waiting on its other one; that is what `routed` is counting.
-        _p("carb-water-out", "foam-assembly", "fluid",       *_FOAM_PORT("carb-water-out"), 6.35,  "the carb-water riser, to the faucet umbilical", "1/4\" tank NPT elbow line"),
+        _p("carb-water-out", "foam-assembly", "fluid",       *_FOAM_PORT("carb-water-out"), 6.35,  "the carb-water riser, to the faucet umbilical", "1/4\" LLDPE off the PP010822E on the vessel's bottom-plate Port 3 elbow, out to the port lane and up it potted, out this conduit"),
         _p("reservoir-A",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-a"), 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
         _p("reservoir-B",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-b"), 6.35,  "reservoir B DRAW → V-H, the bag-B pair's inlet", "1/4\" LLDPE off the bulkhead at the bottom of the wet V, up the +Y band potted, out this conduit"),
         _p("reservoir-b-fill", "foam-assembly", "fluid",     *_FOAM_PORT("reservoir-b-fill"), 6.35,  "V-I outlet → reservoir B FILL, the bore in its own cap", "1/4\" LLDPE down this conduit onto the reservoir cap's fill bore, above the liquid"),
@@ -1125,7 +1125,7 @@ def _declare_ports():
         _p("tube-port", "suction-chain", "fluid", *contents.suct_terminal("tube-port"), 6.35, "vk-tray-assembly V-K-O — segment water-4", "PP450822E 1/4\" PTC collet, facing FORWARD off the near end of the laid-down chain at V-K's outlet — the two mouths face along one axis, so water-4 is an offset into the slot and not a turn"),
         _p("barb-tip",  "suction-chain", "fluid", *contents.suct_terminal("barb-tip"),  15.1, "seaflo-pump suction — segment water-7", "MAACFLOW 3/8\" hose barb, facing AFT off the far end of the laid-down chain — fed from behind, so the stub runs past it under the chain and loops up in the room the rear plane leaves; worm-gear clamp"),
         # The carb riser's flow meter, inline in the loft with the flow running aft.
-        _p("inlet",   "digiten-flow", "fluid", *contents.digiten_terminal("inlet"),  6.35, "foam-assembly carb-water-out — segment carb-1", "1/4\" PTC collet, facing forward (−Y) at the riser's climb out of the front column"),
+        _p("inlet",   "digiten-flow", "fluid", *contents.digiten_terminal("inlet"),  6.35, "foam-assembly carb-water-out — segment carb-1", "1/4\" PTC collet, facing forward (−Y) down the deck at the riser's climb off the cap conduit"),
         _p("outlet",  "digiten-flow", "fluid", *contents.digiten_terminal("outlet"), 6.35, "bulkhead-carb tube-in — segment carb-2", "1/4\" PTC collet, facing aft (+Y) at the climb to the rear port row"),
         _p("pigtail", "digiten-flow", "electrical", *contents.digiten_terminal("wire-exit"), 8.0, "J4 SENSORS — DIGITEN flow pulse (SIG-4)", "3-wire pigtail on a JST-XH 3-pin, leaving the rim boss upward"),
         # The AC hub's three lever nuts — the mains distribution.
