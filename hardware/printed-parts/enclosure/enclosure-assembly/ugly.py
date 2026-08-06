@@ -186,6 +186,10 @@ def table(card, only=(), show=("runs", "held")) -> str:
     src = card.get("source", {})
     bends = card["bends"]
     debt = {b["body"]: b["debt"] for b in bodies(bends)}
+    # Naming a run asks which bodies could move for it, so it selects its own two ends in
+    # every section below the run rows.
+    kin = set(only) | {e.split(".")[0] for r in bends if r["id"] in only
+                       for e in (r["frm"], r["to"])}
     out = []
 
     if "runs" in show:
@@ -216,7 +220,7 @@ def table(card, only=(), show=("runs", "held")) -> str:
                    f"back on itself. `[n]` on an end body is what else that body carries.")
 
     if "bodies" in show:
-        rows = [b for b in bodies(bends) if not only or b["body"] in only]
+        rows = [b for b in bodies(bends) if not kin or b["body"] in kin]
         if out:
             out.append("")
         out.append(f"{'debt':>6} {'bad':>7}  body")
@@ -229,7 +233,7 @@ def table(card, only=(), show=("runs", "held")) -> str:
                    f"which move would land on more than one of them.")
 
     if "held" in show:
-        rows = [u for u in unmounted(card) if not only or u["component"] in only]
+        rows = [u for u in unmounted(card) if not kin or u["component"] in kin]
         if out:
             out.append("")
         out.append(f"{'cm³':>8} {'fill':>5} {'joint':>7} {'pose':>12}  component")
