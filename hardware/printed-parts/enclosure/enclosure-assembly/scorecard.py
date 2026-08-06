@@ -2643,8 +2643,8 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
                     else lbl for lbl, v, mx, ok in mount_rows[c.name][2])
         for c in sorted(adrift, key=lambda c: c.name)]
     mounted_detail.append(
-        f"{len(loose)} with nothing fastening them — a body resting on another is not mounted, "
-        f"and neither is one captured by a pocket or stuck down. One row each, below.")
+        f"{len(loose)} with nothing fastening them — a printed feature that only locates a body "
+        f"does not pin it, and neither does resting on one. One row each, below.")
     # One row per open joint, carrying what holds that body today. The distance from there to a
     # feature printed into another part is the joint to design.
     mounted_detail += [

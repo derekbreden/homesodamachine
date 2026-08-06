@@ -140,10 +140,16 @@ one (green/yellow); the other five render gray behind it until the focus — it 
   not the cap itself is — the test is local, what fastens *this* one. Resting on a part is
   not mounted, however closely: the valve trays carry boss holders, but the holders are in
   the tray and the tray sits on the cap loose — print those holders into the cap the way
-  the board's columns are and the trays are mounted, not before. Capture is not a fastener
-  (the foam in its floor pocket, the display let into its facet), and neither is adhesive.
-  `MOUNTED_BY` in `scorecard.py` names each component's carrier; a component absent from it
-  is a joint still to design.
+  the board's columns are and the trays are mounted, not before. Adhesive is not a fastener.
+  What the printed feature IS does not matter, only that it PINS: a screw into a boss column,
+  a nut bearing on a bored land, a taper thread made up in a bore, a rail pair taking a tray's
+  haunches — and a joint may leave one axis free on purpose, as the drip pan withdraws along
+  its rails. A feature that only LOCATES is not a joint (the foam in its floor pocket, the
+  display let into its facet — nothing in either resists lifting the body out).
+  `MOUNTED_BY` in `scorecard.py` names each component's carrier and `mount_features` states
+  the printed feature the joint stands on, which `mount_audit` measures every build. A
+  component absent from `MOUNTED_BY` is a joint still to design; one present whose measurement
+  fails, or which has no measurement, reads ADRIFT and does not count.
 - **placed** *(deferred)* — placement criteria are DEFINED in code and currently HELD.
   A component's intended position is written as measurements the scorecard checks, in three
   forms: **face-to-datum** — a body face within max_mm of the enclosure interior's same
