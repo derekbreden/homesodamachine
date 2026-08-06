@@ -36,6 +36,16 @@ arriving inside that angle needs no corner, so it needs no constraint to place o
 between two nearly-facing collets is authored `route(cid, frm, to, stub=0.0)` with nothing
 between. The column's four legs are written that way, ~1.8° at each end.
 
+A mouth that is not a collet carries its own figure. A **cap conduit** is a bore up a column of
+the foam cap, and the hole it opens by in the cap's lid is countersunk to `CAP_BORE_SKEW`
+(`_cold_core_interface.cap_conduit_entry_skew`) — so a line leaves along the lip the cone opens
+rather than across a square edge, and the column beneath still carries the bore on its axis.
+The cone stands inside the boss its own column already carries, which is what holds it to the
+fences that column passes and what caps the angle: a cap wall and a lid of one thickness put
+that ceiling at 45°. `skew=(exit, approach)` on `route`/`bent`/`lean_into` holds a run's two
+ends to their own numbers, and a run between a collet and a conduit needs it — fluid-24 and
+fluid-26 are the pair, each falling 14.3 mm through a right angle onto the reservoir-B lid.
+
 The exit stub off the source port and the approach stub into the destination are emitted by
 `route`, along each port's face normal, one bend radius by default. `stub=(exit, approach)` sets
 them separately.

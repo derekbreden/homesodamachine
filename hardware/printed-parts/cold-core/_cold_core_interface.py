@@ -506,10 +506,39 @@ for _name in deck_mounts:
 # foam pours around its shank the way it pours around a deck mount's, the lid passes it,
 # and a line runs up it from the shell's open top out onto the lid's outer face. The
 # service bay stands on that face.
+lldpe_tube_od = 6.35                         # the 1/4" line every fluid port on the core takes
 cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.5](PORT_HOLE_DIAMETER) every shell penetration takes
 cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
+
+# How far off its own bore axis a line leaves a conduit — a bore's `_lines.FLAVOR_SKEW`. The
+# LID'S HOLE IS COUNTERSUNK to this angle: the lip a leaning line crosses lies along it, and
+# what the tube bears on there is a face. The column under the lid carries the bore on its own
+# axis. `_contents.CAP_BORE_SKEW` is bound to this name.
+cap_conduit_entry_skew = 38.0
+# The countersink's mouth on the lid's outer face — the bore opened at that angle through the
+# one wall of plate the lid is: ⌀[9.625](ENTRY_RELIEF_D).
+cap_conduit_entry_relief_radius = (
+    cap_conduit_bore_radius
+    + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
+# The relief stands inside the boss its own column carries, so `cap_conduit_room`,
+# `cap_conduit_wall_neck` and `cap_conduit_pair_neck` fence the cone where they fence the
+# column. A wall and a lid of one thickness put that ceiling at [45°](ENTRY_SKEW_CEILING).
+cap_conduit_entry_skew_ceiling = math.degrees(
+    math.atan2(cap_conduit_wall, wall_and_floor_thickness))
+assert cap_conduit_entry_skew <= cap_conduit_entry_skew_ceiling + 1e-9, (
+    f"cap conduit entry: {cap_conduit_entry_skew:g}° opens the lid's hole to "
+    f"⌀{2.0 * cap_conduit_entry_relief_radius:.2f}, past the ⌀{2.0 * cap_conduit_boss_radius:g} "
+    f"column under it — a relief stands inside its own boss, which is "
+    f"{cap_conduit_entry_skew_ceiling:.1f}° here")
+# The mouth passes the tube's SECTION and not just its centreline: a ⌀[6.35](LLDPE_TUBE_OD) line
+# crossing the outer face at that lean reads `r / cos(skew)` wide in the face's own plane.
+assert cap_conduit_entry_relief_radius >= (
+        0.5 * lldpe_tube_od / math.cos(math.radians(cap_conduit_entry_skew)) - 1e-9), (
+    f"cap conduit entry: a ⌀{lldpe_tube_od:g} line leaning {cap_conduit_entry_skew:g}° reads "
+    f"{lldpe_tube_od / math.cos(math.radians(cap_conduit_entry_skew)):.2f} mm across the lid's "
+    f"face, over the ⌀{2.0 * cap_conduit_entry_relief_radius:.2f} the relief opens to")
 
 # Per conduit: its centre in the CAP'S OWN frame. The cap installs spun a half turn about
 # Z (`foam_assembly.spin_xy`), and a half turn is its own inverse — so a conduit that
@@ -560,7 +589,7 @@ cap_conduits = {
 # axis up to the cap's floor, against the rise a corner of 1/4" LLDPE takes.
 tank_top_plate_z = wall_and_floor_thickness + tank_support_ring_height + tank_height
 top_band_to_cap = foam_shell_outer_height - (tank_top_plate_z + hole_shift_from_edge)
-lldpe_bend_radius = 4.0 * 6.35   # [25.4 mm](LLDPE_BEND_R) — 4 × OD, `_routing.BEND_RATIO`
+lldpe_bend_radius = 4.0 * lldpe_tube_od   # [25.4 mm](LLDPE_BEND_R) — 4 × OD, `_routing.BEND_RATIO`
 
 
 def cap_conduit_wall_neck(x, y):
@@ -863,6 +892,9 @@ if __name__ == "__main__":
         "VESSEL_PORT_OFFSET": f"{vessel_port_offset:.4g} mm",
         "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
         "FORWARD_BAND": f"{forward_band_width:.4g} mm",
+        "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",
+        "ENTRY_RELIEF_D": f"{2.0 * cap_conduit_entry_relief_radius:.4g}",
+        "ENTRY_SKEW_CEILING": f"{cap_conduit_entry_skew_ceiling:.4g}°",
     }
     substitute_py_comments(
         Path(__file__),
@@ -884,7 +916,10 @@ if __name__ == "__main__":
             "VESSEL_PORT_PITCH": 1,
             "VESSEL_PORT_OFFSET": 1,
             "LLDPE_BEND_R": 2,
-            "FORWARD_BAND": 2,
+            "FORWARD_BAND": 1,
+            "LLDPE_TUBE_OD": 1,
+            "ENTRY_RELIEF_D": 1,
+            "ENTRY_SKEW_CEILING": 1,
         },
     )
     print("-> _cold_core_interface.py (self)")
