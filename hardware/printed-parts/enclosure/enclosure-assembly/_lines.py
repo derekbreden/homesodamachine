@@ -96,7 +96,10 @@ bound it:
     ACROSS it (`_contents.y_e_pos`) and fluid-14, fluid-15 and fluid-16 all reach it here, along
     with the four legs that land on the two pumps' own barbs. Nothing stands in the strip but
     that fitting, and what bounds it is placed at both ends: the pump row's Y is its twin's and
-    the pair's is the head column's.
+    the pair's is the head column's. Its DEPTH is a budget two mouths facing down it divide —
+    V-E-I and pump A's outlet, which stand within a tube of one column — and its WIDTH is what
+    parts the runs that climb and fall in it: fluid-16 holds the band between Y-E's west collet
+    and that draw, and fluid-22 leans west out of the barb's column to clear it.
   * the selects pair's own port plane at [246.5](SEL_PORT_Z), where fluid-7 and fluid-8 arrive
     down their columns at the two channel gates, and the bag pair's a stack pitch below it,
     where fluid-14 and fluid-16 leave forward and both pumps' four barbs stand. Those two legs
@@ -380,6 +383,26 @@ def _seat_lean(a, u, b, v, la, lb, pa, pb, straight, cap):
     return w1, w2, t1, t2, r1, r2
 
 
+def _west_lean(x, z0, z1, stub, stock):
+    """The column a leaning climb from `(x, z0)` to `z1` is STRUCK to — the waypoint, which the
+    arc standing at it cuts well short of.
+
+    The leg rises `z1 − z0` and crosses `x − column` in one move, and hands off to a LEVEL
+    crossing — so the corner between them turns `90° + atan(cross / rise)`, past square, and
+    pays `stock·tan(θ/2)` back down the leaning leg it shares with the `stub` behind it. Every
+    millimetre west lengthens that leg and opens that turn together, and the two run out at the
+    reach returned. Bisected from below, so the corner seats the arc.
+    """
+    rise = z1 - z0
+    lo, hi = 0.0, 2.0 * rise
+    for _ in range(60):
+        mid = (lo + hi) / 2.0
+        turn = 90.0 + math.degrees(math.atan2(mid, rise))
+        seats = math.hypot(mid, rise) - stub >= stock * math.tan(math.radians(turn) / 2.0)
+        lo, hi = (mid, hi) if seats else (lo, mid)
+    return x - lo
+
+
 def _mouth(f, anchor: str):
     """A `route`/`bent` anchor — `"component.port"` — split into the frame and port name
     `lean_into` reads, so a run states its two ends once and both the solve and the run itself
@@ -630,23 +653,26 @@ def _authored_runs() -> list:
     # fall and a cross that neither axis points down, and both corners come in under square on
     # an on-axis lead.
     #
-    # NEITHER OF ITS TWO REACHES IS ITS OWN TO SPEND. V-E-I and pump A's outlet barb stand
-    # HEAD-ON down one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so
-    # no lane in x parts them — and fluid-22 leaves that barb up a column this run's own descent
-    # falls through. Both of these reaches move it in that pocket: the EXIT walks the top of the
-    # descent WEST onto fluid-22's climb, and the APPROACH walks its foot AFT onto fluid-22's
-    # stub. So the pocket carries one reach and both runs take it.
-    #   `BAG_STRIP_REACH` is the largest the three take together with a `LINE_PITCH` still
-    # between the two centrelines. What binds is the crossing — the top of this descent against
-    # that climb — where the two tubes close to [1.02](STRIP_SEP) mm of each other over a
-    # `LINE_HUG` floor. Split unequally the pocket buys about half a millimetre more on the
-    # tighter of the two corners and stands that crossing exactly ON the floor; this is the
-    # reach with room left in it.
-    BAG_STRIP_REACH = 6.25
-    f22_stub = BAG_STRIP_REACH
+    # THE APPROACH IS NOT ITS OWN TO SPEND. V-E-I and pump A's outlet barb stand HEAD-ON down
+    # one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so no lane in x
+    # parts them, and the whole depth of the strip between the two mouths is ONE BUDGET this
+    # run's approach and fluid-22's stub divide. What binds is the FOOT of this descent against
+    # the foot of that climb, where the two tubes close to [1.34](STRIP_SEP) mm of each other
+    # over a `LINE_HUG` floor. So the pair is held by the column the barb stands on, not by these
+    # two numbers: what buys both a rounder turn is a millimetre of x between the mouths.
+    #   The split of what there is runs nearly even. fluid-22's first corner seats its stub
+    # whole — a square turn off the barb — and this one seats
+    # `(approach − DIVIDER_LEG_STRAIGHT) / tan(turn/2)` on a turn the lean holds under square,
+    # so the two rise against each other and cross with a quarter of a millimetre more on the
+    # approach. Every quarter past that crossing is a quarter off the pair.
+    #   THE EXIT IS OUT OF THAT BUDGET and stands where its own corner wants. fluid-22's climb
+    # leans WEST off the barb's column (below), so what stands beside the top of this descent is
+    # the strip's own air.
+    F16_EXIT, F16_APPROACH = 6.5, 7.25
+    F22_STUB = 7.0
     (w1, w2), f16_lean, f16_r, _f16_turns = lean_into(
         *_mouth(f, "tee-y-e.Y-E-3"), *_mouth(f, "bag-a-tray-assembly.V-E-I"),
-        (BAG_STRIP_REACH, BAG_STRIP_REACH))
+        (F16_EXIT, F16_APPROACH))
     runs.append(R.bent(
         "fluid-16", "tee-y-e.Y-E-3", w1, w2, "bag-a-tray-assembly.V-E-I",
         kind="fluid", skew=FLAVOR_SKEW, bend=f16_r,
@@ -1059,40 +1085,54 @@ def _authored_runs() -> list:
              "crossing, the machine's length into the collet band, and down the front column "
              "leaning onto the barb's own column"))
 
-    runs.append(route(
+    # THE CLIMB OUT OF THE BAG STRIP LEANS WEST, off the barb's own column. fluid-16's descent
+    # holds the band from Y-E's west collet down to V-E-I — [14.2](STRIP_DESCENT) mm wide in x,
+    # carrying every height between the port plane and the fitting's run. West of that band the
+    # strip is empty above the barb plane: pump B's flank stands forward of it, Y-C a storey
+    # down and aft, and fluid-11 crosses on the port plane alone.
+    #   The rise and the cross into that air are ONE LEG, and the corner at its top turns PAST
+    # square — `r·tan(θ/2)` on a turn wider than ninety, paid out of the [77.5](F22_CROSS) mm of
+    # level crossing beyond it rather than out of the [7](F22_STUB) mm stub behind. At a stock
+    # radius that arc takes nearly the whole leaning leg, so the tube leaves the barb's column ON
+    # THE CURVE, stands west to x [48.3](F22_WEST) partway up, and comes back east along the
+    # crossing. `_west_lean` strikes the waypoint the leg is drawn to.
+    pao = pa.at("P-A-O")
+    f22_lane = pao[1] + F22_STUB
+    f22_cross_z = y_e.bb.zmax + LINE_STEP    # clear over the junction across the strip
+    f22_climb_x = _west_lean(pao[0], pao[2], f22_cross_z, F22_STUB,
+                             R.stock_min("fluid", pa.diam("P-A-O")))
+    # THE BRANCH'S OWN COLUMN IS THE LANE, ONCE THE RUN IS ALOFT. Y-G stands in the lane east of
+    # V-K's plate and the band over its crown is [58.9](YG_COLUMN) mm clear to the hopper's
+    # floor, so the length of the machine and the fall want one column and the fall is taken ON
+    # the branch. THE CROSSING CANNOT HAVE IT: the branch stands east of `lane_e`, the lane the
+    # condenser's west flank leaves, and fluid-15's climb stands in that lane — so this run
+    # takes the next `LINE_PITCH` west of it, in the strip neither the block nor that climb is in.
+    f22_col = min(y_g.at("Y-G-1")[0], lane_e - LINE_PITCH)
+    # THE STOREY IT CLIMBS ON IS THE LOFT'S. The front column's east lane carries fluid-21's
+    # fall at the crossing's own height, and this run has the same Y to spend whichever storey
+    # it spends it on — so it spends it aloft, where the column is the funnel's floor and
+    # nothing else's. The band is the one over Y-F's crown, one clearance floor up it, inside
+    # what that crown leaves to the hopper's floor (`_contents`' own `LOFT_TEE_HEADROOM`).
+    f22_loft_z = y_f.bb.zmax + CLIMB_HUG + 6.35 / 2.0
+    # The step east is taken over that same crown: the aft band's lane, a `LINE_PITCH` and a
+    # stock arc aft of it, which is a depth Y-F stands at under this band.
+    f22_band_y = (f["foam-assembly"].bb.ymin - contents.PUMP_ROW_TURN + LINE_PITCH
+                  + contents.LLDPE_STOCK_BEND)
+    runs.append(R.bent(
         "fluid-22", "pump-a.P-A-O",
-        {"z": y_e.bb.zmax + LINE_STEP},      # up the strip, clear over the junction across it
-        # THE BRANCH'S OWN COLUMN IS THE LANE, ONCE THE RUN IS ALOFT. Y-G stands in the lane
-        # east of V-K's plate and the band over its crown is [58.9](YG_COLUMN) mm clear to the
-        # hopper's floor, so the length of the machine and the fall want one column and the
-        # fall is taken ON the branch. THE CLIMB CANNOT HAVE IT: the branch stands east of
-        # `lane_e`, the lane the condenser's west flank leaves, and fluid-15's climb stands in
-        # that lane — so this run takes the next `LINE_PITCH` west of it, in the strip neither
-        # the block nor that climb is in.
-        {"x": min(y_g.at("Y-G-1")[0], lane_e - LINE_PITCH)},
-        # AND STRAIGHT UP FROM THERE. The front column's east lane carries fluid-21's fall at
-        # the crossing's own height, and this run has the same Y to spend whichever storey it
-        # spends it on — so it spends it aloft, where the column is the funnel's floor and
-        # nothing else's.
-        # THE BAND IS THE ONE OVER Y-F'S CROWN, one clearance floor up it, inside what that
-        # crown leaves to the hopper's floor (`_contents`' own `LOFT_TEE_HEADROOM`).
-        {"z": y_f.bb.zmax + CLIMB_HUG + 6.35 / 2.0},
-        # The step east is taken over that same crown: the aft band's lane, a `LINE_PITCH` and
-        # a stock arc aft of it, which is a depth Y-F stands at under this band.
-        {"y": f["foam-assembly"].bb.ymin - contents.PUMP_ROW_TURN + LINE_PITCH
-              + contents.LLDPE_STOCK_BEND},
-        y_g.x("Y-G-1"),                      # east over the aft stand onto the branch's own column
-        y_g.y("Y-G-1"),                      # aft the machine's length onto the branch's own lane
-        "tee-y-g.Y-G-1",                 # and straight down into the branch
-        # THE STRIP OFF P-A-O IS BOUNDED BY THE RUN THAT CROSSES IT, not by a bend radius.
-        # fluid-16 falls through the column this stub climbs and closes on the collet at its far
-        # end, so the reach here is the bag strip's `BAG_STRIP_REACH` — [6.25](F22_STUB) mm. The
-        # climb it hands off to is [42.9](F22_CLIMB) mm and would carry [17.5](F22_STUB_CAP) mm
-        # here on its own; the strip is what binds, not the leg.
-        kind="fluid", stub=f22_stub, skew=FLAVOR_SKEW,
-        note="pump B-channel outlet → Y-G branch: east into the tray-east lane, aft down it "
-             "under the inlet's turn, up the front column over the water deck, aft over the "
-             "pump and west along the funnel's floor onto the branch's own column"))
+        (pao[0], f22_lane, pao[2]),                      # aft off the barb onto the strip's lane
+        (f22_climb_x, f22_lane, f22_cross_z),            # up and west in one lean, on the arc it seats
+        (f22_col, f22_lane, f22_cross_z),                # east over the junction into the tray-east lane
+        (f22_col, f22_lane, f22_loft_z),                 # up the front column over the water deck
+        (f22_col, f22_band_y, f22_loft_z),               # aft over the pump onto the funnel's floor
+        (y_g.at("Y-G-1")[0], f22_band_y, f22_loft_z),    # east onto the branch's own column
+        (y_g.at("Y-G-1")[0], y_g.at("Y-G-1")[1], f22_loft_z),   # aft onto the branch's own lane
+        "tee-y-g.Y-G-1",                                 # and straight down into the branch
+        kind="fluid", skew=FLAVOR_SKEW,
+        note="pump B-channel outlet → Y-G branch: aft off the barb, up and west out of the bag "
+             "strip in one lean, east into the tray-east lane, up the front column over the "
+             "water deck, aft over the pump and west along the funnel's floor onto the "
+             "branch's own column"))
 
     # fluid-19 — the channel-B select to Y-F's BRANCH, which faces WEST out over the aft
     # stand's plates, and one of the two runs that cross between the manifold's two stands. It
@@ -1729,11 +1769,14 @@ def lane_stations() -> dict:
         # centrelines, which is the reading `lines-clear` answers.
         "STRIP_OFFSET":     f"{abs(f16.pts[-1][0] - runs['fluid-22'].pts[0][0]):.3g}",
         "STRIP_SEP":        f"{scorecard._solid_gap(R.tube(f16), R.tube(runs['fluid-22'])):.3g}",
-        # fluid-22's stub off the barb, the climb it hands off to, and what that climb has left
-        # for this corner once its far one has taken a stock arc.
+        # The x band fluid-16's descent holds across the strip, off its own two mouths.
+        "STRIP_DESCENT":    f"{abs(f16.pts[0][0] - f16.pts[-1][0]):.3g}",
+        # fluid-22's stub off the barb, the crossing its leaning climb hands off to — the leg
+        # the corner between them takes its tangent out of — and how far west the SWEPT tube
+        # actually stands on that corner's arc, which is the reading fluid-16 falls beside.
         "F22_STUB":         f"{math.dist(runs['fluid-22'].pts[0], runs['fluid-22'].pts[1]):.3g}",
-        "F22_CLIMB":        f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]):.3g}",
-        "F22_STUB_CAP":     f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]) - contents.LLDPE_STOCK_BEND:.3g}",
+        "F22_CROSS":        f"{math.dist(runs['fluid-22'].pts[2], runs['fluid-22'].pts[3]):.3g}",
+        "F22_WEST":         f"{_boxes.boxed(R.tube(runs['fluid-22'])).xmin:.3g}",
         # fluid-23's exit lead: the reach between its own collet's column and the one the outlet
         # it feeds stands on, which is the whole of the open deck east of the bag pair here.
         "F23_LEAD_REACH":   f"{_frames()['tee-y-g'].at('Y-G-3')[0] - runs['fluid-23'].pts[0][0]:.3g}",

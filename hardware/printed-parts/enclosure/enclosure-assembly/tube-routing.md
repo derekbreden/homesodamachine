@@ -134,8 +134,10 @@ front column where neither of those two reaches.
 
 `reach` bounds the centreline and nothing else. A run redrawn at it sweeps a wider tube through
 different air; `lines-clear` and the routed clearances are what answer that, after the edit.
-fluid-16 and fluid-22 pass each other across the bag strip, and both are drawn under what their
-own legs seat because that gap is what the strip has.
+fluid-16 and fluid-22 leave mouths that face each other down the bag strip within a tube of one
+column, so the depth between those mouths is one budget their two leads divide and each is drawn
+under what its own legs seat. What lifts both is a lane in x between the mouths, which is where
+the pump row and the head column stand — a placement, not a reach.
 
 ## Port leads
 
