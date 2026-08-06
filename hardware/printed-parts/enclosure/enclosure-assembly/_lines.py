@@ -79,8 +79,7 @@ bound it:
     aft down it. Both stand on the SAME side, hugging the condenser's intake face at the
     clearance floor, because the lane is one tube wide and they never share a height: the climb
     stops at the fitting's run plane and the crossing enters above it. What holds them to one
-    side is that nothing else descends here — the line that used to is fluid-21, and it goes
-    down the COLLET BAND instead. The lane is bounded by two bodies neither of which is placed
+    side is that nothing else descends here: fluid-21 goes down the COLLET BAND. The lane is bounded by two bodies neither of which is placed
     against it: the trays' east face is the column's, and the condenser's west face is the
     block's intake side.
   * the COLLET BAND, the head column's own aft margin — the [9.5](COLLET_PROUD) mm between the
@@ -656,8 +655,7 @@ def _authored_runs() -> list:
     # THE APPROACH DIVIDES THE STRIP WITH ONE OTHER MOUTH. V-E-I and pump A's outlet stand
     # HEAD-ON down one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so
     # no lane in x parts them and the depth between them is one budget this run's approach and
-    # fluid-22's stub take out of. Pump A standing off the wall rather than off the corner pod
-    # is what deepened it; the two tubes pass at [2.36](STRIP_SEP) mm over a `LINE_HUG` floor.
+    # fluid-22's stub take out of. The two tubes pass at [2.36](STRIP_SEP) mm over a `LINE_HUG` floor.
     #   FLUID-22 TAKES ITS SHARE FIRST, and not by choice: its climb leans WEST across pump B's
     # own crown (below), so its lane has to stand aft of that pump's flank before it may lean at
     # all. What is left of the strip past that lane is this approach's, less the pitch the two
@@ -685,11 +683,8 @@ def _authored_runs() -> list:
     # one geometry, four times. Every term is a wall: the drop is what the fitting's run
     # leaves of the stack pitch (12.73), the forward is the chain — the pumps at the
     # front-corner pod's own floor put the standoff level with the drop — and the spread is
-    # the branch reach (the priced fence on `junction_column_x`). The DROP is the ceiling
-    # now: with the standoff at 12.73 the family seats R ≈ 11.9, a deeper standoff saturates
-    # at ≈ 12.7 (the drop spent whole as one square corner's lead), and the 2.3 mm the
-    # front-wall pod re-cut could still buy is worth ≈ +0.2 R — so the next real rung is the
-    # fitting (18.5 branch reach published, `junction_column_x`) or the stack pitch itself.
+    # the branch reach (the priced fence on `junction_column_x`). THE DROP IS THE CEILING: at a
+    # standoff of 12.73 the family seats R ≈ 11.9.
     # The straight each leg leaves its collet on, solved against the diagonal it feeds: at
     # standoff = drop = D with spread x, the lead cap a/tan(θ/2) meets the diagonal's own
     # L/(tan(θa/2)+tan(θb/2)) at a = −D + √(2D² + x²/2) = 5.61 — under it the lead binds
@@ -1257,10 +1252,9 @@ def _authored_runs() -> list:
         # arc's tangent and the `JUNCTION_LEG_LEAD` the collet itself takes — and comes no
         # further forward than the shelf's own floor allows, which is where the SeaFlo's crown
         # steps back up (`_contents.seaflo_aft_step`, one `PUMP_ROW_TURN` clear of it). The
-        # step is the binding one on both columns, and what it leaves is still more than the
-        # two leads the approach used to be given.
+        # step is the binding one on both columns, and what it leaves takes both leads whole.
         #   With the shelf on the stand's own crown the last storey holds two stock arcs on
-        # both columns, so nothing here has to be capped under stock any more: the run carries
+        # both columns, so nothing here is capped under stock: the run carries
         # ONE ceiling, its stock's, and every corner but the first rises to it — which leaves
         # the closing arc tangent short of the bulkhead's face rather than on it, and the
         # collet keeps a straight to be pressed onto.

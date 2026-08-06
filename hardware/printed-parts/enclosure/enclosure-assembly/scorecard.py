@@ -427,7 +427,7 @@ def _declare_placement_rules():
         # placement, so the tolerances carry them. In Z it stands on the floor slab itself: its
         # bottom lid is a plane and nothing is under it. `y+` and `z-` together are the
         # back-bottom corner; the two `x` rules are the full width the yaw bought.
-        #   Its `y+` is NOT stated: the core is no longer the rearmost body. The SeaFlo runs
+        #   Its `y+` is NOT stated: the core is not the rearmost body. The SeaFlo runs
         # front to back over it and overhangs the cap's own rear edge, so the pump is what the
         # back wall stands off and the pump is where that rule now lives. The core keeps its
         # X fences and its floor.
@@ -590,7 +590,7 @@ def _declare_placement_rules():
         # "Y-E stands ACROSS the strip between pump A's aft face and the bag pair's forward
         # collets." `near bag-a-tray-assembly` is the pair it joins, which it stands against at the
         # floor — the bound is its own half-width and that floor. `clear pump-a` is the rest of the
-        # strip, which the fitting no longer fills: pump A stands a `PUMP_A_FRONT_BAND` off the
+        # strip, which the fitting does not fill: pump A stands a `PUMP_A_FRONT_BAND` off the
         # wall rather than on the corner pod's band, and what the strip has past this body is the
         # run fluid-22's climb leaves in. `contents.y_e_pos` raises the day it is narrower than the
         # body and its two floors together.
