@@ -5,7 +5,7 @@
   "shaped": 98,
   "routed": 57,
   "held": 33,
-  "mounted": 14,
+  "mounted": 24,
   "checks": [
     {
       "id": "coverage",
@@ -381,13 +381,14 @@
       "label": "The feature that fastens each component is printed into another part",
       "kind": "goal",
       "status": "warn",
-      "value": "14% (6/42)",
+      "value": "24% (10/42)",
       "target": "100%",
       "detail": [
-        "enclosure_back_top carries 2: c14-inlet, drip-pan",
+        "enclosure_back_top carries 6: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, c14-inlet, drip-pan",
         "foam-assembly carries 4: bag-b-tray-assembly, nozzle-b-tray-assembly, nozzle-tray-assembly, vk-tray-assembly",
+        "\u2717 co2-inlet: named to enclosure_front_bottom, bore bored 0.00; bore met 0.00; unpriced: the taper thread's engagement in the printed bore \u2014 derpipe_co2_inlet publishes no bearing or thread figure",
         "\u2717 ground-stack: named to foam-assembly, no joint measured",
-        "35 with nothing fastening them \u2014 a body resting on another is not mounted, and neither is one captured by a pocket or stuck down. One row each, below.",
+        "30 with nothing fastening them \u2014 a printed feature that only locates a body does not pin it, and neither does resting on one. One row each, below.",
         "ac-hub: nothing fastens it \u2014 nothing holds it at all",
         "asse1022-assembly: nothing fastens it \u2014 nothing holds it at all",
         "bag-a-tray-assembly: nothing fastens it \u2014 nothing holds it at all",
@@ -415,11 +416,6 @@
         "tee-y-g: nothing fastens it \u2014 nothing holds it at all",
         "water-split: nothing fastens it \u2014 nothing holds it at all",
         "wr1110: nothing fastens it \u2014 nothing holds it at all",
-        "bulkhead-carb: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
-        "bulkhead-flavor-a: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
-        "bulkhead-flavor-b: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
-        "bulkhead-water: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
-        "co2-inlet: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
         "display: nothing fastens it \u2014 held by shell-facet, which is not a printed-in feature",
         "foam-assembly: nothing fastens it \u2014 held by floor-capture, which is not a printed-in feature",
         "gasher-co2: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature"
@@ -6582,46 +6578,6 @@
       "checks": []
     },
     {
-      "component": "bulkhead-carb",
-      "by": null,
-      "held": "wall-capture",
-      "kind": "real",
-      "joint": null,
-      "checks": []
-    },
-    {
-      "component": "bulkhead-flavor-a",
-      "by": null,
-      "held": "wall-capture",
-      "kind": "real",
-      "joint": null,
-      "checks": []
-    },
-    {
-      "component": "bulkhead-flavor-b",
-      "by": null,
-      "held": "wall-capture",
-      "kind": "real",
-      "joint": null,
-      "checks": []
-    },
-    {
-      "component": "bulkhead-water",
-      "by": null,
-      "held": "wall-capture",
-      "kind": "real",
-      "joint": null,
-      "checks": []
-    },
-    {
-      "component": "co2-inlet",
-      "by": null,
-      "held": "wall-capture",
-      "kind": "real",
-      "joint": null,
-      "checks": []
-    },
-    {
       "component": "compressor-shroud",
       "by": null,
       "held": "none",
@@ -6859,6 +6815,138 @@
       ]
     },
     {
+      "component": "bulkhead-carb",
+      "by": "enclosure_back_top",
+      "held": "wall-capture",
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "nut land printed",
+          "value": 0.513,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "nut land met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "bore bored",
+          "value": 0.0,
+          "bound": 0.02,
+          "ok": true
+        },
+        {
+          "label": "bore met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "component": "bulkhead-flavor-a",
+      "by": "enclosure_back_top",
+      "held": "wall-capture",
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "nut land printed",
+          "value": 0.513,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "nut land met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "bore bored",
+          "value": 0.0,
+          "bound": 0.02,
+          "ok": true
+        },
+        {
+          "label": "bore met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "component": "bulkhead-flavor-b",
+      "by": "enclosure_back_top",
+      "held": "wall-capture",
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "nut land printed",
+          "value": 0.513,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "nut land met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "bore bored",
+          "value": 0.0,
+          "bound": 0.02,
+          "ok": true
+        },
+        {
+          "label": "bore met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "component": "bulkhead-water",
+      "by": "enclosure_back_top",
+      "held": "wall-capture",
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "nut land printed",
+          "value": 0.513,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "nut land met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "bore bored",
+          "value": 0.0,
+          "bound": 0.02,
+          "ok": true
+        },
+        {
+          "label": "bore met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        }
+      ]
+    },
+    {
       "component": "c14-inlet",
       "by": "enclosure_back_top",
       "held": "wall-capture",
@@ -6888,6 +6976,33 @@
           "value": 0.0,
           "bound": 1.0,
           "ok": true
+        }
+      ]
+    },
+    {
+      "component": "co2-inlet",
+      "by": "enclosure_front_bottom",
+      "held": "wall-capture",
+      "kind": "real",
+      "joint": "adrift",
+      "checks": [
+        {
+          "label": "bore bored",
+          "value": 0.0,
+          "bound": 0.02,
+          "ok": true
+        },
+        {
+          "label": "bore met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "unpriced: the taper thread's engagement in the printed bore \u2014 derpipe_co2_inlet publishes no bearing or thread figure",
+          "value": null,
+          "bound": 0.0,
+          "ok": false
         }
       ]
     },
@@ -7228,8 +7343,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-06T03:23:24+00:00",
-    "commit": "9df34f905a779cc99fefbc69a38894c8d5a3c90e",
+    "generated": "2026-08-06T03:55:27+00:00",
+    "commit": "73382317cf730cd8e80f289879685675958f957c",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7257,7 +7372,7 @@
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:8a2e6d196bf34f2f",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:e5712f2f18b5d44a",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:590c0605bfd3b7bd",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726216:1785958078966765507",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:845175:1785962402175439855",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785958078987592982",
