@@ -843,11 +843,11 @@ TEE_TURNS = {
     # column, so the turn is there for the branch: local +Y goes to −sign X, which lays the
     # west tee's branch east and the east tee's west, and the two face each other down the
     # crossbar's line.
-    # Y-G lies along the LANE `fluid-27` already runs down, so its run takes a roll of the
-    # opposite sign to the pump row's: local +Z goes to −Y, which puts the FORWARD collet at the
-    # bag pair's draw and the AFT one at the nozzle gate, one valve on each end of the run. The
-    # branch comes UP on the same roll, into the loft `fluid-22` crosses at.
-    "tee-y-g": (((1.0, 0.0, 0.0), 90.0),),
+    # Y-G lies along the LANE `fluid-27` already runs down, so its run takes the pump row's own
+    # roll: local +Z goes to −Y, which puts the FORWARD collet at the bag pair's fill valve and
+    # the AFT one at the nozzle gate, one valve on each end of the run. The branch comes UP on
+    # the same roll, into the loft `fluid-22` crosses at.
+    "tee-y-g": (((1.0, 0.0, 0.0), TEE_ROLL),),
     "tee-y-a": (((0.0, 0.0, 1.0), -90.0),),
     "tee-y-b": (((0.0, 0.0, 1.0), +90.0),),
 }
@@ -3327,11 +3327,11 @@ def aft_row_tee_pos(tee):
 # Y-F: the run lies along the lane with the bag draw arriving at its aft collet and the pump's
 # suction leaving the fore one, and the branch stands UP under the shared source's crossing.
 _Y_F_LOCAL = _tee_local(zp="Y-F-3", zn="Y-F-2", branch="Y-F-1")
-# Y-G: the stem is the climb to the pump's high barb, and the two outlets fall between the bag's
-# fill valve and the nozzle gate — the EAST outlet over the bag pair, whose plate takes the deck
-# east of the flank Y-H stands in, and the WEST over the nozzle pair packed on the SeaFlo's own
-# flank. Which outlet reaches which valve is the seating's, the same way Y-H's two are numbered
-# the other way round from Y-E's.
+# Y-G: the run lies along the lane with one valve on each end — Y-G-3 FORWARD at the bag pair's
+# fill valve, Y-G-2 AFT at the nozzle-B gate — and the branch stands UP at the pump's discharge.
+# Which run port reaches which valve is the SEATING's: the bag pair is forward of this fitting
+# and the nozzle gate aft of it, so each port takes the nearer of the two and neither leg crosses
+# the other. Under `TEE_TURNS`, local +Z is the forward collet.
 _Y_G_LOCAL = _tee_local(zp="Y-G-3", zn="Y-G-2", branch="Y-G-1")
 
 
