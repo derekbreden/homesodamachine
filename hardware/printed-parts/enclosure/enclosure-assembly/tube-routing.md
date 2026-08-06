@@ -178,15 +178,12 @@ Line clearance is reported, not gated. Port leads are gated.
 
 ## What fences the west lane's east travel
 
-`fluid-17` crosses over Y-H's crown because no lane exists at the nozzle gate's own port plane:
-the cap conduit's column wants that lane a `LINE_PITCH` east of `water-in` and Y-H's west flank
-wants it a tube and a floor west of the trident, and the two stand **0.41 mm** the wrong side of
-each other. Walking Y-H east opens the lane — Y-H's X is `bag_b_tray_pos`'s, so the walk is
-bag-B's — and the run then climbs once, holds the gate's plane and spends its whole reach on the
-corner that closes into the collet.
+The pair's east face is struck by `water-3`'s fall on V-K's own column (`bag_b_east_limit`): a
+`LINE_PITCH` off that fall, and the collet's own `JUNCTION_LEG_LEAD` of straight before anything
+turns. The flank west of the plate wants more travel than this; the deck is what there is.
 
-Three bodies stand in that walk, and the renders beside this file are each one at the move that
-finds it. They are pictures of a pose the pack does not hold; the sidecar is empty.
+Three bodies stand in the walk east, and the renders beside this file are each one at the move
+that finds it. They are pictures of a pose the pack does not hold; the sidecar is empty.
 
 - [`blocked-east.water-3-bag-b.png`](blocked-east.water-3-bag-b.png) — **the binding one.**
   `water-3` falls the storey on V-K's own inlet column and the pair's plate crosses that column
@@ -196,7 +193,7 @@ finds it. They are pictures of a pose the pack does not hold; the sidecar is emp
   packed onto the SeaFlo's flank — and east of it stands the electrical flank.
 - [`blocked-east.divider-y-g-pcba.png`](blocked-east.divider-y-g-pcba.png) — Y-G stands on
   V-I-I's own column, so it rides the pair east and reaches the controller board's inboard face:
-  165 mm³. The trident is wider than either lane it joins; the two columns crossing its band are
+  165 mm³. The fitting is wider than either lane it joins; the two columns crossing its band are
   `bulkhead-flavor-a`'s climb and V-K's fall, and the middle of what they leave clears both.
 - [`blocked-east.nozzle-bag-b.png`](blocked-east.nozzle-bag-b.png) — the gate's plate reaches the
   pair's own west cell at +20.01: 83 mm³. This one is not a fence of its own. The gate follows
@@ -227,9 +224,9 @@ column and sits on its `DIVIDER_LEG_STRAIGHT` floor at any column west of the pa
 
 `fluid-27` goes round the plate's EAST flank, which is the one lane there is: V-K's plate stands
 between the gate and the outlet that feeds it, and west of the plate is the SeaFlo. Coming from
-the east it reaches the trident's east outlet without crossing the west one's climb, so **Y-G's
-two outlets are numbered the other way round** — `Y-G-2` takes the nozzle-B feed and `Y-G-3` the
-bag-B draw, each the nearer of the two to the collet it comes from.
+the east it reaches the tee's AFT run port without crossing the forward one's lead, so **`Y-G-2`
+takes the nozzle-B feed and `Y-G-3` the bag-B fill**, each the nearer of the two to the collet it
+comes from.
 
 Isolated: V-K's FORWARD travel is nearly free — it moves path and no radius (`water-3` 187.3 →
 174.9, `water-4` 53.5 → 70.8, every corner identical). Every radius above is the WEST travel.

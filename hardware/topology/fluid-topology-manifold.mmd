@@ -10,12 +10,12 @@ flowchart LR
   %% `_fluid_topology_sync.py` writes every number below and gates every edge against
   %% the built run — an edge whose two ends are not that run's two ends fails the gate.
 
-  %% The 28 flavor segments come to [2778.8 mm](FLUID_TOTAL) of 1/4" LLDPE, over
+  %% The 27 flavor segments come to [2819.7 mm](FLUID_TOTAL) of 1/4" LLDPE, over
   %% [66](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
   %% [458.3 mm](LONGEST_LEN); the shortest is [fluid-6](SHORTEST_ID) at
   %% [4.0 mm](SHORTEST_LEN).
 
-  %% The valves ride seven printed trays in two stands and the eight junctions hang on
+  %% The valves ride seven printed trays in two stands and the seven junctions hang on
   %% the collets they join, so every edge here is a cut length of tube. Colour is the
   %% circuit: white the shared source chain (fluid-1 … fluid-8), blue channel A
   %% (9 … 18), green channel B (19 … 28).
@@ -147,11 +147,11 @@ flowchart LR
   %% is flat: Y-C's and Y-D's runs lie along the pump lane on the bag-A pair's own port
   %% plane and only their branches change level — fluid-9 falling a stack pitch in from
   %% the selects pair, fluid-17 climbing a storey and a half to the nozzle gate aloft.
-  VC -->|"fluid-9<br/>112.7 mm"| YC
-  VE -->|"fluid-10<br/>43.3 mm"| YC
+  VC -->|"fluid-9<br/>127.4 mm"| YC
+  VE -->|"fluid-10<br/>58.0 mm"| YC
   YC -->|"fluid-11<br/>33.5 mm"| PB
   PB -->|"fluid-12<br/>22.3 mm"| YD
-  YD -->|"fluid-13<br/>120.0 mm"| VF
+  YD -->|"fluid-13<br/>131.5 mm"| VF
   VF -->|"fluid-14<br/>14.9 mm"| YE
   YE <-->|"fluid-15<br/>303.9 mm"| ResA
   YE -->|"fluid-16<br/>37.1 mm"| VE
