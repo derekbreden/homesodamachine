@@ -1,52 +1,61 @@
 # Mains block
 
-The appliance's whole mains side on one printed carrier, assembled and wired on
-the bench and installed as one body.
+The appliance's whole mains side, as one body the enclosure places and one wall
+carries.
 
-| On the plate | What it does | Its joint |
+| In the block | What it does | Its joint |
 |---|---|---|
-| [AC hub](/hardware/printed-parts/electronics/ac-hub/README.md) | splices H / N / G | three wells grown into the plate |
+| [AC hub](/hardware/printed-parts/electronics/ac-hub/README.md) | splices H / N / G | three wells grown into the carrier's face |
 | [Mean Well IRM-90-12ST](/hardware/reference/meanwell-irm90/README.md) | ends the AC side, begins the DC one | four M3 into heat-set bosses |
 | [Teyleten relay #1](/hardware/reference/teyleten-relay/README.md) | switches the compressor's hot leg | four M3 into heat-set bosses |
 | [Ground ring stack](/hardware/reference/ground-ring-stack/README.md) | the single-point chassis bond | one M3 into a stud boss |
 
 The four of them are one electrical zone — the Class I earthed node and
-everything at mains potential. Nothing at logic level is on this plate: the
-controller board stands on its own.
+everything at mains potential. Nothing at logic level is in it: the controller
+board stands on its own.
 
-## The plate
+## The block has no part of its own
 
-[128.8](PLATE_X) (X) × [119.5](PLATE_Y) (Y) × [3](FLOOR_T) (Z), with the bodies
-standing [40](REACH) mm off its open face, so the block claims
-[43](ENVELOPE_Z) mm of depth from the plane it lands on.
+Every station is aft of the Y joint, above the back Z seam, and one rib inset off
+the +X wall, so all four bodies land on **one printed piece** —
+`enclosure_back_top`. That piece carries the joints directly.
 
-Frame: +X aft, +Y up, +Z off the carrier into the cabinet — the pose it installs
-in. Origin at the plate's forward-bottom corner on its **landing face**, so
-z = 0 is the plane the four stations bear on.
+## What the carrier prints
 
-- **Three rows.** The brick takes the bottom row and its [109](PSU_LEN) mm length
-  is the plate's. The hub takes the middle, between the brick it feeds below and
-  the relay it feeds above, with the ground stud in the band aft of it. The relay
-  takes the top row, aft-aligned.
-- **Rows stand [6](LEAD_GAP) mm apart** — a crimp barrel's own length, which is
-  what a terminated lead takes leaving its landing before the wire begins.
-- **Every seated body stands on [9.5](SEAT_Z) mm**, the one boss plane. A boss is
-  ⌀[8](BOSS_D), bored ⌀[4](INSERT_D) for a ruthex M3 short to its full
-  [8](INSERT_DEPTH) mm, which leaves [1.5](INSERT_BACKING) mm of plate under
-  every insert and no bore open on the landing face.
-- **The relay's pins hang [4.5](PIN_CLEARANCE) mm over the plate.**
-- **The AC hub is grown in.** It carries no hold-down of its own and its floor is
-  this plate's floor, so its three wells rise straight out of the carrier and its
-  lugs stand to [12.3](WELL_TOP) mm.
+- **[9](BOSS_COUNT) bosses**, one under each hole, ⌀[8](BOSS_D) and
+  [6.5](SEAT_Z) mm tall — the one seat plane every body stands on. Each is bored
+  ⌀[4](INSERT_D) from its top for a ruthex M3 short.
+- **[3](WELL_COUNT) Wago wells**, standing [9.3](WELL_TOP) mm out of the
+  carrier's face with their floor buried in its own section. The hub carries no
+  hold-down and the carrier grows its footprint into itself.
 
-## The joint the module owes
+A station owes [9.5](STATION_DEPTH) mm of material under the seat — an insert's
+full [8](INSERT_DEPTH) mm pocket with [1.5](INSERT_BACKING) mm behind it. A boss
+of the seat's own height on [3](CARRIER_T) mm of carrier holds it, and no bore
+opens on the wall's outer face.
 
-[4](STATION_COUNT) clearance holes at the plate's corners, inset
-[4.95](STATION_INSET) mm, for M3 into bosses on whatever carries it. The bodies
-keep [9.9](MARGIN) mm off the plate edge, so every station has open plate over it
-with the block fully assembled and each screw head bears on plate alone.
+`_mains_interface.stations()` is the boss pattern; `hub_wells()` is the solid to
+fuse in.
 
-`_mains_interface.stations()` is the pattern; `envelope()` is the box to place.
+## The envelope
+
+[109](BLOCK_X) (X, aft) × [89.7](BLOCK_Y) (Y, up) × [40](REACH) (Z, off the
+carrier's face).
+
+Frame: +X aft, +Y up, +Z off the carrier into the cabinet. Origin at the block's
+forward-bottom corner **on the carrier's own face**, so z = 0 is the plane the
+bosses and the wells grow from.
+
+**That depth is the brick's alone.** `rows()` gives what each row actually
+stands: the brick [40](ROW_BRICK), the splice [18.6](ROW_SPLICE), the relay
+[23.5](ROW_RELAY) mm — so [21.4](FREE_SPLICE) mm and [16.5](FREE_RELAY) mm of
+the envelope stand free over the top two rows, for a placement to spend.
+
+**Three rows, a [1](FLOOR) mm clearance floor apart.** The brick takes the bottom
+row and its [109](PSU_LEN) mm length is the block's. The hub takes the middle,
+between the brick it feeds below and the relay it feeds above, with the ground
+stud in the band aft of it — the stud shares that row, y [53](SPLICE_Y0) to
+[71.7](SPLICE_Y1) mm. The relay takes the top row, aft-aligned. The relay's pins hang [4.5](PIN_CLEARANCE) mm over the carrier.
 
 ## The grain
 
@@ -55,34 +64,36 @@ the hub. The brick's DC end and the relay's logic header face **forward**, towar
 the controller. Mains lands at the aft end of the block.
 
 All [8](TERMINAL_COUNT) terminals look off the open face — nothing is entered
-from behind, from an end, or from under a neighbour.
-`_mains_interface.terminals()` gives every one of them in the module's frame.
+from behind, from an end, or from under a neighbour, so the block is wired where
+it stands. `_mains_interface.terminals()` gives every one of them.
 
 ## What the assembly proves
 
-`mains_assembly.py` builds the block and asserts it before it exports:
+`mains_assembly.py` asserts the contract before it exports:
 
-- no two of its seven solids overlap
-- all [9](BOSS_COUNT) holes stand on their own boss for the whole
-  [6.5](STANDOFF) mm of standoff
-- no insert bore opens on the landing face
-- all four stations have a clear ⌀[7.8](DRIVER_D) mm column to the open face
+- no two bodies stand closer than the [1](FLOOR) mm floor
+- each lug is wrapped on four faces by a well of its own
+- the ground stud shares the hub's row
+- a boss on the carrier's own section holds a whole insert pocket
+- every one of the [9](BOSS_COUNT) screws has a clear driver column out of the block
 - every terminal looks off the open face
-- every body stands inside the plate's own outline
+- every body stands inside the envelope the block publishes
 
 ## Open
 
+- **The C14 stands 0.52 mm off the block's crown.** With the block's foot on the
+  cap and its aft face on the brick's own plane, nothing in the pack clashes and
+  the receptacle is the one neighbour inside the clearance floor. It resolves on
+  placement — the block clears it outright a dozen millimetres forward, where the
+  flow sensor still stands 4 mm clear.
 - **The brick's joint direction.** The IRM-90's hole pattern is exact and its
   mounting-tab geometry is not dimensioned by the datasheet. The carrier stands
   the brick on bosses with an M3 entering from the open face, through the
   reference solid's own full-height holes. A measured tab settles it.
-- **The plate is not placed.** No wall in the enclosure carries bosses at these
-  four stations, and the block has no `scorecard.MOUNTED_BY` row.
-- **Row 3 carries slack.** The relay is [70](RELAY_LEN) mm in a
-  [109](PSU_LEN) mm row, and the brick's own length is what sets that row.
+- **The block is not placed.** `enclosure_back_top` carries no bosses or wells at
+  these stations yet, and the four bodies have no `scorecard.MOUNTED_BY` row.
 
-Generated by `mains_assembly.py` → `mains-assembly.step`, and `mains_tray.py` →
-`mains-tray.step`. Regenerate with:
+Generated by `mains_assembly.py` → `mains-assembly.step`. Regenerate with:
 
     tools/cad-venv/bin/python hardware/printed-parts/electronics/mains-assembly/mains_assembly.py
 

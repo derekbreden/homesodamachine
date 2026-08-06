@@ -92,7 +92,7 @@ def mount_stations():
 
 def add_mount_ears(tray, stations):
     """Union one tongue per station onto ``tray`` and cut its hole. Shared with the
-    three-valve plate, whose ears are the same section at its own stations."""
+    one-seat plate, whose ears are the same section at its own stations."""
     for x, y in stations:
         sy = 1.0 if y > 0 else -1.0
         run = abs(y) - half_y + 1.0       # rooted one wall into the plate

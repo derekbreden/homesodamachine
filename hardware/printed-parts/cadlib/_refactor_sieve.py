@@ -33,8 +33,7 @@ Six complementary checks:
    coil-mandrel, prv-shroud), the flavor parts (cap-sense sleeves,
    peristaltic tube), every valve-manifold tray and its named assembly,
    and the reference STEPs (beduan solenoid, JG bulkhead union,
-   water-test cup, valve body, CO2 coupling, servo-valve mock, faucet
-   assembly).
+   water-test cup, valve body, CO2 coupling, faucet assembly).
 
 Module also exposes _solid_invariants(wp) + _compare_invariants(...) at
 top level — volume + sorted bbox spans + sorted |COM| coords, compared
@@ -89,8 +88,6 @@ _byte_hashed_step_paths = [
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
     "hardware/reference/co2-coupling-body/co2-coupling-body.step",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
-    "hardware/reference/servo-valve-mock/servo-valve-mock.step",
-    "hardware/reference/servo-valve-mock/coupling-detail.step",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
     "hardware/reference/water-test-cup/water-test-cup.step",
@@ -110,11 +107,6 @@ _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
 _shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
 
 _faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
-
-_servo_generators = [
-    "hardware/reference/servo-valve-mock/coupling_detail.py",
-    "hardware/reference/servo-valve-mock/servo_valve_mock.py",
-]
 
 _flavor_generators = [
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap_sense_sleeve.py",
@@ -431,13 +423,6 @@ def check():
     if not ok:
         print(f"FAIL: faucet-assembly generator\n{output}", file=sys.stderr)
         sys.exit(1)
-
-    print("Regenerating servo-valve-mock STEPs...")
-    for gen in _servo_generators:
-        ok, output = _run_generator(gen)
-        if not ok:
-            print(f"FAIL: {gen}\n{output}", file=sys.stderr)
-            sys.exit(1)
 
     for label, gens in (
         ("flavor", _flavor_generators),
