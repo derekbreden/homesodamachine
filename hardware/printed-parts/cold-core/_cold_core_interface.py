@@ -282,15 +282,16 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # NOT the height of the fitting it serves: a line leaves its fitting, turns into the
 # lane and climbs it freely, so the field is ordered by what leaves together —
 # first reservoir A and the two reed cables (all three out of the pockets' bulkhead
-# band), then the vessel's two bottom-plate lines. Everything above the field belongs
-# to the copper/PRV SLOT, which takes the rest of the column.
-#   Reservoir B is NOT here, and the field is one pitch shorter for it: its line leaves
-# by the +Y band and the cap's own conduit (`west_lane_mid_y`, `cap_conduits`), because
-# the fitting it feeds hangs in the loft directly over that band and a station on this
-# face would send it across the machine and back.
+# band), then the vessel's CO2 inlet off the bottom plate. Everything above the field
+# belongs to the copper/PRV SLOT, which takes the rest of the column.
+#   TWO LINES ARE NOT HERE, and the field is two pitches shorter for them: reservoir B's
+# draw and the vessel's carbonated-water outlet both leave by the TOP, each climbing its
+# own band to a conduit in the cap (`cap_conduits`) — B up the +Y band (`west_lane_mid_y`)
+# and the carb water up this very lane. What holds each of them there is the same reading:
+# the fitting it feeds hangs in the loft directly over the band it climbs, and a station on
+# this face would send it across the machine and back.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-front_port_order = ("reservoir-a", "reed-cable-a", "reed-cable-b",
-                    "carb-water-out", "co2-in")
+front_port_order = ("reservoir-a", "reed-cable-a", "reed-cable-b", "co2-in")
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 
 
@@ -309,14 +310,14 @@ front_port_axis = (-1.0, 0.0, 0.0)
 def front_port_station(name):
     """One front-field station in the SHELL'S OWN frame: `(position, outward axis)`.
 
-    All five stand on the port lane's centreline, in the wall's own plane, each at its own
+    All four stand on the port lane's centreline, in the wall's own plane, each at its own
     height up the column. The lane is one bore wide (above), so X and Y are the field's and
     only Z is the station's."""
     return ((front_wall_x, port_lane_mid_y, front_port_z(name)), front_port_axis)
 
 
 def front_port_stations() -> dict:
-    """All five, under the names the machine knows them by. The three ABOVE the field are the
+    """All four, under the names the machine knows them by. The three ABOVE the field are the
     copper/PRV slot's, and `copper_plugs.slot_stations` declares those on this same lane."""
     return {name: front_port_station(name) for name in front_port_order}
 
@@ -579,10 +580,22 @@ assert cap_conduit_entry_relief_radius >= (
 # and the reservoir's own cap sits one reservoir_clearance under this one, so
 # the two features meet face to face with nothing between them to cross. In the
 # cap's frame that station is the port's own X and the negated Y.
+#   carb-water-out stands over the PORT LANE — `port_lane_mid_y` negated, the same strip the
+# front field's four lines climb to their own stations. This one keeps climbing. Its line is
+# the vessel's bottom-plate Port 3: the elbow turns it laterally, `_port_cuts.water_outlet_xyz`
+# bores it out to the lane on the shell's own centreline, and from there it is the only line in
+# the lane running UP rather than west, so it crosses none of them.
+#   Its X sits a few millimetres off that centreline, between two fences. The mid screw boss on
+# this wall is one, and the column leaves it the pour gap. The DIGITEN meter it feeds is the
+# other: the meter hangs one storey up in the loft with its collet facing forward, and the deck
+# between this bore and that collet is the straight the run's closing corner is seated in, which
+# a [25.4 mm](LLDPE_BEND_R) arc spends whole. The bore takes the middle of what the two leave —
+# near enough the centreline that the climb is where the line lands.
 cap_conduits = {
     "water-in": (75.0, -80.5),
     "reservoir-b": (135.5, -43.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
+    "carb-water-out": (6.0, -port_lane_mid_y),
 }
 
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
@@ -915,7 +928,7 @@ if __name__ == "__main__":
             "DECK_MOUNT_CAP_GAP": 1,
             "VESSEL_PORT_PITCH": 1,
             "VESSEL_PORT_OFFSET": 1,
-            "LLDPE_BEND_R": 2,
+            "LLDPE_BEND_R": 3,
             "FORWARD_BAND": 1,
             "LLDPE_TUBE_OD": 1,
             "ENTRY_RELIEF_D": 1,

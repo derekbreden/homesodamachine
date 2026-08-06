@@ -1101,26 +1101,23 @@ def _authored_runs() -> list:
     runs.append(route(
         "fluid-22", "pump-a.P-A-O",
         {"z": y_e.bb.zmax + LINE_STEP},      # up the strip, clear over the junction across it
-        # THE STEM'S OWN COLUMN IS THE LANE, ONCE THE RUN IS ALOFT AND AFT OF THE RISER. Y-G
-        # stands in the strip between the lanes and the band over its crown is [58.9](YG_COLUMN)
-        # mm clear to the hopper's floor, so the length of the machine and the fall want one
-        # column and the fall is taken ON the stem. THE CLIMB CANNOT HAVE IT: the stem stands
-        # east of `lane_e`, the lane the condenser's west flank leaves, and carb-1's riser holds
-        # that lane for the whole storey — so this run climbs a `LINE_PITCH` west of the riser,
-        # in the strip neither the block nor the riser is in.
+        # THE STEM'S OWN COLUMN IS THE LANE, ONCE THE RUN IS ALOFT. Y-G stands in the strip
+        # between the lanes and the band over its crown is [58.9](YG_COLUMN) mm clear to the
+        # hopper's floor, so the length of the machine and the fall want one column and the
+        # fall is taken ON the stem. THE CLIMB CANNOT HAVE IT: the stem stands east of
+        # `lane_e`, the lane the condenser's west flank leaves, and fluid-15's climb stands in
+        # that lane — so this run takes the next `LINE_PITCH` west of it, in the strip neither
+        # the block nor that climb is in.
         {"x": min(y_g.at("Y-G-1")[0], lane_e - LINE_PITCH)},
-        # AND STRAIGHT UP FROM THERE. The aft leg this run used to take at the crossing's own
-        # height put it in the front column's east lane at the very depth fluid-21's fall
-        # crosses that lane, and the run has the same Y to spend whichever storey it spends it
-        # on — so it spends it aloft, where the column is the funnel's floor and nothing else's.
-        # THE BAND IS UNDER CARB-1'S, NOT AT THE FUNNEL'S FLOOR. The riser leaves `lane_e` for
-        # the meter along the loft and holds its own column aft of that, a `LINE_PITCH` off the
-        # stem's; the band this run has is the one between Y-F's crown and that lane, and it
-        # stands on the crown because the lane above it is spoken for.
+        # AND STRAIGHT UP FROM THERE. The front column's east lane carries fluid-21's fall at
+        # the crossing's own height, and this run has the same Y to spend whichever storey it
+        # spends it on — so it spends it aloft, where the column is the funnel's floor and
+        # nothing else's.
+        # THE BAND IS THE ONE OVER Y-F'S CROWN, one clearance floor up it, inside what that
+        # crown leaves to the hopper's floor (`_contents`' own `LOFT_TEE_HEADROOM`).
         {"z": y_f.bb.zmax + CLIMB_HUG + 6.35 / 2.0},
-        # The step east waits until the run is AFT OF THE RISER'S OWN REACH EAST. carb-1 leaves
-        # `lane_e` for the meter on the band ahead of the core, so the two cross wherever this
-        # run takes the stem's column forward of it; aft of that band the loft is this run's.
+        # The step east is taken over that same crown: the aft band's lane, a `LINE_PITCH` and
+        # a stock arc aft of it, which is a depth Y-F stands at under this band.
         {"y": f["foam-assembly"].bb.ymin - contents.PUMP_ROW_TURN + LINE_PITCH
               + contents.LLDPE_STOCK_BEND},
         y_g.x("Y-G-1"),                      # east over the aft stand onto the stem's own column
@@ -1583,12 +1580,14 @@ def _authored_runs() -> list:
     # west off the chain's axis, then one lean — the climb to the bore's level and the aft
     # step onto the corridor lane share a leg — and east along the corridor over the chain
     # to close aft into the bore. The lane stands one stock radius ahead of the bore's face,
-    # so the aft lead IS that radius and the corner into the close turns at stock. The lean
-    # is the only leg its own two corners have, and the chain's Z is what sizes it
-    # (`_contents.CO2_INLET_Z`): the axis stands far enough under the bore that
-    # √(Δy² + Δz²) seats a stock tangent at each end, so all three corners turn at stock.
-    # The out-lead is the west tangent's own length with straight left over; the corridor
-    # west of the body is empty to the wall.
+    # so the aft lead IS that radius and the close has a full stock arc's tangent in front of
+    # it. THE LEAN IS THE ONLY LEG ITS OWN TWO CORNERS HAVE, and both of them turn square in
+    # it, so each gets half: the run turns at √(Δy² + Δz²) ÷ 2, which is
+    # [17.8](CO2_LEAN_R) mm against the R25.4 the stock wants. The Δz is the chain's axis
+    # under the bore (`_contents.CO2_INLET_Z`), and the bore rides the front port field's
+    # own pitch (`_cold_core_interface.front_port_order`) — so the run's radius is the
+    # field's height as much as it is the chain's. The out-lead is the west tangent's own
+    # length with straight left over; the corridor west of the body is empty to the wall.
     co2_stock = R.stock_min("co2", reg110.diam("outlet"))
     co2_lead = co2_stock + 2.6                       # the west tangent, and straight past it
     runs.append(R.bent(
@@ -1603,42 +1602,32 @@ def _authored_runs() -> list:
         note="CO2: WR1110 outlet → cold-core CO2 bore, one stock lean up-and-aft then east "
              "along the corridor over its own chain"))
 
-    # --- The carb-water riser: the core's bottom-plate outlet to the blue-ringed rear
+    # --- The carb-water riser: the core's carbonated-water outlet to the blue-ringed rear
     # bulkhead, with the DIGITEN meter inline where the riser crosses the loft.
     meter, b_carb = f["digiten-flow"], f["bulkhead-carb"]
 
-    # carb-1 — the core's outlet up to the meter, and the one run that crosses the machine
-    # in X twice. Forward into the aft band, west onto the riser column, up the machine,
-    # east over the condenser's crown, and up again into the meter's forward collet. Both
-    # crossings are the block's: the condenser fills the whole front column east of the
-    # riser between its own stratum and its crown, so the climb cannot start under the
-    # meter, and the loft's east pocket the meter stands in cannot be reached until the
-    # climb is over that crown. The eastward leg lies in the window between the crown and
-    # pump A's two loft lines, the only band at this depth carrying nothing.
-    #   That leg is [19.17](CARB_WINDOW_LEG) mm — one corner short of two stock arcs — so the
-    # corner it hands the meter's column is capped at what the leg leaves a stock turn at
-    # the riser's crown ([9.59](CARB_JOG_CAP)), and the last climb splits its own storey
-    # with it: the crown corner turns at stock, and the jog's remainder rides the two
-    # corners the window holds under it either way.
-    # THE RISER STANDS ON THE CONDENSER'S OWN FLANK. What sends this run west is the block, so
-    # the block's west face is how far west it has to go — and every millimetre past that is
-    # spent twice, once each way, through the one column the loft's own lines all cross. Struck
-    # there, the riser is EAST of Y-F's column and of the stem lane fluid-22 holds, so it climbs
-    # the whole storey in a band it shares with nothing and arrives at the meter's own plane
-    # with only the reach east of it left.
-    riser_x = lane_e
-    band_y_carb = foam.bb.ymin - contents.PUMP_ROW_TURN
+    # carb-1 — the core's carbonated-water outlet to the meter, BOTH MOUTHS ON THE CORE'S OWN
+    # CROWN. The outlet is a cap conduit on the port lane (`_cold_core_interface.cap_conduits`),
+    # where the vessel's bottom-plate Port 3 lands its line and climbs the shell; the meter hangs
+    # in the loft over the same deck, one column west and one storey up, facing forward. So the
+    # run is a climb, one lean and a close.
+    #   The climb goes up the conduit's own column — the strip east of the trident and aft of the
+    # board, which carries nothing else between the lid and the loft. The lean starts on the band
+    # over Y-G's crown, the one body standing between the two mouths, and carries the whole
+    # [28](CARB_STEP) mm of west step and the rest of the storey on one diagonal. The close is the
+    # deck the conduit leaves ahead of the collet, [29](CARB_CLOSE) mm against the stock arc a
+    # square corner spends whole — so both corners turn at stock.
     stock = R.stock_min("water", foam.diam("carb-water-out"))
-    runs.append(route(
+    carb_out, carb_in = foam.at("carb-water-out"), meter.at("inlet")
+    carb_lean_z = y_g.bb.zmax + CLIMB_HUG + 6.35 / 2.0
+    runs.append(R.bent(
         "carb-1", "foam-assembly.carb-water-out",
-        {"y": band_y_carb},                  # forward into the aft band, behind the tray-east climb
-        {"x": riser_x},                      # west onto the riser column, clear of the block
-        meter.z("inlet"),                    # up the whole storey onto the meter's own plane
-        meter.x("inlet"),                    # east over the block's crown into the loft's pocket
-        "digiten-flow.inlet",                # and aft into the meter
-        kind="water", skew=FLAVOR_SKEW, stub=(1.0, 4.0), bend=stock,
-        note="carb riser: cold-core outlet → DIGITEN inlet, up the riser column on the "
-             "condenser's flank and east over its crown onto the meter's own plane"))
+        (carb_out[0], carb_out[1], carb_lean_z),   # up the conduit's own column onto the band over Y-G
+        (carb_in[0], carb_out[1], carb_in[2]),     # the lean west onto the meter's column and its plane
+        "digiten-flow.inlet",                      # and aft along the deck into the meter
+        kind="water", skew=(CAP_BORE_SKEW, FLAVOR_SKEW), bend=stock,
+        note="carb riser: cold-core cap conduit → DIGITEN inlet, up the lane's own column "
+             "and one lean west over the trident onto the meter's plane"))
 
     # carb-2 — the meter's outlet to the rear bulkhead, one straight lean. Squared, the jog
     # west onto the bulkhead's column and the climb to the row each take a corner pair, and
@@ -1909,6 +1898,8 @@ def lane_stations() -> dict:
         # carb-2's corners against the lean they are struck on, and fluid-13's approach — the
         # two other reaches on this pack that a corner, not a body, is what spends.
         "CARB2_R":          f"{runs['carb-2'].tightest:.3g}",
+        # co2-2's own, for the same reason: the lean its two square corners divide.
+        "CO2_LEAN_R":       f"{runs['co2-2'].tightest:.3g}",
         "F13_APPROACH":     f"{math.dist(runs['fluid-13'].pts[-1], runs['fluid-13'].pts[-2]):.3g}",
         # The band over Y-G's crown that fluid-22's fall is taken in, off the two bodies that
         # bound it: the trident's own crown and the hopper's floor.
@@ -1946,9 +1937,6 @@ def lane_stations() -> dict:
         # The front chain's own link, off the placed bodies: what Y-E's hang keeps to the
         # pumps' aft faces. The column keeps the same figure to Y-E.
         "FRONT_CHAIN_GAP":  f"{_boxes.boxed(solids['tee-y-e']).ymin - _boxes.boxed(solids['pump-a']).ymax:.2g}",
-        # The two legs one corner short of two stock arcs, and the cap each hands its second
-        # corner so the first turns at stock: carb-1's window under the meter, and fluid-17's
-        # turn lane over the junction bay.
         # fluid-20's band east of the bag plate: its depth, the standoff its far wall gives the
         # first leg off the collet, and what the SWEPT TUBE keeps off the board and off the
         # three runs it shares a corridor with.
@@ -1962,8 +1950,10 @@ def lane_stations() -> dict:
         # corner the dropped lean was struck on, and the tray stack's east margin it lands in.
         "F21_GRAZE_CLEAR":  f"{contents.y_f_port('Y-F-3')[0][0] - _boxes.boxed(solids['seaflo-pump']).xmax:.3g}",
         "F21_BAND_STEP":    f"{contents.y_f_port('Y-F-3')[0][0] - (_boxes.boxed(solids['bag-a-tray-assembly']).xmax - CLIMB_HUG - 6.35 / 2.0):.3g}",
-        "CARB_WINDOW_LEG":  f"{runs['carb-1'].pts[4][0] - runs['carb-1'].pts[3][0]:.4g}",
-        "CARB_JOG_CAP":     f"{runs['carb-1'].radii[4]:.3g}",
+        # carb-1's two legs off the run itself: the west step its lean carries whole, and the
+        # deck the cap conduit leaves ahead of the meter's collet for the close.
+        "CARB_STEP":        f"{runs['carb-1'].pts[1][0] - runs['carb-1'].pts[2][0]:.3g}",
+        "CARB_CLOSE":       f"{runs['carb-1'].pts[-1][1] - runs['carb-1'].pts[-2][1]:.3g}",
         # The wall sequence's forward end: what the panel leaves fluid-2 between the regulator's
         # outlet and V-A's inlet, and what `lean_leads` spends it on — the lean each lead takes
         # off its collet's axis, the lead that buys, and the tangent a stock arc costs at that
