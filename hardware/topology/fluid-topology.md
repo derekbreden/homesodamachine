@@ -36,11 +36,11 @@ Channel A's and channel B's four are the PUMP-ROW junctions.
 
 Channel A's stand in the **pump lane**, the strip west of the head column and aft of channel A's pump, each on the column of the barb its run butts. Their runs lie along that lane and their branches stand **up** out of it, which is the axis both third legs leave on: Y-C's branch takes the fall from the selects pair a stack pitch above (segment 9), and Y-D's is the storey-and-a-half climb to the nozzle gate in the loft (segment 17). Nothing else on the row changes level — the pump's two barbs stand on the bag-A pair's own port plane, so the whole row is flat and only the branches climb.
 
-Channel B's do **not** share one lane, and pump A is why: it stands in the front column beside channel A's, so both of its junctions are up in the loft and the two legs between them and the barbs cross a storey and a half. **Y-G** takes the straight line the loft's junction bay already holds — V-I-I and V-J-I face each other down one axis across it, which is exactly what a run is — so both its run legs (segments 23 and 27) are one short length of tube and its branch takes the climb up out of the front column (segment 22). **Y-F** stands in the loft's own pump lane, the strip between the trays and the water deck, with its run along the lane — the shared source's climb in from the front column (segment 19), the pump's suction out the other end (segment 21) — and its branch reaching sideways at the bag-B draw (segment 20). It is the only branch in the manifold that is horizontal, and the only row whose RUN legs change level.
+Channel B's do **not** share one lane, and pump A is why: it stands in the front column beside channel A's, so both of its junctions are up in the loft and the two legs between them and the barbs cross a storey and a half. **Y-G** stands in the lane east of V-K's plate — the corridor segment 27 already runs down — with its RUN along that lane and one valve on each end: the bag's fill gate forward (segment 23), the nozzle gate aft (segment 27). Its branch takes the climb up out of the front column (segment 22), and both run legs lie on the aft stand's own port plane, so only the branch changes level. **Y-F** stands in the loft's own pump lane, the strip between the trays and the water deck, with its run along the lane — the shared source's climb in from the front column (segment 19), the pump's suction out the other end (segment 21) — and its branch reaching sideways at the bag-B draw (segment 20). It is the only branch in the manifold that is horizontal, and the only row whose RUN legs change level.
 
 **Y-E** is the one junction left that joins a tray's own pair, and it stands ACROSS the strip rather than ahead of it: what is ahead of the bag-A pair is a strip a fitting's diameter deep, so it stands across it with its collets in one vertical plane — the RUN along the strip carrying reservoir A's line in from the tray-east lane (segment 15) and the bag draw out the other end (segment 16), the BRANCH facing down on V-F's own column at the fill (segment 14). A down-facing collet is entered by a rising leg, so it stands over the pair's port plane and both valve legs climb into it. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
 
-Y-E's three ports are numbered from the end the **bag** rides — Y-E-2 the east end of its run, with a valve on each of the other two — where Y-A's and Y-B's are numbered from the source end down their columns. Reservoir A is reached by one line on the cold core's front face carrying both its fill and its draw; reservoir B is reached by two, each on its own conduit through the top cap.
+Y-E's three ports are numbered from the end the **bag** rides — Y-E-2 the east end of its run, with a valve on each of the other two — where Y-A's and Y-B's are numbered from the source end down their columns. Y-G's run is numbered from its AFT end — Y-G-2 at the nozzle gate, Y-G-3 forward at the bag's fill valve — each of the two the nearer to the collet it reaches. Reservoir A is reached by one line on the cold core's front face carrying both its fill and its draw; reservoir B is reached by two, each on its own conduit through the top cap.
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
@@ -50,7 +50,7 @@ Y-E's three ports are numbered from the end the **bag** rides — Y-E-2 the east
 | Y-D | P-B-O (pump B outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
 | Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
 | Y-F | V-D-O (channel B shared source) | V-H-O (bag B to pump return) | P-A-I (pump A inlet) |
-| Y-G | P-A-O (pump A outlet) | V-I-I (pump to bag B) | V-J-I (pump to nozzle B) |
+| Y-G | P-A-O (pump A outlet) | V-J-I (pump to nozzle B) | V-I-I (pump to bag B) |
 
 ## Tube Segments
 
@@ -92,10 +92,10 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 | 20 | V-H-O | Y-F-2 | |
 | 21 | Y-F-3 | P-A-I | |
 | 22 | P-A-O | Y-G-1 | |
-| 23 | Y-G-2 | V-I-I | |
+| 23 | Y-G-3 | V-I-I | |
 | 24 | V-I-O | Bag B FILL port | Down the cap conduit onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Bag B DRAW port | V-H-I | Out of the `reservoir-b` conduit at the head of the +Y band, off the bulkhead at the bottom of the wet V |
-| 27 | Y-G-3 | V-J-I | |
+| 27 | Y-G-2 | V-J-I | |
 | 28 | V-J-O | Nozzle B | |
 
 ---
