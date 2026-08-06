@@ -37,6 +37,25 @@ from docgen import substitute_md
 
 _OUTER = enclosure._dims().outer
 
+# Every authored run, by id, built ONCE — four figures below read a run's length and
+# building the pack's centrelines is the expensive half of importing `_lines`.
+_RUNS = {r.id: r for r in _lines.build_runs()}
+
+
+def _run_len(cid: str) -> float:
+    """One authored run's developed length, by id.
+
+    A run this file names and `_lines` does not build is DRIFT and not a missing key: the
+    id was renamed or the segment was dropped, and the figure it feeds is describing a
+    route the machine no longer takes. Say which id and what is there, so that reads as
+    the rename it is rather than as a bare StopIteration out of a generator."""
+    if cid not in _RUNS:
+        raise KeyError(
+            f"{cid} is not among the {len(_RUNS)} runs `_lines.build_runs()` returns — "
+            f"this file reads a run that has been renamed or dropped, and the README "
+            f"figure it feeds is stale. Have: {', '.join(sorted(_RUNS))}")
+    return _RUNS[cid].length
+
 # Zone D's ceiling — the top of the condenser standing over the shroud, which is the
 # stratum's own height and the last thing under the front column's open space. Read off
 # the placed block for the same reason the silhouette is read off the box.
@@ -145,14 +164,16 @@ TRAY_EAST_LANE = (_boxes.boxed(_PACK["condenser+fan"][0]).xmin
 # whole height. `_lines` falls channel B's inlet down it.
 COLLET_PROUD = (_boxes.boxed(_PACK["bag-a-tray-assembly"][0]).ymax
                 - (_contents.bag_a_tray_pos()[1] + _contents._tray.half_y))
-# The bag circuit's one line to the cold core's face — the longest run the machine carries.
-BAG_LINE_LEN = next(r for r in _lines.build_runs() if r.id == "fluid-15").length
+# The bag-A circuit's one line to the cold core's face, and the run that crosses the
+# machine corridor.
+BAG_LINE_LEN = _run_len("fluid-15")
 LOFT_TRAY_PLANE = _contents.bag_b_tray_port("V-H-I")[0][2]
 # The two lines that leave the machine, off the nozzle gates at the loft's own port plane.
-NOZZLE_A_LEN = next(r for r in _lines.build_runs() if r.id == "fluid-18").length
-NOZZLE_B_LEN = next(r for r in _lines.build_runs() if r.id == "fluid-28").length
-# Reservoir B's line, which climbs the whole front column to reach the loft.
-BAG_B_LINE_LEN = next(r for r in _lines.build_runs() if r.id == "fluid-25").length
+NOZZLE_A_LEN = _run_len("fluid-18")
+NOZZLE_B_LEN = _run_len("fluid-28")
+# Reservoir B's DRAW, which is the whole of its line outside the cold core: the climb is
+# in the shell's own +Y band and this is the fall off the cap conduit onto the pair.
+BAG_B_LINE_LEN = _run_len("fluid-26")
 
 
 def _rect_union(rects) -> float:
@@ -213,25 +234,37 @@ INTAKE_FACE, INTAKE_SHADOW = _intake_shadow()
 # pushed onto, so this is the lane and not a pick.
 PUMP_LANE_W = (_contents.pump_row_tee_pos("tee-y-c")[0]
                - _contents.pump_row_tee_pos("tee-y-d")[0])
-# What the loft's west lane holds, end to end: the bag-B pair's forward face to the nozzle
-# pair's aft one — `LOFT_TRAY_LEN` of tray and one `AFT_TRAY_BAY` of junction bay. The
-# funnel's real skirt bounds the front of it and the two lanes the nozzle runs turn on
-# bound the back.
-LOFT_LANE_LEN = (_boxes.boxed(_contents.build()["nozzle-tray-assembly"][0]).ymax
-                 - _boxes.boxed(_contents.build()["bag-b-tray-assembly"][0]).ymin)
-# What of that lane is tray rather than bay. The lane is the two trays and the junction
-# between them, so the three figures close on each other and none is typed.
-LOFT_TRAY_LEN = LOFT_LANE_LEN - _contents.AFT_TRAY_BAY
-# How far off the loft trays' east face Y-F's own column stands — one tee body and one
-# clearance floor, which is the near rim of the lane the fitting stands in.
-LOFT_TEE_STANDOFF = (_contents.aft_lane_x()
-                     - (_contents.bag_b_tray_pos()[0] + _contents._tray.half_x))
+# What the loft's west lane holds, end to end: the bag-B pair's forward face to the
+# nozzle-B gate's aft one. The funnel's real skirt bounds the front of it and the two lanes
+# the nozzle runs turn on bound the back.
+_LOFT_LANE_PLATES = ("bag-b-tray-assembly", "vk-tray-assembly", "nozzle-b-tray-assembly")
+_LOFT_LANE_Y = [(_boxes.boxed(_contents.build()[n][0]).ymin,
+                 _boxes.boxed(_contents.build()[n][0]).ymax) for n in _LOFT_LANE_PLATES]
+LOFT_LANE_LEN = max(hi for _lo, hi in _LOFT_LANE_Y) - min(lo for lo, _hi in _LOFT_LANE_Y)
+# What of that lane is PLATE rather than bay, and what the bays between them leave. Read off
+# every stand standing in it, so the three figures close on each other and none is typed —
+# a plate that joins the lane or leaves it moves all three.
+LOFT_TRAY_LEN = sum(hi - lo for lo, hi in _LOFT_LANE_Y)
+LOFT_LANE_BAYS = LOFT_LANE_LEN - LOFT_TRAY_LEN
+assert LOFT_LANE_BAYS >= 0.0, (
+    f"the loft's west lane is {LOFT_LANE_LEN:.2f} mm end to end and the stands in it come to "
+    f"{LOFT_TRAY_LEN:.2f} — so two of {', '.join(_LOFT_LANE_PLATES)} overlap in Y, and one of "
+    f"them is no longer a stand on this lane")
+# How far INSIDE the loft trays' east face Y-F's own column stands. The fitting is aloft of
+# the stand rather than off its flank, so this reads as a plan inset off that face and not as
+# a standoff from it — `_lines.LOFT_TEE_STANDOFF` is the other half, the air under the tee.
+LOFT_TEE_INSET = ((_contents.bag_b_tray_pos()[0] + _contents._tray.half_x)
+                  - _contents.aft_lane_x())
 # What the bag-B pair actually has ahead of it — the funnel's REAL surface, not its box,
 # which is the first of the levers that would open that lane.
 BAG_B_FUNNEL = _scorecard._solid_gap(_contents.build()["bag-b-tray-assembly"][0],
                                      _contents.placed_funnel())
 # The routed axis, read off the same scorecard the assembly prints rather than kept by hand.
-ROUTED_PCT = 100.0 * len(_lines.routed_ids()) / len(_scorecard.load_connections())
+# Both counts are named, because a percentage in prose is always read back as a count and
+# the count is the half that goes stale silently.
+ROUTED_N = len(_lines.routed_ids())
+CONNECTIONS_N = len(_scorecard.load_connections())
+ROUTED_PCT = 100.0 * ROUTED_N / CONNECTIONS_N
 
 
 def main():
@@ -294,11 +327,14 @@ def main():
         # The pump lane, the loft's over-packed west lane, and what the scorecard scores.
         "PUMP_LANE_W": f"{PUMP_LANE_W:.4g}",
         "LOFT_TRAY_BAY_MM": f"{_contents.AFT_TRAY_BAY:.4g}",
-        "LOFT_TEE_STANDOFF": f"{LOFT_TEE_STANDOFF:.4g}",
+        "LOFT_TEE_INSET": f"{LOFT_TEE_INSET:.4g}",
         "LOFT_LANE_LEN": f"{LOFT_LANE_LEN:.4g}",
         "LOFT_TRAY_LEN": f"{LOFT_TRAY_LEN:.4g}",
+        "LOFT_LANE_BAYS": f"{LOFT_LANE_BAYS:.4g}",
         "BAG_B_FUNNEL": f"{BAG_B_FUNNEL:.4g}",
         "ROUTED_PCT": f"{ROUTED_PCT:.2g}",
+        "ROUTED_N": f"{ROUTED_N:d}",
+        "CONNECTIONS_N": f"{CONNECTIONS_N:d}",
         "INTAKE_FACE_W": f"{_contents.CONDENSER_FACE_A:.4g}",
         "INTAKE_FACE_H": f"{_contents.CONDENSER_FACE_B:.4g}",
         "INTAKE_SHADOW_PCT": f"{100.0 * INTAKE_SHADOW / INTAKE_FACE:.3g}",
@@ -361,11 +397,14 @@ def main():
             "NOZZLE_B_LEN": 1,
             "PUMP_LANE_W": 1,
             "LOFT_TRAY_BAY_MM": 2,   # the bay in the loft paragraph and again in Constraints
-            "LOFT_TEE_STANDOFF": 1,
+            "LOFT_TEE_INSET": 1,
             "LOFT_LANE_LEN": 1,
             "LOFT_TRAY_LEN": 1,
+            "LOFT_LANE_BAYS": 1,
             "BAG_B_FUNNEL": 1,
             "ROUTED_PCT": 1,
+            "ROUTED_N": 1,
+            "CONNECTIONS_N": 1,
             "INTAKE_FACE_W": 1,
             "INTAKE_FACE_H": 1,
             "INTAKE_SHADOW_PCT": 1,
