@@ -1,41 +1,52 @@
 ---
-description: Open on the ugly board, take one body, move its whole chain, commit. The routing session's opening act.
-argument-hint: [body or run to take — omit to take the board's worst]
+description: Open on the ugly board, take one RUN, move whatever chain it takes to fix it, commit. The routing session's opening act.
+argument-hint: [run to take — omit to take the board's worst]
 disable-model-invocation: true
 ---
 
-You are moving one body in the enclosure. Not diagnosing one, not pricing one — moving it.
+You are fixing one run in the enclosure. The run is the assignment. Whatever has to move for
+it to reach its stock's radius is the work, however far from the run that turns out to be.
 
 Requested: **$ARGUMENTS**
+
+**"The problem is elsewhere" is not an answer here.** A whole bunch of elsewheres is the task.
+The run is broken; something moves. If you finish the turn with the run no better and no
+committed state, you have spent it.
 
 ## 1. Open on the board
 
 ```
 python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py
-python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py --runs
 ```
 
-`debt` is what a body owes — every run standing on it the stock cannot bend. `=` on a binding
-corner means its own leg is the whole of its limit; `<` means a neighbour is taking part of
-the share. `leg` against `wants` is the reach that corner is short by.
+Runs, worst first. `binding` is the corner holding each one down and what that corner needs —
+`reach` is short of leg, `share` is a neighbour taking part of the leg, `REVERSAL` turns back
+on itself and no leg length fixes it. `[n]` beside an end body is what else that body carries.
 
 If the footer says STALE, rebuild before you read it.
 
 Then read `calibration/Chain.md` in full. It is short, and the rest of this command assumes
 it.
 
-## 2. Take the body
+## 2. Take the run
 
-If `$ARGUMENTS` names one, that is the body. If it does not, take the board's top row and say
-in one line what the board says about it — which runs, which corners, how short.
+If `$ARGUMENTS` names one, that is the run. If it does not, take the board's top row.
 
-Then look at it before you touch it:
+Then open it and look:
 
 ```
-tools/look.sh <body>[,<body>...]
+python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py <run>
+tools/look.sh <run>,<its two end bodies>
 ```
+
+The second table is the leverage: the bodies that run stands on, and how many other runs the
+same move would pay off. They are candidates. The bodies that have to move may not be either
+of them — a run's fix is often a body it never touches.
 
 ## 3. State the target as a condition
+
+The run's own goal is fixed: every corner at its stock's minimum. What needs stating is the
+condition on whatever you are moving to get there.
 
 Not `Y-F at x 108.6`. `Y-F far enough west that fluid-21 leaves on carb-1's riser's west
 side`. A number cannot be iterated on, because a miss says nothing about which way to go.
@@ -72,4 +83,4 @@ Then look at what you landed and read the render — not the tables.
 Not on an offer. `calibration/Discretion.md` if that sentence needs explaining.
 
 Lead with the state: what moved, what the gates say now, what the board says now. Re-run
-`ugly.py` and show the row that changed.
+`ugly.py` and show the run's row — the one you were given, at whatever it now reads.

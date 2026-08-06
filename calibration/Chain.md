@@ -162,9 +162,11 @@ west side`, and let the build settle the value.
 
 ## The shape
 
-1. Read the board. [`ugly.py`](../hardware/printed-parts/enclosure/enclosure-assembly/ugly.py)
-   ranks what is contorted and names the bodies carrying it; `need.py` and `room.py` are the
-   other two readings.
+1. Take a run. [`ugly.py`](../hardware/printed-parts/enclosure/enclosure-assembly/ugly.py)
+   ranks the runs the stock cannot bend and names the bodies each one stands on; `need.py`
+   and `room.py` are the other two readings. The run is the assignment — a body is only ever
+   a candidate for moving, and "the problem is elsewhere" names the work rather than excusing
+   it.
 2. Choose the coordinate, and write it as the condition it answers to.
 3. Print the chain — everything that reads the body you are moving, and everything reading
    those.
