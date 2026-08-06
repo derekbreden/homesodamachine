@@ -7309,8 +7309,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-06T19:42:48+00:00",
-    "commit": "8bef7bbe4b0410ea8465cf7d42ccd8fd61465c2c",
+    "generated": "2026-08-06T20:45:18+00:00",
+    "commit": "0ac6b08b888de603e83231f00fb39efe8b30dae8",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7331,14 +7331,14 @@
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:159198:1785913234053377583",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:21b3ef98fcd46857",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:286aa2a850653d6d",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:a2eb69c9ad4be049",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:a27fa6d8ea7e3f51",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:c201a7d0b9efa833",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:2e26509dcc681921",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:8a2e6d196bf34f2f",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:2d66304beebc8f6c",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:2ccdde0b36d34ae3",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726216:1785958078966765507",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:845175:1785962402175439855",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785958078987592982",
