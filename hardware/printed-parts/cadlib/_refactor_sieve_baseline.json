@@ -20,8 +20,6 @@
     "hardware/reference/beduan-solenoid/beduan-solenoid.step": "387a00acf9fa173cdc812c89b38756b1a13076f7401126307a9fd5dbe4dfd878",
     "hardware/reference/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "abd56c3925693a5caa252ec65a34594b8fa82a559dfe9b6f272620dcdfc7a95f",
-    "hardware/reference/servo-valve-mock/coupling-detail.step": "bfbb93e62737d4eb9dd64314dc83368007a00a0a8bd524e322cbeacfb2adb620",
-    "hardware/reference/servo-valve-mock/servo-valve-mock.step": "fb320633385ccfee8a073aec547e8c77a97b1737a52a2dd2c4b47f52cd35b13c",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "cdb1f50267574a28c20da4de8905f6f32b3356c88d40956ec9194aa94056e5a9",
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
     "hardware/reference/water-test-cup/water-test-cup.step": "019a9cb3d87939e35549f12d59f8e81c7282eb5809fd97248fdcf2525a99b6f0"

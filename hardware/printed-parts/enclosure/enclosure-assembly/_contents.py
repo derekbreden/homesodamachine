@@ -184,7 +184,6 @@ for _p in (_hw / "scripts", _tools,
            _hw / "printed-parts" / "valve-manifold" / "single-tray",
            _hw / "printed-parts" / "valve-manifold" / "single-valve-tray",
            _hw / "printed-parts" / "valve-manifold" / "two-valve-tray",
-           _hw / "printed-parts" / "valve-manifold" / "three-valve-tray",
            _hw / "printed-parts" / "enclosure" / "enclosure"):   # `enclosure`, in placed_funnel
     sys.path.insert(0, str(_p))
 import _boxes                            # noqa: E402
@@ -623,9 +622,9 @@ RELAY_TURN = (((0.0, 0.0, 1.0), RELAY_YAW), ((0.0, 1.0, 0.0), 270.0))
 PSU_TURN = (((0.0, 0.0, 1.0), 270.0 + FOAM_YAW), ((0.0, 1.0, 0.0), -90.0))
 
 # --- Zone C: the valve manifold's HEAD COLUMN, in the front column ----------
-# The manifold is five trays: four identical two-valve (`../../valve-manifold/two-valve-tray`)
-# and one plate a seat wider, whose third seat carries the nozzle gates
-# (`../../valve-manifold/three-valve-tray`). Three of the two-valve four stand here, one under
+# The manifold is seven trays: four identical two-valve (`../../valve-manifold/two-valve-tray`)
+# and three of the one-seat plate (`../../valve-manifold/single-valve-tray`), which carries
+# V-K and each of the two nozzle gates. Three of the two-valve four stand here, one under
 # the next in a single column: the SOURCE pair — V-A on tap water, V-B on the hopper — the
 # SELECTS pair — V-C and V-D, the two channel gates — one stack pitch under it, and the BAG-A
 # pair — V-E drawing from reservoir A, V-F returning to it — one more. Three is the column's
@@ -815,7 +814,6 @@ TEE_ROLL = 90.0
 # the four ports it joins lie in two columns of two: V-A over V-C on the west seat, V-B over
 # V-D on the east. Two ports in line is a run, so each column is one tee, and the two branches
 # face each other across the seat pitch with one length of tube between them — an upright H.
-# `../../valve-manifold/selects-source/` is that pair on its own, with the four modes measured.
 JUNCTION_TEES = ("tee-y-a", "tee-y-b")
 # The straight a column leg runs off its collet before it turns: a radius of tangent for the
 # corner, and one more so that tangent lands off the stub's own end rather than exactly on it.
@@ -2403,7 +2401,7 @@ SELECTS_TRAY_COLLETS = {
 
 def _tray_port(body, name, collets, mod=_tray):
     """One of a tray's bare collets in world: `(pos, face)`. The tray module owns every one
-    of them (`two_valve_tray.port_collets`, `three_valve_tray.port_collets`), so a seat pitch
+    of them (`two_valve_tray.port_collets`, `single_valve_tray.port_collets`), so a seat pitch
     or a port length changed there moves the world station with it; the seat the pack gave
     that tray carries it out. Two plates, four off and one off, one reading for both."""
     return _world(body, mod.port_collets()[collets[name]])
@@ -3318,11 +3316,10 @@ def aft_port_z():
 def aft_row_tee_pos(tee):
     """An aft-stand tee's body centre in world.
 
-    Y-F's run lies along V-H's own column (`aft_lane_x`), in the band OVER the stand's crown —
-    the tee clears the plate below it by one `LINE_HUG` on its own run radius. IT STANDS OVER
-    THE COLLET IT SERVES in both plan axes, V-H-O's own station: the draw's climb is then a
-    lane beside this body rather than a reach across the deck, and the band aft of the port
-    the climb turns in is the bay's mouth, clear of the crossings the bay itself carries."""
+    Y-F's run lies along the lane (`aft_lane_x`), in the band OVER the stand's crown — the tee
+    clears the plate below it by one `LINE_HUG` on its own run radius. It stands on V-H-O's own
+    station in Y and WEST of that collet in x, on the column `fluid-21` falls down. The draw
+    crosses the plates to reach it (`_lines`, fluid-20)."""
     return (aft_lane_x(), bag_b_tray_port("V-H-O")[0][1],
             aft_stand_crown() + LINE_HUG + TEE_HALF_W)
 
