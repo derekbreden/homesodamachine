@@ -540,8 +540,8 @@ SPLIT_PITCH = 180.0                      # branch off −X, onto +X
 # outlet across one `JUNCTION_LEG_LEAD` of straight, which is what a collet owes a line pressed
 # into it (`scorecard.port_leads`), and `split_y()` is that reading.
 # Z is the chain's own axis, carried through the whole sequence — the funnel's aft-west
-# corner is closed around it (`hopper_funnel.notch_x`), so the basin's floor is no longer
-# the ceiling here and the three fittings share one line in all three coordinates.
+# corner is closed around it (`hopper_funnel.notch_x`), so the basin's floor is not the
+# ceiling here and the three fittings share one line in all three coordinates.
 # The flow regulator is the wall sequence's third fitting: INLINE on the split's flavor tap,
 # quarter-turned so both collets lie on Y, standing on the split's own column and plane with
 # its inlet looking at the flavor collet across one `JUNCTION_LEG_LEAD` of straight — so
@@ -679,7 +679,7 @@ NOZZLE_TRAY_YAW = 0.0
 # machine's front chain, every link at its floor: the front-wall station's pod
 # (`FRONT_CORNER_POD`), the pumps one `LINE_HUG` off it (`PUMP_B_FRONT_BAND`), and the
 # junction's two tees one more off their aft faces (`junction_tee_pos`) — so a millimetre on
-# the band is no longer through a pump but through the junction itself: the column's ports
+# the band is through the junction rather than through a pump: the column's ports
 # advance on the chain-fixed tee plane, and each millimetre comes off the four column legs'
 # forward standoff, which stands level with their drop budget and buys those eight corners
 # nothing back. Y-E recentres in the strip behind the pumps and follows
@@ -891,32 +891,19 @@ PUMP_ROW_TURN = TUBE_HALF + LINE_HUG
 # junctions lie in one plane with the ports they join and no leg climbs — the same relation
 # `_divider_pos` gives a trident's outlets.
 PUMP_B_LANE_X = -10.0
-# The pumps' front faces, at the pack's floor off the FRONT-WEST CORNER's seam furniture: the
+# PUMP B'S FRONT FACE, at the pack's floor off the FRONT-WEST CORNER's seam furniture: the
 # front wall's inner face (the shroud's stated front less `FRONT_STANDOFF`, −3), the front-wall
 # Z-station's pod standing `FRONT_CORNER_POD` off it — floor post, collar and ceiling post, so
-# the pumps meet it at every height they span — and one `LINE_HUG`. The pod is the chain's
-# first link and it is priced: 16.3 is the cross-pin's own jacket (a Ø10.3 socket wants a wall
-# each side), and its inboard reach (x 0, screw seat 4 + M3×10 + insert cap through the west
-# wall) overlaps the pump's own west face at −10, so no shorter screw clears it. The one
-# re-cut that shortens the link is a pin through the FRONT wall — pod depth 11, the pumps to
-# 12, an M3 head on the box's most visible face — and the junction it serves saturates first:
-# the column legs' drop budget is (tray_stack_pitch − 2·TEE_RUN_HALF)/2 = 12.73, so their
-# R ≈ 11.9 here rises only to ≈ 12.05 at a front band of 12, and ≈ 12.7 is the ceiling at any
-# standoff. The millimetres go where the saturation says: forward to the pod's floor, none
-# through the wall.
+# this pump meets it at every height it spans — and one `LINE_HUG`.
 FRONT_CORNER_POD = 16.3                 # = 2 × enclosure.socket_r, as REAR_CORNER_COLUMN aft
 PUMP_B_FRONT_BAND = FRONT_CORNER_POD - FRONT_STANDOFF + LINE_HUG              # 14.3
-# CHANNEL B'S PUMP DOES NOT ANSWER TO THAT POD. The pod is CORNER furniture: it runs from the
-# −X wall's inner face east to x 0 and nothing stands behind the front wall past it, so a body
-# whose west face is east of that column meets the WALL and not the post. Pump A's is, by its
-# twin's own width — so its front band is the wall's own inner face (the pack's y datum) and one
-# `LINE_HUG`, and it stands [13.3](PUMP_A_GAIN) mm forward of the row it used to share a plane
-# with. That is the depth the BAG STRIP gains: the bag pair's collets and Y-E all stand over
-# THIS pump's span, not its twin's, so the strip ahead of them is what this face leaves
-# (`y_e_pos`, and `_lines`' fluid-16 and fluid-22).
-#   The twin cannot follow. Clearing the pod puts its west face at x 1.5, and the pair then
-# reaches x 128.5 against a condenser fence at 124.0 — so pump B keeps the pod's own band and
-# the two pumps no longer stand on one plane.
+# PUMP A'S, off the WALL. That pod is corner furniture — it runs from the −X wall's inner face
+# east to x 0, and behind the front wall past that column there is nothing — so a body whose
+# west face stands east of it meets the wall and not the post. Pump A's does, by its twin's own
+# width, and its front band is the wall's own inner face (the pack's y datum) and one
+# `LINE_HUG`.
+#   The bag pair's four collets and Y-E all stand over THIS pump's span, so the strip ahead of
+# them is what this face leaves (`y_e_pos`, and `_lines`' fluid-16 and fluid-22).
 PUMP_A_FRONT_BAND = LINE_HUG
 # How far a barb stands over the pump's own bounding box, off the part
 # (`kamoer_kphm400`): the arch plane over the head's front face. One number for both pumps —
@@ -956,8 +943,7 @@ PUMP_PORT_RISE = _kamoer.arch_plane_z - _kamoer.head_front_z
 #     `fore_deck_column_face` — the cup wants `deck_mount_cap_gap` of liquid foam between a
 #     column and the cavity wall beside it, and that gap read on the cap's FRONT edge is the
 #     forwardmost plane any station on this deck can take.
-#   * not AFT: nothing pins it. The stand's aft face used to ride the rear corner column's
-#     face; the whole band behind it is now the outlet lane's and the shelf's, and it runs
+#   * not AFT: nothing pins it. The whole band behind it is the outlet lane's and the shelf's, and it runs
 #     [222](OUTLET_LANE) mm deep — the three aft-facing outlets turn on it and climb to the
 #     rear panel a lane behind the deck they leave.
 #   * the LEAD is the bay's own turn construction: two legs come about on the shared
