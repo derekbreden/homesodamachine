@@ -1,35 +1,39 @@
-"""What is contorted, worst first — and which BODY carries it.
+"""The runs the stock cannot bend, worst first — and the bodies each one stands on.
 
 `need.py` reports what a run connects before what it rides. `room.py` reports what a band
-holds before anything is put in it. This reports what is ugly against BODIES: every run the
-stock cannot bend, summed onto the two components its ends stand on.
+holds before anything is put in it. This ranks the RUNS, the way the scorecard does, and
+against each one names its two end bodies and how much else those bodies carry.
 
     python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py
-    python3 .../ugly.py --runs            # the runs behind the debt, worst first
+    python3 .../ugly.py fluid-20          # one run: every corner, and the leverage on it
+    python3 .../ugly.py --bodies          # the same debt summed onto bodies
     python3 .../ugly.py --held            # whose mount joint does not hold
-    python3 .../ugly.py tee-y-f           # one body's rows
     python3 .../ugly.py selftest
 
-Worst debt first.
+Worst ratio first.
+
+Rows are runs. A body appears only as one end of a run, with the `[debt]` beside it counting
+the other runs the same move would pay off.
 
 THIS IS NOT A SEARCH. It ranks no candidate poses, finds no optimum and moves nothing. It
 reads the committed sidecar `enclosure-assembly.scorecard.json` — the same figures the card
 carries — so it costs a file read and reports the last build. The footer says when that build
 ran, and says STALE when placement or routing source has been written since.
 
+`binding` is the corner holding the run down, and its kind is what the corner needs:
+
+- `reach` — the corner sits at the ceiling its own shorter leg imposes, `min(leg)/tan(turn/2)`.
+  `of` gives the leg one stock arc wants there, `cap * tan(turn/2)`. That length is NECESSARY
+  and not sufficient: a leg reaching it clears this corner's own bound and still answers to
+  whatever it shares the leg with.
+- `share` — the corner sits BELOW that ceiling, so a turning neighbour is taking part of the
+  leg. Lengthening the leg alone does not hand this corner the difference.
+- `REVERSAL` — the run turns back on itself. No leg length seats any radius through 180°, so
+  there is no `of` to report, and the length of the legs either side of it is not the figure
+  in play.
+
 `debt` is what a body owes: for each run standing on it that the stock cannot bend, how far
-under 1.0 that run's `ratio` sits, summed. A run counts on BOTH its ends. `3/3` beside a body
-says every run it touches is sub-stock; `3/8` says most of its traffic is fine.
-
-`ceiling` is the largest radius a corner's own two legs can seat — `min(leg) / tan(turn/2)`.
-It is a bound, not a prediction: a corner sharing a leg with a turning neighbour gets less
-than this, and the router allocates that share. A corner AT its ceiling is one whose own leg
-is the whole of its limit. A corner BELOW its ceiling is competing with a neighbour, and what
-binds it is the run's shape rather than any single leg.
-
-`wants` is the leg one stock arc needs at that corner — `cap * tan(turn/2)` — against the leg
-there now. It is a NECESSARY length and not a sufficient one: a leg reaching it clears this
-corner's own bound and still answers to whatever it shares the leg with.
+under 1.0 that run's `ratio` sits, summed. A run counts on BOTH its ends.
 
 What this does not answer: whether a body may move, what it would cost to move it, or where
 it would go — `room.py` reports the bands, `scorecard.pose` says whose pose is an input, and
@@ -44,6 +48,9 @@ import sys
 
 SIDECAR = "enclosure-assembly.scorecard.json"
 BAD = ("F", "D")
+# A turn this severe reverses the run. `tan(turn/2)` runs away here, so the leg a stock arc
+# would want stops being a length and the ceiling stops being a bound worth printing.
+REVERSAL_TURN = 179.0
 
 
 def _pl(rows, one, many) -> str:
@@ -88,9 +95,10 @@ def ceiling(corner, leg_a, leg_b) -> float:
 
 
 def binding(run) -> dict | None:
-    """The corner holding the run down: lowest ratio, with the leg it stands on and the leg
-    one stock arc would want there. `at_ceiling` is whether that leg is the whole of its
-    limit — below it, a neighbour is taking the share."""
+    """The corner holding the run down: lowest radius, its kind, the leg it stands on, and
+    the leg one stock arc would want there. `kind` is `reversal` through 180°, `reach` when
+    the corner sits at the ceiling its own shorter leg imposes, and `share` when it sits
+    below that ceiling with a turning neighbour taking part of the leg."""
     cs = run["corners"]
     if not cs:
         return None
@@ -98,16 +106,20 @@ def binding(run) -> dict | None:
     L = legs(run)
     a, b = L[i], L[i + 1]
     t = math.tan(math.radians(c["turn"]) / 2)
+    cap = ceiling(c, a, b)
+    # The sidecar rounds legs to 2 dp, so the bound carries that much slack.
+    at_ceiling = c["radius"] >= cap - 0.02
+    reversal = c["turn"] >= REVERSAL_TURN
     return {
         "at": c["at"],
         "turn": c["turn"],
         "radius": c["radius"],
         "grade": c["grade"],
+        "kind": "reversal" if reversal else ("reach" if at_ceiling else "share"),
         "leg": round(min(a, b), 2),
-        "ceiling": round(ceiling(c, a, b), 2),
-        "wants": round(run["minBend"] * t, 2),
-        # The sidecar rounds legs to 2 dp, so the bound carries that much slack.
-        "at_ceiling": c["radius"] >= ceiling(c, a, b) - 0.02,
+        "ceiling": None if reversal else round(cap, 2),
+        "wants": None if reversal else round(run["minBend"] * t, 2),
+        "at_ceiling": at_ceiling,
     }
 
 
@@ -157,46 +169,64 @@ def unmounted(card) -> list:
     return out
 
 
-def table(card, only=(), show=("bodies", "held")) -> str:
+def at_spec(run) -> tuple:
+    """Corners at or above the stock's minimum, over the run's corner count."""
+    cs = run["corners"]
+    return sum(1 for c in cs if c["radius"] >= run["minBend"] - 1e-6), len(cs)
+
+
+def _end(name: str, debt: dict) -> str:
+    """A run's end body, carrying its debt when it has any."""
+    d = debt.get(name)
+    return f"{name}[{d:.1f}]" if d else name
+
+
+def table(card, only=(), show=("runs", "held")) -> str:
     """The board."""
     src = card.get("source", {})
     bends = card["bends"]
+    debt = {b["body"]: b["debt"] for b in bodies(bends)}
     out = []
+
+    if "runs" in show:
+        rows = [r for r in bends if r["grade"] in BAD
+                and (not only or r["id"] in only
+                     or any(e.split(".")[0] in only for e in (r["frm"], r["to"])))]
+        rows.sort(key=lambda r: (r["ratio"], r["id"]))
+        out.append(f"{'ratio':>6} {'R':>7} {'of':>6} {'spec':>6} {'det':>6}  "
+                   f"{'binding':<26} run")
+        for r in rows:
+            n, bd = r["need"], binding(r)
+            ok, tot = at_spec(r)
+            det = "  —  " if n["detour"] is None else f"{n['detour']:4.2f}×"
+            if not bd:
+                b = "—"
+            elif bd["kind"] == "reversal":
+                b = f"c{bd['at']} REVERSAL {bd['turn']:.0f}°"
+            else:
+                b = (f"c{bd['at']} {bd['kind']} {bd['turn']:.0f}° "
+                     f"{bd['leg']:.1f} of {bd['wants']:.1f}")
+            out.append(f"{r['ratio']:6.2f} {r['radius']:7.2f} {r['minBend']:6.1f} "
+                       f"{f'{ok}/{tot}':>6} {det:>6}  {b:<26} {r['id']:<10} "
+                       f"{_end(r['frm'].split('.')[0], debt)} → "
+                       f"{_end(r['to'].split('.')[0], debt)}")
+        out.append(f"{len(rows)} {_pl(rows, 'run', 'runs')} the stock cannot bend, worst first. "
+                   f"`binding` is the corner holding each one down and what it needs — `reach` "
+                   f"is short of leg, `share` is a neighbour taking the leg, `REVERSAL` turns "
+                   f"back on itself. `[n]` on an end body is what else that body carries.")
 
     if "bodies" in show:
         rows = [b for b in bodies(bends) if not only or b["body"] in only]
+        if out:
+            out.append("")
         out.append(f"{'debt':>6} {'bad':>7}  body")
         for b in rows:
             out.append(f"{b['debt']:6.2f} {len(b['bad']):3d}/{len(b['runs']):<3d}  "
                        f"{b['body']:<26} {' '.join(b['ids'])}")
-        out.append(f"{len(rows)} {_pl(rows, 'body', 'bodies')} carrying sub-stock runs. Each run "
-                   f"is counted on both its ends — either end moving can be the fix.")
-
-    if "runs" in show:
-        rows = [r for r in bends if r["grade"] in BAD
-                and (not only or any(e.split(".")[0] in only for e in (r["frm"], r["to"])))]
-        rows.sort(key=lambda r: r["ratio"])
-        if out:
-            out.append("")
-        out.append(f"{'ratio':>6} {'R':>7} {'cap':>6} {'det':>6} {'c':>3}  "
-                   f"{'corner':>6} {'leg':>7} {'wants':>7}  run")
-        for r in rows:
-            n = r["need"]
-            bd = binding(r)
-            det = "  —  " if n["detour"] is None else f"{n['detour']:4.2f}×"
-            if bd:
-                mark = "=" if bd["at_ceiling"] else "<"
-                corner = f"{bd['at']:>2}{mark}{bd['turn']:.0f}°"
-                leg, wants = f"{bd['leg']:7.2f}", f"{bd['wants']:7.2f}"
-            else:
-                corner, leg, wants = "     —", "      —", "      —"
-            out.append(f"{r['ratio']:6.2f} {r['radius']:7.2f} {r['minBend']:6.1f} {det:>6} "
-                       f"{len(r['corners']):3d}  {corner:>6} {leg} {wants}  "
-                       f"{r['id']:<10} {r['frm']} → {r['to']}")
-        out.append(f"{len(rows)} {_pl(rows, 'run', 'runs')} the stock cannot bend. `corner` is the binding one: "
-                   f"`=` its own leg is the whole of its limit, `<` a neighbour takes part of "
-                   f"the share. `leg` is what it stands on, `wants` what one stock arc needs "
-                   f"there — necessary, not sufficient.")
+        out.append(f"{len(rows)} {_pl(rows, 'body', 'bodies')} standing at the end of a "
+                   f"sub-stock run, each run counted on both its ends. This is the same debt "
+                   f"the run rows carry, summed — a run is what gets worked, and this says "
+                   f"which move would land on more than one of them.")
 
     if "held" in show:
         rows = [u for u in unmounted(card) if not only or u["component"] in only]
@@ -271,6 +301,25 @@ def selftest() -> int:
           binding(run("t", 0.43, "F", [corner(1, 90.0, 11.03, 11.03, 53.16)]))["at_ceiling"])
     check("`wants` is the leg one stock arc needs at that corner", b["wants"] == 25.4,
           f"{b['wants']} for a 90° at cap 25.4")
+    check("a corner short of its own leg reads reach",
+          binding(run("t", 0.43, "F", [corner(1, 90.0, 11.03, 11.03, 53.16)]))["kind"] == "reach")
+    check("a corner under its ceiling reads share", b["kind"] == "share", b["kind"])
+
+    # A 180° turn seats no radius at any leg length, so the leg figures stop being the story.
+    rev = binding(run("t", 0.0, "F", [corner(1, 180.0, 0.0, 4.0, 53.16),
+                                      corner(2, 90.0, 16.2, 53.16, 32.07)]))
+    check("a reversal reads reversal", rev["kind"] == "reversal" and rev["at"] == 1)
+    check("a reversal reports no leg a stock arc wants",
+          rev["wants"] is None and rev["ceiling"] is None,
+          f"wants {rev['wants']}, ceiling {rev['ceiling']}")
+
+    spec = run("t", 0.5, "F", [corner(1, 90.0, 25.4, 30.0, 30.0),
+                               corner(2, 90.0, 5.0, 30.0, 5.0)])
+    check("corners at spec counts against the run's cap", at_spec(spec) == (1, 2),
+          f"{at_spec(spec)}")
+    check("an end body carries its debt inline",
+          _end("tee-y-f", {"tee-y-f": 2.31}) == "tee-y-f[2.3]"
+          and _end("clean", {}) == "clean")
 
     # Debt sums a run onto both its ends, and a body with no bad run is off the board.
     bs = bodies([run("r1", 0.2, "F", [], "tee.a", "tray.b"),
@@ -331,8 +380,9 @@ def main(argv) -> int:
         return selftest()
     show = [f[2:] for f in argv if f.startswith("--")]
     only = {a for a in argv if not a.startswith("--")}
-    print(table(_card(), only=only, show=show or (["bodies", "runs", "held"] if only
-                                                  else ["bodies", "held"])))
+    # Named a run or a body: show the runs, the bodies carrying them, and the mount rows.
+    print(table(_card(), only=only,
+                show=show or (["runs", "bodies", "held"] if only else ["runs", "held"])))
     return 0
 
 

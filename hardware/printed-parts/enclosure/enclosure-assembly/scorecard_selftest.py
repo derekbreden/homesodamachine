@@ -702,7 +702,7 @@ def test_mount_audit() -> None:
         import _contents as contents
         pack = ea._build_pack(contents._moves())
         live = {n: (by, holds, cks) for n, by, holds, cks in sc.mount_audit(
-            {k: v for k, (v, _c) in pack.solids.items()})}
+            {k: v for k, (v, _c) in pack.solids.items()}, pack.pieces)}
         trays = [n for n in sc.DECK_MOUNTED.values() if n in live]
         check("every deck-mounted tray's joint is measured and holds",
               trays and all(live[n][1] for n in trays)
@@ -712,6 +712,24 @@ def test_mount_audit() -> None:
                       if cks and cks[0][0] == "no joint measured"]
         check("a declared row with no measurement reads adrift, not mounted",
               all(not live[n][1] for n in unmeasured), f"{sorted(unmeasured)}")
+
+        # The feature probe's two halves fail independently: a feature never printed, and a
+        # part standing away from one that was. Both must fire, or the joint has a blind spot.
+        feat = [("f", (0.0, 10.0, 0.0, 10.0, 0.0, 10.0))]
+        carrier, part = box(0, 0, 0, 10, 10, 10), box(0, 0, 10, 10, 10, 10)
+        rows = dict((lbl, ok) for lbl, _v, _mx, ok in sc.feature_probe(carrier, part, feat))
+        check("a printed feature with the part on it holds both halves",
+              rows["f printed"] and rows["f met"], f"{rows}")
+
+        absent = sc.feature_probe(box(100, 100, 100, 10, 10, 10), part, feat)
+        check("a feature that was never printed fires",
+              not dict((l, ok) for l, _v, _m, ok in absent)["f printed"],
+              f"filled {absent[0][1]:.2f}")
+
+        away = sc.feature_probe(carrier, box(0, 0, 60, 10, 10, 10), feat)
+        check("a part standing off its own feature fires",
+              not dict((l, ok) for l, _v, _m, ok in away)["f met"],
+              f"gap {away[1][1]:.2f}")
     finally:
         sc.MOUNTED_BY.clear()
         sc.MOUNTED_BY.update(keep)
