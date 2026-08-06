@@ -58,6 +58,10 @@ Write it down before you edit anything.
 Every derivation that reads the body you are moving, and everything reading those. Grep the
 function, grep its callers, and keep going until the list closes. Print it.
 
+Walk it yourself — no subagents, on this step or any other in this command. A subagent
+returns a report, and a report is prose about a state that does not exist. The chain is also
+the thing you have to be holding whole when you move it, and a summary of it is not it.
+
 If a link has no answer you can derive, **that link is the turn** — send that one line and
 stop. It is what Derek needs and it is the only thing in the turn he needs.
 
