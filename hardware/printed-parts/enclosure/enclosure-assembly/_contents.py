@@ -3040,18 +3040,17 @@ def bag_b_tray_pos():
     leaves it before `water-3` falls down V-K's column. Turned, the plate's reach to either
     face is `port_half`.
 
-    WHAT ITS WEST FACE ANSWERS TO IS A MOUTH, not a body. Everything else on this flank stands
-    forward of or beneath the plate — the nozzle-A gate on the lid ahead of it, the two band
-    conduits aft of that — and the one feature under the plate's own footprint is reservoir B's
-    FILL BORE, which a plate lying over it would close (`conduit_column_east`).
+    WHAT ITS WEST FACE ANSWERS TO IS A MOUTH, not a body: the nozzle-A gate lies on the lid
+    ahead of the plate, and the two bores its own collets feed stand under the west edge of the
+    footprint, which a plate reaching further would close (`conduit_column_east`).
 
     Y is `bag_b_tray_y()` plus the turned plate's own half-depth; Z is the cap."""
     x = bag_b_east_limit() - _tray.port_half
     if x - _tray.port_half < conduit_column_east():
         _short("bag-b-flank",
                f"the pair's west face stands at x {x - _tray.port_half:.2f}, west of the "
-               f"{conduit_column_east():.2f} reservoir B's fill bore leaves a body on this "
-               f"deck — the plate lies over the mouth it is fed through.")
+               f"{conduit_column_east():.2f} reservoir B's two cap bores leave a body on this "
+               f"deck — the plate lies over the mouths it is fed through.")
     return (x, bag_b_tray_y() + _tray.half_x, aft_tray_z())
 
 
@@ -3071,15 +3070,15 @@ def bag_b_east_limit():
 
 
 def conduit_column_east():
-    """The east side of reservoir B's FILL BORE, as a body on this deck sees it — the westmost
-    plane the bag-B pair's own plate can stand on.
+    """The east side of reservoir B's two CAP BORES, as a body on this deck sees it — the
+    westmost plane the bag-B pair's own plate can stand on.
 
-    Three lines leave the lid on this flank and two of them stand aft of the loft's forward
-    plates: water-5 falls the deck's whole height on `water-in`'s bore and the bag draw climbs
-    out of `reservoir-b`'s, both in the strip between the nozzle-A gate and the pump. The third
-    is under the pair's own band — `reservoir-b-fill`, which `fluid-24` falls into — so it is
-    the one a body here holds off, by a tube's half-section and the pack's own floor."""
-    return foam_shell_port("reservoir-b-fill")[0][0] + 6.35 / 2.0 + LINE_HUG
+    The FILL and the DRAW share one lane at the deck's west end
+    (`_cold_core_interface.cap_conduits`), and `fluid-24` and `fluid-26` fall into them off the
+    pair's two west collets. A body here holds that lane off by a tube's half-section and the
+    pack's own floor."""
+    return max(foam_shell_port(n)[0][0]
+               for n in ("reservoir-b-fill", "reservoir-b")) + 6.35 / 2.0 + LINE_HUG
 
 
 def vk_tray_pos():
@@ -3288,17 +3287,23 @@ AFT_ROW_TEES = ("tee-y-f",)
 AFT_LANE_SHARE = 1.6975
 
 
-def aft_lane_x():
-    """The column Y-F stands on — V-H'S OWN, the east seat of the bag pair whose draw arrives at
-    this tee's aft collet.
+def tray_east_climb_lane_x():
+    """The TRAY-EAST CLIMB LANE — the one column running the machine's full depth at the
+    manifold's height with nothing in it, hugging the condenser block's intake face.
 
-    A fitting 2 × `TEE_HALF_W` across does not stand beside this plate at the port plane — the
-    lane it sits in is the plate's own width. What is open is the band OVER it, so the tee
-    stands over the very collet it serves and the draw is a straight fall down one column
-    instead of a come-about across a corridor.
-    Read off the collet rather than off the plate's seat pitch: the pair is turned
-    (`BAG_B_TRAY_YAW`) and the pitch it is seated on lies in Y now."""
-    return bag_b_tray_port("V-H-O")[0][0]
+    Both of the machine's long climbs stand in it and so does `carb-1`'s riser, each on its own
+    Y lane, because the lane is one tube wide at the clearance floor."""
+    return packed().box("condenser+fan").xmin - LINE_HUG - 6.35 / 2.0
+
+
+def aft_lane_x():
+    """The column Y-F stands on — west of `carb-1`'s riser in the tray-east climb lane
+    (`tray_east_climb_lane_x`), the tee's east face one `LINE_HUG` off that tube's own section.
+
+    `fluid-21` falls on this column out of the tee's fore run port, clear of the condenser
+    block to its east and of the riser beside it. The pair's own east collet stands where
+    `bag_b_tray_pos` puts it."""
+    return (tray_east_climb_lane_x() - 6.35 / 2.0) - LINE_HUG - TEE_HALF_W
 
 
 def aft_port_z():
