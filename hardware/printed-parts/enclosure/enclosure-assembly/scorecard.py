@@ -1932,8 +1932,14 @@ def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
 # Resting on something is not being mounted, however closely. The front column's three trays
 # carry mount ears and nothing under them answers: the bag-A plate rests over the refrigeration
 # stratum, and the one body in reach — the compressor shroud, 12 mm under it — is sheet metal,
-# which can carry no printed feature. Capture is not a fastener either: `foam-assembly` sits in
-# a floor pocket, and `display` in a shell facet, and neither is mounted. Nor is adhesive.
+# which can carry no printed feature. Nor is adhesive.
+#
+# WHAT the printed feature is does not matter, only that it PINS: a screw into a boss column, a
+# nut bearing on a bored land, a taper thread made up in a bore, a rail pair taking a tray's two
+# haunches. A joint may leave one axis free on purpose — the drip pan withdraws along its rails,
+# and that freedom is the feature's, not its absence. What does not count is a feature that only
+# LOCATES: `foam-assembly` stands in a floor pocket and `display` in a shell facet, and nothing
+# in either resists lifting the body back out.
 #
 # Distinct from the looser `held`, which is a declared holder STATE and counts both of those.
 # The value here is the part whose printed geometry does the fastening, so each row names its
@@ -1959,6 +1965,29 @@ MOUNTED_BY = {
     # so the pair pins it in plan and carries it in Z — a fastening with no fastener, which
     # is what a slide is. `enclosure._pan_rails` prints them; `mount_features` probes them.
     "drip-pan":     "enclosure_back_top",
+    # The four JG bulkheads share the C14's row and its wall: each is a bored land in the
+    # back-top piece with the fitting's own nut made up on the inside face. The bore locates
+    # the barrel and the nut clamps the panel between it and the flange — a fastener whose
+    # printed half is the hole and the ring of wall around it.
+    "bulkhead-water":     "enclosure_back_top",
+    "bulkhead-flavor-a":  "enclosure_back_top",
+    "bulkhead-flavor-b":  "enclosure_back_top",
+    "bulkhead-carb":      "enclosure_back_top",
+    # The DERPIPE is made up INTO its bore on a 1/4" NPT taper rather than clamped through it,
+    # so the printed half is the bore alone. What holds it is the thread's engagement in that
+    # bore's depth, and `derpipe_co2_inlet` publishes no bearing figure to hold it to —
+    # `MOUNT_UNPRICED` carries that, so the row states its own open half instead of passing on
+    # the checks that were easy.
+    "co2-inlet":    "enclosure_front_bottom",
+}
+
+
+# A joint whose printed feature is measured but whose FASTENING has no published figure to
+# measure against. The row cannot hold — an unpriced half is the distance left to a joint that
+# is known to work, and it belongs on the card rather than in a note nobody reads.
+MOUNT_UNPRICED = {
+    "co2-inlet": "the taper thread's engagement in the printed bore — derpipe_co2_inlet "
+                 "publishes no bearing or thread figure",
 }
 
 
@@ -2046,23 +2075,41 @@ def tray_mount_alignment() -> list[tuple[str, float, list]]:
     return out
 
 
-def mount_features(name: str) -> list[tuple[str, tuple]]:
-    """The printed feature a joint stands on, as `(label, (x0, x1, y0, y1, z0, z1))` world
-    boxes in the CARRIER's own solid.
+def mount_features(name: str) -> list[tuple[str, tuple, str]]:
+    """The printed feature a joint stands on, as `(label, (x0, x1, y0, y1, z0, z1), kind)`
+    world boxes in the CARRIER's own solid. `kind` is `solid` where the carrier must fill the
+    box and `clear` where it must be bored through it — a bore is a printed feature too, and
+    a land with no hole in it holds nothing.
 
     The deck family states its stations as columns and `deck_mount_landings` probes those;
-    these are the joints whose feature is a run of material rather than a column."""
+    these are the joints whose feature is a run of material, a boss, or a bore."""
+    import enclosure as _enc
+    d = _enc._dims()
     if name == "drip-pan":
-        return ([(f"rail {i}", b) for i, b in enumerate(contents.drip_pan_rails())]
-                + [("stop", contents.drip_pan_stop())])
+        return ([(f"rail {i}", b, "solid") for i, b in enumerate(contents.drip_pan_rails())]
+                + [("stop", contents.drip_pan_stop(), "solid")])
     if name == "c14-inlet":
-        import enclosure as _enc
-        d = _enc._dims()
         r = _enc.c14_boss_dia / 2.0
         y0, y1 = d.inner[3], d.inner[3] + _enc.heatset_depth
-        return [(f"boss {i}", (sx - r, sx + r, y0, y1, sz - r, sz + r))
+        return [(f"boss {i}", (sx - r, sx + r, y0, y1, sz - r, sz + r), "solid")
                 for i, (sx, sz) in enumerate(contents.c14_screw_stations())]
+    if name in BACK_BULKHEADS:
+        x, z = contents.back_port_station(name)
+        y0, y1 = d.inner[3], d.outer[3]
+        # The land is the nut's own footprint across the panel face; the bore probe is the
+        # largest box the round hole contains, so wall left in it is wall across the hole.
+        n, b = contents.PORT_NUT_D / 2.0, contents.PORT_BULKHEAD_D / (2.0 * math.sqrt(2.0))
+        return [("nut land", (x - n, x + n, y0, y1, z - n, z + n), "solid"),
+                ("bore", (x - b, x + b, y0, y1, z - b, z + b), "clear")]
+    if name == "co2-inlet":
+        y, z = contents.CO2_INLET_Y, contents.CO2_INLET_Z
+        b = contents.CO2_HOLE_D / (2.0 * math.sqrt(2.0))
+        return [("bore", (d.inner[1], d.outer[1], y - b, y + b, z - b, z + b), "clear")]
     return []
+
+
+# The four JG bulkheads on the rear panel's west cluster — one row, one wall, one nut pattern.
+BACK_BULKHEADS = ("bulkhead-water", "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb")
 
 
 def feature_probe(carrier, part, boxes) -> list[tuple[str, float, float, bool]]:
@@ -2074,14 +2121,18 @@ def feature_probe(carrier, part, boxes) -> list[tuple[str, float, float, bool]]:
     rail fills its own, so what it separates is material from nothing."""
     import cadquery as cq
     out = []
-    for label, (x0, x1, y0, y1, z0, z1) in boxes:
+    for label, (x0, x1, y0, y1, z0, z1), kind in boxes:
         vol = abs((x1 - x0) * (y1 - y0) * (z1 - z0))
         if vol < 1e-9:
             continue
         probe = cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
         filled = sum(probe.intersect(s).Volume() for s in carrier.Solids()) / vol
-        out.append((f"{label} printed", filled, MOUNT_FEATURE_FILL,
-                    filled >= MOUNT_FEATURE_FILL))
+        if kind == "clear":
+            out.append((f"{label} bored", filled, MOUNT_FEATURE_CLEAR,
+                        filled <= MOUNT_FEATURE_CLEAR))
+        else:
+            out.append((f"{label} printed", filled, MOUNT_FEATURE_FILL,
+                        filled >= MOUNT_FEATURE_FILL))
         gap = min((_solid_gap(probe, s) for s in part.Solids()), default=float("inf"))
         out.append((f"{label} met", gap, MOUNT_FEATURE_GAP, gap <= MOUNT_FEATURE_GAP))
     return out
@@ -2092,6 +2143,8 @@ def feature_probe(carrier, part, boxes) -> list[tuple[str, float, float, bool]]:
 # is material — and the gap is the slip a sliding fit already carries.
 MOUNT_FEATURE_FILL = 0.20
 MOUNT_FEATURE_GAP = 1.0
+# A bore probe stands inside the hole it tests, so anything it finds is wall across the hole.
+MOUNT_FEATURE_CLEAR = 0.02
 
 
 def mount_audit(solids: dict, pieces: dict | None = None) -> list[tuple[str, str, bool, list]]:
@@ -2123,6 +2176,8 @@ def mount_audit(solids: dict, pieces: dict | None = None) -> list[tuple[str, str
         feats = mount_features(name)
         if feats and carrier in bodies and name in bodies:
             checks += feature_probe(bodies[carrier], bodies[name], feats)
+        if name in MOUNT_UNPRICED:
+            checks.append((f"unpriced: {MOUNT_UNPRICED[name]}", float("inf"), 0.0, False))
         if not checks:
             checks.append(("no joint measured", float("inf"), 0.0, False))
         out.append((name, carrier, all(c[3] for c in checks), checks))

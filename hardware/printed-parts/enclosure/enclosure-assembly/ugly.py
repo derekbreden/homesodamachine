@@ -48,6 +48,7 @@ import sys
 
 SIDECAR = "enclosure-assembly.scorecard.json"
 BAD = ("F", "D")
+SECTIONS = ("runs", "bodies", "held")
 # A turn this severe reverses the run. `tan(turn/2)` runs away here, so the leg a stock arc
 # would want stops being a length and the ceiling stops being a bound worth printing.
 REVERSAL_TURN = 179.0
@@ -479,6 +480,12 @@ def main(argv) -> int:
         return 0 if ok else 1
 
     show = [f[2:] for f in argv if f.startswith("--")]
+    # An unrecognised flag prints an empty board and says nothing is wrong, which reads as a
+    # pass to anything running this without a person watching.
+    if bad := [f for f in show if f not in SECTIONS]:
+        print(f"unknown flag: {' '.join('--' + f for f in bad)}\n"
+              f"known: {' '.join('--' + s for s in SECTIONS)} --since <ref>")
+        return 2
     only = {a for a in argv if not a.startswith("--")}
     # Named a run or a body: show the runs, the bodies carrying them, and the mount rows.
     print(table(_card(), only=only,

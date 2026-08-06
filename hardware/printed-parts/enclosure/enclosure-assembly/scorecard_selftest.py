@@ -715,7 +715,7 @@ def test_mount_audit() -> None:
 
         # The feature probe's two halves fail independently: a feature never printed, and a
         # part standing away from one that was. Both must fire, or the joint has a blind spot.
-        feat = [("f", (0.0, 10.0, 0.0, 10.0, 0.0, 10.0))]
+        feat = [("f", (0.0, 10.0, 0.0, 10.0, 0.0, 10.0), "solid")]
         carrier, part = box(0, 0, 0, 10, 10, 10), box(0, 0, 10, 10, 10, 10)
         rows = dict((lbl, ok) for lbl, _v, _mx, ok in sc.feature_probe(carrier, part, feat))
         check("a printed feature with the part on it holds both halves",
@@ -730,6 +730,23 @@ def test_mount_audit() -> None:
         check("a part standing off its own feature fires",
               not dict((l, ok) for l, _v, _m, ok in away)["f met"],
               f"gap {away[1][1]:.2f}")
+
+        # A bore is a printed feature too, and its probe reads the other way: material found
+        # inside the hole is wall across the hole.
+        bore = [("h", (0.0, 10.0, 0.0, 10.0, 0.0, 10.0), "clear")]
+        drilled = sc.feature_probe(box(100, 100, 100, 10, 10, 10), part, bore)
+        check("a bore that is clear holds", dict((l, ok) for l, _v, _m, ok in drilled)["h bored"])
+        plugged = sc.feature_probe(carrier, part, bore)
+        check("a land with no hole in it fires",
+              not dict((l, ok) for l, _v, _m, ok in plugged)["h bored"],
+              f"filled {plugged[0][1]:.2f}")
+
+        # An unpriced half keeps its row off the mounted count even when every probe passes.
+        check("a joint with an unpriced half cannot hold",
+              all(not live[n][1] for n in sc.MOUNT_UNPRICED if n in live)
+              and all(any(l.startswith("unpriced") for l, _v, _m, _o in live[n][2])
+                      for n in sc.MOUNT_UNPRICED if n in live),
+              f"{sorted(sc.MOUNT_UNPRICED)}")
     finally:
         sc.MOUNTED_BY.clear()
         sc.MOUNTED_BY.update(keep)
