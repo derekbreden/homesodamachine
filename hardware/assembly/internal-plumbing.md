@@ -93,7 +93,7 @@ Cut segment **water-5** from the 1/4" OD LLDPE reel — **one slant across the f
 
 The water path is now closed dry from the rear panel to the cold core. Vessel-side everything (the second cold-side PP010822E, the TAISHER vessel-port elbow, the top-plate water-inlet NPT joint) is inside the foam shell from [`cold-core.md`](/hardware/assembly/cold-core.md) step 5 — the elbow turns the line laterally off the plate, the tube runs the band between the top plate and the cap's floor, and it climbs the cap's conduit to this bore.
 
-### 3. Flavor manifold: V-A through V-J + Y-A through Y-H + pumps
+### 3. Flavor manifold: V-A through V-J + Y-A through Y-G + pumps
 
 Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) segment-for-segment. The truth table there names every valve, every Y-junction, and every tube segment by number; this step describes the build cadence around that truth table, not its content.
 
@@ -103,7 +103,7 @@ On the bench, lay out all ten Beduan solenoid valves with their inlet/outlet leg
 
 Build outward from the two channel-A and channel-B pump rosettes:
 
-- For each channel, push the appropriate segment into the pump's inlet PTC (segment 11 for channel A, segment 21 for channel B in the topology doc), then continue building back through Y-C → V-C + V-E for channel A (mirror Y-F → V-D + V-H for channel B), and forward from each pump's outlet through Y-D + Y-E + V-F + V-G for channel A (mirror Y-G + Y-H + V-I + V-J for channel B). Each pump-row Tee is tube-hung: it is carried by the two run legs it lies between, so make the run up first and the branch onto it after, or the fitting has nothing to sit on while it is pushed.
+- For each channel, push the appropriate segment into the pump's inlet PTC (segment 11 for channel A, segment 21 for channel B in the topology doc), then continue building back through Y-C → V-C + V-E for channel A (mirror Y-F → V-D + V-H for channel B), and forward from each pump's outlet through Y-D + Y-E + V-F + V-G for channel A (mirror Y-G + V-I + V-J for channel B, whose bag ends reach reservoir B's own two mouths with no junction between). Each pump-row Tee is tube-hung: it is carried by the two run legs it lies between, so make the run up first and the branch onto it after, or the fitting has nothing to sit on while it is pushed.
 - The shared upstream (tap-water V-A + hopper V-B + their junction with the selects pair through Y-A and Y-B) builds in last. V-A's inlet comes from the **water split**'s north (aft) run — the JG PP0208E 1/4" tee on the ASSE 1022's 1/4" outlet — → 1/4" OD LLDPE → flow regulator → V-A inlet per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) tube segment 1. V-B's inlet is the funnel bottom of the user-facing top-face hopper.
 
 The two Kamoer KPHM400 peristaltic pumps mount in the enclosure (mount mechanism is an open item). Route 1/4" OD LLDPE through each pump's BPT barbs and around the rotor — LLDPE fits the barbs directly, zip-tied tight. Crimp a female faston receptacle onto each DC-5 harness conductor (+ and GND); these land on the pump-motor spade tabs, joining the harness at [`wiring.md`](/hardware/assembly/wiring.md).
