@@ -47,6 +47,9 @@ marketing/video/remotion/.remotion/
 .firebase-setup/
 tools/flavor_preview.png
 
+# Local CadQuery venv (tools/cad-venv/bin/python) — regenerable, machine-specific
+tools/cad-venv/
+
 # Enclosure scorecard cache — local, regenerable, opt-in (HSM_SCORECARD_CACHE)
 *.scorecard-cache.pkl
 *.scorecard-cache.pkl.tmp

@@ -28,11 +28,12 @@ bound it:
     because at the pump row's two planes it carries THREE lines abreast, and its depth is
     what three 1/4" tubes at the clearance floor come to. How far into it a lane stands is
     the straight the turn onto that lane is seated on, so the lanes are struck once at the
-    top of `_authored_runs` and taken by name: the climb on the core's own face, the row's
-    near lane one turn off the tray's, the far lane a `LINE_PITCH` in from the climb, and the
-    middle between the two for a run crossing a storey up. fluid-4 turns forward in it onto
-    V-B's own X; fluid-15 holds its plane across the machine floor. Nothing stands in the
-    band, and nothing may: it runs the column's whole height.
+    top of `_authored_runs` and taken by name: the row's far lane on the core's own face,
+    sharing the rung the climb stands on because nothing else crosses the band there, the
+    near lane a `LINE_PITCH` in front of it, and the middle between the two for a run
+    crossing a storey up. fluid-4 turns forward in it onto V-B's own X; fluid-15 holds its
+    plane across the machine floor. Nothing stands in the band, and nothing may: it runs the
+    column's whole height.
   * the PUMP LANE, the strip west of the tray column and aft of channel A's pump, and the
     one corridor in the front column that reaches the trays' aft collets without meeting
     them. Both of pump B's lines run down it and both of channel A's tees stand in it, each
@@ -467,25 +468,22 @@ def _authored_runs() -> list:
     # every run that crosses the machine at this depth, comes about in it. How far into the band
     # a lane stands IS the straight the turn onto it is seated on, so the lanes are named here
     # once and taken by name below — one ladder hung off the core's own face at a hug and a
-    # `LINE_PITCH` per rung: the climb on the face, the row's far lane a pitch in, the near
-    # lane a pitch again, and the middle left for the runs that cross a storey up, which share
-    # the band's Y with the row without ever sharing its plane. What the ladder leaves at the
-    # tray face — [5.125](PUMP_ROW_LEAD) mm — is the near lane's whole turn radius, and the
-    # band has one rung to sell it and no depth to give it:
-    #   * the RUNG IS FREE. Nothing crosses the band on the climb lane: fluid-15 rides it only
-    #     as far as the tray-east lane and goes up out of it there, and reservoir B's line is
-    #     not in this corridor at all — it climbs inside the cold core, up the +Y pour band
-    #     standing under its own fitting. So no crossing has to get past fluid-15's climb, and
-    #     the whole ladder may step one `LINE_PITCH` toward the core's face: the near lane's
-    #     lead goes to 12.475 mm, which is what fluid-10's and fluid-13's corners are short of.
-    #     It carries the row's two approach legs and both of channel A's tees with it, which is
-    #     what makes it a rung to climb rather than a constant to raise.
-    #   * the band cannot grow: its forward chain stands priced in
-    #     `_contents.SOURCE_TRAY_AFT_BAND`'s own note — every link at its floor, so a
-    #     millimetre on the band is a millimetre off the junction legs' own standoff.
+    # `LINE_PITCH` per rung: the row's far lane ON the climb's own rung, the near lane a pitch
+    # in, and the middle left for the runs that cross a storey up, which share the band's Y with
+    # the row without ever sharing its plane.
+    #   THE CLIMB DOES NOT GET ITS OWN RUNG. Nothing crosses the band on it: fluid-15 rides it
+    # only as far as the tray-east lane and goes up out of it there, and reservoir B's line is
+    # not in this corridor at all — it climbs inside the cold core, up the +Y pour band standing
+    # under its own fitting. So no crossing has to get past fluid-15's climb, and the row's two
+    # lanes hang a rung nearer the core's face than the ladder's own pitch would otherwise put
+    # them: the near lane's lead is [12.47](PUMP_ROW_LEAD) mm, and that lead IS the turn radius
+    # fluid-10 and fluid-13 seat their binding corners on. The rung carries the row's two
+    # approach legs and both of channel A's tees with it.
+    #   The band cannot grow past that: its forward chain stands priced in
+    # `_contents.SOURCE_TRAY_AFT_BAND`'s own note — every link at its floor, so a millimetre on
+    # the band is a millimetre off the junction legs' own standoff.
     bag = f["bag-a-tray-assembly"]
-    climb_lane = contents.FRONT_DEPTH - CLIMB_HUG - 6.35 / 2.0
-    lane_2 = climb_lane - LINE_PITCH
+    lane_2 = contents.FRONT_DEPTH - CLIMB_HUG - 6.35 / 2.0
     lane_1 = lane_2 - LINE_PITCH
     lane_mid = (lane_1 + lane_2) / 2.0
 
@@ -771,7 +769,7 @@ def _authored_runs() -> list:
         y_c.x("Y-C-1"),                      # west onto the tee's own column
         y_c.y("Y-C-1"),                      # forward down the pump lane, over the tee
         "tee-y-c.Y-C-1",                     # and down into the branch
-        kind="fluid", stub=12.4, skew=FLAVOR_SKEW,
+        kind="fluid", stub=19.8, skew=FLAVOR_SKEW,
         note="channel A select → Y-C branch: west onto the tee's column, forward down the "
              "pump lane and a stack pitch down into the branch"))
 
@@ -783,11 +781,11 @@ def _authored_runs() -> list:
         {"y": lane_1},                       # aft into the band, onto the ladder's near rung
         y_c.x("Y-C-2"),                      # west onto the tee's column
         "tee-y-c.Y-C-2",                     # and forward into the run's aft port
-        # THE EXIT IS THE WHOLE STANDOFF THIS GATE HAS. The first rung of the ladder stands
+        # THE EXIT IS THE WHOLE STANDOFF THIS GATE HAS. The near rung of the ladder stands
         # this far aft of the collet, so the reach cannot grow without the exit running past
         # the rung it is aiming at and folding the corner back on itself. The corner it seats
         # is the tray's to give, not this number's.
-        kind="fluid", stub=5.1, skew=FLAVOR_SKEW,
+        kind="fluid", stub=12.45, skew=FLAVOR_SKEW,
         note="bag A draw → Y-C run: aft, west onto the pump lane and straight down it"))
 
     # fluid-11 — Y-C's forward run port to pump B's inlet barb. The suction tee stands on
@@ -833,11 +831,11 @@ def _authored_runs() -> list:
         "bag-a-tray-assembly.V-F-I",         # and forward into it
         # THE APPROACH IS SPENT, and not on air. The lane ahead of this collet is open — the
         # foam block's west face is the next thing in it — but the path stands only
-        # [12.5](F13_APPROACH) mm off the port face to begin with, and a stub longer than that
+        # [19.8](F13_APPROACH) mm off the port face to begin with, and a stub longer than that
         # would have the closing turn back out and come straight back in. So the closing
         # corner is held by where the LANE stands, not by this number: what buys it a rounder
         # turn is the tray's own standoff, not a reach.
-        kind="fluid", stub=12.4, skew=FLAVOR_SKEW,
+        kind="fluid", stub=19.8, skew=FLAVOR_SKEW,
         note="Y-D run → V-F: up the pump lane, east across the band on its own lane and "
              "forward into the bag's fill gate"))
 
