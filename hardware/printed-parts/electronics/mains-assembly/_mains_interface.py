@@ -230,6 +230,12 @@ def wago_places():
     return [(hub_x + cx, hub_y + cy) for cx, cy in _hub.LAYOUT.wago_places]
 
 
+def pin_clearance():
+    """What the relay's pins leave over the plate's open face. The board seats on
+    boss tops and its pins hang below it, so the standoff carries them."""
+    return board_standoff - _relay.pin_drop
+
+
 def reach():
     """How far off the plate's open face the tallest body stands."""
     return board_standoff + _psu.height
