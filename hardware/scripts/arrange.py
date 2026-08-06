@@ -63,7 +63,7 @@ selects pair's own seats, so Y-A and Y-B each take a port from each tray down on
 faces and the head column's forward one (`_contents.y_e_pos`), which is a band one fitting's
 own diameter deep — nothing there is free to face another way. What the space varies is every
 tray's turn and clocking above the pack's own three seats, and the ranking prices reaching all
-three junctions. The one trident in the machine is Y-H, in the loft.
+three junctions.
 """
 
 import argparse

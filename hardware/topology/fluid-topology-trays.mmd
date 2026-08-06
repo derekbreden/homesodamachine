@@ -69,13 +69,13 @@ flowchart LR
   YE["Y-E"]
   YF["Y-F"]
   YG["Y-G"]
-  YH{{"Y-H"}}
 
   %% ---- A tray's own pair to the junction it shares ----
+  %% Only bag A's. Reservoir B carries two mouths of its own, so the bag-B pair reaches it
+  %% directly and nothing stands between V-I's outlet and V-H's inlet — and the reservoir is
+  %% one of the endpoints this chart omits.
   VF --> YE
   YE --> VE
-  VI --> YH
-  YH --> VH
 
   %% ---- Everything that crosses to another tray or a pump ----
   %% Y-A and Y-B are the pair to read that way: the source tray stands in the selects
@@ -96,24 +96,15 @@ flowchart LR
   YG --> VJ
 
   %% ---- Styling ----
-  %% Y-H is the one PP2308E Y-divider — a trident, and the hexagon. The other seven are
-  %% PP0208E Tees. Which of the two a junction wants follows from the placed geometry
-  %% more than from the circuit: a divider joins two ports SIDE BY SIDE, which is the
-  %% shape a pair standing beside each other presents, and a Tee joins two ports one
-  %% corridor serves. What decides it is the pair's own sitting AND the room the fitting
-  %% has — a trident is 38.5 mm from stem tip to outlet face and needs that much clear
-  %% ahead of the pair, where a Tee standing across a band needs only its own 13.7 mm
-  %% diameter. Six of the eight reach BETWEEN trays and can only ever be Tees. The other
-  %% two join one tray's own pair, and there the room decides: Y-H has a column ahead of
-  %% it and is the trident; Y-E has a strip a fitting's diameter deep and stands a Tee
-  %% ACROSS it.
+  %% All seven junctions are PP0208E Tees — an in-line RUN and a BRANCH off it. Six reach
+  %% BETWEEN trays; the seventh, Y-E, joins one tray's own pair and stands ACROSS the strip
+  %% ahead of them. What a junction's fitting and its pose follow from is fluid-topology.md
+  %% "Junctions".
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YE,YF,YG tee;
-  classDef divider fill:#1d4ed8,stroke:#1e3a8a,color:#ffffff,stroke-width:2px;
-  class YH divider;
   %% V-K rides this stand but not this circuit: it gates the carbonator fill, and its
   %% two runs are fluid-topology-carbonator.mmd's.
   classDef offcircuit fill:#3a3a3a,stroke:#666,color:#cccccc,stroke-width:1px;
   class VK offcircuit;
-  linkStyle 0,1,2,3 stroke:#09f,stroke-width:2px
-  linkStyle 4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
+  linkStyle 0,1 stroke:#09f,stroke-width:2px
+  linkStyle 2,3,4,5,6,7,8,9,10,11,12,13,14 stroke:#888,stroke-width:2px

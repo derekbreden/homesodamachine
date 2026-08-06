@@ -80,8 +80,8 @@ flowchart LR
   %% Four trays on the foam cap, all on one storey, each bolted through its own mount
   %% ears to the cap's deck-mount stations. The bag-B pair is the one PAIR up here and
   %% so the one two-valve plate; the other three valves each stand alone on the family's
-  %% one-seat plate. Y-F stands over V-H's own column in the band above the plates, Y-G
-  %% in the lane east of V-K's plate, Y-H off the bag pair's west flank.
+  %% one-seat plate. Y-F stands over V-H's own column in the band above the plates, and
+  %% Y-G in the lane east of V-K's plate.
   subgraph Aft["Aft stand — foam cap"]
 
     subgraph TBagB["bag-b-tray-assembly"]
@@ -210,14 +210,11 @@ flowchart LR
   %% Outside the pack (group:outside) — no run carries it.
   linkStyle 29,30 stroke:#555,stroke-width:1px
 
-  %% Junction fittings. Y-H is the one PP2308E Y-DIVIDER — a trident, one stem and two
-  %% parallel outlets — and takes the hexagon; it joins the two ports its own pair
-  %% presents side by side, with the room ahead of it a trident needs. The other seven
-  %% are PP0208E TEES: an in-line RUN, which is one straight lane through the fitting
-  %% shared by two of its three ports, and a BRANCH, the leg that leaves that lane and
-  %% so the only leg at a Tee that changes level. Six of them reach between trays or
-  %% between a tray and a pump; Y-E joins one pair side by side like Y-H and is a Tee
-  %% because what that pair leaves it is a strip a fitting's own diameter deep.
+  %% Junction fittings. All seven are PP0208E TEES: an in-line RUN, which is one straight
+  %% lane through the fitting shared by two of its three ports, and a BRANCH, the leg that
+  %% leaves that lane and so the only leg at a Tee that changes level. Six of them reach
+  %% between trays or between a tray and a pump; Y-E joins one pair, standing ACROSS the
+  %% strip ahead of them. fluid-topology.md "Junctions" carries what the pose follows from.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YE,YF,YG tee;
   %% Not the flavor manifold's — the carbonator's valve, and the pack's edge.

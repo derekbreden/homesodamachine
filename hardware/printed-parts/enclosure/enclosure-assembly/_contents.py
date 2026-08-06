@@ -933,11 +933,10 @@ PUMP_PORT_RISE = _kamoer.arch_plane_z - _kamoer.head_front_z
 # mains gear, and the run from the panel's inlet to the PSU's AC block is a lead, not a
 # crossing.
 # The JUNCTION BAY — the band between the two trays. The bag pair's two aft collets look
-# straight down the nozzle pair's two forward ones, and Y-G used to stand ACROSS this bay and
-# feed both from inside it. It does not any more — it lies in the lane east of V-K's plate
-# (`y_g_pos`), where the leg that reached it already ran. SO THE BAY CARRIES NO FITTING, only
-# the runs that cross it, and what sets its depth is the reach each of those needs: an
-# `AFT_BAY_LEAD` of straight off its collet before it may turn.
+# straight down the nozzle pair's two forward ones, and NO FITTING STANDS IN IT: Y-G lies in
+# the lane east of V-K's plate (`y_g_pos`), on the corridor its own leg already ran down. So
+# the bay carries only the runs that CROSS it, and what sets its depth is the reach each of
+# those needs: an `AFT_BAY_LEAD` of straight off its collet before it may turn.
 #   A corner turns at what its own two legs carry — an arc eats `R·tan(turn/2)` off each —
 # so the pair's four corners are bound below by the LEAD and above by the CLIMB, and the
 # bay that sets the lead is pinned at both faces, each link priced by instrument:
@@ -2085,9 +2084,9 @@ def aft_tray_headroom():
     on the bulkhead, the basin hangs off the chain, the stand stands on the cap; this is what
     the column leaves between the last two.
 
-    What the stand puts in it is not the coils but Y-G — its stem stands proud of the crown and
-    faces up, so `port_row_z()` sizes this band on that stem's own reach rather than on this
-    figure."""
+    What the stand puts in it is not the coils but Y-G — its BRANCH stands proud of the crown
+    and faces up, so `port_row_z()` sizes this band on that branch's own reach rather than on
+    this figure."""
     return drip_pan_seat() - aft_stand_crown()
 
 
@@ -2578,10 +2577,6 @@ def junction_tee_pos(tee):
 # pitch, then the roll that lays its axis down along Y. `build` places the divider through it,
 # so the order is written once.
 DIVIDER_TURNS = (((0, 0, 1), DIVIDER_YAW), ((1, 0, 0), DIVIDER_ROLL))
-# Y-G takes the trident on its NATIVE axis — stem up, outlets down — and the yaw alone, which
-# lays the outlet offsets across the machine. Standing on its short section it costs the
-# junction bay 2 x `y_divider.HALF_W` of depth instead of its own length.
-DIVIDER_G_TURNS = (((0, 0, 1), -90.0),)
 
 
 # A divider's three ports in its OWN frame: the stem on the axis at +Z, the two outlets
@@ -2894,8 +2889,8 @@ def vk_tray_y():
     forward onto its own fence leaves the band aft of it deep enough to take a bracket as well
     as a body.
 
-    THE BAND IN FRONT OF THIS FACE CARRIES NO BODY. Y-G stood in it once and now lies in the
-    lane east of this plate, so what the band holds is RUNS — `water-3`'s fall onto this
+    THE BAND IN FRONT OF THIS FACE CARRIES NO BODY — Y-G lies in the lane EAST of this plate,
+    not in the band ahead of it — so what the band holds is RUNS: `water-3`'s fall onto this
     plate's own inlet and `fluid-23`'s reach across to the bag pair's. Neither is solved to a
     fence yet, so the band is a STATED reach like `NOZZLE_B_TRAY_EAST`, not a derived one, and
     `VK_TRAY_FORWARD` is the whole of it off the west lane's aft face.
@@ -3259,15 +3254,13 @@ def nozzle_b_tray_port(name):
 # nozzle. Both of channel B's pumps' barbs are a storey and a half below, in the FRONT COLUMN
 # beside channel A's, so each of these two junctions carries one leg that leaves the loft.
 #
-#   Y-G is a TRIDENT and not a tee, and it stands IN THE BAY on its own native axis: stem UP
-# at the pump's discharge, both outlets facing DOWN on the column V-I-I and V-J-I share, their
-# offsets laid across the machine so each leg leans `DIVIDER_OUTLET_X` onto that column. In
-# that pose the fitting costs the bay its own section rather than its length.
-#   The bay carries no second fitting. It is two `JUNCTION_LEG_LEAD`s deep and the four collets
-# facing across it spend the whole of that depth on their own leads, so a body 40.14 mm along
-# its run and 20.07 mm out its branch stands in the LOFT'S PUMP LANE instead — the strip
-# between the trays' east face and the SeaFlo's west flank, which runs the stand's whole depth
-# with nothing in it. Y-F takes that lane on the front column's own construction (`TEE_ROLL`):
+#   EACH STANDS IN A LANE, and a different one: Y-G the strip east of V-K's plate that
+# `fluid-27` already runs down to reach it (`y_g_pos`), Y-F the LOFT'S PUMP LANE — between the
+# trays' east face and the SeaFlo's west flank, which runs the stand's whole depth with nothing
+# in it. The junction bay between the two trays carries no fitting: it is two
+# `JUNCTION_LEG_LEAD`s deep and the four collets facing across it spend the whole of that depth
+# on their own leads.
+#   Y-F takes its lane on the front column's own construction (`TEE_ROLL`):
 # RUN along the lane, BRANCH UP. The branch takes the shared source's climb out of the front
 # column, the run's aft collet takes the bag draw coming about in the bay, and the run's fore
 # collet sends fluid-21 forward down the machine to the pump's inlet — the leg that leaves the
@@ -3328,10 +3321,9 @@ def aft_row_tee_pos(tee):
 # suction leaving the fore one, and the branch stands UP under the shared source's crossing.
 _Y_F_LOCAL = _tee_local(zp="Y-F-3", zn="Y-F-2", branch="Y-F-1")
 # Y-G: the run lies along the lane with one valve on each end — Y-G-3 FORWARD at the bag pair's
-# fill valve, Y-G-2 AFT at the nozzle-B gate — and the branch stands UP at the pump's discharge.
-# Which run port reaches which valve is the SEATING's: the bag pair is forward of this fitting
-# and the nozzle gate aft of it, so each port takes the nearer of the two and neither leg crosses
-# the other. Under `TEE_TURNS`, local +Z is the forward collet.
+# fill valve, Y-G-2 AFT at the nozzle-B gate, each the nearer of the two to the collet it
+# reaches — and the branch stands UP at the pump's discharge. Under `TEE_TURNS`, local +Z is
+# the forward collet.
 _Y_G_LOCAL = _tee_local(zp="Y-G-3", zn="Y-G-2", branch="Y-G-1")
 
 
