@@ -1612,17 +1612,8 @@ def _build():
     pack.place("pump-b", turned_pump("pump-b"),
                west=at(PUMP_B_LANE_X), front=at(PUMP_B_FRONT_BAND),
                foot=at(bag_a_tray_pos()[2] + _tray.port_z - PUMP_PORT_RISE))
-    #   A's X ANSWERS TO TWO COLUMNS AND TAKES THE FURTHER EAST. The twin's is the barb pitch —
-    # B's own west face, its barb span, and one `PUMP_TWIN_PITCH`, which is what the two legs
-    # leaving the row's inner barbs need of each other. The BAG PAIR's is the one that binds:
-    # this pump's outlet and V-E-I face each other down the strip, and a mouth whose lead has no
-    # lane of its own divides the strip's depth with the mouth opposite (`_lines`, fluid-16 and
-    # fluid-22). So the outlet stands a `LINE_PITCH` east of that draw's column, and each lead
-    # reaches what its own corner wants instead of what the other one leaves.
     pack.place("pump-a", turned_pump("pump-a"),
-               west=at(max(pack.box("pump-b").xmin + pump_barb_span("pump-b") + PUMP_TWIN_PITCH,
-                           bag_a_tray_port("V-E-I")[0][0] + LINE_PITCH
-                           - pump_barb_inset("pump-a", "P-A-O"))),
+               west=flush("pump-b", "west") + pump_barb_span("pump-b") + PUMP_TWIN_PITCH,
                front=flush("pump-b", "front"), foot=flush("pump-b", "foot"))
     # The seven tees. The manifold's own junction stands on the two columns its four ports make
     # (`junction_tee_pos`); channel A's pump row stands in the lane pump B's own two lines run
@@ -2814,17 +2805,6 @@ def pump_barb_span(pump):
     turns = _pump_turns(pump)
     inlet, outlet = (turns.port(_pump_station(pump, n))[0] for n in PUMP_PORT_INDEX[pump])
     return inlet[0] - outlet[0]
-
-
-def pump_barb_inset(pump, name):
-    """How far a barb stands east of the pump's own WEST FACE, under its own turns — what a
-    seat struck on a barb's column has to take off it to become a face.
-
-    The same difference-on-one-body `pump_barb_span` is: the seat cancels, so a pose may be
-    written as the column its barb has to land on."""
-    turns = _pump_turns(pump)
-    station = turns.port(_pump_station(pump, name))[0]
-    return station[0] - _boxes.boxed(turned_pump(pump)).xmin
 
 
 def pump_port(pump, name):
