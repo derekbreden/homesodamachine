@@ -587,12 +587,15 @@ def _declare_placement_rules():
         "tee-y-b":           [("near", "source-tray-assembly", contents.tray_stack_pitch() / 2.0),
                               ("near", "selects-tray-assembly", contents.tray_stack_pitch() / 2.0),
                               ("clear", "condenser+fan", 10.0)],
-        # "Y-E stands ACROSS the strip between the pump row's aft faces and the bag pair's forward
-        # collets." Both `near` rules are that strip: the fitting's own body is what fills it, so the
-        # bound either side is that body's half-width and the pack's floor, and `contents.y_e_pos`
-        # raises the day the strip is narrower than the two together.
+        # "Y-E stands ACROSS the strip between pump A's aft face and the bag pair's forward
+        # collets." `near bag-a-tray-assembly` is the pair it joins, which it stands against at the
+        # floor — the bound is its own half-width and that floor. `clear pump-a` is the rest of the
+        # strip, which the fitting no longer fills: pump A stands a `PUMP_A_FRONT_BAND` off the
+        # wall rather than on the corner pod's band, and what the strip has past this body is the
+        # run fluid-22's climb leaves in. `contents.y_e_pos` raises the day it is narrower than the
+        # body and its two floors together.
         "tee-y-e":           [("near", "bag-a-tray-assembly", contents.TEE_HALF_W + 1.5),
-                              ("near", "pump-a", contents.TEE_HALF_W + 1.5),
+                              ("clear", "pump-a", 1.0),
                               ("clear", "condenser+fan", 10.0)],
         # --- Zone C's second stand: channel A's pump, and the loft over the water deck ----
         # "Channel A's pump stands upright in the front column's west-forward box, in the same
