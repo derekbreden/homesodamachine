@@ -169,6 +169,62 @@ def unmounted(card) -> list:
     return out
 
 
+def standing(card) -> dict:
+    """The whole machine as the few numbers an iteration is judged on: gates passing, corners
+    at their stock's minimum, runs the stock cannot bend, and the summed debt."""
+    gates = [c for c in card["checks"] if c["kind"] == "gate" and c.get("active")]
+    ok = tot = 0
+    for r in card["bends"]:
+        a, b = at_spec(r)
+        ok, tot = ok + a, tot + b
+    return {
+        "gates": sum(1 for g in gates if g["status"] == "pass"),
+        "of_gates": len(gates),
+        "spec": ok,
+        "of_corners": tot,
+        "unbendable": sum(1 for r in card["bends"] if r["grade"] in BAD),
+        "debt": round(sum(1.0 - min(1.0, r["ratio"])
+                          for r in card["bends"] if r["grade"] in BAD), 2),
+    }
+
+
+def verdict(before: dict, after: dict) -> tuple:
+    """Whether an iteration may stand, as (ok, reason). A gate that was passing and now is
+    not ends it outright. Otherwise the machine has to be further along than it was: more
+    corners at spec, or the same corners and less debt."""
+    if after["gates"] < before["gates"]:
+        return False, (f"REGRESSED — gates {before['gates']}/{before['of_gates']} → "
+                       f"{after['gates']}/{after['of_gates']}")
+    if after["spec"] > before["spec"]:
+        return True, f"gained {after['spec'] - before['spec']} corners at spec"
+    if after["spec"] < before["spec"]:
+        return False, f"REGRESSED — lost {before['spec'] - after['spec']} corners at spec"
+    if after["debt"] < before["debt"] - 0.005:
+        return True, f"debt {before['debt']} → {after['debt']}"
+    if after["debt"] > before["debt"] + 0.005:
+        return False, f"REGRESSED — debt {before['debt']} → {after['debt']}"
+    return False, "NO CHANGE — nothing moved"
+
+
+def _card_at(ref: str, here=None) -> dict | None:
+    """The sidecar as it stood at a git ref, or None when it cannot be read there."""
+    import subprocess
+    here = here or os.path.dirname(os.path.abspath(__file__))
+    top = subprocess.run(["git", "-C", here, "rev-parse", "--show-toplevel"],
+                         capture_output=True, text=True)
+    if top.returncode:
+        return None
+    rel = os.path.relpath(os.path.join(here, SIDECAR), top.stdout.strip())
+    got = subprocess.run(["git", "-C", here, "show", f"{ref}:{rel}"],
+                         capture_output=True, text=True)
+    if got.returncode:
+        return None
+    try:
+        return json.loads(got.stdout)
+    except json.JSONDecodeError:
+        return None
+
+
 def at_spec(run) -> tuple:
     """Corners at or above the stock's minimum, over the run's corner count."""
     cs = run["corners"]
@@ -325,6 +381,27 @@ def selftest() -> int:
           _end("tee-y-f", {"tee-y-f": 2.31}) == "tee-y-f[2.3]"
           and _end("clean", {}) == "clean")
 
+    # The ratchet an unattended iteration is judged on.
+    def state(gates, spec, debt):
+        return {"gates": gates, "of_gates": 11, "spec": spec, "of_corners": 100,
+                "unbendable": 0, "debt": debt}
+
+    base = state(10, 45, 12.0)
+    check("a lost gate ends it whatever else improved",
+          verdict(base, state(9, 60, 1.0))[0] is False,
+          verdict(base, state(9, 60, 1.0))[1])
+    check("more corners at spec stands", verdict(base, state(10, 46, 12.0))[0] is True)
+    check("fewer corners at spec is backed out",
+          verdict(base, state(10, 44, 0.1))[0] is False)
+    check("same corners and less debt stands",
+          verdict(base, state(10, 45, 11.5))[0] is True)
+    check("same corners and more debt is backed out",
+          verdict(base, state(10, 45, 12.5))[0] is False)
+    check("no change is not progress", verdict(base, state(10, 45, 12.0))[0] is False,
+          verdict(base, state(10, 45, 12.0))[1])
+    check("a gained gate alone is not enough without geometry moving",
+          verdict(base, state(11, 45, 12.0))[0] is False)
+
     # Debt sums a run onto both its ends, and a body with no bad run is off the board.
     bs = bodies([run("r1", 0.2, "F", [], "tee.a", "tray.b"),
                  run("r2", 0.3, "F", [], "tee.c", "pump.d"),
@@ -382,6 +459,25 @@ def selftest() -> int:
 def main(argv) -> int:
     if argv and argv[0] == "selftest":
         return selftest()
+
+    # --since <ref>: judge the tree against where it stood. Exit 0 when the iteration may
+    # stand, 1 when it may not — an unattended loop reads the status, not the text.
+    if "--since" in argv:
+        i = argv.index("--since")
+        ref = argv[i + 1]
+        was = _card_at(ref)
+        if was is None:
+            print(f"no sidecar at {ref} — nothing to judge against")
+            return 1
+        before, after = standing(was), standing(_card())
+        ok, why = verdict(before, after)
+        for label, s in (("was", before), ("now", after)):
+            print(f"{label}  gates {s['gates']}/{s['of_gates']}  "
+                  f"corners at spec {s['spec']}/{s['of_corners']}  "
+                  f"unbendable {s['unbendable']}  debt {s['debt']}")
+        print(f"{'STANDS' if ok else 'BACK IT OUT'} — {why}")
+        return 0 if ok else 1
+
     show = [f[2:] for f in argv if f.startswith("--")]
     only = {a for a in argv if not a.startswith("--")}
     # Named a run or a body: show the runs, the bodies carrying them, and the mount rows.
