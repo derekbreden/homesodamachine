@@ -12,9 +12,9 @@ same solid printed four times.
 
 The pairing is [fluid-topology](/hardware/topology/fluid-topology.md)'s own: each
 pair is the two valves that meet at one junction. The manifold's remaining pair —
-the NOZZLE GATES, V-G · V-J, which meet at none — rides the
-[three-valve tray](/hardware/printed-parts/valve-manifold/three-valve-tray/README.md)
-with V-K on its third seat. Per-tray grouping is in
+the NOZZLE GATES, V-G · V-J, which meet at none — takes one
+[single-valve tray](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md)
+each, and V-K a third. Per-tray grouping is in
 [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
 
 ## Geometry

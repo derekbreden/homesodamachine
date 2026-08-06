@@ -110,21 +110,21 @@ bound it:
     the one column V-I-I and V-J-I share, and fluid-23 and fluid-27 are the two straight
     lengths of tube its run passes through, one `TEE_RUN_LEAD` apiece. It is two
     `JUNCTION_LEG_LEAD`s and nothing over, so a run that comes about in it turns one
-    `PUMP_ROW_TURN` off the face it left rather than out at the end of its lead: the bay's two
-    other columns each carry a facing pair that way — fluid-20 turning UP off V-H's draw
-    against fluid-17 falling into V-G's gate. water-3 is the one fall the lane cannot seat:
+    `PUMP_ROW_TURN` off the face it left rather than out at the end of its lead. water-3 is the
+    one fall the lane cannot seat:
     fluid-17's crossing leg TRAVELS that lane straight over V-K's column on its way to its own
     fall, and the arc it comes about on reaches a pitch ahead of the lane at this column — so
     the fall to V-K's mouth stands the second pitch ahead and comes aft into the mouth on the
     lead that buys.
-  * the LOFT'S PUMP LANE — V-H's OWN COLUMN, in the band [1.002](LOFT_TEE_STANDOFF) mm over the
-    aft stand's crown, where Y-F stands on the front column's own tee construction — RUN along
+  * the LOFT'S PUMP LANE — the band [1.002](LOFT_TEE_STANDOFF) mm over the aft stand's crown,
+    where Y-F stands on the front column's own tee construction — RUN along
     the lane, BRANCH UP. The strip between the stand's east face and the SeaFlo's flank is a
     `LINE_HUG` and not a lane: a fitting two `TEE_HALF_W` across does not stand beside this
-    stand at the port plane, at any x. What is open is the band OVER the plates, so the tee
-    stands on the very collet it serves and the draw falls down one column instead of crossing
-    a corridor to reach it. fluid-19 falls into that branch off the
-    shelf crossing and fluid-20 comes about into the run's aft port out of the bay. The run's
+    stand at the port plane, at any x. What is open is the band OVER the plates, and the tee
+    stands on V-H-O's own station in Y and WEST of that collet in x, on `_contents.aft_lane_x` —
+    the column fluid-21 falls down. fluid-19 falls into the branch off the shelf crossing, and
+    fluid-20 comes east out of V-H's collet, aft and up the band beside the board, and back west
+    over the plates into the run's aft port. The run's
     fore port leaves the loft altogether: channel B's PUMP stands in the front column, so
     fluid-21 and fluid-22 are the two runs that cross a storey and a half. They cross the deck
     on OPPOSITE strata and pass the head column on OPPOSITE sides — the inlet over the
@@ -994,26 +994,32 @@ def _authored_runs() -> list:
              f"standing over it, on leads leaning {f23_lean[0]:.1f}°/{f23_lean[1]:.1f}° into "
              f"the leg between them"))
 
-    # fluid-20 — the bag-B draw into Y-F's aft run port. This collet opens EAST at the plate's
+    # fluid-20 — the bag-B draw into Y-F's aft run port. The collet opens EAST at the plate's
     # forward end; the run port opens AFT on the tee's own face, west of the plate and a storey
-    # up (`_contents.aft_lane_x`). The two are parted in all three axes, and the leg that joins
-    # them lies in the LANE EAST OF BOTH BODIES — the collet fires straight into it, the climb
-    # stands there clear of plate and tee alike, and the run crosses west over the tee's crown
-    # once it is aft of the port.
-    #   The come-forward leg is the tee's own approach, so it turns on the lead a collet leaves
-    # plus the bend that follows it, and the west crossing is what the lane's own offset leaves.
-    yf_lane = max(f["tee-y-f"].bb.xmax, bag.bb.xmax) + contents.PUMP_ROW_TURN
+    # up (`_contents.aft_lane_x`). The run leaves east into the band between the PLATE'S east
+    # face and the BOARD'S west flank — [23.9](F20_BAND) mm of it, holding no other line at this
+    # storey: fluid-22's column stands over the crossing's crown, fluid-23's a bay aft.
+    #   THE LANE IS THAT BAND'S FAR WALL. The first leg is the standoff itself — the collet's
+    # own corner sits on it with no waypoint of this run's in front of it — and it runs
+    # [19.7](F20_LEAD) mm. The tube keeps [2.3](F20_PCBA_CLEAR) mm of the board's casting.
+    #   THE AFT MOVE IS SPENT ON THE PORT PLANE the run starts on; the climb runs straight into
+    # the west crossing, and the corner between them turns at the stock's own radius.
+    #   The crossing stands ONE STOCK RADIUS aft of the port, the closing corner turning in it
+    # with a straight still running into the collet, and clears water-3's fall onto V-K by
+    # [6.7](F20_W3_CLEAR) mm.
+    yf_lane = f["pcba"].bb.xmin - contents.PUMP_ROW_TURN
     runs.append(route(
         "fluid-20", "bag-b-tray-assembly.V-H-O",
-        {"x": yf_lane},                          # east off the collet into the lane beside the tee
-        y_f.z("Y-F-2"),                          # up that lane to the run's own plane
-        y_f.y("Y-F-2", contents.JUNCTION_LEG_LEAD + contents.LLDPE_BEND),
-                                                 # aft past the port, over the bay's mouth
-        y_f.x("Y-F-2"),                          # west onto the port's own column
+        {"x": yf_lane},                          # east off the collet, down the band to its far wall
+        y_f.y("Y-F-2", contents.LLDPE_STOCK_BEND),
+                                                 # aft along the port plane, past the tee's own bay
+        y_f.z("Y-F-2"),                          # up that lane onto the run's own plane
+        y_f.x("Y-F-2"),                          # west over the plate's crown onto the port's column
         "tee-y-f.Y-F-2",                         # and forward into the run's aft port
         kind="fluid", stub=WBEND, skew=FLAVOR_SKEW,
-        note="bag B draw → Y-F run: east off the collet into the lane beside the tee, up it to "
-             "the run's plane, aft past the port and forward into it from behind"))
+        note="bag B draw → Y-F run: east off the collet into the lane beside the board, aft "
+             "down it, up onto the run's plane and west over the plate's crown into the port "
+             "from behind"))
 
     # fluid-21 / fluid-22 — the two legs between channel B's junctions in the LOFT and its pump
     # in the FRONT COLUMN, and the only two runs in the machine that cross a storey and a half
@@ -1941,6 +1947,13 @@ def lane_stations() -> dict:
         # The two legs one corner short of two stock arcs, and the cap each hands its second
         # corner so the first turns at stock: carb-1's window under the meter, and fluid-17's
         # turn lane over the junction bay.
+        # fluid-20's band east of the bag plate: its depth, the standoff its far wall gives the
+        # first leg off the collet, and what the SWEPT TUBE keeps off the board's casting and
+        # off water-3's fall.
+        "F20_BAND":         f"{_boxes.boxed(solids['pcba']).xmin - _boxes.boxed(solids['bag-b-tray-assembly']).xmax:.3g}",
+        "F20_LEAD":         f"{runs['fluid-20'].pts[1][0] - runs['fluid-20'].pts[0][0]:.3g}",
+        "F20_PCBA_CLEAR":   f"{scorecard._solid_gap(R.tube(runs['fluid-20']), solids['pcba']):.2g}",
+        "F20_W3_CLEAR":     f"{scorecard._solid_gap(R.tube(runs['fluid-20']), R.tube(runs['water-3'])):.2g}",
         # Y-F's own column against the two bodies fluid-21 was drawn around: the casting whose
         # corner the dropped lean was struck on, and the tray stack's east margin it lands in.
         "F21_GRAZE_CLEAR":  f"{contents.y_f_port('Y-F-3')[0][0] - _boxes.boxed(solids['seaflo-pump']).xmax:.3g}",

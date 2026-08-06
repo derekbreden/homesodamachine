@@ -1,7 +1,7 @@
 """Single-valve tray — one Beduan solenoid on one printed plate.
 
 The family's smallest member. `../two-valve-tray/` is two of `../single-tray/`'s
-cells sharing a floor and `../three-valve-tray/` is three; this is ONE, and the
+cells sharing a floor; this is ONE, and the
 plate is that cell's own reach and nothing more. It carries the same mount ears
 at the same section, so whatever bolts a two-valve plate bolts this one.
 
@@ -72,8 +72,7 @@ def mount_stations():
 def port_collets():
     """Every port's bare collet tip in tray coordinates: {name: (position, outward
     axis)}. Keyed the family's way — the seat's name, then the end by sign. This
-    seat is `xc`, the same key the three-valve plate's middle seat carries, so a
-    valve moved between the two keeps its collet names."""
+    plate's one seat is `xc`."""
     out = {}
     for nm, (cx, cy) in seats.items():
         for sy, tag in ((-1.0, "yn"), (+1.0, "yp")):

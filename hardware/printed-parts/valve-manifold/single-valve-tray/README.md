@@ -12,9 +12,8 @@ member.
 
 ## Why it exists
 
-`../two-valve-tray/` is two of `../single-tray/`'s cells sharing one floor and
-`../three-valve-tray/` is three. This is one, and the plate is that cell's own
-reach and nothing more.
+`../two-valve-tray/` is two of `../single-tray/`'s cells sharing one floor. This
+is one, and the plate is that cell's own reach and nothing more.
 
 The reason it is a part rather than a two-valve plate with a seat left empty:
 the assembly scripts seat a valve in every seat they are given. `build_assembly`
@@ -35,8 +34,8 @@ three stand: `_contents.VK_TRAY_COLLETS`, `NOZZLE_B_TRAY_COLLETS` and
 `NOZZLE_TRAY_COLLETS` each name one seat's pair on the `xc` seat. A row turned a
 quarter turn about Z spends the saving in **Y** instead, its collets on ±X.
 
-`xc` is the same key the three-valve plate's middle seat carries, so a valve
-moved between the two keeps its collet names.
+`xc` is the seat's own key, and the family keys every collet the same way — the
+seat's name, then the end by sign.
 
 ## The ears
 
