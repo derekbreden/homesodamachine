@@ -412,6 +412,11 @@ function parseArgs(argv) {
   if (!opts.cam) opts.cam = VIEWS.iso.cam;
   if (!opts.up) opts.up = VIEWS.iso.up;
   if (!["ghost", "hide", "solid", "xray"].includes(opts.context)) usage(`bad --context ${opts.context}`);
+  // The CLI word is `hide`; the mode every other pass tests for is `hidden`. Left unnormalised,
+  // a body dropped by --context keeps the feature edges the x-ray layer drew for it and counts
+  // as neither hidden nor ghost — a frame carrying eighty bodies' line art under a legend that
+  // says "0 hidden". The two names meet here.
+  if (opts.context === "hide") opts.context = "hidden";
   if (!Number.isFinite(opts.zoom) || opts.zoom <= 0) usage("bad --zoom");
   if (opts.span !== null && (!Number.isFinite(opts.span) || opts.span <= 0)) usage("bad --span");
   return { positional, opts };
