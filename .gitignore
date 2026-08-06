@@ -16,7 +16,8 @@ firmware/src_pcba_bench/fw_version.h
 __pycache__/
 *.xcodeproj/
 logs/*.log
-.claude
+.claude/*
+!.claude/commands/
 node_modules/
 
 # CAD script output (generated STEP/STL files)
