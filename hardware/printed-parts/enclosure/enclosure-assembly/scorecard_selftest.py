@@ -677,6 +677,46 @@ def test_room_holds() -> None:
         c.SHORT.update(keep)
 
 
+# ── mounted: a named carrier is not a measured joint ─────────────────────────
+def test_mount_audit() -> None:
+    """`mounted` counts a component when its joint is MEASURED and holds. The control is a
+    carrier named with nothing measuring it: `MOUNTED_BY` alone is an intention, and the row
+    it produces must not count. A component with no carrier is not audited at all."""
+    print("mounted (a named carrier is not a measured joint)")
+
+    keep = dict(sc.MOUNTED_BY)
+    try:
+        sc.MOUNTED_BY.clear()
+        sc.MOUNTED_BY["a"] = "some-carrier"
+        rows = {n: (by, holds, cks) for n, by, holds, cks in sc.mount_audit({"a": box(0, 0, 0)})}
+        check("a carrier named with nothing measuring the joint cannot hold",
+              not rows["a"][1] and rows["a"][2][0][0] == "no joint measured",
+              f"{rows['a'][2][0][0]}")
+        check("a component with no carrier is not audited", "b" not in rows, f"{sorted(rows)}")
+
+        # The live deck family is the measured control: every tray lands on all its columns
+        # and every ear stands over its bore, so each one holds with its figures attached.
+        sc.MOUNTED_BY.clear()
+        sc.MOUNTED_BY.update(keep)
+        import enclosure_assembly as ea
+        import _contents as contents
+        pack = ea._build_pack(contents._moves())
+        live = {n: (by, holds, cks) for n, by, holds, cks in sc.mount_audit(
+            {k: v for k, (v, _c) in pack.solids.items()})}
+        trays = [n for n in sc.DECK_MOUNTED.values() if n in live]
+        check("every deck-mounted tray's joint is measured and holds",
+              trays and all(live[n][1] for n in trays)
+              and all(len(live[n][2]) == 2 for n in trays),
+              f"{len(trays)} trays, e.g. {live[trays[0]][2] if trays else '—'}")
+        unmeasured = [n for n, (_by, holds, cks) in live.items()
+                      if cks and cks[0][0] == "no joint measured"]
+        check("a declared row with no measurement reads adrift, not mounted",
+              all(not live[n][1] for n in unmeasured), f"{sorted(unmeasured)}")
+    finally:
+        sc.MOUNTED_BY.clear()
+        sc.MOUNTED_BY.update(keep)
+
+
 def main() -> None:
     print("── enclosure scorecard self-test " + "─" * 20)
     if not sc._HAVE_EXACT:
@@ -684,7 +724,7 @@ def main() -> None:
     for t in (test_pack_closes, test_lines_clear, test_clearance_floor, test_fit_bed,
               test_seams_mate, test_placement, test_port_leads, test_located_faces,
               test_scorecard_end_to_end, test_routing_guards, test_bend_radius,
-              test_divider_reach, test_room_holds):
+              test_divider_reach, test_room_holds, test_mount_audit):
         t()
     print("─" * 53)
     if _failures:
