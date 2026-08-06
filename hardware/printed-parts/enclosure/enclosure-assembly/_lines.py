@@ -994,17 +994,15 @@ def _authored_runs() -> list:
              f"standing over it, on leads leaning {f23_lean[0]:.1f}°/{f23_lean[1]:.1f}° into "
              f"the leg between them"))
 
-    # fluid-20 — the bag-B draw into Y-F's aft run port. The tee stands over the collet's own
-    # column (`_contents.aft_lane_x`), but the pair is turned (`_contents.BAG_B_TRAY_YAW`) and
-    # this collet opens EAST at the plate's forward end while the run port opens AFT on the
-    # plate's aft face, a plate's depth behind it. So the two are parted in Y as well as in
-    # height, and the U that joins them lies in the LANE EAST OF THE TEE: the tee's own body
-    # fills the column between the collet and the port at the run's plane, so the climb stands
-    # a tube and its floor off that body's east face and comes back west onto the column only
+    # fluid-20 — the bag-B draw into Y-F's aft run port. This collet opens EAST at the plate's
+    # forward end; the run port opens AFT on the tee's own face, west of the plate and a storey
+    # up (`_contents.aft_lane_x`). The two are parted in all three axes, and the leg that joins
+    # them lies in the LANE EAST OF BOTH BODIES — the collet fires straight into it, the climb
+    # stands there clear of plate and tee alike, and the run crosses west over the tee's crown
     # once it is aft of the port.
     #   The come-forward leg is the tee's own approach, so it turns on the lead a collet leaves
-    # plus the bend that follows it, and the west jog is what the tee's half-width leaves.
-    yf_lane = f["tee-y-f"].bb.xmax + contents.PUMP_ROW_TURN
+    # plus the bend that follows it, and the west crossing is what the lane's own offset leaves.
+    yf_lane = max(f["tee-y-f"].bb.xmax, bag.bb.xmax) + contents.PUMP_ROW_TURN
     runs.append(route(
         "fluid-20", "bag-b-tray-assembly.V-H-O",
         {"x": yf_lane},                          # east off the collet into the lane beside the tee
@@ -1070,20 +1068,20 @@ def _authored_runs() -> list:
     yf3_drop = yf3[2] - west_col[2]
     yf3_lead = yf3_drop / 2.0
     # THE COLLET IS ALREADY EAST OF THE CASTING. Y-F stands over V-H-O and the SeaFlo's flank
-    # ends [39](F21_GRAZE_CLEAR) mm west of that column, so this run never comes near the
+    # ends [11.8](F21_GRAZE_CLEAR) mm west of that column, so this run never comes near the
     # corner a lean would be dodging — and struck as a 45° about that corner the two waypoints
     # land AFT of each other while the run is travelling forward, which is a doubling-back and
     # two 135° turns on a six millimetre leg. What the run owes between the collet and the
-    # band is [31.6](F21_BAND_STEP) mm of X, and the fall already carries more than that.
+    # band is [4.34](F21_BAND_STEP) mm of X, and the fall already carries more than that.
+    # THE FALL IS ON THE TEE'S OWN COLUMN. Y-F stands west of the climb lane
+    # (`_contents.aft_lane_x`), which puts it clear of the condenser block, so this run leaves
+    # the collet and drops without crossing to reach a lane. `lane_e` carries the climbs that
+    # do stand in that lane — this one passes west of it.
+    fall_x = min(yf3[0], lane_e)
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
-        # THE RUN REACHES THE BLOCK'S LANE BEFORE IT DROPS PAST THE CROWN. Y-F stands over V-H-O
-        # and that collet's column is east of the condenser's west flank, so a fall struck on
-        # the tee's own x stands inside the block for every millimetre it crosses. The port
-        # itself is clear over the crown, so the west move is taken THERE, on the plane the
-        # collet already presents on, and the fall that follows is the same single leg it was.
-        (lane_e, yf3[1] - yf3_lead, yf3[2]),         # west onto the block's own lane, over its crown
-        (lane_e, yf3[1] - yf3_lead, west_col[2]),    # and down onto the deck crossing
+        (fall_x, yf3[1] - yf3_lead, yf3[2]),         # forward along the lane, over the block's crown
+        (fall_x, yf3[1] - yf3_lead, west_col[2]),    # and down onto the deck crossing
         (band_x, band_y, west_col[2]),               # forward the machine's length into the collet band
         (pai[0], band_y, pai[2]),                    # the fall, leaning onto the barb's own column
         "pump-a.P-A-I",                              # and forward into it
