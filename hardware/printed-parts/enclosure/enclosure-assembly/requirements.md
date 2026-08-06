@@ -56,8 +56,9 @@ Three rules of engagement follow from the standard rather than from any gate:
   ([`calibration/Fences.md`](/calibration/Fences.md) carries both disciplines).
 - **Prefer a move to an instrument.** The tools to look already exist — the three
   elevations written beside the STEP, `tools/render/render-view.js` for any subset from
-  any side, `fit.py`, this card. A session that builds another describer instead of moving
-  a body has chosen the comfortable failure.
+  any side, `tools/around.sh` to turn the whole pack on one axis and click a body by pixel,
+  `fit.py`, this card. A session that builds another describer instead of moving a body has
+  chosen the comfortable failure.
 
 **The last tenth is unexplained variance.** Wherever function leaves a choice free — which
 collet a line takes, which way a fitting clocks, which lane a run dresses to — the machine
