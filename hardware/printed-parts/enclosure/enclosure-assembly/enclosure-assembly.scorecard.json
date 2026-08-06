@@ -5,7 +5,7 @@
   "shaped": 98,
   "routed": 57,
   "held": 33,
-  "mounted": 10,
+  "mounted": 14,
   "checks": [
     {
       "id": "coverage",
@@ -381,13 +381,13 @@
       "label": "The feature that fastens each component is printed into another part",
       "kind": "goal",
       "status": "warn",
-      "value": "10% (4/42)",
+      "value": "14% (6/42)",
       "target": "100%",
       "detail": [
+        "enclosure_back_top carries 2: c14-inlet, drip-pan",
         "foam-assembly carries 4: bag-b-tray-assembly, nozzle-b-tray-assembly, nozzle-tray-assembly, vk-tray-assembly",
-        "\u2717 c14-inlet: named to enclosure_back_top, no joint measured",
         "\u2717 ground-stack: named to foam-assembly, no joint measured",
-        "36 with nothing fastening them \u2014 a body resting on another is not mounted, and neither is one captured by a pocket or stuck down. One row each, below.",
+        "35 with nothing fastening them \u2014 a body resting on another is not mounted, and neither is one captured by a pocket or stuck down. One row each, below.",
         "ac-hub: nothing fastens it \u2014 nothing holds it at all",
         "asse1022-assembly: nothing fastens it \u2014 nothing holds it at all",
         "bag-a-tray-assembly: nothing fastens it \u2014 nothing holds it at all",
@@ -421,7 +421,6 @@
         "bulkhead-water: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
         "co2-inlet: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature",
         "display: nothing fastens it \u2014 held by shell-facet, which is not a printed-in feature",
-        "drip-pan: nothing fastens it \u2014 held by rails, which is not a printed-in feature",
         "foam-assembly: nothing fastens it \u2014 held by floor-capture, which is not a printed-in feature",
         "gasher-co2: nothing fastens it \u2014 held by wall-capture, which is not a printed-in feature"
       ],
@@ -6663,14 +6662,6 @@
       "checks": []
     },
     {
-      "component": "drip-pan",
-      "by": null,
-      "held": "rails",
-      "kind": "real",
-      "joint": null,
-      "checks": []
-    },
-    {
       "component": "flow-regulator",
       "by": null,
       "held": "none",
@@ -6872,13 +6863,76 @@
       "by": "enclosure_back_top",
       "held": "wall-capture",
       "kind": "real",
-      "joint": "adrift",
+      "joint": "holds",
       "checks": [
         {
-          "label": "no joint measured",
-          "value": null,
-          "bound": 0.0,
-          "ok": false
+          "label": "boss 0 printed",
+          "value": 0.763,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "boss 0 met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "boss 1 printed",
+          "value": 0.763,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "boss 1 met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "component": "drip-pan",
+      "by": "enclosure_back_top",
+      "held": "rails",
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "rail 0 printed",
+          "value": 1.0,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "rail 0 met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "rail 1 printed",
+          "value": 1.0,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "rail 1 met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
+        },
+        {
+          "label": "stop printed",
+          "value": 1.0,
+          "bound": 0.2,
+          "ok": true
+        },
+        {
+          "label": "stop met",
+          "value": 0.0,
+          "bound": 1.0,
+          "ok": true
         }
       ]
     },
@@ -7174,8 +7228,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-06T02:51:55+00:00",
-    "commit": "3428821d8c37889c46e26ee96307d8d48bbf4fcc",
+    "generated": "2026-08-06T03:23:24+00:00",
+    "commit": "9df34f905a779cc99fefbc69a38894c8d5a3c90e",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7203,7 +7257,7 @@
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:8a2e6d196bf34f2f",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:f9af2e7906c65606",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:e5712f2f18b5d44a",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726216:1785958078966765507",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:845175:1785962402175439855",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785958078987592982",

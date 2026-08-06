@@ -1953,6 +1953,12 @@ MOUNTED_BY = {
     # Two M3 stations off `panel_screws()`, standing as bosses proud of the back panel's outer
     # face at insert depth plus a cap, drilled blind from the inner face.
     "c14-inlet":    "enclosure_back_top",
+    # The basin rides a printed rail pair fused onto the back-top piece's −X wall, and stops
+    # against a printed stop at the end of its travel (`contents.drip_pan_rails`,
+    # `drip_pan_stop`). The rails take the tray's two 45° haunches on their inboard arrises,
+    # so the pair pins it in plan and carries it in Z — a fastening with no fastener, which
+    # is what a slide is. `enclosure._pan_rails` prints them; `mount_features` probes them.
+    "drip-pan":     "enclosure_back_top",
 }
 
 
@@ -2040,7 +2046,55 @@ def tray_mount_alignment() -> list[tuple[str, float, list]]:
     return out
 
 
-def mount_audit(solids: dict) -> list[tuple[str, str, bool, list]]:
+def mount_features(name: str) -> list[tuple[str, tuple]]:
+    """The printed feature a joint stands on, as `(label, (x0, x1, y0, y1, z0, z1))` world
+    boxes in the CARRIER's own solid.
+
+    The deck family states its stations as columns and `deck_mount_landings` probes those;
+    these are the joints whose feature is a run of material rather than a column."""
+    if name == "drip-pan":
+        return ([(f"rail {i}", b) for i, b in enumerate(contents.drip_pan_rails())]
+                + [("stop", contents.drip_pan_stop())])
+    if name == "c14-inlet":
+        import enclosure as _enc
+        d = _enc._dims()
+        r = _enc.c14_boss_dia / 2.0
+        y0, y1 = d.inner[3], d.inner[3] + _enc.heatset_depth
+        return [(f"boss {i}", (sx - r, sx + r, y0, y1, sz - r, sz + r))
+                for i, (sx, sz) in enumerate(contents.c14_screw_stations())]
+    return []
+
+
+def feature_probe(carrier, part, boxes) -> list[tuple[str, float, float, bool]]:
+    """Per feature box: how much of it the CARRIER's solid fills, and whether the PART meets
+    it. A joint is named against a feature, and both halves can be missing independently —
+    the feature never printed, or the part standing away from one that was.
+
+    `filled` is a presence figure and not a fit: a boss is an annulus in its own box and a
+    rail fills its own, so what it separates is material from nothing."""
+    import cadquery as cq
+    out = []
+    for label, (x0, x1, y0, y1, z0, z1) in boxes:
+        vol = abs((x1 - x0) * (y1 - y0) * (z1 - z0))
+        if vol < 1e-9:
+            continue
+        probe = cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
+        filled = sum(probe.intersect(s).Volume() for s in carrier.Solids()) / vol
+        out.append((f"{label} printed", filled, MOUNT_FEATURE_FILL,
+                    filled >= MOUNT_FEATURE_FILL))
+        gap = min((_solid_gap(probe, s) for s in part.Solids()), default=float("inf"))
+        out.append((f"{label} met", gap, MOUNT_FEATURE_GAP, gap <= MOUNT_FEATURE_GAP))
+    return out
+
+
+# What a feature box must be to count as printed, and how far the part may stand off one.
+# The fill is a presence floor — a boss is an annulus inside its own box, so a third of it
+# is material — and the gap is the slip a sliding fit already carries.
+MOUNT_FEATURE_FILL = 0.20
+MOUNT_FEATURE_GAP = 1.0
+
+
+def mount_audit(solids: dict, pieces: dict | None = None) -> list[tuple[str, str, bool, list]]:
     """For each component `MOUNTED_BY` names a carrier for, measure the joint and return
     (name, carrier, holds, [(label, value, bound_mm, ok)]).
 
@@ -2056,6 +2110,7 @@ def mount_audit(solids: dict) -> list[tuple[str, str, bool, list]]:
         return []
     landings = {n: (landed, total, miss) for n, landed, total, miss in deck_mount_landings(solids)}
     aligned = {n: worst for n, worst, _want in tray_mount_alignment()}
+    bodies = dict(solids, **(pieces or {}))
     out = []
     for name, carrier in sorted(MOUNTED_BY.items()):
         checks = []
@@ -2065,6 +2120,9 @@ def mount_audit(solids: dict) -> list[tuple[str, str, bool, list]]:
         if name in aligned:
             checks.append(("ear over its column's bore", aligned[name],
                            _cc.deck_mount_lid_slip, aligned[name] <= _cc.deck_mount_lid_slip))
+        feats = mount_features(name)
+        if feats and carrier in bodies and name in bodies:
+            checks += feature_probe(bodies[carrier], bodies[name], feats)
         if not checks:
             checks.append(("no joint measured", float("inf"), 0.0, False))
         out.append((name, carrier, all(c[3] for c in checks), checks))
@@ -2512,7 +2570,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     # part. Every row absent from MOUNTED_BY is a joint still to design, which is what the
     # remainder counts; the rollup names which part carries what, so a reader sees where the
     # fastening already concentrates.
-    ma = mount_audit(solids)
+    ma = mount_audit(solids, pieces)
     mount_rows = {name: (carrier, holds, cks) for name, carrier, holds, cks in ma}
     mounted_done = [c for c in COMPONENTS if mount_rows.get(c.name, (None, False))[1]]
     adrift = [c for c in COMPONENTS
