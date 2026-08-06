@@ -91,7 +91,7 @@ bound it:
     in the AFT BAND behind it. fluid-21 comes forward down it on the east plate edge's own
     column, clear of the east seat's valve, and crosses onto the barb's column in it — ahead of
     the aft band, where the tray-east lane's own climb stands.
-  * the STRIP ahead of the bag-A pair — [20.59](BAG_STRIP) mm between the pump row's aft faces
+  * the STRIP ahead of the bag-A pair — [33.89](BAG_STRIP) mm between the pump row's aft faces
     and that pair's forward collets, and the shallowest corridor in the machine. Y-E stands
     ACROSS it (`_contents.y_e_pos`) and fluid-14, fluid-15 and fluid-16 all reach it here, along
     with the four legs that land on the two pumps' own barbs. Nothing stands in the strip but
@@ -653,23 +653,18 @@ def _authored_runs() -> list:
     # fall and a cross that neither axis points down, and both corners come in under square on
     # an on-axis lead.
     #
-    # THE APPROACH IS NOT ITS OWN TO SPEND. V-E-I and pump A's outlet barb stand HEAD-ON down
-    # one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so no lane in x
-    # parts them, and the whole depth of the strip between the two mouths is ONE BUDGET this
-    # run's approach and fluid-22's stub divide. What binds is the FOOT of this descent against
-    # the foot of that climb, where the two tubes close to [1.34](STRIP_SEP) mm of each other
-    # over a `LINE_HUG` floor. So the pair is held by the column the barb stands on, not by these
-    # two numbers: what buys both a rounder turn is a millimetre of x between the mouths.
-    #   The split of what there is runs nearly even. fluid-22's first corner seats its stub
-    # whole — a square turn off the barb — and this one seats
-    # `(approach − DIVIDER_LEG_STRAIGHT) / tan(turn/2)` on a turn the lean holds under square,
-    # so the two rise against each other and cross with a quarter of a millimetre more on the
-    # approach. Every quarter past that crossing is a quarter off the pair.
-    #   THE EXIT IS OUT OF THAT BUDGET and stands where its own corner wants. fluid-22's climb
-    # leans WEST off the barb's column (below), so what stands beside the top of this descent is
-    # the strip's own air.
-    F16_EXIT, F16_APPROACH = 6.5, 7.25
-    F22_STUB = 7.0
+    # THE APPROACH DIVIDES THE STRIP WITH ONE OTHER MOUTH. V-E-I and pump A's outlet stand
+    # HEAD-ON down one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so
+    # no lane in x parts them and the depth between them is one budget this run's approach and
+    # fluid-22's stub take out of. Pump A standing off the wall rather than off the corner pod
+    # is what deepened it; the two tubes pass at [2.36](STRIP_SEP) mm over a `LINE_HUG` floor.
+    #   FLUID-22 TAKES ITS SHARE FIRST, and not by choice: its climb leans WEST across pump B's
+    # own crown (below), so its lane has to stand aft of that pump's flank before it may lean at
+    # all. What is left of the strip past that lane is this approach's, less the pitch the two
+    # collinear mouths owe each other.
+    pb_flank = f["pump-b"].bb.ymax + contents.LINE_HUG + 6.35 / 2.0
+    F22_STUB = pb_flank - f["pump-a"].at("P-A-O")[1]
+    F16_EXIT = F16_APPROACH = 9.5
     (w1, w2), f16_lean, f16_r, _f16_turns = lean_into(
         *_mouth(f, "tee-y-e.Y-E-3"), *_mouth(f, "bag-a-tray-assembly.V-E-I"),
         (F16_EXIT, F16_APPROACH))
@@ -1091,10 +1086,10 @@ def _authored_runs() -> list:
     # strip is empty above the barb plane: pump B's flank stands forward of it, Y-C a storey
     # down and aft, and fluid-11 crosses on the port plane alone.
     #   The rise and the cross into that air are ONE LEG, and the corner at its top turns PAST
-    # square — `r·tan(θ/2)` on a turn wider than ninety, paid out of the [77.5](F22_CROSS) mm of
-    # level crossing beyond it rather than out of the [7](F22_STUB) mm stub behind. At a stock
+    # square — `r·tan(θ/2)` on a turn wider than ninety, paid out of the [56.4](F22_CROSS) mm of
+    # level crossing beyond it rather than out of the [17.5](F22_STUB) mm stub behind. At a stock
     # radius that arc takes nearly the whole leaning leg, so the tube leaves the barb's column ON
-    # THE CURVE, stands west to x [48.3](F22_WEST) partway up, and comes back east along the
+    # THE CURVE, stands west to x [53.9](F22_WEST) partway up, and comes back east along the
     # crossing. `_west_lean` strikes the waypoint the leg is drawn to.
     pao = pa.at("P-A-O")
     f22_lane = pao[1] + F22_STUB
