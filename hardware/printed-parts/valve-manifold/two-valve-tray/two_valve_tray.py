@@ -6,7 +6,7 @@ rides one of these, and they are one part — same solid, printed five times:
     V-A · V-B    the two sources, merging at Y-A
     V-C · V-D    the channel selects, fed from Y-B
     V-E · V-F    bag A, across Y-E
-    V-H · V-I    bag B, across Y-H
+    V-H · V-I    bag B, at the reservoir's own two mouths
     V-G · V-J    the nozzle gates
 
 The tray is the cradle and its own mount: one floor plate carrying two of
