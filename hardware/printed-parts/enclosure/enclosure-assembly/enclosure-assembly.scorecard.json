@@ -7310,8 +7310,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-06T06:27:27+00:00",
-    "commit": "7bf7edef46533c1ff5423b708844767d36dbb023",
+    "generated": "2026-08-06T14:45:13+00:00",
+    "commit": "ca5759a4a32daa5e29d6edc468bed0691cdecde6",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7332,8 +7332,8 @@
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:159198:1785913234053377583",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:21b3ef98fcd46857",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:b9f1512e91841094",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:4d081699e32493a0",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:d4c3b3d81d75f966",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:979d007d5c71eb5c",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:2e26509dcc681921",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
@@ -7351,7 +7351,7 @@
       "hardware/printed-parts/valve-manifold/single-valve-tray/single_valve_tray.py": "sha256:d448b92c3078ba52",
       "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-assembly.step": "stat:561792:1785613854288278755",
       "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_assembly.py": "sha256:f90afa00a509c083",
-      "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_tray.py": "sha256:9101b67d0249eaec",
+      "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_tray.py": "sha256:0c01d72b18325c81",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step": "stat:91700:1785645956051637319",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py": "sha256:d91e4adee363478d",
       "hardware/reference/asse1022-assembly/asse1022-assembly.step": "stat:158721:1785447070039859852",
