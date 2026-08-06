@@ -333,7 +333,10 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
 
     `bent("…", A, (x, y, z), (x, y, z), B)` — first arg after the source and last arg are the port
     anchors; everything between is a waypoint. The leg leaving `frm` and the leg entering `to` are
-    checked against each port's own axis (`skew`, default `COLLET_SKEW`).
+    checked against each port's own axis (`skew`, default `COLLET_SKEW`). `skew=(exit, approach)`
+    holds the two ends to their own figures, for a run whose mouths are different features — a
+    collet grips a tube and a countersunk bore lays its lip along one, and the two open by
+    different angles (`_lines.FLAVOR_SKEW`, `_lines.CAP_BORE_SKEW`).
 
     `lead` is `bent`'s exit/approach stub — the analogue of `route`'s `stub`. Given, it plants a
     waypoint one `lead` mm along the source normal off `frm`, and one along the destination normal off
@@ -342,7 +345,8 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
     both ends by `d`; `lead=(out, in)` sets them apart, and 0 or None skips that end. Without it the
     first and last waypoints must themselves sit on the collet axes.
     """
-    sk = COLLET_SKEW if skew is None else skew
+    sk_out, sk_in = ((COLLET_SKEW, COLLET_SKEW) if skew is None
+                     else skew if isinstance(skew, (tuple, list)) else (skew, skew))
     to = rest[-1]
     if not isinstance(to, str):
         raise TypeError(f"{cid}: the last argument must be the destination anchor, got {to!r}")
@@ -367,15 +371,15 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
     if len(pts) < 2:
         raise ValueError(f"{cid}: a run needs at least a source and a destination")
     lead_off = leg_skew(pts[0], pts[1], n_from)
-    if lead_off > sk:
-        _blocked(cid, f"leaves {frm} {lead_off:.1f}° off the collet axis (> {sk:.1f}°), and is drawn "
-                      f"at it — move the first waypoint onto the port's normal, or pass `lead=` to "
-                      f"plant one.")
+    if lead_off > sk_out:
+        _blocked(cid, f"leaves {frm} {lead_off:.1f}° off the port's axis (> {sk_out:.1f}°), and is "
+                      f"drawn at it — move the first waypoint onto the port's normal, or pass "
+                      f"`lead=` to plant one.")
     tail_off = leg_skew(pts[-2], pts[-1], tuple(-c for c in n_to))
-    if tail_off > sk:
-        _blocked(cid, f"enters {to} {tail_off:.1f}° off the collet axis (> {sk:.1f}°), and is drawn "
-                      f"at it — move the last waypoint onto the port's normal, or pass `lead=` to "
-                      f"plant one.")
+    if tail_off > sk_in:
+        _blocked(cid, f"enters {to} {tail_off:.1f}° off the port's axis (> {sk_in:.1f}°), and is "
+                      f"drawn at it — move the last waypoint onto the port's normal, or pass "
+                      f"`lead=` to plant one.")
     corners = _bends(pts, cid)
     radii = seat_radii(pts, corners, _caps(corners, bend, cid, d), cid, d)
     return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii)

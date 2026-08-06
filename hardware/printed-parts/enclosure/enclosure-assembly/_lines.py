@@ -271,6 +271,10 @@ W6_POCKET = 9.0
 # the reach that stands the fitting off its pair is struck on it (`_contents.divider_reach`),
 # so the number is the PACK's and this name is bound to it.
 FLAVOR_SKEW = contents.FLAVOR_SKEW
+# The same figure at a CAP CONDUIT, whose mouth is a bore through the foam cap's lid rather
+# than a collet: the lid's hole is countersunk to this angle and a run leaves along the lip it
+# opens (`_cold_core_interface.cap_conduit_entry_skew`). The part that draws the cone owns it.
+CAP_BORE_SKEW = contents.CAP_BORE_SKEW
 # The straight the fall into Y-H's stem is seated on: the run comes about this far ahead of the
 # collet, in the plane the stem faces. Y-G's fall comes about at one `WBEND` instead — its stem
 # faces UP into the basin's own column, so the lane it turns on is under the rails and the
@@ -415,11 +419,16 @@ def lean_into(f_from, p_from, f_to, p_to, lead, radius=contents.LLDPE_STOCK_BEND
     reach buys runs out — past where the two leads overshoot each other the leg between them
     shortens faster than the turns open, and the radius comes back DOWN.
 
+    `skew` is one angle for both ends or `(out, in)`. The pair is for a run between two
+    DIFFERENT FEATURES: a collet takes `FLAVOR_SKEW` and a countersunk cap conduit takes
+    `CAP_BORE_SKEW`, and a lean solved on the smaller of the two spends the wrong end.
+
     This sweeps: the answer is a maximum, not a threshold. Ties go to the shallower pair, so no
-    more of the collet is spent than the corner needs."""
+    more of the mouth is spent than the corner needs."""
     a, u = f_from.at(p_from), f_from.normal(p_from)
     b, v = f_to.at(p_to), f_to.normal(p_to)
     la, lb = lead if isinstance(lead, (tuple, list)) else (lead, lead)
+    sa, sb = skew if isinstance(skew, (tuple, list)) else (skew, skew)
     if min(la, lb) <= straight:
         raise ValueError(
             f"lean_into: a lead of {min(la, lb):g} mm has no corner in it — {straight:g} of it is "
@@ -429,12 +438,13 @@ def lean_into(f_from, p_from, f_to, p_to, lead, radius=contents.LLDPE_STOCK_BEND
     # Each lead's window narrows around ITS OWN best, not the pair's — the two optima part
     # company whenever the mouths do (fluid-23 wants the whole skew at one end and none at the
     # other), and a window struck on one lean would refine the other out of reach.
-    # The sweep stops a hair inside the skew. `bent` blocks a leg leaving more than `skew` off
-    # its collet's axis, and a lean solved exactly ON that bound rounds to either side of it
+    # The sweep stops a hair inside each skew. `bent` blocks a leg leaving more than `skew` off
+    # its port's axis, and a lean solved exactly ON that bound rounds to either side of it
     # through the tilt and the arc-cosine that measure it back.
-    skew = max(0.0, skew - 1e-6)
+    sa, sb = max(0.0, sa - 1e-6), max(0.0, sb - 1e-6)
     best = None
-    (alo, ahi), (blo, bhi), step = (0.0, skew), (0.0, skew), skew / 24.0
+    (alo, ahi), (blo, bhi) = (0.0, sa), (0.0, sb)
+    step = max(sa, sb) / 24.0
     for _ in range(4):                             # coarse sweep, then three refinements
         pa = alo
         while pa <= ahi + 1e-9:
@@ -446,8 +456,8 @@ def lean_into(f_from, p_from, f_to, p_to, lead, radius=contents.LLDPE_STOCK_BEND
                     best = (got, pa, pb, w1, w2, t1, t2)
                 pb += step
             pa += step
-        alo, ahi = max(0.0, best[1] - step), min(skew, best[1] + step)
-        blo, bhi = max(0.0, best[2] - step), min(skew, best[2] + step)
+        alo, ahi = max(0.0, best[1] - step), min(sa, best[1] + step)
+        blo, bhi = max(0.0, best[2] - step), min(sb, best[2] + step)
         step /= 6.0
     got, pa, pb, w1, w2, t1, t2 = best
     return (w1, w2), (pa, pb), got, (t1, t2)
@@ -576,15 +586,28 @@ def _authored_runs() -> list:
     # (`_cold_core_interface.cap_conduits`) — so in both the collet and the bore see each
     # other across one leg and the solve is the whole run. Neither owes a corner to anything
     # standing between them, because between them there is nothing.
+    #   THE TWO MOUTHS OPEN BY DIFFERENT ANGLES, and the drop is short enough that the wider of
+    # them is where the radius comes from. Each run turns ninety over that fall, and a SQUARE
+    # corner seats no more radius than the fall is deep — so what carries these two up to the
+    # R25.4 their stock wants is the lean splitting the ninety into two shallower turns, and
+    # every degree either mouth opens is a degree off both. A collet takes [22](FLAVOR_SKEW_DEG)°
+    # and the cap conduit's countersink [38](CAP_BORE_SKEW_DEG)°, so the bore is the end with the
+    # angle to spend and both runs spend the whole of it. fluid-26 is the one that needs all of
+    # it: its two mouths stand apart in Y as well, so its leg crosses out of the fall's own
+    # plane and it turns twice where fluid-24 turns once.
     for cid, frm, to, who in (
         ("fluid-24", "bag-b-tray-assembly.V-I-O", "foam-assembly.reservoir-b-fill",
          "pump return → reservoir B fill"),
         ("fluid-26", "foam-assembly.reservoir-B", "bag-b-tray-assembly.V-H-I",
          "reservoir B draw → bag B inlet"),
     ):
-        (w1, w2), lean, rad, _turns = max(_drop_trials(frm, to), key=lambda got: got[2])
+        # The bore is whichever end names the foam assembly; the other is the pair's collet.
+        skews = tuple(CAP_BORE_SKEW if m.startswith("foam-assembly.") else FLAVOR_SKEW
+                      for m in (frm, to))
+        (w1, w2), lean, rad, _turns = max(_drop_trials(frm, to, skew=skews),
+                                          key=lambda got: got[2])
         runs.append(R.bent(
-            cid, frm, w1, w2, to, kind="fluid", skew=FLAVOR_SKEW, bend=rad,
+            cid, frm, w1, w2, to, kind="fluid", skew=skews, bend=rad,
             note=f"{who}: a lead off each mouth leaning {lean[0]:.1f}°/{lean[1]:.1f}° into the "
                  f"single leg between them"))
 
@@ -1788,6 +1811,10 @@ def lane_stations() -> dict:
         # is what both of the bag-B pair's runs turn in.
         "LOFT_PORT_Z":      f"{runs['fluid-26'].pts[-1][2]:.4g}",
         "BAG_B_DROP":       f"{runs['fluid-26'].pts[-1][2] - runs['fluid-26'].pts[0][2]:.4g}",
+        # What each end of that drop opens by: a collet's grip, and the countersink the cap's
+        # lid carries at every conduit.
+        "FLAVOR_SKEW_DEG":  f"{FLAVOR_SKEW:.4g}",
+        "CAP_BORE_SKEW_DEG": f"{CAP_BORE_SKEW:.4g}",
         # water-6's two leans and the turns they leave, off the built run. A braided stub takes
         # more off its barb's axis than a rigid line does off a collet's.
         "W6_SKEW":          "14",

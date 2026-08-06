@@ -4,6 +4,7 @@ lid that sits atop the cap during pouring, and the TPU 90A gasket
 that compresses between the cap and the outer-shell mating face.
 Printed twice per build (one stack on each end of the shell)."""
 
+import itertools
 import math
 import sys
 from pathlib import Path
@@ -41,6 +42,7 @@ from _cold_core_interface import (
     cap_conduits,
     cap_conduit_bore_radius,
     cap_conduit_boss_radius,
+    cap_conduit_entry_relief_radius,
     outer_shell_x_length,
     outer_shell_y_length,
 )
@@ -200,11 +202,28 @@ def main():
     )
     conduit_lid_hole_volume = (len(cap_conduits) * math.pi
                                * cap_conduit_bore_radius ** 2 * lid_z_height)
+    # The lid's hole opens on its outer face into the entry countersink, so each conduit takes
+    # a frustum out of that plate rather than a cylinder — the bore's own radius at the inner
+    # face out to `cap_conduit_entry_relief_radius` a wall above it, less the cylinder already
+    # priced above. The three mouths stand clear of one another, so the cones price one each;
+    # the assertion is what a pair standing closer would fail against.
+    for _a, _b in itertools.combinations(cap_conduits.values(), 2):
+        assert math.dist(_a, _b) >= 2.0 * cap_conduit_entry_relief_radius, (
+            f"cap conduit entry reliefs at {_a} and {_b} stand {math.dist(_a, _b):.3f} mm apart "
+            f"and each opens to ⌀{2.0 * cap_conduit_entry_relief_radius:.3f} — two cones that "
+            f"meet are one opening, and the lens they share is priced twice below")
+    conduit_lid_relief_volume = len(cap_conduits) * (
+        math.pi * lid_z_height / 3.0
+        * (cap_conduit_bore_radius ** 2
+           + cap_conduit_bore_radius * cap_conduit_entry_relief_radius
+           + cap_conduit_entry_relief_radius ** 2)
+        - math.pi * cap_conduit_bore_radius ** 2 * lid_z_height)
     # The two caps differ by the deck columns and the conduits, and the two lids by the
     # openings both of those want — nothing else is cut into one end of the stack and
     # not the other.
     cap_expect = deck_column_volume + conduit_column_volume
-    lid_expect = deck_lid_hole_volume + conduit_lid_hole_volume
+    lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
+                  + conduit_lid_relief_volume)
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \

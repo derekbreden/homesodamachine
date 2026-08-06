@@ -455,6 +455,23 @@ def test_routing_guards() -> None:
     check("records a corner that seats no radius, and draws it square",
           "seats no radius" in R.BLOCKED.get("t", "") and min(kink.radii.values()) == 0.0,
           R.BLOCKED.get("t", "no record")[:58])
+
+    # `skew=(exit, approach)` fences the two ends on their own numbers, for a run between two
+    # different features — a collet at one mouth and a countersunk cap conduit at the other.
+    # ONE GEOMETRY, both leads leaning 30°, read twice: whichever end is held to 20° is the end
+    # recorded, and the one held to 40° stays silent.
+    lean, reach = 30.0, 40.0
+    dx, dy = reach * math.sin(math.radians(lean)), reach * math.cos(math.radians(lean))
+    w1, w2 = (dx, dy, 0.0), (span - dx, depth - dy, 0.0)
+    for label, sk, tight, slack in (("exit", (20.0, 40.0), "leaves A.p", "enters B.p"),
+                                    ("approach", (40.0, 20.0), "enters B.p", "leaves A.p")):
+        fixture()
+        leaned = R.bent("t", "A.p", w1, w2, "B.p", skew=sk, bend=bend)
+        got = R.BLOCKED.get("t", "")
+        check(f"skew=(exit, approach) fences the {label} end on its own number",
+              tight in got and slack not in got and leaned.pts[-1] == (span, depth, 0.0),
+              got[:58] or "no record")
+
     R._frames.clear()
     R.BLOCKED.clear()
 
