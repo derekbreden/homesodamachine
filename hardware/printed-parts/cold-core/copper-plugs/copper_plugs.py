@@ -145,27 +145,27 @@ bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
 # overlap. A station's Z is where its line CROSSES THE WALL, not the height of the
 # fitting it serves — every line turns onto the lane and climbs or drops it to get
 # here — so the slot's three continue the field at its own `front_port_pitch` rather
-# than each crossing at its fitting's own height. That is what keeps all eight
-# penetrations in one low band: the stack tops out at [67.75 mm](PRV_VENT_Z) on a
+# than each crossing at its fitting's own height. That is what keeps all seven
+# penetrations in one low band: the stack tops out at [59.75 mm](PRV_VENT_Z) on a
 # wall [213.4 mm](SHELL_TOP_Z) tall, so whatever is packed against this face outside
 # meets every port in one reach instead of up the shell's full height. What the
 # stack owes the field is the field's top, one wall of PETG, and the reach of the
 # slot's own rounded bottom below the lowest plug.
-# [51.75 mm](LOWEST_COPPER_Z) — cold-side evaporator inlet, where it crosses the wall.
+# [43.75 mm](LOWEST_COPPER_Z) — cold-side evaporator inlet, where it crosses the wall.
 slot_bottom_below_lowest_plug = 5.0     # open slot under the lowest plug's bottom arch
 lowest_copper_z = (front_port_field_top_z + port_lane_wall
                    + slot_width_x / 2 + slot_bottom_below_lowest_plug)
 # The slot's own bottom — the straight section's low end, with the punch's rounded
 # end reaching slot_width_x/2 further down.
 slot_z_bottom = lowest_copper_z - slot_bottom_below_lowest_plug
-# [59.75 mm](HIGHEST_COPPER_Z) — warm-side evaporator outlet. The coil's warm tail
+# [51.75 mm](HIGHEST_COPPER_Z) — warm-side evaporator outlet. The coil's warm tail
 # leaves its top wrap at `_cold_core_interface.evap_tail_high_z` and DROPS the lane
 # to cross here — the mirror of the cold tail's climb, and the reason the coil's own
 # geometry and this station are two numbers rather than one.
 highest_copper_z = lowest_copper_z + front_port_pitch
-# [67.75 mm](PRV_VENT_Z) — PRV relief line, down the lane from the prv-shroud cap.
+# [59.75 mm](PRV_VENT_Z) — PRV relief line, down the lane from the prv-shroud cap.
 prv_vent_z = highest_copper_z + front_port_pitch
-# [145.7 mm](TOP_PLUG_H) — Z extent of the top plug, and it is most of the wall: the
+# [153.7 mm](TOP_PLUG_H) — Z extent of the top plug, and it is most of the wall: the
 # slot runs out through the shell's top face so the stack can be dropped in from
 # above, so the plug over the highest line has to fill everything above it.
 top_plug_height = foam_shell_outer_height - prv_vent_z

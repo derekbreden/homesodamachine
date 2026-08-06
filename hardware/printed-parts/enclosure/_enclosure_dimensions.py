@@ -42,16 +42,20 @@ _OUTER = enclosure._dims().outer
 # the placed block for the same reason the silhouette is read off the box.
 ZONE_D_TOP = _boxes.boxed(_contents.build()["condenser+fan"][0]).zmax
 
-# The one x every cold-core penetration opens on — read off a station rather than
-# typed, since the port lane is the shell's and the yaw is the pack's. Any station
-# answers: the lane is one bore wide, so the whole field is a single column.
-CORE_PORT_X = _contents.foam_shell_port("carb-water-out")[0][0]
+# The one x every cold-core WALL penetration opens on — read off a station rather than
+# typed, since the port lane is the shell's and the yaw is the pack's. Any of the seven
+# answers: the lane is one bore wide, so the whole field is a single column, and the
+# cap conduit that leaves by the top of that same lane stands on it too.
+CORE_PORT_X = _contents.foam_shell_port("co2-in")[0][0]
 
 # How far up the wall that column reaches, and the roof it has to stay under. Both
 # bodies in Zone D span CORE_PORT_X, so height is what keeps the ports clear of them
-# — and only the shroud's roof matters, because the block stands above it.
+# — and only the shroud's roof matters, because the block stands above it. The reading
+# is the stations that cross this WALL; the cap conduits open on the lid overhead and
+# stand in Zone B's own reckoning.
 CORE_PORT_TOP = max(_contents.foam_shell_port(s)[0][2]
-                    for s in _contents.foam_shell_stations())
+                    for s in _contents.foam_shell_stations()
+                    if _contents.foam_shell_port(s)[1] == "y-")
 SHROUD_ROOF = _boxes.boxed(_contents.build()["compressor-shroud"][0]).zmax
 
 # The appliance's silhouette. WIDTH is the cold core's SHORT axis plus the seam
