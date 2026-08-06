@@ -6,7 +6,7 @@ stock cannot bend, summed onto the two components its ends stand on.
 
     python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py
     python3 .../ugly.py --runs            # the runs behind the debt, worst first
-    python3 .../ugly.py --held            # what still has no holder
+    python3 .../ugly.py --held            # whose mount joint does not hold
     python3 .../ugly.py tee-y-f           # one body's rows
     python3 .../ugly.py selftest
 
@@ -134,19 +134,24 @@ def bodies(bends) -> list:
     return out
 
 
-def unheld(card) -> list:
-    """Components with no holder, biggest box first — `mounted` as a census."""
+def unmounted(card) -> list:
+    """Components whose joint does not hold, biggest box first. `joint` is the scorecard's
+    own state: `adrift` names a carrier whose measurement fails or was never taken, and a
+    blank names no carrier at all. A row that holds is off the board."""
     pose = {p["name"]: p["pose"] for p in card["poses"]}
     shape = {s["component"]: s for s in card["shapes"]}
     out = []
     for m in card["mounts"]:
-        if m["held"] != "none":
+        if m.get("joint") == "holds":
             continue
         s = shape.get(m["component"], {})
         vol = sum(abs((b[3] - b[0]) * (b[4] - b[1]) * (b[5] - b[2]))
                   for b in s.get("boxes", []))
+        miss = [c["label"] for c in m.get("checks", []) if not c["ok"]]
         out.append({"component": m["component"], "kind": m["kind"],
                     "pose": pose.get(m["component"], "—"),
+                    "joint": m.get("joint") or "none",
+                    "by": m.get("by"), "miss": miss,
                     "cm3": round(vol / 1000.0, 1), "fill": s.get("fill")})
     out.sort(key=lambda r: -r["cm3"])
     return out
@@ -194,16 +199,19 @@ def table(card, only=(), show=("bodies", "held")) -> str:
                    f"there — necessary, not sufficient.")
 
     if "held" in show:
-        rows = [u for u in unheld(card) if not only or u["component"] in only]
+        rows = [u for u in unmounted(card) if not only or u["component"] in only]
         if out:
             out.append("")
-        out.append(f"{'cm³':>8} {'fill':>5} {'pose':>12}  component")
+        out.append(f"{'cm³':>8} {'fill':>5} {'joint':>7} {'pose':>12}  component")
         for u in rows:
             fill = "  —  " if u["fill"] is None else f"{u['fill']:5.2f}"
-            out.append(f"{u['cm3']:8.1f} {fill} {u['pose']:>12}  {u['component']}"
+            tail = (f"  → {u['by']}: {'; '.join(u['miss'])}" if u["by"] else "")
+            out.append(f"{u['cm3']:8.1f} {fill} {u['joint']:>7} {u['pose']:>12}  "
+                       f"{u['component']}{tail}"
                        + ("  (placeholder)" if u["kind"] != "real" else ""))
-        out.append(f"{len(rows)} {_pl(rows, 'component', 'components')} with no holder, biggest "
-                   f"box first. A box is larger "
+        out.append(f"{len(rows)} {_pl(rows, 'component', 'components')} whose joint does not "
+                   f"hold, biggest box first. `adrift` names a carrier and fails or never "
+                   f"took the measurement; `none` names no carrier at all. A box is larger "
                    f"than its part — `fill` says how much of it is material.")
 
     out.append("")
@@ -279,16 +287,22 @@ def selftest() -> int:
     check("a graded straight is not debt",
           not bodies([run("s", 1.0, None, [], "a.p", "b.p")]))
 
-    held = unheld({"mounts": [{"component": "big", "held": "none", "kind": "real"},
-                              {"component": "small", "held": "none", "kind": "real"},
-                              {"component": "done", "held": "rails", "kind": "real"}],
+    held = unmounted({"mounts": [{"component": "big", "held": "none", "kind": "real",
+                                  "joint": "adrift", "by": "shell",
+                                  "checks": [{"label": "no joint measured", "ok": False}]},
+                                 {"component": "small", "held": "none", "kind": "real"},
+                                 {"component": "done", "held": "rails", "kind": "real",
+                                  "joint": "holds"}],
                    "poses": [{"name": "big", "pose": "provisional"}],
                    "shapes": [{"component": "big", "boxes": [[0, 0, 0, 100, 100, 100]],
                                "fill": 0.5},
                               {"component": "small", "boxes": [[0, 0, 0, 10, 10, 10]],
                                "fill": 1.0}]})
-    check("a held component is off the census", [u["component"] for u in held] == ["big", "small"],
+    check("a joint that holds is off the census", [u["component"] for u in held] == ["big", "small"],
           f"{[u['component'] for u in held]}")
+    check("a declared carrier whose measurement fails reads adrift",
+          held[0]["joint"] == "adrift" and held[0]["miss"] == ["no joint measured"])
+    check("no carrier at all reads none", held[1]["joint"] == "none" and held[1]["by"] is None)
     check("biggest box first", held[0]["cm3"] == 1000.0 and held[1]["cm3"] == 1.0,
           f"{held[0]['cm3']} then {held[1]['cm3']}")
     check("pose provenance rides each row", held[0]["pose"] == "provisional"

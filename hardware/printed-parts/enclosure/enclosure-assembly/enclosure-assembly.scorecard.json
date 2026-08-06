@@ -5,7 +5,7 @@
   "shaped": 98,
   "routed": 57,
   "held": 33,
-  "mounted": 14,
+  "mounted": 10,
   "checks": [
     {
       "id": "coverage",
@@ -381,11 +381,12 @@
       "label": "The feature that fastens each component is printed into another part",
       "kind": "goal",
       "status": "warn",
-      "value": "14% (6/42)",
+      "value": "10% (4/42)",
       "target": "100%",
       "detail": [
-        "enclosure_back_top carries 1: c14-inlet",
-        "foam-assembly carries 5: bag-b-tray-assembly, ground-stack, nozzle-b-tray-assembly, nozzle-tray-assembly, vk-tray-assembly",
+        "foam-assembly carries 4: bag-b-tray-assembly, nozzle-b-tray-assembly, nozzle-tray-assembly, vk-tray-assembly",
+        "\u2717 c14-inlet: named to enclosure_back_top, no joint measured",
+        "\u2717 ground-stack: named to foam-assembly, no joint measured",
         "36 with nothing fastening them \u2014 a body resting on another is not mounted, and neither is one captured by a pocket or stuck down. One row each, below.",
         "ac-hub: nothing fastens it \u2014 nothing holds it at all",
         "asse1022-assembly: nothing fastens it \u2014 nothing holds it at all",
@@ -6561,253 +6562,403 @@
       "component": "ac-hub",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "asse1022-assembly",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "bag-a-tray-assembly",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "bulkhead-carb",
       "by": null,
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "bulkhead-flavor-a",
       "by": null,
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "bulkhead-flavor-b",
       "by": null,
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "bulkhead-water",
       "by": null,
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "co2-inlet",
       "by": null,
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "compressor-shroud",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "condenser+fan",
       "by": null,
       "held": "none",
-      "kind": "placeholder"
+      "kind": "placeholder",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "digiten-flow",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "discharge-chain",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "display",
       "by": null,
       "held": "shell-facet",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "drip-pan",
       "by": null,
       "held": "rails",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "flow-regulator",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "foam-assembly",
       "by": null,
       "held": "floor-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "gasher-co2",
       "by": null,
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "hopper-funnel",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "pcba",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "psu",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "pump-a",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "pump-b",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "relay-1",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "seaflo-pump",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "selects-tray-assembly",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "source-tray-assembly",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "suction-chain",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-a",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-b",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-c",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-d",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-e",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-f",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "tee-y-g",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "water-split",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "wr1110",
       "by": null,
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": null,
+      "checks": []
     },
     {
       "component": "bag-b-tray-assembly",
       "by": "foam-assembly",
       "held": "cap",
-      "kind": "real"
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "lands on 2/2 columns",
+          "value": 0.0,
+          "bound": 0.0,
+          "ok": true
+        },
+        {
+          "label": "ear over its column's bore",
+          "value": 0.005,
+          "bound": 0.4,
+          "ok": true
+        }
+      ]
     },
     {
       "component": "c14-inlet",
       "by": "enclosure_back_top",
       "held": "wall-capture",
-      "kind": "real"
+      "kind": "real",
+      "joint": "adrift",
+      "checks": [
+        {
+          "label": "no joint measured",
+          "value": null,
+          "bound": 0.0,
+          "ok": false
+        }
+      ]
     },
     {
       "component": "ground-stack",
       "by": "foam-assembly",
       "held": "none",
-      "kind": "real"
+      "kind": "real",
+      "joint": "adrift",
+      "checks": [
+        {
+          "label": "no joint measured",
+          "value": null,
+          "bound": 0.0,
+          "ok": false
+        }
+      ]
     },
     {
       "component": "nozzle-b-tray-assembly",
       "by": "foam-assembly",
       "held": "cap",
-      "kind": "real"
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "lands on 2/2 columns",
+          "value": 0.0,
+          "bound": 0.0,
+          "ok": true
+        },
+        {
+          "label": "ear over its column's bore",
+          "value": 0.007,
+          "bound": 0.4,
+          "ok": true
+        }
+      ]
     },
     {
       "component": "nozzle-tray-assembly",
       "by": "foam-assembly",
       "held": "cap",
-      "kind": "real"
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "lands on 2/2 columns",
+          "value": 0.0,
+          "bound": 0.0,
+          "ok": true
+        },
+        {
+          "label": "ear over its column's bore",
+          "value": 0.0,
+          "bound": 0.4,
+          "ok": true
+        }
+      ]
     },
     {
       "component": "vk-tray-assembly",
       "by": "foam-assembly",
       "held": "cap",
-      "kind": "real"
+      "kind": "real",
+      "joint": "holds",
+      "checks": [
+        {
+          "label": "lands on 2/2 columns",
+          "value": 0.0,
+          "bound": 0.0,
+          "ok": true
+        },
+        {
+          "label": "ear over its column's bore",
+          "value": 0.005,
+          "bound": 0.4,
+          "ok": true
+        }
+      ]
     }
   ],
   "poses": [
@@ -7023,8 +7174,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-06T02:31:32+00:00",
-    "commit": "f82f58e7cd46e2dbc918d03ffe57a33cb9693d22",
+    "generated": "2026-08-06T02:51:55+00:00",
+    "commit": "3428821d8c37889c46e26ee96307d8d48bbf4fcc",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7052,7 +7203,7 @@
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:8a2e6d196bf34f2f",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:ceb1497b9acd4aa8",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:f9af2e7906c65606",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726216:1785958078966765507",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:845175:1785962402175439855",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785958078987592982",

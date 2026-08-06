@@ -43,6 +43,17 @@
 //                      milliseconds. `--views top,front,right --ortho` is a
 //                      drawing: the three directions a coordinate reads off the
 //                      grid in, where iso has none.
+//   --orbit a:f,t,s[,e]  SPIN on one axis, in one boot: the six named views are
+//                      six poses, and what a shape actually is lives between
+//                      them. Sweeps axis a (x|y|z) from f° to t° every s°,
+//                      writing <out>.<a><deg>.png per step — a turntable read in
+//                      order, where one frame's silhouette resolves the next.
+//                      `e` tilts the camera off that axis' equator (z only,
+//                      default 0). Repeatable, and free next to the parse:
+//                      24 frames cost 24 × milliseconds.
+//                        z  0° looks from +X (right), 90° from +Y (back); up +Z.
+//                        x  0° front, 90° top; the up vector tumbles with it.
+//                        y  0° right, 90° top; likewise.
 //   --cam x,y,z        camera direction from target. Default from --view, else 1,-1,1
 //   --up x,y,z         camera up. Default from --view, else 0,0,1
 //   --target x,y,z     look-at point. Default: centre of the SOLID set's bbox
@@ -79,6 +90,20 @@
 //                      about the cast — `probe.cast`, on the frame.
 //   --ports            keep the port markers (off by default — they are dense)
 //   --caption <text>   extra line in the burned-in legend
+//
+// Identifying what you are looking at:
+//   --pick x,y         CLICK that pixel. Casts through the frame exactly as the
+//                      viewer's component picker does — front faces, visible
+//                      bodies only, first hit wins — and paints what it hit in
+//                      the picker's own amber (#ffa733: bright feature edges, a
+//                      faint shell, depth-test off), with a crosshair on the
+//                      pixel and the name on a leader. Repeatable.
+//                      The amber IS the check: a name is only the name of what
+//                      you meant if the thing that lit up is the thing you meant.
+//                      Reported on stdout with the world point and the depth.
+//   --select <globs>   the same amber, addressed by NAME rather than by pixel —
+//                      for confirming where a body you have already named sits
+//                      in a frame. Unmatched names are reported.
 //
 // Output:
 //   --size WxH         default 1400x1100

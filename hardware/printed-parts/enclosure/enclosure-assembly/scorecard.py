@@ -2040,6 +2040,37 @@ def tray_mount_alignment() -> list[tuple[str, float, list]]:
     return out
 
 
+def mount_audit(solids: dict) -> list[tuple[str, str, bool, list]]:
+    """For each component `MOUNTED_BY` names a carrier for, measure the joint and return
+    (name, carrier, holds, [(label, value, bound_mm, ok)]).
+
+    The rows are the joint's own figures, taken from the derivation that already computes
+    them — the deck family's landing probe, its ear-to-bore alignment, and the seat its
+    table was cut for. A carrier named with nothing measuring the joint returns a single
+    unmeasured row that cannot hold: the distance between a fastening that is drawn and one
+    that is only intended is exactly this measurement, and `MOUNTED_BY` alone does not
+    cross it.
+
+    Components with no carrier are not returned — they are simply not-yet-mounted."""
+    if not _computes("mounted"):
+        return []
+    landings = {n: (landed, total, miss) for n, landed, total, miss in deck_mount_landings(solids)}
+    aligned = {n: worst for n, worst, _want in tray_mount_alignment()}
+    out = []
+    for name, carrier in sorted(MOUNTED_BY.items()):
+        checks = []
+        if name in landings:
+            landed, total, miss = landings[name]
+            checks.append((f"lands on {landed}/{total} columns", miss, 0.0, landed == total))
+        if name in aligned:
+            checks.append(("ear over its column's bore", aligned[name],
+                           _cc.deck_mount_lid_slip, aligned[name] <= _cc.deck_mount_lid_slip))
+        if not checks:
+            checks.append(("no joint measured", float("inf"), 0.0, False))
+        out.append((name, carrier, all(c[3] for c in checks), checks))
+    return out
+
+
 def fit_bed(pieces: dict, bed: tuple[float, float, float]) -> list[tuple[str, float, float, float, bool]]:
     """Each printed piece's extents vs the H2C bed (per-axis, the pieces are stored in
     print orientation). Mirrors _report_split's fit test."""
@@ -2481,14 +2512,23 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     # part. Every row absent from MOUNTED_BY is a joint still to design, which is what the
     # remainder counts; the rollup names which part carries what, so a reader sees where the
     # fastening already concentrates.
-    mounted_done = [c for c in COMPONENTS if c.name in MOUNTED_BY]
-    loose = [c for c in COMPONENTS if c.name not in MOUNTED_BY]
+    ma = mount_audit(solids)
+    mount_rows = {name: (carrier, holds, cks) for name, carrier, holds, cks in ma}
+    mounted_done = [c for c in COMPONENTS if mount_rows.get(c.name, (None, False))[1]]
+    adrift = [c for c in COMPONENTS
+              if c.name in mount_rows and not mount_rows[c.name][1]]
+    loose = [c for c in COMPONENTS if c.name not in mount_rows]
     mounted = _pct(len(mounted_done), total)
     carriers: dict[str, list[str]] = {}
     for c in mounted_done:
-        carriers.setdefault(MOUNTED_BY[c.name], []).append(c.name)
+        carriers.setdefault(mount_rows[c.name][0], []).append(c.name)
     mounted_detail = [f"{by} carries {len(ns)}: {', '.join(sorted(ns))}"
                       for by, ns in sorted(carriers.items())]
+    mounted_detail += [
+        f"✗ {c.name}: named to {mount_rows[c.name][0]}, "
+        + "; ".join(f"{lbl} {v:.2f}" + ("" if ok else f" (>{mx:g})") if v != float("inf")
+                    else lbl for lbl, v, mx, ok in mount_rows[c.name][2])
+        for c in sorted(adrift, key=lambda c: c.name)]
     mounted_detail.append(
         f"{len(loose)} with nothing fastening them — a body resting on another is not mounted, "
         f"and neither is one captured by a pocket or stuck down. One row each, below.")
@@ -2506,7 +2546,12 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     # The fastening record as structured rows, one per component — what `bends` is to the other
     # focus axis. Uncapped; the check.detail strings above are its capped human summary.
     mounts_table = [
-        {"component": c.name, "by": MOUNTED_BY.get(c.name), "held": c.held, "kind": c.kind}
+        {"component": c.name, "by": MOUNTED_BY.get(c.name), "held": c.held, "kind": c.kind,
+         "joint": ("holds" if mount_rows.get(c.name, (None, False))[1]
+                   else "adrift" if c.name in mount_rows else None),
+         "checks": [{"label": lbl, "value": None if v == float("inf") else round(v, 3),
+                     "bound": mx, "ok": ok}
+                    for lbl, v, mx, ok in mount_rows.get(c.name, (None, None, []))[2]]}
         for c in sorted(COMPONENTS, key=lambda c: (c.name in MOUNTED_BY, c.name))
     ]
 
