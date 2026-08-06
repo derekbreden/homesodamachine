@@ -11,6 +11,7 @@ from _cold_core_interface import (
     cap_conduits,
     cap_conduit_bore_radius,
     cap_conduit_boss_radius,
+    cap_conduit_entry_relief_radius,
     foam_cap_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
@@ -80,6 +81,29 @@ def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0):
         .circle(radius)
         .extrude(height + overshoot)
     )
+
+
+def build_conduit_entry_reliefs(z_inner):
+    """Every conduit's countersink in the LID, lofted from the bore's own radius at `z_inner`
+    — the plate's inner face — out to `cap_conduit_entry_relief_radius` one wall above it, at
+    the outer face a line leaves on.
+
+    ONE LOFT PER CONDUIT, unioned. `build_conduit_bores` pushes its points through a single
+    extrude; a loft runs between two wires and takes one station at a time."""
+    cones = None
+    for centre in cap_conduits.values():
+        cone = (
+            WorldWorkplane(xy_plane_z_up)
+            .workplane(offset=z_inner)
+            .moveTo(centre)
+            .circle(cap_conduit_bore_radius)
+            .workplane(offset=wall_and_floor_thickness)
+            .moveTo(centre)
+            .circle(cap_conduit_entry_relief_radius)
+            .loft(ruled=True)
+        )
+        cones = cone if cones is None else cones.union(cone)
+    return cones
 
 
 def _relief_z0(open_down):
@@ -191,10 +215,12 @@ def build_foam_cap_lid(open_down=False):
         .cut(head_cbores)
         .cut(clearances)
     )
-    # The conduit's bore continues through the plate the column's top lands on. The
-    # mouth-down bottom lid closes the stack's other end and takes none.
+    # The conduit's bore continues through the plate the column's top lands on, and opens on
+    # the outer face into the `cap_conduit_entry_skew` countersink the line leaves by. The
+    # mouth-down bottom lid closes the stack's other end and takes neither.
     if not open_down:
         lid = lid.cut(build_conduit_bores(lid_cut_through_depth))
+        lid = lid.cut(build_conduit_entry_reliefs(lid_total_height - wall_and_floor_thickness))
     return lid.unwrap()
 
 

@@ -764,6 +764,10 @@ DIVIDER_LEG_STRAIGHT = 3.0  # tube still running straight after an arc seats, at
 # How far off a collet's own axis a soft-LLDPE run may leave or enter as ONE STRAIGHT LENGTH,
 # past the rigid-copper `COLLET_SKEW`. `_lines.FLAVOR_SKEW` is bound to this name.
 FLAVOR_SKEW = 22.0
+# The same figure for a CAP CONDUIT, which is a bore and not a collet: the lid's hole is
+# countersunk to this angle (`_cold_core_interface.cap_conduit_entry_skew`) and a line leaves
+# along the lip that opens. The part that draws the cone owns the number.
+CAP_BORE_SKEW = _cc.cap_conduit_entry_skew
 # The radius 1/4" LLDPE is drawn at, and `_lines.WBEND` is this. It lives on the PACK's side
 # because a divider's pose depends on it: the reach above is bounded by what each leg's two
 # corners cost at this radius, and a pack that read the routing module back to place a
