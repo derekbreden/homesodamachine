@@ -997,8 +997,10 @@ def _authored_runs() -> list:
     # fluid-20 — the bag-B draw into Y-F's aft run port. The collet opens EAST at the plate's
     # forward end; the run port opens AFT on the tee's own face, west of the plate and a storey
     # up (`_contents.aft_lane_x`). The run leaves east into the band between the PLATE'S east
-    # face and the BOARD'S west flank — [23.9](F20_BAND) mm of it, holding no other line at this
-    # storey: fluid-22's column stands over the crossing's crown, fluid-23's a bay aft.
+    # face and the BOARD'S west flank — [23.9](F20_BAND) mm of it, and two other lines are in
+    # it: fluid-23 leaves the same plate on the same port plane aft of this collet and crosses
+    # the band there, and fluid-22's aft leg runs over the crossing's crown. The tube keeps
+    # [4.8](F20_F23_CLEAR) mm of the one and [11](F20_F22_CLEAR) mm of the other.
     #   THE LANE IS THAT BAND'S FAR WALL. The first leg is the standoff itself — the collet's
     # own corner sits on it with no waypoint of this run's in front of it — and it runs
     # [19.7](F20_LEAD) mm. The tube keeps [2.3](F20_PCBA_CLEAR) mm of the board's casting.
@@ -1948,12 +1950,14 @@ def lane_stations() -> dict:
         # corner so the first turns at stock: carb-1's window under the meter, and fluid-17's
         # turn lane over the junction bay.
         # fluid-20's band east of the bag plate: its depth, the standoff its far wall gives the
-        # first leg off the collet, and what the SWEPT TUBE keeps off the board's casting and
-        # off water-3's fall.
+        # first leg off the collet, and what the SWEPT TUBE keeps off the board and off the
+        # three runs it shares a corridor with.
         "F20_BAND":         f"{_boxes.boxed(solids['pcba']).xmin - _boxes.boxed(solids['bag-b-tray-assembly']).xmax:.3g}",
         "F20_LEAD":         f"{runs['fluid-20'].pts[1][0] - runs['fluid-20'].pts[0][0]:.3g}",
         "F20_PCBA_CLEAR":   f"{scorecard._solid_gap(R.tube(runs['fluid-20']), solids['pcba']):.2g}",
         "F20_W3_CLEAR":     f"{scorecard._solid_gap(R.tube(runs['fluid-20']), R.tube(runs['water-3'])):.2g}",
+        "F20_F23_CLEAR":    f"{scorecard._solid_gap(R.tube(runs['fluid-20']), R.tube(runs['fluid-23'])):.2g}",
+        "F20_F22_CLEAR":    f"{scorecard._solid_gap(R.tube(runs['fluid-20']), R.tube(runs['fluid-22'])):.2g}",
         # Y-F's own column against the two bodies fluid-21 was drawn around: the casting whose
         # corner the dropped lean was struck on, and the tray stack's east margin it lands in.
         "F21_GRAZE_CLEAR":  f"{contents.y_f_port('Y-F-3')[0][0] - _boxes.boxed(solids['seaflo-pump']).xmax:.3g}",
