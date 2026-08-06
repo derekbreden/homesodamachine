@@ -58,17 +58,12 @@ reservoirs_per_build = 2
 reeds_per_carbonator = 2
 
 # 10-valve manifold (V-A/B/C/D/E/F/G/H/I/J) per
-# `topology/fluid-topology-trays.mmd`. Eight 3-port junctions split by
-# geometry: 1 Y-divider (Y-H, the trident) + 7 Tees (in-line run +
-# branch). Which a junction is follows the pose of the pair it joins AND
-# the room the fitting has. Every tray lies plate-up, so a junction
-# reaching between trays can only be a Tee — that is six of them. The two
-# bag circuits are the only pairs meeting on one tray, and they part: Y-H
-# has a column ahead of it in the loft and takes the trident; Y-E has a
-# strip a fitting's own diameter deep between the pump row and the head
-# column, and takes a Tee standing across it.
+# `topology/fluid-topology-trays.mmd`. Seven 3-port junctions, all of them
+# Tees (in-line run + branch). Every tray lies plate-up, so a junction
+# reaching between trays can only be a Tee — that is six of them. The
+# seventh is Y-E, which joins one tray's own pair and stands ACROSS the
+# strip between the pump row and the head column.
 solenoid_count = 10
-y_divider_count = 1
 tee_count = 7
 
 # Rear-panel PP1208E bulkheads. Umbilical port: 3 on the back panel
@@ -171,7 +166,6 @@ def main():
         "REEDS_TOTAL": f"{total_reeds_per_build:.4g}",
         # Flavor subsystem.
         "SOLENOIDS": f"{solenoid_count:.4g}",
-        "Y_DIVIDERS": f"{y_divider_count:.4g}",
         "TEES": f"{tee_count:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
@@ -215,7 +209,6 @@ def main():
             "RES_REEDS_TOTAL": 3,
             "REEDS_TOTAL": 2,
             "SOLENOIDS": 2,
-            "Y_DIVIDERS": 2,
             "TEES": 2,
             "PP1208E_PANEL": 2,
             "PP1208E_INLET": 1,
