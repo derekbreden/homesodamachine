@@ -188,6 +188,28 @@ MOUNTS = (
 )
 
 
+# --- the joints that carry no line -----------------------------------------
+#
+# Two mouths meeting with nothing between them are still joined, and `port-leads` has to read
+# them as joined or it asks each end for a straight it will never turn in.
+MADE_UP = (
+    # The rear bulkhead's inboard collet and the ASSE chain's inlet collet meet face to face —
+    # `front_half.build_asse` seats the chain on `bulkhead_mouth_y`, "the inlet collet butts the
+    # union's inboard collet". The first tube in the machine is a length of stock cut to the two
+    # grips and swallowed whole by them, which is why there is no `water-1`.
+    ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
+    # A made-up 1/4" NPT thread: `front_half.build_gasher_co2` stations the check valve's inlet
+    # on the DERPIPE's own stub tip. `co2-inlet` states no port table, so the pair is named on
+    # the end that has one.
+    ("gasher-co2.inlet", "co2-inlet"),
+)
+
+# Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a
+# bend radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the
+# basin's flat floor, and `front_half.check_vent_lands` raises unless it does.
+TERMINI = ("asse1022-assembly.vent-tip",)
+
+
 @dataclass
 class Connection:
     id: str
@@ -400,6 +422,79 @@ def _lines_clear(a, runs) -> Check:
                  "gate", _verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
 
 
+def port_leads(a, runs) -> list[dict]:
+    """Every port's clear lead, worst first: what it meets along its own axis, how far it got,
+    and how much straight a run leaving it needs.
+
+    `pack-closes` says two bodies do not overlap and `located` says a port is carried into world.
+    Neither asks the question a connector exists to answer — whether a line can LEAVE it. A port
+    is a bore with a direction, and a bore with a body parked in front of it is a bore nothing
+    can be plugged into: two fittings a clean millimetre apart with their collets facing each
+    other clear every other gate on this card and clear nothing a tube can be built through.
+
+    So the port's own bore is cast along its own axis, at its own Ø, for `PORT_LEAD_BENDS` of the
+    line's bend radius, and the cast has to reach. The radius is the LINE's and not the port's:
+    the run that mates the port says what stock is drawn there, and a port with no run yet is
+    read against the coarsest stock its own bore takes — 1/4" LLDPE asks 28 mm of straight where
+    3/8" braided PVC asks 31.8.
+
+    WHAT THE CAST MAY END ON is the body the port is JOINED to, read off the authored runs rather
+    than from prose, plus the `MADE_UP` joints that have no run to read. A port whose connection
+    is still un-authored is held to the full lead against everything, which is the useful
+    direction — that is the state every undrawn segment's two ends are in.
+
+    Tube is out of the population. A port's own line lies on its axis by construction, and a
+    foreign one crossing there is `lines-clear`'s question, not this one."""
+    bodies, _drawn, pieces = _split_placed(a)
+    solids = {**bodies, **pieces}
+    mates, mating = {}, {}
+    for r in runs:
+        for anchor, other in ((r.frm, r.to), (r.to, r.frm)):
+            mates.setdefault(anchor, set()).add(other.partition(".")[0])
+            mating.setdefault(anchor, []).append(r)
+    for x, y in MADE_UP:
+        mates.setdefault(x, set()).add(y.partition(".")[0])
+        mates.setdefault(y, set()).add(x.partition(".")[0])
+    rows = []
+    for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
+        for port in sorted(fr.ports):
+            pos, face, diam = fr.ports[port]
+            if pos is None or diam is None:
+                continue
+            anchor = f"{name}.{port}"
+            drawn = mating.get(anchor)
+            if drawn:
+                bend = max(R.stock_of(r.kind, r.diam).min_bend for r in drawn)
+            else:
+                takes = [s.min_bend for s in R.STOCKS if abs(s.od - diam) < 0.05]
+                bend = max(takes) if takes else R.BEND_RATIO * diam
+            need = PORT_LEAD_BENDS * bend
+            who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
+                                       skip={name} | mates.get(anchor, set()))
+            rows.append({"component": name, "port": port, "meets": who,
+                         "free": round(free, 3), "need": round(need, 3),
+                         "ok": who is None, "gated": anchor not in TERMINI,
+                         "routed": bool(drawn)})
+    rows.sort(key=lambda d: (d["ok"], d["free"]))
+    return rows
+
+
+def _port_leads(rows) -> Check:
+    gated = [d for d in rows if d["gated"]]
+    short = [d for d in gated if not d["ok"]]
+    detail = [f"a port needs {PORT_LEAD_BENDS:g} bend radii of its own bore along its own axis, "
+              f"clear of every body but the one its own line joins it to"]
+    detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
+               f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
+               for d in short]
+    detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to "
+               f"{d['meets'] or 'nothing'} — opens to atmosphere, not gated"
+               for d in rows if not d["gated"]]
+    return Check("port-leads", "Every tube port has the straight a run off it needs", "gate",
+                 _verdict(not short), f"{len(gated) - len(short)}/{len(gated)} clear",
+                 "all clear", detail)
+
+
 def _runs_drawn(runs) -> Check:
     short = [f"{cid}: {why}" for cid, why in sorted(R.BLOCKED.items())]
     return Check("runs-drawn", "Every authored run is drawn as its author asked", "gate",
@@ -522,6 +617,7 @@ def build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
     conns = load_connections(runs)
+    leads = port_leads(a, runs)
     ports = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -539,8 +635,8 @@ def build(a) -> Scorecard:
                 "status": "ok" if pos is not None and diam is not None else "no-pos",
                 "note": "",
             })
-    checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _bed_fit(a),
-              _runs_drawn(runs), _bend_radius(bends),
+    checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _port_leads(leads),
+              _bed_fit(a), _runs_drawn(runs), _bend_radius(bends),
               _mounted(), _routed(conns), _located(a)]
     return Scorecard(checks, bends, conns, ports)
 
