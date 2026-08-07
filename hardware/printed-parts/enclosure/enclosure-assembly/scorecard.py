@@ -1766,10 +1766,8 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
 # and not of the run, so it is stated here per stock and every run drawn in that stock is
 # measured against it. Conventionally it is quoted as a multiple of OD, which is how these read.
 #
-# `min_bend` is the tightest CENTRELINE radius the stock takes. Two of the three are sourced;
-# the LLDPE one is seeded, like CLEARANCE_FLOOR and `_routing.BEND_RATIO` — ~1 in. is the figure
-# 1/4" polyethylene push-to-connect tube is commonly published at, and the tube actually bought
-# ratifies it.
+# `min_bend` is the tightest CENTRELINE radius the stock takes, and `source` is where the figure
+# comes from.
 @dataclass
 class Stock:
     name: str
@@ -1780,8 +1778,8 @@ class Stock:
 
 
 STOCKS = (
-    Stock("1/4\" LLDPE", 6.35, 25.4, ("fluid", "water", "co2"),
-          "4×OD — seeded from the ~1 in. minimum 1/4\" polyethylene tube is published at"),
+    Stock("1/4\" LLDPE", 6.35, 14.0, ("fluid", "water", "co2"),
+          "2.2×OD — bench test on the spool: \"flow with no kinks at 14.0 mm comfortably\""),
     Stock("1/4\" soft ACR copper", 6.35, 12.7, ("refrigerant",),
           "2×OD — a lever bender's smallest common former (_routing.BEND_RATIO)"),
     Stock("3/8\" braided PVC", 15.10, 15.9, ("water",),
