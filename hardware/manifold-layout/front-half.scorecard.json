@@ -4,7 +4,7 @@
  "located": 100,
  "shaped": 0,
  "routed": 25,
- "held": 83,
+ "held": 81,
  "mounted": 4,
  "checks": [
   {
@@ -12,7 +12,7 @@
    "label": "Every body this module seats is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "23/23 declared",
+   "value": "27/27 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -65,14 +65,18 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "1/23 mounted",
+   "value": "1/27 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
+    "digiten-flow: held by none",
     "discharge-chain: held by none",
     "suction-chain: held by none",
     "wr1110: held by none",
     "ac-hub: held by stack",
+    "bulkhead-carb: held by wall-capture",
+    "bulkhead-flavor-a: held by wall-capture",
+    "bulkhead-flavor-b: held by wall-capture",
     "bulkhead-water: held by wall-capture",
     "co2-inlet: held by wall-capture",
     "compressor-shroud: held by floor",
@@ -357,7 +361,7 @@
    "kind": "fluid",
    "pos": [
     77.5,
-    313.5,
+    274.0,
     253.4
    ],
    "face": [
@@ -1697,11 +1701,35 @@
    "by": null,
    "held": "none",
    "kind": "real"
+  },
+  {
+   "component": "bulkhead-flavor-a",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-flavor-b",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-carb",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "digiten-flow",
+   "by": null,
+   "held": "none",
+   "kind": "real"
   }
  ],
  "source": {
-  "generated": "2026-08-07T16:49:12+00:00",
-  "commit": "e3d1d86be29b6ee577bb63bd651ff47733662888",
+  "generated": "2026-08-07T17:39:13+00:00",
+  "commit": "66891f6b940cf9aba058952c27ba0afc72e5f4fd",
   "inputs": {}
  }
 }

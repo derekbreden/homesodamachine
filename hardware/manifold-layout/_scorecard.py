@@ -144,6 +144,10 @@ MOUNTS = (
     ("co2-inlet", None, "wall-capture"),
     ("gasher-co2", None, "wall-capture"),
     ("wr1110", None, "none"),
+    ("bulkhead-flavor-a", None, "wall-capture"),
+    ("bulkhead-flavor-b", None, "wall-capture"),
+    ("bulkhead-carb", None, "wall-capture"),
+    ("digiten-flow", None, "none"),
 )
 
 
