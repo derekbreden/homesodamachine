@@ -400,7 +400,7 @@ def folded(solid):
 
 # --- The quarter turns -----------------------------------------------------
 #
-# Six of the butts open into a 90° turn instead, and every one of them stands on ONE plane:
+# Two of the butts open into a 90° turn instead, and both of them stand on ONE plane:
 # `BEND_Y`, the far collet of the valve that ends a limb. Each joint's fixed collet opens +Y
 # there, so the tube leaves along +Y, turns `BEND_R` onto +Z, and whatever was butted to it
 # comes round with the turn — a quarter about the X-parallel line through the arc's own centre.
@@ -668,7 +668,7 @@ SBENDS = {3: QUARTERS[3], 5: QUARTERS[5]}
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
          for cid, frm, _to, how in SEGMENTS if how == "spine"}
 
-# The seven mouths that leave this study. Each is drawn one `STUB` along its own axis, which is
+# The eight mouths that leave this study. Each is drawn one `STUB` along its own axis, which is
 # the straight its first corner needs before it can turn at all.
 MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what, body, end in (
     ("fluid-2", "V-A-I", "tap water in", "V-A", "front"),
@@ -799,7 +799,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0):
 
 def envelope(assy: cq.Assembly, stubs: bool):
     """The pack's box. Without `stubs` it is the bodies and the tube between them — what has to
-    be found room for. With them it adds one bend radius off each of the seven mouths, which is
+    be found room for. With them it adds one bend radius off each of the eight mouths, which is
     the straight whatever routes them next has to leave in."""
     box = None
     for c in assy.children:
@@ -811,12 +811,12 @@ def envelope(assy: cq.Assembly, stubs: bool):
     return box
 
 
-# Channel A's body and channel B's, for every one that has a twin. A mirrored pack puts each
-# pair at ±x on one y and one z; `mirror_off` is how far it misses by.
+# Channel A's body and channel B's. A mirrored pack puts each pair at ±x on one y and one z;
+# `mirror_off` is how far it misses by.
 #
-# Y-E HAS NO TWIN. Reservoir B reaches its pair's two valves directly, so channel B has no
-# junction to mirror it — the ten valves still twin, and every junction that joins two of THEM
-# does too. This is the one place the two channels differ, and it differs at the reservoir.
+# EVERY BODY IS IN A PAIR. Both reservoirs are reached the same way — each one's fill and draw
+# gates land on its own two mouths — so the two channels hold the same bodies in the same
+# order, and the table covers `P` with nothing left over.
 TWINS = [("V-A", "V-B"), ("V-C", "V-D"), ("V-E", "V-H"), ("V-F", "V-I"), ("V-G", "V-J"),
          ("Y-A", "Y-B"), ("Y-C", "Y-F"), ("Y-D", "Y-G")]
 
