@@ -2,7 +2,7 @@
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [215 × 481 × 400 mm](BOX_SIZE), and two of those three numbers are
+It measures [215 × 479 × 400 mm](BOX_SIZE), and two of those three numbers are
 **bounds** rather than consequences:
 
 - **Width** is the cold core's *narrow* axis. The foam assembly is yawed a quarter

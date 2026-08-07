@@ -240,6 +240,11 @@ EAST_WALL_SEAT = CORE_EAST_FACE + SIDE_RIB_INSET - REAR_STANDOFF
 # The interior REAR PLANE — the inner face of the back wall, STATED, the way
 # `enclosure.appliance_height` states the ceiling. Depth is a bound, not a consequence.
 REAR_PLANE_Y = 470.0
+# And where the box splits front from back, on the same footing: the front half carries the
+# refrigeration stratum and the manifold standing on it, the back half the cold core and the
+# service deck on its cap. `enclosure._dims` seats the seam here and `_report_split` prints
+# what each half then comes to against the H2C bed.
+Y_SEAM = 200.0
 
 
 # --- Zone D: the refrigeration stratum -------------------------------------
@@ -657,14 +662,6 @@ def _build():
     _pan_room(_pan_x, _pan_y, _vent_xy)
     pack.place("drip-pan", _load(DRIP_PAN_STEP),
                org_x=at(_pan_x), org_y=at(_pan_y), org_z=at(_pan_z))
-    # V-K on the family's one-seat plate, on the cap in the FORWARD band — the strip of cap
-    # east of the source pair's own valve column, which the manifold's overhang leaves open
-    # from the core's front face back to the pump's. It is the one clear rectangle on this deck
-    # as tall as a valve standing on a plate.
-    pack.place("vk-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=VK_TRAY_YAW,
-               west=at(vk_tray_lane()), front=off("foam-assembly", "front") + LINE_HUG,
-               foot=at(foam_cap_top()))
-
     # The two chains made up on the pump's own barbs, LYING ON ITS CROWN and running fore and
     # aft — one down each flank, each on the side of the barb it clamps onto. The crown is the
     # one plane on this deck as long as the chains are, and the hose between a barb and its
@@ -683,6 +680,15 @@ def _build():
     pack.place("digiten-flow", _load(DIGITEN_STEP), yaw=DIGITEN_YAW,
                east=flush("seaflo-pump", "east") - LINE_HUG,
                aft=off("discharge-chain", "front", LINE_HUG),
+               foot=off("seaflo-pump", "crown", LINE_HUG))
+    # V-K on the family's one-seat plate, on the same crown INLINE WITH THE SUCTION CHAIN: its
+    # outlet collet and the chain's face each other down one lane, one junction lead apart, and
+    # its inlet looks forward at the split that feeds it. The whole tap-water path — bulkhead,
+    # chain, split, this valve, the suction chain, the pump — then runs one way down the west
+    # lane and crosses nothing.
+    pack.place("vk-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=VK_TRAY_YAW,
+               west=off("suction-chain", "east", LINE_HUG),
+               aft=off("suction-chain", "front", JUNCTION_LEG_LEAD),
                foot=off("seaflo-pump", "crown", LINE_HUG))
 
     # The CO2 chain's two inline bodies, wall-hung off the rear panel and running FORWARD over
@@ -759,6 +765,43 @@ def shroud_port(name):
 def condenser_port(name):
     """A condenser+fan pick in world, the same way."""
     return _world("condenser+fan", _cond.stations()[name])
+
+
+# The three planes two bodies already share. Each is a mating face the machine is built on —
+# the stratum's two halves against each other, and both against the cold core — so the gap
+# across it is 0 and the pair is not a clearance to hold but a joint to make.
+MATED_FACES = (
+    ("compressor-shroud", "condenser+fan"),
+    ("condenser+fan", "foam-assembly"),
+    ("compressor-shroud", "foam-assembly"),
+)
+
+
+def butted_pairs():
+    """Every pair of manifold bodies joined COLLET TO COLLET — tube in both quick-connects and
+    none between them, so the two faces meet on one plane.
+
+    Read off `manifold_layout.SEGMENTS`, which says how each of the manifold's twenty-one
+    connections is made, so the pairs cannot drift from the chain that makes them."""
+    ml = _ml()
+    out = set()
+    for _cid, frm, to, how in ml.SEGMENTS:
+        if how != "butt" and not (how in ml.RUNS and ml.dist(*ml.RUNS[how]) <= 1e-9):
+            continue
+        a, b = (_manifold_body(frm), _manifold_body(to))
+        if a and b and a != b:
+            out.add(tuple(sorted((a, b))))
+    return out
+
+
+def _manifold_body(port_name):
+    """The pack's own name for the body a manifold port stands on."""
+    body = port_name.rsplit("-", 1)[0]
+    if body.startswith("Y-"):
+        return f"tee-{body.lower()}"
+    if body.startswith("V-"):
+        return body.lower()
+    return {"P-A": "pump-a", "P-B": "pump-b"}.get(body)
 
 
 # The refrigerant loop's three joints, each named by the two stations that make it up. Every
@@ -878,9 +921,9 @@ def foam_shell_stations():
 def foam_shell_bore():
     """The one bore every cold-core penetration takes."""
     d = 2.0 * _cc.port_hole_radius
-    if abs(d - _slot_width()) > 1e-9:
+    if abs(d - _slot_width) > 1e-9:
         raise ValueError(
-            f"the shell's bores are {d:g} mm and the copper slot is {_slot_width():g} — one "
+            f"the shell's bores are {d:g} mm and the copper slot is {_slot_width:g} — one "
             f"lane, one width")
     return d
 
@@ -1017,28 +1060,32 @@ def drip_pan_stop():
 
 
 def west_wall_ports():
-    """The −X wall's own opening: the slot the drip pan withdraws through, in two rectangles —
-    the haunch's width below the flange and the rim's above it."""
+    """Through-holes the −X side wall needs: (kind, y, z, *size), the shapes of
+    `back_wall_ports` read on that wall's own plane.
+
+    ONE OPENING IN TWO RECTANGLES, cut at what the tray is WIDEST at each height. Above the
+    flange's underside that is the rim. Below it, it is the HAUNCH — the 45° flare carries the
+    section past the basin's wall on the way up to the rim.
+
+    The two meet on the flange's underside, the plane the tray bears on, and the lower one's
+    flank falls exactly where `drip_pan_rails` puts the rail's inboard face — both are the
+    haunch's toe less the fit. The slip goes where the tray can move: a `PAN_SLIP` on both
+    flanks of each rectangle, under the floor and over the rim. Square corners — `CORNER_R`
+    rounds the tray in PLAN, and this is the section across it."""
     pan = packed().box("drip-pan")
-    slip = _pan.PAN_SLIP
-    lo = (pan.ymin + _pan.FLANGE_W - _pan.FLANGE_HAUNCH - slip,
-          pan.ymax - _pan.FLANGE_W + _pan.FLANGE_HAUNCH + slip,
-          pan.zmin - slip, pan.zmax - _pan.FLANGE_T + slip)
-    hi = (pan.ymin - slip, pan.ymax + slip,
-          pan.zmax - _pan.FLANGE_T - slip, pan.zmax + slip)
-    return [("rect", (lo[0] + lo[1]) / 2.0, (lo[2] + lo[3]) / 2.0,
-             lo[1] - lo[0], lo[3] - lo[2]),
-            ("rect", (hi[0] + hi[1]) / 2.0, (hi[2] + hi[3]) / 2.0,
-             hi[1] - hi[0], hi[3] - hi[2])]
+    s = _pan.PAN_SLIP
+    reach = _pan.FLANGE_W - _pan.FLANGE_HAUNCH      # rim edge inboard to the haunch's toe
+    haunch_y0, haunch_y1 = pan.ymin + reach, pan.ymax - reach
+    z_flange = pan.zmax - _pan.FLANGE_T
+    return [
+        ("rect", (haunch_y0 + haunch_y1) / 2.0, (pan.zmin - s + z_flange) / 2.0,
+         haunch_y1 - haunch_y0 + 2 * s, z_flange - pan.zmin + s, 0.0),
+        ("rect", (pan.ymin + pan.ymax) / 2.0, (z_flange + pan.zmax + s) / 2.0,
+         pan.ymax - pan.ymin + 2 * s, pan.zmax + s - z_flange, 0.0),
+    ]
 
 
 # --- V-K, and the two chains made up on the pump ---------------------------
-
-def vk_tray_lane():
-    """The west face of the band V-K's plate stands in: one clearance floor east of the source
-    pair's own valve column, which is the widest thing the manifold hangs over this cap."""
-    return packed().box("v-a").xmax + LINE_HUG
-
 
 # The plate seats its valve flow arrow +Y, so the inlet is the collet at the smaller y.
 VK_TERMINALS = {"inlet": "xc-yn", "outlet": "xc-yp"}
@@ -1075,10 +1122,19 @@ def digiten_terminal(name):
 
 # --- The CO2 chain ----------------------------------------------------------
 
+def _co2_axis_drop():
+    """How far the CO2 chain hangs under the line its two sockets stand on, at the turn it is
+    built with — whichever of the two bodies reaches lowest."""
+    turn = _seating.Seat.turn((0, 0, 1), CO2_YAW)
+    return max(turn.port(station)[0][2] - _boxes.boxed(turn.solid(_load(step))).zmin
+               for step, station in ((GASHER_STEP, _gasher.inlet()),
+                                     (WR1110_STEP, _wr1110.inlet())))
+
+
 def co2_row_z():
-    """The CO2 row's own height on the rear panel — over the pump's crown, which is what the
-    chain runs forward across."""
-    return packed().box("seaflo-pump").zmax + LINE_HUG + _gasher.HEX_ACROSS_CORNERS / 2.0
+    """The CO2 row's own height on the rear panel — one clearance floor over the pump's crown,
+    which is what the chain runs forward across."""
+    return packed().box("seaflo-pump").zmax + LINE_HUG + _co2_axis_drop()
 
 
 def co2_axis():
@@ -1139,7 +1195,7 @@ def pcba_pose():
 
 def pcba_port(px, py):
     """A board connector in world, given its station in the board's own frame."""
-    pos, axis = pcba_pose().port(((px, py, _pcba.board.thickness), (0.0, 0.0, 1.0)))
+    pos, axis = pcba_pose().port(_pcba.port(px, py))
     return pos, _face_of(axis)
 
 
