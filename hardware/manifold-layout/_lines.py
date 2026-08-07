@@ -104,7 +104,50 @@ def build_runs(placed, carries):
         runs.append(_fluid_1(F))
     if {"vk-solenoid", "suction-chain"} <= set(F):
         runs.append(_water_4(F))
+    if {"water-split", "vk-solenoid"} <= set(F):
+        runs.append(_water_3(F))
     return runs
+
+
+# Where the machine is CROSSABLE at V-K's inlet height. The valve manifold fills this storey
+# from wall to wall, and a 1/4" line cast east off the split's own column reaches the east wall
+# through one window in it: the junction tee `tee-y-b` closes that window forward, the source
+# column's `step-fluid-5` closes it aft. Re-measure it by sweeping the cast in y —
+#
+#     w.cast((-74.0, y, w.at("vk-solenoid", "inlet")[2]), (1, 0, 0), dia=6.35)
+#
+# `CROSS_Y` sits inside the window's forward lip rather than on its centre. That is the aft
+# leg's doing: the corner at V-K's column seats its arc out of that leg, and whatever is left
+# over is the tube that enters the collet straight — so a crossing further aft is a shorter
+# grip, and the window's centre is not where the run wants to be.
+CROSS_Y = 157.0
+
+
+def _water_3(F):
+    """water-3 — the split's DOWNWARD branch to V-K's forward-facing inlet, and the one run in
+    the front half that crosses the whole machine.
+
+    It has to. The split stands in the WEST lane and V-K stands on the EAST, and V-K's inlet
+    faces FORWARD — so the water leaves the split going down, and has to arrive at V-K from in
+    front of it. There is no shorter way round: the valve manifold occupies the storey between
+    the two columns and `CROSS_Y` is the one window through it.
+
+    Three corners, each on a plane the run is already on. The branch drops onto the INLET'S OWN
+    plane and stays there — every leg after the first is at that height, so the run reaches the
+    collet without a fourth corner to climb. Then forward down the split's own column into the
+    window, east through it, and aft into the mouth."""
+    split, vk = F["water-split"], F["vk-solenoid"]
+    src, dst = split.at("to-vk"), vk.at("inlet")
+    z = dst[2]
+    return R.bent(
+        "water-3", "water-split.to-vk",
+        (src[0], src[1], z),                # down the branch onto the inlet's plane
+        (src[0], CROSS_Y, z),               # forward down the west column into the window
+        (dst[0], CROSS_Y, z),               # east through it, onto V-K's column
+        "vk-solenoid.inlet",
+        kind="water",
+        note="tap water: split branch → V-K inlet, down the west column, across the one window "
+             "in the valve manifold, and aft into the mouth")
 
 
 def _water_4(F):
