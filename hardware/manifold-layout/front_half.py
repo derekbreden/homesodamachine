@@ -66,6 +66,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "ground-ring-stack",
            _hw / "reference" / "asse1022-assembly",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
+           _hw / "reference" / "water-split",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -78,6 +79,7 @@ import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
+import water_split as _split                          # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
@@ -125,6 +127,7 @@ C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
 C_GND = cq.Color(0.55, 0.55, 0.58)
 C_ASSE = cq.Color(0.85, 0.78, 0.45)
 C_PAN = cq.Color(0.62, 0.66, 0.72)
+C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -159,9 +162,12 @@ def _turned(v, axis, deg):
     return (cq.Vector(*v) * c) + (a.cross(cq.Vector(*v)) * s_) + (a * (a.dot(cq.Vector(*v)) * (1.0 - c)))
 
 
-def seat_body(shape, turns=(), **planes):
+def seat_body(shape, turns=(), station=None, **planes):
     """A body's whole placement: turned through each `(axis, degrees)` in `turns`, then moved by
     whole planes (`sit`).
+
+    `planes` moves it by whole faces of its own box; `station` instead seats one of its own
+    mouths on a world point, which is what a fitting actually answers to.
 
     Returns `(placed, carry)`. `carry` takes a `(position, outward axis)` station in the body's
     OWN frame through the same turns and the same move — so a port table written once in a
@@ -169,7 +175,19 @@ def seat_body(shape, turns=(), **planes):
     the metal it is a hole in."""
     for axis, deg in turns:
         shape = shape.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
-    shift = _shift(box(shape), **planes)
+    if station is None:
+        shift = _shift(box(shape), **planes)
+    else:
+        # A FITTING IS SEATED ON ITS MOUTH, not on a face of its box: what has to land in the
+        # right place is the collet the tube pushes into, and the body is wherever that leaves
+        # it. `station` is (a station in the body's own frame, the world point its position
+        # goes to) — the turns above carry the station, and the shift closes on the target.
+        local, target = station
+        pos = _turned(local[0], *turns[0]) if len(turns) == 1 else cq.Vector(*local[0])
+        if len(turns) != 1:
+            for ax, deg in turns:
+                pos = _turned(pos, ax, deg)
+        shift = cq.Vector(*target) - cq.Vector(pos.x, pos.y, pos.z)
 
     def carry(station):
         pos, axis = station
@@ -273,7 +291,8 @@ def build_suction_chain(seaflo, suction):
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
-              "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan")
+              "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
+              "water-split")
 
 
 def _manifold(name):
@@ -459,6 +478,36 @@ def build_pan(foam, seaflo, asse_carry, west_face):
     return seat_body(pan, (), x0=west_face, cy=tip[1], z0=pan_floor(foam, seaflo))
 
 
+# --- the split, on the chain's own flow axis --------------------------------
+#
+# The union tee that takes the ASSE's outlet and parts it two ways: on to V-K and the pump's
+# suction, and on to the flow regulator and the flavour tap. Its own frame runs ±Y with the
+# branch on −X, and the run is already the axis the chain hands the water over on — so the
+# turn is about the BRANCH, which is the one of its three ports that can be given a level the
+# other two are not on.
+#
+# A roll about Y leaves the run where it is and swings the branch from −X to −Z: the split's
+# two run collets stay on the chain's line and its third looks straight DOWN, at the storey the
+# pump and the manifold are on.
+SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
+# The straight between the chain's outlet collet and the split's supply collet — `water-2`,
+# which is one length of tube and no bend at all, because the two mouths face each other down
+# one line. A collet grips the tube all round, so what this has to be is enough tube for both
+# to take hold of.
+WATER_2 = 24.0
+
+
+def build_split(asse_carry):
+    """The split seated on its SUPPLY COLLET, one `WATER_2` forward of the chain's outlet.
+
+    A fitting answers to its mouth and not to a face of its box: what has to land in the right
+    place is the collet the tube pushes into. Both are read off the chain's own outlet, so the
+    split rides the chain wherever the chain goes."""
+    out_pos, out_axis = asse_carry(_asse.port("tube-out"))
+    target = tuple(out_pos[i] + out_axis[i] * WATER_2 for i in range(3))
+    return seat_body(_split.build(), SPLIT_TURN, station=(_split.supply(), target))
+
+
 def _whole(bodies):
     out = None
     for s in bodies:
@@ -538,11 +587,16 @@ def build_pack() -> cq.Assembly:
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, _pan_carry = build_pan(foam, seaflo, asse_carry, west_interior_face(shroud, cond))
     a.add(pan, name="drip-pan", color=C_PAN)
+    split, split_carry = build_split(asse_carry)
+    a.add(split, name="water-split", color=C_SPLIT)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
-    carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry}
-    runs = _lines.build_runs({"seaflo-pump": seaflo, "suction-chain": chain}, carries)
+    carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
+               "asse1022-assembly": asse_carry, "water-split": split_carry}
+    solids = {"seaflo-pump": seaflo, "suction-chain": chain,
+              "asse1022-assembly": asse, "water-split": split}
+    runs = _lines.build_runs(solids, carries)
     for name, solid in _lines.tubes(runs):
         _ROUTED.add(name)
         a.add(solid, name=name, color=C_HOSE)
@@ -693,7 +747,8 @@ def report(a: cq.Assembly) -> None:
         line("display", box(named["display"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
-    for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan"):
+    for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
+              "water-split"):
         if n in named:
             line(n, box(named[n]))
     walls = None
