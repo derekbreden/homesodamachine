@@ -57,20 +57,33 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "cut-parts" / "compressor-shroud",
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "enclosure" / "enclosure-assembly"):
+           _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
 import condenser_block as _cond                       # noqa: E402
-import _contents                                      # noqa: E402
+import enclosure as _enc                              # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
-SHROUD_YAW = _contents.SHROUD_YAW            # the machine's own turn, and the compressor's
-FOAM_YAW = _contents.FOAM_YAW                # and the cold core's
-SEAFLO_YAW = _contents.SEAFLO_YAW            # and the water pump's, which lays its 187 mm
-                                             # long axis front-to-back
+
+# The placement anchors. Each is a turn a body is installed at, and the machine holds
+# them rather than the bodies: two bodies mating face to face agree about one turn.
+#
+# `FOAM_YAW` is the whole edition. +90° about Z carries the cold core's local +X onto
+# world +Y, so its long axis runs front-to-back and its SHORT axis (181) runs across
+# the machine. The face the shell cuts every penetration in is its local −X, and the
+# same turn puts that face on world −Y, facing the user.
+FOAM_YAW = 90.0
+# The compressor stands UPRIGHT in its shroud: the can's oil sits in its bottom and the
+# pickup is gravity-fed, so upright is the compressor's constraint and the turn the
+# shroud is free in is a yaw.
+SHROUD_YAW = -90.0
+# The water pump lies flat on the core's crown. Its barbs are molded into the casting
+# and leave its ±Y side faces, so this yaw lands them on the machine's ±X, and lays its
+# 187 mm long axis front-to-back.
+SEAFLO_YAW = 90.0
 
 C_SHROUD = cq.Color(0.60, 0.62, 0.66)        # the enclosure pack's own three
 C_COND = cq.Color(0.78, 0.55, 0.35)
@@ -176,7 +189,9 @@ def pose_manifold(shape):
 PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
 
 
-def build_front_half() -> cq.Assembly:
+def build_pack() -> cq.Assembly:
+    """The bodies, with no box around them. `enclosure` sizes itself off this, so it
+    cannot be in it."""
     a = cq.Assembly(name="front-half")
     shroud, cond = place_base([build_shroud(), build_condenser(build_shroud())])
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
@@ -202,6 +217,42 @@ def build_front_half() -> cq.Assembly:
     return a
 
 
+def _solids(a: cq.Assembly):
+    """The assembly's children as world-placed solids, keyed by name — the shape a box
+    reads a pack in."""
+    return {c.name: ((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+        cq.Location(c.loc.wrapped.Transformation())), c.color) for c in a.children}
+
+
+def pack() -> "_enc.Pack":
+    """What the enclosure stands around: the placed bodies, and the stations they put on
+    its walls.
+
+    Every station field is empty. A station is a hole, a boss or a rail the wall carries
+    FOR a body, and this pack carries the refrigeration stratum, the flavour manifold, the
+    cold core and the water pump — none of which touches a wall. The funnel's throat, the
+    drip tray's rails and slot, the mains inlet's bosses and the panel through-holes each
+    arrive with the body they are for."""
+    return _enc.Pack(placed=_solids(build_pack()))
+
+
+# --- the box those bodies stand in -----------------------------------------
+
+WALL_COLORS = {"front-bottom": cq.Color(0.72, 0.74, 0.78, 0.30),
+               "front-top": cq.Color(0.80, 0.82, 0.86, 0.30),
+               "back-bottom": cq.Color(0.66, 0.68, 0.72, 0.30),
+               "back-top": cq.Color(0.74, 0.76, 0.80, 0.30)}
+
+
+def build_front_half() -> cq.Assembly:
+    """The pack, and the four printable pieces of the box around it."""
+    a = build_pack()
+    box = _enc.box_around(_enc.Pack(placed=_solids(a)))
+    for name, piece in _enc.build_pieces(box)[0].items():
+        a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    return a
+
+
 def report(a: cq.Assembly) -> None:
     placed = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))) for c in a.children]
@@ -224,11 +275,21 @@ def report(a: cq.Assembly) -> None:
     for n, s in placed:
         if n in ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump"):
             continue
+        if n.startswith("enclosure-"):
+            continue
         b = box(s)
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
     line("foam-assembly", fo)
     line("seaflo-pump", sf)
+    walls = None
+    for n, s in placed:
+        if not n.startswith("enclosure-"):
+            continue
+        b = box(s)
+        walls = b if walls is None else walls.add(b)
+    if walls is not None:
+        line("enclosure", walls)
     print(f"\nmates (0 by intent)")
     seam = "y" if abs(BASE_YAW) % 180.0 < 1e-9 else "x"
     lo, hi = (sh.ymax, co.ymin) if seam == "y" else (sh.xmax, co.xmin)
@@ -250,6 +311,7 @@ def report(a: cq.Assembly) -> None:
           f"flush by {sf.ymax - fo.ymax:.2f}; it clears the pack by {sf.ymin - pack.ymax:.2f} mm")
     over = [(n, box(s)) for n, s in placed
             if n not in ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump")
+            and not n.startswith("enclosure-")
             and box(s).ymax > fo.ymin + 1e-6]
     if over:
         reach = max(b.ymax for _n, b in over) - fo.ymin
@@ -290,7 +352,7 @@ def main():
     export_assembly(a, str(out))
     print(f"-> {out.name}")
     report(a)
-    ml.render_elevations(out)
+    ml.render_elevations(out, xray="enclosure*")
 
 
 if __name__ == "__main__":
