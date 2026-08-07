@@ -30,12 +30,14 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
-           _hw / "reference" / "neofit-flow-control"):
+           _hw / "reference" / "neofit-flow-control",
+           _hw / "reference" / "beduan-solenoid"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
+import beduan_solenoid as _beduan                      # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
 
@@ -60,6 +62,8 @@ STATIONS = {
     "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
                           "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
                           "vent-tip": (lambda: _asse.port("vent-tip"), _asse.VENT_STUB_OD)},
+    "vk-solenoid": {"inlet": (_beduan.inlet, _split.TUBE_D),
+                    "outlet": (_beduan.outlet, _split.TUBE_D)},
     "flow-regulator": {"inlet": (_flowreg.inlet, _flowreg.TUBE_D),
                        "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
     "water-split": {"supply": (_split.supply, _split.TUBE_D),
@@ -98,7 +102,23 @@ def build_runs(placed, carries):
         runs.append(_water_2(F))
     if {"water-split", "flow-regulator"} <= set(F):
         runs.append(_fluid_1(F))
+    if {"vk-solenoid", "suction-chain"} <= set(F):
+        runs.append(_water_4(F))
     return runs
+
+
+def _water_4(F):
+    """water-4 — V-K's outlet to the suction chain's collet, and the last link in the pump's
+    supply: V-K, this, the chain, `water-7`, the barb.
+
+    BOTH MOUTHS FACE ALONG Y ON ONE COLUMN AND ONE PLANE. The valve discharges aft and the
+    chain lying forward of the pump opens forward at it, so the run leaves and enters on one
+    axis with nothing to turn around. The plane is `beduan_solenoid.port_center_z`, which is
+    what the chain's own Z is struck from — the two mouths cannot fall out of line, because one
+    of them is measured off the other."""
+    return R.bent(
+        "water-4", "vk-solenoid.outlet", "suction-chain.tube-port",
+        kind="water", note="tap water: V-K outlet → suction chain's collet, one straight")
 
 
 def _fluid_1(F):
