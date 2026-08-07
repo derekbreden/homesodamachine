@@ -29,7 +29,7 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 **The pack is folded in two** about the hinge the four barb tees' front collets stand on. [8](UPPER_COUNT) bodies ride up onto the second deck and [8](LOWER_COUNT) stay on the first, and the four connections crossing the hinge each become a 180° hairpin. The fold turns every mouth that leaves the pack to face the back of the machine.
 
-Per-limb grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
+Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
 
 ## Junctions
 

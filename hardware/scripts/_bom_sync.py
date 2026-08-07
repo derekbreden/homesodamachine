@@ -13,6 +13,7 @@ sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core" / "reservoir
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "touch-flo-shell"))
 sys.path.insert(0, str(_here.parent / "reference" / "beduan-solenoid"))
+sys.path.insert(0, str(_here.parent / "manifold-layout"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
@@ -23,6 +24,8 @@ from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
+
+import manifold_layout as ml
 
 import importlib.util
 
@@ -57,14 +60,13 @@ reservoirs_per_build = 2
 # `_reed_channels.py`.
 reeds_per_carbonator = 2
 
-# 10-valve manifold (V-A/B/C/D/E/F/G/H/I/J) per
-# `topology/fluid-topology-trays.mmd`. Seven 3-port junctions, all of them
-# Tees (in-line run + branch). Every tray lies plate-up, so a junction
-# reaching between trays can only be a Tee — that is six of them. The
-# seventh is Y-E, which joins one tray's own pair and stands ACROSS the
-# strip between the pump row and the head column.
-solenoid_count = 10
-tee_count = 7
+# The flavor manifold, counted off the pack `manifold_layout` places rather than
+# restated here — `P` is every body on the four limbs, and a valve or a junction
+# that leaves the pack leaves this count with it. Every junction is a PP0208E Tee
+# (in-line run + branch); per-limb grouping is
+# `topology/fluid-topology-limbs.mmd`.
+solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
+tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
 # Rear-panel PP1208E bulkheads. Umbilical port: 3 on the back panel
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -97,17 +99,13 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # bulkhead, not PP1208E.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# PP0308E union elbows per build: two on each of the two Kamoer pump outlets,
-# and that is all the geometry declares. The valve manifold turns none: the
-# two-valve tray carries no fitting on any of its four collets, so how a valve
-# leaves its tray is set when the manifold is placed, not by the tray — and an
-# elbow nothing has posed is a number with no solid behind it. The CO2 path
-# takes none either: its line runs straight in through the foam shell's −Y wall
-# to the adapter on the vessel's own bottom-plate elbow, so no bend is made in
-# the cavity.
-pp0308e_valve_elbows = 0
-pp0308e_pump_elbows = 4
-pp0308e_per_build = pp0308e_valve_elbows + pp0308e_pump_elbows
+# The placed pack turns no line on a fitting, so there is no union-elbow row in
+# the BOM. `manifold_layout.JOINS` is empty — every valve is butted collet to
+# collet down its limb, every junction is a Tee, and each pump barb is taken by a
+# tee's branch, which is what puts that tee's run across the head's face.
+assert not ml.JOINS, (
+    f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §4 buys "
+    f"none — add the PP0308E row back with this count behind it")
 
 # Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces,
 # PLUS the top cap's deck-mount columns — each takes a ruthex short in its top
@@ -170,9 +168,6 @@ def main():
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
-        "PP0308E_VALVE": f"{pp0308e_valve_elbows:.4g}",
-        "PP0308E_PUMP": f"{pp0308e_pump_elbows:.4g}",
-        "PP0308E_TOTAL": f"{pp0308e_per_build:.4g}",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
         "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
@@ -213,9 +208,6 @@ def main():
             "PP1208E_PANEL": 2,
             "PP1208E_INLET": 1,
             "PP1208E_TOTAL": 1,
-            "PP0308E_VALVE": 1,
-            "PP0308E_PUMP": 1,
-            "PP0308E_TOTAL": 2,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,
             "RES_INSERTS_PER_CAP": 1,
