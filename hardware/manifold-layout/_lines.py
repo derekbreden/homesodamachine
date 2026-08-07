@@ -11,7 +11,9 @@ drawn, and `BLOCKED` says by how much.
 
 A RUN ARRIVES WITH THE BODIES IT JOINS. Both of its mouths have to be placed before it can be
 authored, so the set here grows as `front_half.build_pack` grows, and a run with one end in the
-pack and the other nowhere is not written down as a guess.
+pack and the other nowhere is not written down as a guess. `build_seated_runs` is the same rule
+one step later: the box is sized on the pack, so a body seated in one of its WALLS is placed
+after it, and the lines reaching those bodies are drawn once the box exists.
 
 Frames come off the placed pack, so a run rides a move of its parts: change a pose in
 `front_half.py` and every waypoint measured off that body's ports moves with it.
@@ -27,6 +29,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cold-core",
+           _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",
@@ -42,6 +45,7 @@ for _p in (_hw / "scripts",
 import _routing as R                                   # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
+import hopper_funnel as _funnel                        # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
 import seaflo_discharge_chain as _dis                  # noqa: E402
@@ -118,17 +122,12 @@ STATIONS = {
     # moulding, and what pushes into it is the same 1/4" LLDPE the rest of the water side runs.
     "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
+    # The basin's gravity drain — the spout's exit annulus, on the collar centre, facing the
+    # floor. `hopper_funnel.drain_local` is in the part's own frame, so it rides the funnel
+    # wherever the top wall carries it.
+    "hopper-funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
+                                _funnel.spout_id)},
 }
-
-# The one reservoir junction. Y-E is a Tee whose run joins reservoir A's fill and draw valves and
-# whose third port is left open for the line that reaches the reservoir itself —
-# `manifold_layout.MOUTHS` names it Y-E-2, and the fold calls that collet `back`. It faces AFT,
-# at the outboard column over the nozzle-A gate. Channel B has no junction to match it: reservoir
-# B carries two mouths of its own and its pair reaches them directly.
-for _t in ("Y-E",):
-    STATIONS[f"tee-{_t.lower()}"] = {
-        f"{_t}-2": ((lambda t=_t: (_ml.port(t, "back"), _ml.port_axis(t, "back"))),
-                    _split.TUBE_D)}
 
 # The three unions the machine dispenses through, all on one row of the back wall. Each carries
 # the same two mouths the tap-water union does, under the names the topology gives them: the
@@ -228,6 +227,20 @@ def build_runs(placed, carries):
         runs.append(_fluid_14(F, placed))
     if {"valve-v-e", "foam-assembly"} <= set(F):
         runs.append(_fluid_16(F))
+    return runs
+
+
+def build_seated_runs(placed, carries):
+    """The runs with a mouth on a body the BOX seats rather than the pack.
+
+    The box is sized on the pack, so a body seated in one of its walls is placed after it — and a
+    run reaching that body can only be authored once it is. `front_half.build_front_half` calls
+    this with the pack's own bodies and the seated one added to them, so a run drawn here anchors
+    on exactly the frames the pack's own runs do."""
+    F = frames(placed, carries)
+    runs = []
+    if {"hopper-funnel", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
+        runs.append(_fluid_4(F, placed))
     return runs
 
 
@@ -476,6 +489,72 @@ def _fluid_2(F, solids):
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: flow regulator outlet → V-A inlet, forward off the regulator, east and "
              "down into the strip west of V-B, aft past the source valves and east behind them")
+
+
+# --- the hopper's gravity drain ---------------------------------------------
+#
+# `fluid-4` carries HEAD and not pressure, and it is the basin's air-purge path as well as its
+# drain, so NO LEG OF IT MAY RISE — a hump anywhere in it holds the air the basin has to push
+# out. Every leg below either falls or is level.
+
+
+def _fluid_4_lane_z(solids) -> float:
+    """The storey the drain crosses the source pair on.
+
+    THE PAIR IS A WALL FROM THE PORT PLANE UP TO ITS COIL CROWNS, AND THE MIRROR LINE IS THE ONE
+    WAY THROUGH IT. V-A and V-B stand a valve's half-width either side of x 0 with their coils
+    over them, and what the two leave between them on the machine's own centreline is a slot a
+    quarter-inch line fits with under a millimetre either side — the manifold's own inner-limb
+    gap, and the tightest lane in the machine. This is that slot's floor: the run hangs its
+    underside on the plane the coils stand on — the highest the pair reaches anywhere inboard of
+    them — and what it actually clears is the valves' crown hardware under that plane.
+
+    It is also as low as the drop can afford to cross. What stands between the spout and that
+    plane is where the first corner's stock arc and the tube's own half-section come out of, and
+    the straight the line leaves the spout with is whatever is left of it."""
+    return solids["valve-v-a"].BoundingBox().zmax + _split.TUBE_D / 2.0
+
+
+def _fluid_4_turn_y(F, solids) -> float:
+    """The plane the drain comes about in — where it leaves the slot and leans onto V-B's column.
+
+    IT HAS TO COME ABOUT AFT OF THE PAIR, because V-B's inlet is the AFT collet: the line runs
+    the valve's whole length past its own mouth and turns back into it. What it turns in is the
+    band between the source pair and the water pump, and `fluid-2` crosses that band on V-A's own
+    stub plane — so this stands midway between that crossing's skin and the pump's front face,
+    which is the widest either gap can be made."""
+    cross = F["valve-v-a"].at("inlet")[1] + _ml.STUB + _split.TUBE_D / 2.0
+    return (cross + solids["seaflo-pump"].BoundingBox().ymin) / 2.0
+
+
+def _fluid_4(F, solids):
+    """fluid-4 — the hopper basin's spout to V-B's inlet, and the machine's only gravity feed.
+
+    FOUR LEGS, TWO FALLING AND TWO LEVEL. It drops the spout's own column onto the slot the
+    source pair leaves on the mirror line, runs aft down that slot, comes about behind the pair
+    and takes the rest of the fall in ONE LEAN west onto V-B's column and port plane, then runs
+    forward into the aft-facing collet.
+
+    THE LEAN IS ONE LEG AND NOT TWO CORNERS. V-B's column stands one inner limb off the mirror
+    line and its collet faces the way the run arrives from, so slot to collet is a full 180° —
+    and a 180° built of two stock arcs wants 2 × R14 between its straights where those columns
+    leave 20. Spending the fall in the same leg is what makes it: the lean is 30 mm long because
+    it descends while it steps across, so both of its corners seat R14 where a flat dogleg would
+    seat R10."""
+    drain = F["hopper-funnel"].at("drain")
+    inlet = F["valve-v-b"].at("inlet")
+    lane = _fluid_4_lane_z(solids)
+    turn = _fluid_4_turn_y(F, solids)
+    return R.bent(
+        "fluid-4", "hopper-funnel.drain",
+        (drain[0], drain[1], lane),          # down the spout's own column onto the slot
+        (drain[0], turn, lane),              # aft down the mirror line, between the two valves
+        (inlet[0], turn, inlet[2]),          # one lean west and down onto the collet's column
+        "valve-v-b.inlet",                   # and forward into the mouth
+        kind="fluid", bend=TUBE_BEND,
+        note="hopper: the basin's drain → V-B inlet, down the spout's column, aft down the "
+             "mirror line between the source valves and one lean west onto the collet — every "
+             "leg falls or is level")
 
 
 # --- the carb-water riser, and the two nozzle gates' lines to the panel -----
@@ -765,7 +844,7 @@ def authored() -> frozenset:
 # The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
-             "co2-1", "co2-2", "fluid-2", "carb-1", "carb-2", "fluid-28", "fluid-18",
+             "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28", "fluid-18",
              "fluid-24", "fluid-26", "fluid-14", "fluid-16")
 
 

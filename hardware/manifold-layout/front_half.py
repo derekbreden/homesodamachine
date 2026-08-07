@@ -1169,14 +1169,23 @@ def build_pack() -> cq.Assembly:
         if name in _lines.STATIONS:
             carries[name] = mcarry
     a.bulkhead_carry = bulkhead_carry
-    runs = _lines.build_runs(solids, carries)
+    a.runs = []
+    # The bodies and their placements, carried on the assembly: a run whose other mouth is on
+    # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
+    a.pack_solids, a.carries = solids, carries
+    draw_runs(a, _lines.build_runs(solids, carries))
+    return a
+
+
+def draw_runs(a: cq.Assembly, runs) -> None:
+    """Sweep each run at its own bore, add it to the assembly, and carry the runs and the port
+    frames they were drawn from. Called once for the pack's own runs and again for the ones a
+    body the box seats is an end of."""
     for name, solid in _lines.tubes(runs):
         _ROUTED.add(name)
         a.add(solid, name=name, color=C_HOSE)
-    a.runs = runs
-    # The port frames the runs were drawn from, carried on the assembly.
-    a.frames = _lines.frames(solids, carries)
-    return a
+    a.runs = list(a.runs) + list(runs)
+    a.frames = _lines.frames(a.pack_solids, a.carries)
 
 
 def _solids(a: cq.Assembly):
@@ -1242,11 +1251,15 @@ def build_funnel(box):
     """The static funnel (`hopper_funnel.py`, its own frame: collar-centre origin, z 0 the
     brim underside) seated in the top-wall opening — turned `FUNNEL_ROT` about its own Z,
     then set at `funnel_centre` with that underside on the box's outer top. `enclosure.py`
-    cuts the opening from the same centre, so funnel and hole cannot drift apart."""
+    cuts the opening from the same centre, so funnel and hole cannot drift apart.
+
+    Returns `(placed, carry)` like every other seated body, so the drain the basin empties
+    through rides the basin."""
     cx, cy = funnel_centre(box)
-    return (cq.importers.importStep(str(FUNNEL_STEP)).val()
-            .rotate(*Z_AXIS, FUNNEL_ROT)
-            .translate(cq.Vector(cx, cy, box.outer[5])))
+    return seat_body(cq.importers.importStep(str(FUNNEL_STEP)).val(),
+                     (((0.0, 0.0, 1.0), FUNNEL_ROT),),
+                     station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
+                              (cx, cy, box.outer[5])))
 
 
 # The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
@@ -1295,7 +1308,13 @@ def machine():
 def build_front_half() -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, box = machine()
-    a.add(build_funnel(box), name="hopper-funnel", color=C_FUNNEL)
+    funnel, funnel_carry = build_funnel(box)
+    a.add(funnel, name="hopper-funnel", color=C_FUNNEL)
+    # The basin is not in the pack — the box is sized on the pack and the funnel is seated in
+    # the box — so the line it drains through is drawn HERE, off the same frames the pack's own
+    # runs anchor on, with the funnel's now among them.
+    a.pack_solids["hopper-funnel"], a.carries["hopper-funnel"] = funnel, funnel_carry
+    draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     a.add(build_display(box), name="display", color=C_DISPLAY)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
