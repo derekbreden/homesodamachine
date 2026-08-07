@@ -5,7 +5,7 @@
  "shaped": 88,
  "routed": 92,
  "held": 92,
- "mounted": 2,
+ "mounted": 10,
  "checks": [
   {
    "id": "coverage",
@@ -81,9 +81,6 @@
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
     "compressor-shroud \u2014 foam-assembly: 0.001 mm \u2014 seated against it",
-    "psu \u2014 relay-1: 1.000 mm",
-    "relay-1 \u2014 ac-hub: 1.000 mm",
-    "psu \u2014 ground-stack: 1.000 mm",
     "water-split \u2014 discharge-chain: 1.150 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
@@ -94,6 +91,8 @@
     "carb-1 \u2014 suction-chain: 2.275 mm",
     "psu \u2014 wr1110: 2.499 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
+    "psu \u2014 relay-1: 2.500 mm",
+    "relay-1 \u2014 ac-hub: 2.500 mm",
     "foam-assembly \u2014 suction-chain: 2.800 mm",
     "valve-v-a \u2014 foam-assembly: 3.114 mm",
     "valve-v-b \u2014 foam-assembly: 3.114 mm",
@@ -104,6 +103,7 @@
     "fluid-18 \u2014 enclosure-front-top: 3.324 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.324 mm",
     "fluid-2 \u2014 fluid-24: 3.375 mm",
+    "pcba \u2014 ground-stack: 3.450 mm",
     "carb-1 \u2014 fluid-18: 3.650 mm",
     "fluid-2 \u2014 discharge-chain: 3.683 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
@@ -114,6 +114,7 @@
     "fluid-14 \u2014 seaflo-pump: 3.825 mm",
     "fluid-2 \u2014 fluid-26: 3.899 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
+    "psu \u2014 ground-stack: 4.109 mm",
     "water-5 \u2014 fluid-24: 4.173 mm",
     "c14-inlet \u2014 bulkhead-carb: 4.295 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
@@ -172,7 +173,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "1/59 mounted",
+   "value": "6/59 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
@@ -180,7 +181,6 @@
     "discharge-chain: held by none",
     "suction-chain: held by none",
     "wr1110: held by none",
-    "ac-hub: held by stack",
     "bulkhead-carb: held by wall-capture",
     "bulkhead-flavor-a: held by wall-capture",
     "bulkhead-flavor-b: held by wall-capture",
@@ -203,17 +203,13 @@
     "flow-regulator: held by tube-hung",
     "foam-assembly: held by floor",
     "gasher-co2: held by wall-capture",
-    "ground-stack: held by stack",
     "hopper-funnel: held by wall-capture",
-    "pcba: held by cap",
-    "psu: held by cap",
     "pump-a-bracket: held by pack",
     "pump-a-head: held by pack",
     "pump-a-motor: held by pack",
     "pump-b-bracket: held by pack",
     "pump-b-head: held by pack",
     "pump-b-motor: held by pack",
-    "relay-1: held by stack",
     "seaflo-pump: held by cap",
     "tee-y-a: held by pack",
     "tee-y-b: held by pack",
@@ -312,12 +308,11 @@
    "value": "54/59 held",
    "target": "a holder per body",
    "detail": [
-    "bosses holds 1: c14-inlet",
-    "cap holds 4: pcba, psu, seaflo-pump, vk-solenoid",
+    "bosses holds 6: ac-hub, c14-inlet, ground-stack, pcba, psu, relay-1",
+    "cap holds 2: seaflo-pump, vk-solenoid",
     "floor holds 3: compressor-shroud, condenser+fan, foam-assembly",
     "pack holds 32: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-a, valve-v-b, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
     "rails holds 1: drip-pan",
-    "stack holds 3: ac-hub, ground-stack, relay-1",
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
     "asse1022-assembly: nothing holds it at all",
@@ -1594,6 +1589,14 @@
     [
      -90.5,
      178.0,
+     20.0,
+     90.5,
+     461.0,
+     233.4
+    ],
+    [
+     -90.5,
+     178.0,
      233.4,
      90.5,
      461.0,
@@ -1606,14 +1609,6 @@
      90.5,
      461.0,
      253.4
-    ],
-    [
-     -90.5,
-     178.0,
-     20.0,
-     90.5,
-     461.0,
-     233.4
     ],
     [
      -90.5,
@@ -1665,11 +1660,11 @@
    "boxes": [
     [
      79.899,
-     364.7,
-     306.4,
+     350.4,
+     307.9,
      94.499,
-     382.7,
-     324.088
+     368.4,
+     325.588
     ]
    ],
    "fill": 0.1821,
@@ -1914,10 +1909,10 @@
     [
      75.499,
      393.0,
-     306.4,
+     307.9,
      94.499,
      463.0,
-     323.4
+     324.9
     ]
    ],
    "fill": 0.4287,
@@ -2213,6 +2208,46 @@
    "declared": null
   },
   {
+   "component": "ac-hub",
+   "boxes": [
+    [
+     82.199,
+     370.9,
+     327.4,
+     94.499,
+     463.0,
+     346.1
+    ],
+    [
+     72.899,
+     382.45,
+     332.55,
+     91.499,
+     401.25,
+     340.95
+    ],
+    [
+     72.899,
+     407.55,
+     332.55,
+     91.499,
+     426.35,
+     340.95
+    ],
+    [
+     72.899,
+     432.65,
+     332.55,
+     91.499,
+     451.45,
+     340.95
+    ]
+   ],
+   "fill": 0.648,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "co2-inlet",
    "boxes": [
     [
@@ -2241,46 +2276,6 @@
     ]
    ],
    "fill": 0.6713,
-   "primitive": false,
-   "declared": null
-  },
-  {
-   "component": "ac-hub",
-   "boxes": [
-    [
-     72.899,
-     439.05,
-     329.55,
-     91.499,
-     457.85,
-     337.95
-    ],
-    [
-     72.899,
-     388.85,
-     329.55,
-     91.499,
-     407.65,
-     337.95
-    ],
-    [
-     82.199,
-     383.7,
-     324.4,
-     94.499,
-     463.0,
-     343.1
-    ],
-    [
-     72.899,
-     413.95,
-     329.55,
-     91.499,
-     432.75,
-     337.95
-    ]
-   ],
-   "fill": 0.694,
    "primitive": false,
    "declared": null
   },
@@ -3792,32 +3787,32 @@
   },
   {
    "component": "psu",
-   "by": null,
-   "held": "cap",
+   "by": "enclosure-back-top",
+   "held": "bosses",
    "kind": "real"
   },
   {
    "component": "pcba",
-   "by": null,
-   "held": "cap",
+   "by": "enclosure-back-top",
+   "held": "bosses",
    "kind": "real"
   },
   {
    "component": "relay-1",
-   "by": null,
-   "held": "stack",
+   "by": "enclosure-back-top",
+   "held": "bosses",
    "kind": "real"
   },
   {
    "component": "ac-hub",
-   "by": null,
-   "held": "stack",
+   "by": "enclosure-back-top",
+   "held": "bosses",
    "kind": "real"
   },
   {
    "component": "ground-stack",
-   "by": null,
-   "held": "stack",
+   "by": "enclosure-back-top",
+   "held": "bosses",
    "kind": "real"
   },
   {
@@ -4098,8 +4093,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T22:48:26+00:00",
-  "commit": "deb1b74e7f42eb18a125de2f9c2bfdb9ede17ef9",
+  "generated": "2026-08-07T23:21:36+00:00",
+  "commit": "299d9769e88fec0ddc2fb193a829d2dbfa22af68",
   "inputs": {}
  }
 }
