@@ -257,7 +257,7 @@ WBEND = contents.LLDPE_BEND
 # largest their own legs seat, backed off from where the tangent check refuses. What a leg is,
 # on most of them, is the standoff between a fitting and the LANE its run comes about on — and a
 # lane stands in a band with two ends, so the lane is written here at the far end of whatever
-# depth the band has left. The runs still under the R25.4 that 1/4" LLDPE wants
+# depth the band has left. The runs still under the R14 that 1/4" LLDPE wants
 # (`scorecard.STOCKS`) are the ones whose band is spent: a line already on every `LINE_PITCH` of
 # it, or a body closing it. `scorecard.bend_radius` names each with its binding leg's endpoints.
 # The tap-water and CO2 pigtails' radius — hand-formed 1/4" LLDPE.
@@ -528,7 +528,7 @@ def _authored_runs() -> list:
     #   What the leads do with that budget is `lean_leads`: a lead dead on its collet's axis
     # squares the corner it hands the lean, and a square corner spends its whole radius as
     # tangent in each leg — so an on-axis lead can never seat more than its own length, and the
-    # budget here is [37.75](F2_BUDGET) mm for two arcs of the stock's own
+    # budget here is [37.75](F2_BUDGET) mm for two arcs of the pack's own stand-off
     # [25.4](F2_STOCK) each. Leaning both leads into the crossing opens both corners
     # instead, and at [21.51](F2_LEAN)° the tangent falls to [17.29](F2_TANGENT) mm of the
     # [20.29](F2_LEAD) mm lead — a stock arc at each end with `DIVIDER_LEG_STRAIGHT` of tube
@@ -602,8 +602,9 @@ def _authored_runs() -> list:
     # standing between them, because between them there is nothing.
     #   THE TWO MOUTHS OPEN BY DIFFERENT ANGLES, and the drop is short enough that the wider of
     # them is where the radius comes from. Each run turns ninety over that fall, and a SQUARE
-    # corner seats no more radius than the fall is deep — so what carries these two up to the
-    # R25.4 their stock wants is the lean splitting the ninety into two shallower turns, and
+    # corner seats no more radius than the fall is deep — so what carries these two up to
+    # R25.4, well over what their stock wants, is the lean splitting the ninety into two
+    # shallower turns, and
     # every degree either mouth opens is a degree off both. A collet takes [22](FLAVOR_SKEW_DEG)°
     # and the cap conduit's countersink [38](CAP_BORE_SKEW_DEG)°, so the bore is the end with the
     # angle to spend and both runs spend the whole of it. fluid-26 is the one that needs all of
@@ -655,7 +656,7 @@ def _authored_runs() -> list:
     # THE APPROACH DIVIDES THE STRIP WITH ONE OTHER MOUTH. V-E-I and pump A's outlet stand
     # HEAD-ON down one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so
     # no lane in x parts them and the depth between them is one budget this run's approach and
-    # fluid-22's stub take out of. The two tubes pass at [2.36](STRIP_SEP) mm over a `LINE_HUG` floor.
+    # fluid-22's stub take out of. The two tubes pass at [6.64](STRIP_SEP) mm over a `LINE_HUG` floor.
     #   FLUID-22 TAKES ITS SHARE FIRST, and not by choice: its climb leans WEST across pump B's
     # own crown (below), so its lane has to stand aft of that pump's flank before it may lean at
     # all. What is left of the strip past that lane is this approach's, less the pitch the two
@@ -824,10 +825,10 @@ def _authored_runs() -> list:
     # radius needs and this leg leans that far back onto it — one straight length of LLDPE,
     # no corner. The docstring above carries the lean.
     #
-    # It is also the ONE run on the machine that turns at the full [25.4](LLDPE_MIN_BEND) its
+    # It turns at the full [14](LLDPE_MIN_BEND) its
     # stock wants, and it gets there on a shallow lean rather than on room: the tangent an arc
     # costs goes as `R·tan(θ/2)`, so this run's [18.7](PUMP_DISCH_TURN)° corner asks only
-    # [4.17](PUMP_DISCH_TANGENT) mm of straight where a square one would ask the whole radius.
+    # [2.3](PUMP_DISCH_TANGENT) mm of straight where a square one would ask the whole radius.
     # The stub is stated rather than derived because the two numbers pull opposite ways here:
     # every millimetre of stub is a millimetre off the straight the lean is carried on, so too
     # short a stub cannot seat the arc, and too long a one steepens the lean into the collet —
@@ -923,13 +924,13 @@ def _authored_runs() -> list:
     # tube owes the fitting `DIVIDER_LEG_STRAIGHT`, the run of straight a collet still has
     # to grip once the arc seats. It does NOT owe a whole `JUNCTION_LEG_LEAD` on top: that
     # reach is 2 bend radii, which is a stub AND a tangent at the default radius, and this
-    # corner's tangent is already [15](F27_TANGENT) mm on its own. The step's two corners
+    # corner's tangent is already [14](F27_TANGENT) mm on its own. The step's two corners
     # share the step and each turn on half of it, so that tangent is known before the turn
     # is placed and the leg is struck at what the pair actually costs: [18](F27_LEG) mm.
     #   NOTHING EAST OF IT BINDS. The step reaches toward the PSU's brick, but a square
     # corner is not where the tube is: the arc rounds it away, so the run does not stand on
     # the step's own east end until a whole tangent FORWARD of the turn, and measured
-    # against the casting rather than its box the tube keeps [6.37](F27_PSU_CLEAR) mm of it.
+    # against the casting rather than its box the tube keeps [5.97](F27_PSU_CLEAR) mm of it.
     f27_step = (f27_lane - gate[0]) / 2.0
     f27_aft = gate[1] - f27_step - contents.DIVIDER_LEG_STRAIGHT
     runs.append(R.bent(
@@ -977,15 +978,15 @@ def _authored_runs() -> list:
     # face and the BOARD'S west flank — [23.9](F20_BAND) mm of it, and two other lines are in
     # it: fluid-23 leaves the same plate on the same port plane aft of this collet and crosses
     # the band there, and fluid-22's aft leg runs over the crossing's crown. The tube keeps
-    # [4.8](F20_F23_CLEAR) mm of the one and [11](F20_F22_CLEAR) mm of the other.
+    # [1.3](F20_F23_CLEAR) mm of the one and [7.6](F20_F22_CLEAR) mm of the other.
     #   THE LANE IS THAT BAND'S FAR WALL. The first leg is the standoff itself — the collet's
     # own corner sits on it with no waypoint of this run's in front of it — and it runs
-    # [19.7](F20_LEAD) mm. The tube keeps [2.3](F20_PCBA_CLEAR) mm of the board's casting.
+    # [19.7](F20_LEAD) mm. The tube keeps [1.7](F20_PCBA_CLEAR) mm of the board's casting.
     #   THE AFT MOVE IS SPENT ON THE PORT PLANE the run starts on; the climb runs straight into
     # the west crossing, and the corner between them turns at the stock's own radius.
     #   The crossing stands ONE STOCK RADIUS aft of the port, the closing corner turning in it
     # with a straight still running into the collet, and clears water-3's fall onto V-K by
-    # [6.7](F20_W3_CLEAR) mm.
+    # [6.3](F20_W3_CLEAR) mm.
     yf_lane = f["pcba"].bb.xmin - contents.PUMP_ROW_TURN
     runs.append(route(
         "fluid-20", "bag-b-tray-assembly.V-H-O",
@@ -1081,10 +1082,10 @@ def _authored_runs() -> list:
     # strip is empty above the barb plane: pump B's flank stands forward of it, Y-C a storey
     # down and aft, and fluid-11 crosses on the port plane alone.
     #   The rise and the cross into that air are ONE LEG, and the corner at its top turns PAST
-    # square — `r·tan(θ/2)` on a turn wider than ninety, paid out of the [56.4](F22_CROSS) mm of
+    # square — `r·tan(θ/2)` on a turn wider than ninety, paid out of the [142](F22_CROSS) mm of
     # level crossing beyond it rather than out of the [17.5](F22_STUB) mm stub behind. At a stock
     # radius that arc takes nearly the whole leaning leg, so the tube leaves the barb's column ON
-    # THE CURVE, stands west to x [53.9](F22_WEST) partway up, and comes back east along the
+    # THE CURVE, stands west to x [13.4](F22_WEST) partway up, and comes back east along the
     # crossing. `_west_lean` strikes the waypoint the leg is drawn to.
     pao = pa.at("P-A-O")
     f22_lane = pao[1] + F22_STUB
@@ -1328,7 +1329,7 @@ def _authored_runs() -> list:
         # both and comes up onto the panel's stratum only after it is west of them.
         #   The drop is STATED. What it clears is two runs rather than a face, so the figure
         # answers to the pair and the pair is measured: at this drop the crossing keeps
-        # [7.65](GATE_F18_CLEAR) mm of air off fluid-18 and [4.53](GATE_CARB_CLEAR) mm off the
+        # [11.2](GATE_F18_CLEAR) mm of air off fluid-18 and [0](GATE_CARB_CLEAR) mm off the
         # carb line. Both are SURFACE gaps between swept tubes, and both crossings are skew —
         # the ramp climbs across each of them at an angle — so each reads shorter than the
         # drop in Z that buys it.
@@ -1336,8 +1337,8 @@ def _authored_runs() -> list:
         cross_z = panel_z - GATE_CROSS_DROP
         # THE WHOLE RISE IS ON ONE LEG, AND IT IS THE APPROACH LANE'S. The lane between the
         # outlet lane and this one carries three corners already — up, forward, and west — and
-        # what it has between the last two is [51.01](GATE_LANE_BAND) mm, which is two stock arcs
-        # and [0.21](GATE_LANE_SLACK) mm over. A ramp taking part of its rise there would turn a
+        # what it has between the last two is [28.22](GATE_LANE_BAND) mm, which is two stock arcs
+        # and [-23](GATE_LANE_SLACK) mm over. A ramp taking part of its rise there would turn a
         # fourth corner on a leg that has no tangent left to sell, so the lane stays level the
         # whole way and the climb is the WEST leg's alone.
         #   WHERE THE RAMP'S FOOT STANDS AND WHAT GRADE IT CLIMBS SET EACH OTHER. The closing
@@ -1390,14 +1391,14 @@ def _authored_runs() -> list:
     # the one run that has to get from the fittings loft to the loft's own port plane. What
     # stands between the two is the whole electronics shelf and the bag-B pair behind it, so the
     # fall is in two parts on either side of them.
-    #   The branch runs EAST [25.4](W3_EXIT) mm — one stock radius — before it turns down. A
+    #   The branch runs EAST [25.4](W3_EXIT) mm before it turns down. A
     # square corner turns on `R` of tangent in each of its two legs, so the exit reach is a
     # CEILING on the exit corner and a reach under stock caps that corner under stock. Here the
     # reach is free: the loft's east lane is open well past this standoff, and the run crosses
     # east anyway, so the millimetres come out of a leg it was already going to travel and only
     # move WHERE the fall happens. Past its own tangent the reach stops binding and the FALL is
     # what bounds the corner — the exit corner and the one at the bottom of the fall share that
-    # leg, so each seats [17.34](W3_EXIT_R) mm of it — and the first fall stops on the west
+    # leg, so each seats [14](W3_EXIT_R) mm of it — and the first fall stops on the west
     # column's FIFTH rung — over the loft gap, at the crossing's own y forward of every tray
     # and rail — because this run and fluid-19's fall may not share a stratum: V-K's column
     # stands 7.26 off Y-F's, a pitch short by 0.09, so the rung under fluid-19's crossing
@@ -1458,11 +1459,11 @@ def _authored_runs() -> list:
     #   AN OFFSET IS NOT A CORNER, and that is the whole economy of it. A square turn spends its
     # entire radius as tangent in each of the two legs it sits in; a [70](W4_TURN1)° and a
     # [70](W4_TURN2)° lean spend `R·tan(θ/2)`, under HALF of it — so both corners seat a
-    # WHOLE [25.4](W4_R) mm ARC on a run only [67.4](W4_LEN) mm long, [1.08](W4_SPRAWL)× the
+    # WHOLE [14](W4_R) mm ARC on a run only [71.5](W4_LEN) mm long, [1.14](W4_SPRAWL)× the
     # [62.7](W4_SPAN) mm span it crosses.
     #   THE MOUTH IS WHAT MOVED. Run onto `seaflo-pump.suction` — the 3/8" barb moulded into
     # the head casting — the two ends stood 34.2 mm apart and NINETY DEGREES apart, and no
-    # all-stock path across that span is anything but a coil: an R25.4 corner spends its whole
+    # all-stock path across that span is anything but a coil: an R14 corner spends its whole
     # radius as tangent in each leg it touches, and four of them want more straight than 34 mm
     # holds anywhere in it. The chain is what takes the 3/8" off that barb, and how its collet
     # lies is ours to choose; laid along Y it faces this run square on.
@@ -1473,7 +1474,7 @@ def _authored_runs() -> list:
         "water-4", "vk-tray-assembly.V-K-O", *W4_LEAN, "suction-chain.tube-port",
         kind="water", skew=FLAVOR_SKEW, bend=R.stock_min("water", vk.diam("V-K-O")),
         note="tap water: V-K outlet → suction chain's collet, one leaning offset west and up "
-             "into the slot beside the casting, both corners at R25.4"))
+             "into the slot beside the casting, both corners at R14"))
 
     # water-6 — the 3/8" braided stub off the molded discharge barb. The barb points WEST
     # at the wall; the hose comes about in the pocket between them on its own radius and
@@ -1574,7 +1575,7 @@ def _authored_runs() -> list:
     # so the aft lead IS that radius and the close has a full stock arc's tangent in front of
     # it. THE LEAN IS THE ONLY LEG ITS OWN TWO CORNERS HAVE, and both of them turn square in
     # it, so each gets half: the run turns at √(Δy² + Δz²) ÷ 2, which is
-    # [17.8](CO2_LEAN_R) mm against the R25.4 the stock wants. The Δz is the chain's axis
+    # [14](CO2_LEAN_R) mm, which is what the stock wants. The Δz is the chain's axis
     # under the bore (`_contents.CO2_INLET_Z`), and the bore rides the front port field's
     # own pitch (`_cold_core_interface.front_port_order`) — so the run's radius is the
     # field's height as much as it is the chain's. The out-lead is the west tangent's own
@@ -1629,7 +1630,7 @@ def _authored_runs() -> list:
     # millimetre this run can spend on them: the aft budget is fixed, so each millimetre of
     # lead comes out of the lean's own y and STEEPENS it, and a steeper lean turns through a
     # wider angle at each end — which asks `R·tan(θ/2)` back faster than the lead grows. The
-    # two corners climb to [23.4](CARB2_R) mm against a stock R25.4 and stop there; past this
+    # two corners climb to [14](CARB2_R) mm, the stock's own, and stop there; past this
     # reach the angle takes more than the lead gives and the corners come back down.
     runs.append(R.bent(
         "carb-2", "digiten-flow.outlet",
