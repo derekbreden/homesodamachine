@@ -36,7 +36,8 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "gasher-check-valve",
-           _hw / "reference" / "wr1110-regulator"):
+           _hw / "reference" / "wr1110-regulator",
+           _hw / "reference" / "digiten-flow-sensor"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
@@ -51,6 +52,7 @@ import water_split as _split                           # noqa: E402
 import manifold_layout as _ml                           # noqa: E402
 import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
+import digiten_flow_sensor as _digiten                  # noqa: E402
 
 BLOCKED = R.BLOCKED
 
@@ -108,19 +110,48 @@ STATIONS = {
     "water-split": {"supply": (_split.supply, _split.TUBE_D),
                     "to-vk": (_split.to_vk, _split.TUBE_D),
                     "to-flavor": (_split.to_flavor, _split.TUBE_D)},
+    # The meter inline on the carb riser. Its two collets are coaxial on its own flow axis and
+    # the machine lays that axis fore and aft, so `inlet` faces forward and `outlet` aft. The
+    # bore is the TUBE'S, not the barrel's: `digiten_flow_sensor.port_dia` is the Ø12 collet
+    # moulding, and what pushes into it is the same 1/4" LLDPE the rest of the water side runs.
+    "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
+                     "outlet": (_digiten.outlet, _split.TUBE_D)},
 }
+
+# The three unions the machine dispenses through, all on one row of the back wall. Each carries
+# the same two mouths the tap-water union does, under the names the topology gives them: the
+# INBOARD collet is what a run inside the box pushes into, the outboard one is what the
+# above-counter umbilical lands on.
+for _b in ("bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb"):
+    STATIONS[_b] = {"tube-in": (lambda: _jg.port(-1.0), _jg.PORT_D),
+                    "tube-out": (lambda: _jg.port(1.0), _jg.PORT_D)}
 
 
 # The flavour manifold's ten solenoid valves. Each stands coil-up with its flow along the pack's
-# own ±Y, and `manifold_layout.valve_dirs` puts the INLET on the −Y end and the OUTLET on the +Y
-# one — which the fold names `front` and `back`. `front_half.manifold_carry` takes both through
-# the pose and the lift the pack is stood at, so a run anchors on where the collet ends up.
+# own ±Y, and the fold names its two collets `front` and `back`. `front_half.manifold_carry`
+# takes both through the pose and the lift the pack is stood at, so a run anchors on where the
+# collet ends up.
+#
+# Which collet is the INLET is the valve's own turn. `manifold_layout` stands each body on
+# `valve_dirs(P[v]["arg"])`, and that argument is which way round it faces — the flow runs the
+# way the moulded arrow points, so the two turns present opposite ends. Six valves take +1 and
+# four take −1, and the manifold's own `MOUTHS` names the `front` collet of V-G and V-J
+# V-x-**O**.
 VALVES = ("V-A", "V-B", "V-C", "V-D", "V-E", "V-F", "V-G", "V-H", "V-I", "V-J")
+
+
+def valve_ends(v: str) -> tuple:
+    """A valve's two collets as `(inlet, outlet)` in the fold's own `front`/`back` names, read
+    off the turn `manifold_layout` stood the body at."""
+    return ("front", "back") if _ml.P[v]["arg"] > 0 else ("back", "front")
+
+
 for _v in VALVES:
+    _in, _out = valve_ends(_v)
     STATIONS[f"valve-{_v.lower()}"] = {
-        "inlet": ((lambda v=_v: (_ml.port(v, "front"), _ml.port_axis(v, "front"))),
+        "inlet": ((lambda v=_v, e=_in: (_ml.port(v, e), _ml.port_axis(v, e))),
                   _split.TUBE_D),
-        "outlet": ((lambda v=_v: (_ml.port(v, "back"), _ml.port_axis(v, "back"))),
+        "outlet": ((lambda v=_v, e=_out: (_ml.port(v, e), _ml.port_axis(v, e))),
                    _split.TUBE_D),
     }
 
@@ -169,6 +200,14 @@ def build_runs(placed, carries):
         runs.append(_co2_2(F))
     if {"flow-regulator", "valve-v-a"} <= set(F) and "coil-v-a" in placed:
         runs.append(_fluid_2(F, placed))
+    if {"foam-assembly", "digiten-flow"} <= set(F):
+        runs.append(_carb_1(F))
+    if {"digiten-flow", "bulkhead-carb"} <= set(F):
+        runs.append(_carb_2(F))
+    if {"valve-v-j", "bulkhead-flavor-b"} <= set(F) and "stub-fluid-25" in placed:
+        runs.append(_fluid_28(F, placed))
+    if {"valve-v-g", "bulkhead-flavor-a"} <= set(F) and "stub-fluid-15" in placed:
+        runs.append(_fluid_18(F, placed))
     return runs
 
 
@@ -414,6 +453,148 @@ def _fluid_2(F, solids):
              "up in one lean, aft over the source coils and down V-A's own column")
 
 
+# --- the carb-water riser, and the two nozzle gates' lines to the panel -----
+#
+# All three end on the panel deck (`front_half.PANEL_X`), which is the band over the water
+# pump's crown, and all three reach it by a column that runs the machine's whole height.
+
+def _carb_1(F):
+    """carb-1 — the cold core's carbonated-water conduit to the meter's inlet.
+
+    UP THE PORT LANE AND WEST ALONG THE DECK. The bore opens out of the cap's lid facing the
+    ceiling and the meter lies fore and aft on the panel deck with its inlet facing forward, so
+    the run climbs the lane's own column to that deck, crosses west onto the meter's column, and
+    runs aft down it into the collet.
+
+    The closing leg is THE COLLET'S OWN AXIS, so there is no closing corner: the column the run
+    turns onto is the meter's own X and the deck is its own Z, and what is left between them is
+    one straight length of tube."""
+    bore = F["foam-assembly"].at("carb-water-out")
+    inlet = F["digiten-flow"].at("inlet")
+    return R.bent(
+        "carb-1", "foam-assembly.carb-water-out",
+        (bore[0], bore[1], inlet[2]),        # up the lane's own column onto the deck
+        (inlet[0], bore[1], inlet[2]),       # west along the deck onto the meter's column
+        "digiten-flow.inlet",                # and aft down it into the collet
+        kind="water", lead=(TUBE_BEND, TUBE_BEND), skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
+        note="carb water: the core's carb-water cap conduit → DIGITEN inlet, up the port lane "
+             "and west along the panel deck onto the meter's own column")
+
+
+def _carb_2(F):
+    """carb-2 — the meter's outlet to the carb union's inboard collet, and it is ONE LENGTH OF
+    TUBE.
+
+    `front_half.build_digiten` seats the meter ON THIS RUN: its outlet is placed one `CARB_2`
+    forward of the union's collet and on that collet's own column and plane, so the two mouths
+    face each other down one line with nothing between them to turn around."""
+    return R.bent(
+        "carb-2", "digiten-flow.outlet", "bulkhead-carb.tube-in",
+        kind="water", note="carb water: DIGITEN outlet → rear union, one straight down the deck")
+
+
+# How high a gate's line climbs on its own column before it steps outboard. Each gate has its own
+# channel's RESERVOIR MOUTH standing over it — `stub-fluid-15` east and `stub-fluid-25` west, both
+# on the gate's column — so the column is a bay and not a shaft. The figure is read off that
+# stub's own underside rather than typed, and this is the air left under it.
+GATE_STUB_CLEAR = 4.0
+# The outboard lane the two gate lines run aft in. It is the strip between the hopper's bowl and
+# the ±X boss chain, and it is the one column on either flank that carries a line from the valve
+# deck to the back wall. Re-measure it by sweeping the lane —
+#
+#     w.cast((x, 160.0, z), (0, 1, 0), dia=6.35)
+#
+# — which reads clear at ±88 and stops on the machine's own bodies at every station inboard of it.
+GATE_LANE_X = 88.0
+# How far aft the line has run by the time it reaches that lane. The step outboard is taken as one
+# DIAGONAL with this reach in it, so the leg is 34.7 mm rather than the 10.9 mm between the gate's
+# column and the lane — a square corner spends its whole radius as tangent in each leg it touches,
+# and the two this leg carries want more than that step is long.
+#
+# It also stands FORWARD OF V-K, whose body reaches into the east flank at this height: the
+# diagonal is on the lane before it reaches the valve's own face.
+GATE_LANE_Y = 175.0
+# Where each line comes about onto the panel deck — the far end of the lean it climbs its whole
+# storey in — and where it then crosses to its union's own column.
+#
+# THE HOPPER IS WHAT BOUNDS THE CROSSING. At the deck's own height the bowl is near its full
+# width, reaching x ±79.5 until its aft face; a crossing is a leg wall to wall, so it is taken
+# behind that face and nowhere else. Re-read it by sweeping the deck —
+#
+#     w.cast((100.0, y, deck), (-1, 0, 0), dia=6.35)
+#
+# EAST the crossing is the far end of the lean itself: the lean is steep, tops out one board's
+# depth behind the hopper, and turns straight into the crossing, so the two share a corner. It
+# also stands AHEAD of the carb riser's own crossing, which reaches this line's column further
+# aft.
+GATE_A_DECK_Y = 264.0
+# WEST the union stands 8 mm off the lane, which is not two stock arcs — so the lean runs on aft
+# past the ASSE chain and the step inboard is taken as one plan DIAGONAL, with the reach aft in it
+# to make the leg.
+GATE_B_DECK_Y = 340.0
+GATE_B_CROSS_Y = 380.0
+
+
+def _gate_climb_z(solids, stub: str) -> float:
+    """The Z a gate's line climbs to on its own column: one `GATE_STUB_CLEAR` and its own
+    half-section under the reservoir stub standing over that gate."""
+    return solids[stub].BoundingBox().zmin - _split.TUBE_D / 2.0 - GATE_STUB_CLEAR
+
+
+def _fluid_28(F, solids):
+    """fluid-28 — the nozzle-B gate to its rear union, and the line the manifold sends out of the
+    machine on the WEST side.
+
+    V-J-O faces UP off the west outboard valve, under the hopper's bowl and behind the reservoir
+    stub that shares its column. So the run climbs what that stub leaves, steps out into the
+    outboard lane, and takes the whole storey to the deck in ONE LEAN — which carries it back
+    inboard onto the union's own column and aft past the bowl at the same time. Then it runs the
+    deck to the collet on that collet's own axis.
+
+    THE OUTBOARD LANE IS WHAT THE LEAN IS TAKEN IN. The tap-water lane stands in the column
+    between this gate and its union — the flow regulator reaches x −81 across it and the split
+    stands over that — and the lane runs outboard of both."""
+    gate = F["valve-v-j"].at("outlet")
+    tin = F["bulkhead-flavor-b"].at("tube-in")
+    climb = _gate_climb_z(solids, "stub-fluid-25")
+    return R.bent(
+        "fluid-28", "valve-v-j.outlet",
+        (gate[0], gate[1], climb),                  # up what the reservoir stub leaves
+        (-GATE_LANE_X, GATE_LANE_Y, climb),         # one diagonal west and aft into the lane
+        (-GATE_LANE_X, GATE_B_DECK_Y, tin[2]),      # one lean aft and up the lane onto the deck
+        (tin[0], GATE_B_CROSS_Y, tin[2]),           # one diagonal east onto the union's column
+        "bulkhead-flavor-b.tube-in",                # and straight aft into the collet
+        kind="fluid", bend=TUBE_BEND,
+        note="nozzle B: V-J-O → rear union, up the gate's own bay, out into the west outboard "
+             "lane and one lean onto the panel deck")
+
+
+def _fluid_18(F, solids):
+    """fluid-18 — the nozzle-A gate to its rear union, and the line the manifold sends out of the
+    machine on the EAST side.
+
+    THE SAME FOUR MOVES AS ITS TWIN AND ONE MORE, because the east flank is deeper. V-G-O faces
+    up under the same bowl behind the same kind of stub, and the outboard lane is the same strip;
+    but the union it ends on stands west of centre — the +X end of the wall is the C14's — so
+    where `fluid-28` closes on its own column this one crosses the deck first.
+
+    The deck it crosses is the room over the pump's crown: the hopper stops short of it forward,
+    the power block stands below it aft, and between the two there is nothing in it at all."""
+    gate = F["valve-v-g"].at("outlet")
+    tin = F["bulkhead-flavor-a"].at("tube-in")
+    climb = _gate_climb_z(solids, "stub-fluid-15")
+    return R.bent(
+        "fluid-18", "valve-v-g.outlet",
+        (gate[0], gate[1], climb),                  # up what the reservoir stub leaves
+        (GATE_LANE_X, GATE_LANE_Y, climb),          # one diagonal east and aft into the lane
+        (GATE_LANE_X, GATE_A_DECK_Y, tin[2]),       # one lean aft and up the lane onto the deck
+        (tin[0], GATE_A_DECK_Y, tin[2]),            # west across the deck onto the union's column
+        "bulkhead-flavor-a.tube-in",                # and straight aft into the collet
+        kind="fluid", bend=TUBE_BEND,
+        note="nozzle A: V-G-O → rear union, up the gate's own bay, out into the east outboard "
+             "lane, one lean onto the panel deck and west across it")
+
+
 def authored() -> frozenset:
     """The connection ids this module draws a run for, without building one. `front_half` reads
     it before the pack is assembled, to know which of the manifold's placeholder mouth stubs a
@@ -424,7 +605,7 @@ def authored() -> frozenset:
 # The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
-             "co2-1", "co2-2", "fluid-2")
+             "co2-1", "co2-2", "fluid-2", "carb-1", "carb-2", "fluid-28", "fluid-18")
 
 
 def tubes(runs):

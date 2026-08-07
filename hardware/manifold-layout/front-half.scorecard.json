@@ -3,7 +3,7 @@
  "placed": 0,
  "located": 100,
  "shaped": 0,
- "routed": 25,
+ "routed": 35,
  "held": 81,
  "mounted": 4,
  "checks": [
@@ -42,7 +42,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "10/10 as drawn",
+   "value": "14/14 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -52,11 +52,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 16/16 corners at spec",
+   "value": "B \u2014 26/26 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:6"
+    "runs by grade: B:9"
    ],
    "active": true
   },
@@ -102,13 +102,13 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "10/40 drawn",
+   "value": "14/40 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 2/27",
+    "fluid: 4/27",
     "refrigerant: 0/3",
-    "water: 6/8",
+    "water: 8/8",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
     "fluid-4 (fluid): Hopper funnel bottom \u2192 V-B-I",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1",
@@ -124,7 +124,6 @@
     "fluid-15 (fluid): Bag A port \u2192 Y-E-2",
     "fluid-16 (fluid): Y-E-3 \u2192 V-E-I",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I",
-    "fluid-18 (fluid): V-G-O \u2192 Nozzle A",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1",
     "fluid-20 (fluid): V-H-O \u2192 Y-F-2",
     "fluid-21 (fluid): Y-F-3 \u2192 P-A-I",
@@ -133,12 +132,9 @@
     "fluid-24 (fluid): V-I-O \u2192 Bag B FILL port",
     "fluid-26 (fluid): Bag B DRAW port \u2192 V-H-I",
     "fluid-27 (fluid): Y-G-2 \u2192 V-J-I",
-    "fluid-28 (fluid): V-J-O \u2192 Nozzle B",
     "refrig-1 (refrigerant): compressor-shroud discharge \u2192 condenser+fan inlet",
     "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet",
-    "refrig-3 (refrigerant): foam-assembly evaporator outlet \u2192 compressor-shroud suction",
-    "carb-1 (water): foam-assembly carb-water-out \u2192 digiten-flow inlet",
-    "carb-2 (water): digiten-flow outlet \u2192 bulkhead-carb tube-in"
+    "refrig-3 (refrigerant): foam-assembly evaporator outlet \u2192 compressor-shroud suction"
    ],
    "active": false
   },
@@ -147,7 +143,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "47/47 located",
+   "value": "55/55 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -242,6 +238,120 @@
    "note": ""
   },
   {
+   "component": "bulkhead-carb",
+   "name": "tube-in",
+   "kind": "fluid",
+   "pos": [
+    16.0,
+    450.21,
+    344.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "carb-2",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-carb",
+   "name": "tube-out",
+   "kind": "fluid",
+   "pos": [
+    16.0,
+    484.5,
+    344.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-flavor-a",
+   "name": "tube-in",
+   "kind": "fluid",
+   "pos": [
+    -32.0,
+    450.21,
+    344.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-18",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-flavor-a",
+   "name": "tube-out",
+   "kind": "fluid",
+   "pos": [
+    -32.0,
+    484.5,
+    344.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-flavor-b",
+   "name": "tube-in",
+   "kind": "fluid",
+   "pos": [
+    -80.0,
+    450.21,
+    344.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-28",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-flavor-b",
+   "name": "tube-out",
+   "kind": "fluid",
+   "pos": [
+    -80.0,
+    484.5,
+    344.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
    "component": "bulkhead-water",
    "name": "inboard",
    "kind": "fluid",
@@ -276,6 +386,44 @@
    ],
    "diam": 6.35,
    "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "digiten-flow",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    16.0,
+    366.21,
+    344.4
+   ],
+   "face": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "carb-1",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "digiten-flow",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    16.0,
+    426.21,
+    344.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    -0.0
+   ],
+   "diam": 6.35,
+   "mates": "carb-2",
    "status": "ok",
    "note": ""
   },
@@ -370,7 +518,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "carb-1",
    "status": "ok",
    "note": ""
   },
@@ -723,12 +871,12 @@
    "pos": [
     20.07,
     82.68,
-    208.814
+    267.814
    ],
    "face": [
     -0.0,
     0.0,
-    -1.0
+    1.0
    ],
    "diam": 6.35,
    "mates": "\u2014",
@@ -742,12 +890,12 @@
    "pos": [
     20.07,
     82.68,
-    267.814
+    208.814
    ],
    "face": [
     -0.0,
     0.0,
-    1.0
+    -1.0
    ],
    "diam": 6.35,
    "mates": "\u2014",
@@ -799,12 +947,12 @@
    "pos": [
     77.07,
     142.08,
-    227.674
+    168.674
    ],
    "face": [
     -0.0,
     -0.0,
-    1.0
+    -1.0
    ],
    "diam": 6.35,
    "mates": "\u2014",
@@ -818,15 +966,15 @@
    "pos": [
     77.07,
     142.08,
-    168.674
+    227.674
    ],
    "face": [
     -0.0,
     -0.0,
-    -1.0
+    1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-18",
    "status": "ok",
    "note": ""
   },
@@ -837,12 +985,12 @@
    "pos": [
     -20.07,
     82.68,
-    208.814
+    267.814
    ],
    "face": [
     -0.0,
     0.0,
-    -1.0
+    1.0
    ],
    "diam": 6.35,
    "mates": "\u2014",
@@ -856,12 +1004,12 @@
    "pos": [
     -20.07,
     82.68,
-    267.814
+    208.814
    ],
    "face": [
     -0.0,
     0.0,
-    1.0
+    -1.0
    ],
    "diam": 6.35,
    "mates": "\u2014",
@@ -909,6 +1057,25 @@
   {
    "component": "valve-v-j",
    "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -77.07,
+    142.08,
+    168.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-j",
+   "name": "outlet",
    "kind": "fluid",
    "pos": [
     -77.07,
@@ -921,26 +1088,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
-   "status": "ok",
-   "note": ""
-  },
-  {
-   "component": "valve-v-j",
-   "name": "outlet",
-   "kind": "fluid",
-   "pos": [
-    -77.07,
-    142.08,
-    168.674
-   ],
-   "face": [
-    -0.0,
-    -0.0,
-    -1.0
-   ],
-   "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-28",
    "status": "ok",
    "note": ""
   },
@@ -1223,6 +1371,88 @@
    }
   },
   {
+   "id": "fluid-18",
+   "kind": "fluid",
+   "frm": "valve-v-g.outlet",
+   "to": "bulkhead-flavor-a.tube-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 481.21,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      43.79,
+      34.69
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 42.8,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      34.69,
+      115.07
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      115.07,
+      120.0
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      120.0,
+      186.21
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 24.926,
+   "reach": 24.926,
+   "reachRatio": 1.7804,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 34.687,
+    "demand": 1.3916,
+    "from": [
+     77.07,
+     142.08,
+     271.46
+    ],
+    "to": [
+     88.0,
+     175.0,
+     271.46
+    ]
+   }
+  },
+  {
    "id": "fluid-2",
    "kind": "fluid",
    "frm": "flow-regulator.outlet",
@@ -1301,6 +1531,148 @@
      20.07,
      257.08,
      267.81
+    ]
+   }
+  },
+  {
+   "id": "fluid-28",
+   "kind": "fluid",
+   "frm": "valve-v-j.outlet",
+   "to": "bulkhead-flavor-b.tube-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 363.58,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      43.79,
+      34.69
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 29.8,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      34.69,
+      180.4
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 26.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      180.4,
+      40.79
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 11.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      40.79,
+      70.21
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 27.403,
+   "reach": 27.403,
+   "reachRatio": 1.9574,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 34.687,
+    "demand": 1.2658,
+    "from": [
+     -77.07,
+     142.08,
+     271.46
+    ],
+    "to": [
+     -88.0,
+     175.0,
+     271.46
+    ]
+   }
+  },
+  {
+   "id": "carb-1",
+   "kind": "water",
+   "frm": "foam-assembly.carb-water-out",
+   "to": "digiten-flow.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 232.69,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      91.0,
+      61.5
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      61.5,
+      92.21
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 30.75,
+   "reach": 30.75,
+   "reachRatio": 2.1964,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 61.5,
+    "demand": 2.0,
+    "from": [
+     77.5,
+     274.0,
+     344.4
+    ],
+    "to": [
+     16.0,
+     274.0,
+     344.4
     ]
    }
   },
@@ -1561,6 +1933,29 @@
    "reachRatio": null,
    "reachGrade": null,
    "binding": null
+  },
+  {
+   "id": "carb-2",
+   "kind": "water",
+   "frm": "digiten-flow.outlet",
+   "to": "bulkhead-carb.tube-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 24.0,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null
   }
  ],
  "mounts": [
@@ -1728,8 +2123,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T17:39:13+00:00",
-  "commit": "66891f6b940cf9aba058952c27ba0afc72e5f4fd",
+  "generated": "2026-08-07T18:02:39+00:00",
+  "commit": "ab2a001f3871d77942a2e9cabc1d030079c8f1ca",
   "inputs": {}
  }
 }

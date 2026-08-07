@@ -435,11 +435,11 @@ def back_wall_ports(*bulkhead_carries):
 
 # --- the panel deck: the three unions the machine dispenses through ---------
 #
-# Everything the customer sees leaves by these: carbonated water to the faucet, and the two
-# flavour lines to their nozzles. All three cross the back wall on ONE STOREY, and the storey is
-# not a choice — it is the only one the wall has.
+# Everything the customer draws leaves by these: carbonated water to the faucet, and the two
+# flavour lines to their nozzles. All three cross the back wall on ONE STOREY.
 #
-# Below it the cold core reaches nearly to the back wall, and what it leaves there is less than
+# Below that storey the cold core reaches nearly to the back wall, and what it leaves there is
+# less than
 # `jg_bulkhead_union.far_ring_face_y` — a union seated on that band has its collet inside the
 # foam. The +X flank is the power block, the C14 and the CO2 chain, floor to ceiling. The pump
 # fills the middle to its own crown. What is left is the band OVER THAT CROWN and under the top
@@ -456,6 +456,12 @@ DECK_CLEAR = 6.0
 # Where each union crosses the wall, west to east. The two gates take the ends — `fluid-28` comes
 # down the WEST outboard column and `fluid-18` the EAST one, so each lands on the side it arrives
 # from — and the carb riser takes the middle, where its meter lies inline ahead of it.
+#
+# The order across the row is what keeps the two deck crossings apart. Both `carb-1` and
+# `fluid-18` come west along this deck and then turn aft down their own union's column, and the
+# carb union standing OUTBOARD of the nozzle-A one is what lets the nozzle line pass under the
+# riser's turn rather than through it: `fluid-18` crosses the carb column ahead of where the
+# riser reaches it, and its own column stands west of everything the riser touches.
 PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
 
 
