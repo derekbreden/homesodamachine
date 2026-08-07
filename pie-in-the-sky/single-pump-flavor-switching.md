@@ -61,7 +61,9 @@ Prime is a counted volume with or without the faucet electrodes reporting. Witho
 
 **Direction.** [`fluid-topology.md`](/hardware/topology/fluid-topology.md) states flow inlet-to-outlet only and pumps forward only, and the truth table is built on it. Direct-acting solenoids pass reverse flow; pilot-operated ones do not. Which the Beduan valves are decides whether the rest of this doc has a subject.
 
-**Suction at the tip.** Today the flavor line is positive-pressure outward. Reversing makes an open tip in a wet dispense head, beside the carbonated-water stream, into a suction port — the direction the backflow posture in [`/business/regulatory.md`](/business/regulatory.md) is built against. A PTFE-membrane vent in the gooseneck above the tip takes the make-up air instead, the same part family as the reservoir vented caps in [`cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
+**Suction at the tip.** Air enters the flavor path at the hopper funnel today — dry, open, unfiltered — and leaves at the tip; every mode in the truth table runs forward, and each dispense path carries a gate at both ends of its pump so a standing column cannot drain back through a parked head. Reversing makes an open tip in a wet dispense head, beside the carbonated-water stream, into the air inlet. A PTFE-membrane vent in the gooseneck above the tip takes the make-up air instead, the same part family as the reservoir vented caps in [`cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
+
+**Or nothing.** The cycle runs forward out of modes already in the table — tap pressure across the idle head to the nozzle gate, hopper air through the pump to the nozzle gate, then Dispense verbatim. The upstream sensor reads air at the end of the dry step, the tip sensor reads liquid at the end of the prime, and pump work stays 60 mL. The 30 mL goes out the tip rather than back to its reservoir — 1.8 doses per switch.
 
 **Manifold.** Per reservoir, a draw valve and a return valve. Shared, the tap inlet, the hopper gate, and the nozzle gate. **2N + 3.**
 
