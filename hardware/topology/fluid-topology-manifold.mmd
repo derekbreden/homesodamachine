@@ -19,8 +19,8 @@ flowchart LR
   %% gravity drain — is a mouth with nothing on the far end of it yet.
 
   %% Colour is the circuit: white the shared source chain (fluid-1 … fluid-8), blue channel A
-  %% (9 … 18), green channel B (19 … 28). A dashed border is a body the fold carries onto the
-  %% upper deck.
+  %% (9 … 18), green channel B (19 … 28), grey the carbonator's own two runs through this bay.
+  %% A dashed border is a body the fold carries onto the upper deck.
 
   %% Per-limb grouping without the endpoints is fluid-topology-trays.mmd; the water and CO2 spine
   %% feeding the split, and everything the carbonator dispenses through, are
@@ -36,8 +36,8 @@ flowchart LR
     FlowReg["flow-regulator"]
   end
 
-  %% The basin on the top-wall rim ledge behind the display facet. Its spout drains by gravity
-  %% onto V-B's inlet, which the fold turns to face the back of the machine.
+  %% The basin on the top-wall rim ledge behind the display facet, draining by gravity. The fold
+  %% turns V-B's inlet to face the back of the machine, and nothing is drawn between the two yet.
   Hopper["hopper-funnel"]
 
   %% =========================
@@ -108,10 +108,10 @@ flowchart LR
   %% =========================
   %% Shared source chain — fluid-1 … fluid-8
   %% =========================
-  %% Y-A and Y-B stand on the inner limbs' own axes, one valve forward of the selects they feed,
-  %% with their branches meeting face to face across the mirror plane. V-A and V-B come off the
-  %% folded deck's plane on a quarter turn and then step 28 mm along and 14 mm across, toward the
-  %% cold core's crown.
+  %% Y-A and Y-B stand on their inner limbs' own axes, each between the source valve and the
+  %% select it feeds, with their branches meeting face to face across the mirror plane. V-A and
+  %% V-B come off the folded deck's plane on a quarter turn of R14, then step 28 mm further along
+  %% the run and 14 mm across it, toward the cold core's crown.
   Split -->|"fluid-1<br/>24.0 mm"| FlowReg
   FlowReg -->|"fluid-2<br/>212.3 mm"| VA
   VA -->|"fluid-3<br/>54.0 mm"| YA
@@ -124,9 +124,10 @@ flowchart LR
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Y-C and Y-D sit on pump B's two barbs, branch down, at the hinge. fluid-9 and fluid-17 are
-  %% the two hairpins that cross it — a quarter of R14, 31.4 mm of straight, and a quarter back.
-  %% Everything else along the limbs is butted.
+  %% Y-C and Y-D each sit on one of pump B's two barbs, taken by the branch, at the hinge — so
+  %% each tee's run lies across the head's face and IS the outboard half of a limb. fluid-9 and
+  %% fluid-17 are the two hairpins that cross the hinge: a quarter of R14, 31.4 mm of straight,
+  %% and a quarter back. Everything else along the limbs is butted.
   VC -->|"fluid-9<br/>75.4 mm"| YC
   VE -->|"fluid-10<br/>butt"| YC
   YC -->|"fluid-11<br/>butt"| PB
@@ -141,8 +142,8 @@ flowchart LR
   %% Channel B — fluid-19 … fluid-28
   %% =========================
   %% Channel B mirrors channel A about x = 0. Y-F and Y-G sit on pump A's barbs, fluid-19 and
-  %% fluid-27 are its two hairpins, and the four gate mouths — fills and draws both — leave on
-  %% their own axes off the lower deck.
+  %% fluid-27 are its two hairpins, and V-I-O and V-H-I — the reservoir's fill gate and its draw
+  %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19<br/>75.4 mm"| YF
   VH -->|"fluid-20<br/>butt"| YF
   YF -->|"fluid-21<br/>butt"| PA
