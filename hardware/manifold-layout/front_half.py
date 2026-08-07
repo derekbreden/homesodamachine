@@ -1,22 +1,25 @@
-"""Front half — the refrigeration stratum with the flavor manifold standing on it.
+"""Front half — the refrigeration stratum, the flavor manifold standing on it, and the cold
+core behind the pair.
 
-Three bodies, mated face to face with nothing between them:
+Four bodies, mated face to face with nothing between them:
 
-    compressor-shroud   its AFT face (+Y) against
-    condenser+fan       its WEST face (−X), turned onto the shroud's aft plane
+    compressor-shroud   its INTAKE-side face against
+    condenser+fan       turned onto it, and the pair yawed as one by `BASE_YAW`
     manifold-layout     set down on the crown of those two, on the four SPINE HAIRPINS
+    foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
+                        plane the front half ends at
 
 The gaps are 0 by intent. The compressor stands well inside its shroud and its ports go
 wherever they are put; the condenser's inlet and outlet are cornered but leave by whichever
-of that corner's faces is convenient. So the two bodies touching is what makes the run
-between them short, and the same holds for the foam shell when it arrives.
+of that corner's faces is convenient; the cold core's ten ports all stand on one column of
+its own. So the bodies touching is what makes the runs between them short.
 
 Frame
 -----
 - X = width, everything centred on x = 0 — the manifold is mirror-symmetric about it.
-- Y = depth, 0 at the front. Shroud, then condenser behind it; the manifold's pumps forward
-  and its two valve decks aft.
-- Z = height, 0 at the floor the shroud stands on.
+- Y = depth, 0 at the front. The refrigeration base, then the cold core behind it; on the
+  base, the manifold's pumps forward and its two valve decks aft.
+- Z = height, 0 at the floor the shroud and the core both stand on.
 
 What the mating does to each body
 ---------------------------------
@@ -62,10 +65,13 @@ import _contents                                      # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
+FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SHROUD_YAW = _contents.SHROUD_YAW            # the machine's own turn, and the compressor's
+FOAM_YAW = _contents.FOAM_YAW                # and the cold core's
 
-C_SHROUD = cq.Color(0.60, 0.62, 0.66)        # the enclosure pack's own two
+C_SHROUD = cq.Color(0.60, 0.62, 0.66)        # the enclosure pack's own three
 C_COND = cq.Color(0.78, 0.55, 0.35)
+C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -109,6 +115,14 @@ def build_condenser(shroud):
     return sit(c.rotate(*Z_AXIS, 90.0), cx=0.0, y0=box(shroud).ymax, z0=0.0)
 
 
+def build_foam(front_y: float):
+    """The cold core at the machine's own `FOAM_YAW` and on the machine's own floor, its front
+    face on the plane the front half ends at. Its native box hangs 20 mm below its origin, so
+    the floor is the box's own bottom and not that origin."""
+    f = cq.importers.importStep(str(FOAM_STEP)).val().rotate(*Z_AXIS, FOAM_YAW)
+    return sit(f, cx=0.0, y0=front_y, z0=0.0)
+
+
 def yaw_base(bodies):
     """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre —
     one rigid move, so the plane between them rides along and the crown does not change."""
@@ -147,8 +161,12 @@ def build_front_half() -> cq.Assembly:
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
     crown = max(box(shroud).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
+    aft = max(box(shroud).ymax, box(cond).ymax)
     for name, solid, color in posed:
-        a.add(solid.translate(cq.Vector(0.0, 0.0, lift)), name=name, color=color)
+        solid = solid.translate(cq.Vector(0.0, 0.0, lift))
+        a.add(solid, name=name, color=color)
+        aft = max(aft, box(solid).ymax)
+    a.add(build_foam(aft), name="foam-assembly", color=C_FOAM)
     return a
 
 
@@ -167,15 +185,17 @@ def report(a: cq.Assembly) -> None:
 
     print("\nbodies")
     sh, co = box(named["compressor-shroud"]), box(named["condenser+fan"])
+    fo = box(named["foam-assembly"])
     line("compressor-shroud", sh)
     line("condenser+fan", co)
     pack = None
     for n, s in placed:
-        if n in ("compressor-shroud", "condenser+fan"):
+        if n in ("compressor-shroud", "condenser+fan", "foam-assembly"):
             continue
         b = box(s)
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
+    line("foam-assembly", fo)
     print(f"\nmates (0 by intent)")
     seam = "y" if abs(BASE_YAW) % 180.0 < 1e-9 else "x"
     lo, hi = (sh.ymax, co.ymin) if seam == "y" else (sh.xmax, co.xmin)
@@ -188,6 +208,10 @@ def report(a: cq.Assembly) -> None:
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
           f"crown — that band is what the hairpins reach, and they are aft of the pumps")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
+    front_aft = max(sh.ymax, co.ymax, pack.ymax)
+    print(f"  front half's aft y {front_aft:.2f}   foam front face y {fo.ymin:.2f}   "
+          f"gap {fo.ymin - front_aft:.2f}   (the base is what it butts, "
+          f"{front_aft - pack.ymax:.2f} mm past the pack)")
     # Which body each hairpin sets down on, and whether it reaches — the two crowns are not
     # level, so a hairpin over the lower one is bearing on nothing.
     for n, s in sorted(placed):
