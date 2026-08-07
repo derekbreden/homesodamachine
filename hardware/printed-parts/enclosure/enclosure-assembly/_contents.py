@@ -772,11 +772,17 @@ CAP_BORE_SKEW = _cc.cap_conduit_entry_skew
 # corners cost at this radius, and a pack that read the routing module back to place a
 # fitting would be a cycle in a graph the build order is topologically sorted from.
 LLDPE_BEND = 4.0
-# The same stock's own published minimum (`scorecard.STOCKS`, 1/4" LLDPE), restated on the
-# pack's side for the same no-cycle reason: a leg drawn at the radius the stock WANTS costs
-# its corners more than one drawn at the radius a hand pigtail takes, and a pose stood off
-# for the second does not seat the first.
+# The stand-off a pose leaves for a leg to seat a full arc in, restated on the pack's side of
+# the no-cycle line: a leg drawn at this radius costs its corners more than one drawn at the
+# radius a hand pigtail takes, and a pose stood off for the second does not seat the first.
+# It sits above `scorecard.STOCKS`' 1/4" LLDPE floor, so a leg built to it carries margin.
 LLDPE_STOCK_BEND = 25.4
+# That floor itself (`scorecard.STOCKS`, 1/4" LLDPE), restated here for the same no-cycle
+# reason. `LLDPE_STOCK_BEND` above is what a pose stands off by when it is BUYING room; this is
+# what a pose has to clear when it is spending the last of it, and the pump lane is where the
+# two part company — a tee the tray column pushes off its barb's own column has no 25.4 to give
+# and still owes the leg it hands over two arcs the tube will actually bend to.
+LLDPE_MIN_BEND = 14.0
 # The pack's own part↔part floor as a LINE sees it — what a run leaves the body it passes.
 LINE_HUG = 1.0                          # = scorecard.CLEARANCE_FLOOR
 # Centre to centre between two 1/4" lines that share a corridor, or cross a stratum apart: a
@@ -2603,8 +2609,10 @@ def _divider_port(body, name, local):
 # stands on it, so all three fall out of the lane the pump's own two lines already run down:
 #   X — the barb's own column, so the leg between pump and tee is one straight length; held
 #       off the front column's west rim by the body's own radius where the barb sits nearer
-#       the wall than the body fits, and off the tray column's face the same way.
-#   Y — midway between the barb it stands off and the aft band its tray leg turns in, so
+#       the wall than the body fits, and off the tray column's face the same way — and where
+#       that hold is wider than one straight length can lean across, held the WHOLE way
+#       (`pump_row_tee_pos`).
+#   Y — midway between the barb it stands off and the LANE its tray leg turns on, so
 #       neither of the run's two legs is the short one.
 #   Z — the plane of the two ports the run joins, which for both of these is the bag-A
 #       pair's own port plane: `_build` stood the barbs on it for exactly this reason, so
@@ -2625,15 +2633,26 @@ def pump_lane_x():
 
 def pump_row_tee_pos(tee):
     """A pump-row tee's body centre in world. See the block above: the barb's plane in Z, its
-    own column in X, midway between barb and band in Y.
+    own column in X, midway between barb and the lane in Y.
 
     Each tee stands on the column of the barb its run butts, so that leg is one straight
     length — and where the barb sits nearer a rim than the fitting's body fits, the tee is the
-    one that gives way and the leg leans. Pump B's two barbs straddle the lane: the inlet is
-    outboard of the west rim, the outlet inboard of the tray column, so both tees are pushed
-    in and the lane's own width is what holds them apart. Short when the two rims cross, which
-    is the day the lane stops being wide enough for a fitting at all — the tee is drawn on the
-    east rim and the lane's overlap read off `room-holds`."""
+    one that gives way. Pump B's two barbs straddle the lane: the inlet is outboard of the west
+    rim, the outlet inboard of the tray column, so both tees are pushed in and the lane's own
+    width is what holds them apart. Short when the two rims cross, which is the day the lane
+    stops being wide enough for a fitting at all — the tee is drawn on the east rim and the
+    lane's overlap read off `room-holds`.
+
+    A TEE THE RIM PUSHES IS PUSHED THE WHOLE WAY. The leg that lands on the run collet pays for
+    the offset one of two ways. It LEANS — one straight length carrying the whole of it, which a
+    push-to-connect collet takes up to `FLAVOR_SKEW` off its own axis, so the leg's own length
+    buys `reach · tan(FLAVOR_SKEW)` of cross and no corner stands in it. Or it TURNS TWICE, and
+    two square corners want `2 × LLDPE_MIN_BEND` of straight between them before either turns at
+    the radius the tube bends to. Between those there is nothing: an offset too wide to lean and
+    too narrow to turn in is a pair of corners drawn under their stock. So the discharge tee,
+    four millimetres off its barb, leans; the suction tee, which the tray column holds twenty
+    off its own, gives way to a full pair of arcs and hands its leg two square corners with the
+    straight to seat them."""
     pump, barb = TEE_LANE[tee]
     (bx, by, bz), _face = pump_port(pump, barb)
     west, east = pump_lane_x()
@@ -2643,8 +2662,18 @@ def pump_row_tee_pos(tee):
                f"x={east:.2f}, so no tee body fits between the front column's lip and the tray "
                f"column. Move the tray column {west - east:.2f} east, or stand the pump row "
                f"elsewhere.")
-    band = FRONT_DEPTH - SOURCE_TRAY_AFT_BAND + PUMP_ROW_TURN
-    return (min(max(bx, west), east), (by + band) / 2.0, bz)
+    # The lane the tray leg turns on stands at the aft band's FAR wall, a `PUMP_ROW_TURN` off
+    # the core's face — the deepest a turn in that band can stand, and so the longest lead the
+    # tray's own collet gets (`_lines`' `row_lane`, the same figure struck there).
+    lane = FRONT_DEPTH - PUMP_ROW_TURN
+    y = (by + lane) / 2.0
+    x = min(max(bx, west), east)
+    # What ONE straight length carries: the leg from the barb to the near run collet, leaning at
+    # the collet's own skew. Past that the leg turns, and the tee stands back the pair of arcs.
+    leans = (y - TEE_RUN_HALF - by) * math.tan(math.radians(FLAVOR_SKEW))
+    if abs(bx - x) > leans:
+        x = max(west, bx - 2.0 * LLDPE_MIN_BEND)
+    return (x, y, bz)
 
 
 # A tee's three ports in its OWN frame: the run's two on ±Z, the branch out +Y. The topology
