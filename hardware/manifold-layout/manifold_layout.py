@@ -653,7 +653,7 @@ def render_elevations(step: Path) -> None:
     except OSError:
         pass
     for v in ELEVATIONS.split(","):
-        print(f"-> manifold-layout.{v}.png")
+        print(f"-> {step.stem}.{v}.png")
 
 
 def report(assy: cq.Assembly) -> dict:

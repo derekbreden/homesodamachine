@@ -114,6 +114,16 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 
 ![right](manifold-layout.right.png)
 
+## Standing it on the refrigeration stratum
+
+[`front_half.py`](front_half.py) → `front-half.step` mates three bodies with nothing between
+them: the compressor shroud's aft face to the condenser's west face, and the crown of those two
+to this pack's pump-head front face. The gaps are 0 by intent — the compressor stands well
+inside its shroud with its ports free, and the condenser's are cornered but leave by whichever
+of that corner's faces suits, so touching is what makes the run between them short.
+
+![front half](front-half.right.png)
+
 ## Regenerate
 
 ```
