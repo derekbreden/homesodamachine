@@ -174,8 +174,9 @@ CARB_SEGMENTS = (
 #            HELD and is not MOUNTED: nothing about any of those survives the machine being
 #            picked up by one corner.
 #
-# The manifold pack's own bodies are not here. `manifold_layout` arranges them on its own
-# trays and hairpins, and this module seats that pack as one thing.
+# The flavour manifold's own bodies are not typed here. They are still COUNTED — `pack_mounts`
+# reads them off `manifold_layout` and adds a row apiece, so the denominator every fastening
+# axis reports is the whole machine and not the part of it this module seats by hand.
 MOUNTS = (
     ("compressor-shroud", None, "floor"),
     ("condenser+fan", None, "floor"),
@@ -205,6 +206,26 @@ MOUNTS = (
     ("bulkhead-carb", None, "wall-capture"),
     ("digiten-flow", None, "none"),
 )
+
+
+def pack_mounts() -> tuple:
+    """The flavour manifold's own bodies, one fastening row each.
+
+    `manifold_layout` arranges them on the pack's four spine hairpins and this module stands
+    that whole pose on the base's crown, so what carries every one of them is THE PACK: the
+    hairpins are what the machine sets it down on, and no printed feature fastens a body inside
+    it. They are placed bodies of this machine and no other card grades their fastening, so they
+    are counted here rather than left out of the denominator — a card whose `mounted` figure
+    omits the flavour pumps is measuring a different machine from the one it draws.
+
+    Derived rather than typed, so the ten valves, their coils, the two pumps and the junction
+    tees ride whatever the pack does next."""
+    return tuple((name, None, "pack") for name in sorted(pack_bodies()))
+
+
+def mounts() -> tuple:
+    """Every placed body's fastening row — the bodies this module seats, then the pack's."""
+    return MOUNTS + pack_mounts()
 
 
 # --- the joints that carry no line -----------------------------------------
@@ -459,7 +480,7 @@ def _lines_clear(a, runs) -> Check:
                  "gate", _verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
 
 
-def port_leads(a, runs) -> list[dict]:
+def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     """Every port's clear lead, worst first: what it meets along its own axis, how far it got,
     and how much straight a run leaving it needs.
 
@@ -481,7 +502,12 @@ def port_leads(a, runs) -> list[dict]:
     direction — that is the state every undrawn segment's two ends are in.
 
     Tube is out of the population. A port's own line lies on its axis by construction, and a
-    foreign one crossing there is `lines-clear`'s question, not this one."""
+    foreign one crossing there is `lines-clear`'s question, not this one.
+
+    A lead that ends on a body still standing in as a bare primitive says so. The cast is an
+    exact boolean and the contact is real, but what it is real against is a BOX someone drew to
+    reserve room — so the number is a reading of the placeholder, and a pack redrawn around it
+    is a pack redrawn around a guess."""
     bodies, _drawn, pieces = _split_placed(a)
     solids = {**bodies, **pieces}
     mates, mating = {}, {}
@@ -511,7 +537,7 @@ def port_leads(a, runs) -> list[dict]:
             rows.append({"component": name, "port": port, "meets": who,
                          "free": round(free, 3), "need": round(need, 3),
                          "ok": who is None, "gated": anchor not in TERMINI,
-                         "routed": bool(drawn)})
+                         "routed": bool(drawn), "onPlaceholder": who in placeholders})
     rows.sort(key=lambda d: (d["ok"], d["free"]))
     return rows
 
@@ -523,6 +549,7 @@ def _port_leads(rows) -> Check:
               f"clear of every body but the one its own line joins it to"]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
                f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
+               + (" — and that body is still a placeholder box" if d["onPlaceholder"] else "")
                for d in short]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to "
                f"{d['meets'] or 'nothing'} — opens to atmosphere, not gated"
@@ -646,32 +673,109 @@ def _located(a) -> Check:
 
 
 def _coverage(a) -> Check:
-    """Every body this module seats has a row in `MOUNTS`. A body added without one is a body
-    whose fastening nobody has been asked about."""
-    import front_half as fh
-    placed = {c.name for c in a.children
-              if c.name in fh.STANDALONE or c.name in ("hopper-funnel", "display")}
-    declared = {name for name, _by, _held in MOUNTS}
-    missing = sorted(placed - declared)
-    stray = sorted(declared - placed)
-    detail = [f"placed, undeclared: {n}" for n in missing] + [f"declared, unplaced: {n}"
-                                                             for n in stray]
-    return Check("coverage", "Every body this module seats is declared in the fastening table",
+    """Every body the assembly places has a fastening row. A body added without one is a body
+    whose fastening nobody has been asked about.
+
+    The population is every child that is not a length of tube and not a piece of the printed
+    box: a tube is fastened by the collets it seats in, and a wall is what the rest fastens TO."""
+    bodies, _tubes, _pieces = _split_placed(a)
+    placed = set(bodies)
+    declared = {name for name, _by, _held in mounts()}
+    detail = [f"placed, undeclared: {n}" for n in sorted(placed - declared)]
+    detail += [f"declared, unplaced: {n}" for n in sorted(declared - placed)]
+    return Check("coverage", "Every placed body is declared in the fastening table",
                  "gate", _verdict(not detail),
                  f"{len(placed & declared)}/{len(placed)} declared", "all declared", detail)
 
 
 def _mounted() -> Check:
-    open_joints = [(n, held) for n, by, held in MOUNTS if by is None]
+    rows = mounts()
+    open_joints = [(n, held) for n, by, held in rows if by is None]
     # A body already held by something looser sorts last — that joint is a conversion, and one
     # nothing holds at all is a joint to invent.
     open_joints.sort(key=lambda r: (r[1] != "none", r[0]))
     detail = [f"{n}: held by {held}" for n, held in open_joints]
-    done = len(MOUNTS) - len(open_joints)
+    done = len(rows) - len(open_joints)
     return Check("mounted",
                  "A printed feature of another placed part fastens every body", "goal",
-                 _verdict(not open_joints), f"{done}/{len(MOUNTS)} mounted",
+                 _verdict(not open_joints), f"{done}/{len(rows)} mounted",
                  "a printed joint per body", detail)
+
+
+def _held() -> Check:
+    """Something holds every body — the looser axis `mounted` is measured against.
+
+    A body captured in a wall's bore, resting on a crown, riding on rails, hanging off its own
+    two collets or standing in the pack is HELD. What is not held is a body the machine has
+    nowhere to put down: it is where it is because the model says so, and an assembler handed
+    the parts could not reproduce the pose."""
+    rows = mounts()
+    loose = sorted(n for n, _by, held in rows if held == "none")
+    by_holder: dict = {}
+    for name, _by, held in rows:
+        if held != "none":
+            by_holder.setdefault(held, []).append(name)
+    detail = [f"{held} holds {len(ns)}: {', '.join(sorted(ns))}"
+              for held, ns in sorted(by_holder.items())]
+    detail += [f"{n}: nothing holds it at all" for n in loose]
+    return Check("held", "Something holds every body", "goal", _verdict(not loose),
+                 f"{len(rows) - len(loose)}/{len(rows)} held", "a holder per body", detail)
+
+
+def is_primitive(shape) -> bool:
+    """True when the geometry is still a bare box or cylinder.
+
+    `makeBox` leaves one solid with six planar faces and `makeCylinder` one with three — two
+    planar caps and a round side. Authored geometry carries holes, bosses and fillets on top of
+    that, so anything else has been drawn rather than stood in for."""
+    if len(shape.Solids()) != 1:
+        return False
+    faces = shape.Faces()
+    planar = sum(1 for f in faces if f.geomType() == "PLANE")
+    return (len(faces) == 6 and planar == 6) or (len(faces) == 3 and planar == 2)
+
+
+def shape_rows(a) -> list[dict]:
+    """Per body: the boxes it really occupies, how much of them is material, and whether the
+    geometry is still a bare primitive.
+
+    ONE BOX PER SOLID THE BODY IS BUILT FROM, following the part's own construction. The single
+    box drawn around all of them is a different object and for a hollow or L-shaped body mostly
+    air: the compressor shroud's holds twenty times its own material. `fill` is how much of the
+    boxes IS material — at 1.0 they are the part, and the lower it runs the less a box stands in
+    for the shape and the more only the solid will answer."""
+    bodies, _tubes, _pieces = _split_placed(a)
+    rows = []
+    for name, solid in sorted(bodies.items()):
+        boxes = _boxes.boxed_solids(solid)
+        total = sum(b.xlen * b.ylen * b.zlen for b in boxes)
+        rows.append({
+            "component": name,
+            "boxes": [[round(b.xmin, 3), round(b.ymin, 3), round(b.zmin, 3),
+                       round(b.xmax, 3), round(b.ymax, 3), round(b.zmax, 3)] for b in boxes],
+            "fill": round(solid.Volume() / total, 4) if total > 0 else 0.0,
+            "primitive": is_primitive(solid),
+            "declared": None,
+        })
+    rows.sort(key=lambda d: (not d["primitive"], d["fill"], d["component"]))
+    return rows
+
+
+def _shaped(rows) -> Check:
+    prim = [d for d in rows if d["primitive"]]
+    detail = [f"{d['component']}: still a bare "
+              + ("box" if len(d["boxes"]) == 1 and d["fill"] > 0.99 else "primitive")
+              + f", {len(d['boxes'])} solid" + ("" if len(d["boxes"]) == 1 else "s")
+              for d in prim]
+    # The bodies a single box describes worst, which are the ones whose box must never be read
+    # as their shape — every clearance on this card takes them as solids for that reason.
+    detail += [f"{d['component']}: {len(d['boxes'])} "
+               + ("box holds" if len(d["boxes"]) == 1 else "boxes hold")
+               + f" {d['fill'] * 100:.0f}% material"
+               for d in [r for r in rows if not r["primitive"]][:6]]
+    return Check("shaped", "Every body is real geometry rather than a placeholder", "goal",
+                 _verdict(not prim), f"{len(rows) - len(prim)}/{len(rows)} authored",
+                 "no placeholder solids", detail)
 
 
 def _score(check: Check) -> int:
@@ -692,6 +796,7 @@ class Scorecard:
     bends: list
     conns: list
     ports: list
+    shapes: list
 
     @property
     def gates_pass(self) -> bool:
@@ -702,7 +807,8 @@ def build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
     conns = load_connections(runs)
-    leads = port_leads(a, runs)
+    shapes = shape_rows(a)
+    leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
     clearances = part_clearances(a)
     ports = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
@@ -723,8 +829,8 @@ def build(a) -> Scorecard:
             })
     checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _port_leads(leads),
               _clearance_floor(clearances), _bed_fit(a), _runs_drawn(runs), _bend_radius(bends),
-              _mounted(), _routed(conns), _located(a)]
-    return Scorecard(checks, bends, conns, ports)
+              _mounted(), _routed(conns), _located(a), _shaped(shapes), _held()]
+    return Scorecard(checks, bends, conns, ports, shapes)
 
 
 def _source() -> dict:
@@ -741,20 +847,23 @@ def to_dict(sc: Scorecard) -> dict:
     """The sidecar the 3D viewer reads — `web/contracts/scorecard-sidecar.js` is the contract.
 
     `mounted` is the live goal axis and every other goal is deferred, which the viewer renders
-    gray. `routed`, `located` and `held` still carry their measured scores while deferred, so
-    the bar reads what they are rather than a zero.
+    gray. Each deferred one still carries its measured score, so the bar reads what it is rather
+    than a zero.
 
-    `placed` and `shaped` read 0: nothing in this pack declares a placement rule the card can
-    check, or an authorship the card can distinguish from real geometry."""
+    `placed` reads 0. Every pose in this pack is stated in `front_half`'s own seating planes —
+    the face, the crown or the station each body closes on — and nothing carries which plane a
+    body was closed on out of `seat_body`, so the card has no rule to measure a pose against."""
     by_id = {c.id: c for c in sc.checks}
-    held = sum(1 for _n, _by, h in MOUNTS if h != "none")
+    # A mount row's `kind` is the body's geometry authorship, which the shape table measures —
+    # a joint designed against a placeholder is a joint designed against a guess.
+    prim = {d["component"]: d["primitive"] for d in sc.shapes}
     return {
         "gatesPass": sc.gates_pass,
         "placed": 0,
         "located": _score(by_id["located"]),
-        "shaped": 0,
+        "shaped": _score(by_id["shaped"]),
         "routed": _score(by_id["routed"]),
-        "held": round(100.0 * held / len(MOUNTS)) if MOUNTS else 0,
+        "held": _score(by_id["held"]),
         "mounted": _score(by_id["mounted"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
@@ -768,16 +877,14 @@ def to_dict(sc: Scorecard) -> dict:
              "target": want, "detail": [], "active": False}
             for i, lbl, want in (
                 ("placed", "Every placement stated as a measured rule the card checks",
-                 "a placement rule per body"),
-                ("shaped", "Every body real geometry rather than a placeholder",
-                 "no placeholder solids"),
-                ("held", "Something holds every body", "a holder per body"))
+                 "a placement rule per body"),)
         ],
         "ports": sc.ports,
-        "shapes": [],
+        "shapes": sc.shapes,
         "bends": sc.bends,
-        "mounts": [{"component": n, "by": by, "held": h, "kind": "real"}
-                   for n, by, h in MOUNTS],
+        "mounts": [{"component": n, "by": by, "held": h,
+                    "kind": "placeholder" if prim.get(n) else "real"}
+                   for n, by, h in mounts()],
         "source": _source(),
     }
 

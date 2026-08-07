@@ -1,18 +1,18 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "placed": 0,
  "located": 100,
- "shaped": 0,
- "routed": 45,
- "held": 81,
- "mounted": 4,
+ "shaped": 88,
+ "routed": 46,
+ "held": 92,
+ "mounted": 2,
  "checks": [
   {
    "id": "coverage",
-   "label": "Every body this module seats is declared in the fastening table",
+   "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "27/27 declared",
+   "value": "59/59 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -25,6 +25,75 @@
    "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [],
+   "active": true
+  },
+  {
+   "id": "lines-clear",
+   "label": "No routed tube intersects a body, a piece or another tube",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 clash",
+   "target": "0 clash",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-leads",
+   "label": "Every tube port has the straight a run off it needs",
+   "kind": "gate",
+   "status": "fail",
+   "value": "46/56 clear",
+   "target": "all clear",
+   "detail": [
+    "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to",
+    "valve-v-c.inlet: 15.75 mm to tee-y-a, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-d.inlet: 15.75 mm to tee-y-b, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-e.outlet: 15.75 mm to tee-y-c, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-f.inlet: 15.75 mm to tee-y-d, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-h.outlet: 15.75 mm to tee-y-f, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-i.inlet: 15.75 mm to tee-y-g, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-c.outlet: 17.18 mm to compressor-shroud, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-d.outlet: 17.18 mm to compressor-shroud, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-j.inlet: 17.18 mm to compressor-shroud, needs 28.00 \u2014 no run authored on it yet",
+    "valve-v-g.inlet: 17.67 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet \u2014 and that body is still a placeholder box",
+    "asse1022-assembly.vent-tip: 11.00 mm to drip-pan \u2014 opens to atmosphere, not gated"
+   ],
+   "active": true
+  },
+  {
+   "id": "clearance-floor",
+   "label": "Two bodies the machine does not seat together stand a millimetre apart",
+   "kind": "gate",
+   "status": "fail",
+   "value": "2 under, tightest 0.000 mm",
+   "target": "\u2265 1 mm",
+   "detail": [
+    "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "seaflo-pump \u2014 drip-pan: 0.499 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "compressor-shroud \u2014 condenser+fan: 0.000 mm \u2014 seated against it",
+    "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
+    "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
+    "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
+    "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
+    "compressor-shroud \u2014 foam-assembly: 0.001 mm \u2014 seated against it",
+    "psu \u2014 relay-1: 1.000 mm",
+    "relay-1 \u2014 ac-hub: 1.000 mm",
+    "psu \u2014 ground-stack: 1.000 mm",
+    "water-split \u2014 discharge-chain: 1.150 mm",
+    "foam-assembly \u2014 pcba: 1.723 mm",
+    "psu \u2014 wr1110: 2.499 mm",
+    "seaflo-pump \u2014 wr1110: 2.500 mm",
+    "foam-assembly \u2014 suction-chain: 2.800 mm",
+    "valve-v-a \u2014 foam-assembly: 3.114 mm",
+    "valve-v-b \u2014 foam-assembly: 3.114 mm",
+    "coil-v-b \u2014 flow-regulator: 3.805 mm",
+    "c14-inlet \u2014 bulkhead-carb: 4.295 mm",
+    "psu \u2014 gasher-co2: 4.499 mm",
+    "coil-v-a \u2014 hopper-funnel: 5.065 mm",
+    "coil-v-b \u2014 hopper-funnel: 5.065 mm",
+    "ac-hub \u2014 c14-inlet: 5.149 mm"
+   ],
    "active": true
   },
   {
@@ -65,7 +134,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "1/27 mounted",
+   "value": "1/59 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
@@ -79,6 +148,16 @@
     "bulkhead-flavor-b: held by wall-capture",
     "bulkhead-water: held by wall-capture",
     "co2-inlet: held by wall-capture",
+    "coil-v-a: held by pack",
+    "coil-v-b: held by pack",
+    "coil-v-c: held by pack",
+    "coil-v-d: held by pack",
+    "coil-v-e: held by pack",
+    "coil-v-f: held by pack",
+    "coil-v-g: held by pack",
+    "coil-v-h: held by pack",
+    "coil-v-i: held by pack",
+    "coil-v-j: held by pack",
     "compressor-shroud: held by floor",
     "condenser+fan: held by floor",
     "display: held by wall-capture",
@@ -90,8 +169,30 @@
     "hopper-funnel: held by wall-capture",
     "pcba: held by cap",
     "psu: held by cap",
+    "pump-a-bracket: held by pack",
+    "pump-a-head: held by pack",
+    "pump-a-motor: held by pack",
+    "pump-b-bracket: held by pack",
+    "pump-b-head: held by pack",
+    "pump-b-motor: held by pack",
     "relay-1: held by stack",
     "seaflo-pump: held by cap",
+    "tee-y-a: held by pack",
+    "tee-y-b: held by pack",
+    "tee-y-c: held by pack",
+    "tee-y-d: held by pack",
+    "tee-y-f: held by pack",
+    "tee-y-g: held by pack",
+    "valve-v-a: held by pack",
+    "valve-v-b: held by pack",
+    "valve-v-c: held by pack",
+    "valve-v-d: held by pack",
+    "valve-v-e: held by pack",
+    "valve-v-f: held by pack",
+    "valve-v-g: held by pack",
+    "valve-v-h: held by pack",
+    "valve-v-i: held by pack",
+    "valve-v-j: held by pack",
     "vk-solenoid: held by cap",
     "water-split: held by tube-hung"
    ],
@@ -102,11 +203,11 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "18/40 drawn",
+   "value": "18/39 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 8/27",
+    "fluid: 8/26",
     "refrigerant: 0/3",
     "water: 8/8",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
@@ -120,7 +221,6 @@
     "fluid-11 (fluid): Y-C-3 \u2192 P-B-I",
     "fluid-12 (fluid): P-B-O \u2192 Y-D-1",
     "fluid-13 (fluid): Y-D-2 \u2192 V-F-I",
-    "fluid-15 (fluid): Bag A port \u2192 Y-E-2",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1",
     "fluid-20 (fluid): V-H-O \u2192 Y-F-2",
@@ -145,32 +245,60 @@
    "active": false
   },
   {
-   "id": "placed",
-   "label": "Every placement stated as a measured rule the card checks",
-   "kind": "goal",
-   "status": "warn",
-   "value": "not opened",
-   "target": "a placement rule per body",
-   "detail": [],
-   "active": false
-  },
-  {
    "id": "shaped",
-   "label": "Every body real geometry rather than a placeholder",
+   "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
-   "status": "warn",
-   "value": "not opened",
+   "status": "fail",
+   "value": "52/59 authored",
    "target": "no placeholder solids",
-   "detail": [],
+   "detail": [
+    "pump-a-motor: still a bare primitive, 1 solid",
+    "pump-b-motor: still a bare primitive, 1 solid",
+    "condenser+fan: still a bare box, 1 solid",
+    "pump-a-bracket: still a bare box, 1 solid",
+    "pump-a-head: still a bare box, 1 solid",
+    "pump-b-bracket: still a bare box, 1 solid",
+    "pump-b-head: still a bare box, 1 solid",
+    "compressor-shroud: 1 box holds 5% material",
+    "hopper-funnel: 1 box holds 5% material",
+    "foam-assembly: 5 boxes hold 11% material",
+    "display: 2 boxes hold 18% material",
+    "ground-stack: 1 box holds 18% material",
+    "pcba: 1 box holds 24% material"
+   ],
    "active": false
   },
   {
    "id": "held",
    "label": "Something holds every body",
    "kind": "goal",
+   "status": "fail",
+   "value": "54/59 held",
+   "target": "a holder per body",
+   "detail": [
+    "bosses holds 1: c14-inlet",
+    "cap holds 4: pcba, psu, seaflo-pump, vk-solenoid",
+    "floor holds 3: compressor-shroud, condenser+fan, foam-assembly",
+    "pack holds 32: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-a, valve-v-b, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
+    "rails holds 1: drip-pan",
+    "stack holds 3: ac-hub, ground-stack, relay-1",
+    "tube-hung holds 2: flow-regulator, water-split",
+    "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
+    "asse1022-assembly: nothing holds it at all",
+    "digiten-flow: nothing holds it at all",
+    "discharge-chain: nothing holds it at all",
+    "suction-chain: nothing holds it at all",
+    "wr1110: nothing holds it at all"
+   ],
+   "active": false
+  },
+  {
+   "id": "placed",
+   "label": "Every placement stated as a measured rule the card checks",
+   "kind": "goal",
    "status": "warn",
    "value": "not opened",
-   "target": "a holder per body",
+   "target": "a placement rule per body",
    "detail": [],
    "active": false
   }
@@ -1260,7 +1388,1240 @@
    "note": ""
   }
  ],
- "shapes": [],
+ "shapes": [
+  {
+   "component": "pump-a-motor",
+   "boxes": [
+    [
+     -66.435,
+     13.44,
+     219.244,
+     -30.705,
+     49.17,
+     279.794
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "pump-b-motor",
+   "boxes": [
+    [
+     30.705,
+     13.44,
+     219.244,
+     66.435,
+     49.17,
+     279.794
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "condenser+fan",
+   "boxes": [
+    [
+     38.499,
+     0.0,
+     0.0,
+     94.499,
+     178.0,
+     151.0
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "pump-a-bracket",
+   "boxes": [
+    [
+     -82.87,
+     -0.0,
+     217.244,
+     -14.27,
+     62.61,
+     219.244
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "pump-a-head",
+   "boxes": [
+    [
+     -79.875,
+     -0.0,
+     168.364,
+     -17.265,
+     62.61,
+     217.244
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "pump-b-bracket",
+   "boxes": [
+    [
+     14.27,
+     -0.0,
+     217.244,
+     82.87,
+     62.61,
+     219.244
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "pump-b-head",
+   "boxes": [
+    [
+     17.265,
+     -0.0,
+     168.364,
+     79.875,
+     62.61,
+     217.244
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": true,
+   "declared": null
+  },
+  {
+   "component": "compressor-shroud",
+   "boxes": [
+    [
+     -94.499,
+     0.001,
+     0.0,
+     38.499,
+     177.999,
+     151.499
+    ]
+   ],
+   "fill": 0.0475,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "hopper-funnel",
+   "boxes": [
+    [
+     -86.5,
+     88.56,
+     306.703,
+     86.5,
+     261.56,
+     360.0
+    ]
+   ],
+   "fill": 0.0518,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "foam-assembly",
+   "boxes": [
+    [
+     -90.5,
+     178.0,
+     20.0,
+     90.5,
+     461.0,
+     233.4
+    ],
+    [
+     -90.5,
+     178.0,
+     233.4,
+     90.5,
+     461.0,
+     251.4
+    ],
+    [
+     -90.5,
+     178.0,
+     248.2,
+     90.5,
+     461.0,
+     253.4
+    ],
+    [
+     -90.5,
+     178.0,
+     0.0,
+     90.5,
+     461.0,
+     5.2
+    ],
+    [
+     -90.5,
+     178.0,
+     2.0,
+     90.5,
+     461.0,
+     20.0
+    ]
+   ],
+   "fill": 0.1144,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "display",
+   "boxes": [
+    [
+     -52.5,
+     -0.343,
+     289.118,
+     53.5,
+     60.468,
+     349.929
+    ],
+    [
+     -56.75,
+     -3.172,
+     299.017,
+     56.75,
+     51.983,
+     354.172
+    ]
+   ],
+   "fill": 0.1805,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "ground-stack",
+   "boxes": [
+    [
+     79.899,
+     364.7,
+     306.4,
+     94.499,
+     382.7,
+     324.088
+    ]
+   ],
+   "fill": 0.1821,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "pcba",
+   "boxes": [
+    [
+     75.399,
+     257.184,
+     253.4,
+     94.499,
+     348.0,
+     326.2
+    ]
+   ],
+   "fill": 0.2397,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "tee-y-a",
+   "boxes": [
+    [
+     0.004,
+     135.222,
+     227.678,
+     26.928,
+     148.938,
+     267.81
+    ]
+   ],
+   "fill": 0.2663,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "tee-y-b",
+   "boxes": [
+    [
+     -26.928,
+     135.222,
+     227.678,
+     -0.004,
+     148.938,
+     267.81
+    ]
+   ],
+   "fill": 0.2663,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "tee-y-c",
+   "boxes": [
+    [
+     13.212,
+     62.614,
+     168.678,
+     26.928,
+     89.538,
+     208.81
+    ]
+   ],
+   "fill": 0.2663,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "tee-y-d",
+   "boxes": [
+    [
+     70.212,
+     62.614,
+     168.678,
+     83.928,
+     89.538,
+     208.81
+    ]
+   ],
+   "fill": 0.2663,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "tee-y-f",
+   "boxes": [
+    [
+     -26.928,
+     62.614,
+     168.678,
+     -13.212,
+     89.538,
+     208.81
+    ]
+   ],
+   "fill": 0.2663,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "tee-y-g",
+   "boxes": [
+    [
+     -83.928,
+     62.614,
+     168.678,
+     -70.212,
+     89.538,
+     208.81
+    ]
+   ],
+   "fill": 0.2663,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "c14-inlet",
+   "boxes": [
+    [
+     30.5,
+     443.0,
+     315.425,
+     77.5,
+     481.0,
+     344.575
+    ]
+   ],
+   "fill": 0.3191,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "drip-pan",
+   "boxes": [
+    [
+     -108.499,
+     346.1,
+     262.4,
+     -35.499,
+     442.1,
+     272.4
+    ]
+   ],
+   "fill": 0.3552,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "flow-regulator",
+   "boxes": [
+    [
+     -81.0,
+     176.07,
+     298.039,
+     -40.0,
+     222.07,
+     312.761
+    ]
+   ],
+   "fill": 0.3799,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "seaflo-pump",
+   "boxes": [
+    [
+     -49.0,
+     274.0,
+     253.4,
+     49.0,
+     461.0,
+     325.4
+    ]
+   ],
+   "fill": 0.4131,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "asse1022-assembly",
+   "boxes": [
+    [
+     -81.145,
+     420.71,
+     297.15,
+     -66.855,
+     450.21,
+     313.65
+    ],
+    [
+     -86.835,
+     401.21,
+     294.285,
+     -61.165,
+     431.71,
+     316.515
+    ],
+    [
+     -90.5,
+     349.21,
+     278.4,
+     -57.5,
+     414.21,
+     319.689
+    ],
+    [
+     -82.75,
+     310.21,
+     296.65,
+     -65.25,
+     349.21,
+     314.15
+    ],
+    [
+     -85.0,
+     349.21,
+     295.874,
+     -63.0,
+     363.21,
+     314.926
+    ],
+    [
+     -78.765,
+     377.445,
+     276.4,
+     -69.235,
+     386.975,
+     291.111
+    ]
+   ],
+   "fill": 0.4222,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "relay-1",
+   "boxes": [
+    [
+     75.499,
+     393.0,
+     306.4,
+     94.499,
+     463.0,
+     323.4
+    ]
+   ],
+   "fill": 0.4287,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "vk-solenoid",
+   "boxes": [
+    [
+     47.425,
+     178.5,
+     253.4,
+     81.675,
+     237.5,
+     310.0
+    ]
+   ],
+   "fill": 0.434,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "bulkhead-carb",
+   "boxes": [
+    [
+     4.57,
+     450.21,
+     330.97,
+     27.43,
+     484.5,
+     353.83
+    ]
+   ],
+   "fill": 0.4633,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "bulkhead-flavor-a",
+   "boxes": [
+    [
+     -43.43,
+     450.21,
+     330.97,
+     -20.57,
+     484.5,
+     353.83
+    ]
+   ],
+   "fill": 0.4633,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "bulkhead-flavor-b",
+   "boxes": [
+    [
+     -91.43,
+     450.21,
+     330.97,
+     -68.57,
+     484.5,
+     353.83
+    ]
+   ],
+   "fill": 0.4633,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "bulkhead-water",
+   "boxes": [
+    [
+     -85.43,
+     450.21,
+     293.97,
+     -62.57,
+     484.5,
+     316.83
+    ]
+   ],
+   "fill": 0.4633,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-a",
+   "boxes": [
+    [
+     2.945,
+     184.08,
+     256.514,
+     37.195,
+     243.08,
+     287.114
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-b",
+   "boxes": [
+    [
+     -37.195,
+     184.08,
+     256.514,
+     -2.945,
+     243.08,
+     287.114
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-c",
+   "boxes": [
+    [
+     2.945,
+     122.78,
+     168.674,
+     37.195,
+     153.38,
+     227.674
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-d",
+   "boxes": [
+    [
+     -37.195,
+     122.78,
+     168.674,
+     -2.945,
+     153.38,
+     227.674
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-e",
+   "boxes": [
+    [
+     2.945,
+     71.38,
+     208.814,
+     37.195,
+     101.98,
+     267.814
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-f",
+   "boxes": [
+    [
+     59.945,
+     71.38,
+     208.814,
+     94.195,
+     101.98,
+     267.814
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-g",
+   "boxes": [
+    [
+     59.945,
+     122.78,
+     168.674,
+     94.195,
+     153.38,
+     227.674
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-h",
+   "boxes": [
+    [
+     -37.195,
+     71.38,
+     208.814,
+     -2.945,
+     101.98,
+     267.814
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-i",
+   "boxes": [
+    [
+     -94.195,
+     71.38,
+     208.814,
+     -59.945,
+     101.98,
+     267.814
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "valve-v-j",
+   "boxes": [
+    [
+     -94.195,
+     122.78,
+     168.674,
+     -59.945,
+     153.38,
+     227.674
+    ]
+   ],
+   "fill": 0.4749,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "suction-chain",
+   "boxes": [
+    [
+     56.05,
+     252.5,
+     256.2,
+     73.05,
+     306.9,
+     273.2
+    ]
+   ],
+   "fill": 0.5209,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "water-split",
+   "boxes": [
+    [
+     -81.0,
+     246.07,
+     285.33,
+     -67.0,
+     286.21,
+     312.4
+    ]
+   ],
+   "fill": 0.5603,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "discharge-chain",
+   "boxes": [
+    [
+     -66.0,
+     223.5,
+     276.9,
+     -49.0,
+     306.9,
+     293.9
+    ]
+   ],
+   "fill": 0.5954,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "co2-inlet",
+   "boxes": [
+    [
+     39.75,
+     467.0,
+     282.0,
+     56.25,
+     494.0,
+     298.0
+    ]
+   ],
+   "fill": 0.6693,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "gasher-co2",
+   "boxes": [
+    [
+     39.5,
+     427.0,
+     282.25,
+     56.5,
+     467.0,
+     297.75
+    ]
+   ],
+   "fill": 0.6713,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "ac-hub",
+   "boxes": [
+    [
+     72.899,
+     439.05,
+     329.55,
+     91.499,
+     457.85,
+     337.95
+    ],
+    [
+     72.899,
+     388.85,
+     329.55,
+     91.499,
+     407.65,
+     337.95
+    ],
+    [
+     82.199,
+     383.7,
+     324.4,
+     94.499,
+     463.0,
+     343.1
+    ],
+    [
+     72.899,
+     413.95,
+     329.55,
+     91.499,
+     432.75,
+     337.95
+    ]
+   ],
+   "fill": 0.694,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wr1110",
+   "boxes": [
+    [
+     37.5,
+     360.0,
+     280.5,
+     58.5,
+     417.0,
+     299.5
+    ]
+   ],
+   "fill": 0.7144,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "digiten-flow",
+   "boxes": [
+    [
+     29.0,
+     392.21,
+     338.4,
+     32.0,
+     400.21,
+     346.4
+    ],
+    [
+     10.0,
+     366.21,
+     336.4,
+     22.0,
+     396.21,
+     348.4
+    ],
+    [
+     3.0,
+     383.21,
+     331.4,
+     29.0,
+     409.21,
+     353.4
+    ],
+    [
+     10.0,
+     396.21,
+     336.4,
+     22.0,
+     426.21,
+     348.4
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "psu",
+   "boxes": [
+    [
+     60.999,
+     354.0,
+     253.4,
+     94.499,
+     463.0,
+     305.4
+    ]
+   ],
+   "fill": 0.8199,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-a",
+   "boxes": [
+    [
+     3.945,
+     201.58,
+     287.114,
+     36.195,
+     225.58,
+     313.114
+    ],
+    [
+     21.92,
+     186.58,
+     306.114,
+     28.22,
+     201.58,
+     306.914
+    ],
+    [
+     11.92,
+     186.58,
+     306.114,
+     18.22,
+     201.58,
+     306.914
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-b",
+   "boxes": [
+    [
+     -36.195,
+     201.58,
+     287.114,
+     -3.945,
+     225.58,
+     313.114
+    ],
+    [
+     -18.22,
+     186.58,
+     306.114,
+     -11.92,
+     201.58,
+     306.914
+    ],
+    [
+     -28.22,
+     186.58,
+     306.114,
+     -21.92,
+     201.58,
+     306.914
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-c",
+   "boxes": [
+    [
+     3.945,
+     96.78,
+     186.174,
+     36.195,
+     122.78,
+     210.174
+    ],
+    [
+     21.92,
+     102.98,
+     171.174,
+     28.22,
+     103.78,
+     186.174
+    ],
+    [
+     11.92,
+     102.98,
+     171.174,
+     18.22,
+     103.78,
+     186.174
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-d",
+   "boxes": [
+    [
+     -36.195,
+     96.78,
+     186.174,
+     -3.945,
+     122.78,
+     210.174
+    ],
+    [
+     -18.22,
+     102.98,
+     171.174,
+     -11.92,
+     103.78,
+     186.174
+    ],
+    [
+     -28.22,
+     102.98,
+     171.174,
+     -21.92,
+     103.78,
+     186.174
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-e",
+   "boxes": [
+    [
+     3.945,
+     101.98,
+     226.314,
+     36.195,
+     127.98,
+     250.314
+    ],
+    [
+     11.92,
+     120.98,
+     211.314,
+     18.22,
+     121.78,
+     226.314
+    ],
+    [
+     21.92,
+     120.98,
+     211.314,
+     28.22,
+     121.78,
+     226.314
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-f",
+   "boxes": [
+    [
+     60.945,
+     101.98,
+     226.314,
+     93.195,
+     127.98,
+     250.314
+    ],
+    [
+     78.92,
+     120.98,
+     250.314,
+     85.22,
+     121.78,
+     265.314
+    ],
+    [
+     68.92,
+     120.98,
+     250.314,
+     75.22,
+     121.78,
+     265.314
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-g",
+   "boxes": [
+    [
+     60.945,
+     96.78,
+     186.174,
+     93.195,
+     122.78,
+     210.174
+    ],
+    [
+     68.92,
+     102.98,
+     210.174,
+     75.22,
+     103.78,
+     225.174
+    ],
+    [
+     78.92,
+     102.98,
+     210.174,
+     85.22,
+     103.78,
+     225.174
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-h",
+   "boxes": [
+    [
+     -36.195,
+     101.98,
+     226.314,
+     -3.945,
+     127.98,
+     250.314
+    ],
+    [
+     -28.22,
+     120.98,
+     211.314,
+     -21.92,
+     121.78,
+     226.314
+    ],
+    [
+     -18.22,
+     120.98,
+     211.314,
+     -11.92,
+     121.78,
+     226.314
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-i",
+   "boxes": [
+    [
+     -93.195,
+     101.98,
+     226.314,
+     -60.945,
+     127.98,
+     250.314
+    ],
+    [
+     -75.22,
+     120.98,
+     250.314,
+     -68.92,
+     121.78,
+     265.314
+    ],
+    [
+     -85.22,
+     120.98,
+     250.314,
+     -78.92,
+     121.78,
+     265.314
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "coil-v-j",
+   "boxes": [
+    [
+     -93.195,
+     96.78,
+     186.174,
+     -60.945,
+     122.78,
+     210.174
+    ],
+    [
+     -85.22,
+     102.98,
+     210.174,
+     -78.92,
+     103.78,
+     225.174
+    ],
+    [
+     -75.22,
+     102.98,
+     210.174,
+     -68.92,
+     103.78,
+     225.174
+    ]
+   ],
+   "fill": 1.0,
+   "primitive": false,
+   "declared": null
+  }
+ ],
  "bends": [
   {
    "id": "co2-2",
@@ -2265,7 +3626,7 @@
    "component": "condenser+fan",
    "by": null,
    "held": "floor",
-   "kind": "real"
+   "kind": "placeholder"
   },
   {
    "component": "foam-assembly",
@@ -2416,11 +3777,203 @@
    "by": null,
    "held": "none",
    "kind": "real"
+  },
+  {
+   "component": "coil-v-a",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-b",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-c",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-d",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-e",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-f",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-g",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-h",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-i",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "coil-v-j",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "pump-a-bracket",
+   "by": null,
+   "held": "pack",
+   "kind": "placeholder"
+  },
+  {
+   "component": "pump-a-head",
+   "by": null,
+   "held": "pack",
+   "kind": "placeholder"
+  },
+  {
+   "component": "pump-a-motor",
+   "by": null,
+   "held": "pack",
+   "kind": "placeholder"
+  },
+  {
+   "component": "pump-b-bracket",
+   "by": null,
+   "held": "pack",
+   "kind": "placeholder"
+  },
+  {
+   "component": "pump-b-head",
+   "by": null,
+   "held": "pack",
+   "kind": "placeholder"
+  },
+  {
+   "component": "pump-b-motor",
+   "by": null,
+   "held": "pack",
+   "kind": "placeholder"
+  },
+  {
+   "component": "tee-y-a",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "tee-y-b",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "tee-y-c",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "tee-y-d",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "tee-y-f",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "tee-y-g",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-a",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-b",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-c",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-d",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-e",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-f",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-g",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-h",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-i",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
+  },
+  {
+   "component": "valve-v-j",
+   "by": null,
+   "held": "pack",
+   "kind": "real"
   }
  ],
  "source": {
-  "generated": "2026-08-07T20:51:43+00:00",
-  "commit": "d61fc405c0fcbca41d3f63f04dc5cf4f08ce3539",
+  "generated": "2026-08-07T22:05:02+00:00",
+  "commit": "6d38f64a024e71433d813c972080a88294494279",
   "inputs": {}
  }
 }
