@@ -126,8 +126,8 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
-| Cold-core inner shell (foam-shell) | 1 | PETG | 1.325 | $14.84 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.179 | $2.01 <!--@printed--> |
+| Cold-core inner shell (foam-shell) | 1 | PETG | 1.325 | $14.83 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.180 | $2.02 <!--@printed--> |
 | Cold-core foam cap lid — top | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.169 | $1.89 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.130 | $1.45 <!--@printed--> |

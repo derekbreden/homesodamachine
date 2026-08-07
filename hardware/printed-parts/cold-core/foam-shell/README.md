@@ -326,7 +326,7 @@ rather than a grid.
 Three round bores, one per line that crosses this wall and does not use the slot,
 stacked up the lane on one Y at a pitch of one bore plus one wall:
 
-[reservoir-a 6.75, reed-cable-a 14.75, reed-cable-b 22.75](FIELD_Z)
+[reed-cable-a 6.75, reed-cable-b 14.75](FIELD_Z)
 
 A station's Z is **not** the height of the fitting it serves. A line leaves its
 fitting, turns onto the lane and climbs it, so the field is ordered by what leaves
@@ -379,13 +379,13 @@ Pass-through Z heights (centers, absolute in the model — the floor occupies
 z = 0 to z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the
 cavity floor):
 
-[evaporator inlet 35.75, evaporator outlet 43.75, PRV vent 51.75](SLOT_Z)
+[evaporator inlet 27.75, evaporator outlet 35.75, PRV vent 43.75](SLOT_Z)
 
 The four continue the front port field at its own pitch rather than each crossing
 where its own fitting sits: the evaporator's cold tail climbs the lane to reach the
 slot, its warm tail and the two lines off the tank's top band drop it. So the whole
 of the shell's front face — field and slot together — is one column in the bottom
-[51.75 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
+[43.75 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
 packed against this face reach every port in one band. `copper_plugs.py` derives
 them.
 
@@ -394,9 +394,9 @@ above to seal the gaps between (and above) the three pass-throughs:
 
 | Plug | Z span (mm) | Z end arches |
 |---|---|---|
-| `copper-plug-lower` | [35.75 → 43.75](PLUG_SPAN_LOWER) | both ends |
-| `copper-plug-middle` | [43.75 → 51.75](PLUG_SPAN_MIDDLE) | both ends |
-| `copper-plug-top` | [51.75 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
+| `copper-plug-lower` | [27.75 → 35.75](PLUG_SPAN_LOWER) | both ends |
+| `copper-plug-middle` | [35.75 → 43.75](PLUG_SPAN_MIDDLE) | both ends |
+| `copper-plug-top` | [43.75 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
 
 The spans meet end-to-end **at the pass-through centers**: each plug
 runs from one tube's center to the next, and the arch cutout at each
@@ -590,11 +590,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1042976.532 mm³](FSHELL_VOLUME) |
+| volume | [1042938.752 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.346744, 0.640643, 87.678598) mm](CENTROID) |
+| centroid | [(0.351844, 0.643474, 87.680480) mm](CENTROID) |
 
 Quick reproduction:
 

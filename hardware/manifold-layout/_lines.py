@@ -85,6 +85,7 @@ STATIONS = {
     # outer face. A line reaching one arrives at the deck, not at a body face.
     "foam-assembly": {"water-in": (lambda: _fh_cap("water-in"), _split.TUBE_D),
                       "carb-water-out": (lambda: _fh_cap("carb-water-out"), _split.TUBE_D),
+                      "reservoir-a": (lambda: _fh_cap("reservoir-a"), _split.TUBE_D),
                       "reservoir-b": (lambda: _fh_cap("reservoir-b"), _split.TUBE_D),
                       "reservoir-b-fill": (lambda: _fh_cap("reservoir-b-fill"), _split.TUBE_D),
                       "co2-in": (lambda: _fh_cap("co2-in"), _split.TUBE_D)},
@@ -117,6 +118,15 @@ STATIONS = {
     "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
 }
+
+# The two reservoir junctions. Each is a Tee whose run joins its reservoir's fill and draw valves
+# and whose third port is left open for the line that reaches the reservoir itself —
+# `manifold_layout.MOUTHS` names them Y-E-2 and Y-H-2, and the fold calls that collet `back`.
+# Both face AFT, at the outboard columns over the two nozzle gates.
+for _t in ("Y-E", "Y-H"):
+    STATIONS[f"tee-{_t.lower()}"] = {
+        f"{_t}-2": ((lambda t=_t: (_ml.port(t, "back"), _ml.port_axis(t, "back"))),
+                    _split.TUBE_D)}
 
 # The three unions the machine dispenses through, all on one row of the back wall. Each carries
 # the same two mouths the tap-water union does, under the names the topology gives them: the
@@ -208,6 +218,10 @@ def build_runs(placed, carries):
         runs.append(_fluid_28(F, placed))
     if {"valve-v-g", "bulkhead-flavor-a"} <= set(F) and "stub-fluid-15" in placed:
         runs.append(_fluid_18(F, placed))
+    if {"tee-y-h", "foam-assembly"} <= set(F):
+        runs.append(_fluid_25(F))
+    if {"tee-y-e", "foam-assembly"} <= set(F):
+        runs.append(_fluid_15(F))
     return runs
 
 
@@ -600,6 +614,57 @@ def _fluid_18(F, solids):
              "lane, one lean onto the panel deck and west across it")
 
 
+# --- the two reservoir lines, off the junctions and down onto the cap ------
+#
+# Each leaves its junction's open mouth facing aft over its own nozzle gate, and each ends on a
+# bore up a column of the cold core's cap. THREE LEGS AND NO TYPED COORDINATE: the run goes aft
+# on the mouth's own axis until it is over the bore's depth, inboard onto the bore's own column,
+# and straight down into it. Every waypoint is a component of one of the two mouths, so the pair
+# rides a move of either.
+
+def _reservoir_line(F, cid: str, tee: str, mouth_port: str, bore_port: str, note: str):
+    """One junction's open mouth to the cap conduit its reservoir is reached through."""
+    mouth = F[tee].at(mouth_port)
+    bore = F["foam-assembly"].at(bore_port)
+    return R.bent(
+        cid, f"{tee}.{mouth_port}",
+        (mouth[0], bore[1], mouth[2]),      # aft on the mouth's own axis, onto the bore's depth
+        (bore[0], bore[1], mouth[2]),       # inboard onto the bore's own column
+        f"foam-assembly.{bore_port}",       # and straight down into it
+        kind="fluid", lead=(TUBE_BEND, TUBE_BEND),
+        skew=(R.COLLET_SKEW, CAP_BORE_SKEW), note=note)
+
+
+def _fluid_25(F):
+    """fluid-25 — reservoir B's junction to the draw conduit on the cold core's cap.
+
+    The strip it crosses is the one the tap water already uses: `water-5` descends into the
+    `water-in` bore one column west of this one, and `fluid-2` runs the same strip a storey
+    above. This line holds the mouth's OWN plane the whole way across, between the two, and
+    drops only once it is on the bore's column."""
+    return _reservoir_line(
+        F, "fluid-25", "tee-y-h", "Y-H-2", "reservoir-b",
+        "reservoir B: Y-H-2 → the draw conduit on the cap, aft on the mouth's own plane, "
+        "east onto the bore's column and down")
+
+
+def _fluid_15(F):
+    """fluid-15 — reservoir A's junction to its conduit on the cold core's cap.
+
+    `fluid-25` read across the machine. Where reservoir B carries two mouths and reaches each
+    of its pair's valves directly, reservoir A's fill and draw meet at Y-E before the shell —
+    so ONE line leaves this junction and one bore carries it, and the cap column it climbs is
+    reservoir B's own read across the mirror plane.
+
+    The slot it drops through is the one the source valves and V-K leave between them, and it
+    is the bore's own column: the run holds the mouth's plane west until it is over that slot,
+    and only then descends."""
+    return _reservoir_line(
+        F, "fluid-15", "tee-y-e", "Y-E-2", "reservoir-a",
+        "reservoir A: Y-E-2 → its conduit on the cap, aft on the mouth's own plane, "
+        "west onto the bore's column and down")
+
+
 def authored() -> frozenset:
     """The connection ids this module draws a run for, without building one. `front_half` reads
     it before the pack is assembled, to know which of the manifold's placeholder mouth stubs a
@@ -610,7 +675,8 @@ def authored() -> frozenset:
 # The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
-             "co2-1", "co2-2", "fluid-2", "carb-1", "carb-2", "fluid-28", "fluid-18")
+             "co2-1", "co2-2", "fluid-2", "carb-1", "carb-2", "fluid-28", "fluid-18",
+             "fluid-25", "fluid-15")
 
 
 def tubes(runs):
