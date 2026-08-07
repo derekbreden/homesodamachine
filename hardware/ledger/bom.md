@@ -140,7 +140,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 2.064 | $23.12 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 2.100 | $23.52 <!--@printed--> |
-| Drip pan | 1 | PETG | 0.032 | $0.35 <!--@printed--> |
+| Drip pan | 1 | PETG | 0.031 | $0.35 <!--@printed--> |
 | Valve tray — two-valve (5 off) | 5 | PETG | 0.147 | $1.65 <!--@printed--> |
 | Valve tray — single-valve (1 off) | 1 | PETG | 0.016 | $0.18 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |

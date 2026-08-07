@@ -10,10 +10,10 @@ One part prints here: the **basin**.
 | | basin |
 |---|---|
 | type | printed PETG, open-top watertight |
-| outer | [53](PAN_LEN) × [76](PAN_DEPTH) × [10](PAN_HEIGHT) mm at the walls |
-| over the rim | [73](PAN_RIM_LEN) × [96](PAN_RIM_DEPTH) mm at the flange |
+| outer | [52](PAN_LEN) × [76](PAN_DEPTH) × [10](PAN_HEIGHT) mm at the walls |
+| over the rim | [72](PAN_RIM_LEN) × [96](PAN_RIM_DEPTH) mm at the flange |
 | section | [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR) mm floor |
-| capacity | [23.9](PAN_CAPACITY) mL to the rim |
+| capacity | [23.4](PAN_CAPACITY) mL to the rim |
 
 One plan outline at r[6](PAN_CORNER_R), and everything is that outline at its own
 offset — floor slab and walls on the outline itself, the flange on the outline
