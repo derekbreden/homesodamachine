@@ -62,6 +62,8 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
+           _hw / "reference" / "teyleten-relay",
+           _hw / "reference" / "ground-ring-stack",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -75,6 +77,9 @@ import waveshare_43b_display as _disp                 # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
+RELAY_STEP = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
+AC_HUB_STEP = _hw / "printed-parts" / "electronics" / "ac-hub" / "ac-hub-assembly.step"
+GND_STACK_STEP = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -111,6 +116,9 @@ C_HOSE = cq.Color(0.35, 0.55, 0.85)
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
 C_PSU = cq.Color(0.20, 0.20, 0.24)
 C_PCBA = cq.Color(0.15, 0.45, 0.25)
+C_RELAY = cq.Color(0.15, 0.35, 0.65)
+C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
+C_GND = cq.Color(0.55, 0.55, 0.58)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -257,7 +265,8 @@ def build_suction_chain(seaflo, suction):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain", "display", "psu", "pcba")
+              "hopper-funnel", "suction-chain", "display", "psu", "pcba",
+              "relay-1", "ac-hub", "ground-stack")
 
 
 def _manifold(name):
@@ -323,6 +332,38 @@ def build_pcba(foam, psu, wall_seat):
     cap. What holds it is the pcba-tray, which is not placed — this is the board's envelope."""
     return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN,
                      x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=box(foam).zmax)
+
+
+# The rest of the power block, stacked on the brick's crown in one column: the relay, the AC
+# hub over it, the ground stud over that. Each takes the same wall seat as its east face, so the
+# whole column stands clear of every post, pod and plug the Y seam puts in that band, and each
+# stands on the one below with a clearance floor between them.
+#
+# Each turn lays the body's own long axis fore and aft down the flank and its board or wells
+# facing INBOARD — the face a screwdriver reaches, and the face a boss would land on.
+RELAY_TURN = (((0.0, 0.0, 1.0), 270.0), ((0.0, 1.0, 0.0), 270.0))
+AC_HUB_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 270.0))
+STACK_CLEAR = 1.0
+
+
+def build_stack(psu, wall_seat):
+    """The three bodies over the brick, each on the crown of the one below, as
+    `[(name, solid, colour)]`.
+
+    They stack aft-flush with the brick. The hub's aft face wants the C14 receptacle's, which is
+    the one body on this flank that comes inboard at this height — it is a back-panel body and it
+    is not placed, so the brick is what they line up on until it is."""
+    aft = box(psu).ymax
+    out, floor = [], box(psu).zmax
+    for name, step, turn, colour in (
+            ("relay-1", RELAY_STEP, RELAY_TURN, C_RELAY),
+            ("ac-hub", AC_HUB_STEP, AC_HUB_TURN, C_AC_HUB),
+            ("ground-stack", GND_STACK_STEP, RELAY_TURN, C_GND)):
+        solid, _carry = seat_body(cq.importers.importStep(str(step)).val(), turn,
+                                  x1=wall_seat, y1=aft, z0=floor + STACK_CLEAR)
+        out.append((name, solid, colour))
+        floor = box(solid).zmax
+    return out
 
 
 def _whole(bodies):
@@ -398,6 +439,8 @@ def build_pack() -> cq.Assembly:
     a.add(psu, name="psu", color=C_PSU)
     pcba, _pcba_carry = build_pcba(foam, psu, wall_seat)
     a.add(pcba, name="pcba", color=C_PCBA)
+    for name, solid, colour in build_stack(psu, wall_seat):
+        a.add(solid, name=name, color=colour)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -553,8 +596,9 @@ def report(a: cq.Assembly) -> None:
         line("display", box(named["display"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
-    if "pcba" in named:
-        line("pcba", box(named["pcba"]))
+    for n in ("pcba", "relay-1", "ac-hub", "ground-stack"):
+        if n in named:
+            line(n, box(named[n]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
