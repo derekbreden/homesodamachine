@@ -124,6 +124,7 @@ C_RELAY = cq.Color(0.15, 0.35, 0.65)
 C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
 C_GND = cq.Color(0.55, 0.55, 0.58)
 C_ASSE = cq.Color(0.85, 0.78, 0.45)
+C_PAN = cq.Color(0.62, 0.66, 0.72)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -140,11 +141,12 @@ def sit(shape, *, cx=None, y0=None, y1=None, z0=None, dz=None):
     return shape.translate(_shift(box(shape), cx=cx, y0=y0, y1=y1, z0=z0, dz=dz))
 
 
-def _shift(b, *, cx=None, x0=None, x1=None, y0=None, y1=None, z0=None, dz=None):
+def _shift(b, *, cx=None, x0=None, x1=None, cy=None, y0=None, y1=None, z0=None, dz=None):
     return cq.Vector(
         (0.0 if cx is None else cx - (b.xmin + b.xmax) / 2.0)
         + (0.0 if x0 is None else x0 - b.xmin) + (0.0 if x1 is None else x1 - b.xmax),
-        (0.0 if y0 is None else y0 - b.ymin) + (0.0 if y1 is None else y1 - b.ymax),
+        (0.0 if cy is None else cy - (b.ymin + b.ymax) / 2.0)
+        + (0.0 if y0 is None else y0 - b.ymin) + (0.0 if y1 is None else y1 - b.ymax),
         (0.0 if z0 is None else z0 - b.zmin) + (dz or 0.0))
 
 
@@ -271,7 +273,7 @@ def build_suction_chain(seaflo, suction):
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
-              "relay-1", "ac-hub", "ground-stack", "asse1022-assembly")
+              "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan")
 
 
 def _manifold(name):
@@ -295,6 +297,12 @@ _ROUTED: set = set()
 
 def east_wall_seat(*floor_bodies):
     return max(box(s).xmax for s in floor_bodies)
+
+
+def west_interior_face(*floor_bodies):
+    """The −X wall's own inner face. `enclosure._dims` strikes it one `side_rib_inset` outboard
+    of the westmost body on the floor, so it is knowable from the pack alone."""
+    return min(box(s).xmin for s in floor_bodies) - _enc.side_rib_inset
 
 
 # The brick lies on its side against that wall: a quarter about Y stands its 52 mm width up as
@@ -388,9 +396,24 @@ ASSE1022_YAW = -90.0
 # What the chain stands off the rear seam — room for the bulkhead it is fed from and for
 # `water-1` to turn out of it. The bulkhead is a back-panel body and is not placed.
 ASSE_REAR_CLEAR = 20.0
+# THE PUMP'S WIDTH IS ITS BRACKET'S, AND ONLY FOR THE 8 mm THE BRACKET IS TALL. The splayed
+# feet reach x ±49 from the cap up to `seaflo_22_pump.FOOT_T`; above that the casting's own west
+# face stands at −28 aft of the motor's mid-length and −40 at its widest. So the lane west of the
+# pump is 59.5 mm wide at the feet and 80.5 mm wide over them, and the basin — 73 over its rim,
+# `PAN_X` struck off the moisture plate and ten of flange each way for the fingertip that draws
+# the tray out — fits the second and not the first.
+#
+# So the chain and its basin RIDE OVER THE FEET rather than standing beside them. Both floors
+# come off this one plane.
+FOOT_CLEAR = 1.0
 
 
-def build_asse(foam):
+def pan_floor(foam, seaflo):
+    """The Z the basin's own floor stands at: one clearance over the pump's bracket."""
+    return max(box(foam).zmax, box(seaflo).zmin + _lines._pump.FOOT_T) + FOOT_CLEAR
+
+
+def build_asse(foam, seaflo):
     """The ASSE 1022 chain in the west lane, high enough over the cold core's cap that the drip
     pan stands under its vent.
 
@@ -400,17 +423,40 @@ def build_asse(foam):
     and a change to either number moves both bodies together.
 
     Its X hugs the cold core's west face, leaving the rest of the lane between it and the pump.
-    Its Y stands the inlet `ASSE_REAR_CLEAR` ahead of the rear seam's standoff.
+    Its Y stands the inlet `ASSE_REAR_CLEAR` ahead of the rear seam's standoff, which puts the
+    vent aft of the bracket's own forward edge — the band where the lane is at its widest.
 
     What holds it is the wall clamps, which are a top-wall feature and an open item."""
-    b = box(foam)
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
     return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),),
-                     x0=b.xmin,
+                     x0=box(foam).xmin,
                      y1=_enc.rear_plane_y - _enc.rear_seam_clear - ASSE_REAR_CLEAR,
-                     z0=b.zmax + _pan.PAN_Z + _pan.VENT_GAP)
+                     z0=pan_floor(foam, seaflo) + _pan.PAN_Z + _pan.VENT_GAP)
+
+
+def build_pan(foam, seaflo, asse_carry, west_face):
+    """The catch basin under the atmospheric vent, standing on the cold core's cap.
+
+    THE VENT IS THE DATUM in both plan axes: the drip leaves the stub's tip and falls straight
+    down, so the tip has to stand over the basin's inner floor and not merely over its rim.
+    `drip_pan.check_plate` is what fixes the basin's size — the moisture plate lying flat in it
+    sets the floor, and the rim flange adds the fingertip lip the tray is drawn out by.
+
+    IN X THE WALL BOUNDS IT AND THE VENT DOES NOT. Centred on the tip the rim flange stands
+    2 mm inside the −X wall, so the basin sits with its flange ON that wall's inner face and the
+    tip lands 2 mm off the floor's own centre — which is 2 mm of a ±22 mm floor, and the drip
+    still falls well inside the coves. Drawing the tray out wants a slot through that wall; the
+    slot is a wall port and the pack carries none yet.
+
+    Z is `pan_floor` — one clearance over the pump's bracket, not on the cap — with the rim one
+    `PAN_Z` up and the chain's underside one `VENT_GAP` over that. `build_asse` stands the chain
+    on the same three numbers, so the drip falls exactly the gap the basin was drawn for."""
+    tip = asse_carry(_asse.port("vent-tip"))[0]
+    pan = _pan.build()
+    pan = pan.val() if hasattr(pan, "val") else pan
+    return seat_body(pan, (), x0=west_face, cy=tip[1], z0=pan_floor(foam, seaflo))
 
 
 def _whole(bodies):
@@ -488,8 +534,10 @@ def build_pack() -> cq.Assembly:
     a.add(pcba, name="pcba", color=C_PCBA)
     for name, solid, colour in build_stack(psu, wall_seat):
         a.add(solid, name=name, color=colour)
-    asse, asse_carry = build_asse(foam)
+    asse, asse_carry = build_asse(foam, seaflo)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
+    pan, _pan_carry = build_pan(foam, seaflo, asse_carry, west_interior_face(shroud, cond))
+    a.add(pan, name="drip-pan", color=C_PAN)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -645,7 +693,7 @@ def report(a: cq.Assembly) -> None:
         line("display", box(named["display"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
-    for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly"):
+    for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan"):
         if n in named:
             line(n, box(named[n]))
     walls = None
