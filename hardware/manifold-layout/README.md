@@ -24,14 +24,14 @@ about the hinge the four barb tees' front collets stand on.
 | [8](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | [2](ELBOW_COUNT) × elbow | John Guest PP0308E ([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)) — [19.56](ELBOW_LEG) mm from bend corner to each collet face. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [2](TUBE_COUNT2) × tube | 1/4" OD LLDPE, both straight. |
+| [6](TUBE_COUNT2) × tube | 1/4" OD LLDPE, both straight. |
 
 ## Frame
 
 X is width, mirrored about x = 0 — channel A (pump B) west, channel B (pump A) east. Y is
 depth; the two nozzle mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
 height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
-[82.68](DECK_Z) and [142.08](UPPER_Z).
+[91.67](DECK_Z) and [151.07](UPPER_Z).
 
 ## Four limbs, folded in two
 
@@ -44,17 +44,17 @@ draws the leaning tube each barb then needs to reach its tee.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
-    A2   x [-77.07](LIMB_OUT_XW)          V-G | Y-D · V-F · Y-E
+    A2   x [-72.38](LIMB_OUT_XW)          V-G | Y-D · V-F · Y-E
     A1   x [-20.07](LIMB_IN_XW)    V-A · Y-A · V-C | Y-C · V-E
     ─────────────────────────────────────────────────────────  mirror plane
     B1   x [+20.07](LIMB_IN_XE)    V-B · Y-B · V-D | Y-F · V-H
-    B2   x [+77.07](LIMB_OUT_XE)          V-J | Y-G · V-I · Y-H
+    B2   x [+72.38](LIMB_OUT_XE)          V-J | Y-G · V-I · Y-H
                             ↓
                           back   (every mouth)
 ```
 
-The lower deck's port axes sit at z [82.68](DECK_Z2), [8.77](DECK_GAP) mm over the pump heads'
-crowns; the folded deck's at z [142.08](UPPER_Z2). The two inner limbs leave
+The lower deck's port axes sit at z [91.67](DECK_Z2), [17.76](DECK_GAP) mm over the pump heads'
+crowns; the folded deck's at z [151.07](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
 ## The fold
@@ -89,7 +89,7 @@ transform per deck and a mirrored pair still faces itself.
 |---|---|
 | fluid-3, fluid-5 | V-A and V-B off Y-A and Y-B, up on the folded deck — the two source valves come off the deck's own plane and lie along +Z, then STEP once more (below) |
 | fluid-14, fluid-24 | Y-E and Y-H off the fill gates, so each reservoir junction lies along +Z with its own line leaving that way |
-| fluid-16, fluid-26 | the draw gates' elbows, which come round with their tees, so the crossing between them keeps its [17.38](F16_LEN2) mm and its skew exactly |
+| fluid-16, fluid-26 | the draw gates' elbows, which come round with their tees, so the crossing between them keeps its [12.69](F16_LEN2) mm and its skew exactly |
 
 ### The source valves' step
 
@@ -112,15 +112,15 @@ inner limbs' own axes, one valve forward of the selects they feed, with their br
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **Y-E and
 Y-H** stand at the far end of the outer limbs behind the fill gates, each carrying its
 reservoir's line out the back on its run and crossing the pump on its branch to the draw gate:
-[17.38](F16_LEN) mm of tube onto an elbow that turns that collet, [1.7](JOIN_SKEW)° off axis.
+[12.69](F16_LEN) mm of tube onto an elbow that turns that collet, [2.3](JOIN_SKEW)° off axis.
 
 Mirror-checked: [10](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF) mm.
 
 ## How each connection is made
 
-[15](BUTT_COUNT) of the [21](SEGMENT_COUNT) segments the topology names between these bodies
+[11](BUTT_COUNT) of the [21](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-[2](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
+[6](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
 turns and [6](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
 [18](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
@@ -130,16 +130,16 @@ V-J-O (nozzle B) on the upper deck; Y-E-2 (reservoir A) and Y-H-2 (reservoir B) 
 
 ## Envelope
 
-[188](ENV_X) × [162](ENV_Y) × [243](ENV_Z) mm — [7.40](ENV_L) L of bounding box over the
+[179](ENV_X) × [162](ENV_Y) × [252](ENV_Z) mm — [7.29](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [162](REACH_Y) × [257](REACH_Z).
+[179](REACH_X) × [162](REACH_Y) × [266](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
 `BARB_STANDOFF` is the climb given to a barb over and above what `LIMB_PITCH` demands, and it
 is 0 as well; a barb is not a quick-connect, so that one is a modelling convenience, and z
-[82.68](DECK_Z2) rides on it one millimetre for one.
+[91.67](DECK_Z2) rides on it one millimetre for one.
 
 ![front](manifold-layout.front.png)
 
