@@ -87,9 +87,25 @@ transform per deck and a mirrored pair still faces itself.
 
 | | |
 |---|---|
-| fluid-3, fluid-5 | V-A and V-B off Y-A and Y-B, up on the folded deck — the two source valves come off the deck's own plane and lie along +Z |
+| fluid-3, fluid-5 | V-A and V-B off Y-A and Y-B, up on the folded deck — the two source valves come off the deck's own plane and lie along +Z, then STEP once more (below) |
 | fluid-14, fluid-24 | Y-E and Y-H off the fill gates, so each reservoir junction lies along +Z with its own line leaving that way |
 | fluid-16, fluid-26 | the draw gates' elbows, which come round with their tees, so the crossing between them keeps its [17.38](F16_LEN2) mm and its skew exactly |
+
+### The source valves' step
+
+Once they are round, V-A and V-B go [28](STEP_TRAVEL) mm further along their run and
+[14](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
+of one radius with a straight between them do that, and the two distances fix the pair:
+
+    travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
+
+which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_R) that is
+θ = [36.870](STEP_ANGLE)° either side of s = [14.00](STEP_STRAIGHT) mm —
+[32.02](STEP_LEN) mm of tube.
+
+**A 90° pair is the member of that family with no straight in it, and it puts the jog EQUAL to
+the travel**, because each quarter spends R on both axes. So 90° turns step 28 across as well as
+28 along, and 28 across lands the valve's mounting plane inside the core's crown.
 
 **Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down, at the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
@@ -106,7 +122,7 @@ Mirror-checked: [10](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
 [2](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
 turns and [6](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
-[14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
+[18](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
 The [6](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
@@ -114,10 +130,10 @@ V-J-O (nozzle B) on the upper deck; Y-E-2 (reservoir A) and Y-H-2 (reservoir B) 
 
 ## Envelope
 
-[188](ENV_X) × [176](ENV_Y) × [215](ENV_Z) mm — [7.12](ENV_L) L of bounding box over the
+[188](ENV_X) × [162](ENV_Y) × [243](ENV_Z) mm — [7.40](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [176](REACH_Y) × [229](REACH_Z).
+[188](REACH_X) × [162](REACH_Y) × [257](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
