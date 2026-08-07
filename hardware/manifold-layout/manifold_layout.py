@@ -12,7 +12,8 @@ junction's three ports takes its run.
 Frame
 -----
 - X = width, mirrored about x = 0. Channel A (pump B) west, channel B (pump A) east.
-- Y = depth. Every mouth leaves out the back, +Y.
+- Y = depth. The two nozzle mouths leave out the back, +Y; the other four are turned onto
+  +Z by the quarter turns below.
 - Z = height, 0 at the pumps' own floor. The valves stand on TWO decks above them, and the
   fold is what puts the second one there.
 
@@ -48,8 +49,23 @@ and that reach is the radius. So the radius goes to the stock's floor and the st
 up whatever the decks leave.
 
 What the fold buys is the long axis. Flat, the pack is one deck and its own length; folded, it
-is two decks half as long, and the pumps sit under the lower one. Every other connection is
-still collet butted to collet, and the four turns are the only corners in the manifold.
+is two decks half as long, and the pumps sit under the lower one.
+
+The quarter turns
+-----------------
+Six more of the butts open into a 90° of `BEND_R`, and all six stand on ONE plane — `BEND_Y`,
+the far collet of the valve that ends a limb. Each joint's fixed collet opens +Y there, the
+tube turns onto +Z, and whatever was butted to it comes round with the turn. The axis runs
+along X, so the six share one transform per deck and a mirrored pair still faces itself.
+
+    fluid-3, fluid-5     V-A and V-B off Y-A and Y-B, up on the folded deck — the two source
+                         valves come off the deck's own plane and lie along +Z
+    fluid-14, fluid-24   Y-E and Y-H off the fill gates, so each reservoir junction lies along
+                         +Z with its own line leaving that way
+    fluid-16, fluid-26   the draw gates' elbows, which come round with their tees, so the
+                         crossing between them keeps its length and its skew exactly
+
+Everything else is still collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
@@ -383,26 +399,81 @@ def folded(solid):
     return solid.rotate(FOLD_AXIS[0], FOLD_AXIS[1], 180.0)
 
 
-def port(name: str, end: str):
-    """A named body's collet face at one end of its limb, in the FOLDED world. `end` is the
-    flat-state name — "front" is the collet at the smaller y before the fold, which for a
-    folded body is the larger y after it."""
+# --- The quarter turns -----------------------------------------------------
+#
+# Six of the butts open into a 90° turn instead, and every one of them stands on ONE plane:
+# `BEND_Y`, the far collet of the valve that ends a limb. Each joint's fixed collet opens +Y
+# there, so the tube leaves along +Y, turns `BEND_R` onto +Z, and whatever was butted to it
+# comes round with the turn — a quarter about the X-parallel line through the arc's own centre.
+#
+#   fluid-3, fluid-5     the source valves, off Y-A and Y-B on the folded deck
+#   fluid-14, fluid-24   the reservoir junctions, off the fill gates
+#   fluid-16, fluid-26   the draw gates' elbows, off the gates
+#
+# X does not enter it: the axis runs along X, so all six share one (y, z) transform per deck,
+# and a pair that faced each other across the machine still does.
+BEND_R = MIN_BEND
+BEND_Y = TEE_RUN + VALVE_LEN                 # the plane every one of the six stands on
+BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z, "Y-E": DECK_Z, "Y-H": DECK_Z}
+ELBOW_BEND = DECK_Z                          # both draw-gate elbows turn with their tees
+
+
+def bend_pt(p, z0: float) -> tuple:
+    """A point taken round the quarter whose fixed collet sits at (`BEND_Y`, `z0`)."""
+    dy, dz = p[1] - BEND_Y, p[2] - (z0 + BEND_R)
+    return (p[0], BEND_Y - dz, z0 + BEND_R + dy)
+
+
+def bend_dir(d) -> tuple:
+    return (d[0], -d[2], d[1])
+
+
+def bent(solid, z0: float):
+    return solid.rotate(cq.Vector(0.0, BEND_Y, z0 + BEND_R),
+                        cq.Vector(1.0, BEND_Y, z0 + BEND_R), 90.0)
+
+
+def quarter(x: float, z0: float):
+    """One 90° turn: off the collet at (x, `BEND_Y`, z0) along +Y, round `BEND_R` onto +Z. It
+    meets both collets on their own axes and carries no straight at either end."""
+    r, k = BEND_R, BEND_R * math.sqrt(0.5)
+    a = cq.Vector(x, BEND_Y, z0)
+    b = cq.Vector(x, BEND_Y + r, z0 + r)
+    mid = cq.Vector(x, BEND_Y + k, z0 + r - k)
+    prof = cq.Wire.makeCircle(TUBE_D / 2.0, a, cq.Vector(0.0, 1.0, 0.0))
+    return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(a, mid, b)]),
+                          makeSolid=True, isFrenet=True)
+
+
+def _posed(name: str, p, d):
+    """A point and a direction taken through whichever of the two moves this body rides: the
+    fold, and then the quarter turn if it is one of the six that got one."""
     b = P[name]
-    p = (b["x"], b[end], DECK_Z)
-    return fold_pt(p) if b["fold"] else p
+    if b["fold"]:
+        p, d = fold_pt(p), fold_dir(d)
+    if name in BENT:
+        p, d = bend_pt(p, BENT[name]), bend_dir(d)
+    return p, d
+
+
+def port(name: str, end: str):
+    """A named body's collet face at one end of its limb, in the world it ends up in. `end` is
+    the flat-state name — "front" is the collet at the smaller y before the fold, which for a
+    folded body is the larger y after it."""
+    return _posed(name, (P[name]["x"], P[name][end], DECK_Z),
+                  (0.0, -1.0, 0.0) if end == "front" else (0.0, 1.0, 0.0))[0]
 
 
 def port_axis(name: str, end: str):
-    """The outward normal of that collet, in the folded world."""
-    d = (0.0, -1.0, 0.0) if end == "front" else (0.0, 1.0, 0.0)
-    return fold_dir(d) if P[name]["fold"] else d
+    """The outward normal of that collet, in the world it ends up in."""
+    return _posed(name, (P[name]["x"], P[name][end], DECK_Z),
+                  (0.0, -1.0, 0.0) if end == "front" else (0.0, 1.0, 0.0))[1]
 
 
 def branch_port(name: str):
-    """A tee's branch collet face, as (point, outward axis), in the folded world."""
+    """A tee's branch collet face, as (point, outward axis), in the world it ends up in."""
     b, d = P[name], P[name]["arg"]
-    p = (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH)
-    return (fold_pt(p), fold_dir(d)) if b["fold"] else (p, d)
+    return _posed(name, (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH), d)
 
 
 # Each reservoir meets its channel's two gates at one junction standing in line behind the FILL
@@ -418,10 +489,11 @@ JOINS = {"Y-E": ("V-E", -1.0), "Y-H": ("V-H", +1.0)}
 
 def elbow_pose(gate: str, side: float) -> tuple:
     """The elbow on a draw gate's collet: (corner, mouth, x_dir, z_dir). Leg 1 runs back down
-    the limb onto the gate; leg 2 opens across the pump, `side` picking which way."""
-    corner = (P[gate]["x"], P[gate]["back"] + ELBOW_LEG, DECK_Z)
+    the limb onto the gate; leg 2 opens across the pump, `side` picking which way. The elbow
+    rides the gate's own quarter turn, so it comes up off the deck with its tee."""
+    corner = bend_pt((P[gate]["x"], P[gate]["back"] + ELBOW_LEG, DECK_Z), ELBOW_BEND)
     mouth = (corner[0] + side * ELBOW_LEG, corner[1], corner[2])
-    return corner, mouth, (0.0, 0.0, side), (side, 0.0, 0.0)
+    return corner, mouth, (0.0, 0.0, side), bend_dir((side, 0.0, 0.0))
 
 
 # --- Bodies ----------------------------------------------------------------
@@ -489,18 +561,26 @@ RUNS.update({t: (barb_station(t), branch_port(t)[0]) for t in BARB_OF})
 RUNS.update({t: (branch_port(t)[0], elbow_pose(*JOINS[t])[1]) for t in JOINS})
 
 SEGMENTS = [
-    (3, "V-A-O", "Y-A-1", "butt"), (5, "V-B-O", "Y-B-1", "butt"),
+    (3, "V-A-O", "Y-A-1", "turn"), (5, "V-B-O", "Y-B-1", "turn"),
     (6, "Y-A-3", "Y-B-3", "crossbar"),
     (7, "Y-A-2", "V-C-I", "butt"), (8, "Y-B-2", "V-D-I", "butt"),
     (9, "V-C-O", "Y-C-1", "spine"), (10, "V-E-O", "Y-C-2", "butt"),
     (11, "Y-C-3", "P-B-I", "Y-C"), (12, "P-B-O", "Y-D-1", "Y-D"),
-    (13, "Y-D-2", "V-F-I", "butt"), (14, "V-F-O", "Y-E-1", "butt"),
+    (13, "Y-D-2", "V-F-I", "butt"), (14, "V-F-O", "Y-E-1", "turn"),
     (16, "Y-E-3", "V-E-I", "Y-E"), (17, "Y-D-3", "V-G-I", "spine"),
     (19, "V-D-O", "Y-F-1", "spine"), (20, "V-H-O", "Y-F-2", "butt"),
     (21, "Y-F-3", "P-A-I", "Y-F"), (22, "P-A-O", "Y-G-1", "Y-G"),
-    (23, "Y-G-3", "V-I-I", "butt"), (24, "V-I-O", "Y-H-1", "butt"),
+    (23, "Y-G-3", "V-I-I", "butt"), (24, "V-I-O", "Y-H-1", "turn"),
     (26, "Y-H-3", "V-H-I", "Y-H"), (27, "Y-G-2", "V-J-I", "spine"),
 ]
+
+# Where each quarter turn stands: the column its fixed collet is on, and which deck. fluid-16
+# and fluid-26 carry one on top of their elbow and their crossing, so they are BOTH a turn and
+# a run — the tee's own leg is what the run measures and the turn is what the gate leaves by.
+QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z),
+            14: (-OUTER_X, DECK_Z), 24: (OUTER_X, DECK_Z),
+            16: (-INNER_X, DECK_Z), 26: (INNER_X, DECK_Z)}
+QUARTER_LEN = math.pi * BEND_R / 2.0
 
 # The four connections the hinge runs through, each a semicircle on its limb's own column.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -522,8 +602,11 @@ def build_assembly() -> cq.Assembly:
     a = cq.Assembly(name="manifold-layout")
     for name, parts in flat_bodies().items():
         for label, solid, color in parts:
-            a.add(folded(solid) if P[name]["fold"] else solid,
-                  name=f"{label}-{name.lower()}", color=color)
+            if P[name]["fold"]:
+                solid = folded(solid)
+            if name in BENT:
+                solid = bent(solid, BENT[name])
+            a.add(solid, name=f"{label}-{name.lower()}", color=color)
     for tee, (gate, side) in JOINS.items():
         a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
     for pname, px in PUMPS.items():
@@ -537,6 +620,8 @@ def build_assembly() -> cq.Assembly:
             a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}", color=C_TUBE)
     for cid, x in SPINE.items():
         a.add(uturn(x), name=f"tube-fluid-{cid}", color=C_TUBE)
+    for cid, (x, z0) in QUARTERS.items():
+        a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=C_TUBE)
     for cid, _p, _what, p, axis in MOUTHS:
         a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
               name=f"stub-{cid}", color=C_STUB)
@@ -669,16 +754,22 @@ def report(assy: cq.Assembly) -> dict:
         if how == "spine":
             note = (f"{SPINE_LEN:.2f} mm — 180° at R{SPINE_R:g}, "
                     f"two quarter-turns and {SPINE_STRAIGHT:.2f} mm of straight")
+        elif how == "turn":
+            note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
         else:
             length = made.get(how, 0.0)
             note = ("butt — 0 mm outside the collets" if length < 1e-9
                     else f"{length:.2f} mm straight"
                          + (" + one 90° elbow" if how in JOINS else ""))
+            if cid in QUARTERS:
+                note += f" + one 90° turn at R{BEND_R:g} ({QUARTER_LEN:.2f} mm)"
         print(f"  fluid-{cid:<3} {frm:>7} → {to:<7}  {note}")
     print(f"\n{len(MOUTHS)} mouths leave the study")
     for cid, p, what, (x, y, z), axis in MOUTHS:
-        print(f"  {cid:<9} {p:>7}  ({x:7.2f}, {y:7.2f}, {z:6.2f})  "
-              f"{'front' if axis[1] < 0 else 'back':>5}  {what}")
+        way = {(0.0, -1.0, 0.0): "front", (0.0, 1.0, 0.0): "back",
+               (0.0, 0.0, 1.0): "up", (0.0, 0.0, -1.0): "down"}.get(
+                   tuple(round(c, 6) + 0.0 for c in axis), str(axis))
+        print(f"  {cid:<9} {p:>7}  ({x:7.2f}, {y:7.2f}, {z:6.2f})  {way:>5}  {what}")
 
     print(f"\nenvelope  X {bb.xlen:7.2f}   Y {bb.ylen:7.2f}   Z {bb.zlen:7.2f}    "
           f"({bb.xlen * bb.ylen * bb.zlen / 1e6:.2f} L)   bodies and the tube between them")
@@ -700,8 +791,11 @@ def report(assy: cq.Assembly) -> dict:
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
     print(f"spine: {len(SPINE)} turns, each 2 quarter-turns at R{SPINE_R:g} and "
           f"{SPINE_STRAIGHT:.2f} mm of straight, reaching {SPINE_R:g} mm past the hinge")
-    print(f"corners: {2 * len(SPINE)}, all at R{SPINE_R:g} against a {MIN_BEND:g} mm floor "
-          f"({STOCK.source})")
+    print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
+          f"all on the plane y {BEND_Y:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
+          f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
+    print(f"corners: {2 * len(SPINE) + len(QUARTERS)}, all at R{SPINE_R:g} against a "
+          f"{MIN_BEND:g} mm floor ({STOCK.source})")
 
     off = mirror_off()
     worst = max(max(dx, dy) for _a, _b, dx, dy in off)
@@ -739,6 +833,10 @@ def main():
             "SPINE_R": f"{SPINE_R:g}", "SPINE_LEN": f"{SPINE_LEN:.2f}",
             "SPINE_STRAIGHT": f"{SPINE_STRAIGHT:.2f}", "DECK_SEP": f"{DECK_SEP:g}",
             "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
+            "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
+            "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
+            "BEND_Y": f"{BEND_Y:.2f}", "F16_LEN2": f"{r['made']['Y-E']:.2f}",
+            "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS)),
             "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
             "CROSSBAR": f"{CROSSBAR:.2f}", "F16_LEN": f"{r['made']['Y-E']:.2f}",
             "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),
