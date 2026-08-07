@@ -38,6 +38,9 @@ _repo = _hw.parent
 for _p in (_hw / "scripts", _here.parent):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
+import _boxes                                          # noqa: E402
+import _clearing                                       # noqa: E402
+import _overlap                                        # noqa: E402
 import _routing as R                                   # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
@@ -50,9 +53,43 @@ FOCUS_IDS = ("bend-radius", "routed")
 DETAIL_MAX = 8
 FOCUS_DETAIL_MAX = 24
 
+# How close two bodies the machine does not seat against each other may stand.
+CLEARANCE_FLOOR = 1.0
+# Only pairs nearer than this are ranked, so the clearance detail reads as the tight end of the
+# pack rather than as every pair in it.
+REPORT_NEAR = 6.0
+# The straight a run leaves a fitting on, as a multiple of the line's own bend radius: one reach
+# for the stub and one for the tangent its first corner is seated on — `_routing.route`'s own
+# two, and the shortest straight any turn off a port can be built in.
+PORT_LEAD_BENDS = 2.0
+
 
 def grade_of(ratio: float) -> str:
     return next(g for lo, g in GRADE_BANDS if ratio >= lo)
+
+
+# The names a length of TUBE goes into the assembly under. `_lines.tubes` names each authored run
+# `tube-<connection>`, and `manifold_layout` names the pack's own segments and the placeholder
+# stubs off its free mouths the same way. Everything else the assembly carries is a body.
+TUBE_PREFIXES = ("tube-", "turn-", "step-", "stub-")
+
+
+def _placed(a) -> dict:
+    """The assembly's children as world solids, by name."""
+    import cadquery as cq
+    return {c.name: (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+        cq.Location(c.loc.wrapped.Transformation())) for c in a.children}
+
+
+def _split_placed(a) -> tuple:
+    """The placed world in the three populations the checks read it in: `(bodies, tubes,
+    pieces)` — the machine's parts, the tube drawn between them, and the printed box."""
+    bodies, tubes, pieces = {}, {}, {}
+    for name, solid in _placed(a).items():
+        target = (pieces if name.startswith("enclosure-")
+                  else tubes if name.startswith(TUBE_PREFIXES) else bodies)
+        target[name] = solid
+    return bodies, tubes, pieces
 
 
 # --- what the machine owes -------------------------------------------------
@@ -316,6 +353,53 @@ def _bed_fit(a) -> Check:
                  "every piece on the bed", short)
 
 
+def _lines_clear(a, runs) -> Check:
+    """The tube-interpenetration gate, asked with the boolean that resolves a tangency.
+
+    `pack-closes` reads every pair in the assembly, tubes included, through one `intersect`. That
+    is the ask `_overlap` was written because of: two tubes of one Ø crossing on ONE STRATUM are
+    exactly tangent along the section, OCCT hands back an empty result with no error, and a whole
+    Steinmetz solid of interpenetration reports as zero. A port row fixing two runs to a single z
+    is how a pack builds that arrangement on purpose, so the case a single ask is blind to is the
+    case this machine is most likely to have.
+
+    So the runs are asked again, with `_overlap.common`'s fuzz retry — tube against tube, and
+    tube against every body, piece and manifold segment it does not TERMINATE on. The two bodies
+    a run ends on are held out because a tube seats into their collets by design, which is the
+    one overlap here that is not a defect.
+
+    The swept solids come off the assembly rather than being swept again: `_lines.tubes` already
+    built each run's tube and `front_half` added it under `tube-<connection>`, and a second sweep
+    of the same eighteen runs costs more than every boolean below."""
+    bodies, drawn, pieces = _split_placed(a)
+    tubes = {r.id: drawn[f"tube-{r.id}"] for r in runs if f"tube-{r.id}" in drawn}
+    ends = {r.id: {r.frm.partition(".")[0], r.to.partition(".")[0]} for r in runs}
+    # What is left in `drawn` is `manifold_layout`'s own segments and the placeholder stubs off
+    # its free mouths. No authored run terminates on one, so they stand as bodies here.
+    rest = {**bodies, **pieces,
+            **{n: s for n, s in drawn.items() if n not in {f"tube-{i}" for i in tubes}}}
+    tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
+    rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
+    detail = []
+    ids = list(tubes)
+    for i, x in enumerate(ids):
+        for y in ids[i + 1:]:
+            if _clearing.box_gap(tbb[x], tbb[y]) > 0:
+                continue
+            v = _overlap.volume(tubes[x], tubes[y])
+            if v > _clearing.HIT_VOL:
+                detail.append(f"{x} ∩ {y}: {v:.1f} mm³")
+    for i in ids:
+        for name, solid in rest.items():
+            if name in ends[i] or _clearing.box_gap(tbb[i], rbb[name]) > 0:
+                continue
+            v = _overlap.volume(tubes[i], solid)
+            if v > _clearing.HIT_VOL:
+                detail.append(f"{i} ∩ {name}: {v:.1f} mm³")
+    return Check("lines-clear", "No routed tube intersects a body, a piece or another tube",
+                 "gate", _verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
+
+
 def _runs_drawn(runs) -> Check:
     short = [f"{cid}: {why}" for cid, why in sorted(R.BLOCKED.items())]
     return Check("runs-drawn", "Every authored run is drawn as its author asked", "gate",
@@ -455,7 +539,8 @@ def build(a) -> Scorecard:
                 "status": "ok" if pos is not None and diam is not None else "no-pos",
                 "note": "",
             })
-    checks = [_coverage(a), _pack_closes(a), _bed_fit(a), _runs_drawn(runs), _bend_radius(bends),
+    checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _bed_fit(a),
+              _runs_drawn(runs), _bend_radius(bends),
               _mounted(), _routed(conns), _located(a)]
     return Scorecard(checks, bends, conns, ports)
 
