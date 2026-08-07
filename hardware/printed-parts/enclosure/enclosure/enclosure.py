@@ -114,7 +114,6 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
-sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enclosure-assembly"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
@@ -800,7 +799,7 @@ def facet_back_y(outer):
 def display_centre_x(outer):
     """The X the display's glass is centred on — the box's own middle, since the
     facet runs wall to wall. Read by the counterbore that receives it and by
-    enclosure_assembly's placement of the reference body, so the housing and the
+    front_half's placement of the reference body, so the housing and the
     part in it cannot land on two different centres."""
     return (outer[0] + outer[1]) / 2.0
 

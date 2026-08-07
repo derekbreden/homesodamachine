@@ -87,7 +87,7 @@ COLLET_SKEW = 3.0
 
 # Runs the pack does not carry as drawn, each with the measurement that falls short — run id →
 # reason, read out under `_lines.BLOCKED`, the same dict. A blocked run is still swept and still
-# graded: `scorecard.routed` counts its connection unmade, `enclosure_assembly.main` prints the
+# graded: `_scorecard.routed` counts its connection unmade, `front_half.main` prints the
 # reason, `lines-clear` and `bend-radius` read the centreline as drawn.
 #
 # One run holds every shortfall it has — a lead running out along its port and a corner downstream

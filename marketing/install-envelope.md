@@ -62,7 +62,7 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
 
 | | W × D × H | Footprint | Clear over the top wall |
 |---|---|---|---|
-| kitchen | [317 × 375 × 337.7 mm](KITCHEN_WDH) | [0.119 m²](KITCHEN_FOOTPRINT) | [418 mm](KITCHEN_CLEAR_TOP) |
+| kitchen | [223 × 481 × 360 mm](KITCHEN_WDH) | [0.107 m²](KITCHEN_FOOTPRINT) | [395.7 mm](KITCHEN_CLEAR_TOP) |
 | thin | [215 × 481 × 400 mm](THIN_WDH) | [0.103 m²](THIN_FOOTPRINT) | [355.7 mm](THIN_CLEAR_TOP) |
 
 Each silhouette is read off that edition's own box, and clear-over-top is the
