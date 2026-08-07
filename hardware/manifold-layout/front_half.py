@@ -78,7 +78,6 @@ C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
-X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
 
 
 def box(shape):
@@ -162,17 +161,10 @@ def place_base(bodies):
 
 # --- The manifold, laid on their crown -------------------------------------
 #
-# `(x, y, z) → (−x, z, y)`: a quarter about X puts the pack's own front face — the plane the
-# pump heads open on — face down, and a half about Z brings the pumps to the front of it and
-# the valve decks behind them. X is negated by the pair, which the mirror does not notice.
-
-def pose_manifold(shape):
-    return shape.rotate(*X_AXIS, 90.0).rotate(*Z_AXIS, 180.0)
-
-
-# What the pack actually sets down on is not a body at all — it is the four spine hairpins.
-# The fold turned them onto the pack's own underside, and they hang past the pump-head faces,
-# so THEY are the mating surface and the pump faces stand off the crown by whatever is left.
+# `ml.crown_pose()` is the turn; what the pack sets down ON is not a body at all — it is the
+# four spine hairpins. The fold turned them onto the pack's own underside, and they hang past
+# the pump-head faces, so THEY are the mating surface and the pump faces stand off the crown by
+# whatever is left.
 PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
 
 
@@ -182,8 +174,8 @@ def build_front_half() -> cq.Assembly:
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
     a.add(cond, name="condenser+fan", color=C_COND)
 
-    posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-        cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
+    pose = ml.crown_pose()
+    posed = [(n, seat.then(pose).solid(s), c) for n, (s, seat, c) in ml.posed_bodies().items()]
     crown = max(box(shroud).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
     stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
