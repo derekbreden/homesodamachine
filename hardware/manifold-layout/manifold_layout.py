@@ -418,6 +418,40 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z, "Y-E": DECK_Z, "Y-H": DECK_Z}
 ELBOW_BEND = DECK_Z                          # both draw-gate elbows turn with their tees
 
 
+# The two source valves step again once they are round: `SOURCE_TRAVEL` further along the run
+# and `SOURCE_JOG` across it, toward the foam shell's crown. Two arcs of one radius with a
+# straight between them do that and leave the run pointing where it was, and the pair is fixed
+# by the two distances:
+#
+#     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
+#
+# which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`. A 90° pair is the member with no
+# straight in it, and it puts the jog EQUAL to the travel — each quarter spends R on both axes —
+# so 28 across is what 28 along would cost, and this pair spends 14.
+SOURCE_TRAVEL = 28.0
+SOURCE_JOG = 14.0
+
+
+def sbend_solve(r: float, travel: float, jog: float) -> tuple:
+    """The arc angle and the straight between two of them that step `jog` across a run while
+    it goes `travel` along, leaving the direction alone."""
+    a, b, c = 2.0 * r - jog, travel, 2.0 * r
+    m = math.hypot(a, b)
+    if c > m:
+        raise ValueError(
+            f"a step of {jog:g} across in {travel:g} along cannot be made from two arcs of "
+            f"R{r:g}: the pair reaches {m:.2f} where it needs {c:g}.")
+    th = math.atan2(b, a) - math.acos(c / m)
+    return th, (travel - 2.0 * r * math.sin(th)) / math.cos(th)
+
+
+SOURCE_ANGLE, SOURCE_STRAIGHT = sbend_solve(MIN_BEND, SOURCE_TRAVEL, SOURCE_JOG)
+SOURCE_LEN = 2.0 * MIN_BEND * SOURCE_ANGLE + SOURCE_STRAIGHT
+# In the pack's own frame the source valves run along +Z once they are round, and the crown
+# they are stepping toward is −Y.
+SHIFT = {"V-A": (0.0, -SOURCE_JOG, SOURCE_TRAVEL), "V-B": (0.0, -SOURCE_JOG, SOURCE_TRAVEL)}
+
+
 def bend_pt(p, z0: float) -> tuple:
     """A point taken round the quarter whose fixed collet sits at (`BEND_Y`, `z0`)."""
     dy, dz = p[1] - BEND_Y, p[2] - (z0 + BEND_R)
@@ -431,6 +465,29 @@ def bend_dir(d) -> tuple:
 def bent(solid, z0: float):
     return solid.rotate(cq.Vector(0.0, BEND_Y, z0 + BEND_R),
                         cq.Vector(1.0, BEND_Y, z0 + BEND_R), 90.0)
+
+
+def sbend(x: float, y0: float, z0: float):
+    """The two-arc step, off a run heading +Z at (x, y0, z0) and jogging −Y. It ends heading +Z
+    again, `SOURCE_TRAVEL` along and `SOURCE_JOG` across."""
+    r, th, s = BEND_R, SOURCE_ANGLE, SOURCE_STRAIGHT
+    c, si = math.cos(th), math.sin(th)
+    c1 = (y0 - r, z0)
+    e1 = (c1[0] + r * c, c1[1] + r * si)
+    m1 = (c1[0] + r * math.cos(th / 2.0), c1[1] + r * math.sin(th / 2.0))
+    e2 = (e1[0] - s * si, e1[1] + s * c)
+    c2 = (e2[0] + r * c, e2[1] + r * si)
+    e3 = (c2[0] - r, c2[1])
+    bx, bz = (e2[0] - c2[0]) + (e3[0] - c2[0]), (e2[1] - c2[1]) + (e3[1] - c2[1])
+    bl = math.hypot(bx, bz)
+    m2 = (c2[0] + r * bx / bl, c2[1] + r * bz / bl)
+    V = lambda yz: cq.Vector(x, yz[0], yz[1])                                  # noqa: E731
+    edges = [cq.Edge.makeThreePointArc(cq.Vector(x, y0, z0), V(m1), V(e1))]
+    if s > 1e-9:
+        edges.append(cq.Edge.makeLine(V(e1), V(e2)))
+    edges.append(cq.Edge.makeThreePointArc(V(e2), V(m2), V(e3)))
+    prof = cq.Wire.makeCircle(TUBE_D / 2.0, cq.Vector(x, y0, z0), cq.Vector(0.0, 0.0, 1.0))
+    return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges), makeSolid=True, isFrenet=True)
 
 
 def quarter(x: float, z0: float):
@@ -453,6 +510,8 @@ def _posed(name: str, p, d):
         p, d = fold_pt(p), fold_dir(d)
     if name in BENT:
         p, d = bend_pt(p, BENT[name]), bend_dir(d)
+    if name in SHIFT:
+        p = tuple(p[i] + SHIFT[name][i] for i in range(3))
     return p, d
 
 
@@ -487,13 +546,26 @@ def branch_port(name: str):
 JOINS = {"Y-E": ("V-E", -1.0), "Y-H": ("V-H", +1.0)}
 
 
+def _cross(a, b) -> tuple:
+    return (a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0])
+
+
 def elbow_pose(gate: str, side: float) -> tuple:
-    """The elbow on a draw gate's collet: (corner, mouth, x_dir, z_dir). Leg 1 runs back down
-    the limb onto the gate; leg 2 opens across the pump, `side` picking which way. The elbow
-    rides the gate's own quarter turn, so it comes up off the deck with its tee."""
+    """The elbow on a draw gate's collet: `(corner, mouth, x_dir, z_dir, seat)`. Leg 2 opens
+    across the pump, `side` picking which way; leg 1 — the fitting's own local +Y — runs onto
+    the quarter turn that comes up off the gate.
+
+    BOTH direction vectors go through `bend_dir`. `z_dir` alone rides it unchanged, because the
+    turn's axis IS X and that is the axis `z_dir` lies on — so passing only that one leaves the
+    fitting MOVED to the bent position and not TURNED into it, and leg 2 still lands because it
+    is the leg on the axis. `seat` is where leg 1 ends up, taken off the placement frame itself,
+    so `turns_meet` is checking the pose rather than a second copy of this arithmetic."""
     corner = bend_pt((P[gate]["x"], P[gate]["back"] + ELBOW_LEG, DECK_Z), ELBOW_BEND)
     mouth = (corner[0] + side * ELBOW_LEG, corner[1], corner[2])
-    return corner, mouth, (0.0, 0.0, side), bend_dir((side, 0.0, 0.0))
+    x_dir, z_dir = bend_dir((0.0, 0.0, side)), bend_dir((side, 0.0, 0.0))
+    leg1 = _cross(z_dir, x_dir)                  # the fitting's local +Y, once placed
+    seat = tuple(corner[i] + leg1[i] * ELBOW_LEG for i in range(3))
+    return corner, mouth, x_dir, z_dir, seat
 
 
 # --- Bodies ----------------------------------------------------------------
@@ -526,7 +598,7 @@ def uturn(x: float):
 
 def build_elbow(gate: str, side: float):
     """One draw gate's elbow. Native frame: legs out +Y and +Z, bend corner at the origin."""
-    corner, _mouth, x_dir, z_dir = elbow_pose(gate, side)
+    corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
     solid = cq.importers.importStep(str(ELBOW_STEP)).val()
     return place(solid, corner, x_dir, z_dir)
 
@@ -560,6 +632,25 @@ RUNS = {"crossbar": (branch_port("Y-A")[0], branch_port("Y-B")[0])}
 RUNS.update({t: (barb_station(t), branch_port(t)[0]) for t in BARB_OF})
 RUNS.update({t: (branch_port(t)[0], elbow_pose(*JOINS[t])[1]) for t in JOINS})
 
+
+def turns_meet() -> list:
+    """Each quarter turn's far end against the collet it is supposed to land on.
+
+    A turn is only a connection if the body that came round with it came round BY THE SAME
+    ROTATION. Moving a fitting to the bent position without turning it leaves the leg on the
+    turn's own axis landing correctly and the other one pointing where it started, which reads
+    as connected from every direction but the one that matters."""
+    lands = {3: port("V-A", "back"), 5: port("V-B", "back"),
+             14: port("Y-E", "front"), 24: port("Y-H", "front")}
+    lands.update({16: elbow_pose(*JOINS["Y-E"])[4], 26: elbow_pose(*JOINS["Y-H"])[4]})
+    out = []
+    for cid, (x, z0) in sorted(QUARTERS.items()):
+        end = (x, BEND_Y + BEND_R, z0 + BEND_R)
+        if cid in SBENDS:                                  # the step carries on from the quarter
+            end = (end[0], end[1] - SOURCE_JOG, end[2] + SOURCE_TRAVEL)
+        out.append((cid, dist(end, lands[cid])))
+    return out
+
 SEGMENTS = [
     (3, "V-A-O", "Y-A-1", "turn"), (5, "V-B-O", "Y-B-1", "turn"),
     (6, "Y-A-3", "Y-B-3", "crossbar"),
@@ -581,6 +672,8 @@ QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z),
             14: (-OUTER_X, DECK_Z), 24: (OUTER_X, DECK_Z),
             16: (-INNER_X, DECK_Z), 26: (INNER_X, DECK_Z)}
 QUARTER_LEN = math.pi * BEND_R / 2.0
+# The two that carry a step as well, off the far end of their own quarter.
+SBENDS = {3: QUARTERS[3], 5: QUARTERS[5]}
 
 # The four connections the hinge runs through, each a semicircle on its limb's own column.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -606,6 +699,8 @@ def build_assembly() -> cq.Assembly:
                 solid = folded(solid)
             if name in BENT:
                 solid = bent(solid, BENT[name])
+            if name in SHIFT:
+                solid = solid.translate(cq.Vector(*SHIFT[name]))
             a.add(solid, name=f"{label}-{name.lower()}", color=color)
     for tee, (gate, side) in JOINS.items():
         a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
@@ -622,6 +717,8 @@ def build_assembly() -> cq.Assembly:
         a.add(uturn(x), name=f"tube-fluid-{cid}", color=C_TUBE)
     for cid, (x, z0) in QUARTERS.items():
         a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=C_TUBE)
+    for cid, (x, z0) in SBENDS.items():
+        a.add(sbend(x, BEND_Y + BEND_R, z0 + BEND_R), name=f"step-fluid-{cid}", color=C_TUBE)
     for cid, _p, _what, p, axis in MOUTHS:
         a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
               name=f"stub-{cid}", color=C_STUB)
@@ -756,6 +853,10 @@ def report(assy: cq.Assembly) -> dict:
                     f"two quarter-turns and {SPINE_STRAIGHT:.2f} mm of straight")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
+            if cid in SBENDS:
+                note = (f"{QUARTER_LEN + SOURCE_LEN:.2f} mm — one 90° turn at R{BEND_R:g}, then "
+                        f"two of {math.degrees(SOURCE_ANGLE):.3f}° with {SOURCE_STRAIGHT:.2f} mm "
+                        f"between: {SOURCE_TRAVEL:g} along and {SOURCE_JOG:g} across")
         else:
             length = made.get(how, 0.0)
             note = ("butt — 0 mm outside the collets" if length < 1e-9
@@ -791,11 +892,21 @@ def report(assy: cq.Assembly) -> dict:
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
     print(f"spine: {len(SPINE)} turns, each 2 quarter-turns at R{SPINE_R:g} and "
           f"{SPINE_STRAIGHT:.2f} mm of straight, reaching {SPINE_R:g} mm past the hinge")
+    print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g} — {math.degrees(SOURCE_ANGLE):.3f}° "
+          f"each side of {SOURCE_STRAIGHT:.2f} mm, {SOURCE_TRAVEL:g} along the run and "
+          f"{SOURCE_JOG:g} across it, {SOURCE_LEN:.2f} mm of tube")
     print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
           f"all on the plane y {BEND_Y:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
           f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
-    print(f"corners: {2 * len(SPINE) + len(QUARTERS)}, all at R{SPINE_R:g} against a "
-          f"{MIN_BEND:g} mm floor ({STOCK.source})")
+    print(f"corners: {2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)} — every one of them at "
+          f"R{BEND_R:g}, which is the floor itself ({STOCK.source})")
+
+    meets = turns_meet()
+    worst_turn = max(d for _c, d in meets)
+    print(f"\nturns meet their collets: {len(meets)} checked, worst {worst_turn:.4f} mm apart")
+    for cid, d in meets:
+        if d > 1e-6:
+            print(f"  fluid-{cid} lands {d:.3f} mm off the collet it turns onto")
 
     off = mirror_off()
     worst = max(max(dx, dy) for _a, _b, dx, dy in off)
@@ -836,7 +947,10 @@ def main():
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
             "BEND_Y": f"{BEND_Y:.2f}", "F16_LEN2": f"{r['made']['Y-E']:.2f}",
-            "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS)),
+            "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)),
+            "STEP_ANGLE": f"{math.degrees(SOURCE_ANGLE):.3f}",
+            "STEP_STRAIGHT": f"{SOURCE_STRAIGHT:.2f}", "STEP_LEN": f"{SOURCE_LEN:.2f}",
+            "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{SOURCE_JOG:g}",
             "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
             "CROSSBAR": f"{CROSSBAR:.2f}", "F16_LEN": f"{r['made']['Y-E']:.2f}",
             "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),
