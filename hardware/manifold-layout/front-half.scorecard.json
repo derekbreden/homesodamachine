@@ -1509,126 +1509,6 @@
    }
   },
   {
-   "id": "fluid-25",
-   "kind": "fluid",
-   "frm": "tee-y-h.Y-H-2",
-   "to": "foam-assembly.reservoir-b",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 97.15,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      47.18,
-      33.57
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      33.57,
-      28.41
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 90.0,
-   "seat": 16.785,
-   "reach": 16.785,
-   "reachRatio": 1.1989,
-   "reachGrade": "B",
-   "binding": {
-    "leg": 1,
-    "length": 33.57,
-    "demand": 2.0,
-    "from": [
-     -77.07,
-     184.0,
-     281.81
-    ],
-    "to": [
-     -43.5,
-     184.0,
-     281.81
-    ]
-   }
-  },
-  {
-   "id": "fluid-15",
-   "kind": "fluid",
-   "frm": "tee-y-e.Y-E-2",
-   "to": "foam-assembly.reservoir-a",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 97.15,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      47.18,
-      33.57
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      33.57,
-      28.41
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 90.0,
-   "seat": 16.785,
-   "reach": 16.785,
-   "reachRatio": 1.1989,
-   "reachGrade": "B",
-   "binding": {
-    "leg": 1,
-    "length": 33.57,
-    "demand": 2.0,
-    "from": [
-     77.07,
-     184.0,
-     281.81
-    ],
-    "to": [
-     43.5,
-     184.0,
-     281.81
-    ]
-   }
-  },
-  {
    "id": "fluid-18",
    "kind": "fluid",
    "frm": "valve-v-g.outlet",
@@ -1849,6 +1729,126 @@
      16.0,
      274.0,
      342.4
+    ]
+   }
+  },
+  {
+   "id": "fluid-25",
+   "kind": "fluid",
+   "frm": "tee-y-h.Y-H-2",
+   "to": "foam-assembly.reservoir-b",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 82.99,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 45.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      14.0,
+      47.2
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      47.2,
+      28.41
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 28.414,
+   "reach": 33.295,
+   "reachRatio": 2.3782,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 47.2,
+    "demand": 1.4176,
+    "from": [
+     -77.07,
+     150.82,
+     281.81
+    ],
+    "to": [
+     -43.5,
+     184.0,
+     281.81
+    ]
+   }
+  },
+  {
+   "id": "fluid-15",
+   "kind": "fluid",
+   "frm": "tee-y-e.Y-E-2",
+   "to": "foam-assembly.reservoir-a",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 82.99,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 45.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      14.0,
+      47.2
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      47.2,
+      28.41
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 28.414,
+   "reach": 33.295,
+   "reachRatio": 2.3782,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 47.2,
+    "demand": 1.4176,
+    "from": [
+     77.07,
+     150.82,
+     281.81
+    ],
+    "to": [
+     43.5,
+     184.0,
+     281.81
     ]
    }
   },
@@ -2299,8 +2299,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T19:15:49+00:00",
-  "commit": "7f11525e2f3b6c984ff7191d3be3b3410c870fcb",
+  "generated": "2026-08-07T19:37:10+00:00",
+  "commit": "b3a57500cb9155b9587b8e6409003b7fd999105f",
   "inputs": {}
  }
 }
