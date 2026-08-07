@@ -35,7 +35,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_y,
     reservoir_fill_port_x,
     reservoir_fill_port_y,
-    reservoir_fill_side,
+    reservoir_fill_sides,
     level_rod_y,
     bulkhead_floor_clearance,
     bulkhead_elbow_exit_z,
@@ -1110,7 +1110,7 @@ def build_reservoir_cap(side=1):
     # register boss hangs in, so it takes its length from below the rim rather
     # than standing proud of the top face — the foam cap seats a
     # reservoir_clearance above that face and leaves nothing to stand in.
-    if side == reservoir_fill_side:
+    if side in reservoir_fill_sides:
         cap = _add_fill_port(cap, side)
 
     return cap.unwrap()
