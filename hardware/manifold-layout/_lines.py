@@ -31,13 +31,15 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
-           _hw / "reference" / "beduan-solenoid"):
+           _hw / "reference" / "beduan-solenoid",
+           _hw / "reference" / "jg-bulkhead-union"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
+import jg_bulkhead_union as _jg                        # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
 
@@ -66,6 +68,8 @@ STATIONS = {
                     "outlet": (_beduan.outlet, _split.TUBE_D)},
     "flow-regulator": {"inlet": (_flowreg.inlet, _flowreg.TUBE_D),
                        "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
+    "bulkhead-water": {"inboard": (lambda: _jg.port(-1.0), _jg.PORT_D),
+                       "outboard": (lambda: _jg.port(1.0), _jg.PORT_D)},
     "water-split": {"supply": (_split.supply, _split.TUBE_D),
                     "to-vk": (_split.to_vk, _split.TUBE_D),
                     "to-flavor": (_split.to_flavor, _split.TUBE_D)},
@@ -106,7 +110,22 @@ def build_runs(placed, carries):
         runs.append(_water_4(F))
     if {"water-split", "vk-solenoid"} <= set(F):
         runs.append(_water_3(F))
+    if {"bulkhead-water", "asse1022-assembly"} <= set(F):
+        runs.append(_water_1(F))
     return runs
+
+
+def _water_1(F):
+    """water-1 — the rear bulkhead's inboard collet to the ASSE 1022's inlet, and the first
+    tube in the machine: everything the customer's supply line reaches passes through it.
+
+    ONE LENGTH OF TUBE. The union clamps through the back wall on its own axis and the chain
+    lies down the west lane on that same axis, inlet aft — so the two collets face each other
+    with nothing between them to turn around, and the chain's whole standoff from the wall
+    (`front_half.build_asse`) is struck to make this straight the length it needs to be."""
+    return R.bent(
+        "water-1", "bulkhead-water.inboard", "asse1022-assembly.tube-in",
+        kind="water", note="tap water: rear bulkhead → ASSE 1022 inlet, one straight aft")
 
 
 # Where the machine is CROSSABLE at V-K's inlet height. The valve manifold fills this storey

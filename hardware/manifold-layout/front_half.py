@@ -69,6 +69,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
+           _hw / "reference" / "jg-bulkhead-union",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -82,6 +83,7 @@ import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
+import jg_bulkhead_union as _jg                       # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 
@@ -134,6 +136,7 @@ C_PAN = cq.Color(0.62, 0.66, 0.72)
 C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 C_VK = cq.Color(0.45, 0.50, 0.58)
+C_BULKHEAD = cq.Color(0.86, 0.86, 0.89)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -301,6 +304,60 @@ def build_suction_chain(seaflo, suction):
                 z0=b.zmin + _beduan.port_center_z - box(chain).xlen / 2.0)
 
 
+# --- the tap-water bulkhead, through the back wall -------------------------
+#
+# The union the customer's supply line pushes into, clamped through the rear wall. Its own frame
+# already runs the flow down ±Y with the seating face on Y = 0, which is the axis and the plane
+# the back wall gives it, so it takes NO TURN: the flange bears on the wall's outer face, the
+# threading passes through, and the nut clamps inside.
+#
+# What it reaches inboard is the fitting's own business and not a choice: `far_ring_face_y` off
+# that seating face, every millimetre of it inside the box. That reach is what `ASSE_REAR_CLEAR`
+# was holding open.
+BULKHEAD_STEP = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
+# A printed hole to the moulded barrel it passes, on the diameter.
+PORT_HOLE_SLIP = 0.86
+# The straight between the bulkhead's inboard collet and the ASSE chain's inlet — `water-1`,
+# one length of tube down one axis with nothing between the two mouths to turn around. The same
+# figure `WATER_2` is, and for the same reason: a collet grips all round, so what this has to be
+# is enough tube for both to take hold of.
+WATER_1 = 24.0
+
+
+def bulkhead_seat_y():
+    """The plane the union's flange bears on — the back wall's OUTER face."""
+    return _enc.rear_plane_y + _enc.wall
+
+
+def bulkhead_mouth_y():
+    """The Y of its INBOARD collet face, where `water-1` starts. Read off the fitting's own
+    seating planes, so a longer union moves the chain it feeds rather than closing on it."""
+    return bulkhead_seat_y() + _jg.far_ring_face_y
+
+
+def build_bulkhead(asse_carry):
+    """The union seated on its INBOARD COLLET, on the ASSE chain's own column and stratum.
+
+    A fitting answers to its mouth: the two collets face each other down one line, so the chain's
+    inlet is what fixes this body in X and Z and the wall is what fixes it in Y. It stands
+    `jg_bulkhead_union.PROUD_LENGTH` outboard of the box — the collet the customer's line pushes
+    onto, and the only part of the machine behind its own back wall."""
+    inlet = asse_carry(_asse.port("tube-in"))[0]
+    body = cq.importers.importStep(str(BULKHEAD_STEP)).val()
+    return seat_body(body, (), station=(_jg.port(-1.0),
+                                        (inlet[0], bulkhead_mouth_y(), inlet[2])))
+
+
+def back_wall_ports(bulkhead_carry):
+    """Through-holes the back wall carries, as `(kind, x, z, *size)` on its own plane.
+
+    One: the bore the union's threading passes. It is struck on the fitting's own inboard
+    collet, so hole and barrel cannot land on two different columns, and it is bored one
+    `PORT_HOLE_SLIP` over the barrel that goes through it."""
+    pos = bulkhead_carry(_jg.port(-1.0))[0]
+    return [("round", pos[0], pos[2], _jg.panel_hole_d(PORT_HOLE_SLIP))]
+
+
 # The assembly's non-manifold members, by name. `report` measures the manifold pack as
 # one box — the clearances the core and the pump stand off are struck against it — so a
 # body added to the assembly that is not part of that pack has to be named here or it
@@ -308,7 +365,7 @@ def build_suction_chain(seaflo, suction):
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split", "flow-regulator", "vk-solenoid")
+              "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water")
 
 
 def _manifold(name):
@@ -428,9 +485,11 @@ def build_stack(psu, wall_seat):
 # water comes in through the back panel, so the mouth that faces the bulkhead is the upstream
 # one and the flow runs forward down the lane to the split.
 ASSE1022_YAW = -90.0
-# What the chain stands off the rear seam — room for the bulkhead it is fed from and for
-# `water-1` to turn out of it. The bulkhead is a back-panel body and is not placed.
-ASSE_REAR_CLEAR = 20.0
+# The chain's aft end is the BULKHEAD'S REACH plus the tube between them, and neither is a
+# number this module picks: the union hangs `jg_bulkhead_union.far_ring_face_y` inboard of the
+# wall it clamps through, and `WATER_1` is what two collets facing each other need. So a longer
+# union, or a thicker wall, moves the chain forward rather than closing on it — and the whole
+# west lane, which hangs off this chain, comes with it.
 # THE PUMP'S WIDTH IS ITS BRACKET'S, AND ONLY FOR THE 8 mm THE BRACKET IS TALL. The splayed
 # feet reach x ±49 from the cap up to `seaflo_22_pump.FOOT_T`; above that the casting's own west
 # face stands at −28 aft of the motor's mid-length and −40 at its widest. So the lane west of the
@@ -458,16 +517,16 @@ def build_asse(foam, seaflo):
     and a change to either number moves both bodies together.
 
     Its X hugs the cold core's west face, leaving the rest of the lane between it and the pump.
-    Its Y stands the inlet `ASSE_REAR_CLEAR` ahead of the rear seam's standoff, which puts the
-    vent aft of the bracket's own forward edge — the band where the lane is at its widest.
 
-    What holds it is the wall clamps, which are a top-wall feature and an open item."""
+    Its Y is the BULKHEAD'S, one `WATER_1` forward of the mouth that feeds it — so the chain
+    stands off the back wall by exactly what the union reaching through it leaves, and not by a
+    figure held here."""
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
     return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),),
                      x0=box(foam).xmin,
-                     y1=_enc.rear_plane_y - _enc.rear_seam_clear - ASSE_REAR_CLEAR,
+                     y1=bulkhead_mouth_y() - WATER_1,
                      z0=pan_floor(foam, seaflo) + _pan.PAN_Z + _pan.VENT_GAP)
 
 
@@ -723,15 +782,20 @@ def build_pack() -> cq.Assembly:
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     vk, vk_carry = build_vk(chain_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
+    bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
+    a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
     carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
-               "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry}
+               "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
+               "bulkhead-water": bulkhead_carry}
     solids = {"seaflo-pump": seaflo, "suction-chain": chain,
               "asse1022-assembly": asse, "water-split": split,
-              "flow-regulator": flowreg, "vk-solenoid": vk}
+              "flow-regulator": flowreg, "vk-solenoid": vk,
+              "bulkhead-water": bulkhead}
+    a.bulkhead_carry = bulkhead_carry
     runs = _lines.build_runs(solids, carries)
     for name, solid in _lines.tubes(runs):
         _ROUTED.add(name)
@@ -749,20 +813,29 @@ def _solids(a: cq.Assembly):
         cq.Location(c.loc.wrapped.Transformation())), c.color) for c in a.children}
 
 
+# Bodies seated THROUGH a wall rather than standing inside it. Each one clamps in a hole and
+# reaches out the far side, so its box is not a box the interior has to hold — a pack sized to
+# contain one is a pack built around its own skin. They come back as stations on the wall
+# instead, and the wall is cut for them.
+#
+# The funnel is the same case and is not listed, because it is added after the box exists
+# (`build_front_half`) rather than to the pack.
+THROUGH_WALL = ("bulkhead-water",)
+
+
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
-    The funnel is not among them. It is seated IN the top wall — brim on the outer face,
-    chute hanging through — so it stands above the ceiling the pack has to live under, and
-    a box sized to contain it would be a box built around its own lid. It comes back as a
-    station on that wall (`_seated`).
+    `THROUGH_WALL` is what that excludes, and the funnel is the same case by a different route.
 
     The station fields left empty are the ones this pack has no body for: the mains inlet's
-    bosses, the panel through-holes. Each arrives with the body it is for."""
-    placed = _solids(build_pack() if a is None else a)
+    bosses, the front panel's through-holes. Each arrives with the body it is for."""
+    a = build_pack() if a is None else a
+    placed = _solids(a)
     pan = box(placed["drip-pan"][0])
-    return _enc.Pack(placed=placed,
-                     west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan))
+    return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
+                     west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan),
+                     back_ports=back_wall_ports(a.bulkhead_carry))
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
@@ -890,7 +963,7 @@ def report(a: cq.Assembly) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split", "flow-regulator", "vk-solenoid"):
+              "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water"):
         if n in named:
             line(n, box(named[n]))
     walls = None
