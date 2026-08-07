@@ -65,11 +65,10 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "3 under, tightest 0.499 mm",
+   "value": "2 under, tightest 0.770 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "seaflo-pump \u2014 drip-pan: 0.499 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 move a body, not the line",
@@ -80,6 +79,7 @@
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
     "compressor-shroud \u2014 foam-assembly: 0.001 mm \u2014 seated against it",
+    "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "foam-assembly \u2014 vk-solenoid: 1.000 mm",
     "water-split \u2014 discharge-chain: 1.150 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
@@ -1803,15 +1803,15 @@
    "component": "drip-pan",
    "boxes": [
     [
-     -108.499,
+     -108.0,
      346.1,
      262.4,
-     -35.499,
+     -36.0,
      442.1,
      272.4
     ]
    ],
-   "fill": 0.3552,
+   "fill": 0.3554,
    "primitive": false,
    "declared": null
   },
@@ -4093,8 +4093,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T23:24:29+00:00",
-  "commit": "becda51e6ec22c63c6e3cf4f1afeca32c4f9145a",
+  "generated": "2026-08-07T23:27:30+00:00",
+  "commit": "9432961d47cfd81c8967686849593239a912ad87",
   "inputs": {}
  }
 }
