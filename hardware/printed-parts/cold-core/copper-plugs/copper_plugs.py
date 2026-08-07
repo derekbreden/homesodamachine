@@ -1,36 +1,39 @@
-"""Copper-line plugs — three small PETG pieces that slide down into
-the shared ⌀[6.5 mm](SLOT_W) port in the outer_shell wall and seal the gaps
-between (and above) the three pass-throughs that share that port.
+"""Copper plugs — small PETG pieces that slide down into a lane's ⌀[6.5 mm](SLOT_W) slot in
+the outer_shell wall and seal the gaps between (and above) the lines that cross there.
 
-Pass-throughs that pierce that wall through the shared port,
-ordered low → high in Z:
+THE SLOT IS THE COPPER'S DOING. An evaporator tail is formed off a coil that is lowered
+into the cavity, so its outward leg travels DOWN the wall to its station instead of being
+threaded through it — which takes an opening that runs out through the shell's top face.
+Each of the shell's two lanes carries one refrigerant line low on the wall
+(`_cold_core_interface.evap_inlet_z` on the port lane, `evap_outlet_z` on the west), so each
+lane's opening starts under that line and runs the whole height of the wall above it. Every
+other line on that lane crosses inside the same opening.
 
-  • lowest copper  (cold-side evaporator inlet)  at z = the front port field's
-                                                   top, one wall of PETG, and
-                                                   the slot's own bottom reach
-  • highest copper (warm-side evaporator outlet) at z = one front_port_pitch up
-  • PRV vent (1/4" LLDPE from prv-shroud cap)     at z = one more
+So a lane is a COLUMN of stations and a stack of plugs that tiles it. Each plug spans from
+one station up to the next; the arch at each of its ends holds half the tube crossing
+there, and the plug on the other side of that tube holds the other half. The tube IS the
+gap. The topmost plug of a column reaches the wall's top face and its top stays flat, so
+nothing is left open above the stack.
 
-Not one of the three crosses at the height its own fitting sits at. The cold tail
-climbs the port lane to reach the slot; the warm tail and the line off the
-prv-shroud's cap drop it. So the three continue the front port field's column at the
-field's own pitch instead of spreading up the wall, and every penetration the shell's
-−X face has stands in one band low on it.
+The PORT LANE's column, low → high:
 
-The PRV vent line is unpressurized in normal operation — it carries
-relief-event discharge from the prv-shroud cavity (see
-`../prv-shroud/`) out to the appliance interior. It shares the same
-slot + same 1/4" OD tube + same ⌀[6.5 mm](SLOT_W) slot punch as the other two
-pass-throughs.
+  • [43.75 mm](EVAP_INLET_Z) evaporator inlet — the condenser's own outlet pick, read from
+    this side of the plane the two bodies share
+  • the CORRIDOR GROUP, [138.2 → 170.2 mm](CORRIDOR_SPAN) — reservoir A, both reed
+    cables, the CO2 inlet and the PRV vent, one bore plus one wall apart, standing above
+    everything the refrigeration stratum packs against this face
 
-Three plugs in the stack:
-  • copper-plug-lower:  fills the Z span between the lowest-copper
-                        and highest-copper pass-throughs.
-  • copper-plug-middle: fills the Z span between the highest-copper
-                        and PRV-vent pass-throughs.
-  • copper-plug-top:    fills the Z span above the PRV vent, up
-                        to (just below) the +Z top face of the
-                        outer_shell.
+The WEST LANE's column carries one station, [58 mm](EVAP_OUTLET_Z): the evaporator outlet,
+which is the compressor shroud's own suction pick.
+
+Not one of them crosses at the height its own fitting sits at. Each line leaves its fitting,
+turns onto its lane and climbs or drops it to its station — the cold tail climbs, the warm
+tail drops across the top of the tank and down the far lane, the PRV vent comes down off the
+shroud's cap, and the four out of the pockets and the bottom plate climb the whole way.
+
+The PRV vent line is unpressurized in normal operation — it carries relief-event discharge
+from the prv-shroud cavity (see `../prv-shroud/`) out to the appliance interior. It takes
+the same 1/4" OD tube and the same ⌀[6.5 mm](SLOT_W) slot as everything else on its lane.
 
 Cross-section (looking along −Z; X horizontal, Y vertical) — a
 true I-beam: a thin web fills the slot's X range at the wall's Y
@@ -53,13 +56,6 @@ into the plug body, so the plug seats gently around the tube
 running through the slot below/above it. The arch is Y-tall enough
 to span the full plug Y envelope (y = bottom_flange_inner ..
 top_flange_outer), so the flanges don't block tubes from seating.
-
-  • LOWER plug:  arch on BOTTOM (over lowest copper), arch on TOP
-                 (under highest copper).
-  • MIDDLE plug: arch on BOTTOM (over highest copper), arch on TOP
-                 (under PRV vent).
-  • TOP plug:    arch on BOTTOM (over PRV vent), TOP stays FLAT
-                 (it's the top end of the stack).
 """
 
 import math
@@ -86,16 +82,18 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,
+    evap_inlet_z,
+    evap_outlet_z,
     front_port_axis,
-    front_port_field_top_z,
-    front_port_pitch,
+    front_port_order,
+    front_port_z,
     front_wall_x,
     port_lane_mid_y,
-    port_lane_wall,
+    west_lane_mid_y,
 )
 
 # Slot width in X equals the port's ⌀[6.5 mm](SLOT_W) punch in
-# cut_slot_for_copper_and_prv_vent.
+# cut_lane_slots.
 slot_width_x = 6.5
 slot_half_width_x = slot_width_x / 2
 slot_x_range = (-slot_half_width_x, slot_half_width_x)
@@ -106,12 +104,12 @@ tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 
 # The plug is authored in the PORT FRAME — the frame every foam-shell penetration is
 # authored in, where the wall a port crosses is a −Y wall, the slot runs lateral in x
-# and z is the shell's own. In the shell the slot is in the −X wall, on the port lane;
-# `_cold_core_interface.port_to_shell` is the one transform that carries this frame
-# there, and `_port_cuts.cut_slot_for_copper_and_prv_vent` cuts the slot through it, so the
-# slot and the stack that fills it cannot land in two places. The plug's exported
-# STEP stays in this frame: a printed part's frame is the one that describes it, and
-# what describes a plug is the wall it plugs.
+# and z is the shell's own. In the shell the slot is in the −X wall, on one of the two
+# lanes; `_cold_core_interface.port_to_shell` is the one transform that carries this frame
+# there, and `_port_cuts.cut_lane_slots` cuts each slot through it, so a slot and the stack
+# that fills it cannot land in two places. The plug's exported STEP stays in this frame: a
+# printed part's frame is the one that describes it, and what describes a plug is the wall
+# it plugs — which is one wall for both lanes, so both lanes' plugs are one family.
 # Web fills the wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
 # [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) outboard and [1 mm](FLANGE_T) inboard of it.
 # [-141.5 mm](WALL_OUTER_Y) — outer face of the wall (the shell's −X face, toward the user).
@@ -138,51 +136,47 @@ plug_y_range = (plug_y_outer, plug_y_inner)
 top_flange_y_range = (outer_wall_outer_y, plug_y_outer)
 bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
 
-# Pass-through Z positions (centers).
-# The lane is ONE COLUMN AT ONE PITCH. The front port field
-# (`_cold_core_interface.front_port_stations`) takes the bottom of it and the slot
-# takes the span above; both are one bore wide, so they share one line and cannot
-# overlap. A station's Z is where its line CROSSES THE WALL, not the height of the
-# fitting it serves — every line turns onto the lane and climbs or drops it to get
-# here — so the slot's three continue the field at its own `front_port_pitch` rather
-# than each crossing at its fitting's own height. That is what keeps all seven
-# penetrations in one low band: the stack tops out at [59.75 mm](PRV_VENT_Z) on a
-# wall [213.4 mm](SHELL_TOP_Z) tall, so whatever is packed against this face outside
-# meets every port in one reach instead of up the shell's full height. What the
-# stack owes the field is the field's top, one wall of PETG, and the reach of the
-# slot's own rounded bottom below the lowest plug.
-# [43.75 mm](LOWEST_COPPER_Z) — cold-side evaporator inlet, where it crosses the wall.
-slot_bottom_below_lowest_plug = 5.0     # open slot under the lowest plug's bottom arch
-lowest_copper_z = (front_port_field_top_z + port_lane_wall
-                   + slot_width_x / 2 + slot_bottom_below_lowest_plug)
-# The slot's own bottom — the straight section's low end, with the punch's rounded
-# end reaching slot_width_x/2 further down.
-slot_z_bottom = lowest_copper_z - slot_bottom_below_lowest_plug
-# [51.75 mm](HIGHEST_COPPER_Z) — warm-side evaporator outlet. The coil's warm tail
-# leaves its top wrap at `_cold_core_interface.evap_tail_high_z` and DROPS the lane
-# to cross here — the mirror of the cold tail's climb, and the reason the coil's own
-# geometry and this station are two numbers rather than one.
-highest_copper_z = lowest_copper_z + front_port_pitch
-# [59.75 mm](PRV_VENT_Z) — PRV relief line, down the lane from the prv-shroud cap.
-prv_vent_z = highest_copper_z + front_port_pitch
-# [153.7 mm](TOP_PLUG_H) — Z extent of the top plug, and it is most of the wall: the
-# slot runs out through the shell's top face so the stack can be dropped in from
-# above, so the plug over the highest line has to fill everything above it.
-top_plug_height = foam_shell_outer_height - prv_vent_z
+# Open slot under the lowest plug's bottom arch, so the punch's rounded end and the
+# tube's own seat are two features and the foam over-pour closes the difference.
+slot_bottom_below_lowest_plug = 5.0
+
+# The two columns. A column is a lane, the stations that cross the wall on it in climbing
+# order, and the slot bottom under the lowest of them. Every Z here is where a line CROSSES
+# THE WALL and not the height of the fitting it serves.
+Column = namedtuple("Column", ["lane_y", "stations", "slot_z_bottom"])
+
+
+def _column(lane_y, stations):
+    return Column(lane_y, tuple(stations), stations[0][1] - slot_bottom_below_lowest_plug)
+
+
+columns = {
+    "port-lane": _column(
+        port_lane_mid_y,
+        [("evap-inlet", evap_inlet_z)] + [(n, front_port_z(n)) for n in front_port_order],
+    ),
+    "west-lane": _column(west_lane_mid_y, [("evap-outlet", evap_outlet_z)]),
+}
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
 # holds exactly HALF of the adjacent tube: the plug ABOVE a tube seats
 # its upper half (in that plug's bottom arch), the plug BELOW seats its
-# lower half (in that plug's top arch). The plugs tile the slot from
-# lowest_copper_z to the wall top with no linear gaps — the tube IS the gap.
-PlugSpec = namedtuple("PlugSpec", ["z_range", "arch_bottom", "arch_top"])
+# lower half (in that plug's top arch). The plugs tile their column from
+# its lowest station to the wall top with no linear gaps — the tube IS
+# the gap. A plug is named for the station its BOTTOM face lands on.
+PlugSpec = namedtuple("PlugSpec", ["z_range", "arch_bottom", "arch_top", "lane_y"])
 
-plug_specs = {
-    "lower": PlugSpec((lowest_copper_z, highest_copper_z), arch_bottom=True, arch_top=True),
-    "middle": PlugSpec((highest_copper_z, prv_vent_z), arch_bottom=True, arch_top=True),
-    "top": PlugSpec((prv_vent_z, foam_shell_outer_height), arch_bottom=True, arch_top=False),
-}
+plug_specs = {}
+for _column_spec in columns.values():
+    _edges = [z for _name, z in _column_spec.stations] + [foam_shell_outer_height]
+    for _i, (_name, _z) in enumerate(_column_spec.stations):
+        plug_specs[_name] = PlugSpec(
+            (_z, _edges[_i + 1]),
+            arch_bottom=True,
+            arch_top=_i + 1 < len(_column_spec.stations),
+            lane_y=_column_spec.lane_y,
+        )
 
 
 def slot_station(name):
@@ -190,15 +184,16 @@ def slot_station(name):
     `(position, outward axis)`.
 
     A plug's bottom face IS a pass-through centre — the arch there holds the upper half of
-    that tube and the plug below holds its lower half — so the three stations are the three
-    plugs' own low ends, and a plug resized carries its line with it. They stand on the same
-    lane the field's five do, and continue that column at its own pitch."""
-    return ((front_wall_x, port_lane_mid_y, plug_specs[name].z_range[0]), front_port_axis)
+    that tube and the plug below holds its lower half — so the stations are the plugs' own
+    low ends, and a plug resized carries its line with it."""
+    spec = plug_specs[name]
+    return ((front_wall_x, spec.lane_y, spec.z_range[0]), front_port_axis)
 
 
 def slot_stations() -> dict:
-    """All three the slot carries, under the plugs whose low ends they are."""
+    """Every station either lane's slot carries, under the plugs whose low ends they are."""
     return {name: slot_station(name) for name in plug_specs}
+
 
 # The arch's half-disc (radius = tube_clearance_radius) is tangent to
 # the web's outer X edge at (x = ±slot_half_width_x, z = at_z), so the
@@ -213,6 +208,17 @@ web_arch_buffer = math.sqrt(
 )
 
 volume_check_tolerance = 0.01  # [0.01 mm³](VOL_TOL)
+
+# A plug between two stations one `front_port_pitch` apart is the pitch's own wall: the two
+# arches eat a bore's diameter out of its span and what is left standing between them is the
+# PETG a bore on the lane would have had either side of it. Below this the wall between two
+# lines stops being printable, so the shortest plug in either stack is the check.
+for _name, _spec in plug_specs.items():
+    _web = _spec.z_range[1] - _spec.z_range[0] - tube_clearance_radius * (
+        1 + (1 if _spec.arch_top else 0))
+    assert _web >= min_printable_thickness - 1e-9, (
+        f"plug {_name} spans {_spec.z_range[1] - _spec.z_range[0]:g} mm and leaves {_web:g} mm "
+        f"standing between its arches, under the {min_printable_thickness:g} mm a wall takes")
 
 
 def build_plug(spec):
@@ -283,10 +289,15 @@ def _analytical_volume(spec):
     return vol_web + vol_top_flange + vol_bot_flange - vol_arch_total
 
 
+def plug_part_name(name):
+    """What one plug's printed part is called — the station its bottom face lands on."""
+    return f"copper-plug-{name}"
+
+
 def main():
     for name, spec in plug_specs.items():
         plug = build_plug(spec)
-        out = _here / f"copper-plug-{name}.step"
+        out = _here / f"{plug_part_name(name)}.step"
         export_step(plug, str(out))
 
         solids = plug.solids().vals()
@@ -297,7 +308,8 @@ def main():
         vol_diff = vol - vol_analytical
         z_bottom, z_top = spec.z_range
         print(
-            f"-> copper-plug-{name}.step  "
+            f"-> {plug_part_name(name)}.step  "
+            f"lane y {spec.lane_y:+.2f}  "
             f"z {z_bottom:.2f} -> {z_top:.2f} (h {z_top - z_bottom:.2f} mm)  "
             f"bbox X[{bb.xmin:6.2f}..{bb.xmax:6.2f}] "
             f"Y[{bb.ymin:6.2f}..{bb.ymax:6.2f}] "
@@ -320,6 +332,7 @@ def main():
             f"(> {volume_check_tolerance} tolerance)"
         )
 
+    corridor = [front_port_z(n) for n in front_port_order]
     variables = {
         "SLOT_W": f"{slot_width_x:.4g} mm",
         "FLANGE_T": f"{flange_y_thickness:.4g} mm",
@@ -329,14 +342,12 @@ def main():
         "WALL_INNER_Y": f"{outer_wall_inner_y:.4g} mm",
         "PLUG_Y_INNER": f"{plug_y_inner:.4g} mm",
         "PLUG_Y_OUTER": f"{plug_y_outer:.4g} mm",
-        "LOWEST_COPPER_Z": f"{lowest_copper_z:.4g} mm",
-        "HIGHEST_COPPER_Z": f"{highest_copper_z:.4g} mm",
-        "PRV_VENT_Z": f"{prv_vent_z:.4g} mm",
-        "TOP_PLUG_H": f"{top_plug_height:.4g} mm",
+        "EVAP_INLET_Z": f"{evap_inlet_z:.4g} mm",
+        "EVAP_OUTLET_Z": f"{evap_outlet_z:.4g} mm",
+        "CORRIDOR_SPAN": f"{corridor[0]:.4g} → {corridor[-1]:.4g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
         "CPLUG_WALL_T": f"{wall_and_floor_thickness:.4g} mm",
-        "SHELL_TOP_Z": f"{foam_shell_outer_height:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -350,13 +361,11 @@ def main():
             "WALL_INNER_Y": 1,
             "PLUG_Y_INNER": 1,
             "PLUG_Y_OUTER": 1,
-            "LOWEST_COPPER_Z": 1,
-            "HIGHEST_COPPER_Z": 1,
-            "PRV_VENT_Z": 2,
-            "TOP_PLUG_H": 1,
+            "EVAP_INLET_Z": 1,
+            "EVAP_OUTLET_Z": 1,
+            "CORRIDOR_SPAN": 1,
             "WEB_BUFFER": 1,
             "CPLUG_WALL_T": 3,
-            "SHELL_TOP_Z": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
