@@ -122,25 +122,32 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # The reservoir's SECOND mouth, in its own cap. The draw leaves by the bulkhead
 # at the bottom of the wet V; the fill arrives up here, above the liquid, so the
 # two never share a mouth and everything entering has to cross the cavity to
-# leave by the trough. Its station is the corner of the cap FURTHEST from that
-# drain — the +Y centerward quadrant, which is also the one corner the vent
-# boss, the rod's register boss and all six screw bosses leave empty. The cap
-# reads it (`reservoir.build_reservoir_cap`) and so does the conduit standing
-# over it (`cap_conduits`) — in two different frames, neither part seeing the
-# other, so `reservoir_fill_conduit_xy` is the whole of what holds them
-# together and the assertion under `cap_conduits` is what enforces it. A
-# conduit that misses its bore is a hole into a sealed pocket; a bore that
-# misses its conduit is a blind one.
-#   `reservoir_fill_sides` is which caps are cut, and it is a fact about the
-# DECK ABOVE rather than about the reservoir: the two stand under different
-# ones, so a station open over one is not open over the other. B (side −1) is
-# the forward pocket and its station is clear to the lid. A (side +1) is the
-# aft pocket and the SeaFlo pump stands on the whole of its cap, x[−49, 49]
-# across the crown, so A's anchor comes out under the casting and A has no
-# fill until it takes a station of its own.
-reservoir_fill_sides = (-1,)
-reservoir_fill_port_x = 88.0
-reservoir_fill_port_y = 43.5
+# leave by the trough. The cap reads its station (`reservoir.build_reservoir_cap`)
+# and so does the conduit standing over it (`cap_conduits`) — in two different
+# frames, neither part seeing the other, so `reservoir_fill_conduit_xy` is the
+# whole of what holds them together and the assertion under `cap_conduits` is
+# what enforces it. A conduit that misses its bore is a hole into a sealed
+# pocket; a bore that misses its conduit is a blind one.
+#   EACH RESERVOIR TAKES ITS OWN STATION, and only half of what picks it lives
+# in this file. THIS half is the cap's: anywhere the vent boss, the rod's
+# register boss and the six screw bosses leave empty, standing over open cavity
+# so the bore lands in the headspace rather than in a wall. Both stations answer
+# that, and it leaves a wide choice.
+#   The OTHER half is what stands on the crown over each pocket, and this module
+# cannot see it — the machine imports the cold core, not the reverse. So the
+# fence is measured where the bodies are, in `manifold-layout/front_half.py`,
+# and what arrives here is the answer rather than the reasoning. B's pocket has
+# a clear crown and takes the corner furthest from its own drain. A's carries
+# the pump and the power brick, and its station is the strip they leave between
+# them.
+#   The conduit's own boss does not pay that fence either way: it is a column
+# INSIDE the cap, under the crown those bodies stand on. What has to find room
+# up there is the tube.
+reservoir_fill_port = {
+    -1: (-88.0, 43.5),      # B, forward pocket — the corner opposite its drain
+    +1: (102.5, -56.0),     # A, aft pocket — the strip between the pump and the brick
+}
+reservoir_fill_sides = tuple(sorted(reservoir_fill_port))
 
 
 def reservoir_fill_conduit_xy(side):
@@ -149,7 +156,8 @@ def reservoir_fill_conduit_xy(side):
     The bore is authored in the RESERVOIR's frame (`reservoir._add_fill_port`) and the
     conduit in the CAP's, and the cap installs spun a half turn about Z
     (`foam_assembly.spin_xy`) — so the station is the anchor negated in both coordinates."""
-    return (-reservoir_fill_port_x * side, -reservoir_fill_port_y)
+    x, y = reservoir_fill_port[side]
+    return (-x, -y)
 
 # Outer footprint. The ±Y (front/back) gap is the tank's foam blanket out to the
 # shell wall. The ±X width is set by the reservoir + its reed channel butted
@@ -620,6 +628,7 @@ cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
     "reservoir-b": (135.5, -43.5),
+    "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": (45.5, -port_lane_mid_y),
     "co2-in": (72.5, -port_lane_mid_y),

@@ -3,7 +3,7 @@
  "placed": 0,
  "located": 100,
  "shaped": 0,
- "routed": 42,
+ "routed": 45,
  "held": 81,
  "mounted": 4,
  "checks": [
@@ -42,7 +42,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "17/17 as drawn",
+   "value": "18/18 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -52,11 +52,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 34/34 corners at spec",
+   "value": "B \u2014 36/36 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:12"
+    "runs by grade: B:13"
    ],
    "active": true
   },
@@ -102,11 +102,11 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "17/40 drawn",
+   "value": "18/40 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 7/27",
+    "fluid: 8/27",
     "refrigerant: 0/3",
     "water: 8/8",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
@@ -120,8 +120,7 @@
     "fluid-11 (fluid): Y-C-3 \u2192 P-B-I",
     "fluid-12 (fluid): P-B-O \u2192 Y-D-1",
     "fluid-13 (fluid): Y-D-2 \u2192 V-F-I",
-    "fluid-14 (fluid): V-F-O \u2192 Y-E-1",
-    "fluid-16 (fluid): Y-E-3 \u2192 V-E-I",
+    "fluid-15 (fluid): Bag A port \u2192 Y-E-2",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1",
     "fluid-20 (fluid): V-H-O \u2192 Y-F-2",
@@ -553,7 +552,26 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "fluid-15",
+   "mates": "fluid-16",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
+   "name": "reservoir-a-fill",
+   "kind": "fluid",
+   "pos": [
+    56.0,
+    422.0,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-14",
    "status": "ok",
    "note": ""
   },
@@ -729,25 +747,6 @@
    "note": ""
   },
   {
-   "component": "tee-y-e",
-   "name": "Y-E-2",
-   "kind": "fluid",
-   "pos": [
-    77.07,
-    136.82,
-    281.814
-   ],
-   "face": [
-    -0.0,
-    1.0,
-    -0.0
-   ],
-   "diam": 6.35,
-   "mates": "fluid-15",
-   "status": "ok",
-   "note": ""
-  },
-  {
    "component": "valve-v-a",
    "name": "inlet",
    "kind": "fluid",
@@ -914,7 +913,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-16",
    "status": "ok",
    "note": ""
   },
@@ -971,7 +970,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-14",
    "status": "ok",
    "note": ""
   },
@@ -1794,66 +1793,6 @@
    }
   },
   {
-   "id": "fluid-15",
-   "kind": "fluid",
-   "frm": "tee-y-e.Y-E-2",
-   "to": "foam-assembly.reservoir-a",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 82.99,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 45.3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      14.0,
-      47.2
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      47.2,
-      28.41
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 90.0,
-   "seat": 28.414,
-   "reach": 33.295,
-   "reachRatio": 2.3782,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 47.2,
-    "demand": 1.4176,
-    "from": [
-     77.07,
-     150.82,
-     281.81
-    ],
-    "to": [
-     43.5,
-     184.0,
-     281.81
-    ]
-   }
-  },
-  {
    "id": "water-5",
    "kind": "water",
    "frm": "discharge-chain.tube-port",
@@ -1974,6 +1913,66 @@
    }
   },
   {
+   "id": "fluid-16",
+   "kind": "fluid",
+   "frm": "foam-assembly.reservoir-a",
+   "to": "valve-v-e.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 134.39,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      28.41,
+      103.99
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      103.99,
+      14.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 14.0,
+   "reach": 51.997,
+   "reachRatio": 3.7141,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 103.994,
+    "demand": 2.0,
+    "from": [
+     43.5,
+     184.0,
+     281.81
+    ],
+    "to": [
+     20.07,
+     82.68,
+     281.81
+    ]
+   }
+  },
+  {
    "id": "water-3",
    "kind": "water",
    "frm": "water-split.to-vk",
@@ -2041,6 +2040,66 @@
      -74.0,
      157.0,
      264.7
+    ]
+   }
+  },
+  {
+   "id": "fluid-14",
+   "kind": "fluid",
+   "frm": "valve-v-f.outlet",
+   "to": "foam-assembly.reservoir-a-fill",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 441.09,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      49.36,
+      339.97
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      339.97,
+      63.78
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 49.361,
+   "reach": 169.987,
+   "reachRatio": 12.1419,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 339.974,
+    "demand": 2.0,
+    "from": [
+     77.07,
+     82.68,
+     317.18
+    ],
+    "to": [
+     56.0,
+     422.0,
+     317.18
     ]
    }
   },
@@ -2360,8 +2419,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T20:18:01+00:00",
-  "commit": "274abc13e3c0c2187bfd81dbd3d5c00e1701a621",
+  "generated": "2026-08-07T20:51:43+00:00",
+  "commit": "d61fc405c0fcbca41d3f63f04dc5cf4f08ce3539",
   "inputs": {}
  }
 }
