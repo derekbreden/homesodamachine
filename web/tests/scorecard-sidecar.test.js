@@ -16,8 +16,11 @@ import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "printed-parts", "enclosure",
-  "enclosure-assembly", "enclosure-assembly.scorecard.json");
+// The live pack's sidecar. The enclosure-assembly's is a retired output — nothing
+// rebuilds it — so the contract is checked against hardware/manifold-layout/, and the
+// tests skip themselves until front_half writes one.
+const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "manifold-layout",
+  "front-half.scorecard.json");
 const SIDECAR = sidecarIn("hardware");
 
 test("enclosure scorecard sidecar conforms to the contract", (t) => {
