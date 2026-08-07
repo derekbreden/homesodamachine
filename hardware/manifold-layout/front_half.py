@@ -175,7 +175,8 @@ def build_front_half() -> cq.Assembly:
     a.add(cond, name="condenser+fan", color=C_COND)
 
     pose = ml.crown_pose()
-    posed = [(n, seat.then(pose).solid(s), c) for n, (s, seat, c) in ml.posed_bodies().items()]
+    pack = {**ml.posed_bodies(), **ml.posed_tubes()}
+    posed = [(n, seat.then(pose).solid(s), c) for n, (s, seat, c) in pack.items()]
     crown = max(box(shroud).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
     stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
