@@ -8,7 +8,7 @@ from _outer_shell import build_outer_shell, cut_insert_pockets
 from _port_cuts import (
     cut_circular_port_holes,
     cut_co2_inlet,
-    cut_slot_for_copper_and_prv_vent,
+    cut_lane_slots,
 )
 from _reed_channels import (
     build_reed_channels,
@@ -30,7 +30,7 @@ def build_full_shell():
         cut_insert_pockets,
         cut_circular_port_holes,
         cut_co2_inlet,
-        cut_slot_for_copper_and_prv_vent,
+        cut_lane_slots,
         cut_reed_channel_openings,
         cut_reed_cable_holes,
     ):
