@@ -26,8 +26,14 @@ from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
 
 import manifold_layout as ml
+import front_half as _fh
+import ground_ring_stack as _gnd  # on the path once `front_half` is imported
 
 import importlib.util
+
+# The placed pack, for the counts that are the machine's rather than a part's. `machine()`
+# is the whole appliance, so this is the one expensive import in this driver.
+_east_bosses = _fh.machine()[2].east_bosses
 
 
 def _load_module(name: str, file_path: Path):
@@ -109,12 +115,14 @@ assert not ml.JOINS, (
 
 # Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces,
 # PLUS the top cap's deck-mount columns — each takes a ruthex short in its top
-# bore and an M3 SHCS down through the module it carries. The clamp screws are
+# bore and an M3 SHCS up through the valve tray it carries. The clamp screws are
 # 1:1 with the clamp inserts only; the deck mounts add inserts on their own.
+# `deck_mounts` is the tray table (`_cold_core_interface`), one station per tray.
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
-foam_cap_inserts_per_build = (inserts_per_foam_cap_face * foam_cap_faces
+foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
+foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
                               + foam_cap_deck_inserts_per_build)
-foam_cap_screws_per_build = inserts_per_foam_cap_face * foam_cap_faces  # 1:1 clamp only
+foam_cap_screws_per_build = foam_cap_clamp_inserts_per_build  # 1:1 clamp only
 
 # Reservoir-cap hardware (12 inserts + 12 M3 × 12 screws).
 reservoir_cap_inserts_per_build = inserts_per_reservoir_cap * reservoirs_per_build
@@ -125,19 +133,21 @@ reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
-# Electronics-shelf hardware (Zone B, assembly/electronics-shelf.md). Every insert on
-# this shelf is in a deck-mount column of the top foam cap, counted with the cap above:
-# the board, the PSU, relay #1, the AC hub and the ground stack all land on one. No
-# printed part on the shelf carries a boss of its own, and no tray ships.
-shelf_inserts_per_build = 0
-# One SHCS down through each module into its column. The ground stack's is the long one
-# — `deck_mounts` carries the length each station takes.
-shelf_screws_per_build = foam_cap_deck_inserts_per_build
-shelf_long_screws_per_build = sum(
-    len(deck_mount_xy(n)) for n, m in deck_mounts.items() if m.screw > 8.0)
+# Electronics-shelf hardware (Zone B, assembly/electronics-shelf.md). The power column
+# bolts to `enclosure-back-top`'s +X wall: `front_half.wall_mounts` stands ONE BOSS PER
+# HOLE in each body's own mounting pattern, and each boss is bored for a ruthex short.
+# So the count is the pack's, not a number typed here — a body that gains a hole gains a
+# boss, an insert and a screw together. No printed part on the shelf carries a boss of
+# its own and no tray ships, so this is the whole of the shelf's retention.
+shelf_inserts_per_build = len(_east_bosses)
+# One SHCS in through each body from the room, into its boss's insert — 1:1 with the
+# bosses. The ground stack's is the long one: it comes down through a fan of ring
+# terminals before it reaches its insert, so its own pattern is what counts the M3 × 10s.
+shelf_screws_per_build = shelf_inserts_per_build
+shelf_long_screws_per_build = len(_gnd.holes)
 shelf_short_screws_per_build = shelf_screws_per_build - shelf_long_screws_per_build
 
-# Combined heat-set insert count across the appliance (40).
+# Combined heat-set insert count across the appliance (50).
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -170,6 +180,7 @@ def main():
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
+        "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
         "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
         "RES_INSERTS_PER_CAP": f"{inserts_per_reservoir_cap:.4g}",
         "RES_INSERTS": f"{reservoir_cap_inserts_per_build:.4g}",
@@ -209,17 +220,18 @@ def main():
             "PP1208E_INLET": 1,
             "PP1208E_TOTAL": 1,
             "FOAM_INSERTS": 2,
+            "FOAM_CLAMP_INSERTS": 2,
             "FOAM_SCREWS": 2,
             "RES_INSERTS_PER_CAP": 1,
             "RES_INSERTS": 1,
             "RES_SCREWS": 1,
             "TOUCHFLO_INSERTS": 2,
             "TOUCHFLO_SCREWS": 2,
-            "SHELF_INSERTS": 1,
-            "SHELF_SCREWS": 1,
+            "SHELF_INSERTS": 2,
+            "SHELF_SCREWS": 3,
             "SHELF_SCREWS_M3X8": 2,
-            "SHELF_SCREWS_M3X10": 1,
-            "DECK_INSERTS": 2,
+            "SHELF_SCREWS_M3X10": 3,
+            "DECK_INSERTS": 3,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
             "PITCH": 1,
