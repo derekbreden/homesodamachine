@@ -118,10 +118,35 @@ def _authored_runs() -> list:
     F = _frames()
     runs: list = []
 
-    # --- The refrigerant loop. Three joints, and every one of them crosses a plane two bodies
-    # already share, so each is a made-up union rather than a length of tube: the shroud's
-    # discharge on the condenser's inlet, the condenser's liquid line on the evaporator's inlet,
-    # the evaporator's outlet on the shroud's suction. Nothing is drawn between them.
+    def add(run):
+        runs.append(run)
+        return run
+
+    # --- The refrigerant loop. Three joints, and every one crosses a plane two bodies already
+    # share, so each is a made-up union rather than a length of tube: the shroud's discharge on
+    # the condenser's inlet, the condenser's liquid line on the evaporator's inlet, the
+    # evaporator's outlet on the shroud's suction. `_contents.refrigerant_joints()` measures the
+    # three at every build and nothing is drawn between them.
+
+    # --- The tap-water sequence, all of it down the WEST LANE. Four fittings on one line: the
+    # panel's bulkhead, the ASSE chain hung off it, the split off the chain's outlet, and the
+    # regulator off the split's flavor collet. `_contents` seats each on the mouth before it, so
+    # every one of these is a straight length of tube between two collets facing each other.
+    add(route("water-1", "bulkhead-water.tube-in", "asse1022-assembly.tube-in",
+              kind="water", stub=0.0, skew=FLAVOR_SKEW,
+              note="the panel's own inward collet to the chain's, one hop apart on one axis"))
+    add(route("water-2", "asse1022-assembly.tube-out", "water-split.supply",
+              kind="water", stub=0.0, skew=FLAVOR_SKEW,
+              note="the chain's outlet to the split's run, one plane, no fall"))
+    add(route("fluid-1", "water-split.to-flavor", "flow-regulator.inlet",
+              kind="fluid", stub=0.0, skew=FLAVOR_SKEW,
+              note="the split's forward run to the regulator's inlet, inline"))
+
+    # V-K's outlet and the suction chain's collet face each other down the pump's crown, one
+    # junction lead apart — the seat `_contents` gives the plate.
+    add(route("water-4", "vk-tray-assembly.V-K-O", "suction-chain.tube-port",
+              kind="water", stub=0.0, skew=FLAVOR_SKEW,
+              note="collet to collet across the lead the plate is seated on"))
 
     return runs
 
