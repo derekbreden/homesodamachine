@@ -93,19 +93,22 @@ class Seg:
 
 
 def _interior(how: str) -> tuple:
-    """How `manifold_layout` makes one of its own interior segments, as `(kind, mm, corners)`,
-    off that module's own figures — `SPINE_LEN` the hairpin, `QUARTER_LEN` the quarter out of the
+    """How `manifold_layout` makes one of its own interior segments, as `(kind, mm, corners)`.
+
+    THE KIND IS `_scorecard.made_of`'S. `manifold_layout.SEGMENTS` already says how the pack
+    makes each interior connection, the card reads that column to score `routed`, and this
+    reads it to label an edge — so classifying it twice is how the chart and the card come to
+    disagree about the same segment. What is this driver's own is the mm and the corners, off
+    `manifold_layout`'s figures: `SPINE_LEN` the hairpin, `QUARTER_LEN` the quarter out of the
     deck plane, `SOURCE_LEN` the step that carries on from it, `RUNS` the lanes' straights."""
-    if how == "spine":
-        return ("fold", ml.SPINE_LEN, 2)          # quarter · straight · quarter
-    if how == "turn":
-        return ("turn", ml.QUARTER_LEN + ml.SOURCE_LEN, 3)   # the quarter, then the step's pair
-    if how == "butt":
-        return ("butt", 0.0, 0)
-    # A lane's own straight. `manifold_layout.build_assembly` draws a solid for one only past
-    # 1e-9, and under that the two collets are face to face.
-    length = ml.dist(*ml.RUNS[how])
-    return ("straight", length, 0) if length > 1e-9 else ("butt", 0.0, 0)
+    kind = _scorecard.made_of(how)
+    if kind == "fold":
+        return (kind, ml.SPINE_LEN, 2)                       # quarter · straight · quarter
+    if kind == "turn":
+        return (kind, ml.QUARTER_LEN + ml.SOURCE_LEN, 3)     # the quarter, then the step's pair
+    if kind == "butt":
+        return (kind, 0.0, 0)
+    return (kind, ml.dist(*ml.RUNS[how]), 0)                 # a lane's own straight
 
 
 def segments() -> dict:
@@ -115,8 +118,17 @@ def segments() -> dict:
     Three sources. `_lines.py` draws the runs between PLACED BODIES and they arrive measured.
     `manifold_layout.SEGMENTS` is the manifold's interior, where a connection is a butt or a
     bend. `manifold_layout.MOUTHS` is what leaves that study, and a mouth `_lines.py` has not
-    picked up is a stub drawn one bend radius long and stopped."""
-    a = front_half.build_pack()
+    picked up is a stub drawn one bend radius long and stopped.
+
+    THE WHOLE FRONT HALF, NOT THE PACK. A run between two bodies the pack places is drawn by
+    `_lines.build_runs`, but a run to a body SEATED IN THE BOX cannot be — the box is sized on
+    the pack, so it does not exist until the pack does. `build_front_half` seats the funnel and
+    then draws `_lines.build_seated_runs` off the same frames, and the hopper drain `fluid-4` is
+    the one segment in this table that arrives that way. Read the pack alone and that run falls
+    through to the `MOUTHS` loop and is labelled `not drawn` — a chart claiming an open mouth on
+    a line the machine has already routed, and no gate here catches it, because this driver
+    would be self-consistent against its own partial reading."""
+    a = front_half.build_front_half()
     segs = {}
     for r in a.runs:
         segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, len(r.bends))
@@ -150,6 +162,9 @@ def _valve(v) -> frozenset:
 
 
 NODES = {
+    # The funnel is SEATED IN THE BOX rather than placed in the pack, but it is placed: its
+    # drain is an anchor like any other, and `fluid-4` is drawn off it.
+    "Hopper":     _body("hopper-funnel", "drain"),
     "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
     "FlowReg":    _body("flow-regulator", "inlet", "outlet"),
     "VK":         _body("vk-solenoid", "inlet", "outlet"),
@@ -185,7 +200,7 @@ NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1]
 # rear panel, the customer's supply, the DERPIPE clamped through the back wall, and everything
 # inside the carbonator vessel. An edge to one of these carries a route id only if the segment
 # it names has just one end the machine knows, which is what a mouth with nothing on it yet is.
-UNPLACED = {"Hopper", "Faucet", "Nozzle", "Tap", "CO2", "CO2In", "Vent", "PRVOut", "LevelSense",
+UNPLACED = {"Faucet", "Nozzle", "Tap", "CO2", "CO2In", "Vent", "PRVOut", "LevelSense",
             "P1", "P2", "P3", "P4", "SpargeStone", "Headspace", "Water", "Float"}
 
 # Which limb box in fluid-topology-limbs.mmd is which of the manifold's four lanes.

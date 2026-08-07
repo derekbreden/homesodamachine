@@ -29,27 +29,28 @@ sys.path.insert(
     ),
 )
 
-from _cold_core_interface import co2_inlet_y, co2_inlet_tube_radius  # noqa: E402
+from _cold_core_interface import cap_conduits, cap_conduit_bore_radius  # noqa: E402
 
 from docgen import substitute_md  # noqa: E402
 
 
 def main():
     variables = {
-        # CO2 inlet Y (in cold-core foam-shell coordinates — the vessel's own
-        # port axis) and the bore diameter the 1/4" OD LLDPE crosses the shell
-        # wall through. Source: `co2_inlet_y` and `2 × co2_inlet_tube_radius`
-        # in _cold_core_interface.py.
-        "COTWO_INLET_Y": f"{co2_inlet_y:.4g} mm",
-        "COTWO_TUBE_D": f"{2 * co2_inlet_tube_radius:.4g} mm",
+        # Every warm-side fluid termination this procedure lands on is a conduit
+        # in the cold core's top cap — a bore up one of the cup's own columns,
+        # opening on the lid's outer face. `cap_conduits` is the table; a conduit
+        # added or dropped there moves this count, and the procedure's own list
+        # of what it closes has to move with it.
+        "CAP_CONDUITS": f"{len(cap_conduits)}",
+        "CAP_CONDUIT_D": f"{2 * cap_conduit_bore_radius:.4g} mm",
     }
 
     substitute_md(
         _here / "internal-plumbing.md",
         variables=variables,
         expected_counts={
-            "COTWO_INLET_Y": 1,
-            "COTWO_TUBE_D": 1,
+            "CAP_CONDUITS": 2,
+            "CAP_CONDUIT_D": 1,
         },
     )
     print("-> internal-plumbing.md")

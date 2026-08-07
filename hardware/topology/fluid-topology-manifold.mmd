@@ -12,11 +12,13 @@ flowchart LR
   %% the gate.
 
   %% [26](SEGMENT_COUNT) flavor segments. [11](BUTT_COUNT) are collet butted to collet and carry
-  %% no tube at all; [8](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
+  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
   %% hinge's four hairpins and the source pair's two quarter-and-step turns. What is cut comes to
-  %% [2392.8 mm](FLUID_TOTAL) of 1/4" LLDPE over [36](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [480.0 mm](LONGEST_LEN). [1](OPEN_COUNT) segment — the hopper's
-  %% gravity drain — is a mouth with nothing on the far end of it yet.
+  %% [2547.4 mm](FLUID_TOTAL) of 1/4" LLDPE over [39](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [480.0 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The hopper's gravity
+  %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
+  %% pack, so `fluid-4` is authored after the box exists, off the same frames.
 
   %% Colour is the circuit: white the shared source chain (fluid-1 … fluid-8), blue channel A
   %% (9 … 18), green channel B (19 … 28), grey the carbonator's own two runs through this bay.
@@ -115,7 +117,7 @@ flowchart LR
   Split -->|"fluid-1<br/>24.0 mm"| FlowReg
   FlowReg -->|"fluid-2<br/>212.3 mm"| VA
   VA -->|"fluid-3<br/>54.0 mm"| YA
-  Hopper -->|"fluid-4<br/>not drawn"| VB
+  Hopper -->|"fluid-4<br/>154.6 mm"| VB
   VB -->|"fluid-5<br/>54.0 mm"| YB
   YA <-->|"fluid-6<br/>butt"| YB
   YA -->|"fluid-7<br/>butt"| VC
