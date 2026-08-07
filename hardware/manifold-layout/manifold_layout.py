@@ -799,9 +799,13 @@ def skew_deg(a, b, axis) -> float:
 ELEVATIONS = "top,front,right"
 
 
-def render_elevations(step: Path) -> None:
+def render_elevations(step: Path, xray: str = None) -> None:
     """Plan, front and right beside the STEP — the same three `enclosure-assembly` draws, and
-    for the same reason: an isometric thumbnail cannot be read off with a ruler."""
+    for the same reason: an isometric thumbnail cannot be read off with a ruler.
+
+    `xray` is a name glob drawn as a translucent hull instead of a solid, so a body inside a
+    shell reads through it. Without it the outermost body is the only one an elevation
+    shows."""
     if os.environ.get("HSM_SKIP_VIEWS"):
         return
     stamp = step.with_name(f".{step.stem}.views.sha")
@@ -821,7 +825,8 @@ def render_elevations(step: Path) -> None:
         r = subprocess.run(
             [node, str(tool), str(step.relative_to(_repo / "hardware")),
              str(step.with_suffix(".png")), "--edition", _edition,
-             "--views", ELEVATIONS, "--ortho", "--size", "1600x1200"],
+             "--views", ELEVATIONS, "--ortho", "--size", "1600x1200"]
+            + ([] if xray is None else ["--xray", xray]),
             cwd=str(_tools.parent), stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
             timeout=900, check=False)
         if r.returncode:

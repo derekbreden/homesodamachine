@@ -1,27 +1,25 @@
 """Thin Edition enclosure — a tall, narrow PETG box, split into four printable
 pieces (front/back × bottom/top) that telescope and cross-pin together.
 
-Two of the three outer dimensions are BOUNDS, not consequences:
+HEIGHT and DEPTH are BOUNDS, not consequences — `appliance_height` and
+`rear_plane_y`, floor slab's underside to the top wall's outer face and front wall to
+back. The contents do not set them; they have to fit inside, and `_dims` fails the
+build if they do not.
 
-  * WIDTH is the cold core's narrow axis. The foam assembly is yawed a quarter
-    turn (`_contents.FOAM_YAW`), so what the ±X walls must clear is its 181 mm
-    short face rather than its 283 mm long one, and one boss chain either side
-    of that is the whole interior width.
-  * HEIGHT is `appliance_height` — a stated 400 mm, floor slab's underside to
-    the top wall's outer face. The contents do not set it; they have to fit
-    under it, and `_dims` fails the build if they do not.
-
-DEPTH is still a consequence: the bounding box of the parts placed by
-`../enclosure-assembly/_contents.py`, computed live and walled out. Features:
+WIDTH is the consequence: one boss chain either side of the widest body standing on
+the floor, which is the mated compressor shroud and condenser. The cold core would be
+narrower — the foam assembly is yawed a quarter turn (`front_half.FOAM_YAW`) so what
+crosses the machine is its 181 mm short face and not its 283 mm long one — and it
+stands inside the chain the stratum sets. The pack is placed by
+`../../../manifold-layout/front_half.py`. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front arris across the box's FULL WIDTH, with the display's glass
     centred on it and flat facet either side. That corner cannot be packed
     anyway, and a chamfer that runs wall to wall needs no end wall, no shoulder
     and no shoulder relief.
-  * A front↔back split (a Y-plane seam at the box's mid-depth, or one stance
-    BEHIND the front pack once there is one, so its machinery is aft of the
-    whole pack and a front-quadrant tray never has to be notched around it):
+  * A front↔back split at the stated `y_seam`, so its machinery is aft of the
+    front pack and a front-quadrant tray never has to be notched around it:
     the front pieces' rear walls telescope (a full-wall lip,
     nothing shaved) into the back pieces — a proud tongue on the side walls and
     ceiling, and on the floor, where the cold core rides the cavity side and a
@@ -49,11 +47,10 @@ DEPTH is still a consequence: the bounding box of the parts placed by
     seam (one per side wall per Y column: front pins at the front-wall
     corners, back pins just behind the Y-seam mouth).
 
-The walls stand off the cold core rather than on it — one boss chain at the ±X
-walls, one wall at the back — because the core spans the interior wall to wall
-and floor to its cap and is what sizes the box, so a wall on its face would leave
-the seam machinery nowhere to stand. The core seats flush against the seams
-instead, and stands flat on the floor slab — its bottom cap's lid is a plane and
+The walls stand off the bodies rather than on them — one boss chain at the ±X
+walls, one wall at the back — because a body on the floor spans the interior wall
+to wall, so a wall on its face would leave the seam machinery nowhere to stand.
+The cold core seats flush against the seams instead, and stands flat on the floor slab — its bottom cap's lid is a plane and
 every cap screw is down in a counterbore, so nothing goes under it. The ±X bands'
 own seam posts fence it sideways, the back Z seam's lip behind, and the floor's
 two core lugs (`_core_fence`) ahead. The floor those posts and that core stand on
@@ -122,7 +119,6 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
-import _contents
 import hopper_funnel as _funnel
 
 # Shell parameters.
@@ -130,13 +126,17 @@ wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
 # The back wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
-# lip's inner face rather than against the wall the lip hangs off. Read from
-# _contents, which seats the rear panel bodies against the same wall: one number,
-# so the wall they mount through and the wall this builds cannot drift apart.
-rear_seam_clear = _contents.REAR_STANDOFF
+# lip's inner face rather than against the wall the lip hangs off. A body mounted
+# on the back wall seats on this same plane.
+rear_seam_clear = 3.0
 # The same standoff at the front, so the front column's Z lip keeps a full-width
 # front segment behind the refrigeration stratum instead of giving it up.
-front_seam_clear = _contents.FRONT_STANDOFF
+front_seam_clear = 3.0
+# What the ±X walls stand off the widest body on the floor: one boss chain, so the
+# corner posts, boss chains and Z-seam pods all seat at full section and the body
+# seats flush against them instead of against the wall. Floor content set against a
+# side wall is inset the same, to clear the ribs.
+side_rib_inset = 14.0
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -183,7 +183,7 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # Hopper funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
 # static part (../../zone-c/hopper-funnel/, its own frame) placed at
-# `_contents.funnel_centre()` with its brim on the box top, and _hopper_hole
+# the pack's own `funnel` centre with its brim on the box top, and _hopper_hole
 # asserts the top-wall frame accommodates it (the facet's back plane ahead, the
 # ±X top corner pods either side, the back wall behind). The funnel is pushed as
 # far forward as that frame allows and reaches aft for its capacity, so it may
@@ -225,11 +225,28 @@ boss_in = head_cbore_depth + screw_len + socket_cap - wall
 lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 
 # The appliance's stated HEIGHT — floor slab's underside (z = −wall) to the top
-# wall's outer face. Unlike the width and the depth this is not read off anything:
-# it is the machine's silhouette, the one dimension a counter appliance is judged
-# by before it is opened, and this is the number the thin machine is FOR. The
-# contents live under it; `_dims` raises if they cannot.
+# wall's outer face. Unlike the width this is not read off anything: it is the
+# machine's silhouette, the one dimension a counter appliance is judged by before it
+# is opened, and this is the number the thin machine is FOR. The contents live under
+# it; `_dims` raises if they cannot.
 appliance_height = 400.0
+# The interior REAR PLANE — the inner face of the back wall, stated the same way. A
+# component dragged forward inside the machine does not make the machine shallower,
+# and a pack that outgrows this plane fails the build instead of quietly resizing the
+# appliance.
+rear_plane_y = 472.0
+
+# Where the box splits front from back, and where the front column splits bottom from
+# top. Both are STATED planes: which pieces the box comes apart into is a decision
+# about the pieces — what each has to carry, and what a hand reaches when the front
+# assembly is off — and the depth and height each piece comes to is what the plane
+# leaves. `_dims` checks them against the facet, the bed and the pack, and raises.
+#
+# The BACK column's Z seam is the one that is searched (`_z_joints`): the cold core
+# stands from the floor slab and the service bay stands on its lid, so that column runs
+# solid and its seam has to take whatever height the bed and the lip's own ring allow.
+y_seam = 200.0
+front_z_seam = 160.0
 
 # The bottom↔top seam planes, one per Y column. The seam machinery (a one-wall lip
 # + the cross-pin pods) protrudes into the cavity at the walls, and every body in the
@@ -269,12 +286,24 @@ z_lip_y_margin = 2.0
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
 #   y_joint       the front↔back seam plane
 #   splits        the bottom↔top seam height per Y column, (front, back)
-#   front_ports   / back_ports   panel through-holes, in _contents' format
+#   front_ports   / back_ports   panel through-holes, in the pack's format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the drip tray's slot
-#   hopper        whether the top wall carries the funnel throat
+#   funnel        the placed hopper funnel's plan centre, or None for no throat
+#   pan_rails     the drip tray's carry, world boxes fused onto the −X wall
+#   c14           the mains inlet's heat-set stations on the back wall, (x, z)
 Box = namedtuple(
-    "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports hopper")
+    "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
+           "funnel pan_rails c14")
+
+# What a box is built AROUND: the placed bodies, and every station they put on a wall.
+# A pack that does not carry a subsystem yet carries no stations for it, and the wall
+# comes out blank there rather than carrying a hole with nothing behind it.
+#   placed        {name: (solid, colour)} — the same shape a CadQuery assembly reads
+# The rest are the Box fields above, and the box passes them through.
+Pack = namedtuple(
+    "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), ())
 
 
 # --- primitives -------------------------------------------------------------
@@ -574,8 +603,8 @@ def _lip_denied(placed, inner):
 
     So this measures the ring: what reaches into it, and the seam heights that reach
     would put the lip on. What holds the rest of the ring open is the pack's own
-    standoffs — one `wall` at the front and back walls (`_contents.FRONT_STANDOFF`,
-    `REAR_STANDOFF`) and one boss chain at the sides (`SIDE_RIB_INSET`)."""
+    standoffs — one `wall` at the front and back walls (`front_seam_clear`,
+    `rear_seam_clear`) and one boss chain at the sides (`side_rib_inset`)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ring = _ybox(ix0, ix1, iy0, iy1, iz0, iz1).cut(
         _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, iz0 - 1.0, iz1 + 1.0))
@@ -593,8 +622,11 @@ def _lip_denied(placed, inner):
 _z_seam_passes = {}
 
 
-def _z_joints(placed, inner):
+def _z_joints(placed, inner, front):
     """The bottom↔top seam height per Y column: `(front, back)`.
+
+    `front` is the stated plane. It is checked against the bed — both its pieces have
+    to print — and then the BACK column is searched around it.
 
     `_bed_band` is the band both of a column's pieces print inside; a seam lands in
     it. Within it a seam wants the box's own half-height — the split that leaves both
@@ -606,16 +638,19 @@ def _z_joints(placed, inner):
     The back column has no open band inside the bed's: the cold core stands from the
     floor slab and the whole service bay stands on its lid, so the column runs solid
     to the bay's crown and what it leaves open is above all of it. That seam runs
-    THROUGH its column, on the lane its lip needs (`_lip_denied`) — the same lane the
-    Y seam takes for its own furniture (`_chain_spans_clear`).
+    THROUGH its column, on the lane its lip needs (`_lip_denied`).
 
     The two stand `z_joint_pitch` apart, or the Y seam quietly comes out with fewer
-    cross-pins than it has levels for: the column with the least room to move takes
-    its height first and the other stands off it."""
+    cross-pins than it has levels for."""
     iz0, iz1 = inner[4], inner[5]
     y_mid = (inner[2] + inner[3]) / 2.0
     z_mid = (iz0 + iz1) / 2.0
     bed_lo, bed_hi = _bed_band(inner)
+    if not bed_lo - 1e-9 <= front <= bed_hi + 1e-9:
+        raise ValueError(
+            f"the front Z seam at {front:.2f} leaves a piece off the H2C's {H2C_Z:g} mm bed: "
+            f"the top piece wants it at or below {bed_hi:.2f} and the bottom at or above "
+            f"{bed_lo:.2f}. Move `front_z_seam` into that band")
     if bed_hi < bed_lo:
         raise ValueError(
             f"a {iz1 - iz0 + 2.0 * wall:.2f} mm column has no seam height leaving two pieces "
@@ -626,75 +661,70 @@ def _z_joints(placed, inner):
         b = _boxes.boxed(solid)
         col = "front" if (b.ymin + b.ymax) / 2.0 < y_mid else "back"
         spans[col].append((b.zmin, b.zmax))
-    bands, lip_free = {}, None
-    for col in ("front", "back"):
-        whole = _clipped(_open_bands(spans[col], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
-        _z_seam_passes[col] = not whole
-        if not whole and lip_free is None:
-            lip_free = _open_bands(_lip_denied(placed, inner), bed_lo, bed_hi, 0.0)
-        bands[col] = whole or lip_free
-        if not bands[col]:
-            raise ValueError(
-                f"the {col} column has no seam height the bed allows: inside "
-                f"{bed_lo:.2f}..{bed_hi:.2f} its bodies leave no band "
-                f"{2 * z_joint_clear:.2f} mm clear, and something stands in the lip's own "
-                f"ring at every height there. Repack, or split this column in three")
-    # Nearest reachable height to the half-height, band by band; ties take the lower.
-    # The column with the least room to move takes its height first, and the other
-    # stands a full pitch off it.
-    out = {}
-    for col in sorted(bands, key=lambda c: sum(hi - lo for lo, hi in bands[c])):
-        left = bands[col]
-        for z in out.values():
-            left = _outside(left, z - z_joint_pitch, z + z_joint_pitch)
-        if not left:
-            other, at = next(iter(out.items()))
-            raise ValueError(
-                f"the {col} column's Z seam cannot stand the {z_joint_pitch:.2f} mm two "
-                f"Y-seam levels need off the {other} column's at {at:.2f}: every height it "
-                f"has ({', '.join(f'{lo:.2f}..{hi:.2f}' for lo, hi in bands[col])}) is inside "
-                f"that pitch — one column's bodies have to leave a band elsewhere, or the Y "
-                f"seam loses a pin")
-        out[col] = min((min(max(z_mid, lo), hi) for lo, hi in left),
-                       key=lambda z: (abs(z - z_mid), z))
-    return out["front"], out["back"]
+    whole = _clipped(_open_bands(spans["back"], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
+    _z_seam_passes["front"] = None                 # stated, so there is nothing to report
+    _z_seam_passes["back"] = not whole
+    bands = whole or _open_bands(_lip_denied(placed, inner), bed_lo, bed_hi, 0.0)
+    if not bands:
+        raise ValueError(
+            f"the back column has no seam height the bed allows: inside "
+            f"{bed_lo:.2f}..{bed_hi:.2f} its bodies leave no band "
+            f"{2 * z_joint_clear:.2f} mm clear, and something stands in the lip's own "
+            f"ring at every height there. Repack, or split this column in three")
+    # Nearest reachable height to the half-height, band by band; ties take the lower —
+    # and a full `z_joint_pitch` clear of the stated front seam, or the Y seam quietly
+    # comes out with fewer cross-pins than it has levels for.
+    left = _outside(bands, front - z_joint_pitch, front + z_joint_pitch)
+    if not left:
+        raise ValueError(
+            f"the back column's Z seam cannot stand the {z_joint_pitch:.2f} mm two Y-seam "
+            f"levels need off the front's stated {front:.2f}: every height it has "
+            f"({', '.join(f'{lo:.2f}..{hi:.2f}' for lo, hi in bands)}) is inside that pitch — "
+            f"move `front_z_seam`, or the back column's bodies have to leave a band elsewhere")
+    back = min((min(max(z_mid, lo), hi) for lo, hi in left),
+               key=lambda z: (abs(z - z_mid), z))
+    return front, back
 
 
-def _dims():
-    placed = _contents.build()
+def _dims(pack):
+    """The box `pack` stands inside — its two shells, the plane it splits on, and the
+    stations its walls carry. `pack` is a Pack (see `pack_of`)."""
+    placed = pack.placed
     bbs = [_boxes.boxed(s) for s, _c in placed.values()]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
     # WIDTH — the appliance's headline dimension, and the whole point of the yaw.
-    # The ±X walls stand one boss chain off the COLD CORE, not against it: the core
-    # spans the interior wall to wall, so a wall on its face leaves the seam
-    # machinery — corner posts, boss chains, Z-seam pods — nowhere to stand. Held
-    # off by their own reach, every one of them seats at full section and the core
-    # seats flush against them instead of against the wall. What the chain is held
-    # off is the core's SHORT axis, because `_contents.FOAM_YAW` turned it into the
-    # X one; that substitution IS the thin machine. Read from _contents, which
-    # insets wall-adjacent floor content by the same number.
-    cold = _boxes.boxed(placed["foam-assembly"][0])
-    ix0 = min(cxmin - interior_clearance, cold.xmin - _contents.SIDE_RIB_INSET)
-    ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
+    # The ±X walls stand one boss chain off the WIDEST BODY ON THE FLOOR, not against
+    # it: a body standing on the slab spans the interior wall to wall, so a wall on its
+    # face leaves the seam machinery — corner posts, boss chains, Z-seam pods — nowhere
+    # to stand. Held off by their own reach, every one of them seats at full section and
+    # the body seats flush against them instead of against the wall.
+    #
+    # Which body that is comes out of the pack: the mated compressor shroud and condenser
+    # reach wider than the cold core, and the core's own short axis is across the machine
+    # only because `front_half.FOAM_YAW` turned it there. Anything standing clear of the
+    # slab is above the ±X bands' floor stations and needs only its own clearance.
+    floor = [b for b in bbs if b.zmin < wall + 1e-6] or bbs
+    ix0 = min(cxmin - interior_clearance, min(b.xmin for b in floor) - side_rib_inset)
+    ix1 = max(cxmax + interior_clearance, max(b.xmax for b in floor) + side_rib_inset)
     # The FRONT wall stands one wall off the pack, for the same kind of reason
-    # the ±X walls stand a boss chain off the cold core: a lip missing a side is
-    # a butt joint over that run — nothing registering the two pieces, nothing
+    # the ±X walls stand a boss chain off the widest floor body: a lip missing a side
+    # is a butt joint over that run — nothing registering the two pieces, nothing
     # closing the line — and this run is the box's most visible face, so the wall
-    # gives way, not the segment. Read from _contents, which seats the front
-    # panel's bodies on the wall this opens.
+    # gives way, not the segment. A body mounted on the front wall seats on the plane
+    # this opens.
     iy0 = cymin - interior_clearance - front_seam_clear
-    # The BACK wall is the stated `_contents.REAR_PLANE_Y`, for the same reason the ceiling is
-    # the stated `appliance_height`: depth is a bound, not a consequence. Taken off the pack it
-    # would follow whichever body reached furthest back, and the aft stand — which is seated on
-    # this plane — would follow that body too, holding every clearance between the two constant.
-    iy1 = _contents.REAR_PLANE_Y
+    # The BACK wall is the stated `rear_plane_y`, for the same reason the ceiling is the
+    # stated `appliance_height`: depth is a bound, not a consequence. Taken off the pack it
+    # would follow whichever body reached furthest back, and anything seated on this plane
+    # would follow that body too, holding every clearance between the two constant.
+    iy1 = rear_plane_y
     rear_need = cymax + interior_clearance + rear_seam_clear
     if rear_need > iy1 + 1e-9:
         raise ValueError(
             f"the pack reaches y {rear_need:.2f} but the back wall stands at {iy1:.2f} — "
-            f"{rear_need - iy1:.2f} mm over. Raise `_contents.REAR_PLANE_Y` or repack forward")
+            f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward")
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and posts stay put). The CEILING is
     # the stated `appliance_height` measured from the floor slab's underside: the
@@ -719,61 +749,30 @@ def _dims():
             f"{iz1:.2f} — {need - iz1:.2f} mm over. Raise `appliance_height` or repack downward")
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
-    # Split plane: as close to the box's Y midpoint as its neighbors allow,
-    # for four near-quarter pieces. The display housing bounds it from the
-    # front (the whole facet stays in the front pieces); the cold core bounds
-    # it from the back — the back Z-seam pods sit behind the Y-seam mouth
-    # (bore axis at lip_len + wall + bore radius past y_joint, pod reaching
-    # socket_r further) and must stop ahead of the foam. (No Z terms: the
-    # provisional tuples below are final in X and Y.)
-    ports = _contents.back_wall_ports()
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    splits = _z_joints(placed, inner)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
+    y_joint = y_seam
+    splits = _z_joints(placed, inner, front_z_seam)
+    # The one thing the Y seam cannot do is cut the display housing: the facet is a
+    # solid surface chamfered into the top-front arris and it prints as part of the
+    # front-top piece, so the seam stands behind its back plane.
     facet_back = facet_back_y(outer)
-    # The seam sits at the box's middle, for four near-quarter pieces, OR behind
-    # the front pack — whichever is further back. The pack term is what makes the
-    # front quadrants usable: the frontmost seam furniture is that column's aft
-    # Z station, whose pod reaches 2*socket_r ahead of the mouth's margin, and a
-    # tray in either front quadrant has to be notched around it wherever it lands
-    # inside the pack. Held one stance behind the cold core's front face — where
-    # the front pack ends — the whole seam stands aft of every tray, and a tray
-    # may run the box's full width and its full depth without seeing a seam.
-    #
-    # Either way it is capped by what stands where its two parts go: the mouth,
-    # plugs, pods and posts in the ±X boss-chain bands, and the lip's ceiling
-    # segment in the band under the top wall. The cold core caps neither — the
-    # bands run clear alongside it, and the lip carries no floor segment to sweep
-    # it — so the seam passes BEHIND the core's front face rather than stopping.
-    chain_clear, ceiling_clear = _seam_bands_clear(placed, inner)
-    chain = lip_len + wall + socket_bore_dia / 2.0 + socket_r
-    y_chain = chain_clear - 2.0 - chain
-    y_ceiling = ceiling_clear - 2.0 - lip_len
-    y_pack = cold.ymin + 2.0 + wall + z_lip_y_margin + 2.0 * socket_r
-    y_facet = facet_back + 2.0                     # the facet stays whole in the front pieces
-    y_want = max((iy0 + iy1) / 2.0, y_pack)          # the midpoint, or behind the front pack
-    want = max(y_facet, min(y_want, y_ceiling))
-    y_joint = max(y_facet, min(y_want, y_chain, y_ceiling))
-    # The chain cap above reads where band content STARTS, which holds the seam
-    # ahead of all of it. That is the answer only when the content is what the
-    # columns would land in. The band runs clear BETWEEN its stations, and content
-    # parked there — the nozzle-outlet elbows, between the front-wall station and
-    # the front column's aft one — leaves every column its full section, so the
-    # seam takes the station it actually wants whenever each span its own
-    # furniture occupies is itself clear.
-    if want > y_joint and _chain_spans_clear(placed, inner, _seam_furniture_spans(inner, want)):
-        y_joint = want
-    # The Y-seam corner, probed at each depth something stands there: the front
-    # half's column at the socket's full section (which also fixes where a level
-    # may sit, since a level needs a socket body), and the back half's column —
-    # web through the pod's slot, post behind the rim — at the pin's.
+    if y_joint < facet_back + 2.0:
+        raise ValueError(
+            f"the Y seam at {y_joint:.2f} cuts the display housing, whose back plane is at "
+            f"{facet_back:.2f} — the facet has to stay whole in the front pieces. Move "
+            f"`y_seam` aft of {facet_back + 2.0:.2f}, or shorten `display_facet_slope`")
+    # What the seam's own furniture lands in, at each depth something stands there: the
+    # front half's column at the socket's full section (which also fixes where a level may
+    # sit, since a level needs a socket body), and the back half's column — web through the
+    # pod's slot, post behind the rim — at the pin's.
     fy0, fy1 = _y_corner(inner, y_joint)
     _measure_wall_relief(placed, inner, fy0, fy1, boss_in)
     by0, by1 = _y_corner_back(inner, y_joint)
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return Box(inner, outer, y_joint, splits,
-               _contents.front_wall_ports(), ports, _contents.east_wall_ports(),
-               _contents.west_wall_ports(), True)
+               pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
+               pack.funnel, pack.pan_rails, pack.c14)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -792,7 +791,7 @@ def facet_back_y(outer):
     """The Y the display housing reaches back to — the 45° face's own run aft
     plus the housing wall behind it, measured along Y. The frontmost the Y seam
     may sit, since the whole facet belongs to the front top piece; and where the
-    top wall resumes, which is what `_contents.funnel_centre` pushes the basin
+    top wall resumes, which is what the pack's own funnel centre pushes the basin
     forward against."""
     _a, _n, _o, dy, _dz = _facet_geom(outer)
     return outer[2] + dy + display_facet_thickness * math.sqrt(2.0)
@@ -889,8 +888,8 @@ def _display_cuts(outer):
 
 def _port_cuts(ports, y0, y1):
     """The through-holes of one panel's port list, as cutters spanning y0..y1
-    (a wall's thickness with a margin either side). _contents owns both
-    layouts, since it places the contents the bands are measured from
+    (a wall's thickness with a margin either side). The pack owns both layouts,
+    since it places the bodies the bands are measured from
     (../back-panel/README.md); the two walls differ only in which list and
     which span, so they are cut by the same code."""
     out = []
@@ -935,10 +934,10 @@ def _x_port_cuts(ports, x0, x1):
 
 # --- hopper funnel opening (Zone C) -----------------------------------------
 
-def _hopper_hole(inner, outer, y_joint):
+def _hopper_hole(inner, outer, y_joint, centre):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the
     placed funnel's collar — hopper_funnel.py's own dims at
-    `_contents.funnel_centre()`.
+    the pack's own `funnel` centre.
 
     The frame is what the top wall has left to give: BEHIND the display facet's own
     back plane (with a ledge of wall between the two), inboard of the ±X top corner
@@ -957,7 +956,7 @@ def _hopper_hole(inner, outer, y_joint):
     shelf's own relief already accounts for (`_hopper_cut`)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    cx, cy = _contents.funnel_centre()
+    cx, cy = centre
     x0 = cx - _funnel.collar_w / 2.0
     x1 = cx + _funnel.collar_w / 2.0
     y0 = cy - _funnel.collar_d / 2.0
@@ -990,14 +989,14 @@ def _hopper_hole(inner, outer, y_joint):
     return x0, x1, y0, y1
 
 
-def _hopper_cut(inner, outer, y_joint):
+def _hopper_cut(inner, outer, y_joint, centre):
     """The funnel throat punched clean through the top wall — one wall deeper
     than the ceiling, so the Y-seam's top-wall lip/mouth shelf (hanging one
     wall below it) is relieved across the hole span the seam crosses.
 
     The opening is the collar, whole: the basin is a full rectangle and the wall carries
     nothing over the tap-water sequence that the throat has to be cut around."""
-    x0, x1, y0, y1 = _hopper_hole(inner, outer, y_joint)
+    x0, x1, y0, y1 = _hopper_hole(inner, outer, y_joint, centre)
     return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
 
 
@@ -1574,7 +1573,7 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), False)
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), ())
 
 
 def build_front_half(box):
@@ -1602,8 +1601,8 @@ def build_front_half(box):
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
     # Punch the hopper funnel throat through the top wall, behind the display.
-    if box.hopper:
-        front = front.cut(_hopper_cut(inner, outer, y_joint))
+    if box.funnel:
+        front = front.cut(_hopper_cut(inner, outer, y_joint, box.funnel))
     # Front-panel through-holes.
     for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         front = front.cut(cutter)
@@ -1633,8 +1632,8 @@ def build_back_half(box):
     # tongue (the shiplap's other half); the back keeps its bed-side half, which
     # the core still rides. Lands in the bottom piece.
     back = back.cut(_floor_lap(inner, y_joint)[1])
-    if box.hopper:
-        back = back.cut(_hopper_cut(inner, outer, y_joint))
+    if box.funnel:
+        back = back.cut(_hopper_cut(inner, outer, y_joint, box.funnel))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, box.splits, y_joint)
     # The back half is the back column, so its own seam is the one its post
@@ -1668,30 +1667,30 @@ def build_back_half(box):
     # cold core; their bodies hang in the band's open rear half.
     for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
-    back = _c14_bosses(back, inner, outer, outer[4] - 1.0, outer[5] + 1.0)
+    back = _c14_bosses(back, inner, outer, box.c14, outer[4] - 1.0, outer[5] + 1.0)
     # The drip tray's withdrawal slot through the −X wall, and the rail pair it rides. Cut the
     # slot first: the rails stand on the wall the two rectangles leave between them.
     for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, inner[0] + 5.0):
         back = back.cut(cutter)
-    back = _pan_rails(back, outer[4] - 1.0, outer[5] + 1.0)
+    back = _pan_rails(back, box.pan_rails, outer[4] - 1.0, outer[5] + 1.0)
     return cq.Workplane(obj=back)
 
 
-def _pan_rails(solid, z0, z1):
+def _pan_rails(solid, members, z0, z1):
     """The drip tray's carry fused onto a −X wall, for the members whose top lies in `z0..z1`.
 
-    `_contents.drip_pan_rails` states the pair as world boxes, rooted on the wall's inner face
-    and running east under the tray's rim; `_contents.drip_pan_stop` closes their east ends
-    with the bar the tray comes to rest against. Three members and one U — the tray hangs
+    The pack states each member as a world box, rooted on the wall's inner face and running
+    east under the tray's rim, and closes their east ends with the bar the tray comes to
+    rest against. Three members and one U — the tray hangs
     between the rails off its own flange, and nothing stands under its floor."""
-    for x0, x1, y0, y1, rz0, rz1 in (_contents.drip_pan_rails() + [_contents.drip_pan_stop()]):
+    for x0, x1, y0, y1, rz0, rz1 in members:
         if not z0 <= rz1 <= z1:
             continue
         solid = solid.fuse(_ybox(x0, x1, y0, y1, rz0, rz1))
     return solid
 
 
-def _c14_bosses(solid, inner, outer, z0, z1):
+def _c14_bosses(solid, inner, outer, stations, z0, z1):
     """The C14's two heat-set bosses added to a back wall, for the stations whose Z lies in
     `z0..z1`.
 
@@ -1699,7 +1698,7 @@ def _c14_bosses(solid, inner, outer, z0, z1):
     so its insert enters flush with that face and the length of it the wall cannot hold
     stands proud OUTWARD, past the print silhouette. The bore is cut after the boss, so it
     runs the insert's whole depth from the inner face."""
-    for sx, sz in _contents.c14_screw_stations():
+    for sx, sz in stations:
         if z0 <= sz <= z1:
             solid = solid.fuse(_ycyl(c14_boss_dia / 2.0, sx, sz,
                                      inner[3], outer[3] + c14_boss_proud))
@@ -1756,7 +1755,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # wall cannot hold stands outboard. They go on after the clip, on whichever piece
         # holds their Z.
         zlo, zhi = (oz0 - 1.0, zj) if z_side == "bottom" else (zj, oz1 + 1.0)
-        piece = _c14_bosses(piece, inner, outer, zlo, zhi)
+        piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 
@@ -1793,7 +1792,7 @@ def _report_facet(half, box):
           f"x {display_centre_x(outer):g})")
 
 
-def _report_split(pieces, cold=True):
+def _report_split(pieces, core=None):
     for name, p in pieces.items():
         b = p.val().BoundingBox()
         fits = b.xlen <= H2C_X + 1 and b.ylen <= H2C_Y + 1 and b.zlen <= H2C_Z + 1
@@ -1806,8 +1805,7 @@ def _report_split(pieces, cold=True):
             v = pieces[a].val().intersect(pieces[b].val()).Volume()
             tag = "CLEAR slip-fit" if v < 5 else "INTERFERENCE"
             print(f"  {a} ∩ {b}: {v:.1f} mm³  ({tag})")
-    if cold:
-        core = _contents.build()["foam-assembly"][0]
+    if core is not None:
         clash = max(core.intersect(p.val()).Volume() for p in pieces.values())
         print(f"  cold core vs pieces: {clash:.1f} mm³ max overlap  "
               f"({'CLEAR' if clash < 1 else 'CLASH'})")
@@ -1864,8 +1862,26 @@ def _export_pieces(pieces, assy, stem, note):
     print(f"-> {stem}.step (assembled pieces){note}")
 
 
+def box_around(pack):
+    """The box `pack` stands inside — the description `build_pieces` turns into the four
+    printable pieces."""
+    return _dims(pack)
+
+
+def pack_of():
+    """The machine's pack — the bodies the box stands around, with every wall station
+    they put on it. `hardware/manifold-layout/front_half.py` places them.
+
+    Imported here rather than at module scope so that front_half, which builds its own
+    assembly around these walls, is not importing a module that is importing it back."""
+    sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
+    import front_half
+    return front_half.pack()
+
+
 def main():
-    box = _dims()
+    machine = pack_of()
+    box = _dims(machine)
     pieces, assy = build_pieces(box)
     coupon = coupon_box()
     coupon_pieces, coupon_assy = build_pieces(coupon, "enclosure-coupon")
@@ -1877,11 +1893,11 @@ def main():
     _report_facet(pieces["front-top"], box)
     _report_seams(box)
     _report_levels(box)
-    _report_split(pieces)
+    _report_split(pieces, machine.placed["foam-assembly"][0])
     print("coupon:")
     _report_facet(coupon_pieces["front-top"], coupon)
     _report_levels(coupon)
-    _report_split(coupon_pieces, cold=False)
+    _report_split(coupon_pieces)
 
     co, bo = coupon.outer, box.outer
     variables = {
