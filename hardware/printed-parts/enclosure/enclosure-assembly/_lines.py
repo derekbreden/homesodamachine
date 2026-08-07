@@ -28,8 +28,9 @@ bound it:
     how far into it a lane stands is the straight the turn onto that lane is seated on — so
     it carries ONE lane, struck once at the top of `_authored_runs` and taken by name, on the
     core's own face where the lead it leaves is longest. What shares it is parted by storey:
-    the row's four crossings hold it at four heights (`fluid-9 … fluid-13`), and a run
-    crossing a storey up takes the half-pitch ahead of it. fluid-4 turns forward in it onto
+    the row's three crossings hold it at three heights (`fluid-9 … fluid-13`). fluid-19 crosses
+    the same band a storey up on a lane its own two legs strike, forward of the row's.
+    fluid-4 turns forward in it onto
     V-B's own X; fluid-15 holds its plane across the machine floor. Nothing stands in the
     band, and nothing may: it runs the column's whole height.
   * the PUMP LANE, the strip west of the tray column and aft of channel A's pump, and the
@@ -527,9 +528,10 @@ def _authored_runs() -> list:
     # with room to spare.
     #   A second rung a `LINE_PITCH` forward of it leaves [12.47](PUMP_ROW_NEAR) mm, under
     # `contents.LLDPE_MIN_BEND`. What parts the runs that share the one lane is the STOREY each
-    # stands on: fluid-9 a stack pitch up, fluid-10 on the bag pair's port plane, fluid-13 a
-    # drop below it, and fluid-19 crossing on its own half-pitch a storey over the row. None is
-    # within a `LINE_PITCH` of another in Z.
+    # stands on: fluid-9 a stack pitch up, fluid-10 on the bag pair's port plane, and fluid-13 a
+    # drop below it. None is within a `LINE_PITCH` of another in Z. fluid-19 crosses the band a
+    # storey over the row and does NOT take this lane — its own two legs strike one, forward of
+    # this one, and it is authored with the run.
     #   THE CLIMB IS NOT IN HERE. fluid-15 rides the band only as far as the tray-east lane and
     # goes up out of it there, and reservoir B's line is not in this corridor at all — it climbs
     # inside the cold core, up the +Y pour band standing under its own fitting. So nothing
@@ -539,16 +541,17 @@ def _authored_runs() -> list:
     # the band is a millimetre off the junction legs' own standoff.
     bag = f["bag-a-tray-assembly"]
     row_lane = contents.FRONT_DEPTH - CLIMB_HUG - 6.35 / 2.0
-    lane_mid = row_lane - LINE_PITCH / 2.0
 
     # fluid-1 — the flavor tap off the water split, into the regulator that throttles it. The
     # two fittings stand inline on the wall sequence's own axis (`contents.flowreg_lane`), the
     # flavor collet firing forward at the inlet that faces it, so the run is the straight
-    # between the two mouths and nothing about it turns.
+    # between the two mouths and nothing about it turns. The [14.2](F1_SKEW)° the mouths stand
+    # off that line is inside the `FLAVOR_SKEW` a collet grips a straight through, so the run
+    # takes NO stub: a stub is the reach a corner turns after, and this run has no corner.
     runs.append(route(
         "fluid-1", "water-split.to-flavor",
         "flow-regulator.inlet",
-        kind="fluid", skew=FLAVOR_SKEW, stub=(2.0, 2.0),
+        kind="fluid", skew=FLAVOR_SKEW, stub=0.0,
         note="flavor tap: split run → flow regulator, straight in on the sequence's own axis"))
 
     # fluid-2 — the regulator's outlet to V-A, off the wall sequence's forward end. The outlet
@@ -1194,6 +1197,14 @@ def _authored_runs() -> list:
     # port and falls to the deck crossing, so the two hold this column at two heights and
     # never the point.
     yf1, vdo = y_f.at("Y-F-1"), f["selects-tray-assembly"].at("V-D-O")
+    #   ITS LANE IS ITS OWN TWO LEGS' TO DIVIDE, and the band is not what strikes it. The lane
+    # has a FLOOR — the lead this run's exit corner wants off V-D-O, one stock arc — and a
+    # CEILING, because the leg from the lean's top aft to the collet's own lane carries a corner
+    # at each end and wants two. Between them is [1.12](F19_WINDOW) mm, so the lane stands
+    # midway and each corner turns on half the spare. A lane on the row's own rung a storey down
+    # sits outside that window at the ceiling end.
+    f19_stock = R.stock_min("fluid", y_f.diam("Y-F-1"))
+    lane_19 = R.channel(vdo[1] + f19_stock, yf1[1] - 2.0 * f19_stock)
     #   THE APPROACH COLUMN STANDS BACK BY WHAT ITS OWN CORNER WANTS, not by the stub. This
     # collet is entered along its axis, so the leg that closes on it is the same leg the last
     # turn seats its tangent in — a stock arc's worth with the collet's `JUNCTION_LEG_LEAD`
@@ -1208,8 +1219,8 @@ def _authored_runs() -> list:
                   f["hopper-funnel"].at("drain")[0] - LINE_PITCH)
     runs.append(R.bent(
         "fluid-19", "selects-tray-assembly.V-D-O",
-        (vdo[0], lane_mid, vdo[2]),          # aft into the band, onto the lane between the row's
-        (yf1_col, lane_mid, yf1[2]),         # west and up in one lean, onto the branch's plane
+        (vdo[0], lane_19, vdo[2]),           # aft into the band, onto its own crossing lane
+        (yf1_col, lane_19, yf1[2]),          # west and up in one lean, onto the branch's plane
         (yf1_col, yf1[1], yf1[2]),           # aft on that plane, over the shelf to the collet's lane
         "tee-y-f.Y-F-1",                     # and east along the collet's own axis into it
         kind="fluid", skew=FLAVOR_SKEW,
@@ -1847,6 +1858,11 @@ def lane_stations() -> dict:
         "SEL_PORT_Z":       f"{runs['fluid-7'].pts[-1][2]:.4g}",
         "COLUMN_SPREAD":    f"{abs(runs['fluid-3'].pts[-1][0] - runs['fluid-3'].pts[0][0]):.4g}",
         "CROSSBAR":         f"{runs['fluid-6'].length:.4g}",
+        # The flavor tap's own lean off the two collets it runs straight between, and the window
+        # fluid-19's crossing lane stands in the middle of — its exit lead's floor against the
+        # ceiling the leg to the collet's lane leaves.
+        "F1_SKEW":          f"{R.leg_skew(runs['fluid-1'].pts[0], runs['fluid-1'].pts[-1], _frames()['water-split'].normal('to-flavor')):.3g}",
+        "F19_WINDOW":       f"{_frames()['tee-y-f'].at('Y-F-1')[1] - 3.0 * scorecard.stock_of('fluid', 6.35).min_bend - _frames()['selects-tray-assembly'].at('V-D-O')[1]:.3g}",
         # The bag line's ends and the two bands it crosses in.
         "BAG_PORT_Z":       f"{f15.pts[0][2]:.4g}",
         "BAG_PORT_X":       f"{f15.pts[0][0]:.4g}",
