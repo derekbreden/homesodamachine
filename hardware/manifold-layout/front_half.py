@@ -61,6 +61,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "waveshare-43b-display",
+           _hw / "reference" / "meanwell-irm90",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -71,6 +72,8 @@ import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
+
+PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -105,6 +108,7 @@ C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
 C_SUCT = cq.Color(0.72, 0.72, 0.76)
 C_HOSE = cq.Color(0.35, 0.55, 0.85)
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
+C_PSU = cq.Color(0.20, 0.20, 0.24)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -121,9 +125,10 @@ def sit(shape, *, cx=None, y0=None, y1=None, z0=None, dz=None):
     return shape.translate(_shift(box(shape), cx=cx, y0=y0, y1=y1, z0=z0, dz=dz))
 
 
-def _shift(b, *, cx=None, y0=None, y1=None, z0=None, dz=None):
+def _shift(b, *, cx=None, x0=None, x1=None, y0=None, y1=None, z0=None, dz=None):
     return cq.Vector(
-        0.0 if cx is None else cx - (b.xmin + b.xmax) / 2.0,
+        (0.0 if cx is None else cx - (b.xmin + b.xmax) / 2.0)
+        + (0.0 if x0 is None else x0 - b.xmin) + (0.0 if x1 is None else x1 - b.xmax),
         (0.0 if y0 is None else y0 - b.ymin) + (0.0 if y1 is None else y1 - b.ymax),
         (0.0 if z0 is None else z0 - b.zmin) + (dz or 0.0))
 
@@ -137,7 +142,7 @@ def _turned(v, axis, deg):
     return (cq.Vector(*v) * c) + (a.cross(cq.Vector(*v)) * s_) + (a * (a.dot(cq.Vector(*v)) * (1.0 - c)))
 
 
-def seat(shape, turns=(), **planes):
+def seat_body(shape, turns=(), **planes):
     """A body's whole placement: turned through each `(axis, degrees)` in `turns`, then moved by
     whole planes (`sit`).
 
@@ -196,7 +201,7 @@ def build_seaflo(foam):
     """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, centred
     on the mirror plane, its aft face flush with the core's own back."""
     b = box(foam)
-    return seat(cq.importers.importStep(str(SEAFLO_STEP)).val(),
+    return seat_body(cq.importers.importStep(str(SEAFLO_STEP)).val(),
                 (((0, 0, 1), SEAFLO_YAW),), cx=0.0, y1=b.ymax, z0=b.zmax)
 
 
@@ -240,7 +245,7 @@ def build_suction_chain(seaflo, suction):
     What holds it there is an open item: nothing threads onto this chain and nothing clamps it.
     It has a measured datum and measured room; it does not have a bracket."""
     b = box(seaflo)
-    return seat(_suct.build(), SUCT_CHAIN_TURN,
+    return seat_body(_suct.build(), SUCT_CHAIN_TURN,
                 cx=b.xmax + SUCT_PUMP_GAP + _suct.HOSE_OD / 2.0,
                 y1=suction[0][1] - SUCT_CORNER_ROOM, z0=b.zmin)
 
@@ -250,7 +255,7 @@ def build_suction_chain(seaflo, suction):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain", "display")
+              "hopper-funnel", "suction-chain", "display", "psu")
 
 
 def _manifold(name):
@@ -261,6 +266,41 @@ def _manifold(name):
 # The runs this module authors, by the name they go into the assembly under. `manifold_layout`'s
 # own segments come in as `tube-fluid-*` and are part of the pack; these are between bodies.
 _ROUTED: set = set()
+
+
+# --- the +X wall's own seat ------------------------------------------------
+#
+# The plane a body hung on the east wall stands its outer face on. `enclosure._dims` strikes the
+# interior's east face one `side_rib_inset` outboard of the widest body ON THE FLOOR, and the ±X
+# boss band reaches one `enclosure.boss_in` back inboard from the wall it builds there. Those two
+# are the same 14 mm, so the band ends exactly on that body's own east face — which makes "clear
+# of the Y seam's posts, pods and plugs" and "in line with the refrigeration stratum" one test,
+# and lets a body on this flank be seated before the box that carries it has been sized.
+
+def east_wall_seat(*floor_bodies):
+    return max(box(s).xmax for s in floor_bodies)
+
+
+# The brick lies on its side against that wall: a quarter about Y stands its 52 mm width up as
+# height and lays its 33.5 mm depth across the machine, so only that much of the lane reaches
+# inboard and its 109 mm long axis runs fore and aft down the flank.
+PSU_TURN = (((0.0, 1.0, 0.0), -90.0),)
+# What the brick stands off the rear seam: the back wall's own standoff, and a clearance floor
+# past it. Its AC end wants the C14 inlet above it, which is a back-panel body and not placed.
+PSU_REAR_CLEAR = 6.0
+
+
+def build_psu(foam, wall_seat):
+    """The MeanWell brick on the +X wall, standing on the cold core's cap.
+
+    Three faces of the machine and not three numbers: EAST on the wall seat, AFT one
+    `PSU_REAR_CLEAR` ahead of the rear seam's standoff, FOOT on the cap's own lid. The lane it
+    lies in is what the SeaFlo leaves east of itself on that cap."""
+    b = box(foam)
+    return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN,
+                     x1=wall_seat,
+                     y1=_enc.rear_plane_y - _enc.rear_seam_clear - PSU_REAR_CLEAR,
+                     z0=b.zmax)
 
 
 def _whole(bodies):
@@ -331,6 +371,8 @@ def build_pack() -> cq.Assembly:
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()))
     a.add(chain, name="suction-chain", color=C_SUCT)
+    psu, _psu_carry = build_psu(foam, east_wall_seat(shroud, cond))
+    a.add(psu, name="psu", color=C_PSU)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -484,6 +526,8 @@ def report(a: cq.Assembly) -> None:
         line("suction-chain", box(named["suction-chain"]))
     if "display" in named:
         line("display", box(named["display"]))
+    if "psu" in named:
+        line("psu", box(named["psu"]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
