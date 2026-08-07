@@ -90,8 +90,11 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from typing import NamedTuple
 
 import cadquery as cq
+from OCP.Bnd import Bnd_Box
+from OCP.BRepBndLib import BRepBndLib
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -727,11 +730,60 @@ def build_assembly() -> cq.Assembly:
 
 # --- Controls --------------------------------------------------------------
 
+class Extents(NamedTuple):
+    """A box in world coordinates. Read as a clash it is the answer: the smallest side is how
+    far a body has to go to be out, and the axis it lies on is which way. A volume is neither
+    — 3 mm³ is a 30 x 1 x 0.1 graze along a face or a 1.4 mm cube driven through a wall, and
+    those two want opposite corrections."""
+
+    xmin: float
+    ymin: float
+    zmin: float
+    xmax: float
+    ymax: float
+    zmax: float
+
+    @property
+    def escape(self) -> tuple:
+        """`(axis, mm)` — the shortest translation that ends the overlap. Two convex bodies
+        moved that far along that axis are exactly clear of each other; for the rest it is the
+        first move to try, not a promise."""
+        d = (self.xmax - self.xmin, self.ymax - self.ymin, self.zmax - self.zmin)
+        i = min(range(3), key=lambda k: d[k])
+        return "xyz"[i], d[i]
+
+    def __str__(self) -> str:
+        return (f"x[{self.xmin:8.2f},{self.xmax:8.2f}] y[{self.ymin:8.2f},{self.ymax:8.2f}] "
+                f"z[{self.zmin:8.2f},{self.zmax:8.2f}]")
+
+
+class Clash(NamedTuple):
+    a: str
+    b: str
+    volume: float
+    where: Extents
+
+
+def extents(shape) -> Extents:
+    """A shape's box off its surface poles. `Shape.BoundingBox()` meshes first and costs about
+    fourteen times the shape's own volume; this never meshes and costs a thirtieth of it, at
+    the price of a box that can run a fraction of a mm large. Large is the safe direction for
+    an answer about where a body must move to."""
+    bb = Bnd_Box()
+    BRepBndLib.Add_s(shape.wrapped, bb, False)
+    return Extents(*bb.Get())
+
+
 def clashes(assy: cq.Assembly, floor: float = 1.0):
-    """Every pair of placed solids that shares more than `floor` mm³, and every pair the boolean
-    would not answer for. Butted collets meet on a plane and share nothing, so a clean
-    arrangement returns two empty lists — and a pair OCCT raised on lands in the second one
-    rather than passing for clean."""
+    """Every pair of placed solids that shares more than `floor` mm³ — as `Clash(a, b, volume,
+    where)`, `where` being the extents of the shared solid itself and not of either body — and
+    every pair the boolean would not answer for. Butted collets meet on a plane and share
+    nothing, so a clean arrangement returns two empty lists, and a pair OCCT raised on lands in
+    the second one rather than passing for clean.
+
+    The pair's boxes are a pre-filter and only that. Disjoint boxes prove disjoint solids, so
+    skipping on them is sound; overlapping boxes prove nothing at all, which is why no pair is
+    ever reported without the boolean having been asked."""
     solids = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj)
                .moved(cq.Location(c.loc.wrapped.Transformation()))) for c in assy.children]
     boxes = [(n, s, s.BoundingBox()) for n, s in solids]
@@ -745,12 +797,15 @@ def clashes(assy: cq.Assembly, floor: float = 1.0):
                     or bi.zmin > bj.zmax - 1e-6 or bj.zmin > bi.zmax - 1e-6):
                 continue
             try:
-                v = si.intersect(sj).Volume()
+                inter = si.intersect(sj)
+                v = inter.Volume()
             except Exception as exc:
                 unanswered.append((ni, nj, str(exc).splitlines()[0]))
                 continue
+            # `floor` is above zero, so the shared solid is never the empty one a void box
+            # would be taken from.
             if v > floor:
-                hits.append((ni, nj, v))
+                hits.append(Clash(ni, nj, v, extents(inter)))
     return hits, unanswered
 
 
@@ -923,8 +978,10 @@ def report(assy: cq.Assembly) -> dict:
     bad, unanswered = clashes(assy)
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
           f"{len(unanswered)} the boolean would not answer for")
-    for ni, nj, v in bad:
-        print(f"  {ni} ∩ {nj}   {v:.1f} mm³")
+    for c in bad:
+        axis, d = c.where.escape
+        print(f"  {c.a} ∩ {c.b}\n      {c.where}   {c.volume:.1f} mm³, "
+              f"{d:.2f} on {axis} clears it")
     for ni, nj, why in unanswered:
         print(f"  {ni} ? {nj}   {why}")
     return dict(bb=bb, reach=reach, bad=bad + unanswered, made=made, mirror=off)
