@@ -280,7 +280,7 @@ def main():
             "SUPPORT_RING_H": 1,
             "SUPPORT_RING_W": 1,
             "SUPPORT_RING_INNER_R": 1,
-            "TUBE_HOLE_D": 11,
+            "TUBE_HOLE_D": 8,
             "CORNER_ROUND_R": 1,
             "BOSS_D": 5,
             "MID_BOSS_OFFSET": 2,

@@ -122,13 +122,14 @@ def cut_circular_port_holes(foam_shell):
 def cut_co2_inlet(foam_shell):
     """CO2 inlet — a ⌀[6.5](PORT_HOLE_DIAMETER) bore on the shell's centreline,
     run from the bottom plate's lane-side port at y = [-19.05](CO2_INLET_Y) out through
-    the tank support ring to the port lane, plus its own station on the front field.
-    The port, its elbow, the ring bore and the wall bore stand on one line. It crosses the ring with open
-    cavity inboard of it, which is where the vessel's TAISHER elbow and its PP010822E
+    the tank support ring to the port lane. The port, its elbow and the ring bore stand on
+    one line, and the lane is where the line turns UP: this one leaves by the cap's own
+    `co2-in` conduit rather than by a station on the front field. It crosses the ring with
+    open cavity inboard of it, which is where the vessel's TAISHER elbow and its PP010822E
     adapter hang. The line is pushed in from outside once the vessel is seated, along
     the lane and in through the ring, and bottoms in that collet — so nothing is made
     up in-cavity and nothing arrives from above."""
-    foam_shell = foam_shell.cut(
+    return foam_shell.cut(
         build_hole_punch(
             origin=co2_inlet_xyz,
             hole_punch_radius=port_hole_radius,
@@ -136,8 +137,6 @@ def cut_co2_inlet(foam_shell):
             direction=-1,
         )
     )
-    return cut_front_exit(foam_shell, z=front_port_z("co2-in"),
-                          hole_punch_radius=port_hole_radius)
 
 
 def cut_slot_for_copper_and_prv_vent(foam_shell):
