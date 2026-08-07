@@ -1226,14 +1226,15 @@ def funnel_centre(box):
     """The funnel collar's centre in plan: (x, y).
 
     Centred across the box, and pushed as far FORWARD as the display housing allows: the
-    top wall resumes at the facet's back plane, keeps one `enclosure.hopper_front_ledge` of
-    itself there, and the collar's front edge stands one `hopper_funnel.brim_margin` behind
-    that — the brim's own bearing. So the basin is the first thing behind the glass and the
-    wall a deeper box adds runs behind it, not in front. Read off the box, because the box
-    is a consequence of the pack and the facet's own depth; `enclosure._hopper_hole` asserts
-    the frame this lands in."""
+    ceiling reaches the top face at the facet's back plane, and the collar's front edge
+    stands one `enclosure.hopper_front_ledge` of top wall behind that. Nothing else fences
+    it — the brim's front flange bears on the housing slab, which is the thickest wall in
+    the box, so the throat's stand-off from the housing IS the whole requirement. The basin
+    is the first thing behind the glass and the wall a deeper box adds runs behind it, not
+    in front. Read off the box, because the box is a consequence of the pack and the facet's
+    own depth; `enclosure._hopper_hole` asserts the frame this lands in."""
     ix0, ix1 = box.inner[0], box.inner[1]
-    y_front = (_enc.facet_back_y(box.outer) + _enc.hopper_front_ledge + _funnel.brim_margin)
+    y_front = _enc.facet_back_y(box.outer) + _enc.hopper_front_ledge
     return ((ix0 + ix1) / 2.0, y_front + _funnel.collar_d / 2.0)
 
 
