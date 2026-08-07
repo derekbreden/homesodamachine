@@ -10,7 +10,7 @@ flowchart LR
   %% `_fluid_topology_sync.py` writes every number below and gates every edge against
   %% the built run — an edge whose two ends are not that run's two ends fails the gate.
 
-  %% The 27 flavor segments come to [2976.1 mm](FLUID_TOTAL) of 1/4" LLDPE, over
+  %% The 27 flavor segments come to [2980.8 mm](FLUID_TOTAL) of 1/4" LLDPE, over
   %% [66](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
   %% [501.0 mm](LONGEST_LEN); the shortest is [fluid-6](SHORTEST_ID) at
   %% [4.0 mm](SHORTEST_LEN).
@@ -132,7 +132,7 @@ flowchart LR
   %% each Tee's run falls straight down one column and the two branches face each other
   %% across fluid-6, which puts all four ports on one hydraulic node.
   Split -->|"fluid-1<br/>12.2 mm"| Reg
-  Reg -->|"fluid-2<br/>80.5 mm"| VA
+  Reg -->|"fluid-2<br/>85.2 mm"| VA
   VA -->|"fluid-3<br/>21.0 mm"| YA
   Hopper -->|"fluid-4<br/>47.2 mm"| VB
   VB -->|"fluid-5<br/>21.0 mm"| YB
@@ -183,7 +183,7 @@ flowchart LR
   %% V-K gates the carbonator fill off the same split fluid-1 leaves. It stands on the
   %% aft stand's middle plate, and water-4 is what fluid-27 crosses over on its way out
   %% of the bay.
-  Split -->|"water-3<br/>202.8 mm"| VK
+  Split -->|"water-3<br/>179.5 mm"| VK
   VK -->|"water-4<br/>71.5 mm"| SuctChain
 
   %% =========================
