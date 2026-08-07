@@ -64,6 +64,8 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "teyleten-relay",
            _hw / "reference" / "ground-ring-stack",
+           _hw / "reference" / "asse1022-assembly",
+           _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -74,6 +76,8 @@ import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
+import asse1022_assembly as _asse                     # noqa: E402
+import drip_pan as _pan                               # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
@@ -119,6 +123,7 @@ C_PCBA = cq.Color(0.15, 0.45, 0.25)
 C_RELAY = cq.Color(0.15, 0.35, 0.65)
 C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
 C_GND = cq.Color(0.55, 0.55, 0.58)
+C_ASSE = cq.Color(0.85, 0.78, 0.45)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -266,7 +271,7 @@ def build_suction_chain(seaflo, suction):
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
-              "relay-1", "ac-hub", "ground-stack")
+              "relay-1", "ac-hub", "ground-stack", "asse1022-assembly")
 
 
 def _manifold(name):
@@ -317,8 +322,11 @@ def build_psu(foam, wall_seat):
 # The controller board joins the brick's column rather than standing forward of the deck: same
 # flank, same seat, same floor. The ROLL is what fits it — a quarter about Y stands the board on
 # its long edge and lays that edge fore and aft down the flank, so only its 19.1 mm of thickness
-# and components reaches into the lane.
-PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((0.0, 0.0, 1.0), 180.0))
+# and components reaches into the lane. The YAW is which face meets the wall: the board's flat
+# back is what mounts, so it faces +X. A flat side is only useful pointed at the thing it lies
+# against; turned the other way it is 19.1 mm of components pressed into the wall and a bare
+# board staring into the lane.
+PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((0.0, 0.0, 1.0), 0.0))
 # What the board stands off the brick along the flank. Both are wired, and a hand making off a
 # connector between them needs the gap to be a gap.
 PCBA_PSU_CLEAR = 6.0
@@ -364,6 +372,45 @@ def build_stack(psu, wall_seat):
         out.append((name, solid, colour))
         floor = box(solid).zmax
     return out
+
+
+# --- the tap-water sequence, in the west lane ------------------------------
+#
+# The backflow preventer and everything that threads or clamps onto it, made up as one chain.
+# Its own frame runs the flow down +X with the VENT ON −Z, so any turn that keeps the vent
+# pointing at the floor is a yaw and nothing else — and the vent has to point at the floor,
+# because it weeps to atmosphere and that drip is the machine's cross-contamination telltale.
+#
+# The yaw lays the 140 mm chain fore and aft in the lane west of the pump, INLET AFT: the tap
+# water comes in through the back panel, so the mouth that faces the bulkhead is the upstream
+# one and the flow runs forward down the lane to the split.
+ASSE1022_YAW = -90.0
+# What the chain stands off the rear seam — room for the bulkhead it is fed from and for
+# `water-1` to turn out of it. The bulkhead is a back-panel body and is not placed.
+ASSE_REAR_CLEAR = 20.0
+
+
+def build_asse(foam):
+    """The ASSE 1022 chain in the west lane, high enough over the cold core's cap that the drip
+    pan stands under its vent.
+
+    Its HEIGHT is the pan's, read off the pan's own module rather than typed: the basin's floor
+    lies on the cap, its rim one `PAN_Z` above that, and the chain's underside one
+    `VENT_GAP` of air over the rim. So the vent's drip falls the gap the basin was drawn for,
+    and a change to either number moves both bodies together.
+
+    Its X hugs the cold core's west face, leaving the rest of the lane between it and the pump.
+    Its Y stands the inlet `ASSE_REAR_CLEAR` ahead of the rear seam's standoff.
+
+    What holds it is the wall clamps, which are a top-wall feature and an open item."""
+    b = box(foam)
+    chain = _asse.build()
+    chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
+    chain = chain.val() if hasattr(chain, "val") else chain
+    return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),),
+                     x0=b.xmin,
+                     y1=_enc.rear_plane_y - _enc.rear_seam_clear - ASSE_REAR_CLEAR,
+                     z0=b.zmax + _pan.PAN_Z + _pan.VENT_GAP)
 
 
 def _whole(bodies):
@@ -441,6 +488,8 @@ def build_pack() -> cq.Assembly:
     a.add(pcba, name="pcba", color=C_PCBA)
     for name, solid, colour in build_stack(psu, wall_seat):
         a.add(solid, name=name, color=colour)
+    asse, asse_carry = build_asse(foam)
+    a.add(asse, name="asse1022-assembly", color=C_ASSE)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -596,7 +645,7 @@ def report(a: cq.Assembly) -> None:
         line("display", box(named["display"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
-    for n in ("pcba", "relay-1", "ac-hub", "ground-stack"):
+    for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly"):
         if n in named:
             line(n, box(named[n]))
     walls = None
