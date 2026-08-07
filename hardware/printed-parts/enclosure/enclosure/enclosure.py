@@ -582,11 +582,12 @@ def _z_joints(placed, inner):
                 f"{bed_lo:.2f}..{bed_hi:.2f} its bodies leave no band "
                 f"{2 * z_joint_clear:.2f} mm clear, and something stands in the lip's own "
                 f"ring at every height there. Repack, or split this column in three")
-    # Nearest reachable height to the half-height, band by band; ties take the lower.
-    # The column with the least room to move takes its height first, and the other
-    # stands a full pitch off it.
-    out = {}
-    for col in sorted(bands, key=lambda c: sum(hi - lo for lo, hi in bands[c])):
+    # The FRONT column's seam is STATED (`_contents.Z_SEAM_FRONT`), the way the Y seam and the
+    # ceiling are: where the front quadrants split is a decision about those two pieces. The
+    # back column then takes the nearest reachable height to the half-height in its own bands,
+    # standing a full `z_joint_pitch` off the front's so the Y seam keeps both its levels.
+    out = {"front": _contents.Z_SEAM_FRONT}
+    for col in ("back",):
         left = bands[col]
         for z in out.values():
             left = _outside(left, z - z_joint_pitch, z + z_joint_pitch)
@@ -619,8 +620,16 @@ def _dims():
     # X one; that substitution IS the thin machine. Read from _contents, which
     # insets wall-adjacent floor content by the same number.
     cold = _boxes.boxed(placed["foam-assembly"][0])
-    ix0 = min(cxmin - interior_clearance, cold.xmin - _contents.SIDE_RIB_INSET)
-    ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
+    # The ±X walls stand one boss chain off THE WIDEST THING ON THE FLOOR, not off the cold
+    # core alone. That band carries the Y seam's corner columns and the Z seams' pin stations,
+    # and they run from the floor slab up — so a floor body reaching into it is a body the seam
+    # has to be routed around at every level. The refrigeration stratum is 189 wide against the
+    # core's 181, and it is what sets this.
+    floor = [b for b in bbs if b.zmin <= min(czmin, 0.0) + wall]
+    ix0 = min(cxmin - interior_clearance,
+              min(b.xmin for b in floor) - _contents.SIDE_RIB_INSET)
+    ix1 = max(cxmax + interior_clearance,
+              max(b.xmax for b in floor) + _contents.SIDE_RIB_INSET)
     # The FRONT wall stands one wall off the pack, for the same kind of reason
     # the ±X walls stand a boss chain off the cold core: a lip missing a side is
     # a butt joint over that run — nothing registering the two pieces, nothing

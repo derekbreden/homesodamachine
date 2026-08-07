@@ -245,6 +245,10 @@ REAR_PLANE_Y = 470.0
 # service deck on its cap. `enclosure._dims` seats the seam here and `_report_split` prints
 # what each half then comes to against the H2C bed.
 Y_SEAM = 200.0
+# And where the FRONT column splits bottom from top, on the same footing. It lands in the band
+# between the refrigeration stratum's crown and the manifold standing over it — the one open
+# height that column has.
+Z_SEAM_FRONT = 160.0
 
 
 # --- Zone D: the refrigeration stratum -------------------------------------
@@ -262,9 +266,10 @@ CONDENSER_AIRFLOW = _cond.AIRFLOW            # fan + finstack stack depth, along
 CONDENSER_FACE_A, CONDENSER_FACE_B = _cond.FACE_A, _cond.FACE_B
 SHROUD_YAW = -90.0
 BASE_YAW = -90.0
+FRONT_BAY = 0.0
 # Depth of the whole front stratum — the plane the cold core's front face lands on, and the one
 # every joint crossing between the two of them stands on.
-FRONT_DEPTH = CONDENSER_FACE_A
+FRONT_DEPTH = FRONT_BAY + CONDENSER_FACE_A
 # The gap between the shroud's roof and the manifold standing on it. 0: the four spine hairpins
 # ARE the mating surface, and the pump-head faces stand off the crown by what the hairpins reach.
 CROWN_GAP = 0.0
@@ -306,7 +311,7 @@ DISCH_CHAIN_AFT = 17.7
 # rather than over the machine's west face.
 ASSE1022_YAW = -90.0
 ASSE1022_ROLL = -90.0
-ASSE_INLET_HOP = 10.0        # the least tube between the panel's mouth and the chain's
+ASSE_INLET_HOP = 14.0        # the least tube between the panel's mouth and the chain's
 # The basin's own plan, wall face to wall face; the rim reaches one `_pan.FLANGE_W` past each.
 DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 DRIP_RAIL_H = 3.0
@@ -339,8 +344,8 @@ AC_HUB_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 270.0))
 
 # The CO2 chain, wall-hung off the rear panel and running forward over the pump's crown, both
 # bodies yawed a half turn so their flow runs forward.
-CO2_YAW = 180.0
-CO2_HOP = 10.0
+CO2_YAW = 90.0
+CO2_HOP = 4.0
 CO2_HOLE_D = _derpipe.SHANK_D + 0.8   # clears the DERPIPE's 1/4" NPT shank
 CO2_MADE_UP_TOL = 1e-6
 DERPIPE_WRENCH_CLEAR = 2.0
@@ -633,7 +638,7 @@ def _build():
     # back face flush with the core's own.
     pack.place("seaflo-pump", _load(SEAFLO_STEP), yaw=SEAFLO_YAW,
                east=off("psu", "west", LINE_HUG),
-               aft=flush("foam-assembly", "aft"), foot=at(foam_cap_top()))
+               aft=at(panel_inboard_y()), foot=at(foam_cap_top()))
 
     # --- Zone B: the tap-water sequence, all of it in the west lane. The chain hangs on the
     # station it is FED from, in all three coordinates: its inlet mouth and `bulkhead-water`'s
@@ -650,7 +655,7 @@ def _build():
                org_x=at(_out[0]), org_y=at(split_y()), org_z=at(_out[2]))
     _flv = split_terminal("to-flavor")[0]
     pack.place("flow-regulator", _load(FLOWREG_STEP), turn=FLOWREG_TURNS,
-               org_x=at(_flv[0]), org_y=at(flowreg_lane()),
+               west=at(CORE_WEST_FACE + LINE_HUG), org_y=at(flowreg_lane()),
                org_z=at(_flv[2] - FLOWREG_DROP))
     # The basin hangs off the CHAIN'S OWN PLAN BOX. X is the WALL's: the tray draws west through
     # the slot in it on rails rooted in its inner face, so the face it withdraws through is what
@@ -690,15 +695,18 @@ def _build():
                west=off("suction-chain", "east", LINE_HUG),
                aft=off("suction-chain", "front", JUNCTION_LEG_LEAD),
                foot=off("seaflo-pump", "crown", LINE_HUG))
-
     # The CO2 chain's two inline bodies, wall-hung off the rear panel and running FORWARD over
-    # the pump's crown. Each is seated by the MOUTH the chain closes on rather than by the face
-    # its envelope ends at.
-    pack.place("gasher-co2", _load(GASHER_STEP), yaw=CO2_YAW, station=_gasher.inlet(),
-               port=co2_axis())
-    pack.place("wr1110", _load(WR1110_STEP), yaw=CO2_YAW, station=_wr1110.inlet(),
-               port=(co2_axis()[0], pack.port("gasher-co2", _gasher.outlet())[0][1] - CO2_HOP,
-                     co2_axis()[2]))
+    # the pump's crown, in the strip V-K's plate and the carb riser's meter leave between them.
+    # Each is seated by the MOUTH the chain closes on rather than by the face its envelope ends
+    # at: the check by the socket the DERPIPE's stub threads into, the regulator by the socket
+    # co2-1 reaches, one hop inboard of the check's own stub tip.
+    pack.place("gasher-co2", _load(GASHER_STEP), yaw=CO2_YAW,
+               east=at(CORE_EAST_FACE - LINE_HUG),
+               aft=off("foam-assembly", "front", LINE_HUG),
+               foot=off("compressor-shroud", "crown", LINE_HUG))
+    pack.place("wr1110", _load(WR1110_STEP), yaw=CO2_YAW,
+               east=off("gasher-co2", "west", CO2_HOP),
+               aft=flush("gasher-co2", "aft"), foot=flush("gasher-co2", "foot"))
 
     _joints_hold()
     colors = {**{n: c for n, (_s, _seat, c) in manifold_bodies().items()}, **COLORS}
@@ -738,7 +746,7 @@ def _base_solids():
     turned = [_boxes.boxed(s_seat.solid(shroud)), _boxes.boxed(c_seat.solid(cond))]
     step = _seating.Seat.shift((
         MIRROR_X - (min(b.xmin for b in turned) + max(b.xmax for b in turned)) / 2.0,
-        -min(b.ymin for b in turned), 0.0))
+        FRONT_BAY - min(b.ymin for b in turned), 0.0))
     return (shroud, s_seat.then(step)), (cond, c_seat.then(step))
 
 
@@ -886,20 +894,15 @@ def foam_cap_frame(p):
     return _foam_asm.spin_xy((q[0], q[1]))
 
 
-# What the loop calls the three lines the copper slot carries. The slot names them by the plug
-# whose low end each is; the machine names them by what they are.
-SLOT_LINES = {"evap-inlet": "lower", "evap-outlet": "middle", "prv-vent": "top"}
-
-
 def _foam_station(station):
     """The cold core's own `(position, outward axis)` for a named penetration, in the shell's
-    frame — the front field's bores, the slot's three, and the cap conduits."""
+    frame — the front column's stations, both lanes', and the cap conduits."""
     if station in _cc.front_port_order:
         return _cc.front_port_station(station)
     if station in _cc.cap_conduits:
         x, y = _foam_asm.cap_conduit_station(station)
         return ((x, y, _stack_lid_top_z()), _foam_asm.cap_conduit_axis_out())
-    return _plugs.slot_station(SLOT_LINES.get(station, station))
+    return _plugs.slot_station(station)
 
 
 def _stack_lid_top_z():
@@ -914,7 +917,7 @@ def foam_shell_port(station):
 
 def foam_shell_stations():
     """Every cold-core penetration, in the order their stations climb."""
-    names = list(_cc.front_port_order) + list(SLOT_LINES) + list(_cc.cap_conduits)
+    names = list(_plugs.slot_stations()) + list(_cc.cap_conduits)
     return sorted(names, key=lambda n: _foam_station(n)[0][2])
 
 
@@ -1122,26 +1125,6 @@ def digiten_terminal(name):
 
 # --- The CO2 chain ----------------------------------------------------------
 
-def _co2_axis_drop():
-    """How far the CO2 chain hangs under the line its two sockets stand on, at the turn it is
-    built with — whichever of the two bodies reaches lowest."""
-    turn = _seating.Seat.turn((0, 0, 1), CO2_YAW)
-    return max(turn.port(station)[0][2] - _boxes.boxed(turn.solid(_load(step))).zmin
-               for step, station in ((GASHER_STEP, _gasher.inlet()),
-                                     (WR1110_STEP, _wr1110.inlet())))
-
-
-def co2_row_z():
-    """The CO2 row's own height on the rear panel — one clearance floor over the pump's crown,
-    which is what the chain runs forward across."""
-    return packed().box("seaflo-pump").zmax + LINE_HUG + _co2_axis_drop()
-
-
-def co2_axis():
-    """The line the CO2 chain stands on: the rear panel's own column for it, and that row."""
-    return (CO2_BACK_X, REAR_PLANE_Y - _derpipe.SHANK_LENGTH - CO2_HOP, co2_row_z())
-
-
 CO2_CHAIN_TERMINALS = {"gasher-co2": _gasher.stations, "wr1110": _wr1110.stations}
 
 
@@ -1150,12 +1133,13 @@ def co2_chain_port(body, name):
 
 
 def co2_inlet_seat():
-    """The DERPIPE's own seat: its NPT stub made up into the check's socket, on the rear wall's
-    own column for it."""
-    pos = packed().port("gasher-co2", _gasher.inlet())[0]
-    turn = _seating.Seat.turn((0, 0, 1), CO2_YAW)
+    """The DERPIPE's own seat: its shank through the rear panel on the station the row gives it,
+    its collet outboard and its stub reaching into the bay."""
+    hx, hz = back_port_station("co2-inlet")
+    turn = _seating.Seat.turn((0, 0, 1), 180.0)
     tip = turn.port(_derpipe.stub_tip())[0]
-    return turn.then(_seating.Seat.shift((pos[0] - tip[0], pos[1] - tip[1], pos[2] - tip[2])))
+    return turn.then(_seating.Seat.shift(
+        (hx - tip[0], REAR_PLANE_Y + WALL - _derpipe.SHANK_LENGTH - tip[1], hz - tip[2])))
 
 
 def co2_inlet_port(name):
@@ -1195,8 +1179,7 @@ def pcba_pose():
 
 def pcba_port(px, py):
     """A board connector in world, given its station in the board's own frame."""
-    pos, axis = pcba_pose().port(_pcba.port(px, py))
-    return pos, _face_of(axis)
+    return pcba_pose().port(_pcba.port(px, py))[0]
 
 
 # --- The manifold's own ports ----------------------------------------------
@@ -1270,21 +1253,28 @@ PORT_ROW_MARGIN = 6.0        # nut or flange edge to the wall's own corner furni
 UMBILICAL_PITCH = PORT_NUT_D + PORT_NUT_GAP
 # The tap-water station is the one on this wall that carries a BODY as well as a nut: the ASSE
 # chain hangs on it, in line with it, and the chain's barrel is far wider than the bulkhead nut.
-WATER_BACK_X = max(-SIDE_RIB_INSET + PORT_ROW_MARGIN + PORT_NUT_D / 2.0,
+WATER_BACK_X = max(CORE_WEST_FACE + PORT_ROW_MARGIN + PORT_NUT_D / 2.0,
                    CORE_WEST_FACE + _asse_axis_west() + LINE_HUG)
 UMBILICAL_X = WATER_BACK_X + 2.0 * UMBILICAL_PITCH
 # The mains inlet at the far +X end, its flange the widest thing on this wall.
 C14_BACK_X = min(CORE_EAST_FACE + SIDE_RIB_INSET
                  - PORT_ROW_MARGIN - PORT_C14_FLANGE_W / 2.0,
                  CORE_EAST_FACE - LINE_HUG - PORT_C14_FLANGE_W / 2.0)
-# The CO2 inlet's own column, on the mirror plane: the chain it feeds runs forward down the
-# machine's centreline over the pump, where nothing else stands.
-CO2_BACK_X = MIRROR_X
+def panel_inboard_y():
+    """How far forward of the rear panel a body on this deck stands: the plane a bulkhead's own
+    inboard half reaches, one clearance floor ahead of it."""
+    return REAR_PLANE_Y - _boxes.boxed(_load(JG_BULKHEAD)).ylen + _jg.PROUD_LENGTH - LINE_HUG
 
 
 def c14_inboard_y():
     """How far the mains inlet reaches INTO the bay, in world Y."""
     return REAR_PLANE_Y + _boxes.boxed(_load(IEC_C14)).ymin
+
+
+def co2_row_z():
+    """The CO2 inlet's own row on the rear panel — one nut pitch under the fluid cluster, which
+    is what that row leaves between itself and the back Z seam's lip."""
+    return port_row_z() - PORT_NUT_D - PORT_NUT_GAP
 
 
 def port_row_split():
@@ -1325,8 +1315,10 @@ def back_wall_ports():
         ("round", UMBILICAL_X + p, z, d),   # flavor A
         # The mains inlet alone at the east end, a band of blank wall off the last nut.
         ("rect",  C14_BACK_X,      z, PORT_C14_W, PORT_C14_H, PORT_C14_R),
-        # And the CO2 inlet on its own row over the pump's crown, on the mirror plane.
-        ("round", CO2_BACK_X, co2_row_z(), CO2_HOLE_D),
+        # And the CO2 inlet on ITS OWN ROW, one nut pitch under the fluid cluster's west end.
+        # The blank band between that cluster and the mains flange is what the two ends leave,
+        # and this fitting's hex is wider than it; a second row is what the wall has instead.
+        ("round", WATER_BACK_X, co2_row_z(), CO2_HOLE_D),
     ]
 
 
