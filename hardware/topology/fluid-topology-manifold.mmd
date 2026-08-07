@@ -10,8 +10,8 @@ flowchart LR
   %% `_fluid_topology_sync.py` writes every number below and gates every edge against
   %% the built run — an edge whose two ends are not that run's two ends fails the gate.
 
-  %% The 27 flavor segments come to [2976.7 mm](FLUID_TOTAL) of 1/4" LLDPE, over
-  %% [68](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
+  %% The 27 flavor segments come to [2976.1 mm](FLUID_TOTAL) of 1/4" LLDPE, over
+  %% [66](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
   %% [501.0 mm](LONGEST_LEN); the shortest is [fluid-6](SHORTEST_ID) at
   %% [4.0 mm](SHORTEST_LEN).
 
@@ -131,7 +131,7 @@ flowchart LR
   %% the source pair stands in the selects pair's own two seats one stack pitch up, so
   %% each Tee's run falls straight down one column and the two branches face each other
   %% across fluid-6, which puts all four ports on one hydraulic node.
-  Split -->|"fluid-1<br/>12.3 mm"| Reg
+  Split -->|"fluid-1<br/>12.2 mm"| Reg
   Reg -->|"fluid-2<br/>80.5 mm"| VA
   VA -->|"fluid-3<br/>21.0 mm"| YA
   Hopper -->|"fluid-4<br/>47.2 mm"| VB
@@ -167,7 +167,7 @@ flowchart LR
   %% over the electronics shelf and down the collet band, the outlet over the water deck
   %% and up the tray-east lane — so neither owes the other any separation. It is why the
   %% two longest flavor runs in the machine are this channel's.
-  VD -->|"fluid-19<br/>125.3 mm"| YF
+  VD -->|"fluid-19<br/>124.9 mm"| YF
   VH -->|"fluid-20<br/>166.6 mm"| YF
   YF -->|"fluid-21<br/>238.8 mm"| PA
   PA -->|"fluid-22<br/>501.0 mm"| YG
