@@ -163,3 +163,11 @@ First things to check on a batch-2 board, in order: does the ROM boot log print 
 #3); does `scan` find 0x20, 0x21, 0x68 (proves #1 and #2); does esptool flash with no
 buttons and does SW2 reset — the auto-reset pair has never once been demonstrated, on any
 board, because EN was severed here.
+
+**BT1's CR2032, once 0x68 answers.** The DS3231 latches OSF (status bit 7) on any
+oscillator stop and holds it until it is written to 0, so it says nothing until cleared;
+EOSC (control bit 7) decides whether the oscillator runs once Vcc falls to Vbat, and a set
+EOSC fails the test for a reason that is not the battery. `rtc set <YYYY-MM-DD>
+<HH:MM:SS>` writes the wall clock, clears EOSC and clears OSF. Then pull 12 V and USB,
+leave the board dark, restore power and run `rtc`: **OSF=0 with the time advanced by the
+dark interval is the cell carrying it; OSF=1 is the oscillator having stopped.**
