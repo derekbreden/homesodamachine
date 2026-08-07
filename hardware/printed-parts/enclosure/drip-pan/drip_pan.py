@@ -3,7 +3,7 @@ The Shutao moisture plate lies flat in it; any vent drip, condensate, or overflo
 pools in the basin and wets the plate, tripping the moisture alarm. Watertight
 (no drain) — the basin is emptied on service.
 
-One printed part: the BASIN — an open-top rounded-corner box, [53](PAN_LEN) x
+One printed part: the BASIN — an open-top rounded-corner box, [52](PAN_LEN) x
 [76](PAN_DEPTH) outer x [10](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
 [3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [10](PAN_FLANGE) mm RIM
 FLANGE turned out all four ways at the top — a baking tray, at tray scale.
@@ -55,14 +55,18 @@ import shutao_moisture_plate as plate
 # ladder's lid: every millimetre the basin gives back in X is
 # ceiling a rung buys radius from. Y is the axis with room to spare: the run
 # between the SeaFlo's back face and the foam cap's rear edge is deeper than
-# the basin needs. So the width is the FLOOR the moisture plate sets and a little
-# grace — the plate turned down the depth wants
-# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width —
-# [53](PAN_LEN) across and [76](PAN_DEPTH) down, the basin hung on the atmospheric vent's own
-# tip in both plan axes (`_contents._pan_room` is the reading, and it refuses a tip that stands
-# outside the inner floor). [10](PAN_HEIGHT) tall is what `VENT_GAP` leaves of the vent's
-# column once the basin's floor has taken its own air over the casting.
-PAN_X, PAN_Y, PAN_Z = 53.0, 76.0, 10.0
+# the basin needs. So the width is the LANE, and the floor the moisture plate needs is
+# what the lane has to leave: the plate turned down the depth wants
+# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width, and
+# `check_plate()` refuses a basin that gives back more than that.
+#
+# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs
+# off the pump's own casting at one clearance (`front_half.pan_east_x`) and its west lip has
+# to land inside the −X wall (`front_half.check_pan_lane`), which is what fixes the rim at
+# [72](PAN_RIM_LEN) over the [52](PAN_LEN) of basin. [76](PAN_DEPTH) down, the basin hung on
+# the atmospheric vent's own tip in both plan axes. [10](PAN_HEIGHT) tall is what `VENT_GAP`
+# leaves of the vent's column once the basin's floor has taken its own air over the casting.
+PAN_X, PAN_Y, PAN_Z = 52.0, 76.0, 10.0
 WALL, FLOOR = 2.5, 3.0
 # The PLAN OUTLINE's radius, and the only one this part has. Floor slab, walls, cavity
 # and flange are all the one outline at their own offset, so the corner a hand runs down
@@ -249,6 +253,7 @@ def main():
             "PAN_LEN": 2, "PAN_DEPTH": 2, "PAN_HEIGHT": 2,
             "PAN_WALL": 1, "PAN_FLOOR": 1, "PAN_PLATE_MIN": 1,
             "PAN_FLANGE": 1, "PAN_CORNER_R": 1, "PAN_BEARING": 1,
+            "PAN_RIM_LEN": 1,
         },
     )
     substitute_md(
