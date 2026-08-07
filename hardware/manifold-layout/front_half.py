@@ -60,6 +60,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "seaflo-suction-chain",
+           _hw / "reference" / "waveshare-43b-display",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -69,6 +70,7 @@ import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
+import waveshare_43b_display as _disp                 # noqa: E402
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -102,6 +104,7 @@ C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
 C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
 C_SUCT = cq.Color(0.72, 0.72, 0.76)
 C_HOSE = cq.Color(0.35, 0.55, 0.85)
+C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -247,7 +250,7 @@ def build_suction_chain(seaflo, suction):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain")
+              "hopper-funnel", "suction-chain", "display")
 
 
 def _manifold(name):
@@ -395,6 +398,35 @@ def build_funnel(box):
             .translate(cq.Vector(cx, cy, box.outer[5])))
 
 
+# The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
+# up-and-forward at `enclosure.display_facet_angle_deg`. One turn about X carries the screen
+# normal onto the facet's and the up-screen axis up the slope with it.
+DISPLAY_TILT = ((1.0, 0.0, 0.0), -45.0)
+
+
+def build_display(box):
+    """The Waveshare 4.3B let into the display facet — the part that goes in the hole
+    `enclosure._display_cuts` already makes, seated off the same numbers so the two cannot land
+    on two different centres.
+
+    The glass is the datum. It sits in the bezel counterbore, `display_bezel_depth` deep, so the
+    cover glass's own face lies that depth less its own thickness below the 45° surface. The
+    BODY hangs behind it, offset on the glass by `display_body_offset_*` because the glass
+    overhangs the body unevenly."""
+    a, normal, origin, _dy, _dz = _enc._facet_geom(box.outer)
+    n = cq.Vector(*normal)                                  # out of the facet, up-and-forward
+    x_dir = cq.Vector(1.0, 0.0, 0.0)
+    up = cq.Vector(0.0, math.cos(a), math.sin(a))            # up the 45° slope
+    glass = (cq.Vector(_enc.display_centre_x(box.outer), origin[1], origin[2])
+             - n * (_enc.display_bezel_depth - _disp.bezel_depth))
+    seat_pt = (glass
+               + x_dir * _enc.display_body_offset_x
+               + up * _enc.display_body_offset_slope)
+    body = _disp.build_assembly().toCompound()
+    return (body.rotate(cq.Vector(0, 0, 0), cq.Vector(*DISPLAY_TILT[0]), DISPLAY_TILT[1])
+            .translate(seat_pt))
+
+
 def _seated(box):
     """The box with every station its walls carry, seated. Each is read off the box itself,
     so the wall and the body it is cut for come out of one number."""
@@ -413,6 +445,7 @@ def build_front_half() -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, box = machine()
     a.add(build_funnel(box), name="hopper-funnel", color=C_FUNNEL)
+    a.add(build_display(box), name="display", color=C_DISPLAY)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     return a
@@ -449,6 +482,8 @@ def report(a: cq.Assembly) -> None:
         line("hopper-funnel", box(named["hopper-funnel"]))
     if "suction-chain" in named:
         line("suction-chain", box(named["suction-chain"]))
+    if "display" in named:
+        line("display", box(named["display"]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
