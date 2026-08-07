@@ -4,7 +4,7 @@ Three bodies, mated face to face with nothing between them:
 
     compressor-shroud   its AFT face (+Y) against
     condenser+fan       its WEST face (−X), turned onto the shroud's aft plane
-    manifold-layout     its PUMP-HEAD FRONT face laid on the crown of those two
+    manifold-layout     set down on the crown of those two, on the four SPINE HAIRPINS
 
 The gaps are 0 by intent. The compressor stands well inside its shroud and its ports go
 wherever they are put; the condenser's inlet and outlet are cornered but leave by whichever
@@ -32,6 +32,11 @@ The **manifold** turns a quarter about X and a half about Z, which is the one po
 its pump-head front face down. Its own +Z — the axis its two valve decks stack on — comes to
 +Y, so the decks stand aft of the pumps rather than over them, and every mouth that faced the
 back now faces up.
+
+What it then sets down ON is the four spine hairpins, not any body: the fold put them on the
+pack's own underside and they reach past the pump-head faces. They sit at the AFT end, under
+the valve decks, where the pumps are forward — so the pack rests on four tube arcs and the
+pump faces stand clear of the crown by what the hairpins reach.
 
 Run it
 ------
@@ -106,6 +111,9 @@ def pose_manifold(shape):
     return shape.rotate(*X_AXIS, 90.0).rotate(*Z_AXIS, 180.0)
 
 
+# What the pack actually sets down on is not a body at all — it is the four spine hairpins.
+# The fold turned them onto the pack's own underside, and they hang past the pump-head faces,
+# so THEY are the mating surface and the pump faces stand off the crown by whatever is left.
 PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
 
 
@@ -116,12 +124,12 @@ def build_front_half() -> cq.Assembly:
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
     a.add(cond, name="condenser+fan", color=C_COND)
 
+    posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+        cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
     crown = max(box(shroud).zmax, box(cond).zmax)
-    lift = crown - PUMP_FACE_Z               # pump-head front face onto the base's crown
-    for c in ml.build_assembly().children:
-        solid = (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-            cq.Location(c.loc.wrapped.Transformation()))
-        a.add(sit(pose_manifold(solid), dz=lift), name=c.name, color=c.color)
+    lift = crown - min(box(s).zmin for _n, s, _c in posed)
+    for name, solid, color in posed:
+        a.add(solid.translate(cq.Vector(0.0, 0.0, lift)), name=name, color=color)
     return a
 
 
@@ -153,14 +161,17 @@ def report(a: cq.Assembly) -> None:
     print(f"  shroud aft face  y {sh.ymax:.2f}   condenser west face  y {co.ymin:.2f}   "
           f"gap {co.ymin - sh.ymax:.2f}")
     crown = max(sh.zmax, co.zmax)
-    print(f"  base crown       z {crown:.2f}   pump-head front face z {crown:.2f}   gap 0.00")
+    pump_face = min(box(s).zmin for n, s in placed if n.endswith("-head"))
+    print(f"  base crown       z {crown:.2f}   spine hairpins       z {pack.zmin:.2f}   "
+          f"gap {pack.zmin - crown:.2f}")
+    print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
+          f"crown — that band is what the hairpins reach, and they are aft of the pumps")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
     print(f"\nfront half        {whole.xlen:.2f} × {whole.ylen:.2f} × {whole.zlen:.2f}   "
           f"({whole.xlen * whole.ylen * whole.zlen / 1e6:.2f} L)")
     print(f"                  x[{whole.xmin:.2f},{whole.xmax:.2f}] "
           f"y[{whole.ymin:.2f},{whole.ymax:.2f}] z[{whole.zmin:.2f},{whole.zmax:.2f}]")
-    print(f"  the pack reaches {crown - pack.zmin:.2f} mm BELOW the plane it is mated on — "
-          f"the four spine hairpins hang past the pump faces")
+
 
     bad, unanswered = ml.clashes(a)
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
