@@ -688,7 +688,7 @@ def _z_joints(placed, inner, front):
 
 def _dims(pack):
     """The box `pack` stands inside — its two shells, the plane it splits on, and the
-    stations its walls carry. `pack` is a Pack (see `pack_of`)."""
+    stations its walls carry. `pack` is a Pack (see `machine_of`)."""
     placed = pack.placed
     bbs = [_boxes.boxed(s) for s, _c in placed.values()]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
@@ -1868,20 +1868,21 @@ def box_around(pack):
     return _dims(pack)
 
 
-def pack_of():
-    """The machine's pack — the bodies the box stands around, with every wall station
-    they put on it. `hardware/manifold-layout/front_half.py` places them.
+def machine_of():
+    """The machine's pack and the box around it. `hardware/manifold-layout/front_half.py`
+    places the bodies and seats the wall stations, so both come from there and the box this
+    prints is the box that pack stands in.
 
     Imported here rather than at module scope so that front_half, which builds its own
     assembly around these walls, is not importing a module that is importing it back."""
     sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
     import front_half
-    return front_half.pack()
+    _assy, pack, box = front_half.machine()
+    return pack, box
 
 
 def main():
-    machine = pack_of()
-    box = _dims(machine)
+    machine, box = machine_of()
     pieces, assy = build_pieces(box)
     coupon = coupon_box()
     coupon_pieces, coupon_assy = build_pieces(coupon, "enclosure-coupon")

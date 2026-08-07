@@ -57,16 +57,19 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "cut-parts" / "compressor-shroud",
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
+           _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
 import condenser_block as _cond                       # noqa: E402
 import enclosure as _enc                              # noqa: E402
+import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
+FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
 
 # The placement anchors. Each is a turn a body is installed at, and the machine holds
 # them rather than the bodies: two bodies mating face to face agree about one turn.
@@ -84,11 +87,15 @@ SHROUD_YAW = -90.0
 # and leave its ±Y side faces, so this yaw lands them on the machine's ±X, and lays its
 # 187 mm long axis front-to-back.
 SEAFLO_YAW = 90.0
+# The funnel's spout is on its collar centre, so a turn about Z picks nothing; 0 keeps
+# the collar's own axes on the top wall's.
+FUNNEL_ROT = 0.0
 
 C_SHROUD = cq.Color(0.60, 0.62, 0.66)        # the enclosure pack's own three
 C_COND = cq.Color(0.78, 0.55, 0.35)
 C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
+C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -147,6 +154,18 @@ def build_seaflo(foam):
     s = cq.importers.importStep(str(SEAFLO_STEP)).val().rotate(*Z_AXIS, SEAFLO_YAW)
     b = box(foam)
     return sit(s, cx=0.0, y1=b.ymax, z0=b.zmax)
+
+
+# The assembly's non-manifold members, by name. `report` measures the manifold pack as
+# one box — the clearances the core and the pump stand off are struck against it — so a
+# body added to the assembly that is not part of that pack has to be named here or it
+# joins the box and moves every one of them.
+STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
+              "hopper-funnel")
+
+
+def _manifold(name):
+    return name not in STANDALONE and not name.startswith("enclosure-")
 
 
 def _whole(bodies):
@@ -224,19 +243,21 @@ def _solids(a: cq.Assembly):
         cq.Location(c.loc.wrapped.Transformation())), c.color) for c in a.children}
 
 
-def pack() -> "_enc.Pack":
-    """What the enclosure stands around: the placed bodies, and the stations they put on
-    its walls.
+def pack(a: cq.Assembly = None) -> "_enc.Pack":
+    """What the box is SIZED ON: the bodies that have to fit inside it.
 
-    Every station field is empty. A station is a hole, a boss or a rail the wall carries
-    FOR a body, and this pack carries the refrigeration stratum, the flavour manifold, the
-    cold core and the water pump — none of which touches a wall. The funnel's throat, the
-    drip tray's rails and slot, the mains inlet's bosses and the panel through-holes each
-    arrive with the body they are for."""
-    return _enc.Pack(placed=_solids(build_pack()))
+    The funnel is not among them. It is seated IN the top wall — brim on the outer face,
+    chute hanging through — so it stands above the ceiling the pack has to live under, and
+    a box sized to contain it would be a box built around its own lid. It comes back as a
+    station on that wall (`_seated`).
+
+    The station fields left empty are the ones this pack has no body for: the drip tray's
+    rails and slot, the mains inlet's bosses, the panel through-holes. Each arrives with
+    the body it is for."""
+    return _enc.Pack(placed=_solids(build_pack() if a is None else a))
 
 
-# --- the box those bodies stand in -----------------------------------------
+# --- the box those bodies stand in, and what is seated in its walls ---------
 
 WALL_COLORS = {"front-bottom": cq.Color(0.72, 0.74, 0.78, 0.30),
                "front-top": cq.Color(0.80, 0.82, 0.86, 0.30),
@@ -244,10 +265,50 @@ WALL_COLORS = {"front-bottom": cq.Color(0.72, 0.74, 0.78, 0.30),
                "back-top": cq.Color(0.74, 0.76, 0.80, 0.30)}
 
 
-def build_front_half() -> cq.Assembly:
-    """The pack, and the four printable pieces of the box around it."""
+def funnel_centre(box):
+    """The funnel collar's centre in plan: (x, y).
+
+    Centred across the box, and pushed as far FORWARD as the display housing allows: the
+    top wall resumes at the facet's back plane, keeps one `enclosure.hopper_front_ledge` of
+    itself there, and the collar's front edge stands one `hopper_funnel.brim_margin` behind
+    that — the brim's own bearing. So the basin is the first thing behind the glass and the
+    wall a deeper box adds runs behind it, not in front. Read off the box, because the box
+    is a consequence of the pack and the facet's own depth; `enclosure._hopper_hole` asserts
+    the frame this lands in."""
+    ix0, ix1 = box.inner[0], box.inner[1]
+    y_front = (_enc.facet_back_y(box.outer) + _enc.hopper_front_ledge + _funnel.brim_margin)
+    return ((ix0 + ix1) / 2.0, y_front + _funnel.collar_d / 2.0)
+
+
+def build_funnel(box):
+    """The static funnel (`hopper_funnel.py`, its own frame: collar-centre origin, z 0 the
+    brim underside) seated in the top-wall opening — turned `FUNNEL_ROT` about its own Z,
+    then set at `funnel_centre` with that underside on the box's outer top. `enclosure.py`
+    cuts the opening from the same centre, so funnel and hole cannot drift apart."""
+    cx, cy = funnel_centre(box)
+    return (cq.importers.importStep(str(FUNNEL_STEP)).val()
+            .rotate(*Z_AXIS, FUNNEL_ROT)
+            .translate(cq.Vector(cx, cy, box.outer[5])))
+
+
+def _seated(box):
+    """The box with every station its walls carry, seated. Each is read off the box itself,
+    so the wall and the body it is cut for come out of one number."""
+    return box._replace(funnel=funnel_centre(box))
+
+
+def machine():
+    """The pack, and the box around it. One build: the box is sized on the pack's bodies,
+    and then carries the stations they seat in its walls."""
     a = build_pack()
-    box = _enc.box_around(_enc.Pack(placed=_solids(a)))
+    p = pack(a)
+    return a, p, _seated(_enc.box_around(p))
+
+
+def build_front_half() -> cq.Assembly:
+    """The pack, what is seated in the walls, and the four printable pieces of the box."""
+    a, _p, box = machine()
+    a.add(build_funnel(box), name="hopper-funnel", color=C_FUNNEL)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     return a
@@ -273,15 +334,15 @@ def report(a: cq.Assembly) -> None:
     line("condenser+fan", co)
     pack = None
     for n, s in placed:
-        if n in ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump"):
-            continue
-        if n.startswith("enclosure-"):
+        if not _manifold(n):
             continue
         b = box(s)
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
     line("foam-assembly", fo)
     line("seaflo-pump", sf)
+    if "hopper-funnel" in named:
+        line("hopper-funnel", box(named["hopper-funnel"]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
@@ -310,9 +371,7 @@ def report(a: cq.Assembly) -> None:
     print(f"  core aft face    y {fo.ymax:.2f}   seaflo aft face      y {sf.ymax:.2f}   "
           f"flush by {sf.ymax - fo.ymax:.2f}; it clears the pack by {sf.ymin - pack.ymax:.2f} mm")
     over = [(n, box(s)) for n, s in placed
-            if n not in ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump")
-            and not n.startswith("enclosure-")
-            and box(s).ymax > fo.ymin + 1e-6]
+            if _manifold(n) and box(s).ymax > fo.ymin + 1e-6]
     if over:
         reach = max(b.ymax for _n, b in over) - fo.ymin
         floor = min(b.zmin for _n, b in over)
