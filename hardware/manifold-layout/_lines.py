@@ -123,22 +123,13 @@ def build_runs(placed, carries):
         runs.append(_water_4(F))
     if {"water-split", "vk-solenoid"} <= set(F):
         runs.append(_water_3(F))
-    if {"bulkhead-water", "asse1022-assembly"} <= set(F):
-        runs.append(_water_1(F))
     return runs
 
 
-def _water_1(F):
-    """water-1 — the rear bulkhead's inboard collet to the ASSE 1022's inlet, and the first
-    tube in the machine: everything the customer's supply line reaches passes through it.
-
-    ONE LENGTH OF TUBE. The union clamps through the back wall on its own axis and the chain
-    lies down the west lane on that same axis, inlet aft — so the two collets face each other
-    with nothing between them to turn around, and the chain's whole standoff from the wall
-    (`front_half.build_asse`) is struck to make this straight the length it needs to be."""
-    return R.bent(
-        "water-1", "bulkhead-water.inboard", "asse1022-assembly.tube-in",
-        kind="water", note="tap water: rear bulkhead → ASSE 1022 inlet, one straight aft")
+# The rear bulkhead's inboard collet and the ASSE 1022's inlet collet meet face to face, so the
+# first tube in the machine — everything the customer's supply line reaches passes through it —
+# is a length of stock cut to the two grips and swallowed whole. There is no free tube to sweep,
+# and no `water-1` in this table.
 
 
 # Where the machine is CROSSABLE at V-K's inlet height. The valve manifold fills this storey

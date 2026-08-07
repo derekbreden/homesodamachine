@@ -337,11 +337,12 @@ def build_suction_chain(seaflo, suction):
 BULKHEAD_STEP = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 # A printed hole to the moulded barrel it passes, on the diameter.
 PORT_HOLE_SLIP = 0.86
-# The straight between the bulkhead's inboard collet and the ASSE chain's inlet — `water-1`,
-# one length of tube down one axis with nothing between the two mouths to turn around. The same
-# figure `WATER_2` is, and for the same reason: a collet grips all round, so what this has to be
-# is enough tube for both to take hold of.
-WATER_1 = 24.0
+# THE FIRST JOINT IS FLUSH, so there is no `water-1` to draw. The union's inboard collet and the
+# ASSE chain's inlet collet face each other down one axis with nothing between them to turn
+# around, and a push-to-connect grips whatever reaches its grab ring — so the tube is cut to the
+# two grips together, pushed home in the union, and the chain pushed onto what protrudes. The two
+# release-ring faces meet, the tap water's first length of tube lives entirely inside the two
+# fittings, and the chain stands as far aft as the wall it is fed through allows.
 
 
 def bulkhead_seat_y():
@@ -350,8 +351,9 @@ def bulkhead_seat_y():
 
 
 def bulkhead_mouth_y():
-    """The Y of its INBOARD collet face, where `water-1` starts. Read off the fitting's own
-    seating planes, so a longer union moves the chain it feeds rather than closing on it."""
+    """The Y of its INBOARD collet face — the plane the ASSE chain's own inlet collet butts on.
+    Read off the fitting's own seating planes, so a longer union moves the chain it feeds rather
+    than closing on it."""
     return bulkhead_seat_y() + _jg.far_ring_face_y
 
 
@@ -550,11 +552,10 @@ def build_stack(psu, wall_seat):
 # water comes in through the back panel, so the mouth that faces the bulkhead is the upstream
 # one and the flow runs forward down the lane to the split.
 ASSE1022_YAW = -90.0
-# The chain's aft end is the BULKHEAD'S REACH plus the tube between them, and neither is a
-# number this module picks: the union hangs `jg_bulkhead_union.far_ring_face_y` inboard of the
-# wall it clamps through, and `WATER_1` is what two collets facing each other need. So a longer
-# union, or a thicker wall, moves the chain forward rather than closing on it — and the whole
-# west lane, which hangs off this chain, comes with it.
+# The chain's aft end is THE BULKHEAD'S REACH and nothing else, because the joint between them is
+# flush: the union hangs `jg_bulkhead_union.far_ring_face_y` inboard of the wall it clamps
+# through, and the chain's inlet collet meets that face. So a longer union, or a thicker wall,
+# moves the chain forward — and the whole west lane, which hangs off this chain, comes with it.
 # THE PUMP'S WIDTH IS ITS BRACKET'S, AND ONLY FOR THE 8 mm THE BRACKET IS TALL. The splayed
 # feet reach x ±49 from the cap up to `seaflo_22_pump.FOOT_T`; above that the casting's own west
 # face stands at −28 aft of the motor's mid-length and −40 at its widest. So the lane west of the
@@ -583,39 +584,73 @@ def build_asse(foam, seaflo):
 
     Its X hugs the cold core's west face, leaving the rest of the lane between it and the pump.
 
-    Its Y is the BULKHEAD'S, one `WATER_1` forward of the mouth that feeds it — so the chain
-    stands off the back wall by exactly what the union reaching through it leaves, and not by a
-    figure held here."""
+    Its Y is the BULKHEAD'S OWN MOUTH: the inlet collet butts the union's inboard collet, so the
+    chain stands off the back wall by exactly what the union reaching through it leaves, and by
+    nothing else."""
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
     return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),),
                      x0=box(foam).xmin,
-                     y1=bulkhead_mouth_y() - WATER_1,
+                     y1=bulkhead_mouth_y(),
                      z0=pan_floor(foam, seaflo) + _pan.PAN_Z + _pan.VENT_GAP)
 
 
-def build_pan(foam, seaflo, asse_carry, west_face):
-    """The catch basin under the atmospheric vent, standing on the cold core's cap.
+# THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
+# chain that hangs off it takes the lane's forward end, so the basin's forward rim is struck on
+# the barb's own aft edge with this much daylight past it. That plane fixes the tray in Y — the
+# vent does not, and has only to fall inside the floor from wherever the chain leaves it.
+PAN_PORT_CLEAR = 10.0
 
-    THE VENT IS THE DATUM in both plan axes: the drip leaves the stub's tip and falls straight
-    down, so the tip has to stand over the basin's inner floor and not merely over its rim.
-    `drip_pan.check_plate` is what fixes the basin's size — the moisture plate lying flat in it
-    sets the floor, and the rim flange adds the fingertip lip the tray is drawn out by.
 
-    IN X THE WALL BOUNDS IT AND THE VENT DOES NOT. Centred on the tip the rim flange stands
-    2 mm inside the −X wall, so the basin sits with its flange ON that wall's inner face and the
-    tip lands 2 mm off the floor's own centre — which is 2 mm of a ±22 mm floor, and the drip
-    still falls well inside the coves. Drawing the tray out wants a slot through that wall; the
-    slot is a wall port and the pack carries none yet.
+def pan_front_y(seaflo_carry):
+    """The Y the basin's forward rim stands on: one `PAN_PORT_CLEAR` aft of the pump's discharge.
+
+    The barb is a cylinder firing along ±X, so what it stands in down the lane is its centreline
+    and its own radius. Moving the pump moves the tray that clears it."""
+    pos = seaflo_carry(_lines._pump.discharge())[0]
+    return pos[1] + _lines._pump.PORT_D / 2.0 + PAN_PORT_CLEAR
+
+
+def check_vent_lands(pan, tip):
+    """Raises unless the drip falls on the FLAT FLOOR, inside the coves.
+
+    The basin's outer rim to that flat is the flange, the wall and the cove together. A drip
+    landing on a cove or a wall runs down the outside of the tray instead of onto the moisture
+    plate, and the plate stays dry however long the vent weeps."""
+    b = box(pan)
+    inset = _pan.FLANGE_W + _pan.WALL + _pan.FLOOR_COVE
+    y0, y1 = b.ymin + inset, b.ymax - inset
+    if not y0 <= tip[1] <= y1:
+        raise ValueError(
+            f"drip-pan: the vent drips at y {tip[1]:.2f}, off the flat floor y[{y0:.2f}, "
+            f"{y1:.2f}]. The forward rim comes off the pump's discharge through "
+            f"`PAN_PORT_CLEAR`; the vent's Y comes off the ASSE chain, which the bulkhead's "
+            f"reach through the back wall fixes; the flat between them is `PAN_Y` less its "
+            f"flange, its walls and its coves.")
+
+
+def build_pan(foam, seaflo, seaflo_carry, asse_carry, west_face):
+    """The catch basin under the atmospheric vent, standing over the pump's bracket.
+
+    IN Y THE PUMP'S DISCHARGE BOUNDS IT AND THE VENT DOES NOT. The forward rim is `pan_front_y`,
+    and the vent falls where the chain's own standoff from the back wall leaves it — so where the
+    drip lands is a check, and `check_vent_lands` is where it is made.
+
+    IN X THE WALL BOUNDS IT AND THE VENT DOES NOT EITHER. The rim flange sits ON that wall's
+    inner face, and the tip lands 2 mm off the floor's own centre — 2 mm of a ±22 mm floor, so
+    the drip still falls well inside the coves. The slot the tray draws out through is a wall
+    port, struck off this body's own box in `west_wall_ports`.
 
     Z is `pan_floor` — one clearance over the pump's bracket, not on the cap — with the rim one
     `PAN_Z` up and the chain's underside one `VENT_GAP` over that. `build_asse` stands the chain
     on the same three numbers, so the drip falls exactly the gap the basin was drawn for."""
-    tip = asse_carry(_asse.port("vent-tip"))[0]
     pan = _pan.build()
     pan = pan.val() if hasattr(pan, "val") else pan
-    return seat_body(pan, (), x0=west_face, cy=tip[1], z0=pan_floor(foam, seaflo))
+    placed, carry = seat_body(pan, (), x0=west_face, y0=pan_front_y(seaflo_carry),
+                              z0=pan_floor(foam, seaflo))
+    check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
+    return placed, carry
 
 
 # --- the split, on the chain's own flow axis --------------------------------
@@ -839,7 +874,8 @@ def build_pack() -> cq.Assembly:
         a.add(solid, name=name, color=colour)
     asse, asse_carry = build_asse(foam, seaflo)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
-    pan, _pan_carry = build_pan(foam, seaflo, asse_carry, west_interior_face(shroud, cond))
+    pan, _pan_carry = build_pan(foam, seaflo, seaflo_carry, asse_carry,
+                                west_interior_face(shroud, cond))
     a.add(pan, name="drip-pan", color=C_PAN)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
