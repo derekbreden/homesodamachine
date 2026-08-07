@@ -16,6 +16,7 @@ from _cold_core_interface import (
     level_rod_y,
     front_port_z,
     make_box,
+    pour_band_pocket_punch,
     cut_pour_band_pass_through,
 )
 
@@ -117,6 +118,23 @@ cable_hole_offset_from_bulkhead_hole_x = 4.0
 _CABLE_STATION = {+1: "reed-cable-a", -1: "reed-cable-b"}
 
 
+def reed_cable_pocket_x(side):
+    """The X one side's cable crosses the −Y bag-pocket wall at — outboard of that side's
+    bulkhead axis, with the draw's own crossing inboard of it."""
+    return side * (reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x)
+
+
+def reed_cable_pocket_punch(side):
+    """That crossing as a solid — the same body `cut_reed_cable_holes` cuts, so a draw's
+    opening beside it is priced against the hole and not against a second drawing of it."""
+    return pour_band_pocket_punch(
+        pocket_hole_x=reed_cable_pocket_x(side),
+        y=reservoir_bulkhead_port_y,
+        z=bulkhead_elbow_exit_z,
+        hole_punch_radius=port_hole_radius,
+    )
+
+
 def cut_reed_cable_holes(foam_shell):
     """Cable holes, one per reservoir side: −Y through the −Y bag-pocket wall onto
     the port lane, and out the front field at that side's station.
@@ -133,7 +151,7 @@ def cut_reed_cable_holes(foam_shell):
     for s in (+1, -1):
         foam_shell = cut_pour_band_pass_through(
             foam_shell,
-            pocket_hole_x=s * (reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x),
+            pocket_hole_x=reed_cable_pocket_x(s),
             y=reservoir_bulkhead_port_y,
             z=bulkhead_elbow_exit_z,
             exit_z=front_port_z(_CABLE_STATION[s]),

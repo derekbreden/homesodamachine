@@ -318,20 +318,18 @@ SUCT_PUMP_GAP = 8.0
 SUCT_CORNER_ROOM = 24.0
 
 
-def build_suction_chain(seaflo, suction):
+def build_suction_chain(seaflo, suction, port_z):
     """The chain laid in the lane east of the pump, on the crown the pump itself stands on.
 
     Its three coordinates answer to the run it carries and the lane it lies in: X one
     `SUCT_PUMP_GAP` east of the pump's casting, Y standing its barb `SUCT_CORNER_ROOM` forward
     of the pump's suction mouth so `water-7`'s corner seats a whole arc, and Z ON THE PLANE
-    V-K'S OUTLET OPENS ON — `beduan_solenoid.port_center_z` over the cap V-K stands on, which
-    lands the chain 2.8 mm over that cap rather than flat on it.
+    V-K'S OUTLET OPENS ON — `vk_port_z`, which is the valve's own port height over the seat
+    the valve stands on.
 
-    That 2.8 mm is what makes `water-4` a straight. The two mouths stand `WATER_4` apart down
-    one lane and a collet grips a tube through 3°; a 2.8 mm step across that gap is 10.6°,
-    which no lean that short can take out. Laying both mouths on one plane costs the chain its
-    seat on the cap and buys a run with nothing in it — and the bracket that holds it was an
-    open item either way.
+    Laying both mouths on that one plane is what makes `water-4` a straight. The two stand
+    `WATER_4` apart down one lane and a collet grips a tube through 3°; a step of a couple of
+    millimetres across that gap is over 10°, which no lean that short can take out.
 
     What holds it there is an open item: nothing threads onto this chain and nothing clamps it.
     It has a measured datum and measured room; it does not have a bracket."""
@@ -342,7 +340,7 @@ def build_suction_chain(seaflo, suction):
                 y1=suction[0][1] - SUCT_CORNER_ROOM,
                 # The chain's own Ø, read on X because the box is measured BEFORE the turn:
                 # unturned the chain stands its length on Z and its diameter across X.
-                z0=b.zmin + _beduan.port_center_z - box(chain).xlen / 2.0)
+                z0=port_z - box(chain).xlen / 2.0)
 
 
 # --- the discharge chain, in the lane west of the pump ---------------------
@@ -977,11 +975,28 @@ def build_flowreg(split_carry):
 # The gap between V-K's outlet and the chain's collet — `water-4`. Both mouths lie on one plane
 # and one column, so this is a length of tube and not a route.
 WATER_4 = 15.0
+# THE VALVE'S SEAT — what its own mounting face stands off the cold core's cap. The Beduan's
+# Z = 0 is the underside of its white body, and the cap is the only thing under it; the tray
+# that will fasten it there is queued work, and until it is printed the seat is this clearance.
+# Stating it is what keeps the valve OFF the cap: the two mouths of this valve are what the
+# chain and the run behind it are hung from, so without a seat of its own the column falls to
+# wherever `beduan_solenoid.port_center_z` happens to land it, which is flat on the foam.
+VK_SEAT = 1.0
+
+
+def vk_port_z(foam):
+    """The Z V-K's two collets open on — its own `port_center_z` over the seat its foot
+    stands on, which is one `VK_SEAT` over the cold core's cap.
+
+    The suction chain lies on this same plane, so `water-4` is a straight between two mouths
+    facing each other, and a change to the seat moves the pair together."""
+    return box(foam).zmax + VK_SEAT + _beduan.port_center_z
 
 
 def build_vk(chain_carry):
     """V-K seated on its OUTLET, one `WATER_4` forward of the suction chain's collet and on
-    that collet's own column and plane."""
+    that collet's own column and plane — which is `vk_port_z`, the plane the chain was laid
+    on, so the valve comes back down onto its own seat."""
     pos, axis = chain_carry(_suct.tube_port())
     target = (pos[0], pos[1] + axis[1] * WATER_4, pos[2])
     body = _beduan.build_beduan_solenoid()
@@ -1146,7 +1161,8 @@ def build_pack() -> cq.Assembly:
     a.add(foam, name="foam-assembly", color=C_FOAM)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
-    chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()))
+    chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()),
+                                             vk_port_z(foam))
     a.add(chain, name="suction-chain", color=C_SUCT)
     wall_seat = east_wall_seat(shroud, cond)
     psu, psu_carry = build_psu(foam, wall_seat)

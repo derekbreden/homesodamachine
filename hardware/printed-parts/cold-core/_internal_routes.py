@@ -14,13 +14,14 @@ WHERE EACH LINE GOES, and what it does at the end of it:
                    TOP plate — above the water line, where the pump pushes filtered tap
                    water in against the CO2 back-pressure and it falls into the headspace.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the vessel's own
-                   drain. Out through a slot in the support ring, up beside the coil, and
-                   onto the port lane only once the tank's top plate is under it.
+                   drain. Out on a lean that crosses over the CO2 and through a slot in
+                   the support ring together, up beside the coil, and onto the port lane
+                   only once the tank's top plate is under it.
   co2-in           the one line that runs DOWN. The port lane the shell's whole height,
                    one corner in the open at the bottom, and straight in along the leaning
-                   bore through the ring — then inside the vessel to the sparge stone
-                   hanging in the water column, so the gas enters BELOW the liquid and
-                   dissolves on the way up.
+                   reach that crosses the ring's slot — then inside the vessel to the
+                   sparge stone hanging in the water column, so the gas enters BELOW the
+                   liquid and dissolves on the way up.
   reservoir-a      each reservoir's floor bulkhead, at the bottom of the wet V and the
   reservoir-b      lowest drainable point in it. Out of the pocket at the bulkhead band,
                    about into its own ±Y band, and up the forward strip.
@@ -41,11 +42,21 @@ never meet.
 WHAT A CORNER TURNS AT IS NOT CHOSEN HERE — it is what the corridor leaves, and
 `fit_route` is how the corridor states it: each line is drawn at the stock arc and
 stepped down until it stops meeting anything. The reading that comes back is the
-measurement, and the whole reason to draw these at all. The corners that pay most are
-the ones where a line comes out of a bore and has to be turned before it reaches the
-next wall — a reservoir draw crossing its pocket into a ±Y band whose outboard half the
-attachment bosses have, and the carbonated water stepping over the CO2 under the bottom
-plate. Both are potted where they turn, and both are printed every build.
+measurement, and the whole reason to draw these at all.
+
+TWO THINGS BUY A CORNER, and both are in here. Where a line crosses a wall, the WALL
+gives way: its opening is the line's own corridor rather than a circle
+(`_port_cuts.cut_line_corridors`), so a draw may come about the moment it is through
+instead of holding a bore's length of straight first. Where a line has to reach and rise
+at once, it LEANS: one diagonal in place of two square corners on a step's own width,
+which is what the carbonated water does under the tank to cross the CO2 and again at the
+top to put itself on its conduit's column.
+
+WHAT IS LEFT SHORT is printed by name at every build. `water-in` is the one: it comes off
+the top plate's elbow, has to be outboard of both pockets to travel, and has to be back
+on its conduit's own station to leave — and the whole of that step is taken inside
+`top_band_to_cap`, the band between that plate and the cap's floor. The step is wider
+than the band is tall, so the two corners either end of it share a leg neither can have.
 """
 
 import math
@@ -62,6 +73,7 @@ from _cold_core_interface import (
     hole_shift_from_edge,
     lldpe_bend_radius,
     lldpe_tube_od,
+    port_hole_radius,
     port_lane_mid_y,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
@@ -109,12 +121,11 @@ plate_storey_z = front_face_port_z                            # both bottom-plat
 top_band_z = tank_top_plate_z + hole_shift_from_edge          # both top-plate elbows
 shell_top_z = foam_shell_outer_height                         # where a riser meets its conduit
 
-# A fifth, and the only one that exists because two lines want the same place. Both
-# bottom-plate lines leave their elbows on `plate_storey_z`, and both have to get out of
-# the under-tank space on the −Y side: the CO2's leaning bore sweeps that whole quadrant,
-# so the carbonated water crosses OVER it, one tube and one hug clear. The step is taken
-# under the plate, which is `tank_envelope_z_range[0]` overhead and leaves room for it.
-crossing_storey_z = plate_storey_z + lldpe_tube_od + line_hug
+# WHERE A RISER JOINS A LANE, and what it holds under the shell's top when it gets there.
+# The last leg of every riser is on its conduit's own axis, because the bore through the cap
+# is, and one stock arc of it is what the corner at the bottom of that leg takes. So a line
+# still stepping sideways at the top has that arc to finish in and no more.
+lane_step_top_z = shell_top_z - route_bend_radius
 
 # The strip every riser to the forward band climbs, read off the conduits that stand over
 # it rather than restated: all three are on it, so any one of them names it.
@@ -134,10 +145,22 @@ def coil_standoff_y(x):
 
     A riser between the pockets has the whole −Y foam zone to stand in, from the coil out
     to the shell wall, and only the port lane's own strip is spoken for. This is the
-    inboard edge of that zone at one X."""
-    reach = tank_coil_envelope_radius ** 2 - x ** 2
-    inboard = math.sqrt(reach) if reach > 0.0 else 0.0
-    return -(inboard + line_radius + line_hug)
+    inboard edge of that zone at one X — and the clearance is RADIAL, because the envelope
+    is a cylinder: what a riser stands off is the surface on its own azimuth, not the point
+    level with it in Y."""
+    clear = tank_coil_envelope_radius + line_radius + line_hug
+    reach = clear ** 2 - x ** 2
+    return -math.sqrt(reach) if reach > 0.0 else 0.0
+
+
+def co2_run_y(x):
+    """The Y the CO2's reach in stands at, at one X.
+
+    It leans across the shell's floor from the port lane to the vessel's own port, so where
+    a line crossing its column meets it is a reading off that lean and not the plate's
+    axis."""
+    (x0, y0, _z0), (x1, y1, _z1) = co2_inlet_lane_xyz, co2_inlet_xyz
+    return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
 
 
 # --- The routes -------------------------------------------------------------
@@ -156,14 +179,34 @@ def _routes():
     carb_riser_y = coil_standoff_y(carb_x)
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
     carb_lane_y = cap_conduit_shell_xy("carb-water-out")[1]
+    # The carbonated water's two LEANS, each carrying a reach and a rise in one move.
+    #   Under the tank it has to cross the CO2, and the height it has to do it in is the
+    # band between the bottom plate's own elbows and that plate — not a storey. So the rise
+    # is not taken separately: it runs out to the coil's standoff and up over the CO2
+    # together, and what sets the slope is one tube and one hug of clearance AT THE
+    # CROSSING, opened out over the reach the lean has left to run past it.
+    carb_co2_rise = (lldpe_tube_od + line_hug) * (
+        (vessel_port_offset - carb_riser_y) / (vessel_port_offset - co2_run_y(carb_x)))
+    #   At the top it steps out onto the lane, and that lean is at 45° — the step outboard
+    # and the last of the rise are one move, so two square corners on a step's own width
+    # become two shallow ones on a diagonal half again as long. It ends on
+    # `lane_step_top_z`, one stock arc under the shell's top.
+    carb_lane_step = abs(carb_lane_y - carb_riser_y)
     water_in_y = cap_conduit_shell_xy("water-in")[1]
     a_riser_y = cap_conduit_shell_xy("reservoir-a")[1]
     b_riser_y = cap_conduit_shell_xy("reservoir-b")[1]
 
     return {
         # The carbonator's top plate, above the liquid. Out of the elbow laterally, out to
-        # the +Y band in the fourteen millimetres between that plate and the cap's floor,
-        # forward along it, and into the strip.
+        # the +Y band in the band between that plate and the cap's floor, forward along it,
+        # and in to the strip.
+        #   THE ONE LINE LEFT UNDER THE STOCK ARC, and the step at the end of it is why. It
+        # has to travel outboard of both pockets — the reservoirs and their caps fill them to
+        # within a pour clearance of the cap's floor, so there is no crossing over one at this
+        # height — and it has to arrive on its conduit's own station, which stands inboard of
+        # that. The step between the two is wider than `top_band_to_cap` is tall, so leaning
+        # it buys less than the vertical it spends and the two corners either end of it share
+        # a leg neither can have. `report_routes` prints what they come back at.
         "water-in": [
             (0.0, +vessel_port_offset, top_band_z),
             (0.0, west_lane_mid_y, top_band_z),
@@ -193,8 +236,8 @@ def _routes():
             (forward_band_x, a_riser_y, shell_top_z),
         ],
         # The only line that runs down. It falls the whole shell in the port lane and turns
-        # ONCE, out in the open at the bottom, straight onto the leaning bore that carries it
-        # through the ring to the collet under the bottom plate's lane-side port.
+        # ONCE, out in the open at the bottom, straight onto the leaning reach that carries
+        # it across the ring's slot to the collet under the bottom plate's lane-side port.
         "co2-in": [
             (co2_x, co2_lane_y, shell_top_z),
             co2_inlet_lane_xyz,
@@ -202,17 +245,17 @@ def _routes():
         ],
         # The carbonator's bottom plate, under the liquid. Its elbow is clocked −X, out to
         # its own column on the +Y side of the plate's axis where the CO2 never reaches;
-        # then it steps UP a storey, because the only way out of the under-tank space on
-        # this side crosses the CO2's own run and one of them has to go over. It leaves
-        # through the ring's slot at that height and climbs beside the coil — clear of the
-        # lane, which the CO2 owns down there — until the top plate is under it.
+        # then it LEANS out and up together, because the only way out of the under-tank
+        # space on this side crosses the CO2's own run and one of them has to go over. It
+        # leaves through the ring's slot on that lean and climbs beside the coil — clear of
+        # the lane, which the CO2 and the copper own down there — and leans again at the top
+        # to put itself on the conduit's own column for the last stock arc.
         "carb-water-out": [
             (0.0, +vessel_port_offset, plate_storey_z),
             (carb_x, +vessel_port_offset, plate_storey_z),
-            (carb_x, +vessel_port_offset, crossing_storey_z),
-            (carb_x, carb_riser_y, crossing_storey_z),
-            (carb_x, carb_riser_y, top_band_z),
-            (carb_x, carb_lane_y, top_band_z),
+            (carb_x, carb_riser_y, plate_storey_z + carb_co2_rise),
+            (carb_x, carb_riser_y, lane_step_top_z - carb_lane_step),
+            (carb_x, carb_lane_y, lane_step_top_z),
             (carb_x, carb_lane_y, shell_top_z),
         ],
         # The two fills are the gap between two bores: the cap conduit above and the bore in
@@ -284,6 +327,29 @@ def corner_radii(points, bend_radius):
     return v, radius
 
 
+def route_legs(points, bend_radius=route_bend_radius):
+    """One line's STRAIGHTS, the corners taken out: `(start, end)` in order.
+
+    A fitting made up on a port takes the tube on the port's own axis, so what it needs is
+    a straight to receive it, and how much straight there is is what the corners either end
+    of it leave."""
+    v, radius = corner_radii(points, bend_radius)
+    legs = []
+    tail = v[0]
+    for i in range(1, len(v) - 1):
+        u = (v[i - 1] - v[i]).normalized()
+        w = (v[i + 1] - v[i]).normalized()
+        half = math.acos(max(-1.0, min(1.0, u.dot(w)))) / 2.0
+        setback = radius[i] / math.tan(half)
+        head = v[i] + u.multiply(setback)
+        if (head - tail).Length > 1e-7:
+            legs.append((tail, head))
+        tail = v[i] + w.multiply(setback)
+    if (v[-1] - tail).Length > 1e-7:
+        legs.append((tail, v[-1]))
+    return legs
+
+
 def route_wire(points, bend_radius=route_bend_radius):
     """The centreline as one wire: straights with an arc at each corner."""
     v, radius = corner_radii(points, bend_radius)
@@ -314,6 +380,24 @@ def build_route(points, bend_radius=route_bend_radius, radius=line_radius):
     profile = cq.Workplane(cq.Plane(origin=wire.startPoint(), normal=wire.tangentAt(0)))
     return profile.circle(radius).sweep(
         cq.Workplane("XY").newObject([wire]), isFrenet=True).val()
+
+
+def route_corridor(name, radius=port_hole_radius):
+    """One line's OPENING — the same run swept at the ⌀[6.5](PORT_HOLE_DIAMETER) shell
+    standard instead of at the tube's OD, which is what a wall the line crosses has to
+    leave for it. Given a bigger `radius` it is the opening grown, which is how the land
+    between this opening and its neighbour in the same wall gets priced.
+
+    A wall here is two millimetres of PETG, and a hole in a sheet that thin is whatever
+    shape goes through it. Cut as the corridor rather than as a circle, a line may turn AT
+    the wall instead of a bore's length beyond it, and the tube still crosses on the same
+    ⌀6.5-around-⌀6.35 tight fit that keeps the body pour out of a pocket — the clearance is
+    radial to the tube's own path either way.
+
+    Cut at the STOCK arc, not at the fitted one: the opening is made for the corner the
+    stock asks for, and a line that still cannot turn there is one something else charges,
+    which `report_routes` names."""
+    return build_route(routes[name], route_bend_radius, radius)
 
 
 # What a corner is allowed to come down to before the drawing stops meaning anything: half
@@ -373,11 +457,13 @@ def report_routes(fitted, obstacles):
     blocked is a line with no hole in front of it. (2) NO TWO LINES MEET: the bands are one
     bore wide and it is the storeys that keep them apart, so the pack has to be read as a
     pack. (3) EVERY LINE NAMES THE ARC IT TURNS AT, and the corner that arc's tightest
-    corner comes to. A line the corridor forces under the stock arc is on the page, with the
-    number, rather than found at the bench."""
+    corner comes to — and the pack's own SHORT LIST is the last line printed, so a corner the
+    core forces under the stock arc is on the page, with the number, rather than found at the
+    bench."""
     print("  internal routes: %d lines in %s, stock arc %.4g mm — %s"
           % (len(fitted), route_stock.name, route_bend_radius, route_stock.source))
     bad = []
+    short = []
     for name in sorted(fitted):
         bend, tube = fitted[name]
         _v, radius = corner_radii(routes[name], bend)
@@ -394,6 +480,8 @@ def report_routes(fitted, obstacles):
                  "clear" if not hits else "** " + "; ".join(hits)))
         if hits:
             bad.append("%s meets %s" % (name, "; ".join(hits)))
+        if corners and tightest < route_bend_radius - 1e-9:
+            short.append("%s at %.2f mm" % (name, tightest))
     names = sorted(fitted)
     crossed = False
     for i, a in enumerate(names):
@@ -404,4 +492,6 @@ def report_routes(fitted, obstacles):
                 bad.append("%s and %s share %.2f mm³ — two tubes in one corridor"
                            % (a, b, volume))
     print("    no line meets another" if not crossed else "    ** LINES CROSS **")
+    print("    every corner at the stock arc" if not short else
+          "    under the %.4g mm stock arc: %s" % (route_bend_radius, "; ".join(short)))
     assert not bad, "internal routes do not fit:\n      " + "\n      ".join(bad)

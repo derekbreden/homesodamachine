@@ -140,22 +140,20 @@ Four 30°-wide angular slots are cut through the ring at azimuths
 the cardinal axes. The slots let pour foam reach the under-tank
 floor regardless of which cavity it enters from.
 
-The −Y segment carries the **CO2 inlet bore**, the ring's only one — a
-⌀[6.5 mm](TUBE_HOLE_D) hole from the bottom plate's lane-side port at
-y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z), **leaning** across the shell's
-floor to land on the port lane under the top cap's `co2-in` conduit. The line
-falls the shell's whole height down that lane, and a bore struck on the shell's
-centreline would open 7 mm from the ring's own face — less than the corner takes,
-so the tube would have to finish bending inside the hole. Struck on the conduit's
-column instead, the fall lands on the bore's axis: one corner out in the open,
-then straight in. It takes a notch out of neither plateau: the bore is horizontal
-through the ring's mid-height, the vessel-side fittings hang inboard of it, and
-only the tube crosses.
+**Both bottom-plate lines cross the ring at the 225° slot, and the ring is bored
+nowhere.** The **CO2 inlet** takes a ⌀[6.5 mm](TUBE_HOLE_D) reach in from the
+bottom plate's lane-side port at y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z),
+**leaning** across the shell's floor to land on the port lane under the top cap's
+`co2-in` conduit. The line falls the shell's whole height down that lane, and an
+axis struck on the shell's centreline would end 7 mm from the ring's own face —
+less than the corner takes, so the tube would have to finish bending inside the
+reach. Struck on the conduit's column instead, the fall lands on the axis itself:
+one corner out in the open, then straight in. The **carbonated-water outlet**
+crosses the same slot on the column its own cap conduit stands over, one storey
+above the CO2, leaning up as it goes.
 
-The **carbonated-water outlet** crosses the ring at one of these four slots
-instead — the 225° one, which is where a line heading for that conduit's own
-column wants to go. No bore, no notch, and all four bearing segments whole.
-`_port_cuts.ring_crossing_azimuths` measures the crossing against
+Neither notches a bearing segment and all four stay whole.
+`_port_cuts.ring_crossing_azimuths` measures the water outlet's crossing against
 `ring_slot_spans` every build, so moving either the column or the ring fails
 rather than drifts.
 
@@ -338,10 +336,21 @@ only way to know it fits.
 Each run also reports the **arc it turns at**, found by drawing it at the stock's own bend
 floor — `_routing.STOCKS`, the same bench-tested figure every run outside the core is
 graded against — and stepping down until it stops meeting anything. That reading is the
-corridor's answer, not a choice, and three of them come in under the stock: both reservoir
-draws turning out of a pocket into a ±Y band whose outboard half the attachment bosses
-have, and the carbonated water stepping over the CO2 under the bottom plate. Those are what
-the shell would have to give room to before the pack turns at its stock arc throughout.
+corridor's answer, not a choice, and the last line of the report is the pack's short list.
+
+Six of the seven turn at the stock arc, and two things buy that. Where a line crosses a
+wall, **the wall gives way**: the opening is the line's own corridor rather than a circle
+(`_port_cuts.cut_line_corridors`), so a draw comes about the moment it is through instead
+of holding a bore's length of straight first. Where a line has to reach and rise at once
+it **leans** — one diagonal in place of two square corners on a step's own width — which
+is what the carbonated water does under the tank to cross the CO2, and again at the top to
+put itself on its conduit's column.
+
+`water-in` is the one left short. It comes off the top plate's elbow, has to travel
+outboard of both pockets (each one is full of reservoir to within a pour clearance of the
+cap's floor), and has to arrive back on its conduit's own station — and the whole of that
+step is taken inside the band between the top plate and the cap. The step is wider than
+the band is tall, so the two corners either end of it share a leg neither can have.
 
 ### Port lane
 
@@ -392,11 +401,22 @@ wide, so what keeps those three apart is the storey each takes, and
 
 Each reed cable crosses its bag-pocket wall and then the −X wall, and the two bores
 share neither an axis nor a height. The pocket-wall bore sits outboard of the bulkhead
-axis at x = ±[109 mm](CABLE_POCKET_X); reservoir A's draw takes the inboard slot beside
-it at x = ±[97 mm](FLAVOR_POCKET_X), and that step is what the cable costs. Both cross
-at the elbow's own exit Z. The cable's front bore is its station on the field, and
-between the two the run turns onto the lane and climbs to it — the lane is what lets
+axis at x = ±[109 mm](CABLE_POCKET_X); reservoir A's draw comes about on the station
+inboard of it at x = ±[97 mm](FLAVOR_POCKET_X), and that step is what the cable costs.
+Both cross at the elbow's own exit Z. The cable's front bore is its station on the field,
+and between the two the run turns onto the lane and climbs to it — the lane is what lets
 them sit at different X *and* different Z.
+
+The cable's crossing is a round bore because a cable is limp. A DRAW's is not: it is that
+line's own corridor through the wall, which is a longer opening in x and the same tight
+fit round the tube (`_port_cuts.cut_line_corridors`). Only two bodies in the shell give
+way to a line that way — a bag pocket's ±Y wall and the pocket corner posts — and every
+other thing a line meets stops it.
+
+A shaped hole has no diameter to check, so the LAND between it and its neighbour in the
+same wall is measured instead: `foam_shell.py` reads both openings out of the walls
+themselves at every build and fails under one wall thickness. A route that moves changes
+the hole's shape, and this is what keeps it from walking into the cable's.
 
 Both cables run through the open pocket space under the reservoir's raised floor, are
 threaded after the pour has cured, and are potted nowhere.
@@ -505,9 +525,9 @@ Every internal component is installed first:
   lateral FNPT of the vessel's top-plate Port 2 elbow, collet turned into the
   +Y band, and a length of 1/4" OD LLDPE from that collet along the band between
   the top plate and the cap floor, forward, then into the forward strip and up
-  the top cap's `water-in` conduit. The corner off the elbow is potted where it
-  turns, and so is the one into the conduit — that band is 14 mm and the arc
-  wants more.
+  the top cap's `water-in` conduit. Every corner on it is potted where it turns, and
+  the two either end of the step into the strip are the pack's only ones under the
+  stock arc — that band is 14 mm and the step across it is wider.
 - Three copper plugs slid down into the slot from above (through
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
@@ -516,20 +536,22 @@ Every internal component is installed first:
   here as part of the vessel by the time the body pour happens.
   Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
   route it along the lane and out through the slot to the appliance interior.
-- Reservoir A's draw off its floor bulkhead, out of the pocket's −Y wall bore
-  inboard of the bulkhead axis, onto the port lane at the bulkhead band, then
-  forward along the lane's own floor — under everything else standing in it — and
-  up the forward strip to its conduit. Reservoir B's leaves by its pocket's +Y
-  wall onto the west lane and comes forward to the same strip.
+- Reservoir A's draw off its floor bulkhead, out through the pocket's −Y wall
+  inboard of the bulkhead axis — the opening there is the line's own corridor, so
+  the tube turns as it crosses rather than after it — onto the port lane at the
+  bulkhead band, then forward along the lane's own floor, under everything else
+  standing in it, and up the forward strip to its conduit. Reservoir B's leaves by
+  its pocket's +Y wall onto the west lane and comes forward to the same strip.
 - Carbonated-water outlet off the bottom-plate Port 3 elbow, out to its own column
-  on the +Y side of the plate's axis, then up one storey and −Y out through the
-  ring's 225° slot — over the CO2's run, which sweeps the same quadrant at the
-  plate band. From there it climbs beside the coil clear of the lane, and only
-  steps onto the lane once the tank's top plate is under it.
+  on the +Y side of the plate's axis, then **leaning** −Y and up together out
+  through the ring's 225° slot — over the CO2's run, which sweeps the same quadrant
+  at the plate band, one tube and one hug clear where the two cross. From there it
+  climbs beside the coil clear of the lane, and leans again at the top to put itself
+  on its conduit's own column for the last stock arc.
 - CO2 inlet on the plate's lane-side port at y = [-19.05](CO2_BORE_Y),
-  z = [17](CO2_BORE_Z) — its leaning bore crosses the ring on that line and opens
-  on the lane under the top cap's `co2-in` conduit. The line comes DOWN the lane
-  from that conduit, turns once in the open and runs straight in onto the collet
+  z = [17](CO2_BORE_Z) — its leaning reach crosses the ring's 225° slot on that line
+  and opens on the lane under the top cap's `co2-in` conduit. The line comes DOWN the
+  lane from that conduit, turns once in the open and runs straight in onto the collet
   already made up under the plate.
 
 All five fluid runs are laid **before the top cap goes on**, because every one of
@@ -650,11 +672,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1042583.357 mm³](FSHELL_VOLUME) |
+| volume | [1042540.798 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.388791, 0.666307, 87.704578) mm](CENTROID) |
+| centroid | [(0.390014, 0.667017, 87.707642) mm](CENTROID) |
 
 Quick reproduction:
 
