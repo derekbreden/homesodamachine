@@ -1,119 +1,99 @@
 flowchart LR
 
-  %% The complete flavor topology, drawn on the bodies the enclosure assembly actually
-  %% places. Every box is one placed part — a tray, a pump, a fitting, the cold core, a
-  %% panel bulkhead — and every edge is one authored tube run carrying its MEASURED
-  %% developed length, arcs included: the length of stock that run cuts.
+  %% The complete flavor topology, drawn on the bodies the front half actually places. Every box
+  %% is one placed body — a valve, a pump, a junction fitting, the cold core, a panel bulkhead —
+  %% and every edge is one connection, carrying what the machine makes it out of.
 
-  %% Source of truth: `enclosure-assembly/_lines.py`, which authors each run port to
-  %% port, and `_routing.Run.length`, which measures it off the built centreline.
-  %% `_fluid_topology_sync.py` writes every number below and gates every edge against
-  %% the built run — an edge whose two ends are not that run's two ends fails the gate.
+  %% Source of truth: `manifold-layout/front_half.py` places the pack,
+  %% `manifold-layout/_lines.py` authors every run BETWEEN placed bodies and `_routing.Run.length`
+  %% measures it off the built centreline, and `manifold-layout/manifold_layout.py` makes the
+  %% manifold's own interior. `_fluid_topology_sync.py` writes every number below and gates every
+  %% edge against the built segment — an edge whose two ends are not that segment's two ends fails
+  %% the gate.
 
-  %% The 27 flavor segments come to [2980.8 mm](FLUID_TOTAL) of 1/4" LLDPE, over
-  %% [66](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
-  %% [501.0 mm](LONGEST_LEN); the shortest is [fluid-6](SHORTEST_ID) at
-  %% [4.0 mm](SHORTEST_LEN).
+  %% [26](SEGMENT_COUNT) flavor segments. [11](BUTT_COUNT) are collet butted to collet and carry
+  %% no tube at all; [8](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
+  %% hinge's four hairpins and the source pair's two quarter-and-step turns. What is cut comes to
+  %% [2392.8 mm](FLUID_TOTAL) of 1/4" LLDPE over [36](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [480.0 mm](LONGEST_LEN). [1](OPEN_COUNT) segment — the hopper's
+  %% gravity drain — is a mouth with nothing on the far end of it yet.
 
-  %% The valves ride seven printed trays in two stands and the seven junctions hang on
-  %% the collets they join, so every edge here is a cut length of tube. Colour is the
-  %% circuit: white the shared source chain (fluid-1 … fluid-8), blue channel A
-  %% (9 … 18), green channel B (19 … 28).
+  %% Colour is the circuit: white the shared source chain (fluid-1 … fluid-8), blue channel A
+  %% (9 … 18), green channel B (19 … 28). A dashed border is a body the fold carries onto the
+  %% upper deck.
 
-  %% Per-tray grouping without the endpoints is fluid-topology-trays.mmd; the water and
-  %% CO2 spine feeding the split, and the carbonator V-K gates, are
+  %% Per-limb grouping without the endpoints is fluid-topology-trays.mmd; the water and CO2 spine
+  %% feeding the split, and everything the carbonator dispenses through, are
   %% fluid-topology-carbonator.mmd.
 
   %% =========================
   %% Feeds
   %% =========================
-  %% The wall sequence — the west wall's own column, every mouth on the ASSE chain's
-  %% line. The split's supply side (rear bulkhead → ASSE 1022) is the carbonator chart's.
-  subgraph Wall["Wall sequence — west wall"]
+  %% The west lane's own column, every mouth on the ASSE chain's line. The split's supply side
+  %% (rear bulkhead → ASSE 1022) is the carbonator chart's.
+  subgraph Wall["Wall sequence — west lane"]
     Split["water-split<br/>1/4&quot; union tee"]
-    Reg["flow-regulator"]
+    FlowReg["flow-regulator"]
   end
 
-  %% The basin on the top-wall rim ledge behind the display facet, its spout standing on
-  %% V-B's own column: a gravity drain is the one line that cannot be routed around
-  %% anything, so the spout's column is fixed and the tray hangs off it.
+  %% The basin on the top-wall rim ledge behind the display facet. Its spout drains by gravity
+  %% onto V-B's inlet, which the fold turns to face the back of the machine.
   Hopper["hopper-funnel"]
 
   %% =========================
-  %% Front column
+  %% The flavour manifold
   %% =========================
-  %% The head column is three two-valve trays, one under the next, on the compressor
-  %% shroud's roof. Three is the column's whole depth. Both peristaltic pumps stand
-  %% forward of it, side by side across the machine. Y-A and Y-B stand in the junction
-  %% columns ahead of the source and selects pairs, Y-C and Y-D in the pump lane, Y-E
-  %% across the strip ahead of the bag-A pair.
-  subgraph Front["Front column"]
+  %% Four limbs, two decks. A limb is one lane: a line of valves and tees butted collet to collet,
+  %% front to back, hinged in the middle — everything forward of the hinge folded up and over onto
+  %% the deck above. Both pumps stand at the fold, each hanging out two lanes 57 mm apart with a
+  %% tee dropped on each barb by its branch. Channel A stands east of the mirror plane in the
+  %% machine and channel B west, the pack posed face down on the refrigeration stratum's crown.
+  subgraph Manifold["manifold pack — four limbs on two decks"]
 
-    subgraph TSrc["source-tray-assembly"]
+    subgraph LA1["A1 — channel A, inner limb"]
       VA["V-A"]
-      VB["V-B"]
-    end
-
-    subgraph TSel["selects-tray-assembly"]
+      YA["Y-A"]
       VC["V-C"]
-      VD["V-D"]
+      YC["Y-C"]
+      VE["V-E"]
     end
 
-    subgraph TBagA["bag-a-tray-assembly"]
-      VE["V-E"]
+    subgraph LA2["A2 — channel A, outer limb"]
+      VG["V-G"]
+      YD["Y-D"]
       VF["V-F"]
     end
 
-    YA["Y-A"]
-    YB["Y-B"]
-    YC["Y-C"]
-    YD["Y-D"]
-    YE["Y-E"]
+    subgraph LB1["B1 — channel B, inner limb"]
+      VB["V-B"]
+      YB["Y-B"]
+      VD["V-D"]
+      YF["Y-F"]
+      VH["V-H"]
+    end
+
+    subgraph LB2["B2 — channel B, outer limb"]
+      VJ["V-J"]
+      YG["Y-G"]
+      VI["V-I"]
+    end
 
     PB["pump-b<br/>channel A"]
     PA["pump-a<br/>channel B"]
   end
 
   %% =========================
-  %% Aft stand
-  %% =========================
-  %% Four trays on the foam cap, all on one storey, each bolted through its own mount
-  %% ears to the cap's deck-mount stations. The bag-B pair is the one PAIR up here and
-  %% so the one two-valve plate; the other three valves each stand alone on the family's
-  %% one-seat plate. Y-F stands over V-H's own column in the band above the plates, and
-  %% Y-G in the lane east of V-K's plate.
-  subgraph Aft["Aft stand — foam cap"]
-
-    subgraph TBagB["bag-b-tray-assembly"]
-      VH["V-H"]
-      VI["V-I"]
-    end
-
-    subgraph TNozA["nozzle-tray-assembly"]
-      VG["V-G"]
-    end
-
-    subgraph TVK["vk-tray-assembly"]
-      VK["V-K<br/>carbonator fill"]
-    end
-
-    subgraph TNozB["nozzle-b-tray-assembly"]
-      VJ["V-J"]
-    end
-
-    YF["Y-F"]
-    YG["Y-G"]
-  end
-
-  %% =========================
   %% Cold core, rear panel, and what leaves the box
   %% =========================
-  %% One line reaches each reservoir's port on the cold core's front face, and both the
-  %% fill and the draw ride it — which is what the two-headed edges say.
+  %% Four of the seven conduits in the core's top cap are this circuit's. Each reservoir is
+  %% FILLED ABOVE ITS LIQUID, through a bore in its own cap, and DRAWN FROM ITS TROUGH, off the
+  %% bulkhead at the bottom of its wet V — so everything entering has to cross the cavity to
+  %% leave, and the pair's two valves reach the two mouths directly.
   subgraph Core["foam-assembly — cold core"]
-    ResA[("reservoir-A")]
-    ResB[("reservoir-B<br/>draw")]
+    ResAFill[("reservoir-A<br/>fill")]
+    ResA[("reservoir-A<br/>draw")]
     ResBFill[("reservoir-B<br/>fill")]
+    ResB[("reservoir-B<br/>draw")]
   end
 
   subgraph Panel["Rear panel"]
@@ -121,102 +101,100 @@ flowchart LR
     BhB["bulkhead-flavor-b"]
   end
 
+  VK["vk-solenoid<br/>V-K &middot; carbonator fill"]
   SuctChain["suction-chain"]
   Faucet["Faucet — nozzles A &middot; B"]
 
   %% =========================
   %% Shared source chain — fluid-1 … fluid-8
   %% =========================
-  %% Y-A and Y-B are the selects-source junction and the lane each takes is a COLUMN:
-  %% the source pair stands in the selects pair's own two seats one stack pitch up, so
-  %% each Tee's run falls straight down one column and the two branches face each other
-  %% across fluid-6, which puts all four ports on one hydraulic node.
-  Split -->|"fluid-1<br/>12.2 mm"| Reg
-  Reg -->|"fluid-2<br/>85.2 mm"| VA
-  VA -->|"fluid-3<br/>21.0 mm"| YA
-  Hopper -->|"fluid-4<br/>47.2 mm"| VB
-  VB -->|"fluid-5<br/>21.0 mm"| YB
-  YA <-->|"fluid-6<br/>4.0 mm"| YB
-  YA -->|"fluid-7<br/>21.0 mm"| VC
-  YB -->|"fluid-8<br/>21.0 mm"| VD
+  %% Y-A and Y-B stand on the inner limbs' own axes, one valve forward of the selects they feed,
+  %% with their branches meeting face to face across the mirror plane. V-A and V-B come off the
+  %% folded deck's plane on a quarter turn and then step 28 mm along and 14 mm across, toward the
+  %% cold core's crown.
+  Split -->|"fluid-1<br/>24.0 mm"| FlowReg
+  FlowReg -->|"fluid-2<br/>212.3 mm"| VA
+  VA -->|"fluid-3<br/>54.0 mm"| YA
+  Hopper -->|"fluid-4<br/>not drawn"| VB
+  VB -->|"fluid-5<br/>54.0 mm"| YB
+  YA <-->|"fluid-6<br/>butt"| YB
+  YA -->|"fluid-7<br/>butt"| VC
+  YB -->|"fluid-8<br/>butt"| VD
 
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Channel A's pump and both its junctions stand in the front column, so the whole row
-  %% is flat: Y-C's and Y-D's runs lie along the pump lane on the bag-A pair's own port
-  %% plane and only their branches change level — fluid-9 falling a stack pitch in from
-  %% the selects pair, fluid-17 climbing a storey and a half to the nozzle gate aloft.
-  VC -->|"fluid-9<br/>131.5 mm"| YC
-  VE -->|"fluid-10<br/>71.9 mm"| YC
-  YC -->|"fluid-11<br/>45.6 mm"| PB
-  PB -->|"fluid-12<br/>30.0 mm"| YD
-  YD -->|"fluid-13<br/>180.2 mm"| VF
-  VF -->|"fluid-14<br/>12.6 mm"| YE
-  YE <-->|"fluid-15<br/>301.6 mm"| ResA
-  YE -->|"fluid-16<br/>39.0 mm"| VE
-  YD -->|"fluid-17<br/>122.0 mm"| VG
-  VG -->|"fluid-18<br/>363.6 mm"| BhA
+  %% Y-C and Y-D sit on pump B's two barbs, branch down, at the hinge. fluid-9 and fluid-17 are
+  %% the two hairpins that cross it — a quarter of R14, 31.4 mm of straight, and a quarter back.
+  %% Everything else along the limbs is butted.
+  VC -->|"fluid-9<br/>75.4 mm"| YC
+  VE -->|"fluid-10<br/>butt"| YC
+  YC -->|"fluid-11<br/>butt"| PB
+  PB -->|"fluid-12<br/>butt"| YD
+  YD -->|"fluid-13<br/>butt"| VF
+  VF -->|"fluid-14<br/>441.1 mm"| ResAFill
+  ResA -->|"fluid-16<br/>134.4 mm"| VE
+  YD -->|"fluid-17<br/>75.4 mm"| VG
+  VG -->|"fluid-18<br/>480.0 mm"| BhA
 
   %% =========================
   %% Channel B — fluid-19 … fluid-28
   %% =========================
-  %% Channel B's pump stands in the front column and both its junctions aloft, so
-  %% fluid-21 and fluid-22 cross a storey and a half whatever they leave by. They cross
-  %% the deck on OPPOSITE strata and pass the head column on OPPOSITE sides — the inlet
-  %% over the electronics shelf and down the collet band, the outlet over the water deck
-  %% and up the tray-east lane — so neither owes the other any separation. It is why the
-  %% two longest flavor runs in the machine are this channel's.
-  VD -->|"fluid-19<br/>124.9 mm"| YF
-  VH -->|"fluid-20<br/>166.6 mm"| YF
-  YF -->|"fluid-21<br/>238.8 mm"| PA
-  PA -->|"fluid-22<br/>501.0 mm"| YG
-  YG -->|"fluid-23<br/>60.5 mm"| VI
-  VI -->|"fluid-24<br/>35.4 mm"| ResBFill
-  ResB -->|"fluid-26<br/>38.5 mm"| VH
-  YG -->|"fluid-27<br/>67.1 mm"| VJ
-  VJ -->|"fluid-28<br/>217.6 mm"| BhB
+  %% Channel B mirrors channel A about x = 0. Y-F and Y-G sit on pump A's barbs, fluid-19 and
+  %% fluid-27 are its two hairpins, and the four gate mouths — fills and draws both — leave on
+  %% their own axes off the lower deck.
+  VD -->|"fluid-19<br/>75.4 mm"| YF
+  VH -->|"fluid-20<br/>butt"| YF
+  YF -->|"fluid-21<br/>butt"| PA
+  PA -->|"fluid-22<br/>butt"| YG
+  YG -->|"fluid-23<br/>butt"| VI
+  VI -->|"fluid-24<br/>194.3 mm"| ResBFill
+  ResB -->|"fluid-26<br/>134.4 mm"| VH
+  YG -->|"fluid-27<br/>75.4 mm"| VJ
+  VJ -->|"fluid-28<br/>362.8 mm"| BhB
 
   %% =========================
-  %% V-K's own two runs — the carbonator circuit, on this stand
+  %% V-K's own two runs — the carbonator circuit, through this bay
   %% =========================
-  %% V-K gates the carbonator fill off the same split fluid-1 leaves. It stands on the
-  %% aft stand's middle plate, and water-4 is what fluid-27 crosses over on its way out
-  %% of the bay.
-  Split -->|"water-3<br/>179.5 mm"| VK
-  VK -->|"water-4<br/>71.5 mm"| SuctChain
+  %% V-K gates the carbonator fill off the same split fluid-1 leaves. It stands on the cold core's
+  %% crown, east of the SeaFlo, and water-3 is the one run in the front half that crosses the whole
+  %% machine — the split is in the west lane, V-K is on the east, and its inlet faces forward.
+  Split -->|"water-3<br/>271.8 mm"| VK
+  VK -->|"water-4<br/>15.0 mm"| SuctChain
 
   %% =========================
   %% Beyond the box
   %% =========================
-  %% The two flavor bulkheads are where the enclosure's runs END. The nozzles are out on
-  %% the faucet, down the umbilical, which no run in this pack carries.
+  %% The two flavor bulkheads are where this pack's runs END. The nozzles are out on the faucet,
+  %% down the umbilical, which no run here carries.
   BhA -.-> Faucet
   BhB -.-> Faucet
 
-  %% Circuit colours. Mermaid numbers links by DECLARATION ORDER, so every index below is
-  %% a count of the edges above it and not an authorship — `_fluid_topology_sync.py`
-  %% writes each list off the parsed edge order and each edge's own route id, and the
-  %% style after it is this chart's. The `(group:NAME)` in each comment is what tells the
-  %% driver which line takes which list.
+  %% Circuit colours. Mermaid numbers links by DECLARATION ORDER, so every index below is a count
+  %% of the edges above it and not an authorship — `_fluid_topology_sync.py` writes each list off
+  %% the parsed edge order and each edge's own route id, and the style after it is this chart's.
+  %% The `(group:NAME)` in each comment is what tells the driver which line takes which list.
   %% Shared source chain (group:shared) — white.
   linkStyle 0,1,2,3,4,5,6,7 stroke:#ccc,stroke-width:2px
   %% Channel A (group:channel-a) — blue.
-  linkStyle 8,9,10,11,12,13,14,15,16,17 stroke:#09f,stroke-width:2px
+  linkStyle 8,9,10,11,12,13,14,15,16 stroke:#09f,stroke-width:2px
   %% Channel B (group:channel-b) — green.
-  linkStyle 18,19,20,21,22,23,24,25,26 stroke:#22c55e,stroke-width:2px
-  %% The carbonator circuit's two runs through this stand (group:carbonator) — grey.
-  linkStyle 27,28 stroke:#777,stroke-width:2px
+  linkStyle 17,18,19,20,21,22,23,24,25 stroke:#22c55e,stroke-width:2px
+  %% The carbonator circuit's two runs through this bay (group:carbonator) — grey.
+  linkStyle 26,27 stroke:#777,stroke-width:2px
   %% Outside the pack (group:outside) — no run carries it.
-  linkStyle 29,30 stroke:#555,stroke-width:1px
+  linkStyle 28,29 stroke:#555,stroke-width:1px
 
-  %% Junction fittings. All seven are PP0208E TEES: an in-line RUN, which is one straight
-  %% lane through the fitting shared by two of its three ports, and a BRANCH, the leg that
-  %% leaves that lane and so the only leg at a Tee that changes level. Six of them reach
-  %% between trays or between a tray and a pump; Y-E joins one pair, standing ACROSS the
-  %% strip ahead of them. fluid-topology.md "Junctions" carries what the pose follows from.
+  %% Junction fittings. All six are PP0208E TEES: an in-line RUN, one straight lane through the
+  %% fitting shared by two of its three ports, and a BRANCH, the leg that leaves that lane. Y-A
+  %% and Y-B stand on a limb's own axis with their branches across the mirror plane; the other
+  %% four sit on a pump barb by the branch, putting their runs across the head's face. Neither
+  %% reservoir has one. fluid-topology.md "Junctions" carries where each port goes.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YA,YB,YC,YD,YE,YF,YG tee;
+  class YA,YB,YC,YD,YF,YG tee;
+  %% The bodies forward of the hinge, which the fold carries up onto the second deck.
+  classDef upper stroke-dasharray:4;
+  class VA,VB,VC,VD,VG,VJ,YA,YB upper;
   %% Not the flavor manifold's — the carbonator's valve, and the pack's edge.
   classDef offcircuit fill:#3a3a3a,stroke:#666,color:#cccccc,stroke-width:1px;
   class VK,SuctChain,Faucet offcircuit;
