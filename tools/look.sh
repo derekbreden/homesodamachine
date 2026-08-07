@@ -25,7 +25,7 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EDITION="kitchen"
-STEP="printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step"
+STEP="manifold-layout/front-half.step"
 VIEWS="top,front,right"
 SIZE="1600x1200"
 OUT="${TMPDIR:-/tmp}/look"
@@ -68,4 +68,4 @@ stem="$OUT/$(printf '%s' "$only" | tr -c 'A-Za-z0-9._-' '-').png"
 
 exec node "$REPO/tools/render/render-view.js" "$STEP" "$stem" \
   --edition "$EDITION" --views "$VIEWS" --ortho \
-  --only "$only" --xray "enclosure_*" --size "$SIZE" "${extra[@]+"${extra[@]}"}"
+  --only "$only" --xray "enclosure-*" --size "$SIZE" "${extra[@]+"${extra[@]}"}"

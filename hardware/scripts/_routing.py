@@ -27,8 +27,9 @@ in: the run is DRAWN at what it has — the diagonal leg, the stub clamped to th
 the square corner — and its shortfall recorded in `BLOCKED` with the measurement. `tube` sweeps
 the port's bore Ø along that centreline like any other.
 
-Coordinates are the assembly's world frame (+X right, +Y back, +Z up, origin lower-front-left).
-Authorship: [`_lines.py`](_lines.py). Precedent: [`routing.ts`](/hardware/pcb/pcba/routing.ts).
+Coordinates are the assembly's world frame. Authorship:
+[`manifold-layout/_lines.py`](/hardware/manifold-layout/_lines.py). Precedent:
+[`routing.ts`](/hardware/pcb/pcba/routing.ts).
 """
 
 import math
@@ -445,12 +446,46 @@ def _bends(pts: list, cid: str) -> list:
     return out
 
 
+# The tube on the machine, and the floor each one's corners answer to. A tube bent tighter
+# than its stock takes kinks or thins its outer wall; the floor is a property of the STOCK — its
+# material, its wall, its diameter — so it is stated per stock and every run drawn in it is
+# measured against the same number. Conventionally quoted as a multiple of OD, which is how
+# these read. `min_bend` is the tightest CENTRELINE radius; `source` is where the figure is from.
+@dataclass
+class Stock:
+    name: str
+    od: float            # the tube's outside Ø — the run's own `diam`
+    min_bend: float      # tightest centreline radius, mm
+    kinds: tuple         # the run kinds drawn in it
+    source: str
+
+
+STOCKS = (
+    Stock("1/4\" LLDPE", 6.35, 14.0, ("fluid", "water", "co2"),
+          "2.2×OD — bench test on the spool: \"flow with no kinks at 14.0 mm comfortably\""),
+    Stock("1/4\" soft ACR copper", 6.35, 12.7, ("refrigerant",),
+          "2×OD — a lever bender's smallest common former (BEND_RATIO)"),
+    Stock("3/8\" braided PVC", 15.10, 15.9, ("water",),
+          "neoPure PVCR-0610 datasheet minimum"),
+)
+
+
+def stock_of(kind: str, od: float) -> Stock:
+    """The stock a run is drawn in, from its kind and bore Ø. Raises on a pair no stock claims —
+    a new tube on the machine states its own bend floor before its runs can be graded."""
+    for s in STOCKS:
+        if kind in s.kinds and abs(s.od - od) < 0.05:
+            return s
+    have = "; ".join(f"{s.name} Ø{s.od:g} for " + "/".join(s.kinds) for s in STOCKS)
+    raise KeyError(
+        f"no stock declared for a {kind} run at Ø{od:g} — add it to STOCKS with the minimum "
+        f"bend radius its datasheet gives (have: {have})")
+
+
 def stock_min(kind: str, diam: float) -> float:
     """The roundest a corner in this stock is ever asked to be — its published minimum radius,
     and the ceiling a run carries when its author names none."""
-    import scorecard                                    # imports this module: deferred to call time
-
-    return scorecard.stock_of(kind, diam).min_bend
+    return stock_of(kind, diam).min_bend
 
 
 def _caps(bends: list, bend, cid: str, diam: float) -> dict:
