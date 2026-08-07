@@ -128,9 +128,11 @@ the depth of the band. The binding leg's two endpoints print with the grade, whi
 look.
 
 Two runs a storey apart may hold the same lane. A lane is a Y, not a tube, and what forbids
-sharing one is overlapping in the other two coordinates — so the aft band's far lane carries
-fluid-13 at the barb plane and fluid-9 a stack pitch above it, while fluid-19 takes it in the
-front column where neither of those two reaches.
+sharing one is overlapping in the other two coordinates — so the aft band's one lane carries
+fluid-10 at the barb plane, fluid-9 a stack pitch above it and fluid-13 a fall below it, while
+fluid-19 takes the half-pitch ahead in the front column where none of those three reaches. A
+band too shallow to hold two lanes at the lead its turns want still holds four runs, if they
+part in Z.
 
 `reach` bounds the centreline and nothing else. A run redrawn at it sweeps a wider tube through
 different air; `lines-clear` and the routed clearances are what answer that, after the edit.
