@@ -214,6 +214,18 @@ socket_cap = wall            # one wall capping the insert's deep end
 # end. One wall of material around the bore is the section.
 c14_boss_dia = heatset_dia + 2.0 * wall
 c14_boss_proud = heatset_depth - wall + socket_cap
+# The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
+# stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
+# bored for a ruthex M3 short from that end; the screw comes the other way, in through the
+# body from the room, so nothing is driven from outside the machine.
+#
+# The section is the one `printed-parts/electronics/module_tray` gives every M3 board boss in
+# this machine, and it is not the C14's: these land on a board's own hole pattern, between its
+# pin fields, and a boss that carried a whole wall around its insert would foul them.
+mount_boss_dia = 7.0
+# Air past the screw tip at the bore's blind end, so a screw longer than the insert has
+# somewhere to go rather than bottoming on printed material.
+mount_bore_relief = 1.0
 # How far a boss stands inboard of the wall it drives through: the whole chain
 # of head counterbore, pin body, heat-set and cap, less the wall the counterbore
 # is sunk into. This is the socket's section, so it is also its post's.
@@ -293,9 +305,10 @@ z_lip_y_margin = 2.0
 #   funnel        the placed hopper funnel's plan centre, or None for no throat
 #   pan_rails     the drip tray's carry, world boxes fused onto the −X wall
 #   c14           the mains inlet's heat-set stations on the back wall, (x, z)
+#   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14")
+           "funnel pan_rails c14 east_bosses")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -303,8 +316,9 @@ Box = namedtuple(
 #   placed        {name: (solid, colour)} — the same shape a CadQuery assembly reads
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
-    "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), ())
+    "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
+            "east_bosses")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), ())
 
 
 # --- primitives -------------------------------------------------------------
@@ -773,7 +787,7 @@ def _dims(pack):
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
-               pack.funnel, pack.pan_rails, pack.c14)
+               pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1580,7 +1594,7 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), ())
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), ())
 
 
 def build_front_half(box):
@@ -1697,6 +1711,31 @@ def _pan_rails(solid, members, z0, z1):
     return solid
 
 
+def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
+    """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
+    height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
+    and no piece grows a column standing in another's air.
+
+    Each station is `(y, z, tip)`: the two plan coordinates the boss stands on, and the plane
+    its top face reaches — the body's own mounting face, which is where that body's hole
+    pattern lies. The shaft runs from the wall's inner face out to it and the insert bore is
+    cut back from that face, so the length the wall gives a screw is the standoff the body
+    asked for and not a number typed here.
+
+    ON THE PIECE AND NOT ON THE HALF, because the Z seam's own column is fused piece-side:
+    the rear station's post reaches the same plane the bodies on this flank seat on, so a bore
+    cut before that post is fused is a bore the post fills back in. Cut here, the two share
+    their material — the boss fuses nothing where the post already stands, and is bored
+    through it all the same."""
+    for sy, sz, tip in stations:
+        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
+            continue
+        solid = solid.fuse(_xcyl(mount_boss_dia / 2.0, sy, sz, tip, inner[1]))
+        solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, tip,
+                                tip + heatset_depth + mount_bore_relief))
+    return solid
+
+
 def _c14_bosses(solid, inner, outer, stations, z0, z1):
     """The C14's two heat-set bosses added to a back wall, for the stations whose Z lies in
     `z0..z1`.
@@ -1756,13 +1795,17 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
     piece = piece.intersect(_rounded_outer(outer))
+    zlo, zhi = (oz0 - 1.0, zj) if z_side == "bottom" else (zj, oz1 + 1.0)
     if y_side == "back":
         # The C14's bosses stand OUTSIDE the print silhouette — the receptacle is fastened
         # from inside, so the insert enters flush with the inner face and the length the
         # wall cannot hold stands outboard. They go on after the clip, on whichever piece
         # holds their Z.
-        zlo, zhi = (oz0 - 1.0, zj) if z_side == "bottom" else (zj, oz1 + 1.0)
         piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi)
+    # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
+    # all, so a bore is cut through every column that has already been fused around it.
+    ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
+    piece = _east_bosses(piece, inner, box.east_bosses, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 
