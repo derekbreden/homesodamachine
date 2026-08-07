@@ -52,7 +52,7 @@ leave, and raises when the drip would land outside the basin it is meant for.
 
 The moisture plate lies flat down the basin's **depth** — its long edge along
 the withdrawal axis, the axis the strip has to give — and the floor's flat area
-inside the coves is what it lands on: [55.25](PLATE_LEN) × [41](PLATE_DEPTH) mm
+inside the coves is what it lands on: [54](PLATE_LEN) × [40](PLATE_DEPTH) mm
 of plate with [1](PLATE_SLIP_MM) mm of slip a side. `check_plate()` raises when
 it does not fit, because a plate wider than the flat rides up on the coves
 instead of lying down and the water has to stand that much deeper before it

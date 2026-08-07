@@ -42,10 +42,12 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
+sys.path.insert(0, str(_hw / "reference" / "shutao-moisture-plate"))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
+import shutao_moisture_plate as plate
 
 # The basin is narrow across the strip and deep down it. X is the loft's
 # contested axis — east of the basin the west column's crossing ladder climbs
@@ -53,9 +55,9 @@ from docgen import substitute_md, substitute_py_comments
 # ladder's lid: every millimetre the basin gives back in X is
 # ceiling a rung buys radius from. Y is the axis with room to spare: the run
 # between the SeaFlo's back face and the foam cap's rear edge is deeper than
-# the basin needs. So the width is the FLOOR the moisture plate sets and one
-# millimetre of grace — the plate turned down the depth wants
-# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = 52 of outer width —
+# the basin needs. So the width is the FLOOR the moisture plate sets and a little
+# grace — the plate turned down the depth wants
+# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width —
 # [53](PAN_LEN) across and [76](PAN_DEPTH) down, the basin hung on the atmospheric vent's own
 # tip in both plan axes (`_contents._pan_room` is the reading, and it refuses a tip that stands
 # outside the inner floor). [10](PAN_HEIGHT) tall is what `VENT_GAP` leaves of the vent's
@@ -99,7 +101,11 @@ PAN_SLIP = 0.3
 # flat on the basin floor with its long edge down the basin's Y — the withdrawal
 # axis, the one the strip has depth to spare on. The floor's flat area inside the
 # coves is what it lands on; `check_plate()` is that check.
-PLATE_X, PLATE_Y = 55.25, 41.0
+#   READ OFF THE PLATE'S OWN MODEL, not copied from it. The body that lands in this
+# basin in the assemblies is `reference/shutao-moisture-plate`, so the figure the
+# floor is sized against and the figure the solid is built from are one figure —
+# a basin cannot be gated on a plate a millimetre off the one it receives.
+PLATE_X, PLATE_Y = plate.PLATE_X, plate.PLATE_Y
 PLATE_SLIP = 1.0      # per side, plate edge to where the cove starts rising
 
 # The least clear air the basin's rim keeps under the ASSE chain's underside —
@@ -225,6 +231,7 @@ def main():
         "PLATE_LEN": f"{PLATE_X:g}",
         "PLATE_DEPTH": f"{PLATE_Y:g}",
         "PLATE_SLIP_MM": f"{PLATE_SLIP:g}",
+        "PAN_PLATE_MIN": f"{PLATE_Y + 2 * (PLATE_SLIP + WALL + FLOOR_COVE):g}",
         "PAN_VENT_GAP": f"{VENT_GAP:g}",
         "PAN_CAPACITY": f"{capacity_ml():.1f}",
         "PAN_CORNER_R": f"{CORNER_R:g}",
@@ -240,7 +247,7 @@ def main():
         variables=variables,
         expected_counts={
             "PAN_LEN": 2, "PAN_DEPTH": 2, "PAN_HEIGHT": 2,
-            "PAN_WALL": 1, "PAN_FLOOR": 1,
+            "PAN_WALL": 1, "PAN_FLOOR": 1, "PAN_PLATE_MIN": 1,
             "PAN_FLANGE": 1, "PAN_CORNER_R": 1, "PAN_BEARING": 1,
         },
     )
