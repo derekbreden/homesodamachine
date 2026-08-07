@@ -23,7 +23,7 @@ flowchart LR
   %% 180° hairpin.
 
   %% Neither reservoir appears here and neither has a junction: each carries two mouths of its
-  %% own, so each pair's two valves reach one directly.
+  %% own, so each pair's two valves reach them directly.
 
   %% =========================
   %% Channel A — east of the mirror plane in the machine, over pump B
@@ -76,11 +76,15 @@ flowchart LR
   VD --> YF
   YG --> VJ
 
-  %% ---- Between limbs ----
-  %% The source pair's quarter-and-step turns onto their junctions, and the crossbar the two
-  %% branches meet on face to face. Grey.
+  %% ---- Out of the deck plane ----
+  %% The source pair leaves its own limb's plane on a quarter turn of R14, then steps 28 mm
+  %% further along the run and 14 mm across it, toward the cold core's crown. Grey.
   VA --> YA
   VB --> YB
+
+  %% ---- Between limbs ----
+  %% The crossbar, the one connection here that leaves its limb: Y-A's and Y-B's branches face
+  %% each other across the mirror plane and meet on it. White.
   YA <--> YB
 
   %% ---- Styling ----
@@ -93,4 +97,5 @@ flowchart LR
   class VA,VB,VC,VD,VG,VJ,YA,YB upper;
   linkStyle 0,1,2,3,4,5 stroke:#09f,stroke-width:2px
   linkStyle 6,7,8,9 stroke:#c2410c,stroke-width:2px
-  linkStyle 10,11,12 stroke:#888,stroke-width:2px
+  linkStyle 10,11 stroke:#888,stroke-width:2px
+  linkStyle 12 stroke:#ccc,stroke-width:2px
