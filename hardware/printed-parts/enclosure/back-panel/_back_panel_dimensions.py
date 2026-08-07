@@ -20,8 +20,8 @@ ac_inlet_recess_depth_max = 5.0
 
 # Bulkhead panel-hole diameter. All four PP1208E bulkheads on this
 # panel (1 water inlet + 3 umbilical-port unions) share this hole —
-# the bore enclosure.py cuts (PORT_BULKHEAD_D in
-# enclosure-assembly/_contents.py, the cutting source), sized to clear
+# the bore enclosure.py cuts (struck in manifold-layout/front_half.py's
+# `back_wall_ports`, the cutting source), sized to clear
 # the Ø17.14 barrel measured off the jg-bulkhead-union reference STEP.
 # JG's catalog nominal (0.67" ≈ 17.0) sits under the measured barrel.
 bulkhead_panel_hole_diameter = 18.0

@@ -14,7 +14,7 @@ Coordinate frame
   leaves by.
 
 Which wall the block stands against and which way its air crosses the cabinet is the
-enclosure's business (`../../printed-parts/enclosure/enclosure-assembly/_contents.py`).
+enclosure's business (`../../manifold-layout/front_half.py`).
 """
 
 import sys

@@ -14,8 +14,8 @@ PP0208E as parts come in hand (same note as reference/tee-connector).
 Frame: the run along ±Y, the supply at +Y and the flavor tap at −Y, and the branch
 along −X at a right angle to both. Centre at the origin, the three collet faces in
 the Z = 0 plane. Which of the three ends up pointing where is the enclosure's to
-say — it turns this frame twice on the way in ([`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)
-`SPLIT_ROLL`, `SPLIT_PITCH`), and the branch is the port those turns are FOR:
+say — it turns this frame on the way in ([`front_half.py`](/hardware/manifold-layout/front_half.py)
+`SPLIT_TURN`), and the branch is the port that turn is FOR:
 it is the only one of the three that can be given a level of its own.
 
 Run:

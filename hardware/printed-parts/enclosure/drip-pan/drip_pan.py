@@ -51,7 +51,7 @@ import shutao_moisture_plate as plate
 
 # The basin is narrow across the strip and deep down it. X is the loft's
 # contested axis — east of the basin the west column's crossing ladder climbs
-# rung over rung (`enclosure-assembly/_lines`), and the basin's east rim is that
+# rung over rung (`manifold-layout/_lines`), and the basin's east rim is that
 # ladder's lid: every millimetre the basin gives back in X is
 # ceiling a rung buys radius from. Y is the axis with room to spare: the run
 # between the SeaFlo's back face and the foam cap's rear edge is deeper than

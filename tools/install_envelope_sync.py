@@ -6,7 +6,7 @@ live inside an edition's tree, and no edition's `_enclosure_dimensions.py` can
 own its numbers. This driver sits in `tools/` with the rest of the shared
 machinery and reads every edition web/lib/editions.js declares.
 
-Each edition's silhouette is READ OFF ITS BOX (`enclosure._dims()`), the same
+Each edition's silhouette is READ OFF ITS BOX (`enclosure.machine_of()`), the same
 source its own README uses, so the shared doc and the per-edition docs cannot
 state different machines. Editions are measured in subprocesses because their
 modules are same-named duplicates that cannot coexist in one interpreter.
@@ -33,18 +33,17 @@ from docgen import substitute_md
 # (hardware/assembly/faucet-and-umbilical.md §1).
 CABINET_CLEAR_H = 755.7
 
-# Measured inside the edition's own tree: put its enclosure, assembly, cadlib
-# and cold-core dirs on the path exactly as its own drivers do, then read the
-# box. Emitted as JSON on stdout.
+# Measured inside the edition's own tree: put its enclosure module on the path and ask
+# it for the machine. `machine_of` places the edition's own pack and hands back the box
+# sized on it, putting the rest of the tree on the path itself, so this probe names one
+# directory and the edition names the others. Emitted as JSON on stdout.
 _PROBE = """
 import json, sys
 from pathlib import Path
-enc = Path(sys.argv[1])
-for p in [enc / "enclosure", enc / "enclosure-assembly",
-          enc.parent / "cadlib", enc.parent / "cold-core"]:
-    sys.path.insert(0, str(p))
+sys.path.insert(0, str(Path(sys.argv[1]) / "enclosure"))
 import enclosure
-o = enclosure._dims().outer
+_pack, box = enclosure.machine_of()
+o = box.outer
 print(json.dumps({"w": o[1] - o[0], "d": o[3] - o[2], "h": o[5] - o[4]}))
 """
 
