@@ -27,11 +27,15 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "reference" / "seaflo-22-pump",
-           _hw / "reference" / "seaflo-suction-chain"):
+           _hw / "reference" / "seaflo-suction-chain",
+           _hw / "reference" / "asse1022-assembly",
+           _hw / "reference" / "water-split"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
+import asse1022_assembly as _asse                      # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
+import water_split as _split                           # noqa: E402
 
 BLOCKED = R.BLOCKED
 
@@ -51,6 +55,12 @@ STATIONS = {
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
                       "tube-port": (_suct.tube_port, _suct.TUBE_D)},
+    "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
+                          "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
+                          "vent-tip": (lambda: _asse.port("vent-tip"), _asse.VENT_STUB_OD)},
+    "water-split": {"supply": (_split.supply, _split.TUBE_D),
+                    "to-vk": (_split.to_vk, _split.TUBE_D),
+                    "to-flavor": (_split.to_flavor, _split.TUBE_D)},
 }
 
 
@@ -80,7 +90,21 @@ def build_runs(placed, carries):
     runs = []
     if {"seaflo-pump", "suction-chain"} <= set(F):
         runs.append(_water_7(F))
+    if {"asse1022-assembly", "water-split"} <= set(F):
+        runs.append(_water_2(F))
     return runs
+
+
+def _water_2(F):
+    """water-2 — the ASSE 1022's outlet to the split's supply, and it is ONE LENGTH OF TUBE.
+
+    The chain hands the water over facing forward down the west lane and the split's own run
+    axis IS that lane, so the two collets face each other on one line with nothing between them
+    to turn around. `front_half.WATER_2` is the gap, and a gap between two collets facing down
+    one axis seats no arc — what it has to be is enough tube for both to take hold of."""
+    return R.bent(
+        "water-2", "asse1022-assembly.tube-out", "water-split.supply",
+        kind="water", note="tap water: ASSE outlet → split supply, one straight down the lane")
 
 
 def _water_7(F):
