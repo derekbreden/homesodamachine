@@ -75,6 +75,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "derpipe-co2-inlet",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
+           _hw / "reference" / "digiten-flow-sensor",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
@@ -98,6 +99,7 @@ import water_split as _split                          # noqa: E402
 import derpipe_co2_inlet as _derpipe                   # noqa: E402
 import gasher_check_valve as _gasher                   # noqa: E402
 import wr1110_regulator as _wr1110                     # noqa: E402
+import digiten_flow_sensor as _digiten                 # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
@@ -152,6 +154,7 @@ C_BULKHEAD = cq.Color(0.86, 0.86, 0.89)
 C_C14 = cq.Color(0.18, 0.18, 0.20)
 C_CO2 = cq.Color(0.85, 0.35, 0.30)
 C_WR1110 = cq.Color(0.70, 0.30, 0.26)
+C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -420,14 +423,93 @@ def build_bulkhead(asse_carry):
                                         (inlet[0], bulkhead_mouth_y(), inlet[2])))
 
 
-def back_wall_ports(bulkhead_carry):
+def back_wall_ports(*bulkhead_carries):
     """Through-holes the back wall carries, as `(kind, x, z, *size)` on its own plane.
 
-    One: the bore the union's threading passes. It is struck on the fitting's own inboard
+    One per union: the bore its threading passes. Each is struck on the fitting's own inboard
     collet, so hole and barrel cannot land on two different columns, and it is bored one
     `PORT_HOLE_SLIP` over the barrel that goes through it."""
-    pos = bulkhead_carry(_jg.port(-1.0))[0]
-    return [("round", pos[0], pos[2], _jg.panel_hole_d(PORT_HOLE_SLIP))]
+    return [("round", carry(_jg.port(-1.0))[0][0], carry(_jg.port(-1.0))[0][2],
+             _jg.panel_hole_d(PORT_HOLE_SLIP)) for carry in bulkhead_carries]
+
+
+# --- the panel deck: the three unions the machine dispenses through ---------
+#
+# Everything the customer sees leaves by these: carbonated water to the faucet, and the two
+# flavour lines to their nozzles. All three cross the back wall on ONE STOREY, and the storey is
+# not a choice — it is the only one the wall has.
+#
+# Below it the cold core reaches nearly to the back wall, and what it leaves there is less than
+# `jg_bulkhead_union.far_ring_face_y` — a union seated on that band has its collet inside the
+# foam. The +X flank is the power block, the C14 and the CO2 chain, floor to ceiling. The pump
+# fills the middle to its own crown. What is left is the band OVER THAT CROWN and under the top
+# wall, and it is open from the west boss chain across to the C14's own corner — one room, wall
+# to wall, with nothing standing in it. Re-read it by sweeping the union's own body over the
+# wall:
+#
+#     w.cast((x, enclosure.rear_plane_y, z), (0, -1, 0), dia=jg_bulkhead_union.BODY_D)
+#
+# So the deck is struck on the crown it clears: the meter's own half-section over the pump, and
+# a clearance floor. The meter is the fattest body the deck carries, so a storey that seats it
+# seats the three unions with room to spare.
+DECK_CLEAR = 6.0
+# Where each union crosses the wall, west to east. The two gates take the ends — `fluid-28` comes
+# down the WEST outboard column and `fluid-18` the EAST one, so each lands on the side it arrives
+# from — and the carb riser takes the middle, where its meter lies inline ahead of it.
+PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
+
+
+def deck_z(seaflo):
+    """The Z the panel deck lies on: one `DECK_CLEAR` and the meter's own half-section over the
+    water pump's crown, which is the tallest thing standing under it."""
+    return box(seaflo).zmax + DECK_CLEAR + _digiten.body_dia / 2.0
+
+
+def build_panel_bulkhead(x: float, z: float):
+    """One union clamped through the back wall on `(x, z)`, seated on its INBOARD COLLET.
+
+    The same fitting and the same seating as the tap-water union: the flange bears on the wall's
+    outer face, the threading passes through, and the nut clamps inside. What it reaches inboard
+    is `jg_bulkhead_union.far_ring_face_y`, and `bulkhead_mouth_y` is where that leaves the
+    collet the run pushes into."""
+    body = cq.importers.importStep(str(BULKHEAD_STEP)).val()
+    return seat_body(body, (), station=(_jg.port(-1.0), (x, bulkhead_mouth_y(), z)))
+
+
+# --- the DIGITEN meter, inline on the carb riser ---------------------------
+#
+# The Hall-effect turbine the faucet's flow is read on: the pulse train is what tells the machine
+# a glass is being poured, so the flavour pumps start with the water and stop with it.
+#
+# It lies FORE AND AFT on the panel deck, inlet forward and outlet aft, on the carb union's own
+# column and stratum — so `carb-2` is a length of tube between two mouths facing each other down
+# one line, and the riser's only route is on the other side of the meter.
+#
+# The YAW lays its flow axis along the machine; the ROLL then turns the wire boss off the ceiling
+# onto +X, which is both the room the top wall leaves and the way the pigtail has to go — the
+# controller board it plugs into stands on the +X flank.
+DIGITEN_STEP = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
+DIGITEN_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 90.0))
+# The straight between the meter's outlet and the union's inboard collet — `carb-2`, which has no
+# corner in it for the same reason `water-2` has none: two collets facing each other down one
+# axis seat no arc, and what the gap has to be is enough tube for both to take hold of.
+CARB_2 = 24.0
+
+
+def build_digiten(carb_carry):
+    """The meter seated on its OUTLET, one `CARB_2` forward of the carb union's inboard collet
+    and on that collet's own column and plane.
+
+    A fitting answers to its mouth: both ends of this body are collets, and the one that has to
+    land in the right place is the one the union is waiting on. Where the inlet ends up is
+    `digiten_flow_sensor.port_face` ahead of the body centre, and that is where `carb-1` closes.
+
+    Nothing threads onto it and nothing clamps it — the bracket is an open item; this is where
+    it hangs."""
+    pos, axis = carb_carry(_jg.port(-1.0))
+    target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
+    body = cq.importers.importStep(str(DIGITEN_STEP)).val()
+    return seat_body(body, DIGITEN_TURN, station=(_digiten.outlet(), target))
 
 
 # --- the mains inlet, through the back wall --------------------------------
@@ -558,7 +640,8 @@ STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pum
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
-              "c14-inlet", "co2-inlet", "gasher-co2", "wr1110")
+              "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
+              "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
 
 
 def _manifold(name):
@@ -1044,6 +1127,14 @@ def build_pack() -> cq.Assembly:
     wr1110, wr1110_carry = build_wr1110(gasher_carry)
     a.add(wr1110, name="wr1110", color=C_WR1110)
     a.co2_inlet_carry = co2in_carry
+    deck = deck_z(seaflo)
+    panels, panel_carries = {}, {}
+    for name, px in PANEL_X.items():
+        panels[name], panel_carries[name] = build_panel_bulkhead(px, deck)
+        a.add(panels[name], name=name, color=C_BULKHEAD)
+    meter, meter_carry = build_digiten(panel_carries["bulkhead-carb"])
+    a.add(meter, name="digiten-flow", color=C_DIGITEN)
+    a.panel_carries = panel_carries
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -1052,12 +1143,13 @@ def build_pack() -> cq.Assembly:
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry, "gasher-co2": gasher_carry,
-               "wr1110": wr1110_carry}
+               "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "discharge-chain": disch,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
-              "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110}
+              "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110,
+              "digiten-flow": meter, **panels}
     # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
     # in `manifold_layout`'s world and ride the pose this module stood them in.
     mcarry = manifold_carry(lift)
@@ -1090,7 +1182,8 @@ def _solids(a: cq.Assembly):
 #
 # The funnel is the same case and is not listed, because it is added after the box exists
 # (`build_front_half`) rather than to the pack.
-THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet")
+THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet",
+                "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb")
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
@@ -1105,7 +1198,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     pan = box(placed["drip-pan"][0])
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan),
-                     back_ports=(back_wall_ports(a.bulkhead_carry)
+                     back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations())
 
@@ -1236,7 +1329,8 @@ def report(a: cq.Assembly) -> None:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
-              "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110"):
+              "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
+              "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):
         if n in named:
             line(n, box(named[n]))
     walls = None

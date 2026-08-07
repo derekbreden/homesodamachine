@@ -581,12 +581,11 @@ assert cap_conduit_entry_relief_radius >= (
 # the vessel's bottom-plate Port 3: the elbow turns it laterally, `_port_cuts.water_outlet_xyz`
 # bores it out to the lane on the shell's own centreline, and from there it runs UP rather than
 # west.
-#   Its X sits a few millimetres off that centreline, between two fences. The mid screw boss on
-# this wall is one, and the column leaves it the pour gap. The DIGITEN meter it feeds is the
-# other: the meter hangs one storey up in the loft with its collet facing forward, and the deck
-# between this bore and that collet is the straight the run's closing corner is seated in, which
-# a [25.4 mm](LLDPE_BEND_R) arc spends whole. The bore takes the middle of what the two leave —
-# near enough the centreline that the climb is where the line lands.
+#   Its X answers to THE DECK ABOVE, the same fence co2-in takes. The +X flank stands a column
+# of bodies on the lid — V-K, the controller board, the power brick — and each leaves the lane
+# a window rather than a lane; this bore takes the widest of them, the band between the board's
+# forward face and the run its own riser has to clear. `cap_conduit_pair_neck` is what holds
+# the two bores apart inside that one lane.
 #   co2-in stands over that same PORT LANE, and climbs it too. Its line is the vessel's
 # bottom-plate Port 1: the elbow turns it laterally, `_port_cuts.co2_inlet_xyz` bores it out to
 # the lane through the tank support ring, and it climbs from there instead of turning west along
@@ -599,7 +598,7 @@ cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-b": (135.5, -43.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
-    "carb-water-out": (6.0, -port_lane_mid_y),
+    "carb-water-out": (45.5, -port_lane_mid_y),
     "co2-in": (72.5, -port_lane_mid_y),
 }
 
