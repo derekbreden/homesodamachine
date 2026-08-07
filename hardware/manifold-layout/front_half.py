@@ -666,6 +666,8 @@ def build_pack() -> cq.Assembly:
         _ROUTED.add(name)
         a.add(solid, name=name, color=C_HOSE)
     a.runs = runs
+    # The port frames the runs were drawn from, carried on the assembly.
+    a.frames = _lines.frames(solids, carries)
     return a
 
 
@@ -774,6 +776,8 @@ def build_front_half() -> cq.Assembly:
     a.add(build_display(box), name="display", color=C_DISPLAY)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    # The box the pieces were cut from, carried like `runs` and `frames`.
+    a.box = box
     return a
 
 
