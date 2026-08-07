@@ -34,7 +34,9 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
-           _hw / "reference" / "jg-bulkhead-union"):
+           _hw / "reference" / "jg-bulkhead-union",
+           _hw / "reference" / "gasher-check-valve",
+           _hw / "reference" / "wr1110-regulator"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
@@ -46,6 +48,8 @@ import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
+import gasher_check_valve as _gasher                    # noqa: E402
+import wr1110_regulator as _wr1110                      # noqa: E402
 
 BLOCKED = R.BLOCKED
 
@@ -95,6 +99,10 @@ STATIONS = {
                        "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
     "bulkhead-water": {"inboard": (lambda: _jg.port(-1.0), _jg.PORT_D),
                        "outboard": (lambda: _jg.port(1.0), _jg.PORT_D)},
+    "gasher-co2": {"inlet": (_gasher.inlet, _split.TUBE_D),
+                   "outlet": (_gasher.outlet, _split.TUBE_D)},
+    "wr1110": {"inlet": (_wr1110.inlet, _split.TUBE_D),
+               "outlet": (_wr1110.outlet, _split.TUBE_D)},
     "water-split": {"supply": (_split.supply, _split.TUBE_D),
                     "to-vk": (_split.to_vk, _split.TUBE_D),
                     "to-flavor": (_split.to_flavor, _split.TUBE_D)},
@@ -139,7 +147,20 @@ def build_runs(placed, carries):
         runs.append(_water_4(F))
     if {"water-split", "vk-solenoid"} <= set(F):
         runs.append(_water_3(F))
+    if {"gasher-co2", "wr1110"} <= set(F):
+        runs.append(_co2_1(F))
     return runs
+
+
+def _co2_1(F):
+    """co2-1 — the check's stub tip to the regulator's inlet socket, one straight hop.
+
+    The two mouths face each other down the chain's own axis with `front_half.CO2_HOP` between
+    them, so this is a PP450822E on the check's male stub, a PP010822E in the regulator's female
+    one, and the length of tube the two collets both take hold of."""
+    return R.bent(
+        "co2-1", "gasher-co2.outlet", "wr1110.inlet",
+        kind="co2", note="CO2: check outlet → WR1110 inlet, one straight hop on the chain's axis")
 
 
 # The rear bulkhead's inboard collet and the ASSE 1022's inlet collet meet face to face, so the

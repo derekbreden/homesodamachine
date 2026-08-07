@@ -72,6 +72,9 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
+           _hw / "reference" / "derpipe-co2-inlet",
+           _hw / "reference" / "gasher-check-valve",
+           _hw / "reference" / "wr1110-regulator",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
@@ -92,6 +95,9 @@ import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
+import derpipe_co2_inlet as _derpipe                   # noqa: E402
+import gasher_check_valve as _gasher                   # noqa: E402
+import wr1110_regulator as _wr1110                     # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
@@ -144,6 +150,8 @@ C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 C_VK = cq.Color(0.45, 0.50, 0.58)
 C_BULKHEAD = cq.Color(0.86, 0.86, 0.89)
 C_C14 = cq.Color(0.18, 0.18, 0.20)
+C_CO2 = cq.Color(0.85, 0.35, 0.30)
+C_WR1110 = cq.Color(0.70, 0.30, 0.26)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -466,6 +474,82 @@ def c14_cutout():
             wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r)
 
 
+# --- the CO2 inlet chain, through the back wall ----------------------------
+#
+# The customer's cylinder stands beside the machine and its red tether lands here. Three bodies
+# on one axis, inline off the wall: the DERPIPE's NPT stub reaches inboard, the GASHER check
+# threads straight onto it — a made-up joint, no line — and the WR1110 stands one hop of tube
+# ahead of the check on the same axis, holding the appliance side at 90 PSI.
+#
+# The axis is the WALL'S OWN NORMAL, so the chain takes a half turn about Z and nothing else:
+# each fitting's frame already runs its flow down +Y with the upstream mouth on −Y, and the half
+# turn lays that on world −Y — collet outboard, gas running forward into the machine.
+CO2_CHAIN_TURN = (((0.0, 0.0, 1.0), 180.0),)
+DERPIPE_STEP = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
+GASHER_STEP = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
+WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
+# Where it crosses the back wall — EAST OF THE PUMP AND UNDER THE MAINS INLET. What the station
+# has to buy is straight-line depth for a rigid chain, so it is swept on the regulator's own hex,
+# the fattest body the chain carries —
+#
+#     w.cast((x, enclosure.rear_plane_y, z), (0, -1, 0), dia=wr1110.HEX_ACROSS_CORNERS)
+#
+# — and read against what the three bodies and their hop stand. The three that close the sweep
+# around this station are the pump's casting west, the power block's brick east, and `water-7`
+# ahead; the C14's own housing is what takes the wall above it.
+CO2_STATION = (48.0, 290.0)
+# Air between the wrench hex's inboard end and the wall's outer face — the room a socket needs
+# to get on the flats. The fitting is seated on this, so its stub tip is wherever that leaves it.
+DERPIPE_WRENCH_CLEAR = 2.0
+# The hop `co2-1` closes, mouth to mouth: the check's stub tip to the regulator's inlet socket.
+# It holds a PP450822E on the check's male stub, a PP010822E in the regulator's female one, and
+# the stretch of 1/4" tube between the two collets.
+CO2_HOP = 10.0
+
+
+def co2_inlet_mouth_y():
+    """The Y of the DERPIPE's INBOARD stub tip — the shoulder the GASHER's socket makes up
+    against, and so where the whole chain starts. Read off the wall's outer face through the
+    fitting's own reach, so a thicker wall moves the chain it carries."""
+    outer = _enc.rear_plane_y + _enc.wall
+    return outer + DERPIPE_WRENCH_CLEAR + _derpipe.PROUD_LENGTH - _derpipe.BODY_LENGTH
+
+
+def build_co2_inlet():
+    """The 5/16" push-to-connect the customer's CO2 line goes into, clamped through the back
+    wall on `CO2_STATION`, seated on its own INBOARD STUB TIP."""
+    body = cq.importers.importStep(str(DERPIPE_STEP)).val()
+    return seat_body(body, CO2_CHAIN_TURN,
+                     station=(_derpipe.stub_tip(),
+                              (CO2_STATION[0], co2_inlet_mouth_y(), CO2_STATION[1])))
+
+
+def build_gasher_co2(inlet_carry):
+    """The check on the DERPIPE's stub, seated by its INLET on that same station — so the
+    made-up thread is construction and there is no line to close. Its arrow points away from
+    the bulkhead: the carbonator's pressure never reaches the customer's regulator."""
+    body = cq.importers.importStep(str(GASHER_STEP)).val()
+    return seat_body(body, CO2_CHAIN_TURN,
+                     station=(_gasher.inlet(), inlet_carry(_derpipe.stub_tip())[0]))
+
+
+def build_wr1110(gasher_carry):
+    """The secondary regulator standing one `CO2_HOP` ahead of the check on the chain's own
+    axis, seated on its INLET socket. Nothing threads onto it and nothing holds it — the cradle
+    is an open item; this is where it hangs."""
+    pos, axis = gasher_carry(_gasher.outlet())
+    target = tuple(pos[i] + axis[i] * CO2_HOP for i in range(3))
+    body = cq.importers.importStep(str(WR1110_STEP)).val()
+    return seat_body(body, CO2_CHAIN_TURN, station=(_wr1110.inlet(), target))
+
+
+def co2_wall_port(inlet_carry):
+    """The bore the DERPIPE's threading passes, as a `back_ports` entry. Struck on the
+    fitting's own collet so hole and shank cannot land on two different columns."""
+    pos = inlet_carry(_derpipe.collet())[0]
+    return ("round", pos[0], pos[2], _derpipe.SHANK_D + 2 * PORT_HOLE_SLIP)
+
+
 # The assembly's non-manifold members, by name. `report` measures the manifold pack as
 # one box — the clearances the core and the pump stand off are struck against it — so a
 # body added to the assembly that is not part of that pack has to be named here or it
@@ -474,7 +558,7 @@ STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pum
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
-              "c14-inlet")
+              "c14-inlet", "co2-inlet", "gasher-co2", "wr1110")
 
 
 def _manifold(name):
@@ -930,6 +1014,13 @@ def build_pack() -> cq.Assembly:
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     c14, _c14_carry = build_c14()
     a.add(c14, name="c14-inlet", color=C_C14)
+    co2in, co2in_carry = build_co2_inlet()
+    a.add(co2in, name="co2-inlet", color=C_CO2)
+    gasher, gasher_carry = build_gasher_co2(co2in_carry)
+    a.add(gasher, name="gasher-co2", color=C_CO2)
+    wr1110, wr1110_carry = build_wr1110(gasher_carry)
+    a.add(wr1110, name="wr1110", color=C_WR1110)
+    a.co2_inlet_carry = co2in_carry
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -937,12 +1028,13 @@ def build_pack() -> cq.Assembly:
                "discharge-chain": disch_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
-               "bulkhead-water": bulkhead_carry}
+               "bulkhead-water": bulkhead_carry, "gasher-co2": gasher_carry,
+               "wr1110": wr1110_carry}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "discharge-chain": disch,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
-              "bulkhead-water": bulkhead}
+              "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110}
     a.bulkhead_carry = bulkhead_carry
     runs = _lines.build_runs(solids, carries)
     for name, solid in _lines.tubes(runs):
@@ -968,7 +1060,7 @@ def _solids(a: cq.Assembly):
 #
 # The funnel is the same case and is not listed, because it is added after the box exists
 # (`build_front_half`) rather than to the pack.
-THROUGH_WALL = ("bulkhead-water", "c14-inlet")
+THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet")
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
@@ -983,7 +1075,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     pan = box(placed["drip-pan"][0])
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan),
-                     back_ports=back_wall_ports(a.bulkhead_carry) + [c14_cutout()],
+                     back_ports=(back_wall_ports(a.bulkhead_carry)
+                                 + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations())
 
 
@@ -1113,7 +1206,7 @@ def report(a: cq.Assembly) -> None:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
-              "c14-inlet", "discharge-chain"):
+              "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110"):
         if n in named:
             line(n, box(named[n]))
     walls = None
