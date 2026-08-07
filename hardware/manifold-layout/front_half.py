@@ -74,6 +74,7 @@ import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
+PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -109,6 +110,7 @@ C_SUCT = cq.Color(0.72, 0.72, 0.76)
 C_HOSE = cq.Color(0.35, 0.55, 0.85)
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
 C_PSU = cq.Color(0.20, 0.20, 0.24)
+C_PCBA = cq.Color(0.15, 0.45, 0.25)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -255,7 +257,7 @@ def build_suction_chain(seaflo, suction):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain", "display", "psu")
+              "hopper-funnel", "suction-chain", "display", "psu", "pcba")
 
 
 def _manifold(name):
@@ -301,6 +303,26 @@ def build_psu(foam, wall_seat):
                      x1=wall_seat,
                      y1=_enc.rear_plane_y - _enc.rear_seam_clear - PSU_REAR_CLEAR,
                      z0=b.zmax)
+
+
+# The controller board joins the brick's column rather than standing forward of the deck: same
+# flank, same seat, same floor. The ROLL is what fits it — a quarter about Y stands the board on
+# its long edge and lays that edge fore and aft down the flank, so only its 19.1 mm of thickness
+# and components reaches into the lane.
+PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((0.0, 0.0, 1.0), 180.0))
+# What the board stands off the brick along the flank. Both are wired, and a hand making off a
+# connector between them needs the gap to be a gap.
+PCBA_PSU_CLEAR = 6.0
+
+
+def build_pcba(foam, psu, wall_seat):
+    """The controller board on the +X wall, forward of the brick on the same cap.
+
+    EAST on the same wall seat the brick takes, so the two stand in one plane and the boss band
+    holds them both; AFT one `PCBA_PSU_CLEAR` ahead of the brick's own front face; FOOT on the
+    cap. What holds it is the pcba-tray, which is not placed — this is the board's envelope."""
+    return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN,
+                     x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=box(foam).zmax)
 
 
 def _whole(bodies):
@@ -371,8 +393,11 @@ def build_pack() -> cq.Assembly:
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()))
     a.add(chain, name="suction-chain", color=C_SUCT)
-    psu, _psu_carry = build_psu(foam, east_wall_seat(shroud, cond))
+    wall_seat = east_wall_seat(shroud, cond)
+    psu, _psu_carry = build_psu(foam, wall_seat)
     a.add(psu, name="psu", color=C_PSU)
+    pcba, _pcba_carry = build_pcba(foam, psu, wall_seat)
+    a.add(pcba, name="pcba", color=C_PCBA)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -528,6 +553,8 @@ def report(a: cq.Assembly) -> None:
         line("display", box(named["display"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
+    if "pcba" in named:
+        line("pcba", box(named["pcba"]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
