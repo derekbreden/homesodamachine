@@ -74,21 +74,40 @@ def grade_of(ratio: float) -> str:
 TUBE_PREFIXES = ("tube-", "turn-", "step-", "stub-")
 
 
-def _placed(a) -> dict:
-    """The assembly's children as world solids, by name."""
-    import cadquery as cq
-    return {c.name: (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-        cq.Location(c.loc.wrapped.Transformation())) for c in a.children}
+def pack_bodies() -> frozenset:
+    """The flavour manifold's own bodies, by the name they go into the assembly under.
+
+    Read off `manifold_layout`'s own assembly rather than retyped, so a body the pack gains
+    arrives with it. Its solids are built and cached by the time this is asked, so a second ask
+    for the arrangement costs nothing."""
+    import manifold_layout as ml
+    return frozenset(c.name for c in ml.build_assembly().children
+                     if not c.name.startswith(TUBE_PREFIXES))
+
+
+_placed_cache: dict = {}
 
 
 def _split_placed(a) -> tuple:
     """The placed world in the three populations the checks read it in: `(bodies, tubes,
-    pieces)` — the machine's parts, the tube drawn between them, and the printed box."""
+    pieces)` — the machine's parts, the tube drawn between them, and the printed box.
+
+    Held against the assembly it was taken from, because `.moved()` hands back a NEW shape every
+    time and `_boxes` memoizes a box against the shape's identity: taken fresh per check, every
+    body's optimal box would be meshed again for each one."""
+    import cadquery as cq
+
+    hit = _placed_cache.get(id(a))
+    if hit is not None and hit[0] is a:
+        return hit[1]
     bodies, tubes, pieces = {}, {}, {}
-    for name, solid in _placed(a).items():
-        target = (pieces if name.startswith("enclosure-")
-                  else tubes if name.startswith(TUBE_PREFIXES) else bodies)
-        target[name] = solid
+    for c in a.children:
+        solid = (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+            cq.Location(c.loc.wrapped.Transformation()))
+        target = (pieces if c.name.startswith("enclosure-")
+                  else tubes if c.name.startswith(TUBE_PREFIXES) else bodies)
+        target[c.name] = solid
+    _placed_cache[id(a)] = (a, (bodies, tubes, pieces))    # pin `a` so its id stays its own
     return bodies, tubes, pieces
 
 
@@ -208,6 +227,24 @@ MADE_UP = (
 # bend radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the
 # basin's flat floor, and `front_half.check_vent_lands` raises unless it does.
 TERMINI = ("asse1022-assembly.vent-tip",)
+
+
+# --- what stands against what ----------------------------------------------
+#
+# `clearance-floor` holds every body pair a millimetre apart. These are the pairs the machine
+# SEATS against each other, each named against the construction that seats it — a contact by
+# intent, not a pack closing on itself.
+TOUCHING_OK = {frozenset(p) for p in (
+    # The base's own two bodies, on the seam `front_half.report` prints as a mate at 0 by intent.
+    ("compressor-shroud", "condenser+fan"),
+    # The cold core's front face stands on the base's aft face: `front_half.build_pack` strikes
+    # `aft` off the bodies that reach below the core's crown, and `build_foam` seats it there.
+    ("compressor-shroud", "foam-assembly"),
+    ("condenser+fan", "foam-assembly"),
+    # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
+    ("foam-assembly", "seaflo-pump"),
+    ("foam-assembly", "psu"),
+)} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
 @dataclass
@@ -495,6 +532,54 @@ def _port_leads(rows) -> Check:
                  "all clear", detail)
 
 
+def part_clearances(a) -> list[tuple]:
+    """Every body pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap,
+    allowed)`. `allowed` marks a `TOUCHING_OK` seat.
+
+    The gap is the exact solid distance. The boxes are a prefilter and only that: two boxes that
+    miss are two solids that miss, so skipping on them is sound, while two boxes that overlap
+    say nothing at all.
+
+    THE PRINTED BOX IS NOT IN THIS. Bodies seat against walls by design and six of them clamp
+    THROUGH one, so a wall is never a body to stand off — an overlap there is `pack-closes`'s
+    reading, and there is no clearance to hold.
+
+    NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack on its
+    own hairpins and reports its own inner gap; this module seats it as one thing, so what is
+    measured here is how it stands off everything else."""
+    bodies, _tubes, _pieces = _split_placed(a)
+    pack = pack_bodies()
+    names = list(bodies)
+    boxes = {n: _boxes.boxed(bodies[n]) for n in names}
+    out = []
+    for i, x in enumerate(names):
+        for y in names[i + 1:]:
+            if x in pack and y in pack:
+                continue
+            if _clearing.box_gap(boxes[x], boxes[y]) >= REPORT_NEAR:
+                continue
+            g = _clearing.gap(bodies[x], bodies[y])
+            if g < REPORT_NEAR:
+                out.append((x, y, g, frozenset((x, y)) in TOUCHING_OK))
+    out.sort(key=lambda r: r[2])
+    return out
+
+
+def _clearance_floor(rows) -> Check:
+    short = [r for r in rows if not r[3] and r[2] < CLEARANCE_FLOOR]
+    # The violations lead, then the tight end of the pack either way — a reader taking the first
+    # few rows off a capped list has to be reading the ones a fix acts on.
+    detail = [f"{x} — {y}: {g:.3f} mm — ✗ under the floor, and nothing seats them together"
+              for x, y, g, _ok in short]
+    detail += [f"{x} — {y}: {g:.3f} mm" + (" — seated against it" if ok else "")
+               for x, y, g, ok in rows if (x, y, g) not in {(a, b, c) for a, b, c, _o in short}]
+    tightest = min((r[2] for r in rows if not r[3]), default=None)
+    return Check("clearance-floor", "Two bodies the machine does not seat together stand a "
+                 "millimetre apart", "gate", _verdict(not short),
+                 f"{len(short)} under, tightest {tightest:.3f} mm" if tightest is not None
+                 else "no pair in reach", f"≥ {CLEARANCE_FLOOR:g} mm", detail)
+
+
 def _runs_drawn(runs) -> Check:
     short = [f"{cid}: {why}" for cid, why in sorted(R.BLOCKED.items())]
     return Check("runs-drawn", "Every authored run is drawn as its author asked", "gate",
@@ -618,6 +703,7 @@ def build(a) -> Scorecard:
     bends = bend_radii(runs)
     conns = load_connections(runs)
     leads = port_leads(a, runs)
+    clearances = part_clearances(a)
     ports = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -636,7 +722,7 @@ def build(a) -> Scorecard:
                 "note": "",
             })
     checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _port_leads(leads),
-              _bed_fit(a), _runs_drawn(runs), _bend_radius(bends),
+              _clearance_floor(clearances), _bed_fit(a), _runs_drawn(runs), _bend_radius(bends),
               _mounted(), _routed(conns), _located(a)]
     return Scorecard(checks, bends, conns, ports)
 
