@@ -1,12 +1,13 @@
 # Manifold layout
 
-The ten flavor valves, both KPHM400 pumps and the [8](TEE_COUNT) junctions between them, placed
+The ten flavor valves, both KPHM400 pumps and the [7](TEE_COUNT) junctions between them, placed
 with nothing else in the box — no enclosure, no tray, no reservoir, no nozzle, no hopper, no
 carbonator. The connections are
 [`topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)'s, with one difference:
-each reservoir has ONE port here and meets its channel's fill and draw gates at a junction, so
-segments 24, 25 and 26 mirror 14, 15 and 16. The machine gives reservoir B two mouths of its
-own instead. Free here: where every body stands, how it is turned, and which of a junction's
+reservoir A has ONE port here and meets its channel's fill and draw gates at Y-E, where the
+machine reaches it by a line on the cold core's front face carrying both. Reservoir B is the
+topology's own: two mouths of its own, so V-I and V-H each reach one directly and channel B has
+no junction at all. Free here: where every body stands, how it is turned, and which of a junction's
 three ports takes its run.
 
 Built by [`manifold_layout.py`](manifold_layout.py) → `manifold-layout.step`, and the three
@@ -21,10 +22,10 @@ about the hinge the four barb tees' front collets stand on.
 |---|---|
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.3](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
 | 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [57](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
-| [8](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
-| [2](ELBOW_COUNT) × elbow | John Guest PP0308E ([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)) — [19.56](ELBOW_LEG) mm from bend corner to each collet face. |
+| [7](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
+| [1](ELBOW_COUNT) × elbow | John Guest PP0308E ([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)) — [19.56](ELBOW_LEG) mm from bend corner to each collet face. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [2](TUBE_COUNT2) × tube | 1/4" OD LLDPE, both straight. |
+| [1](TUBE_COUNT2) × tube | 1/4" OD LLDPE, both straight. |
 
 ## Frame
 
@@ -48,7 +49,7 @@ draws the leaning tube each barb then needs to reach its tee.
     A1   x [-20.07](LIMB_IN_XW)    V-A · Y-A · V-C | Y-C · V-E
     ─────────────────────────────────────────────────────────  mirror plane
     B1   x [+20.07](LIMB_IN_XE)    V-B · Y-B · V-D | Y-F · V-H
-    B2   x [+77.07](LIMB_OUT_XE)          V-J | Y-G · V-I · Y-H
+    B2   x [+77.07](LIMB_OUT_XE)          V-J | Y-G · V-I
                             ↓
                           back   (every mouth)
 ```
@@ -80,7 +81,7 @@ corner, at 59.4 it is clean. `HSM_SPINE_R=` moves the radius on its own.
 ## The quarter turns
 
 Six more of the butts open into a 90° of R[14](QUARTER_R), [21.99](QUARTER_LEN) mm of tube
-each, and all [6](QUARTER_COUNT) stand on one plane — y [79.07](BEND_Y), the far collet of the
+each, and all [4](QUARTER_COUNT) stand on one plane — y [79.07](BEND_Y), the far collet of the
 valve that ends a limb. Each joint's fixed collet opens +Y there, the tube turns onto +Z, and
 whatever was butted to it comes round with the turn. The axis runs along X, so the six share one
 transform per deck and a mirrored pair still faces itself.
@@ -88,8 +89,8 @@ transform per deck and a mirrored pair still faces itself.
 | | |
 |---|---|
 | fluid-3, fluid-5 | V-A and V-B off Y-A and Y-B, up on the folded deck — the two source valves come off the deck's own plane and lie along +Z, then STEP once more (below) |
-| fluid-14, fluid-24 | Y-E and Y-H off the fill gates, so each reservoir junction lies along +Z with its own line leaving that way |
-| fluid-16, fluid-26 | the draw gates' elbows, which come round with their tees, so the crossing between them keeps its [17.38](F16_LEN2) mm and its skew exactly |
+| fluid-14 | Y-E off channel A's fill gate, so the junction lies along +Z with reservoir A's own line leaving that way |
+| fluid-16 | channel A's draw-gate elbow, which comes round with its tee, so the crossing between them keeps its [17.38](F16_LEN2) mm and its skew exactly |
 
 ### The source valves' step
 
@@ -109,24 +110,27 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 
 **Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down, at the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
-face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **Y-E and
-Y-H** stand at the far end of the outer limbs behind the fill gates, each carrying its
-reservoir's line out the back on its run and crossing the pump on its branch to the draw gate:
-[17.38](F16_LEN) mm of tube onto an elbow that turns that collet, [1.7](JOIN_SKEW)° off axis.
+face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **Y-E** stands
+at the far end of limb A2 behind channel A's fill gate, carrying reservoir A's line out the back
+on its run and crossing the pump on its branch to the draw gate: [17.38](F16_LEN) mm of tube
+onto an elbow that turns that collet, [1.7](JOIN_SKEW)° off axis. **Channel B has no such
+junction**, and that is the one place the two channels differ: reservoir B carries two mouths of
+its own, so V-I-O and V-H-I are mouths of this study and leave on their own axes.
 
-Mirror-checked: [10](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF) mm.
+Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF) mm.
 
 ## How each connection is made
 
-[15](BUTT_COUNT) of the [21](SEGMENT_COUNT) segments the topology names between these bodies
+[14](BUTT_COUNT) of the [19](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-[2](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
-turns and [6](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
-[18](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
+[1](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
+turns and [4](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
+[16](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
-The [6](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
+The [7](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
-V-J-O (nozzle B) on the upper deck; Y-E-2 (reservoir A) and Y-H-2 (reservoir B) on the lower.
+V-J-O (nozzle B) on the upper deck; Y-E-2 (reservoir A) and channel B's own two, V-I-O (fill)
+and V-H-I (draw), on the lower.
 
 ## Envelope
 

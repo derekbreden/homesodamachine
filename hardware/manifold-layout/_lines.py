@@ -119,11 +119,12 @@ STATIONS = {
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
 }
 
-# The two reservoir junctions. Each is a Tee whose run joins its reservoir's fill and draw valves
-# and whose third port is left open for the line that reaches the reservoir itself —
-# `manifold_layout.MOUTHS` names them Y-E-2 and Y-H-2, and the fold calls that collet `back`.
-# Both face AFT, at the outboard columns over the two nozzle gates.
-for _t in ("Y-E", "Y-H"):
+# The one reservoir junction. Y-E is a Tee whose run joins reservoir A's fill and draw valves and
+# whose third port is left open for the line that reaches the reservoir itself —
+# `manifold_layout.MOUTHS` names it Y-E-2, and the fold calls that collet `back`. It faces AFT,
+# at the outboard column over the nozzle-A gate. Channel B has no junction to match it: reservoir
+# B carries two mouths of its own and its pair reaches them directly.
+for _t in ("Y-E",):
     STATIONS[f"tee-{_t.lower()}"] = {
         f"{_t}-2": ((lambda t=_t: (_ml.port(t, "back"), _ml.port_axis(t, "back"))),
                     _split.TUBE_D)}
@@ -214,12 +215,14 @@ def build_runs(placed, carries):
         runs.append(_carb_1(F))
     if {"digiten-flow", "bulkhead-carb"} <= set(F):
         runs.append(_carb_2(F))
-    if {"valve-v-j", "bulkhead-flavor-b"} <= set(F) and "stub-fluid-25" in placed:
+    if {"valve-v-j", "bulkhead-flavor-b"} <= set(F) and "valve-v-i" in F:
         runs.append(_fluid_28(F, placed))
     if {"valve-v-g", "bulkhead-flavor-a"} <= set(F) and "stub-fluid-15" in placed:
         runs.append(_fluid_18(F, placed))
-    if {"tee-y-h", "foam-assembly"} <= set(F):
-        runs.append(_fluid_25(F))
+    if {"valve-v-i", "foam-assembly"} <= set(F):
+        runs.append(_fluid_24(F))
+    if {"valve-v-h", "foam-assembly"} <= set(F):
+        runs.append(_fluid_26(F))
     if {"tee-y-e", "foam-assembly"} <= set(F):
         runs.append(_fluid_15(F))
     return runs
@@ -513,9 +516,14 @@ def _carb_2(F):
 
 
 # How high a gate's line climbs on its own column before it steps outboard. Each gate has its own
-# channel's RESERVOIR MOUTH standing over it — `stub-fluid-15` east and `stub-fluid-25` west, both
-# on the gate's column — so the column is a bay and not a shaft. The figure is read off that
-# stub's own underside rather than typed, and this is the air left under it.
+# channel's reservoir line standing over it, so the column is a bay and not a shaft, and this is
+# the air left under whatever that is.
+#
+# THE TWO GATES ARE OVERFLOWN BY DIFFERENT THINGS, because the two channels reach their
+# reservoirs differently. East it is `stub-fluid-15`, the mouth of the junction reservoir A still
+# meets its pair at, and the figure is read off that stub's own underside. West there is no
+# junction: what crosses V-J's column is `fluid-24` itself, running aft up the outboard lane on
+# `RESERVOIR_CRUISE`, and the figure is struck on that plane.
 GATE_STUB_CLEAR = 4.0
 # The outboard lane the two gate lines run aft in. It is the strip between the hopper's bowl and
 # the ±X boss chain, and it is the one column on either flank that carries a line from the valve
@@ -560,6 +568,16 @@ def _gate_climb_z(solids, stub: str) -> float:
     return solids[stub].BoundingBox().zmin - _split.TUBE_D / 2.0 - GATE_STUB_CLEAR
 
 
+def _gate_climb_under_cruise(F) -> float:
+    """The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate
+    climbs to under `fluid-24`, which is the body crossing ITS column.
+
+    A run's own underside is one half-section below its axis, exactly as a stub's box is, so the
+    two flanks come out on one plane while the two reservoir lines cross on one."""
+    return (F["valve-v-i"].at("outlet")[2] + RESERVOIR_CRUISE
+            - _split.TUBE_D - GATE_STUB_CLEAR)
+
+
 def _fluid_28(F, solids):
     """fluid-28 — the nozzle-B gate to its rear union, and the line the manifold sends out of the
     machine on the WEST side.
@@ -575,7 +593,7 @@ def _fluid_28(F, solids):
     stands over that — and the lane runs outboard of both."""
     gate = F["valve-v-j"].at("outlet")
     tin = F["bulkhead-flavor-b"].at("tube-in")
-    climb = _gate_climb_z(solids, "stub-fluid-25")
+    climb = _gate_climb_under_cruise(F)
     return R.bent(
         "fluid-28", "valve-v-j.outlet",
         (gate[0], gate[1], climb),                  # up what the reservoir stub leaves
@@ -637,17 +655,82 @@ def _reservoir_line(F, cid: str, tee: str, mouth_port: str, bore_port: str, note
         skew=(R.COLLET_SKEW, CAP_BORE_SKEW), note=note)
 
 
-def _fluid_25(F):
-    """fluid-25 — reservoir B's junction to the draw conduit on the cold core's cap.
+# --- channel B's pair, which has no junction between it and the reservoir ----
+#
+# Reservoir B carries TWO MOUTHS of its own — the draw on the bulkhead at the bottom of its wet
+# V, out of the `reservoir-b` conduit at the head of the +Y band; the fill on a bore in its own
+# cap, under the `reservoir-b-fill` conduit standing over it. So each of its pair's valves
+# reaches one directly and nothing stands between them.
+#
+# BOTH ENDS OF BOTH RUNS FACE UP. A gate's collet on the lower deck opens +Z and a cap conduit
+# opens +Z, so each of these is a U over the crown rather than a fall: it leaves on its own axis,
+# crosses on one plane, and comes down on the far one's. `RESERVOIR_CRUISE` is that plane, and it
+# is not typed — it is the least a collet facing up can rise and still turn, which is one stock
+# radius. Both ends of both runs sit on the same port plane, so one figure serves all four.
+RESERVOIR_CRUISE = TUBE_BEND
+# The two ends of `fluid-24`'s crossing from the outboard lane to the bore's own column.
+#
+# THE WEST HALF IS OPEN AT THIS PLANE ONLY FORWARD OF `water-5`. Swept east from x −80 at the
+# cruise, the strip runs clear across the machine at every station up to y 190 and then shuts:
+# `water-5` stands at x −60.6 from y 195 to 220 on its way to the `water-in` bore, and the
+# discharge chain takes x[−64.5, −49] from y 223 aft. So the crossing is taken forward of both,
+# and what the run does aft of it is hold the bore's column, which is clear the machine's whole
+# depth.
+#   `FILL_B_JOIN_Y` is then fenced from the other side: `fluid-26` rises off the draw bore at
+# y 184 on this same column, so the join stands clear of that climb by more than the two lines'
+# own sections. `FILL_B_LEAN_Y` holds the gate's column long enough to make the crossing steep,
+# which is what buys that clearance.
+FILL_B_LEAN_Y = 170.0
+FILL_B_JOIN_Y = 194.0
 
-    The strip it leans across is the one the tap water already uses: `water-5` descends into the
-    `water-in` bore one column west of this one, and `fluid-2` runs the same strip a storey
-    above. The lean holds the mouth's OWN plane between the two and drops only on the bore's
-    column."""
-    return _reservoir_line(
-        F, "fluid-25", "tee-y-h", "Y-H-2", "reservoir-b",
-        "reservoir B: Y-H-2 → the draw conduit on the cap, one lean aft and east on the "
-        "mouth's own plane onto the bore's column, and down")
+
+def _fluid_24(F):
+    """fluid-24 — the channel-B fill gate to the bore in reservoir B's own cap.
+
+    V-I-O opens UP off the west outboard limb, on the same column the nozzle-B gate climbs and
+    one storey under it. The run rises what a corner needs, holds that column aft the length of
+    the manifold — the outboard lane is clear of everything the west flank stands — and leans
+    inboard onto the bore only at `FILL_B_LEAN_Y`, behind the tap water's own descent.
+
+    THE FILL ARRIVES ABOVE THE LIQUID, which is the whole of why the reservoir has two mouths:
+    everything entering has to cross the cavity to leave by the trough, so a purge displaces
+    what is in there rather than short-circuiting back out the drain it came in by."""
+    mouth = F["valve-v-i"].at("outlet")
+    bore = F["foam-assembly"].at("reservoir-b-fill")
+    cruise = mouth[2] + RESERVOIR_CRUISE
+    return R.bent(
+        "fluid-24", "valve-v-i.outlet",
+        (mouth[0], mouth[1], cruise),           # up off the collet, what a corner needs
+        (mouth[0], FILL_B_LEAN_Y, cruise),      # aft on the gate's own column, up the lane
+        (bore[0], FILL_B_JOIN_Y, cruise),       # one lean inboard onto the bore's column
+        (bore[0], bore[1], cruise),             # aft on it, past what shuts the strip west
+        "foam-assembly.reservoir-b-fill",       # and straight down into the bore
+        kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
+        note="reservoir B fill: V-I-O → the fill bore in its own cap, up the west outboard "
+             "lane and one lean inboard onto the bore")
+
+
+def _fluid_26(F):
+    """fluid-26 — the draw conduit on reservoir B's cap to the channel-B draw gate.
+
+    The reverse journey of `fluid-24` and a shorter one, because the draw's conduit stands at the
+    head of the +Y band on the FORWARD strip rather than over the pocket. It rises off that bore,
+    takes one lean forward and inboard across the strip the source valves stand in, and drops
+    onto V-H-I's own column.
+
+    The lean crosses between two descents on the same strip — `water-5` into `water-in` one
+    column west, `fluid-2` a storey above — and holds the cruise plane between them."""
+    bore = F["foam-assembly"].at("reservoir-b")
+    gate = F["valve-v-h"].at("inlet")
+    cruise = gate[2] + RESERVOIR_CRUISE
+    return R.bent(
+        "fluid-26", "foam-assembly.reservoir-b",
+        (bore[0], bore[1], cruise),             # up off the bore onto the cruise plane
+        (gate[0], gate[1], cruise),             # one lean forward and inboard onto the gate
+        "valve-v-h.inlet",                      # and straight down into the collet
+        kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
+        note="reservoir B draw: the cap's draw conduit → V-H-I, up off the bore and one lean "
+             "forward and inboard onto the gate's own column")
 
 
 def _fluid_15(F):
@@ -678,7 +761,7 @@ def authored() -> frozenset:
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
              "co2-1", "co2-2", "fluid-2", "carb-1", "carb-2", "fluid-28", "fluid-18",
-             "fluid-25", "fluid-15")
+             "fluid-24", "fluid-26", "fluid-15")
 
 
 def tubes(runs):
