@@ -487,13 +487,12 @@ def build_psu(foam, wall_seat):
 
 
 # The controller board joins the brick's column rather than standing forward of the deck: same
-# flank, same seat, same floor. The ROLL is what fits it — a quarter about Y stands the board on
-# its long edge and lays that edge fore and aft down the flank, so only its 19.1 mm of thickness
-# and components reaches into the lane. The YAW is which face meets the wall: the board's flat
-# back is what mounts, so it faces +X. A flat side is only useful pointed at the thing it lies
-# against; turned the other way it is 19.1 mm of components pressed into the wall and a bare
-# board staring into the lane.
-PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((0.0, 0.0, 1.0), 0.0))
+# flank, same seat, same floor. Two turns put it there. The ROLL stands it off the flat — a
+# quarter about Y brings its faces onto ±X, so only its 19.1 mm of thickness and components
+# reaches into the lane, and the flat back is the face that meets the wall it mounts to. The SPIN
+# is in that plane — a quarter about X lays the board's LONG edge fore and aft down the flank, so
+# the short edge is what stands, and the corner that meets the cap is the one nearest the brick.
+PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((1.0, 0.0, 0.0), -90.0))
 # What the board stands off the brick along the flank. Both are wired, and a hand making off a
 # connector between them needs the gap to be a gap.
 PCBA_PSU_CLEAR = 6.0
