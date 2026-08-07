@@ -24,6 +24,7 @@ from _cold_core_interface import (  # noqa: E402
     foam_cap_lid_vent_radius,
     foam_shell_outer_height,
     foam_cap_height,
+    forward_band_width,
     gasket_thickness,
     insert_pocket_depth,
     insert_pocket_radius,
@@ -108,6 +109,9 @@ def main():
         # wants, which is what makes the corner off that elbow the tight one.
         "TOP_BAND": f"{top_band_to_cap:.4g}",
         "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
+        # The strip between a bag pocket's own wall and the shell's — the band
+        # both reservoir draws climb to reach their cap conduits.
+        "FORWARD_BAND": f"{forward_band_width:.4g} mm",
         # The two pocket-wall holes per reservoir side: flavor line inboard,
         # reed cable outboard of the bulkhead axis. There is no matching pair of
         # outer-wall holes — each run turns onto the port lane and leaves through
@@ -157,6 +161,7 @@ def main():
             "COTWO_INLET_Y": 1,
             "TOP_BAND": 1,
             "LLDPE_BEND_R": 1,
+            "FORWARD_BAND": 1,
             "FLAVOR_HOLE_X": 1,
             "CABLE_HOLE_X": 2,
             "RESERVOIR_GAP": 1,
@@ -176,7 +181,9 @@ def main():
         variables={
             "CO2_INLET_Y": f"{_port_cuts.co2_inlet_y:.4g}",
             "FRONT_FACE_PORT_Z": f"{_port_cuts.front_face_port_z:.4g}",
-            "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
+            # Off `_cold_core_interface`, the constant's own home — `_port_cuts`
+            # imports what it needs and re-exports nothing on purpose.
+            "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
             # Pocket-wall spacing between a side's flavor bore and its reed
             # cable bore — the two offsets from the bulkhead axis, one
             # inboard and one outboard.
