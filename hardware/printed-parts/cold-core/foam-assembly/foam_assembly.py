@@ -62,7 +62,7 @@ from _cold_core_interface import (
     foam_cap_height,
     head_pad_height,
 )
-from _port_cuts import co2_inlet_lane_xyz, co2_inlet_xyz
+from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 
 SHELL_STEP = _cold_core / "foam-shell" / "foam-shell.step"
@@ -205,18 +205,19 @@ def _report(placed):
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
     print("  screw pattern: 6 points, the original diagonal (shared top + bottom)  OK")
 
-    # The CO2 bore leans from the bottom plate's lane-side port out to the PORT LANE, landing
-    # under its own cap conduit — the tube falls onto that end, so the lane is where the bore
-    # stops and where the probe starts. What it crosses on the way is the tank support ring.
+    # The CO2's REACH IN — the last straight of its run, from the corner it takes out in the
+    # open port lane to the collet made up under the bottom plate's lane-side port. The
+    # collet takes the tube on the port's own axis, so this leg has to be straight and open:
+    # a bend finished inside it is a tube that never bottoms. `report_routes` measures the
+    # whole line; what is probed here is the one leg a fitting depends on.
     probe_r = co2_inlet_tube_radius - 0.3
     shell_solid = placed["foam-shell"][0]
-    start = cq.Vector(*co2_inlet_lane_xyz)
-    reach = cq.Vector(*co2_inlet_xyz) - start
+    start, end = routes.route_legs(routes.routes["co2-in"])[-1]
+    reach = end - start
     probe = cq.Solid.makeCylinder(probe_r, reach.Length, start, reach.normalized())
     blocked = shell_solid.intersect(probe).Volume()
-    print("  CO2 bore: (%.2f, %.2f) .. (%.2f, %.2f) at z %.2f — %s"
-          % (co2_inlet_lane_xyz[0], co2_inlet_lane_xyz[1], co2_inlet_xyz[0], co2_inlet_xyz[1],
-             co2_inlet_xyz[2],
+    print("  CO2 reach in: (%.2f, %.2f) .. (%.2f, %.2f) at z %.2f, %.1f mm straight — %s"
+          % (start.x, start.y, end.x, end.y, co2_inlet_xyz[2], reach.Length,
              "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
 
     # Each cap conduit is one column of the TOP cap carrying a through bore, and the lid

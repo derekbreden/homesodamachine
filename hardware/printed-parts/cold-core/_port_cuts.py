@@ -1,14 +1,16 @@
-"""Port-hole and slot cuts through the foam shell — the two reservoir draws, the
+"""Port openings and slot cuts through the foam shell — the two reservoir draws, the
 CO2 inlet bore, and the shared copper/PRV-vent slot.
 
-EVERY FLUID LINE LEAVES BY THE TOP. Each is an inner bore — the project's
-⌀[6.5](PORT_HOLE_DIAMETER) standard, sized for a tight 1/4" OD tube fit — where the
-fitting inside points, then a band, then a conduit in the cap (`cap_conduits`) at the
-far end of it, the band a climb rather than a reach. Reservoir A's is the −Y band (the port lane),
-reservoir B's the +Y band, and the CO2's is the port lane run the other way: its
-line comes DOWN from the cap and this bore is where it arrives.
+EVERY FLUID LINE LEAVES BY THE TOP, and every opening one of them takes on the way is
+that line's own CORRIDOR: the run swept at the project's ⌀[6.5](PORT_HOLE_DIAMETER)
+standard where it crosses shell material, rather than a circle the line has to hold a
+straight through (`cut_line_corridors`). The tight 1/4" fit is the same either way —
+it is radial to the tube's own path — and what a corner costs stops being the hole's
+shape. Reservoir A's opening is in its pocket's −Y wall, onto the port lane; reservoir
+B's is in its +Y wall, onto the west lane; and the CO2's is the port lane run the other
+way, its line coming DOWN from the cap into a bore that runs the whole reach in.
 
-The carbonated-water outlet has no bore here at all. It crosses the tank support
+The carbonated-water outlet has no opening here at all. It crosses the tank support
 ring at one of the ring's own slots, on the column its cap conduit stands over —
 `water_outlet_ring_crossing_x` is that column, and the assertion under it is what
 holds the crossing inside the slot.
@@ -20,25 +22,21 @@ that wall besides the slot: it is mated face to face with the refrigeration base
 
 import math
 
-import cadquery as cq
-
-from world_workplane import xz_plane_y_up
 from _cold_core_interface import (
     wall_and_floor_thickness,
     hole_shift_from_edge,
     foam_shell_outer_height,
+    bag_pocket_width,
+    bag_pocket_y_inner_max,
+    outer_shell_x_length,
     reservoir_bulkhead_port_x,
-    reservoir_bulkhead_port_y,
-    bulkhead_elbow_exit_z,
     cap_conduit_shell_xy,
     co2_inlet_y,
     lldpe_tube_od,
-    port_hole_radius,
     port_lane_mid_y,
     support_ring_radial_width,
     tank_coil_envelope_radius,
-    west_lane_mid_y,
-    build_hole_punch,
+    make_box,
     build_slot_punch,
     port_to_shell,
 )
@@ -96,17 +94,17 @@ assert _crossing is not None and any(lo <= _crossing[0] and _crossing[1] <= hi
     f"which no slot of {ring_slot_spans()} holds — the line would have to be bored through a "
     f"bearing segment")
 
-# CO2 inlet — the one bore through the tank support ring, and the ONLY one: the water
-# outlet takes a slot. It runs from the bottom plate's own lane-side port out to the
-# PORT LANE, and it lands on the lane UNDER THE `co2-in` CONDUIT rather than on the
-# shell's centreline. That is the whole of why it leans.
-#   The line falls the shell's height down the lane and has to turn into this bore at the
-# bottom. A bore struck on the shell's centreline puts its lane mouth `co2_bore_to_ring`
+# CO2 inlet — the ⌀[6.5](PORT_HOLE_DIAMETER) reach in to the bottom plate's own lane-side
+# port at y = [-19.05](CO2_INLET_Y), from the PORT LANE, landing UNDER THE `co2-in` CONDUIT
+# rather than on the shell's centreline. That is the whole of why it leans.
+#   The line falls the shell's height down the lane and has to turn onto this axis at the
+# bottom. An axis struck on the shell's centreline puts its lane end `co2_bore_to_ring`
 # from the ring's own face, which is a fraction of what that corner takes, so the tube
-# would have to finish bending inside the hole. Struck on the conduit's column instead,
-# the fall lands on the bore's own axis: one corner out in the open lane, then straight
-# in. The port, its TAISHER elbow — clocked to this line — the collet on it and the bore
-# are one line, which is what the ⌀6.5 fit through the ring asks for.
+# would have to finish bending inside the reach. Struck on the conduit's column instead,
+# the fall lands on the axis itself: one corner out in the open lane, then straight in.
+# The port, its TAISHER elbow — clocked to this line — the collet on it and the reach are
+# one line, which is what the collet asks for: a tube still bending never bottoms in it.
+# `foam_assembly` probes that last leg straight at every build.
 co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
 co2_inlet_lane_xyz = cap_conduit_shell_xy("co2-in") + (front_face_port_z,)
 co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
@@ -121,67 +119,66 @@ assert abs(co2_inlet_lane_xyz[1] - port_lane_mid_y) < 1e-9, (
 # onto the port lane, B its +Y wall onto the west lane. Both then come about and climb the
 # forward band to their own cap conduits — neither crosses the −X wall.
 #
-# A's bore sits inboard of the bulkhead axis, opposite the outboard reed cable hole
-# — the two ⌀[6.5](PORT_HOLE_DIAMETER) holes [12](FLAVOR_REED_PITCH) mm apart
-# center-to-center with PETG between them. That step is the reed cable's price, and
-# B's bore does not pay it: nothing else crosses the +Y wall, so B's stands on the
-# BULKHEAD'S OWN AXIS and its elbow, the wall bore and the tube are one straight line
-# across the void — the same reading the CO2 inlet's bore has.
+# A's crossing sits inboard of the bulkhead axis, opposite the outboard reed cable hole
+# — the two openings [12](FLAVOR_REED_PITCH) mm apart center-to-center with PETG between
+# them. That step is the reed cable's price, and B's crossing does not pay it: nothing else
+# crosses the +Y wall, so B's stands on the BULKHEAD'S OWN AXIS.
 flavor_line_hole_offset_from_bulkhead_x = 8.0
 flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
 
-flavor_line_plus_x_xyz = (+flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
-flavor_line_minus_x_xyz = (-reservoir_bulkhead_port_x, -reservoir_bulkhead_port_y,
-                           bulkhead_elbow_exit_z)
+
+def pocket_wall_slab(y_sign):
+    """One bag pocket's ±Y wall as a slab, an overshoot proud of both faces.
+
+    Not a cut — a place. Two openings are neighbours when they land in the same wall, and a
+    run half a metre long passes plenty of things it never shares a wall with, so anything
+    pricing one opening against another meets both with this first."""
+    overshoot = 1.0
+    return make_box(
+        (-outer_shell_x_length, outer_shell_x_length),
+        (y_sign * (bag_pocket_width / 2.0 + overshoot),
+         y_sign * (bag_pocket_y_inner_max - overshoot)),
+        (-overshoot, foam_shell_outer_height + overshoot),
+    ).val()
 
 
-def cut_circular_port_holes(foam_shell):
-    # Reservoir A pierces its pocket's −Y wall where its bulkhead elbow points and stops on the
-    # PORT LANE — reservoir B's own cut read across the shell. It has no second bore: the band
-    # it lands in runs clear to the shell's open top, and the feature at the far end of it is
-    # the cap's `reservoir-a` conduit. A's pocket is the far one from that conduit, so its run
-    # takes the lane's own floor, under everything else standing in it.
-    foam_shell = foam_shell.cut(
-        build_hole_punch(
-            origin=flavor_line_plus_x_xyz,
-            hole_punch_radius=port_hole_radius,
-            hole_punch_height=flavor_line_plus_x_xyz[1] - port_lane_mid_y,
-            direction=-1,
-        )
-    )
-    # Reservoir B pierces its pocket's +Y wall and stops on the WEST LANE. It has no
-    # second bore in the shell: the band it lands in runs clear to the shell's open top,
-    # and the feature at the far end of it is the cap's `reservoir-b` conduit. Same two
-    # features and a band between them; the second one is printed in the next part up.
-    return foam_shell.cut(
-        build_hole_punch(
-            origin=flavor_line_minus_x_xyz,
-            hole_punch_radius=port_hole_radius,
-            hole_punch_height=west_lane_mid_y - flavor_line_minus_x_xyz[1],
-            direction=+1,
-        )
-    )
+def cut_line_corridors(foam_shell, gives_way):
+    """Every internal line's opening through the shell, cut as that line's own CORRIDOR
+    (`_internal_routes.route_corridor`) and not as a straight bore.
 
+    A wall here is two millimetres of PETG. A circular bore in one makes the line hold a
+    straight a bore's length past it before it may begin to turn, and every one of these
+    lines turns the moment it is through: both reservoir draws come out of a pocket and
+    come about onto a lane, and the CO2 arrives down the port lane and turns in under the
+    pockets. What they turn in is `outer_shell_foam_gap` with the attachment bosses standing
+    in its outboard half, so a bore's shape rather than the band would be what set the
+    corner. Cut as the corridor, what a corner costs is what the band leaves — and the tube
+    crosses on the same tight fit either way, the shell's ⌀[6.5](PORT_HOLE_DIAMETER) round a
+    `lldpe_tube_od` line, which is what keeps the body pour out of a pocket.
 
-def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a ⌀[6.5](PORT_HOLE_DIAMETER) bore from the bottom plate's lane-side port
-    at y = [-19.05](CO2_INLET_Y) out through the tank support ring to the PORT LANE, LEANING
-    across the shell's floor rather than running its centreline: it ends under the `co2-in`
-    conduit, because that is where the line arrives.
+    `gives_way` IS THE WHOLE FENCE ON THIS, and it is a list of bodies rather than a region:
+    each corridor is met with them and the shell is cut by what comes back, so a line opens
+    those bodies where it crosses them and nothing anywhere else on a run that may be half a
+    metre long. What gives way is stated by `_foam_shell`, which is where the bodies are.
+    Everything left out of it — the outer shell, the tank support ring, the tank, the
+    reservoirs, the other six lines — still stops a line dead, and `_internal_routes.
+    report_routes` is where that shows as the arc a corner comes back at.
 
-    It crosses the ring with open cavity inboard of it, which is where the vessel's TAISHER
-    elbow and its PP010822E adapter hang; the line bottoms in that collet, so nothing is made
-    up in-cavity. Between the ring and the lane it crosses nothing at all — the pockets stop
-    well outboard of this run.
+    Which line crosses which body is not named anywhere: this reads every line in the pack,
+    and a corridor that never reaches a body leaves nothing when it is met with it."""
+    from _internal_routes import routes as internal_routes, route_corridor
 
-    THE LANE END IS FED FROM ABOVE. The line falls the shell's whole height down the port lane
-    from the cap's `co2-in` conduit and turns once, in the open, onto this axis — so it is laid
-    before the top cap goes on, not pushed in from outside. Nothing crosses the −X wall on this
-    line's account."""
-    start = cq.Vector(*co2_inlet_lane_xyz)
-    reach = cq.Vector(*co2_inlet_xyz) - start
-    return foam_shell.cut(
-        cq.Solid.makeCylinder(port_hole_radius, reach.Length, start, reach.normalized()))
+    for name in sorted(internal_routes):
+        corridor = route_corridor(name)
+        box = corridor.BoundingBox()
+        for body in gives_way:
+            solid = body.val() if hasattr(body, "val") else body
+            b = solid.BoundingBox()
+            if (box.xmax < b.xmin or box.xmin > b.xmax or box.ymax < b.ymin
+                    or box.ymin > b.ymax or box.zmax < b.zmin or box.zmin > b.zmax):
+                continue                      # a box is enough to prove it never gets there
+            foam_shell = foam_shell.cut(corridor.intersect(solid))
+    return foam_shell
 
 
 def cut_slot_for_copper_and_prv_vent(foam_shell):

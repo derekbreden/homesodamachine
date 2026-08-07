@@ -149,6 +149,50 @@ def _report_front_ports(shell):
           + ", ".join(f"{n} {z:.4g}" for n, z in stations))
 
 
+def _report_wall_openings():
+    """The land between the two openings each −Y bag-pocket wall carries.
+
+    A reed cable's crossing is a round bore, because a cable is limp. A DRAW's is that
+    line's own corridor (`_port_cuts.cut_line_corridors`), so its footprint in the wall is a
+    consequence of where the route goes and not of a diameter — move the run and the hole
+    changes shape. Its neighbour is that side's cable bore, one bore pitch outboard, and
+    what has to survive between them is a wall of PETG.
+      Each opening is met with the pocket walls themselves — the hole in the wall, not the
+    run through it — and the land between two of them is what their boxes leave. A box is
+    enough here because it can only understate a gap, so a reading over one wall is a proof
+    and never a guess."""
+    sys.path.insert(0, str(_here.parent))
+    from _internal_routes import route_corridor
+    from _reed_channels import reed_cable_pocket_punch, reed_cable_pocket_x
+    from _reservoir_pocket_walls import build_reservoir_pocket_walls
+
+    walls = build_reservoir_pocket_walls().val()
+
+    def holes(solid):
+        """One body's openings in the pocket walls, as boxes — one per wall it pierces."""
+        return [lump.BoundingBox() for lump in solid.intersect(walls).Solids()]
+
+    def apart(a, b):
+        """How far two boxes stand apart on their best-separated axis. Zero means they
+        overlap on every one, which for two holes in one wall is one hole."""
+        return max(b.xmin - a.xmax, a.xmin - b.xmax,
+                   b.ymin - a.ymax, a.ymin - b.ymax,
+                   b.zmin - a.zmax, a.zmin - b.zmax)
+
+    for name, side in (("reservoir-a", +1), ("reservoir-b", -1)):
+        cable = holes(reed_cable_pocket_punch(side).val())
+        for draw in holes(route_corridor(name)):
+            land = min((apart(draw, c) for c in cable), default=float("inf"))
+            assert land >= wall_and_floor_thickness, (
+                f"{name}: its pocket-wall opening stands {land:.2f} mm off the reed cable "
+                f"bore at x {reed_cable_pocket_x(side):g}, under one "
+                f"{wall_and_floor_thickness:g} mm wall — the two are on their way to being "
+                f"one hole")
+            print(f"  {name} crossing: its own corridor at the stock arc, x "
+                  f"{draw.xmin:.4g} .. {draw.xmax:.4g}; {land:.2f} mm of land to the cable "
+                  f"bore at x {reed_cable_pocket_x(side):.4g}  OK")
+
+
 def _plug_span(name):
     """"low → high" Z span of one copper plug, as the README's table reads it."""
     z_bottom, z_top = plug_specs[name].z_range
@@ -161,6 +205,7 @@ def main():
     print("-> foam-shell.step")
 
     _report_front_ports(foam_shell)
+    _report_wall_openings()
 
     solid = foam_shell.val()
     bbox = solid.BoundingBox()
