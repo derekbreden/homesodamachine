@@ -563,15 +563,17 @@ def _authored_runs() -> list:
     #   What the leads do with that budget is `lean_leads`: a lead dead on its collet's axis
     # squares the corner it hands the lean, and a square corner spends its whole radius as
     # tangent in each leg — so an on-axis lead can never seat more than its own length, and the
-    # budget here is [37.75](F2_BUDGET) mm for two arcs of the pack's own stand-off
-    # [25.4](F2_STOCK) each. Leaning both leads into the crossing opens both corners
-    # instead, and at [21.51](F2_LEAN)° the tangent falls to [17.29](F2_TANGENT) mm of the
-    # [20.29](F2_LEAD) mm lead — a stock arc at each end with `DIVIDER_LEG_STRAIGHT` of tube
+    # budget here is [37.75](F2_BUDGET) mm for two arcs of the [25.4](F2_STOCK) this run turns
+    # at — the floor, which is what `lean_leads` is asked for, the arc being the one the run
+    # actually draws rather than the stand-off a pose buys room with. Leaning both leads into the crossing opens both corners
+    # instead, and at [1.82e-23](F2_LEAN)° the tangent falls to [14](F2_TANGENT) mm of the
+    # [18.88](F2_LEAD) mm lead — a stock arc at each end with `DIVIDER_LEG_STRAIGHT` of tube
     # still running straight into each collet, and [0.422](F2_SLACK) mm of the budget still
     # spare before the collet's own skew is what binds instead of the corner.
     runs.append(R.bent(
         "fluid-2", "flow-regulator.outlet",
-        *lean_leads(reg, "outlet", src, "V-A-I")[0],
+        *lean_leads(reg, "outlet", src, "V-A-I",
+                    radius=R.stock_min("fluid", reg.diam("outlet")))[0],
         "source-tray-assembly.V-A-I",
         kind="fluid", skew=FLAVOR_SKEW,
         note="flavor tap: flow regulator → V-A inlet, one leaning leg off the wall's axis "
@@ -1034,7 +1036,7 @@ def _authored_runs() -> list:
     # the west crossing, and the corner between them turns at the stock's own radius.
     #   The crossing stands ONE STOCK RADIUS aft of the port, the closing corner turning in it
     # with a straight still running into the collet, and clears water-3's fall onto V-K by
-    # [6.3](F20_W3_CLEAR) mm.
+    # [20](F20_W3_CLEAR) mm.
     yf_lane = f["pcba"].bb.xmin - contents.PUMP_ROW_TURN
     runs.append(route(
         "fluid-20", "bag-b-tray-assembly.V-H-O",
@@ -1486,44 +1488,52 @@ def _authored_runs() -> list:
     # forward of the basin's rails the whole way.
     y_g = f["tee-y-g"]
     vk_stock = R.stock_min("water", vk.diam("V-K-I"))
-    # How far forward of its own collet this fall comes down. THREE floors want that plane and
-    # the longest takes it, and a CEILING holds all three. The CLOSING CORNER wants a stock arc
-    # with the collet's own lead still standing in front of it. Y-G stands in the lane EAST of
-    # this plate, and where the fall's column meets that fitting in X the fall may not come down
+    # How far forward of its own collet this fall comes down. TWO floors want that plane and the
+    # longer takes it, and a CEILING holds both. The CLOSING CORNER wants a stock arc with the
+    # collet's own lead still standing in front of it. Y-G stands in the lane EAST of this
+    # plate, and where the fall's column meets that fitting in X the fall may not come down
     # inside its band at all: it stops a tube and a floor FORWARD of it, and the aft leg that
     # leaves runs under the tee's floor on the port plane. Where the column stands clear of Y-G
-    # in X the fitting is beside the fall rather than under it and asks for nothing. And the leg
-    # between the crossing and the fall carries a corner at each end, so it seats a stock arc
-    # for both only at twice the stock radius; the run holds the split's own Y the whole way
-    # across, so that leg is exactly what this backoff leaves of it.
+    # in X the fitting is beside the fall rather than under it and asks for nothing.
     #   THE CEILING IS THE BAG PAIR'S OWN AFT FACE. This fall comes down in the bay between that
-    # plate and V-K's, and a backoff longer than the bay walks it onto the plate's crown. What
-    # the bay leaves is what the floors get; where it leaves less than the closing corner wants,
-    # the corner takes the bay.
+    # plate and V-K's, and a backoff longer than the bay walks it onto the plate's crown.
+    #   THE BACKOFF IS NOT A LEG. It is [22](W3_BACK) mm of Y, and a square leg of that seats
+    # nothing — two corners on it want twice the stock radius and the bay is not that deep, so a
+    # run that spends a leg on it is drawn under stock whatever the bay gives. So the FALL
+    # carries it: it leans [8.09](W3_LEAN)° forward over the [55.83](W3_CROSS) mm it was already
+    # dropping, and lands on the plane the closing corner wants.
+    #   IT IS THE FALL AND NOT THE CROSSING, because the crossing has nowhere to lean. fluid-18
+    # climbs its whole storey on a column this run crosses, [7.35](W3_F18_PITCH) mm forward of
+    # the split's own Y — one `LINE_PITCH` — so the crossing holds that Y the length of the
+    # machine and passes the climb at the pitch. Any forward lean it took would spend that.
     w3_column_meets_y_g = (y_g.bb.xmin - 6.35 / 2.0 <= vk.at("V-K-I")[0]
                            <= y_g.bb.xmax + 6.35 / 2.0)
     w3_floor = max(vk_stock + contents.JUNCTION_LEG_LEAD,
                    (vk.at("V-K-I")[1] - (y_g.bb.ymin - CLIMB_HUG - 6.35 / 2.0)
-                    if w3_column_meets_y_g else 0.0),
-                   vk.at("V-K-I")[1] - (sp.at("to-vk")[1] - 2.0 * vk_stock))
+                    if w3_column_meets_y_g else 0.0))
     w3_back = min(w3_floor,
                   vk.at("V-K-I")[1] - (bb.bb.ymax + contents.PUMP_ROW_TURN))
-    runs.append(route(
+    w3_rung = nz.bb.zmax + contents.PUMP_ROW_TURN + 6.35
+    w3_fall_y = vk.at("V-K-I")[1] - w3_back
+    runs.append(R.bent(
         "water-3", "water-split.to-vk",
-        {"z": nz.bb.zmax + contents.PUMP_ROW_TURN + 6.35},
+        (sp.at("to-vk")[0] + contents.LLDPE_STOCK_BEND, sp.at("to-vk")[1], sp.at("to-vk")[2]),
+                                             # east off the split, on axis
+        (sp.at("to-vk")[0] + contents.LLDPE_STOCK_BEND, sp.at("to-vk")[1], w3_rung),
                                              # down out of the fittings loft onto the rung over
                                              # fluid-17's, one tube clear of the run it shares
                                              # the east column with
-        vk.x("V-K-I"),                       # east across it onto the valve's own column
-        vk.y("V-K-I", -w3_back),             # aft down that column onto the plane `w3_back`
-                                             # strikes — a square turn's own tangent with the
-                                             # collet's lead in front of it, or clear forward of
-                                             # Y-G's band, whichever stands further out
-        vk.z("V-K-I"),                       # down into the bay onto the stand's port plane
+        (vk.at("V-K-I")[0], sp.at("to-vk")[1], w3_rung),
+                                             # east across it onto the valve's own column, on the
+                                             # split's own Y the whole way, a pitch over fluid-18
+        (vk.at("V-K-I")[0], w3_fall_y, vk.at("V-K-I")[2]),
+                                             # down into the bay onto the stand's port plane,
+                                             # leaning forward onto the standoff as it falls
         "vk-tray-assembly.V-K-I",            # and aft into the mouth
-        kind="water", skew=FLAVOR_SKEW, stub=(contents.LLDPE_STOCK_BEND, 1.0),
+        kind="water", skew=FLAVOR_SKEW, bend=vk_stock,
         note="tap water: split branch → V-K inlet, down onto the west column's crown rung, east "
-             "across the machine onto the valve's column and down the far side of the trays"))
+             "across the machine leaning onto the collet's own standoff, and plumb down the far "
+             "side of the trays into the bay"))
 
     # water-4 — V-K's outlet to the suction chain's collet, and TWO GENTLE LEANS is the whole of
     # it. BOTH MOUTHS FACE ALONG Y: the valve discharges AFT, and the chain lying in the slot
@@ -1976,6 +1986,14 @@ def lane_stations() -> dict:
         # company at the point the standoff stops being the binding one.
         "W3_EXIT":          f"{math.dist(runs['water-3'].pts[0], runs['water-3'].pts[1]):.3g}",
         "W3_EXIT_R":        f"{runs['water-3'].radii[1]:.4g}",
+        # The standoff its closing corner wants forward of V-K's mouth, the crossing that carries
+        # it, and the lean that costs — a Y move too short to be a leg of its own, riding a leg
+        # the run was already travelling.
+        "W3_BACK":          f"{runs['water-3'].pts[-1][1] - runs['water-3'].pts[-2][1]:.4g}",
+        "W3_CROSS":         f"{runs['water-3'].pts[3][2] - runs['water-3'].pts[4][2]:.4g}",
+        "W3_LEAN":          f"{math.degrees(math.atan2(runs['water-3'].pts[3][1] - runs['water-3'].pts[4][1], runs['water-3'].pts[3][2] - runs['water-3'].pts[4][2])):.3g}",
+        # What the crossing holds off fluid-18's climb by holding the split's own Y.
+        "W3_F18_PITCH":     f"{runs['water-3'].pts[3][1] - runs['fluid-18'].pts[2][1]:.3g}",
         # carb-2's corners against the lean they are struck on — a reach that a corner, not a
         # body, is what spends.
         "CARB2_R":          f"{runs['carb-2'].tightest:.3g}",
@@ -2063,7 +2081,8 @@ def _f2_leads():
     """fluid-2's forward budget and the three figures `lean_leads` turns it into."""
     f = _frames()
     reg, src = f["flow-regulator"], f["source-tray-assembly"]
-    _pts, lean, lead, tangent = lean_leads(reg, "outlet", src, "V-A-I")
+    _pts, lean, lead, tangent = lean_leads(reg, "outlet", src, "V-A-I",
+                                           radius=R.stock_min("fluid", reg.diam("outlet")))
     return reg.at("outlet")[1] - src.at("V-A-I")[1], lean, lead, tangent
 
 
