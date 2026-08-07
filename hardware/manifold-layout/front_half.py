@@ -66,12 +66,16 @@ import manifold_layout as ml                          # noqa: E402
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
+SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 SHROUD_YAW = _contents.SHROUD_YAW            # the machine's own turn, and the compressor's
 FOAM_YAW = _contents.FOAM_YAW                # and the cold core's
+SEAFLO_YAW = _contents.SEAFLO_YAW            # and the water pump's, which lays its 187 mm
+                                             # long axis front-to-back
 
 C_SHROUD = cq.Color(0.60, 0.62, 0.66)        # the enclosure pack's own three
 C_COND = cq.Color(0.78, 0.55, 0.35)
 C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
+C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -81,13 +85,14 @@ def box(shape):
     return shape.BoundingBox()
 
 
-def sit(shape, *, cx=None, y0=None, z0=None, dz=None):
-    """Move a shape by whole planes: centre it in X, put its near face at `y0`, its floor at
-    `z0`, or step it `dz`. Each argument names where a face of its own box lands."""
+def sit(shape, *, cx=None, y0=None, y1=None, z0=None, dz=None):
+    """Move a shape by whole planes: centre it in X, put its near face at `y0` or its far face
+    at `y1`, its floor at `z0`, or step it `dz`. Each argument names where a face of its own box
+    lands."""
     b = box(shape)
     return shape.translate(cq.Vector(
         0.0 if cx is None else cx - (b.xmin + b.xmax) / 2.0,
-        0.0 if y0 is None else y0 - b.ymin,
+        (0.0 if y0 is None else y0 - b.ymin) + (0.0 if y1 is None else y1 - b.ymax),
         (0.0 if z0 is None else z0 - b.zmin) + (dz or 0.0)))
 
 
@@ -121,6 +126,14 @@ def build_foam(front_y: float):
     the floor is the box's own bottom and not that origin."""
     f = cq.importers.importStep(str(FOAM_STEP)).val().rotate(*Z_AXIS, FOAM_YAW)
     return sit(f, cx=0.0, y0=front_y, z0=0.0)
+
+
+def build_seaflo(foam):
+    """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, centred
+    on the mirror plane, its aft face flush with the core's own back."""
+    s = cq.importers.importStep(str(SEAFLO_STEP)).val().rotate(*Z_AXIS, SEAFLO_YAW)
+    b = box(foam)
+    return sit(s, cx=0.0, y1=b.ymax, z0=b.zmax)
 
 
 def _whole(bodies):
@@ -183,7 +196,9 @@ def build_front_half() -> cq.Assembly:
     top = box(build_foam(0.0)).zmax
     aft = max([box(shroud).ymax, box(cond).ymax]
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
-    a.add(build_foam(aft), name="foam-assembly", color=C_FOAM)
+    foam = build_foam(aft)
+    a.add(foam, name="foam-assembly", color=C_FOAM)
+    a.add(build_seaflo(foam), name="seaflo-pump", color=C_SEAFLO)
     return a
 
 
@@ -202,17 +217,18 @@ def report(a: cq.Assembly) -> None:
 
     print("\nbodies")
     sh, co = box(named["compressor-shroud"]), box(named["condenser+fan"])
-    fo = box(named["foam-assembly"])
+    fo, sf = box(named["foam-assembly"]), box(named["seaflo-pump"])
     line("compressor-shroud", sh)
     line("condenser+fan", co)
     pack = None
     for n, s in placed:
-        if n in ("compressor-shroud", "condenser+fan", "foam-assembly"):
+        if n in ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump"):
             continue
         b = box(s)
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
     line("foam-assembly", fo)
+    line("seaflo-pump", sf)
     print(f"\nmates (0 by intent)")
     seam = "y" if abs(BASE_YAW) % 180.0 < 1e-9 else "x"
     lo, hi = (sh.ymax, co.ymin) if seam == "y" else (sh.xmax, co.xmin)
@@ -228,8 +244,12 @@ def report(a: cq.Assembly) -> None:
     base_aft = max(sh.ymax, co.ymax)
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "
           f"gap {fo.ymin - base_aft:.2f}")
+    print(f"  core crown       z {fo.zmax:.2f}   seaflo floor         z {sf.zmin:.2f}   "
+          f"gap {sf.zmin - fo.zmax:.2f}")
+    print(f"  core aft face    y {fo.ymax:.2f}   seaflo aft face      y {sf.ymax:.2f}   "
+          f"flush by {sf.ymax - fo.ymax:.2f}; it clears the pack by {sf.ymin - pack.ymax:.2f} mm")
     over = [(n, box(s)) for n, s in placed
-            if n not in ("compressor-shroud", "condenser+fan", "foam-assembly")
+            if n not in ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump")
             and box(s).ymax > fo.ymin + 1e-6]
     if over:
         reach = max(b.ymax for _n, b in over) - fo.ymin
