@@ -106,7 +106,7 @@ Segment count for the standard build is **five**, covering 1425 mm of the blue t
 
 ### 4. Sleeve the three tubes + signal cable into one bundle
 
-Bundle the three LLDPE tubes (one foamed blue + two bare black) into the natural triangular dense-pack arrangement — same pattern the rear-panel PP1208E cluster is laid out for, so the bundle's three tubes already align with the three bulkheads when the installer presents the bundle to the panel. The blue (foamed) tube sits at the top vertex of the triangle for orientation matching with the blue-ringed bulkhead at the top of the panel cluster.
+Bundle the three LLDPE tubes (one foamed blue + two bare black) into the natural triangular dense-pack arrangement — three round tubes in a sleeve pack no other way. The three PP1208E bulkheads stand on **one line** across the rear wall, so the bundle does not present to them as a triangle: the installer flexes the three tubes apart at the un-sleeved end and pushes each into its own union. What the blue (foamed) tube carries is identification, not orientation — it goes into the blue-ringed union, which is the east end of the row.
 
 Run the umbilical signal cable alongside the three-tube triangle, sitting in the void between the three triangle-packed tubes and the sleeve's inner wall. It is the BNTECHGO 28 AWG 4-conductor ribbon and carries the SIG-6 faucet-display link (TX / RX / 5 V / GND) through the countertop, per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 

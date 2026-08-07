@@ -24,7 +24,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14 
 | CARGEN nitrile foam pipe-insulation segments | B0D2XFK337 ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | Loose 1-ft segments in the install kit so the installer can extend the foamed cold-dispense run to actual cabinet length. **These are on top of the 84"/build §9 already allocates** — 60" to the umbilical's five segments and ~24" to the cabinet-internal riser. The umbilical length itself is settled (1540 mm blue tube, five segments); what is still open is how many spare segments a far-end install needs, which the first real install answers. |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per appliance | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5. Standard US wall outlet to C14 inlet. |
 | Customer documentation packet | Printed in-house | (a) Printed quick-start install guide; (b) Printed safety + UL/regulatory inserts per [`/business/regulatory.md`](/business/regulatory.md) (flame symbol marking, flammable-refrigerant marking, R-600a charge mass note, 120 V 60 Hz only warning); (c) Founder Edition welcome letter, personally signed. |
-| Transit inlet caps | TBD per Open items | Two caps for transit — one over the water inlet barb (rear panel), one over the CO2 inlet PTC (front panel). Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
+| Transit inlet caps | TBD per Open items | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the rear wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
 | Appliance carton + molded foam end-caps | TBD per Open items | Outer carton sized for the appliance + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Archival pen (signature application) | TBD per Open items | Pigment-ink, fade-resistant, kitchen-wipe-resistant. Used if the signature is applied handwritten rather than laser-engraved (decision pending per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "Signature fidelity"). |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
@@ -45,7 +45,7 @@ Inspect every exposed surface against the following pass criteria:
 - The compressor shroud (see [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md)) seated flush with no daylight at its grommeted AC pass-through; the single AC pass-through cleanly bonded at its chassis ground tab.
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The rear-panel C14 inlet recessed cleanly into its printed shroud per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md); the recess shroud's seam against the rear-panel face shows no gap.
-- The umbilical-port PP1208E bulkhead cluster on the rear panel — three bulkheads, blue accent ring on the carbonated-water bulkhead at the top — all three bulkheads finger-tight against the rear panel with no rotation play.
+- The umbilical-port PP1208E bulkheads on the rear wall — three unions on one line, blue accent ring on the carbonated-water one at the east end of the row — all three finger-tight against the wall with no rotation play.
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
 
 Failures at this step: cosmetic blemishes are repaired in place where possible (light scuff buff with the lint-free wipe, reseat a loose grommet, swap a marked panel screw, reflow a heat-set insert if a panel screw is reading proud). A unit with a defect that can't be repaired in place returns upstream to the relevant subsystem bench for re-fabrication or part swap; do not ship a Founder Edition unit with a known cosmetic defect that the customer will see at unboxing.
@@ -73,14 +73,14 @@ Mount the signed plaque to the rear panel per the mounting interface defined in 
 
 ### 4. Cap rear-panel inlets for transit
 
-Cap the two fluid inlets — water inlet (rear panel), CO2 inlet PTC (front panel) — with the transit caps. The caps do two jobs: keep dust and packing-foam fragments out of the wetted path during transit and warehouse handling, and signal to the installer at unboxing "remove these before connecting."
+Cap the two fluid inlets — the water inlet and the CO2 inlet PTC, both on the rear wall — with the transit caps. The caps do two jobs: keep dust and packing-foam fragments out of the wetted path during transit and warehouse handling, and signal to the installer at unboxing "remove these before connecting."
 
 Inlet-by-inlet:
 
-- **Water inlet** — caps the upstream-of-backflow-preventer thread that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer threads the supply line on; the cap never goes back on.
-- **CO2 inlet PTC** — caps the 5/16" DERPIPE push-to-connect on the front panel that the customer's CO2 regulator line plugs into. Cap is a press-on rubber plug sized to the 5/16" PTC's outer collar.
+- **Water inlet** — caps the PP1208E's outboard 1/4" push-to-connect collet, the one upstream of the backflow preventer that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer pushes the supply line home; the cap never goes back on.
+- **CO2 inlet PTC** — caps the 5/16" DERPIPE push-to-connect that the customer's CO2 regulator line plugs into, east of centre on the rear wall and below the umbilical row. Cap is a press-on rubber plug sized to the 5/16" PTC's outer collar.
 
-The umbilical-port PP1208E bulkhead cluster on the rear panel is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
+The umbilical-port PP1208E bulkhead row on the rear wall is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
 
 Cap specifications and source are TBD (see Open items); working assumption is a press-on rubber cap sized to each inlet OD, sourced as a small assortment kit from McMaster.
 
@@ -108,7 +108,7 @@ Whether a starter SodaStream concentrate pair + a primed CO2 tank also ride in t
 
 ### 7. Pack the carton
 
-Stand the empty carton up on its bottom face with the TOP arrow on the interior facing up. Drop one molded foam end-cap into the bottom of the carton, recess facing up. Lift the appliance with the umbilical-port cluster facing the carton's interior-marked REAR wall (so the customer at unboxing pulls the appliance out and sees the user-facing front face first, not the rear panel). Lower the appliance into the bottom end-cap; the end-cap's molded recess cradles the appliance's lower corners and bottom face. Drop the second molded foam end-cap onto the appliance from the top, mating with the appliance's upper corners and the funnel surround.
+Stand the empty carton up on its bottom face with the TOP arrow on the interior facing up. Drop one molded foam end-cap into the bottom of the carton, recess facing up. Lift the appliance with the umbilical-port row facing the carton's interior-marked REAR wall (so the customer at unboxing pulls the appliance out and sees the user-facing front face first, not the rear panel). Lower the appliance into the bottom end-cap; the end-cap's molded recess cradles the appliance's lower corners and bottom face. Drop the second molded foam end-cap onto the appliance from the top, mating with the appliance's upper corners and the funnel surround.
 
 Side voids — the carton is sized so the appliance + foam end-caps leave two flanking voids on the long sides of the carton, sized for the two satellite items:
 
@@ -144,7 +144,7 @@ A finished, ship-ready unit is:
 - Cosmetically wiped and visually inspected on every exposed surface, no known cosmetic defects
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
 - Rear-panel nameplate applied with this unit's serial + QR + this unit's hand-applied (or laser-engraved) signature
-- Water (rear panel) + CO2 (front panel) inlets capped for transit
+- Water + CO2 inlets, both on the rear wall, capped for transit
 - Carton sealed with appliance + bagged faucet-and-umbilical sub-assembly + install kit + customer documentation packet
 - Shipping weight + dimensions recorded against the order in the per-serial run log
 - Outer shipping label affixed to the carton's top face; carrier tracking number assigned

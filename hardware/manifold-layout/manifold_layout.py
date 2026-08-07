@@ -1,19 +1,17 @@
-"""Manifold layout — the ten flavor valves, both KPHM400 pumps and the eight junctions
+"""Manifold layout — the ten flavor valves, both KPHM400 pumps and the six junctions
 between them, placed with nothing else in the box.
 
 Nothing here is seated in the enclosure, no tray carries anything, and no reservoir, nozzle,
-hopper or carbonator is present: the six mouths that reach them are drawn one stub long and
-stop. The connections are `../topology/fluid-topology.md`'s, with one difference — each
-reservoir has ONE port here and meets its channel's fill and draw gates at a junction, so
-segments 24, 25 and 26 mirror 14, 15 and 16. The machine gives reservoir B two mouths of its
-own instead. What is free is where every body stands, how it is turned, and which of a
-junction's three ports takes its run.
+hopper or carbonator is present: the eight mouths that reach them are drawn one stub long and
+stop. The connections are `../topology/fluid-topology.md`'s, segment for segment. What is free
+is where every body stands, how it is turned, and which of a junction's three ports takes its
+run.
 
 Frame
 -----
 - X = width, mirrored about x = 0. Channel A (pump B) west, channel B (pump A) east.
-- Y = depth. The two nozzle mouths leave out the back, +Y; the other four are turned onto
-  +Z by the quarter turns below.
+- Y = depth. Six of the eight mouths leave out the back, +Y — the two nozzles and the
+  reservoirs' four; the other two are turned onto +Z by the quarter turns below.
 - Z = height, 0 at the pumps' own floor. The valves stand on TWO decks above them, and the
   fold is what puts the second one there.
 
@@ -26,13 +24,14 @@ straight-through body and every junction's run takes two valve ports, so a lane 
 valves and tees butted collet to collet — and the two channels are the same line mirrored:
 
     A1  V-A · Y-A · V-C | Y-C · V-E          B1  V-B · Y-B · V-D | Y-F · V-H
-    A2        V-G | Y-D · V-F · Y-E          B2        V-J | Y-G · V-I · Y-H
+    A2        V-G | Y-D · V-F                B2        V-J | Y-G · V-I
 
 Y-C, Y-D, Y-F and Y-G sit on the four barbs. Y-A and Y-B stand on the two INNER limbs' own
 axes, one valve forward of the selects they feed, and their branches meet face to face across
-the mirror plane. Y-E and Y-H stand at the far end of the OUTER limbs behind the fill gates,
-each carrying its reservoir's own line out the back on its run and crossing the pump on its
-branch to the draw gate, which an elbow on that collet turns onto.
+the mirror plane. NEITHER RESERVOIR HAS A JUNCTION: each carries two mouths of its own, so a
+pair's fill and draw gates end their limb reaching one directly. The four collets that would
+have met a tee are mouths of this study instead, and every junction here joins two VALVES, or
+a valve and a pump barb.
 
 The fold
 --------
@@ -53,19 +52,17 @@ is two decks half as long, and the pumps sit under the lower one.
 
 The quarter turns
 -----------------
-Six more of the butts open into a 90° of `BEND_R`, and all six stand on ONE plane — `BEND_Y`,
-the far collet of the valve that ends a limb. Each joint's fixed collet opens +Y there, the
-tube turns onto +Z, and whatever was butted to it comes round with the turn. The axis runs
-along X, so the six share one transform per deck and a mirrored pair still faces itself.
+Two more of the butts open into a 90° of `BEND_R`, and both stand on ONE plane — `BEND_Y`, the
+far collet of the valve that ends a limb. Each joint's fixed collet opens +Y there, the tube
+turns onto +Z, and whatever was butted to it comes round with the turn. The axis runs along X,
+so the pair shares one transform and two turns facing each other across the machine still do.
 
     fluid-3, fluid-5     V-A and V-B off Y-A and Y-B, up on the folded deck — the two source
                          valves come off the deck's own plane and lie along +Z
-    fluid-14, fluid-24   Y-E and Y-H off the fill gates, so each reservoir junction lies along
-                         +Z with its own line leaving that way
-    fluid-16, fluid-26   the draw gates' elbows, which come round with their tees, so the
-                         crossing between them keeps its length and its skew exactly
 
-Everything else is still collet butted to collet.
+Neither channel has a reservoir turn: with no junction at either reservoir, all four fill and
+draw collets are mouths of this study and leave on their own axes. Everything else is still
+collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
