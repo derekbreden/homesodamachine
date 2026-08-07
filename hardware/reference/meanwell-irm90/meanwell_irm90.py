@@ -34,6 +34,11 @@ hole_dx = 33.0 / 2.0   # +/-16.5 across width
 hole_dy = 98.0 / 2.0   # +/-49 along length
 mass_g = 219.0
 
+# The mount pattern in the module's own frame, on the base plane the bores are entered
+# from — the four M3 clearance holes, which run the potting's whole height, so an M3 goes
+# in from the top face and lands in whatever stands under the base.
+holes = [(sx * hole_dx, sy * hole_dy) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+
 # The two screw blocks on their ledges. Each is entered from ABOVE — a ferrule goes down under
 # a captive screw — and its station is its own top face, looking +Z.
 block_inset = 6.0      # block centre in from the module's own end

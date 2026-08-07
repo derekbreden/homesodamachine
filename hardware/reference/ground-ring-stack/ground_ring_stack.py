@@ -49,6 +49,11 @@ head_h = 3.0
 shank_d = 3.4           # fills the eyes/washer (slightly proud for a clean fuse)
 engage = 6.0            # thread length down into the heat-set insert
 
+# The mount pattern in the stack's own frame: ONE hole, on the screw's own axis, at the
+# landing surface. The stack IS its screw — the lugs are clamped by it and there is nothing
+# else to fasten — so what holds this body is a single threaded column under the origin.
+holes = [(0.0, 0.0)]
+
 
 def _ring(z0, ang):
     """One ring terminal: a flat eye (bore on Z) + a crimp-barrel stub on +X,

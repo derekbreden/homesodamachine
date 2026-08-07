@@ -65,6 +65,9 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "teyleten-relay",
            _hw / "reference" / "ground-ring-stack",
+           _hw / "printed-parts" / "electronics",
+           _hw / "printed-parts" / "electronics" / "pcba-tray",
+           _hw / "printed-parts" / "electronics" / "ac-hub",
            _hw / "reference" / "asse1022-assembly",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "reference" / "water-split",
@@ -100,6 +103,11 @@ import derpipe_co2_inlet as _derpipe                   # noqa: E402
 import gasher_check_valve as _gasher                   # noqa: E402
 import wr1110_regulator as _wr1110                     # noqa: E402
 import digiten_flow_sensor as _digiten                 # noqa: E402
+import meanwell_irm90 as _psu                          # noqa: E402
+import teyleten_relay as _relay                        # noqa: E402
+import ground_ring_stack as _gnd                       # noqa: E402
+import pcba_tray as _pcba                              # noqa: E402
+import ac_hub as _hub                                  # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
@@ -737,11 +745,16 @@ def build_pcba(foam, psu, wall_seat):
 # facing INBOARD — the face a screwdriver reaches, and the face a boss would land on.
 RELAY_TURN = (((0.0, 0.0, 1.0), 270.0), ((0.0, 1.0, 0.0), 270.0))
 AC_HUB_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 270.0))
-STACK_CLEAR = 1.0
+# The floor between one body on this column and the next, and it is not air for its own sake:
+# what stands in it is the WALL BOSS that fastens the body between them. The relay is the body
+# that sets it — its mount pattern runs closest to its own edge, so the boss standing on that
+# pattern reaches furthest past the board — and the gap is that reach with a clearance past it.
+STACK_CLEAR = (_enc.mount_boss_dia / 2.0
+               - (_relay.width / 2.0 - _relay.hole_dy) + 1.0)
 
 
 def build_stack(psu, wall_seat):
-    """The three bodies the brick's crown carries, as `[(name, solid, colour)]`.
+    """The three bodies the brick's crown carries, as `[(name, solid, colour, carry)]`.
 
     The relay and the hub stack aft-flush with the brick, each on the crown of the one below with
     a `STACK_CLEAR` floor between them. The stud stands on the RELAY'S floor, one `STACK_CLEAR`
@@ -752,15 +765,43 @@ def build_stack(psu, wall_seat):
     for name, step, turn, colour in (
             ("relay-1", RELAY_STEP, RELAY_TURN, C_RELAY),
             ("ac-hub", AC_HUB_STEP, AC_HUB_TURN, C_AC_HUB)):
-        solid, _carry = seat_body(cq.importers.importStep(str(step)).val(), turn,
-                                  x1=wall_seat, y1=aft, z0=floor + STACK_CLEAR)
-        out.append((name, solid, colour))
+        solid, carry = seat_body(cq.importers.importStep(str(step)).val(), turn,
+                                 x1=wall_seat, y1=aft, z0=floor + STACK_CLEAR)
+        out.append((name, solid, colour, carry))
         floor = box(solid).zmax
-    fore = min(box(s).ymin for _n, s, _c in out)
-    stud, _carry = seat_body(cq.importers.importStep(str(GND_STACK_STEP)).val(), RELAY_TURN,
-                             x1=wall_seat, y1=fore - STACK_CLEAR, z0=box(out[0][1]).zmin)
-    out.append(("ground-stack", stud, C_GND))
+    fore = min(box(s).ymin for _n, s, _c, _k in out)
+    stud, stud_carry = seat_body(cq.importers.importStep(str(GND_STACK_STEP)).val(), RELAY_TURN,
+                                 x1=wall_seat, y1=fore - STACK_CLEAR, z0=box(out[0][1]).zmin)
+    out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
+
+
+# --- what fastens the power column to the +X wall --------------------------
+#
+# Every body on that flank is turned so its own MOUNTING PLANE faces the wall and stands on
+# the wall seat: the brick's potted base, the board's underside, the relay's PCB underside,
+# the hub plate's underside, the ground stud's landing face. Each of those planes is the
+# body's own Z = 0 and each carries the body's hole pattern, so what holds it is one printed
+# boss per hole — `enclosure._east_bosses` reaching in off the wall to that plane, bored for a
+# ruthex M3 short, with the screw driven the other way, in through the body from the room.
+#
+# The pattern is READ OFF EACH MODULE and carried through that module's own placement. A body
+# that moves takes its bosses with it, and a boss cannot land on a column the part has no hole
+# in.
+
+def wall_mounts(*mounted):
+    """The +X wall's boss stations, as `(y, z, tip)`.
+
+    `mounted` is one `(carry, holes)` per body: the placement `seat_body` handed back, and the
+    body's own mount pattern in its own frame. Each hole is carried as a station on that body's
+    Z = 0 — the plane every one of these modules draws its bores from — so `(y, z)` is where
+    the boss stands on the wall and `tip` is the plane its top face reaches."""
+    out = []
+    for carry, holes in mounted:
+        for hx, hy in holes:
+            pos, _axis = carry(((hx, hy, 0.0), (0.0, 0.0, 1.0)))
+            out.append((pos[1], pos[2], pos[0]))
+    return tuple(out)
 
 
 # --- the tap-water sequence, in the west lane ------------------------------
@@ -1108,12 +1149,18 @@ def build_pack() -> cq.Assembly:
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()))
     a.add(chain, name="suction-chain", color=C_SUCT)
     wall_seat = east_wall_seat(shroud, cond)
-    psu, _psu_carry = build_psu(foam, wall_seat)
+    psu, psu_carry = build_psu(foam, wall_seat)
     a.add(psu, name="psu", color=C_PSU)
-    pcba, _pcba_carry = build_pcba(foam, psu, wall_seat)
+    pcba, pcba_carry = build_pcba(foam, psu, wall_seat)
     a.add(pcba, name="pcba", color=C_PCBA)
-    for name, solid, colour in build_stack(psu, wall_seat):
+    stack = build_stack(psu, wall_seat)
+    for name, solid, colour, _carry in stack:
         a.add(solid, name=name, color=colour)
+    stack_carry = {name: carry for name, _s, _c, carry in stack}
+    a.east_bosses = wall_mounts(
+        (psu_carry, _psu.holes), (pcba_carry, _pcba.board.holes),
+        (stack_carry["relay-1"], _relay.holes), (stack_carry["ac-hub"], _hub.holes),
+        (stack_carry["ground-stack"], _gnd.holes))
     asse, asse_carry = build_asse(foam, seaflo)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, _pan_carry = build_pan(foam, seaflo, seaflo_carry, asse_carry,
@@ -1211,8 +1258,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
 
     `THROUGH_WALL` is what that excludes, and the funnel is the same case by a different route.
 
-    The station fields left empty are the ones this pack has no body for: the mains inlet's
-    bosses, the front panel's through-holes. Each arrives with the body it is for."""
+    The station fields left empty are the ones this pack has no body for: the front panel's
+    through-holes. Each arrives with the body it is for."""
     a = build_pack() if a is None else a
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])
@@ -1220,7 +1267,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
-                     c14=c14_stations())
+                     c14=c14_stations(), east_bosses=a.east_bosses)
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
