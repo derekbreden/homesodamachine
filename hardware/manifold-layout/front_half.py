@@ -452,6 +452,11 @@ def back_wall_ports(*bulkhead_carries):
 # So the deck is struck on the crown it clears: the meter's own half-section over the pump, and
 # a clearance floor. The meter is the fattest body the deck carries, so a storey that seats it
 # seats the three unions with room to spare.
+#
+# WHICH half-section is the one `DIGITEN_TURN` leaves pointing at the floor. That turn rolls the
+# meter a quarter about Y after the yaw, so the disk's face stands across the machine and it is
+# the body's DEPTH through its two moulded halves — `body_len` — that reaches down at the pump,
+# not the diameter of its face.
 DECK_CLEAR = 6.0
 # Where each union crosses the wall, west to east. The two gates take the ends — `fluid-28` comes
 # down the WEST outboard column and `fluid-18` the EAST one, so each lands on the side it arrives
@@ -466,9 +471,9 @@ PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-car
 
 
 def deck_z(seaflo):
-    """The Z the panel deck lies on: one `DECK_CLEAR` and the meter's own half-section over the
-    water pump's crown, which is the tallest thing standing under it."""
-    return box(seaflo).zmax + DECK_CLEAR + _digiten.body_dia / 2.0
+    """The Z the panel deck lies on: one `DECK_CLEAR` and the half of the meter that faces the
+    floor in the pose it is turned to, over the water pump's crown — the tallest thing under it."""
+    return box(seaflo).zmax + DECK_CLEAR + _digiten.body_len / 2.0
 
 
 def build_panel_bulkhead(x: float, z: float):
