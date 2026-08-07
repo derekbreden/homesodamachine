@@ -813,12 +813,12 @@ def build_split(asse_carry):
 
 # --- the flow regulator, inline on the flavour tap -------------------------
 #
-# The needle valve that throttles the flavour side. Its own frame runs the flow down ±X with
-# the adjuster on +Z, so a yaw of a quarter lays that flow along the lane and leaves the
-# adjuster looking at the ceiling. It is set once on the bench and `design-pressures.md` does
-# not buy access after assembly, but a stem pointing up is the one direction that costs
-# nothing to leave open.
-FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0),)
+# The needle valve that throttles the flavour side. Its own frame runs the flow down ±X with the
+# adjuster on +Z. The YAW lays that flow fore and aft along the lane; the ROLL then lays the stem
+# over onto +X, so the valve reads 14.72 mm tall and 40.85 mm across the lane rather than the
+# other way round, and the knurled head faces the machine's centre where a hand comes in over the
+# cold core's cap. `design-pressures.md` sets it once on the bench.
+FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0))
 # The straight between the split's flavour collet and the regulator's inlet — `fluid-1`, which
 # has no corner in it for the same reason `water-2` has none.
 FLUID_1 = 24.0
