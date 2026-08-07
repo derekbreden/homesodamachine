@@ -1276,11 +1276,14 @@ def report(a: cq.Assembly) -> None:
 
 
 def main():
+    import _scorecard as _card
     a = build_front_half()
     out = _here.parent / "front-half.step"
     export_assembly(a, str(out))
     print(f"-> {out.name}")
     report(a)
+    _card.report(a)
+    print(f"-> {_card.write(a, out).name}")
     ml.render_elevations(out, xray="enclosure*")
 
 
