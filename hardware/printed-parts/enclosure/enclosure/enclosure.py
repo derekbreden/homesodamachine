@@ -187,7 +187,9 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # ±X top corner pods either side, the back wall behind). The funnel is pushed as
 # far forward as that frame allows and reaches aft for its capacity, so it may
 # CROSS the Y seam — both halves take their share of the cut.
-hopper_front_ledge = 6.0  # top wall kept between the facet's back plane and the hole
+hopper_front_ledge = 6.0  # top wall kept between the facet's back plane and the throat —
+                          # the whole of what stands between the two, since the wall forward
+                          # of it thickens into the housing rather than running out to an edge
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -939,14 +941,19 @@ def _hopper_hole(inner, outer, y_joint, centre):
     the pack's own `funnel` centre.
 
     The frame is what the top wall has left to give: BEHIND the display facet's own
-    back plane (with a ledge of wall between the two), inboard of the ±X top corner
-    pods, and ahead of the back wall. The collar sits at least one
-    `hopper_funnel.brim_margin` inside it on ALL FOUR sides — asserted, so a
-    placement that crowds an edge fails the build instead of silently deforming the
-    hole. That margin is what the brim lands on: the flange overhangs the collar by
-    `brim_overhang` all around to catch the wall and hold the funnel out of the box,
-    and the margin must be the wider of the two, so a full overhang's width of top
-    wall still remains outboard of the brim's edge.
+    back plane, inboard of the ±X top corner pods, and ahead of the back wall.
+
+    THE FRONT IS A DIFFERENT KIND OF EDGE FROM THE OTHER THREE. On those, the frame
+    runs out into a free edge, so the collar stands one `hopper_funnel.brim_margin`
+    inside it — the flange overhangs the collar by `brim_overhang` to catch the wall
+    and hold the funnel out of the box, and the margin is the wider of the two so a
+    full overhang's width of top wall still remains outboard of the brim's edge.
+    Forward there is no free edge: the wall runs straight on into the display
+    housing, `display_facet_thickness` of solid slab between the facet's back plane
+    and its 45° face, and that slab is what the brim's front flange lands on. So the
+    whole of the front's requirement is `hopper_front_ledge` — the top wall kept
+    between the housing's back plane and the throat itself — and that is asserted on
+    the hole rather than on a frame the margin then sits inside.
 
     The funnel is pushed as far FORWARD as this frame allows, and reaches aft for
     whatever plan area its capacity needs — so the opening may cross the Y seam.
@@ -971,20 +978,21 @@ def _hopper_hole(inner, outer, y_joint, centre):
         raise ValueError(
             f"funnel collar (x {x0:.2f}..{x1:.2f}, y {y0:.2f}..{y1:.2f}) violates the "
             f"top-wall frame (x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f})")
-    # One margin of top wall on every side, and the brim fits it.
+    # One margin of top wall on the three sides that run out into a free edge, and the
+    # brim fits it. The front is the ledge above and is already asserted by `lims[2]`.
     if _funnel.brim_overhang > _funnel.brim_margin + tol:
         raise ValueError(
             f"funnel brim overhang {_funnel.brim_overhang:.2f} exceeds its top-wall "
             f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame")
-    got = (x0 - lims[0], lims[1] - x1, y0 - lims[2], lims[3] - y1)
+    got = (x0 - lims[0], lims[1] - x1, lims[3] - y1)
     if any(g < _funnel.brim_margin - 1e-6 for g in got):
         raise ValueError(
-            f"funnel collar crowds the top-wall frame: margins "
-            f"(−X {got[0]:.2f}, +X {got[1]:.2f}, −Y {got[2]:.2f}, +Y {got[3]:.2f}) "
-            f"— every side owes brim_margin {_funnel.brim_margin:.2f}. Frame is "
+            f"funnel collar crowds the top-wall frame: free-edge margins "
+            f"(−X {got[0]:.2f}, +X {got[1]:.2f}, +Y {got[2]:.2f}) "
+            f"— each owes brim_margin {_funnel.brim_margin:.2f}. Frame is "
             f"x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}; the collar it "
             f"has room for is {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
-            f"{lims[3] - lims[2] - 2.0 * _funnel.brim_margin:.1f}")
+            f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}")
     return x0, x1, y0, y1
 
 
