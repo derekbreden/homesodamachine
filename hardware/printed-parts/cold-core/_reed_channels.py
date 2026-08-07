@@ -109,7 +109,7 @@ def cut_reed_channel_openings(foam_shell):
 
 
 # Cable hole sits inboard of the bulkhead hole, clear of both the
-# inboard flavor-line hole and the +X+Y corner support, with PETG around
+# inboard draw hole and the +X+Y corner support, with PETG around
 # all three.
 cable_hole_offset_from_bulkhead_hole_x = 4.0
 
