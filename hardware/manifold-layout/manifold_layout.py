@@ -107,8 +107,7 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "y-divider",
            _hw / "reference" / "kamoer-kphm400",
            _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "flavor" / "pump-case",
-           _hw / "printed-parts" / "enclosure" / "enclosure-assembly"):
+           _hw / "printed-parts" / "flavor" / "pump-case"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly              # noqa: E402
@@ -117,11 +116,10 @@ import beduan_solenoid as vlv                         # noqa: E402
 import kamoer_kphm400 as kp                           # noqa: E402
 import tee_connector as tee                           # noqa: E402
 import y_divider as ydiv                              # noqa: E402
-# The enclosure pack owns the stock table and the collet figures, so this study reads them
-# rather than restating them — both modules place their pack lazily, so importing costs ~2 s
-# and nothing here builds the enclosure.
-import _contents                                      # noqa: E402
-import scorecard                                      # noqa: E402
+# The routing kit owns the stock table — the tube on the machine and the floor each one's
+# corners answer to — so this study reads its own bend radius off the same row every run
+# drawn in that stock is graded against.
+import _routing                                       # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -134,11 +132,14 @@ VALVE_TOP_Z = vlv.coil_z_range[1]            # coil crown over that same plane
 TEE_RUN = tee.RUN_HALF                       # run collet face from the tee's centre
 TEE_BRANCH = tee.BRANCH_REACH                # branch collet face from the same centre
 TUBE_D = tee.TUBE_D                          # the 1/4" OD LLDPE every port takes
-STOCK = scorecard.stock_of("fluid", TUBE_D)  # the 1/4" LLDPE row of the pack's own stock table
+STOCK = _routing.stock_of("fluid", TUBE_D)   # the 1/4" LLDPE row of the machine's stock table
 MIN_BEND = STOCK.min_bend                    # its tightest centreline radius
-FLAVOR_SKEW = _contents.FLAVOR_SKEW          # degrees off a collet's own axis a straight tube
-                                             # still enters it unbent
-LINE_HUG = _contents.LINE_HUG                # the clearance floor a line keeps off a body
+# How far off a collet's own axis a soft-LLDPE run may leave or enter as ONE STRAIGHT LENGTH —
+# the whole of what a push-to-connect grips through, well past the rigid-copper
+# `_routing.COLLET_SKEW`. It is what lets a limb reach a barb off its own column on one leaning
+# tube, so the fold's own `BARB_LEAD_FLOOR` is measured against it.
+FLAVOR_SKEW = 22.0
+LINE_HUG = 1.0                               # the clearance floor a line keeps off a body
 
 HEAD_W = kp.head_w                           # the pump head, square across
 HEAD_D = kp.head_depth                       # head front face to the bracket
@@ -849,7 +850,7 @@ ELEVATIONS = "top,front,right"
 
 
 def render_elevations(step: Path, xray: str = None) -> None:
-    """Plan, front and right beside the STEP — the same three `enclosure-assembly` draws, and
+    """Plan, front and right beside the STEP — the same three `front_half.py` draws, and
     for the same reason: an isometric thumbnail cannot be read off with a ruler.
 
     `xray` is a name glob drawn as a translucent hull instead of a solid, so a body inside a
