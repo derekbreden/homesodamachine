@@ -670,7 +670,10 @@ for _s in reservoir_fill_sides:
 # axis up to the cap's floor, against the rise a corner of 1/4" LLDPE takes.
 tank_top_plate_z = wall_and_floor_thickness + tank_support_ring_height + tank_height
 top_band_to_cap = foam_shell_outer_height - (tank_top_plate_z + hole_shift_from_edge)
-lldpe_bend_radius = 4.0 * lldpe_tube_od   # [25.4 mm](LLDPE_BEND_R) — 4 × OD, `_routing.BEND_RATIO`
+# [25.4 mm](LLDPE_BEND_R) — 4 × OD, the corner 1/4" LLDPE holds unsupported. The machine
+# draws its own runs at half of it (`_routing.BEND_RATIO`), and so does `_internal_routes`,
+# because a potted line is held at its corner by the foam round it.
+lldpe_bend_radius = 4.0 * lldpe_tube_od
 
 
 def cap_conduit_wall_neck(x, y):
