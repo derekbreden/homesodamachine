@@ -3,7 +3,7 @@
  "placed": 0,
  "located": 100,
  "shaped": 0,
- "routed": 38,
+ "routed": 42,
  "held": 81,
  "mounted": 4,
  "checks": [
@@ -42,7 +42,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "16/16 as drawn",
+   "value": "17/17 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -52,11 +52,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 30/30 corners at spec",
+   "value": "B \u2014 34/34 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:11"
+    "runs by grade: B:12"
    ],
    "active": true
   },
@@ -102,11 +102,11 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "15/40 drawn",
+   "value": "17/40 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 5/27",
+    "fluid: 7/27",
     "refrigerant: 0/3",
     "water: 8/8",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
@@ -128,8 +128,6 @@
     "fluid-21 (fluid): Y-F-3 \u2192 P-A-I",
     "fluid-22 (fluid): P-A-O \u2192 Y-G-1",
     "fluid-23 (fluid): Y-G-3 \u2192 V-I-I",
-    "fluid-24 (fluid): V-I-O \u2192 Bag B FILL port",
-    "fluid-26 (fluid): Bag B DRAW port \u2192 V-H-I",
     "fluid-27 (fluid): Y-G-2 \u2192 V-J-I",
     "refrig-1 (refrigerant): compressor-shroud discharge \u2192 condenser+fan inlet",
     "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet",
@@ -142,7 +140,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "58/58 located",
+   "value": "57/57 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -574,7 +572,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "fluid-25",
+   "mates": "fluid-26",
    "status": "ok",
    "note": ""
   },
@@ -593,7 +591,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-24",
    "status": "ok",
    "note": ""
   },
@@ -746,25 +744,6 @@
    ],
    "diam": 6.35,
    "mates": "fluid-15",
-   "status": "ok",
-   "note": ""
-  },
-  {
-   "component": "tee-y-h",
-   "name": "Y-H-2",
-   "kind": "fluid",
-   "pos": [
-    -77.07,
-    136.82,
-    281.814
-   ],
-   "face": [
-    -0.0,
-    1.0,
-    -0.0
-   ],
-   "diam": 6.35,
-   "mates": "fluid-25",
    "status": "ok",
    "note": ""
   },
@@ -1049,7 +1028,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-26",
    "status": "ok",
    "note": ""
   },
@@ -1106,7 +1085,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-24",
    "status": "ok",
    "note": ""
   },
@@ -1509,6 +1488,88 @@
    }
   },
   {
+   "id": "fluid-24",
+   "kind": "fluid",
+   "frm": "valve-v-i.outlet",
+   "to": "foam-assembly.reservoir-b-fill",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 194.28,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      14.0,
+      87.32
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 54.4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      87.32,
+      41.27
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 54.4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      41.27,
+      37.5
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      37.5,
+      28.41
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 14.0,
+   "reach": 24.763,
+   "reachRatio": 1.7688,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 3,
+    "length": 37.5,
+    "demand": 1.5144,
+    "from": [
+     -43.5,
+     194.0,
+     281.81
+    ],
+    "to": [
+     -43.5,
+     231.5,
+     281.81
+    ]
+   }
+  },
+  {
    "id": "fluid-18",
    "kind": "fluid",
    "frm": "valve-v-g.outlet",
@@ -1733,66 +1794,6 @@
    }
   },
   {
-   "id": "fluid-25",
-   "kind": "fluid",
-   "frm": "tee-y-h.Y-H-2",
-   "to": "foam-assembly.reservoir-b",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 82.99,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 45.3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      14.0,
-      47.2
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      47.2,
-      28.41
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 90.0,
-   "seat": 28.414,
-   "reach": 33.295,
-   "reachRatio": 2.3782,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 47.2,
-    "demand": 1.4176,
-    "from": [
-     -77.07,
-     150.82,
-     281.81
-    ],
-    "to": [
-     -43.5,
-     184.0,
-     281.81
-    ]
-   }
-  },
-  {
    "id": "fluid-15",
    "kind": "fluid",
    "frm": "tee-y-e.Y-E-2",
@@ -1909,6 +1910,66 @@
      -56.0,
      184.0,
      267.4
+    ]
+   }
+  },
+  {
+   "id": "fluid-26",
+   "kind": "fluid",
+   "frm": "foam-assembly.reservoir-b",
+   "to": "valve-v-h.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 134.39,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      28.41,
+      103.99
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      103.99,
+      14.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 14.0,
+   "reach": 51.997,
+   "reachRatio": 3.7141,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 103.994,
+    "demand": 2.0,
+    "from": [
+     -43.5,
+     184.0,
+     281.81
+    ],
+    "to": [
+     -20.07,
+     82.68,
+     281.81
     ]
    }
   },
@@ -2299,8 +2360,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T19:37:10+00:00",
-  "commit": "b3a57500cb9155b9587b8e6409003b7fd999105f",
+  "generated": "2026-08-07T20:18:01+00:00",
+  "commit": "274abc13e3c0c2187bfd81dbd3d5c00e1701a621",
   "inputs": {}
  }
 }

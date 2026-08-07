@@ -263,8 +263,7 @@ LIMBS = {
         ("V-B", +1), ("Y-B", (-1.0, 0.0, 0.0)), ("V-D", +1),
         ("Y-F", (0.0, 0.0, -1.0)), ("V-H", -1)]),
     "B2": dict(x=+OUTER_X, anchor=1, chain=[
-        ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1),
-        ("Y-H", (-1.0, 0.0, 0.0))]),
+        ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1)]),
 }
 
 PUMPS = {"pump-b": -PUMP_DX, "pump-a": +PUMP_DX}   # channel A west, channel B east
@@ -410,15 +409,18 @@ def folded(solid):
 # comes round with the turn — a quarter about the X-parallel line through the arc's own centre.
 #
 #   fluid-3, fluid-5     the source valves, off Y-A and Y-B on the folded deck
-#   fluid-14, fluid-24   the reservoir junctions, off the fill gates
-#   fluid-16, fluid-26   the draw gates' elbows, off the gates
+#   fluid-14             reservoir A's junction, off its fill gate
+#   fluid-16             reservoir A's draw-gate elbow, off the gate
 #
-# X does not enter it: the axis runs along X, so all six share one (y, z) transform per deck,
+# X does not enter it: the axis runs along X, so all four share one (y, z) transform per deck,
 # and a pair that faced each other across the machine still does.
+#
+# CHANNEL B HAS NEITHER, because it has no junction: its fill and draw gates reach reservoir B's
+# two mouths directly, so both collets are mouths of this study and leave on their own axes.
 BEND_R = MIN_BEND
-BEND_Y = TEE_RUN + VALVE_LEN                 # the plane every one of the six stands on
-BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z, "Y-E": DECK_Z, "Y-H": DECK_Z}
-ELBOW_BEND = DECK_Z                          # both draw-gate elbows turn with their tees
+BEND_Y = TEE_RUN + VALVE_LEN                 # the plane every one of the four stands on
+BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z, "Y-E": DECK_Z}
+ELBOW_BEND = DECK_Z                          # the draw-gate elbow turns with its tee
 
 
 # The two source valves step again once they are round: `SOURCE_TRAVEL` further along the run
@@ -541,12 +543,16 @@ def branch_port(name: str):
 # Each reservoir meets its channel's two gates at one junction standing in line behind the FILL
 # gate, on the outer limb: the tee's run carries the fill leg and the reservoir's own line, and
 # its branch crosses the pump to the DRAW gate on the inner limb. The draw gate faces down its
-# own limb, so an elbow on that collet turns it onto the branch's axis. The pair is the whole
-# mirror — reservoir A at Y-E off V-F, reservoir B at Y-H off V-I.
+# own limb, so an elbow on that collet turns it onto the branch's axis.
+#
+# RESERVOIR A IS THE ONE THAT DOES THIS. Reservoir B carries two mouths of its own — the draw on
+# the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so its pair's two
+# valves each reach one directly and nothing stands between them. What was the mirror of this
+# junction is now two of the mouths below.
 #
 # Elbow corner one leg behind the draw gate, second leg opening across at the tee. The two axes
 # are offset by `ELBOW_LEG` against `TEE_RUN`, which the run reads out as a collet skew.
-JOINS = {"Y-E": ("V-E", -1.0), "Y-H": ("V-H", +1.0)}
+JOINS = {"Y-E": ("V-E", -1.0)}
 
 
 def _cross(a, b) -> tuple:
@@ -644,8 +650,8 @@ def turns_meet() -> list:
     turn's own axis landing correctly and the other one pointing where it started, which reads
     as connected from every direction but the one that matters."""
     lands = {3: port("V-A", "back"), 5: port("V-B", "back"),
-             14: port("Y-E", "front"), 24: port("Y-H", "front")}
-    lands.update({16: elbow_pose(*JOINS["Y-E"])[4], 26: elbow_pose(*JOINS["Y-H"])[4]})
+             14: port("Y-E", "front")}
+    lands.update({16: elbow_pose(*JOINS["Y-E"])[4]})
     out = []
     for cid, (x, z0) in sorted(QUARTERS.items()):
         end = (x, BEND_Y + BEND_R, z0 + BEND_R)
@@ -664,16 +670,14 @@ SEGMENTS = [
     (16, "Y-E-3", "V-E-I", "Y-E"), (17, "Y-D-3", "V-G-I", "spine"),
     (19, "V-D-O", "Y-F-1", "spine"), (20, "V-H-O", "Y-F-2", "butt"),
     (21, "Y-F-3", "P-A-I", "Y-F"), (22, "P-A-O", "Y-G-1", "Y-G"),
-    (23, "Y-G-3", "V-I-I", "butt"), (24, "V-I-O", "Y-H-1", "turn"),
-    (26, "Y-H-3", "V-H-I", "Y-H"), (27, "Y-G-2", "V-J-I", "spine"),
+    (23, "Y-G-3", "V-I-I", "butt"), (27, "Y-G-2", "V-J-I", "spine"),
 ]
 
 # Where each quarter turn stands: the column its fixed collet is on, and which deck. fluid-16
-# and fluid-26 carry one on top of their elbow and their crossing, so they are BOTH a turn and
-# a run — the tee's own leg is what the run measures and the turn is what the gate leaves by.
+# carries one on top of its elbow and its crossing, so it is BOTH a turn and a run — the tee's
+# own leg is what the run measures and the turn is what the gate leaves by.
 QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z),
-            14: (-OUTER_X, DECK_Z), 24: (OUTER_X, DECK_Z),
-            16: (-INNER_X, DECK_Z), 26: (INNER_X, DECK_Z)}
+            14: (-OUTER_X, DECK_Z), 16: (-INNER_X, DECK_Z)}
 QUARTER_LEN = math.pi * BEND_R / 2.0
 # The two that carry a step as well, off the far end of their own quarter.
 SBENDS = {3: QUARTERS[3], 5: QUARTERS[5]}
@@ -690,7 +694,8 @@ MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what
     ("fluid-18", "V-G-O", "nozzle A", "V-G", "front"),
     ("fluid-28", "V-J-O", "nozzle B", "V-J", "front"),
     ("fluid-15", "Y-E-2", "reservoir A", "Y-E", "back"),
-    ("fluid-25", "Y-H-2", "reservoir B", "Y-H", "back"),
+    ("fluid-24", "V-I-O", "reservoir B fill", "V-I", "back"),
+    ("fluid-26", "V-H-I", "reservoir B draw", "V-H", "back"),
 )]
 
 
@@ -825,8 +830,12 @@ def envelope(assy: cq.Assembly, stubs: bool):
 
 # Channel A's body and channel B's, for every one that has a twin. A mirrored pack puts each
 # pair at ±x on one y and one z; `mirror_off` is how far it misses by.
+#
+# Y-E HAS NO TWIN. Reservoir B reaches its pair's two valves directly, so channel B has no
+# junction to mirror it — the ten valves still twin, and every junction that joins two of THEM
+# does too. This is the one place the two channels differ, and it differs at the reservoir.
 TWINS = [("V-A", "V-B"), ("V-C", "V-D"), ("V-E", "V-H"), ("V-F", "V-I"), ("V-G", "V-J"),
-         ("Y-A", "Y-B"), ("Y-C", "Y-F"), ("Y-D", "Y-G"), ("Y-E", "Y-H")]
+         ("Y-A", "Y-B"), ("Y-C", "Y-F"), ("Y-D", "Y-G")]
 
 
 def mirror_off() -> list:
