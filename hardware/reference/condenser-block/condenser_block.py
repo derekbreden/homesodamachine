@@ -9,15 +9,12 @@ Coordinate frame
 - Origin at the box's own lower-front-west corner, so the six faces are 0 and the three
   dimensions. `AIRFLOW` on X — the fan's own axis, the short one — `FACE_A` on Y and
   `FACE_B` on Z, the standing serpentine's two large faces.
-- Hot gas enters HIGH on the intake face, the wall the compressor's shroud stands against,
-  and the liquid line leaves LOW on the aft face, the wall the cold core stands against. The
-  two picks land on the stations those neighbours' own penetrations stand on, so each joint
-  is made up across the plane between two bodies and no copper is drawn outside either
-  (`../../printed-parts/enclosure/enclosure-assembly/_contents.py`). The fan is on the face
-  its air leaves by.
+- Hot gas enters the CROWN and the liquid line leaves LOW on the intake face: a standing
+  serpentine fills from the top and drains from the bottom. The fan is on the face its air
+  leaves by.
 
 Which wall the block stands against and which way its air crosses the cabinet is the
-enclosure's business.
+enclosure's business (`../../printed-parts/enclosure/enclosure-assembly/_contents.py`).
 """
 
 import sys
@@ -43,21 +40,13 @@ def build():
 
 # --- The three penetrations, in the block's own frame -----------------------
 # Picks, on a donor packed as a primitive: each stands where a 1/4" copper leg can arrive on
-# the face it names, and moves with that face. The two refrigerant stations are the machine's:
-# `INLET_A` is where the compressor's discharge crosses the plane between shroud and block,
-# and `OUTLET_A`/`OUTLET_B` where the liquid line crosses the plane between block and cold
-# core, on the core's east port lane.
-INLET_A = 45.25       # up the intake face's own Y
-INLET_B = 75.0        # and the height the shroud bores its own wall at
-OUTLET_A = 39.0       # across the aft face
-OUTLET_B = 60.75      # and up it
-
+# the face it names, and moves with that face.
 
 def stations() -> dict:
     """All three, under the names the loop knows them by."""
     return {
-        "refrig-inlet":  ((0.0, INLET_A, INLET_B), (-1.0, 0.0, 0.0)),
-        "refrig-outlet": ((OUTLET_A, FACE_A, OUTLET_B), (0.0, 1.0, 0.0)),
+        "refrig-inlet":  ((27.0, 146.0, FACE_B), (0.0, 0.0, 1.0)),
+        "refrig-outlet": ((0.0, 161.0, 32.5), (-1.0, 0.0, 0.0)),
         "fan-power":     ((AIRFLOW, 30.0, FACE_B / 2.0), (1.0, 0.0, 0.0)),
     }
 

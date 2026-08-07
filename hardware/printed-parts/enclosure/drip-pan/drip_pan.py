@@ -3,9 +3,9 @@ The Shutao moisture plate lies flat in it; any vent drip, condensate, or overflo
 pools in the basin and wets the plate, tripping the moisture alarm. Watertight
 (no drain) — the basin is emptied on service.
 
-One printed part: the BASIN — an open-top rounded-corner box, [50](PAN_LEN) x
-[68](PAN_DEPTH) outer x [10](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
-[3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [8](PAN_FLANGE) mm RIM
+One printed part: the BASIN — an open-top rounded-corner box, [53](PAN_LEN) x
+[76](PAN_DEPTH) outer x [10](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
+[3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [10](PAN_FLANGE) mm RIM
 FLANGE turned out all four ways at the top — a baking tray, at tray scale.
 
 ONE SILHOUETTE, ONE RADIUS. The plan outline is a single rounded rectangle at
@@ -47,16 +47,20 @@ sys.path.insert(0, str(next(p for p in _here.parents
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 
-# The basin lies in the WEST LANE of the service deck, between the −X wall and the SeaFlo's
-# own flank, with the ASSE chain over it. X is the contested axis: the lane is what the pump
-# leaves, and the basin's east rim is its edge. So the width is the FLOOR the moisture plate
-# sets and nothing over — the plate turned down the depth wants
-# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [50](PAN_MIN_LEN) of outer width —
-# [50](PAN_LEN) across and [68](PAN_DEPTH) down, the basin hung on the atmospheric vent's own
+# The basin is narrow across the strip and deep down it. X is the loft's
+# contested axis — east of the basin the west column's crossing ladder climbs
+# rung over rung (`enclosure-assembly/_lines`), and the basin's east rim is that
+# ladder's lid: every millimetre the basin gives back in X is
+# ceiling a rung buys radius from. Y is the axis with room to spare: the run
+# between the SeaFlo's back face and the foam cap's rear edge is deeper than
+# the basin needs. So the width is the FLOOR the moisture plate sets and one
+# millimetre of grace — the plate turned down the depth wants
+# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = 52 of outer width —
+# [53](PAN_LEN) across and [76](PAN_DEPTH) down, the basin hung on the atmospheric vent's own
 # tip in both plan axes (`_contents._pan_room` is the reading, and it refuses a tip that stands
 # outside the inner floor). [10](PAN_HEIGHT) tall is what `VENT_GAP` leaves of the vent's
-# column once the basin's floor has taken its own air over the cap.
-PAN_X, PAN_Y, PAN_Z = 50.0, 68.0, 10.0
+# column once the basin's floor has taken its own air over the casting.
+PAN_X, PAN_Y, PAN_Z = 53.0, 76.0, 10.0
 WALL, FLOOR = 2.5, 3.0
 # The PLAN OUTLINE's radius, and the only one this part has. Floor slab, walls, cavity
 # and flange are all the one outline at their own offset, so the corner a hand runs down
@@ -64,17 +68,18 @@ WALL, FLOOR = 2.5, 3.0
 CORNER_R = 6.0
 # Floor-to-wall fillet — water sheeting + cleanability. It eats the flat floor from
 # both ±Y walls, and the moisture plate's long edge has to land inside what is left.
-FLOOR_COVE = 1.0
+FLOOR_COVE = 2.0
 
 # The rim flange's reach past each wall, ALL FOUR WAYS, at the rim plane rather than at
 # the floor — the basin lies over the casting, so a carry under the floor is height
 # charged twice and this is the face that spares it.
-#   ONE NUMBER FOR TWO GRIPS: the west lip is hooked with a fingertip to draw the tray out
-# through the wall, and the MACHINE takes what that lip leaves — the flat band of underside a
-# rail bears on, which is the reach less the haunch's `FLANGE_HAUNCH` and the fit's
-# `PAN_SLIP`, [4.70](PAN_BEARING) mm of it, `bearing_w()`. One rim runs all four sides at the
-# one figure.
-FLANGE_W = 8.0
+#   ONE NUMBER FOR TWO GRIPS, and the HAND sets it: the west lip is hooked with a
+# fingertip to draw the tray out through the wall, and a lip a finger pulls on wants ten.
+# The MACHINE takes what that lip leaves — the flat band of underside a rail bears on,
+# which is the reach less the haunch's `FLANGE_HAUNCH` and the fit's `PAN_SLIP`,
+# [6.70](PAN_BEARING) mm of it, `bearing_w()`. One rim runs all four sides at the one
+# figure.
+FLANGE_W = 10.0
 # The flange's own section — the wall turned out, so the rim is the gauge the tray is.
 FLANGE_T = WALL
 # The 45° haunch filling the corner between the wall's outer face and the flange's
@@ -220,7 +225,6 @@ def main():
         "PLATE_LEN": f"{PLATE_X:g}",
         "PLATE_DEPTH": f"{PLATE_Y:g}",
         "PLATE_SLIP_MM": f"{PLATE_SLIP:g}",
-        "PAN_MIN_LEN": f"{PLATE_Y + 2 * (PLATE_SLIP + WALL + FLOOR_COVE):g}",
         "PAN_VENT_GAP": f"{VENT_GAP:g}",
         "PAN_CAPACITY": f"{capacity_ml():.1f}",
         "PAN_CORNER_R": f"{CORNER_R:g}",
@@ -235,7 +239,7 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "PAN_LEN": 2, "PAN_DEPTH": 2, "PAN_HEIGHT": 2, "PAN_MIN_LEN": 1,
+            "PAN_LEN": 2, "PAN_DEPTH": 2, "PAN_HEIGHT": 2,
             "PAN_WALL": 1, "PAN_FLOOR": 1,
             "PAN_FLANGE": 1, "PAN_CORNER_R": 1, "PAN_BEARING": 1,
         },

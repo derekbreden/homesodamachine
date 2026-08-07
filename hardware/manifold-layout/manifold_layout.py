@@ -109,7 +109,6 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly              # noqa: E402
-from _seating import Seat                             # noqa: E402  — a body's move, as one thing
 from docgen import substitute_md                      # noqa: E402
 import beduan_solenoid as vlv                         # noqa: E402
 import kamoer_kphm400 as kp                           # noqa: E402
@@ -154,25 +153,16 @@ BARB_STANDOFF = 0.0   # the climb a barb is given over and above what `LIMB_PITC
                       # rather than a fact; the deck rides on it one millimetre for one.
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
+# The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
+# connection is a butt. Below it both tees step toward the pump's axis and each barb reaches
+# its tee on one straight leaning tube — which is what the deck then has to climb to carry.
+# `HSM_LIMB_PITCH` sets it for a run without editing, so the trade is a build and not arithmetic.
+LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", BARB_PITCH))
+
 # --- What follows from them ------------------------------------------------
 # The inner limbs are what the crossbar spans, so THEY are what it places: each stands one
 # branch reach and half a crossbar off the mirror plane, and the pumps hang off them.
 INNER_X = TEE_BRANCH + CROSSBAR / 2.0        # the inner limbs' axes
-
-# The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
-# connection is a butt. Below it both tees step toward the pump's axis and each barb reaches
-# its tee on one straight leaning tube — which is what the deck then has to climb to carry.
-#
-# What sets it is the machine's own width. The pack's widest thing is a valve body standing on
-# an outer limb, and the machine holds that inside the COLD CORE'S FOOTPRINT — the plane the
-# enclosure's ±X boss band ends on, and the plane its side walls are struck one rib inset
-# outboard of. A pack wider than the core makes the appliance wider than the core, and the box
-# is the top of `/hardware/design-pressures.md`. `HSM_LIMB_PITCH` sets it for a run without
-# editing, so the trade is a build and not arithmetic.
-LIMB_PITCH_CEILING = (_contents.CORE_EAST_FACE / 2.0 - _contents.LINE_HUG
-                      - INNER_X - VALVE_PITCH / 2.0)
-LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", min(BARB_PITCH, LIMB_PITCH_CEILING)))
-
 PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror plane
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pump's own axis,
@@ -181,11 +171,7 @@ LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pu
 # `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
 BARB_LEAD = BARB_LEAD_FLOOR + BARB_STANDOFF
-# The barb is a spigot the tube slips over, so the collet plane a lane starts on stands off the
-# head's own face by what the spigot reaches — and a leaning tube sweeps its first disc clear of
-# the metal rather than through it.
-BARB_PROUD = TUBE_D / 2.0
-DECK_Z = HEAD_W + BARB_PROUD + BARB_LEAD + TEE_BRANCH   # the LOWER deck's port-axis height
+DECK_Z = HEAD_W + BARB_LEAD + TEE_BRANCH     # the LOWER deck's port-axis height
 STUB = MIN_BEND                              # what a free mouth is drawn reaching, so the
                                              # first corner past it has a leg to seat in
 
@@ -235,22 +221,10 @@ C_STUB = cq.Color(0.62, 0.70, 0.78)
 
 # --- Placement -------------------------------------------------------------
 
-def seat(origin, x_dir, z_dir) -> Seat:
-    """The move that takes a body out of its own frame into this study's: its local +X onto
-    `x_dir`, its local +Z onto `z_dir`, its local origin onto `origin`. Local +Y follows as
-    z × x."""
-    return Seat(cq.Location(cq.Plane(origin=origin, xDir=x_dir, normal=z_dir)))
-
-
-def about(point, axis, deg: float) -> Seat:
-    """A turn of `deg` about the line through `point` along `axis`."""
-    back = tuple(-c for c in point)
-    return Seat.shift(back).then(Seat.turn(axis, deg)).then(Seat.shift(point))
-
-
 def place(solid, origin, x_dir, z_dir):
-    """`seat`'s answer applied to a solid."""
-    return seat(origin, x_dir, z_dir).solid(solid)
+    """A solid moved out of its own frame into the world: its local +X onto `x_dir`, its
+    local +Z onto `z_dir`, its local origin onto `origin`. Local +Y follows as z × x."""
+    return solid.moved(cq.Location(cq.Plane(origin=origin, xDir=x_dir, normal=z_dir)))
 
 
 def valve_dirs(flow: int):
@@ -301,7 +275,7 @@ def barb_station(tee: str) -> tuple:
     """A pump barb's collet plane, in world. It stands on the head's crown at the limb's own
     y, offset `BARB_PITCH/2` either side of the pump's centre."""
     px, side = BARB_OF[tee]
-    return (px + side * BARB_PITCH / 2.0, 0.0, HEAD_W + BARB_PROUD)
+    return (px + side * BARB_PITCH / 2.0, 0.0, HEAD_W)
 
 
 def _half(name: str) -> float:
@@ -335,7 +309,6 @@ FLAT = lay_out()
 P = FLAT
 
 _tee_solid = None
-_elbow_solid = None
 
 
 def tee_solid():
@@ -345,47 +318,32 @@ def tee_solid():
     return _tee_solid
 
 
-def elbow_solid():
-    """The PP0308E as drawn: legs out +Y and +Z, bend corner at the origin."""
-    global _elbow_solid
-    if _elbow_solid is None:
-        _elbow_solid = cq.importers.importStep(str(ELBOW_STEP)).val()
-    return _elbow_solid
-
-
-_valve_parts = None
-
-
-def valve_parts() -> list:
-    """A Beduan solenoid as drawn, in two solids — the body and the coil-with-spades. All ten
-    valves take their seat on this one pair."""
-    global _valve_parts
-    if _valve_parts is None:
-        _valve_parts = [
-            ("valve", vlv.build_body().union(vlv.build_port()).union(vlv.build_arrow()).val(),
-             C_VALVE),
-            ("coil", cq.Compound.makeCompound(
-                [vlv.build_coil().val()] + [s.val() for s in vlv.build_spades()]), C_COIL)]
-    return _valve_parts
-
-
-def body_parts(name: str) -> list:
-    """One named body's solids AS DRAWN — `(label, solid, colour)`, in the part's own frame."""
-    return valve_parts() if name.startswith("V-") else [("tee", tee_solid(), C_TEE)]
-
-
-def flat_seat(name: str) -> Seat:
-    """One body's seat on its limb, FLAT — one deck, before the hinge turns anything."""
-    b = P[name]
-    if name.startswith("V-"):
-        return seat((b["x"], b["y"], DECK_Z - VALVE_PORT_Z), *valve_dirs(b["arg"]))
-    return seat((b["x"], b["y"], DECK_Z), *tee_dirs(b["arg"]))
+_flat_cache = None
 
 
 def flat_bodies() -> dict:
-    """Every valve and tee placed flat, `{name: [(label, solid, colour), ...]}`."""
-    return {name: [(label, flat_seat(name).solid(s), c) for label, s, c in body_parts(name)]
-            for name in P}
+    """Every valve and tee placed FLAT — one deck, before the hinge turns anything. Built once:
+    `fold_radius` boxes these, and `build_assembly` turns the folded ones about the hinge, so
+    each solid is drawn a single time and the fold is a rigid move of it."""
+    global _flat_cache
+    if _flat_cache is not None:
+        return _flat_cache
+    out = {}
+    for name, b in P.items():
+        if name.startswith("V-"):
+            origin, (x_dir, z_dir) = (b["x"], b["y"], DECK_Z - VALVE_PORT_Z), valve_dirs(b["arg"])
+            out[name] = [
+                ("valve", place(vlv.build_body().union(vlv.build_port())
+                                .union(vlv.build_arrow()).val(), origin, x_dir, z_dir), C_VALVE),
+                ("coil", place(cq.Compound.makeCompound(
+                    [vlv.build_coil().val()] + [s.val() for s in vlv.build_spades()]),
+                    origin, x_dir, z_dir), C_COIL)]
+        else:
+            x_dir, z_dir = tee_dirs(b["arg"])
+            out[name] = [("tee", place(tee_solid(), (b["x"], b["y"], DECK_Z), x_dir, z_dir),
+                          C_TEE)]
+    _flat_cache = out
+    return out
 
 
 # How far apart the two decks stand. CHOSEN, and the build is what says whether it is enough.
@@ -436,14 +394,9 @@ def fold_dir(d) -> tuple:
     return (d[0], -d[1], -d[2])
 
 
-def fold_seat() -> Seat:
-    """The hinge's own move: 180° about the line x, y = HINGE_Y, z = HINGE_Z."""
-    return about((0.0, HINGE_Y, HINGE_Z), (1.0, 0.0, 0.0), 180.0)
-
-
 def folded(solid):
     """A flat solid turned 180° about the hinge."""
-    return fold_seat().solid(solid)
+    return solid.rotate(FOLD_AXIS[0], FOLD_AXIS[1], 180.0)
 
 
 # --- The quarter turns -----------------------------------------------------
@@ -509,13 +462,9 @@ def bend_dir(d) -> tuple:
     return (d[0], -d[2], d[1])
 
 
-def bend_seat(z0: float) -> Seat:
-    """The quarter turn's own move: 90° about the X-parallel line through the arc's centre."""
-    return about((0.0, BEND_Y, z0 + BEND_R), (1.0, 0.0, 0.0), 90.0)
-
-
 def bent(solid, z0: float):
-    return bend_seat(z0).solid(solid)
+    return solid.rotate(cq.Vector(0.0, BEND_Y, z0 + BEND_R),
+                        cq.Vector(1.0, BEND_Y, z0 + BEND_R), 90.0)
 
 
 def sbend(x: float, y0: float, z0: float):
@@ -553,24 +502,9 @@ def quarter(x: float, z0: float):
                           makeSolid=True, isFrenet=True)
 
 
-def body_seat(name: str) -> Seat:
-    """One body's whole move, from the part as drawn to where it stands in this study: its flat
-    seat on the limb, then the hinge if it is forward of its anchor, then the quarter turn if it
-    is one of the four bodies that get one, then the source valves' own step. Each is rigid, and
-    they compose in that order."""
-    s = flat_seat(name)
-    if P[name]["fold"]:
-        s = s.then(fold_seat())
-    if name in BENT:
-        s = s.then(bend_seat(BENT[name]))
-    if name in SHIFT:
-        s = s.then(Seat.shift(SHIFT[name]))
-    return s
-
-
 def _posed(name: str, p, d):
-    """A point and a direction taken through whichever of the moves this body rides: the fold,
-    and then the quarter turn if it is one of the four that got one, and the step after that."""
+    """A point and a direction taken through whichever of the two moves this body rides: the
+    fold, and then the quarter turn if it is one of the six that got one."""
     b = P[name]
     if b["fold"]:
         p, d = fold_pt(p), fold_dir(d)
@@ -663,9 +597,10 @@ def uturn(x: float):
 
 
 def build_elbow(gate: str, side: float):
-    """One draw gate's elbow, placed."""
+    """One draw gate's elbow. Native frame: legs out +Y and +Z, bend corner at the origin."""
     corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
-    return place(elbow_solid(), corner, x_dir, z_dir)
+    solid = cq.importers.importStep(str(ELBOW_STEP)).val()
+    return place(solid, corner, x_dir, z_dir)
 
 
 def build_pump(px: float):
@@ -756,67 +691,37 @@ MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what
 )]
 
 
-def crown_pose() -> Seat:
-    """`(x, y, z) → (−x, z, y)` — a quarter about X and a half about Z, which lays the pack's
-    own front face (the plane the pump heads open on) face down and brings the pumps to the
-    front of it with the valve decks behind them. Every mouth that faced the back faces up.
-
-    The pose [`front_half.py`](front_half.py) sets this pack on the refrigeration stratum in,
-    and the enclosure sets it in the machine in."""
-    return Seat.turn((1.0, 0.0, 0.0), 90.0).then(Seat.turn((0.0, 0.0, 1.0), 180.0))
-
-
-def posed_bodies() -> dict:
-    """The valves, tees, elbows and pumps as `{assembly name: (solid as drawn, seat, colour)}`.
-
-    `Seat.then` carries a pair into the frame outside this one — the refrigeration stratum in
-    [`front_half.py`](front_half.py), the machine in the enclosure's own pack — and the body's
-    collets ride the same chain (`_seating.Seat.port`).
-
-    The pumps are drawn in this study's own frame and take the identity."""
-    out = {}
-    for name in P:
-        s = body_seat(name)
-        for label, solid, color in body_parts(name):
-            out[f"{label}-{name.lower()}"] = (solid, s, color)
-    for tee, (gate, side) in JOINS.items():
-        corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
-        out[f"elbow-{gate.lower()}-i"] = (elbow_solid(), seat(corner, x_dir, z_dir), C_TEE)
-    for pname, px in PUMPS.items():
-        head, bracket, motor = build_pump(px)
-        out[f"{pname}-head"] = (head, Seat(), C_HEAD)
-        out[f"{pname}-bracket"] = (bracket, Seat(), C_BRACKET)
-        out[f"{pname}-motor"] = (motor, Seat(), C_MOTOR)
-    return out
-
-
-def posed_tubes() -> dict:
-    """The tube between those bodies, `{assembly name: (solid, seat, colour)}` — the straights,
-    the four spine turns, the six quarters, the two steps and the six mouth stubs. Swept in this
-    study's own frame, so each takes the identity.
-
-    A BUTT is two collet faces meeting: tube in both quick-connects and none between them, and
-    no solid here. `SEGMENTS` says which of the 21 is which."""
-    out = {}
-    for cid, _f, _t, how in SEGMENTS:
-        if how in RUNS and dist(*RUNS[how]) > 1e-9:
-            out[f"tube-fluid-{cid}"] = (straight(*RUNS[how]), Seat(), C_TUBE)
-    for cid, x in SPINE.items():
-        out[f"tube-fluid-{cid}"] = (uturn(x), Seat(), C_TUBE)
-    for cid, (x, z0) in QUARTERS.items():
-        out[f"turn-fluid-{cid}"] = (quarter(x, z0), Seat(), C_TUBE)
-    for cid, (x, z0) in SBENDS.items():
-        out[f"step-fluid-{cid}"] = (sbend(x, BEND_Y + BEND_R, z0 + BEND_R), Seat(), C_TUBE)
-    for cid, _p, _what, p, axis in MOUTHS:
-        out[f"stub-{cid}"] = (straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
-                              Seat(), C_STUB)
-    return out
-
-
 def build_assembly() -> cq.Assembly:
     a = cq.Assembly(name="manifold-layout")
-    for name, (solid, s, color) in {**posed_bodies(), **posed_tubes()}.items():
-        a.add(s.solid(solid), name=name, color=color)
+    for name, parts in flat_bodies().items():
+        for label, solid, color in parts:
+            if P[name]["fold"]:
+                solid = folded(solid)
+            if name in BENT:
+                solid = bent(solid, BENT[name])
+            if name in SHIFT:
+                solid = solid.translate(cq.Vector(*SHIFT[name]))
+            a.add(solid, name=f"{label}-{name.lower()}", color=color)
+    for tee, (gate, side) in JOINS.items():
+        a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
+    for pname, px in PUMPS.items():
+        head, bracket, motor = build_pump(px)
+        a.add(head, name=f"{pname}-head", color=C_HEAD)
+        a.add(bracket, name=f"{pname}-bracket", color=C_BRACKET)
+        a.add(motor, name=f"{pname}-motor", color=C_MOTOR)
+    # Only the segments that carry tube outside their collets get a solid; the rest are butts.
+    for cid, _f, _t, how in SEGMENTS:
+        if how in RUNS and dist(*RUNS[how]) > 1e-9:
+            a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}", color=C_TUBE)
+    for cid, x in SPINE.items():
+        a.add(uturn(x), name=f"tube-fluid-{cid}", color=C_TUBE)
+    for cid, (x, z0) in QUARTERS.items():
+        a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=C_TUBE)
+    for cid, (x, z0) in SBENDS.items():
+        a.add(sbend(x, BEND_Y + BEND_R, z0 + BEND_R), name=f"step-fluid-{cid}", color=C_TUBE)
+    for cid, _p, _what, p, axis in MOUTHS:
+        a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
+              name=f"stub-{cid}", color=C_STUB)
     return a
 
 
