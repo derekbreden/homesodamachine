@@ -613,8 +613,9 @@ assert cap_conduit_entry_relief_radius >= (
 # thickening of it, carrying a wall's material outboard.
 #   A RESERVOIR FILL stands over its own reservoir rather than over a band, and has no run
 # inside the shell at all: it is the column between a valve on the deck and the bore in the cap
-# of the reservoir it fills, and that cap sits one reservoir_clearance under this one, so the
-# two features meet face to face with nothing between them to cross. The bore it lands on opens
+# of the reservoir it fills, and that cap's own outer face is the last thing under this one, so
+# the two features meet across the pour clearance over the reservoir and nothing else
+# (`_internal_routes` draws and measures the stub). The bore it lands on opens
 # into the reservoir's HEADSPACE, above the liquid and clear of the vent boss, the rod register
 # and every screw boss — so what arrives falls into the cavity and can only leave by the trough.
 # `reservoir_fill_conduit_xy` is the station, and `reservoir_fill_sides` is which reservoirs
@@ -1010,7 +1011,7 @@ if __name__ == "__main__":
             "DECK_MOUNT_CAP_GAP": 1,
             "VESSEL_PORT_PITCH": 1,
             "VESSEL_PORT_OFFSET": 1,
-            "LLDPE_BEND_R": 3,
+            "LLDPE_BEND_R": 2,
             "FORWARD_BAND": 1,
             "LLDPE_TUBE_OD": 1,
             "ENTRY_RELIEF_D": 1,
