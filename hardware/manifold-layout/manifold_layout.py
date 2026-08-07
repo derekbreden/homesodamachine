@@ -1,16 +1,19 @@
-"""Manifold layout — the ten flavor valves, both KPHM400 pumps and the seven junctions
+"""Manifold layout — the ten flavor valves, both KPHM400 pumps and the eight junctions
 between them, placed with nothing else in the box.
 
 Nothing here is seated in the enclosure, no tray carries anything, and no reservoir, nozzle,
-hopper or carbonator is present: the seven mouths that reach them are drawn one stub long and
-stop. The connections are `../fluid-topology.md`'s. What is free is where every body stands,
-how it is turned, and which of a junction's three ports takes its run.
+hopper or carbonator is present: the six mouths that reach them are drawn one stub long and
+stop. The connections are `../topology/fluid-topology.md`'s, with one difference — each
+reservoir has ONE port here and meets its channel's fill and draw gates at a junction, so
+segments 24, 25 and 26 mirror 14, 15 and 16. The machine gives reservoir B two mouths of its
+own instead. What is free is where every body stands, how it is turned, and which of a
+junction's three ports takes its run.
 
 Frame
 -----
 - X = width, mirrored about x = 0. Channel A (pump B) west, channel B (pump A) east.
 - Y = depth. −Y is the front: the tap, the hopper and both nozzles leave that way.
-  +Y is the back: all three reservoir lines leave that way.
+  +Y is the back: both reservoir lines leave that way.
 - Z = height, 0 at the pumps' own floor. The valves stand on one deck above them.
 
 The arrangement
@@ -19,26 +22,27 @@ Each pump's two barbs stand `BARB_PITCH` apart on one face, both facing the same
 dropped on a barb by its BRANCH puts its RUN across that face, so one pump hands out two
 parallel lanes, `BARB_PITCH` apart, one `TEE_BRANCH` off its own skin. Every valve is a
 straight-through body and every junction's run takes two valve ports, so a lane is one line of
-valves and tees butted collet to collet:
+valves and tees butted collet to collet — and the two channels are the same line mirrored:
 
     A1  V-A · Y-A · V-C · Y-C · V-E          B1  V-B · Y-B · V-D · Y-F · V-H
-    A2        V-G · Y-D · V-F · Y-E          B2        V-J · Y-G · V-I
+    A2        V-G · Y-D · V-F · Y-E          B2        V-J · Y-G · V-I · Y-H
 
 Y-C, Y-D, Y-F and Y-G sit on the four barbs. Y-A and Y-B stand on the two INNER limbs' own
-axes, one valve forward of the selects they feed, and their branches face each other across the
-mirror plane with one straight tube between them. Y-E stands in line behind V-F, facing V-E-I
-across the pump, and reaches it with an elbow on that collet and one more straight tube.
+axes, one valve forward of the selects they feed, and their branches meet face to face across
+the mirror plane. Y-E and Y-H stand at the far end of the OUTER limbs behind the fill gates,
+each carrying its reservoir's own line out the back on its run and crossing the pump on its
+branch to the draw gate, which an elbow on that collet turns onto.
 
 Every other connection is collet butted to collet. No run in this arrangement turns: the
 tightest centreline radius 1/4" LLDPE takes is `MIN_BEND`, and no corner is drawn at all.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
-tube in both collets, there is none between them. `BARB_LEAD` is the same figure where a tee
-meets a pump barb, and it is 0 as well; a barb is not a quick-connect, and the deck's height
-rides on this number one for one.
+tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
+tee meets a pump barb, and it is 0 as well; a barb is not a quick-connect, and the deck's
+height rides on this number one for one.
 
-The envelope, the deck, the two tube lengths and the clash check are in `README.md`, written
-back by this file, and printed by every run.
+The envelope, the deck, the two tube lengths, the mirror check and the clash check are in
+`README.md`, written back by this file, and printed by every run.
 
 Run it
 ------
@@ -107,7 +111,8 @@ BUTT = 0.0            # tube left outside a pair of butted quick-connects
 BARB_STANDOFF = 0.0   # the climb a barb is given over and above what `LIMB_PITCH` demands.
                       # A barb is not a quick-connect, so 0 here is a modelling convenience
                       # rather than a fact; the deck rides on it one millimetre for one.
-PUMP_DX = 50.0        # each pump's centre off the mirror plane
+CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
+                      # meet face to face across the mirror plane and no tube is drawn.
 # The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
 # connection is a butt. Below it both tees step toward the pump's axis and each barb reaches
 # its tee on one straight leaning tube — which is what the deck then has to climb to carry.
@@ -115,7 +120,10 @@ PUMP_DX = 50.0        # each pump's centre off the mirror plane
 LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", BARB_PITCH))
 
 # --- What follows from them ------------------------------------------------
-INNER_X = PUMP_DX - LIMB_PITCH / 2.0         # the inner limbs' axes
+# The inner limbs are what the crossbar spans, so THEY are what it places: each stands one
+# branch reach and half a crossbar off the mirror plane, and the pumps hang off them.
+INNER_X = TEE_BRANCH + CROSSBAR / 2.0        # the inner limbs' axes
+PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror plane
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pump's own axis,
                                              # off the barb's column, when the pitch is closed
@@ -124,7 +132,6 @@ LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pu
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
 BARB_LEAD = BARB_LEAD_FLOOR + BARB_STANDOFF
 DECK_Z = HEAD_W + BARB_LEAD + TEE_BRANCH     # the four limbs' shared port-axis height
-CROSSBAR = 2.0 * (INNER_X - TEE_BRANCH)      # exposed tube between Y-A's and Y-B's branches
 STUB = MIN_BEND                              # what a free mouth is drawn reaching, so the
                                              # first corner past it has a leg to seat in
 
@@ -132,9 +139,12 @@ ELBOW_LEG = 19.56                            # bend corner to collet face, both 
 
 if CROSSBAR < 0.0:
     raise ValueError(
-        f"the inner limbs stand {2 * INNER_X:.2f} mm apart and Y-A's and Y-B's branches reach "
-        f"{2 * TEE_BRANCH:.2f} mm between them — the two tees would occupy the same tube. "
-        f"PUMP_DX must be at least {LIMB_PITCH / 2.0 + TEE_BRANCH:.2f}.")
+        f"CROSSBAR {CROSSBAR:g} would stand Y-A's and Y-B's branch collets past each other, so "
+        f"the two fittings occupy the same tube.")
+if 2.0 * INNER_X < VALVE_PITCH:
+    raise ValueError(
+        f"CROSSBAR {CROSSBAR:g} puts the inner limbs {2 * INNER_X:.2f} mm apart, under the "
+        f"{VALVE_PITCH:g} mm two valve bodies pack to — V-A and V-B would occupy each other.")
 
 if LIMB_PITCH < VALVE_PITCH:
     raise ValueError(
@@ -197,7 +207,8 @@ LIMBS = {
         ("V-B", +1), ("Y-B", (-1.0, 0.0, 0.0)), ("V-D", +1),
         ("Y-F", (0.0, 0.0, -1.0)), ("V-H", -1)]),
     "B2": dict(x=+OUTER_X, anchor=1, chain=[
-        ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1)]),
+        ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1),
+        ("Y-H", (-1.0, 0.0, 0.0))]),
 }
 
 PUMPS = {"pump-b": -PUMP_DX, "pump-a": +PUMP_DX}   # channel A west, channel B east
@@ -254,11 +265,23 @@ def branch_port(name: str):
     return (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH), d
 
 
-# The elbow that turns V-E-I across to Y-E's branch: its corner stands one leg behind V-E-I,
-# and its second leg opens west, along Y-E's own branch axis. The two are offset by the
-# difference between `ELBOW_LEG` and `TEE_RUN`, which the run reads out as a collet skew.
-ELBOW_CORNER = (P["V-E"]["x"], P["V-E"]["back"] + ELBOW_LEG, DECK_Z)
-ELBOW_MOUTH = (ELBOW_CORNER[0] - ELBOW_LEG, ELBOW_CORNER[1], ELBOW_CORNER[2])
+# Each reservoir meets its channel's two gates at one junction standing in line behind the FILL
+# gate, on the outer limb: the tee's run carries the fill leg and the reservoir's own line, and
+# its branch crosses the pump to the DRAW gate on the inner limb. The draw gate faces down its
+# own limb, so an elbow on that collet turns it onto the branch's axis. The pair is the whole
+# mirror — reservoir A at Y-E off V-F, reservoir B at Y-H off V-I.
+#
+# Elbow corner one leg behind the draw gate, second leg opening across at the tee. The two axes
+# are offset by `ELBOW_LEG` against `TEE_RUN`, which the run reads out as a collet skew.
+JOINS = {"Y-E": ("V-E", -1.0), "Y-H": ("V-H", +1.0)}
+
+
+def elbow_pose(gate: str, side: float) -> tuple:
+    """The elbow on a draw gate's collet: (corner, mouth, x_dir, z_dir). Leg 1 runs back down
+    the limb onto the gate; leg 2 opens across the pump, `side` picking which way."""
+    corner = (P[gate]["x"], P[gate]["back"] + ELBOW_LEG, DECK_Z)
+    mouth = (corner[0] + side * ELBOW_LEG, corner[1], corner[2])
+    return corner, mouth, (0.0, 0.0, side), (side, 0.0, 0.0)
 
 
 # --- Bodies ----------------------------------------------------------------
@@ -282,11 +305,11 @@ def build_tee(name: str):
     return place(solid, (b["x"], b["y"], DECK_Z), x_dir, z_dir)
 
 
-def build_elbow():
-    """The one elbow in the manifold. Native frame: legs out +Y and +Z, bend corner at the
-    origin. Leg 1 goes onto V-E-I facing back down the limb, leg 2 opens west at Y-E."""
+def build_elbow(gate: str, side: float):
+    """One draw gate's elbow. Native frame: legs out +Y and +Z, bend corner at the origin."""
+    corner, _mouth, x_dir, z_dir = elbow_pose(gate, side)
     solid = cq.importers.importStep(str(ELBOW_STEP)).val()
-    return place(solid, ELBOW_CORNER, (0.0, 0.0, -1.0), (-1.0, 0.0, 0.0))
+    return place(solid, corner, x_dir, z_dir)
 
 
 def build_pump(px: float):
@@ -314,10 +337,9 @@ def straight(a, b, d: float = TUBE_D):
 # made. A BUTT is two collet faces meeting: there is tube in both quick-connects and none
 # between them, so the study draws no solid for it. The other two are straight lengths.
 
-CROSSBAR_RUN = (branch_port("Y-A")[0], branch_port("Y-B")[0])
-YE_RUN = (branch_port("Y-E")[0], ELBOW_MOUTH)
-
-BARB_RUNS = {t: (barb_station(t), branch_port(t)[0]) for t in BARB_OF}
+RUNS = {"crossbar": (branch_port("Y-A")[0], branch_port("Y-B")[0])}
+RUNS.update({t: (barb_station(t), branch_port(t)[0]) for t in BARB_OF})
+RUNS.update({t: (branch_port(t)[0], elbow_pose(*JOINS[t])[1]) for t in JOINS})
 
 SEGMENTS = [
     (3, "V-A-O", "Y-A-1", "butt"), (5, "V-B-O", "Y-B-1", "butt"),
@@ -326,10 +348,11 @@ SEGMENTS = [
     (9, "V-C-O", "Y-C-1", "butt"), (10, "V-E-O", "Y-C-2", "butt"),
     (11, "Y-C-3", "P-B-I", "Y-C"), (12, "P-B-O", "Y-D-1", "Y-D"),
     (13, "Y-D-2", "V-F-I", "butt"), (14, "V-F-O", "Y-E-1", "butt"),
-    (16, "Y-E-3", "V-E-I", "elbow"), (17, "Y-D-3", "V-G-I", "butt"),
+    (16, "Y-E-3", "V-E-I", "Y-E"), (17, "Y-D-3", "V-G-I", "butt"),
     (19, "V-D-O", "Y-F-1", "butt"), (20, "V-H-O", "Y-F-2", "butt"),
     (21, "Y-F-3", "P-A-I", "Y-F"), (22, "P-A-O", "Y-G-1", "Y-G"),
-    (23, "Y-G-3", "V-I-I", "butt"), (27, "Y-G-2", "V-J-I", "butt"),
+    (23, "Y-G-3", "V-I-I", "butt"), (24, "V-I-O", "Y-H-1", "butt"),
+    (26, "Y-H-3", "V-H-I", "Y-H"), (27, "Y-G-2", "V-J-I", "butt"),
 ]
 
 # The seven mouths that leave this study. Each is drawn one `STUB` along its own axis, which is
@@ -340,8 +363,7 @@ MOUTHS = [
     ("fluid-18", "V-G-O", "nozzle A", port("V-G", "front"), (0.0, -1.0, 0.0)),
     ("fluid-28", "V-J-O", "nozzle B", port("V-J", "front"), (0.0, -1.0, 0.0)),
     ("fluid-15", "Y-E-2", "reservoir A", port("Y-E", "back"), (0.0, 1.0, 0.0)),
-    ("fluid-26", "V-H-I", "reservoir B draw", port("V-H", "back"), (0.0, 1.0, 0.0)),
-    ("fluid-24", "V-I-O", "reservoir B fill", port("V-I", "back"), (0.0, 1.0, 0.0)),
+    ("fluid-25", "Y-H-2", "reservoir B", port("Y-H", "back"), (0.0, 1.0, 0.0)),
 ]
 
 
@@ -354,17 +376,17 @@ def build_assembly() -> cq.Assembly:
             a.add(coil, name=f"coil-{name.lower()}", color=C_COIL)
         else:
             a.add(build_tee(name), name=f"tee-{name.lower()}", color=C_TEE)
-    a.add(build_elbow(), name="elbow-v-e-i", color=C_TEE)
+    for tee, (gate, side) in JOINS.items():
+        a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
     for pname, px in PUMPS.items():
         head, bracket, motor = build_pump(px)
         a.add(head, name=f"{pname}-head", color=C_HEAD)
         a.add(bracket, name=f"{pname}-bracket", color=C_BRACKET)
         a.add(motor, name=f"{pname}-motor", color=C_MOTOR)
-    a.add(straight(*CROSSBAR_RUN), name="tube-fluid-6", color=C_TUBE)
-    a.add(straight(*YE_RUN), name="tube-fluid-16", color=C_TUBE)
-    for cid, _f, _t, how in SEGMENTS:                    # the barb runs, if the pitch is closed
-        if how in BARB_RUNS and dist(*BARB_RUNS[how]) > 1e-9:
-            a.add(straight(*BARB_RUNS[how]), name=f"tube-fluid-{cid}", color=C_TUBE)
+    # Only the segments that carry tube outside their collets get a solid; the rest are butts.
+    for cid, _f, _t, how in SEGMENTS:
+        if how in RUNS and dist(*RUNS[how]) > 1e-9:
+            a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}", color=C_TUBE)
     for cid, _p, _what, p, axis in MOUTHS:
         a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
               name=f"stub-{cid}", color=C_STUB)
@@ -412,6 +434,22 @@ def envelope(assy: cq.Assembly, stubs: bool):
         b = s.moved(cq.Location(c.loc.wrapped.Transformation())).BoundingBox()
         box = b if box is None else box.add(b)
     return box
+
+
+# Channel A's body and channel B's, for every one that has a twin. A mirrored pack puts each
+# pair at ±x on one y and one z; `mirror_off` is how far it misses by.
+TWINS = [("V-A", "V-B"), ("V-C", "V-D"), ("V-E", "V-H"), ("V-F", "V-I"), ("V-G", "V-J"),
+         ("Y-A", "Y-B"), ("Y-C", "Y-F"), ("Y-D", "Y-G"), ("Y-E", "Y-H")]
+
+
+def mirror_off() -> list:
+    """Per twinned pair, how far the arrangement is from mirror-symmetric about x = 0: the two
+    x's that should sum to zero, and the y they should share."""
+    out = []
+    for a, b in TWINS:
+        out.append((a, b, abs(P[a]["x"] + P[b]["x"]), abs(P[a]["y"] - P[b]["y"])))
+    out.append(("pump-b", "pump-a", abs(PUMPS["pump-b"] + PUMPS["pump-a"]), 0.0))
+    return out
 
 
 def dist(a, b) -> float:
@@ -475,13 +513,12 @@ def report(assy: cq.Assembly) -> dict:
         row = "  ".join(f"{n}@{P[n]['y']:+.1f}" for n, _ in spec["chain"])
         print(f"  {limb}  x{LIMBS[limb]['x']:+7.2f}   {row}")
 
-    made = {"crossbar": dist(*CROSSBAR_RUN), "elbow": dist(*YE_RUN)}
-    made.update({t: dist(*r) for t, r in BARB_RUNS.items()})
+    made = {k: dist(*v) for k, v in RUNS.items()}
     print(f"\n{len(SEGMENTS)} connections")
     for cid, frm, to, how in SEGMENTS:
         length = made.get(how, 0.0)
-        note = ("butt — 0 mm outside the collets" if how == "butt" or length < 1e-9
-                else f"{length:.2f} mm straight" + (" + one 90° elbow" if how == "elbow" else ""))
+        note = ("butt — 0 mm outside the collets" if length < 1e-9
+                else f"{length:.2f} mm straight" + (" + one 90° elbow" if how in JOINS else ""))
         print(f"  fluid-{cid:<3} {frm:>7} → {to:<7}  {note}")
     print(f"\n{len(MOUTHS)} mouths leave the study")
     for cid, p, what, (x, y, z), axis in MOUTHS:
@@ -500,9 +537,17 @@ def report(assy: cq.Assembly) -> dict:
     print(f"LIMB_PITCH {LIMB_PITCH:g} of a {BARB_PITCH:g} barb pitch — each tee stands "
           f"{LIMB_STEP:.2f} mm off its barb's column on a {BARB_LEAD:.2f} mm lead, which is the "
           f"climb {FLAVOR_SKEW:g}° of skew asks for. HSM_LIMB_PITCH= builds another.")
-    print(f"crossbar {CROSSBAR:.2f} mm exposed; fluid-16 enters its collets "
-          f"{skew_deg(YE_RUN[0], YE_RUN[1], branch_port('Y-E')[1]):.1f}° off axis")
+    print(f"crossbar {CROSSBAR:.2f} mm exposed; the two reservoir crossings enter their collets "
+          + ", ".join(f"{skew_deg(*RUNS[t], branch_port(t)[1]):.1f}°" for t in JOINS)
+          + " off axis")
     print(f"corners: 0, against a {MIN_BEND:g} mm floor for the stock")
+
+    off = mirror_off()
+    worst = max(max(dx, dy) for _a, _b, dx, dy in off)
+    print(f"\nmirror about x=0: {len(off)} twinned pairs, worst off by {worst:.4f} mm")
+    for a, b, dx, dy in off:
+        if max(dx, dy) > 1e-6:
+            print(f"  {a} / {b}   x sums to {dx:.4f}, y differs by {dy:.4f}")
 
     bad, unanswered = clashes(assy)
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
@@ -511,7 +556,7 @@ def report(assy: cq.Assembly) -> dict:
         print(f"  {ni} ∩ {nj}   {v:.1f} mm³")
     for ni, nj, why in unanswered:
         print(f"  {ni} ? {nj}   {why}")
-    return dict(bb=bb, reach=reach, bad=bad + unanswered, made=made)
+    return dict(bb=bb, reach=reach, bad=bad + unanswered, made=made, mirror=off)
 
 
 def main():
@@ -530,7 +575,14 @@ def main():
             "REACH_Z": f"{reach.zlen:.0f}", "STUB_LEN": f"{STUB:g}",
             "DECK_Z": f"{DECK_Z:.2f}", "DECK_Z2": f"{DECK_Z:.2f}",
             "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
-            "CROSSBAR": f"{CROSSBAR:.2f}", "F16_LEN": f"{r['made']['elbow']:.2f}",
+            "CROSSBAR": f"{CROSSBAR:.2f}", "F16_LEN": f"{r['made']['Y-E']:.2f}",
+            "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),
+            "TEE_COUNT2": str(sum(1 for n in P if n.startswith("Y-"))),
+            "ELBOW_COUNT": str(len(JOINS)),
+            "TUBE_COUNT2": str(sum(1 for s in SEGMENTS if r["made"].get(s[3], 0.0) >= 1e-9)),
+            "TWIN_COUNT": str(len(r["mirror"])),
+            "MIRROR_OFF": f"{max(max(dx, dy) for _a, _b, dx, dy in r['mirror']):.4f}",
+            "JOIN_SKEW": f"{skew_deg(*RUNS['Y-E'], branch_port('Y-E')[1]):.1f}",
             "SEGMENT_COUNT": str(len(SEGMENTS)),
             # A butt is a segment whose drawn length is zero, whoever its two ends are — so
             # closing LIMB_PITCH moves four of them out of this count and into TUBE_COUNT.
@@ -554,6 +606,8 @@ def main():
             "ENV_X": 1, "ENV_Y": 1, "ENV_Z": 1, "ENV_L": 1,
             "REACH_X": 1, "REACH_Y": 1, "REACH_Z": 1, "STUB_LEN": 1,
             "DECK_Z": 1, "DECK_Z2": 1, "DECK_GAP": 1, "CROSSBAR": 1, "F16_LEN": 1,
+            "TEE_COUNT": 1, "TEE_COUNT2": 1, "ELBOW_COUNT": 1, "TUBE_COUNT2": 1,
+            "TWIN_COUNT": 1, "MIRROR_OFF": 1, "JOIN_SKEW": 1,
             "SEGMENT_COUNT": 1, "BUTT_COUNT": 1, "TUBE_COUNT": 1, "MOUTH_COUNT": 1,
             "MIN_BEND": 1,
             "BARB_PITCH": 1, "BARB_PITCH2": 1, "BARB_INSET": 1,
