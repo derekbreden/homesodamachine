@@ -34,13 +34,13 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EDITION="kitchen"
-STEP="printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step"
+STEP="manifold-layout/front-half.step"
 SIZE="1400x1080"
 OUT="${TMPDIR:-/tmp}/around"
 
 # The walls and the funnel are what you take off to see the arrangement at all: the four
 # quadrants wrap the whole pack and the funnel roofs the front half.
-HIDE="enclosure_*,hopper-funnel"
+HIDE="enclosure-*,hopper-funnel"
 
 SPIN="z"
 STEP_DEG="15"

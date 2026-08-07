@@ -46,6 +46,7 @@ Run it
     tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -58,13 +59,16 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
+           _hw / "reference" / "seaflo-suction-chain",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
+import _lines                                         # noqa: E402
 import condenser_block as _cond                       # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
+import seaflo_suction_chain as _suct                  # noqa: E402
 
 SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -96,6 +100,8 @@ C_COND = cq.Color(0.78, 0.55, 0.35)
 C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
 C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
+C_SUCT = cq.Color(0.72, 0.72, 0.76)
+C_HOSE = cq.Color(0.35, 0.55, 0.85)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -109,11 +115,46 @@ def sit(shape, *, cx=None, y0=None, y1=None, z0=None, dz=None):
     """Move a shape by whole planes: centre it in X, put its near face at `y0` or its far face
     at `y1`, its floor at `z0`, or step it `dz`. Each argument names where a face of its own box
     lands."""
-    b = box(shape)
-    return shape.translate(cq.Vector(
+    return shape.translate(_shift(box(shape), cx=cx, y0=y0, y1=y1, z0=z0, dz=dz))
+
+
+def _shift(b, *, cx=None, y0=None, y1=None, z0=None, dz=None):
+    return cq.Vector(
         0.0 if cx is None else cx - (b.xmin + b.xmax) / 2.0,
         (0.0 if y0 is None else y0 - b.ymin) + (0.0 if y1 is None else y1 - b.ymax),
-        (0.0 if z0 is None else z0 - b.zmin) + (dz or 0.0)))
+        (0.0 if z0 is None else z0 - b.zmin) + (dz or 0.0))
+
+
+def _turned(v, axis, deg):
+    """Rodrigues: the vector `v` turned `deg` about the unit `axis` through the origin — the same
+    turn `Shape.rotate` gives the body, applied to a point or a direction on it."""
+    a = cq.Vector(*axis).normalized()
+    th = math.radians(deg)
+    c, s_ = math.cos(th), math.sin(th)
+    return (cq.Vector(*v) * c) + (a.cross(cq.Vector(*v)) * s_) + (a * (a.dot(cq.Vector(*v)) * (1.0 - c)))
+
+
+def seat(shape, turns=(), **planes):
+    """A body's whole placement: turned through each `(axis, degrees)` in `turns`, then moved by
+    whole planes (`sit`).
+
+    Returns `(placed, carry)`. `carry` takes a `(position, outward axis)` station in the body's
+    OWN frame through the same turns and the same move — so a port table written once in a
+    reference module rides every placement of the body it is on, and a port cannot drift from
+    the metal it is a hole in."""
+    for axis, deg in turns:
+        shape = shape.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
+    shift = _shift(box(shape), **planes)
+
+    def carry(station):
+        pos, axis = station
+        for ax, deg in turns:
+            pos, axis = _turned(pos, ax, deg), _turned(axis, ax, deg)
+        p = cq.Vector(*pos) + shift if not isinstance(pos, cq.Vector) else pos + shift
+        a = axis if isinstance(axis, cq.Vector) else cq.Vector(*axis)
+        return ((p.x, p.y, p.z), (a.x, a.y, a.z))
+
+    return shape.translate(shift), carry
 
 
 # --- The base: two bodies, one plane between them --------------------------
@@ -151,9 +192,54 @@ def build_foam(front_y: float):
 def build_seaflo(foam):
     """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, centred
     on the mirror plane, its aft face flush with the core's own back."""
-    s = cq.importers.importStep(str(SEAFLO_STEP)).val().rotate(*Z_AXIS, SEAFLO_YAW)
     b = box(foam)
-    return sit(s, cx=0.0, y1=b.ymax, z0=b.zmax)
+    return seat(cq.importers.importStep(str(SEAFLO_STEP)).val(),
+                (((0, 0, 1), SEAFLO_YAW),), cx=0.0, y1=b.ymax, z0=b.zmax)
+
+
+# --- the suction chain, lying in the lane beside the pump ------------------
+#
+# The chain is the two fittings that carry the pump's inlet from the 1/4" LLDPE that reaches it
+# down onto its 3/8" hose barb, made up on the bench as one piece.
+#
+# It is LAID, not stood. Stood on end its barb faces the ceiling and a hose fed from a mouth
+# below it has to turn over to come down; laid, both of its mouths face along the machine and a
+# run reaches either square on.
+#
+# It lies BARB AFT, COLLET FORWARD. The barb faces back at the pump because that is where its
+# hose comes from — `SEAFLO_YAW` lays the motor axis front-to-back, which puts the moulded
+# suction barb on the head's EAST face pointing east, so `water-7` leaves across the machine and
+# turns forward onto a mouth facing it. The collet then faces FORWARD, down the machine at the
+# tap-water column that will feed it, rather than into the rear band.
+SUCT_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
+# The lane it lies in is the strip of the cold core's crown EAST of the pump, and the strip is
+# EMPTY: probed in 20 mm slices from y 180 to the rear plane, nothing stands in
+# x[49, 90.5] z[253.4, 313.4] anywhere along it. The manifold's box reaches y 257 at this height
+# and none of its solids do. So the chain is placed on the run it carries, not on a fence.
+#
+# It hugs the pump rather than the core's east edge, leaving the wall side of the strip open.
+SUCT_PUMP_GAP = 8.0
+# How far FORWARD of the pump's suction mouth the chain's barb stands. `water-7` turns from east
+# to forward in this gap, and a 3/8" corner needs its whole radius as tangent in each leg it
+# touches.
+SUCT_CORNER_ROOM = 24.0
+
+
+def build_suction_chain(seaflo, suction):
+    """The chain laid in the lane east of the pump, on the crown the pump itself stands on.
+
+    Its three coordinates answer to the run it carries and the lane it lies in: X one
+    `SUCT_PUMP_GAP` east of the pump's casting, Y standing its barb `SUCT_CORNER_ROOM` forward
+    of the pump's suction mouth so `water-7`'s corner seats a whole arc, and Z on the core's
+    crown — the plane the pump's own feet stand on, so the chain needs no stand of its own
+    height.
+
+    What holds it there is an open item: nothing threads onto this chain and nothing clamps it.
+    It has a measured datum and measured room; it does not have a bracket."""
+    b = box(seaflo)
+    return seat(_suct.build(), SUCT_CHAIN_TURN,
+                cx=b.xmax + SUCT_PUMP_GAP + _suct.HOSE_OD / 2.0,
+                y1=suction[0][1] - SUCT_CORNER_ROOM, z0=b.zmin)
 
 
 # The assembly's non-manifold members, by name. `report` measures the manifold pack as
@@ -161,11 +247,17 @@ def build_seaflo(foam):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel")
+              "hopper-funnel", "suction-chain")
 
 
 def _manifold(name):
-    return name not in STANDALONE and not name.startswith("enclosure-")
+    return (name not in STANDALONE and not name.startswith("enclosure-")
+            and name not in _ROUTED)
+
+
+# The runs this module authors, by the name they go into the assembly under. `manifold_layout`'s
+# own segments come in as `tube-fluid-*` and are part of the pack; these are between bodies.
+_ROUTED: set = set()
 
 
 def _whole(bodies):
@@ -232,7 +324,19 @@ def build_pack() -> cq.Assembly:
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     foam = build_foam(aft)
     a.add(foam, name="foam-assembly", color=C_FOAM)
-    a.add(build_seaflo(foam), name="seaflo-pump", color=C_SEAFLO)
+    seaflo, seaflo_carry = build_seaflo(foam)
+    a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
+    chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()))
+    a.add(chain, name="suction-chain", color=C_SUCT)
+
+    # The runs between placed bodies. Their frames come off the poses above, so a waypoint
+    # measured off a port moves when the body it is on moves.
+    carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry}
+    runs = _lines.build_runs({"seaflo-pump": seaflo, "suction-chain": chain}, carries)
+    for name, solid in _lines.tubes(runs):
+        _ROUTED.add(name)
+        a.add(solid, name=name, color=C_HOSE)
+    a.runs = runs
     return a
 
 
@@ -343,6 +447,8 @@ def report(a: cq.Assembly) -> None:
     line("seaflo-pump", sf)
     if "hopper-funnel" in named:
         line("hopper-funnel", box(named["hopper-funnel"]))
+    if "suction-chain" in named:
+        line("suction-chain", box(named["suction-chain"]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
@@ -395,6 +501,8 @@ def report(a: cq.Assembly) -> None:
     print(f"                  x[{whole.xmin:.2f},{whole.xmax:.2f}] "
           f"y[{whole.ymin:.2f},{whole.ymax:.2f}] z[{whole.zmin:.2f},{whole.zmax:.2f}]")
 
+
+    _lines.report(getattr(a, "runs", []))
 
     bad, unanswered = ml.clashes(a)
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
