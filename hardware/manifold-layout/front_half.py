@@ -71,6 +71,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
+           _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -83,6 +84,7 @@ import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
+import foam_assembly as _foam                         # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
@@ -239,9 +241,24 @@ def build_condenser(shroud):
 def build_foam(front_y: float):
     """The cold core at the machine's own `FOAM_YAW` and on the machine's own floor, its front
     face on the plane the front half ends at. Its native box hangs 20 mm below its origin, so
-    the floor is the box's own bottom and not that origin."""
-    f = cq.importers.importStep(str(FOAM_STEP)).val().rotate(*Z_AXIS, FOAM_YAW)
-    return sit(f, cx=0.0, y0=front_y, z0=0.0)
+    the floor is the box's own bottom and not that origin.
+
+    Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
+    placement — a line reaching one is drawn to where the bore actually comes out."""
+    f = cq.importers.importStep(str(FOAM_STEP)).val()
+    return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), cx=0.0, y0=front_y, z0=0.0)
+
+
+def cap_conduit(name: str):
+    """One of the cold core's cap conduits as a station in the CORE'S OWN frame:
+    `((x, y, z), outward axis)`.
+
+    `foam_assembly` authors the bore in the cap's frame and turns it back through the cap's own
+    half-turn install, so its `(x, y)` is already the assembly's; the mouth's Z is the lid's
+    outer face, which is the top of that same solid. The way out is the cap's +Z."""
+    x, y = _foam.cap_conduit_station(name)
+    top = box(cq.importers.importStep(str(FOAM_STEP)).val()).zmax
+    return ((x, y, top), _foam.cap_conduit_axis_out())
 
 
 def build_seaflo(foam):
@@ -804,10 +821,10 @@ def build_pack() -> cq.Assembly:
     # source valves' quarter turns carry them aft over the core's crown, and a body standing
     # over it is not a body in its way — so the seam is measured against the bodies that reach
     # below that crown, and the ones above it are left to overhang.
-    top = box(build_foam(0.0)).zmax
+    top = box(build_foam(0.0)[0]).zmax
     aft = max([box(shroud).ymax, box(cond).ymax]
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
-    foam = build_foam(aft)
+    foam, foam_carry = build_foam(aft)
     a.add(foam, name="foam-assembly", color=C_FOAM)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
@@ -837,11 +854,11 @@ def build_pack() -> cq.Assembly:
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
-    carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
+    carries = {"foam-assembly": foam_carry, "seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry}
-    solids = {"seaflo-pump": seaflo, "suction-chain": chain,
+    solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead}
