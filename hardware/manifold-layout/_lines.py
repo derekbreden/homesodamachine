@@ -48,6 +48,7 @@ import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
+import manifold_layout as _ml                           # noqa: E402
 import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
 
@@ -110,6 +111,20 @@ STATIONS = {
 }
 
 
+# The flavour manifold's ten solenoid valves. Each stands coil-up with its flow along the pack's
+# own ±Y, and `manifold_layout.valve_dirs` puts the INLET on the −Y end and the OUTLET on the +Y
+# one — which the fold names `front` and `back`. `front_half.manifold_carry` takes both through
+# the pose and the lift the pack is stood at, so a run anchors on where the collet ends up.
+VALVES = ("V-A", "V-B", "V-C", "V-D", "V-E", "V-F", "V-G", "V-H", "V-I", "V-J")
+for _v in VALVES:
+    STATIONS[f"valve-{_v.lower()}"] = {
+        "inlet": ((lambda v=_v: (_ml.port(v, "front"), _ml.port_axis(v, "front"))),
+                  _split.TUBE_D),
+        "outlet": ((lambda v=_v: (_ml.port(v, "back"), _ml.port_axis(v, "back"))),
+                   _split.TUBE_D),
+    }
+
+
 def frames(placed, carries):
     """Register one `_routing.Frame` per body that states stations, so a run may anchor on
     `"seaflo-pump.suction"`. `placed` is the pack's solids by name; `carries` is the carry each
@@ -152,6 +167,8 @@ def build_runs(placed, carries):
         runs.append(_co2_1(F))
     if {"wr1110", "foam-assembly", "seaflo-pump"} <= set(F):
         runs.append(_co2_2(F))
+    if {"flow-regulator", "valve-v-a"} <= set(F) and "coil-v-a" in placed:
+        runs.append(_fluid_2(F, placed))
     return runs
 
 
@@ -356,6 +373,58 @@ def _co2_2(F):
         kind="co2", lead=(CO2_OUT_LEAD, TUBE_BEND), skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
         note="CO2: WR1110 outlet → the core's CO2 cap conduit, one lean up over the pump's "
              "suction hose, forward at that storey, east onto the port lane's column and down")
+
+
+# The straight `fluid-2` runs forward off the regulator's outlet before it turns. It is longer
+# than the arc's own tangent so a length of tube still leaves the collet straight.
+FLUID_2_LEAD = 20.0
+# The storey it crosses the machine on. The two source valves stand coil-up under the hopper and
+# their coils are the tallest things on this deck, so the run goes OVER them — one clearance
+# above the taller of the pair, read off the coil rather than typed.
+FLUID_2_DECK_CLEAR = 9.0
+
+
+def _fluid_2(F, solids):
+    """fluid-2 — the flow regulator's outlet to V-A's inlet, and the tap water's last leg
+    before the flavour manifold.
+
+    THE TWO MOUTHS FACE THE SAME WAY AND THE VALVE IS BEHIND THE REGULATOR. The regulator lies
+    in the west lane with its flow running forward, so its outlet fires FORWARD; V-A stands
+    coil-up on the deck with its inlet on the −Y end, so a tube enters that collet travelling
+    forward too. The run therefore goes forward off the regulator, crosses the machine east on
+    the plane its own lead leaves it on, climbs over the source valves' coils, comes AFT down
+    V-A's own column and turns down and forward into the collet.
+
+    The last leg is `manifold_layout.STUB` — the straight that pack draws on every mouth that
+    leaves it, which is what its first corner needs before it can turn at all. Drawing this run
+    is what makes that stub a real line, so `front_half.build_pack` stops adding the
+    placeholder once the run exists."""
+    reg, vk_a = F["flow-regulator"], F["valve-v-a"]
+    out, inlet = reg.at("outlet"), vk_a.at("inlet")
+    lane = out[1] - FLUID_2_LEAD
+    deck = solids["coil-v-a"].BoundingBox().zmax + FLUID_2_DECK_CLEAR
+    return R.bent(
+        "fluid-2", "flow-regulator.outlet",
+        (inlet[0], lane, deck),                       # east across the machine and up in one lean
+        (inlet[0], inlet[1] + _ml.STUB, deck),        # aft over the coils, down V-A's own column
+        (inlet[0], inlet[1] + _ml.STUB, inlet[2]),    # onto the collet's own plane
+        "valve-v-a.inlet",
+        kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
+        note="tap water: flow regulator outlet → V-A inlet, forward off the regulator, east and "
+             "up in one lean, aft over the source coils and down V-A's own column")
+
+
+def authored() -> frozenset:
+    """The connection ids this module draws a run for, without building one. `front_half` reads
+    it before the pack is assembled, to know which of the manifold's placeholder mouth stubs a
+    real line has replaced."""
+    return frozenset(_AUTHORED)
+
+
+# The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
+# only decides whether the bodies to draw it are placed yet.
+_AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
+             "co2-1", "co2-2", "fluid-2")
 
 
 def tubes(runs):

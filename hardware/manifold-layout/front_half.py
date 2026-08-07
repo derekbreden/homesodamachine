@@ -956,6 +956,20 @@ def pose_manifold(shape):
     return shape.rotate(*X_AXIS, 90.0).rotate(*Z_AXIS, 180.0)
 
 
+def manifold_carry(lift: float):
+    """The same two turns and the same lift, as a `carry` for a STATION.
+
+    `manifold_layout.port` and its siblings answer in the pack's OWN world — the frame the fold
+    leaves it in — and `build_pack` then poses that whole world and stands it on the base's
+    crown. A line reaching a valve's collet has to arrive where the collet ends up, so the
+    station rides the same transform the solid does: `(x, y, z) → (−x, z, y + lift)`, which is
+    what the two rotations compose to."""
+    def carry(station):
+        (px, py, pz), (ax, ay, az) = station
+        return ((-px, pz, py + lift), (-ax, az, ay))
+    return carry
+
+
 # What the pack actually sets down on is not a body at all — it is the four spine hairpins.
 # The fold turned them onto the pack's own underside, and they hang past the pump-head faces,
 # so THEY are the mating surface and the pump faces stand off the crown by whatever is left.
@@ -976,6 +990,12 @@ def build_pack() -> cq.Assembly:
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
     stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
     for name, solid, color in stood:
+        # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
+        # radius off each of the seven lines that leave its study — the straight their first
+        # corner needs before it can turn — and `_lines` authoring that line is what replaces
+        # the placeholder with the tube itself.
+        if name.startswith("stub-") and name[len("stub-"):] in _lines.authored():
+            continue
         a.add(solid, name=name, color=color)
     # What the core butts is whatever the front half presents AT THE CORE'S OWN HEIGHT. The
     # source valves' quarter turns carry them aft over the core's crown, and a body standing
@@ -1035,6 +1055,13 @@ def build_pack() -> cq.Assembly:
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110}
+    # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
+    # in `manifold_layout`'s world and ride the pose this module stood them in.
+    mcarry = manifold_carry(lift)
+    for name, solid, _colour in stood:
+        solids[name] = solid
+        if name in _lines.STATIONS:
+            carries[name] = mcarry
     a.bulkhead_carry = bulkhead_carry
     runs = _lines.build_runs(solids, carries)
     for name, solid in _lines.tubes(runs):

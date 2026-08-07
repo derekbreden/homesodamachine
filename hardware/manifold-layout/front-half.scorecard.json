@@ -3,7 +3,7 @@
  "placed": 0,
  "located": 100,
  "shaped": 0,
- "routed": 22,
+ "routed": 25,
  "held": 83,
  "mounted": 4,
  "checks": [
@@ -42,7 +42,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "9/9 as drawn",
+   "value": "10/10 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -52,11 +52,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 12/12 corners at spec",
+   "value": "B \u2014 16/16 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:5"
+    "runs by grade: B:6"
    ],
    "active": true
   },
@@ -98,14 +98,13 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "9/40 drawn",
+   "value": "10/40 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 1/27",
+    "fluid: 2/27",
     "refrigerant: 0/3",
     "water: 6/8",
-    "fluid-2 (fluid): Flow regulator outlet \u2192 V-A-I",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
     "fluid-4 (fluid): Hopper funnel bottom \u2192 V-B-I",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1",
@@ -144,7 +143,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "27/27 located",
+   "value": "47/47 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -348,7 +347,7 @@
     0.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-2",
    "status": "ok",
    "note": ""
   },
@@ -558,6 +557,386 @@
    ],
    "diam": 6.35,
    "mates": "water-4",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-a",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    20.07,
+    243.08,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-2",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-a",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    20.07,
+    184.08,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-b",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -20.07,
+    243.08,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-b",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    -20.07,
+    184.08,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-c",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    20.07,
+    142.08,
+    227.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-c",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    20.07,
+    142.08,
+    168.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-d",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -20.07,
+    142.08,
+    227.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-d",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    -20.07,
+    142.08,
+    168.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-e",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    20.07,
+    82.68,
+    208.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-e",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    20.07,
+    82.68,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-f",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    77.07,
+    82.68,
+    208.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-f",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    77.07,
+    82.68,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-g",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    77.07,
+    142.08,
+    227.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-g",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    77.07,
+    142.08,
+    168.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-h",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -20.07,
+    82.68,
+    208.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-h",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    -20.07,
+    82.68,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-i",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -77.07,
+    82.68,
+    208.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-i",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    -77.07,
+    82.68,
+    267.814
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-j",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -77.07,
+    142.08,
+    227.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "valve-v-j",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    -77.07,
+    142.08,
+    168.674
+   ],
+   "face": [
+    -0.0,
+    -0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
    "status": "ok",
    "note": ""
   },
@@ -836,6 +1215,88 @@
      64.55,
      322.8,
      264.7
+    ]
+   }
+  },
+  {
+   "id": "fluid-2",
+   "kind": "fluid",
+   "frm": "flow-regulator.outlet",
+   "to": "valve-v-a.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 260.82,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.0,
+      95.54
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      95.54,
+      101.01
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      101.01,
+      54.3
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      54.3,
+      14.0
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 14.0,
+   "reach": 27.15,
+   "reachRatio": 1.9393,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 3,
+    "length": 54.3,
+    "demand": 2.0,
+    "from": [
+     20.07,
+     257.08,
+     322.11
+    ],
+    "to": [
+     20.07,
+     257.08,
+     267.81
     ]
    }
   },
@@ -1239,8 +1700,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T16:15:34+00:00",
-  "commit": "662e1f7da5693d80462bea04d4facf8fa7ab4777",
+  "generated": "2026-08-07T16:23:54+00:00",
+  "commit": "f49634758b7d6426ffff9855f23544c9a62ad4e6",
   "inputs": {}
  }
 }
