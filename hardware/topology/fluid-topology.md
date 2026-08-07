@@ -23,13 +23,13 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 ## Junctions
 
-Seven 3-port junctions — **Y-A, Y-B, Y-C, Y-D, Y-E, Y-F, Y-G** — and every one of them is a **PP0208E Tee** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y.
+Six 3-port junctions — **Y-A, Y-B, Y-C, Y-D, Y-F, Y-G** — and every one of them is a **PP0208E Tee** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y.
 
-Reservoir B has no junction: it carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so its pair's two valves each reach one directly and nothing stands between them. Reservoir A still meets its pair at Y-E.
+**Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES rather than a valve and a vessel, and segments 15 and 25 do not exist.
 
 Which of the two a junction wants follows from the placed geometry more than from the circuit: a **divider** joins two ports side by side — its outlets are parallel, which is the shape two valves standing beside each other present — and a **Tee** joins two ports one corridor serves, the run taking those and the branch turning to the third. What decides it is the pair's own sitting AND the room the fitting has: a trident is 38.5 mm from stem tip to outlet face and needs that much clear ahead of the pair it joins, where a Tee standing across a band needs only its own 13.7 mm diameter. Nothing in this machine has that much clear, so nothing in it is a trident.
 
-No junction is carried by a tray: a tray seats valves only, so each fitting hangs on the two collets it joins. [7](TRAY_COUNT) trays carry the [11](TRAY_VALVE_COUNT) valves and all of them are placed — [4](TWO_VALVE_COUNT) of the [two-valve](/hardware/printed-parts/valve-manifold/two-valve-tray/README.md) plate and [3](ONE_VALVE_COUNT) of the [single-valve](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md) one, because a plate takes a second seat where two valves belong to ONE circuit node — the two sources, the two selects, and each bag's fill and draw — and three valves in this machine stand alone. A tray carries no valve above another — nothing holds a valve down, so every tray in the machine lies plate-up, and where a plate has two seats they stand side by side — so **a junction reaching between trays can only ever be a Tee**, and that is six of the seven. The seventh joins one tray's own pair, and there the room decides too: **Y-E** has a 16.9 mm strip between the pump row and the head column, and stands a Tee ACROSS it.
+No junction is carried by a tray: a tray seats valves only, so each fitting hangs on the two collets it joins. [7](TRAY_COUNT) trays carry the [11](TRAY_VALVE_COUNT) valves and all of them are placed — [4](TWO_VALVE_COUNT) of the [two-valve](/hardware/printed-parts/valve-manifold/two-valve-tray/README.md) plate and [3](ONE_VALVE_COUNT) of the [single-valve](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md) one, because a plate takes a second seat where two valves belong to ONE circuit node — the two sources, the two selects, and each bag's fill and draw — and three valves in this machine stand alone. A tray carries no valve above another — nothing holds a valve down, so every tray in the machine lies plate-up, and where a plate has two seats they stand side by side — so **a junction reaching between trays can only ever be a Tee**, and every one of the six does reach between trays. No junction joins a tray's own pair, because the pairs that would have — each bag's fill and draw — meet their reservoir's two mouths instead.
 
 Which two of a Tee's three ports take the **run** follows from the geometry the same way the divider/Tee choice does. A Tee's run is a **lane** — one straight length of tube passing through the fitting — and its branch is the leg that leaves that lane. So the run takes the two ports the same corridor serves and the branch takes the one that departs it, and the port numbering below is a naming rather than a claim about which is which: the table says where each port goes, and [`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)'s `_tee_local` is where a name meets a run end or a branch.
 
@@ -40,9 +40,9 @@ Channel A's stand in the **pump lane**, the strip west of the head column and af
 
 Channel B's do **not** share one lane, and pump A is why: it stands in the front column beside channel A's, so both of its junctions are up in the loft and the two legs between them and the barbs cross a storey and a half. **Y-G** stands in the lane east of V-K's plate — the corridor segment 27 already runs down — with its RUN along that lane and one valve on each end: the bag's fill gate forward (segment 23), the nozzle gate aft (segment 27). Its branch takes the climb up out of the front column (segment 22), and both run legs lie on the aft stand's own port plane, so only the branch changes level. **Y-F** stands in the loft's own pump lane, the strip between the trays and the water deck, with its run along the lane — the shared source's climb in from the front column (segment 19), the pump's suction out the other end (segment 21) — and its branch reaching sideways at the bag-B draw (segment 20). It is the only branch in the manifold that is horizontal, and the only row whose RUN legs change level.
 
-**Y-E** is the one junction left that joins a tray's own pair, and it stands ACROSS the strip rather than ahead of it: what is ahead of the bag-A pair is a strip a fitting's diameter deep, so it stands across it with its collets in one vertical plane — the RUN along the strip carrying reservoir A's line in from the tray-east lane (segment 15) and the bag draw out the other end (segment 16), the BRANCH facing down on V-F's own column at the fill (segment 14). A down-facing collet is entered by a rising leg, so it stands over the pair's port plane and both valve legs climb into it. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
+Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
 
-Y-E's three ports are numbered from the end the **bag** rides — Y-E-2 the east end of its run, with a valve on each of the other two — where Y-A's and Y-B's are numbered from the source end down their columns. Y-G's run is numbered from its AFT end — Y-G-2 at the nozzle gate, Y-G-3 forward at the bag's fill valve — each of the two the nearer to the collet it reaches. Reservoir A is reached by one line on the cold core's front face carrying both its fill and its draw; reservoir B is reached by two, each on its own conduit through the top cap.
+Y-A's and Y-B's ports are numbered from the source end down their columns. Y-G's run is numbered from its AFT end — Y-G-2 at the nozzle gate, Y-G-3 forward at the bag's fill valve — each of the two the nearer to the collet it reaches. **Each reservoir is reached by two lines**, the fill onto a bore in its own cap and the draw off the bulkhead at the bottom of its wet V, each on its own conduit through the top cap.
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
@@ -50,7 +50,6 @@ Y-E's three ports are numbered from the end the **bag** rides — Y-E-2 the east
 | Y-B | V-B-O (hopper) | V-D-I (channel B select) | Y-A-3 (crossbar to Y-A) |
 | Y-C | V-C-O (channel A shared source) | V-E-O (bag A to pump return) | P-B-I (pump B inlet) |
 | Y-D | P-B-O (pump B outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
-| Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
 | Y-F | V-D-O (channel B shared source) | V-H-O (bag B to pump return) | P-A-I (pump A inlet) |
 | Y-G | P-A-O (pump A outlet) | V-J-I (pump to nozzle B) | V-I-I (pump to bag B) |
 
@@ -80,9 +79,8 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 | 11 | Y-C-3 | P-B-I | |
 | 12 | P-B-O | Y-D-1 | |
 | 13 | Y-D-2 | V-F-I | |
-| 14 | V-F-O | Y-E-1 | |
-| 15 | Bag A port | Y-E-2 | |
-| 16 | Y-E-3 | V-E-I | |
+| 14 | V-F-O | Bag A FILL port | Down the cap conduit onto the bore in the reservoir's own cap, above the liquid |
+| 16 | Bag A DRAW port | V-E-I | Out of the `reservoir-a` conduit at the head of its band, off the bulkhead at the bottom of the wet V |
 | 17 | Y-D-3 | V-G-I | |
 | 18 | V-G-O | Nozzle A | |
 

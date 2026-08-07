@@ -257,8 +257,7 @@ LIMBS = {
         ("V-A", +1), ("Y-A", (+1.0, 0.0, 0.0)), ("V-C", +1),
         ("Y-C", (0.0, 0.0, -1.0)), ("V-E", -1)]),
     "A2": dict(x=-OUTER_X, anchor=1, chain=[
-        ("V-G", -1), ("Y-D", (0.0, 0.0, -1.0)), ("V-F", +1),
-        ("Y-E", (+1.0, 0.0, 0.0))]),
+        ("V-G", -1), ("Y-D", (0.0, 0.0, -1.0)), ("V-F", +1)]),
     "B1": dict(x=+INNER_X, anchor=3, chain=[
         ("V-B", +1), ("Y-B", (-1.0, 0.0, 0.0)), ("V-D", +1),
         ("Y-F", (0.0, 0.0, -1.0)), ("V-H", -1)]),
@@ -409,18 +408,16 @@ def folded(solid):
 # comes round with the turn — a quarter about the X-parallel line through the arc's own centre.
 #
 #   fluid-3, fluid-5     the source valves, off Y-A and Y-B on the folded deck
-#   fluid-14             reservoir A's junction, off its fill gate
-#   fluid-16             reservoir A's draw-gate elbow, off the gate
 #
-# X does not enter it: the axis runs along X, so all four share one (y, z) transform per deck,
-# and a pair that faced each other across the machine still does.
+# X does not enter it: the axis runs along X, so the pair shares one (y, z) transform, and two
+# turns that faced each other across the machine still do.
 #
-# CHANNEL B HAS NEITHER, because it has no junction: its fill and draw gates reach reservoir B's
-# two mouths directly, so both collets are mouths of this study and leave on their own axes.
+# NEITHER CHANNEL HAS A RESERVOIR TURN, because neither has a reservoir junction: each pair's
+# fill and draw gates reach their reservoir's own two mouths, so all four collets are mouths of
+# this study and leave on their own axes.
 BEND_R = MIN_BEND
-BEND_Y = TEE_RUN + VALVE_LEN                 # the plane every one of the four stands on
-BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z, "Y-E": DECK_Z}
-ELBOW_BEND = DECK_Z                          # the draw-gate elbow turns with its tee
+BEND_Y = TEE_RUN + VALVE_LEN                 # the plane both of them stand on
+BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 
 
 # The two source valves step again once they are round: `SOURCE_TRAVEL` further along the run
@@ -540,19 +537,12 @@ def branch_port(name: str):
     return _posed(name, (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH), d)
 
 
-# Each reservoir meets its channel's two gates at one junction standing in line behind the FILL
-# gate, on the outer limb: the tee's run carries the fill leg and the reservoir's own line, and
-# its branch crosses the pump to the DRAW gate on the inner limb. The draw gate faces down its
-# own limb, so an elbow on that collet turns it onto the branch's axis.
-#
-# RESERVOIR A IS THE ONE THAT DOES THIS. Reservoir B carries two mouths of its own — the draw on
-# the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so its pair's two
-# valves each reach one directly and nothing stands between them. What was the mirror of this
-# junction is now two of the mouths below.
-#
-# Elbow corner one leg behind the draw gate, second leg opening across at the tee. The two axes
-# are offset by `ELBOW_LEG` against `TEE_RUN`, which the run reads out as a collet skew.
-JOINS = {"Y-E": ("V-E", -1.0)}
+# NEITHER RESERVOIR HAS A JUNCTION. Each carries two mouths of its own — the draw on the
+# bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two
+# valves reach one directly and nothing stands between them. The four collets that would have
+# met a tee are mouths of this study instead, and every junction left in the pack joins two
+# VALVES rather than a valve and a vessel.
+JOINS = {}
 
 
 def _cross(a, b) -> tuple:
@@ -649,9 +639,7 @@ def turns_meet() -> list:
     ROTATION. Moving a fitting to the bent position without turning it leaves the leg on the
     turn's own axis landing correctly and the other one pointing where it started, which reads
     as connected from every direction but the one that matters."""
-    lands = {3: port("V-A", "back"), 5: port("V-B", "back"),
-             14: port("Y-E", "front")}
-    lands.update({16: elbow_pose(*JOINS["Y-E"])[4]})
+    lands = {3: port("V-A", "back"), 5: port("V-B", "back")}
     out = []
     for cid, (x, z0) in sorted(QUARTERS.items()):
         end = (x, BEND_Y + BEND_R, z0 + BEND_R)
@@ -666,18 +654,14 @@ SEGMENTS = [
     (7, "Y-A-2", "V-C-I", "butt"), (8, "Y-B-2", "V-D-I", "butt"),
     (9, "V-C-O", "Y-C-1", "spine"), (10, "V-E-O", "Y-C-2", "butt"),
     (11, "Y-C-3", "P-B-I", "Y-C"), (12, "P-B-O", "Y-D-1", "Y-D"),
-    (13, "Y-D-2", "V-F-I", "butt"), (14, "V-F-O", "Y-E-1", "turn"),
-    (16, "Y-E-3", "V-E-I", "Y-E"), (17, "Y-D-3", "V-G-I", "spine"),
+    (13, "Y-D-2", "V-F-I", "butt"), (17, "Y-D-3", "V-G-I", "spine"),
     (19, "V-D-O", "Y-F-1", "spine"), (20, "V-H-O", "Y-F-2", "butt"),
     (21, "Y-F-3", "P-A-I", "Y-F"), (22, "P-A-O", "Y-G-1", "Y-G"),
     (23, "Y-G-3", "V-I-I", "butt"), (27, "Y-G-2", "V-J-I", "spine"),
 ]
 
-# Where each quarter turn stands: the column its fixed collet is on, and which deck. fluid-16
-# carries one on top of its elbow and its crossing, so it is BOTH a turn and a run — the tee's
-# own leg is what the run measures and the turn is what the gate leaves by.
-QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z),
-            14: (-OUTER_X, DECK_Z), 16: (-INNER_X, DECK_Z)}
+# Where each quarter turn stands: the column its fixed collet is on, and which deck.
+QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z)}
 QUARTER_LEN = math.pi * BEND_R / 2.0
 # The two that carry a step as well, off the far end of their own quarter.
 SBENDS = {3: QUARTERS[3], 5: QUARTERS[5]}
@@ -693,7 +677,8 @@ MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what
     ("fluid-4", "V-B-I", "hopper in", "V-B", "front"),
     ("fluid-18", "V-G-O", "nozzle A", "V-G", "front"),
     ("fluid-28", "V-J-O", "nozzle B", "V-J", "front"),
-    ("fluid-15", "Y-E-2", "reservoir A", "Y-E", "back"),
+    ("fluid-14", "V-F-O", "reservoir A fill", "V-F", "back"),
+    ("fluid-16", "V-E-I", "reservoir A draw", "V-E", "back"),
     ("fluid-24", "V-I-O", "reservoir B fill", "V-I", "back"),
     ("fluid-26", "V-H-I", "reservoir B draw", "V-H", "back"),
 )]
@@ -1017,20 +1002,18 @@ def main():
             "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
-            "BEND_Y": f"{BEND_Y:.2f}", "F16_LEN2": f"{r['made']['Y-E']:.2f}",
+            "BEND_Y": f"{BEND_Y:.2f}",
             "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)),
             "STEP_ANGLE": f"{math.degrees(SOURCE_ANGLE):.3f}",
             "STEP_STRAIGHT": f"{SOURCE_STRAIGHT:.2f}", "STEP_LEN": f"{SOURCE_LEN:.2f}",
             "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{SOURCE_JOG:g}",
             "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
-            "CROSSBAR": f"{CROSSBAR:.2f}", "F16_LEN": f"{r['made']['Y-E']:.2f}",
+            "CROSSBAR": f"{CROSSBAR:.2f}",
             "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),
             "TEE_COUNT2": str(sum(1 for n in P if n.startswith("Y-"))),
-            "ELBOW_COUNT": str(len(JOINS)),
             "TUBE_COUNT2": str(sum(1 for s in SEGMENTS if r["made"].get(s[3], 0.0) >= 1e-9)),
             "TWIN_COUNT": str(len(r["mirror"])),
             "MIRROR_OFF": f"{max(max(dx, dy) for _a, _b, dx, dy in r['mirror']):.4f}",
-            "JOIN_SKEW": f"{skew_deg(*RUNS['Y-E'], branch_port('Y-E')[1]):.1f}",
             "SEGMENT_COUNT": str(len(SEGMENTS)),
             # A butt is a segment that is not a spine turn and whose drawn length is zero,
             # whoever its two ends are — so closing LIMB_PITCH moves four of them out of this
@@ -1046,7 +1029,6 @@ def main():
             "VALVE_PITCH": f"{VALVE_PITCH:g}", "VALVE_PORT_Z": f"{VALVE_PORT_Z:g}",
             "VALVE_LEN": f"{VALVE_LEN:g}",
             "TEE_RUN": f"{TEE_RUN:g}", "TEE_SPAN": f"{2 * TEE_RUN:g}",
-            "ELBOW_LEG": f"{ELBOW_LEG:g}",
             "DIVIDER_PITCH": f"{2 * ydiv.OUTLET_Y:g}",
             "LIMB_OUT_XW": f"{-OUTER_X:.2f}", "LIMB_IN_XW": f"{-INNER_X:.2f}",
             "LIMB_IN_XE": f"{INNER_X:+.2f}", "LIMB_OUT_XE": f"{OUTER_X:+.2f}",
@@ -1058,14 +1040,14 @@ def main():
             "REACH_X": 1, "REACH_Y": 1, "REACH_Z": 1, "STUB_LEN": 1,
             "DECK_Z": 1, "DECK_Z2": 2, "UPPER_Z": 1, "UPPER_Z2": 1,
             "SPINE_R": 1, "SPINE_LEN": 1, "SPINE_STRAIGHT": 1, "DECK_SEP": 1, "SPINE_COUNT": 1, "MIN_BEND2": 1,
-            "DECK_GAP": 1, "CROSSBAR": 1, "F16_LEN": 1,
-            "TEE_COUNT": 1, "TEE_COUNT2": 1, "ELBOW_COUNT": 1, "TUBE_COUNT2": 1,
-            "TWIN_COUNT": 1, "MIRROR_OFF": 1, "JOIN_SKEW": 1,
+            "DECK_GAP": 1, "CROSSBAR": 1,
+            "TEE_COUNT": 1, "TEE_COUNT2": 1, "TUBE_COUNT2": 1,
+            "TWIN_COUNT": 1, "MIRROR_OFF": 1,
             "SEGMENT_COUNT": 1, "BUTT_COUNT": 1, "TUBE_COUNT": 1, "MOUTH_COUNT": 1,
             "MIN_BEND": 1,
             "BARB_PITCH": 1, "BARB_PITCH2": 1, "BARB_INSET": 1,
             "VALVE_PITCH": 1, "VALVE_PORT_Z": 1, "VALVE_LEN": 1,
-            "TEE_RUN": 1, "TEE_SPAN": 1, "ELBOW_LEG": 1, "DIVIDER_PITCH": 1,
+            "TEE_RUN": 1, "TEE_SPAN": 1, "DIVIDER_PITCH": 1,
             "LIMB_OUT_XW": 1, "LIMB_IN_XW": 1, "LIMB_IN_XE": 1, "LIMB_OUT_XE": 1,
             "INNER_GAP": 1, "CLASHES": 1,
         },

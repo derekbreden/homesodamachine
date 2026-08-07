@@ -17,11 +17,11 @@ Masses come from bom.md §7, which is geometry-derived and commit-gated, so a pr
 
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
-| Bulk PETG, 0.8 nozzle | Cold-core shell, both enclosure sets, four foam-cap pieces | [10.8](MT_RATE_BULK) h/kg — **measured** | [6.097](MT_KG_BULK) kg | [65.8](MT_H_BULK) |
+| Bulk PETG, 0.8 nozzle | Cold-core shell, both enclosure sets, four foam-cap pieces | [10.8](MT_RATE_BULK) h/kg — **measured** | [6.098](MT_KG_BULK) kg | [65.9](MT_H_BULK) |
 | Watertight translucent PETG | Both reservoir bodies + caps — 3 mm walls, Arachne, fine nozzle for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)) | [22](MT_RATE_TIGHT) h/kg — est., ~½ the bulk volumetric rate | [0.880](MT_KG_TIGHT) kg | [19.4](MT_H_TIGHT) |
 | Small PETG parts | Valve trays, drip pan, plug stack, PRV shroud, AC hub plate, reed bridge | [30](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.230](MT_KG_SMALL) kg | [6.9](MT_H_SMALL) |
 | PET-CF, 0.4 nozzle | Faucet touch-flo shell + mounting plate — fine layers, 50 °C chamber, hardened nozzle | [60](MT_RATE_PETCF) h/kg — est. | [0.163](MT_KG_PETCF) kg | [9.8](MT_H_PETCF) |
-| **Printer time per unit** | | | **[7.370](MT_KG)** kg | **[101.9](MT_H_PRINT)** |
+| **Printer time per unit** | | | **[7.371](MT_KG)** kg | **[101.9](MT_H_PRINT)** |
 
 Spread across [2](MT_PRINTERS) machines that is **[50.9](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
