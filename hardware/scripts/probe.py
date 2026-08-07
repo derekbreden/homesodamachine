@@ -1,17 +1,17 @@
 """Geometry probe — ask the placed solids a question instead of reasoning about them.
 
-The whole placed machine as one flat `{name: shape}` world — the enclosure pack,
-its panel bodies, the display, the hopper funnel, the four printed enclosure
-pieces and the routed tubes — with the queries that answer where a part is, how
-close two parts come, what a candidate volume runs into, and how far a line can
-travel before it hits something.
+The whole placed machine as one flat `{name: shape}` world — `front_half`'s pack
+bodies, the display and hopper funnel seated in the walls, the four printed
+enclosure pieces and the routed tubes — with the queries that answer where a part
+is, how close two parts come, what a candidate volume runs into, and how far a
+line can travel before it hits something.
 
-The world is what `scorecard.pack_clashes` measures, body for body: its `solids`
-are `w.parts`, its `pieces` are `w.pieces`, and both are in the one dict every
-query iterates. That is the point. The pieces are the walls, seam lips,
+The world is one `front_half.build_front_half()`, body for body: `w.parts` are the
+bodies, `w.pieces` are the box's four printable pieces, and both are in the one
+dict every query iterates. That is the point. The pieces are the walls, seam lips,
 cross-pin pods, boss chains and ribs, they are what bounds a placement in a
 machine this full, and a query that could not see them would answer CLEAR
-exactly where the gate that blocks the build answers clash. The two groups keep
+exactly where the clash check answers clash. The two groups keep
 their names so a query can ask for the interior pack alone — `skip=w.pieces` —
 but nothing has to remember to ask for the walls.
 
@@ -20,7 +20,7 @@ raises instead of being skipped; a boolean that fails raises with the body's
 name; a cast that never contacts anything says so rather than reporting its own
 limit as a clearance. Nothing here returns 0.0 for "I could not measure".
 
-That last promise is why every overlap goes through `scorecard._common` rather
+That last promise is why every overlap goes through `_overlap.common` rather
 than one `intersect`: a boolean that FAILS is loud already, and the quiet one is
 a boolean that succeeds and hands back nothing — which is what OCCT does for two
 bodies whose surfaces are tangent where they cross. Two swept tubes of one Ø on
@@ -72,8 +72,10 @@ import cadquery as cq
 
 from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
+import _overlap
+
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
-_ENCLOSURE = _HW / "printed-parts" / "enclosure" / "enclosure-assembly"
+_ML = _HW / "manifold-layout"                                   # `front_half` — the machine
 _BOX = _HW / "printed-parts" / "enclosure" / "enclosure"        # `enclosure` — the box itself
 
 VOL_TOL = 1e-6          # mm³ below which an intersection is contact noise, not overlap
@@ -83,42 +85,31 @@ CONTACT_EPS = 1e-7      # a gap under this is bodies touching, not bodies near e
 TRAVEL_LIMIT = 60.0     # default body travel: past any move this pack has wanted, and short
                         # enough that a sweep of a real body stays quick. It is a bound on the
                         # QUERY — a travel that reaches it has found no obstacle, not room.
+BED_TOL = 1.0           # slack on a piece's own extents against the bed, per axis
 
 PIECE = "piece"         # the source tag a printed enclosure piece carries
 SKIP_PIECES = "HSM_SKIP_PIECES"     # env flag that leaves the printed pieces out
 
 
 # --- the overlap boolean --------------------------------------------------
-# Every occupancy question here — what a volume runs into, how far a body slides, what a
-# cast hits — is one boolean, and it is the GATE'S boolean, not a second one written beside
-# it. `scorecard._common` asks OCCT twice: once exactly, and again with a small fuzz
-# whenever the exact ask comes back EMPTY. The comment above it says why, and the short of
-# it is that an exact Common returns no solid at all — IsDone, no error — for two bodies
-# whose surfaces are tangent where they cross, which is what two swept tubes of one Ø on one
-# stratum are.
-#
-# A single ask here would fail in the direction this instrument exists to rule out. `hits`
-# would answer CLEAR for a volume `pack_clashes` fails the build on, and it would answer it
-# in the file whose own docstring promises that nothing returns 0.0 for "I could not
-# measure" — a placement picked against that answer is picked against nothing.
-_COMMON = None
+# Every occupancy question here — what a volume runs into, how far a body slides, what a cast
+# hits — goes through `_overlap.common`, which asks OCCT twice: once exactly, and again with a
+# small fuzz whenever the exact ask comes back EMPTY. `_overlap` carries why; the short of it
+# is that an exact Common returns no solid at all — IsDone, no error — for two bodies whose
+# surfaces are tangent where they cross, which is what two swept tubes of one Ø on one stratum
+# are. A single ask answers CLEAR there, in a file whose own docstring promises that nothing
+# returns 0.0 for "I could not measure".
 
 
 def _common(a, b) -> tuple:
-    """The solid two bodies share and its volume, as (shape, mm³), through the gate's own
-    boolean. Raises if the boolean does not resolve, so an unresolved pair is never counted
-    as a clear one."""
-    global _COMMON
-    if _COMMON is None:
-        _ensure_paths()
-        import scorecard
-        _COMMON = scorecard._common
-    return _COMMON(a, b)
+    """The solid two bodies share and its volume, as (shape, mm³). Raises if the boolean does
+    not resolve, so an unresolved pair is never counted as a clear one."""
+    return _overlap.common(a, b)
 
 
 def _common_volume(a, b) -> float:
     """Just the mm³ of `_common`, for the queries that only threshold on it."""
-    return _common(a, b)[1]
+    return _overlap.volume(a, b)
 
 
 # --- normalizing what the pack hands back ---------------------------------
@@ -316,12 +307,16 @@ class World:
     The roles stay legible through `sources`, and `pieces` / `parts` split the world
     the way `scorecard.pack_clashes` splits its arguments."""
 
-    def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False):
+    def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False,
+                 frames: dict = None, box=None):
         self.solids = solids
-        # name → "component" | "panel" | "display" | "funnel" | "run" | PIECE
+        # name → "component" | "display" | "funnel" | "run" | PIECE
         self.sources = sources
         self.pieces_held_out = pieces_held_out      # asked for without pieces, see measured
-        self._frames = None
+        # The frames the tubes were swept along and the box the pieces were cut from, as the
+        # assembly carries them.
+        self._frames = frames
+        self.box = box
         self._boxes = {}                # name → (solid, box), see bb()
 
     # -- what is here --
@@ -393,11 +388,13 @@ class World:
     # -- ports --
 
     def frames(self) -> dict:
-        """`{component: Frame}` from the routing module — `.at(port)`,
-        `.normal(port)`, `.diam(port)`, `.bb`."""
+        """`{component: Frame}` as the assembly was built with them — `.at(port)`,
+        `.normal(port)`, `.diam(port)`, `.bb`.
+
+        Holds one entry per body whose reference module states a port table."""
         if self._frames is None:
-            import _lines
-            self._frames = _lines._frames()
+            raise ValueError("this world carries no port frames — it was built from an "
+                             "assembly without them")
         return self._frames
 
     def at(self, component: str, port: str) -> tuple:
@@ -686,20 +683,25 @@ def rebuild_sweep(module, attr: str, values, build, label: str = None) -> list:
 
 
 def bed_fit(pieces: dict = None, bed=None) -> list:
-    """Each printed piece against the print bed, through the scorecard's own check:
-    `(name, xlen, ylen, zlen, fits)` per piece, on the scorecard's own tolerance. With no
-    `pieces`, the world's own. Values normalize through `shape()`, so a `build_pieces()`
-    Workplane is accepted."""
+    """Each printed piece against the H2C's bed: `(name, xlen, ylen, zlen, fits)` per piece,
+    on `BED_TOL`. With no `pieces`, the world's own. Values normalize through `shape()`, so a
+    `build_pieces()` Workplane is accepted. The pieces are stored in print orientation, so the
+    test is per-axis."""
     _ensure_paths()
     import enclosure
-    import scorecard
 
     if pieces is None:
         w = world()
         pieces = {n: w.solid(n) for n in w.pieces}
     if bed is None:
         bed = (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z)
-    return scorecard.fit_bed({n: shape(p, n) for n, p in pieces.items()}, bed)
+    bx, by, bz = bed
+    out = []
+    for n, p in pieces.items():
+        b = shape(p, n).BoundingBox()
+        out.append((n, b.xlen, b.ylen, b.zlen,
+                    b.xlen <= bx + BED_TOL and b.ylen <= by + BED_TOL and b.zlen <= bz + BED_TOL))
+    return out
 
 
 # --- loading --------------------------------------------------------------
@@ -708,40 +710,31 @@ _WORLDS: dict = {}              # (runs, pieces) → World, see world()
 
 
 def _ensure_paths() -> None:
-    """The enclosure modules on sys.path, and the env a read-only run wants."""
+    """The machine's modules on sys.path, and the env a read-only run wants."""
     os.environ.setdefault("HSM_SKIP_THUMBNAILS", "1")
     os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
-    for d in (_ENCLOSURE, _BOX):
+    for d in (_ML, _BOX):
         if str(d) not in sys.path:
             sys.path.insert(0, str(d))
 
 
 def _assembly():
-    """The enclosure assembly module — the one place that says which STEPs the pieces are,
-    where the display sits, and which placement overrides are in force. Read from there
-    rather than restated here, so the world these instruments measure and the pack the
-    gates measure cannot drift apart."""
+    """`front_half` — the module that states which bodies are placed, where each one is
+    turned to, what is seated in the walls and how the box is cut."""
     _ensure_paths()
-    import enclosure_assembly
-    return enclosure_assembly
+    import front_half
+    return front_half
 
 
-def _read_pieces() -> dict:
-    """The four printed enclosure pieces as the assembly reads them: `{name: shape}`,
-    from the committed `enclosure-*.step` with the same placement overrides applied.
-
-    Read, not rebuilt: `enclosure.build_pieces()` regenerates them from source and costs a
-    minute, and the STEPs are what `enclosure_assembly` imports — so a piece edited but not
-    re-exported is measured here exactly as the gate measures it, which is the whole point
-    of reading the same files."""
-    assembly = _assembly()
-    missing = [p.name for p in assembly.PIECES.values() if not p.is_file()]
-    if missing:
-        raise FileNotFoundError(
-            f"the printed enclosure pieces are not exported: {', '.join(missing)} — build "
-            f"the enclosure, or set {SKIP_PIECES}=1 to measure the interior pack alone "
-            f"(which cannot tell you whether a pose stands in a wall)")
-    return assembly._pieces_shapes(assembly.contents._moves())
+# How a child of the front-half assembly is tagged. The names carry the role: the box's four
+# printable pieces come in under `enclosure-`, the swept runs under `tube-`, and the two
+# bodies seated in walls rather than standing in the pack are named outright.
+def _source(name: str) -> str:
+    if name.startswith("enclosure-"):
+        return PIECE
+    if name.startswith("tube-"):
+        return "run"
+    return {"display": "display", "hopper-funnel": "funnel"}.get(name, "component")
 
 
 def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World:
@@ -764,7 +757,7 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     they reach into. `w.measured` says which way a world was built, and both scans print
     it.
 
-    Memoized per (runs, pieces) — building one imports and places every STEP."""
+    Memoized per (runs, pieces) — building one places every body in the machine."""
     want_pieces = bool(pieces) and not os.environ.get(SKIP_PIECES)
     key = (bool(runs), want_pieces)
     if reload:
@@ -772,9 +765,10 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     elif key in _WORLDS:
         return _WORLDS[key]
 
-    _ensure_paths()
-
-    import _contents as contents
+    # The whole machine in one assembly — pack bodies, the funnel and display seated in the
+    # walls, the four printed pieces, the swept runs — carrying the frames and the box it was
+    # built from. The same object the build exports and reports on.
+    a = _assembly().build_front_half()
 
     solids, sources = {}, {}
 
@@ -784,21 +778,16 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
         solids[name] = shape(obj, name)
         sources[name] = source
 
-    for name, entry in contents.build().items():
-        add(name, entry, "component")
-    for name, entry in contents.panel_bodies().items():
-        add(name, entry, "panel")
-    add("display", _assembly()._placed_display(), "display")
-    add("hopper-funnel", contents.placed_funnel(), "funnel")
-    if want_pieces:
-        for name, entry in _read_pieces().items():
-            add(name, entry, PIECE)
-    if runs:
-        import _lines
-        for name, entry in _lines.build().items():
-            add(name, entry, "run")
+    for name, (solid, _color) in _assembly()._solids(a).items():
+        src = _source(name)
+        if src == PIECE and not want_pieces:
+            continue
+        if src == "run" and not runs:
+            continue
+        add(name, solid, src)
 
-    _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces)
+    _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces,
+                         frames=getattr(a, "frames", None), box=getattr(a, "box", None))
     return _WORLDS[key]
 
 
@@ -817,10 +806,9 @@ def wall_sample(w: World = None, side: float = 10.0):
         raise ValueError(
             "wall_sample: this world holds no printed pieces to sample — "
             f"it was built with pieces=False or under {SKIP_PIECES}")
-    _ensure_paths()
-    import enclosure
-    dims = enclosure._dims()
-    inner, outer = dims.inner, dims.outer
+    if w.box is None:
+        raise ValueError("wall_sample: this world carries no box to cut a sample from")
+    inner, outer = w.box.inner, w.box.outer
     if outer[4] >= inner[4] - 1.0:
         raise ValueError(
             f"wall_sample: the floor slab is {inner[4] - outer[4]:.2f} mm thick, too thin to "
