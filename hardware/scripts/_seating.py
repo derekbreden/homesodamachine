@@ -13,9 +13,9 @@ fitting's own frame to world in one hop.
     mouth = seat.port(part.tube_port())
 
 [`fit.py`](fit.py) poses a part that is not placed on this same transform, to ask whether it
-would fit. Sibling:
-[`_placing.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_placing.py), where the
-enclosure's bodies take theirs.
+would fit. Sibling: `seat_body` in
+[`front_half.py`](/hardware/manifold-layout/front_half.py), where the machine's bodies take
+theirs.
 """
 
 import cadquery as cq
