@@ -67,6 +67,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "asse1022-assembly",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "reference" / "water-split",
+           _hw / "reference" / "neofit-flow-control",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -79,6 +80,7 @@ import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
+import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
@@ -128,6 +130,7 @@ C_GND = cq.Color(0.55, 0.55, 0.58)
 C_ASSE = cq.Color(0.85, 0.78, 0.45)
 C_PAN = cq.Color(0.62, 0.66, 0.72)
 C_SPLIT = cq.Color(0.80, 0.72, 0.40)
+C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -292,7 +295,7 @@ def build_suction_chain(seaflo, suction):
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split")
+              "water-split", "flow-regulator")
 
 
 def _manifold(name):
@@ -508,6 +511,28 @@ def build_split(asse_carry):
     return seat_body(_split.build(), SPLIT_TURN, station=(_split.supply(), target))
 
 
+# --- the flow regulator, inline on the flavour tap -------------------------
+#
+# The needle valve that throttles the flavour side. Its own frame runs the flow down ±X with
+# the adjuster on +Z, so a yaw of a quarter lays that flow along the lane and leaves the
+# adjuster looking at the ceiling. It is set once on the bench and `design-pressures.md` does
+# not buy access after assembly, but a stem pointing up is the one direction that costs
+# nothing to leave open.
+FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0),)
+# The straight between the split's flavour collet and the regulator's inlet — `fluid-1`, which
+# has no corner in it for the same reason `water-2` has none.
+FLUID_1 = 24.0
+
+
+def build_flowreg(split_carry):
+    """The regulator seated on its INLET, one `FLUID_1` forward of the split's flavour collet
+    and on that collet's own line — so the tap runs ASSE, split, regulator down one axis and
+    every joint between them is a straight."""
+    pos, axis = split_carry(_split.to_flavor())
+    target = tuple(pos[i] + axis[i] * FLUID_1 for i in range(3))
+    return seat_body(_flowreg.build(), FLOWREG_TURN, station=(_flowreg.inlet(), target))
+
+
 def _whole(bodies):
     out = None
     for s in bodies:
@@ -589,13 +614,17 @@ def build_pack() -> cq.Assembly:
     a.add(pan, name="drip-pan", color=C_PAN)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
+    flowreg, flowreg_carry = build_flowreg(split_carry)
+    a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
     carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
-               "asse1022-assembly": asse_carry, "water-split": split_carry}
+               "asse1022-assembly": asse_carry, "water-split": split_carry,
+               "flow-regulator": flowreg_carry}
     solids = {"seaflo-pump": seaflo, "suction-chain": chain,
-              "asse1022-assembly": asse, "water-split": split}
+              "asse1022-assembly": asse, "water-split": split,
+              "flow-regulator": flowreg}
     runs = _lines.build_runs(solids, carries)
     for name, solid in _lines.tubes(runs):
         _ROUTED.add(name)
@@ -748,7 +777,7 @@ def report(a: cq.Assembly) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split"):
+              "water-split", "flow-regulator"):
         if n in named:
             line(n, box(named[n]))
     walls = None
