@@ -657,8 +657,10 @@ def report(a: cq.Assembly) -> None:
     bad, unanswered = ml.clashes(a)
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
           f"{len(unanswered)} the boolean would not answer for")
-    for ni, nj, v in bad:
-        print(f"  {ni} ∩ {nj}   {v:.1f} mm³")
+    for c in bad:
+        axis, d = c.where.escape
+        print(f"  {c.a} ∩ {c.b}\n      {c.where}   {c.volume:.1f} mm³, "
+              f"{d:.2f} on {axis} clears it")
     for ni, nj, why in unanswered:
         print(f"  {ni} ? {nj}   {why}")
 
