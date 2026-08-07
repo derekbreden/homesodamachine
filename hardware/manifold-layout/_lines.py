@@ -417,10 +417,13 @@ def _co2_2(F):
 # The straight `fluid-2` runs forward off the regulator's outlet before it turns. It is longer
 # than the arc's own tangent so a length of tube still leaves the collet straight.
 FLUID_2_LEAD = 20.0
-# The storey it crosses the machine on. The two source valves stand coil-up under the hopper and
-# their coils are the tallest things on this deck, so the run goes OVER them — one clearance
-# above the taller of the pair, read off the coil rather than typed.
-FLUID_2_DECK_CLEAR = 9.0
+# The column the run goes aft in: the strip between the WEST source valve and the tap-water lane,
+# struck off that valve's own outboard face, so the run rides the valve wherever the valve goes.
+FLUID_2_LANE_CLEAR = 7.5
+# The storey that strip carries. The regulator lies over the strip — its needle stem reaches east
+# across the lane — and the strip is open below it, so the run hangs its centreline this far under
+# the regulator's own underside.
+FLUID_2_DECK_CLEAR = 6.5
 
 
 def _fluid_2(F, solids):
@@ -429,10 +432,10 @@ def _fluid_2(F, solids):
 
     THE TWO MOUTHS FACE THE SAME WAY AND THE VALVE IS BEHIND THE REGULATOR. The regulator lies
     in the west lane with its flow running forward, so its outlet fires FORWARD; V-A stands
-    coil-up on the deck with its inlet on the −Y end, so a tube enters that collet travelling
-    forward too. The run therefore goes forward off the regulator, crosses the machine east on
-    the plane its own lead leaves it on, climbs over the source valves' coils, comes AFT down
-    V-A's own column and turns down and forward into the collet.
+    coil-up on the deck with its inlet on the AFT end, so the run has to come at that collet from
+    behind. It goes forward off the regulator, leans east and down into the strip west of V-B,
+    runs aft down that strip beside the two source valves, crosses the machine east on the storey
+    BEHIND their coils, and comes down V-A's own column into the collet.
 
     The last leg is `manifold_layout.STUB` — the straight that pack draws on every mouth that
     leaves it, which is what its first corner needs before it can turn at all. Drawing this run
@@ -441,16 +444,18 @@ def _fluid_2(F, solids):
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
     lane = out[1] - FLUID_2_LEAD
-    deck = solids["coil-v-a"].BoundingBox().zmax + FLUID_2_DECK_CLEAR
+    lane_x = solids["coil-v-b"].BoundingBox().xmin - FLUID_2_LANE_CLEAR
+    deck = solids["flow-regulator"].BoundingBox().zmin - FLUID_2_DECK_CLEAR
+    cross = inlet[1] + _ml.STUB
     return R.bent(
         "fluid-2", "flow-regulator.outlet",
-        (inlet[0], lane, deck),                       # east across the machine and up in one lean
-        (inlet[0], inlet[1] + _ml.STUB, deck),        # aft over the coils, down V-A's own column
-        (inlet[0], inlet[1] + _ml.STUB, inlet[2]),    # onto the collet's own plane
+        (lane_x, lane, deck),                         # east and down into the strip in one lean
+        (lane_x, cross, deck),                        # aft down the strip, beside the valves
+        (inlet[0], cross, inlet[2]),                  # east behind both coils and down in one lean
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: flow regulator outlet → V-A inlet, forward off the regulator, east and "
-             "up in one lean, aft over the source coils and down V-A's own column")
+             "down into the strip west of V-B, aft past the source valves and east behind them")
 
 
 # --- the carb-water riser, and the two nozzle gates' lines to the panel -----
