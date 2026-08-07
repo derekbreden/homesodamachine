@@ -886,6 +886,21 @@ def cut_front_exit(foam_shell, *, z, hole_punch_radius, lateral=0.0):
     )
 
 
+def pour_band_pocket_punch(*, pocket_hole_x, y, z, hole_punch_radius):
+    """The pocket-side half of a pour-band pass-through, as a SOLID: a bore through the
+    bag-pocket (or ring) wall at `pocket_hole_x`, starting at `y` and stopping on the port
+    lane.
+
+    Named apart from the cut so that whatever prices a neighbouring opening against this
+    hole is reading the hole itself and not a second construction of it."""
+    return build_hole_punch(
+        origin=(pocket_hole_x, y, z),
+        hole_punch_radius=hole_punch_radius,
+        hole_punch_height=y - port_lane_mid_y,
+        direction=-1,
+    )
+
+
 def cut_pour_band_pass_through(
     foam_shell,
     *,
@@ -902,12 +917,8 @@ def cut_pour_band_pass_through(
     the fitting's own height to the station's. The lane is what lets the two sit at
     different X *and* different Z."""
     foam_shell = foam_shell.cut(
-        build_hole_punch(
-            origin=(pocket_hole_x, y, z),
-            hole_punch_radius=hole_punch_radius,
-            hole_punch_height=y - port_lane_mid_y,
-            direction=-1,
-        )
+        pour_band_pocket_punch(
+            pocket_hole_x=pocket_hole_x, y=y, z=z, hole_punch_radius=hole_punch_radius)
     )
     return cut_front_exit(foam_shell, z=exit_z, hole_punch_radius=hole_punch_radius)
 
