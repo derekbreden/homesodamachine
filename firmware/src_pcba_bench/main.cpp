@@ -163,10 +163,12 @@ static void cmdRtc() {
 
     float temp = (int8_t)t[0] + ((t[1] >> 6) * 0.25f);
     Serial.printf("  die temp  : %.2f C   (TCXO sensor — proves the oscillator block is powered)\n", temp);
-    Serial.printf("  control   : 0x%02X\n", ctrl);
+    Serial.printf("  control   : 0x%02X  EOSC=%d %s\n", ctrl, (ctrl >> 7) & 1,
+                  (ctrl >> 7) & 1 ? "(oscillator STOPS on battery — 'rtc set' clears this)"
+                                  : "(oscillator runs on battery)");
     Serial.printf("  status    : 0x%02X  OSF=%d %s\n", st, (st >> 7) & 1,
-                  (st >> 7) & 1 ? "(oscillator stopped since last set — expected with no CR2032 in BT1)"
-                                : "(oscillator has run continuously)");
+                  (st >> 7) & 1 ? "(the oscillator has stopped since OSF was last cleared)"
+                                : "(the oscillator has run continuously since OSF was cleared)");
 
     auto bcd = [](uint8_t v) { return (uint8_t)((v >> 4) * 10 + (v & 0x0F)); };
     Serial.printf("  time      : 20%02u-%02u-%02u %02u:%02u:%02u\n",
@@ -186,6 +188,54 @@ static void cmdRtc() {
         delay(50);
     }
     Serial.println("NO — seconds did not advance in 1.6 s");
+}
+
+// Does BT1's CR2032 carry the oscillator across a power loss?
+//
+// OSF (status bit 7) latches on any oscillator stop — first power-up, or Vcc and Vbat both
+// gone — and stays set until written to 0, so it cannot answer anything until it is
+// cleared. EOSC (control bit 7) is what decides whether the oscillator runs at all once
+// Vcc drops to Vbat; a set EOSC fails the test for a reason that is not the battery.
+//
+//   rtc set <YYYY-MM-DD> <HH:MM:SS>   from the wall clock
+//   pull 12 V and USB — the board dark, only BT1 on the DS3231
+//   restore power, then `rtc`
+//
+// OSF=0 with the time advanced by the dark interval is the battery carrying it. OSF=1 is
+// the oscillator having stopped.
+static void cmdRtcSet(const String &line) {
+    int y, mo, d, h, mi, s;
+    if (sscanf(line.c_str(), "rtc set %d-%d-%d %d:%d:%d", &y, &mo, &d, &h, &mi, &s) != 6) {
+        Serial.println("usage: rtc set YYYY-MM-DD HH:MM:SS");
+        return;
+    }
+    Serial.println("\n-- U6 DS3231SN — set --");
+    if (!i2cPresent(ADDR_RTC)) { Serial.println("  ABSENT at 0x68"); return; }
+
+    auto tobcd = [](int v) { return (uint8_t)(((v / 10) << 4) | (v % 10)); };
+    Wire.beginTransmission(ADDR_RTC);
+    Wire.write(RTC_SECONDS);
+    Wire.write(tobcd(s));
+    Wire.write(tobcd(mi));
+    Wire.write(tobcd(h));          // bit 6 clear = 24-hour
+    Wire.write(1);                 // day-of-week, unused here
+    Wire.write(tobcd(d));
+    Wire.write(tobcd(mo));         // bit 7 clear = century 20xx
+    Wire.write(tobcd(y % 100));
+    if (Wire.endTransmission() != 0) { Serial.println("  time write failed"); return; }
+
+    uint8_t ctrl = 0, st = 0;
+    i2cRead(ADDR_RTC, RTC_CONTROL, &ctrl, 1);
+    i2cRead(ADDR_RTC, RTC_STATUS, &st, 1);
+    bool eoscWas = (ctrl >> 7) & 1;
+    i2cWrite(ADDR_RTC, RTC_CONTROL, ctrl & ~0x80);   // run on battery
+    i2cWrite(ADDR_RTC, RTC_STATUS,  st   & ~0x80);   // OSF answers from here on
+
+    Serial.printf("  set to    : 20%02d-%02d-%02d %02d:%02d:%02d\n", y % 100, mo, d, h, mi, s);
+    Serial.printf("  EOSC      : %s\n", eoscWas ? "was 1, now 0 — it will run on battery"
+                                                : "0 — it runs on battery");
+    Serial.println("  OSF       : cleared — it reads 1 again only if the oscillator stops");
+    Serial.println("  Now pull 12 V and USB, leave it dark, then power up and run 'rtc'.");
 }
 
 static void probeMcp(uint8_t addr, const char *who) {
@@ -889,7 +939,8 @@ static void cmdHelp() {
     Serial.println("  drive <io2|io4|io17|io19|io32> <0|1>   drive one pin, then meter it");
     Serial.println("  pump <a|b>   run a pump on J13 through a staged exercise (audible)");
     Serial.println("  pump <a|b> <duty%> [s]  /  pump stop");
-    Serial.println("  rtc    DS3231: temp, status, time, tick check");
+    Serial.println("  rtc    DS3231: temp, EOSC, OSF, time, tick check");
+    Serial.println("  rtc set <YYYY-MM-DD> <HH:MM:SS>   set the clock, run on battery, clear OSF");
     Serial.println("  mcp    both MCP23017s: registers + safe write round-trip");
     Serial.println("  in     off-board signal pins + gas ADC");
     Serial.println("  walk   blink ERR / RUN / ACT in turn");
@@ -963,6 +1014,7 @@ static bool dispatch(const String &line) {
     if      (line == "all")  cmdAll();
     else if (line == "info") cmdInfo();
     else if (line == "scan") cmdScan();
+    else if (line.startsWith("rtc set")) cmdRtcSet(line);
     else if (line == "rtc")  cmdRtc();
     else if (line == "bus")  cmdBus();
     else if (line == "rs485") cmdRs485();
