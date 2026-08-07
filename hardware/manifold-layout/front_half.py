@@ -60,6 +60,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "seaflo-suction-chain",
+           _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "teyleten-relay",
@@ -81,6 +82,7 @@ import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
+import seaflo_discharge_chain as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
@@ -324,6 +326,46 @@ def build_suction_chain(seaflo, suction):
                 z0=b.zmin + _beduan.port_center_z - box(chain).xlen / 2.0)
 
 
+# --- the discharge chain, in the lane west of the pump ---------------------
+#
+# The three fittings that carry the pump's outlet off its moulded 3/8" barb, hold the
+# carbonator's pressure off it when it is idle, and hand the water over on 1/4" tube:
+# MAACFLOW barb, GASHER check, PP450822E collet, made up on the bench as one piece.
+#
+# It lies BARB AFT, COLLET FORWARD in the lane west of the pump, which is the suction chain's
+# own pose read across the machine — so it takes the suction chain's own turn.
+DISCH_CHAIN_TURN = SUCT_CHAIN_TURN
+# What its west face stands off the water split's east face. The lane it lies in is the strip
+# of the core's crown between that split and the pump's own casting; the chain takes the split
+# side of it, and what is left over is `water-6`'s corner.
+DISCH_SPLIT_CLEAR = 1.0
+# How far FORWARD of the pump's discharge mouth the chain's barb stands — the suction side's
+# `SUCT_CORNER_ROOM` read across the machine. `water-6` turns from west to forward in this
+# gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
+DISCH_CORNER_ROOM = 24.0
+
+
+def build_discharge_chain(split, seaflo_carry):
+    """The chain laid in the lane west of the pump, on the discharge's own plane.
+
+    Its three coordinates answer to the run it carries and the lane it lies in: X one
+    `DISCH_SPLIT_CLEAR` east of the split's own east face, Y standing its barb one
+    `DISCH_CORNER_ROOM` forward of the pump's discharge mouth, and Z ON THAT MOUTH'S OWN
+    PLANE — the barb fires due west and the chain's axis lies at its height, so `water-6`
+    turns once in plan and climbs nothing.
+
+    What holds it there is an open item: nothing threads onto this chain and nothing clamps
+    it. It has a measured datum and measured room; it does not have a bracket."""
+    disch = seaflo_carry(_lines._pump.discharge())[0]
+    chain = _dis.build()
+    return seat_body(chain, DISCH_CHAIN_TURN,
+                     x0=box(split).xmax + DISCH_SPLIT_CLEAR,
+                     y1=disch[1] - DISCH_CORNER_ROOM,
+                     # The chain's own Ø, read on X because the box is measured BEFORE the
+                     # turn: unturned the chain stands its length on Z, its Ø across X.
+                     z0=disch[2] - box(chain).xlen / 2.0)
+
+
 # --- the tap-water bulkhead, through the back wall -------------------------
 #
 # The union the customer's supply line pushes into, clamped through the rear wall. Its own frame
@@ -429,7 +471,7 @@ def c14_cutout():
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain", "display", "psu", "pcba",
+              "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet")
@@ -878,6 +920,8 @@ def build_pack() -> cq.Assembly:
     a.add(pan, name="drip-pan", color=C_PAN)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
+    disch, disch_carry = build_discharge_chain(split, seaflo_carry)
+    a.add(disch, name="discharge-chain", color=C_SUCT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     vk, vk_carry = build_vk(chain_carry)
@@ -890,10 +934,12 @@ def build_pack() -> cq.Assembly:
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
     carries = {"foam-assembly": foam_carry, "seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
+               "discharge-chain": disch_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
+              "discharge-chain": disch,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead}
@@ -1067,7 +1113,7 @@ def report(a: cq.Assembly) -> None:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
-              "c14-inlet"):
+              "c14-inlet", "discharge-chain"):
         if n in named:
             line(n, box(named[n]))
     walls = None

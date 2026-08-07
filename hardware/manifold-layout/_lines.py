@@ -28,6 +28,7 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "reference" / "seaflo-suction-chain",
+           _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
@@ -38,6 +39,7 @@ import _routing as R                                   # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
+import seaflo_discharge_chain as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
@@ -74,6 +76,8 @@ STATIONS = {
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
                       "tube-port": (_suct.tube_port, _suct.TUBE_D)},
+    "discharge-chain": {"barb-tip": (_dis.barb_tip, _dis.HOSE_OD),
+                        "tube-port": (_dis.tube_port, _dis.TUBE_D)},
     "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
                           "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
                           "vent-tip": (lambda: _asse.port("vent-tip"), _asse.VENT_STUB_OD)},
@@ -115,6 +119,8 @@ def build_runs(placed, carries):
     runs = []
     if {"seaflo-pump", "suction-chain"} <= set(F):
         runs.append(_water_7(F))
+    if {"seaflo-pump", "discharge-chain"} <= set(F):
+        runs.append(_water_6(F))
     if {"asse1022-assembly", "water-split"} <= set(F):
         runs.append(_water_2(F))
     if {"water-split", "flow-regulator"} <= set(F):
@@ -233,6 +239,29 @@ def _water_7(F):
         kind="water", bend=HOSE_BEND, skew=BARB_SKEW, lead=HOSE_BEND,
         note="carb water: SeaFlo suction barb → suction chain, east off the barb, one quarter forward "
              "and down onto the chain's own axis (3/8\" braided PVC, two clamps)")
+
+
+def _water_6(F):
+    """water-6 — the 3/8" braided stub off the moulded discharge barb, from the pump to the
+    chain that carries its outlet onto 1/4" tube.
+
+    ONE CORNER IN PLAN AND NOTHING ELSE. `SEAFLO_YAW` puts the discharge barb on the head's
+    WEST face pointing west, and the chain lies in that lane forward of it with its own barb
+    facing AFT — so the hose leaves across the machine, turns once, and arrives square on. The
+    chain's axis is struck from this same mouth's Z (`front_half.build_discharge_chain`), so
+    the two ends lie on one plane and the corner is flat.
+
+    The waypoint is the corner itself: the chain's own column at the barb's own Y. What buys
+    its arc is `DISCH_SPLIT_CLEAR` down one leg and `DISCH_CORNER_ROOM` down the other."""
+    pump, chain = F["seaflo-pump"], F["discharge-chain"]
+    src, dst = pump.at("discharge"), chain.at("barb-tip")
+    return R.bent(
+        "water-6", "seaflo-pump.discharge",
+        (dst[0], src[1], src[2]),
+        "discharge-chain.barb-tip",
+        kind="water", bend=HOSE_BEND, skew=BARB_SKEW,
+        note="carb water: SeaFlo discharge barb → discharge chain, west off the barb and one "
+             "quarter forward onto the chain's own axis (3/8\" braided PVC, two clamps)")
 
 
 def tubes(runs):
