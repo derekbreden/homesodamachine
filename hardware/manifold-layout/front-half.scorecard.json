@@ -1371,6 +1371,88 @@
    }
   },
   {
+   "id": "fluid-2",
+   "kind": "fluid",
+   "frm": "flow-regulator.outlet",
+   "to": "valve-v-a.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 212.33,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.0,
+      33.32
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      33.32,
+      101.01
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      101.01,
+      68.04
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      68.04,
+      14.0
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 14.0,
+   "reach": 16.662,
+   "reachRatio": 1.1902,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 33.325,
+    "demand": 2.0,
+    "from": [
+     -74.0,
+     156.07,
+     305.4
+    ],
+    "to": [
+     -43.69,
+     156.07,
+     291.54
+    ]
+   }
+  },
+  {
    "id": "fluid-18",
    "kind": "fluid",
    "frm": "valve-v-g.outlet",
@@ -1449,88 +1531,6 @@
      88.0,
      175.0,
      271.46
-    ]
-   }
-  },
-  {
-   "id": "fluid-2",
-   "kind": "fluid",
-   "frm": "flow-regulator.outlet",
-   "to": "valve-v-a.inlet",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 260.82,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      20.0,
-      95.54
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      95.54,
-      101.01
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      101.01,
-      54.3
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      54.3,
-      14.0
-     ]
-    }
-   ],
-   "atSpec": 4,
-   "bends": 4,
-   "worstTurn": 90.0,
-   "seat": 14.0,
-   "reach": 27.15,
-   "reachRatio": 1.9393,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 3,
-    "length": 54.3,
-    "demand": 2.0,
-    "from": [
-     20.07,
-     257.08,
-     322.11
-    ],
-    "to": [
-     20.07,
-     257.08,
-     267.81
     ]
    }
   },
@@ -2123,8 +2123,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T18:02:39+00:00",
-  "commit": "ab2a001f3871d77942a2e9cabc1d030079c8f1ca",
+  "generated": "2026-08-07T18:23:25+00:00",
+  "commit": "d578dc75981874ef2fa350181b8a7cd72894e7f0",
   "inputs": {}
  }
 }
