@@ -545,24 +545,20 @@ assert cap_conduit_entry_relief_radius >= (
 # Z (`foam_assembly.spin_xy`), and a half turn is its own inverse — so a conduit that
 # stands over a vessel port at (x, y) in the shell's frame is authored at (−x, −y) here,
 # and `foam_assembly.cap_conduit_station` turns it back.
-#   water-in stands over the TOP BAND, not over its port. Its line leaves the vessel's
+#   water-in stands over the FORWARD BAND, not over its port. Its line leaves the vessel's
 # top-plate +Y port LATERALLY — the port carries one of the four TAISHER street elbows every
 # vessel port takes (`ledger/bom.md`), with a PTC adapter made up on its female end — runs the
-# band between that plate and the cap's floor (`top_band_to_cap`), and climbs this bore to the
-# deck. What puts it here is the run
-# above the lid: the discharge chain hands the water over on the deck's own west end, and a
-# bore on the plate's own column stands under the SeaFlo — which lies across the bay on that
-# lid — so a line reaching it has to thread the slot the casting leaves and take its corners
-# in there. On this column the run off the chain is one horizontal leg and one fall, and both
-# legs seat a stock arc. The band is [14](TOP_BAND) mm against the [25.4 mm](LLDPE_BEND_R) a
-# stock arc wants, so the corner OFF THE ELBOW is the one this move buys with, and it is
-# potted where it turns.
-#   water-in's Y in the cap's frame is the +Y BAND's own lane, held off the corner boss by
-# the pour gap, and its X is the DECK ABOVE: the nozzle-A gate's plate lies on the lid across
-# the whole forward end of that flank, so the bore stands aft of its footprint, in the strip
-# between that plate and the pump's own, on the leg the discharge chain's collet hands its
-# fall down.
-#   reservoir-b stands over the FORWARD BAND — the strip between the pocket's own wall and
+# band between that plate and the cap's floor (`top_band_to_cap`), comes forward in the +Y band
+# and turns west along this strip to the bore. The top band is [14](TOP_BAND) mm against the
+# [25.4 mm](LLDPE_BEND_R) a stock arc wants, so the corner OFF THE ELBOW is the one that reach
+# buys with, and it is potted where it turns. It shares the strip with reservoir B's line,
+# which climbs its own bore `cap_conduit_pair_neck` further east.
+#   water-in's X in the cap's frame is that strip's own centreline. Its Y is THE DECK ABOVE:
+# the discharge chain lies fore and aft in the lane the water split leaves it, collet forward,
+# and this bore stands on the chain's own column at the far end of the fall. So the run off the
+# collet is one straight and one slant, the slant entering the bore inside its own
+# `cap_conduit_entry_skew`, and the lid's countersink is what lays the lip along it.
+#   reservoir-b stands over the same FORWARD BAND — the strip between the pocket's own wall and
 # the shell's, [8 mm](FORWARD_BAND) of it (`forward_band_width`). Its line crosses the pocket
 # wall at the bulkhead's own height, comes forward in the +Y band, turns east along this strip
 # and climbs it potted, and this bore is where it reaches the deck. A ⌀[6.5](PORT_HOLE_DIAMETER)
@@ -592,7 +588,7 @@ assert cap_conduit_entry_relief_radius >= (
 # a [25.4 mm](LLDPE_BEND_R) arc spends whole. The bore takes the middle of what the two leave —
 # near enough the centreline that the climb is where the line lands.
 cap_conduits = {
-    "water-in": (75.0, -80.5),
+    "water-in": (135.5, -56.0),
     "reservoir-b": (135.5, -43.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
     "carb-water-out": (6.0, -port_lane_mid_y),
