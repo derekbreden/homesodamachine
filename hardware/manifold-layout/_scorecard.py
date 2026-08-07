@@ -16,6 +16,15 @@ drawn at all, and `bend-radius` says whether what is drawn turns at a radius its
 A corner short of that minimum is a tube nobody can build, and most corners are bound by where
 their two ends STAND — so driving the gate is usually moving a body, not raising a number.
 
+FOUR OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
+is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share,
+`clearance-floor` how far apart they stand, and `port-leads` how far a bore cast off a port
+gets. A box appears in each only as a prefilter: two boxes that miss are two solids that miss,
+and two boxes that overlap say nothing at all.
+
+Every check's detail is printed to `DETAIL_MAX` rows and carried whole in the sidecar, so a
+list ending in "… n more" is a terminal cap and never the end of the finding.
+
 Run it through the assembly:
     tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
 """
