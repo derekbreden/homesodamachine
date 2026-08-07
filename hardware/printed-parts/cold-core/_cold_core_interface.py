@@ -114,9 +114,10 @@ bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to 
 bulkhead_elbow_bottom_z = bag_pocket_floor_top_z + bulkhead_floor_clearance
 bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # elbow's lateral-PTC-port Z center
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
-# Y of the bulkhead pass-through (and the cable hole that shares its y so
-# the reed cable runs straight from channel to outside). 10 mm inboard
-# of the bag-pocket −Y (front, toward the user) wall outer face.
+# Y of a pocket-wall pass-through, 10 mm inboard of the bag pocket's ±Y wall outer
+# face. Reservoir A's draw and BOTH reed cables cross the −Y wall at this y, onto
+# the port lane; reservoir B's draw crosses the +Y wall at its mirror, onto the west
+# lane. Which wall a line takes is which lane its cap conduit stands over.
 reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 
 # The reservoir's SECOND mouth, in its own cap. The draw leaves by the bulkhead
@@ -215,20 +216,27 @@ foam_cap_lid_hole_inset = 30.0
 # the shell's own axis on it, two under the vessel and two over it.
 vessel_port_offset = 0.750 * 25.4
 
-# CO2 inlet: one bore straight in through the −Y outer wall and the tank
-# support ring, level with the vessel's bottom-plate elbows. The 1/4" OD
-# LLDPE line arrives horizontally out of the appliance's front-panel CO2
-# chain and lands on the PP010822E collet made up on that port's TAISHER
-# elbow, which hangs inboard of the ring's bore — so the tube is the only
-# thing that crosses shell material, no bend is taken in-cavity, and nothing
-# traverses the cap stack. The CO2 port takes the port pair's LANE-SIDE hole, so
-# the bore runs down the shell's own centreline from the port to the lane and the
-# port, its elbow, the ring bore and the wall bore all stand on one line.
+# CO2 inlet — the bottom plate's LANE-SIDE port. Inside the vessel it feeds the
+# barb adapter, the silicone stub and the 0.5 µm sintered sparge stone hanging in
+# the water column (`assembly/pressure-vessel.md`): the gas enters BELOW the
+# liquid and dissolves on the way up, which is what makes the carbonation the
+# CO2 supply pressure sets.
+#   Outside the vessel it is one bore on the shell's own centreline, level with the
+# bottom-plate elbows, run from the port out through the tank support ring to the
+# port lane. The port, its TAISHER elbow, the PP010822E collet made up on it and
+# the ring bore all stand on that one line, so the tube is the only thing that
+# crosses shell material and no bend is taken in-cavity. The line reaches the
+# bore's lane end from ABOVE — down the port lane from the cap's `co2-in`
+# conduit — so it is laid before the top cap goes on, not pushed in from outside.
 co2_inlet_y = -vessel_port_offset
 co2_inlet_tube_radius = port_hole_radius
 
 # The top plate's two, by the same pair: the water inlet takes the +Y hole, which is the
 # one the cap can carry a conduit over, and the PRV takes the −Y hole above the CO2's.
+# Filtered tap water arrives at the top plate ABOVE the liquid and falls into the
+# headspace against the CO2 back-pressure; the carbonated draw leaves at the bottom
+# plate, below it. So the vessel is filled high and drawn low, the same way both
+# reservoirs are.
 water_inlet_port_y = +vessel_port_offset
 prv_port_y = -vessel_port_offset
 
@@ -302,21 +310,15 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # The FRONT PORT FIELD — where each penetration crosses the −X wall. One column,
 # pitched a bore plus one wall, climbing from the floor. What sets a station's Z is
 # NOT the height of the fitting it serves: a line leaves its fitting, turns into the
-# lane and climbs it freely, so the field is ordered by what leaves together —
-# reservoir A and the two reed cables, all three out of the pockets' bulkhead band.
-# Everything above the field belongs to the copper/PRV SLOT, which takes the rest of the
-# column.
-#   THREE LINES ARE NOT HERE, and the field is three pitches shorter for them: reservoir B's
-# draw, the vessel's carbonated-water outlet and the vessel's CO2 inlet all leave by the TOP,
-# each climbing its own band to a conduit in the cap (`cap_conduits`) — B up the +Y band
-# (`west_lane_mid_y`), the carb water and the CO2 up this very lane. What holds each of them
-# there is the same reading: the fitting it feeds hangs over the band it climbs, and a station
-# on this face would send it across the machine and back.
+# lane and climbs it freely. The field carries the two reed cables, which leave
+# together out of the pockets' bulkhead band. Everything above the field belongs to
+# the copper/PRV SLOT, which takes the rest of the column.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-# The field carries the two reed cables and nothing else. Every FLUID line leaves by the cap:
-# the front wall is mated face to face with the refrigeration base, which stands the height of
-# the compressor's shroud against it, so a bore struck here opens into that base rather than into
-# the machine.
+# NO FLUID LINE IS HERE. The front wall is mated face to face with the refrigeration base,
+# which stands the height of the compressor's shroud against it, so a bore struck here opens
+# into that base rather than into the machine. Every one of the seven fluid lines leaves by
+# the TOP instead, up its own band to a conduit in the cap (`cap_conduits`). What is left on
+# this face is the two reed cables and the copper/PRV slot above them.
 front_port_order = ("reed-cable-a", "reed-cable-b")
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 
@@ -571,59 +573,75 @@ assert cap_conduit_entry_relief_radius >= (
 # Z (`foam_assembly.spin_xy`), and a half turn is its own inverse — so a conduit that
 # stands over a vessel port at (x, y) in the shell's frame is authored at (−x, −y) here,
 # and `foam_assembly.cap_conduit_station` turns it back.
-#   water-in stands over the FORWARD BAND, not over its port. Its line leaves the vessel's
-# top-plate +Y port LATERALLY — the port carries one of the four TAISHER street elbows every
-# vessel port takes (`ledger/bom.md`), with a PTC adapter made up on its female end — runs the
-# band between that plate and the cap's floor (`top_band_to_cap`), comes forward in the +Y band
-# and turns west along this strip to the bore. The top band is [14](TOP_BAND) mm against the
-# [25.4 mm](LLDPE_BEND_R) a stock arc wants, so the corner OFF THE ELBOW is the one that reach
-# buys with, and it is potted where it turns. It shares the strip with reservoir B's line,
-# which climbs its own bore `cap_conduit_pair_neck` further east.
+#   A CONDUIT IS ONE END OF A LINE, and what the line does at the far end is what this table
+# is for; `_internal_routes` draws every one of them and measures it against the shell. Seven
+# stand here, and they answer to three vessels. TWO ENTER THE CARBONATOR (water at the top
+# plate, CO2 at the bottom) and one draws it; each reservoir is entered once at its cap and
+# drawn once at its floor. Every line that ENTERS a vessel arrives above that vessel's liquid
+# and every line that LEAVES takes its lowest point, so nothing can enter and leave without
+# crossing the vessel. That is what the air-purge and clean-flush service modes run on.
+#
+#   water-in — the carbonator's TOP-PLATE +Y port, above the water line, where filtered tap
+# water is pumped in against the CO2 back-pressure and falls into the headspace. The port
+# carries one of the four TAISHER street elbows every vessel port takes (`ledger/bom.md`) with
+# a PTC adapter made up on its female end; the line leaves it laterally, runs the band between
+# that plate and the cap's floor (`top_band_to_cap`), comes about in the +Y band and turns into
+# the FORWARD BAND, where this bore stands. The top band is [14](TOP_BAND) mm against the
+# [25.4 mm](LLDPE_BEND_R) a stock arc wants, so the corner off the elbow is the one that reach
+# buys with, and it is potted where it turns. It shares the forward strip with both reservoir
+# draws, each climbing its own bore `cap_conduit_pair_neck` away.
 #   water-in's X in the cap's frame is that strip's own centreline. Its Y is THE DECK ABOVE:
 # the discharge chain lies fore and aft in the lane the water split leaves it, collet forward,
 # and this bore stands on the chain's own column at the far end of the fall. So the run off the
 # collet is one straight and one slant, the slant entering the bore inside its own
 # `cap_conduit_entry_skew`, and the lid's countersink is what lays the lip along it.
-#   reservoir-b stands over the same FORWARD BAND — the strip between the pocket's own wall and
-# the shell's, [8 mm](FORWARD_BAND) of it (`forward_band_width`). Its line crosses the pocket
-# wall at the bulkhead's own height, comes forward in the +Y band, turns east along this strip
-# and climbs it potted, and this bore is where it reaches the deck. A ⌀[6.5](PORT_HOLE_DIAMETER)
-# bore leaves the tube a `LINE_HUG` of foam either side; what pins the station in Y is that, and
-# what pins it in X is reservoir B's own reed channel, which the bore stands clear of to the
-# east.
-#   IT IS A MERGED COLUMN and not a standing one. The strip is forward of everything in the
-# cup, so a post over it stands inside the pour gap the perimeter wall wants — and a conduit
-# has the same two states against that wall it has against another conduit
+#   reservoir-b and reservoir-a are the two DRAWS, and both stand over that same FORWARD BAND —
+# the strip between a pocket's own wall and the shell's, [8 mm](FORWARD_BAND) of it
+# (`forward_band_width`). Each line starts on its reservoir's floor bulkhead, at the bottom of
+# the wet V and the lowest drainable point in the cavity; the elbow under the raised floor turns
+# it laterally, it crosses its pocket's own ±Y wall at `bulkhead_elbow_exit_z` into the band
+# behind it, comes about, and climbs the forward strip potted to this bore. B takes the +Y band
+# and A the −Y one, because that is the wall each one's elbow points at, and A's climb is the
+# longer for it — its pocket is the far one from this strip.
+#   A ⌀[6.5](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG` of foam either side; what
+# pins the two stations in Y is that and the reed channels, whose envelopes stand in this same
+# strip and which both bores clear (`_reed_channels` measures it).
+#   THE FORWARD STRIP'S COLUMNS ARE MERGED and not standing. The strip is forward of everything
+# in the cup, so a post over it stands inside the pour gap the perimeter wall wants — and a
+# conduit has the same two states against that wall it has against another conduit
 # (`cap_conduit_wall_neck`): the column fuses into the wall and the bore runs up a local
 # thickening of it, carrying a wall's material outboard.
-#   A RESERVOIR FILL stands over its own reservoir rather than over a band: it
-# is the column between a valve on the deck and the bore in the cap of the
-# reservoir it fills, and that cap sits one reservoir_clearance under this one,
-# so the two features meet face to face with nothing between them to cross.
-# `reservoir_fill_conduit_xy` is the station, and `reservoir_fill_sides` is
-# which reservoirs have one.
-#   carb-water-out stands over the PORT LANE — `port_lane_mid_y` negated, the same strip the
-# front field's lines climb to their own stations. This one keeps climbing. Its line is
-# the vessel's bottom-plate Port 3: the elbow turns it laterally, `_port_cuts.water_outlet_xyz`
-# bores it out to the lane on the shell's own centreline, and from there it runs UP rather than
-# west.
+#   A RESERVOIR FILL stands over its own reservoir rather than over a band, and has no run
+# inside the shell at all: it is the column between a valve on the deck and the bore in the cap
+# of the reservoir it fills, and that cap sits one reservoir_clearance under this one, so the
+# two features meet face to face with nothing between them to cross. The bore it lands on opens
+# into the reservoir's HEADSPACE, above the liquid and clear of the vent boss, the rod register
+# and every screw boss — so what arrives falls into the cavity and can only leave by the trough.
+# `reservoir_fill_conduit_xy` is the station, and `reservoir_fill_sides` is which reservoirs
+# have one.
+#   carb-water-out — the carbonator's BOTTOM-PLATE +Y port, under the liquid, which is the
+# vessel's own drain and the dispense line's source. The elbow turns it laterally, it crosses
+# under the tank inboard of the support ring, leaves the ring through the ring's OWN SLOT on
+# this bore's column (`_port_cuts.water_outlet_ring_crossing_x` — no bore, and the four bearing
+# segments stay whole), and climbs beside the coil clear of the port lane until the tank's top
+# plate is under it. Only there does it step out onto the lane and into this bore. That climb is
+# inboard because the CO2 owns the lane's own strip at the bottom of the shell.
 #   Its X answers to THE DECK ABOVE, the same fence co2-in takes. The +X flank stands a column
 # of bodies on the lid — V-K, the controller board, the power brick — and each leaves the lane
 # a window rather than a lane; this bore takes the widest of them, the band between the board's
 # forward face and the run its own riser has to clear. `cap_conduit_pair_neck` is what holds
 # the two bores apart inside that one lane.
-#   co2-in stands over that same PORT LANE, and climbs it too. Its line is the vessel's
-# bottom-plate Port 1: the elbow turns it laterally, `_port_cuts.co2_inlet_xyz` bores it out to
-# the lane through the tank support ring, and it climbs from there instead of turning west along
-# the front field.
+#   co2-in stands over the PORT LANE and its line runs DOWN it, the one conduit here that feeds
+# rather than drains. It falls the shell's whole height, turns along the lane's floor to the
+# shell's centreline, and enters `_port_cuts.co2_inlet_xyz` — the one bore through the support
+# ring — to land on the collet made up under the bottom plate's lane-side port. Inside the vessel
+# that port feeds the barb, the silicone stub and the sparge stone hanging in the water column,
+# so the gas enters BELOW the liquid and dissolves on the way up. Because the line arrives from
+# above, it is laid down the lane before the top cap goes on.
 #   Its X is the DECK ABOVE. The +X flank carries a column of bodies standing on the lid from
 # the cap to the ceiling, and this bore takes the one window in that column — the strip between
 # V-K's own footprint and the controller board's. `cap_conduit_pair_neck` is what holds it off
 # the carb water's climb.
-#   reservoir-a is reservoir-b's mirror, and reaches the deck the same way: its line crosses its
-# pocket's own wall at the bulkhead's height, comes forward in the band behind that wall, and
-# climbs the forward strip to this bore. One line carries both its fill and its draw, because
-# Y-E joins that pair before the shell — so the reservoir has ONE mouth where B has two.
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
@@ -773,6 +791,17 @@ for _a, _b in itertools.combinations(sorted(cap_conduits), 2):
         f"cap conduits {_a} and {_b}: {_what} is {_neck:.3f} mm, under the "
         f"{_want:g} mm it takes — a pair either stands the pour gap apart or merges on a "
         f"neck a wall thick")
+
+
+def cap_conduit_shell_xy(name):
+    """One cap conduit's station in the SHELL's own frame — where the line coming down it
+    lands in the shell, which is the frame every band and lane in this file is stated in.
+
+    The cap installs spun a half turn about Z (`foam_assembly.spin_xy`) and a half turn is
+    its own inverse, so this is the authored pair negated. Everything that has to meet a
+    conduit from BELOW reads it here."""
+    x, y = cap_conduits[name]
+    return (-x, -y)
 
 
 # The face a cap conduit opens on, as a direction: the TOP cap's own +Z.

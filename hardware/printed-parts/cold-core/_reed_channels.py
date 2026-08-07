@@ -8,6 +8,9 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
     bulkhead_elbow_exit_z,
+    cap_conduits,
+    cap_conduit_shell_xy,
+    lldpe_tube_od,
     port_hole_radius,
     reed_x_depth,
     level_rod_y,
@@ -40,6 +43,40 @@ reed_envelope_z_range = (0, foam_shell_outer_height)
 
 reed_cavity_y_range = (reed_y_center - reed_y_half_w, reed_y_center + reed_y_half_w)
 reed_envelope_y_range = (reed_cavity_y_range[0] - w, reed_cavity_y_range[1] + w)
+
+# THE CAVITY IS A VOID AND SO IS A LINE'S BAND, and where the two overlap nothing collides
+# — which is why this fence is arithmetic and not a probe. The reed channel stands in the
+# FORWARD BAND (`_cold_core_interface.forward_band_width`), the same strip three cap conduits
+# drop their lines into, and it runs the shell's full height. A line falling into the cavity
+# instead of the band lands on the reed column, reads clear in every solid check in the tree,
+# and is only wrong on the bench.
+#   So every conduit is priced against both channels here, in plan: the tube's own SECTION
+# stands clear of the envelope, which is the channel's cavity and the printed wall around it
+# together. Clear of the envelope is clear of the cavity, because that wall is what separates
+# them. A FILL is priced by the same rule — it stands over a pocket and the channel stands on
+# that pocket's own far wall.
+reed_line_clearance = lldpe_tube_od / 2.0
+
+
+def reed_channel_plan_room(x, y):
+    """How far a line at plan `(x, y)` stands off the nearer reed channel envelope, and
+    which side's it is: `(mm, side)`. Negative means it is inside one."""
+    room = []
+    for s in (+1, -1):
+        env_x = sorted((s * bag_pocket_outermost_x, s * (bag_pocket_outermost_x + reed_x_depth + w)))
+        dx = max(env_x[0] - x, x - env_x[1])
+        dy = max(reed_envelope_y_range[0] - y, y - reed_envelope_y_range[1])
+        room.append((max(dx, dy), f"reservoir {'AB'[s < 0]}'s reed channel"))
+    return min(room)
+
+
+for _name in cap_conduits:
+    _room, _what = reed_channel_plan_room(*cap_conduit_shell_xy(_name))
+    assert _room >= reed_line_clearance - 1e-9, (
+        f"cap conduit {_name}: the line coming down it stands {_room:.3f} mm off "
+        f"{_what}, inside the {reed_line_clearance:g} mm a ⌀{lldpe_tube_od:g} tube's own "
+        f"section takes — a line over a reed cavity is a void meeting a void and collides "
+        f"with nothing")
 
 
 def build_reed_channels(side):
@@ -82,11 +119,17 @@ _CABLE_STATION = {+1: "reed-cable-a", -1: "reed-cable-b"}
 
 def cut_reed_cable_holes(foam_shell):
     """Cable holes, one per reservoir side: −Y through the −Y bag-pocket wall onto
-    the port lane, and out the front field at that side's station. The reed cable
-    runs through the open bag-pocket bottom to the pocket bore, leaving at
-    bulkhead_elbow_exit_z (level with the elbow's lateral port and the flavor-line
-    hole) at the same y as its side's bulkhead hole, then climbs the lane west to
-    its station — the two stations one bore pitch apart, above both flavor lines'."""
+    the port lane, and out the front field at that side's station.
+
+    BOTH cables cross the −Y wall, whichever side they come from, because the front field
+    is on the port lane and there is one of it. Reservoir A's draw crosses that same wall a
+    bore pitch inboard; reservoir B's crosses its own +Y wall instead, so B's cable is the
+    only thing in its pocket that comes out this side.
+
+    The cable runs through the open bag-pocket bottom — the space under the reservoir's
+    raised floor — to the pocket bore, leaving at bulkhead_elbow_exit_z (level with the
+    elbow's lateral port and the draw's own hole), then climbs the lane to its station. The
+    two stations are one bore pitch apart, at the bottom of the field."""
     for s in (+1, -1):
         foam_shell = cut_pour_band_pass_through(
             foam_shell,
