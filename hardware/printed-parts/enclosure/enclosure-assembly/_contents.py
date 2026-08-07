@@ -694,6 +694,7 @@ def _build():
                port=(co2_axis()[0], pack.port("gasher-co2", _gasher.outlet())[0][1] - CO2_HOP,
                      co2_axis()[2]))
 
+    _joints_hold()
     colors = {**{n: c for n, (_s, _seat, c) in manifold_bodies().items()}, **COLORS}
     return {n: (s, colors[n]) for n, s in placed.items()}
 
@@ -750,24 +751,50 @@ def shroud_roof_z():
     return _SHROUD_ROOF
 
 
-SHROUD_PORTS = {
-    # The shroud bores one hole twice and the machine says which is which: the DISCHARGE crosses
-    # the wall the condenser stands against, the SUCTION the wall the cold core does.
-    "refrig-discharge": "refrig-east",
-    "refrig-suction": "refrig-west",
-    "ac-mains": "ac-mains",
-    "earth-bond": "earth-bond",
-}
-
-
 def shroud_port(name):
-    """A compressor-shroud penetration in world: ((position, outward axis), face)."""
-    return _world("compressor-shroud", _shroud.port(SHROUD_PORTS[name]))
+    """A compressor-shroud penetration in world: `(pos, face)`."""
+    return _world("compressor-shroud", _shroud.port(name))
 
 
 def condenser_port(name):
     """A condenser+fan pick in world, the same way."""
     return _world("condenser+fan", _cond.stations()[name])
+
+
+# The refrigerant loop's three joints, each named by the two stations that make it up. Every
+# one crosses a plane two bodies already share, so the pair is one point read twice and the
+# copper between them is the length of the union, not a run.
+REFRIGERANT_JOINTS = (
+    ("compressor-shroud.refrig-discharge", "condenser+fan.refrig-inlet"),
+    ("condenser+fan.refrig-outlet", "foam-assembly.evap-inlet"),
+    ("foam-assembly.evap-outlet", "compressor-shroud.refrig-suction"),
+)
+JOINT_TOL = 0.05
+
+
+def _joint_station(anchor):
+    body, port = anchor.split(".", 1)
+    return {"compressor-shroud": shroud_port, "condenser+fan": condenser_port,
+            "foam-assembly": foam_shell_port}[body](port)
+
+
+def refrigerant_joints():
+    """Each joint's two stations and how far apart they stand: `[(a, b, mm), ...]`."""
+    out = []
+    for a, b in REFRIGERANT_JOINTS:
+        pa, pb = _joint_station(a)[0], _joint_station(b)[0]
+        out.append((a, b, math.dist(pa, pb)))
+    return out
+
+
+def _joints_hold():
+    """The three joints measured, and the short recorded for any that does not close."""
+    for a, b, gap in refrigerant_joints():
+        if gap > JOINT_TOL:
+            _short(f"refrigerant-joint-{a.split('.')[0]}",
+                   f"{a} and {b} stand {gap:.2f} mm apart — the joint crosses a plane the two "
+                   f"bodies share, so the pair is one point read twice and that distance is "
+                   f"copper drawn in the open. Move one station onto the other.")
 
 
 # --- Zone A's own readings --------------------------------------------------
@@ -816,15 +843,20 @@ def foam_cap_frame(p):
     return _foam_asm.spin_xy((q[0], q[1]))
 
 
+# What the loop calls the three lines the copper slot carries. The slot names them by the plug
+# whose low end each is; the machine names them by what they are.
+SLOT_LINES = {"evap-inlet": "lower", "evap-outlet": "middle", "prv-vent": "top"}
+
+
 def _foam_station(station):
     """The cold core's own `(position, outward axis)` for a named penetration, in the shell's
     frame — the front field's bores, the slot's three, and the cap conduits."""
     if station in _cc.front_port_order:
         return _cc.front_port_station(station)
     if station in _cc.cap_conduits:
-        pos, axis = _foam_asm.cap_conduit_station(station)
-        return ((pos[0], pos[1], _stack_lid_top_z()), axis)
-    return _plugs.slot_station(station)
+        x, y = _foam_asm.cap_conduit_station(station)
+        return ((x, y, _stack_lid_top_z()), _foam_asm.cap_conduit_axis_out())
+    return _plugs.slot_station(SLOT_LINES.get(station, station))
 
 
 def _stack_lid_top_z():
@@ -839,7 +871,7 @@ def foam_shell_port(station):
 
 def foam_shell_stations():
     """Every cold-core penetration, in the order their stations climb."""
-    names = list(_cc.front_port_order) + list(_plugs.slot_stations()) + list(_cc.cap_conduits)
+    names = list(_cc.front_port_order) + list(SLOT_LINES) + list(_cc.cap_conduits)
     return sorted(names, key=lambda n: _foam_station(n)[0][2])
 
 
