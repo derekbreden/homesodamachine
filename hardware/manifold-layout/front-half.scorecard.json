@@ -3,7 +3,7 @@
  "placed": 0,
  "located": 100,
  "shaped": 0,
- "routed": 35,
+ "routed": 38,
  "held": 81,
  "mounted": 4,
  "checks": [
@@ -42,7 +42,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "14/14 as drawn",
+   "value": "16/16 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -52,11 +52,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 26/26 corners at spec",
+   "value": "B \u2014 30/30 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:9"
+    "runs by grade: B:11"
    ],
    "active": true
   },
@@ -102,11 +102,11 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "14/40 drawn",
+   "value": "15/40 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 4/27",
+    "fluid: 5/27",
     "refrigerant: 0/3",
     "water: 8/8",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
@@ -121,7 +121,6 @@
     "fluid-12 (fluid): P-B-O \u2192 Y-D-1",
     "fluid-13 (fluid): Y-D-2 \u2192 V-F-I",
     "fluid-14 (fluid): V-F-O \u2192 Y-E-1",
-    "fluid-15 (fluid): Bag A port \u2192 Y-E-2",
     "fluid-16 (fluid): Y-E-3 \u2192 V-E-I",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1",
@@ -143,7 +142,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "55/55 located",
+   "value": "58/58 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -543,6 +542,25 @@
   },
   {
    "component": "foam-assembly",
+   "name": "reservoir-a",
+   "kind": "fluid",
+   "pos": [
+    43.5,
+    184.0,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-15",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
    "name": "reservoir-b",
    "kind": "fluid",
    "pos": [
@@ -556,7 +574,7 @@
     1.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-25",
    "status": "ok",
    "note": ""
   },
@@ -709,6 +727,44 @@
    ],
    "diam": 6.35,
    "mates": "water-4",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "tee-y-e",
+   "name": "Y-E-2",
+   "kind": "fluid",
+   "pos": [
+    77.07,
+    136.82,
+    281.814
+   ],
+   "face": [
+    -0.0,
+    1.0,
+    -0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-15",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "tee-y-h",
+   "name": "Y-H-2",
+   "kind": "fluid",
+   "pos": [
+    -77.07,
+    136.82,
+    281.814
+   ],
+   "face": [
+    -0.0,
+    1.0,
+    -0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-25",
    "status": "ok",
    "note": ""
   },
@@ -1453,6 +1509,126 @@
    }
   },
   {
+   "id": "fluid-25",
+   "kind": "fluid",
+   "frm": "tee-y-h.Y-H-2",
+   "to": "foam-assembly.reservoir-b",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 97.15,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      47.18,
+      33.57
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      33.57,
+      28.41
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 16.785,
+   "reach": 16.785,
+   "reachRatio": 1.1989,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 33.57,
+    "demand": 2.0,
+    "from": [
+     -77.07,
+     184.0,
+     281.81
+    ],
+    "to": [
+     -43.5,
+     184.0,
+     281.81
+    ]
+   }
+  },
+  {
+   "id": "fluid-15",
+   "kind": "fluid",
+   "frm": "tee-y-e.Y-E-2",
+   "to": "foam-assembly.reservoir-a",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 97.15,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      47.18,
+      33.57
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      33.57,
+      28.41
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 90.0,
+   "seat": 16.785,
+   "reach": 16.785,
+   "reachRatio": 1.1989,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 33.57,
+    "demand": 2.0,
+    "from": [
+     77.07,
+     184.0,
+     281.81
+    ],
+    "to": [
+     43.5,
+     184.0,
+     281.81
+    ]
+   }
+  },
+  {
    "id": "fluid-18",
    "kind": "fluid",
    "frm": "valve-v-g.outlet",
@@ -2123,8 +2299,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T18:51:32+00:00",
-  "commit": "a42e9e32f7e6dbcf162f00db98554175091ef14c",
+  "generated": "2026-08-07T19:15:49+00:00",
+  "commit": "7f11525e2f3b6c984ff7191d3be3b3410c870fcb",
   "inputs": {}
  }
 }

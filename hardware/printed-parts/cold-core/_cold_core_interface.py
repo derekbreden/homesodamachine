@@ -291,7 +291,11 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # there is the same reading: the fitting it feeds hangs over the band it climbs, and a station
 # on this face would send it across the machine and back.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-front_port_order = ("reservoir-a", "reed-cable-a", "reed-cable-b")
+# The field carries the two reed cables and nothing else. Every FLUID line leaves by the cap:
+# the front wall is mated face to face with the refrigeration base, which stands the height of
+# the compressor's shroud against it, so a bore struck here opens into that base rather than into
+# the machine.
+front_port_order = ("reed-cable-a", "reed-cable-b")
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 
 
@@ -594,8 +598,13 @@ assert cap_conduit_entry_relief_radius >= (
 # the cap to the ceiling, and this bore takes the one window in that column — the strip between
 # V-K's own footprint and the controller board's. `cap_conduit_pair_neck` is what holds it off
 # the carb water's climb.
+#   reservoir-a is reservoir-b's mirror, and reaches the deck the same way: its line crosses its
+# pocket's own wall at the bulkhead's height, comes forward in the band behind that wall, and
+# climbs the forward strip to this bore. One line carries both its fill and its draw, because
+# Y-E joins that pair before the shell — so the reservoir has ONE mouth where B has two.
 cap_conduits = {
     "water-in": (135.5, -56.0),
+    "reservoir-a": (135.5, 43.5),
     "reservoir-b": (135.5, -43.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
     "carb-water-out": (45.5, -port_lane_mid_y),

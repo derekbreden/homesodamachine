@@ -95,15 +95,17 @@ def cut_circular_port_holes(foam_shell):
             direction=-1,
         )
     )
-    # Reservoir A pierces its pocket's −Y wall where its bulkhead elbow points, and the
-    # −X wall at its own station; the port lane joins the two.
-    foam_shell = cut_pour_band_pass_through(
-        foam_shell,
-        pocket_hole_x=flavor_line_plus_x_xyz[0],
-        y=flavor_line_plus_x_xyz[1],
-        z=flavor_line_plus_x_xyz[2],
-        exit_z=front_port_z("reservoir-a"),
-        hole_punch_radius=port_hole_radius,
+    # Reservoir A pierces its pocket's −Y wall where its bulkhead elbow points and stops on the
+    # PORT LANE — reservoir B's own cut read across the shell. It has no second bore either: the
+    # band it lands in runs clear to the shell's open top, and the feature at the far end of it
+    # is the cap's `reservoir-a` conduit.
+    foam_shell = foam_shell.cut(
+        build_hole_punch(
+            origin=flavor_line_plus_x_xyz,
+            hole_punch_radius=port_hole_radius,
+            hole_punch_height=flavor_line_plus_x_xyz[1] - port_lane_mid_y,
+            direction=-1,
+        )
     )
     # Reservoir B pierces its pocket's +Y wall and stops on the WEST LANE. It has no
     # second bore in the shell: the band it lands in runs clear to the shell's open top,
