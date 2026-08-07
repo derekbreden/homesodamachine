@@ -96,12 +96,23 @@ assert _crossing is not None and any(lo <= _crossing[0] and _crossing[1] <= hi
     f"which no slot of {ring_slot_spans()} holds — the line would have to be bored through a "
     f"bearing segment")
 
-# CO2 inlet — the inner bore starts at the bottom plate's own lane-side port and runs
-# −Y down the shell's centreline, so it is stated where the port it serves is rather than
-# at some clearance inboard of the ring. It crosses the tank support ring and stops on the
-# port lane, which is where the line coming down from the cap's `co2-in` conduit turns into
-# it. This is the ONLY bore through the ring; the water outlet takes a slot.
+# CO2 inlet — the one bore through the tank support ring, and the ONLY one: the water
+# outlet takes a slot. It runs from the bottom plate's own lane-side port out to the
+# PORT LANE, and it lands on the lane UNDER THE `co2-in` CONDUIT rather than on the
+# shell's centreline. That is the whole of why it leans.
+#   The line falls the shell's height down the lane and has to turn into this bore at the
+# bottom. A bore struck on the shell's centreline puts its lane mouth `co2_bore_to_ring`
+# from the ring's own face, which is a fraction of what that corner takes, so the tube
+# would have to finish bending inside the hole. Struck on the conduit's column instead,
+# the fall lands on the bore's own axis: one corner out in the open lane, then straight
+# in. The port, its TAISHER elbow — clocked to this line — the collet on it and the bore
+# are one line, which is what the ⌀6.5 fit through the ring asks for.
 co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
+co2_inlet_lane_xyz = cap_conduit_shell_xy("co2-in") + (front_face_port_z,)
+co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
+assert abs(co2_inlet_lane_xyz[1] - port_lane_mid_y) < 1e-9, (
+    f"the co2-in conduit stands at y {co2_inlet_lane_xyz[1]:g}, off the port lane "
+    f"({port_lane_mid_y:g}) its line falls down — the bore is struck to meet that fall")
 
 # Reservoir DRAW pass-throughs — each reservoir's 1/4" LLDPE line off its floor bulkhead,
 # out of the pocket at bulkhead_elbow_exit_z (level out of the elbow's lateral port, in the
@@ -153,25 +164,24 @@ def cut_circular_port_holes(foam_shell):
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a ⌀[6.5](PORT_HOLE_DIAMETER) bore on the shell's centreline,
-    run from the bottom plate's lane-side port at y = [-19.05](CO2_INLET_Y) out through
-    the tank support ring to the port lane. The port, its elbow and the ring bore stand on
-    one line. It crosses the ring with open cavity inboard of it, which is where the vessel's
-    TAISHER elbow and its PP010822E adapter hang; the line bottoms in that collet, so nothing
-    is made up in-cavity.
+    """CO2 inlet — a ⌀[6.5](PORT_HOLE_DIAMETER) bore from the bottom plate's lane-side port
+    at y = [-19.05](CO2_INLET_Y) out through the tank support ring to the PORT LANE, LEANING
+    across the shell's floor rather than running its centreline: it ends under the `co2-in`
+    conduit, because that is where the line arrives.
 
-    THE LANE END OF THIS BORE IS FED FROM ABOVE. The line falls the shell's whole height down
-    the port lane from the cap's `co2-in` conduit, turns along the lane's floor to the
-    centreline and runs in — so it is laid before the top cap goes on, not pushed in from
-    outside. Nothing crosses the −X wall on this line's account."""
+    It crosses the ring with open cavity inboard of it, which is where the vessel's TAISHER
+    elbow and its PP010822E adapter hang; the line bottoms in that collet, so nothing is made
+    up in-cavity. Between the ring and the lane it crosses nothing at all — the pockets stop
+    well outboard of this run.
+
+    THE LANE END IS FED FROM ABOVE. The line falls the shell's whole height down the port lane
+    from the cap's `co2-in` conduit and turns once, in the open, onto this axis — so it is laid
+    before the top cap goes on, not pushed in from outside. Nothing crosses the −X wall on this
+    line's account."""
+    start = cq.Vector(*co2_inlet_lane_xyz)
+    reach = cq.Vector(*co2_inlet_xyz) - start
     return foam_shell.cut(
-        build_hole_punch(
-            origin=co2_inlet_xyz,
-            hole_punch_radius=port_hole_radius,
-            hole_punch_height=co2_inlet_xyz[1] - port_lane_mid_y,
-            direction=-1,
-        )
-    )
+        cq.Solid.makeCylinder(port_hole_radius, reach.Length, start, reach.normalized()))
 
 
 def cut_slot_for_copper_and_prv_vent(foam_shell):

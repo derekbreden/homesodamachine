@@ -27,7 +27,16 @@ _report() proves all of it: the CO2 line's bore runs clear end to end, each
 cap conduit runs clear through the top cap and its lid while the bottom
 stack stands solid on the same line, a thin vertical probe at each screw
 position passes clear through every cap and lid, and no two solids overlap
-(mating faces touch at zero volume)."""
+(mating faces touch at zero volume).
+
+THE LINES INSIDE ARE DRAWN HERE TOO. `_internal_routes` carries every fluid
+run from the fitting it lands on to the conduit it leaves by; this script is
+where each one is measured against the solids it runs among — the shell, the
+tank and its coil, and both reservoirs with their caps — and where it lands as
+`internal-routes.step` beside the stack. They are a separate file and not part
+of `foam-assembly.step`, because the assembly STEP is the CORE AS THE MACHINE
+SEES IT: what the enclosure loads and stands its bodies off. A tube potted
+inside the foam is not a face anything outside can reach."""
 
 import sys
 from pathlib import Path
@@ -47,18 +56,23 @@ from _cold_core_interface import (
     cap_conduits,
     cap_conduit_axis,
     cap_conduit_bore_radius,
-    co2_inlet_y,
     co2_inlet_tube_radius,
-    port_lane_mid_y,
     screw_clearance_radius,
     deck_mount_xy,
     foam_cap_height,
     head_pad_height,
 )
-from _port_cuts import front_face_port_z
+from _port_cuts import co2_inlet_lane_xyz, co2_inlet_xyz
+import _internal_routes as routes
 
 SHELL_STEP = _cold_core / "foam-shell" / "foam-shell.step"
 CAP_DIR = _cold_core / "foam-cap"
+RESERVOIR_DIR = _cold_core / "reservoir"
+# Which reservoir STEP fills which pocket. `reservoir.py` builds both sides in the shell's
+# own frame, so a body needs no placing; a cap seats on its body's top rim, which is the
+# one figure this file carries about them.
+RESERVOIRS = {"reservoir A": "reservoir-right", "reservoir B": "reservoir-left"}
+RESERVOIR_CAP_Z = routes.reservoir_cap_top_z - routes._reservoir.cap_total_height
 
 # Translucent shell so the caps read through it; distinct flats per cap layer.
 SHELL_COLOR = cq.Color(0.62, 0.78, 0.95, 0.25)
@@ -67,6 +81,17 @@ COLORS = {
     "foam-cap-lid-top": cq.Color(0.97, 0.85, 0.55),    # pale amber
     "foam-cap-bottom": cq.Color(0.45, 0.70, 0.45),     # green
     "foam-cap-lid-bottom": cq.Color(0.66, 0.86, 0.62), # pale green
+}
+
+# One colour per line, read by what it carries: water blue, gas grey, flavour by its bag.
+ROUTE_COLORS = {
+    "water-in": cq.Color(0.35, 0.60, 0.90),
+    "carb-water-out": cq.Color(0.20, 0.80, 0.85),
+    "co2-in": cq.Color(0.60, 0.62, 0.66),
+    "reservoir-a": cq.Color(0.85, 0.35, 0.30),
+    "reservoir-a-fill": cq.Color(0.95, 0.62, 0.55),
+    "reservoir-b": cq.Color(0.55, 0.35, 0.75),
+    "reservoir-b-fill": cq.Color(0.78, 0.66, 0.92),
 }
 
 
@@ -180,19 +205,18 @@ def _report(placed):
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
     print("  screw pattern: 6 points, the original diagonal (shared top + bottom)  OK")
 
-    # The CO2 bore runs from the bottom plate's lane-side port out to the PORT LANE — the
-    # tube turns there and leaves by its own front-field station, so the lane is where the
-    # bore ends and where the probe stops. What it crosses on the way is the tank support
-    # ring.
+    # The CO2 bore leans from the bottom plate's lane-side port out to the PORT LANE, landing
+    # under its own cap conduit — the tube falls onto that end, so the lane is where the bore
+    # stops and where the probe starts. What it crosses on the way is the tank support ring.
     probe_r = co2_inlet_tube_radius - 0.3
     shell_solid = placed["foam-shell"][0]
-    probe = cq.Solid.makeCylinder(
-        probe_r, co2_inlet_y - port_lane_mid_y,
-        cq.Vector(0, co2_inlet_y, front_face_port_z), cq.Vector(0, -1, 0),
-    )
+    start = cq.Vector(*co2_inlet_lane_xyz)
+    reach = cq.Vector(*co2_inlet_xyz) - start
+    probe = cq.Solid.makeCylinder(probe_r, reach.Length, start, reach.normalized())
     blocked = shell_solid.intersect(probe).Volume()
-    print("  CO2 bore: y %+.2f .. %+.2f at z %.2f — %s"
-          % (co2_inlet_y, port_lane_mid_y, front_face_port_z,
+    print("  CO2 bore: (%.2f, %.2f) .. (%.2f, %.2f) at z %.2f — %s"
+          % (co2_inlet_lane_xyz[0], co2_inlet_lane_xyz[1], co2_inlet_xyz[0], co2_inlet_xyz[1],
+             co2_inlet_xyz[2],
              "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
 
     # Each cap conduit is one column of the TOP cap carrying a through bore, and the lid
@@ -250,12 +274,35 @@ def _report(placed):
     print("  no solid collisions" if not clash else "  ** CLASHES PRESENT **")
 
 
+def build_internal_routes(placed):
+    """Every fluid line inside the core, drawn at the arc its own corridor leaves.
+
+    The obstacles are what a line actually runs among down there: the shell, the tank with
+    its wrapped coil, and both reservoirs with their caps. The reservoirs are not in the
+    foam assembly — they are dropped into its pockets — but a line that crosses a pocket
+    crosses them, so they are here."""
+    obstacles = {"the foam shell": placed["foam-shell"][0], "the tank": routes.tank_envelope()}
+    for name, stem in RESERVOIRS.items():
+        obstacles[name] = _load(RESERVOIR_DIR / f"{stem}.step")
+        cap = _load(RESERVOIR_DIR / f"{stem.replace('reservoir', 'reservoir-cap')}.step")
+        obstacles[f"{name}'s cap"] = cap.translate((0, 0, RESERVOIR_CAP_Z))
+    fitted = routes.build_routes(obstacles)
+    routes.report_routes(fitted, obstacles)
+    assy = cq.Assembly(name="internal-routes")
+    for name in sorted(fitted):
+        assy.add(fitted[name][1], name=name, color=ROUTE_COLORS[name])
+    return assy
+
+
 def main():
     assy, placed = build()
     out = _here.parent / "foam-assembly.step"
     export_assembly(assy, str(out))
     print("-> foam-assembly.step")
     _report(placed)
+
+    export_assembly(build_internal_routes(placed), str(_here.parent / "internal-routes.step"))
+    print("-> internal-routes.step")
 
 
 if __name__ == "__main__":

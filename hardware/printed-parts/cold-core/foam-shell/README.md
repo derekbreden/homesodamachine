@@ -590,11 +590,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1042938.752 mm³](FSHELL_VOLUME) |
+| volume | [1042583.357 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.351844, 0.643474, 87.680480) mm](CENTROID) |
+| centroid | [(0.388791, 0.666307, 87.704578) mm](CENTROID) |
 
 Quick reproduction:
 
