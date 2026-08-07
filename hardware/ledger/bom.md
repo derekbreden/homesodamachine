@@ -148,7 +148,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
 | **Printed parts total** | | | **~7.37** | **[$87.14](BOM_SEC7)** |
 
-By material: PETG ≈ 7.20 kg / $80.69 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 7.20 kg / $80.68 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the [15](DECK_INSERTS) deck-mount columns the whole electronics shelf bolts to — the controller board, the AC hub, relay #1, the ground stud and the PSU — which is why it outweighs the bottom one.
 
