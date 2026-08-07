@@ -10,9 +10,9 @@ flowchart LR
   %% `_fluid_topology_sync.py` writes every number below and gates every edge against
   %% the built run — an edge whose two ends are not that run's two ends fails the gate.
 
-  %% The 27 flavor segments come to [2838.8 mm](FLUID_TOTAL) of 1/4" LLDPE, over
-  %% [66](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
-  %% [466.8 mm](LONGEST_LEN); the shortest is [fluid-6](SHORTEST_ID) at
+  %% The 27 flavor segments come to [3011.6 mm](FLUID_TOTAL) of 1/4" LLDPE, over
+  %% [68](FLUID_BENDS) bends. The longest is [fluid-22](LONGEST_ID) at
+  %% [557.5 mm](LONGEST_LEN); the shortest is [fluid-6](SHORTEST_ID) at
   %% [4.0 mm](SHORTEST_LEN).
 
   %% The valves ride seven printed trays in two stands and the seven junctions hang on
@@ -132,9 +132,9 @@ flowchart LR
   %% each Tee's run falls straight down one column and the two branches face each other
   %% across fluid-6, which puts all four ports on one hydraulic node.
   Split -->|"fluid-1<br/>12.3 mm"| Reg
-  Reg -->|"fluid-2<br/>76.7 mm"| VA
+  Reg -->|"fluid-2<br/>80.5 mm"| VA
   VA -->|"fluid-3<br/>21.0 mm"| YA
-  Hopper -->|"fluid-4<br/>45.2 mm"| VB
+  Hopper -->|"fluid-4<br/>47.2 mm"| VB
   VB -->|"fluid-5<br/>21.0 mm"| YB
   YA <-->|"fluid-6<br/>4.0 mm"| YB
   YA -->|"fluid-7<br/>21.0 mm"| VC
@@ -147,16 +147,16 @@ flowchart LR
   %% is flat: Y-C's and Y-D's runs lie along the pump lane on the bag-A pair's own port
   %% plane and only their branches change level — fluid-9 falling a stack pitch in from
   %% the selects pair, fluid-17 climbing a storey and a half to the nozzle gate aloft.
-  VC -->|"fluid-9<br/>127.4 mm"| YC
-  VE -->|"fluid-10<br/>58.0 mm"| YC
-  YC -->|"fluid-11<br/>33.5 mm"| PB
-  PB -->|"fluid-12<br/>22.3 mm"| YD
-  YD -->|"fluid-13<br/>131.5 mm"| VF
+  VC -->|"fluid-9<br/>131.5 mm"| YC
+  VE -->|"fluid-10<br/>71.9 mm"| YC
+  YC -->|"fluid-11<br/>45.6 mm"| PB
+  PB -->|"fluid-12<br/>30.0 mm"| YD
+  YD -->|"fluid-13<br/>180.2 mm"| VF
   VF -->|"fluid-14<br/>12.6 mm"| YE
   YE <-->|"fluid-15<br/>301.6 mm"| ResA
   YE -->|"fluid-16<br/>39.0 mm"| VE
-  YD -->|"fluid-17<br/>124.8 mm"| VG
-  VG -->|"fluid-18<br/>350.0 mm"| BhA
+  YD -->|"fluid-17<br/>122.0 mm"| VG
+  VG -->|"fluid-18<br/>363.6 mm"| BhA
 
   %% =========================
   %% Channel B — fluid-19 … fluid-28
@@ -167,15 +167,15 @@ flowchart LR
   %% over the electronics shelf and down the collet band, the outlet over the water deck
   %% and up the tray-east lane — so neither owes the other any separation. It is why the
   %% two longest flavor runs in the machine are this channel's.
-  VD -->|"fluid-19<br/>139.9 mm"| YF
-  VH -->|"fluid-20<br/>151.2 mm"| YF
-  YF -->|"fluid-21<br/>233.9 mm"| PA
-  PA -->|"fluid-22<br/>466.8 mm"| YG
+  VD -->|"fluid-19<br/>125.3 mm"| YF
+  VH -->|"fluid-20<br/>166.6 mm"| YF
+  YF -->|"fluid-21<br/>238.8 mm"| PA
+  PA -->|"fluid-22<br/>557.5 mm"| YG
   YG -->|"fluid-23<br/>60.5 mm"| VI
   VI -->|"fluid-24<br/>35.4 mm"| ResBFill
   ResB -->|"fluid-26<br/>38.5 mm"| VH
-  YG -->|"fluid-27<br/>66.2 mm"| VJ
-  VJ -->|"fluid-28<br/>223.6 mm"| BhB
+  YG -->|"fluid-27<br/>67.1 mm"| VJ
+  VJ -->|"fluid-28<br/>196.1 mm"| BhB
 
   %% =========================
   %% V-K's own two runs — the carbonator circuit, on this stand
@@ -183,8 +183,8 @@ flowchart LR
   %% V-K gates the carbonator fill off the same split fluid-1 leaves. It stands on the
   %% aft stand's middle plate, and water-4 is what fluid-27 crosses over on its way out
   %% of the bay.
-  Split -->|"water-3<br/>195.0 mm"| VK
-  VK -->|"water-4<br/>67.4 mm"| SuctChain
+  Split -->|"water-3<br/>202.8 mm"| VK
+  VK -->|"water-4<br/>71.5 mm"| SuctChain
 
   %% =========================
   %% Beyond the box

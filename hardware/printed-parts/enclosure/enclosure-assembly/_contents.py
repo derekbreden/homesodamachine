@@ -666,16 +666,17 @@ NOZZLE_TRAY_YAW = 0.0
 # stands ahead of and below it. Each outlet stands directly over its own select
 # (`../../../topology/fluid-topology.md`), so the junction between them is a column.
 # The band between the tray's aft collets and the cold core's front face. It is the whole
-# approach to every aft-facing collet in the column, and its depth is set by the height that
-# carries the MOST lines rather than by the pair that names it. Three run abreast at the
-# pump row's two planes: the leg that turns west to its channel's suction tee, the leg that
-# turns east off its channel's discharge tee, and reservoir B's climb, which crosses every
-# one of these heights on its way to the loft. Three 1/4" tubes at the pack's clearance
-# floor, held off the tray's own face and the core's by the same floor, is
-# 2 × (1 + 3.175) + 2 × 7.35 = 23.05 mm; this is that with a millimetre to spare, and the
-# spare rides the TRAY end: the lanes ladder off the core's face at one pitch (`_lines`), so
-# everything the ladder leaves is the near lane's own turn radius — the whole of fluid-10's
-# R. The band is priced at both faces. Aft is the core's stated plane. Forward is the
+# approach to every aft-facing collet in the column, and what its depth buys is the LEAD every
+# one of those turns stands on. ONE LANE serves them all, at the band's far wall a
+# `PUMP_ROW_TURN` off the core's face, and the runs that share it are parted by STOREY and not
+# by Y — the selects pair's leg a stack pitch up, the bag draw on the port plane, the discharge
+# leg a drop below it (`_lines`). A ladder of lanes at one `LINE_PITCH` cannot serve them
+# instead: the near rung would stand a pitch forward of the far one and its lead would fall
+# under `LLDPE_MIN_BEND`, which is a corner the tube does not take. So the depth answers to that
+# far lane's lead alone — `PUMP_ROW_TURN` and one `LLDPE_MIN_BEND` — and it carries
+# [5.82](AFT_BAND_SPARE) mm over. THAT SPARE IS THE COLUMN'S AFT TRAVEL: it is what the tray
+# column may still take in +Y before the lead it leaves stops seating an arc.
+# The band is priced at both faces. Aft is the core's stated plane. Forward is the
 # machine's front chain, every link at its floor: the front-wall station's pod
 # (`FRONT_CORNER_POD`), the pumps one `LINE_HUG` off it (`PUMP_B_FRONT_BAND`), and the
 # junction's two tees one more off their aft faces (`junction_tee_pos`) — so a millimetre on
