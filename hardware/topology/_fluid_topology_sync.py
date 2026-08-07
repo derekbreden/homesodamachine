@@ -17,7 +17,7 @@ Two jobs:
      anchors and ends on one of its tail node's — either way round, because a segment is authored
      from whichever end its author reached first and the chart draws FLOW. Every fluid segment
      must appear exactly once, and the segments the machine BUILDS must be the segments
-     fluid-topology.md's own tables name. In fluid-topology-trays.mmd every limb box must hold
+     fluid-topology.md's own tables name. In fluid-topology-limbs.mmd every limb box must hold
      exactly the bodies its limb chains.
 
   2. WRITE. The measured length onto every labelled edge, the manifold chart's `linkStyle` index
@@ -61,7 +61,7 @@ import front_half                                 # noqa: E402
 import manifold_layout as ml                      # noqa: E402
 
 MANIFOLD = _here / "fluid-topology-manifold.mmd"
-TRAYS = _here / "fluid-topology-trays.mmd"
+LIMBS = _here / "fluid-topology-limbs.mmd"
 CARBONATOR = _here / "fluid-topology-carbonator.mmd"
 TOPOLOGY = _here / "fluid-topology.md"
 
@@ -188,7 +188,7 @@ NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1]
 UNPLACED = {"Hopper", "Faucet", "Nozzle", "Tap", "CO2", "CO2In", "Vent", "PRVOut", "LevelSense",
             "P1", "P2", "P3", "P4", "SpargeStone", "Headspace", "Water", "Float"}
 
-# Which limb box in fluid-topology-trays.mmd is which of the manifold's four lanes.
+# Which limb box in fluid-topology-limbs.mmd is which of the manifold's four lanes.
 LIMB_BOXES = {"LA1": "A1", "LA2": "A2", "LB1": "B1", "LB2": "B2"}
 
 # The manifold chart's circuit colouring, and so its `linkStyle` groups: fluid-topology.md's own
@@ -373,7 +373,7 @@ def check_boxes(path: Path, strict: bool) -> list[str]:
     The subgraph id is this driver's handle; the title is what the chart draws, so both are held
     to the same limb.
 
-    `strict` says every subgraph in the file must be a limb. The trays chart is nothing but
+    `strict` says every subgraph in the file must be a limb. The limbs chart is nothing but
     limbs; the manifold chart also boxes the regions the machine's own bodies stand in, and those
     are prose, not carriers."""
     limbs = limb_members()
@@ -565,7 +565,7 @@ def main() -> int:
     segs = segments()
 
     problems = []
-    for chart in (MANIFOLD, TRAYS, CARBONATOR):
+    for chart in (MANIFOLD, LIMBS, CARBONATOR):
         problems += check_comments(chart)
     lines, edges = read_edges(MANIFOLD)
     carb_lines, carb_edges = read_edges(CARBONATOR)
@@ -573,11 +573,11 @@ def main() -> int:
     problems += check_graph(carb_edges, segs, owes_ids=False)
     problems += check_inventory(edges, segs)
     problems += check_boxes(MANIFOLD, strict=False)
-    problems += check_boxes(TRAYS, strict=True)
+    problems += check_boxes(LIMBS, strict=True)
     problems += check_classes(MANIFOLD, class_members())
-    problems += check_classes(TRAYS, class_members())
+    problems += check_classes(LIMBS, class_members())
     problems += check_linkstyle_cover(CARBONATOR, carb_lines, carb_edges)
-    problems += check_linkstyle_cover(TRAYS, *read_edges(TRAYS))
+    problems += check_linkstyle_cover(LIMBS, *read_edges(LIMBS))
     if problems:
         print("fluid-topology charts disagree with the front half:")
         print("\n".join(problems))
@@ -601,7 +601,7 @@ def main() -> int:
                                                                  carb_lines))
                  for i, (b, a) in enumerate(zip(was, now)) if b != a]
         stale += _stale_markers(MANIFOLD, mf_vars)
-        stale += _stale_markers(TRAYS, limb_vars)
+        stale += _stale_markers(LIMBS, limb_vars)
         stale += _stale_markers(TOPOLOGY, limb_vars)
         if stale:
             print("fluid-topology charts are stale — run _fluid_topology_sync.py:")
@@ -615,7 +615,7 @@ def main() -> int:
     if carb_lines != carb_before:
         CARBONATOR.write_text("\n".join(carb_lines) + "\n")
     substitute_mmd(MANIFOLD, mf_vars, {k: 1 for k in mf_vars})
-    substitute_mmd(TRAYS, limb_vars, {k: 1 for k in limb_vars})
+    substitute_mmd(LIMBS, limb_vars, {k: 1 for k in limb_vars})
     substitute_md(TOPOLOGY, limb_vars, {k: 1 for k in limb_vars})
 
     fluid = [s for k, s in sorted(segs.items(), key=lambda kv: _seg_no(kv[0]))

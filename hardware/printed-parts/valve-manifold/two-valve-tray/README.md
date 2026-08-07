@@ -15,7 +15,7 @@ pair is the two valves of one circuit node. The manifold's remaining pair —
 the NOZZLE GATES, V-G · V-J, which meet at none — takes one
 [single-valve tray](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md)
 each, and V-K a third. Per-tray grouping is in
-[fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
+[fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd).
 
 ## Geometry
 
