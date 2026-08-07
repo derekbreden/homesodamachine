@@ -10,16 +10,16 @@ One part prints here: the **basin**.
 | | basin |
 |---|---|
 | type | printed PETG, open-top watertight |
-| outer | [50](PAN_LEN) × [68](PAN_DEPTH) × [10](PAN_HEIGHT) mm at the walls |
-| over the rim | [66](PAN_RIM_LEN) × [84](PAN_RIM_DEPTH) mm at the flange |
+| outer | [53](PAN_LEN) × [76](PAN_DEPTH) × [10](PAN_HEIGHT) mm at the walls |
+| over the rim | [73](PAN_RIM_LEN) × [96](PAN_RIM_DEPTH) mm at the flange |
 | section | [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR) mm floor |
-| capacity | [19.8](PAN_CAPACITY) mL to the rim |
+| capacity | [23.9](PAN_CAPACITY) mL to the rim |
 
 One plan outline at r[6](PAN_CORNER_R), and everything is that outline at its own
 offset — floor slab and walls on the outline itself, the flange on the outline
-plus [8](PAN_FLANGE) mm, the cavity on the outline less one wall. A corner is the
+plus [10](PAN_FLANGE) mm, the cavity on the outline less one wall. A corner is the
 same corner at every height. Inside, a filleted floor-to-wall cove
-(r[1](PAN_COVE_R)). No drain — the basin holds drips and is emptied on service.
+(r[2](PAN_COVE_R)). No drain — the basin holds drips and is emptied on service.
 
 Frame: +X across the strip — the withdrawal axis — +Y depth, +Z up; origin at
 the basin's lower-front-left outer corner of the walls, the flange reaching one
@@ -68,11 +68,11 @@ and again for the carrier's section — and every millimetre of it comes straigh
 out of the vent gap above.
 
 So the carry is the basin's **own rim**, the way a baking tray's is what the oven
-rack holds. The flange turns out [8](PAN_FLANGE) mm all four ways at the top of
+rack holds. The flange turns out [10](PAN_FLANGE) mm all four ways at the top of
 the walls, its top face flush with them, so it costs the column nothing. A 45°
 haunch fills the corner under it — the tray prints floor-down, and the haunch is
 what the flange's first courses grow out of. What is left flat outboard of that
-haunch, less the slip, is [4.70](PAN_BEARING) mm of bearing a side, and
+haunch, less the slip, is [6.70](PAN_BEARING) mm of bearing a side, and
 `_contents.drip_pan_rails` stands a rail under each.
 
 **One number for two grips**, and the hand sets it: the west lip is hooked with a
@@ -88,7 +88,7 @@ A **stop bar** closes their east ends (`_contents.drip_pan_stop`), so the three
 members are one U and how far the tray goes in is a face and not a judgement: it
 is pushed east until the rim's east edge meets that bar, which lands the rim's
 west edge flush with the wall's inner face at the other end. The bar spans the
-rim's whole width because the rim's own r[14](PAN_RIM_CORNER_R) plan corners
+rim's whole width because the rim's own r[16](PAN_RIM_CORNER_R) plan corners
 carry its east edge as much as one flange-and-radius back west in the rails' own
 bands — what the rim presents square to the east is the straight run between
 those arcs, and the bar reaches it and lands on both rails at once.

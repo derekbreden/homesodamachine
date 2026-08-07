@@ -33,7 +33,8 @@ from _cold_core_interface import (
     gasket_thickness,
     insert_pocket_depth,
     bag_pocket_floor_top_z,
-    front_port_corridor_floor_z,
+    front_port_order,
+    front_port_z,
     front_wall_x,
     mid_screw_x_offset,
     outer_shell_foam_gap,
@@ -74,7 +75,7 @@ from _cold_core_interface import (
 from docgen import substitute_md
 
 sys.path.insert(0, str(_here.parent / "copper-plugs"))
-from copper_plugs import columns, plug_part_name, plug_specs  # noqa: E402
+from copper_plugs import plug_specs  # noqa: E402
 
 
 def _report_front_ports(shell):
@@ -115,13 +116,11 @@ def _report_front_ports(shell):
         f"face along it. Every attachment boss must stand at least "
         f"{-port_lane_outer_y:.4g} mm out in y (see attachment_xy_positions)")
 
-    # (1b) The WEST LANE, the +Y band's own. It is measured the same way but over the full
-    # height, because what runs in it is a RISER and not a traverse: reservoir B's line
-    # crosses the pocket wall low, comes about here and goes up this strip to the cap's
-    # `reservoir-b` conduit, and the evaporator's warm tail comes the other way, across the
-    # top of the tank and down the whole of this strip to its own station. A blocked reading
-    # is a riser with a floor somewhere in it, which no bounding box shows and no station
-    # check would catch.
+    # (1b) The WEST LANE, the +Y band's own, and the one reservoir B's line climbs. It is
+    # measured the same way but over the full height, because what runs in it is a RISER and
+    # not a traverse: the line crosses the pocket wall low, comes about here, and goes up this
+    # strip to the cap's `reservoir-b` conduit. A blocked reading is a riser with a floor
+    # somewhere in it, which no bounding box shows and no station check would catch.
     west = cq.Solid.makeBox(
         2.0 * abs(free_x), lane_w, foam_shell_outer_height - bag_pocket_floor_top_z,
         cq.Vector(free_x, west_lane_mid_y - lane_w / 2.0, bag_pocket_floor_top_z))
@@ -135,31 +134,25 @@ def _report_front_ports(shell):
         f"it to the cap's conduit")
 
     clear = port_hole_radius - 0.25            # the probe, one clearance inside the bore
-    stations = [(n, spec.lane_y, spec.z_range[0]) for n, spec in plug_specs.items()]
-    for name, lane_y, z in sorted(stations, key=lambda s: (s[1], s[2])):
+    stations = [(n, front_port_z(n)) for n in front_port_order]
+    stations += [(f"slot:{n}", spec.z_range[0]) for n, spec in plug_specs.items()]
+    for name, z in stations:
         probe = cq.Solid.makeCylinder(
             clear, wall_and_floor_thickness + 2.0,
-            cq.Vector(front_wall_x - 1.0, lane_y, z), cq.Vector(1, 0, 0))
+            cq.Vector(front_wall_x - 1.0, port_lane_mid_y, z), cq.Vector(1, 0, 0))
         blocked = probe.intersect(solid).Volume()
         assert blocked <= 1e-3, (
-            f"the front-face station {name} at y {lane_y:.4g}, z {z:.4g} is blocked by "
-            f"{blocked:.4f} mm³ — the slot does not go through")
-    for lane_name, column in columns.items():
-        print(f"  {lane_name} column:   {len(column.stations)} stations on x "
-              f"{front_wall_x:.4g}, y {column.lane_y:.4g}, all open — "
-              + ", ".join(f"{n} {z:.4g}" for n, z in column.stations))
+            f"the front-face station {name} at z {z:.4g} is blocked by {blocked:.4f} mm³ — "
+            f"the bore does not go through")
+    print(f"  front port field: {len(stations)} stations on x {front_wall_x:.4g}, "
+          f"y {port_lane_mid_y:.4g}, all open — "
+          + ", ".join(f"{n} {z:.4g}" for n, z in stations))
 
 
-def _column_stations(lane_name):
-    """One lane's column, as the README reads it: each station and the Z it crosses at."""
-    return ", ".join(f"{n} {z:.4g}" for n, z in columns[lane_name].stations)
-
-
-def _plug_spans(lane_name):
-    """One lane's stack, as the README reads it: each plug and the Z span it fills."""
-    return "; ".join(
-        f"{plug_part_name(n)} {plug_specs[n].z_range[0]:.4g} → {plug_specs[n].z_range[1]:.4g}"
-        for n, _z in columns[lane_name].stations)
+def _plug_span(name):
+    """"low → high" Z span of one copper plug, as the README's table reads it."""
+    z_bottom, z_top = plug_specs[name].z_range
+    return f"{z_bottom:.4g} → {z_top:.4g}"
 
 
 def main():
@@ -229,17 +222,22 @@ def main():
             "LANE_Y": f"{port_lane_outer_y:.4g} to {port_lane_inner_y:.4g}",
             "LANE_W": f"{port_lane_inner_y - port_lane_outer_y:.4g} mm",
             "LANE_MID_Y": f"{port_lane_mid_y:.4g}",
-            "WEST_LANE_MID_Y": f"{west_lane_mid_y:.4g}",
-            # Each lane's column: the stations that cross the wall on it, and the Z
-            # each crosses at. A station's Z is where its LINE crosses, never the
-            # height of the fitting it serves.
-            "PORT_LANE_COLUMN": _column_stations("port-lane"),
-            "WEST_LANE_COLUMN": _column_stations("west-lane"),
-            "CORRIDOR_FLOOR": f"{front_port_corridor_floor_z:.4g} mm",
-            # Each lane's stack — the plugs tile their slot end-to-end, every end
-            # face landing on a pass-through center.
-            "PORT_LANE_PLUGS": _plug_spans("port-lane"),
-            "WEST_LANE_PLUGS": _plug_spans("west-lane"),
+            "FIELD_Z": ", ".join(f"{n} {front_port_z(n):.4g}" for n in front_port_order),
+            # The three the slot carries, named for the LINE rather than the plug
+            # whose bottom end lands on each — the stack tiles the slot, so a
+            # pass-through center IS a plug boundary.
+            "SLOT_Z": ", ".join(
+                f"{line} {plug_specs[plug].z_range[0]:.4g}" for line, plug in (
+                    ("evaporator inlet", "lower"), ("evaporator outlet", "middle"),
+                    ("PRV vent", "top"))),
+            # How far up the wall the whole column reaches — the slot's highest line,
+            # which is the top plug's bottom end because that plug fills the rest.
+            "COLUMN_TOP": f"{plug_specs['top'].z_range[0]:.4g} mm",
+            # Copper-plug Z spans — the plugs tile the slot end-to-end, each
+            # end face landing on a pass-through center.
+            "PLUG_SPAN_LOWER": _plug_span("lower"),
+            "PLUG_SPAN_MIDDLE": _plug_span("middle"),
+            "PLUG_SPAN_TOP": _plug_span("top"),
             "FSHELL_VOLUME": f"{volume:.3f} mm³",
             "FSHELL_BBOX_X": f"{bbox.xmin:.3f} to {bbox.xmax:.3f} mm",
             "FSHELL_BBOX_Y": f"{bbox.ymin:.3f} to {bbox.ymax:.3f} mm",
@@ -247,7 +245,7 @@ def main():
             "CENTROID": f"({centroid.x:.6f}, {centroid.y:.6f}, {centroid.z:.6f}) mm",
         },
         expected_counts={
-            "OUTER_H": 2,
+            "OUTER_H": 3,
             "OUTER_X": 1,
             "FSHELL_OUTER_Y": 1,
             "OUTER_GAP": 3,
@@ -256,12 +254,9 @@ def main():
             "LANE_Y": 1,
             "LANE_W": 1,
             "LANE_MID_Y": 1,
-            "WEST_LANE_MID_Y": 1,
-            "PORT_LANE_COLUMN": 1,
-            "WEST_LANE_COLUMN": 1,
-            "CORRIDOR_FLOOR": 1,
-            "PORT_LANE_PLUGS": 1,
-            "WEST_LANE_PLUGS": 1,
+            "FIELD_Z": 1,
+            "SLOT_Z": 1,
+            "COLUMN_TOP": 1,
             "FSHELL_WALL_T": 3,
             "CAP_H": 1,
             "POUR_D": 1,
@@ -285,7 +280,7 @@ def main():
             "SUPPORT_RING_H": 1,
             "SUPPORT_RING_W": 1,
             "SUPPORT_RING_INNER_R": 1,
-            "TUBE_HOLE_D": 4,
+            "TUBE_HOLE_D": 11,
             "CORNER_ROUND_R": 1,
             "BOSS_D": 5,
             "MID_BOSS_OFFSET": 2,
@@ -299,6 +294,9 @@ def main():
             "TIP_CLEAR": 1,
             "CO2_BORE_Y": 3,
             "CO2_BORE_Z": 2,
+            "PLUG_SPAN_LOWER": 1,
+            "PLUG_SPAN_MIDDLE": 1,
+            "PLUG_SPAN_TOP": 1,
             "FSHELL_VOLUME": 1,
             "FSHELL_BBOX_X": 1,
             "FSHELL_BBOX_Y": 1,

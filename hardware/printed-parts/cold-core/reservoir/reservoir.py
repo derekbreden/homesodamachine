@@ -33,6 +33,9 @@ from _cold_core_interface import (
     reservoir_floor_thickness,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
+    reservoir_fill_port_x,
+    reservoir_fill_port_y,
+    reservoir_fill_side,
     level_rod_y,
     bulkhead_floor_clearance,
     bulkhead_elbow_exit_z,
@@ -187,6 +190,25 @@ vent_pocket_bottom_z = cap_total_height - vent_pocket_depth
 vent_boss_bottom_z = cap_total_height - _vent_boss_depth
 vent_cylinder_walls_bottom_z = vent_boss_bottom_z - (vent_cylinder_length - vent_brim_thickness)
 vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
+
+
+# Fill port: the cap's own through bore, and the reservoir's second mouth. The
+# draw leaves by the floor bulkhead at the bottom of the wet V; the fill arrives
+# here, above the liquid, so the two never share a mouth and everything entering
+# has to cross the cavity to leave by the trough.
+#
+# The bore is the ⌀[6.5 mm](FILL_BORE_D) every penetration in the cold core takes, carried on a
+# boss hanging below the base plate so the joint has bore length to seat in. Its
+# station is the corner of the cap FURTHEST FROM THE DRAIN the V runs to
+# (reservoir_bulkhead_port_x, on the trough's own y=0) — the +Y centerward
+# quadrant, which is also the one corner the vent boss, the rod's register boss
+# and all six screw bosses leave empty. Mirrored across x=0 for side=−1.
+fill_bore_diameter = 2 * port_hole_radius
+fill_boss_wall = 2.0
+fill_boss_outer_diameter = fill_bore_diameter + 2 * fill_boss_wall
+fill_boss_drop = 2.0  # below the cap's bottom rim plane, as the rod's register boss hangs
+fill_position_x = reservoir_fill_port_x
+fill_position_y = reservoir_fill_port_y
 
 
 # Level-sensing rod: a vertical [3.175 mm](ROD_DIAMETER) (1/8") × 305 mm (12") 316 SS
@@ -1082,7 +1104,32 @@ def build_reservoir_cap(side=1):
     )
     cap = cap.cut(boss_bore)
 
+    # Fill port: a boss hanging below the base plate into the cavity, and the
+    # bore straight through it and the plate. The boss stands inside the
+    # perimeter wall with the cavity open under it, the same clear air the rod's
+    # register boss hangs in, so it takes its length from below the rim rather
+    # than standing proud of the top face — the foam cap seats a
+    # reservoir_clearance above that face and leaves nothing to stand in.
+    if side == reservoir_fill_side:
+        cap = _add_fill_port(cap, side)
+
     return cap.unwrap()
+
+
+def _add_fill_port(cap, side):
+    """The cap's fill bore and the boss that carries it."""
+    fill_anchor_xy = (fill_position_x * side, fill_position_y)
+    cap = cap.union(_z_cylinder(
+        fill_anchor_xy,
+        (-fill_boss_drop, cap_wall_height),
+        fill_boss_outer_diameter,
+    ))
+    cap = cap.cut(_z_cylinder(
+        fill_anchor_xy,
+        (-fill_boss_drop - 0.1, cap_total_height + 0.1),
+        fill_bore_diameter,
+    ))
+    return cap
 
 
 def build_reservoir_gasket(side=1):
@@ -1230,6 +1277,11 @@ def main():
         "VENT_SLOT_COUNT": f"{vent_slot_count}",
         "VENT_SLOT_W": f"{vent_slot_width:.4g} mm",
         "VENT_SLOT_H": f"{vent_slot_height:.4g} mm",
+        # The cap's fill bore — the reservoir's second mouth, above the liquid.
+        "FILL_BORE_D": f"{fill_bore_diameter:.4g} mm",
+        "FILL_BOSS_OD": f"{fill_boss_outer_diameter:.4g} mm",
+        "FILL_POSITION_X": f"{fill_position_x:.4g}",
+        "FILL_POSITION_Y": f"{fill_position_y:.4g}",
         # level-sensing.md rod placement + size + reed count.
         "ROD_DIAMETER": f"{rod_diameter:.4g} mm",
         "ROD_POSITION_X": f"{rod_position_x:.4g}",
@@ -1382,6 +1434,7 @@ def main():
             "VENT_BOSS_OD": 2,
             "VENT_HOLE_D": 2,
             "VENT_CYL_OD": 2,
+            "FILL_BORE_D": 1,
             "ROD_BORE": 1,
             "ROD_DIAMETER": 1,
             "FILTER_D": 1,

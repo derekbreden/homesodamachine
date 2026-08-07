@@ -126,29 +126,29 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
-| Cold-core inner shell (foam-shell) | 1 | PETG | 1.322 | $14.81 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.177 | $1.99 <!--@printed--> |
-| Cold-core foam cap lid — top | 1 | PETG | 0.129 | $1.45 <!--@printed--> |
+| Cold-core inner shell (foam-shell) | 1 | PETG | 1.325 | $14.84 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.178 | $2.00 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.169 | $1.89 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.130 | $1.45 <!--@printed--> |
-| Copper-plug stack (7 plugs) | 7 | PETG | 0.011 | $0.13 <!--@printed--> |
+| Copper-plug stack (3 plugs) | 3 | PETG | 0.006 | $0.07 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Flavor reservoir body — left | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | AC hub plate | 1 | PETG | 0.013 | $0.14 <!--@printed--> |
-| Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 2.064 | $23.12 <!--@printed--> |
+| Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 2.167 | $24.27 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 2.085 | $23.35 <!--@printed--> |
-| Drip pan | 1 | PETG | 0.026 | $0.29 <!--@printed--> |
+| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.924 | $21.55 <!--@printed--> |
+| Drip pan | 1 | PETG | 0.032 | $0.35 <!--@printed--> |
 | Valve tray — two-valve (5 off) | 5 | PETG | 0.147 | $1.65 <!--@printed--> |
 | Valve tray — single-valve (1 off) | 1 | PETG | 0.016 | $0.18 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~7.35** | **[$86.94](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.29** | **[$86.32](BOM_SEC7)** |
 
-By material: PETG ≈ 7.19 kg / $80.47 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.84 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 7.13 kg / $79.86 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the [15](DECK_INSERTS) deck-mount columns the whole electronics shelf bolts to — the controller board, the AC hub, relay #1, the ground stud and the PSU — which is why it outweighs the bottom one.
 
@@ -279,7 +279,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$102.23](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$86.94](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$86.32](BOM_SEC7) |
 | 8. Flavor subsystem | [$203.56](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -287,7 +287,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,329.57](BOM_GRAND)** |
+| **Total** | **[$1,328.95](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

@@ -185,8 +185,9 @@ near, which stiffens that corner; every boss gets one toward its own ±Y wall.
 Each carries a heat-set insert pocket at each end (drilled in from each face) —
 twelve inserts total, six per face, for fastening the foam-cap stacks.
 
-The outer **−X** wall carries every penetration that crosses a wall at all, in one
-Z-elongated slot per lane. The rest leave by the top cap's conduits. See Penetrations.
+The outer **−X** wall carries every penetration that crosses a wall at all: the
+shared copper/PRV slot and the four ⌀[6.5 mm](TUBE_HOLE_D) round bores of the
+front port field. The rest leave by the top cap's conduits. See Penetrations.
 
 ### foam_cap and foam_cap_lid
 
@@ -273,25 +274,24 @@ Eleven pass-throughs total — nine tube lines and two reed cables. Nine carry *
 tubing (6.35 mm)** through holes sized at ⌀[6.5 mm](TUBE_HOLE_D) for a tight tube fit.
 
 **Seven are on the −X face**, which the enclosure's quarter turn puts at the front of the
-machine, and they stand on the shell's two lanes — six on the port lane, one on the west.
-Each lane's are one slot's worth: a single Z-elongated opening running from under that
-lane's refrigerant line out through the shell's top face, with a stack of plugs tiling it
-and every line crossing between two of them. The other **three leave by the TOP**, each up
-a conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
-service bay stands on the face they open on.
+machine: four get their own round bore on the front port field, and three share a single
+Z-elongated slot above it. The other **four leave by the TOP**, each up a conduit through
+the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the service bay stands
+on the face they open on.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper — onto the condenser's own outlet, across the plane the two bodies share |
-| 2 | Reservoir line (+X) | port-lane slot | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 3 | Reed cable (+X) | port-lane slot | the reservoir-A level reeds' cable |
-| 4 | Reed cable (−X) | port-lane slot | the reservoir-B level reeds' cable |
-| 5 | CO2 inlet | port-lane slot | 1/4" OD line from the WR1110 regulator — in through the wall, along the lane, and in through the support ring |
-| 6 | PRV vent | port-lane slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
-| 7 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper — onto the compressor shroud's own suction, the same way |
-| 8 | Water inlet | **top-cap conduit** | 1/4" OD line from the diaphragm pump — down the conduit on the west lane, along the band under the cap floor, into the top-plate Port 2 elbow |
+| 1 | Reservoir line (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 2 | Reed cable (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
+| 3 | Reed cable (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
+| 4 | CO2 inlet | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | 1/4" OD line from the WR1110 regulator — in through the wall, along the lane, and in through the support ring |
+| 5 | Copper evaporator inlet (low) | shared slot | 1/4" OD ACR copper to compressor |
+| 6 | Copper evaporator outlet (high) | shared slot | 1/4" OD ACR copper to compressor |
+| 7 | PRV vent | shared slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
+| 8 | Water inlet | **top-cap conduit** | 1/4" OD line from the diaphragm pump — down the conduit at the cap's west end, along the band under the cap floor, into the top-plate Port 2 elbow |
 | 9 | Reservoir line (−X) | **top-cap conduit** | 1/4" OD soft tubing — out of reservoir B's bulkhead, across the +Y band and up it potted |
-| 10 | Water outlet | **top-cap conduit** | 1/4" OD line to the dispense faucet — out of the vessel's bottom-plate Port 3 elbow onto the port lane, and up the lane potted |
+| 10 | Reservoir B fill | **top-cap conduit** | 1/4" OD soft tubing down onto the fill bore in reservoir B's own cap |
+| 11 | Water outlet | **top-cap conduit** | 1/4" OD line to the dispense faucet — out of the vessel's bottom-plate Port 3 elbow onto the port lane, and up the lane potted |
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
 1/4" OD before reaching the shell wall — transition fittings (3/8"
@@ -319,100 +319,89 @@ of the exterior ones — bulge into the lane's outboard edge and pinch it to abo
 bore's width at the very corner. That is not an obstruction: it is the material
 each station's bore is cut through.
 
-The lane is **one bore wide**, which is what makes each lane's penetrations a column
+The lane is **one bore wide**, which is what makes the front port field a column
 rather than a grid.
 
-The **+Y band has the same lane mirrored**, on y = [77.5](WEST_LANE_MID_Y) — the west
-lane. It carries the evaporator's warm tail down to its own slot low on the wall, and
-reservoir B's draw up to a cap conduit, and `foam_shell.py` measures it clear over the
-full height for the same reason.
+### Front port field
 
-### The two columns
+Four round bores, one per line that crosses this wall and does not use the slot,
+stacked up the lane on one Y at a pitch of one bore plus one wall:
 
-Each lane's penetrations stand on one Y at a pitch of one bore plus one wall.
-
-Port lane, low → high:
-
-[evap-inlet 43.75, reservoir-a 138.2, reed-cable-a 146.2, reed-cable-b 154.2, co2-in 162.2, prv-vent 170.2](PORT_LANE_COLUMN)
-
-West lane:
-
-[evap-outlet 58](WEST_LANE_COLUMN)
+[reservoir-a 6.75, reed-cable-a 14.75, reed-cable-b 22.75, co2-in 30.75](FIELD_Z)
 
 A station's Z is **not** the height of the fitting it serves. A line leaves its
-fitting, turns onto its lane and climbs or drops it, so what sets each Z is what the
-station has to meet on the outside.
-
-Two are MET. Each refrigerant joint crosses a plane the core already shares with the body
-on the other side of it — the condenser on the port lane, the compressor shroud on the
-west — so its station is that neighbour's own pick read from this side, and the copper
-between them is the length of the union rather than a run.
-
-The rest are REACHED, and what they have to be reached through is the refrigeration
-stratum: the shroud and the condenser stand packed against this whole face from the floor
-up to [135 mm](CORRIDOR_FLOOR), and above that the corridor in front of the core is open
-air. So the port lane's other five stand in the corridor, ordered by what leaves together:
-first reservoir A and the two reed cables, all three out of the pockets' bulkhead band,
-then the vessel's CO2 inlet off the bottom plate, then the PRV vent down off the shroud's
-cap.
+fitting, turns onto the lane and climbs it, so the field is ordered by what leaves
+together: first reservoir A and the two reed cables, all three out of the pockets'
+bulkhead band, then the vessel's CO2 inlet off the bottom plate. Above the field
+the slot takes the rest of the column, and `copper_plugs.lowest_copper_z` is
+derived from where the field ends — so adding a station pushes the slot up rather
+than colliding with it, and dropping one brings the slot down.
 
 Two lines land on this lane and never cross this wall: **reservoir B's draw** and
 the **carbonated-water outlet**, both of which keep climbing to a cap conduit
 (`_cold_core_interface.cap_conduits`). The carb water's is the only line in this
-lane going up rather than west, so its climb crosses none of the five above.
+lane going up rather than west, so its climb crosses none of the four above.
 
-### Two-feature front pass-throughs
+### Two-bore front pass-throughs
 
 Each reservoir's flavor line and reed cable crosses its bag-pocket wall and then
-the −X wall, and the two features share neither an axis nor a height. The pocket-wall
+the −X wall, and the two bores share neither an axis nor a height. The pocket-wall
 bore stays beside the bulkhead, where the elbow's lateral port points:
 x = ±[97 mm](FLAVOR_POCKET_X) for the line and ±[109 mm](CABLE_POCKET_X) for the
-cable, both at the elbow's own exit Z. The outer feature is its station in the lane's
-slot. Between them the run turns onto the lane, travels west to the wall, and climbs to
+cable, both at the elbow's own exit Z. The front bore is its station on the field.
+Between them the run turns onto the lane, travels west to the wall, and climbs to
 the station — the lane is what lets the two sit at different X *and* different Z.
 
 Both runs are potted where they cross the band, as everything in the band is.
-`cut_pocket_wall_exit` in `_cold_core_interface.py` cuts the inner one.
+`cut_pour_band_pass_through` in `_cold_core_interface.py` cuts the pair.
 
-### The lane slots and their plug stacks
+### Shared slot and copper plug stack
 
-The −X outer_shell wall carries **one Z-elongated slot per lane**, ⌀[6.5 mm](TUBE_HOLE_D)
-wide with rounded ends along Z, cut by `cut_lane_slots` in `_port_cuts.py`. Each starts
-under its lane's refrigerant station and its top extends past the wall top so no sliver of
-wall material remains above it. With the centerward wall extending only to
-y = ±[72.5 mm](POCKET_Y_OUTER) (where it meets the ±Y walls via the transition arcs), a
-slot pierces only this one outer wall.
+The −X outer_shell wall carries four pass-throughs along a single
+**Z-elongated slot** on the lane, above the front port field: the two copper
+evaporator lines (low and high) and the PRV vent. The slot is
+⌀[6.5 mm](TUBE_HOLE_D) wide (rounded ends along Z) and is cut by
+`cut_slot_for_copper_and_prv_vent` in `_port_cuts.py`. The slot's
+top extends past the wall top so no sliver of wall material remains
+above the slot — the three plugs can slide down into the slot from
+above during assembly. With the centerward wall extending only to
+y = ±[72.5 mm](POCKET_Y_OUTER) (where it meets the ±Y walls via the
+transition arcs), the slot pierces only this one outer wall.
 
-**A slot rather than a bore is the copper's doing.** An evaporator tail is formed off a
-coil that is lowered into the cavity, so its outward leg travels down the wall to its
-station instead of being threaded through it, and that takes an opening running out
-through the top face. Each lane carries one such line low, so each lane's opening runs the
-wall's whole remaining height — and every station above it stands in that same opening,
-held between two plugs rather than in a bore. The plugs slide down from above during
-assembly, after the lines.
-
-Both the slots and the stacks that fill them are authored in the **port frame** —
+Both the slot and the plug stack that fills it are authored in the **port frame** —
 the frame where the wall a port crosses is a −Y wall and the slot runs lateral in
 x — and `_cold_core_interface.port_to_shell` is the one transform that carries that
-frame onto a lane, the slide being the whole of the difference between the two. A pose
-turned by hand alongside a slot cut by hand is two implementations of one transform; this
-way a plug and the hole it plugs cannot land in two places.
+frame onto the lane. A pose turned by hand alongside a slot cut by hand is two
+implementations of one transform; this way the plug and the hole it plugs cannot
+land in two places.
 
-Printed PETG **copper plugs**, one per station, each spanning from its own station up to
-the next (Z centers absolute in the model — the floor occupies z = 0 to
-z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the cavity floor):
+Pass-through Z heights (centers, absolute in the model — the floor occupies
+z = 0 to z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the
+cavity floor):
 
-[copper-plug-evap-inlet 43.75 → 138.2; copper-plug-reservoir-a 138.2 → 146.2; copper-plug-reed-cable-a 146.2 → 154.2; copper-plug-reed-cable-b 154.2 → 162.2; copper-plug-co2-in 162.2 → 170.2; copper-plug-prv-vent 170.2 → 213.4](PORT_LANE_PLUGS)
+[evaporator inlet 43.75, evaporator outlet 51.75, PRV vent 59.75](SLOT_Z)
 
-[copper-plug-evap-outlet 58 → 213.4](WEST_LANE_PLUGS)
+The four continue the front port field at its own pitch rather than each crossing
+where its own fitting sits: the evaporator's cold tail climbs the lane to reach the
+slot, its warm tail and the two lines off the tank's top band drop it. So the whole
+of the shell's front face — field and slot together — is one column in the bottom
+[59.75 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
+packed against this face reach every port in one band. `copper_plugs.py` derives
+them.
+
+Three printed PETG **copper plugs** slide down into the slot from
+above to seal the gaps between (and above) the three pass-throughs:
+
+| Plug | Z span (mm) | Z end arches |
+|---|---|---|
+| `copper-plug-lower` | [43.75 → 51.75](PLUG_SPAN_LOWER) | both ends |
+| `copper-plug-middle` | [51.75 → 59.75](PLUG_SPAN_MIDDLE) | both ends |
+| `copper-plug-top` | [59.75 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
 
 The spans meet end-to-end **at the pass-through centers**: each plug
 runs from one tube's center to the next, and the arch cutout at each
-end holds exactly half of that tube. A stack tiles its slot from the
-lowest station to the wall top with no linear gaps — the tube is the gap. A plug between
-two stations one pitch apart leaves exactly the PETG a bore on the lane would have left
-either side of it, and `copper_plugs.py` asserts that on the shortest plug in either
-stack.
+end holds exactly half of that tube. The stack tiles the slot from the
+lowest copper to the wall top with no linear gaps — the tube is the gap.
 
 Each plug has a **binder-clip cross-section** that grips the wall
 edge instead of floating loosely in the slot. Viewed end-on, it's a
@@ -428,14 +417,15 @@ binder clip. See the docstring at the top of
 
 Each plug end that abuts a tube has a **⌀[6.5 mm](TUBE_HOLE_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
-without crushing it. Every plug arches at its bottom end; the topmost plug in a
-stack is the one that does not arch at the top — its top is flush with the wall
-top and stays flat.
+without crushing it. `lower`, `middle`, and `upper` all arch at both
+Z ends; `top` arches at the bottom Z end only (its top is flush with
+the wall top and stays flat).
 
-That flat top reaches the wall top, so nothing is left open above a stack. After the
-plugs are installed, each slot's remaining unfilled length within the wall along Z —
-the strip below its lowest station, plus the narrow clearance bands around each tube —
-gets filled by the body foam pour.
+The top plug's flat top face reaches the wall top, so nothing is left
+open above the stack. After the three plugs are installed, the slot's
+remaining unfilled length within the wall along Z — the strip below
+the lowest copper, plus the narrow clearance bands around each of the
+three tubes — gets filled by the body foam pour.
 
 ## Assembly and foam pour
 
@@ -455,18 +445,19 @@ Every internal component is installed first:
 - Copper evaporator coil hand-wound around the vessel exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
-- Copper evaporator inlet routed along the port lane and out through that lane's slot;
-  copper evaporator outlet across the top of the tank onto the WEST lane, down it, and out
-  through the west slot; PRV vent LLDPE (from the prv-shroud cap) down the port lane to its
-  own station high on that column. Each leaves its fitting and turns onto its lane; the
-  inlet climbs, the outlet and the vent come down.
+- Copper evaporator inlet (low), copper evaporator outlet (high),
+  and PRV vent LLDPE (from the prv-shroud cap) routed along the port
+  lane and out through the shared slot at their three Z heights. All three
+  leave their fittings and turn onto the lane; the evaporator inlet climbs
+  it and the PRV vent comes down it, to land in vertical alignment in the
+  slot.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
   lateral FNPT of the vessel's top-plate Port 2 elbow, collet turned into the
   band, and a length of 1/4" OD LLDPE from that collet along the band between
   the top plate and the cap floor, then up the top cap's conduit at the cap's
   west end. The corner off the elbow is potted where it turns.
-- The copper plugs slid down into their slots from above (through
-  the open extension past the wall top) to seal between the
+- Four copper plugs slid down into the slot from above (through
+  the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
 - PRV shroud subassembly (`../prv-shroud/`) — already built and
   cured ahead of time, threaded into Port 4 at vessel install — is
@@ -474,7 +465,7 @@ Every internal component is installed first:
   Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
   route it along the lane and out through the slot to the appliance interior.
 - Reservoir A's LLDPE line routed out of its pocket's −Y wall bore beside the
-  bulkhead, onto the port lane, then west and up it to its station in the slot.
+  bulkhead, onto the port lane, then west and up it to its front-field station.
   Reservoir B's leaves by its pocket's +Y wall onto the west lane and climbs that
   lane to the top cap's conduit.
 - Water outlet from the vessel's bottom plate, −Y through the support ring onto
@@ -483,7 +474,7 @@ Every internal component is installed first:
   four that do; lay it before the pour, because it is potted the whole way up.
 - CO2 inlet on the plate's lane-side port at y = [-19.05](CO2_BORE_Y),
   z = [17](CO2_BORE_Z) — its own bore crosses the ring on that line onto the
-  lane, and the line comes IN from its station in the slot, along the lane and
+  lane, and the line comes IN from the front-field station, along the lane and
   through the ring onto the collet already made up under the plate.
 
 With everything in place, liquid foam is poured **directly into the
@@ -556,8 +547,9 @@ This drives several dimension choices:
 
 **Print with stock Bambu Studio defaults.**
 
-Plate contents (when slicing): `foam-shell` + every `copper-plug` together; the two
-`foam-cap`s + their two lids on a separate plate (the TPU gaskets on their own TPU
+Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
+`copper-plug-middle` + `copper-plug-top` together; the two `foam-cap`s +
+their two lids on a separate plate (the TPU gaskets on their own TPU
 plate).
 
 ### Printer / profile
@@ -598,11 +590,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1041198.998 mm³](FSHELL_VOLUME) |
+| volume | [1043014.312 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.587150, 0.464204, 87.567710) mm](CENTROID) |
+| centroid | [(0.341645, 0.637812, 87.677006) mm](CENTROID) |
 
 Quick reproduction:
 

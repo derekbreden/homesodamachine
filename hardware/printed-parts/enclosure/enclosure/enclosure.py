@@ -456,7 +456,64 @@ def _chain_bands(inner):
             for x_in, sx in ((ix0, +1.0), (ix1, -1.0))]
 
 
+def _seam_bands_clear(placed, inner):
+    """How far aft each part of the Y seam may reach before it meets content:
+    (chain, ceiling) — the frontmost thing standing in the ±X boss-chain bands,
+    and in the ceiling band the lip's top segment sweeps.
 
+    Those are the only two places the seam occupies. This is the y_joint-free
+    reading of them — it asks where content STARTS, not whether content stands
+    where the furniture lands, so it can be measured before the seam is chosen.
+    It bounds the seam whenever the band ahead of the content is all the seam
+    can have; `_chain_span_clear` is what lets the seam pass content that sits
+    forward of the furniture entirely."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+
+    def frontmost(prism):
+        limit = iy1
+        for s, _c in placed.values():
+            hit = prism.intersect(s)
+            if hit.Volume() > 1.0:
+                limit = min(limit, hit.BoundingBox().ymin)
+        return limit
+
+    chain = iy1
+    for xa, xb in _chain_bands(inner):
+        chain = min(chain, frontmost(_ybox(xa, xb, iy0, iy1, iz0, iz1)))
+    return chain, frontmost(_ybox(ix0, ix1, iy0, iy1, iz1 - wall, iz1))
+
+
+def _chain_spans_clear(placed, inner, spans):
+    """Whether both ±X boss-chain bands run empty over every Y span the seam's own
+    columns occupy (`_seam_furniture_spans`).
+
+    The bands are a lane, not a keep-out: what matters is that nothing stands
+    where the furniture lands, not that the furniture sits ahead of everything in
+    the lane. A fitting parked between two stations leaves both their full section
+    and never meets either, so it does not move the seam."""
+    _ix0, _ix1, _iy0, _iy1, iz0, iz1 = inner
+    for xa, xb in _chain_bands(inner):
+        for y0, y1 in spans:
+            prism = _ybox(xa, xb, y0, y1, iz0, iz1)
+            for s, _c in placed.values():
+                if prism.intersect(s).Volume() > 1.0:
+                    return False
+    return True
+
+
+def _seam_furniture_spans(inner, y_joint):
+    """Every Y span the seam occupies in the ±X boss-chain bands at `y_joint` — the
+    Y-seam corner column (front half through back), plus each Z-seam pin station's
+    own column, which stands in the same band at its own station.
+
+    Read from the definitions that BUILD them (`_y_corner`, `_y_corner_back`,
+    `_z_station_y`), so a span cannot drift from the geometry it stands for. The
+    stations are why the band is not free depth: it runs clear between them, not
+    along its whole length."""
+    spans = [(_y_corner(inner, y_joint)[0], _y_corner_back(inner, y_joint)[1])]
+    for _x_in, _x_ext, _sx, ys, col in _z_stations(inner, y_joint):
+        spans.append(_z_station_y(inner, y_joint, ys, col))
+    return spans
 
 
 def _open_bands(spans, z0, z1, clear):
@@ -550,7 +607,7 @@ def _z_joints(placed, inner):
     floor slab and the whole service bay stands on its lid, so the column runs solid
     to the bay's crown and what it leaves open is above all of it. That seam runs
     THROUGH its column, on the lane its lip needs (`_lip_denied`) — the same lane the
-    Y seam takes for its own furniture.
+    Y seam takes for its own furniture (`_chain_spans_clear`).
 
     The two stand `z_joint_pitch` apart, or the Y seam quietly comes out with fewer
     cross-pins than it has levels for: the column with the least room to move takes
@@ -582,12 +639,11 @@ def _z_joints(placed, inner):
                 f"{bed_lo:.2f}..{bed_hi:.2f} its bodies leave no band "
                 f"{2 * z_joint_clear:.2f} mm clear, and something stands in the lip's own "
                 f"ring at every height there. Repack, or split this column in three")
-    # The FRONT column's seam is STATED (`_contents.Z_SEAM_FRONT`), the way the Y seam and the
-    # ceiling are: where the front quadrants split is a decision about those two pieces. The
-    # back column then takes the nearest reachable height to the half-height in its own bands,
-    # standing a full `z_joint_pitch` off the front's so the Y seam keeps both its levels.
-    out = {"front": _contents.Z_SEAM_FRONT}
-    for col in ("back",):
+    # Nearest reachable height to the half-height, band by band; ties take the lower.
+    # The column with the least room to move takes its height first, and the other
+    # stands a full pitch off it.
+    out = {}
+    for col in sorted(bands, key=lambda c: sum(hi - lo for lo, hi in bands[c])):
         left = bands[col]
         for z in out.values():
             left = _outside(left, z - z_joint_pitch, z + z_joint_pitch)
@@ -620,16 +676,8 @@ def _dims():
     # X one; that substitution IS the thin machine. Read from _contents, which
     # insets wall-adjacent floor content by the same number.
     cold = _boxes.boxed(placed["foam-assembly"][0])
-    # The ±X walls stand one boss chain off THE WIDEST THING ON THE FLOOR, not off the cold
-    # core alone. That band carries the Y seam's corner columns and the Z seams' pin stations,
-    # and they run from the floor slab up — so a floor body reaching into it is a body the seam
-    # has to be routed around at every level. The refrigeration stratum is 189 wide against the
-    # core's 181, and it is what sets this.
-    floor = [b for b in bbs if b.zmin <= min(czmin, 0.0) + wall]
-    ix0 = min(cxmin - interior_clearance,
-              min(b.xmin for b in floor) - _contents.SIDE_RIB_INSET)
-    ix1 = max(cxmax + interior_clearance,
-              max(b.xmax for b in floor) + _contents.SIDE_RIB_INSET)
+    ix0 = min(cxmin - interior_clearance, cold.xmin - _contents.SIDE_RIB_INSET)
+    ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
     # The FRONT wall stands one wall off the pack, for the same kind of reason
     # the ±X walls stand a boss chain off the cold core: a lip missing a side is
     # a butt joint over that run — nothing registering the two pieces, nothing
@@ -683,19 +731,38 @@ def _dims():
     splits = _z_joints(placed, inner)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     facet_back = facet_back_y(outer)
-    # The Y seam is STATED, the way `appliance_height` and `_contents.REAR_PLANE_Y` are:
-    # where the box splits front from back is a decision about the two halves, not a
-    # consequence of what the pack happens to leave. `_contents.Y_SEAM` is that plane, and
-    # `_report_split` prints what each half then comes to against the bed.
+    # The seam sits at the box's middle, for four near-quarter pieces, OR behind
+    # the front pack — whichever is further back. The pack term is what makes the
+    # front quadrants usable: the frontmost seam furniture is that column's aft
+    # Z station, whose pod reaches 2*socket_r ahead of the mouth's margin, and a
+    # tray in either front quadrant has to be notched around it wherever it lands
+    # inside the pack. Held one stance behind the cold core's front face — where
+    # the front pack ends — the whole seam stands aft of every tray, and a tray
+    # may run the box's full width and its full depth without seeing a seam.
     #
-    # The one thing it cannot do is cut the display housing, which is a single face across
-    # the front-top piece.
-    y_joint = _contents.Y_SEAM
-    if y_joint < facet_back + 2.0:
-        raise ValueError(
-            f"the Y seam at y {y_joint:g} runs through the display housing, whose back plane "
-            f"is at {facet_back:.2f} — the facet is one surface and it stays whole in the "
-            f"front pieces. Move `_contents.Y_SEAM` aft of {facet_back + 2.0:.2f}.")
+    # Either way it is capped by what stands where its two parts go: the mouth,
+    # plugs, pods and posts in the ±X boss-chain bands, and the lip's ceiling
+    # segment in the band under the top wall. The cold core caps neither — the
+    # bands run clear alongside it, and the lip carries no floor segment to sweep
+    # it — so the seam passes BEHIND the core's front face rather than stopping.
+    chain_clear, ceiling_clear = _seam_bands_clear(placed, inner)
+    chain = lip_len + wall + socket_bore_dia / 2.0 + socket_r
+    y_chain = chain_clear - 2.0 - chain
+    y_ceiling = ceiling_clear - 2.0 - lip_len
+    y_pack = cold.ymin + 2.0 + wall + z_lip_y_margin + 2.0 * socket_r
+    y_facet = facet_back + 2.0                     # the facet stays whole in the front pieces
+    y_want = max((iy0 + iy1) / 2.0, y_pack)          # the midpoint, or behind the front pack
+    want = max(y_facet, min(y_want, y_ceiling))
+    y_joint = max(y_facet, min(y_want, y_chain, y_ceiling))
+    # The chain cap above reads where band content STARTS, which holds the seam
+    # ahead of all of it. That is the answer only when the content is what the
+    # columns would land in. The band runs clear BETWEEN its stations, and content
+    # parked there — the nozzle-outlet elbows, between the front-wall station and
+    # the front column's aft one — leaves every column its full section, so the
+    # seam takes the station it actually wants whenever each span its own
+    # furniture occupies is itself clear.
+    if want > y_joint and _chain_spans_clear(placed, inner, _seam_furniture_spans(inner, want)):
+        y_joint = want
     # The Y-seam corner, probed at each depth something stands there: the front
     # half's column at the socket's full section (which also fixes where a level
     # may sit, since a level needs a socket body), and the back half's column —
