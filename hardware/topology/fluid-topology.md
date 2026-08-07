@@ -8,95 +8,98 @@
 | V-B | Hopper funnel gate |
 | V-C | Shared source → Pump B (channel A select) |
 | V-D | Shared source → Pump A (channel B select) |
-| V-E | Bag A → Pump B inlet |
-| V-F | Pump B outlet → Bag A |
+| V-E | Reservoir A → Pump B inlet |
+| V-F | Pump B outlet → Reservoir A |
 | V-G | Pump B outlet → Nozzle A |
-| V-H | Bag B → Pump A inlet |
-| V-I | Pump A outlet → Bag B |
+| V-H | Reservoir B → Pump A inlet |
+| V-I | Pump A outlet → Reservoir B |
 | V-J | Pump A outlet → Nozzle B |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
-**A stopped pump is not a closed valve.** A parked KPHM400 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap pressure crosses an idle pump to reach a bag.
+**A stopped pump is not a closed valve.** A parked KPHM400 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap pressure crosses an idle pump to reach a reservoir.
 
-> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It gates the carbonator fill line on the water-split's run to the SeaFlo suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the board's spare `J2.OUT3` channel.
+> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It stands on the cold core's crown east of the SeaFlo and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the board's spare `J2.OUT3` channel.
+
+## The pack
+
+[4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and the [6](TEE_COUNT) junction tees, over [2](PUMP_COUNT) pumps.
+
+**A limb is a lane.** Every valve is straight through and every junction's run takes two valve ports, so a limb is one line of valves and tees butted collet to collet, front to back, on one column of X. A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, so each pump hands out two of these lanes, 57 mm apart — an inner limb and an outer one, both on its own side of the mirror plane. Channel A stands east of that plane in the machine and channel B west.
+
+**The pack is folded in two** about the hinge the four barb tees' front collets stand on. [8](UPPER_COUNT) bodies ride up onto the second deck and [8](LOWER_COUNT) stay on the first, and the four connections crossing the hinge each become a 180° hairpin. The fold turns every mouth that leaves the pack to face the back of the machine.
+
+Per-limb grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
 
 ## Junctions
 
 Six 3-port junctions — **Y-A, Y-B, Y-C, Y-D, Y-F, Y-G** — and every one of them is a **PP0208E Tee** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y.
 
-**Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES rather than a valve and a vessel, and segments 15 and 25 do not exist.
+**Neither reservoir has a junction.** Each carries **two mouths of its own** — the draw on the bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or a valve and a pump barb.
 
-Which of the two a junction wants follows from the placed geometry more than from the circuit: a **divider** joins two ports side by side — its outlets are parallel, which is the shape two valves standing beside each other present — and a **Tee** joins two ports one corridor serves, the run taking those and the branch turning to the third. What decides it is the pair's own sitting AND the room the fitting has: a trident is 38.5 mm from stem tip to outlet face and needs that much clear ahead of the pair it joins, where a Tee standing across a band needs only its own 13.7 mm diameter. Nothing in this machine has that much clear, so nothing in it is a trident.
+No junction is carried by anything: none of them seats on a body, so each hangs on the collets it joins.
 
-No junction is carried by a tray: a tray seats valves only, so each fitting hangs on the two collets it joins. [7](TRAY_COUNT) trays carry the [11](TRAY_VALVE_COUNT) valves and all of them are placed — [4](TWO_VALVE_COUNT) of the [two-valve](/hardware/printed-parts/valve-manifold/two-valve-tray/README.md) plate and [3](ONE_VALVE_COUNT) of the [single-valve](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md) one, because a plate takes a second seat where two valves belong to ONE circuit node — the two sources, the two selects, and each bag's fill and draw — and three valves in this machine stand alone. A tray carries no valve above another — nothing holds a valve down, so every tray in the machine lies plate-up, and where a plate has two seats they stand side by side — so **a junction reaching between trays can only ever be a Tee**, and every one of the six does reach between trays. No junction joins a tray's own pair, because the pairs that would have — each bag's fill and draw — meet their reservoir's two mouths instead.
+**Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-Which two of a Tee's three ports take the **run** follows from the geometry the same way the divider/Tee choice does. A Tee's run is a **lane** — one straight length of tube passing through the fitting — and its branch is the leg that leaves that lane. So the run takes the two ports the same corridor serves and the branch takes the one that departs it, and the port numbering below is a naming rather than a claim about which is which: the table says where each port goes, and [`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)'s `_tee_local` is where a name meets a run end or a branch.
+**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each sits on a barb, taken by its BRANCH, at the hinge — so its RUN lies across the pump head's face and IS the outboard half of a limb, with a valve on each end. Y-C and Y-F take suction, Y-D and Y-G discharge.
 
-**Y-A and Y-B are the SELECTS-SOURCE junction**, and the lane each takes is a **column**. The source pair stands in the selects pair's own two seats one stack pitch up, so the four ports between them lie in two vertical columns — V-A over V-C, V-B over V-D — and each column is one Tee's run: the tap-water source falls straight through Y-A to channel A's select (segments 3 and 7), the hopper source through Y-B to channel B's (5 and 8). The two branches face each other across the seat pitch and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a column, or down half a column, across the bar and down the other half.
-Channel A's and channel B's four are the PUMP-ROW junctions.
-
-Channel A's stand in the **pump lane**, the strip west of the head column and aft of channel A's pump, each on the column of the barb its run butts. Their runs lie along that lane and their branches stand **up** out of it, which is the axis both third legs leave on: Y-C's branch takes the fall from the selects pair a stack pitch above (segment 9), and Y-D's is the storey-and-a-half climb to the nozzle gate in the loft (segment 17). Nothing else on the row changes level — the pump's two barbs stand on the bag-A pair's own port plane, so the whole row is flat and only the branches climb.
-
-Channel B's do **not** share one lane, and pump A is why: it stands in the front column beside channel A's, so both of its junctions are up in the loft and the two legs between them and the barbs cross a storey and a half. **Y-G** stands in the lane east of V-K's plate — the corridor segment 27 already runs down — with its RUN along that lane and one valve on each end: the bag's fill gate forward (segment 23), the nozzle gate aft (segment 27). Its branch takes the climb up out of the front column (segment 22), and both run legs lie on the aft stand's own port plane, so only the branch changes level. **Y-F** stands in the loft's own pump lane, the strip between the trays and the water deck, with its run along the lane — the shared source's climb in from the front column (segment 19), the pump's suction out the other end (segment 21) — and its branch reaching sideways at the bag-B draw (segment 20). It is the only branch in the manifold that is horizontal, and the only row whose RUN legs change level.
-
-Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
-
-Y-A's and Y-B's ports are numbered from the source end down their columns. Y-G's run is numbered from its AFT end — Y-G-2 at the nozzle gate, Y-G-3 forward at the bag's fill valve — each of the two the nearer to the collet it reaches. **Each reservoir is reached by two lines**, the fill onto a bore in its own cap and the draw off the bulkhead at the bottom of its wet V, each on its own conduit through the top cap.
+Y-A's and Y-B's run ports are numbered from the source end down the limb. On a barb tee the branch takes the number nearest the barb it drops onto — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
 | Y-A | V-A-O (tap water) | V-C-I (channel A select) | Y-B-3 (crossbar to Y-B) |
 | Y-B | V-B-O (hopper) | V-D-I (channel B select) | Y-A-3 (crossbar to Y-A) |
-| Y-C | V-C-O (channel A shared source) | V-E-O (bag A to pump return) | P-B-I (pump B inlet) |
-| Y-D | P-B-O (pump B outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
-| Y-F | V-D-O (channel B shared source) | V-H-O (bag B to pump return) | P-A-I (pump A inlet) |
-| Y-G | P-A-O (pump A outlet) | V-J-I (pump to nozzle B) | V-I-I (pump to bag B) |
+| Y-C | V-C-O (channel A shared source) | V-E-O (reservoir A to pump return) | P-B-I (pump B inlet) |
+| Y-D | P-B-O (pump B outlet) | V-F-I (pump to reservoir A) | V-G-I (pump to nozzle A) |
+| Y-F | V-D-O (channel B shared source) | V-H-O (reservoir B to pump return) | P-A-I (pump A inlet) |
+| Y-G | P-A-O (pump A outlet) | V-J-I (pump to nozzle B) | V-I-I (pump to reservoir B) |
 
 ## Tube Segments
 
-Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). `scorecard.py` reads these tables as `fluid-1` … `fluid-28`, the connection inventory the enclosure must carry, and [`_lines.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py) authors each one port to port.
+Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor connection inventory the front half owes, and each one is made one of four ways: butted collet to collet, folded into a hairpin across the hinge, turned out of a deck plane, or drawn as a swept run by [`_lines.py`](/hardware/manifold-layout/_lines.py). The chart's edge labels carry which.
+
+Four of the seven conduits in the cold core's top cap are this circuit's: a fill and a draw for each reservoir.
 
 ### Shared
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 1 | Tap water source | Flow regulator inlet | Fed from the water-split's AFT run — 1/4" PTC off the ASSE 1022's split (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
-| 2 | Flow regulator outlet | V-A-I | |
-| 3 | V-A-O | Y-A-1 | Down the west column, through Y-A's run |
-| 4 | Hopper funnel bottom | V-B-I | |
-| 5 | V-B-O | Y-B-1 | Down the east column, through Y-B's run |
-| 6 | Y-A-3 | Y-B-3 | The crossbar — branch to branch, one straight length |
-| 7 | Y-A-2 | V-C-I | |
-| 8 | Y-B-2 | V-D-I | |
+| 1 | water-split to-flavor | flow-regulator inlet | Off the ASSE 1022's split, west lane (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
+| 2 | flow-regulator outlet | V-A-I | Across the machine and up onto the folded deck |
+| 3 | V-A-O | Y-A-1 | Quarter turn out of the deck plane, then the step aft over the core's crown |
+| 4 | Hopper funnel bottom | V-B-I | Gravity drain |
+| 5 | V-B-O | Y-B-1 | The mirror of segment 3 |
+| 6 | Y-A-3 | Y-B-3 | The crossbar — branch to branch, face to face |
+| 7 | Y-A-2 | V-C-I | Butted |
+| 8 | Y-B-2 | V-D-I | Butted |
 
 ### Channel A
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 9 | V-C-O | Y-C-1 | |
-| 10 | V-E-O | Y-C-2 | |
-| 11 | Y-C-3 | P-B-I | |
-| 12 | P-B-O | Y-D-1 | |
-| 13 | Y-D-2 | V-F-I | |
-| 14 | V-F-O | Bag A FILL port | Down the cap conduit onto the bore in the reservoir's own cap, above the liquid |
-| 16 | Bag A DRAW port | V-E-I | Out of the `reservoir-a` conduit at the head of its band, off the bulkhead at the bottom of the wet V |
-| 17 | Y-D-3 | V-G-I | |
-| 18 | V-G-O | Nozzle A | |
+| 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
+| 10 | V-E-O | Y-C-2 | Butted |
+| 11 | Y-C-3 | P-B-I | The tee's branch on the pump's suction barb |
+| 12 | P-B-O | Y-D-1 | The tee's branch on the pump's discharge barb |
+| 13 | Y-D-2 | V-F-I | Butted |
+| 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
+| 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
+| 17 | Y-D-3 | V-G-I | Across the hinge — one 180° hairpin on the A2 limb's column |
+| 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the rear panel |
 
 ### Channel B
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 19 | V-D-O | Y-F-1 | |
-| 20 | V-H-O | Y-F-2 | |
-| 21 | Y-F-3 | P-A-I | |
-| 22 | P-A-O | Y-G-1 | |
-| 23 | Y-G-3 | V-I-I | |
-| 24 | V-I-O | Bag B FILL port | Down the cap conduit onto the bore in the reservoir's own cap, above the liquid |
-| 26 | Bag B DRAW port | V-H-I | Out of the `reservoir-b` conduit at the head of the +Y band, off the bulkhead at the bottom of the wet V |
-| 27 | Y-G-2 | V-J-I | |
-| 28 | V-J-O | Nozzle B | |
+| 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
+| 20 | V-H-O | Y-F-2 | Butted |
+| 21 | Y-F-3 | P-A-I | The tee's branch on the pump's suction barb |
+| 22 | P-A-O | Y-G-1 | The tee's branch on the pump's discharge barb |
+| 23 | Y-G-3 | V-I-I | Butted |
+| 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
+| 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
+| 27 | Y-G-2 | V-J-I | Across the hinge — one 180° hairpin on the B2 limb's column |
+| 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the rear panel |
 
 ---
 
@@ -104,85 +107,85 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 
 Open valves listed; all others closed.
 
-This table is canonical for the integrated flavor manifold. Pumps run forward only. **P-B is channel A's pump and P-A is channel B's** — the pairing the junction and segment tables above carry, and the one both editions' packs are built to. Valve state selects whether a pump draws from a bag, hopper, or tap-water source and whether the outlet returns to a bag or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
+This table is canonical for the integrated flavor manifold. Pumps run forward only. **P-B is channel A's pump and P-A is channel B's** — the pairing the junction and segment tables above carry, and the one the placed pack is built to. Valve state selects whether a pump draws from a reservoir, hopper, or tap-water source and whether the outlet returns to a reservoir or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
 
 ### Dispense A
 
 - Open: V-E, V-G
 - Pump B: ON
-- Path: Bag A → V-E → P-B → V-G → Nozzle A
+- Path: Reservoir A → V-E → P-B → V-G → Nozzle A
 
 ### Dispense B
 
 - Open: V-H, V-J
 - Pump A: ON
-- Path: Bag B → V-H → P-A → V-J → Nozzle B
+- Path: Reservoir B → V-H → P-A → V-J → Nozzle B
 
-### Fill from Hopper → Bag A
+### Fill from Hopper → Reservoir A
 
 - Open: V-B, V-C, V-F
 - Pump B: ON
-- Path: Hopper → V-B → V-C → P-B → V-F → Bag A
+- Path: Hopper → V-B → V-C → P-B → V-F → Reservoir A
 
-### Fill from Hopper → Bag B
+### Fill from Hopper → Reservoir B
 
 - Open: V-B, V-D, V-I
 - Pump A: ON
-- Path: Hopper → V-B → V-D → P-A → V-I → Bag B
+- Path: Hopper → V-B → V-D → P-A → V-I → Reservoir B
 
-### Clean Water Fill → Bag A
+### Clean Water Fill → Reservoir A
 
 - Open: V-A, V-C, V-F
 - Pump B: OFF (line pressure through idle pump)
-- Path: Tap → V-A → V-C → P-B (idle) → V-F → Bag A
+- Path: Tap → V-A → V-C → P-B (idle) → V-F → Reservoir A
 
-### Clean Water Fill → Bag B
+### Clean Water Fill → Reservoir B
 
 - Open: V-A, V-D, V-I
 - Pump A: OFF (line pressure through idle pump)
-- Path: Tap → V-A → V-D → P-A (idle) → V-I → Bag B
+- Path: Tap → V-A → V-D → P-A (idle) → V-I → Reservoir B
 
 ### Clean Flush A (water out)
 
 - Open: V-E, V-G
 - Pump B: ON
-- Path: Bag A → V-E → P-B → V-G → Nozzle A
+- Path: Reservoir A → V-E → P-B → V-G → Nozzle A
 - (Same as Dispense A)
 
 ### Clean Flush B (water out)
 
 - Open: V-H, V-J
 - Pump A: ON
-- Path: Bag B → V-H → P-A → V-J → Nozzle B
+- Path: Reservoir B → V-H → P-A → V-J → Nozzle B
 - (Same as Dispense B)
 
-### Air Purge In → Bag A
+### Air Purge In → Reservoir A
 
 - Open: V-B, V-C, V-F
 - Pump B: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-C → P-B → V-F → Bag A
+- Path: Air → V-B → V-C → P-B → V-F → Reservoir A
 - (Same path as hopper fill)
 
-### Air Purge In → Bag B
+### Air Purge In → Reservoir B
 
 - Open: V-B, V-D, V-I
 - Pump A: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-D → P-A → V-I → Bag B
+- Path: Air → V-B → V-D → P-A → V-I → Reservoir B
 
 ### Air Purge Out A
 
 - Open: V-E, V-G
 - Pump B: ON
-- Path: Bag A → V-E → P-B → V-G → Nozzle A
+- Path: Reservoir A → V-E → P-B → V-G → Nozzle A
 - (Same as Dispense A)
 
 ### Air Purge Out B
 
 - Open: V-H, V-J
 - Pump A: ON
-- Path: Bag B → V-H → P-A → V-J → Nozzle B
+- Path: Reservoir B → V-H → P-A → V-J → Nozzle B
 - (Same as Dispense B)
 
 ## Sources
