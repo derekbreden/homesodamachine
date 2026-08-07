@@ -28,12 +28,19 @@ destroyed is a part that comes out by being destroyed.
 
 ## What follows for placement
 
-- **A joint with no slack is made before installation.** Two collets butted face to face
-  cannot be brought together along their own axis once both bodies are trapped, so the group
-  that contains such a joint is built free-standing and installed as one rigid body. The
-  flavour manifold is 19 such joints ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
-- **Assembly order runs opposite to group size.** The most internally constrained group is
-  built first and goes in as a unit; freer bodies go in later and individually, in place.
+- **A butt joint needs one of its two bodies free along the port axis when it is made.** The
+  stub lies entirely inside the two collets, so it is pushed home into one and the second body
+  comes onto it. This constrains the ORDER, not the grouping: a chain of butts installs in
+  chain order, each body free as its own joint closes. What it forbids is fixing both ends
+  first, and a body whose butts run on two axes being last in. The flavour manifold is 19 such
+  joints ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
+- **How much axial travel a collet needs is not in this tree.** The models carry collet faces
+  and `BUTT = 0`; the insertion depth of the 1/4" quick-connects, and whether over-inserting a
+  stub buys slack to close a joint between two fixed bodies, are unmeasured. Any claim that a
+  particular arrangement cannot be assembled answers to that number first.
+- **Assembly order runs opposite to group size** where a group is built as a unit. A
+  free-standing sub-assembly is a convenience of the bench, not a requirement the joints
+  impose.
 - **Clearance around a fitting is not a placement criterion.** Room for a hand, a spanner or a
   collet release ranks below volume. Where a run needs room, it needs it to be *routed*, not to
   be reached.
