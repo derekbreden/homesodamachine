@@ -754,13 +754,13 @@ def crown_pose() -> Seat:
 
 
 def posed_bodies() -> dict:
-    """Every solid in this study as `{assembly name: (solid as drawn, seat, colour)}`.
+    """The valves, tees, elbows and pumps as `{assembly name: (solid as drawn, seat, colour)}`.
 
     `Seat.then` carries a pair into the frame outside this one — the refrigeration stratum in
     [`front_half.py`](front_half.py), the machine in the enclosure's own pack — and the body's
     collets ride the same chain (`_seating.Seat.port`).
 
-    The pumps and the tubes are swept in this study's own frame and take the identity."""
+    The pumps are drawn in this study's own frame and take the identity."""
     out = {}
     for name in P:
         s = body_seat(name)
@@ -774,7 +774,17 @@ def posed_bodies() -> dict:
         out[f"{pname}-head"] = (head, Seat(), C_HEAD)
         out[f"{pname}-bracket"] = (bracket, Seat(), C_BRACKET)
         out[f"{pname}-motor"] = (motor, Seat(), C_MOTOR)
-    # Only the segments that carry tube outside their collets get a solid; the rest are butts.
+    return out
+
+
+def posed_tubes() -> dict:
+    """The tube between those bodies, `{assembly name: (solid, seat, colour)}` — the straights,
+    the four spine turns, the six quarters, the two steps and the six mouth stubs. Swept in this
+    study's own frame, so each takes the identity.
+
+    A BUTT is two collet faces meeting: tube in both quick-connects and none between them, and
+    no solid here. `SEGMENTS` says which of the 21 is which."""
+    out = {}
     for cid, _f, _t, how in SEGMENTS:
         if how in RUNS and dist(*RUNS[how]) > 1e-9:
             out[f"tube-fluid-{cid}"] = (straight(*RUNS[how]), Seat(), C_TUBE)
@@ -792,7 +802,7 @@ def posed_bodies() -> dict:
 
 def build_assembly() -> cq.Assembly:
     a = cq.Assembly(name="manifold-layout")
-    for name, (solid, s, color) in posed_bodies().items():
+    for name, (solid, s, color) in {**posed_bodies(), **posed_tubes()}.items():
         a.add(s.solid(solid), name=name, color=color)
     return a
 
