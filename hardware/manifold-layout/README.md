@@ -29,8 +29,9 @@ about the hinge the four barb tees' front collets stand on.
 ## Frame
 
 X is width, mirrored about x = 0 — channel A (pump B) west, channel B (pump A) east. Y is
-depth, and every mouth leaves out the back (+Y). Z is height, 0 at the pumps' own floor; the
-valves stand on two decks above them, at z [82.68](DECK_Z) and [142.08](UPPER_Z).
+depth; the two nozzle mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
+height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
+[82.68](DECK_Z) and [142.08](UPPER_Z).
 
 ## Four limbs, folded in two
 
@@ -76,6 +77,20 @@ those tabs also contains the coil crown 6 mm above them, so a box solve asks for
 metal needs 58.4. `HSM_DECK_SEP=` builds another: at 58.0 the clash check goes red at 15 mm³ a
 corner, at 59.4 it is clean. `HSM_SPINE_R=` moves the radius on its own.
 
+## The quarter turns
+
+Six more of the butts open into a 90° of R[14](QUARTER_R), [21.99](QUARTER_LEN) mm of tube
+each, and all [6](QUARTER_COUNT) stand on one plane — y [79.07](BEND_Y), the far collet of the
+valve that ends a limb. Each joint's fixed collet opens +Y there, the tube turns onto +Z, and
+whatever was butted to it comes round with the turn. The axis runs along X, so the six share one
+transform per deck and a mirrored pair still faces itself.
+
+| | |
+|---|---|
+| fluid-3, fluid-5 | V-A and V-B off Y-A and Y-B, up on the folded deck — the two source valves come off the deck's own plane and lie along +Z |
+| fluid-14, fluid-24 | Y-E and Y-H off the fill gates, so each reservoir junction lies along +Z with its own line leaving that way |
+| fluid-16, fluid-26 | the draw gates' elbows, which come round with their tees, so the crossing between them keeps its [17.38](F16_LEN2) mm and its skew exactly |
+
 **Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down, at the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **Y-E and
@@ -89,9 +104,9 @@ Mirror-checked: [10](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF
 
 [15](BUTT_COUNT) of the [21](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-[2](TUBE_COUNT) are the straight reservoir crossings above, and [4](SPINE_COUNT) are the fold's
-turns — the only corners in the manifold, and every one of them sits on the stock's own floor of
-[14](MIN_BEND) mm.
+[2](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
+turns and [6](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
+[14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
 The [6](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
@@ -99,10 +114,10 @@ V-J-O (nozzle B) on the upper deck; Y-E-2 (reservoir A) and Y-H-2 (reservoir B) 
 
 ## Envelope
 
-[188](ENV_X) × [175](ENV_Y) × [153](ENV_Z) mm — [5.07](ENV_L) L of bounding box over the
+[188](ENV_X) × [176](ENV_Y) × [215](ENV_Z) mm — [7.12](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [189](REACH_Y) × [153](REACH_Z).
+[188](REACH_X) × [176](REACH_Y) × [229](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

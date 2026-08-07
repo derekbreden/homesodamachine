@@ -173,11 +173,16 @@ def build_front_half() -> cq.Assembly:
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
     crown = max(box(shroud).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
-    aft = max(box(shroud).ymax, box(cond).ymax)
-    for name, solid, color in posed:
-        solid = solid.translate(cq.Vector(0.0, 0.0, lift))
+    stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
+    for name, solid, color in stood:
         a.add(solid, name=name, color=color)
-        aft = max(aft, box(solid).ymax)
+    # What the core butts is whatever the front half presents AT THE CORE'S OWN HEIGHT. The
+    # source valves' quarter turns carry them aft over the core's crown, and a body standing
+    # over it is not a body in its way — so the seam is measured against the bodies that reach
+    # below that crown, and the ones above it are left to overhang.
+    top = box(build_foam(0.0)).zmax
+    aft = max([box(shroud).ymax, box(cond).ymax]
+              + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     a.add(build_foam(aft), name="foam-assembly", color=C_FOAM)
     return a
 
@@ -220,10 +225,18 @@ def report(a: cq.Assembly) -> None:
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
           f"crown — that band is what the hairpins reach, and they are aft of the pumps")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
-    front_aft = max(sh.ymax, co.ymax, pack.ymax)
-    print(f"  front half's aft y {front_aft:.2f}   foam front face y {fo.ymin:.2f}   "
-          f"gap {fo.ymin - front_aft:.2f}   (the base is what it butts, "
-          f"{front_aft - pack.ymax:.2f} mm past the pack)")
+    base_aft = max(sh.ymax, co.ymax)
+    print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "
+          f"gap {fo.ymin - base_aft:.2f}")
+    over = [(n, box(s)) for n, s in placed
+            if n not in ("compressor-shroud", "condenser+fan", "foam-assembly")
+            and box(s).ymax > fo.ymin + 1e-6]
+    if over:
+        reach = max(b.ymax for _n, b in over) - fo.ymin
+        floor = min(b.zmin for _n, b in over)
+        print(f"  {len(over)} pack bodies overhang the core by up to {reach:.2f} mm, "
+              f"clearing its crown by {floor - fo.zmax:.2f}: "
+              + ", ".join(sorted(n for n, _b in over)))
     # Which body each hairpin sets down on, and whether it reaches — the two crowns are not
     # level, so a hairpin over the lower one is bearing on nothing.
     for n, s in sorted(placed):
