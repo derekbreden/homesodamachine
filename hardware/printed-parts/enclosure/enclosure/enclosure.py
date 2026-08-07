@@ -229,7 +229,7 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 # machine's silhouette, the one dimension a counter appliance is judged by before it
 # is opened, and this is the number the thin machine is FOR. The contents live under
 # it; `_dims` raises if they cannot.
-appliance_height = 370.0
+appliance_height = 362.0
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
 # and a pack that outgrows this plane fails the build instead of quietly resizing the
