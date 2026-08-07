@@ -123,16 +123,28 @@ def build_foam(front_y: float):
     return sit(f, cx=0.0, y0=front_y, z0=0.0)
 
 
-def yaw_base(bodies):
-    """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre —
-    one rigid move, so the plane between them rides along and the crown does not change."""
-    whole = None
+def _whole(bodies):
+    out = None
     for s in bodies:
         b = box(s)
-        whole = b if whole is None else whole.add(b)
-    cx, cy = (whole.xmin + whole.xmax) / 2.0, (whole.ymin + whole.ymax) / 2.0
+        out = b if out is None else out.add(b)
+    return out
+
+
+def place_base(bodies):
+    """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre, then
+    seat the PAIR — centred on x = 0 and its front face on y = 0. Both moves are rigid and taken
+    on the pair's own box, so the plane between them rides along and the crown does not change.
+
+    A yaw about a centre is not a placement: the turn leaves the pair's front wherever its own
+    width used to reach, which is not the front of the machine."""
+    w = _whole(bodies)
+    cx, cy = (w.xmin + w.xmax) / 2.0, (w.ymin + w.ymax) / 2.0
     axis = (cq.Vector(cx, cy, 0.0), cq.Vector(cx, cy, 1.0))
-    return [s.rotate(*axis, BASE_YAW) for s in bodies]
+    turned = [s.rotate(*axis, BASE_YAW) for s in bodies]
+    t = _whole(turned)
+    step = cq.Vector(-(t.xmin + t.xmax) / 2.0, -t.ymin, 0.0)
+    return [s.translate(step) for s in turned]
 
 
 # --- The manifold, laid on their crown -------------------------------------
@@ -153,7 +165,7 @@ PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pa
 
 def build_front_half() -> cq.Assembly:
     a = cq.Assembly(name="front-half")
-    shroud, cond = yaw_base([build_shroud(), build_condenser(build_shroud())])
+    shroud, cond = place_base([build_shroud(), build_condenser(build_shroud())])
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
     a.add(cond, name="condenser+fan", color=C_COND)
 
