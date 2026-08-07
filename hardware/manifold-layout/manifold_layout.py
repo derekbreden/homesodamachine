@@ -12,9 +12,9 @@ junction's three ports takes its run.
 Frame
 -----
 - X = width, mirrored about x = 0. Channel A (pump B) west, channel B (pump A) east.
-- Y = depth. −Y is the front: the tap, the hopper and both nozzles leave that way.
-  +Y is the back: both reservoir lines leave that way.
-- Z = height, 0 at the pumps' own floor. The valves stand on one deck above them.
+- Y = depth. Every mouth leaves out the back, +Y.
+- Z = height, 0 at the pumps' own floor. The valves stand on TWO decks above them, and the
+  fold is what puts the second one there.
 
 The arrangement
 ---------------
@@ -24,8 +24,8 @@ parallel lanes, `BARB_PITCH` apart, one `TEE_BRANCH` off its own skin. Every val
 straight-through body and every junction's run takes two valve ports, so a lane is one line of
 valves and tees butted collet to collet — and the two channels are the same line mirrored:
 
-    A1  V-A · Y-A · V-C · Y-C · V-E          B1  V-B · Y-B · V-D · Y-F · V-H
-    A2        V-G · Y-D · V-F · Y-E          B2        V-J · Y-G · V-I · Y-H
+    A1  V-A · Y-A · V-C | Y-C · V-E          B1  V-B · Y-B · V-D | Y-F · V-H
+    A2        V-G | Y-D · V-F · Y-E          B2        V-J | Y-G · V-I · Y-H
 
 Y-C, Y-D, Y-F and Y-G sit on the four barbs. Y-A and Y-B stand on the two INNER limbs' own
 axes, one valve forward of the selects they feed, and their branches meet face to face across
@@ -33,8 +33,23 @@ the mirror plane. Y-E and Y-H stand at the far end of the OUTER limbs behind the
 each carrying its reservoir's own line out the back on its run and crossing the pump on its
 branch to the draw gate, which an elbow on that collet turns onto.
 
-Every other connection is collet butted to collet. No run in this arrangement turns: the
-tightest centreline radius 1/4" LLDPE takes is `MIN_BEND`, and no corner is drawn at all.
+The fold
+--------
+`|` above is the hinge — the plane the four barb tees' front collets stand on. Everything
+ahead of it is turned 180° onto everything behind it, so the four lines that cross it —
+fluid-9, 17, 19 and 27 — each become one 180° turn between two collets that now face the same
+way, `DECK_SEP` apart.
+
+**`SPINE_R` and `DECK_SEP` are two different numbers.** Every 180° that ends on both collet
+axes joins them, and that family is one parameter wide: two quarter-turns of `SPINE_R` with
+`SPINE_STRAIGHT` between them. The semicircle is only the member with no straight in it, and
+it is the worst to pick — what the pack pays for a turn is how far it reaches PAST the hinge,
+and that reach is the radius. So the radius goes to the stock's floor and the straight takes
+up whatever the decks leave.
+
+What the fold buys is the long axis. Flat, the pack is one deck and its own length; folded, it
+is two decks half as long, and the pumps sit under the lower one. Every other connection is
+still collet butted to collet, and the four turns are the only corners in the manifold.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
@@ -47,7 +62,9 @@ The envelope, the deck, the two tube lengths, the mirror check and the clash che
 Run it
 ------
     tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py
-    HSM_LIMB_PITCH=34.25 tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py
+
+`HSM_LIMB_PITCH`, `HSM_DECK_SEP` and `HSM_SPINE_R` each build a different pack without editing
+this file, so every one of those three is a measurement rather than a claim.
 """
 
 import hashlib
@@ -71,7 +88,8 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "y-divider",
            _hw / "reference" / "kamoer-kphm400",
            _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "flavor" / "pump-case"):
+           _hw / "printed-parts" / "flavor" / "pump-case",
+           _hw / "printed-parts" / "enclosure" / "enclosure-assembly"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly              # noqa: E402
@@ -80,6 +98,11 @@ import beduan_solenoid as vlv                         # noqa: E402
 import kamoer_kphm400 as kp                           # noqa: E402
 import tee_connector as tee                           # noqa: E402
 import y_divider as ydiv                              # noqa: E402
+# The enclosure pack owns the stock table and the collet figures, so this study reads them
+# rather than restating them — both modules place their pack lazily, so importing costs ~2 s
+# and nothing here builds the enclosure.
+import _contents                                      # noqa: E402
+import scorecard                                      # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -92,10 +115,11 @@ VALVE_TOP_Z = vlv.coil_z_range[1]            # coil crown over that same plane
 TEE_RUN = tee.RUN_HALF                       # run collet face from the tee's centre
 TEE_BRANCH = tee.BRANCH_REACH                # branch collet face from the same centre
 TUBE_D = tee.TUBE_D                          # the 1/4" OD LLDPE every port takes
-MIN_BEND = 25.4                              # 1/4" LLDPE's tightest centreline radius
-                                             # (`enclosure-assembly/scorecard.py` STOCKS)
-FLAVOR_SKEW = 22.0                           # degrees off a collet's own axis a straight tube
-                                             # still enters it unbent (`_contents.FLAVOR_SKEW`)
+STOCK = scorecard.stock_of("fluid", TUBE_D)  # the 1/4" LLDPE row of the pack's own stock table
+MIN_BEND = STOCK.min_bend                    # its tightest centreline radius
+FLAVOR_SKEW = _contents.FLAVOR_SKEW          # degrees off a collet's own axis a straight tube
+                                             # still enters it unbent
+LINE_HUG = _contents.LINE_HUG                # the clearance floor a line keeps off a body
 
 HEAD_W = kp.head_w                           # the pump head, square across
 HEAD_D = kp.head_depth                       # head front face to the bracket
@@ -131,9 +155,22 @@ LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pu
 # `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
 BARB_LEAD = BARB_LEAD_FLOOR + BARB_STANDOFF
-DECK_Z = HEAD_W + BARB_LEAD + TEE_BRANCH     # the four limbs' shared port-axis height
+DECK_Z = HEAD_W + BARB_LEAD + TEE_BRANCH     # the LOWER deck's port-axis height
 STUB = MIN_BEND                              # what a free mouth is drawn reaching, so the
                                              # first corner past it has a leg to seat in
+
+# --- The fold --------------------------------------------------------------
+# The four limbs are hinged at the plane their anchor tees' front collets stand on, and
+# everything forward of it is turned 180° onto everything behind it. Each of the four
+# connections crossing that plane — fluid-9, 17, 19 and 27 — becomes one semicircle of
+# `FOLD_R`, meeting both collets on their own axes with no straight tube at either end.
+#
+# `FOLD_R` is not chosen. Two collets facing the same way and `2R` apart are joined by a
+# semicircle of exactly `R`, so the radius IS half the deck separation — and the deck
+# separation is whatever keeps the folded bodies off the ones they now stand over.
+# `fold_radius()` solves that from the flat pack's own boxes.
+HINGE_Y = -TEE_RUN
+FOLD_CLEAR = LINE_HUG   # what the closest folded body is left standing off the one beneath it
 
 ELBOW_LEG = 19.56                            # bend corner to collet face, both legs
 
@@ -231,11 +268,12 @@ def _half(name: str) -> float:
 
 
 def lay_out() -> dict:
-    """Every body's centre and both its collet faces along its limb, keyed by name.
+    """Every body's centre and both its collet faces along its limb, FLAT, keyed by name.
 
     A chain is butted: each body's near collet face sits `BUTT` past its neighbour's far one.
     The anchor tee's centre is pinned at y = 0 — the plane its pump's barbs stand on — and the
-    rest of the chain falls out either side of it."""
+    rest of the chain falls out either side of it. Everything ahead of the anchor is `fold`:
+    it is what the hinge turns over."""
     out = {}
     for limb, spec in LIMBS.items():
         names = [n for n, _ in spec["chain"]]
@@ -244,25 +282,127 @@ def lay_out() -> dict:
             centres.append(y + _half(n))
             y = centres[-1] + _half(n) + BUTT
         shift = -centres[spec["anchor"]]
-        for (n, arg), c in zip(spec["chain"], centres):
+        for i, ((n, arg), c) in enumerate(zip(spec["chain"], centres)):
             out[n] = dict(limb=limb, x=spec["x"], y=c + shift, arg=arg,
+                          fold=i < spec["anchor"],
                           front=c + shift - _half(n), back=c + shift + _half(n))
     return out
 
 
-P = lay_out()
+FLAT = lay_out()
+P = FLAT
+
+_tee_solid = None
+
+
+def tee_solid():
+    global _tee_solid
+    if _tee_solid is None:
+        _tee_solid = cq.importers.importStep(str(TEE_STEP)).val()
+    return _tee_solid
+
+
+_flat_cache = None
+
+
+def flat_bodies() -> dict:
+    """Every valve and tee placed FLAT — one deck, before the hinge turns anything. Built once:
+    `fold_radius` boxes these, and `build_assembly` turns the folded ones about the hinge, so
+    each solid is drawn a single time and the fold is a rigid move of it."""
+    global _flat_cache
+    if _flat_cache is not None:
+        return _flat_cache
+    out = {}
+    for name, b in P.items():
+        if name.startswith("V-"):
+            origin, (x_dir, z_dir) = (b["x"], b["y"], DECK_Z - VALVE_PORT_Z), valve_dirs(b["arg"])
+            out[name] = [
+                ("valve", place(vlv.build_body().union(vlv.build_port())
+                                .union(vlv.build_arrow()).val(), origin, x_dir, z_dir), C_VALVE),
+                ("coil", place(cq.Compound.makeCompound(
+                    [vlv.build_coil().val()] + [s.val() for s in vlv.build_spades()]),
+                    origin, x_dir, z_dir), C_COIL)]
+        else:
+            x_dir, z_dir = tee_dirs(b["arg"])
+            out[name] = [("tee", place(tee_solid(), (b["x"], b["y"], DECK_Z), x_dir, z_dir),
+                          C_TEE)]
+    _flat_cache = out
+    return out
+
+
+# How far apart the two decks stand. CHOSEN, and the build is what says whether it is enough.
+#
+# A bounding box will not answer this. What stands over what here is a folded valve's own
+# underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs reaching
+# 15 mm past a coil face, at z 121, in a band 1.4 mm wide. Every box that contains those tabs
+# also contains the coil crown 6 mm above them, so a box solve asks for 91.6 where the metal
+# needs 58.4. `clashes()` measures the placed solids at full precision on every build, so the
+# number below is chosen against it and not against a reach.
+#
+# `HSM_DECK_SEP` builds another. Under the pair above the clash check goes red and names the
+# two bodies; over it the pack is taller for nothing.
+DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 59.4))
+FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
+HINGE_Z = DECK_Z + DECK_SEP / 2.0
+UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height
+FOLD_AXIS = (cq.Vector(0.0, HINGE_Y, HINGE_Z), cq.Vector(1.0, HINGE_Y, HINGE_Z))
+
+# The spine turn's radius, which is NOT the deck separation's business. Two collets facing the
+# same way and `DECK_SEP` apart are joined by any 180° of turn that ends on both axes, and the
+# family of those is one parameter wide: two quarter-turns of `SPINE_R` with a straight between
+# them. A semicircle is the member with `SPINE_R = DECK_SEP/2` and no straight, and it is the
+# WORST one to pick, because what the turn costs the pack is how far it reaches past the hinge
+# — and that reach is the radius. So the radius goes to the stock's floor and the straight
+# takes up whatever the decks leave.
+SPINE_R = float(os.environ.get("HSM_SPINE_R", MIN_BEND))
+SPINE_STRAIGHT = DECK_SEP - 2.0 * SPINE_R
+SPINE_LEN = math.pi * SPINE_R + SPINE_STRAIGHT
+
+if SPINE_R < MIN_BEND:
+    raise ValueError(
+        f"SPINE_R {SPINE_R:g} is under the {MIN_BEND:g} mm this stock takes ({STOCK.source}).")
+if SPINE_STRAIGHT < 0.0:
+    raise ValueError(
+        f"SPINE_R {SPINE_R:g} needs {2 * SPINE_R:g} mm of deck separation to turn in and the "
+        f"decks stand {DECK_SEP:g} apart, so the two quarter-turns would overlap. Either drop "
+        f"SPINE_R to {DECK_SEP / 2.0:g} — a semicircle, which reaches that far past the hinge "
+        f"— or stand the decks further apart.")
+
+
+def fold_pt(p) -> tuple:
+    """A point turned 180° about the hinge — the line x, y = HINGE_Y, z = HINGE_Z."""
+    return (p[0], 2.0 * HINGE_Y - p[1], 2.0 * HINGE_Z - p[2])
+
+
+def fold_dir(d) -> tuple:
+    return (d[0], -d[1], -d[2])
+
+
+def folded(solid):
+    """A flat solid turned 180° about the hinge."""
+    return solid.rotate(FOLD_AXIS[0], FOLD_AXIS[1], 180.0)
 
 
 def port(name: str, end: str):
-    """A named body's collet face at one end of its limb: ("front"|"back"), as a world point."""
+    """A named body's collet face at one end of its limb, in the FOLDED world. `end` is the
+    flat-state name — "front" is the collet at the smaller y before the fold, which for a
+    folded body is the larger y after it."""
     b = P[name]
-    return (b["x"], b[end], DECK_Z)
+    p = (b["x"], b[end], DECK_Z)
+    return fold_pt(p) if b["fold"] else p
+
+
+def port_axis(name: str, end: str):
+    """The outward normal of that collet, in the folded world."""
+    d = (0.0, -1.0, 0.0) if end == "front" else (0.0, 1.0, 0.0)
+    return fold_dir(d) if P[name]["fold"] else d
 
 
 def branch_port(name: str):
-    """A tee's branch collet face, as (point, outward axis)."""
+    """A tee's branch collet face, as (point, outward axis), in the folded world."""
     b, d = P[name], P[name]["arg"]
-    return (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH), d
+    p = (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH)
+    return (fold_pt(p), fold_dir(d)) if b["fold"] else (p, d)
 
 
 # Each reservoir meets its channel's two gates at one junction standing in line behind the FILL
@@ -286,23 +426,30 @@ def elbow_pose(gate: str, side: float) -> tuple:
 
 # --- Bodies ----------------------------------------------------------------
 
-def build_valve(name: str):
-    b = P[name]
-    x_dir, z_dir = valve_dirs(b["arg"])
-    origin = (b["x"], b["y"], DECK_Z - VALVE_PORT_Z)
-    body = place(vlv.build_body().union(vlv.build_port()).union(vlv.build_arrow()).val(),
-                 origin, x_dir, z_dir)
-    coil = place(cq.Compound.makeCompound([vlv.build_coil().val()] +
-                                          [s.val() for s in vlv.build_spades()]),
-                 origin, x_dir, z_dir)
-    return body, coil
+def uturn(x: float):
+    """One spine turn, in the limb's own vertical plane: out of the anchor tee's front collet on
+    the lower deck, a quarter-turn of `SPINE_R` onto the climb, `SPINE_STRAIGHT` of straight, and
+    a quarter-turn back onto the folded body's collet over it. Both ends meet their collet on its
+    own axis, so the run carries no straight tube at either END — the straight is in the middle,
+    and it is what lets the radius sit at the stock's floor instead of half the deck gap.
 
-
-def build_tee(name: str):
-    b = P[name]
-    x_dir, z_dir = tee_dirs(b["arg"])
-    solid = cq.importers.importStep(str(TEE_STEP)).val()
-    return place(solid, (b["x"], b["y"], DECK_Z), x_dir, z_dir)
+    The whole turn reaches `SPINE_R` past the hinge and no further, which is the only part of it
+    the pack pays for."""
+    r, back = SPINE_R, HINGE_Y - SPINE_R
+    k = r * (1.0 - math.sqrt(0.5))                       # a quarter-turn's own 45° offset
+    a = cq.Vector(x, HINGE_Y, DECK_Z)                    # lower collet, opening −Y
+    b = cq.Vector(x, back, DECK_Z + r)                   # onto the climb
+    c = cq.Vector(x, back, UPPER_Z - r)                  # off it again
+    d = cq.Vector(x, HINGE_Y, UPPER_Z)                   # upper collet, opening −Y
+    edges = [cq.Edge.makeThreePointArc(
+        a, cq.Vector(x, HINGE_Y - r * math.sqrt(0.5), DECK_Z + k), b)]
+    if SPINE_STRAIGHT > 1e-9:
+        edges.append(cq.Edge.makeLine(b, c))
+    edges.append(cq.Edge.makeThreePointArc(
+        c, cq.Vector(x, HINGE_Y - r * math.sqrt(0.5), UPPER_Z - k), d))
+    prof = cq.Wire.makeCircle(TUBE_D / 2.0, a, cq.Vector(0.0, -1.0, 0.0))
+    return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges),
+                          makeSolid=True, isFrenet=True)
 
 
 def build_elbow(gate: str, side: float):
@@ -345,37 +492,38 @@ SEGMENTS = [
     (3, "V-A-O", "Y-A-1", "butt"), (5, "V-B-O", "Y-B-1", "butt"),
     (6, "Y-A-3", "Y-B-3", "crossbar"),
     (7, "Y-A-2", "V-C-I", "butt"), (8, "Y-B-2", "V-D-I", "butt"),
-    (9, "V-C-O", "Y-C-1", "butt"), (10, "V-E-O", "Y-C-2", "butt"),
+    (9, "V-C-O", "Y-C-1", "spine"), (10, "V-E-O", "Y-C-2", "butt"),
     (11, "Y-C-3", "P-B-I", "Y-C"), (12, "P-B-O", "Y-D-1", "Y-D"),
     (13, "Y-D-2", "V-F-I", "butt"), (14, "V-F-O", "Y-E-1", "butt"),
-    (16, "Y-E-3", "V-E-I", "Y-E"), (17, "Y-D-3", "V-G-I", "butt"),
-    (19, "V-D-O", "Y-F-1", "butt"), (20, "V-H-O", "Y-F-2", "butt"),
+    (16, "Y-E-3", "V-E-I", "Y-E"), (17, "Y-D-3", "V-G-I", "spine"),
+    (19, "V-D-O", "Y-F-1", "spine"), (20, "V-H-O", "Y-F-2", "butt"),
     (21, "Y-F-3", "P-A-I", "Y-F"), (22, "P-A-O", "Y-G-1", "Y-G"),
     (23, "Y-G-3", "V-I-I", "butt"), (24, "V-I-O", "Y-H-1", "butt"),
-    (26, "Y-H-3", "V-H-I", "Y-H"), (27, "Y-G-2", "V-J-I", "butt"),
+    (26, "Y-H-3", "V-H-I", "Y-H"), (27, "Y-G-2", "V-J-I", "spine"),
 ]
+
+# The four connections the hinge runs through, each a semicircle on its limb's own column.
+SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
+         for cid, frm, _to, how in SEGMENTS if how == "spine"}
 
 # The seven mouths that leave this study. Each is drawn one `STUB` along its own axis, which is
 # the straight its first corner needs before it can turn at all.
-MOUTHS = [
-    ("fluid-2", "V-A-I", "tap water in", port("V-A", "front"), (0.0, -1.0, 0.0)),
-    ("fluid-4", "V-B-I", "hopper in", port("V-B", "front"), (0.0, -1.0, 0.0)),
-    ("fluid-18", "V-G-O", "nozzle A", port("V-G", "front"), (0.0, -1.0, 0.0)),
-    ("fluid-28", "V-J-O", "nozzle B", port("V-J", "front"), (0.0, -1.0, 0.0)),
-    ("fluid-15", "Y-E-2", "reservoir A", port("Y-E", "back"), (0.0, 1.0, 0.0)),
-    ("fluid-25", "Y-H-2", "reservoir B", port("Y-H", "back"), (0.0, 1.0, 0.0)),
-]
+MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what, body, end in (
+    ("fluid-2", "V-A-I", "tap water in", "V-A", "front"),
+    ("fluid-4", "V-B-I", "hopper in", "V-B", "front"),
+    ("fluid-18", "V-G-O", "nozzle A", "V-G", "front"),
+    ("fluid-28", "V-J-O", "nozzle B", "V-J", "front"),
+    ("fluid-15", "Y-E-2", "reservoir A", "Y-E", "back"),
+    ("fluid-25", "Y-H-2", "reservoir B", "Y-H", "back"),
+)]
 
 
 def build_assembly() -> cq.Assembly:
     a = cq.Assembly(name="manifold-layout")
-    for name in P:
-        if name.startswith("V-"):
-            body, coil = build_valve(name)
-            a.add(body, name=f"valve-{name.lower()}", color=C_VALVE)
-            a.add(coil, name=f"coil-{name.lower()}", color=C_COIL)
-        else:
-            a.add(build_tee(name), name=f"tee-{name.lower()}", color=C_TEE)
+    for name, parts in flat_bodies().items():
+        for label, solid, color in parts:
+            a.add(folded(solid) if P[name]["fold"] else solid,
+                  name=f"{label}-{name.lower()}", color=color)
     for tee, (gate, side) in JOINS.items():
         a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
     for pname, px in PUMPS.items():
@@ -387,6 +535,8 @@ def build_assembly() -> cq.Assembly:
     for cid, _f, _t, how in SEGMENTS:
         if how in RUNS and dist(*RUNS[how]) > 1e-9:
             a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}", color=C_TUBE)
+    for cid, x in SPINE.items():
+        a.add(uturn(x), name=f"tube-fluid-{cid}", color=C_TUBE)
     for cid, _p, _what, p, axis in MOUTHS:
         a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
               name=f"stub-{cid}", color=C_STUB)
@@ -516,9 +666,14 @@ def report(assy: cq.Assembly) -> dict:
     made = {k: dist(*v) for k, v in RUNS.items()}
     print(f"\n{len(SEGMENTS)} connections")
     for cid, frm, to, how in SEGMENTS:
-        length = made.get(how, 0.0)
-        note = ("butt — 0 mm outside the collets" if length < 1e-9
-                else f"{length:.2f} mm straight" + (" + one 90° elbow" if how in JOINS else ""))
+        if how == "spine":
+            note = (f"{SPINE_LEN:.2f} mm — 180° at R{SPINE_R:g}, "
+                    f"two quarter-turns and {SPINE_STRAIGHT:.2f} mm of straight")
+        else:
+            length = made.get(how, 0.0)
+            note = ("butt — 0 mm outside the collets" if length < 1e-9
+                    else f"{length:.2f} mm straight"
+                         + (" + one 90° elbow" if how in JOINS else ""))
         print(f"  fluid-{cid:<3} {frm:>7} → {to:<7}  {note}")
     print(f"\n{len(MOUTHS)} mouths leave the study")
     for cid, p, what, (x, y, z), axis in MOUTHS:
@@ -540,7 +695,13 @@ def report(assy: cq.Assembly) -> dict:
     print(f"crossbar {CROSSBAR:.2f} mm exposed; the two reservoir crossings enter their collets "
           + ", ".join(f"{skew_deg(*RUNS[t], branch_port(t)[1]):.1f}°" for t in JOINS)
           + " off axis")
-    print(f"corners: 0, against a {MIN_BEND:g} mm floor for the stock")
+    f, u = FOLD_BINDS
+    print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
+          f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
+    print(f"spine: {len(SPINE)} turns, each 2 quarter-turns at R{SPINE_R:g} and "
+          f"{SPINE_STRAIGHT:.2f} mm of straight, reaching {SPINE_R:g} mm past the hinge")
+    print(f"corners: {2 * len(SPINE)}, all at R{SPINE_R:g} against a {MIN_BEND:g} mm floor "
+          f"({STOCK.source})")
 
     off = mirror_off()
     worst = max(max(dx, dy) for _a, _b, dx, dy in off)
@@ -574,6 +735,10 @@ def main():
             "REACH_X": f"{reach.xlen:.0f}", "REACH_Y": f"{reach.ylen:.0f}",
             "REACH_Z": f"{reach.zlen:.0f}", "STUB_LEN": f"{STUB:g}",
             "DECK_Z": f"{DECK_Z:.2f}", "DECK_Z2": f"{DECK_Z:.2f}",
+            "UPPER_Z": f"{UPPER_Z:.2f}", "UPPER_Z2": f"{UPPER_Z:.2f}",
+            "SPINE_R": f"{SPINE_R:g}", "SPINE_LEN": f"{SPINE_LEN:.2f}",
+            "SPINE_STRAIGHT": f"{SPINE_STRAIGHT:.2f}", "DECK_SEP": f"{DECK_SEP:g}",
+            "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
             "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
             "CROSSBAR": f"{CROSSBAR:.2f}", "F16_LEN": f"{r['made']['Y-E']:.2f}",
             "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),
@@ -584,10 +749,13 @@ def main():
             "MIRROR_OFF": f"{max(max(dx, dy) for _a, _b, dx, dy in r['mirror']):.4f}",
             "JOIN_SKEW": f"{skew_deg(*RUNS['Y-E'], branch_port('Y-E')[1]):.1f}",
             "SEGMENT_COUNT": str(len(SEGMENTS)),
-            # A butt is a segment whose drawn length is zero, whoever its two ends are — so
-            # closing LIMB_PITCH moves four of them out of this count and into TUBE_COUNT.
-            "BUTT_COUNT": str(sum(1 for s in SEGMENTS if r["made"].get(s[3], 0.0) < 1e-9)),
-            "TUBE_COUNT": str(sum(1 for s in SEGMENTS if r["made"].get(s[3], 0.0) >= 1e-9)),
+            # A butt is a segment that is not a spine turn and whose drawn length is zero,
+            # whoever its two ends are — so closing LIMB_PITCH moves four of them out of this
+            # count and into TUBE_COUNT.
+            "BUTT_COUNT": str(sum(1 for s in SEGMENTS
+                                  if s[3] != "spine" and r["made"].get(s[3], 0.0) < 1e-9)),
+            "TUBE_COUNT": str(sum(1 for s in SEGMENTS
+                                  if s[3] != "spine" and r["made"].get(s[3], 0.0) >= 1e-9)),
             "MOUTH_COUNT": str(len(MOUTHS)),
             "MIN_BEND": f"{MIN_BEND:g}",
             "BARB_PITCH": f"{BARB_PITCH:g}", "BARB_PITCH2": f"{BARB_PITCH:g}",
@@ -605,7 +773,9 @@ def main():
         expected_counts={
             "ENV_X": 1, "ENV_Y": 1, "ENV_Z": 1, "ENV_L": 1,
             "REACH_X": 1, "REACH_Y": 1, "REACH_Z": 1, "STUB_LEN": 1,
-            "DECK_Z": 1, "DECK_Z2": 1, "DECK_GAP": 1, "CROSSBAR": 1, "F16_LEN": 1,
+            "DECK_Z": 1, "DECK_Z2": 2, "UPPER_Z": 1, "UPPER_Z2": 1,
+            "SPINE_R": 1, "SPINE_LEN": 1, "SPINE_STRAIGHT": 1, "DECK_SEP": 1, "SPINE_COUNT": 1, "MIN_BEND2": 1,
+            "DECK_GAP": 1, "CROSSBAR": 1, "F16_LEN": 1,
             "TEE_COUNT": 1, "TEE_COUNT2": 1, "ELBOW_COUNT": 1, "TUBE_COUNT2": 1,
             "TWIN_COUNT": 1, "MIRROR_OFF": 1, "JOIN_SKEW": 1,
             "SEGMENT_COUNT": 1, "BUTT_COUNT": 1, "TUBE_COUNT": 1, "MOUTH_COUNT": 1,
