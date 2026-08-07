@@ -45,6 +45,13 @@ import water_split as _split                           # noqa: E402
 
 BLOCKED = R.BLOCKED
 
+
+def _fh_cap(name):
+    """The core's cap conduit stations, read off `front_half` at call time — importing it here
+    at module scope would close a cycle, since it imports this one."""
+    import front_half
+    return front_half.cap_conduit(name)
+
 # The 3/8" reinforced PVC's own floor, and the coarsest stock on the machine: a corner it cannot
 # hold is a corner nothing drawn here can.
 HOSE_BEND = R.stock_min("water", _suct.HOSE_OD)
@@ -57,6 +64,12 @@ BARB_SKEW = 14.0
 # module gives `(position, outward axis)` in the body's own frame; `front_half`'s `carry` takes
 # that through the placement, so a port table is written once and rides every later move.
 STATIONS = {
+    # The cold core's cap conduits — bores up the cap's own columns, each opening on the lid's
+    # outer face. A line reaching one arrives at the deck, not at a body face.
+    "foam-assembly": {"water-in": (lambda: _fh_cap("water-in"), _split.TUBE_D),
+                      "carb-water-out": (lambda: _fh_cap("carb-water-out"), _split.TUBE_D),
+                      "reservoir-b": (lambda: _fh_cap("reservoir-b"), _split.TUBE_D),
+                      "reservoir-b-fill": (lambda: _fh_cap("reservoir-b-fill"), _split.TUBE_D)},
     "seaflo-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
