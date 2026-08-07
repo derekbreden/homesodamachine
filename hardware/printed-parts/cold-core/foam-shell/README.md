@@ -335,11 +335,13 @@ then lands them as `foam-assembly/internal-routes.step`. A line in here is a voi
 occupant: it appears in no bounding box and collides with nothing, so drawing it is the
 only way to know it fits.
 
-Each run also reports the **arc it turns at**, found by drawing it at the machine's stock
-arc (2 × OD) and stepping down until it stops meeting anything. That reading is the
-corridor's own answer, not a choice, and two of them come in under the stock: a reservoir
-draw turning out of its pocket into a ±Y band whose outboard half the attachment bosses
-have, and the carbonated water stepping over the CO2 under the bottom plate.
+Each run also reports the **arc it turns at**, found by drawing it at the stock's own bend
+floor — `_routing.STOCKS`, the same bench-tested figure every run outside the core is
+graded against — and stepping down until it stops meeting anything. That reading is the
+corridor's answer, not a choice, and three of them come in under the stock: both reservoir
+draws turning out of a pocket into a ±Y band whose outboard half the attachment bosses
+have, and the carbonated water stepping over the CO2 under the bottom plate. Those are what
+the shell would have to give room to before the pack turns at its stock arc throughout.
 
 ### Port lane
 

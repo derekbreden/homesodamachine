@@ -81,7 +81,9 @@ from _port_cuts import (
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "reservoir"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import reservoir as _reservoir  # noqa: E402
+from _routing import stock_min, stock_of  # noqa: E402
 
 
 line_radius = lldpe_tube_od / 2.0
@@ -90,13 +92,14 @@ line_radius = lldpe_tube_od / 2.0
 # next solid and still have the pour reach between them.
 line_hug = 2.0
 
-# THE ARC EVERY CORNER IN HERE IS DRAWN TO — the machine's own `_routing.BEND_RATIO` × the
-# tube, which is what every run outside the core is drawn to as well, so a line does not
-# change what it can do at the shell wall. `lldpe_bend_radius` is the cold core's own
-# statement about the corner a POTTED line holds once the foam is round it; a corner that
-# comes in under it is named in `report_routes` and paid for in the band that made it.
-routing_bend_ratio = 2.0
-route_bend_radius = routing_bend_ratio * lldpe_tube_od
+# THE ARC EVERY CORNER IN HERE IS DRAWN TO — the stock's own floor, read off the machine's
+# STOCKS table rather than restated, so a line does not change what it can do at the shell
+# wall and the bench test behind that figure answers for the core too. `lldpe_bend_radius`
+# is the cold core's separate statement about a corner a POTTED line holds once the foam is
+# round it; a corner under the stock floor is named in `report_routes` and paid for in the
+# band that made it.
+route_bend_radius = stock_min("fluid", lldpe_tube_od)
+route_stock = stock_of("fluid", lldpe_tube_od)
 
 # --- The storeys ------------------------------------------------------------
 #
@@ -172,6 +175,7 @@ def _routes():
         # of the pocket is one line across the open space under the raised floor.
         "reservoir-b": [
             b_bulkhead,
+            (-reservoir_bulkhead_port_x, b_wall_y, pocket_storey_z),        # the pocket-wall bore
             (-reservoir_bulkhead_port_x, west_lane_mid_y, pocket_storey_z),
             (forward_band_x, west_lane_mid_y, pocket_storey_z),
             (forward_band_x, b_riser_y, pocket_storey_z),
@@ -182,8 +186,8 @@ def _routes():
         # normal and the run straightens onto the bore before it reaches it.
         "reservoir-a": [
             a_bulkhead,
-            (flavor_line_hole_x, a_wall_y / 2.0, pocket_storey_z),
-            (flavor_line_hole_x, port_lane_mid_y, pocket_storey_z),
+            (flavor_line_hole_x, a_wall_y / 2.0, pocket_storey_z),   # straight by mid-floor
+            (flavor_line_hole_x, port_lane_mid_y, pocket_storey_z),  # out through the bore
             (forward_band_x, port_lane_mid_y, pocket_storey_z),
             (forward_band_x, a_riser_y, pocket_storey_z),
             (forward_band_x, a_riser_y, shell_top_z),
@@ -312,12 +316,13 @@ def build_route(points, bend_radius=route_bend_radius, radius=line_radius):
         cq.Workplane("XY").newObject([wire]), isFrenet=True).val()
 
 
-# What a corner is allowed to come down to before the line is not a line any more. Below
-# this a 1/4" LLDPE tube kinks whatever it is potted in.
+# What a corner is allowed to come down to before the drawing stops meaning anything: half
+# the tube's own diameter, where the centreline arc is the tube's own wall.
 bend_floor = 0.5 * lldpe_tube_od
-# The ladder a route's arc is tried down, stock first. The first rung that fits is what the
-# corridor gives; anything under `route_bend_radius` is a corner the shell charged for.
-bend_ladder = (1.0, 0.8, 0.65, 0.5, 0.4, 0.3, 0.25)
+# The ladder a route's arc is tried down, stock first, each rung a sixth off the last. The
+# first rung that fits is what the corridor gives, to about that resolution; anything under
+# `route_bend_radius` is a corner the shell charged for.
+bend_ladder = tuple(0.85 ** k for k in range(24))
 
 # A tube and a solid that read as touching. Two surfaces built to the same nominal face
 # meet at a sliver of this order, and a real interference is orders above it.
@@ -370,8 +375,8 @@ def report_routes(fitted, obstacles):
     pack. (3) EVERY LINE NAMES THE ARC IT TURNS AT, and the corner that arc's tightest
     corner comes to. A line the corridor forces under the stock arc is on the page, with the
     number, rather than found at the bench."""
-    print("  internal routes: %d lines, ⌀%.2f, stock arc %.4g mm (%g × OD)"
-          % (len(fitted), lldpe_tube_od, route_bend_radius, routing_bend_ratio))
+    print("  internal routes: %d lines in %s, stock arc %.4g mm — %s"
+          % (len(fitted), route_stock.name, route_bend_radius, route_stock.source))
     bad = []
     for name in sorted(fitted):
         bend, tube = fitted[name]
