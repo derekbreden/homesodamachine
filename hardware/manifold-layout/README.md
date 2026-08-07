@@ -10,7 +10,8 @@ own instead. Free here: where every body stands, how it is turned, and which of 
 three ports takes its run.
 
 Built by [`manifold_layout.py`](manifold_layout.py) → `manifold-layout.step`, and the three
-elevations beside it.
+elevations beside it. Two decks of valves over the pumps, the upper one folded onto the lower
+about the hinge the four barb tees' front collets stand on.
 
 ![plan](manifold-layout.top.png)
 
@@ -28,10 +29,10 @@ elevations beside it.
 ## Frame
 
 X is width, mirrored about x = 0 — channel A (pump B) west, channel B (pump A) east. Y is
-depth: the front (−Y) carries the tap, the hopper and both nozzles; the back (+Y) carries both
-reservoir lines. Z is height, 0 at the pumps' own floor.
+depth, and every mouth leaves out the back (+Y). Z is height, 0 at the pumps' own floor; the
+valves stand on two decks above them, at z [82.68](DECK_Z) and [142.08](UPPER_Z).
 
-## Four limbs
+## Four limbs, folded in two
 
 A tee dropped on a pump barb by its BRANCH puts its RUN across the head's face, so each pump
 hands out two parallel lanes [57](BARB_PITCH2) mm apart, one branch reach off its own skin.
@@ -41,22 +42,41 @@ spacing and it is a knob: `HSM_LIMB_PITCH=<mm>` steps both tees toward the pump'
 draws the leaning tube each barb then needs to reach its tee.
 
 ```
-                          front  (tap · hopper · nozzle A · nozzle B)
-                            ↑
-    A2   x [-77.07](LIMB_OUT_XW)          V-G · Y-D · V-F · Y-E
-    A1   x [-20.07](LIMB_IN_XW)    V-A · Y-A · V-C · Y-C · V-E
+                          `|` = the hinge; everything left of it is folded up and over
+    A2   x [-77.07](LIMB_OUT_XW)          V-G | Y-D · V-F · Y-E
+    A1   x [-20.07](LIMB_IN_XW)    V-A · Y-A · V-C | Y-C · V-E
     ─────────────────────────────────────────────────────────  mirror plane
-    B1   x [+20.07](LIMB_IN_XE)    V-B · Y-B · V-D · Y-F · V-H
-    B2   x [+77.07](LIMB_OUT_XE)          V-J · Y-G · V-I · Y-H
+    B1   x [+20.07](LIMB_IN_XE)    V-B · Y-B · V-D | Y-F · V-H
+    B2   x [+77.07](LIMB_OUT_XE)          V-J | Y-G · V-I · Y-H
                             ↓
-                          back   (reservoir A · reservoir B)
+                          back   (every mouth)
 ```
 
-All four limbs share one port-axis height, z [82.68](DECK_Z), which stands
-[8.77](DECK_GAP) mm over the pump heads' crowns. The two inner limbs leave
+The lower deck's port axes sit at z [82.68](DECK_Z2), [8.77](DECK_GAP) mm over the pump heads'
+crowns; the folded deck's at z [142.08](UPPER_Z2). The two inner limbs leave
 [5.89](INNER_GAP) mm between their valve bodies across the mirror plane.
 
-**Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down. **Y-A and Y-B** stand on the
+## The fold
+
+The four connections crossing the hinge — fluid-9, 17, 19 and 27 — each become one 180° turn:
+a quarter-turn of R[14](SPINE_R), [31.40](SPINE_STRAIGHT) mm of straight, and a quarter-turn
+back, [75.38](SPINE_LEN) mm of tube. Both ends meet their collet on its own axis, so the turn
+carries no straight at either END — the straight is in the middle.
+
+**The radius and the deck separation are two different numbers.** Any 180° that ends on both
+collet axes will join them, and that family is one parameter wide: the semicircle is only the
+member with no straight in it, and it is the worst to pick, because what the pack pays for a
+turn is how far it reaches past the hinge — and that reach is the RADIUS. So the radius sits on
+the stock's floor, R[14](MIN_BEND2), and the straight takes up whatever the decks leave.
+
+The decks stand [59.4](DECK_SEP) mm apart, and that IS chosen. What stands over what is a
+folded valve's underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs
+reaching 15 mm past a coil face, in a band 1.4 mm wide — and every bounding box that contains
+those tabs also contains the coil crown 6 mm above them, so a box solve asks for 91.6 where the
+metal needs 58.4. `HSM_DECK_SEP=` builds another: at 58.0 the clash check goes red at 15 mm³ a
+corner, at 59.4 it is clean. `HSM_SPINE_R=` moves the radius on its own.
+
+**Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down, at the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **Y-E and
 Y-H** stand at the far end of the outer limbs behind the fill gates, each carrying its
@@ -67,21 +87,22 @@ Mirror-checked: [10](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF
 
 ## How each connection is made
 
-[19](BUTT_COUNT) of the [21](SEGMENT_COUNT) segments the topology names between these bodies
+[15](BUTT_COUNT) of the [21](SEGMENT_COUNT) segments the topology names between these bodies
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
-The other [2](TUBE_COUNT) are the straight lengths above. No corner turns anywhere in the
-manifold; the tightest centreline radius 1/4" LLDPE takes is [25.4](MIN_BEND) mm.
+[2](TUBE_COUNT) are the straight reservoir crossings above, and [4](SPINE_COUNT) are the fold's
+turns — the only corners in the manifold, and every one of them sits on the stock's own floor of
+[14](MIN_BEND) mm.
 
-The [6](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop:
-V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and V-J-O (nozzle B) out the front; Y-E-2
-(reservoir A) and Y-H-2 (reservoir B) out the back.
+The [6](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
+the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
+V-J-O (nozzle B) on the upper deck; Y-E-2 (reservoir A) and Y-H-2 (reservoir B) on the lower.
 
 ## Envelope
 
-[188](ENV_X) × [297](ENV_Y) × [128](ENV_Z) mm — [7.17](ENV_L) L of bounding box over the
+[188](ENV_X) × [175](ENV_Y) × [153](ENV_Z) mm — [5.07](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
-Add one [25.4](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [348](REACH_Y) × [128](REACH_Z).
+Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
+[188](REACH_X) × [189](REACH_Y) × [153](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
