@@ -1,0 +1,1246 @@
+{
+ "gatesPass": true,
+ "placed": 0,
+ "located": 100,
+ "shaped": 0,
+ "routed": 22,
+ "held": 83,
+ "mounted": 4,
+ "checks": [
+  {
+   "id": "coverage",
+   "label": "Every body this module seats is declared in the fastening table",
+   "kind": "gate",
+   "status": "pass",
+   "value": "23/23 declared",
+   "target": "all declared",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pack-closes",
+   "label": "No two solids overlap (pack closes)",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
+   "target": "0 clash, 0 unanswered",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bed-fit",
+   "label": "Every printed piece fits the bed",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 on the bed",
+   "target": "every piece on the bed",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "runs-drawn",
+   "label": "Every authored run is drawn as its author asked",
+   "kind": "gate",
+   "status": "pass",
+   "value": "9/9 as drawn",
+   "target": "0 short",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bend-radius",
+   "label": "Every routed tube turns at or above its stock's minimum radius",
+   "kind": "gate",
+   "status": "pass",
+   "value": "B \u2014 12/12 corners at spec",
+   "target": "every corner \u2265 its stock's minimum (B)",
+   "detail": [
+    "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
+    "runs by grade: B:5"
+   ],
+   "active": true
+  },
+  {
+   "id": "mounted",
+   "label": "A printed feature of another placed part fastens every body",
+   "kind": "goal",
+   "status": "fail",
+   "value": "1/23 mounted",
+   "target": "a printed joint per body",
+   "detail": [
+    "asse1022-assembly: held by none",
+    "discharge-chain: held by none",
+    "suction-chain: held by none",
+    "wr1110: held by none",
+    "ac-hub: held by stack",
+    "bulkhead-water: held by wall-capture",
+    "co2-inlet: held by wall-capture",
+    "compressor-shroud: held by floor",
+    "condenser+fan: held by floor",
+    "display: held by wall-capture",
+    "drip-pan: held by rails",
+    "flow-regulator: held by tube-hung",
+    "foam-assembly: held by floor",
+    "gasher-co2: held by wall-capture",
+    "ground-stack: held by stack",
+    "hopper-funnel: held by wall-capture",
+    "pcba: held by cap",
+    "psu: held by cap",
+    "relay-1: held by stack",
+    "seaflo-pump: held by cap",
+    "vk-solenoid: held by cap",
+    "water-split: held by tube-hung"
+   ],
+   "active": true
+  },
+  {
+   "id": "routed",
+   "label": "Every tube connection the machine owes, drawn as a real 3-D path",
+   "kind": "goal",
+   "status": "fail",
+   "value": "9/40 drawn",
+   "target": "every connection drawn",
+   "detail": [
+    "co2: 2/2",
+    "fluid: 1/27",
+    "refrigerant: 0/3",
+    "water: 6/8",
+    "fluid-2 (fluid): Flow regulator outlet \u2192 V-A-I",
+    "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
+    "fluid-4 (fluid): Hopper funnel bottom \u2192 V-B-I",
+    "fluid-5 (fluid): V-B-O \u2192 Y-B-1",
+    "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3",
+    "fluid-7 (fluid): Y-A-2 \u2192 V-C-I",
+    "fluid-8 (fluid): Y-B-2 \u2192 V-D-I",
+    "fluid-9 (fluid): V-C-O \u2192 Y-C-1",
+    "fluid-10 (fluid): V-E-O \u2192 Y-C-2",
+    "fluid-11 (fluid): Y-C-3 \u2192 P-B-I",
+    "fluid-12 (fluid): P-B-O \u2192 Y-D-1",
+    "fluid-13 (fluid): Y-D-2 \u2192 V-F-I",
+    "fluid-14 (fluid): V-F-O \u2192 Y-E-1",
+    "fluid-15 (fluid): Bag A port \u2192 Y-E-2",
+    "fluid-16 (fluid): Y-E-3 \u2192 V-E-I",
+    "fluid-17 (fluid): Y-D-3 \u2192 V-G-I",
+    "fluid-18 (fluid): V-G-O \u2192 Nozzle A",
+    "fluid-19 (fluid): V-D-O \u2192 Y-F-1",
+    "fluid-20 (fluid): V-H-O \u2192 Y-F-2",
+    "fluid-21 (fluid): Y-F-3 \u2192 P-A-I",
+    "fluid-22 (fluid): P-A-O \u2192 Y-G-1",
+    "fluid-23 (fluid): Y-G-3 \u2192 V-I-I",
+    "fluid-24 (fluid): V-I-O \u2192 Bag B FILL port",
+    "fluid-26 (fluid): Bag B DRAW port \u2192 V-H-I",
+    "fluid-27 (fluid): Y-G-2 \u2192 V-J-I",
+    "fluid-28 (fluid): V-J-O \u2192 Nozzle B",
+    "refrig-1 (refrigerant): compressor-shroud discharge \u2192 condenser+fan inlet",
+    "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet",
+    "refrig-3 (refrigerant): foam-assembly evaporator outlet \u2192 compressor-shroud suction",
+    "carb-1 (water): foam-assembly carb-water-out \u2192 digiten-flow inlet",
+    "carb-2 (water): digiten-flow outlet \u2192 bulkhead-carb tube-in"
+   ],
+   "active": false
+  },
+  {
+   "id": "located",
+   "label": "Every port a placed body declares is carried into world",
+   "kind": "goal",
+   "status": "pass",
+   "value": "27/27 located",
+   "target": "every declared port positioned and sized",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "placed",
+   "label": "Every placement stated as a measured rule the card checks",
+   "kind": "goal",
+   "status": "warn",
+   "value": "not opened",
+   "target": "a placement rule per body",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "shaped",
+   "label": "Every body real geometry rather than a placeholder",
+   "kind": "goal",
+   "status": "warn",
+   "value": "not opened",
+   "target": "no placeholder solids",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "held",
+   "label": "Something holds every body",
+   "kind": "goal",
+   "status": "warn",
+   "value": "not opened",
+   "target": "a holder per body",
+   "detail": [],
+   "active": false
+  }
+ ],
+ "ports": [
+  {
+   "component": "asse1022-assembly",
+   "name": "tube-in",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    450.21,
+    305.4
+   ],
+   "face": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "asse1022-assembly",
+   "name": "tube-out",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    310.21,
+    305.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "water-2",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "asse1022-assembly",
+   "name": "vent-tip",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    382.21,
+    276.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 9.53,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-water",
+   "name": "inboard",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    450.21,
+    305.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-water",
+   "name": "outboard",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    484.5,
+    305.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "discharge-chain",
+   "name": "barb-tip",
+   "kind": "fluid",
+   "pos": [
+    -57.5,
+    306.9,
+    285.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 15.1,
+   "mates": "water-6",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "discharge-chain",
+   "name": "tube-port",
+   "kind": "fluid",
+   "pos": [
+    -57.5,
+    223.5,
+    285.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "diam": 6.35,
+   "mates": "water-5",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "flow-regulator",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    222.07,
+    305.4
+   ],
+   "face": [
+    -0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-1",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "flow-regulator",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    176.07,
+    305.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
+   "name": "carb-water-out",
+   "kind": "fluid",
+   "pos": [
+    77.5,
+    313.5,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
+   "name": "co2-in",
+   "kind": "fluid",
+   "pos": [
+    77.5,
+    247.0,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-2",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
+   "name": "reservoir-b",
+   "kind": "fluid",
+   "pos": [
+    -43.5,
+    184.0,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
+   "name": "reservoir-b-fill",
+   "kind": "fluid",
+   "pos": [
+    -43.5,
+    231.5,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "foam-assembly",
+   "name": "water-in",
+   "kind": "fluid",
+   "pos": [
+    -56.0,
+    184.0,
+    253.4
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "water-5",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "gasher-co2",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    48.0,
+    467.0,
+    290.0
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "gasher-co2",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    48.0,
+    427.0,
+    290.0
+   ],
+   "face": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-1",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "seaflo-pump",
+   "name": "discharge",
+   "kind": "fluid",
+   "pos": [
+    -40.0,
+    330.9,
+    285.4
+   ],
+   "face": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "diam": 15.1,
+   "mates": "water-6",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "seaflo-pump",
+   "name": "suction",
+   "kind": "fluid",
+   "pos": [
+    40.0,
+    330.9,
+    285.4
+   ],
+   "face": [
+    1.0,
+    -0.0,
+    0.0
+   ],
+   "diam": 15.1,
+   "mates": "water-7",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "suction-chain",
+   "name": "barb-tip",
+   "kind": "fluid",
+   "pos": [
+    64.55,
+    306.9,
+    264.7
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 15.1,
+   "mates": "water-7",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "suction-chain",
+   "name": "tube-port",
+   "kind": "fluid",
+   "pos": [
+    64.55,
+    252.5,
+    264.7
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "diam": 6.35,
+   "mates": "water-4",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "vk-solenoid",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    64.55,
+    178.5,
+    264.7
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "water-3",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "vk-solenoid",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    64.55,
+    237.5,
+    264.7
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "water-4",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "water-split",
+   "name": "supply",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    286.21,
+    305.4
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "water-2",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "water-split",
+   "name": "to-flavor",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    246.07,
+    305.4
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-1",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "water-split",
+   "name": "to-vk",
+   "kind": "fluid",
+   "pos": [
+    -74.0,
+    266.14,
+    285.33
+   ],
+   "face": [
+    -0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "water-3",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "wr1110",
+   "name": "inlet",
+   "kind": "fluid",
+   "pos": [
+    48.0,
+    417.0,
+    290.0
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-1",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "wr1110",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    48.0,
+    360.0,
+    290.0
+   ],
+   "face": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-2",
+   "status": "ok",
+   "note": ""
+  }
+ ],
+ "shapes": [],
+ "bends": [
+  {
+   "id": "co2-2",
+   "kind": "co2",
+   "frm": "wr1110.outlet",
+   "to": "foam-assembly.co2-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 183.96,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 40.8,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      10.0,
+      19.82
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 40.8,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      19.82,
+      88.0
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      88.0,
+      29.5
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      29.5,
+      49.55
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 14.75,
+   "reach": 14.75,
+   "reachRatio": 1.0536,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 3,
+    "length": 29.5,
+    "demand": 2.0,
+    "from": [
+     48.0,
+     247.0,
+     302.95
+    ],
+    "to": [
+     77.5,
+     247.0,
+     302.95
+    ]
+   }
+  },
+  {
+   "id": "water-7",
+   "kind": "water",
+   "frm": "seaflo-pump.suction",
+   "to": "suction-chain.barb-tip",
+   "stock": "3/8\" braided PVC",
+   "od": 15.1,
+   "length": 50.12,
+   "radius": 15.9,
+   "cap": 15.9,
+   "minBend": 15.9,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 68.7,
+     "radius": 15.9,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      15.9,
+      23.85
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 70.1,
+     "radius": 15.9,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      23.85,
+      15.9
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 70.1,
+   "seat": 17.209,
+   "reach": 17.209,
+   "reachRatio": 1.0823,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 23.852,
+    "demand": 1.386,
+    "from": [
+     55.9,
+     330.9,
+     285.4
+    ],
+    "to": [
+     64.55,
+     322.8,
+     264.7
+    ]
+   }
+  },
+  {
+   "id": "water-5",
+   "kind": "water",
+   "frm": "discharge-chain.tube-port",
+   "to": "foam-assembly.water-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 57.84,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 35.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      14.0,
+      31.25
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 54.8,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      31.25,
+      14.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 54.8,
+   "seat": 26.992,
+   "reach": 37.336,
+   "reachRatio": 2.6669,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 31.249,
+    "demand": 0.837,
+    "from": [
+     -57.5,
+     209.5,
+     285.4
+    ],
+    "to": [
+     -56.0,
+     184.0,
+     267.4
+    ]
+   }
+  },
+  {
+   "id": "water-3",
+   "kind": "water",
+   "frm": "water-split.to-vk",
+   "to": "vk-solenoid.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 271.79,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.63,
+      109.14
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      109.14,
+      138.55
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      138.55,
+      21.5
+     ]
+    }
+   ],
+   "atSpec": 3,
+   "bends": 3,
+   "worstTurn": 90.0,
+   "seat": 20.63,
+   "reach": 54.57,
+   "reachRatio": 3.8979,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 109.14,
+    "demand": 2.0,
+    "from": [
+     -74.0,
+     266.14,
+     264.7
+    ],
+    "to": [
+     -74.0,
+     157.0,
+     264.7
+    ]
+   }
+  },
+  {
+   "id": "water-6",
+   "kind": "water",
+   "frm": "seaflo-pump.discharge",
+   "to": "discharge-chain.barb-tip",
+   "stock": "3/8\" braided PVC",
+   "od": 15.1,
+   "length": 34.68,
+   "radius": 15.9,
+   "cap": 15.9,
+   "minBend": 15.9,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 15.9,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      17.5,
+      24.0
+     ]
+    }
+   ],
+   "atSpec": 1,
+   "bends": 1,
+   "worstTurn": 90.0,
+   "seat": 17.5,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": "A",
+   "binding": null
+  },
+  {
+   "id": "water-2",
+   "kind": "water",
+   "frm": "asse1022-assembly.tube-out",
+   "to": "water-split.supply",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 24.0,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null
+  },
+  {
+   "id": "fluid-1",
+   "kind": "fluid",
+   "frm": "water-split.to-flavor",
+   "to": "flow-regulator.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 24.0,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null
+  },
+  {
+   "id": "water-4",
+   "kind": "water",
+   "frm": "vk-solenoid.outlet",
+   "to": "suction-chain.tube-port",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 15.0,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null
+  },
+  {
+   "id": "co2-1",
+   "kind": "co2",
+   "frm": "gasher-co2.outlet",
+   "to": "wr1110.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 10.0,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null
+  }
+ ],
+ "mounts": [
+  {
+   "component": "compressor-shroud",
+   "by": null,
+   "held": "floor",
+   "kind": "real"
+  },
+  {
+   "component": "condenser+fan",
+   "by": null,
+   "held": "floor",
+   "kind": "real"
+  },
+  {
+   "component": "foam-assembly",
+   "by": null,
+   "held": "floor",
+   "kind": "real"
+  },
+  {
+   "component": "seaflo-pump",
+   "by": null,
+   "held": "cap",
+   "kind": "real"
+  },
+  {
+   "component": "hopper-funnel",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "display",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "suction-chain",
+   "by": null,
+   "held": "none",
+   "kind": "real"
+  },
+  {
+   "component": "discharge-chain",
+   "by": null,
+   "held": "none",
+   "kind": "real"
+  },
+  {
+   "component": "psu",
+   "by": null,
+   "held": "cap",
+   "kind": "real"
+  },
+  {
+   "component": "pcba",
+   "by": null,
+   "held": "cap",
+   "kind": "real"
+  },
+  {
+   "component": "relay-1",
+   "by": null,
+   "held": "stack",
+   "kind": "real"
+  },
+  {
+   "component": "ac-hub",
+   "by": null,
+   "held": "stack",
+   "kind": "real"
+  },
+  {
+   "component": "ground-stack",
+   "by": null,
+   "held": "stack",
+   "kind": "real"
+  },
+  {
+   "component": "asse1022-assembly",
+   "by": null,
+   "held": "none",
+   "kind": "real"
+  },
+  {
+   "component": "drip-pan",
+   "by": null,
+   "held": "rails",
+   "kind": "real"
+  },
+  {
+   "component": "water-split",
+   "by": null,
+   "held": "tube-hung",
+   "kind": "real"
+  },
+  {
+   "component": "flow-regulator",
+   "by": null,
+   "held": "tube-hung",
+   "kind": "real"
+  },
+  {
+   "component": "vk-solenoid",
+   "by": null,
+   "held": "cap",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-water",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "c14-inlet",
+   "by": "enclosure-back-top",
+   "held": "bosses",
+   "kind": "real"
+  },
+  {
+   "component": "co2-inlet",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "gasher-co2",
+   "by": null,
+   "held": "wall-capture",
+   "kind": "real"
+  },
+  {
+   "component": "wr1110",
+   "by": null,
+   "held": "none",
+   "kind": "real"
+  }
+ ],
+ "source": {
+  "generated": "2026-08-07T16:15:34+00:00",
+  "commit": "662e1f7da5693d80462bea04d4facf8fa7ab4777",
+  "inputs": {}
+ }
+}
