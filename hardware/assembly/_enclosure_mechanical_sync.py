@@ -121,6 +121,10 @@ def main():
         "WATER_BACK_Z": f"{_water[2]:.4g}",
         "C14_BACK": f"x {_fh.C14_STATION[0]:.4g}, z {_fh.C14_STATION[1]:.4g}",
         "CO2_BACK": f"x {_fh.CO2_STATION[0]:.4g}, z {_fh.CO2_STATION[1]:.4g}",
+        # One boss per hole in every body's own pattern, carried through that body's own
+        # placement — so a body that moves takes its bosses with it and this is a reading of
+        # the +X wall rather than a count kept by hand.
+        "EAST_BOSSES": f"{len(_pack.east_bosses)}",
         # Every placed body carries one fastening row, so the card's own table is the census.
         "BODY_COUNT": f"{len(_card.mounts())}",
     }
@@ -155,6 +159,7 @@ def main():
             "WATER_BACK_Z": 1,
             "C14_BACK": 1,
             "CO2_BACK": 1,
+            "EAST_BOSSES": 3,
             "BODY_COUNT": 1,
         },
     )

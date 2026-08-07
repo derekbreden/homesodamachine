@@ -53,7 +53,7 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3), soldering iron 
 
 Print-inspect all four pieces and the nameplate blank. Wipe down every interior face; remove brim residue and any stray support material at the rear wall's bores, the seam lips and socket pods, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish, and the slab is two pieces meeting at the Y seam's shiplap. Set the nameplate plaque aside in the unit's build folder; it does not get applied at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)).
 
-Install ruthex M3 heat-set inserts everywhere the pieces call for them — the Y seam's socket pods, the Z seams' sockets, the C14's two bosses on the rear wall. Standard heat-set procedure: soldering iron on the insert, press straight down until flush. All inserts go in *before* anything is in the box, while there is bench access from every face.
+Install ruthex M3 heat-set inserts everywhere the pieces call for them — the Y seam's socket pods, the Z seams' sockets, the C14's two bosses on the rear wall, and the [15](EAST_BOSSES) +X wall bosses the power column bolts to. Standard heat-set procedure: soldering iron on the insert, press straight down until flush. All inserts go in *before* anything is in the box, while there is bench access from every face.
 
 Dry-fit the seams with the box empty: front-bottom into back-bottom, front-top into back-top, then each column's bottom into its top. Confirm every lip telescopes without shaving and every cross-pin plug drops into its socket. **Then take it apart again** — the pack goes in on open floor.
 
@@ -80,7 +80,7 @@ Install, in this order:
 - **The C14 inlet** — it lands from *inside*: flange against the wall's inner face, two M3 into the printed bosses either side of it, and only its moulded shroud reaches out through the cutout. Drawn home, the C13 cord housing nests into the [3–5 mm](AC_RECESS_DEPTH) recess on insertion. Solder-tab pins face into the cabinet.
 - **The DERPIPE** — 5/16" collet outboard, NPT stub inboard, seated so the wrench hex clears the wall's outer face by enough for a socket. The stub is what the GASHER makes up against, so nothing threads onto it here.
 
-Set the populated back-top piece aside; it closes in step 6.
+Set the populated back-top piece aside; the power column joins it at step 5, and it closes in step 6.
 
 ### 3. Stand the refrigeration stratum on the floor
 
@@ -108,15 +108,19 @@ The coil stubs are already brazed into the donor loop (suction line + cap-tube j
 
 ### 5. Stand the power column on the +X flank
 
-The bench-built shelf's five bodies stand against the **+X wall**, on the cold core's cap. Each is turned so its own mounting plane — the PSU's potted base, the board's underside, the relay's and the hub plate's undersides, the ground stud's landing face — faces that wall and lands on **one common seat**, the plane the refrigeration stratum's own east face defines. That is what puts the whole group clear of the Y seam's posts, pods and plugs in one test rather than five. The screw schedule is [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)'s; **no tray stands under any of them.**
+The bench-built shelf's five bodies stand against the **+X wall**, and their feet come down onto the cold core's cap when the piece carrying them closes. Each is turned so its own mounting plane — the PSU's potted base, the board's underside, the relay's and the hub plate's undersides, the ground stud's landing face — faces that wall and lands on **one common seat**, the plane the refrigeration stratum's own east face defines. That is what puts the whole group clear of the Y seam's posts, pods and plugs in one test rather than five. **No tray stands under any of them.**
+
+**What holds each one is a printed boss per hole.** `enclosure._east_bosses` grows [15](EAST_BOSSES) of them off that wall's inner face — one for every hole in every body's own pattern, each reaching out to that body's own mounting plane and bored back from its tip for a ruthex M3 short, so the standoff a screw crosses is what the body asked for rather than a number typed anywhere. The screw goes the other way: in through the body from the room. Pattern and screw schedule are [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)'s.
+
+**Every one of those bosses is on `enclosure-back-top`**, which is why this step is bench work on that piece and not work inside a standing box: the bodies are offered up to its wall and screwed down there, alongside the six connection bodies of step 2, and they come down with it.
 
 The column, aft to fore:
 
 - **Mean Well IRM-90-12ST PSU** — lying on its side against the wall so only its 33.5 mm depth reaches into the lane and its 109 mm long axis runs fore and aft. Its aft face stands just clear of the rear seam, under the C14 inlet's own column.
 - **Teyleten relay #1** and the **AC hub** (three Wagos in one printed carrier) stack on the brick's crown, aft-flush with it, each with a clearance floor over the one below. The **ground ring-terminal stack** stands on the relay's own floor, one clearance forward of the frontmost face the pair presents.
-- **Controller PCBA** forward of the brick on the same seat and the same cap, its long edge fore and aft down the flank so only its thickness and components reach inboard. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4.
+- **Controller PCBA** forward of the brick on the same seat, its long edge fore and aft down the flank so only its thickness and components reach inboard. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads.
 
-**Relay #2 and the DC distribution block have no station** — see [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md); stage them loose. The shelf is **unpowered** at this step: the AC pigtails from the hub's Wagos hang free and get terminated at the C14's solder-tab pins directly behind them in [`wiring.md`](/hardware/assembly/wiring.md). The compressor shroud's earth-bond lead routes toward the ground stack and waits.
+**Relay #2 and the DC distribution block have no station** — see [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md); stage them loose. The shelf is **unpowered** at this step: the AC pigtails from the hub's Wagos hang free and get terminated at the C14's solder-tab pins, which stand on the same wall just aft of the hub, in [`wiring.md`](/hardware/assembly/wiring.md). The compressor shroud's earth-bond lead routes toward the ground stack and waits.
 
 Confirm the board's two exposed edges are clear to a hand and a plug, and that nothing on this flank stands in front of a rear-wall body's own reach inboard.
 
@@ -126,7 +130,7 @@ Join each column at its Z seam, then telescope the front assembly into the back.
 
 1. **Front column** — `enclosure-front-top` down over `enclosure-front-bottom`. This is the piece that carries the display facet and the front half of the hopper opening, and it passes over the flavor pack rather than landing on it.
 2. **Y seam** — the front assembly telescopes +Y into the back: a proud tongue on the side walls and ceiling, the floor's shiplap inside the slab, and the cross-pin plugs dropping into their sockets as the pieces close. Screws drive in from the ±X exteriors at every level.
-3. **Back column** — `enclosure-back-top`, populated per step 2, comes down over `enclosure-back-bottom` last. **This piece is the lid over the whole service bay**: the cold core's cap and everything that stands on it — the power column, the water pump, the tap-water chain and the drip tray's own rails — all lie inside its volume, and lifting it is the only access to any of them. Whether it closes here or after the downstream runs are made is not settled; see Open items 4.
+3. **Back column** — `enclosure-back-top`, populated per steps 2 and 5, comes down over `enclosure-back-bottom` last. **This piece is the lid over the whole service bay**: the cold core's cap and everything that stands on it — the power column, the water pump, the tap-water chain and the drip tray's own rails — all lie inside its volume, and lifting it is the only access to any of them. Whether it closes here or after the downstream runs are made is not settled; see Open items 4.
 
 With the box closed, confirm from inside: the four JG unions' cabinet-side collets, the DERPIPE's NPT stub and the C14's solder-tab pins are all exposed and reachable; the compressor shroud's [7/8"](PANEL_HOLE) gland hole is clear for the AC run arriving from the power column; and **no plumbing or wiring has been routed through any bulkhead or shroud penetration at this point.**
 
@@ -155,7 +159,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Cold core seated flat on the floor slab behind the stratum, front face mated flush against it, no tension on the refrigerant lines, all [7](CAP_CONDUITS) cap conduits open on the lid
 - Four printed pieces telescoped and cross-pinned at the Y seam and both Z seams, every seam screw driven from a ±X exterior face — `enclosure-back-top` last, since it is the lid over the whole service bay
 - Rear wall carrying all six connection bodies: the three PP1208E umbilical unions in one row at z [342.4](PORT_ROW_Z) (blue ring on the carbonated-water one), the PP1208E tap-water union below them, the C14 inlet on its own storey east of the row, and the DERPIPE CO2 inlet below that. Nothing is cut in the front wall.
-- Power column standing on the cold core's cap against the +X wall — PSU, relay #1, AC hub, ground stack and PCBA, every mounting plane on one seat, no tray under any of them — unpowered, AC pigtails hanging free
+- Power column bolted to `enclosure-back-top`'s +X wall on [15](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, relay #1, AC hub, ground stack and PCBA, every mounting plane on one seat, no tray under any of them — unpowered, AC pigtails hanging free
 - Drip tray + moisture sensor on their rails under the backflow vent's fall, sensor leads routed toward the power column (not yet terminated)
 - Display let into the facet of `enclosure-front-top`, leads loose
 - Hopper opening deburred, fall corridor clear, silicone funnel **not** yet seated (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md))
