@@ -86,6 +86,14 @@ def sit(shape, *, cx=None, y0=None, z0=None, dz=None):
 
 
 # --- The base: two bodies, one plane between them --------------------------
+#
+# The pair is built mated and then turned as ONE body about its own centre, because the mating
+# is between the two of them and the turn is about where the air goes. `BASE_YAW` is that turn:
+# the condenser's `AIRFLOW` axis is its native X and the fan is on the face the air leaves by,
+# so the quarter that brings its west face onto the shroud's aft plane also lays the fan on +Y,
+# and this puts it back across the cabinet.
+BASE_YAW = -90.0
+
 
 def build_shroud():
     """The shroud as the machine turns it, its front face on y = 0 and its feet on the floor."""
@@ -99,6 +107,18 @@ def build_condenser(shroud):
     c = _cond.build()
     c = c.toCompound() if hasattr(c, "toCompound") else c
     return sit(c.rotate(*Z_AXIS, 90.0), cx=0.0, y0=box(shroud).ymax, z0=0.0)
+
+
+def yaw_base(bodies):
+    """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre —
+    one rigid move, so the plane between them rides along and the crown does not change."""
+    whole = None
+    for s in bodies:
+        b = box(s)
+        whole = b if whole is None else whole.add(b)
+    cx, cy = (whole.xmin + whole.xmax) / 2.0, (whole.ymin + whole.ymax) / 2.0
+    axis = (cq.Vector(cx, cy, 0.0), cq.Vector(cx, cy, 1.0))
+    return [s.rotate(*axis, BASE_YAW) for s in bodies]
 
 
 # --- The manifold, laid on their crown -------------------------------------
@@ -119,8 +139,7 @@ PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pa
 
 def build_front_half() -> cq.Assembly:
     a = cq.Assembly(name="front-half")
-    shroud = build_shroud()
-    cond = build_condenser(shroud)
+    shroud, cond = yaw_base([build_shroud(), build_condenser(build_shroud())])
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
     a.add(cond, name="condenser+fan", color=C_COND)
 
@@ -158,8 +177,10 @@ def report(a: cq.Assembly) -> None:
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
     print(f"\nmates (0 by intent)")
-    print(f"  shroud aft face  y {sh.ymax:.2f}   condenser west face  y {co.ymin:.2f}   "
-          f"gap {co.ymin - sh.ymax:.2f}")
+    seam = "y" if abs(BASE_YAW) % 180.0 < 1e-9 else "x"
+    lo, hi = (sh.ymax, co.ymin) if seam == "y" else (sh.xmax, co.xmin)
+    print(f"  shroud face      {seam} {lo:.2f}   condenser intake face {seam} {hi:.2f}   "
+          f"gap {hi - lo:.2f}")
     crown = max(sh.zmax, co.zmax)
     pump_face = min(box(s).zmin for n, s in placed if n.endswith("-head"))
     print(f"  base crown       z {crown:.2f}   spine hairpins       z {pack.zmin:.2f}   "
@@ -167,6 +188,18 @@ def report(a: cq.Assembly) -> None:
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
           f"crown — that band is what the hairpins reach, and they are aft of the pumps")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
+    # Which body each hairpin sets down on, and whether it reaches — the two crowns are not
+    # level, so a hairpin over the lower one is bearing on nothing.
+    for n, s in sorted(placed):
+        if not n.startswith("tube-fluid-"):
+            continue
+        b = box(s)
+        if b.zmin - pack.zmin > 1e-6:
+            continue
+        on = "shroud" if sh.xmin <= (b.xmin + b.xmax) / 2 <= sh.xmax else "condenser"
+        under = sh.zmax if on == "shroud" else co.zmax
+        print(f"  {n:16} x {(b.xmin + b.xmax) / 2:7.2f} sets down on the {on:9} "
+              f"crown z {under:.2f}  gap {b.zmin - under:.2f}")
     print(f"\nfront half        {whole.xlen:.2f} × {whole.ylen:.2f} × {whole.zlen:.2f}   "
           f"({whole.xlen * whole.ylen * whole.zlen / 1e6:.2f} L)")
     print(f"                  x[{whole.xmin:.2f},{whole.xmax:.2f}] "
