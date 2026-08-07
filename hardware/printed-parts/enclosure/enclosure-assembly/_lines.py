@@ -1645,9 +1645,12 @@ def _authored_runs() -> list:
     # co2-2 — the regulator's outlet to the core's CO2 bore, all inside the corridor. Out
     # west off the chain's axis, then one lean — the climb to the bore's level and the aft
     # step onto the corridor lane share a leg — and east along the corridor over the chain
-    # to close aft into the bore. The lane stands one stock radius ahead of the bore's face,
-    # so the aft lead IS that radius and the close has a full stock arc's tangent in front of
-    # it. THE LEAN IS THE ONLY LEG ITS OWN TWO CORNERS HAVE, and both of them turn square in
+    # to close aft into the bore. One stock radius ahead of the bore's face is all the CLOSE
+    # asks — that much lead and the corner has a full arc's tangent in front of it — but the
+    # lane it lands on crosses fluid-15's CLIMB, the one line in this corridor holding every
+    # height at once, so a stratum is no answer to it the way it is to refrig-2 a storey up.
+    # The lead carries that pair's own `LINE_PITCH` off the climb's column instead, and the
+    # close keeps its tangent over. THE LEAN IS THE ONLY LEG ITS OWN TWO CORNERS HAVE, and both of them turn square in
     # it, so each gets half: the run turns at √(Δy² + Δz²) ÷ 2, which is
     # [14](CO2_LEAN_R) mm, which is what the stock wants. The Δz is the chain's axis
     # under the bore (`_contents.CO2_INLET_Z`), and the bore rides the front port field's
@@ -1656,15 +1659,16 @@ def _authored_runs() -> list:
     # length with straight left over; the corridor west of the body is empty to the wall.
     co2_stock = R.stock_min("co2", reg110.diam("outlet"))
     co2_lead = co2_stock + 2.6                       # the west tangent, and straight past it
+    co2_aft = max(co2_stock, foam.at("co2-in")[1] - (lane_aft - LINE_PITCH))
     runs.append(R.bent(
         "co2-2", "wr1110.outlet",
         (reg110.at("outlet")[0] - co2_lead,
-         foam.at("co2-in")[1] - co2_stock,
+         foam.at("co2-in")[1] - co2_aft,
          foam.at("co2-in")[2]),
                                              # the lean's far end: on the lane, at the bore's level,
                                              # on the out-lead's own column so the turn stays square
         "foam-assembly.co2-in",              # east over the chain, and aft into the bore
-        kind="co2", skew=FLAVOR_SKEW, lead=(co2_lead, co2_stock),
+        kind="co2", skew=FLAVOR_SKEW, lead=(co2_lead, co2_aft),
         note="CO2: WR1110 outlet → cold-core CO2 bore, one stock lean up-and-aft then east "
              "along the corridor over its own chain"))
 
