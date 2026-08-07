@@ -29,12 +29,14 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "asse1022-assembly",
-           _hw / "reference" / "water-split"):
+           _hw / "reference" / "water-split",
+           _hw / "reference" / "neofit-flow-control"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
+import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
 
 BLOCKED = R.BLOCKED
@@ -58,6 +60,8 @@ STATIONS = {
     "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
                           "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
                           "vent-tip": (lambda: _asse.port("vent-tip"), _asse.VENT_STUB_OD)},
+    "flow-regulator": {"inlet": (_flowreg.inlet, _flowreg.TUBE_D),
+                       "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
     "water-split": {"supply": (_split.supply, _split.TUBE_D),
                     "to-vk": (_split.to_vk, _split.TUBE_D),
                     "to-flavor": (_split.to_flavor, _split.TUBE_D)},
@@ -92,7 +96,20 @@ def build_runs(placed, carries):
         runs.append(_water_7(F))
     if {"asse1022-assembly", "water-split"} <= set(F):
         runs.append(_water_2(F))
+    if {"water-split", "flow-regulator"} <= set(F):
+        runs.append(_fluid_1(F))
     return runs
+
+
+def _fluid_1(F):
+    """fluid-1 — the flavour tap off the split, into the regulator that throttles it.
+
+    The same straight `water-2` is, one fitting further down the lane: the split's flavour
+    collet fires forward and the regulator's inlet faces it on that collet's own line, so the
+    run is the tube between two mouths and nothing about it turns."""
+    return R.bent(
+        "fluid-1", "water-split.to-flavor", "flow-regulator.inlet",
+        kind="fluid", note="flavor tap: split run → flow regulator, straight down the lane")
 
 
 def _water_2(F):
