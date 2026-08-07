@@ -567,6 +567,77 @@ def build_vk(chain_carry):
     return seat_body(body, (), station=(_beduan.outlet(), target))
 
 
+# --- what carries the tray, and the slot it draws out through --------------
+#
+# The rail's own section, and the stop's.
+DRIP_RAIL_H = 3.0
+DRIP_STOP_T = 3.0
+
+
+def pan_rails(pan):
+    """The tray's carry, as world boxes fused onto the −X wall's inner face
+    (`enclosure._pan_rails`): a rail under each of the rim's outer bands, and the stop the tray
+    comes to rest against.
+
+    THE RAILS TAKE THE RIM, and nothing reaches under the floor. Each rail's top face IS the
+    flange's underside, and each runs the rim's whole length — wall to east edge — so a seated
+    tray stands on rail end to end and a withdrawing one keeps rail under it until the rim is
+    clear of the wall. The band each takes is `drip_pan.bearing_w()`, the flat of that underside
+    inboard of the haunch, and the two inboard arrises take the tray's two 45° haunches and hold
+    it on its column.
+
+    THE STOP RUNS UNDER THE RIM, in the pocket the flange overhangs its basin by, and it
+    catches the HAUNCH — the outermost face the tray presents below its rim, one
+    `drip_pan.PAN_SLIP` off the bar's own.
+
+    East of the rim there is nowhere to stand. The pump's casting steps west over this lane and
+    reaches x −35.0 against a rim edge at −35.5, so the half millimetre between them is all
+    there is, and it closes across exactly the span a stop has to bridge. What a bar needs is
+    BOTH RAILS: it is fused to the −X wall through them and through nothing else, so a bar that
+    does not reach them is a solid hanging in the air 73 mm from its only root. The three
+    members make one U, and the pocket under the flange is where that U closes.
+
+    So the bar runs the rim's whole length. The rim rides over it the way it rides the rails,
+    and its plan arcs carry the tray away from it at both ends — `CORNER_R` plus the flange
+    rounds the rim, plus the haunch rounds the section beneath, so the corners are clear and the
+    straight between them is what butts."""
+    top = pan.zmax - _pan.FLANGE_T              # the flange's underside — the bearing plane
+    band = _pan.bearing_w()
+    toe = pan.xmax - _pan.FLANGE_W + _pan.FLANGE_HAUNCH     # the haunch's outermost face
+    stop_x = toe + _pan.PAN_SLIP
+    return [(pan.xmin, pan.xmax, pan.ymin, pan.ymin + band, top - DRIP_RAIL_H, top),
+            (pan.xmin, pan.xmax, pan.ymax - band, pan.ymax, top - DRIP_RAIL_H, top),
+            (stop_x, stop_x + DRIP_STOP_T, pan.ymin, pan.ymax, top - DRIP_RAIL_H, top)]
+
+
+def west_wall_ports(pan):
+    """Through-holes the −X wall carries, as `(kind, y, z, *size)` on that wall's own plane —
+    the slot the tray draws out through.
+
+    ONE OPENING IN TWO RECTANGLES, each cut at what the tray is WIDEST at its own height. Above
+    the flange's underside that is the rim. Below it, it is the HAUNCH: the 45° flare carries
+    the section `drip_pan.FLANGE_HAUNCH` past the basin's wall on the way up to the rim, so a
+    rectangle cut at the basin alone stops the tray a corner's length out of the wall.
+
+    The two meet on the flange's underside — the plane the tray bears on — and the lower one's
+    flank falls where `pan_rails` puts the rail's inboard face. So the rail stands beside the
+    opening at full width, and the wall under the rim outboard of it is what carries the pair.
+
+    The slip goes where the tray can move: one `drip_pan.PAN_SLIP` on both flanks of each
+    rectangle, under the floor and over the rim. Square corners — `CORNER_R` rounds the tray in
+    PLAN, and this is the section across it, where floor meets wall at a right angle."""
+    s = _pan.PAN_SLIP
+    reach = _pan.FLANGE_W - _pan.FLANGE_HAUNCH      # rim edge inboard to the haunch's toe
+    hy0, hy1 = pan.ymin + reach, pan.ymax - reach
+    z_flange = pan.zmax - _pan.FLANGE_T
+    return [
+        ("rect", (hy0 + hy1) / 2.0, (pan.zmin - s + z_flange) / 2.0,
+         hy1 - hy0 + 2 * s, z_flange - pan.zmin + s, 0.0),
+        ("rect", (pan.ymin + pan.ymax) / 2.0, (z_flange + pan.zmax + s) / 2.0,
+         pan.ymax - pan.ymin + 2 * s, pan.zmax + s - z_flange, 0.0),
+    ]
+
+
 def _whole(bodies):
     out = None
     for s in bodies:
@@ -686,10 +757,12 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     a box sized to contain it would be a box built around its own lid. It comes back as a
     station on that wall (`_seated`).
 
-    The station fields left empty are the ones this pack has no body for: the drip tray's
-    rails and slot, the mains inlet's bosses, the panel through-holes. Each arrives with
-    the body it is for."""
-    return _enc.Pack(placed=_solids(build_pack() if a is None else a))
+    The station fields left empty are the ones this pack has no body for: the mains inlet's
+    bosses, the panel through-holes. Each arrives with the body it is for."""
+    placed = _solids(build_pack() if a is None else a)
+    pan = box(placed["drip-pan"][0])
+    return _enc.Pack(placed=placed,
+                     west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan))
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
