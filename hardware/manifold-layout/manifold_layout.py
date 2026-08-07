@@ -154,16 +154,25 @@ BARB_STANDOFF = 0.0   # the climb a barb is given over and above what `LIMB_PITC
                       # rather than a fact; the deck rides on it one millimetre for one.
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
-# The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
-# connection is a butt. Below it both tees step toward the pump's axis and each barb reaches
-# its tee on one straight leaning tube — which is what the deck then has to climb to carry.
-# `HSM_LIMB_PITCH` sets it for a run without editing, so the trade is a build and not arithmetic.
-LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", BARB_PITCH))
-
 # --- What follows from them ------------------------------------------------
 # The inner limbs are what the crossbar spans, so THEY are what it places: each stands one
 # branch reach and half a crossbar off the mirror plane, and the pumps hang off them.
 INNER_X = TEE_BRANCH + CROSSBAR / 2.0        # the inner limbs' axes
+
+# The two lanes one pump hands out. At `BARB_PITCH` each tee sits on its own barb and the
+# connection is a butt. Below it both tees step toward the pump's axis and each barb reaches
+# its tee on one straight leaning tube — which is what the deck then has to climb to carry.
+#
+# What sets it is the machine's own width. The pack's widest thing is a valve body standing on
+# an outer limb, and the machine holds that inside the COLD CORE'S FOOTPRINT — the plane the
+# enclosure's ±X boss band ends on, and the plane its side walls are struck one rib inset
+# outboard of. A pack wider than the core makes the appliance wider than the core, and the box
+# is the top of `/hardware/design-pressures.md`. `HSM_LIMB_PITCH` sets it for a run without
+# editing, so the trade is a build and not arithmetic.
+LIMB_PITCH_CEILING = (_contents.CORE_EAST_FACE / 2.0 - _contents.LINE_HUG
+                      - INNER_X - VALVE_PITCH / 2.0)
+LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", min(BARB_PITCH, LIMB_PITCH_CEILING)))
+
 PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror plane
 OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
 LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pump's own axis,
@@ -172,7 +181,11 @@ LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a tee steps toward its pu
 # `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
 BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
 BARB_LEAD = BARB_LEAD_FLOOR + BARB_STANDOFF
-DECK_Z = HEAD_W + BARB_LEAD + TEE_BRANCH     # the LOWER deck's port-axis height
+# The barb is a spigot the tube slips over, so the collet plane a lane starts on stands off the
+# head's own face by what the spigot reaches — and a leaning tube sweeps its first disc clear of
+# the metal rather than through it.
+BARB_PROUD = TUBE_D / 2.0
+DECK_Z = HEAD_W + BARB_PROUD + BARB_LEAD + TEE_BRANCH   # the LOWER deck's port-axis height
 STUB = MIN_BEND                              # what a free mouth is drawn reaching, so the
                                              # first corner past it has a leg to seat in
 
@@ -288,7 +301,7 @@ def barb_station(tee: str) -> tuple:
     """A pump barb's collet plane, in world. It stands on the head's crown at the limb's own
     y, offset `BARB_PITCH/2` either side of the pump's centre."""
     px, side = BARB_OF[tee]
-    return (px + side * BARB_PITCH / 2.0, 0.0, HEAD_W)
+    return (px + side * BARB_PITCH / 2.0, 0.0, HEAD_W + BARB_PROUD)
 
 
 def _half(name: str) -> float:
