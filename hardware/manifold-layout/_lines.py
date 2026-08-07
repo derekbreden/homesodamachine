@@ -617,10 +617,13 @@ def _fluid_18(F, solids):
 # --- the two reservoir lines, off the junctions and down onto the cap ------
 #
 # Each leaves its junction's open mouth facing aft over its own nozzle gate, and each ends on a
-# bore up a column of the cold core's cap. THREE LEGS AND NO TYPED COORDINATE: the run goes aft
-# on the mouth's own axis until it is over the bore's depth, inboard onto the bore's own column,
-# and straight down into it. Every waypoint is a component of one of the two mouths, so the pair
-# rides a move of either.
+# bore up a column of the cold core's cap. ONE LEAN AND NO TYPED COORDINATE: the run leaves on
+# the mouth's own axis, leans aft and inboard onto the bore's column together, and drops. The one
+# waypoint is a component of the two mouths, so the pair rides a move of either.
+#
+# THE LEAN IS WHAT SEATS THE ARCS. Both corners draw their tangent out of the leg between them,
+# and a corner spends `R·tan(θ/2)` of it — so carrying the reach aft and the step inboard on one
+# diagonal gives that shared leg its full length and halves the angle each end turns through.
 
 def _reservoir_line(F, cid: str, tee: str, mouth_port: str, bore_port: str, note: str):
     """One junction's open mouth to the cap conduit its reservoir is reached through."""
@@ -628,8 +631,7 @@ def _reservoir_line(F, cid: str, tee: str, mouth_port: str, bore_port: str, note
     bore = F["foam-assembly"].at(bore_port)
     return R.bent(
         cid, f"{tee}.{mouth_port}",
-        (mouth[0], bore[1], mouth[2]),      # aft on the mouth's own axis, onto the bore's depth
-        (bore[0], bore[1], mouth[2]),       # inboard onto the bore's own column
+        (bore[0], bore[1], mouth[2]),       # one lean aft and inboard, onto the bore's column
         f"foam-assembly.{bore_port}",       # and straight down into it
         kind="fluid", lead=(TUBE_BEND, TUBE_BEND),
         skew=(R.COLLET_SKEW, CAP_BORE_SKEW), note=note)
@@ -638,14 +640,14 @@ def _reservoir_line(F, cid: str, tee: str, mouth_port: str, bore_port: str, note
 def _fluid_25(F):
     """fluid-25 — reservoir B's junction to the draw conduit on the cold core's cap.
 
-    The strip it crosses is the one the tap water already uses: `water-5` descends into the
+    The strip it leans across is the one the tap water already uses: `water-5` descends into the
     `water-in` bore one column west of this one, and `fluid-2` runs the same strip a storey
-    above. This line holds the mouth's OWN plane the whole way across, between the two, and
-    drops only once it is on the bore's column."""
+    above. The lean holds the mouth's OWN plane between the two and drops only on the bore's
+    column."""
     return _reservoir_line(
         F, "fluid-25", "tee-y-h", "Y-H-2", "reservoir-b",
-        "reservoir B: Y-H-2 → the draw conduit on the cap, aft on the mouth's own plane, "
-        "east onto the bore's column and down")
+        "reservoir B: Y-H-2 → the draw conduit on the cap, one lean aft and east on the "
+        "mouth's own plane onto the bore's column, and down")
 
 
 def _fluid_15(F):
@@ -656,13 +658,13 @@ def _fluid_15(F):
     so ONE line leaves this junction and one bore carries it, and the cap column it climbs is
     reservoir B's own read across the mirror plane.
 
-    The slot it drops through is the one the source valves and V-K leave between them, and it
-    is the bore's own column: the run holds the mouth's plane west until it is over that slot,
-    and only then descends."""
+    The slot it drops through is the one the source valves and V-K leave between them, and it is
+    the bore's own column — the lean holds the mouth's plane until it is over that slot, and the
+    descent is what V-K's face fences."""
     return _reservoir_line(
         F, "fluid-15", "tee-y-e", "Y-E-2", "reservoir-a",
-        "reservoir A: Y-E-2 → its conduit on the cap, aft on the mouth's own plane, "
-        "west onto the bore's column and down")
+        "reservoir A: Y-E-2 → its conduit on the cap, one lean aft and west on the "
+        "mouth's own plane onto the bore's column, and down")
 
 
 def authored() -> frozenset:
