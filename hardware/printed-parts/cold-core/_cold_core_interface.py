@@ -281,17 +281,17 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # pitched a bore plus one wall, climbing from the floor. What sets a station's Z is
 # NOT the height of the fitting it serves: a line leaves its fitting, turns into the
 # lane and climbs it freely, so the field is ordered by what leaves together —
-# first reservoir A and the two reed cables (all three out of the pockets' bulkhead
-# band), then the vessel's CO2 inlet off the bottom plate. Everything above the field
-# belongs to the copper/PRV SLOT, which takes the rest of the column.
-#   TWO LINES ARE NOT HERE, and the field is two pitches shorter for them: reservoir B's
-# draw and the vessel's carbonated-water outlet both leave by the TOP, each climbing its
-# own band to a conduit in the cap (`cap_conduits`) — B up the +Y band (`west_lane_mid_y`)
-# and the carb water up this very lane. What holds each of them there is the same reading:
-# the fitting it feeds hangs in the loft directly over the band it climbs, and a station on
-# this face would send it across the machine and back.
+# reservoir A and the two reed cables, all three out of the pockets' bulkhead band.
+# Everything above the field belongs to the copper/PRV SLOT, which takes the rest of the
+# column.
+#   THREE LINES ARE NOT HERE, and the field is three pitches shorter for them: reservoir B's
+# draw, the vessel's carbonated-water outlet and the vessel's CO2 inlet all leave by the TOP,
+# each climbing its own band to a conduit in the cap (`cap_conduits`) — B up the +Y band
+# (`west_lane_mid_y`), the carb water and the CO2 up this very lane. What holds each of them
+# there is the same reading: the fitting it feeds hangs over the band it climbs, and a station
+# on this face would send it across the machine and back.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-front_port_order = ("reservoir-a", "reed-cable-a", "reed-cable-b", "co2-in")
+front_port_order = ("reservoir-a", "reed-cable-a", "reed-cable-b")
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
 
 
@@ -577,21 +577,30 @@ assert cap_conduit_entry_relief_radius >= (
 # the two features meet face to face with nothing between them to cross. In the
 # cap's frame that station is the port's own X and the negated Y.
 #   carb-water-out stands over the PORT LANE — `port_lane_mid_y` negated, the same strip the
-# front field's four lines climb to their own stations. This one keeps climbing. Its line is
+# front field's lines climb to their own stations. This one keeps climbing. Its line is
 # the vessel's bottom-plate Port 3: the elbow turns it laterally, `_port_cuts.water_outlet_xyz`
-# bores it out to the lane on the shell's own centreline, and from there it is the only line in
-# the lane running UP rather than west, so it crosses none of them.
+# bores it out to the lane on the shell's own centreline, and from there it runs UP rather than
+# west.
 #   Its X sits a few millimetres off that centreline, between two fences. The mid screw boss on
 # this wall is one, and the column leaves it the pour gap. The DIGITEN meter it feeds is the
 # other: the meter hangs one storey up in the loft with its collet facing forward, and the deck
 # between this bore and that collet is the straight the run's closing corner is seated in, which
 # a [25.4 mm](LLDPE_BEND_R) arc spends whole. The bore takes the middle of what the two leave —
 # near enough the centreline that the climb is where the line lands.
+#   co2-in stands over that same PORT LANE, and climbs it too. Its line is the vessel's
+# bottom-plate Port 1: the elbow turns it laterally, `_port_cuts.co2_inlet_xyz` bores it out to
+# the lane through the tank support ring, and it climbs from there instead of turning west along
+# the front field.
+#   Its X is the DECK ABOVE. The +X flank carries a column of bodies standing on the lid from
+# the cap to the ceiling, and this bore takes the one window in that column — the strip between
+# V-K's own footprint and the controller board's. `cap_conduit_pair_neck` is what holds it off
+# the carb water's climb.
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-b": (135.5, -43.5),
     "reservoir-b-fill": (reservoir_fill_port_x, -reservoir_fill_port_y),
     "carb-water-out": (6.0, -port_lane_mid_y),
+    "co2-in": (72.5, -port_lane_mid_y),
 }
 
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral

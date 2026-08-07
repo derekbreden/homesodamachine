@@ -83,7 +83,8 @@ STATIONS = {
     "foam-assembly": {"water-in": (lambda: _fh_cap("water-in"), _split.TUBE_D),
                       "carb-water-out": (lambda: _fh_cap("carb-water-out"), _split.TUBE_D),
                       "reservoir-b": (lambda: _fh_cap("reservoir-b"), _split.TUBE_D),
-                      "reservoir-b-fill": (lambda: _fh_cap("reservoir-b-fill"), _split.TUBE_D)},
+                      "reservoir-b-fill": (lambda: _fh_cap("reservoir-b-fill"), _split.TUBE_D),
+                      "co2-in": (lambda: _fh_cap("co2-in"), _split.TUBE_D)},
     "seaflo-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
@@ -149,6 +150,8 @@ def build_runs(placed, carries):
         runs.append(_water_3(F))
     if {"gasher-co2", "wr1110"} <= set(F):
         runs.append(_co2_1(F))
+    if {"wr1110", "foam-assembly", "seaflo-pump"} <= set(F):
+        runs.append(_co2_2(F))
     return runs
 
 
@@ -312,6 +315,47 @@ def _water_5(F):
         kind="water", lead=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
         note="carb water: discharge chain's collet → the core's water-in cap conduit, one "
              "slant across the fall")
+
+
+# The storey `co2-2` crosses the deck on. `water-7` lies across the lane between the regulator
+# and the core's cap and the suction chain lies forward of it, so the run climbs over the pair
+# and travels at a height neither reaches — one clearance over the taller of the two, which is
+# the hose.
+CO2_DECK_CLEAR = 10.0
+# The straight off the regulator's outlet before it starts that climb, and the reach the climb
+# itself takes down the lane. Both are the gap the corner at each end of the lean seats its arc
+# in; the lean is one leg and its two corners share it.
+CO2_OUT_LEAD = 10.0
+CO2_CLIMB_REACH = 15.0
+
+
+def _co2_2(F):
+    """co2-2 — the regulator's outlet to the cold core's CO2 conduit, and the whole gas path
+    inside the machine.
+
+    THE PAIR IT HAS TO CLEAR IS THE PUMP'S OWN. `water-7` crosses this lane at the pump's
+    suction and the suction chain lies forward of it, both between the regulator and the bore,
+    so the run leaves the outlet, leans up over the hose in one leg, and travels forward at that
+    storey with nothing under it. Then east onto the port lane's own column and straight down
+    into the bore.
+
+    The bore is the one window the +X flank leaves: the power block's column stands on the lid
+    from the cap to the ceiling aft of it, and V-K's plate forward of it.
+
+    The storey it travels at is read off the hose it clears — the pump's own suction mouth plus
+    half the 3/8" section over it — so a move of the pump carries this run with it."""
+    out = F["wr1110"].at("outlet")
+    bore = F["foam-assembly"].at("co2-in")
+    deck = (F["seaflo-pump"].at("suction")[2] + _suct.HOSE_OD / 2.0 + CO2_DECK_CLEAR)
+    return R.bent(
+        "co2-2", "wr1110.outlet",
+        (out[0], out[1] - CO2_OUT_LEAD - CO2_CLIMB_REACH, deck),   # the lean's far end
+        (out[0], bore[1], deck),                                   # forward over the hose
+        (bore[0], bore[1], deck),                                  # east onto the bore's column
+        "foam-assembly.co2-in",
+        kind="co2", lead=(CO2_OUT_LEAD, TUBE_BEND), skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
+        note="CO2: WR1110 outlet → the core's CO2 cap conduit, one lean up over the pump's "
+             "suction hose, forward at that storey, east onto the port lane's column and down")
 
 
 def tubes(runs):
