@@ -27,10 +27,12 @@
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
-#      - hardware/ enclosure                → reported, never gated. A pack that does not
-#        close prints its clash count and lands, .step and sidecar intact for the editor
-#        to open. Rebuild-and-compare across every generator is `npm --prefix web run
-#        build:check`; the enclosure gates' own inject-defect run is `scorecard_selftest.py`.
+#      - hardware/ enclosure                → nothing. enclosure-assembly/ carries a
+#        `.retired` marker (web/dev-server/deps.js) and no longer builds, so its scorecard,
+#        its .step and the fluid-topology charts that quote its runs are outputs with no
+#        producer. The pack that replaces it is hardware/manifold-layout/front_half.py.
+#        Rebuild-and-compare across every live generator is `npm --prefix web run
+#        build:check`.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
@@ -84,10 +86,6 @@ staged() {
 }
 
 for hw in $editions; do
-  touches_enclosure=false
-  git diff --cached --name-only -- "$hw/printed-parts/enclosure/" | grep -q . && touches_enclosure=true
-  enc="$root/$hw/printed-parts/enclosure/enclosure-assembly"
-
   # BOM <-> pinout <-> PCB drift. Reads the board source, the pinout diagram,
   # bom.md, and the two assembly sync drivers — nothing else moves its answer.
   if staged "$hw/pcb/pcba/pcba.tsx" "$hw/wiring/esp32-pinout.mmd" "$hw/ledger/bom.md" \
@@ -120,18 +118,6 @@ for hw in $editions; do
     gate "$hw machine-time totals" python3 "$root/$hw/scripts/_machine_time.py" --check
   fi
 
-  # The fluid-topology charts against the enclosure assembly: every edge gated against the
-  # run it names, every length read off the built centreline. Rebuilds the pack to ask,
-  # ~45 s. A commit that moves the GEOMETRY under the charts instead of the charts
-  # themselves is caught by the mtime warning in the enclosure block below.
-  if staged "$hw/topology/" "$hw/topology/_fluid_topology_sync.py"; then
-    if [ -x "$py" ]; then
-      gate "$hw fluid-topology charts" "$py" "$root/$hw/topology/_fluid_topology_sync.py" --check
-    else
-      echo "pre-commit: no cad-venv — $hw fluid-topology charts skipped" >&2
-    fi
-  fi
-
   # Walks every .py under the edition for `raise SystemExit` in a lock-taking
   # script, so only a staged Python file can change its answer. Pathspec can't
   # express "*.py at any depth" portably — filter the staged list instead.
@@ -152,41 +138,11 @@ for hw in $editions; do
     fi
   fi
 
-  if $touches_enclosure; then
-    # A red pack prints its clash count and lands.
-    if [ -f "$enc/enclosure-assembly.scorecard.json" ]; then
-      python3 -c '
-import json, sys
-try:
-    sc = json.load(open(sys.argv[1]))
-except Exception:
-    sys.exit(0)
-pack = next((c for c in sc.get("checks", []) if c.get("id") == "pack-closes"), None)
-if pack is not None and pack["status"] != "pass":
-    print("pre-commit: " + sys.argv[2] + " enclosure pack does NOT close — " + str(pack["value"])
-          + " (committing anyway)", file=sys.stderr)
-' "$enc/enclosure-assembly.scorecard.json" "$hw"
-    fi
-
-    # A sidecar older than its sources carries a verdict those sources no longer produce.
-    for src in "$enc/_contents.py" "$enc/scorecard.py" "$enc/enclosure_assembly.py" \
-               "$root/$hw/printed-parts/enclosure/enclosure/enclosure.py"; do
-      if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
-        echo "pre-commit: $hw enclosure scorecard sidecar may be behind $(basename "$src") — rebuild: tools/cad-venv/bin/python enclosure_assembly.py" >&2
-        break
-      fi
-    done
-
-    # Same reading for the charts: they quote lengths off these runs, so a chart older
-    # than the geometry is quoting stock the machine no longer cuts.
-    mmd="$root/$hw/topology/fluid-topology-manifold.mmd"
-    for src in "$enc/_lines.py" "$enc/_contents.py" "$enc/_routing.py"; do
-      if [ -f "$src" ] && [ -f "$mmd" ] && [ "$src" -nt "$mmd" ]; then
-        echo "pre-commit: $hw fluid-topology charts may be behind $(basename "$src") — resync: tools/cad-venv/bin/python $hw/topology/_fluid_topology_sync.py" >&2
-        break
-      fi
-    done
-  fi
+  # The pack's own gates and the charts that quote its runs read
+  # printed-parts/enclosure/enclosure-assembly/, which carries a `.retired` marker: nothing
+  # builds it, so its sidecar and the .mmd charts are outputs with no live producer and a
+  # freshness reading over them has nothing to be fresh against. They come back keyed to
+  # the pack that replaces it, hardware/manifold-layout/front_half.py, when it emits one.
 done
 
 if $touches_board; then

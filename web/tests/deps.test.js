@@ -79,42 +79,40 @@ test("a full-copy edition rebuilds only itself (thin isolation)", () => {
   }
 });
 
-test("a tray STEP's consumers include the assemblies that only _load it (regression)", () => {
-  // two-valve-assembly.step is loaded by _contents.py via the _load() helper, and
-  // _contents.py is imported by the enclosure and the enclosure-assembly. Neither
-  // names the file nor calls importStep, so an import-only walk misses both.
-  const consumers = findScriptsConsumingStep("two-valve-assembly.step", ROOTS);
-  assert.ok(
-    consumers.some(ends("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py")),
-    `expected the enclosure-assembly among consumers, got:\n${consumers.map(rel).join("\n")}`,
-  );
-  assert.ok(
-    consumers.some(ends("hardware/printed-parts/enclosure/enclosure/enclosure.py")),
-    "expected the enclosure among consumers",
-  );
+test("a part's STEP consumers include the assembly that only _loads it (regression)", () => {
+  // front_half.py names each of these in a path constant and hands it to the _load()
+  // helper — it never calls importStep and never imports the producer, so an
+  // import-only walk finds none of these edges.
+  for (const step of ["foam-assembly.step", "compressor-shroud.step", "seaflo-22-pump.step"]) {
+    const consumers = findScriptsConsumingStep(step, ROOTS);
+    assert.ok(
+      consumers.some(ends("hardware/manifold-layout/front_half.py")),
+      `expected front_half among ${step} consumers, got:\n${consumers.map(rel).join("\n")}`,
+    );
+  }
 });
 
 test("a producer is never listed as a consumer of its own STEP", () => {
   const producerOf = buildProducerMap(ROOTS);
-  const producer = producerOf.get("two-valve-assembly.step");
-  assert.ok(producer, "the tray assembly STEP should have a producer script");
-  const consumers = findScriptsConsumingStep("two-valve-assembly.step", ROOTS);
+  const producer = producerOf.get("foam-assembly.step");
+  assert.ok(producer, "the foam assembly STEP should have a producer script");
+  const consumers = findScriptsConsumingStep("foam-assembly.step", ROOTS);
   assert.ok(!consumers.includes(producer), `${rel(producer)} produces the step, not consumes it`);
 });
 
 test("build order puts a producer before the scripts that load its STEP", () => {
   const order = buildOrder(ROOTS).map(rel);
   const producer = order.findIndex(
-    (s) => s.split(path.sep).join("/").endsWith("two-valve-tray/two_valve_assembly.py"),
+    (s) => s.split(path.sep).join("/").endsWith("cold-core/foam-assembly/foam_assembly.py"),
   );
   const consumer = order.findIndex(
-    (s) => s.split(path.sep).join("/").endsWith("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"),
+    (s) => s.split(path.sep).join("/").endsWith("hardware/manifold-layout/front_half.py"),
   );
-  assert.ok(producer !== -1, "tray assembly generator should be in the order");
-  assert.ok(consumer !== -1, "enclosure assembly should be in the order");
+  assert.ok(producer !== -1, "foam assembly generator should be in the order");
+  assert.ok(consumer !== -1, "front_half should be in the order");
   assert.ok(
     producer < consumer,
-    "the tray assembly must build before the enclosure assembly that loads it",
+    "the foam assembly must build before the front half that loads it",
   );
 });
 
@@ -166,9 +164,8 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
   for (const downstream of [
     "two-valve-tray/two_valve_tray.py",
     "two-valve-tray/two_valve_assembly.py",
-    "three-valve-tray/three_valve_tray.py",
-    "three-valve-tray/three_valve_assembly.py",
     "single-valve-tray/single_valve_tray.py",
+    "single-valve-tray/single_valve_assembly.py",
   ]) {
     assert.ok(
       deps.some(ends(downstream)),
@@ -177,23 +174,22 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
   }
 });
 
-test("a _contents.py edit rebuilds the assembly that imports it", () => {
-  // _contents.py is imported, not loaded as a STEP, so the wave that rebuilds the
-  // assembly comes from the import walk rather than the STEP-load cascade.
-  const hwContents = path.join(
-    REPO_ROOT, "hardware", "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
-  const deps = findRunnableScriptsTransitivelyImporting(hwContents, ROOTS).map(rel);
+test("a manifold_layout edit rebuilds the assembly that imports it", () => {
+  // front_half.py imports manifold_layout as a module, not as a STEP, so the wave
+  // that rebuilds it comes from the import walk rather than the STEP-load cascade.
+  const ml = path.join(REPO_ROOT, "hardware", "manifold-layout", "manifold_layout.py");
+  const deps = findRunnableScriptsTransitivelyImporting(ml, ROOTS).map(rel);
   assert.ok(
-    deps.some(ends("enclosure/enclosure-assembly/enclosure_assembly.py")),
-    `the assembly must rebuild; got:\n${deps.join("\n")}`,
+    deps.some(ends("manifold-layout/front_half.py")),
+    `the front half must rebuild; got:\n${deps.join("\n")}`,
   );
 });
 
 test("affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers", () => {
-  // Seed the wave the way the watcher does for a single_tray edit: the file plus
-  // every runnable that transitively imports it.
-  const single = findGenerateScripts(ROOTS).find(ends("single-tray/single_tray.py"));
-  const seeds = [single, ...findRunnableScriptsTransitivelyImporting(single, ROOTS).filter((s) => s !== single)];
+  // Seed the wave the way the watcher does for a compressor_shroud edit: the file
+  // plus every runnable that transitively imports it.
+  const shroud = findGenerateScripts(ROOTS).find(ends("compressor-shroud/compressor_shroud.py"));
+  const seeds = [shroud, ...findRunnableScriptsTransitivelyImporting(shroud, ROOTS).filter((s) => s !== shroud)];
   const { order, loadsOf } = affectedBuildOrder(seeds, ROOTS);
   const seedSet = new Set(seeds);
 
@@ -208,17 +204,17 @@ test("affectedBuildOrder: one edit's wave lists each script once, seeds first, p
   const firstNonSeed = order.findIndex((s) => !seedSet.has(s));
   assert.ok(firstNonSeed === -1 || lastSeed < firstNonSeed, "a non-seed is ordered before a seed");
 
-  // The enclosure loads all four tray assemblies, yet appears exactly once.
-  const encl = order.filter(ends("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"));
-  assert.equal(encl.length, 1, "hardware enclosure-assembly should appear exactly once");
+  // front_half loads the shroud's STEP and the foam assembly's, yet appears exactly once.
+  const fh = order.filter(ends("hardware/manifold-layout/front_half.py"));
+  assert.equal(fh.length, 1, "front_half should appear exactly once");
 
-  // Producer before consumer over a real STEP-load edge: enclosure_assembly loads
-  // enclosure.step, so enclosure.py must be built first.
+  // Producer before consumer over a real STEP-load edge: front_half loads
+  // compressor-shroud.step, so compressor_shroud.py must be built first.
   const idx = (suffix) => order.findIndex(ends(suffix));
-  const enclosure = idx("hardware/printed-parts/enclosure/enclosure/enclosure.py");
-  const enclosureAssembly = idx("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py");
-  if (enclosure !== -1 && enclosureAssembly !== -1) {
-    assert.ok(enclosure < enclosureAssembly, "enclosure.py must precede the enclosure-assembly that loads its STEP");
+  const producer = idx("hardware/cut-parts/compressor-shroud/compressor_shroud.py");
+  const frontHalf = idx("hardware/manifold-layout/front_half.py");
+  if (producer !== -1 && frontHalf !== -1) {
+    assert.ok(producer < frontHalf, "compressor_shroud.py must precede the front half that loads its STEP");
   }
 });
 
@@ -251,6 +247,51 @@ test("the per-call memo does not outlive its call (staleness regression)", () =>
     assert.equal(
       findRunnableScriptsTransitivelyImporting(mod, [root]).length, 2,
       "a cached directory walk survived its call and hid a new file",
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("a `.retired` directory is out of the graph, and its subdirectories with it", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "deps-retired-"));
+  try {
+    const live = path.join(root, "live");
+    const retired = path.join(root, "retired");
+    const nested = path.join(retired, "attempt");
+    fs.mkdirSync(live);
+    fs.mkdirSync(nested, { recursive: true });
+
+    const shared = path.join(root, "_shared.py");
+    fs.writeFileSync(shared, "VALUE = 1\n");
+    const gen = 'import _shared\nif __name__ == "__main__":\n    pass\n';
+    fs.writeFileSync(path.join(live, "widget.py"), gen);
+    fs.writeFileSync(path.join(retired, "old.py"), gen);
+    fs.writeFileSync(path.join(nested, "older.py"), gen);
+    // The producer edge: a runnable beside the .step whose source names it.
+    fs.writeFileSync(path.join(retired, "old.step"), "ISO-10303-21;\n");
+
+    assert.deepEqual(
+      findGenerateScripts([root]).map((p) => path.basename(p)).sort(),
+      ["old.py", "older.py", "widget.py"],
+      "precondition: all three are runnables before the marker goes down",
+    );
+
+    fs.writeFileSync(path.join(retired, ".retired"), "kept for reading\n");
+
+    assert.deepEqual(
+      findGenerateScripts([root]).map((p) => path.basename(p)),
+      ["widget.py"],
+      "a retired directory still offered generators to build",
+    );
+    assert.deepEqual(
+      findRunnableScriptsTransitivelyImporting(shared, [root]).map((p) => path.basename(p)),
+      ["widget.py"],
+      "an edit upstream of a retired tree still rebuilt into it",
+    );
+    assert.equal(
+      buildProducerMap([root]).has("old.step"), false,
+      "a retired .step still claimed a producer",
     );
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
