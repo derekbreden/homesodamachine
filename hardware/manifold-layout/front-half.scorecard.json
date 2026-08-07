@@ -90,8 +90,6 @@
     "coil-v-b \u2014 flow-regulator: 3.805 mm",
     "c14-inlet \u2014 bulkhead-carb: 4.295 mm",
     "psu \u2014 gasher-co2: 4.499 mm",
-    "coil-v-a \u2014 hopper-funnel: 5.065 mm",
-    "coil-v-b \u2014 hopper-funnel: 5.065 mm",
     "ac-hub \u2014 c14-inlet: 5.149 mm"
    ],
    "active": true
@@ -1522,10 +1520,10 @@
    "boxes": [
     [
      -86.5,
-     88.56,
+     78.56,
      306.703,
      86.5,
-     261.56,
+     251.56,
      360.0
     ]
    ],
@@ -3972,8 +3970,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T22:05:02+00:00",
-  "commit": "6d38f64a024e71433d813c972080a88294494279",
+  "generated": "2026-08-07T22:08:34+00:00",
+  "commit": "f82dc9b12bebe34ca9ee5cd2a4c946f38ea26617",
   "inputs": {}
  }
 }
