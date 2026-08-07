@@ -70,6 +70,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
+           _hw / "reference" / "iec-c14-inlet",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -83,6 +84,7 @@ import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
+import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
@@ -137,6 +139,7 @@ C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 C_VK = cq.Color(0.45, 0.50, 0.58)
 C_BULKHEAD = cq.Color(0.86, 0.86, 0.89)
+C_C14 = cq.Color(0.18, 0.18, 0.20)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -358,6 +361,50 @@ def back_wall_ports(bulkhead_carry):
     return [("round", pos[0], pos[2], _jg.panel_hole_d(PORT_HOLE_SLIP))]
 
 
+# --- the mains inlet, through the back wall --------------------------------
+#
+# The C14 the customer's cord plugs into. It lands FROM INSIDE — the flange bears on the wall's
+# inner face and two screws hold it there — so its housing stands in the box and only the shroud
+# reaches out through the cutout. Its own frame already faces the mating axis down +Y with the
+# seating plane on Y = 0, which is what the back wall gives it, so it takes no turn either.
+C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
+# Where it sits on that wall. The receptacle's wires reach the AC hub, so it wants the hub's own
+# height and as much of its column as the pack leaves — and the pack leaves very little: the
+# power block fills the +X flank from the cap to z 361.79, and the housing is 22 mm of body
+# reaching inboard off the wall. Swept over the wall in 6 mm steps, the eastmost station whose
+# housing clears every placed body at this height is this one.
+C14_STATION = (54.0, 330.0)
+# A printed cutout to the moulded shroud that passes it, on each side.
+C14_CUTOUT_SLIP = 0.5
+
+
+def build_c14():
+    """The receptacle seated on the back wall's INNER face, its shroud out through the cutout.
+
+    `iec_c14_inlet` states the seating planes: the flange's outboard face is its own Y = 0 and
+    bears on that inner face, the housing hangs `BODY_DEPTH` inboard of it, and the shroud rises
+    `SHROUD_PROUD` the other way — through a wall of `enclosure.wall` and standing proud of the
+    outside by what is left."""
+    body = cq.importers.importStep(str(C14_STEP)).val()
+    return seat_body(body, (), station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
+                                        (C14_STATION[0], _enc.rear_plane_y, C14_STATION[1])))
+
+
+def c14_stations():
+    """The two heat-set screw stations on the back wall, as `(x, z)` — `enclosure._c14_bosses`
+    stands a boss on each. Both sit ON the mating axis, so the pair follows the one station the
+    receptacle is placed at."""
+    return tuple((C14_STATION[0] + dx, C14_STATION[1] + dz) for dx, dz in _c14.panel_screws())
+
+
+def c14_cutout():
+    """The rounded rectangle the shroud reaches out through, in `back_ports` shape — struck on
+    the same station the body is, one `C14_CUTOUT_SLIP` over the moulding on every side."""
+    wx, wz, r = _c14.panel_cutout()
+    return ("rect", C14_STATION[0], C14_STATION[1],
+            wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r)
+
+
 # The assembly's non-manifold members, by name. `report` measures the manifold pack as
 # one box — the clearances the core and the pump stand off are struck against it — so a
 # body added to the assembly that is not part of that pack has to be named here or it
@@ -365,7 +412,8 @@ def back_wall_ports(bulkhead_carry):
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water")
+              "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
+              "c14-inlet")
 
 
 def _manifold(name):
@@ -784,6 +832,8 @@ def build_pack() -> cq.Assembly:
     a.add(vk, name="vk-solenoid", color=C_VK)
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
+    c14, _c14_carry = build_c14()
+    a.add(c14, name="c14-inlet", color=C_C14)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -820,7 +870,7 @@ def _solids(a: cq.Assembly):
 #
 # The funnel is the same case and is not listed, because it is added after the box exists
 # (`build_front_half`) rather than to the pack.
-THROUGH_WALL = ("bulkhead-water",)
+THROUGH_WALL = ("bulkhead-water", "c14-inlet")
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
@@ -835,7 +885,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     pan = box(placed["drip-pan"][0])
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan),
-                     back_ports=back_wall_ports(a.bulkhead_carry))
+                     back_ports=back_wall_ports(a.bulkhead_carry) + [c14_cutout()],
+                     c14=c14_stations())
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
@@ -963,7 +1014,8 @@ def report(a: cq.Assembly) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water"):
+              "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
+              "c14-inlet"):
         if n in named:
             line(n, box(named[n]))
     walls = None
