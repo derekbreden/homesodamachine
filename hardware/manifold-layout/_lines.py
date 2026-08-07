@@ -26,6 +26,7 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
+           _hw / "printed-parts" / "cold-core",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",
@@ -36,6 +37,7 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "jg-bulkhead-union"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
+import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
@@ -57,10 +59,16 @@ def _fh_cap(name):
 # The 3/8" reinforced PVC's own floor, and the coarsest stock on the machine: a corner it cannot
 # hold is a corner nothing drawn here can.
 HOSE_BEND = R.stock_min("water", _suct.HOSE_OD)
+# The 1/4" LLDPE's, which every fitting on the water side hands over on.
+TUBE_BEND = R.stock_min("water", _split.TUBE_D)
 # How far off its own axis a hose may leave a BARB and still run unbent. A barb is a taper the
 # hose stretches over and a clamp closes on, not a collet gripping a tube all round, so it takes
 # a good deal more than `R.COLLET_SKEW`. Seeded, not ratified.
 BARB_SKEW = 14.0
+# How far off its own axis a line may enter a CAP CONDUIT. The lid's hole is countersunk to this
+# angle (`_cold_core_interface.cap_conduit_entry_skew`), so the lip a leaning line crosses lies
+# along it and what the tube bears on there is a face.
+CAP_BORE_SKEW = _cc.cap_conduit_entry_skew
 
 # Which reference module states each placed body's stations, and the bore each one carries. The
 # module gives `(position, outward axis)` in the body's own frame; `front_half`'s `carry` takes
@@ -121,6 +129,8 @@ def build_runs(placed, carries):
         runs.append(_water_7(F))
     if {"seaflo-pump", "discharge-chain"} <= set(F):
         runs.append(_water_6(F))
+    if {"discharge-chain", "foam-assembly"} <= set(F):
+        runs.append(_water_5(F))
     if {"asse1022-assembly", "water-split"} <= set(F):
         runs.append(_water_2(F))
     if {"water-split", "flow-regulator"} <= set(F):
@@ -262,6 +272,25 @@ def _water_6(F):
         kind="water", bend=HOSE_BEND, skew=BARB_SKEW,
         note="carb water: SeaFlo discharge barb → discharge chain, west off the barb and one "
              "quarter forward onto the chain's own axis (3/8\" braided PVC, two clamps)")
+
+
+def _water_5(F):
+    """water-5 — the discharge chain's collet to the cold core's water-in conduit, and the
+    tap-water path's only descent.
+
+    ONE SLANT ACROSS THE FALL. The collet looks forward off the far end of the laid-down chain
+    and the bore opens up out of the cap's lid on that chain's own column, ahead of it and
+    below it — so the tube leaves the collet straight on its own axis, crosses the fall at a
+    slant, and enters the bore dead on the vertical it is drilled at. Two gentle turns rather
+    than one square one; its height only ever descends.
+
+    `lead` is what plants the two straights: one stock bend radius off each mouth, so the
+    corners live in the middle of the run and both mouths take the tube unbent."""
+    return R.bent(
+        "water-5", "discharge-chain.tube-port", "foam-assembly.water-in",
+        kind="water", lead=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
+        note="carb water: discharge chain's collet → the core's water-in cap conduit, one "
+             "slant across the fall")
 
 
 def tubes(runs):
