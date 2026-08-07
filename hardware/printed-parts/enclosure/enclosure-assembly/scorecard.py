@@ -151,18 +151,17 @@ COMPONENTS = [
     _c("hopper-funnel",     "real",        True,  "none", "removable cast silicone basin, INTEGRAL to the shell: the printed top face is cut with the collar's own opening (`enclosure._hopper_hole`, taken off hopper_funnel's dims at the placed centre), the collar drops through it, and the flat brim flange — overhanging the collar all round — bears on the one `brim_margin` of top wall the hole is asserted to keep on every side. Directly behind the display facet, one `hopper_front_ledge` of wall between the facet's back plane and the frame. The opening crosses the Y seam, so both top pieces take their share of the cut (`enclosure._hopper_cut`) and the collar bridges it. No fastener pattern of its own — it lifts straight out"),
     # Zone B — the WATER DECK, in the rear band of the cap the shelf's front third leaves
     _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump). Lies motor-axis along Y — the only axis it fits, being longer between its ends than the cap is wide — head and feet forward, the motor can cantilevering aft over the clear cap behind them. Its two 3/8\" barbs are molded into the head casting and leave its ±Y side faces, which this yaw puts on the machine's ±X: discharge east over the cold core's port column, suction west at the fittings lane. Its base foot is a fraction of its footprint, and it is the one body the box's DEPTH gives way to. Isolation mounts to the foam cap TBD"),
-    _c("suction-chain",     "real",        True,  "none", "MAACFLOW 3/8\" barb + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-suction-chain) — the discharge chain's two end fittings with nothing between them, since nothing holds pressure off the pump on the inlet side. LIES DOWN along Y on the pump's crown, one clearance floor over it and flush with its west flank, laid by the discharge chain's own turn: barb AFT at the stub, collet FORWARD at V-K, so both of its runs meet a mouth facing along their own axis and neither has to turn over onto it. Standing it in the open pocket is not available — a chain on end there faces its barb at the ceiling, and a hose fed from a barb 70 mm below it has to come over the top to get down onto it. Bracket TBD"),
+    _c("suction-chain",     "real",        True,  "none", "MAACFLOW 3/8\" barb + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-suction-chain) — the discharge chain's two end fittings with nothing between them, since nothing holds pressure off the pump on the inlet side. LIES DOWN along Y in the slot between the casting's east flank and the stand's aft row, laid by the discharge chain's own turn: barb AFT at the stub, collet FORWARD at V-K, so both of its runs meet a mouth facing along their own axis and neither has to turn over onto it. Standing it in the open pocket is not available — a chain on end there faces its barb at the ceiling, and a hose fed from a barb 70 mm below it has to come over the top to get down onto it. Clears the casting by 8.44 and the aft row by 2.50 MEASURED AGAINST SOLIDS; both of those columns read closed off the bounding boxes and both boxes are wrong about it. Seated by its COLLET, the mouth water-4 ends on. Bracket TBD"),
     _c("discharge-chain",   "real",        True,  "none", "MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, and the 90° barbed accessory does not fit it — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge, and the 3/8\" ends at this chain's barb. LIES DOWN along Y in the strip ahead of the pump, level with the discharge that feeds it and clear over the board below: barb aft at the pump, collet forward over the cap's front edge, where the fall to the core's water-in begins. Standing it native is not available — it is taller than the discharge stands over a cap it would drop through. Bracket TBD"),
     _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly). Runs FRONT TO BACK down the fittings lane west of the pump — the lane is narrower than the chain is long — with its 1/4\" PTC inlet AFT under the rear-panel water bulkhead it is fed from and its 1/4\" PTC outlet forward at the split. Vent in its native pose, weeping down its own column onto the pan's ground below it. Its Z is not free: the basin's rim and section set it. Nothing holds it: 140 mm of brass with no mounting ear on it, tube-hung on the line. Holder TBD"),
     _c("water-split",       "real",        True,  "none",      "JG PP0208E 1/4\" union tee (reference/water-split); second fitting of the WALL SEQUENCE — tube-hung on the chain's own axis in all three coordinates, its supply mouth one JUNCTION_LEG_LEAD down the line from the chain's outlet. Run along the wall, supply aft at the chain, flavor tap forward at the regulator inline ahead, branch falling to V-K. Chain, split and regulator are one family on one line. Nothing holds any of the three — a push-fit union tee has no ear to bolt. Holder TBD"),
     _c("flow-regulator",    "real",        True,  "none",      "neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Third fitting of the WALL SEQUENCE: inline on the split's flavor collet, quarter-turned so both collets lie on Y, its inlet one JUNCTION_LEG_LEAD of straight from the mouth that feeds it — so fluid-1 is that straight, and the outlet fires forward down the wall's open strip with fluid-2 one lean onto V-A's inlet. Every coordinate reads off the split's collet (`contents.flowreg_lane`), so it follows the sequence. Its needle stem stands up, reached over the shelf from the bay. Nothing holds it, as with the two fittings ahead of it. Holder TBD"),
-    _c("vk-tray-assembly", "real",         True,  "cap", "V-K, the tap-water FILL/SHUTOFF solenoid, alone on the family's one-seat plate (printed-parts/valve-manifold/single-valve-tray). Stands flat on the foam cap in the FORWARD band the manifold's overhang leaves open — its west face one clearance floor east of V-A's column (`contents.vk_tray_lane`), its front face one clearance floor behind the core's own. UNTURNED, its two collets on ±Y: the inlet forward at the split's branch fall, the outlet aft at the suction chain's collet, so both of water-3 and water-4 meet a mouth facing along their own axis. Bolted flat on the cap's lid through its mount ears to cap columns under the lid, M3 × 16 into a ruthex short in each; its stations stand where the placed ears land (`contents.TRAY_MOUNTS`), held by `deck-mounts-land`"),
     _c("drip-pan",          "real",        True,  "rails",  "Printed PETG catch basin (printed-parts/enclosure/drip-pan) — a rimmed tray at tray scale, one plan outline at r6 carried through floor, walls and flange. Stands in the fittings loft under the ASSE chain, hung at the plane the chain's underside leaves (drip_pan_seat); in plan its RIM lands on the −X wall's inner face (`contents.drip_pan_west`) and the vent's own column centres it in Y, the flange arriving at the discharge barb's lead ahead of the wall. NOTHING STANDS UNDER ITS FLOOR — the basin lies over the casting, so section beneath it is height charged twice and it comes out of the vent gap above. What carries it is its own RIM: a `drip_pan.FLANGE_W` flange turned out all four ways at the top of the walls, its top face flush with them, on a 45° haunch, leaving `drip_pan.bearing_w()` of flat underside a side. A rail pair printed into the enclosure's back-top piece (`contents.drip_pan_rails`) stands under that band, rooted on the −X wall and running east on the withdrawal axis; the two inboard arrises take the haunches and hold the tray on its column, and a stop bar across their east ends (`contents.drip_pan_stop`) is how far in it goes — the rim's own r16 plan corners carry its east edge back west in the rails' own bands, so the bar spans the whole width to meet the straight run between those arcs. Home is the rim's west edge flush with the wall's inner face. UNFASTENED BY DESIGN — it draws WEST out through the slot in that same wall (`contents.west_wall_ports`) to be emptied, so it carries no `MOUNTED_BY` row"),
-    _c("digiten-flow",      "real",        True,  "none", "DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser, yawed a quarter turn so the flow runs across the machine at the head of the riser's aft leg and the pigtail boss stands up at the J4 loom. Its rigid axis lies on the SeaFlo's crown one clearance floor up, east of the discharge chain and forward of it — the column that keeps the riser monotonic, the cold core's outlet standing east of the meter and the blue-ringed bulkhead west of it. Cradle TBD"),
+    _c("digiten-flow",      "real",        True,  "none", "DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser where it crosses the LOFT, yawed a quarter turn so the flow runs aft with the riser and the pigtail boss stands up at the J4 loom. Its rigid axis hangs over the SeaFlo's crown in the loft's EAST pocket, clear east of pump A's two loft lines — which is also the column that keeps the riser monotonic, the cold core's outlet standing east of the meter and the blue-ringed bulkhead west of it. The loft's west lane cannot hold it: pump A's suction and discharge run that lane's whole length a tube over the pump's crown, and a body this long laid there stands in one or the other at every height. Cradle TBD"),
     # The CO2 chain — the side-wall inlet's two inline bodies, wall-hung in the machine
     # corridor behind the refrigeration stratum.
-    _c("gasher-co2",        "real",        True,  "wall-capture", "GASHER 1/4\" NPT soft-seat check (reference/gasher-check-valve) — the CO2 inlet's check, female socket screwed onto the DERPIPE's male stub and male stub facing the regulator, flow FORWARD over the pump's crown. Held by the fitting it is made up on, which the rear wall holds: no bracket of its own"),
-    _c("wr1110",            "real",        True,  "none", "Interstate Pneumatics WR1110 fixed-90 PSI secondary regulator (reference/wr1110-regulator), female 1/4\" NPT both ends, one CO2_HOP forward of the check ON the same axis — inline, the pose the run over the pump's crown takes. A PP450822E takes the check's stub to tube and a PP010822E in each of its own ends takes it back. Cradle TBD (enclosure-mechanical Open #6, and it hangs in this pocket)"),
+    _c("gasher-co2",        "real",        True,  "wall-capture", "GASHER 1/4\" NPT soft-seat check (reference/gasher-check-valve) — the CO2 inlet's check, female socket screwed onto the DERPIPE's male stub and male stub facing the regulator, flow west into the corridor. Held by the fitting it is made up on, which the east wall holds: no bracket of its own"),
+    _c("wr1110",            "real",        True,  "none", "Interstate Pneumatics WR1110 fixed-90 PSI secondary regulator (reference/wr1110-regulator), female 1/4\" NPT both ends, one tube hop inboard of the check ON the same axis — inline, the pose the machine corridor's straight-line depth takes: the chain lies along the corridor under every line its floor carries. A PP450822E takes the check's stub to tube and a PP010822E in each of its own ends takes it back. Cradle TBD (enclosure-mechanical Open #6, and it hangs in this pocket)"),
     # Zone B — the ELECTRONICS SHELF, on the cap's own deck-mount columns
     _c("pcba",              "real",        True,  "none", "Controller board (pcb/pcba), hung on the +X WALL a storey over the power block rather than standing on the cap — the two boards one above the other on the same flank, so every electrical body is on the far side of the machine from every wet one. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed. Three faces seat it, all of them faces the brick below already answered to: EAST on `CORE_EAST_FACE`; FOOT one clearance floor over that brick's crown, so the supply's loss rises through a gap instead of into a board laid on it; AFT one hug forward of `c14_inboard_y()`, the receptacle being the one body that reaches into the bay at the height this board stands. A quarter roll about its own long axis lays that axis fore and aft down the flank, so only the board's thickness reaches inboard. Wall bosses and their pattern: TBD"),
     _c("psu",               "real",        True,  "none", "Mean Well IRM-90-12ST 12 V open-frame supply (reference/meanwell-irm90), hung on the +X WALL rather than standing on the deck. The brick is 109 × 52 × 33.5 and the band between the pump's aft casting and the rear seam lip is 109 of Y at this flank, so the LONG axis lies fore and aft, the 52 stands up, and only the 33.5 reaches inboard — its whole plan footprint is a 33.5 mm strip against the wall instead of a 109 × 52 island under the bay. Its east face is on `CORE_EAST_FACE`, clear of every post, pod and plug the Y seam puts in the ±X rib band; its aft face is on the rear seam lip's own standoff, under the C14; its lower long edge rests on the cap lid. Both terminal blocks look INBOARD, off the face a screwdriver reaches. Nothing wet stands over it. NOTHING FASTENS IT YET — the wall bosses are not built, so it carries no `MOUNTED_BY` row; relay #2 and the DC block are not yet stationed"),
@@ -175,37 +174,24 @@ COMPONENTS = [
     _c("bulkhead-carb",     "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut; the accented (blue-ringed) hole, in the middle of the three so neither flavor can be mistaken for it"),
     _c("bulkhead-water",    "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut, over the ASSE chain's inlet column"),
     _c("c14-inlet",         "real",        True,  "wall-capture", "C14 mains inlet: rear-wall cutout + its own flange, over the PSU its cordage drops to"),
-    _c("co2-inlet",         "real",        True,  "wall-capture", "DERPIPE 5/16\" PTC × 1/4\" NPT (reference/derpipe-co2-inlet): rear-wall hole + its own NPT thread, on its own row over the pump's crown at the mirror plane — the column the chain it feeds runs forward down. Red accent ring at the panel opening; the customer's cylinder stands beside the machine and its short red tether lands here"),
-    # Zone C — the VALVE MANIFOLD, on the refrigeration stratum's crown. Ten valves in four
-    # limbs, eight junctions on their collets, an elbow on each draw gate and the two pumps
-    # under the lower deck, all of it laid out by `manifold_layout` in the study's own frame
-    # and carried here on one seat (`contents.manifold_seat`). A1 and B1 are the inner limbs,
-    # A2 and B2 the outer; each limb is one line of bodies butted collet to collet, hinged at
-    # its pump's barb plane so everything ahead of that fold stands on the upper deck. Nothing
-    # fastens any of them — the pack sets down on its four spine hairpins and every holder is
-    # still TBD.
-    _c("v-a",               "real",        True,  "none", "Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-A, the TAP WATER gate, at the nose of limb A1 on the folded deck. Its inlet is the manifold's own tap-water mouth (fluid-2); its outlet turns a quarter down onto Y-A's run (fluid-3). Holder TBD"),
-    _c("v-b",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-B, the HOPPER gate, at the nose of limb B1 on the folded deck, the mirror of V-A. Its inlet is the hopper mouth (fluid-4), a gravity drain that may only ever fall; its outlet turns a quarter down onto Y-B's run (fluid-5). Holder TBD"),
-    _c("v-c",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-C, channel A's SELECT, third on limb A1's folded deck. Its inlet butts Y-A's back collet (fluid-7); its outlet takes the limb's spine turn down to Y-C on pump B's suction barb (fluid-9). Holder TBD"),
-    _c("v-d",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-D, channel B's SELECT, third on limb B1's folded deck. Its inlet butts Y-B's back collet (fluid-8); its outlet takes the spine turn down to Y-F on pump A's suction barb (fluid-19). Holder TBD"),
-    _c("v-e",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-E, bag A's DRAW gate, at the tail of limb A1 on the lower deck. Its inlet faces down its own limb and is turned onto Y-E's branch by the elbow made up on it (fluid-16); its outlet butts Y-C's back collet (fluid-10). Holder TBD"),
-    _c("v-f",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-F, bag A's FILL gate, on limb A2's lower deck between the two junctions it joins. Its inlet butts Y-D's back collet (fluid-13); its outlet turns a quarter onto Y-E, which carries reservoir A's own line out on its run (fluid-14). Holder TBD"),
-    _c("v-g",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-G, the NOZZLE A gate, alone on limb A2's folded deck. Its inlet takes the spine turn up out of Y-D (fluid-17); its outlet is the manifold's nozzle-A mouth, one of the two lines that leave the machine (fluid-18). Holder TBD"),
-    _c("v-h",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-H, bag B's DRAW gate, at the tail of limb B1 on the lower deck, the mirror of V-E. Its inlet is turned onto Y-H's branch by the elbow made up on it (fluid-26); its outlet butts Y-F's back collet (fluid-20). Holder TBD"),
-    _c("v-i",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-I, bag B's FILL gate, on limb B2's lower deck, the mirror of V-F. Its inlet butts Y-G's back collet (fluid-23); its outlet turns a quarter onto Y-H (fluid-24). Holder TBD"),
-    _c("v-j",               "real",        True,  "none", "Beduan 12 V NC solenoid — V-J, the NOZZLE B gate, alone on limb B2's folded deck, the mirror of V-G. Its inlet takes the spine turn up out of Y-G (fluid-27); its outlet is the manifold's nozzle-B mouth, the second line that leaves the machine (fluid-28). Holder TBD"),
-    _c("tee-y-a",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector) — Y-A, the tap-water source's junction, standing on limb A1's own axis one valve forward of the select it feeds. Its RUN is the limb, V-A above and V-C below; its BRANCH faces Y-B's across the mirror plane on the crossbar (fluid-6), which is what puts all four source and select ports on one hydraulic node. Tube-hung on its own three collets"),
-    _c("tee-y-b",           "real",        True,  "none", "JG PP0208E union tee — Y-B, the hopper source's junction, the same fitting on limb B1 turned the other way. Its RUN is that limb, V-B above and V-D below; its BRANCH meets Y-A's face to face across the mirror plane. Tube-hung on its own three collets"),
-    _c("tee-y-c",           "real",        True,  "none", "JG PP0208E union tee — Y-C, channel A's SUCTION junction, dropped by its BRANCH onto pump B's draw barb so its RUN lies across limb A1: V-C's fall on one end (fluid-9), V-E's outlet on the other (fluid-10), and the barb takes both (fluid-11). It is the limb's anchor, the body the whole chain hangs off and the plane the fold is hinged on. Tube-hung on its own three collets"),
-    _c("tee-y-d",           "real",        True,  "none", "JG PP0208E union tee — Y-D, channel A's DISCHARGE junction, on pump B's other barb with its run along limb A2: the pump's outlet in on the branch (fluid-12), V-F's fill leg one way (fluid-13) and V-G's nozzle leg the other (fluid-17). Limb A2's anchor. Tube-hung on its own three collets"),
-    _c("tee-y-e",           "real",        True,  "none", "JG PP0208E union tee — Y-E, reservoir A's junction, at the far end of limb A2 behind the fill gate. Its RUN carries V-F's fill leg (fluid-14) and the reservoir's own line out the back of the pack (fluid-15); its BRANCH crosses the pump to V-E's elbow on the inner limb (fluid-16). Tube-hung on its own three collets"),
-    _c("tee-y-f",           "real",        True,  "none", "JG PP0208E union tee — Y-F, channel B's SUCTION junction, on pump A's draw barb with its run across limb B1: V-D's fall on one end (fluid-19), V-H's outlet on the other (fluid-20), the barb on the branch (fluid-21). Limb B1's anchor, the mirror of Y-C. Tube-hung on its own three collets"),
-    _c("tee-y-g",           "real",        True,  "none", "JG PP0208E union tee — Y-G, channel B's DISCHARGE junction, on pump A's other barb with its run along limb B2: the pump's outlet in on the branch (fluid-22), V-I's fill leg one way (fluid-23) and V-J's nozzle leg the other (fluid-27). Limb B2's anchor, the mirror of Y-D. Tube-hung on its own three collets"),
-    _c("tee-y-h",           "real",        True,  "none", "JG PP0208E union tee — Y-H, reservoir B's junction, at the far end of limb B2, the mirror of Y-E. Its RUN carries V-I's fill leg (fluid-24) and the reservoir's own line out the back; its BRANCH crosses the pump to V-H's elbow on the inner limb (fluid-26). Tube-hung on its own three collets"),
-    _c("elbow-v-e-i",       "real",        True,  "none", "JG PP0308E 1/4\" union elbow (reference/elbow-connector), made up on V-E's inlet collet. The draw gate faces down its own limb and Y-E's branch reaches across the pump, so the elbow is the corner between them: it is INLINE on fluid-16 and carries no station of its own, coming round with its tee on the same quarter turn. Holder TBD"),
-    _c("elbow-v-h-i",       "real",        True,  "none", "JG PP0308E 1/4\" union elbow, made up on V-H's inlet collet — the mirror of V-E's, inline on fluid-26. Holder TBD"),
-    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400-SW3B25 peristaltic (reference/kamoer-kphm400) — CHANNEL B's pump, under limbs B1 and B2 with both head barbs on their anchor tees: Y-F on the suction (fluid-21), Y-G on the discharge (fluid-22). The two barbs stand one BARB_PITCH apart on one face, which is what sets the two limbs' spacing. Drawn as head, bracket and motor. Isolation mounts and holder TBD"),
-    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400-SW3B25 peristaltic — CHANNEL A's pump, the mirror of channel B's under limbs A1 and A2: Y-C on the suction (fluid-11), Y-D on the discharge (fluid-12). Drawn as head, bracket and motor. Isolation mounts and holder TBD"),
+    _c("co2-inlet",         "real",        True,  "wall-capture", "DERPIPE 5/16\" PTC × 1/4\" NPT (reference/derpipe-co2-inlet): east side-wall hole + its own NPT thread, low in the machine corridor behind the refrigeration stratum. Red accent ring at the panel opening; the customer's cylinder stands beside the machine and its short red tether lands here"),
+    # Zone C — the valve manifold, in the front column ahead of the core
+    _c("source-tray-assembly", "real",     True,  "none", "The manifold's SOURCE pair — V-A on tap water, V-B on the hopper — on one printed two-valve tray (printed-parts/valve-manifold/two-valve-tray), the first of the four identical two-valve cradles to be placed. Lies flat, plate down and valves up, ports along Y, both INLETS aft and both OUTLETS forward; the cell is symmetric under a half turn so the tray permits either clocking and fixes neither. Its east seat stands on the hopper spout's own column — V-B gates a gravity drain, which is the one line in this machine that cannot be routed around anything — and its coils ride at the top of a column standing on the refrigeration stratum's roof, with the basin overhead as their ceiling. Nothing holds it: the plate is 9 mm of floor with 56.6 mm of valve on it, and the stack pitch, the standoff that sets it and whatever seats the five are the tray README's own Open item"),
+    _c("tee-y-a",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-A, the WEST half of the manifold's junction. Its RUN stands UP the west column: V-A's outlet a stack pitch above and V-C's inlet below are two ports on one line, which is what a run is, so the tap-water source falls straight through the fitting to channel A's select. Its BRANCH reaches EAST at Y-B's, and the two meet on fluid-6 — the H's crossbar, which is what puts all four ports on one hydraulic node. `contents.junction_tee_pos` derives all three coordinates from the four collets and the fitting's own reach; the column stands `contents.junction_column_x` outboard of its seat, which is the branch reaching further than half the valve pitch. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("selects-tray-assembly", "real",    True,  "none", "The manifold's SELECTS pair — V-C and V-D, the two channel gates — on the second of the four identical two-valve trays, in the source pair's own column one `contents.tray_stack_pitch` under it, coils packed up under that tray's plate. Same part, same flat pose, ports along Y; clocked the OTHER way round — both INLETS forward at the junction that feeds them, both OUTLETS aft at the pump row still to come, with the core's front face standing `SOURCE_TRAY_AFT_BAND` behind those collets. The `TRAY_STACK_GAP` over its coils is the depth a valve's corner posts stand in the sockets of the plate above, so a valve lifts out of its seat with the stack made up. Stands in the top third of the condenser's intake lane. Nothing holds it, and nothing yet stands it off the tray above — the standoff the pitch implies is the tray README's own Open item"),
+    _c("tee-y-b",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-B, the EAST half of the manifold's junction. The same fitting as Y-A in the same pose yawed the other way, one seat pitch east, so the two stand abreast with their branches facing each other. Its run stands up the east column, V-B's outlet over V-D's inlet, carrying the hopper source down to channel B's select; its branch reaches WEST at Y-A's across fluid-6. Every mode opens one of {V-A, V-B} and one of {V-C, V-D}, so the traffic the pair carries is one source to one select, straight down a column or across the bar. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("bag-a-tray-assembly", "real",      True,  "none", "The manifold's BAG-A pair — V-E drawing from reservoir A, V-F returning to it — on the third of the four identical two-valve trays, and the column's bottom seat: under this plate is the compressor shroud's roof, and `contents.tray_column_floor` is the band between them, shorter than one `tray_stack_pitch`. Same part, same flat pose, ports along Y. The bag's two ends are V-E's INLET and V-F's OUTLET, and those two face FORWARD at Y-E; V-E-O and V-F-I face AFT at the pump row, so the pair is the first with its two valves seated opposite ways round. Reservoir A rides Y-E's stem, so one line (fluid-15) crosses the machine to the cold core's face and both the fill and the draw are on it — up the lane between this plate's own east edge and the condenser's intake face, so the column is passed on the outside and the band under the plate carries nothing. Stands in the middle third of the condenser's intake lane. Nothing holds it, and nothing yet stands it off the tray above — the standoff the pitch implies is the tray README's own Open item"),
+    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400-SW3B25 peristaltic (reference/kamoer-kphm400) — CHANNEL A's pump, standing UPRIGHT in the front column's west-forward box, motor up, its two head barbs facing aft down the lane at Y-C and Y-D. Upright and here is not a preference: a `fit.py search` over the whole front column at four orientations returns 23 free poses of 20160, and this box is the only one of them that takes the body on end. Its Z is derived rather than picked — the barbs stand on the BAG-A pair's own port plane, so both its tees lie in one plane with the collets they join. Bare pump, no elbow: the barbs already look down the lane its lines run in, so what each takes is a straight 1/4\" adapter. Isolation mounts and holder TBD"),
+    _c("tee-y-c",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-C, channel A's SUCTION junction, where the shared source and the bag draw meet at pump B's inlet. A TEE and not a divider because it reaches BETWEEN trays rather than joining one tray's own pair (../../../topology/fluid-topology.md): a tray only ever lies plate-up, so its two seats stand side by side and their junction can only be a trident, while a junction reaching between two of them has one leg arriving on a different line. Its RUN lies along the PUMP LANE — the strip west of the tray column that both of pump B's lines run down — and its BRANCH stands UP, which is the axis the third leg leaves on: the fall from the selects pair a stack pitch above. `contents.pump_row_tee_pos` derives all three coordinates from the barb its run stands off. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("tee-y-d",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-D, channel A's DISCHARGE junction, splitting pump B's outlet between the bag it fills and the nozzle gate it dispenses through. The same fitting as Y-C in the same pose, one lane-width east of it on its own barb's column, so the two stand abreast in the pump lane on one plane. Run along the lane, branch UP — and this one's branch is the manifold's longest climb, a storey from the front column to the nozzle gate in the loft. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("bag-b-tray-assembly", "real",      True,  "cap", "The manifold's BAG-B pair — V-H drawing from reservoir B, V-I returning to it — on the fourth of the four identical two-valve trays, and the first body of the LOFT: the band between the water deck's crown and the ceiling. Same part, same flat pose, ports along Y, and bag A's clocking mirrored — the bag's two ends are V-H's INLET and V-I's OUTLET and those two face WEST at reservoir B's own two mouths, with V-H-O and V-I-I east off the plate. Its two valves are seated the other way ROUND from bag A's, which is what makes that bay work: V-I-I lands on the column V-J-I takes on the tray facing it, so the two collets Y-G feeds sit on one line and the tee's run passes straight through. It stands at the FRONT of the loft's west lane, clear of the funnel's aft skirt and up over V-K's coil, which is the deck's tallest body under it — forward onto the lid's own front edge (`bag_b_tray_y`), where the deck it stands on runs out, at the head of the band reservoir B's two conduits come through the cap in. Its floor is the cap's own lid and its fastening its two mount ears: bolted down the tray's centreline — the one column of it the cap's cavity can answer, its west cell overhanging the core into the −X rib band — to two cap columns that stop under the lid, the PSU's joint. M3 × 16 through ear and lid into a ruthex short in each; the stations stand where the placed ears land (`contents.TRAY_MOUNTS`), and `deck-mounts-land` holds the cap's table to them"),
+    _c("vk-tray-assembly", "real",         True,  "cap", "V-K, the tap-water FILL/SHUTOFF solenoid, alone on the MIDDLE of the aft stand's three two-valve rows, one `contents.AFT_TRAY_BAY` behind the bag-B pair. It takes the plate's EAST seat — the one nearest the SeaFlo — so its outlet faces the pump's suction barb across the lane between them and water-4 is the tube that makes the crossing. This plate stands on the plane its own junction opens on — V-J's inlet on `Y-G-3`'s Y (`contents.vk_tray_y`) — so what fixes it is the fitting that feeds it and not the casting in the other lane; the pump packs against its own lane's far end (`contents.seaflo_front_y`) and the two read no body of each other's. Its WEST seat is bare, and that bare cell is the lane fluid-17 comes aft on to reach the gate behind it. Same part, same flat pose, ports along Y as every tray in the manifold. Bolted flat on the cap's lid through its mount ears to cap columns under the lid, M3 × 16 into a ruthex short in each; its stations stand where the placed ears land (`contents.TRAY_MOUNTS`), held by `deck-mounts-land`"),
+    _c("nozzle-b-tray-assembly", "real",   True,  "cap", "V-J, the NOZZLE-B GATE, alone on the family's one-seat plate — the twin of the nozzle-A gate's, on the aft stand's middle row beside V-K. A one-seat plate because it is one valve: a two-seat plate with a seat left empty renders a valve that is not in the machine and not in the BOM (`single_valve_tray`). It is clocked the way its two runs leave it — inlet FORWARD at the junction bay Y-G stands in, outlet AFT at the panel field its bulkhead is in — and it packs west onto the SeaFlo's own flank like every row of this stand (`contents.aft_tray_x`), which is the column the two-valve plate's west seat stood on. Bolted flat on the cap's lid through its two mount ears to cap columns under the lid, M3 × 16 into a ruthex short in each; its stations stand where the placed ears land (`contents.TRAY_MOUNTS`), held by `deck-mounts-land`"),
+    _c("nozzle-tray-assembly", "real",     True,  "cap", "V-G, the NOZZLE-A GATE, alone on the family's one-seat plate — in the WEST LANE'S FORWARD END, on the lid's own west flank ahead of the pump. It carries no junction of its OWN: V-G-I is fed by Y-D a storey and a half down in the front column, and V-G-O runs alone to its bulkhead — so the plate is placed by those two runs and by nothing else, its X on the column they share (`contents.nozzle_tray_x`), its Y on the forwardmost plane a cap deck column may take (`contents.nozzle_tray_y`). UNTURNED, its two collets on ±Y: the inlet opens FORWARD on the column `fluid-17` climbs onto, so the leg that closes on it is the collet's own axis, and the outlet opens AFT into the band between this plate and the pump's front face, where `fluid-18` turns. Its outlet is one of the only two lines the manifold sends out of the machine, and that is what puts this gate up here instead of in the front column. Bolted flat on the cap's lid through its two mount ears to cap columns under the lid, M3 × 16 into a ruthex short in each; its stations stand where the placed ears land (`contents.TRAY_MOUNTS`), held by `deck-mounts-land`"),
+    _c("tee-y-f",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-F, channel B's SUCTION junction, where the shared source and the bag-B draw meet at pump A's inlet. It stands in the LOFT'S PUMP LANE, the strip between the loft trays' east face and the SeaFlo's west flank that runs the aft stand's whole depth with nothing in it, on the front column's own tee construction (`contents.TEE_ROLL`): RUN along the lane at the stand's port plane, BRANCH UP. The branch takes the shared source's climb out of the front column; the run's aft collet takes the bag-B draw, which comes about in the junction bay and again on this column; the run's fore collet sends the pump's suction forward down the machine, over the electronics shelf and down the front column to a barb a storey and a half below. `contents.aft_row_tee_pos` derives its three coordinates from the lane and the bag pair's aft face. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("tee-y-g",       "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector) — the same fitting the manifold's six other junctions are, standing IN THE LANE east of V-K's plate rather than across the bay at the far end of it. Its RUN lies along that lane with one valve on each end — aft at the nozzle-B gate's inlet, forward at the bag pair's fill valve — so the leg `fluid-27` already ran down the lane to reach this junction is now the run itself and its crossing is gone. The BRANCH stands UP into the loft `fluid-22` crosses at. Seated on the plate's east face and its forward face, on `aft_port_z` so neither run leg climbs. Bracket TBD"),
+    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400-SW3B25 peristaltic (reference/kamoer-kphm400) — CHANNEL B's pump, standing UPRIGHT beside channel A's in the front column, same part and same native turn, motor down and both head barbs out the +Y face at the strip behind them. The two are one pose read twice on one lane — same band, same foot, same barb plane, stepped east so the two inner barbs of that row stand a `contents.PUMP_TWIN_PITCH` apart, which is a tube's width and the pack's floor between the two legs that leave them — and what the second one needs is 62.61 mm of width, which is the MOTOR's own square and not the body's box: the part is three stacked solids and only its bottom third is that wide. Its foot stands on the same `contents.FRONT_COLUMN_FLOOR` over the refrigeration stratum's roof that its twin's does, in the front Z seam's own band, and the display's facet roofs the column above it. Bare pump, no elbow, for the reason channel A's is bare. Both of its lines reach the loft, so this is the one pump whose junctions do not stand beside it. Isolation mounts and holder TBD"),
+    _c("tee-y-e",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-E, where reservoir A's fill and draw meet. It joins one tray's own pair, and the room decides its pose: it stands in the STRIP between the pump row's aft faces and the bag pair's forward collets, and a fitting 40.13 mm collet to collet cannot lie along a strip that deep. So it stands ACROSS it — both collet axes square to Y, all three collets in one vertical plane, its own diameter the whole of the depth it takes. The RUN lies along X, the axis the strip runs on: reservoir A's line arrives on its EAST collet, straight down the tray-east lane, and the bag DRAW leaves its west one. The FILL takes the BRANCH, which faces down on V-F's own column. A down-facing collet is entered by a rising leg, so it stands a `contents.JUNCTION_LEG_LEAD` over the pair's port plane and both valve legs climb into it (../../../topology/fluid-topology.md). Numbered from the end the BAG rides. Tube-hung on its own three legs; no tray, no holder"),
 ]
 
 # ── Pose provenance (the settled set) ───────────────────────────────────────────────────────
@@ -280,22 +266,17 @@ MADE_UP = [
 TOUCHING_OK = {
     frozenset(p) for p in [
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
-        # The +X WALL COLUMN's two lowest bodies rest their feet on that lid — hung on the
+        ("foam-assembly", "bag-b-tray-assembly"),    # the aft stand's forward plate flat on the cap
+        ("foam-assembly", "nozzle-tray-assembly"),   # and the wide plate behind it (`aft_tray_z`)
+        ("foam-assembly", "vk-tray-assembly"),       # and the middle row's, on the same lid
+        ("foam-assembly", "nozzle-b-tray-assembly"),  # and the nozzle-B gate's, on the same lid
+        # The +X WALL COLUMN's two lowest bodies still rest their feet on that lid — hung on the
         # wall in X, stood on the cap in Z. The three above them read the body under them
         # instead, so the cap carries nothing electrical any more.
         ("foam-assembly", "psu"),               # the brick's lower long edge down on the lid's face
         ("foam-assembly", "pcba"),              # the board's lower long edge on the same face
     ]
 } | {frozenset((a[0], b[0])) for a, b in MADE_UP}
-
-
-def touching_ok() -> set:
-    """`TOUCHING_OK`, plus the contacts the PACK states rather than this file: the three planes
-    the machine is built on (`contents.MATED_FACES`) and the manifold's own collet-to-collet
-    joints (`contents.butted_pairs()`). A joint added or moved in the pack carries its own
-    permission to touch."""
-    return TOUCHING_OK | {frozenset(p) for p in
-                          tuple(contents.MATED_FACES) + tuple(contents.butted_pairs())}
 
 
 # ── Connections (the routed axis) — fluid segments + electrical runs ─────────
@@ -331,8 +312,8 @@ REFRIGERANT_SEGMENTS = [
 WATER_SEGMENTS = [
     ("water-1", "bulkhead-water tube-in", "asse1022-assembly tube-in (PP010822E → GAGIRA coupling)"),
     ("water-2", "asse1022-assembly tube-out (PI4512F6S + PP061208W, 1/4\" PTC)", "water-split supply (PP0208E 1/4\" tee)"),
-    ("water-3", "water-split to-vk (PP0208E 1/4\" tee)", "V-K inlet on its one-seat plate (Beduan 1/4\" QC)"),
-    ("water-4", "V-K outlet on its one-seat plate (Beduan 1/4\" QC)", "suction-chain tube-port (PP450822E 1/4\" PTC)"),
+    ("water-3", "water-split to-vk (PP0208E 1/4\" tee)", "V-K inlet on the nozzle plate (Beduan 1/4\" QC)"),
+    ("water-4", "V-K outlet on the nozzle plate (Beduan 1/4\" QC)", "suction-chain tube-port (PP450822E 1/4\" PTC)"),
     ("water-5", "discharge-chain tube-port (PP450822E 1/4\" PTC)", "foam-assembly water-in"),
     ("water-6", "seaflo-pump discharge (3/8\" barb, molded)", "discharge-chain barb-tip (3/8\" braided-PVC stub, 2 clamps)"),
     ("water-7", "seaflo-pump suction (3/8\" barb, molded)", "suction-chain barb-tip (3/8\" braided-PVC stub, 2 clamps)"),
@@ -432,9 +413,9 @@ def _declare_placement_rules():
     """The placed axis's measured expectations, built on first use — `placement_rules()`,
     and `scorecard.PLACEMENT_RULES`.
 
-    A `near`/`clear` tolerance may be struck off the pack itself — a bound that reads placed
-    boxes — so building this table at import builds the pack. Taken when a rule is first read
-    instead.
+    A `near`/`clear` tolerance may be struck off the pack itself (`contents.pump_twin_gap`
+    and its kin read placed boxes), so building this table at import builds the pack. Taken
+    when a rule is first read instead.
     """
     return {
         # "Foam is against the back-bottom, full width, standing on its lid" — the
@@ -488,9 +469,10 @@ def _declare_placement_rules():
         # The chain lies along Y on the pump's crown, on the stub of 3/8" braided PVC that is the
         # only thing that leaves the discharge — so `near seaflo-pump` is the roof it stands on.
         "discharge-chain":   [("near", "seaflo-pump", 2.0)],
-        # The suction chain lies along the pump's crown on the stub that is the only thing that
-        # leaves the suction, and what this rule holds is the band between the two.
-        "suction-chain":     [("clear", "seaflo-pump", 1.0)],
+        # The suction chain lies in the SLOT between the casting and the stand's aft row, on the
+        # stub that is the only thing that leaves the suction — nothing under it it can bear on,
+        # so what this rule holds is the slot's two walls. Both read closed off the boxes.
+        "suction-chain":     [("clear", "nozzle-b-tray-assembly", 1.0), ("clear", "seaflo-pump", 1.0)],
         # The ASSE chain runs down the lane with its inlet under the bulkhead it is fed from
         # (`near bulkhead-water` — the feed that anchors the pose), its vent falling into the
         # basin below it, and its body standing off the −X wall's seam furniture. The bound is
@@ -501,14 +483,22 @@ def _declare_placement_rules():
                               ("fall", "vent-tip", "drip-pan", 60.0),
                               ("clear", "seaflo-pump", 30.0)],
         # The split hangs off the chain that feeds it — on its plane, a step east of its outlet
-        # column — so its rules read that chain and the bodies over it. No seat rule: nothing
-        # under it holds a station for this fitting.
+        # column — so its rules read that chain and the bodies that bound the loft it hangs in.
+        # No seat rule: the deck below is the loft trays' ground and holds no station for this
+        # fitting (`fit.py slab`, the component note).
         # Second fitting of the wall sequence: its supply mouth one JUNCTION_LEG_LEAD off the
         # chain's outlet on that outlet's own column, the hopper cone's sheet the ceiling over
         # its forward half.
         "water-split":       [("near", "asse1022-assembly", contents.JUNCTION_LEG_LEAD + 4.0),
                               ("clear", "hopper-funnel", 1.0),
                               ("clear", "flow-regulator", 5.0)],
+        # V-K stands on its cradle ACROSS THE LANE from the split that feeds it, lifted off the
+        # cap by that cradle, clear of the pump it discharges to. `near water-split` is the strip
+        # between the two bodies — the one water-3's branch climb stands in, and the whole reason
+        # the valve is not laid across the lane instead.
+        # The regulator stands on the loft floor over the aft stand's coils, one hop down the
+        # lane from the split that feeds it, so its tie is that fitting and its holds are the
+        # bodies that bound the loft.
         # Third fitting of the wall sequence: inline ahead of the split's flavor collet, under
         # the same cone-sheet ceiling.
         "flow-regulator":    [("near", "water-split", contents.JUNCTION_LEG_LEAD + 4.0),
@@ -540,54 +530,180 @@ def _declare_placement_rules():
         "ground-stack":      [("near", "ac-hub", 1.0),
                               ("clear", "c14-inlet", 1.0),
                               ("clear", "psu", 1.0)],
-        # --- Zone C, the valve manifold on the refrigeration stratum's crown ------
-        # Every body up here rides ONE seat (`contents.manifold_seat`), so what a rule states is
-        # the pack's own relation to the machine around it and not the study's internal lay.
-        # `clear condenser+fan` is the block's INTAKE — the air crosses the cabinet into its
-        # finstack, and the lane it crosses is the one the manifold stands over.
-        "tee-y-a":           [("clear", "condenser+fan", 10.0)],
-        "tee-y-b":           [("clear", "condenser+fan", 10.0)],
-        # Y-E stands at the far end of limb A2 and its branch crosses pump A on the way to V-E's
-        # elbow, so `clear pump-a` is the strip that crossing runs in.
-        "tee-y-e":           [("clear", "pump-a", 1.0),
+        # --- Zone C, the valve manifold in the front column -----------------------
+        # "The source pair heads the column, in the front column ahead of the core and off the
+        # condenser's intake face."
+        #   `clear hopper-funnel` is the basin overhead — this column's ceiling, bounded by
+        # `_contents.SOURCE_TRAY_HEADROOM`. The gap is exact solid to exact solid: the basin's
+        # floor slopes up toward the front, so the surface standing over these coils is not the
+        # spout tip that sets the funnel's bounding box.
+        #   `clear foam-assembly` says the tray is in the FRONT COLUMN and not over the cap. It
+        # is not the aft band: the tray stands well above the core's crown, so the measured gap
+        # runs diagonally to the shell's top-front arris and is much longer than the Y the feeds
+        # actually turn in. That band is `_contents.SOURCE_TRAY_AFT_BAND`, and what holds it is
+        # fluid-2's own turn west and fluid-4's turn forward, both authored inside it.
+        #   `clear condenser+fan` is the block's INTAKE: the air crosses the cabinet from the −X
+        # side face into its finstack, so this lane is the one the tray must not stand in.
+        "source-tray-assembly": [("clear", "hopper-funnel", contents.SOURCE_TRAY_HEADROOM),
+                                 ("clear", "foam-assembly", 30.0),
+                                 ("clear", "condenser+fan", 10.0)],
+        # "The selects pair is PACKED UP UNDER THE SOURCE PAIR, in that tray's own column."
+        #   `near source-tray-assembly` is the pack relation — the one thing this tray is packed
+        # against — and its bound is `_contents.TRAY_STACK_GAP`, so the gap that keeps a valve
+        # liftable is the gap the rule measures. Plate underside to coil crown, exact solid to
+        # exact solid.
+        #   `clear foam-assembly` says the tray is in the FRONT COLUMN and not over the cap. This
+        # tray straddles the core's crown rather than standing over it, so the gap runs straight
+        # down Y to the shell's front face and is the aft band itself — `SOURCE_TRAY_AFT_BAND`,
+        # the number the pair above derives its own Y from, which this one inherits.
+        #   `clear condenser+fan` is again the block's INTAKE, and the gap the rule measures is
+        # what this tray leaves between itself and the finstack the air crosses to.
+        "selects-tray-assembly": [("near", "source-tray-assembly", contents.TRAY_STACK_GAP + 0.5),
+                                  ("clear", "foam-assembly", contents.SOURCE_TRAY_AFT_BAND - 0.5),
+                                  ("clear", "condenser+fan", 10.0)],
+        # "The bag-A pair is PACKED UP UNDER THE SELECTS PAIR, on the column's bottom seat."
+        #   `near selects-tray-assembly` is the pack relation, bounded by `TRAY_STACK_GAP` like the
+        # tray above it, so the same liftable-valve gap is the gap the rule measures.
+        #   `clear compressor-shroud` is what the column has left under its bottom plate —
+        # `contents.tray_column_floor`. No line crosses in it: every corridor `_lines` uses passes
+        # the column rather than threading under it, so what the band is for is reaching the seat,
+        # and the bound is the pack's own floor. `tray_column_floor` itself raises when the plate is
+        # under the roof.
+        #   `clear foam-assembly` is the aft band, the same `SOURCE_TRAY_AFT_BAND` the pair above
+        # inherits: this tray straddles nothing, so the gap runs straight down Y to the shell's
+        # front face.
+        #   `clear condenser+fan` is the block's INTAKE. This is the third body in that lane.
+        "bag-a-tray-assembly": [("near", "selects-tray-assembly", contents.TRAY_STACK_GAP + 0.5),
+                                ("clear", "compressor-shroud", CLEARANCE_FLOOR),
+                                ("clear", "foam-assembly", contents.SOURCE_TRAY_AFT_BAND - 0.5),
+                                ("clear", "condenser+fan", 10.0)],
+        # "The manifold's junction stands on the two columns its four ports make." Each tee is held
+        # to BOTH trays, because its run reaches a collet on each and it sits midway between them:
+        # the bound is the standoff `contents.junction_tee_pos` leaves, half the stack pitch less
+        # the fitting's own run. A tee nearer one tray than that has slid down its column.
+        "tee-y-a":           [("near", "source-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("near", "selects-tray-assembly", contents.tray_stack_pitch() / 2.0),
                               ("clear", "condenser+fan", 10.0)],
-        # The two tees on pump B's own barbs. `near pump-b` is the barb each is dropped onto;
-        # `clear` on each other is the lane's width, which is what holds the pair apart.
+        "tee-y-b":           [("near", "source-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("near", "selects-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("clear", "condenser+fan", 10.0)],
+        # "Y-E stands ACROSS the strip between pump A's aft face and the bag pair's forward
+        # collets." `near bag-a-tray-assembly` is the pair it joins, which it stands against at the
+        # floor — the bound is its own half-width and that floor. `clear pump-a` is the rest of the
+        # strip, which the fitting does not fill: pump A stands a `PUMP_A_FRONT_BAND` off the
+        # wall rather than on the corner pod's band, and what the strip has past this body is the
+        # run fluid-22's climb leaves in. `contents.y_e_pos` raises the day it is narrower than the
+        # body and its two floors together.
+        "tee-y-e":           [("near", "bag-a-tray-assembly", contents.TEE_HALF_W + 1.5),
+                              ("clear", "pump-a", 1.0),
+                              ("clear", "condenser+fan", 10.0)],
+        # --- Zone C's second stand: channel A's pump, and the loft over the water deck ----
+        # "Channel A's pump stands upright in the front column's west-forward box, in the same
+        # lane as channel A's own trays."
+        #   `near bag-a-tray-assembly` is that relation, and the bound is the lane it leaves
+        # between its barb face and that tray's own — the corridor fluid-11 and fluid-12 run
+        # down to Y-C and Y-D. What holds the pose in Z is not a rule but a derivation:
+        # `contents._build` stands the barbs ON that tray's port plane.
+        #   `clear condenser+fan` is the block's intake lane, which every body in the front column
+        # stands in.
+        "pump-b":            [("near", "bag-a-tray-assembly", 25.0),
+                              ("clear", "condenser+fan", 10.0)],
+        # "The pump row's two tees stand abreast in the pump lane, on their own barbs' columns."
+        #   `near pump-b` is the relation that places each: the tee stands off the barb its run
+        # butts, and the bound is the lane's own length — pump aft face to the aft band the tray
+        # leg turns in — halved, because the tee sits midway down it. `clear` on the tray column
+        # and on each other is the lane's width, which is what holds the two apart; `clear
+        # condenser+fan` is the intake lane every body in the front column stands in.
         "tee-y-c":           [("near", "pump-b", 45.0),
+                              ("clear", "bag-a-tray-assembly", 1.0),
                               ("clear", "tee-y-d", 1.0),
                               ("clear", "condenser+fan", 10.0)],
         "tee-y-d":           [("near", "pump-b", 45.0),
+                              ("clear", "bag-a-tray-assembly", 1.0),
                               ("clear", "tee-y-c", 1.0),
                               ("clear", "condenser+fan", 10.0)],
-        "tee-y-f":           [("clear", "seaflo-pump", 1.0)],
-        "tee-y-g":           [("clear", "tee-y-f", 1.0)],
-        "pump-b":            [("clear", "condenser+fan", 10.0)],
-        # `clear display` is the facet overhead, which roofs the pack; `clear condenser+fan` is
-        # under the 10 mm the rest of the manifold holds off that face, which is what the lane
-        # has left once both motors are in it. The block is still a placeholder, so the number is
-        # what the geometry leaves rather than what a thermal bound would ask for.
-        "pump-a":            [("clear", "condenser+fan", 8.0),
-                              ("clear", "display", 5.0)],
-        # "The CO2 check is made up on the rear panel inlet's stub", so its placement IS that
-        # joint: it touches the fitting it threads onto and hangs over the pump's crown. `near`
-        # carries the slop the made-up pair is built to, which is what `_panel_bodies` asserts
-        # the two land within.
+        # "The bag-B pair and the nozzle gates stand in the LOFT's west lane, a JUNCTION BAY apart."
+        #   Each reads `clear` of the other at `contents.AFT_TRAY_BAY`: the two pairs face each
+        # other collet for collet across that bay, and what stands in it is a fitting — Y-G's run,
+        # the one straight line the two facing columns already share. A pack gap here is what the
+        # four legs owed into the slot could not leave through.
+        #   `clear vk-fill-valve` is the loft's own FLOOR under this lane. The deck beneath the
+        # loft is not level — V-K's coil is its tallest body — so what a plate up here clears is
+        # that coil and not a plane, and the gap the rule measures is the whole of it.
+        #   `clear hopper-funnel` is the loft's forward face, the basin's aft skirt, measured
+        # against the real surface: the box says the pair is a millimetre off it and the solid
+        # says far more, and the pair is placed against the second. `clear pump-a` is the east
+        # lane it leaves whole for a body that fills it.
+        "bag-b-tray-assembly": [("clear", "nozzle-tray-assembly", contents.AFT_TRAY_BAY - 0.5),
+                                ("clear", "hopper-funnel", 5.0),
+                                ("clear", "pump-a", 5.0)],
+        #   The nozzle pair's own last rule is the lane its two outlet runs turn in: it is the
+        # only pair with lines that leave the machine, and what they leave through stands on the
+        # rear wall behind it. `clear asse1022-assembly` is the chain under it — the one body on
+        # the deck that reaches the loft's floor, and it is held out of it.
+        "nozzle-tray-assembly": [("clear", "bag-b-tray-assembly", contents.AFT_TRAY_BAY - 0.5),
+                                 ("clear", "asse1022-assembly", 1.0),
+                                 ("clear", "bulkhead-flavor-a", 20.0)],
+        # "Channel B's two tees stand in the loft — Y-G in the bay its run crosses, Y-F in the
+        # lane pump A's own two lines run down."
+        #   `near bag-b-tray-assembly` places both of them, and for the same reason: every leg
+        # either one has to a body up here is a short one off that pair. Y-G's two run legs are a
+        # `TEE_RUN_LEAD` of tube each; Y-F's BRANCH is what reaches back at the same pair's draw,
+        # so the bound is the fitting's own body plus the pack's floor. Both of the legs that leave
+        # the loft (fluid-21 out of Y-F, fluid-22 into Y-G) reach the front column, and neither is
+        # a placement relation — a run that long is measured, not packed against.
+        "tee-y-g":           [("near", "vk-tray-assembly", contents.TEE_HALF_W + 1.5),
+                              ("clear", "nozzle-tray-assembly", contents.TEE_RUN_LEAD - 0.5),
+                              ("clear", "tee-y-f", 1.0)],
+        "tee-y-f":           [("near", "bag-b-tray-assembly", contents.TEE_HALF_W + 1.5),
+                              ("clear", "nozzle-tray-assembly", 1.0),
+                              ("clear", "seaflo-pump", 1.0)],
+        # Y-F hangs off its pair, and the two `clear` rules are what it hangs BETWEEN: the
+        # funnel's skirt above it and the SeaFlo's flank beside it. The `near` reads solids, and
+        # the nearest span to its pair runs diagonal to the collet stack, wider than the axial
+        # reach the pose is derived from.
+        # "Channel B's pump stands UPRIGHT in the front column beside channel A's, on the strip
+        # between that pump's flank and the condenser's intake face."
+        #   `near pump-b` is the whole of the seat: the two are one pose read twice, this one seated
+        # off its twin in all three axes, and the bound is `contents.pump_twin_gap()` — what the two
+        # flanks are left with once their inner barbs stand a `contents.PUMP_TWIN_PITCH` apart.
+        #   `clear condenser+fan` is what the lane has left once both motors are in it. It is under
+        # the 10 mm every other body in this column holds off that face: the strip is
+        # `TRAY_EAST_LANE`-wide short of taking two 62.61 mm motors at that hold, and this is the
+        # rest of it. The block is still a placeholder, so the number is what the geometry leaves
+        # rather than what a thermal bound would ask for.
+        #   `clear display` is the facet overhead, which roofs this column, and `clear
+        # compressor-shroud` the refrigeration stratum's roof under its foot — the pump is the body
+        # in this column that reaches lowest, and the band it leaves is the front Z seam's.
+        "pump-a":            [("near", "pump-b", contents.pump_twin_gap() + 0.5),
+                              ("clear", "condenser+fan", 8.0),
+                              ("clear", "display", 5.0),
+                              ("clear", "compressor-shroud", contents.FRONT_COLUMN_FLOOR - 0.5),
+                              ("clear", "bag-a-tray-assembly", 1.0)],
+        # "The CO2 check is made up on the side-wall inlet's stub", so its placement IS that
+        # joint: it touches the fitting it threads onto and hangs in the corridor, off the
+        # shroud's aft face ahead of it. `near` carries the slop the made-up pair is built to,
+        # which is what `_panel_bodies` asserts the two land within.
         "gasher-co2":        [("near", "co2-inlet", contents.CO2_MADE_UP_TOL),
                               ("clear", "compressor-shroud", 4.0)],
-        # The regulator continues the same axis one tube hop forward of the check. `near` is the
-        # bound on that hop, held apart from `CO2_HOP` itself: past it co2-1 stops being one
-        # straight length of tube between two adapters and becomes a run.
+        # The regulator continues the same axis one tube hop inboard of the check, between the
+        # shroud's aft face and the core's front one, the two faces that make the corridor a
+        # corridor. `near` is the bound on that hop, held apart from `CO2_HOP` itself: past it
+        # co2-1 stops being one straight length of tube between two adapters and becomes a run.
         "wr1110":            [("near", "gasher-co2", 12.0),
                               ("clear", "compressor-shroud", 3.0),
                               ("clear", "foam-assembly", 15.0),
                               ("clear", "condenser+fan", 5.0)],
-        # "The flow meter lies inline on the riser over the pump's crown" — the pump carries both
-        # bounds, which is what makes the pair a band rather than two stances: `clear` is the
-        # room the riser's own fittings need under the body, `near` is the pocket itself, and
-        # without it the meter is free to drift up into the display facet.
+        # "The flow meter lies inline on the riser, in the loft's east pocket over the water
+        # deck's crown" — the pump carries both bounds, which is what makes the pair a band
+        # rather than two stances: `clear` is the room the riser's own fittings need under the
+        # body, `near` is the pocket itself, and without it the meter is free to drift up the
+        # loft's open air into the display facet. Its WEST edge is pump A's two loft lines,
+        # which are runs and not parts — no placement rule can state them, `lines-clear` is
+        # what holds that edge, and `fit.py search` is what picked this column clear of them.
         "digiten-flow":      [("clear", "seaflo-pump", 1.0),
                               ("near", "seaflo-pump", 20.0)],
-        # --- The panel bodies: the rear port row, and the CO2 inlet on its own row above it ---
+        # --- The panel bodies: the rear port row, and the CO2 inlet on the east wall ---
         # Each stands in a hole its own wall cuts and is held by its own nut or thread, so the
         # placement IS the pierce, and the three axes divide cleanly. The wall's own axis is the
         # reach past the cavity plane — the end the customer pushes a tube onto, which has to stand
@@ -614,20 +730,22 @@ def _declare_placement_rules():
                               ("clear", "bulkhead-flavor-b", 5.0)],
         "bulkhead-flavor-a": [("y+", 13.0), ("z+", 21.0),
                               ("near", "bulkhead-carb", 9.0),
-                              ("clear", "bulkhead-carb", 5.0)],
+                              ("clear", "bulkhead-carb", 5.0),
+                              ("clear", "nozzle-tray-assembly", 20.0)],
         # The C14 is the one rectangular station in the row, and it reaches further out than the
         # JG fittings because a mains cord's hood is what lands on it.
         "c14-inlet":         [("y+", 15.0), ("z+", 20.0),
                               ("near", "bulkhead-water", 9.0),
-                              ("clear", "bulkhead-water", 5.0)],
-        # The CO2 inlet is held by its own NPT thread in the panel it pierces, and the shroud
-        # ahead of it carries the band its stub reaches inboard across. The check made up on that
-        # stub is placed from the check's own side.
-        # "On its own row over the pump's crown at the mirror plane, on the rear panel" — the
-        # wall it crosses is the back one, and what it stands over is the SeaFlo.
-        "co2-inlet":         [("y+", 12.0),
-                              ("clear", "seaflo-pump", 1.0),
-                              ("near", "gasher-co2", contents.CO2_MADE_UP_TOL)],
+                              ("clear", "bulkhead-water", 5.0),
+                              ("clear", "nozzle-tray-assembly", 15.0)],
+        # The CO2 inlet is the only body on the EAST wall, and the axes divide the same way: `x+` is
+        # the collet the customer's red tether lands on, `z-` is how low it stands under everything
+        # the corridor floor carries, and the shroud ahead of it carries the band its stub reaches
+        # inboard across. The check made up on that stub is placed from the check's own side.
+        "co2-inlet":         [("x+", 23.0), ("z-", 46.0),
+                              ("near", "compressor-shroud", 15.0),
+                              ("clear", "compressor-shroud", 8.0),
+                              ("clear", "foam-assembly", 25.0)],
     }
 
 
@@ -747,11 +865,13 @@ def _fall_first(pos, dia, reach, solids: dict, skip=()) -> tuple:
 # taken against the pack the scorecard already has, once per port, so the gate needs no second
 # world.
 #
-# What the cast may hit is the body the port is JOINED to — a butted pair of collets stands
-# face to face by construction — so the mate is held out. The mate is read off the AUTHORED
-# RUNS rather than from prose: a run names `component.port` at each end, so the body at the far
-# end of every run terminating on this port is what the lead is allowed to end on. A port with
-# no run yet is held to the full lead against everything, which is the useful direction.
+# What the cast may hit is the body the port is JOINED to — a divider's outlet stands
+# `divider_reach()` off the valve collet it feeds, and a tee's run collet stands
+# `TEE_RUN_LEAD` off its, both by construction — so the mate is held out. The mate is read off
+# the AUTHORED RUNS rather than from prose: a run names `component.port` at each end, so the
+# body at the far end of every run terminating on this port is what the lead is allowed to end
+# on. A port with no run yet is held to the full lead against everything, which is the useful
+# direction — that is exactly the state the loft's four collets were in.
 # The gate's population is the ports that carry a LINE WITH A BEND RADIUS — every tube, and no
 # wire: a loom turns against its own insulation and needs no straight, so casting a cable gland's
 # bore is measuring the wrong thing. And it is the ports on REAL geometry: a station PICKED on a
@@ -904,7 +1024,7 @@ _C14_IN = contents.WALL + _c14.FLANGE_T + _c14.BODY_DEPTH + _c14.TAB_PROUD
 def _declare_ports():
     """The declared connector set, built on first use — `ports()`, and `scorecard.PORTS`.
 
-    Every station here reads off the pack: `contents.foam_shell_port`, `manifold_port`,
+    Every station here reads off the pack: `contents.foam_shell_port`, `pump_port`,
     `back_port_station` and their kin resolve against placed solids, so the first one
     evaluated builds the whole pack. Built at import that cost lands on anything that
     imports this module for any reason — a probe, `need.py`, a one-line query — so it is
@@ -929,12 +1049,13 @@ def _declare_ports():
         # of these is a located end waiting on its other one; that is what `routed` is counting.
         _p("carb-water-out", "foam-assembly", "fluid",       *_FOAM_PORT("carb-water-out"), 6.35,  "the carb-water riser, to the faucet umbilical", "1/4\" LLDPE off the PP010822E on the vessel's bottom-plate Port 3 elbow, out to the port lane and up it potted, out this conduit"),
         _p("reservoir-A",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-a"), 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-        _p("reservoir-B",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-b"), 6.35,  "reservoir B ↔ Y-H, the bag-B pair's own junction — fill and draw on one line", "1/4\" LLDPE off the bulkhead at the bottom of the wet V, up the +Y band potted, out this conduit"),
+        _p("reservoir-B",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-b"), 6.35,  "reservoir B DRAW → V-H, the bag-B pair's inlet", "1/4\" LLDPE off the bulkhead at the bottom of the wet V, up the +Y band potted, out this conduit"),
+        _p("reservoir-b-fill", "foam-assembly", "fluid",     *_FOAM_PORT("reservoir-b-fill"), 6.35,  "V-I outlet → reservoir B FILL, the bore in its own cap", "1/4\" LLDPE down this conduit onto the reservoir cap's fill bore, above the liquid"),
         _p("co2-in",         "foam-assembly", "fluid",       *_FOAM_PORT("co2-in"), 6.35,  "the CO2 chain (front-panel inlet → check → regulator)", "1/4\" LLDPE; the Ø6.5 bore runs on through the support ring to the adapter under the plate"),
-        _p("evap-inlet",     "foam-assembly", "refrigerant", *_FOAM_PORT("evap-inlet"), 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
-        _p("evap-outlet",    "foam-assembly", "refrigerant", *_FOAM_PORT("evap-outlet"), 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
+        _p("evap-inlet",     "foam-assembly", "refrigerant", *_FOAM_PORT("lower"), 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
+        _p("evap-outlet",    "foam-assembly", "refrigerant", *_FOAM_PORT("middle"), 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
         _p("water-in",       "foam-assembly", "fluid",       *_FOAM_PORT("water-in"), 6.35,  "the tap-water path's pump discharge (carbonator water inlet)", "1/4\" LLDPE up the TOP CAP's conduit at the cap's west end; the tube leaves the PP010822E on the top-plate Port 2 elbow laterally, runs the band under the cap floor, and climbs this bore to the deck. The SeaFlo's 3/8\" discharge steps down at the warm-side check valve, so the bore sees 1/4\""),
-        _p("prv-vent",       "foam-assembly", "fluid",       *_FOAM_PORT("prv-vent"), 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
+        _p("prv-vent",       "foam-assembly", "fluid",       *_FOAM_PORT("top"), 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
         _p("reed-cable-A",   "foam-assembly", "electrical",  *_FOAM_PORT("reed-cable-a"), 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-A's (_reed_channels.py)"),
         _p("reed-cable-B",   "foam-assembly", "electrical",  *_FOAM_PORT("reed-cable-b"), 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-B's (_reed_channels.py)"),
         # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
@@ -950,17 +1071,17 @@ def _declare_ports():
         # are assigned by world x per the physical loop — discharge inboard, under the condenser
         # it feeds, suction outboard at the core's own port lane. Copper is 1/4" ACR; the AC
         # gland Ø and the earth-stud Ø are estimates pending the shroud teardown.
-        _p("ac-mains",        "compressor-shroud", "electrical",  *contents.shroud_port("ac-mains"), 22.2, "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "the shroud's own 7/8\" panel hole (compressor_shroud.ac_hole_diameter_mm), clamping the SS 1/2\" NPT cable gland"),
-        _p("earth-bond",      "compressor-shroud", "electrical",  *contents.shroud_port("earth-bond"), 5.0,  "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
-        _p("refrig-suction",  "compressor-shroud", "refrigerant", *contents.shroud_port("refrig-suction"), 6.35, "foam-assembly evaporator outlet", "1/4\" ACR copper"),
-        _p("refrig-discharge","compressor-shroud", "refrigerant", *contents.shroud_port("refrig-discharge"), 6.35, "condenser+fan inlet", "1/4\" ACR copper"),
+        _p("ac-mains",        "compressor-shroud", "electrical",  contents.shroud_port("ac-mains"),  "x+", 22.2, "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "the shroud's own 7/8\" panel hole (compressor_shroud.ac_hole_diameter_mm), clamping the SS 1/2\" NPT cable gland"),
+        _p("earth-bond",      "compressor-shroud", "electrical",  contents.shroud_port("earth-bond"), "x+", 5.0,  "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
+        _p("refrig-suction",  "compressor-shroud", "refrigerant", contents.shroud_port("refrig-suction"),   "y+", 6.35, "foam-assembly evaporator outlet", "1/4\" ACR copper"),
+        _p("refrig-discharge","compressor-shroud", "refrigerant", contents.shroud_port("refrig-discharge"), "y+", 6.35, "condenser+fan inlet", "1/4\" ACR copper"),
         # condenser+fan — a harvested donor block packed as a primitive, so these are PICKS on
         # its placed box, not measurements of the part: both refrigerant ports on the narrow +Y
         # face it presents to the machine corridor (drier + cap tube hang off the outlet), the
         # fan pigtail on the +X face its air leaves by. They move when the block does.
-        _p("refrig-inlet",  "condenser+fan", "refrigerant", *contents.condenser_port("refrig-inlet"), 6.35, "compressor-shroud discharge", "1/4\" ACR copper, made up across the plane the shroud stands on"),
-        _p("refrig-outlet", "condenser+fan", "refrigerant", *contents.condenser_port("refrig-outlet"), 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper, made up across the plane the cold core stands on, on the core's east port lane"),
-        _p("fan-power",     "condenser+fan", "electrical",  *contents.condenser_port("fan-power"), 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); on the exhaust face, fan centred"),
+        _p("refrig-inlet",  "condenser+fan", "refrigerant", contents.condenser_port("refrig-inlet"),  "z+", 6.35, "compressor-shroud discharge", "1/4\" ACR copper, entering the block's crown where refrig-1's climb turns in over it"),
+        _p("refrig-outlet", "condenser+fan", "refrigerant", contents.condenser_port("refrig-outlet"), "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper, leaving low on the intake face at the tray-east lane refrig-2 falls down"),
+        _p("fan-power",     "condenser+fan", "electrical",  contents.condenser_port("fan-power"),     "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); on the exhaust face, fan centred"),
         # Display — the one harness off the back of the Waveshare board, into the facet's cavity.
         _p("harness", "display", "electrical", contents.display_harness(), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
         # Rear-panel bodies. Each station is a reach off `_PANEL_OUT`, the face `panel_bodies()`
@@ -978,7 +1099,7 @@ def _declare_ports():
         # ends bracket the east wall, the check's bracket its made-up thread, and the
         # regulator's bracket the hop.
         _p("tube-in",  "co2-inlet", "fluid", *_CO2_INLET("collet"),   7.94, "customer CO2 supply — 5/16\" push-to-connect (the cylinder's short red tether)", "5/16\" PTC collet, outboard"),
-        _p("npt-out",  "co2-inlet", "fluid", *_CO2_INLET("npt-out"), 6.35, "gasher-co2 inlet — the check threads onto this stub", "1/4\" NPT shank, inboard"),
+        _p("npt-out",  "co2-inlet", "fluid", *_CO2_INLET("stub-tip"), 6.35, "gasher-co2 inlet — the check threads onto this stub", "1/4\" NPT shank, inboard"),
         _p("inlet",    "gasher-co2", "fluid", *_CO2_CHAIN("gasher-co2", "inlet"),  6.35, "co2-inlet npt-out (made up, no line between)", "1/4\" NPT female socket"),
         _p("outlet",   "gasher-co2", "fluid", *_CO2_CHAIN("gasher-co2", "outlet"), 6.35, "wr1110 inlet — segment co2-1", "1/4\" NPT male stub, into a PP450822E onto 1/4\" tube"),
         _p("inlet",    "wr1110", "fluid", *_CO2_CHAIN("wr1110", "inlet"),  6.35, "gasher-co2 outlet — segment co2-1", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
@@ -989,8 +1110,8 @@ def _declare_ports():
         _p("tube-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-out"), 6.35, "water-split supply — segment water-2", "flare38-14ptc 1/4\" PTC, facing forward (−Y) down the lane to the split"),
         _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35, "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Z over the basin; cut to length at the bench"),
         # V-K, the fill/shutoff solenoid.
-        _p("V-K-I", "vk-tray-assembly", "fluid", *contents.vk_terminal("inlet"),  6.35, "water-split to-vk — segment water-3", "Beduan 1/4\" QC collet, facing forward (−Y) at the climb out of the split"),
-        _p("V-K-O", "vk-tray-assembly", "fluid", *contents.vk_terminal("outlet"), 6.35, "seaflo-pump suction — segment water-4", "Beduan 1/4\" QC collet, facing aft (+Y), its leg stepping west onto the suction chain's collet"),
+        _p("V-K-I", "vk-tray-assembly", "fluid", *contents.vk_terminal("inlet"),  6.35, "water-split to-vk — segment water-3", "Beduan 1/4\" QC collet, facing forward (−Y) at the fall out of the fittings loft"),
+        _p("V-K-O", "vk-tray-assembly", "fluid", *contents.vk_terminal("outlet"), 6.35, "seaflo-pump suction — segment water-4", "Beduan 1/4\" QC collet, facing aft (+Y), its leg turning east into the strip west of the pump"),
         # The split — one run carried straight through, one branch turned.
         _p("supply",    "water-split", "fluid", *contents.split_terminal("supply"),    6.35, "asse1022-assembly tube-out — segment water-2", "PP0208E 1/4\" PTC run"),
         _p("to-vk",     "water-split", "fluid", *contents.split_terminal("to-vk"),     6.35, "vk-tray-assembly V-K-I — segment water-3", "PP0208E 1/4\" PTC branch"),
@@ -1003,9 +1124,9 @@ def _declare_ports():
         _p("discharge", "seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 15.1, "discharge-chain barb-tip — segment water-6", "3/8\" hose barb molded into the head, facing west (−X) at the wall; a braided-PVC stub comes about in the pocket and climbs the pump's west flank onto the chain"),
         _p("barb-tip",  "discharge-chain", "fluid", *contents.disch_terminal("barb-tip"),  15.1, "seaflo-pump discharge — segment water-6", "MAACFLOW 3/8\" hose barb, facing aft (+Y) at the stub off the pump, level with it; worm-gear clamp"),
         _p("tube-port", "discharge-chain", "fluid", *contents.disch_terminal("tube-port"), 6.35, "foam-assembly water-in — segment water-5", "PP450822E 1/4\" PTC collet, facing forward (−Y) off the far end of the laid-down chain, over the cap's front edge — above the port it feeds, so water-5 only ever descends"),
-        _p("tube-port", "suction-chain", "fluid", *contents.suct_terminal("tube-port"), 6.35, "vk-tray-assembly V-K-O — segment water-4", "PP450822E 1/4\" PTC collet, facing FORWARD off the near end of the laid-down chain at V-K's outlet — the two mouths face along one axis, so water-4 is an offset across the lane and not a turn"),
+        _p("tube-port", "suction-chain", "fluid", *contents.suct_terminal("tube-port"), 6.35, "vk-tray-assembly V-K-O — segment water-4", "PP450822E 1/4\" PTC collet, facing FORWARD off the near end of the laid-down chain at V-K's outlet — the two mouths face along one axis, so water-4 is an offset into the slot and not a turn"),
         _p("barb-tip",  "suction-chain", "fluid", *contents.suct_terminal("barb-tip"),  15.1, "seaflo-pump suction — segment water-7", "MAACFLOW 3/8\" hose barb, facing AFT off the far end of the laid-down chain — fed from behind, so the stub runs past it under the chain and loops up in the room the rear plane leaves; worm-gear clamp"),
-        # The carb riser's flow meter, inline on the pump's crown with the flow running east.
+        # The carb riser's flow meter, inline in the loft with the flow running aft.
         _p("inlet",   "digiten-flow", "fluid", *contents.digiten_terminal("inlet"),  6.35, "foam-assembly carb-water-out — segment carb-1", "1/4\" PTC collet, facing forward (−Y) down the deck at the riser's climb off the cap conduit"),
         _p("outlet",  "digiten-flow", "fluid", *contents.digiten_terminal("outlet"), 6.35, "bulkhead-carb tube-in — segment carb-2", "1/4\" PTC collet, facing aft (+Y) at the climb to the rear port row"),
         _p("pigtail", "digiten-flow", "electrical", *contents.digiten_terminal("wire-exit"), 8.0, "J4 SENSORS — DIGITEN flow pulse (SIG-4)", "3-wire pigtail on a JST-XH 3-pin, leaving the rim boss upward"),
@@ -1035,70 +1156,86 @@ def _declare_ports():
         _p("J11-gas",       "pcba", "electrical", contents.pcba_port(-62.0, -23.85), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
         _p("J13-pumps",     "pcba", "electrical", contents.pcba_port(-12.25, 31.0),  "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
         _p("J14-usb",       "pcba", "electrical", contents.pcba_port(-62.0, 16.5),   "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
-        # The manifold's own collets — ten valves' twenty, eight tees' twenty-four and the two
-        # pumps' four barbs. Every one comes through `contents.manifold_port`, which reads the
-        # station off `manifold_layout` in the study's frame and carries it on the seat the
-        # metal took, so a limb re-laid in the study moves its ports with its bodies. All 1/4"
-        # LLDPE, so all Ø6.35.
-        _p("V-A-I", "v-a", "fluid", *contents.manifold_port("V-A-I"), 6.35, "flow-regulator outlet — fluid segment 2", "Beduan 1/4\" QC collet"),
-        _p("V-A-O", "v-a", "fluid", *contents.manifold_port("V-A-O"), 6.35, "tee-y-a Y-A-1 — fluid segment 3", "Beduan 1/4\" QC collet"),
-        _p("V-B-I", "v-b", "fluid", *contents.manifold_port("V-B-I"), 6.35, "hopper-funnel drain — fluid segment 4 (must only ever fall)", "Beduan 1/4\" QC collet"),
-        _p("V-B-O", "v-b", "fluid", *contents.manifold_port("V-B-O"), 6.35, "tee-y-b Y-B-1 — fluid segment 5", "Beduan 1/4\" QC collet"),
-        _p("V-C-I", "v-c", "fluid", *contents.manifold_port("V-C-I"), 6.35, "tee-y-a Y-A-2 — fluid segment 7", "Beduan 1/4\" QC collet"),
-        _p("V-C-O", "v-c", "fluid", *contents.manifold_port("V-C-O"), 6.35, "tee-y-c Y-C-1 — fluid segment 9", "Beduan 1/4\" QC collet"),
-        _p("V-D-I", "v-d", "fluid", *contents.manifold_port("V-D-I"), 6.35, "tee-y-b Y-B-2 — fluid segment 8", "Beduan 1/4\" QC collet"),
-        _p("V-D-O", "v-d", "fluid", *contents.manifold_port("V-D-O"), 6.35, "tee-y-f Y-F-1 — fluid segment 19", "Beduan 1/4\" QC collet"),
-        _p("V-E-I", "v-e", "fluid", *contents.manifold_port("V-E-I"), 6.35, "tee-y-e Y-E-3 — fluid segment 16", "Beduan 1/4\" QC collet; elbow-v-e-i is made up on it"),
-        _p("V-E-O", "v-e", "fluid", *contents.manifold_port("V-E-O"), 6.35, "tee-y-c Y-C-2 — fluid segment 10", "Beduan 1/4\" QC collet"),
-        _p("V-F-I", "v-f", "fluid", *contents.manifold_port("V-F-I"), 6.35, "tee-y-d Y-D-2 — fluid segment 13", "Beduan 1/4\" QC collet"),
-        _p("V-F-O", "v-f", "fluid", *contents.manifold_port("V-F-O"), 6.35, "tee-y-e Y-E-1 — fluid segment 14", "Beduan 1/4\" QC collet"),
-        _p("V-G-I", "v-g", "fluid", *contents.manifold_port("V-G-I"), 6.35, "tee-y-d Y-D-3 — fluid segment 17", "Beduan 1/4\" QC collet"),
-        _p("V-G-O", "v-g", "fluid", *contents.manifold_port("V-G-O"), 6.35, "bulkhead-flavor-a tube-in — fluid segment 18 (nozzle A)", "Beduan 1/4\" QC collet; one of the two lines that leave the machine"),
-        _p("V-H-I", "v-h", "fluid", *contents.manifold_port("V-H-I"), 6.35, "tee-y-h Y-H-3 — fluid segment 26", "Beduan 1/4\" QC collet; elbow-v-h-i is made up on it"),
-        _p("V-H-O", "v-h", "fluid", *contents.manifold_port("V-H-O"), 6.35, "tee-y-f Y-F-2 — fluid segment 20", "Beduan 1/4\" QC collet"),
-        _p("V-I-I", "v-i", "fluid", *contents.manifold_port("V-I-I"), 6.35, "tee-y-g Y-G-3 — fluid segment 23", "Beduan 1/4\" QC collet"),
-        _p("V-I-O", "v-i", "fluid", *contents.manifold_port("V-I-O"), 6.35, "tee-y-h Y-H-1 — fluid segment 24", "Beduan 1/4\" QC collet"),
-        _p("V-J-I", "v-j", "fluid", *contents.manifold_port("V-J-I"), 6.35, "tee-y-g Y-G-2 — fluid segment 27", "Beduan 1/4\" QC collet"),
-        _p("V-J-O", "v-j", "fluid", *contents.manifold_port("V-J-O"), 6.35, "bulkhead-flavor-b tube-in — fluid segment 28 (nozzle B)", "Beduan 1/4\" QC collet; the second line that leaves the machine"),
-        # Y-A and Y-B, the source-select junction: each run is a limb, and the two branches meet
-        # face to face across the mirror plane on the crossbar.
-        _p("Y-A-1", "tee-y-a", "fluid", *contents.manifold_port("Y-A-1"), 6.35, "v-a V-A-O — fluid segment 3", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-A-2", "tee-y-a", "fluid", *contents.manifold_port("Y-A-2"), 6.35, "v-c V-C-I — fluid segment 7", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-A-3", "tee-y-a", "fluid", *contents.manifold_port("Y-A-3"), 6.35, "tee-y-b Y-B-3 — fluid segment 6", "PP0208E 1/4\" PTC branch"),
-        _p("Y-B-1", "tee-y-b", "fluid", *contents.manifold_port("Y-B-1"), 6.35, "v-b V-B-O — fluid segment 5", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-B-2", "tee-y-b", "fluid", *contents.manifold_port("Y-B-2"), 6.35, "v-d V-D-I — fluid segment 8", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-B-3", "tee-y-b", "fluid", *contents.manifold_port("Y-B-3"), 6.35, "tee-y-a Y-A-3 — fluid segment 6", "PP0208E 1/4\" PTC branch"),
-        # Channel A's pump row: both tees dropped by their branch onto pump B's two barbs, runs
-        # across their limbs.
-        _p("Y-C-1", "tee-y-c", "fluid", *contents.manifold_port("Y-C-1"), 6.35, "v-c V-C-O — fluid segment 9", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-C-2", "tee-y-c", "fluid", *contents.manifold_port("Y-C-2"), 6.35, "v-e V-E-O — fluid segment 10", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-C-3", "tee-y-c", "fluid", *contents.manifold_port("Y-C-3"), 6.35, "pump-b P-B-I — fluid segment 11", "PP0208E 1/4\" PTC branch, on the barb"),
-        _p("Y-D-1", "tee-y-d", "fluid", *contents.manifold_port("Y-D-1"), 6.35, "pump-b P-B-O — fluid segment 12", "PP0208E 1/4\" PTC branch, on the barb"),
-        _p("Y-D-2", "tee-y-d", "fluid", *contents.manifold_port("Y-D-2"), 6.35, "v-f V-F-I — fluid segment 13", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-D-3", "tee-y-d", "fluid", *contents.manifold_port("Y-D-3"), 6.35, "v-g V-G-I — fluid segment 17", "PP0208E 1/4\" PTC run collet"),
-        # Y-E and Y-H, the reservoir junctions at the far end of each outer limb: the run carries
-        # the fill leg and the reservoir's own line out of the pack, the branch crosses the pump
-        # to the draw gate's elbow.
-        _p("Y-E-1", "tee-y-e", "fluid", *contents.manifold_port("Y-E-1"), 6.35, "v-f V-F-O — fluid segment 14", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-E-2", "tee-y-e", "fluid", *contents.manifold_port("Y-E-2"), 6.35, "foam-assembly reservoir-A — fluid segment 15", "PP0208E 1/4\" PTC run collet, the manifold's reservoir-A mouth"),
-        _p("Y-E-3", "tee-y-e", "fluid", *contents.manifold_port("Y-E-3"), 6.35, "v-e V-E-I — fluid segment 16", "PP0208E 1/4\" PTC branch, onto elbow-v-e-i"),
-        # Channel B's pump row, the mirror of channel A's on pump A's two barbs.
-        _p("Y-F-1", "tee-y-f", "fluid", *contents.manifold_port("Y-F-1"), 6.35, "v-d V-D-O — fluid segment 19", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-F-2", "tee-y-f", "fluid", *contents.manifold_port("Y-F-2"), 6.35, "v-h V-H-O — fluid segment 20", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-F-3", "tee-y-f", "fluid", *contents.manifold_port("Y-F-3"), 6.35, "pump-a P-A-I — fluid segment 21", "PP0208E 1/4\" PTC branch, on the barb"),
-        _p("Y-G-1", "tee-y-g", "fluid", *contents.manifold_port("Y-G-1"), 6.35, "pump-a P-A-O — fluid segment 22", "PP0208E 1/4\" PTC branch, on the barb"),
-        _p("Y-G-2", "tee-y-g", "fluid", *contents.manifold_port("Y-G-2"), 6.35, "v-j V-J-I — fluid segment 27", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-G-3", "tee-y-g", "fluid", *contents.manifold_port("Y-G-3"), 6.35, "v-i V-I-I — fluid segment 23", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-H-1", "tee-y-h", "fluid", *contents.manifold_port("Y-H-1"), 6.35, "v-i V-I-O — fluid segment 24", "PP0208E 1/4\" PTC run collet"),
-        _p("Y-H-2", "tee-y-h", "fluid", *contents.manifold_port("Y-H-2"), 6.35, "foam-assembly reservoir-B", "PP0208E 1/4\" PTC run collet, the manifold's reservoir-B mouth"),
-        _p("Y-H-3", "tee-y-h", "fluid", *contents.manifold_port("Y-H-3"), 6.35, "v-h V-H-I — fluid segment 26", "PP0208E 1/4\" PTC branch, onto elbow-v-h-i"),
-        # The two pumps' head barbs. A peristaltic head has no fixed sense — the rotor's direction
-        # is the motor's wiring — so which barb is suction and which discharge is an assignment,
-        # made so no leg crosses another.
-        _p("P-A-I", "pump-a", "fluid", *contents.manifold_port("P-A-I"), 6.35, "tee-y-f Y-F-3 — fluid segment 21", "Kamoer head barb; Y-F's branch stands on it"),
-        _p("P-A-O", "pump-a", "fluid", *contents.manifold_port("P-A-O"), 6.35, "tee-y-g Y-G-1 — fluid segment 22", "Kamoer head barb; Y-G's branch stands on it"),
-        _p("P-B-I", "pump-b", "fluid", *contents.manifold_port("P-B-I"), 6.35, "tee-y-c Y-C-3 — fluid segment 11", "Kamoer head barb; Y-C's branch stands on it"),
-        _p("P-B-O", "pump-b", "fluid", *contents.manifold_port("P-B-O"), 6.35, "tee-y-d Y-D-1 — fluid segment 12", "Kamoer head barb; Y-D's branch stands on it"),
+        # The source pair's four bare collets. The tray module owns every one of them
+        # (`two_valve_tray.port_collets`) and `source_tray_port` only carries them, so a seat
+        # pitch or a port length changed on the part moves the world station with it. Both
+        # inlets face AFT, at the two feeds that come from the back of the machine; both
+        # outlets face FORWARD, each at the head of its own junction column.
+        _p("V-A-I", "source-tray-assembly", "fluid", *contents.source_tray_port("V-A-I"), 6.35, "flow-regulator outlet — fluid segment 2", "Beduan 1/4\" QC collet, facing aft (+Y) up the bay at the regulator that feeds it"),
+        _p("V-A-O", "source-tray-assembly", "fluid", *contents.source_tray_port("V-A-O"), 6.35, "tee-y-a Y-A-1 — fluid segment 3", "Beduan 1/4\" QC collet, facing forward (−Y) at the head of the west column"),
+        _p("V-B-I", "source-tray-assembly", "fluid", *contents.source_tray_port("V-B-I"), 6.35, "hopper-funnel drain — fluid segment 4 (must only ever fall)", "Beduan 1/4\" QC collet, facing aft (+Y) under the spout's own column"),
+        _p("V-B-O", "source-tray-assembly", "fluid", *contents.source_tray_port("V-B-O"), 6.35, "tee-y-b Y-B-1 — fluid segment 5", "Beduan 1/4\" QC collet, facing forward (−Y) at the head of the east column"),
+        # Y-A's three, numbered from the SOURCE end down: the run's two collets stand a stack
+        # pitch apart on the west column with the fitting midway between them, and the branch
+        # reaches east at Y-B's across the crossbar.
+        _p("Y-A-1", "tee-y-a", "fluid", *contents.y_a_port("Y-A-1"), 6.35, "source-tray-assembly V-A-O — fluid segment 3", "PP0208E 1/4\" PTC run collet, facing UP (+Z) the column at V-A"),
+        _p("Y-A-2", "tee-y-a", "fluid", *contents.y_a_port("Y-A-2"), 6.35, "selects-tray-assembly V-C-I — fluid segment 7", "PP0208E 1/4\" PTC run collet, facing DOWN (−Z) the column at V-C"),
+        _p("Y-A-3", "tee-y-a", "fluid", *contents.y_a_port("Y-A-3"), 6.35, "tee-y-b Y-B-3 — fluid segment 6", "PP0208E 1/4\" PTC branch, facing EAST (+X) at Y-B's own across the crossbar"),
+        # The selects pair's four. Same tray, same module, the clocking turned round: both
+        # INLETS face FORWARD at the foot of their own junction column, both OUTLETS AFT at the
+        # pump row still to be placed.
+        _p("V-C-I", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-C-I"), 6.35, "tee-y-a Y-A-2 — fluid segment 7", "Beduan 1/4\" QC collet, facing forward (−Y) at the foot of the west column"),
+        _p("V-C-O", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-C-O"), 6.35, "tee-y-c Y-C-1 — fluid segment 9", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        _p("V-D-I", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-D-I"), 6.35, "tee-y-b Y-B-2 — fluid segment 8", "Beduan 1/4\" QC collet, facing forward (−Y) at the foot of the east column"),
+        _p("V-D-O", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-D-O"), 6.35, "tee-y-f Y-F-1 — fluid segment 19", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        # Y-B's three, the same fitting read the same way one seat pitch east: run up the east
+        # column, branch back west at Y-A's.
+        _p("Y-B-1", "tee-y-b", "fluid", *contents.y_b_port("Y-B-1"), 6.35, "source-tray-assembly V-B-O — fluid segment 5", "PP0208E 1/4\" PTC run collet, facing UP (+Z) the column at V-B"),
+        _p("Y-B-2", "tee-y-b", "fluid", *contents.y_b_port("Y-B-2"), 6.35, "selects-tray-assembly V-D-I — fluid segment 8", "PP0208E 1/4\" PTC run collet, facing DOWN (−Z) the column at V-D"),
+        _p("Y-B-3", "tee-y-b", "fluid", *contents.y_b_port("Y-B-3"), 6.35, "tee-y-a Y-A-3 — fluid segment 6", "PP0208E 1/4\" PTC branch, facing WEST (−X) at Y-A's own across the crossbar"),
+        # The bag-A pair's four — the first pair whose two valves face OPPOSITE ways, because the
+        # circuit puts the bag on V-E's inlet and V-F's outlet. Those two go FORWARD to Y-E; the
+        # other two go AFT to the pump row, which is where the rest of channel A is.
+        _p("V-E-I", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-E-I"), 6.35, "tee-y-e Y-E-3 — fluid segment 16", "Beduan 1/4\" QC collet, facing forward (−Y) at the junction the bag draws through"),
+        _p("V-E-O", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-E-O"), 6.35, "tee-y-c Y-C-2 — fluid segment 10", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        _p("V-F-I", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-F-I"), 6.35, "tee-y-d Y-D-2 — fluid segment 13", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        _p("V-F-O", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-F-O"), 6.35, "tee-y-e Y-E-1 — fluid segment 14", "Beduan 1/4\" QC collet, facing forward (−Y) at the junction the pump returns through"),
+        # Y-E's three, numbered from the end the BAG rides. This one stands ACROSS the strip ahead
+        # of its pair, so its collets face along X and DOWN rather than along the pair's own axis:
+        # the reservoir line and the draw are the run's two, and the fill is the branch.
+        _p("Y-E-1", "tee-y-e", "fluid", *contents.y_e_port("Y-E-1"), 6.35, "bag-a-tray-assembly V-F-O — fluid segment 14", "PP0208E 1/4\" PTC BRANCH, facing DOWN (−Z) on V-F's own column at the leg that climbs into it"),
+        _p("Y-E-2", "tee-y-e", "fluid", *contents.y_e_port("Y-E-2"), 6.35, "foam-assembly reservoir-A — fluid segment 15", "PP0208E 1/4\" PTC RUN, the EAST of the two, facing back down the tray-east lane at the bag line that crosses the machine to the core's face"),
+        # The pump row's two tees. Y-C's run carries the bag draw forward into the pump and its
+        # branch takes the fall from the selects pair; Y-D's run carries the pump's outlet aft to
+        # the bag's fill valve and its branch is the climb to the loft. Both stand on the pump
+        # lane, so both runs face along Y and both branches face up.
+        _p("Y-C-1", "tee-y-c", "fluid", *contents.y_c_port("Y-C-1"), 6.35, "selects-tray-assembly V-C-O \u2014 fluid segment 9", "PP0208E 1/4\" PTC BRANCH, facing up (+Z) at the selects pair's fall"),
+        _p("Y-C-2", "tee-y-c", "fluid", *contents.y_c_port("Y-C-2"), 6.35, "bag-a-tray-assembly V-E-O \u2014 fluid segment 10", "PP0208E 1/4\" PTC RUN, the AFT of the two, facing back up the pump lane at the bag draw"),
+        _p("Y-C-3", "tee-y-c", "fluid", *contents.y_c_port("Y-C-3"), 6.35, "pump-b P-B-I \u2014 fluid segment 11", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump B's inlet barb"),
+        _p("Y-D-1", "tee-y-d", "fluid", *contents.y_d_port("Y-D-1"), 6.35, "pump-b P-B-O \u2014 fluid segment 12", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump B's outlet barb"),
+        _p("Y-D-2", "tee-y-d", "fluid", *contents.y_d_port("Y-D-2"), 6.35, "bag-a-tray-assembly V-F-I \u2014 fluid segment 13", "PP0208E 1/4\" PTC RUN, the AFT of the two, facing back up the pump lane at the bag's fill valve"),
+        _p("Y-D-3", "tee-y-d", "fluid", *contents.y_d_port("Y-D-3"), 6.35, "nozzle-tray-assembly V-G-I \u2014 fluid segment 17", "PP0208E 1/4\" PTC BRANCH, facing up (+Z) at the storey-high climb to the nozzle gate"),
+        _p("Y-E-3", "tee-y-e", "fluid", *contents.y_e_port("Y-E-3"), 6.35, "bag-a-tray-assembly V-E-I — fluid segment 16", "PP0208E 1/4\" PTC RUN, the WEST of the two, facing west along the strip at the leg that falls to V-E"),
+        # The bag-B pair's four — bag A's circuit mirrored, so the same clocking and the same map.
+        # The bag's two ends face WEST at reservoir B's own two mouths; V-H-O and V-I-I face EAST
+        # off the plate at channel B's two junctions.
+        _p("V-H-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-H-I"), 6.35, "foam-assembly reservoir-B — fluid segment 26", "Beduan 1/4\" QC collet, facing WEST (−X) at reservoir B's own draw mouth"),
+        _p("V-H-O", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-H-O"), 6.35, "tee-y-f Y-F-2 — fluid segment 20", "Beduan 1/4\" QC collet, facing EAST (+X) off the plate at the leg that comes about to Y-F's aft run port"),
+        _p("V-I-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-I"), 6.35, "tee-y-g Y-G-3 — fluid segment 23", "Beduan 1/4\" QC collet, facing EAST (+X) off the plate at the leg that leans aft into Y-G's FORWARD run port"),
+        _p("V-I-O", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-O"), 6.35, "foam-assembly reservoir-b-fill — fluid segment 24", "Beduan 1/4\" QC collet, facing WEST (−X) at reservoir B's own fill bore"),
+        # The nozzle gates' four. Both INLETS face forward at the two pump rows that feed them —
+        # one in the front column, one in this loft — and both OUTLETS aft at the rear panel.
+        _p("V-G-I", "nozzle-tray-assembly", "fluid", *contents.nozzle_tray_port("V-G-I"), 6.35, "tee-y-d Y-D-3 — fluid segment 17", "Beduan 1/4\" QC collet, facing forward (−Y) into the junction bay at the storey-and-a-half climb from channel A's pump row"),
+        _p("V-G-O", "nozzle-tray-assembly", "fluid", *contents.nozzle_tray_port("V-G-O"), 6.35, "bulkhead-flavor-a tube-in — fluid segment 18", "Beduan 1/4\" QC collet, facing aft (+Y) at the rear panel's flavor-A bulkhead"),
+        _p("V-J-I", "nozzle-b-tray-assembly", "fluid", *contents.nozzle_b_tray_port("V-J-I"), 6.35, "tee-y-g Y-G-2 — fluid segment 27", "Beduan 1/4\" QC collet, facing forward (−Y) down the stand's east lane, round V-K's plate and west under the trident into Y-G's EAST outlet"),
+        _p("V-J-O", "nozzle-b-tray-assembly", "fluid", *contents.nozzle_b_tray_port("V-J-O"), 6.35, "bulkhead-flavor-b tube-in — fluid segment 28", "Beduan 1/4\" QC collet, facing aft (+Y) at the rear panel's flavor-B bulkhead"),
+        # Channel B's pump row. Y-F's run lies along the loft's pump lane with its branch reaching
+        # west at the bag pair; Y-G's run is the straight line the bay already holds, with its
+        # branch standing up at the pump's high barb.
+        _p("Y-F-1", "tee-y-f", "fluid", *contents.y_f_port("Y-F-1"), 6.35, "selects-tray-assembly V-D-O — fluid segment 19", "PP0208E 1/4\" PTC RUN, the AFT of the two, facing back up the loft's pump lane at the climb out of the front column"),
+        _p("Y-F-2", "tee-y-f", "fluid", *contents.y_f_port("Y-F-2"), 6.35, "bag-b-tray-assembly V-H-O — fluid segment 20", "PP0208E 1/4\" PTC BRANCH, facing west (−X) across the junction bay at the bag-B draw"),
+        _p("Y-F-3", "tee-y-f", "fluid", *contents.y_f_port("Y-F-3"), 6.35, "pump-a P-A-I — fluid segment 21", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump A's low barb"),
+        _p("Y-G-1", "tee-y-g", "fluid", *contents.y_g_port("Y-G-1"), 6.35, "pump-a P-A-O — fluid segment 22", "PP2308E 1/4\" PTC STEM, facing up (+Z) at the climb to pump A's high barb"),
+        _p("Y-G-2", "tee-y-g", "fluid", *contents.y_g_port("Y-G-2"), 6.35, "nozzle-b-tray-assembly V-J-I — fluid segment 27", "PP2308E 1/4\" PTC outlet, the EAST of the two, facing down (−Z) over the bay, on the lane the nozzle-B feed comes west down"),
+        _p("Y-G-3", "tee-y-g", "fluid", *contents.y_g_port("Y-G-3"), 6.35, "bag-b-tray-assembly V-I-I — fluid segment 23", "PP2308E 1/4\" PTC outlet, the WEST of the two, facing down (−Z) over the bay, on the column the bag pair's own draw collet stands on"),
+        # The two pumps' barbs. Each is the part's own station (`kamoer_kphm400.arch_xs` on its
+        # head's +Y face at the arch plane) carried through the turn and seat the body takes. A
+        # peristaltic head has no fixed sense — the rotor's direction is the motor's wiring — so
+        # which barb is suction and which discharge is an assignment, made so no leg crosses another.
+        _p("P-A-I", "pump-a", "fluid", *contents.pump_port("pump-a", "P-A-I"), 6.35, "tee-y-f Y-F-3 — fluid segment 21", "Kamoer head barb, the LOW one on the lying pump's west face; a straight 1/4\" adapter takes the LLDPE"),
+        _p("P-A-O", "pump-a", "fluid", *contents.pump_port("pump-a", "P-A-O"), 6.35, "tee-y-g Y-G-1 — fluid segment 22", "Kamoer head barb, the HIGH one on the lying pump's west face; a straight 1/4\" adapter takes the LLDPE"),
+        _p("P-B-I", "pump-b", "fluid", *contents.pump_port("pump-b", "P-B-I"), 6.35, "tee-y-c Y-C-3 — fluid segment 11", "Kamoer head barb, the WEST one on the standing pump's aft face, on the bag-A pair's own port plane"),
+        _p("P-B-O", "pump-b", "fluid", *contents.pump_port("pump-b", "P-B-O"), 6.35, "tee-y-d Y-D-1 — fluid segment 12", "Kamoer head barb, the EAST one on the standing pump's aft face, on the bag-A pair's own port plane"),
     ]
 
     # A foam-shell port's Ø is checked against the hole it actually crosses. The lane is one
@@ -1144,11 +1281,9 @@ def __getattr__(name):
 # once declared connector-free. Declaring the absence is the honest analogue of declaring a
 # position — never a silent gap, and it lets the located axis reach 100% without inventing a
 # port. The basin catches the vent's drip and is drawn out to be emptied by hand, and its rails
-# are structure; nothing joins either. The two draw-gate elbows are INLINE on fluid-16 and
-# fluid-26 — each is a corner made up between a collet already declared on the gate and one
-# already declared on the tee, so a station of its own would be one of those two read twice. A
-# name here must own no PORTS entry (asserted in ports_audit).
-PASSIVE_NO_PORTS: frozenset = frozenset({"drip-pan", "elbow-v-e-i", "elbow-v-h-i"})
+# are structure; nothing joins either. A name here must own no PORTS entry (asserted in
+# ports_audit).
+PASSIVE_NO_PORTS: frozenset = frozenset({"drip-pan"})
 
 
 def _on_bbox_surface(pos, bb, tol) -> bool:
@@ -1770,13 +1905,12 @@ def bend_radii(runs) -> list[dict]:
 
 def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
     """Content pairs closer than REPORT_NEAR, as (a, b, gap, allowed) sorted tightest
-    first. `allowed` marks a declared intentional contact (`touching_ok`). Part-to-wall is
+    first. `allowed` marks a declared intentional contact (TOUCHING_OK). Part-to-wall is
     excluded on purpose — parts seat against walls by design; overlap there is the
     pack-closes gate's job, not clearance."""
     if not _computes("clearance-floor"):
         return []
     names = list(solids)
-    allowed = touching_ok()
     bbs = {n: _boxes.boxed(solids[n]) for n in names}
     out = []
     for i, a in enumerate(names):
@@ -1785,7 +1919,7 @@ def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
                 continue
             gap = _solid_gap(solids[a], solids[b])
             if gap < REPORT_NEAR:
-                out.append((a, b, gap, frozenset((a, b)) in allowed))
+                out.append((a, b, gap, frozenset((a, b)) in TOUCHING_OK))
     out.sort(key=lambda r: r[2])
     return out
 
@@ -1815,11 +1949,14 @@ MOUNTED_BY = {
     # The cold core's top cap carries a boss column per hole; M3 SHCS into a ruthex short in each.
     # `deck-mounts-land` is the gate that measures whether each module still stands on all of its.
     "ground-stack": "foam-assembly",
-    # V-K's plate, bolted through its own mount ears to cap columns that stop under the lid —
-    # the PSU's joint at the tray's stations. This row reads the other way from the modules':
-    # the tray is placed by the enclosure's fences and the cap's table stands where the placed
-    # ears land, held there by `deck-mounts-land`'s alignment rows.
+    # The aft stand's two plates, bolted through their own mount ears to cap columns that stop
+    # under the lid — the PSU's joint at the trays' stations. These rows read the other way from
+    # the modules': the trays are placed by the enclosure's fences and the cap's table stands
+    # where the placed ears land, held there by `deck-mounts-land`'s alignment rows.
+    "bag-b-tray-assembly":  "foam-assembly",
     "vk-tray-assembly":     "foam-assembly",
+    "nozzle-b-tray-assembly": "foam-assembly",
+    "nozzle-tray-assembly": "foam-assembly",
     # Two M3 stations off `panel_screws()`, standing as bosses proud of the back panel's outer
     # face at insert depth plus a cap, drilled blind from the inner face.
     "c14-inlet":    "enclosure_back_top",
@@ -1842,7 +1979,7 @@ MOUNTED_BY = {
     # bore's depth, and `derpipe_co2_inlet` publishes no bearing figure to hold it to —
     # `MOUNT_UNPRICED` carries that, so the row states its own open half instead of passing on
     # the checks that were easy.
-    "co2-inlet":    "enclosure_back_top",
+    "co2-inlet":    "enclosure_front_bottom",
 }
 
 
@@ -1855,11 +1992,17 @@ MOUNT_UNPRICED = {
 }
 
 
-# The cap deck mounts, and the solid each one carries. NO ELECTRICAL BODY is among them: the
-# brick, the controller, the relay, the hub and the ground stud all hang on the +X wall
+# The cap deck mounts, and the solid each one carries. A module's own name IS its mount's
+# except the ground bus, which is placed as the stack of lugs standing on its single column,
+# and the aft stand's two trays, whose mounts follow THEM (`contents.TRAY_MOUNTS`).
+# The cap's deck mounts, module by module. NO ELECTRICAL BODY is among them: the brick, the
+# controller, the relay, the hub and the ground stud all hang on the +X wall
 # (`_contents.EAST_WALL_SEAT`), so the joints that hold them are the wall's and not the cap's,
-# and what the cap carries is V-K's plate. Its mount follows THE TRAY (`contents.TRAY_MOUNTS`).
-DECK_MOUNTED = {"vk-tray": "vk-tray-assembly"}
+# and what the cap carries is the three fluid trays.
+DECK_MOUNTED = {"bag-b-tray": "bag-b-tray-assembly",
+                "vk-tray": "vk-tray-assembly",
+                "nozzle-b-tray": "nozzle-b-tray-assembly",
+                "nozzle-tray": "nozzle-tray-assembly"}
 
 
 def deck_mount_landings(solids: dict) -> list[tuple[str, int, int, float]]:
@@ -1960,9 +2103,9 @@ def mount_features(name: str) -> list[tuple[str, tuple, str]]:
         return [("nut land", (x - n, x + n, y0, y1, z - n, z + n), "solid"),
                 ("bore", (x - b, x + b, y0, y1, z - b, z + b), "clear")]
     if name == "co2-inlet":
-        x, z = contents.back_port_station("co2-inlet")
+        y, z = contents.CO2_INLET_Y, contents.CO2_INLET_Z
         b = contents.CO2_HOLE_D / (2.0 * math.sqrt(2.0))
-        return [("bore", (x - b, x + b, d.inner[3], d.outer[3], z - b, z + b), "clear")]
+        return [("bore", (d.inner[1], d.outer[1], y - b, y + b, z - b, z + b), "clear")]
     return []
 
 
