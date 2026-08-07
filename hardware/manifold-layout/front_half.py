@@ -68,6 +68,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
+           _hw / "reference" / "beduan-solenoid",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -80,6 +81,7 @@ import seaflo_suction_chain as _suct                  # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
+import beduan_solenoid as _beduan                     # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 
@@ -131,6 +133,7 @@ C_ASSE = cq.Color(0.85, 0.78, 0.45)
 C_PAN = cq.Color(0.62, 0.66, 0.72)
 C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
+C_VK = cq.Color(0.45, 0.50, 0.58)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -276,16 +279,26 @@ def build_suction_chain(seaflo, suction):
 
     Its three coordinates answer to the run it carries and the lane it lies in: X one
     `SUCT_PUMP_GAP` east of the pump's casting, Y standing its barb `SUCT_CORNER_ROOM` forward
-    of the pump's suction mouth so `water-7`'s corner seats a whole arc, and Z on the core's
-    crown — the plane the pump's own feet stand on, so the chain needs no stand of its own
-    height.
+    of the pump's suction mouth so `water-7`'s corner seats a whole arc, and Z ON THE PLANE
+    V-K'S OUTLET OPENS ON — `beduan_solenoid.port_center_z` over the cap V-K stands on, which
+    lands the chain 2.8 mm over that cap rather than flat on it.
+
+    That 2.8 mm is what makes `water-4` a straight. The two mouths stand `WATER_4` apart down
+    one lane and a collet grips a tube through 3°; a 2.8 mm step across that gap is 10.6°,
+    which no lean that short can take out. Laying both mouths on one plane costs the chain its
+    seat on the cap and buys a run with nothing in it — and the bracket that holds it was an
+    open item either way.
 
     What holds it there is an open item: nothing threads onto this chain and nothing clamps it.
     It has a measured datum and measured room; it does not have a bracket."""
     b = box(seaflo)
-    return seat_body(_suct.build(), SUCT_CHAIN_TURN,
+    chain = _suct.build()
+    return seat_body(chain, SUCT_CHAIN_TURN,
                 cx=b.xmax + SUCT_PUMP_GAP + _suct.HOSE_OD / 2.0,
-                y1=suction[0][1] - SUCT_CORNER_ROOM, z0=b.zmin)
+                y1=suction[0][1] - SUCT_CORNER_ROOM,
+                # The chain's own Ø, read on X because the box is measured BEFORE the turn:
+                # unturned the chain stands its length on Z and its diameter across X.
+                z0=b.zmin + _beduan.port_center_z - box(chain).xlen / 2.0)
 
 
 # The assembly's non-manifold members, by name. `report` measures the manifold pack as
@@ -295,7 +308,7 @@ def build_suction_chain(seaflo, suction):
 STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split", "flow-regulator")
+              "water-split", "flow-regulator", "vk-solenoid")
 
 
 def _manifold(name):
@@ -533,6 +546,27 @@ def build_flowreg(split_carry):
     return seat_body(_flowreg.build(), FLOWREG_TURN, station=(_flowreg.inlet(), target))
 
 
+# --- V-K, the fill/shutoff on the way to the pump's suction ----------------
+#
+# Normally closed, so a leak alarm or a power loss stops all water reaching the carbonator. Its
+# own frame runs the flow down ±Y — inlet forward, outlet aft — with the coil standing over it,
+# and that is already the direction the water goes here, so it takes NO TURN AT ALL: it stands
+# forward of the suction chain, firing aft into the collet that feeds the pump.
+# The gap between V-K's outlet and the chain's collet — `water-4`. Both mouths lie on one plane
+# and one column, so this is a length of tube and not a route.
+WATER_4 = 15.0
+
+
+def build_vk(chain_carry):
+    """V-K seated on its OUTLET, one `WATER_4` forward of the suction chain's collet and on
+    that collet's own column and plane."""
+    pos, axis = chain_carry(_suct.tube_port())
+    target = (pos[0], pos[1] + axis[1] * WATER_4, pos[2])
+    body = _beduan.build_beduan_solenoid()
+    body = body.val() if hasattr(body, "val") else body
+    return seat_body(body, (), station=(_beduan.outlet(), target))
+
+
 def _whole(bodies):
     out = None
     for s in bodies:
@@ -616,15 +650,17 @@ def build_pack() -> cq.Assembly:
     a.add(split, name="water-split", color=C_SPLIT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
+    vk, vk_carry = build_vk(chain_carry)
+    a.add(vk, name="vk-solenoid", color=C_VK)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
     carries = {"seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
-               "flow-regulator": flowreg_carry}
+               "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry}
     solids = {"seaflo-pump": seaflo, "suction-chain": chain,
               "asse1022-assembly": asse, "water-split": split,
-              "flow-regulator": flowreg}
+              "flow-regulator": flowreg, "vk-solenoid": vk}
     runs = _lines.build_runs(solids, carries)
     for name, solid in _lines.tubes(runs):
         _ROUTED.add(name)
@@ -777,7 +813,7 @@ def report(a: cq.Assembly) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
-              "water-split", "flow-regulator"):
+              "water-split", "flow-regulator", "vk-solenoid"):
         if n in named:
             line(n, box(named[n]))
     walls = None
