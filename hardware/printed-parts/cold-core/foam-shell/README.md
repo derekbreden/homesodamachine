@@ -28,9 +28,13 @@ The CadQuery script uses an explicit XY plane with +Z normal
   right angles to each plate's own pair, is what holds the two together. Vessel assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
-  two per cold core. Cap on top with a single ⌀[6.5 mm](TUBE_HOLE_D) bulkhead
-  pass-through; bottom is a wet-slope floor with a printed boss for the
-  internal SS float rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Y)
+  two per cold core. **Two mouths, and they never share one.** The FILL is a
+  ⌀[6.5 mm](TUBE_HOLE_D) bore in the cap, opening into the headspace above the
+  liquid; the DRAW is a PureSec bulkhead clamped through the floor's central
+  trough, at the bottom of the wet V and the lowest drainable point in the
+  cavity. Everything that enters has to cross the cavity to leave. The floor is
+  a wet slope to that trough and carries a printed boss for the internal SS float
+  rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Y)
   × [48 mm](RESERVOIR_D) deep (along X, radially outward) × [199.4 mm](RESERVOIR_H)
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
   and internal features live at [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
@@ -42,12 +46,14 @@ The CadQuery script uses an explicit XY plane with +Z normal
   and out to the reservoir wall.
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
-  and below the tank. The bottom-plate CO2 port's elbow turns its line −Y
-  and carries a **PP010822E 1/4" PTC × 1/4" NPT M adapter** on its outlet.
-  That pair is made up on the vessel at the bench and hangs inboard of the
-  support ring's bore, so it descends in open space as the vessel seats.
-  Its collet faces the CO2 bore at y = [-19.05](CO2_BORE_Y), and the 1/4" OD
-  line is pushed in from outside once the vessel is down.
+  and below the tank. Each is clocked to the line it feeds, which is what lets
+  a run leave straight. The bottom-plate CO2 port's elbow carries a
+  **PP010822E 1/4" PTC × 1/4" NPT M adapter** on its outlet; that pair is made
+  up on the vessel at the bench and hangs inboard of the support ring's bore,
+  so it descends in open space as the vessel seats. Its collet faces the CO2
+  bore at y = [-19.05](CO2_BORE_Y), and the 1/4" OD line arrives on that axis
+  from the port lane — laid down the lane from the top cap before the cap goes
+  on, not pushed in from outside.
 
 ## Shells
 
@@ -134,12 +140,24 @@ Four 30°-wide angular slots are cut through the ring at azimuths
 the cardinal axes. The slots let pour foam reach the under-tank
 floor regardless of which cavity it enters from.
 
-The −Y segment carries the **CO2 inlet bore** — the project's ⌀6.5 hole at
-y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z), run −Y through the ring's full
-radial width and out onto the port lane, where the line turns UP and climbs it to
-the top cap's own conduit. It takes a notch out of neither plateau: the
-vessel-side fittings hang inboard of the ring, and only the tube crosses it. All
-four bearing segments are whole.
+The −Y segment carries the **CO2 inlet bore**, the ring's only one — a
+⌀[6.5 mm](TUBE_HOLE_D) hole from the bottom plate's lane-side port at
+y = [-19.05](CO2_BORE_Y), z = [17](CO2_BORE_Z), **leaning** across the shell's
+floor to land on the port lane under the top cap's `co2-in` conduit. The line
+falls the shell's whole height down that lane, and a bore struck on the shell's
+centreline would open 7 mm from the ring's own face — less than the corner takes,
+so the tube would have to finish bending inside the hole. Struck on the conduit's
+column instead, the fall lands on the bore's axis: one corner out in the open,
+then straight in. It takes a notch out of neither plateau: the bore is horizontal
+through the ring's mid-height, the vessel-side fittings hang inboard of it, and
+only the tube crosses.
+
+The **carbonated-water outlet** crosses the ring at one of these four slots
+instead — the 225° one, which is where a line heading for that conduit's own
+column wants to go. No bore, no notch, and all four bearing segments whole.
+`_port_cuts.ring_crossing_azimuths` measures the crossing against
+`ring_slot_spans` every build, so moving either the column or the ring fails
+rather than drifts.
 
 ### outer_shell
 
@@ -186,8 +204,11 @@ Each carries a heat-set insert pocket at each end (drilled in from each face) �
 twelve inserts total, six per face, for fastening the foam-cap stacks.
 
 The outer **−X** wall carries every penetration that crosses a wall at all: the
-shared copper/PRV slot and the three ⌀[6.5 mm](TUBE_HOLE_D) round bores of the
-front port field. The rest leave by the top cap's conduits. See Penetrations.
+shared copper/PRV slot and the two ⌀[6.5 mm](TUBE_HOLE_D) round bores of the
+front port field, which are the reed cables'. **No fluid line crosses it** — this
+face is mated flat against the refrigeration base, so a bore struck here opens
+into that base rather than into the machine, and all seven leave by the top cap's
+conduits instead. See Penetrations.
 
 ### foam_cap and foam_cap_lid
 
@@ -270,33 +291,55 @@ both ends of that.
 
 ## Penetrations
 
-Eleven pass-throughs total — nine tube lines and two reed cables. Nine carry **1/4" OD
-tubing (6.35 mm)** through holes sized at ⌀[6.5 mm](TUBE_HOLE_D) for a tight tube fit.
+Twelve pass-throughs total — ten tube lines and two reed cables. Every tube is **1/4" OD
+(6.35 mm)**, and where one crosses printed material the hole is ⌀[6.5 mm](TUBE_HOLE_D) for
+a tight fit.
 
-**Seven are on the −X face**, which the enclosure's quarter turn puts at the front of the
-machine: four get their own round bore on the front port field, and three share a single
-Z-elongated slot above it. The other **four leave by the TOP**, each up a conduit through
-the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the service bay stands
-on the face they open on.
+**THE CORE IS REACHED THROUGH ITS LID.** All seven fluid lines leave by the TOP, each up a
+conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
+service bay stands on the face they open on. What is left on the −X face — the one the
+enclosure's quarter turn puts at the front of the machine, mated flat against the
+refrigeration base — is the two reed cables on the front port field and the three
+refrigeration-side lines sharing the Z-elongated slot above it.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Reservoir line (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 2 | Reed cable (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
-| 3 | Reed cable (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
-| 4 | Copper evaporator inlet (low) | shared slot | 1/4" OD ACR copper to compressor |
-| 5 | Copper evaporator outlet (high) | shared slot | 1/4" OD ACR copper to compressor |
-| 6 | PRV vent | shared slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
-| 7 | Water inlet | **top-cap conduit** | 1/4" OD line from the diaphragm pump — down the conduit at the cap's west end, along the band under the cap floor, into the top-plate Port 2 elbow |
-| 8 | Reservoir line (−X) | **top-cap conduit** | 1/4" OD soft tubing — out of reservoir B's bulkhead, across the +Y band and up it potted |
-| 10 | Reservoir B fill | **top-cap conduit** | 1/4" OD soft tubing down onto the fill bore in reservoir B's own cap |
-| 11 | Water outlet | **top-cap conduit** | 1/4" OD line to the dispense faucet — out of the vessel's bottom-plate Port 3 elbow onto the port lane, and up the lane potted |
+| 1 | Reed cable (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
+| 2 | Reed cable (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
+| 3 | Copper evaporator inlet (low) | shared slot | 1/4" OD ACR copper to compressor |
+| 4 | Copper evaporator outlet (high) | shared slot | 1/4" OD ACR copper to compressor |
+| 5 | PRV vent | shared slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
+| 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, into the top-plate Port 2 elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
+| 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the tank, out through the ring's 225° slot and up beside the coil |
+| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the WR1110 regulator — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which feeds the **sparge stone below the liquid** |
+| 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | off A's floor bulkhead at the **bottom of its wet V**, out the pocket's −Y wall, forward along the port lane's own floor, up the forward strip |
+| 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | the same off B's floor bulkhead, out the pocket's +Y wall and forward along the west lane |
+| 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | straight down onto the fill bore in reservoir A's own cap, **above its liquid** |
+| 12 | Reservoir B fill | **top-cap conduit** `reservoir-b-fill` | the same onto reservoir B's cap |
+
+**Every vessel is filled high and drawn low** — the carbonator at its two plates, each
+reservoir at its cap and its trough. Nothing that enters can leave without crossing the
+vessel, which is what the air-purge and clean-flush service modes run on.
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
-1/4" OD before reaching the shell wall — transition fittings (3/8"
+1/4" OD before reaching the shell — transition fittings (3/8"
 barb-to-NPT adapter, 5/16" push-to-connect, 1/4" NPT check valves, etc.)
-live on the warm side of the shell. Inside the shell, every penetration
-is 1/4" OD.
+live on the warm side. Inside, every line is 1/4" OD.
+
+### The runs themselves
+
+[`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py) draws all
+seven as swept solids on the tube's own centreline, and `foam_assembly.py` measures each
+against the shell, the tank with its wrapped coil, and both reservoirs with their caps —
+then lands them as `foam-assembly/internal-routes.step`. A line in here is a void's
+occupant: it appears in no bounding box and collides with nothing, so drawing it is the
+only way to know it fits.
+
+Each run also reports the **arc it turns at**, found by drawing it at the machine's stock
+arc (2 × OD) and stepping down until it stops meeting anything. That reading is the
+corridor's own answer, not a choice, and two of them come in under the stock: a reservoir
+draw turning out of its pocket into a ±Y band whose outboard half the attachment bosses
+have, and the carbonated water stepping over the CO2 under the bottom plate.
 
 ### Port lane
 
@@ -323,37 +366,39 @@ rather than a grid.
 
 ### Front port field
 
-Three round bores, one per line that crosses this wall and does not use the slot,
-stacked up the lane on one Y at a pitch of one bore plus one wall:
+Two round bores, one per reed cable, stacked up the lane on one Y at a pitch of one
+bore plus one wall:
 
 [reed-cable-a 6.75, reed-cable-b 14.75](FIELD_Z)
 
-A station's Z is **not** the height of the fitting it serves. A line leaves its
-fitting, turns onto the lane and climbs it, so the field is ordered by what leaves
-together: reservoir A and the two reed cables, all three out of the pockets'
-bulkhead band. Above the field
+A station's Z is **not** the height of the fitting it serves. A cable leaves its
+pocket, turns onto the lane and climbs it, so the field is ordered by what leaves
+together — and both cables leave the pockets' bulkhead band together. Above the field
 the slot takes the rest of the column, and `copper_plugs.lowest_copper_z` is
 derived from where the field ends — so adding a station pushes the slot up rather
 than colliding with it, and dropping one brings the slot down.
 
-Three lines land on this lane and never cross this wall: **reservoir B's draw**, the
-**carbonated-water outlet** and the **CO2 inlet**, all three of which keep climbing
-to a cap conduit (`_cold_core_interface.cap_conduits`). The carb water and the CO2
-are the lines in this lane going up rather than west, and `cap_conduit_pair_neck`
-is what holds their two columns apart.
+**Three fluid lines use this lane and none of them crosses this wall:** reservoir A's
+draw runs forward along the lane's own floor at the bulkhead band, under everything;
+the CO2 falls the lane's whole height and turns in at the plate band above it; the
+carbonated water joins only once the tank's top plate is under it. The lane is one bore
+wide, so what keeps those three apart is the storey each takes, and
+`_internal_routes.report_routes` is what proves it. Above the shell,
+`cap_conduit_pair_neck` holds the two columns in this lane apart.
 
 ### Two-bore front pass-throughs
 
-Each reservoir's flavor line and reed cable crosses its bag-pocket wall and then
-the −X wall, and the two bores share neither an axis nor a height. The pocket-wall
-bore stays beside the bulkhead, where the elbow's lateral port points:
-x = ±[97 mm](FLAVOR_POCKET_X) for the line and ±[109 mm](CABLE_POCKET_X) for the
-cable, both at the elbow's own exit Z. The front bore is its station on the field.
-Between them the run turns onto the lane, travels west to the wall, and climbs to
-the station — the lane is what lets the two sit at different X *and* different Z.
+Each reed cable crosses its bag-pocket wall and then the −X wall, and the two bores
+share neither an axis nor a height. The pocket-wall bore sits outboard of the bulkhead
+axis at x = ±[109 mm](CABLE_POCKET_X); reservoir A's draw takes the inboard slot beside
+it at x = ±[97 mm](FLAVOR_POCKET_X), and that step is what the cable costs. Both cross
+at the elbow's own exit Z. The cable's front bore is its station on the field, and
+between the two the run turns onto the lane and climbs to it — the lane is what lets
+them sit at different X *and* different Z.
 
-Both runs are potted where they cross the band, as everything in the band is.
-`cut_pour_band_pass_through` in `_cold_core_interface.py` cuts the pair.
+Both cables run through the open pocket space under the reservoir's raised floor, are
+threaded after the pour has cured, and are potted nowhere.
+`cut_pour_band_pass_through` in `_cold_core_interface.py` cuts each pair.
 
 ### Shared slot and copper plug stack
 
@@ -440,8 +485,11 @@ the body pour into the shell's open +Z top.
 Every internal component is installed first:
 
 - Pressure vessel lowered into the centerward arc envelope, seated
-  on the `tank_support_ring`, its PP0308E CO2 elbow already made up
-  on the bottom-plate elbow and riding down the ring's +Y notch.
+  on the `tank_support_ring`. Its four port elbows are already made up and clocked
+  to the lines they feed — the bottom-plate CO2 elbow onto the leaning bore, the
+  bottom-plate outlet elbow toward −X, the top-plate inlet elbow toward +Y — with
+  the PP010822E collets on them hanging inboard of the ring, and the sparge stone
+  and its silicone stub already inside.
 - Copper evaporator coil hand-wound around the vessel exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
@@ -453,10 +501,12 @@ Every internal component is installed first:
   slot.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
   lateral FNPT of the vessel's top-plate Port 2 elbow, collet turned into the
-  band, and a length of 1/4" OD LLDPE from that collet along the band between
-  the top plate and the cap floor, then up the top cap's conduit at the cap's
-  west end. The corner off the elbow is potted where it turns.
-- Four copper plugs slid down into the slot from above (through
+  +Y band, and a length of 1/4" OD LLDPE from that collet along the band between
+  the top plate and the cap floor, forward, then into the forward strip and up
+  the top cap's `water-in` conduit. The corner off the elbow is potted where it
+  turns, and so is the one into the conduit — that band is 14 mm and the arc
+  wants more.
+- Three copper plugs slid down into the slot from above (through
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
 - PRV shroud subassembly (`../prv-shroud/`) — already built and
@@ -464,18 +514,26 @@ Every internal component is installed first:
   here as part of the vessel by the time the body pour happens.
   Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
   route it along the lane and out through the slot to the appliance interior.
-- Reservoir A's LLDPE line routed out of its pocket's −Y wall bore beside the
-  bulkhead, onto the port lane, then west and up it to its front-field station.
-  Reservoir B's leaves by its pocket's +Y wall onto the west lane and climbs that
-  lane to the top cap's conduit.
-- Water outlet from the vessel's bottom plate, −Y through the support ring onto
-  the port lane, then straight up the lane to the top cap's conduit. It is the one
-  line in this lane that climbs rather than running west, so it crosses none of the
-  four that do; lay it before the pour, because it is potted the whole way up.
+- Reservoir A's draw off its floor bulkhead, out of the pocket's −Y wall bore
+  inboard of the bulkhead axis, onto the port lane at the bulkhead band, then
+  forward along the lane's own floor — under everything else standing in it — and
+  up the forward strip to its conduit. Reservoir B's leaves by its pocket's +Y
+  wall onto the west lane and comes forward to the same strip.
+- Carbonated-water outlet off the bottom-plate Port 3 elbow, out to its own column
+  on the +Y side of the plate's axis, then up one storey and −Y out through the
+  ring's 225° slot — over the CO2's run, which sweeps the same quadrant at the
+  plate band. From there it climbs beside the coil clear of the lane, and only
+  steps onto the lane once the tank's top plate is under it.
 - CO2 inlet on the plate's lane-side port at y = [-19.05](CO2_BORE_Y),
-  z = [17](CO2_BORE_Z) — its own bore crosses the ring on that line onto the
-  lane, and the line comes IN from the front-field station, along the lane and
-  through the ring onto the collet already made up under the plate.
+  z = [17](CO2_BORE_Z) — its leaning bore crosses the ring on that line and opens
+  on the lane under the top cap's `co2-in` conduit. The line comes DOWN the lane
+  from that conduit, turns once in the open and runs straight in onto the collet
+  already made up under the plate.
+
+All five fluid runs are laid **before the top cap goes on**, because every one of
+them leaves by the lid and every one is potted where it turns.
+[`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py) is
+each run's drawn shape and the arc it turns at.
 
 With everything in place, liquid foam is poured **directly into the
 body's open +Z top** all at once — no lid on, no down-channels.
