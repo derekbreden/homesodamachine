@@ -313,6 +313,22 @@ class Pack:
         self.solids[name] = body
         return self.solids[name]
 
+    def pose(self, name: str, solid, seat: Seat):
+        """A body whose whole move is already solved, taken at that move.
+
+        `seat` is the rigid transform a nested frame hands over — a body's own seat inside a
+        study, composed onto the study's seat in the machine (`_seating.Seat.then`). The
+        editor's move composes onto it exactly as it does on `place`'s."""
+        if name in self.solids:
+            raise KeyError(f"{name} is already placed")
+        body = seat.solid(solid)
+        moved = _moved(body, self.moves.get(name))
+        if moved is not None:
+            seat, body = seat.then(moved), moved.solid(body)
+        self.seats[name] = seat
+        self.solids[name] = body
+        return self.solids[name]
+
 
 def _moved(solid, steps) -> Seat | None:
     """The one world move a body's dragged steps come to, or None for a body with none.
