@@ -94,6 +94,13 @@ function readSource(file) {
 // tree (hardware/scripts) has its tooling excluded on the same rule.
 const TOOLING_DIR = path.join("hardware", "scripts");
 
+// A directory holding a `.retired` file, and everything under it, is out of the graph:
+// its scripts are not runnables, its modules are not import targets, its `.step`s have no
+// producer. Nothing under it is built, watched, rebuilt or compared, and an edit inside it
+// rebuilds nothing downstream — a live consumer still importing a retired module goes
+// stale without a word. The marker's own text says what the tree is kept for.
+const RETIRED_MARKER = ".retired";
+
 // A "runnable" script is a non-`_`-prefixed .py with a `__main__` block — a
 // generator/drawing meant to run directly, vs. an imported `_module.py`.
 // Content detection (not name/dir) means a new script live-reloads with no
@@ -125,6 +132,7 @@ function walk(roots, suffix) {
     } catch {
       return;
     }
+    if (entries.some((e) => e.isFile() && e.name === RETIRED_MARKER)) return;
     for (const entry of entries) {
       if (entry.name === "__pycache__") continue;
       const full = path.join(dir, entry.name);

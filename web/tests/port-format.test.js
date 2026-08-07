@@ -15,9 +15,11 @@ import { fileURLToPath } from "node:url";
 import { faceNormal, faceLabel } from "../public/js/viewer/port-format.js";
 
 const _here = path.dirname(fileURLToPath(import.meta.url));
+// The live pack's sidecar. The enclosure-assembly's is a retired output — nothing
+// rebuilds it — so the audit follows the machine to hardware/manifold-layout/, and
+// skips itself until front_half writes one.
 const SIDECAR = path.join(
-  _here, "..", "..", "hardware", "printed-parts", "enclosure",
-  "enclosure-assembly", "enclosure-assembly.scorecard.json",
+  _here, "..", "..", "hardware", "manifold-layout", "front-half.scorecard.json",
 );
 
 test("named body faces read as their outward normal", () => {
