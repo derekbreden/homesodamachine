@@ -824,11 +824,20 @@ TEE_ROLL = 90.0
 JUNCTION_TEES = ("tee-y-a", "tee-y-b")
 # The straight a column leg runs off its collet before it turns: a radius of tangent for the
 # corner, and one more so that tangent lands off the stub's own end rather than exactly on it.
+# It is UNDER what a corner at the stock's own floor would want — `junction_tee_pos` states the
+# ceiling, the front chain's floor plane against the port plane, and the pumps have packed aft
+# to within 12.73 of it. fluid-14 and the junction's four column legs all stand on that.
 # It is the LEAST the columns stand forward of the port plane — the tees themselves stand as
 # far ahead as the front chain allows (`junction_tee_pos`), and a leg leaves on axis for one
 # lead, then turns down its column in one gentle move that carries the drop, the rest of the
 # standoff, and whatever the columns stand off their seats by.
 JUNCTION_LEG_LEAD = 2.0 * LLDPE_BEND
+# The straight between two collets that FACE EACH OTHER down one axis, which is what the WALL
+# SEQUENCE is made of: `water-2` from the backflow chain's outlet to the split, `fluid-1` from
+# the split's flavor collet to the regulator. Neither carries a corner — each is one cut length
+# pressed in at both ends — so what the gap owes is grip and a length a hand can hold, not an
+# arc's tangent. It is spent TWICE down that sequence, and the depth it leaves is fluid-2's.
+WALL_SEQ_STRAIGHT = 2.0 * LLDPE_BEND
 # The turns each tee takes. The two that stand in channel A's pump lane take the roll alone:
 # run along the lane, branch up.
 TEE_TURNS = {
@@ -1935,7 +1944,7 @@ def split_y():
     straight ahead of the chain's outlet, which faces back up the lane at it. `water-2` is that
     straight. Read off the chain rather than picked, so the split follows the sequence."""
     outlet = _bfp.port("tube-out")[0][0]            # the outlet mouth's own station, downstream
-    return asse_axis()[1] - outlet - JUNCTION_LEG_LEAD - _split.REACH
+    return asse_axis()[1] - outlet - WALL_SEQ_STRAIGHT - _split.REACH
 
 
 def asse_underside():
@@ -2100,7 +2109,7 @@ def flowreg_lane():
     ahead of the split's flavor collet, so fluid-1 is that straight and the sequence packs
     the wall — every millimetre of depth it does not spend here is fluid-2's, whose lean to
     V-A spends all of it."""
-    return (split_terminal("to-flavor")[0][1] - JUNCTION_LEG_LEAD - _flowreg.REACH
+    return (split_terminal("to-flavor")[0][1] - WALL_SEQ_STRAIGHT - _flowreg.REACH
             - FLOWREG_RUN)
 
 
