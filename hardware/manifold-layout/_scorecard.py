@@ -11,10 +11,11 @@ Two kinds of check:
            gate, so the pack still builds while it converts.
 
 THE FOCUS IS `bend-radius`, AND THE AXIS BEHIND IT IS `routed`. A run arrives with the bodies
-it joins, so the two read together: `routed` says how much of the machine's tube inventory is
-drawn at all, and `bend-radius` says whether what is drawn turns at a radius its stock takes.
-A corner short of that minimum is a tube nobody can build, and most corners are bound by where
-their two ends STAND — so driving the gate is usually moving a body, not raising a number.
+it joins, so the two read together: `routed` says how much of the machine's tube inventory the
+machine holds a path for at all, and `bend-radius` says whether what is drawn turns at a radius
+its stock takes. A corner short of that minimum is a tube nobody can build, and most corners are
+bound by where their two ends STAND — so driving the gate is usually moving a body, not raising
+a number.
 
 FOUR OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
 is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share,
@@ -277,26 +278,69 @@ TOUCHING_OK = {frozenset(p) for p in (
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
+# HOW A CONNECTION IS MADE. A length of tube between two placed bodies is one way and not the
+# only one: most of the flavour manifold is butted collet to collet, the hinge carries four
+# segments round a hairpin, and the two source valves are reached by a quarter turn and the step
+# off it. A butt between two collets is MORE finished than a tube — there is nothing left to
+# draw — so every one of these counts as made, and `routed`'s gap is what none of them reaches.
+#
+# The vocabulary is `_fluid_topology_sync.Seg.made`'s, because the chart's edge labels and this
+# card must not disagree about what exists.
+MADE_AS = {
+    "drawn":     "drawn as a run",
+    "straight":  "made by a lane's own straight",
+    "butt":      "made by a butt between two collets",
+    "fold":      "made by the fold's hairpin",
+    "turn":      "made by a quarter turn and the step off it",
+    "not drawn": "still to route",
+}
+UNMADE = "not drawn"
+
+
+def made_of(how: str) -> str:
+    """One `manifold_layout.SEGMENTS` row's own `how` column, as one of `MADE_AS`'s names.
+
+    Not a second classification: `SEGMENTS` already says how the pack makes each of its interior
+    connections, and this only renames the two entries whose column word describes the CARRIER
+    rather than the joint — a `spine` is the fold's hairpin, and a lane's key is the lane's."""
+    import manifold_layout as ml
+    if how == "spine":
+        return "fold"
+    if how in ("turn", "butt"):
+        return how
+    # A lane's own straight. `manifold_layout.build_assembly` draws a solid for one only past
+    # 1e-9, and under that the lane's two collets are face to face.
+    return "straight" if ml.dist(*ml.RUNS[how]) > 1e-9 else "butt"
+
+
 @dataclass
 class Connection:
     id: str
     kind: str
     frm: str
     to: str
-    routed: bool = False
+    made: str = UNMADE
     blocked: str = ""
+
+    @property
+    def routed(self) -> bool:
+        """The machine holds a path for this connection — by any of the ways it makes one."""
+        return self.made != UNMADE
 
 
 def load_connections(runs) -> list[Connection]:
-    """Every TUBE connection the machine owes, and whether a real 3-D path exists for it.
+    """Every TUBE connection the machine owes, and how the machine makes it.
 
     The flavour manifold's own segments come out of `fluid-topology.md`'s tables so the
     inventory cannot drift from the topology; the four paths upstream of the carbonator are
-    declared above. A connection counts as routed once `_lines.py` authors it, and a run that
-    `_routing` could not draw as asked carries the shortfall with it.
+    declared above. A run `_lines.py` authors is `drawn`, one `manifold_layout` builds inside the
+    pack carries that construction's own name, and what is left is owed. A run that `_routing`
+    could not draw as asked carries the shortfall with it.
 
     The wiring schedule is not here. It is a separate axis and nothing in this pack routes a
     conductor yet, so counting it would only bury the tube reading this card is for."""
+    import manifold_layout as ml
+
     conns: list[Connection] = []
     if _TOPOLOGY.is_file():
         row = re.compile(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|")
@@ -310,8 +354,9 @@ def load_connections(runs) -> list[Connection]:
         for cid, frm, to in table:
             conns.append(Connection(cid, kind, frm, to))
     drawn = {r.id for r in runs}
+    interior = {f"fluid-{cid}": made_of(how) for cid, _f, _t, how in ml.SEGMENTS}
     for c in conns:
-        c.routed = c.id in drawn
+        c.made = "drawn" if c.id in drawn else interior.get(c.id, UNMADE)
         c.blocked = R.BLOCKED.get(c.id, "")
     return conns
 
@@ -442,6 +487,29 @@ def _bed_fit(a) -> Check:
                  "every piece on the bed", short)
 
 
+def run_world(a, runs) -> tuple:
+    """The drawn world a run is held against, as `(tubes, ends, rest)`.
+
+      `tubes` — each authored run's swept tube, by run id. A run whose sweep is not in the
+                assembly is not here: it is not drawn, so there is nothing to ask about.
+      `ends`  — the two bodies each run TERMINATES on. A tube seats into their collets by
+                design, which is the one contact on this card that is not a defect, so both
+                checks below hold that pair out rather than reporting a 0 they built on purpose.
+      `rest`  — everything a run must stand clear of: every placed body, the printed box, and
+                `manifold_layout`'s own segments and the stubs off its free mouths. No authored
+                run terminates on one of those, so they stand as bodies here.
+
+    `lines-clear` asks what any two of these SHARE and `clearance-floor` how far apart they
+    STAND. Two questions on either side of zero, one population — read once here so a run cannot
+    be in the overlap gate and out of the clearance gate."""
+    bodies, drawn, pieces = _split_placed(a)
+    tubes = {r.id: drawn[f"tube-{r.id}"] for r in runs if f"tube-{r.id}" in drawn}
+    ends = {r.id: {r.frm.partition(".")[0], r.to.partition(".")[0]} for r in runs}
+    rest = {**bodies, **pieces,
+            **{n: s for n, s in drawn.items() if n not in {f"tube-{i}" for i in tubes}}}
+    return tubes, ends, rest
+
+
 def _lines_clear(a, runs) -> Check:
     """The tube-interpenetration gate, asked with the boolean that resolves a tangency.
 
@@ -459,14 +527,8 @@ def _lines_clear(a, runs) -> Check:
 
     The swept solids come off the assembly rather than being swept again: `_lines.tubes` already
     built each run's tube and `front_half` added it under `tube-<connection>`, and a second sweep
-    of the same eighteen runs costs more than every boolean below."""
-    bodies, drawn, pieces = _split_placed(a)
-    tubes = {r.id: drawn[f"tube-{r.id}"] for r in runs if f"tube-{r.id}" in drawn}
-    ends = {r.id: {r.frm.partition(".")[0], r.to.partition(".")[0]} for r in runs}
-    # What is left in `drawn` is `manifold_layout`'s own segments and the placeholder stubs off
-    # its free mouths. No authored run terminates on one, so they stand as bodies here.
-    rest = {**bodies, **pieces,
-            **{n: s for n, s in drawn.items() if n not in {f"tube-{i}" for i in tubes}}}
+    of every run costs more than every boolean below."""
+    tubes, ends, rest = run_world(a, runs)
     tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
     rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
     detail = []
@@ -568,21 +630,31 @@ def _port_leads(rows) -> Check:
                  "all clear", detail)
 
 
-def part_clearances(a) -> list[tuple]:
-    """Every body pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap,
-    allowed)`. `allowed` marks a `TOUCHING_OK` seat.
+def part_clearances(a, runs=()) -> list[tuple]:
+    """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
+    `allowed` marks a `TOUCHING_OK` seat. A row names a run by its connection id and everything
+    else by the name it goes into the assembly under.
+
+    TWO POPULATIONS, ONE FLOOR — body against body, and every drawn run against what it does not
+    join. A run is as much a part of the machine as the fittings it joins, and the lane it
+    threads is usually the tightest air in the pack. `lines-clear` does not measure it: that gate
+    asks what two solids SHARE, and a tube grazing a body at a twentieth of a millimetre shares
+    nothing and clears it.
 
     The gap is the exact solid distance. The boxes are a prefilter and only that: two boxes that
     miss are two solids that miss, so skipping on them is sound, while two boxes that overlap
     say nothing at all.
 
-    THE PRINTED BOX IS NOT IN THIS. Bodies seat against walls by design and six of them clamp
-    THROUGH one, so a wall is never a body to stand off — an overlap there is `pack-closes`'s
-    reading, and there is no clearance to hold.
+    THE PRINTED BOX IS NOT IN THE BODY PASS. Bodies seat against walls by design and six of them
+    clamp THROUGH one, so a wall is never a body to stand off — an overlap there is
+    `pack-closes`'s reading, and there is no clearance to hold. It IS in the run pass: nothing
+    seats a tube against a wall, so a run passing one owes it the same millimetre it owes
+    anything else.
 
     NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack on its
     own hairpins and reports its own inner gap; this module seats it as one thing, so what is
-    measured here is how it stands off everything else."""
+    measured here is how it stands off everything else. A run reaching in from outside is not
+    such a pair, and is held to the floor against every body in the pack."""
     bodies, _tubes, _pieces = _split_placed(a)
     pack = pack_bodies()
     names = list(bodies)
@@ -597,20 +669,94 @@ def part_clearances(a) -> list[tuple]:
             g = _clearing.gap(bodies[x], bodies[y])
             if g < REPORT_NEAR:
                 out.append((x, y, g, frozenset((x, y)) in TOUCHING_OK))
+    out += run_clearances(a, runs)
     out.sort(key=lambda r: r[2])
     return out
 
 
-def _clearance_floor(rows) -> Check:
+def run_clearances(a, runs) -> list[tuple]:
+    """Every drawn run against what it does not join, nearer than `REPORT_NEAR`, in
+    `part_clearances`' own row shape.
+
+    A run's own two end bodies are out of its population, and nothing else is: the tube seats
+    into their collets by construction and reads 0 there, which is a contact the machine builds
+    on purpose. It is the same exemption `lines-clear` takes, off the same `run_world`, so the
+    two gates cannot disagree about which contact is by design."""
+    tubes, ends, rest = run_world(a, runs)
+    tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
+    rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
+    out = []
+    ids = list(tubes)
+    for i, x in enumerate(ids):
+        for y in ids[i + 1:]:
+            if _clearing.box_gap(tbb[x], tbb[y]) >= REPORT_NEAR:
+                continue
+            g = _clearing.gap(tubes[x], tubes[y])
+            if g < REPORT_NEAR:
+                out.append((x, y, g, False))
+    for i in ids:
+        for name, solid in rest.items():
+            if name in ends[i] or _clearing.box_gap(tbb[i], rbb[name]) >= REPORT_NEAR:
+                continue
+            g = _clearing.gap(tubes[i], solid)
+            if g < REPORT_NEAR:
+                out.append((i, name, g, False))
+    return out
+
+
+def lane_notes(a, runs, rows) -> list[str]:
+    """What CHARGES for a run pinched under the floor: the two bodies it threads between, and
+    how far apart they stand.
+
+    A run under the floor against two bodies at once is in a lane too narrow for its own stock,
+    and the number that explains it belongs to the two bodies rather than to the run. Half of
+    what the lane leaves over the tube's Ø is the best a centred run can do there, so a run
+    already at that figure is one to move a BODY for. Measured exactly, like every other gap on
+    this card, which is what puts a FORCED tightness on the record as forced.
+
+    The pair inside the flavour manifold that a lane is made of is measured HERE and nowhere
+    else. `part_clearances` skips it — the pack reports its own inner gaps — but a run threading
+    between two of the pack's own bodies is charged by exactly that gap."""
+    bodies, _tubes, _pieces = _split_placed(a)
+    od = {r.id: r.diam for r in runs}
+    tight: dict = {}
+    for x, y, g, ok in rows:
+        if ok or g >= CLEARANCE_FLOOR:
+            continue
+        for rid, other in ((x, y), (y, x)):
+            if rid in od and other in bodies:
+                tight.setdefault(rid, []).append((g, other))
+    out = []
+    for rid, hits in sorted(tight.items()):
+        if len(hits) < 2:
+            continue
+        hits.sort()
+        (ga, p), (gb, q) = hits[0], hits[1]
+        lane = _clearing.gap(bodies[p], bodies[q])
+        side = (lane - od[rid]) / 2.0
+        note = (f"{rid} threads {p} — {q}: they leave {lane:.3f} mm and the tube is "
+                f"Ø{od[rid]:g}, so {side:.3f} mm a side")
+        out.append(f"{note} is that lane's own best — move a body, not the line"
+                   if abs(side - ga) < 5e-3 and abs(side - gb) < 5e-3
+                   else f"{note} if it were centred, and it is not")
+    return out
+
+
+def _clearance_floor(rows, lanes=()) -> Check:
     short = [r for r in rows if not r[3] and r[2] < CLEARANCE_FLOOR]
-    # The violations lead, then the tight end of the pack either way — a reader taking the first
-    # few rows off a capped list has to be reading the ones a fix acts on.
-    detail = [f"{x} — {y}: {g:.3f} mm — ✗ under the floor, and nothing seats them together"
-              for x, y, g, _ok in short]
+    seen = {(x, y, g) for x, y, g, _ok in short}
+    # The violations lead, each with what charges for it, then the tight end of the pack either
+    # way — a reader taking the first few rows off a capped list has to be reading the ones a fix
+    # acts on.
+    detail = ["every body pair, and every drawn run against what its own line does not join it "
+              "to — the exact solid distance, with boxes only as a prefilter"]
+    detail += [f"{x} — {y}: {g:.3f} mm — ✗ under the floor, and nothing seats them together"
+               for x, y, g, _ok in short]
+    detail += list(lanes)
     detail += [f"{x} — {y}: {g:.3f} mm" + (" — seated against it" if ok else "")
-               for x, y, g, ok in rows if (x, y, g) not in {(a, b, c) for a, b, c, _o in short}]
+               for x, y, g, ok in rows if (x, y, g) not in seen]
     tightest = min((r[2] for r in rows if not r[3]), default=None)
-    return Check("clearance-floor", "Two bodies the machine does not seat together stand a "
+    return Check("clearance-floor", "Two things the machine does not seat together stand a "
                  "millimetre apart", "gate", _verdict(not short),
                  f"{len(short)} under, tightest {tightest:.3f} mm" if tightest is not None
                  else "no pair in reach", f"≥ {CLEARANCE_FLOOR:g} mm", detail)
@@ -652,17 +798,37 @@ def _bend_radius(bends) -> Check:
 
 
 def _routed(conns) -> Check:
+    """How much of the machine's tube inventory the machine holds a path for, and by what.
+
+    ONE NUMBER, WITH THE BREAKDOWN UNDER IT. A reader takes `routed` as how much is left to
+    route, so what it counts has to be every connection the machine already carries fluid
+    through, not only the ones drawn as tube — and the detail then has to say which is which, so
+    "still to route" can be told from "made by the fold" without opening the pack."""
     done = [c for c in conns if c.routed]
     missing = [c for c in conns if not c.routed]
-    by_kind = {}
+    by_kind: dict = {}
     for c in conns:
         d, t = by_kind.setdefault(c.kind, [0, 0])
         by_kind[c.kind] = [d + (1 if c.routed else 0), t + 1]
-    detail = [f"{k}: {d}/{t}" for k, (d, t) in sorted(by_kind.items())]
-    detail += [f"{c.id} ({c.kind}): {c.frm} → {c.to}" for c in missing]
-    return Check("routed", "Every tube connection the machine owes, drawn as a real 3-D path",
-                 "goal", _verdict(not missing), f"{len(done)}/{len(conns)} drawn",
-                 "every connection drawn", detail)
+    by_how: dict = {}
+    for c in done:
+        by_how[c.made] = by_how.get(c.made, 0) + 1
+    detail = [
+        "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, or "
+        "one of the pack's own constructions — a butt between two collets, the fold's hairpin, a "
+        "quarter turn and the step off it",
+        ", ".join(f"{h} {n}" for h, n in sorted(by_how.items(), key=lambda kv: (-kv[1], kv[0])))
+        + f" — {len(missing)} still to route",
+        "by circuit — " + ", ".join(f"{k} {d}/{t}" for k, (d, t) in sorted(by_kind.items())),
+    ]
+    # What is owed leads, then what the pack makes without a tube. The runs are left out: they
+    # are the `bend-radius` table's whole population, one row each, measured.
+    detail += [f"{c.id} ({c.kind}): {c.frm} → {c.to} — {MADE_AS[c.made]}" for c in missing]
+    detail += [f"{c.id} ({c.kind}): {c.frm} → {c.to} — {MADE_AS[c.made]}"
+               for c in done if c.made != "drawn"]
+    return Check("routed", "Every tube connection the machine owes, made as a real 3-D path",
+                 "goal", _verdict(not missing), f"{len(done)}/{len(conns)} made",
+                 "every connection made", detail)
 
 
 def _located(a) -> Check:
@@ -833,7 +999,8 @@ def _build(a) -> Scorecard:
     conns = load_connections(runs)
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
-    clearances = part_clearances(a)
+    clearances = part_clearances(a, runs)
+    lanes = lane_notes(a, runs, clearances)
     ports = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -852,7 +1019,8 @@ def _build(a) -> Scorecard:
                 "note": "",
             })
     checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _port_leads(leads),
-              _clearance_floor(clearances), _bed_fit(a), _runs_drawn(runs), _bend_radius(bends),
+              _clearance_floor(clearances, lanes), _bed_fit(a), _runs_drawn(runs),
+              _bend_radius(bends),
               _mounted(), _routed(conns), _located(a), _shaped(shapes), _held()]
     return Scorecard(checks, bends, conns, ports, shapes)
 
