@@ -634,10 +634,10 @@ def build_pcba(foam, psu, wall_seat):
                      x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=box(foam).zmax)
 
 
-# The rest of the power block, stacked on the brick's crown in one column: the relay, the AC
-# hub over it, the ground stud over that. Each takes the same wall seat as its east face, so the
-# whole column stands clear of every post, pod and plug the Y seam puts in that band, and each
-# stands on the one below with a clearance floor between them.
+# The rest of the power block on the brick's crown: the relay aft-flush with the brick, the AC hub
+# on the relay's crown, and the ground stud on the relay's own floor one clearance forward of it.
+# Each takes the same wall seat as its east face, so the whole group stands clear of every post,
+# pod and plug the Y seam puts in that band.
 #
 # Each turn lays the body's own long axis fore and aft down the flank and its board or wells
 # facing INBOARD — the face a screwdriver reaches, and the face a boss would land on.
@@ -647,22 +647,25 @@ STACK_CLEAR = 1.0
 
 
 def build_stack(psu, wall_seat):
-    """The three bodies over the brick, each on the crown of the one below, as
-    `[(name, solid, colour)]`.
+    """The three bodies the brick's crown carries, as `[(name, solid, colour)]`.
 
-    They stack aft-flush with the brick. The hub's aft face wants the C14 receptacle's, which is
-    the one body on this flank that comes inboard at this height — it is a back-panel body and it
-    is not placed, so the brick is what they line up on until it is."""
+    The relay and the hub stack aft-flush with the brick, each on the crown of the one below with
+    a `STACK_CLEAR` floor between them. The stud stands on the RELAY'S floor, one `STACK_CLEAR`
+    forward of the FRONTMOST face the pair presents — the hub's, which overhangs the relay it sits
+    on — so the stud's own height answers to nothing above it."""
     aft = box(psu).ymax
     out, floor = [], box(psu).zmax
     for name, step, turn, colour in (
             ("relay-1", RELAY_STEP, RELAY_TURN, C_RELAY),
-            ("ac-hub", AC_HUB_STEP, AC_HUB_TURN, C_AC_HUB),
-            ("ground-stack", GND_STACK_STEP, RELAY_TURN, C_GND)):
+            ("ac-hub", AC_HUB_STEP, AC_HUB_TURN, C_AC_HUB)):
         solid, _carry = seat_body(cq.importers.importStep(str(step)).val(), turn,
                                   x1=wall_seat, y1=aft, z0=floor + STACK_CLEAR)
         out.append((name, solid, colour))
         floor = box(solid).zmax
+    fore = min(box(s).ymin for _n, s, _c in out)
+    stud, _carry = seat_body(cq.importers.importStep(str(GND_STACK_STEP)).val(), RELAY_TURN,
+                             x1=wall_seat, y1=fore - STACK_CLEAR, z0=box(out[0][1]).zmin)
+    out.append(("ground-stack", stud, C_GND))
     return out
 
 
