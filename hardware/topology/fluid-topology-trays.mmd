@@ -1,110 +1,96 @@
 flowchart LR
 
-  %% The valve manifold grouped by PHYSICAL CARRIER — the condensed view: valves and
-  %% junctions only, sources, pumps, reservoirs and nozzles omitted. The complete chart,
-  %% every endpoint present and every edge labelled with its route ID and its measured
-  %% length, is fluid-topology-manifold.mmd.
+  %% The valve manifold grouped by PHYSICAL CARRIER — the condensed view: valves and junctions
+  %% only, sources, pumps, reservoirs and nozzles omitted. The complete chart, every endpoint
+  %% present and every edge labelled with its route ID and what the machine makes it out of, is
+  %% fluid-topology-manifold.mmd.
 
-  %% Source of truth: the enclosure assembly's placed pack. Every box below is one
-  %% placed tray and holds exactly the valves that tray seats;
-  %% `_fluid_topology_sync.py` gates it against `_contents.build()`.
+  %% Source of truth: the front half's placed pack. Every box below is one LIMB of
+  %% `manifold_layout.LIMBS` and holds exactly the bodies that limb chains;
+  %% `_fluid_topology_sync.py` gates it against that table.
 
-  %% [7](TRAY_COUNT) trays carry the [11](TRAY_VALVE_COUNT) valves, in two stands.
-  %% [4](TWO_VALVE_COUNT) are the two-seat plate and [3](ONE_VALVE_COUNT) the one-seat
-  %% plate: a plate takes a second seat only where a PAIR meets at one junction, and
-  %% three valves in this machine stand alone.
+  %% [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and the [6](TEE_COUNT) junction
+  %% tees, over [2](PUMP_COUNT) pumps.
 
-  %% Every tray lies FLAT — plate down, valves up, ports along Y. Nothing holds a valve
-  %% down, so a tray carries one plate-up, and a yaw is the only turn any of them has.
+  %% A LIMB IS A LANE. Every valve is straight through and every junction's run takes two valve
+  %% ports, so a limb is one line of valves and tees butted collet to collet, front to back, on
+  %% one column of X. A tee dropped on a pump barb by its BRANCH puts its RUN across the head's
+  %% face, so each pump hands out two of these lanes, 57 mm apart.
 
-  %% The junctions have no carrier. No fitting seats on a tray, so each hangs on the two
-  %% collets it joins and follows from where its pair's ports land. Blue links reach a
-  %% pair's own junction; grey ones cross to another tray or to a pump.
+  %% THE PACK IS FOLDED IN TWO about the hinge the four barb tees' front collets stand on.
+  %% [8](UPPER_COUNT) bodies ride up onto the second deck — drawn with a dashed border — and
+  %% [8](LOWER_COUNT) stay on the first. The four connections crossing the hinge each become a
+  %% 180° hairpin.
+
+  %% Neither reservoir appears here and neither has a junction: each carries two mouths of its
+  %% own, so each pair's two valves reach one directly.
 
   %% =========================
-  %% Head column — front, three two-valve trays one under the next
+  %% Channel A — east of the mirror plane in the machine, over pump B
   %% =========================
-  subgraph TSrc["source-tray-assembly &middot; two-valve"]
+  subgraph LA1["A1 — channel A, inner limb"]
     VA["V-A"]
-    VB["V-B"]
-  end
-
-  subgraph TSel["selects-tray-assembly &middot; two-valve"]
+    YA["Y-A"]
     VC["V-C"]
-    VD["V-D"]
+    YC["Y-C"]
+    VE["V-E"]
   end
 
-  subgraph TBagA["bag-a-tray-assembly &middot; two-valve"]
-    VE["V-E"]
+  subgraph LA2["A2 — channel A, outer limb"]
+    VG["V-G"]
+    YD["Y-D"]
     VF["V-F"]
   end
 
   %% =========================
-  %% Aft stand — four trays on the foam cap, all on one storey
+  %% Channel B — west of it, over pump A
   %% =========================
-  subgraph TBagB["bag-b-tray-assembly &middot; two-valve"]
+  subgraph LB1["B1 — channel B, inner limb"]
+    VB["V-B"]
+    YB["Y-B"]
+    VD["V-D"]
+    YF["Y-F"]
     VH["V-H"]
+  end
+
+  subgraph LB2["B2 — channel B, outer limb"]
+    VJ["V-J"]
+    YG["Y-G"]
     VI["V-I"]
   end
 
-  subgraph TNozA["nozzle-tray-assembly &middot; one-valve"]
-    VG["V-G"]
-  end
-
-  subgraph TVK["vk-tray-assembly &middot; one-valve"]
-    VK["V-K<br/>carbonator fill"]
-  end
-
-  subgraph TNozB["nozzle-b-tray-assembly &middot; one-valve"]
-    VJ["V-J"]
-  end
-
-  %% =========================
-  %% Junctions — carried by nothing, hanging on the collets they join
-  %% =========================
-  YA["Y-A"]
-  YB["Y-B"]
-  YC["Y-C"]
-  YD["Y-D"]
-  YE["Y-E"]
-  YF["Y-F"]
-  YG["Y-G"]
-
-  %% ---- A tray's own pair to the junction it shares ----
-  %% Only bag A's. Reservoir B carries two mouths of its own, so the bag-B pair reaches it
-  %% directly and nothing stands between V-I's outlet and V-H's inlet — and the reservoir is
-  %% one of the endpoints this chart omits.
-  VF --> YE
-  YE --> VE
-
-  %% ---- Everything that crosses to another tray or a pump ----
-  %% Y-A and Y-B are the pair to read that way: the source tray stands in the selects
-  %% tray's own two seats, so each of them takes one port from each tray down one
-  %% column, and the crossbar between them puts all four ports on one node.
-  VA --> YA
+  %% ---- Butted, along a limb's own lane ----
+  %% Collet to collet, no tube between them. Blue.
   YA --> VC
-  VB --> YB
   YB --> VD
-  YA <--> YB
-  VC --> YC
-  VD --> YF
   VE --> YC
   VH --> YF
   YD --> VF
   YG --> VI
+
+  %% ---- Across the hinge ----
+  %% The four 180° hairpins, each on its own limb's column: a quarter of R14, 31.4 mm of straight,
+  %% and a quarter back. Orange.
+  VC --> YC
   YD --> VG
+  VD --> YF
   YG --> VJ
 
+  %% ---- Between limbs ----
+  %% The source pair's quarter-and-step turns onto their junctions, and the crossbar the two
+  %% branches meet on face to face. Grey.
+  VA --> YA
+  VB --> YB
+  YA <--> YB
+
   %% ---- Styling ----
-  %% All seven junctions are PP0208E Tees — an in-line RUN and a BRANCH off it. Six reach
-  %% BETWEEN trays; the seventh, Y-E, joins one tray's own pair and stands ACROSS the strip
-  %% ahead of them. What a junction's fitting and its pose follow from is fluid-topology.md
-  %% "Junctions".
+  %% All six junctions are PP0208E Tees — an in-line RUN and a BRANCH off it. What each port
+  %% reaches is fluid-topology.md "Junctions".
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YA,YB,YC,YD,YE,YF,YG tee;
-  %% V-K rides this stand but not this circuit: it gates the carbonator fill, and its
-  %% two runs are fluid-topology-carbonator.mmd's.
-  classDef offcircuit fill:#3a3a3a,stroke:#666,color:#cccccc,stroke-width:1px;
-  class VK offcircuit;
-  linkStyle 0,1 stroke:#09f,stroke-width:2px
-  linkStyle 2,3,4,5,6,7,8,9,10,11,12,13,14 stroke:#888,stroke-width:2px
+  class YA,YB,YC,YD,YF,YG tee;
+  %% The bodies forward of the hinge, which the fold carries up onto the second deck.
+  classDef upper stroke-dasharray:4;
+  class VA,VB,VC,VD,VG,VJ,YA,YB upper;
+  linkStyle 0,1,2,3,4,5 stroke:#09f,stroke-width:2px
+  linkStyle 6,7,8,9 stroke:#c2410c,stroke-width:2px
+  linkStyle 10,11,12 stroke:#888,stroke-width:2px
