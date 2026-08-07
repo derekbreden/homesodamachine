@@ -3,7 +3,7 @@
  "placed": 0,
  "located": 100,
  "shaped": 88,
- "routed": 46,
+ "routed": 49,
  "held": 92,
  "mounted": 2,
  "checks": [
@@ -42,7 +42,7 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "fail",
-   "value": "46/56 clear",
+   "value": "47/57 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to",
@@ -109,7 +109,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "18/18 as drawn",
+   "value": "19/19 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -119,11 +119,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 36/36 corners at spec",
+   "value": "B \u2014 39/39 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:13"
+    "runs by grade: B:14"
    ],
    "active": true
   },
@@ -201,15 +201,14 @@
    "label": "Every tube connection the machine owes, drawn as a real 3-D path",
    "kind": "goal",
    "status": "fail",
-   "value": "18/39 drawn",
+   "value": "19/39 drawn",
    "target": "every connection drawn",
    "detail": [
     "co2: 2/2",
-    "fluid: 8/26",
+    "fluid: 9/26",
     "refrigerant: 0/3",
     "water: 8/8",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1",
-    "fluid-4 (fluid): Hopper funnel bottom \u2192 V-B-I",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1",
     "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3",
     "fluid-7 (fluid): Y-A-2 \u2192 V-C-I",
@@ -237,7 +236,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "57/57 located",
+   "value": "58/58 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -797,6 +796,25 @@
    "note": ""
   },
   {
+   "component": "hopper-funnel",
+   "name": "drain",
+   "kind": "fluid",
+   "pos": [
+    0.0,
+    165.06,
+    306.703
+   ],
+   "face": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-4",
+   "status": "ok",
+   "note": ""
+  },
+  {
    "component": "seaflo-pump",
    "name": "discharge",
    "kind": "fluid",
@@ -925,7 +943,7 @@
     0.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "fluid-4",
    "status": "ok",
    "note": ""
   },
@@ -2704,6 +2722,77 @@
    }
   },
   {
+   "id": "fluid-4",
+   "kind": "fluid",
+   "frm": "hopper-funnel.drain",
+   "to": "valve-v-b.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 154.63,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      16.41,
+      102.07
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      102.07,
+      30.13
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      30.13,
+      24.05
+     ]
+    }
+   ],
+   "atSpec": 3,
+   "bends": 3,
+   "worstTurn": 90.0,
+   "seat": 15.066,
+   "reach": 15.066,
+   "reachRatio": 1.0761,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 2,
+    "length": 30.132,
+    "demand": 2.0,
+    "from": [
+     0.0,
+     267.13,
+     290.29
+    ],
+    "to": [
+     -20.07,
+     267.13,
+     267.81
+    ]
+   }
+  },
+  {
    "id": "water-7",
    "kind": "water",
    "frm": "seaflo-pump.suction",
@@ -3970,8 +4059,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-07T22:16:25+00:00",
-  "commit": "f04dd45a6e64cd4f580c0a7341c4ce140ed255c9",
+  "generated": "2026-08-07T22:26:20+00:00",
+  "commit": "4cee8c44c7e1a71f9147230e8f3283a6fd8dcf5e",
   "inputs": {}
  }
 }
