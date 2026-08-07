@@ -803,7 +803,22 @@ class Scorecard:
         return all(c.status == "pass" for c in self.checks if c.kind == "gate")
 
 
+_card_cache: dict = {}
+
+
 def build(a) -> Scorecard:
+    """The card for one assembly, held against it. A run prints the card and then writes it, and
+    the two are one verdict — the gates cast a bore off every port and take an exact distance
+    across the pack, and taking them twice would say the same thing at twice the price."""
+    hit = _card_cache.get(id(a))
+    if hit is not None and hit[0] is a:
+        return hit[1]
+    sc = _build(a)
+    _card_cache[id(a)] = (a, sc)                      # pin `a` so its id stays its own
+    return sc
+
+
+def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
     conns = load_connections(runs)
