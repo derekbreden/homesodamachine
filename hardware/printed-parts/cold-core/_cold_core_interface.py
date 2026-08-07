@@ -338,14 +338,14 @@ front_port_axis = (-1.0, 0.0, 0.0)
 def front_port_station(name):
     """One front-field station in the SHELL'S OWN frame: `(position, outward axis)`.
 
-    All four stand on the port lane's centreline, in the wall's own plane, each at its own
+    Both stand on the port lane's centreline, in the wall's own plane, each at its own
     height up the column. The lane is one bore wide (above), so X and Y are the field's and
     only Z is the station's."""
     return ((front_wall_x, port_lane_mid_y, front_port_z(name)), front_port_axis)
 
 
 def front_port_stations() -> dict:
-    """All four, under the names the machine knows them by. The three ABOVE the field are the
+    """Both, under the names the machine knows them by. The three ABOVE the field are the
     copper/PRV slot's, and `copper_plugs.slot_stations` declares those on this same lane."""
     return {name: front_port_station(name) for name in front_port_order}
 

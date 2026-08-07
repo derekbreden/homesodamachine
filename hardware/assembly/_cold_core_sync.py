@@ -18,6 +18,9 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
+    attachment_xy_positions,
+    deck_mounts,
+    deck_mount_xy,
     co2_inlet_y,
     foam_cap_interior_height,
     foam_cap_lid_pour_radius,
@@ -41,7 +44,19 @@ from _reed_channels import (  # noqa: E402
     cable_hole_offset_from_bulkhead_hole_x,
 )
 
+sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
+from reservoir import insert_positions_for_side_plus_1  # noqa: E402
+
 import importlib.util  # noqa: E402
+
+# Every ruthex short this procedure presses, off the patterns that hold them.
+# The shell clamps a cap on each face; the top cap's deck-mount columns take one
+# each; each reservoir cap takes its own wall-top ring. Nothing else on this bench
+# is threaded — the power column's inserts are the enclosure's `east_bosses`, and
+# `enclosure-mechanical.md` §1 presses those.
+CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
+CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
+RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
 
 
 def _load_module(name: str, file_path: Path):
@@ -97,6 +112,11 @@ def main():
         # engagement (half) + relief (half).
         "INSERT_POCKET_D": f"{insert_pocket_radius * 2:.4g} mm",
         "INSERT_HALF_DEPTH": f"{insert_pocket_depth / 2:.4g} mm",
+        "CC_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + RESERVOIR_INSERTS}",
+        "CAP_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS}",
+        "CAP_CLAMP_INSERTS": f"{CAP_CLAMP_INSERTS}",
+        "CAP_DECK_INSERTS": f"{CAP_DECK_INSERTS}",
+        "RES_INSERTS": f"{RESERVOIR_INSERTS}",
         # ─── Penetrations (step 4, lines 70-72) ───────────────────────
         # Generic small-feature port hole (water outlet, reservoir
         # bulkheads, CO2 tube clearance through cap+lid).
@@ -157,6 +177,11 @@ def main():
             "LID_VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
+            "CC_INSERTS": 1,
+            "CAP_INSERTS": 1,
+            "CAP_CLAMP_INSERTS": 1,
+            "CAP_DECK_INSERTS": 1,
+            "RES_INSERTS": 1,
             "TUBE_HOLE_D": 5,
             "COTWO_INLET_Y": 1,
             "TOP_BAND": 1,
