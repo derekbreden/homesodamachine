@@ -146,11 +146,17 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 
 ## Standing it on the refrigeration stratum
 
-[`front_half.py`](front_half.py) → `front-half.step` mates three bodies with nothing between
-them: the compressor shroud's aft face to the condenser's west face, and the crown of those two
-to this pack's pump-head front face. The gaps are 0 by intent — the compressor stands well
-inside its shroud with its ports free, and the condenser's are cornered but leave by whichever
-of that corner's faces suits, so touching is what makes the run between them short.
+[`front_half.py`](front_half.py) → `front-half.step` mates its bodies with nothing between
+them: the compressor shroud's east face to the condenser's intake face, both of their aft faces
+to the cold core's front wall, and the crown of the pair to this pack's spine hairpins.
+
+The gaps are 0 by intent, and the refrigerant loop is what they are for. The compressor stands
+well inside its shroud with its stubs free, the condenser is an envelope whose headers are
+re-dressed to whichever face suits, and the core's front wall has a lane on each side of it
+carrying one of the evaporator's coppers — so all three of the loop's joints cross a plane two
+of these bodies already share, both stations of each are one point read twice, and no copper is
+drawn between any two of them. `refrigerant_joints` measures all three at every build and
+`check_refrigerant_joints` fails the build when one opens.
 
 ![front half](front-half.right.png)
 
