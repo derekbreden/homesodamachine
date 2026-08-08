@@ -747,7 +747,7 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     query still answers, and the one it gets wrong is the dangerous direction: a pose clear
     of every interior body reads CLEAR while standing in a wall, a seam lip or a boss chain
     — and the pack-closes gate, which does compare the interior solids against the pieces,
-    then fails the build the pose was chosen for. In by default, that answer is one you
+    then reds on the pose the answer was chosen for. In by default, that answer is one you
     have to ask for; out by default, it is the one you get by forgetting.
 
     `pieces=False` (or `HSM_SKIP_PIECES=1`) leaves them out, for a tree whose
@@ -958,7 +958,7 @@ def selftest() -> int:
     print("controls — a piece is a body like any other, and says which it is:")
     # The shape of the defect, in miniature: a candidate clear of every interior body,
     # standing inside a printed wall. A world that answers CLEAR here answers CLEAR in the
-    # machine, and the pack-closes gate then fails the build the answer was chosen for.
+    # machine, and the pack-closes gate then reds on the pose the answer was chosen for.
     wp = World({"part": box(x=(0, 10), y=(0, 10), z=(0, 10)),
                 "wall": box(x=(50, 60), y=(0, 100), z=(0, 100))},
                {"part": "component", "wall": PIECE})
@@ -990,7 +990,7 @@ def selftest() -> int:
     # the whole Steinmetz region. Boxes, rods and `corridor()` all resolve cleanly at the
     # same crossing, so only a fixture built through `_routing.tube` — the sweep the routed
     # tubes in `world()` are made of — puts the question. A world that answers CLEAR here
-    # answers CLEAR for a pair `lines-clear` fails the build on.
+    # answers CLEAR for a pair `lines-clear` reds on.
     tx, ty, tz = 105.0, 417.0, 358.0
     t1 = _swept_tube((tx, ty - 60, tz - 60), (tx, ty - 60, tz), (tx, ty + 33, tz))
     t2 = _swept_tube((tx + 20, ty + 51, tz), (tx + 20, ty, tz), (tx - 60, ty, tz))

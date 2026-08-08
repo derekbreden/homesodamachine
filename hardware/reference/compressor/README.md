@@ -54,7 +54,7 @@ Four Ø[14](MOUNT_D) mm holes through the plate, each inset
 
 That inset leaves **[7.5](MOUNT_LIGAMENT) mm of plate** outboard of each hole — the
 ligament the plate keeps between a hole and the edge it is inset from. `mounts_hold()`
-fails the build if a figure ever moves far enough to close it and open the hole into a slot.
+raises in `selftest()` if a figure ever moves far enough to close it and open the hole into a slot.
 
 ## Frame
 

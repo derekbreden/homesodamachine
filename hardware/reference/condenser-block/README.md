@@ -25,8 +25,9 @@ donor packed as an envelope is for: the serpentine's own headers are re-dressed 
 reach them. Each joint is therefore one point read twice, with no copper drawn
 between the two bodies, and
 [`front_half.refrigerant_joints()`](/hardware/manifold-layout/front_half.py) measures
-both at every build and fails the build if either opens. The fan is on the face its
-air leaves by.
+both at every build, each off the two stations meant to be one point, and
+`check_refrigerant_joints` reds the `refrigerant-joints` gate if either opens. The fan
+is on the face its air leaves by.
 
 `stations_hold()` holds all three to the box this module draws: each stands on
 the face its own axis points out of, and inside that face's own edges.
