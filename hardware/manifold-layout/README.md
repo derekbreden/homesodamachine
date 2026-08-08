@@ -164,7 +164,7 @@ evaporator's outlet as cut and brazed copper `_lines` draws like any other run.
 both its mouths — and `check_refrigerant_joints` writes the card red for any leg standing open
 and for any with no pair of placed stations to measure.
 
-![front half](enclosure-assembly.right.png)
+![the enclosure assembly](enclosure-assembly.right.png)
 
 ## Regenerate
 

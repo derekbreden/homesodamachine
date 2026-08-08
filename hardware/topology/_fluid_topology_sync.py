@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Doc-sync driver for the fluid-topology charts.
 
-The front half is the source of truth for the arrangement.
+The enclosure assembly is the source of truth for the arrangement.
 [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) places
 the pack, [`_lines.py`](/hardware/manifold-layout/_lines.py) authors every run BETWEEN placed
 bodies and `_routing.Run.length` measures the built centreline, and
@@ -131,14 +131,14 @@ def _interior(how: str) -> tuple:
 
 def segments() -> dict:
     """Every fluid segment the machine owes, keyed by route id, plus the non-flavour runs the
-    front half draws through this stand.
+    enclosure assembly draws through this stand.
 
     Three sources. `_lines.py` draws the runs between PLACED BODIES and they arrive measured.
     `manifold_layout.SEGMENTS` is the manifold's interior, where a connection is a butt or a
     bend. `manifold_layout.MOUTHS` is what leaves that study, and a mouth `_lines.py` has not
     picked up is a stub drawn one bend radius long and stopped.
 
-    THE WHOLE FRONT HALF, NOT THE PACK. A run between two bodies the pack places is drawn by
+    THE WHOLE ASSEMBLY, NOT THE PACK. A run between two bodies the pack places is drawn by
     `_lines.build_runs`, but a run to a body SEATED IN THE BOX cannot be — the box is sized on the
     pack, so it does not exist until the pack does. `build_enclosure_assembly` seats the funnel and
     then draws `_lines.build_seated_runs` off the same frames, and the hopper drain `fluid-4` is
@@ -161,7 +161,7 @@ def segments() -> dict:
 
 def owed() -> dict:
     """The fluid segments fluid-topology.md's own tables name, id → `(from, to)` — the same read
-    `_scorecard.load_connections` takes to score the front half's `routed` axis."""
+    `_scorecard.load_connections` takes to score the assembly's `routed` axis."""
     return {c.id: (c.frm, c.to) for c in _scorecard.load_connections([]) if c.kind == "fluid"}
 
 
@@ -612,7 +612,7 @@ def main() -> int:
     problems += check_linkstyle_cover(CARBONATOR, carb_lines, carb_edges)
     problems += check_linkstyle_cover(LIMBS, *read_edges(LIMBS))
     if problems:
-        print("fluid-topology charts disagree with the front half:")
+        print("fluid-topology charts disagree with the enclosure assembly:")
         print("\n".join(problems))
         return 1
 

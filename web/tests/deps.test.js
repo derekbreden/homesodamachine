@@ -101,7 +101,7 @@ test("build order puts a producer before the scripts that load its STEP", () => 
   assert.ok(consumer !== -1, "enclosure_assembly should be in the order");
   assert.ok(
     producer < consumer,
-    "the foam assembly must build before the front half that loads it",
+    "the foam assembly must build before the enclosure assembly that loads it",
   );
 });
 
@@ -170,7 +170,7 @@ test("a manifold_layout edit rebuilds the assembly that imports it", () => {
   const deps = findRunnableScriptsTransitivelyImporting(ml, ROOTS).map(rel);
   assert.ok(
     deps.some(ends("manifold-layout/enclosure_assembly.py")),
-    `the front half must rebuild; got:\n${deps.join("\n")}`,
+    `the enclosure assembly must rebuild; got:\n${deps.join("\n")}`,
   );
 });
 
@@ -205,7 +205,7 @@ test("affectedBuildOrder: one edit's wave lists each script once, seeds first, p
   const enclosureAssembly = idx("hardware/manifold-layout/enclosure_assembly.py");
   if (producer !== -1 && enclosureAssembly !== -1) {
     assert.ok(producer < enclosureAssembly,
-      "foam_assembly.py must precede the front half that loads its STEP");
+      "foam_assembly.py must precede the enclosure assembly that loads its STEP");
   }
 });
 

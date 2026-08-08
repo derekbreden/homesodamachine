@@ -39,7 +39,7 @@ SIZE="1400x1080"
 OUT="${TMPDIR:-/tmp}/around"
 
 # The walls and the funnel are what you take off to see the arrangement at all: the four
-# quadrants wrap the whole pack and the funnel roofs the front half.
+# quadrants wrap the whole pack and the funnel roofs the assembly.
 HIDE="enclosure-*,hopper-funnel"
 
 SPIN="z"

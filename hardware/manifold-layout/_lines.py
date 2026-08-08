@@ -1,4 +1,4 @@
-"""The front half's tube runs — every line between two placed bodies, authored port to port.
+"""The enclosure assembly's tube runs — every line between two placed bodies, authored port to port.
 
 The manifold's own 21 segments are drawn by `manifold_layout.py`, which knows its butt joints
 and its hairpins. This module is for the runs BETWEEN sub-assemblies: a mouth on one placed body
@@ -300,7 +300,7 @@ CROSS_Y = 157.0
 
 def _water_3(F):
     """water-3 — the split's DOWNWARD branch to V-K's forward-facing inlet, and the one run in
-    the front half that crosses the whole machine.
+    the assembly that crosses the whole machine.
 
     It has to. The split stands in the WEST lane and V-K stands on the EAST, and V-K's inlet
     faces FORWARD — so the water leaves the split going down, and has to arrive at V-K from in

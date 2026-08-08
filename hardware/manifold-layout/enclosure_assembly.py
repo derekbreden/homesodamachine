@@ -1,5 +1,5 @@
-"""Front half — the refrigeration stratum, the flavor manifold standing on it, and the cold
-core behind the pair.
+"""The enclosure assembly — the refrigeration stratum, the flavor manifold standing on it,
+and the cold core behind the pair.
 
 Four bodies, mated face to face with nothing between them:
 
@@ -7,7 +7,7 @@ Four bodies, mated face to face with nothing between them:
     condenser+fan       turned onto it, and the pair yawed as one by `BASE_YAW`
     manifold-layout     set down on the crown of those two, on the four SPINE HAIRPINS
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
-                        plane the front half ends at
+                        plane the bodies ahead of it end at
 
 The gaps along that chain are 0 by intent, and where a mating closes a leg of the refrigerant
 loop no copper is drawn between the two bodies: the compressor is an oblong can whose two stubs
@@ -368,8 +368,8 @@ def build_condenser(comp):
 
 def build_foam(front_y: float):
     """The cold core at the machine's own `FOAM_YAW` and on the machine's own floor, its front
-    face on the plane the front half ends at. Its native box hangs 20 mm below its origin, so
-    the floor is the box's own bottom and not that origin.
+    face on the plane the bodies ahead of it end at. Its native box hangs 20 mm below its
+    origin, so the floor is the box's own bottom and not that origin.
 
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
@@ -1812,7 +1812,7 @@ def build_pack() -> cq.Assembly:
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
                 planes={"z0": crown}, got=_whole([s for _n, s, _c in stood]),
                 members=tuple(in_pack))
-    # What the core butts is whatever the front half presents AT THE CORE'S OWN HEIGHT. The
+    # What the core butts is whatever stands ahead of it AT THE CORE'S OWN HEIGHT. The
     # source valves' quarter turns carry them aft over the core's crown, and a body standing
     # over it is not a body in its way — so the seam is measured against the bodies that reach
     # below that crown, and the ones above it are left to overhang.
@@ -2238,7 +2238,7 @@ def report(a: cq.Assembly) -> None:
         under = sh.zmax if on == "compressor" else co.zmax
         print(f"  {n:16} x {(b.xmin + b.xmax) / 2:7.2f} sets down on the {on:9} "
               f"crown z {under:.2f}  gap {b.zmin - under:.2f}")
-    print(f"\nfront half        {whole.xlen:.2f} × {whole.ylen:.2f} × {whole.zlen:.2f}   "
+    print(f"\nmachine           {whole.xlen:.2f} × {whole.ylen:.2f} × {whole.zlen:.2f}   "
           f"({whole.xlen * whole.ylen * whole.zlen / 1e6:.2f} L)")
     print(f"                  x[{whole.xmin:.2f},{whole.xmax:.2f}] "
           f"y[{whole.ymin:.2f},{whole.ymax:.2f}] z[{whole.zmin:.2f},{whole.zmax:.2f}]")
