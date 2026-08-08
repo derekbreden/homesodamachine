@@ -2,7 +2,7 @@
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [223 × 481 × 355 mm](BOX_SIZE), and two of those three numbers are
+It measures [223 × 481 × 358 mm](BOX_SIZE), and two of those three numbers are
 **bounds** rather than consequences:
 
 - **Width** is set on the floor. `_dims` stands the ±X walls one `side_rib_inset`
@@ -10,7 +10,7 @@ It measures [223 × 481 × 355 mm](BOX_SIZE), and two of those three numbers are
   shroud and condenser — and the cold core clears that band, being yawed a quarter
   turn (`front_half.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
-- **Height** is a stated [355 mm](APPLIANCE_HEIGHT), floor slab's underside to the
+- **Height** is a stated [358 mm](APPLIANCE_HEIGHT), floor slab's underside to the
   top wall's outer face. The contents do not lift it; they have to fit under it,
   and `_dims` fails the build if they do not, naming by how much.
 
@@ -42,9 +42,9 @@ its lid, so the column runs solid to the bay's crown and what it leaves open is 
 all of it. So that seam runs **through** its column, on the lane its lip needs — a
 one-`wall` ring inset from the cavity, held open at every height by the standoffs the
 pack is packed to, one wall off the front and back walls and one boss chain off the
-sides, which `_lip_denied` measures. The four
-station pods and the posts over them stand in the ±X boss-chain bands over their
-piece's whole height, so a seam height moves only the lip. The cold core spans that
+sides, which `_lip_denied` measures. The four station pods and the posts over them
+stand in the ±X boss-chain bands over their piece's whole height, so a seam height
+moves only the lip. The cold core spans that
 seam, as it spans the front column's on the other side of the Y joint.
 
 The two stand `z_joint_pitch` apart — closer and the Y seam quietly comes out with
