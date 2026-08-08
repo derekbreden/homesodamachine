@@ -39,14 +39,19 @@ basin; then the air its own floor keeps over the casting, one `LINE_HUG` of it.
 The chain is rolled about its own flow axis, so its underside is a body corner
 and the vent stub's tip stands above it, leaning aft.
 
-`_contents.drip_pan_seat()` hangs the basin off that underside and raises when
-the casting under it asks for more. The plan station is not posed by hand either.
-In X the flange's west edge lands on the −X wall's inner face
-(`_contents.drip_pan_west`), the face the tray withdraws through; in Y the vent's
-own column centres it, held off the discharge chain's barb by what a hose leaving
-that barb needs, and it is the **flange** that arrives at the barb first.
-`_contents._pan_room` reads the vent's tip back against the floor those two
-leave, and raises when the drip would land outside the basin it is meant for.
+`front_half.pan_floor` stands the basin's own floor on that clearance and
+`front_half.build_asse` hangs the chain on the same three numbers, so a change to
+either moves both bodies together. The plan station is not posed by hand either.
+In X the basin hangs off the pump — `front_half.pan_east_x` puts its east rim one
+clearance off the casting's west flank at the tray's own height — and the west lip
+takes what the lane has left, which `front_half.check_pan_lane` measures against
+the −X wall's inner face, the face the tray withdraws through. In Y the pump's
+discharge bounds it and the vent does not: `front_half.pan_front_y` strikes the
+forward rim on the barb's own aft edge, by what a hose leaving that barb needs, and
+it is the **flange** that arrives at the barb first. The vent then falls where the
+chain's own standoff from the back wall leaves it, and
+`front_half.check_vent_lands` reads its tip back against the floor those two leave,
+reporting where the drip lands as the `vent-lands` gate row.
 
 ## What the floor carries sets the depth
 
