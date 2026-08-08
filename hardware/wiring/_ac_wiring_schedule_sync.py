@@ -13,16 +13,6 @@ sys.path.insert(
 )
 from docgen import substitute_md
 
-# The compressor-shroud cable is a purchased jacketed SJOOW lead whose
-# gauge is fixed by the shroud part (it sizes the gland and the panel
-# hole). AC-4/5/6 are its three conductors, so they read their gauge
-# from there rather than carrying one of the loose-wire classes below.
-sys.path.insert(
-    0,
-    str(_here.parents[0] / "cut-parts" / "compressor-shroud"),
-)
-from _compressor_shroud_dimensions import ac_cable_awg as _shroud_ac_cable_awg  # noqa: E402
-
 
 # ─── Mains-side voltage / fault-protection design ────────────────────
 # US household single-phase line voltage.
@@ -36,11 +26,12 @@ ac_primary_fuse_a = 5
 # ground bond, 12 V trunk + branches; signal (22) — board-driven DC
 # actuators + every sensor / reed / display / logic run. The AC-branch
 # and LV runs share the power and signal gauge respectively but keep
-# their own markers. The shroud SJOOW (AC-4/5/6) is its own gauge, read
-# from the shroud part above.
+# their own markers. The compressor lead (AC-4/5/6) is its own gauge:
+# it is a purchased jacketed cord, not wire cut off a spool, so its
+# three conductors come at whatever gauge the cord is bought at.
 awg_mains = 16          # AC-1, DC-1/DC-2/DC-3/DC-4, ground bus
 awg_ac_branch = 16      # AC-2/AC-3 (power gauge)
-awg_shroud = _shroud_ac_cable_awg  # AC-4/AC-5/AC-6 — the SJOOW's three conductors
+awg_compressor_lead = 18  # AC-4/AC-5/AC-6 — the SJOOW cord's three conductors
 awg_sig = 22            # DC-5/DC-6/DC-7/DC-8, SIG-1
 awg_lv = 22             # LV-1/2/3, SIG-2/3/4/7/8/9/10/11/12 (signal gauge)
 
@@ -77,12 +68,12 @@ v_rail_io = 3.3
 # cited in SIG-1.
 ds18b20_pullup_kohm = 4.7
 
-# ─── Conductor counts through the shroud / cabinet trunks ────────────
-# Three wires (switched H + N + chassis G) cross the compressor shroud
-# wall in the SJOOW bundle. Five would cross if Teyleten relay #1 lived
-# inside the shroud (add the relay's #1 logic leg + opto return).
-shroud_wires_outside = 3
-shroud_wires_inside = 5
+# ─── Conductor counts down the cabinet trunks ────────────────────────
+# Three wires (switched H + N + chassis G) reach the compressor in the
+# SJOOW bundle. Five would reach it if Teyleten relay #1 stood beside it
+# rather than on the shelf (add the relay's #1 logic leg + opto return).
+compressor_wires_shelf_relay = 3
+compressor_wires_local_relay = 5
 
 # Beduan solenoid coils across both manifolds. Cited in DC-4's board
 # load list. The board carries 12 channels (J1 ×8, J2 ×4); the manifold
@@ -114,13 +105,13 @@ def main():
         # Conductor gauges.
         "AWG_MAINS": f"{awg_mains:.4g}",
         "AWG_AC_BRANCH": f"{awg_ac_branch:.4g}",
-        "AWG_SHROUD": f"{awg_shroud:.4g}",
+        "AWG_COMP_LEAD": f"{awg_compressor_lead:.4g}",
         "AWG_SIG": f"{awg_sig:.4g}",
         "AWG_LV": f"{awg_lv:.4g}",
         # Gauge with the " AWG" unit, used in prose.
         "AWG_MAINS_U": f"{awg_mains:.4g} AWG",
         "AWG_AC_BRANCH_U": f"{awg_ac_branch:.4g} AWG",
-        "AWG_SHROUD_U": f"{awg_shroud:.4g} AWG",
+        "AWG_COMP_LEAD_U": f"{awg_compressor_lead:.4g} AWG",
         # PSU.
         "PSU_PRI_A": f"{psu_primary_a:.4g} A",
         "PSU_W": f"{psu_full_load_w:.4g} W",
@@ -135,8 +126,8 @@ def main():
         "V_IO": f"{v_rail_io:.4g} V",
         "DS18B20_PULLUP": f"{ds18b20_pullup_kohm:.4g} kΩ",
         # Conductor counts.
-        "SHROUD_WIRES": f"{shroud_wires_outside:.4g}",
-        "SHROUD_WIRES_ALT": f"{shroud_wires_inside:.4g}",
+        "COMP_WIRES": f"{compressor_wires_shelf_relay:.4g}",
+        "COMP_WIRES_ALT": f"{compressor_wires_local_relay:.4g}",
         "SOLENOID_COUNT": f"{solenoid_count:.4g}",
         # Run-length design targets.
         "LEN_SHORT": f"~{len_short_mm:.4g} mm",
@@ -161,13 +152,13 @@ def main():
             # Conductor gauges (raw, in the per-row "AWG" column).
             "AWG_MAINS": 5,        # AC-1, DC-1/2/3/4
             "AWG_AC_BRANCH": 2,    # AC-2/3
-            "AWG_SHROUD": 3,       # AC-4/5/6
+            "AWG_COMP_LEAD": 3,       # AC-4/5/6
             "AWG_SIG": 5,          # DC-5/6/7/8, SIG-1
             "AWG_LV": 12,          # LV-1/2/3, SIG-2/3/4/7/8/9/10/11/12
             # Conductor gauges with " AWG" suffix in prose.
             "AWG_MAINS_U": 3,
             "AWG_AC_BRANCH_U": 1,
-            "AWG_SHROUD_U": 1,
+            "AWG_COMP_LEAD_U": 1,
             # PSU.
             "PSU_PRI_A": 1,
             "PSU_W": 1,
@@ -182,8 +173,8 @@ def main():
             "V_IO": 5,
             "DS18B20_PULLUP": 1,
             # Conductor counts.
-            "SHROUD_WIRES": 1,
-            "SHROUD_WIRES_ALT": 1,
+            "COMP_WIRES": 1,
+            "COMP_WIRES_ALT": 1,
             "SOLENOID_COUNT": 1,
             # Run-length design targets.
             "LEN_SHORT": 1,
