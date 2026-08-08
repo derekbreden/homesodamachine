@@ -34,7 +34,7 @@ bottom:
   dry. A straight spout tube carries the exit down to the drain, which sits
   **above** V-B's up-facing inlet collet — `fluid-4` is the gravity drain and the
   air-purge path, so the tube from drain to V-B must only fall. The pack is
-  measured on the real solids by the front-half scorecard. Total drop
+  measured on the real solids by the enclosure-assembly scorecard. Total drop
   [53 mm](HOPPER_DROP) below the brim.
 
 Capacity to the brim is [807 mL](HOPPER_CAP) — a full 440 mL bottle dumped,

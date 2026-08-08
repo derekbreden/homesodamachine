@@ -30,7 +30,7 @@ So the unit of judgement is a **campaign**: one check, up to **10 iterations**, 
 
 ```
 git log --oneline --grep='^Gauntlet:' -30
-jq -r '.checks[] | "\(.status)  \(.id)  \(.value)"' hardware/manifold-layout/front-half.scorecard.json
+jq -r '.checks[] | "\(.status)  \(.id)  \(.value)"' hardware/manifold-layout/enclosure-assembly.scorecard.json
 ```
 
 The log is tonight's memory — your context may have been compacted, the repo has not. Every
@@ -60,7 +60,7 @@ campaign tonight. Otherwise there is work.
    and the whole judgement is the difference between two of them:
 
    ```
-   SC=hardware/manifold-layout/front-half.scorecard.json
+   SC=hardware/manifold-layout/enclosure-assembly.scorecard.json
    diff <(git show HEAD~1:$SC | jq -r '.checks[]|"\(.id) \(.status) \(.value)"') \
         <(jq -r '.checks[]|"\(.id) \(.status) \(.value)"' $SC)
    ```

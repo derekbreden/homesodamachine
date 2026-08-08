@@ -1778,7 +1778,7 @@ PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pa
 def build_pack() -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
-    a = cq.Assembly(name="front-half")
+    a = cq.Assembly(name="enclosure-assembly")
     SEATS.clear()
     BOUNDS.clear()
     # The import-time group first, so a pack that never reaches the box still carries them.
@@ -2316,7 +2316,7 @@ def report_seats(a: cq.Assembly, placed_names) -> None:
 def main():
     import _scorecard as _card
     a = build_enclosure_assembly()
-    out = _here.parent / "front-half.step"
+    out = _here.parent / "enclosure-assembly.step"
     export_assembly(a, str(out))
     print(f"-> {out.name}")
     report(a)
