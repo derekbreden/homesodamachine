@@ -558,8 +558,8 @@ Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
     "vk-solenoid": Cradle((111.500,  64.550), 0.0, 1.0000),
-    "valve-v-a":   Cradle((105.920,  20.070), 0.0, 3.1136),
-    "valve-v-b":   Cradle((105.920, -20.070), 0.0, 3.1136),
+    "valve-v-a":   Cradle((105.920,  20.070), 0.0, 2.6150),
+    "valve-v-b":   Cradle((105.920, -20.070), 0.0, 2.6150),
 }
 
 # The pad's own reach off the valve's centre, and the radius its corners are struck on. The

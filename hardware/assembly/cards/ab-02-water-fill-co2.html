@@ -27,9 +27,11 @@
         float, or a pump-pull short-circuit.</li>
       <li><b>Walk the joints wet</b> — inlet, slot transitions, top-plate
         elbow, vent pan: all dry.</li>
-      <li><b>Hold 90 PSI two minutes</b> — in-rush hiss dies to silence
-        as the stone bubbles. No PRV weep, no vent telltale. PRV open =
-        WR1110 fault; a wet vent = cross-contamination.</li>
+      <li><b>Hold <span class="dim" data-gen="REG_PSI">90 PSI</span> for
+        <span class="dim" data-gen="PRV_HOLD">2 min</span></b> — in-rush
+        hiss dies to silence as the stone bubbles. No PRV weep, no vent
+        telltale. PRV open = WR1110 fault; a wet vent =
+        cross-contamination.</li>
     </ol>
 
     <div class="tools">
@@ -42,9 +44,9 @@
     <div class="settings">
       <div class="s"><div class="k">Fill stop</div><div class="v">high reed</div></div>
       <div class="s"><div class="k">Fill time</div><div class="v">tens of s</div></div>
-      <div class="s"><div class="k">CO2 side</div><div class="v">90 PSI</div></div>
+      <div class="s"><div class="k">CO2 side</div><div class="v" data-gen="REG_PSI">90 PSI</div></div>
       <div class="s"><div class="k">PRV set</div><div class="v">125 PSI</div></div>
-      <div class="s"><div class="k">Hold</div><div class="v">2 min</div></div>
+      <div class="s"><div class="k">Hold</div><div class="v" data-gen="PRV_HOLD">2 min</div></div>
       <div class="s"><div class="k">Vent pan</div><div class="v">dry</div></div>
     </div>
 
@@ -78,7 +80,7 @@
         <text class="sub" x="190" y="144" text-anchor="middle">V-K</text>
         <text class="sub" x="300" y="84" text-anchor="middle">SeaFlo</text>
         <text class="sub" x="410" y="144" text-anchor="middle">GASHER chk</text>
-        <text class="sub" x="503" y="84" text-anchor="middle">front face &#183; TAISHER</text>
+        <text class="sub" x="503" y="84" text-anchor="middle">top cap &#183; TAISHER</text>
         <text class="dimtx" x="30" y="180">WATER &rarr; Port 2 (top plate)</text>
         <text class="sub" x="30" y="208">backflow &rarr; split &rarr; V-K &rarr; pump &rarr; check &rarr; PP450822E</text>
 
@@ -87,7 +89,7 @@
         <path fill="#2e8540" d="M 596 272 L 596 288 L 610 280 Z"/>
         <rect class="box" x="200" y="252" width="180" height="56"/>
         <text class="btx" x="290" y="278" text-anchor="middle">WR1110</text>
-        <text class="dimtx" x="290" y="302" text-anchor="middle">90 PSI</text>
+        <text class="dimtx" x="290" y="302" text-anchor="middle" data-gen="REG_PSI">90 PSI</text>
         <text class="dimtx" x="30" y="250">CO2 &rarr; Port 1 (bottom)</text>
         <text class="sub" x="200" y="344">bubbles once the stone wets</text>
 
@@ -95,16 +97,17 @@
         <line class="gln" x1="700" y1="70" x2="700" y2="46"/>
         <text class="sub" x="676" y="34" text-anchor="end">SV-125 PRV &#8212; no weep</text>
       </svg>
-      <div class="cap"><b>Fill runs until the high reed asserts.</b> The
-      appliance-side gauge is internal — the proxy is silence after the
-      in-rush.</div>
+      <div class="cap"><b>Both paths reach the vessel through the core's
+      lid</b> — <span data-gen="CAP_CONDUITS">7</span> conduits stand on it
+      and each line takes one. Fill runs until the high reed asserts; the
+      proxy is silence after the in-rush.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>High reed stopped the fill, every joint dry, steady 90 PSI through the 2-minute hold, PRV silent, pan dry.</div>
-  <div class="src">acceptance-and-burn-in.md &#167;3&ndash;4<br>rev 2026-07-24</div>
+  <div class="done"><span class="lbl">Done when</span>High reed stopped the fill, every joint dry, steady pressure held through the hold, PRV silent, pan dry.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;3&ndash;4 &#183; _cards_sync.py<br>rev 2026-08-07</div>
 </footer>
 
 </div>
