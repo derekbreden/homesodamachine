@@ -72,7 +72,7 @@ The C14 receptacle is recessed [3–5 mm](AC_RECESS_DEPTH) into the rear face wi
 
 The 3× PP1208E umbilical-port bulkheads stand across the top of the field on one pitch (`enclosure_assembly.PANEL_X`). The order across it is the inboard runs': the two flavor gates take the west of the row, each on the side its run arrives from, and the carb union takes the [east](CARB_END) end with its DIGITEN meter lying inline ahead of it. The **blue-ringed (carbonated-water) bulkhead is the end one** — the user reads it by position in the row, not by a vertex.
 
-Two of the three are on one Z. The [west](FLAVOR_B_END) one — nozzle B's — stands one pitch below them (`enclosure_assembly.PANEL_DROP`), under the tap-water bulkhead that takes its place on the row's own storey. East of centre is the C14 cutout, at the end of the wall the power column stands against, and below the C14 the CO2 PTC. Every station's Z is the pack's, and the wall takes its ceiling from the field's own top edge ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) `port_top`).
+Two of the three are on one Z. The [west](FLAVOR_B_END) one — nozzle B's — stands on the lane its own run cruises in (`enclosure_assembly.PANEL_ON_GATE_LANE`), below them, under the tap-water bulkhead that takes its place on the row's own storey. East of centre is the C14 cutout, at the end of the wall the power column stands against, and below the C14 the CO2 PTC. Every station's Z is the pack's, and the wall takes its ceiling from the field's own top edge ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) `port_top`).
 
 ## Material
 

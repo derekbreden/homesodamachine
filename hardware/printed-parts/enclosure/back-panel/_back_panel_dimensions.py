@@ -68,11 +68,11 @@ def carb_union_end():
 
 def dropped_union_end():
     """Which end of the umbilical row stands off the row's own storey — READ off
-    `enclosure_assembly.PANEL_DROP` against `PANEL_X`, so the user rule ("the odd one
-    out is at this end, one pitch down") cannot outlive the arrangement it
+    `enclosure_assembly.PANEL_ON_GATE_LANE` against `PANEL_X`, so the user rule ("the
+    odd one out is at this end, lower down") cannot outlive the arrangement it
     describes. +X is east."""
     import enclosure_assembly as _ea
-    name, = _ea.PANEL_DROP
+    name, = _ea.PANEL_ON_GATE_LANE
     return "east" if _ea.PANEL_X[name] == max(_ea.PANEL_X.values()) else "west"
 
 

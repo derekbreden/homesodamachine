@@ -2,7 +2,7 @@
  "gatesPass": false,
  "placed": 100,
  "located": 100,
- "shaped": 90,
+ "shaped": 91,
  "routed": 100,
  "held": 92,
  "mounted": 19,
@@ -11,10 +11,18 @@
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "pass",
-   "value": "59/59 declared",
+   "status": "fail",
+   "value": "58/64 declared",
    "target": "all declared",
-   "detail": [],
+   "detail": [
+    "placed, undeclared: relay-2",
+    "placed, undeclared: wago-g",
+    "placed, undeclared: wago-gnd",
+    "placed, undeclared: wago-h",
+    "placed, undeclared: wago-n",
+    "placed, undeclared: wago-v12",
+    "declared, unplaced: ac-hub"
+   ],
    "active": true
   },
   {
@@ -22,14 +30,14 @@
    "label": "Every derived pose has the room its own construction states",
    "kind": "gate",
    "status": "pass",
-   "value": "5/5 bands held, tightest +0.000 mm",
+   "value": "5/5 bands held, tightest -0.000 mm",
    "target": "every band held",
    "detail": [
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 6.000",
+    "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 6, has 6.135",
     "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.913",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 8.892",
-    "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 6, has 22.552",
-    "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 6, has 24.403"
+    "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 6, has 22.552"
    ],
    "active": true
   },
@@ -37,10 +45,12 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "psu \u2229 enclosure-back-top   145.7 mm\u00b3, x[   99.20,  102.25] y[  364.30,  437.80] z[  304.75,  305.40]"
+   ],
    "active": true
   },
   {
@@ -79,12 +89,15 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "2 under, tightest 0.770 mm",
+   "value": "4 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "fluid-18 \u2014 relay-1: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "fluid-18 \u2014 ground-stack: 0.602 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "fluid-18 threads relay-1 \u2014 ground-stack: they leave 5.501 mm and the tube is \u00d86.35, so -0.425 mm a side if it were centred, and it is not",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
     "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
@@ -103,12 +116,19 @@
     "water-5 \u2014 fluid-24: 1.380 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
     "carb-1 \u2014 suction-chain: 1.775 mm",
-    "fluid-28 \u2014 drip-pan: 1.825 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "fluid-14 \u2014 gasher-co2: 1.956 mm",
+    "carb-1 \u2014 pcba: 2.475 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
-    "psu \u2014 relay-1: 2.500 mm",
-    "relay-1 \u2014 ac-hub: 2.500 mm",
+    "psu \u2014 relay-2: 2.500 mm",
+    "psu \u2014 wago-h: 2.500 mm",
+    "psu \u2014 wago-n: 2.500 mm",
+    "psu \u2014 wago-g: 2.500 mm",
+    "psu \u2014 wago-v12: 2.500 mm",
+    "psu \u2014 wago-gnd: 2.500 mm",
+    "relay-2 \u2014 pcba: 2.532 mm",
+    "pcba \u2014 relay-1: 2.532 mm",
+    "fluid-18 \u2014 pcba: 2.534 mm",
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
     "water-7 \u2014 co2-2: 2.861 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
@@ -117,19 +137,18 @@
     "fluid-28 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-14 \u2014 seaflo-pump: 3.325 mm",
-    "pcba \u2014 ground-stack: 3.450 mm",
     "carb-1 \u2014 fluid-18: 3.650 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "fluid-2 \u2014 fluid-24: 3.707 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
-    "psu \u2014 ground-stack: 4.109 mm",
     "fluid-2 \u2014 fluid-26: 4.215 mm",
     "c14-inlet \u2014 bulkhead-carb: 4.292 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "co2-2 \u2014 fluid-18: 4.358 mm",
     "co2-2 \u2014 carb-1: 4.358 mm",
+    "foam-assembly \u2014 relay-2: 4.500 mm",
     "co2-2 \u2014 suction-chain: 4.568 mm",
     "fluid-24 \u2014 fluid-26: 4.601 mm",
     "water-7 \u2014 foam-assembly: 4.750 mm",
@@ -139,11 +158,12 @@
     "water-3 \u2014 tee-y-a: 5.075 mm",
     "water-3 \u2014 tee-y-b: 5.075 mm",
     "water-2 \u2014 discharge-chain: 5.264 mm",
+    "relay-1 \u2014 ground-stack: 5.501 mm",
     "fluid-2 \u2014 discharge-chain: 5.638 mm",
     "water-6 \u2014 enclosure-back-top: 5.650 mm",
-    "fluid-18 \u2014 pcba: 5.660 mm",
     "fluid-14 \u2014 hopper-funnel: 5.694 mm",
     "fluid-24 \u2014 coil-v-b: 5.850 mm",
+    "relay-2 \u2014 relay-1: 5.860 mm",
     "carb-1 \u2014 fluid-14: 5.936 mm",
     "seaflo-pump \u2014 digiten-flow: 5.970 mm"
    ],
@@ -464,7 +484,7 @@
    "label": "The +X wall's column stands in the depth that wall runs free",
    "kind": "gate",
    "status": "pass",
-   "value": "column spans y 243.88..449.70, band 231.40..455.70",
+   "value": "column spans y 233.88..455.70, band 231.40..455.70",
    "target": "inside y 231.40..455.70",
    "detail": [],
    "active": true
@@ -747,7 +767,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "59/59 stated",
+   "value": "64/64 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -800,7 +820,7 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "53/59 authored",
+   "value": "58/64 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
@@ -984,7 +1004,7 @@
    "pos": [
     -80.0,
     450.21,
-    289.233
+    270.965
    ],
    "face": [
     0.0,
@@ -1003,7 +1023,7 @@
    "pos": [
     -80.0,
     484.5,
-    289.233
+    270.965
    ],
    "face": [
     0.0,
@@ -2170,11 +2190,11 @@
    "boxes": [
     [
      88.45,
-     337.1,
-     307.9,
+     234.2,
+     328.7,
      102.25,
-     355.1,
-     325.588
+     252.2,
+     346.388
     ]
    ],
    "fill": 0.1681,
@@ -2210,10 +2230,10 @@
    "boxes": [
     [
      83.15,
-     243.884,
+     233.884,
      253.4,
      102.25,
-     334.7,
+     324.7,
      326.2
     ]
    ],
@@ -2426,11 +2446,27 @@
    "boxes": [
     [
      83.25,
-     379.7,
-     307.9,
+     254.7,
+     328.7,
      102.25,
-     449.7,
-     324.9
+     324.7,
+     345.7
+    ]
+   ],
+   "fill": 0.4287,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "relay-2",
+   "boxes": [
+    [
+     83.25,
+     327.2,
+     253.4,
+     102.25,
+     344.2,
+     323.4
     ]
    ],
    "fill": 0.4287,
@@ -2507,10 +2543,10 @@
     [
      -91.43,
      450.21,
-     277.803,
+     259.535,
      -68.57,
      484.5,
-     300.663
+     282.395
     ]
    ],
    "fill": 0.4633,
@@ -2766,46 +2802,6 @@
    "declared": null
   },
   {
-   "component": "ac-hub",
-   "boxes": [
-    [
-     89.95,
-     357.6,
-     327.4,
-     102.25,
-     449.7,
-     346.1
-    ],
-    [
-     80.65,
-     369.15,
-     332.55,
-     99.25,
-     387.95,
-     340.95
-    ],
-    [
-     80.65,
-     394.25,
-     332.55,
-     99.25,
-     413.05,
-     340.95
-    ],
-    [
-     80.65,
-     419.35,
-     332.55,
-     99.25,
-     438.15,
-     340.95
-    ]
-   ],
-   "fill": 0.648,
-   "primitive": false,
-   "declared": null
-  },
-  {
    "component": "co2-inlet",
    "boxes": [
     [
@@ -2898,10 +2894,10 @@
    "boxes": [
     [
      68.75,
-     340.7,
+     346.7,
      253.4,
      102.25,
-     449.7,
+     455.7,
      305.4
     ]
    ],
@@ -2922,6 +2918,86 @@
     ]
    ],
    "fill": 0.9681,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-g",
+   "boxes": [
+    [
+     83.65,
+     396.85,
+     307.9,
+     102.25,
+     405.25,
+     326.7
+    ]
+   ],
+   "fill": 0.9835,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-gnd",
+   "boxes": [
+    [
+     83.65,
+     426.25,
+     307.9,
+     102.25,
+     434.65,
+     326.7
+    ]
+   ],
+   "fill": 0.9835,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-h",
+   "boxes": [
+    [
+     83.65,
+     367.45,
+     307.9,
+     102.25,
+     375.85,
+     326.7
+    ]
+   ],
+   "fill": 0.9835,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-n",
+   "boxes": [
+    [
+     83.65,
+     382.15,
+     307.9,
+     102.25,
+     390.55,
+     326.7
+    ]
+   ],
+   "fill": 0.9835,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-v12",
+   "boxes": [
+    [
+     83.65,
+     411.55,
+     307.9,
+     102.25,
+     419.95,
+     326.7
+    ]
+   ],
+   "fill": 0.9835,
    "primitive": false,
    "declared": null
   },
@@ -3927,7 +4003,7 @@
    "to": "bulkhead-flavor-b.tube-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 349.41,
+   "length": 348.41,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3947,23 +4023,23 @@
     },
     {
      "at": 2,
-     "turn": 19.4,
+     "turn": 18.4,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
       34.69,
-      166.01
+      165.0
      ]
     },
     {
      "at": 3,
-     "turn": 12.9,
+     "turn": 11.3,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      166.01,
+      165.0,
       40.79
      ]
     },
@@ -3982,14 +4058,14 @@
    "atSpec": 4,
    "bends": 4,
    "worstTurn": 90.0,
-   "seat": 29.626,
-   "reach": 29.626,
-   "reachRatio": 2.1162,
+   "seat": 29.86,
+   "reach": 29.86,
+   "reachRatio": 2.1328,
    "reachGrade": "A",
    "binding": {
     "leg": 1,
     "length": 34.687,
-    "demand": 1.1708,
+    "demand": 1.1617,
     "from": [
      -77.07,
      142.08,
@@ -4011,17 +4087,17 @@
      [
       -80.0,
       450.21,
-      289.23
+      270.97
      ]
     ],
     "axis": {
      "x": 2.93,
      "y": 308.13,
-     "z": 62.06
+     "z": 43.79
     },
-    "span": 314.33,
-    "path": 349.41,
-    "detour": 1.112
+    "span": 311.24,
+    "path": 348.41,
+    "detour": 1.119
    }
   },
   {
@@ -5204,7 +5280,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T19:29:38+00:00",
-  "commit": "638df1a10ff837f01b1d9941dee4c41ef1ece694"
+  "generated": "2026-08-08T21:34:59+00:00",
+  "commit": "d76af7d25b9216309556ed46cbf0de3948f7946e"
  }
 }
