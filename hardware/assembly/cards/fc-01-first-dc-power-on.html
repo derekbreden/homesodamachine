@@ -29,10 +29,12 @@
         re-test; anything moved returns to wiring.</li>
       <li><b>Power via the bench PSU outlet.</b> Firmware boots all-off;
         the outlet is the hardware backstop.</li>
-      <li><b>Prove the rails in order</b> — <span class="dim">12 V</span>
-        &rarr; <span class="dim">5 V</span> &rarr;
-        <span class="dim">3.3 V</span>, meter on each point (map below).
-        Any rail out: kill the PSU, back to wiring.</li>
+      <li><b>Prove the rails in order</b> —
+        <span class="dim" data-gen="RAIL_12V">12 V</span> &rarr;
+        <span class="dim" data-gen="RAIL_5V">5 V</span> &rarr;
+        <span class="dim" data-gen="RAIL_33V">3.3 V</span>, meter on each
+        point (map below). Any rail out: kill the PSU, back to
+        wiring.</li>
       <li><b>Read cold idle</b> — tens of mA. Relay #1 dark; recheck 5 V
         at full logic load after FC-03.</li>
     </ol>
@@ -45,9 +47,9 @@
 
   <div class="col" style="flex:none; width:780px">
     <div class="settings">
-      <div class="s"><div class="k">12 V rail</div><div class="v">12 V <small>&plusmn;0.2 V</small></div></div>
-      <div class="s"><div class="k">5 V rail</div><div class="v">5 V <small>&plusmn;0.1 V</small></div></div>
-      <div class="s"><div class="k">3.3 V rail</div><div class="v">3.3 V <small>&plusmn;0.05 V</small></div></div>
+      <div class="s"><div class="k">12 V rail</div><div class="v"><span data-gen="RAIL_12V">12 V</span> <small data-gen="RAIL_12V_TOL">&plusmn;0.2 V</small></div></div>
+      <div class="s"><div class="k">5 V rail</div><div class="v"><span data-gen="RAIL_5V">5 V</span> <small data-gen="RAIL_5V_TOL">&plusmn;0.1 V</small></div></div>
+      <div class="s"><div class="k">3.3 V rail</div><div class="v"><span data-gen="RAIL_33V">3.3 V</span> <small data-gen="RAIL_33V_TOL">&plusmn;0.05 V</small></div></div>
       <div class="s"><div class="k">Cold idle</div><div class="v">tens of mA</div></div>
       <div class="s"><div class="k">Relay #1</div><div class="v">dark</div></div>
       <div class="s"><div class="k">AC side</div><div class="v">FC-05</div></div>
@@ -56,7 +58,7 @@
     <table class="spec" style="margin-top:22px">
       <tr><th colspan="2">Walk-down &mdash; before any power</th></tr>
       <tr><td>Compressor shroud</td><td class="v">closed + grounded</td></tr>
-      <tr><td>Electronics shelf</td><td class="v">populated + fastened</td></tr>
+      <tr><td>Power column</td><td class="v"><span data-gen="WALL_BOSSES">15</span> +X wall bosses driven</td></tr>
       <tr><td>Ground bus</td><td class="v">C14 earth &rarr; every bond</td></tr>
       <tr><td>JST XH looms</td><td class="v">labeled wafers &#183; J4 vs J7</td></tr>
       <tr><td>J10 polarity</td><td class="v">V12 east &#183; GND west</td></tr>
@@ -89,17 +91,17 @@
         <path fill="#5b6acb" d="M 454 85 L 454 101 L 466 93 Z"/>
 
         <rect class="box" x="468" y="66" width="88" height="54"/>
-        <text class="boxtx" x="512" y="100" text-anchor="middle">12 V</text>
+        <text class="boxtx" x="512" y="100" text-anchor="middle" data-gen="RAIL_12V">12 V</text>
         <line x1="556" y1="93" x2="574" y2="93" stroke="#5b6acb" stroke-width="4"/>
         <path fill="#5b6acb" d="M 572 85 L 572 101 L 584 93 Z"/>
 
         <rect class="box" x="586" y="66" width="76" height="54"/>
-        <text class="boxtx" x="624" y="100" text-anchor="middle">5 V</text>
+        <text class="boxtx" x="624" y="100" text-anchor="middle" data-gen="RAIL_5V">5 V</text>
         <line x1="662" y1="93" x2="680" y2="93" stroke="#5b6acb" stroke-width="4"/>
         <path fill="#5b6acb" d="M 678 85 L 678 101 L 690 93 Z"/>
 
         <rect class="box" x="692" y="66" width="76" height="54"/>
-        <text class="boxtx" x="730" y="100" text-anchor="middle">3.3 V</text>
+        <text class="boxtx" x="730" y="100" text-anchor="middle" data-gen="RAIL_33V">3.3 V</text>
 
         <line x1="229" y1="120" x2="229" y2="140" stroke="#c8481d" stroke-width="2"/>
         <line x1="512" y1="120" x2="512" y2="140" stroke="#5b6acb" stroke-width="2"/>
@@ -118,8 +120,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>12 / 5 / 3.3 V in tolerance under PSU control, cold idle in the tens of mA — no smoke, no trip, AC side never energized.</div>
-  <div class="src">firmware-and-commissioning.md &#167;1&ndash;2<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>All three rails in tolerance under PSU control, cold idle in the tens of mA — no smoke, no trip, AC side never energized.</div>
+  <div class="src">firmware-and-commissioning.md &#167;1&ndash;2<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
