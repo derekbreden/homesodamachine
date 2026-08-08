@@ -157,9 +157,9 @@ def _split_placed(a) -> tuple:
 # `check_refrigerant_joints` fails the build when one opens. `load_connections` takes that
 # reading, and the joints are MATED rather than owed.
 REFRIGERANT_SEGMENTS = (
-    ("refrig-1", "compressor-shroud discharge", "condenser+fan inlet"),
+    ("refrig-1", "compressor discharge", "condenser+fan inlet"),
     ("refrig-2", "condenser+fan outlet (drier + cap tube)", "foam-assembly evaporator inlet"),
-    ("refrig-3", "foam-assembly evaporator outlet", "compressor-shroud suction"),
+    ("refrig-3", "foam-assembly evaporator outlet", "compressor suction"),
 )
 
 # The tap water, from the rear-panel bulkhead through the backflow preventer, the split and the
@@ -212,7 +212,7 @@ CARB_SEGMENTS = (
 # reads them off `manifold_layout` and adds a row apiece, so the denominator every fastening
 # axis reports is the whole machine and not the part of it this module seats by hand.
 MOUNTS = (
-    ("compressor-shroud", None, "floor"),
+    ("compressor", None, "floor"),
     ("condenser+fan", None, "floor"),
     ("foam-assembly", None, "floor"),
     ("seaflo-pump", None, "cap"),
@@ -291,10 +291,10 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
     # The base's own two bodies, on the seam `front_half.report` prints as a mate at 0 by intent.
-    ("compressor-shroud", "condenser+fan"),
+    ("compressor", "condenser+fan"),
     # The cold core's front face stands on the base's aft face: `front_half.build_pack` strikes
     # `aft` off the bodies that reach below the core's crown, and `build_foam` seats it there.
-    ("compressor-shroud", "foam-assembly"),
+    ("compressor", "foam-assembly"),
     ("condenser+fan", "foam-assembly"),
     # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "seaflo-pump"),
