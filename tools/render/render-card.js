@@ -20,7 +20,7 @@
 import path from "path";
 import fs from "fs";
 import { pathToFileURL } from "url";
-import puppeteer from "puppeteer";
+import { closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 function usage(msg) {
   if (msg) console.error(`render-card: ${msg}`);
@@ -206,20 +206,49 @@ async function main() {
     jobs.push({ htmlAbs: path.resolve(inRel), outAbs });
   }
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-dev-shm-usage", "--force-color-profile=srgb"],
+  sweepAbandonedBrowsers("render-card");
+  const browser = await launchBrowser({
+    args: ["--force-color-profile=srgb"],
+    // A card is a local HTML file with local images and no script — it draws in
+    // about a second, and puppeteer's 180 s default is a ceiling nothing here
+    // can reach on purpose. Held down so a card that has stopped answering
+    // costs the deck a fifth of a minute rather than three, ninety-five times:
+    // this is the budget for a page that never comes back, not for a slow one.
+    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 60000),
   });
   let overflowed = 0;
+  const unrendered = [];
   try {
-    const page = await browser.newPage();
-    await page.setViewport({
-      width: opts.width,
-      height: opts.height,
-      deviceScaleFactor: opts.dpr,
-    });
+    let page = await newCardPage(browser, opts);
     for (const job of jobs) {
-      const overflow = await renderPage(page, job.htmlAbs, job.outAbs, opts);
+      let overflow;
+      try {
+        overflow = await renderPage(page, job.htmlAbs, job.outAbs, opts);
+      } catch (err) {
+        // A card the browser could not draw is one page short of a deck, and a
+        // deck short a page is something to look at — not a reason to throw
+        // away the ninety-four that drew. It is named here and counted with
+        // the overflows, and the caller assembles what there is.
+        unrendered.push(`${path.basename(job.htmlAbs)}: ${err.message || err}`);
+        console.log(`FAILED ${job.outAbs}  ${err.message || err}`);
+        // An earlier run's PNG is still sitting there, and left alone it goes
+        // into the deck as a page of a card this run could not draw — the one
+        // failure nothing downstream can see. Removing it turns a silent stale
+        // page into a named missing one.
+        try { fs.rmSync(job.outAbs, { force: true }); } catch { /* nothing to drop */ }
+        // Whatever wedged the page — a capture that never came back, a load
+        // that never settled — is still wedging it. A fresh tab is what makes
+        // the next card an independent attempt rather than the same failure
+        // ninety-four more times.
+        page = await recycle(browser, page, opts);
+        if (!page) {
+          for (const rest of jobs.slice(jobs.indexOf(job) + 1)) {
+            unrendered.push(`${path.basename(rest.htmlAbs)}: browser gone`);
+          }
+          break;
+        }
+        continue;
+      }
       let flag =
         overflow.x > 0 || overflow.y > 0
           ? `  OVERFLOW x=${overflow.x}px y=${overflow.y}px [${overflow.clipped.join(", ")}]`
@@ -233,14 +262,40 @@ async function main() {
       console.log(`wrote ${job.outAbs}${flag}${note}`);
     }
   } finally {
-    await browser.close();
+    await closeBrowser(browser);
   }
-  if (overflowed) {
-    console.error(
-      `${overflowed} card(s) overflow the ${opts.width}x${opts.height} canvas ` +
-        `or spill out of a band`,
-    );
+  for (const line of unrendered) console.error(`render-card: ${line}`);
+  if (overflowed || unrendered.length) {
+    const parts = [];
+    if (overflowed) {
+      parts.push(
+        `${overflowed} card(s) overflow the ${opts.width}x${opts.height} canvas or spill out of a band`,
+      );
+    }
+    if (unrendered.length) parts.push(`${unrendered.length} card(s) did not render`);
+    console.error(parts.join("; "));
     process.exit(2);
+  }
+}
+
+async function newCardPage(browser, opts) {
+  const page = await browser.newPage();
+  await page.setViewport({
+    width: opts.width,
+    height: opts.height,
+    deviceScaleFactor: opts.dpr,
+  });
+  return page;
+}
+
+// Returns the replacement page, or null when the browser itself is the thing
+// that went — in which case there is no card left to attempt.
+async function recycle(browser, page, opts) {
+  try { await page.close(); } catch { /* it is already past closing */ }
+  try {
+    return await newCardPage(browser, opts);
+  } catch {
+    return null;
   }
 }
 

@@ -35,7 +35,7 @@
 
 import path from "path";
 import fs from "fs";
-import puppeteer from "puppeteer";
+import { closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { withHistoricalServer } from "./temporal.js";
@@ -103,7 +103,8 @@ fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
 // Capture one screenshot at `url` and write it to outputPath.
 async function capture(url) {
-  const browser = await puppeteer.launch({ headless: true, protocolTimeout: 300_000 });
+  sweepAbandonedBrowsers("screenshot-site");
+  const browser = await launchBrowser({ protocolTimeout: 300_000 });
   try {
     const page = await browser.newPage();
     await page.setUserAgent(IPHONE_UA);
@@ -139,7 +140,7 @@ async function capture(url) {
       `wrote ${outputPath} (${width * 2}x${height * 2}, ${size} bytes)`,
     );
   } finally {
-    await browser.close();
+    await closeBrowser(browser);
   }
 }
 

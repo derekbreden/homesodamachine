@@ -215,6 +215,11 @@ footer {
   display: flex; align-items: flex-start; gap: 30px;
   height: 118px;
 }
+/* The band is 118px and holds two lines of done-when. `.src` takes its natural
+   width first, so the length of a citation is what decides how much room the
+   bench instruction has to wrap in: a longer module name on the source line
+   narrows this box, and a done-when that fitted on two lines takes a third and
+   prints below the card. The render's CLIPPED check is what catches it. */
 .done {
   font-size: 30px; line-height: 1.3; flex: 1;
 }

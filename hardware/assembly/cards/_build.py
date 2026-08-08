@@ -103,8 +103,12 @@ def check_cover(authored: set[str]) -> None:
     print(f"cover contents ✓ {total} cards across {len(actual)} subsystems")
 
 
-def render_cards() -> None:
-    subprocess.run(
+def render_cards() -> int:
+    """The renderer's exit status, carried rather than raised. A card that
+    overflows and a card the browser could not draw both come back non-zero,
+    and both are things to look at on the printed deck — so the deck is still
+    printed, from whatever rendered, and the status decides this build's own."""
+    r = subprocess.run(
         [
             "node",
             str(REPO_ROOT / "tools" / "render" / "render-card.js"),
@@ -114,11 +118,13 @@ def render_cards() -> None:
             "--dpr",
             "1.2",
         ],
-        check=True,
+        check=False,
     )
+    return r.returncode
 
 
-def build_pdf() -> None:
+def build_pdf() -> int:
+    """The number of authored cards with no render — pages the deck is short."""
     from reportlab.lib.utils import ImageReader
     from reportlab.pdfgen import canvas as pdf_canvas
 
@@ -132,13 +138,17 @@ def build_pdf() -> None:
     for stem in orphans:
         print(f"orphan render (no {stem}.html): {OUT_DIR / (stem + '.png')}")
 
+    # A card with no render is a page the deck cannot carry. It is named here,
+    # loudly, and the rest of the deck still prints: a deck short one page is
+    # something a bench can read and a missing page is something a bench can
+    # see, where an unwritten PDF is neither.
     missing = sorted(authored - rendered)
-    if missing:
-        sys.exit(f"card(s) authored but not rendered: {', '.join(missing)}")
+    for stem in missing:
+        print(f"MISSING PAGE (no render for {stem}.html): {OUT_DIR / (stem + '.png')}")
 
     check_cover(authored)
 
-    pngs = sorted((OUT_DIR / f"{s}.png" for s in authored), key=deck_key)
+    pngs = sorted((OUT_DIR / f"{s}.png" for s in authored - set(missing)), key=deck_key)
     if not pngs:
         sys.exit("no rendered cards in out/")
 
@@ -155,6 +165,7 @@ def build_pdf() -> None:
     # what makes the cover's own count look wrong.
     print(f"-> {OUT_DIR / 'deck.pdf'} ({len(pngs)} pages — "
           f"{len(pngs) - 1} cards + cover)")
+    return len(missing)
 
 
 def check_machine() -> None:
@@ -168,5 +179,9 @@ def check_machine() -> None:
 
 if __name__ == "__main__":
     check_machine()
-    render_cards()
-    build_pdf()
+    rc = render_cards()
+    missing = build_pdf()
+    # The deck is written either way, and the status is what says so out loud.
+    if rc or missing:
+        sys.exit(f"deck printed with {missing} missing page(s); "
+                 f"render-card exited {rc} — see the flags above")

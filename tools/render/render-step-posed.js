@@ -30,7 +30,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import puppeteer from "puppeteer";
+import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -105,10 +105,7 @@ async function renderOne({ stepRel, outAbs, opts }) {
 
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
-    });
+    browser = await launchBrowser({ protocolTimeout: PARSE_TIMEOUT + 60000 });
     const page = await browser.newPage();
     await page.setViewport({
       width: opts.width,
@@ -245,7 +242,7 @@ async function renderOne({ stepRel, outAbs, opts }) {
       `wrote ${outAbs} (${finalMeta.width}x${finalMeta.height}, ${buf.length} bytes)`,
     );
   } finally {
-    if (browser) await browser.close();
+    await closeBrowser(browser);
     await new Promise((resolve, reject) =>
       server.close((err) => (err ? reject(err) : resolve())),
     );
@@ -253,6 +250,7 @@ async function renderOne({ stepRel, outAbs, opts }) {
 }
 
 async function main() {
+  sweepAbandonedBrowsers("render-step-posed");
   const { positional, opts } = parseArgs(process.argv.slice(2));
   const [stepRel, outRel] = positional;
   if (!stepRel || !outRel) usage("missing arguments");

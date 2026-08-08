@@ -18,7 +18,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import puppeteer from "puppeteer";
+import { closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { withHistoricalTree } from "./temporal.js";
@@ -154,10 +154,7 @@ async function renderMmd({ inputPath, outputPath }) {
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const browser = await launchBrowser({ args: ["--disable-setuid-sandbox"] });
   try {
     const page = await browser.newPage();
     // Generous viewport so wide diagrams render at full size.
@@ -226,11 +223,12 @@ async function renderMmd({ inputPath, outputPath }) {
         )} KiB)`
     );
   } finally {
-    await browser.close();
+    await closeBrowser(browser);
   }
 }
 
 async function main() {
+  sweepAbandonedBrowsers("render-mermaid");
   const { positional, at } = parseArgs(process.argv.slice(2));
   const [inputArg, outputArg] = positional;
   if (!inputArg || !outputArg) {

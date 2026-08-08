@@ -40,8 +40,8 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import puppeteer from "puppeteer";
 import sharp from "sharp";
+import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 import { start } from "../../web/server.js";
 import { EDITIONS } from "../../web/lib/editions.js";
@@ -115,10 +115,12 @@ async function renderRootGroup(root, rels, payloads) {
   let browser;
   let written = 0;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
-    });
+    // One evaluate() carries a whole STEP through occt-import-js on the page's
+    // main thread, so that round trip is as long as the parse — and puppeteer's
+    // 180 s default is what runs out on the big assemblies, reported against
+    // the protocol rather than the file. It rides the same parse budget
+    // render-view.js uses, and the caller's own timeout is the outer bound.
+    browser = await launchBrowser({ protocolTimeout: PARSE_TIMEOUT + 60000 });
     const page = await browser.newPage();
     page.on("pageerror", (err) => console.error("pageerror:", err.message));
 
@@ -159,13 +161,14 @@ async function renderRootGroup(root, rels, payloads) {
       }
     }
   } finally {
-    if (browser) await browser.close();
+    await closeBrowser(browser);
     await new Promise((resolve) => server.close(() => resolve()));
   }
   return written;
 }
 
 async function main() {
+  sweepAbandonedBrowsers("render-thumbnails");
   const args = process.argv.slice(2);
   let targets = [];
 
