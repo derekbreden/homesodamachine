@@ -9,8 +9,8 @@
 
 <header>
   <div class="code">IP-01</div>
-  <h1>CO2 path — front panel<br>to cold core</h1>
-  <div class="deckpos"><b>Internal plumbing · 01/6</b>Thin edition</div>
+  <h1>CO2 path — back wall<br>to cold core</h1>
+  <div class="deckpos"><b>Internal plumbing · 01/6</b>Kitchen edition</div>
 </header>
 
 <main>
@@ -20,19 +20,20 @@
     tube-fed.</p>
 
     <ol class="steps">
-      <li><b>DERPIPE bulkhead NPT-side inboard</b> (EN). Tape it:
-        <span class="dim">2&ndash;3 wraps</span> clockwise, first thread
-        bare.</li>
-      <li><b>GASHER check on, arrow away from the bulkhead.</b>
+      <li><b>DERPIPE bulkhead NPT-side inboard</b> — through the back wall's
+        <span class="dim" data-gen="CO2_HOLE_D">&#8960;15.42</span> bore from
+        EN-02. Tape it: <span class="dim">2&ndash;3 wraps</span> clockwise,
+        first thread bare.</li>
+      <li><b>GASHER check on, arrow away from the wall.</b>
         <span class="dim">Snug + 1</span> past hand-tight, backed up on the
         DERPIPE hex.</li>
       <li><b>PP450822E onto the check's outlet stub</b> — taped, snug + 1.
         The regulator does <i>not</i> thread on here.</li>
-      <li><b>PP010822E into the WR1110's &ldquo;IN&rdquo; and
-        &ldquo;OUT&rdquo;</b> — female both ends: a tube reaches it, a tube
-        leaves it.</li>
-      <li><b>Two LLDPE hops, cut square</b> — check&rarr;regulator, then
-        regulator&rarr;the front-face bore. Tug all four ends.</li>
+      <li><b>PP010822E into the WR1110's IN and OUT</b> — female both
+        ends: tube in, tube out.</li>
+      <li><b>Two LLDPE hops, cut square</b> — check&rarr;regulator straight;
+        regulator&rarr;<b>co2-in</b>,
+        <span class="dim" data-gen="CO2_2_CORNERS">4</span> corners.</li>
     </ol>
 
     <div class="tools">
@@ -55,14 +56,14 @@
           .tape  { stroke: #f0b429; stroke-width: 6; }
           .cradle{ fill: none; stroke: #1d1d26; stroke-width: 3; stroke-dasharray: 7 6; }
         </style>
-        <text class="lbl" x="24" y="40">CO2 CHAIN &#183; front panel &#8594; cold-core front face</text>
+        <text class="lbl" x="24" y="40">CO2 CHAIN &#183; back wall &#8594; cold-core top lid</text>
 
-        <!-- panel-side spine -->
+        <!-- wall-side spine -->
         <line class="flow" x1="170" y1="96" x2="170" y2="330"/>
 
-        <!-- front panel band -->
+        <!-- back wall band -->
         <rect class="band" x="48" y="72" width="300" height="32"/>
-        <text class="lbl" x="360" y="96">FRONT PANEL</text>
+        <text class="lbl" x="360" y="96">BACK WALL</text>
 
         <!-- DERPIPE -->
         <rect class="body" x="124" y="104" width="92" height="56" rx="6"/>
@@ -77,7 +78,7 @@
         <rect class="body" x="116" y="188" width="108" height="60" rx="8"/>
         <path fill="#2268c2" d="M 170 240 L 159 218 L 181 218 Z"/>
         <text class="lbl" x="240" y="212">GASHER check</text>
-        <text class="sub" x="240" y="238">1/4&Prime; NPT SS &#183; arrow away from panel</text>
+        <text class="sub" x="240" y="238">1/4&Prime; NPT SS &#183; arrow away from the wall</text>
 
         <!-- tape joint 2 -->
         <line class="tape" x1="152" y1="260" x2="188" y2="260"/>
@@ -90,7 +91,8 @@
 
         <!-- hop 1: check -> regulator -->
         <path class="tube" d="M 170 328 L 170 400 Q 170 424 194 424 L 286 424"/>
-        <text class="sub" x="52" y="468">hop 1 &#183; short LLDPE</text>
+        <text class="sub" x="52" y="462">co2-1 &#183; no corner</text>
+        <text class="dimtx" x="52" y="492" data-gen="CO2_1_LEN">10 mm</text>
 
         <!-- regulator, standing apart on its cradle -->
         <text class="lbl" x="286" y="352">WR1110 &#183; stands apart</text>
@@ -108,28 +110,28 @@
         <!-- hop 2: regulator -> cold core -->
         <path class="tube" d="M 624 424 L 668 424 Q 690 424 690 446 L 690 556 Q 690 580 666 580 L 330 580 Q 300 580 300 620"/>
         <path fill="#1d1d26" d="M 300 632 L 291 612 L 309 612 Z"/>
-        <text class="lbl" x="52" y="524">1/4&Prime; OD LLDPE</text>
-        <text class="sub" x="52" y="548">cut square both ends</text>
-        <text class="sub" x="52" y="572">click + tug</text>
+        <text class="lbl" x="52" y="530">co2-2 &#183; 1/4&Prime; LLDPE</text>
+        <text class="dimtx" x="52" y="560" data-gen="CO2_2_LEN">184 mm</text>
+        <text class="sub" x="52" y="590">square both ends</text>
 
         <!-- cold core band -->
         <rect class="band" x="48" y="628" width="632" height="48"/>
         <circle cx="300" cy="652" r="9" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
-        <text class="lbl" x="336" y="650">COLD CORE &#183; front face</text>
-        <text class="sub" x="336" y="670">beside the water outlet</text>
+        <text class="lbl" x="336" y="650">COLD CORE &#183; top lid</text>
+        <text class="sub" x="336" y="670">co2-in conduit, east port lane</text>
         <line class="flow" x1="308" y1="646" x2="374" y2="616"/>
-        <text class="dimtx" x="380" y="612">&#8960;6.5 mm &#183; x = +19.05 mm</text>
+        <text class="dimtx" x="380" y="612" data-gen="CAP_CONDUIT_D">&#8960;6.5 mm</text>
       </svg>
-      <div class="cap"><b>Closed dry</b> — charging is AB-02. The long run's
-      far end bottoms blind in the PP010822E collet under the vessel's bottom
-      plate; tug it hard, nothing reaches that joint again.</div>
+      <div class="cap"><b>Closed dry</b> — charging is AB-02. The last end meets
+      no fitting: it lays into the conduit's countersunk lip. Everything below
+      that mouth went in at CC-12 and is not opened again.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Closed dry, DERPIPE to cold core — all four NPT joints past hand-tight, all four PTC ends clicked home and tug-tested.</div>
-  <div class="src">internal-plumbing.md &#167;1<br>rev 2026-07-28</div>
+  <div class="done"><span class="lbl">Done when</span>Closed dry, DERPIPE to cold core — all four NPT joints past hand-tight, both PTC collets clicked home, both tube ends tug-tested.</div>
+  <div class="src">internal-plumbing.md &#167;1 &#183; back-panel/README.md<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
