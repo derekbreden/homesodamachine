@@ -571,10 +571,13 @@ def _verdict(ok: bool) -> str:
 
 
 def _bounds(a) -> list:
-    """One gate per bound `front_half` states about the machine and measures at every build —
-    the refrigerant loop closing on the plane its two bodies share, the vent's drip landing on
+    """One gate per bound the machine states about itself and measures at every build — the
+    refrigerant loop closing on the plane its two bodies share, the vent's drip landing on
     the basin's flat, the drip tray's lip landing inside the −X wall, a through-wall body
-    standing under the ceiling, a printed valve cradle standing under its valve.
+    standing under the ceiling, a printed valve cradle standing under its valve, and the
+    enclosure's own: the pack inside the stated width, depth and height, the two seam planes
+    clear of the display housing and on the print bed, the funnel throat inside the frame the
+    top wall has left. `front_half.carry_enclosure_bounds` brings the second group over.
 
     NONE OF THEM STOPS A BUILD, and that is the whole reason they arrive here. A bound the
     machine violates is a thing to LOOK AT, and what a reader looks at is the STEP, the three

@@ -373,10 +373,12 @@ def cap_face(foam):
 
 # --- the bounds the machine states about itself -----------------------------
 #
-# Four constructions in this module measure a bound the MACHINE STATES rather than a bound its
-# own construction meets: the refrigerant loop closes across planes its three bodies share, the
-# vent's drip lands on the basin's flat floor, the basin's west lip lands inside the −X wall,
-# and a body seated through a wall stands under the box's own ceiling. Every one of them can be
+# Several constructions in this module measure a bound the MACHINE STATES rather than a bound
+# its own construction meets: every printed valve cradle stands under its valve, the refrigerant
+# loop closes across planes its three bodies share, the vent's drip lands on the basin's flat
+# floor, the basin's west lip lands inside the −X wall, and a body seated through a wall stands
+# under the box's own ceiling. `enclosure` states more of them about the box it draws and keeps
+# its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.
 #
 # A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
@@ -395,6 +397,18 @@ def record_bound(bound: Bound) -> Bound:
     """Enter one bound's reading in the ledger, replacing any of the same id."""
     BOUNDS[:] = [b for b in BOUNDS if b.id != bound.id] + [bound]
     return bound
+
+
+def carry_enclosure_bounds() -> None:
+    """The bounds `enclosure` states about the box it draws, entered in this ledger — its
+    stated width, depth and height against what the pack demands, the two seam planes against
+    the print bed and the display housing, and the funnel throat against the frame the top wall
+    has left. Same record, same rendering, and the same reason for not raising.
+
+    `enclosure` keeps its own list rather than importing this one, because this module is what
+    places the pack it sizes the box on and the import only runs one way."""
+    for b in _enc.BOUNDS:
+        record_bound(Bound(*b))
 
 
 # --- the valve cradles printed in the core's cap ---------------------------
@@ -1696,12 +1710,17 @@ def build_pack() -> cq.Assembly:
     # measured off a port moves when the body it is on moves.
     carries = {"foam-assembly": foam_carry, "seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
                "discharge-chain": disch_carry,
+               # The two refrigeration bodies carry the sealed loop's cut legs, so they are
+               # here as well as in `refrig_carries` — a run cannot anchor on a body `_lines`
+               # has no frame for.
+               "compressor": comp_carry, "condenser+fan": cond_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry, "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "discharge-chain": disch,
+              "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110,
@@ -1896,6 +1915,7 @@ def machine():
     a = build_pack()
     p = pack(a)
     shell = _enc.box_around(p)
+    carry_enclosure_bounds()
     check_through_wall_headroom(a, shell)
     a.bounds = list(BOUNDS)
     return a, p, _seated(shell)
@@ -1922,6 +1942,10 @@ def build_front_half() -> cq.Assembly:
     a.add(build_display(box), name="display", color=C_DISPLAY)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    # The funnel throat is measured while the top wall is cut, which is here and not in
+    # `machine`, so the ledger is read again once the pieces exist.
+    carry_enclosure_bounds()
+    a.bounds = list(BOUNDS)
     # The box the pieces were cut from, carried like `runs` and `frames`.
     a.box = box
     a.seats = dict(SEATS)
