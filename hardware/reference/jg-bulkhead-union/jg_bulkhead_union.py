@@ -1,8 +1,8 @@
 """Line-art reference solid of the 1/4" push-to-connect through-wall
 (bulkhead) union — the McMaster-Carr 51055K3 (gray acetal, NSF/ANSI 61
 for drinking water), reduced to coaxial cylinders: a wide body, a
-release ring, and the tube port — three concentric circles at the
-altitude of the CO2 coupling body's cup + mouth.
+release ring, and the tube port — three concentric circles, which is
+all of it a line drawing of the rear face can show.
 
 Real-world dimensions (mm):
   Flange / collet body OD: 22.86 (0.90")
