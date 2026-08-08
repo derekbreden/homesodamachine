@@ -28,21 +28,27 @@ The head is a narrow block and the barbs are short stubs off it — that pair, n
 the head alone, is what makes the pump 80 mm wide across the ports. The feet, at
 98 mm, are the widest thing on the pump.
 
+The pump's 72 mm is the **motor can's own crown**. Its axis lies on the head's
+mid-height and the can is Ø54, so the can's top, the head block's top and the
+pressure switch's top all come out on that one plane. Below the head's port end
+hangs a 30 mm boss, the lowest casting on the body, and the head block's own
+underside stands clear above it.
+
 | feature | size |
 |---|---|
 | overall | 187 (L) × 98 (W over the feet) × 72 (H) mm |
 | across the barb tips | 80 |
-| motor can | Ø54, bolted to the head's flange |
-| pump head | 54 wide at the ports, 70 at the flange band by the motor; 56 tall, its underside 13 above the mounting plane |
-| ports | 2 × 3/8" hose barb (Ø10.4), 13 long, on the head's ±Y side faces, each pointing straight out along its ±Y axis, at Z 32 |
-| pressure switch | on the head's -X end face, opposite the motor |
+| motor can | Ø54, bolted to the head's flange; its crown IS the pump's 72 |
+| pump head | 54 wide at the ports, 70 at the flange band by the motor; 56 tall, its underside 16 above the mounting plane, over a 30 mm boss reaching down to 13 |
+| ports | 2 × 3/8" hose barb (Ø10.4), 13 long, on the head's ±Y side faces, each pointing straight out along its ±Y axis, at Z 53 |
+| pressure switch | the upper part of the head's -X end face, opposite the motor |
 | mounting | Ø5.0 holes on a 57 × 79 pattern, feet 98 apart |
 
 Frame: **+X = motor axis** (head at -X), foot underside at Z = 0, centered on Y.
 The two 3/8" barbs leave the head's ±Y side faces; the -X end face carries the
 pressure switch. `suction()` and `discharge()` return `(position, outward axis)`
-with the position at the barb **tip**: suction at (-36.6, -40.0, 32.0) out -Y,
-discharge at (-36.6, +40.0, 32.0) out +Y.
+with the position at the barb **tip**: suction at (-36.6, -40.0, 53.0) out -Y,
+discharge at (-36.6, +40.0, 53.0) out +Y.
 
 ## Sources
 
