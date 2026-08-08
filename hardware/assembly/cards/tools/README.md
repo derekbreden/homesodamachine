@@ -30,7 +30,7 @@ sequence deck is gated on — see [`../STYLE.md`](../STYLE.md) for what each mea
 
 ## The stations
 
-`_index.py` inverts the 93 sequence cards' `.tools` strips onto these thirteen,
+`_index.py` inverts the 94 sequence cards' `.tools` strips onto these thirteen,
 and sorts every tools.md entry into one of four: claimed by a station, carried
 to the part, consumed or worn, or unaccounted for. Only the last is a defect.
 
@@ -62,7 +62,7 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 | PC | Pour + cure bench | CC-06 · CC-14 |
 | PR | 3D printers | CC-08 · CC-13 · EN-05 · EN-06 |
 
-A sequence card belongs to every station it draws on, and 38 of the 93 belong
+A sequence card belongs to every station it draws on, and 38 of the 94 belong
 to none — hand assembly, inspection, packing, and the edge work that travels
 with a tool rather than waiting at a machine.
 
