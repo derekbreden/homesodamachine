@@ -31,10 +31,19 @@ its length is the developed length of stock, arcs taken out, directly comparable
 `need.path`.
 
 The lane search is ORTHOGONAL and the authored runs LEAN — `_routing.bent` draws a leg that
-steps two coordinates at once, and two of `fluid-4`'s do. A leaned version of a corridor is
-shorter than the square one, so a corridor's orthogonal cost is an UPPER BOUND on what that
-corridor can be drawn at. That is the safe direction: a lane that beats the authored run
+steps two coordinates at once, and two of `fluid-4`'s do. So the search steps square and
+`_smooth` redraws each staircase as the lean the machine would bend, checking the diagonal
+against the same room. A leaned corridor is shorter than the square one, so an orthogonal cost
+is an UPPER BOUND on what that corridor can be drawn at: a lane that beats the authored run
 squarely beats it leaning too.
+
+WHERE THAT BOUND IS NOT ENOUGH, and it is worth knowing which way it fails. Smoothing can only
+redraw a corridor the square search REACHED. Where a lane exists on the diagonal and nowhere
+square — `fluid-2` crosses the machine on a leg that descends while it goes, and the square
+skeleton of that same corridor stands 3.175 mm inside `fluid-4`'s tube — the search never sees
+it. So an empty answer is "no corridor this instrument can certify", not "no corridor". The
+readings that bound it are printed with every result: the lattice, what it was thinned at, and
+whether the walk ran out of patience.
 
 Everything is measured against BOXES, and the direction that runs matters. Here the boxes are
 the OBSTACLES, not the candidate — so a segment clear of a body's box is clear of the body, and
@@ -112,11 +121,32 @@ LEAN_STEP = 4.0
 # that nothing out there would serve.
 REGION = 90.0
 
-# The most coordinates the lattice carries per axis. The search is over (cell × heading), so
-# this is the knob that decides whether a query takes a second or a minute; the coordinates kept
-# are the ones a shortest orthogonal path can turn on — an obstacle's own faces, stood off by
-# the tube's half-section and the floor — thinned until they fit.
-LATTICE_CAP = 22
+# The most coordinates the lattice carries per axis. The search is over (cell × heading), so this
+# is the knob that decides whether a query takes a second or a minute; the coordinates kept are
+# the ones a shortest orthogonal path can turn on — an obstacle's own faces, stood off by the
+# tube's half-section and the floor — thinned until they fit.
+#
+# A THINNED LATTICE CAN MISS A LANE, which is why every reading says what it was thinned at. At
+# 34 the band behind V-B's inlet — 12.7 mm of free line between the valve and the water pump,
+# and the only way into that collet — still carries a coordinate; at 22 it does not, and the run
+# the machine is built to comes back unfindable.
+LATTICE_CAP = 34
+
+# The most states a lane search will settle before it gives up and reports what it has. A bound
+# on the QUERY and not on the machine: a search that reaches it has run out of patience, not out
+# of corridors, and `lanes()` says so rather than letting an empty answer read as a proof.
+POP_BUDGET = 400_000
+
+# How many times one (cell, heading) may be settled. One is a shortest-path search and answers
+# only the first question; more is what makes a SECOND corridor reachable at all. Every extra
+# settlement multiplies the walk, so this is small and `_search` de-duplicates on the corridor's
+# own shape rather than leaning on it.
+VISITS = 4
+
+# What a corridor pays, in corners, for a turning leg too short to seat two square ones. See
+# `_search`. 0 turns the search loose on staircases; it is here so the shortlist fills with
+# corridors that can be bent as they are found.
+SHORT_LEG = 1.0
 
 
 # --- the snapshot ---------------------------------------------------------
@@ -168,8 +198,18 @@ def take() -> dict:
             bodies[name] = {"tag": tag, "box": None}
             continue
         b = solid.BoundingBox()
-        bodies[name] = {"tag": tag,
-                        "box": [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax]}
+        box = [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax]
+        span = [box[1] - box[0], box[3] - box[2], box[5] - box[4]]
+        room = span[0] * span[1] * span[2]
+        fill = (solid.Volume() / room) if room > 1e-9 else 1.0
+        bodies[name] = {"tag": tag, "box": box, "fill": round(fill, 4)}
+        # A BODY THAT DOES NOT FILL ITS BOX IS NOT ITS BOX. The hopper basin is a cone under a
+        # brim and fills a fifth of the cuboid round it; a lane running under that brim reads
+        # blocked against the box and clear against the basin. Sliced across its own longest
+        # axis, the staircase of slabs hugs it, and every one of them is still an
+        # over-approximation — so the filter still only ever deletes lanes, never admits one.
+        if fill < FILL_FLOOR:
+            bodies[name]["slabs"] = _slabs(solid, box)
     runs = {}
     for r in a.runs:
         runs[r.id] = {"frm": r.frm, "to": r.to, "kind": r.kind, "diam": r.diam,
@@ -186,6 +226,58 @@ def take() -> dict:
     return {"bodies": bodies, "runs": runs, "ports": ports,
             "cavity": [inner[0], inner[1], inner[2], inner[3], inner[4], inner[5]],
             "source": _source_key()}
+
+
+# How much of its own box a body has to fill before the box is taken as a fair stand-in for it,
+# and how many slabs an unfair one is cut into. Under the floor the body is sliced instead: a
+# cone, a shell or a bracket that reads as a solid block deletes lanes that are really there.
+FILL_FLOOR = 0.5
+SLABS = 10
+
+
+def _slabs(solid, box) -> list:
+    """A body cut into slices, each boxed on what is actually in it — on whichever of the three
+    axes the slicing gains most.
+
+    WHICH AXIS IS NOT THE LONGEST ONE. The hopper basin is 173 mm across and 53 mm tall, and
+    slicing its width leaves ten tall slabs each still holding the air under the brim; sliced
+    across its own short axis the slabs follow the cone down. So all three are cut and the one
+    whose slabs hold the least is kept — measured, not guessed, because which way a body tapers
+    is a fact about the body.
+
+    Every slab is still an over-approximation of the slice it holds, so this can only ever make
+    the filter LOOSER — the lanes it admits are lanes the single box was wrong to delete. A slice
+    the boolean will not resolve keeps the whole box, which is the direction that cannot invent
+    room."""
+    import cadquery as cq
+    span = [box[1] - box[0], box[3] - box[2], box[5] - box[4]]
+    best = None
+    for axis in range(3):
+        if span[axis] < 1e-6:
+            continue
+        step = span[axis] / SLABS
+        out = []
+        for n in range(SLABS):
+            origin = [box[0], box[2], box[4]]
+            size = list(span)
+            origin[axis], size[axis] = box[2 * axis] + n * step, step
+            try:
+                part = solid.intersect(cq.Solid.makeBox(
+                    size[0] + 2e-6, size[1] + 2e-6, size[2] + 2e-6,
+                    cq.Vector(origin[0] - 1e-6, origin[1] - 1e-6, origin[2] - 1e-6)))
+            except Exception:
+                out = None
+                break
+            if part is None or not part.Solids():
+                continue
+            sb = part.BoundingBox()
+            out.append([sb.xmin, sb.xmax, sb.ymin, sb.ymax, sb.zmin, sb.zmax])
+        if not out:
+            continue
+        held = sum((s[1] - s[0]) * (s[3] - s[2]) * (s[5] - s[4]) for s in out)
+        if best is None or held < best[0]:
+            best = (held, out)
+    return best[1] if best else [list(box)]
 
 
 def _tag(name: str) -> str:
@@ -236,14 +328,49 @@ def snapshot(reload: bool = False, pin: bool = None) -> dict:
 
 # --- the room a lane has to miss ------------------------------------------
 
+# The longest chord a tube is chopped into before it is boxed. A box round a leaning length of
+# tube holds the tube and a wedge of air either side of it, and the wedge is what would delete a
+# lane running beside it — `fluid-2` leans across the strip `fluid-4` runs down, and one box round
+# that whole leg swallows the mirror line. Chopped this fine, the wedge is under a tenth of a
+# millimetre on the steepest lean in the machine.
+TUBE_CHORD = 6.0
+
+_TUBES: dict = {}
+
+
+def _tube_boxes(rid: str, r: dict) -> tuple:
+    """One routed run as a string of tight boxes along the tube the machine actually contains.
+
+    Two things a run's own `pts` are not. They are SQUARE, and the sweep rounds every corner off
+    them — so the tube stands inside the vertex and outside the arc, and a box on the polyline is
+    a box on a shape that was never built. And they are LONG, so a leaning leg's box is mostly
+    air. `_rounded` fixes the first and the chord fixes the second."""
+    hit = _TUBES.get(rid)
+    if hit is not None:
+        return hit
+    pts = _rounded(_graded(rid, tuple(tuple(p) for p in r["pts"]), r["diam"], r["bend"]))
+    rad = r["diam"] / 2.0
+    out = []
+    for p, q in zip(pts, pts[1:]):
+        n = max(1, int(math.ceil(_dist(p, q) / TUBE_CHORD)))
+        for s in range(n):
+            a = tuple(p[i] + (q[i] - p[i]) * s / n for i in range(3))
+            b = tuple(p[i] + (q[i] - p[i]) * (s + 1) / n for i in range(3))
+            out.append((f"{rid}[{len(out)}]",
+                        (min(a[0], b[0]) - rad, max(a[0], b[0]) + rad,
+                         min(a[1], b[1]) - rad, max(a[1], b[1]) + rad,
+                         min(a[2], b[2]) - rad, max(a[2], b[2]) + rad)))
+    _TUBES[rid] = tuple(out)
+    return _TUBES[rid]
+
+
 def _boxes_of(snap: dict, hold: tuple) -> tuple:
     """Every obstacle as an axis-aligned box, with the held bodies out.
 
-    A ROUTED RUN IS NOT ITS BOX. `fluid-18` crosses the machine and climbs, and its box is a
-    slab of mostly air through half the cabinet — held as one box it would delete every lane
-    that goes anywhere near it. So each run comes in as its own centreline SEGMENTS, each boxed
-    on its own two ends and grown by its own half-section, which for a swept cylinder is the
-    tube itself wherever the leg is axis-aligned and a shade fat wherever it leans.
+    A ROUTED RUN IS NOT ITS BOX. `fluid-18` crosses the machine and climbs, and its box is a slab
+    of mostly air through half the cabinet — held as one box it would delete every lane that goes
+    anywhere near it. So each run comes in as `_tube_boxes`: the tube it really is, chopped fine
+    enough that the boxes hug it.
 
     The printed PIECES are not here at all, for the opposite reason: a piece's box is the whole
     machine. `cavity` stands in for them and `verify` measures against them exactly."""
@@ -251,16 +378,12 @@ def _boxes_of(snap: dict, hold: tuple) -> tuple:
     for name, b in snap["bodies"].items():
         if name in hold or b["tag"] in ("piece", "run"):
             continue
-        out.append((name, tuple(b["box"])))
+        for s in b.get("slabs") or [b["box"]]:
+            out.append((name, tuple(s)))
     for rid, r in snap["runs"].items():
         if rid in hold or f"tube-{rid}" in hold:
             continue
-        rad = r["diam"] / 2.0
-        for i, (p, q) in enumerate(zip(r["pts"], r["pts"][1:])):
-            out.append((f"{rid}[{i}]",
-                        (min(p[0], q[0]) - rad, max(p[0], q[0]) + rad,
-                         min(p[1], q[1]) - rad, max(p[1], q[1]) + rad,
-                         min(p[2], q[2]) - rad, max(p[2], q[2]) + rad)))
+        out.extend(_tube_boxes(rid, r))
     return tuple(out)
 
 
@@ -550,11 +673,19 @@ class _Free:
              goal: tuple, into: tuple) -> tuple:
         """Every cell a leg from here along this heading may end on, held once per line.
 
-        A leg that starts at a CORNER is at least `LEAN_STEP` long; one that carries the
-        previous leg further owes nothing, because a leg only gets longer that way. The one that
-        ARRIVES at the far mouth on the heading the collet is entered on is the approach lead and
-        pays for one corner only, so it may be as short as a single radius. Past the first
-        obstruction on the line nothing is reachable at all, which is where the walk stops.
+        A leg that starts at a CORNER is at least `LEAN_STEP` long; one that carries the previous
+        leg further owes nothing, because a leg only gets longer that way.
+
+        THE ONE THAT ARRIVES OWES NOTHING EITHER, and that is not a relaxation. The search runs
+        between the two LEAD ENDS, and the lead end already stands one stock radius off the
+        mouth on the mouth's own line — so the leg that arrives there is only the far part of a
+        final leg that is already `radius` long before it starts. Asking it for a radius of its
+        own asks the approach for two, and the band a mouth stands in is often not that deep:
+        V-B's inlet has 12.7 mm of free line behind it before the water pump, and the run the
+        machine is built to closes into it down that band.
+
+        Past the first obstruction on the line nothing is reachable at all, which is where the
+        walk stops.
 
         Held on (line, heading, whether it turns): the search asks the same question from the
         same cell once per settlement, and the answer cannot have changed."""
@@ -573,7 +704,7 @@ class _Free:
             span = abs(c[n] - here)
             end = tuple(n if i == axis else cell[i] for i in range(3))
             arrives = end == goal and (axis, sign) == into
-            if span < minleg - 1e-6 and not (arrives and span > lead - 1e-6):
+            if span < minleg - 1e-6 and not arrives:
                 continue
             out.append((end, span))
         self._legs[key] = tuple(out)
@@ -605,13 +736,15 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
     spec = snap["runs"].get(run)
     if spec is None and ends is None:
         raise KeyError(f"no run {run!r} — have: {', '.join(sorted(snap['runs']))}")
+    own = ()
     if ends is None:
         a, b = spec["frm"], spec["to"]
         pa, pb = snap["ports"][a], snap["ports"][b]
         ends = ((tuple(pa["pos"]), tuple(pa["axis"])), (tuple(pb["pos"]), tuple(pb["axis"])))
         od = spec["diam"] if od is None else od
         radius = spec["bend"] if radius is None else radius
-        hold = tuple(hold) + (run, f"tube-{run}", a.split(".")[0], b.split(".")[0])
+        own = (a.split(".")[0], b.split(".")[0])
+        hold = tuple(hold) + (run, f"tube-{run}")
     if nonrising is None:
         nonrising = bool(spec) and spec["frm"].startswith("hopper-funnel")
     od = 6.35 if od is None else od
@@ -622,7 +755,18 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
     # full stock radius, which is what the first corner needs before it can turn at all.
     q0 = tuple(p0[i] + n0[i] * radius for i in range(3))
     q1 = tuple(p1[i] + n1[i] * radius for i in range(3))
-    room = Room.of(snap, hold)
+
+    # A BODY A RUN LEAVES IS STILL A BODY THE RUN HAS TO MISS. The two the mouths are cut into
+    # are held out only where holding them out is the only way to ask the question: if the lead
+    # end still stands inside the body's own box — the hopper basin is a cone and its box holds
+    # the whole spout — then every line off that mouth reads blocked and there is nothing to
+    # search. Where the lead end stands clear of it, as it does at a valve whose collet is on the
+    # face of its own box, the body stays IN, because a search that may tunnel through the
+    # fitting it is plumbing will find its cheapest lane straight down the middle of it.
+    swallowed = tuple(n for n, q in zip(own, (q0, q1))
+                      if n in snap["bodies"] and snap["bodies"][n]["box"]
+                      and _pt_box(q, tuple(snap["bodies"][n]["box"])) <= od / 2.0 + floor)
+    room = Room.of(snap, tuple(hold) + swallowed)
     out = _heading(n0)                          # the heading a lane must leave on,
     into = _heading(tuple(-c for c in n1))      # and the one it must arrive on
 
@@ -633,6 +777,9 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
     # the one that survives. Both passes are then filtered on the TUBE, so nothing is admitted by
     # the second that the first would have rejected.
     bulge = radius * (math.sqrt(2.0) - 1.0)
+    # What the two mouths are allowed to touch: their own fittings, and only within the lead and
+    # the arc its first corner turns in.
+    mouths = tuple((p, radius + od) for p in (p0, p1))
     made, seen, lat = [], set(), None
     for extra in (0.0, bulge):
         rad = od / 2.0 + floor + extra
@@ -642,8 +789,14 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
         start = tuple(lat.index(i, _nearest(lat.coords[i], q0[i])) for i in range(3))
         goal = tuple(lat.index(i, _nearest(lat.coords[i], q1[i])) for i in range(3))
         shapes = set()
-        for pts in _search(lat, free, start, goal, out, into, radius, top + 2, nonrising):
-            square = _straighten((tuple(p0),) + tuple(_at(lat, c) for c in pts) + (tuple(p1),))
+        for pts in _search(lat, free, start, goal, out, into, radius, top * 3 + 4,
+                           nonrising):
+            # The two lead ends go in EXACTLY and not as the lattice rounded them. A
+            # coordinate a ten-millionth off its port turns the last leg into a corner that
+            # turns nothing, and the grader then tries to seat a stock radius in it.
+            walk = [_at(lat, c) for c in pts]
+            walk[0], walk[-1] = q0, q1
+            square = _straighten((tuple(p0),) + tuple(walk) + (tuple(p1),))
             skey = tuple(tuple(round(v, 4) for v in p) for p in square)
             if skey in shapes:
                 continue                # the same corridor settled twice
@@ -660,7 +813,7 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
             # MEASURED ON THE TUBE AND NOT ON THE POLYLINE. The thing that gets built rounds
             # every corner, and the arc stands where the vertex did not. A lane that only clears
             # square is not a lane.
-            lane.margin = _margin(lane.centreline, od, near)
+            lane.margin = _margin(lane.centreline, od, near, mouths)
             if lane.margin < floor - 1e-6:
                 continue
             lane.lattice = lat                                   # noqa: B010 — carried
@@ -700,11 +853,14 @@ def _straighten(pts: tuple) -> tuple:
     kept = [out[0]]
     for i in range(1, len(out) - 1):
         a, b, c = kept[-1], out[i], out[i + 1]
-        u = [b[k] - a[k] for k in range(3)]
-        v = [c[k] - b[k] for k in range(3)]
+        # ON THE UNIT DIRECTIONS, not on the legs. A cross product of two long legs is long even
+        # when they are parallel to a part in ten million, so a fixed tolerance on it reads a
+        # straight as a corner — and a corner that turns nothing is a corner the grader then
+        # tries to seat a radius in.
+        u, v = _unit(a, b), _unit(b, c)
         cross = (u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2],
                  u[0] * v[1] - u[1] * v[0])
-        if max(abs(c_) for c_ in cross) > 1e-6:
+        if math.sqrt(sum(c_ * c_ for c_ in cross)) > 1e-6:
             kept.append(b)
     kept.append(out[-1])
     return tuple(kept)
@@ -741,28 +897,50 @@ def _search(lat: Lattice, free: _Free, start: tuple, goal: tuple, out: tuple, in
     coords = lat.coords
     goal_at = tuple(coords[i][goal[i]] for i in range(3))
 
-    def rest(cell) -> float:
-        """A lower bound on what is left to pay from a cell — the straight-line sum of the
-        coordinate differences, which no lane can beat because every move costs its own length
-        and a corner costs more. Admissible, so the search still settles states in cost order
-        and the first arrival is still the cheapest."""
-        return sum(abs(coords[i][cell[i]] - goal_at[i]) for i in range(3))
+    def rest(cell, head) -> float:
+        """A lower bound on what is left to pay from a cell on a heading.
+
+        The coordinate differences, which no lane can beat because every move costs its own
+        length. And the CORNERS it still owes: every axis it is off the goal on, other than the
+        one it is running down, takes at least one turn to close, and arriving on a heading it is
+        not already on takes at least one more. Admissible — it never over-states — so the search
+        still settles in cost order and the first arrival is still the cheapest. Without the
+        corner half a lane across this machine explores a million states to find its first
+        arrival; with it, a few thousand."""
+        far = sum(abs(coords[i][cell[i]] - goal_at[i]) for i in range(3))
+        turns = sum(1 for i in range(3)
+                    if i != head[0] and cell[i] != goal[i])
+        if head != into:
+            turns = max(turns, 1)
+        return far + BEND_MM * turns
 
     # (bound, tie, cost, cell, heading, path). The bound is what orders the heap and the cost is
     # what is paid; the tie-break keeps it total-ordered without comparing tuples of floats.
+    minleg = 2.0 * lead
     seen: dict = {}
     tie = itertools.count()
-    heap = [(rest(start), next(tie), 0.0, start, out, (start,))]
-    done = []
-    while heap:
+    heap = [(rest(start, out), next(tie), 0.0, start, out, (start,))]
+    done, shapes, pops = [], set(), 0
+    _search.spent = 0                                            # noqa: B010 — carried
+    while heap and pops < POP_BUDGET:
         _f, _t, cost, cell, head, path = heapq.heappop(heap)
+        pops += 1
         key = (cell, head)
-        if seen.get(key, 0) >= top:
+        if seen.get(key, 0) >= VISITS:
             continue
         seen[key] = seen.get(key, 0) + 1
         if cell == goal and head == into:
+            # DISTINCT CORRIDORS, not distinct settlements. A k-shortest walk over
+            # (cell × heading) reaches one corridor a dozen ways — a coordinate stopped at and
+            # carried through is the same straight line — and a shortlist of twelve readings of
+            # one lane answers nothing. The shape it straightens to is what counts as an answer.
+            shape = _straighten(tuple(_at(lat, c) for c in path))
+            if shape in shapes:
+                continue
+            shapes.add(shape)
             done.append(path)
             if len(done) >= top:
+                _search.spent = pops                             # noqa: B010 — carried
                 return done
             continue
         for axis in range(3):
@@ -773,9 +951,18 @@ def _search(lat: Lattice, free: _Free, start: tuple, goal: tuple, out: tuple, in
                     continue
                 turn = 0 if (axis, sign) == head else 1
                 for cn, run_len in free.legs(cell, axis, sign, turn, lead, goal, into):
-                    g = cost + run_len + BEND_MM * turn
-                    heapq.heappush(heap, (g + rest(cn), next(tie), g, cn, (axis, sign),
-                                          path + (cn,)))
+                    # A TURNING LEG UNDER TWO RADII IS NOT FREE. It is a leg no pair of square
+                    # corners fits in, so it is a lean or it is nothing — and whether the lean
+                    # can be drawn is a question about a diagonal the search never checks.
+                    # `SHORT_LEG` is what a corridor pays for depending on one. It is a WEIGHT
+                    # and not a measurement: at 0 the search returns staircases `_smooth` then
+                    # throws away, and high enough it stops finding the lanes the machine's own
+                    # runs are drawn on.
+                    short = max(0.0, minleg - run_len) / minleg if turn else 0.0
+                    g = cost + run_len + BEND_MM * (turn + SHORT_LEG * short)
+                    heapq.heappush(heap, (g + rest(cn, (axis, sign)), next(tie), g, cn,
+                                          (axis, sign), path + (cn,)))
+    _search.spent = pops                                         # noqa: B010 — carried
     return done
 
 
@@ -853,7 +1040,7 @@ def _seats(pts, od: float, radius: float) -> bool:
     A shortcut that shortens a leg takes tangent away from the two corners that share it, so it
     is not free: this is the check that stops smoothing where the bender would run out."""
     try:
-        run = _graded("smooth", tuple(pts), od, radius)
+        run = _graded("smooth", _straighten(tuple(pts)), od, radius)
     except Exception:
         return False
     if any(t > MAX_TURN + 1e-6 for _i, t, _a, _b in run.bends):
@@ -921,18 +1108,52 @@ def _unit(a, b) -> tuple:
     return tuple((b[i] - a[i]) / d for i in range(3))
 
 
-def _margin(pts: tuple, od: float, near: tuple) -> float:
+def _margin(pts: tuple, od: float, near: tuple, mouths=()) -> float:
     """The tightest the lane comes to anything in the room.
 
     Segment against box, exactly for the axis-aligned legs an orthogonal lane is made of: the
     box is grown by the tube's half-section and the distance taken from the segment to it. A
     body it clears by this much is a body it clears — the box is the over-approximation, so the
     reading is a floor on the truth and never a ceiling."""
-    best = math.inf
+    return _nearest_bodies(pts, od, near, 1, mouths)[0][0] if near else math.inf
+
+
+def _nearest_bodies(pts: tuple, od: float, near: tuple, count: int = 6, mouths=()) -> list:
+    """The `count` things the lane comes nearest to, as `(clearance, name)`, tightest first —
+    with a run's own chopped tube reported under the run's name and not under a chord's.
+
+    A MOUTH IS NOT A CLASH. A lane ends ON the face of the fitting it plugs into, so the last
+    stretch of it reads zero against that fitting's own box and would swamp every other reading —
+    and not only against that fitting: the machine seats fittings hard against each other
+    (`co2-inlet` bears on `gasher-co2`, the ASSE chain on its union), so what a mouth sits in is
+    a cluster and a reading inside it is a seating and not a clearance. `mouths` is each mouth's
+    point and the reach the exemption covers — the lead and the arc its first corner turns in,
+    and nothing past that. Everything beyond is measured like any other body, which is what stops
+    a lane running back through the fitting it just left."""
+    # Which body is exempt where. A body is only ever exempt AT a mouth, and only if it is a
+    # body that mouth is IN or ON — its box within a bore of the point. That is what a fitting
+    # the run plugs into looks like, and what a fitting seated hard against that one looks like;
+    # anything standing merely near the mouth is measured like the rest of the machine.
+    skip = []
+    for p, r in mouths:
+        p = tuple(p)
+        skip.append((p, r, {n.split("[")[0] for n, box in near if _pt_box(p, box) <= od}))
+    best: dict = {}
     for a, b in zip(pts, pts[1:]):
-        for _n, box in near:
-            best = min(best, _seg_box(a, b, box) - od / 2.0)
-    return best
+        at = set()
+        for p, r, who_at in skip:
+            if _dist(a, p) <= r or _dist(b, p) <= r:
+                at |= who_at
+        for n, box in near:
+            who = n.split("[")[0]
+            if who in at:
+                continue
+            g = _seg_box(a, b, box) - od / 2.0
+            if g < best.get(who, math.inf):
+                best[who] = g
+    if not best:
+        return [(math.inf, "nothing in the room")]
+    return sorted(((g, n) for n, g in best.items()))[:count]
 
 
 def _seg_box(a, b, box) -> float:
@@ -969,15 +1190,19 @@ def authored(run: str, floor: float = FLOOR, snap: dict = None) -> Lane:
     square-corner arithmetic — the authored run leans, and the arithmetic here is orthogonal."""
     snap = snapshot() if snap is None else snap
     spec = snap["runs"][run]
-    hold = (run, f"tube-{run}", spec["frm"].split(".")[0], spec["to"].split(".")[0])
-    room = Room.of(snap, hold)
+    own = (spec["frm"].split(".")[0], spec["to"].split(".")[0])
+    room = Room.of(snap, (run, f"tube-{run}"))
     pts = tuple(tuple(p) for p in spec["pts"])
+    mouths = tuple((p, spec["bend"] + spec["diam"]) for p in (pts[0], pts[-1]))
     region = tuple(v for i in range(3)
                    for v in (min(p[i] for p in pts) - 20.0, max(p[i] for p in pts) + 20.0))
     lane = Lane(run, pts, spec["diam"], spec["bend"], floor, math.inf,
                 _dist(pts[0], pts[-1]),
                 tuple(_dist(a, b) for a, b in zip(pts, pts[1:])))
-    lane.margin = _margin(lane.centreline, spec["diam"], room.near(region))
+    near = room.near(region)
+    lane.near = _nearest_bodies(lane.centreline, spec["diam"], near, 6,   # noqa: B010 — carried
+                                mouths)
+    lane.margin = lane.near[0][0]
     lane.drawn = spec["length"]                                  # noqa: B010 — carried
     return lane
 
@@ -1181,6 +1406,33 @@ class Space:
         return "\n".join(out)
 
 
+def stations(body: str, axis: int, values, snap: dict = None, hold=(),
+             bound: str = "xz") -> tuple:
+    """Which of these coordinates a body may stand on without standing in anything.
+
+    The body's own box slid along one axis, against every other component's. A box proves
+    clearance and never proves obstruction, so this is a SHORTLIST both ways: what it returns
+    is proven free of the bodies it was compared with, and what it drops may still be free —
+    a body that is mostly air reads as full here. It is how a space finds out how many values a
+    choice really has instead of being handed three by whoever wrote it down."""
+    snap = snapshot() if snap is None else snap
+    box = tuple(snap["bodies"][body]["box"])
+    cav = snap["cavity"]
+    others = [(n, tuple(b["box"])) for n, b in snap["bodies"].items()
+              if n != body and n not in hold and b["tag"] not in ("piece", "run")]
+    out = []
+    for v in values:
+        d = v - (box[2 * axis] + box[2 * axis + 1]) / 2.0
+        moved = tuple(x + (d if i // 2 == axis else 0.0) for i, x in enumerate(box))
+        if any(moved[2 * i] < cav[2 * i] - 1e-6 or moved[2 * i + 1] > cav[2 * i + 1] + 1e-6
+               for i in range(3) if "xyz"[i] in bound):
+            continue
+        if any(_overlaps(moved, ob) for _n, ob in others):
+            continue
+        out.append(v)
+    return tuple(out)
+
+
 def west_lane() -> Space:
     """The tap-water chain in the west lane, and the two runs that leave it.
 
@@ -1211,6 +1463,48 @@ def west_lane() -> Space:
         Choice("flow-regulator", "gap", gaps),
     )
     return Space(chain, choices, ("fluid-2",), "west lane")
+
+
+# How finely the panel deck is swept for a union's station, and how far either way of the
+# machine's centre. The wall is one room from the west boss chain across to the C14's corner and
+# a union is placed by naming an X on it, so what a station is worth asking about is a step no
+# finer than the fitting's own body.
+PANEL_STEP = 8.0
+PANEL_REACH = 120.0
+
+
+def panel_deck() -> Space:
+    """The three unions the machine dispenses through, and the meter inline ahead of one.
+
+    `front_half.PANEL_X` names three numbers across the back wall and gives an ORDER for them:
+    the two gates take the ends because each arrives from its own side, and the carb union takes
+    the middle so the nozzle-A line passes under the riser's turn rather than through it. That
+    order is a reason, and a reason is exactly the kind of thing a search can put a number on —
+    so here all three stations are free and `stations()` says which ones are clear at all.
+
+    The deck's own STOREY is held. `front_half.deck_z` strikes it by dropping all four bodies
+    onto whatever stands under them, and a union slid along the wall would re-strike it; holding
+    it is what keeps this a search over the row rather than over the row and its height at once.
+    A winner here is a candidate for that re-strike, not a substitute for it."""
+    snap = snapshot()
+    row = tuple(v * PANEL_STEP for v in
+                range(-int(PANEL_REACH / PANEL_STEP), int(PANEL_REACH / PANEL_STEP) + 1))
+    chain, choices = [], []
+    for body in ("bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb"):
+        p = snap["ports"][f"{body}.tube-in"]
+        chain.append(Seat(body, "tube-in", at=tuple(p["pos"]), axis=tuple(p["axis"])))
+        choices.append(Choice(body, "x", stations(body, 0, row, snap=snap,
+                                                  hold=("bulkhead-flavor-a",
+                                                        "bulkhead-flavor-b", "bulkhead-carb"))))
+    d = snap["ports"]["digiten-flow.outlet"]
+    chain.append(Seat("digiten-flow", "outlet", "bulkhead-carb.tube-in",
+                      gap=_dist(d["pos"], snap["ports"]["bulkhead-carb.tube-in"]["pos"])))
+    choices.append(Choice("digiten-flow", "roll", QUARTERS))
+    return Space(tuple(chain), tuple(choices), ("carb-1", "fluid-18", "fluid-28"),
+                 "panel deck")
+
+
+SPACES = {"west-lane": west_lane, "panel-deck": panel_deck}
 
 
 # --- one arrangement ------------------------------------------------------
@@ -1270,12 +1564,15 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
     moved — which is what makes a roll at the top of the chain carry everything under it."""
     snap = snapshot()
     ports = dict((k, dict(v)) for k, v in snap["ports"].items())
-    boxes = {n: tuple(b["box"]) for n, b in snap["bodies"].items()}
+    boxes = {n: tuple(b["box"]) for n, b in snap["bodies"].items() if b["box"]}
     moved = {}
     for seat in space.chain:
+        at = seat.at
+        if at is not None:
+            at = tuple(values.get((seat.body, "xyz"[i]), at[i]) for i in range(3))
         s = Seat(seat.body, seat.mouth, seat.on,
                  values.get((seat.body, "gap"), seat.gap),
-                 values.get((seat.body, "roll"), seat.roll))
+                 values.get((seat.body, "roll"), seat.roll), at, seat.axis)
         m, t = _pose(snap, s, ports)
         for key, p in list(ports.items()):
             if key.split(".")[0] != s.body:
@@ -1305,8 +1602,10 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
     if not clash:
         live = dict(snap)
         live["ports"] = ports
-        live["bodies"] = {n: {"tag": snap["bodies"][n]["tag"], "box": list(boxes[n])}
-                          for n in snap["bodies"]}
+        live["bodies"] = {n: (dict(b, box=list(boxes[n]),
+                                   slabs=None if n in moved else b.get("slabs"))
+                              if n in boxes else b)
+                          for n, b in snap["bodies"].items()}
         # A RUN THAT TOUCHES A MOVED BODY IS NOT WHERE THE SNAPSHOT LEFT IT. Its tube was swept
         # to mouths this arrangement has taken somewhere else, so holding it in would measure
         # every candidate against the plumbing of the one it replaces — the same tautology
@@ -1336,14 +1635,19 @@ def current(space: Space) -> dict:
     snap = snapshot()
     out = {}
     for seat in space.chain:
-        parent = snap["ports"][seat.on]
         mine = snap["ports"][f"{seat.body}.{seat.mouth}"]
-        gap = round(_dist(parent["pos"], mine["pos"]), 6)
-        out[(seat.body, "gap")] = gap
+        gap = seat.gap
+        if seat.on:
+            gap = round(_dist(snap["ports"][seat.on]["pos"], mine["pos"]), 6)
+            out[(seat.body, "gap")] = gap
+        else:
+            for i in range(3):
+                out[(seat.body, "xyz"[i])] = round(mine["pos"][i], 6)
         keys = [k for k in snap["ports"] if k.split(".")[0] == seat.body]
         best = None
         for roll in QUARTERS:
-            m, t = _pose(snap, Seat(seat.body, seat.mouth, seat.on, gap, roll), snap["ports"])
+            m, t = _pose(snap, Seat(seat.body, seat.mouth, seat.on, gap, roll,
+                                    seat.at, seat.axis), snap["ports"])
             off = max(_dist(tuple(_apply(m, tuple(snap["ports"][k]["pos"]))[i] + t[i]
                                   for i in range(3)), snap["ports"][k]["pos"]) for k in keys)
             if best is None or off < best[1]:
@@ -1383,6 +1687,15 @@ def _room(boxes, cavity) -> Room:
     return Room(tuple(boxes), tuple(cavity), ())
 
 
+BIG = (-500.0, 500.0, -500.0, 500.0, -500.0, 500.0)
+DOWN_ONE_LINE = (((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((0.0, -200.0, 0.0), (0.0, 1.0, 0.0)))
+
+
+def _room_of(**bodies) -> dict:
+    return {"bodies": {n: {"tag": "component", "box": list(b)} for n, b in bodies.items()},
+            "runs": {}, "ports": {}, "cavity": list(BIG)}
+
+
 def selftest() -> int:
     """Known-answer controls on the solver, then the machine that exists through the filter."""
     fails = []
@@ -1393,58 +1706,76 @@ def selftest() -> int:
         if not ok:
             fails.append(name)
 
+    def one(ends, top=3, floor=FLOOR, **bodies):
+        return lanes("probe", ends=ends, od=6.35, radius=14.0, top=top, floor=floor,
+                     snap=_room_of(**bodies))
+
     print("the lane solver — known answers")
-    big = (-500.0, 500.0, -500.0, 500.0, -500.0, 500.0)
-    ends = (((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((0.0, -200.0, 0.0), (0.0, 1.0, 0.0)))
-    got = lanes("probe", ends=ends, od=6.35, radius=14.0, top=3,
-                snap={"bodies": {}, "runs": {}, "ports": {}, "cavity": list(big)})
+    got = one(DOWN_ONE_LINE)
     check("two mouths down one empty line: bends", got[0].bends, 0)
     check("two mouths down one empty line: path", got[0].path, 200.0)
-    check("and nothing else in an empty room beats a straight line",
+    check("and nothing in an empty room beats a straight line",
           all(l.cost > got[0].cost - 1e-9 for l in got[1:]), True)
 
-    # One slab across that line, narrower than the room: the lane has to go round it, which is
-    # two corners and the width of the detour.
-    slab = {"slab": {"tag": "component", "box": [-40.0, 40.0, -120.0, -80.0, -40.0, 40.0]}}
-    got = lanes("probe", ends=ends, od=6.35, radius=14.0, top=4,
-                snap={"bodies": slab, "runs": {}, "ports": {}, "cavity": list(big)})
-    check("a slab across it: bends", got[0].bends, 2)
-    check("a slab across it: it clears the slab",
-          got[0].margin >= FLOOR - 1e-6, True)
-    check("a slab across it: it steps at least as far as the slab is wide",
-          max(abs(p[0]) for p in got[0].pts) >= 40.0 + 6.35 / 2 + FLOOR - 1e-6, True)
+    # THE LEAN. A 10 mm sidestep down a 200 mm run is one gentle move, not two right angles —
+    # `_lines._fluid_4` says so about the run this instrument was pointed at, and an orthogonal
+    # lattice cannot say it at all. The search steps it square and `_smooth` draws it.
+    off10 = (((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((10.0, -200.0, 0.0), (0.0, 1.0, 0.0)))
+    got = one(off10, top=1)
+    check("a 10 mm offset is one leaning leg: bends", got[0].bends, 0)
+    check("a 10 mm offset is one leaning leg: leans", got[0].leans, 1)
+    check("and it costs barely more than the straight",
+          round(got[0].path, 2), round(math.dist((0, 0, 0), (10, -200, 0)), 2), tol=0.01)
 
-    # A gap that a 1 mm floor fits through and a 6 mm floor does not. This is `fluid-4`'s own
-    # case in miniature — the source pair's limbs leave 7.890 mm for a Ø6.35 line — and it is
-    # the control on the floor being a real parameter and not a decoration.
-    slot = {"west": {"tag": "component", "box": [-60.0, -5.0, -120.0, -80.0, -40.0, 40.0]},
-            "east": {"tag": "component", "box": [5.0, 60.0, -120.0, -80.0, -40.0, 40.0]}}
-    thin = {"bodies": slot, "runs": {}, "ports": {}, "cavity": list(big)}
-    got = lanes("probe", ends=ends, od=6.35, radius=14.0, top=1, floor=0.5, snap=thin)
+    # A step wide enough for two square corners is drawn as two square corners: `2r` of tangent
+    # is exactly what a 90° pair needs, and 40 mm has it.
+    got = one((((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((40.0, -200.0, 0.0), (0.0, 1.0, 0.0))),
+              top=1)
+    check("a 40 mm offset is two square corners", (got[0].bends, got[0].leans), (2, 0))
+    check("and no leg of it is under two radii",
+          min(got[0].legs[1:-1]) >= 2 * 14.0 - 1e-6, True)
+
+    # One slab across the line between two facing collinear mouths. Out and back is FOUR corners
+    # — there is no offset to spend them on — and the lane has to clear the slab by the floor.
+    got = one(DOWN_ONE_LINE, slab=(-40.0, 40.0, -120.0, -80.0, -40.0, 40.0))
+    check("a slab across it: bends", got[0].bends, 4)
+    check("a slab across it: clears the slab", got[0].margin >= FLOOR - 1e-6, True)
+    check("a slab across it: steps past the slab's own width",
+          max(abs(p[0]) for p in got[0].pts) >= 40.0 + 6.35 / 2 + FLOOR - 1e-6, True)
+    check("a slab across it: turns no further than the cap",
+          got[0].worst_turn <= MAX_TURN + 1e-6, True)
+
+    # A 10 mm slot a 0.5 mm floor fits through and a 2 mm floor does not. `fluid-4`'s own case in
+    # miniature — the source pair's limbs leave 7.890 mm for a Ø6.35 line — and the control on
+    # the floor being a real parameter rather than a decoration.
+    slot = dict(west=(-60.0, -5.0, -120.0, -80.0, -40.0, 40.0),
+                east=(5.0, 60.0, -120.0, -80.0, -40.0, 40.0))
+    got = one(DOWN_ONE_LINE, top=1, floor=0.5, **slot)
     check("a 10 mm slot at a 0.5 mm floor: straight through", got[0].bends, 0)
-    got = lanes("probe", ends=ends, od=6.35, radius=14.0, top=1, floor=2.0, snap=thin)
+    got = one(DOWN_ONE_LINE, top=1, floor=2.0, **slot)
     check("the same slot at a 2.0 mm floor: goes around", got[0].bends > 0, True)
 
-    # The leg rule. A corner backs `r` down each leg, so two corners cannot stand closer than
-    # `2r`: an offset under that is taken in one wide step and not two tight ones.
-    off = (((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((10.0, -200.0, 0.0), (0.0, 1.0, 0.0)))
-    got = lanes("probe", ends=off, od=6.35, radius=14.0, top=1,
-                snap={"bodies": {}, "runs": {}, "ports": {}, "cavity": list(big)})
-    check("a 10 mm offset: two corners", got[0].bends, 2)
-    check("a 10 mm offset: no leg under two radii",
-          min(l for l in got[0].legs[1:-1]) >= 2 * 14.0 - 1e-6, True)
+    # SMOOTHING MAY NOT WALK A LANE THROUGH A BODY. A block standing in the corner a shortcut
+    # would cut is a shortcut the lane does not get: it stays square, and stays clear.
+    got = one((((0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), ((80.0, -200.0, 0.0), (0.0, 1.0, 0.0))),
+              top=1, corner=(20.0, 70.0, -170.0, -40.0, -40.0, 40.0))
+    check("a block in the corner: the lane stays square", got[0].leans, 0)
+    check("a block in the corner: and stays clear", got[0].margin >= FLOOR - 1e-6, True)
 
-    print("the reader — a lane's own arithmetic")
+    print("the reader — a lane's own arithmetic, and the tube it stands for")
     l = Lane("probe", ((0.0, 0.0, 0.0), (0.0, -100.0, 0.0), (50.0, -100.0, 0.0)),
              6.35, 14.0, 1.0, 9.9, 111.8, (100.0, 50.0))
-    check("square length", l.square, 150.0)
+    check("one corner", l.bends, 1)
     check("developed length takes the arc back out",
           l.path, 150.0 - 14.0 * (2.0 - math.pi / 2.0))
-    check("one corner", l.bends, 1)
+    # The arc's own geometry: a 90° corner at R14 passes `r(√2 − 1)` inside its vertex, which is
+    # the whole reason a clearance is taken on `_rounded` and not on the polyline.
+    arc = l.centreline
+    check("the tube passes inside the vertex by r(√2 − 1)",
+          round(min(_dist(p, (0.0, -100.0, 0.0)) for p in arc), 4),
+          round(14.0 * (math.sqrt(2.0) - 1.0), 4), tol=0.02)
 
     print("the pose — a seat's own transform")
-    # A quarter turn carries a box onto a box, and the mouth it is seated on lands where the
-    # seat says. Both are what the arrangement scan's boxes and ports stand on.
     m = _align((0.0, 1.0, 0.0), (1.0, 0.0, 0.0))
     check("a quarter turn carries the mouth", _apply(m, (0.0, 1.0, 0.0)), (1.0, 0.0, 0.0))
     box = _moved_box(_rot_axis(2, 1), (0.0, 0.0, 0.0), (0.0, 10.0, 0.0, 4.0, 0.0, 2.0))
@@ -1452,39 +1783,47 @@ def selftest() -> int:
 
     print("the world — the machine that exists, through the same filter")
     snap = snapshot()
-    check("the snapshot holds every body", len(snap["bodies"]) >= 86, True)
-    check("and every routed run", len(snap["runs"]), 19)
-    # The control the whole instrument stands on. These runs are DRAWN, the pack closes and
-    # `lines-clear` passes — so a reader that says one of them clashes is rejecting reality.
-    worst = []
-    for rid in sorted(snap["runs"]):
-        a = authored(rid, floor=0.0)
-        worst.append((a.margin, rid))
-    worst.sort()
-    check("every authored run clears the machine it is in",
-          worst[0][0] > -1e-6, True)
+    check("the snapshot holds the whole machine", len(snap["bodies"]) >= 80, True)
+    check("and every routed run", len(snap["runs"]) >= 19, True)
+    unfair = sorted(n for n, b in snap["bodies"].items() if b.get("slabs"))
+    print(f"       sliced rather than boxed ({len(unfair)}): {', '.join(unfair) or 'none'}")
+    # THE CONTROL THE WHOLE INSTRUMENT STANDS ON. These runs are DRAWN, the pack closes and
+    # `lines-clear` passes — so a reader that says one of them stands in something is rejecting
+    # reality, and a search filtered by that reader would rank nothing.
+    worst = sorted((authored(rid, floor=0.0).margin, rid) for rid in snap["runs"])
+    check("every authored run clears the machine it is in", worst[0][0] > -1e-6, True)
     print(f"       tightest authored run: {worst[0][1]} at {worst[0][0]:.3f} mm")
-    # And the reader agrees with the card about the two runs this instrument was pointed at.
-    for rid, want in (("fluid-4", 152.63), ("fluid-2", 212.33)):
-        check(f"{rid}: the drawn length is the card's", round(authored(rid).drawn, 2), want,
-              tol=0.02)
+
+    # AND THE SEARCH FINDS THE MACHINE'S OWN LANE. `fluid-4` runs the mirror line at 0.770 mm,
+    # which is the tightest thing in the machine; searched at its own floor, the corridor that
+    # comes back is that one — same shape, same corners, same clearance. An instrument that
+    # cannot re-find the lane the machine is built to has not been pointed at the machine.
+    got = lanes("fluid-4", top=1, floor=0.7, cap=34)
+    drawn = authored("fluid-4")
+    check("fluid-4: the search re-finds the lane the machine is built to",
+          bool(got) and abs(got[0].margin - drawn.margin) < 0.01
+          and got[0].bends == drawn.bends, True)
+    if got:
+        print(f"       found {got[0].path:.1f} mm / {got[0].bends} bends / "
+              f"{got[0].margin:.3f} mm    drawn {drawn.drawn:.1f} mm / {drawn.bends} / "
+              f"{drawn.margin:.3f} mm")
+    # And the gate's own floor is where it stops being a lane at all.
+    check("fluid-4: and no lane at all at the gate's own floor",
+          lanes("fluid-4", top=1, floor=FLOOR, cap=34), [])
 
     print("the space — the tree's own arrangement is in it")
-    sp = west_lane()
-    cur = current(sp)
-    for c in sp.choices:
-        if cur[(c.body, c.what)] not in c.values:
-            fails.append(f"{c.body}.{c.what} not in the space")
-            print(f"  FAIL {c.body}.{c.what} = {cur[(c.body, c.what)]} is not a value")
-        else:
-            print(f"  ok   {c.body}.{c.what} = {cur[(c.body, c.what)]} is a value")
-    # Rebuilding the machine's own arrangement has to put every mouth back where the snapshot
-    # has it. A seat model that cannot reproduce the tree is a seat model that is scoring
-    # something else.
-    a = build(sp, cur)
-    off = max(_dist(a.ports[k]["pos"], snap["ports"][k]["pos"])
-              for k in snap["ports"] if k.split(".")[0] in sp.bodies)
-    check("re-seating the chain puts every mouth back", off, 0.0, tol=1e-6)
+    for label, factory in SPACES.items():
+        sp = factory()
+        cur = current(sp)
+        bad = [f"{c.body}.{c.what}" for c in sp.choices
+               if cur[(c.body, c.what)] not in c.values]
+        check(f"{label}: every choice holds the value the tree has", bad, [])
+        # Rebuilding the machine's own arrangement has to put every mouth back where the
+        # snapshot has it. A seat model that cannot reproduce the tree is scoring something else.
+        a = build(sp, cur)
+        off = max(_dist(a.ports[k]["pos"], snap["ports"][k]["pos"])
+                  for k in snap["ports"] if k.split(".")[0] in sp.bodies)
+        check(f"{label}: re-seating puts every mouth back", off, 0.0, tol=1e-6)
 
     print(f"\n{'PASS' if not fails else 'FAIL: ' + ', '.join(sorted(set(fails)))}")
     return 1 if fails else 0
@@ -1494,6 +1833,8 @@ def selftest() -> int:
 
 def main(argv: list) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--pin", action="store_true",
+                    help="read the newest snapshot on disk even if the tree has moved under it")
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("snapshot", help="the world a scan reads, and where it is cached")
     p.add_argument("--reload", action="store_true")
@@ -1504,8 +1845,10 @@ def main(argv: list) -> int:
     p.add_argument("--cap", type=int, default=LATTICE_CAP)
     p.add_argument("--region", type=float, default=REGION)
     p.add_argument("--full", action="store_true", help="the winner leg by leg")
-    sub.add_parser("space", help="the choices, the runs, and what is held")
+    p = sub.add_parser("space", help="the choices, the runs, and what is held")
+    p.add_argument("--space", default="west-lane", choices=sorted(SPACES))
     p = sub.add_parser("rank", help="every arrangement, scored, best first")
+    p.add_argument("--space", default="west-lane", choices=sorted(SPACES))
     p.add_argument("--top", type=int, default=10)
     p.add_argument("--full", action="store_true")
     p = sub.add_parser("verify", help="a searched lane in the exact world")
@@ -1515,6 +1858,8 @@ def main(argv: list) -> int:
     p.add_argument("--clearance", type=float, default=0.0)
     sub.add_parser("selftest", help="known-answer controls, then the real machine")
     args = ap.parse_args(argv)
+    if args.pin:
+        os.environ["HSM_ARRANGE_PIN"] = "1"
 
     if args.cmd == "selftest":
         return selftest()
@@ -1539,6 +1884,11 @@ def main(argv: list) -> int:
                   f"thinned at {max(lat.step):.1f} mm, region "
                   + " ".join(f"{'xyz'[i]}[{lat.region[2*i]:.0f}, {lat.region[2*i+1]:.0f}]"
                              for i in range(3)))
+        spent = getattr(_search, "spent", 0)
+        if spent >= POP_BUDGET:
+            print(f"THE WALK RAN OUT OF PATIENCE at {spent:,} states — what is below is what it "
+                  f"had reached,\nnot what the machine holds. Raise POP_BUDGET or narrow "
+                  f"--region.")
         print()
         print(f"{'#':>3}  {'cost':>6}  {'path':>6}  {'bend':>4}  {'detour':>6}  "
               f"{'margin':>7}   lane")
@@ -1547,13 +1897,22 @@ def main(argv: list) -> int:
                   f"{l.margin:7.3f}   {l.vector()}")
         print(f"{'now':>3}  {drawn.cost:6.0f}  {drawn.drawn:6.1f}  {drawn.bends:4d}  "
               f"{drawn.drawn / drawn.span:6.3f}  {drawn.margin:7.3f}   {drawn.vector()}")
+        print(f"     nearest to the run as drawn: "
+              + ", ".join(f"{n} {g:.3f}" for g, n in drawn.near))
         print("\nan orthogonal lane is an UPPER bound on its corridor — the authored run leans, "
               "and a leaning\nversion of any lane here is shorter than the square one shown.")
         if args.full and got:
             print()
             print(got[0].report())
         return 0
-    sp = west_lane()
+    if args.cmd == "verify":
+        got = lanes(args.run, top=args.lane, floor=args.floor)
+        if len(got) < args.lane:
+            print(f"{args.run}: only {len(got)} lane(s) at a {args.floor:g} mm floor")
+            return 1
+        print(verify(got[args.lane - 1], clearance=args.clearance))
+        return 0
+    sp = SPACES[args.space]()
     if args.cmd == "space":
         print(sp.report())
         return 0
@@ -1572,13 +1931,6 @@ def main(argv: list) -> int:
         if args.full and best:
             print()
             print(best[0].report())
-        return 0
-    if args.cmd == "verify":
-        got = lanes(args.run, top=args.lane, floor=args.floor)
-        if len(got) < args.lane:
-            print(f"{args.run}: only {len(got)} lane(s) at a {args.floor:g} mm floor")
-            return 1
-        print(verify(got[args.lane - 1], clearance=args.clearance))
         return 0
     return 1
 
