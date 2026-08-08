@@ -42,7 +42,7 @@ Inspect every exposed surface against the following pass criteria:
 - Every visible printed surface clean of layer-line debris and stringing — particular attention to the Zone C top door and the rear-panel cutouts where small printed features land near user sightlines.
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any panel cutout; cable-gland grommets seated flush.
-- The compressor shroud (see [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md)) seated flush with no daylight at its grommeted AC pass-through; the single AC pass-through cleanly bonded at its chassis ground tab.
+- The compressor sitting square on its four floor posts, every screw home on its grommet's steel bushing and none of them driven into the rubber; the green ring under one of those four heads, and the AC lead's jacket unbroken back to the shelf.
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The rear-panel C14 inlet recessed cleanly into its printed shroud per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md); the recess shroud's seam against the rear-panel face shows no gap.
 - The umbilical-port PP1208E bulkheads on the rear wall — three unions on one line, blue accent ring on the carbonated-water one at the east end of the row — all three finger-tight against the wall with no rotation play.
