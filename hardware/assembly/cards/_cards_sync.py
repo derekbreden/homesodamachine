@@ -54,6 +54,8 @@ for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
 
 sys.path.insert(0, str(CARDS_DIR))
 from _cardgen import sync  # noqa: E402
+from _cards_ip import internal_plumbing  # noqa: E402  — IP + WR + FU
+from _cards_cc import cold_core, refrigerant_loop  # noqa: E402
 
 Machine = namedtuple("Machine", "a pack box")
 
@@ -280,7 +282,7 @@ def electronics_shelf(m: Machine):
 
 
 # One function per subsystem, in deck order. `_build.py` runs all of them.
-SUBSYSTEMS = (enclosure, electronics_shelf)
+SUBSYSTEMS = (enclosure, electronics_shelf, cold_core, refrigerant_loop, internal_plumbing)
 
 
 def collect(machine: Machine = None):

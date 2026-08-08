@@ -23,30 +23,36 @@
     </div>
 
     <ol class="steps">
-      <li><b>Match the lids, label TOP / BOTTOM</b> — the lid with the
-        extra <span class="dim">&#8960;6.5 mm</span> hole rides the
-        CO2-bossed cap.</li>
+      <li><b>Label TOP / BOTTOM first</b> — only the top cap carries the
+        <span class="dim" data-gen="CAP_CONDUITS">7</span> conduit and
+        <span class="dim" data-gen="DECK_COLUMNS">8</span> deck columns.</li>
+      <li><b>Ruthex M3 short into every deck column,</b> same iron as
+        CC-05. <b>Not the power column's</b> — those go in the +X wall at
+        EN-01.</li>
       <li><b>Bolt one stack down:</b> cap floor on the shell face, lid
-        <b>pads-into-the-cup</b>, six M3&nbsp;&#215;&nbsp;25 into the CC-05
-        inserts. <b>The screws are the clamp</b> — foam lifts a loose lid.</li>
-      <li><b>Mix the two-part foam 1:1</b>, then <b>pour through the
-        lid's &#8960;20 mm hole</b> — air out the two
-        <span class="dim">&#8960;6 mm</span> vents.</li>
-      <li><b>Trim flush, unbolt, repeat for the second cap</b> — same
-        fixture; the bottom cap flips at CC-15.</li>
+        <b>pads-into-the-cup</b>,
+        <span class="dim" data-gen="FACE_BOSSES">6</span>
+        <span class="dim" data-gen="CAP_SCREW">M3 &#215; 25</span> into the
+        CC-05 inserts. <b>The screws are the clamp.</b></li>
+      <li><b>Mix 1:1, pour through the lid's
+        <span class="dim" data-gen="POUR_HOLE_D">&#8960;20</span> hole</b> — air
+        out the two <span class="dim" data-gen="LID_VENT_D">&#8960;6</span>
+        vents. Trim flush, unbolt, repeat.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Materials</span>
-      PU foam B08R7TX8QJ &#183; M3&#215;25 &#215;6 &#183; cups &#183; sticks &#183; gloves
+      PU foam B08R7TX8QJ &#183; M3&#215;25 &#215;6 &#183; ruthex M3 short
+      &#215;8 &#183; gloves
     </div>
   </div>
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel">
       <img src="img/foam-cap-top.png" alt="">
-      <div class="cap"><b>foam-cap-top</b> — the CO2 boss marks the
-      top cap; it installs rotated 180&deg; (CC-15).</div>
+      <div class="cap"><b>foam-cap-top</b> — conduits and
+      <span class="dim" data-gen="DECK_STATIONS">4</span> deck-mount
+      stations in the cup; installs rotated 180&deg; (CC-15).</div>
     </div>
 
     <div class="panel light" style="margin-top:20px">
@@ -76,10 +82,15 @@
         <rect x="560" y="64" width="52" height="12" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
         <!-- vent hole (left, Ø6) -->
         <rect x="120" y="64" width="18" height="12" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
-        <!-- CO2 boss walls off its bore (top cap only) -->
-        <rect class="petg" x="330" y="76" width="12" height="70"/>
-        <rect class="petg" x="382" y="76" width="12" height="70"/>
-        <rect x="342" y="64" width="40" height="96" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
+        <!-- conduit column: a through bore, floor to lid's outer face (top cap only) -->
+        <rect class="petg" x="270" y="76" width="12" height="70"/>
+        <rect class="petg" x="322" y="76" width="12" height="70"/>
+        <rect x="282" y="64" width="40" height="96" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
+        <!-- deck-mount column: blind bore, ruthex set flush in its top (top cap only) -->
+        <rect class="petg" x="446" y="76" width="52" height="70"/>
+        <rect x="458" y="76" width="28" height="34" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
+        <rect x="460" y="78" width="24" height="22" fill="#f0b429" stroke="#1d1d26" stroke-width="2"/>
+        <rect x="458" y="64" width="28" height="12" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
         <!-- the six M3x25: head down in the lid's counterbore, then pad, column, insert -->
         <rect class="screw" x="50" y="84" width="8" height="102"/>
         <rect class="screw" x="47" y="66" width="14" height="18"/>
@@ -91,19 +102,24 @@
         <path class="air" d="M 129 112 L 129 48"/>
         <path fill="#0f8bab" d="M 129 36 L 120 56 L 138 56 Z"/>
         <!-- labels -->
-        <text class="dimtx" x="608" y="46">&#8960;20 pour</text>
-        <text class="dimtx" x="152" y="62">&#8960;6 vent &#215;2</text>
-        <text class="sub" x="380" y="184" text-anchor="middle">shell top face &#183; six inserts (CC-05)</text>
-        <text class="sub" x="380" y="214" text-anchor="middle">CO2 boss seals its own bore &#183; cavity 16 &#183; lid 2 + pad 3.2 mm</text>
-        <text class="sub" x="380" y="238" text-anchor="middle">the column stops short of the mouth &#183; the pad fills it, head down in its c&#8217;bore</text>
+        <text class="dimtx" x="622" y="46" data-gen="POUR_HOLE_D">&#8960;20</text>
+        <text class="sub" x="622" y="20">pour</text>
+        <text class="dimtx" x="152" y="46" data-gen="LID_VENT_D">&#8960;6</text>
+        <text class="sub" x="152" y="20">vent &#215;2</text>
+        <text class="sub" x="240" y="184" text-anchor="middle">conduit &#8212; through</text>
+        <text class="sub" x="472" y="184" text-anchor="middle">deck column &#8212; blind, insert flush</text>
+        <text class="sub" x="300" y="214" text-anchor="end">cap cavity</text>
+        <text class="dimtx" x="312" y="214" data-gen="CAP_CAVITY">16</text>
+        <text class="sub" x="350" y="214">mm deep; both columns trim to nothing</text>
+        <text class="sub" x="380" y="240" text-anchor="middle">a screw column stops short of the mouth &#8212; its pad fills the relief</text>
       </svg>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Both caps cured full and unbolted, foam trimmed flush at pour + vents — and the top cap's CO2 bore is open end to end.</div>
-  <div class="src">cold-core.md &#167;3 &#183; foam_cap.py &#183; _foam_cap.py<br>rev 2026-07-24</div>
+  <div class="done"><span class="lbl">Done when</span>Both caps cured full and unbolted, foam trimmed flush at pour + vents — every conduit bore open end to end and every deck insert flush.</div>
+  <div class="src">cold-core.md &#167;3 &#183; foam_cap.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>

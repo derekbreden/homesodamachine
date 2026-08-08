@@ -9,32 +9,32 @@
 
 <header>
   <div class="code">CC-12</div>
-  <h1>Route the seven<br>penetrations</h1>
+  <h1>Route the <span data-gen="CAP_CONDUITS">7</span><br>penetrations</h1>
   <div class="deckpos"><b>Cold core · 12/15</b>Kitchen edition</div>
 </header>
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Seven lines and four cables cross the shell — every
-    tube crossing <strong>1/4&Prime; OD</strong>, transitions warm-side,
-    CO2 alone from above.</p>
+    <p class="lede">Every fluid line leaves by the <strong>top</strong>, one
+    cap conduit each. The &#8722;X face is mated flat to the base:
+    <span class="dim" data-gen="CORE_FRONT_PORTS">2</span> reed cables and two
+    lane slots, nothing else.</p>
 
     <ol class="steps">
-      <li><b>Flavor lines &#215;2 + water outlet</b> — each flavor tube
-        through its low wall hole into the reservoir elbow's PTC port;
-        the outlet out the ring, then its own hole.</li>
-      <li><b>Slot, low to high:</b> copper in
-        <span class="dim">59.75</span>, copper out
-        <span class="dim">67.75</span>, water in
-        <span class="dim">75.75</span>, PRV
-        <span class="dim">83.75</span> &#8212; one
-        <span class="dim">8</span> pitch.</li>
-      <li><b>Water inlet + PRV</b> — PP010822E back to NPT into the Port
-        2 elbow; the vent press-fits the shroud cap's
-        <span class="dim">&#8960;6.35</span> hole.</li>
-      <li><b>Four cables up the slot</b> — probe leads to SIG-1, reeds
-        to J7, dressed so the plug clamp (CC-13) and over-pour (CC-14)
-        close around them. <b>No air path in.</b></li>
+      <li><b>Filled high, drawn low — all three.</b> Nothing entering can
+        leave without crossing the liquid.</li>
+      <li><b>CO2 down the port lane</b> — the one conduit that feeds, in
+        at the ring's
+        <span class="dim" data-gen="RING_SLOT_DEG">225&#176;</span> slot.
+        <b>Tug-test first.</b></li>
+      <li><b>Carbonated water up on no bore at all</b> — that same slot,
+        then beside the coil to its conduit.</li>
+      <li><b>Water in + both draws climb the forward band</b>
+        (<span class="dim" data-gen="FORWARD_BAND">8 mm</span>). <b>A fill has
+        no run</b> — conduit straight onto the cap bore.</li>
+      <li><b>Front wall last.</b> Both cables up the port lane, sensor
+        leads up its slot, dressed so CC-13's clamp and CC-14's pour shut
+        on them. <b>No air path in.</b></li>
     </ol>
 
     <div class="tools">
@@ -45,76 +45,78 @@
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel light">
-      <svg viewBox="0 0 760 634" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 760 500" xmlns="http://www.w3.org/2000/svg">
         <style>
           .petg  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
-          .hole  { fill: #fff; stroke: #1d1d26; stroke-width: 3; }
-          .ghost { fill: #fff; stroke: #70707c; stroke-width: 2.5; }
-          .co2   { stroke: #b8722c; stroke-width: 5; fill: none; stroke-dasharray: 14 10; }
+          .hole  { fill: #fff; stroke: #70707c; stroke-width: 2.5; }
+          .cu    { fill: #fff; stroke: #b8722c; stroke-width: 4; }
+          .slot  { fill: #fff; stroke: #1d1d26; stroke-width: 2.5; }
           .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
           .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
           .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .sub   { font: 400 21px "Helvetica Neue", sans-serif; fill: #70707c; }
         </style>
-        <text class="lbl" x="24" y="38">THE SLOT WALL &#183; mm above the shell base &#8212; to scale</text>
-        <!-- wall 283x213.4 at 2.2 px/mm -> 623x470, y 80..550 -->
-        <g transform="translate(120,80)">
-          <rect class="petg" x="0" y="0" width="623" height="470"/>
-          <!-- shared slot at x=0 (center 311.5), z 51.5..top: y 0..356.2 -->
-          <rect class="hole" x="304" y="-8" width="15" height="364" rx="7"/>
-          <!-- slot pass-throughs: 83.75 / 75.75 / 67.75 / 59.75, one 8 pitch -->
-          <circle class="hole" cx="311.5" cy="285.2" r="8"/>
-          <circle class="hole" cx="311.5" cy="302.8" r="8"/>
-          <circle class="hole" cx="311.5" cy="320.4" r="8"/>
-          <circle class="hole" cx="311.5" cy="338.0" r="8"/>
-          <!-- water outlet z=17 -->
-          <circle class="hole" cx="311.5" cy="432.6" r="8"/>
-          <!-- flavor lines x=±97 z=6 -->
-          <circle class="hole" cx="98" cy="456.8" r="8"/>
-          <circle class="hole" cx="525" cy="456.8" r="8"/>
-          <!-- reed cable holes x=±109 (ghost) -->
-          <circle class="ghost" cx="71.6" cy="456.8" r="8"/>
-          <circle class="ghost" cx="551.4" cy="456.8" r="8"/>
-          <!-- labels: slot stack, fanned into the empty wall above it -->
-          <line class="dimln" x1="322" y1="285.2" x2="380" y2="192"/>
-          <text class="dimtx" x="388" y="200">83.75 PRV vent</text>
-          <line class="dimln" x1="322" y1="302.8" x2="380" y2="226"/>
-          <text class="dimtx" x="388" y="234">75.75 water in</text>
-          <line class="dimln" x1="322" y1="320.4" x2="380" y2="260"/>
-          <text class="dimtx" x="388" y="268">67.75 copper out</text>
-          <text class="sub" x="388" y="296">suction &#183; the cold one</text>
-          <line class="dimln" x1="322" y1="338.0" x2="380" y2="322"/>
-          <text class="dimtx" x="388" y="330">59.75 copper in</text>
-          <text class="sub" x="388" y="358">one column, 8 pitch</text>
-          <!-- slot label -->
-          <text class="sub" x="290" y="220" text-anchor="end">shared slot &#8212;</text>
-          <text class="sub" x="290" y="248" text-anchor="end">open at the top,</text>
-          <text class="sub" x="290" y="276" text-anchor="end">plugs follow (CC-13)</text>
-          <!-- CO2 note -->
-          <text class="sub" x="30" y="60">CO2 &#8212; down through the</text>
-          <text class="sub" x="30" y="88">cap boss to the CC-10</text>
-          <text class="sub" x="30" y="116">elbow, not this wall</text>
-          <!-- water outlet + flavor labels -->
-          <line class="dimln" x1="322" y1="432.6" x2="380" y2="422"/>
-          <text class="dimtx" x="388" y="430">water outlet</text>
-          <line class="dimln" x1="98" y1="446" x2="98" y2="416"/>
-          <text class="dimtx" x="98" y="404" text-anchor="middle">flavor &#8722;X</text>
-          <line class="dimln" x1="525" y1="446" x2="525" y2="416"/>
-          <text class="dimtx" x="525" y="404" text-anchor="middle">flavor +X</text>
+        <text class="lbl" x="24" y="30">THE &#8722;X FACE &#8212; to scale</text>
+        <!-- wall 181 x 213.4 at 1.9 px/mm -> 344 x 405.5; z=0 at the bottom -->
+        <g transform="translate(28,74)">
+          <rect class="petg" x="0" y="0" width="344" height="405.5"/>
+          <!-- both lane slots run from z 19.5 out through the shell's top face -->
+          <rect class="slot" x="18.5" y="-8" width="12.4" height="376.5" rx="6.2"/>
+          <rect class="slot" x="313" y="-8" width="12.4" height="376.5" rx="6.2"/>
+          <!-- front port field: the two reed cables, port lane only -->
+          <circle class="hole" cx="24.7" cy="392.7" r="6.2"/>
+          <circle class="hole" cx="24.7" cy="377.5" r="6.2"/>
+          <!-- the three lines the slots carry -->
+          <circle class="cu" cx="24.7" cy="352.8" r="6.2"/>
+          <circle class="cu" cx="24.7" cy="337.6" r="6.2"/>
+          <circle class="cu" cx="319.2" cy="352.8" r="6.2"/>
+          <text class="sub" x="24.7" y="-14" text-anchor="middle">PORT</text>
+          <text class="sub" x="319.2" y="-14" text-anchor="middle">WEST</text>
+          <text class="sub" x="172" y="120" text-anchor="middle">both slots open at the top &#8212;</text>
+          <text class="sub" x="172" y="146" text-anchor="middle">a coil's tail travels DOWN</text>
+          <text class="sub" x="172" y="172" text-anchor="middle">the wall to its station</text>
+          <text class="sub" x="172" y="264" text-anchor="middle">nothing crosses this face</text>
+          <text class="sub" x="172" y="290" text-anchor="middle">above the band at its foot</text>
         </g>
-        <text class="sub" x="380" y="600" text-anchor="middle">ghost holes: reed cables &#8212; their columns drop in at CC-15</text>
+        <!-- the column, read out: z above the shell's own floor -->
+        <text class="lbl" x="410" y="30">EVERY CROSSING, low to high</text>
+        <g transform="translate(410,0)">
+          <text class="dimtx" x="0" y="88" data-gen="REED_A_Z">6.75</text>
+          <text class="sub"   x="96" y="88">reed cable A &#183; port</text>
+          <text class="dimtx" x="0" y="136" data-gen="REED_B_Z">14.75</text>
+          <text class="sub"   x="96" y="136">reed cable B &#183; port</text>
+          <text class="dimtx" x="0" y="184" data-gen="EVAP_IN_Z">27.75</text>
+          <text class="sub"   x="96" y="184">evap inlet &#183; port</text>
+          <text class="dimtx" x="0" y="232" data-gen="EVAP_OUT_Z">27.75</text>
+          <text class="sub"   x="96" y="232">evap outlet &#183; WEST</text>
+          <text class="dimtx" x="0" y="280" data-gen="PRV_VENT_Z">35.75</text>
+          <text class="sub"   x="96" y="280">PRV vent &#183; port</text>
+          <text class="sub"   x="0" y="348">a station's Z is where its LINE</text>
+          <text class="sub"   x="0" y="374">crosses, never where its own</text>
+          <text class="sub"   x="0" y="400">fitting sits &#8212; each turns onto</text>
+          <text class="sub"   x="0" y="426">its lane and climbs or drops.</text>
+          <text class="sub"   x="0" y="470">grey: the field's two cables</text>
+        </g>
       </svg>
-      <div class="cap"><b>One wall carries everything</b> — the slot
-      stack plus three dedicated holes; the rear wall stays sealed. Each
-      slot line runs the lane to its station first, so none crosses
-      where its own fitting sits.</div>
+      <div class="cap"><b>Two lanes, because the base is two bodies</b> —
+      each copper is picked up by the body already standing against its
+      own lane's face.</div>
     </div>
+
+    <table class="spec" style="margin-top:16px">
+      <tr><td>Every crossing</td><td class="v" data-gen="TUBE_HOLE_D">&#8960;6.5</td>
+          <td>Field pitch</td><td class="v" data-gen="FIELD_PITCH">8</td></tr>
+      <tr><td>Forward band</td><td class="v" data-gen="FORWARD_BAND">8 mm</td>
+          <td>Top band</td><td class="v" data-gen="TOP_BAND">14 mm</td></tr>
+      <tr><td>Draw out the pocket</td><td class="v" data-gen="FLAVOR_HOLE_X">&#177;97</td>
+          <td>Cable out the pocket</td><td class="v" data-gen="CABLE_HOLE_X">&#177;109</td></tr>
+    </table>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>All seven routed 1/4&Prime; and four cables dressed up the slot — ready for the plug stack (CC-13).</div>
-  <div class="src">cold-core.md &#167;5 &#183; foam-shell/README.md &#183; _port_cuts.py<br>rev 2026-07-24</div>
+  <div class="done"><span class="lbl">Done when</span>All <span data-gen="CAP_CONDUITS">7</span> lines standing in their conduits, both cables at the field, both coppers and the PRV vent in their slots.</div>
+  <div class="src">cold-core.md &#167;5 &#183; foam-shell/README.md<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
