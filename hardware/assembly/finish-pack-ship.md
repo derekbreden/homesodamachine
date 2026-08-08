@@ -41,7 +41,8 @@ Inspect every exposed surface against the following pass criteria:
 
 - Every visible printed surface clean of layer-line debris and stringing — particular attention to the Zone C top door and the rear-panel cutouts where small printed features land near user sightlines.
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
-- No exposed wiring at any panel cutout; cable-gland grommets seated flush.
+- No exposed wiring at any panel cutout. Every cutout on the wall is a fitting's own
+  flange or housing — the machine carries no cable gland.
 - The compressor sitting square on its four floor posts, every screw home on its grommet's steel bushing and none of them driven into the rubber; the green ring under one of those four heads, and the AC lead's jacket unbroken back to the shelf.
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The rear-panel C14 inlet recessed cleanly into its printed shroud per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md); the recess shroud's seam against the rear-panel face shows no gap.
