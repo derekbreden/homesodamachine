@@ -16,11 +16,13 @@ Coordinate frame
   pattern carries it about its own center.
 - The SHELL is centered on X and offset [10](SHELL_OFFSET_Y) on Y, so the plate reaches
   [27.5](PLATE_REACH_LONG) past it at -Y and [7.5](PLATE_REACH_SHORT) at +Y.
+- The POWER BOX stands in that long reach, on the plate's crown: [45](POWER_X) across,
+  [27.5](POWER_Y) deep — the reach exactly — and [45](POWER_Z) tall, its aft face on the
+  shell's own tangent plane at y = [-52.5](SHELL_TANGENT_Y). **-Y is the power end.**
 
-Nothing on this envelope tells those two ends apart. The suction, discharge and process
-stubs, the terminal block and its clip-on PTC start relay / overload module are not
-modeled — so which end the long reach serves is settled where the part is placed, not
-here, and on a bolt pattern symmetric about the origin it drops either way round.
+The suction, discharge and process stubs are not modeled. The box carries the compressor's
+power components under their own shroud, so it is the one feature that tells the two ends
+apart: the bolt pattern is symmetric about the origin, the box is not.
 
 The shell is WIDER THAN ITS OWN PLATE — [110](SHELL_X) across against the plate's
 [96](BASE_X) — so the widest thing on the part is its belly, overhanging
@@ -60,6 +62,10 @@ SHELL_OFFSET_Y = 10.0  # the shell stands off the plate's own center by this muc
 MOUNT_D = 14.0         # the four holes through the plate
 MOUNT_INSET = 7.5      #   center to plate edge, the same figure on both axes
 
+POWER_X = 45.0         # the power components' box, across the machine
+POWER_Y = 27.5         #   along it — the plate's long reach, exactly
+POWER_Z = 45.0         # standing on the plate's crown
+
 # --- What those give ------------------------------------------------------
 OVERALL_H = BASE_Z + SHELL_Z                       # [135](OVERALL_H), crown off the deck
 MOUNT_PITCH_X = BASE_X - 2.0 * MOUNT_INSET         # [81](MOUNT_PITCH_X), center to center
@@ -72,6 +78,11 @@ PLATE_REACH_SHORT = (BASE_Y - SHELL_Y) / 2.0 - SHELL_OFFSET_Y   # [7.5](PLATE_RE
 MOUNT_LIGAMENT = MOUNT_INSET - MOUNT_D / 2.0  # [0.5](MOUNT_LIGAMENT)
 # What a cylinder on the larger axis would fill that this shell does not.
 CYL_EXCESS_PCT = (SHELL_Y / SHELL_X - 1.0) * 100.0
+# The shell's own -Y extreme, which the box's aft face stands on. The ellipse reaches it at
+# one point, x = 0, so the two bodies meet along a line rather than over a face.
+SHELL_TANGENT_Y = SHELL_OFFSET_Y - SHELL_Y / 2.0   # [-52.5](SHELL_TANGENT_Y)
+POWER_Y0 = -BASE_Y / 2.0                           # the plate's own -Y edge
+POWER_Z1 = BASE_Z + POWER_Z                        # [60](POWER_Z1), the box's crown
 
 
 def mount_pattern():
@@ -82,15 +93,21 @@ def mount_pattern():
 
 
 def build():
-    """Plate and shell as the pack carries them: the plate on the mounting plane with its
-    four holes through it, the oblong shell standing on the plate's crown, offset on Y."""
+    """The three bodies as the pack carries them: the plate on the mounting plane with its
+    four holes through it, the oblong shell standing on the plate's crown offset on Y, and
+    the power box filling the plate's long reach at -Y."""
     part = cq.Workplane("XY").box(BASE_X, BASE_Y, BASE_Z, centered=(True, True, False))
     shell = (
         cq.Workplane("XY", origin=(0.0, SHELL_OFFSET_Y, BASE_Z))
         .ellipse(SHELL_X / 2.0, SHELL_Y / 2.0)
         .extrude(SHELL_Z)
     )
-    part = part.union(shell)
+    power = (
+        cq.Workplane("XY", origin=(0.0, POWER_Y0 + POWER_Y / 2.0, BASE_Z))
+        .rect(POWER_X, POWER_Y)
+        .extrude(POWER_Z)
+    )
+    part = part.union(shell).union(power)
     for x, y in mount_pattern():
         part = part.cut(cq.Solid.makeCylinder(
             MOUNT_D / 2.0, BASE_Z, cq.Vector(x, y, 0.0), cq.Vector(0, 0, 1)))
@@ -125,12 +142,34 @@ def shell_hold():
     got = build().Volume()
     want = (BASE_X * BASE_Y * BASE_Z
             - 4.0 * math.pi * (MOUNT_D / 2.0) ** 2 * BASE_Z
-            + math.pi * (SHELL_X / 2.0) * (SHELL_Y / 2.0) * SHELL_Z)
+            + math.pi * (SHELL_X / 2.0) * (SHELL_Y / 2.0) * SHELL_Z
+            + POWER_X * POWER_Y * POWER_Z)
     if abs(got - want) > 1e-6 * want:
         raise ValueError(
-            f"compressor fills {got:.0f} mm³ against the {want:.0f} its plate, its shell "
-            f"and its four holes come to — the shell has stopped being the pressed oblong "
-            f"the donor is, or a hole has found a body it does not pass through.")
+            f"compressor fills {got:.0f} mm³ against the {want:.0f} its plate, its shell, "
+            f"its box and its four holes come to — the shell has stopped being the pressed "
+            f"oblong the donor is, a hole has found a body it does not pass through, or the "
+            f"box has run into the shell instead of standing on its tangent.")
+
+
+def power_hold():
+    """Hold the box to the plate it stands on: filling the long reach end to end, inside the
+    plate's own X, standing on the crown, and clear of the two mounts under its footprint."""
+    if abs(POWER_Y0 + POWER_Y - SHELL_TANGENT_Y) > 1e-9:
+        raise ValueError(
+            f"the box runs y {POWER_Y0:g}..{POWER_Y0 + POWER_Y:g} and the plate's long reach "
+            f"ends at the shell's tangent y = {SHELL_TANGENT_Y:g} — the box no longer fills "
+            f"the reach the shell's own offset opened for it.")
+    if POWER_X / 2.0 > BASE_X / 2.0:
+        raise ValueError(
+            f"the box is {POWER_X:g} across against the plate's {BASE_X:g} — it hangs off the "
+            f"footprint it stands on.")
+    for x, y in mount_pattern():
+        if abs(x) < POWER_X / 2.0 + MOUNT_D / 2.0 and POWER_Y0 <= y <= POWER_Y0 + POWER_Y:
+            raise ValueError(
+                f"the mount at ({x:g}, {y:g}) stands under the box — a Ø{MOUNT_D:g} hole "
+                f"{abs(x) - POWER_X / 2.0:g} outboard of a box face is not a hole a driver "
+                f"reaches.")
 
 
 def mounts_hold():
@@ -159,7 +198,8 @@ def _docvars():
     plain = ("BASE_X", "BASE_Y", "BASE_Z", "SHELL_X", "SHELL_Y", "SHELL_Z",
              "SHELL_OFFSET_Y", "MOUNT_D", "MOUNT_INSET", "OVERALL_H",
              "MOUNT_PITCH_X", "MOUNT_PITCH_Y", "SHELL_OVERHANG_X",
-             "PLATE_REACH_LONG", "PLATE_REACH_SHORT", "MOUNT_LIGAMENT")
+             "PLATE_REACH_LONG", "PLATE_REACH_SHORT", "MOUNT_LIGAMENT",
+             "POWER_X", "POWER_Y", "POWER_Z", "POWER_Z1", "SHELL_TANGENT_Y")
     variables = {name: f"{globals()[name]:g}" for name in plain}
     variables["CYL_EXCESS_PCT"] = f"{CYL_EXCESS_PCT:.0f}"
     return variables
@@ -168,11 +208,15 @@ def _docvars():
 def selftest():
     envelope_hold()
     shell_hold()
+    power_hold()
     mounts_hold()
     return [
         f"  envelope stands {SHELL_X:g} x {BASE_Y:g} x {OVERALL_H:g} off the mounting plane",
         f"  shell is the pressed oblong, {SHELL_X:g} x {SHELL_Y:g}, not a cylinder",
-        f"  four mounts clear the belly, {MOUNT_LIGAMENT:g} of plate outboard of each",
+        f"  the box fills the long reach, y {POWER_Y0:g}..{SHELL_TANGENT_Y:g}, "
+        f"crown at {POWER_Z1:g}",
+        f"  four mounts clear the belly and the box, {MOUNT_LIGAMENT:g} of plate outboard "
+        f"of each",
     ]
 
 
@@ -185,6 +229,8 @@ def main():
     print(f"  plate  {BASE_X:g} x {BASE_Y:g} x {BASE_Z:g}, centered on the origin")
     print(f"  shell  {SHELL_X:g} x {SHELL_Y:g} ellipse x {SHELL_Z:g}, "
           f"offset {SHELL_OFFSET_Y:g} on Y")
+    print(f"  power  {POWER_X:g} x {POWER_Y:g} x {POWER_Z:g}, y[{POWER_Y0:g}, "
+          f"{SHELL_TANGENT_Y:g}] z[{BASE_Z:g}, {POWER_Z1:g}] — the -Y end")
     print(f"  belly overhangs the plate {SHELL_OVERHANG_X:g} each side, from {BASE_Z:g} up")
     print(f"  plate reaches {PLATE_REACH_LONG:g} past the shell at -Y, "
           f"{PLATE_REACH_SHORT:g} at +Y")
@@ -207,6 +253,8 @@ def main():
             "SHELL_OVERHANG_X": 2,
             "PLATE_REACH_LONG": 2, "PLATE_REACH_SHORT": 2,
             "MOUNT_LIGAMENT": 1, "CYL_EXCESS_PCT": 1,
+            "POWER_X": 1, "POWER_Y": 1, "POWER_Z": 1, "POWER_Z1": 1,
+            "SHELL_TANGENT_Y": 2,
         },
     )
     substitute_md(
@@ -220,6 +268,8 @@ def main():
             "SHELL_OVERHANG_X": 1,
             "PLATE_REACH_LONG": 1, "PLATE_REACH_SHORT": 1,
             "MOUNT_LIGAMENT": 1, "CYL_EXCESS_PCT": 1,
+            "POWER_X": 1, "POWER_Y": 2, "POWER_Z": 1, "POWER_Z1": 1,
+            "SHELL_TANGENT_Y": 1,
         },
     )
     print("-> README.md")
