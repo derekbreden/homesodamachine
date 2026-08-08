@@ -46,7 +46,7 @@ Class A GFCI, 6 mA trip threshold, 120 V personnel protection. The 2015 revision
 
 D2C sale does not require this listing. A Class I plumbed appliance — three bonded chassis surfaces (pressure vessel, compressor body, faucet plate) returning fault current through the C14 cord per `hardware/wiring/ac-wiring-schedule.md` — carries the shock-protection obligation regardless of certification path. The standard codifies what ground-fault protection in a household appliance actually requires.
 
-An integrated in-appliance GFCI on the AC side is deferred from the current build and held in [`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md), which carries the scoped device, the inline-on-the-AC-side wiring, and the swappable-cord rationale. The current power tray lands the C14 inlet onto the AC distribution with no device in series (`hardware/printed-parts/electronics/power-tray/`).
+An integrated in-appliance GFCI on the AC side is deferred from the current build and held in [`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md), which carries the scoped device, the inline-on-the-AC-side wiring, and the swappable-cord rationale. The current build lands the C14 inlet onto the AC hub's three splices with no device in series (`hardware/printed-parts/electronics/ac-hub/`).
 
 ## CPSC general safety duty
 

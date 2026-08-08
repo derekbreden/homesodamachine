@@ -12,7 +12,7 @@ pairing it was drawn for.
 |---|---|---|
 | Sources | V-A · V-B | Y-A |
 | Selects | V-C · V-D | Y-B |
-| Bag A | V-E · V-F | Y-E |
+| Bag A | V-E · V-F | — (reservoir A's own two mouths) |
 | Bag B | V-H · V-I | — (reservoir B's own two mouths) |
 
 The pairing is [fluid-topology](/hardware/topology/fluid-topology.md)'s own: each
