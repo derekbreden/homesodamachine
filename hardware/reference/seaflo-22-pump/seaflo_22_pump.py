@@ -11,11 +11,18 @@ not modeled.
 The head is a narrow block — 54 mm across — and the two 3/8" barbs are short
 stubs off its ±Y side faces, 13 mm each, which is what carries the pump out to
 its 80 mm published width across the ports. Nearer the motor the head widens to
-a 70 mm flange band. The ports sit below head mid-height and toward the switch
-end. The pressure switch occupies the head's -X end face, opposite the motor.
-(The casting marks the ports IN and OUT; this model puts IN/suction on -Y and
-OUT/discharge on +Y — a mirror pair across the motor axis, so the two sides are
-geometrically interchangeable.)
+a 70 mm flange band. The ports sit above head mid-height and toward the switch
+end. The pressure switch occupies the upper part of the head's -X end face,
+opposite the motor. (The casting marks the ports IN and OUT; this model puts
+IN/suction on -Y and OUT/discharge on +Y — a mirror pair across the motor axis,
+so the two sides are geometrically interchangeable.)
+
+THE PUMP'S 72 mm IS THE CAN'S OWN CROWN. The motor axis is on the head's
+mid-height and the can is Ø54, so the can's top, the head block's top and the
+pressure switch's top all come out on that one plane — the published overall
+height is three surfaces and not a boss. What hangs below the head at the port
+end is a 30 mm boss, the lowest casting on the body, and the head block's own
+underside stands clear above it.
 
 Dimensions come from SEAFLO's dimensioned drawing for the 22 Series (Marine & RV
 catalog p.15, and the same drawing as an image on the Amazon listing). Labeled
@@ -56,12 +63,13 @@ HEAD_W = 54.0            # the block the ports are on
 FLANGE_W = 70.0          # the head's wide band where it meets the motor
 MOTOR_D = 54.0           # motor can
 SWITCH_W = 44.0          # pressure switch
-BOSS_W = 30.0            # the head's top boss, which reaches the full 72 mm
+BOSS_W = 30.0            # the boss under the head's port end
 
-HEAD_Z0, HEAD_Z1 = 13.0, 69.0    # the head block, clear of the mounting plane
-MOTOR_Z = 40.0                   # motor axis, on the head's mid-height
-PORT_Z = 32.0                    # both barbs, below head mid-height
-SWITCH_Z0, SWITCH_Z1 = 13.0, 48.0
+HEAD_Z0, HEAD_Z1 = 16.0, 72.0    # the head block, its top on the pump's crown
+BOSS_Z0 = 13.0                   # the boss under it, the body's lowest casting
+MOTOR_Z = 45.0                   # motor axis, on the head's mid-height
+PORT_Z = 53.0                    # both barbs, above head mid-height
+SWITCH_Z0, SWITCH_Z1 = 37.0, 72.0
 FOOT_T, CRADLE_Z1 = 8.0, 15.0    # foot pad thickness; the cradle up to the can
 
 # Stations along the motor axis, motor rear at +OVERALL_L/2.
@@ -104,7 +112,8 @@ def _box(x0, x1, w, z0, z1):
 def build():
     """Motor can bolted to the head, the head carrying the two 3/8" barbs on its
     ±Y side faces and the pressure switch on its -X end, all on the mounting
-    bracket; foot underside at Z = 0, motor axis along +X."""
+    bracket; foot underside at Z = 0, motor axis along +X. The can's crown, the
+    head's top and the switch's top all land on `OVERALL_H`."""
     # Mounting bracket: the four splayed feet as one pad, and the cradle that
     # carries them up to the motor can.
     feet = (
@@ -123,7 +132,7 @@ def build():
     flange = _box(X_FLANGE_END, X_HEAD_JOINT, FLANGE_W, HEAD_Z0, HEAD_Z1)
     head = _box(X_HEAD_END, X_FLANGE_END, HEAD_W, HEAD_Z0, HEAD_Z1)
     boss = _box(PORT_X - BOSS_W / 2.0, PORT_X + BOSS_W / 2.0,
-                BOSS_W, HEAD_Z1, OVERALL_H)
+                BOSS_W, BOSS_Z0, HEAD_Z0)
     switch = _box(X_SWITCH_FACE, X_HEAD_END, SWITCH_W, SWITCH_Z0, SWITCH_Z1)
 
     part = feet.union(cradle).union(motor).union(flange).union(head)
