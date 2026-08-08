@@ -83,8 +83,12 @@ def main():
         "Y_SEAM": f"{_box.y_joint:.4g}",
         "Z_SEAM_FRONT": f"{_box.splits[0]:.4g}",
         "Z_SEAM_BACK": f"{_box.splits[1]:.4g}",
+        # The STATED width — the bound itself and not a measurement of the box built to it, so
+        # the doc quotes what `enclosure` declares rather than what the pieces came out at.
+        "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
         # The refrigeration stratum's own width, across the pair as it stands, beside the core's
-        # for comparison — the ±X walls stand their boss chain off every body ON THE FLOOR.
+        # for comparison — `box-width` asks its boss chain of every body ON THE FLOOR, and the
+        # core is the widest of them.
         "STRATUM_X": f"{_span(_pack, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_pack, 'foam-assembly'):.0f}",
         "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
@@ -126,6 +130,7 @@ def main():
             "Y_SEAM": 1,
             "Z_SEAM_FRONT": 1,
             "Z_SEAM_BACK": 1,
+            "APPLIANCE_W": 1,
             "STRATUM_X": 1,
             "CORE_X": 1,
             "SIDE_BAND": 1,
