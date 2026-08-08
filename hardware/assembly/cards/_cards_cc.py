@@ -275,6 +275,9 @@ def cold_core(m):
         "cc-06-pour-cap-foam": {
             "CAP_CONDUITS", "DECK_STATIONS", "DECK_COLUMNS", "CAP_CAVITY",
             "POUR_HOLE_D", "LID_VENT_D", "FACE_BOSSES", "CAP_SCREW"},
+        # The rods PV-05 cuts, seated here — same three figures, one bench later.
+        "cc-08-seat-reservoir-rods": {
+            "RSVR_ROD_MM", "RSVR_ROD_LEN", "RSVR_SEAT_TO_SEAT"},
         "cc-10-lower-the-vessel": {
             "RING_H", "RING_SLOTS", "RING_SLOT_DEG", "TUBE_HOLE_D"},
         "cc-11-seat-reservoirs": {

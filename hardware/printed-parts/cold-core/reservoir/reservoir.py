@@ -491,8 +491,8 @@ floor_slope_rate = floor_slope_rise / floor_slope_y_distance
 # Level-sensing rod cut length. Seat-to-seat = the top register seat (cap-local
 # cap_wall_height, raised to assembled coords by cap_assembly_lift) minus the
 # body anchor-boss bore floor at the rod's y; cut reservoir_rod_clearance under
-# so the rod never holds the cap off its gasket. (Geometry-verified seat-to-seat
-# = 174.99 mm; this is the cut figure.)
+# so the rod never holds the cap off its gasket. (Seat-to-seat
+# [176.4 mm](RESERVOIR_SEAT_TO_SEAT); this is the cut figure.)
 reservoir_rod_clearance = 1.0  # mm
 reservoir_rod_len = (
     (cap_assembly_lift + cap_wall_height)
@@ -1298,6 +1298,7 @@ def main():
         "ROD_POSITION_Y": f"{rod_position_y:.4g}",
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "RESERVOIR_ROD_LEN": f"{reservoir_rod_len:.4g} mm ({reservoir_rod_len / 25.4:.3g} in)",
+        "RESERVOIR_SEAT_TO_SEAT": f"{reservoir_rod_len + reservoir_rod_clearance:.4g} mm",
         # level-sensing.md — the two −Y wall holes that flank the bulkhead
         # axis, cut by _port_cuts (flavor line) and _reed_channels (cable).
         "FLAVOR_HOLE_X": f"±{flavor_line_hole_x:.4g}",
@@ -1468,6 +1469,7 @@ def main():
             "CAP_TOP_Z": 1,
             "RESERVOIR_H": 1,
             "RESERVOIR_ROD_LEN": 1,
+            "RESERVOIR_SEAT_TO_SEAT": 1,
             "REEDS_PER_RES": 1,
             "BULKHEAD_PANEL_HOLE_D": 2,
             "BULKHEAD_WET_NUT_OD": 7,
