@@ -164,10 +164,12 @@
    "id": "refrigerant-joints",
    "label": "The refrigerant loop closes on the planes its bodies share",
    "kind": "gate",
-   "status": "pass",
-   "value": "1/1 closed, widest 0.000 mm",
+   "status": "fail",
+   "value": "1/3 closed, 2 unmeasured, widest measured 0.000 mm",
    "target": "every joint within 0.05 mm",
-   "detail": [],
+   "detail": [
+    "the loop owes refrig-2, refrig-3 and nothing on this pack measures them: `MATED_JOINTS` names no pair of stations for those ids, or a station it names is not placed. `routed` counts the same 3 connections (`_scorecard.REFRIGERANT_SEGMENTS`), so 2 of 3 legs of the circuit have no reading rather than the circuit having fewer joints \u2014 give each the two stations it is made on, or the run that draws it."
+   ],
    "active": true
   },
   {
@@ -4722,7 +4724,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T03:45:55+00:00",
-  "commit": "0ce9f7c28da04fa193320bf2ecddc62cfa0fae24"
+  "generated": "2026-08-08T03:58:52+00:00",
+  "commit": "154e5e39583702092b8088ba06b44e6ef93fc03f"
  }
 }
