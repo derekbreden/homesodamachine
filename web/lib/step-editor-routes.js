@@ -3,17 +3,13 @@
 // (lib/pcb-editor-routes.js): mounted ONLY by the dev server, so it 404s in
 // production and the viewer's "Edit" toggle never appears on the public site.
 //
-// A component move is stored in a JSON sidecar beside the assembly's .step
-// (_contents.MOVES_PATH). The PACK applies it: each move composes onto the seat
+// A component move is stored in a JSON sidecar beside the assembly's .step, and
+// the assembly's GENERATOR is what applies it: each move composes onto the seat
 // its body took, at placement time, so the body's own stations ride it and every
-// body seated on it follows (_placing.Pack). The sidecar is written FIRST,
-// synchronously, so the move is in the tree the instant Apply lands; the generator
-// re-run that follows only catches the geometry up.
-// The editor's rebuild runs under HSM_EDITOR, which builds and saves a clashing
-// pack (flagged not-build-ready in the scorecard) rather than refusing it — an
-// overlapping move is something you see, not something you are stopped from
-// making. Only a genuine generator error fails, and its text comes back to the
-// panel.
+// body seated on it follows. The sidecar is written FIRST, synchronously, so the
+// move is in the tree the instant Apply lands; the generator re-run that follows
+// only catches the geometry up. Only a genuine generator error fails, and its
+// text comes back to the panel.
 //
 // Only files in EDITABLE are editable — the registry both scopes the write (no
 // arbitrary path gets a generator run) and gates the toggle (an unknown file
@@ -29,11 +25,14 @@ import { editionRoot } from "./editions.js";
 // step file (as the viewer references it, relative to the content root) →
 // the generator that rebuilds it. The overrides sidecar sits beside the .step,
 // same basename with `.overrides.json`.
-const EDITABLE = {
-  "printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step": {
-    generator: "enclosure_assembly.py",
-  },
-};
+//
+// EMPTY. An entry belongs here only when its generator READS that sidecar and
+// applies the moves as it places — the route writes the file and re-runs the
+// generator, and nothing else carries the edit into the geometry. No generator
+// in the tree reads one: `hardware/manifold-layout/front_half.py`, which builds
+// the enclosure assembly, seats every body from its own source. So nothing is
+// editable, every route below 404s, and the viewer hides the Edit toggle.
+const EDITABLE = {};
 
 function entryFor(file) {
   return Object.prototype.hasOwnProperty.call(EDITABLE, file) ? EDITABLE[file] : null;

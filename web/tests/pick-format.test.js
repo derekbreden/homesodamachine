@@ -296,13 +296,21 @@ test("pickFileToViewerPath strips the repo prefix per edition", () => {
     pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step", roots),
     "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
   );
-  // The nested root is stripped WHOLE — `hardware/` must not shorten it, or a thin
-  // pick opens the kitchen file of the same name.
   assert.equal(
-    pickFileToViewerPath("hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step", roots),
-    "printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step",
+    pickFileToViewerPath("hardware/manifold-layout/front-half.step", roots),
+    "manifold-layout/front-half.step",
   );
   assert.equal(pickFileToViewerPath("reference/a/b.step", roots), "reference/a/b.step");
+});
+
+test("a nested content root is stripped WHOLE, not shortened by the one above it", () => {
+  // The roots are matched longest-first. Where one root sits inside another, the
+  // outer name must not claim the pick, or it opens the same filename in the wrong
+  // tree. Roots are the caller's argument, so this pins the rule on its own.
+  const nested = ["hardware", "extra/hardware"];
+  const viewerPath = "manifold-layout/front-half.step";
+  assert.equal(pickFileToViewerPath(`extra/hardware/${viewerPath}`, nested), viewerPath);
+  assert.equal(pickFileToViewerPath(`hardware/${viewerPath}`, nested), viewerPath);
 });
 
 test("every edition's content root round-trips a copy blob", () => {
@@ -310,7 +318,7 @@ test("every edition's content root round-trips a copy blob", () => {
   // apart. Adding an edition must not need this test edited — it walks the list.
   const roots = Object.values(EDITION_DIRS);
   for (const dir of roots) {
-    const viewerPath = "printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step";
+    const viewerPath = "manifold-layout/front-half.step";
     assert.equal(pickFileToViewerPath(`${dir}/${viewerPath}`, roots), viewerPath, dir);
   }
 });

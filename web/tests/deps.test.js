@@ -40,41 +40,27 @@ test("content roots resolve to the declared editions", () => {
   }
 });
 
-test("a full-copy edition rebuilds only itself (thin isolation)", () => {
-  // hardware/ is a complete copy of hardware/ — every module name exists
-  // in both. Without the sibling/edition narrowing in the import walk, one
-  // _contents.py edit would rebuild BOTH machines' enclosures on every save.
-  // It also has its own hardware/scripts, so even the otherwise-shared
-  // _cadq_export resolves per-tree and must not cross.
-  const thin = path.join(REPO_ROOT, "thin");
-  if (!fs.existsSync(thin)) return; // edition not present in this checkout
+test("the enclosure assembly rebuilds on every module that draws it", () => {
+  // front_half.py IS the enclosure assembly: it places every body and sizes the box
+  // around them. The modules beside it author the runs between those bodies and grade
+  // the result, and hardware/scripts holds the export helper every generator imports.
+  // An edit to any of them has to reach the generator, or the .step, the elevations
+  // and the scorecard sidecar on disk stop matching the source that drew them.
+  const assembly = "manifold-layout/front_half.py";
+  assert.ok(
+    findGenerateScripts(ROOTS).some(ends(assembly)),
+    "the enclosure assembly must be a runnable generator, or nothing rebuilds it at all",
+  );
 
-  const contents = (root) => path.join(
-    root, "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
-  const where = (p) => (rel(p).split(path.sep).join("/").startsWith("thin/") ? "thin" : "kitchen");
-
-  for (const [edition, root] of [
-    ["kitchen", path.join(REPO_ROOT, "hardware")],
-    ["thin", path.join(thin, "hardware")],
-  ]) {
-    const deps = findRunnableScriptsTransitivelyImporting(contents(root), ROOTS);
-    assert.ok(deps.length > 0, `${edition} _contents.py should rebuild its own assembly`);
-    const strays = deps.filter((d) => where(d) !== edition).map(rel);
-    assert.deepEqual(strays, [], `a ${edition} _contents.py edit reached another edition`);
-  }
-
-  // _cadq_export is the module every generator in a tree imports, and each tree
-  // carries its own. So it is the widest test of the narrowing: an edit to one
-  // edition's copy must reach that edition's whole build and none of the other's.
-  for (const [edition, scripts] of [
-    ["kitchen", path.join(REPO_ROOT, "hardware", "scripts", "_cadq_export.py")],
-    ["thin", path.join(thin, "hardware", "scripts", "_cadq_export.py")],
-  ]) {
-    const reach = findRunnableScriptsTransitivelyImporting(scripts, ROOTS).map(where);
-    assert.ok(reach.includes(edition), `expected ${edition} generators`);
-    assert.deepEqual(
-      [...new Set(reach)], [edition],
-      `${edition}'s _cadq_export reached another edition`,
+  for (const mod of ["hardware/manifold-layout/_lines.py",
+    "hardware/manifold-layout/_scorecard.py",
+    "hardware/scripts/_cadq_export.py"]) {
+    const full = path.join(REPO_ROOT, ...mod.split("/"));
+    assert.ok(fs.existsSync(full), `${mod} exists`);
+    const deps = findRunnableScriptsTransitivelyImporting(full, ROOTS).map(rel);
+    assert.ok(
+      deps.some(ends(assembly)),
+      `an edit to ${mod} must rebuild the assembly; got:\n${deps.join("\n")}`,
     );
   }
 });

@@ -1,55 +1,64 @@
 ---
-description: Open on the ugly board, take one RUN, move whatever chain it takes to fix it, commit. The routing session's opening act.
-argument-hint: [run to take — omit to take the board's worst]
+description: Open on the scorecard, take one failing check, move whatever chain it takes to fix it, commit. The routing session's opening act.
+argument-hint: [check or run to take — omit to take the worst one on the board]
 disable-model-invocation: true
 ---
 
-You are fixing one run in the enclosure. The run is the assignment. Whatever has to move for
-it to reach its stock's radius is the work, however far from the run that turns out to be.
+You are fixing one thing in the enclosure. It is the assignment. Whatever has to move for the
+machine to hold it is the work, however far from the check that turns out to be.
 
 Requested: **$ARGUMENTS**
 
 **"The problem is elsewhere" is not an answer here.** A whole bunch of elsewheres is the task.
-The run is broken; something moves. If you finish the turn with the run no better and no
+Something is broken; something moves. If you finish the turn with it no better and no
 committed state, you have spent it.
 
 ## 1. Open on the board
 
+The board is the committed sidecar beside the assembly — the same figures the build prints and
+the viewer's bottom bar reads, at the cost of a file read.
+
 ```
-python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py
+jq -r '.checks[] | "\(.status)  \(.id)  \(.value)"' hardware/manifold-layout/front-half.scorecard.json
 ```
 
-Runs, worst first. `binding` is the corner holding each one down and what that corner needs —
-`reach` is short of leg, `share` is a neighbour taking part of the leg, `REVERSAL` turns back
-on itself and no leg length fixes it. `[n]` beside an end body is what else that body carries.
+Then the offenders under whichever ones read `fail`:
 
-If the footer says STALE, rebuild before you read it.
+```
+jq -r '.checks[] | select(.status=="fail") | "\(.id)  \(.value)", (.detail[] | "    \(.)")' \
+  hardware/manifold-layout/front-half.scorecard.json
+```
+
+`source.generated` and `source.commit` in the same file say which build wrote it. If the tree
+has moved since, rebuild before you read it:
+`tools/cad-venv/bin/python hardware/manifold-layout/front_half.py`.
 
 Then read `calibration/Chain.md` in full. It is short, and the rest of this command assumes
 it.
 
-## 2. Take the run
+## 2. Take one
 
-If `$ARGUMENTS` names one, that is the run. If it does not, take the board's top row.
+If `$ARGUMENTS` names a check or a run, that is the assignment. If it does not, take the worst
+failing check — the one furthest from its own value.
 
-Then open it and look:
+Then open it and look. The runs carry their own row, port to port:
 
 ```
-python3 hardware/printed-parts/enclosure/enclosure-assembly/ugly.py <run>
+jq -r '.bends[] | select(.id=="<run>")' hardware/manifold-layout/front-half.scorecard.json
 tools/look.sh <run>,<its two end bodies>
 ```
 
-The second table is the leverage: the bodies that run stands on, and how many other runs the
-same move would pay off. They are candidates. The bodies that have to move may not be either
-of them — a run's fix is often a body it never touches.
+A check's `detail` names the bodies it fails on. They are candidates. The bodies that have to
+move may not be any of them — a fix is often a body the check never names.
 
 ## 3. State the target as a condition
 
-The run's own goal is fixed: every corner at its stock's minimum. What needs stating is the
-condition on whatever you are moving to get there.
+The goal is fixed — the scorecard states it and it is not yours to move. What needs stating is
+the condition on whatever you are moving to get there.
 
-Not `Y-F at x 108.6`. `Y-F far enough west that fluid-21 leaves on carb-1's riser's west
-side`. A number cannot be iterated on, because a miss says nothing about which way to go.
+Not `coil-v-a at y 240`. `coil-v-a far enough aft that fluid-4 passes the pair with a full
+floor either side`. A number cannot be iterated on, because a miss says nothing about which
+way to go.
 
 Write it down before you edit anything.
 
@@ -86,5 +95,5 @@ Then look at what you landed and read the render — not the tables.
 
 Not on an offer. `calibration/Discretion.md` if that sentence needs explaining.
 
-Lead with the state: what moved, what the gates say now, what the board says now. Re-run
-`ugly.py` and show the run's row — the one you were given, at whatever it now reads.
+Lead with the state: what moved, what the gates say now, what the board says now. Re-read the
+sidecar and show the row you were given, at whatever it now reads.
