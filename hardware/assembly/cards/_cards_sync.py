@@ -48,7 +48,7 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 CARDS_DIR = Path(__file__).resolve().parent
 _hw = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
-           "printed-parts/enclosure/back-panel", "cut-parts/compressor-shroud",
+           "printed-parts/enclosure/back-panel", "reference/compressor",
            "reference/jg-bulkhead-union", "reference/iec-c14-inlet"):
     sys.path.insert(0, str(_hw / _p.replace("/", os.sep)))
 
@@ -66,7 +66,6 @@ Machine = namedtuple("Machine", "a pack box")
 X = "&#215;"        # ×
 DIA = "&#8960;"     # ⌀
 NDASH = "&ndash;"   # –
-PRIME = "&Prime;"   # ″
 
 
 def _machine() -> Machine:
@@ -80,6 +79,7 @@ def _machine() -> Machine:
 def enclosure(m: Machine):
     """`enclosure-mechanical.md`'s eight steps: the box, its walls' stations, and
     what stands inside it."""
+    import compressor as _comp
     import enclosure as _enc
     import front_half as _fh
     import _scorecard as _card
@@ -89,9 +89,6 @@ def enclosure(m: Machine):
                                         ac_inlet_recess_depth_min)
     from _cold_core_interface import (cap_conduits, front_port_order,
                                       outer_shell_x_length, outer_shell_y_length)
-    from _compressor_shroud_dimensions import (panel_hole_label,
-                                               terminal_block_clearance_mm,
-                                               wall_thickness_in)
 
     box, pack = m.box, m.pack
     pieces = sorted(_enc.build_pieces(box)[0])
@@ -118,6 +115,14 @@ def enclosure(m: Machine):
     assert not stray, (
         f"{len(stray)} +X wall boss(es) fall outside `enclosure-back-top` ({stray}) — EN-06 "
         f"offers the whole power column up to that one piece on the bench")
+    # EN-03: "it is the only body in the box that is bolted down", and every post under
+    # it goes through one of its own feet. Both sentences are this one reading — the
+    # slab's whole boss census against the compressor's own mounting pattern — and
+    # neither has a number in it that could drift instead.
+    assert len(pack.floor_bosses) == len(_comp.mount_pattern()), (
+        f"the floor slab stands {len(pack.floor_bosses)} boss(es) and the compressor's "
+        f"plate has {len(_comp.mount_pattern())} holes — EN-03 fastens one body on four "
+        f"posts and says nothing else in the box is bolted down")
     # EN-05: the core is reached through its lid, and what is left on the face it
     # mates against the stratum is the two reed cables.
     assert front_port_order == ("reed-cable-a", "reed-cable-b"), (
@@ -156,8 +161,10 @@ def enclosure(m: Machine):
         "the hopper opening is off centre across the box and EN-09 sends the bench "
         "straight down it — say where it is instead")
 
-    # The widest body ON THE FLOOR is what the ±X walls stand their boss chains
-    # off, so this pair is why the box is the width it is.
+    # The refrigeration stratum's own width, across the pair as it stands. The ±X
+    # walls hold every body ON THE FLOOR off by one `side_rib_inset` so the corner
+    # posts, boss chains and seam pods seat at full section — so this pair is what
+    # the stated appliance width has to take.
     def _span(*names):
         boxes = [_fh.box(pack.placed[n][0]) for n in names]
         return max(b.xmax for b in boxes) - min(b.xmin for b in boxes)
@@ -171,7 +178,7 @@ def enclosure(m: Machine):
         "Z_SEAM_FRONT": f"{box.splits[0]:.4g}",
         "Z_SEAM_BACK": f"{box.splits[1]:.4g}",
         "SEAM_SCREWS_Z": f"{sum(1 for s in z_stations if s[4] == 'front')}",
-        "STRATUM_X": f"{_span('compressor-shroud', 'condenser+fan'):.0f} mm",
+        "STRATUM_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
         "CORE_X": f"{_span('foam-assembly'):.0f} mm",
         "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
         # Inserts set while the box is still open bench (EN-01). The +X wall's
@@ -191,10 +198,14 @@ def enclosure(m: Machine):
         "C14_FLANGE_W": f"{c14_w:.4g} mm",
         "AC_RECESS": f"{ac_inlet_recess_depth_min:.4g}{NDASH}"
                      f"{ac_inlet_recess_depth_max:.4g} mm",
-        # The refrigeration stratum (EN-03, EN-04).
-        "PANEL_HOLE": f"{panel_hole_label[:-1]}{PRIME}",
-        "TB_CLEARANCE": f"{terminal_block_clearance_mm:.4g} mm",
-        "SHROUD_WALL_IN": f"{wall_thickness_in:.4g}{PRIME}",
+        # The refrigeration stratum (EN-03, EN-04). The compressor's figures are the
+        # donor's own — a plate and a bolt pattern a bench measures with calipers —
+        # and its crown is read off the placed body, which stands on the slab.
+        "FLOOR_BOSSES": f"{len(pack.floor_bosses)}",
+        "COMP_MOUNT_D": f"{_comp.MOUNT_D:.4g}",
+        "COMP_MOUNT_PITCH": f"{_comp.MOUNT_PITCH_X:.4g} {X} {_comp.MOUNT_PITCH_Y:.4g} mm",
+        "COMP_PLATE": f"{_comp.BASE_X:.4g} {X} {_comp.BASE_Y:.4g} mm",
+        "COMP_CROWN": f"{_fh.box(pack.placed['compressor'][0]).zmax:.4g} mm",
         "SIDE_OPENINGS": f"{len(box.east_ports)}",
         # The cold core (EN-05).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
@@ -213,8 +224,9 @@ def enclosure(m: Machine):
         "en-02-rear-wall-bodies": {
             "BACK_BODIES", "UMBILICAL_PITCH", "CARB_END", "PORT_HOLE_D", "CO2_HOLE_D",
             "PORT_NUT_D", "PORT_CHAIN_3", "C14_FLANGE_W", "AC_RECESS"},
-        "en-03-compressor-shroud": {
-            "PANEL_HOLE", "TB_CLEARANCE", "SHROUD_WALL_IN"},
+        "en-03-bolt-the-compressor-down": {
+            "FLOOR_BOSSES", "COMP_MOUNT_D", "COMP_MOUNT_PITCH", "COMP_PLATE",
+            "COMP_CROWN"},
         "en-04-stand-the-stratum": {
             "STRATUM_X", "CORE_X", "SIDE_BAND", "SIDE_OPENINGS"},
         "en-05-seat-cold-core": {
