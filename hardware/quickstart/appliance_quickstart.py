@@ -17,12 +17,19 @@ Sheet shape: four drawings in a 2×2 grid, each with a caption below.
 White page background so the modal shows "white page on dark modal
 surround," matching what the printed sheet looks like in a hand.
 
-Color system:
-- red  = CO2
-- blue = incoming tap water — the supply that gets teed in and run to
-         the device. Paired against red for a loud two-color install.
-- gray = the faucet / dispense channel, deferred to the advanced faucet
-         quickstart and not shown on this install sheet.
+Color system — the rear face's own, imported from
+`printed-parts/enclosure/back-panel/_back_panel_dimensions.py` so the arrow
+on this sheet and the ring on the wall it points at are one color and not
+two spellings of one:
+- red   = CO2.
+- white = incoming tap water — the supply that gets teed in and run to
+          the device. NOT blue: blue is spent on the carbonated-water
+          umbilical union three stations up the same wall, and a customer
+          sent to "the blue one" with a tap-water tube finds that. A white
+          arrow on a white page is its black outline, which is also what
+          the white ring on the wall reads as in line art.
+- gray  = the faucet / dispense channel, deferred to the advanced faucet
+          quickstart and not shown on this install sheet.
 
 EVERY CONNECTION ON THIS SHEET IS ON THE MACHINE'S BACK WALL — the CO2
 inlet and the tap-water union both — so steps 1 and 2 show the back view
@@ -45,12 +52,14 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "scripts"))
+sys.path.insert(0, str(_hardware / "printed-parts" / "enclosure" / "back-panel"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_pdf
 from docgen import substitute_py_comments
+import _back_panel_dimensions as _rear
 
 
 # Enclosure iso line-art sources.
@@ -65,10 +74,11 @@ ENCLOSURE_BACK = _LINEART / "enclosure-iso-back.svg"
 # A marking carries a `data-target` — the projected port HOLE out at the
 # fitting's proud end — so an arrow on this sheet lands on the hole the
 # customer's line goes into rather than on the ring painted around it.
-# These are how a cell finds its port inside an embedded view; both
-# markings are on the back wall, so both are found in the back view.
-WATER_DISC_FILL = "rgb(31, 111, 235)"
-CO2_DISC_FILL = "rgb(255, 0, 0)"
+# These are how a cell finds its port inside an embedded view; every marking
+# is on the back wall, so every one is found in the back view. Spelled by the
+# rear face itself, so a search here cannot miss a ring whose color moved.
+WATER_DISC_FILL = _rear.port_color_svg("water")
+CO2_DISC_FILL = _rear.port_color_svg("co2")
 
 
 # Page — 11×17 landscape, in mm
@@ -88,19 +98,39 @@ STEP_NUMBER_SIZE_MM = 40  # very large step numerals
 HAIRLINE_MM = 0.4         # thin #000 stroke: step borders + number outlines
 PORT_ARROW_GAP_MM = 5.2   # every port arrow's tip standoff from the hole it points at
 
-# Color system
-COLOR_WATER = "#1f6feb"        # blue — incoming tap water
-COLOR_CO2 = "#d63a3a"          # red — CO2
+# Color system. The three wayfinding colors are the rear face's, read from the
+# one table the wall's rings are painted from; the two that name nothing on the
+# wall (the deferred dispense channel, and plain line work) are this sheet's.
+COLOR_WATER = _rear.port_color_hex("water")   # white — incoming tap water
+COLOR_CO2 = _rear.port_color_hex("co2")       # red — CO2
+COLOR_CARB = _rear.port_color_hex("carb")     # blue — carbonated water
 COLOR_TAP = "#6e6e6e"          # medium gray — faucet / dispense channel
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
 COLOR_STEP_BG = "#eeeeee"      # shaded step panel fill
 
 ARROW_COLORS = {
-    "blue": COLOR_WATER,
+    "white": COLOR_WATER,
     "red": COLOR_CO2,
+    "blue": COLOR_CARB,
     "gray": COLOR_TAP,
     "dark": COLOR_PLAIN,
 }
+
+# Arrows too light to hold the page on their own, and so drawn CASED: the same
+# geometry once in black underneath at HAIRLINE_MM more per side, the color on
+# top, and an arrowhead outlined in its own marker. That is what a white arrow
+# is on white paper, and it is the same weight the step borders and the step
+# numerals are outlined at — the sheet has one hairline.
+CASED_ARROWS = ("white",)
+
+# Every arrow on the sheet is drawn at one weight, and the arrowhead markers
+# scale with it (SVG's default markerUnits is strokeWidth), so the head's own
+# geometry lands on the page through it: one marker viewBox unit is
+# markerWidth ÷ viewBox width ÷ stroke-widths, and the head's back edge sits
+# refX of those units behind the line's endpoint.
+ARROW_SW_MM = 1.2
+MARKER_UNIT_MM = (6 / 12) * ARROW_SW_MM
+HEAD_BACK_MM = 9 * MARKER_UNIT_MM
 
 
 def _arrow_defs():
@@ -113,40 +143,58 @@ def _arrow_defs():
     endpoint; the tip extends 3 viewBox units past the endpoint.
     `arrow-<color>-back`: refX=0. Marker sits past the path
     endpoint; the back-edge is at the endpoint.
+
+    A cased color's head carries the outline itself rather than leaning on a
+    casing under it — a marker is placed by the renderer, so nothing this
+    file draws can sit behind one at the right angle.
     """
     markers = []
     for name, color in ARROW_COLORS.items():
-        markers.append(
-            f'<marker id="arrow-{name}" viewBox="0 0 12 10" refX="9" refY="5" '
-            f'markerWidth="6" markerHeight="5" orient="auto-start-reverse">'
-            f'<path d="M 0 0 L 12 5 L 0 10 Z" fill="{color}" />'
-            f'</marker>'
-        )
-        markers.append(
-            f'<marker id="arrow-{name}-back" viewBox="0 0 12 10" refX="0" refY="5" '
-            f'markerWidth="6" markerHeight="5" orient="auto-start-reverse">'
-            f'<path d="M 0 0 L 12 5 L 0 10 Z" fill="{color}" />'
-            f'</marker>'
-        )
+        edge = ""
+        if name in CASED_ARROWS:
+            edge = (f' stroke="{COLOR_PLAIN}" '
+                    f'stroke-width="{2 * HAIRLINE_MM / MARKER_UNIT_MM:.3f}" '
+                    f'stroke-linejoin="round"')
+        for suffix, ref_x in (("", 9), ("-back", 0)):
+            markers.append(
+                f'<marker id="arrow-{name}{suffix}" viewBox="0 0 12 10" '
+                f'refX="{ref_x}" refY="5" '
+                f'markerWidth="6" markerHeight="5" orient="auto-start-reverse">'
+                f'<path d="M 0 0 L 12 5 L 0 10 Z" fill="{color}"{edge} />'
+                f'</marker>'
+            )
     return "  <defs>\n    " + "\n    ".join(markers) + "\n  </defs>"
 
 
-def _straight_arrow(x1, y1, x2, y2, color="dark", sw=1.2):
+def _straight_arrow(x1, y1, x2, y2, color="dark", sw=ARROW_SW_MM):
     """A line with an arrowhead at (x2, y2)."""
-    c = ARROW_COLORS[color]
     # Wrap in <g stroke=...> so the line's stroke comes through inheritance
     # — beats the .quickstart-sheet path/line stroke: inherit !important
     # override (which would otherwise strand the arrow at unset/black).
-    return (
-        f'<g stroke="{c}">'
-        f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" '
-        f'stroke-width="{sw}" stroke-linecap="round" '
-        f'marker-end="url(#arrow-{color})" />'
-        f'</g>'
-    )
+    def layer(stroke, width, head, ex=x2, ey=y2):
+        marker = f'marker-end="url(#arrow-{color})" ' if head else ""
+        return (
+            f'<g stroke="{stroke}">'
+            f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{ex:.2f}" y2="{ey:.2f}" '
+            f'stroke-width="{width}" stroke-linecap="round" '
+            f'{marker}/>'
+            f'</g>'
+        )
+
+    casing = ""
+    if color in CASED_ARROWS:
+        # The casing stops at the arrowhead's back edge. Run it to the
+        # endpoint and its round cap swells past the head's narrowing tip,
+        # printing a black crescent on the point of the arrow; from the back
+        # edge on, the head's own outline carries the black.
+        mag = math.hypot(x2 - x1, y2 - y1)
+        ux, uy = (x2 - x1) / mag, (y2 - y1) / mag
+        casing = layer(COLOR_PLAIN, sw + 2 * HAIRLINE_MM, False,
+                       x2 - ux * HEAD_BACK_MM, y2 - uy * HEAD_BACK_MM)
+    return casing + layer(ARROW_COLORS[color], sw, True)
 
 
-def _rotation_arrow(cx, cy, r, start_deg, sweep_deg, color="dark", sw=1.2):
+def _rotation_arrow(cx, cy, r, start_deg, sweep_deg, color="dark", sw=ARROW_SW_MM):
     """Curved arrow indicating rotation, from start_deg through sweep_deg.
 
     Angles are in SVG screen coords (y down): 0° = right, 90° = down,
@@ -159,21 +207,29 @@ def _rotation_arrow(cx, cy, r, start_deg, sweep_deg, color="dark", sw=1.2):
     x2, y2 = cx + r * math.cos(a2), cy + r * math.sin(a2)
     large_arc = 1 if abs(sweep_deg) > 180 else 0
     sweep_flag = 1 if sweep_deg > 0 else 0
-    c = ARROW_COLORS[color]
-    return (
-        f'<g stroke="{c}" fill="none">'
-        f'<path d="M {x1:.2f} {y1:.2f} A {r} {r} 0 {large_arc} {sweep_flag} {x2:.2f} {y2:.2f}" '
-        f'stroke-width="{sw}" stroke-linecap="round" '
-        f'marker-end="url(#arrow-{color}-back)" />'
-        f'</g>'
-    )
+
+    def layer(stroke, width, head):
+        marker = f'marker-end="url(#arrow-{color}-back)" ' if head else ""
+        return (
+            f'<g stroke="{stroke}" fill="none">'
+            f'<path d="M {x1:.2f} {y1:.2f} A {r} {r} 0 {large_arc} {sweep_flag} '
+            f'{x2:.2f} {y2:.2f}" '
+            f'stroke-width="{width}" stroke-linecap="round" '
+            f'{marker}/>'
+            f'</g>'
+        )
+
+    casing = ""
+    if color in CASED_ARROWS:
+        casing = layer(COLOR_PLAIN, sw + 2 * HAIRLINE_MM, False)
+    return casing + layer(ARROW_COLORS[color], sw, True)
 
 
-def _stub_arrow(target_x, target_y, dx, dy, color="dark", sw=1.2, length=12):
+def _stub_arrow(target_x, target_y, dx, dy, color="dark", sw=ARROW_SW_MM, length=12):
     """Short arrow whose tip lands at (target_x, target_y), pointing in
     direction (dx, dy). `length` is the line length from start to
-    arrowhead — the arrowhead's back-edge sits 5.4 user units inside
-    that length, so visible line behind the arrowhead is `length - 5.4`.
+    arrowhead — the arrowhead's back-edge sits `HEAD_BACK_MM` inside that
+    length, so visible line behind the arrowhead is `length - HEAD_BACK_MM`.
     """
     mag = math.sqrt(dx * dx + dy * dy)
     ux, uy = dx / mag, dy / mag
@@ -425,22 +481,26 @@ def _arrows_connect_co2(x, y, w, draw_h):
 
 
 def _arrows_tee_into_water(x, y, w, draw_h):
-    """Drawing 2: the left side carries the tee/valve arrows — a blue
-    rotation arrow on the angle stop in its top half, and two blue stub
+    """Drawing 2: the left side carries the tee/valve arrows — a white
+    rotation arrow on the angle stop in its top half, and two white stub
     arrows pointing inward at the tee's outlets in its bottom half. The
-    right side carries the enclosure back view with a blue arrow pointing
+    right side carries the enclosure back view with a white arrow pointing
     at the tap-water union, which is on the REAR WALL on its own storey
-    under the row of three umbilical unions."""
+    under the row of three umbilical unions.
+
+    White, not blue: the blue ring in the same drawing is the carbonated-water
+    union up in the row, and it is the faucet's umbilical that lands there,
+    nothing the customer runs from the sink."""
     # Left-side tee/valve arrows, centered in the left of the cell.
     left_cx = x + 0.25 * w
     # Rotation arrow — top half of the left side.
-    rotation = _rotation_arrow(left_cx, y + 0.25 * draw_h, 5, 30, 240, color="blue")
+    rotation = _rotation_arrow(left_cx, y + 0.25 * draw_h, 5, 30, 240, color="white")
     # Inward stub arrows — bottom half of the left side.
     stub_y = y + 0.75 * draw_h
     stub_len = 12.0
     stubs = (
-        _stub_arrow(left_cx - 15, stub_y, +1, 0, color="blue", length=stub_len)
-        + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="blue", length=stub_len)
+        _stub_arrow(left_cx - 15, stub_y, +1, 0, color="white", length=stub_len)
+        + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="white", length=stub_len)
     )
     # Enclosure back view, its line-art anchored by its own bottom-right
     # corner into the cell's bottom-right corner — standing off the right
@@ -453,25 +513,27 @@ def _arrows_tee_into_water(x, y, w, draw_h):
         ENCLOSURE_BACK, scale, x + w - arrow_reach, y + draw_h,
         color_fill=WATER_DISC_FILL,
     )
-    # Blue arrow into the water inlet, arriving along the port's own normal
+    # White arrow into the water inlet, arriving along the port's own normal
     # like step 1's red one. It cannot run across from the tee arrows: the
     # ports are on the far side of the machine from them, and a line drawn
     # to one crosses the body of the machine on its way.
     nx, ny = _port_normal(Path(ENCLOSURE_BACK).read_text(), WATER_DISC_FILL)
     inlet_arrow = _port_arrow(
-        px, py, -nx, -ny, PORT_ARROW_RUN * draw_h, "blue"
+        px, py, -nx, -ny, PORT_ARROW_RUN * draw_h, "white"
     )
     return back + rotation + stubs + inlet_arrow
 
 
 def _arrows_open_valves(x, y, w, draw_h):
-    """Drawing 3: red rotation arrow on the CO2 cylinder valve + blue
+    """Drawing 3: red rotation arrow on the CO2 cylinder valve + white
     rotation arrow on the water angle-stop handle, paired side-by-side.
-    Both turn counterclockwise (lefty-loosy) to open."""
+    Both turn counterclockwise (lefty-loosy) to open. The rotation arrows
+    are colored by the fluid each valve actuates, so they double as
+    wayfinding for which valve is which."""
     y_strip = y + 0.65 * draw_h
     return (
         _rotation_arrow(x + 0.30 * w, y_strip, 7, 150, -240, color="red")
-        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 150, -240, color="blue")
+        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 150, -240, color="white")
     )
 
 

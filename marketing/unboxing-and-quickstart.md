@@ -33,12 +33,16 @@ The appliance ships in a carton with its quick-start sheet across the interior u
 
 **Drawing 2: Connect the tubes to the device.**
 - View: rear wall of the appliance, umbilical bundle approaching from above (hanging down from the installed faucet).
-- Arrows: three at the rear wall — the three bulkheads stand in one row, blue at the middle one, two black at the ends.
+- Arrows: three at the rear wall — the three bulkheads stand in one row, blue at the union on the end of it, two black on the rest.
 - Caption: "Connect the tubes."
 
 ## Color system
 
 Three colors: **blue = carbonated water**, **red = CO2**, **white = tap water**. All three do wayfinding — they match an arrow on the sheet to a marker on the appliance or on the customer's supply.
+
+Blue is the one that fixes the other two. The carbonated-water line is bought as blue tube and the union that receives it is bought wearing a blue ring ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §8), so blue names that union and nothing else on the rear wall — which leaves white for the tap-water station the customer tees into. A blue arrow on a tap-water step would send them to the faucet's own union three stations up the same wall. The rear face states the scheme once, in [`/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py), and the sheets and the line-art rings both paint from it.
+
+White arrows carry a black outline, at the same hairline the step borders and the step numerals are drawn at. That is what white is on white paper, and it is what the white ring on the wall reads as in line art.
 
 Motion arrows (the keyhole plate sliding, bottles pouring) are plain line work, no color. They show direction of motion, not a connection to color-coded hardware.
 
