@@ -1217,16 +1217,21 @@ def verify(lane: Lane, clearance: float = 0.0, skip=()) -> str:
     they are not the same answer: a box-clear lane standing in a seam lip clashes here, and this
     is the one that counts. It holds out exactly what the search held out, and for the same
     reason."""
-    import cadquery as cq
     import probe
     import _clearing
+    import _routing as R
     w = probe.world()
-    wire = cq.Wire.assembleEdges(
-        [cq.Edge.makeLine(cq.Vector(*a), cq.Vector(*b))
-         for a, b in zip(lane.pts, lane.pts[1:])])
-    solid = (cq.Workplane("XY").center(lane.pts[0][0], lane.pts[0][1])
-             .workplane(offset=lane.pts[0][2])
-             .circle(lane.od / 2.0).sweep(cq.Workplane(wire), isFrenet=True).val())
+    # SWEPT BY THE PACK'S OWN SWEEPER. `_routing.tube` is what drew every tube in the world this
+    # is measured against — same arcs off `seat_radii`, same bore off the port — so a lane and
+    # the runs it is compared with are the same kind of solid. A sweeper written here would be a
+    # second opinion about what a bent tube is, and the clash it reported would be about that.
+    # A HAIR UNDER THE SEATED RADIUS. A lane's leads are the minimum a corner can turn on — the
+    # search takes exactly one radius and no more — so a corner can seat its whole tangent in a
+    # leg and leave no straight at all, and a sweep along an edge of no length is not a sweep.
+    # Turning every corner a thousandth tighter leaves each one its sliver. The solid is that
+    # much slimmer at its corners than the lane it stands for, which is the direction that
+    # reports a clash rather than hiding one.
+    solid = R.tube(_graded(lane.run, lane.pts, lane.od, lane.radius * (1.0 - 1e-3)))
     held = set(skip) | {n for n in w.names
                         if n.replace("tube-", "") == lane.run or n == lane.run}
     spec = snapshot()["runs"].get(lane.run)
