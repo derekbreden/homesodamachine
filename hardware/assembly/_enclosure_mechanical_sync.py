@@ -75,6 +75,20 @@ def main():
             f"the umbilical row is not on one pitch: {sorted(_pitches)}. The doc quotes a "
             f"single figure, so either `front_half.PANEL_X` goes back on one pitch or this "
             f"reads out every gap.")
+    # The two bores in the table's "Wall opening" column, taken from the functions that
+    # STRIKE them and not recomputed beside them. These are the calls `front_half.pack`
+    # fills `back_ports` with, and `enclosure._port_cuts` bores that list — so the table
+    # cannot quote a hole the wall does not have. One figure covers the four unions,
+    # which holds only while the four are on one diameter.
+    _union_bores = _fh.back_wall_ports(_a.bulkhead_carry, *_a.panel_carries.values())
+    _hole_ds = {round(p[3], 6) for p in _union_bores}
+    if len(_hole_ds) != 1:
+        raise ValueError(
+            f"the back wall's four unions are bored at {sorted(_hole_ds)}. The table gives "
+            f"the umbilical row and the tap-water union one opening apiece off one figure, "
+            f"so either they go back on one diameter or the rows read out separately.")
+    _co2_hole_d = _fh.co2_wall_port(_a.co2_inlet_carry)[3]
+
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box.outer
     variables = {
         # The box `enclosure._dims` builds around the pack, and where it comes apart.
@@ -103,6 +117,8 @@ def main():
         "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
         # The rear wall's six stations, its hardware, and what a chain of it occupies.
+        "PORT_HOLE_D": f"{_union_bores[0][3]:.4g}",
+        "CO2_HOLE_D": f"{_co2_hole_d:.4g}",
         "PORT_NUT_D": f"{PORT_NUT_D:.4g}",
         "C14_FLANGE_W": f"{PORT_C14_FLANGE_W:.4g}",
         "PORT_CHAIN_3": f"{_port_chain(3):.4g}",
@@ -139,6 +155,8 @@ def main():
             "FOAM_SHELL_X": 1,
             "FOAM_SHELL_Y": 1,
             "CAP_CONDUITS": 2,
+            "PORT_HOLE_D": 2,
+            "CO2_HOLE_D": 1,
             "PORT_NUT_D": 1,
             "C14_FLANGE_W": 1,
             "PORT_CHAIN_3": 1,

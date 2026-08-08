@@ -10,12 +10,8 @@ _here = Path(__file__).resolve().parent
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
-sys.path.insert(0, str(_hw / "reference" / "jg-bulkhead-union"))
-sys.path.insert(0, str(_hw / "reference" / "derpipe-co2-inlet"))
 
-import front_half as _fh  # noqa: E402  — the pack, and the slip its wall is bored at
-import derpipe_co2_inlet as _derpipe  # noqa: E402
-import jg_bulkhead_union as _jg  # noqa: E402
+import front_half as _fh  # noqa: E402  — the wall's bores, off the calls that strike them
 from docgen import substitute_md  # noqa: E402
 
 
@@ -26,19 +22,35 @@ from docgen import substitute_md  # noqa: E402
 ac_inlet_recess_depth_min = 3.0
 ac_inlet_recess_depth_max = 5.0
 
-# Bulkhead panel-hole diameter. All four PP1208E bulkheads on this panel
-# (1 water inlet + 3 umbilical-port unions) share this hole. Read the way
-# `front_half.back_wall_ports` — the cutting source enclosure.py bores from —
-# strikes it: the barrel measured off the jg-bulkhead-union reference STEP,
-# one `PORT_HOLE_SLIP` over on the diameter.
-bulkhead_panel_hole_diameter = _jg.panel_hole_d(_fh.PORT_HOLE_SLIP)
+def panel_hole_diameters():
+    """The two bores this panel carries: `(bulkhead, co2)`.
 
-# The CO2 station's hole, read the way `front_half.co2_wall_port` strikes it:
-# the DERPIPE's own 1/4" NPT shank with one `PORT_HOLE_SLIP` on each side.
-co2_panel_hole_diameter = _derpipe.SHANK_D + 2 * _fh.PORT_HOLE_SLIP
+    Taken from the functions that STRIKE them, not from a second copy of their
+    arithmetic. `front_half.back_wall_ports` and `front_half.co2_wall_port` are the
+    calls `front_half.pack` fills `back_ports` with, and `enclosure._port_cuts` bores
+    that list — so these are the holes that get cut, and a change to HOW either is
+    struck (a chamfer allowance, a different slip for gas than for water) arrives here
+    instead of leaving the README quoting the old rule.
+
+    Both strike against a placed fitting, so both want the pack. That is why this is a
+    function and not a module constant: the reading costs a build, and the two drivers
+    that import this module for the AC recess must not pay for one.
+
+    All four PP1208E bulkheads on this panel — 1 water inlet + 3 umbilical-port unions —
+    share one hole, which is the figure the README quotes.
+    """
+    a = _fh.build_pack()
+    bores = _fh.back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
+    diameters = {round(p[3], 6) for p in bores}
+    if len(diameters) != 1:
+        raise ValueError(
+            f"the four panel unions are bored at {sorted(diameters)}. The README gives them "
+            f"one hole, so either they go back on one diameter or it reads them out apiece.")
+    return bores[0][3], _fh.co2_wall_port(a.co2_inlet_carry)[3]
 
 
 def main():
+    bulkhead_panel_hole_diameter, co2_panel_hole_diameter = panel_hole_diameters()
     variables = {
         "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm",
         "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
