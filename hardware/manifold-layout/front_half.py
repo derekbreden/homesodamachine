@@ -9,14 +9,20 @@ Four bodies, mated face to face with nothing between them:
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
                         plane the front half ends at
 
-The gaps are 0 by intent, and where a mating closes a leg of the refrigerant loop no copper is
-drawn between the two bodies: the compressor is an oblong can whose two stubs stand on its own
-tangent lines, and the condenser is an envelope whose serpentine headers are re-dressed to
-reach whichever face is convenient, so that joint crosses a plane the two already share and
-both of its stations are ONE POINT READ TWICE. `refrigerant_joints` takes the reading over the
-whole loop at every build — `REFRIGERANT_IDS` is the card's own population — and
-`check_refrigerant_joints` reads red for any leg standing open and for any leg with no pair of
-placed stations to measure.
+The gaps along that chain are 0 by intent, and where a mating closes a leg of the refrigerant
+loop no copper is drawn between the two bodies: the compressor is an oblong can whose two stubs
+stand on its own tangent lines, and the condenser is an envelope whose serpentine headers are
+re-dressed to reach whichever face is convenient, so such a joint crosses a plane its two bodies
+already share and both of its stations are ONE POINT READ TWICE. `MATED_JOINTS` names the legs
+made that way.
+
+THE COMPRESSOR IS THE BODY THAT DOES NOT REACH THE CORE. The condenser is the deeper of the
+pair and both are struck on the same centre, so the condenser alone lands on the plane the core
+butts and the compressor's plate stands inset from it. Its suction therefore cannot be made up
+across a shared plane, and reaches the evaporator's outlet as cut and brazed copper that `_lines`
+draws like any other run. `refrigerant_joints` takes the reading over the whole loop at every
+build — `REFRIGERANT_IDS` is the card's own population — and `check_refrigerant_joints` reads red
+for any leg standing open and for any leg with no pair of placed stations to measure.
 
 Frame
 -----
@@ -511,6 +517,7 @@ def check_cradles(rows) -> Bound:
 # on this pack would say so.
 MATED_JOINTS = {
     "refrig-1": ("compressor.refrig-discharge", "condenser+fan.refrig-inlet"),
+    "refrig-2": ("condenser+fan.refrig-outlet", "foam-assembly.evap-inlet"),
 }
 # THE READING IS TAKEN OVER THE WHOLE LOOP AND NOT OVER THAT TABLE. The loop's population is
 # the card's own — `_scorecard.REFRIGERANT_SEGMENTS`, the same three connections `routed`
@@ -1674,15 +1681,15 @@ def build_pack() -> cq.Assembly:
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     foam, foam_carry = build_foam(aft)
     a.add(foam, name="foam-assembly", color=C_FOAM)
-    # The sealed loop, measured the moment its three bodies are all placed. Nothing is drawn
-    # between them — every joint crosses a plane two of them already share — so this reading
-    # is the only thing standing between a station that moved and copper nobody notices.
+    # The sealed loop, measured the moment its three bodies are all placed. Where two of them
+    # meet on one plane the joint crosses it and no copper is drawn, so this reading is the only
+    # thing standing between a station that moved and a joint nobody notices has come apart.
     refrig_carries = {"compressor": comp_carry, "condenser+fan": cond_carry,
                       "foam-assembly": foam_carry}
     a.refrigerant_at = refrigerant_stations(refrig_carries)
     # The whole loop's reading rides the assembly, and the closed subset of it rides beside:
-    # the gate accounts for every connection, and the card counts as MADE only the ones a
-    # shared plane actually shut.
+    # the gate accounts for every connection, and the card is handed only the ones a shared
+    # plane actually shut — it counts the rest made only where a line was drawn for them.
     a.refrigerant = refrigerant_joints(refrig_carries)
     a.refrigerant_mates = refrigerant_mates(a.refrigerant)
     check_refrigerant_joints(a.refrigerant)
@@ -1753,12 +1760,14 @@ def build_pack() -> cq.Assembly:
     # measured off a port moves when the body it is on moves.
     carries = {"foam-assembly": foam_carry, "seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
                "discharge-chain": disch_carry,
+               "compressor": comp_carry, "condenser+fan": cond_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry, "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "discharge-chain": disch,
+              "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110,
