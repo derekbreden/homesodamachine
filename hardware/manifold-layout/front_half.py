@@ -46,6 +46,7 @@ Run it
     tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
 """
 
+import collections
 import math
 import sys
 from pathlib import Path
@@ -198,12 +199,79 @@ def _turned(v, axis, deg):
     return (cq.Vector(*v) * c) + (a.cross(cq.Vector(*v)) * s_) + (a * (a.dot(cq.Vector(*v)) * (1.0 - c)))
 
 
-def seat_body(shape, turns=(), station=None, **planes):
+# --- the seat ledger -------------------------------------------------------
+#
+# WHAT EACH BODY WAS CLOSED ON, recorded as it is closed. Every pose in this module is stated
+# one of two ways — planes of the body's own box, or a station on one of its own mouths — and
+# `seat_body` is where both are known. Keeping the statement beside the result is what lets a
+# reader grade a placement without a second table to say what the placement was supposed to be:
+# the rule and the measurement come out of the same call, so they cannot drift.
+#
+# Three things a row carries:
+#
+#   rule    what the construction asked for — `{"x1": 94.50, "z0": 253.40}`, or the world point
+#           a mouth was seated on
+#   got     the same faces read off the PLACED solid, and a station read back through the body's
+#           own `carry`. A seat that names two planes on one axis, or a mouth the turns do not
+#           actually carry to the target, shows up here and nowhere else.
+#   room    where a DERIVED pose fell against the band its construction states — `(what, the
+#           clearance asked for, the clearance measured)`. A rule stated as a plane is met by
+#           construction; a rule stated as "one clearance off whatever is under it" is a
+#           measurement, and this is the only record of how much was actually left.
+#
+# `members` is the bodies one seat places. Most seats place one body; the refrigeration base is
+# turned and stood as a pair, and the manifold pack is posed and stood as a whole, so those two
+# rows are struck on a combined box and name everything they carry.
+
+Seat = collections.namedtuple("Seat", "turns rule got room members")
+
+SEATS: dict = {}
+
+# Where each plane name reads on a box — the ledger's `got` side, and the same faces `_shift`
+# closes on.
+_FACE = {"cx": lambda b: (b.xmin + b.xmax) / 2.0,
+         "x0": lambda b: b.xmin, "x1": lambda b: b.xmax,
+         "cy": lambda b: (b.ymin + b.ymax) / 2.0,
+         "y0": lambda b: b.ymin, "y1": lambda b: b.ymax,
+         "z0": lambda b: b.zmin}
+
+
+def record_seat(name, *, turns=(), planes=None, station=None, got=None, members=()):
+    """Enter one placement in the ledger, replacing any row of the same name.
+
+    `got` is the placed geometry the rule is read back off: a bounding box for a plane rule, a
+    world point for a station. A row is entered by the construction that owns the pose, so a
+    body placed by something other than `seat_body` — the base pair, the manifold pack — is in
+    the ledger on the same terms as one that is."""
+    if station is None:
+        rule = {k: v for k, v in (planes or {}).items() if v is not None}
+        read = {k: _FACE[k](got) for k in rule if k in _FACE}
+    else:
+        rule, read = {"station": tuple(station)}, {"station": tuple(got)}
+    SEATS[name] = Seat(tuple(turns), rule, read, [], tuple(members) or (name,))
+    return SEATS[name]
+
+
+def note_room(name, what, want, got):
+    """Record where a derived pose fell against a band its construction states.
+
+    `want` is the clearance the construction asked for and `got` is what the placed geometry
+    actually leaves, measured the same way the strike measured it. `None` for `got` is a pose
+    with nothing to fall short of — a body the band does not bound."""
+    if name in SEATS:
+        SEATS[name].room.append((what, want, got))
+
+
+def seat_body(shape, turns=(), station=None, seat=None, **planes):
     """A body's whole placement: turned through each `(axis, degrees)` in `turns`, then moved by
     whole planes (`sit`).
 
     `planes` moves it by whole faces of its own box; `station` instead seats one of its own
     mouths on a world point, which is what a fitting actually answers to.
+
+    `seat` is the name the body goes into the assembly under, and naming it enters the placement
+    in `SEATS` — the rule this call was given, beside the same rule read back off the geometry
+    it produced.
 
     Returns `(placed, carry)`. `carry` takes a `(position, outward axis)` station in the body's
     OWN frame through the same turns and the same move — so a port table written once in a
@@ -233,7 +301,13 @@ def seat_body(shape, turns=(), station=None, **planes):
         a = axis if isinstance(axis, cq.Vector) else cq.Vector(*axis)
         return ((p.x, p.y, p.z), (a.x, a.y, a.z))
 
-    return shape.translate(shift), carry
+    placed = shape.translate(shift)
+    if seat is not None:
+        if station is None:
+            record_seat(seat, turns=turns, planes=planes, got=box(placed))
+        else:
+            record_seat(seat, turns=turns, station=station[1], got=carry(station[0])[0])
+    return placed, carry
 
 
 # --- The base: two bodies, one plane between them --------------------------
@@ -268,7 +342,8 @@ def build_foam(front_y: float):
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
     f = cq.importers.importStep(str(FOAM_STEP)).val()
-    return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), cx=0.0, y0=front_y, z0=0.0)
+    return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
+                     cx=0.0, y0=front_y, z0=0.0)
 
 
 def cap_conduit(name: str):
@@ -288,7 +363,8 @@ def build_seaflo(foam):
     on the mirror plane, its aft face flush with the core's own back."""
     b = box(foam)
     return seat_body(cq.importers.importStep(str(SEAFLO_STEP)).val(),
-                (((0, 0, 1), SEAFLO_YAW),), cx=0.0, y1=b.ymax, z0=b.zmax)
+                (((0, 0, 1), SEAFLO_YAW),), seat="seaflo-pump",
+                cx=0.0, y1=b.ymax, z0=b.zmax)
 
 
 # --- the suction chain, lying in the lane beside the pump ------------------
@@ -336,7 +412,7 @@ def build_suction_chain(seaflo, suction, port_z):
     It has a measured datum and measured room; it does not have a bracket."""
     b = box(seaflo)
     chain = _suct.build()
-    return seat_body(chain, SUCT_CHAIN_TURN,
+    return seat_body(chain, SUCT_CHAIN_TURN, seat="suction-chain",
                 cx=b.xmax + SUCT_PUMP_GAP + _suct.HOSE_OD / 2.0,
                 y1=suction[0][1] - SUCT_CORNER_ROOM,
                 # The chain's own Ø, read on X because the box is measured BEFORE the turn:
@@ -376,7 +452,7 @@ def build_discharge_chain(split, seaflo_carry):
     it. It has a measured datum and measured room; it does not have a bracket."""
     disch = seaflo_carry(_lines._pump.discharge())[0]
     chain = _dis.build()
-    return seat_body(chain, DISCH_CHAIN_TURN,
+    return seat_body(chain, DISCH_CHAIN_TURN, seat="discharge-chain",
                      x0=box(split).xmax + DISCH_SPLIT_CLEAR,
                      y1=disch[1] - DISCH_CORNER_ROOM,
                      # The chain's own Ø, read on X because the box is measured BEFORE the
@@ -426,8 +502,9 @@ def build_bulkhead(asse_carry):
     onto, and the only part of the machine behind its own back wall."""
     inlet = asse_carry(_asse.port("tube-in"))[0]
     body = cq.importers.importStep(str(BULKHEAD_STEP)).val()
-    return seat_body(body, (), station=(_jg.port(-1.0),
-                                        (inlet[0], bulkhead_mouth_y(), inlet[2])))
+    return seat_body(body, (), seat="bulkhead-water",
+                     station=(_jg.port(-1.0),
+                              (inlet[0], bulkhead_mouth_y(), inlet[2])))
 
 
 def back_wall_ports(*bulkhead_carries):
@@ -478,7 +555,7 @@ DECK_FALL_LIMIT = 60.0
 PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
 
 
-def build_panel_bulkhead(x: float, z: float):
+def build_panel_bulkhead(name: str, x: float, z: float):
     """One union clamped through the back wall on `(x, z)`, seated on its INBOARD COLLET.
 
     The same fitting and the same seating as the tap-water union: the flange bears on the wall's
@@ -486,7 +563,8 @@ def build_panel_bulkhead(x: float, z: float):
     is `jg_bulkhead_union.far_ring_face_y`, and `bulkhead_mouth_y` is where that leaves the
     collet the run pushes into."""
     body = cq.importers.importStep(str(BULKHEAD_STEP)).val()
-    return seat_body(body, (), station=(_jg.port(-1.0), (x, bulkhead_mouth_y(), z)))
+    return seat_body(body, (), seat=name,
+                     station=(_jg.port(-1.0), (x, bulkhead_mouth_y(), z)))
 
 
 # --- the DIGITEN meter, inline on the carb riser ---------------------------
@@ -509,7 +587,7 @@ DIGITEN_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 90.0))
 CARB_2 = 24.0
 
 
-def build_digiten(carb_carry):
+def build_digiten(carb_carry, seat: bool = True):
     """The meter seated on its OUTLET, one `CARB_2` forward of the carb union's inboard collet
     and on that collet's own column and plane.
 
@@ -522,21 +600,25 @@ def build_digiten(carb_carry):
     pos, axis = carb_carry(_jg.port(-1.0))
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
     body = cq.importers.importStep(str(DIGITEN_STEP)).val()
-    return seat_body(body, DIGITEN_TURN, station=(_digiten.outlet(), target))
+    return seat_body(body, DIGITEN_TURN, seat="digiten-flow" if seat else None,
+                     station=(_digiten.outlet(), target))
 
 
 # --- the storey those four stand on ----------------------------------------
 
-def build_deck(z: float):
+def build_deck(z: float, seat: bool = False):
     """The four bodies the deck carries, on the storey `z`: the three unions across the back
     wall, and the meter inline one `CARB_2` ahead of the carb one.
 
     One function, called with a trial storey to strike the deck and again with the struck one to
-    place it, so the bodies the strike measures are the bodies the machine gets."""
+    place it, so the bodies the strike measures are the bodies the machine gets. `seat` is what
+    tells the two apart for the ledger: the trial is a MEASUREMENT and not a pose, and only the
+    placement the machine keeps is entered."""
     solids, carries = {}, {}
     for name, px in PANEL_X.items():
-        solids[name], carries[name] = build_panel_bulkhead(px, z)
-    solids["digiten-flow"], carries["digiten-flow"] = build_digiten(carries["bulkhead-carb"])
+        solids[name], carries[name] = build_panel_bulkhead(name if seat else None, px, z)
+    solids["digiten-flow"], carries["digiten-flow"] = build_digiten(
+        carries["bulkhead-carb"], seat=seat)
     return solids, carries
 
 
@@ -580,14 +662,17 @@ def deck_z(placed):
     `placed` is everything already standing, which is what the deck has to come down onto. The
     trial storey the four are dropped from is that pack's own crown, one union half-section — the
     fattest the deck carries — and a clearance over it, so all four start in air whatever stands
-    below them, and the strike is that trial less what the first of them to land would fall."""
+    below them, and the strike is that trial less what the first of them to land would fall.
+
+    Returns `(z, {body: the fall it still has at that storey})`. The second is the band this
+    strike states — one body is left standing on exactly `DECK_CLEAR` and the rest on whatever
+    their own descent leaves — and it is what the ledger's `room` side records."""
     trial = max(box(s).zmax for s in placed) + DECK_CLEAR + _jg.BODY_D / 2.0
-    falls = [(name, descent(s, _would_land_on(box(s), placed)))
-             for name, s in build_deck(trial)[0].items()]
-    landing = [(d, n) for n, d in falls if d is not None]
-    if not landing:
-        return trial
-    return trial - min(landing)[0] + DECK_CLEAR
+    falls = {name: descent(s, _would_land_on(box(s), placed))
+             for name, s in build_deck(trial)[0].items()}
+    landing = [d for d in falls.values() if d is not None]
+    z = trial - min(landing) + DECK_CLEAR if landing else trial
+    return z, {n: None if d is None else d - (trial - z) for n, d in falls.items()}
 
 
 # --- the mains inlet, through the back wall --------------------------------
@@ -615,8 +700,9 @@ def build_c14():
     `SHROUD_PROUD` the other way — through a wall of `enclosure.wall` and standing proud of the
     outside by what is left."""
     body = cq.importers.importStep(str(C14_STEP)).val()
-    return seat_body(body, (), station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
-                                        (C14_STATION[0], _enc.rear_plane_y, C14_STATION[1])))
+    return seat_body(body, (), seat="c14-inlet",
+                     station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
+                              (C14_STATION[0], _enc.rear_plane_y, C14_STATION[1])))
 
 
 def c14_stations():
@@ -679,7 +765,7 @@ def build_co2_inlet():
     """The 5/16" push-to-connect the customer's CO2 line goes into, clamped through the back
     wall on `CO2_STATION`, seated on its own INBOARD STUB TIP."""
     body = cq.importers.importStep(str(DERPIPE_STEP)).val()
-    return seat_body(body, CO2_CHAIN_TURN,
+    return seat_body(body, CO2_CHAIN_TURN, seat="co2-inlet",
                      station=(_derpipe.stub_tip(),
                               (CO2_STATION[0], co2_inlet_mouth_y(), CO2_STATION[1])))
 
@@ -689,7 +775,7 @@ def build_gasher_co2(inlet_carry):
     made-up thread is construction and there is no line to close. Its arrow points away from
     the bulkhead: the carbonator's pressure never reaches the customer's regulator."""
     body = cq.importers.importStep(str(GASHER_STEP)).val()
-    return seat_body(body, CO2_CHAIN_TURN,
+    return seat_body(body, CO2_CHAIN_TURN, seat="gasher-co2",
                      station=(_gasher.inlet(), inlet_carry(_derpipe.stub_tip())[0]))
 
 
@@ -700,7 +786,8 @@ def build_wr1110(gasher_carry):
     pos, axis = gasher_carry(_gasher.outlet())
     target = tuple(pos[i] + axis[i] * CO2_HOP for i in range(3))
     body = cq.importers.importStep(str(WR1110_STEP)).val()
-    return seat_body(body, CO2_CHAIN_TURN, station=(_wr1110.inlet(), target))
+    return seat_body(body, CO2_CHAIN_TURN, seat="wr1110",
+                     station=(_wr1110.inlet(), target))
 
 
 def co2_wall_port(inlet_carry):
@@ -767,7 +854,7 @@ def build_psu(foam, wall_seat):
     `PSU_REAR_CLEAR` ahead of the rear seam's standoff, FOOT on the cap's own lid. The lane it
     lies in is what the SeaFlo leaves east of itself on that cap."""
     b = box(foam)
-    return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN,
+    return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
                      y1=_enc.rear_plane_y - _enc.rear_seam_clear - PSU_REAR_CLEAR,
                      z0=b.zmax)
@@ -791,7 +878,7 @@ def build_pcba(foam, psu, wall_seat):
     EAST on the same wall seat the brick takes, so the two stand in one plane and the boss band
     holds them both; AFT one `PCBA_PSU_CLEAR` ahead of the brick's own front face; FOOT on the
     cap. What holds it is the pcba-tray, which is not placed — this is the board's envelope."""
-    return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN,
+    return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
                      x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=box(foam).zmax)
 
 
@@ -824,13 +911,14 @@ def build_stack(psu, wall_seat):
     for name, step, turn, colour in (
             ("relay-1", RELAY_STEP, RELAY_TURN, C_RELAY),
             ("ac-hub", AC_HUB_STEP, AC_HUB_TURN, C_AC_HUB)):
-        solid, carry = seat_body(cq.importers.importStep(str(step)).val(), turn,
+        solid, carry = seat_body(cq.importers.importStep(str(step)).val(), turn, seat=name,
                                  x1=wall_seat, y1=aft, z0=floor + STACK_CLEAR)
         out.append((name, solid, colour, carry))
         floor = box(solid).zmax
     fore = min(box(s).ymin for _n, s, _c, _k in out)
     stud, stud_carry = seat_body(cq.importers.importStep(str(GND_STACK_STEP)).val(), RELAY_TURN,
-                                 x1=wall_seat, y1=fore - STACK_CLEAR, z0=box(out[0][1]).zmin)
+                                 seat="ground-stack", x1=wall_seat, y1=fore - STACK_CLEAR,
+                                 z0=box(out[0][1]).zmin)
     out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
 
@@ -931,7 +1019,7 @@ def build_asse(foam, seaflo):
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
-    return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),),
+    return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),), seat="asse1022-assembly",
                      x0=box(foam).xmin,
                      y1=bulkhead_mouth_y(),
                      z0=pan_floor(foam, seaflo) + _pan.PAN_Z + _pan.VENT_GAP)
@@ -1011,7 +1099,7 @@ def build_pan(foam, seaflo, seaflo_carry, asse_carry, west_face):
     pan = _pan.build()
     pan = pan.val() if hasattr(pan, "val") else pan
     floor = pan_floor(foam, seaflo)
-    placed, carry = seat_body(pan, (), x1=pan_east_x(seaflo, floor),
+    placed, carry = seat_body(pan, (), seat="drip-pan", x1=pan_east_x(seaflo, floor),
                               y0=pan_front_y(seaflo_carry), z0=floor)
     check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
     check_pan_lane(placed, west_face)
@@ -1045,7 +1133,8 @@ def build_split(asse_carry):
     split rides the chain wherever the chain goes."""
     out_pos, out_axis = asse_carry(_asse.port("tube-out"))
     target = tuple(out_pos[i] + out_axis[i] * WATER_2 for i in range(3))
-    return seat_body(_split.build(), SPLIT_TURN, station=(_split.supply(), target))
+    return seat_body(_split.build(), SPLIT_TURN, seat="water-split",
+                     station=(_split.supply(), target))
 
 
 # --- the flow regulator, inline on the flavour tap -------------------------
@@ -1067,7 +1156,8 @@ def build_flowreg(split_carry):
     every joint between them is a straight."""
     pos, axis = split_carry(_split.to_flavor())
     target = tuple(pos[i] + axis[i] * FLUID_1 for i in range(3))
-    return seat_body(_flowreg.build(), FLOWREG_TURN, station=(_flowreg.inlet(), target))
+    return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
+                     station=(_flowreg.inlet(), target))
 
 
 # --- V-K, the fill/shutoff on the way to the pump's suction ----------------
@@ -1105,7 +1195,7 @@ def build_vk(chain_carry):
     target = (pos[0], pos[1] + axis[1] * WATER_4, pos[2])
     body = _beduan.build_beduan_solenoid()
     body = body.val() if hasattr(body, "val") else body
-    return seat_body(body, (), station=(_beduan.outlet(), target))
+    return seat_body(body, (), seat="vk-solenoid", station=(_beduan.outlet(), target))
 
 
 # --- what carries the tray, and the slot it draws out through --------------
@@ -1190,20 +1280,27 @@ def _whole(bodies):
     return out
 
 
-def place_base(bodies):
+def place_base(bodies, names=()):
     """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre, then
     seat the PAIR — centred on x = 0 and its front face on y = 0. Both moves are rigid and taken
     on the pair's own box, so the plane between them rides along and the crown does not change.
 
     A yaw about a centre is not a placement: the turn leaves the pair's front wherever its own
-    width used to reach, which is not the front of the machine."""
+    width used to reach, which is not the front of the machine.
+
+    ONE SEAT FOR THE TWO, because the rule is struck on the combined box and neither body has it
+    on its own — the ledger's row names both."""
     w = _whole(bodies)
     cx, cy = (w.xmin + w.xmax) / 2.0, (w.ymin + w.ymax) / 2.0
     axis = (cq.Vector(cx, cy, 0.0), cq.Vector(cx, cy, 1.0))
     turned = [s.rotate(*axis, BASE_YAW) for s in bodies]
     t = _whole(turned)
     step = cq.Vector(-(t.xmin + t.xmax) / 2.0, -t.ymin, 0.0)
-    return [s.translate(step) for s in turned]
+    stood = [s.translate(step) for s in turned]
+    if names:
+        record_seat("refrigeration-base", turns=(((0.0, 0.0, 1.0), BASE_YAW),),
+                    planes={"cx": 0.0, "y0": 0.0, "z0": 0.0}, got=_whole(stood), members=names)
+    return stood
 
 
 # --- The manifold, laid on their crown -------------------------------------
@@ -1240,7 +1337,9 @@ def build_pack() -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
     a = cq.Assembly(name="front-half")
-    shroud, cond = place_base([build_shroud(), build_condenser(build_shroud())])
+    SEATS.clear()
+    shroud, cond = place_base([build_shroud(), build_condenser(build_shroud())],
+                              names=("compressor-shroud", "condenser+fan"))
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
     a.add(cond, name="condenser+fan", color=C_COND)
 
@@ -1249,6 +1348,7 @@ def build_pack() -> cq.Assembly:
     crown = max(box(shroud).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
     stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
+    in_pack = []
     for name, solid, color in stood:
         # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
         # radius off each of the seven lines that leave its study — the straight their first
@@ -1257,6 +1357,14 @@ def build_pack() -> cq.Assembly:
         if name.startswith("stub-") and name[len("stub-"):] in _lines.authored():
             continue
         a.add(solid, name=name, color=color)
+        in_pack.append(name)
+    # ONE SEAT FOR THE WHOLE PACK. It is posed and lifted as a body, and what it sets down on is
+    # the four spine hairpins — so the rule is `z0` on the base's own crown, struck on the
+    # combined box, and every body in the pack rides it.
+    record_seat("manifold-layout",
+                turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
+                planes={"z0": crown}, got=_whole([s for _n, s, _c in stood]),
+                members=tuple(in_pack))
     # What the core butts is whatever the front half presents AT THE CORE'S OWN HEIGHT. The
     # source valves' quarter turns carry them aft over the core's crown, and a body standing
     # over it is not a body in its way — so the seam is measured against the bodies that reach
@@ -1310,11 +1418,12 @@ def build_pack() -> cq.Assembly:
     a.co2_inlet_carry = co2in_carry
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
     # the assembly as it is at this point and are the last things into it.
-    a.deck_z = deck_z([s for s, _c in _solids(a).values()])
-    deck_solids, panel_carries = build_deck(a.deck_z)
+    a.deck_z, deck_fall = deck_z([s for s, _c in _solids(a).values()])
+    deck_solids, panel_carries = build_deck(a.deck_z, seat=True)
     meter_carry = panel_carries.pop("digiten-flow")
     for name, solid in deck_solids.items():
         a.add(solid, name=name, color=C_DIGITEN if name == "digiten-flow" else C_BULKHEAD)
+        note_room(name, "fall onto what stands under it", DECK_CLEAR, deck_fall[name])
     panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
@@ -1346,6 +1455,7 @@ def build_pack() -> cq.Assembly:
     # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
     a.pack_solids, a.carries = solids, carries
     draw_runs(a, _lines.build_runs(solids, carries))
+    a.seats = dict(SEATS)
     return a
 
 
@@ -1463,7 +1573,7 @@ def build_funnel(box):
     through rides the basin."""
     cx, cy = funnel_centre(box)
     return seat_body(cq.importers.importStep(str(FUNNEL_STEP)).val(),
-                     (((0.0, 0.0, 1.0), FUNNEL_ROT),),
+                     (((0.0, 0.0, 1.0), FUNNEL_ROT),), seat="hopper-funnel",
                      station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
                               (cx, cy, box.outer[5])))
 
@@ -1493,8 +1603,13 @@ def build_display(box):
                + x_dir * _enc.display_body_offset_x
                + up * _enc.display_body_offset_slope)
     body = _disp.build_assembly().toCompound()
-    return (body.rotate(cq.Vector(0, 0, 0), cq.Vector(*DISPLAY_TILT[0]), DISPLAY_TILT[1])
-            .translate(seat_pt))
+    placed = (body.rotate(cq.Vector(0, 0, 0), cq.Vector(*DISPLAY_TILT[0]), DISPLAY_TILT[1])
+              .translate(seat_pt))
+    # Seated on a POINT and not on planes: the datum is the glass, carried off the facet's own
+    # geometry and offset onto the body it stands behind, so the ledger's row is that point.
+    record_seat("display", turns=(DISPLAY_TILT,), station=seat_pt.toTuple(),
+                got=seat_pt.toTuple())
+    return placed
 
 
 def _seated(box):
@@ -1523,11 +1638,20 @@ def build_front_half() -> cq.Assembly:
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["hopper-funnel"], a.carries["hopper-funnel"] = funnel, funnel_carry
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
+    # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The basin's
+    # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the fall
+    # `fluid-4` leaves the spout with is what the run's first corner has to turn its stock radius
+    # in. Every millimetre off `enclosure.appliance_height` comes out of this one.
+    for r in a.runs:
+        if r.id == "fluid-4":
+            note_room("hopper-funnel", "the fall off the spout `fluid-4`'s first corner turns in",
+                      r.bend, math.dist(r.pts[0], r.pts[1]))
     a.add(build_display(box), name="display", color=C_DISPLAY)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     # The box the pieces were cut from, carried like `runs` and `frames`.
     a.box = box
+    a.seats = dict(SEATS)
     return a
 
 
@@ -1636,6 +1760,62 @@ def report(a: cq.Assembly) -> None:
               f"{d:.2f} on {axis} clears it")
     for ni, nj, why in unanswered:
         print(f"  {ni} ? {nj}   {why}")
+
+    report_seats(a, [n for n, _s in placed if not n.startswith(NOT_A_BODY)])
+
+
+# How far a face may land off the plane its seat named before the row is off. A plane rule closes
+# by construction, so this is import and boolean noise and nothing else — a row over it is a seat
+# that named two planes on one axis, or a mouth the turns do not carry where the seat says.
+SEAT_TOL = 1e-6
+# What is not a body: a length of tube swept along a run, the pack's own placeholder stubs and
+# fold segments, and the box's four printed pieces. None of them is seated, so none of them is a
+# row the ledger owes.
+NOT_A_BODY = ("tube-", "turn-", "step-", "stub-", "enclosure-")
+
+
+def seat_off(seat) -> float:
+    """The worst a seat's own rule missed by, in mm — 0 when every face and every mouth landed
+    where the rule named."""
+    if "station" in seat.rule:
+        return max(abs(g - w) for g, w in zip(seat.got["station"], seat.rule["station"]))
+    return max((abs(seat.got[k] - v) for k, v in seat.rule.items() if k in seat.got),
+               default=0.0)
+
+
+def report_seats(a: cq.Assembly, placed_names) -> None:
+    """The seat ledger: what each body was closed on, read back off what the closing produced.
+
+    One row per SEAT, not per body — the base pair and the manifold pack are each posed and stood
+    as one, so their rule is struck on a combined box and the row names everything it carries.
+
+    `placed_names` is the BODIES: the tubes are swept along a run and the box's four pieces are
+    cut out of the shell, and neither is a seated body."""
+    seats = getattr(a, "seats", {})
+    if not seats:
+        return
+    held = {n for s in seats.values() for n in s.members}
+    loose = sorted(set(placed_names) - held)
+    print(f"\nseats             {len(seats)} rules covering {len(held & set(placed_names))} of "
+          f"{len(placed_names)} placed bodies")
+    for name, s in sorted(seats.items()):
+        if "station" in s.rule:
+            rule = "mouth → " + ", ".join(f"{v:.2f}" for v in s.rule["station"])
+        else:
+            rule = " ".join(f"{k} {v:.2f}" for k, v in sorted(s.rule.items()))
+        off = seat_off(s)
+        turns = "".join(f" {d:+.0f}°" for _ax, d in s.turns) or " —"
+        extra = f"  ({len(s.members)} bodies)" if len(s.members) > 1 else ""
+        print(f"  {name:22} {rule:44} off {off:8.2e}  turns{turns}{extra}")
+        for what, want, got in s.room:
+            mark = "—" if got is None else ("✓" if got >= want - 1e-6 else "✗")
+            g = "nothing under it" if got is None else f"{got:.3f}"
+            print(f"      {mark} {what}: wants {want:g}, has {g}")
+    over = [n for n, s in seats.items() if seat_off(s) > SEAT_TOL]
+    if over:
+        print(f"  {len(over)} seat(s) landed off their own rule: " + ", ".join(sorted(over)))
+    if loose:
+        print(f"  {len(loose)} body(s) with no seat: " + ", ".join(loose))
 
 
 def main():
