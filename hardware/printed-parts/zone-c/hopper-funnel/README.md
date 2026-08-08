@@ -1,7 +1,7 @@
 # Hopper funnel
 
-The removable dishwasher-safe silicone funnel that seats in the Zone C top-wall
-opening, right of the display and flush to the front. Pour a full 440 mL
+The removable dishwasher-safe silicone funnel that seats in the top-wall
+opening, centred on the machine directly behind the display facet. Pour a full 440 mL
 SodaStream flavor bottle into it in one go; lift it out by hand for the
 dishwasher and to reach the valve trays beneath.
 Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
@@ -9,9 +9,10 @@ Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 ## Shape
 
 A static part in its own frame — origin at the collar-rectangle center, z = 0
-the brim underside — placed by the enclosure assembly
-(`_contents.FUNNEL_CX/CY`, brim on the box top). The drain is defined in this
-frame and rides the part. Top to bottom:
+the brim underside — placed by the machine
+([`front_half.funnel_centre`](/hardware/manifold-layout/front_half.py), brim on
+the box top). The drain is defined in this frame and rides the part. Top to
+bottom:
 
 - **Brim.** A flat flange overhanging the collar [7 mm](HOPPER_HOLD) all around,
   resting on the enclosure top surface — this reach is the whole of what holds
@@ -26,14 +27,14 @@ frame and rides the part. Top to bottom:
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the manifold tubing), the
-  spout offset off the collar center (`neck_dx`); the enclosure placement's
-  `FUNNEL_ROT` picks which side of the box it descends (the rectangular collar
-  seats either way). The whole floor is the ramp — every surface of it falls
-  toward the spout, no flat anywhere, so the basin drains dry. A straight
-  spout tube carries the exit down to the drain, which sits **above** V-B's
-  up-facing inlet collet — segment 4 is the gravity drain and the air-purge
-  path, so the tube from drain to V-B must only fall. The pack is measured on
-  the real solids by the enclosure scorecard. Total drop
+  spout offset off the collar center (`neck_dx`); the placement's
+  `front_half.FUNNEL_ROT` picks which side of the box it descends (the
+  rectangular collar seats either way). The whole floor is the ramp — every
+  surface of it falls toward the spout, no flat anywhere, so the basin drains
+  dry. A straight spout tube carries the exit down to the drain, which sits
+  **above** V-B's up-facing inlet collet — `fluid-4` is the gravity drain and the
+  air-purge path, so the tube from drain to V-B must only fall. The pack is
+  measured on the real solids by the front-half scorecard. Total drop
   [53 mm](HOPPER_DROP) below the brim.
 
 Capacity to the brim is [807 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
@@ -46,8 +47,8 @@ accommodates it — funnel and hole cannot drift apart.
 ## Regenerate
 
 `tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py`
-→ `hopper-funnel.step`. Seated in the enclosure view by
-[`../../enclosure/enclosure-assembly/enclosure_assembly.py`](/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py).
+→ `hopper-funnel.step`. Seated in the machine by
+[`../../../manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py).
 
 ## Sources
 [value](NAME) texts are updated by:
