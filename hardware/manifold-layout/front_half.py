@@ -13,16 +13,19 @@ The gaps along that chain are 0 by intent, and where a mating closes a leg of th
 loop no copper is drawn between the two bodies: the compressor is an oblong can whose two stubs
 stand on its own tangent lines, and the condenser is an envelope whose serpentine headers are
 re-dressed to reach whichever face is convenient, so such a joint crosses a plane its two bodies
-already share and both of its stations are ONE POINT READ TWICE. `MATED_JOINTS` names the legs
-made that way.
+already share and both of its stations are ONE POINT READ TWICE.
 
 THE COMPRESSOR IS THE BODY THAT DOES NOT REACH THE CORE. The condenser is the deeper of the
 pair and both are struck on the same centre, so the condenser alone lands on the plane the core
-butts and the compressor's plate stands inset from it. Its suction therefore cannot be made up
-across a shared plane, and reaches the evaporator's outlet as cut and brazed copper that `_lines`
-draws like any other run. `refrigerant_joints` takes the reading over the whole loop at every
-build — `REFRIGERANT_IDS` is the card's own population — and `check_refrigerant_joints` reads red
-for any leg standing open and for any leg with no pair of placed stations to measure.
+butts and the compressor's plate stands inset from it at both ends. Its suction therefore cannot
+be made up across a shared plane, and reaches the evaporator's outlet as cut and brazed copper
+that `_lines` draws like any other run. `JOINT_STATIONS` names the two mouths of all three legs;
+which of them the machine mates and which it draws is settled by `_lines` having authored a run,
+so no leg is read twice and none falls between the two. `refrigerant_joints` takes the reading
+over the whole loop at every build — `REFRIGERANT_IDS` is the card's own population — grading a
+mating by the gap between its two stations and a tube by how far its two ends stand off the
+mouths they are brazed into, and `check_refrigerant_joints` reads red for any leg standing open
+and for any leg with no pair of placed stations to measure.
 
 Frame
 -----
@@ -508,30 +511,45 @@ def check_cradles(rows) -> Bound:
 
 # --- The refrigerant loop's joints -------------------------------------------
 #
-# A joint made by MATING has no tube drawn for it: it crosses a plane two bodies already
-# share, so both of its stations are ONE POINT READ TWICE and the copper between them is the
-# length of the union. Each end is a penetration its own module declares —
-# `compressor.stations()`, `condenser_block.stations()`, `copper_plugs.slot_stations()` — and
-# nothing here restates a coordinate; what this table holds is that the two readings land
-# together, because a station that has drifted is copper drawn in the open and no other gate
-# on this pack would say so.
-MATED_JOINTS = {
+# BOTH ENDS OF EVERY LEG, each a penetration its own module declares — `compressor.stations()`,
+# `condenser_block.stations()`, `copper_plugs.slot_stations()`. Nothing here restates a
+# coordinate; what this table holds is which two mouths each leg joins, because a station that
+# has drifted is copper drawn in the open and no other gate on this pack would say so.
+JOINT_STATIONS = {
     "refrig-1": ("compressor.refrig-discharge", "condenser+fan.refrig-inlet"),
     "refrig-2": ("condenser+fan.refrig-outlet", "foam-assembly.evap-inlet"),
+    "refrig-3": ("foam-assembly.evap-outlet", "compressor.refrig-suction"),
 }
 # THE READING IS TAKEN OVER THE WHOLE LOOP AND NOT OVER THAT TABLE. The loop's population is
 # the card's own — `_scorecard.REFRIGERANT_SEGMENTS`, the same three connections `routed`
-# counts — so a joint with no pair above, or one whose stations are not both placed, comes back
+# counts — so a leg with no pair above, or one whose stations are not both placed, comes back
 # UNMEASURED and reads red. A circuit cannot go quiet on this gate by leaving one table while
 # another still carries it.
 REFRIGERANT_IDS = tuple(cid for cid, _f, _t in _card.REFRIGERANT_SEGMENTS)
-# How far apart a joint's two stations may stand. It is import and boolean noise and nothing
-# else: both are struck on one plane, so anything above this is a station that moved.
+# THERE ARE TWO WAYS TO MAKE A LEG, and `_lines` drawing a run for it is what decides which —
+# so no leg is read twice and none falls between the two. A leg with a run is made in COPPER,
+# cut and brazed, and what it owes is the gap between the tube's own two ends and the mouths
+# they are brazed into. Every other leg is made by MATING: it crosses a plane two of its bodies
+# already share, so its two stations are ONE POINT READ TWICE and what it owes is the distance
+# between them. Both readings are millimetres of copper nothing draws, which is why one
+# tolerance grades both.
+#
+# The two words are the card's own (`_scorecard.MADE_AS`), so a leg's reading here and the row
+# `routed` prints for it cannot come out under different names.
+MADE_BY_MATE, MADE_BY_TUBE = "mate", "drawn"
+# How far a leg's own reading may stand open. It is import and boolean noise and nothing else: a
+# mating is struck on one plane and a braze seats in its own mouth, so anything above this is a
+# station or a tube end that moved.
 JOINT_TOL = 0.05
+
+# One leg as the build reads it: which of the two ways the machine makes it, the two stations it
+# is made on, and the millimetres that reading leaves open. `mm` is `None` where there is no pair
+# of placed stations to read against — unmeasured, which is a third case and not a closed one.
+Joint = collections.namedtuple("Joint", "id made frm to mm")
 
 
 def refrigerant_stations(carries: dict) -> dict:
-    """Every station a mated joint of the loop is made on, in world, keyed `body.port`.
+    """Every station a leg of the loop is made on, in world, keyed `body.port`.
 
     `carries` is the placement each body was seated by, so a station is its own module's
     table taken through the move the metal took."""
@@ -545,71 +563,105 @@ def refrigerant_stations(carries: dict) -> dict:
             for port, station in table.items()}
 
 
-def refrigerant_joints(carries: dict) -> list:
-    """Every connection the loop is, as `(id, from, to, mm apart)` — the measurement, taken at
-    every build over `REFRIGERANT_IDS` and not over `MATED_JOINTS`.
+def refrigerant_joints(carries: dict, runs=()) -> list:
+    """Every leg the loop is, as a `Joint` — the measurement, taken at every build over
+    `REFRIGERANT_IDS` and not over `JOINT_STATIONS`.
 
-    A joint the machine does not make by mating carries `None` for both stations, and one whose
-    stations are not both placed carries them with `None` for the distance. Either way the row
-    carries no distance — which is a reading and not an absence: the connection is still owed
-    and the gate still has to account for it, as DRAWN or as unmeasured."""
+    WHICH READING A LEG GETS IS THE MACHINE'S ANSWER AND NOT A TABLE'S: a leg `runs` holds a run
+    for is read as copper, off the tube's own two ends, and every other leg is read as a mating,
+    off the two stations that are meant to be one point. A leg with no pair of placed stations to
+    read against carries `None` — which is a reading and not an absence: the connection is still
+    owed and the gate still has to account for it.
+
+    A DRAWN LEG CLOSES ON BOTH MOUTHS OR IT CLOSES ON NEITHER, so each of the leg's two stations
+    is measured against whichever end of the tube is nearer it. A run re-anchored onto some other
+    port leaves the mouth it left behind standing as far open as the port it went to, and the
+    same tolerance that grades a mating says so."""
     at = refrigerant_stations(carries)
+    drawn = {r.id: r for r in runs}
     out = []
     for cid in REFRIGERANT_IDS:
-        a, b = MATED_JOINTS.get(cid, (None, None))
-        gap = math.dist(at[a][0], at[b][0]) if a in at and b in at else None
-        out.append((cid, a, b, gap))
+        a, b = JOINT_STATIONS.get(cid, (None, None))
+        run = drawn.get(cid)
+        made = MADE_BY_TUBE if run is not None else MADE_BY_MATE
+        if a not in at or b not in at:
+            mm = None
+        elif run is None:
+            mm = math.dist(at[a][0], at[b][0])
+        else:
+            ends = (run.pts[0], run.pts[-1])
+            mm = max(min(math.dist(at[m][0], p) for p in ends) for m in (a, b))
+        out.append(Joint(cid, made, a, b, mm))
     return out
 
 
 def refrigerant_mates(joints) -> list:
-    """The joints that CLOSED, in the same shape — what `_scorecard.load_connections` may count
-    as made without a line drawn for it. A joint standing open is copper the machine owes, so it
-    belongs with the connections still to route and not with the ones already mated."""
-    return [j for j in joints if j[3] is not None and j[3] <= JOINT_TOL]
+    """The legs a shared plane CLOSED, as `(id, from, to, mm apart)` — what
+    `_scorecard.load_connections` may count as made without a line drawn for it.
+
+    A leg the machine draws is not here and does not belong here: `routed` counts that one off
+    the run itself, and counting it twice would let a tube stand in for the mating it is drawn
+    instead of. A mating standing open is copper the machine owes, so it belongs with the
+    connections still to route and not with the ones already made."""
+    return [(j.id, j.frm, j.to, j.mm) for j in joints
+            if j.made == MADE_BY_MATE and j.mm is not None and j.mm <= JOINT_TOL]
 
 
 def check_refrigerant_joints(joints) -> Bound:
-    """How far each of the loop's joints stands open, over the whole loop. A joint over
-    `JOINT_TOL` is a length of copper the machine owes and nothing draws — two stations that
-    were one point on a shared plane, no longer on it.
+    """Every leg of the loop against `JOINT_TOL`, each in the reading its own way of being made
+    earns — so the gate accounts for the whole circuit rather than the part of it one
+    construction covers.
 
-    A leg with no distance is not automatically a fault. THERE ARE TWO WAYS TO MAKE A LEG and
-    only one of them is measured here: a leg `_lines` draws is a real cut-and-brazed tube that
-    `routed` counts and `lines-clear` checks, and it has no mating to measure BECAUSE it is
-    drawn. A leg that is neither mated nor drawn is the one this gate is for — owed by the
-    circuit, made by nothing, and read by nobody."""
-    drawn_ids = _lines.authored()
-    open_ = [j for j in joints if j[3] is not None and j[3] > JOINT_TOL]
-    drawn = [j for j in joints if j[3] is None and j[0] in drawn_ids]
-    blind = [j for j in joints if j[3] is None and j[0] not in drawn_ids]
-    shut = [j for j in joints if j[3] is not None and j[3] <= JOINT_TOL]
-    widest = max((j[3] for j in joints if j[3] is not None), default=0.0)
+    A MATING over the tolerance is two stations that were one point on a shared plane and no
+    longer are. A DRAWN leg over it is a tube whose end does not land in the mouth it is brazed
+    into. Both are a length of copper the machine owes and nothing draws, which is why one
+    tolerance grades both.
+
+    A leg with no reading at all is the third case and the one this gate was built for: owed by
+    the circuit, made by nothing, and measured by nobody. It reads red and says which leg."""
+    mated = [j for j in joints if j.made == MADE_BY_MATE and j.mm is not None]
+    drawn = [j for j in joints if j.made == MADE_BY_TUBE and j.mm is not None]
+    blind = [j for j in joints if j.mm is None]
+    open_mate = [j for j in mated if j.mm > JOINT_TOL]
+    open_tube = [j for j in drawn if j.mm > JOINT_TOL]
+    widest = max((j.mm for j in joints if j.mm is not None), default=0.0)
     return record_bound(Bound(
-        "refrigerant-joints", "The refrigerant loop closes on the planes its bodies share",
-        not open_ and not blind,
-        f"{len(shut)} mated, {len(drawn)} drawn of {len(joints)}"
+        "refrigerant-joints", "Every leg of the refrigerant loop closes, mated or drawn",
+        not open_mate and not open_tube and not blind,
+        f"{len(mated) - len(open_mate)} mated, {len(drawn) - len(open_tube)} drawn "
+        f"of {len(joints)}"
+        + (f", {len(open_mate) + len(open_tube)} open" if open_mate or open_tube else "")
         + (f", {len(blind)} unmeasured" if blind else "")
-        + f", widest mating {widest:.3f} mm",
-        f"every joint within {JOINT_TOL:g} mm",
-        ([] if not open_ else [
+        + f", widest {widest:.3f} mm",
+        f"every leg within {JOINT_TOL:g} mm — a mating on its two stations, a tube on both "
+        f"its mouths",
+        ([] if not open_mate else [
             "the refrigerant loop is made up across the planes its bodies already share, and "
-            + ", ".join(f"{cid} stands {gap:.3f} mm open ({a} to {b})"
-                        for cid, a, b, gap in open_)
+            + ", ".join(f"{j.id} stands {j.mm:.3f} mm open ({j.frm} to {j.to})"
+                        for j in open_mate)
             + f" — over the {JOINT_TOL:g} mm a shared plane leaves. That distance is copper "
               f"drawn in the open between two bodies with nothing between them: move the "
               f"station that shifted back onto the one it is read against."])
+        + ([] if not open_tube else [
+            "the loop's drawn legs are cut and brazed into the two mouths they join, and "
+            + ", ".join(f"{j.id}'s tube ends {j.mm:.3f} mm off ({j.frm} to {j.to})"
+                        for j in open_tube)
+            + f" — over the {JOINT_TOL:g} mm a braze seats in. `_lines` draws that run to "
+              f"somewhere other than the mouths this leg joins, so one of them has nothing "
+              f"brazed into it: anchor the run on the leg's own two stations, or move the "
+              f"station the tube no longer reaches."])
         + ([] if not blind else [
             "the loop owes "
-            + ", ".join(cid for cid, _a, _b, _g in blind)
+            + ", ".join(j.id for j in blind)
             + f" and nothing on this pack measures {'them' if len(blind) > 1 else 'it'}: "
-              f"`MATED_JOINTS` names no pair of stations for "
+              f"`JOINT_STATIONS` names no pair of stations for "
               f"{'those ids' if len(blind) > 1 else 'that id'}, or a station it names is not "
-              f"placed, and `_lines` draws no run for it either. `routed` counts the same "
-              f"{len(joints)} connections (`_scorecard.REFRIGERANT_SEGMENTS`), so {len(blind)} "
-              f"of {len(joints)} legs of the circuit are made by nothing rather than the "
-              f"circuit having fewer joints — give each the two stations it is mated on, or "
-              f"the run that draws it."])))
+              f"placed — so neither a mating nor a tube can be read against them. `routed` "
+              f"counts the same {len(joints)} connections "
+              f"(`_scorecard.REFRIGERANT_SEGMENTS`), so {len(blind)} of {len(joints)} legs of "
+              f"the circuit {'are' if len(blind) > 1 else 'is'} made by nothing rather than the "
+              f"circuit having fewer joints — give each the two mouths it joins, and mate them "
+              f"or draw the run between them."])))
 
 
 def cap_conduit(name: str):
@@ -1690,18 +1742,6 @@ def build_pack() -> cq.Assembly:
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     foam, foam_carry = build_foam(aft)
     a.add(foam, name="foam-assembly", color=C_FOAM)
-    # The sealed loop, measured the moment its three bodies are all placed. Where two of them
-    # meet on one plane the joint crosses it and no copper is drawn, so this reading is the only
-    # thing standing between a station that moved and a joint nobody notices has come apart.
-    refrig_carries = {"compressor": comp_carry, "condenser+fan": cond_carry,
-                      "foam-assembly": foam_carry}
-    a.refrigerant_at = refrigerant_stations(refrig_carries)
-    # The whole loop's reading rides the assembly, and the closed subset of it rides beside:
-    # the gate accounts for every connection, and the card is handed only the ones a shared
-    # plane actually shut — it counts the rest made only where a line was drawn for them.
-    a.refrigerant = refrigerant_joints(refrig_carries)
-    a.refrigerant_mates = refrigerant_mates(a.refrigerant)
-    check_refrigerant_joints(a.refrigerant)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()),
@@ -1794,6 +1834,19 @@ def build_pack() -> cq.Assembly:
     # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
     a.pack_solids, a.carries = solids, carries
     draw_runs(a, _lines.build_runs(solids, carries))
+    # THE SEALED LOOP, READ ONCE THE MACHINE HAS DRAWN WHAT IT DRAWS. Two of its legs cross a
+    # plane their bodies already share and no copper is drawn between them; the third is cut and
+    # brazed like any other run. Which is which is not this module's to declare — `_lines` having
+    # authored a run settles it — so the reading waits for the runs and then grades every leg by
+    # what the machine actually made it with. Nothing else on this pack stands between a station
+    # that moved and a leg nobody notices has come apart.
+    a.refrigerant_at = refrigerant_stations(carries)
+    # The whole loop's reading rides the assembly, and the MATED subset of it rides beside: the
+    # gate accounts for every leg, and the card is handed only the ones a shared plane actually
+    # shut — it counts the drawn one off the run itself, like every other line.
+    a.refrigerant = refrigerant_joints(carries, a.runs)
+    a.refrigerant_mates = refrigerant_mates(a.refrigerant)
+    check_refrigerant_joints(a.refrigerant)
     a.seats = dict(SEATS)
     a.bounds = list(BOUNDS)
     return a
@@ -2072,14 +2125,14 @@ def report(a: cq.Assembly) -> None:
     base_aft = max(sh.ymax, co.ymax)
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "
           f"gap {fo.ymin - base_aft:.2f}")
-    for cid, frm, to, gap in getattr(a, "refrigerant", []):
-        if gap is None:
-            print(f"  {cid:16} {'—':16}    {'—':16} "
+    for j in getattr(a, "refrigerant", []):
+        if j.mm is None:
+            print(f"  {j.id:16} {'—':16}    {'—':16} "
                   f"{'':26}  unmeasured — no pair of placed stations")
             continue
-        p = a.refrigerant_at[frm][0]
-        print(f"  {cid:16} {frm.split('.')[1]:16} on {to.split('.')[1]:16} "
-              f"({p[0]:7.2f},{p[1]:7.2f},{p[2]:6.2f})  gap {gap:.3f}")
+        p = a.refrigerant_at[j.frm][0]
+        print(f"  {j.id:16} {j.frm.split('.')[1]:16} {j.made:5} {j.to.split('.')[1]:16} "
+              f"({p[0]:7.2f},{p[1]:7.2f},{p[2]:6.2f})  off {j.mm:.3f}")
     print(f"  core crown       z {fo.zmax:.2f}   seaflo floor         z {sf.zmin:.2f}   "
           f"gap {sf.zmin - fo.zmax:.2f}")
     print(f"  core aft face    y {fo.ymax:.2f}   seaflo aft face      y {sf.ymax:.2f}   "
