@@ -161,10 +161,12 @@ def enclosure(m: Machine):
         "the hopper opening is off centre across the box and EN-09 sends the bench "
         "straight down it — say where it is instead")
 
-    # The refrigeration stratum's own width, across the pair as it stands. The ±X
-    # walls hold every body ON THE FLOOR off by one `side_rib_inset` so the corner
-    # posts, boss chains and seam pods seat at full section — so this pair is what
-    # the stated appliance width has to take.
+    # The refrigeration stratum's own width across the pair as it stands, and the cold
+    # core's beside it. A body ON THE FLOOR is held one `side_rib_inset` in from the ±X
+    # walls at the depths the seam's columns stand there, so the corner posts, boss
+    # chains and seam pods seat at full section. Both figures are carried because the
+    # stated appliance width has to take whichever of them is wider, and neither the
+    # card nor this comment gets to name which — the two spans do.
     def _span(*names):
         boxes = [_fh.box(pack.placed[n][0]) for n in names]
         return max(b.xmax for b in boxes) - min(b.xmin for b in boxes)

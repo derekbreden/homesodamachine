@@ -3,7 +3,9 @@
 Derek pointed you here. That means you have probably just reported a limit — a maximum, a
 "there is no room," an "it can't be done," a "the only option" — and he does not believe it.
 He is usually right, and the reason is almost always the same one: the limit you reported is
-the edge of the box you searched, not the edge of the world.
+the edge of the box you searched, not the edge of the world. Sometimes the box is not even
+yours — a rule standing in the code can be perfectly true of one place and charged against
+every place, and obeying it feels exactly like measuring.
 
 He calls the box a **fence**. The word is his:
 
@@ -246,6 +248,35 @@ it has exited the search, not widened it. And a manager relaying a subagent's im
 unprobed is standing on an inherited fence with extra steps: "i.e., yours" hands Derek a
 conclusion nobody ever probed.
 
+**The globalised rule.** Every form above is a fence somebody invented. This one is a fence
+that is *real* — and is being charged in places it was never true. A constraint gets observed
+correctly somewhere specific, written down without its where, and then applied to everything.
+
+`side_rib_inset` is 14 mm of band down each ±X wall, and it has an honest job: the seam's
+corner posts, boss chains and Z-seam pods stand in it, and they need full section. That is a
+fact about **where those columns stand**. It became `xmax > 94.50` — a body may not cross this
+plane — and in that form it was answering a question about a handful of Y stations with a test
+that ranged over the machine's whole depth. `_dims` reserved a 17.80 mm pod stack above any
+body past that plane, and `east_wall_seat` handed every body on the flank the same 94.50, so
+the power column stood a full boss chain off a wall it was supposedly bolted to, on standoffs
+long enough to span the gap.
+
+Where the band actually runs free is `enclosure.east_band_free_y`, struck off the two stated
+planes those columns are built on — and it is most of the depth, not a sliver. The PCBA stands
+well inside it. It was never near a pod. It could have been mounted flat on the wall the whole
+time, and the rule that stopped it was a true sentence about somewhere else.
+
+The tell is a **bare threshold with no scope attached.** `xmax > 94.50` names neither which
+pod it protects nor where that pod stands, so it cannot be checked against reality — it can
+only be obeyed. Compare the ones that survive contact: `STACK_CLEAR` comes off the relay's own
+hole inset, `FOOT_CLEAR` is measured on the pump's casting over the tray's own height band.
+Those can be argued with, because they say what they are made of.
+
+And the repair is the opposite of every other form here. An invented fence should be deleted.
+A globalised rule should be **scoped** — deleting `side_rib_inset` would put a wall through the
+seam machinery. Ask the rule where its subject stands, and make the test ask the same question:
+a Y span, a Z band, a named body, a station table. If you cannot say where, that is the finding.
+
 ## The search as the fence
 
 Every form above is a bound inside a sweep. This one is the sweep.
@@ -313,6 +344,13 @@ hard part, and that asymmetry is why this document exists.
   as ranging over the world. That is exactly where a fence hides.
 - **The inheritance tell.** Your premise is a previous session's conclusion, a committed
   constant, or a line in a doc. Probe it before you build on it.
+- **The unscoped-threshold tell.** The constraint you are obeying is a bare number against a
+  whole population — `xmax > 94.50`, every body on the floor, any run in this lane. Ask it two
+  questions: *what does it protect,* and *where does that thing stand?* A rule that answers
+  neither cannot be checked against reality, only obeyed, and it is charging bodies that are
+  nowhere near its subject. The repair is to scope it, not to delete it — the constraint is
+  usually real somewhere. If you cannot find where, that is the finding, and it is Derek's to
+  hear.
 - **The endpoints tell.** Your diagnosis of a run names only what pins it, never what it
   connects. Before pricing an escape from a region, ask whether the run needs the region at
   all: its two ends, the distance between them split by axis, and who else rides what it
