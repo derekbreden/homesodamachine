@@ -311,9 +311,10 @@ z_lip_y_margin = 2.0
 #   pan_rails     the drip tray's carry, world boxes fused onto the −X wall
 #   c14           the mains inlet's heat-set stations on the back wall, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
+#   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches)
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses")
+           "funnel pan_rails c14 east_bosses floor_bosses")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -322,8 +323,8 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), ())
+            "east_bosses floor_bosses")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), ())
 
 
 # --- primitives -------------------------------------------------------------
@@ -798,7 +799,8 @@ def _dims(pack):
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
-               pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses)
+               pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
+               pack.floor_bosses)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1722,6 +1724,31 @@ def _pan_rails(solid, members, z0, z1):
     return solid
 
 
+def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
+    """The floor slab's mounting bosses added to a PIECE, for the stations whose plan point
+    the piece owns and whose slab it holds.
+
+    Each station is `(x, y, tip)`: the two plan coordinates the boss stands on, and the plane
+    its top face reaches — the mounting plane of the body bolted down onto it, which is where
+    that body's hole pattern lies. The post runs UP from the slab's own inner face to that
+    plane and the insert bore is cut back down from it, so what the slab gives a screw is the
+    standoff the body asked for.
+
+    The ±X walls take their bodies on the flank and the slab takes them from underneath, which
+    is the whole difference between this and `_east_bosses`: the shaft runs on Z, the band that
+    selects a station is the piece's Y column, and a station only lands on a piece whose Z band
+    reaches the floor."""
+    if z0 > inner[4] + 1e-6:
+        return solid                       # a top piece has no slab to stand a post on
+    for sx, sy, tip in stations:
+        if not (y0 <= sy <= y1):
+            continue
+        solid = solid.fuse(_zcyl(mount_boss_dia / 2.0, sx, sy, inner[4], tip))
+        solid = solid.cut(_zcyl(heatset_dia / 2.0, sx, sy,
+                                tip - heatset_depth - mount_bore_relief, tip))
+    return solid
+
+
 def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
@@ -1817,6 +1844,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
     piece = _east_bosses(piece, inner, box.east_bosses, ylo, yhi, zlo, zhi)
+    # The floor slab's, on whichever piece holds each one's plan station. Only the bottom
+    # pieces have a slab to stand one on, and `_floor_bosses` drops any station outside.
+    piece = _floor_bosses(piece, inner, box.floor_bosses, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 

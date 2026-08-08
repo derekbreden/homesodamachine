@@ -54,6 +54,9 @@ import jg_bulkhead_union as _jg                        # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
 import manifold_layout as _ml                           # noqa: E402
+import compressor as _comp                             # noqa: E402
+import condenser_block as _cond                        # noqa: E402
+import copper_plugs as _plugs                          # noqa: E402
 import gasher_check_valve as _gasher                    # noqa: E402
 import wr1110_regulator as _wr1110                      # noqa: E402
 import digiten_flow_sensor as _digiten                  # noqa: E402
@@ -76,6 +79,8 @@ TUBE_BEND = R.stock_min("water", _split.TUBE_D)
 # hose stretches over and a clamp closes on, not a collet gripping a tube all round, so it takes
 # a good deal more than `R.COLLET_SKEW`. Seeded, not ratified.
 BARB_SKEW = 14.0
+# 1/4" soft ACR copper, the stock the sealed loop is cut from.
+CU_OD = 6.35
 # How far off its own axis a line may enter a CAP CONDUIT. The lid's hole is countersunk to this
 # angle (`_cold_core_interface.cap_conduit_entry_skew`), so the lip a leaning line crosses lies
 # along it and what the tube bears on there is a face.
@@ -93,7 +98,13 @@ STATIONS = {
                       "reservoir-b": (lambda: _fh_cap("reservoir-b"), _split.TUBE_D),
                       "reservoir-a-fill": (lambda: _fh_cap("reservoir-a-fill"), _split.TUBE_D),
                       "reservoir-b-fill": (lambda: _fh_cap("reservoir-b-fill"), _split.TUBE_D),
-                      "co2-in": (lambda: _fh_cap("co2-in"), _split.TUBE_D)},
+                      "co2-in": (lambda: _fh_cap("co2-in"), _split.TUBE_D),
+                      # The evaporator's two ends are copper, not LLDPE, and they open on
+                      # the core's own flanks rather than up its cap columns.
+                      "evap-outlet": (lambda: _plugs.slot_station("evap-outlet"), CU_OD),
+                      "evap-inlet": (lambda: _plugs.slot_station("evap-inlet"), CU_OD)},
+    "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD)},
+    "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD)},
     "seaflo-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
@@ -191,6 +202,10 @@ def build_runs(placed, carries):
     the numbers in them are struck off the frames above — move a body and they move with it."""
     F = frames(placed, carries)
     runs = []
+    if {"condenser+fan", "foam-assembly"} <= set(F):
+        runs.append(_refrig_2(F))
+    if {"compressor", "foam-assembly"} <= set(F):
+        runs.append(_refrig_3(F))
     if {"seaflo-pump", "suction-chain"} <= set(F):
         runs.append(_water_7(F))
     if {"seaflo-pump", "discharge-chain"} <= set(F):
@@ -834,6 +849,33 @@ def _fluid_26(F):
              "forward and inboard onto the gate's own column")
 
 
+def _refrig_2(F):
+    """refrig-2 — the condenser's liquid line, through the drier and the cap tube, to the
+    evaporator's inlet.
+
+    The cold core stands well aft of the refrigeration base rather than against it, so this
+    leg is cut and brazed like refrig-3 rather than made across a shared plane."""
+    return R.bent(
+        "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
+        kind="refrigerant",
+        note="sealed loop: condenser outlet (drier + cap tube) → evaporator inlet")
+
+
+def _refrig_3(F):
+    """refrig-3 — the evaporator's outlet back to the compressor's suction, in copper.
+
+    The other two joints of the sealed loop are made across a plane their bodies already share
+    and draw no tube. This one cannot be: the compressor's shell is a pressed oblong, so it
+    meets a neighbour along a tangent line, and that tangent stands short of the cold core's
+    front. So this leg is cut and brazed like any other run — up out of the shell's suction and
+    back into the core's own outlet slot."""
+    return R.bent(
+        "refrig-3", "compressor.refrig-suction", "foam-assembly.evap-outlet",
+        kind="refrigerant",
+        note="sealed loop: evaporator outlet → compressor suction, the one leg of the three "
+             "that is drawn rather than made across a shared plane")
+
+
 def authored() -> frozenset:
     """The connection ids this module draws a run for, without building one. `front_half` reads
     it before the pack is assembled, to know which of the manifold's placeholder mouth stubs a
@@ -845,7 +887,7 @@ def authored() -> frozenset:
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
              "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28", "fluid-18",
-             "fluid-24", "fluid-26", "fluid-14", "fluid-16")
+             "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-2", "refrig-3")
 
 
 def tubes(runs):

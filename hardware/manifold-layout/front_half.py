@@ -386,8 +386,6 @@ def cap_face(foam):
 # open and no other gate on this pack would say so.
 REFRIGERANT_JOINTS = (
     ("refrig-1", "compressor.refrig-discharge", "condenser+fan.refrig-inlet"),
-    ("refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet"),
-    ("refrig-3", "foam-assembly.evap-outlet", "compressor.refrig-suction"),
 )
 # How far apart a joint's two stations may stand. It is import and boolean noise and nothing
 # else: both are struck on one plane, so anything above this is a station that moved.
@@ -912,6 +910,23 @@ _ROUTED: set = set()
 
 def east_wall_seat(*floor_bodies):
     return max(box(s).xmax for s in floor_bodies)
+
+
+def floor_mounts(*mounted):
+    """The floor slab's boss stations, as `(x, y, tip)`.
+
+    `wall_mounts`' analogue for a body bolted DOWN onto the slab rather than hung on the
+    flank. One `(carry, holes, face_z)` per body: the placement, the body's own hole pattern,
+    and the height in that body's own frame of the face a screw head lands on. A body standing
+    on the floor has that face at the TOP of whatever the hole passes through, not at its own
+    Z = 0 — the post rises through the hole to it, which is what locates the body as well as
+    fastens it."""
+    out = []
+    for carry, holes, face_z in mounted:
+        for hx, hy in holes:
+            pos, _axis = carry(((hx, hy, face_z), (0.0, 0.0, 1.0)))
+            out.append((pos[0], pos[1], pos[2]))
+    return tuple(out)
 
 
 def west_interior_face(*floor_bodies):
@@ -1491,6 +1506,10 @@ def build_pack() -> cq.Assembly:
     for name, solid, colour, _carry in stack:
         a.add(solid, name=name, color=colour)
     stack_carry = {name: carry for name, _s, _c, carry in stack}
+    # The compressor is the one body on the floor that is bolted DOWN to it, so its four
+    # holes are the slab's own boss stations.
+    a.floor_bosses = floor_mounts(
+        (comp_carry, _comp.mount_pattern(), _comp.BASE_Z))
     a.east_bosses = wall_mounts(
         (psu_carry, _psu.holes), (pcba_carry, _pcba.board.holes),
         (stack_carry["relay-1"], _relay.holes), (stack_carry["ac-hub"], _hub.holes),
@@ -1606,7 +1625,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan, west),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
-                     c14=c14_stations(), east_bosses=a.east_bosses)
+                     c14=c14_stations(), east_bosses=a.east_bosses,
+                     floor_bosses=a.floor_bosses)
 
 
 def check_through_wall_headroom(a, shell):
