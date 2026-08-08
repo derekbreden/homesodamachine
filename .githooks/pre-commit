@@ -27,12 +27,11 @@
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
-#      - hardware/ enclosure                → nothing. enclosure-assembly/ carries a
-#        `.retired` marker (web/dev-server/deps.js) and no longer builds, so its scorecard,
-#        its .step and the fluid-topology charts that quote its runs are outputs with no
-#        producer. The pack that replaces it is hardware/manifold-layout/front_half.py.
-#        Rebuild-and-compare across every live generator is `npm --prefix web run
-#        build:check`.
+#      - hardware/ enclosure                → nothing. The front half carries its own
+#        gates and runs them itself: hardware/manifold-layout/front_half.py prints the
+#        scorecard at the tail of every run and writes front-half.scorecard.json beside
+#        the STEP, so nothing here re-runs them. Rebuild-and-compare across every live
+#        generator is `npm --prefix web run build:check`.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
@@ -138,11 +137,12 @@ for hw in $editions; do
     fi
   fi
 
-  # The pack's own gates and the charts that quote its runs read
-  # printed-parts/enclosure/enclosure-assembly/, which carries a `.retired` marker: nothing
-  # builds it, so its sidecar and the .mmd charts are outputs with no live producer and a
-  # freshness reading over them has nothing to be fresh against. They come back keyed to
-  # the pack that replaces it, hardware/manifold-layout/front_half.py, when it emits one.
+  # No pack gate here. hardware/manifold-layout/front_half.py runs its own scorecard at
+  # build time and writes front-half.scorecard.json beside the STEP, and the topology the
+  # card grades itself against is hardware/topology/fluid-topology.md, which _scorecard.py
+  # reads on every run. A freshness reading over the committed sidecar would be a second
+  # gate keyed to the whole pack; `npm --prefix web run build:check` is where rebuild-and-
+  # compare lives instead.
 done
 
 if $touches_board; then

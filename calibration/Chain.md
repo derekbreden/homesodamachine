@@ -73,19 +73,20 @@ Those turns bought nothing about the machine. They were spent debugging the inst
 
 > You're right — stop scanning. The three valid points I do have already answer it.
 
-## The repo already said this
+## The gates are exact
 
-[`room.py`](../hardware/printed-parts/enclosure/enclosure-assembly/room.py), in its own
-docstring, before any of these sessions ran:
+The instrument the sweep is reaching for already exists, and it is not gridded.
+[`_scorecard.py`](../hardware/manifold-layout/_scorecard.py), in its own docstring:
 
-> THIS IS NOT A SEARCH. It ranks no candidate poses, finds no optimum and moves nothing... The
-> move it is built for is: read the table, do the arithmetic, CHOOSE a pose, place it, run the
-> build — `pack-closes`, `lines-clear` and `bend-radius` are exact and they are the oracle. A
-> sweep over poses answers the same question slower, and answers it wrong whenever its grid is
-> coarser than the free window.
+> FOUR OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes... A box
+> appears in each only as a prefilter: two boxes that miss are two solids that miss, and two
+> boxes that overlap say nothing at all.
 
-Read the table. Choose the coordinate. Move everything that answers to it. Build. The gates
-are the oracle and they are exact — you do not need to approach them by sampling.
+`pack-closes` and `lines-clear` ask what two bodies share, `clearance-floor` how far apart they
+stand, and `port-leads` how far a bore cast off a port gets. Read the table. Choose the
+coordinate. Move everything that answers to it. Build. The gates are the oracle and they are
+exact — you do not need to approach them by sampling, and a sweep over poses answers the same
+question slower and answers it wrong whenever its grid is coarser than the free window.
 
 ## The half-move
 
@@ -168,11 +169,15 @@ west side`, and let the build settle the value.
 
 ## The shape
 
-1. Take a run. [`ugly.py`](../hardware/printed-parts/enclosure/enclosure-assembly/ugly.py)
-   ranks the runs the stock cannot bend and names the bodies each one stands on; `need.py`
-   and `room.py` are the other two readings. The run is the assignment — a body is only ever
-   a candidate for moving, and "the problem is elsewhere" names the work rather than excusing
-   it.
+1. Take a run. The board is the committed sidecar beside the assembly. Its `bends` rows rank
+   against the stock's own minimum, and each one names the two bodies its ends stand on —
+   worst ratio first, which is the run to take:
+
+       jq -r '.bends[] | "\(.ratio)  \(.grade)  \(.id)  \(.frm) -> \(.to)"' \
+         hardware/manifold-layout/front-half.scorecard.json | sort -n
+
+   The run is the assignment — a body is only ever a candidate for moving, and "the problem
+   is elsewhere" names the work rather than excusing it.
 2. Choose the coordinate, and write it as the condition it answers to.
 3. Print the chain — everything that reads the body you are moving, and everything reading
    those.
@@ -184,10 +189,11 @@ west side`, and let the build settle the value.
 ## Editor's note
 
 This is a stated rule, and [`Principle.md`](Principle.md) calls that the compromise of last
-resort. It earns the place: `room.py`'s docstring already said *"THIS IS NOT A SEARCH"* and
-named the failure mode exactly, and [Routes 22](<chain/Routes 22.md>) swept anyway — four
-builds, three instrument-debugging turns, and a wall that [Routes 24](<chain/Routes 24.md>)
-walked through the same week. The example was tested and did not hold.
+resort. It earns the place: the failure mode was already named exactly, *"THIS IS NOT A
+SEARCH"*, in the docstring of the very tool that prints the table, and
+[Routes 22](<chain/Routes 22.md>) swept anyway — four builds, three instrument-debugging
+turns, and a wall that [Routes 24](<chain/Routes 24.md>) walked through the same week. The
+example was tested and did not hold.
 
 The rooms are [`chain/`](chain/README.md) — the sweep and the assertion, on the same two runs,
 in full.

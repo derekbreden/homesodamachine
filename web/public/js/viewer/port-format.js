@@ -1,7 +1,7 @@
-// Port face format — the shared reading of `scorecard.py`'s `Port.face`, which is
-// either one of the six body faces by name or, where a fitting is clocked off the
-// world axes, the exit axis given directly as a vector. `_routing.normal_of` and
-// `face_name` are the CAD side of the same two forms.
+// Port face format — the shared reading of a sidecar port's `face`, which is either
+// one of the six body faces by name or, where a fitting is clocked off the world
+// axes, the exit axis given directly as a vector. `_routing.normal_of` and
+// `_routing.face_name` are the CAD side of the same two forms.
 //
 // Deliberately dependency-free, like pick-format.js: the marker overlay imports
 // three.js at load, so the reading lives here where node:test can exercise it
@@ -25,7 +25,7 @@ export function faceNormal(face) {
   return m > 1e-9 ? [face[0] / m, face[1] / m, face[2] / m] : null;
 }
 
-// A port's face for display, mirroring scorecard.py's face_name.
+// A port's face for display, mirroring _routing.py's face_name.
 export function faceLabel(face) {
   if (typeof face === "string") return face.replace("-", "−");
   const n = faceNormal(face);

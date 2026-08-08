@@ -125,7 +125,7 @@ test("the build order respects every STEP-load edge (producers before consumers)
 
 test("short basenames don't substring-match longer step names (collision regression)", () => {
   // The bare "assembly.step" token is a substring of "source-select-assembly.step",
-  // "pump-case-assembly.step", "enclosure-assembly.step", etc. Matching it as a
+  // "pump-case-assembly.step", "foam-assembly.step", etc. Matching it as a
   // token must NOT pull in scripts that only reference those longer names — that
   // invented reverse edges and cycles.
   const consumers = findScriptsConsumingStep("assembly.step", ROOTS);
