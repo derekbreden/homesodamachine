@@ -83,6 +83,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
+import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
 import condenser_block as _cond                       # noqa: E402
 import enclosure as _enc                              # noqa: E402
@@ -455,15 +456,16 @@ def back_wall_ports(*bulkhead_carries):
 #
 #     w.cast((x, enclosure.rear_plane_y, z), (0, -1, 0), dia=jg_bulkhead_union.BODY_D)
 #
-# So the deck is struck on the crown it clears: the meter's own half-section over the pump, and
-# a clearance floor. The meter is the fattest body the deck carries, so a storey that seats it
-# seats the three unions with room to spare.
-#
-# WHICH half-section is the one `DIGITEN_TURN` leaves pointing at the floor. That turn rolls the
-# meter a quarter about Y after the yaw, so the disk's face stands across the machine and it is
-# the body's DEPTH through its two moulded halves — `body_len` — that reaches down at the pump,
-# not the diameter of its face.
+# SO THE DECK IS STRUCK ON ITS OWN DESCENT. What the storey has to clear is not a crown but
+# whatever each of its four bodies would land on if it fell, and a box answers neither half of
+# that: the meter's round housing hangs over a round motor and the two nearest surfaces are not
+# over each other, while the C14 standing beside the carb union is a body the union would slide
+# past and never touch. So the four are dropped and the deck is the storey on which the least of
+# them still has one `DECK_CLEAR` of fall left in it.
 DECK_CLEAR = 6.0
+# How far a deck body is dropped before the strike gives up on it. A body that never lands inside
+# this reach has nothing under it, and does not fence the storey.
+DECK_FALL_LIMIT = 60.0
 # Where each union crosses the wall, west to east. The two gates take the ends — `fluid-28` comes
 # down the WEST outboard column and `fluid-18` the EAST one, so each lands on the side it arrives
 # from — and the carb riser takes the middle, where its meter lies inline ahead of it.
@@ -474,12 +476,6 @@ DECK_CLEAR = 6.0
 # riser's turn rather than through it: `fluid-18` crosses the carb column ahead of where the
 # riser reaches it, and its own column stands west of everything the riser touches.
 PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
-
-
-def deck_z(seaflo):
-    """The Z the panel deck lies on: one `DECK_CLEAR` and the half of the meter that faces the
-    floor in the pose it is turned to, over the water pump's crown — the tallest thing under it."""
-    return box(seaflo).zmax + DECK_CLEAR + _digiten.body_len / 2.0
 
 
 def build_panel_bulkhead(x: float, z: float):
@@ -527,6 +523,71 @@ def build_digiten(carb_carry):
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
     body = cq.importers.importStep(str(DIGITEN_STEP)).val()
     return seat_body(body, DIGITEN_TURN, station=(_digiten.outlet(), target))
+
+
+# --- the storey those four stand on ----------------------------------------
+
+def build_deck(z: float):
+    """The four bodies the deck carries, on the storey `z`: the three unions across the back
+    wall, and the meter inline one `CARB_2` ahead of the carb one.
+
+    One function, called with a trial storey to strike the deck and again with the struck one to
+    place it, so the bodies the strike measures are the bodies the machine gets."""
+    solids, carries = {}, {}
+    for name, px in PANEL_X.items():
+        solids[name], carries[name] = build_panel_bulkhead(px, z)
+    solids["digiten-flow"], carries["digiten-flow"] = build_digiten(carries["bulkhead-carb"])
+    return solids, carries
+
+
+def descent(body, under, limit=DECK_FALL_LIMIT):
+    """How far `body` falls before it lands on one of `under`, or `None` if it never does.
+
+    EXACT STRIDES, not a grid. `_clearing.gap` is 1-Lipschitz under translation, so advancing the
+    body by its own current gap cannot step over a contact: the walk closes on the landing itself
+    rather than sampling near it, and a body that never lands says so instead of reporting the
+    limit as a clearance."""
+    best = None
+    for other in under:
+        t = 0.0
+        while t <= limit:
+            g = _clearing.gap(body.translate(cq.Vector(0.0, 0.0, -t)), other)
+            if g <= 1e-9:
+                best = t if best is None else min(best, t)
+                break
+            t += g
+    return best
+
+
+def _would_land_on(b, placed):
+    """The bodies a body of box `b` could come down on: the ones its plan footprint overlaps that
+    do not stand entirely above it.
+
+    A body it only stands BESIDE is not a floor. The C14 is the case that matters — it shares the
+    carb union's stratum and reaches within a few millimetres of its barrel across the machine,
+    and a strike that read that standoff as headroom would push the deck up rather than let the
+    union slide past it."""
+    return [s for s in placed
+            if not (box(s).xmax <= b.xmin or box(s).xmin >= b.xmax
+                    or box(s).ymax <= b.ymin or box(s).ymin >= b.ymax
+                    or box(s).zmin >= b.zmax)]
+
+
+def deck_z(placed):
+    """The Z the panel deck lies on: the storey on which the least of the four bodies it carries
+    still has one `DECK_CLEAR` of fall left in it.
+
+    `placed` is everything already standing, which is what the deck has to come down onto. The
+    trial storey the four are dropped from is that pack's own crown, one union half-section — the
+    fattest the deck carries — and a clearance over it, so all four start in air whatever stands
+    below them, and the strike is that trial less what the first of them to land would fall."""
+    trial = max(box(s).zmax for s in placed) + DECK_CLEAR + _jg.BODY_D / 2.0
+    falls = [(name, descent(s, _would_land_on(box(s), placed)))
+             for name, s in build_deck(trial)[0].items()]
+    landing = [(d, n) for n, d in falls if d is not None]
+    if not landing:
+        return trial
+    return trial - min(landing)[0] + DECK_CLEAR
 
 
 # --- the mains inlet, through the back wall --------------------------------
@@ -1247,13 +1308,15 @@ def build_pack() -> cq.Assembly:
     wr1110, wr1110_carry = build_wr1110(gasher_carry)
     a.add(wr1110, name="wr1110", color=C_WR1110)
     a.co2_inlet_carry = co2in_carry
-    deck = deck_z(seaflo)
-    panels, panel_carries = {}, {}
-    for name, px in PANEL_X.items():
-        panels[name], panel_carries[name] = build_panel_bulkhead(px, deck)
-        a.add(panels[name], name=name, color=C_BULKHEAD)
-    meter, meter_carry = build_digiten(panel_carries["bulkhead-carb"])
-    a.add(meter, name="digiten-flow", color=C_DIGITEN)
+    # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
+    # the assembly as it is at this point and are the last things into it.
+    a.deck_z = deck_z([s for s, _c in _solids(a).values()])
+    deck_solids, panel_carries = build_deck(a.deck_z)
+    meter_carry = panel_carries.pop("digiten-flow")
+    for name, solid in deck_solids.items():
+        a.add(solid, name=name, color=C_DIGITEN if name == "digiten-flow" else C_BULKHEAD)
+    panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
+    meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
@@ -1333,6 +1396,30 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      c14=c14_stations(), east_bosses=a.east_bosses)
 
 
+def check_through_wall_headroom(a, shell):
+    """Raises unless every body seated through a wall still stands under the box's own ceiling.
+
+    `pack` leaves these out of what the box is sized on, which is right in plan — a body that
+    reaches out through its own skin cannot also set that skin. IN Z IT LEAVES THEM UNMEASURED,
+    and what is inboard of the wall is under the top wall like anything else. The panel deck is
+    where that bites: the union's Ø22.86 barrel is the fattest thing the deck carries, so it is
+    what touches the ceiling first, and `enclosure._dims` never sees it.
+
+    The ceiling is a STATED bound, so this fails the build rather than lifting it."""
+    placed = _solids(a)
+    ceiling = shell.inner[5]
+    over = [(n, box(placed[n][0]).zmax) for n in THROUGH_WALL
+            if box(placed[n][0]).zmax > ceiling + 1e-9]
+    if over:
+        worst = max(over, key=lambda nz: nz[1])
+        raise ValueError(
+            f"{worst[0]} reaches z {worst[1]:.2f} but the interior ceilings at {ceiling:.2f} — "
+            f"{worst[1] - ceiling:.2f} mm into the top wall. Every body seated through a wall is "
+            f"left out of what `enclosure._dims` sizes the box on, so raise "
+            f"`enclosure.appliance_height` or drop the storey it stands on: "
+            + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over)))
+
+
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
 WALL_COLORS = {"front-bottom": cq.Color(0.72, 0.74, 0.78, 0.30),
@@ -1362,6 +1449,15 @@ def build_funnel(box):
     brim underside) seated in the top-wall opening — turned `FUNNEL_ROT` about its own Z,
     then set at `funnel_centre` with that underside on the box's outer top. `enclosure.py`
     cuts the opening from the same centre, so funnel and hole cannot drift apart.
+
+    THE BRIM RIDES THE CEILING, AND SO DOES THE DRAIN. The basin's underside bears on the top
+    wall's outer face and `hopper_funnel.drop` is fixed, so every millimetre off
+    `enclosure.appliance_height` is a millimetre off the drain's own height — and what that comes
+    out of is the fall `fluid-4` leaves the spout with before its first corner. That corner is
+    the last one in the run to reach its stock radius, so THE CEILING IS SPENT ON A BEND: the
+    height stands where the drop off the spout to the slot the source pair leaves is still one
+    `_lines.TUBE_BEND`, and `bend-radius` on the card is where a ceiling that took one more
+    millimetre would show up.
 
     Returns `(placed, carry)` like every other seated body, so the drain the basin empties
     through rides the basin."""
@@ -1412,7 +1508,9 @@ def machine():
     and then carries the stations they seat in its walls."""
     a = build_pack()
     p = pack(a)
-    return a, p, _seated(_enc.box_around(p))
+    shell = _enc.box_around(p)
+    check_through_wall_headroom(a, shell)
+    return a, p, _seated(shell)
 
 
 def build_front_half() -> cq.Assembly:
