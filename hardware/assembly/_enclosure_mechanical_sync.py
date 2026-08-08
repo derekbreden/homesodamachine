@@ -42,10 +42,9 @@ from docgen import substitute_md  # noqa: E402
 # What the row's hardware takes on the wall face, off each fitting's own panel footprint.
 PORT_NUT_D, _ = _jg.panel_footprint()                        # JG bulkhead nut, across the face
 PORT_C14_FLANGE_W, _ = _c14.panel_footprint()                # and the C14's bezel
-# Clear wall between two adjacent nuts. A hand has to get a socket onto each one after its
-# neighbour is made up, and this is the margin that leaves — the figure `_port_chain` prices a row
-# of them at. `enclosure_assembly.PANEL_X` stands the umbilical's three further apart than this.
-PORT_NUT_GAP = 7.0
+# Clear wall between two adjacent nuts — the margin `_port_chain` prices a row of them at, and
+# the same figure `enclosure_assembly.PORT_PITCH` stands its two columns on.
+PORT_NUT_GAP = _ea.PORT_NUT_GAP
 
 
 def _port_chain(n):
@@ -71,12 +70,15 @@ def main():
     _row_z = _mouth(_a.panel_carries["bulkhead-carb"])[2]
     _order = ("bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb")
     _xs = [_mouth(_a.panel_carries[n])[0] for n in _order]
-    _pitches = {round(b - a, 6) for a, b in zip(_xs, _xs[1:])}
+    # The wall's own COLUMNS, not a row of three: the four unions stand on two of them, and the
+    # doc reads out the pitch between the pair that share a storey.
+    _cols = sorted({round(x, 6) for x in _xs})
+    _pitches = {round(b - a, 6) for a, b in zip(_cols, _cols[1:])}
     if len(_pitches) != 1:
         raise ValueError(
-            f"the umbilical row is not on one pitch: {sorted(_pitches)}. The doc quotes a "
-            f"single figure, so either `enclosure_assembly.PANEL_X` goes back on one pitch "
-            f"or this reads out every gap.")
+            f"the umbilical unions stand on columns {_cols}, {len(_pitches)} pitches apart: "
+            f"{sorted(_pitches)}. The doc quotes a single figure, so either "
+            f"`enclosure_assembly.PANEL_X` goes back on one pitch or this reads out every gap.")
     # The two bores in the table's "Wall opening" column, taken from the functions that
     # STRIKE them and not recomputed beside them. These are the calls `enclosure_assembly.pack`
     # fills `back_ports` with, and `enclosure._port_cuts` bores that list — so the table
