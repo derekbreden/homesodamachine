@@ -46,12 +46,10 @@
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
    "status": "fail",
-   "value": "3 clash, 0 unanswered",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "suction-chain \u2229 tube-fluid-18   74.0 mm\u00b3, x[   58.75,   71.35] y[  261.03,  267.18] z[  270.65,  273.95]",
-    "psu \u2229 enclosure-back-top   145.7 mm\u00b3, x[   99.20,  102.25] y[  364.30,  437.80] z[  304.75,  305.40]",
-    "tube-fluid-18 \u2229 tube-fluid-4   169.9 mm\u00b3, x[  -21.68,   -7.79] y[  260.32,  271.03] z[  266.45,  279.87]"
+    "psu \u2229 enclosure-back-top   145.7 mm\u00b3, x[   99.20,  102.25] y[  364.30,  437.80] z[  304.75,  305.40]"
    ],
    "active": true
   },
@@ -59,13 +57,10 @@
    "id": "lines-clear",
    "label": "No routed tube intersects a body, a piece or another tube",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 clash",
+   "status": "pass",
+   "value": "0 clash",
    "target": "0 clash",
-   "detail": [
-    "fluid-18 \u2229 fluid-4: 169.9 mm\u00b3",
-    "fluid-18 \u2229 suction-chain: 74.0 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -94,13 +89,10 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "5 under, tightest 0.000 mm",
+   "value": "2 under, tightest 0.770 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "fluid-18 \u2014 fluid-4: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-18 \u2014 suction-chain: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-2 \u2014 fluid-18: 0.570 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
@@ -134,6 +126,7 @@
     "psu \u2014 wago-gnd: 2.500 mm",
     "relay-2 \u2014 pcba: 2.532 mm",
     "pcba \u2014 relay-1: 2.532 mm",
+    "fluid-18 \u2014 vk-solenoid: 2.650 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 2.761 mm",
     "water-7 \u2014 co2-2: 2.861 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
@@ -144,13 +137,13 @@
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-14 \u2014 seaflo-pump: 3.325 mm",
     "water-3 \u2014 fluid-28: 3.620 mm",
-    "fluid-18 \u2014 vk-solenoid: 3.650 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
+    "fluid-18 \u2014 discharge-chain: 3.711 mm",
     "fluid-2 \u2014 fluid-26: 3.717 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
     "co2-2 \u2014 carb-1: 3.836 mm",
-    "carb-1 \u2014 fluid-18: 3.904 mm",
+    "carb-1 \u2014 fluid-18: 3.895 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
     "co2-2 \u2014 fluid-18: 4.150 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
@@ -718,7 +711,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 43/43 corners at spec",
+   "value": "B \u2014 44/44 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -3923,7 +3916,7 @@
    "to": "bulkhead-flavor-a.tube-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 469.31,
+   "length": 480.12,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3943,13 +3936,13 @@
     },
     {
      "at": 2,
-     "turn": 18.5,
+     "turn": 26.8,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
       34.69,
-      89.05
+      94.59
      ]
     },
     {
@@ -3959,7 +3952,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      89.05,
+      94.59,
       133.64
      ]
     },
@@ -3971,21 +3964,32 @@
      "grade": "B",
      "legs": [
       133.64,
-      186.21
+      81.41
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 21.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      81.41,
+      110.21
      ]
     }
    ],
-   "atSpec": 4,
-   "bends": 4,
+   "atSpec": 5,
+   "bends": 5,
    "worstTurn": 90.0,
-   "seat": 29.839,
-   "reach": 29.839,
-   "reachRatio": 2.1314,
+   "seat": 28.024,
+   "reach": 28.024,
+   "reachRatio": 2.0017,
    "reachGrade": "A",
    "binding": {
     "leg": 1,
     "length": 34.687,
-    "demand": 1.1625,
+    "demand": 1.2378,
     "from": [
      77.07,
      142.08,
@@ -4016,8 +4020,8 @@
      "z": 46.65
     },
     "span": 334.93,
-    "path": 469.31,
-    "detour": 1.401
+    "path": 480.12,
+    "detour": 1.433
    }
   },
   {
@@ -5304,7 +5308,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T22:24:56+00:00",
-  "commit": "ad05fa8d69e006eefa2bafd58e026d3fda2c5490"
+  "generated": "2026-08-08T22:44:05+00:00",
+  "commit": "cdbc4854013dc187ec02cacb54427325867a40c3"
  }
 }
