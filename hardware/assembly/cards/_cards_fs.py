@@ -220,9 +220,9 @@ def _figures():
     # The reed census and the valve census are the machine's, and four cards
     # walk them. A reed added anywhere changes AB-05's audit and FC-03's table
     # at once, so both read the same total.
-    assert _fc.reeds_total == _fc.reeds_carbonator + _fc.reservoir_count * _fc.reeds_per_reservoir, (
+    assert _fc.reeds_total == _fc.reeds_carbonator + _rsv.reservoir_count * _fc.reeds_per_reservoir, (
         f"the reed total {_fc.reeds_total} is not the carbonator's {_fc.reeds_carbonator} plus "
-        f"{_fc.reservoir_count} reservoirs of {_fc.reeds_per_reservoir} — AB-05 audits it as that sum")
+        f"{_rsv.reservoir_count} reservoirs of {_fc.reeds_per_reservoir} — AB-05 audits it as that sum")
     # AB-01 sets the primary anywhere in a band and the appliance holds one
     # pressure regardless; the band is the bench's and the pressure is the
     # WR1110's, and AB-01's caption is about exactly that difference.
@@ -248,9 +248,9 @@ def _figures():
         "REGISTER_REMAINING": _dec(_cap.disc_thickness - _cap.register_depth),
         "PLATE_SLIP": f"~{_dec(plate_slip)}",
         # ── PV — the rods (PV-05, PV-06) ─────────────────────────────────
-        "LEVEL_RODS": f"{carb_rods + _fc.reservoir_count}",
+        "LEVEL_RODS": f"{carb_rods + _rsv.reservoir_count}",
         "CARB_ROD_QTY": f"{carb_rods}",
-        "RSVR_ROD_QTY": f"{_fc.reservoir_count}",
+        "RSVR_ROD_QTY": f"{_rsv.reservoir_count}",
         "CARB_ROD_LEN": f"{_pv.carbonator_rod_len:.4g} mm "
                         f"({_pv.carbonator_rod_len / MM_PER_IN:.3g} in)",
         "CARB_ROD_MM": f"{_pv.carbonator_rod_len:.4g} mm",
@@ -283,7 +283,7 @@ def _figures():
         # ── FC / AB — the census every bench walks ───────────────────────
         "REEDS_TOTAL": f"{_fc.reeds_total}",
         "REEDS_CARB": f"{_fc.reeds_carbonator}",
-        "REEDS_RSVR_ALL": f"{_fc.reservoir_count * _fc.reeds_per_reservoir}",
+        "REEDS_RSVR_ALL": f"{_rsv.reservoir_count * _fc.reeds_per_reservoir}",
         "REEDS_PER_RSVR": f"{_fc.reeds_per_reservoir}",
         "PROBE_COUNT": f"{_fc.ds18b20_count}",
         "SOLENOID_COUNT": f"{_fc.valve_count}",
