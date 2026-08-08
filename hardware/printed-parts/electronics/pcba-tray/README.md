@@ -39,10 +39,12 @@ top-face pad, which the board's pours keep clear (`fastenerAnnulus`).
 
 The tray frame **is the board's pcb frame** (pcbX/pcbY as in `pcba.tsx`), so
 every boss centre is its MH coordinate verbatim. Board footprint
-**85.05 × 72.85 mm** as fabbed; the floor is that outline grown ~0.5 mm on the
-south edge, where MH3/MH4 sit nearer the edge than the boss radius. Keep the
-west and east edges unobstructed on the shelf: the USB-C programming port
-(J14) is flush on the west edge, and the J10 12 V screw throats face east.
+**85 × 72.8 mm** as fabbed; the floor is that outline grown 0.5 mm on the
+south edge, where MH3/MH4 sit 3.0 mm from the edge against the M3 boss's
+3.5 mm radius (MH1/MH2, 3.5 mm from the north edge, are flush with no
+growth). Keep the west and east edges unobstructed on the shelf: the USB-C
+programming port (J14) is flush on the west edge, and the J10 12 V screw
+throats face east.
 
 `pcba_tray.py` → `pcba-tray.step`; `pcba_assembly.py` → `pcba-assembly.step`
 (the board as a simplified populated model — the outline slab + one box per

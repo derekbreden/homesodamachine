@@ -286,6 +286,10 @@ def electronics_shelf(m: Machine):
     facts = {
         "SHELF_SCREWS_M3X8": f"{len(m.box.east_bosses) - long_screws}",
         "SHELF_SCREWS_M3X10": f"{long_screws}",
+        # The board's own cut outline (`pcba.tsx`'s Edge_Cuts path, in the pcb
+        # frame the tray shares) — not the gerber's stroked/plotted edge, which
+        # reads wider by the render aperture.
+        "PCBA_SIZE": f"{_pcba.board.length:.4g} {X} {_pcba.board.width:.4g} mm",
         # No insert is pressed on this bench — every one is already in a wall boss.
         # Typed, because there is no insert census to read: none of the five bodies
         # declares inserts of its own, so nought is not a count of anything. What
@@ -304,7 +308,7 @@ def electronics_shelf(m: Machine):
             *column_names, "SHELF_SCREWS_M3X8", "SHELF_SCREWS_M3X10",
             "SHELF_INSERTS_HERE"},
         "es-03-stage-psu-relays-pcba": {
-            "WALL_BOSSES", "PCBA_BOSSES", "SHELF_INSERTS_HERE"},
+            "WALL_BOSSES", "PCBA_BOSSES", "SHELF_INSERTS_HERE", "PCBA_SIZE"},
         "en-06-power-column": {
             *column_names, "SHELF_SCREWS_M3X8", "SHELF_SCREWS_M3X10"},
     }
