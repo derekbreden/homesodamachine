@@ -168,17 +168,27 @@ def main():
         # Finished stack: the shell plus a cap + gasket on each face. The lid
         # nests in the cap mouth, so it adds no height.
         "CCORE_CAPPED_H": f"{foam_shell_outer_height + 2 * (foam_cap_height + gasket_thickness):.4g} mm",
-        # ─── Carbonator reed levels (witness list) ────────────────────
+        # ─── Carbonator reed levels and the bridge that sets them ─────
+        # The two switching heights, and the two figures the paragraph explaining
+        # them stands on: the bare channel a wrap leaves between turns, which is
+        # why the reed cannot fit between wraps at all, and where the bridge's own
+        # bottom edge lands off the tube's rim, which is what the setting gauge
+        # marks. All four off the bridge's own module, so the witness list, the
+        # explanation and the closed open item read one part.
         "LOW_LEVEL": f"{_reed_bridge_gen.low_level_z:.4g} mm",
         "HIGH_LEVEL": f"{_reed_bridge_gen.high_level_z:.4g} mm",
+        "INTER_WRAP_CLEAR": f"{_reed_bridge_gen.inter_wrap_clear:.4g} mm",
+        "BRIDGE_Z_BOTTOM": f"{_reed_bridge_gen.bridge_z_bottom:.4g} mm",
     }
 
     substitute_md(
         _here / "cold-core.md",
         variables=variables,
         expected_counts={
-            "LOW_LEVEL": 1,
-            "HIGH_LEVEL": 1,
+            "LOW_LEVEL": 3,
+            "HIGH_LEVEL": 3,
+            "INTER_WRAP_CLEAR": 1,
+            "BRIDGE_Z_BOTTOM": 1,
             "GROOVE_DEPTH": 1,
             "MANDREL_OD": 1,
             "TANK_OD": 1,

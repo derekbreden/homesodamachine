@@ -35,6 +35,7 @@ import _scorecard as _card  # noqa: E402  — the fastening table, one row per p
 import enclosure as _enc  # noqa: E402  — on the path once `front_half` is imported
 import iec_c14_inlet as _c14  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
+import meanwell_irm90 as _psu  # noqa: E402  — on the path once `front_half` is imported
 from docgen import substitute_md  # noqa: E402
 
 # What the row's hardware takes on the wall face, off each fitting's own panel footprint.
@@ -107,6 +108,12 @@ def main():
         "STRATUM_X": f"{_span(_pack, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_pack, 'foam-assembly'):.0f}",
         "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
+        # The PSU's own body, off the reference module the pack places it from. The
+        # brick is laid on its side so its SHORTEST axis is the one reaching into the
+        # lane, and the doc says which axis does what — so both are read off the same
+        # module `front_half` seats the body with rather than copied beside it.
+        "PSU_DEPTH": f"{_psu.height:.4g} mm",
+        "PSU_LENGTH": f"{_psu.length:.4g} mm",
         # AC inlet recess range.
         "AC_RECESS_DEPTH": (
             f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm"
@@ -151,6 +158,8 @@ def main():
             "STRATUM_X": 1,
             "CORE_X": 1,
             "SIDE_BAND": 1,
+            "PSU_DEPTH": 1,
+            "PSU_LENGTH": 1,
             "AC_RECESS_DEPTH": 2,
             "FOAM_SHELL_X": 1,
             "FOAM_SHELL_Y": 1,
