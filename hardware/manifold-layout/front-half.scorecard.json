@@ -157,6 +157,306 @@
    "active": true
   },
   {
+   "id": "port-lane-width",
+   "label": "The port lane carries a bore with a wall either side of it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "9.5 mm of lane",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "boss-clears-lane",
+   "label": "Every attachment boss stands clear of the port lane",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 hold",
+   "target": "every boss inboard of the lane's outer edge",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-screw-reach",
+   "label": "The clamp screw reaches the whole of its insert",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "4 mm past the shell face",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-screw-bottom",
+   "label": "The clamp screw pulls its head down before it bottoms",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "8 mm past the shell face at most",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "deck-mount-reach",
+   "label": "Every deck mount's screw reaches the whole of its insert",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 hold",
+   "target": "4 mm into the column",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "deck-mount-room",
+   "label": "Every deck-mount column leaves the pour its gap in the cup",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 hold",
+   "target": "1.5 mm off everything standing in the cup",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "entry-skew-ceiling",
+   "label": "The countersink stands inside the boss its own column carries",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "45.0\u00b0 at most",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "entry-passes-section",
+   "label": "The countersink's mouth passes the leaning tube's whole section",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "\u23008.06 across the face",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fill-conduits-paired",
+   "label": "Every fill bore has a conduit over it and every conduit a bore",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the cap's fills naming ['reservoir-a-fill', 'reservoir-b-fill']",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fill-conduit-station",
+   "label": "Every fill conduit stands on its own side's anchor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "each conduit on the station its anchor strikes",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-conduit-room",
+   "label": "Every conduit column leaves the pour its gap in the cup",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 hold",
+   "target": "1.5 mm off everything else standing in the cup",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-conduit-wall",
+   "label": "Every conduit column stands the pour gap off the wall or merges in",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 hold",
+   "target": "the pour gap apart or a 2 mm neck",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "deck-mount-pour",
+   "label": "Every deck mount's lid hole leaves a land under its screw head",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 hold",
+   "target": "1.5 mm off the pour hole",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-room",
+   "label": "Every cradle pad stands its room off everything else the face opens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 hold",
+   "target": "1 mm off the nearest",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-pour",
+   "label": "Every cradle pad has a floor under it where the pour hole is",
+   "kind": "gate",
+   "status": "pass",
+   "value": "12/12 hold",
+   "target": "1 mm off the pour hole",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cradle-vent",
+   "label": "Every cradle pad has a floor under it where the vents are",
+   "kind": "gate",
+   "status": "pass",
+   "value": "24/24 hold",
+   "target": "1 mm off either vent",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-conduit-pair",
+   "label": "Every pair of conduits stands apart or merges on a neck, never tangent",
+   "kind": "gate",
+   "status": "pass",
+   "value": "21/21 hold",
+   "target": "the pour gap apart or a 2 mm neck",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-ramp-grade",
+   "label": "The X half-run is the funnel floor's shallowest line",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the Y half-run at or under the X (73.33 mm)",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "crossbar-positive",
+   "label": "The crossbar leaves Y-A and Y-B their own tube",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a crossbar of 0 or more",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "inner-limb-pitch",
+   "label": "The inner limbs stand a valve body apart",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "34.25 mm between the inner limbs",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "limb-pitch-floor",
+   "label": "The two lanes stand a valve body apart",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "LIMB_PITCH at or over 34.25 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "limb-pitch-ceiling",
+   "label": "The lanes step inboard of the barbs, never outboard",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "LIMB_PITCH at or under 57 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "spine-bend-radius",
+   "label": "The spine turn holds the corner this stock takes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "SPINE_R at or over 14 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "spine-straight",
+   "label": "The two quarter-turns leave straight tube between them",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "SPINE_R at or under 29.7 mm, half the deck separation",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plug-per-station",
+   "label": "Every station is one plug's bottom face and every plug is one station's",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "3 plugs",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plug-web",
+   "label": "Every plug leaves a printable wall standing between its arches",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 hold",
+   "target": "1 mm of web",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "water-outlet-slot",
+   "label": "The carbonated-water outlet crosses the support ring in one slot",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "one slot holding the whole crossing",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "co2-bore-meets-fall",
+   "label": "The CO2 bore is struck where its line falls down the lane",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the co2-in conduit on the port lane (-77.5)",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reed-channel-clear",
+   "label": "Every conduit's line falls clear of both reed channels",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 hold",
+   "target": "3.175 mm off the nearer channel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "dry-seal-rim",
+   "label": "The dry seal's counterbore leaves a PETG rim under the elbow flange",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "under \u230018.7",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "east-band",
    "label": "The +X wall's column stands in the depth that wall runs free",
    "kind": "gate",
@@ -4846,7 +5146,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T05:59:22+00:00",
-  "commit": "72857701e5bb118a3f7f4033f06c982e6be7799f"
+  "generated": "2026-08-08T06:27:45+00:00",
+  "commit": "de7b24c3ad1156d4a49b32f864c67f9ad034931d"
  }
 }

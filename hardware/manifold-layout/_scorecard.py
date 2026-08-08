@@ -581,21 +581,34 @@ def _verdict(ok: bool) -> str:
 
 
 def _bounds(a) -> list:
-    """One gate per bound the machine states about itself and measures at every build — every
+    """One gate per bound the machine states about itself — every
     leg of the refrigerant loop closing, the vent's drip landing on
     the basin's flat, the drip tray's lip landing inside the −X wall, a through-wall body
     standing under the ceiling, a printed valve cradle standing under its valve, the drip
     basin's own flat floor taking the moisture plate, and the
     enclosure's own: the pack inside the stated width, depth and height, the two seam planes
     clear of the display housing and on the print bed, the funnel throat inside the frame the
-    top wall has left. `front_half.carry_enclosure_bounds` brings the last group over.
+    top wall has left. `front_half.carry_enclosure_bounds` brings that group over.
+
+    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `hopper_funnel` and
+    the cold core's modules state bounds about their own CONSTANTS, which are fixed the moment
+    each file is read — the crossbar leaving Y-A and Y-B their own tube, the two limbs standing
+    a valve body apart, the spine turn holding its stock's corner, a clamp screw reaching the
+    whole of its insert, a conduit column leaving the pour its gap, a plug leaving a printable
+    web between its arches. Those are read at import into `_stated_bounds` and
+    `front_half.carry_stated_bounds` brings them over. A bound stated over a population — every
+    conduit, every cradle, every pair — is ONE row: its value tallies the readings and its
+    detail carries the note each failing one wrote.
 
     NONE OF THEM STOPS A BUILD, and that is the whole reason they arrive here. A bound the
     machine violates is a thing to LOOK AT, and what a reader looks at is the STEP, the three
     elevations and this card — every one of which a raise destroys, leaving the only account of
-    the fault in a terminal nobody commits. So the check hands its reading back instead,
-    `front_half.BOUNDS` carries it onto the assembly, and it is red HERE, in the committed
-    artifact, with the message the check wrote and the geometry beside it.
+    the fault in a terminal nobody commits. An import-time raise destroys them EARLIER, before
+    the build has drawn a line, so there is even less to look at. So the check hands its reading
+    back instead, `front_half.BOUNDS` carries it onto the assembly, and it is red HERE, in the
+    committed artifact, with the message the check wrote and the geometry beside it — two limbs
+    pitched under a valve body come out as this row AND as `pack-closes` naming both valves with
+    the volume they share, which is the picture a raise cannot leave.
 
     An assembly built by something that states no bounds contributes no rows rather than a
     silent pass: nothing measured is not the same claim as nothing wrong."""
