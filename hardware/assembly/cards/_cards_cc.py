@@ -145,6 +145,13 @@ def cold_core(m):
     ring_slot_deg = (slot[0] + slot[1]) / 2.0
     # The top cap is the only one with anything standing in it, which is what makes
     # CC-06's "label them" step a step and CC-15's rotation the column pattern's.
+    # An EMPTY table is the case a count cannot report: CC-06 would tell the bench to
+    # press an insert into each of nought columns and CC-15 would clock the cap by a
+    # pattern that is not there, and both would read as sentences about a real part.
+    assert cci.deck_mounts, (
+        "the top cap carries no deck mount — CC-06 presses a ruthex into every deck "
+        "column before the pour and CC-15 clocks the cap by the pattern they make, so "
+        "with an empty table both steps describe a feature the part does not have")
     assert cci.deck_mount_proud() == 0.0, (
         "a deck mount now stands proud of the lid — CC-06 pours both caps in one "
         "fixture and CC-15 lays the valve trays on the lid's own face")
