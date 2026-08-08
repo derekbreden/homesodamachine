@@ -67,11 +67,10 @@ MOUNT_PITCH_Y = BASE_Y - 2.0 * MOUNT_INSET         # [145](MOUNT_PITCH_Y)
 SHELL_OVERHANG_X = (SHELL_X - BASE_X) / 2.0        # [7](SHELL_OVERHANG_X) each side
 PLATE_REACH_LONG = (BASE_Y - SHELL_Y) / 2.0 + SHELL_OFFSET_Y    # [27.5](PLATE_REACH_LONG) at -Y
 PLATE_REACH_SHORT = (BASE_Y - SHELL_Y) / 2.0 - SHELL_OFFSET_Y   # [7.5](PLATE_REACH_SHORT) at +Y
-# The plate a hole leaves between itself and the edge it is inset from. Thin —
-# [14](MOUNT_D) inset [7.5](MOUNT_INSET) is very nearly tangent to both edges it
-# sits in from, on a stamped plate where that ligament is the whole of the bolt's hold.
+# The plate a hole leaves between itself and the edge it is inset from. Ø[14](MOUNT_D)
+# inset [7.5](MOUNT_INSET) stands very nearly tangent to both edges it sits in from.
 MOUNT_LIGAMENT = MOUNT_INSET - MOUNT_D / 2.0  # [0.5](MOUNT_LIGAMENT)
-# What a cylinder on the larger axis would add, which is what `shell_hold` is watching for.
+# What a cylinder on the larger axis would fill that this shell does not.
 CYL_EXCESS_PCT = (SHELL_Y / SHELL_X - 1.0) * 100.0
 
 
@@ -100,8 +99,7 @@ def build():
 
 # --- Holds ----------------------------------------------------------------
 # The envelope is two stated bodies and four stated holes. Each hold reads one of those
-# statements back off the solid, so a figure edited here says which body it moved rather
-# than passing quietly into whatever is packed around it.
+# statements back off the solid.
 
 def envelope_hold():
     """The six faces the machine has to clear: the plate's own Y, the SHELL's X, and the
@@ -122,9 +120,8 @@ def envelope_hold():
 
 
 def shell_hold():
-    """The shell is an ELLIPSE, not a cylinder on its larger axis. Volume says so where a
-    bounding box cannot: a round shell fills the same box and [14](CYL_EXCESS_PCT)% more
-    of it."""
+    """The shell is an ELLIPSE, not a cylinder on its larger axis — a round one fills the
+    same bounding box and [14](CYL_EXCESS_PCT)% more of it."""
     got = build().Volume()
     want = (BASE_X * BASE_Y * BASE_Z
             - 4.0 * math.pi * (MOUNT_D / 2.0) ** 2 * BASE_Z

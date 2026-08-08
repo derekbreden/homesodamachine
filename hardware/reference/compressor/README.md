@@ -27,7 +27,7 @@ the *plate's*, and the height is the two stacked.
 The shell is a cylinder pressed slightly oblong: viewed down Z it is an ellipse,
 [110](SHELL_X) across the machine and [125](SHELL_Y) along it.
 
-## What the envelope does that a box would not
+## Overhang and offset
 
 **The belly overhangs its own plate.** The shell is [110](SHELL_X) across and the
 plate only [96](BASE_X), so the widest part of the compressor is
@@ -45,10 +45,9 @@ Four Ø[14](MOUNT_D) mm holes through the plate, each inset
 [7.5](MOUNT_INSET) mm from both edges it sits in from — center to center
 **[81](MOUNT_PITCH_X) × [145](MOUNT_PITCH_Y) mm**, symmetric about the origin.
 
-That inset leaves **[0.5](MOUNT_LIGAMENT) mm of plate** outboard of each hole: the
-hole is very nearly tangent to both edges, and on a stamped plate that ligament is
-the whole of the bolt's hold in that direction. `mounts_hold()` fails the build if a
-figure ever moves far enough to open it into a slot.
+That inset leaves **[0.5](MOUNT_LIGAMENT) mm of plate** outboard of each hole — the
+hole stands very nearly tangent to both edges it sits in from. `mounts_hold()` fails
+the build if a figure ever moves far enough to open it into a slot.
 
 ## Frame
 
@@ -67,7 +66,7 @@ part is placed, and on a symmetric bolt pattern it drops on either way round.
 | hold | what it catches |
 |---|---|
 | `envelope_hold()` | the six faces the machine clears, and the underside sitting on Z = 0 |
-| `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it, which only volume sees |
+| `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it |
 | `mounts_hold()` | a hole opening into the plate's edge, or standing under the belly where no bolt reaches it |
 
 ## Where it stands

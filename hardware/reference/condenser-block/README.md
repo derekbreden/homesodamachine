@@ -3,8 +3,8 @@
 The refrigeration loop's hot end: a finned serpentine with its fan bolted to
 one face, harvested from the donor appliance along with the compressor. There
 is **no STEP here** — the block was calipered, not scanned.
-[`condenser_block.py`](condenser_block.py) draws the envelope the pack takes
-and declares the three arrivals on it.
+[`condenser_block.py`](condenser_block.py) draws the envelope the pack takes,
+declares the three arrivals on it, and cuts the two holes it hangs off.
 
 ## Geometry (calipered)
 
@@ -30,6 +30,27 @@ air leaves by.
 
 `stations_hold()` holds all three to the box this module draws: each stands on
 the face its own axis points out of, and inside that face's own edges.
+
+## The mount
+
+The block hangs off two holes, and the block is otherwise envelope. Both are
+Ø5, drilled in **0.4 mm sheet** — one in the base plate, one in the crown plate
+— on a single vertical line standing **29 in from the intake face** and **15 in
+from the aft face**. Between them a **16 × 20 × 150.2** shaft runs the full
+standing height, the 151 less a plate at each end.
+
+| Mount | Face | Location |
+|---|---|---|
+| `mount-base` | base, −Z | (29, 163, 0) |
+| `mount-crown` | crown, +Z | (29, 163, 151) |
+
+The machine currently sets the block down unturned
+([`front_half.build_condenser`](/hardware/manifold-layout/front_half.py)), so those
+two insets read off the world's X− and Y+ faces at this pose.
+
+`mounts_hold()` holds the shaft clear of all four sides, both holes inside that
+shaft, the sheet at either end at its own thickness, and probes the solid for
+material or air where each of those puts it.
 
 ## Where it stands
 

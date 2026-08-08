@@ -1316,6 +1316,7 @@ def _stations_hold():
     _tee_ref.stations_hold()
     _ydiv.stations_hold()
     _cond.stations_hold()
+    _cond.mounts_hold()
     _pcba.stations_hold()
     _jg.stations_hold()
     _iec.stations_hold()
