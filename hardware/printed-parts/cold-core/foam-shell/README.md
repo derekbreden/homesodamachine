@@ -204,7 +204,7 @@ twelve inserts total, six per face, for fastening the foam-cap stacks.
 The outer **−X** wall carries every penetration that crosses a wall at all: a
 Z-elongated slot on each of its two lanes and the two ⌀[6.5 mm](TUBE_HOLE_D) round bores of the
 front port field, which are the reed cables'. **No fluid line crosses it** — this
-face is mated flat against the refrigeration base, so a bore struck here opens
+face is mated against the refrigeration base, so a bore struck here opens
 into that base rather than into the machine, and all seven leave by the top cap's
 conduits instead. See Penetrations.
 
@@ -437,9 +437,11 @@ transition arcs), each slot pierces only this one outer wall.
 
 **There are two because the refrigeration base is two bodies.** This wall is mated face
 to face with that base: the condenser stands against the port lane's face and the
-compressor against the west lane's. So the evaporator's two coppers leave by
-opposite lanes, each on the pick the body behind it already carries, and neither joint is
-a length of tube. A slot rather than a bore is the coil's doing either way — a tail formed
+compressor just short of the west lane's. So the evaporator's two coppers leave by
+opposite lanes, each on the pick the body behind it already carries — the condenser's
+joint made up across the plane the two bodies share, the compressor's cut and brazed
+across the standoff its pressed shell leaves. A slot rather than a bore is the coil's
+doing either way — a tail formed
 off a coil that is lowered into the cavity travels *down* the wall to its station rather
 than being threaded through it.
 
