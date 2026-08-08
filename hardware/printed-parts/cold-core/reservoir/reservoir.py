@@ -214,6 +214,10 @@ fill_boss_outer_diameter = fill_bore_diameter + 2 * fill_boss_wall
 fill_boss_drop = 2.0  # below the cap's bottom rim plane, as the rod's register boss hangs
 fill_position = reservoir_fill_port
 
+# One fill station per physical reservoir — A and B — so this is the reservoir count itself,
+# read by firmware's own census (reeds, rods) and the bench cards rather than kept there.
+reservoir_count = len(fill_position)
+
 
 # Level-sensing rod: a vertical [3.175 mm](ROD_DIAMETER) (1/8") × 305 mm (12") 316 SS
 # round rod, body-anchored and cap-registered. A small magnetic float
