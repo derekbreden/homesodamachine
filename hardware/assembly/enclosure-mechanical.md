@@ -51,7 +51,7 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3), soldering iron 
 
 Print-inspect all four pieces and the nameplate blank. Wipe down every interior face; remove brim residue and any stray support material at the rear wall's bores, the seam lips and socket pods, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish, and the slab is two pieces meeting at the Y seam's shiplap. Set the nameplate plaque aside in the unit's build folder; it does not get applied at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)).
 
-Install ruthex M3 heat-set inserts everywhere the pieces call for them — the Y seam's socket pods, the Z seams' sockets, the C14's two bosses on the rear wall, the four posts standing off the floor slab under the compressor's feet, and the [15](EAST_BOSSES) +X wall bosses the power column bolts to. Standard heat-set procedure: soldering iron on the insert, press straight down until flush. All inserts go in *before* anything is in the box, while there is bench access from every face.
+Install ruthex M3 heat-set inserts everywhere the pieces call for them — the Y seam's socket pods, the Z seams' sockets, the C14's two bosses on the rear wall, the four posts standing off the floor slab under the compressor's feet, and the [17](EAST_BOSSES) +X wall bosses the power column bolts to. Standard heat-set procedure: soldering iron on the insert, press straight down until flush. All inserts go in *before* anything is in the box, while there is bench access from every face.
 
 Dry-fit the seams with the box empty: front-bottom into back-bottom, front-top into back-top, then each column's bottom into its top. Confirm every lip telescopes without shaving and every cross-pin plug drops into its socket. **Then take it apart again** — the pack goes in on open floor.
 
@@ -64,7 +64,7 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
 | Umbilical unions × 3 (PP1208E) | [-80 / -32 / +16](UMBILICAL_STATIONS) at z [337.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
-| Tap-water union (PP1208E) | x [-74](WATER_BACK_X), z [337.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
+| Tap-water union (PP1208E) | x [-80](WATER_BACK_X), z [337.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
 | CO2 DERPIPE PTC | [x 48, z 290](CO2_BACK) | Ø[15.42](CO2_HOLE_D) round | Seated on its own inboard stub tip; the GASHER check threads onto that stub in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
@@ -108,7 +108,7 @@ The coil stubs are already brazed into the donor loop (suction line + cap-tube j
 
 The bench-built shelf's five bodies stand against the **+X wall**, and their feet come down onto the cold core's cap when the piece carrying them closes. Each is turned so its own mounting plane — the PSU's potted base, the board's underside, the relay's and the hub plate's undersides, the ground stud's landing face — faces that wall and lands on **one common seat**, the plane the refrigeration stratum's own east face defines. That is what puts the whole group clear of the Y seam's posts, pods and plugs in one test rather than five. **No tray stands under any of them.**
 
-**What holds each one is a printed boss per hole.** `enclosure._east_bosses` grows [15](EAST_BOSSES) of them off that wall's inner face — one for every hole in every body's own pattern, each reaching out to that body's own mounting plane and bored back from its tip for a ruthex M3 short, so the standoff a screw crosses is what the body asked for rather than a number typed anywhere. The screw goes the other way: in through the body from the room. Pattern and screw schedule are [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)'s.
+**What holds each one is a printed boss per hole.** `enclosure._east_bosses` grows [17](EAST_BOSSES) of them off that wall's inner face — one for every hole in every body's own pattern, each reaching out to that body's own mounting plane and bored back from its tip for a ruthex M3 short, so the standoff a screw crosses is what the body asked for rather than a number typed anywhere. The screw goes the other way: in through the body from the room. Pattern and screw schedule are [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)'s.
 
 **Every one of those bosses is on `enclosure-back-top`**, which is why this step is bench work on that piece and not work inside a standing box: the bodies are offered up to its wall and screwed down there, alongside the six connection bodies of step 2, and they come down with it.
 
@@ -157,7 +157,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Cold core seated flat on the floor slab behind the stratum, front face mated flush against it, no tension on the refrigerant lines, all [7](CAP_CONDUITS) cap conduits open on the lid
 - Four printed pieces telescoped and cross-pinned at the Y seam and both Z seams, every seam screw driven from a ±X exterior face — `enclosure-back-top` last, since it is the lid over the whole service bay
 - Rear wall carrying all six connection bodies: the three PP1208E umbilical unions in one row at z [337.2](PORT_ROW_Z) (blue ring on the carbonated-water one), the PP1208E tap-water union below them, the C14 inlet on its own storey east of the row, and the DERPIPE CO2 inlet below that. Nothing is cut in the front wall.
-- Power column bolted to `enclosure-back-top`'s +X wall on [15](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, relay #1, AC hub, ground stack and PCBA, every mounting plane on one seat, no tray under any of them — unpowered, AC pigtails hanging free
+- Power column bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, relay #1, AC hub, ground stack and PCBA, every mounting plane on one seat, no tray under any of them — unpowered, AC pigtails hanging free
 - Drip tray + moisture sensor in their channels under the backflow vent's fall, sensor leads routed toward the power column (not yet terminated)
 - Display let into the facet of `enclosure-front-top`, leads loose
 - Hopper opening deburred, fall corridor clear, silicone funnel **not** yet seated (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md))

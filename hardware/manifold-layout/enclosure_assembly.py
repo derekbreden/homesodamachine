@@ -1554,27 +1554,24 @@ def pan_east_x(seaflo, floor, front_y):
                           front_y, front_y + _pan.PAN_Y) - FOOT_CLEAR
 
 
-def build_asse(foam, deck):
-    """The ASSE 1022 chain in the west lane, on the panel deck's own storey.
+def build_asse(deck):
+    """The ASSE 1022 chain in the west lane, seated on its INLET COLLET at the tap-water union's
+    own station on the back wall.
 
-    Its HEIGHT is the union's: the inlet collet lands on `deck`, the same storey the row's other
-    unions cross the wall on, and the body hangs wherever its own tube axis leaves it. The lift
-    is read off the built chain rather than typed — the yaw is about Z, so the axis stands the
-    same over the underside turned or not — and the drip pan then takes station under the vent.
+    ALL THREE COORDINATES ARE THAT UNION'S. The two collets butt face to face with nothing
+    between them to turn around, so the chain answers to the mouth it meets and to nothing else:
+    the wall's WEST COLUMN in X — the column `PANEL_X` gives the nozzle-B union, which the
+    tap-water one stands directly over — `bulkhead_mouth_y` in Y, and the panel deck's own storey
+    in Z, the storey the row's other unions cross the wall on.
 
-    Its X hugs the cold core's west face, leaving the rest of the lane between it and the pump.
-
-    Its Y is the BULKHEAD'S OWN MOUTH: the inlet collet butts the union's inboard collet, so the
-    chain stands off the back wall by exactly what the union reaching through it leaves, and by
-    nothing else."""
+    The drip pan then takes station under the vent, and the split and the regulator off the
+    chain's own outlet."""
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
-    lift = _asse.port("tube-in")[0][2] - box(chain).zmin      # the axis over the chain's underside
     return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),), seat="asse1022-assembly",
-                     x0=box(foam).xmin,
-                     y1=bulkhead_mouth_y(),
-                     z0=deck - lift)
+                     station=(_asse.port("tube-in"),
+                              (PANEL_X["bulkhead-flavor-b"], bulkhead_mouth_y(), deck)))
 
 
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
@@ -2063,7 +2060,7 @@ def build_pack() -> cq.Assembly:
     a.gate_z = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
     under_deck = [s for s, _c in _solids(a).values()]
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
-    asse, asse_carry = build_asse(foam, a.deck_z)
+    asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, _pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry,
                                 west_interior_face())
