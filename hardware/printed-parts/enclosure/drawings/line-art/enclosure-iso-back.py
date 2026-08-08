@@ -8,7 +8,8 @@ face (+X), and top face (+Z) are all visible.
 What this view carries: everything the appliance connects to the world by —
 the three umbilical unions in one row, the tap-water union on the storey below
 them, the mains inlet and the CO2 inlet under it. All of it on the back wall,
-and the red and blue port markings with it.
+and the wall's port markings with it: blue on the carbonated-water union at the
+end of the row, white on the tap-water union, red on the CO2 inlet.
 
 Companion drawing: enclosure-iso-front.py — same geometry, front view.
 
