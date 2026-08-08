@@ -328,8 +328,9 @@ TOUCHING_OK = {frozenset(p) for p in (
 # HOW A CONNECTION IS MADE. A length of tube between two placed bodies is one way and not the
 # only one: most of the flavour manifold is butted collet to collet, the hinge carries four
 # segments round a hairpin, the two source valves are reached by a quarter turn and the step off
-# it, and the refrigerant loop is made up across the planes its three bodies already share. A
-# butt between two collets, or a joint whose two mouths are ONE POINT READ TWICE, is MORE
+# it, and a leg of the refrigerant loop whose two bodies meet on one plane is made up across
+# that plane rather than drawn. A butt between two collets, or a joint whose two mouths are
+# ONE POINT READ TWICE, is MORE
 # finished than a tube — there is nothing left to draw — so every one of these counts as made,
 # and `routed`'s gap is what none of them reaches.
 #
@@ -1254,9 +1255,10 @@ def _build(a) -> Scorecard:
     bends = bend_radii(runs)
     # `front_half` measures the refrigerant loop's joints the moment its bodies are placed, and
     # the CLOSED ones ride each row: the millimetres a shut joint stands apart print beside the
-    # segment it makes. A joint standing open, or one with no reading at all, is copper the
-    # machine owes — it stays in `routed`'s owed column and reads red on `refrigerant-joints`,
-    # rather than counting as made because somebody looked at it.
+    # segment it makes. A joint standing open, or one with no reading at all, counts here only
+    # if a line was actually drawn for it; otherwise it is copper the machine owes and stays in
+    # `routed`'s owed column, rather than counting as made because somebody looked at it. Either
+    # way it reads red on `refrigerant-joints`, which measures matings and not tubes.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
