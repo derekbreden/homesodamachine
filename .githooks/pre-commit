@@ -169,6 +169,13 @@ for hw in $editions; do
     sync "$hw bom totals" "$bom_md" python3 "$root/$hw/scripts/_bom_totals.py"
   fi
 
+  # Cash-outlay ledger: section and grand totals summed off the purchase rows.
+  # A row moving ON-ORDER → ACQUIRED moves two totals and touches neither by hand.
+  if staged "$hw/ledger/purchases.md" "$hw/scripts/_ledger_totals.py"; then
+    sync "$hw ledger totals" "$root/$hw/ledger/purchases.md" \
+         python3 "$root/$hw/scripts/_ledger_totals.py"
+  fi
+
   # Attended-minute ledger: subtotals summed off the rows.
   if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
     sync "$hw labor totals" "$root/$hw/ledger/labor.md" \
