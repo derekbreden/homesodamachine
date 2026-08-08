@@ -30,8 +30,8 @@ searches, and their defect is a box drawn too small. This one is that **the numb
 is not the shape.** Every table in this repo that gives a body's extent gives its bounding
 box, and a box is a claim about a rectangle:
 
-    seaflo-pump     fills 0.41 of its box — its west face stands at x82 under the feet and
-                    x109 at the pressure switch, and the box says x82 the whole way back
+    seaflo-pump     fills 0.41 of its box — feet, a motor barrel and a pressure switch
+                    standing off a casting, and the box says a solid 98 × 187 × 72 block
     hopper-funnel   fills 0.05 — a rim, a short straight wall, then a cone to a 12 mm
                     spout, and the box says a 173 × 173 × 53 block
 
@@ -43,18 +43,17 @@ part, so the report is always *less room than there is*. Which is every fence on
 still in frame. `--view top|front|right` with `--ortho` lays a millimetre grid with numbered
 ticks over it, so a coordinate is read off the picture instead of trusted from a table:
 
-    node tools/render/render-view.js printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step \
-      /tmp/look.png --edition thin --only seaflo-pump --view top --ortho
+    node tools/render/render-view.js manifold-layout/front-half.step \
+      /tmp/look.png --only seaflo-pump --view top --ortho
 
 `--views top,front,right` takes the set in one boot — parsing the STEP is the whole cost, and
 a second frame off the same scene is milliseconds. The legend prints the subject's bounding
 box beside the picture that contradicts it.
 
 The assembly's three elevations are built with it and sit next to the STEP —
-`enclosure-assembly.top.png`, `.front.png`, `.right.png`, the pack read through an x-rayed
-shell. Open one before touching a placement. The `.step.png` beside them is the grid
-thumbnail: isometric and small, which are the projection and the size a coordinate cannot be
-read in.
+`front-half.top.png`, `.front.png`, `.right.png`, the pack read through an x-rayed shell. Open
+one before touching a placement. The `.step.png` beside them is the grid thumbnail: isometric
+and small, which are the projection and the size a coordinate cannot be read in.
 
 **The constraint saying it cannot move is usually a line someone wrote.** In this pack a body's
 position is mostly *derived* from another body's: `y_g_pos()` is the tray's own collet plus half
@@ -290,8 +289,9 @@ shape of work this entire document has nothing to police.
 What still earns its cost is measuring *how much*, not ranking *which* — and both of those
 readings are now verbs. `probe.travel` is the stop list the PSU stint spent 48 minutes writing by
 hand: every body that stops a move, nearest first, with what stands behind the binder, exact
-because `gap` is 1-Lipschitz under translation. `room.py` bands the pack's boxes in the time the
-build takes. Neither ranks a pose. The thing to stop doing is ranking poses.
+because `gap` is 1-Lipschitz under translation. The card's own `shapes` record bands every body's
+real boxes and how much of them is material, and it is written on every build. Neither ranks a
+pose. The thing to stop doing is ranking poses.
 
 ## The tells
 
@@ -326,8 +326,9 @@ hard part, and that asymmetry is why this document exists.
   for Derek, not a verdict from you.
 - **The sweep tell.** You are about to bound and run a search over poses. Ask what you would
   place if you had to choose right now, and what the build would say about it. If you can answer
-  both, the sweep buys nothing but a grid to be wrong on — and a body's pose is provisional
-  unless `scorecard.SETTLED` names it, so choosing is the ordinary move and not a liberty.
+  both, the sweep buys nothing but a grid to be wrong on — and in this pack a pose is provisional
+  until a printed joint fastens the body, which the card's `mounted` axis counts and most bodies
+  do not have, so choosing is the ordinary move and not a liberty.
 - **The difficulty tell.** The work is getting contorted — eight vias where four is clean, a
   tube shoved somewhere it does not want to go. Difficulty is a tripwire, and the reading is
   "I am in the wrong region," not "this is a fundamental wall."
@@ -359,12 +360,16 @@ hard part, and that asymmetry is why this document exists.
 
 0. **Look at it.** A claim about arrangement carries a render of the region, taken before the
    claim is written — *Before the claim: look at it*, above.
-1. **Choose.** Read the boxes — `room.py` bands them and marks whose pose is settled, and
-   `probe.travel <body> <±axis>` gives the whole stop list for a move: how far it goes, past
-   what, and what stands behind the binder. Do the arithmetic, pick a pose, place it, run the
-   build, look at the render. This is the default, it answers most arrangement questions in one
-   build, and both of those readings are exact where a sweep is gridded. Steps 2–3 are for what
-   it does not answer.
+1. **Choose.** Read the boxes — the card beside the assembly carries every body's real ones and
+   its fill, and `probe.travel <body> <±axis>` gives the whole stop list for a move: how far it
+   goes, past what, and what stands behind the binder.
+
+       jq -r '.shapes[] | "\(.fill)  \(.component)  \(.boxes[0])"' \
+         hardware/manifold-layout/front-half.scorecard.json | sort -n
+
+   Do the arithmetic, pick a pose, place it, run the build, look at the render. This is the
+   default, it answers most arrangement questions in one build, and both of those readings are
+   exact where a sweep is gridded. Steps 2–3 are for what it does not answer.
 2. **If you sweep anyway, write down every bound and everything you are holding fixed first.**
    That list is part of the deliverable, not scaffolding for it.
 3. **Check whether the winner touches a bound you supplied.** If it does, widen and re-run.
@@ -380,7 +385,7 @@ hard part, and that asymmetry is why this document exists.
 
 ## The artifact that does this for you
 
-This repo's four bounded scans refuse to fence. A limit you read off one arrives with the
+Four of this repo's readings refuse to fence. A limit you read off one arrives with the
 box attached, so step 4 above is already done by the time you quote it.
 
 `probe.cast` runs out of length and reports its own limit rather than a clearance:
@@ -420,14 +425,28 @@ axis pinned to one value is never an end, that a rotation tiling the circle has 
 widen, and that a search finding nothing still carries its box.
 
 `need` runs the disclosure the route-as-requirement form skips. Every `scorecard.bends` row
-and every bend-radius detail row carries the run's need — its two ends, their separation
-split by axis, the path drawn against it — and the enclosure's `need.py` prints the pack's
-table, worst detour first. The first table it printed put water-4, one of the four runs in
-the family ranked "an envelope/mounts conversation," at the top of the whole pack: 194 mm
-of path for two ends that stand 61 mm apart. A diagnosis that names four pins and no
-endpoints is answerable in one row of it.
+carries the run's need — its two ends, their separation split by axis, the path drawn against
+it, and `detour`, which is path ÷ span — and every bend-radius detail row ends with the clause.
+Ranked worst first, that is the board for this form:
 
-Four scans is not every bound you will choose. A sweep you write by hand in a scratch
+    jq -r '.bends[] | "\(.need.detour)  \(.id)  \(.need.path) over \(.need.span)"' \
+      hardware/manifold-layout/front-half.scorecard.json | sort -rn
+
+The top rows are where the form hides. `fluid-4` spends 152.6 mm of path on two ends that
+stand 88.6 mm apart, and the same card explains its clearance failure with *"they leave 7.890
+mm and the tube is Ø6.35, so 0.770 mm a side is that lane's own best."* That sentence is true
+and it is about the lane; it says nothing about whether the run belongs in the lane, and read
+alone it reads as a body to move — the move that cascades through the whole pack. So the lane
+note carries the ratio beside it, where the reader who is about to move a body sees both.
+A diagnosis that names four pins and no endpoints is answerable in one row of this.
+
+`_scorecard.py selftest` holds the controls — that a straight run's path is its span, that a
+route out and back reports the excursion its ends do not span, that the axis split reads off
+the endpoints alone, and that coincident ends report no ratio rather than dividing by zero.
+And the figure says where to look, not what to do: a detour near 1 is not health, because a
+short run can be pinned at both ends and still red.
+
+Four readings is not every bound you will choose. A sweep you write by hand in a scratch
 script has no instrument behind it, and the tells above are all you have.
 
 ## What this document is

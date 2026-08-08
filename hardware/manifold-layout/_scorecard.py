@@ -10,12 +10,20 @@ Two kinds of check:
   - GOAL — the work this effort is converting, reported as a `score` (0..100) rather than a
            gate, so the pack still builds while it converts.
 
-THE FOCUS IS `bend-radius`, AND THE AXIS BEHIND IT IS `routed`. A run arrives with the bodies
-it joins, so the two read together: `routed` says how much of the machine's tube inventory the
-machine holds a path for at all, and `bend-radius` says whether what is drawn turns at a radius
-its stock takes. A corner short of that minimum is a tube nobody can build, and most corners are
-bound by where their two ends STAND — so driving the gate is usually moving a body, not raising
-a number.
+THE FOCUS IS `bend-radius`, AND THE AXIS BEHIND IT IS `mounted`. Both are answered by where a
+body STANDS, which is what makes them one piece of work: `bend-radius` says whether what is
+drawn turns at a radius its stock takes, a corner short of that minimum is a tube nobody can
+build, and most corners are bound by where their two ends stand — so driving the gate is
+usually moving something rather than raising a number. `mounted` is what fastens the body once
+it is there, and it is the largest open gap the assembly still carries.
+
+WHICH thing to move is what each bend row's `need` says, and the grade cannot: a run far above
+1× the span its own two ends stand at is riding infrastructure its ends never asked for, and
+there the route is the thing to move rather than the corner or the body beside it.
+
+`FOCUS_IDS` names the pair, `web/contracts/scorecard-sidecar.js` names it for the viewer, and
+`web/tests/scorecard-focus.test.js` holds the two to each other — a card whose two surfaces
+lead with different axes points two readers at different work.
 
 FOUR OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
 is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share,
@@ -28,6 +36,9 @@ list ending in "… n more" is a terminal cap and never the end of the finding.
 
 Run it through the assembly:
     tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
+
+The need figure's own controls, against known-answer geometry:
+    tools/cad-venv/bin/python hardware/manifold-layout/_scorecard.py selftest
 """
 # The leading underscore is what `_lines.py` has: a private module of this pack, and the name
 # `scorecard` on the import path already belongs to the retired enclosure assembly.
@@ -35,6 +46,7 @@ Run it through the assembly:
 from __future__ import annotations
 
 import json
+import math
 import re
 import subprocess
 import sys
@@ -59,7 +71,10 @@ _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 # floor is buildable and nothing more; A is the room that survives a part moving a millimetre.
 GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
 BEND_GRADE_PASS = "B"       # the worst grade a run may carry and still clear the gate
-FOCUS_IDS = ("bend-radius", "routed")
+# The two axes the work is ON, in the order both surfaces lead with them. Their detail prints to
+# `FOCUS_DETAIL_MAX` rows rather than `DETAIL_MAX`, and `to_dict` marks the goal among them as
+# the card's live one. `web/contracts/scorecard-sidecar.js` carries the same pair for the viewer.
+FOCUS_IDS = ("bend-radius", "mounted")
 DETAIL_MAX = 8
 FOCUS_DETAIL_MAX = 24
 
@@ -364,6 +379,53 @@ def load_connections(runs) -> list[Connection]:
     return conns
 
 
+# --- what a run connects ---------------------------------------------------
+
+def need_of(run) -> dict:
+    """What one run CONNECTS, before what it rides.
+
+    Every diagnosis of a blocked run names what pins the route it currently takes. This is the
+    other half: where the run's two ends stand, how far apart that is — SPLIT BY WORLD AXIS,
+    because a run draining a reservoir owes its Z whatever its plan does or does not owe — and
+    how much path the drawn route spends covering it.
+
+    `detour` is path ÷ span. A run near 1 spends its length on its own need; a run far above it
+    is riding infrastructure its ends do not ask for, WHICH NO CORNER-BY-CORNER GRADE WILL SAY.
+    A corner short of its stock's minimum is a real defect either way, but on a high-detour run
+    the move is the route and not the corner — `calibration/Fences.md`, *The route as
+    requirement*.
+
+    WHAT THIS DOES NOT ANSWER, and the card must not be read as answering:
+
+      - A detour near 1 IS NOT HEALTH. A short run can be pinned at both ends and still red.
+      - It does not say which lanes and shelves the extra path rides, or who else rides them.
+        A lane's customer count is read where the lane is authored, `_lines.py`.
+      - The figure says where to look, not what to do.
+
+    `span` is the ENDPOINT separation and nothing else, so the axis split reads off the two end
+    waypoints alone and says nothing about the axes the route spends its length on — a route
+    that climbs 280 mm in y and comes back reports Δy 0. That gap between the two IS the
+    reading. `detour` is None where the ends coincide, rather than a division by zero."""
+    a, b = run.pts[0], run.pts[-1]
+    span = math.dist(a, b)
+    return {
+        "ends": [[round(v, 2) for v in a], [round(v, 2) for v in b]],
+        "axis": {ax: round(abs(b[i] - a[i]), 2) for i, ax in enumerate("xyz")},
+        "span": round(span, 2),
+        "path": round(run.length, 2),
+        "detour": None if span < 1e-9 else round(run.length / span, 3),
+    }
+
+
+def need_clause(need: dict) -> str:
+    """One run's need as the clause a detail row ends with. Empty for a run whose ends
+    coincide, which has no ratio to state."""
+    if need["detour"] is None:
+        return ""
+    return (f" — {need['detour']:.2f}× its need: {need['path']:.0f} mm of path for ends "
+            f"{need['span']:.0f} mm apart")
+
+
 # --- the bend grading ------------------------------------------------------
 
 def bend_radii(runs) -> list[dict]:
@@ -432,6 +494,9 @@ def bend_radii(runs) -> list[dict]:
                 "from": [round(v, 2) for v in r.pts[binding[1]]],
                 "to": [round(v, 2) for v in r.pts[binding[1] + 1]],
             },
+            # What the run CONNECTS, beside how well it turns — the reading a corner-by-corner
+            # grade cannot give. See `need_of`.
+            "need": need_of(r),
         })
     order = {g: i for i, (_lo, g) in enumerate(GRADE_BANDS)}
     # Worst first, and within a grade the run with the least room to improve — which is the
@@ -719,9 +784,16 @@ def lane_notes(a, runs, rows) -> list[str]:
 
     The pair inside the flavour manifold that a lane is made of is measured HERE and nowhere
     else. `part_clearances` skips it — the pack reports its own inner gaps — but a run threading
-    between two of the pack's own bodies is charged by exactly that gap."""
+    between two of the pack's own bodies is charged by exactly that gap.
+
+    A NOTE AT THE LANE'S OWN BEST CARRIES THE RUN'S NEED. That nothing moves inside the lane is
+    a fact about the lane, and it says nothing about whether the run belongs in it: read alone
+    it names the pins of the route the run currently takes and reads as a body to move, which
+    for a pack body is the move that cascades through everything. So `need_of`'s ratio rides
+    beside it, and a run far above 1 there is a route to move before it is a body to move."""
     bodies, _tubes, _pieces = _split_placed(a)
     od = {r.id: r.diam for r in runs}
+    need = {r.id: need_of(r) for r in runs}
     tight: dict = {}
     for x, y, g, ok in rows:
         if ok or g >= CLEARANCE_FLOOR:
@@ -739,7 +811,8 @@ def lane_notes(a, runs, rows) -> list[str]:
         side = (lane - od[rid]) / 2.0
         note = (f"{rid} threads {p} — {q}: they leave {lane:.3f} mm and the tube is "
                 f"Ø{od[rid]:g}, so {side:.3f} mm a side")
-        out.append(f"{note} is that lane's own best — move a body, not the line"
+        out.append(f"{note} is that lane's own best — nothing moves inside it, so the fix is a "
+                   f"body or the route itself{need_clause(need[rid])}"
                    if abs(side - ga) < 5e-3 and abs(side - gb) < 5e-3
                    else f"{note} if it were centred, and it is not")
     return out
@@ -785,6 +858,10 @@ def _bend_radius(bends) -> Check:
         "grade = radius ÷ the stock's minimum — "
         + "; ".join(f"{s.name} R{s.min_bend:g}" for s in R.STOCKS),
         f"runs by grade: {tally or 'none with a corner'}",
+        "each row ends with its need — path ÷ the span its own two ends stand at. Far above 1 "
+        "is a run riding infrastructure its ends do not ask for, and there the move is the "
+        "route rather than the corner. Near 1 is not health: a short run can be pinned at both "
+        "ends and still red",
     ]
     for d in bends:
         if not d["grade"] or order[d["grade"]] <= limit:
@@ -793,7 +870,8 @@ def _bend_radius(bends) -> Check:
         where = ("" if b is None
                  else f", bound by leg {b['leg']} at {b['length']:.1f} mm")
         detail.append(f"{d['grade']}/{d['reachGrade']} {d['id']} ({d['frm']} → {d['to']}): "
-                      f"R{d['radius']:.1f} against R{d['minBend']:g}{where}")
+                      f"R{d['radius']:.1f} against R{d['minBend']:g}{where}"
+                      + need_clause(d["need"]))
     return Check("bend-radius", "Every routed tube turns at or above its stock's minimum radius",
                  "gate", _verdict(worst <= limit),
                  f"{[g for _lo, g in GRADE_BANDS][worst]} — {at_spec}/{corners} corners at spec",
@@ -1127,21 +1205,27 @@ def _build(a) -> Scorecard:
 
 
 def _source() -> dict:
+    """When this card was built, and off what HEAD.
+
+    ORIENTATION ONLY. The commit is what the tree was at, not what the card was built from: a
+    dirty tree stamps exactly as a clean one, and nothing here fingerprints a file. So a stamp
+    can never say the card still describes the tree — the way to know is to run the build."""
     try:
         commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(_repo),
                                 capture_output=True, text=True, timeout=10).stdout.strip()
     except Exception:
         commit = ""
     return {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "commit": commit or None, "inputs": {}}
+            "commit": commit or None}
 
 
 def to_dict(sc: Scorecard) -> dict:
     """The sidecar the 3D viewer reads — `web/contracts/scorecard-sidecar.js` is the contract.
 
-    `mounted` is the live goal axis and every other goal is deferred, which the viewer renders
-    gray. Each deferred one still carries its measured score, so the bar reads what it is rather
-    than a zero."""
+    The goal in `FOCUS_IDS` is the live one and every other goal is deferred, which the viewer
+    renders gray. Each deferred one still carries its measured score, so the bar reads what it
+    is rather than a zero. Read off `FOCUS_IDS` rather than named again here: an axis spelt in
+    two places is an axis that drifts between them."""
     by_id = {c.id: c for c in sc.checks}
     # A mount row's `kind` is the body's geometry authorship, which the shape table measures —
     # a joint designed against a placeholder is a joint designed against a guess.
@@ -1157,9 +1241,9 @@ def to_dict(sc: Scorecard) -> dict:
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail),
-             # `mounted` is the axis the work is on; every other goal is a reading the card
-             # takes but is not converting yet.
-             "active": c.active and c.id == "mounted" if c.kind == "goal" else c.active}
+             # A goal in `FOCUS_IDS` is the axis the work is on; every other goal is a reading
+             # the card takes but is not converting yet.
+             "active": c.active and c.id in FOCUS_IDS if c.kind == "goal" else c.active}
             for c in sc.checks
         ],
         "ports": sc.ports,
@@ -1195,13 +1279,109 @@ def report(a) -> Scorecard:
         if len(c.detail) > limit:
             print(f"         … {len(c.detail) - limit} more")
     if sc.bends:
+        # `need` rides the same table rather than a second one: the corner grade and what the
+        # run connects answer different halves of "is this run the work", and a reader holding
+        # only the grade will move a body for a route that should not be in the lane at all.
         print("\nbend radii")
         print(f"  {'run':12} {'grade':7} {'stock':18} {'R drawn':>9} {'min':>6} "
-              f"{'reach':>7} corners")
+              f"{'reach':>7} {'need':>6} corners")
         for d in sc.bends:
             reach = "—" if d["reach"] is None else f"{d['reach']:.1f}"
             grade = f"{d['grade']}/{d['reachGrade']}" if d["grade"] else "straight"
             per = " ".join(f"{c['grade']}{c['radius']:.1f}" for c in d["corners"]) or "—"
+            det = d["need"]["detour"]
             print(f"  {d['id']:12} {grade:7} {d['stock']:18} {d['radius']:9.1f} "
-                  f"{d['minBend']:6.1f} {reach:>7} {per}")
+                  f"{d['minBend']:6.1f} {reach:>7} "
+                  f"{'    — ' if det is None else f'{det:5.2f}×'} {per}")
     return sc
+
+
+# --- the controls ----------------------------------------------------------
+
+def selftest() -> int:
+    """`need_of` against known-answer geometry — what makes it a measurement and not a number.
+
+    A straight run's path IS its span. A route that goes out and comes back reports the
+    excursion its ends do not span. The axis split reads off the ENDPOINTS alone, so a route
+    spending its whole length in y between two ends that share a y reports Δy 0 — that gap is
+    the reading, not a defect in it. A run whose ends coincide reports no ratio rather than
+    dividing by zero. And the figures a real `_routing.route` gives back are the run's own `pts`
+    and `length`, so the card grades the same centreline the build sweeps."""
+    import cadquery as cq
+
+    failures = 0
+
+    def check(label, ok, detail=""):
+        nonlocal failures
+        if not ok:
+            failures += 1
+        print(f"  {'✓' if ok else '✗'} {label}" + (f" — {detail}" if detail else ""))
+
+    def synthetic(pts):
+        return R.Run(id="t", kind="fluid", frm="A.p", to="B.p", pts=list(pts),
+                     diam=6.35, bend=25.4)
+
+    print("need (span, axis split, detour)")
+
+    straight = need_of(synthetic([(0.0, 0.0, 0.0), (0.0, 130.0, 0.0)]))
+    check("a straight run's path is its span", abs(straight["detour"] - 1.0) < 1e-9,
+          f"detour {straight['detour']}")
+
+    out_and_back = need_of(synthetic([(0.0, 0.0, 0.0), (100.0, 0.0, 0.0),
+                                      (100.0, 50.0, 0.0), (0.0, 50.0, 0.0)]))
+    check("a route out and back reports the excursion its ends do not span",
+          out_and_back["span"] == 50.0 and out_and_back["detour"] > 4.0,
+          f"span {out_and_back['span']}, path {out_and_back['path']} = "
+          f"{out_and_back['detour']}×")
+
+    climb = need_of(synthetic([(10.0, 20.0, 0.0), (10.0, 300.0, 0.0), (10.0, 300.0, 250.0),
+                               (10.0, 20.0, 250.0)]))
+    check("the axis split reads off the endpoints alone",
+          climb["axis"] == {"x": 0.0, "y": 0.0, "z": 250.0},
+          f"axis {climb['axis']} on a route spending {climb['path']:.0f} in y")
+
+    loop = need_of(synthetic([(0.0, 0.0, 0.0), (50.0, 0.0, 0.0), (50.0, 50.0, 0.0),
+                              (0.0, 0.0, 0.0)]))
+    check("coincident ends report no ratio rather than dividing by zero",
+          loop["detour"] is None and loop["span"] == 0.0, f"span {loop['span']}")
+    check("a run with no ratio states no clause, rather than a blank one",
+          need_clause(loop) == "" and need_clause(straight) != "")
+
+    # A real route: the figures must be the run's own pts and length — the same centreline the
+    # build sweeps and every other row of the bend table grades. `_routing`'s registries are
+    # module state, so they are put back: a control that leaves the world it borrowed emptied
+    # is a landmine for whatever calls it next.
+    frames, blocked = dict(R._frames), dict(R.BLOCKED)
+    R._frames.clear()
+    try:
+        R.frame("A", cq.Solid.makeBox(10, 10, 10, cq.Vector(0, 0, 0)),
+                {"p": ((0.0, 0.0, 0.0), "y+", 6.35)})
+        R.frame("B", cq.Solid.makeBox(10, 10, 10, cq.Vector(0, 0, 0)),
+                {"p": ((200.0, 130.0, 0.0), "y-", 6.35)})
+        run = R.route("t", "A.p", {"x": 200.0}, "B.p", stub=40.0, bend=6.0)
+    finally:
+        R._frames.clear()
+        R._frames.update(frames)
+        R.BLOCKED.clear()
+        R.BLOCKED.update(blocked)
+    n = need_of(run)
+    check("a real route's figures are its own pts and length",
+          n["span"] == round(math.dist(run.pts[0], run.pts[-1]), 2)
+          and n["path"] == round(run.length, 2) and n["detour"] > 1.0,
+          f"span {n['span']}, path {n['path']} = {n['detour']}×")
+
+    print("PASS" if failures == 0 else f"FAIL — {failures}")
+    return 0 if failures == 0 else 1
+
+
+def main(argv) -> int:
+    """`selftest` and nothing else. An unrecognised argument EXITS 2 rather than printing
+    nothing and exiting 0 — a silent success is what an unattended loop reads as a pass."""
+    if argv == ["selftest"]:
+        return selftest()
+    print("usage: _scorecard.py selftest", file=sys.stderr)
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

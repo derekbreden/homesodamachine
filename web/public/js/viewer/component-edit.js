@@ -204,9 +204,7 @@ const _ndc = new THREE.Vector2();
 function pickComponent(clientX, clientY) {
   if (!state.currentGroup) return null;
   const targets = state.currentGroup.children.filter(
-    // Skip the editor's baked clash-overlap solids (clash__a__b) — they're a visualization, not a
-    // movable component, and selecting one would write a meaningless override.
-    (c) => c.userData && c.userData.side === "front" && c.visible !== false && c.name && !c.name.startsWith("clash__"),
+    (c) => c.userData && c.userData.side === "front" && c.visible !== false && c.name,
   );
   if (!targets.length) return null;
   const rect = renderer.domElement.getBoundingClientRect();
