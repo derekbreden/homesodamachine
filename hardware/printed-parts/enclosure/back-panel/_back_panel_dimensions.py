@@ -66,6 +66,16 @@ def carb_union_end():
     return "east" if x == max(_ea.PANEL_X.values()) else "west"
 
 
+def dropped_union_end():
+    """Which end of the umbilical row stands off the row's own storey — READ off
+    `enclosure_assembly.PANEL_DROP` against `PANEL_X`, so the user rule ("the odd one
+    out is at this end, one pitch down") cannot outlive the arrangement it
+    describes. +X is east."""
+    import enclosure_assembly as _ea
+    name, = _ea.PANEL_DROP
+    return "east" if _ea.PANEL_X[name] == max(_ea.PANEL_X.values()) else "west"
+
+
 def panel_hole_diameters():
     """The two bores this panel carries: `(bulkhead, co2)`.
 
@@ -106,6 +116,7 @@ def main():
         "WATER_COLOR": port_color_hex("water"),
         "CO2_COLOR": port_color_hex("co2"),
         "CARB_END": carb_union_end(),
+        "FLAVOR_B_END": dropped_union_end(),
     }
 
     substitute_md(
@@ -120,6 +131,7 @@ def main():
             "WATER_COLOR": 1,
             "CO2_COLOR": 1,
             "CARB_END": 2,
+            "FLAVOR_B_END": 1,
         },
     )
     print("-> README.md")
