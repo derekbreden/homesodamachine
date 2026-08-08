@@ -4,10 +4,11 @@ The physical realization of the single-point **ground bus**: the bolted stack
 that *is* the bus. There is no copper bar — a copper bar distributes ground
 along a run or across many tap points, and this appliance has ~5–6 home-run
 bonds landing at one spot. Instead, every green bond ends in a ring terminal and
-they all clamp together under one M3 × 10 screw on the heat-set insert in the
-top [foam cap](/hardware/printed-parts/cold-core/foam-cap/)'s own ground column.
-The lugs are bolted to each other, so they are equipotential — the **stack is
-the bus**, and the dielectric (plastic) column it sits on is electrically
+they all clamp together under one M3 × 10 screw into the heat-set insert in the
+stack's own printed boss on the enclosure's +X wall — the one station on that wall
+whose screw crosses a fan of lugs before it reaches its insert, which is why it is
+the long screw. The lugs are bolted to each other, so they are equipotential — the
+**stack is the bus**, and the dielectric (plastic) boss it lands on is electrically
 irrelevant; it only provides the clamp reaction and holds the earthed thread.
 
 `ground-ring-stack.step` is a generated stand-in built to make the boss's

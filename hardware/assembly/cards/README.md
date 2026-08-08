@@ -111,7 +111,7 @@ accent colors are defined in `STYLE.md`.
 
 | Card | Operation |
 |---|---|
-| ES-01 | Prepare the shelf trays |
+| ES-01 | Prepare the shelf |
 | ES-02 | Stage the AC distribution + ground bus |
 | ES-03 | Mount the PSU, relays, PCBA |
 | ES-04 | Land the AC pigtails |
