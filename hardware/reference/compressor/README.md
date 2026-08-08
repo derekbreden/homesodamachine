@@ -79,9 +79,9 @@ are **not modeled**.
 Which way the compressor faces and what stands beside it is the machine's, not this
 module's — [`front_half.py`](/hardware/manifold-layout/front_half.py) and
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
-It sits on the enclosure floor slab under the
-[compressor shroud](/hardware/cut-parts/compressor-shroud/README.md), which drops
-over it from above and clears its feet at the open bottom.
+It sits on the enclosure floor slab and is bolted down to it: `enclosure._floor_bosses`
+stands a post under each of the four plate holes, and each rises *through* its hole to
+the plate's crown, so the posts locate the part as well as fasten it.
 
 ## Regenerate
 

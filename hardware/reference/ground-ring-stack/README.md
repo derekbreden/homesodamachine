@@ -23,8 +23,7 @@ step 1 and [`/hardware/assembly/electronics-shelf.md`](/hardware/assembly/electr
 step 3 — one green ring-terminal bond per exposed-metal part:
 
 - Pressure vessel
-- Compressor body
-- Compressor shroud (run AC-6)
+- Compressor body (run AC-6, under a floor screw)
 - Faucet under-counter SS plate
 - PSU chassis (run AC-2 G)
 - the C14 inlet's earth feed (G Wago → bus)

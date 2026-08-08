@@ -7,7 +7,7 @@ It measures [223 × 481 × 358 mm](BOX_SIZE), and two of those three numbers are
 
 - **Width** is set on the floor. `_dims` stands the ±X walls one `side_rib_inset`
   boss chain off the widest body standing on the slab — the mated compressor
-  shroud and condenser — and the cold core clears that band, being yawed a quarter
+  and condenser — and the cold core clears that band, being yawed a quarter
   turn (`front_half.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
 - **Height** is a stated [358 mm](APPLIANCE_HEIGHT), floor slab's underside to the
@@ -27,7 +27,7 @@ rim, the piece over it the seam to the top wall, and both stand on the bed.
 
 The FRONT column's seam is a **stated** plane, `enclosure.front_z_seam` — which
 pieces the box comes apart into is a decision about the pieces, and this one stands
-over the refrigeration stratum's crown, so the compressor shroud and the condenser
+over the refrigeration stratum's crown, so the compressor and the condenser
 beside it are one piece's whole cargo and the front-top piece carries nothing on the
 floor.
 
