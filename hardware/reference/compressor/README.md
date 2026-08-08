@@ -19,7 +19,7 @@ Two bodies. A stamped mounting plate, and an oblong shell standing on it.
 |---|---|---|
 | plate | [96](BASE_X) × [160](BASE_Y) × [15](BASE_Z) | centered on the origin, underside on the mounting plane |
 | shell | [110](SHELL_X) × [125](SHELL_Y) ellipse × [120](SHELL_Z) | centered on X, offset [10](SHELL_OFFSET_Y) on Y, on the plate's crown |
-| power box | [45](POWER_X) × [27.5](POWER_Y) × [45](POWER_Z) | centered on X, filling the plate's long reach at −Y, on the plate's crown |
+| power box | [45](POWER_X) × [27.5](POWER_Y) × [45](POWER_Z) | centered on X, filling the plate's long reach at −Y, hanging off the shell with its underside at [30](POWER_Z0) |
 
 Overall **[110](SHELL_X) × [160](BASE_Y) × [135](OVERALL_H) mm** — and the three
 figures come from three different places. The width is the *shell's*, the depth is
@@ -40,19 +40,21 @@ the shell.
 [27.5](PLATE_REACH_LONG) mm of plate reaching past the shell at −Y and
 [7.5](PLATE_REACH_SHORT) mm at +Y. The **power box** stands in that long reach —
 [27.5](POWER_Y) mm deep, the reach exactly, its aft face on the shell's own tangent
-plane at y = [-52.5](SHELL_TANGENT_Y), crown at z = [60](POWER_Z1). The box carries the
-compressor's power components under their own shroud, and it is the one feature that
-tells the two ends apart: **−Y is the power end.**
+plane at y = [-52.5](SHELL_TANGENT_Y). It hangs off the shell, not off the plate:
+underside at z = [30](POWER_Z0), crown at z = [75](POWER_Z1), with air between it and the
+plate's crown. The box carries the compressor's terminal block
+and clip-on PTC start relay under the donor's own moulded cover, and it is the one feature
+that tells the two ends apart: **−Y is the power end.**
 
 ## Mounting
 
 Four Ø[14](MOUNT_D) mm holes through the plate, each inset
-[7.5](MOUNT_INSET) mm from both edges it sits in from — center to center
-**[81](MOUNT_PITCH_X) × [145](MOUNT_PITCH_Y) mm**, symmetric about the origin.
+[14.5](MOUNT_INSET) mm from both edges it sits in from — center to center
+**[67](MOUNT_PITCH_X) × [131](MOUNT_PITCH_Y) mm**, symmetric about the origin.
 
-That inset leaves **[0.5](MOUNT_LIGAMENT) mm of plate** outboard of each hole — the
-hole stands very nearly tangent to both edges it sits in from. `mounts_hold()` fails
-the build if a figure ever moves far enough to open it into a slot.
+That inset leaves **[7.5](MOUNT_LIGAMENT) mm of plate** outboard of each hole — the
+ligament the plate keeps between a hole and the edge it is inset from. `mounts_hold()`
+fails the build if a figure ever moves far enough to close it and open the hole into a slot.
 
 ## Frame
 
@@ -71,7 +73,7 @@ are **not modeled**.
 |---|---|
 | `envelope_hold()` | the six faces the machine clears, and the underside sitting on Z = 0 |
 | `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it |
-| `power_hold()` | the box coming off the reach it fills, hanging off the plate's X, or covering a mount |
+| `power_hold()` | the box coming off the reach it fills, hanging off the plate's X, sitting down on the plate or climbing past the shell's crown, or covering a mount |
 | `mounts_hold()` | a hole opening into the plate's edge, or standing under the belly where no bolt reaches it |
 
 ## Where it stands
