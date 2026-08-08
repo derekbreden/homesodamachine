@@ -25,7 +25,7 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EDITION="kitchen"
-STEP="manifold-layout/front-half.step"
+STEP="manifold-layout/enclosure-assembly.step"
 VIEWS="top,front,right"
 SIZE="1600x1200"
 OUT="${TMPDIR:-/tmp}/look"

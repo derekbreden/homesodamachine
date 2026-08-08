@@ -2,7 +2,7 @@
 //
 // The verdict crosses from the CadQuery build (hardware/manifold-layout/_scorecard.py, Python)
 // to the browser viewer (public/js/viewer/scorecard-3d.js, untyped JS). This pins the consumer
-// end: load the committed front-half.scorecard.json and assert it still matches the shape
+// end: load the committed enclosure-assembly.scorecard.json and assert it still matches the shape
 // the viewer reads (via the contract's own isScorecard guard), so a producer change that drops
 // or renames a field fails here instead of silently drawing no bar. Skips when unbuilt.
 
@@ -19,7 +19,7 @@ const REPO_ROOT = path.resolve(__dirname, "..", "..");
 // The live pack's sidecar, written by hardware/manifold-layout/enclosure_assembly.py. The tests
 // skip themselves until that build has written one.
 const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "manifold-layout",
-  "front-half.scorecard.json");
+  "enclosure-assembly.scorecard.json");
 const SIDECAR = sidecarIn("hardware");
 
 test("enclosure scorecard sidecar conforms to the contract", (t) => {
@@ -73,8 +73,8 @@ test("the port inventory carries a coordinate and a bore for every located conne
 
 test("scorecardPathFor maps a STEP path to its sidecar", () => {
   assert.equal(
-    scorecardPathFor("manifold-layout/front-half.step"),
-    "manifold-layout/front-half" + SCORECARD_SUFFIX);
+    scorecardPathFor("manifold-layout/enclosure-assembly.step"),
+    "manifold-layout/enclosure-assembly" + SCORECARD_SUFFIX);
 });
 
 // ── Focus ───────────────────────────────────────────────────────────────────────────────────

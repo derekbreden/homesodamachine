@@ -2,7 +2,7 @@
 
 The production procedure for standing the machine's pack inside its printed shell and closing the shell around it: refrigeration stratum on the floor, cold core behind it, the power column against the +X wall, the four printed pieces telescoped and cross-pinned, the drip tray in through its own slot, the display let into the facet. No internal plumbing runs, no AC/DC wiring runs — those are downstream in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md). The output is the mechanical canvas everything else lands on.
 
-The arrangement is [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py): it places every body and sizes the box around them, and `front-half.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/future.md`](/hardware/future.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
+The arrangement is [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py): it places every body and sizes the box around them, and `enclosure-assembly.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/future.md`](/hardware/future.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
 
 ## The box
 

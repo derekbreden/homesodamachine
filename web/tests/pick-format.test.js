@@ -297,8 +297,8 @@ test("pickFileToViewerPath strips the repo prefix per edition", () => {
     "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
   );
   assert.equal(
-    pickFileToViewerPath("hardware/manifold-layout/front-half.step", roots),
-    "manifold-layout/front-half.step",
+    pickFileToViewerPath("hardware/manifold-layout/enclosure-assembly.step", roots),
+    "manifold-layout/enclosure-assembly.step",
   );
   assert.equal(pickFileToViewerPath("reference/a/b.step", roots), "reference/a/b.step");
 });
@@ -308,7 +308,7 @@ test("a nested content root is stripped WHOLE, not shortened by the one above it
   // outer name must not claim the pick, or it opens the same filename in the wrong
   // tree. Roots are the caller's argument, so this pins the rule on its own.
   const nested = ["hardware", "extra/hardware"];
-  const viewerPath = "manifold-layout/front-half.step";
+  const viewerPath = "manifold-layout/enclosure-assembly.step";
   assert.equal(pickFileToViewerPath(`extra/hardware/${viewerPath}`, nested), viewerPath);
   assert.equal(pickFileToViewerPath(`hardware/${viewerPath}`, nested), viewerPath);
 });
@@ -318,7 +318,7 @@ test("every edition's content root round-trips a copy blob", () => {
   // apart. Adding an edition must not need this test edited — it walks the list.
   const roots = Object.values(EDITION_DIRS);
   for (const dir of roots) {
-    const viewerPath = "manifold-layout/front-half.step";
+    const viewerPath = "manifold-layout/enclosure-assembly.step";
     assert.equal(pickFileToViewerPath(`${dir}/${viewerPath}`, roots), viewerPath, dir);
   }
 });

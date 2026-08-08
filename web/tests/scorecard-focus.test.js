@@ -18,7 +18,8 @@ import { FOCUS_IDS, focusAxes } from "../contracts/scorecard-sidecar.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const PRODUCER = path.join(REPO_ROOT, "hardware", "manifold-layout", "_scorecard.py");
-const SIDECAR = path.join(REPO_ROOT, "hardware", "manifold-layout", "front-half.scorecard.json");
+const SIDECAR = path.join(REPO_ROOT, "hardware", "manifold-layout",
+  "enclosure-assembly.scorecard.json");
 
 // FOCUS_IDS = ("bend-radius", "mounted") — the assignment at module scope, not a mention of the
 // name in prose or in the code that reads it. Returns null when there is no such assignment,
