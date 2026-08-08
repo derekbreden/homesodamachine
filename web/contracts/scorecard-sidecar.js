@@ -1,6 +1,6 @@
 // The scorecard sidecar — <model>.scorecard.json beside a 3D STEP model, carrying the
 // enclosure's requirements verdict (the same one the build prints to the terminal). Produced
-// by hardware/manifold-layout/_scorecard.py::write, called at the tail of front_half.py's
+// by hardware/manifold-layout/_scorecard.py::write, called at the tail of enclosure_assembly.py's
 // run, served path-confined by web/lib/viewer-routes.js (/api/step-scorecard/*), and read by
 // web/public/js/viewer/scorecard-3d.js to draw the bottom bar + drill-down modal.
 //

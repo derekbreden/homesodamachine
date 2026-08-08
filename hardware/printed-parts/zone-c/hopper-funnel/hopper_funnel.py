@@ -2,7 +2,7 @@
 
 A static part in its own frame: origin at the collar-rectangle center, z = 0
 the brim underside — the plane that rests on the enclosure's top surface.
-The machine places it (`front_half.build_funnel`, on `front_half.funnel_centre`
+The machine places it (`enclosure_assembly.build_funnel`, on `enclosure_assembly.funnel_centre`
 and the box's outer top), and the enclosure cuts its top-wall opening from this collar
 (`enclosure.py _hopper_hole`), asserting the placement clears the display
 gusset, the corner pod, and the Y-seam lip. The drain is defined here, in
@@ -77,7 +77,7 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # asserted in `build`. The CEILING is the pack: the chute hangs the ramp, the spout
 # and the drain lower with every millimetre of itself, so what the chute may spend is
 # the fall `fluid-4` is left off the spout before its first corner
-# (`front_half.build_funnel`, recorded against this body and held by the machine
+# (`enclosure_assembly.build_funnel`, recorded against this body and held by the machine
 # scorecard's `room-holds` gate). It takes that band whole rather than stopping at the
 # floor: the collar already fills its frame in both axes, so depth is the only thing
 # left that buys capacity.

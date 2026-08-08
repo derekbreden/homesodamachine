@@ -12,9 +12,9 @@ Three bodies stand on the floor slab — the compressor and the condenser side b
 across the front, and the cold core behind them — and each is held one `side_rib_inset`
 off the ±X walls, so the corner posts, boss chains and Z-seam pods all seat at full
 section and the body seats against them rather than against the wall. The cold core is
-the widest of the three even yawed a quarter turn (`front_half.FOAM_YAW`), which is what
-puts its 181 mm short face across the machine instead of its 283 mm long one. The pack
-is placed by `../../../manifold-layout/front_half.py`. Features:
+the widest of the three even yawed a quarter turn (`enclosure_assembly.FOAM_YAW`), which
+is what puts its 181 mm short face across the machine instead of its 283 mm long one. The
+pack is placed by `../../../manifold-layout/enclosure_assembly.py`. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front arris across the box's FULL WIDTH, with the display's glass
@@ -363,9 +363,10 @@ Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), ())
 # `pack-closes`, which is where a reader should see them. A box quietly grown to fit would
 # show neither.
 #
-# `front_half.machine` and `front_half.build_front_half` carry these onto the assembly beside
-# the bounds that module states itself. The ledger lives here because `enclosure` cannot
-# import that module back — `machine_of` imports it inside the call for the same reason.
+# `enclosure_assembly.machine` and `enclosure_assembly.build_enclosure_assembly` carry these
+# onto the assembly beside the bounds that module states itself. The ledger lives here
+# because `enclosure` cannot import that module back — `machine_of` imports it inside the
+# call for the same reason.
 Bound = namedtuple("Bound", "id label ok value target detail")
 
 BOUNDS: list = []
@@ -961,8 +962,8 @@ def facet_back_y(outer):
 def display_centre_x(outer):
     """The X the display's glass is centred on — the box's own middle, since the
     facet runs wall to wall. Read by the counterbore that receives it and by
-    front_half's placement of the reference body, so the housing and the
-    part in it cannot land on two different centres."""
+    `enclosure_assembly`'s placement of the reference body, so the housing and
+    the part in it cannot land on two different centres."""
     return (outer[0] + outer[1]) / 2.0
 
 
@@ -2123,23 +2124,23 @@ def box_around(pack):
 
 
 def machine_of():
-    """The machine's pack and the box around it. `hardware/manifold-layout/front_half.py`
-    places the bodies and seats the wall stations, so both come from there and the box this
-    prints is the box that pack stands in.
+    """The machine's pack and the box around it.
+    `hardware/manifold-layout/enclosure_assembly.py` places the bodies and seats the wall
+    stations, so both come from there and the box this prints is the box that pack stands in.
 
-    Imported here rather than at module scope so that front_half, which builds its own
-    assembly around these walls, is not importing a module that is importing it back."""
+    Imported here rather than at module scope so that enclosure_assembly, which builds its
+    own assembly around these walls, is not importing a module that is importing it back."""
     sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
-    import front_half
-    _assy, pack, box = front_half.machine()
+    import enclosure_assembly
+    _assy, pack, box = enclosure_assembly.machine()
     return pack, box
 
 
 def _report_bounds():
     """Every bound in the ledger that is open, and nothing when they all hold.
 
-    The card `front_half` writes is the committed account of these; this is the same reading
-    for whoever ran this module on its own, where there is no card."""
+    The card `enclosure_assembly` writes is the committed account of these; this is the same
+    reading for whoever ran this module on its own, where there is no card."""
     open_ = [b for b in BOUNDS if not b.ok]
     if not open_:
         return

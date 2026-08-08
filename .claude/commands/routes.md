@@ -52,7 +52,7 @@ Three things the ratio does not say, and it must not be read as saying them:
 
 `source.generated` and `source.commit` in the same file say which build wrote it. If the tree
 has moved since, rebuild before you read it:
-`tools/cad-venv/bin/python hardware/manifold-layout/front_half.py`.
+`tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py`.
 
 Then read `calibration/Chain.md` in full. It is short, and the rest of this command assumes
 it.

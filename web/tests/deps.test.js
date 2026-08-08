@@ -41,12 +41,12 @@ test("content roots resolve to the declared editions", () => {
 });
 
 test("the enclosure assembly rebuilds on every module that draws it", () => {
-  // front_half.py IS the enclosure assembly: it places every body and sizes the box
+  // enclosure_assembly.py IS the enclosure assembly: it places every body and sizes the box
   // around them. The modules beside it author the runs between those bodies and grade
   // the result, and hardware/scripts holds the export helper every generator imports.
   // An edit to any of them has to reach the generator, or the .step, the elevations
   // and the scorecard sidecar on disk stop matching the source that drew them.
-  const assembly = "manifold-layout/front_half.py";
+  const assembly = "manifold-layout/enclosure_assembly.py";
   assert.ok(
     findGenerateScripts(ROOTS).some(ends(assembly)),
     "the enclosure assembly must be a runnable generator, or nothing rebuilds it at all",
@@ -66,16 +66,17 @@ test("the enclosure assembly rebuilds on every module that draws it", () => {
 });
 
 test("a part's STEP consumers include the assembly that only _loads it (regression)", () => {
-  // front_half.py names each of these in a path constant and hands the path to
+  // enclosure_assembly.py names each of these in a path constant and hands the path to
   // importStep — the edge is a string, not an import, so an import-only walk finds
   // none of them. The AC hub is the case with nothing else to fall back on:
-  // front_half imports `ac_hub` for its hole pattern and never `ac_hub_assembly`,
+  // enclosure_assembly imports `ac_hub` for its hole pattern and never `ac_hub_assembly`,
   // which is what makes the STEP.
   for (const step of ["foam-assembly.step", "ac-hub-assembly.step", "seaflo-22-pump.step"]) {
     const consumers = findScriptsConsumingStep(step, ROOTS);
     assert.ok(
-      consumers.some(ends("hardware/manifold-layout/front_half.py")),
-      `expected front_half among ${step} consumers, got:\n${consumers.map(rel).join("\n")}`,
+      consumers.some(ends("hardware/manifold-layout/enclosure_assembly.py")),
+      `expected enclosure_assembly among ${step} consumers, got:\n`
+      + consumers.map(rel).join("\n"),
     );
   }
 });
@@ -94,10 +95,10 @@ test("build order puts a producer before the scripts that load its STEP", () => 
     (s) => s.split(path.sep).join("/").endsWith("cold-core/foam-assembly/foam_assembly.py"),
   );
   const consumer = order.findIndex(
-    (s) => s.split(path.sep).join("/").endsWith("hardware/manifold-layout/front_half.py"),
+    (s) => s.split(path.sep).join("/").endsWith("hardware/manifold-layout/enclosure_assembly.py"),
   );
   assert.ok(producer !== -1, "foam assembly generator should be in the order");
-  assert.ok(consumer !== -1, "front_half should be in the order");
+  assert.ok(consumer !== -1, "enclosure_assembly should be in the order");
   assert.ok(
     producer < consumer,
     "the foam assembly must build before the front half that loads it",
@@ -163,12 +164,12 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
 });
 
 test("a manifold_layout edit rebuilds the assembly that imports it", () => {
-  // front_half.py imports manifold_layout as a module, not as a STEP, so the wave
+  // enclosure_assembly.py imports manifold_layout as a module, not as a STEP, so the wave
   // that rebuilds it comes from the import walk rather than the STEP-load cascade.
   const ml = path.join(REPO_ROOT, "hardware", "manifold-layout", "manifold_layout.py");
   const deps = findRunnableScriptsTransitivelyImporting(ml, ROOTS).map(rel);
   assert.ok(
-    deps.some(ends("manifold-layout/front_half.py")),
+    deps.some(ends("manifold-layout/enclosure_assembly.py")),
     `the front half must rebuild; got:\n${deps.join("\n")}`,
   );
 });
@@ -192,18 +193,19 @@ test("affectedBuildOrder: one edit's wave lists each script once, seeds first, p
   const firstNonSeed = order.findIndex((s) => !seedSet.has(s));
   assert.ok(firstNonSeed === -1 || lastSeed < firstNonSeed, "a non-seed is ordered before a seed");
 
-  // front_half arrives twice — it imports foam_assembly's python AND loads
+  // enclosure_assembly arrives twice — it imports foam_assembly's python AND loads
   // foam-assembly.step — yet appears exactly once.
-  const fh = order.filter(ends("hardware/manifold-layout/front_half.py"));
-  assert.equal(fh.length, 1, "front_half should appear exactly once");
+  const fh = order.filter(ends("hardware/manifold-layout/enclosure_assembly.py"));
+  assert.equal(fh.length, 1, "enclosure_assembly should appear exactly once");
 
-  // Producer before consumer over a real STEP-load edge: front_half loads
+  // Producer before consumer over a real STEP-load edge: enclosure_assembly loads
   // foam-assembly.step, so foam_assembly.py must be built first.
   const idx = (suffix) => order.findIndex(ends(suffix));
   const producer = idx("cold-core/foam-assembly/foam_assembly.py");
-  const frontHalf = idx("hardware/manifold-layout/front_half.py");
-  if (producer !== -1 && frontHalf !== -1) {
-    assert.ok(producer < frontHalf, "foam_assembly.py must precede the front half that loads its STEP");
+  const enclosureAssembly = idx("hardware/manifold-layout/enclosure_assembly.py");
+  if (producer !== -1 && enclosureAssembly !== -1) {
+    assert.ok(producer < enclosureAssembly,
+      "foam_assembly.py must precede the front half that loads its STEP");
   }
 });
 

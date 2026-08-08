@@ -16,7 +16,7 @@ import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-// The live pack's sidecar, written by hardware/manifold-layout/front_half.py. The tests
+// The live pack's sidecar, written by hardware/manifold-layout/enclosure_assembly.py. The tests
 // skip themselves until that build has written one.
 const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "manifold-layout",
   "front-half.scorecard.json");

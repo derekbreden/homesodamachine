@@ -1,12 +1,12 @@
 """Geometry probe — ask the placed solids a question instead of reasoning about them.
 
-The whole placed machine as one flat `{name: shape}` world — `front_half`'s pack
+The whole placed machine as one flat `{name: shape}` world — `enclosure_assembly`'s pack
 bodies, the display and hopper funnel seated in the walls, the four printed
 enclosure pieces and the routed tubes — with the queries that answer where a part
 is, how close two parts come, what a candidate volume runs into, and how far a
 line can travel before it hits something.
 
-The world is one `front_half.build_front_half()`, body for body: `w.parts` are the
+The world is one `enclosure_assembly.build_enclosure_assembly()`, body for body: `w.parts` are the
 bodies, `w.pieces` are the box's four printable pieces, and both are in the one
 dict every query iterates. That is the point. The pieces are the walls, seam lips,
 cross-pin pods, boss chains and ribs, they are what bounds a placement in a
@@ -75,8 +75,8 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 import _overlap
 
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
-_ML = _HW / "manifold-layout"                                   # `front_half` — the machine
-_BOX = _HW / "printed-parts" / "enclosure" / "enclosure"        # `enclosure` — the box itself
+_ML = _HW / "manifold-layout"                              # `enclosure_assembly` — the machine
+_BOX = _HW / "printed-parts" / "enclosure" / "enclosure"   # `enclosure` — the box itself
 
 VOL_TOL = 1e-6          # mm³ below which an intersection is contact noise, not overlap
 TUBE_OD = 6.35          # 1/4" LLDPE, the default probe diameter
@@ -117,7 +117,7 @@ def _common_volume(a, b) -> float:
 def shape(obj, label: str = "?"):
     """The bare `cq.Shape` behind a pack entry: `(solid, color)` tuples and
     `Workplane`s unwrap, a `Shape` passes through, anything else raises naming
-    its type. `front_half._solids()` yields `(solid, color)` tuples and
+    its type. `enclosure_assembly._solids()` yields `(solid, color)` tuples and
     `enclosure.build_pieces()` yields `Workplane`s, so a caller that unwraps by
     hand gets one of them wrong."""
     obj = obj[0] if isinstance(obj, tuple) else obj
@@ -720,11 +720,11 @@ def _ensure_paths() -> None:
 
 
 def _assembly():
-    """`front_half` — the module that states which bodies are placed, where each one is
+    """`enclosure_assembly` — the module that states which bodies are placed, where each one is
     turned to, what is seated in the walls and how the box is cut."""
     _ensure_paths()
-    import front_half
-    return front_half
+    import enclosure_assembly
+    return enclosure_assembly
 
 
 # How a child of the front-half assembly is tagged. The names carry the role: the box's four
@@ -769,7 +769,7 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     # The whole machine in one assembly — pack bodies, the funnel and display seated in the
     # walls, the four printed pieces, the swept runs — carrying the frames and the box it was
     # built from. The same object the build exports and reports on.
-    a = _assembly().build_front_half()
+    a = _assembly().build_enclosure_assembly()
 
     solids, sources = {}, {}
 

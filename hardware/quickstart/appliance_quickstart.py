@@ -471,7 +471,7 @@ def _arrows_connect_co2(x, y, w, draw_h):
 
     Both where it lands and which way it comes from are read off the
     drawing's own red marking, so the arrow follows the inlet wherever
-    `front_half` seats it and however the view turns."""
+    `enclosure_assembly` seats it and however the view turns."""
     text = Path(ENCLOSURE_BACK).read_text()
     nx, ny = _port_normal(text, CO2_DISC_FILL)
     px, py = _embedded_port_point(

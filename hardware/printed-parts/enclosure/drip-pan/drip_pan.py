@@ -17,19 +17,19 @@ so a hand runs down one arris from the rim to the floor.
 The column reads UP from the pump: the basin's own floor takes its air over the
 SeaFlo's BRACKET — the feet's top face, the widest section the casting has and the
 one the tray rides over — then the basin, then `VENT_GAP` of air under the chain's
-underside. `front_half.pan_floor` is the plane the basin's own floor reaches, and
-`front_half.build_asse` hangs the chain off that plane rather than the other way
+underside. `enclosure_assembly.pan_floor` is the plane the basin's own floor reaches, and
+`enclosure_assembly.build_asse` hangs the chain off that plane rather than the other way
 round.
 
 NOTHING STANDS UNDER THE FLOOR. The basin lies over the casting, so section
 beneath it is height the basin pays for twice — once to clear the pump and again
 to carry the load. So the carry takes hold of the RIM instead: the flange's flat
-underside is the bearing face, `front_half.pan_rails` stands a rail pair under
+underside is the bearing face, `enclosure_assembly.pan_rails` stands a rail pair under
 it off the west wall, and the floor is left free at its own clearance over the
 bracket. Nothing under the floor, so nothing under the floor to pay for.
 
 Frame: +X long axis (the withdrawal direction — the tray draws WEST through
-`front_half.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
+`enclosure_assembly.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
 lower-front-left outer corner of the WALLS, so the flange reaches −`FLANGE_W` of
 it on both plan axes. Open top (+Z).
 
@@ -64,12 +64,12 @@ import shutao_moisture_plate as plate
 # `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width, and
 # `check_plate()` reports a basin that gives back more than that.
 #
-# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs
-# off the pump's own casting at one clearance (`front_half.pan_east_x`) and its west lip has
-# to land inside the −X wall (`front_half.check_pan_lane`), which is what fixes the rim at
-# [72](PAN_RIM_LEN) over the [52](PAN_LEN) of basin. [76](PAN_DEPTH) down, the basin hung on
-# the atmospheric vent's own tip in both plan axes. [10](PAN_HEIGHT) tall is what `VENT_GAP`
-# leaves of the vent's column once the basin's floor has taken its own air over the casting.
+# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs off the
+# pump's own casting at one clearance (`enclosure_assembly.pan_east_x`) and its west lip has to
+# land inside the −X wall (`enclosure_assembly.check_pan_lane`), which is what fixes the rim at
+# [72](PAN_RIM_LEN) over the [52](PAN_LEN) of basin. [76](PAN_DEPTH) down, the basin hung on the
+# atmospheric vent's own tip in both plan axes. [10](PAN_HEIGHT) tall is what `VENT_GAP` leaves of
+# the vent's column once the basin's floor has taken its own air over the casting.
 PAN_X, PAN_Y, PAN_Z = 52.0, 76.0, 10.0
 WALL, FLOOR = 2.5, 3.0
 # The PLAN OUTLINE's radius, and the only one this part has. Floor slab, walls, cavity
@@ -161,9 +161,10 @@ def bearing_w():
 # A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
 # elevations and the scorecard a run writes. So it does not stop the build: `check_plate` hands
 # back a `Bound` whether it holds or not, THE BASIN COMES OUT AT ITS STATED SIZE — too small for
-# the plate that overran it — and `front_half.build_pan` enters the reading in that module's own
-# ledger, where `_scorecard` renders it as the `plate-lies-flat` gate row carrying the message
-# written here. A raise would have destroyed every artifact a reader could see the fault in.
+# the plate that overran it — and `enclosure_assembly.build_pan` enters the reading in that
+# module's own ledger, where `_scorecard` renders it as the `plate-lies-flat` gate row carrying the
+# message written here. A raise would have destroyed every artifact a reader could see the fault
+# in.
 Bound = namedtuple("Bound", "id label ok value target detail")
 
 

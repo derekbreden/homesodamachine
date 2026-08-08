@@ -4,7 +4,7 @@ flowchart LR
   %% is one placed body — a valve, a pump, a junction fitting, the cold core, a panel bulkhead —
   %% and every edge is one connection, carrying what the machine makes it out of.
 
-  %% Source of truth: `manifold-layout/front_half.py` places the pack,
+  %% Source of truth: `manifold-layout/enclosure_assembly.py` places the pack,
   %% `manifold-layout/_lines.py` authors every run BETWEEN placed bodies and `_routing.Run.length`
   %% measures it off the built centreline, and `manifold-layout/manifold_layout.py` makes the
   %% manifold's own interior. `_fluid_topology_sync.py` writes every number below and gates every

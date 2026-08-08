@@ -2,12 +2,12 @@
 """Doc-sync driver for the fluid-topology charts.
 
 The front half is the source of truth for the arrangement.
-[`manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py) places the pack,
-[`_lines.py`](/hardware/manifold-layout/_lines.py) authors every run BETWEEN placed bodies and
-`_routing.Run.length` measures the built centreline, and
-[`manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) makes the flavour
-manifold's own interior — where a segment is a butt, a fold or a quarter turn rather than a
-drawn line. This driver reads all three and holds the charts to them.
+[`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) places
+the pack, [`_lines.py`](/hardware/manifold-layout/_lines.py) authors every run BETWEEN placed
+bodies and `_routing.Run.length` measures the built centreline, and
+[`manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) makes the flavour manifold's
+own interior — where a segment is a butt, a fold or a quarter turn rather than a drawn line. This
+driver reads all three and holds the charts to them.
 
 Two jobs:
 
@@ -57,7 +57,7 @@ for _p in (_repo / "tools", _repo / "hardware" / "scripts",
 from docgen import substitute_md, substitute_mmd  # noqa: E402
 import _lines                                     # noqa: E402
 import _scorecard                                 # noqa: E402
-import front_half                                 # noqa: E402
+import enclosure_assembly                                 # noqa: E402
 import manifold_layout as ml                      # noqa: E402
 
 MANIFOLD = _here / "fluid-topology-manifold.mmd"
@@ -139,14 +139,14 @@ def segments() -> dict:
     picked up is a stub drawn one bend radius long and stopped.
 
     THE WHOLE FRONT HALF, NOT THE PACK. A run between two bodies the pack places is drawn by
-    `_lines.build_runs`, but a run to a body SEATED IN THE BOX cannot be — the box is sized on
-    the pack, so it does not exist until the pack does. `build_front_half` seats the funnel and
+    `_lines.build_runs`, but a run to a body SEATED IN THE BOX cannot be — the box is sized on the
+    pack, so it does not exist until the pack does. `build_enclosure_assembly` seats the funnel and
     then draws `_lines.build_seated_runs` off the same frames, and the hopper drain `fluid-4` is
     the one segment in this table that arrives that way. Read the pack alone and that run falls
-    through to the `MOUTHS` loop and is labelled `not drawn` — a chart claiming an open mouth on
-    a line the machine has already routed, and no gate here catches it, because this driver
-    would be self-consistent against its own partial reading."""
-    a = front_half.build_front_half()
+    through to the `MOUTHS` loop and is labelled `not drawn` — a chart claiming an open mouth on a
+    line the machine has already routed, and no gate here catches it, because this driver would be
+    self-consistent against its own partial reading."""
+    a = enclosure_assembly.build_enclosure_assembly()
     segs = {}
     for r in a.runs:
         segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, len(r.bends))

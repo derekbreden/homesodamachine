@@ -24,7 +24,7 @@ on X, `FACE_A` on Y, `FACE_B` on Z:
 donor packed as an envelope is for: the serpentine's own headers are re-dressed to
 reach them. Each joint is therefore one point read twice, with no copper drawn
 between the two bodies, and
-[`front_half.refrigerant_joints()`](/hardware/manifold-layout/front_half.py) measures
+[`enclosure_assembly.refrigerant_joints()`](/hardware/manifold-layout/enclosure_assembly.py) measures
 both at every build, each off the two stations meant to be one point, and
 `check_refrigerant_joints` reds the `refrigerant-joints` gate if either opens. The fan
 is on the face its air leaves by.
@@ -46,7 +46,7 @@ standing height, the 151 less a plate at each end.
 | `mount-crown` | crown, +Z | (29, 163, 151) |
 
 The machine currently sets the block down unturned
-([`front_half.build_condenser`](/hardware/manifold-layout/front_half.py)), so those
+([`enclosure_assembly.build_condenser`](/hardware/manifold-layout/enclosure_assembly.py)), so those
 two insets read off the world's X− and Y+ faces at this pose.
 
 `mounts_hold()` holds the shaft clear of all four sides, both holes inside that
@@ -57,7 +57,7 @@ material or air where each of those puts it.
 
 Which wall the block stands against, which way its air crosses the cabinet,
 and what the lane beside it is worth are the machine's —
-[`front_half.py`](/hardware/manifold-layout/front_half.py) and
+[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) and
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
 It stands on the floor slab east of the compressor, its intake face closed on that
 shell's own +X tangent — an oblong can meets a plane along one line, and the

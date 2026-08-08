@@ -4,7 +4,7 @@
 to four printed bosses on the enclosure's +X wall — the same mount, one part
 earlier, with no floor between the board and the wall. The stations are struck off
 the board's own MH1–MH4 pattern and carried through its placement
-([`front_half.wall_mounts`](/hardware/manifold-layout/front_half.py)), and
+([`enclosure_assembly.wall_mounts`](/hardware/manifold-layout/enclosure_assembly.py)), and
 `pcba-board.step` is the body the machine carries. What lives here is the board
 datum every one of those mounts is derived from — the outline, the MH1–MH4
 rectangle, the thickness, and the component heights read off the fab model — plus

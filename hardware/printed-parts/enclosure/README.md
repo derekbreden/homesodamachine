@@ -38,7 +38,7 @@ What the core's yaw buys is vertical: a column above and ahead of it, where the 
 
 The arrangement above is the current pack — a working layout. It is free to rearrange so long as it respects these physical and functional realities:
 
-- The foam shell is the largest single solid and it cannot compress. Its depth is derived, not fixed: `front_half.build_foam` takes the front face as an argument and the pack strikes it on the stratum's aft plane, so the core follows whatever stands ahead of it. Its yaw puts its short axis across the machine and its long one front to back, which is what leaves the column above and ahead of it.
+- The foam shell is the largest single solid and it cannot compress. Its depth is derived, not fixed: `enclosure_assembly.build_foam` takes the front face as an argument and the pack strikes it on the stratum's aft plane, so the core follows whatever stands ahead of it. Its yaw puts its short axis across the machine and its long one front to back, which is what leaves the column above and ahead of it.
 - The core spans the box's full depth, so it goes in before the front and back halves telescope together around it. The seam's furniture all lives in the bands the standoffs open, so none of it meets the core.
 - The cold core stands flat on the floor, on its bottom foam-cap lid: the six M3 cap screws driven up from below sit in counterbores in the lid's own head pads.
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.

@@ -159,13 +159,13 @@ SHORT_LEG = 1.0
 
 # --- the snapshot ---------------------------------------------------------
 #
-# One `build_front_half()` is a minute and a half, and a scan wants the same world thousands of
-# times. So the world is taken ONCE and written down flat: every body's box, every routed run's
-# centreline, every port's position and axis, and the interior the printed pieces leave. The
-# cache is keyed on the SOURCE — the size and mtime of every module the pose of anything
+# One `build_enclosure_assembly()` is a minute and a half, and a scan wants the same world
+# thousands of times. So the world is taken ONCE and written down flat: every body's box, every
+# routed run's centreline, every port's position and axis, and the interior the printed pieces
+# leave. The cache is keyed on the SOURCE — the size and mtime of every module the pose of anything
 # depends on — so a tree that has moved rebuilds rather than answering from a stale world.
 
-_SOURCES = ("manifold-layout/front_half.py", "manifold-layout/_lines.py",
+_SOURCES = ("manifold-layout/enclosure_assembly.py", "manifold-layout/_lines.py",
             "manifold-layout/manifold_layout.py", "scripts/_routing.py",
             "printed-parts/enclosure/enclosure/enclosure.py")
 
@@ -192,8 +192,8 @@ def take() -> dict:
     box's four pieces leave. Nothing here is a summary of a measurement — every number is the
     placed geometry's own, read off the same assembly the build exports."""
     sys.path.insert(0, str(_ML))
-    import front_half as fh                                  # noqa: E402
-    a = fh.build_front_half()
+    import enclosure_assembly as fh                                  # noqa: E402
+    a = fh.build_enclosure_assembly()
     placed = fh._solids(a)
     bodies = {}
     for name, (solid, _colour) in placed.items():
@@ -1319,15 +1319,16 @@ class Seat:
     """One body hung off another's mouth: which of its own mouths meets it, how far off, and
     how it is rolled about the joint.
 
-    This is the machine's own seating rule read back as a transform — `front_half.build_split`
-    stands the split one `WATER_2` off the chain's outlet on that collet's own line, and that is
-    a `Seat` with `gap=WATER_2` and a roll. What the space varies is the roll and the gap; what
-    it holds is that the joint is a joint at all.
+    This is the machine's own seating rule read back as a transform —
+    `enclosure_assembly.build_split` stands the split one `WATER_2` off the chain's outlet on that
+    collet's own line, and that is a `Seat` with `gap=WATER_2` and a roll. What the space varies is
+    the roll and the gap; what it holds is that the joint is a joint at all.
 
     A seat with no parent is a STATION: the mouth is put at a stated point facing a stated way,
-    which is how a body clamped through a wall is placed — `front_half.build_panel_bulkhead`
-    seats a union on its inboard collet at `(x, bulkhead_mouth_y, z)`. What the space varies
-    there is the station, and `stations()` is where the ones that clear the machine come from."""
+    which is how a body clamped through a wall is placed —
+    `enclosure_assembly.build_panel_bulkhead` seats a union on its inboard collet at `(x,
+    bulkhead_mouth_y, z)`. What the space varies there is the station, and `stations()` is where
+    the ones that clear the machine come from."""
     body: str
     mouth: str                  # this body's port that meets the parent's
     on: str = ""                # "parent.port", or empty for a station
@@ -1458,11 +1459,11 @@ def stations(body: str, axis: int, values, snap: dict = None, hold=(),
 def west_lane() -> Space:
     """The tap-water chain in the west lane, and the two runs that leave it.
 
-    `front_half` seats these four one off the next: the union's collet fixes the ASSE chain, the
-    chain's outlet fixes the split one `WATER_2` along it, the split's flavour collet fixes the
-    regulator one `FLUID_1` along that. Each of those joints has a ROLL nobody has costed — the
-    split's branch may look down, up or either way across, and the regulator may lie any of four
-    ways about its own flow axis — and each has a REACH the author picked as a round number.
+    `enclosure_assembly` seats these four one off the next: the union's collet fixes the ASSE
+    chain, the chain's outlet fixes the split one `WATER_2` along it, the split's flavour collet
+    fixes the regulator one `FLUID_1` along that. Each of those joints has a ROLL nobody has costed
+    — the split's branch may look down, up or either way across, and the regulator may lie any of
+    four ways about its own flow axis — and each has a REACH the author picked as a round number.
 
     What the space holds is the joints themselves. The union is in the back wall and the chain's
     inlet butts it, so the chain's own yaw is not free: the three quarter turns that are not
@@ -1498,16 +1499,16 @@ PANEL_REACH = 120.0
 def panel_deck() -> Space:
     """The three unions the machine dispenses through, and the meter inline ahead of one.
 
-    `front_half.PANEL_X` names three numbers across the back wall and gives an ORDER for them:
-    the two gates take the ends because each arrives from its own side, and the carb union takes
-    the middle so the nozzle-A line passes under the riser's turn rather than through it. That
-    order is a reason, and a reason is exactly the kind of thing a search can put a number on —
-    so here all three stations are free and `stations()` says which ones are clear at all.
+    `enclosure_assembly.PANEL_X` names three numbers across the back wall and gives an ORDER for
+    them: the two gates take the ends because each arrives from its own side, and the carb union
+    takes the middle so the nozzle-A line passes under the riser's turn rather than through it.
+    That order is a reason, and a reason is exactly the kind of thing a search can put a number on
+    — so here all three stations are free and `stations()` says which ones are clear at all.
 
-    The deck's own STOREY is held. `front_half.deck_z` strikes it by dropping all four bodies
-    onto whatever stands under them, and a union slid along the wall would re-strike it; holding
-    it is what keeps this a search over the row rather than over the row and its height at once.
-    A winner here is a candidate for that re-strike, not a substitute for it."""
+    The deck's own STOREY is held. `enclosure_assembly.deck_z` strikes it by dropping all four
+    bodies onto whatever stands under them, and a union slid along the wall would re-strike it;
+    holding it is what keeps this a search over the row rather than over the row and its height at
+    once. A winner here is a candidate for that re-strike, not a substitute for it."""
     snap = snapshot()
     row = tuple(v * PANEL_STEP for v in
                 range(-int(PANEL_REACH / PANEL_STEP), int(PANEL_REACH / PANEL_STEP) + 1))
@@ -1623,10 +1624,10 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
                 continue
             if any(_overlaps(x, y) for x in parts[name] for y in parts[other]):
                 clash.append(f"{name}/{other}")
-        # THE CAVITY BINDS ONLY WHERE THE BODY WAS ALREADY INSIDE IT. A union clamped through
-        # the back wall reaches out the far side by construction — `front_half.THROUGH_WALL` is
-        # the same fact — so its own Y is not a bound the interior gets to set. What it is
-        # measured on is the axes it was inside to begin with.
+        # THE CAVITY BINDS ONLY WHERE THE BODY WAS ALREADY INSIDE IT. A union clamped through the
+        # back wall reaches out the far side by construction — `enclosure_assembly.THROUGH_WALL` is
+        # the same fact — so its own Y is not a bound the interior gets to set. What it is measured
+        # on is the axes it was inside to begin with.
         was = snap["bodies"][name]["box"]
         for i in range(3):
             if was[2 * i] < cav[2 * i] - 1e-6 or was[2 * i + 1] > cav[2 * i + 1] + 1e-6:
@@ -1661,7 +1662,7 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
 
 def current(space: Space) -> dict:
     """The arrangement the tree builds today, read off the snapshot rather than restated — so a
-    value changed in `front_half` moves this, and the ranking that scores it stays honest.
+    value changed in `enclosure_assembly` moves this, and the ranking that scores it stays honest.
 
     The ROLL is solved and not assumed. Which quarter turn `_align` calls zero is this module's
     convention and not the machine's, so the tree's own roll is whichever of the four puts every

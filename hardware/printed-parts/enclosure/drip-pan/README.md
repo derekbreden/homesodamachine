@@ -34,25 +34,25 @@ basin needs.
 ## The chain's column
 
 The column reads UP from the pump, and the chain follows the basin rather than
-bounding it. `front_half.pan_floor` stands the basin's own floor one
-`front_half.FOOT_CLEAR` over the SeaFlo's **bracket** — the feet's top face, the
+bounding it. `enclosure_assembly.pan_floor` stands the basin's own floor one
+`enclosure_assembly.FOOT_CLEAR` over the SeaFlo's **bracket** — the feet's top face, the
 widest section the casting has, and the one the tray rides over rather than
-beside — and `front_half.build_asse` then hangs the chain's underside one basin
+beside — and `enclosure_assembly.build_asse` then hangs the chain's underside one basin
 height plus [4](PAN_VENT_GAP) mm of splash-and-service air above that floor, so a
 change to either number moves both bodies together. The chain is rolled about its
 own flow axis, so its underside is a body corner and the vent stub's tip stands
 above it, leaning aft.
 
 The plan station is not posed by hand either.
-In X the basin hangs off the pump — `front_half.pan_east_x` puts its east rim one
+In X the basin hangs off the pump — `enclosure_assembly.pan_east_x` puts its east rim one
 clearance off the casting's west flank at the tray's own height — and the west lip
-takes what the lane has left, which `front_half.check_pan_lane` measures against
+takes what the lane has left, which `enclosure_assembly.check_pan_lane` measures against
 the −X wall's inner face, the face the tray withdraws through. In Y the pump's
-discharge bounds it and the vent does not: `front_half.pan_front_y` strikes the
+discharge bounds it and the vent does not: `enclosure_assembly.pan_front_y` strikes the
 forward rim on the barb's own aft edge, by what a hose leaving that barb needs, and
 it is the **flange** that arrives at the barb first. The vent then falls where the
 chain's own standoff from the back wall leaves it, and
-`front_half.check_vent_lands` reads its tip back against the floor those two leave,
+`enclosure_assembly.check_vent_lands` reads its tip back against the floor those two leave,
 reporting where the drip lands as the `vent-lands` gate row.
 
 ## What the floor carries sets the depth
@@ -81,7 +81,7 @@ the walls, its top face flush with them, so it costs the column nothing. A 45°
 haunch fills the corner under it — the tray prints floor-down, and the haunch is
 what the flange's first courses grow out of. What is left flat outboard of that
 haunch, less the slip, is [6.70](PAN_BEARING) mm of bearing a side, and
-`front_half.pan_rails` stands a rail under each.
+`enclosure_assembly.pan_rails` stands a rail under each.
 
 **One number for two grips**, and the hand sets it: the west lip is hooked with a
 fingertip to draw the tray, and a lip a finger pulls on wants ten. The rail takes
@@ -92,7 +92,7 @@ wall's inner face and running east under the rim — the axis a rail is laid on 
 the axis the thing on it travels. Their two inboard arrises take the tray's two
 haunches and hold it on its column.
 
-A **stop bar** closes their east ends — `front_half.pan_rails` returns it as the
+A **stop bar** closes their east ends — `enclosure_assembly.pan_rails` returns it as the
 third of the three members `enclosure._pan_rails` fuses onto the wall — so the three
 members are one U and how far the tray goes in is a face and not a judgement. The
 bar stands in the pocket the flange overhangs its basin by, at the rails' own
@@ -105,7 +105,7 @@ both ends: r[16](PAN_RIM_CORNER_R) rounds the rim and the haunch rounds the
 section beneath, so what butts is the straight run between those arcs.
 
 Service is one motion — **draw the tray west**, out through the slot in that same
-wall (`front_half.west_wall_ports`). The slot is the tray's own silhouette: rim-wide
+wall (`enclosure_assembly.west_wall_ports`). The slot is the tray's own silhouette: rim-wide
 above the flange's underside, haunch-wide below it. The step between the two is the
 wall the rails stand on.
 

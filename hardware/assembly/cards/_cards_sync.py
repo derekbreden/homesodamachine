@@ -70,8 +70,8 @@ NDASH = "&ndash;"   # –
 
 def _machine() -> Machine:
     """The appliance, built once. Every fact below is read off this."""
-    import front_half as _fh  # noqa: E402  — expensive; imported inside the build
-    return Machine(*_fh.machine())
+    import enclosure_assembly as _ea  # noqa: E402  — expensive; imported inside the build
+    return Machine(*_ea.machine())
 
 
 # ═══ EN — Enclosure mechanical ═════════════════════════════════════════════
@@ -81,7 +81,7 @@ def enclosure(m: Machine):
     what stands inside it."""
     import compressor as _comp
     import enclosure as _enc
-    import front_half as _fh
+    import enclosure_assembly as _ea
     import _scorecard as _card
     import iec_c14_inlet as _c14
     import jg_bulkhead_union as _jg
@@ -134,13 +134,13 @@ def enclosure(m: Machine):
     # bores, and these are the calls that fill it — with the same carries — so a card
     # cannot state a hole the wall does not have. The union's figure is quoted once for
     # a row of four, which holds only while the four are on one diameter.
-    union_bores = _fh.back_wall_ports(m.a.bulkhead_carry, *m.a.panel_carries.values())
+    union_bores = _ea.back_wall_ports(m.a.bulkhead_carry, *m.a.panel_carries.values())
     port_hole_ds = {round(p[3], 6) for p in union_bores}
     assert len(port_hole_ds) == 1, (
         f"the back wall's four unions are bored at {sorted(port_hole_ds)} and EN-02/IP-02 "
         f"quote one figure for all of them")
     port_hole_d = union_bores[0][3]
-    co2_hole_d = _fh.co2_wall_port(m.a.co2_inlet_carry)[3]
+    co2_hole_d = _ea.co2_wall_port(m.a.co2_inlet_carry)[3]
 
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     nut_d, _ = _jg.panel_footprint()
@@ -153,11 +153,11 @@ def enclosure(m: Machine):
     # The umbilical row, read as an arrangement rather than as three stations: a
     # single pitch, and which END of the row the blue ring is on. Both survive the
     # row moving, which it does.
-    xs = sorted(_fh.PANEL_X.values())
+    xs = sorted(_ea.PANEL_X.values())
     pitches = {round(b - a, 6) for a, b in zip(xs, xs[1:])}
     assert len(pitches) == 1, (
         f"the umbilical row stands on {sorted(pitches)} and EN-02 quotes one pitch")
-    carb_end = "east" if _fh.PANEL_X["bulkhead-carb"] == xs[-1] else "west"
+    carb_end = "east" if _ea.PANEL_X["bulkhead-carb"] == xs[-1] else "west"
 
     # EN-07 pins each Z seam at both ends of each ±X wall so it cannot hinge open
     # at the end it was not pinned at. That is the shape of the sentence, so the
@@ -181,7 +181,7 @@ def enclosure(m: Machine):
     # stated appliance width has to take whichever of them is wider, and neither the
     # card nor this comment gets to name which — the two spans do.
     def _span(*names):
-        boxes = [_fh.box(pack.placed[n][0]) for n in names]
+        boxes = [_ea.box(pack.placed[n][0]) for n in names]
         return max(b.xmax for b in boxes) - min(b.xmin for b in boxes)
 
     facts = {
@@ -220,7 +220,7 @@ def enclosure(m: Machine):
         "COMP_MOUNT_D": f"{_comp.MOUNT_D:.4g}",
         "COMP_MOUNT_PITCH": f"{_comp.MOUNT_PITCH_X:.4g} {X} {_comp.MOUNT_PITCH_Y:.4g} mm",
         "COMP_PLATE": f"{_comp.BASE_X:.4g} {X} {_comp.BASE_Y:.4g} mm",
-        "COMP_CROWN": f"{_fh.box(pack.placed['compressor'][0]).zmax:.4g} mm",
+        "COMP_CROWN": f"{_ea.box(pack.placed['compressor'][0]).zmax:.4g} mm",
         "SIDE_OPENINGS": f"{len(box.east_ports)}",
         # The cold core (EN-05).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
@@ -266,7 +266,7 @@ def electronics_shelf(m: Machine):
     import teyleten_relay as _relay
 
     # One boss per hole in each body's own pattern, carried through that body's own
-    # placement (`front_half.wall_mounts`). Counting the patterns here and the wall
+    # placement (`enclosure_assembly.wall_mounts`). Counting the patterns here and the wall
     # there is the check: if they disagree, a body is mounted by something other
     # than its own holes and ES-01's table is describing a different machine.
     column = {"PSU_BOSSES": len(_psu.holes),

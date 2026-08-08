@@ -1,6 +1,6 @@
 """The front half's requirements as a single pass/fail scorecard — the one place the
-arrangement's rules are enumerated as executable checks, computed from the placed geometry the
-pack already builds. Printed at the tail of every `front_half.py` run and written beside the
+arrangement's rules are enumerated as executable checks, computed from the placed geometry the pack
+already builds. Printed at the tail of every `enclosure_assembly.py` run and written beside the
 STEP as `front-half.scorecard.json`, which the 3D viewer's bottom bar reads
 ([`web/contracts/scorecard-sidecar.js`](/web/contracts/scorecard-sidecar.js)).
 
@@ -35,7 +35,7 @@ Every check's detail is printed to `DETAIL_MAX` rows and carried whole in the si
 list ending in "… n more" is a terminal cap and never the end of the finding.
 
 Run it through the assembly:
-    tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
+    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py
 
 The need figure's own controls, against known-answer geometry:
     tools/cad-venv/bin/python hardware/manifold-layout/_scorecard.py selftest
@@ -151,17 +151,17 @@ def _split_placed(a) -> tuple:
 # `reference/ice-maker/README.md` and built in `assembly/refrigerant-loop.md`. The drier and
 # the capillary tube ride the condenser → evaporator leg.
 #
-# THESE THREE IDS ARE THE LOOP'S WHOLE POPULATION, and `front_half.REFRIGERANT_IDS` is this
-# tuple: the gate that measures the loop and the goal that counts it read one list, so a
-# connection cannot go quiet on one while the other still owes it. THERE ARE TWO WAYS TO MAKE A
-# LEG and the gate grades both. A leg made by MATING crosses a plane two of its bodies already
-# share, so both of its stations are one point read twice and the copper between them is the
-# length of the union; a leg made in COPPER is a run `_lines` draws, and what it owes is the gap
-# between the tube's two ends and the mouths they are brazed into. `front_half.refrigerant_joints`
-# takes whichever reading the machine earned over all three at every build,
-# `check_refrigerant_joints` reads red for any leg standing open and for any with no pair of
-# placed stations to measure, and `load_connections` counts as MATED only the matings that shut —
-# a drawn leg it counts off the run, like every other line.
+# THESE THREE IDS ARE THE LOOP'S WHOLE POPULATION, and `enclosure_assembly.REFRIGERANT_IDS` is this
+# tuple: the gate that measures the loop and the goal that counts it read one list, so a connection
+# cannot go quiet on one while the other still owes it. THERE ARE TWO WAYS TO MAKE A LEG and the
+# gate grades both. A leg made by MATING crosses a plane two of its bodies already share, so both
+# of its stations are one point read twice and the copper between them is the length of the union;
+# a leg made in COPPER is a run `_lines` draws, and what it owes is the gap between the tube's two
+# ends and the mouths they are brazed into. `enclosure_assembly.refrigerant_joints` takes whichever
+# reading the machine earned over all three at every build, `check_refrigerant_joints` reads red
+# for any leg standing open and for any with no pair of placed stations to measure, and
+# `load_connections` counts as MATED only the matings that shut — a drawn leg it counts off the
+# run, like every other line.
 REFRIGERANT_SEGMENTS = (
     ("refrig-1", "compressor discharge", "condenser+fan inlet"),
     ("refrig-2", "condenser+fan outlet (drier + cap tube)", "foam-assembly evaporator inlet"),
@@ -175,7 +175,7 @@ REFRIGERANT_SEGMENTS = (
 #
 # THERE IS NO `water-1`. The rear bulkhead's inboard collet and the ASSE chain's inlet collet
 # meet face to face, so the first tube in the machine is a length of stock cut to the two grips
-# and swallowed whole by them (`front_half.py`, the bulkhead block).
+# and swallowed whole by them (`enclosure_assembly.py`, the bulkhead block).
 WATER_SEGMENTS = (
     ("water-2", "asse1022-assembly tube-out", "water-split supply"),
     ("water-3", "water-split to-vk", "vk-solenoid inlet"),
@@ -204,7 +204,7 @@ CARB_SEGMENTS = (
 
 # --- what fastens each body ------------------------------------------------
 #
-# One row per body `front_half` seats, as `(component, by, held)`.
+# One row per body `enclosure_assembly` seats, as `(component, by, held)`.
 #
 #   `by`   — the part whose PRINTED FEATURE fastens it. A boss a screw goes into, a socket a
 #            thread makes up in. `None` is a joint still to design, and every `None` here is
@@ -287,19 +287,19 @@ def mounts() -> tuple:
 # them as joined or it asks each end for a straight it will never turn in.
 MADE_UP = (
     # The rear bulkhead's inboard collet and the ASSE chain's inlet collet meet face to face —
-    # `front_half.build_asse` seats the chain on `bulkhead_mouth_y`, "the inlet collet butts the
-    # union's inboard collet". The first tube in the machine is a length of stock cut to the two
-    # grips and swallowed whole by them, which is why there is no `water-1`.
+    # `enclosure_assembly.build_asse` seats the chain on `bulkhead_mouth_y`, "the inlet collet
+    # butts the union's inboard collet". The first tube in the machine is a length of stock cut to
+    # the two grips and swallowed whole by them, which is why there is no `water-1`.
     ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
-    # A made-up 1/4" NPT thread: `front_half.build_gasher_co2` stations the check valve's inlet
-    # on the DERPIPE's own stub tip. `co2-inlet` states no port table, so the pair is named on
-    # the end that has one.
+    # A made-up 1/4" NPT thread: `enclosure_assembly.build_gasher_co2` stations the check valve's
+    # inlet on the DERPIPE's own stub tip. `co2-inlet` states no port table, so the pair is named
+    # on the end that has one.
     ("gasher-co2.inlet", "co2-inlet"),
 )
 
-# Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a
-# bend radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the
-# basin's flat floor, and `front_half.check_vent_lands` measures where it falls and reports it as
+# Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
+# radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the basin's
+# flat floor, and `enclosure_assembly.check_vent_lands` measures where it falls and reports it as
 # the `vent-lands` gate row.
 TERMINI = ("asse1022-assembly.vent-tip",)
 
@@ -310,10 +310,12 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # SEATS against each other, each named against the construction that seats it — a contact by
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
-    # The base's own two bodies, on the seam `front_half.report` prints as a mate at 0 by intent.
+    # The base's own two bodies, on the seam `enclosure_assembly.report` prints as a mate at 0 by
+    # intent.
     ("compressor", "condenser+fan"),
-    # The cold core's front face stands on the base's aft face: `front_half.build_pack` strikes
-    # `aft` off the bodies that reach below the core's crown, and `build_foam` seats it there.
+    # The cold core's front face stands on the base's aft face: `enclosure_assembly.build_pack`
+    # strikes `aft` off the bodies that reach below the core's crown, and `build_foam` seats it
+    # there.
     ("compressor", "foam-assembly"),
     ("condenser+fan", "foam-assembly"),
     # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
@@ -322,7 +324,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # THE THREE VALVES IN THE CAP'S OWN CRADLES. A press fit is a contact by construction: the
     # cell's sockets take the valve's four corner posts on `single_tray.socket_clearance` and
     # its round boss lands on the pad top, so the pair reads 0 and it is the joint working.
-    # `front_half.check_cradles` is what holds each of them over its own cradle.
+    # `enclosure_assembly.check_cradles` is what holds each of them over its own cradle.
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
@@ -395,15 +397,15 @@ def load_connections(runs, joints=()) -> list[Connection]:
     pack carries that construction's own name, and what is left is owed. A run that `_routing`
     could not draw as asked carries the shortfall with it.
 
-    `joints` is `front_half.refrigerant_mates` — the legs a shared plane CLOSED, `(id, from, to,
-    mm apart)` apiece — and a connection it names is MATED: its two mouths are one point read
-    twice across a plane its bodies already share, so there is no line to draw and nothing left
-    to route. The measurement rides the row. Nothing here re-tests it: `front_half` takes the
-    reading over the whole loop and hands on only what its own tolerance shut, so a leg that
-    stands open or was never measured is still owed here and reads red on its own gate. The
-    loop's DRAWN leg is not in this list and does not need to be — it arrives in `runs` like
-    every other line. A card built without the reading counts none of them, which is the honest
-    default: an assembly nobody measured holds no path anybody has seen.
+    `joints` is `enclosure_assembly.refrigerant_mates` — the legs a shared plane CLOSED, `(id,
+    from, to, mm apart)` apiece — and a connection it names is MATED: its two mouths are one point
+    read twice across a plane its bodies already share, so there is no line to draw and nothing
+    left to route. The measurement rides the row. Nothing here re-tests it: `enclosure_assembly`
+    takes the reading over the whole loop and hands on only what its own tolerance shut, so a leg
+    that stands open or was never measured is still owed here and reads red on its own gate. The
+    loop's DRAWN leg is not in this list and does not need to be — it arrives in `runs` like every
+    other line. A card built without the reading counts none of them, which is the honest default:
+    an assembly nobody measured holds no path anybody has seen.
 
     The wiring schedule is not here. It is a separate axis and nothing in this pack routes a
     conductor yet, so counting it would only bury the tube reading this card is for."""
@@ -588,27 +590,27 @@ def _bounds(a) -> list:
     basin's own flat floor taking the moisture plate, and the
     enclosure's own: the pack inside the stated width, depth and height, the two seam planes
     clear of the display housing and on the print bed, the funnel throat inside the frame the
-    top wall has left. `front_half.carry_enclosure_bounds` brings that group over.
+    top wall has left. `enclosure_assembly.carry_enclosure_bounds` brings that group over.
 
-    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `hopper_funnel` and
-    the cold core's modules state bounds about their own CONSTANTS, which are fixed the moment
-    each file is read — the crossbar leaving Y-A and Y-B their own tube, the two limbs standing
-    a valve body apart, the spine turn holding its stock's corner, a clamp screw reaching the
-    whole of its insert, a conduit column leaving the pour its gap, a plug leaving a printable
-    web between its arches. Those are read at import into `_stated_bounds` and
-    `front_half.carry_stated_bounds` brings them over. A bound stated over a population — every
-    conduit, every cradle, every pair — is ONE row: its value tallies the readings and its
+    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `hopper_funnel` and the
+    cold core's modules state bounds about their own CONSTANTS, which are fixed the moment each
+    file is read — the crossbar leaving Y-A and Y-B their own tube, the two limbs standing a valve
+    body apart, the spine turn holding its stock's corner, a clamp screw reaching the whole of its
+    insert, a conduit column leaving the pour its gap, a plug leaving a printable web between its
+    arches. Those are read at import into `_stated_bounds` and
+    `enclosure_assembly.carry_stated_bounds` brings them over. A bound stated over a population —
+    every conduit, every cradle, every pair — is ONE row: its value tallies the readings and its
     detail carries the note each failing one wrote.
 
-    NONE OF THEM STOPS A BUILD, and that is the whole reason they arrive here. A bound the
-    machine violates is a thing to LOOK AT, and what a reader looks at is the STEP, the three
-    elevations and this card — every one of which a raise destroys, leaving the only account of
-    the fault in a terminal nobody commits. An import-time raise destroys them EARLIER, before
-    the build has drawn a line, so there is even less to look at. So the check hands its reading
-    back instead, `front_half.BOUNDS` carries it onto the assembly, and it is red HERE, in the
-    committed artifact, with the message the check wrote and the geometry beside it — two limbs
-    pitched under a valve body come out as this row AND as `pack-closes` naming both valves with
-    the volume they share, which is the picture a raise cannot leave.
+    NONE OF THEM STOPS A BUILD, and that is the whole reason they arrive here. A bound the machine
+    violates is a thing to LOOK AT, and what a reader looks at is the STEP, the three elevations
+    and this card — every one of which a raise destroys, leaving the only account of the fault in a
+    terminal nobody commits. An import-time raise destroys them EARLIER, before the build has drawn
+    a line, so there is even less to look at. So the check hands its reading back instead,
+    `enclosure_assembly.BOUNDS` carries it onto the assembly, and it is red HERE, in the committed
+    artifact, with the message the check wrote and the geometry beside it — two limbs pitched under
+    a valve body come out as this row AND as `pack-closes` naming both valves with the volume they
+    share, which is the picture a raise cannot leave.
 
     An assembly built by something that states no bounds contributes no rows rather than a
     silent pass: nothing measured is not the same claim as nothing wrong."""
@@ -684,8 +686,8 @@ def _lines_clear(a, runs) -> Check:
     one overlap here that is not a defect.
 
     The swept solids come off the assembly rather than being swept again: `_lines.tubes` already
-    built each run's tube and `front_half` added it under `tube-<connection>`, and a second sweep
-    of every run costs more than every boolean below."""
+    built each run's tube and `enclosure_assembly` added it under `tube-<connection>`, and a second
+    sweep of every run costs more than every boolean below."""
     tubes, ends, rest = run_world(a, runs)
     tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
     rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
@@ -1077,7 +1079,7 @@ def _held() -> Check:
 
 # --- where each body stands ------------------------------------------------
 #
-# `front_half.seat_body` records BOTH SIDES of a placement as it closes it — the rule the
+# `enclosure_assembly.seat_body` records BOTH SIDES of a placement as it closes it — the rule the
 # construction asked for, and the same rule read back off the geometry that came out of it. So
 # nothing below says what a pose ought to be: there is no second table here to drift from the
 # pack, only the ledger's own two sides held against each other, and the one question the ledger
@@ -1099,10 +1101,10 @@ def seat_misses(seat) -> list[tuple]:
 
 
 def seat_tol(seats):
-    """`front_half.SEAT_TOL` — how far a face may land off the plane its seat named before the
-    row is off.
+    """`enclosure_assembly.SEAT_TOL` — how far a face may land off the plane its seat named before
+    the row is off.
 
-    Taken off the module the ledger's own rows were struck in, which is `front_half` under
+    Taken off the module the ledger's own rows were struck in, which is `enclosure_assembly` under
     whichever name it is running as, so the card cannot hold the pack to a different number from
     the one the pack prints. `None` when the ledger is empty: no row to measure, and no module to
     ask."""
@@ -1115,9 +1117,10 @@ def _placed(a) -> Check:
 
     TWO FAILURES ON ONE AXIS. A body with NO ROW is a body whose pose nobody stated — it is where
     it is because the model says so, and an assembler handed the parts could not reproduce it. A
-    body whose row MISSED was given a rule its own construction did not close on: two planes
-    named on one axis, or a mouth the turns do not carry to the target. A plane rule closes by
-    construction, so anything over `front_half.SEAT_TOL` is one of those and not import noise.
+    body whose row MISSED was given a rule its own construction did not close on: two planes named
+    on one axis, or a mouth the turns do not carry to the target. A plane rule closes by
+    construction, so anything over `enclosure_assembly.SEAT_TOL` is one of those and not import
+    noise.
 
     ONE ROW MAY COVER A GROUP. The refrigeration base is turned and stood as a pair and the
     flavour manifold is posed and lifted whole, so those two rows name every body they carry.
@@ -1143,12 +1146,12 @@ def _placed(a) -> Check:
 def _room_holds(a) -> Check:
     """Every DERIVED pose against the band its own construction states.
 
-    A pose stated as a plane is met by construction, and `placed` reads that. A pose stated as
-    "one clearance off whatever stands under it" is a MEASUREMENT — the strike drops a body and
-    takes what is left — and `front_half.note_room` is where the construction records what it
-    actually got. A pose short of its own band still lands and still clears `pack-closes`; what
-    it has lost is the room its derivation claimed, and the body that has to move to give it back
-    is usually not the one the shortfall is measured on.
+    A pose stated as a plane is met by construction, and `placed` reads that. A pose stated as "one
+    clearance off whatever stands under it" is a MEASUREMENT — the strike drops a body and takes
+    what is left — and `enclosure_assembly.note_room` is where the construction records what it
+    actually got. A pose short of its own band still lands and still clears `pack-closes`; what it
+    has lost is the room its derivation claimed, and the body that has to move to give it back is
+    usually not the one the shortfall is measured on.
 
     A band with nothing under it holds. That is a body the strike found no landing for inside its
     own reach, so there is nothing for it to fall short of."""
@@ -1272,13 +1275,13 @@ def build(a) -> Scorecard:
 def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
-    # `front_half` measures every leg of the refrigerant loop, and the ones a shared plane SHUT
-    # ride each row: the millimetres a closed mating stands apart print beside the segment it
+    # `enclosure_assembly` measures every leg of the refrigerant loop, and the ones a shared plane
+    # SHUT ride each row: the millimetres a closed mating stands apart print beside the segment it
     # makes. A mating standing open, or a leg with no reading at all, counts here only if a line
     # was actually drawn for it; otherwise it is copper the machine owes and stays in `routed`'s
-    # owed column, rather than counting as made because somebody looked at it. Either way it
-    # reads red on `refrigerant-joints`, which grades the whole loop — a mating on its two
-    # stations, a drawn leg on both its mouths.
+    # owed column, rather than counting as made because somebody looked at it. Either way it reads
+    # red on `refrigerant-joints`, which grades the whole loop — a mating on its two stations, a
+    # drawn leg on both its mouths.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
@@ -1513,17 +1516,17 @@ def selftest() -> int:
           all(bare[cid].made == UNMADE and not bare[cid].routed for cid in refrig),
           ", ".join(f"{cid} {bare[cid].made}" for cid in refrig))
 
-    # There are two ways to make a leg of that loop and `front_half` reads each in its own
+    # There are two ways to make a leg of that loop and `enclosure_assembly` reads each in its own
     # words. They are THIS CARD'S words, so the gate that grades the loop and the row `routed`
     # prints for the same leg cannot come out under different names.
-    import front_half as _fh
+    import enclosure_assembly as _ea
 
-    check("both ways `front_half` makes a leg of the loop have a word on this card",
-          {_fh.MADE_BY_MATE, _fh.MADE_BY_TUBE} <= set(MADE_AS),
-          f"{_fh.MADE_BY_MATE} {_fh.MADE_BY_TUBE}")
+    check("both ways `enclosure_assembly` makes a leg of the loop have a word on this card",
+          {_ea.MADE_BY_MATE, _ea.MADE_BY_TUBE} <= set(MADE_AS),
+          f"{_ea.MADE_BY_MATE} {_ea.MADE_BY_TUBE}")
     # And the gate's population is this table's own, not a list kept beside it.
     check("the loop's gate and this card count the same legs",
-          _fh.REFRIGERANT_IDS == refrig, " ".join(_fh.REFRIGERANT_IDS))
+          _ea.REFRIGERANT_IDS == refrig, " ".join(_ea.REFRIGERANT_IDS))
 
     print("PASS" if failures == 0 else f"FAIL — {failures}")
     return 0 if failures == 0 else 1

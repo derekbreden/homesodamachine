@@ -10,7 +10,7 @@ Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 A static part in its own frame — origin at the collar-rectangle center, z = 0
 the brim underside — placed by the machine
-([`front_half.funnel_centre`](/hardware/manifold-layout/front_half.py), brim on
+([`enclosure_assembly.funnel_centre`](/hardware/manifold-layout/enclosure_assembly.py), brim on
 the box top). The drain is defined in this frame and rides the part. Top to
 bottom:
 
@@ -28,7 +28,7 @@ bottom:
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the manifold tubing), the
   spout offset off the collar center (`neck_dx`); the placement's
-  `front_half.FUNNEL_ROT` picks which side of the box it descends (the
+  `enclosure_assembly.FUNNEL_ROT` picks which side of the box it descends (the
   rectangular collar seats either way). The whole floor is the ramp — every
   surface of it falls toward the spout, no flat anywhere, so the basin drains
   dry. A straight spout tube carries the exit down to the drain, which sits
@@ -48,7 +48,7 @@ accommodates it — funnel and hole cannot drift apart.
 
 `tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py`
 → `hopper-funnel.step`. Seated in the machine by
-[`../../../manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py).
+[`../../../manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
 
 ## Sources
 [value](NAME) texts are updated by:

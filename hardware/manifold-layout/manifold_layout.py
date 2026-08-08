@@ -119,7 +119,7 @@ import y_divider as ydiv                              # noqa: E402
 import _routing                                       # noqa: E402
 # The bounds this file states about its own figures — settled here, at import, before any solid
 # exists to hang a reading on. `_stated_bounds` is the ledger they record into and
-# `front_half.carry_stated_bounds` is what puts them on the card.
+# `enclosure_assembly.carry_stated_bounds` is what puts them on the card.
 import _stated_bounds as _bounds                      # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
@@ -878,7 +878,7 @@ ELEVATIONS = "top,front,right"
 
 
 def render_elevations(step: Path, xray: str = None) -> None:
-    """Plan, front and right beside the STEP — the same three `front_half.py` draws, and
+    """Plan, front and right beside the STEP — the same three `enclosure_assembly.py` draws, and
     for the same reason: an isometric thumbnail cannot be read off with a ruler.
 
     `xray` is a name glob drawn as a translucent hull instead of a solid, so a body inside a
