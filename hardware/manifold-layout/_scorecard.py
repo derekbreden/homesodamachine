@@ -221,7 +221,7 @@ MOUNTS = (
     ("compressor", None, "floor"),
     ("condenser+fan", None, "floor"),
     ("foam-assembly", None, "floor"),
-    ("seaflo-pump", None, "cap"),
+    ("seaflo-pump", "foam-assembly", "deck-mount"),
     ("hopper-funnel", None, "wall-capture"),
     ("display", None, "wall-capture"),
     ("suction-chain", None, "none"),

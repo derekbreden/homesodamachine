@@ -467,16 +467,23 @@ deck_mount_cap_gap = 1.5
 # that tells a builder which way the cup goes on is what is NOT symmetric — these four stations
 # and the seven conduit columns beside them. `assembly/cold-core.md` CC-06 and CC-15 both read
 # the cap that way.
-#   NO MODULE BOLTS TO THEM TODAY. Every body standing on this cap is carried some other way:
-# the power column hangs on the enclosure's own wall bosses (`enclosure_assembly.wall_mounts`), and
-# the three valves that stand on the lid press into the cradles below. So these are eight bored
-# columns and eight inserts standing ready, which is what `bom.md` §7 bills them as.
+#   THE WATER PUMP IS THE ONE MODULE THAT BOLTS TO THEM. Its bracket's rubber pad carries four
+# Ø6 bores on its own 59 x 79 pattern (`seaflo_22_pump.mount_holes`), the pad bears on the lid's
+# outer face, and an M3 SHCS with a plain washer under its head passes down each bore, through
+# the lid, into the insert below. The pad is the pump's isolator and the washer is what spreads
+# the head over it, so `seat` on that row is the pad plus that washer.
+#   The four tray rows carry nothing yet. Every other body standing on this cap is carried some
+# other way: the power column hangs on the enclosure's own wall bosses
+# (`enclosure_assembly.wall_mounts`), and the three valves that stand on the lid press into the
+# cradles below. So those eight are bored columns and inserts standing ready, which is what
+# `bom.md` §7 bills them as.
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
+    "seaflo-pump": DeckMount((-93.20,   0.00),  59.00,  79.00,   0.0,  8.50, 16.0),
     "bag-b-tray":  DeckMount((105.25,  17.02),   0.00,  49.50,   0.0,  9.00, 16.0),
     "vk-tray":     DeckMount((  6.30,  37.62),  49.50,   0.00,   0.0,  9.00, 16.0),
-    "nozzle-b-tray": DeckMount((-82.92, 34.62), 49.50,   0.00,   0.0,  9.00, 16.0),
+    "nozzle-b-tray": DeckMount((-82.92, 25.00), 49.50,   0.00,   0.0,  9.00, 16.0),
     "nozzle-tray": DeckMount(( 109.75, -68.325), 49.50,   0.00,   0.0,  9.00, 16.0),
 }
 

@@ -5,7 +5,7 @@
  "shaped": 90,
  "routed": 100,
  "held": 92,
- "mounted": 15,
+ "mounted": 17,
  "checks": [
   {
    "id": "coverage",
@@ -112,6 +112,7 @@
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.000 mm \u2014 seated against it",
     "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "co2-2 \u2014 fluid-14: 1.069 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
     "co2-2 \u2014 hopper-funnel: 1.362 mm",
@@ -213,7 +214,7 @@
    "label": "Every deck mount's screw reaches the whole of its insert",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 hold",
+   "value": "5/5 hold",
    "target": "4 mm into the column",
    "detail": [],
    "active": true
@@ -223,7 +224,7 @@
    "label": "Every deck-mount column leaves the pour its gap in the cup",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 hold",
+   "value": "5/5 hold",
    "target": "1.5 mm off everything standing in the cup",
    "detail": [],
    "active": true
@@ -293,7 +294,7 @@
    "label": "Every deck mount's lid hole leaves a land under its screw head",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 hold",
+   "value": "12/12 hold",
    "target": "1.5 mm off the pour hole",
    "detail": [],
    "active": true
@@ -492,6 +493,16 @@
    "active": true
   },
   {
+   "id": "pump-mount-lands",
+   "label": "Every cap column the water pump bolts to is under its own bore",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4 columns, furthest off 0.000 mm",
+   "target": "every column within 0.001 mm of the bore over it",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "plate-lies-flat",
    "label": "The moisture plate lies flat on the basin's floor",
    "kind": "gate",
@@ -515,12 +526,10 @@
    "id": "pan-lane",
    "label": "The drip tray's west lip lands inside the \u2212X wall",
    "kind": "gate",
-   "status": "fail",
-   "value": "lip at x -113.00, wall at -108.50",
+   "status": "pass",
+   "value": "lip at x -108.00, wall at -108.50",
    "target": "the lip inboard of the wall",
-   "detail": [
-    "drip-pan: the tray's west lip lands at x -113.00, 4.50 mm outboard of the \u2212X wall's inner face at -108.50. Its east rim stands one FOOT_CLEAR = 1 off the pump's casting at the tray's own height, so the lane holds a rim of 67.50; shrink `drip_pan.PAN_X` by what is over."
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -547,12 +556,10 @@
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
-   "status": "fail",
-   "value": "pack reaches x \u00b1113.00, wall at \u00b1108.50",
+   "status": "pass",
+   "value": "pack reaches x \u00b1108.00, wall at \u00b1108.50",
    "target": "inside a 223 mm appliance",
-   "detail": [
-    "the pack reaches x \u00b1113.00 but a 223 mm appliance walls in at \u00b1108.50 \u2014 4.50 mm over. Raise `appliance_width` or repack inboard"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -684,7 +691,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "9/59 mounted",
+   "value": "10/59 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
@@ -721,7 +728,6 @@
     "pump-b-bracket: held by pack",
     "pump-b-head: held by pack",
     "pump-b-motor: held by pack",
-    "seaflo-pump: held by cap",
     "tee-y-a: held by pack",
     "tee-y-b: held by pack",
     "tee-y-c: held by pack",
@@ -825,8 +831,8 @@
    "target": "a holder per body",
    "detail": [
     "bosses holds 6: ac-hub, c14-inlet, ground-stack, pcba, psu, relay-1",
-    "cap holds 1: seaflo-pump",
     "cradle holds 3: valve-v-a, valve-v-b, vk-solenoid",
+    "deck-mount holds 1: seaflo-pump",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
     "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
     "rails holds 1: drip-pan",
@@ -2121,18 +2127,26 @@
     [
      -90.5,
      178.0,
-     0.0,
-     90.5,
-     461.0,
-     5.2
-    ],
-    [
-     -90.5,
-     178.0,
      233.4,
      90.5,
      461.0,
      251.4
+    ],
+    [
+     -90.5,
+     178.0,
+     248.2,
+     90.5,
+     461.0,
+     262.015
+    ],
+    [
+     -90.5,
+     178.0,
+     0.0,
+     90.5,
+     461.0,
+     5.2
     ],
     [
      -90.5,
@@ -2149,17 +2163,9 @@
      90.5,
      461.0,
      20.0
-    ],
-    [
-     -90.5,
-     178.0,
-     248.2,
-     90.5,
-     461.0,
-     262.015
     ]
    ],
-   "fill": 0.1125,
+   "fill": 0.1126,
    "primitive": false,
    "declared": null
   },
@@ -2335,10 +2341,10 @@
    "component": "drip-pan",
    "boxes": [
     [
-     -113.0,
+     -108.0,
      346.1,
      294.233,
-     -41.0,
+     -36.0,
      442.1,
      304.233
     ]
@@ -4829,8 +4835,8 @@
   },
   {
    "component": "seaflo-pump",
-   "by": null,
-   "held": "cap",
+   "by": "foam-assembly",
+   "held": "deck-mount",
    "kind": "real"
   },
   {
@@ -5165,7 +5171,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T18:36:33+00:00",
-  "commit": "f690c573e532393c75202664f2518af167358206"
+  "generated": "2026-08-08T18:47:13+00:00",
+  "commit": "bf10e2bef398036a9d13b28a5223d4dfbbe44904"
  }
 }
