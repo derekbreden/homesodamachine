@@ -2,11 +2,11 @@
 
 The appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; panel-specific design lives in the sub-folders. The cabinet it installs into, and what is already in there, is [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
 
-This is the **thin** machine: tall and narrow, [223 mm](APPLIANCE_WIDTH) wide × [481 mm](APPLIANCE_DEPTH) deep × [358 mm](APPLIANCE_HEIGHT) tall. Two of those three are bounds rather than consequences:
+This is the **thin** machine: tall and narrow, [223 mm](APPLIANCE_WIDTH) wide × [481 mm](APPLIANCE_DEPTH) deep × [358 mm](APPLIANCE_HEIGHT) tall. All three are bounds rather than consequences. `enclosure._dims` measures the pack against each and enters the reading in `BOUNDS`; the box comes back at its stated size either way, so a pack that overruns one gets a wall drawn through it and a red row saying by how much.
 
-- **Width** is the widest body ON THE FLOOR plus the seam machinery's own reach either side. `enclosure._dims` stands each ±X wall one [14](WALL_STANDOFF) mm boss chain off that body, so the boss band the wall carries lands on the body's own face rather than in front of it. The refrigeration stratum is that body — the compressor and the condenser mated, [189](STRATUM_W) across. The cold core is narrower: its foam shell is ~[283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) × [213.4](FOAM_SHELL_Z) mm and it is **yawed a quarter turn**, so the 181 runs across the machine and the 283 runs front to back.
-- **Height** is stated (`enclosure.appliance_height`) — the silhouette the edition exists for. The contents live under it; the build fails if they cannot.
-- **Depth** follows the pack: the stratum's own [178](STRATUM_D) mm, the core's long axis behind it, and the walls and standoffs around the pair.
+- **Width** is `enclosure.appliance_width`, struck symmetric about x = 0. What the pack owes it is clearance, not a datum: a body on the floor slab spans the interior wall to wall, so a floor body is held one [14](WALL_STANDOFF) mm boss chain in from the wall **at the depths the seam's columns stand there**, which is what lets each post, chain and pod seat at full section. Between those columns the band is the wall's own air (`enclosure.east_band_free_y`), and a body hung on the flank stands in it. The widest body on the floor is the cold core: its foam shell is ~[283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) × [213.4](FOAM_SHELL_Z) mm, **yawed a quarter turn** so the 181 runs across the machine and the 283 front to back. The refrigeration stratum ahead of it measures [166](STRATUM_W) across.
+- **Height** is `enclosure.appliance_height` — the silhouette the edition exists for. The contents live under it, and the scorecard carries the reading when they do not.
+- **Depth** is `enclosure.rear_plane_y` at the back wall. Only the FRONT wall follows the pack, standing one seam clearance ahead of the frontmost body — the stratum's own [178](STRATUM_D) mm, with the core's long axis behind it.
 
 What the core's yaw buys is vertical: a column above and ahead of it, where the width used to be spent sideways.
 
@@ -57,10 +57,9 @@ The arrangement above is the current pack — a working layout. It is free to re
 
 ## Sub-folders
 
-- [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — rear face of the enclosure.
+- [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — the rear wall's connection inventory. Not a separate part: the rear face is a wall of `enclosure-back-top`.
 - [`drip-pan/`](/hardware/printed-parts/enclosure/drip-pan/) — internal catch basin under the ASSE 1022 chain's atmospheric vent.
-- [`front-panel/`](/hardware/printed-parts/enclosure/front-panel/) — front face of the enclosure.
-- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear face.
+- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear wall.
 
 ## Sources
 [value](NAME) texts are updated by:

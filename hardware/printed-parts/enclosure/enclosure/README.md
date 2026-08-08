@@ -2,24 +2,28 @@
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [223 × 481 × 358 mm](BOX_SIZE), and two of those three numbers are
-**bounds** rather than consequences:
+It measures [223 × 481 × 358 mm](BOX_SIZE), and **width, height and the back wall
+are all stated bounds**. `_dims` measures the pack against each one and enters the
+reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
+that overruns one gets a wall drawn through it, a red row naming by how much, and a
+clash in `pack-closes` at the body that overran.
 
-- **Width** is set on the floor. `_dims` stands the ±X walls one `side_rib_inset`
-  boss chain off the widest body standing on the slab — the mated compressor
-  and condenser — and the cold core clears that band, being yawed a quarter
-  turn (`front_half.FOAM_YAW`) so what crosses the machine is its 181 mm short face
+- **Width** is `appliance_width`, struck symmetric about x = 0. What the pack owes
+  it is clearance: a body on the floor slab spans the interior wall to wall, so a
+  floor body stands one `side_rib_inset` in from the wall **at the depths the seam's
+  columns stand there**, leaving each post, chain and pod its full section. The cold
+  core is the widest of the floor bodies, yawed a quarter turn
+  (`front_half.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
 - **Height** is a stated [358 mm](APPLIANCE_HEIGHT), floor slab's underside to the
-  top wall's outer face. The contents do not lift it; they have to fit under it,
-  and `_dims` fails the build if they do not, naming by how much.
+  top wall's outer face. The contents do not lift it; they have to fit under it.
 
-**Depth** is still a consequence: the bounding box of the contents placed by
-[`../../../manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py),
-walled out. The refrigeration stratum stands on the floor at the front and the cold
-core sits behind it, front face mated flush against the stratum's aft plane, so the
-depth is the two of them end to end plus the rear standoff and what stands aft of
-the core's own lid.
+**Depth** is stated at the back — `rear_plane_y` — and follows the pack at the
+front, where the wall stands one `front_seam_clear` ahead of the frontmost body
+placed by
+[`../../../manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py).
+The refrigeration stratum stands on the floor at the front and the cold core sits
+behind it, front face mated flush against the stratum's aft plane.
 
 Each column takes its bottom↔top seam at its own height, inside the band both its
 pieces print in (`_bed_band`): the piece under a seam runs the floor slab to the lip
@@ -49,7 +53,9 @@ seam, as it spans the front column's on the other side of the Y joint.
 
 The two stand `z_joint_pitch` apart — closer and the Y seam quietly comes out with
 fewer cross-pins than it has levels for — so the back column's search runs around the
-front's stated plane and raises if every height it has is inside that pitch. They land
+front's stated plane, and the `z-seam-pitch` gate reds when every height it has is
+inside that pitch. The pitch is what gives way there and the band is not: the seam
+still lands, in its own open band. They land
 far apart, which is why they stagger like a brick bond. `main()` prints each seam, how
 it landed, and the band the bed allowed it.
 
@@ -173,14 +179,17 @@ ceiling strata over the overlap interlock the same way — the front post's foot
 and head come through a relief in the back half's floor and ceiling, so the post
 reaches its bed face instead of starting an overlap's length out over air.
 
-**What makes all of that fit is where the walls stand.** A body standing on the
-floor slab spans the interior wall to wall, and it is what sets the box width, so
-a wall laid on its face would leave the seam machinery nowhere to stand. The **±X
-walls stand one `side_rib_inset` off the widest body on the floor** — the boss
-chain's own reach — and the **back wall one `rear_seam_clear`**, the rear Z-seam
-lip's own thickness. Everything on the slab sits flat on it: the print-corner
-relief runs on the standing verticals and the Y-seam's floor lap stays inside the
-slab, so the seat is square and there is nothing standing there to clear.
+**What makes all of that fit is the band the walls keep.** A body standing on the
+floor slab spans the interior wall to wall, so a body laid on a wall's face would
+leave the seam machinery nowhere to stand. Every **floor body is held one
+`side_rib_inset` in from the ±X walls where the seam's columns stand** — the boss
+chain's own reach — and the **back wall keeps one `rear_seam_clear`**, the rear
+Z-seam lip's own thickness. That is a requirement on the body at those depths, not
+a rule about the wall: the columns stand at their own Y stations, and between them
+the band is nothing but the wall's own air. Everything on the slab sits flat on it:
+the print-corner relief runs on the standing verticals and the Y-seam's floor lap
+stays inside the slab, so the seat is square and there is nothing standing there to
+clear.
 
 So the pack seats flush against the **seams**, not against the walls. Every post
 has its full section, both walls carry all six levels, and the rear station's
@@ -300,9 +309,9 @@ The funnel is a static placed part: the opening is cut at its collar
 (`_hopper_hole` reads the funnel's own dims at `front_half.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
 facet's own back plane ahead (with a ledge of top wall between the two), the ±X
-top corner pods either side, and the back wall behind — and the collar is asserted
-to sit one `brim_margin` inside it on all four sides at once, so a placement that
-crowds an edge fails the build instead of silently deforming the hole. That margin
+top corner pods either side, and the back wall behind — and the collar is measured
+one `brim_margin` inside it on all four sides at once, so a placement that crowds an
+edge is a red row naming the edge and the margin it is short. That margin
 is the brim's landing: it is wider than the flange's overhang, so a full
 overhang's width of wall remains outboard of the brim edge the whole way around.
 

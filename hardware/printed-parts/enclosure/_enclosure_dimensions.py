@@ -87,10 +87,16 @@ def _run_len(cid: str) -> float:
 
 
 # --- the silhouette --------------------------------------------------------
-# WIDTH is the widest body ON THE FLOOR plus the seam machinery's own reach either side:
-# `enclosure._dims` stands each ±X wall one `side_rib_inset` off it, so the boss band that
-# wall carries lands on that body's own face. HEIGHT is stated (`enclosure.appliance_height`).
-# DEPTH follows the pack — the refrigeration stratum, then the cold core behind it.
+# WIDTH and HEIGHT are STATED bounds — `enclosure.appliance_width` struck symmetric about
+# x = 0, `enclosure.appliance_height` off the floor slab's underside — and so is the BACK
+# wall (`enclosure.rear_plane_y`). No body sets any of them: `_dims` measures the pack
+# against each, enters the reading in `BOUNDS`, and hands back the box those numbers
+# describe either way, so a pack that overran one gets a wall drawn through it and a red
+# row saying by how much. Only the FRONT wall follows the pack, standing one seam clearance
+# ahead of the frontmost body.
+#
+# `side_rib_inset` is what that width check REQUIRES of a body standing on the floor, not
+# what sets the wall — the band the seam's columns need at the depths they stand.
 APPLIANCE_W = _OUTER[1] - _OUTER[0]
 APPLIANCE_D = _OUTER[3] - _OUTER[2]
 APPLIANCE_H = _OUTER[5] - _OUTER[4]
