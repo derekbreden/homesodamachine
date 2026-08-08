@@ -4,12 +4,11 @@
 
 1/4" OD hard tubing (PE or PU, food-grade) with John Guest push-to-connect fittings is the primary tubing for all internal plumbing. The entire fluid system already uses 1/4" push-connect fittings (Beduan solenoid valves, John Guest bulkheads, pump tube stubs), so hard tubing pushes directly into every fitting — zero tools, zero skill.
 
-Silicone tubing is used only in four specific places:
+Silicone tubing is used only in three specific places:
 
 1. **Peristaltic pump heads** — mechanical requirement. Peristaltic pumps need flexible tubing to compress against the rollers.
 2. **Faucet cosmetic run** — 1/8" ID black silicone zip-tied to the matte black gooseneck faucet. This is the only user-visible tubing; the black silicone blends with the faucet finish.
-3. **Back panel PG7/PG9 cable gland pass-throughs** — flexibility needed for external routing through the gland seals.
-4. **Short vibration-dampening segments near the pumps** (optional) — absorbs peristaltic pump pulsation to prevent transmitted vibration.
+3. **Short vibration-dampening segments near the pumps** (optional) — absorbs peristaltic pump pulsation to prevent transmitted vibration.
 
 ### Why Hard Tubing
 
