@@ -1379,6 +1379,12 @@ class Space:
     runs: tuple                 # the runs re-costed for every arrangement
     label: str
     floor: float = FLOOR
+    # What the lane search is given per arrangement. A scan re-lanes its runs once per
+    # arrangement, so these are the difference between a ranking that finishes and one that does
+    # not — and they are STATED, because a lane not found inside them is not a lane that is not
+    # there. `Space.report` prints them with everything else.
+    region: float = 50.0
+    cap: int = 28
 
     @property
     def bodies(self) -> tuple:
@@ -1403,6 +1409,8 @@ class Space:
         out.append(f"  holds   {len(held)} bodies still, "
                    f"{len(snap['runs'])} runs, the cavity and the four printed pieces")
         out.append(f"  floor   {self.floor:g} mm, bend {BEND_MM:g} mm of tube")
+        out.append(f"  search  lattice cap {self.cap} per axis, region ±{self.region:g} mm "
+                   f"round each run's own two mouths")
         return "\n".join(out)
 
 
@@ -1565,6 +1573,10 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
     snap = snapshot()
     ports = dict((k, dict(v)) for k, v in snap["ports"].items())
     boxes = {n: tuple(b["box"]) for n, b in snap["bodies"].items() if b["box"]}
+    # The same slabs the lane search measures against, so a body standing under the hopper's
+    # brim is not reported as standing IN the basin. A body with none is its own box.
+    parts = {n: tuple(tuple(s) for s in (b.get("slabs") or [b["box"]]))
+             for n, b in snap["bodies"].items() if b["box"]}
     moved = {}
     for seat in space.chain:
         at = seat.at
@@ -1582,19 +1594,29 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
                           "axis": list(_apply(m, tuple(base["axis"]))),
                           "diam": base["diam"]}
         boxes[s.body] = _moved_box(m, t, tuple(snap["bodies"][s.body]["box"]))
+        parts[s.body] = tuple(_moved_box(m, t, tuple(sl)) for sl in parts[s.body])
         moved[s.body] = boxes[s.body]
 
     clash = []
+    cav = snap["cavity"]
     for name, b in moved.items():
         for other, ob in boxes.items():
             if other == name or other in moved and other < name:
                 continue
             if snap["bodies"][other]["tag"] in ("piece", "run"):
                 continue
-            if _overlaps(b, ob):
+            if not _overlaps(b, ob):
+                continue
+            if any(_overlaps(x, y) for x in parts[name] for y in parts[other]):
                 clash.append(f"{name}/{other}")
-        cav = snap["cavity"]
+        # THE CAVITY BINDS ONLY WHERE THE BODY WAS ALREADY INSIDE IT. A union clamped through
+        # the back wall reaches out the far side by construction — `front_half.THROUGH_WALL` is
+        # the same fact — so its own Y is not a bound the interior gets to set. What it is
+        # measured on is the axes it was inside to begin with.
+        was = snap["bodies"][name]["box"]
         for i in range(3):
+            if was[2 * i] < cav[2 * i] - 1e-6 or was[2 * i + 1] > cav[2 * i + 1] + 1e-6:
+                continue
             if b[2 * i] < cav[2 * i] - 1e-6 or b[2 * i + 1] > cav[2 * i + 1] + 1e-6:
                 clash.append(f"{name} out of the cavity on {'xyz'[i]}")
 
@@ -1603,7 +1625,7 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
         live = dict(snap)
         live["ports"] = ports
         live["bodies"] = {n: (dict(b, box=list(boxes[n]),
-                                   slabs=None if n in moved else b.get("slabs"))
+                                   slabs=[list(s) for s in parts[n]])
                               if n in boxes else b)
                           for n, b in snap["bodies"].items()}
         # A RUN THAT TOUCHES A MOVED BODY IS NOT WHERE THE SNAPSHOT LEFT IT. Its tube was swept
@@ -1613,8 +1635,8 @@ def build(space: Space, values: dict, top: int = 1) -> Arrangement:
         stale = tuple(rid for rid, r in snap["runs"].items()
                       if r["frm"].split(".")[0] in moved or r["to"].split(".")[0] in moved)
         for rid in space.runs:
-            got = lanes(rid, top=1, floor=space.floor, snap=live,
-                        hold=stale + tuple(f"tube-{s}" for s in stale))
+            got = lanes(rid, top=1, floor=space.floor, snap=live, region=space.region,
+                        cap=space.cap, hold=stale + tuple(f"tube-{s}" for s in stale))
             if not got:
                 clash.append(f"{rid} has no lane at a {space.floor:g} mm floor")
                 scored = {}
