@@ -938,29 +938,74 @@ DECK_CLEAR = 6.0
 # How far a deck body is dropped before the strike gives up on it. A body that never lands inside
 # this reach has nothing under it, and does not fence the storey.
 DECK_FALL_LIMIT = 60.0
-# Where each union crosses the wall, west to east. The two gates take the ends — `fluid-28` comes
-# down the WEST outboard column and `fluid-18` the EAST one, so each lands on the side it arrives
-# from — and the carb riser takes the middle, where its meter lies inline ahead of it.
+# Clear wall between two nuts on this face: a hand has to get a socket onto each one after its
+# neighbour is made up. The wall spends it, so it is stated here and `_enclosure_mechanical_sync`
+# prices its row of nuts off it.
+PORT_NUT_GAP = 7.0
+# The pitch two unions stand at on one line — each fitting's own panel footprint plus that gap.
+PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP
+# THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the −X
+# wall's inner face to the pump's casting, and the two nozzle unions stand side by side across it
+# at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the wall on one
+# flank and the casting on the other.
 #
-# The order across the row is what keeps the two deck crossings apart. Both `carb-1` and
-# `fluid-18` come west along this deck and then turn aft down their own union's column, and the
-# carb union standing OUTBOARD of the nozzle-A one is what lets the nozzle line pass under the
-# riser's turn rather than through it: `fluid-18` crosses the carb column ahead of where the
-# riser reaches it, and its own column stands west of everything the riser touches.
-PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
-# THE DECK'S WEST COLUMN IS THE TAP WATER UNION'S. That union crosses the same wall on the
-# ASSE chain's own axis, a barrel's width from the nozzle-B station — so the two stand on
-# separate storeys, and the nozzle-B one takes the lower.
+# THE EAST COLUMN IS THE ONE THE PUMP FENCES. It stands as far east as the casting leaves it at
+# the nozzle storey, and the west column takes one pitch beyond that. Swept over the wall by
+# dropping the union's own body down the lane:
 #
-# What hangs off the tap-water union is the whole west lane: the chain, then the split and the
-# regulator on the chain's own axis, and the drip tray under the vent, over the pump's casting.
+#     enclosure_assembly.pump_west_face(seaflo, z0, z1, bulkhead_mouth_y(), rear_plane_y)
+PORT_LANE_CLEAR = 1.0
+# The west column, and the widest body it carries: the ASSE chain hangs off the tap-water union
+# on this column and is broader than any union, so it is what stands the pair off the wall's own
+# ribs. `check_port_pair` measures both flanks of the pair against the lane they are given.
+PORT_WEST_COLUMN = -77.0
+PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
+           "bulkhead-flavor-a": PORT_WEST_COLUMN + PORT_PITCH,
+           "bulkhead-carb": 16.0}
+# What a union's barrel keeps off the pump's BRACKET where the two pass. The feet are the widest
+# section the casting has and they are only `seaflo_22_pump.FOOT_T` tall — above them the casting
+# steps back across the machine and the port lane opens by twenty millimetres. So a barrel
+# carried over the feet has the lane and one struck through them does not.
+PORT_FOOT_CLEAR = 1.0
+
+
+def nozzle_storey(gate: float, seaflo) -> float:
+    """The storey the two nozzle unions cross the wall on: their own runs' cruise lane, or the
+    plane that carries their barrels over the pump's bracket, whichever is higher."""
+    return max(gate, box(seaflo).zmin + _lines._pump.FOOT_T
+               + PORT_FOOT_CLEAR + _jg.BODY_D / 2.0)
+# THE WEST COLUMN CARRIES THE TAP WATER UNION TOO, one storey up: the chain, the split, the
+# regulator and the drip tray under the vent all hang off that union, and the column is what
+# stands them in the lane.
 #
-# THE STOREY IT TAKES IS ITS OWN RUN'S. `fluid-28` cruises the west outboard lane at
-# `_lines.gate_cruise` — the plane the two nozzle gates climb to under the reservoir lines that
-# cross their columns — so a union standing there is reached by a leg that crosses to its column
-# without changing height, and the run's last move into the collet is flat. It also carries the
-# barrel clear under the drip tray's channel.
-PANEL_ON_GATE_LANE = ("bulkhead-flavor-b",)
+# THE STOREY THE NOZZLE UNIONS TAKE IS THEIR OWN RUNS'. `fluid-28` and `fluid-18` cruise the
+# outboard lanes at `_lines.gate_cruise` — the plane the two gates climb to under the reservoir
+# lines that cross their columns — so a union standing there is reached by a leg that crosses to
+# its column without changing height, and each run's last move into its collet is flat. It also
+# carries both barrels clear under the drip tray's channel.
+PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
+
+
+def check_port_pair(placed, west_face, seaflo) -> Bound:
+    """The two nozzle unions across the west lane, measured against the two things that fence it:
+    the −X wall's inner face on one flank and the pump's own casting on the other, read at the
+    storey the pair stands on."""
+    pair = [box(placed[n]) for n in PANEL_ON_GATE_LANE]
+    lo, hi = min(b.xmin for b in pair), max(b.xmax for b in pair)
+    face = pump_west_face(seaflo, min(b.zmin for b in pair), max(b.zmax for b in pair),
+                          bulkhead_mouth_y(), _enc.rear_plane_y)
+    left, right = lo - west_face, face - hi
+    got = min(left, right)
+    ok = got >= PORT_LANE_CLEAR - 1e-6
+    return record_bound(Bound(
+        "port-pair", "The nozzle unions' pair stands inside the west lane", ok,
+        f"{left:.3f} mm to the wall, {right:.3f} mm to the casting",
+        f"{PORT_LANE_CLEAR:g} mm each flank",
+        ([] if ok else [
+            f"the nozzle pair spans x[{lo:.2f}, {hi:.2f}] between a wall at {west_face:.2f} and "
+            f"the pump's casting at {face:.2f} — {got:.3f} mm on its tightest flank. The span is "
+            f"one `PORT_PITCH` plus a barrel; move `PANEL_X`'s two nozzle columns, or give the "
+            f"pair back the width by moving the pump."])))
 
 
 def panel_z(name: str, deck: float, gate: float) -> float:
@@ -2057,7 +2102,8 @@ def build_pack() -> cq.Assembly:
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
     # split, the regulator and the drip tray all take station off the chain.
-    a.gate_z = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
+    a.gate_z = nozzle_storey(
+        _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2]), seaflo)
     under_deck = [s for s, _c in _solids(a).values()]
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     asse, asse_carry = build_asse(a.deck_z)
@@ -2081,6 +2127,7 @@ def build_pack() -> cq.Assembly:
                   deck_fall[name] if name in deck_fall
                   else descent(solid, _would_land_on(box(solid), under_deck)))
     panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
+    check_port_pair(panels, west_interior_face(), seaflo)
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
 
