@@ -786,16 +786,19 @@ DISCH_SPLIT_CLEAR = 1.0
 # `SUCT_CORNER_ROOM` read across the machine. `water-6` turns from west to forward in this
 # gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
 DISCH_CORNER_ROOM = 24.0
-
-
-def build_discharge_chain(split, seaflo_carry):
+def build_discharge_chain(split, flowreg, seaflo_carry):
     """The chain laid in the lane west of the pump, on the discharge's own plane.
 
     Its three coordinates answer to the run it carries and the lane it lies in: X one
     `DISCH_SPLIT_CLEAR` east of the split's own east face, Y standing its barb one
     `DISCH_CORNER_ROOM` forward of the pump's discharge mouth, and Z ON THAT MOUTH'S OWN
     PLANE — the barb fires due west and the chain's axis lies at its height, so `water-6`
-    turns once in plan and climbs nothing.
+    turns once in plan and climbs nothing. `_lines._water_6` is where that plane is held: the
+    hose's two legs seat one `HOSE_BEND` apiece and no more, so it takes no fall at all.
+
+    THE COLLET FIRES AT THE FLOW REGULATOR'S BACK, on the storey that body stands on. What its
+    straight comes to against the 2 × `TUBE_BEND` a collet asks for is the `port-leads` row for
+    `discharge-chain.tube-port`, read there off the regulator's own solid.
 
     What holds it there is an open item: nothing threads onto this chain and nothing clamps
     it. It has a measured datum and measured room; it does not have a bracket."""
@@ -902,6 +905,27 @@ DECK_FALL_LIMIT = 60.0
 # riser's turn rather than through it: `fluid-18` crosses the carb column ahead of where the
 # riser reaches it, and its own column stands west of everything the riser touches.
 PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
+# THE WEST COLUMN IS THE TAP WATER UNION'S, so the nozzle-B union steps down out of the row.
+#
+# Two unions cannot share a column: the tap-water one crosses at x −74 — the ASSE chain's own
+# axis, which the chain's hug of the cold core's west face fixes — and this one at −80, six
+# millimetres apart across a Ø`jg_bulkhead_union.BODY_D` barrel. One of them has to give the
+# storey up, and it is this one, because what hangs off the tap-water union is the whole west
+# lane: the chain, the split and the regulator on the chain's own axis, and the drip tray under
+# the vent. Standing that column ON THE DECK is what lifts the tray off the pump's bracket and
+# into the open room over the casting, which is where a rail can be printed to it.
+#
+# The step is the ROW'S OWN PITCH, taken down the wall instead of across it — the same clear
+# face between two nuts, read on the other axis — so the two columns keep the spacing the row
+# already states and a change to the row carries this with it.
+PANEL_PITCH = (max(PANEL_X.values()) - min(PANEL_X.values())) / (len(PANEL_X) - 1)
+PANEL_DROP = {"bulkhead-flavor-b": PANEL_PITCH}
+
+
+def panel_z(name: str, deck: float) -> float:
+    """The storey one union of the row crosses the wall on: the deck, less what its own column
+    owes to the body standing over it."""
+    return deck - PANEL_DROP.get(name, 0.0)
 
 
 def build_panel_bulkhead(name: str, x: float, z: float):
@@ -1851,10 +1875,10 @@ def build_pack() -> cq.Assembly:
     a.add(pan, name="drip-pan", color=C_PAN)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
-    disch, disch_carry = build_discharge_chain(split, seaflo_carry)
-    a.add(disch, name="discharge-chain", color=C_SUCT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
+    disch, disch_carry = build_discharge_chain(split, flowreg, seaflo_carry)
+    a.add(disch, name="discharge-chain", color=C_SUCT)
     vk, vk_carry = build_vk(chain_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
     # The cradles, measured the moment the last valve standing on the cap is placed. The other
