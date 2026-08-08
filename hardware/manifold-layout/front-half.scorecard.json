@@ -164,12 +164,10 @@
    "id": "refrigerant-joints",
    "label": "The refrigerant loop closes on the planes its bodies share",
    "kind": "gate",
-   "status": "fail",
-   "value": "2/3 closed, 1 unmeasured, widest measured 0.000 mm",
+   "status": "pass",
+   "value": "2 mated, 1 drawn of 3, widest mating 0.000 mm",
    "target": "every joint within 0.05 mm",
-   "detail": [
-    "the loop owes refrig-3 and nothing on this pack measures it: `MATED_JOINTS` names no pair of stations for that id, or a station it names is not placed. `routed` counts the same 3 connections (`_scorecard.REFRIGERANT_SEGMENTS`), so 1 of 3 legs of the circuit have no reading rather than the circuit having fewer joints \u2014 give each the two stations it is made on, or the run that draws it."
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -476,8 +474,8 @@
     "pump-b-head: still a bare box, 1 solid",
     "hopper-funnel: 1 box holds 5% material",
     "foam-assembly: 5 boxes hold 11% material",
+    "ground-stack: 1 box holds 17% material",
     "display: 2 boxes hold 18% material",
-    "ground-stack: 1 box holds 18% material",
     "pcba: 1 box holds 24% material",
     "tee-y-a: 1 box holds 27% material"
    ],
@@ -1831,6 +1829,22 @@
    "declared": null
   },
   {
+   "component": "ground-stack",
+   "boxes": [
+    [
+     80.7,
+     350.4,
+     307.9,
+     94.5,
+     368.4,
+     325.588
+    ]
+   ],
+   "fill": 0.1681,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "display",
    "boxes": [
     [
@@ -1851,22 +1865,6 @@
     ]
    ],
    "fill": 0.1805,
-   "primitive": false,
-   "declared": null
-  },
-  {
-   "component": "ground-stack",
-   "boxes": [
-    [
-     79.9,
-     350.4,
-     307.9,
-     94.5,
-     368.4,
-     325.588
-    ]
-   ],
-   "fill": 0.1821,
    "primitive": false,
    "declared": null
   },
@@ -4832,7 +4830,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T04:42:46+00:00",
-  "commit": "bd3e043c074eae9c661a4b91c7f7b9e7664054f4"
+  "generated": "2026-08-08T04:48:14+00:00",
+  "commit": "6a1fdb6f6cc6b59ef4c944f4ef858a489871eca0"
  }
 }
