@@ -201,7 +201,7 @@ def main():
             "PORT_NUT_D": 1,
             "C14_FLANGE_W": 1,
             "PORT_CHAIN_3": 1,
-            "PORT_ROW_Z": 2,
+            "PORT_ROW_Z": 3,
             "UMBILICAL_STATIONS": 1,
             "UMBILICAL_PITCH": 1,
             "UMBILICAL_CARB_X": 1,
