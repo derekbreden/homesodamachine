@@ -16,13 +16,14 @@ Coordinate frame
   It stands 29 in from the INTAKE face and 15 in from the AFT face. The machine currently
   sets the block down unturned (`front_half.build_condenser`), so those two read as the
   world's X− and Y+ faces at this pose.
-- BOTH REFRIGERANT LEGS ARRIVE ON A FACE THE BLOCK IS MATED TO, which is what a donor
-  packed as an envelope is for: the serpentine's own headers are re-dressed to reach them.
-  Hot gas enters the INTAKE face on the compressor shroud's own discharge stub, and the
-  liquid line leaves the AFT face on the cold core's own evaporator-inlet station. Each is
-  therefore made up across a plane two bodies already share, and no copper is drawn between
-  them — `front_half.refrigerant_joints()` measures both at every build and fails the build
-  if either opens.
+- BOTH REFRIGERANT LEGS ARRIVE ON A FACE THE BLOCK PRESENTS TO ITS NEIGHBOUR, which is what
+  a donor packed as an envelope is for: the serpentine's own headers are re-dressed to reach
+  them. Hot gas enters the INTAKE face on the compressor's own discharge stub, a plane the
+  two bodies share, so that leg is made up across it with no copper drawn between them. The
+  liquid line leaves the AFT face for the cold core's evaporator inlet.
+  `front_half.refrigerant_joints()` takes a reading over every leg of the loop at each build,
+  and `check_refrigerant_joints` reads red on the card for one standing open and for one with
+  no pair of placed stations to measure.
 
 Which wall the block stands against and which way its air crosses the cabinet is the
 enclosure's business (`../../manifold-layout/front_half.py`).
