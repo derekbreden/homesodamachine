@@ -11,8 +11,14 @@ Convention:
   * §18 (capitalized contract labor) has no status column; its rows are summed
     separately as `labor`.
 
-Run:  python3 hardware/_ledger_totals.py          # summary
-      python3 hardware/_ledger_totals.py --audit   # + ambiguous-row report
+Run:  python3 hardware/scripts/_ledger_totals.py           # rewrite + summary
+      python3 hardware/scripts/_ledger_totals.py --check   # exit 1 if a marker is stale
+      python3 hardware/scripts/_ledger_totals.py --audit   # + ambiguous-row report
+
+--check is the commit gate (.githooks/pre-commit, keyed on purchases.md) and it
+WRITES NOTHING. A driver that rewrites under --check cannot fail, so the one
+instrument that would catch a stale total would report success instead — which
+is how the grand total came to understate cash outlay by a whole PCBA batch.
 """
 import os
 import re
@@ -132,6 +138,19 @@ def main():
         m = re.match(r"(\d+)", title)
         if m:
             variables[f"LEDGER_SEC{m.group(1)}"] = money(v)
+    if "--check" in sys.argv:
+        text = open(LEDGER, encoding="utf-8").read()
+        stale = [f"  [{m.group(1)}]({name}) should be [{v}]({name})"
+                 for name, v in variables.items()
+                 for m in [re.search(r"\[([^\]]*)\]\(%s\)" % name, text)]
+                 if m and m.group(1) != v]
+        if stale:
+            print("purchases.md totals are stale — run _ledger_totals.py:")
+            print("\n".join(stale))
+            return 1
+        print("purchases.md totals ✓")
+        return 0
+
     substitute_md(LEDGER, variables, {k: 1 for k in variables})
 
     print("ACQUIRED by section:")
@@ -148,7 +167,8 @@ def main():
         print("\nAmbiguous / multiplied / priceless rows:")
         for status, kind, txt in amb:
             print(f"  [{status:9s}] {kind:20s} | {txt}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
