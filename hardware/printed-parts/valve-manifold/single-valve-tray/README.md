@@ -24,15 +24,19 @@ carries one valve gets this part instead.
 
 ## Where it goes
 
-The aft stand's middle row, carrying V-K — the tap-water fill/shutoff solenoid
-between the water split and the SeaFlo's suction.
+Nowhere in the machine. This plate is bench geometry: the appliance seats no
+tray at all, because the three valves that stand on a printed face stand in
+cradles the cold core's own top lid carries — [`single-tray`](/hardware/printed-parts/valve-manifold/single-tray/README.md)'s
+cell cut straight into that face at each station in
+`_cold_core_interface.cap_cradles` — and every other valve is butted collet to
+collet down a limb of the flavour pack, which carries its own. So the part has
+no row in [`bom.md`](/hardware/ledger/bom.md) §7 and nothing bolts to the cap.
 
-The enclosure's aft stand carries three of these — V-K on the middle row and
-the two nozzle gates — each placed by its own two runs. Flat, the plate spends
-its saving over a two-valve in **X** and its collets face ±Y, which is how all
-three stand: `_contents.VK_TRAY_COLLETS`, `NOZZLE_B_TRAY_COLLETS` and
-`NOZZLE_TRAY_COLLETS` each name one seat's pair on the `xc` seat. A row turned a
-quarter turn about Z spends the saving in **Y** instead, its collets on ±X.
+What it is FOR is the cell on a floor: one seat's own reach and nothing more, so
+a carrier that cannot print a cradle into itself can bolt one on instead. Flat,
+the plate spends its saving over a two-valve in **X** and its collets face ±Y; a
+plate turned a quarter turn about Z spends the saving in **Y** instead, its
+collets on ±X.
 
 `xc` is the seat's own key, and the family keys every collet the same way — the
 seat's name, then the end by sign.
@@ -42,9 +46,9 @@ seat's name, then the end by sign.
 The family's, unchanged — one tongue off each port face on the plate's own
 centreline, at `two_valve_tray.ear_y`, which is struck off `half_y` and
 `port_half`. This plate shares both, so the ears stand where they do on every
-other tray and a carrier's boss pitch is the same part to part. The foam cap's
-deck-mount table holds the aft stand's stations
-(`_cold_core_interface.deck_mounts`).
+other tray and a carrier's boss pitch is the same part to part. No carrier in
+this machine presents that pitch: `_cold_core_interface.deck_mounts` is empty,
+and the cap prints the cell rather than bolting the plate.
 
 ## Files
 

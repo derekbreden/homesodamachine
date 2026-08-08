@@ -19,7 +19,8 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cold_core_interface import attachment_xy_positions, deck_mounts, deck_mount_xy
+from _cold_core_interface import (attachment_xy_positions, cap_cradles, deck_mounts,
+                                  deck_mount_xy)
 from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
@@ -33,7 +34,9 @@ import importlib.util
 
 # The placed pack, for the counts that are the machine's rather than a part's. `machine()`
 # is the whole appliance, so this is the one expensive import in this driver.
-_east_bosses = _fh.machine()[2].east_bosses
+_machine = _fh.machine()
+_placed = {c.name for c in _machine[0].children}
+_east_bosses = _machine[2].east_bosses
 
 
 def _load_module(name: str, file_path: Path):
@@ -113,11 +116,30 @@ assert not ml.JOINS, (
     f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §4 buys "
     f"none — add the PP0308E row back with this count behind it")
 
-# Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces,
-# PLUS the top cap's deck-mount columns — each takes a ruthex short in its top
-# bore and an M3 SHCS up through the valve tray it carries. The clamp screws are
-# 1:1 with the clamp inserts only; the deck mounts add inserts on their own.
-# `deck_mounts` is the tray table (`_cold_core_interface`), one station per tray.
+# NO VALVE TRAY SHIPS, and that is read off the placed machine rather than typed. Every valve
+# that stands on a printed face stands in a CRADLE the cold core's own cap lid carries
+# (`_cold_core_interface.cap_cradles`) — the valve-manifold family's cell printed into the lid,
+# so its material is already priced as that lid — and every other valve is butted collet to
+# collet down a limb of the flavour pack and stands on nothing of its own. So §7 carries no
+# tray row, and a tray body appearing in the placed machine is what fails here.
+_trays = sorted(n for n in _placed if "tray" in n)
+assert not _trays, (
+    f"the machine places {len(_trays)} valve tray(s) ({_trays}) and bom.md §7 bills none — "
+    f"add the row back with this count behind it")
+
+# And the cradles hold valves this machine actually has. A row for a body the pack does not
+# place is a seat printed into the lid for nothing, which costs material on every build.
+_orphans = sorted(set(cap_cradles) - _placed)
+assert not _orphans, (
+    f"the cold core's cap prints a cradle for {_orphans}, and the machine places no such "
+    f"body — a cradle is a valve seat, and a seat with no valve is a pad on the lid")
+
+# Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces, PLUS
+# the top cap's deck-mount columns — each takes a ruthex short in its top bore, and
+# each is a bolt station standing ready rather than one a module uses today. The
+# clamp screws are 1:1 with the clamp inserts only; the deck mounts add inserts on
+# their own and no screws, because nothing is bolted to them. The three valves that
+# stand on the top lid press into cradles printed in it, which take neither.
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
 foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
@@ -192,6 +214,7 @@ def main():
         "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
+        "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
@@ -232,6 +255,7 @@ def main():
             "SHELF_SCREWS_M3X8": 2,
             "SHELF_SCREWS_M3X10": 3,
             "DECK_INSERTS": 3,
+            "CAP_CRADLES": 1,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
             "PITCH": 1,
