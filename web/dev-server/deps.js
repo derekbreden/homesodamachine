@@ -11,10 +11,10 @@
 //
 //   2. STEP-load — a script reads another script's `.step` OUTPUT, via
 //      `cq.importers.importStep(...)` or the `_load(...)` helper. The file is
-//      usually named in an imported `_contents.py`, NOT in the runnable that
-//      consumes it: `enclosure_assembly.py` (which `import _contents`) consumes
-//      `source-select-assembly.step` without ever naming that file or calling
-//      importStep itself.
+//      often named in an imported module, NOT in the runnable that consumes it:
+//      `front_half.py` (which `import foam_assembly`) consumes
+//      `foam-shell.step` without ever naming that file or calling importStep
+//      itself.
 //
 // Tracking only (1) is the bug this module fixes. A part's STEP could change
 // and every enclosure or assembly that merely *loads* it stayed stale until some
@@ -202,10 +202,10 @@ function importersOf(changedPath, roots) {
       if (!importsIt && !runsViaBlender) continue;
       // Resolve `mod` the way Python will from this file: a sibling module in the
       // importer's own directory is sys.path[0] and wins. Follow the import edge
-      // only when that resolution IS the file that changed. The two editions mirror
-      // each other's filenames (_contents.py, enclosure.py, enclosure_assembly.py,
-      // power_assembly.py, power_tray.py), so a bare-name match rebuilt lite for a
-      // hardware edit it never imports — a whole second assembly competing for the
+      // only when that resolution IS the file that changed. Editions mirror each
+      // other's filenames — an edition is one machine, so both carry an
+      // `enclosure.py` and a `front_half.py` — and a bare-name match rebuilt one
+      // machine for the other's edit, a whole second assembly competing for the
       // same cores. With no sibling the module comes from a shared dir on sys.path
       // (hardware/scripts/_cadq_export.py), and that edge stands.
       let edge = runsViaBlender;
@@ -215,7 +215,7 @@ function importersOf(changedPath, roots) {
         const siblingWins = fs.existsSync(sibling) && path.resolve(sibling) !== modPath;
         // Otherwise, if the importer lives in a different edition that defines this
         // module itself, it reaches its own copy through its own sys.path — not this
-        // one. (lite/funnel.py imports `enclosure_assembly` from the lite tree.)
+        // one.
         const changedRoot = rootOf(modPath);
         const fileRoot = rootOf(abs);
         const otherEdition =
