@@ -86,7 +86,6 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/valve-manifold/single-tray/single-tray.step",
     # reference
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
-    "hardware/reference/co2-coupling-body/co2-coupling-body.step",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
