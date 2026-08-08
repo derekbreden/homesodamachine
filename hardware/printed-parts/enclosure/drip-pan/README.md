@@ -33,15 +33,18 @@ basin needs.
 
 ## The chain's column
 
-The column reads UP from the pump, and the chain follows the basin rather than
-bounding it. `enclosure_assembly.pan_floor` stands the basin's own floor one
-`enclosure_assembly.FOOT_CLEAR` over the SeaFlo's **bracket** — the feet's top face, the
-widest section the casting has, and the one the tray rides over rather than
-beside — and `enclosure_assembly.build_asse` then hangs the chain's underside one basin
-height plus [4](PAN_VENT_GAP) mm of splash-and-service air above that floor, so a
+The column reads DOWN from the chain, and the basin follows it rather than
+bounding it. `enclosure_assembly.build_asse` stands the chain on the panel deck's
+own storey — the storey its union crosses the back wall on — and
+`enclosure_assembly.pan_floor` then hangs the basin's floor one basin height plus
+[4](PAN_VENT_GAP) mm of splash-and-service air under the chain's underside, so a
 change to either number moves both bodies together. The chain is rolled about its
 own flow axis, so its underside is a body corner and the vent stub's tip stands
 above it, leaning aft.
+
+That column stands the whole tray high over the SeaFlo's **bracket**, whose feet are
+the widest section the casting has. What the tray meets at its own height is the head
+block, and `enclosure_assembly.FOOT_CLEAR` is what it keeps off it.
 
 The plan station is not posed by hand either.
 In X the basin hangs off the pump — `enclosure_assembly.pan_east_x` puts its east rim one
@@ -81,7 +84,7 @@ the walls, its top face flush with them, so it costs the column nothing. A 45°
 haunch fills the corner under it — the tray prints floor-down, and the haunch is
 what the flange's first courses grow out of. What is left flat outboard of that
 haunch, less the slip, is [6.70](PAN_BEARING) mm of bearing a side, and
-`enclosure_assembly.pan_rails` stands a rail under each.
+`enclosure_assembly.pan_rails` runs a channel on each.
 
 **One number for two grips**, and the hand sets it: the west lip is hooked with a
 fingertip to draw the tray, and a lip a finger pulls on wants ten. The rail takes
@@ -92,9 +95,17 @@ wall's inner face and running east under the rim — the axis a rail is laid on 
 the axis the thing on it travels. Their two inboard arrises take the tray's two
 haunches and hold it on its column.
 
-A **stop bar** closes their east ends — `enclosure_assembly.pan_rails` returns it as the
-third of the three members `enclosure._pan_rails` fuses onto the wall — so the three
-members are one U and how far the tray goes in is a face and not a judgement. The
+Each rail **closes over the rim**. An upright stands in the daylight outboard of the
+flange — the strip the tray's own edge leaves against the lane — and carries a lap
+back inboard over the same band the rail bears on, one `drip_pan.PAN_SLIP` clear of
+the flange's top. So the rim runs in a channel: rail under it, upright beside it,
+lap over it. The one way the channel is open is west, through the wall's own slot,
+which is the one way the tray goes in and comes out — and it cannot lift out of its
+carry, which is what makes this a **mount** rather than a shelf.
+
+A **stop bar** closes the east ends — `enclosure_assembly.pan_rails` returns it as the
+first of the seven members `enclosure._pan_rails` fuses onto the wall — so how far
+the tray goes in is a face and not a judgement. The
 bar stands in the pocket the flange overhangs its basin by, at the rails' own
 height, so the **rim rides over it** the way it rides the rails and what comes to
 rest against it is the **haunch**, one `drip_pan.PAN_SLIP` off the bar's west

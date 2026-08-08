@@ -64,7 +64,7 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
 | Umbilical unions × 3 (PP1208E) | [-80 / -32 / +16](UMBILICAL_STATIONS) at z [337.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
-| Tap-water union (PP1208E) | x [-74](WATER_BACK_X), z [305.4](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
+| Tap-water union (PP1208E) | x [-74](WATER_BACK_X), z [337.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
 | CO2 DERPIPE PTC | [x 48, z 290](CO2_BACK) | Ø[15.42](CO2_HOLE_D) round | Seated on its own inboard stub tip; the GASHER check threads onto that stub in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
