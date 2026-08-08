@@ -127,7 +127,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
 | Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Prepare the AC hub; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s fifteen +X wall bosses | 5 |
-| Stage shell and back panel; compressor shroud, condenser and fan | EN-01, EN-02, EN-03 | | 10 |
+| Stage shell and back panel; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M3 each, on the grommets' bushings | 10 |
 | Seat the cold core; drip pan, hopper, back panel, electronics shelf | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-04, FU-05 | Three LLDPE tubes, braid, install-kit bag | 10 |
 | Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 5 |
