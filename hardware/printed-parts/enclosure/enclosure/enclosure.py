@@ -1,18 +1,20 @@
 """Thin Edition enclosure — a tall, narrow PETG box, split into four printable
 pieces (front/back × bottom/top) that telescope and cross-pin together.
 
-HEIGHT and DEPTH are BOUNDS, not consequences — `appliance_height` and
-`rear_plane_y`, floor slab's underside to the top wall's outer face and front wall to
-back. The contents do not set them; they have to fit inside, and `_dims` measures every
-one of them against the pack and enters the reading in `BOUNDS`. The box comes out at its
-stated size either way, so a pack that overran it gets a wall drawn through it.
+WIDTH, HEIGHT and DEPTH are all BOUNDS, not consequences — `appliance_width` struck
+symmetric about x = 0, `appliance_height` from the floor slab's underside to the top
+wall's outer face, and `rear_plane_y` from the front wall to the back. The contents do
+not set them; they have to fit inside, and `_dims` measures every one of them against
+the pack and enters the reading in `BOUNDS`. The box comes out at its stated size
+either way, so a pack that overran it gets a wall drawn through it.
 
-WIDTH is the consequence: one boss chain either side of the widest body standing on
-the floor, which is the mated compressor shroud and condenser. The cold core would be
-narrower — the foam assembly is yawed a quarter turn (`front_half.FOAM_YAW`) so what
-crosses the machine is its 181 mm short face and not its 283 mm long one — and it
-stands inside the chain the stratum sets. The pack is placed by
-`../../../manifold-layout/front_half.py`. Features:
+Three bodies stand on the floor slab — the compressor and the condenser side by side
+across the front, and the cold core behind them — and each is held one `side_rib_inset`
+off the ±X walls, so the corner posts, boss chains and Z-seam pods all seat at full
+section and the body seats against them rather than against the wall. The cold core is
+the widest of the three even yawed a quarter turn (`front_half.FOAM_YAW`), which is what
+puts its 181 mm short face across the machine instead of its 283 mm long one. The pack
+is placed by `../../../manifold-layout/front_half.py`. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front arris across the box's FULL WIDTH, with the display's glass
@@ -746,7 +748,7 @@ def _z_joints(placed, inner, front):
             f"ring at every height there. Repack, or split this column in three"])))
     # THE SEAM STILL HAS TO LAND. With no band open it takes the bed's whole span, so the box
     # is split where the bed allows and the lip runs through whatever stands in its ring —
-    # a clash in `pack-closes`, next to the row above, instead of a build that ended here.
+    # a clash in `pack-closes`, standing next to the row above.
     bands = bands or [(min(bed_lo, bed_hi), max(bed_lo, bed_hi))]
     # Nearest reachable height to the half-height, band by band; ties take the lower —
     # and a full `z_joint_pitch` clear of the stated front seam, or the Y seam quietly
@@ -2098,7 +2100,7 @@ def _report_bounds():
 def main():
     machine, box = machine_of()
     pieces, assy = build_pieces(box)
-    _report_bounds()          # before the coupon's own pass overwrites the funnel's readings
+    _report_bounds()          # the machine's, with its pieces cut and its throat measured
     coupon = coupon_box()
     coupon_pieces, coupon_assy = build_pieces(coupon, "enclosure-coupon")
 
