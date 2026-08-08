@@ -17,16 +17,18 @@
   <div class="col" style="flex:1">
     <p class="lede">No new plumbing — <strong>this card reads the
     log.</strong> Every float has already sailed past every reed; the
-    record must show both states for all ten.</p>
+    record must show both states for all
+    <span class="dim" data-gen="REEDS_TOTAL">10</span>.</p>
 
     <ol class="steps">
       <li><b>Pull the per-serial log</b> — AB-02 through AB-04 exercised
         every transition; this card audits, it doesn't run.</li>
       <li><b>Carbonator pair</b> — low and high each fired across the
         refills (AB-02, AB-03).</li>
-      <li><b>Reservoir A's four, B's four</b> — both states each: fills
-        at the AB-01 pre-prime + AB-04 clean cycle, drains across AB-03
-        metering + AB-04 purge.</li>
+      <li><b><span class="dim" data-gen="REEDS_PER_RSVR">4</span> per
+        reservoir</b> — both states each: fills at the AB-01 pre-prime +
+        AB-04 clean cycle, drains across AB-03 metering + AB-04
+        purge.</li>
       <li><b>Any constant reed</b> — never asserted or never released —
         is a wiring fault, a magnet-strength problem, or a stuck float:
         escalate.</li>
@@ -59,7 +61,7 @@
         <text class="dimtx" x="200" y="118">high &#183; PB5</text>
         <text class="dimtx" x="200" y="264">low &#183; PB4</text>
         <text class="btx" x="148" y="336" text-anchor="middle">CARBONATOR</text>
-        <text class="sub" x="240" y="336" text-anchor="start">0x21 &#183; &times;2</text>
+        <text class="sub" x="240" y="336" text-anchor="start">0x21 &#183; &times;<tspan class="dimtx" data-gen="REEDS_CARB">2</tspan></text>
 
         <!-- reservoir rod -->
         <rect class="tube" x="470" y="70" width="56" height="230"/>
@@ -88,14 +90,14 @@
     <table class="spec" style="margin-top:22px">
       <tr><th>Reed</th><th>Both states seen at</th></tr>
       <tr><td>Carb low &#183; high</td><td>refill cycles &#183; AB-02, AB-03</td></tr>
-      <tr><td>Rsvr A &times;4 &#183; B &times;4</td><td>fills AB-01/04 &#183; drains AB-03/04</td></tr>
+      <tr><td>Reservoirs &mdash; <span data-gen="REEDS_RSVR_ALL">8</span> between them</td><td>fills AB-01/04 &#183; drains AB-03/04</td></tr>
     </table>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>All 10 reeds show both states in the per-serial log — carbonator 2, reservoirs 8.</div>
-  <div class="src">acceptance-and-burn-in.md &#167;10 &#183; firmware-and-commissioning.md &#167;6<br>rev 2026-07-24</div>
+  <div class="done"><span class="lbl">Done when</span>All <span data-gen="REEDS_TOTAL">10</span> reeds show both states in the per-serial log — carbonator <span data-gen="REEDS_CARB">2</span>, reservoirs <span data-gen="REEDS_RSVR_ALL">8</span>.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;10 &#183; firmware-and-commissioning.md &#167;6 &#183; _cards_sync.py<br>rev 2026-08-07</div>
 </footer>
 
 </div>
