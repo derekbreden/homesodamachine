@@ -150,6 +150,12 @@ def _split_placed(a) -> tuple:
 # The sealed loop the whole cold core exists to run, verified by disassembly in
 # `reference/ice-maker/README.md` and built in `assembly/refrigerant-loop.md`. The drier and
 # the capillary tube ride the condenser → evaporator leg.
+#
+# NO LINE IS DRAWN FOR ANY OF THE THREE. Each joint crosses a plane two of its bodies already
+# share, so both of its stations are one point read twice and the copper between them is the
+# length of the union — `front_half.refrigerant_joints` measures all three at every build and
+# `check_refrigerant_joints` fails the build when one opens. `load_connections` takes that
+# reading, and the joints are MATED rather than owed.
 REFRIGERANT_SEGMENTS = (
     ("refrig-1", "compressor-shroud discharge", "condenser+fan inlet"),
     ("refrig-2", "condenser+fan outlet (drier + cap tube)", "foam-assembly evaporator inlet"),
@@ -298,16 +304,21 @@ TOUCHING_OK = {frozenset(p) for p in (
 
 # HOW A CONNECTION IS MADE. A length of tube between two placed bodies is one way and not the
 # only one: most of the flavour manifold is butted collet to collet, the hinge carries four
-# segments round a hairpin, and the two source valves are reached by a quarter turn and the step
-# off it. A butt between two collets is MORE finished than a tube — there is nothing left to
-# draw — so every one of these counts as made, and `routed`'s gap is what none of them reaches.
+# segments round a hairpin, the two source valves are reached by a quarter turn and the step off
+# it, and the refrigerant loop is made up across the planes its three bodies already share. A
+# butt between two collets, or a joint whose two mouths are ONE POINT READ TWICE, is MORE
+# finished than a tube — there is nothing left to draw — so every one of these counts as made,
+# and `routed`'s gap is what none of them reaches.
 #
-# The vocabulary is `_fluid_topology_sync.Seg.made`'s, because the chart's edge labels and this
-# card must not disagree about what exists.
+# THIS TABLE IS THE VOCABULARY. `_fluid_topology_sync.Seg` holds every segment it labels a chart
+# edge with to these names, and `selftest` holds every way the pack states a segment is made to
+# them from this side, because the chart's edge labels and this card must not disagree about what
+# exists.
 MADE_AS = {
     "drawn":     "drawn as a run",
     "straight":  "made by a lane's own straight",
     "butt":      "made by a butt between two collets",
+    "mate":      "made up across the plane its two bodies share",
     "fold":      "made by the fold's hairpin",
     "turn":      "made by a quarter turn and the step off it",
     "not drawn": "still to route",
@@ -339,6 +350,7 @@ class Connection:
     to: str
     made: str = UNMADE
     blocked: str = ""
+    note: str = ""        # what the construction measured, where it measured anything
 
     @property
     def routed(self) -> bool:
@@ -346,7 +358,7 @@ class Connection:
         return self.made != UNMADE
 
 
-def load_connections(runs) -> list[Connection]:
+def load_connections(runs, joints=()) -> list[Connection]:
     """Every TUBE connection the machine owes, and how the machine makes it.
 
     The flavour manifold's own segments come out of `fluid-topology.md`'s tables so the
@@ -354,6 +366,14 @@ def load_connections(runs) -> list[Connection]:
     declared above. A run `_lines.py` authors is `drawn`, one `manifold_layout` builds inside the
     pack carries that construction's own name, and what is left is owed. A run that `_routing`
     could not draw as asked carries the shortfall with it.
+
+    `joints` is `front_half.refrigerant_joints`' own reading, `(id, from, to, mm apart)` a joint,
+    and a connection it names is MATED: its two mouths are one point read twice across a plane
+    its bodies already share, so there is no line to draw and nothing left to route. The
+    measurement rides the row. Nothing here re-tests it — `front_half.check_refrigerant_joints`
+    fails the build above its own tolerance, so a joint that reaches this table has closed — and
+    a card built without the reading counts none of them, which is the honest default: an
+    assembly nobody measured holds no path anybody has seen.
 
     The wiring schedule is not here. It is a separate axis and nothing in this pack routes a
     conductor yet, so counting it would only bury the tube reading this card is for."""
@@ -372,9 +392,13 @@ def load_connections(runs) -> list[Connection]:
         for cid, frm, to in table:
             conns.append(Connection(cid, kind, frm, to))
     drawn = {r.id for r in runs}
+    mated = {cid: gap for cid, _a, _b, gap in joints}
     interior = {f"fluid-{cid}": made_of(how) for cid, _f, _t, how in ml.SEGMENTS}
     for c in conns:
-        c.made = "drawn" if c.id in drawn else interior.get(c.id, UNMADE)
+        c.made = ("drawn" if c.id in drawn else
+                  "mate" if c.id in mated else
+                  interior.get(c.id, UNMADE))
+        c.note = f", {mated[c.id]:.3f} mm apart" if c.made == "mate" else ""
         c.blocked = R.BLOCKED.get(c.id, "")
     return conns
 
@@ -895,18 +919,25 @@ def _routed(conns) -> Check:
     for c in done:
         by_how[c.made] = by_how.get(c.made, 0) + 1
     detail = [
-        "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, or "
-        "one of the pack's own constructions — a butt between two collets, the fold's hairpin, a "
-        "quarter turn and the step off it",
+        "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one "
+        "of the pack's own constructions — a butt between two collets, the fold's hairpin, a "
+        "quarter turn and the step off it — or a joint made up across a plane two bodies already "
+        "share",
         ", ".join(f"{h} {n}" for h, n in sorted(by_how.items(), key=lambda kv: (-kv[1], kv[0])))
         + f" — {len(missing)} still to route",
         "by circuit — " + ", ".join(f"{k} {d}/{t}" for k, (d, t) in sorted(by_kind.items())),
     ]
-    # What is owed leads, then what the pack makes without a tube. The runs are left out: they
-    # are the `bend-radius` table's whole population, one row each, measured.
-    detail += [f"{c.id} ({c.kind}): {c.frm} → {c.to} — {MADE_AS[c.made]}" for c in missing]
-    detail += [f"{c.id} ({c.kind}): {c.frm} → {c.to} — {MADE_AS[c.made]}"
-               for c in done if c.made != "drawn"]
+
+    def row(c) -> str:
+        return f"{c.id} ({c.kind}): {c.frm} → {c.to} — {MADE_AS[c.made]}{c.note}"
+
+    # What is owed leads, then the joints the build MEASURES, then the rest of what the pack
+    # makes without a tube — a measured row carries a figure taken off this assembly, and a
+    # declared one carries a construction's own name. The runs are left out: they are the
+    # `bend-radius` table's whole population, one row each, measured.
+    detail += [row(c) for c in missing]
+    detail += [row(c) for c in done if c.made == "mate"]
+    detail += [row(c) for c in done if c.made not in ("drawn", "mate")]
     return Check("routed", "Every tube connection the machine owes, made as a real 3-D path",
                  "goal", _verdict(not missing), f"{len(done)}/{len(conns)} made",
                  "every connection made", detail)
@@ -1175,7 +1206,9 @@ def build(a) -> Scorecard:
 def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
-    conns = load_connections(runs)
+    # `front_half` measures the refrigerant loop's three joints the moment its bodies are placed
+    # and raises before a card is ever built if one has opened, so the reading arrives closed.
+    conns = load_connections(runs, getattr(a, "refrigerant", ()))
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
     clearances = part_clearances(a, runs)
@@ -1299,14 +1332,22 @@ def report(a) -> Scorecard:
 # --- the controls ----------------------------------------------------------
 
 def selftest() -> int:
-    """`need_of` against known-answer geometry — what makes it a measurement and not a number.
+    """The card's two readings against known answers — what a run NEEDS, and how a connection is
+    MADE.
 
-    A straight run's path IS its span. A route that goes out and comes back reports the
-    excursion its ends do not span. The axis split reads off the ENDPOINTS alone, so a route
-    spending its whole length in y between two ends that share a y reports Δy 0 — that gap is
-    the reading, not a defect in it. A run whose ends coincide reports no ratio rather than
-    dividing by zero. And the figures a real `_routing.route` gives back are the run's own `pts`
-    and `length`, so the card grades the same centreline the build sweeps."""
+    NEED, against known-answer geometry — what makes it a measurement and not a number. A
+    straight run's path IS its span. A route that goes out and comes back reports the excursion
+    its ends do not span. The axis split reads off the ENDPOINTS alone, so a route spending its
+    whole length in y between two ends that share a y reports Δy 0 — that gap is the reading, not
+    a defect in it. A run whose ends coincide reports no ratio rather than dividing by zero. And
+    the figures a real `_routing.route` gives back are the run's own `pts` and `length`, so the
+    card grades the same centreline the build sweeps.
+
+    MADE, against the pack and the vocabulary. `MADE_AS` is the table this card and the
+    fluid-topology charts share, so every way the pack states a segment is made has to land on
+    one of its names — a `how` the card has no word for is a connection one surface counts and
+    the other does not. And a joint the build measures across a plane its two bodies already
+    share reads as made, while a card handed no such reading counts none of them."""
     import cadquery as cq
 
     failures = 0
@@ -1369,6 +1410,36 @@ def selftest() -> int:
           n["span"] == round(math.dist(run.pts[0], run.pts[-1]), 2)
           and n["path"] == round(run.length, 2) and n["detour"] > 1.0,
           f"span {n['span']}, path {n['path']} = {n['detour']}×")
+
+    print("\nmade (the vocabulary this card and the charts share)")
+
+    import manifold_layout as ml
+
+    # Every `how` the pack states, through the card's own renaming, must land on a name in
+    # `MADE_AS` — which is what `_fluid_topology_sync.Seg` labels its edges with. A pack that
+    # gains a construction the card has no word for is caught here rather than by a chart and a
+    # card quietly reporting different inventories.
+    unknown = sorted({how for _cid, _f, _t, how in ml.SEGMENTS if made_of(how) not in MADE_AS})
+    check("every way the pack states a segment is made has a word on this card",
+          not unknown, ", ".join(unknown) if unknown
+          else " ".join(sorted({made_of(how) for _c, _f, _t, how in ml.SEGMENTS})))
+
+    # The refrigerant loop's own shape: three ids the topology tables never carry, made by a
+    # measurement rather than by a line. The gaps are this control's, not the build's.
+    refrig = tuple(cid for cid, _f, _t in REFRIGERANT_SEGMENTS)
+    mated = {c.id: c for c in load_connections(
+        [], [(cid, "a.p", "b.p", 0.001) for cid in refrig])}
+    check("a joint made up across a plane its two bodies share reads as made",
+          all(mated[cid].made == "mate" and mated[cid].routed for cid in refrig),
+          ", ".join(f"{cid} {mated[cid].made}" for cid in refrig))
+    check("and the row carries what the joint measured",
+          all(mated[cid].note == ", 0.001 mm apart" for cid in refrig),
+          f"{refrig[0]}{mated[refrig[0]].note}")
+
+    bare = {c.id: c for c in load_connections([])}
+    check("a card handed no reading counts none of them",
+          all(bare[cid].made == UNMADE and not bare[cid].routed for cid in refrig),
+          ", ".join(f"{cid} {bare[cid].made}" for cid in refrig))
 
     print("PASS" if failures == 0 else f"FAIL — {failures}")
     return 0 if failures == 0 else 1

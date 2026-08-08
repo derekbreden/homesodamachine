@@ -29,6 +29,27 @@ jq -r '.checks[] | select(.status=="fail") | "\(.id)  \(.value)", (.detail[] | "
   hardware/manifold-layout/front-half.scorecard.json
 ```
 
+Then the runs by **detour** — path ÷ the span the run's own two ends stand at, worst first:
+
+```
+jq -r '.bends[] | select(.need.detour != null)
+       | "\(.need.detour)  \(.id)  \(.need.path) mm of path for ends \(.need.span) mm apart"' \
+  hardware/manifold-layout/front-half.scorecard.json | sort -rn | head
+```
+
+A run near 1 spends its length on its own need. A run far above it is riding infrastructure its
+ends never asked for, and there **the move is the route, not the corner** — which no
+corner-by-corner grade will say, and which the failing checks above will not say either. A
+check's detail names the pins of the lane a run is in *now*; it never asks whether the run
+belongs in that lane. This column asks.
+
+Three things the ratio does not say, and it must not be read as saying them:
+
+- **Near 1 is not health.** A short run can be pinned at both ends and still red.
+- It says where to look, not what to do.
+- It does not name which lanes the extra path rides, or who else rides them. That is read
+  where the lanes are authored, `hardware/manifold-layout/_lines.py`.
+
 `source.generated` and `source.commit` in the same file say which build wrote it. If the tree
 has moved since, rebuild before you read it:
 `tools/cad-venv/bin/python hardware/manifold-layout/front_half.py`.
@@ -50,6 +71,11 @@ tools/look.sh <run>,<its two end bodies>
 
 A check's `detail` names the bodies it fails on. They are candidates. The bodies that have to
 move may not be any of them — a fix is often a body the check never names.
+
+That row carries the run's `need` with it: where its two ends stand, how far apart, and the
+path it spends between them. Read it before you settle on a body. High on the detour board,
+the bodies a check names are the pins of a lane the run should not be in, and moving one of
+them buys a millimetre there at the cost of everything downstream of it.
 
 ## 3. State the target as a condition
 
