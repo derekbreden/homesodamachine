@@ -9,26 +9,29 @@
 
 <header>
   <div class="code">CC-05</div>
-  <h1>Press the shell inserts<br>— twelve</h1>
+  <h1>Press the shell inserts</h1>
   <div class="deckpos"><b>Cold core · 05/15</b>Kitchen edition</div>
 </header>
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Twelve ruthex M3 shorts anchor the two cap stacks —
-    <strong>six in the shell's top face, six in the bottom.</strong> The
+    <p class="lede"><span class="dim" data-gen="SHELL_INSERTS">12</span> ruthex M3
+    shorts anchor the two cap stacks —
+    <strong><span class="dim" data-gen="FACE_BOSSES">6</span> in the shell's top
+    face, the same in the bottom.</strong> The
     printed pocket aims; the iron supplies heat and a straight push.</p>
 
     <ol class="steps">
-      <li><b>Find the six positions on the top face</b> — a boss at each
+      <li><b>Find the <span class="dim" data-gen="FACE_BOSSES">6</span> positions
+        on the top face</b> — a boss at each
         corner, plus the mid-side pair offset
-        <span class="dim">&#177;15 mm</span>, opposite signs.</li>
+        <span class="dim" data-gen="MID_BOSS_X">&#177;15 mm</span>, opposite signs.</li>
       <li><b>Soldering iron tip on the insert; press straight down
         until flush.</b> The pocket is
-        <span class="dim">&#8960;4 mm &#215; 4 mm</span> for the insert,
-        with another <span class="dim">4 mm</span> of relief below.</li>
-      <li><b>Flip the shell; six more into the bottom face.</b> Same
-        pattern — the bottom cap lands on it with no rotation.</li>
+        <span class="dim" data-gen="INSERT_POCKET">&#8960;4 mm &#215; 4 mm</span> for the insert,
+        with another <span class="dim" data-gen="INSERT_RELIEF">4 mm</span> of relief below.</li>
+      <li><b>Flip the shell; the same pattern into the bottom face</b> —
+        the bottom cap lands on it with no rotation.</li>
       <li><b>Sight every pocket:</b> insert flush, bore open. These are
         the only thread in the cap stack — cap and lid are clearance —
         so they clamp the lid for the CC-06 pour, then take the cap +
@@ -70,11 +73,13 @@
           <line class="dimln" x1="-296" y1="-186" x2="-220" y2="-130"/>
           <text class="dimtx" x="-208" y="-124">4&#215; corner boss</text>
           <line class="dimln" x1="42" y1="-190" x2="90" y2="-130"/>
-          <text class="dimtx" x="98" y="-124">mid pair &#8212; &#177;15,</text>
-          <text class="dimtx" x="98" y="-92">opposite signs</text>
+          <text class="dimtx" x="98" y="-124" data-gen="MID_BOSS_X">&#177;15 mm</text>
+          <text class="dimtx" x="98" y="-92">mid pair,</text>
+          <text class="dimtx" x="98" y="-60">opposite signs</text>
           <text class="sub" x="0" y="110" text-anchor="middle">the 180&#176; symmetry is what lets the</text>
           <text class="sub" x="0" y="138" text-anchor="middle">mouth-down bottom cap share the pattern</text>
-          <text class="dimtx" x="0" y="236" text-anchor="middle">283 &#215; 181 face &#183; 12 mm corner rounds</text>
+          <text class="sub" x="-10" y="236" text-anchor="end">face</text>
+          <text class="dimtx" x="0" y="236" text-anchor="start" data-gen="CORE_FOOTPRINT">283 &#215; 181 mm</text>
         </g>
         <!-- pocket section, 10 px/mm -->
         <text class="lbl" x="24" y="552">SECTION &#183; one pocket</text>
@@ -97,7 +102,7 @@
 
 <footer>
   <div class="done"><span class="lbl">Done when</span>Twelve inserts seated flush — six per face, every bore open — screw pattern identical top and bottom.</div>
-  <div class="src">cold-core.md &#167;2 &#183; foam-shell/README.md &#183; _cold_core_interface.py<br>rev 2026-07-24</div>
+  <div class="src">cold-core.md &#167;2 &#183; foam-shell/README.md<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
