@@ -129,6 +129,19 @@ def enclosure(m: Machine):
         f"the core's front face carries {front_port_order} — EN-05 says two reed cables "
         f"and the copper/PRV slot, and that face is mated shut against the stratum")
 
+    # The two bores in that wall, taken from the functions that STRIKE them rather
+    # than recomputed beside them. `pack.back_ports` is the list `enclosure._port_cuts`
+    # bores, and these are the calls that fill it — with the same carries — so a card
+    # cannot state a hole the wall does not have. The union's figure is quoted once for
+    # a row of four, which holds only while the four are on one diameter.
+    union_bores = _fh.back_wall_ports(m.a.bulkhead_carry, *m.a.panel_carries.values())
+    port_hole_ds = {round(p[3], 6) for p in union_bores}
+    assert len(port_hole_ds) == 1, (
+        f"the back wall's four unions are bored at {sorted(port_hole_ds)} and EN-02/IP-02 "
+        f"quote one figure for all of them")
+    port_hole_d = union_bores[0][3]
+    co2_hole_d = _fh.co2_wall_port(m.a.co2_inlet_carry)[3]
+
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     nut_d, _ = _jg.panel_footprint()
     c14_w, _ = _c14.panel_footprint()
@@ -193,8 +206,8 @@ def enclosure(m: Machine):
         "BACK_BODIES": f"{len(box.back_ports)}",
         "UMBILICAL_PITCH": f"{next(iter(pitches)):.4g} mm",
         "CARB_END": carb_end,
-        "PORT_HOLE_D": f"{DIA}18",
-        "CO2_HOLE_D": f"{DIA}15.42",
+        "PORT_HOLE_D": f"{DIA}{port_hole_d:.4g}",
+        "CO2_HOLE_D": f"{DIA}{co2_hole_d:.4g}",
         "PORT_NUT_D": f"{nut_d:.4g} mm",
         "PORT_CHAIN_3": f"{chain_3:.4g} mm",
         "C14_FLANGE_W": f"{c14_w:.4g} mm",
