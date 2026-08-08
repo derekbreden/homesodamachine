@@ -60,7 +60,7 @@ SHELL_Z = 120.0        # plate crown to shell crown
 SHELL_OFFSET_Y = 10.0  # the shell stands off the plate's own center by this much
 
 MOUNT_D = 14.0         # the four holes through the plate
-MOUNT_INSET = 7.5      #   center to plate edge, the same figure on both axes
+MOUNT_INSET = 14.5     #   center to plate edge, the same figure on both axes
 
 POWER_X = 45.0         # the power components' box, across the machine
 POWER_Y = 27.5         #   along it — the plate's long reach, exactly
@@ -73,8 +73,7 @@ MOUNT_PITCH_Y = BASE_Y - 2.0 * MOUNT_INSET         # [145](MOUNT_PITCH_Y)
 SHELL_OVERHANG_X = (SHELL_X - BASE_X) / 2.0        # [7](SHELL_OVERHANG_X) each side
 PLATE_REACH_LONG = (BASE_Y - SHELL_Y) / 2.0 + SHELL_OFFSET_Y    # [27.5](PLATE_REACH_LONG) at -Y
 PLATE_REACH_SHORT = (BASE_Y - SHELL_Y) / 2.0 - SHELL_OFFSET_Y   # [7.5](PLATE_REACH_SHORT) at +Y
-# The plate a hole leaves between itself and the edge it is inset from. Ø[14](MOUNT_D)
-# inset [7.5](MOUNT_INSET) stands very nearly tangent to both edges it sits in from.
+# The plate a hole leaves between itself and the edge it is inset from.
 MOUNT_LIGAMENT = MOUNT_INSET - MOUNT_D / 2.0  # [0.5](MOUNT_LIGAMENT)
 # What a cylinder on the larger axis would fill that this shell does not.
 CYL_EXCESS_PCT = (SHELL_Y / SHELL_X - 1.0) * 100.0

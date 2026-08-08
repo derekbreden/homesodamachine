@@ -856,12 +856,19 @@ def _fluid_26(F):
 
 
 def _refrig_2(F):
-    """refrig-2 — the condenser's liquid line, through the drier and the cap tube, to the
+    """NOT YET ROUTABLE — `front_half` deliberately withholds the compressor's and the
+    condenser's carries from `carries`, so `frames()` builds no frame for either and neither
+    author below dispatches. Both `R.bent` and `R.route` between these two stations alone fail
+    the sweep at `BRepOffsetAPI_MakePipeShell::MakeSolid`: the pair is 65 mm apart with fixed
+    entry and exit axes and no waypoint between them, which is not a shape a pipe shell closes.
+    Give each run its waypoints, then put the two bodies back into `front_half.carries`.
+
+    refrig-2 — the condenser's liquid line, through the drier and the cap tube, to the
     evaporator's inlet.
 
     The cold core stands well aft of the refrigeration base rather than against it, so this
     leg is cut and brazed like refrig-3 rather than made across a shared plane."""
-    return R.bent(
+    return R.route(
         "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
         kind="refrigerant",
         note="sealed loop: condenser outlet (drier + cap tube) → evaporator inlet")
@@ -875,7 +882,7 @@ def _refrig_3(F):
     meets a neighbour along a tangent line, and that tangent stands short of the cold core's
     front. So this leg is cut and brazed like any other run — up out of the shell's suction and
     back into the core's own outlet slot."""
-    return R.bent(
+    return R.route(
         "refrig-3", "compressor.refrig-suction", "foam-assembly.evap-outlet",
         kind="refrigerant",
         note="sealed loop: evaporator outlet → compressor suction, the one leg of the three "

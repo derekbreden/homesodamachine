@@ -1710,17 +1710,12 @@ def build_pack() -> cq.Assembly:
     # measured off a port moves when the body it is on moves.
     carries = {"foam-assembly": foam_carry, "seaflo-pump": seaflo_carry, "suction-chain": chain_carry,
                "discharge-chain": disch_carry,
-               # The two refrigeration bodies carry the sealed loop's cut legs, so they are
-               # here as well as in `refrig_carries` — a run cannot anchor on a body `_lines`
-               # has no frame for.
-               "compressor": comp_carry, "condenser+fan": cond_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
                "bulkhead-water": bulkhead_carry, "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "discharge-chain": disch,
-              "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110,
