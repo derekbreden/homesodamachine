@@ -153,11 +153,13 @@ assert not _orphans, (
 
 # Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces, PLUS
 # the top cap's deck-mount columns — each takes a ruthex short in its top bore, and
-# each is a bolt station standing ready rather than one a module uses today. The
-# clamp screws are 1:1 with the clamp inserts only; the deck mounts add inserts on
-# their own and no screws, because nothing is bolted to them. The three valves that
-# stand on the top lid press into cradles printed in it, which take neither.
+# each is a bolt station, and the water pump is the one module that uses any: the
+# clamp screws are 1:1 with the clamp inserts, and a deck column takes a screw only
+# where a module bolts into it — which today is `seaflo-pump`'s four and nothing
+# else. The three valves that stand on the top lid press into cradles printed in
+# it, which take neither.
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
+pump_mount_screws_per_build = len(deck_mount_xy("seaflo-pump"))
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
 foam_cap_inserts_per_build = (foam_cap_clamp_inserts_per_build
                               + foam_cap_deck_inserts_per_build)
@@ -244,6 +246,7 @@ def main():
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
+        "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
@@ -287,6 +290,7 @@ def main():
             "FLOOR_INSERTS": 2,
             "FLOOR_SCREWS": 3,
             "DECK_INSERTS": 3,
+            "PUMP_MOUNT_SCREWS": 5,
             "CAP_CRADLES": 2,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,

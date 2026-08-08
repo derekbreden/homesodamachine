@@ -135,7 +135,10 @@ for name, mk, bk in CROSS:
 # Electrical BOM parts that legitimately need NO dedicated board signal pin:
 # the SMD silicon / expanders / driver chips that carry their own pins, plus the
 # power supply. Matched against the part NAME.
-NO_PIN = r"ESP32-WROOM|MCP23017|DS3231|Mean Well"
+#   A DIN 912 cap screw is on this list because a fastener row is named for the
+# body it fastens, so the pump's bracket screws read as a pump to `ELECTRICAL`.
+# Hardware carries no signal.
+NO_PIN = r"ESP32-WROOM|MCP23017|DS3231|Mean Well|DIN 912"
 
 # Enforce the piezo failure mode away: every BOM line whose PART NAME looks like a
 # controller-facing electrical part must be covered by a CROSS bom-marker or the
