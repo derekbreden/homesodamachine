@@ -392,6 +392,8 @@ def cap_face(foam):
 # the refrigerant loop closes, the vent's drip lands on the basin's flat
 # floor, the basin's west lip lands inside the −X wall, the power column stands in the depth the
 # +X wall runs free, and a body seated through a wall stands under the box's own ceiling.
+# A printed part may state one about itself too: `drip_pan.check_plate` measures the basin's
+# flat floor against the moisture plate it receives, and `build_pan` enters that reading here.
 # `enclosure` states more of them about the box it draws and keeps
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.

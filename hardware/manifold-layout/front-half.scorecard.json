@@ -167,6 +167,16 @@
    "active": true
   },
   {
+   "id": "plate-lies-flat",
+   "label": "The moisture plate lies flat on the basin's floor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "flat floor 43.00 x 67.00",
+   "target": "42.00 x 56.00",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "vent-lands",
    "label": "The atmospheric vent drips on the basin's flat floor",
    "kind": "gate",
@@ -4836,7 +4846,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T05:38:45+00:00",
-  "commit": "e648b2fbbb8393cd4a7efc39413c6b1e78501669"
+  "generated": "2026-08-08T05:59:22+00:00",
+  "commit": "72857701e5bb118a3f7f4033f06c982e6be7799f"
  }
 }
