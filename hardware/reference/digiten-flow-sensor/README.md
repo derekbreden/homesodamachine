@@ -2,7 +2,7 @@
 
 A keep-out envelope for the DIGITEN G1/4" Hall-effect water-flow sensor
 (model FL-S402B / FL-S402BZJ, Amazon B07QRXLRTH) — the inline turbine flow meter
-between the rear-panel pass-through ports in the lite edition. Carbonated
+between the rear-wall pass-through ports in the lite edition. Carbonated
 water spins the rotor; the Hall pulse train (F = 23·Q, ≈1380 pulses/L) triggers
 the flavor pumps. A purchased part, not a printed one — the model is for
 placement and tube routing, not a manufacturing drawing.

@@ -1,6 +1,6 @@
 """DERPIPE 5/16" push-to-connect × 1/4" NPT male straight fitting — the
-appliance's `co2-inlet` on the front panel. The NPT stub threads through the
-front-wall hole and carries the CO2 chain inboard (→ GASHER → WR1110); the PTC
+appliance's `co2-inlet` on the rear wall. The NPT stub threads through the
+back-wall hole and carries the CO2 chain inboard (→ GASHER → WR1110); the PTC
 collet stands proud outboard where the customer's 5/16" CO2 tube pushes in.
 
 External envelope only — a PTC collet body, a 9/16" wrench hex, and a

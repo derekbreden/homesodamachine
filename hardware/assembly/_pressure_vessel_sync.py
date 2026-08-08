@@ -35,6 +35,15 @@ from docgen import substitute_md
 
 MM_PER_IN = 25.4
 
+# The vessel's working pressure, and the only thing that sets it: the in-appliance
+# Interstate Pneumatics WR1110 fixed secondary regulator standing between the
+# customer's CGA-320 primary and the vessel's CO2 port (bom.md §4). Every pressure
+# figure this procedure is sized against — the PRV margin, the hoop stress, the
+# hydro hold — is measured off this one number, and the benches downstream read it
+# from here: `_acceptance_and_burn_in_sync` centres its CO2 rig on it and
+# `cards/_cards_fs` holds that rig's primary range around it.
+secondary_regulator_pressure_psi = 90.0
+
 # Carbonator float-rod cut length. Each 1/4" end plate is an ID-fit plug
 # RECESSED plate_recess below its tube end, so the tube wall stands proud and
 # the closure is a corner fillet welded into the recess (step 3/5) — the joint
@@ -70,6 +79,10 @@ def main():
         "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
         # Carbonator float-rod cut length (computed above).
         "ROD_LEN": f"{carbonator_rod_len:.4g} mm ({carbonator_rod_len / MM_PER_IN:.3g} in)",
+        # The working pressure the whole procedure is sized against, and the
+        # regulator that holds it there — one number, read everywhere it is stated.
+        "WORKING_PSI": f"{secondary_regulator_pressure_psi:.4g} PSI",
+        "REG_FIXED": f"fixed-{secondary_regulator_pressure_psi:.4g} PSI",
     }
 
     substitute_md(
@@ -79,6 +92,8 @@ def main():
             "TANK_H": 1,
             "ELBOW_ENV": 2,
             "ROD_LEN": 2,
+            "WORKING_PSI": 8,
+            "REG_FIXED": 1,
         },
     )
     print("-> pressure-vessel.md")

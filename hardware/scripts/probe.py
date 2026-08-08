@@ -739,7 +739,7 @@ def _source(name: str) -> str:
 
 def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World:
     """The placed world — the same bodies `scorecard.pack_clashes` measures: the pack's
-    components, the panel bodies seated through the walls, the display in its facet
+    components, the bodies seated through the walls, the display in its facet
     housing, the hopper funnel, the four printed enclosure pieces, and (unless
     `runs=False`) the routed tubes.
 

@@ -51,4 +51,4 @@ the clear column between the two pumps; the enclosure mount is an open item.
 
 - Flavor reservoirs and level sensing — Zone A, nested in the foam shell ([`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/)).
 - Valve manifold — the Zone-B trays on the foam-cap top ([`/hardware/printed-parts/valve-manifold/`](/hardware/printed-parts/valve-manifold/)).
-- Dispense spout and config display — front face ([`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md)).
+- Config display — let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris ([`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md)).

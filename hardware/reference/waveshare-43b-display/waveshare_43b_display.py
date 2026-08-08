@@ -1,8 +1,9 @@
 """Reference solid for the Waveshare ESP32-S3-Touch-LCD-4.3B (Amazon
 B0D925SBYF) — the 4.3" 800x480 capacitive-touch config + interaction
-display set into the enclosure front panel (front-panel README §1, BOM §1).
-A purchased part, not a printed one — the model is a keep-out envelope for
-front-panel cutout and layout, not a manufacturing drawing.
+display let into the 45° facet chamfered across `enclosure-front-top`'s
+top-front arris (enclosure/enclosure README, BOM §1). A purchased part, not a
+printed one — the model is a keep-out envelope for the facet's cutout and
+layout, not a manufacturing drawing.
 
 Two stacked rectangular blocks sharing one X-Z center, the screen facing
 the user (-Y, forward):

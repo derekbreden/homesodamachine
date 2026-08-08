@@ -19,7 +19,7 @@ A peristaltic head is positive-displacement, so each stage of the cycle is a cou
 
 ## Line volume
 
-The flavor path is 1/4" OD LLDPE end to end. The umbilical run is **1548 mm** installed — the 1186 mm drop plus the 362 mm the flavor tubes climb inside the faucet past where the carbonated-water tube lands, per [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1. In-cabinet, the pump outlet reaches the rear-panel bulkhead through a junction and the nozzle gate — another 400–600 mm.
+The flavor path is 1/4" OD LLDPE end to end. The umbilical run is **1548 mm** installed — the 1186 mm drop plus the 362 mm the flavor tubes climb inside the faucet past where the carbonated-water tube lands, per [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1. In-cabinet, the pump outlet reaches the rear-wall bulkhead through a junction and the nozzle gate — another 400–600 mm.
 
 At a nominal 4.3 mm bore, **~30 mL of standing syrup**. A 12 oz pour at 1:20 draws about 17 mL.
 

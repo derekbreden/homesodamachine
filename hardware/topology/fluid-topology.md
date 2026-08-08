@@ -85,7 +85,7 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
 | 17 | Y-D-3 | V-G-I | Across the hinge — one 180° hairpin on the A2 limb's column |
-| 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the rear panel |
+| 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the rear wall |
 
 ### Channel B
 
@@ -99,7 +99,7 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
 | 27 | Y-G-2 | V-J-I | Across the hinge — one 180° hairpin on the B2 limb's column |
-| 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the rear panel |
+| 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the rear wall |
 
 ---
 
