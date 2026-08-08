@@ -16,8 +16,9 @@ and the units-per-year ceiling — all of it, without anyone remembering to.
     silently escape the estimate.
   * The §2/§3/§4 process tables are read, not computed — those are datasheet and
     procedure figures. Their subtotals are summed here.
-  * The turnaround table is likewise read and summed; its first row is the
-    print's wall clock, which this script writes.
+  * The turnaround table is likewise read and summed, except for the print's own
+    wall clock: this script writes that cell, so it carries the figure into the
+    sum rather than reading it back off the page. One pass settles the file.
 
 Run:  python3 hardware/scripts/_machine_time.py           # recompute + write markers
       python3 hardware/scripts/_machine_time.py --check    # exit 1 on an unassigned
@@ -72,6 +73,11 @@ GROUP_OF = [
 ]
 
 GROUP_MARKER = {"bulk": "BULK", "tight": "TIGHT", "small": "SMALL", "petcf": "PETCF"}
+
+
+# The turnaround table's one computed cell. Named here because two readers want it:
+# the row is written under this marker, and the sum skips the row it is on.
+PRINT_WALL_MARK = "(MT_H_PRINT_WALL)"
 
 
 def cells(line):
@@ -145,10 +151,17 @@ def read_sections():
     return sums, rows
 
 
-def read_turnaround():
-    """Sum the critical-path table's hours column. It lives under a `##` heading
-    with no number, so it is read on its own rather than by read_sections()."""
-    total, inside = 0.0, False
+def read_turnaround(wall):
+    """The critical path's hours: every stage this file STATES, plus `wall` — the
+    print's own wall clock, which this script computes off §7's masses.
+
+    It lives under a `##` heading with no number, so it is read on its own rather
+    than by read_sections(). The print's row is passed in rather than summed off
+    the page: this script writes that cell, and a script that sums its own output
+    reads the run before's figure, so the total trails a mass change by one pass.
+    Keyed on the marker rather than the row's position, so the stage can move up
+    or down the path."""
+    total, inside = wall, False
     for ln in open(MT, encoding="utf-8").read().splitlines():
         if ln.startswith("## "):
             inside = ln.startswith("## Turnaround")
@@ -158,6 +171,8 @@ def read_turnaround():
         c = cells(ln)
         if not is_data_row(c) or len(c) < 2:
             continue
+        if PRINT_WALL_MARK in c[1]:
+            continue                   # carried in `wall`, not read back off the page
         total += number(c[1])          # Stage | Hours | note
     return total
 
@@ -168,7 +183,7 @@ def main():
     h_print = sum(hours.values())
     wall = h_print / PRINTERS
     secs, rows = read_sections()
-    turn = read_turnaround()
+    turn = read_turnaround(wall)
 
     # A machine's occupancy is the sum of the rows that occupy it — never a
     # second copy of those hours typed into the throughput table.
