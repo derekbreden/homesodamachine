@@ -473,7 +473,7 @@ def deck_mount_standoff(name):
 
 def deck_mount_proud():
     """The tallest standoff in the pack — the foam assembly's own top over its lid's face.
-    Zero on an empty table: nothing bolted here stands over the lid because nothing is."""
+    Every station stands at `standoff = 0.0`, so the columns top out flush with the lid."""
     return max((deck_mount_standoff(name) for name in deck_mounts), default=0.0)
 
 
