@@ -87,8 +87,9 @@ def main():
         # the doc quotes what `enclosure` declares rather than what the pieces came out at.
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
         # The refrigeration stratum's own width, across the pair as it stands, beside the core's
-        # for comparison — `box-width` asks its boss chain of every body ON THE FLOOR, and the
-        # core is the widest of them.
+        # for comparison — `box-width` asks its boss chain of a body ON THE FLOOR at the depths
+        # the seam's columns stand there. Both spans are carried so the doc can say which is
+        # wider by quoting them, rather than this comment naming a winner that goes stale.
         "STRATUM_X": f"{_span(_pack, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_pack, 'foam-assembly'):.0f}",
         "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
