@@ -17,12 +17,15 @@ opposite the motor. (The casting marks the ports IN and OUT; this model puts
 IN/suction on -Y and OUT/discharge on +Y — a mirror pair across the motor axis,
 so the two sides are geometrically interchangeable.)
 
-THE PUMP'S 72 mm IS THE CAN'S OWN CROWN. The motor axis is on the head's
-mid-height and the can is Ø54, so the can's top, the head block's top and the
-pressure switch's top all come out on that one plane — the published overall
-height is three surfaces and not a boss. What hangs below the head at the port
-end is a 30 mm boss, the lowest casting on the body, and the head block's own
-underside stands clear above it.
+THE CAN'S AXIS IS THE BODY'S DATUM. The motor is bolted to the head on that line,
+the bracket is built to the barrel it holds, and every station on the head is
+placed about it. The can's top, the head block's top and the pressure switch's
+top all come out on one plane at `CROWN_Z`, and what hangs below the head at the
+port end is a 30 mm boss — the lowest casting on the body, with the head block's
+own underside standing clear above it.
+
+That crown stands 67 over the foot underside, 5 under the drawing's labeled 72 —
+the same gap the length carries.
 
 Dimensions come from SEAFLO's dimensioned drawing for the 22 Series (Marine & RV
 catalog p.15, and the same drawing as an image on the Amazon listing). Labeled
@@ -51,7 +54,8 @@ from _cadq_export import export_step
 
 # Labeled on the SEAFLO 22-Series drawing.
 OVERALL_L = 187.0        # 7.35in, motor rear to switch face
-OVERALL_H = 72.0         # 2.83in, foot underside to the head's top boss
+OVERALL_H = 72.0         # 2.83in, foot underside to the top; `CROWN_Z` is what the
+                         #   linework builds, and stands 5 under it
 PORT_SPAN = 80.0         # 3.15in, across the two barb tips
 FOOT_SPAN = 98.0         # 3.86in, across the mounting feet
 PORT_D = 10.4            # 0.41in Ø10.40, the 3/8" hose barb
@@ -65,11 +69,14 @@ MOTOR_D = 54.0           # motor can
 SWITCH_W = 44.0          # pressure switch
 BOSS_W = 30.0            # the boss under the head's port end
 
-HEAD_Z0, HEAD_Z1 = 16.0, 72.0    # the head block, its top on the pump's crown
-BOSS_Z0 = 13.0                   # the boss under it, the body's lowest casting
-MOTOR_Z = 45.0                   # motor axis, on the head's mid-height
-PORT_Z = 53.0                    # both barbs, above head mid-height
-SWITCH_Z0, SWITCH_Z1 = 37.0, 72.0
+# The motor axis: the head's mid-height, the line the bracket's cradle is struck on, and the
+# datum every station below is placed about.
+MOTOR_Z = 40.0
+CROWN_Z = MOTOR_Z + MOTOR_D / 2.0    # 67.0 — the can's crown, the highest the casting reaches
+HEAD_Z0, HEAD_Z1 = 11.0, CROWN_Z  # the head block, its top on that same crown
+BOSS_Z0 = 8.0                    # the boss under it, the body's lowest casting
+PORT_Z = 48.0                    # both barbs, above head mid-height
+SWITCH_Z0, SWITCH_Z1 = 32.0, CROWN_Z
 FOOT_T, CRADLE_Z1 = 8.0, 15.0    # foot pad thickness; the cradle up to the can
 
 # Stations along the motor axis, motor rear at +OVERALL_L/2.
@@ -113,7 +120,7 @@ def build():
     """Motor can bolted to the head, the head carrying the two 3/8" barbs on its
     ±Y side faces and the pressure switch on its -X end, all on the mounting
     bracket; foot underside at Z = 0, motor axis along +X. The can's crown, the
-    head's top and the switch's top all land on `OVERALL_H`."""
+    head's top and the switch's top all land on `CROWN_Z`."""
     # Mounting bracket: the four splayed feet as one pad, and the cradle that
     # carries them up to the motor can.
     feet = (
@@ -154,7 +161,8 @@ def main():
     print("SEAFLO 22-Series diaphragm pump (SFDP1-013-100-22)")
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  overall {OVERALL_L}L x {FOOT_SPAN}W(feet) x {OVERALL_H}H, "
+    print(f"  overall {OVERALL_L}L x {FOOT_SPAN}W(feet) x {CROWN_Z}H "
+          f"(labeled {OVERALL_H}), "
           f"{PORT_SPAN} across the barb tips")
     print(f"  motor Ø{MOTOR_D}, head {HEAD_W} wide ({FLANGE_W} at the flange), "
           f"barbs Ø{PORT_D} x {PORT_L}")
