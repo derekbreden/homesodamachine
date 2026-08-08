@@ -78,7 +78,7 @@ the walls, its top face flush with them, so it costs the column nothing. A 45°
 haunch fills the corner under it — the tray prints floor-down, and the haunch is
 what the flange's first courses grow out of. What is left flat outboard of that
 haunch, less the slip, is [6.70](PAN_BEARING) mm of bearing a side, and
-`_contents.drip_pan_rails` stands a rail under each.
+`front_half.pan_rails` stands a rail under each.
 
 **One number for two grips**, and the hand sets it: the west lip is hooked with a
 fingertip to draw the tray, and a lip a finger pulls on wants ten. The rail takes
@@ -89,7 +89,8 @@ wall's inner face and running east under the rim — the axis a rail is laid on 
 the axis the thing on it travels. Their two inboard arrises take the tray's two
 haunches and hold it on its column.
 
-A **stop bar** closes their east ends (`_contents.drip_pan_stop`), so the three
+A **stop bar** closes their east ends — `front_half.pan_rails` returns it as the
+third of the three members `enclosure._pan_rails` fuses onto the wall — so the three
 members are one U and how far the tray goes in is a face and not a judgement: it
 is pushed east until the rim's east edge meets that bar, which lands the rim's
 west edge flush with the wall's inner face at the other end. The bar spans the
@@ -99,7 +100,7 @@ bands — what the rim presents square to the east is the straight run between
 those arcs, and the bar reaches it and lands on both rails at once.
 
 Service is one motion — **draw the tray west**, out through the slot in that same
-wall (`_contents.west_wall_ports`). The slot is the tray's own silhouette: rim-wide
+wall (`front_half.west_wall_ports`). The slot is the tray's own silhouette: rim-wide
 above the flange's underside, haunch-wide below it. The step between the two is the
 wall the rails stand on.
 
