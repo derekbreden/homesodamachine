@@ -7,7 +7,7 @@ from _support_ring import build_tank_support_ring
 from _outer_shell import build_outer_shell, cut_insert_pockets
 from _port_cuts import (
     cut_line_corridors,
-    cut_slot_for_copper_and_prv_vent,
+    cut_lane_slots,
 )
 from _reed_channels import (
     build_reed_channels,
@@ -38,7 +38,7 @@ def build_full_shell():
     foam_shell = cut_insert_pockets(foam_shell)
     foam_shell = cut_line_corridors(foam_shell, (pocket_walls, corner_posts))
     for cut in (
-        cut_slot_for_copper_and_prv_vent,
+        cut_lane_slots,
         cut_reed_channel_openings,
         cut_reed_cable_holes,
     ):
