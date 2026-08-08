@@ -1,7 +1,15 @@
 """Shared interface for the cold-core's geometry modules — dimensional
 constants and hole-punch helpers that every sibling part (foam shell,
 foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
-in sync against."""
+in sync against.
+
+The constants carry claims about each other — a screw long enough for its insert, a lane wide
+enough for its bore, two columns far enough apart for foam to reach between them — and those
+are settled here, as this file is read, with no solid yet to measure. `_stated_bounds` is the
+ledger they record into; `front_half.carry_stated_bounds` drains it onto the machine's card,
+where an open one is a red row a reader can see beside the geometry it describes. The siblings
+that import this module take `bound` and `state` from here rather than reaching for the ledger
+themselves, because this is already the path they read every other shared name off."""
 
 import itertools
 import math
@@ -11,10 +19,12 @@ from pathlib import Path
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 
 import cadquery as cq
 
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
+from _stated_bounds import bound, state
 
 
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PETG.
@@ -293,7 +303,10 @@ west_lane_mid_y = -port_lane_mid_y
 # PETG left either side of a bore on the lane, and under the lowest one over the
 # floor slab. Below this the wall between two features stops being printable.
 port_lane_wall = 1.5
-assert port_lane_inner_y - port_lane_outer_y >= 2 * (port_hole_radius + port_lane_wall), (
+state(
+    "port-lane-width", "The port lane carries a bore with a wall either side of it",
+    f"{2 * (port_hole_radius + port_lane_wall):g} mm of lane",
+    port_lane_inner_y - port_lane_outer_y >= 2 * (port_hole_radius + port_lane_wall),
     f"the port lane is {port_lane_inner_y - port_lane_outer_y:g} mm wide, which cannot carry a "
     f"⌀{2 * port_hole_radius:g} bore with {port_lane_wall:g} mm of PETG either side")
 
@@ -380,8 +393,12 @@ attachment_xy_positions = (
     + [(y_sign * mid_screw_x_offset, y_sign * _boss_wall_y)
        for y_sign in (1, -1)]
 )
+_boss_lane = bound(
+    "boss-clears-lane", "Every attachment boss stands clear of the port lane",
+    "every boss inboard of the lane's outer edge")
 for _bx, _by in attachment_xy_positions:
-    assert abs(_by) - screw_boss_size / 2 >= outer_shell_y_length / 2 - screw_boss_size, (
+    _boss_lane(
+        abs(_by) - screw_boss_size / 2 >= outer_shell_y_length / 2 - screw_boss_size,
         f"attachment boss at ({_bx:g}, {_by:g}) reaches past the port lane's outer edge "
         f"({port_lane_outer_y:g}) — the lane every front penetration runs along")
 gasket_thickness = 2.0
@@ -400,10 +417,16 @@ cap_screw_beyond_face = cap_screw_length - (
     + (foam_cap_height - head_pad_height)  # the boss column under the pad
     + gasket_thickness
 )
-assert cap_screw_beyond_face >= insert_length, (
+state(
+    "cap-screw-reach", "The clamp screw reaches the whole of its insert",
+    f"{insert_length:g} mm past the shell face",
+    cap_screw_beyond_face >= insert_length,
     f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
     f"face, short of its {insert_length:g} mm insert")
-assert cap_screw_beyond_face <= insert_pocket_depth, (
+state(
+    "cap-screw-bottom", "The clamp screw pulls its head down before it bottoms",
+    f"{insert_pocket_depth:g} mm past the shell face at most",
+    cap_screw_beyond_face <= insert_pocket_depth,
     f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
     f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
 
@@ -493,8 +516,12 @@ def deck_mount_reach(name):
 # One bore serves every station, sunk to the deepest reach any of them presents.
 deck_mount_bore_depth = max(
     (deck_mount_reach(name) for name in deck_mounts), default=0.0) + deck_mount_bore_relief
+_mount_reach = bound(
+    "deck-mount-reach", "Every deck mount's screw reaches the whole of its insert",
+    f"{deck_mount_insert_length:g} mm into the column")
 for _name in deck_mounts:
-    assert deck_mount_reach(_name) >= deck_mount_insert_length, (
+    _mount_reach(
+        deck_mount_reach(_name) >= deck_mount_insert_length,
         f"deck mount {_name}: an M3 × {deck_mounts[_name].screw:g} through "
         f"{deck_mounts[_name].seat:g} mm of seat reaches {deck_mount_reach(_name):g} mm "
         f"into the column, short of its {deck_mount_insert_length:g} mm insert")
@@ -527,9 +554,13 @@ def deck_mount_cap_room(name):
     return min(room)
 
 
+_mount_room = bound(
+    "deck-mount-room", "Every deck-mount column leaves the pour its gap in the cup",
+    f"{deck_mount_cap_gap:g} mm off everything standing in the cup")
 for _name in deck_mounts:
     _room, _what = deck_mount_cap_room(_name)
-    assert _room >= deck_mount_cap_gap - 1e-9, (
+    _mount_room(
+        _room >= deck_mount_cap_gap - 1e-9,
         f"deck mount {_name}: a column stands {_room:.3f} mm off {_what}, inside the "
         f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
 
@@ -649,15 +680,21 @@ cap_conduit_entry_relief_radius = (
 # column. A wall and a lid of one thickness put that ceiling at [45°](ENTRY_SKEW_CEILING).
 cap_conduit_entry_skew_ceiling = math.degrees(
     math.atan2(cap_conduit_wall, wall_and_floor_thickness))
-assert cap_conduit_entry_skew <= cap_conduit_entry_skew_ceiling + 1e-9, (
+state(
+    "entry-skew-ceiling", "The countersink stands inside the boss its own column carries",
+    f"{cap_conduit_entry_skew_ceiling:.1f}° at most",
+    cap_conduit_entry_skew <= cap_conduit_entry_skew_ceiling + 1e-9,
     f"cap conduit entry: {cap_conduit_entry_skew:g}° opens the lid's hole to "
     f"⌀{2.0 * cap_conduit_entry_relief_radius:.2f}, past the ⌀{2.0 * cap_conduit_boss_radius:g} "
     f"column under it — a relief stands inside its own boss, which is "
     f"{cap_conduit_entry_skew_ceiling:.1f}° here")
 # The mouth passes the tube's SECTION and not just its centreline: a ⌀[6.35](LLDPE_TUBE_OD) line
 # crossing the outer face at that lean reads `r / cos(skew)` wide in the face's own plane.
-assert cap_conduit_entry_relief_radius >= (
-        0.5 * lldpe_tube_od / math.cos(math.radians(cap_conduit_entry_skew)) - 1e-9), (
+state(
+    "entry-passes-section", "The countersink's mouth passes the leaning tube's whole section",
+    f"⌀{lldpe_tube_od / math.cos(math.radians(cap_conduit_entry_skew)):.2f} across the face",
+    cap_conduit_entry_relief_radius >= (
+        0.5 * lldpe_tube_od / math.cos(math.radians(cap_conduit_entry_skew)) - 1e-9),
     f"cap conduit entry: a ⌀{lldpe_tube_od:g} line leaning {cap_conduit_entry_skew:g}° reads "
     f"{lldpe_tube_od / math.cos(math.radians(cap_conduit_entry_skew)):.2f} mm across the lid's "
     f"face, over the ⌀{2.0 * cap_conduit_entry_relief_radius:.2f} the relief opens to")
@@ -750,14 +787,28 @@ cap_conduits = {
 # Naming is what carries the pairing across the two frames, so the name is checked too: the
 # conduit for `side` is `reservoir-<x>-fill`, and it stands exactly on that side's anchor.
 _fill_conduits = {n for n in cap_conduits if n.endswith("-fill")}
-assert _fill_conduits == {f"reservoir-{'ab'[s < 0]}-fill" for s in reservoir_fill_sides}, (
+_fill_wanted = {f"reservoir-{'ab'[s < 0]}-fill" for s in reservoir_fill_sides}
+state(
+    "fill-conduits-paired", "Every fill bore has a conduit over it and every conduit a bore",
+    f"the cap's fills naming {sorted(_fill_wanted)}",
+    _fill_conduits == _fill_wanted,
     f"reservoir fills: {sorted(_fill_conduits)} stand on the cap, but "
     f"`reservoir_fill_sides` cuts {reservoir_fill_sides} — a conduit with no bore under it "
     f"is a hole into a sealed pocket, and a bore with no conduit over it is a blind one")
+# The station is read only where the pairing above found a conduit to read it off. An unpaired
+# side has already said so on its own row, and a lookup that is not there would take the whole
+# module down with it — the one thing this ledger exists to stop.
+_fill_station = bound(
+    "fill-conduit-station", "Every fill conduit stands on its own side's anchor",
+    "each conduit on the station its anchor strikes")
 for _s in reservoir_fill_sides:
     _n = f"reservoir-{'ab'[_s < 0]}-fill"
-    assert cap_conduits[_n] == reservoir_fill_conduit_xy(_s), (
-        f"{_n} stands at {cap_conduits[_n]}, off the side {_s:+d} anchor's own station "
+    _at = cap_conduits.get(_n)
+    if _at is None:
+        continue
+    _fill_station(
+        _at == reservoir_fill_conduit_xy(_s),
+        f"{_n} stands at {_at}, off the side {_s:+d} anchor's own station "
         f"{reservoir_fill_conduit_xy(_s)}")
 
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
@@ -805,14 +856,22 @@ def cap_conduit_room(name):
     return min(room)
 
 
+_conduit_room = bound(
+    "cap-conduit-room", "Every conduit column leaves the pour its gap in the cup",
+    f"{deck_mount_cap_gap:g} mm off everything else standing in the cup")
+_conduit_wall = bound(
+    "cap-conduit-wall", "Every conduit column stands the pour gap off the wall or merges in",
+    f"the pour gap apart or a {cap_conduit_wall:g} mm neck")
 for _name in cap_conduits:
     _room, _what = cap_conduit_room(_name)
-    assert _room >= deck_mount_cap_gap - 1e-9, (
+    _conduit_room(
+        _room >= deck_mount_cap_gap - 1e-9,
         f"cap conduit {_name}: the column stands {_room:.3f} mm off {_what}, inside the "
         f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
     _neck, _what = cap_conduit_wall_neck(*cap_conduits[_name])
     _want = deck_mount_cap_gap if _what.startswith("the pour") else cap_conduit_wall
-    assert _neck >= _want - 1e-9, (
+    _conduit_wall(
+        _neck >= _want - 1e-9,
         f"cap conduit {_name}: {_what} is {_neck:.3f} mm, under the {_want:g} mm it takes "
         f"— a column either stands the pour gap off the wall or merges into it")
 
@@ -873,12 +932,16 @@ def foam_cap_lid_vent_xy():
     return ((x, y), (x, -y))
 
 
+_mount_pour = bound(
+    "deck-mount-pour", "Every deck mount's lid hole leaves a land under its screw head",
+    f"{deck_mount_cap_gap:g} mm off the pour hole")
 for _name in deck_mounts:
     _px, _py = foam_cap_lid_pour_xy()
     for _sx, _sy in deck_mount_xy(_name):
         _room = (math.hypot(_px - _sx, _py - _sy)
                  - foam_cap_lid_pour_radius - screw_clearance_radius)
-        assert _room >= deck_mount_cap_gap - 1e-9, (
+        _mount_pour(
+            _room >= deck_mount_cap_gap - 1e-9,
             f"deck mount {_name}: its lid clearance hole at ({_sx:g}, {_sy:g}) stands "
             f"{_room:.3f} mm off the pour hole, inside the {deck_mount_cap_gap:g} mm that "
             f"leaves a land under the screw's head")
@@ -887,16 +950,27 @@ for _name in deck_mounts:
 # Every cradle stands its own room off everything else the lid's outer face opens — including
 # the pour hole, which moved to make it. This is read after the conduits and the pour, because
 # it is read against them.
+_cradle_room = bound(
+    "cradle-room", "Every cradle pad stands its room off everything else the face opens",
+    f"{cap_cradle_room_gap:g} mm off the nearest")
+_cradle_pour = bound(
+    "cradle-pour", "Every cradle pad has a floor under it where the pour hole is",
+    f"{cap_cradle_room_gap:g} mm off the pour hole")
+_cradle_vent = bound(
+    "cradle-vent", "Every cradle pad has a floor under it where the vents are",
+    f"{cap_cradle_room_gap:g} mm off either vent")
 for _name in cap_cradles:
     _room, _what = cap_cradle_room(_name)
-    assert _room >= cap_cradle_room_gap - 1e-9, (
+    _cradle_room(
+        _room >= cap_cradle_room_gap - 1e-9,
         f"valve cradle {_name}: a pad corner stands {_room:.3f} mm off {_what}, inside the "
         f"{cap_cradle_room_gap:g} mm this face keeps between two things it opens")
     _px, _py = foam_cap_lid_pour_xy()
     for _sx, _sy in cap_cradle_xy(_name):
         _room = (math.hypot(_px - _sx, _py - _sy)
                  - foam_cap_lid_pour_radius - cap_cradle_corner_radius)
-        assert _room >= cap_cradle_room_gap - 1e-9, (
+        _cradle_pour(
+            _room >= cap_cradle_room_gap - 1e-9,
             f"valve cradle {_name}: a pad corner at ({_sx:g}, {_sy:g}) stands {_room:.3f} mm "
             f"off the pour hole, inside the {cap_cradle_room_gap:g} mm that leaves the pad a "
             f"floor under it")
@@ -904,7 +978,8 @@ for _name in cap_cradles:
         for _sx, _sy in cap_cradle_xy(_name):
             _room = (math.hypot(_hx - _sx, _hy - _sy)
                      - foam_cap_lid_vent_radius - cap_cradle_corner_radius)
-            assert _room >= cap_cradle_room_gap - 1e-9, (
+            _cradle_vent(
+                _room >= cap_cradle_room_gap - 1e-9,
                 f"valve cradle {_name}: a pad corner at ({_sx:g}, {_sy:g}) stands "
                 f"{_room:.3f} mm off a vent, inside the {cap_cradle_room_gap:g} mm that "
                 f"leaves the pad a floor under it")
@@ -930,11 +1005,15 @@ def cap_conduit_pair_neck(a, b):
     return (2.0 * math.sqrt(max(r * r - (d / 2.0) ** 2, 0.0)), "the neck their lens leaves")
 
 
+_pair_neck = bound(
+    "cap-conduit-pair", "Every pair of conduits stands apart or merges on a neck, never tangent",
+    f"the pour gap apart or a {cap_conduit_wall:g} mm neck")
 for _a, _b in itertools.combinations(sorted(cap_conduits), 2):
     _neck, _what = cap_conduit_pair_neck(cap_conduits[_a], cap_conduits[_b])
     _want = (deck_mount_cap_gap
              if _what.startswith("the pour") else cap_conduit_wall)
-    assert _neck >= _want - 1e-9, (
+    _pair_neck(
+        _neck >= _want - 1e-9,
         f"cap conduits {_a} and {_b}: {_what} is {_neck:.3f} mm, under the "
         f"{_want:g} mm it takes — a pair either stands the pour gap apart or merges on a "
         f"neck a wall thick")

@@ -18,6 +18,7 @@ from _cold_core_interface import (
     make_box,
     pour_band_pocket_punch,
     cut_pour_band_pass_through,
+    bound,
 )
 
 w = wall_and_floor_thickness
@@ -71,9 +72,13 @@ def reed_channel_plan_room(x, y):
     return min(room)
 
 
+_reed_clear = bound(
+    "reed-channel-clear", "Every conduit's line falls clear of both reed channels",
+    f"{reed_line_clearance:g} mm off the nearer channel")
 for _name in cap_conduits:
     _room, _what = reed_channel_plan_room(*cap_conduit_shell_xy(_name))
-    assert _room >= reed_line_clearance - 1e-9, (
+    _reed_clear(
+        _room >= reed_line_clearance - 1e-9,
         f"cap conduit {_name}: the line coming down it stands {_room:.3f} mm off "
         f"{_what}, inside the {reed_line_clearance:g} mm a ⌀{lldpe_tube_od:g} tube's own "
         f"section takes — a line over a reed cavity is a void meeting a void and collides "

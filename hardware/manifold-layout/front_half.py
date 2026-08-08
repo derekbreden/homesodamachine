@@ -102,6 +102,11 @@ for _p in (_hw / "scripts", _here.parent,
 from _cadq_export import export_assembly              # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
+# The import-time ledger. Every module below that states a bound about its own constants has
+# already recorded into it by the time this import list is through, so `carry_stated_bounds`
+# reads a complete list. Imported HERE, before them, so the name is bound whichever of them
+# reaches for it first.
+import _stated_bounds as _stated                      # noqa: E402
 import compressor as _comp                            # noqa: E402
 import condenser_block as _cond                       # noqa: E402
 import copper_plugs as _plugs                         # noqa: E402
@@ -398,6 +403,14 @@ def cap_face(foam):
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.
 #
+# A THIRD GROUP IS SETTLED BEFORE ANY OF THIS RUNS. `manifold_layout`, `hopper_funnel` and the
+# cold core's own modules state bounds about their CONSTANTS — a screw long enough for its
+# insert, a lane wide enough for its bore, two limbs far enough apart for the valves on them —
+# and those are read as each file is, with no assembly yet to hang a reading on.
+# `_stated_bounds` is the ledger they record into at import and `carry_stated_bounds` reads it
+# into this one, so a constant edited into a fault arrives on the same card by the same route
+# as a body moved into one.
+#
 # A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
 # elevations and the scorecard a run writes. So none of these stops the build: each hands back
 # a `Bound` whether it holds or not, `build_pack` collects them onto the assembly the way it
@@ -425,6 +438,22 @@ def carry_enclosure_bounds() -> None:
     `enclosure` keeps its own list rather than importing this one, because this module is what
     places the pack it sizes the box on and the import only runs one way."""
     for b in _enc.BOUNDS:
+        record_bound(Bound(*b))
+
+
+def carry_stated_bounds() -> None:
+    """The bounds the pack's own modules state about their constants, entered in this ledger.
+
+    They were read when those modules were imported — the manifold's crossbar and limb pitch
+    against the valve bodies they carry, the spine turn against its stock, the funnel's collar
+    against the grade its floor claims, and the cold core's screws, lanes, conduit columns,
+    cradles and plug webs against each other. A raise there would take the STEP, the three
+    elevations and this card with it before `build_front_half` ran a line, which is why they
+    do not raise; this is where they arrive instead.
+
+    `_stated_bounds` keeps the list rather than this module keeping it, because the modules
+    that record into it are the ones this module imports and the import only runs one way."""
+    for b in _stated.records():
         record_bound(Bound(*b))
 
 
@@ -1348,7 +1377,7 @@ def check_east_band(seated) -> Bound:
 # because it weeps to atmosphere and that drip is the machine's cross-contamination telltale.
 #
 # The yaw lays the 140 mm chain fore and aft in the lane west of the pump, INLET AFT: the tap
-# water comes in through the back panel, so the mouth that faces the bulkhead is the upstream
+# water comes in through the rear wall, so the mouth that faces the bulkhead is the upstream
 # one and the flow runs forward down the lane to the split.
 ASSE1022_YAW = -90.0
 # The chain's aft end is THE BULKHEAD'S REACH and nothing else, because the joint between them is
@@ -1752,6 +1781,8 @@ def build_pack() -> cq.Assembly:
     a = cq.Assembly(name="front-half")
     SEATS.clear()
     BOUNDS.clear()
+    # The import-time group first, so a pack that never reaches the box still carries them.
+    carry_stated_bounds()
     seated_comp = build_compressor()
     ((comp, comp_carry),
      (cond, cond_carry)) = place_base([seated_comp, build_condenser(seated_comp[0])],
@@ -1935,8 +1966,9 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
 
     `THROUGH_WALL` is what that excludes, and the funnel is the same case by a different route.
 
-    The station fields left empty are the ones this pack has no body for: the front panel's
-    through-holes. Each arrives with the body it is for."""
+    `front_ports` is empty and stays empty. The box is four printed pieces and every face is a
+    wall of one of them — there is no front panel to cut through — so that field is settled,
+    not unfinished."""
     a = build_pack() if a is None else a
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])

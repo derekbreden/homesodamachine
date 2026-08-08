@@ -39,6 +39,7 @@ from _cold_core_interface import (
     bulkhead_floor_clearance,
     bulkhead_elbow_exit_z,
     make_box,
+    state,
 )
 from _reed_channels import reeds_per_reservoir, cable_hole_offset_from_bulkhead_hole_x
 from _port_cuts import flavor_line_hole_x
@@ -317,10 +318,12 @@ bulkhead_seal_wet_counterbore_diameter = 24.3  # ⌀[24.3 mm](BULKHEAD_SEAL_WET_
 # DRY (under) washer + counterbore — clamped by the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow flange.
 bulkhead_seal_dry_od = 18.5  # ⌀[16 mm](BULKHEAD_SEAL_ID)–[18.5 mm](BULKHEAD_SEAL_DRY_OD) ring; the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange caps how wide this can go
 bulkhead_seal_dry_counterbore_diameter = bulkhead_seal_dry_od  # ⌀[18.5 mm](BULKHEAD_SEAL_DRY_CB_D) = the dry washer OD ⌀[18.5 mm](BULKHEAD_SEAL_DRY_OD): hugs it with no radial clearance (the soft TPU compresses), leaving the maximum PETG rim under the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange.
-assert bulkhead_seal_dry_counterbore_diameter < bulkhead_dry_flange_od, (
+state(
+    "dry-seal-rim", "The dry seal's counterbore leaves a PETG rim under the elbow flange",
+    f"under ⌀{bulkhead_dry_flange_od:g}",
+    bulkhead_seal_dry_counterbore_diameter < bulkhead_dry_flange_od,
     f"dry seal counterbore ({bulkhead_seal_dry_counterbore_diameter}) must stay under "
-    f"the dry flange OD ({bulkhead_dry_flange_od}) to leave a PETG seat rim"
-)
+    f"the dry flange OD ({bulkhead_dry_flange_od}) to leave a PETG seat rim")
 
 # Each seal counterbore recesses into a raised seat boss, not the bare
 # trough floor. The boss is counterbored from BOTH faces (a washer per

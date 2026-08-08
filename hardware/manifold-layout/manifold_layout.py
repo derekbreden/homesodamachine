@@ -117,6 +117,10 @@ import y_divider as ydiv                              # noqa: E402
 # corners answer to — so this study reads its own bend radius off the same row every run
 # drawn in that stock is graded against.
 import _routing                                       # noqa: E402
+# The bounds this file states about its own figures — settled here, at import, before any solid
+# exists to hang a reading on. `_stated_bounds` is the ledger they record into and
+# `front_half.carry_stated_bounds` is what puts them on the card.
+import _stated_bounds as _bounds                      # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -191,23 +195,35 @@ FOLD_CLEAR = LINE_HUG   # what the closest folded body is left standing off the 
 
 ELBOW_LEG = 19.56                            # bend corner to collet face, both legs
 
-if CROSSBAR < 0.0:
-    raise ValueError(
-        f"CROSSBAR {CROSSBAR:g} would stand Y-A's and Y-B's branch collets past each other, so "
-        f"the two fittings occupy the same tube.")
-if 2.0 * INNER_X < VALVE_PITCH:
-    raise ValueError(
-        f"CROSSBAR {CROSSBAR:g} puts the inner limbs {2 * INNER_X:.2f} mm apart, under the "
-        f"{VALVE_PITCH:g} mm two valve bodies pack to — V-A and V-B would occupy each other.")
-
-if LIMB_PITCH < VALVE_PITCH:
-    raise ValueError(
-        f"LIMB_PITCH {LIMB_PITCH:g} is under the {VALVE_PITCH:g} mm two valve bodies pack to, so "
-        f"the two lanes' valves would occupy each other.")
-if LIMB_PITCH > BARB_PITCH:
-    raise ValueError(
-        f"LIMB_PITCH {LIMB_PITCH:g} is over the {BARB_PITCH:g} mm barb pitch — the lanes would "
-        f"stand outboard of the barbs and this file only draws the step inward.")
+# The four bounds the crossbar and the limb pitch carry. Two of them are two bodies in one
+# place rather than a clearance, and those are the ones worth NOT raising on: the pack is drawn
+# at the pitch it was given, the two valves come out overlapping, and `pack-closes` reads red
+# naming both bodies with the volume they share. A raise says the same thing and destroys the
+# picture of it.
+_bounds.state(
+    "crossbar-positive", "The crossbar leaves Y-A and Y-B their own tube",
+    "a crossbar of 0 or more",
+    CROSSBAR >= 0.0,
+    f"CROSSBAR {CROSSBAR:g} would stand Y-A's and Y-B's branch collets past each other, so "
+    f"the two fittings occupy the same tube.")
+_bounds.state(
+    "inner-limb-pitch", "The inner limbs stand a valve body apart",
+    f"{VALVE_PITCH:g} mm between the inner limbs",
+    2.0 * INNER_X >= VALVE_PITCH,
+    f"CROSSBAR {CROSSBAR:g} puts the inner limbs {2 * INNER_X:.2f} mm apart, under the "
+    f"{VALVE_PITCH:g} mm two valve bodies pack to — V-A and V-B would occupy each other.")
+_bounds.state(
+    "limb-pitch-floor", "The two lanes stand a valve body apart",
+    f"LIMB_PITCH at or over {VALVE_PITCH:g} mm",
+    LIMB_PITCH >= VALVE_PITCH,
+    f"LIMB_PITCH {LIMB_PITCH:g} is under the {VALVE_PITCH:g} mm two valve bodies pack to, so "
+    f"the two lanes' valves would occupy each other.")
+_bounds.state(
+    "limb-pitch-ceiling", "The lanes step inboard of the barbs, never outboard",
+    f"LIMB_PITCH at or under {BARB_PITCH:g} mm",
+    LIMB_PITCH <= BARB_PITCH,
+    f"LIMB_PITCH {LIMB_PITCH:g} is over the {BARB_PITCH:g} mm barb pitch — the lanes would "
+    f"stand outboard of the barbs and this file only draws the step inward.")
 
 # --- Colours ---------------------------------------------------------------
 C_VALVE = cq.Color(0.93, 0.93, 0.91)
@@ -373,15 +389,28 @@ SPINE_R = float(os.environ.get("HSM_SPINE_R", MIN_BEND))
 SPINE_STRAIGHT = DECK_SEP - 2.0 * SPINE_R
 SPINE_LEN = math.pi * SPINE_R + SPINE_STRAIGHT
 
-if SPINE_R < MIN_BEND:
-    raise ValueError(
-        f"SPINE_R {SPINE_R:g} is under the {MIN_BEND:g} mm this stock takes ({STOCK.source}).")
-if SPINE_STRAIGHT < 0.0:
-    raise ValueError(
-        f"SPINE_R {SPINE_R:g} needs {2 * SPINE_R:g} mm of deck separation to turn in and the "
-        f"decks stand {DECK_SEP:g} apart, so the two quarter-turns would overlap. Either drop "
-        f"SPINE_R to {DECK_SEP / 2.0:g} — a semicircle, which reaches that far past the hinge "
-        f"— or stand the decks further apart.")
+_bounds.state(
+    "spine-bend-radius", "The spine turn holds the corner this stock takes",
+    f"SPINE_R at or over {MIN_BEND:g} mm",
+    SPINE_R >= MIN_BEND,
+    f"SPINE_R {SPINE_R:g} is under the {MIN_BEND:g} mm this stock takes ({STOCK.source}).")
+# A radius over half the deck gap is the one stated bound in this file a turn CANNOT be drawn
+# past: `uturn` puts the climb's lower end above its upper one and the two quarter-turns no
+# longer share a point, so `assembleEdges` has no wire to sweep and there is no spine solid to
+# look at, red row or not. So this one is read before the turn rather than instead of it, and
+# `uturn` draws the semicircle — the member of the family that reaches exactly this far past
+# the hinge — when the straight it was asked for is one the arcs have already used up.
+_bounds.state(
+    "spine-straight", "The two quarter-turns leave straight tube between them",
+    f"SPINE_R at or under {DECK_SEP / 2.0:g} mm, half the deck separation",
+    SPINE_STRAIGHT >= 0.0,
+    f"SPINE_R {SPINE_R:g} needs {2 * SPINE_R:g} mm of deck separation to turn in and the "
+    f"decks stand {DECK_SEP:g} apart, so the two quarter-turns would overlap. Either drop "
+    f"SPINE_R to {DECK_SEP / 2.0:g} — a semicircle, which reaches that far past the hinge "
+    f"— or stand the decks further apart. The spine is drawn at that semicircle meanwhile.")
+# What `uturn` turns, as against what the file states. The same number whenever `spine-straight`
+# holds, so the drawn spine is bit-identical while it does.
+SPINE_DRAWN_R = min(SPINE_R, DECK_SEP / 2.0)
 
 
 def fold_pt(p) -> tuple:
@@ -575,8 +604,10 @@ def uturn(x: float):
     and it is what lets the radius sit at the stock's floor instead of half the deck gap.
 
     The whole turn reaches `SPINE_R` past the hinge and no further, which is the only part of it
-    the pack pays for."""
-    r, back = SPINE_R, HINGE_Y - SPINE_R
+    the pack pays for. It turns at `SPINE_DRAWN_R`, which is that radius or the semicircle —
+    a radius the decks have no room for leaves the two arcs sharing no point, and a wire that
+    does not close is not a turn drawn badly but a turn not drawn."""
+    r, back = SPINE_DRAWN_R, HINGE_Y - SPINE_DRAWN_R
     k = r * (1.0 - math.sqrt(0.5))                       # a quarter-turn's own 45° offset
     a = cq.Vector(x, HINGE_Y, DECK_Z)                    # lower collet, opening −Y
     b = cq.Vector(x, back, DECK_Z + r)                   # onto the climb

@@ -43,6 +43,8 @@ sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_step
 from docgen import substitute_md
+# The bound this file states about its own collar, recorded at import for the machine's card.
+import _stated_bounds as _bounds
 
 # --- funnel parameters ------------------------------------------------------
 # The collar sits at least one `brim_margin` inside the zone-C top-wall frame on
@@ -109,14 +111,16 @@ drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
 # quietly falls below `ramp_angle` while this file still claims it. Widening the collar
 # in Y walks straight at that line — hence the check.
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0
-if _y_run > _ramp_run:
-    raise ValueError(
-        f"collar_d {collar_d:g} makes the Y half-run ({_y_run:.2f} mm) longer than the X "
-        f"({_ramp_run:.2f} mm), so the front/back floor grades "
-        f"{math.degrees(math.atan(_ramp_rise / _y_run)):.2f}° — below ramp_angle "
-        f"{ramp_angle:g}°, which no longer describes the shallowest line. Keep collar_d ≤ "
-        f"{2.0 * (_ramp_run + spout_id / 2.0) + 2.0 * collar_wall:.1f} mm, or drive the rise "
-        f"off the longer run instead.")
+_bounds.state(
+    "funnel-ramp-grade", "The X half-run is the funnel floor's shallowest line",
+    f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
+    _y_run <= _ramp_run,
+    f"collar_d {collar_d:g} makes the Y half-run ({_y_run:.2f} mm) longer than the X "
+    f"({_ramp_run:.2f} mm), so the front/back floor grades "
+    f"{math.degrees(math.atan(_ramp_rise / _y_run)):.2f}° — below ramp_angle "
+    f"{ramp_angle:g}°, which no longer describes the shallowest line. Keep collar_d ≤ "
+    f"{2.0 * (_ramp_run + spout_id / 2.0) + 2.0 * collar_wall:.1f} mm, or drive the rise "
+    f"off the longer run instead.")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.

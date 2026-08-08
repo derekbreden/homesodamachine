@@ -40,6 +40,7 @@ from _cold_core_interface import (
     make_box,
     build_slot_punch,
     port_to_shell,
+    state,
 )
 from _support_ring import slot_angular_width, slot_count
 
@@ -88,12 +89,21 @@ def ring_slot_spans():
 
 
 _crossing = ring_crossing_azimuths(water_outlet_ring_crossing_x, lldpe_tube_od / 2.0)
-assert _crossing is not None and any(lo <= _crossing[0] and _crossing[1] <= hi
-                                     for lo, hi in ring_slot_spans()), (
-    f"the carbonated-water outlet crosses the tank support ring at x "
-    f"{water_outlet_ring_crossing_x:g} over azimuths {_crossing[0]:.1f}°..{_crossing[1]:.1f}°, "
-    f"which no slot of {ring_slot_spans()} holds — the line would have to be bored through a "
-    f"bearing segment")
+# The line missing the ring entirely is one of the two ways this opens, and it has no azimuths
+# to name — so the note is written for both rather than reaching into a reading that is None.
+state(
+    "water-outlet-slot", "The carbonated-water outlet crosses the support ring in one slot",
+    "one slot holding the whole crossing",
+    _crossing is not None and any(lo <= _crossing[0] and _crossing[1] <= hi
+                                  for lo, hi in ring_slot_spans()),
+    (f"the carbonated-water outlet at x {water_outlet_ring_crossing_x:g} passes clear "
+     f"outboard of the tank support ring and crosses no azimuth of it — the slot it is "
+     f"struck against is not the ring this line meets" if _crossing is None else
+     f"the carbonated-water outlet crosses the tank support ring at x "
+     f"{water_outlet_ring_crossing_x:g} over azimuths "
+     f"{_crossing[0]:.1f}°..{_crossing[1]:.1f}°, "
+     f"which no slot of {ring_slot_spans()} holds — the line would have to be bored through a "
+     f"bearing segment"))
 
 # CO2 inlet — the ⌀[6.5](PORT_HOLE_DIAMETER) reach in to the bottom plate's own lane-side
 # port at y = [-19.05](CO2_INLET_Y), from the PORT LANE, landing UNDER THE `co2-in` CONDUIT
@@ -109,7 +119,10 @@ assert _crossing is not None and any(lo <= _crossing[0] and _crossing[1] <= hi
 co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
 co2_inlet_lane_xyz = cap_conduit_shell_xy("co2-in") + (front_face_port_z,)
 co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
-assert abs(co2_inlet_lane_xyz[1] - port_lane_mid_y) < 1e-9, (
+state(
+    "co2-bore-meets-fall", "The CO2 bore is struck where its line falls down the lane",
+    f"the co2-in conduit on the port lane ({port_lane_mid_y:g})",
+    abs(co2_inlet_lane_xyz[1] - port_lane_mid_y) < 1e-9,
     f"the co2-in conduit stands at y {co2_inlet_lane_xyz[1]:g}, off the port lane "
     f"({port_lane_mid_y:g}) its line falls down — the bore is struck to meet that fall")
 
