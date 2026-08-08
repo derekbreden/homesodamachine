@@ -5,7 +5,7 @@
  "shaped": 90,
  "routed": 95,
  "held": 92,
- "mounted": 10,
+ "mounted": 15,
  "checks": [
   {
    "id": "coverage",
@@ -38,12 +38,9 @@
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
    "status": "fail",
-   "value": "10 clash, 0 unanswered",
+   "value": "7 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "valve-v-a \u2229 foam-assembly   341.2 mm\u00b3, x[    4.76,   35.38] y[  194.78,  232.38] z[  259.81,  262.51]",
-    "valve-v-b \u2229 foam-assembly   341.2 mm\u00b3, x[  -35.38,   -4.76] y[  194.78,  232.38] z[  259.81,  262.51]",
-    "foam-assembly \u2229 vk-solenoid   92.0 mm\u00b3, x[   59.24,   69.86] y[  189.20,  226.80] z[  258.20,  260.40]",
     "psu \u2229 gasher-co2   1447.8 mm\u00b3, x[   49.50,   56.50] y[  427.00,  450.00] z[  282.64,  297.36]",
     "psu \u2229 wr1110   5727.9 mm\u00b3, x[   49.50,   58.50] y[  367.00,  417.00] z[  280.62,  299.38]",
     "psu \u2229 tube-co2-1   66.8 mm\u00b3, x[   49.50,   51.18] y[  417.00,  427.00] z[  287.20,  292.80]",
@@ -100,14 +97,11 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "15 under, tightest 0.000 mm",
+   "value": "12 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "foam-assembly \u2014 pcba: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "psu \u2014 gasher-co2: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "psu \u2014 wr1110: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "ac-hub \u2014 c14-inlet: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
@@ -121,8 +115,11 @@
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-14 threads psu \u2014 pcba: they leave 6.000 mm and the tube is \u00d86.35, so -0.175 mm a side if it were centred, and it is not",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
+    "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
+    "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.000 mm \u2014 seated against it",
@@ -228,14 +225,10 @@
    "id": "cradles-land",
    "label": "Every printed valve cradle is under the valve it holds",
    "kind": "gate",
-   "status": "fail",
-   "value": "1/3 seated, furthest off 0.499 mm",
+   "status": "pass",
+   "value": "3/3 seated, furthest off 0.000 mm",
    "target": "every cradle within 0.001 mm",
-   "detail": [
-    "the cold core's cap prints a valve cradle where no valve stands \u2014 these are the rows `_cold_core_interface.cap_cradles` should carry. A cradle is a printed seat and a valve is placed by the pack that carries it, so the cap follows the machine.",
-    "    \"valve-v-a\": Cradle((105.920, 20.070), 0, 2.6150),",
-    "    \"valve-v-b\": Cradle((105.920, -20.070), 0, 2.6150),"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -277,7 +270,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "6/59 mounted",
+   "value": "9/59 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
@@ -321,8 +314,6 @@
     "tee-y-d: held by pack",
     "tee-y-f: held by pack",
     "tee-y-g: held by pack",
-    "valve-v-a: held by pack",
-    "valve-v-b: held by pack",
     "valve-v-c: held by pack",
     "valve-v-d: held by pack",
     "valve-v-e: held by pack",
@@ -331,7 +322,6 @@
     "valve-v-h: held by pack",
     "valve-v-i: held by pack",
     "valve-v-j: held by pack",
-    "vk-solenoid: held by cap",
     "water-split: held by tube-hung"
    ],
    "active": true
@@ -422,9 +412,10 @@
    "target": "a holder per body",
    "detail": [
     "bosses holds 6: ac-hub, c14-inlet, ground-stack, pcba, psu, relay-1",
-    "cap holds 2: seaflo-pump, vk-solenoid",
+    "cap holds 1: seaflo-pump",
+    "cradle holds 3: valve-v-a, valve-v-b, vk-solenoid",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
-    "pack holds 32: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-a, valve-v-b, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
+    "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
     "rails holds 1: drip-pan",
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
@@ -1714,14 +1705,6 @@
     [
      -90.5,
      178.0,
-     248.2,
-     90.5,
-     461.0,
-     262.514
-    ],
-    [
-     -90.5,
-     178.0,
      20.0,
      90.5,
      461.0,
@@ -1734,9 +1717,17 @@
      90.5,
      461.0,
      20.0
+    ],
+    [
+     -90.5,
+     178.0,
+     248.2,
+     90.5,
+     461.0,
+     262.015
     ]
    ],
-   "fill": 0.1124,
+   "fill": 0.1125,
    "primitive": false,
    "declared": null
   },
@@ -4400,8 +4391,8 @@
   },
   {
    "component": "vk-solenoid",
-   "by": null,
-   "held": "cap",
+   "by": "foam-assembly",
+   "held": "cradle",
    "kind": "real"
   },
   {
@@ -4592,14 +4583,14 @@
   },
   {
    "component": "valve-v-a",
-   "by": null,
-   "held": "pack",
+   "by": "foam-assembly",
+   "held": "cradle",
    "kind": "real"
   },
   {
    "component": "valve-v-b",
-   "by": null,
-   "held": "pack",
+   "by": "foam-assembly",
+   "held": "cradle",
    "kind": "real"
   },
   {
@@ -4652,7 +4643,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T02:46:25+00:00",
-  "commit": "94a2497232ae5343c419757a7c01b65a57d1b091"
+  "generated": "2026-08-08T03:01:25+00:00",
+  "commit": "f5e07585cf4030a82ee2351b5319d8d77f96f269"
  }
 }
