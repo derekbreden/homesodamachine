@@ -62,7 +62,7 @@ def main():
         "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:.4g} mm",
         "PIGTAIL_INLET": f"~{pigtail_inlet_mm:.4g} mm",
         "PIGTAIL_SLACK": f"~{pigtail_slack_mm:.4g} mm",
-        "SHROUD_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
+        "COMP_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
         # Wago count.
         "WAGO_COUNT": f"{wago_count:.4g}",
     }
@@ -80,7 +80,7 @@ def main():
             "PIGTAIL_MEDIUM": 2,
             "PIGTAIL_INLET": 1,
             "PIGTAIL_SLACK": 1,
-            "SHROUD_LEAD_LEN": 1,
+            "COMP_LEAD_LEN": 1,
             "WAGO_COUNT": 2,
         },
     )
