@@ -3,7 +3,7 @@
  "placed": 100,
  "located": 100,
  "shaped": 90,
- "routed": 92,
+ "routed": 100,
  "held": 92,
  "mounted": 10,
  "checks": [
@@ -113,10 +113,10 @@
     "valve-v-b \u2014 foam-assembly: 3.114 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-18 \u2014 vk-solenoid: 3.150 mm",
-    "fluid-18 \u2014 enclosure-front-top: 3.324 mm",
-    "fluid-28 \u2014 enclosure-front-top: 3.324 mm",
-    "fluid-28 \u2014 enclosure-back-top: 3.324 mm",
-    "fluid-18 \u2014 enclosure-back-top: 3.324 mm",
+    "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
+    "fluid-28 \u2014 enclosure-front-top: 3.325 mm",
+    "fluid-28 \u2014 enclosure-back-top: 3.325 mm",
+    "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-2 \u2014 fluid-24: 3.375 mm",
     "pcba \u2014 ground-stack: 3.450 mm",
     "carb-1 \u2014 fluid-18: 3.650 mm",
@@ -267,16 +267,16 @@
    "id": "routed",
    "label": "Every tube connection the machine owes, made as a real 3-D path",
    "kind": "goal",
-   "status": "fail",
-   "value": "36/39 made",
+   "status": "pass",
+   "value": "39/39 made",
    "target": "every connection made",
    "detail": [
-    "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, or one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it",
-    "drawn 19, butt 11, fold 4, turn 2 \u2014 3 still to route",
-    "by circuit \u2014 co2 2/2, fluid 26/26, refrigerant 0/3, water 8/8",
-    "refrig-1 (refrigerant): compressor-shroud discharge \u2192 condenser+fan inlet \u2014 still to route",
-    "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet \u2014 still to route",
-    "refrig-3 (refrigerant): foam-assembly evaporator outlet \u2192 compressor-shroud suction \u2014 still to route",
+    "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
+    "drawn 19, butt 11, fold 4, mate 3, turn 2 \u2014 0 still to route",
+    "by circuit \u2014 co2 2/2, fluid 26/26, refrigerant 3/3, water 8/8",
+    "refrig-1 (refrigerant): compressor-shroud discharge \u2192 condenser+fan inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
+    "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet \u2014 made up across the plane its two bodies share, 0.001 mm apart",
+    "refrig-3 (refrigerant): foam-assembly evaporator outlet \u2192 compressor-shroud suction \u2014 made up across the plane its two bodies share, 0.001 mm apart",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
     "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3 \u2014 made by a butt between two collets",
@@ -4531,7 +4531,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T01:25:36+00:00",
-  "commit": "b9a9bc3ef2df67a1b6734abaf0c6ebb09211230f"
+  "generated": "2026-08-08T02:02:16+00:00",
+  "commit": "9661a292ad0a91f60e2fe1cb1cb41b1883d37bd6"
  }
 }
