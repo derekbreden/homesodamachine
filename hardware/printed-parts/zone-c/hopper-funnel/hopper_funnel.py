@@ -2,8 +2,8 @@
 
 A static part in its own frame: origin at the collar-rectangle center, z = 0
 the brim underside — the plane that rests on the enclosure's top surface.
-The enclosure assembly places it (`_contents.FUNNEL_CX/CY` + the box's outer
-top), and the enclosure cuts its top-wall opening from this collar
+The machine places it (`front_half.build_funnel`, on `front_half.funnel_centre`
+and the box's outer top), and the enclosure cuts its top-wall opening from this collar
 (`enclosure.py _hopper_hole`), asserting the placement clears the display
 gusset, the corner pod, and the Y-seam lip. The drain is defined here, in
 the funnel's frame, and rides the part wherever it is placed.
@@ -73,12 +73,12 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # and the spout by its tube, so the straight section is the only height the basin's
 # volume is in — and it stands between two bounds. The FLOOR is that requirement,
 # asserted in `build`. The CEILING is the pack: the chute hangs the ramp, the spout
-# and the drain lower with every millimetre of itself, and the source pair's coils
-# stand directly under the basin, so what the column leaves over them
-# (`_contents.SOURCE_TRAY_HEADROOM`, held by the enclosure scorecard's
-# `source-tray-assembly clear hopper-funnel`) is what the chute may spend. It takes
-# that band whole rather than stopping at the floor: the collar already fills its
-# frame in both axes, so depth is the only thing left that buys capacity.
+# and the drain lower with every millimetre of itself, so what the chute may spend is
+# the fall `fluid-4` is left off the spout before its first corner
+# (`front_half.build_funnel`, recorded against this body and held by the machine
+# scorecard's `room-holds` gate). It takes that band whole rather than stopping at the
+# floor: the collar already fills its frame in both axes, so depth is the only thing
+# left that buys capacity.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
 chute_h = 27.65        # straight rectangular chute height — brim top down to the ramp start
