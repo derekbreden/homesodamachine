@@ -942,8 +942,14 @@ DECK_FALL_LIMIT = 60.0
 # neighbour is made up. The wall spends it, so it is stated here and `_enclosure_mechanical_sync`
 # prices its row of nuts off it.
 PORT_NUT_GAP = 7.0
-# The pitch two unions stand at on one line — each fitting's own panel footprint plus that gap.
-PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP
+# What the two columns carry BESIDE their nuts, and it is wider than they are: the ASSE chain
+# hangs off the west column and the DIGITEN meter lies on the east one, both on the deck's own
+# storey and both broader about their column than a union's nut. `clearance-floor` measures that
+# pair, and this is the extra the pitch carries for them.
+PORT_DECK_EXTRA = 1.5
+# The pitch two columns stand at — each fitting's own panel footprint, the gap two nuts need, and
+# what the bodies hanging off them ask for over that.
+PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
 # THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the −X
 # wall's inner face to the pump's casting, and the two nozzle unions stand side by side across it
 # at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the wall on one
@@ -961,7 +967,7 @@ PORT_LANE_CLEAR = 1.0
 PORT_WEST_COLUMN = -77.0
 PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
            "bulkhead-flavor-a": PORT_WEST_COLUMN + PORT_PITCH,
-           "bulkhead-carb": 16.0}
+           "bulkhead-carb": PORT_WEST_COLUMN + PORT_PITCH}
 # What a union's barrel keeps off the pump's BRACKET where the two pass. The feet are the widest
 # section the casting has and they are only `seaflo_22_pump.FOOT_T` tall — above them the casting
 # steps back across the machine and the port lane opens by twenty millimetres. So a barrel
@@ -1114,14 +1120,52 @@ def _would_land_on(b, placed):
                     or box(s).zmin >= b.zmax)]
 
 
-def deck_z(placed, gate: float):
-    """The Z the panel deck lies on: the storey on which the least of the bodies it carries still
-    has one `DECK_CLEAR` of fall left in it.
+# What the tap-water chain's crown keeps under the top wall's inner face. The appliance's height
+# is STATED (`enclosure.appliance_height`) rather than grown from the pack, so this ceiling is a
+# fixed plane and the storey under it is a room the deck can be given rather than one it takes.
+DECK_CEILING_CLEAR = 1.0
 
-    `placed` is everything already standing, which is what the deck has to come down onto. The
+
+def interior_ceiling() -> float:
+    """The plane the top wall's inner face lies on, off the appliance's own stated height."""
+    return _enc.appliance_height - 2.0 * _enc.wall
+
+
+def asse_crown_over_axis() -> float:
+    """How far the ASSE chain's body stands over the tube axis its two collets are on — the
+    tallest thing the deck's storey carries. The yaw that lays the chain down the lane is about
+    Z, so this reads the same turned or not."""
+    chain = _asse.build()
+    chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
+    chain = chain.val() if hasattr(chain, "val") else chain
+    return box(chain).zmax - _asse.port("tube-in")[0][2]
+
+
+def check_deck_floor(z: float, floor) -> Bound:
+    """The deck against the storey the descent leaves under it — the lowest it may lie."""
+    ok = floor is None or z >= floor - 1e-6
+    return record_bound(Bound(
+        "deck-floor", "The panel deck lies over the storey its own descent leaves", ok,
+        "nothing lands under it" if floor is None else f"deck {z:.2f}, floor {floor:.2f}",
+        "the deck at or over its floor",
+        ([] if ok else [
+            f"the panel deck lies at z {z:.2f} and the row it carries wants {floor:.2f} to keep "
+            f"one DECK_CLEAR = {DECK_CLEAR:g} over what it would land on. The ceiling sets the "
+            f"deck through `asse_crown_over_axis`; the floor is the descent."])))
+
+
+def deck_z(placed, gate: float):
+    """The Z the panel deck lies on: the top of the band its own two bounds leave it.
+
+    THE CEILING BINDS AND THE STOREY TAKES IT. Everything hanging off this storey wants the
+    height — the chain, the split and the regulator on the chain's own axis, and the drip tray
+    under the vent, which has the pump's bracket to clear — so the deck lies as high as the top
+    wall lets the chain's crown. `check_deck_floor` is where the other bound is made.
+
+    `placed` is everything already standing, which is what the row would come down onto. The
     trial storey they are dropped from is that pack's own crown, one union half-section — the
     fattest the deck carries — and a clearance over it, so each starts in air whatever stands
-    below it, and the strike is that trial less what the first of them to land would fall.
+    below it, and the floor is that trial less what the first of them to land would fall.
 
     ONLY THE BODIES THE STOREY MOVES. A union on `PANEL_ON_GATE_LANE` stands on a plane of its
     own and rides the trial nowhere, so its fall says nothing about where the deck can go; it
@@ -1132,12 +1176,13 @@ def deck_z(placed, gate: float):
     Returns `(z, {body: the fall it still has at that storey})`. The second is the band this
     strike states — one body is left standing on exactly `DECK_CLEAR` and the rest on whatever
     their own descent leaves — and it is what the ledger's `room` side records."""
+    z = interior_ceiling() - asse_crown_over_axis() - DECK_CEILING_CLEAR
     trial = max(box(s).zmax for s in placed) + DECK_CLEAR + _jg.BODY_D / 2.0
     falls = {name: descent(s, _would_land_on(box(s), placed))
              for name, s in build_deck(trial, gate)[0].items()
              if name not in PANEL_ON_GATE_LANE}
     landing = [d for d in falls.values() if d is not None]
-    z = trial - min(landing) + DECK_CLEAR if landing else trial
+    check_deck_floor(z, trial - min(landing) + DECK_CLEAR if landing else None)
     return z, {n: None if d is None else d - (trial - z) for n, d in falls.items()}
 
 
