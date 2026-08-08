@@ -2,7 +2,7 @@
  "gatesPass": false,
  "placed": 100,
  "located": 100,
- "shaped": 88,
+ "shaped": 90,
  "routed": 92,
  "held": 92,
  "mounted": 10,
@@ -71,7 +71,7 @@
     "valve-v-c.outlet: 17.18 mm to compressor-shroud, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-d.outlet: 17.18 mm to compressor-shroud, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-j.inlet: 17.18 mm to compressor-shroud, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-g.inlet: 17.67 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet \u2014 and that body is still a placeholder box",
+    "valve-v-g.inlet: 17.67 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
     "asse1022-assembly.vent-tip: 11.00 mm to drip-pan \u2014 opens to atmosphere, not gated"
    ],
    "active": true
@@ -87,7 +87,7 @@
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 move a body, not the line",
+    "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
     "compressor-shroud \u2014 condenser+fan: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
@@ -184,7 +184,8 @@
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:14"
+    "runs by grade: B:14",
+    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
    ],
    "active": true
   },
@@ -311,12 +312,11 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "52/59 authored",
+   "value": "53/59 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
     "pump-b-motor: still a bare primitive, 1 solid",
-    "condenser+fan: still a bare box, 1 solid",
     "pump-a-bracket: still a bare box, 1 solid",
     "pump-a-head: still a bare box, 1 solid",
     "pump-b-bracket: still a bare box, 1 solid",
@@ -1492,22 +1492,6 @@
    "declared": null
   },
   {
-   "component": "condenser+fan",
-   "boxes": [
-    [
-     38.499,
-     0.0,
-     0.0,
-     94.499,
-     178.0,
-     151.0
-    ]
-   ],
-   "fill": 1.0,
-   "primitive": true,
-   "declared": null
-  },
-  {
    "component": "pump-a-bracket",
    "boxes": [
     [
@@ -1609,14 +1593,6 @@
     [
      -90.5,
      178.0,
-     20.0,
-     90.5,
-     461.0,
-     233.4
-    ],
-    [
-     -90.5,
-     178.0,
      233.4,
      90.5,
      461.0,
@@ -1641,13 +1617,21 @@
     [
      -90.5,
      178.0,
+     20.0,
+     90.5,
+     461.0,
+     233.4
+    ],
+    [
+     -90.5,
+     178.0,
      2.0,
      90.5,
      461.0,
      20.0
     ]
    ],
-   "fill": 0.1143,
+   "fill": 0.1141,
    "primitive": false,
    "declared": null
   },
@@ -2372,6 +2356,22 @@
    "declared": null
   },
   {
+   "component": "condenser+fan",
+   "boxes": [
+    [
+     38.499,
+     0.0,
+     0.0,
+     94.499,
+     178.0,
+     151.0
+    ]
+   ],
+   "fill": 0.9681,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "coil-v-a",
    "boxes": [
     [
@@ -2773,6 +2773,28 @@
      247.0,
      302.95
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      48.0,
+      360.0,
+      290.0
+     ],
+     [
+      77.5,
+      247.0,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 29.5,
+     "y": 113.0,
+     "z": 36.6
+    },
+    "span": 122.39,
+    "path": 183.96,
+    "detour": 1.503
    }
   },
   {
@@ -2833,6 +2855,28 @@
      322.8,
      265.7
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      40.0,
+      330.9,
+      285.4
+     ],
+     [
+      64.55,
+      306.9,
+      265.7
+     ]
+    ],
+    "axis": {
+     "x": 24.55,
+     "y": 24.0,
+     "z": 19.7
+    },
+    "span": 39.58,
+    "path": 49.47,
+    "detour": 1.25
    }
   },
   {
@@ -2904,6 +2948,28 @@
      267.13,
      267.81
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      0.0,
+      165.06,
+      304.7
+     ],
+     [
+      -20.07,
+      243.08,
+      267.81
+     ]
+    ],
+    "axis": {
+     "x": 20.07,
+     "y": 78.02,
+     "z": 36.89
+    },
+    "span": 88.6,
+    "path": 152.63,
+    "detour": 1.723
    }
   },
   {
@@ -2986,6 +3052,28 @@
      156.07,
      291.54
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      -74.0,
+      176.07,
+      305.4
+     ],
+     [
+      20.07,
+      243.08,
+      267.81
+     ]
+    ],
+    "axis": {
+     "x": 94.07,
+     "y": 67.01,
+     "z": 37.59
+    },
+    "span": 121.46,
+    "path": 212.33,
+    "detour": 1.748
    }
   },
   {
@@ -3068,6 +3156,28 @@
      231.5,
      281.81
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      -77.07,
+      82.68,
+      267.81
+     ],
+     [
+      -43.5,
+      231.5,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 33.57,
+     "y": 148.82,
+     "z": 14.41
+    },
+    "span": 153.24,
+    "path": 194.28,
+    "detour": 1.268
    }
   },
   {
@@ -3150,6 +3260,28 @@
      175.0,
      271.46
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.07,
+      142.08,
+      227.67
+     ],
+     [
+      -32.0,
+      450.21,
+      337.23
+     ]
+    ],
+    "axis": {
+     "x": 109.07,
+     "y": 308.13,
+     "z": 109.56
+    },
+    "span": 344.74,
+    "path": 476.9,
+    "detour": 1.383
    }
   },
   {
@@ -3232,6 +3364,28 @@
      175.0,
      271.46
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      -77.07,
+      142.08,
+      227.67
+     ],
+     [
+      -80.0,
+      450.21,
+      337.23
+     ]
+    ],
+    "axis": {
+     "x": 2.93,
+     "y": 308.13,
+     "z": 109.56
+    },
+    "span": 327.04,
+    "path": 360.85,
+    "detour": 1.103
    }
   },
   {
@@ -3292,6 +3446,28 @@
      274.0,
      337.23
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.5,
+      274.0,
+      253.4
+     ],
+     [
+      16.0,
+      366.21,
+      337.23
+     ]
+    ],
+    "axis": {
+     "x": 61.5,
+     "y": 92.21,
+     "z": 83.83
+    },
+    "span": 138.97,
+    "path": 225.53,
+    "detour": 1.623
    }
   },
   {
@@ -3352,6 +3528,28 @@
      184.0,
      267.4
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      -57.5,
+      223.5,
+      285.4
+     ],
+     [
+      -56.0,
+      184.0,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 1.5,
+     "y": 39.5,
+     "z": 32.0
+    },
+    "span": 50.86,
+    "path": 57.84,
+    "detour": 1.137
    }
   },
   {
@@ -3412,6 +3610,28 @@
      82.68,
      281.81
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      -43.5,
+      184.0,
+      253.4
+     ],
+     [
+      -20.07,
+      82.68,
+      267.81
+     ]
+    ],
+    "axis": {
+     "x": 23.43,
+     "y": 101.32,
+     "z": 14.41
+    },
+    "span": 104.99,
+    "path": 134.39,
+    "detour": 1.28
    }
   },
   {
@@ -3472,6 +3692,28 @@
      82.68,
      281.81
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      43.5,
+      184.0,
+      253.4
+     ],
+     [
+      20.07,
+      82.68,
+      267.81
+     ]
+    ],
+    "axis": {
+     "x": 23.43,
+     "y": 101.32,
+     "z": 14.41
+    },
+    "span": 104.99,
+    "path": 134.39,
+    "detour": 1.28
    }
   },
   {
@@ -3543,6 +3785,28 @@
      157.0,
      265.7
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      -74.0,
+      266.14,
+      285.33
+     ],
+     [
+      64.55,
+      178.5,
+      265.7
+     ]
+    ],
+    "axis": {
+     "x": 138.55,
+     "y": 87.64,
+     "z": 19.63
+    },
+    "span": 165.11,
+    "path": 270.79,
+    "detour": 1.64
    }
   },
   {
@@ -3603,6 +3867,28 @@
      422.0,
      318.18
     ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.07,
+      82.68,
+      267.81
+     ],
+     [
+      56.0,
+      422.0,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 21.07,
+     "y": 339.32,
+     "z": 14.41
+    },
+    "span": 340.28,
+    "path": 443.09,
+    "detour": 1.302
    }
   },
   {
@@ -3638,7 +3924,29 @@
    "reach": null,
    "reachRatio": null,
    "reachGrade": "A",
-   "binding": null
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      -40.0,
+      330.9,
+      285.4
+     ],
+     [
+      -57.5,
+      306.9,
+      285.4
+     ]
+    ],
+    "axis": {
+     "x": 17.5,
+     "y": 24.0,
+     "z": 0.0
+    },
+    "span": 29.7,
+    "path": 34.68,
+    "detour": 1.167
+   }
   },
   {
    "id": "water-2",
@@ -3661,7 +3969,29 @@
    "reach": null,
    "reachRatio": null,
    "reachGrade": null,
-   "binding": null
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      -74.0,
+      310.21,
+      305.4
+     ],
+     [
+      -74.0,
+      286.21,
+      305.4
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 24.0,
+     "z": 0.0
+    },
+    "span": 24.0,
+    "path": 24.0,
+    "detour": 1.0
+   }
   },
   {
    "id": "fluid-1",
@@ -3684,7 +4014,29 @@
    "reach": null,
    "reachRatio": null,
    "reachGrade": null,
-   "binding": null
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      -74.0,
+      246.07,
+      305.4
+     ],
+     [
+      -74.0,
+      222.07,
+      305.4
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 24.0,
+     "z": 0.0
+    },
+    "span": 24.0,
+    "path": 24.0,
+    "detour": 1.0
+   }
   },
   {
    "id": "water-4",
@@ -3707,7 +4059,29 @@
    "reach": null,
    "reachRatio": null,
    "reachGrade": null,
-   "binding": null
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      64.55,
+      237.5,
+      265.7
+     ],
+     [
+      64.55,
+      252.5,
+      265.7
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 15.0,
+     "z": 0.0
+    },
+    "span": 15.0,
+    "path": 15.0,
+    "detour": 1.0
+   }
   },
   {
    "id": "co2-1",
@@ -3730,7 +4104,29 @@
    "reach": null,
    "reachRatio": null,
    "reachGrade": null,
-   "binding": null
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      48.0,
+      427.0,
+      290.0
+     ],
+     [
+      48.0,
+      417.0,
+      290.0
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 10.0,
+     "z": 0.0
+    },
+    "span": 10.0,
+    "path": 10.0,
+    "detour": 1.0
+   }
   },
   {
    "id": "carb-2",
@@ -3753,7 +4149,29 @@
    "reach": null,
    "reachRatio": null,
    "reachGrade": null,
-   "binding": null
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      16.0,
+      426.21,
+      337.23
+     ],
+     [
+      16.0,
+      450.21,
+      337.23
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 24.0,
+     "z": 0.0
+    },
+    "span": 24.0,
+    "path": 24.0,
+    "detour": 1.0
+   }
   }
  ],
  "mounts": [
@@ -3767,7 +4185,7 @@
    "component": "condenser+fan",
    "by": null,
    "held": "floor",
-   "kind": "placeholder"
+   "kind": "real"
   },
   {
    "component": "foam-assembly",
@@ -4113,8 +4531,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T00:37:48+00:00",
-  "commit": "2567f8c55a3d867e4de9beb86f0994511e35824f",
-  "inputs": {}
+  "generated": "2026-08-08T01:25:36+00:00",
+  "commit": "b9a9bc3ef2df67a1b6734abaf0c6ebb09211230f"
  }
 }
