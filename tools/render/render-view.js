@@ -117,91 +117,16 @@
 
 import path from "path";
 import fs from "fs";
-import { execFileSync } from "child_process";
 import { fileURLToPath } from "url";
-import puppeteer from "puppeteer";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
 import { DEFAULT_EDITION, EDITION_IDS, editionById } from "../../web/lib/editions.js";
 import { withHistoricalTree } from "./temporal.js";
+import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-
-// How long the STEP parse gets. This is a fact about the file's size and the machine — the
-// enclosure assembly is a 20 MB STEP and occt-import-js runs it single-threaded on the page's
-// own main thread — not a fact about the geometry, so it stands well past what a loaded laptop
-// takes and `HSM_PARSE_TIMEOUT` moves it. It bounds the CDP protocol timeout too (below): while
-// the parse holds the main thread, the wait task's own round trip is what runs out first.
-const PARSE_TIMEOUT = Number(process.env.HSM_PARSE_TIMEOUT || 900000);
-
-// ---------------------------------------------------------------------------
-// Browser lifetime. Chrome is a separate process, and an abandoned one does not
-// idle: inPageCompose leaves a requestAnimationFrame loop rendering the whole
-// model at frame rate, so a browser nobody is reading still costs a core.
-//
-// Three ties hold it to this process, because none of them covers the others'
-// case. `pipe: true` puts the CDP transport on fd 3/4, so however node dies —
-// SIGKILL included, which no handler can intercept — the pipes close and Chrome
-// exits on EOF. The handlers below cover the signals that are catchable, and
-// they kill rather than close because a signal handler does not outlive the
-// tick it runs in. The `finally` in serveAndDrive is the ordinary path.
-// ---------------------------------------------------------------------------
-const LIVE_BROWSERS = new Set();
-
-function killBrowserNow(browser) {
-  const proc = browser.process();
-  if (proc && proc.exitCode === null) {
-    try { proc.kill("SIGKILL"); } catch { /* already gone */ }
-  }
-}
-
-async function closeBrowser(browser) {
-  LIVE_BROWSERS.delete(browser);
-  // close() negotiates over CDP, which a page still holding the main thread can
-  // stall; the kill is what makes "the process is gone" true rather than likely.
-  try { await browser.close(); } catch { /* fall through to the kill */ }
-  killBrowserNow(browser);
-}
-
-for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) {
-  process.on(sig, () => {
-    for (const b of LIVE_BROWSERS) killBrowserNow(b);
-    LIVE_BROWSERS.clear();
-    process.exit(sig === "SIGINT" ? 130 : sig === "SIGTERM" ? 143 : 129);
-  });
-}
-
-// A render killed before any of that ran leaves its browser reparented to init.
-// A live one never is — puppeteer's Chrome carries its node process as parent
-// for as long as that process exists — so ppid 1 under puppeteer's own cache
-// names a leak exactly, with no age threshold to trip over a slow peer render.
-function sweepAbandonedBrowsers() {
-  let out;
-  try {
-    out = execFileSync("/bin/ps", ["-Ao", "pid=,ppid=,command="], { encoding: "utf8", maxBuffer: 1 << 24 });
-  } catch { return; }
-  const doomed = [];
-  for (const line of out.split("\n")) {
-    const m = line.match(/^\s*(\d+)\s+(\d+)\s+(.*)$/);
-    if (!m) continue;
-    const [, pid, ppid, cmd] = m;
-    // The path is the whole test. Chrome installed for a person lives elsewhere.
-    if (ppid !== "1" || !cmd.includes("/.cache/puppeteer/chrome/")) continue;
-    doomed.push(Number(pid));
-  }
-  if (!doomed.length) return;
-  // Killing a root orphans its renderers onto init, where this same rule finds
-  // them; taking the whole set in one pass leaves nothing for a later sweep.
-  const all = new Set(doomed);
-  for (const line of out.split("\n")) {
-    const m = line.match(/^\s*(\d+)\s+(\d+)\s+(.*)$/);
-    if (m && all.has(Number(m[2])) && m[3].includes("/.cache/puppeteer/chrome/")) all.add(Number(m[1]));
-  }
-  for (const pid of all) { try { process.kill(pid, "SIGKILL"); } catch { /* raced */ } }
-  console.error(`render-view: cleared ${all.size} abandoned browser process(es) from an earlier render`);
-}
 
 // Camera presets. Repo convention is +Z up, -Y front (the user's side), +X right.
 // `up` on the two Z-axis views lays onto ∓Y, as in scene.js's snapCameraToFace.
@@ -1224,19 +1149,7 @@ async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
     // 180 s. The parse below blocks the page's main thread for as long as occt-import-js takes,
     // so the wait task's own call is what runs out — and it fails as a bare "Waiting failed",
     // with no mention of the file it was reading. It is raised with the parse budget.
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
-      protocolTimeout: PARSE_TIMEOUT + 60000,
-      // Ties Chrome's life to this process's — see the browser-lifetime block above.
-      pipe: true,
-      // Puppeteer's own signal handling closes over CDP, which is the slow path
-      // and races the exit. The handlers above own these and kill outright.
-      handleSIGINT: false,
-      handleSIGTERM: false,
-      handleSIGHUP: false,
-    });
-    LIVE_BROWSERS.add(browser);
+    browser = await launchBrowser({ protocolTimeout: PARSE_TIMEOUT + 60000 });
     const page = await browser.newPage();
     await page.setViewport({ width: opts.width, height: opts.height, deviceScaleFactor: 1 });
     page.on("pageerror", (err) => console.error("pageerror:", err.message));
@@ -1279,7 +1192,7 @@ async function main() {
   if (!stepRel) usage("missing <step-rel>");
   if (!opts.list && !outRel) usage("missing <out.png>");
 
-  sweepAbandonedBrowsers();
+  sweepAbandonedBrowsers("render-view");
 
   if (opts.list) {
     const rows = await withViewer({ stepRel, opts }, (page) => page.evaluate(inPageList));

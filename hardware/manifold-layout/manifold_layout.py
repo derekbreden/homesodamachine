@@ -86,6 +86,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import NamedTuple
 
@@ -877,6 +878,18 @@ def skew_deg(a, b, axis) -> float:
 ELEVATIONS = "top,front,right"
 
 
+def _print_render_log(log, tail: int = 12) -> None:
+    """The render's last words, under the line that says it did not draw. A
+    skip that names no reason is a skip nobody can act on."""
+    try:
+        log.seek(0)
+        lines = [ln.rstrip() for ln in log.read().decode("utf-8", "replace").splitlines() if ln.strip()]
+    except OSError:
+        return
+    for ln in lines[-tail:]:
+        print(f"    | {ln}")
+
+
 def render_elevations(step: Path, xray: str = None) -> None:
     """Plan, front and right beside the STEP — the same three `enclosure_assembly.py` draws, and
     for the same reason: an isometric thumbnail cannot be read off with a ruler.
@@ -899,20 +912,31 @@ def render_elevations(step: Path, xray: str = None) -> None:
     if node is None or not tool.is_file():
         print("  (elevations skipped: no render tool)")
         return
-    try:
-        r = subprocess.run(
-            [node, str(tool), str(step.relative_to(_repo / "hardware")),
-             str(step.with_suffix(".png")), "--edition", _edition,
-             "--views", ELEVATIONS, "--ortho", "--size", "1600x1200"]
-            + ([] if xray is None else ["--xray", xray]),
-            cwd=str(_tools.parent), stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
-            timeout=900, check=False)
-        if r.returncode:
-            print(f"  (elevations skipped: render-view exited {r.returncode})")
+    # The render's stderr goes to a file rather than a pipe. `subprocess.run`'s
+    # timeout kills the child and then calls `communicate()` again with no
+    # bound, and that second call waits for EOF on the pipe — which every
+    # process that inherited the write end holds open, browser subprocesses
+    # included. A build that timed out would stop there and never come back,
+    # which costs the STEP, the scorecard and the thumbnail as well as the
+    # elevations. A file has no write end to wait on.
+    with tempfile.TemporaryFile() as log:
+        try:
+            r = subprocess.run(
+                [node, str(tool), str(step.relative_to(_repo / "hardware")),
+                 str(step.with_suffix(".png")), "--edition", _edition,
+                 "--views", ELEVATIONS, "--ortho", "--size", "1600x1200"]
+                + ([] if xray is None else ["--xray", xray]),
+                cwd=str(_tools.parent), stdout=subprocess.DEVNULL, stderr=log,
+                timeout=900, check=False)
+            rc = r.returncode
+        except Exception as exc:
+            print(f"  (elevations skipped: {exc})")
+            _print_render_log(log)
             return
-    except Exception as exc:
-        print(f"  (elevations skipped: {exc})")
-        return
+        if rc:
+            print(f"  (elevations skipped: render-view exited {rc})")
+            _print_render_log(log)
+            return
     try:
         stamp.write_text(digest + "\n")
     except OSError:
