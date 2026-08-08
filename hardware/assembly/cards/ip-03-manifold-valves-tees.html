@@ -17,25 +17,32 @@
   <div class="col" style="flex:1">
     <p class="lede">Build to the truth table:
     <strong>fluid-topology.md</strong> names every valve (V-A&hellip;V-J),
-    every junction (Y-A&hellip;Y-H), every segment — the manifold matches
-    it segment-for-segment.</p>
+    every junction, every segment — the manifold matches it
+    segment-for-segment.</p>
 
     <ol class="steps">
-      <li><b>Lay out all ten Beduan valves</b> with their inlet/outlet
-        legends visible — NC solenoids, flow I&rarr;O only.</li>
-      <li><b>Lay out the junctions between them</b> in topology positions:
-        <span class="dim">2</span> PP2308E Y-dividers (Y-E, Y-H) +
-        <span class="dim">6</span> PP0208E Tees (Y-A, Y-B, Y-C, Y-D, Y-F, Y-G).</li>
-      <li><b>Pre-cut all <span class="dim">28</span> tube segments</b>
-        from the reel to the topology tables — square-cut both ends, and
-        tag each with masking tape by segment number.</li>
+      <li><b>Lay out all
+        <span class="dim" data-gen="MANIFOLD_VALVES">10</span> Beduan
+        valves</b> with their inlet/outlet legends visible — NC solenoids,
+        flow I&rarr;O only.</li>
+      <li><b>Lay out the
+        <span class="dim" data-gen="MANIFOLD_TEES">6</span> PP0208E Tees
+        between them</b> — Y-A, Y-B, Y-C, Y-D, Y-F, Y-G, in
+        <span class="dim" data-gen="MANIFOLD_LIMBS">4</span> limbs. A limb is
+        one lane: valves and tees butted collet to collet down one column.</li>
+      <li><b>Pre-cut all
+        <span class="dim" data-gen="MANIFOLD_SEGMENTS">26</span> segments</b>
+        to the topology tables —
+        <span class="dim" data-gen="MANIFOLD_BUTTS">11</span> butt-lengths two
+        collets swallow whole,
+        <span class="dim" data-gen="MANIFOLD_HAIRPINS">4</span> hairpins across
+        the fold. Square-cut both ends, tag each by segment number.</li>
     </ol>
 
     <div class="note" style="margin-bottom:20px">
-      <b>Every junction is tube-hung.</b> No divider and no tee seats on a
-      tray — the trays carry valves only, so all eight hang on their own
-      tubing. Y-D / Y-G, the pump-discharge tees, wait for IP-04. Bench
-      sub-assembly vs in-place build is an open item; this card assumes bench.
+      <b>Nothing carries a junction</b> — no tee seats on a body or a tray;
+      each hangs on the collets it joins. And <b>neither reservoir has
+      one</b>: each carries two mouths of its own.
     </div>
 
     <div class="tools">
@@ -46,22 +53,19 @@
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel">
-      <img src="img/two-valve-tray.png" alt="">
-      <div class="cap"><b>Two-valve tray</b> — the manifold's one printed
-      cradle, <span class="dim">5</span> off, all the same part. Four corner
-      sockets and a port saddle per seat, nothing else on it; each seat is
-      symmetric, so a valve drops in either way round — set flow by its
-      arrow, not by the tray. Five pairs: <b>V-E·V-F</b> (Y-E) ·
-      <b>V-H·V-I</b> (Y-H) · <b>V-A·V-B</b> and <b>V-C·V-D</b>, which share
-      Y-A and Y-B between them, a Tee on each column · <b>V-G·V-J</b> (the
-      nozzle gates, no shared junction).</div>
+      <img src="img/ip03-manifold-pack.png" alt="">
+      <div class="cap"><b>The pack, folded</b> — four limbs across two pump
+      rosettes, every body butted collet to collet down its own column and no
+      elbow anywhere in it. The fold turns about the line the four barb tees'
+      front collets stand on; the four connections that cross it are the
+      hairpins.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>10 valves + 8 junctions laid out to the truth table; 28 segments cut square, tagged by number — ready to build outward (IP-04).</div>
-  <div class="src">internal-plumbing.md &#167;3 &#183; fluid-topology.md<br>rev 2026-07-27</div>
+  <div class="done"><span class="lbl">Done when</span>10 valves + 6 Tees laid out on their four limbs; 26 segments cut square and tagged by number — ready to build outward (IP-04).</div>
+  <div class="src">internal-plumbing.md &#167;3 &#183; fluid-topology.md<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
