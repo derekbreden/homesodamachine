@@ -143,8 +143,12 @@ import _scorecard as _card                             # noqa: E402
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 RELAY_STEP = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
-AC_HUB_STEP = _hw / "printed-parts" / "electronics" / "ac-hub" / "ac-hub-assembly.step"
+WAGO_STEP = _hw / "reference" / "wago-221-413" / "wago-221-413.step"
 GND_STACK_STEP = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
+# The five lever nuts, in the order the row runs fore to aft. Three carry the mains poles and
+# two the 12 V rails; they are one row because they are one part in one kind of well, and the
+# wall does not care which conductor a lug splices.
+WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
@@ -945,22 +949,23 @@ DECK_FALL_LIMIT = 60.0
 # riser reaches it, and its own column stands west of everything the riser touches.
 PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
 # THE DECK'S WEST COLUMN IS THE TAP WATER UNION'S. That union crosses the same wall on the
-# ASSE chain's own axis, x −74, six millimetres from the nozzle-B station on a
-# Ø`jg_bulkhead_union.BODY_D` barrel — so the two stand on separate storeys, and the nozzle-B
-# one takes the lower.
+# ASSE chain's own axis, a barrel's width from the nozzle-B station — so the two stand on
+# separate storeys, and the nozzle-B one takes the lower.
 #
 # What hangs off the tap-water union is the whole west lane: the chain, then the split and the
 # regulator on the chain's own axis, and the drip tray under the vent, over the pump's casting.
 #
-# The step down is the ROW'S OWN PITCH read on Z instead of X — the clear face the row leaves
-# between two nuts, taken down the wall.
-PANEL_PITCH = (max(PANEL_X.values()) - min(PANEL_X.values())) / (len(PANEL_X) - 1)
-PANEL_DROP = {"bulkhead-flavor-b": PANEL_PITCH}
+# THE STOREY IT TAKES IS ITS OWN RUN'S. `fluid-28` cruises the west outboard lane at
+# `_lines.gate_cruise` — the plane the two nozzle gates climb to under the reservoir lines that
+# cross their columns — so a union standing there is reached by a leg that crosses to its column
+# without changing height, and the run's last move into the collet is flat. It also carries the
+# barrel clear under the drip tray's channel.
+PANEL_ON_GATE_LANE = ("bulkhead-flavor-b",)
 
 
-def panel_z(name: str, deck: float) -> float:
-    """The storey one union of the row crosses the wall on — the deck, less its column's step."""
-    return deck - PANEL_DROP.get(name, 0.0)
+def panel_z(name: str, deck: float, gate: float) -> float:
+    """The storey one union of the row crosses the wall on — the deck, or its own run's lane."""
+    return gate if name in PANEL_ON_GATE_LANE else deck
 
 
 def build_panel_bulkhead(name: str, x: float, z: float):
@@ -1014,7 +1019,7 @@ def build_digiten(carb_carry, seat: bool = True):
 
 # --- the storey those four stand on ----------------------------------------
 
-def build_deck(z: float, seat: bool = False):
+def build_deck(z: float, gate: float, seat: bool = False):
     """The four bodies the deck carries off the storey `z`: the three unions across the back
     wall, each on its own `panel_z`, and the meter inline one `CARB_2` ahead of the carb one.
 
@@ -1025,7 +1030,7 @@ def build_deck(z: float, seat: bool = False):
     solids, carries = {}, {}
     for name, px in PANEL_X.items():
         solids[name], carries[name] = build_panel_bulkhead(
-            name if seat else None, px, panel_z(name, z))
+            name if seat else None, px, panel_z(name, z, gate))
     solids["digiten-flow"], carries["digiten-flow"] = build_digiten(
         carries["bulkhead-carb"], seat=seat)
     return solids, carries
@@ -1064,21 +1069,28 @@ def _would_land_on(b, placed):
                     or box(s).zmin >= b.zmax)]
 
 
-def deck_z(placed):
-    """The Z the panel deck lies on: the storey on which the least of the four bodies it carries
-    still has one `DECK_CLEAR` of fall left in it.
+def deck_z(placed, gate: float):
+    """The Z the panel deck lies on: the storey on which the least of the bodies it carries still
+    has one `DECK_CLEAR` of fall left in it.
 
     `placed` is everything already standing, which is what the deck has to come down onto. The
-    trial storey the four are dropped from is that pack's own crown, one union half-section — the
-    fattest the deck carries — and a clearance over it, so all four start in air whatever stands
-    below them, and the strike is that trial less what the first of them to land would fall.
+    trial storey they are dropped from is that pack's own crown, one union half-section — the
+    fattest the deck carries — and a clearance over it, so each starts in air whatever stands
+    below it, and the strike is that trial less what the first of them to land would fall.
+
+    ONLY THE BODIES THE STOREY MOVES. A union on `PANEL_ON_GATE_LANE` stands on a plane of its
+    own and rides the trial nowhere, so its fall says nothing about where the deck can go; it
+    would answer with the distance from its own fixed storey and drag the strike up to the trial.
+    `build_pack` measures that one's own room against what is under it instead, and the row it
+    enters `room-holds` with reads the same as the rest.
 
     Returns `(z, {body: the fall it still has at that storey})`. The second is the band this
     strike states — one body is left standing on exactly `DECK_CLEAR` and the rest on whatever
     their own descent leaves — and it is what the ledger's `room` side records."""
     trial = max(box(s).zmax for s in placed) + DECK_CLEAR + _jg.BODY_D / 2.0
     falls = {name: descent(s, _would_land_on(box(s), placed))
-             for name, s in build_deck(trial)[0].items()}
+             for name, s in build_deck(trial, gate)[0].items()
+             if name not in PANEL_ON_GATE_LANE}
     landing = [d for d in falls.values() if d is not None]
     z = trial - min(landing) + DECK_CLEAR if landing else trial
     return z, {n: None if d is None else d - (trial - z) for n, d in falls.items()}
@@ -1212,7 +1224,8 @@ def co2_wall_port(inlet_carry):
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
-              "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
+              "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
+              ) + WAGO_POLES + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
@@ -1284,10 +1297,15 @@ def west_interior_face():
 PSU_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # What the brick stands off the rear wall's cross-pin column, which is where the free depth on
 # this flank ENDS: standing on the wall, the whole power block is inside that column's own band,
-# so the column is the aft face the block closes on and not the rear seam behind it. The brick
-# is the body that sets the figure — its AC screw block is on this end, and a hand landing two
-# ferrules on it needs the gap to be a gap.
-PSU_REAR_CLEAR = 6.0
+# so the column is the aft face the block closes on and not the rear seam behind it.
+#
+# IT IS ZERO, AND THAT IS THE PRICE OF RELAY #2. Three bodies now stand in this band where two
+# did — board, relay, brick — and what they leave over is every gap there is. Spent aft, the
+# relay has nowhere to stand; spent between the bodies it clears `STACK_CLEAR` either side of
+# it. So the brick closes on the column, and its AC screw block is made off from INBOARD, off
+# the open lane, rather than from behind. What the band has left is the `east-band` gate's to
+# report, off the placed column, every run.
+PSU_REAR_CLEAR = 0.0
 
 
 def build_psu(foam, wall_seat):
@@ -1314,15 +1332,15 @@ PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((1.0, 0.0, 0.0), -90.0))
 PCBA_PSU_CLEAR = 6.0
 
 
-def build_pcba(foam, psu, wall_seat):
-    """The controller board on the +X wall, forward of the brick on the same cap.
+def build_pcba(foam, ahead_of, wall_seat):
+    """The controller board on the +X wall, forward of whatever the brick's column presents.
 
     EAST on the same wall seat the brick takes, so the two stand in one plane and one length of
-    boss holds them both; AFT one `PCBA_PSU_CLEAR` ahead of the brick's own front face; FOOT on
-    the cap. What holds it is the pcba-tray, which is not placed — this is the board's
-    envelope."""
+    boss holds them both; AFT one `STACK_CLEAR` ahead of `ahead_of`'s own front face — which is
+    relay #2, not the brick, since the relay stands between them; FOOT on the cap. What holds it
+    is the pcba-tray, which is not placed — this is the board's envelope."""
     return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
-                     x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=cap_face(foam))
+                     x1=wall_seat, y1=box(ahead_of).ymin - STACK_CLEAR, z0=cap_face(foam))
 
 
 # The rest of the power block on the brick's crown: the relay aft-flush with the brick, the AC hub
@@ -1342,28 +1360,79 @@ STACK_CLEAR = (_enc.mount_boss_dia / 2.0
                - (_relay.width / 2.0 - _relay.hole_dy) + 1.0)
 
 
-def build_stack(psu, wall_seat):
-    """The three bodies the brick's crown carries, as `[(name, solid, colour, carry)]`.
+# Relay #2 stands the same body ON END: a further quarter about X carries its long axis from
+# fore-and-aft onto Z, so it presents 17 mm of depth to the band instead of 70. That is the only
+# way a third body fits between the board and the brick, and standing it costs nothing — its
+# screw block and its header end up one above the other, both facing the room.
+RELAY2_TURN = RELAY_TURN + (((1.0, 0.0, 0.0), 90.0),)
+# A lever nut turned for the WALL: the quarter about X stands it butt-first as the hub did, and
+# the quarter about −Y lays its wire-entry axis onto −X, so it presses west into the wall's own
+# well with its ports and levers facing the room. Its 18.8 mm lever-hinge axis stands on Z and
+# its 8.4 mm body lies along Y — the narrow face to the row, which is what fits five of them in
+# the depth three would take lying the other way.
+WAGO_TURN = (((1.0, 0.0, 0.0), 90.0), ((0.0, 1.0, 0.0), -90.0))
+# What the Wago row stands off the brick's crown, and what the relay above it stands off the row.
+WAGO_CLEAR = STACK_CLEAR
 
-    The relay and the hub stack aft-flush with the brick, each on the crown of the one below with
-    a `STACK_CLEAR` floor between them. The stud stands on the RELAY'S floor, one `STACK_CLEAR`
-    forward of the FRONTMOST face the pair presents — the hub's, which overhangs the relay it sits
-    on — so the stud's own height answers to nothing above it."""
-    aft = box(psu).ymax
-    out, floor = [], box(psu).zmax
-    for name, step, turn, colour in (
-            ("relay-1", RELAY_STEP, RELAY_TURN, C_RELAY),
-            ("ac-hub", AC_HUB_STEP, AC_HUB_TURN, C_AC_HUB)):
-        solid, carry = seat_body(cq.importers.importStep(str(step)).val(), turn, seat=name,
-                                 x1=wall_seat, y1=aft, z0=floor + STACK_CLEAR)
-        out.append((name, solid, colour, carry))
-        floor = box(solid).zmax
-    fore = min(box(s).ymin for _n, s, _c, _k in out)
+
+def build_relay2(psu, foam, wall_seat):
+    """Relay #2 on end, in the band between the brick and the board.
+
+    EAST on the wall seat every body on this flank takes; AFT one `STACK_CLEAR` ahead of the
+    brick's own front face; FOOT on the cap, the same lid the brick and the board stand on. It
+    is the body the band was reorganised around — see `PSU_REAR_CLEAR`."""
+    return seat_body(cq.importers.importStep(str(RELAY_STEP)).val(), RELAY2_TURN, seat="relay-2",
+                     x1=wall_seat, y1=box(psu).ymin - STACK_CLEAR, z0=cap_face(foam))
+
+
+def build_wago_row(psu, wall_seat):
+    """The five 221-413 lever nuts on the brick's crown, as `[(name, solid, carry)]`.
+
+    They are the only bodies on this flank that no boss holds: each presses into a well printed
+    on the wall itself (`enclosure._east_wells`), so what locates them is the wall, and what this
+    places is the lug that goes in it. The row runs fore and aft on the brick's own depth,
+    CENTRED on it, one `WAGO_CLEAR` over its crown."""
+    pb = box(psu)
+    span = 5 * _enc.wago_pitch
+    y0 = (pb.ymin + pb.ymax) / 2.0 - span / 2.0
+    out = []
+    for i, name in enumerate(WAGO_POLES):
+        solid, carry = seat_body(cq.importers.importStep(str(WAGO_STEP)).val(), WAGO_TURN,
+                                 seat=name, x1=wall_seat,
+                                 y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
+                                 z0=pb.zmax + WAGO_CLEAR)
+        out.append((name, solid, carry))
+    return out
+
+
+def build_stack(psu, pcba, wagos, wall_seat):
+    """What stands on the two crowns, as `[(name, solid, colour, carry)]`.
+
+    Relay #1 takes the BOARD'S crown — the board is the tallest body on the cap and the shortest
+    in depth, so the room over it is the one room a 70 mm relay lies down in. The ground stud
+    takes what that relay leaves of the same shelf, forward of it, because a ring stack is the
+    one body here that will go wherever there is a corner. Relay #2 is not on either crown; it
+    stands on the cap between the board and the brick (`build_relay2`)."""
+    out = []
+    relay1, r1_carry = seat_body(cq.importers.importStep(str(RELAY_STEP)).val(), RELAY_TURN,
+                                 seat="relay-1", x1=wall_seat, y1=box(pcba).ymax,
+                                 z0=box(pcba).zmax + STACK_CLEAR)
+    out.append(("relay-1", relay1, C_RELAY, r1_carry))
     stud, stud_carry = seat_body(cq.importers.importStep(str(GND_STACK_STEP)).val(), RELAY_TURN,
-                                 seat="ground-stack", x1=wall_seat, y1=fore - STACK_CLEAR,
-                                 z0=box(out[0][1]).zmin)
+                                 seat="ground-stack", x1=wall_seat,
+                                 y1=box(relay1).ymin - STACK_CLEAR, z0=box(relay1).zmin)
     out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
+
+
+def wago_wells(wagos):
+    """The wall's well stations, `(y, z)` — one per placed lug, read off the lug's own box so a
+    well cannot end up anywhere but under the thing it holds."""
+    out = []
+    for _name, solid, _carry in wagos:
+        b = box(solid)
+        out.append(((b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0))
+    return tuple(out)
 
 
 # --- what fastens the power column to the +X wall --------------------------
@@ -1900,6 +1969,9 @@ def build_pack() -> cq.Assembly:
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
     crown = max(box(comp).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
+    # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
+    # so does anything the machine stands ON one of them.
+    mcarry = manifold_carry(lift)
     stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
     in_pack = []
     for name, solid, color in stood:
@@ -1935,20 +2007,34 @@ def build_pack() -> cq.Assembly:
     wall_seat = east_wall_seat()
     psu, psu_carry = build_psu(foam, wall_seat)
     a.add(psu, name="psu", color=C_PSU)
-    pcba, pcba_carry = build_pcba(foam, psu, wall_seat)
+    # The band, fore to aft: board, relay #2 on end, brick. The relay is placed off the brick and
+    # the board off the relay, so the three close up on one chain and none of them carries a
+    # typed Y of its own.
+    relay2, relay2_carry = build_relay2(psu, foam, wall_seat)
+    a.add(relay2, name="relay-2", color=C_RELAY)
+    pcba, pcba_carry = build_pcba(foam, relay2, wall_seat)
     a.add(pcba, name="pcba", color=C_PCBA)
-    stack = build_stack(psu, wall_seat)
+    wagos = build_wago_row(psu, wall_seat)
+    for name, solid, _carry in wagos:
+        a.add(solid, name=name, color=C_AC_HUB)
+    stack = build_stack(psu, pcba, wagos, wall_seat)
     for name, solid, colour, _carry in stack:
         a.add(solid, name=name, color=colour)
     stack_carry = {name: carry for name, _s, _c, carry in stack}
-    check_east_band([("psu", psu), ("pcba", pcba)] + [(n, s) for n, s, _c, _k in stack])
+    a.east_wells = wago_wells(wagos)
+    check_east_band([("psu", psu), ("pcba", pcba), ("relay-2", relay2)]
+                    + [(n, s) for n, s, _c in wagos]
+                    + [(n, s) for n, s, _c, _k in stack])
     # The compressor is the one body on the floor that is bolted DOWN to it, so its four
     # holes are the slab's own boss stations.
     a.floor_bosses = floor_mounts(
         (comp_carry, _comp.mount_pattern(), _comp.BASE_Z))
+    # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
+    # well IS its mount, and that goes on the wall through `east_wells`.
     a.east_bosses = wall_mounts(
         (psu_carry, _psu.holes), (pcba_carry, _pcba.board.holes),
-        (stack_carry["relay-1"], _relay.holes), (stack_carry["ac-hub"], _hub.holes),
+        (relay2_carry, _relay.holes),
+        (stack_carry["relay-1"], _relay.holes),
         (stack_carry["ground-stack"], _gnd.holes))
     vk, vk_carry = build_vk(chain_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
@@ -1974,7 +2060,9 @@ def build_pack() -> cq.Assembly:
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
     # split, the regulator and the drip tray all take station off the chain.
-    a.deck_z, deck_fall = deck_z([s for s, _c in _solids(a).values()])
+    a.gate_z = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
+    under_deck = [s for s, _c in _solids(a).values()]
+    a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     asse, asse_carry = build_asse(foam, a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, _pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry,
@@ -1988,11 +2076,13 @@ def build_pack() -> cq.Assembly:
     a.add(disch, name="discharge-chain", color=C_SUCT)
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
-    deck_solids, panel_carries = build_deck(a.deck_z, seat=True)
+    deck_solids, panel_carries = build_deck(a.deck_z, a.gate_z, seat=True)
     meter_carry = panel_carries.pop("digiten-flow")
     for name, solid in deck_solids.items():
         a.add(solid, name=name, color=C_DIGITEN if name == "digiten-flow" else C_BULKHEAD)
-        note_room(name, "fall onto what stands under it", DECK_CLEAR, deck_fall[name])
+        note_room(name, "fall onto what stands under it", DECK_CLEAR,
+                  deck_fall[name] if name in deck_fall
+                  else descent(solid, _would_land_on(box(solid), under_deck)))
     panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
@@ -2015,7 +2105,6 @@ def build_pack() -> cq.Assembly:
               "digiten-flow": meter, **panels}
     # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
     # in `manifold_layout`'s world and ride the pose this module stood them in.
-    mcarry = manifold_carry(lift)
     for name, solid, _colour in stood:
         solids[name] = solid
         if name in _lines.STATIONS:
@@ -2090,7 +2179,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
-                     floor_bosses=a.floor_bosses)
+                     east_wells=a.east_wells, floor_bosses=a.floor_bosses)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -2290,7 +2379,8 @@ def report(a: cq.Assembly) -> None:
         line("display", box(named["display"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
-    for n in ("pcba", "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
+    for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
+              "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):

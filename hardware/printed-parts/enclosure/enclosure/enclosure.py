@@ -118,10 +118,12 @@ _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221-413"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import hopper_funnel as _funnel
+import wago_221_413 as _wago
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -228,6 +230,32 @@ mount_boss_dia = 7.0
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = 1.0
+
+# --- the +X wall's Wago wells ----------------------------------------------
+#
+# The five 221-413 lever nuts this machine distributes through — three for the AC mains
+# (H / N / G) and two for the 12 V rails (+ / GND) — are HELD BY THE WALL. There is no
+# tray: a well is printed on the wall's inner face and the lug presses into it, which is
+# one part fewer, two hold-down bosses fewer, and no plate between the lug and the thing
+# that locates it. A lever nut has no mounting hole of its own — it is a free splice —
+# so a printed pocket is the only way it is ever held, and the wall is as good a place
+# to print one as a plate is.
+#
+# The lug goes in BUTT-FIRST, pushed west onto the wall, ports facing the room. Its
+# lever-hinge axis stands on Z and its closed-body height lies along Y, so the row runs
+# fore and aft down the flank on the narrow face — five abreast in the depth three would
+# take lying the other way. The well wraps the butt half on ±Y and ±Z and is open
+# inboard, where the wire half stands proud and the levers swing.
+wago_well_wall = 3.0        # well wall thickness, the AC hub's own
+wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
+# The standing lug's own axes, in the wall's frame.
+wago_stand_y = _wago.height     # 8.4 — closed-body height, along the row
+wago_stand_z = _wago.width      # 18.8 — lever-hinge axis, across it
+wago_stand_x = _wago.depth      # 18.6 — wire-entry axis, reaching inboard
+wago_engage = wago_stand_x / 2.0                                  # butt half in the well
+wago_half_y = wago_stand_y / 2.0 + wago_well_wall + wago_well_press
+wago_half_z = wago_stand_z / 2.0 + wago_well_wall + wago_well_press
+wago_pitch = 2.0 * wago_half_y                                    # neighbours share a wall face
 # How far one of those bosses stands OFF the wall's inner face — which is the standoff a body
 # hung on the flank gets, and every millimetre of it is insert: the bore runs the boss's whole
 # length and stops on the wall's own inner face, so the wall behind is what caps its blind end.
@@ -333,10 +361,11 @@ z_lip_y_margin = 2.0
 #   pan_rails     the drip tray's carry, world boxes fused onto the −X wall
 #   c14           the mains inlet's heat-set stations on the back wall, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
+#   east_wells    the +X wall's Wago wells, (y, z) — one press-fit pocket per lever nut
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches)
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses floor_bosses")
+           "funnel pan_rails c14 east_bosses east_wells floor_bosses")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -345,8 +374,8 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses floor_bosses")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), ())
+            "east_bosses east_wells floor_bosses")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -935,7 +964,7 @@ def _dims(pack):
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
-               pack.floor_bosses)
+               pack.east_wells, pack.floor_bosses)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1939,6 +1968,33 @@ def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
+def _east_wells(solid, inner, stations, y0, y1, z0, z1):
+    """The +X wall's Wago wells added to a PIECE, for the stations inside the depth and
+    height band that piece owns — the same band test `_east_bosses` makes, so a well lands
+    whole in the piece whose wall carries it.
+
+    Each station is `(y, z)`: the well's centre on the wall. Nothing else is passed,
+    because nothing else varies — every one of these holds the same 221-413, so the
+    pocket is the lug's own envelope and one press fit, read off the reference solid.
+
+    The tower stands off the wall's inner face and the cavity is cut from that face
+    outward past its own end, so the pocket opens INBOARD and bottoms on the wall. What
+    the lug meets at the bottom of its travel is the wall itself, not a printed floor —
+    the wall is the datum, so the ports stand at a height the wall states."""
+    for sy, sz in stations:
+        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
+            continue
+        solid = solid.fuse(_ybox(inner[1] - wago_engage, inner[1],
+                                 sy - wago_half_y, sy + wago_half_y,
+                                 sz - wago_half_z, sz + wago_half_z))
+        solid = solid.cut(_ybox(inner[1] - wago_engage - 1.0, inner[1],
+                                sy - (wago_stand_y / 2.0 + wago_well_press),
+                                sy + (wago_stand_y / 2.0 + wago_well_press),
+                                sz - (wago_stand_z / 2.0 + wago_well_press),
+                                sz + (wago_stand_z / 2.0 + wago_well_press)))
+    return solid
+
+
 def _c14_bosses(solid, inner, outer, stations, z0, z1):
     """The C14's two heat-set bosses added to a back wall, for the stations whose Z lies in
     `z0..z1`.
@@ -2009,6 +2065,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
     piece = _east_bosses(piece, inner, box.east_bosses, ylo, yhi, zlo, zhi)
+    # The +X wall's Wago wells, on whichever piece holds each one's station. After the
+    # bosses for the same reason those go after the seam columns: a pocket cut here is a
+    # pocket nothing later fuses back in.
+    piece = _east_wells(piece, inner, box.east_wells, ylo, yhi, zlo, zhi)
     # The floor slab's, on whichever piece holds each one's plan station. Only the bottom
     # pieces have a slab to stand one on, and `_floor_bosses` drops any station outside.
     piece = _floor_bosses(piece, inner, box.floor_bosses, ylo, yhi, zlo, zhi)
