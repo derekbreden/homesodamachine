@@ -299,7 +299,8 @@ MADE_UP = (
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a
 # bend radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the
-# basin's flat floor, and `front_half.check_vent_lands` raises unless it does.
+# basin's flat floor, and `front_half.check_vent_lands` measures where it falls and reports it as
+# the `vent-lands` gate row.
 TERMINI = ("asse1022-assembly.vent-tip",)
 
 
