@@ -60,10 +60,26 @@ from _cold_core_interface import (
     screw_clearance_radius,
     deck_mount_xy,
     foam_cap_height,
+    foam_shell_outer_height,
     head_pad_height,
 )
+from _foam_cap import lid_total_height
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
+
+# --- the two planes the machine outside this stack answers to ---------------
+#
+# THE STACK'S FLOOR is the bottom lid's outer face, the most-negative-Z layer, which is what
+# the appliance stands the whole core on.
+#   THE CAP FACE is the top lid's outer face — the plane every body on the core's crown is
+# placed off. It is NOT the stack's highest point and must not be read as one: the valve
+# cradles (`_cold_core_interface.cap_cradles`) stand off that face, so the assembly's box top
+# is a cradle pad, and a body seated on it would stand on a valve seat.
+stack_floor_z = -(foam_cap_height + lid_total_height - head_pad_height)
+cap_face_z = (foam_shell_outer_height + foam_cap_height - head_pad_height + lid_total_height)
+# The one figure whoever seats this assembly needs: how far the cap face stands over the
+# floor the stack is set down on.
+cap_face_over_floor = cap_face_z - stack_floor_z
 
 SHELL_STEP = _cold_core / "foam-shell" / "foam-shell.step"
 CAP_DIR = _cold_core / "foam-cap"
@@ -204,6 +220,17 @@ def _report(placed):
     # shell's existing bosses.
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
     print("  screw pattern: 6 points, the original diagonal (shared top + bottom)  OK")
+
+    # The two planes the machine reads off this stack, held against the stack that came out.
+    # The cap face is a LID FACE and not the box's top, so it is read as the top lid's own
+    # plate rather than as whatever stands on it.
+    floor = placed["foam-cap-lid-bottom"][0].BoundingBox().zmin
+    face = placed["foam-cap-lid-top"][0].BoundingBox().zmin + lid_total_height
+    assert abs(floor - stack_floor_z) < 1e-6 and abs(face - cap_face_z) < 1e-6, (
+        f"the stack stands on {floor:.4f} and presents its cap face at {face:.4f}, against the "
+        f"{stack_floor_z:.4f} / {cap_face_z:.4f} this module tells the machine to expect")
+    print("  cap face %.1f, %.1f mm over the stack's own floor — what stands on the core "
+          "is placed off this, not off the box's top  OK" % (face, cap_face_over_floor))
 
     # The CO2's REACH IN — the last straight of its run, from the corner it takes out in the
     # open port lane to the collet made up under the bottom plate's lane-side port. The

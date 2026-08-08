@@ -186,9 +186,9 @@ def main():
             "MOUNT_HOLE_D": f"{2 * mount_hole_radius:.4g}",
         },
         expected_counts={
-            "PITCH": 1, "BODY_GAP": 1, "PLATE_X": 1, "PLATE_Y": 1, "PLATE_Z": 2,
+            "PITCH": 1, "BODY_GAP": 1, "PLATE_X": 1, "PLATE_Y": 1, "PLATE_Z": 1,
             "TRAY_BOT_Z": 1, "TRAY_TOP_Z": 3, "PORT_Z": 1,
-            "SEAT_X": 1, "PORT_HALF": 1, "COLLET_PROUD": 1, "COIL_TOP": 2,
+            "SEAT_X": 1, "PORT_HALF": 1, "COLLET_PROUD": 1, "COIL_TOP": 1,
             "EAR_Y": 1, "EAR_TIP": 1, "EAR_D": 1, "MOUNT_HOLE_D": 1,
         },
     )

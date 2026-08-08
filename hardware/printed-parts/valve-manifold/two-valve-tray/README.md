@@ -1,7 +1,12 @@
 # Two-valve tray
 
-The manifold's narrow printed cradle. Eight valves, four trays, **one part** — the
-same solid printed four times.
+The family's two-seat plate — [`single-tray`](/hardware/printed-parts/valve-manifold/single-tray/README.md)'s
+cell twice on one floor. **It is not in the machine and not in the BOM**: the
+appliance seats no tray, because the three valves that stand on a printed face
+press into cradles the cold core's top lid prints for them
+(`_cold_core_interface.cap_cradles`) and every other valve is butted collet to
+collet down a limb of the flavour pack. What is below is the plate and the
+pairing it was drawn for.
 
 | Tray | Valves | The junction they meet at |
 |---|---|---|
@@ -11,10 +16,10 @@ same solid printed four times.
 | Bag B | V-H · V-I | — (reservoir B's own two mouths) |
 
 The pairing is [fluid-topology](/hardware/topology/fluid-topology.md)'s own: each
-pair is the two valves of one circuit node. The manifold's remaining pair —
-the NOZZLE GATES, V-G · V-J, which meet at none — takes one
-[single-valve tray](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md)
-each, and V-K a third. Per-tray grouping is in
+pair is the two valves of one circuit node. The manifold's remaining pair — the
+NOZZLE GATES, V-G · V-J — meets at none, and the family's
+[single-valve plate](/hardware/printed-parts/valve-manifold/single-valve-tray/README.md)
+is the one-seat member for a row like that. Per-pair grouping is in
 [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd).
 
 ## Geometry
@@ -40,8 +45,8 @@ came from.
   plate's edge and the collet tips, so the ear ends at [28.35](EAR_TIP) and never reaches past the
   ports. The centreline is the one column the seated valves leave open the whole way up —
   tube, posts and spades all a seat's own geometry away — so the screw head and its key
-  come down clear. The other half of the joint is a boss printed in whatever carries the
-  tray; the aft stand's two live in the foam cap's deck-mount table.
+  come down clear. The other half of the joint is a boss printed in whatever carries
+  the tray, and nothing in this machine presents one.
 
 Each cell is symmetric under a half turn about Z, so a valve seats either way
 round: the tray locates a valve and never fixes which end of its port is the
@@ -60,36 +65,15 @@ other — and that follows the tray's pose in the enclosure, not the tray.
 
 ## Open
 
-- **Nothing holds a tray above this one off these coils.** The plate is [9](PLATE_Z) mm of
-  floor and the valves stand [56.6](COIL_TOP) mm on it. The enclosure that seats these
-  five carries the stack pitch (`_contents.tray_stack_pitch`); the standoff that
-  sets it is still owed, and three trays now stand on it. What is under the bottom
-  one is the band `_contents.tray_column_floor` measures — service space, with no line
-  crossing in it, standing on the refrigeration stratum's roof.
-  The two aloft have theirs: their floor is the foam cap's own lid, and their mount
-  ears bolt them to columns in its deck-mount table.
 - **Nothing holds the valve down.** Sockets, saddle and boss locate it and carry
-  it; lifting it out takes no tool. The gap the enclosure's stack pitch leaves over
-  a tray's coils is [6](TRAY_TOP_Z) mm — the depth the corner posts stand in the
-  sockets — so that lift is available with a tray above this one in place. It is also
-  what fixes every tray's pose in the machine: plate up, valves loose in their
-  sockets, so a yaw is the only turn any of the five has.
-- **All five are placed**, in two stands. THREE make the front column's head column,
-  one under the next, and that column is full: under the bottom plate is the
-  refrigeration stratum's roof, with less than one stack pitch between them. The
-  SOURCE pair — V-A · V-B — stands under the hopper's spout, both inlets aft and both
-  outlets forward; the SELECTS pair — V-C · V-D — stands a stack pitch beneath it,
-  inlets forward and outlets aft; the BAG-A pair — V-E · V-F — takes the bottom seat
-  with its two valves seated opposite ways round, the bag's two ends forward and the
-  pump row's two aft. TWO stand aloft, in the loft over the water deck, side by side
-  rather than stacked: the BAG-B pair — V-H · V-I — clocked exactly as bag A is, and
-  the NOZZLE GATES — V-G · V-J — one pack gap behind it, the one pair that meets at no
-  junction and the only one whose outlets leave the machine. Each clocking puts that
-  pair's two junction ports SIDE BY SIDE: Y-A and Y-B hang ahead of their pairs on
-  their own port planes, and Y-E stands a Tee ACROSS the strip its pair leaves between
-  the head column and the pump row. Bag B's pair reaches its reservoir directly and
-  meets no junction at all.
-  [`enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) has the pack.
+  it; lifting it out takes no tool. That is true of the cradle the cap prints as
+  well — the cell is the same cut — and it is the whole of the retention there:
+  [6](TRAY_TOP_Z) mm of corner post in its socket, on the [0.2 mm](SADDLE_CLEAR) the
+  sockets leave.
+- **Where the pairing went.** The table above is `fluid-topology`'s and stands;
+  what changed is the carrier. The flavour pack butts each pair collet to collet
+  down its own limb rather than standing them on a plate, so the pairs still exist
+  and the trays that carried them do not.
 
 Generated by `two_valve_tray.py` → `two-valve-tray.step`; the tray with its two
 valves seated is `two_valve_assembly.py` → `two-valve-assembly.step`. Regenerate

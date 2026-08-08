@@ -15,8 +15,8 @@ from _cold_core_interface import (
     foam_cap_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
-    foam_cap_lid_hole_inset,
     foam_cap_lid_pour_xy,
+    foam_cap_lid_vent_xy,
     attachment_xy_positions,
     screw_clearance_radius,
     head_cbore_radius,
@@ -186,14 +186,11 @@ def build_foam_cap_lid(open_down=False):
         .extrude(head_cbore_depth)
     )
 
-    # Pour hole on the +X half, off the centreline by whatever the deck-mount stations
-    # there leave it (`foam_cap_lid_pour_xy`); vent holes mirrored across y at the −X
-    # corners, where no station stands.
-    inset_x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
-    inset_y = outer_shell_y_length / 2 - foam_cap_lid_hole_inset
+    # Pour hole on the +X half, off the centreline by whatever the deck-mount stations and
+    # the valve cradles there leave it (`foam_cap_lid_pour_xy`); vent holes mirrored across y
+    # at the −X corners, where nothing stands.
     pour_xy = foam_cap_lid_pour_xy()
-    vent_plus_y_xy = (-inset_x, inset_y)
-    vent_minus_y_xy = (-inset_x, -inset_y)
+    vent_plus_y_xy, vent_minus_y_xy = foam_cap_lid_vent_xy()
 
     def cut_hole(anchor_xy, radius):
         return (

@@ -550,6 +550,25 @@ def _verdict(ok: bool) -> str:
     return "pass" if ok else "fail"
 
 
+def _bounds(a) -> list:
+    """One gate per bound `front_half` states about the machine and measures at every build —
+    the refrigerant loop closing on the plane its two bodies share, the vent's drip landing on
+    the basin's flat, the drip tray's lip landing inside the −X wall, a through-wall body
+    standing under the ceiling, a printed valve cradle standing under its valve.
+
+    NONE OF THEM STOPS A BUILD, and that is the whole reason they arrive here. A bound the
+    machine violates is a thing to LOOK AT, and what a reader looks at is the STEP, the three
+    elevations and this card — every one of which a raise destroys, leaving the only account of
+    the fault in a terminal nobody commits. So the check hands its reading back instead,
+    `front_half.BOUNDS` carries it onto the assembly, and it is red HERE, in the committed
+    artifact, with the message the check wrote and the geometry beside it.
+
+    An assembly built by something that states no bounds contributes no rows rather than a
+    silent pass: nothing measured is not the same claim as nothing wrong."""
+    return [Check(b.id, b.label, "gate", _verdict(b.ok), b.value, b.target, list(b.detail))
+            for b in getattr(a, "bounds", ())]
+
+
 def _pack_closes(a) -> Check:
     import manifold_layout as ml
     bad, unanswered = ml.clashes(a)
@@ -1206,8 +1225,9 @@ def build(a) -> Scorecard:
 def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
-    # `front_half` measures the refrigerant loop's three joints the moment its bodies are placed
-    # and raises before a card is ever built if one has opened, so the reading arrives closed.
+    # `front_half` measures the refrigerant loop's joints the moment its bodies are placed, and
+    # the reading rides each row: a joint that has opened is a `refrigerant-joints` gate row of
+    # its own here, and the millimetres it stands apart print beside the segment it makes.
     conns = load_connections(runs, getattr(a, "refrigerant", ()))
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
@@ -1232,6 +1252,7 @@ def _build(a) -> Scorecard:
             })
     checks = [_coverage(a), _room_holds(a), _pack_closes(a), _lines_clear(a, runs),
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
+              *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes), _held()]
     return Scorecard(checks, bends, conns, ports, shapes)
