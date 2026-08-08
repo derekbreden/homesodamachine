@@ -1,7 +1,7 @@
 """PCBA tray — the controller-board mount of the electronics shelf.
 
 Carries the JLCPCB-assembled controller PCBA ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx),
-85.05 × 72.85 mm as fabbed): four M3 heat-set standoff bosses under the board's
+[85 × 72.8 mm](PCBA_SIZE) as fabbed): four M3 heat-set standoff bosses under the board's
 four electrically isolated plated mounting holes (MH1–MH4, 3.2 mm hole /
 4.0 mm pad, a 78.0 × 66.3 mm rectangle) — M3 SHCS down through the board into
 ruthex inserts, the board's bottom face seating on the boss tops. A single
@@ -30,7 +30,12 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics"))
 sys.path.insert(0, str(_hw / "scripts"))
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 import module_tray as mt
 from module_tray import Mount
 
@@ -169,6 +174,13 @@ def main():
     tray = build_pcba_tray()
     export_step(tray, str(_here.parent / "pcba-tray.step"))
     print("-> pcba-tray.step (%.1f cm3)" % (tray.val().Volume() / 1000.0))
+
+    substitute_py_comments(
+        _here,
+        variables={"PCBA_SIZE": f"{board.length:.4g} × {board.width:.4g} mm"},
+        expected_counts={"PCBA_SIZE": 1},
+    )
+    print(f"-> {_here.name}")
 
 
 if __name__ == "__main__":
