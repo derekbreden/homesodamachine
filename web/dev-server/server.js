@@ -701,8 +701,8 @@ watcher.on("change", (absPath) => {
   //   2. Every other runnable script that transitively imports the file's
   //      module — covers shared `_foo.py` modules anywhere under hardware/, a
   //      generator that doubles as a base module (`bag_circuit_tray`, imported
-  //      by the other trays), and the cross-tree case where `co2_coupling_body`
-  //      feeds a drawing's `_appliance_model` → the `enclosure-iso-*` SVGs.
+  //      by the other trays), and the cross-tree case where `front_half` feeds
+  //      a drawing's `_appliance_model` → the `enclosure-iso-*` SVGs.
   // runWave then extends those seeds along STEP-load edges (the enclosures that
   // load the tray assemblies) and runs the lot once each, producers first.
   // The cadlib handler at the top of this listener is the shotgun version of
