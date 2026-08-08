@@ -100,6 +100,8 @@ def bench(m):
     built — a carbonator plate is cut before anything is placed and a board's
     pin count is the board's — so `_figures` stands on its own and what the
     assembly is read for here is the structure the cards' sentences rest on."""
+    import front_half as _fh
+
     pack, box = m.pack, m.box
 
     # ── the machine is entered from the back (AB-01, AB-02, FS-03) ─────────
@@ -124,9 +126,13 @@ def bench(m):
     assert {"outboard", "inboard"} <= set(water), (
         f"the water union presents {sorted(water)} — FS-03 caps its OUTBOARD collet, the one "
         f"the customer's supply pushes into, and IP-02 butts the inboard one onto the ASSE chain")
-    assert "co2-inlet" in m.a.pack_solids, (
-        "the DERPIPE is no longer a body in the pack — AB-01 pushes 5/16\" beer line into its "
-        "collar and FS-03 presses a rubber plug over the same collar")
+    # Water, CO2 and mains all reach the room by CROSSING the wall rather than
+    # standing inside the pack, which is what makes them a face the bench works
+    # at. AB-01 plugs into all three and FS-03 caps the two fluid ones.
+    rig = {"bulkhead-water", "co2-inlet", "c14-inlet"}
+    assert rig <= set(_fh.THROUGH_WALL), (
+        f"{sorted(rig - set(_fh.THROUGH_WALL))} no longer cross the enclosure wall — AB-01 "
+        f"brings water, CO2 and mains to one face and FS-03 caps the two fluid ones there")
 
     return _figures()
 
@@ -279,6 +285,9 @@ def _figures():
         "RAIL_12V": f"{_fc.rail_12v_nominal:.4g} V",
         "RAIL_5V": f"{_fc.rail_5v_nominal:.4g} V",
         "RAIL_33V": f"{_fc.rail_33v_nominal:.4g} V",
+        "RAIL_12V_TOL": f"&plusmn;{_fc.rail_12v_tol:.4g} V",
+        "RAIL_5V_TOL": f"&plusmn;{_fc.rail_5v_tol:.4g} V",
+        "RAIL_33V_TOL": f"&plusmn;{_fc.rail_33v_tol:.4g} V",
         "FREEZE_CUTOUT": f"&minus;{abs(_fc.freeze_cutoff_c):.4g} {DEG}C",
         "MIN_OFF": f"{_fc.min_off_time_min:.4g} min",
         "COMP_ON_OFF": f"{_fc.comp_on_temp_c:.4g} / {_fc.comp_off_temp_c:.4g} {DEG}C",
@@ -329,7 +338,9 @@ def _figures():
             "J6_PINS", "J7_PINS", "J8_PINS", "J9_PINS", "J10_PINS", "J11_PINS",
             "J13_PINS"},
         # FC — first power, then every input and every actuator.
-        "fc-01-first-dc-power-on": {"RAIL_12V", "RAIL_5V", "RAIL_33V", "WALL_BOSSES"},
+        "fc-01-first-dc-power-on": {
+            "RAIL_12V", "RAIL_5V", "RAIL_33V", "RAIL_12V_TOL", "RAIL_5V_TOL",
+            "RAIL_33V_TOL", "WALL_BOSSES"},
         "fc-03-sensor-health": {
             "PROBE_COUNT", "REEDS_TOTAL", "REEDS_CARB", "REEDS_PER_RSVR"},
         "fc-04-valve-pump-self-test": {"SOLENOID_COUNT", "MANIFOLD_VALVES"},
@@ -348,6 +359,7 @@ def _figures():
         "fs-02-drain-dry-nameplate": {
             "TILT_ANGLE", "WATER_DRAINED", "FLAVOR_DRAINED"},
         "fs-03-cap-photograph": {"UMBILICAL_UNIONS", "CARB_END"},
+        "fs-04-pack-kit-carton": {"DECLARED_VALUE"},
         "fs-05-weigh-label-handoff": {
             "SCALE_PRECISION", "CARTON_W_BAND", "CARTON_DIMS", "CARRIER_LIMIT_LB",
             "CARRIER_LIMIT_KG", "DECLARED_VALUE"},

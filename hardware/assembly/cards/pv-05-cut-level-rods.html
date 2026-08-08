@@ -15,22 +15,24 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">All three level-sensing rods cut from the same
+    <p class="lede">All <span class="dim" data-gen="LEVEL_RODS">3</span>
+    level-sensing rods cut from the same
     <span class="dim">1/8&Prime; (3.175&nbsp;mm) 316L</span> stock,
     12&Prime; sticks — <strong>square, deburred, on-length.</strong></p>
 
     <ol class="steps">
       <li><b>Measure and mark</b> from a squared stock end —
-        <span class="dim">131.1 mm</span> once,
-        <span class="dim">174 mm</span> twice.</li>
+        <span class="dim" data-gen="CARB_ROD_MM">131.1 mm</span> once,
+        <span class="dim" data-gen="RSVR_ROD_MM">175.4 mm</span> twice.</li>
       <li><b>Cut square.</b> Every rod end is a seating face — drilled
         register (PV-06) or printed boss (CC-08).</li>
       <li><b>Deburr both ends</b> to a clean edge. A burr falsifies the
         seat and scores the float bore.</li>
       <li><b>Verify length — err short, never long.</b> A long rod holds
-        the top plate (PV-09) or the reservoir cap off its seat. Built-in
-        clearance: <span class="dim">1 mm</span>. That is the whole
-        budget.</li>
+        the top plate (PV-09) or the reservoir cap off its seat. Every one
+        of the three is cut
+        <span class="dim" data-gen="ROD_CLEARANCE">1 mm</span> under its
+        own seat-to-seat span. That is the whole budget.</li>
     </ol>
 
     <div class="tools">
@@ -57,40 +59,41 @@
           <line class="dimline" x1="0" y1="52" x2="564" y2="52"/>
           <line class="dimline" x1="0" y1="40" x2="0" y2="64"/>
           <line class="dimline" x1="564" y1="40" x2="564" y2="64"/>
-          <text class="dimtext" x="282" y="98" text-anchor="middle">131.1 mm (5.16 in)</text>
-          <text class="tag" x="0" y="-18">&#215;1 &#8594; CARBONATOR float rod</text>
+          <text class="dimtext" x="282" y="98" text-anchor="middle" data-gen="CARB_ROD_LEN">131.1 mm (5.16 in)</text>
+          <text class="tag" x="0" y="-18">&#215;<tspan data-gen="CARB_ROD_QTY">1</tspan> &#8594; CARBONATOR float rod</text>
           <text class="sub" x="282" y="132" text-anchor="middle">tack-welds into the bottom-plate register &#183; PV-06</text>
         </g>
-        <!-- reservoir rods: 174mm -> 748px -->
+        <!-- reservoir rods: 175.4mm -> 754px -->
         <g transform="translate(30,268)">
-          <rect class="rod" x="0" y="0" width="748" height="18" rx="9"/>
-          <line class="dimline" x1="0" y1="52" x2="748" y2="52"/>
+          <rect class="rod" x="0" y="0" width="754" height="18" rx="9"/>
+          <line class="dimline" x1="0" y1="52" x2="754" y2="52"/>
           <line class="dimline" x1="0" y1="40" x2="0" y2="64"/>
-          <line class="dimline" x1="748" y1="40" x2="748" y2="64"/>
-          <text class="dimtext" x="374" y="98" text-anchor="middle">174 mm (6.85 in)</text>
-          <text class="tag" x="0" y="-18">&#215;2 &#8594; RESERVOIR float rods</text>
-          <text class="sub" x="374" y="132" text-anchor="middle">boss-captured at both ends &#8212; never welded &#183; CC-08</text>
+          <line class="dimline" x1="754" y1="40" x2="754" y2="64"/>
+          <text class="dimtext" x="377" y="98" text-anchor="middle" data-gen="RSVR_ROD_LEN">175.4 mm (6.91 in)</text>
+          <text class="tag" x="0" y="-18">&#215;<tspan data-gen="RSVR_ROD_QTY">2</tspan> &#8594; RESERVOIR float rods</text>
+          <text class="sub" x="377" y="132" text-anchor="middle">boss-captured at both ends &#8212; never welded &#183; CC-08</text>
         </g>
       </svg>
     </div>
 
     <table class="spec" style="margin-top:24px">
       <tr><th>Cut</th><th>Qty</th><th>Goes to</th></tr>
-      <tr><td class="v">131.1 mm</td><td class="v">1</td><td>Carbonator vessel — welded</td></tr>
-      <tr><td class="v">174 mm</td><td class="v">2</td><td>Flavor reservoirs — captured</td></tr>
+      <tr><td class="v" data-gen="CARB_ROD_MM">131.1 mm</td><td class="v" data-gen="CARB_ROD_QTY">1</td><td>Carbonator vessel — welded</td></tr>
+      <tr><td class="v" data-gen="RSVR_ROD_MM">175.4 mm</td><td class="v" data-gen="RSVR_ROD_QTY">2</td><td>Flavor reservoirs — captured</td></tr>
     </table>
 
     <div class="note" style="margin-top:22px">
-      <b>Nesting:</b> 131.1&nbsp;+&nbsp;174 = 305.1&nbsp;mm — two cuts do
-      not nest in one nominal 304.8&nbsp;mm stick. Measure your sticks
-      before planning pairs.
+      <b>Nesting:</b> one of each comes to
+      <span data-gen="ROD_PAIR_SUM">306.5</span>&nbsp;mm — over a nominal
+      <span data-gen="ROD_STICK">304.8</span>&nbsp;mm stick, so the pair
+      does not nest. Measure your sticks before planning pairs.
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Three rods — 1&nbsp;&#215;&nbsp;131.1, 2&nbsp;&#215;&nbsp;174 — ends square and deburred, no cut over spec.</div>
-  <div class="src">pressure-vessel.md &#167;2 &#183; handwork.md &#183; reservoir.py<br>rev 2026-07-24</div>
+  <div class="done"><span class="lbl">Done when</span><span data-gen="LEVEL_RODS">3</span> rods — <span data-gen="CARB_ROD_QTY">1</span>&nbsp;&#215;&nbsp;<span data-gen="CARB_ROD_MM">131.1 mm</span>, <span data-gen="RSVR_ROD_QTY">2</span>&nbsp;&#215;&nbsp;<span data-gen="RSVR_ROD_MM">175.4 mm</span> — ends square and deburred, no cut over spec.</div>
+  <div class="src">pressure-vessel.md &#167;2 &#183; reservoir.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>

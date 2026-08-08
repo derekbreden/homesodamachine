@@ -15,26 +15,28 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">A blind <span class="dim">9/64&Prime;</span> seat for the
-    level rod, in the <strong>inside face</strong> of both plates — bottom
-    seats the rod for its tack weld (PV-06), top captures the tip at closure
-    (PV-09).</p>
+    <p class="lede">A blind <span class="dim" data-gen="REGISTER_D">9/64&Prime;</span>
+    seat for the level rod, in the <strong>inside face</strong> of both plates —
+    bottom seats the rod for its tack weld (PV-06), top captures the tip at
+    closure (PV-09).</p>
 
     <div class="critical"><span class="sign">&#9940;</span>
       <div><b>Must not break through.</b>
-      <span class="dim" style="background:#9a3325">0.100&Prime;</span> to the
-      drill-point tip leaves 0.150&Prime; of plate as the 90&nbsp;PSI
-      pressure boundary.</div>
+      <span class="dim" style="background:#9a3325" data-gen="REGISTER_DEPTH">0.100&Prime;</span>
+      to the drill-point tip leaves
+      <span data-gen="REGISTER_REMAINING">0.150&Prime;</span> of plate as the
+      <span data-gen="REG_PSI">90 PSI</span> pressure boundary.</div>
     </div>
 
     <ol class="steps">
       <li><b>Inside face up.</b> Register at
-        <span class="dim">(0, &minus;2.007&Prime;)</span> — the &minus;Y cap
-        axis, clear of both ports.</li>
+        <span class="dim">(0, &minus;<span data-gen="REGISTER_Y">2.007</span>&Prime;)</span>
+        — the &minus;Y cap axis, clear of both ports.</li>
       <li><b>Clamp the disc.</b> Slowest press speed
         (<span class="dim">~740 RPM</span>), Tap Magic on the point.</li>
-      <li><b>Depth stop at 0.100&Prime; to the tip — prove it on a scrap
-        disc</b> before any real plate.</li>
+      <li><b>Depth stop at <span data-gen="REGISTER_DEPTH">0.100&Prime;</span>
+        to the tip — prove it on a scrap disc</b> before any real
+        plate.</li>
       <li><b>Drill both plates identically.</b> The register is what tells
         the faces apart from here on.</li>
     </ol>
@@ -59,7 +61,7 @@
           .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
           .hatch { stroke: #46628a; stroke-width: 2; }
         </style>
-        <text class="lbl" x="24" y="38">INSIDE FACE &#183; &#8960;4.860&Prime; &#183; 316 SS &#183; 1/4&Prime; thick</text>
+        <text class="lbl" x="24" y="38">INSIDE FACE &#183; <tspan data-gen="DISC_D">&#8960;4.860&Prime;</tspan> &#183; 316 SS &#183; <tspan data-gen="PLATE_THK">1/4&Prime;</tspan> thick</text>
         <!-- plate face at 100 px/in, center (300,300), disc R 2.43 -> 243 -->
         <g transform="translate(300,300)">
           <circle class="steel" r="243"/>
@@ -72,13 +74,13 @@
           <line class="dimln" x1="-75" y1="-56" x2="75" y2="-56"/>
           <line class="dimln" x1="-75" y1="-38" x2="-75" y2="-66"/>
           <line class="dimln" x1="75" y1="-38" x2="75" y2="-66"/>
-          <text class="dimtx" x="0" y="-72" text-anchor="middle">1.500&Prime;</text>
-          <text class="lbl" x="0" y="-100" text-anchor="middle">2&#215; &#8960;7/16&Prime; ports</text>
+          <text class="dimtx" x="0" y="-72" text-anchor="middle" data-gen="PORT_SPACING">1.500&Prime;</text>
+          <text class="lbl" x="0" y="-100" text-anchor="middle"><tspan data-gen="PORTS_PER_PLATE">2</tspan>&#215; &#8960;<tspan data-gen="TAP_DRILL">7/16&Prime;</tspan> ports</text>
           <!-- register callout -->
           <line class="dimln" x1="7" y1="196" x2="120" y2="122"/>
-          <text class="dimtx" x="128" y="118">&#8960;9/64&Prime; blind</text>
+          <text class="dimtx" x="128" y="118">&#8960;<tspan data-gen="REGISTER_D">9/64&Prime;</tspan> blind</text>
           <text class="sub" x="128" y="146">slip-fit on the 1/8&Prime; rod</text>
-          <text class="dimtx" x="128" y="178">2.007&Prime; off center</text>
+          <text class="dimtx" x="128" y="178"><tspan data-gen="REGISTER_Y">2.007</tspan>&Prime; off center</text>
           <text class="sub" x="128" y="206">on &minus;Y &#183; the reed azimuth</text>
         </g>
         <!-- section detail, 320 px/in: plate 0.25 -> 80 tall -->
@@ -91,9 +93,9 @@
           <line class="hatch" x1="310" y1="46" x2="344" y2="80"/>
           <line class="hatch" x1="330" y1="42" x2="368" y2="80"/>
           <line class="dimln" x1="268" y1="0" x2="268" y2="32"/>
-          <text class="dimtx" x="256" y="28" text-anchor="end">0.100&Prime; to tip</text>
+          <text class="dimtx" x="256" y="28" text-anchor="end"><tspan data-gen="REGISTER_DEPTH">0.100&Prime;</tspan> to tip</text>
           <line class="dimln" x1="372" y1="32" x2="372" y2="80"/>
-          <text class="dimtx" x="384" y="64">0.150&Prime; remains</text>
+          <text class="dimtx" x="384" y="64"><tspan data-gen="REGISTER_REMAINING">0.150&Prime;</tspan> remains</text>
         </g>
       </svg>
       <div class="cap"><b>Drill before weld + passivation</b> — the fresh
@@ -104,7 +106,7 @@
 
 <footer>
   <div class="done"><span class="lbl">Done when</span>Identical blind register in both plates — no light through either. Binds at closure? Open the <i>top</i> plate to 5/32&Prime;, never force.</div>
-  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>rev 2026-07-23</div>
+  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>

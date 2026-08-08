@@ -56,6 +56,7 @@ sys.path.insert(0, str(CARDS_DIR))
 from _cardgen import sync  # noqa: E402
 from _cards_ip import internal_plumbing  # noqa: E402  — IP + WR + FU
 from _cards_cc import cold_core, refrigerant_loop  # noqa: E402
+from _cards_fs import bench  # noqa: E402  — PV + CA + FC + AB + FS + GT
 
 Machine = namedtuple("Machine", "a pack box")
 
@@ -282,7 +283,8 @@ def electronics_shelf(m: Machine):
 
 
 # One function per subsystem, in deck order. `_build.py` runs all of them.
-SUBSYSTEMS = (enclosure, electronics_shelf, cold_core, refrigerant_loop, internal_plumbing)
+SUBSYSTEMS = (enclosure, electronics_shelf, cold_core, refrigerant_loop, internal_plumbing,
+              bench)
 
 
 def collect(machine: Machine = None):
