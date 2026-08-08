@@ -1,9 +1,8 @@
 // The scorecard sidecar — <model>.scorecard.json beside a 3D STEP model, carrying the
 // enclosure's requirements verdict (the same one the build prints to the terminal). Produced
-// by hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py::scorecard_dict (written
-// in enclosure_assembly.py), served path-confined by web/lib/viewer-routes.js
-// (/api/step-scorecard/*), and read by web/public/js/viewer/scorecard-3d.js to draw the
-// bottom bar + drill-down modal.
+// by hardware/manifold-layout/_scorecard.py::write, called at the tail of front_half.py's
+// run, served path-confined by web/lib/viewer-routes.js (/api/step-scorecard/*), and read by
+// web/public/js/viewer/scorecard-3d.js to draw the bottom bar + drill-down modal.
 //
 // One verdict, two surfaces: this file is the contract between the Python emitter and the JS
 // viewer. web/tests/scorecard-sidecar.test.js asserts the committed sidecar conforms.
@@ -148,12 +147,13 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                                 the build read. `sha256:<16 hex>` for source, `stat:<bytes>:
  *                                 <mtime ns>` for a STEP. Re-fingerprinting these paths says
  *                                 whether the card still describes the tree, without building
- *                                 one: enclosure-assembly/fresh.py, which is the reader
+ *                                 one. Empty when the emitter records no inputs
  */
 
 // ── Focus ────────────────────────────────────────────────────────────────────────────────────
-// The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal). Both surfaces that
-// render this scorecard lead with them, in this order. Mirrors scorecard.py's FOCUS_IDS.
+// The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal — the live one,
+// every other goal on the card being deferred). Both surfaces that render this scorecard lead
+// with them, in this order.
 export const FOCUS_IDS = ["bend-radius", "mounted"];
 
 // The focus axes as counted things — `done/total` read off `bends` and `mounts`. What the bar
@@ -180,7 +180,7 @@ export function focusAxes(sc) {
 }
 
 // The bend grades, best to worst, and the worst a run may carry and still clear the gate. Mirrors
-// scorecard.py's GRADE_BANDS / BEND_GRADE_PASS — the emitter grades, this side only reads a grade
+// _scorecard.py's GRADE_BANDS / BEND_GRADE_PASS — the emitter grades, this side only reads a grade
 // back to pass/short.
 export const BEND_GRADES = ["A", "B", "C", "D", "F"];
 export const BEND_GRADE_PASS = "B";

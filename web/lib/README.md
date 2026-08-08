@@ -41,7 +41,8 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 | [`events.js`](/web/lib/events.js) | `/ws` | WebSocket channel — one socket per page, owned by [`public/boot.js`](/web/public/boot.js). |
 | [`notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
 | [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `drawing_hashes`, `card_hashes`, `pcb_hashes`, `post_hashes`). |
-| [`walk.js`](/web/lib/walk.js) | — | `walkFiles(rootDir, exts)` and the per-kind walkers (`walkFilesUnderDir`, `walkPcbBoards`, `walkAssemblyCards`) — shared between `viewer-routes.js` and `push.js`. |
+| [`walk.js`](/web/lib/walk.js) | — | `walkFiles(rootDir, exts)` and the per-kind walkers (`walkFilesUnderDir`, `walkPcbBoards`, `walkAssemblyCards`) — shared between `viewer-routes.js` and `push.js`. Every one of them skips a retired tree. |
+| [`retired.js`](/web/lib/retired.js) | — | The `.retired` marker: a directory holding that file, and everything under it, is source kept for reading. Read by `walk.js` (what the site browses) and [`dev-server/deps.js`](/web/dev-server/deps.js) (what the build rebuilds), from here so the two cannot disagree. |
 | [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper, clipboard, file). One source of truth for both nav and notification rows. |
 | [`templates/`](/web/lib/templates/) | — | HTML fragments included by the page-render modules above. Currently just `viewer-body.html`. |
 

@@ -1,8 +1,8 @@
 // Conformance test for the scorecard sidecar contract (web/contracts/scorecard-sidecar.js).
 //
-// The verdict crosses from the CadQuery build (hardware/.../scorecard.py, Python) to the
-// browser viewer (public/js/viewer/scorecard-3d.js, untyped JS). This pins the consumer end:
-// load the committed enclosure-assembly.scorecard.json and assert it still matches the shape
+// The verdict crosses from the CadQuery build (hardware/manifold-layout/_scorecard.py, Python)
+// to the browser viewer (public/js/viewer/scorecard-3d.js, untyped JS). This pins the consumer
+// end: load the committed front-half.scorecard.json and assert it still matches the shape
 // the viewer reads (via the contract's own isScorecard guard), so a producer change that drops
 // or renames a field fails here instead of silently drawing no bar. Skips when unbuilt.
 
@@ -16,9 +16,8 @@ import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-// The live pack's sidecar. The enclosure-assembly's is a retired output — nothing
-// rebuilds it — so the contract is checked against hardware/manifold-layout/, and the
-// tests skip themselves until front_half writes one.
+// The live pack's sidecar, written by hardware/manifold-layout/front_half.py. The tests
+// skip themselves until that build has written one.
 const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "manifold-layout",
   "front-half.scorecard.json");
 const SIDECAR = sidecarIn("hardware");

@@ -1,4 +1,5 @@
-// port-format unit tests — the two shapes scorecard.py's Port.face takes.
+// port-format unit tests — the two shapes a port's `face` takes in the sidecar: one of the
+// six body-face names, or the exit axis as a vector.
 //
 // The regression: the marker overlay knew only the six body-face names and fell back
 // to [0, 0, 1] for anything else, so every port whose face is a vector — the rolled
@@ -15,9 +16,8 @@ import { fileURLToPath } from "node:url";
 import { faceNormal, faceLabel } from "../public/js/viewer/port-format.js";
 
 const _here = path.dirname(fileURLToPath(import.meta.url));
-// The live pack's sidecar. The enclosure-assembly's is a retired output — nothing
-// rebuilds it — so the audit follows the machine to hardware/manifold-layout/, and
-// skips itself until front_half writes one.
+// The live pack's sidecar, written by hardware/manifold-layout/front_half.py. The audit
+// skips itself until that build has written one.
 const SIDECAR = path.join(
   _here, "..", "..", "hardware", "manifold-layout", "front-half.scorecard.json",
 );

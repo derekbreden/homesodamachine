@@ -1,7 +1,7 @@
 // The 3D viewer's scorecard bar + drill-down modal — the enclosure's requirements verdict,
 // mirroring the PCB board-checks UI (public/js/viewer/pcb.js) for the STEP viewer. Reads the
 // <model>.scorecard.json sidecar (contracts/scorecard-sidecar.js) written by the build's
-// scorecard.py, and draws a thin bottom bar plus a modal that drills each gate/goal into its
+// _scorecard.py, and draws a thin bottom bar plus a modal that drills each gate/goal into its
 // detail rows. The sidecar's port inventory goes to port-markers.js, which draws each connector
 // on the model. One verdict, two surfaces: the same data the terminal prints.
 
@@ -49,9 +49,9 @@ function addCollapsible(card, rows, limit = 0) {
   card.appendChild(wrap);
 }
 
-// The overlap-solid the editor baked for a pack-closes row ("a ∩ b: v mm³"), if it's in the scene.
-// The name mirrors enclosure_assembly.py: `clash__a__b` (ASCII — the ∩ label doesn't survive a STEP
-// round-trip). Null for any row without one (a clearance/routing row, or a non-editor build).
+// The overlap-solid a build baked for a pack-closes row ("a ∩ b: v mm³"), if it's in the scene.
+// The solid is named `clash__a__b` (ASCII — the ∩ label doesn't survive a STEP round-trip). Null
+// for any row without one, which is every row of a build that bakes no overlap solids.
 function clashSolidFor(detail, partNames) {
   const head = detail.split(":")[0];
   if (!head.includes(" ∩ ")) return null;

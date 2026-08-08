@@ -14,7 +14,7 @@
 import * as THREE from "three";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
-// scorecard.py's Port.face vocabulary — one of the six body faces by name, or the exit axis as a
+// A sidecar port's `face` vocabulary — one of the six body faces by name, or the exit axis as a
 // vector — is read by port-format.js, which node:test exercises.
 import { faceNormal, faceLabel } from "./port-format.js";
 

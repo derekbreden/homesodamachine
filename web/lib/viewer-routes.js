@@ -174,7 +174,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   });
 
   // The 3D-model scorecard sidecar — the requirements verdict beside a STEP
-  // (e.g. enclosure-assembly.scorecard.json, written by enclosure_assembly.py). Read by
+  // (e.g. front-half.scorecard.json, written by front_half.py). Read by
   // the 3D viewer's scorecard bar + modal (public/js/viewer/scorecard-3d.js). Confined to
   // *.scorecard.json under the edition root; a 404 is normal — a model with no scorecard
   // just gets no bar. no-cache so a live regen isn't shown stale.
