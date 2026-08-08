@@ -1493,6 +1493,10 @@ def build_pan(foam, seaflo, seaflo_carry, asse_carry, west_face):
     on the same three numbers, so the drip falls exactly the gap the basin was drawn for."""
     pan = _pan.build()
     pan = pan.val() if hasattr(pan, "val") else pan
+    # The bound the BASIN states about itself — its flat floor against the moisture plate it
+    # receives — read off `drip_pan`'s own ledger and entered here, so it is a card row beside
+    # the two this module states about where the basin stands.
+    record_bound(Bound(*_pan.check_plate()))
     floor = pan_floor(foam, seaflo)
     placed, carry = seat_body(pan, (), seat="drip-pan", x1=pan_east_x(seaflo, floor),
                               y0=pan_front_y(seaflo_carry), z0=floor)

@@ -33,15 +33,17 @@ basin needs.
 
 ## The chain's column
 
-The ASSE chain's underside and the SeaFlo's crown bound the basin's column.
-Under that underside, [4](PAN_VENT_GAP) mm of splash-and-service air; then the
-basin; then the air its own floor keeps over the casting, one `LINE_HUG` of it.
-The chain is rolled about its own flow axis, so its underside is a body corner
-and the vent stub's tip stands above it, leaning aft.
+The column reads UP from the pump, and the chain follows the basin rather than
+bounding it. `front_half.pan_floor` stands the basin's own floor one
+`front_half.FOOT_CLEAR` over the SeaFlo's **bracket** — the feet's top face, the
+widest section the casting has, and the one the tray rides over rather than
+beside — and `front_half.build_asse` then hangs the chain's underside one basin
+height plus [4](PAN_VENT_GAP) mm of splash-and-service air above that floor, so a
+change to either number moves both bodies together. The chain is rolled about its
+own flow axis, so its underside is a body corner and the vent stub's tip stands
+above it, leaning aft.
 
-`front_half.pan_floor` stands the basin's own floor on that clearance and
-`front_half.build_asse` hangs the chain on the same three numbers, so a change to
-either moves both bodies together. The plan station is not posed by hand either.
+The plan station is not posed by hand either.
 In X the basin hangs off the pump — `front_half.pan_east_x` puts its east rim one
 clearance off the casting's west flank at the tray's own height — and the west lip
 takes what the lane has left, which `front_half.check_pan_lane` measures against
@@ -58,8 +60,9 @@ reporting where the drip lands as the `vent-lands` gate row.
 The moisture plate lies flat down the basin's **depth** — its long edge along
 the withdrawal axis, the axis the strip has to give — and the floor's flat area
 inside the coves is what it lands on: [54](PLATE_LEN) × [40](PLATE_DEPTH) mm
-of plate with [1](PLATE_SLIP_MM) mm of slip a side. `check_plate()` raises when
-it does not fit, because a plate wider than the flat rides up on the coves
+of plate with [1](PLATE_SLIP_MM) mm of slip a side. `check_plate()` measures that
+at every build and hands back the `plate-lies-flat` bound the machine's scorecard
+renders as a gate row, because a plate wider than the flat rides up on the coves
 instead of lying down and the water has to stand that much deeper before it
 reads. That requirement is what sets the basin's Y, and what the SeaFlo's
 station forward of it makes room for.
@@ -91,13 +94,15 @@ haunches and hold it on its column.
 
 A **stop bar** closes their east ends — `front_half.pan_rails` returns it as the
 third of the three members `enclosure._pan_rails` fuses onto the wall — so the three
-members are one U and how far the tray goes in is a face and not a judgement: it
-is pushed east until the rim's east edge meets that bar, which lands the rim's
-west edge flush with the wall's inner face at the other end. The bar spans the
-rim's whole width because the rim's own r[16](PAN_RIM_CORNER_R) plan corners
-carry its east edge as much as one flange-and-radius back west in the rails' own
-bands — what the rim presents square to the east is the straight run between
-those arcs, and the bar reaches it and lands on both rails at once.
+members are one U and how far the tray goes in is a face and not a judgement. The
+bar stands in the pocket the flange overhangs its basin by, at the rails' own
+height, so the **rim rides over it** the way it rides the rails and what comes to
+rest against it is the **haunch**, one `drip_pan.PAN_SLIP` off the bar's west
+flank. The bar runs the rim's whole width because both rails are its only root —
+it is fused to the −X wall through them and through nothing else, and a bar short
+of them is a solid hanging in air. The plan arcs carry the tray clear of it at
+both ends: r[16](PAN_RIM_CORNER_R) rounds the rim and the haunch rounds the
+section beneath, so what butts is the straight run between those arcs.
 
 Service is one motion — **draw the tray west**, out through the slot in that same
 wall (`front_half.west_wall_ports`). The slot is the tray's own silhouette: rim-wide
