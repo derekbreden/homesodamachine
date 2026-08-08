@@ -2,53 +2,56 @@
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [223 × 481 × 400 mm](BOX_SIZE), and two of those three numbers are
+It measures [223 × 481 × 355 mm](BOX_SIZE), and two of those three numbers are
 **bounds** rather than consequences:
 
-- **Width** is the cold core's *narrow* axis. The foam assembly is yawed a quarter
-  turn (`_contents.FOAM_YAW`), so what the ±X walls have to clear is its 181 mm
-  short face instead of its 283 mm long one, and one boss chain either side of
-  that is the whole interior width. The yaw is the thin machine.
-- **Height** is a stated [400 mm](APPLIANCE_HEIGHT), floor slab's underside to the
+- **Width** is set on the floor. `_dims` stands the ±X walls one `side_rib_inset`
+  boss chain off the widest body standing on the slab — the mated compressor
+  shroud and condenser — and the cold core clears that band, being yawed a quarter
+  turn (`front_half.FOAM_YAW`) so what crosses the machine is its 181 mm short face
+  instead of its 283 mm long one. The yaw is the thin machine.
+- **Height** is a stated [355 mm](APPLIANCE_HEIGHT), floor slab's underside to the
   top wall's outer face. The contents do not lift it; they have to fit under it,
   and `_dims` fails the build if they do not, naming by how much.
 
 **Depth** is still a consequence: the bounding box of the contents placed by
-[`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py),
-walled out. The cold core sits in the **back-bottom corner** and the refrigeration
-stratum stands ahead of it, so the depth is `FRONT_DEPTH` plus the core's own long
-axis plus two standoffs.
+[`../../../manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py),
+walled out. The refrigeration stratum stands on the floor at the front and the cold
+core sits behind it, front face mated flush against the stratum's aft plane, so the
+depth is the two of them end to end plus the rear standoff and what stands aft of
+the core's own lid.
 
 Each column takes its bottom↔top seam at its own height, inside the band both its
 pieces print in (`_bed_band`): the piece under a seam runs the floor slab to the lip
 rim, the piece over it the seam to the top wall, and both stand on the bed.
 
-Within that band a seam wants the box's own half-height — the split that leaves both
-pieces their best chance on the bed — and takes the nearest height in an **open band**
-of its column: a range with `z_joint_clear` of air on either side of it, read off the
-pack (`_z_joints`). There no body straddles the seam and neither does whatever holds
-it, and a body standing clear above one is a body the seam passes under. The FRONT
-column has such a band — `_contents.STACK_GAP`, the 2 × `z_joint_clear` between the
-compressor shroud's roof and the condenser standing over it, one height and no slack,
-which is what makes the seam the thing setting the stack's gap rather than the other
-way round — so the front seam runs under the condenser and the block is held by the
-front-top piece.
+The FRONT column's seam is a **stated** plane, `enclosure.front_z_seam` — which
+pieces the box comes apart into is a decision about the pieces, and this one stands
+over the refrigeration stratum's crown, so the compressor shroud and the condenser
+beside it are one piece's whole cargo and the front-top piece carries nothing on the
+floor.
 
-The BACK column has none inside the bed's band: the cold core stands from the floor
-slab and the whole service bay stands on its lid, so the column runs solid to the
-bay's crown and what it leaves open is above all of it. That seam runs **through** its
-column, on the lane its lip needs — a one-`wall` ring inset from the cavity, held open
-at every height by the standoffs the pack is packed to, one wall off the front and
-back walls and one boss chain off the sides, which `_lip_denied` measures. The four
+The BACK column's is **searched** instead. A searched seam wants the box's own
+half-height — the split that leaves both pieces their best chance on the bed — and
+takes the nearest height in an **open band** of its column: a range with
+`z_joint_clear` of air on either side of it, read off the pack (`_z_joints`). There no
+body straddles the seam and neither does whatever holds it, and a body standing clear
+above one is a body the seam passes under. This column has no such band inside the
+bed's: the cold core stands from the floor slab and the whole service bay stands on
+its lid, so the column runs solid to the bay's crown and what it leaves open is above
+all of it. So that seam runs **through** its column, on the lane its lip needs — a
+one-`wall` ring inset from the cavity, held open at every height by the standoffs the
+pack is packed to, one wall off the front and back walls and one boss chain off the
+sides, which `_lip_denied` measures. The four
 station pods and the posts over them stand in the ±X boss-chain bands over their
 piece's whole height, so a seam height moves only the lip. The cold core spans that
 seam, as it spans the front column's on the other side of the Y joint.
 
 The two stand `z_joint_pitch` apart — closer and the Y seam quietly comes out with
-fewer cross-pins than it has levels for — so the column with the least room to move
-takes its height first and the other stands off it. They land far apart, which is why
-they stagger like a brick bond. `main()` prints each seam, how it landed, and the band
-the bed allowed it.
+fewer cross-pins than it has levels for — so the back column's search runs around the
+front's stated plane and raises if every height it has is inside that pitch. They land
+far apart, which is why they stagger like a brick bond. `main()` prints each seam, how
+it landed, and the band the bed allowed it.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
@@ -170,29 +173,27 @@ ceiling strata over the overlap interlock the same way — the front post's foot
 and head come through a relief in the back half's floor and ceiling, so the post
 reaches its bed face instead of starting an overlap's length out over air.
 
-**What makes all of that fit is where the walls stand.** The cold core spans the
-interior wall to wall, and it is what sets the box width, so a wall laid on its
-face would leave the seam machinery nowhere to stand. The **±X walls stand one
-`_contents.SIDE_RIB_INSET` off the core** — the boss chain's own reach — and the
-**back wall one `_contents.REAR_STANDOFF`**, the rear Z-seam lip's own thickness.
-The core sits flat on the floor: the print-corner relief runs on the standing
-verticals and the Y-seam's floor lap stays inside the slab, so the seat is square
-and there is nothing standing there for the core to clear.
+**What makes all of that fit is where the walls stand.** A body standing on the
+floor slab spans the interior wall to wall, and it is what sets the box width, so
+a wall laid on its face would leave the seam machinery nowhere to stand. The **±X
+walls stand one `side_rib_inset` off the widest body on the floor** — the boss
+chain's own reach — and the **back wall one `rear_seam_clear`**, the rear Z-seam
+lip's own thickness. Everything on the slab sits flat on it: the print-corner
+relief runs on the standing verticals and the Y-seam's floor lap stays inside the
+slab, so the seat is square and there is nothing standing there to clear.
 
-So the core seats flush against the **seams**, not against the walls. Every post
+So the pack seats flush against the **seams**, not against the walls. Every post
 has its full section, both walls carry all six levels, and the rear station's
 post runs its own corner the whole way to the floor.
 
-Those bands also set where the Y seam falls. It sits at the box's mid-depth, or
-one stance behind the front pack once there is one — whichever is further back —
-capped by what is measured standing where its own furniture goes, not by a
-tabulated number. With the zone ahead of the core empty, the midpoint wins and the
-four pieces come out near quarters.
+The Y seam is a stated plane, `enclosure.y_seam`, checked against those bands
+rather than derived from them: which pieces the box comes apart into is a decision
+about the pieces — what each has to carry, and what a hand reaches when the front
+assembly is off.
 
-`_contents.REAR_STANDOFF` is the single source for the back wall: `_port_frame()`
-seats the rear panel bodies against it and `enclosure.py` builds the box to it,
-so the wall the bulkheads mount through and the wall the box is built to cannot
-drift apart.
+`rear_seam_clear` is the single source for the back wall: `front_half` seats the
+rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
+the bulkheads mount through and the wall the box is built to cannot drift apart.
 
 The crowding mechanism stays in place even though nothing is crowded now: a post
 necks to whatever is measured clear at its wall with 45° run-outs, and no level
@@ -253,8 +254,8 @@ that closes their east ends, whose own top face is flat at the rim's height.
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries
 the [Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/)
 facing up-and-forward (−Y front / +Z up) toward the standing user. The display is
-**centred** on it: the machine is 215 mm wide and the glass 113.5, so what is left
-is roughly 47 mm of flat 45° face either side of the window.
+**centred** on it: the box is 223 mm wide and the glass 113.5, so what is left is
+roughly 55 mm of flat 45° face either side of the window.
 
 Spending the whole width on it costs nothing — the chamfer is inside the box's own
 silhouette, so that corner is unpackable at any width — and the geometry gets
@@ -277,9 +278,10 @@ The whole housing is cut into the box itself, flush with the front wall: the
 facet chamfers the top-front corner away and the back plane stands one housing
 depth behind it. Both are the housing's own 45° planes — the facet above, the back
 plane as its soffit — so the frame holds one constant thickness through the
-corner. The display reference is seated in the housing in `../enclosure-assembly/`,
-on the same `display_centre_x` the counterbore reads, so the housing and the part
-in it cannot land on two different centres.
+corner. The display reference is seated in the housing by
+[`front_half.py`](/hardware/manifold-layout/front_half.py), on the same
+`display_centre_x` the counterbore reads, so the housing and the part in it cannot
+land on two different centres.
 
 Ceiling-down the housing lies flat, and every one of its faces — the facet and
 its back plane as the soffit — is 45° or vertical to the bed, so none of them is
@@ -295,7 +297,7 @@ ramp falling to the centred spout, its flat brim resting on the wall frame left
 around the cut.
 
 The funnel is a static placed part: the opening is cut at its collar
-(`_hopper_hole` reads the funnel's own dims at `_contents.funnel_centre()`), so
+(`_hopper_hole` reads the funnel's own dims at `front_half.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
 facet's own back plane ahead (with a ledge of top wall between the two), the ±X
 top corner pods either side, and the back wall behind — and the collar is asserted
