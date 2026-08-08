@@ -1,6 +1,6 @@
 """Reference solid of an IEC 60320 C14 panel-mount AC power inlet — the
 two-screw male appliance inlet, 40 mm screw pitch. BOM: MXR IEC 60320 C14
-panel-mount AC inlet, 10 A / 250 VAC (Amazon B07DCXKNXQ); rear-panel mains
+panel-mount AC inlet, 10 A / 250 VAC (Amazon B07DCXKNXQ); rear-wall mains
 inlet that accepts a standard NEMA 5-15P-to-C13 line cord.
 
 A single molded body: a rounded-corner flange that bears on the panel's
@@ -48,7 +48,7 @@ Matches jg_bulkhead_union.py.
       +Y). -Y = INWARD (the housing and spade terminals reach into the
       enclosure).
   Origin = the panel-seating plane = the front face of the flange, which
-      bears on the INSIDE of the rear panel. The shroud and its blades reach
+      bears on the INSIDE of the rear wall. The shroud and its blades reach
       out through the cutout at y >= 0; the flange, the housing and the
       terminals sit at y < 0, inside the enclosure.
   +Z = up. X completes the right-handed frame. The cutout long axis

@@ -8,7 +8,7 @@ NPT shank at its nominal major, no helix. Same modeling class as the DERPIPE
 inlet next door, one tube size down.
 
 On the ASSE 1022 chain this is the last piece before the metal: the 1/4" LLDPE
-from the rear-panel bulkhead pushes into the collet, and the shank threads into
+from the rear-wall bulkhead pushes into the collet, and the shank threads into
 the GAGIRA coupling's small end.
 
 Frame: +X = flow axis, the PTC collet at X = 0 (upstream, where the tube pushes

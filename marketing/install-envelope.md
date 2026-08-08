@@ -41,16 +41,16 @@ the cabinet is. Height and depth are uncontested there. Width is the constraint.
 
 The CO2 cylinder stands in that same slot. It is customer-supplied (5 lb, per
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External"), stands beside the appliance
-on a short tether to the front-panel inlet
-([`front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md)
-"Cylinder placement"), and is Ø 133 × 457 mm before its CGA-320 regulator. Appliance width
+on a short tether to the rear-wall inlet
+([`back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md)
+"Connections inventory"), and is Ø 133 × 457 mm before its CGA-320 regulator. Appliance width
 plus 133 mm plus a working gap is what the pair asks of the slot.
 
 ## What the appliance needs beyond its own box
 
 - **60 mm behind the rear face** — lead, 90° bend at R12, and collet, the collet standing
   9.5 mm proud of the wall (`faucet-and-umbilical.md` §1).
-- **300 mm of pull-forward** — the umbilical's service loop, sized to bring the rear panel to
+- **300 mm of pull-forward** — the umbilical's service loop, sized to bring the rear wall to
   the cabinet face so its own connections can be reached.
 - **A gap at each side face** — the condenser draws through the grille on one side and
   exhausts through the other.
