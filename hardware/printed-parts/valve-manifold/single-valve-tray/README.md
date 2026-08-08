@@ -46,9 +46,11 @@ seat's name, then the end by sign.
 The family's, unchanged — one tongue off each port face on the plate's own
 centreline, at `two_valve_tray.ear_y`, which is struck off `half_y` and
 `port_half`. This plate shares both, so the ears stand where they do on every
-other tray and a carrier's boss pitch is the same part to part. No carrier in
-this machine presents that pitch: `_cold_core_interface.deck_mounts` is empty,
-and the cap prints the cell rather than bolting the plate.
+other tray and a carrier's boss pitch is the same part to part. The cold core's
+top cap carries four `_cold_core_interface.deck_mounts` stations bored and
+inserted at that same 49.50 pitch — three of them named for trays — and nothing
+is bolted to one today: the three valves that stand on that lid press into
+cradles the cap prints instead.
 
 ## Files
 

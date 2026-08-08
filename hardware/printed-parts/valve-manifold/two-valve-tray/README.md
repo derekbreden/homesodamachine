@@ -46,7 +46,8 @@ came from.
   ports. The centreline is the one column the seated valves leave open the whole way up —
   tube, posts and spades all a seat's own geometry away — so the screw head and its key
   come down clear. The other half of the joint is a boss printed in whatever carries
-  the tray, and nothing in this machine presents one.
+  the tray; the cold core's top cap stands four of them at this ear pitch
+  (`_cold_core_interface.deck_mounts`), bored and inserted, bolted to by nothing today.
 
 Each cell is symmetric under a half turn about Z, so a valve seats either way
 round: the tray locates a valve and never fixes which end of its port is the
