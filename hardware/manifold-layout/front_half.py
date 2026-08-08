@@ -551,8 +551,8 @@ def refrigerant_joints(carries: dict) -> list:
 
     A joint the machine does not make by mating carries `None` for both stations, and one whose
     stations are not both placed carries them with `None` for the distance. Either way the row
-    is UNMEASURED, which is a reading and not an absence: the connection is still owed and the
-    gate still has to account for it."""
+    carries no distance — which is a reading and not an absence: the connection is still owed
+    and the gate still has to account for it, as DRAWN or as unmeasured."""
     at = refrigerant_stations(carries)
     out = []
     for cid in REFRIGERANT_IDS:
@@ -572,17 +572,25 @@ def refrigerant_mates(joints) -> list:
 def check_refrigerant_joints(joints) -> Bound:
     """How far each of the loop's joints stands open, over the whole loop. A joint over
     `JOINT_TOL` is a length of copper the machine owes and nothing draws — two stations that
-    were one point on a shared plane, no longer on it. A joint with no reading at all is the
-    same debt with nothing measuring it, so it reads the same way."""
+    were one point on a shared plane, no longer on it.
+
+    A leg with no distance is not automatically a fault. THERE ARE TWO WAYS TO MAKE A LEG and
+    only one of them is measured here: a leg `_lines` draws is a real cut-and-brazed tube that
+    `routed` counts and `lines-clear` checks, and it has no mating to measure BECAUSE it is
+    drawn. A leg that is neither mated nor drawn is the one this gate is for — owed by the
+    circuit, made by nothing, and read by nobody."""
+    drawn_ids = _lines.authored()
     open_ = [j for j in joints if j[3] is not None and j[3] > JOINT_TOL]
-    blind = [j for j in joints if j[3] is None]
+    drawn = [j for j in joints if j[3] is None and j[0] in drawn_ids]
+    blind = [j for j in joints if j[3] is None and j[0] not in drawn_ids]
     shut = [j for j in joints if j[3] is not None and j[3] <= JOINT_TOL]
     widest = max((j[3] for j in joints if j[3] is not None), default=0.0)
     return record_bound(Bound(
         "refrigerant-joints", "The refrigerant loop closes on the planes its bodies share",
         not open_ and not blind,
-        f"{len(shut)}/{len(joints)} closed, {len(blind)} unmeasured, "
-        f"widest measured {widest:.3f} mm",
+        f"{len(shut)} mated, {len(drawn)} drawn of {len(joints)}"
+        + (f", {len(blind)} unmeasured" if blind else "")
+        + f", widest mating {widest:.3f} mm",
         f"every joint within {JOINT_TOL:g} mm",
         ([] if not open_ else [
             "the refrigerant loop is made up across the planes its bodies already share, and "
@@ -597,10 +605,11 @@ def check_refrigerant_joints(joints) -> Bound:
             + f" and nothing on this pack measures {'them' if len(blind) > 1 else 'it'}: "
               f"`MATED_JOINTS` names no pair of stations for "
               f"{'those ids' if len(blind) > 1 else 'that id'}, or a station it names is not "
-              f"placed. `routed` counts the same {len(joints)} connections "
-              f"(`_scorecard.REFRIGERANT_SEGMENTS`), so {len(blind)} of {len(joints)} legs of "
-              f"the circuit have no reading rather than the circuit having fewer joints — give "
-              f"each the two stations it is made on, or the run that draws it."])))
+              f"placed, and `_lines` draws no run for it either. `routed` counts the same "
+              f"{len(joints)} connections (`_scorecard.REFRIGERANT_SEGMENTS`), so {len(blind)} "
+              f"of {len(joints)} legs of the circuit are made by nothing rather than the "
+              f"circuit having fewer joints — give each the two stations it is mated on, or "
+              f"the run that draws it."])))
 
 
 def cap_conduit(name: str):
