@@ -5,7 +5,7 @@
  "shaped": 90,
  "routed": 100,
  "held": 92,
- "mounted": 17,
+ "mounted": 19,
  "checks": [
   {
    "id": "coverage",
@@ -540,6 +540,16 @@
    "active": true
   },
   {
+   "id": "bowl-clear",
+   "label": "The flavour tap runs under the hopper's bowl",
+   "kind": "gate",
+   "status": "pass",
+   "value": "9.387 mm to the basin",
+   "target": "1 mm",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
@@ -678,7 +688,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "10/59 mounted",
+   "value": "11/59 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
@@ -704,7 +714,6 @@
     "compressor: held by floor",
     "condenser+fan: held by floor",
     "display: held by wall-capture",
-    "drip-pan: held by rails",
     "flow-regulator: held by tube-hung",
     "foam-assembly: held by floor",
     "gasher-co2: held by wall-capture",
@@ -818,11 +827,11 @@
    "target": "a holder per body",
    "detail": [
     "bosses holds 6: ac-hub, c14-inlet, ground-stack, pcba, psu, relay-1",
+    "channel holds 1: drip-pan",
     "cradle holds 3: valve-v-a, valve-v-b, vk-solenoid",
     "deck-mount holds 1: seaflo-pump",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
     "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
-    "rails holds 1: drip-pan",
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
     "asse1022-assembly: nothing holds it at all",
@@ -4925,8 +4934,8 @@
   },
   {
    "component": "drip-pan",
-   "by": null,
-   "held": "rails",
+   "by": "enclosure-back-top",
+   "held": "channel",
    "kind": "real"
   },
   {
@@ -5195,7 +5204,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T18:56:38+00:00",
-  "commit": "3b51e8d42eb22d4401949d69a2c39b218f93fbe7"
+  "generated": "2026-08-08T19:29:38+00:00",
+  "commit": "638df1a10ff837f01b1d9941dee4c41ef1ece694"
  }
 }

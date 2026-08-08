@@ -14,19 +14,18 @@ the walls are the outline itself, the flange is the outline plus `FLANGE_W`, and
 the cavity is the outline less `WALL`. A corner is the same corner at every height,
 so a hand runs down one arris from the rim to the floor.
 
-The column reads UP from the pump: the basin's own floor takes its air over the
-SeaFlo's BRACKET — the feet's top face, the widest section the casting has and the
-one the tray rides over — then the basin, then `VENT_GAP` of air under the chain's
-underside. `enclosure_assembly.pan_floor` is the plane the basin's own floor reaches, and
-`enclosure_assembly.build_asse` hangs the chain off that plane rather than the other way
-round.
+The column reads DOWN from the chain: `enclosure_assembly.build_asse` stands the ASSE
+chain on the panel deck's own storey, `VENT_GAP` of splash-and-service air hangs under
+its underside, and the basin's rim takes station there.
+`enclosure_assembly.pan_floor` is the plane the basin's own floor reaches, one basin
+height further down, high over the SeaFlo's casting.
 
-NOTHING STANDS UNDER THE FLOOR. The basin lies over the casting, so section
+NOTHING STANDS UNDER THE FLOOR. The basin lies over that casting, so section
 beneath it is height the basin pays for twice — once to clear the pump and again
 to carry the load. So the carry takes hold of the RIM instead: the flange's flat
-underside is the bearing face, `enclosure_assembly.pan_rails` stands a rail pair under
-it off the west wall, and the floor is left free at its own clearance over the
-bracket. Nothing under the floor, so nothing under the floor to pay for.
+underside is the bearing face, `enclosure_assembly.pan_rails` runs a channel under,
+beside and over it off the west wall, and the floor is left free. Nothing under the
+floor, so nothing under the floor to pay for.
 
 Frame: +X long axis (the withdrawal direction — the tray draws WEST through
 `enclosure_assembly.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's

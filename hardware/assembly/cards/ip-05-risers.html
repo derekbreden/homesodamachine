@@ -15,10 +15,11 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Three risers climb to
-    <span class="dim" data-gen="UMBILICAL_UNIONS">3</span> unions standing on
-    <strong>one line</strong> across the back wall at
-    <span class="dim" data-gen="UMBILICAL_PITCH">48 mm</span> pitch.</p>
+    <p class="lede">Three risers,
+    <span class="dim" data-gen="UMBILICAL_UNIONS">3</span> unions: two on one
+    line at <span class="dim" data-gen="UMBILICAL_PITCH">48 mm</span> pitch,
+    the <span class="dim" data-gen="FLAVOR_B_END">west</span> one
+    <span class="dim" data-gen="UMBILICAL_DROP">48 mm</span> below.</p>
 
     <ol class="steps">
       <li><b>Carbonated water &#8212; two lengths, meter between:</b> blue
@@ -38,11 +39,11 @@
         <span class="dim" data-gen="FLUID_18_LEN">477 mm</span> &#8212; the
         longest run in the appliance. <b>fluid-28</b> off V-J into the
         <span class="dim" data-gen="FLAVOR_B_END">west</span> end,
-        <span class="dim" data-gen="FLUID_28_LEN">361 mm</span>.</li>
+        <span class="dim" data-gen="FLUID_28_LEN">349 mm</span>.</li>
     </ol>
 
     <div class="note">
-      <b>The row is a line, not a cluster.</b> Blue tube into the blue-ringed
+      <b>Read the row across, not around.</b> Blue tube into the blue-ringed
       union at the row's
       <span class="dim" data-gen="CARB_END">east</span> end &#8212; the ring
       carries identification, not orientation.
@@ -74,20 +75,25 @@
         <text class="lbl" x="24" y="30">BACK WALL &#183; west to east</text>
 
         <!-- one pitch, stated once, above the band -->
-        <line class="dimln" x1="320" y1="52" x2="460" y2="52"/>
-        <line class="dimln" x1="320" y1="44" x2="320" y2="60"/>
+        <line class="dimln" x1="460" y1="52" x2="600" y2="52"/>
         <line class="dimln" x1="460" y1="44" x2="460" y2="60"/>
-        <text class="dimtx" x="390" y="38" text-anchor="middle" data-gen="UMBILICAL_PITCH">48 mm</text>
+        <line class="dimln" x1="600" y1="44" x2="600" y2="60"/>
+        <text class="dimtx" x="530" y="38" text-anchor="middle" data-gen="UMBILICAL_PITCH">48 mm</text>
         <text class="lbl" x="740" y="38" text-anchor="end">blue ring</text>
 
-        <!-- the wall, and three unions on ONE line -->
+        <!-- the wall: two unions on the upper line, nozzle B on its own below -->
         <rect class="band" x="260" y="66" width="440" height="44"/>
-        <circle class="port" cx="320" cy="88" r="16"/>
         <circle class="port" cx="460" cy="88" r="16"/>
         <circle class="ring" cx="600" cy="88" r="27"/>
         <circle class="port" cx="600" cy="88" r="16"/>
-        <text class="sub" x="306" y="140" text-anchor="end">flavor B</text>
         <text class="sub" x="446" y="140" text-anchor="end">flavor A</text>
+        <rect class="band" x="260" y="206" width="180" height="44"/>
+        <circle class="port" cx="320" cy="228" r="16"/>
+        <text class="sub" x="306" y="284" text-anchor="end">flavor B</text>
+        <line class="dimln" x1="222" y1="88" x2="222" y2="228"/>
+        <line class="dimln" x1="214" y1="88" x2="230" y2="88"/>
+        <line class="dimln" x1="214" y1="228" x2="230" y2="228"/>
+        <text class="dimtx" x="206" y="166" text-anchor="end" data-gen="UMBILICAL_DROP">48 mm</text>
 
         <!-- carb riser: conduit -> meter -> blue-ringed union, foam on both lengths -->
         <rect class="foam" x="584" y="114" width="32" height="90" rx="6"/>
@@ -108,10 +114,10 @@
         <text class="sub" x="600" y="654" text-anchor="middle">-out conduit</text>
 
         <!-- the two flavor risers, bare -->
-        <path class="blk" d="M 320 616 L 320 110"/>
+        <path class="blk" d="M 320 616 L 320 250"/>
         <rect class="box" x="276" y="616" width="88" height="48" rx="7"/>
         <text class="node" x="320" y="648" text-anchor="middle">V-J</text>
-        <text class="dimtx" x="306" y="446" text-anchor="end" data-gen="FLUID_28_LEN">361 mm</text>
+        <text class="dimtx" x="336" y="560" data-gen="FLUID_28_LEN">349 mm</text>
         <path class="blk" d="M 460 616 L 460 110"/>
         <rect class="box" x="416" y="616" width="88" height="48" rx="7"/>
         <text class="node" x="460" y="648" text-anchor="middle">V-G</text>
@@ -119,16 +125,16 @@
         <text class="sub" x="446" y="502" text-anchor="end">longest run</text>
 
         <!-- the left column of notes -->
-        <text class="lbl" x="24" y="196">CARGEN nitrile</text>
-        <text class="dimtx" x="24" y="230">1/4&Prime; ID &#215; 3/8&Prime; wall</text>
-        <text class="sub" x="24" y="264">one piece per length</text>
-        <text class="sub" x="24" y="292">conduit mouth to union</text>
-        <text class="sub" x="24" y="320">on before either collet</text>
-        <text class="lbl" x="24" y="406">Flavors run bare</text>
-        <text class="sub" x="24" y="438">no insulation at all</text>
-        <text class="lbl" x="24" y="524">The conduit opens UP</text>
-        <text class="sub" x="24" y="556">through the lid — the</text>
-        <text class="sub" x="24" y="584">line leans into its lip</text>
+        <text class="lbl" x="24" y="336">CARGEN nitrile</text>
+        <text class="dimtx" x="24" y="370">1/4&Prime; ID &#215; 3/8&Prime; wall</text>
+        <text class="sub" x="24" y="404">one piece per length</text>
+        <text class="sub" x="24" y="432">conduit mouth to union</text>
+        <text class="sub" x="24" y="460">on before either collet</text>
+        <text class="lbl" x="24" y="524">Flavors run bare</text>
+        <text class="sub" x="24" y="556">no insulation at all</text>
+        <text class="lbl" x="24" y="620">The conduit opens UP</text>
+        <text class="sub" x="24" y="652">through the lid — the</text>
+        <text class="sub" x="24" y="680">line leans into its lip</text>
       </svg>
       <div class="cap"><b>Black-into-either-black is unambiguous</b> — both
       flavor tubes share the wall-side bundle; only the blue ring must

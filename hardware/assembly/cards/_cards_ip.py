@@ -102,10 +102,15 @@ def internal_plumbing(m):
     # A run with no corner is a butt-length cut to two grips; a run with corners
     # is a route. Four of this procedure's lines are the first kind and the cards
     # say so in those words.
-    for rid in ("water-2", "water-4", "co2-1", "carb-2", "fluid-1"):
+    for rid in ("water-4", "co2-1", "carb-2", "fluid-1"):
         assert corners(rid) == 0, (
             f"`{rid}` now turns {corners(rid)} time(s) — the cards cut it as a straight length "
             f"between two mouths facing each other")
+    # `water-2` is the tap's step off the panel deck onto the lane under the hopper's
+    # bowl, so it is a route and IP-02 bends it. Its two corners are the one lean.
+    assert corners("water-2") == 2, (
+        f"`water-2` turns {corners('water-2')} time(s) — IP-02 leans it once off the deck, "
+        f"which is two corners and the leg between them")
 
     # The two pump-port stubs: the only runs on the machine drawn on the reinforced
     # PVC's own bend floor, which is what makes them the only clamped joints. Both
@@ -158,14 +163,18 @@ def internal_plumbing(m):
     hairpins = sum(1 for c in fluid if c.made == "fold")
 
     # ── the umbilical row and the risers (IP-05, FU-04, WR-05) ─────────────
-    # Read as an ARRANGEMENT: three unions, one line, one pitch, and which end of
-    # the row each tube lands on. IP-05 and FU-04 both describe that row, and
-    # both used to describe a triangle.
+    # Read as an ARRANGEMENT: three unions on one pitch across the wall, the west
+    # one a storey under the other two, and which place in it each tube lands on.
+    # IP-05 and FU-04 both describe that arrangement.
     row = sorted(_ea.PANEL_X.items(), key=lambda kv: kv[1])          # west → east
     zs = {round(port(n, "tube-in")[0][2], 6) for n in _ea.PANEL_X}
-    assert len(zs) == 1, (
-        f"the umbilical unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 present the "
-        f"bundle to ONE line and flex the three tubes apart along it")
+    assert len(zs) == 2, (
+        f"the umbilical unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 send the "
+        f"bundle to two, the nozzle-B union under the pair the carb riser lands in")
+    dropped = {n for n in _ea.PANEL_X if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
+    assert dropped == {"bulkhead-flavor-b"}, (
+        f"the union standing off the deck's own storey is {sorted(dropped)} — IP-05 sends the "
+        f"nozzle-B riser there and leaves the other two on one line")
     order = [n for n, _x in row]
     assert order == ["bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb"], (
         f"the row reads {order} west to east — IP-05 sends each riser to a named place in it")
@@ -255,6 +264,7 @@ def internal_plumbing(m):
         "SPLIT_BRANCH": "down",
         # The row on the back wall — IP-05, FU-04.
         "UMBILICAL_UNIONS": f"{len(_ea.PANEL_X)}",
+        "UMBILICAL_DROP": f"{max(zs) - min(zs):.4g} mm",
         "FLAVOR_A_STATION": "middle",
         "FLAVOR_B_END": "west",
         # The three risers — IP-05, WR-05.
@@ -283,12 +293,14 @@ def internal_plumbing(m):
         "ip-04-manifold-pumps-channels": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH"},
         "ip-05-risers": {
-            "UMBILICAL_UNIONS", "UMBILICAL_PITCH", "CARB_END", "FLAVOR_A_STATION",
-            "FLAVOR_B_END", "CARB_1_LEN", "CARB_1_CORNERS", "CARB_2_LEN", "FLUID_18_LEN",
-            "FLUID_28_LEN", "CARB_FOAM_PIECES"},
+            "UMBILICAL_UNIONS", "UMBILICAL_PITCH", "UMBILICAL_DROP", "CARB_END",
+            "FLAVOR_A_STATION", "FLAVOR_B_END", "CARB_1_LEN", "CARB_1_CORNERS", "CARB_2_LEN",
+            "FLUID_18_LEN", "FLUID_28_LEN", "CARB_FOAM_PIECES"},
         "ip-06-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
         "wr-04-cabinet-12v-runs": {"VK_SIDE"},
         "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS"},
-        "fu-04-sleeve-the-bundle": {"UMBILICAL_UNIONS", "UMBILICAL_PITCH", "CARB_END"},
+        "fu-04-sleeve-the-bundle": {
+            "UMBILICAL_UNIONS", "UMBILICAL_PITCH", "UMBILICAL_DROP", "CARB_END",
+            "FLAVOR_B_END"},
     }
     return facts, cards

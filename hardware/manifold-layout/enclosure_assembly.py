@@ -1659,6 +1659,24 @@ FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0))
 FLUID_1 = 24.0
 
 
+def check_bowl_clear(flowreg, funnel) -> Bound:
+    """What the flavour tap keeps under the hopper's bowl — the exact solid gap between the
+    regulator's crown and the basin hanging over it.
+
+    Measured rather than derived, because the two are on opposite sides of the box: the box is
+    sized around the pack the regulator is in, and the funnel is then seated in its top. So
+    `FLAVOR_STEP` is the reach the lane is given and this is what it turns out to be worth."""
+    got = _clearing.gap(flowreg, funnel)
+    ok = got >= BOWL_CLEAR - 1e-6
+    return record_bound(Bound(
+        "bowl-clear", "The flavour tap runs under the hopper's bowl", ok,
+        f"{got:.3f} mm to the basin", f"{BOWL_CLEAR:g} mm",
+        ([] if ok else [
+            f"flow-regulator: the tap's crown leaves {got:.3f} mm under the hopper's basin, "
+            f"under the {BOWL_CLEAR:g} mm the lane is drawn for. `FLAVOR_STEP` is the step "
+            f"`water-2` takes off the panel deck onto this lane; deepen it by what is short."])))
+
+
 def build_flowreg(split_carry):
     """The regulator seated on its INLET, one `FLUID_1` forward of the split's flavour collet
     and on that collet's own line — so the tap runs split, regulator down one axis under the
@@ -2214,6 +2232,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     # the box — so the line it drains through is drawn HERE, off the same frames the pack's own
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["hopper-funnel"], a.carries["hopper-funnel"] = funnel, funnel_carry
+    check_bowl_clear(a.pack_solids["flow-regulator"], funnel)
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The basin's
     # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the fall

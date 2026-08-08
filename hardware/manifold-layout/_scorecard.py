@@ -209,10 +209,9 @@ CARB_SEGMENTS = (
 #   `by`   — the part whose PRINTED FEATURE fastens it. A boss a screw goes into, a socket a
 #            thread makes up in. `None` is a joint still to design, and every `None` here is
 #            one unit of the `mounted` axis's gap.
-#   `held` — what holds it today, which is a different question. A body captured in a wall's
-#            bore, resting on a crown, riding on rails or hanging off its own two collets is
-#            HELD and is not MOUNTED: nothing about any of those survives the machine being
-#            picked up by one corner.
+#   `held` — what holds it today, which is a different question. A body resting on a crown or
+#            hanging off its own two collets is HELD and is not MOUNTED: nothing about either
+#            survives the machine being picked up by one corner.
 #
 # The flavour manifold's own bodies are not typed here. They are still COUNTED — `pack_mounts`
 # reads them off `manifold_layout` and adds a row apiece, so the denominator every fastening
@@ -232,7 +231,7 @@ MOUNTS = (
     ("ac-hub", "enclosure-back-top", "bosses"),
     ("ground-stack", "enclosure-back-top", "bosses"),
     ("asse1022-assembly", None, "none"),
-    ("drip-pan", None, "rails"),
+    ("drip-pan", "enclosure-back-top", "channel"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
