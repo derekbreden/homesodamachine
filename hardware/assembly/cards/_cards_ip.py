@@ -27,7 +27,7 @@ def internal_plumbing(m):
     import derpipe_co2_inlet as _derpipe
     import digiten_flow_sensor as _digiten
     import drip_pan as _pan
-    from _cold_core_interface import cap_conduit_bore_radius
+    from _cold_core_interface import cap_conduit_bore_radius, cap_cradles
 
     a, pack, box = m.a, m.pack, m.box
     runs = {r.id: r for r in a.runs}
@@ -169,17 +169,28 @@ def internal_plumbing(m):
         f"the longest run in the appliance is `{longest}` — IP-05 calls the flavor-A riser that")
 
     # ── V-K and the vent (WR-04, IP-06) ────────────────────────────────────
-    # V-K is the one valve outside the manifold. It stands on the cold core's own
-    # cap, east of the pump and forward of the suction chain, firing aft — not on
-    # the back wall beside the water inlet, which is where a wiring card looking
-    # for it would otherwise send the bench.
+    # V-K is the one valve outside the manifold. It presses into a cradle the cold core's
+    # cap lid prints for it — four corner posts into four sockets, nothing bolted — forward
+    # of the suction chain and firing aft. Not the back wall beside the water inlet, which
+    # is where a wiring card looking for it would otherwise send the bench.
+    #   THE CORE'S BOX TOP IS NOT THE FACE IT STANDS ON. That same lid stands a taller pad
+    # under each flavour valve, so the solid's `zmax` is one of THOSE seats and a body placed
+    # on it would be standing on another valve's cradle. `front_half.cap_face` is the lid's
+    # own outer face and `cap_cradles` is the seat each valve takes over it, which is the pair
+    # this reads V-K against.
     vk, pump = _fh.box(a.pack_solids["vk-solenoid"]), _fh.box(a.pack_solids["seaflo-pump"])
     chain = _fh.box(a.pack_solids["suction-chain"])
-    core_top = _fh.box(a.pack_solids["foam-assembly"]).zmax
     vk_x = (vk.xmin + vk.xmax) / 2.0
-    assert vk_x > (pump.xmin + pump.xmax) / 2.0 and vk.zmin >= core_top - 1e-9, (
-        "V-K no longer stands on the cold core's cap east of the pump — WR-04 sends the DC-9 "
-        "branch to it there")
+    assert "vk-solenoid" in cap_cradles, (
+        f"the cold core's cap prints cradles for {sorted(cap_cradles)} and none of them is "
+        f"V-K's — WR-04 sends the DC-9 branch to a valve standing on that cap, and a valve "
+        f"with no cradle there stands somewhere else")
+    vk_seat = cap_cradles["vk-solenoid"].seat
+    face = _fh.cap_face(a.pack_solids["foam-assembly"])
+    assert abs(vk.zmin - (face + vk_seat)) <= _fh.CRADLE_TOL, (
+        f"V-K's mounting plane stands {vk.zmin - face:.4g} mm over the cold core's cap face "
+        f"and its cradle seats it at {vk_seat:.4g} mm — WR-04 sends the DC-9 branch to a "
+        f"valve pressed home in that cradle")
     assert vk.ymax <= chain.ymin, (
         "V-K no longer stands forward of the suction chain — IP-02 has it firing aft into the "
         "collet that feeds the pump")
@@ -232,8 +243,10 @@ def internal_plumbing(m):
         # The riser's insulation is cut per run, and the meter between the two
         # runs is what makes it two pieces rather than one.
         "CARB_FOAM_PIECES": "2",
-        # WR — where the two bodies a loom reaches actually stand.
-        "VK_SIDE": "east" if vk_x > 0 else "west",
+        # WR — where the two bodies a loom reaches actually stand. WR-04 walks the
+        # bench to V-K OFF THE PUMP, the one body on that side a hand cannot miss, so
+        # the side is read against the pump rather than against the machine's centreline.
+        "VK_SIDE": "east" if vk_x > (pump.xmin + pump.xmax) / 2.0 else "west",
         "METER_BOSS": "east" if boss == EAST else "west",
     }
 
