@@ -57,13 +57,18 @@ def _postprocess_svg(svg_path: Path) -> None:
       renderers ignore) -> `fill-rule`.
     - `stroke-linecap="butt"` -> `stroke-linecap="round"` so adjacent
       stroke endpoints meet cleanly instead of leaving sub-pixel scratches.
-    - Strips white fills. Even with the BORDER-only fill predicate, the
-      exporter emits white-filled regions for any not-quite-manifold
-      edges in the imported appliance STL (CSG joins produce a handful).
-      On a light background they're invisible; on a dark one they paint
-      every white blob over the line art. A line drawing wants strokes
-      + colored markings, NOT a white silhouette. Keep colored (red)
-      fills; drop white.
+    - Strips the exporter's white fills. Even with the BORDER-only fill
+      predicate, the exporter emits white-filled regions for any
+      not-quite-manifold edges in the imported appliance STL (CSG joins
+      produce a handful). On a light background they're invisible; on a
+      dark one they paint every white blob over the line art. A line
+      drawing wants strokes + markings, NOT a white silhouette.
+
+      A port marking is spared, white or not: it is a ring the machine
+      actually wears, and the tap-water station's is white. Markings are
+      the only CLIPPED paths in the file — the scene script gives each one
+      the clip that bites its fitting's silhouette out of it — so carrying
+      a clip-path is what tells a marking from an exporter artifact.
     """
     import re
 
@@ -75,10 +80,13 @@ def _postprocess_svg(svg_path: Path) -> None:
     # Smooth stroke endpoints
     text = text.replace('stroke-linecap="butt"', 'stroke-linecap="round"')
 
-    # Strip white fills entirely — leave only colored fills (red ring)
+    # Strip the exporter's white fills; keep a clipped one, which is a marking.
+    def _keep_only_markings(m):
+        return m.group(0) if "clip-path=" in m.group(0) else ""
+
     text = re.sub(
         r'\s*<path\b[^/]*?fill="rgb\(255,\s*255,\s*255\)"[^/]*/>',
-        "",
+        _keep_only_markings,
         text,
     )
 

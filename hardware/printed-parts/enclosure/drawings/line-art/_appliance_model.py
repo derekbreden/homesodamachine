@@ -34,12 +34,14 @@ _HERE = Path(__file__).resolve().parent
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
 for _p in (next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) / "tools",
            _HW / "scripts",
-           _HW / "manifold-layout"):
+           _HW / "manifold-layout",
+           _HW / "printed-parts" / "enclosure" / "back-panel"):
     sys.path.insert(0, str(_p))
 
 from docgen import substitute_py_comments               # noqa: E402
 import _boxes                                           # noqa: E402
 import front_half as _fh                                # noqa: E402
+import _back_panel_dimensions as _rear                  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -121,19 +123,24 @@ def build_appliance() -> cq.Workplane:
 # Printed port markings
 # ---------------------------------------------------------------------------
 #
-# A red ring at the CO2 inlet and a blue one at the tap-water union: printed
-# markings on the wall, not geometry. The renderer projects each circle to a
-# filled, self-outlined SVG path and clips it by the projected silhouette of the
-# fitting standing in it, so the visible remainder reads as a ring around the
-# port.
+# The [3](MARKED_N) rings the rear wall wears: printed markings on the wall,
+# not geometry. The renderer projects each circle to a filled, self-outlined
+# SVG path and clips it by the projected silhouette of the fitting standing in
+# it, so the visible remainder reads as a ring around the port.
 #
-# Both are struck on the FITTING ITSELF — its proud footprint gives the centre
+# Each is struck on the FITTING ITSELF — its proud footprint gives the centre
 # and the radius, the wall it crosses gives the plane, and its proud end gives
 # the `target` an arrow aims at. A marking cannot land on a different column
 # from the port it marks, and a port that moves takes its ring with it.
+#
+# WHICH colour goes on which port is the rear face's, not the drawing's:
+# `_back_panel_dimensions.port_colors` is the one table, and the quick-start
+# sheet aims its arrows off the same one. White is a colour here like any
+# other — on the page it reads as the black outline this path draws around it.
 
-CO2_DISC_COLOR = [255, 0, 0]        # red — the customer's CO2 line
-WATER_DISC_COLOR = [31, 111, 235]   # blue, matching the quickstart water arrows
+CO2_DISC_COLOR = list(_rear.port_colors["co2"])
+WATER_DISC_COLOR = list(_rear.port_colors["water"])
+CARB_DISC_COLOR = list(_rear.port_colors["carb"])
 
 # How far a marking stands out past the fitting it rings. CHOSEN, not derived:
 # it is how much printed ring is left showing around the fitting's own body.
@@ -176,8 +183,11 @@ def port_marking(name: str) -> dict:
 
 
 # The ports that carry a marking, by the name the machine seats each under.
+# The two flavor unions carry none: the customer pushes black into either black
+# and the manifold sorts them, so a ring there would mark a choice nobody makes.
 MARKED_PORTS = (("co2-disc", "co2-inlet", CO2_DISC_COLOR),
-                ("water-disc", "bulkhead-water", WATER_DISC_COLOR))
+                ("water-disc", "bulkhead-water", WATER_DISC_COLOR),
+                ("carb-disc", "bulkhead-carb", CARB_DISC_COLOR))
 
 # The hopper throat carries no marking — it is an opening, not a port — so the
 # drawing hands out an aim point instead, on the funnel centre the top wall is
@@ -238,6 +248,7 @@ def refresh_comments() -> None:
             "FRONT_PORT_N": f"{len(_BOX.front_ports):d}",
             "BACK_PORT_N": f"{len(_BOX.back_ports):d}",
             "PANEL_PITCH": f"{pitch:.4g} mm",
+            "MARKED_N": f"{len(MARKED_PORTS):d}",
         },
         expected_counts={
             "APPLIANCE_W": 1,
@@ -247,6 +258,7 @@ def refresh_comments() -> None:
             "FRONT_PORT_N": 1,
             "BACK_PORT_N": 1,
             "PANEL_PITCH": 1,
+            "MARKED_N": 1,
         },
     )
 

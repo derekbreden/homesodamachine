@@ -37,13 +37,13 @@ The 3-tube umbilical bundle leaves the faucet body, runs through the countertop 
 - **Carbonated water — blue.** Separate small spool of 1/4" OD blue LLDPE (sourcing in flight; not yet in `bom.md`). The bulkhead receiving it on the rear face is marked with a **blue accent ring** around its opening.
 - **Flavor A / Flavor B — black.** Standard 1/4" OD black LLDPE from the existing FWS bulk spool (`bom.md §3` and elsewhere). The two flavor bulkheads have no accent ring — flavor A vs flavor B routing is handled by the manifold and is not user-visible at the face.
 
-User rule at install: **blue tube into the blue-ringed bulkhead**. Black-into-either-black is unambiguous from there because both flavor tubes route through the same wall-side bundle and the user does not need to distinguish them at the face.
+User rule at install: **blue tube into the blue-ringed bulkhead**, which stands at the [east](CARB_END) end of the row. Black-into-either-black is unambiguous from there because both flavor tubes route through the same wall-side bundle and the user does not need to distinguish them at the face.
 
 Mechanism for the blue ring is TBD — candidates include multi-material printing of the piece itself, a separately printed TPU collar that snaps over the bulkhead's exterior flange, or a paint touch on the printed bezel surrounding the bulkhead. The selection is downstream of the multi-material capability of the printer running `enclosure-back-top`.
 
-Net identification scheme on the rear face: **blue = carbonated water**, **black / plain = flavor lines**, **white = tap water** (the water bulkhead body itself is the white-marked station), **red = CO2** (the DERPIPE PTC's own accent ring, below the C14 — station 4 above).
+Net identification scheme on the rear face: **blue = carbonated water** [#1f6feb](CARB_COLOR), **black / plain = flavor lines**, **white = tap water** [#ffffff](WATER_COLOR) (the water bulkhead body itself is the white-marked station), **red = CO2** [#d63a3a](CO2_COLOR) (the DERPIPE PTC's own accent ring, below the C14 — station 4 above).
 
-Blue on this face is part of the three-color customer-wayfinding system committed in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) "Color system" — **blue = carbonated water, red = CO2, white = tap water**. The same blue appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to face without translation. Any change to the blue ring here (color shade, ring mechanism, placement on the face) needs to round-trip through the unboxing brief because the printed sheet must match.
+Blue naming carbonated water is what makes the other two fall out: the umbilical riser is bought as blue tube ([`bom.md`](/hardware/ledger/bom.md) §3) and the union that receives it is bought to wear a blue ring (§8), so blue is spent, and the customer's teed-in tap-water station is the white-marked one. The three colors are the customer-wayfinding system committed in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) "Color system"; the printed quick-start sheet paints its arrows and the iso line-art paints these rings from the one table in [`_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py), so the customer's eye moves from sheet to face without translation. Any change to a ring here (color shade, ring mechanism, placement on the face) needs to round-trip through the unboxing brief because the printed sheet must match.
 
 ## Umbilical bundle construction
 
@@ -70,7 +70,7 @@ The C14 receptacle is recessed [3–5 mm](AC_RECESS_DEPTH) into the rear face wi
 
 ## Bulkhead array arrangement
 
-The 3× PP1208E umbilical-port bulkheads stand in **one row** across the top of the field, all three on a single Z, evenly pitched (`front_half.PANEL_X`). The order across it is the inboard runs': the two flavor gates take the ends, each on the side its run arrives from, and the carb union takes the middle with its DIGITEN meter lying inline ahead of it. The **blue-ringed (carbonated-water) bulkhead is the middle one** — the user reads it by position in the row, not by a vertex.
+The 3× PP1208E umbilical-port bulkheads stand in **one row** across the top of the field, all three on a single Z, evenly pitched (`front_half.PANEL_X`). The order across it is the inboard runs': the two flavor gates take the west of the row, each on the side its run arrives from, and the carb union takes the [east](CARB_END) end with its DIGITEN meter lying inline ahead of it. The **blue-ringed (carbonated-water) bulkhead is the end one** — the user reads it by position in the row, not by a vertex.
 
 Below the row's west end sits the tap-water bulkhead, on its own storey; east of centre the C14 cutout, at the end of the wall the power column stands against, and below the C14 the CO2 PTC. Every station's Z is the pack's, and the wall takes its ceiling from the field's own top edge ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) `port_top`).
 
