@@ -23,9 +23,10 @@
     <ol class="steps">
       <li><b>Print the ac-hub</b> and dry-fit one Wago into each of its three
         wells, butt-end down, to confirm the press fit.</li>
-      <li><b>No insert goes in here.</b> Every insert this shelf uses is a
-        ruthex short in a +X wall boss of enclosure-back-top, set at EN-01.
-        Nothing on this bench meets the iron.</li>
+      <li><b><span class="dim" data-gen="SHELF_INSERTS_HERE">0</span> inserts
+        go in here.</b> Every insert this shelf uses is a ruthex short in a +X
+        wall boss of enclosure-back-top, set at EN-01. Nothing on this bench
+        meets the iron.</li>
       <li><b>Confirm the bosses are clear</b> &#8212; flash trimmed, bores
         open, each insert flush with its boss tip.</li>
       <li><b>Relay #2 + the DC distribution block have no station</b> &#8212;
@@ -34,14 +35,15 @@
 
     <div class="tools">
       <span class="lbl">Tools</span>
-      ESD mat &#183; M3&#8202;&#215;&#8202;8 &#215; 14 + one M3&#8202;&#215;&#8202;10
-      (bom.md &#167;13) &#183; three Wago 221-413
+      ESD mat &#183; <span class="dim" data-gen="SHELF_SCREWS_M3X8">14</span>
+      M3&#8202;&#215;&#8202;8 + <span class="dim" data-gen="SHELF_SCREWS_M3X10">1</span>
+      M3&#8202;&#215;&#8202;10 (bom.md &#167;13) &#183; three Wago 221-413
     </div>
   </div>
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel">
-      <img src="img/es01-cap-columns.png" alt="">
+      <img src="img/es01-wall-bosses.png" alt="">
       <div class="cap"><b>enclosure-back-top, +X wall</b> &#8212; one boss per
       hole in each body&#8217;s own pattern, reaching in off the wall to that
       body&#8217;s own mounting plane. The screw goes the other way: in through
@@ -50,18 +52,19 @@
 
     <table class="spec" style="margin-top:24px">
       <tr><th>Station</th><th>Bosses</th></tr>
-      <tr><td>Controller PCBA &#8212; <span class="dim">MH1&#8211;MH4</span></td><td class="v">4</td></tr>
-      <tr><td>PSU &#8212; aft strip</td><td class="v">4</td></tr>
-      <tr><td>Relay #1</td><td class="v">4</td></tr>
-      <tr><td>AC hub</td><td class="v">2</td></tr>
-      <tr><td>Ground stack</td><td class="v">1</td></tr>
+      <tr><td>Controller PCBA &#8212; <span class="dim">MH1&#8211;MH4</span></td><td class="v" data-gen="PCBA_BOSSES">4</td></tr>
+      <tr><td>PSU &#8212; aft strip</td><td class="v" data-gen="PSU_BOSSES">4</td></tr>
+      <tr><td>Relay #1</td><td class="v" data-gen="RELAY1_BOSSES">4</td></tr>
+      <tr><td>AC hub</td><td class="v" data-gen="AC_HUB_BOSSES">2</td></tr>
+      <tr><td>Ground stack</td><td class="v" data-gen="GND_BOSSES">1</td></tr>
+      <tr><td><b>On the wall</b></td><td class="v" data-gen="WALL_BOSSES">15</td></tr>
     </table>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>The ac-hub takes its three Wagos, all fifteen wall bosses are clear with flush inserts, relay #2 + DC block staged.</div>
-  <div class="src">electronics-shelf.md &#167;1 &#183; bom.md &#167;13<br>front_half.wall_mounts<br>rev 2026-08-07</div>
+  <div class="done"><span class="lbl">Done when</span>The ac-hub takes its three Wagos, every wall boss is clear with a flush insert, relay #2 + DC block staged.</div>
+  <div class="src">electronics-shelf.md &#167;1 &#183; bom.md &#167;13<br>_cards_sync.py &#183; front_half.wall_mounts &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
