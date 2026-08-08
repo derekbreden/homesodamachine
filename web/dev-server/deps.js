@@ -12,7 +12,7 @@
 //   2. STEP-load — a script reads another script's `.step` OUTPUT, via
 //      `cq.importers.importStep(...)` or the `_load(...)` helper. The file is
 //      often named in an imported module, NOT in the runnable that consumes it:
-//      `front_half.py` (which `import foam_assembly`) consumes
+//      `enclosure_assembly.py` (which `import foam_assembly`) consumes
 //      `foam-shell.step` without ever naming that file or calling importStep
 //      itself.
 //
@@ -200,7 +200,7 @@ function importersOf(changedPath, roots) {
       // importer's own directory is sys.path[0] and wins. Follow the import edge
       // only when that resolution IS the file that changed. Editions mirror each
       // other's filenames — an edition is one machine, so both carry an
-      // `enclosure.py` and a `front_half.py` — and a bare-name match rebuilt one
+      // `enclosure.py` and a `enclosure_assembly.py` — and a bare-name match rebuilt one
       // machine for the other's edit, a whole second assembly competing for the
       // same cores. With no sibling the module comes from a shared dir on sys.path
       // (hardware/scripts/_cadq_export.py), and that edge stands.

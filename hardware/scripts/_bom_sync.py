@@ -27,14 +27,14 @@ from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
 
 import manifold_layout as ml
-import front_half as _fh
-import ground_ring_stack as _gnd  # on the path once `front_half` is imported
+import enclosure_assembly as _ea
+import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 
 import importlib.util
 
 # The placed pack, for the counts that are the machine's rather than a part's. `machine()`
 # is the whole appliance, so this is the one expensive import in this driver.
-_machine = _fh.machine()
+_machine = _ea.machine()
 _placed = {c.name for c in _machine[0].children}
 _east_bosses = _machine[2].east_bosses
 _floor_bosses = _machine[2].floor_bosses
@@ -173,7 +173,7 @@ touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
 # Electronics-shelf hardware (Zone B, assembly/electronics-shelf.md). The power column
-# bolts to `enclosure-back-top`'s +X wall: `front_half.wall_mounts` stands ONE BOSS PER
+# bolts to `enclosure-back-top`'s +X wall: `enclosure_assembly.wall_mounts` stands ONE BOSS PER
 # HOLE in each body's own mounting pattern, and each boss is bored for a ruthex short.
 # So the count is the pack's, not a number typed here — a body that gains a hole gains a
 # boss, an insert and a screw together. No printed part on the shelf carries a boss of
@@ -187,7 +187,7 @@ shelf_long_screws_per_build = len(_gnd.holes)
 shelf_short_screws_per_build = shelf_screws_per_build - shelf_long_screws_per_build
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
-# the box bolted DOWN to it: `front_half.floor_mounts` stands ONE POST PER HOLE in the
+# the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
 # compressor's own plate pattern, each post bored for a ruthex short at the plane the plate's
 # crown lies on. So the count is the pack's the way the shelf's is — a body arriving on the
 # floor with a hole pattern brings its posts, inserts and screws with it.

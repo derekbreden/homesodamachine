@@ -2,7 +2,7 @@
 
 The board alone is what the appliance carries: it bolts to four printed bosses on
 the enclosure's +X wall, struck off its own MH1-MH4 pattern
-(`front_half.wall_mounts`), and there is no tray floor under it.
+(`enclosure_assembly.wall_mounts`), and there is no tray floor under it.
 `pcba-assembly.step` remains the bench view of board-on-tray for the tray's own
 geometry checks."""
 

@@ -29,7 +29,7 @@ import { editionRoot } from "./editions.js";
 // EMPTY. An entry belongs here only when its generator READS that sidecar and
 // applies the moves as it places — the route writes the file and re-runs the
 // generator, and nothing else carries the edit into the geometry. No generator
-// in the tree reads one: `hardware/manifold-layout/front_half.py`, which builds
+// in the tree reads one: `hardware/manifold-layout/enclosure_assembly.py`, which builds
 // the enclosure assembly, seats every body from its own source. So nothing is
 // editable, every route below 404s, and the viewer hides the Edit toggle.
 const EDITABLE = {};

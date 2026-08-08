@@ -4,11 +4,11 @@ foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
 in sync against.
 
 The constants carry claims about each other — a screw long enough for its insert, a lane wide
-enough for its bore, two columns far enough apart for foam to reach between them — and those
-are settled here, as this file is read, with no solid yet to measure. `_stated_bounds` is the
-ledger they record into; `front_half.carry_stated_bounds` drains it onto the machine's card,
-where an open one is a red row a reader can see beside the geometry it describes. The siblings
-that import this module take `bound` and `state` from here rather than reaching for the ledger
+enough for its bore, two columns far enough apart for foam to reach between them — and those are
+settled here, as this file is read, with no solid yet to measure. `_stated_bounds` is the ledger
+they record into; `enclosure_assembly.carry_stated_bounds` drains it onto the machine's card, where
+an open one is a red row a reader can see beside the geometry it describes. The siblings that
+import this module take `bound` and `state` from here rather than reaching for the ledger
 themselves, because this is already the path they read every other shared name off."""
 
 import itertools
@@ -146,7 +146,7 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # that, and it leaves a wide choice.
 #   The OTHER half is what stands on the crown over each pocket, and this module
 # cannot see it — the machine imports the cold core, not the reverse. So the
-# fence is measured where the bodies are, in `manifold-layout/front_half.py`,
+# fence is measured where the bodies are, in `manifold-layout/enclosure_assembly.py`,
 # and what arrives here is the answer rather than the reasoning. B's pocket has
 # a clear crown and takes the corner furthest from its own drain. A's carries
 # the pump and the power brick, and its station is the strip they leave between
@@ -275,7 +275,7 @@ head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
 # --- The front face, and the lane that reaches it ---------------------------
 #
 # Every penetration opens on the shell's −X face. That face is the SHORT one, and
-# in the appliance it is yawed onto the machine's front (`front_half.FOAM_YAW`) —
+# in the appliance it is yawed onto the machine's front (`enclosure_assembly.FOAM_YAW`) —
 # which is why the shell's short axis is what sets the appliance's width.
 #
 # Nothing reaches that face head-on: the reservoir pockets fill both ±X ends of the
@@ -468,8 +468,8 @@ deck_mount_cap_gap = 1.5
 # and the seven conduit columns beside them. `assembly/cold-core.md` CC-06 and CC-15 both read
 # the cap that way.
 #   NO MODULE BOLTS TO THEM TODAY. Every body standing on this cap is carried some other way:
-# the power column hangs on the enclosure's own wall bosses (`front_half.wall_mounts`), and the
-# three valves that stand on the lid press into the cradles below. So these are eight bored
+# the power column hangs on the enclosure's own wall bosses (`enclosure_assembly.wall_mounts`), and
+# the three valves that stand on the lid press into the cradles below. So these are eight bored
 # columns and eight inserts standing ready, which is what `bom.md` §7 bills them as.
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
@@ -582,7 +582,7 @@ for _name in deck_mounts:
 # over the lid's outer face, which is what sets the pad's height.
 #   THE SEAT IS THE MACHINE'S, not a choice. Two of these valves ride the flavour pack, which
 # stands on the refrigeration base's crown, so where they land over this cap is that stack's
-# arithmetic; `front_half.cradles_land` re-derives all three rows off the placed valves at
+# arithmetic; `enclosure_assembly.cradles_land` re-derives all three rows off the placed valves at
 # every build and raises with the row a moved valve wants, so a drift cannot land silently.
 # V-K is the one this cap gets to choose, and it takes the shallowest seat there is: one
 # `-single_tray.socket_floor_z`, which lands its socket floors on the lid's own outer face

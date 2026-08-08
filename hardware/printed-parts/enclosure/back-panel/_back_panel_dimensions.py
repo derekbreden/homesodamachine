@@ -58,41 +58,41 @@ def port_color_svg(fluid):
 
 def carb_union_end():
     """Which end of the umbilical row the blue-ringed carbonated-water union
-    stands at — READ off `front_half.PANEL_X`, the pitch the three unions are
+    stands at — READ off `enclosure_assembly.PANEL_X`, the pitch the three unions are
     placed on, so the user rule ("blue tube into the blue-ringed bulkhead, at
     this end") cannot outlive the row it describes. +X is east."""
-    import front_half as _fh
-    x = _fh.PANEL_X["bulkhead-carb"]
-    return "east" if x == max(_fh.PANEL_X.values()) else "west"
+    import enclosure_assembly as _ea
+    x = _ea.PANEL_X["bulkhead-carb"]
+    return "east" if x == max(_ea.PANEL_X.values()) else "west"
 
 
 def panel_hole_diameters():
     """The two bores this panel carries: `(bulkhead, co2)`.
 
     Taken from the functions that STRIKE them, not from a second copy of their
-    arithmetic. `front_half.back_wall_ports` and `front_half.co2_wall_port` are the
-    calls `front_half.pack` fills `back_ports` with, and `enclosure._port_cuts` bores
+    arithmetic. `enclosure_assembly.back_wall_ports` and `enclosure_assembly.co2_wall_port` are the
+    calls `enclosure_assembly.pack` fills `back_ports` with, and `enclosure._port_cuts` bores
     that list — so these are the holes that get cut, and a change to HOW either is
     struck (a chamfer allowance, a different slip for gas than for water) arrives here
     instead of leaving the README quoting the old rule.
 
     Both strike against a placed fitting, so both want the pack. That is why this is a
-    function and not a module constant, and why `front_half` is imported inside it: the
+    function and not a module constant, and why `enclosure_assembly` is imported inside it: the
     reading costs a build, and the drivers that import this module for the AC recess or
     the port colours must not pay for one — or for loading the layout to get them.
 
     All four PP1208E bulkheads on this panel — 1 water inlet + 3 umbilical-port unions —
     share one hole, which is the figure the README quotes.
     """
-    import front_half as _fh
-    a = _fh.build_pack()
-    bores = _fh.back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
+    import enclosure_assembly as _ea
+    a = _ea.build_pack()
+    bores = _ea.back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
     diameters = {round(p[3], 6) for p in bores}
     if len(diameters) != 1:
         raise ValueError(
             f"the four panel unions are bored at {sorted(diameters)}. The README gives them "
             f"one hole, so either they go back on one diameter or it reads them out apiece.")
-    return bores[0][3], _fh.co2_wall_port(a.co2_inlet_carry)[3]
+    return bores[0][3], _ea.co2_wall_port(a.co2_inlet_carry)[3]
 
 
 def main():

@@ -31,12 +31,12 @@ catches, and the drip falls from there: the pan sits under the tip's column,
 wherever the pose leaves it pointing.
 
 The machine lays it fore and aft in the −X lane west of the SeaFlo, over the foam
-cap ([`front_half.build_asse`](/hardware/manifold-layout/front_half.py),
+cap ([`enclosure_assembly.build_asse`](/hardware/manifold-layout/enclosure_assembly.py),
 `ASSE1022_YAW`) — a yaw about Z and a translation, since this frame is already the
 cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
 at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
-column straight into the drip tray under it. `front_half.check_vent_lands` is where
+column straight into the drip tray under it. `enclosure_assembly.check_vent_lands` is where
 that landing is made: the tray's floor, rim and the chain's underside are struck on
 one set of numbers, so the drip falls exactly the gap the basin was drawn for, and a
 pose that put the tip outside the coves reds the `vent-lands` gate. The pack seats the chain and

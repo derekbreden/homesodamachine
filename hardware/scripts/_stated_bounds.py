@@ -1,12 +1,11 @@
 """_stated_bounds — the bounds a module states about its own constants, read at import.
 
-A generator's constants carry claims about each other: a screw is long enough for its insert,
-a lane is wide enough for its bore, two lanes stand far enough apart for the bodies on them.
-Those claims are settled the moment the module is read, before any solid exists — so they have
-no assembly to hang a reading on and no build to be measured during. This is the ledger they
-record into instead. `front_half.carry_stated_bounds` drains it onto the assembly beside the
-bounds the machine measures at every build, and `_scorecard._bounds` renders one gate row
-apiece.
+A generator's constants carry claims about each other: a screw is long enough for its insert, a
+lane is wide enough for its bore, two lanes stand far enough apart for the bodies on them. Those
+claims are settled the moment the module is read, before any solid exists — so they have no
+assembly to hang a reading on and no build to be measured during. This is the ledger they record
+into instead. `enclosure_assembly.carry_stated_bounds` drains it onto the assembly beside the
+bounds the machine measures at every build, and `_scorecard._bounds` renders one gate row apiece.
 
 A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
 elevations and the scorecard a run writes. A guard that raises at import destroys all four

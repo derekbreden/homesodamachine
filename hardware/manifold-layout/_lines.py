@@ -10,16 +10,16 @@ allow and records the shortfall of any that cannot: a run drawn past its stock's
 drawn, and `BLOCKED` says by how much.
 
 A RUN ARRIVES WITH THE BODIES IT JOINS. Both of its mouths have to be placed before it can be
-authored, so the set here grows as `front_half.build_pack` grows, and a run with one end in the
-pack and the other nowhere is not written down as a guess. `build_seated_runs` is the same rule
-one step later: the box is sized on the pack, so a body seated in one of its WALLS is placed
-after it, and the lines reaching those bodies are drawn once the box exists.
+authored, so the set here grows as `enclosure_assembly.build_pack` grows, and a run with one end in
+the pack and the other nowhere is not written down as a guess. `build_seated_runs` is the same rule
+one step later: the box is sized on the pack, so a body seated in one of its WALLS is placed after
+it, and the lines reaching those bodies are drawn once the box exists.
 
 Frames come off the placed pack, so a run rides a move of its parts: change a pose in
-`front_half.py` and every waypoint measured off that body's ports moves with it.
+`enclosure_assembly.py` and every waypoint measured off that body's ports moves with it.
 
 Run it through the assembly:
-    tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
+    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py
 """
 
 import sys
@@ -27,9 +27,9 @@ from pathlib import Path
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
-# EVERY MODULE IMPORTED BELOW IS ON THIS LIST, this module's own directory among them. A
-# module that leans on its importer's path is one only that importer can import: the doc-sync
-# drivers reach this file without going through `front_half`, and they set up their own path.
+# EVERY MODULE IMPORTED BELOW IS ON THIS LIST, this module's own directory among them. A module
+# that leans on its importer's path is one only that importer can import: the doc-sync drivers
+# reach this file without going through `enclosure_assembly`, and they set up their own path.
 for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
@@ -70,11 +70,11 @@ import digiten_flow_sensor as _digiten                  # noqa: E402
 BLOCKED = R.BLOCKED
 
 
-def _fh_cap(name):
-    """The core's cap conduit stations, read off `front_half` at call time — importing it here
-    at module scope would close a cycle, since it imports this one."""
-    import front_half
-    return front_half.cap_conduit(name)
+def _ea_cap(name):
+    """The core's cap conduit stations, read off `enclosure_assembly` at call time — importing it
+    here at module scope would close a cycle, since it imports this one."""
+    import enclosure_assembly
+    return enclosure_assembly.cap_conduit(name)
 
 # The 3/8" reinforced PVC's own floor, and the coarsest stock on the machine: a corner it cannot
 # hold is a corner nothing drawn here can.
@@ -97,18 +97,18 @@ CU_LEAD = 20.0
 CAP_BORE_SKEW = _cc.cap_conduit_entry_skew
 
 # Which reference module states each placed body's stations, and the bore each one carries. The
-# module gives `(position, outward axis)` in the body's own frame; `front_half`'s `carry` takes
-# that through the placement, so a port table is written once and rides every later move.
+# module gives `(position, outward axis)` in the body's own frame; `enclosure_assembly`'s `carry`
+# takes that through the placement, so a port table is written once and rides every later move.
 STATIONS = {
     # The cold core's cap conduits — bores up the cap's own columns, each opening on the lid's
     # outer face. A line reaching one arrives at the deck, not at a body face.
-    "foam-assembly": {"water-in": (lambda: _fh_cap("water-in"), _split.TUBE_D),
-                      "carb-water-out": (lambda: _fh_cap("carb-water-out"), _split.TUBE_D),
-                      "reservoir-a": (lambda: _fh_cap("reservoir-a"), _split.TUBE_D),
-                      "reservoir-b": (lambda: _fh_cap("reservoir-b"), _split.TUBE_D),
-                      "reservoir-a-fill": (lambda: _fh_cap("reservoir-a-fill"), _split.TUBE_D),
-                      "reservoir-b-fill": (lambda: _fh_cap("reservoir-b-fill"), _split.TUBE_D),
-                      "co2-in": (lambda: _fh_cap("co2-in"), _split.TUBE_D),
+    "foam-assembly": {"water-in": (lambda: _ea_cap("water-in"), _split.TUBE_D),
+                      "carb-water-out": (lambda: _ea_cap("carb-water-out"), _split.TUBE_D),
+                      "reservoir-a": (lambda: _ea_cap("reservoir-a"), _split.TUBE_D),
+                      "reservoir-b": (lambda: _ea_cap("reservoir-b"), _split.TUBE_D),
+                      "reservoir-a-fill": (lambda: _ea_cap("reservoir-a-fill"), _split.TUBE_D),
+                      "reservoir-b-fill": (lambda: _ea_cap("reservoir-b-fill"), _split.TUBE_D),
+                      "co2-in": (lambda: _ea_cap("co2-in"), _split.TUBE_D),
                       # The evaporator's two ends are copper, not LLDPE, and they open on
                       # the core's own flanks rather than up its cap columns.
                       "evap-outlet": (lambda: _plugs.slot_station("evap-outlet"), CU_OD),
@@ -159,9 +159,9 @@ for _b in ("bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb"):
 
 
 # The flavour manifold's ten solenoid valves. Each stands coil-up with its flow along the pack's
-# own ±Y, and the fold names its two collets `front` and `back`. `front_half.manifold_carry`
-# takes both through the pose and the lift the pack is stood at, so a run anchors on where the
-# collet ends up.
+# own ±Y, and the fold names its two collets `front` and `back`.
+# `enclosure_assembly.manifold_carry` takes both through the pose and the lift the pack is stood
+# at, so a run anchors on where the collet ends up.
 #
 # Which collet is the INLET is the valve's own turn. `manifold_layout` stands each body on
 # `valve_dirs(P[v]["arg"])`, and that argument is which way round it faces — the flow runs the
@@ -256,9 +256,10 @@ def build_seated_runs(placed, carries):
     """The runs with a mouth on a body the BOX seats rather than the pack.
 
     The box is sized on the pack, so a body seated in one of its walls is placed after it — and a
-    run reaching that body can only be authored once it is. `front_half.build_front_half` calls
-    this with the pack's own bodies and the seated one added to them, so a run drawn here anchors
-    on exactly the frames the pack's own runs do."""
+    run reaching that body can only be authored once it is.
+    `enclosure_assembly.build_enclosure_assembly` calls this with the pack's own bodies and the
+    seated one added to them, so a run drawn here anchors on exactly the frames the pack's own runs
+    do."""
     F = frames(placed, carries)
     runs = []
     if {"hopper-funnel", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
@@ -269,9 +270,9 @@ def build_seated_runs(placed, carries):
 def _co2_1(F):
     """co2-1 — the check's stub tip to the regulator's inlet socket, one straight hop.
 
-    The two mouths face each other down the chain's own axis with `front_half.CO2_HOP` between
-    them, so this is a PP450822E on the check's male stub, a PP010822E in the regulator's female
-    one, and the length of tube the two collets both take hold of."""
+    The two mouths face each other down the chain's own axis with `enclosure_assembly.CO2_HOP`
+    between them, so this is a PP450822E on the check's male stub, a PP010822E in the regulator's
+    female one, and the length of tube the two collets both take hold of."""
     return R.bent(
         "co2-1", "gasher-co2.outlet", "wr1110.inlet",
         kind="co2", note="CO2: check outlet → WR1110 inlet, one straight hop on the chain's axis")
@@ -352,10 +353,10 @@ def _fluid_1(F):
 def _water_2(F):
     """water-2 — the ASSE 1022's outlet to the split's supply, and it is ONE LENGTH OF TUBE.
 
-    The chain hands the water over facing forward down the west lane and the split's own run
-    axis IS that lane, so the two collets face each other on one line with nothing between them
-    to turn around. `front_half.WATER_2` is the gap, and a gap between two collets facing down
-    one axis seats no arc — what it has to be is enough tube for both to take hold of."""
+    The chain hands the water over facing forward down the west lane and the split's own run axis
+    IS that lane, so the two collets face each other on one line with nothing between them to turn
+    around. `enclosure_assembly.WATER_2` is the gap, and a gap between two collets facing down one
+    axis seats no arc — what it has to be is enough tube for both to take hold of."""
     return R.bent(
         "water-2", "asse1022-assembly.tube-out", "water-split.supply",
         kind="water", note="tap water: ASSE outlet → split supply, one straight down the lane")
@@ -390,11 +391,11 @@ def _water_6(F):
     """water-6 — the 3/8" braided stub off the moulded discharge barb, from the pump to the
     chain that carries its outlet onto 1/4" tube.
 
-    ONE CORNER IN PLAN AND NOTHING ELSE. `SEAFLO_YAW` puts the discharge barb on the head's
-    WEST face pointing west, and the chain lies in that lane forward of it with its own barb
-    facing AFT — so the hose leaves across the machine, turns once, and arrives square on. The
-    chain's axis is struck from this same mouth's Z (`front_half.build_discharge_chain`), so
-    the two ends lie on one plane and the corner is flat.
+    ONE CORNER IN PLAN AND NOTHING ELSE. `SEAFLO_YAW` puts the discharge barb on the head's WEST
+    face pointing west, and the chain lies in that lane forward of it with its own barb facing AFT
+    — so the hose leaves across the machine, turns once, and arrives square on. The chain's axis is
+    struck from this same mouth's Z (`enclosure_assembly.build_discharge_chain`), so the two ends
+    lie on one plane and the corner is flat.
 
     The waypoint is the corner itself: the chain's own column at the barb's own Y. What buys
     its arc is `DISCH_SPLIT_CLEAR` down one leg and `DISCH_CORNER_ROOM` down the other."""
@@ -494,7 +495,7 @@ def _fluid_2(F, solids):
 
     The last leg is `manifold_layout.STUB` — the straight that pack draws on every mouth that
     leaves it, which is what its first corner needs before it can turn at all. Drawing this run
-    is what makes that stub a real line, so `front_half.build_pack` stops adding the
+    is what makes that stub a real line, so `enclosure_assembly.build_pack` stops adding the
     placeholder once the run exists."""
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
@@ -581,7 +582,7 @@ def _fluid_4(F, solids):
 
 # --- the carb-water riser, and the two nozzle gates' lines to the panel -----
 #
-# All three end on the panel deck (`front_half.PANEL_X`), which is the band over the water
+# All three end on the panel deck (`enclosure_assembly.PANEL_X`), which is the band over the water
 # pump's crown, and all three reach it by a column that runs the machine's whole height.
 
 def _carb_1(F):
@@ -611,9 +612,9 @@ def _carb_2(F):
     """carb-2 — the meter's outlet to the carb union's inboard collet, and it is ONE LENGTH OF
     TUBE.
 
-    `front_half.build_digiten` seats the meter ON THIS RUN: its outlet is placed one `CARB_2`
-    forward of the union's collet and on that collet's own column and plane, so the two mouths
-    face each other down one line with nothing between them to turn around."""
+    `enclosure_assembly.build_digiten` seats the meter ON THIS RUN: its outlet is placed one
+    `CARB_2` forward of the union's collet and on that collet's own column and plane, so the two
+    mouths face each other down one line with nothing between them to turn around."""
     return R.bent(
         "carb-2", "digiten-flow.outlet", "bulkhead-carb.tube-in",
         kind="water", note="carb water: DIGITEN outlet → rear union, one straight down the deck")
@@ -872,9 +873,9 @@ def _refrig_3(F):
 
 
 def authored() -> frozenset:
-    """The connection ids this module draws a run for, without building one. `front_half` reads
-    it before the pack is assembled, to know which of the manifold's placeholder mouth stubs a
-    real line has replaced."""
+    """The connection ids this module draws a run for, without building one. `enclosure_assembly`
+    reads it before the pack is assembled, to know which of the manifold's placeholder mouth stubs
+    a real line has replaced."""
     return frozenset(_AUTHORED)
 
 

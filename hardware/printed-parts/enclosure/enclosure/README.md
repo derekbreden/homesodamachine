@@ -13,7 +13,7 @@ clash in `pack-closes` at the body that overran.
   floor body stands one `side_rib_inset` in from the wall **at the depths the seam's
   columns stand there**, leaving each post, chain and pod its full section. The cold
   core is the widest of the floor bodies, yawed a quarter turn
-  (`front_half.FOAM_YAW`) so what crosses the machine is its 181 mm short face
+  (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
 - **Height** is a stated [358 mm](APPLIANCE_HEIGHT), floor slab's underside to the
   top wall's outer face. The contents do not lift it; they have to fit under it.
@@ -21,7 +21,7 @@ clash in `pack-closes` at the body that overran.
 **Depth** is stated at the back — `rear_plane_y` — and follows the pack at the
 front, where the wall stands one `front_seam_clear` ahead of the frontmost body
 placed by
-[`../../../manifold-layout/front_half.py`](/hardware/manifold-layout/front_half.py).
+[`../../../manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
 The refrigeration stratum stands on the floor at the front and the cold core sits
 behind it, front face mated flush against the stratum's aft plane.
 
@@ -200,7 +200,7 @@ rather than derived from them: which pieces the box comes apart into is a decisi
 about the pieces — what each has to carry, and what a hand reaches when the front
 assembly is off.
 
-`rear_seam_clear` is the single source for the back wall: `front_half` seats the
+`rear_seam_clear` is the single source for the back wall: `enclosure_assembly` seats the
 rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
@@ -288,7 +288,7 @@ facet chamfers the top-front corner away and the back plane stands one housing
 depth behind it. Both are the housing's own 45° planes — the facet above, the back
 plane as its soffit — so the frame holds one constant thickness through the
 corner. The display reference is seated in the housing by
-[`front_half.py`](/hardware/manifold-layout/front_half.py), on the same
+[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py), on the same
 `display_centre_x` the counterbore reads, so the housing and the part in it cannot
 land on two different centres.
 
@@ -306,7 +306,7 @@ ramp falling to the centred spout, its flat brim resting on the wall frame left
 around the cut.
 
 The funnel is a static placed part: the opening is cut at its collar
-(`_hopper_hole` reads the funnel's own dims at `front_half.funnel_centre()`), so
+(`_hopper_hole` reads the funnel's own dims at `enclosure_assembly.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
 facet's own back plane ahead (with a ledge of top wall between the two), the ±X
 top corner pods either side, and the back wall behind — and the collar is measured

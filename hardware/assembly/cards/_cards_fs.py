@@ -98,7 +98,7 @@ def bench(m):
     built — a carbonator plate is cut before anything is placed and a board's
     pin count is the board's — so `_figures` stands on its own and what the
     assembly is read for here is the structure the cards' sentences rest on."""
-    import front_half as _fh
+    import enclosure_assembly as _ea
 
     pack, box = m.pack, m.box
 
@@ -128,8 +128,8 @@ def bench(m):
     # standing inside the pack, which is what makes them a face the bench works
     # at. AB-01 plugs into all three and FS-03 caps the two fluid ones.
     rig = {"bulkhead-water", "co2-inlet", "c14-inlet"}
-    assert rig <= set(_fh.THROUGH_WALL), (
-        f"{sorted(rig - set(_fh.THROUGH_WALL))} no longer cross the enclosure wall — AB-01 "
+    assert rig <= set(_ea.THROUGH_WALL), (
+        f"{sorted(rig - set(_ea.THROUGH_WALL))} no longer cross the enclosure wall — AB-01 "
         f"brings water, CO2 and mains to one face and FS-03 caps the two fluid ones there")
 
     return _figures()

@@ -57,7 +57,7 @@ pump faces stand clear of the crown by what the hairpins reach.
 
 Run it
 ------
-    tools/cad-venv/bin/python hardware/manifold-layout/front_half.py
+    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py
 """
 
 import collections
@@ -446,10 +446,10 @@ def carry_stated_bounds() -> None:
 
     They were read when those modules were imported — the manifold's crossbar and limb pitch
     against the valve bodies they carry, the spine turn against its stock, the funnel's collar
-    against the grade its floor claims, and the cold core's screws, lanes, conduit columns,
-    cradles and plug webs against each other. A raise there would take the STEP, the three
-    elevations and this card with it before `build_front_half` ran a line, which is why they
-    do not raise; this is where they arrive instead.
+    against the grade its floor claims, and the cold core's screws, lanes, conduit columns, cradles
+    and plug webs against each other. A raise there would take the STEP, the three elevations and
+    this card with it before `build_enclosure_assembly` ran a line, which is why they do not raise;
+    this is where they arrive instead.
 
     `_stated_bounds` keeps the list rather than this module keeping it, because the modules
     that record into it are the ones this module imports and the import only runs one way."""
@@ -1956,7 +1956,7 @@ def _solids(a: cq.Assembly):
 # instead, and the wall is cut for them.
 #
 # The funnel is the same case and is not listed, because it is added after the box exists
-# (`build_front_half`) rather than to the pack.
+# (`build_enclosure_assembly`) rather than to the pack.
 THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet",
                 "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb")
 
@@ -2111,7 +2111,7 @@ def machine():
     return a, p, _seated(shell)
 
 
-def build_front_half() -> cq.Assembly:
+def build_enclosure_assembly() -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, box = machine()
     funnel, funnel_carry = build_funnel(box)
@@ -2315,7 +2315,7 @@ def report_seats(a: cq.Assembly, placed_names) -> None:
 
 def main():
     import _scorecard as _card
-    a = build_front_half()
+    a = build_enclosure_assembly()
     out = _here.parent / "front-half.step"
     export_assembly(a, str(out))
     print(f"-> {out.name}")
