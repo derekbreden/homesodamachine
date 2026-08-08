@@ -6,18 +6,25 @@
 // the result is an array of forward-slash relative paths. Returns [] if
 // rootDir doesn't exist (the dev server points at directories that may
 // not yet be populated).
+//
+// Every walker here skips a retired tree (lib/retired.js), on the same marker
+// the build graph reads. What the site browses is therefore what the build can
+// rebuild: a file no generator produces is not offered as if it were live.
 
 import path from "path";
 import fs from "fs";
 
 import { viewFile, picksFile, innerViewRe } from "../contracts/pcb-out.js";
+import { holdsRetiredMarker } from "./retired.js";
 
 export function walkFiles(rootDir, exts) {
   const extList = Array.isArray(exts) ? exts : [exts];
   const out = [];
   function walk(dir, rel) {
     if (!fs.existsSync(dir)) return;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    if (holdsRetiredMarker(entries)) return;
+    for (const entry of entries) {
       if (entry.name.startsWith(".")) continue; // skip dotfiles (orphaned atomic-write temps, etc.)
       if (entry.name === "node_modules") continue; // never surface dependency artifacts
       const full = path.join(dir, entry.name);
@@ -42,7 +49,9 @@ export function walkFilesUnderDir(rootDir, exts, parentDirName) {
   const out = [];
   function walk(dir, rel, insideParent) {
     if (!fs.existsSync(dir)) return;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    if (holdsRetiredMarker(entries)) return;
+    for (const entry of entries) {
       if (entry.name.startsWith(".")) continue; // skip dotfiles (orphaned atomic-write temps, etc.)
       const full = path.join(dir, entry.name);
       const childInside = insideParent || entry.name === parentDirName;
@@ -150,6 +159,7 @@ export function walkAssemblyCards(rootDir) {
   } catch {
     return [];
   }
+  if (holdsRetiredMarker(entries)) return [];
 
   const subsystems = readCardStyleSubsystems(cardsDir);
   const rank = new Map(subsystems.map((s, i) => [s.key, i]));
@@ -209,6 +219,7 @@ export function walkPcbBoards(rootDir) {
     } catch {
       return;
     }
+    if (holdsRetiredMarker(entries)) return;
     for (const entry of entries) {
       if (entry.name.startsWith(".") || entry.name === "node_modules") continue;
       const full = path.join(dir, entry.name);
