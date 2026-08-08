@@ -1,27 +1,39 @@
 #!/bin/sh
 # Commit-time gates + 3D freshness for the PCBA and the enclosure.
 #
-# Two jobs, in order:
+# Three jobs, in order. Everything here is keyed to EXACTLY the files it reads, so a
+# commit pays only for the answers it could have changed; a commit touching none of
+# those inputs runs no Python at all.
 #
-#   1. GATES (hard fail — a red check blocks the commit):
-#      Each gate is keyed to EXACTLY the files it reads, so a commit pays only for
-#      the answers it could have changed. A commit touching no gate's inputs runs no
-#      Python at all.
+#   1. LEDGER SYNCS (never block — they re-derive, stage, and let the commit carry it):
+#      A figure derived from the model is a number that needs copying, not a decision,
+#      and the script that spots the drift is the script that copies it. So it does,
+#      and the change lands in the commit's own diff instead of in a terminal line
+#      telling someone to run the script by hand. In dependency order, because §7's
+#      masses price the totals and the totals' §7 feeds the print hours:
+#      - printed-parts/ or its bom.md       → _bom_masses.py, which reads §7's masses
+#        off the parts' own STEP solids. ~4 s, and it stands in for the --check that
+#        cost the same and then asked for this run anyway.
+#      - ledger/bom.md                      → _bom_totals.py (section + grand totals).
+#      - ledger/labor.md                    → _labor_totals.py (subtotals).
+#      - ledger/machine-time.md or bom.md   → _machine_time.py (print hours off §7's
+#        masses, turnaround off those hours).
+#      Only the file a sync moved is staged, so a commit never sweeps up a neighbour's
+#      dirty edit.
+#
+#   2. GATES (hard fail — a red check blocks the commit). What is left after a sync is
+#      what no script can settle: a decision a person has to make.
 #      - pcba.tsx / esp32-pinout.mmd / bom.md / the two assembly sync drivers
 #                                           → check_pinmap.py, the BOM<->pinout<->PCB
 #        drift guard (pcba.tsx is canonical; pinout/BOM/sync-drivers are derived and
-#        hand-maintained, so they drift).
-#      - ledger/bom.md                      → _bom_categories.py --check (every row
-#        carries a known category tag) + _bom_totals.py --check (the printed subtotals
-#        match the rows under them).
-#      - ledger/labor.md                    → _labor_totals.py --check (subtotals, and
-#        every estimate on the believable-increment ladder).
-#      - ledger/machine-time.md or bom.md   → _machine_time.py --check (print hours are
-#        derived from §7's masses, so a printed part moves them).
+#        hand-maintained, so they drift, and which one is right is a judgement).
+#      - ledger/bom.md                      → _bom_categories.py --check. Which section
+#        a new row belongs in has no write mode and never will.
+#      - ledger/labor.md                    → _labor_totals.py --check, for the
+#        believable-increment ladder: 30 or 45, never 37.
+#      - ledger/machine-time.md or bom.md   → _machine_time.py --check, for a §7 row
+#        with no print-rate group. GROUP_OF is the decision.
 #      - any staged *.py under hardware/    → check_build_exit.py.
-#      - printed-parts/ or its bom.md       → _bom_masses.py --check, which reads §7's
-#        masses off the parts' own STEP solids. A part's geometry and its ledger row
-#        land together or not at all. ~4 s — the expensive one.
 #      - hardware/pcb/pcba/                 → the render scorecard's fab-ready gates
 #        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
@@ -30,11 +42,12 @@
 #      - hardware/ enclosure                → nothing. The front half carries its own
 #        gates and runs them itself: hardware/manifold-layout/front_half.py prints the
 #        scorecard at the tail of every run and writes front-half.scorecard.json beside
-#        the STEP, so nothing here re-runs them. Rebuild-and-compare across every live
-#        generator is `npm --prefix web run build:check`.
+#        the STEP, so nothing here re-runs them, and a red row rides the card rather
+#        than stopping anything. Rebuild-and-compare across every live generator is
+#        `npm --prefix web run build:check`.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
-#   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
+#   3. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
 #      the ~14 s CadQuery 3D build so board iteration stays fast, which lets
 #      out/pcba.glb drift behind the gerbers during a work session. This hook is the
 #      single place that reconciles it: on a board-touching commit whose GLB is behind
@@ -72,7 +85,38 @@ gate() {
   fi
 }
 
-# ── 1. Gates ──────────────────────────────────────────────────────────────
+# sync <name> <file> <cmd…> — re-derive <file>'s figures; if that moved them, stage it.
+#
+# A stale ledger figure is a number that needs copying, and the script reporting the
+# drift is the script that copies it. So it copies it: the commit carries the fresh
+# ledger and what moved shows up in the DIFF, which outlives a line of terminal output
+# nobody scrolls back to. This is the treatment out/pcba.glb already gets below.
+#
+# It settles only what is derivable. An untagged BOM row, an estimate off the labor
+# ladder, a §7 row with no print-rate group — each is a decision, not a copy, and the
+# --check gates after these still stop the commit on them.
+#
+# Only the named file is staged, and only when the sync itself moved it, so a commit
+# never sweeps up a neighbouring edit that happened to be dirty.
+sync() {
+  _name=$1; _file=$2; shift 2
+  _was=$(git -C "$root" hash-object "$_file" 2>/dev/null)
+  if _out=$("$@" 2>&1); then
+    _now=$(git -C "$root" hash-object "$_file" 2>/dev/null)
+    if [ "$_was" != "$_now" ]; then
+      git -C "$root" add "$_file"
+      echo "pre-commit: $_name — re-derived and staged:" >&2
+      echo "$_out" | head -6 | sed 's/^/    /' >&2
+    else
+      echo "pre-commit: $_name ✓" >&2
+    fi
+  else
+    echo "$_out" >&2
+    echo "pre-commit: $_name — could not re-derive (the gate below reports it)" >&2
+  fi
+}
+
+# ── 1. Ledger syncs, then 2. gates ────────────────────────────────────────
 # staged <pathspec…> — true when the commit stages anything under these paths.
 #
 # EVERY GATE IS KEYED TO EXACTLY THE FILES IT READS, plus its own script. A gate
@@ -94,27 +138,69 @@ for hw in $editions; do
     gate "$hw pin-map drift check" python3 "$root/$hw/scripts/check_pinmap.py"
   fi
 
-  # bom.md's own two gates: every row carries a known category tag, and the
-  # printed subtotals match the rows under them. The totals gate exists because
-  # they went stale twice inside two days — a row's cost moved and the ledger's
-  # own total disagreed with /cost, which sums the rows itself.
-  if staged "$hw/ledger/bom.md" "$hw/scripts/_bom_categories.py" "$hw/scripts/_bom_totals.py"; then
-    gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
-    gate "$hw bom totals" python3 "$root/$hw/scripts/_bom_totals.py" --check
+  # ── the ledger syncs, in the order the figures flow ─────────────────────
+  # §7's masses come off the parts' own solids; the section and grand totals sum the
+  # rows those masses price; the machine-hours ledger reads §7 to derive its print
+  # hours, and its turnaround from those. A mass that moves has to reach all three,
+  # so they run in that order and each sees the one before it.
+  bom_md="$root/$hw/ledger/bom.md"
+
+  touches_printed=false
+  git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
+
+  # bom.md §7 reads its masses off the parts' own solids, so a geometry change that
+  # lands without carrying its mass leaves the ledger quoting a part that is not the
+  # one that ships. The row and the STEP go in together. ~4 s, and it replaces the
+  # --check that used to cost the same and then ask for this run anyway.
+  bom_synced=false
+  if $touches_printed; then
+    if [ -x "$py" ]; then
+      sync "$hw bom printed masses" "$bom_md" "$py" "$root/$hw/scripts/_bom_masses.py"
+      bom_synced=true
+    else
+      echo "pre-commit: no cad-venv — $hw bom printed masses skipped" >&2
+    fi
   fi
 
-  # Attended-minute ledger: subtotals summed, and every estimate on the
-  # believable-increment ladder.
+  # The printed subtotals and the grand total sum the rows above them. They went
+  # stale twice inside two days — a row's cost moved and the ledger's own total
+  # disagreed with /cost, which sums the rows itself.
+  if $bom_synced || staged "$hw/ledger/bom.md" "$hw/scripts/_bom_totals.py"; then
+    sync "$hw bom totals" "$bom_md" python3 "$root/$hw/scripts/_bom_totals.py"
+  fi
+
+  # Attended-minute ledger: subtotals summed off the rows.
   if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
-    gate "$hw labor totals" python3 "$root/$hw/scripts/_labor_totals.py" --check
+    sync "$hw labor totals" "$root/$hw/ledger/labor.md" \
+         python3 "$root/$hw/scripts/_labor_totals.py"
   fi
 
-  # Machine-hours ledger. Keyed on bom.md too: it reads §7's masses to derive
-  # the print hours, so a printed part that changes shape moves this ledger, and
-  # a §7 row with no print-rate group has to fail here rather than vanish from
-  # the turnaround and throughput figures.
-  if staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" "$hw/scripts/_machine_time.py"; then
-    gate "$hw machine-time totals" python3 "$root/$hw/scripts/_machine_time.py" --check
+  # Machine-hours ledger, keyed on bom.md too: it reads §7's masses for the print
+  # hours, so a printed part that changes shape moves this ledger.
+  if $bom_synced || staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" \
+                           "$hw/scripts/_machine_time.py"; then
+    sync "$hw machine-time totals" "$root/$hw/ledger/machine-time.md" \
+         python3 "$root/$hw/scripts/_machine_time.py"
+  fi
+
+  # ── the gates on what a sync cannot settle ──────────────────────────────
+  # Every row carries a known category tag. There is no write mode: which section a
+  # new row belongs in is a decision, so this one only ever reports.
+  if staged "$hw/ledger/bom.md" "$hw/scripts/_bom_categories.py"; then
+    gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
+  fi
+
+  # An estimate off the believable-increment ladder — 30 or 45, never 37 — is a
+  # number someone has to choose, so the sync above leaves it standing.
+  if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
+    gate "$hw labor ladder" python3 "$root/$hw/scripts/_labor_totals.py" --check
+  fi
+
+  # A §7 row with no print-rate group fails here rather than vanishing from the
+  # turnaround and throughput figures. GROUP_OF is the decision the sync cannot make.
+  if $bom_synced || staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" \
+                           "$hw/scripts/_machine_time.py"; then
+    gate "$hw machine-time groups" python3 "$root/$hw/scripts/_machine_time.py" --check
   fi
 
   # Walks every .py under the edition for `raise SystemExit` in a lock-taking
@@ -122,19 +208,6 @@ for hw in $editions; do
   # express "*.py at any depth" portably — filter the staged list instead.
   if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
     gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
-  fi
-
-  touches_printed=false
-  git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
-  if $touches_printed; then
-    # bom.md §7 reads its masses off the parts' own solids. A geometry change that
-    # lands without carrying its mass leaves the ledger quoting a part that is not
-    # the one that ships — so the row and the STEP have to move together. ~4 s.
-    if [ -x "$py" ]; then
-      gate "$hw bom printed masses" "$py" "$root/$hw/scripts/_bom_masses.py" --check
-    else
-      echo "pre-commit: no cad-venv — $hw bom printed masses skipped" >&2
-    fi
   fi
 
   # No pack gate here. hardware/manifold-layout/front_half.py runs its own scorecard at
@@ -169,7 +242,7 @@ if not sc["gatesPass"]:
   fi
 fi
 
-# ── 2. GLB freshness (only worth doing when the commit will go through) ───
+# ── 3. GLB freshness (only worth doing when the commit will go through) ───
 if [ "$fail" -eq 0 ] && $touches_board && [ -f "$pcba/out/pcba.gerbers.zip" ]; then
   if [ ! -f "$pcba/out/pcba.glb" ] || [ "$pcba/out/pcba.gerbers.zip" -nt "$pcba/out/pcba.glb" ]; then
     if [ -x "$py" ]; then
