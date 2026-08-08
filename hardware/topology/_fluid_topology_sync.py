@@ -71,13 +71,22 @@ TOPOLOGY = _here / "fluid-topology.md"
 class Seg:
     """One fluid segment as the machine actually makes it.
 
-    `made` is what the chart's edge label says:
+    `made` is what the chart's edge label says, and it is ONE OF `_scorecard.MADE_AS`'S NAMES.
+    That table is the vocabulary: the card scores `routed` on it and this driver labels an edge
+    with it, so a word spelt out again here is a word the chart and the card come to disagree
+    over. `__post_init__` holds every segment to it.
+
+    What these charts draw of it:
 
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
+      `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
       `fold`     — one of the hinge's 180° hairpins, carrying a deck change.
       `turn`     — a quarter out of the deck plane and the step that follows it.
       `not drawn`— a mouth of the manifold study with nothing on the far end of it yet.
+
+    The table's remaining name is `mate`, a joint made up across a plane its two bodies already
+    share. That is how the refrigerant loop is built, and these charts draw fluid.
     """
 
     id: str
@@ -85,6 +94,14 @@ class Seg:
     made: str
     length: float = None  # mm of stock the segment cuts; None where nothing is drawn
     corners: int = 0
+
+    def __post_init__(self):
+        if self.made not in _scorecard.MADE_AS:
+            raise ValueError(
+                f"{self.id} is made {self.made!r}, which is no name in _scorecard.MADE_AS "
+                f"({', '.join(sorted(_scorecard.MADE_AS))}). That table is the one vocabulary "
+                f"the card and these charts share — a label written outside it is an edge the "
+                f"chart draws and the card's `routed` axis cannot count.")
 
     @property
     def label(self) -> str:
