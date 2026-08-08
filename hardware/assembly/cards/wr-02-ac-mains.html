@@ -15,8 +15,8 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Six runs in schedule order — and one gland, the only
-    mains penetration into the shroud.</p>
+    <p class="lede">Six runs in schedule order — and one jacketed lead,
+    the only mains that reaches the compressor.</p>
 
     <div class="safety"><span class="sign">&#9888;</span>
       <div><b>Dead bench</b> — the C14 stays off line until
@@ -27,23 +27,23 @@
     <ol class="steps">
       <li><b>AC-1 first</b> — land the long shelf pigtails on the C14's
         solder tabs; the inlet lands direct on the block.</li>
-      <li><b>Pre-build the shroud lead</b> —
+      <li><b>Pre-build the compressor lead</b> —
         <span class="dim">18 AWG</span> SJOOW &#215;3,
         <span class="dim">~400 mm</span>: H_switched + N + G in one
         jacket.</li>
-      <li><b>Gland it</b> — SS gland in the shroud side wall; the
-        <span class="dim">6–12 mm</span> clamping range takes the
-        jacket.</li>
-      <li><b>Fan out the last <span class="dim">~50 mm</span> inside</b> —
-        H_switched + N disconnects onto the spades; G to the foot
-        bond.</li>
+      <li><b>Run it whole to the compressor</b> — one jacket the length
+        of the run; the donor PTC module is already on the block, so
+        nothing is opened up to lay it in.</li>
+      <li><b>Fan out the last <span class="dim">~50 mm</span></b> —
+        H_switched + N disconnects onto the block's spades; G rings under
+        an M3 foot screw, on the bushing (WR-01).</li>
       <li><b>Shelf end:</b> H_switched on relay NO (fork), N at the N
         pole, G on the bus — ferrules at the block.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Tools</span>
-      ratcheting crimper (Faston die) · SS cable gland · multimeter
+      ratcheting crimper (Faston die) · 18 AWG SJOOW · multimeter
     </div>
   </div>
 
@@ -105,27 +105,27 @@
         <text class="sub" x="290" y="443" text-anchor="end">switched H</text>
         <text class="runid" x="412" y="390">AC-5</text>
         <text class="runid" x="660" y="395">AC-6</text>
-        <!-- gland sleeve across the three conductors -->
-        <rect x="275" y="490" width="215" height="60" rx="22" fill="#eef0f3" stroke="#1d1d26" stroke-width="3"/>
-        <text class="lbl" x="505" y="512">SS GLAND</text>
-        <text class="sub" x="505" y="540">jacket clamped</text>
-        <!-- shroud -->
+        <!-- one jacket over the three conductors -->
+        <rect x="275" y="450" width="215" height="52" rx="20" fill="#eef0f3" stroke="#1d1d26" stroke-width="3"/>
+        <text class="lbl" x="505" y="472">ONE JACKET</text>
+        <text class="sub" x="505" y="498">18 AWG SJOOW &#215;3</text>
+        <!-- the compressor -->
         <rect class="shd" x="60" y="520" width="660" height="140" rx="12"/>
-        <text class="sub" x="90" y="645">COMPRESSOR SHROUD</text>
+        <text class="sub" x="90" y="645">COMPRESSOR</text>
         <rect class="blk" x="200" y="560" width="330" height="70" rx="10"/>
         <text class="lbl" x="365" y="604" text-anchor="middle">TERMINAL BLOCK &#183; spades</text>
         <circle cx="620" cy="588" r="13" fill="none" stroke="#2e8540" stroke-width="6"/>
         <text class="sub" x="620" y="637" text-anchor="middle">foot bond</text>
       </svg>
-      <div class="cap"><b>One jacket, one gland, three conductors</b> —
-      the fan-out is the last ~50 mm inside; the donor PTC module is
-      already on the block.</div>
+      <div class="cap"><b>One jacket, three conductors, one body</b> —
+      the block, the PTC and the foot bond are all on the compressor
+      itself; the fan-out is the last ~50 mm.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>AC-1 through AC-6 landed, the gland tight on the jacket — the AC web is ready for its WR-03 cold check.</div>
+  <div class="done"><span class="lbl">Done when</span>AC-1 through AC-6 landed, the jacket unbroken from shelf to fan-out — the AC web is ready for its WR-03 cold check.</div>
   <div class="src">wiring.md &#167;2 &#183; ac-wiring-schedule.md "AC mains"<br>rev 2026-07-23</div>
 </footer>
 

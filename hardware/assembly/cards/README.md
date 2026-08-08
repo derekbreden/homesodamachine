@@ -187,8 +187,8 @@ One card per procedure step, in the procedure's own order.
 |---|---|
 | EN-01 | Stage the four printed pieces |
 | EN-02 | Seat the rear wall's connection bodies |
-| EN-03 | Shroud the compressor, then stand it on the floor |
-| EN-04 | Set the condenser's axis across the machine |
+| EN-03 | Bolt the compressor down to the slab |
+| EN-04 | Stand the condenser on the compressor's tangent |
 | EN-05 | Seat the cold core behind the stratum |
 | EN-06 | Stand the power column on the +X flank |
 | EN-07 | Close the box |
