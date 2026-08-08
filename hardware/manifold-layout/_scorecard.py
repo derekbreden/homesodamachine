@@ -151,11 +151,14 @@ def _split_placed(a) -> tuple:
 # `reference/ice-maker/README.md` and built in `assembly/refrigerant-loop.md`. The drier and
 # the capillary tube ride the condenser → evaporator leg.
 #
-# NO LINE IS DRAWN FOR ANY OF THE THREE. Each joint crosses a plane two of its bodies already
-# share, so both of its stations are one point read twice and the copper between them is the
-# length of the union — `front_half.refrigerant_joints` measures all three at every build and
-# `check_refrigerant_joints` fails the build when one opens. `load_connections` takes that
-# reading, and the joints are MATED rather than owed.
+# THESE THREE IDS ARE THE LOOP'S WHOLE POPULATION, and `front_half.REFRIGERANT_IDS` is this
+# tuple: the gate that measures the loop and the goal that counts it read one list, so a
+# connection cannot go quiet on one while the other still owes it. A joint made by MATING
+# crosses a plane two of its bodies already share, so both of its stations are one point read
+# twice and the copper between them is the length of the union — `front_half.refrigerant_joints`
+# takes that reading over all three at every build, `check_refrigerant_joints` reads red for any
+# that stands open or has no pair of placed stations to measure, and `load_connections` counts
+# as MATED only the ones that shut.
 REFRIGERANT_SEGMENTS = (
     ("refrig-1", "compressor discharge", "condenser+fan inlet"),
     ("refrig-2", "condenser+fan outlet (drier + cap tube)", "foam-assembly evaporator inlet"),
@@ -387,13 +390,14 @@ def load_connections(runs, joints=()) -> list[Connection]:
     pack carries that construction's own name, and what is left is owed. A run that `_routing`
     could not draw as asked carries the shortfall with it.
 
-    `joints` is `front_half.refrigerant_joints`' own reading, `(id, from, to, mm apart)` a joint,
-    and a connection it names is MATED: its two mouths are one point read twice across a plane
-    its bodies already share, so there is no line to draw and nothing left to route. The
-    measurement rides the row. Nothing here re-tests it — `front_half.check_refrigerant_joints`
-    fails the build above its own tolerance, so a joint that reaches this table has closed — and
-    a card built without the reading counts none of them, which is the honest default: an
-    assembly nobody measured holds no path anybody has seen.
+    `joints` is `front_half.refrigerant_mates` — the joints that CLOSED, `(id, from, to, mm
+    apart)` apiece — and a connection it names is MATED: its two mouths are one point read twice
+    across a plane its bodies already share, so there is no line to draw and nothing left to
+    route. The measurement rides the row. Nothing here re-tests it: `front_half` takes the
+    reading over the whole loop and hands on only what its own tolerance shut, so a joint that
+    stands open or was never measured is still owed here and reads red on its own gate. A card
+    built without the reading counts none of them, which is the honest default: an assembly
+    nobody measured holds no path anybody has seen.
 
     The wiring schedule is not here. It is a separate axis and nothing in this pack routes a
     conductor yet, so counting it would only bury the tube reading this card is for."""
@@ -572,7 +576,7 @@ def _verdict(ok: bool) -> str:
 
 def _bounds(a) -> list:
     """One gate per bound the machine states about itself and measures at every build — the
-    refrigerant loop closing on the plane its two bodies share, the vent's drip landing on
+    every leg of the refrigerant loop closing, the vent's drip landing on
     the basin's flat, the drip tray's lip landing inside the −X wall, a through-wall body
     standing under the ceiling, a printed valve cradle standing under its valve, and the
     enclosure's own: the pack inside the stated width, depth and height, the two seam planes
@@ -1249,9 +1253,11 @@ def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
     # `front_half` measures the refrigerant loop's joints the moment its bodies are placed, and
-    # the reading rides each row: a joint that has opened is a `refrigerant-joints` gate row of
-    # its own here, and the millimetres it stands apart print beside the segment it makes.
-    conns = load_connections(runs, getattr(a, "refrigerant", ()))
+    # the CLOSED ones ride each row: the millimetres a shut joint stands apart print beside the
+    # segment it makes. A joint standing open, or one with no reading at all, is copper the
+    # machine owes — it stays in `routed`'s owed column and reads red on `refrigerant-joints`,
+    # rather than counting as made because somebody looked at it.
+    conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
     clearances = part_clearances(a, runs)

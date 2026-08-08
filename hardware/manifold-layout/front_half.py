@@ -9,14 +9,14 @@ Four bodies, mated face to face with nothing between them:
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
                         plane the front half ends at
 
-The gaps are 0 by intent, and the mating is what closes the refrigerant loop. The compressor
-is an oblong can whose two stubs stand on its own tangent lines; the condenser is an
-envelope whose serpentine headers are re-dressed to reach whichever face is convenient; the
-cold core's front wall has a lane on each side of it and each lane carries one of the
-evaporator's coppers. So all three of the loop's joints cross a plane two of these bodies
-already share, both stations of each are ONE POINT READ TWICE, and no copper is drawn between
-any two of them — `refrigerant_joints` measures all three at every build and
-`check_refrigerant_joints` fails the build when one opens.
+The gaps are 0 by intent, and where a mating closes a leg of the refrigerant loop no copper is
+drawn between the two bodies: the compressor is an oblong can whose two stubs stand on its own
+tangent lines, and the condenser is an envelope whose serpentine headers are re-dressed to
+reach whichever face is convenient, so that joint crosses a plane the two already share and
+both of its stations are ONE POINT READ TWICE. `refrigerant_joints` takes the reading over the
+whole loop at every build — `REFRIGERANT_IDS` is the card's own population — and
+`check_refrigerant_joints` reads red for any leg standing open and for any leg with no pair of
+placed stations to measure.
 
 Frame
 -----
@@ -120,6 +120,11 @@ import teyleten_relay as _relay                        # noqa: E402
 import ground_ring_stack as _gnd                       # noqa: E402
 import pcba_tray as _pcba                              # noqa: E402
 import ac_hub as _hub                                  # noqa: E402
+# The card's own declaration of what the machine owes. Imported for one table —
+# `REFRIGERANT_SEGMENTS`, the loop's whole population — so the gate that measures the loop and
+# the goal that counts it are populated from ONE list. `_scorecard` reads this module only off
+# a built assembly, never by import, so the arrow points one way.
+import _scorecard as _card                             # noqa: E402
 
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
@@ -374,8 +379,8 @@ def cap_face(foam):
 # --- the bounds the machine states about itself -----------------------------
 #
 # Several constructions in this module measure a bound the MACHINE STATES rather than a bound
-# its own construction meets: every printed valve cradle stands under its valve, the refrigerant
-# loop closes across planes its three bodies share, the vent's drip lands on the basin's flat
+# its own construction meets: every printed valve cradle stands under its valve, every leg of
+# the refrigerant loop closes, the vent's drip lands on the basin's flat
 # floor, the basin's west lip lands inside the −X wall, and a body seated through a wall stands
 # under the box's own ceiling. `enclosure` states more of them about the box it draws and keeps
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
@@ -495,29 +500,31 @@ def check_cradles(rows) -> Bound:
             for n, w, lying in bad])))
 
 
-# --- The refrigerant loop's three joints ------------------------------------
+# --- The refrigerant loop's joints -------------------------------------------
 #
-# The sealed loop is the one circuit in the machine with NO TUBE DRAWN FOR IT, and that is
-# the arrangement rather than an omission: each of its three joints crosses a plane two
-# bodies already share — the compressor against the condenser, the condenser against the cold
-# core, the compressor against the same core at the other flank — so both of a joint's stations
-# are ONE POINT READ TWICE and the copper between them is the length of the union.
-#
-# Each end is a penetration its own module declares: `compressor.stations()`,
-# `condenser_block.stations()`, `copper_plugs.slot_stations()`. Nothing here restates a
-# coordinate; what this holds is that the two readings land together, and `_joints_hold`
-# fails the build when one opens, because a station that has drifted is copper drawn in the
-# open and no other gate on this pack would say so.
-REFRIGERANT_JOINTS = (
-    ("refrig-1", "compressor.refrig-discharge", "condenser+fan.refrig-inlet"),
-)
+# A joint made by MATING has no tube drawn for it: it crosses a plane two bodies already
+# share, so both of its stations are ONE POINT READ TWICE and the copper between them is the
+# length of the union. Each end is a penetration its own module declares —
+# `compressor.stations()`, `condenser_block.stations()`, `copper_plugs.slot_stations()` — and
+# nothing here restates a coordinate; what this table holds is that the two readings land
+# together, because a station that has drifted is copper drawn in the open and no other gate
+# on this pack would say so.
+MATED_JOINTS = {
+    "refrig-1": ("compressor.refrig-discharge", "condenser+fan.refrig-inlet"),
+}
+# THE READING IS TAKEN OVER THE WHOLE LOOP AND NOT OVER THAT TABLE. The loop's population is
+# the card's own — `_scorecard.REFRIGERANT_SEGMENTS`, the same three connections `routed`
+# counts — so a joint with no pair above, or one whose stations are not both placed, comes back
+# UNMEASURED and reads red. A circuit cannot go quiet on this gate by leaving one table while
+# another still carries it.
+REFRIGERANT_IDS = tuple(cid for cid, _f, _t in _card.REFRIGERANT_SEGMENTS)
 # How far apart a joint's two stations may stand. It is import and boolean noise and nothing
 # else: both are struck on one plane, so anything above this is a station that moved.
 JOINT_TOL = 0.05
 
 
 def refrigerant_stations(carries: dict) -> dict:
-    """Every station the loop's three joints are made on, in world, keyed `body.port`.
+    """Every station a mated joint of the loop is made on, in world, keyed `body.port`.
 
     `carries` is the placement each body was seated by, so a station is its own module's
     table taken through the move the metal took."""
@@ -532,21 +539,43 @@ def refrigerant_stations(carries: dict) -> dict:
 
 
 def refrigerant_joints(carries: dict) -> list:
-    """Each joint as `(id, from, to, mm apart)` — the measurement, taken at every build."""
+    """Every connection the loop is, as `(id, from, to, mm apart)` — the measurement, taken at
+    every build over `REFRIGERANT_IDS` and not over `MATED_JOINTS`.
+
+    A joint the machine does not make by mating carries `None` for both stations, and one whose
+    stations are not both placed carries them with `None` for the distance. Either way the row
+    is UNMEASURED, which is a reading and not an absence: the connection is still owed and the
+    gate still has to account for it."""
     at = refrigerant_stations(carries)
-    return [(cid, a, b, math.dist(at[a][0], at[b][0])) for cid, a, b in REFRIGERANT_JOINTS]
+    out = []
+    for cid in REFRIGERANT_IDS:
+        a, b = MATED_JOINTS.get(cid, (None, None))
+        gap = math.dist(at[a][0], at[b][0]) if a in at and b in at else None
+        out.append((cid, a, b, gap))
+    return out
+
+
+def refrigerant_mates(joints) -> list:
+    """The joints that CLOSED, in the same shape — what `_scorecard.load_connections` may count
+    as made without a line drawn for it. A joint standing open is copper the machine owes, so it
+    belongs with the connections still to route and not with the ones already mated."""
+    return [j for j in joints if j[3] is not None and j[3] <= JOINT_TOL]
 
 
 def check_refrigerant_joints(joints) -> Bound:
-    """How far each of the loop's three joints stands open. A joint over `JOINT_TOL` is a
-    length of copper the machine owes and nothing draws — two stations that were one point on a
-    shared plane, no longer on it."""
-    open_ = [j for j in joints if j[3] > JOINT_TOL]
-    widest = max((j[3] for j in joints), default=0.0)
+    """How far each of the loop's joints stands open, over the whole loop. A joint over
+    `JOINT_TOL` is a length of copper the machine owes and nothing draws — two stations that
+    were one point on a shared plane, no longer on it. A joint with no reading at all is the
+    same debt with nothing measuring it, so it reads the same way."""
+    open_ = [j for j in joints if j[3] is not None and j[3] > JOINT_TOL]
+    blind = [j for j in joints if j[3] is None]
+    shut = [j for j in joints if j[3] is not None and j[3] <= JOINT_TOL]
+    widest = max((j[3] for j in joints if j[3] is not None), default=0.0)
     return record_bound(Bound(
         "refrigerant-joints", "The refrigerant loop closes on the planes its bodies share",
-        not open_,
-        f"{len(joints) - len(open_)}/{len(joints)} closed, widest {widest:.3f} mm",
+        not open_ and not blind,
+        f"{len(shut)}/{len(joints)} closed, {len(blind)} unmeasured, "
+        f"widest measured {widest:.3f} mm",
         f"every joint within {JOINT_TOL:g} mm",
         ([] if not open_ else [
             "the refrigerant loop is made up across the planes its bodies already share, and "
@@ -554,7 +583,17 @@ def check_refrigerant_joints(joints) -> Bound:
                         for cid, a, b, gap in open_)
             + f" — over the {JOINT_TOL:g} mm a shared plane leaves. That distance is copper "
               f"drawn in the open between two bodies with nothing between them: move the "
-              f"station that shifted back onto the one it is read against."])))
+              f"station that shifted back onto the one it is read against."])
+        + ([] if not blind else [
+            "the loop owes "
+            + ", ".join(cid for cid, _a, _b, _g in blind)
+            + f" and nothing on this pack measures {'them' if len(blind) > 1 else 'it'}: "
+              f"`MATED_JOINTS` names no pair of stations for "
+              f"{'those ids' if len(blind) > 1 else 'that id'}, or a station it names is not "
+              f"placed. `routed` counts the same {len(joints)} connections "
+              f"(`_scorecard.REFRIGERANT_SEGMENTS`), so {len(blind)} of {len(joints)} legs of "
+              f"the circuit have no reading rather than the circuit having fewer joints — give "
+              f"each the two stations it is made on, or the run that draws it."])))
 
 
 def cap_conduit(name: str):
@@ -1641,7 +1680,11 @@ def build_pack() -> cq.Assembly:
     refrig_carries = {"compressor": comp_carry, "condenser+fan": cond_carry,
                       "foam-assembly": foam_carry}
     a.refrigerant_at = refrigerant_stations(refrig_carries)
+    # The whole loop's reading rides the assembly, and the closed subset of it rides beside:
+    # the gate accounts for every connection, and the card counts as MADE only the ones a
+    # shared plane actually shut.
     a.refrigerant = refrigerant_joints(refrig_carries)
+    a.refrigerant_mates = refrigerant_mates(a.refrigerant)
     check_refrigerant_joints(a.refrigerant)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
@@ -2012,6 +2055,10 @@ def report(a: cq.Assembly) -> None:
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "
           f"gap {fo.ymin - base_aft:.2f}")
     for cid, frm, to, gap in getattr(a, "refrigerant", []):
+        if gap is None:
+            print(f"  {cid:16} {'—':16}    {'—':16} "
+                  f"{'':26}  unmeasured — no pair of placed stations")
+            continue
         p = a.refrigerant_at[frm][0]
         print(f"  {cid:16} {frm.split('.')[1]:16} on {to.split('.')[1]:16} "
               f"({p[0]:7.2f},{p[1]:7.2f},{p[2]:6.2f})  gap {gap:.3f}")
