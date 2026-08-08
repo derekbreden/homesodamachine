@@ -229,7 +229,7 @@ MOUNTS = (
     ("drip-pan", None, "rails"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
-    ("vk-solenoid", None, "cap"),
+    ("vk-solenoid", "foam-assembly", "cradle"),
     ("bulkhead-water", None, "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("co2-inlet", None, "wall-capture"),
@@ -240,6 +240,18 @@ MOUNTS = (
     ("bulkhead-carb", None, "wall-capture"),
     ("digiten-flow", None, "none"),
 )
+
+
+# THE PACK'S OWN BODIES A PRINTED FEATURE FASTENS. Everything else in the pack rides the pack:
+# `pack_mounts` types no row, so a body that gains a joint is named here and nowhere else.
+#   The cold core's cap lid prints a cradle under each valve that stands on it
+# (`_cold_core_interface.cap_cradles`), and the valve's four corner posts press into it. The
+# cap is inside `foam-assembly`, which is the placed body the cradle is a feature of, so that
+# is what fastens them — the same way a wall boss fastens the power column.
+PACK_MOUNTS = {
+    "valve-v-a": ("foam-assembly", "cradle"),
+    "valve-v-b": ("foam-assembly", "cradle"),
+}
 
 
 def pack_mounts() -> tuple:
@@ -254,7 +266,8 @@ def pack_mounts() -> tuple:
 
     Derived rather than typed, so the ten valves, their coils, the two pumps and the junction
     tees ride whatever the pack does next."""
-    return tuple((name, None, "pack") for name in sorted(pack_bodies()))
+    return tuple((name, *PACK_MOUNTS.get(name, (None, "pack")))
+                 for name in sorted(pack_bodies()))
 
 
 def mounts() -> tuple:
@@ -299,6 +312,13 @@ TOUCHING_OK = {frozenset(p) for p in (
     # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "seaflo-pump"),
     ("foam-assembly", "psu"),
+    # THE THREE VALVES IN THE CAP'S OWN CRADLES. A press fit is a contact by construction: the
+    # cell's sockets take the valve's four corner posts on `single_tray.socket_clearance` and
+    # its round boss lands on the pad top, so the pair reads 0 and it is the joint working.
+    # `front_half.check_cradles` is what holds each of them over its own cradle.
+    ("foam-assembly", "vk-solenoid"),
+    ("foam-assembly", "valve-v-a"),
+    ("foam-assembly", "valve-v-b"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 

@@ -194,7 +194,11 @@ def add_cradles(lid, face_z):
     for name, station in cap_cradles.items():
         pad = build_cradle(station)
         (cx, cy) = station.centre
-        pad = (pad.rotate((0, 0, 0), (0, 0, 1), station.yaw)
+        # A STATION'S YAW IS ITS PORT AXIS OFF THE CAP'S +X, and the family draws a cell with
+        # its port axis on the cell's own +Y — so the turn that lands one on the other is a
+        # quarter less than the yaw. Get this wrong and the saddle runs across the port instead
+        # of along it, which is a trough in the wrong direction and a pad through the valve.
+        pad = (pad.rotate((0, 0, 0), (0, 0, 1), station.yaw - 90.0)
                   .translate((cx, cy, face_z + station.seat)))
         cradles = pad if cradles is None else cradles.union(pad)
     return (lid if cradles is None else lid.union(cradles)), cradles
