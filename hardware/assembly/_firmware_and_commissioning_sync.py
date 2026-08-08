@@ -11,7 +11,12 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from docgen import substitute_md
+_hw = next(p for p in _here.parents if p.name == "hardware")
+sys.path.insert(0, str(_hw / "manifold-layout"))
+sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
+
+import manifold_layout as _ml  # noqa: E402  — the manifold's own station census
+from docgen import substitute_md  # noqa: E402
 
 
 # ─── ESP32 pin assignments ────────────────────────────────────────────
@@ -35,7 +40,12 @@ reed_high_loc = "0x21 PB5"  # Carbonator reed high (full threshold)
 
 # ─── Sensor inventory ─────────────────────────────────────────────────
 
-valve_count = 10            # Beduan solenoids: 8 on 0x20 + 2 on 0x21 (PA[4:5] spare) → TBD62083 U4/U5
+# The Beduan solenoids the firmware drives, off the manifold that stands them: one
+# V- station is one valve, and it is the same census `_cards_ip` puts on IP-03 and
+# `_internal_plumbing_sync` puts in the procedure's parts table. HOW they divide
+# across the two expanders — 8 on 0x20 + 2 on 0x21 (PA[4:5] spare) → TBD62083 U4/U5 —
+# is the pin map's, and `check_pinmap.py` is what holds that against the board.
+valve_count = sum(1 for _n in _ml.P if _n.startswith("V-"))
 reservoir_count = 2         # Flavor reservoirs (A + B)
 reeds_per_reservoir = 4     # Float-rod reeds per reservoir
 reeds_carbonator = 2        # Carbonator low + high reeds
