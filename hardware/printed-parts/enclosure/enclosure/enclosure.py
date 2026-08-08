@@ -238,11 +238,16 @@ boss_in = head_cbore_depth + screw_len + socket_cap - wall
 lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 
 # The appliance's stated HEIGHT — floor slab's underside (z = −wall) to the top
-# wall's outer face. Unlike the width this is not read off anything: it is the
-# machine's silhouette, the one dimension a counter appliance is judged by before it
-# is opened, and this is the number the thin machine is FOR. The contents live under
-# it; `_dims` raises if they cannot.
+# wall's outer face. It is the machine's silhouette, the one dimension a counter
+# appliance is judged by before it is opened, and this is the number the thin machine
+# is FOR. The contents live under it; `_dims` raises if they cannot.
 appliance_height = 358.0
+# The stated WIDTH — ±X outer faces, struck symmetric about x = 0, which is the axis
+# the whole pack is centred on. A body that leaves the floor, or a narrower one taking
+# its place, does not make the machine narrower; a pack that outgrows this fails the
+# build. The ±X walls still stand one `side_rib_inset` off the widest body on the
+# floor — that is what the check measures, rather than what the wall follows.
+appliance_width = 223.0
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
 # and a pack that outgrows this plane fails the build instead of quietly resizing the
@@ -709,20 +714,26 @@ def _dims(pack):
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
-    # WIDTH — the appliance's headline dimension, and the whole point of the yaw.
-    # The ±X walls stand one boss chain off the WIDEST BODY ON THE FLOOR, not against
-    # it: a body standing on the slab spans the interior wall to wall, so a wall on its
-    # face leaves the seam machinery — corner posts, boss chains, Z-seam pods — nowhere
-    # to stand. Held off by their own reach, every one of them seats at full section and
-    # the body seats flush against them instead of against the wall.
+    # WIDTH — the appliance's headline dimension, and the whole point of the yaw. Stated
+    # as `appliance_width` and struck symmetric about x = 0, the axis the pack is centred
+    # on, the same way depth is `rear_plane_y` and height is `appliance_height`.
     #
-    # Which body that is comes out of the pack: the mated compressor shroud and condenser
-    # reach wider than the cold core, and the core's own short axis is across the machine
-    # only because `front_half.FOAM_YAW` turned it there. Anything standing clear of the
-    # slab is above the ±X bands' floor stations and needs only its own clearance.
+    # What the pack still has to earn is the clearance: a body standing on the slab spans
+    # the interior wall to wall, so a wall on its face leaves the seam machinery — corner
+    # posts, boss chains, Z-seam pods — nowhere to stand. Every floor body is held off by
+    # one `side_rib_inset` so each of those seats at full section, and the body seats flush
+    # against them instead of against the wall. Anything standing clear of the slab is above
+    # the ±X bands' floor stations and needs only its own clearance.
     floor = [b for b in bbs if b.zmin < wall + 1e-6] or bbs
-    ix0 = min(cxmin - interior_clearance, min(b.xmin for b in floor) - side_rib_inset)
-    ix1 = max(cxmax + interior_clearance, max(b.xmax for b in floor) + side_rib_inset)
+    ix0, ix1 = -(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall
+    wide_need = max(max(b.xmax for b in floor) + side_rib_inset,
+                    -(min(b.xmin for b in floor) - side_rib_inset),
+                    cxmax + interior_clearance, -(cxmin - interior_clearance))
+    if wide_need > ix1 + 1e-9:
+        raise ValueError(
+            f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
+            f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
+            f"repack inboard")
     # The FRONT wall stands one wall off the pack, for the same kind of reason
     # the ±X walls stand a boss chain off the widest floor body: a lip missing a side
     # is a butt joint over that run — nothing registering the two pieces, nothing
