@@ -87,7 +87,7 @@ len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, DC-5 pigtail
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), LV-1/2/3, DC-4, DC-6/DC-7 valve fan-outs, SIG-4
 len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to the peristaltic pumps
 len_manifold_mm = 300   # DC-6/DC-7 (shelf → manifold trunks), SIG-8 (MPR121 at the sleeves)
-len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor through grommet), DC-8 (shelf → side-wall fan)
+len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor on the unbroken SJOOW jacket), DC-8 (shelf → side-wall fan)
 len_cold_core_mm = 600  # SIG-1/2/3/10/11 (shelf → cold core), SIG-9 (drip pan), SIG-12 (rear cabinet floor)
 len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (front-face 4.3B config display, internal)
 
