@@ -591,13 +591,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,629.64](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,331.64](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$30,237.56](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,087.51](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$30,939.56](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,087.62](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$32,367.96](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$33,070.07](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -610,7 +610,7 @@ ACQUIRED hardware by section:
 | 5 | Flavor subsystem | [$1,175.20](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$208.03](LEDGER_SEC8) |
+| 8 | Electronics — controllers | [$910.03](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$953.67](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
