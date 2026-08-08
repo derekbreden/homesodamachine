@@ -12,7 +12,9 @@ Coordinate frame
   `FACE_B` on Z, the standing serpentine's two large faces. The fan is on the face its air
   leaves by.
 - The MOUNT is one vertical line through the body: a Ø5 hole in the base plate, a Ø5 hole
-  in the crown plate, and a 16 x 20 shaft between them running the full standing height.
+  in the crown plate, and a 16 x 20 slot between them running the full standing height.
+  The slot OPENS ON THE AFT FACE rather than standing sealed inside the block — it eats
+  that face, so a driver reaches both holes from behind.
   It stands 29 in from the INTAKE face and 15 in from the AFT face. The machine currently
   sets the block down unturned (`front_half.build_condenser`), so those two read as the
   world's X− and Y+ faces at this pose.
@@ -52,8 +54,8 @@ PLATE_T = 0.4         # the sheet the two holes are drilled in, at base and at c
 MOUNT_D = 5.0         # the holes themselves
 MOUNT_IN_INTAKE = 29.0  # hole centre, in from the INTAKE face (x = 0)
 MOUNT_IN_AFT = 15.0     # hole centre, in from the AFT face (y = FACE_A)
-SHAFT_X = 16.0        # the shaft between the two plates, on the AIRFLOW axis
-SHAFT_Y = 20.0        #   and on FACE_A's
+SHAFT_X = 16.0        # the slot between the two plates, on the AIRFLOW axis
+SHAFT_Y = 20.0        #   and how far it reaches IN from the AFT face, which it opens on
 SHAFT_Z = FACE_B - 2.0 * PLATE_T   # 150.2 — the standing height less a plate at each end
 
 
@@ -68,7 +70,7 @@ def build():
     either end of that shaft."""
     x, y = mount_xy()
     block = cq.Workplane("XY").box(AIRFLOW, FACE_A, FACE_B, centered=(False, False, False))
-    shaft = (cq.Workplane("XY", origin=(x, y, PLATE_T))
+    shaft = (cq.Workplane("XY", origin=(x, FACE_A - SHAFT_Y / 2.0, PLATE_T))
              .rect(SHAFT_X, SHAFT_Y).extrude(SHAFT_Z))
     bore = cq.Solid.makeCylinder(MOUNT_D / 2.0, FACE_B,
                                  cq.Vector(x, y, 0.0), cq.Vector(0, 0, 1))
@@ -80,7 +82,7 @@ def build():
 # the face it names, and moves with that face.
 #
 # The two refrigerant ones are struck on the NEIGHBOUR that stands against the face they
-# take, not on anything about the block: the inlet on the compressor shroud's discharge
+# take, not on anything about the block: the inlet on the compressor's discharge
 # stub, which crosses the plane the two share at mid-height and a quarter of the way down
 # the depth; the outlet on the cold core's evaporator-inlet station, which crosses the
 # plane behind the block on that core's own port lane. Both are one point read twice, and
@@ -110,16 +112,25 @@ def mounts_hold():
     both holes inside that shaft, the sheet at either end left at its own thickness, and
     material or air where each of those puts it."""
     x, y = mount_xy()
-    for ax, at, half, span in (("x", x, SHAFT_X / 2.0, AIRFLOW),
-                               ("y", y, SHAFT_Y / 2.0, FACE_A)):
-        if not (0.0 < at - half and at + half < span):
-            raise ValueError(
-                f"condenser mount shaft reaches {at - half:g}..{at + half:g} on {ax} and the "
-                f"block's own face runs 0..{span:g} — the shaft has broken out of the block.")
-        if half - MOUNT_D / 2.0 <= 0.0:
-            raise ValueError(
-                f"the Ø{MOUNT_D:g} hole is {MOUNT_D / 2.0 - half:g} wider than its own shaft "
-                f"on {ax} — the hole is cutting the shaft's wall rather than the plate.")
+    if not (0.0 < x - SHAFT_X / 2.0 and x + SHAFT_X / 2.0 < AIRFLOW):
+        raise ValueError(
+            f"the slot reaches {x - SHAFT_X / 2.0:g}..{x + SHAFT_X / 2.0:g} on x and the "
+            f"block's own face runs 0..{AIRFLOW:g} — it has broken out of the block's flanks.")
+    if SHAFT_X / 2.0 - MOUNT_D / 2.0 <= 0.0:
+        raise ValueError(
+            f"the Ø{MOUNT_D:g} hole is {MOUNT_D / 2.0 - SHAFT_X / 2.0:g} wider than its own "
+            f"slot on x — the hole is cutting the slot's wall rather than the plate.")
+    # The slot OPENS ON THE AFT FACE — it is reached from behind, not sealed inside the block —
+    # so what holds on Y is that it reaches that face and that the hole falls inside its depth.
+    if not (FACE_A - SHAFT_Y < y < FACE_A):
+        raise ValueError(
+            f"the mount hole stands at y {y:g} and the slot runs {FACE_A - SHAFT_Y:g}..{FACE_A:g} "
+            f"in from the aft face — the hole is not inside the slot it is drilled at the end of, "
+            f"so nothing reaches the fastener.")
+    if y + MOUNT_D / 2.0 > FACE_A or y - MOUNT_D / 2.0 < FACE_A - SHAFT_Y:
+        raise ValueError(
+            f"the Ø{MOUNT_D:g} hole at y {y:g} runs past the slot's own "
+            f"{FACE_A - SHAFT_Y:g}..{FACE_A:g} — it is cutting the slot's end wall.")
     if SHAFT_Z + 2.0 * PLATE_T - FACE_B:
         raise ValueError(
             f"shaft {SHAFT_Z:g} and two {PLATE_T:g} plates come to "
@@ -131,9 +142,10 @@ def mounts_hold():
               ("base hole", (x, y, PLATE_T / 2.0), False),
               ("crown hole", (x, y, FACE_B - PLATE_T / 2.0), False),
               ("shaft", (x, y, FACE_B / 2.0), False),
-              ("shaft corner", (x + SHAFT_X / 2.0 - 0.5, y + SHAFT_Y / 2.0 - 0.5,
-                                FACE_B / 2.0), False),
-              ("body beside the shaft", (x + SHAFT_X, y, FACE_B / 2.0), True)]
+              ("slot at the aft face", (x, FACE_A - 0.5, FACE_B / 2.0), False),
+              ("slot's inner end", (x, FACE_A - SHAFT_Y + 0.5, FACE_B / 2.0), False),
+              ("body ahead of the slot", (x, FACE_A - SHAFT_Y - 2.0, FACE_B / 2.0), True),
+              ("body beside the slot", (x + SHAFT_X, y, FACE_B / 2.0), True)]
     for name, (px, py, pz), want_material in probes:
         state = BRepClass3d_SolidClassifier(solid.wrapped, gp_Pnt(px, py, pz), 1e-3).State()
         if (state == 0) != want_material:
@@ -171,7 +183,7 @@ def selftest():
     return ["  all three penetrations stand on the block's own faces",
             f"  the mount is one Ø{MOUNT_D:g} line at {mount_xy()}, through "
             f"{PLATE_T:g} of plate at each end of a {SHAFT_X:g} x {SHAFT_Y:g} x "
-            f"{SHAFT_Z:g} shaft"]
+            f"{SHAFT_Z:g} slot that opens on the aft face"]
 
 
 def main():
@@ -181,8 +193,8 @@ def main():
     for name, (pos, axis) in {**stations(), **mounts()}.items():
         print(f"  {name:15s} {tuple(round(c, 2) for c in pos)}  out {axis}")
     x, y = mount_xy()
-    print(f"  shaft           x[{x - SHAFT_X / 2:.1f}, {x + SHAFT_X / 2:.1f}] "
-          f"y[{y - SHAFT_Y / 2:.1f}, {y + SHAFT_Y / 2:.1f}] "
+    print(f"  slot            x[{x - SHAFT_X / 2:.1f}, {x + SHAFT_X / 2:.1f}] "
+          f"y[{FACE_A - SHAFT_Y:.1f}, {FACE_A:.1f}] open on the aft face "
           f"z[{PLATE_T:.1f}, {FACE_B - PLATE_T:.1f}]  {SHAFT_X:g} x {SHAFT_Y:g} x {SHAFT_Z:g}")
 
 
