@@ -1,13 +1,14 @@
 # PCBA tray (controller-board mount)
 
 **This tray does not ship.** In the appliance the controller PCBA bolts straight
-to four boss columns of the cold core's top foam cap — the same mount, one part
-earlier, with no floor between the board and the cap. The stations are the cap's
-([`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py)),
-and `pcba-board.step` is the body the enclosure assembly carries. What lives here
-is the board datum every one of those mounts is derived from — the outline, the
-MH1–MH4 rectangle, the thickness, and the component heights read off the fab
-model — plus the tray itself as bench geometry.
+to four printed bosses on the enclosure's +X wall — the same mount, one part
+earlier, with no floor between the board and the wall. The stations are struck off
+the board's own MH1–MH4 pattern and carried through its placement
+([`front_half.wall_mounts`](/hardware/manifold-layout/front_half.py)), and
+`pcba-board.step` is the body the machine carries. What lives here is the board
+datum every one of those mounts is derived from — the outline, the MH1–MH4
+rectangle, the thickness, and the component heights read off the fab model — plus
+the tray itself as bench geometry.
 
 Built by the shared
 [`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine:

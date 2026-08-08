@@ -2,9 +2,9 @@
 
 The opto-isolated **1-channel relay module** (`hardware/ledger/bom.md` §1, Amazon
 B07XGZSYJV), used **2× per appliance**: relay #1 switches the compressor's
-120 VAC hot leg, relay #2 gates 12 V to the SeaFlo diaphragm pump. Relay #1 sits
-on four deck-mount columns of the cold core's top foam cap, in the strip between
-the board and the PSU; relay #2 has no station yet (see
+120 VAC hot leg, relay #2 gates 12 V to the SeaFlo diaphragm pump. Relay #1 bolts
+through its PCB's four holes to four printed bosses on the enclosure's +X wall,
+stacked over the PSU's crown; relay #2 has no station yet (see
 [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) Open items).
 SRD-style SPDT relay, 10 A @ 250 VAC; 3.3 V coil.
 

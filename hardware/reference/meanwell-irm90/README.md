@@ -3,9 +3,10 @@
 The appliance's 12 V supply (`hardware/ledger/bom.md` §1): an encapsulated
 **12 V / 6.7 A, ~80 W** AC-DC power module, screw-terminal ("ST") variant. It is
 the heaviest item on the [electronics shelf](/hardware/assembly/electronics-shelf.md)
-and its AC→DC anchor — AC mains in on one end, the 12 V bus out the other. Its
-potted base lies flat on the top foam cap's lid, on four of the cap's own
-deck-mount columns.
+and its AC→DC anchor — AC mains in on one end, the 12 V bus out the other. It is
+turned so its potted base — its own mounting plane, carrying its four holes — faces
+the enclosure's +X wall, and bolts to four printed bosses reaching in off it. Its
+feet stand on the top foam cap's lid.
 
 `meanwell-irm90.step` is a generated stand-in for layout, not the real potted
 module. Geometry is from the official Mean Well IRM-90-SPEC mechanical drawing
