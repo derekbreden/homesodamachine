@@ -2,10 +2,10 @@
 
 `cq.Shape.BoundingBox()` runs `BRepBndLib.AddOptimal` — an exact, mesh-based box
 that costs ~0.2 s on a pack solid, and CadQuery's own source calls "expensive".
-The placed solids are memoized (`_contents.build`, `panel_bodies`,
-`placed_funnel`) and never mutate, so their optimal boxes are fixed too. The
-consumers that scan the pack — the port frame and front-wall inset
-(`_contents`), the enclosure sizing (`enclosure._dims`), each routing `Frame`
+The placed solids come out of one `front_half.build_front_half()` and never
+mutate, so their optimal boxes are fixed too. The consumers that scan the pack —
+the enclosure's sizing and its Z joints (`enclosure._dims`, `_z_joints`), the
+scorecard's clearance and clash scans (`_scorecard`), each routing `Frame`
 (`_routing.frame`) — read the box through `boxed()`, which computes it once per
 solid and hands back the same `BoundBox` on every later ask.
 

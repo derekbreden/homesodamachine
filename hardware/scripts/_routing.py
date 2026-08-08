@@ -337,7 +337,7 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
     checked against each port's own axis (`skew`, default `COLLET_SKEW`). `skew=(exit, approach)`
     holds the two ends to their own figures, for a run whose mouths are different features — a
     collet grips a tube and a countersunk bore lays its lip along one, and the two open by
-    different angles (`_lines.FLAVOR_SKEW`, `_lines.CAP_BORE_SKEW`).
+    different angles (`manifold_layout.FLAVOR_SKEW`, `_lines.CAP_BORE_SKEW`).
 
     `lead` is `bent`'s exit/approach stub — the analogue of `route`'s `stub`. Given, it plants a
     waypoint one `lead` mm along the source normal off `frm`, and one along the destination normal off

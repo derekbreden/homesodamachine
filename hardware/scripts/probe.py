@@ -117,8 +117,9 @@ def _common_volume(a, b) -> float:
 def shape(obj, label: str = "?"):
     """The bare `cq.Shape` behind a pack entry: `(solid, color)` tuples and
     `Workplane`s unwrap, a `Shape` passes through, anything else raises naming
-    its type. `_contents.build()` yields tuples and `placed_funnel()` yields a
-    solid, so a caller that unwraps by hand gets one of them wrong."""
+    its type. `front_half._solids()` yields `(solid, color)` tuples and
+    `enclosure.build_pieces()` yields `Workplane`s, so a caller that unwraps by
+    hand gets one of them wrong."""
     obj = obj[0] if isinstance(obj, tuple) else obj
     obj = obj.val() if hasattr(obj, "val") else obj
     if not hasattr(obj, "wrapped"):
@@ -662,8 +663,8 @@ def rebuild_sweep(module, attr: str, values, build, label: str = None) -> list:
     The attribute is restored however the sweep ends, and a value whose build raises is kept
     as its error rather than stopping the run.
 
-    Reads a constant the pack is built from (rather than the box around it) and the memoized
-    `_contents.build()` will hand back the pack from before the change — call
+    Reads a constant the pack is built from (rather than the box around it) and this module's
+    own memoized `world()` will hand back the pack from before the change — call
     `world(reload=True)` after, or sweep in a fresh process."""
     label = label or f"{module.__name__}.{attr}"
     original = getattr(module, attr)

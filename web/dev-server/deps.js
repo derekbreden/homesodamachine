@@ -346,7 +346,7 @@ function producerMap(roots) {
 // Runnable scripts that CONSUME `stepBasename` (load it as input) — the
 // STEP-load dependents the import graph misses. A .py file consumes the step if
 // it names it and is not its producer. A runnable match is itself a consumer; a
-// shared-module match (e.g. `_contents.py`) resolves to the runnables that
+// shared-module match (e.g. `_lines.py`) resolves to the runnables that
 // transitively import that module. `producerOf` is computed if not supplied.
 export const findScriptsConsumingStep = memoized(consumersOfStep);
 
