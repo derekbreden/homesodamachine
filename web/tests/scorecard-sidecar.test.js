@@ -74,8 +74,8 @@ test("the port inventory carries a coordinate and a bore for every located conne
 
 test("scorecardPathFor maps a STEP path to its sidecar", () => {
   assert.equal(
-    scorecardPathFor("printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step"),
-    "printed-parts/enclosure/enclosure-assembly/enclosure-assembly" + SCORECARD_SUFFIX);
+    scorecardPathFor("manifold-layout/front-half.step"),
+    "manifold-layout/front-half" + SCORECARD_SUFFIX);
 });
 
 // ── Focus ───────────────────────────────────────────────────────────────────────────────────
