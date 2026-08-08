@@ -99,15 +99,12 @@
     "water-split \u2014 discharge-chain: 1.150 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
-    "foam-assembly \u2014 pcba: 1.724 mm",
-    "fluid-14 \u2014 psu: 1.822 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "fluid-14 \u2014 gasher-co2: 1.956 mm",
     "carb-1 \u2014 suction-chain: 2.275 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-1: 2.500 mm",
     "relay-1 \u2014 ac-hub: 2.500 mm",
-    "psu \u2014 wr1110: 2.500 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-18 \u2014 vk-solenoid: 3.150 mm",
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
@@ -119,6 +116,7 @@
     "fluid-2 \u2014 discharge-chain: 3.683 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "fluid-4 \u2014 seaflo-pump: 3.698 mm",
+    "foam-assembly \u2014 pcba: 3.747 mm",
     "water-5 \u2014 fluid-24: 3.790 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
     "coil-v-b \u2014 flow-regulator: 3.805 mm",
@@ -130,7 +128,6 @@
     "c14-inlet \u2014 bulkhead-carb: 4.292 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "fluid-2 \u2014 fluid-26: 4.375 mm",
-    "psu \u2014 gasher-co2: 4.500 mm",
     "water-7 \u2014 foam-assembly: 4.750 mm",
     "fluid-24 \u2014 discharge-chain: 4.757 mm",
     "fluid-28 \u2014 fluid-24: 4.799 mm",
@@ -139,9 +136,8 @@
     "fluid-2 \u2014 valve-v-b: 4.979 mm",
     "water-3 \u2014 tee-y-a: 5.075 mm",
     "water-3 \u2014 tee-y-b: 5.075 mm",
-    "ac-hub \u2014 c14-inlet: 5.150 mm",
-    "carb-1 \u2014 pcba: 5.225 mm",
     "water-7 \u2014 co2-2: 5.358 mm",
+    "fluid-18 \u2014 pcba: 5.660 mm",
     "fluid-14 \u2014 hopper-funnel: 5.694 mm",
     "fluid-24 \u2014 fluid-26: 5.699 mm",
     "fluid-24 \u2014 coil-v-b: 5.850 mm",
@@ -157,6 +153,16 @@
    "status": "pass",
    "value": "4/4 on the bed",
    "target": "every piece on the bed",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "east-band",
+   "label": "The +X wall's column stands in the depth that wall runs free",
+   "kind": "gate",
+   "status": "pass",
+   "value": "column spans y 243.88..449.70, band 231.40..455.70",
+   "target": "inside y 231.40..455.70",
    "detail": [],
    "active": true
   },
@@ -1832,11 +1838,11 @@
    "component": "ground-stack",
    "boxes": [
     [
-     80.7,
-     350.4,
+     88.45,
+     337.1,
      307.9,
-     94.5,
-     368.4,
+     102.25,
+     355.1,
      325.588
     ]
    ],
@@ -1872,11 +1878,11 @@
    "component": "pcba",
    "boxes": [
     [
-     75.4,
-     257.184,
+     83.15,
+     243.884,
      253.4,
-     94.5,
-     348.0,
+     102.25,
+     334.7,
      326.2
     ]
    ],
@@ -2104,11 +2110,11 @@
    "component": "relay-1",
    "boxes": [
     [
-     75.5,
-     393.0,
+     83.25,
+     379.7,
      307.9,
-     94.5,
-     463.0,
+     102.25,
+     449.7,
      324.9
     ]
    ],
@@ -2432,35 +2438,35 @@
    "component": "ac-hub",
    "boxes": [
     [
-     82.2,
-     370.9,
+     89.95,
+     357.6,
      327.4,
-     94.5,
-     463.0,
+     102.25,
+     449.7,
      346.1
     ],
     [
-     72.9,
-     382.45,
+     80.65,
+     369.15,
      332.55,
-     91.5,
-     401.25,
+     99.25,
+     387.95,
      340.95
     ],
     [
-     72.9,
-     407.55,
+     80.65,
+     394.25,
      332.55,
-     91.5,
-     426.35,
+     99.25,
+     413.05,
      340.95
     ],
     [
-     72.9,
-     432.65,
+     80.65,
+     419.35,
      332.55,
-     91.5,
-     451.45,
+     99.25,
+     438.15,
      340.95
     ]
    ],
@@ -2560,11 +2566,11 @@
    "component": "psu",
    "boxes": [
     [
-     61.0,
-     354.0,
+     68.75,
+     340.7,
      253.4,
-     94.5,
-     463.0,
+     102.25,
+     449.7,
      305.4
     ]
    ],
@@ -4830,7 +4836,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T05:17:49+00:00",
-  "commit": "adf2afe1bf8d430840f9ee526044be362e9fc780"
+  "generated": "2026-08-08T05:27:33+00:00",
+  "commit": "c1f072ae2d9338a519b9530ffe907e97a741222f"
  }
 }

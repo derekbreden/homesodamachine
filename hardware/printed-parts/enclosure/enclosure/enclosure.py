@@ -229,6 +229,12 @@ mount_boss_dia = 7.0
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = 1.0
+# How far one of those bosses stands OFF the wall's inner face — which is the standoff a body
+# hung on the flank gets, and every millimetre of it is insert: the bore runs the boss's whole
+# length and stops on the wall's own inner face, so the wall behind is what caps its blind end.
+# Nothing here is spent holding the body away from the wall. That is the point — a body bolted
+# to a wall wants to be ON it, and this is the shortest column an M3 heat-set can live in.
+mount_boss_out = heatset_depth + mount_bore_relief
 # How far a boss stands inboard of the wall it drives through: the whole chain
 # of head counterbore, pin body, heat-set and cap, less the wall the counterbore
 # is sunk into. This is the socket's section, so it is also its post's.
@@ -515,11 +521,31 @@ def _y_corner(inner, y_joint):
             y_joint + lip_len)
 
 
-def _y_corner_back(inner, y_joint):
+def _y_corner_back(iy1, y_joint):
     """The Y extent of the BACK half's corner column — the web standing in the
     front pod's slot, and the post behind the lip rim. It starts at the bore axis
     (the slot opens there) and runs one pod-depth past the rim."""
-    return _y_boss(y_joint), min(inner[3], y_joint + lip_len + 2.0 * socket_r)
+    return _y_boss(y_joint), min(iy1, y_joint + lip_len + 2.0 * socket_r)
+
+
+def east_band_free_y():
+    """The BACK half's free run of the ±X boss-chain bands, as `(y0, y1)`.
+
+    What stands in those bands stands there floor to ceiling — `_front_pod` and `_z_post` both
+    carry their column the whole height of their piece — and behind the seam there are two of
+    them: the Y-seam corner group at `y0`, and the rear wall's own cross-pin column at `y1`.
+    Between the two the band is nothing but the wall's air, so a body hung on this flank may
+    stand OUTBOARD of where that furniture caps — on the wall itself, on a boss no longer than
+    its insert — for exactly this depth, and meets a printed column either side of it. (The
+    front half has its own free run ahead of the Y seam; this is not it.)
+
+    Struck off the stated planes those columns are built on, `y_seam` and `rear_plane_y`, and
+    not off a placed piece — so a body reads it before the box that carries it has been
+    sized, the same way it reads the wall itself through `interior_x`."""
+    yb, ybr = _z_back_station_y(rear_plane_y, y_seam)
+    return (max(_y_corner_back(rear_plane_y, y_seam)[1],   # the Y-seam corner column's aft face
+                yb + socket_r),                            # the station behind its mouth
+            ybr - socket_r)                                # the rear wall's own station
 
 
 def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
@@ -599,7 +625,7 @@ def _seam_furniture_spans(inner, y_joint):
     `_z_station_y`), so a span cannot drift from the geometry it stands for. The
     stations are why the band is not free depth: it runs clear between them, not
     along its whole length."""
-    spans = [(_y_corner(inner, y_joint)[0], _y_corner_back(inner, y_joint)[1])]
+    spans = [(_y_corner(inner, y_joint)[0], _y_corner_back(inner[3], y_joint)[1])]
     for _x_in, _x_ext, _sx, ys, col in _z_stations(inner, y_joint):
         spans.append(_z_station_y(inner, y_joint, ys, col))
     return spans
@@ -840,14 +866,25 @@ def _dims(pack):
     # subsystems go in.
     iz0 = min(czmin, 0.0) - interior_clearance
     iz1 = (iz0 - wall) + appliance_height - wall
+    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
+    y_joint = y_seam
     # What the contents demand, measured against the bound rather than setting it, so a pack
     # that outgrows it says so instead of quietly poking through the top wall. The ±X wall
-    # band is measured separately: the Y-seam's top cross-pin pods hug the ceiling
-    # and reach one boss chain inboard, so content inside that reach needs the pod
-    # stack over it as well as its own height.
+    # bands are measured separately: the seam's top cross-pin pods hug the ceiling and reach
+    # one boss chain inboard, so content inside that reach needs the pod stack over it as well
+    # as its own height.
+    #
+    # THE REACH IS IN Y AS MUCH AS IN X. Those pods stand in a band only where the seam puts a
+    # column there — `_seam_furniture_spans`, the same spans the seam's own furniture is built
+    # over — and between them the band is the wall's own air the whole way to the ceiling.
+    # Charging that stack to a body parked in the free depth would reserve headroom for a pod
+    # that is nowhere near it, and the body that answers for it is the one hung on the wall.
     pod_stack = wall + socket_bore_dia / 2.0 + socket_r + 1.5    # ceiling → pod bottom + margin
+    seam_spans = _seam_furniture_spans(inner, y_joint)
     wall_band_top = max(
-        (b.zmax for b in bbs if b.xmin < ix0 + boss_in or b.xmax > ix1 - boss_in),
+        (b.zmax for b in bbs
+         if (b.xmin < ix0 + boss_in or b.xmax > ix1 - boss_in)
+         and any(b.ymin < sy1 and b.ymax > sy0 for sy0, sy1 in seam_spans)),
         default=iz0)
     need = max(czmax + interior_clearance, wall_band_top + pod_stack)
     record_bound(Bound(
@@ -861,9 +898,7 @@ def _dims(pack):
             f"downward"])))
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
-    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
-    y_joint = y_seam
     splits = _z_joints(placed, inner, front_z_seam)
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
@@ -884,7 +919,7 @@ def _dims(pack):
     # pod's slot, post behind the rim — at the pin's.
     fy0, fy1 = _y_corner(inner, y_joint)
     _measure_wall_relief(placed, inner, fy0, fy1, boss_in)
-    by0, by1 = _y_corner_back(inner, y_joint)
+    by0, by1 = _y_corner_back(inner[3], y_joint)
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
@@ -1367,7 +1402,7 @@ def _back_post(x_in, x_ext, sx, y_joint, inner, zj):
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_tip))
-    ya, yb = _y_corner_back(inner, y_joint)
+    ya, yb = _y_corner_back(inner[3], y_joint)
     web = _ybox(xa, xb, ya, min(yb, y_joint + lip_len + z_lip_y_margin), iz0, iz1)
     ya = y_joint + lip_len
     return (web.fuse(_ybox(xa, xb, ya, yb, iz0, zj))
@@ -1476,6 +1511,23 @@ def _z_pin_z(zj):
     return zj + plug_dia / 2.0
 
 
+def _z_back_station_y(iy1, y_joint):
+    """The BACK column's two X-pin stations in Y — behind the Y-seam mouth (where the
+    telescoped front lip stops) and the rear-wall corner.
+
+    Its own function because it is read twice: once here, to build the stations, and once by
+    `east_band_free_y`, to say where the columns they carry leave the ±X band free. Struck off
+    the rear plane and the seam alone, so the second reader needs no placed piece.
+
+    Behind the mouth, the station stands off the Z-lip's Y-gap edge (y_joint + lip_len +
+    z_lip_y_margin) by a full socket_r — the same clearance the front column's aft station
+    keeps from that gap on its side. Drop the z_lip_y_margin term and the pod's −Y wall
+    pinches to (wall − z_lip_y_margin) against the gap, too thin to telescope into the top
+    piece; with it the pod keeps a full wall each side of its bore."""
+    r = socket_bore_dia / 2.0
+    return (y_joint + lip_len + z_lip_y_margin + wall + r, iy1 - wall - r)
+
+
 def _z_stations(inner, y_joint):
     """X-axis pin stations along the Z seams — TWO per ±X wall per Y column, one
     at each END of that column's seam, so a seam pinned only at one end cannot
@@ -1485,20 +1537,14 @@ def _z_stations(inner, y_joint):
     ahead of where the Y-seam furniture starts. Back column: just behind the
     Y-seam mouth (where the telescoped front lip stops) and the rear-wall
     corner. Every station stands in the ±X band the walls' standoff opens off
-    the cold core, which runs clear the full depth, so none of them has to dodge
-    the pack. Each column's stations ride that column's own seam height."""
+    the cold core, and the depth between the two columns is what `east_band_free_y`
+    hands a body hung on that wall. Each column's stations ride that column's own
+    seam height."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
     yf = iy0 + wall + r                             # front column, front wall
     yfr = y_joint - wall - z_lip_y_margin - socket_r  # front column, aft end of its lip
-    # Behind the mouth, standing off the Z-lip's Y-gap edge (y_joint + lip_len +
-    # z_lip_y_margin) by a full socket_r — the same clearance the front column's
-    # aft station keeps from that gap on its side. Drop the z_lip_y_margin term
-    # and the pod's −Y wall pinches to (wall − z_lip_y_margin) against the gap, too
-    # thin to telescope into the top piece; with it the pod keeps a full wall each
-    # side of its bore.
-    yb = y_joint + lip_len + z_lip_y_margin + wall + r  # back column, behind the mouth
-    ybr = iy1 - wall - r                            # back column, rear wall
+    yb, ybr = _z_back_station_y(iy1, y_joint)
     out = []
     for ys, col in ((yf, "front"), (yfr, "front"), (yb, "back"), (ybr, "back")):
         out.append((ix0, ix0 - wall, +1.0, ys, col))
@@ -1796,7 +1842,7 @@ def build_back_half(box):
     # comes out of that corner as a whole, once both are on.
     for x_in, x_ext, sx, _zb, _pz in _sides(bosses):
         _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-        waist = _wall_waist(x_in, x_tip, sx, *_y_corner_back(inner, y_joint))
+        waist = _wall_waist(x_in, x_tip, sx, *_y_corner_back(inner[3], y_joint))
         if waist is not None:
             back = back.cut(waist)
     # Clip any corner feature that pokes past the rounded print silhouette.
