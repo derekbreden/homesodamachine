@@ -15,25 +15,38 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Three risers climb out the top face to the back-panel
-    triangle. <strong>Blue tube to the blue ring — the top vertex.</strong></p>
+    <p class="lede">Three risers climb to
+    <span class="dim" data-gen="UMBILICAL_UNIONS">3</span> unions standing on
+    <strong>one line</strong> across the back wall at
+    <span class="dim" data-gen="UMBILICAL_PITCH">48 mm</span> pitch.</p>
 
     <ol class="steps">
       <li><b>Carbonated water &#8212; two lengths, meter between:</b> blue
-        LLDPE. <b>carb-1</b>: cold-core bottom-plate outlet, <b>west
-        immediately</b> (refrig-2 stands ~9.5&nbsp;mm off it &#8212; no head-on
-        exit), up the front face west of the bag fall, east into the DIGITEN.
-        <b>carb-2</b>: meter east into the lane <b>under</b> the SeaFlo, aft
-        to the column east of the ASSE, up into the blue-ringed PP1208E.
-        Square-cut, push, tug &#8212; four PTC ports.</li>
-      <li><b>Insulate that run:</b> CARGEN nitrile, <b>one piece per length,
-        cut to that run</b>, slid on before either collet goes down &#8212;
-        foam-shell exit to bulkhead face.</li>
-      <li><b>Flavors run bare:</b> black LLDPE,
-        <span style="white-space:nowrap">V-G &rarr; left vertex</span>,
-        <span style="white-space:nowrap">V-J &rarr; right</span>
-        &#8212; warm-in, warm-out, low duty.</li>
+        LLDPE. <b>carb-1</b> climbs off the <b>carb-water-out</b> conduit in
+        the lid's east lane and leans inboard and aft
+        (<span class="dim" data-gen="CARB_1_CORNERS">2</span> corners,
+        <span class="dim" data-gen="CARB_1_LEN">226 mm</span>) into the
+        meter's inlet. <b>carb-2</b> is a straight
+        <span class="dim" data-gen="CARB_2_LEN">24 mm</span> — outlet and
+        union collet face each other down one line.</li>
+      <li><b>Insulate that run:</b> CARGEN nitrile,
+        <span class="dim" data-gen="CARB_FOAM_PIECES">2</span> pieces, one cut
+        to each length, on before either collet goes down.</li>
+      <li><b>Flavors run bare:</b> black LLDPE.
+        <b>fluid-18</b> off V-G into the
+        <span class="dim" data-gen="FLAVOR_A_STATION">middle</span> union,
+        <span class="dim" data-gen="FLUID_18_LEN">477 mm</span> &#8212; the
+        longest run in the appliance. <b>fluid-28</b> off V-J into the
+        <span class="dim" data-gen="FLAVOR_B_END">west</span> end,
+        <span class="dim" data-gen="FLUID_28_LEN">361 mm</span>.</li>
     </ol>
+
+    <div class="note">
+      <b>The row is a line, not a cluster.</b> Blue tube into the blue-ringed
+      union at the row's
+      <span class="dim" data-gen="CARB_END">east</span> end &#8212; the ring
+      carries identification, not orientation.
+    </div>
 
     <div class="tools">
       <span class="lbl">Stock + tools</span>
@@ -43,77 +56,90 @@
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel light">
-      <svg viewBox="0 0 760 720" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 760 700" xmlns="http://www.w3.org/2000/svg">
         <style>
           .band  { fill: #dfe3e9; stroke: #1d1d26; stroke-width: 3; }
           .port  { fill: #ffffff; stroke: #1d1d26; stroke-width: 3; }
           .ring  { fill: none; stroke: #2268c2; stroke-width: 5; }
-          .tri   { stroke: #9aa0aa; stroke-width: 2; stroke-dasharray: 8 7; fill: none; }
           .blue  { stroke: #2268c2; stroke-width: 6; fill: none; }
           .blk   { stroke: #1d1d26; stroke-width: 6; fill: none; }
           .foam  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
           .box   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .dimln { stroke: #2268c2; stroke-width: 2.5; }
           .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-          .node  { font: 700 24px Menlo, monospace; fill: #1d1d26; }
+          .node  { font: 700 23px Menlo, monospace; fill: #1d1d26; }
           .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
           .dimtx { font: 700 24px Menlo, monospace; fill: #2268c2; }
         </style>
-        <text class="lbl" x="24" y="40">BACK PANEL &#183; umbilical cluster, from inside</text>
+        <text class="lbl" x="24" y="30">BACK WALL &#183; west to east</text>
 
-        <!-- panel band + cluster -->
-        <rect class="band" x="140" y="60" width="480" height="212"/>
-        <path class="tri" d="M 380 120 L 290 222 L 470 222 Z"/>
-        <!-- risers (drawn under ports) -->
-        <path class="blue" d="M 380 652 L 380 132"/>
-        <path class="blk" d="M 290 652 L 290 230"/>
-        <path class="blk" d="M 470 652 L 470 230"/>
-        <!-- ports -->
-        <circle class="ring" cx="380" cy="120" r="27"/>
-        <circle class="port" cx="380" cy="120" r="16"/>
-        <circle class="port" cx="290" cy="222" r="16"/>
-        <circle class="port" cx="470" cy="222" r="16"/>
-        <text class="lbl" x="420" y="106">blue ring</text>
-        <text class="sub" x="420" y="132">carbonated water</text>
-        <text class="lbl" x="162" y="212">flavor A</text>
-        <text class="sub" x="162" y="238">left vertex</text>
-        <text class="lbl" x="502" y="212">flavor B</text>
-        <text class="sub" x="502" y="238">right vertex</text>
+        <!-- one pitch, stated once, above the band -->
+        <line class="dimln" x1="320" y1="52" x2="460" y2="52"/>
+        <line class="dimln" x1="320" y1="44" x2="320" y2="60"/>
+        <line class="dimln" x1="460" y1="44" x2="460" y2="60"/>
+        <text class="dimtx" x="390" y="38" text-anchor="middle" data-gen="UMBILICAL_PITCH">48 mm</text>
+        <text class="lbl" x="740" y="38" text-anchor="end">blue ring</text>
 
-        <!-- insulation on the blue run -->
-        <rect class="foam" x="364" y="318" width="32" height="300" rx="6"/>
-        <line x1="364" y1="420" x2="396" y2="420" stroke="#1d1d26" stroke-width="2.5"/>
-        <line x1="364" y1="520" x2="396" y2="520" stroke="#1d1d26" stroke-width="2.5"/>
-        <line x1="362" y1="545" x2="312" y2="545" stroke="#9aa0aa" stroke-width="2"/>
-        <text class="lbl" x="40" y="486">CARGEN nitrile</text>
-        <text class="dimtx" x="40" y="518">1/4&Prime; ID &#215; 3/8&Prime; wall</text>
-        <text class="sub" x="40" y="548">butted, no gaps —</text>
-        <text class="sub" x="40" y="576">foam exit &#8594; bulkhead</text>
-        <text class="sub" x="40" y="612">thermal mass ends &#8212;</text>
-        <text class="sub" x="40" y="640">chilled run to the faucet</text>
+        <!-- the wall, and three unions on ONE line -->
+        <rect class="band" x="260" y="66" width="440" height="44"/>
+        <circle class="port" cx="320" cy="88" r="16"/>
+        <circle class="port" cx="460" cy="88" r="16"/>
+        <circle class="ring" cx="600" cy="88" r="27"/>
+        <circle class="port" cx="600" cy="88" r="16"/>
+        <text class="sub" x="306" y="140" text-anchor="end">flavor B</text>
+        <text class="sub" x="446" y="140" text-anchor="end">flavor A</text>
 
-        <!-- bare note -->
-        <text class="sub" x="510" y="380">bare black —</text>
-        <text class="sub" x="510" y="408">no insulation</text>
+        <!-- carb riser: conduit -> meter -> blue-ringed union, foam on both lengths -->
+        <rect class="foam" x="584" y="114" width="32" height="90" rx="6"/>
+        <rect class="foam" x="584" y="316" width="32" height="282" rx="6"/>
+        <path class="blue" d="M 600 600 L 600 110"/>
+        <rect class="box" x="548" y="210" width="104" height="100" rx="10"/>
+        <text class="node" x="600" y="250" text-anchor="middle">DIGITEN</text>
+        <text class="sub" x="600" y="282" text-anchor="middle">inline</text>
+        <line class="dimln" x1="648" y1="112" x2="648" y2="204"/>
+        <line class="dimln" x1="640" y1="112" x2="656" y2="112"/>
+        <line class="dimln" x1="640" y1="204" x2="656" y2="204"/>
+        <text class="dimtx" x="656" y="150" data-gen="CARB_2_LEN">24 mm</text>
+        <text class="sub" x="656" y="180">carb-2</text>
+        <text class="dimtx" x="656" y="392" data-gen="CARB_1_LEN">226 mm</text>
+        <text class="sub" x="656" y="422">carb-1</text>
+        <rect class="box" x="524" y="604" width="152" height="60" rx="8"/>
+        <text class="node" x="600" y="630" text-anchor="middle">carb-water</text>
+        <text class="sub" x="600" y="654" text-anchor="middle">-out conduit</text>
 
-        <!-- sources -->
-        <rect class="box" x="258" y="652" width="64" height="44" rx="7"/>
-        <text class="node" x="290" y="682" text-anchor="middle">V-G</text>
-        <rect class="box" x="438" y="652" width="64" height="44" rx="7"/>
-        <text class="node" x="470" y="682" text-anchor="middle">V-J</text>
-        <rect class="box" x="322" y="652" width="112" height="44" rx="7"/>
-        <text x="378" y="671" text-anchor="middle" style="font: 600 18px 'Helvetica Neue', sans-serif; fill:#1d1d26">COLD CORE</text>
-        <text x="378" y="690" text-anchor="middle" style="font: 400 17px 'Helvetica Neue', sans-serif; fill:#70707c">outlet</text>
+        <!-- the two flavor risers, bare -->
+        <path class="blk" d="M 320 616 L 320 110"/>
+        <rect class="box" x="276" y="616" width="88" height="48" rx="7"/>
+        <text class="node" x="320" y="648" text-anchor="middle">V-J</text>
+        <text class="dimtx" x="306" y="446" text-anchor="end" data-gen="FLUID_28_LEN">361 mm</text>
+        <path class="blk" d="M 460 616 L 460 110"/>
+        <rect class="box" x="416" y="616" width="88" height="48" rx="7"/>
+        <text class="node" x="460" y="648" text-anchor="middle">V-G</text>
+        <text class="dimtx" x="446" y="474" text-anchor="end" data-gen="FLUID_18_LEN">477 mm</text>
+        <text class="sub" x="446" y="502" text-anchor="end">longest run</text>
+
+        <!-- the left column of notes -->
+        <text class="lbl" x="24" y="196">CARGEN nitrile</text>
+        <text class="dimtx" x="24" y="230">1/4&Prime; ID &#215; 3/8&Prime; wall</text>
+        <text class="sub" x="24" y="264">one piece per length</text>
+        <text class="sub" x="24" y="292">conduit mouth to union</text>
+        <text class="sub" x="24" y="320">on before either collet</text>
+        <text class="lbl" x="24" y="406">Flavors run bare</text>
+        <text class="sub" x="24" y="438">no insulation at all</text>
+        <text class="lbl" x="24" y="524">The conduit opens UP</text>
+        <text class="sub" x="24" y="556">through the lid — the</text>
+        <text class="sub" x="24" y="584">line leans into its lip</text>
       </svg>
       <div class="cap"><b>Black-into-either-black is unambiguous</b> — both
-      flavor tubes share the panel-side bundle; only the blue ring must
+      flavor tubes share the wall-side bundle; only the blue ring must
       match.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Three risers landed and tug-tested — blue on the blue ring, carbonated run insulated end-to-end, flavor risers bare.</div>
-  <div class="src">internal-plumbing.md &#167;4 &#183; back-panel/README.md<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>Three risers landed and tug-tested — blue on the blue-ringed union at the row's east end, both carb lengths sleeved, flavor risers bare.</div>
+  <div class="src">internal-plumbing.md &#167;4 &#183; back-panel/README.md<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
