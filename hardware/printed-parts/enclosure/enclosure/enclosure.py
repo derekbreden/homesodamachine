@@ -3,8 +3,9 @@ pieces (front/back × bottom/top) that telescope and cross-pin together.
 
 HEIGHT and DEPTH are BOUNDS, not consequences — `appliance_height` and
 `rear_plane_y`, floor slab's underside to the top wall's outer face and front wall to
-back. The contents do not set them; they have to fit inside, and `_dims` fails the
-build if they do not.
+back. The contents do not set them; they have to fit inside, and `_dims` measures every
+one of them against the pack and enters the reading in `BOUNDS`. The box comes out at its
+stated size either way, so a pack that overran it gets a wall drawn through it.
 
 WIDTH is the consequence: one boss chain either side of the widest body standing on
 the floor, which is the mated compressor shroud and condenser. The cold core would be
@@ -183,7 +184,7 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
 # static part (../../zone-c/hopper-funnel/, its own frame) placed at
 # the pack's own `funnel` centre with its brim on the box top, and _hopper_hole
-# asserts the top-wall frame accommodates it (the facet's back plane ahead, the
+# measures the top-wall frame against it (the facet's back plane ahead, the
 # ±X top corner pods either side, the back wall behind). The funnel is pushed as
 # far forward as that frame allows and reaches aft for its capacity, so it may
 # CROSS the Y seam — both halves take their share of the cut.
@@ -240,12 +241,12 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 # The appliance's stated HEIGHT — floor slab's underside (z = −wall) to the top
 # wall's outer face. It is the machine's silhouette, the one dimension a counter
 # appliance is judged by before it is opened, and this is the number the thin machine
-# is FOR. The contents live under it; `_dims` raises if they cannot.
+# is FOR. The contents live under it; `_dims` measures whether they do (`box-height`).
 appliance_height = 358.0
 # The stated WIDTH — ±X outer faces, struck symmetric about x = 0, which is the axis
 # the whole pack is centred on. A body that leaves the floor, or a narrower one taking
-# its place, does not make the machine narrower; a pack that outgrows this fails the
-# build. The ±X walls still stand one `side_rib_inset` off the widest body on the
+# its place, does not make the machine narrower; a pack that outgrows this is a red
+# `box-width`. The ±X walls still stand one `side_rib_inset` off the widest body on the
 # floor — that is what the check measures, rather than what the wall follows.
 appliance_width = 223.0
 
@@ -257,15 +258,16 @@ def interior_x():
     return (-(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall)
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
-# and a pack that outgrows this plane fails the build instead of quietly resizing the
-# appliance.
+# a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
+# the appliance.
 rear_plane_y = 472.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
 # about the pieces — what each has to carry, and what a hand reaches when the front
 # assembly is off — and the depth and height each piece comes to is what the plane
-# leaves. `_dims` checks them against the facet, the bed and the pack, and raises.
+# leaves. `_dims` measures them against the facet, the bed and the pack, and records what
+# it reads (`y-seam-clears-facet`, `z-seam-front-bed`, `z-seam-two-pieces`).
 #
 # The BACK column's Z seam is the one that is searched (`_z_joints`): the cold core
 # stands from the floor slab and the service bay stands on its lid, so that column runs
@@ -332,6 +334,34 @@ Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
             "east_bosses floor_bosses")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), ())
+
+
+# --- the bounds this box states ---------------------------------------------
+#
+# Width, depth and height are BOUNDS the appliance states, and the seams and the funnel throat
+# are cut on frames the pack has to leave open. Every one is measured against the placed
+# contents at each build, so a pack that grows opens one.
+#
+# A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
+# elevations and the scorecard a run writes. So none of these stops the build: each hands back
+# a `Bound` whether it holds or not, and THE BOX COMES OUT AT ITS STATED SIZE — too small for
+# the pack that overran it. The overrun is then a red row on the card carrying this module's
+# own message, and the walls standing through the bodies that overran them are clashes in
+# `pack-closes`, which is where a reader should see them. A box quietly grown to fit would
+# show neither.
+#
+# `front_half.machine` and `front_half.build_front_half` carry these onto the assembly beside
+# the bounds that module states itself. The ledger lives here because `enclosure` cannot
+# import that module back — `machine_of` imports it inside the call for the same reason.
+Bound = namedtuple("Bound", "id label ok value target detail")
+
+BOUNDS: list = []
+
+
+def record_bound(bound: Bound) -> Bound:
+    """Enter one bound's reading in the ledger, replacing any of the same id."""
+    BOUNDS[:] = [b for b in BOUNDS if b.id != bound.id] + [bound]
+    return bound
 
 
 # --- primitives -------------------------------------------------------------
@@ -669,21 +699,33 @@ def _z_joints(placed, inner, front):
     THROUGH its column, on the lane its lip needs (`_lip_denied`).
 
     The two stand `z_joint_pitch` apart, or the Y seam quietly comes out with fewer
-    cross-pins than it has levels for."""
+    cross-pins than it has levels for.
+
+    Four bounds are measured here and none of them stops the search: whatever the readings
+    say, both seam heights come back and the box is cut on them. A seam that has to run
+    through its column runs through it, and the pieces show that."""
     iz0, iz1 = inner[4], inner[5]
     y_mid = (inner[2] + inner[3]) / 2.0
     z_mid = (iz0 + iz1) / 2.0
     bed_lo, bed_hi = _bed_band(inner)
-    if not bed_lo - 1e-9 <= front <= bed_hi + 1e-9:
-        raise ValueError(
+    on_bed = bed_lo - 1e-9 <= front <= bed_hi + 1e-9
+    record_bound(Bound(
+        "z-seam-front-bed", "The front Z seam leaves both its pieces on the H2C's bed", on_bed,
+        f"seam at {front:.2f}, band {bed_lo:.2f}..{bed_hi:.2f}",
+        f"inside the H2C's {H2C_Z:g} mm Z",
+        ([] if on_bed else [
             f"the front Z seam at {front:.2f} leaves a piece off the H2C's {H2C_Z:g} mm bed: "
             f"the top piece wants it at or below {bed_hi:.2f} and the bottom at or above "
-            f"{bed_lo:.2f}. Move `front_z_seam` into that band")
-    if bed_hi < bed_lo:
-        raise ValueError(
+            f"{bed_lo:.2f}. Move `front_z_seam` into that band"])))
+    record_bound(Bound(
+        "z-seam-two-pieces", "A column splits into two pieces the H2C can print",
+        bed_hi >= bed_lo,
+        f"{iz1 - iz0 + 2.0 * wall:.2f} mm column, band {bed_lo:.2f}..{bed_hi:.2f}",
+        f"a band inside the H2C's {H2C_Z:g} mm Z",
+        ([] if bed_hi >= bed_lo else [
             f"a {iz1 - iz0 + 2.0 * wall:.2f} mm column has no seam height leaving two pieces "
             f"inside the H2C's {H2C_Z:g} mm Z: the top piece wants the seam at or below "
-            f"{bed_hi:.2f} and the bottom at or above {bed_lo:.2f}. It needs a third piece")
+            f"{bed_hi:.2f} and the bottom at or above {bed_lo:.2f}. It needs a third piece"])))
     spans = {"front": [], "back": []}
     for _n, (solid, _c) in placed.items():
         b = _boxes.boxed(solid)
@@ -693,30 +735,51 @@ def _z_joints(placed, inner, front):
     _z_seam_passes["front"] = None                 # stated, so there is nothing to report
     _z_seam_passes["back"] = not whole
     bands = whole or _open_bands(_lip_denied(placed, inner), bed_lo, bed_hi, 0.0)
-    if not bands:
-        raise ValueError(
+    record_bound(Bound(
+        "z-seam-back-band", "The back column leaves the bed a height its seam can take",
+        bool(bands),
+        f"{len(bands)} band(s) inside {bed_lo:.2f}..{bed_hi:.2f}", "at least one",
+        ([] if bands else [
             f"the back column has no seam height the bed allows: inside "
             f"{bed_lo:.2f}..{bed_hi:.2f} its bodies leave no band "
             f"{2 * z_joint_clear:.2f} mm clear, and something stands in the lip's own "
-            f"ring at every height there. Repack, or split this column in three")
+            f"ring at every height there. Repack, or split this column in three"])))
+    # THE SEAM STILL HAS TO LAND. With no band open it takes the bed's whole span, so the box
+    # is split where the bed allows and the lip runs through whatever stands in its ring —
+    # a clash in `pack-closes`, next to the row above, instead of a build that ended here.
+    bands = bands or [(min(bed_lo, bed_hi), max(bed_lo, bed_hi))]
     # Nearest reachable height to the half-height, band by band; ties take the lower —
     # and a full `z_joint_pitch` clear of the stated front seam, or the Y seam quietly
     # comes out with fewer cross-pins than it has levels for.
     left = _outside(bands, front - z_joint_pitch, front + z_joint_pitch)
-    if not left:
-        raise ValueError(
+    # The pitch gives way and the band does not: a seam off its own column's open band cuts a
+    # body, and one too near the front's only costs the Y seam cross-pins it has levels for.
+    back = min((min(max(z_mid, lo), hi) for lo, hi in (left or bands)),
+               key=lambda z: (abs(z - z_mid), z))
+    record_bound(Bound(
+        "z-seam-pitch", "The two Z seams stand the pitch two Y-seam levels need apart",
+        bool(left),
+        f"back seam at {back:.2f}, {abs(back - front):.2f} mm off the front's {front:.2f}",
+        f"at least {z_joint_pitch:.2f} mm apart",
+        ([] if left else [
             f"the back column's Z seam cannot stand the {z_joint_pitch:.2f} mm two Y-seam "
             f"levels need off the front's stated {front:.2f}: every height it has "
             f"({', '.join(f'{lo:.2f}..{hi:.2f}' for lo, hi in bands)}) is inside that pitch — "
-            f"move `front_z_seam`, or the back column's bodies have to leave a band elsewhere")
-    back = min((min(max(z_mid, lo), hi) for lo, hi in left),
-               key=lambda z: (abs(z - z_mid), z))
+            f"move `front_z_seam`, or the back column's bodies have to leave a band elsewhere"])))
     return front, back
 
 
 def _dims(pack):
     """The box `pack` stands inside — its two shells, the plane it splits on, and the
-    stations its walls carry. `pack` is a Pack (see `machine_of`)."""
+    stations its walls carry. `pack` is a Pack (see `machine_of`).
+
+    THE BOX IS ITS STATED SIZE and the pack has to fit in it. Width, depth and height are
+    each measured against what the contents demand and each reading goes in the ledger, but
+    the box that comes back is the one those three numbers describe — so a pack that overruns
+    one gets a wall drawn through it, a red row saying by how much, and a clash in
+    `pack-closes` at the body that overran. This is the only function that reads the placed
+    parts, so it is where the ledger starts: `BOUNDS` is cleared here and refilled."""
+    BOUNDS.clear()
     placed = pack.placed
     bbs = [_boxes.boxed(s) for s, _c in placed.values()]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
@@ -737,11 +800,15 @@ def _dims(pack):
     wide_need = max(max(b.xmax for b in floor) + side_rib_inset,
                     -(min(b.xmin for b in floor) - side_rib_inset),
                     cxmax + interior_clearance, -(cxmin - interior_clearance))
-    if wide_need > ix1 + 1e-9:
-        raise ValueError(
+    record_bound(Bound(
+        "box-width", "The pack stands inside the appliance's stated width",
+        wide_need <= ix1 + 1e-9,
+        f"pack reaches x ±{wide_need:.2f}, wall at ±{ix1:.2f}",
+        f"inside a {appliance_width:g} mm appliance",
+        ([] if wide_need <= ix1 + 1e-9 else [
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
             f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
-            f"repack inboard")
+            f"repack inboard"])))
     # The FRONT wall stands one wall off the pack, for the same kind of reason
     # the ±X walls stand a boss chain off the widest floor body: a lip missing a side
     # is a butt joint over that run — nothing registering the two pieces, nothing
@@ -755,10 +822,14 @@ def _dims(pack):
     # would follow that body too, holding every clearance between the two constant.
     iy1 = rear_plane_y
     rear_need = cymax + interior_clearance + rear_seam_clear
-    if rear_need > iy1 + 1e-9:
-        raise ValueError(
+    record_bound(Bound(
+        "box-depth", "The pack stands inside the appliance's stated depth",
+        rear_need <= iy1 + 1e-9,
+        f"pack reaches y {rear_need:.2f}, back wall at {iy1:.2f}",
+        f"ahead of `rear_plane_y` {rear_plane_y:g}",
+        ([] if rear_need <= iy1 + 1e-9 else [
             f"the pack reaches y {rear_need:.2f} but the back wall stands at {iy1:.2f} — "
-            f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward")
+            f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward"])))
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and posts stay put). The CEILING is
     # the stated `appliance_height` measured from the floor slab's underside: the
@@ -767,8 +838,8 @@ def _dims(pack):
     # subsystems go in.
     iz0 = min(czmin, 0.0) - interior_clearance
     iz1 = (iz0 - wall) + appliance_height - wall
-    # What the contents would have demanded, so a pack that outgrows the bound
-    # fails the build instead of quietly poking through the top wall. The ±X wall
+    # What the contents demand, measured against the bound rather than setting it, so a pack
+    # that outgrows it says so instead of quietly poking through the top wall. The ±X wall
     # band is measured separately: the Y-seam's top cross-pin pods hug the ceiling
     # and reach one boss chain inboard, so content inside that reach needs the pod
     # stack over it as well as its own height.
@@ -777,10 +848,15 @@ def _dims(pack):
         (b.zmax for b in bbs if b.xmin < ix0 + boss_in or b.xmax > ix1 - boss_in),
         default=iz0)
     need = max(czmax + interior_clearance, wall_band_top + pod_stack)
-    if need > iz1 + 1e-9:
-        raise ValueError(
+    record_bound(Bound(
+        "box-height", "The pack stands under the appliance's stated ceiling",
+        need <= iz1 + 1e-9,
+        f"pack reaches z {need:.2f}, ceiling at {iz1:.2f}",
+        f"under a {appliance_height:g} mm appliance",
+        ([] if need <= iz1 + 1e-9 else [
             f"the pack reaches z {need:.2f} but a {appliance_height:g} mm appliance ceilings at "
-            f"{iz1:.2f} — {need - iz1:.2f} mm over. Raise `appliance_height` or repack downward")
+            f"{iz1:.2f} — {need - iz1:.2f} mm over. Raise `appliance_height` or repack "
+            f"downward"])))
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
@@ -791,11 +867,15 @@ def _dims(pack):
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
     facet_back = facet_back_y(outer)
-    if y_joint < facet_back + 2.0:
-        raise ValueError(
+    record_bound(Bound(
+        "y-seam-clears-facet", "The Y seam stands behind the display housing",
+        y_joint >= facet_back + 2.0,
+        f"seam at {y_joint:.2f}, housing back plane at {facet_back:.2f}",
+        f"aft of {facet_back + 2.0:.2f}",
+        ([] if y_joint >= facet_back + 2.0 else [
             f"the Y seam at {y_joint:.2f} cuts the display housing, whose back plane is at "
             f"{facet_back:.2f} — the facet has to stay whole in the front pieces. Move "
-            f"`y_seam` aft of {facet_back + 2.0:.2f}, or shorten `display_facet_slope`")
+            f"`y_seam` aft of {facet_back + 2.0:.2f}, or shorten `display_facet_slope`"])))
     # What the seam's own furniture lands in, at each depth something stands there: the
     # front half's column at the socket's full section (which also fixes where a level may
     # sit, since a level needs a socket body), and the back half's column — web through the
@@ -993,7 +1073,11 @@ def _hopper_hole(inner, outer, y_joint, centre):
     whatever plan area its capacity needs — so the opening may cross the Y seam.
     Both halves take their share of the cut and the collar bridges it; what the
     seam gives up there is its top-wall lip over the hole's span, which the mouth
-    shelf's own relief already accounts for (`_hopper_cut`)."""
+    shelf's own relief already accounts for (`_hopper_cut`).
+
+    Three bounds are measured on that frame and the rectangle comes back whichever way they
+    read — a collar outside its frame is cut where it stands, so the throat that runs into a
+    pod or off the facet is in the pieces to look at, beside the row that names it."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     cx, cy = centre
@@ -1008,25 +1092,40 @@ def _hopper_hole(inner, outer, y_joint, centre):
             facet_back_y(outer) + hopper_front_ledge,  # behind the facet's housing
             iy1 - wall)                                # ahead of the back wall
     tol = 1e-6
-    if x0 < lims[0] - tol or x1 > lims[1] + tol or y0 < lims[2] - tol or y1 > lims[3] + tol:
-        raise ValueError(
+    inside = not (x0 < lims[0] - tol or x1 > lims[1] + tol
+                  or y0 < lims[2] - tol or y1 > lims[3] + tol)
+    record_bound(Bound(
+        "funnel-collar-frame", "The funnel collar stands in the frame the top wall has left",
+        inside,
+        f"collar x {x0:.2f}..{x1:.2f}, y {y0:.2f}..{y1:.2f}",
+        f"frame x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}",
+        ([] if inside else [
             f"funnel collar (x {x0:.2f}..{x1:.2f}, y {y0:.2f}..{y1:.2f}) violates the "
-            f"top-wall frame (x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f})")
+            f"top-wall frame (x {lims[0]:.2f}..{lims[1]:.2f}, "
+            f"y {lims[2]:.2f}..{lims[3]:.2f})"])))
     # One margin of top wall on the three sides that run out into a free edge, and the
-    # brim fits it. The front is the ledge above and is already asserted by `lims[2]`.
-    if _funnel.brim_overhang > _funnel.brim_margin + tol:
-        raise ValueError(
+    # brim fits it. The front is the ledge above and is measured on `lims[2]` instead.
+    fits = _funnel.brim_overhang <= _funnel.brim_margin + tol
+    record_bound(Bound(
+        "funnel-brim-overhang", "The funnel's brim overhang fits its top-wall margin", fits,
+        f"overhang {_funnel.brim_overhang:.2f} mm",
+        f"within brim_margin {_funnel.brim_margin:.2f} mm",
+        ([] if fits else [
             f"funnel brim overhang {_funnel.brim_overhang:.2f} exceeds its top-wall "
-            f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame")
+            f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame"])))
     got = (x0 - lims[0], lims[1] - x1, lims[3] - y1)
-    if any(g < _funnel.brim_margin - 1e-6 for g in got):
-        raise ValueError(
+    clear = not any(g < _funnel.brim_margin - 1e-6 for g in got)
+    record_bound(Bound(
+        "funnel-brim-margin", "The funnel collar keeps a brim margin at each free edge", clear,
+        f"−X {got[0]:.2f}, +X {got[1]:.2f}, +Y {got[2]:.2f} mm",
+        f"each at least brim_margin {_funnel.brim_margin:.2f} mm",
+        ([] if clear else [
             f"funnel collar crowds the top-wall frame: free-edge margins "
             f"(−X {got[0]:.2f}, +X {got[1]:.2f}, +Y {got[2]:.2f}) "
             f"— each owes brim_margin {_funnel.brim_margin:.2f}. Frame is "
             f"x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}; the collar it "
             f"has room for is {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
-            f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}")
+            f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}"])))
     return x0, x1, y0, y1
 
 
@@ -1979,9 +2078,27 @@ def machine_of():
     return pack, box
 
 
+def _report_bounds():
+    """Every bound in the ledger that is open, and nothing when they all hold.
+
+    The card `front_half` writes is the committed account of these; this is the same reading
+    for whoever ran this module on its own, where there is no card."""
+    open_ = [b for b in BOUNDS if not b.ok]
+    if not open_:
+        return
+    print(f"\n{len(open_)} of {len(BOUNDS)} bounds open — the box is drawn at its stated size "
+          f"anyway, so the overrun is in the pieces:")
+    for b in open_:
+        print(f"  {b.id}: {b.value}   (wants {b.target})")
+        for line in b.detail:
+            print(f"    {line}")
+    print()
+
+
 def main():
     machine, box = machine_of()
     pieces, assy = build_pieces(box)
+    _report_bounds()          # before the coupon's own pass overwrites the funnel's readings
     coupon = coupon_box()
     coupon_pieces, coupon_assy = build_pieces(coupon, "enclosure-coupon")
 
