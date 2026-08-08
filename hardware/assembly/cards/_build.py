@@ -1,6 +1,13 @@
-"""Build the printable card deck: render every card HTML to out/<name>.png
-at 2160x1440 (6x4 in at 360 dpi) via tools/render/render-card.js, then
-assemble out/deck.pdf with one 6x4-inch page per card in deck order.
+"""Build the printable card deck: hold every card to the machine, render every
+card HTML to out/<name>.png at 2160x1440 (6x4 in at 360 dpi) via
+tools/render/render-card.js, then assemble out/deck.pdf with one 6x4-inch page
+per card in deck order.
+
+The deck is a thing a bench holds while it builds an appliance, so it is gated
+before it is printed: `_cards_sync.py --check` builds the appliance and reads
+every `data-gen` figure on every card against it. A card that disagrees stops
+the build here rather than coming off the printer wrong. That costs about a
+minute of CAD before any card renders.
 
 Underscore-prefixed so the dev-server watcher never runs it.
 
@@ -150,6 +157,16 @@ def build_pdf() -> None:
           f"{len(pngs) - 1} cards + cover)")
 
 
+def check_machine() -> None:
+    """Every card's derived figures against the appliance it describes."""
+    sys.path.insert(0, str(CARDS_DIR))
+    import _cards_sync
+
+    if _cards_sync.main(check=True):
+        sys.exit("deck not printed — fix the cards, or the driver that derives them")
+
+
 if __name__ == "__main__":
+    check_machine()
     render_cards()
     build_pdf()

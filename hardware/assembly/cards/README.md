@@ -3,9 +3,14 @@
 Bench-side instruction cards for building the Kitchen edition, one card per hand
 operation, printed full-bleed on 4" × 6" gloss (Epson EcoTank, borderless). The
 deck walks the whole build in the order of [`/hardware/assembly/`](/hardware/assembly/)'s
-procedure docs; every number on a card is copied verbatim from its source
-procedure, which remains the source of truth. A card is a rendering of its
-procedure step — when a procedure changes, its cards rebuild.
+procedure docs. A card is a rendering of its procedure step — when a procedure
+changes, its cards rebuild.
+
+**A figure the machine owns is derived, not typed.** A dimension, a count, a
+station, a fastener quantity: the card carries it in a `data-gen` marker, and
+[`_cards_sync.py`](_cards_sync.py) writes it from the built appliance. What a
+card owns outright is its craft — the hand technique, the order of operations,
+the reason a step is shaped the way it is. See [The gate](#the-gate).
 
 ## Layout
 
@@ -16,13 +21,58 @@ procedure step — when a procedure changes, its cards rebuild.
 - `img/` — CAD renders used by cards, produced by
   [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js).
 - `out/` — the printable deck: one PNG per card plus `deck.pdf` (6 × 4 in pages).
-- [`_build.py`](_build.py) — renders every card HTML to `out/` via
-  [`tools/render/render-card.js`](/tools/render/render-card.js) and assembles
-  `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
+- [`_build.py`](_build.py) — runs the gate, renders every card HTML to `out/`
+  via [`tools/render/render-card.js`](/tools/render/render-card.js), and
+  assembles `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
+- [`_cards_sync.py`](_cards_sync.py) — the doc-sync driver: every figure the
+  cards state that the machine owns, derived from `front_half.machine()`, plus
+  which card carries which. [`_cardgen.py`](_cardgen.py) — the marker syntax and
+  the checks. Both underscore-prefixed for the same reason.
 
 ```
 tools/cad-venv/bin/python hardware/assembly/cards/_build.py
 ```
+
+## The gate
+
+`_build.py` builds the appliance and reads every derived figure on every card
+against it before a single card renders, so a stale deck cannot come off the
+printer. Run it alone while writing a card:
+
+```
+tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py --check   # report drift
+tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py           # write it away
+```
+
+A marker is [`tools/docgen`](/tools/docgen/)'s `[value](NAME)` translated to a
+page that gets printed: the name goes in an attribute, where it never draws, and
+the element's own text is the value.
+
+```html
+<span class="dim" data-gen="WALL_BOSSES">15</span>
+<td class="v" data-gen="BOX_SIZE">223 &#215; 481 &#215; 358 mm</td>
+```
+
+A marked element holds text and nothing else. The value in the file is never
+authoritative — `_cards_sync.py`'s variable is.
+
+**To put a derived figure on a card**, in `_cards_sync.py`:
+
+1. Derive it in that subsystem's function, off the machine rather than off
+   another document. Prefer a structural reading to a coordinate — "the east end
+   of the row" survives the row moving and `z 342.4` does not.
+2. Assert the structure the sentence around it rests on, the way
+   [`_bom_sync.py`](/hardware/scripts/_bom_sync.py) asserts `not ml.JOINS`. "Nothing
+   is cut in the front wall" holds no number, so only an assertion can put it
+   back.
+3. Wrap the value on the card, add the name to that card's set in `cards`, and
+   name `_cards_sync.py` in the card's `.src` footer — the bench's own Sources
+   line.
+
+A new subsystem is one function taking the built machine and returning
+`(facts, cards)`, plus an entry in `SUBSYSTEMS`. Names live in **one namespace
+across the whole deck**, so two cards cannot state the same wall's boss count
+and disagree. A card stating nothing the machine owns needs no entry.
 
 A part named on a card resolves to a line in [`bom.md`](/hardware/ledger/bom.md)
 or [`tools.md`](/hardware/ledger/tools.md) — the two ledgers a build draws on.
@@ -113,7 +163,7 @@ accent colors are defined in `STYLE.md`.
 |---|---|
 | ES-01 | Prepare the shelf |
 | ES-02 | Stage the AC distribution + ground bus |
-| ES-03 | Mount the PSU, relays, PCBA |
+| ES-03 | Stage the PSU, relays, PCBA |
 | ES-04 | Land the AC pigtails |
 | ES-05 | Stage DC distribution + 12 V branches |
 | ES-06 | Land the RELAYS J5 loom |
@@ -131,16 +181,19 @@ accent colors are defined in `STYLE.md`.
 
 ### EN — Enclosure mechanical ([enclosure-mechanical.md](/hardware/assembly/enclosure-mechanical.md))
 
+One card per procedure step, in the procedure's own order.
+
 | Card | Operation |
 |---|---|
-| EN-01 | Stage the shell + back panel |
-| EN-02 | Mount the compressor with its shroud |
-| EN-03 | Mount the condenser + fan |
-| EN-04 | Seat the cold core at the rear |
-| EN-05 | Drip pan + moisture sensor |
-| EN-06 | Install the top hopper |
-| EN-07 | Mount the populated back panel |
-| EN-08 | Seat the electronics shelf |
+| EN-01 | Stage the four printed pieces |
+| EN-02 | Seat the rear wall's connection bodies |
+| EN-03 | Shroud the compressor, then stand it on the floor |
+| EN-04 | Set the condenser's axis across the machine |
+| EN-05 | Seat the cold core behind the stratum |
+| EN-06 | Stand the power column on the +X flank |
+| EN-07 | Close the box |
+| EN-08 | Slide the drip tray in through the −X wall |
+| EN-09 | Display into the facet, hopper opening clear |
 
 ### IP — Internal plumbing ([internal-plumbing.md](/hardware/assembly/internal-plumbing.md))
 
