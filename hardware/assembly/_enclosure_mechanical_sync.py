@@ -31,20 +31,20 @@ from _cold_core_interface import (  # noqa: E402
     outer_shell_x_length,
     outer_shell_y_length,
 )
-import front_half as _fh  # noqa: E402  — the placed pack, and the box sized around it
+import enclosure_assembly as _ea  # noqa: E402  — the placed pack, and the box sized around it
 import _scorecard as _card  # noqa: E402  — the fastening table, one row per placed body
-import enclosure as _enc  # noqa: E402  — on the path once `front_half` is imported
+import enclosure as _enc  # noqa: E402  — on the path once `enclosure_assembly` is imported
 import iec_c14_inlet as _c14  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
-import meanwell_irm90 as _psu  # noqa: E402  — on the path once `front_half` is imported
+import meanwell_irm90 as _psu  # noqa: E402  — on the path once `enclosure_assembly` is imported
 from docgen import substitute_md  # noqa: E402
 
 # What the row's hardware takes on the wall face, off each fitting's own panel footprint.
 PORT_NUT_D, _ = _jg.panel_footprint()                        # JG bulkhead nut, across the face
 PORT_C14_FLANGE_W, _ = _c14.panel_footprint()                # and the C14's bezel
 # Clear wall between two adjacent nuts. A hand has to get a socket onto each one after its
-# neighbour is made up, and this is the margin that leaves — the figure `_port_chain` prices a
-# row of them at. `front_half.PANEL_X` stands the umbilical's three further apart than this.
+# neighbour is made up, and this is the margin that leaves — the figure `_port_chain` prices a row
+# of them at. `enclosure_assembly.PANEL_X` stands the umbilical's three further apart than this.
 PORT_NUT_GAP = 7.0
 
 
@@ -61,10 +61,10 @@ def _span(pack, *names):
 
 def main():
     # The stations as PLACED, each read off the body's own mouth — the same station
-    # `front_half.back_wall_ports` strikes its bore on, so prose and hole cannot land on two
-    # different columns — and the box read off `enclosure` sizing itself around that pack.
-    _a = _fh.build_pack()
-    _pack = _fh.pack(_a)
+    # `enclosure_assembly.back_wall_ports` strikes its bore on, so prose and hole cannot land on
+    # two different columns — and the box read off `enclosure` sizing itself around that pack.
+    _a = _ea.build_pack()
+    _pack = _ea.pack(_a)
     _box = _enc.box_around(_pack)
     _mouth = lambda carry: carry(_jg.port(-1.0))[0]          # noqa: E731
     _water = _mouth(_a.bulkhead_carry)
@@ -75,30 +75,30 @@ def main():
     if len(_pitches) != 1:
         raise ValueError(
             f"the umbilical row is not on one pitch: {sorted(_pitches)}. The doc quotes a "
-            f"single figure, so either `front_half.PANEL_X` goes back on one pitch or this "
-            f"reads out every gap.")
+            f"single figure, so either `enclosure_assembly.PANEL_X` goes back on one pitch "
+            f"or this reads out every gap.")
     # The two bores in the table's "Wall opening" column, taken from the functions that
-    # STRIKE them and not recomputed beside them. These are the calls `front_half.pack`
+    # STRIKE them and not recomputed beside them. These are the calls `enclosure_assembly.pack`
     # fills `back_ports` with, and `enclosure._port_cuts` bores that list — so the table
     # cannot quote a hole the wall does not have. One figure covers the four unions,
     # which holds only while the four are on one diameter.
-    _union_bores = _fh.back_wall_ports(_a.bulkhead_carry, *_a.panel_carries.values())
+    _union_bores = _ea.back_wall_ports(_a.bulkhead_carry, *_a.panel_carries.values())
     _hole_ds = {round(p[3], 6) for p in _union_bores}
     if len(_hole_ds) != 1:
         raise ValueError(
             f"the back wall's four unions are bored at {sorted(_hole_ds)}. The table gives "
             f"the umbilical row and the tap-water union one opening apiece off one figure, "
             f"so either they go back on one diameter or the rows read out separately.")
-    _co2_hole_d = _fh.co2_wall_port(_a.co2_inlet_carry)[3]
+    _co2_hole_d = _ea.co2_wall_port(_a.co2_inlet_carry)[3]
 
     # Hopper corridor — `fluid-4` runs from the funnel's spout to V-B's own inlet, threading
     # between the two source coils on the way. That run only exists once the funnel is placed
     # and its lines drawn, past what `build_pack` reaches, so this is the one figure in the doc
     # that costs its own (fuller) build rather than reading off `_a`.
-    _fh_full = _fh.build_front_half()
-    _hopper_runs = list(getattr(_fh_full, "runs", []))
-    _hopper_clearances = _card.part_clearances(_fh_full, _hopper_runs)
-    _hopper_lanes = _card.lane_notes(_fh_full, _hopper_runs, _hopper_clearances)
+    _ea_full = _ea.build_enclosure_assembly()
+    _hopper_runs = list(getattr(_ea_full, "runs", []))
+    _hopper_clearances = _card.part_clearances(_ea_full, _hopper_runs)
+    _hopper_lanes = _card.lane_notes(_ea_full, _hopper_runs, _hopper_clearances)
     _hopper_note = next((n for n in _hopper_lanes if n.startswith("fluid-4 threads")), None)
     if _hopper_note is None:
         raise ValueError(
@@ -112,7 +112,7 @@ def main():
         raise ValueError(f"the hopper corridor note changed shape: {_hopper_note!r}")
     # The gate's own verdict, read rather than stated — a paragraph that names a check red
     # cannot stay honest against a fix made on the other side of it.
-    _hopper_gate = next(c for c in _card.build(_fh_full).checks if c.id == "clearance-floor")
+    _hopper_gate = next(c for c in _card.build(_ea_full).checks if c.id == "clearance-floor")
 
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box.outer
     variables = {
@@ -135,7 +135,7 @@ def main():
         # The PSU's own body, off the reference module the pack places it from. The
         # brick is laid on its side so its SHORTEST axis is the one reaching into the
         # lane, and the doc says which axis does what — so both are read off the same
-        # module `front_half` seats the body with rather than copied beside it.
+        # module `enclosure_assembly` seats the body with rather than copied beside it.
         "PSU_DEPTH": f"{_psu.height:.4g} mm",
         "PSU_LENGTH": f"{_psu.length:.4g} mm",
         # AC inlet recess range.
@@ -159,8 +159,8 @@ def main():
         "UMBILICAL_CARB_X": f"{_xs[-1]:+.4g}",
         "WATER_BACK_X": f"{_water[0]:.4g}",
         "WATER_BACK_Z": f"{_water[2]:.4g}",
-        "C14_BACK": f"x {_fh.C14_STATION[0]:.4g}, z {_fh.C14_STATION[1]:.4g}",
-        "CO2_BACK": f"x {_fh.CO2_STATION[0]:.4g}, z {_fh.CO2_STATION[1]:.4g}",
+        "C14_BACK": f"x {_ea.C14_STATION[0]:.4g}, z {_ea.C14_STATION[1]:.4g}",
+        "CO2_BACK": f"x {_ea.CO2_STATION[0]:.4g}, z {_ea.CO2_STATION[1]:.4g}",
         # One boss per hole in every body's own pattern, carried through that body's own
         # placement — so a body that moves takes its bosses with it and this is a reading of
         # the +X wall rather than a count kept by hand.

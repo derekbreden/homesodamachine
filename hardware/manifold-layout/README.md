@@ -146,7 +146,7 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 
 ## Standing it on the refrigeration stratum
 
-[`front_half.py`](front_half.py) → `front-half.step` mates its bodies with nothing between
+[`enclosure_assembly.py`](enclosure_assembly.py) → `front-half.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, the condenser's aft face
 to the cold core's front wall, and the crown of the pair to this pack's spine hairpins. The
 compressor does not reach that wall — the condenser is the deeper of the two and both are struck

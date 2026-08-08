@@ -1,7 +1,7 @@
 """
 The appliance the enclosure iso drawings show: THE MACHINE'S OWN WALLS.
 
-`front_half.build_front_half()` places every body, seats what each wall
+`enclosure_assembly.build_enclosure_assembly()` places every body, seats what each wall
 carries, and cuts the printed pieces of the box around them. This module takes
 that one build and keeps what stands OUTSIDE the closed machine:
 
@@ -11,7 +11,7 @@ that one build and keeps what stands OUTSIDE the closed machine:
 - the funnel standing in that throat and the display let into that facet,
 - the length of each through-wall fitting that stands proud of the shell.
 
-NOTHING HERE DRAWS A FEATURE OF ITS OWN. A port that moves in `front_half`
+NOTHING HERE DRAWS A FEATURE OF ITS OWN. A port that moves in `enclosure_assembly`
 moves in the drawing on the next run, a wall the pack hands no station is drawn
 blank, and no number in the line art is a second machine's: the appliance is
 [223 mm](APPLIANCE_W) wide, [481 mm](APPLIANCE_D) deep and [358 mm](APPLIANCE_H)
@@ -40,7 +40,7 @@ for _p in (next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) /
 
 from docgen import substitute_py_comments               # noqa: E402
 import _boxes                                           # noqa: E402
-import front_half as _fh                                # noqa: E402
+import enclosure_assembly as _ea                                # noqa: E402
 import _back_panel_dimensions as _rear                  # noqa: E402
 
 
@@ -52,9 +52,9 @@ import _back_panel_dimensions as _rear                  # noqa: E402
 # two drawings that render it cannot show two machines, and neither can the
 # quick-start sheet that embeds them.
 
-_ASSY = _fh.build_front_half()
+_ASSY = _ea.build_enclosure_assembly()
 _BOX = _ASSY.box
-_SOLIDS = _fh._solids(_ASSY)
+_SOLIDS = _ea._solids(_ASSY)
 
 # The bounds the box came out at. A drawing that states its own is a drawing of
 # a machine nobody builds.
@@ -65,19 +65,19 @@ APPLIANCE_H = OUTER[5] - OUTER[4]
 
 # The pieces the enclosure comes apart into, by the name they go into the
 # assembly under. There is no panel among them — the front of this machine is
-# `enclosure-front-*`'s own skin, and it is BLANK: `front_half.pack()` fills
+# `enclosure-front-*`'s own skin, and it is BLANK: `enclosure_assembly.pack()` fills
 # `back_ports` with [6](BACK_PORT_N) stations and leaves `front_ports` at the
 # `Pack` default, so the front wall is cut [0](FRONT_PORT_N) times and the
 # drawing shows a face with nothing on it.
 PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
 
-# What a customer's line reaches. `front_half.THROUGH_WALL` is the machine's own
+# What a customer's line reaches. `enclosure_assembly.THROUGH_WALL` is the machine's own
 # list of bodies clamped IN a wall rather than standing inside one, so the
 # drawing carries exactly the fittings the machine presents to the room — the
 # three umbilical unions in one row at [48 mm](PANEL_PITCH) pitch, the tap-water
 # union on its own storey below them, the mains inlet, and the CO2 inlet under
 # it. All of them on the back wall, because that is where the machine puts them.
-FITTINGS = _fh.THROUGH_WALL
+FITTINGS = _ea.THROUGH_WALL
 
 # Bodies seated in an OPENING rather than through a wall: the funnel standing in
 # the top wall's throat, and the display let into the 45° facet. Each is drawn
@@ -236,8 +236,8 @@ def anchors(view: str) -> list:
 
 def refresh_comments() -> None:
     """Refresh the [value](NAME) markdown links in this file's comments."""
-    pitch = ((max(_fh.PANEL_X.values()) - min(_fh.PANEL_X.values()))
-             / (len(_fh.PANEL_X) - 1))
+    pitch = ((max(_ea.PANEL_X.values()) - min(_ea.PANEL_X.values()))
+             / (len(_ea.PANEL_X) - 1))
     substitute_py_comments(
         Path(__file__),
         variables={

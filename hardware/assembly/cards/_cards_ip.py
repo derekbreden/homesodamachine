@@ -19,9 +19,9 @@ DIA = "&#8960;"     # ⌀
 
 
 def internal_plumbing(m):
-    """The runs `_lines.py` draws between the bodies `front_half.py` places, the
+    """The runs `_lines.py` draws between the bodies `enclosure_assembly.py` places, the
     manifold's own census, and the row of unions the risers land on."""
-    import front_half as _fh
+    import enclosure_assembly as _ea
     import manifold_layout as _ml
     import _lines
     import _scorecard as _card
@@ -59,10 +59,10 @@ def internal_plumbing(m):
         f"{len(box.front_ports)} station(s) are cut in the front wall — IP-01 brings the CO2 "
         f"in at the back and says nothing at all is cut in the front")
     # The bore, off the call that STRIKES it rather than a second copy of its
-    # arithmetic: `co2_wall_port` is what `front_half.pack` fills `back_ports` with,
+    # arithmetic: `co2_wall_port` is what `enclosure_assembly.pack` fills `back_ports` with,
     # so a change to how the hole is struck arrives here instead of leaving this
     # assertion checking the wall against a rule it no longer follows.
-    co2_bore = _fh.co2_wall_port(a.co2_inlet_carry)[3]
+    co2_bore = _ea.co2_wall_port(a.co2_inlet_carry)[3]
     assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
         f"no {co2_bore:.4g} mm bore stands in the back wall — IP-01 threads the GASHER onto a "
         f"DERPIPE clamped through it, and the back wall is where the card sends the bench")
@@ -161,8 +161,8 @@ def internal_plumbing(m):
     # Read as an ARRANGEMENT: three unions, one line, one pitch, and which end of
     # the row each tube lands on. IP-05 and FU-04 both describe that row, and
     # both used to describe a triangle.
-    row = sorted(_fh.PANEL_X.items(), key=lambda kv: kv[1])          # west → east
-    zs = {round(port(n, "tube-in")[0][2], 6) for n in _fh.PANEL_X}
+    row = sorted(_ea.PANEL_X.items(), key=lambda kv: kv[1])          # west → east
+    zs = {round(port(n, "tube-in")[0][2], 6) for n in _ea.PANEL_X}
     assert len(zs) == 1, (
         f"the umbilical unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 present the "
         f"bundle to ONE line and flex the three tubes apart along it")
@@ -198,19 +198,19 @@ def internal_plumbing(m):
     # is where a wiring card looking for it would otherwise send the bench.
     #   THE CORE'S BOX TOP IS NOT THE FACE IT STANDS ON. That same lid stands a taller pad
     # under each flavour valve, so the solid's `zmax` is one of THOSE seats and a body placed
-    # on it would be standing on another valve's cradle. `front_half.cap_face` is the lid's
+    # on it would be standing on another valve's cradle. `enclosure_assembly.cap_face` is the lid's
     # own outer face and `cap_cradles` is the seat each valve takes over it, which is the pair
     # this reads V-K against.
-    vk, pump = _fh.box(a.pack_solids["vk-solenoid"]), _fh.box(a.pack_solids["seaflo-pump"])
-    chain = _fh.box(a.pack_solids["suction-chain"])
+    vk, pump = _ea.box(a.pack_solids["vk-solenoid"]), _ea.box(a.pack_solids["seaflo-pump"])
+    chain = _ea.box(a.pack_solids["suction-chain"])
     vk_x = (vk.xmin + vk.xmax) / 2.0
     assert "vk-solenoid" in cap_cradles, (
         f"the cold core's cap prints cradles for {sorted(cap_cradles)} and none of them is "
         f"V-K's — WR-04 sends the DC-9 branch to a valve standing on that cap, and a valve "
         f"with no cradle there stands somewhere else")
     vk_seat = cap_cradles["vk-solenoid"].seat
-    face = _fh.cap_face(a.pack_solids["foam-assembly"])
-    assert abs(vk.zmin - (face + vk_seat)) <= _fh.CRADLE_TOL, (
+    face = _ea.cap_face(a.pack_solids["foam-assembly"])
+    assert abs(vk.zmin - (face + vk_seat)) <= _ea.CRADLE_TOL, (
         f"V-K's mounting plane stands {vk.zmin - face:.4g} mm over the cold core's cap face "
         f"and its cradle seats it at {vk_seat:.4g} mm — WR-04 sends the DC-9 branch to a "
         f"valve pressed home in that cradle")
@@ -254,7 +254,7 @@ def internal_plumbing(m):
         "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
         # The row on the back wall — IP-05, FU-04.
-        "UMBILICAL_UNIONS": f"{len(_fh.PANEL_X)}",
+        "UMBILICAL_UNIONS": f"{len(_ea.PANEL_X)}",
         "FLAVOR_A_STATION": "middle",
         "FLAVOR_B_END": "west",
         # The three risers — IP-05, WR-05.

@@ -2,7 +2,7 @@
 the source of truth for the enclosure outer dimensions imported by the
 isometric drawings.
 
-The numbers are READ OFF THE MACHINE — `front_half.machine()` places every body and
+The numbers are READ OFF THE MACHINE — `enclosure_assembly.machine()` places every body and
 `enclosure.box_around` sizes the box on them — not re-derived from the parts it is
 sized around: the box already computes its bounds from the placed pack, and a second
 derivation here is a second machine's dimensions in the drawings.
@@ -31,7 +31,7 @@ from _cold_core_interface import (  # noqa: E402
 import _boxes  # noqa: E402
 import condenser_block as _cond  # noqa: E402
 import enclosure  # noqa: E402
-import front_half as _fh  # noqa: E402
+import enclosure_assembly as _ea  # noqa: E402
 import manifold_layout as _ml  # noqa: E402
 import _scorecard  # noqa: E402
 from docgen import substitute_md  # noqa: E402
@@ -39,8 +39,8 @@ from docgen import substitute_md  # noqa: E402
 
 # The machine, once: the placed pack, what its walls carry, and the box around it. Every
 # figure below is read off this one build, so no two of them can describe two machines.
-_ASSY, _PACK, _BOX = _fh.machine()
-_SOLIDS = _fh._solids(_ASSY)
+_ASSY, _PACK, _BOX = _ea.machine()
+_SOLIDS = _ea._solids(_ASSY)
 _OUTER, _INNER = _BOX.outer, _BOX.inner
 
 
@@ -48,9 +48,9 @@ def _bb(name: str):
     """One placed body's box, by the name it goes into the assembly under."""
     if name not in _SOLIDS:
         raise KeyError(
-            f"{name} is not among the {len(_SOLIDS)} bodies `front_half` places — this file "
-            f"measures a body that has been renamed or dropped, and the README figure it "
-            f"feeds is stale. Have: {', '.join(sorted(_SOLIDS))}")
+            f"{name} is not among the {len(_SOLIDS)} bodies `enclosure_assembly` places — "
+            f"this file measures a body that has been renamed or dropped, and the README "
+            f"figure it feeds is stale. Have: {', '.join(sorted(_SOLIDS))}")
     return _boxes.boxed(_SOLIDS[name][0])
 
 
@@ -120,9 +120,9 @@ CORE_FRONT_Y = _FOAM.ymin                       # its front face — the stratum
 CORE_CROWN = _FOAM.zmax                         # its cap's lid, the service bay's floor
 
 # --- the flavour manifold, on the stratum's crown --------------------------
-# `front_half._manifold` is what names a body as the pack's rather than a standalone, so the
-# pack measures here exactly as it measures in the assembly's own report.
-_MANIFOLD = _group(_fh._manifold)
+# `enclosure_assembly._manifold` is what names a body as the pack's rather than a standalone, so
+# the pack measures here exactly as it measures in the assembly's own report.
+_MANIFOLD = _group(_ea._manifold)
 MANIFOLD_W = _MANIFOLD.xmax - _MANIFOLD.xmin
 MANIFOLD_D = _MANIFOLD.ymax - _MANIFOLD.ymin
 MANIFOLD_H = _MANIFOLD.zmax - _MANIFOLD.zmin
@@ -132,7 +132,7 @@ MANIFOLD_TOP = _MANIFOLD.zmax
 PUMP_FACE_CLEAR = min(_bb(n).zmin for n in _SOLIDS if n.endswith("-head")) - STRATUM_TOP
 DECK_SEP = _ml.DECK_SEP                         # the two valve decks, deck to deck
 # The pack overhangs the core's front face, and what it clears there is the core's own crown.
-_OVER = [n for n in _SOLIDS if _fh._manifold(n) and _bb(n).ymax > CORE_FRONT_Y + 1e-6]
+_OVER = [n for n in _SOLIDS if _ea._manifold(n) and _bb(n).ymax > CORE_FRONT_Y + 1e-6]
 CORE_OVERHANG = max(_bb(n).ymax for n in _OVER) - CORE_FRONT_Y
 CORE_OVERHANG_CLEAR = min(_bb(n).zmin for n in _OVER) - CORE_CROWN
 OVERHANG_N = len(_OVER)
@@ -147,11 +147,11 @@ BACK_BOTTOM_H = _boxes.boxed(enclosure.build_pieces(_BOX)[0]["back-bottom"].val(
 BED_Z = enclosure.H2C_Z
 
 # --- what crosses the back wall --------------------------------------------
-# Each read off the union's own inboard collet, which is the station `front_half`'s
+# Each read off the union's own inboard collet, which is the station `enclosure_assembly`'s
 # `back_wall_ports` strikes its bore on.
 PORT_ROW_Z = _bb("bulkhead-carb").zmin + (_bb("bulkhead-carb").zlen / 2.0)
 WATER_PORT_Z = _bb("bulkhead-water").zmin + (_bb("bulkhead-water").zlen / 2.0)
-PANEL_PITCH = (max(_fh.PANEL_X.values()) - min(_fh.PANEL_X.values())) / (len(_fh.PANEL_X) - 1)
+PANEL_PITCH = (max(_ea.PANEL_X.values()) - min(_ea.PANEL_X.values())) / (len(_ea.PANEL_X) - 1)
 
 # --- the lines the cold core is reached on ---------------------------------
 # All four reservoir lines land on CAP CONDUITS — bores up the cap's own columns opening on

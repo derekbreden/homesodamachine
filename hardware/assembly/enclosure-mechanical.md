@@ -2,7 +2,7 @@
 
 The production procedure for standing the machine's pack inside its printed shell and closing the shell around it: refrigeration stratum on the floor, cold core behind it, the power column against the +X wall, the four printed pieces telescoped and cross-pinned, the drip tray in through its own slot, the display let into the facet. No internal plumbing runs, no AC/DC wiring runs — those are downstream in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md). The output is the mechanical canvas everything else lands on.
 
-The arrangement is [`front_half.py`](/hardware/manifold-layout/front_half.py): it places every body and sizes the box around them, and `front-half.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/future.md`](/hardware/future.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
+The arrangement is [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py): it places every body and sizes the box around them, and `front-half.scorecard.json` beside it carries every port, every run and every clearance the placement holds. Design intent lives in [`/hardware/future.md`](/hardware/future.md) "Enclosure (back to front)", "Refrigeration", "User-facing surfaces", and "Safety". Part-level READMEs are the source of truth for every component this procedure handles; this document is the build-cadence wrapper.
 
 ## The box
 
@@ -59,7 +59,7 @@ Dry-fit the seams with the box empty: front-bottom into back-bottom, front-top i
 
 All six land in `enclosure-back-top`, on the bench, before that piece goes anywhere near the pack. This is the easier work surface, and it lets each bulkhead's torque load react against a wall that is unobstructed from inside.
 
-**Every hole in this wall is struck on its own fitting's mouth**, so a bore and the barrel that passes it cannot land on two different columns ([`front_half.py`](/hardware/manifold-layout/front_half.py) `back_wall_ports`). The stations:
+**Every hole in this wall is struck on its own fitting's mouth**, so a bore and the barrel that passes it cannot land on two different columns ([`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) `back_wall_ports`). The stations:
 
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
@@ -140,7 +140,7 @@ Lay the moisture sensor flat in the printed basin ([`drip-pan/README.md`](/hardw
 
 Then **slide the tray in through the slot in the −X side wall**, rim first, east until it stops. The slot is one opening in two rectangles, each cut at what the tray is widest at its own height — the rim above the flange's underside, the 45° haunch below it. The rim rides the two rails printed on that wall's inner face, the tray's two haunches sit down between their inboard edges and centre it, and the stop bar closing the rails' east ends is what it comes to rest against: home is when the rim's west edge is flush with the wall's inner face.
 
-**What carries it is its own rim.** Nothing reaches under the floor — the basin lies over the SeaFlo, so section beneath it would be height charged twice. Nothing fastens the tray either: it draws west back out the same slot to be emptied. Seated, it stands under the fall off the Multiplex 19-0897's atmospheric vent tip, which `front_half.check_vent_lands` holds to the basin's flat floor, inside the coves, so the drip lands on the moisture plate and not on a wall it runs down the outside of. Route the leads toward the power column and leave them loose — termination happens in [`wiring.md`](/hardware/assembly/wiring.md) (run SIG-9 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)).
+**What carries it is its own rim.** Nothing reaches under the floor — the basin lies over the SeaFlo, so section beneath it would be height charged twice. Nothing fastens the tray either: it draws west back out the same slot to be emptied. Seated, it stands under the fall off the Multiplex 19-0897's atmospheric vent tip, which `enclosure_assembly.check_vent_lands` holds to the basin's flat floor, inside the coves, so the drip lands on the moisture plate and not on a wall it runs down the outside of. Route the leads toward the power column and leave them loose — termination happens in [`wiring.md`](/hardware/assembly/wiring.md) (run SIG-9 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)).
 
 ### 8. Let the display into the facet, and clear the hopper opening
 

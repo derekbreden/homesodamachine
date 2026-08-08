@@ -16,19 +16,18 @@ Coordinate frame
   The slot OPENS ON THE AFT FACE rather than standing sealed inside the block — it eats
   that face, so a driver reaches both holes from behind.
   It stands 29 in from the INTAKE face and 15 in from the AFT face. The machine currently
-  sets the block down unturned (`front_half.build_condenser`), so those two read as the
+  sets the block down unturned (`enclosure_assembly.build_condenser`), so those two read as the
   world's X− and Y+ faces at this pose.
 - BOTH REFRIGERANT LEGS ARRIVE ON A FACE THE BLOCK PRESENTS TO ITS NEIGHBOUR, which is what
-  a donor packed as an envelope is for: the serpentine's own headers are re-dressed to reach
-  them. Hot gas enters the INTAKE face on the compressor's own discharge stub, a plane the
-  two bodies share, so that leg is made up across it with no copper drawn between them. The
-  liquid line leaves the AFT face for the cold core's evaporator inlet.
-  `front_half.refrigerant_joints()` takes a reading over every leg of the loop at each build,
-  and `check_refrigerant_joints` reads red on the card for one standing open and for one with
-  no pair of placed stations to measure.
+  a donor packed as an envelope is for: the serpentine's own headers are re-dressed to reach them.
+  Hot gas enters the INTAKE face on the compressor's own discharge stub, a plane the two bodies
+  share, so that leg is made up across it with no copper drawn between them. The liquid line leaves
+  the AFT face for the cold core's evaporator inlet. `enclosure_assembly.refrigerant_joints()`
+  takes a reading over every leg of the loop at each build, and `check_refrigerant_joints` reads
+  red on the card for one standing open and for one with no pair of placed stations to measure.
 
 Which wall the block stands against and which way its air crosses the cabinet is the
-enclosure's business (`../../manifold-layout/front_half.py`).
+enclosure's business (`../../manifold-layout/enclosure_assembly.py`).
 """
 
 import sys

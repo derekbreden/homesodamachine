@@ -37,7 +37,7 @@ sys.path.insert(
 from _cold_core_interface import cap_conduits, cap_conduit_bore_radius  # noqa: E402
 
 import _lines  # noqa: E402  — the stock every water run is drawn on
-import front_half as _fh  # noqa: E402  — the placed pack, and the runs cut to it
+import enclosure_assembly as _ea  # noqa: E402  — the placed pack, and the runs cut to it
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
 import seaflo_discharge_chain as _dis  # noqa: E402  — on the path once `_lines` is imported
 
@@ -49,7 +49,7 @@ def main():
     # a bench cuts is read off the run and not rounded beside it. `_cards_ip` states the
     # same two lengths on IP-02 off the same runs at the same precision — one cut under
     # one figure, so card and procedure cannot send a bench to two different lengths.
-    _runs = {r.id: r for r in _fh.build_pack().runs}
+    _runs = {r.id: r for r in _ea.build_pack().runs}
     for _rid in ("water-6", "water-7"):
         if _runs[_rid].bend != _lines.HOSE_BEND:
             raise ValueError(

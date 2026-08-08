@@ -25,7 +25,7 @@ the reason a step is shaped the way it is. See [The gate](#the-gate).
   via [`tools/render/render-card.js`](/tools/render/render-card.js), and
   assembles `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
 - [`_cards_sync.py`](_cards_sync.py) — the doc-sync driver: every figure the
-  cards state that the machine owns, derived from `front_half.machine()`, plus
+  cards state that the machine owns, derived from `enclosure_assembly.machine()`, plus
   which card carries which. [`_cardgen.py`](_cardgen.py) — the marker syntax and
   the checks. Both underscore-prefixed for the same reason.
 

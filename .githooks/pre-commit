@@ -40,7 +40,7 @@
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
 #      - hardware/ enclosure                → nothing. The front half carries its own
-#        gates and runs them itself: hardware/manifold-layout/front_half.py prints the
+#        gates and runs them itself: hardware/manifold-layout/enclosure_assembly.py prints the
 #        scorecard at the tail of every run and writes front-half.scorecard.json beside
 #        the STEP, so nothing here re-runs them, and a red row rides the card rather
 #        than stopping anything. Rebuild-and-compare across every live generator is
@@ -210,7 +210,7 @@ for hw in $editions; do
     gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
   fi
 
-  # No pack gate here. hardware/manifold-layout/front_half.py runs its own scorecard at
+  # No pack gate here. hardware/manifold-layout/enclosure_assembly.py runs its own scorecard at
   # build time and writes front-half.scorecard.json beside the STEP, and the topology the
   # card grades itself against is hardware/topology/fluid-topology.md, which _scorecard.py
   # reads on every run. A freshness reading over the committed sidecar would be a second

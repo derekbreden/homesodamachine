@@ -57,7 +57,7 @@ wago_count = 3
 def main():
     variables = {
         # The board itself, off the outline `pcba_tray` reads out of the board file —
-        # the same rectangle `front_half` places on the shelf and stands its wall
+        # the same rectangle `enclosure_assembly` places on the shelf and stands its wall
         # bosses under. The gerber plot frames it half an edge-cut aperture wider on
         # each side; this is the board that gets cut and the board that gets mounted.
         "PCBA_SIZE": f"{_pcba.board.length:.4g} × {_pcba.board.width:.4g} mm",

@@ -11,12 +11,12 @@ collets meeting at the body centre, run half-length and branch reach both
 20.07 mm, collet OD 13.7 mm, 1/4" (6.35 mm) bore. Reconcile against a measured
 PP0208E as parts come in hand (same note as reference/tee-connector).
 
-Frame: the run along ±Y, the supply at +Y and the flavor tap at −Y, and the branch
-along −X at a right angle to both. Centre at the origin, the three collet faces in
-the Z = 0 plane. Which of the three ends up pointing where is the enclosure's to
-say — it turns this frame on the way in ([`front_half.py`](/hardware/manifold-layout/front_half.py)
-`SPLIT_TURN`), and the branch is the port that turn is FOR:
-it is the only one of the three that can be given a level of its own.
+Frame: the run along ±Y, the supply at +Y and the flavor tap at −Y, and the branch along −X at a
+right angle to both. Centre at the origin, the three collet faces in the Z = 0 plane. Which of the
+three ends up pointing where is the enclosure's to say — it turns this frame on the way in
+([`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) `SPLIT_TURN`), and the
+branch is the port that turn is FOR: it is the only one of the three that can be given a level of
+its own.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/water-split/water_split.py

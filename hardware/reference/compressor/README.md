@@ -79,7 +79,7 @@ are **not modeled**.
 ## Where it stands
 
 Which way the compressor faces and what stands beside it is the machine's, not this
-module's — [`front_half.py`](/hardware/manifold-layout/front_half.py) and
+module's — [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) and
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
 It sits on the enclosure floor slab and is bolted down to it: `enclosure._floor_bosses`
 stands a post under each of the four plate holes, and each rises *through* its hole to

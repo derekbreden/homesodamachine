@@ -149,8 +149,8 @@ function relForLog(absPath) {
 
 // Script discovery and the dependency graph — import edges AND STEP-load edges
 // (`importStep` / the `_load(...)` helper, usually named in an imported module
-// like `front_half.py` or `foam_assembly.py`) — live in ./deps.js, shared with the batch rebuilder
-// (build-all.js) and unit-tested in web/tests/deps.test.js. The functions are
+// like `enclosure_assembly.py` or `foam_assembly.py`) — live in ./deps.js, shared with the
+// batch rebuilder (build-all.js) and unit-tested in web/tests/deps.test.js. The functions are
 // passed CONTENT_ROOTS at each call site.
 
 // --- Script runner ---
@@ -701,7 +701,7 @@ watcher.on("change", (absPath) => {
   //   2. Every other runnable script that transitively imports the file's
   //      module — covers shared `_foo.py` modules anywhere under hardware/, a
   //      generator that doubles as a base module (`bag_circuit_tray`, imported
-  //      by the other trays), and the cross-tree case where `front_half` feeds
+  //      by the other trays), and the cross-tree case where `enclosure_assembly` feeds
   //      a drawing's `_appliance_model` → the `enclosure-iso-*` SVGs.
   // runWave then extends those seeds along STEP-load edges (the enclosures that
   // load the tray assemblies) and runs the lot once each, producers first.
