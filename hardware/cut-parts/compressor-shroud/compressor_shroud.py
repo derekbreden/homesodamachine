@@ -17,16 +17,28 @@ wall ([175](INT_D) x [150](INT_H)). Front is -Y, right is +X.
 
 PENETRATIONS
 ============
+The two copper stubs take DIFFERENT walls, because the machine mates a different body
+against each: the shroud stands with its left face against the condenser and its front
+face against the cold core, and each stub is made up on the pick its own neighbour
+already carries, across the plane the two bodies share. No copper is drawn outside the
+shroud on either.
+- Refrigerant discharge: one hole in the left (-X) face — the wall the condenser stands
+  against — at the far quarter point of the depth, centered vertically
+  (Z=[75](HOLE_CENTER_Z)).
+- Refrigerant suction: one hole in the front (-Y) face — the wall the cold core stands
+  against — [49.5](SUCTION_HOLE_X) mm right of the plan centre, on the core's west port
+  lane, at [47.75](SUCTION_HOLE_Z) mm, the height the evaporator's outlet crosses the
+  core's own wall.
 - 120 V AC pass-through: one hole in the back face, centered
   horizontally (X=0) and vertically (Z=[75](HOLE_CENTER_Z)).
-- Copper inlet + outlet: two holes in the left face, centered
-  vertically (Z=[75](HOLE_CENTER_Z)) and placed by `justify-content: space-around`
-  across the full depth of the face — each hole centered in its own
-  half of the depth (the quarter points).
 - Earth bond: one hole in the back face beside the AC pass-through,
   landing the ground bond (wiring AC-6).
 - Mounting: one hole near the base of the left face and one near the
   base of the right face, fastening the shroud to the enclosure floor.
+
+`front_half.refrigerant_joints()` measures both of those joints at every build of the
+machine and fails the build if either opens — which is what holds the two picks here on
+the neighbours they were struck from.
 
 MATERIAL / BENDS
 ================
@@ -99,11 +111,13 @@ setback_to_bend_line = bend_deduction / 2  # one face loses this from its outer 
 bend_relief_min_depth = inside_bend_radius + wall_thickness + 0.020 * 25.4  # [3.607 mm](BEND_RELIEF_MIN_DEPTH)
 corner_relief = bend_relief_min_depth + 1.0  # half-size; margin over the SCS minimum
 
-# Both holes sit at mid-height of the interior.
+# Mid-height of the interior — where the back wall's two holes sit and where the
+# discharge crosses the left one. The suction has its own height, struck on the cold
+# core's station rather than on this wall.
 hole_center_z = interior_height / 2  # [75](HOLE_CENTER_Z) mm
 
-# space-around across the depth: each copper hole sits at the center of
-# its own half of the face, i.e. at the quarter points of the depth.
+# space-around across the depth: a hole on the left face sits at the center of
+# its own half of the face, i.e. at a quarter point of the depth.
 copper_hole_depth_offset = interior_depth / 4
 
 # ── Outer envelope (walls add thickness outward, top adds it upward) ─
@@ -123,34 +137,47 @@ wall_develop = outer_height - setback_to_bend_line     # bend line to free edge
 arm_u = top_half_u + wall_develop                      # left/right wall free edges
 arm_v = top_half_v + wall_develop                      # front/back wall free edges
 
-# Hole centers in the developed flat. A hole on a wall at interior
-# height z is `z` from that wall's free edge (the straight wall length
-# develops 1:1). The AC + bond holes ride the back arm; the copper holes
-# ride the left arm; the mounting holes ride the left and right arms.
+# Hole centers in the developed flat are read off the stations themselves (`flat`), so a
+# hole moved on the formed box moves on the blank. The mounting holes ride the left and
+# right arms and are the only pair stated here.
 bond_hole_x = 35.0       # back face, beside the centered AC hole
 mounting_hole_z = 15.0   # near the base of the side walls
-ac_flat = (0.0, arm_v - hole_center_z)
-bond_flat = (bond_hole_x, arm_v - hole_center_z)
-copper_flat = [
-    (-arm_u + hole_center_z, -copper_hole_depth_offset),
-    (-arm_u + hole_center_z, +copper_hole_depth_offset),
-]
 mounting_flat = [
     (-arm_u + mounting_hole_z, 0.0),   # left wall
     (arm_u - mounting_hole_z, 0.0),    # right wall
 ]
 
+# Where the SUCTION stub crosses the front wall, in plan and in height. The machine lands
+# this station on the cold core's WEST port lane, and the evaporator's outlet crosses the
+# core's own front wall on the same point from the other side of the plane the two bodies
+# share (`front_half.refrigerant_joints`, which measures the pair at every build and fails
+# on any daylight). The height is the core's `copper_plugs.evap_cross_z` over the floor the
+# core and the shroud both stand on; the plan coordinate is what the pair's own mating
+# leaves, since the shroud stands off the machine's mirror plane by half the condenser's
+# depth.
+suction_hole_x = 49.5
+suction_hole_z = 47.75
+
 # ── Stations, in the shroud's own frame ─────────────────────────────
 # The four penetrations a line arrives at, each on the OUTER surface of the wall it
-# crosses and looking out of it. Both copper stubs take the left (−X) wall at the
-# quarter points of the depth; the AC gland and the earth stud share the back (+Y) one.
-# The two copper bores are one bore twice — which carries suction and which discharge
-# is piped inside the shroud, and the assignment is the enclosure's.
+# crosses and looking out of it. The DISCHARGE takes the left (−X) wall the condenser
+# stands against and the SUCTION the front (−Y) wall the cold core does, so each is made
+# up across a plane two bodies already share and neither carries copper in the open. The
+# AC gland and the earth stud share the back (+Y) wall.
 STATIONS = {
-    "refrig-west":  ((-outer_x, -copper_hole_depth_offset, hole_center_z), (-1.0, 0.0, 0.0)),
-    "refrig-east":  ((-outer_x, +copper_hole_depth_offset, hole_center_z), (-1.0, 0.0, 0.0)),
-    "ac-mains":     ((0.0, outer_y, hole_center_z), (0.0, 1.0, 0.0)),
-    "earth-bond":   ((bond_hole_x, outer_y, hole_center_z), (0.0, 1.0, 0.0)),
+    "refrig-discharge": ((-outer_x, +copper_hole_depth_offset, hole_center_z),
+                         (-1.0, 0.0, 0.0)),
+    "refrig-suction":   ((suction_hole_x, -outer_y, suction_hole_z), (0.0, -1.0, 0.0)),
+    "ac-mains":         ((0.0, outer_y, hole_center_z), (0.0, 1.0, 0.0)),
+    "earth-bond":       ((bond_hole_x, outer_y, hole_center_z), (0.0, 1.0, 0.0)),
+}
+
+# The bore each station takes, so the formed shroud and the flat blank read one list.
+HOLE_DIA = {
+    "refrig-discharge": copper_hole_diameter,
+    "refrig-suction":   copper_hole_diameter,
+    "ac-mains":         ac_hole_diameter,
+    "earth-bond":       bond_hole_diameter,
 }
 
 
@@ -159,6 +186,16 @@ def port(name):
     if name not in STATIONS:
         raise KeyError(f"no station {name!r} (have: {', '.join(STATIONS)})")
     return STATIONS[name]
+
+
+def flat(name):
+    """One station's centre in the developed blank. A wall develops 1:1 off its own bend
+    line, so a hole at interior height `z` lands `z` in from that wall's free edge and keeps
+    the other plan coordinate it had."""
+    (px, py, pz), axis = port(name)
+    if axis[0]:
+        return ((arm_u - pz) * (1.0 if axis[0] > 0 else -1.0), py)
+    return (px, (arm_v - pz) * (1.0 if axis[1] > 0 else -1.0))
 
 _out_dir = _here.parent
 _step_path = _out_dir / "compressor-shroud.step"
@@ -218,11 +255,9 @@ def make_step():
             )
             shroud = shroud.cut(seam).cut(notch)
 
-    # The three line penetrations, each bored on its own station's centre, half a wall
+    # The four line penetrations, each bored on its own station's centre, half a wall
     # thickness in from the outer face the station stands on.
-    for name, dia in (("ac-mains", ac_hole_diameter), ("earth-bond", bond_hole_diameter),
-                      ("refrig-west", copper_hole_diameter),
-                      ("refrig-east", copper_hole_diameter)):
+    for name, dia in HOLE_DIA.items():
         (px, py, pz), axis = port(name)
         inward = tuple(-a * wall_thickness / 2 for a in axis)
         shroud = _cut_cylinder(shroud, (px + inward[0], py + inward[1], pz + inward[2]),
@@ -279,10 +314,8 @@ def make_dxf():
         msp.add_line(line[0], line[1], dxfattribs={"layer": "BEND"})
 
     # Holes.
-    msp.add_circle(ac_flat, ac_hole_diameter / 2)
-    for c in copper_flat:
-        msp.add_circle(c, copper_hole_diameter / 2)
-    msp.add_circle(bond_flat, bond_hole_diameter / 2)
+    for name, dia in HOLE_DIA.items():
+        msp.add_circle(flat(name), dia / 2)
     for c in mounting_flat:
         msp.add_circle(c, mounting_hole_diameter / 2)
 
@@ -320,10 +353,10 @@ def main():
     print(f"  Material:        0.059\" G90 galvanized ({wall_thickness:.3f} mm), R={inside_bend_radius:.3f} mm, K={k_factor}")
     print(f"  Bend deduction:  {bend_deduction:.3f} mm @ 90 deg (allowance {bend_allowance:.3f} mm)")
     print(f"  Flat blank:      {2 * arm_u:.2f} x {2 * arm_v:.2f} mm  ({2 * arm_u / 25.4:.2f}\" x {2 * arm_v / 25.4:.2f}\")")
-    print(f"  AC hole:         d {ac_hole_diameter:.2f} mm, back face, flat {tuple(round(v, 2) for v in ac_flat)}")
-    print(f"  Copper holes:    d {copper_hole_diameter:.2f} mm x2, left face, flat "
-          f"{[tuple(round(v, 2) for v in c) for c in copper_flat]}")
-    print(f"  Earth bond:      d {bond_hole_diameter:.2f} mm, back face, flat {tuple(round(v, 2) for v in bond_flat)}")
+    for name, dia in HOLE_DIA.items():
+        (px, py, pz), axis = port(name)
+        print(f"  {name:16} d {dia:.2f} mm, at ({px:g}, {py:g}, {pz:g}) out "
+              f"{tuple(int(a) for a in axis)}, flat {tuple(round(v, 2) for v in flat(name))}")
     print(f"  Mounting holes:  d {mounting_hole_diameter:.2f} mm x2, side walls, flat "
           f"{[tuple(round(v, 2) for v in c) for c in mounting_flat]}")
     print(f"-> {_step_path.name}")
@@ -336,6 +369,8 @@ def main():
         "INNER_X": f"{inner_x:g}",
         "INNER_Y": f"{inner_y:g}",
         "HOLE_CENTER_Z": f"{hole_center_z:g}",
+        "SUCTION_HOLE_X": f"{suction_hole_x:g}",
+        "SUCTION_HOLE_Z": f"{suction_hole_z:g}",
         "WALL_IN": f'{wall_thickness_in:.4g}"',
         "BEND_R_IN": f'{inside_bend_radius_in:.4g}"',
         "K_FACTOR": f"{k_factor:.4g}",
@@ -352,6 +387,8 @@ def main():
             "INNER_X": 3,
             "INNER_Y": 3,
             "HOLE_CENTER_Z": 3,
+            "SUCTION_HOLE_X": 1,
+            "SUCTION_HOLE_Z": 1,
             "WALL_IN": 2,
             "BEND_R_IN": 1,
             "K_FACTOR": 1,
