@@ -29,20 +29,21 @@ flowchart TD
   %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, and
   %%   the controller PCBA sit on a single electronics shelf at the
   %%   top-back of the enclosure, behind the rear-panel C14 inlet.
-  %% - The compressor sits middle-bottom inside a fire-rated metal
-  %%   shroud (because the appliance is going into kitchens used by
-  %%   friends, family, and customers the founder knows by name, and
-  %%   safe handling of the R-600a charge is what UL 60335-2-89
-  %%   actually requires); its clip-on PTC start relay + overload
-  %%   module is co-located with the compressor body inside the shroud.
-  %% - Teyleten relay #1 stays on the SHELF, OUTSIDE the shroud.
-  %%   Only switched AC enters the shroud (one wire bundle through one
-  %%   grommet: switched H + N + chassis G). This avoids placing an
-  %%   arcing contact inside the protected hydrocarbon-refrigerant
-  %%   compartment.
+  %% - The compressor sits middle-bottom, bolted down to the enclosure
+  %%   floor slab on four printed posts. Its terminal block and its
+  %%   clip-on PTC start relay + overload module stand OPEN to the
+  %%   cabinet volume — nothing encloses them. `/business/regulatory.md`
+  %%   carries that as a live gap against 60335-2-24's fire-enclosure
+  %%   requirement, and closing it is a prerequisite for any claim.
+  %% - Teyleten relay #1 stays on the SHELF, away from the refrigerant
+  %%   compartment. Only switched AC reaches the compressor — one
+  %%   jacketed SJOOW bundle, switched H + N + chassis G (AC-4/5/6),
+  %%   unbroken from the shelf and its own strain relief. This keeps
+  %%   the arcing contact out of the hydrocarbon-refrigerant volume,
+  %%   which is the one placement rule that still holds there.
   %% - The condenser fan motor is on the side of the enclosure
-  %%   (the side-to-side intake → condenser → exhaust airflow path)
-  %%   and is OUTSIDE the shroud. It is a 12 V DC brushless axial
+  %%   (the side-to-side intake → condenser → exhaust airflow path).
+  %%   It is a 12 V DC brushless axial
   %%   fan: the donor ice maker's own PCB regulated mains to 12 V
   %%   to drive it (factory wiring was never AC on the fan itself),
   %%   so on harvest we discard the donor PCB and drive the fan
@@ -51,7 +52,8 @@ flowchart TD
   %%   PA3) — same pattern as the solenoid valves. Firmware turns it
   %%   on/off in lockstep with the compressor.
   %% See `ac-wiring-schedule.md` for run-by-run gauges + lengths and
-  %% `../cut-parts/compressor-shroud/` for the shroud part.
+  %% `../assembly/enclosure-mechanical.md` §5 for the compressor's
+  %% four floor posts and the bond that lands under one of their screws.
 
   subgraph AC_Inlet["AC Inlet"]
     C14["C14 panel-mount inlet\n(MXR B07DCXKNXQ)"]
@@ -63,7 +65,7 @@ flowchart TD
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
     RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: electronics shelf"]
-    COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: inside compressor shroud"]
+    COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: bolted to the enclosure floor slab, terminals open to the cabinet"]
     COND_FAN["Condenser fan motor\n12 V DC brushless axial, ~0.35 A\n(donor PCB discarded; driven from 12 V bus)\nLOCATION: side of enclosure (side-to-side airflow path)"]
   end
 
