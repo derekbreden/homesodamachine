@@ -132,11 +132,17 @@ assert not _trays, (
 # The compressor stands bare on the floor slab, bolted down through its own plate holes, with
 # its terminal block and clip-on PTC open to the cabinet — the fire-enclosure gap `regulatory.md`
 # carries against 60335-2-24. So §5 buys no cut cover, no pass-through gland and no bond stud for
-# one, and a shroud body appearing in the placed machine is what fails here.
-_shrouds = sorted(n for n in _placed if "shroud" in n)
-assert not _shrouds, (
-    f"the machine places {len(_shrouds)} shroud(s) ({_shrouds}) and bom.md §5 bills none — "
-    f"add the cut-part row, its cable gland and its bond back with this count behind them")
+# one, and THAT ONE BODY appearing in the placed machine is what fails here.
+#
+# Named, not matched on a substring. `prv-shroud` (`printed-parts/cold-core/prv-shroud/`) is a
+# live printed part with a §7 row and a mass of its own, and the day it joins the pack a
+# substring test would fail here holding out §5's compressor rows for a part that is not the
+# compressor's.
+COMPRESSOR_COVER = "compressor-shroud"
+_cover = {COMPRESSOR_COVER} & _placed
+assert not _cover, (
+    f"the machine places `{COMPRESSOR_COVER}` and bom.md §5 bills no cover over the compressor "
+    f"— add the cut-part row, its cable gland and its bond back with it")
 
 # And the cradles hold valves this machine actually has. A row for a body the pack does not
 # place is a seat printed into the lid for nothing, which costs material on every build.
