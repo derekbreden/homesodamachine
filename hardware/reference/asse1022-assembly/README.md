@@ -30,17 +30,18 @@ it drips — never plumbed into a drain. `port("vent-tip")` is the datum the pan
 catches, and the drip falls from there: the pan sits under the tip's column,
 wherever the pose leaves it pointing.
 
-The enclosure lays it along the service bay's aft strip, behind the SeaFlo and
-over the foam cap (`enclosure-assembly/_contents.py` `ASSE1022_AXIS`,
-`ASSE1022_YAW`, `ASSE1022_ROLL`) — a yaw about Z, a roll about X, and a
-translation, since this frame is already the cabinet's axes. The yaw turns the
-chain's flow onto the cabinet's −Y, its inlet aft at the tap-water bulkhead and
-its 1/4" PTC collet forward onto the 1/4" LLDPE run to the water-split; the roll
-is zero, so the vent hangs as it is built, dropping its column straight onto the
-cap the pan sits on. The scorecard measures that fall (`fall vent-tip onto
-foam-assembly`). The pack seats the chain and reads all three terminals off that
-seat, so a length changed in any of the five parts moves the enclosure's ports
-with it.
+The machine lays it fore and aft in the −X lane west of the SeaFlo, over the foam
+cap ([`front_half.build_asse`](/hardware/manifold-layout/front_half.py),
+`ASSE1022_YAW`) — a yaw about Z and a translation, since this frame is already the
+cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
+at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
+the water-split; there is no roll, so the vent hangs as it is built, dropping its
+column straight into the drip tray under it. `front_half.check_vent_lands` is where
+that landing is made: the tray's floor, rim and the chain's underside are struck on
+one set of numbers, so the drip falls exactly the gap the basin was drawn for, and a
+pose that put the tip outside the coves fails the build. The pack seats the chain and
+reads all three terminals off that seat, so a length changed in any of the five parts
+moves the machine's ports with it.
 
 ## Model
 

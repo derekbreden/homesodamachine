@@ -30,6 +30,8 @@ the face its own axis points out of, and inside that face's own edges.
 ## Where it stands
 
 Which wall the block stands against, which way its air crosses the cabinet,
-and what the lane beside it is worth are the enclosure's —
-[`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)
-Zone D, and [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
+and what the lane beside it is worth are the machine's —
+[`front_half.py`](/hardware/manifold-layout/front_half.py) and
+[`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
+It stands on the floor slab east of the compressor shroud, its intake face mated
+flush against the shroud's, with the `AIRFLOW` axis across the machine.
