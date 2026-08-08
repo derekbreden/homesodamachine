@@ -3,7 +3,7 @@
  "placed": 100,
  "located": 100,
  "shaped": 90,
- "routed": 95,
+ "routed": 100,
  "held": 92,
  "mounted": 15,
  "checks": [
@@ -58,7 +58,7 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "fail",
-   "value": "51/59 clear",
+   "value": "52/60 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to",
@@ -165,10 +165,10 @@
    "label": "The refrigerant loop closes on the planes its bodies share",
    "kind": "gate",
    "status": "fail",
-   "value": "1/3 closed, 2 unmeasured, widest measured 0.000 mm",
+   "value": "2/3 closed, 1 unmeasured, widest measured 0.000 mm",
    "target": "every joint within 0.05 mm",
    "detail": [
-    "the loop owes refrig-2, refrig-3 and nothing on this pack measures them: `MATED_JOINTS` names no pair of stations for those ids, or a station it names is not placed. `routed` counts the same 3 connections (`_scorecard.REFRIGERANT_SEGMENTS`), so 2 of 3 legs of the circuit have no reading rather than the circuit having fewer joints \u2014 give each the two stations it is made on, or the run that draws it."
+    "the loop owes refrig-3 and nothing on this pack measures it: `MATED_JOINTS` names no pair of stations for that id, or a station it names is not placed. `routed` counts the same 3 connections (`_scorecard.REFRIGERANT_SEGMENTS`), so 1 of 3 legs of the circuit have no reading rather than the circuit having fewer joints \u2014 give each the two stations it is made on, or the run that draws it."
    ],
    "active": true
   },
@@ -327,7 +327,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "19/19 as drawn",
+   "value": "20/20 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -337,11 +337,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 39/39 corners at spec",
+   "value": "B \u2014 41/41 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:14",
+    "runs by grade: B:15",
     "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
    ],
    "active": true
@@ -421,16 +421,15 @@
    "id": "routed",
    "label": "Every tube connection the machine owes, made as a real 3-D path",
    "kind": "goal",
-   "status": "fail",
-   "value": "37/39 made",
+   "status": "pass",
+   "value": "39/39 made",
    "target": "every connection made",
    "detail": [
     "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
-    "drawn 19, butt 11, fold 4, turn 2, mate 1 \u2014 2 still to route",
-    "by circuit \u2014 co2 2/2, fluid 26/26, refrigerant 1/3, water 8/8",
-    "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet \u2014 still to route",
-    "refrig-3 (refrigerant): foam-assembly evaporator outlet \u2192 compressor suction \u2014 still to route",
+    "drawn 20, butt 11, fold 4, mate 2, turn 2 \u2014 0 still to route",
+    "by circuit \u2014 co2 2/2, fluid 26/26, refrigerant 3/3, water 8/8",
     "refrig-1 (refrigerant): compressor discharge \u2192 condenser+fan inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
+    "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
     "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3 \u2014 made by a butt between two collets",
@@ -456,7 +455,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "60/60 located",
+   "value": "61/61 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -720,6 +719,25 @@
    "note": ""
   },
   {
+   "component": "compressor",
+   "name": "refrig-suction",
+   "kind": "fluid",
+   "pos": [
+    -28.0,
+    161.5,
+    60.0
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "refrig-3",
+   "status": "ok",
+   "note": ""
+  },
+  {
    "component": "digiten-flow",
    "name": "inlet",
    "kind": "fluid",
@@ -905,7 +923,7 @@
     0.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "refrig-3",
    "status": "ok",
    "note": ""
   },
@@ -2389,6 +2407,30 @@
    "declared": null
   },
   {
+   "component": "compressor",
+   "boxes": [
+    [
+     -83.0,
+     9.0,
+     0.0,
+     27.0,
+     169.0,
+     135.0
+    ],
+    [
+     -50.5,
+     9.0,
+     30.0,
+     -5.5,
+     36.5,
+     75.0
+    ]
+   ],
+   "fill": 0.6468,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "ac-hub",
    "boxes": [
     [
@@ -2425,22 +2467,6 @@
     ]
    ],
    "fill": 0.648,
-   "primitive": false,
-   "declared": null
-  },
-  {
-   "component": "compressor",
-   "boxes": [
-    [
-     -83.0,
-     9.0,
-     0.0,
-     27.0,
-     169.0,
-     135.0
-    ]
-   ],
-   "fill": 0.6619,
    "primitive": false,
    "declared": null
   },
@@ -3267,6 +3293,88 @@
     "span": 121.61,
     "path": 212.51,
     "detour": 1.747
+   }
+  },
+  {
+   "id": "refrig-3",
+   "kind": "refrigerant",
+   "frm": "compressor.refrig-suction",
+   "to": "foam-assembly.evap-outlet",
+   "stock": "1/4\" soft ACR copper",
+   "od": 6.35,
+   "length": 67.67,
+   "radius": 12.7,
+   "cap": 12.7,
+   "minBend": 12.7,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 114.7,
+     "radius": 12.7,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.0,
+      56.15
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 114.7,
+     "radius": 12.7,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      56.15,
+      20.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 114.7,
+   "seat": 12.805,
+   "reach": 17.974,
+   "reachRatio": 1.4153,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 56.148,
+    "demand": 3.1239,
+    "from": [
+     -28.0,
+     181.5,
+     60.0
+    ],
+    "to": [
+     -77.5,
+     158.0,
+     47.75
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -28.0,
+      161.5,
+      60.0
+     ],
+     [
+      -77.5,
+      178.0,
+      47.75
+     ]
+    ],
+    "axis": {
+     "x": 49.5,
+     "y": 16.5,
+     "z": 12.25
+    },
+    "span": 53.6,
+    "path": 67.67,
+    "detour": 1.263
    }
   },
   {
@@ -4724,7 +4832,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T03:58:52+00:00",
-  "commit": "154e5e39583702092b8088ba06b44e6ef93fc03f"
+  "generated": "2026-08-08T04:42:46+00:00",
+  "commit": "bd3e043c074eae9c661a4b91c7f7b9e7664054f4"
  }
 }

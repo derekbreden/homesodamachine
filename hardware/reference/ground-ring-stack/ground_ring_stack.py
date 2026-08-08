@@ -4,7 +4,7 @@ realization of the single-point "ground bus" on the electronics shelf.
 This is not one SKU: it is the bolted stack that *is* the bus. An M3 × 10
 stainless SHCS through a tooth washer clamps a fan of insulated ring terminals —
 one green bond per exposed-metal part (pressure vessel, compressor body,
-compressor shroud, faucet SS plate, PSU chassis, + the C14 earth feed) — down
+faucet SS plate, PSU chassis, + the C14 earth feed) — down
 onto the heat-set insert in its own column of the top foam cap. The lugs are
 bolted together, so they are equipotential to each other: the *stack* is the
 bus, and the plastic column it sits on is electrically irrelevant — it only
@@ -32,7 +32,7 @@ sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
 # --- Stack geometry (standard M3 hardware + insulated ring terminals) ------
-ring_count = 6          # one green bond per exposed-metal part + the C14 feed
+ring_count = 5          # one green bond per exposed-metal part + the C14 feed
 fan_step = 60.0         # deg between successive lugs — a radial fan up the stud
 
 eye_od = 8.0            # ring-terminal tongue outer diameter
