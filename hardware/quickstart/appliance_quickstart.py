@@ -24,8 +24,12 @@ Color system:
 - gray = the faucet / dispense channel, deferred to the advanced faucet
          quickstart and not shown on this install sheet.
 
-Steps 2 and 3 have no line-art yet; those cells show only their arrows
-and caption.
+EVERY CONNECTION ON THIS SHEET IS ON THE MACHINE'S BACK WALL — the CO2
+inlet and the tap-water union both — so steps 1 and 2 show the back view
+and aim their arrows at the port markings the iso renderer stamps into
+it. Step 4 shows the front view, for the hopper throat in the top wall.
+Step 3 is off the machine entirely (the customer's cylinder and angle
+stop) and has no line-art yet.
 
 Run:
     tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py
@@ -57,9 +61,14 @@ _LINEART = (
 ENCLOSURE_FRONT = _LINEART / "enclosure-iso-front.svg"
 ENCLOSURE_BACK = _LINEART / "enclosure-iso-back.svg"
 
-# Blue water-disc fill emitted by the iso renderer; used to locate the
-# water inlet inside an embedded back view.
+# The port-marking fills the iso renderer emits, by the port each rings.
+# A marking carries a `data-target` — the projected port HOLE out at the
+# fitting's proud end — so an arrow on this sheet lands on the hole the
+# customer's line goes into rather than on the ring painted around it.
+# These are how a cell finds its port inside an embedded view; both
+# markings are on the back wall, so both are found in the back view.
 WATER_DISC_FILL = "rgb(31, 111, 235)"
+CO2_DISC_FILL = "rgb(255, 0, 0)"
 
 
 # Page — 11×17 landscape, in mm
@@ -256,13 +265,32 @@ def _ink_bbox(text):
     return min(xs), min(ys), max(xs), max(ys)
 
 
+def _port_target(text, color_fill):
+    """The port hole a marking aims at, in its own SVG's canvas coords.
+
+    The iso renderer stamps `data-target` on each marking's fill path —
+    the projected hole out at the proud end of the fitting, which is what
+    an arrow on this sheet should land on. A marking rendered before that
+    stamp existed falls back to the disc's own centroid."""
+    tag = re.search(
+        r'<path\b[^>]*\bfill="' + re.escape(color_fill) + r'"[^>]*>', text
+    ).group(0)
+    dt = re.search(r'data-target="(-?[0-9.]+)\s*,\s*(-?[0-9.]+)"', tag)
+    if dt:
+        return float(dt.group(1)), float(dt.group(2))
+    d = re.search(r'\bd="([^"]+)"', tag).group(1)
+    pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
+    return (sum(float(a) for a, _ in pts) / len(pts),
+            sum(float(b) for _, b in pts) / len(pts))
+
+
 def _embed_anchored(source_path, scale, right, bottom, color_fill=None):
     """Embed the source SVG's line-art scaled by `scale` with its ink
     bbox's bottom-right corner placed at page-mm (right, bottom) — so the
     drawing seats against a corner by its actual content, ignoring the
     canvas margin around it. Returns (svg_fragment, point) where point is
-    the page-mm location of the `color_fill` path's data-target (the
-    projected port hole; falls back to its centroid), or None."""
+    the page-mm location of the `color_fill` marking's port hole, or
+    None."""
     text = Path(source_path).read_text()
     _, inner = _read_svg_for_embed(source_path)
     _, _, max_x, max_y = _ink_bbox(text)
@@ -274,17 +302,7 @@ def _embed_anchored(source_path, scale, right, bottom, color_fill=None):
     )
     point = None
     if color_fill:
-        tag = re.search(
-            r'<path\b[^>]*\bfill="' + re.escape(color_fill) + r'"[^>]*>', text
-        ).group(0)
-        dt = re.search(r'data-target="(-?[0-9.]+)\s*,\s*(-?[0-9.]+)"', tag)
-        if dt:
-            cx, cy = float(dt.group(1)), float(dt.group(2))
-        else:
-            d = re.search(r'\bd="([^"]+)"', tag).group(1)
-            pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
-            cx = sum(float(a) for a, _ in pts) / len(pts)
-            cy = sum(float(b) for _, b in pts) / len(pts)
+        cx, cy = _port_target(text, color_fill)
         point = (tx + cx * scale, ty + cy * scale)
     return fragment, point
 
@@ -352,15 +370,28 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
 # yet, so their arrows sit at approximate stand-in positions.
 
 
+# Which way a port arrow travels on the page, and how much of the image
+# band it runs across. The back view stands the machine's back wall on the
+# viewer's left, so an arrow arriving from the empty upper-left crosses
+# open page and lands square on the wall.
+CO2_ARROW_TRAVEL = (1.0, 1.0)      # down-and-right, arriving from the upper left
+CO2_ARROW_RUN = 0.26               # fraction of the image band's height
+
+
 def _arrows_connect_co2(x, y, w, draw_h):
-    """Drawing 1: single red arrow from the upper-left empty space
-    pointing down-right at the CO2 port on the left side face. The tip
-    stops short of the port hole, leaving a visible gap; the arrow's
-    line, extended, meets the port."""
-    return _straight_arrow(
-        x + 0.312 * w, y + 0.206 * draw_h,
-        x + 0.426 * w, y + 0.476 * draw_h,
-        color="red",
+    """Drawing 1: one red arrow at the CO2 inlet — which is on the REAR
+    WALL, below the mains inlet, and is the reason this cell shows the
+    back view. Nothing on this machine's front face takes a CO2 line, or
+    anything else.
+
+    The tip is placed off the drawing's OWN red port marking rather than
+    at a measured spot on the page, so it follows the inlet wherever
+    `front_half` seats it."""
+    px, py = _embedded_port_point(
+        ENCLOSURE_BACK, CO2_DISC_FILL, x, y, w, draw_h
+    )
+    return _port_arrow(
+        px, py, *CO2_ARROW_TRAVEL, CO2_ARROW_RUN * draw_h, "red"
     )
 
 
@@ -369,7 +400,8 @@ def _arrows_tee_into_water(x, y, w, draw_h):
     rotation arrow on the angle stop in its top half, and two blue stub
     arrows pointing inward at the tee's outlets in its bottom half. The
     right side carries the enclosure back view with a blue arrow pointing
-    at its water inlet."""
+    at the tap-water union, which is on the REAR WALL on its own storey
+    under the row of three umbilical unions."""
     # Left-side tee/valve arrows, centered in the left of the cell.
     left_cx = x + 0.25 * w
     # Rotation arrow — top half of the left side.
@@ -381,12 +413,12 @@ def _arrows_tee_into_water(x, y, w, draw_h):
         _stub_arrow(left_cx - 15, stub_y, +1, 0, color="blue", length=stub_len)
         + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="blue", length=stub_len)
     )
-    # Enclosure back view at the same scale as the captioned steps (their
-    # image band fits the canvas height into draw_h - CAPTION_BAND_MM),
+    # Enclosure back view at the same scale as every other captioned step —
+    # `draw_h` is already the image band with the caption band taken off it —
     # with its line-art anchored by its own bottom-right corner into the
     # cell's bottom-right padding corner.
     canvas_w, canvas_h = _canvas_dims(ENCLOSURE_BACK)
-    scale = min(w / canvas_w, (draw_h - CAPTION_BAND_MM) / canvas_h)
+    scale = min(w / canvas_w, draw_h / canvas_h)
     back, (px, py) = _embed_anchored(
         ENCLOSURE_BACK, scale, x + w, y + draw_h, color_fill=WATER_DISC_FILL,
     )
@@ -419,26 +451,55 @@ def _arrows_open_valves(x, y, w, draw_h):
     )
 
 
+def _meet_fit(svg_path, x, y, w, h):
+    """(dx, dy, scale) placing `svg_path`'s canvas into the rect
+    (x, y, w, h) by the same xMidYMid-meet fit `cell()` gives an embedded
+    drawing — so a point read off the source lands where the reader sees
+    it."""
+    cw, ch = _canvas_dims(svg_path)
+    s = min(w / cw, h / ch)
+    return x + (w - cw * s) / 2, y + (h - ch * s) / 2, s
+
+
 def _embedded_anchor_point(svg_path, anchor_id, x, y, w, h):
-    """Page-mm location of the <circle id=anchor_id> in `svg_path` after
-    that SVG is scale-fit (xMidYMid meet) into the rect (x, y, w, h) — the
-    same fit `cell()` gives an embedded drawing."""
+    """Page-mm location of the <circle id=anchor_id> the iso renderer
+    projects into `svg_path`, under that fit."""
     text = Path(svg_path).read_text()
     tag = re.search(
         r'<circle\b[^>]*\bid="' + re.escape(anchor_id) + r'"[^>]*>', text
     ).group(0)
     cx = float(re.search(r'\bcx="(-?[0-9.]+)"', tag).group(1))
     cy = float(re.search(r'\bcy="(-?[0-9.]+)"', tag).group(1))
-    cw, ch = _canvas_dims(svg_path)
-    s = min(w / cw, h / ch)
-    return x + (w - cw * s) / 2 + cx * s, y + (h - ch * s) / 2 + cy * s
+    dx, dy, s = _meet_fit(svg_path, x, y, w, h)
+    return dx + cx * s, dy + cy * s
+
+
+def _embedded_port_point(svg_path, color_fill, x, y, w, h):
+    """Page-mm location of the port hole marked in `color_fill`, under
+    that same fit."""
+    cx, cy = _port_target(Path(svg_path).read_text(), color_fill)
+    dx, dy, s = _meet_fit(svg_path, x, y, w, h)
+    return dx + cx * s, dy + cy * s
+
+
+def _port_arrow(px, py, dx, dy, length, color):
+    """An arrow along (dx, dy) whose tip stops `PORT_ARROW_GAP_MM` short
+    of the port hole at (px, py) — so it reads as pointing AT the port
+    instead of covering the thing the customer has to find."""
+    mag = math.hypot(dx, dy)
+    ux, uy = dx / mag, dy / mag
+    tip_x, tip_y = px - ux * PORT_ARROW_GAP_MM, py - uy * PORT_ARROW_GAP_MM
+    return _straight_arrow(
+        tip_x - ux * length, tip_y - uy * length, tip_x, tip_y, color=color
+    )
 
 
 def _arrows_fill_hopper(x, y, w, draw_h):
     """Drawing 4: a plain motion arrow pointing straight down at the
-    center of the hopper door on the embedded front view."""
+    hopper throat — an opening in the TOP wall, which both top pieces
+    share — on the embedded front view."""
     dx, dy = _embedded_anchor_point(
-        ENCLOSURE_FRONT, "hopper-door-center", x, y, w, draw_h
+        ENCLOSURE_FRONT, "hopper-throat", x, y, w, draw_h
     )
     return _straight_arrow(dx, dy - 0.20 * draw_h, dx, dy, color="dark")
 
@@ -451,9 +512,11 @@ def main():
     svg_path = out_dir / "appliance.svg"
     pdf_path = out_dir / "appliance.pdf"
 
-    # Line-art sources. Drawings 1 and 4 embed the enclosure iso views
-    # full-cell; drawing 2 embeds the back view in its lower-right corner
-    # (see _arrows_tee_into_water); drawing 3 has no line-art yet.
+    # Line-art sources. Drawing 1 embeds the BACK view full-cell — the CO2
+    # inlet it points at is on the rear wall — and drawing 4 the front view,
+    # for the hopper throat in the top wall. Drawing 2 embeds the back view
+    # in its lower-right corner (see _arrows_tee_into_water); drawing 3 is
+    # off the machine and has no line-art yet.
     enclosure_front = ENCLOSURE_FRONT
     enclosure_back = ENCLOSURE_BACK
 
@@ -462,11 +525,11 @@ def main():
     drawings = [
         {
             "caption": "Connect the CO2.",
-            "embed": enclosure_front,
+            "embed": enclosure_back,
             "arrows": _arrows_connect_co2,
         },
         {
-            "caption": None,
+            "caption": "Tee into the water. Run the tube to the device.",
             "embed": None,
             "arrows": _arrows_tee_into_water,
             "background": True,

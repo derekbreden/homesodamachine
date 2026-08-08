@@ -6,6 +6,10 @@ geometric center with world +Z as up, so the front face (-Y), right
 face (+X), and top face (+Z) are all visible. The top face sits at the
 top of the image, with the front and right faces in the lower half.
 
+What this view carries: the 45° display facet across the top-front arris, the
+hopper throat through the top wall — and a FRONT FACE WITH NOTHING ON IT, which
+is the whole of what the front of this machine has.
+
 Companion drawing: enclosure-iso-back.py — same geometry, view from (+Y).
 
 Run from the repo root:
@@ -25,13 +29,9 @@ import _blender_render as blender
 
 def main() -> None:
     appliance = model.build_appliance()
-    markings = model.markings("front")
-    anchors = [{
-        "id": "hopper-door-center",
-        "point": [model.hopper_door_a, model.hopper_door_b, model.H],
-    }]
     output_path = _HERE / "enclosure-iso-front.svg"
-    blender.render_iso(appliance, markings, view="front", out_svg=output_path, anchors=anchors)
+    blender.render_iso(appliance, model.markings("front"), view="front",
+                       out_svg=output_path, anchors=model.anchors("front"))
     print(f"Wrote {output_path}")
 
     model.refresh_comments()
