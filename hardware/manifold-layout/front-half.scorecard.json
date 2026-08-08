@@ -161,16 +161,6 @@
    "active": true
   },
   {
-   "id": "refrigerant-joints",
-   "label": "The refrigerant loop closes on the planes its bodies share",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2 mated, 1 drawn of 3, widest mating 0.000 mm",
-   "target": "every joint within 0.05 mm",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "vent-lands",
    "label": "The atmospheric vent drips on the basin's flat floor",
    "kind": "gate",
@@ -197,6 +187,16 @@
    "status": "pass",
    "value": "3/3 seated, furthest off 0.000 mm",
    "target": "every cradle within 0.001 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "refrigerant-joints",
+   "label": "Every leg of the refrigerant loop closes, mated or drawn",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2 mated, 1 drawn of 3, widest 0.000 mm",
+   "target": "every leg within 0.05 mm \u2014 a mating on its two stations, a tube on both its mouths",
    "detail": [],
    "active": true
   },
@@ -4830,7 +4830,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T04:48:14+00:00",
-  "commit": "6a1fdb6f6cc6b59ef4c944f4ef858a489871eca0"
+  "generated": "2026-08-08T05:17:49+00:00",
+  "commit": "adf2afe1bf8d430840f9ee526044be362e9fc780"
  }
 }
