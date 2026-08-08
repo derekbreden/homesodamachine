@@ -1,11 +1,15 @@
-"""Two-valve tray: the manifold's one printed cradle, five off.
+"""Two-valve tray: the family's two-seat plate.
 
-Every valve in the [fluid-topology](../../../topology/fluid-topology.md) manifold
-rides one of these, and they are one part — same solid, printed five times:
+IT IS NOT IN THE MACHINE AND NOT IN THE BOM. The appliance seats no tray — the
+valves that stand on a printed face press into cradles the cold core's own cap
+lid prints (`_cold_core_interface.cap_cradles`), and every other valve is butted
+collet to collet down a limb of the flavour pack. What follows is the plate and
+the [fluid-topology](../../../topology/fluid-topology.md) pairing it was drawn
+for, one pair per circuit node:
 
     V-A · V-B    the two sources, merging at Y-A
     V-C · V-D    the channel selects, fed from Y-B
-    V-E · V-F    bag A, across Y-E
+    V-E · V-F    bag A
     V-H · V-I    bag B, at the reservoir's own two mouths
     V-G · V-J    the nozzle gates
 

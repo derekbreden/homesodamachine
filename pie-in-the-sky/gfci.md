@@ -10,4 +10,4 @@ A self-test Class A GFCI: 6 mA personnel trip, with the automatic periodic self-
 
 ## Where the build stands
 
-The current Kitchen build does not integrate the module: the power tray lands the C14 inlet onto the AC distribution with no device in series ([`/hardware/printed-parts/electronics/power-tray/`](/hardware/printed-parts/electronics/power-tray/)). This doc holds the integrated GFCI as a live want for a later pass.
+The current Kitchen build does not integrate the module: the C14 inlet lands onto the AC hub's three splices with no device in series ([`/hardware/printed-parts/electronics/ac-hub/`](/hardware/printed-parts/electronics/ac-hub/)). This doc holds the integrated GFCI as a live want for a later pass.
