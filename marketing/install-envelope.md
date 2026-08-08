@@ -93,8 +93,9 @@ countertop unit, so it never had to clear a trap, and it is narrow anyway.
 
 The same band shows up in this machine's own parts. The two largest solids in the appliance
 — the [foam shell](/hardware/printed-parts/cold-core/foam-shell/README.md) across its short
-axis, and the [compressor shroud](/hardware/cut-parts/compressor-shroud/README.md) across
-its own — are within a few millimetres of each other, and the thin edition's width is built
+axis, and the mated [compressor](/hardware/reference/compressor/README.md) and
+[condenser](/hardware/reference/condenser-block/README.md) across theirs — are within a few
+millimetres of each other, and the thin edition's width is built
 on the first of them
 ([`enclosure/README.md`](/hardware/printed-parts/enclosure/README.md)).
 
