@@ -12,11 +12,13 @@ Coordinate frame is the foam shell's (Z+ up, floor on z=0):
     against the shell's bottom face, open mouth + lid pointing down — the
     lid is the most-negative-Z layer in the whole stack.
 
-The top cap and its lid install rotated 180° about Z. They carry the fifteen
-deck-mount columns, authored in the cap's own frame, and the spin is what
-carries each station to the deck position it holds — so the column pattern,
-which is not symmetric, is the tell for which way the cap goes on. Every
-other part is authored in its final orientation and only shifts along Z.
+The top cap and its lid install rotated 180° about Z. They carry the
+deck-mount columns — every station in `_cold_core_interface.deck_mounts`, at
+the boss centres `deck_mount_xy` strikes for it — authored in the cap's own
+frame, and the spin is what carries each station to the deck position it
+holds, so the column pattern, which is not symmetric, is the tell for which
+way the cap goes on. Every other part is authored in its final orientation
+and only shifts along Z.
 
 Both caps and the shell share the one original six-screw pattern (four
 corners + the two mid-long-side bosses on their diagonal), which is 180°

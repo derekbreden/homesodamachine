@@ -187,7 +187,7 @@ def cut_lane_slots(foam_shell):
     slid down in from above.
 
     THERE ARE TWO because the evaporator's two coppers leave by opposite lanes — the
-    condenser stands against the port lane's face and the compressor's shroud against the
+    condenser stands against the port lane's face and the compressor just short of the
     west lane's, and each copper is made up on the pick of the body behind it
     (`copper_plugs.columns`). A tail formed off a coil that is lowered into the cavity
     travels DOWN the wall to its station rather than through it, so each of them takes an

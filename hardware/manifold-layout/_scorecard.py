@@ -1171,10 +1171,10 @@ def shape_rows(a) -> list[dict]:
     geometry is still a bare primitive.
 
     ONE BOX PER SOLID THE BODY IS BUILT FROM, following the part's own construction. The single
-    box drawn around all of them is a different object and for a hollow or L-shaped body mostly
-    air: the compressor shroud's holds twenty times its own material. `fill` is how much of the
-    boxes IS material — at 1.0 they are the part, and the lower it runs the less a box stands in
-    for the shape and the more only the solid will answer."""
+    box drawn around all of them is a different object and for a hollow or conical body mostly
+    air — the hopper funnel's is nearly all air, and `fill` is the figure that says so: how much
+    of the boxes IS material. At 1.0 they are the part, and the lower it runs the less a box
+    stands in for the shape and the more only the solid will answer."""
     bodies, _tubes, _pieces = _split_placed(a)
     rows = []
     for name, solid in sorted(bodies.items()):
