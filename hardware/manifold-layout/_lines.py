@@ -87,6 +87,10 @@ TUBE_BEND = R.stock_min("water", _split.TUBE_D)
 BARB_SKEW = 14.0
 # 1/4" soft ACR copper, the stock the sealed loop is cut from.
 CU_OD = 6.35
+# The straight each copper mouth takes before its first corner, so the arcs seat in the middle
+# of the run and neither brazed stub is asked to bend where it is made up.
+CU_BEND = R.stock_min("refrigerant", CU_OD)
+CU_LEAD = 20.0
 # How far off its own axis a line may enter a CAP CONDUIT. The lid's hole is countersunk to this
 # angle (`_cold_core_interface.cap_conduit_entry_skew`), so the lip a leaning line crosses lies
 # along it and what the tube bears on there is a face.
@@ -109,7 +113,6 @@ STATIONS = {
                       # the core's own flanks rather than up its cap columns.
                       "evap-outlet": (lambda: _plugs.slot_station("evap-outlet"), CU_OD),
                       "evap-inlet": (lambda: _plugs.slot_station("evap-inlet"), CU_OD)},
-    "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD)},
     "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD)},
     "seaflo-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
@@ -208,8 +211,6 @@ def build_runs(placed, carries):
     the numbers in them are struck off the frames above — move a body and they move with it."""
     F = frames(placed, carries)
     runs = []
-    if {"condenser+fan", "foam-assembly"} <= set(F):
-        runs.append(_refrig_2(F))
     if {"compressor", "foam-assembly"} <= set(F):
         runs.append(_refrig_3(F))
     if {"seaflo-pump", "suction-chain"} <= set(F):
@@ -855,25 +856,6 @@ def _fluid_26(F):
              "forward and inboard onto the gate's own column")
 
 
-def _refrig_2(F):
-    """NOT YET ROUTABLE — `front_half` deliberately withholds the compressor's and the
-    condenser's carries from `carries`, so `frames()` builds no frame for either and neither
-    author below dispatches. Both `R.bent` and `R.route` between these two stations alone fail
-    the sweep at `BRepOffsetAPI_MakePipeShell::MakeSolid`: the pair is 65 mm apart with fixed
-    entry and exit axes and no waypoint between them, which is not a shape a pipe shell closes.
-    Give each run its waypoints, then put the two bodies back into `front_half.carries`.
-
-    refrig-2 — the condenser's liquid line, through the drier and the cap tube, to the
-    evaporator's inlet.
-
-    The cold core stands well aft of the refrigeration base rather than against it, so this
-    leg is cut and brazed like refrig-3 rather than made across a shared plane."""
-    return R.route(
-        "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
-        kind="refrigerant",
-        note="sealed loop: condenser outlet (drier + cap tube) → evaporator inlet")
-
-
 def _refrig_3(F):
     """refrig-3 — the evaporator's outlet back to the compressor's suction, in copper.
 
@@ -882,9 +864,9 @@ def _refrig_3(F):
     meets a neighbour along a tangent line, and that tangent stands short of the cold core's
     front. So this leg is cut and brazed like any other run — up out of the shell's suction and
     back into the core's own outlet slot."""
-    return R.route(
+    return R.bent(
         "refrig-3", "compressor.refrig-suction", "foam-assembly.evap-outlet",
-        kind="refrigerant",
+        kind="refrigerant", bend=CU_BEND, lead=CU_LEAD,
         note="sealed loop: evaporator outlet → compressor suction, the one leg of the three "
              "that is drawn rather than made across a shared plane")
 
@@ -900,7 +882,7 @@ def authored() -> frozenset:
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
              "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28", "fluid-18",
-             "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-2", "refrig-3")
+             "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3")
 
 
 def tubes(runs):
