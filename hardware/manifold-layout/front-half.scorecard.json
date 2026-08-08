@@ -211,6 +211,116 @@
    "active": true
   },
   {
+   "id": "box-width",
+   "label": "The pack stands inside the appliance's stated width",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches x \u00b1108.00, wall at \u00b1108.50",
+   "target": "inside a 223 mm appliance",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-depth",
+   "label": "The pack stands inside the appliance's stated depth",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches y 470.00, back wall at 472.00",
+   "target": "ahead of `rear_plane_y` 472",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-height",
+   "label": "The pack stands under the appliance's stated ceiling",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches z 348.23, ceiling at 352.00",
+   "target": "under a 358 mm appliance",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-front-bed",
+   "label": "The front Z seam leaves both its pieces on the H2C's bed",
+   "kind": "gate",
+   "status": "pass",
+   "value": "seam at 160.00, band 35.00..303.90",
+   "target": "inside the H2C's 320 mm Z",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-two-pieces",
+   "label": "A column splits into two pieces the H2C can print",
+   "kind": "gate",
+   "status": "pass",
+   "value": "358.00 mm column, band 35.00..303.90",
+   "target": "a band inside the H2C's 320 mm Z",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-back-band",
+   "label": "The back column leaves the bed a height its seam can take",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2 band(s) inside 35.00..303.90",
+   "target": "at least one",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-pitch",
+   "label": "The two Z seams stand the pitch two Y-seam levels need apart",
+   "kind": "gate",
+   "status": "pass",
+   "value": "back seam at 207.70, 47.70 mm off the front's 160.00",
+   "target": "at least 47.70 mm apart",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "y-seam-clears-facet",
+   "label": "The Y seam stands behind the display housing",
+   "kind": "gate",
+   "status": "pass",
+   "value": "seam at 200.00, housing back plane at 79.56",
+   "target": "aft of 81.56",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-collar-frame",
+   "label": "The funnel collar stands in the frame the top wall has left",
+   "kind": "gate",
+   "status": "pass",
+   "value": "collar x -79.50..79.50, y 85.56..244.56",
+   "target": "frame x -93.50..93.50, y 85.56..469.00",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-brim-overhang",
+   "label": "The funnel's brim overhang fits its top-wall margin",
+   "kind": "gate",
+   "status": "pass",
+   "value": "overhang 7.00 mm",
+   "target": "within brim_margin 10.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-brim-margin",
+   "label": "The funnel collar keeps a brim margin at each free edge",
+   "kind": "gate",
+   "status": "pass",
+   "value": "\u2212X 14.00, +X 14.00, +Y 224.44 mm",
+   "target": "each at least brim_margin 10.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
@@ -4612,7 +4722,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T03:14:22+00:00",
-  "commit": "1592f646a64f7c7aac8be60c0e8b814200b91387"
+  "generated": "2026-08-08T03:45:55+00:00",
+  "commit": "0ce9f7c28da04fa193320bf2ecddc62cfa0fae24"
  }
 }
