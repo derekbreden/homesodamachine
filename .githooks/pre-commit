@@ -190,22 +190,6 @@ for hw in $editions; do
          python3 "$root/$hw/scripts/_machine_time.py"
   fi
 
-  # The enclosure README's architectural figures. Every one is READ OFF THE PLACED MACHINE —
-  # `enclosure_assembly.machine()` places the bodies and `enclosure.box_around` sizes the box on
-  # them — so its inputs are every body the pack places and every part the box is sized around.
-  # That is the widest key in this file and the honest one: CORE_CROWN read the cold core's
-  # `zmax` and went on reading it after the cap grew valve cradles standing proud of the lid, so
-  # the README shipped a valve seat as the service bay's floor. No narrower key sees that.
-  # ~50 s — one machine build, and the only gate here that costs one.
-  if staged "$hw/manifold-layout/" "$hw/printed-parts/" "$hw/reference/" "$hw/scripts/"; then
-    if [ -x "$py" ]; then
-      sync "$hw enclosure dimensions" "$root/$hw/printed-parts/enclosure/README.md" \
-           "$py" "$root/$hw/printed-parts/enclosure/_enclosure_dimensions.py"
-    else
-      echo "pre-commit: no cad-venv — $hw enclosure dimensions skipped" >&2
-    fi
-  fi
-
   # ── the gates on what a sync cannot settle ──────────────────────────────
   # Every row carries a known category tag. There is no write mode: which section a
   # new row belongs in is a decision, so this one only ever reports.
