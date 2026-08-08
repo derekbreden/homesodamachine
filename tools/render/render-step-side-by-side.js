@@ -42,7 +42,7 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { fileURLToPath } from "url";
-import puppeteer from "puppeteer";
+import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -184,10 +184,7 @@ async function renderPair({
 
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
-    });
+    browser = await launchBrowser({ protocolTimeout: PARSE_TIMEOUT + 60000 });
     const page = await browser.newPage();
     await page.setViewport({ width: 1600, height: 1200, deviceScaleFactor: 1 });
 
@@ -334,7 +331,7 @@ async function renderPair({
       `wrote ${outAbs} (${finalMeta.width}x${finalMeta.height}, ${finalBuf.length} bytes)`,
     );
   } finally {
-    if (browser) await browser.close();
+    await closeBrowser(browser);
     await new Promise((resolve, reject) =>
       server.close((err) => (err ? reject(err) : resolve())),
     );
@@ -408,6 +405,7 @@ async function withSidePath(at, rel, inner) {
 }
 
 async function main() {
+  sweepAbandonedBrowsers("render-step-side-by-side");
   const { positional, opts } = parseArgs(process.argv.slice(2));
   const [stepA, stepB, outRel] = positional;
   if (!stepA || !stepB || !outRel) usage("missing arguments");
