@@ -95,7 +95,7 @@ flowchart TD
   %% AC distribution (hot leg)
   C14 ==>|"120 VAC"| RELAY
   C14 ==>|"120 VAC"| PSU
-  RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
+  RELAY ==>|"switched AC hot\n(unbroken SJOOW jacket)"| COMP_AC
 
   %% 12 V distribution
   PSU ==>|"12 V trunk (J10 screw inlet)"| PCBA
@@ -116,7 +116,7 @@ flowchart TD
   %% Power paths (red, thick).
   %% 0    = C14 -> relay #1 (AC mains)
   %% 1    = C14 -> PSU (AC mains)
-  %% 2    = relay #1 -> compressor (switched AC, through shroud)
+  %% 2    = relay #1 -> compressor (switched AC, unbroken SJOOW jacket)
   %% 3    = PSU 12 V trunk -> PCBA (J10)
   %% 4    = PSU 12 V -> diaphragm relay #2
   %% 5    = relay #2 -> diaphragm pump (switched 12 V)
