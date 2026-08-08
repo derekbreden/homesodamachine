@@ -454,9 +454,19 @@ class Lattice:
         return len(self.coords[0]) * len(self.coords[1]) * len(self.coords[2])
 
 
-def lattice(room: Room, ends: tuple, rad: float, region_pad: float = REGION,
+def lattice(room: Room, ends: tuple, rad: float, radius: float, region_pad: float = REGION,
             cap: int = LATTICE_CAP) -> Lattice:
-    """The lattice a lane between these two points is searched on."""
+    """The lattice a lane between these two points is searched on.
+
+    TWO STANDOFFS PER OBSTACLE FACE, not one. A leg that runs PAST a body wants the tube's own
+    half-section and the floor; a leg that TURNS beside it wants that and the bulge its corner
+    arc makes, which at 90° reaches `r·(sec 45° − 1)` off the vertex the lane was searched on.
+    Both are candidate planes because a lane does both, and a lattice carrying only the first
+    finds hugging corridors that vanish the moment their corners are rounded.
+
+    And two more per mouth, at two radii either side: a lane that has to COME ABOUT to enter a
+    collet turns about that far from it, and with no body nearby to plant a coordinate there,
+    nothing else would."""
     lo = [min(e[i] for e in ends) - region_pad for i in range(3)]
     hi = [max(e[i] for e in ends) + region_pad for i in range(3)]
     cav = room.cavity
@@ -468,14 +478,18 @@ def lattice(room: Room, ends: tuple, rad: float, region_pad: float = REGION,
         hi[i] = max(hi[i], max(e[i] for e in ends))
     region = tuple(v for i in range(3) for v in (lo[i], hi[i]))
     near = room.near(region)
+    bulge = radius * (math.sqrt(2.0) - 1.0)
     coords, steps = [], []
     for i in range(3):
         keep = [e[i] for e in ends] + [lo[i], hi[i]]
         cand = list(keep)
+        for e in ends:
+            cand += [e[i] - 2.0 * radius, e[i] + 2.0 * radius]
         for _n, b in near:
-            for v in (b[2 * i] - rad, b[2 * i + 1] + rad):
-                if lo[i] - 1e-9 <= v <= hi[i] + 1e-9:
-                    cand.append(v)
+            for v in (b[2 * i] - rad, b[2 * i + 1] + rad,
+                      b[2 * i] - rad - bulge, b[2 * i + 1] + rad + bulge):
+                cand.append(v)
+        cand = [v for v in cand if lo[i] - 1e-9 <= v <= hi[i] + 1e-9]
         c, step = _thin(cand, keep, cap)
         coords.append(c)
         steps.append(step)
@@ -515,6 +529,7 @@ class _Free:
     def __init__(self, lat: Lattice, near: tuple, rad: float):
         self.lat, self.near, self.rad = lat, near, rad
         self._held: dict = {}
+        self._legs: dict = {}
 
     def spans(self, axis: int, cell: tuple) -> tuple:
         j, k = [n for n in range(3) if n != axis]
@@ -530,6 +545,39 @@ class _Free:
     def clear(self, axis: int, cell: tuple, a: float, b: float) -> bool:
         lo, hi = (a, b) if a <= b else (b, a)
         return any(s <= lo + 1e-6 and hi <= e + 1e-6 for s, e in self.spans(axis, cell))
+
+    def legs(self, cell: tuple, axis: int, sign: int, turn: int, lead: float,
+             goal: tuple, into: tuple) -> tuple:
+        """Every cell a leg from here along this heading may end on, held once per line.
+
+        A leg that starts at a CORNER is at least `LEAN_STEP` long; one that carries the
+        previous leg further owes nothing, because a leg only gets longer that way. The one that
+        ARRIVES at the far mouth on the heading the collet is entered on is the approach lead and
+        pays for one corner only, so it may be as short as a single radius. Past the first
+        obstruction on the line nothing is reachable at all, which is where the walk stops.
+
+        Held on (line, heading, whether it turns): the search asks the same question from the
+        same cell once per settlement, and the answer cannot have changed."""
+        key = (cell, axis, sign, turn)
+        hit = self._legs.get(key)
+        if hit is not None:
+            return hit
+        c = self.lat.coords[axis]
+        here = c[cell[axis]]
+        minleg = LEAN_STEP if turn else 0.0
+        out = []
+        rng = range(cell[axis] + 1, len(c)) if sign > 0 else range(cell[axis] - 1, -1, -1)
+        for n in rng:
+            if not self.clear(axis, cell, here, c[n]):
+                break
+            span = abs(c[n] - here)
+            end = tuple(n if i == axis else cell[i] for i in range(3))
+            arrives = end == goal and (axis, sign) == into
+            if span < minleg - 1e-6 and not (arrives and span > lead - 1e-6):
+                continue
+            out.append((end, span))
+        self._legs[key] = tuple(out)
+        return self._legs[key]
 
 
 # --- the search -----------------------------------------------------------
@@ -569,46 +617,55 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
     od = 6.35 if od is None else od
     radius = 14.0 if radius is None else radius
 
-    rad = od / 2.0 + floor
     (p0, n0), (p1, n1) = ends
     # A lane leaves along the port's own axis and enters against the other's. Both leads are a
     # full stock radius, which is what the first corner needs before it can turn at all.
     q0 = tuple(p0[i] + n0[i] * radius for i in range(3))
     q1 = tuple(p1[i] + n1[i] * radius for i in range(3))
     room = Room.of(snap, hold)
-    lat = lattice(room, (q0, q1), rad, region_pad=region, cap=cap)
-    near = room.near(lat.region)
-    free = _Free(lat, near, rad)
+    out = _heading(n0)                          # the heading a lane must leave on,
+    into = _heading(tuple(-c for c in n1))      # and the one it must arrive on
 
-    start = tuple(lat.index(i, _nearest(lat.coords[i], q0[i])) for i in range(3))
-    goal = tuple(lat.index(i, _nearest(lat.coords[i], q1[i])) for i in range(3))
-    # The heading a lane must leave on and the one it must arrive on, as (axis, sign).
-    out = _heading(n0)
-    into = _heading(tuple(-c for c in n1))
-    found = _search(lat, free, start, goal, out, into, radius, max(top, 4) * 3, nonrising)
-
-    made, seen = [], set()
-    for pts in found:
-        square = _straighten((tuple(p0),) + tuple(_at(lat, c) for c in pts) + (tuple(p1),))
-        whole = _straighten(_smooth(square, near, od, floor, radius, ends))
-        key = tuple(tuple(round(v, 4) for v in p) for p in whole)
-        if key in seen:
-            continue                    # two settlements that smooth to one corridor
-        seen.add(key)
-        lane = Lane(run, whole, od, radius, floor, math.inf, _dist(p0, p1),
-                    tuple(_dist(x, y) for x, y in zip(whole, whole[1:])), square)
-        if not lane.at_spec:
-            continue                    # a corner the bender cannot make is not a lane
-        # MEASURED ON THE TUBE AND NOT ON THE POLYLINE. The search worked on straight lattice
-        # legs; the thing that gets built rounds every corner off them, and the arc stands where
-        # the vertex did not. A lane that only clears square is not a lane.
-        lane.margin = _margin(lane.centreline, od, near)
-        if lane.margin < floor - 1e-6:
-            continue
-        made.append(lane)
+    # TWO PASSES, AND THE SECOND IS NOT A LOOSER ONE. The search works on straight legs and the
+    # tube rounds every corner off them, so a corridor that hugs a body down a straight and then
+    # turns beside it is found at the floor and then fails once its arcs are drawn. Searching
+    # again with the corner's own bulge paid up front is what finds the lane one standoff wider —
+    # the one that survives. Both passes are then filtered on the TUBE, so nothing is admitted by
+    # the second that the first would have rejected.
+    bulge = radius * (math.sqrt(2.0) - 1.0)
+    made, seen, lat = [], set(), None
+    for extra in (0.0, bulge):
+        rad = od / 2.0 + floor + extra
+        lat = lattice(room, (q0, q1), rad, radius, region_pad=region, cap=cap)
+        near = room.near(lat.region)
+        free = _Free(lat, near, rad)
+        start = tuple(lat.index(i, _nearest(lat.coords[i], q0[i])) for i in range(3))
+        goal = tuple(lat.index(i, _nearest(lat.coords[i], q1[i])) for i in range(3))
+        shapes = set()
+        for pts in _search(lat, free, start, goal, out, into, radius, top + 2, nonrising):
+            square = _straighten((tuple(p0),) + tuple(_at(lat, c) for c in pts) + (tuple(p1),))
+            skey = tuple(tuple(round(v, 4) for v in p) for p in square)
+            if skey in shapes:
+                continue                # the same corridor settled twice
+            shapes.add(skey)
+            whole = _straighten(_smooth(square, near, od, floor, radius, ends))
+            key = tuple(tuple(round(v, 4) for v in p) for p in whole)
+            if key in seen:
+                continue                # two settlements that smooth to one corridor
+            seen.add(key)
+            lane = Lane(run, whole, od, radius, floor, math.inf, _dist(p0, p1),
+                        tuple(_dist(x, y) for x, y in zip(whole, whole[1:])), square)
+            if not lane.at_spec:
+                continue                # a corner the bender cannot make is not a lane
+            # MEASURED ON THE TUBE AND NOT ON THE POLYLINE. The thing that gets built rounds
+            # every corner, and the arc stands where the vertex did not. A lane that only clears
+            # square is not a lane.
+            lane.margin = _margin(lane.centreline, od, near)
+            if lane.margin < floor - 1e-6:
+                continue
+            lane.lattice = lat                                   # noqa: B010 — carried
+            made.append(lane)
     made.sort(key=lambda l: (round(l.cost, 4), -round(l.margin, 4)))
-    for l in made:
-        l.lattice = lat                                          # noqa: B010 — carried, not set
     return made[:top]
 
 
@@ -680,16 +737,25 @@ def _search(lat: Lattice, free: _Free, start: tuple, goal: tuple, out: tuple, in
     Returns up to `top` arrivals, cheapest first. Each state is allowed `top` settlements rather
     than one, which is what makes the second-cheapest corridor reachable at all — a single
     settlement per state is a shortest-path search and answers only the first question."""
-    minleg = LEAN_STEP
     lead = radius
-    # (cost, tie, cell, heading, path). The tie-break keeps the heap total-ordered without
-    # comparing tuples of floats.
+    coords = lat.coords
+    goal_at = tuple(coords[i][goal[i]] for i in range(3))
+
+    def rest(cell) -> float:
+        """A lower bound on what is left to pay from a cell — the straight-line sum of the
+        coordinate differences, which no lane can beat because every move costs its own length
+        and a corner costs more. Admissible, so the search still settles states in cost order
+        and the first arrival is still the cheapest."""
+        return sum(abs(coords[i][cell[i]] - goal_at[i]) for i in range(3))
+
+    # (bound, tie, cost, cell, heading, path). The bound is what orders the heap and the cost is
+    # what is paid; the tie-break keeps it total-ordered without comparing tuples of floats.
     seen: dict = {}
     tie = itertools.count()
-    heap = [(0.0, next(tie), start, out, (start,))]
+    heap = [(rest(start), next(tie), 0.0, start, out, (start,))]
     done = []
     while heap:
-        cost, _t, cell, head, path = heapq.heappop(heap)
+        _f, _t, cost, cell, head, path = heapq.heappop(heap)
         key = (cell, head)
         if seen.get(key, 0) >= top:
             continue
@@ -706,36 +772,11 @@ def _search(lat: Lattice, free: _Free, start: tuple, goal: tuple, out: tuple, in
                 if nonrising and axis == 2 and sign > 0:
                     continue
                 turn = 0 if (axis, sign) == head else 1
-                floor_ = 0.0 if not turn else minleg
-                for cn, run_len in _legs(lat, free, cell, axis, sign, floor_, lead,
-                                         goal, into):
-                    heapq.heappush(heap, (cost + run_len + BEND_MM * turn, next(tie),
-                                          cn, (axis, sign), path + (cn,)))
+                for cn, run_len in free.legs(cell, axis, sign, turn, lead, goal, into):
+                    g = cost + run_len + BEND_MM * turn
+                    heapq.heappush(heap, (g + rest(cn), next(tie), g, cn, (axis, sign),
+                                          path + (cn,)))
     return done
-
-
-def _legs(lat: Lattice, free: _Free, cell: tuple, axis: int, sign: int, minleg: float,
-          lead: float, goal: tuple, into: tuple) -> list:
-    """Every cell a leg from here along this heading may end on.
-
-    A leg that starts at a corner is at least `minleg` long, because both of its ends may be
-    corners — except the one that ARRIVES at the far mouth on the heading the collet is entered
-    on, which is the approach lead and pays for one corner only. The line's free interval is
-    what bounds it, and past the first obstruction on that line nothing is reachable at all."""
-    c = lat.coords[axis]
-    here = c[cell[axis]]
-    out = []
-    rng = range(cell[axis] + 1, len(c)) if sign > 0 else range(cell[axis] - 1, -1, -1)
-    for n in rng:
-        span = abs(c[n] - here)
-        end = tuple(n if i == axis else cell[i] for i in range(3))
-        if not free.clear(axis, cell, here, c[n]):
-            break                     # past the first obstruction the line is shut
-        arrives = end == goal and (axis, sign) == into
-        if span < minleg - 1e-6 and not (arrives and span > lead - 1e-6):
-            continue
-        out.append((end, span))
-    return out
 
 
 def _smooth(pts: tuple, near: tuple, od: float, floor: float, radius: float,

@@ -21,14 +21,16 @@
 
     <ol class="steps">
       <li><b>Walk the exterior</b> — FC sign-offs complete: no displaced
-        fittings, no cracks, shroud in place, C14 recess clean, rear
-        bulkheads seated.</li>
+        fittings, no cracks in the printed pieces, C14 recess clean,
+        all <span class="dim" data-gen="UMBILICAL_UNIONS">3</span>
+        umbilical unions seated.</li>
       <li><b>Prove the pumps</b> — Zone C door open, funnel out: both
         Kamoer heads seated, leads spaded to DC-5. Funnel back, door
         closed.</li>
-      <li><b>Connect the rig</b> — diagram at right; primary regulator to
-        <span class="dim">90 PSI</span>. The water-side valve stays
-        closed.</li>
+      <li><b>Connect the rig</b> — diagram at right. Every line lands on
+        the <b>back wall</b>: water, CO2, mains. Primary regulator to
+        <span class="dim" data-gen="REG_PSI">90 PSI</span>. The water-side
+        valve stays closed.</li>
       <li><b>Power on</b> — boot is idle: sensors live (table), actuators
         dark. Any CO2 hiss at a joint: reseat, re-test before
         continuing.</li>
@@ -52,51 +54,57 @@
           .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
           .ln    { stroke: #2e8540; stroke-width: 4; fill: none; }
         </style>
-        <text class="lbl" x="24" y="40">BENCH RIG &#183; CO2 front &#183; water + power rear</text>
+        <text class="lbl" x="24" y="38">ONE FACE &#183; every rig line lands on the back wall</text>
 
-        <!-- appliance -->
-        <rect class="box" x="300" y="80" width="200" height="220"/>
-        <text class="btx" x="400" y="180" text-anchor="middle">APPLIANCE</text>
-        <text class="sub" x="400" y="210" text-anchor="middle">front | rear</text>
+        <!-- the back wall, seen from outside -->
+        <rect class="box" x="250" y="56" width="500" height="256"/>
+        <text class="sub" x="264" y="84">BACK WALL</text>
 
-        <!-- CO2 side (left / front) -->
-        <rect class="box" x="30" y="90" width="160" height="66"/>
-        <text class="btx" x="110" y="117" text-anchor="middle">CGA-320</text>
-        <text class="dimtx" x="110" y="146" text-anchor="middle">90 PSI</text>
-        <line class="ln" x1="190" y1="123" x2="288" y2="123"/>
-        <path fill="#2e8540" d="M 286 115 L 286 131 L 298 123 Z"/>
-        <text class="sub" x="196" y="106">5/16&Prime; line</text>
-        <circle cx="300" cy="123" r="9" fill="#2e8540"/>
-        <text class="sub" x="30" y="186">DERPIPE bulkhead &#183; collar</text>
-        <text class="sub" x="30" y="212">fully seated &#183; no hiss</text>
+        <!-- the umbilical row: one line, one pitch, blue ring at the east end -->
+        <circle cx="330" cy="122" r="15" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <circle cx="418" cy="122" r="15" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <circle cx="506" cy="122" r="15" fill="#fff" stroke="#2268c2" stroke-width="6"/>
+        <line x1="330" y1="122" x2="506" y2="122" stroke="#9a9ab0" stroke-width="2"/>
+        <text class="sub" x="330" y="164"><tspan class="dimtx" data-gen="UMBILICAL_UNIONS">3</tspan> unions &#183; one line</text>
+        <text class="dimtx" x="530" y="116" data-gen="UMBILICAL_PITCH">48 mm</text>
+        <text class="sub" x="530" y="142">pitch &#183; blue ring at</text>
+        <text class="sub" x="530" y="168">the <tspan class="dimtx" data-gen="CARB_END">east</tspan> end &#183; not capped</text>
 
-        <!-- water side (right / rear) -->
-        <rect class="box" x="600" y="80" width="150" height="66"/>
-        <text class="btx" x="675" y="107" text-anchor="middle">BENCH TAP</text>
-        <text class="dimtx" x="675" y="136" text-anchor="middle">40&ndash;80 PSI</text>
-        <line class="ln" x1="600" y1="113" x2="512" y2="113"/>
-        <path fill="#2e8540" d="M 514 105 L 514 121 L 502 113 Z"/>
-        <circle cx="500" cy="113" r="9" fill="#2e8540"/>
-        <text class="sub" x="756" y="66" text-anchor="end">PP1208E 1/4&Prime; QC &#183; push to connect</text>
-        <!-- closed valve -->
-        <line x1="548" y1="99" x2="576" y2="127" stroke="#c8481d" stroke-width="5"/>
-        <line x1="576" y1="99" x2="548" y2="127" stroke="#c8481d" stroke-width="5"/>
-        <text class="dimtx" x="536" y="188" fill="#c8481d">valve CLOSED</text>
+        <!-- CO2 bore, east of centre and below the row -->
+        <circle cx="352" cy="228" r="13" fill="#2e8540"/>
+        <text class="dimtx" x="376" y="222" data-gen="CO2_HOLE_D">&#8960;15.42</text>
+        <text class="sub" x="376" y="248">DERPIPE &#183; 5/16&Prime; collar</text>
 
-        <!-- vent + power -->
-        <circle cx="500" cy="232" r="9" fill="#2e8540"/>
-        <text class="sub" x="520" y="240">19-0897 vent &rarr; pan</text>
-        <circle cx="500" cy="282" r="9" fill="#1d1d26"/>
-        <text class="sub" x="520" y="290">C14 &larr; C13 cord</text>
+        <!-- water inlet + C14 -->
+        <circle cx="352" cy="288" r="11" fill="#2268c2"/>
+        <text class="sub" x="376" y="296">PP1208E 1/4&Prime; QC &#183; push to connect</text>
+        <rect class="box" x="620" y="240" width="110" height="52"/>
+        <text class="btx" x="675" y="272" text-anchor="middle">C14</text>
+
+        <!-- the rig, off to one side -->
+        <rect class="box" x="24" y="196" width="176" height="66"/>
+        <text class="btx" x="112" y="223" text-anchor="middle">CGA-320</text>
+        <text class="dimtx" x="112" y="252" text-anchor="middle" data-gen="REG_PSI">90 PSI</text>
+        <line class="ln" x1="200" y1="228" x2="336" y2="228"/>
+        <path fill="#2e8540" d="M 326 220 L 326 236 L 340 228 Z"/>
+        <rect class="box" x="24" y="94" width="176" height="66"/>
+        <text class="btx" x="112" y="121" text-anchor="middle">BENCH TAP</text>
+        <text class="dimtx" x="112" y="150" text-anchor="middle">40&ndash;80 PSI</text>
+        <path class="ln" d="M 200 127 L 224 127 L 224 288 L 338 288"/>
+        <path fill="#2e8540" d="M 328 280 L 328 296 L 342 288 Z"/>
+        <line x1="210" y1="274" x2="238" y2="302" stroke="#c8481d" stroke-width="5"/>
+        <line x1="238" y1="274" x2="210" y2="302" stroke="#c8481d" stroke-width="5"/>
+        <text class="dimtx" x="24" y="322" fill="#c8481d">valve CLOSED</text>
       </svg>
-      <div class="cap"><b>70&ndash;100 PSI primary is the same test</b> —
-      90 PSI is the centerline. Water waits for AB-02.</div>
+      <div class="cap"><b><span data-gen="CO2_PRIMARY_BAND">70&ndash;100 PSI</span>
+      primary is the same test</b> — <span data-gen="REG_PSI">90 PSI</span> is
+      the centerline, and the WR1110 holds it anyway. Water waits for AB-02.</div>
     </div>
 
     <table class="spec" style="margin-top:22px">
       <tr><th>Boot must read</th><th></th></tr>
       <tr><td>Both probes</td><td class="v">&plusmn;0.5 &deg;C of ambient</td></tr>
-      <tr><td>MQ-6 &#183; drip pan</td><td class="v">normal &#183; dry</td></tr>
+      <tr><td>MQ-6 &#183; 19-0897 vent</td><td class="v">normal &#183; over a dry pan</td></tr>
       <tr><td>Reeds</td><td class="v">carb empty &#183; rsvrs full</td></tr>
       <tr><td>Actuators</td><td class="v">dark until commanded</td></tr>
     </table>
@@ -104,8 +112,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Rig joints silent against 90 PSI, water side closed, display all green on boot, no actuator energized, pan dry.</div>
-  <div class="src">acceptance-and-burn-in.md &#167;1&ndash;2<br>rev 2026-07-24</div>
+  <div class="done"><span class="lbl">Done when</span>Every back-wall joint silent against the pressurized line, water side closed, display all green on boot, no actuator energized, pan dry.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;1&ndash;2 &#183; _cards_sync.py<br>rev 2026-08-07</div>
 </footer>
 
 </div>
