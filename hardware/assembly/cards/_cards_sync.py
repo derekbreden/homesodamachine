@@ -286,10 +286,12 @@ def electronics_shelf(m: Machine):
     facts = {
         "SHELF_SCREWS_M3X8": f"{len(m.box.east_bosses) - long_screws}",
         "SHELF_SCREWS_M3X10": f"{long_screws}",
-        # No insert is pressed on this bench — every one is already in a wall
-        # boss. Nought is a figure a card states, so it is a figure the gate
-        # holds: if the shelf ever grows a printed part with an insert of its
-        # own, this stops being nought and ES-01's second step is wrong.
+        # No insert is pressed on this bench — every one is already in a wall boss.
+        # Typed, because there is no insert census to read: none of the five bodies
+        # declares inserts of its own, so nought is not a count of anything. What
+        # holds it is the assertion above — every hole in every body's pattern lands
+        # on a +X wall boss, so there is no boss anywhere else for this bench to set.
+        # A shelf part with an insert of its own would break that equality first.
         "SHELF_INSERTS_HERE": "0",
         **{k: str(v) for k, v in column.items()},
     }

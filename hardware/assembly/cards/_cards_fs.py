@@ -177,6 +177,13 @@ def _figures():
         f"the carbonator's rod is cut {_pv.rod_clearance} mm under its span and a reservoir's "
         f"{_rsv.reservoir_rod_clearance} mm under its — PV-05 states one clearance for all three")
     rod_clearance = _pv.rod_clearance
+    # ONE carbonator, and therefore one carbonator rod. Typed, because the vessel is
+    # not a population the CAD counts — `_pressure_vessel_sync` carries a single
+    # `carbonator_rod_len`, so there is no census to read and nothing that would move
+    # this figure without a second vessel appearing. Named once and spent twice, so
+    # PV-05's total and its own line cannot disagree; the reservoirs beside it ARE a
+    # population and are counted.
+    carb_rods = 1
     # PV-05's nesting note is arithmetic on the two cuts against a nominal stick,
     # and the whole point of it is whether they fit. Both halves move.
     stick_len = 12.0 * MM_PER_IN
@@ -241,8 +248,8 @@ def _figures():
         "REGISTER_REMAINING": _dec(_cap.disc_thickness - _cap.register_depth),
         "PLATE_SLIP": f"~{_dec(plate_slip)}",
         # ── PV — the rods (PV-05, PV-06) ─────────────────────────────────
-        "LEVEL_RODS": f"{1 + _fc.reservoir_count}",
-        "CARB_ROD_QTY": "1",
+        "LEVEL_RODS": f"{carb_rods + _fc.reservoir_count}",
+        "CARB_ROD_QTY": f"{carb_rods}",
         "RSVR_ROD_QTY": f"{_fc.reservoir_count}",
         "CARB_ROD_LEN": f"{_pv.carbonator_rod_len:.4g} mm "
                         f"({_pv.carbonator_rod_len / MM_PER_IN:.3g} in)",

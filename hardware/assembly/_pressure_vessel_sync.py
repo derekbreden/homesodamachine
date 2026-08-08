@@ -77,8 +77,12 @@ def main():
         # Vertical envelope for the 1/4" NPT 90° elbow stack above and
         # below the tank (foam-shell budget).
         "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
-        # Carbonator float-rod cut length (computed above).
+        # Carbonator float-rod cut length (computed above), and the one term of its
+        # formula the prose spells out — the undercut that keeps the rod from holding
+        # a plate off its seated depth. Read off the constant the length is cut with,
+        # so the sentence explaining the cut cannot describe a different cut.
         "ROD_LEN": f"{carbonator_rod_len:.4g} mm ({carbonator_rod_len / MM_PER_IN:.3g} in)",
+        "ROD_CLEARANCE": f"{rod_clearance:.4g} mm",
         # The working pressure the whole procedure is sized against, and the
         # regulator that holds it there — one number, read everywhere it is stated.
         "WORKING_PSI": f"{secondary_regulator_pressure_psi:.4g} PSI",
@@ -92,6 +96,7 @@ def main():
             "TANK_H": 1,
             "ELBOW_ENV": 2,
             "ROD_LEN": 2,
+            "ROD_CLEARANCE": 1,
             "WORKING_PSI": 8,
             "REG_FIXED": 1,
         },

@@ -23,8 +23,8 @@ def internal_plumbing(m):
     manifold's own census, and the row of unions the risers land on."""
     import front_half as _fh
     import manifold_layout as _ml
+    import _lines
     import _scorecard as _card
-    import derpipe_co2_inlet as _derpipe
     import digiten_flow_sensor as _digiten
     import drip_pan as _pan
     from _cold_core_interface import cap_conduit_bore_radius, cap_cradles
@@ -58,7 +58,11 @@ def internal_plumbing(m):
     assert not pack.front_ports and not box.front_ports, (
         f"{len(box.front_ports)} station(s) are cut in the front wall — IP-01 brings the CO2 "
         f"in at the back and says nothing at all is cut in the front")
-    co2_bore = _derpipe.SHANK_D + 2 * _fh.PORT_HOLE_SLIP
+    # The bore, off the call that STRIKES it rather than a second copy of its
+    # arithmetic: `co2_wall_port` is what `front_half.pack` fills `back_ports` with,
+    # so a change to how the hole is struck arrives here instead of leaving this
+    # assertion checking the wall against a rule it no longer follows.
+    co2_bore = _fh.co2_wall_port(a.co2_inlet_carry)[3]
     assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
         f"no {co2_bore:.4g} mm bore stands in the back wall — IP-01 threads the GASHER onto a "
         f"DERPIPE clamped through it, and the back wall is where the card sends the bench")
@@ -102,6 +106,25 @@ def internal_plumbing(m):
         assert corners(rid) == 0, (
             f"`{rid}` now turns {corners(rid)} time(s) — the cards cut it as a straight length "
             f"between two mouths facing each other")
+
+    # The two pump-port stubs: the only runs on the machine drawn on the reinforced
+    # PVC's own bend floor, which is what makes them the only clamped joints. Both
+    # ends of each is a barb, and IP-02 closes a clamp on every one — so the clamp
+    # count is that census and not a number kept beside it. IP-06 witnesses the same
+    # clamps, so the two cards cannot count them differently.
+    hose_stubs = sorted(rid for rid, r in runs.items() if r.bend == _lines.HOSE_BEND)
+    assert hose_stubs == ["water-6", "water-7"], (
+        f"the reinforced-PVC stubs are {hose_stubs} — IP-02 cuts the pump's two ports and "
+        f"IP-06 witnesses their clamps, and every other line on the machine is push-fit")
+    pump_clamps = 2 * len(hose_stubs)
+
+    # The carbonated riser is cut per run, and the meter standing between the two runs
+    # is what makes its insulation two pieces rather than one. A meter that moved off
+    # the riser would leave one run, and FU-03 would sleeve one piece.
+    carb_runs = sorted(rid for rid in runs if rid.startswith("carb-"))
+    assert carb_runs == ["carb-1", "carb-2"], (
+        f"the carbonated riser is {carb_runs} — IP-05 climbs it in two lengths with the "
+        f"DIGITEN made up between them, and FU-03 foams one piece per run")
 
     # ── the flavor manifold (IP-03, IP-04) ─────────────────────────────────
     valves = sorted(n for n in _ml.P if n.startswith("V-"))
@@ -219,7 +242,7 @@ def internal_plumbing(m):
         "SUCTION_STUB_LEN": mm("water-7"),
         "DISCHARGE_STUB_LEN": mm("water-6"),
         "PVC_BEND_R": f"{runs['water-7'].bend:.4g} mm",
-        "PUMP_CLAMPS": "4",
+        "PUMP_CLAMPS": f"{pump_clamps}",
         "VENT_GAP": f"{_pan.VENT_GAP:.4g} mm",
         # The manifold — IP-03, IP-04.
         "MANIFOLD_VALVES": f"{len(valves)}",
@@ -240,9 +263,7 @@ def internal_plumbing(m):
         "CARB_2_LEN": mm("carb-2"),
         "FLUID_18_LEN": mm("fluid-18"),
         "FLUID_28_LEN": mm("fluid-28"),
-        # The riser's insulation is cut per run, and the meter between the two
-        # runs is what makes it two pieces rather than one.
-        "CARB_FOAM_PIECES": "2",
+        "CARB_FOAM_PIECES": f"{len(carb_runs)}",
         # WR — where the two bodies a loom reaches actually stand. WR-04 walks the
         # bench to V-K OFF THE PUMP, the one body on that side a hand cannot miss, so
         # the side is read against the pump rather than against the machine's centreline.
