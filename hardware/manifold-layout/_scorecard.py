@@ -153,12 +153,15 @@ def _split_placed(a) -> tuple:
 #
 # THESE THREE IDS ARE THE LOOP'S WHOLE POPULATION, and `front_half.REFRIGERANT_IDS` is this
 # tuple: the gate that measures the loop and the goal that counts it read one list, so a
-# connection cannot go quiet on one while the other still owes it. A joint made by MATING
-# crosses a plane two of its bodies already share, so both of its stations are one point read
-# twice and the copper between them is the length of the union — `front_half.refrigerant_joints`
-# takes that reading over all three at every build, `check_refrigerant_joints` reads red for any
-# that stands open or has no pair of placed stations to measure, and `load_connections` counts
-# as MATED only the ones that shut.
+# connection cannot go quiet on one while the other still owes it. THERE ARE TWO WAYS TO MAKE A
+# LEG and the gate grades both. A leg made by MATING crosses a plane two of its bodies already
+# share, so both of its stations are one point read twice and the copper between them is the
+# length of the union; a leg made in COPPER is a run `_lines` draws, and what it owes is the gap
+# between the tube's two ends and the mouths they are brazed into. `front_half.refrigerant_joints`
+# takes whichever reading the machine earned over all three at every build,
+# `check_refrigerant_joints` reads red for any leg standing open and for any with no pair of
+# placed stations to measure, and `load_connections` counts as MATED only the matings that shut —
+# a drawn leg it counts off the run, like every other line.
 REFRIGERANT_SEGMENTS = (
     ("refrig-1", "compressor discharge", "condenser+fan inlet"),
     ("refrig-2", "condenser+fan outlet (drier + cap tube)", "foam-assembly evaporator inlet"),
@@ -391,14 +394,15 @@ def load_connections(runs, joints=()) -> list[Connection]:
     pack carries that construction's own name, and what is left is owed. A run that `_routing`
     could not draw as asked carries the shortfall with it.
 
-    `joints` is `front_half.refrigerant_mates` — the joints that CLOSED, `(id, from, to, mm
-    apart)` apiece — and a connection it names is MATED: its two mouths are one point read twice
-    across a plane its bodies already share, so there is no line to draw and nothing left to
-    route. The measurement rides the row. Nothing here re-tests it: `front_half` takes the
-    reading over the whole loop and hands on only what its own tolerance shut, so a joint that
-    stands open or was never measured is still owed here and reads red on its own gate. A card
-    built without the reading counts none of them, which is the honest default: an assembly
-    nobody measured holds no path anybody has seen.
+    `joints` is `front_half.refrigerant_mates` — the legs a shared plane CLOSED, `(id, from, to,
+    mm apart)` apiece — and a connection it names is MATED: its two mouths are one point read
+    twice across a plane its bodies already share, so there is no line to draw and nothing left
+    to route. The measurement rides the row. Nothing here re-tests it: `front_half` takes the
+    reading over the whole loop and hands on only what its own tolerance shut, so a leg that
+    stands open or was never measured is still owed here and reads red on its own gate. The
+    loop's DRAWN leg is not in this list and does not need to be — it arrives in `runs` like
+    every other line. A card built without the reading counts none of them, which is the honest
+    default: an assembly nobody measured holds no path anybody has seen.
 
     The wiring schedule is not here. It is a separate axis and nothing in this pack routes a
     conductor yet, so counting it would only bury the tube reading this card is for."""
@@ -1253,12 +1257,13 @@ def build(a) -> Scorecard:
 def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs)
-    # `front_half` measures the refrigerant loop's joints the moment its bodies are placed, and
-    # the CLOSED ones ride each row: the millimetres a shut joint stands apart print beside the
-    # segment it makes. A joint standing open, or one with no reading at all, counts here only
-    # if a line was actually drawn for it; otherwise it is copper the machine owes and stays in
-    # `routed`'s owed column, rather than counting as made because somebody looked at it. Either
-    # way it reads red on `refrigerant-joints`, which measures matings and not tubes.
+    # `front_half` measures every leg of the refrigerant loop, and the ones a shared plane SHUT
+    # ride each row: the millimetres a closed mating stands apart print beside the segment it
+    # makes. A mating standing open, or a leg with no reading at all, counts here only if a line
+    # was actually drawn for it; otherwise it is copper the machine owes and stays in `routed`'s
+    # owed column, rather than counting as made because somebody looked at it. Either way it
+    # reads red on `refrigerant-joints`, which grades the whole loop — a mating on its two
+    # stations, a drawn leg on both its mouths.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
     shapes = shape_rows(a)
     leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
@@ -1476,8 +1481,8 @@ def selftest() -> int:
           not unknown, ", ".join(unknown) if unknown
           else " ".join(sorted({made_of(how) for _c, _f, _t, how in ml.SEGMENTS})))
 
-    # The refrigerant loop's own shape: three ids the topology tables never carry, made by a
-    # measurement rather than by a line. The gaps are this control's, not the build's.
+    # The refrigerant loop's own shape: three ids the topology tables never carry. The gaps are
+    # this control's, not the build's.
     refrig = tuple(cid for cid, _f, _t in REFRIGERANT_SEGMENTS)
     mated = {c.id: c for c in load_connections(
         [], [(cid, "a.p", "b.p", 0.001) for cid in refrig])}
@@ -1492,6 +1497,18 @@ def selftest() -> int:
     check("a card handed no reading counts none of them",
           all(bare[cid].made == UNMADE and not bare[cid].routed for cid in refrig),
           ", ".join(f"{cid} {bare[cid].made}" for cid in refrig))
+
+    # There are two ways to make a leg of that loop and `front_half` reads each in its own
+    # words. They are THIS CARD'S words, so the gate that grades the loop and the row `routed`
+    # prints for the same leg cannot come out under different names.
+    import front_half as _fh
+
+    check("both ways `front_half` makes a leg of the loop have a word on this card",
+          {_fh.MADE_BY_MATE, _fh.MADE_BY_TUBE} <= set(MADE_AS),
+          f"{_fh.MADE_BY_MATE} {_fh.MADE_BY_TUBE}")
+    # And the gate's population is this table's own, not a list kept beside it.
+    check("the loop's gate and this card count the same legs",
+          _fh.REFRIGERANT_IDS == refrig, " ".join(_fh.REFRIGERANT_IDS))
 
     print("PASS" if failures == 0 else f"FAIL — {failures}")
     return 0 if failures == 0 else 1

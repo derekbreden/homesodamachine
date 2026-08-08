@@ -147,16 +147,22 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 ## Standing it on the refrigeration stratum
 
 [`front_half.py`](front_half.py) → `front-half.step` mates its bodies with nothing between
-them: the compressor's own +X tangent to the condenser's intake face, both of their aft faces
-to the cold core's front wall, and the crown of the pair to this pack's spine hairpins.
+them: the compressor's own +X tangent to the condenser's intake face, the condenser's aft face
+to the cold core's front wall, and the crown of the pair to this pack's spine hairpins. The
+compressor does not reach that wall — the condenser is the deeper of the two and both are struck
+on the same centre before the pair is yawed, so the compressor's plate stands inset from it by
+half the difference at each end.
 
 The gaps are 0 by intent, and the refrigerant loop is what they are for. The compressor is an
 oblong can whose stubs stand on its own tangent lines, the condenser is an envelope whose headers are
 re-dressed to whichever face suits, and the core's front wall has a lane on each side of it
-carrying one of the evaporator's coppers — so all three of the loop's joints cross a plane two
-of these bodies already share, both stations of each are one point read twice, and no copper is
-drawn between any two of them. `refrigerant_joints` measures all three at every build and
-`check_refrigerant_joints` fails the build when one opens.
+carrying one of the evaporator's coppers — so two of the loop's legs cross a plane two of these
+bodies already share, both stations of each are one point read twice, and no copper is drawn
+between them. The third is the compressor's suction, which stands off that wall and reaches the
+evaporator's outlet as cut and brazed copper `_lines` draws like any other run.
+`refrigerant_joints` reads all three at every build — a mating on its two stations, a tube on
+both its mouths — and `check_refrigerant_joints` writes the card red for any leg standing open
+and for any with no pair of placed stations to measure.
 
 ![front half](front-half.right.png)
 
