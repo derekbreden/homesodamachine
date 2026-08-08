@@ -1,6 +1,13 @@
 """
 Compressor shroud — sheet-metal cover that drops over the compressor.
 
+THE MACHINE DOES NOT CARRY THIS PART. `front_half.machine()` places no shroud body and
+`bom.md` buys none; the compressor stands bare on the enclosure floor with its terminal
+block open to the cabinet, which `/business/regulatory.md` carries as a live gap against
+60335-2-24. This module still runs and still writes its STEP and flat DXF, but nothing
+downstream reads either. `_compressor_shroud_dimensions.py` beside it is read by the two
+wiring doc-sync drivers, which is what keeps this directory on the import path.
+
 A 5-sided open-bottom box: a top panel with four walls bent down from
 its edges, open at the bottom so the compressor's feet sit on the
 enclosure floor and the refrigerant/process stubs exit below. One flat
@@ -36,9 +43,10 @@ shroud on either.
 - Mounting: one hole near the base of the left face and one near the
   base of the right face, fastening the shroud to the enclosure floor.
 
-`front_half.refrigerant_joints()` measures both of those joints at every build of the
-machine and fails the build if either opens — which is what holds the two picks here on
-the neighbours they were struck from.
+NEITHER PICK IS MEASURED BY ANYTHING. `front_half.refrigerant_joints()` reads the
+compressor's, the condenser block's and the cold core's own station tables; this body is
+not in the pack, so nothing holds the two picks here on the neighbours they were struck
+from.
 
 MATERIAL / BENDS
 ================
