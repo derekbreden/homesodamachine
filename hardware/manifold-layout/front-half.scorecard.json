@@ -37,33 +37,20 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "7 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "psu \u2229 gasher-co2   1447.8 mm\u00b3, x[   49.50,   56.50] y[  427.00,  450.00] z[  282.64,  297.36]",
-    "psu \u2229 wr1110   5727.9 mm\u00b3, x[   49.50,   58.50] y[  367.00,  417.00] z[  280.62,  299.38]",
-    "psu \u2229 tube-co2-1   66.8 mm\u00b3, x[   49.50,   51.18] y[  417.00,  427.00] z[  287.20,  292.80]",
-    "psu \u2229 tube-fluid-14   1646.9 mm\u00b3, x[   52.82,   59.18] y[  418.75,  425.20] z[  253.40,  306.12]",
-    "pcba \u2229 tube-water-7   16.5 mm\u00b3, x[   62.56,   69.57] y[  323.21,  332.75] z[  265.16,  276.50]",
-    "pcba \u2229 tube-carb-1   391.8 mm\u00b3, x[   74.32,   80.68] y[  270.82,  277.18] z[  254.90,  323.92]",
-    "ac-hub \u2229 c14-inlet   167.0 mm\u00b3, x[   61.40,   67.75] y[  448.00,  451.45] z[  332.55,  340.25]"
-   ],
+   "detail": [],
    "active": true
   },
   {
    "id": "lines-clear",
    "label": "No routed tube intersects a body, a piece or another tube",
    "kind": "gate",
-   "status": "fail",
-   "value": "4 clash",
+   "status": "pass",
+   "value": "0 clash",
    "target": "0 clash",
-   "detail": [
-    "water-7 \u2229 pcba: 16.5 mm\u00b3",
-    "co2-1 \u2229 psu: 66.8 mm\u00b3",
-    "carb-1 \u2229 pcba: 391.8 mm\u00b3",
-    "fluid-14 \u2229 psu: 1646.9 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -71,15 +58,11 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "fail",
-   "value": "46/59 clear",
+   "value": "51/59 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to",
     "foam-assembly.evap-inlet: 0.00 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
-    "foam-assembly.reservoir-a-fill: 0.00 mm to psu, needs 28.00",
-    "gasher-co2.outlet: 0.00 mm to psu, needs 28.00",
-    "wr1110.inlet: 0.00 mm to psu, needs 28.00",
-    "foam-assembly.carb-water-out: 1.50 mm to pcba, needs 28.00",
     "valve-v-c.inlet: 15.75 mm to tee-y-a, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-d.inlet: 15.75 mm to tee-y-b, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-e.outlet: 15.75 mm to tee-y-c, needs 28.00 \u2014 no run authored on it yet",
@@ -87,7 +70,6 @@
     "valve-v-h.outlet: 15.75 mm to tee-y-f, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-i.inlet: 15.75 mm to tee-y-g, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-g.inlet: 17.18 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
-    "suction-chain.barb-tip: 21.70 mm to pcba, needs 31.80",
     "asse1022-assembly.vent-tip: 11.00 mm to drip-pan \u2014 opens to atmosphere, not gated"
    ],
    "active": true
@@ -97,23 +79,12 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "12 under, tightest 0.000 mm",
+   "value": "2 under, tightest 0.770 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "foam-assembly \u2014 pcba: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "psu \u2014 gasher-co2: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "psu \u2014 wr1110: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "ac-hub \u2014 c14-inlet: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "water-7 \u2014 pcba: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "carb-1 \u2014 pcba: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-14 \u2014 psu: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "co2-1 \u2014 psu: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-14 \u2014 pcba: 0.102 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "seaflo-pump \u2014 psu: 0.500 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-14 threads psu \u2014 pcba: they leave 6.000 mm and the tube is \u00d86.35, so -0.175 mm a side if it were centred, and it is not",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
     "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
@@ -128,13 +99,15 @@
     "water-split \u2014 discharge-chain: 1.150 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
+    "foam-assembly \u2014 pcba: 1.724 mm",
+    "fluid-14 \u2014 psu: 1.822 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "fluid-14 \u2014 gasher-co2: 1.956 mm",
-    "suction-chain \u2014 pcba: 2.272 mm",
     "carb-1 \u2014 suction-chain: 2.275 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-1: 2.500 mm",
     "relay-1 \u2014 ac-hub: 2.500 mm",
+    "psu \u2014 wr1110: 2.500 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-18 \u2014 vk-solenoid: 3.150 mm",
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
@@ -142,7 +115,6 @@
     "fluid-28 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "pcba \u2014 ground-stack: 3.450 mm",
-    "carb-1 \u2014 enclosure-back-top: 3.626 mm",
     "carb-1 \u2014 fluid-18: 3.650 mm",
     "fluid-2 \u2014 discharge-chain: 3.683 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
@@ -150,7 +122,6 @@
     "water-5 \u2014 fluid-24: 3.790 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
     "coil-v-b \u2014 flow-regulator: 3.805 mm",
-    "relay-1 \u2014 c14-inlet: 3.817 mm",
     "fluid-28 \u2014 water-split: 3.825 mm",
     "fluid-14 \u2014 seaflo-pump: 3.825 mm",
     "fluid-2 \u2014 fluid-24: 3.874 mm",
@@ -159,7 +130,7 @@
     "c14-inlet \u2014 bulkhead-carb: 4.292 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "fluid-2 \u2014 fluid-26: 4.375 mm",
-    "fluid-14 \u2014 relay-1: 4.717 mm",
+    "psu \u2014 gasher-co2: 4.500 mm",
     "water-7 \u2014 foam-assembly: 4.750 mm",
     "fluid-24 \u2014 discharge-chain: 4.757 mm",
     "fluid-28 \u2014 fluid-24: 4.799 mm",
@@ -168,9 +139,9 @@
     "fluid-2 \u2014 valve-v-b: 4.979 mm",
     "water-3 \u2014 tee-y-a: 5.075 mm",
     "water-3 \u2014 tee-y-b: 5.075 mm",
-    "fluid-14 \u2014 ground-stack: 5.171 mm",
+    "ac-hub \u2014 c14-inlet: 5.150 mm",
+    "carb-1 \u2014 pcba: 5.225 mm",
     "water-7 \u2014 co2-2: 5.358 mm",
-    "fluid-18 \u2014 pcba: 5.550 mm",
     "fluid-14 \u2014 hopper-funnel: 5.694 mm",
     "fluid-24 \u2014 fluid-26: 5.699 mm",
     "fluid-24 \u2014 coil-v-b: 5.850 mm",
@@ -213,12 +184,10 @@
    "id": "pan-lane",
    "label": "The drip tray's west lip lands inside the \u2212X wall",
    "kind": "gate",
-   "status": "fail",
-   "value": "lip at x -108.00, wall at -97.00",
+   "status": "pass",
+   "value": "lip at x -108.00, wall at -108.50",
    "target": "the lip inboard of the wall",
-   "detail": [
-    "drip-pan: the tray's west lip lands at x -108.00, 11.00 mm outboard of the \u2212X wall's inner face at -97.00. Its east rim stands one FOOT_CLEAR = 1 off the pump's casting at the tray's own height, so the lane holds a rim of 61.00; shrink `drip_pan.PAN_X` by what is over."
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -1759,10 +1728,10 @@
    "component": "ground-stack",
    "boxes": [
     [
-     68.4,
+     79.9,
      350.4,
      307.9,
-     83.0,
+     94.5,
      368.4,
      325.588
     ]
@@ -1775,10 +1744,10 @@
    "component": "pcba",
    "boxes": [
     [
-     63.9,
+     75.4,
      257.184,
      253.4,
-     83.0,
+     94.5,
      348.0,
      326.2
     ]
@@ -2007,10 +1976,10 @@
    "component": "relay-1",
    "boxes": [
     [
-     64.0,
+     75.5,
      393.0,
      307.9,
-     83.0,
+     94.5,
      463.0,
      324.9
     ]
@@ -2311,34 +2280,34 @@
    "component": "ac-hub",
    "boxes": [
     [
-     70.7,
+     82.2,
      370.9,
      327.4,
-     83.0,
+     94.5,
      463.0,
      346.1
     ],
     [
-     61.4,
+     72.9,
      382.45,
      332.55,
-     80.0,
+     91.5,
      401.25,
      340.95
     ],
     [
-     61.4,
+     72.9,
      407.55,
      332.55,
-     80.0,
+     91.5,
      426.35,
      340.95
     ],
     [
-     61.4,
+     72.9,
      432.65,
      332.55,
-     80.0,
+     91.5,
      451.45,
      340.95
     ]
@@ -2455,10 +2424,10 @@
    "component": "psu",
    "boxes": [
     [
-     49.5,
+     61.0,
      354.0,
      253.4,
-     83.0,
+     94.5,
      463.0,
      305.4
     ]
@@ -4643,7 +4612,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T03:01:25+00:00",
-  "commit": "f5e07585cf4030a82ee2351b5319d8d77f96f269"
+  "generated": "2026-08-08T03:14:22+00:00",
+  "commit": "1592f646a64f7c7aac8be60c0e8b814200b91387"
  }
 }

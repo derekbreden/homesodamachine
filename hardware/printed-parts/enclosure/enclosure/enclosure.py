@@ -248,6 +248,13 @@ appliance_height = 358.0
 # build. The ±X walls still stand one `side_rib_inset` off the widest body on the
 # floor — that is what the check measures, rather than what the wall follows.
 appliance_width = 223.0
+
+
+def interior_x():
+    """The ±X interior faces, struck off the stated width alone. `_dims` builds the box on
+    these and every body seated on a flank reads them through the same call, so the wall and
+    the things that stand against it cannot come apart."""
+    return (-(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall)
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
 # and a pack that outgrows this plane fails the build instead of quietly resizing the
@@ -726,7 +733,7 @@ def _dims(pack):
     # against them instead of against the wall. Anything standing clear of the slab is above
     # the ±X bands' floor stations and needs only its own clearance.
     floor = [b for b in bbs if b.zmin < wall + 1e-6] or bbs
-    ix0, ix1 = -(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall
+    ix0, ix1 = interior_x()
     wide_need = max(max(b.xmax for b in floor) + side_rib_inset,
                     -(min(b.xmin for b in floor) - side_rib_inset),
                     cxmax + interior_clearance, -(cxmin - interior_clearance))
