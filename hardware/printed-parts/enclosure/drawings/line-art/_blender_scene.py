@@ -144,13 +144,13 @@ v_center = (v_min + v_max) / 2
 cam_obj.location += cam_right * (u_center - u_centroid)
 cam_obj.location += cam_up * (v_center - v_centroid)
 
-# Mirror the view horizontally so the right-side face (carrying the CO2
-# port) reads on the viewer's left. A negative X scale on the camera is a
-# reflection — it can't come from the rotation, which is why it lives
-# here. Freestyle strokes and the disc (projected through this same
-# camera by world_to_camera_view) both land in the mirrored frame, so
-# nothing downstream has to flip anything.
-cam_obj.scale.x = -1.0
+# THE CAMERA IS PLACED, NEVER REFLECTED. A negative X scale on the camera
+# mirrors the image, and a mirrored drawing is a drawing of a machine that
+# does not exist — a customer reading it would look for the CO2 inlet on
+# the wrong side of the back wall. It costs the line art as well: the
+# reflection flips the handedness Freestyle's visibility test runs in, and
+# what it drops there is the silhouette of every rounded corner in the box,
+# leaving the outline open where the R12 print reliefs are.
 bpy.context.view_layer.update()
 
 
