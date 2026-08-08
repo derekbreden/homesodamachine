@@ -6,7 +6,7 @@ The arrangement is [`front_half.py`](/hardware/manifold-layout/front_half.py): i
 
 ## The box
 
-Four printed PETG pieces — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [223 × 481 × 360 mm](BOX_SIZE) over the outside with a [3 mm](WALL_T) wall ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)). **There is no separate front panel and no separate back panel.** Every face is a wall of one of the four pieces, and every connection the appliance makes to the world is a hole in one of them: the rear face is the back pieces' own back wall, the display facet is a 45° chamfer in `enclosure-front-top`'s top-front arris, and the hopper is an opening in the top wall that both top pieces take their share of.
+Four printed PETG pieces — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [223 × 481 × 358 mm](BOX_SIZE) over the outside with a [3 mm](WALL_T) wall ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)). **There is no separate front panel and no separate back panel.** Every face is a wall of one of the four pieces, and every connection the appliance makes to the world is a hole in one of them: the rear face is the back pieces' own back wall, the display facet is a 45° chamfer in `enclosure-front-top`'s top-front arris, and the hopper is an opening in the top wall that both top pieces take their share of.
 
 - **The Y seam is stated at [200](Y_SEAM).** The front pieces' rear walls telescope into the back pieces — a proud tongue on the side walls and ceiling, and inside the floor slab a shiplap rather than a tongue, so the floor stays flat where the cold core rides across it. Interlocking screw bosses cross-pin the seam from the ±X exteriors, at a level for each end of each piece.
 - **The front column's Z seam is stated at [160](Z_SEAM_FRONT).** The back column's is searched instead — the cold core stands from the floor slab and the service bay stands on its lid, so that column runs solid and its seam takes whatever height the bed and its own lip's ring allow — and it lands at [207.7](Z_SEAM_BACK). The two stagger like a brick bond. The bottom pieces carry the lip and the socket pods, the top pieces the D-pins, and four X-axis screws cross each seam.
@@ -65,7 +65,7 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
-| Umbilical unions × 3 (PP1208E) | [-80 / -32 / +16](UMBILICAL_STATIONS) at z [342.4](PORT_ROW_Z) | Ø18 round | Flange on the OUTER face, threading through, nut clamped inside |
+| Umbilical unions × 3 (PP1208E) | [-80 / -32 / +16](UMBILICAL_STATIONS) at z [337.2](PORT_ROW_Z) | Ø18 round | Flange on the OUTER face, threading through, nut clamped inside |
 | Tap-water union (PP1208E) | x [-74](WATER_BACK_X), z [305.4](WATER_BACK_Z) | Ø18 round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
 | CO2 DERPIPE PTC | [x 48, z 290](CO2_BACK) | Ø15.42 round | Seated on its own inboard stub tip; the GASHER check threads onto that stub in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
@@ -158,7 +158,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Condenser + fan mated to the shroud with the airflow axis crossing the enclosure side to side, finstack facing the ±X walls
 - Cold core seated flat on the floor slab behind the stratum, front face mated flush against it, no tension on the refrigerant lines, all [7](CAP_CONDUITS) cap conduits open on the lid
 - Four printed pieces telescoped and cross-pinned at the Y seam and both Z seams, every seam screw driven from a ±X exterior face — `enclosure-back-top` last, since it is the lid over the whole service bay
-- Rear wall carrying all six connection bodies: the three PP1208E umbilical unions in one row at z [342.4](PORT_ROW_Z) (blue ring on the carbonated-water one), the PP1208E tap-water union below them, the C14 inlet on its own storey east of the row, and the DERPIPE CO2 inlet below that. Nothing is cut in the front wall.
+- Rear wall carrying all six connection bodies: the three PP1208E umbilical unions in one row at z [337.2](PORT_ROW_Z) (blue ring on the carbonated-water one), the PP1208E tap-water union below them, the C14 inlet on its own storey east of the row, and the DERPIPE CO2 inlet below that. Nothing is cut in the front wall.
 - Power column bolted to `enclosure-back-top`'s +X wall on [15](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, relay #1, AC hub, ground stack and PCBA, every mounting plane on one seat, no tray under any of them — unpowered, AC pigtails hanging free
 - Drip tray + moisture sensor on their rails under the backflow vent's fall, sensor leads routed toward the power column (not yet terminated)
 - Display let into the facet of `enclosure-front-top`, leads loose
