@@ -284,10 +284,11 @@ port_lane_inner_y = pour_band_pocket_side_y
 port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
 
 # The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
-# bands leave the same strip. It carries ONE line and it has no field: reservoir B's flavor
-# line crosses its pocket's +Y wall, comes about in this band and climbs it to the TOP, out
-# through the cap's own `reservoir-b` conduit. So the two features that line runs between are
-# a bore in a pocket wall and a hole in the cap, and this lane is what joins them.
+# bands leave the same strip. Two lines use it, and they use it end to end rather than
+# crossing: reservoir B's flavor line comes out of its pocket's +Y wall, comes about in this
+# band and climbs it to the TOP, out through the cap's own `reservoir-b` conduit; and the
+# evaporator's WARM tail drops this band to its own station low on the front wall
+# (`copper_plugs.columns`).
 west_lane_mid_y = -port_lane_mid_y
 # PETG left either side of a bore on the lane, and under the lowest one over the
 # floor slab. Below this the wall between two features stops being printable.
@@ -307,12 +308,12 @@ evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_tank_e
 evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
                     - wall_and_floor_thickness - above_tank_elbows_height)
 
-# The FRONT PORT FIELD — where each penetration crosses the −X wall. One column,
-# pitched a bore plus one wall, climbing from the floor. What sets a station's Z is
-# NOT the height of the fitting it serves: a line leaves its fitting, turns into the
-# lane and climbs it freely. The field carries the two reed cables, which leave
-# together out of the pockets' bulkhead band. Everything above the field belongs to
-# the copper/PRV SLOT, which takes the rest of the column.
+# The FRONT PORT FIELD — where each penetration crosses the −X wall on the PORT LANE.
+# One column, pitched a bore plus one wall, climbing from the floor. What sets a
+# station's Z is NOT the height of the fitting it serves: a line leaves its fitting,
+# turns into a lane and climbs it freely. The field carries the two reed cables, which
+# leave together out of the pockets' bulkhead band. Everything above the field belongs to
+# that lane's SLOT, which takes the rest of the column (`copper_plugs.columns`).
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
 # NO FLUID LINE IS HERE. The front wall is mated face to face with the refrigeration base,
 # which stands the height of the compressor's shroud against it, so a bore struck here opens
@@ -345,8 +346,9 @@ def front_port_station(name):
 
 
 def front_port_stations() -> dict:
-    """Both, under the names the machine knows them by. The three ABOVE the field are the
-    copper/PRV slot's, and `copper_plugs.slot_stations` declares those on this same lane."""
+    """Both, under the names the machine knows them by. What crosses ABOVE the field belongs
+    to a lane's slot, and `copper_plugs.slot_stations` declares those — the two on this lane
+    and the one on the west."""
     return {name: front_port_station(name) for name in front_port_order}
 
 
@@ -943,18 +945,22 @@ def build_slot_punch(
     )
 
 
-def port_to_shell(solid):
-    """Carry a solid from the PORT FRAME into the shell's.
+def port_to_shell(solid, lane_y=None):
+    """Carry a solid from the PORT FRAME into the shell's, onto one of the front wall's
+    two lanes.
 
     The port frame is the one every penetration is authored in, the copper-plug
     stack among them: x lateral across the face, −y out through it, z the shell's
     own. One quarter turn about Z puts its −y on the shell's −X, and one slide puts
-    its lateral centreline on the port lane. Authoring there is what keeps the plug
+    its lateral centreline on a lane. Authoring there is what keeps the plug
     stack and the slot it fills a single reading — a plug is a part that plugs a slot
     in a wall, and that is the frame that says so; a pose turned by hand alongside a
-    slot cut by hand is two implementations of one transform."""
+    slot cut by hand is two implementations of one transform.
+
+    ONE FRAME SERVES BOTH LANES because both are the same wall: `lane_y` is the only
+    thing that differs, so a plug printed for one lane fits the other."""
     return (solid.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90.0)
-                 .translate(cq.Vector(0.0, port_lane_mid_y, 0.0)))
+                 .translate(cq.Vector(0.0, port_lane_mid_y if lane_y is None else lane_y, 0.0)))
 
 
 def build_z_axis_hole_punch(

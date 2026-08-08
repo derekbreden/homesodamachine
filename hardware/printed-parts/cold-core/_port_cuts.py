@@ -1,5 +1,5 @@
 """Port openings and slot cuts through the foam shell — the two reservoir draws, the
-CO2 inlet bore, and the shared copper/PRV-vent slot.
+CO2 inlet bore, and the front wall's two lane slots.
 
 EVERY FLUID LINE LEAVES BY THE TOP, and every opening one of them takes on the way is
 that line's own CORRIDOR: the run swept at the project's ⌀[6.5](PORT_HOLE_DIAMETER)
@@ -15,9 +15,10 @@ ring at one of the ring's own slots, on the column its cap conduit stands over �
 `water_outlet_ring_crossing_x` is that column, and the assertion under it is what
 holds the crossing inside the slot.
 
-Only the copper/PRV slot opens on the shell's −X FACE. The two reed cables take the
-front port field beside it (`_reed_channels`), and they are the whole of what crosses
-that wall besides the slot: it is mated face to face with the refrigeration base.
+Only the two lane slots open on the shell's −X FACE. The two reed cables take the
+front port field on the port lane below its slot (`_reed_channels`), and they are the whole
+of what crosses that wall besides the slots: it is mated face to face with the refrigeration
+base, and what the slots carry is made up on that base's own picks.
 """
 
 import math
@@ -181,28 +182,38 @@ def cut_line_corridors(foam_shell, gives_way):
     return foam_shell
 
 
-def cut_slot_for_copper_and_prv_vent(foam_shell):
-    """Z-elongated slot through the outer-shell −X wall, shared by the
-    two copper lines and the PRV vent, plugged by a stack slid down in from
-    above. Built in the PORT FRAME — where the wall it crosses is a −Y wall and the
+def cut_lane_slots(foam_shell):
+    """One Z-elongated slot through the outer-shell −X wall per LANE, each plugged by a stack
+    slid down in from above.
+
+    THERE ARE TWO because the evaporator's two coppers leave by opposite lanes — the
+    condenser stands against the port lane's face and the compressor's shroud against the
+    west lane's, and each copper is made up on the pick of the body behind it
+    (`copper_plugs.columns`). A tail formed off a coil that is lowered into the cavity
+    travels DOWN the wall to its station rather than through it, so each of them takes an
+    opening running out through the shell's top; everything else on the same lane then
+    crosses inside that one opening.
+
+    Built in the PORT FRAME — where the wall it crosses is a −Y wall and the
     slot runs lateral in x, which is the frame the copper plugs themselves are
-    authored in — then carried onto the lane by `port_to_shell`, so the slot and the
+    authored in — then carried onto its own lane by `port_to_shell`, so a slot and the
     stack that fills it are one reading. The rounded top tapers above the foam-shell
     top edge, so the straight portion reaches the edge exactly with no sliver left.
 
-    Its bottom stands clear of the front port field below it: the three lines this
-    slot carries all cross the wall above every circular station, and
-    `copper_plugs.lowest_copper_z` is derived from that."""
-    from copper_plugs import slot_z_bottom, slot_width_x, outer_wall_inner_y
+    A slot's bottom stands clear of whatever the lane carries below it: on the port lane
+    that is the front port field, and `copper_plugs.evap_cross_z` is derived from it."""
+    from copper_plugs import columns, slot_width_x, outer_wall_inner_y
 
     slot_z_top = foam_shell_outer_height + slot_width_x / 2
-    slot_z_center = (slot_z_top + slot_z_bottom) / 2.0
     overshoot = 1.0                                    # a through-cut, both faces cleared
-    slot_punch = build_slot_punch(
-        origin=(0, outer_wall_inner_y + overshoot, slot_z_center),
-        slot_length=slot_z_top - slot_z_bottom,
-        slot_diameter=slot_width_x,
-        slot_punch_height=wall_and_floor_thickness + 2.0 * overshoot,
-        direction=-1,
-    )
-    return foam_shell.cut(port_to_shell(slot_punch.val()))
+    for column in columns.values():
+        slot_punch = build_slot_punch(
+            origin=(0, outer_wall_inner_y + overshoot,
+                    (slot_z_top + column.slot_z_bottom) / 2.0),
+            slot_length=slot_z_top - column.slot_z_bottom,
+            slot_diameter=slot_width_x,
+            slot_punch_height=wall_and_floor_thickness + 2.0 * overshoot,
+            direction=-1,
+        )
+        foam_shell = foam_shell.cut(port_to_shell(slot_punch.val(), column.lane_y))
+    return foam_shell
