@@ -3,14 +3,14 @@ core behind the pair.
 
 Four bodies, mated face to face with nothing between them:
 
-    compressor-shroud   its INTAKE-side face against
+    compressor          its shell's +X tangent against
     condenser+fan       turned onto it, and the pair yawed as one by `BASE_YAW`
     manifold-layout     set down on the crown of those two, on the four SPINE HAIRPINS
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
                         plane the front half ends at
 
 The gaps are 0 by intent, and the mating is what closes the refrigerant loop. The compressor
-stands well inside its shroud and its stubs go wherever they are put; the condenser is an
+is an oblong can whose two stubs stand on its own tangent lines; the condenser is an
 envelope whose serpentine headers are re-dressed to reach whichever face is convenient; the
 cold core's front wall has a lane on each side of it and each lane carries one of the
 evaporator's coppers. So all three of the loop's joints cross a plane two of these bodies
@@ -23,15 +23,16 @@ Frame
 - X = width, everything centred on x = 0 — the manifold is mirror-symmetric about it.
 - Y = depth, 0 at the front. The refrigeration base, then the cold core behind it; on the
   base, the manifold's pumps forward and its two valve decks aft.
-- Z = height, 0 at the floor the shroud and the core both stand on.
+- Z = height, 0 at the floor the compressor and the core both stand on.
 
 What the mating does to each body
 ---------------------------------
-The **shroud** keeps the machine's own `SHROUD_YAW`: the compressor is a can whose oil sits
-in its bottom and whose pickup is gravity-fed, so upright is the compressor's constraint and
-the turn can only be a yaw.
+The **compressor** keeps the machine's own `COMPRESSOR_YAW`: the can's oil sits in its bottom
+and its pickup is gravity-fed, so upright is the compressor's constraint and the turn can only
+be a yaw. That yaw lays its discharge tangent EAST at the condenser, its suction tangent NORTH
+at the cold core, and its power box at the front.
 
-The **condenser** turns a quarter about Z to bring its west face onto the shroud's aft plane.
+The **condenser** turns a quarter about Z to bring its west face onto the compressor's tangent.
 That carries its `AIRFLOW` axis with it — across the machine before, front-to-back after — so
 the air crosses the cabinet the short way and the finstack faces the two side walls.
 
@@ -60,7 +61,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts", _here.parent,
-           _hw / "cut-parts" / "compressor-shroud",
+           _hw / "reference" / "compressor",
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
@@ -92,7 +93,7 @@ for _p in (_hw / "scripts", _here.parent,
 from _cadq_export import export_assembly              # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
-import compressor_shroud as _shroud                   # noqa: E402
+import compressor as _comp                            # noqa: E402
 import condenser_block as _cond                       # noqa: E402
 import copper_plugs as _plugs                         # noqa: E402
 import enclosure as _enc                              # noqa: E402
@@ -104,6 +105,7 @@ import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
 import foam_assembly as _foam                         # noqa: E402
+import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
@@ -125,7 +127,6 @@ RELAY_STEP = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
 AC_HUB_STEP = _hw / "printed-parts" / "electronics" / "ac-hub" / "ac-hub-assembly.step"
 GND_STACK_STEP = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
 
-SHROUD_STEP = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
@@ -138,10 +139,10 @@ FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funne
 # the machine. The face the shell cuts every penetration in is its local −X, and the
 # same turn puts that face on world −Y, facing the user.
 FOAM_YAW = 90.0
-# The compressor stands UPRIGHT in its shroud: the can's oil sits in its bottom and the
-# pickup is gravity-fed, so upright is the compressor's constraint and the turn the
-# shroud is free in is a yaw.
-SHROUD_YAW = -90.0
+# The compressor stands UPRIGHT: the can's oil sits in its bottom and the pickup is
+# gravity-fed, so upright is the constraint and the only turn it is free in is a yaw. This
+# one carries its discharge tangent to +X and its suction tangent to +Y.
+COMPRESSOR_YAW = 90.0
 # The water pump lies flat on the core's crown. Its barbs are molded into the casting
 # and leave its ±Y side faces, so this yaw lands them on the machine's ±X, and lays its
 # 187 mm long axis front-to-back.
@@ -150,7 +151,7 @@ SEAFLO_YAW = 90.0
 # the collar's own axes on the top wall's.
 FUNNEL_ROT = 0.0
 
-C_SHROUD = cq.Color(0.60, 0.62, 0.66)        # the enclosure pack's own three
+C_COMP = cq.Color(0.60, 0.62, 0.66)          # the enclosure pack's own three
 C_COND = cq.Color(0.78, 0.55, 0.35)
 C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
@@ -323,27 +324,27 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
 # The pair is built mated and then turned as ONE body about its own centre, because the mating
 # is between the two of them and the turn is about where the air goes. `BASE_YAW` is that turn:
 # the condenser's `AIRFLOW` axis is its native X and the fan is on the face the air leaves by,
-# so the quarter that brings its west face onto the shroud's aft plane also lays the fan on +Y,
+# so the quarter that brings its west face onto the compressor's tangent also lays the fan on +Y,
 # and this puts it back across the cabinet.
 BASE_YAW = -90.0
 
 
-def build_shroud():
-    """The shroud as the machine turns it, its front face on y = 0 and its feet on the floor.
+def build_compressor():
+    """The compressor as the machine turns it, its plate on the floor.
 
-    `(placed, carry)` like every other seated body: the shroud's four wall penetrations are
-    a table in its own frame and the carry is what puts them in the machine."""
-    return seat_body(cq.importers.importStep(str(SHROUD_STEP)).val(),
-                     (((0.0, 0.0, 1.0), SHROUD_YAW),), cx=0.0, y0=0.0, z0=0.0)
+    `(placed, carry)` like every other seated body: its two loop stubs and its four mount
+    holes are tables in its own frame and the carry is what puts them in the machine."""
+    return seat_body(_comp.build(), (((0.0, 0.0, 1.0), COMPRESSOR_YAW),),
+                     cx=0.0, y0=0.0, z0=0.0)
 
 
-def build_condenser(shroud):
+def build_condenser(comp):
     """The block turned a quarter about Z, which brings the WEST face the mating names round
-    onto the shroud's own aft plane, and stood on the same floor."""
+    onto the compressor's own tangent, and stood on the same floor."""
     c = _cond.build()
     c = c.toCompound() if hasattr(c, "toCompound") else c
     return seat_body(c, (((0.0, 0.0, 1.0), 90.0),),
-                     cx=0.0, y0=box(shroud).ymax, z0=0.0)
+                     cx=0.0, y0=box(comp).ymax, z0=0.0)
 
 
 def build_foam(front_y: float):
@@ -358,23 +359,35 @@ def build_foam(front_y: float):
                      cx=0.0, y0=front_y, z0=0.0)
 
 
+def cap_face(foam):
+    """The Z THE CORE PRESENTS TO THE MACHINE — its top lid's outer face, which is the plane
+    every body standing on the core is placed off.
+
+    NOT the box's own top, and the difference is the whole of this function: the cap prints a
+    valve cradle at each station in `_cold_core_interface.cap_cradles`, those pads stand off
+    that face, and so the solid's `zmax` is a valve seat. A body seated on it would be standing
+    on one. `foam_assembly` states how far the face stands over the floor the stack is set down
+    on, and this reads it there."""
+    return box(foam).zmin + _foam.cap_face_over_floor
+
+
 # --- The refrigerant loop's three joints ------------------------------------
 #
 # The sealed loop is the one circuit in the machine with NO TUBE DRAWN FOR IT, and that is
 # the arrangement rather than an omission: each of its three joints crosses a plane two
-# bodies already share — the shroud against the condenser, the condenser against the cold
-# core, the shroud against the same core at the other flank — so both of a joint's stations
+# bodies already share — the compressor against the condenser, the condenser against the cold
+# core, the compressor against the same core at the other flank — so both of a joint's stations
 # are ONE POINT READ TWICE and the copper between them is the length of the union.
 #
-# Each end is a penetration its own module declares: `compressor_shroud.STATIONS`,
+# Each end is a penetration its own module declares: `compressor.stations()`,
 # `condenser_block.stations()`, `copper_plugs.slot_stations()`. Nothing here restates a
 # coordinate; what this holds is that the two readings land together, and `_joints_hold`
 # fails the build when one opens, because a station that has drifted is copper drawn in the
 # open and no other gate on this pack would say so.
 REFRIGERANT_JOINTS = (
-    ("refrig-1", "compressor-shroud.refrig-discharge", "condenser+fan.refrig-inlet"),
+    ("refrig-1", "compressor.refrig-discharge", "condenser+fan.refrig-inlet"),
     ("refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet"),
-    ("refrig-3", "foam-assembly.evap-outlet", "compressor-shroud.refrig-suction"),
+    ("refrig-3", "foam-assembly.evap-outlet", "compressor.refrig-suction"),
 )
 # How far apart a joint's two stations may stand. It is import and boolean noise and nothing
 # else: both are struck on one plane, so anything above this is a station that moved.
@@ -386,7 +399,7 @@ def refrigerant_stations(carries: dict) -> dict:
 
     `carries` is the placement each body was seated by, so a station is its own module's
     table taken through the move the metal took."""
-    tables = {"compressor-shroud": _shroud.STATIONS,
+    tables = {"compressor": _comp.stations(),
               "condenser+fan": _cond.stations(),
               "foam-assembly": {f"evap-{end}": st
                                 for end, st in (("inlet", _plugs.slot_station("evap-inlet")),
@@ -424,8 +437,7 @@ def cap_conduit(name: str):
     half-turn install, so its `(x, y)` is already the assembly's; the mouth's Z is the lid's
     outer face, which is the top of that same solid. The way out is the cap's +Z."""
     x, y = _foam.cap_conduit_station(name)
-    top = box(cq.importers.importStep(str(FOAM_STEP)).val()).zmax
-    return ((x, y, top), _foam.cap_conduit_axis_out())
+    return ((x, y, _foam.cap_face_z), _foam.cap_conduit_axis_out())
 
 
 def build_seaflo(foam):
@@ -434,7 +446,7 @@ def build_seaflo(foam):
     b = box(foam)
     return seat_body(cq.importers.importStep(str(SEAFLO_STEP)).val(),
                 (((0, 0, 1), SEAFLO_YAW),), seat="seaflo-pump",
-                cx=0.0, y1=b.ymax, z0=b.zmax)
+                cx=0.0, y1=b.ymax, z0=cap_face(foam))
 
 
 # --- the suction chain, lying in the lane beside the pump ------------------
@@ -871,7 +883,7 @@ def co2_wall_port(inlet_carry):
 # one box — the clearances the core and the pump stand off are struck against it — so a
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
-STANDALONE = ("compressor-shroud", "condenser+fan", "foam-assembly", "seaflo-pump",
+STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "ac-hub", "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
@@ -923,11 +935,10 @@ def build_psu(foam, wall_seat):
     Three faces of the machine and not three numbers: EAST on the wall seat, AFT one
     `PSU_REAR_CLEAR` ahead of the rear seam's standoff, FOOT on the cap's own lid. The lane it
     lies in is what the SeaFlo leaves east of itself on that cap."""
-    b = box(foam)
     return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
                      y1=_enc.rear_plane_y - _enc.rear_seam_clear - PSU_REAR_CLEAR,
-                     z0=b.zmax)
+                     z0=cap_face(foam))
 
 
 # The controller board joins the brick's column rather than standing forward of the deck: same
@@ -949,7 +960,7 @@ def build_pcba(foam, psu, wall_seat):
     holds them both; AFT one `PCBA_PSU_CLEAR` ahead of the brick's own front face; FOOT on the
     cap. What holds it is the pcba-tray, which is not placed — this is the board's envelope."""
     return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
-                     x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=box(foam).zmax)
+                     x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=cap_face(foam))
 
 
 # The rest of the power block on the brick's crown: the relay aft-flush with the brick, the AC hub
@@ -1050,7 +1061,7 @@ FOOT_CLEAR = 1.0
 
 def pan_floor(foam, seaflo):
     """The Z the basin's own floor stands at: one clearance over the pump's bracket."""
-    return max(box(foam).zmax, box(seaflo).zmin + _lines._pump.FOOT_T) + FOOT_CLEAR
+    return max(cap_face(foam), box(seaflo).zmin + _lines._pump.FOOT_T) + FOOT_CLEAR
 
 
 def pump_west_face(seaflo, z0, z1):
@@ -1239,22 +1250,20 @@ def build_flowreg(split_carry):
 # The gap between V-K's outlet and the chain's collet — `water-4`. Both mouths lie on one plane
 # and one column, so this is a length of tube and not a route.
 WATER_4 = 15.0
-# THE VALVE'S SEAT — what its own mounting face stands off the cold core's cap. The Beduan's
-# Z = 0 is the underside of its white body, and the cap is the only thing under it; the tray
-# that will fasten it there is queued work, and until it is printed the seat is this clearance.
-# Stating it is what keeps the valve OFF the cap: the two mouths of this valve are what the
-# chain and the run behind it are hung from, so without a seat of its own the column falls to
-# wherever `beduan_solenoid.port_center_z` happens to land it, which is flat on the foam.
-VK_SEAT = 1.0
+# THE VALVE'S SEAT is the cradle's. The cap prints a cell of the valve-manifold family at this
+# valve's own station (`_cold_core_interface.cap_cradles`), and what a cell says is where the
+# Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed
+# home. So the seat is read off the part that carries it rather than stated here, and a cradle
+# that moves takes the valve, the chain behind it and `water-4` with it.
 
 
 def vk_port_z(foam):
-    """The Z V-K's two collets open on — its own `port_center_z` over the seat its foot
-    stands on, which is one `VK_SEAT` over the cold core's cap.
+    """The Z V-K's two collets open on — its own `port_center_z` over the seat its cradle
+    stands it at, over the cold core's cap face.
 
     The suction chain lies on this same plane, so `water-4` is a straight between two mouths
-    facing each other, and a change to the seat moves the pair together."""
-    return box(foam).zmax + VK_SEAT + _beduan.port_center_z
+    facing each other, and a change to the cradle moves the pair together."""
+    return cap_face(foam) + _cci.cap_cradles["vk-solenoid"].seat + _beduan.port_center_z
 
 
 def build_vk(chain_carry):
@@ -1422,16 +1431,16 @@ def build_pack() -> cq.Assembly:
     cannot be in it."""
     a = cq.Assembly(name="front-half")
     SEATS.clear()
-    seated_shroud = build_shroud()
-    ((shroud, shroud_carry),
-     (cond, cond_carry)) = place_base([seated_shroud, build_condenser(seated_shroud[0])],
-                                      names=("compressor-shroud", "condenser+fan"))
-    a.add(shroud, name="compressor-shroud", color=C_SHROUD)
+    seated_comp = build_compressor()
+    ((comp, comp_carry),
+     (cond, cond_carry)) = place_base([seated_comp, build_condenser(seated_comp[0])],
+                                      names=("compressor", "condenser+fan"))
+    a.add(comp, name="compressor", color=C_COMP)
     a.add(cond, name="condenser+fan", color=C_COND)
 
     posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
-    crown = max(box(shroud).zmax, box(cond).zmax)
+    crown = max(box(comp).zmax, box(cond).zmax)
     lift = crown - min(box(s).zmin for _n, s, _c in posed)
     stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
     in_pack = []
@@ -1456,14 +1465,14 @@ def build_pack() -> cq.Assembly:
     # over it is not a body in its way — so the seam is measured against the bodies that reach
     # below that crown, and the ones above it are left to overhang.
     top = box(build_foam(0.0)[0]).zmax
-    aft = max([box(shroud).ymax, box(cond).ymax]
+    aft = max([box(comp).ymax, box(cond).ymax]
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     foam, foam_carry = build_foam(aft)
     a.add(foam, name="foam-assembly", color=C_FOAM)
     # The sealed loop, measured the moment its three bodies are all placed. Nothing is drawn
     # between them — every joint crosses a plane two of them already share — so this reading
     # is the only thing standing between a station that moved and copper nobody notices.
-    refrig_carries = {"compressor-shroud": shroud_carry, "condenser+fan": cond_carry,
+    refrig_carries = {"compressor": comp_carry, "condenser+fan": cond_carry,
                       "foam-assembly": foam_carry}
     a.refrigerant_at = refrigerant_stations(refrig_carries)
     a.refrigerant = refrigerant_joints(refrig_carries)
@@ -1473,7 +1482,7 @@ def build_pack() -> cq.Assembly:
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()),
                                              vk_port_z(foam))
     a.add(chain, name="suction-chain", color=C_SUCT)
-    wall_seat = east_wall_seat(shroud, cond)
+    wall_seat = east_wall_seat(comp, cond)
     psu, psu_carry = build_psu(foam, wall_seat)
     a.add(psu, name="psu", color=C_PSU)
     pcba, pcba_carry = build_pcba(foam, psu, wall_seat)
@@ -1489,7 +1498,7 @@ def build_pack() -> cq.Assembly:
     asse, asse_carry = build_asse(foam, seaflo)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, _pan_carry = build_pan(foam, seaflo, seaflo_carry, asse_carry,
-                                west_interior_face(shroud, cond))
+                                west_interior_face(comp, cond))
     a.add(pan, name="drip-pan", color=C_PAN)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
@@ -1592,7 +1601,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     a = build_pack() if a is None else a
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])
-    west = west_interior_face(placed["compressor-shroud"][0], placed["condenser+fan"][0])
+    west = west_interior_face(placed["compressor"][0], placed["condenser+fan"][0])
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan, west),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
@@ -1763,9 +1772,9 @@ def report(a: cq.Assembly) -> None:
               f"z[{b.zmin:7.2f},{b.zmax:7.2f}]   {b.xlen:6.2f} × {b.ylen:6.2f} × {b.zlen:6.2f}")
 
     print("\nbodies")
-    sh, co = box(named["compressor-shroud"]), box(named["condenser+fan"])
+    sh, co = box(named["compressor"]), box(named["condenser+fan"])
     fo, sf = box(named["foam-assembly"]), box(named["seaflo-pump"])
-    line("compressor-shroud", sh)
+    line("compressor", sh)
     line("condenser+fan", co)
     pack = None
     for n, s in placed:
@@ -1801,7 +1810,7 @@ def report(a: cq.Assembly) -> None:
     print(f"\nmates (0 by intent)")
     seam = "y" if abs(BASE_YAW) % 180.0 < 1e-9 else "x"
     lo, hi = (sh.ymax, co.ymin) if seam == "y" else (sh.xmax, co.xmin)
-    print(f"  shroud face      {seam} {lo:.2f}   condenser intake face {seam} {hi:.2f}   "
+    print(f"  compressor tangent {seam} {lo:.2f}   condenser intake face {seam} {hi:.2f}   "
           f"gap {hi - lo:.2f}")
     crown = max(sh.zmax, co.zmax)
     pump_face = min(box(s).zmin for n, s in placed if n.endswith("-head"))
@@ -1837,8 +1846,8 @@ def report(a: cq.Assembly) -> None:
         b = box(s)
         if b.zmin - pack.zmin > 1e-6:
             continue
-        on = "shroud" if sh.xmin <= (b.xmin + b.xmax) / 2 <= sh.xmax else "condenser"
-        under = sh.zmax if on == "shroud" else co.zmax
+        on = "compressor" if sh.xmin <= (b.xmin + b.xmax) / 2 <= sh.xmax else "condenser"
+        under = sh.zmax if on == "compressor" else co.zmax
         print(f"  {n:16} x {(b.xmin + b.xmax) / 2:7.2f} sets down on the {on:9} "
               f"crown z {under:.2f}  gap {b.zmin - under:.2f}")
     print(f"\nfront half        {whole.xlen:.2f} × {whole.ylen:.2f} × {whole.zlen:.2f}   "

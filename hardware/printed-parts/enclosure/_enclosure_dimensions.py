@@ -97,16 +97,16 @@ APPLIANCE_H = _OUTER[5] - _OUTER[4]
 WALL_STANDOFF = enclosure.side_rib_inset
 
 # --- the refrigeration stratum, on the floor at the front -------------------
-_SHROUD, _COND = _bb("compressor-shroud"), _bb("condenser+fan")
-SHROUD_ROOF = _SHROUD.zmax
-STRATUM_TOP = max(_SHROUD.zmax, _COND.zmax)     # the crown the manifold sets down on
-STRATUM_STEP = abs(_SHROUD.zmax - _COND.zmax)   # how far the pair's two crowns differ
-STRATUM_W = _COND.xmax - _SHROUD.xmin           # the two mated, across the machine
-STRATUM_D = _SHROUD.ymax - _SHROUD.ymin
+_COMP, _COND = _bb("compressor"), _bb("condenser+fan")
+COMPRESSOR_ROOF = _COMP.zmax
+STRATUM_TOP = max(_COMP.zmax, _COND.zmax)     # the crown the manifold sets down on
+STRATUM_STEP = abs(_COMP.zmax - _COND.zmax)   # how far the pair's two crowns differ
+STRATUM_W = _COND.xmax - _COMP.xmin           # the two mated, across the machine
+STRATUM_D = _COMP.ymax - _COMP.ymin
 CONDENSER_ACROSS = _cond.AIRFLOW                # the fan's own axis, the short one
 CONDENSER_LONG = _cond.FACE_A
 CONDENSER_STANDING = _cond.FACE_B
-MATE_X = _SHROUD.xmax                           # the plane the two bodies meet on
+MATE_X = _COMP.xmax                           # the plane the two bodies meet on
 
 # --- the cold core, on the floor behind it ---------------------------------
 _FOAM = _bb("foam-assembly")
@@ -183,7 +183,7 @@ def main():
         "STRATUM_D": f"{STRATUM_D:.4g}",
         "STRATUM_TOP": f"{STRATUM_TOP:.4g}",
         "STRATUM_STEP": f"{STRATUM_STEP:.4g}",
-        "SHROUD_ROOF": f"{SHROUD_ROOF:.4g}",
+        "COMPRESSOR_ROOF": f"{COMPRESSOR_ROOF:.4g}",
         "MATE_X": f"{MATE_X:.4g}",
         "CONDENSER_ACROSS": f"{CONDENSER_ACROSS:.4g}",
         "CONDENSER_LONG": f"{CONDENSER_LONG:.4g}",
@@ -240,7 +240,7 @@ def main():
             "STRATUM_D": 1,
             "STRATUM_TOP": 1,
             "STRATUM_STEP": 1,
-            "SHROUD_ROOF": 1,
+            "COMPRESSOR_ROOF": 1,
             "MATE_X": 1,
             "CONDENSER_ACROSS": 1,
             "CONDENSER_LONG": 1,

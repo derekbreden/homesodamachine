@@ -88,7 +88,7 @@ def build():
 def stations() -> dict:
     """All three, under the names the loop knows them by."""
     return {
-        "refrig-inlet":  ((0.0, 45.25, 75.0), (-1.0, 0.0, 0.0)),
+        "refrig-inlet":  ((0.0, 99.0, 75.0), (-1.0, 0.0, 0.0)),
         "refrig-outlet": ((39.0, FACE_A, 47.75), (0.0, 1.0, 0.0)),
         "fan-power":     ((AIRFLOW, 30.0, FACE_B / 2.0), (1.0, 0.0, 0.0)),
     }
