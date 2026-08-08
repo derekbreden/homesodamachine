@@ -5,6 +5,11 @@ Iso-back camera: positioned at world (+X, +Y, +Z) and aimed at the
 geometric center with world +Z as up, so the back face (+Y), right
 face (+X), and top face (+Z) are all visible.
 
+What this view carries: everything the appliance connects to the world by —
+the three umbilical unions in one row, the tap-water union on the storey below
+them, the mains inlet and the CO2 inlet under it. All of it on the back wall,
+and the red and blue port markings with it.
+
 Companion drawing: enclosure-iso-front.py — same geometry, front view.
 
 Run from the repo root:
@@ -24,9 +29,9 @@ import _blender_render as blender
 
 def main() -> None:
     appliance = model.build_appliance()
-    markings = model.markings("back")
     output_path = _HERE / "enclosure-iso-back.svg"
-    blender.render_iso(appliance, markings, view="back", out_svg=output_path)
+    blender.render_iso(appliance, model.markings("back"), view="back",
+                       out_svg=output_path, anchors=model.anchors("back"))
     print(f"Wrote {output_path}")
     model.refresh_comments()
     print(f"-> updated comments in _appliance_model.py")
