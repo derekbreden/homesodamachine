@@ -66,10 +66,12 @@ test("the enclosure assembly rebuilds on every module that draws it", () => {
 });
 
 test("a part's STEP consumers include the assembly that only _loads it (regression)", () => {
-  // front_half.py names each of these in a path constant and hands it to the _load()
-  // helper — it never calls importStep and never imports the producer, so an
-  // import-only walk finds none of these edges.
-  for (const step of ["foam-assembly.step", "compressor-shroud.step", "seaflo-22-pump.step"]) {
+  // front_half.py names each of these in a path constant and hands the path to
+  // importStep — the edge is a string, not an import, so an import-only walk finds
+  // none of them. The AC hub is the case with nothing else to fall back on:
+  // front_half imports `ac_hub` for its hole pattern and never `ac_hub_assembly`,
+  // which is what makes the STEP.
+  for (const step of ["foam-assembly.step", "ac-hub-assembly.step", "seaflo-22-pump.step"]) {
     const consumers = findScriptsConsumingStep(step, ROOTS);
     assert.ok(
       consumers.some(ends("hardware/manifold-layout/front_half.py")),
@@ -172,10 +174,10 @@ test("a manifold_layout edit rebuilds the assembly that imports it", () => {
 });
 
 test("affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers", () => {
-  // Seed the wave the way the watcher does for a compressor_shroud edit: the file
+  // Seed the wave the way the watcher does for a foam_assembly edit: the file
   // plus every runnable that transitively imports it.
-  const shroud = findGenerateScripts(ROOTS).find(ends("compressor-shroud/compressor_shroud.py"));
-  const seeds = [shroud, ...findRunnableScriptsTransitivelyImporting(shroud, ROOTS).filter((s) => s !== shroud)];
+  const foam = findGenerateScripts(ROOTS).find(ends("cold-core/foam-assembly/foam_assembly.py"));
+  const seeds = [foam, ...findRunnableScriptsTransitivelyImporting(foam, ROOTS).filter((s) => s !== foam)];
   const { order, loadsOf } = affectedBuildOrder(seeds, ROOTS);
   const seedSet = new Set(seeds);
 
@@ -190,17 +192,18 @@ test("affectedBuildOrder: one edit's wave lists each script once, seeds first, p
   const firstNonSeed = order.findIndex((s) => !seedSet.has(s));
   assert.ok(firstNonSeed === -1 || lastSeed < firstNonSeed, "a non-seed is ordered before a seed");
 
-  // front_half loads the shroud's STEP and the foam assembly's, yet appears exactly once.
+  // front_half arrives twice — it imports foam_assembly's python AND loads
+  // foam-assembly.step — yet appears exactly once.
   const fh = order.filter(ends("hardware/manifold-layout/front_half.py"));
   assert.equal(fh.length, 1, "front_half should appear exactly once");
 
   // Producer before consumer over a real STEP-load edge: front_half loads
-  // compressor-shroud.step, so compressor_shroud.py must be built first.
+  // foam-assembly.step, so foam_assembly.py must be built first.
   const idx = (suffix) => order.findIndex(ends(suffix));
-  const producer = idx("hardware/cut-parts/compressor-shroud/compressor_shroud.py");
+  const producer = idx("cold-core/foam-assembly/foam_assembly.py");
   const frontHalf = idx("hardware/manifold-layout/front_half.py");
   if (producer !== -1 && frontHalf !== -1) {
-    assert.ok(producer < frontHalf, "compressor_shroud.py must precede the front half that loads its STEP");
+    assert.ok(producer < frontHalf, "foam_assembly.py must precede the front half that loads its STEP");
   }
 });
 

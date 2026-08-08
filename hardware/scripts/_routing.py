@@ -167,7 +167,7 @@ _frames: dict = {}
 
 
 def frame(name: str, solid, ports: dict) -> Frame:
-    """Register a component's frame. `route`'s "compressor-shroud.refrig-discharge" anchors
+    """Register a component's frame. `route`'s "compressor.refrig-discharge" anchors
     resolve through the registry; an unknown component or port raises with the offending name."""
     import _boxes                                       # placed solids are memoized; box each once
 
