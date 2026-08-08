@@ -3,6 +3,7 @@
 Run: tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
 """
 
+import re
 import sys
 from pathlib import Path
 
@@ -90,6 +91,29 @@ def main():
             f"so either they go back on one diameter or the rows read out separately.")
     _co2_hole_d = _fh.co2_wall_port(_a.co2_inlet_carry)[3]
 
+    # Hopper corridor — `fluid-4` runs from the funnel's spout to V-B's own inlet, threading
+    # between the two source coils on the way. That run only exists once the funnel is placed
+    # and its lines drawn, past what `build_pack` reaches, so this is the one figure in the doc
+    # that costs its own (fuller) build rather than reading off `_a`.
+    _fh_full = _fh.build_front_half()
+    _hopper_runs = list(getattr(_fh_full, "runs", []))
+    _hopper_clearances = _card.part_clearances(_fh_full, _hopper_runs)
+    _hopper_lanes = _card.lane_notes(_fh_full, _hopper_runs, _hopper_clearances)
+    _hopper_note = next((n for n in _hopper_lanes if n.startswith("fluid-4 threads")), None)
+    if _hopper_note is None:
+        raise ValueError(
+            "fluid-4 no longer threads a lane in `lane_notes()` — the hopper-corridor "
+            "paragraph in enclosure-mechanical.md needs rewriting, not resyncing.")
+    _hopper_m = re.search(
+        r"they leave (?P<gap>[\d.]+) mm and the tube is Ø(?P<d>[\d.]+), "
+        r"so (?P<side>[\d.]+) mm a side",
+        _hopper_note)
+    if _hopper_m is None:
+        raise ValueError(f"the hopper corridor note changed shape: {_hopper_note!r}")
+    # The gate's own verdict, read rather than stated — a paragraph that names a check red
+    # cannot stay honest against a fix made on the other side of it.
+    _hopper_gate = next(c for c in _card.build(_fh_full).checks if c.id == "clearance-floor")
+
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box.outer
     variables = {
         # The box `enclosure._dims` builds around the pack, and where it comes apart.
@@ -143,6 +167,12 @@ def main():
         "EAST_BOSSES": f"{len(_pack.east_bosses)}",
         # Every placed body carries one fastening row, so the card's own table is the census.
         "BODY_COUNT": f"{len(_card.mounts())}",
+        # The hopper corridor — `lane_notes`'s own note for `fluid-4`, and the gate it feeds.
+        "HOPPER_LANE_SIDE": f"{_hopper_m['side']} mm a side",
+        "HOPPER_LANE_GAP": f"{_hopper_m['gap']} mm",
+        "HOPPER_TUBE_D": f"Ø{_hopper_m['d']}",
+        "HOPPER_GATE_STATUS": (
+            "currently reports red" if _hopper_gate.status == "fail" else "currently passes"),
     }
 
     substitute_md(
@@ -179,6 +209,10 @@ def main():
             "CO2_BACK": 1,
             "EAST_BOSSES": 3,
             "BODY_COUNT": 1,
+            "HOPPER_LANE_SIDE": 1,
+            "HOPPER_LANE_GAP": 1,
+            "HOPPER_TUBE_D": 1,
+            "HOPPER_GATE_STATUS": 1,
         },
     )
     print("-> enclosure-mechanical.md")
