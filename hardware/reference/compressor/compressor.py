@@ -83,6 +83,10 @@ CYL_EXCESS_PCT = (SHELL_Y / SHELL_X - 1.0) * 100.0
 SHELL_TANGENT_Y = SHELL_OFFSET_Y - SHELL_Y / 2.0   # [-52.5](SHELL_TANGENT_Y)
 POWER_Y0 = -BASE_Y / 2.0                           # the plate's own -Y edge
 POWER_Z1 = BASE_Z + POWER_Z                        # [60](POWER_Z1), the box's crown
+# Where the two loop stubs leave the shell, up its standing height. Both are on a tangent
+# line; only the height along it is free, and these are the heights the donor brazes at.
+DISCHARGE_Z = 75.0
+SUCTION_Z = 60.0
 
 
 def mount_pattern():
@@ -90,6 +94,43 @@ def mount_pattern():
     [81](MOUNT_PITCH_X) x [145](MOUNT_PITCH_Y) rectangle, symmetric about the origin."""
     return [(sx * MOUNT_PITCH_X / 2.0, sy * MOUNT_PITCH_Y / 2.0)
             for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+
+
+def stations() -> dict:
+    """The two ends of the sealed loop this body carries, in its own frame.
+
+    An ELLIPSE HAS NO FLAT FACE. Where the shroud was a box and a station could stand
+    anywhere on a wall, this shell touches a neighbour's plane along ONE LINE — the tangent
+    at its own extreme — so both picks stand on a tangent and nowhere else. Discharge on the
+    +X tangent, at `SHELL_OFFSET_Y` because that is where the +X extreme falls; suction on
+    the +Y tangent, on the shell's centreline. A neighbour mated to this body meets it there,
+    which is what the two of them read as one point."""
+    return {
+        "refrig-discharge": ((SHELL_X / 2.0, SHELL_OFFSET_Y, DISCHARGE_Z), (1.0, 0.0, 0.0)),
+        "refrig-suction":   ((0.0, SHELL_OFFSET_Y + SHELL_Y / 2.0, SUCTION_Z), (0.0, 1.0, 0.0)),
+    }
+
+
+def stations_hold():
+    """Hold both picks to the shell they leave by: on its own tangent line for the axis each
+    takes, and inside the shell's standing height."""
+    for name, (pos, axis) in stations().items():
+        if axis[0]:
+            want = (SHELL_X / 2.0, SHELL_OFFSET_Y)
+            got = (pos[0], pos[1])
+        else:
+            want = (0.0, SHELL_OFFSET_Y + SHELL_Y / 2.0)
+            got = (pos[0], pos[1])
+        if abs(got[0] - want[0]) > 1e-9 or abs(got[1] - want[1]) > 1e-9:
+            raise ValueError(
+                f"compressor {name} stands at (x, y) = {got} and the shell's tangent for the "
+                f"axis it leaves by is {want} — the pick has come off the one line where this "
+                f"ellipse touches a neighbour's plane, and every millimetre of that is copper "
+                f"drawn in the open.")
+        if not (BASE_Z <= pos[2] <= OVERALL_H):
+            raise ValueError(
+                f"compressor {name} stands at z = {pos[2]:g}, outside the shell's own "
+                f"{BASE_Z:g}..{OVERALL_H:g} — the stub has left the can it is brazed into.")
 
 
 def build():
@@ -210,7 +251,10 @@ def selftest():
     shell_hold()
     power_hold()
     mounts_hold()
+    stations_hold()
     return [
+        f"  both loop stubs stand on a shell tangent — discharge +X at z {DISCHARGE_Z:g}, "
+        f"suction +Y at z {SUCTION_Z:g}",
         f"  envelope stands {SHELL_X:g} x {BASE_Y:g} x {OVERALL_H:g} off the mounting plane",
         f"  shell is the pressed oblong, {SHELL_X:g} x {SHELL_Y:g}, not a cylinder",
         f"  the box fills the long reach, y {POWER_Y0:g}..{SHELL_TANGENT_Y:g}, "
