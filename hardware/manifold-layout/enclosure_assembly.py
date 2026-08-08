@@ -905,26 +905,22 @@ DECK_FALL_LIMIT = 60.0
 # riser's turn rather than through it: `fluid-18` crosses the carb column ahead of where the
 # riser reaches it, and its own column stands west of everything the riser touches.
 PANEL_X = {"bulkhead-flavor-b": -80.0, "bulkhead-flavor-a": -32.0, "bulkhead-carb": 16.0}
-# THE WEST COLUMN IS THE TAP WATER UNION'S, so the nozzle-B union steps down out of the row.
+# THE DECK'S WEST COLUMN IS THE TAP WATER UNION'S. That union crosses the same wall on the
+# ASSE chain's own axis, x −74, six millimetres from the nozzle-B station on a
+# Ø`jg_bulkhead_union.BODY_D` barrel — so the two stand on separate storeys, and the nozzle-B
+# one takes the lower.
 #
-# Two unions cannot share a column: the tap-water one crosses at x −74 — the ASSE chain's own
-# axis, which the chain's hug of the cold core's west face fixes — and this one at −80, six
-# millimetres apart across a Ø`jg_bulkhead_union.BODY_D` barrel. One of them has to give the
-# storey up, and it is this one, because what hangs off the tap-water union is the whole west
-# lane: the chain, the split and the regulator on the chain's own axis, and the drip tray under
-# the vent. Standing that column ON THE DECK is what lifts the tray off the pump's bracket and
-# into the open room over the casting, which is where a rail can be printed to it.
+# What hangs off the tap-water union is the whole west lane: the chain, then the split and the
+# regulator on the chain's own axis, and the drip tray under the vent, over the pump's casting.
 #
-# The step is the ROW'S OWN PITCH, taken down the wall instead of across it — the same clear
-# face between two nuts, read on the other axis — so the two columns keep the spacing the row
-# already states and a change to the row carries this with it.
+# The step down is the ROW'S OWN PITCH read on Z instead of X — the clear face the row leaves
+# between two nuts, taken down the wall.
 PANEL_PITCH = (max(PANEL_X.values()) - min(PANEL_X.values())) / (len(PANEL_X) - 1)
 PANEL_DROP = {"bulkhead-flavor-b": PANEL_PITCH}
 
 
 def panel_z(name: str, deck: float) -> float:
-    """The storey one union of the row crosses the wall on: the deck, less what its own column
-    owes to the body standing over it."""
+    """The storey one union of the row crosses the wall on — the deck, less its column's step."""
     return deck - PANEL_DROP.get(name, 0.0)
 
 
@@ -980,8 +976,8 @@ def build_digiten(carb_carry, seat: bool = True):
 # --- the storey those four stand on ----------------------------------------
 
 def build_deck(z: float, seat: bool = False):
-    """The four bodies the deck carries, on the storey `z`: the three unions across the back
-    wall, and the meter inline one `CARB_2` ahead of the carb one.
+    """The four bodies the deck carries off the storey `z`: the three unions across the back
+    wall, each on its own `panel_z`, and the meter inline one `CARB_2` ahead of the carb one.
 
     One function, called with a trial storey to strike the deck and again with the struck one to
     place it, so the bodies the strike measures are the bodies the machine gets. `seat` is what
@@ -989,7 +985,8 @@ def build_deck(z: float, seat: bool = False):
     placement the machine keeps is entered."""
     solids, carries = {}, {}
     for name, px in PANEL_X.items():
-        solids[name], carries[name] = build_panel_bulkhead(name if seat else None, px, z)
+        solids[name], carries[name] = build_panel_bulkhead(
+            name if seat else None, px, panel_z(name, z))
     solids["digiten-flow"], carries["digiten-flow"] = build_digiten(
         carries["bulkhead-carb"], seat=seat)
     return solids, carries
@@ -1411,47 +1408,51 @@ ASSE1022_YAW = -90.0
 # THE PUMP IS NOT ITS BOX, and the lane west of it is a different width at every height. The
 # bracket's splayed feet are the widest thing on the casting and they are only
 # `seaflo_22_pump.FOOT_T` tall; over them the cradle steps in, and the head's flange steps back
-# out. So the chain and its basin RIDE OVER THE FEET rather than standing beside them, and what
-# fences them once they are up there is whatever the casting presents AT THEIR OWN HEIGHT.
+# out. The chain and its basin stand on the deck's storey, high over the bracket, and what
+# fences them there is whatever the casting presents AT THEIR OWN HEIGHT.
 #
-# One clearance, struck twice on two different surfaces: `pan_floor` holds the basin off the
-# feet's top face, and `pan_east_x` holds its rim off the casting's west flank. The second is
-# the one that binds — the tray's own width is what the lane has left over.
+# `pan_east_x` holds the basin's rim off the casting's west flank by this, read at the tray's
+# own height. It is the bound that binds — the tray's own width is what the lane has left over.
 FOOT_CLEAR = 1.0
 
 
-def pan_floor(foam, seaflo):
-    """The Z the basin's own floor stands at: one clearance over the pump's bracket."""
-    return max(cap_face(foam), box(seaflo).zmin + _lines._pump.FOOT_T) + FOOT_CLEAR
+def pan_floor(asse):
+    """The Z the basin's own floor stands at: the vent's own fall, less the basin's depth.
+
+    THE TRAY HANGS OFF THE CHAIN. `build_asse` stands the chain on the panel deck and the
+    basin's rim takes station one `VENT_GAP` under its underside, so the drip falls the gap the
+    basin was drawn for and a change to either number moves both bodies together."""
+    return box(asse).zmin - _pan.VENT_GAP - _pan.PAN_Z
 
 
-def pump_west_face(seaflo, z0, z1):
-    """The westmost the pump's casting reaches between two heights — the fence a body lying
-    beside the pump in that band actually has.
+def pump_west_face(seaflo, z0, z1, y0, y1):
+    """The westmost the pump's casting reaches inside a room — the fence a body lying beside the
+    pump in that room actually has.
 
-    MEASURED ON THE SOLID, because the box would answer with the feet at every height and the
-    feet are 8 mm of a 72 mm casting."""
+    MEASURED ON THE SOLID over the room's OWN FOUR PLANES, because the box would answer with the
+    feet at every height and with the discharge barb at every station: the feet are 8 mm of a
+    72 mm casting, and the barb fires west out of one 10 mm band of a 187 mm one."""
     b = box(seaflo)
     slab = (cq.Workplane("XY")
-            .box(b.xlen + 2.0, b.ylen + 2.0, z1 - z0, centered=False)
-            .translate((b.xmin - 1.0, b.ymin - 1.0, z0)).val())
+            .box(b.xlen + 2.0, y1 - y0, z1 - z0, centered=False)
+            .translate((b.xmin - 1.0, y0, z0)).val())
     return box(seaflo.intersect(slab)).xmin
 
 
-def pan_east_x(seaflo, floor):
-    """The X the basin's east rim stands at: one `FOOT_CLEAR` west of the casting, read over
-    the band the tray itself occupies — its floor up to its rim."""
-    return pump_west_face(seaflo, floor, floor + _pan.PAN_Z) - FOOT_CLEAR
+def pan_east_x(seaflo, floor, front_y):
+    """The X the basin's east rim stands at: one `FOOT_CLEAR` west of the casting, read over the
+    room the tray itself occupies — its floor up to its rim, its forward rim back to its aft."""
+    return pump_west_face(seaflo, floor, floor + _pan.PAN_Z,
+                          front_y, front_y + _pan.PAN_Y) - FOOT_CLEAR
 
 
-def build_asse(foam, seaflo):
-    """The ASSE 1022 chain in the west lane, high enough over the cold core's cap that the drip
-    pan stands under its vent.
+def build_asse(foam, deck):
+    """The ASSE 1022 chain in the west lane, on the panel deck's own storey.
 
-    Its HEIGHT is the pan's, read off the pan's own module rather than typed: the basin's floor
-    lies on the cap, its rim one `PAN_Z` above that, and the chain's underside one
-    `VENT_GAP` of air over the rim. So the vent's drip falls the gap the basin was drawn for,
-    and a change to either number moves both bodies together.
+    Its HEIGHT is the union's: the inlet collet lands on `deck`, the same storey the row's other
+    unions cross the wall on, and the body hangs wherever its own tube axis leaves it. The lift
+    is read off the built chain rather than typed — the yaw is about Z, so the axis stands the
+    same over the underside turned or not — and the drip pan then takes station under the vent.
 
     Its X hugs the cold core's west face, leaving the rest of the lane between it and the pump.
 
@@ -1461,10 +1462,11 @@ def build_asse(foam, seaflo):
     chain = _asse.build()
     chain = chain.toCompound() if hasattr(chain, "toCompound") else chain
     chain = chain.val() if hasattr(chain, "val") else chain
+    lift = _asse.port("tube-in")[0][2] - box(chain).zmin      # the axis over the chain's underside
     return seat_body(chain, (((0.0, 0.0, 1.0), ASSE1022_YAW),), seat="asse1022-assembly",
                      x0=box(foam).xmin,
                      y1=bulkhead_mouth_y(),
-                     z0=pan_floor(foam, seaflo) + _pan.PAN_Z + _pan.VENT_GAP)
+                     z0=deck - lift)
 
 
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
@@ -1529,8 +1531,8 @@ def check_pan_lane(pan, west_face) -> Bound:
             f"what is over."])))
 
 
-def build_pan(foam, seaflo, seaflo_carry, asse_carry, west_face):
-    """The catch basin under the atmospheric vent, standing over the pump's bracket.
+def build_pan(asse, seaflo, seaflo_carry, asse_carry, west_face):
+    """The catch basin under the atmospheric vent, over the pump's casting.
 
     IN Y THE PUMP'S DISCHARGE BOUNDS IT AND THE VENT DOES NOT. The forward rim is `pan_front_y`,
     and the vent falls where the chain's own standoff from the back wall leaves it — so where the
@@ -1543,16 +1545,15 @@ def build_pan(foam, seaflo, seaflo_carry, asse_carry, west_face):
     The slot the tray draws out through is a wall port, struck off this body's own box in
     `west_wall_ports`.
 
-    Z is `pan_floor` — one clearance over the pump's bracket, not on the cap — with the rim one
-    `PAN_Z` up and the chain's underside one `VENT_GAP` over that. `build_asse` stands the chain
-    on the same three numbers, so the drip falls exactly the gap the basin was drawn for."""
+    Z is `pan_floor` — the chain's underside, one `VENT_GAP` down to the rim and one `PAN_Z`
+    down to the floor — so the drip falls exactly the gap the basin was drawn for."""
     pan = _pan.build()
     pan = pan.val() if hasattr(pan, "val") else pan
     # The bound the BASIN states about itself — its flat floor against the moisture plate it
     # receives — read off `drip_pan`'s own ledger and entered here, so it is a card row beside
     # the two this module states about where the basin stands.
     record_bound(Bound(*_pan.check_plate()))
-    floor = pan_floor(foam, seaflo)
+    floor = pan_floor(asse)
     placed, carry = seat_body(pan, (), seat="drip-pan", x1=pan_east_x(seaflo, floor),
                               y0=pan_front_y(seaflo_carry), z0=floor)
     check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
@@ -1868,17 +1869,6 @@ def build_pack() -> cq.Assembly:
         (psu_carry, _psu.holes), (pcba_carry, _pcba.board.holes),
         (stack_carry["relay-1"], _relay.holes), (stack_carry["ac-hub"], _hub.holes),
         (stack_carry["ground-stack"], _gnd.holes))
-    asse, asse_carry = build_asse(foam, seaflo)
-    a.add(asse, name="asse1022-assembly", color=C_ASSE)
-    pan, _pan_carry = build_pan(foam, seaflo, seaflo_carry, asse_carry,
-                                west_interior_face())
-    a.add(pan, name="drip-pan", color=C_PAN)
-    split, split_carry = build_split(asse_carry)
-    a.add(split, name="water-split", color=C_SPLIT)
-    flowreg, flowreg_carry = build_flowreg(split_carry)
-    a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
-    disch, disch_carry = build_discharge_chain(split, flowreg, seaflo_carry)
-    a.add(disch, name="discharge-chain", color=C_SUCT)
     vk, vk_carry = build_vk(chain_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
     # The cradles, measured the moment the last valve standing on the cap is placed. The other
@@ -1886,8 +1876,6 @@ def build_pack() -> cq.Assembly:
     a.cradles = cradle_rows(foam, foam_carry,
                             {**{n: s for n, s, _c in stood}, "vk-solenoid": vk})
     check_cradles(a.cradles)
-    bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
-    a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     c14, _c14_carry = build_c14()
     a.add(c14, name="c14-inlet", color=C_C14)
     co2in, co2in_carry = build_co2_inlet()
@@ -1898,8 +1886,23 @@ def build_pack() -> cq.Assembly:
     a.add(wr1110, name="wr1110", color=C_WR1110)
     a.co2_inlet_carry = co2in_carry
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
-    # the assembly as it is at this point and are the last things into it.
+    # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
+    # the tap-water union takes the deck's own storey, the chain butts that union, and the
+    # split, the regulator and the drip tray all take station off the chain.
     a.deck_z, deck_fall = deck_z([s for s, _c in _solids(a).values()])
+    asse, asse_carry = build_asse(foam, a.deck_z)
+    a.add(asse, name="asse1022-assembly", color=C_ASSE)
+    pan, _pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry,
+                                west_interior_face())
+    a.add(pan, name="drip-pan", color=C_PAN)
+    split, split_carry = build_split(asse_carry)
+    a.add(split, name="water-split", color=C_SPLIT)
+    flowreg, flowreg_carry = build_flowreg(split_carry)
+    a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
+    disch, disch_carry = build_discharge_chain(split, flowreg, seaflo_carry)
+    a.add(disch, name="discharge-chain", color=C_SUCT)
+    bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
+    a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     deck_solids, panel_carries = build_deck(a.deck_z, seat=True)
     meter_carry = panel_carries.pop("digiten-flow")
     for name, solid in deck_solids.items():

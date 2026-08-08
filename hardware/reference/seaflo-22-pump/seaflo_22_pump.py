@@ -29,11 +29,16 @@ the same gap the length carries.
 
 Dimensions come from SEAFLO's dimensioned drawing for the 22 Series (Marine & RV
 catalog p.15, and the same drawing as an image on the Amazon listing). Labeled
-values — 187 long, 72 tall, 80 across the barb tips, 98 across the feet, Ø10.4
-barbs, Ø5.0 mounting holes on a 57 x 79 pattern — are taken as given. Everything
-else is scaled off that drawing's linework at its 57 mm hole pitch, which leaves
-the part 178.5 mm long against the labeled 187; the model carries that 8.5 mm in
-the pressure-switch block, the least-constrained feature.
+values — 187 long, 72 tall, 80 across the barb tips, Ø10.4 barbs — are taken as
+given. Everything else is scaled off that drawing's linework at its own 57 mm
+hole pitch, which leaves the part 178.5 mm long against the labeled 187; the
+model carries that 8.5 mm in the pressure-switch block, the least-constrained
+feature.
+
+THE FOOT PAD IS THE ONE FEATURE MEASURED OFF THE PART. It is what the machine
+bolts, so its four bores and their pattern are calipered rather than read — Ø6.0
+on 59 x 79, each centre 10 off both edges it stands near, which puts the pad at
+79 x 99 against the drawing's 98 across the feet.
 
 Frame: +X = motor axis (head at -X), foot underside at Z = 0, centered on Y.
 The barbs leave the head's ±Y side faces; the -X end face carries the switch.
@@ -57,10 +62,17 @@ OVERALL_L = 187.0        # 7.35in, motor rear to switch face
 OVERALL_H = 72.0         # 2.83in, foot underside to the top; `CROWN_Z` is what the
                          #   linework builds, and stands 5 under it
 PORT_SPAN = 80.0         # 3.15in, across the two barb tips
-FOOT_SPAN = 98.0         # 3.86in, across the mounting feet
 PORT_D = 10.4            # 0.41in Ø10.40, the 3/8" hose barb
-HOLE_D = 5.0             # 0.20in Ø5.00 mounting holes,
-HOLE_PITCH = (57.0, 79.0)  #   on a 57 x 79 pattern (not cut in this envelope)
+
+# THE MOUNTING PATTERN IS OFF THE PART, not off the drawing — calipers on the pad the holes are
+# cut in, which is stiff rubber and reads a little over the drawing's Ø5.00 on 57 x 79.
+HOLE_D = 6.0             # Ø6.00, one hole in each corner of the foot pad
+HOLE_PITCH = (59.0, 79.0)  # centre to centre, along the motor axis then across it
+HOLE_INSET = 10.0        # each centre off BOTH pad edges it stands near
+# So the pad is the pattern and its inset all round, and every one of its four edges is one
+# `HOLE_INSET` outboard of the two holes on it.
+FOOT_L = HOLE_PITCH[0] + 2.0 * HOLE_INSET   # 79, along the motor axis
+FOOT_SPAN = HOLE_PITCH[1] + 2.0 * HOLE_INSET  # 99, across the mounting feet (labeled 98)
 
 # Scaled off the same drawing's linework.
 HEAD_W = 54.0            # the block the ports are on
@@ -85,7 +97,9 @@ X_SWITCH_FACE = -OVERALL_L / 2.0           # -93.5
 X_HEAD_JOINT = 3.1                         # where the can meets the head flange
 X_FLANGE_END = -17.9                       # flange band -> narrow port block
 X_HEAD_END = -49.8                         # port block -> pressure switch
-FOOT_X = (7.2, 83.2)                       # the bracket's foot footprint
+FOOT_MID_X = 45.2                          # the bracket's own centre on the motor axis
+FOOT_X = (FOOT_MID_X - FOOT_L / 2.0,       # the bracket's foot footprint
+          FOOT_MID_X + FOOT_L / 2.0)
 PORT_X = -36.6                             # barb centerline
 
 PORT_FACE_Y = HEAD_W / 2.0                 # the ±Y side faces the barbs leave
@@ -105,6 +119,21 @@ def discharge():
     the suction's mirror across the motor axis, on the +Y side face, pointing
     straight out along +Y."""
     return (PORT_X, PORT_TIP_Y, PORT_Z), (0.0, 1.0, 0.0)
+
+
+def mount_holes():
+    """The four Ø`HOLE_D` bores through the foot pad, as `(x, y)` in the pump's own frame —
+    one in each corner, `HOLE_INSET` off both pad edges it stands near.
+
+    A screw through one of these is the only thing on this pump that fastens it to anything:
+    the barbs are moulded, the cradle is a saddle, and the pad is what the machine bolts."""
+    return tuple((FOOT_MID_X + sx * HOLE_PITCH[0] / 2.0, sy * HOLE_PITCH[1] / 2.0)
+                 for sx in (-1, 1) for sy in (-1, 1))
+
+
+def mount_seat_z():
+    """The plane the pad bears on — its own underside, and the pump's Z datum."""
+    return 0.0
 
 
 def _box(x0, x1, w, z0, z1):
@@ -144,6 +173,11 @@ def build():
 
     part = feet.union(cradle).union(motor).union(flange).union(head)
     part = part.union(boss).union(switch)
+    # The four mounting bores, sunk through the pad they are cut in. Nothing else stands over
+    # them: the cradle is `MOTOR_D + 2` wide and they lie outboard of it.
+    for hx, hy in mount_holes():
+        part = part.cut(cq.Solid.makeCylinder(
+            HOLE_D / 2.0, FOOT_T, cq.Vector(hx, hy, 0.0), cq.Vector(0, 0, 1)))
     # Two 3/8" hose-barb ports on the head's ±Y side faces, each pointing straight out.
     for sy in (-1, 1):
         barb = cq.Solid.makeCylinder(
