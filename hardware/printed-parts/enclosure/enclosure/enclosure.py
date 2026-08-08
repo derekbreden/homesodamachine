@@ -438,10 +438,11 @@ def _wall_waist(x_in, x_cap, sx, y0, y1):
     """The bite a corner post takes out of itself where the contents crowd its
     wall — a cutter, or None where that wall is clear.
 
-    The manifold stack is the case: the source tray alone runs 272 mm of the
-    283 mm interior, so no X position for it leaves a full post section at both
-    walls, and the tray it would take to open one is the tray the LLDPE runs are
-    routed to. The post necks to what is measured clear over that band instead.
+    The bite is MEASURED, never stated. `_measure_wall_relief` probes this
+    corner's own footprint at this depth against the placed contents, so the
+    section the post keeps is whatever the pack leaves it — a body may cross the
+    post's whole height band and still stand clear of the corner, which is why a
+    bounding box cannot answer it. A wall nothing reaches gets no cutter at all.
 
     The transitions are 45°, which is what keeps the post printable either way
     up: descending from a ceiling bed the section narrows into the band (always
