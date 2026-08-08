@@ -19,9 +19,9 @@ Not in scope: routing, strain-relief, and landing into the chassis ([`wiring.md`
 
 ## Stock & tooling
 
-Wire is bulk silicone, 600 V, cut-to-length, all per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** (the manifold trunks, valve branches, low-power DC, and every signal / reed / sensor run — the workhorse), **16 AWG 5-color** (AC mains + branches + 12 V trunk + green ground). A manifold trunk is a bundle of cut 22 AWG conductors carried in braided sleeve, not a multiconductor cable: the trunk's conductor count is its board connector's, and the sleeve column below sizes the bundle. Jacketed runs are only the two that leave the cabinet or the shroud: the BNTECHGO 28 AWG 4-conductor ribbon (faucet umbilical) and the GEARit 18 AWG SJOOW 3-conductor lead (shroud pass-through).
+Wire is bulk silicone, 600 V, cut-to-length, all per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** (the manifold trunks, valve branches, low-power DC, and every signal / reed / sensor run — the workhorse), **16 AWG 5-color** (AC mains + branches + 12 V trunk + green ground). A manifold trunk is a bundle of cut 22 AWG conductors carried in braided sleeve, not a multiconductor cable: the trunk's conductor count is its board connector's, and the sleeve column below sizes the bundle. Jacketed runs are only two: the BNTECHGO 28 AWG 4-conductor ribbon (faucet umbilical) and the GEARit 18 AWG SJOOW 3-conductor lead (shelf to the compressor's terminal block).
 
-Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, compressor, and fan; ring terminals to the ground bus + shroud stud; JST-XH housings at the board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor fan-outs, incl. MANIFOLD B COM), **221-420** (the >5-conductor MANIFOLD A COM + reservoir-B reed GND).
+Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, compressor, and fan; ring terminals to the ground bus + the compressor's foot bond; JST-XH housings at the board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor fan-outs, incl. MANIFOLD B COM), **221-420** (the >5-conductor MANIFOLD A COM + reservoir-B reed GND).
 
 Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
@@ -54,7 +54,7 @@ Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {[9](
 | Cap-sense | J8 / SIG-8 | [4](J8_PINS) (GND / `3V3` / `SDA` / `SCL`) | 22 AWG black | MPR121 header at the manifold | 1/4" |
 | Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black | female Faston receptacles onto the pump-motor spade tabs | 1/2" |
 | 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the shelf's 12 V distribution block (lands on-shelf at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) | — |
-| AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; Fastons at compressor; rings to ground | SJOOW jacket on the shroud lead |
+| AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; Fastons at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
 ### MANIFOLD B — the empty contact
 
@@ -94,7 +94,7 @@ signals are protected.
 ## Open items
 
 1. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
-2. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW shroud lead.
+2. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW compressor lead.
 
 ## Sources
 [value](NAME) texts are updated by:
