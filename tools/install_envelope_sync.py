@@ -80,15 +80,28 @@ def main():
     variables = {"CABINET_CLEAR_H": f"{CABINET_CLEAR_H:.4g} mm"}
     expected = {"CABINET_CLEAR_H": 2}
 
+    keys = []
     for eid, label, root in editions():
         m = measure(root)
         key = eid.upper()
+        keys.append(key)
         variables[f"{key}_WDH"] = f"{m['w']:.4g} × {m['d']:.4g} × {m['h']:.4g} mm"
         variables[f"{key}_FOOTPRINT"] = f"{m['w'] * m['d'] / 1e6:.3f} m²"
         variables[f"{key}_CLEAR_TOP"] = f"{CABINET_CLEAR_H - m['h']:.4g} mm"
         for suffix in ("WDH", "FOOTPRINT", "CLEAR_TOP"):
             expected[f"{key}_{suffix}"] = 1
         print(f"   {label}: {variables[f'{key}_WDH']}")
+
+    # A row standing behind no edition is a silhouette nothing here can measure: its
+    # figures hold whatever they last said, and the doc sends a customer to a cabinet for
+    # an appliance the repo does not build. The table's own markers name the editions it
+    # claims, so they are read back against the ones that answered.
+    claimed = set(re.findall(r"\]\(([A-Z0-9]+)_(?:WDH|FOOTPRINT|CLEAR_TOP)\)", md.read_text()))
+    orphans = sorted(claimed - set(keys))
+    if orphans:
+        raise SystemExit(
+            f"marketing/install-envelope.md carries {', '.join(o.lower() for o in orphans)} "
+            f"— no edition in web/lib/editions.js measures it")
 
     # An edition with no row in the table is the failure this asserts: the doc
     # would silently describe fewer machines than the repo holds.
