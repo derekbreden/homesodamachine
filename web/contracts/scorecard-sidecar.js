@@ -94,6 +94,25 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {{leg: number, length: number, demand: number, from: number[], to: number[]}|null}
  *           binding  the interior leg that sets `reach`: its index, its length, the tangent it
  *                    owes as a multiple of R, and its two endpoints in world mm
+ * @property {ScorecardNeed} [need]  what the run CONNECTS, beside how well it turns. Optional:
+ *                                   an edition whose scorecard predates the figure omits it.
+ */
+
+/**
+ * @typedef {Object} ScorecardNeed  what a run connects, before what it rides
+ * @property {number[][]} ends  the two endpoint waypoints, world mm
+ * @property {{x: number, y: number, z: number}} axis  the ENDPOINT separation split by world
+ *                             axis. It reads off the two endpoints alone, so a route that
+ *                             climbs 280 mm in y and comes back reports Δy 0 — that gap between
+ *                             the split and `path` is the reading, not a defect in it
+ * @property {number} span     endpoint-to-endpoint distance
+ * @property {number} path     developed centreline length, arcs included — the stock it cuts
+ * @property {number|null} detour  path ÷ span, null where the ends coincide. A run near 1 spends
+ *                             its length on its own need; far above it the run is riding
+ *                             infrastructure its ends never asked for, and there the move is the
+ *                             ROUTE rather than the corner — which no corner grade will say.
+ *                             Near 1 is not health: a short run can be pinned at both ends and
+ *                             still red, and the figure says where to look, not what to do
  */
 
 /**
@@ -139,21 +158,23 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
- * @typedef {Object} ScorecardSource  the card's own provenance — what it was built from
+ * @typedef {Object} ScorecardSource  when the card was built, and off what HEAD
  * @property {string} generated  ISO-8601 UTC, when the build wrote this card
- * @property {string|null} commit  HEAD at build time. Orientation only: `inputs` is keyed on
- *                                 file content, so a dirty tree stamps as exactly as a clean one
- * @property {Object<string,string>} inputs  repo-relative path -> fingerprint, for every file
- *                                 the build read. `sha256:<16 hex>` for source, `stat:<bytes>:
- *                                 <mtime ns>` for a STEP. Re-fingerprinting these paths says
- *                                 whether the card still describes the tree, without building
- *                                 one. Empty when the emitter records no inputs
+ * @property {string|null} commit  HEAD at build time. ORIENTATION ONLY — what the tree was at,
+ *                                 not what the card was built from: nothing here fingerprints a
+ *                                 file, so a dirty tree stamps exactly as a clean one. Whether
+ *                                 the card still describes the tree is answered by running the
+ *                                 build, and by nothing this block carries
  */
 
 // ── Focus ────────────────────────────────────────────────────────────────────────────────────
 // The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal — the live one,
 // every other goal on the card being deferred). Both surfaces that render this scorecard lead
 // with them, in this order.
+//
+// _scorecard.py's own FOCUS_IDS is the same pair, and web/tests/scorecard-focus.test.js holds
+// the two to each other. A constant spelt in two files is a constant that drifts between them,
+// and the drift shows up as the terminal and the viewer leading a reader with different work.
 export const FOCUS_IDS = ["bend-radius", "mounted"];
 
 // The focus axes as counted things — `done/total` read off `bends` and `mounts`. What the bar
