@@ -6,21 +6,19 @@ the cavity, so its outward leg travels DOWN the wall to its station rather than 
 threaded through it, and that takes an opening running out through the shell's top face.
 Everything else on the same lane then crosses inside that one opening.
 
-THE SHELL'S FRONT WALL HAS TWO LANES AND THE REFRIGERATION BASE IS TWO BODIES. The wall is
-mated face to face with that base: the compressor's shroud stands against the WEST lane and
-the condenser against the PORT lane. So the evaporator's two coppers leave by opposite
-lanes — each on the point the body behind it already stands on, which is what makes both
-joints a made-up union rather than a length of tube — and each lane is one slot with its own
-stack. `columns` is that table.
+THE SHELL'S FRONT WALL HAS TWO LANES AND THE REFRIGERATION BASE IS TWO BODIES — the
+condenser on the PORT lane's flank, the compressor on the WEST lane's. So the evaporator's
+two coppers leave by opposite lanes, each one out on the side the leg that reaches it comes
+from, and each lane is one slot with its own stack. `columns` is that table.
 
   PORT LANE, low → high, over the front port field's two reed cables:
-    • [27.75 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, on the condenser's
-      own outlet pick
+    • [27.75 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
+      condenser's outlet through the drier and the cap tube
     • [35.75 mm](PRV_VENT_Z) PRV vent — 1/4" LLDPE down the lane from the prv-shroud cap
 
   WEST LANE, one station:
-    • [27.75 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, on the compressor
-      shroud's own suction pick. It crosses at the height its opposite number does: the two
+    • [27.75 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, reached from the
+      compressor's suction. It crosses at the height its opposite number does: the two
       lanes are the same strip mirrored, and one coil's two tails reach either the same way.
 
 Not one of them crosses at the height its own fitting sits at. Each line leaves its fitting,
