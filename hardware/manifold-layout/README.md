@@ -147,11 +147,11 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 ## Standing it on the refrigeration stratum
 
 [`front_half.py`](front_half.py) → `front-half.step` mates its bodies with nothing between
-them: the compressor shroud's east face to the condenser's intake face, both of their aft faces
+them: the compressor's own +X tangent to the condenser's intake face, both of their aft faces
 to the cold core's front wall, and the crown of the pair to this pack's spine hairpins.
 
-The gaps are 0 by intent, and the refrigerant loop is what they are for. The compressor stands
-well inside its shroud with its stubs free, the condenser is an envelope whose headers are
+The gaps are 0 by intent, and the refrigerant loop is what they are for. The compressor is an
+oblong can whose stubs stand on its own tangent lines, the condenser is an envelope whose headers are
 re-dressed to whichever face suits, and the core's front wall has a lane on each side of it
 carrying one of the evaporator's coppers — so all three of the loop's joints cross a plane two
 of these bodies already share, both stations of each are one point read twice, and no copper is

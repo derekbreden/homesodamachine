@@ -305,7 +305,7 @@ refrigeration-side lines in the two lane slots above it.
 | 1 | Reed cable (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-A level reeds' cable |
 | 2 | Reed cable (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
 | 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
-| 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor shroud's own suction pick across that same plane |
+| 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | port-lane slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 | 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, into the top-plate Port 2 elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the tank, out through the ring's 225° slot and up beside the coil |
@@ -437,7 +437,7 @@ transition arcs), each slot pierces only this one outer wall.
 
 **There are two because the refrigeration base is two bodies.** This wall is mated face
 to face with that base: the condenser stands against the port lane's face and the
-compressor's shroud against the west lane's. So the evaporator's two coppers leave by
+compressor against the west lane's. So the evaporator's two coppers leave by
 opposite lanes, each on the pick the body behind it already carries, and neither joint is
 a length of tube. A slot rather than a bore is the coil's doing either way — a tail formed
 off a coil that is lowered into the cavity travels *down* the wall to its station rather
@@ -528,7 +528,7 @@ Every internal component is installed first:
   port lane and out through its slot; copper evaporator outlet routed along the WEST
   lane and out through that lane's own slot. Each leaves its fitting and turns onto its
   lane, and each of the two coppers lands on the pick of the body standing against its
-  own lane's face — the condenser's outlet east, the compressor shroud's suction west.
+  own lane's face — the condenser's outlet east, the compressor's suction west.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
   lateral FNPT of the vessel's top-plate Port 2 elbow, collet turned into the
   +Y band, and a length of 1/4" OD LLDPE from that collet along the band between
