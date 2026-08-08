@@ -1024,8 +1024,14 @@ _ROUTED: set = set()
 # of the Y seam's posts, pods and plugs" and "in line with the refrigeration stratum" one test,
 # and lets a body on this flank be seated before the box that carries it has been sized.
 
-def east_wall_seat(*floor_bodies):
-    return max(box(s).xmax for s in floor_bodies)
+def east_wall_seat():
+    """The plane a body hung on the east wall stands its outer face on: where the +X boss
+    band ENDS, one `enclosure.boss_in` inboard of the stated wall.
+
+    Read off the wall and not off whichever body is widest on the floor. The band is built
+    on the wall, so a body that seats on the band's own end seats on the band whatever else
+    is packed beside it — and a narrower body arriving on the floor moves neither."""
+    return _enc.interior_x()[1] - _enc.boss_in
 
 
 def floor_mounts(*mounted):
@@ -1045,10 +1051,10 @@ def floor_mounts(*mounted):
     return tuple(out)
 
 
-def west_interior_face(*floor_bodies):
-    """The −X wall's own inner face. `enclosure._dims` strikes it one `side_rib_inset` outboard
-    of the westmost body on the floor, so it is knowable from the pack alone."""
-    return min(box(s).xmin for s in floor_bodies) - _enc.side_rib_inset
+def west_interior_face():
+    """The −X wall's own inner face, off the stated width — the same face `enclosure._dims`
+    builds the box on."""
+    return _enc.interior_x()[0]
 
 
 # The brick lies on its side against that wall: a quarter about Y stands its 52 mm width up as
@@ -1622,7 +1628,7 @@ def build_pack() -> cq.Assembly:
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()),
                                              vk_port_z(foam))
     a.add(chain, name="suction-chain", color=C_SUCT)
-    wall_seat = east_wall_seat(comp, cond)
+    wall_seat = east_wall_seat()
     psu, psu_carry = build_psu(foam, wall_seat)
     a.add(psu, name="psu", color=C_PSU)
     pcba, pcba_carry = build_pcba(foam, psu, wall_seat)
@@ -1642,7 +1648,7 @@ def build_pack() -> cq.Assembly:
     asse, asse_carry = build_asse(foam, seaflo)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, _pan_carry = build_pan(foam, seaflo, seaflo_carry, asse_carry,
-                                west_interior_face(comp, cond))
+                                west_interior_face())
     a.add(pan, name="drip-pan", color=C_PAN)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
@@ -1751,7 +1757,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     a = build_pack() if a is None else a
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])
-    west = west_interior_face(placed["compressor"][0], placed["condenser+fan"][0])
+    west = west_interior_face()
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan, west),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
