@@ -26,7 +26,7 @@ not modeled.
 
 The head is a narrow block and the barbs are short stubs off it — that pair, not
 the head alone, is what makes the pump 80 mm wide across the ports. The feet, at
-98 mm, are the widest thing on the pump.
+99 mm, are the widest thing on the pump.
 
 **The can's axis is the body's datum.** The motor is bolted to the head on that
 line, the bracket's cradle is struck on it, and every station on the head is
@@ -40,13 +40,13 @@ carries (see [Sources](#sources)).
 
 | feature | size |
 |---|---|
-| overall | 187 (L) × 98 (W over the feet) × 67 (H, labeled 72) mm |
+| overall | 187 (L) × 99 (W over the feet) × 67 (H, labeled 72) mm |
 | across the barb tips | 80 |
 | motor can | Ø54, bolted to the head's flange; its axis is the body's datum |
 | pump head | 54 wide at the ports, 70 at the flange band by the motor; 56 tall, its underside 11 above the mounting plane, over a 30 mm boss reaching down to 8 |
 | ports | 2 × 3/8" hose barb (Ø10.4), 13 long, on the head's ±Y side faces, each pointing straight out along its ±Y axis, at Z 48 |
 | pressure switch | the upper part of the head's -X end face, opposite the motor |
-| mounting | Ø5.0 holes on a 57 × 79 pattern, feet 98 apart |
+| mounting | 4 × Ø6.0 through the foot pad, on a 59 × 79 pattern, each centre 10 off both pad edges it stands near; the pad is 79 × 99 |
 
 Frame: **+X = motor axis** (head at -X), foot underside at Z = 0, centered on Y.
 The two 3/8" barbs leave the head's ±Y side faces; the -X end face carries the
@@ -61,6 +61,12 @@ Series — Marine & RV catalog p.15, reproduced as an image on the Amazon listin
 Labeled there: 187 long, 72 tall, 80 across the barb tips, 98 across the feet,
 Ø10.40 barbs, Ø5.00 holes on 57 × 79. Everything else is scaled off that
 drawing's linework, calibrated on its 57 mm hole pitch.
+
+**The mounting pattern is the exception, and is off the part.** It is what the
+machine bolts, so the pad and its four bores are calipered rather than read:
+Ø6.0 on 59 × 79 with each centre 10 off both near edges, which puts the pad at
+79 × 99. The pad is stiff rubber and reads a little over the drawing on every
+one of those figures.
 
 Two cautions the drawing itself raises. Its linework, at that calibration,
 scales to 178.5 mm long rather than the labeled 187 — the model carries the 8.5
