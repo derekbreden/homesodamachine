@@ -301,9 +301,10 @@ assert port_lane_inner_y - port_lane_outer_y >= 2 * (port_hole_radius + port_lan
 # `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
 # below the top's. These are the COIL's heights — what the mandrel is wound to and
 # what the reed bridge's wrap band spans — and they are NOT the heights their copper
-# crosses the shell wall at. Each tail turns onto the port lane and climbs or drops
-# to its own station in the slot, so compressing the field can never compress the
-# coil.
+# crosses the shell wall at. Each tail turns onto a LANE OF ITS OWN — the inlet's onto
+# the port lane, the outlet's onto the west (`copper_plugs.columns`) — and both drop
+# from there to their stations in the slot, so compressing the field can never compress
+# the coil.
 evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
 evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
                     - wall_and_floor_thickness - above_tank_elbows_height)
@@ -315,9 +316,9 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # leave together out of the pockets' bulkhead band. Everything above the field belongs to
 # that lane's SLOT, which takes the rest of the column (`copper_plugs.columns`).
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-# NO FLUID LINE IS HERE. The front wall is mated face to face with the refrigeration base,
-# which stands the height of the compressor's shroud against it, so a bore struck here opens
-# into that base rather than into the machine. Every one of the seven fluid lines leaves by
+# NO FLUID LINE IS HERE. The front wall is mated face to face with the refrigeration base —
+# the condenser against it and the compressor's own plate just short of that plane — so a bore
+# struck here opens into that base rather than into the machine. Every one of the seven fluid lines leaves by
 # the TOP instead, up its own band to a conduit in the cap (`cap_conduits`). What is left on
 # this face is the two reed cables and the copper/PRV slot above them.
 front_port_order = ("reed-cable-a", "reed-cable-b")
