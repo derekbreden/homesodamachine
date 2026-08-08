@@ -11,13 +11,14 @@ relief device.
 The shroud slips over the entire valve from the pull-ring end and
 seats on the smooth ⌀18.8 mm cylindrical section of the TAISHER 316L
 SS 90° street elbow (B0CZ38MYL1) that threads into Port 4. The
-open shroud end-to-elbow joint is sealed with hot glue —
-foam-tight, not airtight.
+open shroud end-to-elbow joint is sealed with a bead of 100% RTV
+silicone caulk, tooled to a fillet — foam-tight, not airtight.
 
 A ⌀[6.35 mm](PRV_VENT_D) hole in the closed (far) end of the shroud accepts a
 length of 1/4" OD LLDPE tubing — the unpressurized vent line. The
-LLDPE routes through the foam shell's shared −Y slot (alongside the
-water inlet) into the appliance interior, where it terminates open.
+LLDPE runs down the foam shell's PORT LANE and out its slot in the
+−X wall, one station above the evaporator inlet copper that shares
+it, into the appliance interior, where it terminates open.
 
 Geometry
 --------

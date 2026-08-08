@@ -3,6 +3,7 @@
 Run: tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -19,11 +20,15 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
     attachment_xy_positions,
+    cap_cradles,
+    cap_cradle_corner_radius,
+    cap_cradle_xy,
     deck_mounts,
     deck_mount_xy,
     co2_inlet_y,
     foam_cap_interior_height,
     foam_cap_lid_pour_radius,
+    foam_cap_lid_pour_xy,
     foam_cap_lid_vent_radius,
     foam_shell_outer_height,
     foam_cap_height,
@@ -57,6 +62,17 @@ import importlib.util  # noqa: E402
 CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
 CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
+
+# What the bench's trim knife has to work in. The pour hole and the valve cradles open in
+# the ONE face — the top lid's outer one — so the least a pad's corner arc stands off the
+# hole is the land the cured foam is cut back to. Read on the corner arcs, which are the
+# pad's nearest material to the hole, exactly as `_cold_core_interface.cap_cradle_room` does.
+_POUR_XY = foam_cap_lid_pour_xy()
+POUR_CRADLE_GAP = min(
+    math.hypot(_POUR_XY[0] - x, _POUR_XY[1] - y)
+    - foam_cap_lid_pour_radius - cap_cradle_corner_radius
+    for name in cap_cradles for x, y in cap_cradle_xy(name)
+)
 
 
 def _load_module(name: str, file_path: Path):
@@ -107,6 +123,10 @@ def main():
         "CAP_H": f"{foam_cap_interior_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
         "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
+        # The valve cradles on the top lid's outer face, and the land the pour hole
+        # leaves beside the nearest of them.
+        "CAP_CRADLES": f"{len(cap_cradles)}",
+        "POUR_CRADLE_GAP": f"{POUR_CRADLE_GAP:.4g} mm",
         # ─── Inserts (step 2) ─────────────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth = insert
         # engagement (half) + relief (half).
@@ -175,6 +195,8 @@ def main():
             "CAP_H": 1,
             "POUR_D": 1,
             "LID_VENT_D": 1,
+            "CAP_CRADLES": 1,
+            "POUR_CRADLE_GAP": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
             "CC_INSERTS": 1,

@@ -8,8 +8,9 @@ helical guide groove [1 mm](GROOVE_DEPTH) deep that cradles the copper.
 The coil's inner radius after winding is net_undersize mm smaller than
 the tank radius, so the coil stretches radially to clamp the tank.
 
-Coil start and end align with the foam-shell's copper inlet/outlet
-plugs; exit bends are purely radial (no vertical jog).
+Coil start and end are clocked to the foam-shell's two copper-plug
+slots — one tail either side of the mandrel's centre plane, one per
+lane; exit bends are purely radial (no vertical jog).
 """
 
 import math
@@ -84,12 +85,15 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 # ═══════════════════════════════════════════════════════
 
 # Where the coil's two tails leave the wrap, in foam-shell coords (Y is the
-# cylinder axis). These are the COIL's own heights — the elbow bands the vessel
-# leaves clear above and below itself — and NOT the slot stations the copper ends
-# up crossing the wall at. The tails reach those along the port lane, low one
-# climbing and high one dropping, so the wind length is set here and the crossing
-# heights in `copper-plugs/copper_plugs.py`. Pinning either to the other would put
-# a bend where the mandrel wants a wrap.
+# cylinder axis). They leave MIRRORED ABOUT THE MANDREL'S CENTRE PLANE, one either
+# side of x = 0, because the shell's front wall carries a lane on each side of it
+# and each tail takes its own — the inlet to the port lane, the outlet to the west
+# — and drops that lane's own slot to a station at the height the other's is at.
+#   These are the COIL's own heights — the elbow bands the vessel leaves clear
+# above and below itself — and NOT the slot stations the copper ends up crossing
+# the wall at, so the wind length is set here and the crossing heights in
+# `copper-plugs/copper_plugs.py`. Pinning either to the other would put a bend
+# where the mandrel wants a wrap.
 tail_inlet_x, tail_inlet_y, tail_inlet_z = -30.0, evap_tail_low_z, 20.0
 tail_outlet_x, tail_outlet_y, tail_outlet_z = 30.0, evap_tail_high_z, 20.0
 
