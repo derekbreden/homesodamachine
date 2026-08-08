@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="en">
+<div class="card">
+
+<header>
+  <div class="code">EN-07</div>
+  <h1>Close the box</h1>
+  <div class="deckpos"><b>Enclosure &#183; 07/9</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>The box closes around the pack, not the other way
+    round.</strong> Bodies stand on open floor; the pieces come down over
+    them.</p>
+
+    <ol class="steps">
+      <li><b>Front column first</b> &#8212; front-top down over front-bottom,
+        D-pins into the pods as the lip telescopes up. It passes <i>over</i>
+        the flavor pack, not onto it.</li>
+      <li><b>Then the Y seam</b> &#8212; a proud tongue on the walls and
+        ceiling, a shiplap inside the floor so the slab stays flat under the
+        core.</li>
+      <li><b>Back column last</b> &#8212; back-top. <b>It is the lid over the
+        service bay;</b> lifting it is the only way in.</li>
+      <li><b>Every seam screw from a &#177;X exterior face</b> &#8212;
+        <span class="dim" data-gen="SEAM_SCREWS_Z">4</span> per Z seam, both
+        ends of each side wall, so a seam cannot hinge open at the end it was
+        not pinned at.</li>
+      <li><b>Then look inside:</b> collets, stub, C14 tabs and gland hole all
+        reachable &#8212; <b>nothing routed yet.</b></li>
+    </ol>
+
+    <div class="note">
+      <b>When back-top closes is an open item.</b> Check the traveller.
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:790px">
+    <div class="panel light">
+      <svg viewBox="0 0 790 452" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#eef0f3" stroke="#1d1d26" stroke-width="3">
+          <!-- front-bottom -->
+          <path d="M60 400 L60 245 L256 245 L256 400 Z"/>
+          <!-- front-top, display facet chamfered off the top-front arris -->
+          <path d="M60 245 L60 105 L112 60 L256 60 L256 245 Z"/>
+          <!-- back-bottom -->
+          <path d="M256 400 L256 200 L517 200 L517 400 Z"/>
+          <!-- back-top -->
+          <path d="M256 200 L256 60 L517 60 L517 200 Z"/>
+        </g>
+
+        <!-- the three seams, heavy -->
+        <g stroke="#1d1d26" stroke-width="7" stroke-linecap="round">
+          <path d="M60 245 L256 245"/>
+          <path d="M256 200 L517 200"/>
+          <path d="M256 400 L256 60"/>
+        </g>
+
+        <!-- telescoping direction: bottoms carry the lip, it goes up -->
+        <g stroke="#4a5d52" stroke-width="3.5" fill="none" stroke-linecap="round">
+          <path d="M150 300 L150 258"/><path d="M143 268 L150 258 L157 268"/>
+          <path d="M400 275 L400 213"/><path d="M393 223 L400 213 L407 223"/>
+          <!-- front assembly telescopes +Y into the back -->
+          <path d="M196 392 L248 392"/><path d="M238 385 L248 392 L238 399"/>
+        </g>
+
+        <!-- seam screws, driven from the ±X exterior toward the reader -->
+        <g fill="#4a5d52" stroke="#1d1d26" stroke-width="2">
+          <circle cx="82" cy="245" r="7"/><circle cx="234" cy="245" r="7"/>
+          <circle cx="278" cy="200" r="7"/><circle cx="495" cy="200" r="7"/>
+          <circle cx="256" cy="112" r="7"/><circle cx="256" cy="330" r="7"/>
+        </g>
+
+        <!-- dimension ticks -->
+        <g stroke="#4a5d52" stroke-width="2.5">
+          <path d="M540 245 L700 245"/><path d="M540 200 L700 200"/>
+          <path d="M540 400 L700 400"/>
+          <path d="M256 424 L256 438"/><path d="M60 431 L517 431"/>
+        </g>
+        <g font-family="Menlo, monospace" font-size="26" fill="#4a5d52">
+          <text x="708" y="254" data-gen="Z_SEAM_FRONT">160</text>
+          <text x="708" y="209" data-gen="Z_SEAM_BACK">207.7</text>
+          <text x="708" y="409">0</text>
+          <text x="268" y="422">y <tspan data-gen="Y_SEAM">200</tspan></text>
+        </g>
+        <g font-family="-apple-system, Helvetica, sans-serif" font-size="24" fill="#1d1d26">
+          <text x="76" y="352">front-bottom</text>
+          <text x="76" y="150">front-top</text>
+          <text x="290" y="352">back-bottom</text>
+          <text x="290" y="150">back-top</text>
+        </g>
+        <g font-family="-apple-system, Helvetica, sans-serif" font-size="22" fill="#6b6b78">
+          <text x="76" y="380">lip + pods</text>
+          <text x="76" y="178">D-pins</text>
+          <text x="290" y="380">lip + pods</text>
+          <text x="290" y="178">D-pins &#183; the bay lid</text>
+          <text x="540" y="290">seam heights, mm</text>
+          <text x="540" y="316">off the floor slab</text>
+        </g>
+      </svg>
+      <div class="cap"><b>Side elevation, front at left</b> &#8212; mm &#183;
+      schematic. Bottoms carry the lip and the socket pods, tops the D-pins;
+      the two Z seams stagger like a brick bond so no two joints line up.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>All <span class="dim" data-gen="BOX_PIECES">4</span> pieces cross-pinned from the exterior side faces, <span class="dim" data-gen="BODY_COUNT">59</span> bodies inside sharing no volume.</div>
+  <div class="src">enclosure-mechanical.md &#167;6 + Open items 4<br>_cards_sync.py &#183; rev 2026-08-07</div>
+</footer>
+
+</div>
+</body>
+</html>
