@@ -2,7 +2,7 @@
 
 The physical realization of the single-point **ground bus**: the bolted stack
 that *is* the bus. There is no copper bar — a copper bar distributes ground
-along a run or across many tap points, and this appliance has ~5–6 home-run
+along a run or across many tap points, and this appliance has five home-run
 bonds landing at one spot. Instead, every green bond ends in a ring terminal and
 they all clamp together under one M3 × 10 screw into the heat-set insert in the
 stack's own printed boss on the enclosure's +X wall — the one station on that wall
@@ -39,7 +39,7 @@ earth is a pass-through on such a device, so this bond path is unchanged by it.
 
 | | mm |
 |---|---|
-| Lugs in the fan | **6**, fanned 60° apart, rising one tongue thickness each |
+| Lugs in the fan | **5**, fanned 60° apart, rising one tongue thickness each |
 | Ring-terminal tongue | ⌀**8.0** eye, ⌀**3.2** bore, **0.8** thick |
 | Crimp barrel | ⌀**4.2** × **6.0** stub (no wire past it) |
 | Tooth washer | ⌀**7.0** × **0.8** over the top lug |
