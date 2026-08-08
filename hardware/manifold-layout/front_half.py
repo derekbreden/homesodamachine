@@ -9,10 +9,14 @@ Four bodies, mated face to face with nothing between them:
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
                         plane the front half ends at
 
-The gaps are 0 by intent. The compressor stands well inside its shroud and its ports go
-wherever they are put; the condenser's inlet and outlet are cornered but leave by whichever
-of that corner's faces is convenient; the cold core's ten ports all stand on one column of
-its own. So the bodies touching is what makes the runs between them short.
+The gaps are 0 by intent, and the mating is what closes the refrigerant loop. The compressor
+stands well inside its shroud and its stubs go wherever they are put; the condenser is an
+envelope whose serpentine headers are re-dressed to reach whichever face is convenient; the
+cold core's front wall has a lane on each side of it and each lane carries one of the
+evaporator's coppers. So all three of the loop's joints cross a plane two of these bodies
+already share, both stations of each are ONE POINT READ TWICE, and no copper is drawn between
+any two of them — `refrigerant_joints` measures all three at every build and
+`check_refrigerant_joints` fails the build when one opens.
 
 Frame
 -----
@@ -80,13 +84,17 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor",
+           _hw / "printed-parts" / "cold-core",
+           _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
+import compressor_shroud as _shroud                   # noqa: E402
 import condenser_block as _cond                       # noqa: E402
+import copper_plugs as _plugs                         # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import manifold_layout as ml                          # noqa: E402
@@ -321,9 +329,12 @@ BASE_YAW = -90.0
 
 
 def build_shroud():
-    """The shroud as the machine turns it, its front face on y = 0 and its feet on the floor."""
-    s = cq.importers.importStep(str(SHROUD_STEP)).val().rotate(*Z_AXIS, SHROUD_YAW)
-    return sit(s, cx=0.0, y0=0.0, z0=0.0)
+    """The shroud as the machine turns it, its front face on y = 0 and its feet on the floor.
+
+    `(placed, carry)` like every other seated body: the shroud's four wall penetrations are
+    a table in its own frame and the carry is what puts them in the machine."""
+    return seat_body(cq.importers.importStep(str(SHROUD_STEP)).val(),
+                     (((0.0, 0.0, 1.0), SHROUD_YAW),), cx=0.0, y0=0.0, z0=0.0)
 
 
 def build_condenser(shroud):
@@ -331,7 +342,8 @@ def build_condenser(shroud):
     onto the shroud's own aft plane, and stood on the same floor."""
     c = _cond.build()
     c = c.toCompound() if hasattr(c, "toCompound") else c
-    return sit(c.rotate(*Z_AXIS, 90.0), cx=0.0, y0=box(shroud).ymax, z0=0.0)
+    return seat_body(c, (((0.0, 0.0, 1.0), 90.0),),
+                     cx=0.0, y0=box(shroud).ymax, z0=0.0)
 
 
 def build_foam(front_y: float):
@@ -344,6 +356,64 @@ def build_foam(front_y: float):
     f = cq.importers.importStep(str(FOAM_STEP)).val()
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
                      cx=0.0, y0=front_y, z0=0.0)
+
+
+# --- The refrigerant loop's three joints ------------------------------------
+#
+# The sealed loop is the one circuit in the machine with NO TUBE DRAWN FOR IT, and that is
+# the arrangement rather than an omission: each of its three joints crosses a plane two
+# bodies already share — the shroud against the condenser, the condenser against the cold
+# core, the shroud against the same core at the other flank — so both of a joint's stations
+# are ONE POINT READ TWICE and the copper between them is the length of the union.
+#
+# Each end is a penetration its own module declares: `compressor_shroud.STATIONS`,
+# `condenser_block.stations()`, `copper_plugs.slot_stations()`. Nothing here restates a
+# coordinate; what this holds is that the two readings land together, and `_joints_hold`
+# fails the build when one opens, because a station that has drifted is copper drawn in the
+# open and no other gate on this pack would say so.
+REFRIGERANT_JOINTS = (
+    ("refrig-1", "compressor-shroud.refrig-discharge", "condenser+fan.refrig-inlet"),
+    ("refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet"),
+    ("refrig-3", "foam-assembly.evap-outlet", "compressor-shroud.refrig-suction"),
+)
+# How far apart a joint's two stations may stand. It is import and boolean noise and nothing
+# else: both are struck on one plane, so anything above this is a station that moved.
+JOINT_TOL = 0.05
+
+
+def refrigerant_stations(carries: dict) -> dict:
+    """Every station the loop's three joints are made on, in world, keyed `body.port`.
+
+    `carries` is the placement each body was seated by, so a station is its own module's
+    table taken through the move the metal took."""
+    tables = {"compressor-shroud": _shroud.STATIONS,
+              "condenser+fan": _cond.stations(),
+              "foam-assembly": {f"evap-{end}": st
+                                for end, st in (("inlet", _plugs.slot_station("evap-inlet")),
+                                                ("outlet", _plugs.slot_station("evap-outlet")))}}
+    return {f"{body}.{port}": carries[body](station)
+            for body, table in tables.items() if body in carries
+            for port, station in table.items()}
+
+
+def refrigerant_joints(carries: dict) -> list:
+    """Each joint as `(id, from, to, mm apart)` — the measurement, taken at every build."""
+    at = refrigerant_stations(carries)
+    return [(cid, a, b, math.dist(at[a][0], at[b][0])) for cid, a, b in REFRIGERANT_JOINTS]
+
+
+def check_refrigerant_joints(joints) -> None:
+    """Raises unless every joint closes. A joint that has opened is a length of copper the
+    machine now owes and nothing draws, so it fails the build rather than being noted."""
+    open_ = [j for j in joints if j[3] > JOINT_TOL]
+    if open_:
+        raise ValueError(
+            "the refrigerant loop is made up across the planes its bodies already share, and "
+            + ", ".join(f"{cid} stands {gap:.3f} mm open ({a} to {b})"
+                        for cid, a, b, gap in open_)
+            + f" — over the {JOINT_TOL:g} mm a shared plane leaves. That distance is copper "
+              f"drawn in the open between two bodies with nothing between them: move the "
+              f"station that shifted back onto the one it is read against.")
 
 
 def cap_conduit(name: str):
@@ -1280,7 +1350,7 @@ def _whole(bodies):
     return out
 
 
-def place_base(bodies, names=()):
+def place_base(seated, names=()):
     """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre, then
     seat the PAIR — centred on x = 0 and its front face on y = 0. Both moves are rigid and taken
     on the pair's own box, so the plane between them rides along and the crown does not change.
@@ -1289,7 +1359,12 @@ def place_base(bodies, names=()):
     width used to reach, which is not the front of the machine.
 
     ONE SEAT FOR THE TWO, because the rule is struck on the combined box and neither body has it
-    on its own — the ledger's row names both."""
+    on its own — the ledger's row names both.
+
+    `seated` is each body as `(solid, carry)` off its own seat, and this hands back the same
+    pair with the yaw and the stand composed onto each carry: a penetration declared in either
+    body's own frame rides both moves, so a station cannot fall off the metal it is a hole in."""
+    bodies = [s for s, _c in seated]
     w = _whole(bodies)
     cx, cy = (w.xmin + w.xmax) / 2.0, (w.ymin + w.ymax) / 2.0
     axis = (cq.Vector(cx, cy, 0.0), cq.Vector(cx, cy, 1.0))
@@ -1300,7 +1375,16 @@ def place_base(bodies, names=()):
     if names:
         record_seat("refrigeration-base", turns=(((0.0, 0.0, 1.0), BASE_YAW),),
                     planes={"cx": 0.0, "y0": 0.0, "z0": 0.0}, got=_whole(stood), members=names)
-    return stood
+
+    def compose(carry):
+        def carried(station):
+            (px, py, pz), axis_ = carry(station)
+            p = _turned((px - cx, py - cy, pz), (0.0, 0.0, 1.0), BASE_YAW)
+            a = _turned(axis_, (0.0, 0.0, 1.0), BASE_YAW)
+            return ((p.x + cx + step.x, p.y + cy + step.y, p.z + step.z), (a.x, a.y, a.z))
+        return carried
+
+    return list(zip(stood, [compose(c) for _s, c in seated]))
 
 
 # --- The manifold, laid on their crown -------------------------------------
@@ -1338,8 +1422,10 @@ def build_pack() -> cq.Assembly:
     cannot be in it."""
     a = cq.Assembly(name="front-half")
     SEATS.clear()
-    shroud, cond = place_base([build_shroud(), build_condenser(build_shroud())],
-                              names=("compressor-shroud", "condenser+fan"))
+    seated_shroud = build_shroud()
+    ((shroud, shroud_carry),
+     (cond, cond_carry)) = place_base([seated_shroud, build_condenser(seated_shroud[0])],
+                                      names=("compressor-shroud", "condenser+fan"))
     a.add(shroud, name="compressor-shroud", color=C_SHROUD)
     a.add(cond, name="condenser+fan", color=C_COND)
 
@@ -1374,6 +1460,14 @@ def build_pack() -> cq.Assembly:
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     foam, foam_carry = build_foam(aft)
     a.add(foam, name="foam-assembly", color=C_FOAM)
+    # The sealed loop, measured the moment its three bodies are all placed. Nothing is drawn
+    # between them — every joint crosses a plane two of them already share — so this reading
+    # is the only thing standing between a station that moved and copper nobody notices.
+    refrig_carries = {"compressor-shroud": shroud_carry, "condenser+fan": cond_carry,
+                      "foam-assembly": foam_carry}
+    a.refrigerant_at = refrigerant_stations(refrig_carries)
+    a.refrigerant = refrigerant_joints(refrig_carries)
+    check_refrigerant_joints(a.refrigerant)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()),
@@ -1719,6 +1813,10 @@ def report(a: cq.Assembly) -> None:
     base_aft = max(sh.ymax, co.ymax)
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "
           f"gap {fo.ymin - base_aft:.2f}")
+    for cid, frm, to, gap in getattr(a, "refrigerant", []):
+        p = a.refrigerant_at[frm][0]
+        print(f"  {cid:16} {frm.split('.')[1]:16} on {to.split('.')[1]:16} "
+              f"({p[0]:7.2f},{p[1]:7.2f},{p[2]:6.2f})  gap {gap:.3f}")
     print(f"  core crown       z {fo.zmax:.2f}   seaflo floor         z {sf.zmin:.2f}   "
           f"gap {sf.zmin - fo.zmax:.2f}")
     print(f"  core aft face    y {fo.ymax:.2f}   seaflo aft face      y {sf.ymax:.2f}   "
