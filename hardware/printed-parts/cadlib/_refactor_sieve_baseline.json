@@ -1,15 +1,15 @@
 {
   "byte_hashed_steps": {
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "bcc7b832548d0b7fdfb2659603d9c3ce9adf865f52da815819bfa75eda6b7a35",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "151704e7adcdd39058e60feb7553e769c21f063cd3ded7b8a60fc7d6ab3419fd",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "9478850b959031075e923c86129013a032f7aa5f19a7a0f79026777b63425037",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "ddbb9b1b5e95eccf2eb7ea1088eaa3505374c95d80976b5e6a1b645a28cf7622",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "89a68d736b1c48f335e473003eb7a8929096c06a095a6ab137c050418e5cde45",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "fa44cfd19c676e22f8c0e1763ab7c4e2967a12483a570669bdcb6bbbb9261f79",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "af38781f4ab3a08039893efe7ca65bbdbaaa599a01115176848cb8e430f61f64",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "54bf489f3f6a2574ad58b298a371b627a9b6315031b8507bc2ba67cefd144287",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "9798dc2818b5892039e2ce491d5691cf5f376250e9862808c8ba983f20af1006",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "6d040af77c1b54b6441238120b14f7a9761c4c11cfce16e48a5d3ea79101ccb9",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "69b558e7547b4e044290b9975ffb5b09983cd2715377b29961bbd9f8bb077622",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "8655e4152f1dcd5ba0386250c59562db1f3a8ee82f5c7539d0304310a9b7e7e4",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "f46f8c07a49a450d828a7f3202f5c15c2c2fd9a28880ab33b1341a287e70cdc7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "a9a70d354d7a8dd8a30a4fb13de49946d81bc1e27d07e662e4b08ea1c8653ff2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "a867804573f33eabe2c2b8cfa91acbd33e242a8842b6e21d1eef92dbee7dbd61",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "6aba51affb4dad8b4a118a1c876173d049d3ee2178790c7a6463f2c76cdde632",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "48b65eda2cb58186a84b1e89a83f635ffefcd413710dd01ddbcc2ead18b93a7e",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "73f043f31775cc1be01fe73d82e9cc523ec54e508ba72966f3e5b4fb50b19561",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step": "f8ab883439223401a89df993c9804161d8dead2be96bc2847722f73fc5ef927a",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step": "ba58bca947c5d87316b4d55b87eadc9af1b9c7940ac5f76bc5cfdac6d1c7bfe5",
@@ -185,8 +185,8 @@
       },
       "com": {
         "x": -95.0633,
-        "y": 0.0314,
-        "z": 97.9726
+        "y": 0.0226,
+        "z": 97.9716
       },
       "volume_mm3": 300558.9974
     },
@@ -201,8 +201,8 @@
       },
       "com": {
         "x": 95.0633,
-        "y": 0.0314,
-        "z": 97.9726
+        "y": 0.0226,
+        "z": 97.9716
       },
       "volume_mm3": 300558.9974
     },
@@ -248,11 +248,11 @@
         "zmin": -2.0
       },
       "com": {
-        "x": -98.107,
-        "y": 0.2648,
-        "z": 5.6546
+        "x": -98.0536,
+        "y": 0.4248,
+        "z": 5.6167
       },
-      "volume_mm3": 45423.9106
+      "volume_mm3": 45665.0278
     },
     "cap_right": {
       "bbox": {
@@ -264,11 +264,11 @@
         "zmin": -2.0
       },
       "com": {
-        "x": 98.107,
-        "y": 0.2648,
-        "z": 5.6546
+        "x": 98.1302,
+        "y": -0.1006,
+        "z": 5.6167
       },
-      "volume_mm3": 45423.9106
+      "volume_mm3": 45665.0278
     },
     "gasket": {
       "bbox": {
