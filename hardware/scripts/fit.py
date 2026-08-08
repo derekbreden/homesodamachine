@@ -233,8 +233,8 @@ class Part:
 
         Rotations are about the part's own origin and compose roll (X), then pitch (Y),
         then yaw (Z). Exactly one of `at` — where the part's origin lands — or `bbmin`,
-        where the rotated bounding box's low corner lands, which is how `_contents._at`
-        seats a body in the pack."""
+        where the rotated bounding box's low corner lands, which is how
+        `front_half.seat_body` seats a body in the pack."""
         if (at is None) == (bbmin is None):
             raise ValueError("pose needs exactly one of at= (the part's origin) "
                              "or bbmin= (its bounding-box low corner)")

@@ -265,7 +265,7 @@ head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
 # --- The front face, and the lane that reaches it ---------------------------
 #
 # Every penetration opens on the shell's −X face. That face is the SHORT one, and
-# in the appliance it is yawed onto the machine's front (`_contents.FOAM_YAW`) —
+# in the appliance it is yawed onto the machine's front (`front_half.FOAM_YAW`) —
 # which is why the shell's short axis is what sets the appliance's width.
 #
 # Nothing reaches that face head-on: the reservoir pockets fill both ±X ends of the
@@ -416,7 +416,8 @@ assert cap_screw_beyond_face <= insert_pocket_depth, (
 # seats on the lid's outer face. A station with a standoff carries its column on through
 # the lid, and its module seats on the column tops.
 #   The stations live here, in the cap's own frame, because the mount belongs to the part it
-# is printed in. The enclosure reads its world poses off them (`_contents.deck_mount`).
+# is printed in. `foam_assembly.deck_mount_station` carries them into the stack's own frame,
+# and whoever seats the stack carries them from there into the world.
 deck_mount_boss_radius = 3.5     # column radius
 deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 short heat-set
 deck_mount_lid_slip = 0.4        # per side, a standing column to the lid's clearance hole
@@ -633,10 +634,10 @@ cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
 
-# How far off its own bore axis a line leaves a conduit — a bore's `_lines.FLAVOR_SKEW`. The
-# LID'S HOLE IS COUNTERSUNK to this angle: the lip a leaning line crosses lies along it, and
+# How far off its own bore axis a line leaves a conduit — a bore's `manifold_layout.FLAVOR_SKEW`.
+# The LID'S HOLE IS COUNTERSUNK to this angle: the lip a leaning line crosses lies along it, and
 # what the tube bears on there is a face. The column under the lid carries the bore on its own
-# axis. `_contents.CAP_BORE_SKEW` is bound to this name.
+# axis. `_lines.CAP_BORE_SKEW` is bound to this name.
 cap_conduit_entry_skew = 38.0
 # The countersink's mouth on the lid's outer face — the bore opened at that angle through the
 # one wall of plate the lid is: ⌀[9.625](ENTRY_RELIEF_D).

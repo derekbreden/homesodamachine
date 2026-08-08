@@ -83,7 +83,7 @@ import single_tray as cell                        # noqa: E402  — one valve's 
 # The cold core as the enclosure places it, and the cavity around it, both read
 # in this module's own frame (y = 0 the core's front face, z = 0 its top). The
 # core's box is 181 x 283 x 253.4 seated in the back-bottom corner; the cavity is
-# the core's own width plus a boss chain a side (`_contents.SIDE_RIB_INSET`), the
+# the core's own width plus a boss chain a side (`enclosure.side_rib_inset`), the
 # stated 400 mm appliance less two walls, and the stated rear plane.
 CORE_X = (0.0, 181.0)               # world x — the module frame shares this axis
 CORE_Y = (0.0, 283.0)               # core front face to its rear
@@ -147,7 +147,7 @@ PUMP_FACE_Y = -10.0                 # the barb face, clear of the core's front p
 # up into the branch above it. The pump's face is ten millimetres off that plane.
 PUMP_BARB_Z = UNDER_DECK_Z
 PUMP_BARB_PITCH = 57.0
-COLLET_SKEW = 22.0                  # `_contents.FLAVOR_SKEW`, the lean a collet grips through
+COLLET_SKEW = 22.0                  # `manifold_layout.FLAVOR_SKEW`, the lean a collet grips through
 # The barbs stand wider apart than the lines do, so each leg leaves its barb off
 # its Tee's column by half the difference and closes it over the length of the
 # run rather than in a corner.

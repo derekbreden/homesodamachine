@@ -148,8 +148,8 @@ function relForLog(absPath) {
 }
 
 // Script discovery and the dependency graph — import edges AND STEP-load edges
-// (`importStep` / the `_load(...)` helper, usually named in an imported
-// `_contents.py`) — live in ./deps.js, shared with the batch rebuilder
+// (`importStep` / the `_load(...)` helper, usually named in an imported module
+// like `front_half.py` or `foam_assembly.py`) — live in ./deps.js, shared with the batch rebuilder
 // (build-all.js) and unit-tested in web/tests/deps.test.js. The functions are
 // passed CONTENT_ROOTS at each call site.
 
@@ -283,7 +283,7 @@ async function runWave(seeds) {
 }
 
 // One wave at a time. The watcher debounces per FILE, so a burst of saves — or the
-// docgen substitution a generator writes back into `_contents.py` / `_lines.py` at the
+// docgen substitution a generator writes back into its own source at the
 // end of its own build — starts a second wave beside the first. Both spawn generators,
 // both take the global CAD build lock (hardware/scripts/_run_lock.py), and the newer one
 // SIGTERMs the older: the cascade dies half-run, and a dependent that never got its turn
