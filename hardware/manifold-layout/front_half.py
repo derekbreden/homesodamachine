@@ -1017,12 +1017,17 @@ _ROUTED: set = set()
 
 # --- the +X wall's own seat ------------------------------------------------
 #
-# The plane a body hung on the east wall stands its outer face on. `enclosure._dims` strikes the
-# interior's east face one `side_rib_inset` outboard of the widest body ON THE FLOOR, and the ±X
-# boss band reaches one `enclosure.boss_in` back inboard from the wall it builds there. Those two
-# are the same 14 mm, so the band ends exactly on that body's own east face — which makes "clear
-# of the Y seam's posts, pods and plugs" and "in line with the refrigeration stratum" one test,
-# and lets a body on this flank be seated before the box that carries it has been sized.
+# The plane a body hung on the east wall stands its outer face on: one `enclosure.boss_in`
+# inboard of the interior face the STATED `appliance_width` opens, which is the same station
+# every piece of ±X wall furniture caps at. The Y seam's socket pods and both Z seams' own
+# cross-pin posts are built to `enclosure._boss_x`'s cap and each runs its piece's full height,
+# so that one plane is the inboard face of the whole rail: a body seated on it stands BESIDE the
+# rail rather than having to dodge it fore and aft, and it is the plane its own mounting bosses
+# reach out to. The band the rail leaves is `enclosure.side_rib_inset`, the same 14 mm, which is
+# why a body on this flank is in line with the refrigeration stratum on the floor.
+#
+# Read off the wall and not off the pack, so a body here can be seated before the box that
+# carries it has been sized, and nothing arriving on the floor moves it afterwards.
 
 def east_wall_seat():
     """The plane a body hung on the east wall stands its outer face on: where the +X boss
@@ -1062,7 +1067,8 @@ def west_interior_face():
 # inboard and its 109 mm long axis runs fore and aft down the flank.
 PSU_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # What the brick stands off the rear seam: the back wall's own standoff, and a clearance floor
-# past it. Its AC end wants the C14 inlet above it, which is a back-panel body and not placed.
+# past it. Its AC end reaches into the Y band the rear cross-pin post holds on this flank, which
+# is no fence — that post caps on the wall seat, so the two meet face to face on one plane.
 PSU_REAR_CLEAR = 6.0
 
 
@@ -1102,8 +1108,8 @@ def build_pcba(foam, psu, wall_seat):
 
 # The rest of the power block on the brick's crown: the relay aft-flush with the brick, the AC hub
 # on the relay's crown, and the ground stud on the relay's own floor one clearance forward of it.
-# Each takes the same wall seat as its east face, so the whole group stands clear of every post,
-# pod and plug the Y seam puts in that band.
+# Each takes the same wall seat as its east face, so the whole group stands on the plane the
+# rail's posts, pods and plugs cap at rather than inside the band they hold.
 #
 # Each turn lays the body's own long axis fore and aft down the flank and its board or wells
 # facing INBOARD — the face a screwdriver reaches, and the face a boss would land on.
