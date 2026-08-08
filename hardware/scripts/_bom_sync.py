@@ -37,6 +37,7 @@ import importlib.util
 _machine = _fh.machine()
 _placed = {c.name for c in _machine[0].children}
 _east_bosses = _machine[2].east_bosses
+_floor_bosses = _machine[2].floor_bosses
 
 
 def _load_module(name: str, file_path: Path):
@@ -127,6 +128,16 @@ assert not _trays, (
     f"the machine places {len(_trays)} valve tray(s) ({_trays}) and bom.md §7 bills none — "
     f"add the row back with this count behind it")
 
+# NO SHEET-METAL COVER SHIPS OVER THE COMPRESSOR, and that too is read off the placed machine.
+# The compressor stands bare on the floor slab, bolted down through its own plate holes, with
+# its terminal block and clip-on PTC open to the cabinet — the fire-enclosure gap `regulatory.md`
+# carries against 60335-2-24. So §5 buys no cut cover, no pass-through gland and no bond stud for
+# one, and a shroud body appearing in the placed machine is what fails here.
+_shrouds = sorted(n for n in _placed if "shroud" in n)
+assert not _shrouds, (
+    f"the machine places {len(_shrouds)} shroud(s) ({_shrouds}) and bom.md §5 bills none — "
+    f"add the cut-part row, its cable gland and its bond back with this count behind them")
+
 # And the cradles hold valves this machine actually has. A row for a body the pack does not
 # place is a seat printed into the lid for nothing, which costs material on every build.
 _orphans = sorted(set(cap_cradles) - _placed)
@@ -169,12 +180,23 @@ shelf_screws_per_build = shelf_inserts_per_build
 shelf_long_screws_per_build = len(_gnd.holes)
 shelf_short_screws_per_build = shelf_screws_per_build - shelf_long_screws_per_build
 
-# Combined heat-set insert count across the appliance (50).
+# Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
+# the box bolted DOWN to it: `front_half.floor_mounts` stands ONE POST PER HOLE in the
+# compressor's own plate pattern, each post bored for a ruthex short at the plane the plate's
+# crown lies on. So the count is the pack's the way the shelf's is — a body arriving on the
+# floor with a hole pattern brings its posts, inserts and screws with it.
+floor_inserts_per_build = len(_floor_bosses)
+# One M3 down into each post's insert, bearing on the donor grommet's steel bushing — 1:1 with
+# the posts. One of the four also takes the compressor's chassis bond (AC-6) under its head.
+floor_screws_per_build = floor_inserts_per_build
+
+# Combined heat-set insert count across the appliance (54).
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
     + touchflo_inserts_per_build
     + shelf_inserts_per_build
+    + floor_inserts_per_build
 )
 
 # Reservoir-cap vent filters per build (2).
@@ -213,6 +235,8 @@ def main():
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
+        "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
+        "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
@@ -254,8 +278,10 @@ def main():
             "SHELF_SCREWS": 3,
             "SHELF_SCREWS_M3X8": 2,
             "SHELF_SCREWS_M3X10": 3,
+            "FLOOR_INSERTS": 2,
+            "FLOOR_SCREWS": 3,
             "DECK_INSERTS": 3,
-            "CAP_CRADLES": 1,
+            "CAP_CRADLES": 2,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
             "PITCH": 1,
