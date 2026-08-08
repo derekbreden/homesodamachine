@@ -23,6 +23,7 @@ sys.path.insert(
 from _ac_wiring_schedule_sync import (  # noqa: E402
     awg_mains as _sched_awg_mains,
     awg_ac_branch as _sched_awg_ac_branch,
+    awg_compressor_lead as _sched_awg_compressor_lead,
     awg_sig as _sched_awg_sig,
     awg_lv as _sched_awg_lv,
     line_voltage_v as _sched_line_voltage_v,
@@ -39,30 +40,18 @@ from _ac_wiring_schedule_sync import (  # noqa: E402
     jst_pitch_mm as _sched_jst_pitch_mm,
 )
 
-# Import shroud-side values (cable AWG, gland range, ground-stud hole,
-# compressor class).
-sys.path.insert(
-    0,
-    str(_here.parents[0] / "cut-parts" / "compressor-shroud"),
-)
-from _compressor_shroud_dimensions import (  # noqa: E402
-    ac_cable_awg as _shroud_ac_cable_awg,
-    gland_cable_od_low_mm as _shroud_gland_low_mm,
-    gland_cable_od_high_mm as _shroud_gland_high_mm,
-    chassis_ground_hole_mm as _shroud_gnd_hole_mm,
-    compressor_class_w as _shroud_compressor_class_w,
-)
-
 
 # ─── Procedure-only constants ───────────────────────────────────────────
 
 cabinet_slack_mm = 200       # umbilical-end ground-bond slack at cabinet side
 vk_run_len_mm = 500          # DC-9, J2 trunk to V-K on the aft strip (schedule literal)
 
-# Donor-compressor nameplate winding-resistance reference range for the
-# dielectric / continuity check.
+# Donor-compressor nameplate readings: the winding-resistance reference range
+# for the dielectric / continuity check, and the power class the AC side is
+# sized against.
 winding_r_low_ohm = 10
 winding_r_high_ohm = 30
+compressor_class_w = 100
 
 
 def main():
@@ -79,8 +68,8 @@ def main():
         "LOGIC_V": f"{_sched_v_rail_logic:.4g} V",
         "MCU_V": f"{_sched_v_rail_io:.4g} V",
         # Run lengths.
-        "SHROUD_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
-        "SHROUD_FAN_OUT": f"~{_sched_len_short_mm:.4g} mm",
+        "COMP_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
+        "COMP_FAN_OUT": f"~{_sched_len_short_mm:.4g} mm",
         "AC1_LEN": f"~{_sched_len_mid_mm:.4g} mm",
         "AC2_LEN": f"~{_sched_len_short_2_mm:.4g} mm",
         "SIG_COLD_CORE_LEN": f"~{_sched_len_cold_core_mm:.4g} mm",
@@ -96,12 +85,10 @@ def main():
         "VK_RUN_LEN": f"~{vk_run_len_mm:.4g} mm",
         "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
         "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
-        # Shroud-side imports.
-        "SHROUD_SJOOW_AWG": f"{_shroud_ac_cable_awg:.4g} AWG",
-        "GLAND_LOW": f"{_shroud_gland_low_mm:.4g}",
-        "GLAND_HIGH": f"{_shroud_gland_high_mm:.4g} mm",
-        "GND_STUD_HOLE": f"{_shroud_gnd_hole_mm:.4g} mm",
-        "COMP_CLASS_W": f"{_shroud_compressor_class_w:.4g} W",
+        "COMP_CLASS_W": f"{compressor_class_w:.4g} W",
+        # The compressor lead's own gauge — a purchased cord, so the schedule
+        # carries it beside the loose-wire classes rather than as one of them.
+        "COMP_LEAD_AWG": f"{_sched_awg_compressor_lead:.4g} AWG",
     }
 
     substitute_md(
@@ -118,8 +105,8 @@ def main():
             "LOGIC_V": 2,
             "MCU_V": 1,
             "JST_PITCH": 2,
-            "SHROUD_LEAD_LEN": 1,
-            "SHROUD_FAN_OUT": 1,
+            "COMP_LEAD_LEN": 1,
+            "COMP_FAN_OUT": 1,
             "AC1_LEN": 1,
             "AC2_LEN": 1,
             "SIG_COLD_CORE_LEN": 2,
@@ -131,10 +118,7 @@ def main():
             "PULLUP_R": 1,
             "WINDING_R_LOW": 1,
             "WINDING_R_HIGH": 1,
-            "SHROUD_SJOOW_AWG": 4,
-            "GLAND_LOW": 1,
-            "GLAND_HIGH": 1,
-            "GND_STUD_HOLE": 1,
+            "COMP_LEAD_AWG": 4,
             "COMP_CLASS_W": 1,
         },
     )
