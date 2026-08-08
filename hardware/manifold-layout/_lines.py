@@ -229,8 +229,8 @@ def build_runs(placed, carries):
         runs.append(_water_3(F))
     if {"gasher-co2", "wr1110"} <= set(F):
         runs.append(_co2_1(F))
-    if {"wr1110", "foam-assembly", "seaflo-pump"} <= set(F):
-        runs.append(_co2_2(F))
+    if {"wr1110", "foam-assembly", "seaflo-pump"} <= set(F) and "vk-solenoid" in placed:
+        runs.append(_co2_2(F, placed))
     if {"flow-regulator", "valve-v-a"} <= set(F) and "coil-v-a" in placed:
         runs.append(_fluid_2(F, placed))
     if {"foam-assembly", "digiten-flow"} <= set(F):
@@ -397,6 +397,12 @@ def _water_6(F):
     struck from this same mouth's Z (`enclosure_assembly.build_discharge_chain`), so the two ends
     lie on one plane and the corner is flat.
 
+    THE STEP THIS RUN CAN TAKE IS ZERO, and it is what fixes the chain's own height. Its two legs
+    are 17.5 and 24 mm — the pump's casting to the chain's column, and `DISCH_CORNER_ROOM` — and
+    3/8" braided PVC seats `HOSE_BEND` of tangent in every leg it touches. A run with any fall in
+    it turns twice rather than once, and the diagonal between those two corners wants 2 ×
+    `HOSE_BEND` on its own, which is more than the whole lane holds.
+
     The waypoint is the corner itself: the chain's own column at the barb's own Y. What buys
     its arc is `DISCH_SPLIT_CLEAR` down one leg and `DISCH_CORNER_ROOM` down the other."""
     pump, chain = F["seaflo-pump"], F["discharge-chain"]
@@ -439,26 +445,33 @@ CO2_DECK_CLEAR = 10.0
 # in; the lean is one leg and its two corners share it.
 CO2_OUT_LEAD = 10.0
 CO2_CLIMB_REACH = 15.0
+# What the run leaves over the fill-A lane where the two cross, tube over tube. The band it
+# threads is narrow: `fluid-14` cruises under it and the hopper funnel's cone comes down over
+# it — the funnel spans the machine's whole width forward of y 251.6, which is where this run
+# turns east onto the bore's column. `clearance-floor` reads both sides.
+CO2_LANE_CLEAR = 2.0
 
 
-def _co2_2(F):
+def _co2_2(F, solids):
     """co2-2 — the regulator's outlet to the cold core's CO2 conduit, and the whole gas path
     inside the machine.
 
-    THE PAIR IT HAS TO CLEAR IS THE PUMP'S OWN. `water-7` crosses this lane at the pump's
-    suction and the suction chain lies forward of it, both between the regulator and the bore,
-    so the run leaves the outlet, leans up over the hose in one leg, and travels forward at that
-    storey with nothing under it. Then east onto the port lane's own column and straight down
-    into the bore.
+    IT CROSSES TWO LANES ON ITS WAY FORWARD and travels over both. `water-7` crosses this lane
+    at the pump's suction, aft; `fluid-14` cruises across it forward of that, on its own way to
+    reservoir A's fill bore. So the run leaves the outlet, leans up in one leg, and travels
+    forward at a storey neither reaches. Then east onto the port lane's own column and straight
+    down into the bore.
 
     The bore is the one window the +X flank leaves: the power block's column stands on the lid
     from the cap to the ceiling aft of it, and V-K's plate forward of it.
 
-    The storey it travels at is read off the hose it clears — the pump's own suction mouth plus
-    half the 3/8" section over it — so a move of the pump carries this run with it."""
+    Both readings that fix the storey are struck on the body under them — the hose off the barb
+    it leaves, the fill lane off V-K's crown — so a move of either carries this run with it. The
+    hose is cleared by `CO2_DECK_CLEAR` and the lane, tube over tube, by `CO2_LANE_CLEAR`."""
     out = F["wr1110"].at("outlet")
     bore = F["foam-assembly"].at("co2-in")
-    deck = (F["seaflo-pump"].at("suction")[2] + _suct.HOSE_OD / 2.0 + CO2_DECK_CLEAR)
+    deck = max(F["seaflo-pump"].at("suction")[2] + _suct.HOSE_OD / 2.0 + CO2_DECK_CLEAR,
+               _fill_a_cruise(solids) + _split.TUBE_D + CO2_LANE_CLEAR)
     return R.bent(
         "co2-2", "wr1110.outlet",
         (out[0], out[1] - CO2_OUT_LEAD - CO2_CLIMB_REACH, deck),   # the lean's far end
@@ -750,17 +763,21 @@ RESERVOIR_CRUISE = TUBE_BEND
 # The two ends of `fluid-24`'s crossing from the outboard lane to the bore's own column.
 #
 # THE WEST HALF IS OPEN AT THIS PLANE ONLY FORWARD OF `water-5`. Swept east from x −80 at the
-# cruise, the strip runs clear across the machine at every station up to y 190 and then shuts:
-# `water-5` stands at x −60.6 from y 195 to 220 on its way to the `water-in` bore, and the
-# discharge chain takes x[−64.5, −49] from y 223 aft. So the crossing is taken forward of both,
-# and what the run does aft of it is hold the bore's column, which is clear the machine's whole
-# depth.
+# cruise, the strip runs clear across the machine at every station up to y 185 and then shuts:
+# `water-5` crosses this plane at x[−60.1, −53.2] over y[185.7, 203.2] on its way down to the
+# `water-in` bore, and the discharge chain takes x[−64.5, −49] from y 223 aft. So the crossing
+# is taken forward of both, and what the run does aft of it is hold the bore's column, which is
+# clear the machine's whole depth.
+#   THAT BAND IS THE PUMP'S. `water-5` leaves the discharge chain's collet on the barb's own
+# storey (`seaflo_22_pump.PORT_Z` up the head) and slants down to a bore on the cap, so where it
+# stands in this plane is where that slant happens to be — a barb higher up the head is a
+# steeper slant standing further forward, and this crossing moves ahead of it.
 #   `FILL_B_JOIN_Y` is then fenced from the other side: `fluid-26` rises off the draw bore at
 # y 184 on this same column, so the join stands clear of that climb by more than the two lines'
 # own sections. `FILL_B_LEAN_Y` holds the gate's column long enough to make the crossing steep,
 # which is what buys that clearance.
 FILL_B_LEAN_Y = 170.0
-FILL_B_JOIN_Y = 194.0
+FILL_B_JOIN_Y = 192.0
 # What `fluid-14` clears on its way aft. The east lane carries V-K standing on the cap, and the
 # valve is the tallest thing between channel A's fill gate and reservoir A's own cap — so that
 # run crosses OVER it rather than threading the storey it stands in, and the plane is struck on
