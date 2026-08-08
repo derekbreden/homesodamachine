@@ -1613,21 +1613,34 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry, west_face):
 # two run collets stay on the chain's line and its third looks straight DOWN, at the storey the
 # pump and the manifold are on.
 SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
-# The straight between the chain's outlet collet and the split's supply collet — `water-2`,
-# which is one length of tube and no bend at all, because the two mouths face each other down
-# one line. A collet grips the tube all round, so what this has to be is enough tube for both
-# to take hold of.
-WATER_2 = 24.0
+# THE HOPPER'S BOWL IS THE FORWARD LANE'S CEILING. The chain crosses the wall on the panel deck
+# and the lane it hands the water to runs forward under that bowl, so the tap steps down out of
+# the deck between the chain and the split, in the open room aft of the hopper. Everything
+# forward of the split — the regulator, its tap and the tube down to the flavour gates — lies on
+# the storey this step lands on.
+#
+# `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
+# first moment the bowl exists to measure against: the box is sized around this pack and the
+# funnel is then set in its top.
+FLAVOR_STEP = 32.0
+# What the tap's own headroom under that bowl has to be.
+BOWL_CLEAR = 1.0
+# The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
+# mouths face each other down one column with the step between them, so what this has to be is
+# the run that step's two corners and the lean between them take.
+WATER_2 = 44.0
 
 
 def build_split(asse_carry):
-    """The split seated on its SUPPLY COLLET, one `WATER_2` forward of the chain's outlet.
+    """The split seated on its SUPPLY COLLET, one `WATER_2` forward of the chain's outlet and one
+    `FLAVOR_STEP` under it.
 
     A fitting answers to its mouth and not to a face of its box: what has to land in the right
     place is the collet the tube pushes into. Both are read off the chain's own outlet, so the
-    split rides the chain wherever the chain goes."""
+    split rides the chain wherever the chain goes, a storey below it."""
     out_pos, out_axis = asse_carry(_asse.port("tube-out"))
-    target = tuple(out_pos[i] + out_axis[i] * WATER_2 for i in range(3))
+    target = tuple(out_pos[i] + out_axis[i] * WATER_2 - (FLAVOR_STEP if i == 2 else 0.0)
+                   for i in range(3))
     return seat_body(_split.build(), SPLIT_TURN, seat="water-split",
                      station=(_split.supply(), target))
 
@@ -1641,14 +1654,15 @@ def build_split(asse_carry):
 # cold core's cap. `design-pressures.md` sets it once on the bench.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0))
 # The straight between the split's flavour collet and the regulator's inlet — `fluid-1`, which
-# has no corner in it for the same reason `water-2` has none.
+# has no corner in it because both mouths face each other down one line on one storey: the split
+# already took the step down out of the deck.
 FLUID_1 = 24.0
 
 
 def build_flowreg(split_carry):
     """The regulator seated on its INLET, one `FLUID_1` forward of the split's flavour collet
-    and on that collet's own line — so the tap runs ASSE, split, regulator down one axis and
-    every joint between them is a straight."""
+    and on that collet's own line — so the tap runs split, regulator down one axis under the
+    hopper's bowl, and the joint between them is a straight."""
     pos, axis = split_carry(_split.to_flavor())
     target = tuple(pos[i] + axis[i] * FLUID_1 for i in range(3))
     return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
@@ -1693,15 +1707,17 @@ def build_vk(chain_carry):
 
 # --- what carries the tray, and the slot it draws out through --------------
 #
-# The rail's own section, and the stop's.
+# The rail's own section, the stop's, and the section of the lap that closes each rail into a
+# channel.
 DRIP_RAIL_H = 3.0
 DRIP_STOP_T = 3.0
+DRIP_LIP_T = 2.0
 
 
 def pan_rails(pan, west_face):
     """The tray's carry, as world boxes fused onto the −X wall's inner face
-    (`enclosure._pan_rails`): a rail under each of the rim's outer bands, and the stop the tray
-    comes to rest against.
+    (`enclosure._pan_rails`): a CHANNEL under each of the rim's outer bands, and the stop the
+    tray comes to rest against.
 
     THE RAILS TAKE THE RIM, and nothing reaches under the floor. Each rail's top face IS the
     flange's underside, and each RUNS FROM THE WALL — its root, and the only thing it is fused
@@ -1713,28 +1729,35 @@ def pan_rails(pan, west_face):
     the haunch, and the two inboard arrises take the tray's two 45° haunches and hold it on its
     column.
 
+    EACH RAIL CLOSES OVER THE RIM. An upright stands in the daylight outboard of the flange —
+    the strip the tray's own edge leaves against the lane — and carries a lap back inboard over
+    the same band the rail bears on, one `drip_pan.PAN_SLIP` clear of the flange's top. So the
+    rim runs in a channel: the rail under it, the upright beside it and the lap over it. The
+    tray goes in and comes out the one way the channel is open, which is west through the wall's
+    own slot, and what it cannot do is lift out of its carry.
+
     THE STOP RUNS UNDER THE RIM, in the pocket the flange overhangs its basin by, and it
     catches the HAUNCH — the outermost face the tray presents below its rim, one
-    `drip_pan.PAN_SLIP` off the bar's own.
-
-    East of the rim there is nowhere to stand. The pump's casting steps west over this lane and
-    reaches x −35.0 against a rim edge at −35.5, so the half millimetre between them is all
-    there is, and it closes across exactly the span a stop has to bridge. What a bar needs is
-    BOTH RAILS: it is fused to the −X wall through them and through nothing else, so a bar that
-    does not reach them is a solid hanging in the air 73 mm from its only root. The three
-    members make one U, and the pocket under the flange is where that U closes.
-
-    So the bar runs the rim's whole length. The rim rides over it the way it rides the rails,
-    and its plan arcs carry the tray away from it at both ends — `CORNER_R` plus the flange
-    rounds the rim, plus the haunch rounds the section beneath, so the corners are clear and the
-    straight between them is what butts."""
+    `drip_pan.PAN_SLIP` off the bar's own. It runs the rim's whole length, reaching both rails,
+    which are what it is fused to the wall through. The rim rides over it the way it rides the
+    rails, and its plan arcs carry the tray away from it at both ends — `CORNER_R` plus the
+    flange rounds the rim, plus the haunch rounds the section beneath, so the corners are clear
+    and the straight between them is what butts."""
     top = pan.zmax - _pan.FLANGE_T              # the flange's underside — the bearing plane
     band = _pan.bearing_w()
     toe = pan.xmax - _pan.FLANGE_W + _pan.FLANGE_HAUNCH     # the haunch's outermost face
     stop_x = toe + _pan.PAN_SLIP
-    return [(west_face, pan.xmax, pan.ymin, pan.ymin + band, top - DRIP_RAIL_H, top),
-            (west_face, pan.xmax, pan.ymax - band, pan.ymax, top - DRIP_RAIL_H, top),
-            (stop_x, stop_x + DRIP_STOP_T, pan.ymin, pan.ymax, top - DRIP_RAIL_H, top)]
+    lap0 = pan.zmax + _pan.PAN_SLIP             # the lap's underside, one slip over the rim
+    lap1 = lap0 + DRIP_LIP_T
+    members = [(stop_x, stop_x + DRIP_STOP_T, pan.ymin, pan.ymax, top - DRIP_RAIL_H, top)]
+    for edge, out in ((pan.ymin, -1.0), (pan.ymax, 1.0)):
+        rail = sorted((edge, edge - out * band))            # inboard, under the flange
+        upright = sorted((edge, edge + out * DRIP_LIP_T))   # outboard, beside it
+        members += [(west_face, pan.xmax, *rail, top - DRIP_RAIL_H, top),
+                    (west_face, pan.xmax, *upright, top - DRIP_RAIL_H, lap1),
+                    (west_face, pan.xmax, min(rail[0], upright[0]),
+                     max(rail[1], upright[1]), lap0, lap1)]
+    return members
 
 
 def west_wall_ports(pan):

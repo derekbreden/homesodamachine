@@ -342,24 +342,40 @@ def _water_4(F):
 def _fluid_1(F):
     """fluid-1 — the flavour tap off the split, into the regulator that throttles it.
 
-    The same straight `water-2` is, one fitting further down the lane: the split's flavour
-    collet fires forward and the regulator's inlet faces it on that collet's own line, so the
-    run is the tube between two mouths and nothing about it turns."""
+    The tube between two mouths and nothing about it turns: the split's flavour collet fires
+    forward and the regulator's inlet faces it on that collet's own line, both on the storey the
+    hopper's bowl leaves the lane."""
     return R.bent(
         "fluid-1", "water-split.to-flavor", "flow-regulator.inlet",
         kind="fluid", note="flavor tap: split run → flow regulator, straight down the lane")
 
 
-def _water_2(F):
-    """water-2 — the ASSE 1022's outlet to the split's supply, and it is ONE LENGTH OF TUBE.
+# What each collet on the step gets straight off its own axis before `water-2` starts to lean —
+# the stub a push-to-connect grips, taken out of the reach `enclosure_assembly.WATER_2` gives.
+WATER_2_LEAD = 6.0
 
-    The chain hands the water over facing forward down the west lane and the split's own run axis
-    IS that lane, so the two collets face each other on one line with nothing between them to turn
-    around. `enclosure_assembly.WATER_2` is the gap, and a gap between two collets facing down one
-    axis seats no arc — what it has to be is enough tube for both to take hold of."""
+
+def _water_2(F):
+    """water-2 — the ASSE 1022's outlet to the split's supply, and the tap's whole step off the
+    panel deck.
+
+    ONE LEAN IN THE OPEN ROOM AFT OF THE HOPPER. The chain hands the water over facing forward
+    down the west lane and the split's own run axis IS that lane, a storey lower — so the two
+    collets face each other down one column with `enclosure_assembly.FLAVOR_STEP` between them.
+    The run leaves and enters on-axis off its own `WATER_2_LEAD` stubs and takes the whole fall
+    in the leg between, which lies in the room the bowl stops short of.
+
+    The waypoint is the middle of that lean: the column both collets stand on, half the step down
+    at half the reach, so each corner turns the same angle."""
+    src = F["asse1022-assembly"].at("tube-out")
+    dst = F["water-split"].at("supply")
     return R.bent(
-        "water-2", "asse1022-assembly.tube-out", "water-split.supply",
-        kind="water", note="tap water: ASSE outlet → split supply, one straight down the lane")
+        "water-2", "asse1022-assembly.tube-out",
+        (dst[0], (src[1] + dst[1]) / 2.0, (src[2] + dst[2]) / 2.0),
+        "water-split.supply",
+        kind="water", bend=TUBE_BEND, lead=WATER_2_LEAD,
+        note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
+             "hopper's bowl leaves")
 
 
 def _water_7(F):
