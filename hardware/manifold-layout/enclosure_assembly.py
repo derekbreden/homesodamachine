@@ -696,6 +696,45 @@ def check_refrigerant_joints(joints) -> Bound:
               f"or draw the run between them."])))
 
 
+MOUNT_TOL = 0.001
+
+
+def pump_mount_rows(foam_carry, seaflo_carry) -> list:
+    """Each of the pump's four mounting bores against the cap column bored for it, as
+    `(has, wants)` in the cap's own frame.
+
+    `wants` is the bore taken through the pump's placement and back into the cap's frame;
+    `has` is the station `_cold_core_interface.deck_mounts` prints. Both are re-derived off the
+    placed pump at every build, the same way the valve cradles are, because the pump is stood on
+    the core's crown by this module and the column is printed by a part that never sees it."""
+    printed = sorted(_cci.deck_mount_xy("seaflo-pump"))
+    wanted = sorted(cap_xy(foam_carry, seaflo_carry(
+        ((hx, hy, _lines._pump.mount_seat_z()), (0.0, 0.0, 1.0)))[0][:2])
+        for hx, hy in _lines._pump.mount_holes())
+    return list(zip(printed, wanted))
+
+
+def check_pump_mount(rows) -> Bound:
+    """Whether every column the cap bores stands under the bore it takes a screw through.
+
+    The detail is the row `_cold_core_interface.deck_mounts` should carry, so a pump that has
+    moved corrects the cap from the machine rather than being guessed at."""
+    off = max((max(abs(h[0] - w[0]), abs(h[1] - w[1])) for h, w in rows), default=None)
+    xs = sorted({round(w[0], 4) for _h, w in rows})
+    ys = sorted({round(w[1], 4) for _h, w in rows})
+    return record_bound(Bound(
+        "pump-mount-lands", "Every cap column the water pump bolts to is under its own bore",
+        bool(rows) and off is not None and off <= MOUNT_TOL,
+        "no column bored" if not rows else f"{len(rows)} columns, furthest off {off:.3f} mm",
+        f"every column within {MOUNT_TOL:g} mm of the bore over it",
+        ([] if rows and off is not None and off <= MOUNT_TOL else [
+            "the cold core's cap bores the columns the pump's bracket bolts down into, and the "
+            "pump is stood on that cap by this module — so the cap follows the machine. This is "
+            "the row `_cold_core_interface.deck_mounts` should carry:",
+            f'    "seaflo-pump": DeckMount(({(xs[0]+xs[-1])/2:.2f}, {(ys[0]+ys[-1])/2:.2f}), '
+            f'{xs[-1]-xs[0]:.2f}, {ys[-1]-ys[0]:.2f},   0.0,  8.50, 16.0),'])))
+
+
 def cap_conduit(name: str):
     """One of the cold core's cap conduits as a station in the CORE'S OWN frame:
     `((x, y, z), outward axis)`.
@@ -1554,8 +1593,9 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry, west_face):
     # the two this module states about where the basin stands.
     record_bound(Bound(*_pan.check_plate()))
     floor = pan_floor(asse)
-    placed, carry = seat_body(pan, (), seat="drip-pan", x1=pan_east_x(seaflo, floor),
-                              y0=pan_front_y(seaflo_carry), z0=floor)
+    front = pan_front_y(seaflo_carry)
+    placed, carry = seat_body(pan, (), seat="drip-pan",
+                              x1=pan_east_x(seaflo, floor, front), y0=front, z0=floor)
     check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
     check_pan_lane(placed, west_face)
     return placed, carry
@@ -1876,6 +1916,10 @@ def build_pack() -> cq.Assembly:
     a.cradles = cradle_rows(foam, foam_carry,
                             {**{n: s for n, s, _c in stood}, "vk-solenoid": vk})
     check_cradles(a.cradles)
+    # The pump's own joint, read the same way: the four cap columns against the four bores in
+    # the bracket's pad, both taken back into the frame the cap is authored in.
+    a.pump_mount = pump_mount_rows(foam_carry, seaflo_carry)
+    check_pump_mount(a.pump_mount)
     c14, _c14_carry = build_c14()
     a.add(c14, name="c14-inlet", color=C_C14)
     co2in, co2in_carry = build_co2_inlet()
