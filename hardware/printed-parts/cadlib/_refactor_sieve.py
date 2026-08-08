@@ -31,9 +31,13 @@ Six complementary checks:
 6. BYTE-HASHED STEPS: SHA256-compare frozen STEP outputs; bytes must
    match exactly. Spans the cold-core single parts (foam, copper,
    coil-mandrel, prv-shroud), the flavor parts (cap-sense sleeves,
-   peristaltic tube), every valve-manifold tray and its named assembly,
-   and the reference STEPs (beduan solenoid, JG bulkhead union,
-   water-test cup, valve body, CO2 coupling, faucet assembly).
+   peristaltic tube), the single tray and the two-valve tray with its
+   named assembly, and the reference STEPs (beduan solenoid, JG bulkhead
+   union, water-test cup, valve body, faucet assembly).
+
+   `single-valve-tray`'s two STEPs are outside the set: the cap prints
+   the cell `single_tray` cuts, so what the machine carries is the tray
+   that cell comes from. `capture` is what widens the set.
 
 Module also exposes _solid_invariants(wp) + _compare_invariants(...) at
 top level — volume + sorted bbox spans + sorted |COM| coords, compared
