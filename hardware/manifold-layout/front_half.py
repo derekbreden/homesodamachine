@@ -390,8 +390,9 @@ def cap_face(foam):
 # Several constructions in this module measure a bound the MACHINE STATES rather than a bound
 # its own construction meets: every printed valve cradle stands under its valve, every leg of
 # the refrigerant loop closes, the vent's drip lands on the basin's flat
-# floor, the basin's west lip lands inside the −X wall, and a body seated through a wall stands
-# under the box's own ceiling. `enclosure` states more of them about the box it draws and keeps
+# floor, the basin's west lip lands inside the −X wall, the power column stands in the depth the
+# +X wall runs free, and a body seated through a wall stands under the box's own ceiling.
+# `enclosure` states more of them about the box it draws and keeps
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.
 #
@@ -1138,26 +1139,29 @@ _ROUTED: set = set()
 
 # --- the +X wall's own seat ------------------------------------------------
 #
-# The plane a body hung on the east wall stands its outer face on: one `enclosure.boss_in`
-# inboard of the interior face the STATED `appliance_width` opens, which is the same station
-# every piece of ±X wall furniture caps at. The Y seam's socket pods and both Z seams' own
-# cross-pin posts are built to `enclosure._boss_x`'s cap and each runs its piece's full height,
-# so that one plane is the inboard face of the whole rail: a body seated on it stands BESIDE the
-# rail rather than having to dodge it fore and aft, and it is the plane its own mounting bosses
-# reach out to. The band the rail leaves is `enclosure.side_rib_inset`, the same 14 mm, which is
-# why a body on this flank is in line with the refrigeration stratum on the floor.
+# The power column hangs ON the +X wall, not off it. Its seat is one `enclosure.mount_boss_out`
+# inboard of the interior face the STATED `appliance_width` opens — the length of an M3
+# heat-set and the air past the screw tip, and nothing else, because that is the whole of what
+# a boss carrying a body has to be. The wall's inner face is what caps the bore's blind end.
+#
+# The seam's own furniture caps a whole `enclosure.boss_in` further inboard, so a body seated
+# here stands INSIDE the band the rail's columns occupy. It gets away with that because those
+# columns stand only where the seam puts them: the Y-seam corner column at one end and the
+# rear wall's cross-pin column at the other, with the wall's own air between. That free depth
+# is `enclosure.east_band_free_y`, and every body on this flank is placed inside it — which is
+# what `PSU_REAR_CLEAR` closes the column's aft end on.
 #
 # Read off the wall and not off the pack, so a body here can be seated before the box that
 # carries it has been sized, and nothing arriving on the floor moves it afterwards.
 
 def east_wall_seat():
-    """The plane a body hung on the east wall stands its outer face on: where the +X boss
-    band ENDS, one `enclosure.boss_in` inboard of the stated wall.
+    """The plane a body hung on the east wall stands its outer face on: one
+    `enclosure.mount_boss_out` inboard of the stated wall, which is its own boss and no more.
 
-    Read off the wall and not off whichever body is widest on the floor. The band is built
-    on the wall, so a body that seats on the band's own end seats on the band whatever else
-    is packed beside it — and a narrower body arriving on the floor moves neither."""
-    return _enc.interior_x()[1] - _enc.boss_in
+    Read off the wall and not off whichever body is widest on the floor. The boss is built on
+    the wall, so a body that seats on the boss's own tip seats on the wall whatever else is
+    packed beside it — and a narrower body arriving on the floor moves neither."""
+    return _enc.interior_x()[1] - _enc.mount_boss_out
 
 
 def floor_mounts(*mounted):
@@ -1187,9 +1191,11 @@ def west_interior_face():
 # height and lays its 33.5 mm depth across the machine, so only that much of the lane reaches
 # inboard and its 109 mm long axis runs fore and aft down the flank.
 PSU_TURN = (((0.0, 1.0, 0.0), -90.0),)
-# What the brick stands off the rear seam: the back wall's own standoff, and a clearance floor
-# past it. Its AC end reaches into the Y band the rear cross-pin post holds on this flank, which
-# is no fence — that post caps on the wall seat, so the two meet face to face on one plane.
+# What the brick stands off the rear wall's cross-pin column, which is where the free depth on
+# this flank ENDS: standing on the wall, the whole power block is inside that column's own band,
+# so the column is the aft face the block closes on and not the rear seam behind it. The brick
+# is the body that sets the figure — its AC screw block is on this end, and a hand landing two
+# ferrules on it needs the gap to be a gap.
 PSU_REAR_CLEAR = 6.0
 
 
@@ -1197,11 +1203,11 @@ def build_psu(foam, wall_seat):
     """The MeanWell brick on the +X wall, standing on the cold core's cap.
 
     Three faces of the machine and not three numbers: EAST on the wall seat, AFT one
-    `PSU_REAR_CLEAR` ahead of the rear seam's standoff, FOOT on the cap's own lid. The lane it
-    lies in is what the SeaFlo leaves east of itself on that cap."""
+    `PSU_REAR_CLEAR` ahead of where `enclosure.east_band_free_y` ends, FOOT on the cap's own
+    lid. The lane it lies in is what the SeaFlo leaves east of itself on that cap."""
     return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
-                     y1=_enc.rear_plane_y - _enc.rear_seam_clear - PSU_REAR_CLEAR,
+                     y1=_enc.east_band_free_y()[1] - PSU_REAR_CLEAR,
                      z0=cap_face(foam))
 
 
@@ -1220,17 +1226,18 @@ PCBA_PSU_CLEAR = 6.0
 def build_pcba(foam, psu, wall_seat):
     """The controller board on the +X wall, forward of the brick on the same cap.
 
-    EAST on the same wall seat the brick takes, so the two stand in one plane and the boss band
-    holds them both; AFT one `PCBA_PSU_CLEAR` ahead of the brick's own front face; FOOT on the
-    cap. What holds it is the pcba-tray, which is not placed — this is the board's envelope."""
+    EAST on the same wall seat the brick takes, so the two stand in one plane and one length of
+    boss holds them both; AFT one `PCBA_PSU_CLEAR` ahead of the brick's own front face; FOOT on
+    the cap. What holds it is the pcba-tray, which is not placed — this is the board's
+    envelope."""
     return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
                      x1=wall_seat, y1=box(psu).ymin - PCBA_PSU_CLEAR, z0=cap_face(foam))
 
 
 # The rest of the power block on the brick's crown: the relay aft-flush with the brick, the AC hub
 # on the relay's crown, and the ground stud on the relay's own floor one clearance forward of it.
-# Each takes the same wall seat as its east face, so the whole group stands on the plane the
-# rail's posts, pods and plugs cap at rather than inside the band they hold.
+# Each takes the same wall seat as its east face, so the whole group stands on one plane against
+# the wall, in the depth `enclosure.east_band_free_y` leaves between the seam's two columns.
 #
 # Each turn lays the body's own long axis fore and aft down the flank and its board or wells
 # facing INBOARD — the face a screwdriver reaches, and the face a boss would land on.
@@ -1279,7 +1286,10 @@ def build_stack(psu, wall_seat):
 #
 # The pattern is READ OFF EACH MODULE and carried through that module's own placement. A body
 # that moves takes its bosses with it, and a boss cannot land on a column the part has no hole
-# in.
+# in. It takes its bosses' LENGTH with it too: the shaft runs from the body's own mounting
+# plane out to the wall, so seating the body on the wall is what makes the boss short — there
+# is no separate number to keep in step, and a body left standing off the wall would print
+# itself the stilt it stood on.
 
 def wall_mounts(*mounted):
     """The +X wall's boss stations, as `(y, z, tip)`.
@@ -1294,6 +1304,38 @@ def wall_mounts(*mounted):
             pos, _axis = carry(((hx, hy, 0.0), (0.0, 0.0, 1.0)))
             out.append((pos[1], pos[2], pos[0]))
     return tuple(out)
+
+
+def check_east_band(seated) -> Bound:
+    """Every body hung on the +X wall stands inside the depth that wall runs free.
+
+    Standing ON the wall puts a body INSIDE the ±X boss-chain band, which is the whole of what
+    `east_wall_seat` buys and the whole of what it costs: the band is free air only between the
+    Y-seam corner column and the rear wall's cross-pin column, and either one fills it floor to
+    ceiling. `enclosure.east_band_free_y` is where they leave off.
+
+    `pack-closes` would report a body past either end as a clash against a printed piece, once
+    the piece exists. This says which body left the lane and by how much, off planes the box
+    states before it is drawn — so the answer is the same whether or not the walls are on."""
+    y0, y1 = _enc.east_band_free_y()
+    out = []
+    for name, solid in seated:
+        b = box(solid)
+        if b.ymin < y0 - 1e-9:
+            out.append((name, "forward of", y0 - b.ymin))
+        if b.ymax > y1 + 1e-9:
+            out.append((name, "aft of", b.ymax - y1))
+    fore = min((box(s).ymin for _n, s in seated), default=y0)
+    aft = max((box(s).ymax for _n, s in seated), default=y1)
+    return record_bound(Bound(
+        "east-band", "The +X wall's column stands in the depth that wall runs free", not out,
+        f"column spans y {fore:.2f}..{aft:.2f}, band {y0:.2f}..{y1:.2f}",
+        f"inside y {y0:.2f}..{y1:.2f}",
+        ([] if not out else [
+            f"{n} reaches {much:.2f} mm {where} the free depth — the seam's own column stands "
+            f"there floor to ceiling, so a body on the wall meets it. Move the column along "
+            f"the flank, or seat that body back on `enclosure.boss_in` and let it stand off "
+            f"the wall instead" for n, where, much in sorted(out, key=lambda r: -r[2])])))
 
 
 # --- the tap-water sequence, in the west lane ------------------------------
@@ -1756,6 +1798,7 @@ def build_pack() -> cq.Assembly:
     for name, solid, colour, _carry in stack:
         a.add(solid, name=name, color=colour)
     stack_carry = {name: carry for name, _s, _c, carry in stack}
+    check_east_band([("psu", psu), ("pcba", pcba)] + [(n, s) for n, s, _c, _k in stack])
     # The compressor is the one body on the floor that is bolted DOWN to it, so its four
     # holes are the slab's own boss stations.
     a.floor_bosses = floor_mounts(
