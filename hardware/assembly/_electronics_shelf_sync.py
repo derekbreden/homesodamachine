@@ -13,6 +13,12 @@ sys.path.insert(
 )
 from docgen import substitute_md
 
+_hw = next(p for p in _here.parents if p.name == "hardware")
+sys.path.insert(0, str(_hw / "printed-parts" / "electronics" / "pcba-tray"))
+sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
+
+import pcba_tray as _pcba  # noqa: E402  — the board outline the tray is built around
+
 # Import from the AC schedule's sync driver — the schedule owns the
 # AC-4/5/6 SJOOW lead length. The lead is built and landed at
 # wiring.md §2; the shelf only leaves its landings open.
@@ -50,6 +56,11 @@ wago_count = 3
 
 def main():
     variables = {
+        # The board itself, off the outline `pcba_tray` reads out of the board file —
+        # the same rectangle `front_half` places on the shelf and stands its wall
+        # bosses under. The gerber plot frames it half an edge-cut aperture wider on
+        # each side; this is the board that gets cut and the board that gets mounted.
+        "PCBA_SIZE": f"{_pcba.board.length:.4g} × {_pcba.board.width:.4g} mm",
         # Board pins.
         "RELAY_COMPRESSOR_GPIO": f"IO{relay_compressor_gpio:.4g}",
         "RELAY_DIAPHRAGM_GPIO": f"IO{relay_diaphragm_gpio:.4g}",
@@ -71,6 +82,7 @@ def main():
         _here / "electronics-shelf.md",
         variables=variables,
         expected_counts={
+            "PCBA_SIZE": 1,
             "RELAY_COMPRESSOR_GPIO": 1,
             "RELAY_DIAPHRAGM_GPIO": 1,
             "PSU_POWER": 1,

@@ -114,7 +114,7 @@ The bench-built shelf's five bodies stand against the **+X wall**, and their fee
 
 The column, aft to fore:
 
-- **Mean Well IRM-90-12ST PSU** — lying on its side against the wall so only its 33.5 mm depth reaches into the lane and its 109 mm long axis runs fore and aft. Its aft face stands just clear of the rear seam, under the C14 inlet's own column.
+- **Mean Well IRM-90-12ST PSU** — lying on its side against the wall so only its [33.5 mm](PSU_DEPTH) depth reaches into the lane and its [109 mm](PSU_LENGTH) long axis runs fore and aft. Its aft face stands just clear of the rear seam, under the C14 inlet's own column.
 - **Teyleten relay #1** and the **AC hub** (three Wagos in one printed carrier) stack on the brick's crown, aft-flush with it, each with a clearance floor over the one below. The **ground ring-terminal stack** stands on the relay's own floor, one clearance forward of the frontmost face the pair presents.
 - **Controller PCBA** forward of the brick on the same seat, its long edge fore and aft down the flank so only its thickness and components reach inboard. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads.
 
