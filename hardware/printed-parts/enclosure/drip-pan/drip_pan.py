@@ -14,19 +14,22 @@ the walls are the outline itself, the flange is the outline plus `FLANGE_W`, and
 the cavity is the outline less `WALL`. A corner is the same corner at every height,
 so a hand runs down one arris from the rim to the floor.
 
-The column reads down from the chain: `VENT_GAP` of air under its underside, then
-the basin, and under the basin nothing but the air it needs over the SeaFlo's
-crown. `_contents.drip_pan_seat` is the plane the basin's own floor reaches.
+The column reads UP from the pump: the basin's own floor takes its air over the
+SeaFlo's BRACKET — the feet's top face, the widest section the casting has and the
+one the tray rides over — then the basin, then `VENT_GAP` of air under the chain's
+underside. `front_half.pan_floor` is the plane the basin's own floor reaches, and
+`front_half.build_asse` hangs the chain off that plane rather than the other way
+round.
 
 NOTHING STANDS UNDER THE FLOOR. The basin lies over the casting, so section
 beneath it is height the basin pays for twice — once to clear the pump and again
 to carry the load. So the carry takes hold of the RIM instead: the flange's flat
-underside is the bearing face, `_contents.drip_pan_rails` stands a rail pair under
+underside is the bearing face, `front_half.pan_rails` stands a rail pair under
 it off the west wall, and the floor is left free at its own clearance over the
-crown. Nothing under the floor, so nothing under the floor to pay for.
+bracket. Nothing under the floor, so nothing under the floor to pay for.
 
 Frame: +X long axis (the withdrawal direction — the tray draws WEST through
-`_contents.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
+`front_half.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
 lower-front-left outer corner of the WALLS, so the flange reaches −`FLANGE_W` of
 it on both plan axes. Open top (+Z).
 
@@ -35,6 +38,7 @@ Run:
 """
 
 import sys
+from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
@@ -58,7 +62,7 @@ import shutao_moisture_plate as plate
 # the basin needs. So the width is the LANE, and the floor the moisture plate needs is
 # what the lane has to leave: the plate turned down the depth wants
 # `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width, and
-# `check_plate()` refuses a basin that gives back more than that.
+# `check_plate()` reports a basin that gives back more than that.
 #
 # THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs
 # off the pump's own casting at one clearance (`front_half.pan_east_x`) and its west lip has
@@ -149,28 +153,44 @@ def bearing_w():
     return FLANGE_W - FLANGE_HAUNCH - PAN_SLIP
 
 
-def check_plate():
-    """Raises unless the flat floor takes the plate with its slip on every side. The
+# --- the bound this basin states --------------------------------------------
+#
+# The floor taking the moisture plate is a BOUND the basin states about itself, measured at
+# every build off the plate's own model.
+#
+# A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
+# elevations and the scorecard a run writes. So it does not stop the build: `check_plate` hands
+# back a `Bound` whether it holds or not, THE BASIN COMES OUT AT ITS STATED SIZE — too small for
+# the plate that overran it — and `front_half.build_pan` enters the reading in that module's own
+# ledger, where `_scorecard` renders it as the `plate-lies-flat` gate row carrying the message
+# written here. A raise would have destroyed every artifact a reader could see the fault in.
+Bound = namedtuple("Bound", "id label ok value target detail")
+
+
+def check_plate() -> Bound:
+    """Whether the flat floor takes the plate with its slip on every side. The
     plate lies turned — its long edge down the basin's Y — so the width it asks of the
     basin comes out of the axis the strip has to give. A plate wider than the flat
     rides up on the coves instead of lying down, and the water has to stand that much
     deeper before it reads."""
     fx, fy = flat_floor()
     need_x, need_y = PLATE_Y + 2 * PLATE_SLIP, PLATE_X + 2 * PLATE_SLIP
-    if fx < need_x or fy < need_y:
-        raise ValueError(
+    ok = fx >= need_x and fy >= need_y
+    return Bound(
+        "plate-lies-flat", "The moisture plate lies flat on the basin's floor", ok,
+        f"flat floor {fx:.2f} x {fy:.2f}", f"{need_x:.2f} x {need_y:.2f}",
+        ([] if ok else [
             f"drip-pan floor {fx:.2f} x {fy:.2f} flat inside the r{FLOOR_COVE:g} coves; "
             f"the {PLATE_X:g} x {PLATE_Y:g} plate turned down the depth, with "
             f"{PLATE_SLIP:g} slip a side, needs {need_x:.2f} x {need_y:.2f}. Grow PAN_Y, "
             f"shrink FLOOR_COVE, or move the SeaFlo forward — the strip behind it is "
-            f"what PAN_Y comes out of.")
+            f"what PAN_Y comes out of."]))
 
 
 def build():
     """The one plan outline at four offsets: shell, rim flange and haunch fused, then the
     cavity cut back out of the lot — cut LAST, so the flange that laps the rim does not
     roof the basin it belongs to."""
-    check_plate()
     # Floor slab and walls together, on the outline itself. One prism, so the base cannot
     # take a radius of its own.
     outer = _rounded_prism(PAN_X, PAN_Y, PAN_Z, CORNER_R)
@@ -216,6 +236,11 @@ def main():
     fx, fy = flat_floor()
     print(f"  Flat floor {fx:g} x {fy:g} inside the coves — "
           f"plate {PLATE_X:g} x {PLATE_Y:g} with {PLATE_SLIP:g} slip a side")
+    plate_bound = check_plate()
+    print(f"  {'✓' if plate_bound.ok else '✗'} {plate_bound.label}: "
+          f"{plate_bound.value}, wants {plate_bound.target}")
+    for line in plate_bound.detail:
+        print(f"      {line}")
     print(f"  Rim flange {FLANGE_W:g} all four ways at z {flange_z():g} — "
           f"{PAN_X + 2 * FLANGE_W:g} x {PAN_Y + 2 * FLANGE_W:g} over the rim, "
           f"r{CORNER_R + FLANGE_W:g}, {bearing_w():.2f} of flat bearing a side")
