@@ -1860,8 +1860,11 @@ def main(argv: list) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("snapshot", help="the world a scan reads, and where it is cached")
     p.add_argument("--reload", action="store_true")
+    sub.add_parser("runs", help="every authored run through the reader, tightest first")
     p = sub.add_parser("lanes", help="every corridor between a run's two mouths, ranked")
     p.add_argument("run")
+    p.add_argument("--sweep", action="store_true",
+                   help="walk the floor down until a lane appears — the room the corridor has")
     p.add_argument("--top", type=int, default=6)
     p.add_argument("--floor", type=float, default=FLOOR)
     p.add_argument("--cap", type=int, default=LATTICE_CAP)
@@ -1894,8 +1897,28 @@ def main(argv: list) -> int:
               f"z[{c[4]:.1f}, {c[5]:.1f}]")
         print(f"cached at {_cache_path()}")
         return 0
+    if args.cmd == "runs":
+        snap = snapshot()
+        print(f"{'run':<10} {'ends':>6} {'path':>7} {'bend':>4} {'detour':>6} {'margin':>7}   "
+              f"nearest")
+        for margin, rid in sorted((authored(r).margin, r) for r in snap["runs"]):
+            a = authored(rid)
+            print(f"{rid:<10} {a.span:6.1f} {a.drawn:7.1f} {a.bends:4d} "
+                  f"{a.drawn / a.span:6.3f} {margin:7.3f}   "
+                  + ", ".join(f"{n} {g:.2f}" for g, n in a.near[:3]))
+        return 0
     if args.cmd == "lanes":
         drawn = authored(args.run, floor=args.floor)
+        if args.sweep:
+            print(f"{args.run}: ends {drawn.span:.1f} mm apart, drawn {drawn.drawn:.1f} mm at "
+                  f"{drawn.margin:.3f} mm — the floors a lane is found at")
+            for f in (4.0, 3.0, 2.0, 1.5, 1.0, 0.8, 0.6, 0.4, 0.2):
+                got = lanes(args.run, top=1, floor=f, cap=args.cap, region=args.region)
+                print(f"  floor {f:4.2f}  " + (f"{len(got)} lane: {got[0].path:7.1f} mm, "
+                                               f"{got[0].bends} bends, margin "
+                                               f"{got[0].margin:.3f}   {got[0].vector()}"
+                                               if got else "none"))
+            return 0
         got = lanes(args.run, top=args.top, floor=args.floor, cap=args.cap,
                     region=args.region)
         lat = getattr(got[0], "lattice", None) if got else None
