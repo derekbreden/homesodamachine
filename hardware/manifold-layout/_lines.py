@@ -694,6 +694,16 @@ GATE_A_DECK_Y = 264.0
 # to make the leg.
 GATE_B_DECK_Y = 340.0
 GATE_B_CROSS_Y = 380.0
+# EAST the line has the machine to cross, because its union stands in the WEST pair. The crossing
+# is taken fore of the pump, on the one strip that is clear wall to wall there: under it the
+# manifold's own crossings fill the band — `fluid-2` and `fluid-4` reach z 294 across the middle
+# — and over it `fluid-14` and `co2-2` take the room. Re-read it by sweeping the strip:
+#
+#     w.hits(probe.box(x=(-50, 90), y=(258, 270), z=(z, z + 6)))
+GATE_A_CROSS_Z = 303.0
+# Where the line has come down onto its union's own storey: forward of the drip tray, whose
+# channel takes that column from y 346 aft.
+GATE_A_FALL_Y = 340.0
 
 
 def gate_cruise(v_i_outlet_z: float) -> float:
@@ -752,26 +762,30 @@ def _fluid_18(F, solids):
     """fluid-18 — the nozzle-A gate to its rear union, and the line the manifold sends out of the
     machine on the EAST side.
 
-    THE SAME FOUR MOVES AS ITS TWIN AND ONE MORE, because the east flank is deeper. V-G-O faces
-    up under the same bowl behind the same kind of stub, and the outboard lane is the same strip;
-    but the union it ends on stands west of centre — the +X end of the wall is the C14's — so
-    where `fluid-28` closes on its own column this one crosses the deck first.
+    THE SAME FOUR MOVES AS ITS TWIN AND TWO MORE, because its union stands in the WEST pair and
+    this gate is on the east flank. V-G-O faces up under the same bowl behind the same kind of
+    stub, and the outboard lane is the same strip; but where `fluid-28` closes on a column three
+    fittings away, this one has the machine to cross.
 
-    The deck it crosses is the room over the pump's crown: the hopper stops short of it forward,
-    the power block stands below it aft, and between the two there is nothing in it at all."""
+    IT CROSSES FORE OF THE PUMP AND FALLS BEHIND IT. The lean carries it past the manifold's own
+    crossings to `GATE_A_CROSS_Z`, it takes the strip west onto its union's column, and then it
+    comes down that column to the union's storey — forward of the drip tray, which takes the same
+    column from its own front rim aft."""
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
     climb = _gate_climb_under_cruise(F)
     return R.bent(
         "fluid-18", "valve-v-g.outlet",
-        (gate[0], gate[1], climb),                  # up what the reservoir stub leaves
-        (GATE_LANE_X, GATE_LANE_Y, climb),          # one diagonal east and aft into the lane
-        (GATE_LANE_X, GATE_A_DECK_Y, tin[2]),       # one lean aft and up the lane onto the deck
-        (tin[0], GATE_A_DECK_Y, tin[2]),            # west across the deck onto the union's column
-        "bulkhead-flavor-a.tube-in",                # and straight aft into the collet
+        (gate[0], gate[1], climb),                        # up what the reservoir stub leaves
+        (GATE_LANE_X, GATE_LANE_Y, climb),                # one diagonal east and aft into the lane
+        (GATE_LANE_X, GATE_A_DECK_Y, GATE_A_CROSS_Z),     # one lean aft and up onto the crossing
+        (tin[0], GATE_A_DECK_Y, GATE_A_CROSS_Z),          # west across the machine, fore of the pump
+        (tin[0], GATE_A_FALL_Y, tin[2]),                  # down the column onto the union's storey
+        "bulkhead-flavor-a.tube-in",                      # and straight aft into the collet
         kind="fluid", bend=TUBE_BEND,
         note="nozzle A: V-G-O → rear union, up the gate's own bay, out into the east outboard "
-             "lane, one lean onto the panel deck and west across it")
+             "lane, one lean onto the crossing strip, west across the machine fore of the pump "
+             "and down its union's own column")
 
 
 # --- the four reservoir lines, gate to vessel and vessel to gate --------------
