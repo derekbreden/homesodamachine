@@ -38,7 +38,7 @@ What the core's yaw buys is vertical: a column above and ahead of it, where the 
 
 The arrangement above is the current pack — a working layout. It is free to rearrange so long as it respects these physical and functional realities:
 
-- The foam shell is the largest single solid; it cannot move or compress. Its yaw puts its short axis across the machine and its long one front to back, which is what leaves the column above and ahead of it.
+- The foam shell is the largest single solid and it cannot compress. Its depth is derived, not fixed: `front_half.build_foam` takes the front face as an argument and the pack strikes it on the stratum's aft plane, so the core follows whatever stands ahead of it. Its yaw puts its short axis across the machine and its long one front to back, which is what leaves the column above and ahead of it.
 - The core spans the box's full depth, so it goes in before the front and back halves telescope together around it. The seam's furniture all lives in the bands the standoffs open, so none of it meets the core.
 - The cold core stands flat on the floor, on its bottom foam-cap lid: the six M3 cap screws driven up from below sit in counterbores in the lid's own head pads.
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.
@@ -48,7 +48,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The drip pan sits directly under the ASSE 1022 chain's atmospheric vent; the backflow preventer + drip pan + moisture sensor co-locate on the water-inlet path.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.
 
-**What is still open:** the side grilles the crossing airflow needs — an intake on the −X face and an exhaust on the +X one — and what ducts the block's faces to them; the funnel and pump access; and the brackets several bodies still hang without. The suction chain, the discharge chain, V-K's cradle, the CO2 regulator's and the flow meter's each have a measured datum and measured room; none of them has a holder. Those are the `held` axis.
+**What is still open:** the side grilles the crossing airflow needs — an intake on the −X face and an exhaust on the +X one — and what ducts the block's faces to them; the funnel and pump access; and the brackets several bodies still hang without. The ASSE 1022 chain, the suction chain, the discharge chain, the CO2 regulator and the flow meter each have a measured datum and measured room; none of them has a holder. Those five are the `held` axis. V-K is not among them — it presses into a cradle printed in the cap's lid, alongside V-A and V-B.
 
 ## What is on the front face
 

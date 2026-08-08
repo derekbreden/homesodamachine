@@ -134,11 +134,6 @@ rear_seam_clear = 3.0
 # The same standoff at the front, so the front column's Z lip keeps a full-width
 # front segment behind the refrigeration stratum instead of giving it up.
 front_seam_clear = 3.0
-# What the ±X walls stand off the widest body on the floor: one boss chain, so the
-# corner posts, boss chains and Z-seam pods all seat at full section and the body
-# seats flush against them instead of against the wall. Floor content set against a
-# side wall is inset the same, to clear the ribs.
-side_rib_inset = 14.0
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -190,6 +185,10 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # ±X top corner pods either side, the back wall behind). The funnel is pushed as
 # far forward as that frame allows and reaches aft for its capacity, so it may
 # CROSS the Y seam — both halves take their share of the cut.
+# Air between the funnel's collar frame and the ±X pods it runs beside. CHOSEN, not derived:
+# the two are printed in the same piece, so this is clearance for the eye and the deburring
+# tool rather than a fit.
+hopper_pod_gap = 1.0
 hopper_front_ledge = 6.0  # top wall kept between the facet's back plane and the throat —
                           # the whole of what stands between the two, since the wall forward
                           # of it thickens into the housing rather than running out to an edge
@@ -239,6 +238,12 @@ mount_boss_out = heatset_depth + mount_bore_relief
 # of head counterbore, pin body, heat-set and cap, less the wall the counterbore
 # is sunk into. This is the socket's section, so it is also its post's.
 boss_in = head_cbore_depth + screw_len + socket_cap - wall
+# The band down each ±X wall IS that chain: what a floor body stands off the wall where the
+# seam's columns are, so each post, chain and pod seats at full section and the body seats
+# flush against them. One name for the reader who is thinking about the band and one for the
+# reader thinking about a single boss, and one number under both — an M3 of another length
+# moves the chain and the band together.
+side_rib_inset = boss_in
 # The telescoping overlap is NOT a free dimension. It is exactly what makes the
 # back plug's −Y face mate the back mouth (y_joint) AND the front socket pod's
 # +Y face mate the lip rim, with the two bosses coaxial for the cross-screw.
@@ -817,17 +822,21 @@ def _dims(pack):
     # as `appliance_width` and struck symmetric about x = 0, the axis the pack is centred
     # on, the same way depth is `rear_plane_y` and height is `appliance_height`.
     #
-    # What the pack still has to earn is the clearance: a body standing on the slab spans
-    # the interior wall to wall, so a wall on its face leaves the seam machinery — corner
-    # posts, boss chains, Z-seam pods — nowhere to stand. Every floor body is held off by
-    # one `side_rib_inset` so each of those seats at full section, and the body seats flush
-    # against them instead of against the wall. Anything standing clear of the slab is above
-    # the ±X bands' floor stations and needs only its own clearance.
-    floor = [b for b in bbs if b.zmin < wall + 1e-6] or bbs
+    # What the pack still has to earn is the clearance. A body on the slab is held one
+    # `side_rib_inset` off the ±X walls at the depths the seam's columns stand there —
+    # `_seam_furniture_spans`, the spans `_chain_spans_clear` reads and the ceiling's pod
+    # stack takes below. Between those stations the band is the wall's own air, and a body
+    # clear of all of them answers on `cxmax`.
     ix0, ix1 = interior_x()
-    wide_need = max(max(b.xmax for b in floor) + side_rib_inset,
-                    -(min(b.xmin for b in floor) - side_rib_inset),
-                    cxmax + interior_clearance, -(cxmin - interior_clearance))
+    iy0_probe = cymin - interior_clearance - front_seam_clear
+    band_spans = _seam_furniture_spans(
+        (ix0, ix1, iy0_probe, rear_plane_y, czmin, czmax), y_seam)
+    floor = [b for b in bbs
+             if b.zmin < wall + 1e-6
+             and any(b.ymin < sy1 and b.ymax > sy0 for sy0, sy1 in band_spans)]
+    wide_need = max([cxmax + interior_clearance, -(cxmin - interior_clearance)]
+                    + [b.xmax + side_rib_inset for b in floor]
+                    + [-(b.xmin - side_rib_inset) for b in floor])
     record_bound(Bound(
         "box-width", "The pack stands inside the appliance's stated width",
         wide_need <= ix1 + 1e-9,
@@ -1122,10 +1131,10 @@ def _hopper_hole(inner, outer, y_joint, centre):
     x1 = cx + _funnel.collar_w / 2.0
     y0 = cy - _funnel.collar_d / 2.0
     y1 = cy + _funnel.collar_d / 2.0
-    pod_out = ix0 - wall + (head_cbore_depth + screw_len + socket_cap)
-    pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
-    lims = (pod_out + 1.0,                             # clear of the top-left pod
-            pod_in - 1.0,                              # clear of the top-right pod
+    pod_out = ix0 + boss_in
+    pod_in = ix1 - boss_in
+    lims = (pod_out + hopper_pod_gap,                  # clear of the top-left pod
+            pod_in - hopper_pod_gap,                   # clear of the top-right pod
             facet_back_y(outer) + hopper_front_ledge,  # behind the facet's housing
             iy1 - wall)                                # ahead of the back wall
     tol = 1e-6
@@ -1761,7 +1770,7 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), ())
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), ())
 
 
 def build_front_half(box):
