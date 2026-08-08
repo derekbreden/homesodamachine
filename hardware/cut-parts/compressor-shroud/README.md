@@ -1,5 +1,7 @@
 # Compressor Shroud
 
+> **THE MACHINE DOES NOT CARRY THIS PART.** `front_half.machine()` places no shroud body, `bom.md` buys none, and the compressor stands bare on the enclosure floor with its terminal block and clip-on PTC open to the cabinet — the fire-enclosure gap [`/business/regulatory.md`](/business/regulatory.md) carries against 60335-2-24. `_bom_sync.py` asserts the pack places no shroud, so the day one arrives the BOM rows fail back in. What keeps this directory on the import path is `_compressor_shroud_dimensions.py`, which the two wiring doc-sync drivers read for the compressor lead's gauge, the compressor class, and the chassis-bond hole. Everything below describes the part as drawn, not as built.
+
 Sheet-metal shroud that drops over the compressor from above — a 5-sided open-bottom box (top panel + four walls bent down), SendCutSend laser-cut and bent. The compressor sits on the printed enclosure floor; the open bottom clears its feet and the refrigerant/process stubs.
 
 ## What it covers
@@ -30,7 +32,7 @@ Six laser-cut holes — three pass-throughs, an earth-bond point, and two mounti
 | 4 | Ø[6 mm](GND_HOLE) | back, beside the AC hole | earth bond — ring terminal to the ground bus (wiring AC-6) |
 | 5 | 2× Ø[4.5 mm](MOUNT_HOLE) | left + right, near the base | mounting — fastens the shroud to the enclosure floor |
 
-The AC hole is centered on the back face. **The two copper holes take different faces, because the machine mates a different body against each:** the shroud's left face stands against the condenser and its front face against the cold core, so each stub is made up across a plane the two bodies already share and no copper is drawn outside the shroud on either. The discharge is centered vertically on the left face at a quarter point of its depth; the suction stands on the cold core's west port lane, at the height the evaporator's outlet crosses the core's own front wall. `front_half.refrigerant_joints()` measures both joints at every build of the machine and fails the build if either opens.
+The AC hole is centered on the back face. **The two copper holes take different faces, because the machine mates a different body against each:** the shroud's left face stands against the condenser and its front face against the cold core, so each stub is made up across a plane the two bodies already share and no copper is drawn outside the shroud on either. The discharge is centered vertically on the left face at a quarter point of its depth; the suction stands on the cold core's west port lane, at the height the evaporator's outlet crosses the core's own front wall. **Neither pick is measured by anything.** `front_half.refrigerant_joints()` reads the compressor's, the condenser block's and the cold core's own station tables; this body is not in the pack, so no hold catches either hole drifting off the neighbour it was struck from.
 
 ## Bend relief
 
