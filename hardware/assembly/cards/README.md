@@ -199,8 +199,8 @@ One card per procedure step, in the procedure's own order.
 
 | Card | Operation |
 |---|---|
-| IP-01 | CO2 path — front panel to cold core |
-| IP-02 | Water path — rear panel to cold core |
+| IP-01 | CO2 path — rear wall to cold core |
+| IP-02 | Water path — rear wall to cold core |
 | IP-03 | Flavor manifold — valves and tees |
 | IP-04 | Flavor manifold — pumps and channels |
 | IP-05 | Risers to the umbilical bulkheads |

@@ -100,14 +100,14 @@ Twelve harness assemblies off the bench plus the in-cabinet runs — roughly six
 
 ## 7. Plumbing
 
-Every wetted and gas joint in the unit: the vessel's four elbow stacks, the seven cold-core penetrations, the CO2 and water paths from panel to core, the flavor manifold, and the risers to the umbilical bulkheads. Roughly sixteen taped NPT joints and a larger count of push-to-connect. PTC is fast; NPT into stainless is not.
+Every wetted and gas joint in the unit: the vessel's four elbow stacks, the seven cold-core penetrations, the CO2 and water paths from rear wall to core, the flavor manifold, and the risers to the umbilical bulkheads. Roughly sixteen taped NPT joints and a larger count of push-to-connect. PTC is fast; NPT into stainless is not.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Install the four elbow stacks, sparge stone, PRV shroud subassembly | PV-13, PV-14 | Nickel-guard tape, SS into SS, every port taped twice across the build | 15 |
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
-| CO2 path — front panel to cold core | IP-01 | | 10 |
-| Water path — rear panel to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
+| CO2 path — rear wall to cold core | IP-01 | | 10 |
+| Water path — rear wall to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
 | Flavor manifold — valves, tees, pumps and channels | IP-03, IP-04 | Six valve trays, two peristaltic pumps, two channels | 15 |
 | Risers to the umbilical bulkheads | IP-05 | | 5 |
 | Witness and tidy every joint | IP-06 | The pass that makes the next leak someone else's fault | 5 |
@@ -127,8 +127,8 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
 | Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Prepare the AC hub; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s fifteen +X wall bosses | 5 |
-| Stage shell and back panel; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M3 each, on the grommets' bushings | 10 |
-| Seat the cold core; drip pan, hopper, back panel, electronics shelf | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
+| Stage the four printed pieces and the rear wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M3 each, on the grommets' bushings | 10 |
+| Seat the cold core; condenser, power column, close the box, drip tray | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-04, FU-05 | Three LLDPE tubes, braid, install-kit bag | 10 |
 | Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 5 |
 | **Assembly** | | | **[120](LAB_SEC8)** |
