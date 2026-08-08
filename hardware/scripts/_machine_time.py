@@ -69,7 +69,6 @@ GROUP_OF = [
     ("AC hub plate",           "small"),
     ("Carbonator reed bridge", "small"),
     ("Drip pan",               "small"),
-    ("Valve tray",             "small"),
 ]
 
 GROUP_MARKER = {"bulk": "BULK", "tight": "TIGHT", "small": "SMALL", "petcf": "PETCF"}

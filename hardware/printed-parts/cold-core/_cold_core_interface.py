@@ -434,26 +434,18 @@ deck_mount_cap_gap = 1.5
 #   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the controller hang
 # on the enclosure's +X wall, one over the other; the relay lies on the lid in the band they
 # left and the AC hub lies on the relay's back, and neither has a joint yet — a body resting on
-# another is not mounted, so neither carries a row here. `deck-mounts-land` on the enclosure's
-# scorecard re-derives every column that IS here against the cap's own field each build, and
-# `deck_mount_cap_room` holds each one [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in
-# the cup for the pour to reach between them.
-#   The GROUND STUD stands alone in the aft-east corner, which is also where its three earths
-# are: the hub's inlet lug, the brick's chassis, and the relay's own row. It is the only mount
-# here tall enough to want a lug fan.
-#   The MANIFOLD'S AFT STAND takes the last four rows — the loft's valve trays, each a
-# printed plate flat on the lid's outer face like the PSU's brick, bolted down through the
-# mount ears its own module carries (`two_valve_tray.mount_stations`,
-# `single_valve_tray.mount_stations`). Every ear in the family stands at the same `ear_y` on
-# the plate's own centreline, so one station pattern answers for all four. These rows read
-# the OTHER way from every row above: a module is placed BY its station, but the trays are
-# placed by the enclosure's own fences — the bag-B pair on the rear column's priced face, and
-# each lone valve by its own two runs — and these stations stand where the placed ears land.
-# The figures are that derivation's result, not a choice; the enclosure's `deck-mounts-land`
-# check re-derives them from the placed trays every build and fails with the row a moved tray
-# wants, so a drift cannot land silently. The bag-B pair's west cell overhangs the core into
-# the −X rib band, past the cap's cavity wall. Every plate seats 9 mm of PETG under the head,
-# so the stations take an M3 × 16.
+# another is not mounted, so neither carries a row here. `deck_mount_cap_room` holds each
+# column [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in the cup for the pour to reach
+# between them.
+#   THE PATTERN IS THE CAP'S ROTATION KEY. The top cap installs spun a half turn about Z
+# (`foam_assembly._spin`) and its six clamp bosses are symmetric under that turn, so the thing
+# that tells a builder which way the cup goes on is what is NOT symmetric — these four stations
+# and the seven conduit columns beside them. `assembly/cold-core.md` CC-06 and CC-15 both read
+# the cap that way.
+#   NO MODULE BOLTS TO THEM TODAY. Every body standing on this cap is carried some other way:
+# the power column hangs on the enclosure's own wall bosses (`front_half.wall_mounts`), and the
+# three valves that stand on the lid press into the cradles below. So these are eight bored
+# columns and eight inserts standing ready, which is what `bom.md` §7 bills them as.
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
@@ -479,8 +471,9 @@ def deck_mount_standoff(name):
 
 
 def deck_mount_proud():
-    """The tallest standoff in the pack — the foam assembly's own top over its lid's face."""
-    return max(deck_mount_standoff(name) for name in deck_mounts)
+    """The tallest standoff in the pack — the foam assembly's own top over its lid's face.
+    Zero on an empty table: nothing bolted here stands over the lid because nothing is."""
+    return max((deck_mount_standoff(name) for name in deck_mounts), default=0.0)
 
 
 def deck_mount_reach(name):
@@ -497,12 +490,20 @@ def deck_mount_reach(name):
 
 # One bore serves every station, sunk to the deepest reach any of them presents.
 deck_mount_bore_depth = max(
-    deck_mount_reach(name) for name in deck_mounts) + deck_mount_bore_relief
+    (deck_mount_reach(name) for name in deck_mounts), default=0.0) + deck_mount_bore_relief
 for _name in deck_mounts:
     assert deck_mount_reach(_name) >= deck_mount_insert_length, (
         f"deck mount {_name}: an M3 × {deck_mounts[_name].screw:g} through "
         f"{deck_mounts[_name].seat:g} mm of seat reaches {deck_mount_reach(_name):g} mm "
         f"into the column, short of its {deck_mount_insert_length:g} mm insert")
+
+
+def deck_lid_hole_radius(name):
+    """The lid's opening at a deck-mount station: a slip fit around a column standing
+    through it, a screw clearance over one that stops beneath it."""
+    if deck_mount_standoff(name) == 0.0:
+        return screw_clearance_radius
+    return deck_mount_boss_radius + deck_mount_lid_slip
 
 
 def deck_mount_cap_room(name):
@@ -529,6 +530,94 @@ for _name in deck_mounts:
     assert _room >= deck_mount_cap_gap - 1e-9, (
         f"deck mount {_name}: a column stands {_room:.3f} mm off {_what}, inside the "
         f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
+
+
+# --- Valve cradles on the lid's outer face -----------------------------------
+#
+# A CRADLE IS THE VALVE-MANIFOLD FAMILY'S OWN CELL PRINTED INTO THE TOP LID rather than into a
+# plate that bolts to it: a pad standing off the lid's outer face, the Beduan's port saddle
+# troughed the length of it, and a blind socket at each of the four corner posts. The valve
+# presses in. Nothing bolts it and nothing is bonded — the four posts in their sockets are the
+# whole of the retention, and the valve's own round boss lands on the pad top. So a cradle
+# takes no insert, no screw and no lid hole, which is what a bolted tray took three of.
+#   `single_tray.cut_cell` cuts the sockets and the saddle, and `foam_cap.build_cradles` holds
+# the reach below against that cell's own geometry, so the pad cannot shrink under the sockets
+# it carries.
+#
+# Per cradle: the valve's centre in the CAP'S OWN frame, the yaw its port axis takes off the
+# cap's +X, and the SEAT — how far the valve's own mounting plane (the Beduan's Z = 0) stands
+# over the lid's outer face, which is what sets the pad's height.
+#   THE SEAT IS THE MACHINE'S, not a choice. Two of these valves ride the flavour pack, which
+# stands on the refrigeration base's crown, so where they land over this cap is that stack's
+# arithmetic; `front_half.cradles_land` re-derives all three rows off the placed valves at
+# every build and raises with the row a moved valve wants, so a drift cannot land silently.
+# V-K is the one this cap gets to choose, and it takes the shallowest seat there is: one
+# `-single_tray.socket_floor_z`, which lands its socket floors on the lid's own outer face
+# and bores nothing into the plate.
+Cradle = namedtuple("Cradle", "centre yaw seat")
+cap_cradles = {
+    #                      centre           yaw    seat
+    "vk-solenoid": Cradle((111.500,  64.550), 0.0, 1.0000),
+    "valve-v-a":   Cradle((105.920,  20.070), 0.0, 3.1136),
+    "valve-v-b":   Cradle((105.920, -20.070), 0.0, 3.1136),
+}
+
+# The pad's own reach off the valve's centre, and the radius its corners are struck on. The
+# corners ARE the four sockets: a rectangle of `corner_inset + socket_radius + wall` filleted
+# on `socket_radius + wall` puts an arc centre on each socket, so the pad is the least plate
+# that carries them and every millimetre of it is under something.
+cap_cradle_corner_inset = 12.2       # `beduan_solenoid.corner_inset`
+cap_cradle_socket_radius = 3.6       # `single_tray.socket_radius`
+cap_cradle_wall = 3.0                # `single_tray.wall`
+cap_cradle_corner_radius = cap_cradle_socket_radius + cap_cradle_wall
+cap_cradle_reach = cap_cradle_corner_inset + cap_cradle_corner_radius
+
+# What a cradle holds off every other thing cut in the lid's outer face. Nothing is poured
+# between them — this face is the machine's room, not the cup's — so the fence is the
+# machine's own clearance floor rather than the pour gap the cavity keeps.
+cap_cradle_room_gap = 1.0
+
+
+def cap_cradle_xy(name):
+    """A cradle's four socket centres, in the cap's own frame."""
+    (cx, cy) = cap_cradles[name].centre
+    th = math.radians(cap_cradles[name].yaw)
+    c, s = math.cos(th), math.sin(th)
+    return tuple((cx + c * sx * cap_cradle_corner_inset - s * sy * cap_cradle_corner_inset,
+                  cy + s * sx * cap_cradle_corner_inset + c * sy * cap_cradle_corner_inset)
+                 for sx in (-1, 1) for sy in (-1, 1))
+
+
+def cap_cradle_room(name):
+    """The least room this cradle leaves to anything else opening on the lid's outer face:
+    `(mm, what)` — a conduit's entry countersink, a clamp screw's counterbore, the pour hole,
+    a vent, another cradle. Read on the pad's corner arcs, which are its nearest material to
+    everything around it."""
+    room = []
+    for x, y in cap_cradle_xy(name):
+        for cname, (bx, by) in cap_conduits.items():
+            room.append((math.hypot(x - bx, y - by)
+                         - cap_conduit_entry_relief_radius - cap_cradle_corner_radius,
+                         f"the {cname} conduit's entry"))
+        for bx, by in attachment_xy_positions:
+            room.append((math.hypot(x - bx, y - by)
+                         - head_cbore_radius - cap_cradle_corner_radius,
+                         "a clamp screw's counterbore"))
+        for dname in deck_mounts:
+            for dx, dy in deck_mount_xy(dname):
+                room.append((math.hypot(x - dx, y - dy)
+                             - deck_lid_hole_radius(dname) - cap_cradle_corner_radius,
+                             f"the {dname} mount's lid hole"))
+        room.append((min(outer_shell_x_length / 2.0 - abs(x),
+                         outer_shell_y_length / 2.0 - abs(y))
+                     - cap_cradle_corner_radius, "the lid's own edge"))
+        for other in cap_cradles:
+            if other == name:
+                continue
+            for ox, oy in cap_cradle_xy(other):
+                room.append((math.hypot(x - ox, y - oy) - 2.0 * cap_cradle_corner_radius,
+                             f"the {other} cradle"))
+    return min(room)
 
 
 # --- Cap conduits ------------------------------------------------------------
@@ -728,34 +817,58 @@ for _name in cap_conduits:
 
 def foam_cap_lid_pour_xy():
     """The pour hole's centre in the lid — the +X half, on the LEAST offset off the cap's
-    own centreline that clears every deck-mount station.
+    own centreline that clears every deck-mount station and every valve cradle.
 
-    A station this hole swallows is a tray ear with no lid under its screw: the head would
-    bear on the cap column's top two millimetres down, and the plate would stand on nothing
-    while its other ear stood on the lid. So the hole holds its own radius, the station's
-    clearance hole and the pour gap off each of them, and takes the smallest shift that
-    buys it — the pour wants the cap's middle, and every millimetre off it is spent.
+    A station this hole swallows is a tray ear with no lid under its screw, and a cradle it
+    swallows is a valve seat with a hole through the middle of it: either way the pad would
+    stand on nothing. So the hole holds its own radius, the thing it is clearing and the pour
+    gap off each of them, and takes the smallest shift that buys it — the pour wants the cap's
+    middle, and every millimetre off it is spent.
 
-    `deck_mount_cap_room` prices a station against everything standing in the CUP; this is
-    the same fence read from the LID's side, which is where the pour and the vents are cut."""
+    `deck_mount_cap_room` prices a station against everything standing in the CUP and
+    `cap_cradle_room` prices a cradle against everything cut in the LID; this is the same fence
+    read from the pour's side, which is what is free to move."""
     x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
-    need = foam_cap_lid_pour_radius + screw_clearance_radius + deck_mount_cap_gap
     bands = []
+
+    def fence(sx, sy, need):
+        reach = need ** 2 - (x - sx) ** 2
+        if reach > 0.0:
+            half = math.sqrt(reach)
+            bands.append((sy - half, sy + half))
+
     for name in deck_mounts:
         for sx, sy in deck_mount_xy(name):
-            reach = need ** 2 - (x - sx) ** 2
-            if reach > 0.0:
-                half = math.sqrt(reach)
-                bands.append((sy - half, sy + half))
+            fence(sx, sy, foam_cap_lid_pour_radius + screw_clearance_radius
+                  + deck_mount_cap_gap)
+    for name in cap_cradles:
+        for sx, sy in cap_cradle_xy(name):
+            fence(sx, sy, foam_cap_lid_pour_radius + cap_cradle_corner_radius
+                  + deck_mount_cap_gap)
+    # MERGE FIRST, THEN STEP. Two stations near each other throw overlapping bands, and a
+    # hole stepped off one lands inside the next — so the bands are run together into the
+    # spans they actually close before the offset is read, and the answer is the nearer edge
+    # of the one span that holds the centreline.
+    merged: list = []
+    for lo, hi in sorted(bands):
+        if merged and lo <= merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], hi)
+        else:
+            merged.append([lo, hi])
     y = 0.0
-    moved = True
-    while moved:                      # step off each band by its nearer edge, and re-read
-        moved = False
-        for lo, hi in bands:
-            if lo < y < hi:
-                y = lo if (y - lo) <= (hi - y) else hi
-                moved = True
+    for lo, hi in merged:
+        if lo < y < hi:
+            y = lo if (y - lo) <= (hi - y) else hi
+            break
     return (x, y)
+
+
+def foam_cap_lid_vent_xy():
+    """Both vent holes' centres in the lid — the −X corners, mirrored across y, where the
+    pour hole is not and nothing stands. Air leaves by whichever is uppermost."""
+    x = -(outer_shell_x_length / 2 - foam_cap_lid_hole_inset)
+    y = outer_shell_y_length / 2 - foam_cap_lid_hole_inset
+    return ((x, y), (x, -y))
 
 
 for _name in deck_mounts:
@@ -767,6 +880,32 @@ for _name in deck_mounts:
             f"deck mount {_name}: its lid clearance hole at ({_sx:g}, {_sy:g}) stands "
             f"{_room:.3f} mm off the pour hole, inside the {deck_mount_cap_gap:g} mm that "
             f"leaves a land under the screw's head")
+
+
+# Every cradle stands its own room off everything else the lid's outer face opens — including
+# the pour hole, which moved to make it. This is read after the conduits and the pour, because
+# it is read against them.
+for _name in cap_cradles:
+    _room, _what = cap_cradle_room(_name)
+    assert _room >= cap_cradle_room_gap - 1e-9, (
+        f"valve cradle {_name}: a pad corner stands {_room:.3f} mm off {_what}, inside the "
+        f"{cap_cradle_room_gap:g} mm this face keeps between two things it opens")
+    _px, _py = foam_cap_lid_pour_xy()
+    for _sx, _sy in cap_cradle_xy(_name):
+        _room = (math.hypot(_px - _sx, _py - _sy)
+                 - foam_cap_lid_pour_radius - cap_cradle_corner_radius)
+        assert _room >= cap_cradle_room_gap - 1e-9, (
+            f"valve cradle {_name}: a pad corner at ({_sx:g}, {_sy:g}) stands {_room:.3f} mm "
+            f"off the pour hole, inside the {cap_cradle_room_gap:g} mm that leaves the pad a "
+            f"floor under it")
+    for _hx, _hy in foam_cap_lid_vent_xy():
+        for _sx, _sy in cap_cradle_xy(_name):
+            _room = (math.hypot(_hx - _sx, _hy - _sy)
+                     - foam_cap_lid_vent_radius - cap_cradle_corner_radius)
+            assert _room >= cap_cradle_room_gap - 1e-9, (
+                f"valve cradle {_name}: a pad corner at ({_sx:g}, {_sy:g}) stands "
+                f"{_room:.3f} mm off a vent, inside the {cap_cradle_room_gap:g} mm that "
+                f"leaves the pad a floor under it")
 
 
 def cap_conduit_pair_neck(a, b):

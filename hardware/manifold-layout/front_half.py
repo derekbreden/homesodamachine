@@ -371,6 +371,116 @@ def cap_face(foam):
     return box(foam).zmin + _foam.cap_face_over_floor
 
 
+# --- the bounds the machine states about itself -----------------------------
+#
+# Four constructions in this module measure a bound the MACHINE STATES rather than a bound its
+# own construction meets: the refrigerant loop closes across planes its three bodies share, the
+# vent's drip lands on the basin's flat floor, the basin's west lip lands inside the −X wall,
+# and a body seated through a wall stands under the box's own ceiling. Every one of them can be
+# opened by a move made somewhere else in the pack.
+#
+# A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
+# elevations and the scorecard a run writes. So none of these stops the build: each hands back
+# a `Bound` whether it holds or not, `build_pack` collects them onto the assembly the way it
+# collects `seats` and `refrigerant`, and `_scorecard` renders one gate row apiece carrying the
+# message the check wrote. The card is committed and a terminal is not, so the red row is the
+# louder of the two — and the artifact that shows WHY it is red still exists.
+
+Bound = collections.namedtuple("Bound", "id label ok value target detail")
+
+BOUNDS: list = []
+
+
+def record_bound(bound: Bound) -> Bound:
+    """Enter one bound's reading in the ledger, replacing any of the same id."""
+    BOUNDS[:] = [b for b in BOUNDS if b.id != bound.id] + [bound]
+    return bound
+
+
+# --- the valve cradles printed in the core's cap ---------------------------
+#
+# Every valve standing on the cap face presses into a cradle printed there
+# (`_cold_core_interface.cap_cradles`) — the valve-manifold family's own cell, cut into a pad
+# off the lid's outer face. The stations live in the CAP'S frame, because a seat belongs to the
+# part it is printed in; what this holds is that the printed seat and the placed valve are the
+# same place.
+#   NOTHING HERE CHOOSES A POSE. Two of the three valves ride the flavour pack, which is stood
+# on the refrigeration base's crown, so where they land over this cap is that stack's arithmetic
+# and not the cap's — and the third hangs off the pump's suction chain. So the row is
+# re-derived off the placed valve at every build, and a build whose valves have moved fails
+# with the rows the cap should carry rather than seating them on air.
+CRADLE_TOL = 0.001
+
+
+def _core_frame(foam_carry):
+    """The cold core's own frame in world — `(origin, +X, +Y)` — read off the placement the
+    core actually took rather than restated from the yaw that produced it."""
+    o = cq.Vector(*foam_carry(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))[0])
+    ex = cq.Vector(*foam_carry(((1.0, 0.0, 0.0), (0.0, 0.0, 1.0)))[0]) - o
+    ey = cq.Vector(*foam_carry(((0.0, 1.0, 0.0), (0.0, 0.0, 1.0)))[0]) - o
+    return o, ex, ey
+
+
+def cap_xy(foam_carry, world_xy) -> tuple:
+    """A world `(x, y)` in the CAP'S OWN frame — the frame `_cold_core_interface` authors in.
+
+    Two hops: the core's placement carries the assembly's frame, and the cap installs spun a
+    half turn inside it (`foam_assembly.spin_xy`), which is its own inverse."""
+    o, ex, ey = _core_frame(foam_carry)
+    d = cq.Vector(world_xy[0] - o.x, world_xy[1] - o.y, 0.0)
+    return _foam.spin_xy((d.dot(ex), d.dot(ey)))
+
+
+def cradle_rows(foam, foam_carry, placed: dict) -> list:
+    """Each cradle as `(name, has, wants)` — the row the cap carries and the row the placed
+    valve asks for, both `(x, y, yaw, seat)` in the cap's own frame.
+
+    A valve is read off its own placed box: the Beduan is symmetric about both horizontal axes
+    of that box — its four posts, its port and its coil all are — so the box centre IS the seat
+    centre, its long horizontal span is the port axis, and its `zmin` is the mounting plane the
+    cradle has to put under it."""
+    o, ex, ey = _core_frame(foam_carry)
+    face = cap_face(foam)
+    rows = []
+    for name, station in _cci.cap_cradles.items():
+        b = box(placed[name])
+        # The valve's own spans along the cap's two axes. Both frames are axis-aligned in
+        # world, so a span reads off the box directly.
+        along = tuple(abs(v.x) * b.xlen + abs(v.y) * b.ylen for v in (ex, ey))
+        yaw = 0.0 if along[0] >= along[1] else 90.0
+        x, y = cap_xy(foam_carry, ((b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0))
+        rows.append((name, station, (x, y, yaw, b.zmin - face), max(along), min(along)))
+    return rows
+
+
+def check_cradles(rows) -> Bound:
+    """Whether every cradle the cap prints is under the valve it was printed for.
+
+    The detail is the table: a moved valve prints the row `_cold_core_interface.cap_cradles`
+    should carry, so the cap is corrected from the machine and never guessed at."""
+    bad, worst = [], 0.0
+    for name, has, wants, long_span, short_span in rows:
+        off = max(abs(wants[0] - has.centre[0]), abs(wants[1] - has.centre[1]),
+                  abs(wants[2] - has.yaw), abs(wants[3] - has.seat))
+        lying = (abs(long_span - _beduan.port_length) > CRADLE_TOL
+                 or abs(short_span - _beduan.body_width_x) > CRADLE_TOL)
+        worst = max(worst, off)
+        if off > CRADLE_TOL or lying:
+            bad.append((name, wants, lying))
+    return record_bound(Bound(
+        "cradles-land", "Every printed valve cradle is under the valve it holds", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} seated, furthest off {worst:.3f} mm",
+        f"every cradle within {CRADLE_TOL:g} mm",
+        ([] if not bad else
+         ["the cold core's cap prints a valve cradle where no valve stands — these are the "
+          "rows `_cold_core_interface.cap_cradles` should carry. A cradle is a printed seat "
+          "and a valve is placed by the pack that carries it, so the cap follows the machine."]
+         + [f'    "{n}": Cradle(({w[0]:.3f}, {w[1]:.3f}), {w[2]:g}, {w[3]:.4f}),'
+            + ("   \u2190 and this valve is on its side; no cradle in the family holds that"
+               if lying else "")
+            for n, w, lying in bad])))
+
+
 # --- The refrigerant loop's three joints ------------------------------------
 #
 # The sealed loop is the one circuit in the machine with NO TUBE DRAWN FOR IT, and that is
@@ -413,18 +523,24 @@ def refrigerant_joints(carries: dict) -> list:
     return [(cid, a, b, math.dist(at[a][0], at[b][0])) for cid, a, b in REFRIGERANT_JOINTS]
 
 
-def check_refrigerant_joints(joints) -> None:
-    """Raises unless every joint closes. A joint that has opened is a length of copper the
-    machine now owes and nothing draws, so it fails the build rather than being noted."""
+def check_refrigerant_joints(joints) -> Bound:
+    """How far each of the loop's three joints stands open. A joint over `JOINT_TOL` is a
+    length of copper the machine owes and nothing draws — two stations that were one point on a
+    shared plane, no longer on it."""
     open_ = [j for j in joints if j[3] > JOINT_TOL]
-    if open_:
-        raise ValueError(
+    widest = max((j[3] for j in joints), default=0.0)
+    return record_bound(Bound(
+        "refrigerant-joints", "The refrigerant loop closes on the planes its bodies share",
+        not open_,
+        f"{len(joints) - len(open_)}/{len(joints)} closed, widest {widest:.3f} mm",
+        f"every joint within {JOINT_TOL:g} mm",
+        ([] if not open_ else [
             "the refrigerant loop is made up across the planes its bodies already share, and "
             + ", ".join(f"{cid} stands {gap:.3f} mm open ({a} to {b})"
                         for cid, a, b, gap in open_)
             + f" — over the {JOINT_TOL:g} mm a shared plane leaves. That distance is copper "
               f"drawn in the open between two bodies with nothing between them: move the "
-              f"station that shifted back onto the one it is read against.")
+              f"station that shifted back onto the one it is read against."])))
 
 
 def cap_conduit(name: str):
@@ -1137,8 +1253,8 @@ def pan_front_y(seaflo_carry):
     return pos[1] + _lines._pump.PORT_D / 2.0 + PAN_PORT_CLEAR
 
 
-def check_vent_lands(pan, tip):
-    """Raises unless the drip falls on the FLAT FLOOR, inside the coves.
+def check_vent_lands(pan, tip) -> Bound:
+    """Where the drip falls against the basin's FLAT FLOOR, inside the coves.
 
     The basin's outer rim to that flat is the flange, the wall and the cove together. A drip
     landing on a cove or a wall runs down the outside of the tray instead of onto the moisture
@@ -1146,18 +1262,22 @@ def check_vent_lands(pan, tip):
     b = box(pan)
     inset = _pan.FLANGE_W + _pan.WALL + _pan.FLOOR_COVE
     y0, y1 = b.ymin + inset, b.ymax - inset
-    if not y0 <= tip[1] <= y1:
-        raise ValueError(
+    ok = y0 <= tip[1] <= y1
+    return record_bound(Bound(
+        "vent-lands", "The atmospheric vent drips on the basin's flat floor", ok,
+        f"drips at y {tip[1]:.2f}" + ("" if ok else f", {min(abs(tip[1] - y0), abs(tip[1] - y1)):.2f} mm outside"),
+        f"y[{y0:.2f}, {y1:.2f}]",
+        ([] if ok else [
             f"drip-pan: the vent drips at y {tip[1]:.2f}, off the flat floor y[{y0:.2f}, "
             f"{y1:.2f}]. The forward rim comes off the pump's discharge through "
             f"`PAN_PORT_CLEAR`; the vent's Y comes off the ASSE chain, which the bulkhead's "
             f"reach through the back wall fixes; the flat between them is `PAN_Y` less its "
-            f"flange, its walls and its coves.")
+            f"flange, its walls and its coves."])))
 
 
-def check_pan_lane(pan, west_face):
-    """Raises unless the tray, stood off the pump by `FOOT_CLEAR`, still lands inside the −X
-    wall.
+def check_pan_lane(pan, west_face) -> Bound:
+    """Where the tray's west lip lands, stood off the pump by `FOOT_CLEAR`, against the −X
+    wall's inner face.
 
     The lane has two bounds and the tray is hung on the EAST one, because that is the bound a
     millimetre matters on: everything the tray gives back in X is ceiling the west column's
@@ -1166,13 +1286,17 @@ def check_pan_lane(pan, west_face):
     tray the wall would have to be widened around, which is `drip_pan.PAN_X`'s answer to give
     and not this module's."""
     b = box(pan)
-    if b.xmin < west_face - 1e-6:
-        raise ValueError(
+    ok = b.xmin >= west_face - 1e-6
+    return record_bound(Bound(
+        "pan-lane", "The drip tray's west lip lands inside the −X wall", ok,
+        f"lip at x {b.xmin:.2f}, wall at {west_face:.2f}",
+        "the lip inboard of the wall",
+        ([] if ok else [
             f"drip-pan: the tray's west lip lands at x {b.xmin:.2f}, {west_face - b.xmin:.2f} "
             f"mm outboard of the −X wall's inner face at {west_face:.2f}. Its east rim stands "
             f"one FOOT_CLEAR = {FOOT_CLEAR:g} off the pump's casting at the tray's own height, "
             f"so the lane holds a rim of {b.xmax - west_face:.2f}; shrink `drip_pan.PAN_X` by "
-            f"what is over.")
+            f"what is over."])))
 
 
 def build_pan(foam, seaflo, seaflo_carry, asse_carry, west_face):
@@ -1446,6 +1570,7 @@ def build_pack() -> cq.Assembly:
     cannot be in it."""
     a = cq.Assembly(name="front-half")
     SEATS.clear()
+    BOUNDS.clear()
     seated_comp = build_compressor()
     ((comp, comp_carry),
      (cond, cond_carry)) = place_base([seated_comp, build_condenser(seated_comp[0])],
@@ -1479,7 +1604,7 @@ def build_pack() -> cq.Assembly:
     # source valves' quarter turns carry them aft over the core's crown, and a body standing
     # over it is not a body in its way — so the seam is measured against the bodies that reach
     # below that crown, and the ones above it are left to overhang.
-    top = box(build_foam(0.0)[0]).zmax
+    top = cap_face(build_foam(0.0)[0])
     aft = max([box(comp).ymax, box(cond).ymax]
               + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
     foam, foam_carry = build_foam(aft)
@@ -1527,6 +1652,11 @@ def build_pack() -> cq.Assembly:
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     vk, vk_carry = build_vk(chain_carry)
     a.add(vk, name="vk-solenoid", color=C_VK)
+    # The cradles, measured the moment the last valve standing on the cap is placed. The other
+    # two came up with the pack, so this is the first point at which all three are in world.
+    a.cradles = cradle_rows(foam, foam_carry,
+                            {**{n: s for n, s, _c in stood}, "vk-solenoid": vk})
+    check_cradles(a.cradles)
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     c14, _c14_carry = build_c14()
@@ -1578,6 +1708,7 @@ def build_pack() -> cq.Assembly:
     a.pack_solids, a.carries = solids, carries
     draw_runs(a, _lines.build_runs(solids, carries))
     a.seats = dict(SEATS)
+    a.bounds = list(BOUNDS)
     return a
 
 
@@ -1629,8 +1760,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      floor_bosses=a.floor_bosses)
 
 
-def check_through_wall_headroom(a, shell):
-    """Raises unless every body seated through a wall still stands under the box's own ceiling.
+def check_through_wall_headroom(a, shell) -> Bound:
+    """How far each body seated through a wall stands under the box's own ceiling.
 
     `pack` leaves these out of what the box is sized on, which is right in plan — a body that
     reaches out through its own skin cannot also set that skin. IN Z IT LEAVES THEM UNMEASURED,
@@ -1638,19 +1769,25 @@ def check_through_wall_headroom(a, shell):
     where that bites: the union's Ø22.86 barrel is the fattest thing the deck carries, so it is
     what touches the ceiling first, and `enclosure._dims` never sees it.
 
-    The ceiling is a STATED bound, so this fails the build rather than lifting it."""
+    The ceiling is a STATED bound: `enclosure.appliance_height` is the machine's own height and
+    the top wall is cut out of it, so a body over that line is inside the wall."""
     placed = _solids(a)
     ceiling = shell.inner[5]
-    over = [(n, box(placed[n][0]).zmax) for n in THROUGH_WALL
-            if box(placed[n][0]).zmax > ceiling + 1e-9]
-    if over:
-        worst = max(over, key=lambda nz: nz[1])
-        raise ValueError(
-            f"{worst[0]} reaches z {worst[1]:.2f} but the interior ceilings at {ceiling:.2f} — "
-            f"{worst[1] - ceiling:.2f} mm into the top wall. Every body seated through a wall is "
-            f"left out of what `enclosure._dims` sizes the box on, so raise "
-            f"`enclosure.appliance_height` or drop the storey it stands on: "
-            + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over)))
+    reach = {n: box(placed[n][0]).zmax for n in THROUGH_WALL}
+    over = [(n, z) for n, z in reach.items() if z > ceiling + 1e-9]
+    tallest = max(reach.values(), default=ceiling)
+    return record_bound(Bound(
+        "wall-headroom", "Every body seated through a wall stands under the ceiling", not over,
+        f"tallest reaches z {tallest:.2f}, ceiling {ceiling:.2f}",
+        "every body under the ceiling",
+        ([] if not over else [
+            f"{max(over, key=lambda nz: nz[1])[0]} reaches z "
+            f"{max(over, key=lambda nz: nz[1])[1]:.2f} but the interior ceilings at "
+            f"{ceiling:.2f} — {max(over, key=lambda nz: nz[1])[1] - ceiling:.2f} mm into the "
+            f"top wall. Every body seated through a wall is left out of what "
+            f"`enclosure._dims` sizes the box on, so raise `enclosure.appliance_height` or "
+            f"drop the storey it stands on: "
+            + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over))])))
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
@@ -1748,6 +1885,7 @@ def machine():
     p = pack(a)
     shell = _enc.box_around(p)
     check_through_wall_headroom(a, shell)
+    a.bounds = list(BOUNDS)
     return a, p, _seated(shell)
 
 

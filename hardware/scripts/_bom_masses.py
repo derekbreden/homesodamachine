@@ -70,14 +70,11 @@ PARTS = {
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",
     ],
-    # One part, five off — the same solid five times, which is what the row's Qty
-    # says and what its mass has to be: the front column's three and the aft
-    # stand's forward two. The sixth cradle carries ONE valve, so it is the
-    # family's one-seat part rather than a two-seat plate with a seat empty —
-    # an unfilled seat renders a valve that is not in this list.
-    "Valve tray — two-valve (5 off)": ["valve-manifold/two-valve-tray/two-valve-tray.step"] * 5,
-    "Valve tray — single-valve (1 off)": [
-        "valve-manifold/single-valve-tray/single-valve-tray.step"],
+    # NO VALVE TRAY ROW. The three valves that stand on a printed face stand in cradles the
+    # cold core's own cap lid carries (`_cold_core_interface.cap_cradles`), so their cell is
+    # already priced as part of that lid; the rest are butted collet to collet down the
+    # flavour pack's own limbs and stand on nothing. `_bom_sync` derives the count off the
+    # placed pack and fails if a tray body ever appears in it.
     "Faucet touch-flo shell (3-piece: bottom + middle + top)": [
         "faucet/touch-flo-shell/touch-flo-shell-bottom.step",
         "faucet/touch-flo-shell/touch-flo-shell-middle.step",
