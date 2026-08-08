@@ -257,6 +257,8 @@ def _figures():
         "RSVR_ROD_LEN": f"{_rsv.reservoir_rod_len:.4g} mm "
                         f"({_rsv.reservoir_rod_len / MM_PER_IN:.3g} in)",
         "RSVR_ROD_MM": f"{_rsv.reservoir_rod_len:.4g} mm",
+        # The span the cut backs off from. CC-08 draws it beside the cut length.
+        "RSVR_SEAT_TO_SEAT": f"{_rsv.reservoir_rod_len + rod_clearance:.4g}",
         "ROD_CLEARANCE": f"{rod_clearance:.4g} mm",
         "ROD_PAIR_SUM": f"{rod_pair:.4g}",
         "ROD_STICK": f"{stick_len:.4g}",
