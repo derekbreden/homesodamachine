@@ -23,12 +23,17 @@ WHAT THE CC CARDS STAND ON, and therefore what is asserted rather than measured:
   OWN SLOTS and the CO2's reach crosses the same one, so no bearing segment is
   notched. `_port_cuts` asserts the water outlet's crossing at import; the CO2's
   lean is measured here, because CC-10 and CC-12 both say "both lines, one slot".
+- THE CAP IS CLOCKED BY WHAT ITS INSTALL TURN MOVES. It goes on spun a half turn
+  (`foam_assembly._spin`), and CC-15 tells the bench the six clamp bosses bolt
+  either way while the deck columns and the lid's valve cradles do not. Three
+  patterns against one turn and no figure in any of it, so all three readings are
+  assertions.
 
-The RL cards state no figure the machine owns. The three joints of the loop —
-`front_half.REFRIGERANT_JOINTS` — are made up across planes their bodies already
-share, so what the loop owes the deck is the pair of coil stubs the cold core
-hands it, and `refrigerant_loop` holds that the two stations still stand on the
-front wall's two lanes.
+The RL cards state no figure the machine owns. The two legs they braze are routed
+runs (`_lines.py` refrig-2, refrig-3) cut in situ off the coil's own tails, so
+their length is the bench's; what the loop owes the deck is the pair of coil stubs
+the cold core hands it, and `refrigerant_loop` holds that the two stations still
+stand on the front wall's two lanes.
 """
 
 import math
@@ -37,12 +42,13 @@ import sys
 from pathlib import Path
 
 # The cold core's own modules, on this file's own path setup rather than the
-# driver's: these are constants and hole-punch helpers, they cost nothing to
-# import, and a module that finds its own subject cannot be broken by the order
-# somebody else's imports run in.
+# driver's: these are constants, hole-punch helpers and the stack's own placement
+# arithmetic, and a module that finds its own subject cannot be broken by the
+# order somebody else's imports run in.
 _hw = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
 for _p in ("printed-parts/cadlib", "printed-parts/cold-core",
-           "printed-parts/cold-core/copper-plugs"):
+           "printed-parts/cold-core/copper-plugs",
+           "printed-parts/cold-core/foam-assembly"):
     _dir = str(_hw / _p.replace("/", os.sep))
     if _dir not in sys.path:
         sys.path.insert(0, _dir)
@@ -51,6 +57,7 @@ import _cold_core_interface as cci  # noqa: E402
 import _port_cuts as pcuts  # noqa: E402
 import _reed_channels as reed  # noqa: E402
 import copper_plugs as plugs  # noqa: E402
+import foam_assembly as stack  # noqa: E402
 
 X = "&#215;"        # ×
 DIA = "&#8960;"     # ⌀
@@ -96,6 +103,15 @@ def _ring_slot_holding(band):
         if band is not None and lo <= band[0] and band[1] <= hi:
             return (lo, hi)
     return None
+
+
+def _turned(pattern):
+    """A pattern of cap-frame `(x, y)` at the top cap's INSTALL ORIENTATION, as a set.
+
+    The turn is the metal's own — `foam_assembly.spin_xy`, the coordinate half of the half
+    turn `_spin` gives the part — so a pattern compared against this cannot drift off the
+    orientation the stack is actually built at."""
+    return {stack.spin_xy(p) for p in pattern}
 
 
 # ═══ CC — Cold core ════════════════════════════════════════════════════════
@@ -152,9 +168,31 @@ def cold_core(m):
         "the top cap carries no deck mount — CC-06 presses a ruthex into every deck "
         "column before the pour and CC-15 clocks the cap by the pattern they make, so "
         "with an empty table both steps describe a feature the part does not have")
+    assert cci.cap_cradles, (
+        "the top lid stands no valve cradle — CC-06 tells the bench to trim around them "
+        "and CC-15 reads the cap's clocking off them beside the deck columns, so with an "
+        "empty table both steps describe a feature the part does not have")
     assert cci.deck_mount_proud() == 0.0, (
-        "a deck mount now stands proud of the lid — CC-06 pours both caps in one "
-        "fixture and CC-15 lays the valve trays on the lid's own face")
+        "a deck mount now stands proud of the lid — CC-06 sets a ruthex flush in every "
+        "column UNDER the lid, and CC-15 closes the cap on a lid whose outer face is the "
+        "one plane the valve cradles stand on")
+    # Three patterns against one turn. CC-15 bolts the top cap on spun a half turn and says
+    # the six clamp bosses go either way while the deck columns and the lid's cradles do not
+    # — which is true only if the turn carries the first onto itself and neither of the
+    # others, and there is no number in any of that for a value to drift on.
+    clamp = set(cci.attachment_xy_positions)
+    assert _turned(clamp) == clamp, (
+        "the clamp bosses are not carried onto themselves by the cap's install turn — CC-15 "
+        "says the screw pattern bolts either way, and a cap that only goes on one way has "
+        "nothing left for the deck columns to clock")
+    for what, pattern in (("deck-column",
+                           {p for n in cci.deck_mounts for p in cci.deck_mount_xy(n)}),
+                          ("valve-cradle",
+                           {c.centre for c in cci.cap_cradles.values()})):
+        assert _turned(pattern) != pattern, (
+            f"the {what} pattern is carried onto itself by the cap's install turn — CC-15 "
+            f"reads which way the cup goes on off it, and a pattern that looks the same "
+            f"both ways tells the bench nothing")
 
     # The vessel's own bottom rim, where it lands on the support ring's plateau —
     # what CC-03 measures the coil's bare band up from.
@@ -192,6 +230,7 @@ def cold_core(m):
         "CAP_CONDUITS": f"{len(cci.cap_conduits)}",
         "DECK_STATIONS": f"{len(cci.deck_mounts)}",
         "DECK_COLUMNS": f"{deck_columns}",
+        "CAP_CRADLES": f"{len(cci.cap_cradles)}",
         "CAP_CAVITY": f"{cci.foam_cap_interior_height:.4g}",
         "POUR_HOLE_D": f"{DIA}{2 * cci.foam_cap_lid_pour_radius:.4g}",
         "LID_VENT_D": f"{DIA}{2 * cci.foam_cap_lid_vent_radius:.4g}",
@@ -251,7 +290,7 @@ def cold_core(m):
         "cc-14-pour-body-foam": {"CORE_FOOTPRINT", "RESERVOIR_GAP"},
         "cc-15-columns-gaskets-caps": {
             "CORE_CAPPED", "SHELL_INSERTS", "FACE_BOSSES", "CAP_SCREW",
-            "DECK_COLUMNS", "CABLE_HOLE_X"},
+            "DECK_COLUMNS", "CAP_CRADLES", "CABLE_HOLE_X"},
     }
     return facts, cards
 
@@ -264,10 +303,10 @@ def refrigerant_loop(m):
 
     THE BENCH WORK IS DONOR COPPER AT DONOR LENGTHS — cap-tube length, charge mass
     and vacuum target are the donor's and the refrigerant's, not this machine's, so
-    almost nothing on these cards is a figure the appliance owns. The three joints
-    it does own (`front_half.REFRIGERANT_JOINTS`) are made up across planes their
-    bodies already share, so no length of copper is drawn for any of them and there
-    is no dimension to state.
+    almost nothing on these cards is a figure the appliance owns. The two legs these
+    cards braze are routed runs (`_lines.py` refrig-2, refrig-3) cut and fitted in
+    situ off the coil's own tails, so the length of either is the bench's and not a
+    dimension a card states.
     WHAT IS THE MACHINE'S is WHICH SIDE each coil stub comes out of. The two leave
     by opposite lanes, because the base the front wall is mated to is two bodies —
     RL-04 reaches the outlet on one flank and RL-05 the inlet on the other, and a
@@ -286,8 +325,8 @@ def refrigerant_loop(m):
 
     assert lane("evap-inlet") != lane("evap-outlet"), (
         "the two coil stubs leave the shell on one lane — RL-04 and RL-05 reach them from "
-        "opposite flanks of the refrigeration base, which is what makes each joint a made-up "
-        "union rather than a length of tube")
+        "opposite flanks of the refrigeration base, and a card sending the bench to the "
+        "wrong flank sends it to a wall")
 
     facts = {"STUB_IN_LANE": lane("evap-inlet"), "STUB_OUT_LANE": lane("evap-outlet")}
     cards = {"rl-04-suction-tie-in": {"STUB_OUT_LANE"},
