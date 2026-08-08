@@ -72,6 +72,9 @@ REPORT_NEAR = 6.0
 # for the stub and one for the tangent its first corner is seated on — `_routing.route`'s own
 # two, and the shortest straight any turn off a port can be built in.
 PORT_LEAD_BENDS = 2.0
+# How far under its own stated band a MEASURED pose may read and still hold. A strike closes on
+# the band it states, so this is float noise across that closing and nothing else.
+ROOM_TOL = 1e-6
 
 
 def grade_of(ratio: float) -> str:
@@ -897,6 +900,104 @@ def _held() -> Check:
                  f"{len(rows) - len(loose)}/{len(rows)} held", "a holder per body", detail)
 
 
+# --- where each body stands ------------------------------------------------
+#
+# `front_half.seat_body` records BOTH SIDES of a placement as it closes it — the rule the
+# construction asked for, and the same rule read back off the geometry that came out of it. So
+# nothing below says what a pose ought to be: there is no second table here to drift from the
+# pack, only the ledger's own two sides held against each other, and the one question the ledger
+# cannot ask of itself — whether every placed body is in it.
+
+
+def seat_misses(seat) -> list[tuple]:
+    """One row per coordinate a seat's rule names, as `(what, wanted, got, off)`.
+
+    A PLANE rule names whole faces of the body's own box and is read per key. A STATION rule
+    names the world point one of the body's own mouths goes to, and is read on all three
+    coordinates — a mouth the turns do not carry where the seat says shows up here and nowhere
+    else."""
+    if "station" in seat.rule:
+        return [(f"mouth {ax}", w, g, abs(g - w))
+                for ax, w, g in zip("xyz", seat.rule["station"], seat.got["station"])]
+    return [(k, w, seat.got[k], abs(seat.got[k] - w))
+            for k, w in sorted(seat.rule.items()) if k in seat.got]
+
+
+def seat_tol(seats):
+    """`front_half.SEAT_TOL` — how far a face may land off the plane its seat named before the
+    row is off.
+
+    Taken off the module the ledger's own rows were struck in, which is `front_half` under
+    whichever name it is running as, so the card cannot hold the pack to a different number from
+    the one the pack prints. `None` when the ledger is empty: no row to measure, and no module to
+    ask."""
+    row = next(iter(seats.values()), None)
+    return None if row is None else sys.modules[type(row).__module__].SEAT_TOL
+
+
+def _placed(a) -> Check:
+    """Every placed body's pose, stated as a rule and read back off the placed solid.
+
+    TWO FAILURES ON ONE AXIS. A body with NO ROW is a body whose pose nobody stated — it is where
+    it is because the model says so, and an assembler handed the parts could not reproduce it. A
+    body whose row MISSED was given a rule its own construction did not close on: two planes
+    named on one axis, or a mouth the turns do not carry to the target. A plane rule closes by
+    construction, so anything over `front_half.SEAT_TOL` is one of those and not import noise.
+
+    ONE ROW MAY COVER A GROUP. The refrigeration base is turned and stood as a pair and the
+    flavour manifold is posed and lifted whole, so those two rows name every body they carry.
+    What the pack carries is not all bodies — its placeholder stubs and fold segments are tube on
+    this card — so the coverage is the intersection with the population this card counts, never
+    the length of the names."""
+    bodies, _tubes, _pieces = _split_placed(a)
+    seats = getattr(a, "seats", {}) or {}
+    tol = seat_tol(seats)
+    covered = {n for s in seats.values() for n in s.members} & set(bodies)
+    off = [] if tol is None else [
+        (name, what, want, got, d) for name, s in sorted(seats.items())
+        for what, want, got, d in seat_misses(s) if d > tol]
+    detail = [f"{n}: no seat states where it stands" for n in sorted(set(bodies) - covered)]
+    detail += [f"{name}: {what} was asked for {want:.4f} and reads {got:.4f} — {d:.2e} mm off"
+               for name, what, want, got, d in sorted(off, key=lambda r: -r[4])]
+    return Check("placed", "Every placement is stated as a rule, and the solid lands on it",
+                 "goal", _verdict(covered == set(bodies) and not off),
+                 f"{len(covered)}/{len(bodies)} stated",
+                 "a stated rule per body, each landing on it", detail)
+
+
+def _room_holds(a) -> Check:
+    """Every DERIVED pose against the band its own construction states.
+
+    A pose stated as a plane is met by construction, and `placed` reads that. A pose stated as
+    "one clearance off whatever stands under it" is a MEASUREMENT — the strike drops a body and
+    takes what is left — and `front_half.note_room` is where the construction records what it
+    actually got. A pose short of its own band still lands and still clears `pack-closes`; what
+    it has lost is the room its derivation claimed, and the body that has to move to give it back
+    is usually not the one the shortfall is measured on.
+
+    A band with nothing under it holds. That is a body the strike found no landing for inside its
+    own reach, so there is nothing for it to fall short of."""
+    seats = getattr(a, "seats", {}) or {}
+    rows = [(name, what, want, got) for name, s in sorted(seats.items())
+            for what, want, got in s.room]
+    short = [r for r in rows if r[3] is not None and r[3] < r[2] - ROOM_TOL]
+    slack = [got - want for _n, _w, want, got in rows if got is not None]
+    tightest = min(slack, default=None)
+    # Tightest first, so the band the machine is actually spending sits at the top of the list
+    # and the ones with nothing under them sort off the end.
+    detail = [f"{name}: {what} — wants {want:g}, has "
+              + ("nothing under it" if got is None else f"{got:.3f}")
+              + (" — ✗ short of its own band" if got is not None and got < want - ROOM_TOL
+                 else "")
+              for name, what, want, got in
+              sorted(rows, key=lambda r: (r[3] is None, 0.0 if r[3] is None else r[3] - r[2]))]
+    return Check("room-holds", "Every derived pose has the room its own construction states",
+                 "gate", _verdict(not short),
+                 f"{len(rows) - len(short)}/{len(rows)} bands held"
+                 + ("" if tightest is None else f", tightest {tightest:+.3f} mm"),
+                 "every band held", detail)
+
+
 def is_primitive(shape) -> bool:
     """True when the geometry is still a bare box or cylinder.
 
@@ -1018,10 +1119,10 @@ def _build(a) -> Scorecard:
                 "status": "ok" if pos is not None and diam is not None else "no-pos",
                 "note": "",
             })
-    checks = [_coverage(a), _pack_closes(a), _lines_clear(a, runs), _port_leads(leads),
-              _clearance_floor(clearances, lanes), _bed_fit(a), _runs_drawn(runs),
-              _bend_radius(bends),
-              _mounted(), _routed(conns), _located(a), _shaped(shapes), _held()]
+    checks = [_coverage(a), _room_holds(a), _pack_closes(a), _lines_clear(a, runs),
+              _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
+              _runs_drawn(runs), _bend_radius(bends),
+              _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes), _held()]
     return Scorecard(checks, bends, conns, ports, shapes)
 
 
@@ -1040,18 +1141,14 @@ def to_dict(sc: Scorecard) -> dict:
 
     `mounted` is the live goal axis and every other goal is deferred, which the viewer renders
     gray. Each deferred one still carries its measured score, so the bar reads what it is rather
-    than a zero.
-
-    `placed` reads 0. Every pose in this pack is stated in `front_half`'s own seating planes —
-    the face, the crown or the station each body closes on — and nothing carries which plane a
-    body was closed on out of `seat_body`, so the card has no rule to measure a pose against."""
+    than a zero."""
     by_id = {c.id: c for c in sc.checks}
     # A mount row's `kind` is the body's geometry authorship, which the shape table measures —
     # a joint designed against a placeholder is a joint designed against a guess.
     prim = {d["component"]: d["primitive"] for d in sc.shapes}
     return {
         "gatesPass": sc.gates_pass,
-        "placed": 0,
+        "placed": _score(by_id["placed"]),
         "located": _score(by_id["located"]),
         "shaped": _score(by_id["shaped"]),
         "routed": _score(by_id["routed"]),
@@ -1064,12 +1161,6 @@ def to_dict(sc: Scorecard) -> dict:
              # takes but is not converting yet.
              "active": c.active and c.id == "mounted" if c.kind == "goal" else c.active}
             for c in sc.checks
-        ] + [
-            {"id": i, "label": lbl, "kind": "goal", "status": "warn", "value": "not opened",
-             "target": want, "detail": [], "active": False}
-            for i, lbl, want in (
-                ("placed", "Every placement stated as a measured rule the card checks",
-                 "a placement rule per body"),)
         ],
         "ports": sc.ports,
         "shapes": sc.shapes,

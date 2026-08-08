@@ -1,6 +1,6 @@
 {
  "gatesPass": false,
- "placed": 0,
+ "placed": 100,
  "located": 100,
  "shaped": 88,
  "routed": 92,
@@ -15,6 +15,22 @@
    "value": "59/59 declared",
    "target": "all declared",
    "detail": [],
+   "active": true
+  },
+  {
+   "id": "room-holds",
+   "label": "Every derived pose has the room its own construction states",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5/5 bands held, tightest +0.000 mm",
+   "target": "every band held",
+   "detail": [
+    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 6.000",
+    "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.414",
+    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 8.892",
+    "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 6, has 9.774",
+    "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 6, has 22.552"
+   ],
    "active": true
   },
   {
@@ -237,6 +253,16 @@
    "active": true
   },
   {
+   "id": "placed",
+   "label": "Every placement is stated as a rule, and the solid lands on it",
+   "kind": "goal",
+   "status": "pass",
+   "value": "59/59 stated",
+   "target": "a stated rule per body, each landing on it",
+   "detail": [],
+   "active": false
+  },
+  {
    "id": "routed",
    "label": "Every tube connection the machine owes, made as a real 3-D path",
    "kind": "goal",
@@ -325,16 +351,6 @@
     "suction-chain: nothing holds it at all",
     "wr1110: nothing holds it at all"
    ],
-   "active": false
-  },
-  {
-   "id": "placed",
-   "label": "Every placement stated as a measured rule the card checks",
-   "kind": "goal",
-   "status": "warn",
-   "value": "not opened",
-   "target": "a placement rule per body",
-   "detail": [],
    "active": false
   }
  ],
@@ -4097,8 +4113,8 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T00:24:53+00:00",
-  "commit": "9c8fba1cfeb923e8c6893988ba5c9ee2093e5207",
+  "generated": "2026-08-08T00:37:48+00:00",
+  "commit": "2567f8c55a3d867e4de9beb86f0994511e35824f",
   "inputs": {}
  }
 }
