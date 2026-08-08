@@ -1,6 +1,6 @@
-# Rear-Panel Nameplate
+# Rear-Wall Nameplate
 
-3D-printed serialized plaque mounted on the rear face of the enclosure. Visible after install. One plaque per unit.
+3D-printed serialized plaque mounted on the rear wall of `enclosure-back-top`. Visible after install. One plaque per unit.
 
 ## What this does
 
@@ -60,7 +60,7 @@ and emit a unit-specific STEP file. Generating all [50](FOUNDER_EDITION_COUNT) p
 
 ## Mounting
 
-Interfaces with the rear panel of the enclosure — specifics TBD once the enclosure itself reaches design. Likely candidates: M3 countersunk screws through corner bosses, magnetic attachment over a recessed pocket, or an interference-fit dovetail recessed into the rear panel. Revisit when the enclosure design is ready.
+Interfaces with the rear wall of `enclosure-back-top` — the plaque is the only separately printed thing on that face, and where it lands among the wall's connections is not settled. Likely candidates: M3 countersunk screws through corner bosses, magnetic attachment over a recessed pocket, or an interference-fit dovetail recessed into the wall.
 
 ## Files (planned)
 

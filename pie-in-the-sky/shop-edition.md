@@ -15,7 +15,7 @@ Someone who would buy the Kitchen Edition but for living-partner / kitchen-prior
 - Cold core, carbonator vessel, refrigeration loop, foam shells, flavor reservoirs, valve manifold, peristaltic pumps, electronics shelf — all unchanged.
 - Side-to-side condenser airflow (per the airflow correction in `hardware/future.md` 2026-05-13). Intake on one side face, exhaust on the opposite — no thermal duty on the front face, which is the precondition that makes Shop Edition possible at all.
 - Regulatory posture identical. R-600a, UL 60335-2-89 compliance, SNAP markings. The flame symbol and "flammable refrigerant" labels become user-visible on a countertop unit — worth designing into the rear nameplate as deliberate visual elements rather than letting them look like stickers.
-- Same water inlet, same C14 power inlet on the rear panel. CO2 inlet placement is an open question for Shop Edition — Kitchen Edition moved the CO2 inlet to the front face with the cylinder beside the appliance in the under-sink cabinet, but Shop Edition's countertop context may warrant a different placement; resolved when Shop Edition itself is designed. Customer plumbs water + CO2 once, plugs in, done.
+- Same water inlet, same C14 power inlet on the rear wall. CO2 inlet placement is an open question for Shop Edition — Kitchen Edition moved the CO2 inlet to the front face with the cylinder beside the appliance in the under-sink cabinet, but Shop Edition's countertop context may warrant a different placement; resolved when Shop Edition itself is designed. Customer plumbs water + CO2 once, plugs in, done.
 
 ## What's different
 
@@ -74,7 +74,7 @@ The "He hates these cans" framing still applies. The cans were always going to l
 ## Risks worth naming
 
 - **Front-face industrial design is real work.** Kitchen Edition gets away with the front face being utility because the user never sees it. Shop Edition does not. The dispense spout, drip grate, display surround, button layout, arm switch placement, LED edge geometry — that's a real ID pass, not just a part swap.
-- **Tip-over and rear clearance.** Freestanding on a countertop means a wide stable footprint and a rear-condenser-exhaust-side gap the customer can't defeat by shoving the unit flush to a wall. Side-to-side airflow needs both side gaps respected. A rear standoff bumper helps; a printed "do not place against wall on this side" arrow on the rear panel helps more.
+- **Tip-over and rear clearance.** Freestanding on a countertop means a wide stable footprint and a rear-condenser-exhaust-side gap the customer can't defeat by shoving the unit flush to a wall. Side-to-side airflow needs both side gaps respected. A rear standoff bumper helps; a printed "do not place against wall on this side" arrow on the rear wall helps more.
 - **Drain install friction.** Adds one connection at install. Targets the "plug and play in under an hour" promise. Manageable in the Shop Edition context where the customer is already running water and CO2 through stud bays.
 - **Don't backport to Kitchen.** The drain feature looks attractive for unattended clean cycles on the Kitchen Edition too. Resist. Kitchen Edition has a sink under it and a clean cycle that already works. Scope discipline.
 

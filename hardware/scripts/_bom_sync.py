@@ -78,7 +78,7 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
-# Rear-panel PP1208E bulkheads. Umbilical port: 3 on the back panel
+# Rear-wall PP1208E bulkheads. Umbilical port: 3 on the rear wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
 # panel hole (the customer-facing 1/4" QC potable-water inlet).
 panel_umbilical_bulkheads = 3

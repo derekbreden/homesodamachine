@@ -215,7 +215,7 @@ NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1]
               for p in ml.PUMPS})
 
 # Chart nodes that stand for nothing the pack places — the hopper's spout, the far side of the
-# rear panel, the customer's supply, the DERPIPE clamped through the back wall, and everything
+# rear wall, the customer's supply, the DERPIPE clamped through the back wall, and everything
 # inside the carbonator vessel. An edge to one of these carries a route id only if the segment
 # it names has just one end the machine knows, which is what a mouth with nothing on it yet is.
 UNPLACED = {"Faucet", "Nozzle", "Tap", "CO2", "CO2In", "Vent", "PRVOut", "LevelSense",

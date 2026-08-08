@@ -41,7 +41,7 @@ on, so no leg crosses another anywhere in the module.
 
 Each boundary port stands where the thing it mates does. The two reservoir
 mouths open on the cap at the deck's FORWARD end; the nozzle bulkhead is in the
-rear panel at its AFT end. Two lines carry two forward seats and two aft seats,
+rear wall at its AFT end. Two lines carry two forward seats and two aft seats,
 so draw and fill hold the forward pair and select and nozzle the aft — and each
 line's two valves are then the pair its own Tee's run takes.
 
@@ -93,7 +93,7 @@ CAVITY_Y = (-187.38, 291.5)         # front wall to the stated rear plane
 CAVITY_Z = (-253.4, 140.6)          # floor slab to the 400 mm ceiling
 BED = 320.0                         # the printer's own bound, per piece
 
-# The core's two cap mouths for one reservoir, and the rear panel's flavor
+# The core's two cap mouths for one reservoir, and the rear wall's flavor
 # bulkhead — the three fixed points every other station in this file is measured
 # from. World x 47 is reservoir B's own conduit column; the mirrored instance
 # takes 181 - 47 = 134, which is what this module asks of reservoir A.
@@ -386,7 +386,7 @@ def runs() -> dict:
         # ── the two legs of the discharge run
         "disch-fill":  [d_fwd, fill_i],
         "disch-noz":   [d_aft, noz_i],
-        # ── out to the rear panel's bulkhead
+        # ── out to the rear wall's bulkhead
         "nozzle-out":  [noz_o, PORTS["out"][0]],
         # ── the two bag legs, down the cap's own column
         "draw-mouth":  [draw_i, (LINE_S, Y_DRAW - 35.0, PORT_Z),

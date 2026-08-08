@@ -9,19 +9,16 @@ from pathlib import Path
 _here = Path(__file__).resolve().parent
 sys.path.insert(
     0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "enclosure" / "front-panel"),
-)
-sys.path.insert(
-    0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _front_panel_dimensions import secondary_regulator_pressure_psi
 from docgen import substitute_md
 
-# The refill pump's relay gate is a firmware pin assignment — take it from the
-# driver that owns it rather than restating the number here.
+# The refill pump's relay gate is a firmware pin assignment, and the appliance-side
+# CO2 pressure is the pressure vessel's working pressure — take each from the driver
+# that owns it rather than restating the number here.
 from _firmware_and_commissioning_sync import gpio_relay2 as _fc_gpio_relay2
+from _pressure_vessel_sync import secondary_regulator_pressure_psi
 
 
 # ─── Firmware setpoints loaded at commissioning ────────────────────────

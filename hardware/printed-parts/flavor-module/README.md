@@ -44,7 +44,7 @@ Every segment in it, against the topology's own numbering:
 | fluid-24 | `fill-mouth` | V-fill → the cap's FILL bore |
 | fluid-26 | `draw-mouth` | the cap's DRAW conduit → V-draw |
 | fluid-27 | `disch-noz` | Y-discharge → V-nozzle |
-| fluid-28 | `nozzle-out` | V-nozzle → the rear panel |
+| fluid-28 | `nozzle-out` | V-nozzle → the rear wall |
 
 ## Two lines
 
@@ -138,7 +138,7 @@ from inside it.
 | Port | Mates | Where |
 |---|---|---|
 | `in` | the shared source's select leg | deck's aft face, suction line |
-| `out` | the rear panel's flavor bulkhead | deck's aft face, discharge line |
+| `out` | the rear wall's flavor bulkhead | deck's aft face, discharge line |
 | `draw` | the cap's reservoir DRAW conduit | forward, on the cap's own column |
 | `fill` | the cap's reservoir FILL bore | forward, one conduit pitch aft of it |
 

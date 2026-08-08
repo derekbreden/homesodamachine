@@ -27,7 +27,7 @@ flowchart LR
   %% by them. There is no `water-1`.
   subgraph WaterSupply["Water Supply"]
     direction LR
-    BhW["bulkhead-water<br/>(PP1208E, rear panel)"]
+    BhW["bulkhead-water<br/>(PP1208E, rear wall)"]
     BFP["asse1022-assembly<br/>(Multiplex 19-0897)"]
     Split["water-split<br/>(1/4&quot; union tee)"]
     VK["vk-solenoid<br/>(V-K, 12 V NC)"]
@@ -45,7 +45,7 @@ flowchart LR
   %% bulkhead.
   subgraph CO2Supply["CO2 Supply"]
     direction LR
-    CO2In["co2-inlet<br/>(DERPIPE 5/16&quot; PTC, rear panel)"]
+    CO2In["co2-inlet<br/>(DERPIPE 5/16&quot; PTC, rear wall)"]
     GasherCO2["gasher-co2<br/>(1/4&quot; NPT check)"]
     WR["wr1110<br/>(secondary regulator, fixed 90 PSI)"]
   end
@@ -87,7 +87,7 @@ flowchart LR
 
   subgraph Dispense["Dispense"]
     FlowMeter["digiten-flow<br/>(Hall turbine, F = 23&middot;Q)"]
-    BhCarb["bulkhead-carb<br/>(PP1208E, rear panel)"]
+    BhCarb["bulkhead-carb<br/>(PP1208E, rear wall)"]
     Faucet["Faucet Lever"]
     Nozzle["Nozzle"]
   end

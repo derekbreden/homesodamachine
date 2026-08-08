@@ -48,7 +48,6 @@ from pathlib import Path
 _hw = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
 for _p in ("printed-parts/cadlib", "printed-parts/cold-core",
            "printed-parts/cold-core/reservoir", "printed-parts/cold-core/prv-shroud",
-           "printed-parts/enclosure/front-panel",
            "cut-parts/carbonation/endcaps-circular", "assembly"):
     _dir = str(_hw / _p.replace("/", os.sep))
     if _dir not in sys.path:
@@ -57,7 +56,6 @@ for _p in ("printed-parts/cadlib", "printed-parts/cold-core",
 import endcap_circular_dxf as _cap                                    # noqa: E402
 import prv_shroud as _prv                                             # noqa: E402
 import reservoir as _rsv                                              # noqa: E402
-from _front_panel_dimensions import secondary_regulator_pressure_psi  # noqa: E402
 
 # The benches' own constants, taken from the driver that owns them rather than
 # retyped here — the same borrow `_acceptance_and_burn_in_sync` makes of
@@ -221,8 +219,8 @@ def _figures():
     # AB-01 sets the primary anywhere in a band and the appliance holds one
     # pressure regardless; the band is the bench's and the pressure is the
     # WR1110's, and AB-01's caption is about exactly that difference.
-    assert _ab.co2_primary_min_psi <= secondary_regulator_pressure_psi <= _ab.co2_primary_max_psi, (
-        f"the WR1110 holds {secondary_regulator_pressure_psi:g} PSI outside the bench's "
+    assert _ab.co2_primary_min_psi <= _pv.secondary_regulator_pressure_psi <= _ab.co2_primary_max_psi, (
+        f"the WR1110 holds {_pv.secondary_regulator_pressure_psi:g} PSI outside the bench's "
         f"{_ab.co2_primary_min_psi}–{_ab.co2_primary_max_psi} PSI primary band — AB-01 sets the "
         f"primary to the appliance's own pressure as its centreline")
 
@@ -268,7 +266,7 @@ def _figures():
         # One regulator setting, stated at six benches. The vessel is proved to
         # twice it, so PV-11's "~2× working" is arithmetic on this number and
         # not a second figure to keep in step.
-        "REG_PSI": f"{secondary_regulator_pressure_psi:.4g} PSI",
+        "REG_PSI": f"{_pv.secondary_regulator_pressure_psi:.4g} PSI",
         "CO2_PRIMARY_BAND": f"{_ab.co2_primary_min_psi:.4g}{NDASH}"
                             f"{_ab.co2_primary_max_psi:.4g} PSI",
         "PRV_HOLD": f"{_ab.prv_hold_min:.4g} min",

@@ -1,16 +1,16 @@
 # Unboxing and Quick-Start
 
-The appliance ships in a carton with its quick-start sheet across the interior under the top flap. The faucet ships in a smaller box inside the appliance carton, with its own quick-start sheet across its interior. The appliance works without the faucet — its front-mounted spout dispenses directly. The faucet puts the dispense at the kitchen sink.
+The appliance ships in a carton with its quick-start sheet across the interior under the top flap. The faucet ships in a smaller box inside the appliance carton, with its own quick-start sheet across its interior. Everything the appliance dispenses leaves by the umbilical, so the faucet is what puts a glass under the machine.
 
 ## Appliance quick-start sheet — 4 drawings
 
 **Drawing 1: Connect the CO2 line.**
-- View: front-3/4 of the appliance, CO2 cylinder in the foreground beside it, regulator on top, hose extending toward the front-panel CO2 inlet.
-- Arrows: one red at the front-panel CO2 inlet.
+- View: rear-3/4 of the appliance, CO2 cylinder in the foreground beside it, regulator on top, hose extending around to the CO2 inlet on the rear wall.
+- Arrows: one red at the rear-wall CO2 inlet.
 - Caption: "Connect the CO2."
 
 **Drawing 2: Tee into the water line.**
-- View: under-counter. The customer's angle stop comes out of the wall with its outlet now empty. The customer's existing supply line is shown disconnected, its end dangling beside the angle stop. The tee floats in the gap between them, with the 3/8" tube pre-attached to one of its outlets and extending across the drawing. The free end of the tube sits next to the appliance, which is shown at the edge of the frame with its back-panel water inlet visible.
+- View: under-counter. The customer's angle stop comes out of the wall with its outlet now empty. The customer's existing supply line is shown disconnected, its end dangling beside the angle stop. The tee floats in the gap between them, with the 3/8" tube pre-attached to one of its outlets and extending across the drawing. The free end of the tube sits next to the appliance, which is shown at the edge of the frame with its rear-wall water inlet visible.
 - Arrows: rotation arrow on the angle stop showing the shut-off action; two white stub-arrows pointing inward at the tee's two open outlets, marking where the angle-stop connection and the existing-supply connection attach; white arrow at the appliance water inlet showing where the free end of the tube goes.
 - Caption: "Tee into the water. Run the tube to the device."
 
@@ -32,8 +32,8 @@ The appliance ships in a carton with its quick-start sheet across the interior u
 - Caption: "Slide the plate. Tighten the nut."
 
 **Drawing 2: Connect the tubes to the device.**
-- View: back panel of the appliance, umbilical bundle approaching from above (hanging down from the installed faucet).
-- Arrows: three at the back panel — blue at the top-vertex bulkhead, two black at the others (the bundle's natural triangle).
+- View: rear wall of the appliance, umbilical bundle approaching from above (hanging down from the installed faucet).
+- Arrows: three at the rear wall — the three bulkheads stand in one row, blue at the middle one, two black at the ends.
 - Caption: "Connect the tubes."
 
 ## Color system

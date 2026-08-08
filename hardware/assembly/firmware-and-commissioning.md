@@ -79,7 +79,7 @@ If the build fails on the `symlink://${PROJECT_DIR}/../PersistentLog` dependency
 
 ### 4. Flash the ESP32-S3 config display
 
-Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the front-face config + interaction display, mounted per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); its SIG-7 RS485 link to the board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the front-face config + interaction display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
 
 ```
 ./tools/flash.sh esp32s3_front
