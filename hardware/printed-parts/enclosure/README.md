@@ -32,7 +32,7 @@ What the core's yaw buys is vertical: a column above and ahead of it, where the 
 
 **The cold core is reached through its cap, not through its wall.** All four reservoir lines land on cap conduits — bores up the cap's own columns, each opening on the lid's outer face, which is the bay's own floor — so a line reaching one arrives at the deck rather than at a body face, and none of them crosses the shell. Reservoir A is filled on [443.1](FILL_A_LEN) mm and drawn on [134.4](DRAW_A_LEN); reservoir B on [194.3](FILL_B_LEN) and [134.4](DRAW_B_LEN). The carb riser leaves the core's own outlet conduit and runs [225.5](CARB_LEN) mm forward to the flow meter lying inline ahead of its union. The two flavour lines that leave the machine are the longest runs it carries: [476.9](NOZZLE_A_LEN) mm and [360.9](NOZZLE_B_LEN) mm, each turning east on its own lane so neither stands where the other crosses.
 
-**What the scorecard reports:** the `routed` axis at [90](ROUTED_PCT)% — [35](ROUTED_N) of the [39](CONNECTIONS_N) connections the machine owes are built. What is left is counted rather than dropped, so nothing disappears by being absent. The card written beside `front-half.step` carries the rest of the verdict — the clash check, the bend grades, and the gates that block an export.
+**What the scorecard reports:** the `routed` axis at [90](ROUTED_PCT)% — [35](ROUTED_N) of the [39](CONNECTIONS_N) connections the machine owes are built. What is left is counted rather than dropped, so nothing disappears by being absent. The card written beside `enclosure-assembly.step` carries the rest of the verdict — the clash check, the bend grades, and the gates that block an export.
 
 ## Constraints the layout respects
 

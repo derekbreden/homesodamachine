@@ -146,7 +146,7 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 
 ## Standing it on the refrigeration stratum
 
-[`enclosure_assembly.py`](enclosure_assembly.py) → `front-half.step` mates its bodies with nothing between
+[`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, the condenser's aft face
 to the cold core's front wall, and the crown of the pair to this pack's spine hairpins. The
 compressor does not reach that wall — the condenser is the deeper of the two and both are struck
@@ -164,7 +164,7 @@ evaporator's outlet as cut and brazed copper `_lines` draws like any other run.
 both its mouths — and `check_refrigerant_joints` writes the card red for any leg standing open
 and for any with no pair of placed stations to measure.
 
-![front half](front-half.right.png)
+![front half](enclosure-assembly.right.png)
 
 ## Regenerate
 

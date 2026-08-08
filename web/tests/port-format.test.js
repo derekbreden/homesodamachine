@@ -19,7 +19,7 @@ const _here = path.dirname(fileURLToPath(import.meta.url));
 // The live pack's sidecar, written by hardware/manifold-layout/enclosure_assembly.py. The audit
 // skips itself until that build has written one.
 const SIDECAR = path.join(
-  _here, "..", "..", "hardware", "manifold-layout", "front-half.scorecard.json",
+  _here, "..", "..", "hardware", "manifold-layout", "enclosure-assembly.scorecard.json",
 );
 
 test("named body faces read as their outward normal", () => {

@@ -41,7 +41,7 @@
 #        committed is not fab-ready.
 #      - hardware/ enclosure                → nothing. The front half carries its own
 #        gates and runs them itself: hardware/manifold-layout/enclosure_assembly.py prints the
-#        scorecard at the tail of every run and writes front-half.scorecard.json beside
+#        scorecard at the tail of every run and writes enclosure-assembly.scorecard.json beside
 #        the STEP, so nothing here re-runs them, and a red row rides the card rather
 #        than stopping anything. Rebuild-and-compare across every live generator is
 #        `npm --prefix web run build:check`.
@@ -211,7 +211,7 @@ for hw in $editions; do
   fi
 
   # No pack gate here. hardware/manifold-layout/enclosure_assembly.py runs its own scorecard at
-  # build time and writes front-half.scorecard.json beside the STEP, and the topology the
+  # build time and writes enclosure-assembly.scorecard.json beside the STEP, and the topology the
   # card grades itself against is hardware/topology/fluid-topology.md, which _scorecard.py
   # reads on every run. A freshness reading over the committed sidecar would be a second
   # gate keyed to the whole pack; `npm --prefix web run build:check` is where rebuild-and-

@@ -727,7 +727,7 @@ def _assembly():
     return enclosure_assembly
 
 
-# How a child of the front-half assembly is tagged. The names carry the role: the box's four
+# How a child of the enclosure assembly is tagged. The names carry the role: the box's four
 # printable pieces come in under `enclosure-`, the swept runs under `tube-`, and the two
 # bodies seated in walls rather than standing in the pack are named outright.
 def _source(name: str) -> str:

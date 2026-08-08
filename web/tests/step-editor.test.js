@@ -24,7 +24,7 @@ import { EDITIONS } from "../lib/editions.js";
 // The assembly the viewer actually shows, as it references it: relative to a
 // content root. This is the path a caller would reach for first, so it is the
 // one worth naming.
-const LIVE_STEP = "manifold-layout/front-half.step";
+const LIVE_STEP = "manifold-layout/enclosure-assembly.step";
 const SIDECAR = LIVE_STEP.replace(/\.step$/, ".overrides.json");
 
 // Every edition's id, plus one that names none — `editionRoot` falls back rather
@@ -96,14 +96,14 @@ function del(body, cookie) {
 // --- the gate is closed -----------------------------------------------------
 
 test("the live enclosure assembly is not editable", async () => {
-  // A tripwire, not a preference: adding `manifold-layout/front-half.step` to
+  // A tripwire, not a preference: adding `manifold-layout/enclosure-assembly.step` to
   // EDITABLE only works if enclosure_assembly.py reads its `.overrides.json` and applies
   // the moves as it places. Until it does, the route writes a sidecar nothing
   // reads, spends a full CAD rebuild, and returns the body to where it started.
   const res = await get(LIVE_STEP);
   assert.equal(
     res.status, 404,
-    "front-half.step is listed as editable — confirm enclosure_assembly.py applies "
+    "enclosure-assembly.step is listed as editable — confirm enclosure_assembly.py applies "
     + "the overrides sidecar",
   );
 });

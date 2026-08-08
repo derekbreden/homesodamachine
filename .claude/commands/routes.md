@@ -19,14 +19,14 @@ The board is the committed sidecar beside the assembly — the same figures the 
 the viewer's bottom bar reads, at the cost of a file read.
 
 ```
-jq -r '.checks[] | "\(.status)  \(.id)  \(.value)"' hardware/manifold-layout/front-half.scorecard.json
+jq -r '.checks[] | "\(.status)  \(.id)  \(.value)"' hardware/manifold-layout/enclosure-assembly.scorecard.json
 ```
 
 Then the offenders under whichever ones read `fail`:
 
 ```
 jq -r '.checks[] | select(.status=="fail") | "\(.id)  \(.value)", (.detail[] | "    \(.)")' \
-  hardware/manifold-layout/front-half.scorecard.json
+  hardware/manifold-layout/enclosure-assembly.scorecard.json
 ```
 
 Then the runs by **detour** — path ÷ the span the run's own two ends stand at, worst first:
@@ -34,7 +34,7 @@ Then the runs by **detour** — path ÷ the span the run's own two ends stand at
 ```
 jq -r '.bends[] | select(.need.detour != null)
        | "\(.need.detour)  \(.id)  \(.need.path) mm of path for ends \(.need.span) mm apart"' \
-  hardware/manifold-layout/front-half.scorecard.json | sort -rn | head
+  hardware/manifold-layout/enclosure-assembly.scorecard.json | sort -rn | head
 ```
 
 A run near 1 spends its length on its own need. A run far above it is riding infrastructure its
@@ -65,7 +65,7 @@ failing check — the one furthest from its own value.
 Then open it and look. The runs carry their own row, port to port:
 
 ```
-jq -r '.bends[] | select(.id=="<run>")' hardware/manifold-layout/front-half.scorecard.json
+jq -r '.bends[] | select(.id=="<run>")' hardware/manifold-layout/enclosure-assembly.scorecard.json
 tools/look.sh <run>,<its two end bodies>
 ```
 

@@ -1,7 +1,7 @@
 """The front half's requirements as a single pass/fail scorecard — the one place the
 arrangement's rules are enumerated as executable checks, computed from the placed geometry the pack
 already builds. Printed at the tail of every `enclosure_assembly.py` run and written beside the
-STEP as `front-half.scorecard.json`, which the 3D viewer's bottom bar reads
+STEP as `enclosure-assembly.scorecard.json`, which the 3D viewer's bottom bar reads
 ([`web/contracts/scorecard-sidecar.js`](/web/contracts/scorecard-sidecar.js)).
 
 Two kinds of check:
