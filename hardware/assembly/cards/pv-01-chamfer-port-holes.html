@@ -15,8 +15,8 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">The <span class="dim">7/16&Prime;</span> tap-drill holes
-    arrive laser-cut — with a <strong>recast lip</strong> at every edge.
+    <p class="lede">The <span class="dim" data-gen="TAP_DRILL">7/16&Prime;</span>
+    tap-drill holes arrive laser-cut — with a <strong>recast lip</strong> at every edge.
     Chamfer before any tap touches them: the taper tap needs a square seat
     to start concentric.</p>
 
@@ -24,12 +24,13 @@
       <li><b>Chuck the 82&deg; countersink — 5/8&Prime; or 3/4&Prime;
         body.</b> The 1/2&Prime; body spans only
         <span class="dim">0.031&Prime;</span> over the
-        <span class="dim">0.438&Prime;</span> hole: no room to set chamfer
-        width deliberately.</li>
+        <span class="dim" data-gen="TAP_DRILL_D">&#8960;0.438&Prime;</span>
+        hole: no room to set chamfer width deliberately.</li>
       <li><b>Press slow, Tap Magic on the cut</b> — the 5-flute grind
         chatters if crowded.</li>
       <li><b>Break BOTH faces of every hole</b> — flip each plate:
-        2 holes &#215; 2 faces &#215; both plates.</li>
+        <span class="dim" data-gen="PORTS_PER_PLATE">2</span> holes
+        &#215; 2 faces &#215; both plates.</li>
       <li><b>What it buys:</b> the recast lip is gone and the taper tap
         starts in a square seat — first threads concentric with the hole
         (PV-02).</li>
@@ -61,7 +62,7 @@
         <path class="tool" d="M 280 190 L 380 305 L 480 190 Z"/>
         <text class="dimtx" x="736" y="120" text-anchor="end">&#8960;5/8&Prime; or 3/4&Prime; body</text>
         <text class="sub" x="736" y="148" text-anchor="end">1/2&Prime; spans only 0.031&Prime;</text>
-        <text class="sub" x="736" y="176" text-anchor="end">over the &#8960;0.438&Prime; hole</text>
+        <text class="sub" x="736" y="176" text-anchor="end">over the <tspan data-gen="TAP_DRILL_D">&#8960;0.438&Prime;</tspan> hole</text>
         <text class="lbl" x="24" y="120">82&deg; countersink</text>
         <text class="sub" x="24" y="148">5-flute — slow + fluid,</text>
         <text class="sub" x="24" y="176">chatters if crowded</text>
@@ -73,13 +74,13 @@
         <line class="dimln" x1="40" y1="330" x2="40" y2="410"/>
         <line class="dimln" x1="30" y1="330" x2="50" y2="330"/>
         <line class="dimln" x1="30" y1="410" x2="50" y2="410"/>
-        <text class="dimtx" x="32" y="298" >1/4&Prime;</text>
+        <text class="dimtx" x="32" y="298" data-gen="PLATE_THK">1/4&Prime;</text>
 
         <!-- hole diameter dim -->
         <line class="dimln" x1="310" y1="450" x2="450" y2="450"/>
         <line class="dimln" x1="310" y1="438" x2="310" y2="462"/>
         <line class="dimln" x1="450" y1="438" x2="450" y2="462"/>
-        <text class="dimtx" x="380" y="492" text-anchor="middle">&#8960;0.438&Prime; (7/16&Prime;)</text>
+        <text class="dimtx" x="380" y="492" text-anchor="middle"><tspan data-gen="TAP_DRILL_D">&#8960;0.438&Prime;</tspan> (<tspan data-gen="TAP_DRILL">7/16&Prime;</tspan>)</text>
 
         <!-- recast-lip note -->
         <line class="dimln" x1="466" y1="396" x2="500" y2="430"/>
@@ -88,7 +89,7 @@
 
         <!-- flip note -->
         <text class="lbl" x="380" y="548" text-anchor="middle">flip — break BOTH faces of every hole</text>
-        <text class="sub" x="380" y="580" text-anchor="middle">2 holes &#215; 2 faces &#215; both plates = 8 chamfer passes</text>
+        <text class="sub" x="380" y="580" text-anchor="middle"><tspan data-gen="PORTS_PER_PLATE">2</tspan> holes &#215; 2 faces &#215; both plates = <tspan data-gen="CHAMFER_PASSES">8</tspan> chamfer passes</text>
       </svg>
       <div class="cap"><b>Chamfer before tap</b> — a lip-free, square seat is
       what keeps the first NPT threads concentric with the hole.</div>
@@ -97,8 +98,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>All four holes broken on both faces — no recast lip, countersink witness all round each edge.</div>
-  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>All <span data-gen="VESSEL_PORTS">4</span> holes broken on both faces — no recast lip, countersink witness all round each edge.</div>
+  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>

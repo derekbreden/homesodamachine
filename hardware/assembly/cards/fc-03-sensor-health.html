@@ -52,8 +52,8 @@
 
     <table class="spec" style="margin-top:22px">
       <tr><th>Sensor</th><th>Prove it</th></tr>
-      <tr><td>Probes &times;2</td><td>&plusmn;2&nbsp;&deg;C ambient &#183; 0x28 + 0x10</td></tr>
-      <tr><td>Reeds &times;10</td><td>high no-magnet &rarr; low at magnet</td></tr>
+      <tr><td>Probes &times;<span data-gen="PROBE_COUNT">2</span></td><td>&plusmn;2&nbsp;&deg;C ambient &#183; 0x28 + 0x10</td></tr>
+      <tr><td>Reeds &times;<span data-gen="REEDS_TOTAL">10</span></td><td>high no-magnet &rarr; low at magnet</td></tr>
       <tr><td>Flow meter</td><td>pulses per hand spin</td></tr>
       <tr><td>MPR121</td><td>touch flag per sleeve</td></tr>
       <tr><td>Faucet display</td><td>toggle logs over SIG-6</td></tr>
@@ -62,15 +62,17 @@
     </table>
 
     <div class="note" style="margin-top:22px">
-      <b>Reed map:</b> carb low 0x21&nbsp;PB4 &#183; high PB5 &#183;
-      A 0x20&nbsp;PB[0:3] &#183; B 0x21&nbsp;PB[0:3] — MCP pull-ups.
+      <b>Reed map:</b> the carbonator's <span data-gen="REEDS_CARB">2</span>
+      at 0x21&nbsp;PB4/PB5 &#183; <span data-gen="REEDS_PER_RSVR">4</span>
+      per reservoir, A 0x20&nbsp;PB[0:3] and B 0x21&nbsp;PB[0:3] — MCP
+      pull-ups.
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Every line of the frame in bounds and in the log — four ACKs, both probe families, 10 reeds proved both ways, pulses counted, MQ-6 at baseline, pan dry.</div>
-  <div class="src">firmware-and-commissioning.md &#167;6<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>Every line of the frame in bounds and in the log — four ACKs, both probe families, every reed proved both ways, pulses counted, MQ-6 at baseline, pan dry.</div>
+  <div class="src">firmware-and-commissioning.md &#167;6<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 
 </div>
