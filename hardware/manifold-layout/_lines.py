@@ -696,14 +696,28 @@ GATE_B_DECK_Y = 340.0
 GATE_B_CROSS_Y = 380.0
 
 
-def _gate_climb_under_cruise(F) -> float:
-    """The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate
-    climbs to under `fluid-24`, which is the body crossing ITS column.
+def gate_cruise(v_i_outlet_z: float) -> float:
+    """The storey the two nozzle gates cruise their outboard lanes at, off the collet of the
+    valve whose own channel crosses the west gate's column.
 
-    A run's own underside is one half-section below its axis, exactly as a stub's box is, so the
-    two flanks come out on one plane while the two reservoir lines cross on one."""
-    return (F["valve-v-i"].at("outlet")[2] + RESERVOIR_CRUISE
-            - _split.TUBE_D - GATE_STUB_CLEAR)
+    The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate
+    climbs to under `fluid-24`. A run's own underside is one half-section below its axis, exactly
+    as a stub's box is, so the two flanks come out on one plane while the two reservoir lines
+    cross on one.
+
+    Takes the Z rather than the frames, so a body may be STOOD on this plane before any run is
+    drawn — `enclosure_assembly.panel_z` puts the nozzle-B union on it."""
+    return v_i_outlet_z + RESERVOIR_CRUISE - _split.TUBE_D - GATE_STUB_CLEAR
+
+
+def station(body: str, port: str):
+    """One body's station in its own frame, as a carry takes it."""
+    return STATIONS[body][port][0]()
+
+
+def _gate_climb_under_cruise(F) -> float:
+    """`gate_cruise` read off the placed valve."""
+    return gate_cruise(F["valve-v-i"].at("outlet")[2])
 
 
 def _fluid_28(F, solids):
