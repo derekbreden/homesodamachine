@@ -86,7 +86,7 @@ CAPTION_BAND_MM = 12.7   # [0.5 in](CAPTION_BAND_IN)
 STEP_RADIUS_MM = 6.35    # [0.25 in](STEP_RADIUS_IN)
 STEP_NUMBER_SIZE_MM = 40  # very large step numerals
 HAIRLINE_MM = 0.4         # thin #000 stroke: step borders + number outlines
-PORT_ARROW_GAP_MM = 5.2   # arrow-tip standoff from a port hole (matches step 1's CO2 arrow)
+PORT_ARROW_GAP_MM = 5.2   # every port arrow's tip standoff from the hole it points at
 
 # Color system
 COLOR_WATER = "#1f6feb"        # blue — incoming tap water
@@ -265,23 +265,54 @@ def _ink_bbox(text):
     return min(xs), min(ys), max(xs), max(ys)
 
 
+def _marking_tag(text, color_fill):
+    """The iso renderer's fill path for one port marking."""
+    return re.search(
+        r'<path\b[^>]*\bfill="' + re.escape(color_fill) + r'"[^>]*>', text
+    ).group(0)
+
+
+def _marking_centre(tag):
+    """The marking disc's centre in its SVG's canvas coords — the mean of
+    the ring's own path points, which for an orthographic projection of a
+    circle is the projection of its centre."""
+    d = re.search(r'\bd="([^"]+)"', tag).group(1)
+    pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
+    return (sum(float(a) for a, _ in pts) / len(pts),
+            sum(float(b) for _, b in pts) / len(pts))
+
+
 def _port_target(text, color_fill):
     """The port hole a marking aims at, in its own SVG's canvas coords.
 
     The iso renderer stamps `data-target` on each marking's fill path —
     the projected hole out at the proud end of the fitting, which is what
     an arrow on this sheet should land on. A marking rendered before that
-    stamp existed falls back to the disc's own centroid."""
-    tag = re.search(
-        r'<path\b[^>]*\bfill="' + re.escape(color_fill) + r'"[^>]*>', text
-    ).group(0)
+    stamp existed falls back to the disc's own centre."""
+    tag = _marking_tag(text, color_fill)
     dt = re.search(r'data-target="(-?[0-9.]+)\s*,\s*(-?[0-9.]+)"', tag)
     if dt:
         return float(dt.group(1)), float(dt.group(2))
-    d = re.search(r'\bd="([^"]+)"', tag).group(1)
-    pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
-    return (sum(float(a) for a, _ in pts) / len(pts),
-            sum(float(b) for _, b in pts) / len(pts))
+    return _marking_centre(tag)
+
+
+def _port_normal(text, color_fill):
+    """Which way the port FACES on the page, as a unit (dx, dy).
+
+    The marking is painted on the wall and its target is the hole out at
+    the fitting's proud end, so the step between them is the wall's own
+    outward normal carried through the drawing's camera. An arrow that
+    travels against it is a line being pushed into the port — and it stays
+    that whichever wall the port is on and whichever way the view looks,
+    with nothing here measuring the page."""
+    tag = _marking_tag(text, color_fill)
+    cx, cy = _marking_centre(tag)
+    tx, ty = _port_target(text, color_fill)
+    dx, dy = tx - cx, ty - cy
+    mag = math.hypot(dx, dy)
+    if mag < 1e-9:                       # a port facing the camera dead-on
+        return 0.0, -1.0
+    return dx / mag, dy / mag
 
 
 def _embed_anchored(source_path, scale, right, bottom, color_fill=None):
@@ -370,12 +401,10 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
 # yet, so their arrows sit at approximate stand-in positions.
 
 
-# Which way a port arrow travels on the page, and how much of the image
-# band it runs across. The back view stands the machine's back wall on the
-# viewer's left, so an arrow arriving from the empty upper-left crosses
-# open page and lands square on the wall.
-CO2_ARROW_TRAVEL = (1.0, 1.0)      # down-and-right, arriving from the upper left
-CO2_ARROW_RUN = 0.26               # fraction of the image band's height
+# How far a port arrow runs, as a fraction of the image band's height. The
+# DIRECTION is not a constant — it is the port's own normal, read off the
+# drawing, so the arrow arrives the way the customer's line does.
+PORT_ARROW_RUN = 0.26
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
@@ -384,15 +413,15 @@ def _arrows_connect_co2(x, y, w, draw_h):
     back view. Nothing on this machine's front face takes a CO2 line, or
     anything else.
 
-    The tip is placed off the drawing's OWN red port marking rather than
-    at a measured spot on the page, so it follows the inlet wherever
-    `front_half` seats it."""
+    Both where it lands and which way it comes from are read off the
+    drawing's own red marking, so the arrow follows the inlet wherever
+    `front_half` seats it and however the view turns."""
+    text = Path(ENCLOSURE_BACK).read_text()
+    nx, ny = _port_normal(text, CO2_DISC_FILL)
     px, py = _embedded_port_point(
         ENCLOSURE_BACK, CO2_DISC_FILL, x, y, w, draw_h
     )
-    return _port_arrow(
-        px, py, *CO2_ARROW_TRAVEL, CO2_ARROW_RUN * draw_h, "red"
-    )
+    return _port_arrow(px, py, -nx, -ny, PORT_ARROW_RUN * draw_h, "red")
 
 
 def _arrows_tee_into_water(x, y, w, draw_h):
@@ -413,29 +442,24 @@ def _arrows_tee_into_water(x, y, w, draw_h):
         _stub_arrow(left_cx - 15, stub_y, +1, 0, color="blue", length=stub_len)
         + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="blue", length=stub_len)
     )
-    # Enclosure back view at the same scale as every other captioned step —
-    # `draw_h` is already the image band with the caption band taken off it —
-    # with its line-art anchored by its own bottom-right corner into the
-    # cell's bottom-right padding corner.
+    # Enclosure back view, its line-art anchored by its own bottom-right
+    # corner into the cell's bottom-right corner — standing off the right
+    # edge by one arrow run, because the back wall FACES that way and its
+    # arrow has to arrive across open page rather than off the panel.
     canvas_w, canvas_h = _canvas_dims(ENCLOSURE_BACK)
-    scale = min(w / canvas_w, draw_h / canvas_h)
+    arrow_reach = PORT_ARROW_RUN * draw_h + PORT_ARROW_GAP_MM
+    scale = min((w - arrow_reach) / canvas_w, draw_h / canvas_h)
     back, (px, py) = _embed_anchored(
-        ENCLOSURE_BACK, scale, x + w, y + draw_h, color_fill=WATER_DISC_FILL,
+        ENCLOSURE_BACK, scale, x + w - arrow_reach, y + draw_h,
+        color_fill=WATER_DISC_FILL,
     )
-    # Blue arrow to the water inlet's port hole. Its tail sits at the
-    # same height as the right inward arrow's back, a gap to its right
-    # (so the two backs align on one horizontal line and don't touch);
-    # its tip stops the same gap short of the hole as the CO2 arrow in
-    # step 1.
-    back_x, back_y = left_cx + 15 + stub_len, stub_y
-    back_gap = 8.0
-    tail_x, tail_y = back_x + back_gap, back_y
-    span = math.hypot(px - tail_x, py - tail_y)
-    ux, uy = (px - tail_x) / span, (py - tail_y) / span
-    inlet_arrow = _straight_arrow(
-        tail_x, tail_y,
-        px - ux * PORT_ARROW_GAP_MM, py - uy * PORT_ARROW_GAP_MM,
-        color="blue",
+    # Blue arrow into the water inlet, arriving along the port's own normal
+    # like step 1's red one. It cannot run across from the tee arrows: the
+    # ports are on the far side of the machine from them, and a line drawn
+    # to one crosses the body of the machine on its way.
+    nx, ny = _port_normal(Path(ENCLOSURE_BACK).read_text(), WATER_DISC_FILL)
+    inlet_arrow = _port_arrow(
+        px, py, -nx, -ny, PORT_ARROW_RUN * draw_h, "blue"
     )
     return back + rotation + stubs + inlet_arrow
 
