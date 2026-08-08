@@ -62,18 +62,26 @@ seam lips, ribs and all — and that is the answer.
 From the shell:
 
     tools/cad-venv/bin/python hardware/scripts/arrange.py snapshot
-    tools/cad-venv/bin/python hardware/scripts/arrange.py lanes fluid-4 --top 8
-    tools/cad-venv/bin/python hardware/scripts/arrange.py lanes fluid-2 --floor 2.0
-    tools/cad-venv/bin/python hardware/scripts/arrange.py space
-    tools/cad-venv/bin/python hardware/scripts/arrange.py rank --top 12
-    tools/cad-venv/bin/python hardware/scripts/arrange.py verify fluid-4 --lane 1
+    tools/cad-venv/bin/python hardware/scripts/arrange.py runs
+    tools/cad-venv/bin/python hardware/scripts/arrange.py lanes fluid-4 --floor 0.7 --full
+    tools/cad-venv/bin/python hardware/scripts/arrange.py lanes fluid-4 --sweep
+    tools/cad-venv/bin/python hardware/scripts/arrange.py space --space panel-deck
+    tools/cad-venv/bin/python hardware/scripts/arrange.py rank --space west-lane --top 12
+    tools/cad-venv/bin/python hardware/scripts/arrange.py verify fluid-4 --lane 1 --floor 0.7
     tools/cad-venv/bin/python hardware/scripts/arrange.py selftest
 
-`selftest` runs the solver against known-answer geometry — an empty room, a room with one slab
-across the line, a floor that closes the only gap, the leg rule that keeps a corner at spec, the
-lattice's own bounds — then puts the machine that EXISTS through the same filter, which is the
-control the whole thing stands on: an instrument that rejects the built machine is rejecting
-reality. Run it before trusting a ranking.
+Building the world is a minute and a half, so it is taken once and written down flat (`snapshot`).
+`--pin` reads the newest one on disk whatever the tree now says, and says so — for a reading taken
+while the machine is being edited under it.
+
+`selftest` runs the solver against known-answer geometry — an empty room, a slab across the only
+line, a slot a 0.5 mm floor fits through and a 2 mm floor does not, a sidestep small enough that
+it has to be drawn as a lean, a block standing in the corner a shortcut would cut — then the
+reader's own arithmetic against the arc it stands for, and then the machine that EXISTS through
+the same filter. That last is the control the whole thing rests on, and it is two claims: every
+authored run clears the machine it is in, and the search re-finds `fluid-4`'s own lane down the
+mirror line at the 0.770 mm the card reads there. An instrument that rejects the built machine is
+rejecting reality. Run it before trusting a ranking.
 """
 
 import argparse
@@ -1270,7 +1278,8 @@ QUARTERS = (0, 1, 2, 3)
 
 def _rot_axis(axis: int, quarters: int) -> tuple:
     """The 3×3 of a quarter turn about a world axis, as a tuple of rows."""
-    c, s = int(round(math.cos(quarters * math.pi / 2))), int(round(math.sin(quarters * math.pi / 2)))
+    a = quarters * math.pi / 2.0
+    c, s = int(round(math.cos(a))), int(round(math.sin(a)))
     m = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
     j, k = [i for i in range(3) if i != axis]
     m[j][j], m[j][k] = c, -s
