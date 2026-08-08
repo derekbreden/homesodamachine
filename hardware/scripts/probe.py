@@ -38,7 +38,7 @@ Use from anywhere in the repo:
 
     w = probe.world()
     print(w.table(sort="ymin"))                       # every body's box, tagged by role
-    w.gap("foam-assembly", "compressor-shroud")       # exact mm between two solids
+    w.gap("foam-assembly", "compressor")              # exact mm between two solids
     w.hits(probe.box(x=(100, 120), y=(160, 200), z=(30, 275)))   # what a lane runs into
     w.cast((110.1, 98.4, 273.1), (0, 0, -1), dia=6.35)           # how far a tube can drop
     w.travel("psu", (1, 0, 0))                        # how far a BODY moves, and past what
@@ -49,7 +49,7 @@ Use from anywhere in the repo:
 From the shell, without writing a file:
 
     tools/cad-venv/bin/python hardware/scripts/probe.py boxes --sort ymin
-    tools/cad-venv/bin/python hardware/scripts/probe.py gap foam-assembly compressor-shroud
+    tools/cad-venv/bin/python hardware/scripts/probe.py gap foam-assembly compressor
     tools/cad-venv/bin/python hardware/scripts/probe.py at foam-assembly.evap-outlet
     tools/cad-venv/bin/python hardware/scripts/probe.py cast 110.14,98.36,273.1 0,0,-1 --dia 6.35
     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275

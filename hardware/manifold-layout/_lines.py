@@ -27,9 +27,15 @@ from pathlib import Path
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
-for _p in (_hw / "scripts",
+# EVERY MODULE IMPORTED BELOW IS ON THIS LIST, this module's own directory among them. A
+# module that leans on its importer's path is one only that importer can import: the doc-sync
+# drivers reach this file without going through `front_half`, and they set up their own path.
+for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
+           _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
+           _hw / "reference" / "compressor",
+           _hw / "reference" / "condenser-block",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",

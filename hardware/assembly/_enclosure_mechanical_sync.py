@@ -16,7 +16,6 @@ sys.path.insert(
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "back-panel"))
-sys.path.insert(0, str(_hw / "cut-parts" / "compressor-shroud"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_hw / "reference" / "jg-bulkhead-union"))
@@ -25,11 +24,6 @@ sys.path.insert(0, str(_hw / "reference" / "iec-c14-inlet"))
 from _back_panel_dimensions import (  # noqa: E402
     ac_inlet_recess_depth_max,
     ac_inlet_recess_depth_min,
-)
-from _compressor_shroud_dimensions import (  # noqa: E402
-    panel_hole_label,
-    terminal_block_clearance_mm,
-    wall_thickness_in,
 )
 from _cold_core_interface import (  # noqa: E402
     cap_conduits,
@@ -89,21 +83,15 @@ def main():
         "Y_SEAM": f"{_box.y_joint:.4g}",
         "Z_SEAM_FRONT": f"{_box.splits[0]:.4g}",
         "Z_SEAM_BACK": f"{_box.splits[1]:.4g}",
-        # Width is the refrigeration stratum's, not the core's — the widest body ON THE FLOOR
-        # is what the ±X walls stand their boss chain off.
-        "STRATUM_X": f"{_span(_pack, 'compressor-shroud', 'condenser+fan'):.0f}",
+        # The refrigeration stratum's own width, across the pair as it stands, beside the core's
+        # for comparison — the ±X walls stand their boss chain off every body ON THE FLOOR.
+        "STRATUM_X": f"{_span(_pack, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_pack, 'foam-assembly'):.0f}",
         "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
         # AC inlet recess range.
         "AC_RECESS_DEPTH": (
             f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm"
         ),
-        # Terminal-block min clearance inside the shroud.
-        "TB_CLEARANCE": f"{terminal_block_clearance_mm:.4g} mm",
-        # G90 sheet thickness.
-        "WALL_IN": f'{wall_thickness_in:.4g}"',
-        # AC pass-through panel hole (cable gland).
-        "PANEL_HOLE": panel_hole_label,
         # Foam-shell outer bottom-cap footprint, and the count of lid conduits that is the
         # whole of what the warm side reaches the core through.
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
@@ -142,9 +130,6 @@ def main():
             "CORE_X": 1,
             "SIDE_BAND": 1,
             "AC_RECESS_DEPTH": 2,
-            "TB_CLEARANCE": 1,
-            "WALL_IN": 1,
-            "PANEL_HOLE": 3,
             "FOAM_SHELL_X": 1,
             "FOAM_SHELL_Y": 1,
             "CAP_CONDUITS": 2,
