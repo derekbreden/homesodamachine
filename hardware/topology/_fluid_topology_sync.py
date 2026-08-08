@@ -86,7 +86,8 @@ class Seg:
       `not drawn`— a mouth of the manifold study with nothing on the far end of it yet.
 
     The table's remaining name is `mate`, a joint made up across a plane its two bodies already
-    share. That is how the refrigerant loop is built, and these charts draw fluid.
+    share. It belongs to the refrigerant loop, whose legs are made that way or on a brazed
+    length of copper, and these charts draw fluid.
     """
 
     id: str
