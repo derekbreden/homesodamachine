@@ -154,6 +154,27 @@ function buildMesh(result) {
   return group;
 }
 
+// The triangles the model was exported from, written beside the STEP as `<file>.mesh` by
+// hardware/scripts/_cadq_export.py. The same meshes[] the wasm parse returns — everything
+// downstream is untouched, edges included: the picker reconstructs those off the triangles
+// rather than off the BREP.
+//
+// A MODEL WITH ONE ANSWERS OFF IT AND NEVER FETCHES THE STEP. The text is only ever read to
+// be parsed into these, and the parse is the whole cost of opening an assembly — several
+// seconds against a fraction of one, over twenty megabytes the page then throws away. A model
+// without one reads the STEP and shows the same thing.
+async function fetchMeshes(file, headers) {
+  try {
+    const resp = await fetch(`/meshes/${file}.mesh`, { headers });
+    if (resp.status === 304) return { unchanged: true };
+    if (!resp.ok) return null;
+    return { etag: resp.headers.get("etag"),
+             result: decodeMeshPayload(new Uint8Array(await resp.arrayBuffer())) };
+  } catch {
+    return null;
+  }
+}
+
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
   // Loading pill lives inside the current step wrapper (or none if the
   // headless tool drove loadStepFile directly). Tolerate either.
@@ -164,20 +185,28 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // If we're refetching the same file that's already in the scene, send
     // If-None-Match so the server can answer 304 when bytes are unchanged
     // (avoids the visible re-render flash on a deploy that didn't touch
-    // this STEP file).
+    // this file). The tessellation is rewritten whenever the STEP is, so it
+    // carries that revalidation as faithfully as the STEP does.
     const headers = {};
     const prevEtag = state.stepEtags.get(file);
     if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
-    const resp = await fetch(`/steps/${file}`, { headers });
-    if (resp.status === 304) return;
-    if (!resp.ok) return;
-    const etag = resp.headers.get("etag");
-    if (etag) state.stepEtags.set(file, etag);
 
-    const buf = new Uint8Array(await resp.arrayBuffer());
-    const result = await parseStep(buf);
+    let result = null;
+    const meshed = await fetchMeshes(file, headers);
+    if (meshed?.unchanged) return;
+    if (meshed) {
+      if (meshed.etag) state.stepEtags.set(file, meshed.etag);
+      result = meshed.result;
+    } else {
+      const resp = await fetch(`/steps/${file}`, { headers });
+      if (resp.status === 304) return;
+      if (!resp.ok) return;
+      const etag = resp.headers.get("etag");
+      if (etag) state.stepEtags.set(file, etag);
+      result = await parseStep(new Uint8Array(await resp.arrayBuffer()));
+    }
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
