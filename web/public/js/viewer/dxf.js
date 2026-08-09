@@ -21,7 +21,7 @@
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { scene, camera, controls, resizeRenderer, fitCameraDepth } from "./scene.js";
+import { scene, camera, controls, resizeRenderer, fitCameraDepth, fitFog } from "./scene.js";
 import { thumbRenderer, thumbScene, thumbCam } from "./step.js";
 
 const DXF_UNIT_TO_MM = {
@@ -494,6 +494,7 @@ export async function renderDxfThumbnail(file) {
       thumbCam.lookAt(center);
     }
     fitCameraDepth(thumbCam, center, size.length() / 2);
+    fitFog(thumbScene, thumbCam.position.distanceTo(center), size.length() / 2);
 
     thumbRenderer.render(thumbScene, thumbCam);
     const dataURL = thumbRenderer.domElement.toDataURL();

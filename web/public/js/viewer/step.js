@@ -6,7 +6,8 @@
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, TONE_EXPOSURE } from "./scene.js";
+import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, fitFog,
+         BG_COLOR, TONE_EXPOSURE } from "./scene.js";
 import { applyXray, syncEdgeResolution } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
@@ -206,7 +207,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 const thumbRenderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 thumbRenderer.setSize(400, 400);
 thumbRenderer.setPixelRatio(1);
-thumbRenderer.setClearColor(0x1a1a2e);
+thumbRenderer.setClearColor(BG_COLOR);
 thumbRenderer.toneMapping = THREE.ACESFilmicToneMapping;
 thumbRenderer.toneMappingExposure = TONE_EXPOSURE;
 const thumbScene = new THREE.Scene();
@@ -236,6 +237,7 @@ export function snapThumbnail(group) {
   );
   thumbCam.lookAt(center);
   fitCameraDepth(thumbCam, center, size.length() / 2);
+  fitFog(thumbScene, dist, size.length() / 2);
   syncEdgeResolution(thumbRenderer);
 
   thumbRenderer.render(thumbScene, thumbCam);
