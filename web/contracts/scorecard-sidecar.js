@@ -31,6 +31,16 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
+ * @typedef {Object} ScorecardSize  one population's outside dimensions, measured off its solids
+ * @property {string} id      "enclosure" (the printed box) | "assembly" (everything placed)
+ * @property {string} label   what the row measures, in words
+ * @property {number[]} min   [x, y, z] world mm, the low corner of the box it stands in
+ * @property {number[]} max   [x, y, z] world mm, the high corner
+ * @property {number[]} mm    [width, depth, height] — max − min, on the axes the pack uses.
+ *                            The measurement; inches come out of `inches()` below
+ */
+
+/**
  * @typedef {Object} ScorecardShape  one component's real boxes — the shape record behind `shaped`
  * @property {string} component
  * @property {number[][]} boxes  one [xmin, ymin, zmin, xmax, ymax, zmax] per solid the component
@@ -147,6 +157,9 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                               counts capture and adhesive. Optional: an edition whose
  *                               scorecard predates the axis omits it, so the guard below does
  *                               not require it and a bar still draws without it.
+ * @property {ScorecardSize[]} [size]  how big the thing is: the printed box, and everything
+ *                               placed. Optional: an edition whose scorecard predates the
+ *                               table omits it, and the card draws without a size block
  * @property {ScorecardCheck[]} checks
  * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
@@ -166,6 +179,19 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                                 the card still describes the tree is answered by running the
  *                                 build, and by nothing this block carries
  */
+
+// ── Size ─────────────────────────────────────────────────────────────────────────────────────
+// The sidecar carries millimetres, one triple per population. Inches are divided out here, for
+// the reader who holds the machine rather than the model — _scorecard.py's `report` divides the
+// same way for the terminal.
+export const MM_PER_INCH = 25.4;
+
+// One size row in both units: "223.0 × 474.0 × 358.0 mm · 8.78 × 18.66 × 14.09 in".
+export function sizeText(row) {
+  const mm = (row && row.mm) || [];
+  return `${mm.map((v) => v.toFixed(1)).join(" × ")} mm · `
+       + `${mm.map((v) => (v / MM_PER_INCH).toFixed(2)).join(" × ")} in`;
+}
 
 // ── Focus ────────────────────────────────────────────────────────────────────────────────────
 // The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal — the live one,
@@ -264,6 +290,20 @@ export function isScorecard(o) {
         typeof p.status === "string",
     );
     if (!portsOk) return false;
+  }
+  // size is the measured outside of the printed box and of the whole assembly. Present on
+  // current sidecars; validated when present so an older sidecar without it still reads.
+  if (o.size !== undefined) {
+    if (!Array.isArray(o.size)) return false;
+    const triple = (v) => Array.isArray(v) && v.length === 3 && v.every((n) => typeof n === "number");
+    const sizeOk = o.size.every(
+      (s) =>
+        s &&
+        typeof s.id === "string" &&
+        typeof s.label === "string" &&
+        triple(s.min) && triple(s.max) && triple(s.mm),
+    );
+    if (!sizeOk) return false;
   }
   // shapes is the per-component box record. Present on current sidecars; validated when present
   // so an older sidecar without it still reads.
