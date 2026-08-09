@@ -477,7 +477,7 @@ def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 
                 f"intersection with {name} failed ({exc}) — this body's occupancy is "
                 f"unknown, not empty") from exc
         if overlap > VOL_TOL:
-            clashes.append(probe.Hit(name, overlap, inter.BoundingBox()))
+            clashes.append(probe.Hit(name, overlap, probe._meshes.box(inter)))
         else:
             gaps.append(Gap(d, name))       # touching, not overlapping
     clashes.sort(key=lambda h: -h.volume)
