@@ -485,9 +485,12 @@ SOURCE_JOG = 14.0
 # The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
 # VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
 # and the way it steps, so leaning that plane about the run costs the step nothing and only its
-# length is solved for. What the spread buys is the slot on the mirror line — the two source
-# valves stand a valve's half-width either side of x 0 and the hopper's gravity drain threads
-# the gap between their coils, so a valve carried outboard widens that lane one for one.
+# length is solved for.
+#
+# V-A's spread is what centres it in the row of three the cold core's cap carries — V-B on this
+# pack's west inner limb, V-A, then V-K on the suction chain's column. The chain is not in this
+# study, so the figure is stated here and measured there:
+# `enclosure_assembly.check_valve_row` prints the spread the row wants.
 SOURCE_SPREAD = {"V-A": 2.42, "V-B": 0.0}
 
 
