@@ -360,6 +360,26 @@
    "active": true
   },
   {
+   "id": "kamoer-boss-leaves-motor",
+   "label": "The case-derived seams leave the part a motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a boss ending before the part's 62.55 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-motor-clears-tower",
+   "label": "The case's tower bore is deep enough for the motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a bore reaching 62.55 mm or past it",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "crossbar-positive",
    "label": "The crossbar leaves Y-A and Y-B their own tube",
    "kind": "gate",
@@ -391,11 +411,11 @@
   },
   {
    "id": "pump-motor-room",
-   "label": "The pump's own length leaves its motor a can to be",
+   "label": "The pump's three bodies are the part, end to end",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a motor longer than nothing",
+   "target": "111.43 mm across head, boss and can",
    "detail": [],
    "active": true
   },
@@ -5730,7 +5750,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T03:17:54+00:00",
-  "commit": "3a9028818c4c1b38aa81b7ea99638d198724ae60"
+  "generated": "2026-08-09T03:23:00+00:00",
+  "commit": "690c0ce0eed5e892ae1ddef725963e55c2e47192"
  }
 }
