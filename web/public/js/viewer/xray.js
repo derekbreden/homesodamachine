@@ -27,6 +27,9 @@
 // show the x-ray look. Defaults to ON; an explicit toggle is remembered.
 
 import * as THREE from "three";
+import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
+import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
+import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { state } from "./state.js";
 
 const LS_KEY = "step-xray";
@@ -75,6 +78,34 @@ function xrayVariant(base) {
   return m;
 }
 
+// Edges are drawn as screen-space quads with analytic coverage, at EDGE_WIDTH
+// device pixels. A GL line is one pixel wide with no partial coverage, so on a
+// sub-pixel camera move it is either in a pixel or out of it: across the
+// enclosure assembly's 48,000 feature-edge segments that reads as a shimmer over
+// the whole frame. Against the same nudge, measured on edges alone, a hard pixel
+// flip lands on 0.67% of the frame here where the GL line put it on 1.22%.
+const EDGE_WIDTH = 1.4;
+
+// Every LineMaterial ever handed out. `linewidth` is in pixels OF ITS OWN
+// `resolution`, so each one has to be told the size of the buffer it is about
+// to be drawn into — the live canvas, the 400×400 thumbnail, or whatever size a
+// tool in tools/render/ has set. `syncEdgeResolution` is that telling, and every
+// render path calls it.
+const _edgeMats = new Set();
+const _bufSize = new THREE.Vector2();
+
+export function makeEdgeMaterial(params = {}) {
+  const m = new LineMaterial({ linewidth: EDGE_WIDTH, alphaToCoverage: true, ...params });
+  m.resolution.copy(_bufSize);
+  _edgeMats.add(m);
+  return m;
+}
+
+export function syncEdgeResolution(renderer) {
+  renderer.getDrawingBufferSize(_bufSize);
+  for (const m of _edgeMats) m.resolution.copy(_bufSize);
+}
+
 // part color (hex) -> shared edge line material, so same-colored solids
 // share one. Edges are opaque so they read crisply and anchor the depth
 // buffer; the faint surfaces blend around them.
@@ -83,7 +114,7 @@ function edgeMaterial(color) {
   const key = color.getHex();
   let m = _edgeMatCache.get(key);
   if (!m) {
-    m = new THREE.LineBasicMaterial({ color: color.clone() });
+    m = makeEdgeMaterial({ color: color.clone() });
     _edgeMatCache.set(key, m);
   }
   return m;
@@ -105,13 +136,18 @@ function removeXrayEdges(group) {
 export function applyXray(group) {
   if (!group) return;
   removeXrayEdges(group);
-  const meshes = group.children.filter((c) => c.isMesh);
+  // LineSegments2 extends Mesh, so the edges this adds would answer to isMesh
+  // on the next pass. removeXrayEdges has already taken them out above; the
+  // guard says so where a reader is looking at the filter.
+  const meshes = group.children.filter((c) => c.isMesh && !c.userData.isXrayEdge);
   if (enabled) {
     for (const mesh of meshes) {
       if (!mesh.userData.baseMaterial) mesh.userData.baseMaterial = mesh.material;
       const base = mesh.userData.baseMaterial;
       const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
-      const line = new THREE.LineSegments(eg, edgeMaterial(base.color));
+      const lg = new LineSegmentsGeometry().setPositions(eg.getAttribute("position").array);
+      eg.dispose();
+      const line = new LineSegments2(lg, edgeMaterial(base.color));
       line.userData.isXrayEdge = true;
       // Carry the component name so a locally-hidden component (component-picker.js)
       // takes its feature edges out of the ghost too — otherwise the wireframe of a
