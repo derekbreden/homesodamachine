@@ -2,9 +2,8 @@
 
 Same sidecar the enclosure's card writes ([`web/contracts/scorecard-sidecar.js`]
 (/web/contracts/scorecard-sidecar.js)), so the 3D viewer draws this card with the machinery it
-already has. The checks are this assembly's own: what the enclosure grades is where bodies
-stand against each other in a box, and what is graded here is a vessel, a wound coil, two
-reservoirs and the lines potted around them.
+already has. The checks are this assembly's own — a vessel, a wound coil, two reservoirs, and
+the lines potted among them.
 
 REPORTING, NOT GATING. `main` never exits nonzero on a finding — every row lands in the card
 and on the terminal, and the build still writes its STEP. A reading that stops the build is a

@@ -94,8 +94,8 @@ PARTS = (
      ("vent-membrane-a", "vent-membrane-b")),
 )
 
-# Bodies this assembly places that no billed part claims: the printed box's own pieces are the
-# enclosure's, and a line of tube is stock rather than a part.
+# A length of tube is stock cut to fit, billed by the foot in §3 and §11, so a drawn line is
+# not a part any row here claims.
 UNBILLED_PREFIXES = ("line-",)
 
 

@@ -157,8 +157,8 @@ def trough_floor_z(reservoir_solid, x: float) -> float:
 def reservoir_bulkheads(reservoirs: dict = None) -> dict:
     """Each pocket's floor bulkhead, name → `(solid, mouth)`.
 
-    The barrel is as long as it has to be to clear the trough floor it passes, so the nut lands
-    on the wet side of that floor rather than inside it."""
+    The barrel carries the trough floor it passes and the washer squeezed on top of it, so the
+    nut lands on the wet side of both."""
     out = {}
     for name, line in BULKHEAD_LINES.items():
         corner = _bulkhead_corner(line)
@@ -187,9 +187,9 @@ RES_ROD_LEN = _res.reservoir_rod_len
 def rod_seat_z(reservoir_solid, x: float) -> float:
     """Where one reservoir's rod bottoms — the blind bore's floor in its anchor boss.
 
-    `reservoir.py` strikes the boss off a sloping wet floor, so the seat is a consequence of
-    that slope rather than a constant. Probing the part on the rod's own axis is what reads it,
-    and a boss that moves carries its rod with it."""
+    `reservoir.py` strikes the boss off a sloping wet floor, so the seat follows that slope.
+    Probing the part on the rod's own axis is what reads it, and a boss that moves carries its
+    rod with it."""
     bb = reservoir_solid.BoundingBox()
     probe = cq.Solid.makeCylinder(
         _V.ROD_D / 2, (bb.zmin + bb.zmax) / 2.0 - bb.zmin + 1,
