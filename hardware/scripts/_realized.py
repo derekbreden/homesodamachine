@@ -31,6 +31,7 @@ always safe.
 """
 
 import hashlib
+import io
 import os
 import sys
 from pathlib import Path
@@ -84,29 +85,44 @@ def key(module_name: str, *inputs) -> str:
 
 
 def realized(name: str, build):
-    """The shape `build()` draws, read back from disk when `name` already stands for one."""
+    """The shape `build()` draws, read back from disk when `name` already stands for one.
+
+    A SHAPE OFF BREP IS NOT LAID OUT LIKE THE ONE THAT WAS DRAWN. Its faces and edges are the
+    same faces and edges standing in a different order, which no reading can tell apart and the
+    STEP writer can: the file it emits follows the order it walks. So EVERY shape leaves here
+    through BREP, drawn or kept, and a 20 MB artifact does not churn on whether a local
+    directory happened to be populated. `DISABLED` skips the disk, not the round trip, so the
+    run that proves the kept work honest is comparing the one thing that differs."""
     from OCP.BRep import BRep_Builder
     from OCP.BRepTools import BRepTools
     from OCP.TopoDS import TopoDS_Shape
     import cadquery as cq
 
-    if DISABLED:
-        return build()
-    path = _DIR / f"{name}.brep"
-    if path.is_file():
+    def off_brep(text):
+        text.seek(0)
         shape, builder = TopoDS_Shape(), BRep_Builder()
-        if BRepTools.Read_s(shape, str(path), builder) and not shape.IsNull():
-            return cq.Workplane(obj=cq.Shape.cast(shape))
+        BRepTools.Read_s(shape, text, builder)
+        return cq.Workplane(obj=cq.Shape.cast(shape))
+
+    path = _DIR / f"{name}.brep"
+    if not DISABLED and path.is_file():
+        try:
+            return off_brep(io.BytesIO(path.read_bytes()))
+        except Exception:
+            pass                                 # an entry that cannot be read is a miss
     made = build()
     solid = made.val() if hasattr(made, "val") else made
-    try:
-        _DIR.mkdir(parents=True, exist_ok=True)
-        tmp = path.with_suffix(f".{os.getpid()}.tmp")
-        BRepTools.Write_s(solid.wrapped, str(tmp))
-        os.replace(tmp, path)                    # a reader never sees a half-written entry
-    except Exception:
-        pass                                     # a cache that cannot be written is not an error
-    return made
+    text = io.BytesIO()
+    BRepTools.Write_s(solid.wrapped, text)
+    if not DISABLED:
+        try:
+            _DIR.mkdir(parents=True, exist_ok=True)
+            tmp = path.with_suffix(f".{os.getpid()}.tmp")
+            tmp.write_bytes(text.getvalue())
+            os.replace(tmp, path)                # a reader never sees a half-written entry
+        except Exception:
+            pass                                 # a cache that cannot be written is not an error
+    return off_brep(text)
 
 
 def selftest():
@@ -132,10 +148,13 @@ def selftest():
             raise AssertionError(f"one shape was drawn {drawn[0]} times — the key does not stand "
                                  f"for it, so nothing is ever read back")
         a, b = first.val().Volume(), second.val().Volume()
-        if abs(a - b) > 1e-9:
-            raise AssertionError(f"a kept solid measures {b:.6f} where the drawn one measures "
-                                 f"{a:.6f} — the round trip is not the shape")
-        yield f"a kept solid is the drawn one, to {abs(a-b):.1e} mm³"
+        straight = draw(3.0).val().Volume()
+        for label, got in (("kept", b), ("drawn and handed back", a)):
+            if abs(got - straight) > 1e-9:
+                raise AssertionError(f"a {label} solid measures {got:.6f} where the shape as "
+                                     f"drawn measures {straight:.6f} — the round trip is not "
+                                     f"the shape")
+        yield f"a kept solid is the drawn one, to {abs(a - straight):.1e} mm³"
 
         if key(__name__, ("selftest", 3.0)) == key(__name__, ("selftest", 4.0)):
             raise AssertionError("two descriptions share a key — a change to one would be "
