@@ -26,15 +26,14 @@
     </div>
 
     <ol class="steps">
-      <li><b>Mount the DC block</b> beside the power-tray.</li>
-      <li><b>DC-1 trunk:</b> PSU <span class="dim">+V</span> and
-        <span class="dim">&#8722;V</span> into the block's rails —
-        <span class="dim">16 AWG</span>, forks at the PSU, ferrules at the
-        block.</li>
-      <li><b>DC-2:</b> block + &#8594; relay #2 <span class="dim">COM</span>.
+      <li><b>Press the + and GND levers</b> into their wells.</li>
+      <li><b>DC-1 trunk:</b> PSU <span class="dim">+V</span> /
+        <span class="dim">&#8722;V</span> into the two levers —
+        <span class="dim">16 AWG</span>, forks at the PSU.</li>
+      <li><b>DC-2:</b> + lever &#8594; relay #2 <span class="dim">COM</span>.
         <b>NC stays empty.</b></li>
-      <li><b>DC-3 staged:</b> + off <span class="dim">NO</span>, GND off the
-        block — coiled, flagged, SeaFlo disconnects (WR-04).</li>
+      <li><b>DC-3 staged:</b> + off <span class="dim">NO</span>, GND off its
+        lever — coiled + flagged for the SeaFlo (WR-04).</li>
       <li><b>DC-4:</b> + and GND to J10, ferrules under the screw clamps —
         verify V12 traces to PSU +.</li>
     </ol>
@@ -71,8 +70,8 @@
         <text class="sub" x="235" y="196" text-anchor="middle">~100 mm</text>
         <!-- DC block -->
         <rect class="blk" x="280" y="40" width="170" height="130" rx="10"/>
-        <text class="lbl" x="365" y="84" text-anchor="middle">DC BLOCK</text>
-        <text class="sub" x="365" y="110" text-anchor="middle">+ &#183; GND</text>
+        <text class="lbl" x="365" y="84" text-anchor="middle">12 V RAILS</text>
+        <text class="sub" x="365" y="110" text-anchor="middle">221-413 &#215;2 &#183; + &#183; GND</text>
         <text class="pin" x="438" y="132" text-anchor="end">+</text>
         <!-- DC-2 into relay #2 COM -->
         <line class="wire" x1="450" y1="140" x2="540" y2="140"/>
@@ -124,11 +123,11 @@
       <div class="cap"><b>The relay switches the + leg only.</b> COM and NO
       are both 12 V positive; the contact either bridges them or does not.
       <b>NC stays empty.</b> The pump's GND never touches the relay — it
-      comes off the block's rail and rides beside DC-3's + conductor.</div>
+      comes off the GND lever and rides beside DC-3's + conductor.</div>
     </div>
 
     <div class="note" style="margin-top:24px">
-      <b>~3.3 A peak against a 17 A-rated block.</b> 10 valves, both
+      <b>~3.3 A peak against a 32 A-rated lever.</b> 10 valves, both
       peristaltic pumps, the condenser fan, display 12 V, and both logic
       rails all draw through DC-4.
     </div>
