@@ -87,6 +87,28 @@ function appendCheck(card, c, gray, wrapper, partNames, showDetail = true) {
   addCollapsible(card, drows, 0);
 }
 
+// A run of checks behind one toggle, each keeping its own detail toggle inside.
+//
+// WHAT HOLDS IS A COUNT, NOT A LIST. A card opens on the decisions it is asking for, and a
+// check that passes is not one of them — seventy of them ahead of the four that are is the
+// card asking the reader to do the filtering it was built to do.
+function addCollapsedChecks(card, checks, label, wrapper, partNames, gray = false) {
+  if (!checks.length) return;
+  const wrap = el("div", "sc-more");
+  wrap.style.display = "none";
+  for (const c of checks) appendCheck(wrap, c, gray, wrapper, partNames);
+  const toggle = el("button", "sc-toggle", `${label} ▾`);
+  toggle.type = "button";
+  let open = false;
+  toggle.addEventListener("click", () => {
+    open = !open;
+    wrap.style.display = open ? "" : "none";
+    toggle.textContent = open ? `${label} ▴` : `${label} ▾`;
+  });
+  card.appendChild(toggle);
+  card.appendChild(wrap);
+}
+
 function closeModal(wrapper) {
   const m = wrapper.querySelector(".sc-modal");
   if (m) m.remove();
@@ -142,6 +164,11 @@ function mountPanel(sc, wrapper, partNames) {
 const FOCUS_PANEL = { "bend-radius": bendPanel, mounted: mountPanel };
 
 // The FOCUS block: the header counts, then each focus check with its own panel of rows.
+//
+// AN AXIS AT SPEC ITEMIZES NOTHING. Its panel exists to name the thing a fix acts on, and an
+// axis with nothing to fix has no such thing — what stands under a passing check is the note
+// explaining how it is graded, which is reading for whoever is changing the gate and noise for
+// everyone else. It stays behind the toggle with the rest of the detail.
 function appendFocus(card, sc, wrapper, partNames) {
   const axes = focusAxes(sc);
   const byId = Object.fromEntries(sc.checks.map((c) => [c.id, c]));
@@ -159,9 +186,13 @@ function appendFocus(card, sc, wrapper, partNames) {
 
   for (const id of present) {
     const c = byId[id];
+    if (c.status === "pass") {
+      appendCheck(card, c, false, wrapper, partNames);   // line + its detail behind the toggle
+      continue;
+    }
     appendCheck(card, c, false, wrapper, partNames, false);
     // The panel's rows come off the sidecar's table. A sidecar carrying the check but not its
-    // table falls back to the check's own capped detail, so the axis still itemizes.
+    // table falls back to the check's own detail, so the axis still itemizes.
     const panel = FOCUS_PANEL[id];
     const rows = panel ? panel(sc, wrapper, partNames) : [];
     addCollapsible(card, rows.length ? rows
@@ -201,20 +232,31 @@ function openModal(wrapper, sc, title) {
   const promoted = appendFocus(card, sc, wrapper, partNames);
   const shown = (c) => !promoted.includes(c.id);
 
+  // A promoted check already has its line and its panel at the top of the card. Its block below
+  // counts it and does not draw it again.
+  const holds = (c) => c.status === "pass";
+  const red = gates.filter((c) => !holds(c) && shown(c));
+
   card.appendChild(el("div", "sc-h",
     `Gates — ${passed}/${gates.length} pass` + (sc.gatesPass ? "" : " · not build-ready")));
-  for (const c of gates) appendCheck(card, c, false, wrapper, partNames, shown(c));
+  for (const c of red) appendCheck(card, c, false, wrapper, partNames);
+  addCollapsedChecks(card, gates.filter((c) => holds(c) && shown(c)), `${passed} holding`,
+                     wrapper, partNames);
 
   const active = goals.filter((c) => c.active);
   const deferred = goals.filter((c) => !c.active);
-  if (active.length) {
+  const open = active.filter((c) => !holds(c) && shown(c));
+  const met = active.filter((c) => holds(c) && shown(c));
+  if (open.length || met.length) {
     card.appendChild(el("div", "sc-h", "Goal"));
-    for (const c of active) appendCheck(card, c, false, wrapper, partNames, shown(c));
+    for (const c of open) appendCheck(card, c, false, wrapper, partNames);
+    addCollapsedChecks(card, met, `${met.length} met`, wrapper, partNames);
   }
   if (deferred.length) {
     card.appendChild(el("div", "sc-h", `Deferred — placed ${sc.placed}% · located ${sc.located}% · `
       + `shaped ${sc.shaped}% · routed ${sc.routed}% · held ${sc.held}%`));
-    for (const c of deferred) appendCheck(card, c, true, wrapper, partNames);
+    addCollapsedChecks(card, deferred, `${deferred.length} not asked for yet`,
+                       wrapper, partNames, true);
   }
 
   modal.appendChild(card);
