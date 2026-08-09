@@ -91,7 +91,7 @@ plateau, [0.8 mm](SKIRT_T) at the skirt.
 - **Copper it carries** — [5.69](WRAPS_CARRIED) wraps cross the bridge; at
   full standoff over the plateau and half over the ramps, that is
   [35.4 mm](EFFECTIVE_ARC) of arc each, [201 mm](CARRIED_COPPER) of the
-  3.877 m wrap — [5.2 %](CARRIED_FRACTION).
+  3.877 m wrap — [5 %](CARRIED_FRACTION).
 
 **Print** — PETG, outer (convex) face down on the plate, no supports.
 

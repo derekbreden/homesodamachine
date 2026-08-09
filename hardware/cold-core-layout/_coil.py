@@ -2,7 +2,10 @@
 
 `coil-mandrel` is the tool the copper is wound ON — a cylinder undersized by `net_undersize` so
 the wrap springs out and clamps the tank when it comes off. This module is the copper AFTER
-that, at the radius it actually sits at: one tube radius off the tank's own OD.
+that: at the radius it actually sits at, one tube radius off the tank's own OD, and lifted
+again wherever the reed bridge carries it (`_ride_radius`). `wrap_length` is therefore the
+copper a build CONSUMES, which is the figure `bom.md` §5 bills — longer than either of the
+mandrel's two.
 
     winding radius   `tank_outer_radius + tube_radius`, the copper's centreline on the tank
     wraps            `coil_mandrel.total_wraps` — 9 full plus the fraction the tails' azimuths
@@ -33,16 +36,19 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _cold = _hw / "printed-parts" / "cold-core"
-for _p in (_hw / "scripts", _cold, _cold / "coil-mandrel", _cold / "copper-plugs", _here.parent):
+for _p in (_hw / "scripts", _cold, _cold / "coil-mandrel", _cold / "copper-plugs",
+           _cold / "reed-bridge", _here.parent):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 import coil_mandrel as _mandrel                          # noqa: E402
 import copper_plugs as _plugs                            # noqa: E402
+import reed_bridge as _bridge                            # noqa: E402
 from _cold_core_interface import (                       # noqa: E402
     evap_tail_high_z,
     evap_tail_low_z,
     tank_outer_radius,
+    tank_support_ring_height,
     wall_and_floor_thickness,
 )
 from _routing import stock_min, stock_of                 # noqa: E402
@@ -101,8 +107,95 @@ def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
 WIND_HEIGHT = evap_tail_high_z - evap_tail_low_z
 
 
+# THE WRAP DOES NOT LIE ON THE TANK ALL THE WAY ROUND. The reed bridge stands on the register
+# azimuth carrying the two carbonator reeds in pockets `reed_bridge.pocket_depth` proud of the
+# wall, and the copper crossing it rides the bridge's own plateau — which is what leaves the
+# glass its `copper_clearance_over_glass`. The lift, the arc it runs over and the ramps either
+# side are all the BRIDGE's figures; this reads them and rides what they leave.
+# HOW LONG THE COPPER TAKES TO COME UP, and it is not how long the BRIDGE takes. A rise of
+# `BRIDGE_LIFT` eased over a path of `L` turns at its steepest through a radius of
+# L² / (lift · π²/2), and a 1/4" ACR tube will not turn tighter than `COPPER_BEND`. So the ramp
+# on and off is as long as that floor asks — longer than the bridge's own printed ramps, in
+# both directions, because PETG can step where copper cannot.
+BRIDGE_LIFT = _bridge.plateau_radius - tank_outer_radius
+BRIDGE_RAMP = math.sqrt(COPPER_BEND * BRIDGE_LIFT * math.pi ** 2 / 2.0)
+BRIDGE_ARC_RUNOUT = math.degrees(BRIDGE_RAMP / _bridge.plateau_radius)
+# What the copper's INNER surface rides on, by azimuth off the register line. A bent tube
+# BRIDGES the bridge's own arc ramps rather than following them down, so it holds the plateau
+# all the way to the bridge's edge and comes back to the tank outside it.
+RIDE_RADII = ((math.degrees(_bridge.bridge_half_angle), _bridge.plateau_radius),
+              (math.degrees(_bridge.bridge_half_angle) + BRIDGE_ARC_RUNOUT, tank_outer_radius))
+# The bridge is authored in the TANK's own frame, one floor slab and one support ring up.
+_tank_bottom_z = wall_and_floor_thickness + tank_support_ring_height
+BRIDGE_Z = (_bridge.bridge_z_bottom + _tank_bottom_z,
+            _bridge.bridge_z_top + _tank_bottom_z)
+BRIDGE_AXIAL_RAMP = max(_bridge.axial_ramp_length, BRIDGE_RAMP)
+# How finely the wrap is sampled. Enough that the ramps read as ramps and the sampled circle
+# carries the tube's own surface (`wrap_points` swells for the rest), and no finer: every body
+# in the pack is met with this one, and a spline with a thousand poles is felt on every build.
+WRAP_SAMPLES_PER_TURN = 96
+# The bridge stands on the register azimuth, which is the shell's +X.
+_bridge_azimuth = 0.0
+
+
+def _ease(t: float) -> float:
+    """A 0→1 ramp with no corner at either end.
+
+    A tube does not turn a corner, and a curve drawn THROUGH points that do overshoots at one:
+    the wrap would dip inside the tank just off the bridge's edge. Easing the ramp is what
+    keeps the drawn surface where the copper is."""
+    t = max(0.0, min(1.0, t))
+    return 0.5 - 0.5 * math.cos(math.pi * t)
+
+
+def _ride_radius(azimuth_deg: float, z: float) -> float:
+    """The copper CENTRELINE's radius at one point of the wrap.
+
+    Off the bridge it is `WIND_R`. Over it, the tube's inner surface stands on whatever the
+    bridge presents at that azimuth, and the two ends of the bridge's own axial ramp bring it
+    up and down rather than stepping."""
+    a = abs(((azimuth_deg - _bridge_azimuth + 180.0) % 360.0) - 180.0)
+    surface = tank_outer_radius
+    for i, (edge, radius) in enumerate(RIDE_RADII):
+        if a <= edge:
+            if i == 0:
+                surface = radius
+            else:
+                lo_edge, lo_r = RIDE_RADII[i - 1]
+                surface = lo_r + (radius - lo_r) * _ease((a - lo_edge) / (edge - lo_edge))
+            break
+    z0, z1 = BRIDGE_Z
+    axial = _ease(min((z - (z0 - BRIDGE_AXIAL_RAMP)) / BRIDGE_AXIAL_RAMP,
+                      ((z1 + BRIDGE_AXIAL_RAMP) - z) / BRIDGE_AXIAL_RAMP))
+    return WIND_R + axial * max(0.0, surface - tank_outer_radius)
+
+
+def wrap_points() -> list:
+    """The wrap's centreline, sampled — clocked so it starts on the inlet tail's own azimuth
+    and lifted where the bridge carries it."""
+    n = max(2, int(round(TOTAL_WRAPS * WRAP_SAMPLES_PER_TURN)))
+    # A curve THROUGH sampled points runs inside the circle those points sit on, by the
+    # sagitta of one step. Sampling on a circle that much larger puts the drawn surface back
+    # on the tank instead of a hair inside it.
+    swell = 1.0 / math.cos(math.pi * TOTAL_WRAPS / n)
+    pts = []
+    for i in range(n + 1):
+        turn = TOTAL_WRAPS * i / n
+        az = AZ_IN + 360.0 * turn
+        z = evap_tail_low_z + PITCH * turn
+        pts.append(_at(az, z, _ride_radius(az, z) * swell))
+    return pts
+
+
 def helix_wire() -> cq.Wire:
-    """The wrap's centreline, clocked so it starts on the inlet tail's own azimuth."""
+    """The wrap's centreline as one wire — the NOMINAL circle, clocked so it starts on the
+    inlet tail's own azimuth.
+
+    THE DRAWN BODY IS THE CIRCLE, NOT THE LAID PATH. The lift over the reed bridge is real and
+    `wrap_length` bills it, but a body swept along a spline that rises and falls ten times costs
+    ~50 s in every boolean it meets, and this one is met by every body in the pack — an hour a
+    build, on a 3 mm excursion over 0.7 % of the wrap. So the SOLID is the exact helix and
+    `cold_core_assembly.RIDES_ON` is where the three bodies that lift are named."""
     helix = cq.Wire.makeHelix(PITCH, WIND_HEIGHT, WIND_R)
     return (helix.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), AZ_IN)
             .translate(cq.Vector(0, 0, evap_tail_low_z)))
@@ -117,8 +210,17 @@ def build_wrap() -> cq.Solid:
 
 
 def wrap_length() -> float:
-    """The drawn wrap's developed length — the helix arc at the radius it sits at."""
-    return TOTAL_WRAPS * math.hypot(2 * math.pi * WIND_R, PITCH)
+    """What a build CUTS for the wrap — the laid path, bridge lift and all.
+
+    `wrap_points` is the centreline the copper actually takes, so this is longer than the
+    drawn body's own circle by whatever riding the bridge costs. `bom.md` §5 bills this."""
+    pts = wrap_points()
+    return sum((pts[i + 1] - pts[i]).Length for i in range(len(pts) - 1))
+
+
+def bridge_lift_length() -> float:
+    """How much of `wrap_length` the bridge alone adds."""
+    return wrap_length() - TOTAL_WRAPS * math.hypot(2 * math.pi * WIND_R, PITCH)
 
 
 def gap_z_near(azimuth_deg: float, target_z: float) -> float:
@@ -199,16 +301,16 @@ def report() -> None:
           f"z {evap_tail_low_z:.1f}..{evap_tail_high_z:.1f}")
     print(f"    azimuths        inlet {AZ_IN:+.2f}°, outlet {AZ_OUT:+.2f}°, "
           f"CCW delta {_mandrel.tail_ccw_delta:.2f}°")
-    # Two readings of one length: the wrap as this module draws it on the TANK, and the figure
-    # `bom.md` §5 bills, which `coil_mandrel` strikes at the MANDREL's smaller radius.
-    print(f"    wrap drawn      {wrap:.0f} mm ({wrap / 304.8:.2f} ft) against "
-          f"{_mandrel.wrap_length:.0f} mm ({_mandrel.wrap_length / 304.8:.2f} ft) billed "
-          f"— {wrap - _mandrel.wrap_length:+.0f} mm")
+    # Three readings of one length: what the mandrel holds, what the same wraps come to once
+    # sprung onto the tank, and what THIS module draws with the reed bridge's lift in it.
+    print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "
+          f"{_mandrel.mandrel_wrap_length:.0f}, sprung {_mandrel.fitted_wrap_length:.0f}, "
+          f"reed bridge {bridge_lift_length():+.0f}")
     print(f"    tails drawn     {tails:.0f} mm, against the "
           f"{2 * _mandrel.stub_allowance:.0f} mm of stub the cut allows")
     cut = wrap + 2 * _mandrel.stub_allowance
-    print(f"    cut per vessel  {cut / 304.8:.2f} ft against {_mandrel.cut_length / 304.8:.2f} "
-          f"ft billed; 3 per 50 ft roll leaves {50 - 3 * cut / 304.8:+.2f} ft")
+    print(f"    cut per vessel  {cut / 304.8:.2f} ft; 3 per 50 ft roll leaves "
+          f"{50 - 3 * cut / 304.8:+.2f} ft, 2 leaves {50 - 2 * cut / 304.8:+.2f}")
 
 
 if __name__ == "__main__":

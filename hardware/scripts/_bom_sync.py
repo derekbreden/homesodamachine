@@ -56,6 +56,17 @@ _coil_mandrel_gen = _load_module(
     _here.parent / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
+# The evaporator wrap AS DRAWN ON THE TANK (§5) — `coil_mandrel` strikes the helix, and
+# `cold-core-layout/_coil` is where it is actually laid: sprung out to the tank's own radius
+# and lifted again over the reed bridge it crosses. That is the copper a build consumes, so it
+# is what the row bills; the mandrel's two shorter figures stay beside it in its own module.
+_coil_gen = _load_module(
+    "bom_coil_gen", _here.parent / "cold-core-layout" / "_coil.py")
+_wrap_mm = _coil_gen.wrap_length()
+_cut_mm = _wrap_mm + 2 * _coil_mandrel_gen.stub_allowance
+_units_per_roll = 3
+_roll_spare_ft = 50.0 - _units_per_roll * _cut_mm / 304.8
+
 # The PRV vent line (§2), read off the run `_internal_routes` draws down the port lane rather
 # than restated: the row bills the stock that line is cut from.
 _routes_gen = _load_module(
@@ -265,10 +276,10 @@ def main():
         # consumes; the mandrel's own shorter figure is beside it in `coil_mandrel`.
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
         "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
-        "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
+        "WRAP_FT": f"{_wrap_mm / 304.8:.4g} ft",
         "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
-        "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
-        "ROLL_SPARE": f"{_coil_mandrel_gen.roll_spare_ft:.1f} ft",
+        "CUT_FT": f"{_cut_mm / 304.8:.4g} ft",
+        "ROLL_SPARE": f"{_roll_spare_ft:+.2f} ft",
         # The PRV vent line (§2), as `cold-core-layout` draws it inside the core.
         "PRV_VENT_MM": f"{_prv_vent_mm:.0f} mm",
     }
