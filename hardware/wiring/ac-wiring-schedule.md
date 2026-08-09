@@ -106,7 +106,17 @@ Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 / S
 
 Board end: every low-voltage loom lands in a JST XH [2.54 mm](JST_PITCH) crimp housing mating its labeled wafer — one housing per connector, pin labels on the silk, so a loom cannot seat shifted. J4 and J7 share the 7P housing, so those two land by loom label ([`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). The one exception is the [12 V](V_DC) inlet J10: ferrules under its 5.0 mm screw clamps.
 
-Device end: female disconnects at valves, pumps, fan, and compressor; ring terminals at ground studs; sensor and reed leads land per device. Shared-rail fan-outs happen at the device cluster, never at the board — one `COM` / `GND` conductor rides the trunk and explodes in a Wago lever nut at the manifold or reservoir (221-420 for the >5-conductor nodes, 221-415 for the rest).
+Device end: female disconnects at valves, pumps, fan, and compressor; ring terminals at ground studs; sensor and reed leads land per device. Shared-rail fan-outs happen at the device cluster, never at the board — one `COM` / `GND` conductor rides the trunk and explodes in a Wago lever nut at the manifold or reservoir (221-420 for the >5-conductor nodes, 221-415 for the rest). Each of the five stands in a press-fit well printed into the side wall its own cluster stands against, so the splice is held where the branches part:
+
+| node | nut | ways | wall | what the branches reach |
+|---|---|---|---|---|
+| J1 MANIFOLD A `COM` | 221-420 | 9 of 10 | +X, over the manifold | V-A…V-H |
+| J2 MANIFOLD B `COM` | 221-415 | 5 of 5 | −X, over the manifold | V-I, V-J, condenser fan, V-K's `+` tap |
+| J7 REEDS B `GND` | 221-420 | 7 of 10 | −X, by the cold core | reservoir B's 4 reeds + the carbonator's 2 |
+| J6 REEDS A `GND` | 221-415 | 5 of 5 | −X, by the cold core | reservoir A's 4 reeds |
+| J4 SENSORS `GND` | 221-415 | 4 of 5 | −X, aft | 1-wire bus, DIGITEN meter, moisture plate |
+
+The peristaltic pumps have no such nut: DC-5 is two DRV8870 H-bridge pairs, each motor driven differentially on its own two conductors, so there is no rail to share and nothing to fan out.
 
 Fabrication — bulk cut-to-length all-black wire, crimp tooling, sleeving, and per-assembly continuity testing — is [`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md); stock is [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11.
 

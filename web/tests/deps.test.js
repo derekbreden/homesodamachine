@@ -69,8 +69,11 @@ test("a part's STEP consumers include the assembly that only _loads it (regressi
   // enclosure_assembly.py names each of these in a path constant and hands the path to
   // importStep — the edge is a string, not an import, so an import-only walk finds
   // none of them. The Wago is the case with nothing else to fall back on: the lever nut
-  // is placed five times off its reference STEP and no script imports the module.
-  for (const step of ["foam-assembly.step", "wago-221-413.step", "seaflo-22-pump.step"]) {
+  // is placed ten times off its reference STEPs and no script imports the module. All
+  // three sizes are listed because the scan reads literal text: a path built from a size
+  // at runtime is one no filename appears in, and the edge goes quiet without failing.
+  for (const step of ["foam-assembly.step", "seaflo-22-pump.step",
+                      "wago-221-413.step", "wago-221-415.step", "wago-221-420.step"]) {
     const consumers = findScriptsConsumingStep(step, ROOTS);
     assert.ok(
       consumers.some(ends("hardware/manifold-layout/enclosure_assembly.py")),
