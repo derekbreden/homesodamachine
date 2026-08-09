@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -62,11 +62,11 @@
    "label": "Every derived pose has the room its own construction states",
    "kind": "gate",
    "status": "pass",
-   "value": "9/9 bands held, tightest +0.717 mm",
+   "value": "9/9 bands held, tightest +0.588 mm",
    "target": "every band held",
    "detail": [
+    "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.588",
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 6, has 6.717",
-    "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.913",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 6, has 9.004",
     "mpr121: the band it lies in, either side \u2014 wants 10.16, has 14.531",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 14.000",
@@ -114,13 +114,11 @@
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 under, tightest 0.770 mm",
+   "status": "pass",
+   "value": "0 under, tightest 1.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "carb-1 \u2014 fluid-18: 0.934 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
@@ -145,7 +143,11 @@
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "asse1022-assembly \u2014 digiten-flow: 1.864 mm",
     "fluid-14 \u2014 gasher-co2: 1.957 mm",
+    "fluid-4 \u2014 coil-v-a: 1.980 mm",
+    "fluid-4 \u2014 coil-v-b: 1.980 mm",
     "co2-2 \u2014 fluid-14: 2.000 mm",
+    "fluid-4 \u2014 valve-v-a: 2.054 mm",
+    "carb-1 \u2014 fluid-18: 2.266 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-2: 2.500 mm",
     "relay-2 \u2014 pcba: 2.532 mm",
@@ -153,21 +155,19 @@
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 2.763 mm",
     "carb-1 \u2014 pcba: 3.002 mm",
-    "fluid-4 \u2014 valve-v-a: 3.060 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-2 \u2014 fluid-24: 3.185 mm",
-    "fluid-4 \u2014 coil-v-a: 3.190 mm",
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.326 mm",
     "fluid-28 \u2014 enclosure-back-top: 3.326 mm",
     "fluid-14 \u2014 seaflo-pump: 3.326 mm",
     "water-3 \u2014 fluid-28: 3.624 mm",
-    "fluid-2 \u2014 fluid-4: 3.698 mm",
-    "fluid-18 \u2014 discharge-chain: 3.712 mm",
+    "fluid-2 \u2014 fluid-4: 3.699 mm",
     "fluid-2 \u2014 fluid-26: 3.722 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.803 mm",
+    "fluid-18 \u2014 discharge-chain: 3.822 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
     "co2-2 \u2014 pcba: 4.065 mm",
@@ -179,25 +179,27 @@
     "coil-v-i \u2014 wago-manb: 4.680 mm",
     "water-7 \u2014 foam-assembly: 4.750 mm",
     "fluid-28 \u2014 fluid-24: 4.802 mm",
-    "fluid-4 \u2014 seaflo-pump: 4.888 mm",
+    "fluid-4 \u2014 seaflo-pump: 4.817 mm",
     "water-3 \u2014 tee-y-a: 5.075 mm",
     "water-3 \u2014 tee-y-b: 5.075 mm",
     "water-2 \u2014 discharge-chain: 5.155 mm",
     "tee-y-a \u2014 mpr121: 5.366 mm",
     "tee-y-b \u2014 mpr121: 5.366 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
+    "fluid-14 \u2014 hopper-funnel: 5.584 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
     "psu \u2014 wago-g: 5.650 mm",
     "psu \u2014 wago-v12: 5.650 mm",
     "psu \u2014 wago-gnd: 5.650 mm",
     "water-6 \u2014 enclosure-back-top: 5.652 mm",
-    "fluid-14 \u2014 hopper-funnel: 5.694 mm",
     "compressor \u2014 bpv31: 5.713 mm",
     "carb-1 \u2014 fluid-14: 5.751 mm",
     "fluid-28 \u2014 wago-reeds-b: 5.827 mm",
     "fluid-24 \u2014 coil-v-b: 5.851 mm",
-    "relay-2 \u2014 relay-1: 5.860 mm"
+    "relay-2 \u2014 relay-1: 5.860 mm",
+    "coil-v-b \u2014 hopper-funnel: 5.979 mm",
+    "coil-v-a \u2014 hopper-funnel: 5.981 mm"
    ],
    "active": true
   },
@@ -387,7 +389,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "the Y half-run at or under the X (73.33 mm)",
+   "target": "the Y half-run at or under the X (74.53 mm)",
    "detail": [],
    "active": true
   },
@@ -746,7 +748,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "10.653 mm to the basin",
+   "value": "10.650 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -1608,9 +1610,9 @@
    "name": "drain",
    "kind": "fluid",
    "pos": [
-    0.0,
+    1.21,
     165.06,
-    304.703
+    304.378
    ],
    "face": [
     0.0,
@@ -2251,13 +2253,13 @@
     [
      -86.5,
      78.56,
-     304.703,
+     304.378,
      86.5,
      251.56,
      358.0
     ]
    ],
-   "fill": 0.0518,
+   "fill": 0.0516,
    "primitive": false,
    "declared": null
   },
@@ -3846,7 +3848,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 153.13,
+   "length": 153.63,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3860,7 +3862,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      14.91,
+      14.59,
       102.07
      ]
     },
@@ -3872,7 +3874,7 @@
      "grade": "B",
      "legs": [
       102.07,
-      30.13
+      30.95
      ]
     },
     {
@@ -3882,7 +3884,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      30.13,
+      30.95,
       24.05
      ]
     }
@@ -3890,16 +3892,16 @@
    "atSpec": 3,
    "bends": 3,
    "worstTurn": 90.0,
-   "seat": 14.913,
-   "reach": 15.066,
-   "reachRatio": 1.0761,
+   "seat": 14.588,
+   "reach": 15.475,
+   "reachRatio": 1.1054,
    "reachGrade": "B",
    "binding": {
     "leg": 2,
-    "length": 30.132,
+    "length": 30.951,
     "demand": 2.0,
     "from": [
-     0.0,
+     1.21,
      267.13,
      289.79
     ],
@@ -3912,9 +3914,9 @@
    "need": {
     "ends": [
      [
-      0.0,
+      1.21,
       165.06,
-      304.7
+      304.38
      ],
      [
       -20.07,
@@ -3923,13 +3925,13 @@
      ]
     ],
     "axis": {
-     "x": 20.07,
+     "x": 21.28,
      "y": 78.02,
-     "z": 37.39
+     "z": 37.06
     },
-    "span": 88.81,
-    "path": 153.13,
-    "detour": 1.724
+    "span": 88.96,
+    "path": 153.63,
+    "detour": 1.727
    }
   },
   {
@@ -4311,7 +4313,7 @@
    "to": "bulkhead-flavor-a.tube-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 480.12,
+   "length": 480.11,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4331,13 +4333,13 @@
     },
     {
      "at": 2,
-     "turn": 26.8,
+     "turn": 27.0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
       34.69,
-      94.59
+      93.32
      ]
     },
     {
@@ -4347,7 +4349,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      94.59,
+      93.32,
       133.64
      ]
     },
@@ -4359,17 +4361,17 @@
      "grade": "B",
      "legs": [
       133.64,
-      81.41
+      82.67
      ]
     },
     {
      "at": 5,
-     "turn": 21.0,
+     "turn": 20.7,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      81.41,
+      82.67,
       110.21
      ]
     }
@@ -4377,14 +4379,14 @@
    "atSpec": 5,
    "bends": 5,
    "worstTurn": 90.0,
-   "seat": 28.024,
-   "reach": 28.024,
-   "reachRatio": 2.0017,
+   "seat": 27.982,
+   "reach": 27.982,
+   "reachRatio": 1.9987,
    "reachGrade": "A",
    "binding": {
     "leg": 1,
     "length": 34.687,
-    "demand": 1.2378,
+    "demand": 1.2396,
     "from": [
      77.07,
      142.08,
@@ -4415,7 +4417,7 @@
      "z": 46.65
     },
     "span": 334.93,
-    "path": 480.12,
+    "path": 480.11,
     "detour": 1.433
    }
   },
@@ -5811,7 +5813,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T21:16:26+00:00",
-  "commit": "0bdab81a7818b80816e977311b0409c275b41b8b"
+  "generated": "2026-08-09T21:29:40+00:00",
+  "commit": "4c19349d0b414974b53ed17224092453857cff3b"
  }
 }
