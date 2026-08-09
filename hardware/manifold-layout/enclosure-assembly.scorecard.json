@@ -833,36 +833,6 @@
    "active": true
   },
   {
-   "id": "funnel-collar-frame",
-   "label": "The funnel collar stands in the frame the top wall has left",
-   "kind": "gate",
-   "status": "pass",
-   "value": "collar x -79.50..79.50, y 85.56..244.56",
-   "target": "frame x -93.50..93.50, y 85.56..469.00",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-brim-overhang",
-   "label": "The funnel's brim overhang fits its top-wall margin",
-   "kind": "gate",
-   "status": "pass",
-   "value": "overhang 7.00 mm",
-   "target": "within brim_margin 10.00 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-brim-margin",
-   "label": "The funnel collar keeps a brim margin at each free edge",
-   "kind": "gate",
-   "status": "pass",
-   "value": "\u2212X 14.00, +X 14.00, +Y 224.44 mm",
-   "target": "each at least brim_margin 10.00 mm",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
@@ -5812,7 +5782,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T18:24:19+00:00",
-  "commit": "6504d6dea3fea57618b2b712432e51849ab8da83"
+  "generated": "2026-08-09T20:19:47+00:00",
+  "commit": "0074a72b8a5b18f4da5cebdccb5197fbff58ff6e"
  }
 }

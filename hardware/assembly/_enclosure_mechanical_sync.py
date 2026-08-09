@@ -61,10 +61,11 @@ def _span(pack, *names):
 def main():
     # The stations as PLACED, each read off the body's own mouth — the same station
     # `enclosure_assembly.back_wall_ports` strikes its bore on, so prose and hole cannot land on
-    # two different columns — and the box read off `enclosure` sizing itself around that pack.
+    # two different columns — and the walls those stations are struck in, at `enclosure`'s own
+    # stated size.
     _a = _ea.build_pack()
     _pack = _ea.pack(_a)
-    _box = _enc.box_around(_pack)
+    _box = _enc.stated_box(_pack)
     _mouth = lambda carry: carry(_jg.port(-1.0))[0]          # noqa: E731
     _water = _mouth(_a.bulkhead_carry)
     _row_z = _mouth(_a.panel_carries["bulkhead-carb"])[2]

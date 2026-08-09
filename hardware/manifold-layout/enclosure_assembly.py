@@ -3025,7 +3025,7 @@ def machine():
     and then carries the stations they seat in its walls."""
     a = build_pack()
     p = pack(a)
-    shell = _enc.box_around(p)
+    shell = _enc.stated_box(p)
     carry_enclosure_bounds()
     check_through_wall_headroom(a, shell)
     a.bounds = list(BOUNDS)
