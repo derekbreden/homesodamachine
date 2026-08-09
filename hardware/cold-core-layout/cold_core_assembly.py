@@ -157,6 +157,19 @@ JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-outlet"),
 )}
 
+# Bodies the wrap RIDES ON rather than routes around. The reed bridge stands on the tank on the
+# register azimuth and carries the two carbonator reeds in pockets `reed_bridge.pocket_depth`
+# proud of the wall; the copper crossing it lifts onto the bridge's own plateau, and that lift
+# IS what leaves the glass its `copper_clearance_over_glass`. `_coil.wrap_length` carries the
+# length that costs and `bom.md` §5 bills it — but the drawn SOLID is the wrap's nominal circle
+# (`_coil.helix_wire` says why), so in this frame the three of them read as shared volume. The
+# clearance itself is checked where the bridge is built, against the bridge's own pocket.
+RIDES_ON = {frozenset(p) for p in (
+    ("evap-coil", "reed-bridge"),
+    ("evap-coil", "reed-carb-1"),
+    ("evap-coil", "reed-carb-2"),
+)}
+
 # The copper that travels a lane. The wrap is fixed on the tank the moment it is wound, so a
 # fluid line clears it the way it clears any body; the two tails run the same lanes the fluid
 # lines run, and `lines-apart` grades them together.
@@ -345,14 +358,17 @@ def _bodies_clear(placed: dict) -> Check:
     detail = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            if frozenset((a, b)) in JOINED:
+            if frozenset((a, b)) in JOINED or frozenset((a, b)) in RIDES_ON:
                 continue
             vol = placed[a].intersect(placed[b]).Volume()
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{a} ∩ {b} = {vol:.2f} mm³")
     detail.sort(key=lambda s: -float(s.split("= ")[1].split(" ")[0]))
+    detail += [f"{' ∩ '.join(sorted(p))}: the wrap rides it — see RIDES_ON"
+               for p in sorted(RIDES_ON, key=lambda q: sorted(q))]
     return Check("bodies-clear", "No two placed solids share volume", "gate",
-                 verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
+                 verdict(not [d for d in detail if "RIDES_ON" not in d]),
+                 f"{len([d for d in detail if 'RIDES_ON' not in d])} clash", "0 clash", detail)
 
 
 def _routes_fit(placed: dict, fitted: dict) -> Check:
@@ -416,17 +432,38 @@ def _lane_census(fitted: dict, placed: dict) -> Check:
                  f"{len(detail)} run-lane pairs", "a reading, not a bound", detail)
 
 
+# WHICH ENDS THE LEAD IS A RULE ABOUT. A COLLET grips the tube all round on its own axis, so
+# a tube arriving off that axis cannot be pushed home and a tube still bending inside the grip
+# never bottoms: what such an end needs is a straight to receive it, and `PORT_LEAD_BENDS` is
+# how much. A BORE is not a collet. A cap conduit is a hole up a printed column and its mouth
+# is countersunk to `cap_conduit_entry_skew` for exactly this reason — a line may lean into it
+# — and a wall slot is an opening cut to the line's own corridor, which is the same again. So
+# this names the made-up ends rather than charging every end the collet's rule; the rest are
+# listed with what they land on, which is the reading, not a failure.
+MADE_UP_ENDS = {
+    ("carb-water-out", "start"): "the bottom plate's PP010822E collet",
+    ("co2-in", "end"): "the bottom plate's PP010822E collet",
+    ("water-in", "start"): "the top plate's PP010822E collet",
+    ("reservoir-a", "start"): "reservoir A's floor-bulkhead collet",
+    ("reservoir-b", "start"): "reservoir B's floor-bulkhead collet",
+}
+
+
 def _port_leads(fitted: dict, points: dict) -> Check:
-    """The straight each line leaves its own fitting on.
+    """The straight each line leaves its own COLLET on.
 
     A collet takes the tube on its own axis, so what a made-up end needs is a straight to
     receive it — `PORT_LEAD_BENDS` reaches of the line's own radius, one for the stub and one
     for the tangent the first corner seats on. Shorter than that is a tube that cannot be
     pushed home without bending it in the grip.
 
+    `MADE_UP_ENDS` is where that rule is true. The other ends land in a BORE — a cap conduit
+    or a lane slot — which takes a leaning line by construction, so charging them a collet's
+    straight would be one part's rule spent on another's. They are listed, not graded.
+
     A run with NO corner is straight through and seats no tangent, so it is not asked for one:
     each reservoir fill is the gap between two bores and is shorter than the lead itself."""
-    detail = []
+    detail, bores = [], []
     total = 0
     for name in sorted(fitted):
         bend, _tube = fitted[name]
@@ -435,13 +472,18 @@ def _port_leads(fitted: dict, points: dict) -> Check:
             continue
         want = PORT_LEAD_BENDS * bend
         for end, (a, b) in (("start", legs[0]), ("end", legs[-1])):
-            total += 1
             got = (b - a).Length
+            lands_on = MADE_UP_ENDS.get((name, end))
+            if lands_on is None:
+                bores.append(f"{name} {end}: {got:.1f} mm into a bore, which takes a lean")
+                continue
+            total += 1
             if got < want - 1e-6:
-                detail.append(f"{name} {end}: {got:.1f} mm of straight, {want:.1f} wanted")
-    return Check("port-leads", "Every made-up end has a straight to receive the tube", "gate",
-                 verdict(not detail), f"{total - len(detail)}/{total} ends", 
-                 f"{PORT_LEAD_BENDS:g} bend radii", detail)
+                detail.append(f"{name} {end}: {got:.1f} mm of straight into {lands_on}, "
+                              f"{want:.1f} wanted")
+    return Check("port-leads", "Every collet has a straight to receive the tube", "gate",
+                 verdict(not detail), f"{total - len(detail)}/{total} collets",
+                 f"{PORT_LEAD_BENDS:g} bend radii", detail + bores)
 
 
 def _stations_met(fitted: dict, placed: dict) -> Check:

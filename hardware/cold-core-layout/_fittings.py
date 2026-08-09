@@ -205,7 +205,7 @@ def float_capsule(*, centre, axis=(0, 0, 1)):
 # `bom.md` §12. The glass body is the whole of what has to fit: leads are wire and follow the
 # channel. [10](REEDS_TOTAL) per build — 2 on the carbonator's bridge, 4 in each reservoir.
 REED_GLASS_LEN = 14.0
-REED_GLASS_R = 1.1
+REED_GLASS_R = 1.25              # ⌀2.5, the same figure `reed_bridge` cuts its pockets to
 
 
 def reed(*, centre, axis=(0, 0, 1)):

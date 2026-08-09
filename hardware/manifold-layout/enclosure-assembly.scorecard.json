@@ -41,20 +41,24 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "psu \u2229 tube-co2-2   1646.8 mm\u00b3, x[   74.32,   80.68] y[  388.82,  395.18] z[  253.40,  305.40]"
+   ],
    "active": true
   },
   {
    "id": "lines-clear",
    "label": "No routed tube intersects a body, a piece or another tube",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash",
+   "status": "fail",
+   "value": "1 clash",
    "target": "0 clash",
-   "detail": [],
+   "detail": [
+    "co2-2 \u2229 psu: 1646.8 mm\u00b3"
+   ],
    "active": true
   },
   {
@@ -62,17 +66,11 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "fail",
-   "value": "52/60 clear",
+   "value": "58/60 clear",
    "target": "all clear",
    "detail": [
-    "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to",
-    "foam-assembly.evap-inlet: 0.00 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-c.inlet: 15.75 mm to tee-y-a, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-d.inlet: 15.75 mm to tee-y-b, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-e.outlet: 15.75 mm to tee-y-c, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-f.inlet: 15.75 mm to tee-y-d, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-h.outlet: 15.75 mm to tee-y-f, needs 28.00 \u2014 no run authored on it yet",
-    "valve-v-i.inlet: 15.75 mm to tee-y-g, needs 28.00 \u2014 no run authored on it yet",
+    "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to, or the neighbour its own collet is made up on",
+    "foam-assembly.co2-in: 0.00 mm to psu, needs 28.00",
     "valve-v-g.inlet: 17.18 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
     "asse1022-assembly.vent-tip: 9.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
@@ -83,12 +81,14 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "2 under, tightest 0.770 mm",
+   "value": "4 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "co2-2 \u2014 psu: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "carb-1 \u2014 fluid-18: 0.928 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
@@ -107,23 +107,21 @@
     "fluid-28 \u2014 cap-sleeve-b: 0.050 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "water-split \u2014 discharge-chain: 1.000 mm",
+    "carb-1 \u2014 suction-chain: 1.055 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
     "water-5 \u2014 fluid-24: 1.760 mm",
-    "carb-1 \u2014 suction-chain: 1.775 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "asse1022-assembly \u2014 digiten-flow: 1.860 mm",
     "fluid-14 \u2014 gasher-co2: 1.956 mm",
     "co2-2 \u2014 fluid-14: 2.000 mm",
-    "carb-1 \u2014 pcba: 2.475 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-2: 2.500 mm",
     "relay-2 \u2014 pcba: 2.532 mm",
     "pcba \u2014 relay-1: 2.532 mm",
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
-    "co2-2 \u2014 relay-2: 2.661 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 2.761 mm",
-    "water-7 \u2014 co2-2: 2.861 mm",
+    "carb-1 \u2014 pcba: 3.001 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-2 \u2014 fluid-24: 3.184 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.325 mm",
@@ -137,8 +135,8 @@
     "fluid-2 \u2014 fluid-26: 3.717 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
-    "carb-1 \u2014 fluid-18: 3.895 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
+    "water-7 \u2014 co2-2: 4.165 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "foam-assembly \u2014 mpr121: 4.371 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
@@ -162,10 +160,10 @@
     "water-6 \u2014 enclosure-back-top: 5.650 mm",
     "fluid-14 \u2014 hopper-funnel: 5.694 mm",
     "compressor \u2014 bpv31: 5.710 mm",
+    "carb-1 \u2014 fluid-14: 5.750 mm",
     "fluid-28 \u2014 wago-reeds-b: 5.827 mm",
     "fluid-24 \u2014 coil-v-b: 5.850 mm",
-    "relay-2 \u2014 relay-1: 5.860 mm",
-    "carb-1 \u2014 fluid-14: 5.936 mm"
+    "relay-2 \u2014 relay-1: 5.860 mm"
    ],
    "active": true
   },
@@ -500,6 +498,16 @@
    "active": true
   },
   {
+   "id": "co2-inlet-slot",
+   "label": "The CO2 reach in crosses the support ring in one slot",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "one slot holding the whole crossing",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "co2-bore-meets-fall",
    "label": "The CO2 bore is struck where its line falls down the lane",
    "kind": "gate",
@@ -814,13 +822,12 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 42/44 corners at spec",
+   "value": "B \u2014 44/44 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:15 F:1",
-    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red",
-    "F/F co2-2 (wr1110.outlet \u2192 foam-assembly.co2-in): R3.8 against R14, bound by leg 2 at 9.5 mm \u2014 2.99\u00d7 its need: 148 mm of path for ends 50 mm apart"
+    "runs by grade: B:16",
+    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
    ],
    "active": true
   },
@@ -1339,7 +1346,7 @@
    "kind": "fluid",
    "pos": [
     77.5,
-    274.0,
+    271.0,
     253.4
    ],
    "face": [
@@ -1358,7 +1365,7 @@
    "kind": "fluid",
    "pos": [
     77.5,
-    344.5,
+    392.0,
     253.4
    ],
    "face": [
@@ -2206,10 +2213,10 @@
     [
      -90.5,
      178.0,
-     233.4,
+     0.0,
      90.5,
      461.0,
-     251.4
+     5.2
     ],
     [
      -90.5,
@@ -2222,10 +2229,10 @@
     [
      -90.5,
      178.0,
-     0.0,
+     233.4,
      90.5,
      461.0,
-     5.2
+     251.4
     ],
     [
      -90.5,
@@ -3681,12 +3688,12 @@
    "to": "foam-assembly.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 147.83,
-   "radius": 3.813,
+   "length": 180.54,
+   "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
-   "ratio": 0.2724,
-   "grade": "F",
+   "ratio": 1.0,
+   "grade": "B",
    "corners": [
     {
      "at": 1,
@@ -3702,22 +3709,22 @@
     {
      "at": 2,
      "turn": 112.3,
-     "radius": 3.813,
-     "ratio": 0.2723,
-     "grade": "F",
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
      "legs": [
       39.49,
-      9.5
+      57.0
      ]
     },
     {
      "at": 3,
      "turn": 90.0,
-     "radius": 3.813,
-     "ratio": 0.2723,
-     "grade": "F",
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
      "legs": [
-      9.5,
+      57.0,
       29.5
      ]
     },
@@ -3733,25 +3740,25 @@
      ]
     }
    ],
-   "atSpec": 2,
+   "atSpec": 4,
    "bends": 4,
    "worstTurn": 112.3,
-   "seat": 3.813,
-   "reach": 3.813,
-   "reachRatio": 0.2723,
-   "reachGrade": "F",
+   "seat": 14.75,
+   "reach": 14.75,
+   "reachRatio": 1.0536,
+   "reachGrade": "B",
    "binding": {
-    "leg": 2,
-    "length": 9.5,
-    "demand": 2.4917,
+    "leg": 3,
+    "length": 29.5,
+    "demand": 2.0,
     "from": [
      48.0,
-     335.0,
+     392.0,
      326.53
     ],
     "to": [
-     48.0,
-     344.5,
+     77.5,
+     392.0,
      326.53
     ]
    },
@@ -3764,18 +3771,18 @@
      ],
      [
       77.5,
-      344.5,
+      392.0,
       253.4
      ]
     ],
     "axis": {
      "x": 29.5,
-     "y": 15.5,
+     "y": 32.0,
      "z": 36.6
     },
-    "span": 49.5,
-    "path": 147.83,
-    "detour": 2.987
+    "span": 56.87,
+    "path": 180.54,
+    "detour": 3.175
    }
   },
   {
@@ -4890,7 +4897,7 @@
    "to": "digiten-flow.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 286.64,
+   "length": 289.64,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4916,7 +4923,7 @@
      "grade": "B",
      "legs": [
       123.14,
-      92.21
+      95.21
      ]
     }
    ],
@@ -4933,12 +4940,12 @@
     "demand": 2.0,
     "from": [
      77.5,
-     274.0,
+     271.0,
      336.71
     ],
     "to": [
      -45.64,
-     274.0,
+     271.0,
      336.71
     ]
    },
@@ -4946,7 +4953,7 @@
     "ends": [
      [
       77.5,
-      274.0,
+      271.0,
       253.4
      ],
      [
@@ -4957,12 +4964,12 @@
     ],
     "axis": {
      "x": 123.14,
-     "y": 92.21,
+     "y": 95.21,
      "z": 83.31
     },
-    "span": 174.95,
-    "path": 286.64,
-    "detour": 1.638
+    "span": 176.55,
+    "path": 289.64,
+    "detour": 1.641
    }
   },
   {
@@ -5750,7 +5757,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T03:23:00+00:00",
-  "commit": "690c0ce0eed5e892ae1ddef725963e55c2e47192"
+  "generated": "2026-08-09T03:52:44+00:00",
+  "commit": "2ccdfaee011a79d5ad6517ceffb7489eb99b5241"
  }
 }
