@@ -485,10 +485,9 @@ const _ndc = new THREE.Vector2();
 
 function frontMeshes() {
   if (!state.currentGroup) return [];
-  // Front meshes only — the back copies share geometry and would double
-  // the triangle scan for the same answer. Skip components the user hid
-  // locally (component-picker.js): a hidden solid isn't in the view, so
-  // its faces shouldn't be pickable either.
+  // The solid meshes, one per solid. Skip components the user hid locally
+  // (component-picker.js): a hidden solid isn't in the view, so its faces
+  // shouldn't be pickable either.
   return state.currentGroup.children.filter(
     (c) => c.userData && c.userData.side === "front" && c.visible !== false,
   );

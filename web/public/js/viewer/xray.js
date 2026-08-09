@@ -57,10 +57,19 @@ const _xrayMatCache = new WeakMap();
 function xrayVariant(base) {
   let m = _xrayMatCache.get(base);
   if (!m) {
-    m = base.clone(); // preserves color + side (BackSide on back-face mats)
+    m = base.clone(); // preserves color + side
+    // Material.copy() carries the declared properties, not the own ones a
+    // caller hung on the instance — the back-face darkening step.js injects
+    // is both of those, so it comes across by hand.
+    m.onBeforeCompile = base.onBeforeCompile;
+    m.customProgramCacheKey = base.customProgramCacheKey;
     m.transparent = true;
     m.opacity = SURFACE_OPACITY;
     m.depthWrite = false;
+    // A transparent double-sided material is drawn back pass then front pass,
+    // which lays a solid's two skins over each other and blends the ghost to
+    // twice its stated opacity. One pass, one skin, one SURFACE_OPACITY.
+    m.forceSinglePass = true;
     _xrayMatCache.set(base, m);
   }
   return m;
@@ -98,25 +107,19 @@ export function applyXray(group) {
   removeXrayEdges(group);
   const meshes = group.children.filter((c) => c.isMesh);
   if (enabled) {
-    // buildMesh adds a front + back mesh per solid sharing one geometry;
-    // dedupe so each solid gets exactly one set of edges.
-    const seenGeo = new Set();
     for (const mesh of meshes) {
       if (!mesh.userData.baseMaterial) mesh.userData.baseMaterial = mesh.material;
       const base = mesh.userData.baseMaterial;
-      if (!seenGeo.has(mesh.geometry)) {
-        seenGeo.add(mesh.geometry);
-        const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
-        const line = new THREE.LineSegments(eg, edgeMaterial(base.color));
-        line.userData.isXrayEdge = true;
-        // Carry the component name so a locally-hidden component (component-picker.js)
-        // takes its feature edges out of the ghost too — otherwise the wireframe of a
-        // hidden solid keeps obstructing the view. Born hidden if already hidden, so
-        // toggling x-ray on doesn't resurrect a hidden part's edges.
-        line.userData.xrayComponent = mesh.name || "";
-        line.visible = !(mesh.name && state.hiddenComponents && state.hiddenComponents.has(mesh.name));
-        group.add(line);
-      }
+      const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
+      const line = new THREE.LineSegments(eg, edgeMaterial(base.color));
+      line.userData.isXrayEdge = true;
+      // Carry the component name so a locally-hidden component (component-picker.js)
+      // takes its feature edges out of the ghost too — otherwise the wireframe of a
+      // hidden solid keeps obstructing the view. Born hidden if already hidden, so
+      // toggling x-ray on doesn't resurrect a hidden part's edges.
+      line.userData.xrayComponent = mesh.name || "";
+      line.visible = !(mesh.name && state.hiddenComponents && state.hiddenComponents.has(mesh.name));
+      group.add(line);
       mesh.material = xrayVariant(base);
     }
   } else {
