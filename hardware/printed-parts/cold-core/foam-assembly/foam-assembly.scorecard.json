@@ -1,0 +1,1816 @@
+{
+ "gatesPass": false,
+ "placed": 100,
+ "located": 100,
+ "shaped": 100,
+ "routed": 100,
+ "held": 100,
+ "mounted": 96,
+ "checks": [
+  {
+   "id": "one-core",
+   "label": "One card for both models of the cold core",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5/5 bodies shared",
+   "target": "every foam-assembly body here",
+   "detail": [
+    "this card is written beside cold-core-layout/cold-core-assembly.step",
+    "                        and printed-parts/cold-core/foam-assembly/foam-assembly.step",
+    "foam-shell: placed here",
+    "foam-cap-top: placed here",
+    "foam-cap-lid-top: placed here",
+    "foam-cap-bottom: placed here",
+    "foam-cap-lid-bottom: placed here"
+   ],
+   "active": true
+  },
+  {
+   "id": "bodies-clear",
+   "label": "No two placed solids share volume",
+   "kind": "gate",
+   "status": "fail",
+   "value": "3 clash",
+   "target": "0 clash",
+   "detail": [
+    "evap-coil \u2229 reed-carb-2 = 17.72 mm\u00b3",
+    "evap-coil \u2229 reed-carb-1 = 17.18 mm\u00b3",
+    "evap-coil \u2229 reed-bridge = 15.21 mm\u00b3"
+   ],
+   "active": true
+  },
+  {
+   "id": "routes-fit",
+   "label": "No line meets a solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 clear",
+   "target": "every line clear",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "lines-apart",
+   "label": "No two runs want the same corridor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 crossing",
+   "target": "0 crossing",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bom-covered",
+   "label": "Every billed cold-core part has a body here",
+   "kind": "goal",
+   "status": "fail",
+   "value": "29/36",
+   "target": "a body per billed part",
+   "detail": [
+    "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
+    "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
+    "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
+    "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
+    "heat-set inserts \u2014 billed, no solid here (\"ruthex M3 Threaded Inserts\")",
+    "cap clamp screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 25 mm DIN 912\")",
+    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")"
+   ],
+   "active": true
+  },
+  {
+   "id": "lane-census",
+   "label": "What each lane carries, and at what storey",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8 run-lane pairs",
+   "target": "a reading, not a bound",
+   "detail": [
+    "port-lane: carb-water-out at z 13.8..213.4, x -51.7..-20.6",
+    "port-lane: co2-in at z 13.8..213.4, x 14.0..75.7",
+    "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
+    "port-lane: prv-vent at z 32.6..187.9, x -143.5..3.2",
+    "port-lane: reservoir-a at z 2.8..213.4, x -138.7..104.1",
+    "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
+    "west-lane: reservoir-b at z 2.8..213.4, x -138.7..-101.8",
+    "west-lane: water-in at z 196.2..213.4, x -138.7..3.2"
+   ],
+   "active": true
+  },
+  {
+   "id": "port-leads",
+   "label": "Every made-up end has a straight to receive the tube",
+   "kind": "gate",
+   "status": "fail",
+   "value": "7/12 ends",
+   "target": "2 bend radii",
+   "detail": [
+    "carb-water-out start: 13.9 mm of straight, 28.0 wanted",
+    "carb-water-out end: 8.2 mm of straight, 28.0 wanted",
+    "reservoir-a start: 14.5 mm of straight, 28.0 wanted",
+    "water-in start: 27.1 mm of straight, 28.0 wanted",
+    "water-in end: 3.3 mm of straight, 28.0 wanted"
+   ],
+   "active": true
+  },
+  {
+   "id": "stations-met",
+   "label": "Every wall station carries a run",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 stations",
+   "target": "a run per station",
+   "detail": [
+    "port-lane evap-inlet at z 27.75: evap-tail-inlet, prv-vent",
+    "port-lane prv-vent at z 35.75: prv-vent",
+    "west-lane evap-outlet at z 27.75: evap-tail-outlet"
+   ],
+   "active": true
+  },
+  {
+   "id": "arcs-hold",
+   "label": "Every corner turns at the stock arc",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 at stock",
+   "target": "14.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "prv-vent-lands",
+   "label": "The PRV shroud's vent bore opens on the lane its line falls",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.004 mm off",
+   "target": "within 0.01 mm of the lane",
+   "detail": [
+    "the shroud's vent bore opens at (+0.00, -77.50, 187.90), on the port lane (-77.5)",
+    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 35.75 and out"
+   ],
+   "active": true
+  },
+  {
+   "id": "floats-couple",
+   "label": "Every float's magnet is held against the wall its reed reads through",
+   "kind": "gate",
+   "status": "fail",
+   "value": "1/3 floats",
+   "target": "standoff under 2.0 mm",
+   "detail": [
+    "float-a: rod parked 107.00 against a wall at 126.00 leaves the capsule 5.00 mm short of it, so the magnet stands off up to 8.29 mm \u2014 past the 2.0 mm the reed reads at",
+    "float-b: rod parked 107.00 against a wall at 126.00 leaves the capsule 5.00 mm short of it, so the magnet stands off up to 8.29 mm \u2014 past the 2.0 mm the reed reads at",
+    "float-carb: rod parked 50.97 biases the capsule +3.13 mm into a wall at 61.85; magnet standoff 0..0.16 mm"
+   ],
+   "active": true
+  },
+  {
+   "id": "placed",
+   "label": "Every body the core carries is placed",
+   "kind": "goal",
+   "status": "pass",
+   "value": "55/55",
+   "target": "a solid per body",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "located",
+   "label": "Every port a placed body declares is positioned",
+   "kind": "goal",
+   "status": "pass",
+   "value": "6/6",
+   "target": "every mouth located",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "shaped",
+   "label": "Every body is real geometry rather than a primitive",
+   "kind": "goal",
+   "status": "pass",
+   "value": "55/55",
+   "target": "no primitives",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "routed",
+   "label": "Every line the core owes is drawn",
+   "kind": "goal",
+   "status": "pass",
+   "value": "8/8",
+   "target": "a line per connection",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "held",
+   "label": "Something holds every body",
+   "kind": "goal",
+   "status": "pass",
+   "value": "55/55",
+   "target": "a holder per body",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "mounted",
+   "label": "A feature of another placed part locates every body",
+   "kind": "goal",
+   "status": "fail",
+   "value": "53/55",
+   "target": "a located joint per body",
+   "detail": [
+    "probe-coil-ds18s20: held by foil tape",
+    "probe-tank-ds18b20: held by foil tape"
+   ],
+   "active": true
+  }
+ ],
+ "ports": [
+  {
+   "component": "carbonator-vessel",
+   "name": "co2-in",
+   "kind": "fluid",
+   "pos": [
+    16.017,
+    -31.963,
+    17.0
+   ],
+   "face": [
+    0.778506,
+    -0.627637,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-in",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "carbonator-vessel",
+   "name": "carb-water-out",
+   "kind": "fluid",
+   "pos": [
+    -20.574,
+    19.05,
+    17.0
+   ],
+   "face": "x-",
+   "diam": 6.35,
+   "mates": "carb-water-out",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "carbonator-vessel",
+   "name": "water-in",
+   "kind": "fluid",
+   "pos": [
+    0.0,
+    39.624,
+    199.4
+   ],
+   "face": "y+",
+   "diam": 6.35,
+   "mates": "water-in",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "carbonator-vessel",
+   "name": "prv",
+   "kind": "fluid",
+   "pos": [
+    0.0,
+    -39.624,
+    199.4
+   ],
+   "face": "y-",
+   "diam": 6.35,
+   "mates": "prv",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-reservoir-a",
+   "name": "collet",
+   "kind": "fluid",
+   "pos": [
+    101.032,
+    -15.5,
+    6.0
+   ],
+   "face": "y-",
+   "diam": 6.35,
+   "mates": "reservoir-a",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-reservoir-b",
+   "name": "collet",
+   "kind": "fluid",
+   "pos": [
+    -105.0,
+    16.0,
+    6.0
+   ],
+   "face": "y+",
+   "diam": 6.35,
+   "mates": "reservoir-b",
+   "status": "ok",
+   "note": ""
+  }
+ ],
+ "shapes": [
+  {
+   "component": "bulkhead-reservoir-a",
+   "boxes": [
+    [
+     92.298,
+     -16.244,
+     3.0,
+     117.702,
+     11.0,
+     38.0
+    ]
+   ],
+   "fill": 0.3357,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "bulkhead-reservoir-b",
+   "boxes": [
+    [
+     -117.702,
+     -11.0,
+     3.0,
+     -92.298,
+     16.0,
+     38.0
+    ]
+   ],
+   "fill": 0.3388,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "bulkhead-seal-a",
+   "boxes": [
+    [
+     93.0,
+     -12.0,
+     29.0,
+     117.0,
+     12.0,
+     32.0
+    ]
+   ],
+   "fill": 0.4363,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "bulkhead-seal-b",
+   "boxes": [
+    [
+     -117.0,
+     -12.0,
+     29.0,
+     -93.0,
+     12.0,
+     32.0
+    ]
+   ],
+   "fill": 0.4363,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "carbonator-tube",
+   "boxes": [
+    [
+     -63.5,
+     -63.5,
+     32.0,
+     63.5,
+     63.5,
+     184.4
+    ]
+   ],
+   "fill": 0.0403,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "collet-carb-water-out",
+   "boxes": [
+    [
+     -39.074,
+     11.905,
+     8.75,
+     -9.574,
+     26.195,
+     25.25
+    ]
+   ],
+   "fill": 0.659,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "collet-co2-in",
+   "boxes": [
+    [
+     3.154,
+     -49.024,
+     8.75,
+     34.813,
+     -19.726,
+     25.25
+    ]
+   ],
+   "fill": 0.2995,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "collet-water-in",
+   "boxes": [
+    [
+     -7.145,
+     28.624,
+     191.15,
+     7.145,
+     58.124,
+     207.65
+    ]
+   ],
+   "fill": 0.659,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "copper-plug-lower",
+   "boxes": [
+    [
+     -142.5,
+     -81.75,
+     27.75,
+     -138.5,
+     -73.25,
+     35.75
+    ]
+   ],
+   "fill": 0.3278,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "copper-plug-middle",
+   "boxes": [
+    [
+     -142.5,
+     -81.75,
+     35.75,
+     -138.5,
+     -73.25,
+     213.4
+    ]
+   ],
+   "fill": 0.8699,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "copper-plug-top",
+   "boxes": [
+    [
+     -142.5,
+     73.25,
+     27.75,
+     -138.5,
+     81.75,
+     213.4
+    ]
+   ],
+   "fill": 0.8704,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "endcap-bottom",
+   "boxes": [
+    [
+     -61.722,
+     -61.722,
+     38.35,
+     61.722,
+     61.722,
+     44.7
+    ]
+   ],
+   "fill": 0.7724,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "endcap-top",
+   "boxes": [
+    [
+     -61.722,
+     -61.722,
+     171.7,
+     61.722,
+     61.722,
+     178.05
+    ]
+   ],
+   "fill": 0.7724,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "evap-coil",
+   "boxes": [
+    [
+     -69.85,
+     -69.85,
+     43.826,
+     69.85,
+     69.85,
+     169.574
+    ]
+   ],
+   "fill": 0.0524,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "evap-tail-inlet",
+   "boxes": [
+    [
+     -143.5,
+     -80.675,
+     24.575,
+     -34.343,
+     -53.716,
+     50.175
+    ]
+   ],
+   "fill": 0.057,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "evap-tail-outlet",
+   "boxes": [
+    [
+     -143.5,
+     53.716,
+     24.575,
+     -34.343,
+     80.675,
+     169.575
+    ]
+   ],
+   "fill": 0.0189,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-a",
+   "boxes": [
+    [
+     96.287,
+     18.5,
+     119.0,
+     124.287,
+     46.5,
+     131.0
+    ]
+   ],
+   "fill": 0.6902,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-b",
+   "boxes": [
+    [
+     -124.287,
+     18.5,
+     119.0,
+     -96.287,
+     46.5,
+     131.0
+    ]
+   ],
+   "fill": 0.6902,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-carb",
+   "boxes": [
+    [
+     33.849,
+     -14.0,
+     121.25,
+     61.849,
+     14.0,
+     133.25
+    ]
+   ],
+   "fill": 0.6902,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-rod-a",
+   "boxes": [
+    [
+     105.412,
+     30.913,
+     32.494,
+     108.588,
+     34.087,
+     207.9
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-rod-b",
+   "boxes": [
+    [
+     -108.588,
+     30.913,
+     32.494,
+     -105.412,
+     34.087,
+     207.9
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-rod-carb",
+   "boxes": [
+    [
+     49.387,
+     -1.587,
+     42.16,
+     52.562,
+     1.587,
+     174.24
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-bottom",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     -18.0,
+     141.5,
+     90.5,
+     -0.0
+    ]
+   ],
+   "fill": 0.1442,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-lid-bottom",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     -20.0,
+     141.5,
+     90.5,
+     -14.8
+    ]
+   ],
+   "fill": 0.3834,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-lid-top",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     228.2,
+     141.5,
+     90.5,
+     242.015
+    ]
+   ],
+   "fill": 0.1822,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-top",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     213.4,
+     141.5,
+     90.5,
+     231.4
+    ]
+   ],
+   "fill": 0.1569,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-shell",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     -0.0,
+     141.5,
+     90.5,
+     213.4
+    ]
+   ],
+   "fill": 0.0951,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "probe-coil-ds18s20",
+   "boxes": [
+    [
+     -39.067,
+     53.225,
+     145.312,
+     -34.767,
+     57.525,
+     150.512
+    ]
+   ],
+   "fill": 0.9331,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "probe-tank-ds18b20",
+   "boxes": [
+    [
+     -68.703,
+     -2.15,
+     110.263,
+     -64.403,
+     2.15,
+     115.463
+    ]
+   ],
+   "fill": 0.9331,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "prv-shroud",
+   "boxes": [
+    [
+     -11.5,
+     -85.624,
+     187.9,
+     11.5,
+     -39.624,
+     210.9
+    ]
+   ],
+   "fill": 0.269,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "prv-sv125",
+   "boxes": [
+    [
+     -8.249,
+     -77.724,
+     191.526,
+     8.249,
+     -26.924,
+     207.274
+    ]
+   ],
+   "fill": 0.6404,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-1",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     50.5,
+     135.6,
+     33.6,
+     64.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-2",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     95.5,
+     135.6,
+     33.6,
+     109.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-3",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     140.5,
+     135.6,
+     33.6,
+     154.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-4",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     185.5,
+     135.6,
+     33.6,
+     199.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-1",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     50.5,
+     -133.4,
+     33.6,
+     64.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-2",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     95.5,
+     -133.4,
+     33.6,
+     109.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-3",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     140.5,
+     -133.4,
+     33.6,
+     154.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-4",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     185.5,
+     -133.4,
+     33.6,
+     199.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-bridge",
+   "boxes": [
+    [
+     58.612,
+     -24.869,
+     78.116,
+     66.5,
+     24.869,
+     148.25
+    ]
+   ],
+   "fill": 0.2418,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-carb-1",
+   "boxes": [
+    [
+     63.5,
+     -1.1,
+     92.116,
+     65.7,
+     1.1,
+     106.116
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-carb-2",
+   "boxes": [
+    [
+     63.5,
+     -1.1,
+     120.25,
+     65.7,
+     1.1,
+     134.25
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-a",
+   "boxes": [
+    [
+     52.932,
+     -70.0,
+     24.6,
+     129.0,
+     70.0,
+     201.9
+    ]
+   ],
+   "fill": 0.1592,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-a-cap",
+   "boxes": [
+    [
+     52.932,
+     -70.0,
+     201.9,
+     129.0,
+     70.0,
+     212.9
+    ]
+   ],
+   "fill": 0.3898,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-b",
+   "boxes": [
+    [
+     -129.0,
+     -70.0,
+     24.6,
+     -52.932,
+     70.0,
+     201.9
+    ]
+   ],
+   "fill": 0.1592,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-b-cap",
+   "boxes": [
+    [
+     -129.0,
+     -70.0,
+     201.9,
+     -52.932,
+     70.0,
+     212.9
+    ]
+   ],
+   "fill": 0.3898,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "sparge-barb",
+   "boxes": [
+    [
+     -8.249,
+     -26.194,
+     41.525,
+     8.249,
+     -11.906,
+     71.624
+    ]
+   ],
+   "fill": 0.3521,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "sparge-silicone-stub",
+   "boxes": [
+    [
+     -3.175,
+     -22.225,
+     71.624,
+     3.175,
+     21.175,
+     86.07
+    ]
+   ],
+   "fill": 0.3951,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "sparge-stone",
+   "boxes": [
+    [
+     -25.4,
+     -7.4,
+     46.7,
+     25.4,
+     43.4,
+     73.37
+    ]
+   ],
+   "fill": 0.3825,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vent-membrane-a",
+   "boxes": [
+    [
+     89.5,
+     -39.0,
+     210.4,
+     102.5,
+     -26.0,
+     210.55
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vent-membrane-b",
+   "boxes": [
+    [
+     -102.5,
+     -39.0,
+     210.4,
+     -89.5,
+     -26.0,
+     210.55
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-carb-water-out",
+   "boxes": [
+    [
+     -20.574,
+     11.112,
+     7.835,
+     9.165,
+     26.987,
+     44.954
+    ]
+   ],
+   "fill": 0.3449,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-co2-in",
+   "boxes": [
+    [
+     -9.165,
+     -39.013,
+     8.45,
+     21.701,
+     -11.112,
+     41.525
+    ]
+   ],
+   "fill": 0.2048,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-prv",
+   "boxes": [
+    [
+     -9.165,
+     -39.624,
+     171.446,
+     9.165,
+     -11.112,
+     207.338
+    ]
+   ],
+   "fill": 0.3226,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-water-in",
+   "boxes": [
+    [
+     -9.165,
+     11.112,
+     171.446,
+     9.165,
+     39.624,
+     207.338
+    ]
+   ],
+   "fill": 0.3226,
+   "primitive": false,
+   "declared": "real"
+  }
+ ],
+ "bends": [
+  {
+   "id": "carb-water-out",
+   "kind": "fluid",
+   "frm": "carbonator-vessel.carb-water-out",
+   "to": "carb-water-out.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 296.28,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 220.62,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.343
+   }
+  },
+  {
+   "id": "co2-in",
+   "kind": "fluid",
+   "frm": "co2-in.start",
+   "to": "carbonator-vessel.co2-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 262.94,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 209.37,
+   "reachGrade": "C",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.256
+   }
+  },
+  {
+   "id": "prv-vent",
+   "kind": "fluid",
+   "frm": "prv-vent.start",
+   "to": "prv-vent.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 289.64,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 209.15,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.385
+   }
+  },
+  {
+   "id": "reservoir-a",
+   "kind": "fluid",
+   "frm": "reservoir-a.start",
+   "to": "reservoir-a.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 518.36,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 315.83,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.641
+   }
+  },
+  {
+   "id": "reservoir-a-fill",
+   "kind": "fluid",
+   "frm": "reservoir-a-fill.start",
+   "to": "reservoir-a-fill.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 0.5,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 0.5,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "reservoir-b",
+   "kind": "fluid",
+   "frm": "reservoir-b.start",
+   "to": "reservoir-b.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 315.37,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 211.43,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.492
+   }
+  },
+  {
+   "id": "reservoir-b-fill",
+   "kind": "fluid",
+   "frm": "reservoir-b-fill.start",
+   "to": "reservoir-b-fill.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 0.5,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 0.5,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "water-in",
+   "kind": "fluid",
+   "frm": "carbonator-vessel.water-in",
+   "to": "water-in.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 195.05,
+   "bend": 14.0,
+   "radius": 10.739,
+   "minBend": 14.0,
+   "ratio": 0.767,
+   "grade": "C",
+   "reach": 137.2,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 10.739,
+     "ratio": 0.767,
+     "grade": "C"
+    },
+    {
+     "at": 2,
+     "radius": 10.739,
+     "ratio": 0.767,
+     "grade": "C"
+    },
+    {
+     "at": 3,
+     "radius": 10.739,
+     "ratio": 0.767,
+     "grade": "C"
+    }
+   ],
+   "need": {
+    "detour": 1.422
+   }
+  }
+ ],
+ "mounts": [
+  {
+   "component": "bulkhead-reservoir-a",
+   "by": "trough floor",
+   "held": "trough floor",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-reservoir-b",
+   "by": "trough floor",
+   "held": "trough floor",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-seal-a",
+   "by": "the bulkhead's own nut",
+   "held": "the bulkhead's own nut",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-seal-b",
+   "by": "the bulkhead's own nut",
+   "held": "the bulkhead's own nut",
+   "kind": "real"
+  },
+  {
+   "component": "carbonator-tube",
+   "by": "support ring",
+   "held": "support ring",
+   "kind": "real"
+  },
+  {
+   "component": "collet-carb-water-out",
+   "by": "elbow socket",
+   "held": "elbow socket",
+   "kind": "real"
+  },
+  {
+   "component": "collet-co2-in",
+   "by": "elbow socket",
+   "held": "elbow socket",
+   "kind": "real"
+  },
+  {
+   "component": "collet-water-in",
+   "by": "elbow socket",
+   "held": "elbow socket",
+   "kind": "real"
+  },
+  {
+   "component": "copper-plug-lower",
+   "by": "wall slot",
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "copper-plug-middle",
+   "by": "wall slot",
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "copper-plug-top",
+   "by": "wall slot",
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "endcap-bottom",
+   "by": "tube bore",
+   "held": "tube bore",
+   "kind": "real"
+  },
+  {
+   "component": "endcap-top",
+   "by": "tube bore",
+   "held": "tube bore",
+   "kind": "real"
+  },
+  {
+   "component": "evap-coil",
+   "by": "the tank it clamps",
+   "held": "the tank it clamps",
+   "kind": "real"
+  },
+  {
+   "component": "evap-tail-inlet",
+   "by": "wall slot",
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "evap-tail-outlet",
+   "by": "wall slot",
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "float-a",
+   "by": "the rod it rides",
+   "held": "the rod it rides",
+   "kind": "real"
+  },
+  {
+   "component": "float-b",
+   "by": "the rod it rides",
+   "held": "the rod it rides",
+   "kind": "real"
+  },
+  {
+   "component": "float-carb",
+   "by": "the rod it rides",
+   "held": "the rod it rides",
+   "kind": "real"
+  },
+  {
+   "component": "float-rod-a",
+   "by": "body boss",
+   "held": "body boss",
+   "kind": "real"
+  },
+  {
+   "component": "float-rod-b",
+   "by": "body boss",
+   "held": "body boss",
+   "kind": "real"
+  },
+  {
+   "component": "float-rod-carb",
+   "by": "plate registers",
+   "held": "plate registers",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-bottom",
+   "by": "shell floor",
+   "held": "shell floor",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-lid-bottom",
+   "by": "cap mouth",
+   "held": "cap mouth",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-lid-top",
+   "by": "cap mouth",
+   "held": "cap mouth",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-top",
+   "by": "shell rim",
+   "held": "shell rim",
+   "kind": "real"
+  },
+  {
+   "component": "foam-shell",
+   "by": "the enclosure floor",
+   "held": "the enclosure floor",
+   "kind": "real"
+  },
+  {
+   "component": "probe-coil-ds18s20",
+   "by": null,
+   "held": "foil tape",
+   "kind": "real"
+  },
+  {
+   "component": "probe-tank-ds18b20",
+   "by": null,
+   "held": "foil tape",
+   "kind": "real"
+  },
+  {
+   "component": "prv-shroud",
+   "by": "the PRV it caps",
+   "held": "the PRV it caps",
+   "kind": "real"
+  },
+  {
+   "component": "prv-sv125",
+   "by": "elbow socket",
+   "held": "elbow socket",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-1",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-2",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-3",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-4",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-1",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-2",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-3",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-4",
+   "by": "shell channel",
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-bridge",
+   "by": "support ring",
+   "held": "support ring",
+   "kind": "real"
+  },
+  {
+   "component": "reed-carb-1",
+   "by": "bridge pocket",
+   "held": "bridge pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reed-carb-2",
+   "by": "bridge pocket",
+   "held": "bridge pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-a",
+   "by": "pocket",
+   "held": "pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-a-cap",
+   "by": "body rim",
+   "held": "body rim",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-b",
+   "by": "pocket",
+   "held": "pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-b-cap",
+   "by": "body rim",
+   "held": "body rim",
+   "kind": "real"
+  },
+  {
+   "component": "sparge-barb",
+   "by": "plate thread",
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "sparge-silicone-stub",
+   "by": "the barb and the stone",
+   "held": "the barb and the stone",
+   "kind": "real"
+  },
+  {
+   "component": "sparge-stone",
+   "by": "its own stub",
+   "held": "its own stub",
+   "kind": "real"
+  },
+  {
+   "component": "vent-membrane-a",
+   "by": "cap vent pocket",
+   "held": "cap vent pocket",
+   "kind": "real"
+  },
+  {
+   "component": "vent-membrane-b",
+   "by": "cap vent pocket",
+   "held": "cap vent pocket",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-carb-water-out",
+   "by": "plate thread",
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-co2-in",
+   "by": "plate thread",
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-prv",
+   "by": "plate thread",
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-water-in",
+   "by": "plate thread",
+   "held": "plate thread",
+   "kind": "real"
+  }
+ ],
+ "source": {
+  "generated": "2026-08-09T03:59:39+00:00",
+  "commit": "f69c3c7facac38064c2ce27f757456cf26df0229"
+ }
+}

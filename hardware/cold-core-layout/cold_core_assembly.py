@@ -13,7 +13,9 @@ at `foam_shell_outer_height`. ±Y is the vessel's port axis and +X the register 
     tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py
 
 writes `cold-core-assembly.step` beside this file with its `.scorecard.json`, which the 3D
-viewer's bottom bar reads at `/3d`.
+viewer's bottom bar reads at `/3d`. THE SAME CARD IS WRITTEN BESIDE `foam-assembly.step`, the
+outer model of this same core: a reader who opens either one is looking at the cold core, and
+the cold core has one verdict. `one-core` is the row that keeps that honest.
 """
 
 from __future__ import annotations
@@ -47,6 +49,11 @@ import _cold_scorecard as _card                          # noqa: E402
 from _cold_scorecard import Check, Scorecard, verdict     # noqa: E402
 
 STEP_OUT = _here.parent / "cold-core-assembly.step"
+# The OTHER model of this same core: five printed pieces and the faces the enclosure loads
+# (`foam_assembly`). It is not superseded — `enclosure_assembly` places THAT, not this — but a
+# reader who opens it is looking at the cold core, and the cold core has one verdict. So the
+# card below is written beside both STEPs and `one-core` is what keeps that honest.
+FOAM_STEP = _cold / "foam-assembly" / "foam-assembly.step"
 
 # --- colour, by what a body is ------------------------------------------------
 C_FOAM_SHELL = cq.Color(0.62, 0.78, 0.95, 0.22)
@@ -485,6 +492,26 @@ def _prv_vent_lands(points: dict) -> Check:
                  f"{abs(off):.3f} mm off", f"within {agree:g} mm of the lane", detail)
 
 
+def _one_core(placed: dict) -> Check:
+    """Every body the OUTER model of this core carries, standing in this one.
+
+    `printed-parts/cold-core/foam-assembly` is the core as the machine sees it — the five
+    printed pieces, their outside faces, and the port table the appliance reads. This assembly
+    is the same stack one frame further in, with the vessel, the coil, both reservoirs and
+    every line among them. Two models of one thing is right; two VERDICTS of one thing is not,
+    so this card is written beside both STEPs — and what makes that honest is that every body
+    the outer model draws is placed here."""
+    outer = tuple(FOAM_COLORS)
+    gone = [n for n in outer if n not in placed]
+    detail = [f"this card is written beside {STEP_OUT.relative_to(_hw)}",
+              f"                        and {FOAM_STEP.relative_to(_hw)}"]
+    detail += [f"{n}: {'placed here' if n in placed else 'MISSING from this frame'}"
+               for n in outer]
+    return Check("one-core", "One card for both models of the cold core", "gate",
+                 verdict(not gone), f"{len(outer) - len(gone)}/{len(outer)} bodies shared",
+                 "every foam-assembly body here", detail)
+
+
 def _floats_couple(placed: dict) -> Check:
     """Every float's magnet held against the wall its reed reads through.
 
@@ -631,6 +658,7 @@ def build_card(a) -> Scorecard:
     held = sum(1 for _n, _by, h in mounts if h != "none")
 
     checks = [
+        _one_core(placed),
         _bodies_clear(placed),
         _routes_fit(placed, fitted),
         _lines_apart(fitted, placed),
@@ -679,8 +707,9 @@ def main() -> int:
     report(a)
     sc = build_card(a)
     _card.report(sc)
-    out = _card.write(sc, STEP_OUT)
-    print(f"\n-> {out.name}")
+    for step in (STEP_OUT, FOAM_STEP):
+        out = _card.write(sc, step)
+        print(f"\n-> {out.relative_to(_hw)}")
     return 0
 
 

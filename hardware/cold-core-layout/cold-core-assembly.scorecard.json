@@ -8,6 +8,24 @@
  "mounted": 96,
  "checks": [
   {
+   "id": "one-core",
+   "label": "One card for both models of the cold core",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5/5 bodies shared",
+   "target": "every foam-assembly body here",
+   "detail": [
+    "this card is written beside cold-core-layout/cold-core-assembly.step",
+    "                        and printed-parts/cold-core/foam-assembly/foam-assembly.step",
+    "foam-shell: placed here",
+    "foam-cap-top: placed here",
+    "foam-cap-lid-top: placed here",
+    "foam-cap-bottom: placed here",
+    "foam-cap-lid-bottom: placed here"
+   ],
+   "active": true
+  },
+  {
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
@@ -1792,7 +1810,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T03:57:13+00:00",
-  "commit": "28de1e843c2398412c8adc0a161e483115c57c9f"
+  "generated": "2026-08-09T03:59:39+00:00",
+  "commit": "f69c3c7facac38064c2ce27f757456cf26df0229"
  }
 }
