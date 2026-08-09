@@ -55,3 +55,8 @@ tools/cad-venv/
 *.scorecard-cache.pkl.tmp
 *.views.sha
 *.pack-cache/
+
+# Tessellation written beside each STEP for the viewer to read instead of parsing it
+# (hardware/scripts/_cadq_export.py). Rebuilt by every export; the page parses the STEP
+# when one is absent.
+*.step.mesh
