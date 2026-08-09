@@ -1801,7 +1801,7 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), ())
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), ())
 
 
 def build_front_half(box):
