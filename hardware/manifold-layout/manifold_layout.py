@@ -482,6 +482,13 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 # so 28 across is what 28 along would cost, and this pair spends 14.
 SOURCE_TRAVEL = 28.0
 SOURCE_JOG = 14.0
+# The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
+# VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
+# and the way it steps, so leaning that plane about the run costs the step nothing and only its
+# length is solved for. What the spread buys is the slot on the mirror line — the two source
+# valves stand a valve's half-width either side of x 0 and the hopper's gravity drain threads
+# the gap between their coils, so a valve carried outboard widens that lane one for one.
+SOURCE_SPREAD = {"V-A": 2.42, "V-B": 0.0}
 
 
 def sbend_solve(r: float, travel: float, jog: float) -> tuple:
@@ -497,11 +504,22 @@ def sbend_solve(r: float, travel: float, jog: float) -> tuple:
     return th, (travel - 2.0 * r * math.sin(th)) / math.cos(th)
 
 
-SOURCE_ANGLE, SOURCE_STRAIGHT = sbend_solve(MIN_BEND, SOURCE_TRAVEL, SOURCE_JOG)
-SOURCE_LEN = 2.0 * MIN_BEND * SOURCE_ANGLE + SOURCE_STRAIGHT
+def source_cross(name: str) -> tuple:
+    """A source valve's cross-move, `(dx, dy)` in the pack's own frame: `SOURCE_JOG` toward the
+    crown, which is −Y, and its own `SOURCE_SPREAD` away from the mirror plane."""
+    return (math.copysign(SOURCE_SPREAD[name], P[name]["x"]), -SOURCE_JOG)
+
+
+def source_step(name: str) -> tuple:
+    """The two-arc step that carries one source valve off its quarter, as
+    `(angle, straight, length)`. Each valve solves its own, because the spread is its own."""
+    th, s = sbend_solve(MIN_BEND, SOURCE_TRAVEL, math.hypot(*source_cross(name)))
+    return th, s, 2.0 * MIN_BEND * th + s
+
+
 # In the pack's own frame the source valves run along +Z once they are round, and the crown
 # they are stepping toward is −Y.
-SHIFT = {"V-A": (0.0, -SOURCE_JOG, SOURCE_TRAVEL), "V-B": (0.0, -SOURCE_JOG, SOURCE_TRAVEL)}
+SHIFT = {n: source_cross(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
 
 
 def bend_pt(p, z0: float) -> tuple:
@@ -519,26 +537,34 @@ def bent(solid, z0: float):
                         cq.Vector(1.0, BEND_Y, z0 + BEND_R), 90.0)
 
 
-def sbend(x: float, y0: float, z0: float):
-    """The two-arc step, off a run heading +Z at (x, y0, z0) and jogging −Y. It ends heading +Z
-    again, `SOURCE_TRAVEL` along and `SOURCE_JOG` across."""
-    r, th, s = BEND_R, SOURCE_ANGLE, SOURCE_STRAIGHT
+def sbend(start, cross, travel: float):
+    """The two-arc step, off a run heading +Z at `start` and stepping `cross` — a vector in the
+    pack's XY — while it climbs `travel`. It ends heading +Z again, on `start + cross + travel`.
+
+    IT IS DRAWN FLAT AND STOOD UP. The whole step lies in the plane that holds the run and
+    `cross`, so it is solved once in that plane's own `(across, along)` and each point is then
+    put back in world along the step's own direction — which is what lets a valve step toward
+    the crown and outboard on ONE pair of arcs rather than two."""
+    r = BEND_R
+    th, s = sbend_solve(r, travel, math.hypot(*cross))
     c, si = math.cos(th), math.sin(th)
-    c1 = (y0 - r, z0)
-    e1 = (c1[0] + r * c, c1[1] + r * si)
-    m1 = (c1[0] + r * math.cos(th / 2.0), c1[1] + r * math.sin(th / 2.0))
-    e2 = (e1[0] - s * si, e1[1] + s * c)
-    c2 = (e2[0] + r * c, e2[1] + r * si)
-    e3 = (c2[0] - r, c2[1])
-    bx, bz = (e2[0] - c2[0]) + (e3[0] - c2[0]), (e2[1] - c2[1]) + (e3[1] - c2[1])
-    bl = math.hypot(bx, bz)
-    m2 = (c2[0] + r * bx / bl, c2[1] + r * bz / bl)
-    V = lambda yz: cq.Vector(x, yz[0], yz[1])                                  # noqa: E731
-    edges = [cq.Edge.makeThreePointArc(cq.Vector(x, y0, z0), V(m1), V(e1))]
+    c1 = (r, 0.0)                                      # the first arc's centre, r across
+    e1 = (c1[0] - r * c, c1[1] + r * si)
+    m1 = (c1[0] - r * math.cos(th / 2.0), c1[1] + r * math.sin(th / 2.0))
+    e2 = (e1[0] + s * si, e1[1] + s * c)
+    c2 = (e2[0] - r * c, e2[1] + r * si)
+    e3 = (c2[0] + r, c2[1])
+    ba, bz = (e2[0] - c2[0]) + (e3[0] - c2[0]), (e2[1] - c2[1]) + (e3[1] - c2[1])
+    bl = math.hypot(ba, bz)
+    m2 = (c2[0] + r * ba / bl, c2[1] + r * bz / bl)
+    o = cq.Vector(*start)
+    u = cq.Vector(cross[0], cross[1], 0.0).normalized()
+    V = lambda p: o + u * p[0] + cq.Vector(0.0, 0.0, p[1])                     # noqa: E731
+    edges = [cq.Edge.makeThreePointArc(o, V(m1), V(e1))]
     if s > 1e-9:
         edges.append(cq.Edge.makeLine(V(e1), V(e2)))
     edges.append(cq.Edge.makeThreePointArc(V(e2), V(m2), V(e3)))
-    prof = cq.Wire.makeCircle(TUBE_D / 2.0, cq.Vector(x, y0, z0), cq.Vector(0.0, 0.0, 1.0))
+    prof = cq.Wire.makeCircle(TUBE_D / 2.0, o, cq.Vector(0.0, 0.0, 1.0))
     return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges), makeSolid=True, isFrenet=True)
 
 
@@ -716,7 +742,8 @@ def turns_meet() -> list:
     for cid, (x, z0) in sorted(QUARTERS.items()):
         end = (x, BEND_Y + BEND_R, z0 + BEND_R)
         if cid in SBENDS:                                  # the step carries on from the quarter
-            end = (end[0], end[1] - SOURCE_JOG, end[2] + SOURCE_TRAVEL)
+            dx, dy = source_cross(SBENDS[cid])
+            end = (end[0] + dx, end[1] + dy, end[2] + SOURCE_TRAVEL)
         out.append((cid, dist(end, lands[cid])))
     return out
 
@@ -735,8 +762,9 @@ SEGMENTS = [
 # Where each quarter turn stands: the column its fixed collet is on, and which deck.
 QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z)}
 QUARTER_LEN = math.pi * BEND_R / 2.0
-# The two that carry a step as well, off the far end of their own quarter.
-SBENDS = {3: QUARTERS[3], 5: QUARTERS[5]}
+# The two that carry a step as well, off the far end of their own quarter — and the valve each
+# one of those steps takes round with it, which is whose `SOURCE_SPREAD` the step is drawn to.
+SBENDS = {3: "V-A", 5: "V-B"}
 
 # The four connections the hinge runs through, each a semicircle on its limb's own column.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -800,8 +828,10 @@ def build_assembly() -> cq.Assembly:
         a.add(uturn(x), name=f"tube-fluid-{cid}", color=C_TUBE)
     for cid, (x, z0) in QUARTERS.items():
         a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=C_TUBE)
-    for cid, (x, z0) in SBENDS.items():
-        a.add(sbend(x, BEND_Y + BEND_R, z0 + BEND_R), name=f"step-fluid-{cid}", color=C_TUBE)
+    for cid, name in SBENDS.items():
+        x, z0 = QUARTERS[cid]
+        a.add(sbend((x, BEND_Y + BEND_R, z0 + BEND_R), source_cross(name), SOURCE_TRAVEL),
+              name=f"step-fluid-{cid}", color=C_TUBE)
     for cid, _p, _what, p, axis in MOUTHS:
         a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
               name=f"stub-{cid}", color=C_STUB)
@@ -1022,9 +1052,11 @@ def report(assy: cq.Assembly) -> dict:
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:
-                note = (f"{QUARTER_LEN + SOURCE_LEN:.2f} mm — one 90° turn at R{BEND_R:g}, then "
-                        f"two of {math.degrees(SOURCE_ANGLE):.3f}° with {SOURCE_STRAIGHT:.2f} mm "
-                        f"between: {SOURCE_TRAVEL:g} along and {SOURCE_JOG:g} across")
+                th, s, length = source_step(SBENDS[cid])
+                note = (f"{QUARTER_LEN + length:.2f} mm — one 90° turn at R{BEND_R:g}, then "
+                        f"two of {math.degrees(th):.3f}° with {s:.2f} mm "
+                        f"between: {SOURCE_TRAVEL:g} along and "
+                        f"{math.hypot(*source_cross(SBENDS[cid])):.2f} across")
         else:
             length = made.get(how, 0.0)
             note = ("butt — 0 mm outside the collets" if length < 1e-9
@@ -1060,9 +1092,12 @@ def report(assy: cq.Assembly) -> dict:
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
     print(f"spine: {len(SPINE)} turns, each 2 quarter-turns at R{SPINE_R:g} and "
           f"{SPINE_STRAIGHT:.2f} mm of straight, reaching {SPINE_R:g} mm past the hinge")
-    print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g} — {math.degrees(SOURCE_ANGLE):.3f}° "
-          f"each side of {SOURCE_STRAIGHT:.2f} mm, {SOURCE_TRAVEL:g} along the run and "
-          f"{SOURCE_JOG:g} across it, {SOURCE_LEN:.2f} mm of tube")
+    steps = [(v, *source_step(v)) for v in SBENDS.values()]
+    print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
+          f"run and {SOURCE_JOG:g} across it toward the crown — "
+          + "; ".join(f"{v} {math.degrees(th):.3f}° each side of {s:.2f} mm, {ln:.2f} mm of tube"
+                      + (f", spread {SOURCE_SPREAD[v]:g} outboard" if SOURCE_SPREAD[v] else "")
+                      for v, th, s, ln in steps))
     print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
           f"all on the plane y {BEND_Y:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
           f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
@@ -1118,9 +1153,15 @@ def main():
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
             "BEND_Y": f"{BEND_Y:.2f}",
             "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)),
-            "STEP_ANGLE": f"{math.degrees(SOURCE_ANGLE):.3f}",
-            "STEP_STRAIGHT": f"{SOURCE_STRAIGHT:.2f}", "STEP_LEN": f"{SOURCE_LEN:.2f}",
+            "STEP_ANGLE": f"{math.degrees(source_step('V-B')[0]):.3f}",
+            "STEP_STRAIGHT": f"{source_step('V-B')[1]:.2f}",
+            "STEP_LEN": f"{source_step('V-B')[2]:.2f}",
             "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{SOURCE_JOG:g}",
+            "STEP_SPREAD": f"{SOURCE_SPREAD['V-A']:g}",
+            "STEP_CROSS_A": f"{math.hypot(*source_cross('V-A')):.2f}",
+            "STEP_ANGLE_A": f"{math.degrees(source_step('V-A')[0]):.3f}",
+            "STEP_STRAIGHT_A": f"{source_step('V-A')[1]:.2f}",
+            "STEP_LEN_A": f"{source_step('V-A')[2]:.2f}",
             "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - HEAD_W:.2f}",
             "CROSSBAR": f"{CROSSBAR:.2f}",
             "TEE_COUNT": str(sum(1 for n in P if n.startswith("Y-"))),

@@ -2438,7 +2438,7 @@ def build_flowreg(split_carry):
 # forward of the suction chain, firing aft into the collet that feeds the pump.
 # The gap between V-K's outlet and the chain's collet — `water-4`. Both mouths lie on one plane
 # and one column, so this is a length of tube and not a route.
-WATER_4 = 15.0
+WATER_4 = 13.545
 # THE VALVE'S SEAT is the cradle's. The cap prints four bosses (`valve_seat`) at this
 # valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
 # Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed

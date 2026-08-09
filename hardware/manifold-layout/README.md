@@ -105,6 +105,16 @@ which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_
 the travel**, because each quarter spends R on both axes. So 90° turns step 28 across as well as
 28 along, and 28 across lands the valve's mounting plane inside the core's crown.
 
+**A CROSS-MOVE IS A VECTOR AND NOT A DISTANCE.** Both arcs and the straight lie in the one plane
+that holds the run and the way it steps, so leaning that plane about the run costs the step
+nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
+only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
+[14.21](STEP_CROSS_A) mm across in the same 28 along, θ = [37.552](STEP_ANGLE_A)° either side of
+s = [13.79](STEP_STRAIGHT_A) mm, [32.14](STEP_LEN_A) mm of tube. What the spread buys is the slot
+on the mirror line — the pair stands a valve's half-width either side of x 0 and the hopper's
+gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
+one for one.
+
 **Y-C, Y-D, Y-F and Y-G** sit on the four barbs, branch down, at the hinge. **Y-A and Y-B** stand on the
 inner limbs' own axes, one valve forward of the selects they feed, with their branches meeting
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **NEITHER

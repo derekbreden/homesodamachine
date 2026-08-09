@@ -604,8 +604,8 @@ for _name in deck_mounts:
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
-    "vk-solenoid": Cradle((111.500,  65.050), 0.0, 1.0000),
-    "valve-v-a":   Cradle((105.920,  20.070), 0.0, 2.6150),
+    "vk-solenoid": Cradle((110.045,  65.050), 0.0, 1.0000),
+    "valve-v-a":   Cradle((105.920,  22.490), 0.0, 2.6150),
     "valve-v-b":   Cradle((105.920, -20.070), 0.0, 2.6150),
 }
 
