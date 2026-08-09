@@ -87,34 +87,40 @@ function backfillMeshNames(result) {
 // export_step). Assemblies from export_assembly carry a per-solid color that
 // occt-import-js surfaces as mesh.color ([r, g, b], 0..1).
 const DEFAULT_FRONT = 0x8899aa;
-const DEFAULT_BACK = 0x667788;
 const BACK_DARKEN = 0.75; // back faces a shade darker so thin parts read from behind
+
+// A solid is one double-sided draw, and the darkening of its back faces happens
+// inside that draw. xray.js clones these materials for its ghost variant and
+// carries the injection across with them.
+export function darkenBackFaces(shader) {
+  shader.fragmentShader = shader.fragmentShader.replace(
+    "#include <color_fragment>",
+    `#include <color_fragment>
+    if ( !gl_FrontFacing ) diffuseColor.rgb *= ${BACK_DARKEN.toFixed(3)};`,
+  );
+}
 
 // Materials are shared across meshes (and across loads) by color, so an
 // assembly with N same-colored solids makes one material, not N.
 const _matCache = new Map();
 
-function materialsFor(color) {
+function materialFor(color) {
   const key = color ? color.map((c) => Math.round(c * 255)).join(",") : "default";
-  let pair = _matCache.get(key);
-  if (!pair) {
-    const front = color ? new THREE.Color(color[0], color[1], color[2]) : new THREE.Color(DEFAULT_FRONT);
-    const back = color
-      ? new THREE.Color(color[0] * BACK_DARKEN, color[1] * BACK_DARKEN, color[2] * BACK_DARKEN)
-      : new THREE.Color(DEFAULT_BACK);
+  let mat = _matCache.get(key);
+  if (!mat) {
     // Surfaces sit a depth-unit back, so the feature edges xray.js draws on
     // these same triangles resolve in front of them.
-    const shading = {
+    mat = new THREE.MeshStandardMaterial({
+      color: color ? new THREE.Color(color[0], color[1], color[2]) : new THREE.Color(DEFAULT_FRONT),
       metalness: 0.1, roughness: 0.6,
+      side: THREE.DoubleSide,
       polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
-    };
-    pair = {
-      front: new THREE.MeshStandardMaterial({ color: front, ...shading }),
-      back: new THREE.MeshStandardMaterial({ color: back, ...shading, side: THREE.BackSide }),
-    };
-    _matCache.set(key, pair);
+    });
+    mat.onBeforeCompile = darkenBackFaces;
+    mat.customProgramCacheKey = () => "hsm-back-darken";
+    _matCache.set(key, mat);
   }
-  return pair;
+  return mat;
 }
 
 function buildMesh(result) {
@@ -131,21 +137,17 @@ function buildMesh(result) {
     }
     geo.computeBoundingBox();
 
-    // Front + back face so thin parts are visible from behind. occt-import-js
-    // hands us mesh.color per solid when the STEP carries one; else gray.
-    // Both carry the occt mesh index so the edge picker's face raycast can
-    // map a hit triangle back to its BREP face.
-    const { front, back } = materialsFor(mesh.color);
-    const frontMesh = new THREE.Mesh(geo, front);
-    const backMesh = new THREE.Mesh(geo, back);
-    frontMesh.userData.occtIndex = occtIndex;
-    frontMesh.userData.side = "front"; // face raycast scans front meshes only
-    backMesh.userData.occtIndex = occtIndex;
-    // Carry the component name (backfilled from the STEP assembly node) onto the meshes so
+    // One double-sided draw per solid, so a thin part still reads from behind.
+    // occt-import-js hands us mesh.color per solid when the STEP carries one;
+    // else gray. The occt mesh index rides along so the edge picker's face
+    // raycast can map a hit triangle back to its BREP face.
+    const solid = new THREE.Mesh(geo, materialFor(mesh.color));
+    solid.userData.occtIndex = occtIndex;
+    solid.userData.side = "front"; // the name the face raycast selects on
+    // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
     // the scorecard's clickable rows can find a solid by name (part-highlight.js).
-    frontMesh.name = backMesh.name = mesh.name || "";
-    group.add(frontMesh);
-    group.add(backMesh);
+    solid.name = mesh.name || "";
+    group.add(solid);
   });
 
   return group;
