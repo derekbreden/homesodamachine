@@ -136,10 +136,13 @@ def cold_core(m):
         f"the cap carries {sorted(cci.cap_conduits)} — CC-12 walks three vessels, each "
         f"entered above its liquid and drawn at its lowest point, and every conduit on "
         f"the cap is one end of one of those")
-    assert cci.water_inlet_port_y == +cci.vessel_port_offset \
-        and cci.co2_inlet_y == -cci.vessel_port_offset, (
-        "the carbonator's water inlet is on the TOP plate and its CO2 on the bottom — "
-        "CC-12 says the vessel is filled above the liquid and gassed below it")
+    pair = {+cci.vessel_port_offset, -cci.vessel_port_offset}
+    assert {cci.water_inlet_port_y, cci.prv_port_y} == pair \
+        and abs(cci.co2_inlet_y) == cci.vessel_port_offset, (
+        f"the top plate carries the water inlet at {cci.water_inlet_port_y:g} and the PRV at "
+        f"{cci.prv_port_y:g} and the bottom plate the CO2 at {cci.co2_inlet_y:g} — CC-12 says "
+        f"the vessel is filled above the liquid and gassed below it, and a plate drills two "
+        f"holes {sorted(pair)} that two fittings take one each")
     # The evaporator's two coppers leave by opposite lanes (CC-03, CC-10, CC-12).
     tails = {name: plugs.columns[spec.column].lane_y
              for name, spec in ((s.station, s) for s in plugs.plug_specs.values())}
@@ -153,12 +156,19 @@ def cold_core(m):
         pcuts.water_outlet_ring_crossing_x, cci.lldpe_tube_od / 2.0)
     co2_band = _ring_azimuths(pcuts.co2_inlet_lane_xyz[:2], pcuts.co2_inlet_xyz[:2],
                               cci.lldpe_tube_od / 2.0)
-    slot = _ring_slot_holding(water_band)
-    assert slot is not None and slot == _ring_slot_holding(co2_band), (
+    held = {name: _ring_slot_holding(band)
+            for name, band in (("carbonated water", water_band), ("CO2", co2_band))}
+    assert all(held.values()), (
         f"the carbonated water crosses the support ring over {water_band} and the CO2 over "
-        f"{co2_band}, which is not one slot of {pcuts.ring_slot_spans()} — CC-10 and CC-12 "
-        f"both say both lines take the same slot and the ring is bored nowhere")
-    ring_slot_deg = (slot[0] + slot[1]) / 2.0
+        f"{co2_band}, and {sorted(n for n, s in held.items() if s is None)} is held by no slot "
+        f"of {pcuts.ring_slot_spans()} — CC-10 and CC-12 both say the ring is bored nowhere, "
+        f"so a crossing outside a slot would be a hole through a bearing segment")
+    # ONE SLOT EACH, not one slot between them. Each line's own column is set by what it has to
+    # reach on the far side — the water outlet's by its cap conduit, the CO2's by where its lean
+    # lands — and the ring's four slots are 90° apart, so the two land in different ones. What
+    # the fence is about is that neither is bored through a bearing segment, which is what the
+    # assertion above reads. The cards name the slot each takes.
+    ring_slot_deg = "/".join(f"{(s[0] + s[1]) / 2:.4g}" for s in held.values())
     # The top cap is the only one with anything standing in it, which is what makes
     # CC-06's "label them" step a step and CC-15's rotation the column pattern's.
     # An EMPTY table is the case a count cannot report: CC-06 would tell the bench to
@@ -249,7 +259,7 @@ def cold_core(m):
                       f"{pcuts.slot_angular_width:.4g}{DEG} at "
                       + "/".join(f"{(lo + hi) / 2:.4g}" for lo, hi in pcuts.ring_slot_spans())
                       + DEG,
-        "RING_SLOT_DEG": f"{ring_slot_deg:.4g}{DEG}",
+        "RING_SLOT_DEG": f"{ring_slot_deg}{DEG}",
         # The front wall's two lanes (CC-12, CC-13).
         "CORE_FRONT_PORTS": f"{len(cci.front_port_order)}",
         "FIELD_PITCH": f"{cci.front_port_pitch:.4g}",
