@@ -113,31 +113,70 @@ total_wraps = full_wraps + tail_ccw_delta / 360
 pitch = wind_length / total_wraps
 
 # Copper the wrap consumes ON THE MANDREL — the helix arc at the winding
-# centerline, [3.877 m](WRAP_LEN) per vessel. This is what the tool holds,
-# NOT what the coil ends up being.
+# centerline, [3.877 m](MANDREL_LEN) ([12.72 ft](MANDREL_FT)) per vessel. This is
+# what the tool holds, NOT what the coil ends up being.
 mandrel_wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
 
-# WHAT TO CUT IS THE FITTED LENGTH, NOT THE WOUND ONE. The wrap springs
-# net_undersize out when it comes off, so the same [9.687](TOTAL_WRAPS) wraps
-# stand on a circle 2·π·net_undersize longer each turn: [4.06 m](FITTED_LEN)
-# ([13.32 ft](WRAP_FT)) at the tank's own winding radius. Cutting the mandrel
-# figure leaves the coil [183 mm](SPRING_GAIN) short of its own tails.
-# `cold-core-layout/_coil.wrap_length` draws that same figure on the tank and
-# the two are held against each other at every build.
+# THE WRAP HAS THREE LENGTHS AND THIS MODULE HOLDS TWO. The wrap springs
+# net_undersize out when it comes off, so the same [9.687](TOTAL_WRAPS) wraps stand
+# on a circle 2·π·net_undersize longer each turn: [4.06 m](SPRUNG_LEN)
+# ([13.32 ft](SPRUNG_FT)) at the tank's own winding radius, [183 mm](SPRING_GAIN)
+# over the mandrel's. The third is `cold-core-layout/_coil.wrap_length` — the same
+# wraps AS LAID, with the lift over the reed bridge in them — and that is the copper
+# a build consumes, so the cut and the roll arithmetic stand on it and live there.
+# Only that module can see the bridge; this one is imported BY it.
 fitted_wrap_radius = tank_radius + tube_radius
 fitted_wrap_length = total_wraps * math.hypot(2 * math.pi * fitted_wrap_radius, pitch)
 wrap_length = fitted_wrap_length
 spring_gain = fitted_wrap_length - mandrel_wrap_length
 
-# A [500 mm](STUB_LEN) refrigerant-loop tie-in tail at each end brings the
-# per-vessel cut to [16.6 ft](CUT_FT) — three vessels per 50 ft roll with
-# [0.2 ft](ROLL_SPARE) left, which is the whole of the spare. The tail is sized
-# to out-reach the enclosure's longest routed refrigerant leg (`_lines.py`
-# refrig-2, condenser outlet → evaporator inlet) with in-situ braze slack.
-stub_allowance = 500.0
-cut_length = wrap_length + 2 * stub_allowance
+
+# ═══════════════════════════════════════════════════════
+# TIE-IN STUB ALLOWANCE — ONE PER END, NOT ONE FIGURE TWICE
+# ═══════════════════════════════════════════════════════
+
+# A STUB IS FIT-UP AND REWORK. IT IS NOT THERMAL STANDOFF. How far a brazed joint
+# stands off the foam shell is set by the ROUTED run, not by how much copper gets
+# cut. `manifold-layout/_lines.py` draws exactly ONE refrigerant leg — refrig-3,
+# foam-assembly.evap-outlet → compressor.refrig-suction — because the other two
+# joints of the sealed loop are made across a plane their bodies already share and
+# draw no tube at all. That leg spans 67.7 mm end to end on the built pack
+# (`manifold-layout/enclosure-assembly.scorecard.json`, bend `refrig-3`). Any stub
+# longer than its own end's reach is trimmed off before the torch is lit — so what
+# the allowance buys is fit-up and re-cuts, and each end is sized off what
+# `assembly/refrigerant-loop.md` actually does to THAT end.
+#
+#   outlet  [150 mm](PROT_OUTLET) — refrig-3's 67.7 mm of routed reach, ~20 mm of
+#           fit-up (the factory suction line is cut by hand at step 3), and ~60 mm
+#           for two re-cuts. Step 9 requires the joint be re-cut and re-brazed on
+#           any leak, so the rework allowance is a stated requirement, not padding.
+#   inlet   [200 mm](PROT_INLET) — no routed reach at all (refrig-2 is a mating
+#           across a plane the two bodies already share, so it draws no tube),
+#           ~40 mm of swage working length for the Knipex 86 01 180 progressive 60°
+#           collapse, ~20 mm of fit-up, and ~120 mm for three re-cuts. The
+#           pinch-swage is the higher-risk of the two joints — size mismatch, hand
+#           technique, no reducer fitting — and a failed one is re-swaged from
+#           fresh copper, not just re-brazed.
+stub_protrusion = {"inlet": 200.0, "outlet": 150.0}
+
+# WHAT EACH TAIL DOES BEFORE IT PROTRUDES, AND NOTHING ELSE IN THE REPO BILLS IT.
+# `cold-core-layout/_coil.tail_length` draws each tail off the helix, down its own
+# column and out through the shell wall: [135.5 mm](SHELL_TAIL_INLET) and
+# [254.6 mm](SHELL_TAIL_OUTLET). That copper comes off the same cut as the wrap, so
+# the allowance carries it — an allowance is in-shell tail PLUS protrusion, end for
+# end. Written here rather than imported because `_coil` imports this module and the
+# dependency only runs one way; `_coil`'s `stub-tails-billed` bound is where the two
+# figures are held against the tails actually drawn, since that module sees both.
+tail_in_shell = {"inlet": 135.5, "outlet": 254.6}
+
+# [335.5 mm](STUB_INLET) at the inlet, [404.6 mm](STUB_OUTLET) at the outlet.
+stub_allowance = {end: tail_in_shell[end] + stub_protrusion[end] for end in tail_in_shell}
+stub_total = sum(stub_allowance.values())
+
+# How a roll is divided — [1/3](ROLL_SHARE) of one per build. What that leaves is
+# `_coil.roll_spare_ft`, struck on the laid wrap like the cut itself.
 vessels_per_roll = 3
-roll_spare_ft = 50.0 - vessels_per_roll * cut_length / 304.8
+roll_length_ft = 50.0
 
 
 # ═══════════════════════════════════════════════════════
@@ -219,8 +258,12 @@ def main():
           f"({mandrel_wrap_length / 304.8:.2f} ft)")
     print(f"Wrap copper (fitted):  {wrap_length:.0f} mm  ({wrap_length / 304.8:.2f} ft)"
           f"  — {spring_gain:+.0f} mm of spring")
-    print(f"Cut w/ tie-in stubs:   {cut_length:.0f} mm  ({cut_length / 304.8:.2f} ft)"
-          f"  — {vessels_per_roll} per 50 ft roll leaves {roll_spare_ft:+.2f} ft")
+    for end in ("inlet", "outlet"):
+        print(f"Stub allowance ({end + '):':8} {stub_allowance[end]:.1f} mm  "
+              f"({tail_in_shell[end]:.1f} in-shell + {stub_protrusion[end]:.0f} protruding)")
+    print(f"Cut per vessel:        the LAID wrap + {stub_total:.1f} mm of stub — struck in "
+          f"`cold-core-layout/_coil.cut_length`,\n"
+          f"                       {vessels_per_roll} per {roll_length_ft:.0f} ft roll")
     print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
           f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
@@ -250,13 +293,18 @@ def main():
         "WIND_LENGTH": f"{wind_length:.4g} mm",
         "PITCH": f"{pitch:.4g} mm",
         "PITCH_IN": f"{pitch / 25.4:.3g} in",
-        "WRAP_LEN": f"{mandrel_wrap_length / 1000:.4g} m",
-        "FITTED_LEN": f"{fitted_wrap_length / 1000:.4g} m",
+        "MANDREL_LEN": f"{mandrel_wrap_length / 1000:.4g} m",
+        "MANDREL_FT": f"{mandrel_wrap_length / 304.8:.4g} ft",
+        "SPRUNG_LEN": f"{fitted_wrap_length / 1000:.4g} m",
+        "SPRUNG_FT": f"{fitted_wrap_length / 304.8:.4g} ft",
         "SPRING_GAIN": f"{spring_gain:.0f} mm",
-        "ROLL_SPARE": f"{roll_spare_ft:.1f} ft",
-        "WRAP_FT": f"{wrap_length / 304.8:.4g} ft",
-        "STUB_LEN": f"{stub_allowance:.4g} mm",
-        "CUT_FT": f"{cut_length / 304.8:.4g} ft",
+        "SHELL_TAIL_INLET": f"{tail_in_shell['inlet']:.4g} mm",
+        "SHELL_TAIL_OUTLET": f"{tail_in_shell['outlet']:.4g} mm",
+        "PROT_INLET": f"{stub_protrusion['inlet']:.4g} mm",
+        "PROT_OUTLET": f"{stub_protrusion['outlet']:.4g} mm",
+        "STUB_INLET": f"{stub_allowance['inlet']:.4g} mm",
+        "STUB_OUTLET": f"{stub_allowance['outlet']:.4g} mm",
+        "ROLL_SHARE": f"1/{vessels_per_roll}",
         "HANDLE_LENGTH": f"{handle_length:.4g} mm",
         "TOTAL_LENGTH": f"{total_length:.4g} mm",
         "GROOVE_BOTTOM_OD": f"{groove_bottom_od:.4g} mm",
@@ -277,13 +325,18 @@ def main():
             "WIND_LENGTH": 1,
             "PITCH": 1,
             "PITCH_IN": 1,
-            "WRAP_LEN": 1,
-            "WRAP_FT": 1,
-            "FITTED_LEN": 1,
+            "MANDREL_LEN": 1,
+            "MANDREL_FT": 1,
+            "SPRUNG_LEN": 1,
+            "SPRUNG_FT": 1,
             "SPRING_GAIN": 1,
-            "ROLL_SPARE": 1,
-            "STUB_LEN": 1,
-            "CUT_FT": 1,
+            "SHELL_TAIL_INLET": 1,
+            "SHELL_TAIL_OUTLET": 1,
+            "PROT_INLET": 1,
+            "PROT_OUTLET": 1,
+            "STUB_INLET": 1,
+            "STUB_OUTLET": 1,
+            "ROLL_SHARE": 1,
             "HANDLE_LENGTH": 1,
             "TOTAL_LENGTH": 1,
             "GROOVE_BOTTOM_OD": 1,

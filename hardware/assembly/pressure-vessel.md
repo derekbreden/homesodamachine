@@ -139,7 +139,7 @@ All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose
 
 - **Port 1 (bottom-plate CO2 inlet + internal sparge):** the LTWFITTING B017N4TTMA hose-barb × MNPT adapter handles the internal sparge — barb facing inward, food-grade silicone tube stub connecting it to the FERRODAY B091C5Y6L9 0.5 µm sintered SS sparge stone hanging in the water column. The SS 90° elbow handles the external CO2 line connection from the in-appliance WR1110 secondary regulator (see [`/hardware/future.md`](/hardware/future.md) "CO2 supply"). **The relative install order of LTWFITTING vs elbow on Port 1 is an open item** — see Open items below.
 
-Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 4 (coil wind).
+Once the four elbow stacks are in, the vessel is the input to [`cold-core.md`](/hardware/assembly/cold-core.md) step 1 (coil wind).
 
 ### 10. (Optional) Functional pop test against vessel pressure
 

@@ -53,6 +53,7 @@ from _cold_core_interface import (                       # noqa: E402
 )
 from _routing import stock_min, stock_of                 # noqa: E402
 import _internal_routes as _R                            # noqa: E402
+import _stated_bounds as _bounds                         # noqa: E402
 
 TUBE_R = _mandrel.tube_radius                       # 3.175 — 1/4" ACR copper
 # The copper's centreline once it is off the mandrel and onto the tank: its inner surface on
@@ -289,9 +290,42 @@ def tail_length(which: str) -> float:
     return _R.route_wire(tail_points(which), COPPER_BEND).Length()
 
 
+# WHAT THE CUT ALLOWS, AGAINST WHAT THE TAILS ACTUALLY TAKE. A tie-in allowance is that end's
+# in-shell run plus what protrudes past the plug for the braze, and `coil_mandrel` writes the
+# in-shell half down as a constant because this module imports THAT one and not the reverse.
+# Here is where the two can be read together: a tail re-routed longer than its written figure
+# is copper the cut never allowed for, and the stub pays for it out of the protrusion the
+# brazier needs. The bound says so on the card rather than raising — `_stated_bounds` says why.
+STUB_TAIL_TOL = 1.0
+
+_tails_billed = _bounds.bound(
+    "stub-tails-billed",
+    "Each coil tail's in-shell run is the one its stub allowance bills",
+    f"within {STUB_TAIL_TOL:.1f} mm of `coil_mandrel.tail_in_shell`")
+for _end, _billed in _mandrel.tail_in_shell.items():
+    _drawn = tail_length(_end)
+    _tails_billed(
+        abs(_drawn - _billed) <= STUB_TAIL_TOL,
+        f"{_end} tail draws {_drawn:.1f} mm against the {_billed:.1f} mm "
+        f"`coil_mandrel.tail_in_shell` bills — {_drawn - _billed:+.1f} mm out of the "
+        f"{_mandrel.stub_protrusion[_end]:.0f} mm that end has to protrude with")
+
+
+def cut_length() -> float:
+    """What a build CUTS per vessel — the laid wrap plus each end's own tie-in allowance.
+
+    Struck here rather than in `coil_mandrel` because the wrap it stands on is the LAID one,
+    and the reed bridge's lift is only visible from this module."""
+    return wrap_length() + _mandrel.stub_total
+
+
+def roll_spare_ft() -> float:
+    """What one roll has left after `coil_mandrel.vessels_per_roll` vessels come off it."""
+    return _mandrel.roll_length_ft - _mandrel.vessels_per_roll * cut_length() / 304.8
+
+
 def report() -> None:
     wrap = wrap_length()
-    tails = tail_length("inlet") + tail_length("outlet")
     print("  evaporator coil")
     print(f"    stock           {COPPER_STOCK.name}, min bend {COPPER_BEND:.2f} — "
           f"{COPPER_STOCK.source}")
@@ -306,11 +340,15 @@ def report() -> None:
     print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "
           f"{_mandrel.mandrel_wrap_length:.0f}, sprung {_mandrel.fitted_wrap_length:.0f}, "
           f"reed bridge {bridge_lift_length():+.0f}")
-    print(f"    tails drawn     {tails:.0f} mm, against the "
-          f"{2 * _mandrel.stub_allowance:.0f} mm of stub the cut allows")
-    cut = wrap + 2 * _mandrel.stub_allowance
-    print(f"    cut per vessel  {cut / 304.8:.2f} ft; 3 per 50 ft roll leaves "
-          f"{50 - 3 * cut / 304.8:+.2f} ft, 2 leaves {50 - 2 * cut / 304.8:+.2f}")
+    for end in ("inlet", "outlet"):
+        print(f"    {end + ' stub':15} {_mandrel.stub_allowance[end]:.1f} mm allowed = "
+              f"{tail_length(end):.1f} mm drawn in-shell "
+              f"({_mandrel.tail_in_shell[end]:.1f} billed) + "
+              f"{_mandrel.stub_protrusion[end]:.0f} protruding")
+    cut = cut_length()
+    print(f"    cut per vessel  {cut:.1f} mm ({cut / 304.8:.3f} ft); "
+          f"{_mandrel.vessels_per_roll} per {_mandrel.roll_length_ft:.0f} ft roll leaves "
+          f"{roll_spare_ft():+.3f} ft ({roll_spare_ft() * 304.8:+.0f} mm)")
 
 
 if __name__ == "__main__":

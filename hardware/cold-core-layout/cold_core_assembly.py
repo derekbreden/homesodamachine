@@ -152,7 +152,7 @@ def held_for(name: str) -> str:
     return "the pour"
 
 # Bodies that meet because they are MADE UP on each other. The wrap and its two tails are one
-# length of copper — `coil_mandrel.cut_length` is one cut — so the volume they share is the
+# length of copper — `_coil.cut_length` is one cut — so the volume they share is the
 # joint, and drawing it as three children is what lets each carry its own colour.
 JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-inlet"),

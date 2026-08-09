@@ -46,14 +46,16 @@ def _load_module(name: str, file_path: Path):
     return module
 
 
+_hw = next(p for p in _here.parents if p.name == "hardware")
+
 _coil_mandrel_gen = _load_module(
     "handwork_coil_mandrel_gen",
-    next(p for p in _here.parents if p.name == "hardware")
-    / "printed-parts"
-    / "cold-core"
-    / "coil-mandrel"
-    / "coil_mandrel.py",
+    _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
+
+# The wrap AS LAID on the tank — the figure `bom.md` §5 bills and the sentence in
+# handwork.md cites it for. The mandrel's own two shorter readings stay in its module.
+_coil_gen = _load_module("handwork_coil_gen", _hw / "cold-core-layout" / "_coil.py")
 
 MM_PER_IN = 25.4
 
@@ -71,11 +73,13 @@ def main():
             f"{reservoir.reservoir_rod_len:.4g} mm "
             f"({reservoir.reservoir_rod_len / MM_PER_IN:.3g} in)"
         ),
-        # Evaporator-coil wrap — pitch enforced by the mandrel's helical
-        # groove, wrap arc and tie-in tail computed in coil_mandrel.py.
+        # Evaporator-coil wrap — pitch enforced by the mandrel's helical groove,
+        # the tie-in allowances struck in coil_mandrel.py, the laid wrap drawn in
+        # cold-core-layout/_coil.py.
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
-        "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
-        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
+        "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
+        "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
+        "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
     }
 
     substitute_md(
@@ -85,8 +89,9 @@ def main():
             "ROD_LEN": 1,
             "RESERVOIR_ROD_LEN": 1,
             "PITCH": 1,
-            "WRAP_FT": 1,
-            "STUB_LEN": 1,
+            "LAID_FT": 1,
+            "STUB_INLET": 1,
+            "STUB_OUTLET": 1,
         },
     )
     print("-> handwork.md")

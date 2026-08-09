@@ -63,9 +63,8 @@ _coil_mandrel_gen = _load_module(
 _coil_gen = _load_module(
     "bom_coil_gen", _here.parent / "cold-core-layout" / "_coil.py")
 _wrap_mm = _coil_gen.wrap_length()
-_cut_mm = _wrap_mm + 2 * _coil_mandrel_gen.stub_allowance
-_units_per_roll = 3
-_roll_spare_ft = 50.0 - _units_per_roll * _cut_mm / 304.8
+_cut_mm = _coil_gen.cut_length()
+_roll_spare_ft = _coil_gen.roll_spare_ft()
 
 # The PRV vent line (§2), read off the run `_internal_routes` draws down the port lane rather
 # than restated: the row bills the stock that line is cut from.
@@ -271,13 +270,17 @@ def main():
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
-        # Evaporator-coil copper (§5 GOORY row). WRAP_FT is the FITTED length — what the
-        # coil is once it has sprung onto the tank — because that is the copper a build
-        # consumes; the mandrel's own shorter figure is beside it in `coil_mandrel`.
+        # Evaporator-coil copper (§5 GOORY row). LAID_FT is the copper a build CONSUMES —
+        # the wrap as it lies on the tank, bridge lift and all. The mandrel's two shorter
+        # readings are MANDREL_FT (what the tool holds) and SPRUNG_FT (what the same wraps
+        # come to once off it) — three lengths, three names, so a doc says which it quotes.
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
         "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
-        "WRAP_FT": f"{_wrap_mm / 304.8:.4g} ft",
-        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
+        "LAID_FT": f"{_wrap_mm / 304.8:.4g} ft",
+        "MANDREL_FT": f"{_coil_mandrel_gen.mandrel_wrap_length / 304.8:.4g} ft",
+        "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
+        "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
+        "ROLL_SHARE": f"1/{_coil_mandrel_gen.vessels_per_roll}",
         "CUT_FT": f"{_cut_mm / 304.8:.4g} ft",
         "ROLL_SPARE": f"{_roll_spare_ft:+.2f} ft",
         # The PRV vent line (§2), as `cold-core-layout` draws it inside the core.
@@ -322,8 +325,11 @@ def main():
             "VENT_FILTERS": 3,
             "PITCH": 1,
             "NET_UNDERSIZE": 1,
-            "WRAP_FT": 1,
-            "STUB_LEN": 1,
+            "LAID_FT": 1,
+            "MANDREL_FT": 1,
+            "STUB_INLET": 1,
+            "STUB_OUTLET": 1,
+            "ROLL_SHARE": 2,
             "CUT_FT": 1,
             "ROLL_SPARE": 1,
             "PRV_VENT_MM": 1,
