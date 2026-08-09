@@ -363,6 +363,9 @@ async function inPageCompose(o) {
   const sceneMod = await import("/js/viewer/scene.js");
   sceneMod.stopAnimate();
   controls.enabled = false;
+  // The back-face darkening step.js hangs on every solid's material. A tinted
+  // body below gets a material of this tool's own, and takes the same one.
+  const { darkenBackFaces } = await import("/js/viewer/step.js");
 
   // --- Selection -----------------------------------------------------------
   const rx = (pat) =>
@@ -429,13 +432,15 @@ async function inPageCompose(o) {
       if (m === "solid") {
         const tint = tintOf.get(name);
         if (tint) {
-          const c = new THREE.Color(tint);
-          const isBack = mesh.material && mesh.material.side === THREE.BackSide;
-          mesh.material = new THREE.MeshStandardMaterial({
-            color: isBack ? c.clone().multiplyScalar(0.75) : c,
+          const tinted = new THREE.MeshStandardMaterial({
+            color: new THREE.Color(tint),
             metalness: 0.1, roughness: 0.6,
-            side: isBack ? THREE.BackSide : THREE.FrontSide,
+            side: THREE.DoubleSide,
+            polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
           });
+          tinted.onBeforeCompile = darkenBackFaces;
+          tinted.customProgramCacheKey = () => "hsm-back-darken";
+          mesh.material = tinted;
         } else if (mesh.userData.baseMaterial) {
           // The shading material applyXray() parked.
           mesh.material = mesh.userData.baseMaterial;
@@ -529,6 +534,11 @@ async function inPageCompose(o) {
   controls.object = cam;
   controls.target.copy(target);
   renderer.setSize(W, H, false);
+  // Framing is on the SUBJECT; the planes are fitted to the WHOLE group, because
+  // everything the caller did not name is still in the frame as ghost edges.
+  // scene.js's animate() is stopped here, so nothing else refits them.
+  const wholeSphere = whole.getBoundingSphere(new THREE.Sphere());
+  sceneMod.fitCameraDepth(cam, wholeSphere.center, wholeSphere.radius);
   cam.updateProjectionMatrix();
   cam.updateMatrixWorld(true);
 
