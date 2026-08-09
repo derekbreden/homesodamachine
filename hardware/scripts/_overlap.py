@@ -74,3 +74,51 @@ def _at(a, b, fuzz: float) -> tuple:
 def volume(a, b) -> float:
     """Just the mm³ of `common`, for the checks that only threshold on it."""
     return common(a, b)[1]
+
+
+# --- the guard ---------------------------------------------------------------
+#
+# WHAT COMES BACK IS NOT THE POINT — the point is that every gate ASKS HERE. The tangency
+# above cannot be reproduced from primitives: two perpendicular cylinders of one Ø answer
+# correctly to a bare `intersect`, and it takes a long sweep far from the origin to put the
+# section step past what `Precision::Confusion` can resolve. So there is no small numeric
+# test to leave behind, and the regression to guard is the one that actually happens — a
+# gate written with the bare pattern, which reads as a measurement and is an ask.
+GATED = (
+    "cold-core-layout/cold_core_assembly.py",
+    "printed-parts/cold-core/_internal_routes.py",
+    "manifold-layout/manifold_layout.py",
+    "manifold-layout/_scorecard.py",
+)
+
+
+def selftest():
+    """Every module that grades an overlap measures it through here."""
+    import pathlib
+    hw = pathlib.Path(__file__).resolve().parents[1]
+    for rel in GATED:
+        path = hw / rel
+        if not path.is_file():
+            raise AssertionError(f"{rel} is gone — this list names the modules that grade "
+                                 f"overlaps, so a rename has to come through here too")
+        # ANY `.intersect(` at all, not the one-line `.intersect(...).Volume()` shape. The
+        # pattern this replaced was written over two lines — `inter = si.intersect(sj)` and
+        # `v = inter.Volume()` — so a shape-matching rule read it as clean. None of these
+        # modules has a use for the bare call, so the flat rule is the honest one.
+        hits = [f"{rel}:{n}" for n, line in enumerate(path.read_text().splitlines(), 1)
+                if ".intersect(" in line]
+        if hits:
+            raise AssertionError(
+                "a clash gate measures an overlap with a bare `.intersect(...).Volume()`, "
+                "which reports 0.00 on two swept tubes whose axes cross — the case a pack is "
+                "most likely to have built on purpose. Ask `_overlap.volume` instead: "
+                + ", ".join(hits))
+        yield f"{rel}: no bare intersect"
+
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+        for line in selftest():
+            print(" ", line)
+        print("_overlap selftest OK")
