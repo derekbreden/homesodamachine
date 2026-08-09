@@ -60,3 +60,7 @@ tools/cad-venv/
 # (hardware/scripts/_cadq_export.py). Rebuilt by every export; the page parses the STEP
 # when one is absent.
 *.step.mesh
+
+# Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
+# always cost; deleting this is always safe.
+.cache/
