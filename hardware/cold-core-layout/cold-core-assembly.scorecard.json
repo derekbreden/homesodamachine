@@ -43,12 +43,10 @@
    "id": "routes-fit",
    "label": "No line meets a solid",
    "kind": "gate",
-   "status": "fail",
-   "value": "7/8 clear",
+   "status": "pass",
+   "value": "8/8 clear",
    "target": "every line clear",
-   "detail": [
-    "co2-in meets foam-shell by 622.18 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -110,7 +108,7 @@
     "reservoir-a start: 14.5 mm of straight into reservoir A's floor-bulkhead collet, 28.0 wanted",
     "water-in start: 27.1 mm of straight into the top plate's PP010822E collet, 28.0 wanted",
     "carb-water-out end: 8.2 mm into a bore, which takes a lean",
-    "co2-in start: 193.2 mm into a bore, which takes a lean",
+    "co2-in start: 182.4 mm into a bore, which takes a lean",
     "prv-vent start: 138.2 mm into a bore, which takes a lean",
     "prv-vent end: 129.5 mm into a bore, which takes a lean",
     "reservoir-a end: 193.4 mm into a bore, which takes a lean",
@@ -137,12 +135,10 @@
    "id": "arcs-hold",
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
-   "status": "fail",
-   "value": "7/8 at stock",
+   "status": "pass",
+   "value": "8/8 at stock",
    "target": "14.00 mm",
-   "detail": [
-    "co2-in at 3.17 mm against the 14.00 mm stock arc"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -162,12 +158,12 @@
    "id": "floats-couple",
    "label": "Every float's magnet is held against the wall its reed reads through",
    "kind": "gate",
-   "status": "fail",
-   "value": "1/3 floats",
+   "status": "pass",
+   "value": "3/3 floats",
    "target": "standoff under 2.0 mm",
    "detail": [
-    "float-a: rod parked 107.00 against a wall at 126.00 leaves the capsule 5.00 mm short of it, so the magnet stands off up to 8.29 mm \u2014 past the 2.0 mm the reed reads at",
-    "float-b: rod parked 107.00 against a wall at 126.00 leaves the capsule 5.00 mm short of it, so the magnet stands off up to 8.29 mm \u2014 past the 2.0 mm the reed reads at",
+    "float-a: rod parked 114.50 biases the capsule +2.50 mm into a wall at 126.00; magnet standoff 0..0.79 mm",
+    "float-b: rod parked 114.50 biases the capsule +2.50 mm into a wall at 126.00; magnet standoff 0..0.79 mm",
     "float-carb: rod parked 50.97 biases the capsule +3.13 mm into a wall at 61.85; magnet standoff 0..0.16 mm"
    ],
    "active": true
@@ -593,10 +589,10 @@
    "component": "float-a",
    "boxes": [
     [
-     96.287,
+     98.0,
      18.5,
      119.0,
-     124.287,
+     126.0,
      46.5,
      131.0
     ]
@@ -609,10 +605,10 @@
    "component": "float-b",
    "boxes": [
     [
-     -124.287,
+     -126.0,
      18.5,
      119.0,
-     -96.287,
+     -98.0,
      46.5,
      131.0
     ]
@@ -641,10 +637,10 @@
    "component": "float-rod-a",
    "boxes": [
     [
-     105.412,
+     112.912,
      30.913,
      32.494,
-     108.588,
+     116.088,
      34.087,
      207.9
     ]
@@ -657,10 +653,10 @@
    "component": "float-rod-b",
    "boxes": [
     [
-     -108.588,
+     -116.088,
      30.913,
      32.494,
-     -105.412,
+     -112.912,
      34.087,
      207.9
     ]
@@ -761,7 +757,7 @@
      213.4
     ]
    ],
-   "fill": 0.0952,
+   "fill": 0.0951,
    "primitive": false,
    "declared": "real"
   },
@@ -1268,25 +1264,25 @@
    "to": "carbonator-vessel.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 267.59,
-   "bend": 3.175,
-   "radius": 3.175,
+   "length": 262.94,
+   "bend": 14.0,
+   "radius": 14.0,
    "minBend": 14.0,
-   "ratio": 0.227,
-   "grade": "F",
+   "ratio": 1.0,
+   "grade": "B",
    "reach": 209.37,
    "reachGrade": "C",
    "binding": null,
    "corners": [
     {
      "at": 1,
-     "radius": 3.175,
-     "ratio": 0.227,
-     "grade": "F"
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.278
+    "detour": 1.256
    }
   },
   {
@@ -1819,7 +1815,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T05:10:53+00:00",
-  "commit": "103dca577e2033c3a593574ed031a6dda08c860e"
+  "generated": "2026-08-09T05:25:39+00:00",
+  "commit": "68fe9284d4a12ac613cb21511d911dc1d8ca89cd"
  }
 }
