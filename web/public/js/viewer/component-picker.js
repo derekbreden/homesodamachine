@@ -62,14 +62,17 @@ function persistHidden() {
 export function applyHiddenComponents() {
   if (state.currentGroup) {
     for (const m of state.currentGroup.children) {
-      if (m.isMesh) {
-        m.visible = !(m.name && state.hiddenComponents.has(m.name));
-      } else if (m.userData && m.userData.isXrayEdge) {
-        // The x-ray ghost draws each solid's feature edges as a separate line
-        // object (xray.js); hide those for a hidden component too, or its
-        // wireframe keeps obstructing the interior.
+      // An x-ray edge answers to isMesh — xray.js draws it as LineSegments2,
+      // which extends Mesh — and carries its solid's name in userData rather
+      // than in `name`. It is asked about first, so it is never taken for a
+      // body with no name of its own.
+      if (m.userData && m.userData.isXrayEdge) {
+        // Hide a hidden component's feature edges too, or its wireframe keeps
+        // obstructing the interior.
         const nm = m.userData.xrayComponent;
         m.visible = !(nm && state.hiddenComponents.has(nm));
+      } else if (m.isMesh) {
+        m.visible = !(m.name && state.hiddenComponents.has(m.name));
       }
     }
   }

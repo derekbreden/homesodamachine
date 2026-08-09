@@ -366,6 +366,9 @@ async function inPageCompose(o) {
   // The back-face darkening step.js hangs on every solid's material. A tinted
   // body below gets a material of this tool's own, and takes the same one.
   const { darkenBackFaces } = await import("/js/viewer/step.js");
+  // The x-ray edges are LineSegments2, so an edge material is a LineMaterial and
+  // has to be registered for the resolution sync below.
+  const { makeEdgeMaterial, syncEdgeResolution } = await import("/js/viewer/xray.js");
 
   // --- Selection -----------------------------------------------------------
   const rx = (pat) =>
@@ -382,7 +385,9 @@ async function inPageCompose(o) {
   // unnamed mesh collects under "" and reports as "(unnamed)".
   const byName = new Map();
   for (const c of currentGroup.children) {
-    if (!c.isMesh) continue;
+    // An x-ray edge answers to isMesh (LineSegments2 extends Mesh) and carries
+    // no name of its own; it is handled by the isXrayEdge pass further down.
+    if (!c.isMesh || c.userData.isXrayEdge) continue;
     const n = c.name || "";
     if (!byName.has(n)) byName.set(n, []);
     byName.get(n).push(c);
@@ -412,7 +417,7 @@ async function inPageCompose(o) {
 
   // --- Materials -----------------------------------------------------------
   // A ghost body is its feature EDGES alone: faint, no faces.
-  const ghostEdge = new THREE.LineBasicMaterial({
+  const ghostEdge = makeEdgeMaterial({
     color: 0x8fa3bd, transparent: true, opacity: 0.34, depthWrite: false,
   });
 
@@ -459,7 +464,7 @@ async function inPageCompose(o) {
   // faint one; hidden bodies lose theirs with their faces.
   const tintEdge = new Map();
   for (const [n, hex] of tintOf) {
-    tintEdge.set(n, new THREE.LineBasicMaterial({
+    tintEdge.set(n, makeEdgeMaterial({
       color: new THREE.Color(hex).multiplyScalar(0.42),
     }));
   }
@@ -539,6 +544,7 @@ async function inPageCompose(o) {
   // scene.js's animate() is stopped here, so nothing else refits them.
   const wholeSphere = whole.getBoundingSphere(new THREE.Sphere());
   sceneMod.fitCameraDepth(cam, wholeSphere.center, wholeSphere.radius);
+  syncEdgeResolution(renderer);
   cam.updateProjectionMatrix();
   cam.updateMatrixWorld(true);
 
@@ -781,7 +787,7 @@ async function inPageCompose(o) {
   if ((o.rays || []).length) {
     const targets = [];
     for (const c of currentGroup.children) {
-      if (c.isMesh && c.userData.side !== "back") targets.push(c);
+      if (c.isMesh && !c.userData.isXrayEdge) targets.push(c);
     }
     const rc = new THREE.Raycaster();
     for (const r of o.rays) {
@@ -1121,7 +1127,7 @@ function inPageList() {
   const { THREE, currentGroup } = window.__hsm;
   const byName = new Map();
   for (const c of currentGroup.children) {
-    if (!c.isMesh) continue;
+    if (!c.isMesh || c.userData.isXrayEdge) continue;
     const n = c.name || "";
     if (!byName.has(n)) byName.set(n, new THREE.Box3());
     byName.get(n).expandByObject(c);

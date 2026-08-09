@@ -7,7 +7,7 @@
 import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, TONE_EXPOSURE } from "./scene.js";
-import { applyXray } from "./xray.js";
+import { applyXray, syncEdgeResolution } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
@@ -236,6 +236,7 @@ export function snapThumbnail(group) {
   );
   thumbCam.lookAt(center);
   fitCameraDepth(thumbCam, center, size.length() / 2);
+  syncEdgeResolution(thumbRenderer);
 
   thumbRenderer.render(thumbScene, thumbCam);
   const dataURL = thumbRenderer.domElement.toDataURL();
