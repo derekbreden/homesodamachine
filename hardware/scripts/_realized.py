@@ -10,11 +10,13 @@ code that cuts it, neither of which moved. `realized` reads such a part back off
 WHAT THE KEY MUST COVER IS EVERYTHING THAT DECIDES THE SHAPE, and a key that misses one is a
 build that ships last run's geometry. Two things decide it, and the key takes both:
 
-  - THE CODE. Not one file: the module that draws, and every module of this repo it can reach
-    through its own namespace. `enclosure` cuts its throat at `hopper_funnel.collar_w` and its
-    wells at `wago_221`'s body, so an edit to either is an edit to the wall — and neither shows
-    in `enclosure.py`. `sources` walks that graph and the whole text of each file goes in, so an
-    edit anywhere in any of them misses.
+  - THE CODE. Not one file: the module that draws, and every module of this repo it imports,
+    transitively. `enclosure` cuts its throat at `hopper_funnel.collar_w` and its wells at
+    `wago_221`'s body, so an edit to either is an edit to the wall — and neither shows in
+    `enclosure.py`. `sources` walks that graph off the IMPORT STATEMENTS, which is the one
+    reading that holds however a name was bound: `from _seating import seat_body` puts no
+    module in the namespace, and the file behind `seat_body` decides a seat all the same.
+    The whole text of each file found goes in, so an edit anywhere in any of them misses.
 
   - THE DESCRIPTION, by `repr`. A description that does not repr completely is a key that
     cannot see part of its own input: `enclosure.Box` is a namedtuple of numbers and station
@@ -30,7 +32,9 @@ The entries are not committed and carry no meaning between machines: `.gitignore
 always safe.
 """
 
+import ast
 import hashlib
+import importlib.util
 import io
 import os
 import sys
@@ -45,40 +49,89 @@ DISABLED = bool(os.environ.get("HSM_NO_REALIZED_CACHE"))
 _SOURCES: dict = {}
 
 
+def _repo_file(name: str):
+    """The path a module name stands for, when it is a file of this repo.
+
+    FOUND ON THE PATH AND NOT IN `sys.modules`. A module imported inside the function that needs
+    it — `enclosure_assembly.main` takes `_scorecard` that way — is in `sys.modules` only once
+    that function has run, so a walk that asks `sys.modules` gets a different graph depending on
+    who is walking. `find_spec` locates the file without importing it, which is the same answer
+    from every caller."""
+    f = getattr(sys.modules.get(name), "__file__", None)
+    if not f:
+        try:
+            spec = importlib.util.find_spec(name)
+        except (ImportError, AttributeError, ValueError):
+            return None
+        f = getattr(spec, "origin", None) if spec else None
+    if not f or not f.endswith(".py"):
+        return None
+    path = Path(f).resolve()
+    return None if _ROOT not in path.parents or "site-packages" in path.parts else path
+
+
+def _imported(path: Path) -> set:
+    """The module names a file imports, read off its own import statements.
+
+    THE STATEMENT AND NOT THE NAMESPACE. `from _seating import seat_body` leaves `_seating`
+    nowhere in the importing module's namespace, so a namespace walk cannot see the file that
+    decides what `seat_body` does — and a key that cannot see a file is a key that holds still
+    while that file moves. The text says what was imported however the name was bound."""
+    try:
+        tree = ast.parse(path.read_bytes())
+    except (OSError, SyntaxError):
+        return set()
+    out = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            out.update(a.name for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+            out.add(node.module)
+            # `from pkg import mod` names a module too; `_repo_file` says which names are files.
+            out.update(f"{node.module}.{a.name}" for a in node.names)
+    return out
+
+
+def source_files(start) -> list:
+    """Every file of this repo whose text can decide what `start` draws: its own, and each repo
+    module it imports, transitively. `start` is a path, so it does not matter whether the file
+    was run as a script or imported under its own name. Sorted, so the walk order never reaches
+    the key."""
+    seen, queue = set(), [Path(start).resolve()]
+    while queue:
+        path = queue.pop()
+        if path in seen:
+            continue
+        seen.add(path)
+        for name in _imported(path):
+            inner = _repo_file(name)
+            if inner is not None:
+                queue.append(inner)
+    return sorted(seen)
+
+
 def sources(module_name: str) -> list:
-    """Every file of this repo whose text can decide what `module_name` draws: its own, and
-    each repo module reachable from its namespace, transitively. Sorted, so the walk order
-    never reaches the key."""
+    """`source_files` for a module already imported under `module_name`."""
     hit = _SOURCES.get(module_name)
     if hit is not None:
         return hit
-    seen, found, queue = set(), set(), [module_name]
-    while queue:
-        name = queue.pop()
-        if name in seen:
-            continue
-        seen.add(name)
-        mod = sys.modules.get(name)
-        f = getattr(mod, "__file__", None)
-        if not f:
-            continue
-        path = Path(f).resolve()
-        if _ROOT not in path.parents or "site-packages" in path.parts:
-            continue
-        found.add(path)
-        for value in vars(mod).values():
-            inner = getattr(value, "__name__", None)
-            if inner and inner in sys.modules and hasattr(value, "__file__"):
-                queue.append(inner)
-    _SOURCES[module_name] = out = sorted(found)
+    start = _repo_file(module_name)
+    _SOURCES[module_name] = out = [] if start is None else source_files(start)
     return out
+
+
+def digest(paths) -> str:
+    """One name for the whole text of `paths`, in the order given."""
+    h = hashlib.blake2b(digest_size=16)
+    for path in paths:
+        h.update(Path(path).read_bytes())
+    return h.hexdigest()
 
 
 def key(module_name: str, *inputs) -> str:
     """A name for the shape `module_name` draws from `inputs`."""
     h = hashlib.blake2b(digest_size=16)
-    for path in sources(module_name):
-        h.update(path.read_bytes())
+    h.update(digest(sources(module_name)).encode())
     for i in inputs:
         h.update(repr(i).encode())
     return h.hexdigest()
@@ -171,8 +224,11 @@ def selftest():
             sys.modules["held_constant"] = mod
             drawer = types.ModuleType("held_drawer")
             drawer.__file__ = str(dep_dir / "held_drawer.py")
-            Path(drawer.__file__).write_text("import held_constant\n")
-            drawer.held_constant = mod
+            # THE BINDING THAT LEAVES NO MODULE BEHIND. The drawer reads the constant and the
+            # name `held_constant` appears nowhere in what it ends up holding, which is the
+            # shape a walk over the namespace cannot follow.
+            Path(drawer.__file__).write_text("from held_constant import radius\n")
+            drawer.radius = 3.0
             sys.modules["held_drawer"] = drawer
 
             if dep.resolve() not in sources("held_drawer"):
@@ -184,7 +240,7 @@ def selftest():
             if key("held_drawer", ("selftest",)) == before:
                 raise AssertionError("a constant moved and the key did not — the next build "
                                      "would be served geometry cut to the old one")
-            yield "an edit to a module the drawer reads through moves the key"
+            yield "an edit to a module the drawer reads a constant FROM moves the key"
         finally:
             for n in ("held_constant", "held_drawer"):
                 sys.modules.pop(n, None)

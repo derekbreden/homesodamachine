@@ -805,7 +805,7 @@ def main() -> int:
     sc = build_card(a)
     _card.report(sc)
     for step in (STEP_OUT, FOAM_STEP):
-        out = _card.write(sc, step)
+        out = _card.write(sc, step, __file__)
         print(f"\n-> {out.relative_to(_hw)}")
     return 0
 

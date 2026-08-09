@@ -61,6 +61,7 @@ for _p in (_hw / "scripts", _here.parent):
 import _boxes                                          # noqa: E402
 import _clearing                                       # noqa: E402
 import _overlap                                        # noqa: E402
+import _realized                                       # noqa: E402
 import _routing as R                                   # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
@@ -1502,11 +1503,18 @@ def to_dict(sc: Scorecard) -> dict:
     }
 
 
-def write(a, step: Path) -> Path:
+def write(a, step: Path, drawn_by) -> Path:
+    """The card beside `step`, carrying the digest of the text `drawn_by` was drawn from.
+
+    `drawn_by` is the file that built the assembly. `_realized.source_files` walks its imports
+    to every file of this repo that can reach the readings, and the digest is their whole text —
+    so `hardware/scripts/check_cards.py` answers whether a committed card still describes the
+    tree by reading two hex strings, where the alternative is running the build."""
     sc = build(a)
-    out = step.with_suffix("").with_suffix(".scorecard.json") if step.suffix else step
     out = step.parent / (step.stem + ".scorecard.json")
-    out.write_text(json.dumps(to_dict(sc), indent=1) + "\n")
+    card = to_dict(sc)
+    card["sources"] = _realized.digest(_realized.source_files(drawn_by))
+    out.write_text(json.dumps(card, indent=1) + "\n")
     return out
 
 
