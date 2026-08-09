@@ -239,6 +239,21 @@ MOUNTS = (
     ("wago-gnd", "enclosure-back-top", "well"),
     ("asse1022-assembly", None, "none"),
     ("drip-pan", "enclosure-back-top", "channel"),
+    # The probe plate lies loose in the basin the way the basin rides loose in its rails: what
+    # fastens it is the tray's own printed floor and coves, which fence it on four sides at
+    # `drip_pan.PLATE_SLIP`. Nothing screws down — a plate bolted flat could not be lifted out
+    # to wipe, and the tray is drawn and emptied on service with the plate still in it.
+    ("moisture-plate", "drip-pan", "basin"),
+    # The gas sensor slides into a slot printed on the −X wall of the bay it watches
+    # (`enclosure._west_cradle`) and bottoms on the wall itself. The board carries no mounting
+    # hole, so a slot is the only way it is ever held — the same bargain the lever nuts strike,
+    # and the same wall-as-datum.
+    ("mq6-sensor", "enclosure-front-bottom", "cradle"),
+    # The thermal cutoff is a splice in the hot leg with its case laid on the compressor's power
+    # box. Its two leads carry its weight and the case rests on the cover, and neither of those
+    # is a fastening: nothing presses the case onto the face it has to read, so the contact that
+    # makes a 77 °C cutoff a cutoff is the contact the machine does not yet hold.
+    ("thermal-fuse", None, "none"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
@@ -334,6 +349,18 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
+    # THE PROBE PLATE LIES ON THE BASIN'S FLOOR, which is the whole of what it does: a plate
+    # standing a millimetre off the floor reads only once the pool is a millimetre deep, and the
+    # weep this watches for is a drip at a time. `enclosure_assembly.build_moisture_plate` seats
+    # its underside on that floor and `drip_pan.check_plate` holds the floor wide enough to take
+    # it, so the pair reads 0 and it is the sensor working.
+    ("drip-pan", "moisture-plate"),
+    # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
+    # its own case, so a millimetre of air between the case and the cover is a millimetre that
+    # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
+    # contact line — the case is round, so the pair reads 0 along one line and stands apart
+    # everywhere else.
+    ("compressor", "thermal-fuse"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
