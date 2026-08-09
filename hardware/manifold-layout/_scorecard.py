@@ -759,8 +759,8 @@ def _lines_clear(a, runs) -> Check:
     built each run's tube and `enclosure_assembly` added it under `tube-<connection>`, and a second
     sweep of every run costs more than every boolean below."""
     tubes, ends, rest = run_world(a, runs)
-    tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
-    rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
+    tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
+    rbb = {n: _boxes.loose(s) for n, s in rest.items()}
     detail = []
     ids = list(tubes)
     for i, x in enumerate(ids):
@@ -909,7 +909,7 @@ def part_clearances(a, runs=()) -> list[tuple]:
     bodies, _tubes, _pieces = _split_placed(a)
     pack = pack_bodies()
     names = list(bodies)
-    boxes = {n: _boxes.boxed(bodies[n]) for n in names}
+    boxes = {n: _boxes.loose(bodies[n]) for n in names}
     out = []
     for i, x in enumerate(names):
         for y in names[i + 1:]:
@@ -937,8 +937,8 @@ def run_clearances(a, runs) -> list[tuple]:
     A body seated ON a run mid-length rather than at an end — a sleeve closing round the tube —
     is in `TOUCHING_OK` by the run's own connection id, the same declaration a body pair makes."""
     tubes, ends, rest = run_world(a, runs)
-    tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
-    rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
+    tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
+    rbb = {n: _boxes.loose(s) for n, s in rest.items()}
     out = []
     ids = list(tubes)
     for i, x in enumerate(ids):

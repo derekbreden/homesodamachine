@@ -21,6 +21,7 @@ body stands.
 """
 
 _CACHE: dict = {}
+_LOOSE_CACHE: dict = {}
 _SOLIDS_CACHE: dict = {}
 
 
@@ -32,6 +33,32 @@ def boxed(solid):
         return hit[1]
     box = solid.BoundingBox()
     _CACHE[key] = (solid, box)          # pin the solid so the entry keeps its shape alive
+    return box
+
+
+def loose(solid):
+    """A box that CONTAINS the solid, taken off its control points rather than its surface.
+
+    A Bézier or B-spline lies inside its own control hull, so this box is the optimal one or
+    larger, never smaller — and it is taken without meshing, at a small fraction of what
+    `boxed` costs.
+
+    LARGE IS THE SAFE DIRECTION FOR A PREFILTER AND THE WRONG ONE FOR A READING. Two boxes that
+    miss are two solids that miss whether the boxes are tight or slack, so a caller skipping a
+    pair on this is sound; a slack box only lets a pair through to the query that would have
+    answered anyway. A caller that reads a FACE off the box — where a body stands, how tall the
+    machine is — wants `boxed`, because slack there is a body in the wrong place."""
+    key = hash(solid.wrapped)
+    hit = _LOOSE_CACHE.get(key)
+    if hit is not None and hit[0].wrapped.IsSame(solid.wrapped):
+        return hit[1]
+    from OCP.Bnd import Bnd_Box
+    from OCP.BRepBndLib import BRepBndLib
+    from cadquery.occ_impl.geom import BoundBox
+    bb = Bnd_Box()
+    BRepBndLib.Add_s(solid.wrapped, bb, True)
+    box = BoundBox(bb)
+    _LOOSE_CACHE[key] = (solid, box)
     return box
 
 
