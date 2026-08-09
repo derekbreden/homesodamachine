@@ -123,6 +123,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
+import _realized
 import hopper_funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
@@ -2313,9 +2314,14 @@ def build_pieces(box, stem="enclosure"):
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
     runs — `_dims` states its own as it sizes the shells, `with_funnel` states the throat's as
     it seats the centre — so the four pieces are a pure function of the Box and a piece handed
-    back unbuilt is a piece nothing on the card was waiting for."""
+    back unbuilt is a piece nothing on the card was waiting for. That is what lets `_realized`
+    keep them: a build that moves a body inside the walls moves neither the box, which is its
+    stated size, nor the code that cuts it, and a station moves only when the body carrying it
+    does."""
     cache = {}
-    pieces = {name: build_piece(box, *name.split("-"), halves_cache=cache)
+    pieces = {name: _realized.realized(
+                  _realized.key(__name__, box, name),
+                  lambda n=name: build_piece(box, *n.split("-"), halves_cache=cache))
               for name in PIECE_COLORS}
     assy = cq.Assembly(name=stem.replace("-", "_"))
     for name, piece in pieces.items():
