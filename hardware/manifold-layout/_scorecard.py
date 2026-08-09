@@ -805,9 +805,15 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     3/8" braided PVC asks 31.8.
 
     WHAT THE CAST MAY END ON is the body the port is JOINED to, read off the authored runs rather
-    than from prose, plus the `MADE_UP` joints that have no run to read. A port whose connection
-    is still un-authored is held to the full lead against everything, which is the useful
-    direction — that is the state every undrawn segment's two ends are in.
+    than from prose, plus the `MADE_UP` joints that have no run to read and the limbs' own
+    `manifold_layout.BUTTED` neighbours. A port whose connection is still un-authored is held to
+    the full lead against everything, which is the useful direction — that is the state every
+    undrawn segment's two ends are in.
+
+    A BUTTED pair is not that state and never becomes it. Two collets made up on each other are
+    the finished joint, so the body the cast stops on is the fitting the port is plugged into
+    and there is no tube between them to want a radius. Those pairs come from `LIMBS`, which is
+    where the butting is declared, rather than from a list here that a new valve could fall off.
 
     Tube is out of the population. A port's own line lies on its axis by construction, and a
     foreign one crossing there is `lines-clear`'s question, not this one.
@@ -826,6 +832,12 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     for x, y in MADE_UP:
         mates.setdefault(x, set()).add(y.partition(".")[0])
         mates.setdefault(y, set()).add(x.partition(".")[0])
+    import manifold_layout as ml
+    butted = {}
+    for pair in ml.BUTTED:
+        x, y = tuple(pair)
+        butted.setdefault(x, set()).add(y)
+        butted.setdefault(y, set()).add(x)
     rows = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -841,7 +853,8 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
                 bend = max(takes) if takes else R.BEND_RATIO * diam
             need = PORT_LEAD_BENDS * bend
             who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
-                                       skip={name} | mates.get(anchor, set()))
+                                       skip={name} | mates.get(anchor, set())
+                                       | butted.get(name, set()))
             rows.append({"component": name, "port": port, "meets": who,
                          "free": round(free, 3), "need": round(need, 3),
                          "ok": who is None, "gated": anchor not in TERMINI,
@@ -854,7 +867,8 @@ def _port_leads(rows) -> Check:
     gated = [d for d in rows if d["gated"]]
     short = [d for d in gated if not d["ok"]]
     detail = [f"a port needs {PORT_LEAD_BENDS:g} bend radii of its own bore along its own axis, "
-              f"clear of every body but the one its own line joins it to"]
+              f"clear of every body but the one its own line joins it to, or the neighbour its "
+              f"own collet is made up on"]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
                f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
                + (" — and that body is still a placeholder box" if d["onPlaceholder"] else "")
