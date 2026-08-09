@@ -430,11 +430,13 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SUNLU Official 3D Printer Filament Dryer E2. Order #114-9662555-0662608, placed April 5, 2026 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | ACQUIRED (delivered April 7) |
 | DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series). Order #112-9688188-4729035, placed May 8, 2026 | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | ACQUIRED (delivered May 9 1:27 PM) |
 | DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series). Order #112-7749428-2806629, placed May 8, 2026 | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | ACQUIRED (delivered May 9 8:37 AM, used on touch-flo-shell PET-CF attempt 7) |
+| DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini; listing excludes P2S/X2D and does not name H2C). Ships with 2 silicone socks. Order #112-1974343-4486643, placed Aug 9, 2026 | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $39.90 | ON-ORDER (arriving Aug 11) |
 | Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg, Gray. Order #112-3739807-8848229, placed May 9, 2026 | [B0BTLNK74C](https://www.amazon.com/dp/B0BTLNK74C) | 2 | $75.06 | ACQUIRED (delivered May 9 6:31 PM) |
 | Bambu Lab Induction Heating Assembly - Right (H2C and H2C Laser, Bambu SKU 3DPP431) | [innoaddi.com](https://www.innoaddi.com/products/induction-heating-assembly-right) | 1 | $68.98 | ACQUIRED (delivered May 26) |
 | Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000). Order #112-0610257-0936212, placed May 11, 2026 | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | ACQUIRED (delivered May 12) |
 | Polymaker Fiberon PET-CF17, 1.75 mm × 1 kg, Black. Order #114-0500457-4192257, placed May 17, 2026 | [B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8) | 2 | $96.50 | ACQUIRED (delivered May 18) |
 | Polymaker Fiberon PET-CF17, 1.75 mm × 3 kg, Black. Order #114-7618665-2979463, placed June 13, 2026 | [B0DJNVQJX9](https://www.amazon.com/dp/B0DJNVQJX9) | 1 | $117.96 | ACQUIRED (delivered June 15) |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black. 15 % glass-fiber PET, $25.00/kg. Enclosure finish candidate against the PETG the box prints in now. Order #112-1974343-4486643, placed Aug 9, 2026 | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 1 | $74.99 | ON-ORDER (arriving Aug 11) |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent. Order #112-1471049-5385066, placed May 17, 2026 | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | ACQUIRED (delivered May 18) |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer. Order #114-9764609-4555460, placed Mar 22, 2026 | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | ACQUIRED (delivered Mar 24) |
 | Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`). Order #112-4209023-0725839, placed July 24, 2026 | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | ACQUIRED (delivered July 25) |
@@ -594,10 +596,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,331.64](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$30,939.56](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,087.62](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,202.51](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$33,070.07](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$33,184.96](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
