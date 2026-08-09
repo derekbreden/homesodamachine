@@ -37,6 +37,7 @@ import _internal_routes as _routes                       # noqa: E402
 import copper_plugs as _plugs                            # noqa: E402
 from _cold_core_interface import foam_shell_outer_height  # noqa: E402
 import _vessel as _V                                     # noqa: E402
+import _coil as _C                                       # noqa: E402
 import _fittings as _F                                   # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
 from _cold_scorecard import Check, Scorecard, verdict     # noqa: E402
@@ -58,6 +59,7 @@ C_RES_CAP = cq.Color(0.70, 0.74, 0.80, 0.55)
 C_PLUG = cq.Color(0.35, 0.40, 0.48)
 C_SHROUD = cq.Color(0.30, 0.34, 0.40)
 C_BRIDGE = cq.Color(0.40, 0.44, 0.52)
+C_COPPER = cq.Color(0.80, 0.45, 0.20)
 
 FOAM_COLORS = {
     "foam-shell": C_FOAM_SHELL,
@@ -92,9 +94,25 @@ HELD_BY = {
     "copper-plug-top": "wall slot",
     "prv-shroud": "the PRV it caps",
     "reed-bridge": "support ring",
+    "evap-coil": "the tank it clamps",
+    "evap-tail-inlet": "wall slot",
+    "evap-tail-outlet": "wall slot",
 }
 for _n in _V.PORTS:
     HELD_BY[f"vessel-elbow-{_n}"] = "plate thread"
+
+# Bodies that meet because they are MADE UP on each other. The wrap and its two tails are one
+# length of copper — `coil_mandrel.cut_length` is one cut — so the volume they share is the
+# joint, and drawing it as three children is what lets each carry its own colour.
+JOINED = {frozenset(p) for p in (
+    ("evap-coil", "evap-tail-inlet"),
+    ("evap-coil", "evap-tail-outlet"),
+)}
+
+# The copper that is a RUN rather than a wall. A fluid line has to clear the wrap, which is
+# fixed on the tank the moment it is wound; the two tails travel the same lanes the fluid lines
+# do, so they are graded against them as lines rather than fitted around as obstacles.
+TAIL_LINES = ("evap-tail-inlet", "evap-tail-outlet")
 
 
 def _load(path: Path):
@@ -131,6 +149,7 @@ def build_bodies() -> dict:
         placed[f"copper-plug-{plug}"] = _plug_into_shell(
             _load(_cold / "copper-plugs" / f"copper-plug-{plug}.step"), spec.column)
 
+    placed.update(_C.bodies())
     placed.update(_prv_stack())
     placed["reed-bridge"] = _load(_cold / "reed-bridge" / "reed-bridge.step").translate(
         (0, 0, _V.tank_bottom_z))
@@ -170,7 +189,8 @@ def build_routes(placed: dict) -> dict:
 
     The obstacles are the solids a line runs among — everything placed except the caps standing
     over the shell's open top, which every riser passes on its way out."""
-    obstacles = {n: s for n, s in placed.items() if not n.startswith("foam-cap")}
+    obstacles = {n: s for n, s in placed.items()
+                 if not n.startswith("foam-cap") and n not in TAIL_LINES}
     return {n: _routes.fit_route(pts, obstacles) for n, pts in trimmed_routes().items()}
 
 
@@ -204,6 +224,8 @@ def _colour_for(name: str):
         return C_RESERVOIR
     if name.startswith("copper-plug"):
         return C_PLUG
+    if name.startswith("evap-"):
+        return C_COPPER
     if name == "prv-shroud":
         return C_SHROUD
     if name == "prv-sv125":
@@ -221,6 +243,8 @@ def _bodies_clear(placed: dict) -> Check:
     detail = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
+            if frozenset((a, b)) in JOINED:
+                continue
             vol = placed[a].intersect(placed[b]).Volume()
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{a} ∩ {b} = {vol:.2f} mm³")
@@ -236,6 +260,8 @@ def _routes_fit(placed: dict, fitted: dict) -> Check:
     for name in sorted(fitted):
         tube = fitted[name][1]
         for other, solid in sorted(placed.items()):
+            if other in TAIL_LINES:
+                continue
             vol = tube.intersect(solid).Volume()
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{name} meets {other} by {vol:.2f} mm³")
@@ -244,16 +270,47 @@ def _routes_fit(placed: dict, fitted: dict) -> Check:
                  "every line clear", detail)
 
 
-def _lines_apart(fitted: dict) -> Check:
-    names = sorted(fitted)
+def _lines_apart(fitted: dict, placed: dict) -> Check:
+    """No two runs want the same corridor.
+
+    The population is every fluid line plus the two copper tails: a lane is one bore wide, so
+    what keeps two runs apart is the storey each takes, and copper takes a storey like anything
+    else."""
+    runs = {n: t for n, (_b, t) in fitted.items()}
+    runs.update({n: placed[n] for n in TAIL_LINES if n in placed})
+    names = sorted(runs)
     detail = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            vol = fitted[a][1].intersect(fitted[b][1]).Volume()
+            vol = runs[a].intersect(runs[b]).Volume()
             if vol > _card.TOUCH_VOLUME:
-                detail.append(f"{a} and {b} share {vol:.2f} mm³")
-    return Check("lines-apart", "No line meets another line", "gate", verdict(not detail),
-                 f"{len(detail)} crossing", "0 crossing", detail)
+                detail.append(f"{a} and {b} share {vol:.2f} mm³ — two runs in one corridor")
+    return Check("lines-apart", "No two runs want the same corridor", "gate",
+                 verdict(not detail), f"{len(detail)} crossing", "0 crossing", detail)
+
+
+def _lane_census(fitted: dict, placed: dict) -> Check:
+    """Which runs use each lane, and at what storey.
+
+    A lane is one bore wide (`_cold_core_interface` states the width and the wall either side),
+    so what separates two runs in one is the Z each takes. This lists every run whose centreline
+    enters a lane's Y band, with the Z span it occupies there — the reading behind any crossing
+    `lines-apart` names."""
+    lanes = {"port-lane": _plugs.columns["port-lane"].lane_y,
+             "west-lane": _plugs.columns["west-lane"].lane_y}
+    half = _routes.line_radius + _routes.lldpe_tube_od / 2.0
+    runs = {n: t for n, (_b, t) in fitted.items()}
+    runs.update({n: placed[n] for n in TAIL_LINES if n in placed})
+    detail = []
+    for lane, y in sorted(lanes.items()):
+        for name in sorted(runs):
+            bb = runs[name].BoundingBox()
+            if bb.ymin > y + half or bb.ymax < y - half:
+                continue
+            detail.append(f"{lane}: {name} at z {bb.zmin:.1f}..{bb.zmax:.1f}, "
+                          f"x {bb.xmin:.1f}..{bb.xmax:.1f}")
+    return Check("lane-census", "What each lane carries, and at what storey", "gate", "pass",
+                 f"{len(detail)} run-lane pairs", "a reading, not a bound", detail)
 
 
 def _arcs_hold(fitted: dict) -> Check:
@@ -365,7 +422,8 @@ def build_card(a) -> Scorecard:
     checks = [
         _bodies_clear(placed),
         _routes_fit(placed, fitted),
-        _lines_apart(fitted),
+        _lines_apart(fitted, placed),
+        _lane_census(fitted, placed),
         _arcs_hold(fitted),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),
@@ -393,6 +451,7 @@ def report(a) -> None:
           f"shell z 0..{foam_shell_outer_height:.1f}, "
           f"stack floor {_foam.stack_floor_z:.1f}, cap face {_foam.cap_face_z:.1f}")
     _V.report()
+    _C.report()
 
 
 def main() -> int:
