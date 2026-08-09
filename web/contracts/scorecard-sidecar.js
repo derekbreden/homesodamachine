@@ -166,18 +166,10 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {ScorecardBend[]} bends  per routed run, the radius it turns at and its grade
  * @property {ScorecardMount[]} mounts  per component, the part that fastens it. Optional: an
  *                                      edition whose scorecard predates the axis omits it.
- * @property {ScorecardSource} [source]  what the build read to produce this card. Optional: an
- *                                       edition whose scorecard predates the block omits it.
- */
-
-/**
- * @typedef {Object} ScorecardSource  when the card was built, and off what HEAD
- * @property {string} generated  ISO-8601 UTC, when the build wrote this card
- * @property {string|null} commit  HEAD at build time. ORIENTATION ONLY — what the tree was at,
- *                                 not what the card was built from: nothing here fingerprints a
- *                                 file, so a dirty tree stamps exactly as a clean one. Whether
- *                                 the card still describes the tree is answered by running the
- *                                 build, and by nothing this block carries
+ *
+ * Every field is a reading. A card carries no build stamp, so one tree writes one file however
+ * often it is built, and a card that comes back changed is a card whose numbers moved. An
+ * edition whose scorecard predates this carries a `source` block; nothing reads it.
  */
 
 // ── Size ─────────────────────────────────────────────────────────────────────────────────────

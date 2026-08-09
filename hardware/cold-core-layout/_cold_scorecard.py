@@ -22,10 +22,8 @@ from __future__ import annotations
 
 import json
 import re
-import subprocess
 import sys
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from pathlib import Path
 
 _here = Path(__file__).resolve()
@@ -79,16 +77,6 @@ class Scorecard:
         return all(c.status != "fail" for c in self.checks if c.kind == "gate")
 
 
-def _source() -> dict:
-    try:
-        commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(_repo),
-                                capture_output=True, text=True, timeout=10).stdout.strip()
-    except Exception:
-        commit = ""
-    return {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "commit": commit or None}
-
-
 def to_dict(sc: Scorecard) -> dict:
     by_id = {c.id: c for c in sc.checks}
     prim = {d["component"]: d["primitive"] for d in sc.shapes}
@@ -112,7 +100,6 @@ def to_dict(sc: Scorecard) -> dict:
         "mounts": [{"component": n, "by": by, "held": h,
                     "kind": "placeholder" if prim.get(n) else "real"}
                    for n, by, h in sc.mounts],
-        "source": _source(),
     }
 
 

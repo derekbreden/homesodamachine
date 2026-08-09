@@ -5825,9 +5825,5 @@
    "held": "pack",
    "kind": "real"
   }
- ],
- "source": {
-  "generated": "2026-08-09T22:28:00+00:00",
-  "commit": "9754018bd731a65a154a3f435a81cf15b9da96e6"
- }
+ ]
 }
