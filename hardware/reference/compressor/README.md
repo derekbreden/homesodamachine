@@ -63,7 +63,19 @@ origin, so a floor carrying this bolt pattern carries it about its own center.
 
 The bolt pattern is symmetric about that origin; the power box is not. **−Y is the
 power end** — that is what orients the part. The suction, discharge and process stubs
-are **not modeled**.
+are **not modeled**; all three are stations instead, so a line brazed into one and a
+valve clamped on one both answer to the can.
+
+## The process tube
+
+The third stub, and the only one not in the loop: a short copper tube pinched and brazed
+shut at the factory ([`../ice-maker/README.md`](/hardware/reference/ice-maker/README.md)
+"Process tube"). It leaves the −Y tangent — the power end — at z = [100](PROCESS_Z),
+[25](PROCESS_OVER_BOX) mm clear over the terminal box's crown.
+
+`process_tube()` reads [20](PROCESS_CLAMP) mm out along that stub, where the Supco
+BPV31's saddle bands it. The valve goes on once and stays for the life of the appliance —
+[`../supco-bpv31/`](/hardware/reference/supco-bpv31/).
 
 ## Holds
 
@@ -75,6 +87,7 @@ are **not modeled**.
 | `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it |
 | `power_hold()` | the box coming off the reach it fills, hanging off the plate's X, sitting down on the plate or climbing past the shell's crown, or covering a mount |
 | `power_face_hold()` | `power_face()` — the box's outboard −Y plane, which the thermal cutoff lies on — coming off the box's own centre or turning to face some other way |
+| `process_tube_hold()` | `process_tube()` — the stub the piercing valve clamps on — dropping into the terminal cover, climbing off the can, or leaving by a face the condenser, the core or the plate stands against |
 | `mounts_hold()` | a hole opening into the plate's edge, or standing under the belly where no bolt reaches it |
 
 ## Where it stands
