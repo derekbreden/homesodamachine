@@ -1,0 +1,6 @@
+{
+  "thickness_mm": 2.5,
+  "material": "PETG",
+  "process": "3D-print",
+  "notes": "Section over the cutoff's case, and each leaf's own. Pinches the SF76E against the compressor's power box; the two leaves press into the air gap the box hangs over its mounting plate, so the clamp rides the compressor. Prints on its side — one profile swept 18 mm, no support."
+}

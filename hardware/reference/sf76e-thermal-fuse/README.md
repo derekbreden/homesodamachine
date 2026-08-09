@@ -53,9 +53,14 @@ cover over the terminal block and the PTC start relay, which
 reaches past that face, so the case lies against the part on one side and stands in
 the open on the other five.
 
-**Nothing holds it there yet.** The fuse is spliced into the hot leg and its case is
-laid on the face; what clamps it into thermal contact is not designed, and the
-`held` / `mounted` axes on the enclosure scorecard carry that as an open joint.
+**What presses it onto that face** is the printed
+[`fuse-clamp`](/hardware/printed-parts/refrigeration/fuse-clamp/), seated on the same
+station with the same quarter turn: the case lies in a channel whose crown lands on
+the outboard generatrix, so it is pinched between the cover and the clamp with its
+whole diameter between the two. `enclosure_assembly.check_cutoff_bedded` measures
+both ends of that stack off the placed solids and is the `cutoff-bedded` row on the
+enclosure scorecard. The channel is open at both ends and the fuse threads out along
+it, which is what replacing a one-shot part is.
 
 ## Regenerate
 
