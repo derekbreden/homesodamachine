@@ -820,6 +820,45 @@ def check_cradles(rows) -> Bound:
             for n, w, lying in bad])))
 
 
+# How far a cap valve may stand off the row before the row is not one. The three are placed by
+# three different rules — two ride the pack, one is stood on the chain's column — so this is what
+# those three rules agree to within.
+ROW_TOL = 1e-3
+
+
+def check_valve_row(placed: dict) -> Bound:
+    """The three Beduans on the cap, read across the cap's own face: one depth, one pitch.
+
+    THE PITCH IS THE PACK'S TO GIVE. V-B sits on the manifold's west inner limb and V-K on the
+    suction chain's column, and neither of those two answers to the other; what stands between
+    them is V-A, which the pack's `manifold_layout.SOURCE_SPREAD` carries outboard. So the
+    middle valve is the one number in the row, and the detail names the spread that centres it."""
+    row = [(n, box(placed[n])) for n in ("valve-v-b", "valve-v-a", "vk-solenoid") if n in placed]
+    if len(row) < 3:
+        return record_bound(Bound(
+            "cap-valve-row", "The three valves on the cap stand in one row", False,
+            f"{len(row)}/3 placed", "three valves", []))
+    depths = [b.ymax for _n, b in row]
+    pitch = [(row[i + 1][1].xmin + row[i + 1][1].xmax) / 2.0
+             - (row[i][1].xmin + row[i][1].xmax) / 2.0 for i in range(2)]
+    off_y, off_x = max(depths) - min(depths), abs(pitch[1] - pitch[0])
+    ok = off_y <= ROW_TOL and off_x <= ROW_TOL
+    detail = [f"{n}: x {(b.xmin + b.xmax) / 2.0:8.3f}   aft face y {b.ymax:8.3f}"
+              for n, b in row]
+    if not ok:
+        centre = ((row[0][1].xmin + row[0][1].xmax) / 2.0
+                  + (row[2][1].xmin + row[2][1].xmax) / 2.0) / 2.0
+        here = (row[1][1].xmin + row[1][1].xmax) / 2.0
+        detail = ([f"the middle valve stands {here:.3f} and the pair either side of it centre "
+                   f"on {centre:.3f}; `manifold_layout.SOURCE_SPREAD['V-A']` carries it out "
+                   f"from {ml.INNER_X:.3f}, so the row wants {centre - ml.INNER_X:.3f}."]
+                  + detail)
+    return record_bound(Bound(
+        "cap-valve-row", "The three valves on the cap stand in one row, evenly spaced", ok,
+        f"pitch {pitch[0]:.3f} / {pitch[1]:.3f} mm, depths within {off_y:.3f} mm",
+        f"one depth and one pitch within {ROW_TOL:g} mm", detail))
+
+
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
 # nothing in it to take up, so this is the closing's own float and nothing else.
 BEDDED_TOL = 0.01
@@ -2436,9 +2475,13 @@ def build_flowreg(split_carry):
 # own frame runs the flow down ±Y — inlet forward, outlet aft — with the coil standing over it,
 # and that is already the direction the water goes here, so it takes NO TURN AT ALL: it stands
 # forward of the suction chain, firing aft into the collet that feeds the pump.
-# The gap between V-K's outlet and the chain's collet — `water-4`. Both mouths lie on one plane
-# and one column, so this is a length of tube and not a route.
-WATER_4 = 13.545
+#
+# V-K STANDS IN THE ROW THE SOURCE PAIR MAKES. Three Beduans sit on this cap — V-A, V-B and this
+# one — and the two the pack carries land on one plane facing one way. V-K's depth is theirs,
+# and `water-4` is what is left between its outlet and the chain's collet: both mouths lie on
+# that plane and on one column, so it is a length of tube and not a route. The cap prints its
+# three cradles on that same row (`_cold_core_interface.cap_cradles`), and `cap-valve-row`
+# measures it.
 # THE VALVE'S SEAT is the cradle's. The cap prints four bosses (`valve_seat`) at this
 # valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
 # Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed
@@ -2455,12 +2498,28 @@ def vk_port_z(foam):
     return cap_face(foam) + _cci.cap_cradles["vk-solenoid"].seat + _beduan.port_center_z
 
 
-def build_vk(chain_carry):
-    """V-K seated on its OUTLET, one `WATER_4` forward of the suction chain's collet and on
-    that collet's own column and plane — which is `vk_port_z`, the plane the chain was laid
-    on, so the valve comes back down onto its own seat."""
-    pos, axis = chain_carry(_suct.tube_port())
-    target = (pos[0], pos[1] + axis[1] * WATER_4, pos[2])
+def source_row_y(stood) -> float:
+    """The aft face of the row the two source valves make, in world.
+
+    Both stand the same Beduan the same way up on the same plane. The face is a body's end,
+    `_beduan.port_length` from its other one; on a source valve it is the inlet's — the collet
+    `fluid-2` and `fluid-4` come at — and on V-K it is the outlet's."""
+    faces = [box(s).ymax for n, s, _c in stood if n in ("valve-v-a", "valve-v-b")]
+    assert len(faces) == 2 and abs(faces[0] - faces[1]) < 1e-6, (
+        f"the two source valves are not on one plane ({faces}), so there is no row for V-K to "
+        f"stand in — `manifold_layout.SHIFT` carries them and it carries them together.")
+    return faces[0]
+
+
+def build_vk(chain_carry, row_y: float):
+    """V-K seated on its OUTLET, on the suction chain's own column and plane — which is
+    `vk_port_z`, the plane the chain was laid on, so the valve comes back down onto its own
+    seat — and on `row_y`, the face the source pair stands its own ends on.
+
+    The outlet is this valve's aft collet, so the whole body stands in the pair's own depth and
+    `water-4` is what is left back to the chain."""
+    pos, _axis = chain_carry(_suct.tube_port())
+    target = (pos[0], row_y, pos[2])
     body = _beduan.build_beduan_solenoid()
     body = body.val() if hasattr(body, "val") else body
     return seat_body(body, (), seat="vk-solenoid", station=(_beduan.outlet(), target))
@@ -2733,13 +2792,14 @@ def build_pack() -> cq.Assembly:
         (relay2_carry, _relay.holes),
         (stack_carry["relay-1"], _relay.holes),
         (stack_carry["ground-stack"], _gnd.holes))
-    vk, vk_carry = build_vk(chain_carry)
+    vk, vk_carry = build_vk(chain_carry, source_row_y(stood))
     a.add(vk, name="vk-solenoid", color=C_VK)
     # The cradles, measured the moment the last valve standing on the cap is placed. The other
     # two came up with the pack, so this is the first point at which all three are in world.
-    a.cradles = cradle_rows(foam, foam_carry,
-                            {**{n: s for n, s, _c in stood}, "vk-solenoid": vk})
+    on_cap = {**{n: s for n, s, _c in stood}, "vk-solenoid": vk}
+    a.cradles = cradle_rows(foam, foam_carry, on_cap)
     check_cradles(a.cradles)
+    check_valve_row(on_cap)
     # The pump's own joint, read the same way: the four cap columns against the four bores in
     # the bracket's pad, both taken back into the frame the cap is authored in.
     a.pump_mount = pump_mount_rows(foam_carry, seaflo_carry)
