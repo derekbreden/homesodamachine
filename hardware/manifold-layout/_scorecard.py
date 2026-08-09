@@ -805,15 +805,15 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     3/8" braided PVC asks 31.8.
 
     WHAT THE CAST MAY END ON is the body the port is JOINED to, read off the authored runs rather
-    than from prose, plus the `MADE_UP` joints that have no run to read and the limbs' own
-    `manifold_layout.BUTTED` neighbours. A port whose connection is still un-authored is held to
-    the full lead against everything, which is the useful direction — that is the state every
-    undrawn segment's two ends are in.
+    than from prose, plus the `MADE_UP` joints that have no run to read. A port whose connection
+    is still un-authored is held to the full lead against everything, which is the useful
+    direction — that is the state every undrawn segment's two ends are in.
 
-    A BUTTED pair is not that state and never becomes it. Two collets made up on each other are
-    the finished joint, so the body the cast stops on is the fitting the port is plugged into
-    and there is no tube between them to want a radius. Those pairs come from `LIMBS`, which is
-    where the butting is declared, rather than from a list here that a new valve could fall off.
+    THE PACK'S OWN MOUTHS ARE NOT CAST. `PORT_LEAD_BENDS` is `_routing.route`'s own shape — one
+    bend radius of stub off the port, and the tangent of the corner it turns in next — and
+    `manifold_layout.INTERIOR_MOUTHS` is every port the pack sweeps its own line off instead,
+    with no stub. Those rows carry a lead of 0. The swept line goes into the assembly, where
+    `pack-closes` reads it against every body in the machine.
 
     A CLOSED MATING is the same case on the refrigerant loop. `enclosure_assembly.refrigerant_mates`
     is the legs a shared plane shut — two stations that are one point read twice, with no copper
@@ -841,11 +841,6 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
         mates.setdefault(x, set()).add(y.partition(".")[0])
         mates.setdefault(y, set()).add(x.partition(".")[0])
     import manifold_layout as ml
-    butted = {}
-    for pair in ml.BUTTED:
-        x, y = tuple(pair)
-        butted.setdefault(x, set()).add(y)
-        butted.setdefault(y, set()).add(x)
     rows = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -854,19 +849,23 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
                 continue
             anchor = f"{name}.{port}"
             drawn = mating.get(anchor)
-            if drawn:
-                bend = max(R.stock_of(r.kind, r.diam).min_bend for r in drawn)
+            interior = anchor in ml.INTERIOR_MOUTHS
+            if interior:
+                who, free, need = None, 0.0, 0.0
             else:
-                takes = [s.min_bend for s in R.STOCKS if abs(s.od - diam) < 0.05]
-                bend = max(takes) if takes else R.BEND_RATIO * diam
-            need = PORT_LEAD_BENDS * bend
-            who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
-                                       skip={name} | mates.get(anchor, set())
-                                       | butted.get(name, set()))
+                if drawn:
+                    bend = max(R.stock_of(r.kind, r.diam).min_bend for r in drawn)
+                else:
+                    takes = [s.min_bend for s in R.STOCKS if abs(s.od - diam) < 0.05]
+                    bend = max(takes) if takes else R.BEND_RATIO * diam
+                need = PORT_LEAD_BENDS * bend
+                who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
+                                           skip={name} | mates.get(anchor, set()))
             rows.append({"component": name, "port": port, "meets": who,
                          "free": round(free, 3), "need": round(need, 3),
                          "ok": who is None, "gated": anchor not in TERMINI,
-                         "routed": bool(drawn), "onPlaceholder": who in placeholders})
+                         "routed": bool(drawn) or interior,
+                         "onPlaceholder": who in placeholders})
     rows.sort(key=lambda d: (d["ok"], d["free"]))
     return rows
 
@@ -875,8 +874,8 @@ def _port_leads(rows) -> Check:
     gated = [d for d in rows if d["gated"]]
     short = [d for d in gated if not d["ok"]]
     detail = [f"a port needs {PORT_LEAD_BENDS:g} bend radii of its own bore along its own axis, "
-              f"clear of every body but the one its own line joins it to, or the neighbour its "
-              f"own collet is made up on"]
+              f"clear of every body but the one its own line joins it to — the pack's own "
+              f"interior mouths carry a swept line off the collet and ask for none"]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
                f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
                + (" — and that body is still a placeholder box" if d["onPlaceholder"] else "")
