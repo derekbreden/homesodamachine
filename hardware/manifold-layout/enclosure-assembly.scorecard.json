@@ -115,14 +115,12 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "3 under, tightest 0.770 mm",
+   "value": "2 under, tightest 0.770 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "carb-1 \u2014 fluid-18: 0.934 mm \u2014 \u2717 under the floor, and nothing seats them together",
-    "fluid-4 threads coil-v-a \u2014 coil-v-b: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
@@ -141,7 +139,6 @@
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "water-split \u2014 discharge-chain: 1.000 mm",
     "carb-1 \u2014 suction-chain: 1.056 mm",
-    "fluid-4 \u2014 valve-v-a: 1.157 mm",
     "co2-1 \u2014 fluid-14: 1.652 mm",
     "water-7 \u2014 co2-2: 1.727 mm",
     "water-5 \u2014 fluid-24: 1.761 mm",
@@ -156,8 +153,10 @@
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 2.763 mm",
     "carb-1 \u2014 pcba: 3.002 mm",
+    "fluid-4 \u2014 valve-v-a: 3.060 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-2 \u2014 fluid-24: 3.185 mm",
+    "fluid-4 \u2014 coil-v-a: 3.190 mm",
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.326 mm",
@@ -1704,7 +1703,7 @@
    "name": "inlet",
    "kind": "fluid",
    "pos": [
-    20.07,
+    22.49,
     243.08,
     267.315
    ],
@@ -1723,7 +1722,7 @@
    "name": "outlet",
    "kind": "fluid",
    "pos": [
-    20.07,
+    22.49,
     184.08,
     267.315
    ],
@@ -2085,7 +2084,7 @@
    "kind": "fluid",
    "pos": [
     65.05,
-    178.5,
+    179.955,
     265.7
    ],
    "face": [
@@ -2104,7 +2103,7 @@
    "kind": "fluid",
    "pos": [
     65.05,
-    237.5,
+    238.955,
     265.7
    ],
    "face": [
@@ -2667,10 +2666,10 @@
    "boxes": [
     [
      47.925,
-     178.5,
+     179.955,
      254.4,
      82.175,
-     237.5,
+     238.955,
      311.0
     ]
    ],
@@ -2810,10 +2809,10 @@
    "component": "valve-v-a",
    "boxes": [
     [
-     2.945,
+     5.365,
      184.08,
      256.015,
-     37.195,
+     39.615,
      243.08,
      286.615
     ]
@@ -3418,26 +3417,26 @@
    "component": "coil-v-a",
    "boxes": [
     [
-     3.945,
+     6.365,
      201.58,
      286.615,
-     36.195,
+     38.615,
      225.58,
      312.615
     ],
     [
-     21.92,
+     24.34,
      186.58,
      305.615,
-     28.22,
+     30.64,
      201.58,
      306.415
     ],
     [
-     11.92,
+     14.34,
      186.58,
      305.615,
-     18.22,
+     20.64,
      201.58,
      306.415
     ]
@@ -3940,7 +3939,7 @@
    "to": "valve-v-a.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 235.02,
+   "length": 237.29,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3977,7 +3976,7 @@
      "grade": "B",
      "legs": [
       121.01,
-      67.97
+      70.24
      ]
     },
     {
@@ -3987,7 +3986,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      67.97,
+      70.24,
       14.0
      ]
     }
@@ -4022,19 +4021,19 @@
       304.71
      ],
      [
-      20.07,
+      22.49,
       243.08,
       267.32
      ]
     ],
     "axis": {
-     "x": 97.07,
+     "x": 99.49,
      "y": 87.01,
      "z": 37.4
     },
-    "span": 135.62,
-    "path": 235.02,
-    "detour": 1.733
+    "span": 137.36,
+    "path": 237.29,
+    "detour": 1.728
    }
   },
   {
@@ -4531,7 +4530,7 @@
    "to": "vk-solenoid.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 253.6,
+   "length": 255.06,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4568,7 +4567,7 @@
      "grade": "B",
      "legs": [
       142.05,
-      21.5
+      22.96
      ]
     }
    ],
@@ -4603,18 +4602,18 @@
      ],
      [
       65.05,
-      178.5,
+      179.96,
       265.7
      ]
     ],
     "axis": {
      "x": 142.05,
-     "y": 67.64,
+     "y": 66.18,
      "z": 18.94
     },
-    "span": 158.47,
-    "path": 253.6,
-    "detour": 1.6
+    "span": 157.85,
+    "path": 255.06,
+    "detour": 1.616
    }
   },
   {
@@ -5218,7 +5217,7 @@
    "to": "suction-chain.tube-port",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 15.0,
+   "length": 13.54,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -5237,7 +5236,7 @@
     "ends": [
      [
       65.05,
-      237.5,
+      238.96,
       265.7
      ],
      [
@@ -5248,11 +5247,11 @@
     ],
     "axis": {
      "x": 0.0,
-     "y": 15.0,
+     "y": 13.54,
      "z": 0.0
     },
-    "span": 15.0,
-    "path": 15.0,
+    "span": 13.54,
+    "path": 13.54,
     "detour": 1.0
    }
   },
@@ -5812,7 +5811,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T20:30:45+00:00",
-  "commit": "26b111f8512113d1aaa97fbf1cd8442d9a13b445"
+  "generated": "2026-08-09T21:01:13+00:00",
+  "commit": "5bac3b72d16d267835ef49099c6438a429251bec"
  }
 }
