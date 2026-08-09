@@ -2142,8 +2142,8 @@ SLEEVE_AXIS = (0.0, 0.0, 1.0)
 
 
 def sleeve_seat(run):
-    """Where a 17 mm clamshell closes on a run, as `(the bore's mid-point, the leg's axis,
-    the straight the leg leaves)`.
+    """Where a clamshell closes on a run, as `(the bore's mid-point, the leg's axis, the
+    straight the leg leaves)`.
 
     A leg's own length is not its straight: each end that turns a corner spends the run's
     bend radius on the arc, and what is left between the two tangent points is what a body
