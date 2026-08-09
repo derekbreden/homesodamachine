@@ -485,15 +485,17 @@ def build_fuse_clamp(comp_carry, fuse):
     seating plane — so seating both on the power face's centre is what puts the channel over the
     case, and nothing here restates where either of them goes.
 
-    What the clamp then reaches for is the compressor's own two front mounting holes, which are
-    in that same frame at `compressor.mount_pattern`'s own pitch. A body pushing straight out of
-    a face cannot be held by a hook over any of that face's neighbours, and no band closes around
-    a box moulded onto the shell; the plate's holes are the one feature on this donor made to be
-    fastened through, and the tenons take them in shear."""
+    What holds the clamp there is the compressor's own `POWER_GAP` — the air the power box hangs
+    over its plate — which the clamp's two leaves press. Both faces of that slot belong to the
+    compressor, so the clamp RIDES THE CAN: the running vibration is common to the clamp, the
+    cutoff and the face it presses them onto, and nothing crosses to the cabinet. The plate's
+    four holes could not do it — the floor's own posts rise through them and the donor grommet
+    in each is the isolation element, so a clamp landing on one of those screws would be fastened
+    to the CABINET the cover is moving inside."""
+    face = power_face_station(comp_carry)
     placed, carry = seat_body(_clamp.build(), FUSE_TURN, seat="fuse-clamp",
-                              station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
-                                       power_face_station(comp_carry)))
-    check_cutoff_bedded(placed, fuse, power_face_station(comp_carry))
+                              station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), face))
+    check_cutoff_bedded(placed, fuse, face)
     return placed, carry
 
 
