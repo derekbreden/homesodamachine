@@ -1,0 +1,964 @@
+{
+ "gatesPass": false,
+ "placed": 100,
+ "located": 100,
+ "shaped": 100,
+ "routed": 100,
+ "held": 100,
+ "mounted": 0,
+ "checks": [
+  {
+   "id": "bodies-clear",
+   "label": "No two placed solids share volume",
+   "kind": "gate",
+   "status": "fail",
+   "value": "4 clash",
+   "target": "0 clash",
+   "detail": [
+    "copper-plug-top \u2229 foam-shell = 72.45 mm\u00b3",
+    "copper-plug-middle \u2229 foam-shell = 69.33 mm\u00b3",
+    "copper-plug-lower \u2229 foam-shell = 3.12 mm\u00b3",
+    "foam-shell \u2229 prv-shroud = 0.82 mm\u00b3"
+   ],
+   "active": true
+  },
+  {
+   "id": "routes-fit",
+   "label": "No line meets a solid",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 clear",
+   "target": "every line clear",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "lines-apart",
+   "label": "No line meets another line",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0 crossing",
+   "target": "0 crossing",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "arcs-hold",
+   "label": "Every corner turns at the stock arc",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7/7 at stock",
+   "target": "14.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "placed",
+   "label": "Every body the core carries is placed",
+   "kind": "goal",
+   "status": "pass",
+   "value": "23/23",
+   "target": "a solid per body",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "located",
+   "label": "Every port a placed body declares is positioned",
+   "kind": "goal",
+   "status": "pass",
+   "value": "4/4",
+   "target": "every mouth located",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "shaped",
+   "label": "Every body is real geometry rather than a primitive",
+   "kind": "goal",
+   "status": "pass",
+   "value": "23/23",
+   "target": "no primitives",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "routed",
+   "label": "Every line the core owes is drawn",
+   "kind": "goal",
+   "status": "pass",
+   "value": "7/7",
+   "target": "a line per connection",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "held",
+   "label": "Something holds every body",
+   "kind": "goal",
+   "status": "pass",
+   "value": "23/23",
+   "target": "a holder per body",
+   "detail": [],
+   "active": false
+  },
+  {
+   "id": "mounted",
+   "label": "A printed feature of another placed part fastens every body",
+   "kind": "goal",
+   "status": "fail",
+   "value": "0/23",
+   "target": "a printed joint per body",
+   "detail": [
+    "carbonator-tube: held by support ring",
+    "copper-plug-lower: held by wall slot",
+    "copper-plug-middle: held by wall slot",
+    "copper-plug-top: held by wall slot",
+    "endcap-bottom: held by tube bore",
+    "endcap-top: held by tube bore",
+    "float-rod-carb: held by plate registers",
+    "foam-cap-bottom: held by shell floor",
+    "foam-cap-lid-bottom: held by cap mouth",
+    "foam-cap-lid-top: held by cap mouth",
+    "foam-cap-top: held by shell rim",
+    "foam-shell: held by the enclosure floor",
+    "prv-shroud: held by the PRV it caps",
+    "prv-sv125: held by the pour",
+    "reed-bridge: held by support ring",
+    "reservoir-a: held by pocket",
+    "reservoir-a-cap: held by body rim",
+    "reservoir-b: held by pocket",
+    "reservoir-b-cap: held by body rim",
+    "vessel-elbow-carb-water-out: held by plate thread",
+    "vessel-elbow-co2-in: held by plate thread",
+    "vessel-elbow-prv: held by plate thread",
+    "vessel-elbow-water-in: held by plate thread"
+   ],
+   "active": true
+  }
+ ],
+ "ports": [
+  {
+   "component": "carbonator-vessel",
+   "name": "co2-in",
+   "kind": "fluid",
+   "pos": [
+    -16.017,
+    -31.963,
+    17.0
+   ],
+   "face": [
+    -0.778506,
+    -0.627637,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-in",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "carbonator-vessel",
+   "name": "carb-water-out",
+   "kind": "fluid",
+   "pos": [
+    -20.574,
+    19.05,
+    17.0
+   ],
+   "face": "x-",
+   "diam": 6.35,
+   "mates": "carb-water-out",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "carbonator-vessel",
+   "name": "water-in",
+   "kind": "fluid",
+   "pos": [
+    0.0,
+    39.624,
+    199.4
+   ],
+   "face": "y+",
+   "diam": 6.35,
+   "mates": "water-in",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "carbonator-vessel",
+   "name": "prv",
+   "kind": "fluid",
+   "pos": [
+    0.0,
+    -39.624,
+    199.4
+   ],
+   "face": "y-",
+   "diam": 6.35,
+   "mates": "prv",
+   "status": "ok",
+   "note": ""
+  }
+ ],
+ "shapes": [
+  {
+   "component": "carbonator-tube",
+   "boxes": [
+    [
+     -63.5,
+     -63.5,
+     32.0,
+     63.5,
+     63.5,
+     184.4
+    ]
+   ],
+   "fill": 0.0403,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "copper-plug-lower",
+   "boxes": [
+    [
+     -142.5,
+     -81.75,
+     27.75,
+     -138.5,
+     -73.25,
+     35.75
+    ]
+   ],
+   "fill": 0.3278,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "copper-plug-middle",
+   "boxes": [
+    [
+     -142.5,
+     -81.75,
+     35.75,
+     -138.5,
+     -73.25,
+     213.4
+    ]
+   ],
+   "fill": 0.8699,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "copper-plug-top",
+   "boxes": [
+    [
+     -142.5,
+     73.25,
+     27.75,
+     -138.5,
+     81.75,
+     213.4
+    ]
+   ],
+   "fill": 0.8704,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "endcap-bottom",
+   "boxes": [
+    [
+     -61.722,
+     -61.722,
+     38.35,
+     61.722,
+     61.722,
+     44.7
+    ]
+   ],
+   "fill": 0.7724,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "endcap-top",
+   "boxes": [
+    [
+     -61.722,
+     -61.722,
+     171.7,
+     61.722,
+     61.722,
+     178.05
+    ]
+   ],
+   "fill": 0.7724,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-rod-carb",
+   "boxes": [
+    [
+     49.387,
+     -1.587,
+     42.16,
+     52.562,
+     1.587,
+     174.24
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-bottom",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     -18.0,
+     141.5,
+     90.5,
+     -0.0
+    ]
+   ],
+   "fill": 0.1442,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-lid-bottom",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     -20.0,
+     141.5,
+     90.5,
+     -14.8
+    ]
+   ],
+   "fill": 0.3834,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-lid-top",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     228.2,
+     141.5,
+     90.5,
+     242.015
+    ]
+   ],
+   "fill": 0.1822,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-cap-top",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     213.4,
+     141.5,
+     90.5,
+     231.4
+    ]
+   ],
+   "fill": 0.1569,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "foam-shell",
+   "boxes": [
+    [
+     -141.5,
+     -90.5,
+     -0.0,
+     141.5,
+     90.5,
+     213.4
+    ]
+   ],
+   "fill": 0.0951,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "prv-shroud",
+   "boxes": [
+    [
+     -11.5,
+     -85.624,
+     187.9,
+     11.5,
+     -39.624,
+     210.9
+    ]
+   ],
+   "fill": 0.2691,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "prv-sv125",
+   "boxes": [
+    [
+     -8.249,
+     -77.724,
+     191.526,
+     8.249,
+     -26.924,
+     207.274
+    ]
+   ],
+   "fill": 0.6404,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-bridge",
+   "boxes": [
+    [
+     58.612,
+     -24.869,
+     78.116,
+     66.5,
+     24.869,
+     148.25
+    ]
+   ],
+   "fill": 0.2418,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-a",
+   "boxes": [
+    [
+     52.932,
+     -70.0,
+     24.6,
+     129.0,
+     70.0,
+     201.9
+    ]
+   ],
+   "fill": 0.1592,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-a-cap",
+   "boxes": [
+    [
+     52.932,
+     -70.0,
+     199.9,
+     129.0,
+     70.0,
+     210.9
+    ]
+   ],
+   "fill": 0.3898,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-b",
+   "boxes": [
+    [
+     -129.0,
+     -70.0,
+     24.6,
+     -52.932,
+     70.0,
+     201.9
+    ]
+   ],
+   "fill": 0.1592,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reservoir-b-cap",
+   "boxes": [
+    [
+     -129.0,
+     -70.0,
+     199.9,
+     -52.932,
+     70.0,
+     210.9
+    ]
+   ],
+   "fill": 0.3898,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-carb-water-out",
+   "boxes": [
+    [
+     -20.574,
+     11.112,
+     7.835,
+     9.165,
+     26.987,
+     44.954
+    ]
+   ],
+   "fill": 0.3817,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-co2-in",
+   "boxes": [
+    [
+     -21.701,
+     -39.013,
+     8.45,
+     9.165,
+     -11.112,
+     44.954
+    ]
+   ],
+   "fill": 0.2132,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-prv",
+   "boxes": [
+    [
+     -9.165,
+     -39.624,
+     171.446,
+     9.165,
+     -11.112,
+     207.338
+    ]
+   ],
+   "fill": 0.357,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vessel-elbow-water-in",
+   "boxes": [
+    [
+     -9.165,
+     11.112,
+     171.446,
+     9.165,
+     39.624,
+     207.338
+    ]
+   ],
+   "fill": 0.357,
+   "primitive": false,
+   "declared": "real"
+  }
+ ],
+ "bends": [
+  {
+   "id": "carb-water-out",
+   "kind": "fluid",
+   "frm": "carbonator-vessel.carb-water-out",
+   "to": "carb-water-out.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 287.69,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 220.26,
+   "reachGrade": "C",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.306
+   }
+  },
+  {
+   "id": "co2-in",
+   "kind": "fluid",
+   "frm": "co2-in.start",
+   "to": "carbonator-vessel.co2-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 262.94,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 209.37,
+   "reachGrade": "C",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.256
+   }
+  },
+  {
+   "id": "reservoir-a",
+   "kind": "fluid",
+   "frm": "reservoir-a.start",
+   "to": "reservoir-a.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 534.36,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 320.54,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.667
+   }
+  },
+  {
+   "id": "reservoir-a-fill",
+   "kind": "fluid",
+   "frm": "reservoir-a-fill.start",
+   "to": "reservoir-a-fill.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 2.5,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 2.5,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "reservoir-b",
+   "kind": "fluid",
+   "frm": "reservoir-b.start",
+   "to": "reservoir-b.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 331.37,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 214.1,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
+     "at": 3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.548
+   }
+  },
+  {
+   "id": "reservoir-b-fill",
+   "kind": "fluid",
+   "frm": "reservoir-b-fill.start",
+   "to": "reservoir-b-fill.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 2.5,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "reach": 2.5,
+   "reachGrade": "B",
+   "binding": null,
+   "corners": [],
+   "need": {
+    "detour": 1.0
+   }
+  },
+  {
+   "id": "water-in",
+   "kind": "fluid",
+   "frm": "carbonator-vessel.water-in",
+   "to": "water-in.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 195.05,
+   "bend": 14.0,
+   "radius": 10.739,
+   "minBend": 14.0,
+   "ratio": 0.767,
+   "grade": "C",
+   "reach": 137.2,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 10.739,
+     "ratio": 0.767,
+     "grade": "C"
+    },
+    {
+     "at": 2,
+     "radius": 10.739,
+     "ratio": 0.767,
+     "grade": "C"
+    },
+    {
+     "at": 3,
+     "radius": 10.739,
+     "ratio": 0.767,
+     "grade": "C"
+    }
+   ],
+   "need": {
+    "detour": 1.422
+   }
+  }
+ ],
+ "mounts": [
+  {
+   "component": "carbonator-tube",
+   "by": null,
+   "held": "support ring",
+   "kind": "real"
+  },
+  {
+   "component": "copper-plug-lower",
+   "by": null,
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "copper-plug-middle",
+   "by": null,
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "copper-plug-top",
+   "by": null,
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "endcap-bottom",
+   "by": null,
+   "held": "tube bore",
+   "kind": "real"
+  },
+  {
+   "component": "endcap-top",
+   "by": null,
+   "held": "tube bore",
+   "kind": "real"
+  },
+  {
+   "component": "float-rod-carb",
+   "by": null,
+   "held": "plate registers",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-bottom",
+   "by": null,
+   "held": "shell floor",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-lid-bottom",
+   "by": null,
+   "held": "cap mouth",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-lid-top",
+   "by": null,
+   "held": "cap mouth",
+   "kind": "real"
+  },
+  {
+   "component": "foam-cap-top",
+   "by": null,
+   "held": "shell rim",
+   "kind": "real"
+  },
+  {
+   "component": "foam-shell",
+   "by": null,
+   "held": "the enclosure floor",
+   "kind": "real"
+  },
+  {
+   "component": "prv-shroud",
+   "by": null,
+   "held": "the PRV it caps",
+   "kind": "real"
+  },
+  {
+   "component": "prv-sv125",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
+   "component": "reed-bridge",
+   "by": null,
+   "held": "support ring",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-a",
+   "by": null,
+   "held": "pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-a-cap",
+   "by": null,
+   "held": "body rim",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-b",
+   "by": null,
+   "held": "pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reservoir-b-cap",
+   "by": null,
+   "held": "body rim",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-carb-water-out",
+   "by": null,
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-co2-in",
+   "by": null,
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-prv",
+   "by": null,
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "vessel-elbow-water-in",
+   "by": null,
+   "held": "plate thread",
+   "kind": "real"
+  }
+ ],
+ "source": {
+  "generated": "2026-08-09T01:32:30+00:00",
+  "commit": "d3b3bf4f57fdd85350437b97603b4490128b339d"
+ }
+}
