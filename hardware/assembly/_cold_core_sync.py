@@ -89,6 +89,11 @@ _coil_mandrel_gen = _load_module(
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
+# The wrap AS LAID on the tank, and the cut struck on it — `coil_mandrel` holds the two
+# shorter readings (what the tool holds, what the same wraps come to once sprung off it)
+# but only this module sees the lift over the reed bridge, so the cut lives here.
+_coil_gen = _load_module("cold_core_coil_gen", _hw / "cold-core-layout" / "_coil.py")
+
 # Carbonator reed switching levels — the bridge's own geometry sets where CLO
 # and CHI sit above the tube's bottom rim.
 _reed_bridge_gen = _load_module(
@@ -112,11 +117,17 @@ def main():
         "TOTAL_WRAPS": f"{_coil_mandrel_gen.total_wraps:.3f}",
         # pitch is derived; .2f matches "12.43 mm".
         "PITCH": f"{_coil_mandrel_gen.pitch:.2f} mm",
-        # Copper consumption: wrap arc, tie-in tails, per-vessel cut.
-        "WRAP_LEN": f"{_coil_mandrel_gen.wrap_length / 1000:.4g} m",
-        "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
-        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
-        "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
+        # Copper consumption. SPRUNG_LEN is the wrap once it has sprung off the mandrel
+        # onto the tank; LAID_FT is that same wrap with the reed bridge's lift in it —
+        # what a build consumes, and what the cut stands on.
+        "SPRUNG_LEN": f"{_coil_mandrel_gen.fitted_wrap_length / 1000:.4g} m",
+        "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
+        "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
+        "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
+        "PROT_INLET": f"{_coil_mandrel_gen.stub_protrusion['inlet']:.4g} mm",
+        "PROT_OUTLET": f"{_coil_mandrel_gen.stub_protrusion['outlet']:.4g} mm",
+        "ROLL_SHARE": f"1/{_coil_mandrel_gen.vessels_per_roll}",
+        "CUT_FT": f"{_coil_gen.cut_length() / 304.8:.4g} ft",
         "TAIL_INLET_Y": f"{_coil_mandrel_gen.tail_inlet_y:.4g}",
         "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",
         # ─── Cap pour (step 3) ────────────────────────────────────────
@@ -196,9 +207,13 @@ def main():
             "WIND_LENGTH": 1,
             "TOTAL_WRAPS": 1,
             "PITCH": 2,
-            "WRAP_LEN": 1,
-            "WRAP_FT": 1,
-            "STUB_LEN": 3,
+            "SPRUNG_LEN": 1,
+            "LAID_FT": 1,
+            "STUB_INLET": 1,
+            "STUB_OUTLET": 1,
+            "PROT_INLET": 2,
+            "PROT_OUTLET": 2,
+            "ROLL_SHARE": 1,
             "CUT_FT": 1,
             "TAIL_INLET_Y": 1,
             "TAIL_OUTLET_Y": 1,

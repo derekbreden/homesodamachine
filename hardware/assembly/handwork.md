@@ -8,9 +8,9 @@ Order isn't strict — pressure-testing waits on tap + weld being complete on th
 
 ## Bend copper around the pressure vessel
 
-Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing into the evaporator coil on the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py), then pull it off and slip it over the vessel OD — the as-wound coil runs undersize, so it clamps tight. The 0.031" wall resists kink at the bend radius required around the 5" OD vessel. Single-layer wrap at the mandrel groove's [12.33 mm](PITCH) pitch yields [12.72 ft](WRAP_FT) of wrap per vessel + a [500 mm](STUB_LEN) tail each end for compressor and suction-line tie-ins ([bom.md §5](/hardware/ledger/bom.md)). Bonded to the tank OD with 3M 425 aluminum foil tape — applied as a continuous skin under the coil so the tape spans the tank ↔ coil thermal interface ([future.md](/hardware/future.md) "Refrigeration subsystem").
+Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing into the evaporator coil on the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py), then pull it off and slip it over the vessel OD — the as-wound coil runs undersize, so it clamps tight. The 0.031" wall resists kink at the bend radius required around the 5" OD vessel. Single-layer wrap at the mandrel groove's [12.33 mm](PITCH) pitch yields [13.41 ft](LAID_FT) of wrap per vessel as it lies on the tank, plus a tie-in allowance per end — [335.5 mm](STUB_INLET) at the inlet, [404.6 mm](STUB_OUTLET) at the outlet, each covering that tail's own run out through the copper-plug wall as well as what protrudes past it ([bom.md §5](/hardware/ledger/bom.md)). Bonded to the tank OD with 3M 425 aluminum foil tape — applied as a continuous skin under the coil so the tape spans the tank ↔ coil thermal interface ([future.md](/hardware/future.md) "Refrigeration subsystem").
 
-See [assembly/refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md) step 4 for the production-procedure framing.
+See [assembly/cold-core.md](/hardware/assembly/cold-core.md) step 1 for the production-procedure framing; the stubs it leaves are brazed in [assembly/refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md).
 
 ## Tap NPT in 316L end caps
 
