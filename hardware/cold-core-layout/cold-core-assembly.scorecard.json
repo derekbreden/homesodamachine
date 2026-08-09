@@ -43,10 +43,12 @@
    "id": "routes-fit",
    "label": "No line meets a solid",
    "kind": "gate",
-   "status": "pass",
-   "value": "8/8 clear",
+   "status": "fail",
+   "value": "7/8 clear",
    "target": "every line clear",
-   "detail": [],
+   "detail": [
+    "co2-in meets foam-shell by 622.18 mm\u00b3"
+   ],
    "active": true
   },
   {
@@ -108,7 +110,7 @@
     "reservoir-a start: 14.5 mm of straight into reservoir A's floor-bulkhead collet, 28.0 wanted",
     "water-in start: 27.1 mm of straight into the top plate's PP010822E collet, 28.0 wanted",
     "carb-water-out end: 8.2 mm into a bore, which takes a lean",
-    "co2-in start: 182.4 mm into a bore, which takes a lean",
+    "co2-in start: 193.2 mm into a bore, which takes a lean",
     "prv-vent start: 138.2 mm into a bore, which takes a lean",
     "prv-vent end: 129.5 mm into a bore, which takes a lean",
     "reservoir-a end: 193.4 mm into a bore, which takes a lean",
@@ -135,10 +137,12 @@
    "id": "arcs-hold",
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
-   "status": "pass",
-   "value": "8/8 at stock",
+   "status": "fail",
+   "value": "7/8 at stock",
    "target": "14.00 mm",
-   "detail": [],
+   "detail": [
+    "co2-in at 3.17 mm against the 14.00 mm stock arc"
+   ],
    "active": true
   },
   {
@@ -757,7 +761,7 @@
      213.4
     ]
    ],
-   "fill": 0.0951,
+   "fill": 0.0952,
    "primitive": false,
    "declared": "real"
   },
@@ -1264,25 +1268,25 @@
    "to": "carbonator-vessel.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 262.94,
-   "bend": 14.0,
-   "radius": 14.0,
+   "length": 267.59,
+   "bend": 3.175,
+   "radius": 3.175,
    "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
+   "ratio": 0.227,
+   "grade": "F",
    "reach": 209.37,
    "reachGrade": "C",
    "binding": null,
    "corners": [
     {
      "at": 1,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
+     "radius": 3.175,
+     "ratio": 0.227,
+     "grade": "F"
     }
    ],
    "need": {
-    "detour": 1.256
+    "detour": 1.278
    }
   },
   {
@@ -1815,7 +1819,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T04:46:17+00:00",
-  "commit": "1a20d78c1922791b5e3de704fdf3a17fce23c4a6"
+  "generated": "2026-08-09T05:10:53+00:00",
+  "commit": "103dca577e2033c3a593574ed031a6dda08c860e"
  }
 }

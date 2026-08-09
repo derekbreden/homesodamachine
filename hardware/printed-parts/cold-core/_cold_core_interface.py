@@ -797,11 +797,19 @@ state(
 # the lane to the bottom plate's port crosses the ring, and the ring is four bearing segments
 # with four slots between them (`_support_ring`); a reach that misses a slot would have to be
 # bored through a segment that carries the vessel. `_port_cuts.co2-inlet-slot` is that fence,
-# and `co2_lane_x` is the column whose lean lands inside slot four — the same distance out the
-# old −X column stood, mirrored, because the slots are what set it either way. What the +X
-# half then leaves the lane's own traffic is measured rather than restated: `cold-core-layout`'s
+# and `co2_lane_x` is the column whose lean lands inside slot four. What the +X half then
+# leaves the lane's own traffic is measured rather than restated: `cold-core-layout`'s
 # `lines-apart` and `routes-fit` read it off the solids.
 co2_lane_x = 72.5
+# THE RING IS AT THE FLOOR AND THE CONDUIT IS IN THE CAP, so one column does not have to serve
+# both. The line falls the lane, runs along its floor and only then leans in, and it is the LEAN
+# the ring reads — a jog along the lane costs the run nothing it was not already spending, since
+# it turns on that floor either way. Splitting them frees the cap conduit to stand where the
+# APPLIANCE has room for it: the conduit is what the enclosure's CO2 chain comes down onto, and
+# `co2_lane_x` mirrored put it under the Mean Well's potted middle, which is the one body on that
+# flank reaching inboard of its own column. Enclosure y is `319.5 − x` here, so this column lands
+# the chain at y 309, forward of the supply and outboard of the PCBA's face.
+co2_cap_x = -co2_lane_x
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
@@ -809,7 +817,7 @@ cap_conduits = {
     "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": (48.5, -port_lane_mid_y),
-    "co2-in": (-co2_lane_x, -port_lane_mid_y),
+    "co2-in": (co2_cap_x, -port_lane_mid_y),
 }
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.

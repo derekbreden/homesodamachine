@@ -264,12 +264,16 @@ def _routes():
             (forward_band_x, a_riser_y, pocket_storey_z),
             (forward_band_x, a_riser_y, shell_top_z),
         ],
-        # The only line that runs down, and the only riser the port lane carries. It falls
-        # the whole shell on the lane's +X half — the stretch nothing crossing it travels —
-        # and turns ONCE, out in the open at the bottom, straight onto the leaning reach that
-        # bores the support ring to the collet under the bottom plate's lane-side port.
+        # The only line that runs down, and the only riser the port lane carries. It falls the
+        # whole shell on the CAP CONDUIT's column, runs the lane's floor to the column the
+        # support ring leaves it, and only there leans in to the collet under the bottom
+        # plate's lane-side port. The fall and the lean stand apart because the ring is at the
+        # floor and the conduit is in the cap: the run turns on that floor either way, so the
+        # floor leg buys the conduit its own column for the price of a turn already spent.
         "co2-in": [
             (co2_x, co2_lane_y, shell_top_z),
+        ] + ([(co2_x, co2_lane_y, co2_inlet_lane_xyz[2])]
+             if abs(co2_x - co2_inlet_lane_xyz[0]) > 1e-9 else []) + [
             co2_inlet_lane_xyz,
             co2_inlet_xyz,
         ],

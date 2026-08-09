@@ -33,6 +33,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_x,
     cap_conduit_shell_xy,
     co2_inlet_y,
+    co2_lane_x,
     lldpe_tube_od,
     port_lane_mid_y,
     support_ring_radial_width,
@@ -150,7 +151,10 @@ state(
 # one line, which is what the collet asks for: a tube still bending never bottoms in it.
 # `foam_assembly` probes that last leg straight at every build.
 co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
-co2_inlet_lane_xyz = cap_conduit_shell_xy("co2-in") + (front_face_port_z,)
+# WHERE THE LEAN STARTS, which is not where the fall lands. The line falls the lane on the cap
+# conduit's own column and runs along the lane's floor to this one before it turns in, so this
+# is the column the ring reads and the conduit above is free of it.
+co2_inlet_lane_xyz = (co2_lane_x, port_lane_mid_y, front_face_port_z)
 co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
 
 # AND IT CROSSES THE RING IN A SLOT, like the water outlet does. The ring is four bearing
@@ -170,11 +174,14 @@ state(
      f"azimuths {_co2_crossing[0]:.1f}°..{_co2_crossing[1]:.1f}°, which no slot of "
      f"{ring_slot_spans()} holds — the line would have to be bored through a bearing "
      f"segment that carries the vessel"))
+# The fall and the lean now stand on their own columns, so what this holds is the CAP CONDUIT
+# on the lane — the end that is free to move, and the one whose drift would leave the line
+# falling somewhere the lane does not run.
 state(
     "co2-bore-meets-fall", "The CO2 bore is struck where its line falls down the lane",
     f"the co2-in conduit on the port lane ({port_lane_mid_y:g})",
-    abs(co2_inlet_lane_xyz[1] - port_lane_mid_y) < 1e-9,
-    f"the co2-in conduit stands at y {co2_inlet_lane_xyz[1]:g}, off the port lane "
+    abs(cap_conduit_shell_xy("co2-in")[1] - port_lane_mid_y) < 1e-9,
+    f"the co2-in conduit stands at y {cap_conduit_shell_xy('co2-in')[1]:g}, off the port lane "
     f"({port_lane_mid_y:g}) its line falls down — the bore is struck to meet that fall")
 
 # Reservoir DRAW pass-throughs — each reservoir's 1/4" LLDPE line off its floor bulkhead,
