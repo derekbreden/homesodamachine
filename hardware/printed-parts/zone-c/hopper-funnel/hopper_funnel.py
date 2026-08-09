@@ -84,8 +84,17 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
 chute_h = 27.65        # straight rectangular chute height — brim top down to the ramp start
-neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
-                        # run stays short, so the grade costs the least depth
+neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
+                        # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
+                        # centre: the two source valves leave it between their coils and the
+                        # east one is stepped outboard (`manifold_layout.SOURCE_SPREAD`), so its
+                        # middle lies half that spread east. A collar centred in the top wall's
+                        # frame and a neck centred in the collar would hang the spout against
+                        # the west coil — `fluid-4` falls one straight column off this tip and
+                        # has no corner to spend stepping across. The offset costs depth, since
+                        # it lengthens the floor's long half-run and one rise serves every run,
+                        # and what pays for it is the fall under the spout
+                        # (`enclosure_assembly.build_funnel`, held by `room-holds`).
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
                         # sticky and the basin has to come out of the machine clean, so

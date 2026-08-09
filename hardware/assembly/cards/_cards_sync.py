@@ -175,7 +175,7 @@ def enclosure(m: Machine):
         "the Z seams no longer pin per Y column and EN-07 closes them one column at a time")
 
     # The hopper opening's own rectangle against the seam it may cross.
-    hx0, hx1, hy0, hy1 = _enc._hopper_hole(box.inner, box.outer, box.y_joint, box.funnel)
+    hx0, hx1, hy0, hy1 = _enc._hopper_hole(box.funnel)
     hopper_pieces = ("both top pieces" if hy1 > box.y_joint
                      else "`enclosure-front-top`")
     assert abs((hx0 + hx1) / 2.0 - (ox0 + ox1) / 2.0) < 1e-6, (

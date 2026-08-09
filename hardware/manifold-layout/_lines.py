@@ -687,8 +687,20 @@ GATE_LANE_Y = 175.0
 # EAST the crossing is the far end of the lean itself: the lean is steep, tops out one board's
 # depth behind the hopper, and turns straight into the crossing, so the two share a corner. It
 # also stands AHEAD of the carb riser's own crossing, which reaches this line's column further
-# aft.
-GATE_A_DECK_Y = 264.0
+# aft — and the riser is what actually sets it. `carb-1` climbs the cap's `carb-water-out`
+# conduit on one column that runs the machine's whole height, so it crosses this storey whatever
+# storey this is; the only room between them is Y, and this is the plane that leaves it. Struck
+# off the riser rather than stated, so a conduit that moves takes the crossing with it.
+GATE_A_RISER_CLEAR = 2.0
+
+
+def _gate_a_deck_y(F) -> float:
+    """Where the east gate's lean tops out — one clear section forward of the carb riser.
+
+    The lean and the crossing SHARE THIS CORNER, so the arc that joins them leans back toward
+    the riser and the two are nearest on the arc rather than on either straight. That is what
+    `GATE_A_RISER_CLEAR` is over and above the two half-sections."""
+    return F["foam-assembly"].at("carb-water-out")[1] - _split.TUBE_D - GATE_A_RISER_CLEAR
 # WEST the union stands 8 mm off the lane, which is not two stock arcs — so the lean runs on aft
 # past the ASSE chain and the step inboard is taken as one plan DIAGONAL, with the reach aft in it
 # to make the leg.
@@ -774,12 +786,13 @@ def _fluid_18(F, solids):
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
     climb = _gate_climb_under_cruise(F)
+    deck_y = _gate_a_deck_y(F)
     return R.bent(
         "fluid-18", "valve-v-g.outlet",
         (gate[0], gate[1], climb),                        # up what the reservoir stub leaves
         (GATE_LANE_X, GATE_LANE_Y, climb),                # one diagonal east and aft into the lane
-        (GATE_LANE_X, GATE_A_DECK_Y, GATE_A_CROSS_Z),     # one lean aft and up onto the crossing
-        (tin[0], GATE_A_DECK_Y, GATE_A_CROSS_Z),          # west across the machine, fore of the pump
+        (GATE_LANE_X, deck_y, GATE_A_CROSS_Z),            # one lean aft and up onto the crossing
+        (tin[0], deck_y, GATE_A_CROSS_Z),                 # west across the machine, fore of the pump
         (tin[0], GATE_A_FALL_Y, tin[2]),                  # down the column onto the union's storey
         "bulkhead-flavor-a.tube-in",                      # and straight aft into the collet
         kind="fluid", bend=TUBE_BEND,
