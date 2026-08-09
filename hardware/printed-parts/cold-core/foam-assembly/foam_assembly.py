@@ -2,6 +2,12 @@
 they are in the finished build, so the cap orientation and the screw-hole
 alignment can be checked before printing.
 
+THIS IS THE CORE AS THE MACHINE SEES IT — five printed pieces and the outside
+faces `enclosure_assembly` loads. `cold-core-layout/cold_core_assembly.py` is
+the same core one frame further in, with the vessel, the coil, both reservoirs
+and every line potted among them; it writes ITS card beside this STEP as well
+as its own, so `/3d` reads one verdict for the core wherever it is opened.
+
 Coordinate frame is the foam shell's (Z+ up, floor on z=0):
 
   * foam-shell spans z = 0 .. 213.4 — floor closed at the bottom, open at
