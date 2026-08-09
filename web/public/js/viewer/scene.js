@@ -28,15 +28,25 @@ import { state } from "./state.js";
 // --- Detail view: Three.js setup ---
 export const canvasHost = document.getElementById("cad-canvas-host");
 
+// Exposure the filmic curve is driven at, shared with step.js's thumbnail renderer.
+export const TONE_EXPOSURE = 1.25;
+
 export const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x1a1a2e);
+// The scene renders through a filmic tone curve. step.js's offscreen thumbnail
+// renderer carries the same curve and exposure, so a grid thumbnail and the
+// detail view of a part are shaded alike.
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = TONE_EXPOSURE;
 renderer.domElement.id = "viewport";
 renderer.domElement.classList.add("cad-viewport");
 canvasHost.appendChild(renderer.domElement);
 
 export const scene = new THREE.Scene();
-export const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
+// near/far are seeded here and fitted to the mounted model every frame by
+// updateDepthRange().
+export const camera = new THREE.PerspectiveCamera(45, 1, 1, 1000);
 export const controls = new TrackballControls(camera, renderer.domElement);
 controls.rotateSpeed = 3;
 controls.panSpeed = 0.2;
@@ -72,21 +82,30 @@ export function afterGesture() {
   return new Promise((resolve) => gestureWaiters.push(resolve));
 }
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-dirLight.position.set(1, 2, 1.5);
-scene.add(dirLight);
-const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
-dirLight2.position.set(-1, -0.5, -1);
-scene.add(dirLight2);
-// Omnidirectional fill so no face reads as black when it faces away from the
-// two directionals (the GLB assemblies have parts pointing every direction).
-scene.add(new THREE.HemisphereLight(0xffffff, 0x333340, 0.5));
 // A neutral studio environment gives metallic PBR materials (the GLB
 // component models — connectors, cans, ICs) something to reflect; without it
 // they render black. STEP parts (near-non-metallic) pick up only a faint sheen.
 const pmrem = new THREE.PMREMGenerator(renderer);
-scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+export const studioEnvironment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+// The rig every 3D surface in the app is lit by. step.js's offscreen thumbnail
+// scene takes the same one, so a part's grid thumbnail and its detail view are
+// lit from the same directions.
+export function addStudioLighting(target) {
+  target.add(new THREE.AmbientLight(0xffffff, 0.5));
+  const key = new THREE.DirectionalLight(0xffffff, 0.8);
+  key.position.set(1, 2, 1.5);
+  target.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.3);
+  fill.position.set(-1, -0.5, -1);
+  target.add(fill);
+  // Omnidirectional fill so no face reads as black when it faces away from the
+  // two directionals (the GLB assemblies have parts pointing every direction).
+  target.add(new THREE.HemisphereLight(0xffffff, 0x333340, 0.5));
+  target.environment = studioEnvironment;
+}
+
+addStudioLighting(scene);
 
 // --- ViewCube ---
 // Each cube face's projected hit area is roughly gizmoSize/2 — Apple HIG
@@ -335,6 +354,49 @@ export function resizeRenderer() {
   controls.screen.width = controls.screen.height;
 }
 
+// --- Depth range ---
+// The camera's near and far planes are fitted to the model in front of them —
+// near at the model's leading edge, far past its trailing one — and refitted
+// as the camera moves. These assemblies mate bodies face to face with nothing
+// between them ([enclosure_assembly.py](/hardware/manifold-layout/enclosure_assembly.py)),
+// so two solids sharing one plane is the ordinary case here.
+//
+// The bounding sphere is measured once per mounted group and reused until the
+// group changes.
+const NEAR_RATIO = 0.002;   // floor on near, as a fraction of the view distance
+const NEAR_REACH = 1.25;    // how much of the model's radius sits ahead of the near plane
+const FAR_REACH = 2.0;      // and how much past the far one, leaving room for rulers and markers
+
+// A camera `distance` from the centre of a model of `radius`, given the planes
+// to see it between. The offscreen thumbnail cameras in step.js and dxf.js take
+// their range from here too, off the framing each shot is composed at.
+export function depthRangeFor(distance, radius) {
+  const near = Math.max(distance - radius * NEAR_REACH, distance * NEAR_RATIO, 1e-4);
+  return { near, far: Math.max(distance + radius * FAR_REACH, near * 1.01) };
+}
+
+export function fitCameraDepth(cam, center, radius) {
+  if (!(radius > 0)) return;
+  const { near, far } = depthRangeFor(cam.position.distanceTo(center), radius);
+  if (near === cam.near && far === cam.far) return;
+  cam.near = near;
+  cam.far = far;
+  cam.updateProjectionMatrix();
+}
+
+let _depthGroup = null;
+const _depthSphere = new THREE.Sphere();
+
+export function updateDepthRange() {
+  const group = state.currentGroup;
+  if (!group) return;
+  if (group !== _depthGroup) {
+    new THREE.Box3().setFromObject(group).getBoundingSphere(_depthSphere);
+    _depthGroup = group;
+  }
+  fitCameraDepth(camera, _depthSphere.center, _depthSphere.radius);
+}
+
 // A frame gap this long is the main thread having been blocked, or the tab
 // hidden — rAF didn't run. The gesture deltas TrackballControls accumulated
 // across the gap describe seconds of hand travel, and the next update() spends
@@ -363,6 +425,7 @@ function animate() {
   if (lastFrameAt && now - lastFrameAt > STALL_MS) dropStalledGesture();
   lastFrameAt = now;
   controls.update();
+  updateDepthRange();
   renderer.render(scene, camera);
   renderGizmo();
 }
@@ -408,6 +471,7 @@ export function resetCamera(group) {
   camera.lookAt(center);
   controls.target.copy(center);
   controls.update();
+  updateDepthRange();
 }
 
 // --- Per-file camera persistence ---
