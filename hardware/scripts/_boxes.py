@@ -38,13 +38,13 @@ def boxed(solid):
 def boxed_solids(shape) -> list:
     """One box per solid the shape is built from, memoized against the shape.
 
-    `shape.Solids()` hands back freshly wrapped sub-shapes on every call, so `boxed()` can never
-    see the same body twice and the whole list is memoized against its parent instead. Read-only:
-    callers share the list, as they share the pack `build()` hands back."""
+    The list is memoized against its parent, and each box in it through `boxed`, so a body that
+    two shapes are both built from is boxed once between them. Read-only: callers share the list,
+    as they share the pack `build()` hands back."""
     key = id(shape.wrapped)
     hit = _SOLIDS_CACHE.get(key)
     if hit is not None:
         return hit[1]
-    boxes = [s.BoundingBox() for s in shape.Solids()]
+    boxes = [boxed(s) for s in shape.Solids()]
     _SOLIDS_CACHE[key] = (shape, boxes)
     return boxes
