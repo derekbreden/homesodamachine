@@ -193,6 +193,12 @@ def selftest():
                 f.unlink()
             dep_dir.rmdir()
     finally:
+        # The entries this run wrote go with the directory it wrote them to: a selftest cache is
+        # one run's, and a machine that runs this often keeps one per run otherwise.
+        for f in _DIR.iterdir() if _DIR.is_dir() else ():
+            f.unlink()
+        if _DIR.is_dir():
+            _DIR.rmdir()
         _DIR = held
 
 
