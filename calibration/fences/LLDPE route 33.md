@@ -1929,7 +1929,7 @@ Largest contiguous free boxes:
 | 158.8 | 98 × 54 × 30 | x[0,98] y[326,380] z[253.4,283.4] |
 | 134.0 | 92 × 104 × 14 | x[192,284] y[200,304] z[313.4,327.4] |
 
-**Tell him this plainly: the electronics cannot come back into this bay.** Their envelopes are `power-assembly` 151.1 × 73.9 × 40.5, `pcba-assembly` 90.8 × 73.3 × 27.1, `dc-dist-block` 50 × 26 × 18. The deepest free run anywhere is 28 mm (front strip) or 54 mm (aft-west). Even the DC block (26 deep) only fits the aft-west pocket. The survivors are **slabs, not blocks** — cable lanes and small-fitting real estate, nothing more.
+**Tell him this plainly: the electronics cannot come back into this bay.** Their envelopes are `power-assembly` 151.1 × 73.9 × 40.5 and `pcba-assembly` 90.8 × 73.3 × 27.1. The deepest free run anywhere is 28 mm (front strip) or 54 mm (aft-west). The survivors are **slabs, not blocks** — cable lanes and small-fitting real estate, nothing more.
 
 ## 7. What I could not close
 
