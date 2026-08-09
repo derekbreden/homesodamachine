@@ -6,7 +6,7 @@
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { scene, camera, resetCamera } from "./scene.js";
+import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, TONE_EXPOSURE } from "./scene.js";
 import { applyXray } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
@@ -102,9 +102,15 @@ function materialsFor(color) {
     const back = color
       ? new THREE.Color(color[0] * BACK_DARKEN, color[1] * BACK_DARKEN, color[2] * BACK_DARKEN)
       : new THREE.Color(DEFAULT_BACK);
+    // Surfaces sit a depth-unit back, so the feature edges xray.js draws on
+    // these same triangles resolve in front of them.
+    const shading = {
+      metalness: 0.1, roughness: 0.6,
+      polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
+    };
     pair = {
-      front: new THREE.MeshStandardMaterial({ color: front, metalness: 0.1, roughness: 0.6 }),
-      back: new THREE.MeshStandardMaterial({ color: back, metalness: 0.1, roughness: 0.6, side: THREE.BackSide }),
+      front: new THREE.MeshStandardMaterial({ color: front, ...shading }),
+      back: new THREE.MeshStandardMaterial({ color: back, ...shading, side: THREE.BackSide }),
     };
     _matCache.set(key, pair);
   }
@@ -199,15 +205,11 @@ const thumbRenderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawing
 thumbRenderer.setSize(400, 400);
 thumbRenderer.setPixelRatio(1);
 thumbRenderer.setClearColor(0x1a1a2e);
+thumbRenderer.toneMapping = THREE.ACESFilmicToneMapping;
+thumbRenderer.toneMappingExposure = TONE_EXPOSURE;
 const thumbScene = new THREE.Scene();
-const thumbCam = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
-thumbScene.add(new THREE.AmbientLight(0xffffff, 0.5));
-const tl = new THREE.DirectionalLight(0xffffff, 0.8);
-tl.position.set(1, 2, 1.5);
-thumbScene.add(tl);
-const tl2 = new THREE.DirectionalLight(0xffffff, 0.3);
-tl2.position.set(-1, -0.5, -1);
-thumbScene.add(tl2);
+const thumbCam = new THREE.PerspectiveCamera(45, 1, 1, 1000);
+addStudioLighting(thumbScene);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.
@@ -231,6 +233,7 @@ export function snapThumbnail(group) {
     center.z + dist * Math.sin(el)
   );
   thumbCam.lookAt(center);
+  fitCameraDepth(thumbCam, center, size.length() / 2);
 
   thumbRenderer.render(thumbScene, thumbCam);
   const dataURL = thumbRenderer.domElement.toDataURL();
