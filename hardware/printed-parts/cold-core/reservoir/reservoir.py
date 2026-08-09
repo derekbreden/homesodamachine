@@ -241,7 +241,7 @@ reservoir_count = len(fill_position)
 # half in the wider part of the cavity (~38 mm wide at y=+45 vs ~24 mm at
 # y=0) where the donut float has clearance, clear of all screw bosses and
 # the vent boss.
-rod_position_x = 107.0  # |x| of the rod centerline; mirrors with `side`
+# `rod_position_x` is struck off the cavity's own far wall, further down with that wall.
 rod_position_y = level_rod_y  # y of the rod centerline; does NOT mirror with side —
 # the reed column outside stands on this same station (`_cold_core_interface.level_rod_y`)
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD
@@ -434,6 +434,37 @@ outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearan
 inner_far_x_abs = outer_far_x_abs - reservoir_wall_thickness
 inner_y_max = outer_y_max - reservoir_wall_thickness
 inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
+
+# WHERE THE LEVEL ROD PARKS, and it is a statement about the wall above rather than a station of
+# its own. The reed column stands outside `inner_far_x_abs` (`_internals.REED_COLUMN_X`) and
+# magnetic coupling falls off fast across a wall, so the float is NOT concentric on its rod: the
+# rod is parked outboard of where a concentric capsule would touch, and the capsule's own loose
+# bore spends that difference, so the wall holds the magnet against itself for the whole travel.
+# The carbonator makes the same move on the tank's bore — `endcap_circular_dxf.magnet_wall_bias`.
+# Parking it off the wall is what keeps a wall that moves carrying its rod.
+#   The two donor figures below are the assembly's as well (`_internals.FLOAT_SLOP` reads them
+# from `_fittings`), and `cold-core-layout`'s `floats-couple` grades the pair against the bench
+# reach — so the two drifting apart comes back as a standoff the reed cannot read, not silence.
+float_capsule_od = 28.0    # the harvested donor float ball, `bom.md` §12
+float_capsule_bore = 9.75  # its own bore: made for the donor's stem, so it is LOOSE on this rod
+# How far past touching the rod stands. Under the carbonator's 3.0 because this wall is printed
+# PETG and gives, where the tank's is rigid 316 — and it has to stay under the slop below or the
+# capsule cannot reach the rod inside the wall at all.
+magnet_wall_bias = 2.5
+rod_position_x = inner_far_x_abs - float_capsule_od / 2.0 + magnet_wall_bias
+state(
+    "reservoir-float-reaches-rod", "The capsule's bore has the slop the park spends",
+    f"a bias under {(float_capsule_bore - rod_diameter) / 2.0:g} mm",
+    magnet_wall_bias < (float_capsule_bore - rod_diameter) / 2.0,
+    f"the rod is parked {magnet_wall_bias:g} mm past touching against a capsule with only "
+    f"{(float_capsule_bore - rod_diameter) / 2.0:g} mm of radial freedom on it, so the float "
+    f"cannot be on the rod and against the wall at once")
+state(
+    "reservoir-rod-boss-inboard", "The rod's anchor boss stands clear of the cavity wall",
+    f"a boss inboard of {inner_far_x_abs:g} mm",
+    rod_position_x + rod_boss_od / 2.0 < inner_far_x_abs,
+    f"the rod's diameter-{rod_boss_od:g} anchor boss reaches "
+    f"{rod_position_x + rod_boss_od / 2.0:g} against a cavity wall at {inner_far_x_abs:g}")
 
 # Interior angles of the corners where the centerward arc meets the ±Y walls
 # — DERIVED from the geometry, not eyeballed. The arc tangent crosses the
@@ -1295,6 +1326,8 @@ def main():
         # level-sensing.md rod placement + size + reed count.
         "ROD_DIAMETER": f"{rod_diameter:.4g} mm",
         "ROD_POSITION_X": f"{rod_position_x:.4g}",
+        "CAVITY_FAR_WALL_X": f"{inner_far_x_abs:.4g}",
+        "MAGNET_WALL_BIAS": f"{magnet_wall_bias:.4g} mm",
         "ROD_POSITION_Y": f"{rod_position_y:.4g}",
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "RESERVOIR_ROD_LEN": f"{reservoir_rod_len:.4g} mm ({reservoir_rod_len / 25.4:.3g} in)",
