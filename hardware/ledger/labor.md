@@ -6,7 +6,7 @@ Attended human minutes to build one finished appliance, one row per hand operati
 
 **An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per vessel), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
 
-**The pace is a line's, not a bench's.** Twenty units an hour — three minutes an operation — is a relaxed rate for the repetitive work, so an operation of that shape gets 5 minutes, not 10. Forty-two machine screws is seven seconds each with a driver; forty-two heat-set inserts is fourteen seconds each with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
+**The pace is a line's, not a bench's.** Twenty units an hour — three minutes an operation — is a relaxed rate for the repetitive work, so an operation of that shape gets 5 minutes, not 10. A machine screw is seven seconds with a driver; a heat-set insert is fourteen seconds with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
 
 **Costed at [$100](LABOR_RATE) per hour of attended time.** That rate is what [`/cost`](/cost) prices the labor column with; it reads the number from the marker above, so this file sets it.
 
@@ -108,25 +108,25 @@ Every wetted and gas joint in the unit: the vessel's four elbow stacks, the seve
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
 | CO2 path — rear wall to cold core | IP-01 | | 10 |
 | Water path — rear wall to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
-| Flavor manifold — valves, tees, pumps and channels | IP-03, IP-04 | Six valve trays, two peristaltic pumps, two channels | 15 |
+| Flavor manifold — valves, tees, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) valves butted collet to collet down the pack's limbs, two peristaltic pumps, two channels | 15 |
 | Risers to the umbilical bulkheads | IP-05 | | 5 |
 | Witness and tidy every joint | IP-06 | The pass that makes the next leak someone else's fault | 5 |
 | **Plumbing** | | | **[70](LAB_SEC7)** |
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.3 kg of filament across the twenty-one §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the 42 heat-set inserts and the 42 machine screws that close the build.
+Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.3 kg of filament across the twenty-one §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [52](TOTAL_M3_INSERTS) heat-set inserts and the [52](TOTAL_M3_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.3 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
-| Press 42 heat-set inserts — foam caps, reservoir caps, touch-flo pods | CC-05 | FX-888D + T18 tip kit, twelve of them in the shell faces alone | 10 |
-| Drive the 42 machine screws that close the build | — | 12 foam-cap, 12 reservoir-cap, 3 touch-flo, 15 shelf | 5 |
+| Press the [52](TOTAL_M3_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [12](FOAM_CLAMP_INSERTS) of them in the shell faces alone | 10 |
+| Drive the [52](TOTAL_M3_SCREWS) machine screws that close the build | — | [12](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) touch-flo, [17](SHELF_SCREWS) shelf, [4](FLOOR_SCREWS) floor | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
 | Dress the vessel wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
 | Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
-| Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s fifteen +X wall bosses | 5 |
+| Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
 | Stage the four printed pieces and the rear wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M3 each, on the grommets' bushings | 10 |
 | Seat the cold core; condenser, power column, close the box, drip tray | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-04, FU-05 | Three LLDPE tubes, braid, install-kit bag | 10 |
@@ -193,4 +193,5 @@ The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM)
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/hardware/scripts/_bom_sync.py`
 - `/hardware/scripts/_labor_totals.py`

@@ -748,19 +748,12 @@ def run_world(a, runs) -> tuple:
 
 
 def _lines_clear(a, runs) -> Check:
-    """The tube-interpenetration gate, asked with the boolean that resolves a tangency.
+    """The tube-interpenetration gate, read over the run population on its own.
 
-    `pack-closes` reads every pair in the assembly, tubes included, through one `intersect`. That
-    is the ask `_overlap` was written because of: two tubes of one Ø crossing on ONE STRATUM are
-    exactly tangent along the section, OCCT hands back an empty result with no error, and a whole
-    Steinmetz solid of interpenetration reports as zero. A port row fixing two runs to a single z
-    is how a pack builds that arrangement on purpose, so the case a single ask is blind to is the
-    case this machine is most likely to have.
-
-    So the runs are asked again, with `_overlap.common`'s fuzz retry — tube against tube, and
-    tube against every body, piece and manifold segment it does not TERMINATE on. The two bodies
-    a run ends on are held out because a tube seats into their collets by design, which is the
-    one overlap here that is not a defect.
+    `pack-closes` reads every pair in the assembly, tubes included. This asks the runs again —
+    tube against tube, and tube against every body, piece and manifold segment it does not
+    TERMINATE on. The two bodies a run ends on are held out because a tube seats into their
+    collets by design, which is the one overlap here that is not a defect.
 
     The swept solids come off the assembly rather than being swept again: `_lines.tubes` already
     built each run's tube and `enclosure_assembly` added it under `tube-<connection>`, and a second
@@ -924,7 +917,7 @@ def part_clearances(a, runs=()) -> list[tuple]:
                 continue
             if _clearing.box_gap(boxes[x], boxes[y]) >= REPORT_NEAR:
                 continue
-            g = _clearing.gap(bodies[x], bodies[y])
+            g = _clearing.gap(bodies[x], bodies[y], REPORT_NEAR)
             if g < REPORT_NEAR:
                 out.append((x, y, g, frozenset((x, y)) in TOUCHING_OK))
     out += run_clearances(a, runs)
@@ -952,14 +945,14 @@ def run_clearances(a, runs) -> list[tuple]:
         for y in ids[i + 1:]:
             if _clearing.box_gap(tbb[x], tbb[y]) >= REPORT_NEAR:
                 continue
-            g = _clearing.gap(tubes[x], tubes[y])
+            g = _clearing.gap(tubes[x], tubes[y], REPORT_NEAR)
             if g < REPORT_NEAR:
                 out.append((x, y, g, False))
     for i in ids:
         for name, solid in rest.items():
             if name in ends[i] or _clearing.box_gap(tbb[i], rbb[name]) >= REPORT_NEAR:
                 continue
-            g = _clearing.gap(tubes[i], solid)
+            g = _clearing.gap(tubes[i], solid, REPORT_NEAR)
             if g < REPORT_NEAR:
                 out.append((i, name, g, frozenset((i, name)) in TOUCHING_OK))
     return out
@@ -972,8 +965,8 @@ def lane_notes(a, runs, rows) -> list[str]:
     A run under the floor against two bodies at once is in a lane too narrow for its own stock,
     and the number that explains it belongs to the two bodies rather than to the run. Half of
     what the lane leaves over the tube's Ø is the best a centred run can do there, so a run
-    already at that figure is one to move a BODY for. Measured exactly, like every other gap on
-    this card, which is what puts a FORCED tightness on the record as forced.
+    already at that figure is one to move a BODY for, which is what puts a FORCED tightness on
+    the record as forced.
 
     The pair inside the flavour manifold that a lane is made of is measured HERE and nowhere
     else. `part_clearances` skips it — the pack reports its own inner gaps — but a run threading
@@ -1000,7 +993,9 @@ def lane_notes(a, runs, rows) -> list[str]:
             continue
         hits.sort()
         (ga, p), (gb, q) = hits[0], hits[1]
-        lane = _clearing.gap(bodies[p], bodies[q])
+        # The tube stands `ga` off one body and `gb` off the other, so the two cannot be further
+        # apart than the stack they sandwich — a horizon the lane is bound to fall inside.
+        lane = _clearing.gap(bodies[p], bodies[q], ga + od[rid] + gb)
         side = (lane - od[rid]) / 2.0
         note = (f"{rid} threads {p} — {q}: they leave {lane:.3f} mm and the tube is "
                 f"Ø{od[rid]:g}, so {side:.3f} mm a side")
