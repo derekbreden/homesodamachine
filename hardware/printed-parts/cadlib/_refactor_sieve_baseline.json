@@ -1,22 +1,19 @@
 {
   "byte_hashed_steps": {
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "bcc7b832548d0b7fdfb2659603d9c3ce9adf865f52da815819bfa75eda6b7a35",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "89a68d736b1c48f335e473003eb7a8929096c06a095a6ab137c050418e5cde45",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "fa44cfd19c676e22f8c0e1763ab7c4e2967a12483a570669bdcb6bbbb9261f79",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "11e7b91641c44d73e40dc9b9b931d341771f1afd7ee579f83f5dcfe650a7b344",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "1668375c34b3fcfdc61a627ab6850175d6028e04f4aca67be61e4aa4cb1639b8",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "af38781f4ab3a08039893efe7ca65bbdbaaa599a01115176848cb8e430f61f64",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "54bf489f3f6a2574ad58b298a371b627a9b6315031b8507bc2ba67cefd144287",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "9798dc2818b5892039e2ce491d5691cf5f376250e9862808c8ba983f20af1006",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "a9a70d354d7a8dd8a30a4fb13de49946d81bc1e27d07e662e4b08ea1c8653ff2",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "a867804573f33eabe2c2b8cfa91acbd33e242a8842b6e21d1eef92dbee7dbd61",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "6aba51affb4dad8b4a118a1c876173d049d3ee2178790c7a6463f2c76cdde632",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "48b65eda2cb58186a84b1e89a83f635ffefcd413710dd01ddbcc2ead18b93a7e",
-    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "73f043f31775cc1be01fe73d82e9cc523ec54e508ba72966f3e5b4fb50b19561",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "1da82266900989e51787713659d5f7b4044a9185c362edeff745ef1758bc8b35",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "611abc1683e078cf01e12bb1af5ffbb0d5c8ce51f716056bab77c62df61610f3",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "eb439fce64b1e54370463c74a7a335e9c2677db066078cc96e4ad21ef629ff13",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "1c873101254c00d22470193cbc704aa29d6dcda361f65b2b3c97d71a8cae23f6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "837c68300a32435958413614ff65d4ee816e967055eb02978e7915a1e88885af",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "2633d0a3bd16987256896f9ba76dfcca1f35b7b26d1d283f139bebd874357e9f",
+    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "4ae9689274ad312c51d012a509e8cdc6807e56f6b67a418607eaa163dedaf3d8",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step": "f8ab883439223401a89df993c9804161d8dead2be96bc2847722f73fc5ef927a",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step": "ba58bca947c5d87316b4d55b87eadc9af1b9c7940ac5f76bc5cfdac6d1c7bfe5",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step": "70a6020b4059216ddd69ac37d62cc0f8ba9a5b257ebdcb8335dc494204e9af40",
-    "hardware/printed-parts/valve-manifold/single-tray/single-tray.step": "0414e07e2446f5f2e95e041fe26e6e16843f26bab403d3db0931ffad682017b5",
-    "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-assembly.step": "25e8a82c268c08db85987eef0f707fda398741d579a9c7ac34c0093c64b27cb5",
-    "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-tray.step": "ed3ecc6a33fc97ec20cd482495f32374e9ddf58b47476d9f346b7d3cad7e884f",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step": "387a00acf9fa173cdc812c89b38756b1a13076f7401126307a9fd5dbe4dfd878",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "abd56c3925693a5caa252ec65a34594b8fa82a559dfe9b6f272620dcdfc7a95f",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "cdb1f50267574a28c20da4de8905f6f32b3356c88d40956ec9194aa94056e5a9",
@@ -184,7 +181,7 @@
         "zmin": 24.6
       },
       "com": {
-        "x": -95.0633,
+        "x": -95.0685,
         "y": 0.0226,
         "z": 97.9716
       },
@@ -200,7 +197,7 @@
         "zmin": 24.6
       },
       "com": {
-        "x": 95.0633,
+        "x": 95.0685,
         "y": 0.0226,
         "z": 97.9716
       },
@@ -248,7 +245,7 @@
         "zmin": -2.0
       },
       "com": {
-        "x": -98.0536,
+        "x": -98.0946,
         "y": 0.4248,
         "z": 5.6167
       },
@@ -264,7 +261,7 @@
         "zmin": -2.0
       },
       "com": {
-        "x": 98.1302,
+        "x": 98.1712,
         "y": -0.1006,
         "z": 5.6167
       },

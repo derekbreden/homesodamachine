@@ -2,7 +2,7 @@
 
 The production fitting is the **John Guest PP0308E** 1/4" union elbow, black PP
 — already in the BOM (`hardware/ledger/bom.md` §4) for the CO2-path bend, and
-the 90° elbow the [valve manifold](/hardware/printed-parts/valve-manifold/)
+the 90° elbow the [flavour pack](/hardware/manifold-layout/)
 sets on the **outer (unoccupied) port of every valve** to turn the line up out
 of the tray.
 

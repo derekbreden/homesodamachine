@@ -344,7 +344,7 @@
   },
   {
    "id": "cradle-room",
-   "label": "Every cradle pad stands its room off everything else the face opens",
+   "label": "Every cradle boss stands its room off everything else the face opens",
    "kind": "gate",
    "status": "pass",
    "value": "3/3 hold",
@@ -354,7 +354,7 @@
   },
   {
    "id": "cradle-pour",
-   "label": "Every cradle pad has a floor under it where the pour hole is",
+   "label": "Every cradle boss has a floor under it where the pour hole is",
    "kind": "gate",
    "status": "pass",
    "value": "12/12 hold",
@@ -364,7 +364,7 @@
   },
   {
    "id": "cradle-vent",
-   "label": "Every cradle pad has a floor under it where the vents are",
+   "label": "Every cradle boss has a floor under it where the vents are",
    "kind": "gate",
    "status": "pass",
    "value": "24/24 hold",
@@ -2268,6 +2268,14 @@
     [
      -90.5,
      178.0,
+     248.2,
+     90.5,
+     461.0,
+     262.015
+    ],
+    [
+     -90.5,
+     178.0,
      20.0,
      90.5,
      461.0,
@@ -2296,17 +2304,9 @@
      90.5,
      461.0,
      20.0
-    ],
-    [
-     -90.5,
-     178.0,
-     248.2,
-     90.5,
-     461.0,
-     262.015
     ]
    ],
-   "fill": 0.1127,
+   "fill": 0.1113,
    "primitive": false,
    "declared": null
   },
@@ -5812,7 +5812,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T15:10:28+00:00",
-  "commit": "8279f6b678b48524284fa3f8e4d095e23fbc94cb"
+  "generated": "2026-08-09T15:50:34+00:00",
+  "commit": "be5688392243b0f220a6c498f41c6da8c3d636a1"
  }
 }

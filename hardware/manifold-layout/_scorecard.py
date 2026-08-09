@@ -373,8 +373,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "seaflo-pump"),
     ("foam-assembly", "psu"),
     # THE THREE VALVES IN THE CAP'S OWN CRADLES. A press fit is a contact by construction: the
-    # cell's sockets take the valve's four corner posts on `single_tray.socket_clearance` and
-    # its round boss lands on the pad top, so the pair reads 0 and it is the joint working.
+    # bosses' sockets take the valve's four corner posts on `valve_seat.socket_clearance` and
+    # its round boss lands on the boss tops, so the pair reads 0 and it is the joint working.
     # `enclosure_assembly.check_cradles` is what holds each of them over its own cradle.
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),

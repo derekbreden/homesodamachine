@@ -153,8 +153,8 @@ def from_assembly(assembly):
     the STEP the viewer reads carries the color.
 
     A STEP carries an assembly's color only where a component is a single solid.
-    Give a component several — the reference sub-assemblies, the valve-manifold
-    trays — and the color lands on a node whose leaves occt-import-js reports
+    Give a component several — the reference sub-assemblies, the flavour
+    pack — and the color lands on a node whose leaves occt-import-js reports
     uncolored, so the viewer draws them default gray. Colouring them here
     instead would repaint ~50 solids of the enclosure that its detail view
     leaves gray, which is the one thing a handed-over tessellation must not do.
