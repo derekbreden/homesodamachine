@@ -2,25 +2,19 @@
  "gatesPass": false,
  "placed": 100,
  "located": 100,
- "shaped": 92,
+ "shaped": 97,
  "routed": 100,
- "held": 91,
- "mounted": 27,
+ "held": 92,
+ "mounted": 31,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "fail",
-   "value": "67/72 declared",
+   "status": "pass",
+   "value": "77/77 declared",
    "target": "all declared",
-   "detail": [
-    "placed, undeclared: wago-mana",
-    "placed, undeclared: wago-manb",
-    "placed, undeclared: wago-reeds-a",
-    "placed, undeclared: wago-reeds-b",
-    "placed, undeclared: wago-sensors"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -28,14 +22,16 @@
    "label": "Every derived pose has the room its own construction states",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 bands held, tightest +0.715 mm",
+   "value": "9/9 bands held, tightest +0.715 mm",
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 6, has 6.715",
     "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.913",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 6, has 9.000",
+    "mpr121: the band it lies in, either side \u2014 wants 10.16, has 14.531",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 14.000",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
+    "bpv31: free straight off the flare port \u2014 wants 50.8, has 152.400",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
@@ -45,13 +41,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "wago-reeds-b \u2229 enclosure-back-top   1032.3 mm\u00b3, x[  -98.35,  -94.50] y[  222.10,  231.40] z[  281.10,  310.90]",
-    "wago-reeds-a \u2229 enclosure-back-top   388.5 mm\u00b3, x[  -98.20,  -94.50] y[  455.70,  459.20] z[  289.00,  319.00]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -106,25 +99,29 @@
     "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
+    "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
+    "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.000 mm \u2014 seated against it",
     "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "fluid-18 \u2014 cap-sleeve-a: 0.050 mm \u2014 seated against it",
+    "fluid-28 \u2014 cap-sleeve-b: 0.050 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "water-split \u2014 discharge-chain: 1.000 mm",
-    "co2-2 \u2014 fluid-14: 1.069 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
-    "co2-2 \u2014 hopper-funnel: 1.362 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
     "water-5 \u2014 fluid-24: 1.760 mm",
     "carb-1 \u2014 suction-chain: 1.775 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "asse1022-assembly \u2014 digiten-flow: 1.860 mm",
     "fluid-14 \u2014 gasher-co2: 1.956 mm",
+    "co2-2 \u2014 fluid-14: 2.000 mm",
     "carb-1 \u2014 pcba: 2.475 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-2: 2.500 mm",
     "relay-2 \u2014 pcba: 2.532 mm",
     "pcba \u2014 relay-1: 2.532 mm",
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
+    "co2-2 \u2014 relay-2: 2.661 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 2.761 mm",
     "water-7 \u2014 co2-2: 2.861 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
@@ -140,13 +137,11 @@
     "fluid-2 \u2014 fluid-26: 3.717 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
-    "co2-2 \u2014 carb-1: 3.836 mm",
     "carb-1 \u2014 fluid-18: 3.895 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
-    "co2-2 \u2014 fluid-18: 4.150 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
+    "foam-assembly \u2014 mpr121: 4.371 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
-    "co2-2 \u2014 suction-chain: 4.568 mm",
     "fluid-2 \u2014 valve-v-b: 4.583 mm",
     "fluid-24 \u2014 fluid-26: 4.601 mm",
     "coil-v-i \u2014 wago-manb: 4.680 mm",
@@ -156,6 +151,8 @@
     "water-3 \u2014 tee-y-a: 5.075 mm",
     "water-3 \u2014 tee-y-b: 5.075 mm",
     "water-2 \u2014 discharge-chain: 5.154 mm",
+    "tee-y-b \u2014 mpr121: 5.366 mm",
+    "tee-y-a \u2014 mpr121: 5.366 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
@@ -164,6 +161,8 @@
     "psu \u2014 wago-gnd: 5.650 mm",
     "water-6 \u2014 enclosure-back-top: 5.650 mm",
     "fluid-14 \u2014 hopper-funnel: 5.694 mm",
+    "compressor \u2014 bpv31: 5.710 mm",
+    "fluid-28 \u2014 wago-reeds-b: 5.827 mm",
     "fluid-24 \u2014 coil-v-b: 5.850 mm",
     "relay-2 \u2014 relay-1: 5.860 mm",
     "carb-1 \u2014 fluid-14: 5.936 mm"
@@ -391,6 +390,16 @@
    "active": true
   },
   {
+   "id": "pump-motor-room",
+   "label": "The pump's own length leaves its motor a can to be",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a motor longer than nothing",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "limb-pitch-ceiling",
    "label": "The lanes step inboard of the barbs, never outboard",
    "kind": "gate",
@@ -441,6 +450,26 @@
    "active": true
   },
   {
+   "id": "fuse-clamp-donor",
+   "label": "The clamp closes on features the compressor actually has",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 hold",
+   "target": "head inside the cover's face, leaves filling its gap and short of its shell",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "fuse-clamp-lead",
+   "label": "The clamp lets the cutoff's lead go where a bend becomes legal",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "channel past the case \u2265 3, short lead left in the open \u2265 12",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "water-outlet-slot",
    "label": "The carbonated-water outlet crosses the support ring in one slot",
    "kind": "gate",
@@ -477,6 +506,16 @@
    "status": "pass",
    "value": "holds",
    "target": "under \u230018.7",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cutoff-bedded",
+   "label": "The cutoff's case is pinched between the power box and its clamp",
+   "kind": "gate",
+   "status": "pass",
+   "value": "case on the cover +0.000 mm, clamp on the case -0.000 mm",
+   "target": "both 0 within 0.01 mm",
    "detail": [],
    "active": true
   },
@@ -571,12 +610,42 @@
    "active": true
   },
   {
+   "id": "sleeve-grips",
+   "label": "Each cap-sense sleeve closes on a straight length of its line",
+   "kind": "gate",
+   "status": "pass",
+   "value": "29.79 mm of straight, least of 2",
+   "target": "17 mm per sleeve",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-leads",
+   "label": "The cap-sense electrode leads are shorter than the I\u00b2C loom that buys them",
+   "kind": "gate",
+   "status": "pass",
+   "value": "longest lead 73.69 mm (cap-sleeve-b), loom 155.64 mm",
+   "target": "every lead under the loom",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "refrigerant-joints",
    "label": "Every leg of the refrigerant loop closes, mated or drawn",
    "kind": "gate",
    "status": "pass",
    "value": "2 mated, 1 drawn of 3, widest 0.000 mm",
    "target": "every leg within 0.05 mm \u2014 a mating on its two stations, a tube on both its mouths",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bpv-reach",
+   "label": "The piercing valve keeps the 2\" Supco asks to work it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "67.87 mm of column, then pump-a-head",
+   "target": "50.8 mm off the tube",
    "detail": [],
    "active": true
   },
@@ -725,12 +794,13 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 44/44 corners at spec",
+   "value": "B \u2014 42/44 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:16",
-    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
+    "runs by grade: B:15 F:1",
+    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red",
+    "F/F co2-2 (wr1110.outlet \u2192 foam-assembly.co2-in): R3.8 against R14, bound by leg 2 at 9.5 mm \u2014 2.99\u00d7 its need: 148 mm of path for ends 50 mm apart"
    ],
    "active": true
   },
@@ -739,19 +809,22 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "18/67 mounted",
+   "value": "24/77 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
     "digiten-flow: held by none",
     "discharge-chain: held by none",
+    "mpr121: held by none",
     "suction-chain: held by none",
-    "thermal-fuse: held by none",
     "wr1110: held by none",
+    "bpv31: held by tube-clamp",
     "bulkhead-carb: held by wall-capture",
     "bulkhead-flavor-a: held by wall-capture",
     "bulkhead-flavor-b: held by wall-capture",
     "bulkhead-water: held by wall-capture",
+    "cap-sleeve-a: held by tube-clamp",
+    "cap-sleeve-b: held by tube-clamp",
     "co2-inlet: held by wall-capture",
     "coil-v-a: held by pack",
     "coil-v-b: held by pack",
@@ -768,12 +841,13 @@
     "display: held by wall-capture",
     "flow-regulator: held by tube-hung",
     "foam-assembly: held by floor",
+    "fuse-clamp: held by gap-press",
     "gasher-co2: held by wall-capture",
     "hopper-funnel: held by wall-capture",
-    "pump-a-bracket: held by pack",
+    "pump-a-boss: held by pack",
     "pump-a-head: held by pack",
     "pump-a-motor: held by pack",
-    "pump-b-bracket: held by pack",
+    "pump-b-boss: held by pack",
     "pump-b-head: held by pack",
     "pump-b-motor: held by pack",
     "tee-y-a: held by pack",
@@ -799,7 +873,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "72/72 stated",
+   "value": "77/77 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -852,21 +926,17 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "66/72 authored",
+   "value": "75/77 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
     "pump-b-motor: still a bare primitive, 1 solid",
-    "pump-a-bracket: still a bare box, 1 solid",
-    "pump-a-head: still a bare box, 1 solid",
-    "pump-b-bracket: still a bare box, 1 solid",
-    "pump-b-head: still a bare box, 1 solid",
     "hopper-funnel: 1 box holds 5% material",
     "foam-assembly: 5 boxes hold 11% material",
     "ground-stack: 1 box holds 17% material",
     "display: 2 boxes hold 18% material",
-    "pcba: 1 box holds 24% material",
-    "tee-y-a: 1 box holds 27% material"
+    "mpr121: 1 box holds 22% material",
+    "fuse-clamp: 1 box holds 23% material"
    ],
    "active": false
   },
@@ -875,24 +945,26 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "fail",
-   "value": "61/67 held",
+   "value": "71/77 held",
    "target": "a holder per body",
    "detail": [
     "basin holds 1: moisture-plate",
     "bosses holds 6: c14-inlet, ground-stack, pcba, psu, relay-1, relay-2",
-    "channel holds 1: drip-pan",
+    "channel holds 2: drip-pan, thermal-fuse",
     "cradle holds 4: mq6-sensor, valve-v-a, valve-v-b, vk-solenoid",
     "deck-mount holds 1: seaflo-pump",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
-    "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
+    "gap-press holds 1: fuse-clamp",
+    "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-boss, pump-a-head, pump-a-motor, pump-b-boss, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
+    "tube-clamp holds 3: bpv31, cap-sleeve-a, cap-sleeve-b",
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
-    "well holds 5: wago-g, wago-gnd, wago-h, wago-n, wago-v12",
+    "well holds 10: wago-g, wago-gnd, wago-h, wago-mana, wago-manb, wago-n, wago-reeds-a, wago-reeds-b, wago-sensors, wago-v12",
     "asse1022-assembly: nothing holds it at all",
     "digiten-flow: nothing holds it at all",
     "discharge-chain: nothing holds it at all",
+    "mpr121: nothing holds it at all",
     "suction-chain: nothing holds it at all",
-    "thermal-fuse: nothing holds it at all",
     "wr1110: nothing holds it at all"
    ],
    "active": false
@@ -1266,7 +1338,7 @@
    "kind": "fluid",
    "pos": [
     77.5,
-    247.0,
+    344.5,
     253.4
    ],
    "face": [
@@ -2066,7 +2138,7 @@
     [
      -66.435,
      13.44,
-     218.745,
+     237.745,
      -30.705,
      49.17,
      279.295
@@ -2082,77 +2154,13 @@
     [
      30.705,
      13.44,
-     218.745,
+     237.745,
      66.435,
      49.17,
      279.295
     ]
    ],
    "fill": 0.7854,
-   "primitive": true,
-   "declared": null
-  },
-  {
-   "component": "pump-a-bracket",
-   "boxes": [
-    [
-     -82.87,
-     -0.0,
-     216.745,
-     -14.27,
-     62.61,
-     218.745
-    ]
-   ],
-   "fill": 1.0,
-   "primitive": true,
-   "declared": null
-  },
-  {
-   "component": "pump-a-head",
-   "boxes": [
-    [
-     -79.875,
-     -0.0,
-     167.865,
-     -17.265,
-     62.61,
-     216.745
-    ]
-   ],
-   "fill": 1.0,
-   "primitive": true,
-   "declared": null
-  },
-  {
-   "component": "pump-b-bracket",
-   "boxes": [
-    [
-     14.27,
-     -0.0,
-     216.745,
-     82.87,
-     62.61,
-     218.745
-    ]
-   ],
-   "fill": 1.0,
-   "primitive": true,
-   "declared": null
-  },
-  {
-   "component": "pump-b-head",
-   "boxes": [
-    [
-     17.265,
-     -0.0,
-     167.865,
-     79.875,
-     62.61,
-     216.745
-    ]
-   ],
-   "fill": 1.0,
    "primitive": true,
    "declared": null
   },
@@ -2257,6 +2265,38 @@
     ]
    ],
    "fill": 0.1805,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "mpr121",
+   "boxes": [
+    [
+     -15.24,
+     153.309,
+     227.179,
+     15.24,
+     173.629,
+     234.779
+    ]
+   ],
+   "fill": 0.2199,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "fuse-clamp",
+   "boxes": [
+    [
+     -37.0,
+     2.3,
+     15.0,
+     -19.0,
+     31.0,
+     61.5
+    ]
+   ],
+   "fill": 0.2314,
    "primitive": false,
    "declared": null
   },
@@ -2437,6 +2477,22 @@
    "declared": null
   },
   {
+   "component": "bpv31",
+   "boxes": [
+    [
+     -53.4,
+     2.21,
+     88.885,
+     -16.885,
+     30.79,
+     144.45
+    ]
+   ],
+   "fill": 0.3971,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "asse1022-assembly",
    "boxes": [
     [
@@ -2553,6 +2609,54 @@
     ]
    ],
    "fill": 0.442,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "cap-sleeve-a",
+   "boxes": [
+    [
+     70.845,
+     135.855,
+     233.57,
+     83.295,
+     142.08,
+     250.57
+    ],
+    [
+     70.845,
+     139.58,
+     233.57,
+     83.295,
+     148.305,
+     250.57
+    ]
+   ],
+   "fill": 0.4592,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "cap-sleeve-b",
+   "boxes": [
+    [
+     -83.295,
+     142.08,
+     233.57,
+     -70.845,
+     148.305,
+     250.57
+    ],
+    [
+     -83.295,
+     135.855,
+     233.57,
+     -70.845,
+     144.58,
+     250.57
+    ]
+   ],
+   "fill": 0.4592,
    "primitive": false,
    "declared": null
   },
@@ -2829,6 +2933,38 @@
    "declared": null
   },
   {
+   "component": "pump-a-boss",
+   "boxes": [
+    [
+     -75.07,
+     4.805,
+     216.745,
+     -22.07,
+     57.805,
+     237.745
+    ]
+   ],
+   "fill": 0.5841,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "pump-b-boss",
+   "boxes": [
+    [
+     22.07,
+     4.805,
+     216.745,
+     75.07,
+     57.805,
+     237.745
+    ]
+   ],
+   "fill": 0.5841,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "discharge-chain",
    "boxes": [
     [
@@ -2973,6 +3109,38 @@
    "declared": null
   },
   {
+   "component": "pump-a-head",
+   "boxes": [
+    [
+     -79.875,
+     -0.0,
+     167.865,
+     -17.265,
+     62.61,
+     216.745
+    ]
+   ],
+   "fill": 0.9611,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "pump-b-head",
+   "boxes": [
+    [
+     17.265,
+     -0.0,
+     167.865,
+     79.875,
+     62.61,
+     216.745
+    ]
+   ],
+   "fill": 0.9611,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "condenser+fan",
    "boxes": [
     [
@@ -3009,10 +3177,10 @@
    "boxes": [
     [
      -108.5,
-     222.1,
+     240.1,
      281.1,
      -90.2,
-     237.9,
+     255.9,
      310.9
     ]
    ],
@@ -3041,11 +3209,11 @@
    "boxes": [
     [
      -108.5,
-     450.8,
-     289.0,
+     295.8,
+     295.0,
      -89.9,
-     459.2,
-     319.0
+     304.2,
+     325.0
     ]
    ],
    "fill": 0.9827,
@@ -3073,10 +3241,10 @@
    "boxes": [
     [
      89.9,
-     396.85,
+     396.075,
      311.05,
      108.5,
-     405.25,
+     404.475,
      329.85
     ]
    ],
@@ -3089,10 +3257,10 @@
    "boxes": [
     [
      89.9,
-     426.25,
+     428.575,
      311.05,
      108.5,
-     434.65,
+     436.975,
      329.85
     ]
    ],
@@ -3105,10 +3273,10 @@
    "boxes": [
     [
      89.9,
-     367.45,
+     363.575,
      311.05,
      108.5,
-     375.85,
+     371.975,
      329.85
     ]
    ],
@@ -3121,10 +3289,10 @@
    "boxes": [
     [
      89.9,
-     382.15,
+     379.825,
      311.05,
      108.5,
-     390.55,
+     388.225,
      329.85
     ]
    ],
@@ -3137,10 +3305,10 @@
    "boxes": [
     [
      89.9,
-     411.55,
+     412.325,
      311.05,
      108.5,
-     419.95,
+     420.725,
      329.85
     ]
    ],
@@ -3493,12 +3661,12 @@
    "to": "foam-assembly.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 223.62,
-   "radius": 14.0,
+   "length": 147.83,
+   "radius": 3.813,
    "cap": 14.0,
    "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
+   "ratio": 0.2724,
+   "grade": "F",
    "corners": [
     {
      "at": 1,
@@ -3513,23 +3681,23 @@
     },
     {
      "at": 2,
-     "turn": 67.7,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
+     "turn": 112.3,
+     "radius": 3.813,
+     "ratio": 0.2723,
+     "grade": "F",
      "legs": [
       39.49,
-      88.0
+      9.5
      ]
     },
     {
      "at": 3,
      "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
+     "radius": 3.813,
+     "ratio": 0.2723,
+     "grade": "F",
      "legs": [
-      88.0,
+      9.5,
       29.5
      ]
     },
@@ -3545,25 +3713,25 @@
      ]
     }
    ],
-   "atSpec": 4,
+   "atSpec": 2,
    "bends": 4,
-   "worstTurn": 90.0,
-   "seat": 14.75,
-   "reach": 14.75,
-   "reachRatio": 1.0536,
-   "reachGrade": "B",
+   "worstTurn": 112.3,
+   "seat": 3.813,
+   "reach": 3.813,
+   "reachRatio": 0.2723,
+   "reachGrade": "F",
    "binding": {
-    "leg": 3,
-    "length": 29.5,
-    "demand": 2.0,
+    "leg": 2,
+    "length": 9.5,
+    "demand": 2.4917,
     "from": [
      48.0,
-     247.0,
+     335.0,
      326.53
     ],
     "to": [
-     77.5,
-     247.0,
+     48.0,
+     344.5,
      326.53
     ]
    },
@@ -3576,18 +3744,18 @@
      ],
      [
       77.5,
-      247.0,
+      344.5,
       253.4
      ]
     ],
     "axis": {
      "x": 29.5,
-     "y": 113.0,
+     "y": 15.5,
      "z": 36.6
     },
-    "span": 122.39,
-    "path": 223.62,
-    "detour": 1.827
+    "span": 49.5,
+    "path": 147.83,
+    "detour": 2.987
    }
   },
   {
@@ -5207,6 +5375,36 @@
    "kind": "real"
   },
   {
+   "component": "wago-mana",
+   "by": "enclosure-front-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-manb",
+   "by": "enclosure-front-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-reeds-b",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-reeds-a",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-sensors",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
    "component": "asse1022-assembly",
    "by": null,
    "held": "none",
@@ -5232,6 +5430,36 @@
   },
   {
    "component": "thermal-fuse",
+   "by": "fuse-clamp",
+   "held": "channel",
+   "kind": "real"
+  },
+  {
+   "component": "fuse-clamp",
+   "by": null,
+   "held": "gap-press",
+   "kind": "real"
+  },
+  {
+   "component": "bpv31",
+   "by": null,
+   "held": "tube-clamp",
+   "kind": "real"
+  },
+  {
+   "component": "cap-sleeve-a",
+   "by": null,
+   "held": "tube-clamp",
+   "kind": "real"
+  },
+  {
+   "component": "cap-sleeve-b",
+   "by": null,
+   "held": "tube-clamp",
+   "kind": "real"
+  },
+  {
+   "component": "mpr121",
    "by": null,
    "held": "none",
    "kind": "real"
@@ -5369,16 +5597,16 @@
    "kind": "real"
   },
   {
-   "component": "pump-a-bracket",
+   "component": "pump-a-boss",
    "by": null,
    "held": "pack",
-   "kind": "placeholder"
+   "kind": "real"
   },
   {
    "component": "pump-a-head",
    "by": null,
    "held": "pack",
-   "kind": "placeholder"
+   "kind": "real"
   },
   {
    "component": "pump-a-motor",
@@ -5387,16 +5615,16 @@
    "kind": "placeholder"
   },
   {
-   "component": "pump-b-bracket",
+   "component": "pump-b-boss",
    "by": null,
    "held": "pack",
-   "kind": "placeholder"
+   "kind": "real"
   },
   {
    "component": "pump-b-head",
    "by": null,
    "held": "pack",
-   "kind": "placeholder"
+   "kind": "real"
   },
   {
    "component": "pump-b-motor",
@@ -5502,7 +5730,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T02:27:48+00:00",
-  "commit": "5ce554758203af40822b8f804d38b99cbeb5601a"
+  "generated": "2026-08-09T03:17:54+00:00",
+  "commit": "3a9028818c4c1b38aa81b7ea99638d198724ae60"
  }
 }
