@@ -3,10 +3,18 @@
 Printed clamshell that wraps a 1/4" OD ([6.35 mm](TUBE_OD)) LLDPE
 flavor tube and seats two copper-foil ring electrodes against the
 tube wall. Pairs with an MPR121 capacitive touch controller on the
-existing I2C bus to sense liquid presence inside the tube (segment 4,
-hopper feed in the manifold).
+existing I2C bus to sense liquid presence inside the tube.
 The MPR121 reads capacitance between the two foil rings; water in the
 tube (~80 dielectric) gives a much larger reading than air (~1).
+
+**Two per machine, one per flavor channel.** Each closes on the first
+riser its own nozzle gate leaves — `fluid-18` off V-G and `fluid-28`
+off V-J — the length of tube that is full when the channel is primed
+and empty when it is not.
+[`enclosure_assembly.build_sleeve`](/hardware/manifold-layout/enclosure_assembly.py)
+seats them and `sleeve-grips` holds each bore on a straight: the bore
+is a [17 mm](SLEEVE_L) cylinder, and a corner under it is a clamshell
+that will not close.
 
 ## Wiring
 

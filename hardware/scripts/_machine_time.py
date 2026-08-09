@@ -69,6 +69,8 @@ GROUP_OF = [
     ("PRV shroud",             "small"),
     ("Carbonator reed bridge", "small"),
     ("Drip pan",               "small"),
+    ("Fuse clamp",             "small"),
+    ("Cap-sense sleeve",       "small"),
 ]
 
 GROUP_MARKER = {"bulk": "BULK", "tight": "TIGHT", "small": "SMALL", "petcf": "PETCF"}
