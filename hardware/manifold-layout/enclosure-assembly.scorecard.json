@@ -46,10 +46,9 @@
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
    "status": "fail",
-   "value": "3 clash, 0 unanswered",
+   "value": "2 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "mq6-sensor \u2229 enclosure-front-bottom   2.9 mm\u00b3, x[ -102.63,  -94.50] y[    9.00,   10.85] z[   31.68,   32.32]",
     "wago-reeds-b \u2229 enclosure-back-top   1032.3 mm\u00b3, x[  -98.35,  -94.50] y[  222.10,  231.40] z[  281.10,  310.90]",
     "wago-reeds-a \u2229 enclosure-back-top   388.5 mm\u00b3, x[  -98.20,  -94.50] y[  455.70,  459.20] z[  289.00,  319.00]"
    ],
@@ -605,12 +604,10 @@
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
-   "status": "fail",
-   "value": "pack reaches x \u00b1122.50, wall at \u00b1108.50",
+   "status": "pass",
+   "value": "pack reaches x \u00b1108.50, wall at \u00b1108.50",
    "target": "inside a 223 mm appliance",
-   "detail": [
-    "the pack reaches x \u00b1122.50 but a 223 mm appliance walls in at \u00b1108.50 \u2014 14.00 mm over. Raise `appliance_width` or repack inboard"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -2412,10 +2409,10 @@
    "boxes": [
     [
      -108.5,
-     9.0,
+     15.3,
      3.0,
      -88.5,
-     30.6,
+     36.9,
      35.0
     ]
    ],
@@ -5505,7 +5502,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T02:08:38+00:00",
-  "commit": "b80b65e8a722a5235f24556b44df0f87ec74ed7c"
+  "generated": "2026-08-09T02:27:48+00:00",
+  "commit": "5ce554758203af40822b8f804d38b99cbeb5601a"
  }
 }

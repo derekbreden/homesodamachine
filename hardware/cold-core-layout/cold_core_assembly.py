@@ -99,6 +99,7 @@ HELD_BY = {
     "copper-plug-middle": "wall slot",
     "copper-plug-top": "wall slot",
     "prv-shroud": "the PRV it caps",
+    "prv-sv125": "elbow socket",
     "reed-bridge": "support ring",
     "evap-coil": "the tank it clamps",
     "evap-tail-inlet": "wall slot",
@@ -113,12 +114,22 @@ HELD_BY_PREFIX = (
     ("sparge-silicone-stub", "the barb and the stone"),
     ("sparge-stone", "its own stub"),
     ("bulkhead-reservoir", "trough floor"),
+    ("bulkhead-seal-", "the bulkhead's own nut"),
+    ("collet-", "elbow socket"),
+    ("vent-membrane-", "cap vent pocket"),
     ("float-rod-", "body boss"),
     ("float-", "the rod it rides"),
     ("reed-carb-", "bridge pocket"),
     ("reed-", "shell channel"),
     ("probe-", "foil tape"),
 )
+
+
+# Holders that are not a feature of another placed part. A body the pour sets around is where
+# it is because something held it while the foam went off; a body taped to a wall is held by
+# the tape. Everything else lands in a bore, a channel, a slot, a rim or a boss that some other
+# placed part prints or machines, and an assembler can put it there without the model.
+NOT_A_FEATURE = ("the pour", "foil tape")
 
 
 def held_for(name: str) -> str:
@@ -137,9 +148,9 @@ JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-outlet"),
 )}
 
-# The copper that is a RUN rather than a wall. A fluid line has to clear the wrap, which is
-# fixed on the tank the moment it is wound; the two tails travel the same lanes the fluid lines
-# do, so they are graded against them as lines rather than fitted around as obstacles.
+# The copper that travels a lane. The wrap is fixed on the tank the moment it is wound, so a
+# fluid line clears it the way it clears any body; the two tails run the same lanes the fluid
+# lines run, and `lines-apart` grades them together.
 TAIL_LINES = ("evap-tail-inlet", "evap-tail-outlet")
 
 # The fitting each line is MADE UP ON at either end. A body a line lands on is not a body it
@@ -405,6 +416,31 @@ def _port_leads(fitted: dict, points: dict) -> Check:
                  f"{PORT_LEAD_BENDS:g} bend radii", detail)
 
 
+def _stations_met(fitted: dict, placed: dict) -> Check:
+    """Every slot station the wall leaves, against the run that crosses it.
+
+    `copper_plugs.columns` is the wall's own list of what passes through it — each station is
+    one plug's bottom face, and the tube IS the gap between two plugs. A station nothing
+    reaches is a hole the shell prints for a line this assembly does not draw."""
+    runs = {n: t for n, (_b, t) in fitted.items()}
+    runs.update({n: placed[n] for n in TAIL_LINES if n in placed})
+    detail = []
+    met = 0
+    for column in sorted(_plugs.columns):
+        for station, _z in _plugs.columns[column].stations:
+            (x, y, z), _axis = _plugs.slot_station(station)
+            probe = cq.Solid.makeSphere(_routes.lldpe_tube_od, cq.Vector(x, y, z))
+            here = [n for n, t in runs.items() if t.intersect(probe).Volume() > 1e-6]
+            if here:
+                met += 1
+                detail.append(f"{column} {station} at z {z:.2f}: {', '.join(sorted(here))}")
+            else:
+                detail.append(f"{column} {station} at z {z:.2f}: NOTHING reaches it")
+    total = sum(len(c.stations) for c in _plugs.columns.values())
+    return Check("stations-met", "Every wall station carries a run", "gate",
+                 verdict(met == total), f"{met}/{total} stations", "a run per station", detail)
+
+
 def _arcs_hold(fitted: dict) -> Check:
     """Every corner at the stock arc, or the reading it came back at."""
     stock = _routes.route_bend_radius
@@ -509,7 +545,11 @@ def build_card(a) -> Scorecard:
     mouths = [("carbonator-vessel", n, m, n) for n, m in _V.mouths().items()]
     mouths += [(f"bulkhead-{n}", "collet", m, n) for n, m in _I.mouths().items()]
     shapes = _shape_rows(placed)
-    mounts = [(n, None, held_for(n)) for n in sorted(placed)]
+    # `by` is what FASTENS a body and `held` what holds it. Here they are the same feature
+    # wherever one exists, and `by` is None for the two the tape holds — which is the field
+    # `web/contracts/scorecard-sidecar.js` counts, so both surfaces read one number.
+    mounts = [(n, None if held_for(n) in NOT_A_FEATURE else held_for(n), held_for(n))
+              for n in sorted(placed)]
     held = sum(1 for _n, _by, h in mounts if h != "none")
 
     checks = [
@@ -519,6 +559,7 @@ def build_card(a) -> Scorecard:
         _bom_check.check(placed),
         _lane_census(fitted, placed),
         _port_leads(fitted, a.points),
+        _stations_met(fitted, placed),
         _arcs_hold(fitted),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),
@@ -529,9 +570,10 @@ def build_card(a) -> Scorecard:
         _goal("routed", "Every line the core owes is drawn", len(fitted), len(fitted),
               "a line per connection"),
         _goal("held", "Something holds every body", held, len(mounts), "a holder per body"),
-        _goal("mounted", "A printed feature of another placed part fastens every body",
-              0, len(mounts), "a printed joint per body",
-              [f"{n}: held by {h}" for n, _by, h in mounts]),
+        _goal("mounted", "A feature of another placed part locates every body",
+              sum(1 for _n, _by, h in mounts if h not in NOT_A_FEATURE), len(mounts),
+              "a located joint per body",
+              [f"{n}: held by {h}" for n, _by, h in mounts if h in NOT_A_FEATURE]),
     ]
     return Scorecard(checks, _bend_rows(fitted, a.points), _port_rows(mouths), shapes, mounts)
 

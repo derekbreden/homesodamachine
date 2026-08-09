@@ -647,6 +647,27 @@ def east_band_free_y():
             ybr - socket_r)                                # the rear wall's own station
 
 
+def front_band_free_y(front_face):
+    """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
+    `east_band_free_y` says this half has and is not.
+
+    Same two facts either side of the seam: `_z_pod` runs its post from the socket it carries
+    down to the floor, so a Z station on a ±X wall stands in that band FLOOR TO CEILING, and
+    what is between two of them is the wall's own air. The front column's are the front-wall
+    corner and the aft end of its own lip, and a body hung low on either flank outside this
+    run is a body standing in one of those posts.
+
+    IT TAKES THE FRONT FACE because it cannot state it. The back half's two ends are both
+    struck on planes the box states about itself — `y_seam` and `rear_plane_y` — but the front
+    wall stands off whatever the pack puts nearest it, so a caller reading this before the box
+    is sized has to say what that is. Everything after it is the same stated chain `_dims`
+    builds the wall on."""
+    iy0 = front_face - interior_clearance - front_seam_clear
+    yf = iy0 + wall + socket_bore_dia / 2.0
+    yfr = y_seam - wall - z_lip_y_margin - socket_r
+    return (yf + socket_r, yfr - socket_r)
+
+
 def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
     """Whether this wall can carry a cross-pin at this height. The test is the
     SOCKET's whole body — bore, heat-set and cap, out to `depth` and one socket_r

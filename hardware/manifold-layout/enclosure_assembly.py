@@ -168,18 +168,21 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #                 outboard pair (V-F, V-G) stands against
 #   wago-manb     J2 MANIFOLD B `COM` → V-I, V-J, the condenser fan and V-K, mirrored on
 #                 the west flank V-I and V-J stand against
-#   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two,
-#                 west of the cold core's forward pocket
+#   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two
+#   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds
 #   wago-sensors  J4 SENSORS `GND` → the 1-wire bus, the DIGITEN meter and the moisture
 #                 plate, all three of which land aft and west
-#   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds, at the aft pocket's own
-#                 reed channel, threaded between the two back-wall unions
+#
+# The last three run fore to aft down the west wall in the order the cold core's own harness
+# does, in the band between the flavour riser under them and the drip tray over them. Every
+# station clears the side walls' seam furniture (`enclosure._seam_furniture_spans`) by the
+# lever swing as well as the well, so a lug can be worked in place.
 CLUSTER_WAGOS = {
     "wago-mana": (+1, 113.0, 290.0, "420"),
     "wago-manb": (-1, 119.0, 275.0, "415"),
-    "wago-reeds-b": (-1, 230.0, 296.0, "420"),
+    "wago-reeds-b": (-1, 248.0, 296.0, "420"),
+    "wago-reeds-a": (-1, 300.0, 310.0, "415"),
     "wago-sensors": (-1, 335.0, 300.0, "415"),
-    "wago-reeds-a": (-1, 455.0, 304.0, "415"),
 }
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -487,25 +490,32 @@ def cap_face(foam):
 # about Y stands it back up on its long edge with its short side reaching inboard.
 MQ6_STEP = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Y_AXIS[1].toTuple(), 90.0))
+# What the card's own pin tips stand off the post that fences the fore end of this band. The
+# clearance is on the PINS and not on the cradle, because they are what reaches furthest
+# forward — the header hangs off the card's fore face and the rails begin behind it.
+MQ6_FORE_CLEAR = 2.0
 
 
-def build_mq6(comp):
-    """The MQ-6 on edge in the −X strip, as low as a 32 mm card stands.
+def build_mq6(comp, cond):
+    """The MQ-6 on edge in the −X strip, as low as the card stands.
 
     WEST on the wall's own inner face, not on the boss plane every body on the other flank
     stands on — nothing bolts this card down, it slides into a slot printed on the wall
     (`enclosure._west_cradle`) and bottoms on the wall itself, so the wall is where it goes.
 
-    FORE on the compressor's own front plane, so nothing of the sensor reaches further into
-    the bay's mouth than the brick already does, and the can ends up looking aft from within
-    the terminal box's own depth.
+    FORE one `MQ6_FORE_CLEAR` behind the front Z seam's own post. That post is a cross-pin
+    column and `enclosure._z_pod` carries it to the floor, so it stands in this band at every
+    height a low body would want — `enclosure.front_band_free_y` is where the band reopens
+    behind it. The pack's frontmost body is what the front wall stands off, so the two bodies
+    on this floor are what the run is struck from.
 
     LOW on the slab the compressor stands on, one rail section up — which is the whole of what
     lifts it. The mesh comes out under the power box's floor, so the layer reaches this board
     before it reaches the one ignition source in the compartment."""
     body = cq.importers.importStep(str(MQ6_STEP)).val()
+    fore, _aft = _enc.front_band_free_y(min(box(comp).ymin, box(cond).ymin))
     return seat_body(body, MQ6_TURN, seat="mq6-sensor",
-                     x0=_enc.interior_x()[0], y0=box(comp).ymin,
+                     x0=_enc.interior_x()[0], y0=fore + MQ6_FORE_CLEAR,
                      z0=box(comp).zmin + _enc.mq6_rail_wall)
 
 
@@ -514,7 +524,7 @@ def mq6_cradle(carry):
     carried out of the board's frame so the slot cannot land anywhere but on the card.
 
     Struck on `mq6_gas_sensor.card_plane` and not on the placed box, because the box is the
-    pins and the can as well and its centre is 4 mm behind the card they hang off."""
+    pins and the can as well, and its centre is behind the card they hang off."""
     pos = carry(_mq6.card_plane())[0]
     return ((pos[1], pos[2]),)
 
@@ -2284,7 +2294,7 @@ def build_pack() -> cq.Assembly:
     # The gas sensor goes down with the bodies it watches, off the compressor's own plate: it
     # is placed here rather than with the box because the wall's slot is struck on where it
     # lands, the way every well on the other flank is struck on its lug.
-    mq6, mq6_carry = build_mq6(comp)
+    mq6, mq6_carry = build_mq6(comp, cond)
     a.add(mq6, name="mq6-sensor", color=C_MQ6)
     a.west_cradle = mq6_cradle(mq6_carry)
     # The cutoff goes down with the compressor too, and for the same reason the sensor does:
