@@ -39,6 +39,7 @@ from _cold_core_interface import foam_shell_outer_height  # noqa: E402
 import _vessel as _V                                     # noqa: E402
 import _coil as _C                                       # noqa: E402
 import _fittings as _F                                   # noqa: E402
+import _internals as _I                                  # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
 from _cold_scorecard import Check, Scorecard, verdict     # noqa: E402
 
@@ -60,6 +61,10 @@ C_PLUG = cq.Color(0.35, 0.40, 0.48)
 C_SHROUD = cq.Color(0.30, 0.34, 0.40)
 C_BRIDGE = cq.Color(0.40, 0.44, 0.52)
 C_COPPER = cq.Color(0.80, 0.45, 0.20)
+C_SILICONE = cq.Color(0.92, 0.92, 0.90, 0.60)
+C_FLOAT = cq.Color(0.66, 0.70, 0.75)
+C_REED = cq.Color(0.95, 0.55, 0.85)
+C_PROBE = cq.Color(0.20, 0.55, 0.30)
 
 FOAM_COLORS = {
     "foam-shell": C_FOAM_SHELL,
@@ -100,6 +105,28 @@ HELD_BY = {
 }
 for _n in _V.PORTS:
     HELD_BY[f"vessel-elbow-{_n}"] = "plate thread"
+
+# What holds the bodies that come in families, by the name each family shares.
+HELD_BY_PREFIX = (
+    ("sparge-barb", "plate thread"),
+    ("sparge-silicone-stub", "the barb and the stone"),
+    ("sparge-stone", "its own stub"),
+    ("bulkhead-reservoir", "trough floor"),
+    ("float-rod-", "body boss"),
+    ("float-", "the rod it rides"),
+    ("reed-carb-", "bridge pocket"),
+    ("reed-", "shell channel"),
+    ("probe-", "foil tape"),
+)
+
+
+def held_for(name: str) -> str:
+    if name in HELD_BY:
+        return HELD_BY[name]
+    for prefix, held in HELD_BY_PREFIX:
+        if name.startswith(prefix):
+            return held
+    return "the pour"
 
 # Bodies that meet because they are MADE UP on each other. The wrap and its two tails are one
 # length of copper — `coil_mandrel.cut_length` is one cut — so the volume they share is the
@@ -150,6 +177,7 @@ def build_bodies() -> dict:
             _load(_cold / "copper-plugs" / f"copper-plug-{plug}.step"), spec.column)
 
     placed.update(_C.bodies())
+    placed.update(_I.bodies(placed))
     placed.update(_prv_stack())
     placed["reed-bridge"] = _load(_cold / "reed-bridge" / "reed-bridge.step").translate(
         (0, 0, _V.tank_bottom_z))
@@ -181,6 +209,9 @@ def trimmed_routes() -> dict:
     mouths = _V.mouths()
     for port, (line, which) in _V.PORT_LINES.items():
         out[line][0 if which == "start" else -1] = mouths[port].pos
+    # Each reservoir's draw starts at its own floor bulkhead's collet the same way.
+    for line, mouth in _I.mouths().items():
+        out[line][0] = mouth.pos
     return out
 
 
@@ -226,6 +257,18 @@ def _colour_for(name: str):
         return C_PLUG
     if name.startswith("evap-"):
         return C_COPPER
+    if name.startswith("sparge-silicone"):
+        return C_SILICONE
+    if name.startswith(("sparge-", "bulkhead-")):
+        return C_FITTING
+    if name.startswith("float-rod"):
+        return C_ROD
+    if name.startswith("float-"):
+        return C_FLOAT
+    if name.startswith("reed-"):
+        return C_REED
+    if name.startswith("probe-"):
+        return C_PROBE
     if name == "prv-shroud":
         return C_SHROUD
     if name == "prv-sv125":
@@ -415,8 +458,9 @@ def _goal(cid: str, label: str, done: int, total: int, target: str, detail=()) -
 def build_card(a) -> Scorecard:
     placed, fitted = a.placed, a.fitted
     mouths = [("carbonator-vessel", n, m, n) for n, m in _V.mouths().items()]
+    mouths += [(f"bulkhead-{n}", "collet", m, n) for n, m in _I.mouths().items()]
     shapes = _shape_rows(placed)
-    mounts = [(n, None, HELD_BY.get(n, "the pour")) for n in sorted(placed)]
+    mounts = [(n, None, held_for(n)) for n in sorted(placed)]
     held = sum(1 for _n, _by, h in mounts if h != "none")
 
     checks = [
@@ -452,6 +496,7 @@ def report(a) -> None:
           f"stack floor {_foam.stack_floor_z:.1f}, cap face {_foam.cap_face_z:.1f}")
     _V.report()
     _C.report()
+    _I.report(a.placed)
 
 
 def main() -> int:

@@ -72,7 +72,8 @@ SOCKET_R = ELBOW_MALE_R
 SOCKET_DEPTH = 0.5 * IN
 
 
-def street_elbow(*, corner, up=(0, 0, 1), out, up_leg=None, out_leg=None):
+def street_elbow(*, corner, up=(0, 0, 1), out, up_leg=None, out_leg=None,
+                 male_len=None):
     """A 90° street elbow standing on `corner`, where its two leg axes cross.
 
     The male leg runs `up` and threads into the plate its hex boss reaches; the female socket
@@ -84,13 +85,14 @@ def street_elbow(*, corner, up=(0, 0, 1), out, up_leg=None, out_leg=None):
     c = cq.Vector(*corner)
     up_leg = ELBOW_LEG if up_leg is None else up_leg
     out_leg = ELBOW_LEG if out_leg is None else out_leg
+    male_len = ELBOW_MALE_LEN if male_len is None else male_len
 
     leg_up = _orient(_hex(ELBOW_HEX_AF, up_leg), up).translate(c)
     leg_out = _orient(_hex(ELBOW_HEX_AF, out_leg), out).translate(c)
-    stub = _orient(_cyl(ELBOW_MALE_R, ELBOW_MALE_LEN), up).translate(c + up.multiply(up_leg))
+    stub = _orient(_cyl(ELBOW_MALE_R, male_len), up).translate(c + up.multiply(up_leg))
     solid = leg_up.fuse(leg_out).fuse(stub)
 
-    bore_up = _orient(_cyl(ELBOW_BORE / 2, up_leg + ELBOW_MALE_LEN + 1), up).translate(c)
+    bore_up = _orient(_cyl(ELBOW_BORE / 2, up_leg + male_len + 1), up).translate(c)
     bore_out = _orient(_cyl(ELBOW_BORE / 2, out_leg + 1), out).translate(c)
     socket = _orient(_cyl(SOCKET_R, min(SOCKET_DEPTH, out_leg)), out).translate(
         c + out.multiply(out_leg - min(SOCKET_DEPTH, out_leg)))
@@ -131,6 +133,9 @@ def sv125_reach() -> float:
 #
 # `bom.md` §2, port 1. Threads into the bottom plate's lane-side elbow with the barb facing
 # INWARD, into the vessel: the silicone stub hangs off it and the sparge stone hangs off that.
+# The barb and the port's own elbow are two male fittings in ONE through-tapped hole, one from
+# each face, so each reaches half the plate.
+BARB_STUB_LEN = 0.125 * IN
 BARB_HEX_AF = 0.5625 * IN
 BARB_HEX_H = 0.31 * IN
 BARB_LEN = 0.75 * IN
@@ -141,7 +146,7 @@ def hose_barb(*, at, axis):
     """The barb adapter, male stub at `at`, barb reaching along `axis`."""
     axis = cq.Vector(*axis).normalized()
     base = cq.Vector(*at)
-    stub = _orient(_cyl(ELBOW_MALE_R, 0.45 * IN), -axis).translate(base)
+    stub = _orient(_cyl(ELBOW_MALE_R, BARB_STUB_LEN), -axis).translate(base)
     hexb = _orient(_hex(BARB_HEX_AF, BARB_HEX_H), axis).translate(base)
     barb = _orient(_cyl(BARB_R * 1.15, BARB_LEN), axis).translate(base + axis.multiply(BARB_HEX_H))
     tip = base + axis.multiply(BARB_HEX_H + BARB_LEN)
@@ -230,14 +235,24 @@ PURESEC_COLLET_R = 6.0
 PURESEC_ELBOW_LEG = 16.0
 
 
-def puresec_elbow(*, at, up=(0, 0, 1), out):
-    """The bulkhead, its barrel rising from `at` through the floor and its collet facing `out`."""
+PURESEC_BARREL_LEN = 14.0
+PURESEC_BODY_DROP = 3.0
+
+
+def puresec_elbow(*, corner, up=(0, 0, 1), out, barrel_len=None, collet_r=None):
+    """The bulkhead standing on `corner`, where its two leg axes cross.
+
+    The barrel rises `up` from the corner through the trough floor, with its nut on the wet side
+    at the top of it; the collet faces `out` on the corner's own storey."""
     up = cq.Vector(*up).normalized()
     out = cq.Vector(*out).normalized()
-    base = cq.Vector(*at)
-    barrel = _orient(_cyl(PURESEC_BARREL_R, 12.0), up).translate(base)
-    nut = _orient(_hex(PURESEC_NUT_AF, PURESEC_NUT_H), up).translate(base)
-    corner = base + up.multiply(PURESEC_ELBOW_LEG)
-    leg = _orient(_cyl(PURESEC_COLLET_R, PURESEC_ELBOW_LEG), out).translate(corner)
-    solid = barrel.fuse(nut).fuse(leg)
-    return solid, Mouth(tuple(corner + out.multiply(PURESEC_ELBOW_LEG)), tuple(out), 6.35)
+    c = cq.Vector(*corner)
+    barrel_len = PURESEC_BARREL_LEN if barrel_len is None else barrel_len
+    collet_r = PURESEC_COLLET_R if collet_r is None else collet_r
+    barrel = _orient(_cyl(PURESEC_BARREL_R, barrel_len), up).translate(c)
+    nut = _orient(_hex(PURESEC_NUT_AF, PURESEC_NUT_H), up).translate(
+        c + up.multiply(barrel_len))
+    leg = _orient(_cyl(collet_r, PURESEC_ELBOW_LEG), out).translate(c)
+    body = _orient(_cyl(collet_r, PURESEC_BODY_DROP), -up).translate(c)
+    solid = barrel.fuse(nut).fuse(leg).fuse(body)
+    return solid, Mouth(tuple(c + out.multiply(PURESEC_ELBOW_LEG)), tuple(out), 6.35)

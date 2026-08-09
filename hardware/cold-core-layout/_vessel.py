@@ -176,8 +176,17 @@ def build_elbows() -> dict:
 
     The male leg is `ELBOW_AXIS_OFFSET` — the plate face is where it stops."""
     return {name: F.street_elbow(corner=port_corner(name), up=port_up(name), out=port_out(name),
-                                 up_leg=ELBOW_AXIS_OFFSET)
+                                 up_leg=ELBOW_AXIS_OFFSET, male_len=male_len(name))
             for name in PORTS}
+
+
+def male_len(name: str) -> float:
+    """How far one port's elbow threads into its plate.
+
+    The CO2 port is tapped THROUGH and carries a fitting on each face — the elbow outside, the
+    sparge barb inside — so the two share the plate and each reaches half of it. The other
+    three have the whole thickness to themselves."""
+    return PLATE_T / 2.0 if name == "co2-in" else F.ELBOW_MALE_LEN
 
 
 def bodies() -> dict:

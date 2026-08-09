@@ -12,12 +12,23 @@
    "label": "No two placed solids share volume",
    "kind": "gate",
    "status": "fail",
-   "value": "5 clash",
+   "value": "16 clash",
    "target": "0 clash",
    "detail": [
+    "carbonator-tube \u2229 float-carb = 531.53 mm\u00b3",
+    "float-carb \u2229 reed-bridge = 176.22 mm\u00b3",
+    "evap-coil \u2229 probe-tank-ds18b20 = 89.72 mm\u00b3",
     "copper-plug-top \u2229 foam-shell = 72.45 mm\u00b3",
     "copper-plug-middle \u2229 foam-shell = 69.33 mm\u00b3",
+    "evap-coil \u2229 float-carb = 60.78 mm\u00b3",
+    "float-carb \u2229 reed-carb-2 = 37.53 mm\u00b3",
+    "evap-coil \u2229 reed-carb-2 = 17.72 mm\u00b3",
+    "evap-coil \u2229 reed-carb-1 = 17.18 mm\u00b3",
     "evap-coil \u2229 reed-bridge = 15.21 mm\u00b3",
+    "float-rod-a \u2229 reservoir-a-cap = 7.92 mm\u00b3",
+    "float-rod-b \u2229 reservoir-b-cap = 7.92 mm\u00b3",
+    "bulkhead-reservoir-a \u2229 reservoir-a = 4.65 mm\u00b3",
+    "bulkhead-reservoir-b \u2229 reservoir-b = 4.65 mm\u00b3",
     "copper-plug-lower \u2229 foam-shell = 3.12 mm\u00b3",
     "foam-shell \u2229 prv-shroud = 0.82 mm\u00b3"
    ],
@@ -57,7 +68,7 @@
     "port-lane: carb-water-out at z 13.8..213.4, x -48.7..-20.6",
     "port-lane: co2-in at z 13.8..213.4, x -75.7..-14.0",
     "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
-    "port-lane: reservoir-a at z 2.8..213.4, x -138.7..108.1",
+    "port-lane: reservoir-a at z 2.8..213.4, x -138.7..104.1",
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
     "west-lane: reservoir-b at z 2.8..213.4, x -138.7..-101.8",
     "west-lane: water-in at z 196.2..213.4, x -138.7..3.2"
@@ -79,7 +90,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "26/26",
+   "value": "48/48",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -89,7 +100,7 @@
    "label": "Every port a placed body declares is positioned",
    "kind": "goal",
    "status": "pass",
-   "value": "4/4",
+   "value": "6/6",
    "target": "every mouth located",
    "detail": [],
    "active": false
@@ -99,7 +110,7 @@
    "label": "Every body is real geometry rather than a primitive",
    "kind": "goal",
    "status": "pass",
-   "value": "26/26",
+   "value": "48/48",
    "target": "no primitives",
    "detail": [],
    "active": false
@@ -119,7 +130,7 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "pass",
-   "value": "26/26",
+   "value": "48/48",
    "target": "a holder per body",
    "detail": [],
    "active": false
@@ -129,9 +140,11 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "0/26",
+   "value": "0/48",
    "target": "a printed joint per body",
    "detail": [
+    "bulkhead-reservoir-a: held by trough floor",
+    "bulkhead-reservoir-b: held by trough floor",
     "carbonator-tube: held by support ring",
     "copper-plug-lower: held by wall slot",
     "copper-plug-middle: held by wall slot",
@@ -141,19 +154,39 @@
     "evap-coil: held by the tank it clamps",
     "evap-tail-inlet: held by wall slot",
     "evap-tail-outlet: held by wall slot",
+    "float-a: held by the rod it rides",
+    "float-b: held by the rod it rides",
+    "float-carb: held by the rod it rides",
+    "float-rod-a: held by body boss",
+    "float-rod-b: held by body boss",
     "float-rod-carb: held by plate registers",
     "foam-cap-bottom: held by shell floor",
     "foam-cap-lid-bottom: held by cap mouth",
     "foam-cap-lid-top: held by cap mouth",
     "foam-cap-top: held by shell rim",
     "foam-shell: held by the enclosure floor",
+    "probe-coil-ds18s20: held by foil tape",
+    "probe-tank-ds18b20: held by foil tape",
     "prv-shroud: held by the PRV it caps",
     "prv-sv125: held by the pour",
+    "reed-a-1: held by shell channel",
+    "reed-a-2: held by shell channel",
+    "reed-a-3: held by shell channel",
+    "reed-a-4: held by shell channel",
+    "reed-b-1: held by shell channel",
+    "reed-b-2: held by shell channel",
+    "reed-b-3: held by shell channel",
+    "reed-b-4: held by shell channel",
     "reed-bridge: held by support ring",
+    "reed-carb-1: held by bridge pocket",
+    "reed-carb-2: held by bridge pocket",
     "reservoir-a: held by pocket",
     "reservoir-a-cap: held by body rim",
     "reservoir-b: held by pocket",
     "reservoir-b-cap: held by body rim",
+    "sparge-barb: held by plate thread",
+    "sparge-silicone-stub: held by the barb and the stone",
+    "sparge-stone: held by its own stub",
     "vessel-elbow-carb-water-out: held by plate thread",
     "vessel-elbow-co2-in: held by plate thread",
     "vessel-elbow-prv: held by plate thread",
@@ -226,9 +259,71 @@
    "mates": "prv",
    "status": "ok",
    "note": ""
+  },
+  {
+   "component": "bulkhead-reservoir-a",
+   "name": "collet",
+   "kind": "fluid",
+   "pos": [
+    101.032,
+    -15.5,
+    6.0
+   ],
+   "face": "y-",
+   "diam": 6.35,
+   "mates": "reservoir-a",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "bulkhead-reservoir-b",
+   "name": "collet",
+   "kind": "fluid",
+   "pos": [
+    -105.0,
+    16.0,
+    6.0
+   ],
+   "face": "y+",
+   "diam": 6.35,
+   "mates": "reservoir-b",
+   "status": "ok",
+   "note": ""
   }
  ],
  "shapes": [
+  {
+   "component": "bulkhead-reservoir-a",
+   "boxes": [
+    [
+     92.298,
+     -16.244,
+     3.0,
+     117.702,
+     11.0,
+     35.0
+    ]
+   ],
+   "fill": 0.34,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "bulkhead-reservoir-b",
+   "boxes": [
+    [
+     -117.702,
+     -11.0,
+     3.0,
+     -92.298,
+     16.0,
+     35.0
+    ]
+   ],
+   "fill": 0.3431,
+   "primitive": false,
+   "declared": "real"
+  },
   {
    "component": "carbonator-tube",
    "boxes": [
@@ -374,6 +469,86 @@
    "declared": "real"
   },
   {
+   "component": "float-a",
+   "boxes": [
+    [
+     93.0,
+     18.5,
+     115.5,
+     121.0,
+     46.5,
+     134.5
+    ]
+   ],
+   "fill": 0.7627,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-b",
+   "boxes": [
+    [
+     -121.0,
+     18.5,
+     115.5,
+     -93.0,
+     46.5,
+     134.5
+    ]
+   ],
+   "fill": 0.7627,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-carb",
+   "boxes": [
+    [
+     36.974,
+     -14.0,
+     117.75,
+     64.974,
+     14.0,
+     136.75
+    ]
+   ],
+   "fill": 0.7627,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-rod-a",
+   "boxes": [
+    [
+     105.412,
+     30.913,
+     32.494,
+     108.588,
+     34.087,
+     207.9
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "float-rod-b",
+   "boxes": [
+    [
+     -108.588,
+     30.913,
+     32.494,
+     -105.412,
+     34.087,
+     207.9
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
    "component": "float-rod-carb",
    "boxes": [
     [
@@ -470,6 +645,38 @@
    "declared": "real"
   },
   {
+   "component": "probe-coil-ds18s20",
+   "boxes": [
+    [
+     -39.067,
+     53.225,
+     157.637,
+     -34.767,
+     57.525,
+     162.837
+    ]
+   ],
+   "fill": 0.9331,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "probe-tank-ds18b20",
+   "boxes": [
+    [
+     -68.703,
+     -2.15,
+     105.6,
+     -64.403,
+     2.15,
+     110.8
+    ]
+   ],
+   "fill": 0.9331,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
    "component": "prv-shroud",
    "boxes": [
     [
@@ -502,6 +709,134 @@
    "declared": "real"
   },
   {
+   "component": "reed-a-1",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     50.5,
+     135.6,
+     33.6,
+     64.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-2",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     95.5,
+     135.6,
+     33.6,
+     109.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-3",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     140.5,
+     135.6,
+     33.6,
+     154.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-a-4",
+   "boxes": [
+    [
+     133.4,
+     31.4,
+     185.5,
+     135.6,
+     33.6,
+     199.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-1",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     50.5,
+     -133.4,
+     33.6,
+     64.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-2",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     95.5,
+     -133.4,
+     33.6,
+     109.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-3",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     140.5,
+     -133.4,
+     33.6,
+     154.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-b-4",
+   "boxes": [
+    [
+     -135.6,
+     31.4,
+     185.5,
+     -133.4,
+     33.6,
+     199.5
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
    "component": "reed-bridge",
    "boxes": [
     [
@@ -514,6 +849,38 @@
     ]
    ],
    "fill": 0.2418,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-carb-1",
+   "boxes": [
+    [
+     63.5,
+     -1.1,
+     92.116,
+     65.7,
+     1.1,
+     106.116
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "reed-carb-2",
+   "boxes": [
+    [
+     63.5,
+     -1.1,
+     120.25,
+     65.7,
+     1.1,
+     134.25
+    ]
+   ],
+   "fill": 0.7854,
    "primitive": false,
    "declared": "real"
   },
@@ -582,6 +949,54 @@
    "declared": "real"
   },
   {
+   "component": "sparge-barb",
+   "boxes": [
+    [
+     -8.249,
+     -26.194,
+     41.525,
+     8.249,
+     -11.906,
+     71.624
+    ]
+   ],
+   "fill": 0.3521,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "sparge-silicone-stub",
+   "boxes": [
+    [
+     -3.175,
+     -22.225,
+     71.624,
+     3.175,
+     21.175,
+     86.07
+    ]
+   ],
+   "fill": 0.3951,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "sparge-stone",
+   "boxes": [
+    [
+     -25.4,
+     -7.4,
+     46.7,
+     25.4,
+     43.4,
+     73.37
+    ]
+   ],
+   "fill": 0.3825,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
    "component": "vessel-elbow-carb-water-out",
    "boxes": [
     [
@@ -606,10 +1021,10 @@
      8.45,
      9.165,
      -11.112,
-     44.954
+     41.525
     ]
    ],
-   "fill": 0.2132,
+   "fill": 0.2274,
    "primitive": false,
    "declared": "real"
   },
@@ -728,13 +1143,13 @@
    "to": "reservoir-a.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 534.36,
+   "length": 518.36,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 320.54,
+   "reach": 315.83,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -764,7 +1179,7 @@
     }
    ],
    "need": {
-    "detour": 1.667
+    "detour": 1.641
    }
   },
   {
@@ -795,13 +1210,13 @@
    "to": "reservoir-b.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 331.37,
+   "length": 315.37,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 214.1,
+   "reach": 211.43,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -825,7 +1240,7 @@
     }
    ],
    "need": {
-    "detour": 1.548
+    "detour": 1.492
    }
   },
   {
@@ -892,6 +1307,18 @@
  ],
  "mounts": [
   {
+   "component": "bulkhead-reservoir-a",
+   "by": null,
+   "held": "trough floor",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-reservoir-b",
+   "by": null,
+   "held": "trough floor",
+   "kind": "real"
+  },
+  {
    "component": "carbonator-tube",
    "by": null,
    "held": "support ring",
@@ -946,6 +1373,36 @@
    "kind": "real"
   },
   {
+   "component": "float-a",
+   "by": null,
+   "held": "the rod it rides",
+   "kind": "real"
+  },
+  {
+   "component": "float-b",
+   "by": null,
+   "held": "the rod it rides",
+   "kind": "real"
+  },
+  {
+   "component": "float-carb",
+   "by": null,
+   "held": "the rod it rides",
+   "kind": "real"
+  },
+  {
+   "component": "float-rod-a",
+   "by": null,
+   "held": "body boss",
+   "kind": "real"
+  },
+  {
+   "component": "float-rod-b",
+   "by": null,
+   "held": "body boss",
+   "kind": "real"
+  },
+  {
    "component": "float-rod-carb",
    "by": null,
    "held": "plate registers",
@@ -982,6 +1439,18 @@
    "kind": "real"
   },
   {
+   "component": "probe-coil-ds18s20",
+   "by": null,
+   "held": "foil tape",
+   "kind": "real"
+  },
+  {
+   "component": "probe-tank-ds18b20",
+   "by": null,
+   "held": "foil tape",
+   "kind": "real"
+  },
+  {
    "component": "prv-shroud",
    "by": null,
    "held": "the PRV it caps",
@@ -994,9 +1463,69 @@
    "kind": "real"
   },
   {
+   "component": "reed-a-1",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-2",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-3",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-a-4",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-1",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-2",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-3",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
+   "component": "reed-b-4",
+   "by": null,
+   "held": "shell channel",
+   "kind": "real"
+  },
+  {
    "component": "reed-bridge",
    "by": null,
    "held": "support ring",
+   "kind": "real"
+  },
+  {
+   "component": "reed-carb-1",
+   "by": null,
+   "held": "bridge pocket",
+   "kind": "real"
+  },
+  {
+   "component": "reed-carb-2",
+   "by": null,
+   "held": "bridge pocket",
    "kind": "real"
   },
   {
@@ -1021,6 +1550,24 @@
    "component": "reservoir-b-cap",
    "by": null,
    "held": "body rim",
+   "kind": "real"
+  },
+  {
+   "component": "sparge-barb",
+   "by": null,
+   "held": "plate thread",
+   "kind": "real"
+  },
+  {
+   "component": "sparge-silicone-stub",
+   "by": null,
+   "held": "the barb and the stone",
+   "kind": "real"
+  },
+  {
+   "component": "sparge-stone",
+   "by": null,
+   "held": "its own stub",
    "kind": "real"
   },
   {
@@ -1049,7 +1596,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T01:43:46+00:00",
-  "commit": "afe6d3b4c3702bba9fecf34ce7b19f9d40214ffd"
+  "generated": "2026-08-09T02:03:39+00:00",
+  "commit": "4f2e3ef694bfe2d693d43c3802e7a4654d4f2c06"
  }
 }
