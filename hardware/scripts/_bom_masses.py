@@ -69,6 +69,13 @@ PARTS = {
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",
     ],
+    "Fuse clamp": ["refrigeration/fuse-clamp/fuse-clamp.step"],
+    # One sleeve is two halves and the machine carries two sleeves, so the pair of halves
+    # is listed twice: the row's mass is what the build prints, and its Qty says so.
+    "Cap-sense sleeve (2-piece clamshell)": [
+        "flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step",
+        "flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step",
+    ] * 2,
     # NO VALVE TRAY ROW. The three valves that stand on a printed face stand in cradles the
     # cold core's own cap lid carries (`_cold_core_interface.cap_cradles`), so their cell is
     # already priced as part of that lid; the rest are butted collet to collet down the
