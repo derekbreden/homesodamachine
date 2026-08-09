@@ -31,10 +31,12 @@ export const canvasHost = document.getElementById("cad-canvas-host");
 
 // Exposure the filmic curve is driven at, shared with step.js's thumbnail renderer.
 export const TONE_EXPOSURE = 1.25;
+// What every 3D surface in the app clears to, and what distance fades toward.
+export const BG_COLOR = 0x1a1a2e;
 
 export const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x1a1a2e);
+renderer.setClearColor(BG_COLOR);
 // The scene renders through a filmic tone curve. step.js's offscreen thumbnail
 // renderer carries the same curve and exposure, so a grid thumbnail and the
 // detail view of a part are shaded alike.
@@ -104,6 +106,23 @@ export function addStudioLighting(target) {
   // two directionals (the GLB assemblies have parts pointing every direction).
   target.add(new THREE.HemisphereLight(0xffffff, 0x333340, 0.5));
   target.environment = studioEnvironment;
+  // Distance fades a surface and an edge toward the background. The x-ray ghost
+  // carries every solid's feature edges at once — 48,000 segments on the
+  // enclosure assembly, the near ones and the far ones at one brightness — and a
+  // wireframe with no depth in it is read one edge at a time. `fitFog` gives this
+  // its range off the framing, the way `fitCameraDepth` gives the camera its planes.
+  target.fog = new THREE.Fog(BG_COLOR, 1, 1000);
+}
+
+// How far past the model's own back the fade completes, as a multiple of its
+// radius: the back of the model reaches 2/(1 + FOG_BACK) of the way, so a body
+// standing there is faded about half rather than gone.
+const FOG_BACK = 3.0;
+
+export function fitFog(target, distance, radius) {
+  if (!target.fog || !(radius > 0)) return;
+  target.fog.near = Math.max(distance - radius, 0);
+  target.fog.far = distance + radius * FOG_BACK;
 }
 
 addStudioLighting(scene);
@@ -395,6 +414,7 @@ export function updateDepthRange() {
     new THREE.Box3().setFromObject(group).getBoundingSphere(_depthSphere);
     _depthGroup = group;
   }
+  fitFog(scene, camera.position.distanceTo(_depthSphere.center), _depthSphere.radius);
   fitCameraDepth(camera, _depthSphere.center, _depthSphere.radius);
 }
 
