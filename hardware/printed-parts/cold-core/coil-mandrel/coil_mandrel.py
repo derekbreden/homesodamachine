@@ -112,17 +112,32 @@ total_wraps = full_wraps + tail_ccw_delta / 360
 # [12.33 mm](PITCH) — helix pitch, [0.485 in](PITCH_IN).
 pitch = wind_length / total_wraps
 
-# Copper the wrap consumes — the helix arc at the winding centerline:
-# [3.877 m](WRAP_LEN) ([12.72 ft](WRAP_FT)) per vessel.
-wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
+# Copper the wrap consumes ON THE MANDREL — the helix arc at the winding
+# centerline, [3.877 m](WRAP_LEN) per vessel. This is what the tool holds,
+# NOT what the coil ends up being.
+mandrel_wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
+
+# WHAT TO CUT IS THE FITTED LENGTH, NOT THE WOUND ONE. The wrap springs
+# net_undersize out when it comes off, so the same [9.687](TOTAL_WRAPS) wraps
+# stand on a circle 2·π·net_undersize longer each turn: [4.06 m](FITTED_LEN)
+# ([13.32 ft](WRAP_FT)) at the tank's own winding radius. Cutting the mandrel
+# figure leaves the coil [183 mm](SPRING_GAIN) short of its own tails.
+# `cold-core-layout/_coil.wrap_length` draws that same figure on the tank and
+# the two are held against each other at every build.
+fitted_wrap_radius = tank_radius + tube_radius
+fitted_wrap_length = total_wraps * math.hypot(2 * math.pi * fitted_wrap_radius, pitch)
+wrap_length = fitted_wrap_length
+spring_gain = fitted_wrap_length - mandrel_wrap_length
 
 # A [500 mm](STUB_LEN) refrigerant-loop tie-in tail at each end brings the
-# per-vessel cut to [16 ft](CUT_FT) — three vessels per 50 ft roll. The
-# tail is sized to out-reach the enclosure's longest routed refrigerant
-# leg (`_lines.py` refrig-2, condenser outlet → evaporator inlet) with
-# in-situ braze slack to spare.
+# per-vessel cut to [16.6 ft](CUT_FT) — three vessels per 50 ft roll with
+# [0.2 ft](ROLL_SPARE) left, which is the whole of the spare. The tail is sized
+# to out-reach the enclosure's longest routed refrigerant leg (`_lines.py`
+# refrig-2, condenser outlet → evaporator inlet) with in-situ braze slack.
 stub_allowance = 500.0
 cut_length = wrap_length + 2 * stub_allowance
+vessels_per_roll = 3
+roll_spare_ft = 50.0 - vessels_per_roll * cut_length / 304.8
 
 
 # ═══════════════════════════════════════════════════════
@@ -200,8 +215,12 @@ def main():
     print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
           f"{tail_ccw_delta:.2f}° fractional)")
     print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
-    print(f"Wrap copper:           {wrap_length:.0f} mm  ({wrap_length / 304.8:.2f} ft)")
-    print(f"Cut w/ tie-in stubs:   {cut_length:.0f} mm  ({cut_length / 304.8:.2f} ft)")
+    print(f"Wrap copper (mandrel): {mandrel_wrap_length:.0f} mm  "
+          f"({mandrel_wrap_length / 304.8:.2f} ft)")
+    print(f"Wrap copper (fitted):  {wrap_length:.0f} mm  ({wrap_length / 304.8:.2f} ft)"
+          f"  — {spring_gain:+.0f} mm of spring")
+    print(f"Cut w/ tie-in stubs:   {cut_length:.0f} mm  ({cut_length / 304.8:.2f} ft)"
+          f"  — {vessels_per_roll} per 50 ft roll leaves {roll_spare_ft:+.2f} ft")
     print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
           f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
@@ -231,7 +250,10 @@ def main():
         "WIND_LENGTH": f"{wind_length:.4g} mm",
         "PITCH": f"{pitch:.4g} mm",
         "PITCH_IN": f"{pitch / 25.4:.3g} in",
-        "WRAP_LEN": f"{wrap_length / 1000:.4g} m",
+        "WRAP_LEN": f"{mandrel_wrap_length / 1000:.4g} m",
+        "FITTED_LEN": f"{fitted_wrap_length / 1000:.4g} m",
+        "SPRING_GAIN": f"{spring_gain:.0f} mm",
+        "ROLL_SPARE": f"{roll_spare_ft:.1f} ft",
         "WRAP_FT": f"{wrap_length / 304.8:.4g} ft",
         "STUB_LEN": f"{stub_allowance:.4g} mm",
         "CUT_FT": f"{cut_length / 304.8:.4g} ft",
@@ -257,6 +279,9 @@ def main():
             "PITCH_IN": 1,
             "WRAP_LEN": 1,
             "WRAP_FT": 1,
+            "FITTED_LEN": 1,
+            "SPRING_GAIN": 1,
+            "ROLL_SPARE": 1,
             "STUB_LEN": 1,
             "CUT_FT": 1,
             "HANDLE_LENGTH": 1,

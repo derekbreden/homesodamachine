@@ -56,6 +56,15 @@ _coil_mandrel_gen = _load_module(
     _here.parent / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
+# The PRV vent line (§2), read off the run `_internal_routes` draws down the port lane rather
+# than restated: the row bills the stock that line is cut from.
+_routes_gen = _load_module(
+    "bom_internal_routes_gen",
+    _here.parent / "printed-parts" / "cold-core" / "_internal_routes.py",
+)
+_prv_vent_mm = _routes_gen.route_wire(
+    _routes_gen.routes["prv-vent"], _routes_gen.route_bend_radius).Length()
+
 
 # Pressure vessel geometry: two laser-welded SS endcap plates per
 # vessel, four 1/4" NPT ports tapped into the plates (water in, water
@@ -251,11 +260,17 @@ def main():
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
-        # Evaporator-coil copper (§5 GOORY row).
+        # Evaporator-coil copper (§5 GOORY row). WRAP_FT is the FITTED length — what the
+        # coil is once it has sprung onto the tank — because that is the copper a build
+        # consumes; the mandrel's own shorter figure is beside it in `coil_mandrel`.
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
+        "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
         "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
         "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
         "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
+        "ROLL_SPARE": f"{_coil_mandrel_gen.roll_spare_ft:.1f} ft",
+        # The PRV vent line (§2), as `cold-core-layout` draws it inside the core.
+        "PRV_VENT_MM": f"{_prv_vent_mm:.0f} mm",
     }
 
     substitute_md(
@@ -295,9 +310,12 @@ def main():
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
             "PITCH": 1,
+            "NET_UNDERSIZE": 1,
             "WRAP_FT": 1,
             "STUB_LEN": 1,
             "CUT_FT": 1,
+            "ROLL_SPARE": 1,
+            "PRV_VENT_MM": 1,
         },
     )
     print("-> bom.md")
