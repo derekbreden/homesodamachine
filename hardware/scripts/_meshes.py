@@ -89,7 +89,12 @@ def box(manifold) -> Box:
 
 
 def meshed(solid, deflection: float = DEFLECTION):
-    """The solid as a `Manifold`, memoized by identity. Keyed like `_boxes.boxed`."""
+    """The solid as a `Manifold`, memoized by identity. Keyed like `_boxes.boxed`.
+
+    A `Manifold` passes through: `common` hands one back, and what it shares with a third body
+    is a fair question to ask of it."""
+    if isinstance(solid, Manifold):
+        return solid
     key = (hash(solid.wrapped), deflection)
     hit = _CACHE.get(key)
     if hit is not None and hit[0].wrapped.IsSame(solid.wrapped):

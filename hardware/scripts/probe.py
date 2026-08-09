@@ -71,6 +71,8 @@ import cadquery as cq
 
 from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
+import _clearing
+import _meshes
 import _overlap
 
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
@@ -119,6 +121,8 @@ def shape(obj, label: str = "?"):
     hand gets one of them wrong."""
     obj = obj[0] if isinstance(obj, tuple) else obj
     obj = obj.val() if hasattr(obj, "val") else obj
+    if hasattr(obj, "bounding_box"):        # already a mesh — `common` hands these back
+        return obj
     if not hasattr(obj, "wrapped"):
         raise TypeError(
             f"{label}: cannot read a solid out of {type(obj).__name__} — "
@@ -445,7 +449,7 @@ class World:
                     f"intersection with {name} failed ({exc}) — this body's "
                     f"occupancy is unknown, not empty") from exc
             if overlap > tol:
-                out.append(Hit(name, overlap, inter.BoundingBox()))
+                out.append(Hit(name, overlap, _meshes.box(inter)))
         return sorted(out, key=lambda h: -h.volume)
 
     def clear(self, vol, skip=()) -> bool:
@@ -558,7 +562,7 @@ class World:
                 raise RuntimeError(
                     f"cast against {name} failed ({exc}) — the free run past this "
                     f"body is unknown, not clear") from exc
-            t = _axis_min(inter, origin, d)
+            t = _clearing.axis_min(inter, origin, d)
             if t < best:
                 best, who = max(0.0, t), name
         return Contact(best, who, tuple(origin), d, limit, dia)
@@ -585,22 +589,6 @@ def _swept_box(sh, d, length: float):
         lo[i] += min(0.0, step)
         hi[i] += max(0.0, step)
     return box(x=(lo[0], hi[0]), y=(lo[1], hi[1]), z=(lo[2], hi[2]))
-
-
-def _axis_min(sh, origin, d) -> float:
-    """Smallest distance along `d` from `origin` of any point of `sh` — the
-    shape is moved to the origin and rotated until `d` lies on +Z, where the
-    bounding box's zmin is exactly that distance."""
-    loc = sh.translate((-origin[0], -origin[1], -origin[2]))
-    dot = d[2]
-    if dot < 1.0 - 1e-12:
-        if dot <= -1.0 + 1e-12:
-            loc = loc.rotate((0, 0, 0), (1, 0, 0), 180.0)
-        else:
-            axis = (d[1], -d[0], 0.0)       # d × ẑ
-            angle = math.degrees(math.acos(max(-1.0, min(1.0, dot))))
-            loc = loc.rotate((0, 0, 0), axis, angle)
-    return loc.BoundingBox().zmin
 
 
 # --- sweeping a continuous parameter --------------------------------------
