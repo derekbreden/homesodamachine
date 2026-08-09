@@ -84,6 +84,9 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "electronics" / "pcba-tray",
            _hw / "reference" / "asse1022-assembly",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
+           _hw / "reference" / "shutao-moisture-plate",
+           _hw / "reference" / "mq6-gas-sensor",
+           _hw / "reference" / "sf76e-thermal-fuse",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
@@ -117,6 +120,9 @@ import seaflo_discharge_chain as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import drip_pan as _pan                               # noqa: E402
+import shutao_moisture_plate as _plate                # noqa: E402
+import mq6_gas_sensor as _mq6                         # noqa: E402
+import sf76e_thermal_fuse as _fuse                    # noqa: E402
 import foam_assembly as _foam                         # noqa: E402
 import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
@@ -141,12 +147,40 @@ import _scorecard as _card                             # noqa: E402
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 RELAY_STEP = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
-WAGO_STEP = _hw / "reference" / "wago-221-413" / "wago-221-413.step"
 GND_STACK_STEP = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
+
+
+def wago_step(size):
+    return _hw / "reference" / "wago-221" / f"wago-221-{size}.step"
+
+
 # The five lever nuts, in the order the row runs fore to aft. Three carry the mains poles and
 # two the 12 V rails; they are one row because they are one part in one kind of well, and the
 # wall does not care which conductor a lug splices.
 WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
+
+# The five DEVICE-CLUSTER lever nuts, as `name: (side, y, z, size)`. Each is the far end of one
+# board loom, where a single `COM` or `GND` conductor becomes the fan-out its cluster's devices
+# land on — `wiring/ac-wiring-schedule.md` "Loom terminations". So each stands on the flank its
+# own cluster stands on rather than beside the board the trunk leaves:
+#
+#   wago-mana     J1 MANIFOLD A `COM` → V-A…V-H, on the east flank the manifold's own
+#                 outboard pair (V-F, V-G) stands against
+#   wago-manb     J2 MANIFOLD B `COM` → V-I, V-J, the condenser fan and V-K, mirrored on
+#                 the west flank V-I and V-J stand against
+#   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two,
+#                 west of the cold core's forward pocket
+#   wago-sensors  J4 SENSORS `GND` → the 1-wire bus, the DIGITEN meter and the moisture
+#                 plate, all three of which land aft and west
+#   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds, at the aft pocket's own
+#                 reed channel, threaded between the two back-wall unions
+CLUSTER_WAGOS = {
+    "wago-mana": (+1, 113.0, 290.0, "420"),
+    "wago-manb": (-1, 119.0, 275.0, "415"),
+    "wago-reeds-b": (-1, 230.0, 296.0, "420"),
+    "wago-sensors": (-1, 335.0, 300.0, "415"),
+    "wago-reeds-a": (-1, 455.0, 304.0, "415"),
+}
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
@@ -187,6 +221,9 @@ C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
 C_GND = cq.Color(0.55, 0.55, 0.58)
 C_ASSE = cq.Color(0.85, 0.78, 0.45)
 C_PAN = cq.Color(0.62, 0.66, 0.72)
+C_PLATE = cq.Color(0.20, 0.55, 0.35)
+C_MQ6 = cq.Color(0.25, 0.40, 0.70)
+C_FUSE = cq.Color(0.88, 0.72, 0.22)
 C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 C_VK = cq.Color(0.45, 0.50, 0.58)
@@ -198,6 +235,7 @@ C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
+Y_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 1, 0))
 
 
 def box(shape):
@@ -368,6 +406,39 @@ def build_condenser(comp):
                      cx=0.0, y0=box(comp).ymax, z0=0.0)
 
 
+# The turn that lays the cutoff's seating plane on a face looking down -Y. Its own frame runs
+# the case along X with Z = 0 the generatrix it lies on, and a quarter about X carries that
+# generatrix onto the -Y normal with the case's axis left on X — across the box, along the
+# cover's own `compressor.POWER_X`.
+FUSE_TURN = (((1.0, 0.0, 0.0), 90.0),)
+FUSE_FACE_NORMAL = (0.0, -1.0, 0.0)
+
+
+def build_thermal_fuse(comp_carry):
+    """The SF76E lying on the compressor's power box, on the station `compressor.power_face`
+    states and this carry puts in the machine.
+
+    Seated on ITS OWN CONTACT LINE rather than on a face of its box: what has to land on the
+    cover is the generatrix the case touches it along, and the case is round, so its box
+    touches the cover at one line and everywhere else stands off it."""
+    (pos, normal) = comp_carry(_comp.power_face())
+    got = tuple(round(v, 9) for v in normal)
+    if got != FUSE_FACE_NORMAL:
+        raise ValueError(
+            f"the compressor's power face looks {got} in the machine and the cutoff's quarter "
+            f"turn lays its contact line on {FUSE_FACE_NORMAL} — the base has been turned out "
+            f"from under this pose, and the case is now bedded in the cover rather than on it.")
+    placed, carry = seat_body(_fuse.build(), FUSE_TURN, seat="thermal-fuse",
+                              station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), pos))
+    # The case has to land ON the cover, both ways: a case longer than the box is wide, or
+    # taller than the box stands, hangs off the face it is there to read.
+    note_room("thermal-fuse", "cover either side of the case",
+              0.0, (_comp.POWER_X - _fuse.LENGTH) / 2.0)
+    note_room("thermal-fuse", "cover above and below the case",
+              0.0, (_comp.POWER_Z - _fuse.BODY_D) / 2.0)
+    return placed, carry
+
+
 def build_foam(front_y: float):
     """The cold core at the machine's own `FOAM_YAW` and on the machine's own floor, its front
     face on the plane the bodies ahead of it end at. Its native box hangs 20 mm below its
@@ -390,6 +461,62 @@ def cap_face(foam):
     on one. `foam_assembly` states how far the face stands over the floor the stack is set down
     on, and this reads it there."""
     return box(foam).zmin + _foam.cap_face_over_floor
+
+
+# --- the gas sensor, low in the refrigeration bay --------------------------
+#
+# The hardware-only half of the leak backstop: the compressor relay cannot close while this
+# board reads gas, and the gate that enforces it is on the PCBA rather than in firmware
+# (`assembly/refrigerant-loop.md` "Safety"). What the placement owes that circuit is a board
+# standing in the layer a leak actually makes.
+#
+# R-600A FALLS. It is half again heavier than air, so it leaves whichever brazed joint let it
+# go, drops, and spreads over the slab as one layer — and this bay's floor is one connected
+# pool: the compressor's plate and the condenser's block stand on it, and the −X strip, the
+# channel between them and the slot behind them are all open to each other. Every leak site
+# the loop has drains into that one pool, which is why the sensor answers to HEIGHT and not
+# to aim. It stands in the strip down the −X flank, the one stretch of floor no body occupies.
+#
+# THE MESH LOOKS AFT, down the length of that strip, and the header faces fore into the bay
+# the front assembly opens onto. That is what standing the card on edge buys. Flat on the wall
+# the can would spend the strip's whole depth and the loom would still have to reach a header
+# facing the wall behind it; on edge, the reach off the wall is the board's own short side and
+# both of its faces are in open air.
+#
+# The turn is two quarters: −90° about X lays the card down with its can facing aft, then +90°
+# about Y stands it back up on its long edge with its short side reaching inboard.
+MQ6_STEP = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
+MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Y_AXIS[1].toTuple(), 90.0))
+
+
+def build_mq6(comp):
+    """The MQ-6 on edge in the −X strip, as low as a 32 mm card stands.
+
+    WEST on the wall's own inner face, not on the boss plane every body on the other flank
+    stands on — nothing bolts this card down, it slides into a slot printed on the wall
+    (`enclosure._west_cradle`) and bottoms on the wall itself, so the wall is where it goes.
+
+    FORE on the compressor's own front plane, so nothing of the sensor reaches further into
+    the bay's mouth than the brick already does, and the can ends up looking aft from within
+    the terminal box's own depth.
+
+    LOW on the slab the compressor stands on, one rail section up — which is the whole of what
+    lifts it. The mesh comes out under the power box's floor, so the layer reaches this board
+    before it reaches the one ignition source in the compartment."""
+    body = cq.importers.importStep(str(MQ6_STEP)).val()
+    return seat_body(body, MQ6_TURN, seat="mq6-sensor",
+                     x0=_enc.interior_x()[0], y0=box(comp).ymin,
+                     z0=box(comp).zmin + _enc.mq6_rail_wall)
+
+
+def mq6_cradle(carry):
+    """The wall's card-slot station, `(y, z)` — the card's own mid-plane and its centre,
+    carried out of the board's frame so the slot cannot land anywhere but on the card.
+
+    Struck on `mq6_gas_sensor.card_plane` and not on the placed box, because the box is the
+    pins and the can as well and its centre is 4 mm behind the card they hang off."""
+    pos = carry(_mq6.card_plane())[0]
+    return ((pos[1], pos[2]),)
 
 
 # --- the bounds the machine states about itself -----------------------------
@@ -1313,7 +1440,8 @@ def co2_wall_port(inlet_carry):
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
-              ) + WAGO_POLES + (
+              "moisture-plate", "mq6-sensor", "thermal-fuse",
+              ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
@@ -1459,18 +1587,21 @@ RELAY2_TURN = RELAY_TURN + (((1.0, 0.0, 0.0), 90.0),)
 # its 8.4 mm body lies along Y — the narrow face to the row, which is what fits five of them in
 # the depth three would take lying the other way.
 WAGO_TURN = (((1.0, 0.0, 0.0), 90.0), ((0.0, 1.0, 0.0), -90.0))
+# The same lug for the WEST wall: the quarter about +Y instead of −Y lays its wire-entry axis
+# onto +X, so it presses east and its ports again face the room.
+WAGO_TURN_WEST = (((1.0, 0.0, 0.0), 90.0), ((0.0, 1.0, 0.0), 90.0))
 # What the Wago row stands off the brick's crown, and what the relay above it stands off the row.
 WAGO_CLEAR = STACK_CLEAR
 
 
-def _wago_skirt():
+def _wago_skirt(size="413"):
     """What a well reaches PAST its lug on the row's cross axis — the wall it wraps the lug in,
     plus that wall's press clearance.
 
     The lug is what gets placed and the WELL is what can foul a neighbour, and the well is the
     bigger of the two. Clearing the brick's crown by the lug's own bottom face would bury the
     skirt in it, so every clearance struck against this row is struck against the tower."""
-    return _enc.wago_half_z - _enc.wago_stand_z / 2.0
+    return _enc.wago_half(size)[1] - _enc.wago_stand(size)[1] / 2.0
 
 
 def build_relay2(psu, foam, wall_seat):
@@ -1487,7 +1618,7 @@ def build_wago_row(psu, wall_seat):
     """The five 221-413 lever nuts on the brick's crown, as `[(name, solid, carry)]`.
 
     They are the only bodies on this flank that no boss holds: each presses into a well printed
-    on the wall itself (`enclosure._east_wells`), so what locates them is the wall, and what this
+    on the wall itself (`enclosure._side_wells`), so what locates them is the wall, and what this
     places is the lug that goes in it. The row runs fore and aft on the brick's own depth,
     CENTRED on it, one `WAGO_CLEAR` over its crown.
 
@@ -1501,11 +1632,29 @@ def build_wago_row(psu, wall_seat):
     y0 = (pb.ymin + pb.ymax) / 2.0 - span / 2.0
     out = []
     for i, name in enumerate(WAGO_POLES):
-        solid, carry = seat_body(cq.importers.importStep(str(WAGO_STEP)).val(), WAGO_TURN,
+        solid, carry = seat_body(cq.importers.importStep(str(wago_step("413"))).val(), WAGO_TURN,
                                  seat=name, x1=_enc.interior_x()[1],
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
                                  z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
         out.append((name, solid, carry))
+    return out
+
+
+def build_cluster_wagos():
+    """The five device-cluster lever nuts, as `[(name, solid, carry, size)]`.
+
+    Each is stationed on the flank of the cluster it fans out to (`CLUSTER_WAGOS`) and seats the
+    same way the row on the brick's crown does: the butt goes to `interior_x` on its own side,
+    because the pocket bottoms on the wall and the wall is the datum. The station names the well's
+    CENTRE, so the lug is placed off its own half rather than a face."""
+    out = []
+    for name, (side, y, z, size) in CLUSTER_WAGOS.items():
+        stand_y, stand_z, _sx = _enc.wago_stand(size)
+        turn = WAGO_TURN if side > 0 else WAGO_TURN_WEST
+        face = {"x1": _enc.interior_x()[1]} if side > 0 else {"x0": _enc.interior_x()[0]}
+        solid, carry = seat_body(cq.importers.importStep(str(wago_step(size))).val(), turn,
+                                 seat=name, y0=y - stand_y / 2.0, z0=z - stand_z / 2.0, **face)
+        out.append((name, solid, carry, size))
     return out
 
 
@@ -1529,13 +1678,17 @@ def build_stack(psu, pcba, wagos, wall_seat):
     return out
 
 
-def wago_wells(wagos):
-    """The wall's well stations, `(y, z)` — one per placed lug, read off the lug's own box so a
-    well cannot end up anywhere but under the thing it holds."""
+def wago_wells(row, cluster):
+    """Every wall's well stations, `(side, y, z, size)` — one per placed lug, read off the lug's
+    own box so a well cannot end up anywhere but under the thing it holds."""
     out = []
-    for _name, solid, _carry in wagos:
+    for _name, solid, _carry in row:
         b = box(solid)
-        out.append(((b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0))
+        out.append((+1, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, "413"))
+    for name, solid, _carry, size in cluster:
+        b = box(solid)
+        out.append((CLUSTER_WAGOS[name][0],
+                    (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, size))
     return tuple(out)
 
 
@@ -1768,6 +1921,69 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry, west_face):
                               x1=pan_east_x(seaflo, floor, front), y0=front, z0=floor)
     check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
     check_pan_lane(placed, west_face)
+    return placed, carry
+
+
+# --- the moisture plate, lying in the basin ---------------------------------
+#
+# The Shutao module is two boards: the LM393 comparator, which mounts dry off elsewhere, and the
+# interdigitated probe plate, which is the half that has to be WET to read. This is that half.
+#
+# THE PLATE IS TURNED A QUARTER and `drip_pan.check_plate` is the reason: its 54 mm runs down the
+# basin's Y, the axis the aft strip has depth to spare on, and its 40 mm across the X the west
+# lane has to buy from the pump. Sizing the floor and standing the body on it read ONE turn, so a
+# basin that passes its own bound is a basin this plate lies flat in.
+#
+# The quarter is +90, which carries the plate's own −X edge — the edge its two lead holes sit
+# behind — onto the basin's FORWARD end. That is the end away from the ASSE chain the tray hangs
+# under: the leads leave the basin in the open, not under the body that drips into it, and the
+# solder joints are the last thing a pool standing in the basin reaches.
+PLATE_YAW = 90.0
+
+
+def check_drip_reads(plate, tip) -> Bound:
+    """Where the drip falls against the PLATE, which is a narrower target than the floor.
+
+    `check_vent_lands` holds the drip on the basin's flat floor and that is a different bound
+    with a different failure: a drip on a cove runs down the outside of the tray. This one is
+    the sensor's own. The flat floor is 43 x 67 and the plate is 40 x 54, so there is a band the
+    tray catches and the probe never reads — the vent weeps, the pan does its job, and the alarm
+    the weep exists to raise stays silent until the basin has pooled deep enough to reach the
+    comb sideways. THAT IS THE FAILURE THIS GATE IS FOR, and it is invisible in every other one."""
+    b = box(plate)
+    ok = (b.xmin <= tip[0] <= b.xmax) and (b.ymin <= tip[1] <= b.ymax)
+    return record_bound(Bound(
+        "drip-reads", "The atmospheric vent drips on the moisture plate itself", ok,
+        f"drips at x {tip[0]:.2f}, y {tip[1]:.2f}",
+        f"x[{b.xmin:.2f}, {b.xmax:.2f}] y[{b.ymin:.2f}, {b.ymax:.2f}]",
+        ([] if ok else [
+            f"moisture-plate: the vent drips at x {tip[0]:.2f}, y {tip[1]:.2f}, off the "
+            f"{_plate.PLATE_Y:g} x {_plate.PLATE_X:g} plate at x[{b.xmin:.2f}, {b.xmax:.2f}] "
+            f"y[{b.ymin:.2f}, {b.ymax:.2f}]. The plate is centred on the basin's flat floor and "
+            f"the basin is struck off the pump's discharge in Y and its casting in X, so what "
+            f"moves the target is `PAN_PORT_CLEAR` or `FOOT_CLEAR`; what moves the drip is the "
+            f"ASSE chain's own standoff from the back wall."])))
+
+
+def build_moisture_plate(pan_carry, asse_carry):
+    """The probe plate lying flat on the basin's floor, centred on the flat inside the coves.
+
+    ITS ONE STATION IS ITS OWN UNDERSIDE CENTRE, seated on the flat floor's centre carried out of
+    the tray's frame — so the plate rides the tray. `build_pan` hangs the basin off the ASSE
+    chain and fences it off the pump's casting, and every one of those moves arrives here through
+    `pan_carry` rather than being struck again off a box.
+
+    Centred is the whole of the rule. The plate has no station of its own to answer to — nothing
+    threads it, nothing bolts it — so the only thing to say about where it lies is that it lies
+    in the middle of what receives it, which is also what leaves the drip the most margin on
+    every side. `check_drip_reads` is where that margin is read back."""
+    plate = _plate.build()
+    plate = plate.val() if hasattr(plate, "val") else plate
+    floor_centre = pan_carry((
+        (_pan.PAN_X / 2.0, _pan.PAN_Y / 2.0, _pan.FLOOR), (0.0, 0.0, 1.0)))[0]
+    placed, carry = seat_body(plate, (((0.0, 0.0, 1.0), PLATE_YAW),), seat="moisture-plate",
+                              station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), floor_centre))
+    check_drip_reads(placed, asse_carry(_asse.port("vent-tip"))[0])
     return placed, carry
 
 
@@ -2065,6 +2281,17 @@ def build_pack() -> cq.Assembly:
                                       names=("compressor", "condenser+fan"))
     a.add(comp, name="compressor", color=C_COMP)
     a.add(cond, name="condenser+fan", color=C_COND)
+    # The gas sensor goes down with the bodies it watches, off the compressor's own plate: it
+    # is placed here rather than with the box because the wall's slot is struck on where it
+    # lands, the way every well on the other flank is struck on its lug.
+    mq6, mq6_carry = build_mq6(comp)
+    a.add(mq6, name="mq6-sensor", color=C_MQ6)
+    a.west_cradle = mq6_cradle(mq6_carry)
+    # The cutoff goes down with the compressor too, and for the same reason the sensor does:
+    # its whole job is a temperature, and the temperature it reads is the one at the face it
+    # is lying on.
+    fuse, fuse_carry = build_thermal_fuse(comp_carry)
+    a.add(fuse, name="thermal-fuse", color=C_FUSE)
 
     posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
@@ -2122,7 +2349,10 @@ def build_pack() -> cq.Assembly:
     for name, solid, colour, _carry in stack:
         a.add(solid, name=name, color=colour)
     stack_carry = {name: carry for name, _s, _c, carry in stack}
-    a.east_wells = wago_wells(wagos)
+    cluster = build_cluster_wagos()
+    for name, solid, _carry, _size in cluster:
+        a.add(solid, name=name, color=C_AC_HUB)
+    a.side_wells = wago_wells(wagos, cluster)
     check_east_band([("psu", psu), ("pcba", pcba), ("relay-2", relay2)]
                     + [(n, s) for n, s, _c in wagos]
                     + [(n, s) for n, s, _c, _k in stack])
@@ -2131,7 +2361,7 @@ def build_pack() -> cq.Assembly:
     a.floor_bosses = floor_mounts(
         (comp_carry, _comp.mount_pattern(), _comp.BASE_Z))
     # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
-    # well IS its mount, and that goes on the wall through `east_wells`.
+    # well IS its mount, and that goes on the wall through `side_wells`.
     a.east_bosses = wall_mounts(
         (psu_carry, _psu.holes), (pcba_carry, _pcba.board.holes),
         (relay2_carry, _relay.holes),
@@ -2167,9 +2397,11 @@ def build_pack() -> cq.Assembly:
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
-    pan, _pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry,
-                                west_interior_face())
+    pan, pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry,
+                               west_interior_face())
     a.add(pan, name="drip-pan", color=C_PAN)
+    mplate, _mplate_carry = build_moisture_plate(pan_carry, asse_carry)
+    a.add(mplate, name="moisture-plate", color=C_PLATE)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
@@ -2282,7 +2514,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
-                     east_wells=a.east_wells, floor_bosses=a.floor_bosses)
+                     side_wells=a.side_wells, floor_bosses=a.floor_bosses,
+                     west_cradle=a.west_cradle)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:

@@ -2,19 +2,25 @@
  "gatesPass": false,
  "placed": 100,
  "located": 100,
- "shaped": 91,
+ "shaped": 92,
  "routed": 100,
- "held": 92,
- "mounted": 25,
+ "held": 91,
+ "mounted": 27,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "pass",
-   "value": "64/64 declared",
+   "status": "fail",
+   "value": "67/72 declared",
    "target": "all declared",
-   "detail": [],
+   "detail": [
+    "placed, undeclared: wago-mana",
+    "placed, undeclared: wago-manb",
+    "placed, undeclared: wago-reeds-a",
+    "placed, undeclared: wago-reeds-b",
+    "placed, undeclared: wago-sensors"
+   ],
    "active": true
   },
   {
@@ -22,12 +28,14 @@
    "label": "Every derived pose has the room its own construction states",
    "kind": "gate",
    "status": "pass",
-   "value": "5/5 bands held, tightest +0.715 mm",
+   "value": "7/7 bands held, tightest +0.715 mm",
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 6, has 6.715",
     "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.913",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 6, has 9.000",
+    "thermal-fuse: cover either side of the case \u2014 wants 0, has 14.000",
+    "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
@@ -37,10 +45,14 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "3 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "mq6-sensor \u2229 enclosure-front-bottom   2.9 mm\u00b3, x[ -102.63,  -94.50] y[    9.00,   10.85] z[   31.68,   32.32]",
+    "wago-reeds-b \u2229 enclosure-back-top   1032.3 mm\u00b3, x[  -98.35,  -94.50] y[  222.10,  231.40] z[  281.10,  310.90]",
+    "wago-reeds-a \u2229 enclosure-back-top   388.5 mm\u00b3, x[  -98.20,  -94.50] y[  455.70,  459.20] z[  289.00,  319.00]"
+   ],
    "active": true
   },
   {
@@ -70,7 +82,7 @@
     "valve-v-h.outlet: 15.75 mm to tee-y-f, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-i.inlet: 15.75 mm to tee-y-g, needs 28.00 \u2014 no run authored on it yet",
     "valve-v-g.inlet: 17.18 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
-    "asse1022-assembly.vent-tip: 11.00 mm to drip-pan \u2014 opens to atmosphere, not gated"
+    "asse1022-assembly.vent-tip: 9.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
    "active": true
   },
@@ -86,6 +98,7 @@
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 threads coil-v-b \u2014 coil-v-a: they leave 7.890 mm and the tube is \u00d86.35, so 0.770 mm a side is that lane's own best \u2014 nothing moves inside it, so the fix is a body or the route itself \u2014 1.72\u00d7 its need: 153 mm of path for ends 89 mm apart",
+    "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
@@ -93,6 +106,7 @@
     "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 seated against it",
     "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
+    "drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.000 mm \u2014 seated against it",
     "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
@@ -136,6 +150,7 @@
     "co2-2 \u2014 suction-chain: 4.568 mm",
     "fluid-2 \u2014 valve-v-b: 4.583 mm",
     "fluid-24 \u2014 fluid-26: 4.601 mm",
+    "coil-v-i \u2014 wago-manb: 4.680 mm",
     "water-7 \u2014 foam-assembly: 4.750 mm",
     "fluid-28 \u2014 fluid-24: 4.799 mm",
     "fluid-4 \u2014 seaflo-pump: 4.888 mm",
@@ -537,6 +552,16 @@
    "active": true
   },
   {
+   "id": "drip-reads",
+   "label": "The atmospheric vent drips on the moisture plate itself",
+   "kind": "gate",
+   "status": "pass",
+   "value": "drips at x -77.00, y 382.21",
+   "target": "x[-92.00, -52.00] y[367.10, 421.10]",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "port-pair",
    "label": "The nozzle unions' pair stands inside the west lane",
    "kind": "gate",
@@ -580,10 +605,12 @@
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
-   "status": "pass",
-   "value": "pack reaches x \u00b1108.50, wall at \u00b1108.50",
+   "status": "fail",
+   "value": "pack reaches x \u00b1122.50, wall at \u00b1108.50",
    "target": "inside a 223 mm appliance",
-   "detail": [],
+   "detail": [
+    "the pack reaches x \u00b1122.50 but a 223 mm appliance walls in at \u00b1108.50 \u2014 14.00 mm over. Raise `appliance_width` or repack inboard"
+   ],
    "active": true
   },
   {
@@ -715,13 +742,14 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "16/64 mounted",
+   "value": "18/67 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
     "digiten-flow: held by none",
     "discharge-chain: held by none",
     "suction-chain: held by none",
+    "thermal-fuse: held by none",
     "wr1110: held by none",
     "bulkhead-carb: held by wall-capture",
     "bulkhead-flavor-a: held by wall-capture",
@@ -774,7 +802,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "64/64 stated",
+   "value": "72/72 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -827,7 +855,7 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "58/64 authored",
+   "value": "66/72 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
@@ -850,12 +878,13 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "fail",
-   "value": "59/64 held",
+   "value": "61/67 held",
    "target": "a holder per body",
    "detail": [
+    "basin holds 1: moisture-plate",
     "bosses holds 6: c14-inlet, ground-stack, pcba, psu, relay-1, relay-2",
     "channel holds 1: drip-pan",
-    "cradle holds 3: valve-v-a, valve-v-b, vk-solenoid",
+    "cradle holds 4: mq6-sensor, valve-v-a, valve-v-b, vk-solenoid",
     "deck-mount holds 1: seaflo-pump",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
     "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
@@ -866,6 +895,7 @@
     "digiten-flow: nothing holds it at all",
     "discharge-chain: nothing holds it at all",
     "suction-chain: nothing holds it at all",
+    "thermal-fuse: nothing holds it at all",
     "wr1110: nothing holds it at all"
    ],
    "active": false
@@ -2378,6 +2408,22 @@
    "declared": null
   },
   {
+   "component": "mq6-sensor",
+   "boxes": [
+    [
+     -108.5,
+     9.0,
+     3.0,
+     -88.5,
+     30.6,
+     35.0
+    ]
+   ],
+   "fill": 0.3619,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "flow-regulator",
    "boxes": [
     [
@@ -2754,6 +2800,22 @@
    "declared": null
   },
   {
+   "component": "thermal-fuse",
+   "boxes": [
+    [
+     -36.5,
+     4.8,
+     50.4,
+     -19.5,
+     9.0,
+     54.6
+    ]
+   ],
+   "fill": 0.5239,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "water-split",
    "boxes": [
     [
@@ -2930,6 +2992,86 @@
    "declared": null
   },
   {
+   "component": "wago-mana",
+   "boxes": [
+    [
+     90.2,
+     105.1,
+     275.1,
+     108.5,
+     120.9,
+     304.9
+    ]
+   ],
+   "fill": 0.9812,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-reeds-b",
+   "boxes": [
+    [
+     -108.5,
+     222.1,
+     281.1,
+     -90.2,
+     237.9,
+     310.9
+    ]
+   ],
+   "fill": 0.9812,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-manb",
+   "boxes": [
+    [
+     -108.5,
+     114.8,
+     260.0,
+     -89.9,
+     123.2,
+     290.0
+    ]
+   ],
+   "fill": 0.9827,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-reeds-a",
+   "boxes": [
+    [
+     -108.5,
+     450.8,
+     289.0,
+     -89.9,
+     459.2,
+     319.0
+    ]
+   ],
+   "fill": 0.9827,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "wago-sensors",
+   "boxes": [
+    [
+     -108.5,
+     330.8,
+     285.0,
+     -89.9,
+     339.2,
+     315.0
+    ]
+   ],
+   "fill": 0.9827,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "wago-g",
    "boxes": [
     [
@@ -3006,6 +3148,22 @@
     ]
    ],
    "fill": 0.9835,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "moisture-plate",
+   "boxes": [
+    [
+     -92.0,
+     367.1,
+     296.711,
+     -52.0,
+     421.1,
+     298.311
+    ]
+   ],
+   "fill": 0.999,
    "primitive": false,
    "declared": null
   },
@@ -5064,6 +5222,24 @@
    "kind": "real"
   },
   {
+   "component": "moisture-plate",
+   "by": "drip-pan",
+   "held": "basin",
+   "kind": "real"
+  },
+  {
+   "component": "mq6-sensor",
+   "by": "enclosure-front-bottom",
+   "held": "cradle",
+   "kind": "real"
+  },
+  {
+   "component": "thermal-fuse",
+   "by": null,
+   "held": "none",
+   "kind": "real"
+  },
+  {
    "component": "water-split",
    "by": null,
    "held": "tube-hung",
@@ -5329,7 +5505,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T00:34:08+00:00",
-  "commit": "34e78aad472c1c2bc6e216e7e76ea4e4dc1898cd"
+  "generated": "2026-08-09T02:08:38+00:00",
+  "commit": "b80b65e8a722a5235f24556b44df0f87ec74ed7c"
  }
 }

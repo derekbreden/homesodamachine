@@ -118,12 +118,14 @@ _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
-sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221-413"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import hopper_funnel as _funnel
-import wago_221_413 as _wago
+import wago_221 as _wago
+import mq6_gas_sensor as _mq6
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -231,31 +233,90 @@ mount_boss_dia = 7.0
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = 1.0
 
-# --- the +X wall's Wago wells ----------------------------------------------
+# --- the side walls' Wago wells ---------------------------------------------
 #
-# The five 221-413 lever nuts this machine distributes through — three for the AC mains
-# (H / N / G) and two for the 12 V rails (+ / GND) — are HELD BY THE WALL. There is no
-# tray: a well is printed on the wall's inner face and the lug presses into it, which is
-# one part fewer, two hold-down bosses fewer, and no plate between the lug and the thing
-# that locates it. A lever nut has no mounting hole of its own — it is a free splice —
-# so a printed pocket is the only way it is ever held, and the wall is as good a place
-# to print one as a plate is.
+# The ten lever nuts this machine splices in are HELD BY THE WALL. There is no tray: a
+# well is printed on a wall's inner face and the lug presses into it, which is one part
+# fewer, two hold-down bosses fewer, and no plate between the lug and the thing that
+# locates it. A lever nut has no mounting hole of its own — it is a free splice — so a
+# printed pocket is the only way it is ever held, and the wall is as good a place to
+# print one as a plate is.
 #
-# The lug goes in BUTT-FIRST, pushed west onto the wall, ports facing the room. Its
-# lever-hinge axis stands on Z and its closed-body height lies along Y, so the row runs
-# fore and aft down the flank on the narrow face — five abreast in the depth three would
-# take lying the other way. The well wraps the butt half on ±Y and ±Z and is open
+# The lug goes in BUTT-FIRST, pushed onto the wall, ports facing the room. Its
+# lever-hinge axis stands on Z and its closed-body height lies along Y, so the +X row
+# runs fore and aft down the flank on the narrow face — five abreast in the depth three
+# would take lying the other way. The well wraps the butt half on ±Y and ±Z and is open
 # inboard, where the wire half stands proud and the levers swing.
+#
+# The rear half of a 221's depth is blank on every face; ports and levers are all in the
+# front half. So the well takes the rear half and grips all four sides of it, at every
+# size — including the 221-420, whose two lever rows hinge off the faces a well would
+# otherwise wrap.
 wago_well_wall = 3.0        # well wall thickness
 wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
-# The standing lug's own axes, in the wall's frame.
-wago_stand_y = _wago.height     # 8.4 — closed-body height, along the row
-wago_stand_z = _wago.width      # 18.8 — lever-hinge axis, across it
-wago_stand_x = _wago.depth      # 18.6 — wire-entry axis, reaching inboard
-wago_engage = wago_stand_x / 2.0                                  # butt half in the well
-wago_half_y = wago_stand_y / 2.0 + wago_well_wall + wago_well_press
-wago_half_z = wago_stand_z / 2.0 + wago_well_wall + wago_well_press
-wago_pitch = 2.0 * wago_half_y                                    # neighbours share a wall face
+
+
+def wago_stand(size="413"):
+    """One lug's own axes in a side wall's frame, as `(y, z, x)` — the closed-body
+    height along the row, the lever-hinge axis across it, the wire-entry axis reaching
+    inboard."""
+    s = _wago.SIZES[size]
+    return (s["height"], s["width"], s["depth"])
+
+
+def wago_engage(size="413"):
+    """How far into the well the lug's butt half goes, which is how far the tower
+    stands off the wall."""
+    return wago_stand(size)[2] / 2.0
+
+
+def wago_half(size="413"):
+    """The well's outer half-extents on the wall, as `(y, z)` — the lug's own half plus
+    the wall it is wrapped in and that wall's press clearance."""
+    sy, sz, _sx = wago_stand(size)
+    return (sy / 2.0 + wago_well_wall + wago_well_press,
+            sz / 2.0 + wago_well_wall + wago_well_press)
+
+
+def wago_swing(size="413"):
+    """How far a lug reaches on ±Y with its levers worked — the closed body plus the
+    swing off each face that hinges one. The 221-420 hinges on both."""
+    sy, _sz, _sx = wago_stand(size)
+    rows = _wago.SIZES[size]["rows"]
+    return sy + rows * _wago.lever_swing
+
+
+wago_pitch = 2.0 * wago_half("413")[0]        # neighbours in the +X row share a wall face
+
+# --- the −X wall's MQ-6 cradle ----------------------------------------------
+#
+# The combustible-gas sensor stands ON EDGE low in the refrigeration bay, in the open strip
+# down the −X flank beside the compressor. R-600a is half again heavier than air: it falls
+# off whichever brazed joint let it go and spreads as one layer over the slab, so what the
+# sensor owes that layer is HEIGHT, and the floor of this bay is one connected pool — every
+# leak site the loop has feeds it. The card sits as low as a 32 mm card stands.
+#
+# The board carries no mounting hole, so what holds it is a SLOT ITS OWN EDGES SLIDE INTO —
+# the same bargain the Wago wells strike, for the same reason. Two rails reach inboard off
+# the wall, one under the card's bottom edge and one over its top, and the card goes in
+# sideways until its west edge meets the wall: THE WALL IS THE DATUM in X, the grooves in Y
+# and Z. The bottom rail's underside is the slab itself, so the cradle comes out of the print
+# as a corner bracket in one piece with both faces it stands on, and no fastener is bought.
+#
+# The can is centred on the card and reaches within half a millimetre of each short edge,
+# which is what settles the rest: the long edges are the only ones with material to grip, so
+# the rails take those and the card enters from the room rather than from above.
+mq6_rail_wall = 3.0         # rail section around the groove
+mq6_slot_press = 0.15       # per-side slip in the groove, the wells' own figure
+mq6_grip = 5.0              # how much of the card's long edge each groove swallows
+# The pins face the card's BACK and the loom lands on them there, so the cheek on that side
+# is cut away across the header — this is what the cut leaves either side of the pin field.
+mq6_header_relief = 2.0
+# The card's own axes in the wall's frame. It stands on edge, so the board's long side is its
+# height and its short side is the whole reach inboard off the wall.
+mq6_card_x = _mq6.PCB_Y     # 20 — reach inboard, the card's short side
+mq6_card_y = _mq6.PCB_T     # 1.6 — the card itself, what the groove grips
+mq6_card_z = _mq6.PCB_X     # 32 — height, the card's long side
 # How far one of those bosses stands OFF the wall's inner face — which is the standoff a body
 # hung on the flank gets, and every millimetre of it is insert: the bore runs the boss's whole
 # length and stops on the wall's own inner face, so the wall behind is what caps its blind end.
@@ -361,11 +422,13 @@ z_lip_y_margin = 2.0
 #   pan_rails     the drip tray's carry, world boxes fused onto the −X wall
 #   c14           the mains inlet's heat-set stations on the back wall, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
-#   east_wells    the +X wall's Wago wells, (y, z) — one press-fit pocket per lever nut
+#   side_wells    the side walls' Wago wells, (side, y, z, size) — one press-fit pocket
+#                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches)
+#   west_cradle   the −X wall's MQ-6 card slot, (y, z) — the card's plane and its centre
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses east_wells floor_bosses")
+           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -374,8 +437,8 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses east_wells floor_bosses")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), ())
+            "east_bosses side_wells floor_bosses west_cradle")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -964,7 +1027,7 @@ def _dims(pack):
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
-               pack.east_wells, pack.floor_bosses)
+               pack.side_wells, pack.floor_bosses, pack.west_cradle)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1801,7 +1864,7 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), ())
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), ())
 
 
 def build_front_half(box):
@@ -1968,30 +2031,77 @@ def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
-def _east_wells(solid, inner, stations, y0, y1, z0, z1):
-    """The +X wall's Wago wells added to a PIECE, for the stations inside the depth and
+def _side_wells(solid, inner, stations, y0, y1, z0, z1):
+    """A side wall's Wago wells added to a PIECE, for the stations inside the depth and
     height band that piece owns — the same band test `_east_bosses` makes, so a well lands
     whole in the piece whose wall carries it.
 
-    Each station is `(y, z)`: the well's centre on the wall. Nothing else is passed,
-    because nothing else varies — every one of these holds the same 221-413, so the
-    pocket is the lug's own envelope and one press fit, read off the reference solid.
+    Each station is `(side, y, z, size)`: which flank the well is grown on (+1 east,
+    −1 west), its centre on that wall, and the 221 it takes.
 
     The tower stands off the wall's inner face and the cavity is cut from that face
     outward past its own end, so the pocket opens INBOARD and bottoms on the wall. What
     the lug meets at the bottom of its travel is the wall itself, not a printed floor —
     the wall is the datum, so the ports stand at a height the wall states."""
+    for side, sy, sz, size in stations:
+        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
+            continue
+        face = inner[1] if side > 0 else inner[0]
+        engage = wago_engage(size)
+        half_y, half_z = wago_half(size)
+        stand_y, stand_z, _sx = wago_stand(size)
+        # inboard is −X on the east wall and +X on the west, so the tower and the pocket
+        # both run from the wall towards the room
+        tower = sorted((face, face - side * engage))
+        pocket = sorted((face, face - side * (engage + 1.0)))
+        solid = solid.fuse(_ybox(tower[0], tower[1],
+                                 sy - half_y, sy + half_y,
+                                 sz - half_z, sz + half_z))
+        solid = solid.cut(_ybox(pocket[0], pocket[1],
+                                sy - (stand_y / 2.0 + wago_well_press),
+                                sy + (stand_y / 2.0 + wago_well_press),
+                                sz - (stand_z / 2.0 + wago_well_press),
+                                sz + (stand_z / 2.0 + wago_well_press)))
+    return solid
+
+
+def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
+    """The −X wall's MQ-6 card slot added to a PIECE, for the stations inside the depth and
+    height band that piece owns — the same band test `_side_wells` makes.
+
+    Each station is `(y, z)`: the card's own plane, and its centre in height. Nothing else is
+    passed, because nothing else varies — the slot is one board's envelope and one slip fit,
+    read off the reference solid.
+
+    Two rails reach inboard off the wall's inner face, grooved on the faces they turn toward
+    each other, and the card slides west between them until its west edge meets the wall.
+    What stops it is the wall itself, the way a lever nut bottoms in its well — so the card's
+    reach into the room is the board's own short side and not a number typed here. The bottom
+    rail's underside is the slab, which is what makes this a corner bracket rather than a
+    shelf: it is in one piece with both faces it stands on.
+
+    THE BACK CHEEK IS CUT ACROSS THE HEADER. The pins face the card's back and the loom lands
+    on them there, so a cheek running unbroken past them is a cheek nothing can reach through.
+    The cut is struck on the pin field's own reach off the wall and runs both rails, because
+    which of the two the header ends up in is the card's turn to state and not this slot's."""
+    span, _off = _mq6.header_span()
     for sy, sz in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        solid = solid.fuse(_ybox(inner[1] - wago_engage, inner[1],
-                                 sy - wago_half_y, sy + wago_half_y,
-                                 sz - wago_half_z, sz + wago_half_z))
-        solid = solid.cut(_ybox(inner[1] - wago_engage - 1.0, inner[1],
-                                sy - (wago_stand_y / 2.0 + wago_well_press),
-                                sy + (wago_stand_y / 2.0 + wago_well_press),
-                                sz - (wago_stand_z / 2.0 + wago_well_press),
-                                sz + (wago_stand_z / 2.0 + wago_well_press)))
+        cx0, cx1 = inner[0], inner[0] + mq6_card_x
+        gy0 = sy - mq6_card_y / 2.0 - mq6_slot_press
+        gy1 = sy + mq6_card_y / 2.0 + mq6_slot_press
+        ry0, ry1 = gy0 - mq6_rail_wall, gy1 + mq6_rail_wall
+        zb, zt = sz - mq6_card_z / 2.0, sz + mq6_card_z / 2.0
+        solid = solid.fuse(_ybox(cx0, cx1, ry0, ry1, zb - mq6_rail_wall, zb + mq6_grip))
+        solid = solid.fuse(_ybox(cx0, cx1, ry0, ry1, zt - mq6_grip, zt + mq6_rail_wall))
+        # Both grooves run out past the rails' inboard end, so the card enters from the room.
+        solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, gy0, gy1, zb, zb + mq6_grip + 1.0))
+        solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, gy0, gy1, zt - mq6_grip - 1.0, zt))
+        hx = (cx0 + cx1) / 2.0
+        solid = solid.cut(_ybox(hx - span - mq6_header_relief, hx + span + mq6_header_relief,
+                                ry0 - 1.0, gy0,
+                                zb - mq6_rail_wall - 1.0, zt + mq6_rail_wall + 1.0))
     return solid
 
 
@@ -2068,10 +2178,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The +X wall's Wago wells, on whichever piece holds each one's station. After the
     # bosses for the same reason those go after the seam columns: a pocket cut here is a
     # pocket nothing later fuses back in.
-    piece = _east_wells(piece, inner, box.east_wells, ylo, yhi, zlo, zhi)
+    piece = _side_wells(piece, inner, box.side_wells, ylo, yhi, zlo, zhi)
     # The floor slab's, on whichever piece holds each one's plan station. Only the bottom
     # pieces have a slab to stand one on, and `_floor_bosses` drops any station outside.
     piece = _floor_bosses(piece, inner, box.floor_bosses, ylo, yhi, zlo, zhi)
+    # The −X wall's card slot, last of all: its bottom rail lands on the same slab those posts
+    # rise from, so cutting its grooves after them is what keeps a groove a groove.
+    piece = _west_cradle(piece, inner, box.west_cradle, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 
