@@ -286,7 +286,12 @@ def wago_swing(size="413"):
     return sy + rows * _wago.lever_swing
 
 
-wago_pitch = 2.0 * wago_half("413")[0]        # neighbours in the +X row share a wall face
+# What each lug in the +X row costs the flank. Wells sharing a wall face would stand
+# neighbours 14.70 apart and a lever standing fully up reaches `wago_swing` — so the row is
+# spaced by the LEVER and not by the wall, and a lug can be opened and re-wired where it
+# sits. Neighbouring towers stop touching at that spacing; each stands on its own.
+wago_lever_clear = 1.0      # air past the swept lever, so its tip does not graze the next lug
+wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear)
 
 # --- the −X wall's MQ-6 cradle ----------------------------------------------
 #
