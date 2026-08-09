@@ -316,17 +316,6 @@ def body_name(chain: str) -> str:
     return f"{'valve' if chain.startswith('V-') else 'tee'}-{chain.lower()}"
 
 
-# Every pair of bodies that meets FACE TO FACE, as the assembly names them. A limb is one line
-# of quick-connects butted end to end and `BUTT` is the tube left between a pair — none — so
-# each neighbour's collet is made up on the next one's. There is no tube between them to bend,
-# and a bore cast out of either mouth is already inside the other's: what reads as an
-# obstruction in front of the mouth IS the fitting it is plugged into.
-BUTTED = tuple(
-    frozenset((body_name(a), body_name(b)))
-    for spec in LIMBS.values()
-    for a, b in zip([n for n, _ in spec["chain"]], [n for n, _ in spec["chain"]][1:]))
-
-
 def _half(name: str) -> float:
     """Half a body's own length along the limb, collet face to centre."""
     return VALVE_LEN / 2.0 if name.startswith("V-") else TEE_RUN
@@ -765,6 +754,24 @@ MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what
     ("fluid-24", "V-I-O", "reservoir B fill", "V-I", "back"),
     ("fluid-26", "V-H-I", "reservoir B draw", "V-H", "back"),
 )]
+
+
+def mouth_of(end: str) -> str | None:
+    """One `SEGMENTS` endpoint as the assembly names that mouth: `V-G-I` is `valve-v-g.inlet`.
+
+    A valve's two ends are `I` and `O`, which are the two stations `_lines` registers for it. A
+    tee's three ends are numbered and a pump's are barbs; neither states a station, so neither
+    resolves to a mouth."""
+    body, _, end_id = end.rpartition("-")
+    if not body.startswith("V-"):
+        return None
+    return f"{body_name(body)}.{'inlet' if end_id == 'I' else 'outlet'}"
+
+
+# The mouths that STAY: every port `SEGMENTS` spends inside the pack. Each carries the line
+# `build_assembly` sweeps for its own segment, and no `STUB`.
+INTERIOR_MOUTHS = frozenset(
+    m for _cid, frm, to, _how in SEGMENTS for m in (mouth_of(frm), mouth_of(to)) if m)
 
 
 def build_assembly() -> cq.Assembly:

@@ -101,12 +101,11 @@
    "id": "port-leads",
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
-   "status": "fail",
-   "value": "59/60 clear",
+   "status": "pass",
+   "value": "60/60 clear",
    "target": "all clear",
    "detail": [
-    "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to, or the neighbour its own collet is made up on",
-    "valve-v-g.inlet: 17.18 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
+    "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to \u2014 the pack's own interior mouths carry a swept line off the collet and ask for none",
     "asse1022-assembly.vent-tip: 9.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
    "active": true
@@ -5813,7 +5812,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T14:33:44+00:00",
-  "commit": "9f64c329bdbd717c077a80d2d4c452423fc17f6b"
+  "generated": "2026-08-09T15:10:28+00:00",
+  "commit": "8279f6b678b48524284fa3f8e4d095e23fbc94cb"
  }
 }
