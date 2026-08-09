@@ -122,6 +122,7 @@ import _routing                                       # noqa: E402
 # exists to hang a reading on. `_stated_bounds` is the ledger they record into and
 # `enclosure_assembly.carry_stated_bounds` is what puts them on the card.
 import _stated_bounds as _bounds                      # noqa: E402
+import _overlap                                       # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -868,8 +869,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0):
                     or bi.zmin > bj.zmax - 1e-6 or bj.zmin > bi.zmax - 1e-6):
                 continue
             try:
-                inter = si.intersect(sj)
-                v = inter.Volume()
+                inter, v = _overlap.common(si, sj)
             except Exception as exc:
                 unanswered.append((ni, nj, str(exc).splitlines()[0]))
                 continue

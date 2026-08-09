@@ -109,6 +109,7 @@ import reservoir as _reservoir  # noqa: E402
 import copper_plugs as _plugs  # noqa: E402
 import prv_shroud as _shroud  # noqa: E402
 from _routing import stock_min, stock_of  # noqa: E402
+import _overlap  # noqa: E402
 
 
 line_radius = lldpe_tube_od / 2.0
@@ -491,7 +492,7 @@ def fit_route(points, obstacles):
         if bend < bend_floor:
             break
         tube = build_route(points, bend)
-        if all(tube.intersect(o).Volume() <= touch_volume for o in obstacles.values()):
+        if all(_overlap.volume(tube, o) <= touch_volume for o in obstacles.values()):
             return bend, tube
     return bend_floor, build_route(points, bend_floor)
 
@@ -536,7 +537,7 @@ def report_routes(fitted, obstacles):
         tightest = min(corners) if corners else float("inf")
         hits = []
         for other, solid in obstacles.items():
-            volume = tube.intersect(solid).Volume()
+            volume = _overlap.volume(tube, solid)
             if volume > touch_volume:
                 hits.append("%s by %.2f mm³" % (other, volume))
         print("    %-17s %6.1f mm, %d corners, arc %5.2f mm, tightest %s — %s"
@@ -551,7 +552,7 @@ def report_routes(fitted, obstacles):
     crossed = False
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            volume = fitted[a][1].intersect(fitted[b][1]).Volume()
+            volume = _overlap.volume(fitted[a][1], fitted[b][1])
             if volume > touch_volume:
                 crossed = True
                 bad.append("%s and %s share %.2f mm³ — two tubes in one corridor"
