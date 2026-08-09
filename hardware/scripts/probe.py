@@ -15,16 +15,15 @@ exactly where the clash check answers clash. The two groups keep
 their names so a query can ask for the interior pack alone — `skip=w.pieces` —
 but nothing has to remember to ask for the walls.
 
-Every query is exact and every query is loud. A body that cannot be normalized
-raises instead of being skipped; a boolean that fails raises with the body's
+Every query is bounded and every query is loud. A body that cannot be normalized
+raises instead of being skipped; a body whose mesh will not close raises with its
 name; a cast that never contacts anything says so rather than reporting its own
 limit as a clearance. Nothing here returns 0.0 for "I could not measure".
 
 That last promise is why every overlap goes through `_overlap.common` rather
-than one `intersect`: a boolean that FAILS is loud already, and the quiet one is
-a boolean that succeeds and hands back nothing — which is what OCCT does for two
-bodies whose surfaces are tangent where they cross. Two swept tubes of one Ø on
-one stratum are exactly that, and the pack authors them on purpose.
+than one `intersect`: an exact `intersect` succeeds and hands back nothing for
+two bodies whose surfaces are tangent where they cross. Two swept tubes of one Ø
+on one stratum are exactly that, and the pack authors them on purpose.
 
 Use from anywhere in the repo:
 
@@ -93,17 +92,15 @@ SKIP_PIECES = "HSM_SKIP_PIECES"     # env flag that leaves the printed pieces ou
 
 # --- the overlap boolean --------------------------------------------------
 # Every occupancy question here — what a volume runs into, how far a body slides, what a cast
-# hits — goes through `_overlap.common`, which asks OCCT twice: once exactly, and again with a
-# small fuzz whenever the exact ask comes back EMPTY. `_overlap` carries why; the short of it
-# is that an exact Common returns no solid at all — IsDone, no error — for two bodies whose
-# surfaces are tangent where they cross, which is what two swept tubes of one Ø on one stratum
-# are. A single ask answers CLEAR there, in a file whose own docstring promises that nothing
-# returns 0.0 for "I could not measure".
+# hits — goes through `_overlap.common`. An exact `intersect` returns no solid at all — IsDone,
+# no error — for two bodies whose surfaces are tangent where they cross, which is what two swept
+# tubes of one Ø on one stratum are. It answers CLEAR there, in a file whose own docstring
+# promises that nothing returns 0.0 for "I could not measure".
 
 
 def _common(a, b) -> tuple:
-    """The solid two bodies share and its volume, as (shape, mm³). Raises if the boolean does
-    not resolve, so an unresolved pair is never counted as a clear one."""
+    """The solid two bodies share and its volume, as (shape, mm³). Raises on a body that will
+    not close, so an unmeasured pair is never counted as a clear one."""
     return _overlap.common(a, b)
 
 

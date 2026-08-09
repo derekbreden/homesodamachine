@@ -29,10 +29,13 @@
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash",
+   "status": "fail",
+   "value": "3 clash",
    "target": "0 clash",
    "detail": [
+    "carbonator-tube \u2229 evap-coil = 1.76 mm\u00b3",
+    "bulkhead-reservoir-b \u2229 reservoir-b = 0.15 mm\u00b3",
+    "bulkhead-reservoir-a \u2229 reservoir-a = 0.10 mm\u00b3",
     "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-2: the wrap rides it \u2014 see RIDES_ON"
@@ -1825,7 +1828,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T16:19:06+00:00",
-  "commit": "9676e3035c7a08d39eb5d19b3ab08fcaf5c799a4"
+  "generated": "2026-08-09T16:45:57+00:00",
+  "commit": "28bf2e271e265a63072cd103f8dc6b8c077271cb"
  }
 }

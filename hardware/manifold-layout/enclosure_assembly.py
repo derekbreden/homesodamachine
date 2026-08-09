@@ -851,7 +851,7 @@ def check_cutoff_bedded(clamp, fuse, face) -> Bound:
     slab = cq.Workplane("XY", origin=(mid_x, (face[1] + cb.ymin) / 2.0, mid_z)).box(
         _fuse.BODY_L, face[1] - cb.ymin, 2.0 * BEDDED_TOL)
     over, vol = _overlap.common(clamp, slab.val())
-    grip = None if vol <= 0.0 else box(over).ymax - fb.ymin
+    grip = None if vol <= 0.0 else ml.extents(over).ymax - fb.ymin
     ok = abs(bed) <= BEDDED_TOL and grip is not None and abs(grip) <= BEDDED_TOL
     return record_bound(Bound(
         "cutoff-bedded", "The cutoff's case is pinched between the power box and its clamp", ok,
@@ -1419,14 +1419,19 @@ def descent(body, under, limit=DECK_FALL_LIMIT):
     rather than sampling near it, and a body that never lands says so instead of reporting the
     limit as a clearance.
 
-    The horizon is the fall the body has left. A stride that reaches it is a stride past the
-    limit, so the walk ends on the same step whether the gap out there is that far or further,
-    and the body is carried by `offset` rather than rebuilt at each station."""
+    THE HORIZON IS THE FALL THE BODY HAS LEFT, and a reading that reaches it is read as the
+    fall running out rather than as a contact. A gap asked for no further than nothing comes
+    back 0.00, which is the same 0.00 a landing reads, so the two are told apart by which
+    question was asked and not by what came back. The body is carried by `offset` rather than
+    rebuilt at each station: it is the same body at every one of them."""
     best = None
     for other in under:
         t = 0.0
-        while t <= limit:
-            g = _clearing.gap(body, other, limit - t, offset=(0.0, 0.0, -t))
+        while t < limit:
+            room = limit - t
+            g = _clearing.gap(body, other, room, offset=(0.0, 0.0, -t))
+            if g >= room:                    # at least the whole remaining fall away
+                break
             if g <= 1e-9:
                 best = t if best is None else min(best, t)
                 break

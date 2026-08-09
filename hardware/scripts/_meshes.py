@@ -37,7 +37,10 @@ THREE TRAPS, EACH OF WHICH LOSES A MEASUREMENT SILENTLY:
    raises here rather than being handed on to be measured as a clean pair.
 """
 
+import collections
+
 import numpy as np
+import manifold3d
 
 from OCP.BRep import BRep_Tool
 from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
@@ -62,6 +65,16 @@ WELD = 1e-7
 
 _CACHE: dict = {}
 
+# The extents of a mesh, named as `_boxes.boxed` names a solid's, so a caller reading `.ymax`
+# off one reads it off the other. A shared solid is built for one reading and thrown away, so
+# it has no place in `_boxes`, whose entries are the placed world's and outlive the ask.
+Box = collections.namedtuple("Box", "xmin ymin zmin xmax ymax zmax")
+
+
+def box(manifold) -> Box:
+    """A manifold's own extents."""
+    return Box(*manifold.bounding_box())
+
 
 def meshed(solid, deflection: float = DEFLECTION):
     """The solid as a `Manifold`, memoized by identity. Keyed like `_boxes.boxed`."""
@@ -81,6 +94,7 @@ def _manifold(solid, deflection: float):
             "a solid tessellated to no triangles — it cannot be measured against anything, and "
             "an unmeasured body is not an absent one")
     verts, tris = _weld(verts, tris)
+    tris = _close(verts, tris)
     man = Manifold(Mesh(verts.astype(np.float32), tris))
     if man.status() != Error.NoError:
         raise RuntimeError(
@@ -126,6 +140,77 @@ def _weld(verts, tris):
     key = np.round(verts / WELD).astype(np.int64)
     _, first, inverse = np.unique(key, axis=0, return_index=True, return_inverse=True)
     return verts[first], inverse.ravel()[tris].astype(np.uint32)
+
+
+def _close(verts, tris):
+    """The same triangles, plus a patch over every hole the mesher left.
+
+    BRepMesh returns no triangulation at all for the occasional face and reports it the same way
+    it reports a face with nothing to draw, so a solid arrives here with a face-shaped hole in it
+    and every reading against it would be taken on an open sheet.
+
+    The patch is stitched onto the mesh's OWN BOUNDARY rather than onto the face's wires. An
+    edge sampled off the surface a second time lands its points between the neighbour's, and the
+    two rings meet at T-junctions that leave the hole exactly as open as it was; a ring taken
+    from the boundary is made of vertices the neighbours already share."""
+    # A closed body carries every edge twice, once each way round. An edge whose reverse is
+    # missing is a rim.
+    directed = set()
+    for a, b, c in tris:
+        directed.update(((a, b), (b, c), (c, a)))
+    open_edges = {u: v for u, v in directed if (v, u) not in directed}
+    if not open_edges:
+        return tris
+
+    rings = []
+    while open_edges:
+        start = next(iter(open_edges))
+        ring, at = [start], start
+        while (nxt := open_edges.pop(at, None)) is not None and nxt != start:
+            ring.append(nxt)
+            at = nxt
+        if len(ring) >= 3:
+            rings.append(ring)
+
+    # Rings sharing a plane bound one hole together — an outer ring and whatever stands inside
+    # it — so they are triangulated in one ask and the inner ones come out as holes.
+    patches, by_plane = [], {}
+    for ring in rings:
+        pts = verts[ring]
+        normal = _ring_normal(pts)
+        key = tuple(np.round(np.append(normal, normal @ pts[0]), 3))
+        by_plane.setdefault(key, []).append(ring)
+    for key, group in by_plane.items():
+        normal = np.array(key[:3])
+        ux = np.array([1.0, 0.0, 0.0]) if abs(normal[0]) < 0.9 else np.array([0.0, 1.0, 0.0])
+        ux = np.cross(ux, normal)
+        ux /= np.linalg.norm(ux)
+        uy = np.cross(normal, ux)
+        flat = [np.column_stack([verts[r] @ ux, verts[r] @ uy]) for r in group]
+        offs, run = [], 0
+        for f in flat:
+            offs.append(run)
+            run += len(f)
+        index = np.concatenate([np.array(r) for r in group])
+        # The surrounding surface carries each of these edges one way round, so the patch has to
+        # carry it the other for the pair to close.
+        for a, b, c in np.asarray(manifold3d.triangulate([f.astype(np.float64) for f in flat])):
+            patches.append((index[a], index[c], index[b]))
+    return np.vstack([tris, np.array(patches, dtype=np.uint32)]) if patches else tris
+
+
+def _ring_normal(pts):
+    """The unit normal of a closed ring, by Newell's method."""
+    nxt = np.roll(pts, -1, axis=0)
+    n = np.array([
+        ((pts[:, 1] - nxt[:, 1]) * (pts[:, 2] + nxt[:, 2])).sum(),
+        ((pts[:, 2] - nxt[:, 2]) * (pts[:, 0] + nxt[:, 0])).sum(),
+        ((pts[:, 0] - nxt[:, 0]) * (pts[:, 1] + nxt[:, 1])).sum()])
+    mag = np.linalg.norm(n)
+    if mag < 1e-12:
+        raise RuntimeError("a hole in a solid's mesh has no plane to be patched in — the "
+                           "boundary it left is not a ring")
+    return n / mag
 
 
 def selftest():

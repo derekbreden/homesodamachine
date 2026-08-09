@@ -1245,17 +1245,21 @@ def verify(lane: Lane, clearance: float = 0.0, skip=()) -> str:
     spec = snapshot()["runs"].get(lane.run)
     if spec:
         held |= {spec["frm"].split(".")[0], spec["to"].split(".")[0]}
+    # A body standing further off than the tube is wide is not part of this lane's story, so
+    # that is how far each gap is read.
+    horizon = clearance + lane.od
     worst, hits = math.inf, []
     for name in w.names:
         if name in held:
             continue
-        g = _clearing.gap(solid, w.solid(name))
+        g = _clearing.gap(solid, w.solid(name), horizon)
         if g < worst:
             worst = g
         if g <= clearance + 1e-9:
             hits.append(f"{name} {g:.3f}")
     out = [f"{lane.run}: {w.measured}, holding out {', '.join(sorted(held))}",
-           f"  tightest exact clearance {worst:.3f} mm"]
+           f"  tightest clearance {worst:.3f} mm" if worst < horizon
+           else f"  nothing stands within {horizon:.3f} mm"]
     out.append("  " + ("CLASH: " + "; ".join(hits) if hits else "clear of every body"))
     return "\n".join(out)
 
