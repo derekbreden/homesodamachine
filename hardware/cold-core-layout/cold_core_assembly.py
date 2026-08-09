@@ -36,6 +36,7 @@ for _p in (_hw / "scripts", _cold, _cold / "foam-assembly", _cold / "reservoir",
         sys.path.insert(0, str(_p))
 
 from _cadq_export import export_assembly                 # noqa: E402
+import _overlap                                          # noqa: E402
 import foam_assembly as _foam                            # noqa: E402
 import _internal_routes as _routes                       # noqa: E402
 import copper_plugs as _plugs                            # noqa: E402
@@ -400,7 +401,7 @@ def _bodies_clear(placed: dict) -> Check:
         for b in names[i + 1:]:
             if frozenset((a, b)) in JOINED or frozenset((a, b)) in RIDES_ON:
                 continue
-            vol = placed[a].intersect(placed[b]).Volume()
+            vol = _overlap.volume(placed[a], placed[b])
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{a} ∩ {b} = {vol:.2f} mm³")
     detail.sort(key=lambda s: -float(s.split("= ")[1].split(" ")[0]))
@@ -421,7 +422,7 @@ def _routes_fit(placed: dict, fitted: dict) -> Check:
         for other, solid in sorted(placed.items()):
             if other in TAIL_LINES or other in exempt:
                 continue
-            vol = tube.intersect(solid).Volume()
+            vol = _overlap.volume(tube, solid)
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{name} meets {other} by {vol:.2f} mm³")
     return Check("routes-fit", "No line meets a solid", "gate", verdict(not detail),
@@ -441,7 +442,7 @@ def _lines_apart(fitted: dict, placed: dict) -> Check:
     detail = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            vol = runs[a].intersect(runs[b]).Volume()
+            vol = _overlap.volume(runs[a], runs[b])
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{a} and {b} share {vol:.2f} mm³ — two runs in one corridor")
     return Check("lines-apart", "No two runs want the same corridor", "gate",
@@ -540,7 +541,7 @@ def _stations_met(fitted: dict, placed: dict) -> Check:
         for station, _z in _plugs.columns[column].stations:
             (x, y, z), _axis = _plugs.slot_station(station)
             probe = cq.Solid.makeSphere(_routes.lldpe_tube_od, cq.Vector(x, y, z))
-            here = [n for n, t in runs.items() if t.intersect(probe).Volume() > 1e-6]
+            here = [n for n, t in runs.items() if _overlap.volume(t, probe) > 1e-6]
             if here:
                 met += 1
                 detail.append(f"{column} {station} at z {z:.2f}: {', '.join(sorted(here))}")
