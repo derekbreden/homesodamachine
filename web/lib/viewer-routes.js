@@ -218,6 +218,17 @@ export function mountViewerRoutes(app, { editionDirs }) {
     streamFile(res, abs);
   });
 
+  // The tessellation the generator already had, written beside its STEP as
+  // `<file>.step.mesh` by hardware/scripts/_cadq_export.py. The page reads these
+  // instead of parsing the STEP through occt-import-js in wasm. Not committed —
+  // a 404 here is normal, and step.js parses the STEP instead.
+  app.get("/meshes/*", (req, res) => {
+    const abs = safeFile(rootFor(req), req.params[0], ".mesh");
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    streamFile(res, abs);
+  });
+
   // Server-rendered STEP thumbnails: `<file>.step.png` siblings produced by
   // the part's own export (hardware/scripts/_cadq_export.py shells out to
   // tools/render/render-thumbnails.js). The grid downloads these instead of

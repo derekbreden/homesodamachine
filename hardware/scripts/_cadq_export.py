@@ -545,19 +545,24 @@ _thumbnail_atexit_registered = False
 
 
 def _write_mesh_payload(target, source):
-    """Tessellate `source` beside the STEP it was exported to, into a temp the
-    render tool reads and this process deletes. Returns the path, or None —
-    every failure here just means the page parses the STEP instead."""
-    global _thumbnail_tmpdir
+    """Tessellate `source` into `<target>.mesh`, beside the STEP it was exported to.
+
+    THE GENERATOR IS STILL HOLDING THE SHAPE. The page reads the same triangles either way —
+    through `occt-import-js` off the STEP's text in wasm, or off this. On the enclosure the
+    parse is the whole cost of opening the model, against a fraction of that for the
+    tessellation that produced the STEP in the first place, so the parse buys nothing but a
+    round trip through text.
+
+    It is not committed and not required: `_mesh_payload` writes what the wasm parse returns,
+    so a page that does not find one reads the STEP and shows the same model. Returns the path,
+    or None — every failure here just means the page parses the STEP instead."""
     try:
         import _mesh_payload
         meshes = (_mesh_payload.from_assembly(source) if hasattr(source, "toCompound")
                   else _mesh_payload.from_shape(source))
         if not meshes:
             return None
-        if _thumbnail_tmpdir is None:
-            _thumbnail_tmpdir = tempfile.mkdtemp(prefix=f"hsm-mesh.{os.getpid()}.")
-        path = os.path.join(_thumbnail_tmpdir, f"{len(_pending_thumbnails)}.mesh")
+        path = str(target) + ".mesh"
         _mesh_payload.write(meshes, path)
         return path
     except Exception as exc:
@@ -581,9 +586,13 @@ def _queue_thumbnail(target_path, source=None):
     target = Path(target_path).resolve()
     if target.suffix != ".step":
         return
+    # The payload is what the PAGE reads, and it goes down whenever the STEP does. A thumbnail
+    # already standing for these bytes is a thumbnail nobody has to render again — it is not a
+    # reason to leave the page parsing the model it stands for.
+    payload = _write_mesh_payload(target, source) if source else None
     if _thumbnail_current(target, target.with_name(target.name + ".png")):
         return
-    _pending_thumbnails[str(target)] = _write_mesh_payload(target, source) if source else None
+    _pending_thumbnails[str(target)] = payload
     global _thumbnail_atexit_registered
     if not _thumbnail_atexit_registered:
         atexit.register(_render_pending_thumbnails)
@@ -591,6 +600,7 @@ def _queue_thumbnail(target_path, source=None):
 
 
 def _render_pending_thumbnails():
+    global _thumbnail_tmpdir
     if not _pending_thumbnails:
         return
     queued = dict(sorted(_pending_thumbnails.items()))
@@ -607,7 +617,9 @@ def _render_pending_thumbnails():
             print(f"[_cadq_export] rendering {len(queued)} thumbnail(s)...", file=sys.stderr)
             handed = {k: v for k, v in queued.items() if v}
             args = [k for k in queued if k not in handed]
-            if handed:  # the manifest lives in the payload dir, and goes with it
+            if handed:
+                if _thumbnail_tmpdir is None:
+                    _thumbnail_tmpdir = tempfile.mkdtemp(prefix=f"hsm-mesh.{os.getpid()}.")
                 manifest = os.path.join(_thumbnail_tmpdir, "payloads.json")
                 with open(manifest, "w") as f:
                     json.dump(handed, f)
