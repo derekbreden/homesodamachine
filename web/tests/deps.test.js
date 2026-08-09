@@ -68,10 +68,9 @@ test("the enclosure assembly rebuilds on every module that draws it", () => {
 test("a part's STEP consumers include the assembly that only _loads it (regression)", () => {
   // enclosure_assembly.py names each of these in a path constant and hands the path to
   // importStep — the edge is a string, not an import, so an import-only walk finds
-  // none of them. The AC hub is the case with nothing else to fall back on:
-  // enclosure_assembly imports `ac_hub` for its hole pattern and never `ac_hub_assembly`,
-  // which is what makes the STEP.
-  for (const step of ["foam-assembly.step", "ac-hub-assembly.step", "seaflo-22-pump.step"]) {
+  // none of them. The Wago is the case with nothing else to fall back on: the lever nut
+  // is placed five times off its reference STEP and no script imports the module.
+  for (const step of ["foam-assembly.step", "wago-221-413.step", "seaflo-22-pump.step"]) {
     const consumers = findScriptsConsumingStep(step, ROOTS);
     assert.ok(
       consumers.some(ends("hardware/manifold-layout/enclosure_assembly.py")),

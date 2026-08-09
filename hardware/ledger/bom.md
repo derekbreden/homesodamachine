@@ -134,16 +134,15 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| AC hub plate | 1 | PETG | 0.014 | $0.15 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 1.893 | $21.20 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.930 | $21.62 <!--@printed--> |
+| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.948 | $21.82 <!--@printed--> |
 | Drip pan | 1 | PETG | 0.031 | $0.35 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.91** | **[$81.98](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.91** | **[$82.03](BOM_SEC7)** |
 
-By material: PETG ≈ 6.74 kg / $75.54 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.75 kg / $75.59 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — the valve-manifold family's own cell printed into that face, one per valve that stands on it (`_cold_core_interface.cap_cradles`) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [12](DECK_INSERTS) deck-mount columns, which are the cap's rotation key. The water pump's bracket bolts down into [4](PUMP_MOUNT_SCREWS) of them; the rest are bolt stations standing ready.
 
@@ -199,12 +198,11 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | [BNTECHGO 16 AWG silicone wire, 5-color kit (25 ft ea)](https://www.amazon.com/dp/B06Y557TCL) | Every AC conductor — mains feed (AC-1), PSU / compressor / relay branches (AC-2…5), ground bond (AC-6) + chassis bonds — plus the 12 V trunk and branches (DC-1…4), per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md). The 5-color kit supplies H/N/G for the mains and red/black for 12 V. 252-strand silicone, 600 V. $38.29/125 ft = $0.306/ft; ~14 ft/build; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9) | ~14 ft | $0.31/ft | $4.29 <!--@wiring--> |
 | [WAGO 221-420 lever-nut, 10-conductor (box of 15)](https://www.amazon.com/dp/B0H1MW1LCX) | 10-way lever nut for the on-board connector fan-outs wider than 5 conductors (Wago 221 tops out at 5): J1 MANIFOLD A COM → 8 valves (9-conductor node) and J7 REEDS B GND → 6 reeds (7-conductor). Solid + stranded, 24–12 AWG. $28.90/15 paid; 2/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 2 (of 15 box) | $1.93 | $3.85 <!--@wiring--> |
 | [WAGO 221-415 lever-nut, 5-conductor (25 pk)](https://www.amazon.com/dp/B0107SYYGU) | 5-way lever nut for the ≤5-conductor on-board connector fan-outs: J6 REEDS A GND → 4 reeds (5-conductor node), J4 SENSORS GND, and J2 MANIFOLD B COM → 2 valves + fan (4-conductor node). The J5 RELAYS V5/GND tee is made at the relay screw terminals, not a Wago. Not the AC distribution (that's the 221-413 below). 24–12 AWG. $26.76/25 paid; 3/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 3 (of 25 pk) | $1.07 | $3.21 <!--@wiring--> |
-| [WAGO 221-413 lever-nut, 3-conductor (box of 50)](https://www.amazon.com/dp/B07W7W91FX) | AC mains distribution on the [AC hub](/hardware/printed-parts/electronics/ac-hub/) — H / N / G, one nut per pole standing on its butt end; the hub's three wells are dimensioned to this part. Distinct from the on-board fan-out nuts above; a 221-415 will not fit the 221-413 slots. 24–12 AWG. $27.83/50 paid; 3/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 3 (of 50 box) | $0.56 | $1.67 <!--@wiring--> |
+| [WAGO 221-413 lever-nut, 3-conductor (box of 50)](https://www.amazon.com/dp/B07W7W91FX) | Every distribution splice in the machine, mains and DC alike: **H / N / G** for the AC mains and **+ / GND** for the [12 V](DC_BUS_V) rails, five nuts standing butt-first in wells printed on `enclosure-back-top`'s own +X wall (`enclosure._east_wells`). A lever nut has no mounting hole — it is a free splice — so the wall's pocket is the whole mount and no plate or screw is bought for it. Three ways fills each rail exactly: the 12 V branch list closes at DC-1 in, DC-2 to relay #2 COM, DC-4 to J10, and DC-3 out to the SeaFlo. Distinct from the on-board fan-out nuts above; a 221-415 will not fit a 221-413 well. 24–12 AWG. $27.83/50 paid; 5/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 5 (of 50 box) | $0.56 | $2.78 <!--@wiring--> |
 | [BNTECHGO 22 AWG silicone, 250 ft black spool](https://www.amazon.com/dp/B06Y2PNW41) | Bulk all-black cut-to-length hookup for every board-driven DC actuator (pump leads DC-5, manifold trunks + valve fan-outs DC-6/DC-7, condenser fan DC-8) and every sensor / reed / display / logic signal run (SIG-1…12 except the §9 umbilical ribbon SIG-6, plus relay control LV-1/2/3). Lands on XH / Wago / screw terminals for signals, spade disconnects for the actuators. Single-color black per the all-black convention — color is reserved for the AC mains only (see [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). Stranded tinned-copper silicone, 600 V. $27.86/250 ft = $0.111/ft; ~30 ft/build | ~30 ft | $0.11/ft | $3.34 <!--@wiring--> |
 | [Alex Tech PET expandable braided sleeve, black — 1/4" + 1/2" + 3/4"](https://www.amazon.com/dp/B074GMNW7T) | Bundling for the in-cabinet harnesses, threaded on before either end is terminated, ends finished with heat-shrink. 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs. ([3/4"](https://www.amazon.com/dp/B074GMCGZX), [1/4"](https://www.amazon.com/dp/B071JH14WZ).) Blended ~$0.19/ft | ~8 ft (mixed) | $0.19/ft | $1.52 <!--@cable-mgmt--> |
 | Insulated bootlace ferrules, 16/22 AWG (from the Preciva kit) | Conductor landings into the Wago 221 lever nuts + screw terminals — DIN-style insulated cord-end ferrules. The crimper is tooling ([tools.md](/hardware/ledger/tools.md)); the 950-ferrule stock comes with it, so per-unit ferrule cost is negligible. | ~35 (of 950) | — | $0.50 <!--@wiring--> |
 | Umbilical sleeve — spiral wrap, 1" nominal | **SKU TBD.** Wound on radially over the assembled bundle after both ends are terminated, from just above the under-counter plate to ~3" above the rear-wall bulkheads, per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §4. ~2.5–3 m per build | 1 | — | — <!--@cable-mgmt--> |
-| DC distribution block — 12 V +/− rails for the DC-2/DC-4 fan-out | **Hardware TBD** (screw-terminal barrier strip or a printed Wago carrier) — relay #2 and this block have no committed station yet; staged loose per [`assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) Open items | 1 | — | — <!--@wiring--> |
 
 ## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
 
@@ -279,15 +277,15 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$93.10](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$81.98](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.03](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$28.30](BOM_SEC11) |
+| 11. Wiring | [$29.41](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,283.26](BOM_GRAND)** |
+| **Total** | **[$1,284.42](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

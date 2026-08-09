@@ -57,7 +57,6 @@ PARTS = {
     "Flavor reservoir body — right": ["cold-core/reservoir/reservoir-right.step"],
     "Flavor reservoir cap — left": ["cold-core/reservoir/reservoir-cap-left.step"],
     "Flavor reservoir cap — right": ["cold-core/reservoir/reservoir-cap-right.step"],
-    "AC hub plate": ["electronics/ac-hub/ac-hub.step"],
     "Enclosure — front bottom + front top (two pieces)": [
         "enclosure/enclosure/enclosure-front-bottom.step",
         "enclosure/enclosure/enclosure-front-top.step",
