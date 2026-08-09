@@ -121,7 +121,9 @@ The column, aft to fore:
 - **Teyleten relay #2** stands ON END in the band between the board and the brick — the only pose a third body fits that depth in. **Teyleten relay #1** lies on the board's crown, and the **ground ring-terminal stack** takes the same shelf one clearance forward of it. The **five Wago lever nuts** press into wells printed on the wall itself over the brick's crown; nothing bolts them.
 - **Controller PCBA** forward of the brick on the same seat, its long edge fore and aft down the flank so only its thickness and components reach inboard. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads.
 
-**Relay #2 and the DC distribution block have no station** — see [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md); stage them loose. The shelf is **unpowered** at this step: the AC pigtails from the hub's Wagos hang free and get terminated at the C14's solder-tab pins, which stand on the same wall just aft of the hub, in [`wiring.md`](/hardware/assembly/wiring.md). The compressor's earth-bond lead routes toward the ground stack and waits.
+The shelf is **unpowered** at this step: the AC pigtails from the wall's own three mains Wagos hang free and get terminated at the C14's solder-tab pins, which stand on the same wall just aft of the row, in [`wiring.md`](/hardware/assembly/wiring.md). The compressor's earth-bond lead routes toward the ground stack and waits.
+
+The **five device-cluster lever nuts** are not on this column — each presses into a well on the flank its own cluster stands against, and they go in with the looms rather than with the shelf: [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) step 3, stationed in [`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Loom terminations".
 
 Confirm the board's two exposed edges are clear to a hand and a plug, and that nothing on this flank stands in front of a rear-wall body's own reach inboard.
 

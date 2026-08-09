@@ -35,7 +35,7 @@ Tooling: ESD mat, ferrule crimper, ring/fork-terminal crimper, helping hands, mu
 
 ### 1. Dry-fit the wall's Wago wells
 
-Dry-fit one Wago into each of the five wells on `enclosure-back-top`'s +X wall, butt-end first, to confirm the press fit. The wells are printed into the wall itself (`enclosure._east_wells`) — there is no carrier part to prepare, and nothing bolts a lever nut. Every insert this shelf's screws land in is a ruthex short in a +X wall boss of the same piece, pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1.
+Dry-fit one Wago into each of the five wells on `enclosure-back-top`'s +X wall, butt-end first, to confirm the press fit. The wells are printed into the wall itself (`enclosure._side_wells`) — there is no carrier part to prepare, and nothing bolts a lever nut. Every insert this shelf's screws land in is a ruthex short in a +X wall boss of the same piece, pressed at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1.
 
 **Placement geometry is the +X wall's, and it is read off each body rather than typed.** Each of the five is turned so its own mounting plane faces that wall and stands on one common seat, and [`enclosure_assembly.wall_mounts`](/hardware/manifold-layout/enclosure_assembly.py) carries that body's own hole pattern through its own placement to give the wall one boss per hole — so a body that moves takes its bosses with it, and a boss cannot land on a column the part has no hole in. Down the flank: the board forward, relay #2 standing on end aft of it, the PSU aft of that and hard against the rear column. Relay #1 and the ground stack take the board's crown; the five Wago wells run fore and aft along the brick's crown above it.
 
@@ -117,7 +117,7 @@ A finished electronics shelf is:
 
 ## Open items
 
-1. ~~**Relay #2 + DC distribution block station.**~~ **CLOSED.** Both are rooted on the +X wall. Relay #2 stands **on end** in the band between the board and the brick, which is the only way a third body fits that depth — the brick gave up its rear clearance to pay for it and its AC screw block is made off from inboard. There is no DC distribution block: the 12 V rails are two more [WAGO 221-413](/hardware/reference/wago-221-413/) lever nuts in the same row as the mains three, standing in wells printed on the wall itself (`enclosure._east_wells`), so the part that was TBD is now no part at all.
+1. ~~**Relay #2 + DC distribution block station.**~~ **CLOSED.** Both are rooted on the +X wall. Relay #2 stands **on end** in the band between the board and the brick, which is the only way a third body fits that depth — the brick gave up its rear clearance to pay for it and its AC screw block is made off from inboard. There is no DC distribution block: the 12 V rails are two more [WAGO 221-413](/hardware/reference/wago-221/) lever nuts in the same row as the mains three, standing in wells printed on the wall itself (`enclosure._side_wells`), so the part that was TBD is now no part at all.
 2. ~~**The BOM still books this shelf's inserts against the cold core's top cap.**~~ **CLOSED.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 books them as the fourth retention place — `enclosure-back-top`'s +X wall bosses, counted off the placed pack's own `east_bosses` — and [`cold-core.md`](/hardware/assembly/cold-core.md) presses only what its own bench presses.
 
 ## Sources
