@@ -22,10 +22,12 @@ Coordinate frame
   its underside at [30](POWER_Z0), its aft face on the shell's own tangent plane at
   y = [-52.5](SHELL_TANGENT_Y). **-Y is the power end.**
 
-The suction, discharge and process stubs are not modeled. The box carries the compressor's
-terminal block and clip-on PTC start relay under the donor's own moulded cover, so it is the
-one feature that tells the two ends apart: the bolt pattern is symmetric about the origin,
-the box is not.
+The suction, discharge and process stubs are not modeled. All three are STATIONS instead —
+`stations()` for the two that are in the loop, `process_tube()` for the one that is not —
+so a line brazed into one and a valve clamped on one both answer to the can. The box
+carries the compressor's terminal block and clip-on
+PTC start relay under the donor's own moulded cover, so it is the one feature that tells the
+two ends apart: the bolt pattern is symmetric about the origin, the box is not.
 
 The shell is WIDER THAN ITS OWN PLATE — [110](SHELL_X) across against the plate's
 [96](BASE_X) — so the widest thing on the part is its belly, overhanging
@@ -91,6 +93,15 @@ POWER_Z1 = POWER_Z0 + POWER_Z                      # [75](POWER_Z1), the box's c
 # line; only the height along it is free, and these are the heights the donor brazes at.
 DISCHARGE_Z = 75.0
 SUCTION_Z = 60.0
+# THE THIRD STUB, the one that is not in the loop: the process tube, a short copper stub
+# pinched and brazed shut at the factory (`../ice-maker/README.md` "Process tube"). It
+# leaves the -Y tangent, the power end, clear over the terminal box's crown, and the
+# piercing valve bands round it. Like the other two it is a STATION and not a solid.
+PROCESS_Z = 100.0
+# How far out along that stub the saddle bands. The stub is ~50 long and its tip stays
+# pinched, so the clamp goes on the middle of it.
+PROCESS_CLAMP = 20.0
+PROCESS_OVER_BOX = PROCESS_Z - POWER_Z1   # [25](PROCESS_OVER_BOX), the stub over the cover
 
 
 def mount_pattern():
@@ -108,6 +119,41 @@ def power_face():
     this part reaches past it: a body laid flat there lies against the compressor and
     stands in the open on every other side."""
     return ((0.0, POWER_Y0, (POWER_Z0 + POWER_Z1) / 2.0), (0.0, -1.0, 0.0))
+
+
+def process_tube():
+    """Where the piercing valve bands the PROCESS TUBE, as `(the point on the stub's own
+    axis, the stub's outward direction)` in this frame.
+
+    The stub leaves the -Y tangent, the power end, `PROCESS_Z` up — which stands it
+    [25](PROCESS_OVER_BOX) clear over the terminal box's crown, so the saddle bands the
+    copper in open air.
+
+    The point is on the STUB: `PROCESS_CLAMP` out along the tube, where the clamp grips."""
+    return ((0.0, SHELL_TANGENT_Y - PROCESS_CLAMP, PROCESS_Z), (0.0, -1.0, 0.0))
+
+
+def process_tube_hold():
+    """Hold the stub to the can it leaves and to the box it clears.
+
+    A station below `POWER_Z1` stands the valve inside the donor's own terminal cover; one
+    outside the shell's standing height stands it on a stub brazed into nothing. Neither
+    shows up in a picture."""
+    (px, py, pz), axis = process_tube()
+    if axis != (0.0, -1.0, 0.0):
+        raise ValueError(
+            f"the process stub points {axis} — it leaves the -Y tangent, the power end, "
+            f"and any other face stands it in the condenser, the core or the plate.")
+    if abs(px) > 1e-9 or abs(py - (SHELL_TANGENT_Y - PROCESS_CLAMP)) > 1e-9:
+        raise ValueError(
+            f"the process stub's clamp stands at (x, y) = ({px:g}, {py:g}) and the -Y "
+            f"tangent one PROCESS_CLAMP out is (0, {SHELL_TANGENT_Y - PROCESS_CLAMP:g}) "
+            f"— the station has come off the one line the shell touches a plane along.")
+    if not (POWER_Z1 <= pz <= OVERALL_H):
+        raise ValueError(
+            f"the process stub leaves at z = {pz:g}, outside the "
+            f"{POWER_Z1:g}..{OVERALL_H:g} between the terminal box's crown and the can's "
+            f"— the valve would be bedded in the donor's own cover or hung off air.")
 
 
 def power_face_hold():
@@ -280,7 +326,8 @@ def _docvars():
              "SHELL_OFFSET_Y", "MOUNT_D", "MOUNT_INSET", "OVERALL_H",
              "MOUNT_PITCH_X", "MOUNT_PITCH_Y", "SHELL_OVERHANG_X",
              "PLATE_REACH_LONG", "PLATE_REACH_SHORT", "MOUNT_LIGAMENT",
-             "POWER_X", "POWER_Y", "POWER_Z", "POWER_Z0", "POWER_Z1", "SHELL_TANGENT_Y")
+             "POWER_X", "POWER_Y", "POWER_Z", "POWER_Z0", "POWER_Z1", "SHELL_TANGENT_Y",
+             "PROCESS_Z", "PROCESS_CLAMP", "PROCESS_OVER_BOX")
     variables = {name: f"{globals()[name]:g}" for name in plain}
     variables["CYL_EXCESS_PCT"] = f"{CYL_EXCESS_PCT:.0f}"
     return variables
@@ -293,11 +340,15 @@ def selftest():
     power_face_hold()
     mounts_hold()
     stations_hold()
+    process_tube_hold()
     (_fx, fy, fz), _fa = power_face()
+    (_px, py, pz), _pa = process_tube()
     return [
         f"  power face centred at ({fy:g}, {fz:g}) on the box's own -Y plane",
         f"  both loop stubs stand on a shell tangent — discharge +X at z {DISCHARGE_Z:g}, "
         f"suction +Y at z {SUCTION_Z:g}",
+        f"  the process stub leaves -Y at z {pz:g}, {PROCESS_OVER_BOX:g} over the cover, "
+        f"and the saddle bands it at y {py:g}",
         f"  envelope stands {SHELL_X:g} x {BASE_Y:g} x {OVERALL_H:g} off the mounting plane",
         f"  shell is the pressed oblong, {SHELL_X:g} x {SHELL_Y:g}, not a cylinder",
         f"  the box fills the long reach, y {POWER_Y0:g}..{SHELL_TANGENT_Y:g}, "
@@ -341,7 +392,7 @@ def main():
             "PLATE_REACH_LONG": 2, "PLATE_REACH_SHORT": 2,
             "MOUNT_LIGAMENT": 1, "CYL_EXCESS_PCT": 1,
             "POWER_X": 1, "POWER_Y": 1, "POWER_Z": 1, "POWER_Z0": 2, "POWER_Z1": 1,
-            "SHELL_TANGENT_Y": 2,
+            "SHELL_TANGENT_Y": 2, "PROCESS_OVER_BOX": 2,
         },
     )
     substitute_md(
@@ -357,6 +408,7 @@ def main():
             "MOUNT_LIGAMENT": 1, "CYL_EXCESS_PCT": 1,
             "POWER_X": 1, "POWER_Y": 2, "POWER_Z": 1, "POWER_Z0": 2, "POWER_Z1": 1,
             "SHELL_TANGENT_Y": 1,
+            "PROCESS_Z": 1, "PROCESS_CLAMP": 1, "PROCESS_OVER_BOX": 1,
         },
     )
     print("-> README.md")

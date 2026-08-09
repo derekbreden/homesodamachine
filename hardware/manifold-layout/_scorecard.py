@@ -237,6 +237,13 @@ MOUNTS = (
     ("wago-g", "enclosure-back-top", "well"),
     ("wago-v12", "enclosure-back-top", "well"),
     ("wago-gnd", "enclosure-back-top", "well"),
+    # The five device-cluster nuts take the same well in whichever wall their own cluster
+    # stands against, so the piece that holds each one is the piece that owns its band.
+    ("wago-mana", "enclosure-front-top", "well"),
+    ("wago-manb", "enclosure-front-top", "well"),
+    ("wago-reeds-b", "enclosure-back-top", "well"),
+    ("wago-reeds-a", "enclosure-back-top", "well"),
+    ("wago-sensors", "enclosure-back-top", "well"),
     ("asse1022-assembly", None, "none"),
     ("drip-pan", "enclosure-back-top", "channel"),
     # The probe plate lies loose in the basin the way the basin rides loose in its rails: what
@@ -254,6 +261,10 @@ MOUNTS = (
     # is a fastening: nothing presses the case onto the face it has to read, so the contact that
     # makes a 77 °C cutoff a cutoff is the contact the machine does not yet hold.
     ("thermal-fuse", None, "none"),
+    # The piercing valve is a saddle: two screws pull its halves together round the
+    # compressor's process tube, and the grip on that copper holds it. The fastening ships
+    # with the part and closes on a body no printed feature of this machine touches.
+    ("bpv31", None, "tube-clamp"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
