@@ -158,12 +158,12 @@
    "id": "floats-couple",
    "label": "Every float's magnet is held against the wall its reed reads through",
    "kind": "gate",
-   "status": "fail",
-   "value": "1/3 floats",
+   "status": "pass",
+   "value": "3/3 floats",
    "target": "standoff under 2.0 mm",
    "detail": [
-    "float-a: rod parked 107.00 against a wall at 126.00 leaves the capsule 5.00 mm short of it, so the magnet stands off up to 8.29 mm \u2014 past the 2.0 mm the reed reads at",
-    "float-b: rod parked 107.00 against a wall at 126.00 leaves the capsule 5.00 mm short of it, so the magnet stands off up to 8.29 mm \u2014 past the 2.0 mm the reed reads at",
+    "float-a: rod parked 114.50 biases the capsule +2.50 mm into a wall at 126.00; magnet standoff 0..0.79 mm",
+    "float-b: rod parked 114.50 biases the capsule +2.50 mm into a wall at 126.00; magnet standoff 0..0.79 mm",
     "float-carb: rod parked 50.97 biases the capsule +3.13 mm into a wall at 61.85; magnet standoff 0..0.16 mm"
    ],
    "active": true
@@ -589,10 +589,10 @@
    "component": "float-a",
    "boxes": [
     [
-     96.287,
+     98.0,
      18.5,
      119.0,
-     124.287,
+     126.0,
      46.5,
      131.0
     ]
@@ -605,10 +605,10 @@
    "component": "float-b",
    "boxes": [
     [
-     -124.287,
+     -126.0,
      18.5,
      119.0,
-     -96.287,
+     -98.0,
      46.5,
      131.0
     ]
@@ -637,10 +637,10 @@
    "component": "float-rod-a",
    "boxes": [
     [
-     105.412,
+     112.912,
      30.913,
      32.494,
-     108.588,
+     116.088,
      34.087,
      207.9
     ]
@@ -653,10 +653,10 @@
    "component": "float-rod-b",
    "boxes": [
     [
-     -108.588,
+     -116.088,
      30.913,
      32.494,
-     -105.412,
+     -112.912,
      34.087,
      207.9
     ]
@@ -1815,7 +1815,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T04:46:17+00:00",
-  "commit": "1a20d78c1922791b5e3de704fdf3a17fce23c4a6"
+  "generated": "2026-08-09T05:25:39+00:00",
+  "commit": "68fe9284d4a12ac613cb21511d911dc1d8ca89cd"
  }
 }
