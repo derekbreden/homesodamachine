@@ -106,6 +106,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
+import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
 import _overlap                                       # noqa: E402
@@ -267,7 +268,11 @@ Y_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 1, 0))
 
 
 def box(shape):
-    return shape.BoundingBox()
+    # Through `_boxes` rather than straight at the shape. An optimal box costs
+    # ~0.2 s on a pack solid and this is the layout's own way of asking for one:
+    # the arrangement reads a body's faces every time it stands something against
+    # them, and the same body is asked about nine times over a build.
+    return _boxes.boxed(shape)
 
 
 def sit(shape, *, cx=None, y0=None, y1=None, z0=None, dz=None):

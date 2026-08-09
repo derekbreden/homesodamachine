@@ -9,9 +9,15 @@ scorecard's clearance and clash scans (`_scorecard`), each routing `Frame`
 (`_routing.frame`) — read the box through `boxed()`, which computes it once per
 solid and hands back the same `BoundBox` on every later ask.
 
-Keyed by `id(solid.wrapped)`, which is a stable attribute (not a regenerating
-property). The solid is pinned in the cache alongside its box, so its id cannot
-be recycled onto a different shape while the entry lives.
+Keyed by `hash(solid.wrapped)` — OCCT's own hash over the underlying TShape, the
+location and the orientation, which together are what decide the box. Two wrappers
+of one body hash alike, and a moved copy of it does not. `id()` cannot stand in:
+`Solids()`, `moved()` and `.val()` each hand back a fresh Python wrapper around the
+same body, so an identity key reads a first ask every time and the memo never fires.
+
+A hit is confirmed with `IsSame` before it is served — a hash collision would
+otherwise hand back a wrong box, silently, in the reading that decides where a
+body stands.
 """
 
 _CACHE: dict = {}
@@ -20,12 +26,12 @@ _SOLIDS_CACHE: dict = {}
 
 def boxed(solid):
     """The solid's optimal bounding box, memoized by identity."""
-    key = id(solid.wrapped)
+    key = hash(solid.wrapped)
     hit = _CACHE.get(key)
-    if hit is not None:
+    if hit is not None and hit[0].wrapped.IsSame(solid.wrapped):
         return hit[1]
     box = solid.BoundingBox()
-    _CACHE[key] = (solid, box)          # pin the solid so its id stays its own
+    _CACHE[key] = (solid, box)          # pin the solid so the entry keeps its shape alive
     return box
 
 
