@@ -3,9 +3,9 @@ the source of truth for the enclosure outer dimensions imported by the
 isometric drawings.
 
 The numbers are READ OFF THE MACHINE — `enclosure_assembly.machine()` places every body and
-`enclosure.box_around` sizes the box on them — not re-derived from the parts it is
-sized around: the box already computes its bounds from the placed pack, and a second
-derivation here is a second machine's dimensions in the drawings.
+`enclosure.stated_box` hands back the box they stand in — rather than restated here. Its size
+is `enclosure`'s own `appliance_width`, `rear_plane_y` and `appliance_height`, and a second
+copy of those three numbers is a second machine's dimensions in the drawings.
 
 Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
 """

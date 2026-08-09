@@ -123,6 +123,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
+import _realized
 import hopper_funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
@@ -2299,8 +2300,14 @@ def build_pieces(box, stem="enclosure"):
     """The four printable pieces of one box, and the assembly of them in place
     with the seams intact. The appliance and its coupon come through here
     alike — one box description in, four pieces out."""
+    # A piece's shape is decided by the box description and the code that cuts it, and a build
+    # that moves a body inside the walls moves neither: the box is its stated size, and a
+    # station only moves when the body carrying it does. So a piece is drawn once and kept,
+    # against a key that covers both.
     cache = {}
-    pieces = {name: build_piece(box, *name.split("-"), halves_cache=cache)
+    pieces = {name: _realized.realized(
+                  _realized.key(__file__, box, name),
+                  lambda n=name: build_piece(box, *n.split("-"), halves_cache=cache))
               for name in PIECE_COLORS}
     assy = cq.Assembly(name=stem.replace("-", "_"))
     for name, piece in pieces.items():
@@ -2317,9 +2324,14 @@ def _export_pieces(pieces, assy, stem, note):
     print(f"-> {stem}.step (assembled pieces){note}")
 
 
-def box_around(pack):
-    """The box `pack` stands inside — the description `build_pieces` turns into the four
-    printable pieces."""
+def stated_box(pack):
+    """The box at `appliance_width` × `rear_plane_y` × `appliance_height`, with `pack` measured
+    against it — the description `build_pieces` turns into the four printable pieces.
+
+    THE PACK DOES NOT SIZE IT. Where the bodies stand decides what `_dims` puts in `BOUNDS`,
+    and a pack that reaches past a wall gets that wall drawn through it, a red row saying by
+    how much, and a clash in `pack-closes` at the body that overran. Moving a body moves the
+    reading, never the wall."""
     return _dims(pack)
 
 

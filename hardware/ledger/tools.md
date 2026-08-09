@@ -94,7 +94,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **Bambu Lab H2C (×2)** | Bambu Lab direct orders us712460111015776257 + us728027710789775361, [purchases.md §15](/hardware/ledger/purchases.md) | Production printers, AMS Combo bundles. Founding unit (Mar 22 2026) + second unit (May 4 2026 — ordered after the original's right-side Induction Heating Assembly was damaged during PET-CF clog troubleshooting). | [$4,971.93](T_H2C) |
+| **Bambu Lab H2C (×2)** | Bambu Lab direct orders us712460111015776257 + us728027710789775361, [purchases.md §15](/hardware/ledger/purchases.md) | Production printers, AMS Combo bundles. Founding unit (Mar 22 2026) + second unit (May 4 2026 — ordered after the original's right-side Induction Heating Assembly was damaged during PET-CF clog troubleshooting). **The two hotends are different types and are not interchangeable** — see the hotend-compatibility rule below. Build envelope on the left nozzle is **325 × 320 × 320 mm** (`H2C_X/Y/Z` in [`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)); the enclosure's four-piece split is sized to it. | [$4,971.93](T_H2C) |
 | **Bambu Lab AMS HT (×2)** | Bambu order us717877837343809537, [purchases.md §15](/hardware/ledger/purchases.md) | High-temperature AMS expansion units. | [$278.00](T_AMS_HT) |
 | **Bambu Lab AMS 2 Pro (×3)** | Bambu order us718417332286169089 + one inside each H2C AMS Combo, [purchases.md §15](/hardware/ledger/purchases.md) | Where PETG lives. Fresh spools go straight in, the unit dries them in place, and the same unit feeds the print the moment the cycle ends — no transfer between drying and printing. $ is the standalone unit; the other two came inside the printer bundles. | [$331.99](T_AMS2PRO) |
 | **Bambu Vision Encoder / H2 Series** | Founding bundle, [purchases.md §15](/hardware/ledger/purchases.md) | Print monitoring camera. | [$78.75](T_VISION) |
@@ -102,8 +102,29 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **SUNLU E2 filament dryer** | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD), [purchases.md §13](/hardware/ledger/purchases.md) | Dual-chamber, **110 °C ceiling**, 500 W PTC. Dries the one filament the AMS cannot — Polymaker Fiberon PET-CF17, **100 °C × 10 h** — and feeds the printer from the chamber, so the PET-CF prints without leaving the dryer. | [$321.74](T_DRYER_E2) |
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](/hardware/ledger/purchases.md) | 4-spool capacity, 70 °C ceiling, 350 W PTC, 3 circulation fans. In service as sealed 4-spool storage, not as a dryer — every filament the build uses dries in the unit it prints from. | [$125.47](T_DRYER_S4) |
 | **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through. TPU prints straight out of one — a short, straight feed from a sealed box is what dispenses a soft filament cleanly. | [$117.96](T_POLYDRYER) |
-| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD (DUROZZLE), 0.8 TC HF. PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$556.99](T_HOTENDS) |
+| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD (DUROZZLE), 0.8 TC HF. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$556.99](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
+
+### Which hotends fit an H2C
+
+The H2C carries **two hotends of different types**, and a part for one is never a
+part for the other.
+
+- **Left (lifting) — standard.** Mechanically the H2D's hotend. **An H2D hotend
+  *is* an H2C left hotend**, so anything sold for the H2D / H2S / A1 / A1 mini
+  line drops straight in. A third-party listing that names those machines and
+  never mentions the H2C is still the right part; the omission is a gap in the
+  seller's copy, not an incompatibility. Bambu's own abrasive hotends carry the
+  reverse note — on an H2C they are supported on the left hotend only.
+- **Right — induction, quick-swap, H2C-only.** A hotend type that exists on no
+  other machine. Nothing from the H2D/H2S/A1 line fits it, and it is bought by
+  H2C SKU (Bambu "H2C Induction Hotend (R)", assembly SKU 3DPP431).
+
+**So every abrasive nozzle runs left.** Tungsten carbide, PCD and ruby are all
+bought against H2D-series listings, and the fiber-filled stock — PET-CF17,
+PET-GF15 — prints on the left nozzle. That is also the nozzle whose
+325 × 320 × 320 mm envelope the enclosure split is sized to, so the abrasive
+path and the big-part path are the same path.
 
 ## Casting / molding
 
@@ -137,7 +158,7 @@ Total acquired tooling: **[$14,682.55](TOOLS_TOTAL)**
 ## Open items
 
 - Tools section is current as of the 2026-05-20 reorg; the full per-line audit of every purchases.md row hasn't been done — items not yet listed here either belong in this file (and should be added) or in [bom.md](/hardware/ledger/bom.md) / [inventory.md](/hardware/ledger/inventory.md). When in doubt, the underlying purchases.md row is the source of truth.
-- Manufacturer-PDF / spec-sheet links are not yet captured per-tool — add as relevant for the tools whose envelopes constrain design (X1 Pro power range, H2C bed dimensions, etc.).
+- Manufacturer-PDF / spec-sheet links are not yet captured per-tool — add as relevant for the tools whose envelopes constrain design (X1 Pro power range, etc.).
 
 ## Sources
 [value](NAME) texts are updated by:
