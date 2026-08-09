@@ -102,7 +102,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **SUNLU E2 filament dryer** | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD), [purchases.md §13](/hardware/ledger/purchases.md) | Dual-chamber, **110 °C ceiling**, 500 W PTC. Dries the one filament the AMS cannot — Polymaker Fiberon PET-CF17, **100 °C × 10 h** — and feeds the printer from the chamber, so the PET-CF prints without leaving the dryer. | [$321.74](T_DRYER_E2) |
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](/hardware/ledger/purchases.md) | 4-spool capacity, 70 °C ceiling, 350 W PTC, 3 circulation fans. In service as sealed 4-spool storage, not as a dryer — every filament the build uses dries in the unit it prints from. | [$125.47](T_DRYER_S4) |
 | **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through. TPU prints straight out of one — a short, straight feed from a sealed box is what dispenses a soft filament cleanly. | [$117.96](T_POLYDRYER) |
-| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD (DUROZZLE), 0.8 TC HF. | [$517.09](T_HOTENDS) |
+| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD (DUROZZLE), 0.8 TC HF. PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$556.99](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
 
 ## Casting / molding
@@ -132,7 +132,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$14,642.65](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,682.55](TOOLS_TOTAL)**
 
 ## Open items
 
