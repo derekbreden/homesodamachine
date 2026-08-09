@@ -27,11 +27,26 @@ planes the appliance reads off the stack.
 | pockets | both reservoirs and their caps |
 | wall | the three copper plugs, in their own slots |
 | lines | the seven `_internal_routes` centrelines, each drawn at the arc its corridor leaves |
+| coil | the wrap as an exact helix on the tank's own radius, and both tails to their slot stations |
+| sparge | the barb on the bottom plate, the silicone stub, and the stone low in the column |
+| pockets | both floor bulkheads with their wet-side seals, both rods, both floats, both cap vent membranes |
+| sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
+| collets | the three PP010822E that land on vessel elbows |
 
 ## The card
 
 Reporting, not gating — a finding lands in the card and on the terminal and the STEP still
-writes. `bodies-clear` is the axis the work is on.
+writes. `bom-covered` is the axis the work is on.
+
+| | |
+|---|---|
+| `bom-covered` | every billed cold-core part against the body that realizes it, held to `bom.md` from both ends |
+| `bodies-clear` | no two solids share volume |
+| `routes-fit` | no line meets a solid it is not made up on |
+| `lines-apart` | no two runs want the same corridor — copper counts as a run |
+| `lane-census` | what each lane carries, and at what storey |
+| `port-leads` | every made-up end has a straight to receive the tube |
+| `arcs-hold` | every corner turns at the stock arc |
 
 ```
 tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py

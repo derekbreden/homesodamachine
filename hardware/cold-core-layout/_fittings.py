@@ -66,9 +66,10 @@ ELBOW_BORE = 0.25 * IN                    # the 1/4" run through it
 # into the plate rather than displacing it.
 ELBOW_MALE_R = 0.5 * 0.4375 * IN
 ELBOW_MALE_LEN = 0.26 * IN                # L1 hand-tight engagement, one plate thick
-# The female socket is the same 7/16" drill, tapped: it is what receives the next fitting's
-# stub, so it is bored to that Ø for as deep as a stub goes and to the 1/4" run past it.
-SOCKET_R = ELBOW_MALE_R
+# The female socket is tapped, so what it receives is a male at its MAJOR Ø — the 0.540" the
+# `jg-pp010822e` reference draws its shank at — for as deep as a stub goes, and the 1/4" run
+# past that.
+SOCKET_R = 0.5 * 0.540 * IN
 SOCKET_DEPTH = 0.5 * IN
 
 
@@ -256,3 +257,46 @@ def puresec_elbow(*, corner, up=(0, 0, 1), out, barrel_len=None, collet_r=None):
     body = _orient(_cyl(collet_r, PURESEC_BODY_DROP), -up).translate(c)
     solid = barrel.fuse(nut).fuse(leg).fuse(body)
     return solid, Mouth(tuple(c + out.multiply(PURESEC_ELBOW_LEG)), tuple(out), 6.35)
+
+
+def stand_x_along(solid, *, at, axis):
+    """A solid built on +X, stood so its own +X runs along `axis` with its origin at `at`."""
+    a = cq.Vector(*axis).normalized()
+    x = cq.Vector(1, 0, 0)
+    dot = max(-1.0, min(1.0, x.dot(a)))
+    if dot > 1 - 1e-12:
+        turned = solid
+    elif dot < -1 + 1e-12:
+        turned = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), 180)
+    else:
+        turned = solid.rotate(cq.Vector(0, 0, 0), x.cross(a), math.degrees(math.acos(dot)))
+    return turned.translate(cq.Vector(*at))
+
+
+# --- uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm ---------------------
+#
+# `bom.md` §8 — the reservoir bulkhead's wet-side face seal, in the wet-side counterbore under
+# the bulkhead's own nut.
+WASHER_ID = 16.0
+WASHER_OD = 24.0
+WASHER_T = 3.0
+
+
+def silicone_washer(*, centre, axis=(0, 0, 1)):
+    axis = cq.Vector(*axis).normalized()
+    c = cq.Vector(*centre)
+    ring = _orient(_cyl(WASHER_OD / 2, WASHER_T), axis).translate(c)
+    bore = _orient(_cyl(WASHER_ID / 2, WASHER_T + 2), axis).translate(c - axis.multiply(1))
+    return ring.cut(bore)
+
+
+# --- LVDALAB PTFE membrane filter, ⌀13 × 0.45 µm ----------------------------
+#
+# `bom.md` §13 — the hydrophobic membrane in each reservoir cap's vent pocket.
+MEMBRANE_D = 13.0
+MEMBRANE_T = 0.15
+
+
+def membrane(*, centre, axis=(0, 0, 1)):
+    axis = cq.Vector(*axis).normalized()
+    return _orient(_cyl(MEMBRANE_D / 2, MEMBRANE_T), axis).translate(cq.Vector(*centre))

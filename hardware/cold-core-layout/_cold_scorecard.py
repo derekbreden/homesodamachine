@@ -10,10 +10,13 @@ REPORTING, NOT GATING. `main` never exits nonzero on a finding — every row lan
 and on the terminal, and the build still writes its STEP. A reading that stops the build is a
 reading nobody sees at `/3d`.
 
+  bom-covered    every billed cold-core part against the body that realizes it
   bodies-clear   no two solids share volume
   routes-fit     no line meets a solid
   lines-apart    no line meets another line
   arcs-hold      every corner turns at the stock arc
+  port-leads     every made-up end has a straight to receive the tube
+  lane-census    what each lane carries, and at what storey
 """
 
 from __future__ import annotations
@@ -33,7 +36,7 @@ _repo = _hw.parent
 DETAIL_MAX = 8
 FOCUS_DETAIL_MAX = 24
 # The axis this effort is on, in the order both surfaces lead with them.
-FOCUS_IDS = ("bodies-clear", "mounted")
+FOCUS_IDS = ("bom-covered", "mounted")
 # Two surfaces built to one nominal face meet at a sliver of this order.
 TOUCH_VOLUME = 0.1
 
