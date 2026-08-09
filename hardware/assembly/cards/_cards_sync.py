@@ -150,14 +150,22 @@ def enclosure(m: Machine):
     # `_enclosure_mechanical_sync._port_chain` prices it.
     chain_3 = 3 * nut_d + 2 * 7.0
 
-    # The umbilical row, read as an arrangement rather than as three stations: a
-    # single pitch, and which END of the row the blue ring is on. Both survive the
-    # row moving, which it does.
-    xs = sorted(_ea.PANEL_X.values())
-    pitches = {round(b - a, 6) for a, b in zip(xs, xs[1:])}
-    assert len(pitches) == 1, (
-        f"the umbilical row stands on {sorted(pitches)} and EN-02 quotes one pitch")
-    carb_end = "east" if _ea.PANEL_X["bulkhead-carb"] == xs[-1] else "west"
+    # The four JG unions, read as an ARRANGEMENT rather than as four stations: two
+    # columns, two storeys, and which column the blue ring stands on.
+    #
+    # `union_bores` is the same four holes the diameter is quoted off, so the
+    # arrangement and the bore agree by construction.
+    corners = {(round(p[1], 3), round(p[2], 3)) for p in union_bores}
+    port_cols = sorted({x for x, _z in corners})
+    port_storeys = sorted({z for _x, z in corners})
+    assert len(port_cols) == 2 and len(port_storeys) == 2, (
+        f"the back wall's four unions stand on {len(port_cols)} column(s) and "
+        f"{len(port_storeys)} storey(s) — EN-02 seats them as a rectangle, so say what "
+        f"they are instead: {sorted(corners)}")
+    assert corners == {(x, z) for x in port_cols for z in port_storeys}, (
+        f"two unions share a corner of the back wall's rectangle and one corner is empty "
+        f"— EN-02 has the bench seat one body per corner: {sorted(corners)}")
+    carb_end = "east" if round(_ea.PANEL_X["bulkhead-carb"], 3) == port_cols[-1] else "west"
 
     # EN-07 pins each Z seam at both ends of each ±X wall so it cannot hinge open
     # at the end it was not pinned at. That is the shape of the sentence, so the
@@ -204,7 +212,7 @@ def enclosure(m: Machine):
         "C14_BOSSES": f"{len(box.c14)}",
         # The rear wall (EN-02). Arrangement, not stations.
         "BACK_BODIES": f"{len(box.back_ports)}",
-        "UMBILICAL_PITCH": f"{next(iter(pitches)):.4g} mm",
+        "PORT_COL_PITCH": f"{port_cols[1] - port_cols[0]:.4g} mm",
         "CARB_END": carb_end,
         "PORT_HOLE_D": f"{DIA}{port_hole_d:.4g}",
         "CO2_HOLE_D": f"{DIA}{co2_hole_d:.4g}",
@@ -237,7 +245,8 @@ def enclosure(m: Machine):
             "BOX_SIZE", "BOX_PIECES", "WALL_T", "Y_SEAM", "Z_SEAM_FRONT", "Z_SEAM_BACK",
             "WALL_BOSSES", "C14_BOSSES"},
         "en-02-rear-wall-bodies": {
-            "BACK_BODIES", "UMBILICAL_PITCH", "CARB_END", "PORT_HOLE_D", "CO2_HOLE_D",
+            "BACK_BODIES", "PORT_COL_PITCH", "CARB_END",
+            "PORT_HOLE_D", "CO2_HOLE_D",
             "PORT_NUT_D", "PORT_CHAIN_3", "C14_FLANGE_W", "AC_RECESS"},
         "en-03-bolt-the-compressor-down": {
             "FLOOR_BOSSES", "COMP_MOUNT_D", "COMP_MOUNT_PITCH", "COMP_PLATE",

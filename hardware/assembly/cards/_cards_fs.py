@@ -26,7 +26,7 @@ WHAT THESE CARDS STAND ON, and is therefore asserted rather than measured:
   take. A fitting is a body in the pack, not a number, so it is asserted.
 - THE UMBILICAL BULKHEADS STAND IN A ROW, not a cluster: one line, one pitch,
   the blue ring at one END of it. FS-01 sends the eye down that line and FS-03
-  draws it. `UMBILICAL_PITCH` / `CARB_END` are the enclosure's own facts and are
+  draws it. `PORT_COL_PITCH` / `CARB_END` are the enclosure's own facts and are
   reused rather than re-derived, so a card here cannot state the row's shape and
   disagree with the card that seats it.
 - EVERY LEVEL ROD IS CUT TO A SEAT-TO-SEAT SPAN MINUS ONE MILLIMETRE. That is
@@ -356,7 +356,7 @@ def _figures():
         # AB — the bench rig stands behind the machine.
         "ab-01-inspect-connect-power": {
             "REG_PSI", "CO2_PRIMARY_BAND", "CO2_HOLE_D", "UMBILICAL_UNIONS",
-            "UMBILICAL_PITCH", "CARB_END"},
+            "PORT_COL_PITCH", "CARB_END"},
         "ab-02-water-fill-co2": {"REG_PSI", "PRV_HOLD", "CAP_CONDUITS"},
         "ab-05-level-transitions": {
             "REEDS_TOTAL", "REEDS_CARB", "REEDS_RSVR_ALL", "REEDS_PER_RSVR"},
