@@ -179,10 +179,16 @@ def sparge_reach() -> float:
 # --- YXQ float capsule (harvested) -------------------------------------------
 #
 # `bom.md` §12. Only the float is shipped product — a commodity ⌀[28](FLOAT_D) mm crimped
-# stainless capsule with a ferrite donut inside. It rides the 1/8" rod, so its bore places it.
+# stainless capsule with a ferrite donut inside.
+#
+# THE BORE IS THE DONOR'S, NOT THIS MACHINE'S. The capsule slid on the YXQ switch's own stem
+# and here it goes onto a bare 1/8" rod, so ⌀9.75 of bore over ⌀3.175 of rod leaves millimetres
+# of radial freedom rather than a fit. The float is NOT concentric with the rod it rides: it
+# lies against whatever wall is nearest, which is what puts its magnet where the external reed
+# can read it. `_internals.float_seats` is where that lie is struck.
 FLOAT_OD = 28.0
-FLOAT_H = 19.0
-FLOAT_BORE = 0.1875 * IN
+FLOAT_H = 12.0                   # the donor capsule, the same figure `reed_bridge` reaches with
+FLOAT_BORE = 9.75                # measured on the donor — the donor stem's clearance, not ours
 
 
 def float_capsule(*, centre, axis=(0, 0, 1)):
