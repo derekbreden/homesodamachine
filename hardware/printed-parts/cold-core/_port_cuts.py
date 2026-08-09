@@ -81,6 +81,39 @@ def ring_crossing_azimuths(x, tube_radius):
     return (min(band), max(band)) if band else None
 
 
+def segment_ring_azimuths(a, b, tube_radius):
+    """The azimuth band a straight run from `a` to `b` sweeps while it is inside the ring's
+    annulus — the general form of the one above, for a run that LEANS instead of crossing the
+    ring square.
+
+    Both edges of the tube are solved against both radii, and what comes back is every azimuth
+    at which the run has ring material beside it. A band inside one slot is a crossing that
+    notches no bearing segment."""
+    (ax, ay), (bx, by) = a[:2], b[:2]
+    dx, dy = bx - ax, by - ay
+    length = math.hypot(dx, dy)
+    if length < 1e-9:
+        return None
+    nx, ny = -dy / length, dx / length
+    band = []
+    for side in (-1.0, 1.0):
+        ox, oy = ax + nx * side * tube_radius, ay + ny * side * tube_radius
+        for radius in (support_ring_inner_radius - tube_radius,
+                       support_ring_outer_radius + tube_radius):
+            qa = dx * dx + dy * dy
+            qb = 2.0 * (ox * dx + oy * dy)
+            qc = ox * ox + oy * oy - radius * radius
+            disc = qb * qb - 4.0 * qa * qc
+            if disc < 0.0:
+                continue
+            for t in ((-qb - math.sqrt(disc)) / (2.0 * qa),
+                      (-qb + math.sqrt(disc)) / (2.0 * qa)):
+                if 0.0 <= t <= 1.0:
+                    band.append(math.degrees(
+                        math.atan2(oy + t * dy, ox + t * dx)) % 360.0)
+    return (min(band), max(band)) if band else None
+
+
 def ring_slot_spans():
     """Each ring slot as `(low, high)` degrees — `_support_ring`'s own construction."""
     step = 360.0 / slot_count
@@ -119,6 +152,24 @@ state(
 co2_inlet_xyz = (0.0, co2_inlet_y, front_face_port_z)
 co2_inlet_lane_xyz = cap_conduit_shell_xy("co2-in") + (front_face_port_z,)
 co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
+
+# AND IT CROSSES THE RING IN A SLOT, like the water outlet does. The ring is four bearing
+# segments carrying the vessel with four pour slots between them, and the reach in leans
+# across it; struck on a column whose lean lands inside one slot, the crossing costs no bore
+# and notches no segment. That column is `_cold_core_interface.co2_lane_x`, and this is what
+# holds it there when either the column or the ring moves.
+_co2_crossing = segment_ring_azimuths(co2_inlet_lane_xyz, co2_inlet_xyz, lldpe_tube_od / 2.0)
+state(
+    "co2-inlet-slot", "The CO2 reach in crosses the support ring in one slot",
+    "one slot holding the whole crossing",
+    _co2_crossing is not None and any(lo <= _co2_crossing[0] and _co2_crossing[1] <= hi
+                                      for lo, hi in ring_slot_spans()),
+    (f"the CO2 reach in from x {co2_inlet_lane_xyz[0]:g} passes clear of the ring this is "
+     f"struck against" if _co2_crossing is None else
+     f"the CO2 reach in from x {co2_inlet_lane_xyz[0]:g} crosses the tank support ring over "
+     f"azimuths {_co2_crossing[0]:.1f}°..{_co2_crossing[1]:.1f}°, which no slot of "
+     f"{ring_slot_spans()} holds — the line would have to be bored through a bearing "
+     f"segment that carries the vessel"))
 state(
     "co2-bore-meets-fall", "The CO2 bore is struck where its line falls down the lane",
     f"the co2-in conduit on the port lane ({port_lane_mid_y:g})",

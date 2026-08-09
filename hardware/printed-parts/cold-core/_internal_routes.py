@@ -14,14 +14,14 @@ WHERE EACH LINE GOES, and what it does at the end of it:
                    TOP plate — above the water line, where the pump pushes filtered tap
                    water in against the CO2 back-pressure and it falls into the headspace.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the vessel's own
-                   drain. Out on a lean that crosses over the CO2 and through a slot in
-                   the support ring together, up beside the coil, and onto the port lane
-                   only once the tank's top plate is under it.
-  co2-in           the one line that runs DOWN. The port lane the shell's whole height,
-                   one corner in the open at the bottom, and straight in along the leaning
-                   reach that crosses the ring's slot — then inside the vessel to the
-                   sparge stone hanging in the water column, so the gas enters BELOW the
-                   liquid and dissolves on the way up.
+                   drain. Out flat on its own storey and through a slot in the support
+                   ring, up beside the coil, and onto the port lane only once the tank's
+                   top plate is under it.
+  co2-in           the one line that runs DOWN. The port lane's +X half the shell's whole
+                   height, one corner in the open at the bottom, and straight in along the
+                   leaning reach that bores the support ring — then inside the vessel to
+                   the sparge stone hanging in the water column, so the gas enters BELOW
+                   the liquid and dissolves on the way up.
   reservoir-a      each reservoir's floor bulkhead, at the bottom of the wet V and the
   reservoir-b      lowest drainable point in it. Out of the pocket at the bulkhead band,
                    about into its own ±Y band, and up the forward strip.
@@ -32,12 +32,16 @@ WHERE EACH LINE GOES, and what it does at the end of it:
 Every vessel here is filled high and drawn low. Nothing that enters can leave without
 crossing the vessel, which is what the air-purge and clean-flush service modes run on.
 
-THE BANDS ARE STACKED IN Z, not in Y. The port lane is one bore wide, so two lines that
-want it at the same height cannot pass: what separates them is the storey each takes.
-Reservoir A's draw has the lane's own floor at the bulkhead band, under everything;
-the CO2 falls to the plate band above it and turns in; the carbonated water does not
-join the lane until it is over the tank. `report_routes` is what proves those three
-never meet.
+THE BANDS ARE STACKED IN Z, not in Y — AND A RISER IS ON NO BAND. The port lane is one
+bore wide, so two runs that want it at the same height cannot pass: what separates them
+is the storey each takes. Reservoir A's draw has the lane's own floor at the bulkhead
+band, under everything; the evaporator's inlet copper and the PRV vent take their own
+storeys above it; the carbonated water does not join the lane until it is over the tank.
+A RISER answers to none of that — it stands in every storey at once, so what keeps it
+clear is its X, and one bore of lane holds exactly one riser. The CO2 is it, and it falls
+the +X half because everything else the lane carries up there travels WEST, from the
+vessel out to the front wall (`_cold_core_interface.co2_lane_x`). `report_routes` is what
+proves they never meet.
 
 WHAT A CORNER TURNS AT IS NOT CHOSEN HERE — it is what the corridor leaves, and
 `fit_route` is how the corridor states it: each line is drawn at the stock arc and
@@ -67,6 +71,7 @@ import cadquery as cq
 
 from _cold_core_interface import (
     bulkhead_elbow_exit_z,
+    front_wall_x,
     cap_conduit_shell_xy,
     co2_inlet_y,
     foam_shell_outer_height,
@@ -93,8 +98,12 @@ from _port_cuts import (
 )
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "reservoir"))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "copper-plugs"))
+sys.path.insert(0, str(Path(__file__).resolve().parent / "prv-shroud"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import reservoir as _reservoir  # noqa: E402
+import copper_plugs as _plugs  # noqa: E402
+import prv_shroud as _shroud  # noqa: E402
 from _routing import stock_min, stock_of  # noqa: E402
 
 
@@ -135,6 +144,17 @@ forward_band_x = cap_conduit_shell_xy("water-in")[0]
 # body's own top with its cap on, which is the part's reading and not a figure here.
 reservoir_cap_top_z = _reservoir.outer_z_range[1] + _reservoir.cap_total_height
 
+# THE PRV'S RELIEF, both ends of it. `prv-shroud` caps the SV-125 for the pour and vents
+# through its BARREL's underside rather than its cap face, so what leaves the shroud is
+# already pointing down the port lane and takes no corner to get onto it
+# (`prv-shroud/prv_shroud.py` says why the cap cannot). The far end is the station the wall
+# leaves one `front_port_pitch` over the evaporator's inlet copper, in the same slot and
+# under the same plug stack (`copper_plugs.columns`). Between them the line is one fall and
+# one corner.
+prv_vent_start = (0.0, port_lane_mid_y,
+                  tank_top_plate_z + hole_shift_from_edge - _shroud.outer_diameter / 2.0)
+prv_vent_cross_z = _plugs.slot_station("prv-vent")[0][2]
+
 # The tank + its wrapped coil, as one cylinder: what the carbonated water's riser stands
 # off, and the reason it stands where it does.
 tank_envelope_z_range = (wall_and_floor_thickness + tank_support_ring_height, tank_top_plate_z)
@@ -154,12 +174,16 @@ def coil_standoff_y(x):
 
 
 def co2_run_y(x):
-    """The Y the CO2's reach in stands at, at one X.
+    """The Y the CO2's reach in stands at, at one X — `None` at an X its lean never reaches.
 
     It leans across the shell's floor from the port lane to the vessel's own port, so where
     a line crossing its column meets it is a reading off that lean and not the plate's
-    axis."""
+    axis. A column OUTSIDE that lean's own span does not cross it at all, and `None` is
+    that: the CO2 falls the lane's +X half (`_cold_core_interface.co2_lane_x`) and its reach
+    in stops on the vessel's axis, so nothing standing further out has it to clear."""
     (x0, y0, _z0), (x1, y1, _z1) = co2_inlet_lane_xyz, co2_inlet_xyz
+    if not min(x0, x1) - 1e-9 <= x <= max(x0, x1) + 1e-9:
+        return None
     return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
 
 
@@ -179,14 +203,16 @@ def _routes():
     carb_riser_y = coil_standoff_y(carb_x)
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
     carb_lane_y = cap_conduit_shell_xy("carb-water-out")[1]
-    # The carbonated water's two LEANS, each carrying a reach and a rise in one move.
-    #   Under the tank it has to cross the CO2, and the height it has to do it in is the
-    # band between the bottom plate's own elbows and that plate — not a storey. So the rise
-    # is not taken separately: it runs out to the coil's standoff and up over the CO2
-    # together, and what sets the slope is one tube and one hug of clearance AT THE
-    # CROSSING, opened out over the reach the lean has left to run past it.
-    carb_co2_rise = (lldpe_tube_od + line_hug) * (
-        (vessel_port_offset - carb_riser_y) / (vessel_port_offset - co2_run_y(carb_x)))
+    # The carbonated water's LEAN at the top, and the rise it owes anything under the tank.
+    #   Under the tank the only run it could meet is the CO2's reach in, and that reach stops
+    # on the vessel's axis — the CO2 falls the lane's +X half, so its lean never comes out as
+    # far as this column. `co2_run_y` says so by returning None, and a crossing nobody makes
+    # costs no rise: the outlet runs flat on its own storey from the elbow to the coil's
+    # standoff and climbs from there. Where the two columns DO meet, the rise is one tube and
+    # one hug of clearance at the crossing, opened out over the reach the lean has left.
+    co2_under_tank_y = co2_run_y(carb_x)
+    carb_co2_rise = 0.0 if co2_under_tank_y is None else (lldpe_tube_od + line_hug) * (
+        (vessel_port_offset - carb_riser_y) / (vessel_port_offset - co2_under_tank_y))
     #   At the top it steps out onto the lane, and that lean is at 45° — the step outboard
     # and the last of the rise are one move, so two square corners on a step's own width
     # become two shallow ones on a diagonal half again as long. It ends on
@@ -235,21 +261,22 @@ def _routes():
             (forward_band_x, a_riser_y, pocket_storey_z),
             (forward_band_x, a_riser_y, shell_top_z),
         ],
-        # The only line that runs down. It falls the whole shell in the port lane and turns
-        # ONCE, out in the open at the bottom, straight onto the leaning reach that carries
-        # it across the ring's slot to the collet under the bottom plate's lane-side port.
+        # The only line that runs down, and the only riser the port lane carries. It falls
+        # the whole shell on the lane's +X half — the stretch nothing crossing it travels —
+        # and turns ONCE, out in the open at the bottom, straight onto the leaning reach that
+        # bores the support ring to the collet under the bottom plate's lane-side port.
         "co2-in": [
             (co2_x, co2_lane_y, shell_top_z),
             co2_inlet_lane_xyz,
             co2_inlet_xyz,
         ],
         # The carbonator's bottom plate, under the liquid. Its elbow is clocked −X, out to
-        # its own column on the +Y side of the plate's axis where the CO2 never reaches;
-        # then it LEANS out and up together, because the only way out of the under-tank
-        # space on this side crosses the CO2's own run and one of them has to go over. It
-        # leaves through the ring's slot on that lean and climbs beside the coil — clear of
-        # the lane, which the CO2 and the copper own down there — and leans again at the top
-        # to put itself on the conduit's own column for the last stock arc.
+        # its own column on the +Y side of the plate's axis; then straight out to the coil's
+        # standoff on that same storey, because the CO2's reach in stops on the vessel's axis
+        # and there is nothing under the tank on this column to go over (`carb_co2_rise`). It
+        # leaves through the ring's own slot on that leg and climbs beside the coil — clear of
+        # the lane, which the copper owns down there — and leans at the top to put itself on
+        # the conduit's own column for the last stock arc.
         "carb-water-out": [
             (0.0, +vessel_port_offset, plate_storey_z),
             (carb_x, +vessel_port_offset, plate_storey_z),
@@ -257,6 +284,15 @@ def _routes():
             (carb_x, carb_riser_y, lane_step_top_z - carb_lane_step),
             (carb_x, carb_lane_y, lane_step_top_z),
             (carb_x, carb_lane_y, shell_top_z),
+        ],
+        # The PRV's relief, and the only line here that starts on a PRINTED part rather
+        # than on a fitting: out of the shroud's underside pointing down, the lane's whole
+        # height, and out through the wall at its own station into the appliance interior,
+        # where it ends open. Unpressurized until the valve pops.
+        "prv-vent": [
+            prv_vent_start,
+            (prv_vent_start[0], port_lane_mid_y, prv_vent_cross_z),
+            (front_wall_x - wall_and_floor_thickness, port_lane_mid_y, prv_vent_cross_z),
         ],
         # The two fills are the gap between two bores: the cap conduit above and the bore in
         # the reservoir's own cap below, with the pour clearance over the reservoir between

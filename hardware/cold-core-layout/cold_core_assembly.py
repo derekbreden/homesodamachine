@@ -27,7 +27,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _cold = _hw / "printed-parts" / "cold-core"
 for _p in (_hw / "scripts", _cold, _cold / "foam-assembly", _cold / "reservoir",
-           _cold / "copper-plugs", _hw / "printed-parts" / "cadlib", _here.parent):
+           _cold / "copper-plugs", _cold / "prv-shroud",
+           _hw / "printed-parts" / "cadlib", _here.parent):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
@@ -41,6 +42,7 @@ import _coil as _C                                       # noqa: E402
 import _fittings as _F                                   # noqa: E402
 import _internals as _I                                  # noqa: E402
 import _bom as _bom_check                                # noqa: E402
+import prv_shroud as _shroud                             # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
 from _cold_scorecard import Check, Scorecard, verdict     # noqa: E402
 
@@ -161,6 +163,9 @@ MADE_UP_ON = {
     "water-in": ("collet-water-in", "vessel-elbow-water-in"),
     "reservoir-a": ("bulkhead-reservoir-a",),
     "reservoir-b": ("bulkhead-reservoir-b",),
+    # The vent starts IN the shroud's own bore, so the cup it leaves is not a body it routes
+    # around — it is the fitting this line is made up on.
+    "prv-vent": ("prv-shroud",),
 }
 
 # The straight a run leaves a fitting on, as a multiple of its own bend radius: one reach for
@@ -224,6 +229,20 @@ def _prv_stack() -> dict:
     return {"prv-sv125": valve, "prv-shroud": shroud}
 
 
+def prv_vent_mouth() -> tuple:
+    """Where the shroud's own vent bore opens, in the shell's frame.
+
+    `prv_shroud` authors the bore radially on its own −Y at `vent_station_z` along the barrel.
+    Standing the cup on the elbow's axis carries that point with it, so the line's start is
+    read off the SHROUD rather than restated here — a bore that moves takes its tube along."""
+    mouth = _V.mouths()["prv"]
+    axis = cq.Vector(*mouth.axis).normalized()
+    local = cq.Solid.makeSphere(0.001, cq.Vector(0.0, -_shroud.outer_diameter / 2.0,
+                                                 _shroud.vent_station_z))
+    at = _F._orient(local, axis).translate(cq.Vector(*mouth.pos)).BoundingBox()
+    return (round(at.center.x, 6), round(at.center.y, 6), round(at.center.z, 6))
+
+
 def trimmed_routes() -> dict:
     """Every authored centreline, with each vessel end moved out to the mouth its own fitting
     presents.
@@ -238,6 +257,8 @@ def trimmed_routes() -> dict:
     # Each reservoir's draw starts at its own floor bulkhead's collet the same way.
     for line, mouth in _I.mouths().items():
         out[line][0] = mouth.pos
+    # And the PRV vent starts on the shroud's own bore, wherever the placed cup puts it.
+    out["prv-vent"][0] = prv_vent_mouth()
     return out
 
 
@@ -441,6 +462,29 @@ def _stations_met(fitted: dict, placed: dict) -> Check:
                  verdict(met == total), f"{met}/{total} stations", "a run per station", detail)
 
 
+def _prv_vent_lands(points: dict) -> Check:
+    """The shroud's own vent bore, against the lane its line has to fall.
+
+    Two readings of one station. `prv_shroud.vent_station_z` picks where the bore stands along
+    the barrel so that the cup, once made up on the elbow, opens it on the port lane's own
+    centreline — and this reads that back off the PLACED shroud. A bore that misses the lane is
+    a line that needs a corner in a band that has none."""
+    at = prv_vent_mouth()
+    want = _plugs.columns["port-lane"].lane_y
+    off = at[1] - want
+    # The two readings are struck in different frames and carried through a rotation, so what
+    # is being asked is whether they are the same station — not whether they agree to a float.
+    agree = 0.01
+    detail = [f"the shroud's vent bore opens at ({at[0]:+.2f}, {at[1]:+.2f}, {at[2]:.2f}), "
+              f"{'on' if abs(off) < agree else f'{off:+.2f} off'} the port lane ({want:g})",
+              f"station {_shroud.vent_station_z:g} mm along a {_shroud.total_length:g} mm "
+              f"barrel; the line falls from there to z "
+              f"{points['prv-vent'][-1][2]:.2f} and out"]
+    return Check("prv-vent-lands", "The PRV shroud's vent bore opens on the lane its line "
+                 "falls", "gate", verdict(abs(off) < agree),
+                 f"{abs(off):.3f} mm off", f"within {agree:g} mm of the lane", detail)
+
+
 def _floats_couple(placed: dict) -> Check:
     """Every float's magnet held against the wall its reed reads through.
 
@@ -595,6 +639,7 @@ def build_card(a) -> Scorecard:
         _port_leads(fitted, a.points),
         _stations_met(fitted, placed),
         _arcs_hold(fitted),
+        _prv_vent_lands(a.points),
         _floats_couple(placed),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),

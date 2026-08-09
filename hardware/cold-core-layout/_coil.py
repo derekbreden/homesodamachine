@@ -11,15 +11,15 @@ that, at the radius it actually sits at: one tube radius off the tank's own OD.
                      elbows leave clear above and below it
 
 FRAMES. The mandrel is authored lying down, its own Y the cylinder axis and (x, z) the radial
-plane. Standing it up on the shell's Z, `x → y` and `z → −x`: the mirror the tails leave about
-is the mandrel's x = 0, and in the shell that is the plane between the port lane and the west
-one. `_map_azimuth` is that turn, and it leaves `tail_ccw_delta` alone, so the wrap count the
+plane. Standing it up on the shell's Z, `x → y` and `z → −x`. `_map_azimuth` is that turn and
+`COIL_CLOCK` is the roll on top of it; both leave `tail_ccw_delta` alone, so the wrap count the
 mandrel struck is the wrap count drawn here.
 
-WHERE A TAIL GOES after the wrap: onto its own lane, down it, and out through the wall at the
-station its plug leaves. `copper_plugs.slot_station` is where each crosses — the inlet's on the
-port lane, the outlet's on the west — and both stand at `evap_cross_z`, well under the heights
-their wraps leave at. The drop is the tail's own, taken in the lane.
+WHERE A TAIL GOES after the wrap: radially clear of the helix, DOWN its own column, onto its
+lane at the height the wall lets it cross, and out. `copper_plugs.slot_station` is where each
+crosses — the inlet's on the port lane, the outlet's on the west — and both stand at
+`evap_cross_z`, well under the heights their wraps leave at. Which column each one falls down
+is `FALL_IN_LANE`, and the two flanks answer differently.
 """
 
 from __future__ import annotations
@@ -68,8 +68,28 @@ def _map_azimuth(mandrel_x: float, mandrel_z: float) -> float:
     return math.degrees(math.atan2(mandrel_x, -mandrel_z))
 
 
-AZ_IN = _map_azimuth(_mandrel.tail_inlet_x, _mandrel.tail_inlet_z)
-AZ_OUT = _map_azimuth(_mandrel.tail_outlet_x, _mandrel.tail_outlet_z)
+# HOW THE WOUND COIL IS CLOCKED ONTO THE TANK, degrees CCW. The mandrel says where the two
+# tails sit RELATIVE TO EACH OTHER — `tail_ccw_delta` is its own figure and untouched here —
+# and nothing says where that pair sits relative to the shell. A helix is the same helix at
+# every roll, so this is one free turn, and it is the only thing that moves both tails without
+# moving anything they have to clear.
+#
+# THE WINDOW IS 2.5° WIDE AND THE MANDREL'S OWN AZIMUTHS SIT IN THE MIDDLE OF IT, which is why
+# the turn is zero. Swept against the placed solids at 0.05° over AZ_IN ∈ [−130°, −114°]:
+#
+#   AZ_IN < −124.5°   the inlet tail's fall meets reservoir A's pocket, whose centreward arc
+#                     stands at r 78..80 and begins at azimuth ∓125°. The fall is at r 79.4,
+#                     inside that band, so it only passes where the arc is not.
+#   AZ_IN > −122.0°   the same wall on reservoir B, reached by the outlet tail's step out to
+#                     the west lane — `tail_ccw_delta` carries it there 247.4° round.
+#
+# The carbonated water's riser used to close that window from the middle; it stands one column
+# clear of it now (`_cold_core_interface.cap_conduits`, carb-water-out). What is left is
+# measured on every build by `bodies-clear` and `lines-apart`, not restated.
+COIL_CLOCK = 0.0
+
+AZ_IN = _map_azimuth(_mandrel.tail_inlet_x, _mandrel.tail_inlet_z) + COIL_CLOCK
+AZ_OUT = _map_azimuth(_mandrel.tail_outlet_x, _mandrel.tail_outlet_z) + COIL_CLOCK
 
 
 def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
@@ -110,9 +130,25 @@ def gap_z_near(azimuth_deg: float, target_z: float) -> float:
     return wrap_z + PITCH / 2.0
 
 
+# WHICH COLUMN EACH TAIL FALLS DOWN, and it is not the same answer on the two flanks.
+#
+# A lane is one bore wide, so a run standing in one at every storey between its wrap and its
+# station is a wall to anything crossing there. The PORT lane HAS such a crossing — the PRV
+# vent, one pitch over this very copper (`copper_plugs.columns`) — so the inlet falls at the
+# standoff radius it already turned out to and joins the lane only at the height it crosses
+# the wall, where it is one storey among the others.
+#
+# THE WEST FLANK CANNOT DO THAT. Reservoir B's pocket closes the standoff annulus on that
+# side: its centreward arc stands at r 80.0 against a fall at r 79.4, and there is no room
+# between the wrapped coil at 69.85 and that arc for a ⌀6.35 tube with a lead long enough to
+# seat its own corner. The west lane carries no storey between the outlet's two heights, so
+# the outlet falls IN the lane — the one column open to it.
+FALL_IN_LANE = {"inlet": False, "outlet": True}
+
+
 def tail_points(which: str) -> list:
-    """One tail's centreline: off the wrap, onto its own lane, down it, and out through the
-    wall at the station its plug leaves."""
+    """One tail's centreline: off the wrap, down its own column, onto its lane at the station's
+    height, and out through the wall. `FALL_IN_LANE` says which column that is."""
     if which == "inlet":
         az, z0, station = AZ_IN, evap_tail_low_z, "evap-inlet"
     else:
@@ -120,13 +156,15 @@ def tail_points(which: str) -> list:
     (wall_x, lane_y, cross_z), _axis = _plugs.slot_station(station)
 
     start = _at(az, z0)
-    # Radially out of the wrap far enough to turn in, then onto the lane's own y, then down it,
-    # then out through the wall.
+    # Radially out of the wrap far enough to turn in, then down its own column, then onto the
+    # lane's own y at the crossing height, then out through the wall.
     lead = _at(az, z0, WIND_R + TAIL_LEAD)
+    fall_y = lane_y if FALL_IN_LANE[which] else lead.y
     return [
         (start.x, start.y, start.z),
         (lead.x, lead.y, lead.z),
-        (lead.x, lane_y, z0),
+        (lead.x, fall_y, z0),
+        (lead.x, fall_y, cross_z),
         (lead.x, lane_y, cross_z),
         (wall_x - wall_and_floor_thickness, lane_y, cross_z),
     ]

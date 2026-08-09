@@ -764,30 +764,46 @@ state(
 # segments stay whole), and climbs beside the coil clear of the port lane until the tank's top
 # plate is under it. Only there does it step out onto the lane and into this bore. That climb is
 # inboard because the CO2 owns the lane's own strip at the bottom of the shell.
-#   Its X answers to THE DECK ABOVE, the same fence co2-in takes. The +X flank stands a column
-# of bodies on the lid — V-K, the controller board, the power brick — and each leaves the lane
-# a window rather than a lane; this bore takes the widest of them, the band between the board's
-# forward face and the run its own riser has to clear. `cap_conduit_pair_neck` is what holds
-# the two bores apart inside that one lane.
+#   Its X answers to two things. THE DECK ABOVE: the +X flank stands a column of bodies on the
+# lid — V-K, the controller board, the power brick — and each leaves the lane a window rather
+# than a lane, and this bore takes the widest of them. And THE COIL'S OWN TAIL: the climb runs
+# in the annulus between the wrapped coil and a reservoir pocket's centreward arc, which is
+# where the evaporator's inlet tail turns off its helix, and one bore of that annulus holds one
+# run. The column stands clear of the tail's own, and far enough round that the ring crossing
+# under it still falls inside one ring slot (`_port_cuts.water-outlet-slot`) — those two fences
+# leave a 2.5 mm band and this is in it.
 #   co2-in stands over the PORT LANE and its line runs DOWN it, the one conduit here that feeds
-# rather than drains. It falls the shell's whole height, turns along the lane's floor to the
-# shell's centreline, and enters `_port_cuts.co2_inlet_xyz` — the one bore through the support
-# ring — to land on the collet made up under the bottom plate's lane-side port. Inside the vessel
-# that port feeds the barb, the silicone stub and the sparge stone hanging in the water column,
-# so the gas enters BELOW the liquid and dissolves on the way up. Because the line arrives from
-# above, it is laid down the lane before the top cap goes on.
-#   Its X is the DECK ABOVE. The +X flank carries a column of bodies standing on the lid from
-# the cap to the ceiling, and this bore takes the one window in that column — the strip between
-# V-K's own footprint and the controller board's. `cap_conduit_pair_neck` is what holds it off
-# the carb water's climb.
+# rather than drains. It falls the shell's whole height, turns along the lane's floor and leans
+# in to `_port_cuts.co2_inlet_xyz` — the one bore through the support ring — to land on the
+# collet made up under the bottom plate's lane-side port. Inside the vessel that port feeds the
+# barb, the silicone stub and the sparge stone hanging in the water column, so the gas enters
+# BELOW the liquid and dissolves on the way up. Because the line arrives from above, it is laid
+# down the lane before the top cap goes on.
+#   ITS X IS THE ONE STRETCH OF LANE NOBODY TRAVELS. A lane is one bore wide, so a riser in it
+# is a wall to everything crossing that column — and this is the only riser the lane carries.
+# What else uses the lane above the reservoirs' own floor storey all runs WEST, from the vessel
+# out to the front wall: the evaporator's inlet copper drops onto the lane beside the tank and
+# takes it to its slot station (`copper_plugs.columns`), and the PRV vent comes off the shroud's
+# cap and takes it to the station one pitch over. Both start at or inboard of the vessel's own
+# centre, so every X west of that centre stands in front of them and the +X half stands in
+# front of nothing, so the choice of HALF is this line's own traffic.
+#   WHICH station on that half is the TANK SUPPORT RING's, not this file's. The reach in from
+# the lane to the bottom plate's port crosses the ring, and the ring is four bearing segments
+# with four slots between them (`_support_ring`); a reach that misses a slot would have to be
+# bored through a segment that carries the vessel. `_port_cuts.co2-inlet-slot` is that fence,
+# and `co2_lane_x` is the column whose lean lands inside slot four — the same distance out the
+# old −X column stood, mirrored, because the slots are what set it either way. What the +X
+# half then leaves the lane's own traffic is measured rather than restated: `cold-core-layout`'s
+# `lines-apart` and `routes-fit` read it off the solids.
+co2_lane_x = 72.5
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
     "reservoir-b": (135.5, -43.5),
     "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
-    "carb-water-out": (45.5, -port_lane_mid_y),
-    "co2-in": (72.5, -port_lane_mid_y),
+    "carb-water-out": (48.5, -port_lane_mid_y),
+    "co2-in": (-co2_lane_x, -port_lane_mid_y),
 }
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.
