@@ -815,6 +815,11 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     and there is no tube between them to want a radius. Those pairs come from `LIMBS`, which is
     where the butting is declared, rather than from a list here that a new valve could fall off.
 
+    A CLOSED MATING is the same case on the refrigerant loop. `enclosure_assembly.refrigerant_mates`
+    is the legs a shared plane shut — two stations that are one point read twice, with no copper
+    between them to bend. A mating standing OPEN is not in that list and stays held to the full
+    lead, because an open mating is copper the machine still owes.
+
     Tube is out of the population. A port's own line lies on its axis by construction, and a
     foreign one crossing there is `lines-clear`'s question, not this one.
 
@@ -830,6 +835,9 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
             mates.setdefault(anchor, set()).add(other.partition(".")[0])
             mating.setdefault(anchor, []).append(r)
     for x, y in MADE_UP:
+        mates.setdefault(x, set()).add(y.partition(".")[0])
+        mates.setdefault(y, set()).add(x.partition(".")[0])
+    for _cid, x, y, _mm in getattr(a, "refrigerant_mates", ()):
         mates.setdefault(x, set()).add(y.partition(".")[0])
         mates.setdefault(y, set()).add(x.partition(".")[0])
     import manifold_layout as ml
