@@ -1191,7 +1191,7 @@ def deck_z(placed, gate: float):
 # reaches out through the cutout. Its own frame already faces the mating axis down +Y with the
 # seating plane on Y = 0, which is what the back wall gives it, so it takes no turn either.
 C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
-# Where it sits on that wall. The receptacle's wires reach the AC hub, so it wants the hub's own
+# Where it sits on that wall. The receptacle's wires reach the Wago row, so it wants that row's
 # height and as much of its column as the pack leaves — and the pack leaves very little: the
 # power block fills the +X flank from the cap to z 361.79, and the housing is 22 mm of body
 # reaching inboard off the wall. Swept over the wall in 6 mm steps, the eastmost station whose
@@ -1431,15 +1431,15 @@ def build_pcba(foam, ahead_of, wall_seat):
                      x1=wall_seat, y1=box(ahead_of).ymin - STACK_CLEAR, z0=cap_face(foam))
 
 
-# The rest of the power block on the brick's crown: the relay aft-flush with the brick, the AC hub
-# on the relay's crown, and the ground stud on the relay's own floor one clearance forward of it.
-# Each takes the same wall seat as its east face, so the whole group stands on one plane against
-# the wall, in the depth `enclosure.east_band_free_y` leaves between the seam's two columns.
+# The rest of the power block, on the two crowns: relay #1 on the BOARD'S crown with the ground
+# stud one clearance forward of it, and the five Wago wells on the BRICK'S. Each takes the same
+# wall seat as its east face, so the whole group stands on one plane against the wall, in the
+# depth `enclosure.east_band_free_y` leaves between the seam's two columns — the lever nuts
+# excepted, which seat on the wall itself because a well is not a boss.
 #
-# Each turn lays the body's own long axis fore and aft down the flank and its board or wells
-# facing INBOARD — the face a screwdriver reaches, and the face a boss would land on.
+# Each turn lays the body's own long axis fore and aft down the flank and its board facing
+# INBOARD — the face a screwdriver reaches, and the face a boss would land on.
 RELAY_TURN = (((0.0, 0.0, 1.0), 270.0), ((0.0, 1.0, 0.0), 270.0))
-AC_HUB_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 270.0))
 # The floor between one body on this column and the next, and it is not air for its own sake:
 # what stands in it is the WALL BOSS that fastens the body between them. The relay is the body
 # that sets it — its mount pattern runs closest to its own edge, so the boss standing on that

@@ -1,13 +1,14 @@
 # WAGO 221-413 — reference solid
 
-The AC distribution block on the [AC hub](/hardware/printed-parts/electronics/ac-hub/):
-three **3-conductor COMPACT lever-nut** splicing connectors (`hardware/ledger/bom.md`
-§11), one each for H / N / G. Rated 32 A, 450 V; accepts 24–12 AWG.
+Every distribution splice in the machine: **five 3-conductor COMPACT lever-nut**
+connectors (`hardware/ledger/bom.md` §11) — H / N / G for the AC mains and + / GND
+for the 12 V rails. Rated 32 A, 450 V; accepts 24–12 AWG.
 
 `wago-221-413.step` is a generated stand-in. Body geometry is from the official
 WAGO 221-413 datasheet; the connector has **no mounting holes** (it is a free
-splice), so the AC hub stands each one on its butt end in a **printed press-fit
-well**, wire ports up.
+splice), so the enclosure's +X wall stands each one on its butt end in a **printed
+press-fit well** grown into its own inner face (`enclosure._east_wells`), ports
+facing the room. There is no carrier part.
 
 ## Geometry
 
