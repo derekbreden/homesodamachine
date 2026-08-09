@@ -53,10 +53,22 @@ from OCP.TopoDS import TopoDS
 from manifold3d import Error, Manifold, Mesh
 
 # The chord a mesh may sit off the surface it stands for, and the turn it may take in one step.
-# Every reading taken through this module is bounded by the first of them; `selftest` holds the
-# bound, so moving it moves what the audit can resolve.
-DEFLECTION = 0.05
-ANGULAR = 0.2
+#
+# WHAT SETS THE TURN IS THE TIGHTEST CLASH FLOOR IN THE REPO, which is
+# `_cold_scorecard.TOUCH_VOLUME` at a tenth of a mm³ — not the millimetre `_clearing.HIT_VOL`
+# calls a hit at. Two curved bodies that TOUCH — a boss seated in its bore, a tube laid along a
+# coil — carry two rings of facets struck independently, and wherever the rings do not phase
+# together a vertex of one reaches past a facet of the other. The pair then shares a sliver no
+# pair of true surfaces shares, and a seat the machine is built around reads as a clash.
+#
+# The sliver does not fall smoothly as the facets shrink — how the two rings land against each
+# other is worth as much as how fine they are — so the turn is set an order of magnitude under
+# the floor rather than at the first value that clears it. `selftest` holds a seat against it.
+#
+# The chord binds on flats and on wide radii, where the turn does not reach. The gap readings
+# ride on it: they stand within ~2 × the chord of the exact ones, against a millimetre floor.
+DEFLECTION = 0.02
+ANGULAR = 0.10
 
 # Two nodes nearer than this are one vertex. A seam duplicate is the SAME point reached through
 # two face parametrizations, so what separates them is arithmetic noise; the smallest real
@@ -215,6 +227,9 @@ def _ring_normal(pts):
 
 def selftest():
     """Each reading held against the answer arithmetic gives, and against the exact kernel."""
+    import pathlib
+    import sys
+
     import cadquery as cq
 
     from OCP.BRepExtrema import BRepExtrema_DistShapeShape
@@ -260,6 +275,32 @@ def selftest():
         raise AssertionError(f"two crossed Ø{2*r:g} tubes share {got:.1f} mm³ against a Steinmetz "
                              f"{want:.1f} — the crossing is being missed")
     yield f"two crossed tubes share {got:.1f} mm³ against a Steinmetz {want:.1f}"
+
+    # TWO BODIES THAT TOUCH SHARE NOTHING, and their meshes have to agree. A boss seated in its
+    # own bore is the case the pack is full of, and the two surfaces are faceted independently:
+    # the shaft's ring of facets stands where its own body was turned to, the bore's where the
+    # body it was cut from was, and a shaft vertex reaches past a bore facet wherever the two
+    # rings do not phase together. What they share has to stay under the volume a clash is
+    # called at, or a seat the machine is built around reads as interpenetration.
+    #
+    # TURNED OFF PHASE ON PURPOSE. Cut a bore with the same cylinder and the two carry the same
+    # facets, share nothing, and hold this whatever the chord is — which is not the case a pack
+    # presents and not a reading worth taking.
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "cold-core-layout"))
+    import _cold_scorecard
+    floor = _cold_scorecard.TOUCH_VOLUME
+    seat = 20.0
+    shaft = cq.Solid.makeCylinder(r, seat, cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
+    bore = (cq.Workplane("XY").box(4 * r, 4 * r, seat, centered=(True, True, False))
+            .cut(cq.Workplane(obj=shaft)).val())
+    shared = (meshed(shaft.rotate((0, 0, 0), (0, 0, 1), 3.0)) ^ meshed(bore)).volume()
+    if shared >= floor:
+        raise AssertionError(
+            f"a Ø{2*r:g} shaft seated {seat:g} mm into its own bore shares {shared:.4f} mm³ "
+            f"where the two only touch, at or over the {floor:g} mm³ the tightest gate in the "
+            f"repo calls a clash at — a designed seat reads as interpenetration at this facet "
+            f"size")
+    yield f"{seat:g} mm of shaft-in-bore seat shares {shared:.4f} mm³, under a {floor:g} floor"
 
     # An open sheet is not a body. manifold3d hands one back empty at volume 0.0, which reads
     # exactly like two bodies that share nothing — trap 3, held on the status the guard reads.
