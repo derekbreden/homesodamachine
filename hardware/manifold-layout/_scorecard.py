@@ -228,8 +228,15 @@ MOUNTS = (
     ("psu", "enclosure-back-top", "bosses"),
     ("pcba", "enclosure-back-top", "bosses"),
     ("relay-1", "enclosure-back-top", "bosses"),
-    ("ac-hub", "enclosure-back-top", "bosses"),
+    ("relay-2", "enclosure-back-top", "bosses"),
     ("ground-stack", "enclosure-back-top", "bosses"),
+    # The lever nuts are the one column that no boss holds: a 221-413 is a free splice with
+    # no hole in it, so the wall's own printed well IS the mount and there is nothing to bolt.
+    ("wago-h", "enclosure-back-top", "well"),
+    ("wago-n", "enclosure-back-top", "well"),
+    ("wago-g", "enclosure-back-top", "well"),
+    ("wago-v12", "enclosure-back-top", "well"),
+    ("wago-gnd", "enclosure-back-top", "well"),
     ("asse1022-assembly", None, "none"),
     ("drip-pan", "enclosure-back-top", "channel"),
     ("water-split", None, "tube-hung"),

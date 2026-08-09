@@ -5,24 +5,16 @@
  "shaped": 91,
  "routed": 100,
  "held": 92,
- "mounted": 19,
+ "mounted": 25,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "fail",
-   "value": "58/64 declared",
+   "status": "pass",
+   "value": "64/64 declared",
    "target": "all declared",
-   "detail": [
-    "placed, undeclared: relay-2",
-    "placed, undeclared: wago-g",
-    "placed, undeclared: wago-gnd",
-    "placed, undeclared: wago-h",
-    "placed, undeclared: wago-n",
-    "placed, undeclared: wago-v12",
-    "declared, unplaced: ac-hub"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -45,12 +37,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "psu \u2229 enclosure-back-top   145.7 mm\u00b3, x[   99.20,  102.25] y[  364.30,  437.80] z[  304.75,  305.40]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -119,11 +109,6 @@
     "carb-1 \u2014 pcba: 2.475 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-2: 2.500 mm",
-    "psu \u2014 wago-h: 2.500 mm",
-    "psu \u2014 wago-n: 2.500 mm",
-    "psu \u2014 wago-g: 2.500 mm",
-    "psu \u2014 wago-v12: 2.500 mm",
-    "psu \u2014 wago-gnd: 2.500 mm",
     "relay-2 \u2014 pcba: 2.532 mm",
     "pcba \u2014 relay-1: 2.532 mm",
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
@@ -158,6 +143,11 @@
     "water-3 \u2014 tee-y-b: 5.075 mm",
     "water-2 \u2014 discharge-chain: 5.154 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
+    "psu \u2014 wago-h: 5.650 mm",
+    "psu \u2014 wago-n: 5.650 mm",
+    "psu \u2014 wago-g: 5.650 mm",
+    "psu \u2014 wago-v12: 5.650 mm",
+    "psu \u2014 wago-gnd: 5.650 mm",
     "water-6 \u2014 enclosure-back-top: 5.650 mm",
     "fluid-14 \u2014 hopper-funnel: 5.694 mm",
     "fluid-24 \u2014 coil-v-b: 5.850 mm",
@@ -591,7 +581,7 @@
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches x \u00b1108.00, wall at \u00b1108.50",
+   "value": "pack reaches x \u00b1108.50, wall at \u00b1108.50",
    "target": "inside a 223 mm appliance",
    "detail": [],
    "active": true
@@ -725,7 +715,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "11/59 mounted",
+   "value": "16/64 mounted",
    "target": "a printed joint per body",
    "detail": [
     "asse1022-assembly: held by none",
@@ -860,10 +850,10 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "fail",
-   "value": "54/59 held",
+   "value": "59/64 held",
    "target": "a holder per body",
    "detail": [
-    "bosses holds 6: ac-hub, c14-inlet, ground-stack, pcba, psu, relay-1",
+    "bosses holds 6: c14-inlet, ground-stack, pcba, psu, relay-1, relay-2",
     "channel holds 1: drip-pan",
     "cradle holds 3: valve-v-a, valve-v-b, vk-solenoid",
     "deck-mount holds 1: seaflo-pump",
@@ -871,6 +861,7 @@
     "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-bracket, pump-a-head, pump-a-motor, pump-b-bracket, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
+    "well holds 5: wago-g, wago-gnd, wago-h, wago-n, wago-v12",
     "asse1022-assembly: nothing holds it at all",
     "digiten-flow: nothing holds it at all",
     "discharge-chain: nothing holds it at all",
@@ -2942,12 +2933,12 @@
    "component": "wago-g",
    "boxes": [
     [
-     83.65,
+     89.9,
      396.85,
-     307.9,
-     102.25,
+     311.05,
+     108.5,
      405.25,
-     326.7
+     329.85
     ]
    ],
    "fill": 0.9835,
@@ -2958,12 +2949,12 @@
    "component": "wago-gnd",
    "boxes": [
     [
-     83.65,
+     89.9,
      426.25,
-     307.9,
-     102.25,
+     311.05,
+     108.5,
      434.65,
-     326.7
+     329.85
     ]
    ],
    "fill": 0.9835,
@@ -2974,12 +2965,12 @@
    "component": "wago-h",
    "boxes": [
     [
-     83.65,
+     89.9,
      367.45,
-     307.9,
-     102.25,
+     311.05,
+     108.5,
      375.85,
-     326.7
+     329.85
     ]
    ],
    "fill": 0.9835,
@@ -2990,12 +2981,12 @@
    "component": "wago-n",
    "boxes": [
     [
-     83.65,
+     89.9,
      382.15,
-     307.9,
-     102.25,
+     311.05,
+     108.5,
      390.55,
-     326.7
+     329.85
     ]
    ],
    "fill": 0.9835,
@@ -3006,12 +2997,12 @@
    "component": "wago-v12",
    "boxes": [
     [
-     83.65,
+     89.9,
      411.55,
-     307.9,
-     102.25,
+     311.05,
+     108.5,
      419.95,
-     326.7
+     329.85
     ]
    ],
    "fill": 0.9835,
@@ -5019,7 +5010,7 @@
    "kind": "real"
   },
   {
-   "component": "ac-hub",
+   "component": "relay-2",
    "by": "enclosure-back-top",
    "held": "bosses",
    "kind": "real"
@@ -5028,6 +5019,36 @@
    "component": "ground-stack",
    "by": "enclosure-back-top",
    "held": "bosses",
+   "kind": "real"
+  },
+  {
+   "component": "wago-h",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-n",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-g",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-v12",
+   "by": "enclosure-back-top",
+   "held": "well",
+   "kind": "real"
+  },
+  {
+   "component": "wago-gnd",
+   "by": "enclosure-back-top",
+   "held": "well",
    "kind": "real"
   },
   {
@@ -5308,7 +5329,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-08T22:44:05+00:00",
-  "commit": "cdbc4854013dc187ec02cacb54427325867a40c3"
+  "generated": "2026-08-09T00:19:35+00:00",
+  "commit": "451e7e363f4ef7e0d11e694266072f792c962f71"
  }
 }

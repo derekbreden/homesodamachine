@@ -259,7 +259,6 @@ def enclosure(m: Machine):
 def electronics_shelf(m: Machine):
     """`electronics-shelf.md`: the five bodies of the power column, and the +X wall
     bosses each one's own hole pattern stands there."""
-    import ac_hub as _hub
     import ground_ring_stack as _gnd
     import meanwell_irm90 as _psu
     import pcba_tray as _pcba
@@ -272,7 +271,7 @@ def electronics_shelf(m: Machine):
     column = {"PSU_BOSSES": len(_psu.holes),
               "PCBA_BOSSES": len(_pcba.board.holes),
               "RELAY1_BOSSES": len(_relay.holes),
-              "AC_HUB_BOSSES": len(_hub.holes),
+              "RELAY2_BOSSES": len(_relay.holes),
               "GND_BOSSES": len(_gnd.holes)}
     assert sum(column.values()) == len(m.box.east_bosses), (
         f"the five bodies' own patterns hold {sum(column.values())} holes and the +X wall "

@@ -1,4 +1,16 @@
-# AC hub
+# AC hub — RETIRED as a printed part
+
+**Nothing prints this any more.** The five 221-413 lever nuts it used to carry — three
+mains poles and the two 12 V rails — press straight into wells printed on the
+enclosure's own +X wall (`enclosure._east_wells`), so there is no plate, no hold-down
+bosses and no screws. It is off [`bom.md`](/hardware/ledger/bom.md) §7, off the
+print-time table, and off the scorecard's mount list.
+
+`ac_hub.py` survives for one consumer:
+[`mains-assembly/_mains_interface.py`](/hardware/printed-parts/electronics/mains-assembly/_mains_interface.py)
+still derives the mains block's splice band from this module's frame. Repointing that
+model at the wall's own well constants is the last step of the retirement and has not
+been done — until it is, treat the geometry below as the mains model's, not as a part.
 
 The H / N / G mains distribution block: three [Wago 221-413](/hardware/reference/wago-221-413/)
 lever nuts on one printed plate, on the crown of the machine's power column

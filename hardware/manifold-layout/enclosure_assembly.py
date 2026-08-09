@@ -82,7 +82,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "ground-ring-stack",
            _hw / "printed-parts" / "electronics",
            _hw / "printed-parts" / "electronics" / "pcba-tray",
-           _hw / "printed-parts" / "electronics" / "ac-hub",
            _hw / "reference" / "asse1022-assembly",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "reference" / "water-split",
@@ -133,7 +132,6 @@ import meanwell_irm90 as _psu                          # noqa: E402
 import teyleten_relay as _relay                        # noqa: E402
 import ground_ring_stack as _gnd                       # noqa: E402
 import pcba_tray as _pcba                              # noqa: E402
-import ac_hub as _hub                                  # noqa: E402
 # The card's own declaration of what the machine owes. Imported for one table —
 # `REFRIGERANT_SEGMENTS`, the loop's whole population — so the gate that measures the loop and
 # the goal that counts it are populated from ONE list. `_scorecard` reads this module only off
@@ -1465,6 +1463,16 @@ WAGO_TURN = (((1.0, 0.0, 0.0), 90.0), ((0.0, 1.0, 0.0), -90.0))
 WAGO_CLEAR = STACK_CLEAR
 
 
+def _wago_skirt():
+    """What a well reaches PAST its lug on the row's cross axis — the wall it wraps the lug in,
+    plus that wall's press clearance.
+
+    The lug is what gets placed and the WELL is what can foul a neighbour, and the well is the
+    bigger of the two. Clearing the brick's crown by the lug's own bottom face would bury the
+    skirt in it, so every clearance struck against this row is struck against the tower."""
+    return _enc.wago_half_z - _enc.wago_stand_z / 2.0
+
+
 def build_relay2(psu, foam, wall_seat):
     """Relay #2 on end, in the band between the brick and the board.
 
@@ -1481,16 +1489,22 @@ def build_wago_row(psu, wall_seat):
     They are the only bodies on this flank that no boss holds: each presses into a well printed
     on the wall itself (`enclosure._east_wells`), so what locates them is the wall, and what this
     places is the lug that goes in it. The row runs fore and aft on the brick's own depth,
-    CENTRED on it, one `WAGO_CLEAR` over its crown."""
+    CENTRED on it, one `WAGO_CLEAR` over its crown.
+
+    THEY SEAT ON THE WALL AND NOT ON `east_wall_seat`. Every other body on this flank stands its
+    outer face on a boss TIP, one `mount_boss_out` inboard of the wall, because a boss is what
+    holds it. Nothing holds a lever nut but the pocket, and the pocket bottoms on the wall — so
+    the lug's butt goes to `interior_x`, and seating it on the boss plane instead would leave it
+    floating that same `mount_boss_out` clear of the well built to receive it."""
     pb = box(psu)
     span = 5 * _enc.wago_pitch
     y0 = (pb.ymin + pb.ymax) / 2.0 - span / 2.0
     out = []
     for i, name in enumerate(WAGO_POLES):
         solid, carry = seat_body(cq.importers.importStep(str(WAGO_STEP)).val(), WAGO_TURN,
-                                 seat=name, x1=wall_seat,
+                                 seat=name, x1=_enc.interior_x()[1],
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
-                                 z0=pb.zmax + WAGO_CLEAR)
+                                 z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
         out.append((name, solid, carry))
     return out
 

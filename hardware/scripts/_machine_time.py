@@ -67,7 +67,6 @@ GROUP_OF = [
     ("Faucet mounting plate",  "petcf"),
     ("Copper-plug stack",      "small"),
     ("PRV shroud",             "small"),
-    ("AC hub plate",           "small"),
     ("Carbonator reed bridge", "small"),
     ("Drip pan",               "small"),
 ]
