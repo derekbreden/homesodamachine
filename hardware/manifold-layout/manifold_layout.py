@@ -845,10 +845,12 @@ class Clash(NamedTuple):
 
 
 def extents(shape) -> Extents:
-    """A shape's box off its surface poles. `Shape.BoundingBox()` meshes first and costs about
-    fourteen times the shape's own volume; this never meshes and costs a thirtieth of it, at
-    the price of a box that can run a fraction of a mm large. Large is the safe direction for
-    an answer about where a body must move to."""
+    """A shape's box, as `(xmin, ymin, zmin, xmax, ymax, zmax)`.
+
+    Takes either a `Manifold` — what `_overlap.common` hands back — or a cq shape, whose box is
+    read off its surface poles without meshing."""
+    if hasattr(shape, "bounding_box"):
+        return Extents(*shape.bounding_box())
     bb = Bnd_Box()
     BRepBndLib.Add_s(shape.wrapped, bb, False)
     return Extents(*bb.Get())
