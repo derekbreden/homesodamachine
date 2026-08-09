@@ -162,22 +162,22 @@ def internal_plumbing(m):
     butted = sum(1 for c in fluid if c.made == "butt")
     hairpins = sum(1 for c in fluid if c.made == "fold")
 
-    # ── the umbilical row and the risers (IP-05, FU-04, WR-05) ─────────────
-    # Read as an ARRANGEMENT: three unions on one pitch across the wall, the west
-    # one a storey under the other two, and which place in it each tube lands on.
-    # IP-05 and FU-04 both describe that arrangement.
-    row = sorted(_ea.PANEL_X.items(), key=lambda kv: kv[1])          # west → east
+    # ── the union rectangle and the risers (IP-05, FU-04, WR-05) ───────────
+    # Read as an ARRANGEMENT: two columns, two storeys, the two nozzle unions
+    # sharing the lower one, and which corner each tube lands in. IP-05 and FU-04
+    # both describe that arrangement.
     zs = {round(port(n, "tube-in")[0][2], 6) for n in _ea.PANEL_X}
     assert len(zs) == 2, (
-        f"the umbilical unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 send the "
-        f"bundle to two, the nozzle-B union under the pair the carb riser lands in")
-    dropped = {n for n in _ea.PANEL_X if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
-    assert dropped == {"bulkhead-flavor-b"}, (
-        f"the union standing off the deck's own storey is {sorted(dropped)} — IP-05 sends the "
-        f"nozzle-B riser there and leaves the other two on one line")
-    order = [n for n, _x in row]
-    assert order == ["bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb"], (
-        f"the row reads {order} west to east — IP-05 sends each riser to a named place in it")
+        f"the riser unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 send the "
+        f"bundle to two, the nozzle pair under the storey the carb riser lands in")
+    lower = {n for n in _ea.PANEL_X if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
+    assert lower == {"bulkhead-flavor-a", "bulkhead-flavor-b"}, (
+        f"the lower storey carries {sorted(lower)} — IP-05 sends both nozzle risers there and "
+        f"the carb riser alone to the storey over them")
+    cols = {n: round(x, 3) for n, x in _ea.PANEL_X.items()}
+    assert cols["bulkhead-carb"] == cols["bulkhead-flavor-a"] != cols["bulkhead-flavor-b"], (
+        f"the three riser unions stand on columns {cols} — IP-05 sends the carb riser up the "
+        f"nozzle-A union's own column and the nozzle-B riser up the one beside it")
     # The meter splits the riser rather than hanging off it: both its mouths are
     # the riser's, it lies on the carb union's own column and stratum, and it
     # stands FORWARD of the union it feeds. WR-05 lands SIG-4 on it there.
@@ -293,14 +293,14 @@ def internal_plumbing(m):
         "ip-04-manifold-pumps-channels": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "BARB_TEES", "SPLIT_BRANCH"},
         "ip-05-risers": {
-            "UMBILICAL_UNIONS", "UMBILICAL_PITCH", "UMBILICAL_DROP", "CARB_END",
+            "UMBILICAL_UNIONS", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
             "FLAVOR_A_STATION", "FLAVOR_B_END", "CARB_1_LEN", "CARB_1_CORNERS", "CARB_2_LEN",
             "FLUID_18_LEN", "FLUID_28_LEN", "CARB_FOAM_PIECES"},
         "ip-06-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
         "wr-04-cabinet-12v-runs": {"VK_SIDE"},
         "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS"},
         "fu-04-sleeve-the-bundle": {
-            "UMBILICAL_UNIONS", "UMBILICAL_PITCH", "UMBILICAL_DROP", "CARB_END",
+            "UMBILICAL_UNIONS", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
             "FLAVOR_B_END"},
     }
     return facts, cards
