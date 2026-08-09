@@ -89,7 +89,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | | 1 | $78.70 | $78.70 <!--@refrigeration--> |
-| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at the coil-mandrel's [12.33 mm](PITCH) groove pitch. **Billed at the FITTED radius, not the wound one:** the wrap is formed on a mandrel [3 mm](NET_UNDERSIZE) under the tank and springs onto it, so the same 9.687 wraps stand on a longer circle once fitted — [13.32 ft](WRAP_FT) per unit against the 12.72 ft the mandrel holds. Plus a [500 mm](STUB_LEN) tie-in tail each end for compressor + suction-line tie-ins = [16.6 ft](CUT_FT) cut per unit; three units per 50 ft roll leaves [0.2 ft](ROLL_SPARE), which is the whole of the spare, so 1/3 roll allocated per unit ($68.63/3) | 1/3 roll | $22.88 | $22.88 <!--@refrigeration--> |
+| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at the coil-mandrel's [12.33 mm](PITCH) groove pitch. **Billed AS LAID, not as wound.** The wrap is formed on a mandrel [3 mm](NET_UNDERSIZE) under the tank and springs onto it, and where it crosses the carbonator reed bridge it rides that bridge's plateau rather than the wall — so the copper a build consumes is [13.41 ft](WRAP_FT) against the 12.72 ft the mandrel holds (`cold-core-layout/_coil.wrap_length`, drawn and measured at every build). Plus a [500 mm](STUB_LEN) tie-in tail each end for compressor + suction-line tie-ins = [16.69 ft](CUT_FT) cut per unit. **THREE UNITS NO LONGER FIT A 50 ft ROLL** — they come to [-0.07 ft](ROLL_SPARE) of spare, i.e. 24 mm over — so the allocation is 1/2 roll ($68.63/2) until the tie-in tail is re-struck against the leg it actually has to reach (only ONE of the two runs to the condenser; the other lands on the compressor's suction beside it). Trimming either tail by 12 mm puts three back on a roll and $11.44/unit back on the line | 1/2 roll | $34.32 | $34.32 <!--@refrigeration--> |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 IO19), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 IO2); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 <!--@electronics--> |
 | [TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)](https://www.amazon.com/dp/B0FKG3HT9Q) | **Tank-wall probe** — compressor-cycling setpoint, 1-wire family code **0x28**. Bare TO-92, leads heat-shrunk, foil-taped to the vessel OD and potted in the cold-core foam. Shares the IO26 1-wire bus with the DS18S20 coil probe; firmware tells the two apart by family code (no per-unit ID map). Amazon 112-1487355 Jul 11: $8.59 + $0.62 tax = $9.21 ÷ 10 = $0.92/ea | 1 (of 10 pk) | $0.92 | $0.92 <!--@sensors--> |
 | [DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)](https://www.lcsc.com/product-detail/Temperature-Sensors_Analog-Devices-Inc-Maxim-Integrated-DS18S20_C52574.html) | **Evaporator-coil / suction-line probe** — freeze-protect cutout, 1-wire family code **0x10** (distinct from the tank probe's 0x28, so firmware keys the −8 °C freeze cutoff by family code at cold boot). Bare TO-92, leads heat-shrunk, tucked under the 3M 425 foil tape at the coil's suction end and potted in the foam. Genuine MAXIM silicon from an authorized channel — marketplace "DS18S20" are relabeled DS18B20 clones reporting 0x28. LCSC C52574: $1.78/ea @ qty 10, rides a JLCPCB/LCSC order at ~$1.80 landed. On-hand DigiKey stock (purchases.md, $9.30/ea landed) covers prototype builds. | 1 (of 10 pk) | $1.80 | $1.80 <!--@sensors--> |
@@ -278,7 +278,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 2. Carbonator vessel (plan A, 316L) | [$207.29](BOM_SEC2) |
 | 3. Water inlet | [$223.17](BOM_SEC3) |
 | 4. CO2 subsystem | [$93.10](BOM_SEC4) |
-| 5. Refrigeration | [$142.25](BOM_SEC5) |
+| 5. Refrigeration | [$153.69](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$82.36](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
@@ -288,7 +288,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,284.96](BOM_GRAND)** |
+| **Total** | **[$1,296.40](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
