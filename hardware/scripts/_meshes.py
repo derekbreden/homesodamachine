@@ -38,15 +38,23 @@ THREE TRAPS, EACH OF WHICH LOSES A MEASUREMENT SILENTLY:
 """
 
 import collections
+import hashlib
+import io
+import os
 
 import numpy as np
 import manifold3d
 
+import _realized
+
 from OCP.BRep import BRep_Tool
 from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
 from OCP.BRepMesh import BRepMesh_IncrementalMesh
+from OCP.BRepTools import BRepTools
+from OCP.gp import gp_TrsfForm
 from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
 from OCP.TopExp import TopExp_Explorer
+from OCP.TopTools import TopTools_FormatVersion
 from OCP.TopLoc import TopLoc_Location
 from OCP.TopoDS import TopoDS
 
@@ -104,14 +112,110 @@ def meshed(solid, deflection: float = DEFLECTION):
     return man
 
 
-def _manifold(solid, deflection: float):
-    verts, tris = _tessellate(solid, deflection)
+_DIR = _realized._ROOT / ".cache" / "meshes"
+
+# One pack's triangles are tens of megabytes and every edit to a part's shape names a new set,
+# so what is kept here grows with the work rather than with the machine. The oldest entries go
+# once the pile passes this; a build that wanted one of them tessellates it as it always did.
+KEEP_BYTES = 1 << 30
+_pruned = False
+
+
+def _prune():
+    """The pile brought back under `KEEP_BYTES`, oldest first. Once per process, on the first
+    entry written — a build that reads and writes nothing has nothing to tidy after it."""
+    global _pruned
+    _pruned = True
+    entries = []
+    for f in _DIR.glob("*.npz"):
+        try:
+            entries.append((f.stat().st_mtime, f.stat().st_size, f))
+        except OSError:
+            continue
+    over = sum(e[1] for e in entries) - KEEP_BYTES
+    for _t, size, f in sorted(entries):
+        if over <= 0:
+            return
+        try:
+            f.unlink()
+            over -= size
+        except OSError:
+            continue
+
+
+def _unplaced(solid):
+    """The shape in its OWN frame, and the rigid move that stands it where it stands.
+
+    A body is placed by hanging a location on the shape, so the shape under it is the one the
+    part module drew and is the same shape wherever the body goes. Meshing THAT is what lets a
+    move cost a matrix multiply rather than a tessellation."""
+    shape = solid.wrapped
+    loc = shape.Location()
+    return shape.Located(TopLoc_Location()), loc.Transformation()
+
+
+def _named(shape, deflection: float) -> str:
+    """A name for the mesh `shape` tessellates to. The shape's own BREP text, WITHOUT its
+    triangulation — a body already meshed once carries one, and a name that moved when it
+    appeared would name the same geometry two ways — beside every number that decides how
+    finely it is cut."""
+    stream = io.BytesIO()
+    BRepTools.Write_s(shape, stream, False, False, TopTools_FormatVersion.TopTools_FormatVersion_VERSION_1)
+    h = hashlib.blake2b(stream.getbuffer(), digest_size=16)
+    h.update(repr((deflection, ANGULAR, WELD)).encode())
+    return h.hexdigest()
+
+
+def _local_mesh(shape, deflection: float):
+    """The welded, closed triangles of `shape` in its own frame — drawn once and kept.
+
+    Sibling of [`_realized`](_realized.py), which keeps solids; this keeps what one tessellates
+    to, and `_realized.DISABLED` defeats both so one run can prove the kept work honest."""
+    if _realized.DISABLED:
+        return _drawn(shape, deflection)
+    path = _DIR / f"{_named(shape, deflection)}.npz"
+    if path.is_file():
+        try:
+            with np.load(path) as kept:
+                return kept["verts"], kept["tris"]
+        except Exception:
+            pass                                 # an entry that cannot be read is a miss
+    verts, tris = _drawn(shape, deflection)
+    try:
+        _DIR.mkdir(parents=True, exist_ok=True)
+        if not _pruned:
+            _prune()
+        tmp = path.with_suffix(f".{os.getpid()}.tmp")
+        with open(tmp, "wb") as f:               # np.savez appends .npz to a PATH, not a handle
+            np.savez(f, verts=verts, tris=tris)
+        os.replace(tmp, path)                    # a reader never sees a half-written entry
+    except Exception:
+        pass                                     # a cache that cannot be written is not an error
+    return verts, tris
+
+
+def _drawn(shape, deflection: float):
+    verts, tris = _tessellate(shape, deflection)
     if verts is None:
         raise RuntimeError(
             "a solid tessellated to no triangles — it cannot be measured against anything, and "
             "an unmeasured body is not an absent one")
     verts, tris = _weld(verts, tris)
-    tris = _close(verts, tris)
+    return verts, _close(verts, tris)
+
+
+def _standing(verts, trsf):
+    """`verts`, moved out of the body's own frame onto where the body stands."""
+    if trsf.Form() == gp_TrsfForm.gp_Identity:
+        return verts
+    m = np.array([[trsf.Value(r, c) for c in range(1, 5)] for r in range(1, 4)])
+    return verts @ m[:, :3].T + m[:, 3]
+
+
+def _manifold(solid, deflection: float):
+    shape, trsf = _unplaced(solid)
+    verts, tris = _local_mesh(shape, deflection)
+    verts = _standing(verts, trsf)
     man = Manifold(Mesh(verts.astype(np.float32), tris))
     if man.status() != Error.NoError:
         raise RuntimeError(
@@ -121,11 +225,12 @@ def _manifold(solid, deflection: float):
     return man
 
 
-def _tessellate(solid, deflection: float):
-    """Flat vertex and triangle arrays for one solid, in world coordinates, wound outward.
+def _tessellate(shape, deflection: float):
+    """Flat vertex and triangle arrays for one shape, in the frame it is handed in, wound
+    outward.
 
     THE SHAPE MESHED IS A COPY — see trap 1."""
-    copy = BRepBuilderAPI_Copy(solid.wrapped).Shape()
+    copy = BRepBuilderAPI_Copy(shape).Shape()
     BRepMesh_IncrementalMesh(copy, deflection, False, ANGULAR, True)
     pos, idx = [], []
     exp = TopExp_Explorer(copy, TopAbs_FACE)
@@ -315,6 +420,44 @@ def selftest():
         raise AssertionError("an open sheet was accepted as a body — the guard in `_manifold` "
                              "reads a status that no longer means what it did")
     yield "an unclosed mesh is rejected rather than measured as empty"
+
+    # THE WHOLE OF THE KEPT MESH RESTS ON THIS: a body meshed in its own frame and then moved is
+    # the body meshed where it stands. The seat is a turn and a shift together, so neither is
+    # answered for by the other.
+    seat = cq.Location(cq.Vector(137.0, -46.5, 88.25), cq.Vector(0.3, 1.0, -0.7), 37.0)
+    part = cq.Workplane("XY").box(18.0, 11.0, 7.0).faces(">Z").workplane().hole(4.0).val()
+    seated = part.moved(seat)
+    kept = meshed(seated)                                  # its own frame, then moved
+    verts, tris = _drawn(seated.wrapped, DEFLECTION)       # meshed where it stands
+    in_place = Manifold(Mesh(verts.astype(np.float32), tris))
+    off = abs(kept.volume() - in_place.volume())
+    if off > 1e-3:
+        raise AssertionError(
+            f"a seated body measures {kept.volume():.6f} mm³ off its own mesh moved and "
+            f"{in_place.volume():.6f} meshed where it stands — {off:.2e} apart. The kept mesh "
+            f"is not the body")
+    apart = kept.min_gap(in_place, 1.0)
+    if apart > 1e-4:
+        raise AssertionError(
+            f"a body's kept mesh stands {apart:.2e} mm off the one meshed in place — the seat "
+            f"is not reaching the triangles it was kept without")
+    yield (f"a body meshed in its own frame and moved is the one meshed in place, to "
+           f"{off:.1e} mm³ and {apart:.1e} mm")
+
+    # A name is what stands between a shape and last build's triangles.
+    thicker = cq.Workplane("XY").box(18.0, 11.0, 7.1).val()
+    mine = _named(_unplaced(part)[0], DEFLECTION)
+    if mine == _named(_unplaced(thicker)[0], DEFLECTION):
+        raise AssertionError("two shapes share a mesh name — one would be measured on the "
+                             "other's triangles")
+    if mine == _named(_unplaced(part)[0], DEFLECTION * 2):
+        raise AssertionError("one shape names one mesh at two chords — a finer ask would be "
+                             "served the coarser answer")
+    if mine != _named(_unplaced(seated)[0], DEFLECTION):
+        raise AssertionError("a body names a different mesh once seated — the name is reading "
+                             "the placement, so nothing is read back after a move, which is the "
+                             "one edit the keeping is for")
+    yield "a name follows the shape and the chord, and not where the body stands"
 
 
 if __name__ == "__main__":
