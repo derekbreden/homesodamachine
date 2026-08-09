@@ -182,7 +182,7 @@ corner is gone and the corner boss is wrapped by a curved wall.
 **Every one of the six bosses stands hard against a ±Y wall** — none in a
 corner, and none on a ±X wall. Four sit over the reservoir pockets' own far
 walls, near the ±X ends; two are mid-long-side, offset in X by
-±[15 mm](MID_BOSS_OFFSET). Opposite signs at +Y vs −Y preserve 180°
+±[18 mm](MID_BOSS_OFFSET). Opposite signs at +Y vs −Y preserve 180°
 rotational symmetry around the Z axis, which is what leaves the top cap free
 to install either way round.
 
@@ -233,7 +233,7 @@ Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
 teardrop corner-fill webs** as the outer shell (built from the one shared
 boss builder, so every mating part's boss cross-section is identical) —
 four at the corners and two at the mid-points of the long edges (one near
-the +Y wall and one near the −Y wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
+the +Y wall and one near the −Y wall, offset in X by ±[18 mm](MID_BOSS_OFFSET)
 with opposite signs at +Y vs −Y for 180° rotational symmetry). Each position
 passes a clearance hole for an M3 cap screw all the way through the part.
 See "Cap-to-outer-shell joinery" below.
@@ -682,11 +682,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1039807.937 mm³](FSHELL_VOLUME) |
+| volume | [1039658.566 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.662772, 0.499902, 87.617608) mm](CENTROID) |
+| centroid | [(0.682886, 0.499971, 87.613290) mm](CENTROID) |
 
 Quick reproduction:
 

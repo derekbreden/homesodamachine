@@ -90,7 +90,7 @@ RESERVOIR_DIR = _cold_core / "reservoir"
 # own frame, so a body needs no placing; a cap seats on its body's top rim, which is the
 # one figure this file carries about them.
 RESERVOIRS = {"reservoir A": "reservoir-right", "reservoir B": "reservoir-left"}
-RESERVOIR_CAP_Z = routes.reservoir_cap_top_z - routes._reservoir.cap_total_height
+RESERVOIR_CAP_Z = routes.reservoir_cap_z
 
 # Translucent shell so the caps read through it; distinct flats per cap layer.
 SHELL_COLOR = cq.Color(0.62, 0.78, 0.95, 0.25)

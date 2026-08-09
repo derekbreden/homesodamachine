@@ -384,7 +384,13 @@ corner_round_radius = 12.0
 # pockets inside the corner's rounded skin. Opposite signs at ±Y preserve 180°
 # rotational symmetry about Z (balanced gasket compression, and the top cap free to
 # install either way round).
-mid_screw_x_offset = 15.0
+# The two mid bosses stand where the ±Y wall is otherwise free, and what is NOT free on
+# the −Y one is the PRV shroud: a ⌀23 cup lying on the vessel's own −Y port axis
+# (`prv-shroud/`) whose closed end reaches within ~3 mm of this wall, so its section
+# spans x ±11.5 where the boss would stand. The offset is that reach plus the boss's
+# own radius and a clearance. Both signs move together — the pattern is 180°
+# rotationally symmetric so the top cap installs either way round.
+mid_screw_x_offset = 18.0
 _boss_wall_y = outer_shell_y_length / 2 - screw_boss_size / 2
 _end_boss_x = bag_pocket_outermost_x
 attachment_xy_positions = (

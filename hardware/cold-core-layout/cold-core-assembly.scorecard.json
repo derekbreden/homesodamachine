@@ -12,18 +12,12 @@
    "label": "No two placed solids share volume",
    "kind": "gate",
    "status": "fail",
-   "value": "9 clash",
+   "value": "3 clash",
    "target": "0 clash",
    "detail": [
-    "copper-plug-top \u2229 foam-shell = 72.45 mm\u00b3",
-    "copper-plug-middle \u2229 foam-shell = 69.33 mm\u00b3",
     "evap-coil \u2229 reed-carb-2 = 17.72 mm\u00b3",
     "evap-coil \u2229 reed-carb-1 = 17.18 mm\u00b3",
-    "evap-coil \u2229 reed-bridge = 15.21 mm\u00b3",
-    "float-rod-a \u2229 reservoir-a-cap = 7.92 mm\u00b3",
-    "float-rod-b \u2229 reservoir-b-cap = 7.92 mm\u00b3",
-    "copper-plug-lower \u2229 foam-shell = 3.12 mm\u00b3",
-    "foam-shell \u2229 prv-shroud = 0.82 mm\u00b3"
+    "evap-coil \u2229 reed-bridge = 15.21 mm\u00b3"
    ],
    "active": true
   },
@@ -1006,10 +1000,10 @@
     [
      52.932,
      -70.0,
-     199.9,
+     201.9,
      129.0,
      70.0,
-     210.9
+     212.9
     ]
    ],
    "fill": 0.3898,
@@ -1038,10 +1032,10 @@
     [
      -129.0,
      -70.0,
-     199.9,
+     201.9,
      -52.932,
      70.0,
-     210.9
+     212.9
     ]
    ],
    "fill": 0.3898,
@@ -1102,10 +1096,10 @@
     [
      89.5,
      -39.0,
-     208.4,
+     210.4,
      102.5,
      -26.0,
-     208.55
+     210.55
     ]
    ],
    "fill": 0.7854,
@@ -1118,10 +1112,10 @@
     [
      -102.5,
      -39.0,
-     208.4,
+     210.4,
      -89.5,
      -26.0,
-     208.55
+     210.55
     ]
    ],
    "fill": 0.7854,
@@ -1349,13 +1343,13 @@
    "to": "reservoir-a-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 2.5,
+   "length": 0.5,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": null,
-   "reach": 2.5,
+   "reach": 0.5,
    "reachGrade": "B",
    "binding": null,
    "corners": [],
@@ -1410,13 +1404,13 @@
    "to": "reservoir-b-fill.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 2.5,
+   "length": 0.5,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": null,
-   "reach": 2.5,
+   "reach": 0.5,
    "reachGrade": "B",
    "binding": null,
    "corners": [],
@@ -1798,7 +1792,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T03:46:55+00:00",
-  "commit": "c8585ca7af7a9a47a431132d5aab586036478db3"
+  "generated": "2026-08-09T03:57:13+00:00",
+  "commit": "28de1e843c2398412c8adc0a161e483115c57c9f"
  }
 }

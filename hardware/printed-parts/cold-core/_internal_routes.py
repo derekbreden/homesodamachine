@@ -140,9 +140,12 @@ lane_step_top_z = shell_top_z - route_bend_radius
 # it rather than restated: all three are on it, so any one of them names it.
 forward_band_x = cap_conduit_shell_xy("water-in")[0]
 
-# The reservoir cap's outer face — what a fill conduit's tube bottoms on. The reservoir
-# body's own top with its cap on, which is the part's reading and not a figure here.
-reservoir_cap_top_z = _reservoir.outer_z_range[1] + _reservoir.cap_total_height
+# The reservoir cap's outer face — what a fill conduit's tube bottoms on. The reservoir body's
+# own top with its cap on, which is the part's reading and not a figure here: `cap_assembly_lift`
+# is where `reservoir.py` says its cap-local zero lands, and it stands one TPU GASKET over the
+# body's rim rather than on it. The rod is cut to the register that lift leaves.
+reservoir_cap_z = _reservoir.cap_assembly_lift
+reservoir_cap_top_z = reservoir_cap_z + _reservoir.cap_total_height
 
 # THE PRV'S RELIEF, both ends of it. `prv-shroud` caps the SV-125 for the pour and vents
 # through its BARREL's underside rather than its cap face, so what leaves the shroud is

@@ -265,8 +265,16 @@ def cut_lane_slots(foam_shell):
     top edge, so the straight portion reaches the edge exactly with no sliver left.
 
     A slot's bottom stands clear of whatever the lane carries below it: on the port lane
-    that is the front port field, and `copper_plugs.evap_cross_z` is derived from it."""
-    from copper_plugs import columns, slot_width_x, outer_wall_inner_y
+    that is the front port field, and `copper_plugs.evap_cross_z` is derived from it.
+
+    AND EACH SLOT TAKES A FLAT SEAT WITH IT. A plug is an I-beam whose inboard flange lands
+    on the wall's inner face, and that face is only flat between the corners: the shell's
+    outer skin is rounded on `corner_round_radius`, which leaves the inside of every corner
+    THICKER than the wall, and both lanes run close enough to one that the flange's outboard
+    edge buries itself in that thickening. So the cut carries the flange's own footprint
+    inboard of the wall with it, which is the seat the plug drops onto."""
+    from copper_plugs import (columns, slot_width_x, outer_wall_inner_y,
+                              plug_half_x_outer, flange_y_thickness)
 
     slot_z_top = foam_shell_outer_height + slot_width_x / 2
     overshoot = 1.0                                    # a through-cut, both faces cleared
@@ -280,4 +288,10 @@ def cut_lane_slots(foam_shell):
             direction=-1,
         )
         foam_shell = foam_shell.cut(port_to_shell(slot_punch.val(), column.lane_y))
+        seat = make_box(
+            (-plug_half_x_outer, plug_half_x_outer),
+            (outer_wall_inner_y, outer_wall_inner_y + flange_y_thickness),
+            (column.slot_z_bottom, foam_shell_outer_height + overshoot),
+        ).val()
+        foam_shell = foam_shell.cut(port_to_shell(seat, column.lane_y))
     return foam_shell
