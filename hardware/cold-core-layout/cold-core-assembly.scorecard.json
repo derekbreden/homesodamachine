@@ -32,7 +32,7 @@
    "label": "No line meets a solid",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 clear",
+   "value": "8/8 clear",
    "target": "every line clear",
    "detail": [],
    "active": true
@@ -41,13 +41,10 @@
    "id": "lines-apart",
    "label": "No two runs want the same corridor",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 crossing",
+   "status": "pass",
+   "value": "0 crossing",
    "target": "0 crossing",
-   "detail": [
-    "carb-water-out and evap-tail-inlet share 34.19 mm\u00b3 \u2014 two runs in one corridor",
-    "co2-in and evap-tail-inlet share 172.39 mm\u00b3 \u2014 two runs in one corridor"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -73,12 +70,13 @@
    "label": "What each lane carries, and at what storey",
    "kind": "gate",
    "status": "pass",
-   "value": "7 run-lane pairs",
+   "value": "8 run-lane pairs",
    "target": "a reading, not a bound",
    "detail": [
-    "port-lane: carb-water-out at z 13.8..213.4, x -48.7..-20.6",
-    "port-lane: co2-in at z 13.8..213.4, x -75.7..-14.0",
+    "port-lane: carb-water-out at z 13.8..213.4, x -51.7..-20.6",
+    "port-lane: co2-in at z 13.8..213.4, x 14.0..75.7",
     "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
+    "port-lane: prv-vent at z 32.6..187.9, x -143.5..3.2",
     "port-lane: reservoir-a at z 2.8..213.4, x -138.7..104.1",
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
     "west-lane: reservoir-b at z 2.8..213.4, x -138.7..-101.8",
@@ -91,10 +89,10 @@
    "label": "Every made-up end has a straight to receive the tube",
    "kind": "gate",
    "status": "fail",
-   "value": "5/10 ends",
+   "value": "7/12 ends",
    "target": "2 bend radii",
    "detail": [
-    "carb-water-out start: 10.9 mm of straight, 28.0 wanted",
+    "carb-water-out start: 13.9 mm of straight, 28.0 wanted",
     "carb-water-out end: 8.2 mm of straight, 28.0 wanted",
     "reservoir-a start: 14.5 mm of straight, 28.0 wanted",
     "water-in start: 27.1 mm of straight, 28.0 wanted",
@@ -106,12 +104,12 @@
    "id": "stations-met",
    "label": "Every wall station carries a run",
    "kind": "gate",
-   "status": "fail",
-   "value": "2/3 stations",
+   "status": "pass",
+   "value": "3/3 stations",
    "target": "a run per station",
    "detail": [
-    "port-lane evap-inlet at z 27.75: evap-tail-inlet",
-    "port-lane prv-vent at z 35.75: NOTHING reaches it",
+    "port-lane evap-inlet at z 27.75: evap-tail-inlet, prv-vent",
+    "port-lane prv-vent at z 35.75: prv-vent",
     "west-lane evap-outlet at z 27.75: evap-tail-outlet"
    ],
    "active": true
@@ -121,9 +119,22 @@
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 at stock",
+   "value": "8/8 at stock",
    "target": "14.00 mm",
    "detail": [],
+   "active": true
+  },
+  {
+   "id": "prv-vent-lands",
+   "label": "The PRV shroud's vent bore opens on the lane its line falls",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.004 mm off",
+   "target": "within 0.01 mm of the lane",
+   "detail": [
+    "the shroud's vent bore opens at (+0.00, -77.50, 187.90), on the port lane (-77.5)",
+    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 35.75 and out"
+   ],
    "active": true
   },
   {
@@ -175,7 +186,7 @@
    "label": "Every line the core owes is drawn",
    "kind": "goal",
    "status": "pass",
-   "value": "7/7",
+   "value": "8/8",
    "target": "a line per connection",
    "detail": [],
    "active": false
@@ -210,12 +221,12 @@
    "name": "co2-in",
    "kind": "fluid",
    "pos": [
-    -16.017,
+    16.017,
     -31.963,
     17.0
    ],
    "face": [
-    -0.778506,
+    0.778506,
     -0.627637,
     0.0
    ],
@@ -401,10 +412,10 @@
    "component": "collet-co2-in",
    "boxes": [
     [
-     -34.813,
+     3.154,
      -49.024,
      8.75,
-     -3.154,
+     34.813,
      -19.726,
      25.25
     ]
@@ -537,7 +548,7 @@
      50.175
     ]
    ],
-   "fill": 0.0568,
+   "fill": 0.057,
    "primitive": false,
    "declared": "real"
   },
@@ -777,7 +788,7 @@
      210.9
     ]
    ],
-   "fill": 0.2691,
+   "fill": 0.269,
    "primitive": false,
    "declared": "real"
   },
@@ -1137,10 +1148,10 @@
    "component": "vessel-elbow-co2-in",
    "boxes": [
     [
-     -21.701,
+     -9.165,
      -39.013,
      8.45,
-     9.165,
+     21.701,
      -11.112,
      41.525
     ]
@@ -1190,14 +1201,14 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 287.69,
+   "length": 296.28,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 220.26,
-   "reachGrade": "C",
+   "reach": 220.62,
+   "reachGrade": "D",
    "binding": null,
    "corners": [
     {
@@ -1226,7 +1237,7 @@
     }
    ],
    "need": {
-    "detour": 1.306
+    "detour": 1.343
    }
   },
   {
@@ -1255,6 +1266,34 @@
    ],
    "need": {
     "detour": 1.256
+   }
+  },
+  {
+   "id": "prv-vent",
+   "kind": "fluid",
+   "frm": "prv-vent.start",
+   "to": "prv-vent.end",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 289.64,
+   "bend": 14.0,
+   "radius": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "reach": 209.15,
+   "reachGrade": "D",
+   "binding": null,
+   "corners": [
+    {
+     "at": 1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    }
+   ],
+   "need": {
+    "detour": 1.385
    }
   },
   {
@@ -1759,7 +1798,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T03:09:24+00:00",
-  "commit": "6ba2d3f810fff5b21a7da7f4141cf0c424ec6371"
+  "generated": "2026-08-09T03:46:55+00:00",
+  "commit": "c8585ca7af7a9a47a431132d5aab586036478db3"
  }
 }

@@ -106,6 +106,7 @@ ROUTE_COLORS = {
     "water-in": cq.Color(0.35, 0.60, 0.90),
     "carb-water-out": cq.Color(0.20, 0.80, 0.85),
     "co2-in": cq.Color(0.60, 0.62, 0.66),
+    "prv-vent": cq.Color(0.95, 0.75, 0.25),
     "reservoir-a": cq.Color(0.85, 0.35, 0.30),
     "reservoir-a-fill": cq.Color(0.95, 0.62, 0.55),
     "reservoir-b": cq.Color(0.55, 0.35, 0.75),

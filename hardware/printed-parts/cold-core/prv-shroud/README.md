@@ -23,7 +23,8 @@ operation, only briefly elevated during a relief event.
 ## Geometry
 
 [19 mm](PRV_INNER_D) ID × [23 mm](PRV_OUTER_D) OD × [46 mm](TOTAL_L) overall length, [2 mm](PRV_WALL_T) wall and [2 mm](PRV_CAP_T) cap,
-single ⌀[6.35 mm](PRV_VENT_D) centered vent hole in the cap.
+single ⌀[6.35 mm](PRV_VENT_D) vent bored radially through the barrel's −Y wall
+[37.88 mm](VENT_STATION) from the open end.
 
 Reference dimensions measured at the install (SV-125 hand-tight in
 the TAISHER M×F 90° elbow, no PTFE torque applied):
@@ -53,7 +54,7 @@ elbow + SV-125 + printed shroud) plus a tube of 100% RTV silicone
 caulk. Built on the bench; shelves indefinitely after the caulk cures.
 
 The LLDPE vent tube and the foam-shell pass-through are not part of
-this subassembly — the LLDPE is press-fit into the shroud's cap hole
+this subassembly — the LLDPE is press-fit into the shroud's barrel hole
 during cold-core build, after the subassembly is threaded into Port 4
 and the vessel is lowered into the foam shell.
 
@@ -120,9 +121,9 @@ geometry shift and should land with a measured rationale.
 | metric | value |
 |---|---|
 | bbox X | [-11.500 to 11.500 mm](PRV_BBOX_X) |
-| bbox Z | [0.000 to 46.000 mm](PRV_BBOX_Z) |
+| bbox Z | [-0.000 to 46.000 mm](PRV_BBOX_Z) |
 | bbox Y | [-11.500 to 11.500 mm](PRV_BBOX_Y) |
-| volume | [6548.090 mm³](PRV_VOLUME) |
+| volume | [6546.505 mm³](PRV_VOLUME) |
 
 ## Sources
 [value](NAME) texts are updated by:
