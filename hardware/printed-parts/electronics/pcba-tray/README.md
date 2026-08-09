@@ -23,7 +23,7 @@ a **single convex-outline floor**, **no walls**, **heat-set M3 bosses**.
 
 Off this tray: AC lives across the strip aft of the board — the PSU, relay #1 and
 the ground ring-stack each on their own cap columns, the Wago AC distribution in
-the [AC hub](/hardware/printed-parts/electronics/ac-hub/); the looms land on the
+the wall's own Wago wells; the looms land on the
 board's edge connectors per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 
 ## Layout & retention
