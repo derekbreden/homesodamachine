@@ -1334,6 +1334,60 @@ def _shaped(rows) -> Check:
                  "no placeholder solids", detail)
 
 
+# --- how big it is ---------------------------------------------------------
+
+MM_PER_INCH = 25.4
+
+
+def _extent(solids) -> tuple:
+    """The one box a population of placed solids stands in — `((xmin, ymin, zmin), (xmax, …))`
+    in world mm, off `_boxes`' memoized optimal boxes."""
+    bbs = [_boxes.boxed(s) for s in solids]
+    return ((min(b.xmin for b in bbs), min(b.ymin for b in bbs), min(b.zmin for b in bbs)),
+            (max(b.xmax for b in bbs), max(b.ymax for b in bbs), max(b.zmax for b in bbs)))
+
+
+def size_rows(a) -> list[dict]:
+    """How big the machine is: the box the printed shells stand in, and the box everything
+    placed stands in. Width is x, depth is y, height is z — the axes `enclosure_assembly`
+    packs on.
+
+    BOTH ROWS ARE THE OUTSIDE OF WHAT WAS DRAWN, off the placed solids. So a shell whose
+    corners round short reads here, and so does a body seated through a wall and standing
+    proud of it: the assembly row standing past the enclosure row on an axis is what is
+    outside the box on that axis, in millimetres. The three figures the box is DRAWN to —
+    `enclosure.appliance_width` and its two siblings — are the other question, and
+    `box-width`, `box-depth` and `box-height` measure the pack against them.
+
+    mm is what is stored. Inches are divided out where they are printed: `report` here,
+    `web/contracts/scorecard-sidecar.js` for the viewer.
+
+    A population with nothing in it contributes no row."""
+    bodies, tubes, pieces = _split_placed(a)
+    rows = []
+    for rid, label, solids in (
+            ("enclosure", "the printed box, outside face to outside face", pieces.values()),
+            ("assembly", "every placed body, the box around them included",
+             [*bodies.values(), *tubes.values(), *pieces.values()])):
+        solids = list(solids)
+        if not solids:
+            continue
+        lo, hi = _extent(solids)
+        rows.append({
+            "id": rid, "label": label,
+            "min": [round(v, 3) for v in lo], "max": [round(v, 3) for v in hi],
+            "mm": [round(h - l, 3) for l, h in zip(lo, hi)],
+        })
+    return rows
+
+
+def _size_line(d: dict) -> str:
+    """One size row as the terminal prints it, both units."""
+    mm = " × ".join(f"{v:.1f}" for v in d["mm"])
+    inch = " × ".join(f"{v / MM_PER_INCH:.2f}" for v in d["mm"])
+    return f"{mm} mm   {inch} in"
+
+
 def _score(check: Check) -> int:
     lo, hi = check.value.split("/")[0], check.value.split("/")[-1]
     try:
@@ -1353,6 +1407,7 @@ class Scorecard:
     conns: list
     ports: list
     shapes: list
+    sizes: list
 
     @property
     def gates_pass(self) -> bool:
@@ -1411,7 +1466,7 @@ def _build(a) -> Scorecard:
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes), _held()]
-    return Scorecard(checks, bends, conns, ports, shapes)
+    return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
 
 
 def _source() -> dict:
@@ -1442,6 +1497,7 @@ def to_dict(sc: Scorecard) -> dict:
     prim = {d["component"]: d["primitive"] for d in sc.shapes}
     return {
         "gatesPass": sc.gates_pass,
+        "size": sc.sizes,
         "placed": _score(by_id["placed"]),
         "located": _score(by_id["located"]),
         "shaped": _score(by_id["shaped"]),
@@ -1479,6 +1535,10 @@ def report(a) -> Scorecard:
     in it, because a run holds one radius per corner and its worst says nothing about the
     rest."""
     sc = build(a)
+    if sc.sizes:
+        print("\nsize                     width × depth × height")
+        for d in sc.sizes:
+            print(f"  {d['id']:12} {_size_line(d)}   {d['label']}")
     print("\nscorecard")
     for c in sc.checks:
         mark = {"pass": "OK  ", "fail": "FAIL", "warn": "    "}[c.status]

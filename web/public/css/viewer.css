@@ -1207,6 +1207,9 @@
 .sc-row.warn .sc-k { color: var(--warn); }
 .sc-row.warn .sc-v { color: var(--warn); }
 .sc-row.gray .sc-k, .sc-row.gray .sc-v { color: var(--text-3); }
+/* Both units on one line where the card is wide enough, wrapping to two where it isn't. */
+.sc-row.size .sc-k { text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
+.sc-row.size .sc-v { white-space: normal; text-align: right; font-variant-numeric: tabular-nums; }
 /* A detail row that names solids in the scene — clickable, highlights them on the model. */
 .sc-row.clickable { cursor: pointer; }
 .sc-row.clickable:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
