@@ -125,6 +125,12 @@ import _stated_bounds as _bounds                      # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
+KAMOER_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
+# The reference pump's two shaped solids, read off its STEP once and held.
+_KAMOER = None
+# What brings them out of `kamoer_kphm400`'s case frame into this study's: the quarter
+# lays the pump's depth axis down onto +Y, and the half rolls its barb face up onto +Z.
+PUMP_TURNS = (((1.0, 0.0, 0.0), -90.0), ((0.0, 1.0, 0.0), 180.0))
 
 # --- The parts' own figures ------------------------------------------------
 VALVE_LEN = vlv.port_length                  # collet face to collet face
@@ -144,13 +150,16 @@ FLAVOR_SKEW = 22.0
 LINE_HUG = 1.0                               # the clearance floor a line keeps off a body
 
 HEAD_W = kp.head_w                           # the pump head, square across
-HEAD_D = kp.head_depth                       # head front face to the bracket
+HEAD_D = kp.head_depth                       # head front face to the rotor boss
 MOTOR_D = kp.motor_dia
 PUMP_LEN = 111.43                            # head front to motor end cap, no shaft nub
-BRACKET_W = 68.6                             # the mounting bracket, ~3 mm proud per side in X
-BRACKET_T = 2.0
+BOSS_D = kp.octagon_top_z - kp.base_plane_z  # the head's rear boss, head face to motor face
 BARB_PITCH = kp.arch_xs[1] - kp.arch_xs[0]   # the two barbs' separation across the head face
 BARB_INSET = kp.arch_plane_z - kp.head_front_z   # barb plane back from the head's front face
+# What is left for the motor once the head and its boss have taken their share of the part's
+# own end-to-end length. `kamoer_kphm400`'s motor is drawn to the pump case's TOWER BORE,
+# which is a hole the motor turns inside; this is the can.
+MOTOR_L = PUMP_LEN - HEAD_D - BOSS_D
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
@@ -220,6 +229,14 @@ _bounds.state(
     f"LIMB_PITCH {LIMB_PITCH:g} is under the {VALVE_PITCH:g} mm two valve bodies pack to, so "
     f"the two lanes' valves would occupy each other.")
 _bounds.state(
+    "pump-motor-room", "The pump's own length leaves its motor a can to be",
+    "a motor longer than nothing",
+    MOTOR_L > 0.0,
+    f"the head and its rear boss take {HEAD_D + BOSS_D:g} of the pump's {PUMP_LEN:g} end to "
+    f"end, which leaves {MOTOR_L:g} for the motor. Two of those three figures are "
+    f"`kamoer_kphm400`'s and the third is this study's, so the three bodies drawn here no "
+    f"longer add up to the part they are.")
+_bounds.state(
     "limb-pitch-ceiling", "The lanes step inboard of the barbs, never outboard",
     f"LIMB_PITCH at or under {BARB_PITCH:g} mm",
     LIMB_PITCH <= BARB_PITCH,
@@ -231,7 +248,7 @@ C_VALVE = cq.Color(0.93, 0.93, 0.91)
 C_COIL = cq.Color(0.20, 0.20, 0.23)
 C_TEE = cq.Color(0.12, 0.12, 0.14)
 C_HEAD = cq.Color(0.16, 0.16, 0.18)
-C_BRACKET = cq.Color(0.35, 0.36, 0.38)
+C_BOSS = cq.Color(0.30, 0.30, 0.33)
 C_MOTOR = cq.Color(0.74, 0.76, 0.80)
 C_TUBE = cq.Color(0.85, 0.88, 0.92)
 C_STUB = cq.Color(0.62, 0.70, 0.78)
@@ -632,17 +649,44 @@ def build_elbow(gate: str, side: float):
     return place(solid, corner, x_dir, z_dir)
 
 
+def kamoer_bodies():
+    """The reference pump's own two shaped solids — head, then rear boss — in the frame
+    `kamoer_kphm400` draws them in, read once off its STEP.
+
+    Sorted along that frame's depth axis, which is what tells the two apart: the head is the
+    solid in front of the base plane and the boss is the one behind it."""
+    global _KAMOER
+    if _KAMOER is None:
+        solids = sorted(cq.importers.importStep(str(KAMOER_STEP)).val().Solids(),
+                        key=lambda s: s.BoundingBox().zmin)
+        _KAMOER = (solids[0], solids[1])
+    return _KAMOER
+
+
 def build_pump(px: float):
-    """Head, bracket and motor as three solids, the head's floor at z = 0 and its front face
-    at y = −BARB_INSET so both barbs stand on the plane the limbs' anchor tees do."""
+    """Head, rear boss and motor as three solids, seated on the pump's own BARBS: both stand
+    on `barb_station`'s plane, which is the plane the limbs' anchor tees butt.
+
+    The head and the boss are `kamoer_kphm400`'s solids, turned out of that module's case
+    frame into this study's. There the pump's depth runs along +Z with the barbs on the
+    head's +Y face; here the depth runs aft along +Y and the barbs stand on the head's
+    crown. The quarter about X lays the depth axis down and the half about Y rolls the barb
+    face up off it — which also swaps the two barbs across the head, and a peristaltic head
+    has no fixed sense to swap.
+
+    The motor is drawn rather than imported: `MOTOR_L` is what the pump's own end-to-end
+    length leaves, and the reference's cylinder fills the case's tower bore instead."""
     y0 = -BARB_INSET
-    head = cq.Solid.makeBox(HEAD_W, HEAD_D, HEAD_W, cq.Vector(px - HEAD_W / 2, y0, 0.0))
-    bracket = cq.Solid.makeBox(BRACKET_W, BRACKET_T, HEAD_W,
-                               cq.Vector(px - BRACKET_W / 2, y0 + HEAD_D, 0.0))
+    parts = []
+    for solid in kamoer_bodies():
+        for axis, deg in PUMP_TURNS:
+            solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
+        parts.append(solid.translate(cq.Vector(
+            px + kp.cx, y0 - kp.head_front_z, HEAD_W - kp.body_y_face)))
     motor = cq.Solid.makeCylinder(
-        MOTOR_D / 2.0, PUMP_LEN - HEAD_D - BRACKET_T,
-        cq.Vector(px, y0 + HEAD_D + BRACKET_T, HEAD_W / 2.0), cq.Vector(0.0, 1.0, 0.0))
-    return head, bracket, motor
+        MOTOR_D / 2.0, MOTOR_L,
+        cq.Vector(px, y0 + HEAD_D + BOSS_D, HEAD_W / 2.0), cq.Vector(0.0, 1.0, 0.0))
+    return parts[0], parts[1], motor
 
 
 def straight(a, b, d: float = TUBE_D):
@@ -728,9 +772,9 @@ def build_assembly() -> cq.Assembly:
     for tee, (gate, side) in JOINS.items():
         a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
     for pname, px in PUMPS.items():
-        head, bracket, motor = build_pump(px)
+        head, boss, motor = build_pump(px)
         a.add(head, name=f"{pname}-head", color=C_HEAD)
-        a.add(bracket, name=f"{pname}-bracket", color=C_BRACKET)
+        a.add(boss, name=f"{pname}-boss", color=C_BOSS)
         a.add(motor, name=f"{pname}-motor", color=C_MOTOR)
     # Only the segments that carry tube outside their collets get a solid; the rest are butts.
     for cid, _f, _t, how in SEGMENTS:
