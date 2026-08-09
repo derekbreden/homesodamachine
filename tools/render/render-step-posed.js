@@ -202,6 +202,9 @@ async function renderOne({ stepRel, outAbs, opts }) {
       controls.object = cam;
       controls.target.copy(target);
       renderer.setSize(window.innerWidth, window.innerHeight, false);
+      // scene.js's animate() is stopped here, so the planes are fitted once,
+      // to the group this pose is framing.
+      sceneMod.fitCameraDepth(cam, center, size.length() / 2);
       cam.updateProjectionMatrix();
       cam.updateMatrixWorld(true);
 
