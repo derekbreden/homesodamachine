@@ -12,11 +12,12 @@
    "label": "No two placed solids share volume",
    "kind": "gate",
    "status": "fail",
-   "value": "4 clash",
+   "value": "5 clash",
    "target": "0 clash",
    "detail": [
     "copper-plug-top \u2229 foam-shell = 72.45 mm\u00b3",
     "copper-plug-middle \u2229 foam-shell = 69.33 mm\u00b3",
+    "evap-coil \u2229 reed-bridge = 15.21 mm\u00b3",
     "copper-plug-lower \u2229 foam-shell = 3.12 mm\u00b3",
     "foam-shell \u2229 prv-shroud = 0.82 mm\u00b3"
    ],
@@ -34,12 +35,33 @@
   },
   {
    "id": "lines-apart",
-   "label": "No line meets another line",
+   "label": "No two runs want the same corridor",
+   "kind": "gate",
+   "status": "fail",
+   "value": "2 crossing",
+   "target": "0 crossing",
+   "detail": [
+    "carb-water-out and evap-tail-inlet share 34.19 mm\u00b3 \u2014 two runs in one corridor",
+    "co2-in and evap-tail-inlet share 172.39 mm\u00b3 \u2014 two runs in one corridor"
+   ],
+   "active": true
+  },
+  {
+   "id": "lane-census",
+   "label": "What each lane carries, and at what storey",
    "kind": "gate",
    "status": "pass",
-   "value": "0 crossing",
-   "target": "0 crossing",
-   "detail": [],
+   "value": "7 run-lane pairs",
+   "target": "a reading, not a bound",
+   "detail": [
+    "port-lane: carb-water-out at z 13.8..213.4, x -48.7..-20.6",
+    "port-lane: co2-in at z 13.8..213.4, x -75.7..-14.0",
+    "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
+    "port-lane: reservoir-a at z 2.8..213.4, x -138.7..108.1",
+    "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
+    "west-lane: reservoir-b at z 2.8..213.4, x -138.7..-101.8",
+    "west-lane: water-in at z 196.2..213.4, x -138.7..3.2"
+   ],
    "active": true
   },
   {
@@ -57,7 +79,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "23/23",
+   "value": "26/26",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -77,7 +99,7 @@
    "label": "Every body is real geometry rather than a primitive",
    "kind": "goal",
    "status": "pass",
-   "value": "23/23",
+   "value": "26/26",
    "target": "no primitives",
    "detail": [],
    "active": false
@@ -97,7 +119,7 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "pass",
-   "value": "23/23",
+   "value": "26/26",
    "target": "a holder per body",
    "detail": [],
    "active": false
@@ -107,7 +129,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "0/23",
+   "value": "0/26",
    "target": "a printed joint per body",
    "detail": [
     "carbonator-tube: held by support ring",
@@ -116,6 +138,9 @@
     "copper-plug-top: held by wall slot",
     "endcap-bottom: held by tube bore",
     "endcap-top: held by tube bore",
+    "evap-coil: held by the tank it clamps",
+    "evap-tail-inlet: held by wall slot",
+    "evap-tail-outlet: held by wall slot",
     "float-rod-carb: held by plate registers",
     "foam-cap-bottom: held by shell floor",
     "foam-cap-lid-bottom: held by cap mouth",
@@ -297,6 +322,54 @@
     ]
    ],
    "fill": 0.7724,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "evap-coil",
+   "boxes": [
+    [
+     -69.85,
+     -69.85,
+     43.826,
+     69.85,
+     69.85,
+     169.574
+    ]
+   ],
+   "fill": 0.0524,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "evap-tail-inlet",
+   "boxes": [
+    [
+     -143.5,
+     -80.675,
+     24.575,
+     -34.343,
+     -53.716,
+     50.175
+    ]
+   ],
+   "fill": 0.0568,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "evap-tail-outlet",
+   "boxes": [
+    [
+     -143.5,
+     53.716,
+     24.575,
+     -34.343,
+     80.675,
+     169.575
+    ]
+   ],
+   "fill": 0.0189,
    "primitive": false,
    "declared": "real"
   },
@@ -855,6 +928,24 @@
    "kind": "real"
   },
   {
+   "component": "evap-coil",
+   "by": null,
+   "held": "the tank it clamps",
+   "kind": "real"
+  },
+  {
+   "component": "evap-tail-inlet",
+   "by": null,
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
+   "component": "evap-tail-outlet",
+   "by": null,
+   "held": "wall slot",
+   "kind": "real"
+  },
+  {
    "component": "float-rod-carb",
    "by": null,
    "held": "plate registers",
@@ -958,7 +1049,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T01:32:30+00:00",
-  "commit": "d3b3bf4f57fdd85350437b97603b4490128b339d"
+  "generated": "2026-08-09T01:43:46+00:00",
+  "commit": "afe6d3b4c3702bba9fecf34ce7b19f9d40214ffd"
  }
 }
