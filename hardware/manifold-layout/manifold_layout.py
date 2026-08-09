@@ -122,6 +122,7 @@ import _routing                                       # noqa: E402
 # exists to hang a reading on. `_stated_bounds` is the ledger they record into and
 # `enclosure_assembly.carry_stated_bounds` is what puts them on the card.
 import _stated_bounds as _bounds                      # noqa: E402
+import _boxes                                         # noqa: E402
 import _overlap                                       # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
@@ -858,7 +859,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0):
     ever reported without the boolean having been asked."""
     solids = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj)
                .moved(cq.Location(c.loc.wrapped.Transformation()))) for c in assy.children]
-    boxes = [(n, s, s.BoundingBox()) for n, s in solids]
+    boxes = [(n, s, _boxes.boxed(s)) for n, s in solids]
     hits, unanswered = [], []
     for i in range(len(boxes)):
         ni, si, bi = boxes[i]
