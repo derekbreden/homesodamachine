@@ -110,7 +110,7 @@ class Seg:
             f"{self.id}<br/>{self.made}"
 
 
-def _interior(how: str) -> tuple:
+def _interior(cid: int, how: str) -> tuple:
     """How `manifold_layout` makes one of its own interior segments, as `(kind, mm, corners)`.
 
     THE KIND IS `_scorecard.made_of`'S. `manifold_layout.SEGMENTS` already says how the pack
@@ -118,12 +118,15 @@ def _interior(how: str) -> tuple:
     reads it to label an edge — so classifying it twice is how the chart and the card come to
     disagree about the same segment. What is this driver's own is the mm and the corners, off
     `manifold_layout`'s figures: `SPINE_LEN` the hairpin, `QUARTER_LEN` the quarter out of the
-    deck plane, `SOURCE_LEN` the step that carries on from it, `RUNS` the lanes' straights."""
+    deck plane, `source_step` the step that carries on from it, `RUNS` the lanes' straights.
+
+    The step is the one figure that is the SEGMENT'S and not the kind's: each source valve is
+    spread its own distance outboard, so each of the two turns is its own length of tube."""
     kind = _scorecard.made_of(how)
     if kind == "fold":
         return (kind, ml.SPINE_LEN, 2)                       # quarter · straight · quarter
-    if kind == "turn":
-        return (kind, ml.QUARTER_LEN + ml.SOURCE_LEN, 3)     # the quarter, then the step's pair
+    if kind == "turn":                                       # the quarter, then the step's pair
+        return (kind, ml.QUARTER_LEN + ml.source_step(ml.SBENDS[cid])[2], 3)
     if kind == "butt":
         return (kind, 0.0, 0)
     return (kind, ml.dist(*ml.RUNS[how]), 0)                 # a lane's own straight
@@ -151,7 +154,7 @@ def segments() -> dict:
     for r in a.runs:
         segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, len(r.bends))
     for cid, frm, to, how in ml.SEGMENTS:
-        made, length, corners = _interior(how)
+        made, length, corners = _interior(cid, how)
         segs[f"fluid-{cid}"] = Seg(f"fluid-{cid}", (frm, to), made, length, corners)
     for cid, port, _what, _body, _end in ml.MOUTHS:
         if cid not in segs:
