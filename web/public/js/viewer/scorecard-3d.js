@@ -156,7 +156,7 @@ function appendFocus(card, sc, wrapper, partNames) {
   return present;
 }
 
-function openModal(wrapper, sc) {
+function openModal(wrapper, sc, title) {
   closeModal(wrapper);
   clearHighlight(); // reopening the checks restores the full model
   const modal = el("div", "sc-modal");
@@ -169,7 +169,7 @@ function openModal(wrapper, sc) {
   card.addEventListener("click", (e) => e.stopPropagation());
 
   const head = el("div", "sc-head");
-  head.appendChild(el("span", null, "Enclosure checks"));
+  head.appendChild(el("span", null, `${title} checks`));
   const x = el("button", "sc-x", "✕");
   x.type = "button";
   x.addEventListener("click", () => closeModal(wrapper));
@@ -212,7 +212,7 @@ function gateCounts(sc) {
            fail: gates.filter((c) => c.status !== "pass").length };
 }
 
-function buildBar(wrapper, sc) {
+function buildBar(wrapper, sc, title) {
   removeScorecard(wrapper);
   const g = gateCounts(sc);
   const bar = el("div", "sc-bar");
@@ -233,7 +233,7 @@ function buildBar(wrapper, sc) {
   const badge = el("button", "sc-badge" + (g.fail ? " has-issues" : ""),
     g.fail ? `✗ ${g.fail} gate${g.fail === 1 ? "" : "s"}` : "✓ checks");
   badge.type = "button";
-  badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc); });
+  badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title); });
   bar.appendChild(badge);
   wrapper.appendChild(bar);
 }
@@ -264,7 +264,8 @@ export async function mountScorecard(wrapper, file) {
   // The modal may have closed (or reloaded to another model) while we fetched — bail if the
   // wrapper is no longer in the document.
   if (!sc || !isScorecard(sc) || !wrapper.isConnected) return;
-  buildBar(wrapper, sc);
+  // The card is titled by the model it belongs to — more than one assembly writes one now.
+  buildBar(wrapper, sc, file.split("/").pop().replace(/\.step$/, ""));
   const ports = Array.isArray(sc.ports) ? sc.ports : [];
   if (ports.length) wrapper.appendChild(makePortToggle(showPorts(ports, file)));
   else clearPorts();
