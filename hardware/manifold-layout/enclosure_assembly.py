@@ -3310,7 +3310,7 @@ def main():
     print(f"-> {out.name}")
     report(a)
     _card.report(a)
-    print(f"-> {_card.write(a, out).name}")
+    print(f"-> {_card.write(a, out, __file__).name}")
     ml.render_elevations(out, xray="enclosure*")
 
 

@@ -166,10 +166,15 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {ScorecardBend[]} bends  per routed run, the radius it turns at and its grade
  * @property {ScorecardMount[]} mounts  per component, the part that fastens it. Optional: an
  *                                      edition whose scorecard predates the axis omits it.
+ * @property {string} [sources]  digest of the whole text of every file of this repo the build
+ *                               could reach, walked off its import statements. What it answers
+ *                               is whether the card still describes the tree:
+ *                               `hardware/scripts/check_cards.py` takes the digest again and
+ *                               compares. Optional: an edition whose scorecard predates it
+ *                               omits it, and staleness is then answered by running the build
  *
- * Every field is a reading. A card carries no build stamp, so one tree writes one file however
- * often it is built, and a card that comes back changed is a card whose numbers moved. An
- * edition whose scorecard predates this carries a `source` block; nothing reads it.
+ * Every other field is a reading, and there is no build stamp — one tree writes one file
+ * however often it is built, so a card that comes back changed is a card whose numbers moved.
  */
 
 // ── Size ─────────────────────────────────────────────────────────────────────────────────────
