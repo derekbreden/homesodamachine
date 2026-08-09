@@ -65,7 +65,7 @@ RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
 
 # What the bench's trim knife has to work in. The pour hole and the valve cradles open in
 # the ONE face — the top lid's outer one — so the least a pad's corner arc stands off the
-# hole is the land the cured foam is cut back to. Read on the corner arcs, which are the
+# hole is the land the cured foam is cut back to. Read on the four bosses, which are the
 # pad's nearest material to the hole, exactly as `_cold_core_interface.cap_cradle_room` does.
 _POUR_XY = foam_cap_lid_pour_xy()
 POUR_CRADLE_GAP = min(
@@ -227,7 +227,7 @@ def main():
             "CC_INSERTS": 1,
             "CAP_INSERTS": 1,
             "CAP_CLAMP_INSERTS": 1,
-            "CAP_DECK_INSERTS": 1,
+            "CAP_DECK_INSERTS": 2,
             "RES_INSERTS": 1,
             "TUBE_HOLE_D": 5,
             "COTWO_INLET_Y": 1,

@@ -238,7 +238,6 @@ def cold_core(m):
         "CAP_SCREW": f"M3 {X} {cci.cap_screw_length:.4g}",
         # The top cap (CC-06, CC-15).
         "CAP_CONDUITS": f"{len(cci.cap_conduits)}",
-        "DECK_STATIONS": f"{len(cci.deck_mounts)}",
         "DECK_COLUMNS": f"{deck_columns}",
         "CAP_CRADLES": f"{len(cci.cap_cradles)}",
         "CAP_CAVITY": f"{cci.foam_cap_interior_height:.4g}",
@@ -283,7 +282,7 @@ def cold_core(m):
             "SHELL_INSERTS", "FACE_BOSSES", "INSERT_POCKET", "INSERT_RELIEF",
             "MID_BOSS_X", "CORE_FOOTPRINT"},
         "cc-06-pour-cap-foam": {
-            "CAP_CONDUITS", "DECK_STATIONS", "DECK_COLUMNS", "CAP_CAVITY",
+            "CAP_CONDUITS", "DECK_COLUMNS", "CAP_CAVITY",
             "POUR_HOLE_D", "LID_VENT_D", "FACE_BOSSES", "CAP_SCREW"},
         # The rods PV-05 cuts, seated here — same three figures, one bench later.
         "cc-08-seat-reservoir-rods": {

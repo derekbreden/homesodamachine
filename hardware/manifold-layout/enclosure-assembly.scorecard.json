@@ -257,7 +257,7 @@
    "label": "Every deck mount's screw reaches the whole of its insert",
    "kind": "gate",
    "status": "pass",
-   "value": "5/5 hold",
+   "value": "holds",
    "target": "4 mm into the column",
    "detail": [],
    "active": true
@@ -267,7 +267,7 @@
    "label": "Every deck-mount column leaves the pour its gap in the cup",
    "kind": "gate",
    "status": "pass",
-   "value": "5/5 hold",
+   "value": "holds",
    "target": "1.5 mm off everything standing in the cup",
    "detail": [],
    "active": true
@@ -337,7 +337,7 @@
    "label": "Every deck mount's lid hole leaves a land under its screw head",
    "kind": "gate",
    "status": "pass",
-   "value": "12/12 hold",
+   "value": "4/4 hold",
    "target": "1.5 mm off the pour hole",
    "detail": [],
    "active": true
@@ -2276,6 +2276,14 @@
     [
      -90.5,
      178.0,
+     233.4,
+     90.5,
+     461.0,
+     251.4
+    ],
+    [
+     -90.5,
+     178.0,
      20.0,
      90.5,
      461.0,
@@ -2292,21 +2300,13 @@
     [
      -90.5,
      178.0,
-     233.4,
-     90.5,
-     461.0,
-     251.4
-    ],
-    [
-     -90.5,
-     178.0,
      2.0,
      90.5,
      461.0,
      20.0
     ]
    ],
-   "fill": 0.1113,
+   "fill": 0.111,
    "primitive": false,
    "declared": null
   },
@@ -5812,7 +5812,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T15:50:34+00:00",
-  "commit": "be5688392243b0f220a6c498f41c6da8c3d636a1"
+  "generated": "2026-08-09T16:31:35+00:00",
+  "commit": "9676e3035c7a08d39eb5d19b3ab08fcaf5c799a4"
  }
 }
