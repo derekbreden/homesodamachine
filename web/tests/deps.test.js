@@ -1,7 +1,7 @@
 // Dependency-graph tests for the dev-server / build-all rebuild ordering.
 //
 // The headline test is a regression for a real, week-long staleness bug: a
-// valve-manifold tray widened (2026-06-08) but the enclosure/assemblies that
+// printed part widened (2026-06-08) but the enclosure/assemblies that
 // only *load* its STEP (never importing its python) weren't rebuilt until an
 // unrelated edit re-triggered them (2026-06-14). The watcher tracked Python
 // imports but not STEP-load edges. These assert the STEP-load edges are now
@@ -161,22 +161,23 @@ test("short basenames don't substring-match longer step names (collision regress
 });
 
 test("the import walk continues THROUGH a generator that doubles as a base module (regression)", () => {
-  // single_tray is imported by each N-valve tray, and each of those by its own
-  // assembly — they build on the tray's python, not its .step, so the STEP-load
-  // cascade cannot reach them. Stopping at the first runnable would leave
-  // two-valve-assembly.step stale when single_tray changed; the walk has to recurse
-  // past two_valve_tray even though it is itself a runnable generator.
-  const singleTray = findGenerateScripts(ROOTS).find(ends("single-tray/single_tray.py"));
-  const deps = findRunnableScriptsTransitivelyImporting(singleTray, ROOTS);
+  // beduan_solenoid.py exports its own STEP and is also the module valve_seat.py builds
+  // the cap's cradle bosses from; foam_cap.py reaches the valve only through valve_seat,
+  // and valve_seat is itself runnable. They build on each other's python, not their .step,
+  // so the STEP-load cascade cannot reach them. Stopping at the first runnable would leave
+  // foam-cap-lid-top.step stale when the Beduan's corner inset changed; the walk has to
+  // recurse past valve_seat even though it runs on its own.
+  const beduan = findGenerateScripts(ROOTS).find(ends("beduan-solenoid/beduan_solenoid.py"));
+  const deps = findRunnableScriptsTransitivelyImporting(beduan, ROOTS);
   for (const downstream of [
-    "two-valve-tray/two_valve_tray.py",
-    "two-valve-tray/two_valve_assembly.py",
-    "single-valve-tray/single_valve_tray.py",
-    "single-valve-tray/single_valve_assembly.py",
+    "valve-seat/valve_seat.py",
+    "cold-core/foam-cap/foam_cap.py",
+    "manifold-layout/manifold_layout.py",
+    "manifold-layout/enclosure_assembly.py",
   ]) {
     assert.ok(
       deps.some(ends(downstream)),
-      `expected ${downstream} among single_tray's transitive dependents; got:\n${deps.map(rel).join("\n")}`,
+      `expected ${downstream} among beduan_solenoid's transitive dependents; got:\n${deps.map(rel).join("\n")}`,
     );
   }
 });

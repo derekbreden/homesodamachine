@@ -63,7 +63,7 @@ export function decodeMeshPayload(bytes) {
 }
 
 // occt-import-js copies a product's name onto its mesh only when the product is a
-// single solid. A multi-solid component (our valve-manifold trays, the pump
+// single solid. A multi-solid component (our reference sub-assemblies, the pump
 // assemblies, the display) comes back with unnamed leaf meshes — the name lives
 // on the owning hierarchy node instead. Walk the node tree and stamp each unnamed
 // mesh with its component's name, so the edge picker's `solid:` blob line names
