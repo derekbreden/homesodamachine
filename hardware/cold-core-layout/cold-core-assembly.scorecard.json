@@ -1824,9 +1824,5 @@
    "held": "plate thread",
    "kind": "real"
   }
- ],
- "source": {
-  "generated": "2026-08-09T22:32:59+00:00",
-  "commit": "de375560dbf332813c74d6512b71754d519bb56b"
- }
+ ]
 }

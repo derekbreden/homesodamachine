@@ -48,10 +48,8 @@ from __future__ import annotations
 import json
 import math
 import re
-import subprocess
 import sys
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from pathlib import Path
 
 _here = Path(__file__).resolve()
@@ -1463,23 +1461,12 @@ def _build(a) -> Scorecard:
     return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
 
 
-def _source() -> dict:
-    """When this card was built, and off what HEAD.
-
-    ORIENTATION ONLY. The commit is what the tree was at, not what the card was built from: a
-    dirty tree stamps exactly as a clean one, and nothing here fingerprints a file. So a stamp
-    can never say the card still describes the tree — the way to know is to run the build."""
-    try:
-        commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(_repo),
-                                capture_output=True, text=True, timeout=10).stdout.strip()
-    except Exception:
-        commit = ""
-    return {"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "commit": commit or None}
-
-
 def to_dict(sc: Scorecard) -> dict:
     """The sidecar the 3D viewer reads — `web/contracts/scorecard-sidecar.js` is the contract.
+
+    EVERY FIELD IS A READING. A card built twice off one tree is one file both times, so `git
+    status` on it answers what moved: a scorecard that comes back dirty is a scorecard whose
+    numbers changed, and whether it still describes the tree is what running the build says.
 
     The goal in `FOCUS_IDS` is the live one and every other goal is deferred, which the viewer
     renders gray. Each deferred one still carries its measured score, so the bar reads what it
@@ -1512,7 +1499,6 @@ def to_dict(sc: Scorecard) -> dict:
         "mounts": [{"component": n, "by": by, "held": h,
                     "kind": "placeholder" if prim.get(n) else "real"}
                    for n, by, h in mounts()],
-        "source": _source(),
     }
 
 
