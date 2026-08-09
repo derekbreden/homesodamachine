@@ -24,6 +24,7 @@ import * as THREE from "three";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { state } from "./state.js";
+import { syncEdgeResolution } from "./xray.js";
 
 // --- Detail view: Three.js setup ---
 export const canvasHost = document.getElementById("cad-canvas-host");
@@ -426,6 +427,7 @@ function animate() {
   lastFrameAt = now;
   controls.update();
   updateDepthRange();
+  syncEdgeResolution(renderer);
   renderer.render(scene, camera);
   renderGizmo();
 }
