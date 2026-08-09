@@ -21,7 +21,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 from _cold_core_interface import (  # noqa: E402
     attachment_xy_positions,
     cap_cradles,
-    cap_cradle_corner_radius,
+    cap_cradle_boss_radius,
     cap_cradle_xy,
     deck_mounts,
     deck_mount_xy,
@@ -70,7 +70,7 @@ RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
 _POUR_XY = foam_cap_lid_pour_xy()
 POUR_CRADLE_GAP = min(
     math.hypot(_POUR_XY[0] - x, _POUR_XY[1] - y)
-    - foam_cap_lid_pour_radius - cap_cradle_corner_radius
+    - foam_cap_lid_pour_radius - cap_cradle_boss_radius
     for name in cap_cradles for x, y in cap_cradle_xy(name)
 )
 

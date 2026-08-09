@@ -77,7 +77,7 @@ PARTS = {
         "flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step",
     ] * 2,
     # NO VALVE TRAY ROW. The three valves that stand on a printed face stand in cradles the
-    # cold core's own cap lid carries (`_cold_core_interface.cap_cradles`), so their cell is
+    # cold core's own cap lid carries (`_cold_core_interface.cap_cradles`), so their bosses are
     # already priced as part of that lid; the rest are butted collet to collet down the
     # flavour pack's own limbs and stand on nothing. `_bom_sync` derives the count off the
     # placed pack and fails if a tray body ever appears in it.

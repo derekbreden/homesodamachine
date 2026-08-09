@@ -739,7 +739,7 @@ def carry_stated_bounds() -> None:
 # --- the valve cradles printed in the core's cap ---------------------------
 #
 # Every valve standing on the cap face presses into a cradle printed there
-# (`_cold_core_interface.cap_cradles`) — the valve-manifold family's own cell, cut into a pad
+# (`_cold_core_interface.cap_cradles`) — four bosses (`valve_seat`) standing off the lid's own
 # off the lid's outer face. The stations live in the CAP'S frame, because a seat belongs to the
 # part it is printed in; what this holds is that the printed seat and the placed valve are the
 # same place.
@@ -2430,8 +2430,8 @@ def build_flowreg(split_carry):
 # The gap between V-K's outlet and the chain's collet — `water-4`. Both mouths lie on one plane
 # and one column, so this is a length of tube and not a route.
 WATER_4 = 15.0
-# THE VALVE'S SEAT is the cradle's. The cap prints a cell of the valve-manifold family at this
-# valve's own station (`_cold_core_interface.cap_cradles`), and what a cell says is where the
+# THE VALVE'S SEAT is the cradle's. The cap prints four bosses (`valve_seat`) at this
+# valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
 # Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed
 # home. So the seat is read off the part that carries it rather than stated here, and a cradle
 # that moves takes the valve, the chain behind it and `water-4` with it.

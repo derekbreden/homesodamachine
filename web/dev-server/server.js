@@ -262,9 +262,9 @@ async function runScript(pyFilePath) {
 // sequences them producers-before-consumers and hands back what each one loads;
 // we run each ONCE, skipping a pure STEP-load consumer unless a step it loads
 // actually changed this wave. That reactive, run-once pass is why editing a base
-// part (single_tray) now rebuilds the whole downstream tree — the other trays,
-// their assemblies, the enclosures that load those assemblies — while the
-// enclosure, a consumer of all four tray assemblies, still rebuilds only once.
+// part (beduan_solenoid) now rebuilds the whole downstream tree — the valve seat,
+// the cap that prints it, the assemblies that place it, the enclosures that load
+// those assemblies — while the enclosure still rebuilds only once.
 async function runWave(seeds) {
   const { order, loadsOf } = affectedBuildOrder(seeds, CONTENT_ROOTS);
   const seedSet = new Set(seeds);

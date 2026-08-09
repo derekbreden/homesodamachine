@@ -221,7 +221,7 @@ def main():
             "BORE_R": 1,
             "CSENSE_WALL_T": 1,
             "OUTER_R": 1,
-            "SLEEVE_L": 1,
+            "SLEEVE_L": 2,
             "GROOVE_W": 2,
             "GROOVE_PITCH": 1,
             "LAYER_H": 1,

@@ -31,13 +31,9 @@ Six complementary checks:
 6. BYTE-HASHED STEPS: SHA256-compare frozen STEP outputs; bytes must
    match exactly. Spans the cold-core single parts (foam, copper,
    coil-mandrel, prv-shroud), the flavor parts (cap-sense sleeves,
-   peristaltic tube), the single tray and the two-valve tray with its
-   named assembly, and the reference STEPs (beduan solenoid, JG bulkhead
-   union, water-test cup, valve body, faucet assembly).
-
-   `single-valve-tray`'s two STEPs are outside the set: the cap prints
-   the cell `single_tray` cuts, so what the machine carries is the tray
-   that cell comes from. `capture` is what widens the set.
+   peristaltic tube), and the reference STEPs (beduan solenoid, JG
+   bulkhead union, water-test cup, valve body, faucet assembly).
+   `capture` is what widens the set.
 
 Module also exposes _solid_invariants(wp) + _compare_invariants(...) at
 top level — volume + sorted bbox spans + sorted |COM| coords, compared
@@ -84,10 +80,6 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
-    # valve-manifold (each tray and its named assembly)
-    "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-tray.step",
-    "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-assembly.step",
-    "hardware/printed-parts/valve-manifold/single-tray/single-tray.step",
     # reference
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
@@ -114,13 +106,6 @@ _faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembl
 _flavor_generators = [
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap_sense_sleeve.py",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
-]
-
-# The cell, then the tray that cuts it twice, then the assembly that seats it.
-_valve_manifold_generators = [
-    "hardware/printed-parts/valve-manifold/single-tray/single_tray.py",
-    "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_tray.py",
-    "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_assembly.py",
 ]
 
 _reference_step_generators = [
@@ -429,7 +414,6 @@ def check():
 
     for label, gens in (
         ("flavor", _flavor_generators),
-        ("valve-manifold", _valve_manifold_generators),
         ("reference", _reference_step_generators),
     ):
         print(f"Regenerating {label} STEPs...")
