@@ -104,6 +104,22 @@ test("build order puts a producer before the scripts that load its STEP", () => 
   );
 });
 
+test("a tool that requires an argument is not a generator (regression)", () => {
+  // `build-all` spawns every generator bare. A script whose entry point demands a positional
+  // has nothing to do that way, so it failed on every run — two of them, on every build, for
+  // as long as they have sat beside the board they query. An OPTIONAL positional is a
+  // different thing: board-3d.py defaults its `target` to the board in its own directory and
+  // is a real generator, so the rule must keep it.
+  const scripts = findGenerateScripts(ROOTS).map((s) => rel(s).split(path.sep).join("/"));
+  for (const tool of ["hardware/pcb/pcba/topreach.py", "hardware/pcb/pcba/trace-check.py"]) {
+    assert.ok(!scripts.includes(tool), `${tool} requires arguments and must not be spawned bare`);
+  }
+  assert.ok(
+    scripts.includes("hardware/pcb/pcba/board-3d.py"),
+    "board-3d.py's positional is optional — it must stay a generator",
+  );
+});
+
 test("every runnable generator appears exactly once in the build order", () => {
   const scripts = findGenerateScripts(ROOTS);
   const order = buildOrder(ROOTS);

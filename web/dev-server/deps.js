@@ -95,9 +95,28 @@ function readSource(file) {
 // tree (hardware/scripts) has its tooling excluded on the same rule.
 const TOOLING_DIR = path.join("hardware", "scripts");
 
-// A "runnable" script is a non-`_`-prefixed .py with a `__main__` block — a
-// generator/drawing meant to run directly, vs. an imported `_module.py`.
-// Content detection (not name/dir) means a new script live-reloads with no
+// A command-line tool that lives beside the content it reads rather than in TOOLING_DIR —
+// `topreach.py` and `trace-check.py` query the board they sit next to, and the docs link them
+// by relative path. The rule that excludes them is the one TOOLING_DIR states: a script whose
+// entry point REQUIRES an argument has nothing to do when spawned bare, so spawning it can
+// only fail. An argparse positional is required unless it says otherwise, so a call carrying
+// `nargs=` or `default=` does not count — that is how `board-3d.py` keeps its optional
+// `target` and stays a generator.
+const ADD_ARGUMENT_RE = /\badd_argument\(([^()]*)\)?/g;
+
+function requiresArguments(source) {
+  for (const [, args] of source.matchAll(ADD_ARGUMENT_RE)) {
+    const first = args.match(/^\s*(["'])(.*?)\1/);
+    if (!first || first[2].startsWith("-")) continue;
+    if (/\b(?:nargs|default)\s*=/.test(args)) continue;
+    return true;
+  }
+  return false;
+}
+
+// A "runnable" script is a non-`_`-prefixed .py with a `__main__` block that runs bare — a
+// generator/drawing meant to run directly, vs. an imported `_module.py` or a tool you hand
+// arguments to. Content detection (not name/dir) means a new script live-reloads with no
 // registration.
 export function isRunnableScript(pyFilePath) {
   if (memo && memo.runnable.has(pyFilePath)) return memo.runnable.get(pyFilePath);
@@ -112,7 +131,8 @@ function computeRunnable(pyFilePath) {
   if (base.startsWith("_")) return false;
   if (path.dirname(pyFilePath).endsWith(TOOLING_DIR)) return false;
   const source = readSource(pyFilePath);
-  return source != null && MAIN_RE.test(source);
+  if (source == null) return false;
+  return MAIN_RE.test(source) && !requiresArguments(source);
 }
 
 function walk(roots, suffix) {
