@@ -256,15 +256,32 @@ MOUNTS = (
     # hole, so a slot is the only way it is ever held — the same bargain the lever nuts strike,
     # and the same wall-as-datum.
     ("mq6-sensor", "enclosure-front-bottom", "cradle"),
-    # The thermal cutoff is a splice in the hot leg with its case laid on the compressor's power
-    # box. Its two leads carry its weight and the case rests on the cover, and neither of those
-    # is a fastening: nothing presses the case onto the face it has to read, so the contact that
-    # makes a 77 °C cutoff a cutoff is the contact the machine does not yet hold.
-    ("thermal-fuse", None, "none"),
+    # The thermal cutoff lies in a channel printed through the clamp's head
+    # (`printed-parts/refrigeration/fuse-clamp`), whose crown lands on the case's outboard
+    # generatrix — so the case is pinched between that crown and the compressor's power box, and
+    # the contact that makes a 77 °C cutoff a cutoff is a printed feature of a placed part. The
+    # channel is open at both ends and the cutoff threads out along it, which is the whole of
+    # what a one-shot part's service is.
+    ("thermal-fuse", "fuse-clamp", "channel"),
+    # The clamp itself is rooted in the COMPRESSOR'S OWN two front mounting holes — a square
+    # tenon in each, biting on its corners. That is a real joint and a donor's, not a printed
+    # one: the case's force is a normal force, no face of the moulded cover can take one, and
+    # nothing printed stands anywhere near it to be fastened to. This axis counts a printed
+    # feature, so the row is open on it and the joint is not.
+    ("fuse-clamp", None, "mount-holes"),
     # The piercing valve is a saddle: two screws pull its halves together round the
     # compressor's process tube, and the grip on that copper holds it. The fastening ships
     # with the part and closes on a body no printed feature of this machine touches.
     ("bpv31", None, "tube-clamp"),
+    # The two cap-sense clamshells close on the flavour lines themselves: dowel pins at the
+    # cut plane pull the halves together and the bore grips the tube. The tube is what holds
+    # them, and it is the tube they are there to read.
+    ("cap-sleeve-a", None, "tube-clamp"),
+    ("cap-sleeve-b", None, "tube-clamp"),
+    # The controller lies between the two risers with a lead to each sleeve and the J8 loom
+    # aft. Nothing printed reaches it and nothing else does either — the leads and the loom
+    # carry its weight, which is not a fastening.
+    ("mpr121", None, "none"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
@@ -366,12 +383,26 @@ TOUCHING_OK = {frozenset(p) for p in (
     # its underside on that floor and `drip_pan.check_plate` holds the floor wide enough to take
     # it, so the pair reads 0 and it is the sensor working.
     ("drip-pan", "moisture-plate"),
+    # EACH CAP-SENSE SLEEVE CLOSES ROUND ITS OWN LINE. The clamshell's bore is the tube's OD
+    # plus `cap_sense_sleeve.bore_clearance` on the radius, so the pair reads that clearance
+    # and it is the sleeve gripping. A sleeve standing a millimetre off the tube is two foil
+    # rings reading air. The pair is named by the run's connection id, which is how
+    # `run_clearances` names a tube.
+    ("fluid-18", "cap-sleeve-a"),
+    ("fluid-28", "cap-sleeve-b"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
     # contact line — the case is round, so the pair reads 0 along one line and stands apart
     # everywhere else.
     ("compressor", "thermal-fuse"),
+    # AND THE CLAMP CLOSES THAT CONTACT. Its channel's crown lands on the case's outboard
+    # generatrix and its head lies flat on the cover, so it reads 0 against both — the pinch is
+    # cover, case, crown, with the case's whole diameter between the two.
+    # `enclosure_assembly.check_cutoff_bedded` measures both ends of that stack and is the only
+    # row on this card that can see a clamp standing proud of the thing it holds.
+    ("compressor", "fuse-clamp"),
+    ("thermal-fuse", "fuse-clamp"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
@@ -882,10 +913,13 @@ def run_clearances(a, runs) -> list[tuple]:
     """Every drawn run against what it does not join, nearer than `REPORT_NEAR`, in
     `part_clearances`' own row shape.
 
-    A run's own two end bodies are out of its population, and nothing else is: the tube seats
-    into their collets by construction and reads 0 there, which is a contact the machine builds
-    on purpose. It is the same exemption `lines-clear` takes, off the same `run_world`, so the
-    two gates cannot disagree about which contact is by design."""
+    A run's own two end bodies are out of its population: the tube seats into their collets by
+    construction and reads 0 there, which is a contact the machine builds on purpose. It is the
+    same exemption `lines-clear` takes, off the same `run_world`, so the two gates cannot
+    disagree about which contact is by design.
+
+    A body seated ON a run mid-length rather than at an end — a sleeve closing round the tube —
+    is in `TOUCHING_OK` by the run's own connection id, the same declaration a body pair makes."""
     tubes, ends, rest = run_world(a, runs)
     tbb = {i: _boxes.boxed(t) for i, t in tubes.items()}
     rbb = {n: _boxes.boxed(s) for n, s in rest.items()}
@@ -904,7 +938,7 @@ def run_clearances(a, runs) -> list[tuple]:
                 continue
             g = _clearing.gap(tubes[i], solid)
             if g < REPORT_NEAR:
-                out.append((i, name, g, False))
+                out.append((i, name, g, frozenset((i, name)) in TOUCHING_OK))
     return out
 
 
