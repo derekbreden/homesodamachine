@@ -14,17 +14,27 @@ SS 90° street elbow (B0CZ38MYL1) that threads into Port 4. The
 open shroud end-to-elbow joint is sealed with a bead of 100% RTV
 silicone caulk, tooled to a fillet — foam-tight, not airtight.
 
-A ⌀[6.35 mm](PRV_VENT_D) hole in the closed (far) end of the shroud accepts a
-length of 1/4" OD LLDPE tubing — the unpressurized vent line. The
-LLDPE runs down the foam shell's PORT LANE and out its slot in the
-−X wall, one station above the evaporator inlet copper that shares
-it, into the appliance interior, where it terminates open.
+A ⌀[6.35 mm](PRV_VENT_D) hole through the BARREL accepts a length of 1/4" OD
+LLDPE tubing — the unpressurized vent line. The LLDPE runs down the
+foam shell's PORT LANE and out its slot in the −X wall, one station
+above the evaporator inlet copper that shares it, into the appliance
+interior, where it terminates open.
+
+The hole is radial and not in the cap because THE CAP HAS NOWHERE TO
+SEND A TUBE. Installed, the shroud lies horizontally on the −Y port's
+lateral axis and its cap face stands ~3 mm off the foam shell's own
+inner wall — less than a tube's radius, so a line leaving axially has
+no room to turn. Leaving radially through the barrel's underside, the
+line is already pointing down the lane it has to fall, and needs no
+corner at all. The hole's station along the barrel
+([37.88 mm](VENT_STATION) from the open end) is what lands it on that
+lane's centreline once the shroud is made up on the elbow.
 
 Geometry
 --------
 
     Z = [46 mm](TOTAL_L)  ┌──────────────────────┐  ← cap outside surface
-               │ ░░░░ [2 mm](PRV_CAP_T) cap ░░░░░░ │  ← centered ⌀[6.35 mm](PRV_VENT_D) hole
+               │ ░░░░ [2 mm](PRV_CAP_T) cap ░░░░░░ │  ← closed, no hole
     Z = [44 mm](CAVITY_L)  ├──────────────────────┤  ← cap inside surface
                │                      │
                │   (cavity around     │
@@ -34,6 +44,10 @@ Geometry
                │    pull-ring)        │
                │                      │
     Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
+
+               ⌀[6.35 mm](PRV_VENT_D) vent bored radially through the −Y wall at
+               Z = [37.88 mm](VENT_STATION); installed, −Y is the shell's −Z, so the
+               tube leaves DOWNWARD onto the port lane.
 
 The [44 mm](CAVITY_L) cavity length spans from the bottom of the elbow's smooth
 cylinder to the tip of the PRV pull-ring with the valve hand-tight
@@ -75,6 +89,15 @@ cap_thickness = 2.0
 cavity_length = 44.0
 # [6.35 mm](PRV_VENT_D) — 1/4" LLDPE tubing OD.
 vent_hole_diameter = 6.35
+# [37.88 mm](VENT_STATION) along the barrel from the open end — where the radial vent
+# stands. The shroud seats on the PRV elbow's own lateral mouth and reaches along the
+# vessel's −Y from there, so this distance is the mouth-to-lane gap: the mouth stands at
+# y −39.62 (one catalog elbow leg off the −Y port) and the foam shell's port lane runs at
+# y −77.5, so the hole lands on that lane's centreline and the tube falls it with no
+# corner at all. It sits inside the cavity by more than its own radius, so the bore opens
+# on the annulus around the valve. `cold-core-layout`'s `prv-vent-lands` is what holds
+# this reading against the placed shroud's.
+vent_station_z = 37.88
 
 outer_diameter = inner_diameter + 2 * wall_thickness  # [23 mm](PRV_OUTER_D)
 total_length = cavity_length + cap_thickness  # [46 mm](TOTAL_L)
@@ -86,7 +109,8 @@ def build_prv_shroud():
     """One-piece cup on axis +Z: a full ⌀[23 mm](PRV_OUTER_D) cylinder spanning Z=0 to
     the cap top at Z=[46 mm](TOTAL_L), an open-end bore (⌀[19 mm](PRV_INNER_D), Z=0 inward) that the
     elbow seat enters and that stops at the cap inner face Z=[44 mm](CAVITY_L), and a
-    centered ⌀[6.35 mm](PRV_VENT_D) vent hole through the Z=[44 mm](CAVITY_L)-to-[46 mm](TOTAL_L) cap."""
+    ⌀[6.35 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
+    Z=[37.88 mm](VENT_STATION)."""
     outer = (
         cq.Workplane("XY")
         .circle(outer_diameter / 2)
@@ -98,10 +122,11 @@ def build_prv_shroud():
         .extrude(cavity_length + overcut)
     )
     vent_hole = (
-        cq.Workplane("XY")
-        .workplane(offset=cavity_length - overcut)
+        cq.Workplane("XZ")
+        .workplane(offset=inner_diameter / 2 - overcut)
+        .center(0.0, vent_station_z)
         .circle(vent_hole_diameter / 2)
-        .extrude(cap_thickness + 2 * overcut)
+        .extrude(wall_thickness + 2 * overcut)
     )
     return outer.cut(cavity).cut(vent_hole)
 
@@ -130,6 +155,7 @@ def main():
         "PRV_CAP_T": f"{cap_thickness:.4g} mm",
         "CAVITY_L": f"{cavity_length:.4g} mm",
         "PRV_VENT_D": f"{vent_hole_diameter:.4g} mm",
+        "VENT_STATION": f"{vent_station_z:.4g} mm",
         "PRV_OUTER_D": f"{outer_diameter:.4g} mm",
         "TOTAL_L": f"{total_length:.4g} mm",
         "OVERCUT": f"{overcut:.4g} mm",
@@ -147,6 +173,7 @@ def main():
             "PRV_CAP_T": 2,
             "CAVITY_L": 1,
             "PRV_VENT_D": 1,
+            "VENT_STATION": 1,
             "PRV_OUTER_D": 1,
             "TOTAL_L": 1,
             "PRV_VOLUME": 1,
@@ -164,10 +191,11 @@ def main():
             "OVERCUT": 1,
             "PRV_WALL_T": 2,
             "PRV_CAP_T": 2,
-            "CAVITY_L": 5,
+            "CAVITY_L": 4,
             "PRV_VENT_D": 4,
+            "VENT_STATION": 4,
             "PRV_OUTER_D": 3,
-            "TOTAL_L": 5,
+            "TOTAL_L": 4,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
