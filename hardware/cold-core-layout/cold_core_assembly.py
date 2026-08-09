@@ -40,6 +40,7 @@ import _vessel as _V                                     # noqa: E402
 import _coil as _C                                       # noqa: E402
 import _fittings as _F                                   # noqa: E402
 import _internals as _I                                  # noqa: E402
+import _bom as _bom_check                                # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
 from _cold_scorecard import Check, Scorecard, verdict     # noqa: E402
 
@@ -141,6 +142,20 @@ JOINED = {frozenset(p) for p in (
 # do, so they are graded against them as lines rather than fitted around as obstacles.
 TAIL_LINES = ("evap-tail-inlet", "evap-tail-outlet")
 
+# The fitting each line is MADE UP ON at either end. A body a line lands on is not a body it
+# has to route around, so it is out of that line's own obstacle set — and only that line's.
+MADE_UP_ON = {
+    "co2-in": ("collet-co2-in", "vessel-elbow-co2-in"),
+    "carb-water-out": ("collet-carb-water-out", "vessel-elbow-carb-water-out"),
+    "water-in": ("collet-water-in", "vessel-elbow-water-in"),
+    "reservoir-a": ("bulkhead-reservoir-a",),
+    "reservoir-b": ("bulkhead-reservoir-b",),
+}
+
+# The straight a run leaves a fitting on, as a multiple of its own bend radius: one reach for
+# the stub and one for the tangent its first corner seats on.
+PORT_LEAD_BENDS = 2.0
+
 
 def _load(path: Path):
     return cq.importers.importStep(str(path)).val()
@@ -220,9 +235,14 @@ def build_routes(placed: dict) -> dict:
 
     The obstacles are the solids a line runs among — everything placed except the caps standing
     over the shell's open top, which every riser passes on its way out."""
-    obstacles = {n: s for n, s in placed.items()
-                 if not n.startswith("foam-cap") and n not in TAIL_LINES}
-    return {n: _routes.fit_route(pts, obstacles) for n, pts in trimmed_routes().items()}
+    base = {n: s for n, s in placed.items()
+            if not n.startswith("foam-cap") and n not in TAIL_LINES}
+    out = {}
+    for name, pts in trimmed_routes().items():
+        exempt = MADE_UP_ON.get(name, ())
+        obstacles = {n: s for n, s in base.items() if n not in exempt}
+        out[name] = _routes.fit_route(pts, obstacles)
+    return out
 
 
 def build_assembly():
@@ -302,8 +322,9 @@ def _routes_fit(placed: dict, fitted: dict) -> Check:
     detail = []
     for name in sorted(fitted):
         tube = fitted[name][1]
+        exempt = set(MADE_UP_ON.get(name, ()))
         for other, solid in sorted(placed.items()):
-            if other in TAIL_LINES:
+            if other in TAIL_LINES or other in exempt:
                 continue
             vol = tube.intersect(solid).Volume()
             if vol > _card.TOUCH_VOLUME:
@@ -354,6 +375,34 @@ def _lane_census(fitted: dict, placed: dict) -> Check:
                           f"x {bb.xmin:.1f}..{bb.xmax:.1f}")
     return Check("lane-census", "What each lane carries, and at what storey", "gate", "pass",
                  f"{len(detail)} run-lane pairs", "a reading, not a bound", detail)
+
+
+def _port_leads(fitted: dict, points: dict) -> Check:
+    """The straight each line leaves its own fitting on.
+
+    A collet takes the tube on its own axis, so what a made-up end needs is a straight to
+    receive it — `PORT_LEAD_BENDS` reaches of the line's own radius, one for the stub and one
+    for the tangent the first corner seats on. Shorter than that is a tube that cannot be
+    pushed home without bending it in the grip.
+
+    A run with NO corner is straight through and seats no tangent, so it is not asked for one:
+    each reservoir fill is the gap between two bores and is shorter than the lead itself."""
+    detail = []
+    total = 0
+    for name in sorted(fitted):
+        bend, _tube = fitted[name]
+        legs = _routes.route_legs(points[name], bend)
+        if len(legs) < 2:
+            continue
+        want = PORT_LEAD_BENDS * bend
+        for end, (a, b) in (("start", legs[0]), ("end", legs[-1])):
+            total += 1
+            got = (b - a).Length
+            if got < want - 1e-6:
+                detail.append(f"{name} {end}: {got:.1f} mm of straight, {want:.1f} wanted")
+    return Check("port-leads", "Every made-up end has a straight to receive the tube", "gate",
+                 verdict(not detail), f"{total - len(detail)}/{total} ends", 
+                 f"{PORT_LEAD_BENDS:g} bend radii", detail)
 
 
 def _arcs_hold(fitted: dict) -> Check:
@@ -467,7 +516,9 @@ def build_card(a) -> Scorecard:
         _bodies_clear(placed),
         _routes_fit(placed, fitted),
         _lines_apart(fitted, placed),
+        _bom_check.check(placed),
         _lane_census(fitted, placed),
+        _port_leads(fitted, a.points),
         _arcs_hold(fitted),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),

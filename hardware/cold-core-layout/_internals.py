@@ -42,6 +42,34 @@ from _cold_core_interface import (                       # noqa: E402
 )
 from _reed_channels import reed_y_center, reeds_per_reservoir   # noqa: E402
 
+_ref = _hw / "reference" / "jg-pp010822e"
+sys.path.insert(0, str(_ref))
+import jg_pp010822e as _ptc                              # noqa: E402
+
+
+# --- the three collets made up on vessel elbows ------------------------------
+#
+# `bom.md` §3, §4 and §9 each carry a PP010822E that lands on one of the vessel's own elbows.
+# The shank threads the elbow's socket and the collet stands outside it, so a line that used to
+# start at the elbow's mouth starts at the collet's.
+PTC_STANDOFF = _ptc.COLLET_LENGTH + _ptc.HEX_LENGTH
+PTC_PORTS = ("co2-in", "carb-water-out", "water-in")
+
+
+def collet_on(mouth):
+    """One PP010822E made up on a mouth: `(solid, the mouth it now presents)`."""
+    out = cq.Vector(*mouth.axis).normalized()
+    origin = cq.Vector(*mouth.pos) + out.multiply(PTC_STANDOFF)
+    solid = F.stand_x_along(cq.importers.importStep(str(_ref / "jg-pp010822e.step")).val(),
+                            at=origin, axis=-out)
+    return solid, F.Mouth(tuple(origin), tuple(out), _ptc.TUBE_D)
+
+
+def vessel_collets() -> dict:
+    """Each vessel port's collet, name → `(solid, mouth)`."""
+    vm = _V.mouths()
+    return {name: collet_on(vm[name]) for name in PTC_PORTS}
+
 # --- the sparge stack, inside the vessel over the bottom plate ---------------
 #
 # The barb threads the bottom plate's lane-side port from the INSIDE and faces up the column.
@@ -137,7 +165,10 @@ def reservoir_bulkheads(reservoirs: dict = None) -> dict:
         body = (reservoirs or {}).get(name)
         barrel = None
         if body is not None:
-            barrel = max(F.PURESEC_BARREL_LEN, trough_floor_z(body, corner[0]) - corner[2])
+            # The nut lands on the wet side of the seal, so the barrel carries the
+            # floor it passes AND the washer squeezed on top of it.
+            barrel = max(F.PURESEC_BARREL_LEN,
+                         trough_floor_z(body, corner[0]) - corner[2] + F.WASHER_T)
         out[name] = F.puresec_elbow(corner=corner, up=(0, 0, 1), out=_bulkhead_out(line),
                                     barrel_len=barrel, collet_r=BULKHEAD_COLLET_R)
     return out
@@ -217,6 +248,25 @@ def level_bodies(reservoirs: dict = None) -> dict:
     return out
 
 
+def seals(reservoirs: dict = None) -> dict:
+    """Each pocket's wet-side face seal, and the membrane in each cap's vent pocket."""
+    out = {}
+    for name, side in (("a", +1), ("b", -1)):
+        body = (reservoirs or {}).get(f"reservoir-{name}")
+        x = side * reservoir_bulkhead_port_x
+        floor = trough_floor_z(body, x) if body is not None else bulkhead_elbow_exit_z
+        out[f"bulkhead-seal-{name}"] = F.silicone_washer(centre=(x, 0.0, floor))
+        out[f"vent-membrane-{name}"] = F.membrane(
+            centre=(side * _res.vent_position_x, _res.vent_position_y,
+                    _cap_z() + _res.vent_pocket_bottom_z))
+    return out
+
+
+def _cap_z() -> float:
+    """Where a reservoir cap's own zero sits in the shell's frame."""
+    return _R.reservoir_cap_top_z - _res.cap_total_height
+
+
 # --- the two 1-wire probes ---------------------------------------------------
 #
 # `bom.md` §5. The tank probe (family 0x28) is foil-taped to the vessel OD; the coil probe
@@ -227,11 +277,11 @@ PROBE_STANDOFF = F.TO92_W * 0.71
 
 
 def probes() -> dict:
-    tank_z = (_V.interior_z[0] + _V.interior_z[1]) / 2.0
+    tank_z = _C.gap_z_near(180.0, (_V.interior_z[0] + _V.interior_z[1]) / 2.0)
     tank_at = (-(tank_outer_radius + PROBE_STANDOFF), 0.0, tank_z)
     # One wrap back from the outlet tail, in the gap between two wraps and against the tank —
     # which is where the tape that holds it can reach it.
-    coil_at = _C._at(_C.AZ_OUT, _C.evap_tail_high_z - _C.PITCH / 2.0,
+    coil_at = _C._at(_C.AZ_OUT, _C.gap_z_near(_C.AZ_OUT, _C.evap_tail_high_z - _C.PITCH),
                      tank_outer_radius + PROBE_STANDOFF).toTuple()
     return {"probe-tank-ds18b20": F.to92(centre=tank_at, axis=(0, 0, 1)),
             "probe-coil-ds18s20": F.to92(centre=coil_at, axis=(0, 0, 1))}
@@ -240,9 +290,12 @@ def probes() -> dict:
 def bodies(reservoirs: dict = None) -> dict:
     out = {}
     out.update(sparge_stack())
+    for name, (solid, _m) in vessel_collets().items():
+        out[f"collet-{name}"] = solid
     for name, (solid, _m) in reservoir_bulkheads(reservoirs).items():
         out[f"bulkhead-{name}"] = solid
     out.update(level_bodies(reservoirs))
+    out.update(seals(reservoirs))
     out.update(probes())
     return out
 

@@ -101,6 +101,15 @@ def wrap_length() -> float:
     return TOTAL_WRAPS * math.hypot(2 * math.pi * WIND_R, PITCH)
 
 
+def gap_z_near(azimuth_deg: float, target_z: float) -> float:
+    """A Z at `azimuth_deg` midway between two wraps, as near `target_z` as the pitch allows.
+
+    What is taped to the tank sits against it, so it has to land in the copper's own gap."""
+    turns = (target_z - evap_tail_low_z) / PITCH - (azimuth_deg - AZ_IN) / 360.0
+    wrap_z = evap_tail_low_z + (math.floor(turns) + (azimuth_deg - AZ_IN) / 360.0) * PITCH
+    return wrap_z + PITCH / 2.0
+
+
 def tail_points(which: str) -> list:
     """One tail's centreline: off the wrap, onto its own lane, down it, and out through the
     wall at the station its plug leaves."""

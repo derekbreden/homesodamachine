@@ -12,12 +12,11 @@
    "label": "No two placed solids share volume",
    "kind": "gate",
    "status": "fail",
-   "value": "16 clash",
+   "value": "13 clash",
    "target": "0 clash",
    "detail": [
     "carbonator-tube \u2229 float-carb = 531.53 mm\u00b3",
     "float-carb \u2229 reed-bridge = 176.22 mm\u00b3",
-    "evap-coil \u2229 probe-tank-ds18b20 = 89.72 mm\u00b3",
     "copper-plug-top \u2229 foam-shell = 72.45 mm\u00b3",
     "copper-plug-middle \u2229 foam-shell = 69.33 mm\u00b3",
     "evap-coil \u2229 float-carb = 60.78 mm\u00b3",
@@ -27,8 +26,6 @@
     "evap-coil \u2229 reed-bridge = 15.21 mm\u00b3",
     "float-rod-a \u2229 reservoir-a-cap = 7.92 mm\u00b3",
     "float-rod-b \u2229 reservoir-b-cap = 7.92 mm\u00b3",
-    "bulkhead-reservoir-a \u2229 reservoir-a = 4.65 mm\u00b3",
-    "bulkhead-reservoir-b \u2229 reservoir-b = 4.65 mm\u00b3",
     "copper-plug-lower \u2229 foam-shell = 3.12 mm\u00b3",
     "foam-shell \u2229 prv-shroud = 0.82 mm\u00b3"
    ],
@@ -58,6 +55,24 @@
    "active": true
   },
   {
+   "id": "bom-covered",
+   "label": "Every billed cold-core part has a body here",
+   "kind": "goal",
+   "status": "fail",
+   "value": "29/36",
+   "target": "a body per billed part",
+   "detail": [
+    "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
+    "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
+    "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
+    "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
+    "heat-set inserts \u2014 billed, no solid here (\"ruthex M3 Threaded Inserts\")",
+    "cap clamp screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 25 mm DIN 912\")",
+    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")"
+   ],
+   "active": true
+  },
+  {
    "id": "lane-census",
    "label": "What each lane carries, and at what storey",
    "kind": "gate",
@@ -76,6 +91,22 @@
    "active": true
   },
   {
+   "id": "port-leads",
+   "label": "Every made-up end has a straight to receive the tube",
+   "kind": "gate",
+   "status": "fail",
+   "value": "5/10 ends",
+   "target": "2 bend radii",
+   "detail": [
+    "carb-water-out start: 10.9 mm of straight, 28.0 wanted",
+    "carb-water-out end: 8.2 mm of straight, 28.0 wanted",
+    "reservoir-a start: 14.5 mm of straight, 28.0 wanted",
+    "water-in start: 27.1 mm of straight, 28.0 wanted",
+    "water-in end: 3.3 mm of straight, 28.0 wanted"
+   ],
+   "active": true
+  },
+  {
    "id": "arcs-hold",
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
@@ -90,7 +121,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "48/48",
+   "value": "55/55",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -110,7 +141,7 @@
    "label": "Every body is real geometry rather than a primitive",
    "kind": "goal",
    "status": "pass",
-   "value": "48/48",
+   "value": "55/55",
    "target": "no primitives",
    "detail": [],
    "active": false
@@ -130,7 +161,7 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "pass",
-   "value": "48/48",
+   "value": "55/55",
    "target": "a holder per body",
    "detail": [],
    "active": false
@@ -140,12 +171,17 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "0/48",
+   "value": "0/55",
    "target": "a printed joint per body",
    "detail": [
     "bulkhead-reservoir-a: held by trough floor",
     "bulkhead-reservoir-b: held by trough floor",
+    "bulkhead-seal-a: held by the pour",
+    "bulkhead-seal-b: held by the pour",
     "carbonator-tube: held by support ring",
+    "collet-carb-water-out: held by the pour",
+    "collet-co2-in: held by the pour",
+    "collet-water-in: held by the pour",
     "copper-plug-lower: held by wall slot",
     "copper-plug-middle: held by wall slot",
     "copper-plug-top: held by wall slot",
@@ -187,6 +223,8 @@
     "sparge-barb: held by plate thread",
     "sparge-silicone-stub: held by the barb and the stone",
     "sparge-stone: held by its own stub",
+    "vent-membrane-a: held by the pour",
+    "vent-membrane-b: held by the pour",
     "vessel-elbow-carb-water-out: held by plate thread",
     "vessel-elbow-co2-in: held by plate thread",
     "vessel-elbow-prv: held by plate thread",
@@ -301,10 +339,10 @@
      3.0,
      117.702,
      11.0,
-     35.0
+     38.0
     ]
    ],
-   "fill": 0.34,
+   "fill": 0.3357,
    "primitive": false,
    "declared": "real"
   },
@@ -317,10 +355,42 @@
      3.0,
      -92.298,
      16.0,
-     35.0
+     38.0
     ]
    ],
-   "fill": 0.3431,
+   "fill": 0.3388,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "bulkhead-seal-a",
+   "boxes": [
+    [
+     93.0,
+     -12.0,
+     29.0,
+     117.0,
+     12.0,
+     32.0
+    ]
+   ],
+   "fill": 0.4363,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "bulkhead-seal-b",
+   "boxes": [
+    [
+     -117.0,
+     -12.0,
+     29.0,
+     -93.0,
+     12.0,
+     32.0
+    ]
+   ],
+   "fill": 0.4363,
    "primitive": false,
    "declared": "real"
   },
@@ -337,6 +407,54 @@
     ]
    ],
    "fill": 0.0403,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "collet-carb-water-out",
+   "boxes": [
+    [
+     -39.074,
+     11.905,
+     8.75,
+     -9.574,
+     26.195,
+     25.25
+    ]
+   ],
+   "fill": 0.659,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "collet-co2-in",
+   "boxes": [
+    [
+     -34.813,
+     -49.024,
+     8.75,
+     -3.154,
+     -19.726,
+     25.25
+    ]
+   ],
+   "fill": 0.2995,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "collet-water-in",
+   "boxes": [
+    [
+     -7.145,
+     28.624,
+     191.15,
+     7.145,
+     58.124,
+     207.65
+    ]
+   ],
+   "fill": 0.659,
    "primitive": false,
    "declared": "real"
   },
@@ -650,10 +768,10 @@
     [
      -39.067,
      53.225,
-     157.637,
+     145.312,
      -34.767,
      57.525,
-     162.837
+     150.512
     ]
    ],
    "fill": 0.9331,
@@ -666,10 +784,10 @@
     [
      -68.703,
      -2.15,
-     105.6,
+     110.263,
      -64.403,
      2.15,
-     110.8
+     115.463
     ]
    ],
    "fill": 0.9331,
@@ -997,6 +1115,38 @@
    "declared": "real"
   },
   {
+   "component": "vent-membrane-a",
+   "boxes": [
+    [
+     89.5,
+     -39.0,
+     208.4,
+     102.5,
+     -26.0,
+     208.55
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
+   "component": "vent-membrane-b",
+   "boxes": [
+    [
+     -102.5,
+     -39.0,
+     208.4,
+     -89.5,
+     -26.0,
+     208.55
+    ]
+   ],
+   "fill": 0.7854,
+   "primitive": false,
+   "declared": "real"
+  },
+  {
    "component": "vessel-elbow-carb-water-out",
    "boxes": [
     [
@@ -1008,7 +1158,7 @@
      44.954
     ]
    ],
-   "fill": 0.3817,
+   "fill": 0.3449,
    "primitive": false,
    "declared": "real"
   },
@@ -1024,7 +1174,7 @@
      41.525
     ]
    ],
-   "fill": 0.2274,
+   "fill": 0.2048,
    "primitive": false,
    "declared": "real"
   },
@@ -1040,7 +1190,7 @@
      207.338
     ]
    ],
-   "fill": 0.357,
+   "fill": 0.3226,
    "primitive": false,
    "declared": "real"
   },
@@ -1056,7 +1206,7 @@
      207.338
     ]
    ],
-   "fill": 0.357,
+   "fill": 0.3226,
    "primitive": false,
    "declared": "real"
   }
@@ -1319,9 +1469,39 @@
    "kind": "real"
   },
   {
+   "component": "bulkhead-seal-a",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
+   "component": "bulkhead-seal-b",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
    "component": "carbonator-tube",
    "by": null,
    "held": "support ring",
+   "kind": "real"
+  },
+  {
+   "component": "collet-carb-water-out",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
+   "component": "collet-co2-in",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
+   "component": "collet-water-in",
+   "by": null,
+   "held": "the pour",
    "kind": "real"
   },
   {
@@ -1571,6 +1751,18 @@
    "kind": "real"
   },
   {
+   "component": "vent-membrane-a",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
+   "component": "vent-membrane-b",
+   "by": null,
+   "held": "the pour",
+   "kind": "real"
+  },
+  {
    "component": "vessel-elbow-carb-water-out",
    "by": null,
    "held": "plate thread",
@@ -1596,7 +1788,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T02:03:39+00:00",
-  "commit": "4f2e3ef694bfe2d693d43c3802e7a4654d4f2c06"
+  "generated": "2026-08-09T02:15:57+00:00",
+  "commit": "1dffb33f9ed15227cbf52064e9ebde5d79fab597"
  }
 }
