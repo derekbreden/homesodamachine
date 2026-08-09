@@ -12,7 +12,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, failingBends,
-  bendPinned, unmountedComponents } from "../contracts/scorecard-sidecar.js";
+  bendPinned, unmountedComponents, sizeText, MM_PER_INCH } from "../contracts/scorecard-sidecar.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -69,6 +69,39 @@ test("the port inventory carries a coordinate and a bore for every located conne
       assert.equal(typeof p.diam, "number", `located port ${p.name} has a bore Ø`);
     }
   }
+});
+
+// ── Size ────────────────────────────────────────────────────────────────────────────────────
+// Both rows are measured off the placed solids, and they hold each other: the assembly population
+// is every body AND the printed box, so its box contains the box drawn around the shells alone.
+test("the size table measures the printed box and the assembly around it", (t) => {
+  if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
+  const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
+  assert.ok(isScorecard(sc), "sidecar passes isScorecard");
+
+  assert.ok(Array.isArray(sc.size), "sidecar carries a size table");
+  const byId = Object.fromEntries(sc.size.map((s) => [s.id, s]));
+  for (const id of ["enclosure", "assembly"]) assert.ok(byId[id], `size row ${id} present`);
+
+  for (const s of sc.size) {
+    for (let i = 0; i < 3; i++) {
+      assert.ok(s.max[i] > s.min[i], `${s.id} axis ${i} has extent`);
+      assert.ok(Math.abs(s.mm[i] - (s.max[i] - s.min[i])) < 1e-6,
+        `${s.id} axis ${i}: mm is max − min`);
+    }
+  }
+
+  const { enclosure, assembly } = byId;
+  for (let i = 0; i < 3; i++) {
+    assert.ok(assembly.min[i] <= enclosure.min[i] + 1e-6, `assembly box holds the box, axis ${i} low`);
+    assert.ok(assembly.max[i] >= enclosure.max[i] - 1e-6, `assembly box holds the box, axis ${i} high`);
+  }
+});
+
+test("sizeText renders one measurement in both units", () => {
+  assert.equal(sizeText({ mm: [223, 474, 358] }),
+    "223.0 × 474.0 × 358.0 mm · 8.78 × 18.66 × 14.09 in");
+  assert.equal(MM_PER_INCH, 25.4);
 });
 
 test("scorecardPathFor maps a STEP path to its sidecar", () => {
@@ -148,4 +181,8 @@ test("isScorecard rejects malformed input", () => {
   // A well-formed ports entry (and an absent ports field) both pass.
   assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: [1, 2, 3], diam: 6.35, mates: "y", status: "ok" }] }), true);
   assert.equal(isScorecard(base), true);
+  // A size row missing an axis is rejected; a whole one passes.
+  const size = { id: "enclosure", label: "the printed box", min: [0, 0, 0], max: [1, 2, 3], mm: [1, 2, 3] };
+  assert.equal(isScorecard({ ...base, size: [{ ...size, mm: [1, 2] }] }), false);
+  assert.equal(isScorecard({ ...base, size: [size] }), true);
 });

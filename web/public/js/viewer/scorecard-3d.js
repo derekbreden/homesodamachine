@@ -6,7 +6,7 @@
 // on the model. One verdict, two surfaces: the same data the terminal prints.
 
 import { scorecardPathFor, isScorecard, FOCUS_IDS, focusAxes, failingBends, bendPinned,
-         unmountedComponents } from "/contracts/scorecard-sidecar.js";
+         unmountedComponents, sizeText } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
@@ -90,6 +90,20 @@ function appendCheck(card, c, gray, wrapper, partNames, showDetail = true) {
 function closeModal(wrapper) {
   const m = wrapper.querySelector(".sc-modal");
   if (m) m.remove();
+}
+
+// ── Size ────────────────────────────────────────────────────────────────────────────────────
+// How big the thing on the canvas is, in the units both readers use: the printed box, and the
+// whole assembly around it. Above the focus panels, because it is what the rest is measured in.
+function appendSize(card, sc) {
+  const rows = Array.isArray(sc.size) ? sc.size : [];
+  if (!rows.length) return;
+  card.appendChild(el("div", "sc-h", "Size — width × depth × height"));
+  for (const s of rows) {
+    const r = row("sc-row size", s.id, sizeText(s));
+    r.title = s.label;
+    card.appendChild(r);
+  }
 }
 
 // ── The focus panels ────────────────────────────────────────────────────────────────────────
@@ -181,8 +195,9 @@ function openModal(wrapper, sc, title) {
   const passed = gates.filter((c) => c.status === "pass").length;
   const partNames = scenePartNames(); // solids in the scene → which rows are clickable
 
-  // The two focus axes lead, itemized. Below, each keeps its line in the block it belongs to;
-  // its rows are above.
+  // How big it is, then the two focus axes itemized. Below, each keeps its line in the block it
+  // belongs to; its rows are above.
+  appendSize(card, sc);
   const promoted = appendFocus(card, sc, wrapper, partNames);
   const shown = (c) => !promoted.includes(c.id);
 
