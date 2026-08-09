@@ -217,7 +217,7 @@ floor_inserts_per_build = len(_floor_bosses)
 # the posts. One of the four also takes the compressor's chassis bond (AC-6) under its head.
 floor_screws_per_build = floor_inserts_per_build
 
-# Combined heat-set insert count across the appliance (54).
+# Combined heat-set insert count across the appliance.
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -225,6 +225,22 @@ total_m3_inserts_per_build = (
     + shelf_inserts_per_build
     + floor_inserts_per_build
 )
+
+# And the screws that go into them. EVERY INSERT IN THIS BUILD TAKES ONE SCREW, which is what
+# the equality below says — an insert with no screw is a threaded hole nobody reaches, and the
+# bench presses it anyway. `labor.md` §8 prices both passes off these two figures.
+total_m3_screws_per_build = (
+    foam_cap_screws_per_build
+    + pump_mount_screws_per_build
+    + reservoir_cap_screws_per_build
+    + touchflo_screws_per_build
+    + shelf_screws_per_build
+    + floor_screws_per_build
+)
+assert total_m3_screws_per_build == total_m3_inserts_per_build, (
+    f"the build presses {total_m3_inserts_per_build} heat-set inserts and drives "
+    f"{total_m3_screws_per_build} screws into them — name the body that bolts to the "
+    f"{total_m3_inserts_per_build - total_m3_screws_per_build} left over, or stop printing them")
 
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
@@ -336,6 +352,39 @@ def main():
         },
     )
     print("-> bom.md")
+
+    # `labor.md` §8 prices two passes of the same hardware — pressing every insert, then
+    # driving every screw — so the counts it quotes are these, not its own.
+    substitute_md(
+        _here.parent / "ledger" / "labor.md",
+        variables={
+            "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
+            "TOTAL_M3_SCREWS": f"{total_m3_screws_per_build:.4g}",
+            "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
+            "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
+            "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
+            "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
+            "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
+            "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
+            "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
+            "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
+            "SOLENOIDS": f"{solenoid_count:.4g}",
+        },
+        expected_counts={
+            "TOTAL_M3_INSERTS": 2,
+            "TOTAL_M3_SCREWS": 2,
+            "FOAM_CLAMP_INSERTS": 1,
+            "FOAM_SCREWS": 1,
+            "PUMP_MOUNT_SCREWS": 1,
+            "RES_SCREWS": 1,
+            "TOUCHFLO_SCREWS": 1,
+            "SHELF_INSERTS": 1,
+            "SHELF_SCREWS": 1,
+            "FLOOR_SCREWS": 1,
+            "SOLENOIDS": 1,
+        },
+    )
+    print("-> labor.md")
 
 
 if __name__ == "__main__":

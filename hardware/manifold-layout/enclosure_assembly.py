@@ -1417,12 +1417,16 @@ def descent(body, under, limit=DECK_FALL_LIMIT):
     EXACT STRIDES, not a grid. `_clearing.gap` is 1-Lipschitz under translation, so advancing the
     body by its own current gap cannot step over a contact: the walk closes on the landing itself
     rather than sampling near it, and a body that never lands says so instead of reporting the
-    limit as a clearance."""
+    limit as a clearance.
+
+    The horizon is the fall the body has left. A stride that reaches it is a stride past the
+    limit, so the walk ends on the same step whether the gap out there is that far or further,
+    and the body is carried by `offset` rather than rebuilt at each station."""
     best = None
     for other in under:
         t = 0.0
         while t <= limit:
-            g = _clearing.gap(body.translate(cq.Vector(0.0, 0.0, -t)), other)
+            g = _clearing.gap(body, other, limit - t, offset=(0.0, 0.0, -t))
             if g <= 1e-9:
                 best = t if best is None else min(best, t)
                 break
@@ -2400,7 +2404,7 @@ def check_bowl_clear(flowreg, funnel) -> Bound:
     Measured rather than derived, because the two are on opposite sides of the box: the box is
     sized around the pack the regulator is in, and the funnel is then seated in its top. So
     `FLAVOR_STEP` is the reach the lane is given and this is what it turns out to be worth."""
-    got = _clearing.gap(flowreg, funnel)
+    got = _clearing.gap(flowreg, funnel, FLAVOR_STEP)
     ok = got >= BOWL_CLEAR - 1e-6
     return record_bound(Bound(
         "bowl-clear", "The flavour tap runs under the hopper's bowl", ok,

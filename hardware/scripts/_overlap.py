@@ -1,74 +1,25 @@
-"""The solid two bodies share, measured exactly.
+"""The solid two bodies share.
 
-`intersect` is one ask, and one ask is not a measurement — the case it is quiet on is the
-case a pack is most likely to have built on purpose. `common(a, b)` asks twice and hands
-back `(shape, mm³)`; a boolean that does not resolve raises rather than reporting zero.
+`common(a, b)` hands back `(shape, mm³)`, where the shape is a `manifold3d.Manifold` and the
+volume is what the two enclose between them. A body whose mesh does not close raises out of
+`_meshes` rather than arriving here to be measured as a clean pair.
 
     import _overlap
     shape, vol = _overlap.common(a, b)
     vol = _overlap.volume(a, b)
+
+The reading stands within the bound `_meshes` states. Two tubes of one Ø crossing axis-on-axis
+share a Steinmetz solid of 16r³/3, and `_meshes.selftest` holds that crossing — a port row fixes
+both runs to one z, so it is an arrangement the pack builds.
 """
 
-try:
-    from OCP.BRepAlgoAPI import BRepAlgoAPI_Common
-    from OCP.TopTools import TopTools_ListOfShape
-    from OCP.GProp import GProp_GProps
-    from OCP.BRepGProp import BRepGProp
-    _HAVE_EXACT = True
-except ImportError:                                  # pragma: no cover — OCP is the CAD kernel
-    _HAVE_EXACT = False
-
-
-# An exact Common hands back an EMPTY result — IsDone, no error, no solid — for two bodies
-# whose surfaces are exactly TANGENT along the crossing. Two tubes of one Ø meeting on one
-# stratum are that case, and a pack builds it deliberately: a port row fixes both runs to a
-# single z, so their axes meet inside a plane, the two surfaces touch at the poles of the
-# crossing and the section curve is singular at those two points. On sweeps this long, this
-# far from the origin, the section step cannot resolve that node inside Precision::Confusion
-# and returns nothing at all — a whole Steinmetz solid of interpenetration reported as zero,
-# so the one arrangement most likely to be wrong is the one a single ask cannot see.
-#
-# So an empty exact result is asked again with a fuzz, and only then. The retry is bounded on
-# both sides. Under 1e-5 the tangency is still unresolved (1e-6 returns the same nothing); far
-# over it a fuzz SWALLOWS a real overlap shallower than itself, and a 1 mm³ floor is reached by
-# a thin wide overlap (1e-5 mm over 100,000 mm²) as readily as by a deep narrow one. What it
-# cannot do is invent an overlap: a fuzz raises the tolerance for merging coincident geometry,
-# it does not grow the solids, so two bodies that merely touch — a tray on its lid, a foot on
-# the floor slab — still measure zero however large it is.
-FUZZ = 1e-5
+import _meshes
 
 
 def common(a, b) -> tuple:
     """The solid two bodies share and its volume, as `(shape, mm³)`. Empty is `(shape, 0.0)`."""
-    if not _HAVE_EXACT:
-        raise RuntimeError(
-            "the exact boolean is unavailable — OCP.BRepAlgoAPI did not import, so no overlap "
-            "here is a measurement")
-    shape, vol = _at(a, b, 0.0)
-    return (shape, vol) if vol > 0.0 else _at(a, b, FUZZ)
-
-
-def _at(a, b, fuzz: float) -> tuple:
-    """One Common at one fuzz, as `(cq shape, volume)`. Raises rather than reporting an
-    unresolved boolean as a clean pair."""
-    import cadquery as cq
-
-    args, tools = TopTools_ListOfShape(), TopTools_ListOfShape()
-    args.Append(a.wrapped)
-    tools.Append(b.wrapped)
-    op = BRepAlgoAPI_Common()
-    op.SetArguments(args)
-    op.SetTools(tools)
-    if fuzz:
-        op.SetFuzzyValue(fuzz)
-    op.Build()
-    if not op.IsDone():
-        raise RuntimeError(
-            f"an intersection did not resolve between two solids (fuzz {fuzz:g}) — the overlap "
-            f"is unknown, not absent")
-    props = GProp_GProps()
-    BRepGProp.VolumeProperties_s(op.Shape(), props)
-    return cq.Shape.cast(op.Shape()), props.Mass()
+    shape = _meshes.meshed(a) ^ _meshes.meshed(b)
+    return shape, shape.volume()
 
 
 def volume(a, b) -> float:
@@ -78,12 +29,11 @@ def volume(a, b) -> float:
 
 # --- the guard ---------------------------------------------------------------
 #
-# WHAT COMES BACK IS NOT THE POINT — the point is that every gate ASKS HERE. The tangency
-# above cannot be reproduced from primitives: two perpendicular cylinders of one Ø answer
-# correctly to a bare `intersect`, and it takes a long sweep far from the origin to put the
-# section step past what `Precision::Confusion` can resolve. So there is no small numeric
-# test to leave behind, and the regression to guard is the one that actually happens — a
-# gate written with the bare pattern, which reads as a measurement and is an ask.
+# WHAT COMES BACK IS NOT THE POINT — the point is that every gate ASKS HERE. `Shape.intersect`
+# is the exact boolean, and it answers EMPTY for two bodies whose surfaces are exactly tangent
+# along the crossing: two tubes of one Ø meeting on one stratum come back 0.00 mm³ with no error
+# raised, which is the arrangement a port row builds on purpose. The regression to guard is a
+# gate written with that bare pattern, which reads as a measurement and is an ask.
 GATED = (
     "cold-core-layout/cold_core_assembly.py",
     "printed-parts/cold-core/_internal_routes.py",
