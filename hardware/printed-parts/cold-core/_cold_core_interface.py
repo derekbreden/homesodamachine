@@ -458,7 +458,7 @@ deck_mount_cap_gap = 1.5
 # columns its pitches leave: the ground stud rides one.
 #   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the controller hang
 # on the enclosure's +X wall, one over the other; the relay lies on the lid in the band they
-# left and the AC hub lies on the relay's back, and neither has a joint yet — a body resting on
+# left and the Wago row stands on the brick's crown, and neither has a joint yet — a body resting on
 # another is not mounted, so neither carries a row here. `deck_mount_cap_room` holds each
 # column [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in the cup for the pour to reach
 # between them.

@@ -246,7 +246,7 @@ mount_bore_relief = 1.0
 # fore and aft down the flank on the narrow face — five abreast in the depth three would
 # take lying the other way. The well wraps the butt half on ±Y and ±Z and is open
 # inboard, where the wire half stands proud and the levers swing.
-wago_well_wall = 3.0        # well wall thickness, the AC hub's own
+wago_well_wall = 3.0        # well wall thickness
 wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
 # The standing lug's own axes, in the wall's frame.
 wago_stand_y = _wago.height     # 8.4 — closed-body height, along the row

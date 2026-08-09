@@ -1,6 +1,6 @@
 """Reference solid for the WAGO 221-413 — 3-conductor COMPACT lever-nut
 splicing connector, used 3x (H / N / G) as the AC distribution block on the
-AC hub.
+enclosure's +X wall, which grows a press-fit well per lug.
 
 Geometry from the official WAGO 221-413 datasheet. It is a free connector with
 no mounting holes — the hub stands it butt-end-down in a press-fit well, so the
