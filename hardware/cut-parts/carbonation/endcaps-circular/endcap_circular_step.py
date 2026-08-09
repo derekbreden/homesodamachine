@@ -61,14 +61,14 @@ hole_positions = [(-hole_offset, 0.0), (hole_offset, 0.0)]
 
 # ── Rod register — blind retention pocket, machined (see module docstring) ──
 # Mirrors the source-of-truth derivation in endcap_circular_dxf.py: park the rod
-# so the 27.75 mm donor donut's OD reaches the inner wall, then add a 3 mm
-# wall-preload to pin it there — matches the reservoir test-fit (reservoir.py
-# rod_position_x 104 → 107 mm).
+# so the 27.75 mm donor donut's OD reaches the inner wall, then carry on PAST it
+# by the magnet bias, which is what makes the bore the only place the loose
+# capsule can lie and so holds its magnet where the external reed reads it.
 tube_id = 4.870 * inch                       # donut rides this wall
 donut_od = 27.75                             # mm — donor ferrite donut (DEVMO MINI)
-wall_preload = 3.0                           # mm closer to the wall (empirical preload)
+magnet_wall_bias = 3.0                       # mm PAST the bore wall (see the dxf module)
 # [50.97 mm](REG_Y) — register center on the −Y axis (= 2.007"), clear of ports.
-register_radius = tube_id / 2.0 - donut_od / 2.0 + wall_preload
+register_radius = tube_id / 2.0 - donut_od / 2.0 + magnet_wall_bias
 register_position = (0.0, -register_radius)
 # [3.572 mm](REG_D) — 9/64" slip-fit drill on the 1/8" rod.
 register_drill_diameter = 0.140625 * inch

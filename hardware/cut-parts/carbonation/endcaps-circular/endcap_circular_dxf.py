@@ -28,12 +28,17 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
   Register center:     (0, [-2.007](REGISTER_Y))"  on the −Y axis, clear of the two ports.
                        Radius [2.007 in](REGISTER_R) = tube-ID radius [2.435 in](TUBE_ID_R) − donut radius
                        [0.546 in](DONUT_R) (27.75 mm donor ferrite donut, DEVMO MINI) + a
-                       [3 mm](WALL_PRELOAD_MM) wall-preload pinning the donut firmly to the inner
-                       wall despite bore/print slack — matches the reservoir's
-                       test-fit result (reservoir.py rod_position_x 104 → 107 mm).
-                       Keeps the donut's magnet coupling through the 0.065" wall
-                       to the external reeds — the bench "ride the wall within
-                       ~2 mm" requirement (level-sensing.md). The −Y azimuth must
+                       [3 mm](MAGNET_BIAS_MM) MAGNET BIAS. The reed is OUTSIDE the vessel and
+                       reads the donut through the 0.065" wall, and that coupling
+                       falls off fast, so the register is deliberately parked PAST
+                       where a centred float would touch the bore. The float is a
+                       loose capsule — its donor bore is ⌀9.75 on a ⌀3.175 rod — so
+                       the wall takes the bias up and holds the magnet against
+                       itself for the whole travel. That is the mechanism, not a
+                       tolerance allowance: shrink the bias and the magnet drifts
+                       inboard, past the bench's "trips within ~2 mm, nothing by
+                       ~3 mm" (level-sensing.md). `cold-core-layout`'s
+                       `floats-couple` grades what is left. The −Y azimuth must
                        match where the reeds mount outside.
   Register drill:      9/64" ([0.141 in](REGISTER_DRILL_D))  — slip-fit on the 1/8" rod; snug, which
                        self-locates the rod base in the bottom plate for its tack
@@ -95,11 +100,13 @@ hole_positions = [
 tube_id = 4.870                       # tube inner Ø — donut rides this wall
 tube_id_radius = tube_id / 2          # 2.435"
 donut_od = 27.75 / 25.4               # 1.0925" — 27.75 mm donor ferrite donut
-# Park the rod so the donut OD reaches the inner wall, then add a 3 mm wall-preload
-# to pin the donut firmly against it despite bore/print slack — mirrors the
-# reservoir test-fit (reservoir.py rod_position_x 104 → 107 mm = +3 mm to the wall).
-wall_preload = 3.0 / 25.4  # 3 mm closer to the wall, expressed in inches
-register_radius = tube_id_radius - donut_od / 2 + wall_preload
+# Park the rod so the donut OD reaches the inner wall, then carry on PAST it by the
+# magnet bias. The float is LOOSE on this rod — the donor capsule's ⌀9.75 bore over a
+# ⌀3.175 rod — so what the bias buys is not a fit: it makes the bore the only place the
+# capsule can lie, which is where its magnet has to be for a reed standing outside the
+# wall to read it. Reduce the bias and the magnet drifts inboard off the wall.
+magnet_wall_bias = 3.0 / 25.4  # 3 mm PAST the bore wall, expressed in inches
+register_radius = tube_id_radius - donut_od / 2 + magnet_wall_bias
 register_position = (0.0, -round(register_radius, 3))  # on −Y, clear of ports
 register_drill_diameter = 0.140625    # 9/64" — slip-fit on the 1/8" rod (snug)
 register_depth = 0.100                # to the drill-tip; leaves 0.150" of plate
@@ -150,7 +157,7 @@ def main() -> None:
         "REGISTER_R": f"{register_radius:.4g} in",
         "TUBE_ID_R": f"{tube_id_radius:.4g} in",
         "DONUT_R": f"{donut_od / 2:.3f} in",
-        "WALL_PRELOAD_MM": f"{wall_preload * 25.4:.4g} mm",
+        "MAGNET_BIAS_MM": f"{magnet_wall_bias * 25.4:.4g} mm",
         "REGISTER_DRILL_D": f"{register_drill_diameter:.3f} in",
         "REGISTER_DEPTH": f"{register_depth:.2f} in",
         "REGISTER_REMAINING": f"{disc_thickness - register_depth:.4g} in",
@@ -170,7 +177,7 @@ def main() -> None:
             "REGISTER_R": 1,
             "TUBE_ID_R": 1,
             "DONUT_R": 1,
-            "WALL_PRELOAD_MM": 1,
+            "MAGNET_BIAS_MM": 1,
             "REGISTER_DRILL_D": 1,
             "REGISTER_DEPTH": 1,
             "REGISTER_REMAINING": 1,

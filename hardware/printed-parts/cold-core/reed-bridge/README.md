@@ -68,7 +68,7 @@ refill increment is one drink. Below CLO, [654 mL](RESERVE_ML) =
 [133.7 mm](MAGNET_HIGHEST), against the top plate. Both reed heights fall
 inside the wind band, [15 mm](BAND_BOTTOM) … [134.4 mm](BAND_TOP).
 
-**Azimuth.** The rod preloads the donut [3 mm](WALL_PRELOAD) into the bore
+**Azimuth.** The rod parks the donut [3 mm](MAGNET_WALL_BIAS) into the bore
 wall, so the magnet-to-wall gap is zero on the register line and opens as
 the reed walks off it — 0.7 mm at 5 mm of arc, 2.8 mm at 10 mm. The bridge
 goes within ±5 mm of arc of the register line.

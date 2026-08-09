@@ -142,9 +142,11 @@ rod_tack_fillet = 1.5   # the tack bead the donut lands on at the rod base
 magnet_lowest_z = interior_floor_z + rod_tack_fillet + float_height / 2
 magnet_highest_z = interior_ceiling_z - float_height / 2
 
-# [3 mm](WALL_PRELOAD) — how far the rod pushes the donut past the
-# bore wall, which is what holds the magnet-to-wall gap at zero.
-donut_wall_preload = (register_radius + donut_od / 2 - tube_id / 2) * 25.4
+# [3 mm](MAGNET_WALL_BIAS) — how far the plate's register parks the rod PAST
+# the bore wall. The donut is loose on the rod, so the wall takes the bias up
+# and that is what holds the magnet-to-wall gap at zero for the whole travel —
+# the reed is outside the vessel and reads through it.
+donut_wall_bias = (register_radius + donut_od / 2 - tube_id / 2) * 25.4
 
 
 # ═══════════════════════════════════════════════════════
@@ -357,7 +359,7 @@ def main():
           f"reserve {reserve_ml:.0f} mL = {reserve_ml / carbonated_water_per_serving:.2f} servings, "
           f"band {serving_level_rise:.2f} mm = 1.00 serving")
     print(f"Donut mid-plane reach:  {magnet_lowest_z:.1f} .. {magnet_highest_z:.1f} mm "
-          f"(wall preload {donut_wall_preload:.2f} mm)")
+          f"(magnet wall bias {donut_wall_bias:.2f} mm)")
     print(f"Bridge:                 Z {bridge_z_bottom:.2f} .. {bridge_z_top:.2f} "
           f"({bridge_height:.2f} mm), arc {2 * bridge_half_width:.1f} mm, "
           f"{pocket_depth:.1f} mm proud")
@@ -395,7 +397,7 @@ def main():
         "STORED_SERVINGS": f"{stored_ml / carbonated_water_per_serving:.3g}",
         "MAGNET_LOWEST": f"{magnet_lowest_z:.4g} mm",
         "MAGNET_HIGHEST": f"{magnet_highest_z:.4g} mm",
-        "WALL_PRELOAD": f"{donut_wall_preload:.3g} mm",
+        "MAGNET_WALL_BIAS": f"{donut_wall_bias:.3g} mm",
         "DONUT_OD": f"{donut_od * 25.4:.4g} mm",
         "REED_GLASS_L": f"{reed_glass_length:.4g} mm",
         "REED_GLASS_D": f"{reed_glass_diameter:.4g} mm",
@@ -445,7 +447,7 @@ def main():
             "STORED_SERVINGS": 1,
             "MAGNET_LOWEST": 1,
             "MAGNET_HIGHEST": 1,
-            "WALL_PRELOAD": 1,
+            "MAGNET_WALL_BIAS": 1,
             "REED_GLASS_L": 1,
             "REED_GLASS_D": 1,
             "POCKET_DEPTH": 2,
@@ -500,7 +502,7 @@ def main():
             "LOW_LEVEL": 1,
             "MAGNET_LOWEST": 1,
             "MAGNET_HIGHEST": 1,
-            "WALL_PRELOAD": 1,
+            "MAGNET_WALL_BIAS": 1,
             "REED_GLASS_L": 2,
             "REED_GLASS_D": 1,
             "POCKET_DEPTH": 1,
