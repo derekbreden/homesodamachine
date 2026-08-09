@@ -5,7 +5,7 @@
  "shaped": 100,
  "routed": 100,
  "held": 100,
- "mounted": 0,
+ "mounted": 96,
  "checks": [
   {
    "id": "bodies-clear",
@@ -107,6 +107,20 @@
    "active": true
   },
   {
+   "id": "stations-met",
+   "label": "Every wall station carries a run",
+   "kind": "gate",
+   "status": "fail",
+   "value": "2/3 stations",
+   "target": "a run per station",
+   "detail": [
+    "port-lane evap-inlet at z 27.75: evap-tail-inlet",
+    "port-lane prv-vent at z 35.75: NOTHING reaches it",
+    "west-lane evap-outlet at z 27.75: evap-tail-outlet"
+   ],
+   "active": true
+  },
+  {
    "id": "arcs-hold",
    "label": "Every corner turns at the stock arc",
    "kind": "gate",
@@ -168,67 +182,14 @@
   },
   {
    "id": "mounted",
-   "label": "A printed feature of another placed part fastens every body",
+   "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "0/55",
-   "target": "a printed joint per body",
+   "value": "53/55",
+   "target": "a located joint per body",
    "detail": [
-    "bulkhead-reservoir-a: held by trough floor",
-    "bulkhead-reservoir-b: held by trough floor",
-    "bulkhead-seal-a: held by the pour",
-    "bulkhead-seal-b: held by the pour",
-    "carbonator-tube: held by support ring",
-    "collet-carb-water-out: held by the pour",
-    "collet-co2-in: held by the pour",
-    "collet-water-in: held by the pour",
-    "copper-plug-lower: held by wall slot",
-    "copper-plug-middle: held by wall slot",
-    "copper-plug-top: held by wall slot",
-    "endcap-bottom: held by tube bore",
-    "endcap-top: held by tube bore",
-    "evap-coil: held by the tank it clamps",
-    "evap-tail-inlet: held by wall slot",
-    "evap-tail-outlet: held by wall slot",
-    "float-a: held by the rod it rides",
-    "float-b: held by the rod it rides",
-    "float-carb: held by the rod it rides",
-    "float-rod-a: held by body boss",
-    "float-rod-b: held by body boss",
-    "float-rod-carb: held by plate registers",
-    "foam-cap-bottom: held by shell floor",
-    "foam-cap-lid-bottom: held by cap mouth",
-    "foam-cap-lid-top: held by cap mouth",
-    "foam-cap-top: held by shell rim",
-    "foam-shell: held by the enclosure floor",
     "probe-coil-ds18s20: held by foil tape",
-    "probe-tank-ds18b20: held by foil tape",
-    "prv-shroud: held by the PRV it caps",
-    "prv-sv125: held by the pour",
-    "reed-a-1: held by shell channel",
-    "reed-a-2: held by shell channel",
-    "reed-a-3: held by shell channel",
-    "reed-a-4: held by shell channel",
-    "reed-b-1: held by shell channel",
-    "reed-b-2: held by shell channel",
-    "reed-b-3: held by shell channel",
-    "reed-b-4: held by shell channel",
-    "reed-bridge: held by support ring",
-    "reed-carb-1: held by bridge pocket",
-    "reed-carb-2: held by bridge pocket",
-    "reservoir-a: held by pocket",
-    "reservoir-a-cap: held by body rim",
-    "reservoir-b: held by pocket",
-    "reservoir-b-cap: held by body rim",
-    "sparge-barb: held by plate thread",
-    "sparge-silicone-stub: held by the barb and the stone",
-    "sparge-stone: held by its own stub",
-    "vent-membrane-a: held by the pour",
-    "vent-membrane-b: held by the pour",
-    "vessel-elbow-carb-water-out: held by plate thread",
-    "vessel-elbow-co2-in: held by plate thread",
-    "vessel-elbow-prv: held by plate thread",
-    "vessel-elbow-water-in: held by plate thread"
+    "probe-tank-ds18b20: held by foil tape"
    ],
    "active": true
   }
@@ -1458,163 +1419,163 @@
  "mounts": [
   {
    "component": "bulkhead-reservoir-a",
-   "by": null,
+   "by": "trough floor",
    "held": "trough floor",
    "kind": "real"
   },
   {
    "component": "bulkhead-reservoir-b",
-   "by": null,
+   "by": "trough floor",
    "held": "trough floor",
    "kind": "real"
   },
   {
    "component": "bulkhead-seal-a",
-   "by": null,
-   "held": "the pour",
+   "by": "the bulkhead's own nut",
+   "held": "the bulkhead's own nut",
    "kind": "real"
   },
   {
    "component": "bulkhead-seal-b",
-   "by": null,
-   "held": "the pour",
+   "by": "the bulkhead's own nut",
+   "held": "the bulkhead's own nut",
    "kind": "real"
   },
   {
    "component": "carbonator-tube",
-   "by": null,
+   "by": "support ring",
    "held": "support ring",
    "kind": "real"
   },
   {
    "component": "collet-carb-water-out",
-   "by": null,
-   "held": "the pour",
+   "by": "elbow socket",
+   "held": "elbow socket",
    "kind": "real"
   },
   {
    "component": "collet-co2-in",
-   "by": null,
-   "held": "the pour",
+   "by": "elbow socket",
+   "held": "elbow socket",
    "kind": "real"
   },
   {
    "component": "collet-water-in",
-   "by": null,
-   "held": "the pour",
+   "by": "elbow socket",
+   "held": "elbow socket",
    "kind": "real"
   },
   {
    "component": "copper-plug-lower",
-   "by": null,
+   "by": "wall slot",
    "held": "wall slot",
    "kind": "real"
   },
   {
    "component": "copper-plug-middle",
-   "by": null,
+   "by": "wall slot",
    "held": "wall slot",
    "kind": "real"
   },
   {
    "component": "copper-plug-top",
-   "by": null,
+   "by": "wall slot",
    "held": "wall slot",
    "kind": "real"
   },
   {
    "component": "endcap-bottom",
-   "by": null,
+   "by": "tube bore",
    "held": "tube bore",
    "kind": "real"
   },
   {
    "component": "endcap-top",
-   "by": null,
+   "by": "tube bore",
    "held": "tube bore",
    "kind": "real"
   },
   {
    "component": "evap-coil",
-   "by": null,
+   "by": "the tank it clamps",
    "held": "the tank it clamps",
    "kind": "real"
   },
   {
    "component": "evap-tail-inlet",
-   "by": null,
+   "by": "wall slot",
    "held": "wall slot",
    "kind": "real"
   },
   {
    "component": "evap-tail-outlet",
-   "by": null,
+   "by": "wall slot",
    "held": "wall slot",
    "kind": "real"
   },
   {
    "component": "float-a",
-   "by": null,
+   "by": "the rod it rides",
    "held": "the rod it rides",
    "kind": "real"
   },
   {
    "component": "float-b",
-   "by": null,
+   "by": "the rod it rides",
    "held": "the rod it rides",
    "kind": "real"
   },
   {
    "component": "float-carb",
-   "by": null,
+   "by": "the rod it rides",
    "held": "the rod it rides",
    "kind": "real"
   },
   {
    "component": "float-rod-a",
-   "by": null,
+   "by": "body boss",
    "held": "body boss",
    "kind": "real"
   },
   {
    "component": "float-rod-b",
-   "by": null,
+   "by": "body boss",
    "held": "body boss",
    "kind": "real"
   },
   {
    "component": "float-rod-carb",
-   "by": null,
+   "by": "plate registers",
    "held": "plate registers",
    "kind": "real"
   },
   {
    "component": "foam-cap-bottom",
-   "by": null,
+   "by": "shell floor",
    "held": "shell floor",
    "kind": "real"
   },
   {
    "component": "foam-cap-lid-bottom",
-   "by": null,
+   "by": "cap mouth",
    "held": "cap mouth",
    "kind": "real"
   },
   {
    "component": "foam-cap-lid-top",
-   "by": null,
+   "by": "cap mouth",
    "held": "cap mouth",
    "kind": "real"
   },
   {
    "component": "foam-cap-top",
-   "by": null,
+   "by": "shell rim",
    "held": "shell rim",
    "kind": "real"
   },
   {
    "component": "foam-shell",
-   "by": null,
+   "by": "the enclosure floor",
    "held": "the enclosure floor",
    "kind": "real"
   },
@@ -1632,163 +1593,163 @@
   },
   {
    "component": "prv-shroud",
-   "by": null,
+   "by": "the PRV it caps",
    "held": "the PRV it caps",
    "kind": "real"
   },
   {
    "component": "prv-sv125",
-   "by": null,
-   "held": "the pour",
+   "by": "elbow socket",
+   "held": "elbow socket",
    "kind": "real"
   },
   {
    "component": "reed-a-1",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-a-2",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-a-3",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-a-4",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-b-1",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-b-2",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-b-3",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-b-4",
-   "by": null,
+   "by": "shell channel",
    "held": "shell channel",
    "kind": "real"
   },
   {
    "component": "reed-bridge",
-   "by": null,
+   "by": "support ring",
    "held": "support ring",
    "kind": "real"
   },
   {
    "component": "reed-carb-1",
-   "by": null,
+   "by": "bridge pocket",
    "held": "bridge pocket",
    "kind": "real"
   },
   {
    "component": "reed-carb-2",
-   "by": null,
+   "by": "bridge pocket",
    "held": "bridge pocket",
    "kind": "real"
   },
   {
    "component": "reservoir-a",
-   "by": null,
+   "by": "pocket",
    "held": "pocket",
    "kind": "real"
   },
   {
    "component": "reservoir-a-cap",
-   "by": null,
+   "by": "body rim",
    "held": "body rim",
    "kind": "real"
   },
   {
    "component": "reservoir-b",
-   "by": null,
+   "by": "pocket",
    "held": "pocket",
    "kind": "real"
   },
   {
    "component": "reservoir-b-cap",
-   "by": null,
+   "by": "body rim",
    "held": "body rim",
    "kind": "real"
   },
   {
    "component": "sparge-barb",
-   "by": null,
+   "by": "plate thread",
    "held": "plate thread",
    "kind": "real"
   },
   {
    "component": "sparge-silicone-stub",
-   "by": null,
+   "by": "the barb and the stone",
    "held": "the barb and the stone",
    "kind": "real"
   },
   {
    "component": "sparge-stone",
-   "by": null,
+   "by": "its own stub",
    "held": "its own stub",
    "kind": "real"
   },
   {
    "component": "vent-membrane-a",
-   "by": null,
-   "held": "the pour",
+   "by": "cap vent pocket",
+   "held": "cap vent pocket",
    "kind": "real"
   },
   {
    "component": "vent-membrane-b",
-   "by": null,
-   "held": "the pour",
+   "by": "cap vent pocket",
+   "held": "cap vent pocket",
    "kind": "real"
   },
   {
    "component": "vessel-elbow-carb-water-out",
-   "by": null,
+   "by": "plate thread",
    "held": "plate thread",
    "kind": "real"
   },
   {
    "component": "vessel-elbow-co2-in",
-   "by": null,
+   "by": "plate thread",
    "held": "plate thread",
    "kind": "real"
   },
   {
    "component": "vessel-elbow-prv",
-   "by": null,
+   "by": "plate thread",
    "held": "plate thread",
    "kind": "real"
   },
   {
    "component": "vessel-elbow-water-in",
-   "by": null,
+   "by": "plate thread",
    "held": "plate thread",
    "kind": "real"
   }
  ],
  "source": {
-  "generated": "2026-08-09T02:15:57+00:00",
-  "commit": "1dffb33f9ed15227cbf52064e9ebde5d79fab597"
+  "generated": "2026-08-09T02:30:57+00:00",
+  "commit": "5ce554758203af40822b8f804d38b99cbeb5601a"
  }
 }
