@@ -64,12 +64,12 @@ def cast(pos, axis, dia: float, reach: float, solids: dict, skip=()) -> tuple:
     import cadquery as cq
 
     col = cq.Solid.makeCylinder(dia / 2.0, reach, cq.Vector(*pos), cq.Vector(*axis))
-    cb = _boxes.boxed(col)
+    cb = _boxes.loose(col)
     best, who = reach, None
     for name, solid in solids.items():
         if name in skip:
             continue
-        if box_gap(cb, _boxes.boxed(solid)) > 0:
+        if box_gap(cb, _boxes.loose(solid)) > 0:
             continue
         try:
             inter, vol = _overlap.common(col, solid)

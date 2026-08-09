@@ -868,7 +868,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0):
     ever reported without the boolean having been asked."""
     solids = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj)
                .moved(cq.Location(c.loc.wrapped.Transformation()))) for c in assy.children]
-    boxes = [(n, s, _boxes.boxed(s)) for n, s in solids]
+    boxes = [(n, s, _boxes.loose(s)) for n, s in solids]
     hits, unanswered = [], []
     for i in range(len(boxes)):
         ni, si, bi = boxes[i]
