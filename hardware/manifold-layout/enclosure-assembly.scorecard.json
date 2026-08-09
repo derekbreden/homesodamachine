@@ -624,6 +624,20 @@
    "active": true
   },
   {
+   "id": "cap-valve-row",
+   "label": "The three valves on the cap stand in one row, evenly spaced",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pitch 42.560 / 42.560 mm, depths within 0.000 mm",
+   "target": "one depth and one pitch within 0.001 mm",
+   "detail": [
+    "valve-v-b: x  -20.070   aft face y  243.080",
+    "valve-v-a: x   22.490   aft face y  243.080",
+    "vk-solenoid: x   65.050   aft face y  243.080"
+   ],
+   "active": true
+  },
+  {
    "id": "pump-mount-lands",
    "label": "Every cap column the water pump bolts to is under its own bore",
    "kind": "gate",
@@ -2086,7 +2100,7 @@
    "kind": "fluid",
    "pos": [
     65.05,
-    179.955,
+    184.08,
     265.7
    ],
    "face": [
@@ -2105,7 +2119,7 @@
    "kind": "fluid",
    "pos": [
     65.05,
-    238.955,
+    243.08,
     265.7
    ],
    "face": [
@@ -2269,14 +2283,6 @@
     [
      -90.5,
      178.0,
-     248.2,
-     90.5,
-     461.0,
-     262.015
-    ],
-    [
-     -90.5,
-     178.0,
      233.4,
      90.5,
      461.0,
@@ -2297,6 +2303,14 @@
      90.5,
      461.0,
      5.2
+    ],
+    [
+     -90.5,
+     178.0,
+     248.2,
+     90.5,
+     461.0,
+     262.015
     ],
     [
      -90.5,
@@ -2668,10 +2682,10 @@
    "boxes": [
     [
      47.925,
-     179.955,
+     184.08,
      254.4,
      82.175,
-     238.955,
+     243.08,
      311.0
     ]
    ],
@@ -4532,7 +4546,7 @@
    "to": "vk-solenoid.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 255.06,
+   "length": 259.18,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4569,7 +4583,7 @@
      "grade": "B",
      "legs": [
       142.05,
-      22.96
+      27.08
      ]
     }
    ],
@@ -4604,18 +4618,18 @@
      ],
      [
       65.05,
-      179.96,
+      184.08,
       265.7
      ]
     ],
     "axis": {
      "x": 142.05,
-     "y": 66.18,
+     "y": 62.06,
      "z": 18.94
     },
-    "span": 157.85,
-    "path": 255.06,
-    "detour": 1.616
+    "span": 156.17,
+    "path": 259.18,
+    "detour": 1.66
    }
   },
   {
@@ -5219,7 +5233,7 @@
    "to": "suction-chain.tube-port",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 13.54,
+   "length": 9.42,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -5238,7 +5252,7 @@
     "ends": [
      [
       65.05,
-      238.96,
+      243.08,
       265.7
      ],
      [
@@ -5249,11 +5263,11 @@
     ],
     "axis": {
      "x": 0.0,
-     "y": 13.54,
+     "y": 9.42,
      "z": 0.0
     },
-    "span": 13.54,
-    "path": 13.54,
+    "span": 9.42,
+    "path": 9.42,
     "detour": 1.0
    }
   },
@@ -5813,7 +5827,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T21:29:40+00:00",
-  "commit": "4c19349d0b414974b53ed17224092453857cff3b"
+  "generated": "2026-08-09T22:05:50+00:00",
+  "commit": "9a565d694147aff1fb3f4794704ac6532f90c916"
  }
 }
