@@ -74,6 +74,7 @@ are **not modeled**.
 | `envelope_hold()` | the six faces the machine clears, and the underside sitting on Z = 0 |
 | `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it |
 | `power_hold()` | the box coming off the reach it fills, hanging off the plate's X, sitting down on the plate or climbing past the shell's crown, or covering a mount |
+| `power_face_hold()` | `power_face()` — the box's outboard −Y plane, which the thermal cutoff lies on — coming off the box's own centre or turning to face some other way |
 | `mounts_hold()` | a hole opening into the plate's edge, or standing under the belly where no bolt reaches it |
 
 ## Where it stands
