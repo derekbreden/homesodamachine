@@ -100,6 +100,31 @@ def mount_pattern():
             for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
 
 
+def power_face():
+    """The outboard face of the POWER BOX, as `(centre, outward axis)` in this frame.
+
+    The box is the donor's own moulded cover over the terminal block and the PTC start
+    relay. Its -Y face stands on `POWER_Y0`, which is the plate's own edge, so nothing on
+    this part reaches past it: a body laid flat there lies against the compressor and
+    stands in the open on every other side."""
+    return ((0.0, POWER_Y0, (POWER_Z0 + POWER_Z1) / 2.0), (0.0, -1.0, 0.0))
+
+
+def power_face_hold():
+    """Hold the face to the box it is a face of — centred on the box's own X and Z, on the
+    -Y plane the box ends at, facing out of it."""
+    (px, py, pz), axis = power_face()
+    if axis != (0.0, -1.0, 0.0):
+        raise ValueError(
+            f"the power face points {axis} — the box's outboard face is the -Y one, and a "
+            f"body laid on any other has been laid on the shell or on air.")
+    if abs(px) > 1e-9 or abs(py - POWER_Y0) > 1e-9 or abs(pz - (POWER_Z0 + POWER_Z1) / 2.0) > 1e-9:
+        raise ValueError(
+            f"the power face centres at ({px:g}, {py:g}, {pz:g}) and the box's own face is "
+            f"(0, {POWER_Y0:g}, {(POWER_Z0 + POWER_Z1) / 2.0:g}) — the station has come off "
+            f"the cover it names.")
+
+
 def stations() -> dict:
     """The two ends of the sealed loop this body carries, in its own frame.
 
@@ -265,9 +290,12 @@ def selftest():
     envelope_hold()
     shell_hold()
     power_hold()
+    power_face_hold()
     mounts_hold()
     stations_hold()
+    (_fx, fy, fz), _fa = power_face()
     return [
+        f"  power face centred at ({fy:g}, {fz:g}) on the box's own -Y plane",
         f"  both loop stubs stand on a shell tangent — discharge +X at z {DISCHARGE_Z:g}, "
         f"suction +Y at z {SUCTION_Z:g}",
         f"  envelope stands {SHELL_X:g} x {BASE_Y:g} x {OVERALL_H:g} off the mounting plane",
