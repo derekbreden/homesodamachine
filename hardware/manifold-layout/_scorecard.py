@@ -263,12 +263,14 @@ MOUNTS = (
     # channel is open at both ends and the cutoff threads out along it, which is the whole of
     # what a one-shot part's service is.
     ("thermal-fuse", "fuse-clamp", "channel"),
-    # The clamp itself is rooted in the COMPRESSOR'S OWN two front mounting holes — a square
-    # tenon in each, biting on its corners. That is a real joint and a donor's, not a printed
-    # one: the case's force is a normal force, no face of the moulded cover can take one, and
-    # nothing printed stands anywhere near it to be fastened to. This axis counts a printed
-    # feature, so the row is open on it and the joint is not.
-    ("fuse-clamp", None, "mount-holes"),
+    # The clamp itself presses into the COMPRESSOR'S OWN `POWER_GAP`, the air the power box hangs
+    # over its mounting plate: two leaves, one on the box's underside and one on the plate's
+    # crown. Both faces of that slot belong to the compressor, so the clamp rides the can and no
+    # running hour of it is relative motion at the case. That is a real joint and a donor's, not
+    # a printed one — the plate's four holes carry the floor's posts and the grommets that
+    # isolate the can, so a clamp on one of those screws would be bolted to the cabinet. This
+    # axis counts a PRINTED feature, so the row is open on it and the joint is not.
+    ("fuse-clamp", None, "gap-press"),
     # The piercing valve is a saddle: two screws pull its halves together round the
     # compressor's process tube, and the grip on that copper holds it. The fastening ships
     # with the part and closes on a body no printed feature of this machine touches.
