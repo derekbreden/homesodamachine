@@ -16,12 +16,12 @@ silicone caulk, tooled to a fillet — foam-tight, not airtight.
 
 A ⌀[6.35 mm](PRV_VENT_D) hole through the BARREL accepts a length of 1/4" OD
 LLDPE tubing — the unpressurized vent line. The LLDPE runs down the
-foam shell's PORT LANE and out its slot in the −X wall, one station
-above the evaporator inlet copper that shares it, into the appliance
+foam shell's WEST LANE and out its slot in the −X wall, one station
+below the evaporator outlet copper that shares it, into the appliance
 interior, where it terminates open.
 
 The hole is radial and not in the cap because THE CAP HAS NOWHERE TO
-SEND A TUBE. Installed, the shroud lies horizontally on the −Y port's
+SEND A TUBE. Installed, the shroud lies horizontally on the +Y port's
 lateral axis and its cap face stands ~3 mm off the foam shell's own
 inner wall — less than a tube's radius, so a line leaving axially has
 no room to turn. Leaving radially through the barrel's underside, the
@@ -46,8 +46,9 @@ Geometry
     Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
 
                ⌀[6.35 mm](PRV_VENT_D) vent bored radially through the −Y wall at
-               Z = [37.88 mm](VENT_STATION); installed, −Y is the shell's −Z, so the
-               tube leaves DOWNWARD onto the port lane.
+               Z = [37.88 mm](VENT_STATION); the cup is rolled about its own axis at
+               install so that wall faces the shell's −Z, and the tube leaves
+               DOWNWARD onto the west lane (`cold_core_assembly._prv_roll`).
 
 The [44 mm](CAVITY_L) cavity length spans from the bottom of the elbow's smooth
 cylinder to the tip of the PRV pull-ring with the valve hand-tight
@@ -91,9 +92,9 @@ cavity_length = 44.0
 vent_hole_diameter = 6.35
 # [37.88 mm](VENT_STATION) along the barrel from the open end — where the radial vent
 # stands. The shroud seats on the PRV elbow's own lateral mouth and reaches along the
-# vessel's −Y from there, so this distance is the mouth-to-lane gap: the mouth stands at
-# y −39.62 (one catalog elbow leg off the −Y port) and the foam shell's port lane runs at
-# y −77.5, so the hole lands on that lane's centreline and the tube falls it with no
+# vessel's port axis from there, so this distance is the mouth-to-lane gap: the mouth stands
+# at y +39.62 (one catalog elbow leg off the +Y port) and the foam shell's west lane runs at
+# y +77.5, so the hole lands on that lane's centreline and the tube falls it with no
 # corner at all. It sits inside the cavity by more than its own radius, so the bore opens
 # on the annulus around the valve. `cold-core-layout`'s `prv-vent-lands` is what holds
 # this reading against the placed shroud's.

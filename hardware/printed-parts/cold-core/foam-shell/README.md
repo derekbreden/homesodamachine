@@ -306,8 +306,8 @@ refrigeration-side lines in the two lane slots above it.
 | 2 | Reed cable (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | the reservoir-B level reeds' cable |
 | 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
-| 5 | PRV vent | port-lane slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
-| 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, into the top-plate Port 2 elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
+| 5 | PRV vent | west-lane slot | 1/4" OD LLDPE from the prv-shroud's barrel into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
+| 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the vessel's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the tank, out through the ring's 225° slot and up beside the coil |
 | 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the WR1110 regulator — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which feeds the **sparge stone below the liquid** |
 | 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | off A's floor bulkhead at the **bottom of its wet V**, out the pocket's −Y wall, forward along the port lane's own floor, up the forward strip |
@@ -456,14 +456,16 @@ Pass-through Z heights (centers, absolute in the model — the floor occupies
 z = 0 to z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the
 cavity floor):
 
-[port-lane evap-inlet 27.75, prv-vent 35.75; west-lane evap-outlet 27.75](SLOT_Z)
+[port-lane evap-inlet 27.75; west-lane prv-vent 19.75, evap-outlet 27.75](SLOT_Z)
 
-The three continue the front port field at its own pitch rather than each crossing
+The three stand at the front port field's own pitch rather than each crossing
 where its own fitting sits: each line leaves its fitting, turns onto its lane and climbs
 or drops it. The two coppers cross at one height because the lanes are one strip mirrored
-and one coil's two tails reach either the same way. So the whole
+and one coil's two tails reach either the same way. The PRV vent crosses UNDER the copper
+it shares the west lane with, because that copper falls IN the lane from its wrap to its
+station and closes the column at every storey above it. So the whole
 of the shell's front face — field and slots together — is one band in the bottom
-[35.75 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
+[27.75 mm](COLUMN_TOP) of a wall [213.4 mm](OUTER_H) tall, which is what lets a machine
 packed against this face reach every port in one reach. `copper_plugs.py` derives
 them.
 
@@ -472,9 +474,9 @@ from above:
 
 | Plug | Lane | Z span (mm) | Z end arches |
 |---|---|---|---|
-| `copper-plug-lower` | port | [27.75 → 35.75](PLUG_SPAN_LOWER) | both ends |
-| `copper-plug-middle` | port | [35.75 → 213.4](PLUG_SPAN_MIDDLE) | bottom end only (top flat) |
-| `copper-plug-top` | west | [27.75 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
+| `copper-plug-lower` | west | [19.75 → 27.75](PLUG_SPAN_LOWER) | both ends |
+| `copper-plug-middle` | west | [27.75 → 213.4](PLUG_SPAN_MIDDLE) | bottom end only (top flat) |
+| `copper-plug-top` | port | [27.75 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
 
 The spans meet end-to-end **at the pass-through centers**: each plug
 runs from one tube's center to the next, and the arch cutout at each
@@ -526,26 +528,27 @@ Every internal component is installed first:
 - Copper evaporator coil hand-wound around the vessel exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
-- Copper evaporator inlet and PRV vent LLDPE (from the prv-shroud cap) routed along the
-  port lane and out through its slot; copper evaporator outlet routed along the WEST
+- Copper evaporator inlet routed along the port lane and out through its slot; copper
+  evaporator outlet and PRV vent LLDPE (from the prv-shroud's barrel) routed along the WEST
   lane and out through that lane's own slot. Each leaves its fitting and turns onto its
   lane, and each of the two coppers lands on the pick of the body standing against its
   own lane's face — the condenser's outlet east, the compressor's suction west.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
-  lateral FNPT of the vessel's top-plate Port 2 elbow, collet turned into the
-  +Y band, and a length of 1/4" OD LLDPE from that collet along the band between
-  the top plate and the cap floor, forward, then into the forward strip and up
+  lateral FNPT of the vessel's top-plate −Y elbow, collet clocked onto the diagonal
+  the line leaves on, and a length of 1/4" OD LLDPE from that collet across the vessel's
+  own top in the band between the top plate and the cap floor — the tank has ended by
+  this height — onto the +Y band, forward, then into the forward strip and up
   the top cap's `water-in` conduit. Every corner on it is potted where it turns, and
   the two either end of the step into the strip are the pack's only ones under the
   stock arc — that band is 14 mm and the step across it is wider.
 - Three copper plugs slid down into their own lane's slot from above (through
   the 10 mm open extension past the wall top) to seal between the
-  pass-throughs — `lower` and `middle` on the port lane, `top` on the west.
+  pass-throughs — `lower` and `middle` on the west lane, `top` on the port.
 - PRV shroud subassembly (`../prv-shroud/`) — already built and
   cured ahead of time, threaded into Port 4 at vessel install — is
   here as part of the vessel by the time the body pour happens.
-  Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
-  route it along the port lane and out through its slot to the appliance interior.
+  Press-fit a length of 1/4" OD LLDPE into the bore in the shroud's barrel and
+  route it down the west lane and out through its slot to the appliance interior.
 - Reservoir A's draw off its floor bulkhead, out through the pocket's −Y wall
   inboard of the bulkhead axis — the opening there is the line's own corridor, so
   the tube turns as it crosses rather than after it — onto the port lane at the
@@ -682,11 +685,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1039658.566 mm³](FSHELL_VOLUME) |
+| volume | [1040192.733 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.682886, 0.499971, 87.613290) mm](CENTROID) |
+| centroid | [(0.733506, 0.450806, 87.576919) mm](CENTROID) |
 
 Quick reproduction:
 

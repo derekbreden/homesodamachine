@@ -38,7 +38,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | [Lint-free cleanroom wipes, 9" × 9", cellulose/polyester Grade A (150 pcs)](https://www.amazon.com/dp/B0GD16CMYL) | PT penetrant wipe-off + the low-lint reading surface; dampened with isopropyl alcohol, never sprayed on the part. ~6 wipes per vessel; $17.15/25 builds | 6 (of 150) | $0.69 | $0.69 <!--@consumables--> |
 | 100% RTV silicone caulk (e.g. GE Silicone II) | **SKU TBD.** The weather bead on the PRV-shroud subassembly — run around the shroud-to-elbow joint and tooled to a fillet with a wet fingertip, per [`printed-parts/cold-core/prv-shroud/README.md`](/hardware/printed-parts/cold-core/prv-shroud/README.md) step 4 and [`cards/pv-13-prv-shroud-subassembly.html`](/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html). 100% silicone, not a latex/acrylic caulk. A few mL per build; one tube covers many. | ~1 bead (of 1 tube) | — | — <!--@consumables--> |
 | [Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass](https://www.amazon.com/dp/B01G2F6EMY) | Port 4 tank PRV (top plate, dedicated); sizing rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). Amazon 112-6323725 May 13: $7.49 + $0.54 tax = $8.03 | 1 | $8.03 | $8.03 <!--@plumbing--> |
-| neoFlo black 1/4" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540) | **PRV vent line** — what the SV-125 discharges INTO the appliance through. The valve pops into the `prv-shroud` cup that keeps the pour off it, and the cup vents through a ⌀6.35 bore in its barrel's underside, straight down the foam shell's PORT LANE and out that lane's slot one station over the evaporator inlet copper ([`printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/)), ending open in the cabinet below the deck. Unpressurized except during a relief event. [290 mm](PRV_VENT_MM) of it is drawn inside the core (`cold-core-layout`, line `prv-vent`); with the shroud's own bore and the reach past the wall it is ~1.2 ft/build, cut from the same black spool §3 draws on at the blue riser's $0.171/ft | ~1.2 ft (of 100 ft) | $0.17 | $0.21 <!--@plumbing--> |
+| neoFlo black 1/4" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540) | **PRV vent line** — what the SV-125 discharges INTO the appliance through. The valve pops into the `prv-shroud` cup that keeps the pour off it, and the cup vents through a ⌀6.35 bore in its barrel's underside, straight down the foam shell's WEST LANE and out that lane's slot one station under the evaporator outlet copper ([`printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/)), ending open in the cabinet below the deck. Unpressurized except during a relief event. [290 mm](PRV_VENT_MM) of it is drawn inside the core (`cold-core-layout`, line `prv-vent`); with the shroud's own bore and the reach past the wall it is ~1.2 ft/build, cut from the same black spool §3 draws on at the blue riser's $0.171/ft | ~1.2 ft (of 100 ft) | $0.17 | $0.21 <!--@plumbing--> |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | citric acid passivation soak tub — holds the ~1 qt of 4% citric solution the vessel soaks in during passivation (the acid is its own line below). Reused build-to-build, not consumed — the per-unit item is the fresh solution, not the tub; the polycarbonate is replaced only when repeated soaks craze/cloud it, ~20 builds conservatively. Amazon 112-5291452 Apr 12: $21.45 ÷ 20 = $1.07/build | 1 (of ~20) | $1.07 | $1.07 <!--@consumables--> |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 <!--@consumables--> |
 | [STARTECHWELD ER316L .030 MIG wire, 10-lb spool](https://www.amazon.com/dp/B09BKFBXT9) | filler for the plate-to-tube and float-rod-to-plate laser welds; filler-alloy rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md); ~12 g of wire per ~32" of weld per vessel × ~378 builds per 10-lb spool; $129.50/378 | 1 (of 378) | $0.34 | $0.34 <!--@welding--> |
@@ -124,12 +124,12 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
-| Cold-core inner shell (foam-shell) | 1 | PETG | 1.320 | $14.79 <!--@printed--> |
+| Cold-core inner shell (foam-shell) | 1 | PETG | 1.321 | $14.80 <!--@printed--> |
 | Cold-core foam cap — top | 1 | PETG | 0.184 | $2.06 <!--@printed--> |
 | Cold-core foam cap lid — top | 1 | PETG | 0.164 | $1.83 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.169 | $1.89 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.130 | $1.45 <!--@printed--> |
-| Copper-plug stack (3 plugs) | 3 | PETG | 0.014 | $0.15 <!--@printed--> |
+| Copper-plug stack (3 plugs) | 3 | PETG | 0.014 | $0.16 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Flavor reservoir body — left | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
@@ -143,9 +143,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Cap-sense sleeve (2-piece clamshell) | 2 sets | PETG | 0.004 | $0.04 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.94** | **[$82.36](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.94** | **[$82.38](BOM_SEC7)** |
 
-By material: PETG ≈ 6.78 kg / $75.91 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.78 kg / $75.92 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — the valve-manifold family's own cell printed into that face, one per valve that stands on it (`_cold_core_interface.cap_cradles`) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [12](DECK_INSERTS) deck-mount columns, which are the cap's rotation key. The water pump's bracket bolts down into [4](PUMP_MOUNT_SCREWS) of them; the rest are bolt stations standing ready.
 
@@ -280,7 +280,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$93.10](BOM_SEC4) |
 | 5. Refrigeration | [$153.69](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.36](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.38](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -288,7 +288,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,296.40](BOM_GRAND)** |
+| **Total** | **[$1,296.42](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

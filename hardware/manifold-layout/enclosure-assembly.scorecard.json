@@ -81,24 +81,20 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "psu \u2229 tube-co2-2   1646.8 mm\u00b3, x[   74.32,   80.68] y[  388.82,  395.18] z[  253.40,  305.40]"
-   ],
+   "detail": [],
    "active": true
   },
   {
    "id": "lines-clear",
    "label": "No routed tube intersects a body, a piece or another tube",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash",
+   "status": "pass",
+   "value": "0 clash",
    "target": "0 clash",
-   "detail": [
-    "co2-2 \u2229 psu: 1646.8 mm\u00b3"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -106,11 +102,10 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "fail",
-   "value": "58/60 clear",
+   "value": "59/60 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to, or the neighbour its own collet is made up on",
-    "foam-assembly.co2-in: 0.00 mm to psu, needs 28.00",
     "valve-v-g.inlet: 17.18 mm to condenser+fan, needs 28.00 \u2014 no run authored on it yet",
     "asse1022-assembly.vent-tip: 9.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
@@ -121,11 +116,10 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "4 under, tightest 0.000 mm",
+   "value": "3 under, tightest 0.770 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "co2-2 \u2014 psu: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-b: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "fluid-4 \u2014 coil-v-a: 0.770 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "carb-1 \u2014 fluid-18: 0.928 mm \u2014 \u2717 under the floor, and nothing seats them together",
@@ -150,6 +144,7 @@
     "carb-1 \u2014 suction-chain: 1.055 mm",
     "fluid-4 \u2014 valve-v-a: 1.156 mm",
     "co2-1 \u2014 fluid-14: 1.650 mm",
+    "water-7 \u2014 co2-2: 1.725 mm",
     "water-5 \u2014 fluid-24: 1.760 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
     "asse1022-assembly \u2014 digiten-flow: 1.860 mm",
@@ -175,8 +170,9 @@
     "fluid-2 \u2014 fluid-26: 3.717 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.800 mm",
+    "co2-2 \u2014 suction-chain: 3.846 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
-    "water-7 \u2014 co2-2: 4.165 mm",
+    "co2-2 \u2014 pcba: 4.065 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "foam-assembly \u2014 mpr121: 4.371 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
@@ -574,6 +570,26 @@
    "status": "pass",
    "value": "holds",
    "target": "under \u230018.7",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reservoir-float-reaches-rod",
+   "label": "The capsule's bore has the slop the park spends",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a bias under 3.2875 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reservoir-rod-boss-inboard",
+   "label": "The rod's anchor boss stands clear of the cavity wall",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a boss inboard of 126 mm",
    "detail": [],
    "active": true
   },
@@ -1405,7 +1421,7 @@
    "kind": "fluid",
    "pos": [
     77.5,
-    392.0,
+    309.0,
     253.4
    ],
    "face": [
@@ -2253,10 +2269,10 @@
     [
      -90.5,
      178.0,
-     248.2,
+     20.0,
      90.5,
      461.0,
-     262.015
+     233.4
     ],
     [
      -90.5,
@@ -2265,14 +2281,6 @@
      90.5,
      461.0,
      5.2
-    ],
-    [
-     -90.5,
-     178.0,
-     20.0,
-     90.5,
-     461.0,
-     233.4
     ],
     [
      -90.5,
@@ -2289,9 +2297,17 @@
      90.5,
      461.0,
      20.0
+    ],
+    [
+     -90.5,
+     178.0,
+     248.2,
+     90.5,
+     461.0,
+     262.015
     ]
    ],
-   "fill": 0.1126,
+   "fill": 0.1127,
    "primitive": false,
    "declared": null
   },
@@ -3728,7 +3744,7 @@
    "to": "foam-assembly.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 180.54,
+   "length": 161.62,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3748,13 +3764,13 @@
     },
     {
      "at": 2,
-     "turn": 112.3,
+     "turn": 67.7,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
       39.49,
-      57.0
+      26.0
      ]
     },
     {
@@ -3764,7 +3780,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      57.0,
+      26.0,
       29.5
      ]
     },
@@ -3782,7 +3798,7 @@
    ],
    "atSpec": 4,
    "bends": 4,
-   "worstTurn": 112.3,
+   "worstTurn": 90.0,
    "seat": 14.75,
    "reach": 14.75,
    "reachRatio": 1.0536,
@@ -3793,12 +3809,12 @@
     "demand": 2.0,
     "from": [
      48.0,
-     392.0,
+     309.0,
      326.53
     ],
     "to": [
      77.5,
-     392.0,
+     309.0,
      326.53
     ]
    },
@@ -3811,18 +3827,18 @@
      ],
      [
       77.5,
-      392.0,
+      309.0,
       253.4
      ]
     ],
     "axis": {
      "x": 29.5,
-     "y": 32.0,
+     "y": 51.0,
      "z": 36.6
     },
-    "span": 56.87,
-    "path": 180.54,
-    "detour": 3.175
+    "span": 69.36,
+    "path": 161.62,
+    "detour": 2.33
    }
   },
   {
@@ -5797,7 +5813,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T04:58:32+00:00",
-  "commit": "2530cd19750b297969aba94cab762bc1b4081c2e"
+  "generated": "2026-08-09T06:06:20+00:00",
+  "commit": "6667e910b8093fe3c795d9381a9226a2d78f18f6"
  }
 }

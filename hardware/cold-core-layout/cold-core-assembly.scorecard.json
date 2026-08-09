@@ -86,13 +86,13 @@
    "target": "a reading, not a bound",
    "detail": [
     "port-lane: carb-water-out at z 13.8..213.4, x -51.7..-20.6",
-    "port-lane: co2-in at z 13.8..213.4, x 14.0..75.7",
+    "port-lane: co2-in at z 13.8..213.4, x -13.7..50.0",
     "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
-    "port-lane: prv-vent at z 32.6..187.9, x -143.5..3.2",
     "port-lane: reservoir-a at z 2.8..213.4, x -138.7..104.1",
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
+    "west-lane: prv-vent at z 16.6..187.9, x -143.5..3.2",
     "west-lane: reservoir-b at z 2.8..213.4, x -138.7..-101.8",
-    "west-lane: water-in at z 196.2..213.4, x -138.7..3.2"
+    "west-lane: water-in at z 196.2..213.4, x -138.7..-6.2"
    ],
    "active": true
   },
@@ -101,15 +101,14 @@
    "label": "Every collet has a straight to receive the tube",
    "kind": "gate",
    "status": "fail",
-   "value": "2/5 collets",
+   "value": "3/5 collets",
    "target": "2 bend radii",
    "detail": [
     "carb-water-out start: 13.9 mm of straight into the bottom plate's PP010822E collet, 28.0 wanted",
     "reservoir-a start: 14.5 mm of straight into reservoir A's floor-bulkhead collet, 28.0 wanted",
-    "water-in start: 27.1 mm of straight into the top plate's PP010822E collet, 28.0 wanted",
     "carb-water-out end: 8.2 mm into a bore, which takes a lean",
     "co2-in start: 182.4 mm into a bore, which takes a lean",
-    "prv-vent start: 138.2 mm into a bore, which takes a lean",
+    "prv-vent start: 154.2 mm into a bore, which takes a lean",
     "prv-vent end: 129.5 mm into a bore, which takes a lean",
     "reservoir-a end: 193.4 mm into a bore, which takes a lean",
     "reservoir-b end: 193.4 mm into a bore, which takes a lean",
@@ -125,8 +124,8 @@
    "value": "3/3 stations",
    "target": "a run per station",
    "detail": [
-    "port-lane evap-inlet at z 27.75: evap-tail-inlet, prv-vent",
-    "port-lane prv-vent at z 35.75: prv-vent",
+    "port-lane evap-inlet at z 27.75: evap-tail-inlet",
+    "west-lane prv-vent at z 19.75: evap-tail-outlet, prv-vent",
     "west-lane evap-outlet at z 27.75: evap-tail-outlet"
    ],
    "active": true
@@ -149,8 +148,9 @@
    "value": "0.004 mm off",
    "target": "within 0.01 mm of the lane",
    "detail": [
-    "the shroud's vent bore opens at (+0.00, -77.50, 187.90), on the port lane (-77.5)",
-    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 35.75 and out"
+    "the shroud's vent bore opens at (+0.00, +77.50, 187.90), on the west-lane (77.5) \u2014 the lane `copper_plugs.columns` carries its wall station on",
+    "it stands 11.50 mm under the elbow's own axis, against the 11.5 mm barrel radius a bore facing DOWN reads",
+    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 19.75 and out"
    ],
    "active": true
   },
@@ -272,11 +272,15 @@
    "name": "water-in",
    "kind": "fluid",
    "pos": [
-    0.0,
-    39.624,
+    -9.005,
+    -0.551,
     199.4
    ],
-   "face": "y+",
+   "face": [
+    -0.43769,
+    0.899126,
+    0.0
+   ],
    "diam": 6.35,
    "mates": "water-in",
    "status": "ok",
@@ -288,10 +292,10 @@
    "kind": "fluid",
    "pos": [
     0.0,
-    -39.624,
+    39.624,
     199.4
    ],
-   "face": "y-",
+   "face": "y+",
    "diam": 6.35,
    "mates": "prv",
    "status": "ok",
@@ -445,15 +449,15 @@
    "component": "collet-water-in",
    "boxes": [
     [
-     -7.145,
-     28.624,
+     -23.396,
+     -13.44,
      191.15,
-     7.145,
-     58.124,
+     1.969,
+     19.146,
      207.65
     ]
    ],
-   "fill": 0.659,
+   "fill": 0.3361,
    "primitive": false,
    "declared": "real"
   },
@@ -462,11 +466,11 @@
    "boxes": [
     [
      -142.5,
-     -81.75,
-     27.75,
+     73.25,
+     19.75,
      -138.5,
-     -73.25,
-     35.75
+     81.75,
+     27.75
     ]
    ],
    "fill": 0.3278,
@@ -478,14 +482,14 @@
    "boxes": [
     [
      -142.5,
-     -81.75,
-     35.75,
+     73.25,
+     27.75,
      -138.5,
-     -73.25,
+     81.75,
      213.4
     ]
    ],
-   "fill": 0.8699,
+   "fill": 0.8704,
    "primitive": false,
    "declared": "real"
   },
@@ -494,10 +498,10 @@
    "boxes": [
     [
      -142.5,
-     73.25,
+     -81.75,
      27.75,
      -138.5,
-     81.75,
+     -73.25,
      213.4
     ]
    ],
@@ -757,7 +761,7 @@
      213.4
     ]
    ],
-   "fill": 0.0951,
+   "fill": 0.0952,
    "primitive": false,
    "declared": "real"
   },
@@ -798,10 +802,10 @@
    "boxes": [
     [
      -11.5,
-     -85.624,
+     39.624,
      187.9,
      11.5,
-     -39.624,
+     85.624,
      210.9
     ]
    ],
@@ -814,10 +818,10 @@
    "boxes": [
     [
      -8.249,
-     -77.724,
+     26.924,
      191.526,
      8.249,
-     -26.924,
+     77.724,
      207.274
     ]
    ],
@@ -1182,10 +1186,10 @@
    "boxes": [
     [
      -9.165,
-     -39.624,
+     11.112,
      171.446,
      9.165,
-     -11.112,
+     39.624,
      207.338
     ]
    ],
@@ -1197,15 +1201,15 @@
    "component": "vessel-elbow-water-in",
    "boxes": [
     [
-     -9.165,
-     11.112,
+     -16.415,
+     -26.988,
      171.446,
      9.165,
-     39.624,
-     207.338
+     3.056,
+     208.543
     ]
    ],
-   "fill": 0.3226,
+   "fill": 0.2121,
    "primitive": false,
    "declared": "real"
   }
@@ -1264,14 +1268,14 @@
    "to": "carbonator-vessel.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 262.94,
+   "length": 301.09,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 209.37,
-   "reachGrade": "C",
+   "reach": 203.35,
+   "reachGrade": "D",
    "binding": null,
    "corners": [
     {
@@ -1279,10 +1283,16 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
+    },
+    {
+     "at": 2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.256
+    "detour": 1.481
    }
   },
   {
@@ -1292,13 +1302,13 @@
    "to": "prv-vent.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 289.64,
+   "length": 305.64,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 209.15,
+   "reach": 221.06,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -1310,7 +1320,7 @@
     }
    ],
    "need": {
-    "detour": 1.385
+    "detour": 1.383
    }
   },
   {
@@ -1448,13 +1458,13 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 195.05,
+   "length": 200.16,
    "bend": 14.0,
    "radius": 10.739,
    "minBend": 14.0,
    "ratio": 0.767,
    "grade": "C",
-   "reach": 137.2,
+   "reach": 139.27,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -1478,7 +1488,7 @@
     }
    ],
    "need": {
-    "detour": 1.422
+    "detour": 1.437
    }
   }
  ],
@@ -1815,7 +1825,7 @@
   }
  ],
  "source": {
-  "generated": "2026-08-09T05:25:39+00:00",
-  "commit": "68fe9284d4a12ac613cb21511d911dc1d8ca89cd"
+  "generated": "2026-08-09T06:03:58+00:00",
+  "commit": "6667e910b8093fe3c795d9381a9226a2d78f18f6"
  }
 }

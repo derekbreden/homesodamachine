@@ -37,13 +37,16 @@ for _p in (_hw / "scripts", _hw / "printed-parts" / "cold-core",
 
 import _fittings as F                                   # noqa: E402
 from _cold_core_interface import (                      # noqa: E402
+    co2_inlet_y,
     hole_shift_from_edge,
+    prv_port_y,
     tank_height,
     tank_outer_radius,
     tank_support_ring_height,
     tank_top_plate_z,
     vessel_port_offset,
     wall_and_floor_thickness,
+    water_inlet_port_y,
 )
 from _port_cuts import front_face_port_z                # noqa: E402
 import _internal_routes as _R                           # noqa: E402
@@ -84,13 +87,16 @@ ELBOW_AXIS_OFFSET = hole_shift_from_edge + PLATE_RECESS
 
 # Which port carries what. `up` is the direction the male leg threads, `out` the way the
 # female socket faces once the elbow is made up.
+#   WHICH HOLE OF A PAIR EACH ONE TAKES is the shell's statement, not this file's: the plate
+# drills two holes on one diameter and what picks between them is where the line on the far
+# side has to go. `_cold_core_interface` holds all four and says why each sits where it does.
 PORTS = {
     # bottom plate, under the liquid
-    "co2-in":         {"y": -vessel_port_offset, "plate": "bottom"},
-    "carb-water-out": {"y": +vessel_port_offset, "plate": "bottom"},
+    "co2-in":         {"y": co2_inlet_y, "plate": "bottom"},
+    "carb-water-out": {"y": -co2_inlet_y, "plate": "bottom"},
     # top plate, over it
-    "water-in":       {"y": +vessel_port_offset, "plate": "top"},
-    "prv":            {"y": -vessel_port_offset, "plate": "top"},
+    "water-in":       {"y": water_inlet_port_y, "plate": "top"},
+    "prv":            {"y": prv_port_y, "plate": "top"},
 }
 
 
@@ -116,8 +122,12 @@ PORT_LINES = {
     "carb-water-out": ("carb-water-out", "start"),
     "water-in": ("water-in", "start"),
 }
-# The PRV carries no line into the core — its relief leaves down the port lane, which is −Y.
-PRV_OUT = (0.0, -1.0, 0.0)
+# The PRV carries no line into the core, so nothing downstream clocks its socket — but the
+# SHROUD is made up on that socket and the shroud is what carries the vent. So the elbow faces
+# OUTWARD along its own port's side of the axis, and the cup reaching that way lands its bore
+# on that side's lane (`prv_shroud.vent_station_z`). A socket turned the other way would put the
+# bore a leg short of the vessel's own centre, where there is no lane to fall down.
+PRV_OUT = (0.0, 1.0 if prv_port_y > 0 else -1.0, 0.0)
 
 
 def port_out(name: str) -> tuple:

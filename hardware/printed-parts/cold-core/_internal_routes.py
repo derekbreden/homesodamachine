@@ -10,15 +10,16 @@ the only way to know a line fits is to draw it and measure it, which is what
 
 WHERE EACH LINE GOES, and what it does at the end of it:
 
-  water-in         down the forward strip, along the +Y band and in at the carbonator's
-                   TOP plate — above the water line, where the pump pushes filtered tap
-                   water in against the CO2 back-pressure and it falls into the headspace.
+  water-in         down the forward strip, along the +Y band and across the vessel's own
+                   top on one diagonal to the carbonator's TOP plate — above the water
+                   line, where the pump pushes filtered tap water in against the CO2
+                   back-pressure and it falls into the headspace.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the vessel's own
                    drain. Out flat on its own storey and through a slot in the support
                    ring, up beside the coil, and onto the port lane only once the tank's
                    top plate is under it.
-  co2-in           the one line that runs DOWN. The port lane's +X half the shell's whole
-                   height, one corner in the open at the bottom, and straight in along the
+  co2-in           the one line that runs DOWN. The port lane's own column the shell's
+                   whole height, a leg along its floor, and straight in along the
                    leaning reach that bores the support ring — then inside the vessel to
                    the sparge stone hanging in the water column, so the gas enters BELOW
                    the liquid and dissolves on the way up.
@@ -32,16 +33,19 @@ WHERE EACH LINE GOES, and what it does at the end of it:
 Every vessel here is filled high and drawn low. Nothing that enters can leave without
 crossing the vessel, which is what the air-purge and clean-flush service modes run on.
 
-THE BANDS ARE STACKED IN Z, not in Y — AND A RISER IS ON NO BAND. The port lane is one
-bore wide, so two runs that want it at the same height cannot pass: what separates them
-is the storey each takes. Reservoir A's draw has the lane's own floor at the bulkhead
-band, under everything; the evaporator's inlet copper and the PRV vent take their own
-storeys above it; the carbonated water does not join the lane until it is over the tank.
+THE BANDS ARE STACKED IN Z, not in Y — AND A RISER IS ON NO BAND. A lane is one bore
+wide, so two runs that want it at the same height cannot pass: what separates them is the
+storey each takes. On the port lane, reservoir A's draw has the lane's own floor at the
+bulkhead band, under everything; the evaporator's inlet copper takes a storey above it;
+the carbonated water does not join the lane until it is over the tank. On the west lane,
+reservoir B's draw has that same floor, and the PRV vent and the evaporator's outlet
+copper take the two storeys over it.
 A RISER answers to none of that — it stands in every storey at once, so what keeps it
-clear is its X, and one bore of lane holds exactly one riser. The CO2 is it, and it falls
-the +X half because everything else the lane carries up there travels WEST, from the
-vessel out to the front wall (`_cold_core_interface.co2_lane_x`). `report_routes` is what
-proves they never meet.
+clear is its X, and one bore of lane holds exactly one riser. EACH LANE CARRIES ONE. The
+CO2's fall is the port lane's (`_cold_core_interface.co2_cap_x`), and the evaporator's
+outlet copper is the west lane's, which is why the vent crosses the wall UNDER that copper
+rather than over it (`copper_plugs.prv_vent_z`). `report_routes` is what proves they never
+meet.
 
 WHAT A CORNER TURNS AT IS NOT CHOSEN HERE — it is what the corridor leaves, and
 `fit_route` is how the corridor states it: each line is drawn at the stock arc and
@@ -149,14 +153,31 @@ reservoir_cap_top_z = reservoir_cap_z + _reservoir.cap_total_height
 
 # THE PRV'S RELIEF, both ends of it. `prv-shroud` caps the SV-125 for the pour and vents
 # through its BARREL's underside rather than its cap face, so what leaves the shroud is
-# already pointing down the port lane and takes no corner to get onto it
-# (`prv-shroud/prv_shroud.py` says why the cap cannot). The far end is the station the wall
-# leaves one `front_port_pitch` over the evaporator's inlet copper, in the same slot and
-# under the same plug stack (`copper_plugs.columns`). Between them the line is one fall and
-# one corner.
-prv_vent_start = (0.0, port_lane_mid_y,
+# already pointing down the lane and takes no corner to get onto it
+# (`prv-shroud/prv_shroud.py` says why the cap cannot). WHICH lane is the vessel's port
+# clocking (`_cold_core_interface.prv_port_y`) and it is read off the station the wall leaves
+# rather than restated, so the cup, the line and the plug that seals it cannot land on three
+# different strips. The far end is that station, in the same slot and under the same plug stack
+# (`copper_plugs.columns`). Between them the line is one fall and one corner.
+_prv_vent_lane, prv_vent_lane_y = _plugs.station_lane("prv-vent")
+prv_vent_start = (0.0, prv_vent_lane_y,
                   tank_top_plate_z + hole_shift_from_edge - _shroud.outer_diameter / 2.0)
 prv_vent_cross_z = _plugs.slot_station("prv-vent")[0][2]
+
+# WHERE THE WATER INLET CROSSES THE VESSEL'S OWN TOP. Its port is the top plate's −Y hole and
+# its conduit stands over the +Y band, so the line has to cross the axis somewhere in the band
+# between that plate and the cap's floor — where the tank has already ended and the space is
+# open. It crosses on ONE DIAGONAL from the port to the west lane, which is also what clocks
+# the elbow: a line leaving on the diagonal's own axis needs no corner to start it, and the
+# straight it gives the collet is the whole 105 mm reach instead of a leg out of a corner.
+#   The column it lands on is the balance of two bodies. Inboard, the PRV STACK stands on the
+# +Y port — elbow, valve and a ⌀23 cup along the axis — and the water inlet's own collet swings
+# past the PRV's elbow as the diagonal steepens. Outboard, RESERVOIR B's pocket wall closes in.
+# Measured on the placed solids over landing columns 44..49: the collet's gap to the PRV elbow
+# runs 0.46 → 2.07 mm and the diagonal's gap to the shell runs 1.83 → 0.84 mm, and they cross
+# here, at 1.44 and 1.49 mm. Under 37 the diagonal meets the PRV stack; past 48.5 it meets the
+# pocket wall, which gives way to a corridor and would open a hole into the pocket.
+water_in_cross_x = -47.0
 
 # The tank + its wrapped coil, as one cylinder: what the carbonated water's riser stands
 # off, and the reason it stands where it does.
@@ -182,8 +203,8 @@ def co2_run_y(x):
     It leans across the shell's floor from the port lane to the vessel's own port, so where
     a line crossing its column meets it is a reading off that lean and not the plate's
     axis. A column OUTSIDE that lean's own span does not cross it at all, and `None` is
-    that: the CO2 falls the lane's +X half (`_cold_core_interface.co2_lane_x`) and its reach
-    in stops on the vessel's axis, so nothing standing further out has it to clear."""
+    that: the lean runs the +X half (`_cold_core_interface.co2_lane_x`) and stops on the
+    vessel's axis, so nothing standing further out has it to clear."""
     (x0, y0, _z0), (x1, y1, _z1) = co2_inlet_lane_xyz, co2_inlet_xyz
     if not min(x0, x1) - 1e-9 <= x <= max(x0, x1) + 1e-9:
         return None
@@ -226,19 +247,20 @@ def _routes():
     b_riser_y = cap_conduit_shell_xy("reservoir-b")[1]
 
     return {
-        # The carbonator's top plate, above the liquid. Out of the elbow laterally, out to
-        # the +Y band in the band between that plate and the cap's floor, forward along it,
-        # and in to the strip.
-        #   THE ONE LINE LEFT UNDER THE STOCK ARC, and the step at the end of it is why. It
-        # has to travel outboard of both pockets — the reservoirs and their caps fill them to
-        # within a pour clearance of the cap's floor, so there is no crossing over one at this
-        # height — and it has to arrive on its conduit's own station, which stands inboard of
-        # that. The step between the two is wider than `top_band_to_cap` is tall, so leaning
-        # it buys less than the vertical it spends and the two corners either end of it share
-        # a leg neither can have. `report_routes` prints what they come back at.
+        # The carbonator's top plate, above the liquid. Out of the elbow on one diagonal that
+        # crosses the vessel's own top to the +Y band — the tank has ended by this height, so
+        # the crossing costs nothing but the room between the PRV stack and reservoir B's
+        # pocket (`water_in_cross_x`) — then forward along that band and in to the strip.
+        #   THE STEP AT THE END IS WHAT THIS RUN IS SHORT OF. It has to travel outboard of both
+        # pockets — the reservoirs and their caps fill them to within a pour clearance of the
+        # cap's floor, so there is no crossing over one at this height — and it has to arrive on
+        # its conduit's own station, which stands inboard of that. The step between the two is
+        # wider than `top_band_to_cap` is tall, so leaning it buys less than the vertical it
+        # spends and the two corners either end of it share a leg neither can have.
+        # `report_routes` prints what they come back at.
         "water-in": [
-            (0.0, +vessel_port_offset, top_band_z),
-            (0.0, west_lane_mid_y, top_band_z),
+            (0.0, -vessel_port_offset, top_band_z),
+            (water_in_cross_x, west_lane_mid_y, top_band_z),
             (forward_band_x, west_lane_mid_y, top_band_z),
             (forward_band_x, water_in_y, top_band_z),
             (forward_band_x, water_in_y, shell_top_z),
@@ -298,8 +320,8 @@ def _routes():
         # where it ends open. Unpressurized until the valve pops.
         "prv-vent": [
             prv_vent_start,
-            (prv_vent_start[0], port_lane_mid_y, prv_vent_cross_z),
-            (front_wall_x - wall_and_floor_thickness, port_lane_mid_y, prv_vent_cross_z),
+            (prv_vent_start[0], prv_vent_lane_y, prv_vent_cross_z),
+            (front_wall_x - wall_and_floor_thickness, prv_vent_lane_y, prv_vent_cross_z),
         ],
         # The two fills are the gap between two bores: the cap conduit above and the bore in
         # the reservoir's own cap below, with the pour clearance over the reservoir between

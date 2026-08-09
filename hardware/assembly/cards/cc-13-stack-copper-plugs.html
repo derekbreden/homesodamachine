@@ -22,8 +22,9 @@
 
     <ol class="steps">
       <li><b>Sort them by lane first.</b> <b>lower</b> then <b>middle</b>
-        tile the <b>port lane</b>; <b>top</b> is the whole west stack,
-        because one line crosses there.</li>
+        tile the <b>west lane</b> — the PRV vent crosses UNDER the copper
+        there; <b>top</b> is the whole port stack, because one line
+        crosses that lane.</li>
       <li><b>Slide each down its own slot from above</b> — web in the
         slot, wall in the gap between the flanges: the binder-clip
         grip.</li>
@@ -80,31 +81,31 @@
         <!-- two stacks, 1.55 px/mm, z=0 at y=390 -->
         <text class="sub" x="520" y="54" text-anchor="middle">PORT</text>
         <text class="sub" x="660" y="54" text-anchor="middle">WEST</text>
-        <!-- port lane band: lower (27.75-35.75) then middle (35.75-top) -->
+        <!-- port lane band: top, the whole column (27.75-wall top) -->
         <rect class="petg" x="498" y="59.2" width="44" height="330.8"/>
         <rect x="514.9" y="59.2" width="10.1" height="300.6" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
-        <rect class="plug" x="513.4" y="334.6" width="13.2" height="12.4"/>
-        <rect class="plug" x="513.4" y="59.2" width="13.2" height="275.4"/>
+        <rect class="plug" x="513.4" y="59.2" width="13.2" height="287.8"/>
         <circle class="cu" cx="520" cy="347.0" r="5"/>
-        <circle class="cu" cx="520" cy="334.6" r="5"/>
         <circle class="ghost" cx="520" cy="367.1" r="5"/>
         <circle class="ghost" cx="520" cy="379.5" r="5"/>
-        <!-- west lane band: top, the whole column -->
+        <!-- west lane band: lower (19.75-27.75) then middle (27.75-top) -->
         <rect class="petg" x="638" y="59.2" width="44" height="330.8"/>
-        <rect x="654.9" y="59.2" width="10.1" height="300.6" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
+        <rect x="654.9" y="59.2" width="10.1" height="313.0" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
+        <rect class="plug" x="653.4" y="347.0" width="13.2" height="12.4"/>
         <rect class="plug" x="653.4" y="59.2" width="13.2" height="287.8"/>
         <circle class="cu" cx="660" cy="347.0" r="5"/>
+        <circle class="cu" cx="660" cy="359.4" r="5"/>
         <!-- z callouts, fanned clear of one another -->
-        <line class="dimln" x1="480" y1="300" x2="510" y2="334.6"/>
-        <text class="dimtx" x="474" y="296" text-anchor="end" data-gen="PRV_VENT_Z">35.75</text>
         <line class="dimln" x1="480" y1="392" x2="510" y2="349"/>
         <text class="dimtx" x="474" y="400" text-anchor="end" data-gen="EVAP_IN_Z">27.75</text>
-        <line class="dimln" x1="660" y1="134" x2="660" y2="338"/>
-        <text class="dimtx" x="660" y="124" text-anchor="middle" data-gen="EVAP_OUT_Z">27.75</text>
+        <line class="dimln" x1="700" y1="300" x2="670" y2="347.0"/>
+        <text class="dimtx" x="706" y="296" data-gen="EVAP_OUT_Z">27.75</text>
+        <line class="dimln" x1="700" y1="392" x2="670" y2="361"/>
+        <text class="dimtx" x="706" y="400" data-gen="PRV_VENT_Z">19.75</text>
         <!-- which plug is which -->
-        <text class="sub" x="520" y="418" text-anchor="middle">lower + middle</text>
-        <text class="sub" x="660" y="418" text-anchor="middle">top</text>
-        <text class="sub" x="660" y="444" text-anchor="middle">the whole stack</text>
+        <text class="sub" x="520" y="418" text-anchor="middle">top</text>
+        <text class="sub" x="520" y="444" text-anchor="middle">the whole stack</text>
+        <text class="sub" x="660" y="418" text-anchor="middle">lower + middle</text>
       </svg>
       <div class="cap"><b>End faces meet at the tube centers</b> — no
       linear gaps in either stack; the tube is the gap. Grey: the field's
@@ -112,9 +113,9 @@
     </div>
 
     <table class="spec" style="margin-top:16px">
-      <tr><td>lower &#183; port</td><td class="v" data-gen="PLUG_LOWER">27.75 &#8594; 35.75</td>
-          <td>middle &#183; port</td><td class="v" data-gen="PLUG_MIDDLE">35.75 &#8594; 213.4</td></tr>
-      <tr><td>top &#183; west</td><td class="v" data-gen="PLUG_TOP">27.75 &#8594; 213.4</td>
+      <tr><td>lower &#183; west</td><td class="v" data-gen="PLUG_LOWER">19.75 &#8594; 27.75</td>
+          <td>middle &#183; west</td><td class="v" data-gen="PLUG_MIDDLE">27.75 &#8594; 213.4</td></tr>
+      <tr><td>top &#183; port</td><td class="v" data-gen="PLUG_TOP">27.75 &#8594; 213.4</td>
           <td>Slot &#183; wall top</td><td class="v" data-gen="SLOT_W">&#8960;6.5</td></tr>
       <tr><td>Station pitch</td><td class="v" data-gen="FIELD_PITCH">8</td>
           <td>Wall stands</td><td class="v" data-gen="SHELL_H">213.4</td></tr>

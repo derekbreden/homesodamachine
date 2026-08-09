@@ -11,19 +11,27 @@ condenser on the PORT lane's flank, the compressor on the WEST lane's. So the ev
 two coppers leave by opposite lanes, each one out on the side the leg that reaches it comes
 from, and each lane is one slot with its own stack. `columns` is that table.
 
-  PORT LANE, low → high, over the front port field's two reed cables:
+  PORT LANE, one station, over the front port field's two reed cables:
     • [27.75 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
       condenser's outlet through the drier and the cap tube
-    • [35.75 mm](PRV_VENT_Z) PRV vent — 1/4" LLDPE down the lane from the prv-shroud cap
 
-  WEST LANE, one station:
+  WEST LANE, low → high:
+    • [19.75 mm](PRV_VENT_Z) PRV vent — 1/4" LLDPE down the lane from the prv-shroud's barrel
     • [27.75 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, reached from the
       compressor's suction. It crosses at the height its opposite number does: the two
       lanes are the same strip mirrored, and one coil's two tails reach either the same way.
 
+THE VENT CROSSES UNDER THE COPPER IT SHARES A LANE WITH, and that is the west lane's own
+arithmetic rather than a preference. Reservoir B's pocket closes the standoff annulus at the
+outlet tail's azimuth, so that tail falls IN the lane (`_coil.FALL_IN_LANE`) — a riser from its
+wrap all the way down to its station, and a wall to anything crossing that column at any storey
+above it. What is left is the storey below, one pitch down. The port lane's own copper stands
+its fall outside the lane, so nothing there is a riser and its one station sits at the field's
+own floor.
+
 Not one of them crosses at the height its own fitting sits at. Each line leaves its fitting,
 turns onto its lane and climbs or drops it — the cold tail drops to its station, the warm
-tail drops the far lane, the PRV vent comes down off the shroud's cap — so all of it stands
+tail drops the far lane, the PRV vent comes down off the shroud's barrel — so all of it stands
 in one band low on the wall rather than spreading up it.
 
 The PRV vent line is unpressurized in normal operation — it carries
@@ -33,10 +41,10 @@ relief-event discharge from the prv-shroud cavity (see
 
 Three plugs, one printed part each. A plug fills from one station up to the next, and the
 last plug of a column reaches the wall's top face so nothing is left open above the stack:
-  • copper-plug-lower:  PORT lane, evaporator inlet up to the PRV vent.
-  • copper-plug-middle: PORT lane, the PRV vent up to (just below) the +Z top face
+  • copper-plug-lower:  WEST lane, PRV vent up to the evaporator outlet.
+  • copper-plug-middle: WEST lane, the evaporator outlet up to (just below) the +Z top face
                         of the outer_shell.
-  • copper-plug-top:    WEST lane, the evaporator outlet up to that same face — the whole
+  • copper-plug-top:    PORT lane, the evaporator inlet up to that same face — the whole
                         of its own column, because one line crosses that lane.
 
 Cross-section (looking along −Z; X horizontal, Y vertical) — a
@@ -152,24 +160,27 @@ bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
 # takes the span above; both are one bore wide, so they share one line and cannot
 # overlap. A station's Z is where its line CROSSES THE WALL, not the height of the
 # fitting it serves — every line turns onto its lane and climbs or drops it to get
-# here — so the slot's stations continue the field at its own `front_port_pitch` rather
+# here — so the slot's stations sit at the field's own `front_port_pitch` rather
 # than each crossing at its fitting's own height. That is what keeps every
-# penetration in one low band: no station stands above [35.75 mm](PRV_VENT_Z) on a
+# penetration in one low band: no station stands above [27.75 mm](EVAP_INLET_Z) on a
 # wall [213.4 mm](SHELL_TOP_Z) tall, so whatever is packed against this face outside
 # meets all of them in one reach instead of up the shell's full height. What a
 # stack owes the field under it is the field's top, one wall of PETG, and the reach of the
 # slot's own rounded bottom below the lowest plug.
 slot_bottom_below_lowest_plug = 5.0     # open slot under the lowest plug's bottom arch
-# [27.75 mm](EVAP_INLET_Z) — the cold-side evaporator inlet on the PORT lane, and
+# The cold-side evaporator inlet on the PORT lane, and
 # [27.75 mm](EVAP_OUTLET_Z) the warm-side outlet on the WEST one. Both coppers cross at this
 # height: the two lanes are one strip mirrored, and each tail leaves its wrap
 # (`_cold_core_interface.evap_tail_low_z` / `evap_tail_high_z`) and turns onto its own lane
 # to reach it — which is why the coil's geometry and these stations are separate numbers.
 evap_cross_z = (front_port_field_top_z + port_lane_wall
                 + slot_width_x / 2 + slot_bottom_below_lowest_plug)
-# [35.75 mm](PRV_VENT_Z) — PRV relief line, down the port lane from the prv-shroud cap, one
-# pitch over the copper beside it.
-prv_vent_z = evap_cross_z + front_port_pitch
+# [19.75 mm](PRV_VENT_Z) — PRV relief line, down the WEST lane from the prv-shroud's barrel,
+# one pitch UNDER the copper beside it. That direction is the outlet tail's doing: it falls in
+# the lane from its wrap to its own station, so the column is closed at every storey above and
+# this is the only one left. The field the port lane keeps below its slot has no counterpart
+# here, so the west slot's bottom simply follows this station down.
+prv_vent_z = evap_cross_z - front_port_pitch
 
 # THE TWO COLUMNS. A column is a lane, the stations crossing the wall on it in climbing
 # order, and the slot bottom under the lowest of them — the straight section's low end, with
@@ -183,10 +194,22 @@ def _column(lane_y, stations):
 
 
 columns = {
-    "port-lane": _column(port_lane_mid_y,
-                         [("evap-inlet", evap_cross_z), ("prv-vent", prv_vent_z)]),
-    "west-lane": _column(west_lane_mid_y, [("evap-outlet", evap_cross_z)]),
+    "port-lane": _column(port_lane_mid_y, [("evap-inlet", evap_cross_z)]),
+    "west-lane": _column(west_lane_mid_y,
+                         [("prv-vent", prv_vent_z), ("evap-outlet", evap_cross_z)]),
 }
+
+
+def station_lane(station):
+    """Which lane one station crosses on: `(column name, its lane's y)`.
+
+    A line that falls a lane and a plug that seals it read the same table, so the lane is
+    looked up by the station's name rather than restated at either end."""
+    for name, column in columns.items():
+        if any(s == station for s, _z in column.stations):
+            return (name, column.lane_y)
+    raise KeyError(f"no station {station!r} — have: "
+                   f"{', '.join(sorted(s for c in columns.values() for s, _z in c.stations))}")
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
@@ -197,9 +220,9 @@ columns = {
 PlugSpec = namedtuple("PlugSpec", ["z_range", "arch_bottom", "arch_top", "column", "station"])
 
 # Which printed part fills which span. The three names are the three STEPs, and each is one
-# span of one column: `lower` and `middle` tile the port lane, `top` is the whole of the
-# west lane's own stack.
-PLUG_ORDER = (("lower", "port-lane", 0), ("middle", "port-lane", 1), ("top", "west-lane", 0))
+# span of one column: `lower` and `middle` tile the west lane, `top` is the whole of the
+# port lane's own stack.
+PLUG_ORDER = (("lower", "west-lane", 0), ("middle", "west-lane", 1), ("top", "port-lane", 0))
 
 plug_specs = {}
 for _plug, _col, _i in PLUG_ORDER:
@@ -411,7 +434,7 @@ def main():
             "PLUG_Y_OUTER": 1,
             "EVAP_INLET_Z": 2,
             "EVAP_OUTLET_Z": 2,
-            "PRV_VENT_Z": 3,
+            "PRV_VENT_Z": 2,
             "WEB_BUFFER": 1,
             "CPLUG_WALL_T": 3,
             "SHELL_TOP_Z": 1,
