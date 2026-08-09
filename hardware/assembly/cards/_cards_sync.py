@@ -244,8 +244,12 @@ def enclosure(m: Machine):
         "en-01-stage-the-four-pieces": {
             "BOX_SIZE", "BOX_PIECES", "WALL_T", "Y_SEAM", "Z_SEAM_FRONT", "Z_SEAM_BACK",
             "WALL_BOSSES", "C14_BOSSES"},
+        # UMBILICAL_DROP is the internal-plumbing subsystem's name for the gap between
+        # the two storeys, and one namespace spans the deck: EN-02 states the same
+        # rectangle IP-05 rides, so it reads the storey pitch off the same fact rather
+        # than deriving a second one that could drift from it.
         "en-02-rear-wall-bodies": {
-            "BACK_BODIES", "PORT_COL_PITCH", "CARB_END",
+            "BACK_BODIES", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
             "PORT_HOLE_D", "CO2_HOLE_D",
             "PORT_NUT_D", "PORT_CHAIN_3", "C14_FLANGE_W", "AC_RECESS"},
         "en-03-bolt-the-compressor-down": {
