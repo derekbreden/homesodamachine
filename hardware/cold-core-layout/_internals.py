@@ -225,11 +225,83 @@ def carbonator_reed_x() -> float:
     return tank_outer_radius + F.REED_GLASS_R
 
 
+# --- where a float rides -----------------------------------------------------
+#
+# EVERY REED IN THIS MACHINE READS THROUGH A WALL, and magnetic coupling falls off fast across
+# one. So a float is not placed on its rod's axis — it is placed against the wall its own reed
+# column stands behind, and the rod is parked OUTBOARD of where a concentric float would touch
+# so the wall has to push back. `endcap_circular_dxf.magnet_wall_bias` is that overhang on the
+# carbonator and `reservoir.rod_position_x` is it on a pocket; `reed_bridge.donut_wall_bias`
+# reads the same figure off the plate.
+#
+# What lets a rod be parked past the wall is that the float is a LOOSE capsule: the donor's
+# ⌀9.75 bore over a ⌀3.175 rod gives `FLOAT_SLOP` of radial freedom, and the park spends it.
+# `float_standoff` is what is left — the most the magnet can retreat from the wall anywhere in
+# the travel, and the figure the reed has to read at.
+FLOAT_SLOP = (F.FLOAT_BORE - _V.ROD_D) / 2.0
+# `reservoir/level-sensing.md`, measured on the bench against both walls: the reed trips
+# reliably with the magnet within ~2 mm of its wall and gives nothing by ~3 mm off.
+MAGNET_WALL_REACH = 2.0
+
+
+def float_ride(park: float, wall: float) -> tuple:
+    """One float on a rod parked `park` from the wall's own origin, riding a wall at `wall`.
+
+    Returns `(centre, standoff)`: how far off that origin the capsule's axis actually lies, and
+    the most its magnet can stand off the wall. A negative standoff is a capsule that cannot
+    get onto the rod inside the wall at all."""
+    touching = wall - F.FLOAT_OD / 2.0
+    return min(park + FLOAT_SLOP, touching), touching - (park - FLOAT_SLOP)
+
+
+def reservoir_wall_x(reservoir_solid, side: int) -> float:
+    """The |x| of the far wall one pocket's float rides, probed outward on the rod's own line.
+
+    The reed column stands outside this wall (`REED_COLUMN_X`), so it is the wall the magnet
+    has to be against. Reading it off the part is what keeps a wall that moves carrying its
+    float with it. Both pockets are the same part mirrored, so the probe walks `side`."""
+    step = 0.05
+    bb = reservoir_solid.BoundingBox()
+    far = bb.xmax if side > 0 else bb.xmin
+    reach = RES_ROD_X
+    while reach < abs(far) + step:
+        x = side * reach
+        bar = cq.Solid.makeBox(step, 1.0, 1.0,
+                               cq.Vector(min(x, x + side * step), RES_ROD_Y - 0.5,
+                                         sum(FLOAT_TRAVEL_Z) / 2.0 - 0.5))
+        if reservoir_solid.intersect(bar).Volume() > 1e-9:
+            return reach
+        reach += step
+    return abs(far)
+
+
+def float_seats(reservoirs: dict = None) -> dict:
+    """Every float, and the wall it lies against: name → `(park, wall, centre, standoff)`.
+
+    One row per float, in the frame its own wall's origin is on — the tank's axis for the
+    carbonator, the pocket's own centre plane for a reservoir. `cold_core_assembly` grades
+    these; `report` prints them."""
+    out = {}
+    park, wall = _V.ROD_X, _V.TUBE_ID / 2.0
+    centre, standoff = float_ride(park, wall)
+    out["float-carb"] = (park, wall, centre, standoff)
+    for name, side in (("a", +1), ("b", -1)):
+        body = (reservoirs or {}).get(f"reservoir-{name}")
+        if body is None:
+            continue
+        wall = reservoir_wall_x(body, side)
+        centre, standoff = float_ride(RES_ROD_X, wall)
+        out[f"float-{name}"] = (RES_ROD_X, wall, centre, standoff)
+    return out
+
+
 def level_bodies(reservoirs: dict = None) -> dict:
     out = {}
-    # The carbonator: one float on the welded rod, resting at the high threshold.
+    seats = float_seats(reservoirs)
+    # The carbonator: one float on the welded rod, lying against the tube's bore on the
+    # register azimuth, resting at the high threshold.
     out["float-carb"] = F.float_capsule(
-        centre=(_V.ROD_X, 0.0, _bridge.high_level_z + _V.tank_bottom_z))
+        centre=(seats["float-carb"][2], 0.0, _bridge.high_level_z + _V.tank_bottom_z))
     for i, z in enumerate(carbonator_reed_z(), start=1):
         out[f"reed-carb-{i}"] = F.reed(centre=(carbonator_reed_x(), 0.0, z))
 
@@ -240,8 +312,10 @@ def level_bodies(reservoirs: dict = None) -> dict:
         out[f"float-rod-{name}"] = cq.Solid.makeCylinder(
             _V.ROD_D / 2, RES_ROD_LEN,
             cq.Vector(side * RES_ROD_X, RES_ROD_Y, z0), cq.Vector(0, 0, 1))
+        seat = seats.get(f"float-{name}")
         out[f"float-{name}"] = F.float_capsule(
-            centre=(side * RES_ROD_X, RES_ROD_Y, sum(FLOAT_TRAVEL_Z) / 2.0))
+            centre=(side * (seat[2] if seat else RES_ROD_X), RES_ROD_Y,
+                    sum(FLOAT_TRAVEL_Z) / 2.0))
         for i, z in enumerate(reservoir_reed_z(), start=1):
             out[f"reed-{name}-{i}"] = F.reed(
                 centre=(side * REED_COLUMN_X, reed_y_center, z))
@@ -328,6 +402,12 @@ def report(reservoirs: dict = None) -> None:
             for n, s in (("a", 1), ("b", -1)) if f"reservoir-{n}" in reservoirs)
     print(f"    res rods        ⌀{_V.ROD_D:.3f} × {RES_ROD_LEN:.1f} at x ±{RES_ROD_X:.0f}, "
           f"y {RES_ROD_Y:.1f}{seats}")
+    print(f"    float slop      ⌀{F.FLOAT_BORE:.2f} bore on a ⌀{_V.ROD_D:.3f} rod — "
+          f"{FLOAT_SLOP:.3f} mm of radial freedom, against the {MAGNET_WALL_REACH:.1f} mm "
+          f"the reed reads at")
+    for name, (park, wall, centre, standoff) in sorted(float_seats(reservoirs).items()):
+        print(f"    {name:15} rod parked {park:.3f}, wall {wall:.3f}, capsule lies at "
+              f"{centre:.3f} — magnet stands off {standoff:+.3f} mm")
 
 
 if __name__ == "__main__":

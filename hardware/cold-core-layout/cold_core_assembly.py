@@ -441,6 +441,40 @@ def _stations_met(fitted: dict, placed: dict) -> Check:
                  verdict(met == total), f"{met}/{total} stations", "a run per station", detail)
 
 
+def _floats_couple(placed: dict) -> Check:
+    """Every float's magnet held against the wall its reed reads through.
+
+    A reed here is OUTSIDE the vessel it reads, so what the check is about is COUPLING, not
+    clearance: the capsule is loose on its rod (`_internals.FLOAT_SLOP`) and each rod is parked
+    outboard of where a concentric float would touch, so the wall pushes the magnet against
+    itself for the whole travel. `standoff` is what is left of the slop — the most the magnet
+    can retreat anywhere in that travel — and a float that gets LOOSER fails this, which is the
+    direction the failure actually comes from. Under zero is the other end: a capsule the wall
+    will not let onto its rod at all."""
+    detail = []
+    seats = _I.float_seats({n: s for n, s in placed.items() if n.startswith("reservoir-")})
+    good = 0
+    for name, (park, wall, _centre, standoff) in sorted(seats.items()):
+        bias = park + _F.FLOAT_OD / 2.0 - wall
+        if standoff < 0.0:
+            detail.append(f"{name}: rod parked {park:.2f} bites {-standoff:.2f} mm past the "
+                          f"{_I.FLOAT_SLOP:.2f} mm of bore slop — the wall at {wall:.2f} will "
+                          f"not let the capsule onto its rod")
+        elif standoff > _I.MAGNET_WALL_REACH:
+            detail.append(f"{name}: rod parked {park:.2f} against a wall at {wall:.2f} leaves "
+                          f"the capsule {-bias:.2f} mm short of it, so the magnet stands off "
+                          f"up to {standoff:.2f} mm — past the "
+                          f"{_I.MAGNET_WALL_REACH:.1f} mm the reed reads at")
+        else:
+            good += 1
+            detail.append(f"{name}: rod parked {park:.2f} biases the capsule {bias:+.2f} mm "
+                          f"into a wall at {wall:.2f}; magnet standoff 0..{standoff:.2f} mm")
+    return Check("floats-couple", "Every float's magnet is held against the wall its reed "
+                 "reads through", "gate", verdict(good == len(seats)),
+                 f"{good}/{len(seats)} floats",
+                 f"standoff under {_I.MAGNET_WALL_REACH:.1f} mm", detail)
+
+
 def _arcs_hold(fitted: dict) -> Check:
     """Every corner at the stock arc, or the reading it came back at."""
     stock = _routes.route_bend_radius
@@ -561,6 +595,7 @@ def build_card(a) -> Scorecard:
         _port_leads(fitted, a.points),
         _stations_met(fitted, placed),
         _arcs_hold(fitted),
+        _floats_couple(placed),
         _goal("placed", "Every body the core carries is placed", len(placed), len(placed),
               "a solid per body"),
         _goal("located", "Every port a placed body declares is positioned",
