@@ -184,7 +184,7 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # Hopper funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
 # static part (../../zone-c/hopper-funnel/, its own frame) placed at
-# the pack's own `funnel` centre with its brim on the box top, and _hopper_hole
+# the box's own `funnel` centre with its brim on the box top, and with_funnel
 # measures the top-wall frame against it (the facet's back plane ahead, the
 # ±X top corner pods either side, the back wall behind). The funnel is pushed as
 # far forward as that frame allows and reaches aft for its capacity, so it may
@@ -1215,48 +1215,58 @@ def _x_port_cuts(ports, x0, x1):
 
 # --- hopper funnel opening (Zone C) -----------------------------------------
 
-def _hopper_hole(inner, outer, y_joint, centre):
-    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the
-    placed funnel's collar — hopper_funnel.py's own dims at
-    the pack's own `funnel` centre.
+def _hopper_frame(inner, outer):
+    """What the top wall has left to give the collar, `(x_lo, x_hi, y_lo, y_hi)`: BEHIND the
+    display facet's own back plane, inboard of the ±X top corner pods, and ahead of the back
+    wall.
 
-    The frame is what the top wall has left to give: BEHIND the display facet's own
-    back plane, inboard of the ±X top corner pods, and ahead of the back wall.
-
-    THE FRONT IS A DIFFERENT KIND OF EDGE FROM THE OTHER THREE. On those, the frame
-    runs out into a free edge, so the collar stands one `hopper_funnel.brim_margin`
-    inside it — the flange overhangs the collar by `brim_overhang` to catch the wall
-    and hold the funnel out of the box, and the margin is the wider of the two so a
-    full overhang's width of top wall still remains outboard of the brim's edge.
-    Forward there is no free edge: the wall runs straight on into the display
-    housing, `display_facet_thickness` of solid slab between the facet's back plane
-    and its 45° face, and that slab is what the brim's front flange lands on. So the
-    whole of the front's requirement is `hopper_front_ledge` — the top wall kept
-    between the housing's back plane and the throat itself — and that is asserted on
-    the hole rather than on a frame the margin then sits inside.
-
-    The funnel is pushed as far FORWARD as this frame allows, and reaches aft for
-    whatever plan area its capacity needs — so the opening may cross the Y seam.
-    Both halves take their share of the cut and the collar bridges it; what the
-    seam gives up there is its top-wall lip over the hole's span, which the mouth
-    shelf's own relief already accounts for (`_hopper_cut`).
-
-    Three bounds are measured on that frame and the rectangle comes back whichever way they
-    read — a collar outside its frame is cut where it stands, so the throat that runs into a
-    pod or off the facet is in the pieces to look at, beside the row that names it."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    cx, cy = centre
-    x0 = cx - _funnel.collar_w / 2.0
-    x1 = cx + _funnel.collar_w / 2.0
-    y0 = cy - _funnel.collar_d / 2.0
-    y1 = cy + _funnel.collar_d / 2.0
-    pod_out = ix0 + boss_in
-    pod_in = ix1 - boss_in
-    lims = (pod_out + hopper_pod_gap,                  # clear of the top-left pod
-            pod_in - hopper_pod_gap,                   # clear of the top-right pod
+    THE FRONT IS A DIFFERENT KIND OF EDGE FROM THE OTHER THREE. On those three the frame runs
+    out into a free edge, and the collar stands one `hopper_funnel.brim_margin` inside it: the
+    flange overhangs the collar by `brim_overhang` to catch the wall and hold the funnel out of
+    the box, and the margin is the wider of the two, so a full overhang's width of top wall
+    still remains outboard of the brim's edge. Forward the wall runs straight on into the
+    display housing — `display_facet_thickness` of solid slab between the facet's back plane
+    and its 45° face — and that slab is what the brim's front flange lands on. The front's
+    requirement is `hopper_front_ledge`, the top wall kept between the housing's back plane and
+    the throat itself, and it stands in this frame. `with_funnel` asks the margin of the three
+    free edges."""
+    ix0, ix1, _iy0, iy1, _iz0, _iz1 = inner
+    return (ix0 + boss_in + hopper_pod_gap,            # clear of the top-left pod
+            ix1 - boss_in - hopper_pod_gap,            # clear of the top-right pod
             facet_back_y(outer) + hopper_front_ledge,  # behind the facet's housing
             iy1 - wall)                                # ahead of the back wall
+
+
+def _hopper_hole(centre):
+    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the placed funnel's
+    collar — hopper_funnel.py's own dims at the box's own `funnel` centre.
+
+    The funnel is pushed as far FORWARD as `_hopper_frame` allows, and reaches aft for
+    whatever plan area its capacity needs — so the opening may cross the Y seam. Both halves
+    take their share of the cut and the collar bridges it; what the seam gives up there is its
+    top-wall lip over the hole's span, which the mouth shelf's own relief already accounts
+    for (`_hopper_cut`).
+
+    Plan arithmetic off one centre. `with_funnel` states what that collar owes its frame."""
+    cx, cy = centre
+    return (cx - _funnel.collar_w / 2.0, cx + _funnel.collar_w / 2.0,
+            cy - _funnel.collar_d / 2.0, cy + _funnel.collar_d / 2.0)
+
+
+def with_funnel(box, centre):
+    """`box` carrying the funnel collar's plan centre, and the three bounds that centre states
+    against the frame the top wall has left.
+
+    SEATING THE THROAT IS MEASURING IT, and this is the one door: a Box carries a funnel centre
+    only by coming through here. The three readings are plan arithmetic on `centre` and the
+    box's own two shells, taken the moment the centre is known and owing nothing to the cut the
+    throat is later punched with.
+
+    THE COLLAR IS SEATED WHICHEVER WAY THEY READ. One outside its frame is cut where it stands,
+    so the throat that runs into a pod or off the facet is in the pieces to look at, beside the
+    row that names it."""
+    x0, x1, y0, y1 = _hopper_hole(centre)
+    lims = _hopper_frame(box.inner, box.outer)
     tol = 1e-6
     inside = not (x0 < lims[0] - tol or x1 > lims[1] + tol
                   or y0 < lims[2] - tol or y1 > lims[3] + tol)
@@ -1292,17 +1302,17 @@ def _hopper_hole(inner, outer, y_joint, centre):
             f"x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}; the collar it "
             f"has room for is {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
             f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}"])))
-    return x0, x1, y0, y1
+    return box._replace(funnel=centre)
 
 
-def _hopper_cut(inner, outer, y_joint, centre):
+def _hopper_cut(inner, outer, centre):
     """The funnel throat punched clean through the top wall — one wall deeper
     than the ceiling, so the Y-seam's top-wall lip/mouth shelf (hanging one
     wall below it) is relieved across the hole span the seam crosses.
 
     The opening is the collar, whole: the basin is a full rectangle and the wall carries
     nothing over the tap-water sequence that the throat has to be cut around."""
-    x0, x1, y0, y1 = _hopper_hole(inner, outer, y_joint, centre)
+    x0, x1, y0, y1 = _hopper_hole(centre)
     return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
 
 
@@ -1919,7 +1929,7 @@ def build_front_half(box):
     front = front.cut(_display_cuts(outer))
     # Punch the hopper funnel throat through the top wall, behind the display.
     if box.funnel:
-        front = front.cut(_hopper_cut(inner, outer, y_joint, box.funnel))
+        front = front.cut(_hopper_cut(inner, outer, box.funnel))
     # Front-panel through-holes.
     for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         front = front.cut(cutter)
@@ -1950,7 +1960,7 @@ def build_back_half(box):
     # the core still rides. Lands in the bottom piece.
     back = back.cut(_floor_lap(inner, y_joint)[1])
     if box.funnel:
-        back = back.cut(_hopper_cut(inner, outer, y_joint, box.funnel))
+        back = back.cut(_hopper_cut(inner, outer, box.funnel))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, box.splits, y_joint)
     # The back half is the back column, so its own seam is the one its post
@@ -2298,12 +2308,12 @@ PIECE_COLORS = {
 def build_pieces(box, stem="enclosure"):
     """The four printable pieces of one box, and the assembly of them in place
     with the seams intact. The appliance and its coupon come through here
-    alike — one box description in, four pieces out."""
-    # DRAWING A PIECE IS ALSO MEASURING IT. `build_piece` records what it finds into `BOUNDS` as
-    # it cuts — the funnel's brim margin, its overhang, the collar's frame — so the ledger is
-    # filled by the drawing and not by a pass over the drawn thing. A piece handed back without
-    # being drawn is three checks the card never hears about, which is why this is not a shape
-    # that can be kept between builds and handed over.
+    alike — one box description in, four pieces out.
+
+    DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
+    runs — `_dims` states its own as it sizes the shells, `with_funnel` states the throat's as
+    it seats the centre — so the four pieces are a pure function of the Box and a piece handed
+    back unbuilt is a piece nothing on the card was waiting for."""
     cache = {}
     pieces = {name: build_piece(box, *name.split("-"), halves_cache=cache)
               for name in PIECE_COLORS}
