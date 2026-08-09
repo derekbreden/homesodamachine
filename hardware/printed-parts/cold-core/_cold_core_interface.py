@@ -241,14 +241,22 @@ vessel_port_offset = 0.750 * 25.4
 co2_inlet_y = -vessel_port_offset
 co2_inlet_tube_radius = port_hole_radius
 
-# The top plate's two, by the same pair: the water inlet takes the +Y hole, which is the
-# one the cap can carry a conduit over, and the PRV takes the −Y hole above the CO2's.
-# Filtered tap water arrives at the top plate ABOVE the liquid and falls into the
-# headspace against the CO2 back-pressure; the carbonated draw leaves at the bottom
-# plate, below it. So the vessel is filled high and drawn low, the same way both
+# The top plate's two, by the same pair. Filtered tap water arrives at the top plate ABOVE the
+# liquid and falls into the headspace against the CO2 back-pressure; the carbonated draw leaves
+# at the bottom plate, below it. So the vessel is filled high and drawn low, the same way both
 # reservoirs are.
-water_inlet_port_y = +vessel_port_offset
-prv_port_y = -vessel_port_offset
+#   WHICH HOLE THE PRV TAKES IS ITS VENT'S, and it is the only one of the four ports whose
+# choice is made outside the vessel. `prv-shroud` caps the valve for the pour and vents through
+# a bore in its BARREL, and the cup reaches along the port's own lateral axis — so the bore
+# lands one elbow leg plus one vent station out on that side, and there is exactly one station
+# on that reach a line can fall from, which is a ±Y lane's own centreline. The +Y hole puts it
+# on the WEST lane. The port lane is spoken for: the CO2's fall owns that column from the cap
+# to the floor (`co2_cap_x`), and a ⌀23 cup lying across it is the one body it cannot pass.
+#   The water inlet takes what is left, and pays for it in its run rather than its port: its
+# conduit stands over the +Y band, so the line crosses the vessel's own top in the band between
+# this plate and the cap's floor (`_internal_routes.water_in_cross_x`).
+water_inlet_port_y = -vessel_port_offset
+prv_port_y = +vessel_port_offset
 
 # Cap-to-outer-shell joinery: 6 attachment points per face × 2 faces =
 # 12 inserts / 12 M3×25 SHCS, each screw passing lid + cap into an insert
@@ -385,7 +393,7 @@ corner_round_radius = 12.0
 # rotational symmetry about Z (balanced gasket compression, and the top cap free to
 # install either way round).
 # The two mid bosses stand where the ±Y wall is otherwise free, and what is NOT free on
-# the −Y one is the PRV shroud: a ⌀23 cup lying on the vessel's own −Y port axis
+# the +Y one is the PRV shroud: a ⌀23 cup lying on the vessel's own +Y port axis
 # (`prv-shroud/`) whose closed end reaches within ~3 mm of this wall, so its section
 # spans x ±11.5 where the boss would stand. The offset is that reach plus the boss's
 # own radius and a clearance. Both signs move together — the pattern is 180°
@@ -724,11 +732,12 @@ state(
 # and every line that LEAVES takes its lowest point, so nothing can enter and leave without
 # crossing the vessel. That is what the air-purge and clean-flush service modes run on.
 #
-#   water-in — the carbonator's TOP-PLATE +Y port, above the water line, where filtered tap
+#   water-in — the carbonator's TOP-PLATE −Y port, above the water line, where filtered tap
 # water is pumped in against the CO2 back-pressure and falls into the headspace. The port
 # carries one of the four TAISHER street elbows every vessel port takes (`ledger/bom.md`) with
-# a PTC adapter made up on its female end; the line leaves it laterally, runs the band between
-# that plate and the cap's floor (`top_band_to_cap`), comes about in the +Y band and turns into
+# a PTC adapter made up on its female end; the line leaves it laterally, crosses the vessel's
+# own top on one diagonal in the band between that plate and the cap's floor
+# (`top_band_to_cap`), comes about in the +Y band and turns into
 # the FORWARD BAND, where this bore stands. The top band is [14](TOP_BAND) mm against the
 # [25.4 mm](LLDPE_BEND_R) a stock arc wants, so the corner off the elbow is the one that reach
 # buys with, and it is potted where it turns. It shares the forward strip with both reservoir
@@ -785,31 +794,28 @@ state(
 # barb, the silicone stub and the sparge stone hanging in the water column, so the gas enters
 # BELOW the liquid and dissolves on the way up. Because the line arrives from above, it is laid
 # down the lane before the top cap goes on.
-#   ITS X IS THE ONE STRETCH OF LANE NOBODY TRAVELS. A lane is one bore wide, so a riser in it
-# is a wall to everything crossing that column — and this is the only riser the lane carries.
-# What else uses the lane above the reservoirs' own floor storey all runs WEST, from the vessel
-# out to the front wall: the evaporator's inlet copper drops onto the lane beside the tank and
-# takes it to its slot station (`copper_plugs.columns`), and the PRV vent comes off the shroud's
-# cap and takes it to the station one pitch over. Both start at or inboard of the vessel's own
-# centre, so every X west of that centre stands in front of them and the +X half stands in
-# front of nothing, so the choice of HALF is this line's own traffic.
-#   WHICH station on that half is the TANK SUPPORT RING's, not this file's. The reach in from
-# the lane to the bottom plate's port crosses the ring, and the ring is four bearing segments
-# with four slots between them (`_support_ring`); a reach that misses a slot would have to be
-# bored through a segment that carries the vessel. `_port_cuts.co2-inlet-slot` is that fence,
-# and `co2_lane_x` is the column whose lean lands inside slot four. What the +X half then
-# leaves the lane's own traffic is measured rather than restated: `cold-core-layout`'s
-# `lines-apart` and `routes-fit` read it off the solids.
+#   ITS FALL IS THE ONLY RISER THE LANE CARRIES. A lane is one bore wide, so a riser in it is a
+# wall to everything crossing that column, and the lane's other traffic all runs WEST at one
+# storey each: the evaporator's inlet copper drops onto the lane beside the tank and takes it to
+# its slot station (`copper_plugs.columns`), reservoir A's draw crosses on the pockets' floor
+# storey, and the carbonated water joins only once it is over the tank. What used to stand
+# against the riser as well was the PRV — a ⌀23 cup lying across the lane at x ±11.5 — and that
+# vents down the WEST lane now (`prv_port_y`), so this column is free floor to cap.
+#   WHERE THE LEAN CROSSES is the TANK SUPPORT RING's business, not this file's. The reach in
+# from the lane to the bottom plate's port crosses the ring, and the ring is four bearing
+# segments with four slots between them (`_support_ring`); a reach that misses a slot would have
+# to be bored through a segment that carries the vessel. `_port_cuts.co2-inlet-slot` is that
+# fence, and `co2_lane_x` is the column whose lean lands inside slot four.
 co2_lane_x = 72.5
 # THE RING IS AT THE FLOOR AND THE CONDUIT IS IN THE CAP, so one column does not have to serve
 # both. The line falls the lane, runs along its floor and only then leans in, and it is the LEAN
 # the ring reads — a jog along the lane costs the run nothing it was not already spending, since
-# it turns on that floor either way. Splitting them frees the cap conduit to stand where the
-# APPLIANCE has room for it: the conduit is what the enclosure's CO2 chain comes down onto, and
-# `co2_lane_x` mirrored put it under the Mean Well's potted middle, which is the one body on that
-# flank reaching inboard of its own column. Enclosure y is `319.5 − x` here, so this column lands
-# the chain at y 309, forward of the supply and outboard of the PCBA's face.
-co2_cap_x = -co2_lane_x
+# it turns on that floor either way. Splitting them lets the cap conduit stand where the
+# APPLIANCE has room for it, and that is what picks this column: the conduit is what the
+# enclosure's CO2 chain comes down onto, enclosure y is `319.5 − x` here, and this lands the
+# chain at y 309 — forward of the Mean Well, whose potted middle is the one body on that flank
+# reaching inboard of its own column, and outboard of the PCBA's face.
+co2_cap_x = 10.5
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),

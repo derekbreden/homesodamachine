@@ -20,6 +20,7 @@ the cold core has one verdict. `one-core` is the row that keeps that honest.
 
 from __future__ import annotations
 
+import math
 import sys
 from pathlib import Path
 
@@ -236,16 +237,57 @@ def build_bodies() -> dict:
     return placed
 
 
+# The shroud's own frame, as two directions. The cup is authored on +Z with its vent bored
+# radially through its own −Y (`prv-shroud/prv_shroud.py`), and standing it on the elbow's axis
+# fixes only two of its three freedoms — the roll about that axis is left, and the VENT is what
+# spends it. The bore has to open on the barrel's underside so the line leaves already pointing
+# down the lane it falls; a cup rolled any other way sends the tube sideways into the cap.
+VENT_LOCAL = (0.0, -1.0, 0.0)
+VENT_WORLD = (0.0, 0.0, -1.0)
+
+
+def _turn(v: cq.Vector, axis: cq.Vector) -> cq.Vector:
+    """`_fittings._orient`'s own rotation, applied to a direction rather than a solid."""
+    z = cq.Vector(0, 0, 1)
+    dot = max(-1.0, min(1.0, z.dot(axis)))
+    if dot > 1 - 1e-12:
+        return v
+    if dot < -1 + 1e-12:
+        return cq.Vector(v.x, -v.y, -v.z)          # the 180° about +X `_orient` takes
+    n = z.cross(axis).normalized()
+    angle = math.acos(dot)
+    return (v.multiply(math.cos(angle))
+            + n.cross(v).multiply(math.sin(angle))
+            + n.multiply(n.dot(v) * (1.0 - math.cos(angle))))
+
+
+def _stand_shroud(solid):
+    """One body of the shroud's own frame, placed on the PRV elbow's mouth.
+
+    `_fittings._orient` stands the cup's +Z on the mouth's axis and picks the roll
+    INCIDENTALLY — it rotates about `z × axis`, and which way that lands the vent flips with
+    the sign of the port's own Y. So the roll is struck here instead of inherited: whatever
+    `_orient` leaves, this turns about the mouth's axis until the vent faces the shell's own
+    −Z. Both the cup and `prv_vent_mouth`'s marker go through this one placement, so the bore
+    the line starts on and the bore in the printed part cannot drift apart."""
+    mouth = _V.mouths()["prv"]
+    axis = cq.Vector(*mouth.axis).normalized()
+    vent = _turn(cq.Vector(*VENT_LOCAL), axis)
+    down = cq.Vector(*VENT_WORLD)
+    roll = math.degrees(math.atan2(axis.dot(vent.cross(down)), vent.dot(down)))
+    return (_F._orient(solid, axis)
+            .rotate(cq.Vector(0, 0, 0), axis, roll)
+            .translate(cq.Vector(*mouth.pos)))
+
+
 def _prv_stack() -> dict:
-    """The SV-125 made up on the top plate's −Y elbow, and the shroud standing over it.
+    """The SV-125 made up on the top plate's PRV elbow, and the shroud standing over it.
 
     The shroud is a cup on +Z with its open end at Z=0, so it stands on the elbow's own mouth
     and reaches `prv_shroud.total_length` along the axis the valve leaves on."""
     mouth = _V.mouths()["prv"]
-    axis = cq.Vector(*mouth.axis).normalized()
     valve = _F.sv125(at=mouth.pos, axis=mouth.axis)
-    shroud = _load(_cold / "prv-shroud" / "prv-shroud.step")
-    shroud = _F._orient(shroud, axis).translate(cq.Vector(*mouth.pos))
+    shroud = _stand_shroud(_load(_cold / "prv-shroud" / "prv-shroud.step"))
     return {"prv-sv125": valve, "prv-shroud": shroud}
 
 
@@ -255,11 +297,9 @@ def prv_vent_mouth() -> tuple:
     `prv_shroud` authors the bore radially on its own −Y at `vent_station_z` along the barrel.
     Standing the cup on the elbow's axis carries that point with it, so the line's start is
     read off the SHROUD rather than restated here — a bore that moves takes its tube along."""
-    mouth = _V.mouths()["prv"]
-    axis = cq.Vector(*mouth.axis).normalized()
     local = cq.Solid.makeSphere(0.001, cq.Vector(0.0, -_shroud.outer_diameter / 2.0,
                                                  _shroud.vent_station_z))
-    at = _F._orient(local, axis).translate(cq.Vector(*mouth.pos)).BoundingBox()
+    at = _stand_shroud(local).BoundingBox()
     return (round(at.center.x, 6), round(at.center.y, 6), round(at.center.z, 6))
 
 
@@ -514,23 +554,37 @@ def _stations_met(fitted: dict, placed: dict) -> Check:
 def _prv_vent_lands(points: dict) -> Check:
     """The shroud's own vent bore, against the lane its line has to fall.
 
-    Two readings of one station. `prv_shroud.vent_station_z` picks where the bore stands along
-    the barrel so that the cup, once made up on the elbow, opens it on the port lane's own
-    centreline — and this reads that back off the PLACED shroud. A bore that misses the lane is
-    a line that needs a corner in a band that has none."""
+    Two readings of one station, struck at opposite ends of the machine. The WALL says which
+    lane the vent crosses on — `copper_plugs.columns` carries the station and the plug that
+    seals it — and `prv_shroud.vent_station_z` says how far along the barrel the bore stands,
+    which is what decides where the cup, once made up on the elbow, opens it. This reads the
+    second back off the PLACED shroud and holds it against the first. Neither side is a
+    constant here: move the valve to the other port or the vent to the other lane and this
+    keeps measuring the same thing, and a bore that misses its lane is a line that needs a
+    corner in a band that has none.
+
+    AND IT HAS TO OPEN DOWNWARD. Landing on the lane is a reading in Y alone, and a cup rolled
+    a half turn about its own axis lands on the same lane with its bore on TOP — where the tube
+    would leave into the cap's floor instead of down the lane. So the drop off the elbow's own
+    axis is measured beside it, and it is the barrel's radius or the roll is wrong."""
     at = prv_vent_mouth()
-    want = _plugs.columns["port-lane"].lane_y
+    lane, want = _plugs.station_lane("prv-vent")
     off = at[1] - want
+    drop = _V.mouths()["prv"].pos[2] - at[2]
     # The two readings are struck in different frames and carried through a rotation, so what
     # is being asked is whether they are the same station — not whether they agree to a float.
     agree = 0.01
+    good = abs(off) < agree and abs(drop - _shroud.outer_diameter / 2.0) < agree
     detail = [f"the shroud's vent bore opens at ({at[0]:+.2f}, {at[1]:+.2f}, {at[2]:.2f}), "
-              f"{'on' if abs(off) < agree else f'{off:+.2f} off'} the port lane ({want:g})",
+              f"{'on' if abs(off) < agree else f'{off:+.2f} off'} the {lane} ({want:g}) — "
+              f"the lane `copper_plugs.columns` carries its wall station on",
+              f"it stands {drop:.2f} mm under the elbow's own axis, against the "
+              f"{_shroud.outer_diameter / 2.0:g} mm barrel radius a bore facing DOWN reads",
               f"station {_shroud.vent_station_z:g} mm along a {_shroud.total_length:g} mm "
               f"barrel; the line falls from there to z "
               f"{points['prv-vent'][-1][2]:.2f} and out"]
     return Check("prv-vent-lands", "The PRV shroud's vent bore opens on the lane its line "
-                 "falls", "gate", verdict(abs(off) < agree),
+                 "falls", "gate", verdict(good),
                  f"{abs(off):.3f} mm off", f"within {agree:g} mm of the lane", detail)
 
 
