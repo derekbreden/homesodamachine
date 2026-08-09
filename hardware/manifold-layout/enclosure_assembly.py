@@ -3016,20 +3016,24 @@ def build_display(box):
 
 def _seated(box):
     """The box with every station its walls carry, seated. Each is read off the box itself,
-    so the wall and the body it is cut for come out of one number."""
-    return box._replace(funnel=funnel_centre(box))
+    so the wall and the body it is cut for come out of one number. `enclosure.with_funnel`
+    takes the throat's own reading against the frame the top wall has left as it seats it."""
+    return _enc.with_funnel(box, funnel_centre(box))
 
 
 def machine():
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
-    and then carries the stations they seat in its walls."""
+    and then carries the stations they seat in its walls.
+
+    The box is SEATED before its ledger is carried, so the card holds the throat's three rows
+    whether or not a wall is ever cut from this box."""
     a = build_pack()
     p = pack(a)
-    shell = _enc.stated_box(p)
+    box = _seated(_enc.stated_box(p))
     carry_enclosure_bounds()
-    check_through_wall_headroom(a, shell)
+    check_through_wall_headroom(a, box)
     a.bounds = list(BOUNDS)
-    return a, p, _seated(shell)
+    return a, p, box
 
 
 def build_enclosure_assembly() -> cq.Assembly:
@@ -3054,8 +3058,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     a.add(build_display(box), name="display", color=C_DISPLAY)
     for name, piece in _enc.build_pieces(box)[0].items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
-    # The funnel throat is measured while the top wall is cut, which is here and not in
-    # `machine`, so the ledger is read again once the pieces exist.
+    # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
+    # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
+    # here — after the bodies the box seats have stated theirs — is what puts it there.
     carry_enclosure_bounds()
     a.bounds = list(BOUNDS)
     # The box the pieces were cut from, carried like `runs` and `frames`.
