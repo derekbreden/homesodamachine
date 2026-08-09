@@ -152,14 +152,11 @@ LINE_HUG = 1.0                               # the clearance floor a line keeps 
 HEAD_W = kp.head_w                           # the pump head, square across
 HEAD_D = kp.head_depth                       # head front face to the rotor boss
 MOTOR_D = kp.motor_dia
-PUMP_LEN = 111.43                            # head front to motor end cap, no shaft nub
+PUMP_LEN = kp.pump_len                       # head front to motor end cap, no shaft nub
 BOSS_D = kp.octagon_top_z - kp.base_plane_z  # the head's rear boss, head face to motor face
 BARB_PITCH = kp.arch_xs[1] - kp.arch_xs[0]   # the two barbs' separation across the head face
 BARB_INSET = kp.arch_plane_z - kp.head_front_z   # barb plane back from the head's front face
-# What is left for the motor once the head and its boss have taken their share of the part's
-# own end-to-end length. `kamoer_kphm400`'s motor is drawn to the pump case's TOWER BORE,
-# which is a hole the motor turns inside; this is the can.
-MOTOR_L = PUMP_LEN - HEAD_D - BOSS_D
+MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the end cap
 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
@@ -229,13 +226,13 @@ _bounds.state(
     f"LIMB_PITCH {LIMB_PITCH:g} is under the {VALVE_PITCH:g} mm two valve bodies pack to, so "
     f"the two lanes' valves would occupy each other.")
 _bounds.state(
-    "pump-motor-room", "The pump's own length leaves its motor a can to be",
-    "a motor longer than nothing",
-    MOTOR_L > 0.0,
+    "pump-motor-room", "The pump's three bodies are the part, end to end",
+    f"{PUMP_LEN:g} mm across head, boss and can",
+    abs(HEAD_D + BOSS_D + MOTOR_L - PUMP_LEN) < 1e-9,
     f"the head and its rear boss take {HEAD_D + BOSS_D:g} of the pump's {PUMP_LEN:g} end to "
-    f"end, which leaves {MOTOR_L:g} for the motor. Two of those three figures are "
-    f"`kamoer_kphm400`'s and the third is this study's, so the three bodies drawn here no "
-    f"longer add up to the part they are.")
+    f"end and the can is {MOTOR_L:g}, which comes to {HEAD_D + BOSS_D + MOTOR_L:g}. All three "
+    f"are `kamoer_kphm400`'s figures now, so a mismatch means this study is reading seams "
+    f"that module no longer draws to.")
 _bounds.state(
     "limb-pitch-ceiling", "The lanes step inboard of the barbs, never outboard",
     f"LIMB_PITCH at or under {BARB_PITCH:g} mm",
@@ -650,16 +647,16 @@ def build_elbow(gate: str, side: float):
 
 
 def kamoer_bodies():
-    """The reference pump's own two shaped solids — head, then rear boss — in the frame
+    """The reference pump's three solids — head, rear boss, then motor can — in the frame
     `kamoer_kphm400` draws them in, read once off its STEP.
 
-    Sorted along that frame's depth axis, which is what tells the two apart: the head is the
-    solid in front of the base plane and the boss is the one behind it."""
+    Sorted along that frame's depth axis, which is what tells them apart: the head is the
+    solid in front of the base plane, the boss the one behind it, and the can behind that."""
     global _KAMOER
     if _KAMOER is None:
         solids = sorted(cq.importers.importStep(str(KAMOER_STEP)).val().Solids(),
                         key=lambda s: s.BoundingBox().zmin)
-        _KAMOER = (solids[0], solids[1])
+        _KAMOER = tuple(solids[:3])
     return _KAMOER
 
 
@@ -667,15 +664,11 @@ def build_pump(px: float):
     """Head, rear boss and motor as three solids, seated on the pump's own BARBS: both stand
     on `barb_station`'s plane, which is the plane the limbs' anchor tees butt.
 
-    The head and the boss are `kamoer_kphm400`'s solids, turned out of that module's case
-    frame into this study's. There the pump's depth runs along +Z with the barbs on the
-    head's +Y face; here the depth runs aft along +Y and the barbs stand on the head's
-    crown. The quarter about X lays the depth axis down and the half about Y rolls the barb
-    face up off it — which also swaps the two barbs across the head, and a peristaltic head
-    has no fixed sense to swap.
-
-    The motor is drawn rather than imported: `MOTOR_L` is what the pump's own end-to-end
-    length leaves, and the reference's cylinder fills the case's tower bore instead."""
+    All three are `kamoer_kphm400`'s solids, turned out of that module's case frame into this
+    study's. There the pump's depth runs along +Z with the barbs on the head's +Y face; here
+    the depth runs aft along +Y and the barbs stand on the head's crown. The quarter about X
+    lays the depth axis down and the half about Y rolls the barb face up off it — which also
+    swaps the two barbs across the head, and a peristaltic head has no fixed sense to swap."""
     y0 = -BARB_INSET
     parts = []
     for solid in kamoer_bodies():
@@ -683,10 +676,7 @@ def build_pump(px: float):
             solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
         parts.append(solid.translate(cq.Vector(
             px + kp.cx, y0 - kp.head_front_z, HEAD_W - kp.body_y_face)))
-    motor = cq.Solid.makeCylinder(
-        MOTOR_D / 2.0, MOTOR_L,
-        cq.Vector(px, y0 + HEAD_D + BOSS_D, HEAD_W / 2.0), cq.Vector(0.0, 1.0, 0.0))
-    return parts[0], parts[1], motor
+    return parts[0], parts[1], parts[2]
 
 
 def straight(a, b, d: float = TUBE_D):
