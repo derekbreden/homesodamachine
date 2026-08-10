@@ -1111,6 +1111,19 @@ def check_pump_mount(rows) -> Bound:
             f'{xs[-1]-xs[0]:.2f}, {ys[-1]-ys[0]:.2f},   0.0,  8.50, 16.0),'])))
 
 
+def cap_anchor(name: str):
+    """One of the cold core's chain anchors as a station in the CORE'S OWN frame:
+    `((x, y, z), the way the body comes into it)`.
+
+    `foam_assembly` authors the rib in the cap's frame and turns it back through the cap's own
+    half-turn install, so its `(x, y)` is already the assembly's; the Z is the seat's own axis,
+    which stands `_cold_core_interface.cap_anchor_axis_over_face` over the lid's outer face. The
+    seat opens on the cap's +Z, which is the way the body is laid into it."""
+    x, y = _foam.cap_anchor_station(name)
+    return ((x, y, _foam.cap_face_z + _cci.cap_anchor_axis_over_face(name)),
+            _foam.cap_conduit_axis_out())
+
+
 def cap_conduit(name: str):
     """One of the cold core's cap conduits as a station in the CORE'S OWN frame:
     `((x, y, z), outward axis)`.
@@ -1193,38 +1206,37 @@ def build_suction_chain(seaflo, suction, port_z):
 # It lies BARB AFT, COLLET FORWARD in the lane west of the pump, which is the suction chain's
 # own pose read across the machine — so it takes the suction chain's own turn.
 DISCH_CHAIN_TURN = SUCT_CHAIN_TURN
-# What its west face stands off the water split's east face. The lane it lies in is the strip
-# of the core's crown between that split and the pump's own casting; the chain takes the split
-# side of it, and what is left over is `water-6`'s corner.
-DISCH_SPLIT_CLEAR = 1.0
 # How far FORWARD of the pump's discharge mouth the chain's barb stands — the suction side's
-# `SUCT_CORNER_ROOM` read across the machine. `water-6` turns from west to forward in this
-# gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
+# `SUCT_CORNER_ROOM` read across the machine. `water-6` turns from west to forward and falls in
+# this gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
 DISCH_CORNER_ROOM = 24.0
-def build_discharge_chain(split, flowreg, seaflo_carry):
-    """The chain laid in the lane west of the pump, on the discharge's own plane.
+# What the printed seat holds the body off itself, radially. `check_disch_seated` reads it back.
+DISCH_SEAT_SLIP = 0.2
+def build_discharge_chain(foam_carry, seaflo_carry):
+    """The chain lying in its printed seat on the cold core's cap, west of the pump.
 
-    Its three coordinates answer to the run it carries and the lane it lies in: X one
-    `DISCH_SPLIT_CLEAR` east of the split's own east face, Y standing its barb one
-    `DISCH_CORNER_ROOM` forward of the pump's discharge mouth, and Z ON THAT MOUTH'S OWN
-    PLANE — the barb fires due west and the chain's axis lies at its height, so `water-6`
-    turns once in plan and climbs nothing. `_lines._water_6` is where that plane is held: the
-    hose's two legs seat one `HOSE_BEND` apiece and no more, so it takes no fall at all.
+    TWO OF ITS COORDINATES ARE THE SEAT'S. X and Z come off `cap_anchor("discharge-chain")` —
+    the rib the top lid stands, carried out of the cap's own frame — so the body lies where the
+    printed part says and the two cannot drift apart. Y stands its barb one `DISCH_CORNER_ROOM`
+    forward of the pump's discharge mouth, which is what buys `water-6` its corner.
+
+    `check_anchor_lands` is where the rib is held against the section it seats: the seat's radius
+    is read off the placed chain's own stack, and the rib's whole length has to lie inside one
+    section of it.
 
     THE COLLET FIRES AT THE FLOW REGULATOR'S BACK, on the storey that body stands on. What its
     straight comes to against the 2 × `TUBE_BEND` a collet asks for is the `port-leads` row for
-    `discharge-chain.tube-port`, read there off the regulator's own solid.
-
-    What holds it there is an open item: nothing threads onto this chain and nothing clamps
-    it. It has a measured datum and measured room; it does not have a bracket."""
+    `discharge-chain.tube-port`, read there off the regulator's own solid."""
     disch = seaflo_carry(_lines._pump.discharge())[0]
+    axis = foam_carry(cap_anchor("discharge-chain"))[0]
     chain = _dis.build()
+    # The chain's own Ø, read on X because the box is measured BEFORE the turn: unturned the
+    # chain stands its length on Z and its widest section across X, and the turn is about X.
+    half = box(chain).xlen / 2.0
     return seat_body(chain, DISCH_CHAIN_TURN, seat="discharge-chain",
-                     x0=box(split).xmax + DISCH_SPLIT_CLEAR,
+                     x0=axis[0] - half,
                      y1=disch[1] - DISCH_CORNER_ROOM,
-                     # The chain's own Ø, read on X because the box is measured BEFORE the
-                     # turn: unturned the chain stands its length on Z, its Ø across X.
-                     z0=disch[2] - box(chain).xlen / 2.0)
+                     z0=axis[2] - half)
 
 
 # --- the tap-water bulkhead, through the back wall -------------------------
@@ -1512,6 +1524,9 @@ TUBE_ANCHOR_SLIP = 0.2
 TUBE_ANCHOR_SITES = (
     # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm.
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # Reservoir A's fill, on the cruise it climbs to under the same wall — `_lines.FILL_A_HIGH_CLEAR`
+    # is what that climb leaves for this rib.
+    ("fluid-14", 3, (0.0, 0.0, 1.0), "enclosure-back-top"),
 )
 
 
@@ -3247,7 +3262,7 @@ def build_pack() -> cq.Assembly:
     a.add(split, name="water-split", color=C_SPLIT)
     flowreg, flowreg_carry = build_flowreg(split_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
-    disch, disch_carry = build_discharge_chain(split, flowreg, seaflo_carry)
+    disch, disch_carry = build_discharge_chain(foam_carry, seaflo_carry)
     a.add(disch, name="discharge-chain", color=C_SUCT)
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
