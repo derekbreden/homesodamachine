@@ -55,6 +55,33 @@ LENGTH = (disch.BARB_L + disch.MAAC_HEX_L + disch.MAAC_NPT_L
           - NPT_ENGAGE)
 
 
+# The stack barb-tip first, as `(label, diameter, length)` — the discharge chain's own list
+# less the check's three sections, off the same constants. `build()` lays these down and a
+# holder reads the same list for the section it seats on.
+#   NOTHING HERE IS 9.5 MM OF METAL. The MAACFLOW hex is the longest section a strap may close
+# on and it is 6 mm; what its twin seats on is the GASHER's 18 mm hex, and that fitting is not
+# on this side. So a rib here is longer than the section it bears against, and
+# `enclosure_assembly.anchor_rows` is where that is held: every section under the rib has to
+# clear the bore, and exactly one has to fill it.
+SECTIONS = (
+    ("MAACFLOW barb", disch.BARB_D, disch.BARB_L),
+    ("MAACFLOW hex", disch.MAAC_HEX, disch.MAAC_HEX_L),
+    ("MAACFLOW NPT", disch.MAAC_NPT_D, disch.MAAC_NPT_L - NPT_ENGAGE),
+    ("PP450822E socket", disch.JG_SOCKET_D, disch.JG_SOCKET_L),
+    ("PP450822E hex", disch.JG_HEX, disch.JG_HEX_L),
+    ("PP450822E collet", disch.JG_COLLET_D, disch.JG_COLLET_L),
+)
+
+
+def sections():
+    """Every section as `(label, radius, s0, s1)`, `s` running from the barb tip down the chain."""
+    out, s = [], 0.0
+    for label, dia, length in SECTIONS:
+        out.append((label, dia / 2.0, s, s + length))
+        s += length
+    return tuple(out)
+
+
 def barb_tip():
     """The MAACFLOW's barb tip — the open end the 3/8" hose stub slips over:
     (position, outward axis). This is where the chain meets the hose onto the
@@ -71,12 +98,7 @@ def build():
     """The two fittings stacked along −Z, barb tip at Z = 0, made up at the one NPT
     joint so the stack stands its real length."""
     part, z = None, 0.0
-    for dia, length in ((disch.BARB_D, disch.BARB_L),
-                        (disch.MAAC_HEX, disch.MAAC_HEX_L),
-                        (disch.MAAC_NPT_D, disch.MAAC_NPT_L - NPT_ENGAGE),
-                        (disch.JG_SOCKET_D, disch.JG_SOCKET_L),
-                        (disch.JG_HEX, disch.JG_HEX_L),
-                        (disch.JG_COLLET_D, disch.JG_COLLET_L)):
+    for _label, dia, length in SECTIONS:
         z -= length
         seg = cq.Solid.makeCylinder(
             dia / 2.0, length, cq.Vector(0, 0, z), cq.Vector(0, 0, 1))

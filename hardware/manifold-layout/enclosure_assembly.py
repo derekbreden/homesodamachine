@@ -1162,39 +1162,40 @@ SUCT_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
 # The lane it lies in is the strip of the cold core's crown EAST of the pump, and the strip is
 # EMPTY: probed in 20 mm slices from y 180 to the rear plane, nothing stands in
 # x[49, 90.5] z[253.4, 313.4] anywhere along it. The manifold's box reaches y 257 at this height
-# and none of its solids do. So the chain is placed on the run it carries, not on a fence.
+# and none of its solids do.
 #
-# It hugs the pump rather than the core's east edge, leaving the wall side of the strip open.
-SUCT_PUMP_GAP = 8.0
+# Its column is the rib's — `cap_anchors["suction-chain"]` — which hugs the pump rather than the
+# core's east edge and leaves the wall side of the strip open. `clearance-floor` is what holds it
+# off the pump's casting, the same reading it takes of every other pair.
 # How far FORWARD of the pump's suction mouth the chain's barb stands. `water-7` turns from east
 # to forward in this gap, and a 3/8" corner needs its whole radius as tangent in each leg it
 # touches.
 SUCT_CORNER_ROOM = 24.0
 
 
-def build_suction_chain(seaflo, suction, port_z):
-    """The chain laid in the lane east of the pump, on the crown the pump itself stands on.
+def build_suction_chain(foam_carry, suction):
+    """The chain lying in its printed seat on the cold core's cap, east of the pump.
 
-    Its three coordinates answer to the run it carries and the lane it lies in: X one
-    `SUCT_PUMP_GAP` east of the pump's casting, Y standing its barb `SUCT_CORNER_ROOM` forward
-    of the pump's suction mouth so `water-7`'s corner seats a whole arc, and Z ON THE PLANE
-    V-K'S OUTLET OPENS ON — `vk_port_z`, which is the valve's own port height over the seat
-    the valve stands on.
+    TWO OF ITS COORDINATES ARE THE SEAT'S, the same bargain its discharge twin takes: X and Z
+    come off `cap_anchor("suction-chain")`. Y stands its barb one `SUCT_CORNER_ROOM` forward of
+    the pump's suction mouth, which is what buys `water-7`'s corner.
 
-    Laying both mouths on that one plane is what makes `water-4` a straight. The two stand
-    `WATER_4` apart down one lane and a collet grips a tube through 3°; a step of a couple of
-    millimetres across that gap is over 10°, which no lean that short can take out.
+    WHAT FOLLOWS THIS PLANE IS V-K. `build_vk` seats the valve on this chain's own collet, so the
+    two mouths `water-4` runs between stay on one plane and that run stays a straight — a collet
+    grips a tube through 3°, and the two stand 9 mm apart. `cap_cradles["vk-solenoid"].seat` is
+    what carries the valve up to meet it, and `cradles-land` is where the two are held together.
 
-    What holds it there is an open item: nothing threads onto this chain and nothing clamps it.
-    It has a measured datum and measured room; it does not have a bracket."""
-    b = box(seaflo)
+    What holds it off the pump's own casting is `clearance-floor`, the reading every other pair
+    on this card answers to."""
+    axis = foam_carry(cap_anchor("suction-chain"))[0]
     chain = _suct.build()
+    # The chain's own Ø, read on X because the box is measured BEFORE the turn: unturned the
+    # chain stands its length on Z and its widest section across X, and the turn is about X.
+    half = box(chain).xlen / 2.0
     return seat_body(chain, SUCT_CHAIN_TURN, seat="suction-chain",
-                cx=b.xmax + SUCT_PUMP_GAP + _suct.HOSE_OD / 2.0,
-                y1=suction[0][1] - SUCT_CORNER_ROOM,
-                # The chain's own Ø, read on X because the box is measured BEFORE the turn:
-                # unturned the chain stands its length on Z and its diameter across X.
-                z0=port_z - box(chain).xlen / 2.0)
+                     x0=axis[0] - half,
+                     y1=suction[0][1] - SUCT_CORNER_ROOM,
+                     z0=axis[2] - half)
 
 
 # --- the discharge chain, in the lane west of the pump ---------------------
@@ -1210,8 +1211,8 @@ DISCH_CHAIN_TURN = SUCT_CHAIN_TURN
 # `SUCT_CORNER_ROOM` read across the machine. `water-6` turns from west to forward and falls in
 # this gap, and a 3/8" corner needs its whole radius as tangent in each leg it touches.
 DISCH_CORNER_ROOM = 24.0
-# What the printed seat holds the body off itself, radially. `check_disch_seated` reads it back.
-DISCH_SEAT_SLIP = 0.2
+# What a printed rib holds its chain off itself, radially. `chains-seated` reads it back.
+CHAIN_SEAT_SLIP = 0.2
 def build_discharge_chain(foam_carry, seaflo_carry):
     """The chain lying in its printed seat on the cold core's cap, west of the pump.
 
@@ -2468,66 +2469,77 @@ def check_digiten_seated(meter, piece) -> Bound:
             f"station did not follow it."])))
 
 
-def anchor_rows(foam_carry, disch_carry) -> list:
-    """Each chain anchor as `(name, label, seat_r, wants, span_ok)` — the rib the cap carries
-    against the section of the placed body it stands under.
+def anchor_rows(foam_carry, bodies: dict) -> list:
+    """Each chain anchor as `(name, label, has, wants, fouls)` — the rib the cap carries against
+    the sections of the placed body it stands under.
 
-    `wants` is the seated section's own circumradius plus `DISCH_SEAT_SLIP`, read off the chain's
-    own stack; `span_ok` is whether the rib's whole length lies inside that one section. The cap
-    prints a rib it never sees the body of, so the body is what corrects it."""
+    A RIB MAY BE LONGER THAN THE SECTION IT BEARS ON, and the suction chain's is: what its twin
+    seats on is an 18 mm check hex, and that fitting is only on the discharge side. So the test is
+    not containment but clearance — exactly one section under the rib FILLS the bore, and every
+    other one it overhangs onto has to pass under it. `fouls` names any that does not.
+
+    `wants` is the filling section's own circumradius plus `CHAIN_SEAT_SLIP`, read off the body's
+    own stack. The cap prints a rib it never sees the body of, so the body is what corrects it."""
     rows = []
     for name, station in _cci.cap_anchors.items():
+        carry, mod = bodies[name]
         axis = foam_carry(cap_anchor(name))[0]
-        tip = disch_carry(_dis.barb_tip())[0]
+        tip = carry(mod.barb_tip())[0]
         half = _cci.cap_anchor_len / 2.0
-        # `s` runs from the barb tip down the chain, and the chain is laid barb aft — so a rib
-        # standing at `axis` sits this far along the stack, with its two ends either side.
+        # `s` runs from the barb tip down the chain, and both chains are laid barb aft — so a rib
+        # standing at `axis` covers this stretch of the stack.
         s0, s1 = (tip[1] - axis[1]) - half, (tip[1] - axis[1]) + half
-        hit = [(label, r) for label, r, a, b in _dis.sections() if a - 1e-9 <= s0 and s1 <= b + 1e-9]
-        label, r = hit[0] if hit else ("no one section", 0.0)
-        rows.append((name, label, station.seat_r, r + DISCH_SEAT_SLIP, bool(hit)))
+        under = [(lab, r) for lab, r, a, b in mod.sections() if a < s1 - 1e-9 and s0 + 1e-9 < b]
+        fills = [(lab, r) for lab, r in under if abs(r + CHAIN_SEAT_SLIP - station.seat_r) <= 1e-3]
+        fouls = [lab for lab, r in under if r + CHAIN_SEAT_SLIP > station.seat_r + 1e-3]
+        label, r = fills[0] if fills else (
+            max(under, key=lambda s: s[1]) if under else ("nothing", 0.0))
+        rows.append((name, label, station.seat_r, r + CHAIN_SEAT_SLIP, fouls if fouls or fills
+                     else ["no section fills the bore"]))
     return rows
 
 
 def check_anchor_lands(rows) -> Bound:
-    """Whether every cap rib is bored for the section it stands under, and spans only that one.
+    """Whether every cap rib is bored for a section that fills it and clears the rest.
 
     The detail is the row `_cold_core_interface.cap_anchors` should carry, so a body that has
     moved or changed section corrects the cap from the machine rather than being guessed at."""
-    bad = [r for r in rows if not r[4] or abs(r[2] - r[3]) > 1e-3]
+    bad = [r for r in rows if r[4] or abs(r[2] - r[3]) > 1e-3]
     return record_bound(Bound(
-        "anchor-lands", "Every cap rib is bored for the section it stands under",
-        bool(rows) and not bad,
+        "anchor-lands", "Every cap rib is bored for a section that fills it", bool(rows) and not bad,
         "no rib stood" if not rows else f"{len(rows)} ribs, {len(rows) - len(bad)} on section",
-        "each rib inside one section, bored to its own radius",
+        "one section filling each bore, the rest passing under it",
         ([] if rows and not bad else
-         [f"chain anchor {n}: the rib spans {lab} and is bored {has:.3f}, where that section "
-          f"asks {want:.3f}. This is the row `_cold_core_interface.cap_anchors` should carry:"
-          for n, lab, has, want, _ok in bad]
+         [f"chain anchor {n}: the rib bears on {lab} and is bored {has:.3f}, where that section "
+          f"asks {want:.3f}"
+          + (f"; and {', '.join(f)} will not pass under it" if f else "")
+          + ". This is the row `_cold_core_interface.cap_anchors` should carry:"
+          for n, lab, has, want, f in bad]
          + [f'    "{n}": CapAnchor({_cci.cap_anchors[n].centre}, {want:.3f}),'
-            for n, _lab, _has, want, _ok in bad])))
+            for n, _lab, _has, want, _f in bad])))
 
 
-def check_disch_seated(chain, foam) -> Bound:
-    """Whether the discharge chain lies in its printed rib, read off the two placed solids.
+def check_chains_seated(chains: dict, foam) -> Bound:
+    """Whether every chain lies in its printed rib, read off the placed solids.
 
-    The same reading the tap-water chain's and the meter's take. This seat is a bore, so the gap
-    it holds is the slip itself — and it opens UP, so the reading says the body is DOWN in it and
-    the strap has something to pull against rather than something to carry."""
+    The same reading the tap-water chain's and the meter's take. These seats are bores, so the gap
+    each holds is the slip itself — and they open UP, so the reading says the body is DOWN in its
+    rib and the strap has something to pull against rather than something to carry."""
     def solid(s):
         s = s.toCompound() if hasattr(s, "toCompound") else s
         return s.val() if hasattr(s, "val") else s
-    got = _clearing.gap(solid(chain), solid(foam), 5.0)
-    want = DISCH_SEAT_SLIP
-    ok = got <= want + 1e-3
+    want = CHAIN_SEAT_SLIP
+    got = {n: _clearing.gap(solid(c), solid(foam), 5.0) for n, c in chains.items()}
+    bad = {n: g for n, g in got.items() if g > want + 1e-3}
+    worst = max(got.values(), default=0.0)
     return record_bound(Bound(
-        "disch-seated", "The discharge chain lies in its printed rib on the core's cap", ok,
-        f"{got:.3f} mm off the cap's furniture", f"{want:.3f} mm at most",
-        ([] if ok else [
-            f"the chain stands {got:.3f} mm off everything the cold core puts near it, and its "
-            f"rib is drawn to close on one section at {want:.3f}. Either `cap_anchors` no longer "
-            f"reads that section's own radius, or the chain moved and the rib did not follow "
-            f"it — `anchor-lands` is the row that says which."])))
+        "chains-seated", "Every made-up chain lies in its printed rib on the core's cap", not bad,
+        f"{len(got)} seated, furthest off {worst:.3f} mm", f"{want:.3f} mm at most",
+        ([] if not bad else [
+            f"{n} stands {g:.3f} mm off everything the cold core puts near it, and its rib is "
+            f"drawn to close on one section at {want:.3f}. Either `cap_anchors` no longer reads "
+            f"that section's own radius, or the chain moved and the rib did not follow it — "
+            f"`anchor-lands` is the row that says which." for n, g in bad.items()])))
 
 
 def check_strap_vocabulary() -> Bound:
@@ -2999,15 +3011,6 @@ def build_flowreg(split_carry):
 # that moves takes the valve, the chain behind it and `water-4` with it.
 
 
-def vk_port_z(foam):
-    """The Z V-K's two collets open on — its own `port_center_z` over the seat its cradle
-    stands it at, over the cold core's cap face.
-
-    The suction chain lies on this same plane, so `water-4` is a straight between two mouths
-    facing each other, and a change to the cradle moves the pair together."""
-    return cap_face(foam) + _cci.cap_cradles["vk-solenoid"].seat + _beduan.port_center_z
-
-
 def source_row_y(stood) -> float:
     """The aft face of the row the two source valves make, in world.
 
@@ -3023,7 +3026,7 @@ def source_row_y(stood) -> float:
 
 def build_vk(chain_carry, row_y: float):
     """V-K seated on its OUTLET, on the suction chain's own column and plane — which is
-    `vk_port_z`, the plane the chain was laid on, so the valve comes back down onto its own
+    the plane its rib lays the chain on, so the valve comes back down onto its own
     seat — and on `row_y`, the face the source pair stands its own ends on.
 
     The outlet is this valve's aft collet, so the whole body stands in the pair's own depth and
@@ -3264,8 +3267,7 @@ def build_pack() -> cq.Assembly:
     a.add(foam, name="foam-assembly", color=C_FOAM)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
-    chain, chain_carry = build_suction_chain(seaflo, seaflo_carry(_lines._pump.suction()),
-                                             vk_port_z(foam))
+    chain, chain_carry = build_suction_chain(foam_carry, seaflo_carry(_lines._pump.suction()))
     a.add(chain, name="suction-chain", color=C_SUCT)
     wall_seat = east_wall_seat()
     psu, psu_carry = build_psu(foam, wall_seat)
@@ -3344,9 +3346,11 @@ def build_pack() -> cq.Assembly:
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     disch, disch_carry = build_discharge_chain(foam_carry, seaflo_carry)
     a.add(disch, name="discharge-chain", color=C_SUCT)
-    # The rib the cap prints against the section of the chain it stands under, both read back
-    # off the placed body — the same reading the pump's four columns take.
-    a.anchors = anchor_rows(foam_carry, disch_carry)
+    # Each rib the cap prints against the sections of the chain it stands under, read back off
+    # the placed body — the same reading the pump's four columns take. Both chains are down by
+    # here, and a rib answers to the one it holds.
+    a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis),
+                                         "suction-chain": (chain_carry, _suct)})
     check_anchor_lands(a.anchors)
     check_strap_vocabulary()
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
@@ -3644,9 +3648,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
-    # And the discharge chain against the cap it lies on, which needs no piece — the rib is
-    # printed in the core's own lid, so both solids are in the pack.
-    check_disch_seated(a.pack_solids["discharge-chain"], a.pack_solids["foam-assembly"])
+    # And both made-up chains against the cap they lie on, which needs no piece — the ribs are
+    # printed in the core's own lid, so every solid in the reading is in the pack.
+    check_chains_seated({n: a.pack_solids[n] for n in _cci.cap_anchors},
+                        a.pack_solids["foam-assembly"])
     # And every anchored run against the rib its own site names.
     check_tube_seated({n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}, pieces)
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an

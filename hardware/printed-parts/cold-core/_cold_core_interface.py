@@ -598,13 +598,15 @@ for _name in deck_mounts:
 # stands on the refrigeration base's crown, so where they land over this cap is that stack's
 # arithmetic; `enclosure_assembly.cradles_land` re-derives all three rows off the placed valves at
 # every build and raises with the row a moved valve wants, so a drift cannot land silently.
-# V-K is the one this cap gets to choose, and it takes the shallowest seat there is: one
-# `-valve_seat.socket_floor_z`, which lands its socket floors on the lid's own outer face
-# and bores nothing into the plate.
+#   V-K'S SEAT IS THE SUCTION CHAIN'S. `water-4` is a 9 mm straight between the valve's outlet
+# and that chain's collet, and a collet grips a tube through 3° — so the two mouths lie on one
+# plane or the run stops being a straight. The chain lies in the rib `cap_anchors` stands, and
+# this seat is what brings the valve's own `beduan_solenoid.port_center_z` up to meet it. A seat
+# is boss height standing on the lid's face, so it bores nothing into the plate at any value.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
-    "vk-solenoid": Cradle((105.920,  65.050), 0.0, 1.0000),
+    "vk-solenoid": Cradle((105.920,  65.050), 0.0, 3.4000),
     "valve-v-a":   Cradle((105.920,  22.490), 0.0, 2.6150),
     "valve-v-b":   Cradle((105.920, -20.070), 0.0, 2.6150),
 }
@@ -1038,10 +1040,16 @@ for _name in cap_cradles:
 # Per anchor: the seat's centre in the CAP'S OWN frame, and the radius of the bore — the seated
 # section's own circumradius plus the slip the machine closes on it. The rib is extruded along the
 # cap's +X.
+#   A RIB MAY BE LONGER THAN THE SECTION IT BEARS ON. The suction chain's longest metal is the
+# MAACFLOW's 6 mm hex — its twin seats on the GASHER's 18 mm hex, and that fitting is only on the
+# discharge side — so its rib overhangs onto the barb and the NPT either side. Both are thinner
+# than the bore and neither touches it. `enclosure_assembly.anchor_rows` holds that: every section
+# under a rib clears the bore, and exactly one fills it.
 CapAnchor = namedtuple("CapAnchor", "centre seat_r")
 cap_anchors = {
     #                             centre         seat_r
     "discharge-chain": CapAnchor((61.000, -60.500), 8.700),
+    "suction-chain":   CapAnchor((37.600,  65.050), 8.700),
 }
 
 # What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same
