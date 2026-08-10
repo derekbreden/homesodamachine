@@ -773,8 +773,8 @@
    "label": "The tap-water chain lies in its printed trough",
    "kind": "gate",
    "status": "pass",
-   "value": "0.200 mm off the wall's furniture",
-   "target": "0.231 mm at most",
+   "value": "0.196 mm off the wall's furniture",
+   "target": "0.200 mm at most",
    "detail": [],
    "active": true
   },
@@ -5871,5 +5871,5 @@
    "kind": "real"
   }
  ],
- "sources": "e55a68755f138dbf6dbb5dddaa621c2f"
+ "sources": "fc4b98f2ab5777fc713d462aeaec81f7"
 }
