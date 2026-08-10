@@ -135,6 +135,7 @@
     "fluid-28 \u2014 cap-sleeve-b: 0.049 mm \u2014 seated against it",
     "fluid-18 \u2014 cap-sleeve-a: 0.049 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-14 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
@@ -168,7 +169,6 @@
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.326 mm",
-    "fluid-28 \u2014 enclosure-back-top: 3.326 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
@@ -834,7 +834,7 @@
    "label": "Every anchored run lies in its printed rib",
    "kind": "gate",
    "status": "pass",
-   "value": "2 anchored, furthest off 0.199 mm",
+   "value": "3 anchored, furthest off 0.199 mm",
    "target": "0.200 mm at most",
    "detail": [],
    "active": true
@@ -1146,15 +1146,15 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "16/20 within span",
+   "value": "17/20 within span",
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 480.1 mm unheld, 280.1 over",
     "fluid-14: 357.8 mm unheld, 157.8 over \u2014 anchored once already",
-    "fluid-28: 348.0 mm unheld, 148.0 over",
     "fluid-2: 237.1 mm unheld, 37.1 over",
     "carb-1: 150.8 mm, held at its anchor",
-    "fluid-14: 357.8 mm, held at its anchor"
+    "fluid-14: 357.8 mm, held at its anchor",
+    "fluid-28: 193.0 mm, held at its anchor"
    ],
    "active": false
   }
@@ -5965,5 +5965,5 @@
    "kind": "real"
   }
  ],
- "sources": "16e636dfca812857146268a53572fb9a"
+ "sources": "4a2935f53de408eff610f5369cd17db8"
 }

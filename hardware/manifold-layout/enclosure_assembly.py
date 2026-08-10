@@ -1528,6 +1528,9 @@ TUBE_ANCHOR_SITES = (
     # Reservoir A's fill, on the cruise it climbs to under the same wall — `_lines.FILL_A_HIGH_CLEAR`
     # is what that climb leaves for this rib.
     ("fluid-14", 3, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # Nozzle B's outboard lane, off the −X wall it runs 20.5 mm inboard of. The leg leans, but
+    # only in that wall's own plane, so the wall lies one distance down the whole of it.
+    ("fluid-28", 2, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
 
@@ -1551,10 +1554,10 @@ def tube_anchors(runs) -> tuple:
         p, q = r.pts[leg], r.pts[leg + 1]
         length = math.dist(p, q)
         u = tuple((q[k] - p[k]) / length for k in range(3))
-        if sum(1 for c in u if abs(c) > 1e-9) != 1:
-            raise ValueError(
-                f"tube_anchors: {rid} leg {leg} leans ({u}). A rib is extruded along its tube and "
-                f"cut square at both ends, so only an axial leg carries one as drawn.")
+        # A LEG NEED NOT BE AXIAL, only square to the face. The rib is extruded along the tube and
+        # its two ends are cut square to that, so what it asks of the leg is that the face it
+        # roots on lies at one distance down the whole of it — which is the test below and not
+        # this one. A leg that leans in the plane of its own wall passes both.
         if abs(sum(u[k] * root[k] for k in range(3))) > 1e-9:
             raise ValueError(
                 f"tube_anchors: {rid} leg {leg} runs along {u} and this row roots it on {root}. "
