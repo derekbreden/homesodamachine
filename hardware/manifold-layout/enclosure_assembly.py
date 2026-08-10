@@ -2285,13 +2285,15 @@ ASSE_STEP_SLIP = 0.5
 
 
 def asse_sections(asse_carry) -> tuple:
-    """The chain's own sections, forward to aft, as `(y0, y1, apex_x)` — the band each occupies
-    down the lane and the apex the 120° V takes under it.
+    """The chain's own sections, forward to aft, as `(y0, y1, west_x, seat_r, axis_x)` — the band
+    each occupies down the lane, how far west its seat reaches, the bore radius a round one takes,
+    and the axis a bore is struck on. `seat_r` is None where the section is seated on a V.
 
-    A HEX READS OFF ITS CORNER AND A CIRCLE OFF ITS TANGENT. The V's apex lies one circumradius
-    under a hex's axis and `R / sin 60°` under a round one's, so a section this seats on its
-    flats sits `1 - sin 60°` of its own radius deeper than one it seats on two lines. That is the
-    whole of why the barrel steps down out of its neighbours and not a number chosen here.
+    A HEX GETS A V AND A CIRCLE GETS A BORE. The hex's V is read off the corner it lies on, so its
+    apex stands one circumradius under the axis; a round section is held in a bore concentric with
+    it, one `ASSE_SEAT_SLIP` over its own circumradius, stopped at the axis plane where its lip is
+    still a lip. That is the whole of why the barrel steps out of its neighbours and not a number
+    chosen here.
 
     Read through `asse_carry`, so a fitting whose length changes moves its own step."""
     axis = asse_carry(_asse.flow_axis())[0]
@@ -2300,8 +2302,11 @@ def asse_sections(asse_carry) -> tuple:
         # lane, so a section's upstream end is its AFT end.
         ends = sorted(asse_carry(((x, 0.0, _asse.bfp.BODY_CENTER_Z), (1.0, 0.0, 0.0)))[0][1]
                       for x in (part_x0, part_x1))
-        drop = across / 2.0 if hexed else across / 2.0 / math.sin(math.radians(60.0))
-        return (ends[0], ends[1], axis[0] - drop - ASSE_SEAT_SLIP / math.sin(math.radians(60.0)))
+        if hexed:
+            west = axis[0] - across / 2.0 - ASSE_SEAT_SLIP / math.sin(math.radians(60.0))
+            return (ends[0], ends[1], west, None, axis[0])
+        seat_r = across / 2.0 + ASSE_SEAT_SLIP
+        return (ends[0], ends[1], axis[0] - seat_r, seat_r, axis[0])
     rows = (
         # the PI4512F6S's swivel nut, forward of the barrel — round, because it spins
         band(_asse.OUTLET_X, _asse.OUTLET_X + _oad.NUT_LENGTH, _oad.NUT_ACROSS_CORNERS, False),
@@ -2323,14 +2328,16 @@ def asse_sections(asse_carry) -> tuple:
     # end of the barrel is a face square to the axis, and the fitting past that face is seated on
     # the section it presents rather than followed down its length.
     reach = min(r[1] - r[0] for r in (rows[0], rows[-1]))
-    rows = ((rows[0][1] - reach, rows[0][1], rows[0][2]), rows[1],
-            (rows[-1][0], rows[-1][0] + reach, rows[-1][2]))
+    rows = ((rows[0][1] - reach, rows[0][1], *rows[0][2:]), rows[1],
+            (rows[-1][0], rows[-1][0] + reach, *rows[-1][2:]))
     out = [list(r) for r in rows]
     for i in range(len(out) - 1):
         deep = i if out[i][2] < out[i + 1][2] else i + 1
         edge = out[i][1] + (ASSE_STEP_SLIP if deep == i else -ASSE_STEP_SLIP)
         out[i][1], out[i + 1][0] = edge, edge
     return tuple(tuple(r) for r in out)
+
+
 
 
 # Where the two ties close the trough's mouth. The barrel is the only section a tie may cinch on
@@ -2406,7 +2413,9 @@ def check_asse_seated(chain, piece, asse_carry) -> Bound:
     # `_clearing.gap` reports a floor past its reach, so ask it for more than the trough may
     # have: a chain resting on nothing has to come back with the number, not with the reach.
     got = _clearing.gap(solid(chain), solid(piece), 5.0)
-    want = ASSE_SEAT_SLIP / math.sin(math.radians(60.0))
+    # The tightest of the trough's three seats: a bore stands off its section radially, so the two
+    # round ones close on the slip itself while the barrel's V closes on it along the V's normal.
+    want = ASSE_SEAT_SLIP
     ok = got <= want + 1e-3
     return record_bound(Bound(
         "asse-seated", "The tap-water chain lies in its printed trough", ok,

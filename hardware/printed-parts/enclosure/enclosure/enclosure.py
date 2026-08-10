@@ -2256,10 +2256,19 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         return solid                       # a piece that does not own the whole run builds none
     if not (z0 <= z_axis - dn and z_axis + up <= z1):
         return solid
-    for sy0, sy1, apex in sections:
-        east = apex + dn * run + asse_cradle_lip
-        solid = solid.fuse(_ybox(inner[0], east, sy0, sy1, z_axis - dn, z_axis + up))
-        solid = solid.cut(_asse_v(apex, z_axis, sy0, sy1, up, dn, east + 1.0))
+    for sy0, sy1, apex, seat_r, x_axis in sections:
+        if seat_r is None:
+            east = apex + dn * run + asse_cradle_lip
+            solid = solid.fuse(_ybox(inner[0], east, sy0, sy1, z_axis - dn, z_axis + up))
+            solid = solid.cut(_asse_v(apex, z_axis, sy0, sy1, up, dn, east + 1.0))
+            continue
+        # A ROUND SECTION LIES IN A BORE, cut out of the same block on the same storey the V takes.
+        # The block's own top face crosses the arc INSIDE its widest point, so the two meet in a
+        # wedge rather than along a tangent — which is what a feather is, and what a lip is not.
+        # Below the axis the block runs past the circle entirely and the arc closes on the block's
+        # east face at a right angle.
+        solid = solid.fuse(_ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, z_axis + up))
+        solid = solid.cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1))
     # THE STRAP'S CAVITY, cut after every section is fused so a neighbour's block cannot fill it
     # back in. Struck on the DEEPEST section's apex, which is the barrel's: that V stands furthest
     # west, so a cavity clear of it by one `wall` is clear of the other two by more and the
@@ -2270,7 +2279,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
                 f"_asse_cradle: tie band {ty:.2f} falls outside the trough's run "
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. The cavity a strap passes through "
                 f"is the trough's whole length, so a band off either end has no cavity at all.")
-    return solid.cut(_asse_tie_cavity(min(a for _y0, _y1, a in sections), inner[0], z_axis,
+    return solid.cut(_asse_tie_cavity(min(w for _y0, _y1, w, _r, _a in sections), inner[0], z_axis,
                                       min(ties) - tie_cav_w / 2.0,
                                       max(ties) + tie_cav_w / 2.0, up, dn))
 
