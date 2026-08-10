@@ -29,7 +29,7 @@ the port's bore Ø along that centreline like any other.
 
 `redrawn(run, pts)` puts an authored run down a different centreline and re-solves its corners,
 so a waypoint can be MOVED and the cost read before anything is edited.
-[`probe.World.shift`](/hardware/scripts/probe.py) is what sweeps that across a range of
+[`probe.World.reroute`](/hardware/scripts/probe.py) is what sweeps that across a range of
 positions and says what the run runs into at each one.
 
 Coordinates are the assembly's world frame. Authorship:
@@ -398,23 +398,19 @@ def redrawn(run: Run, pts) -> Run:
     """The same run down a DIFFERENT CENTRELINE — its corners found again and its radii
     re-solved for the waypoints given, and nothing else about it changed.
 
-    What moving a piece of an authored route costs is not the move: it is every corner the move
-    lengthens or shortens a leg of. A corner backs its arc `r·tan(θ/2)` down each of its legs
-    and shares that leg with its neighbour (`seat_radii`), so shifting one waypoint 20 mm can
-    leave the two corners either side of it seating under a millimetre while the run still
-    clears everything in the machine. That reading comes out of here, and `probe.World.shift`
-    is what sweeps it across a range of positions.
+    A corner backs its arc `r·tan(θ/2)` down each of its legs and shares that leg with its
+    neighbour (`seat_radii`), so a waypoint moved 20 mm can leave the two corners either side
+    of it seating under a millimetre while the run still clears everything in the machine.
+    `probe.World.reroute` sweeps this across a range of positions.
 
     A HYPOTHETICAL NEVER MARKS THE RUN. `seat_radii` records a corner with no room at all in
-    the module-level `BLOCKED`, which is keyed by run id and read out as the machine's own list
-    of shortfalls; a redraw restores that dict, so a position nobody built cannot put a line on
-    it. The reading survives on the returned run's `radii` — a corner drawn square is 0.0
-    there — which is the same figure `_scorecard.bend_radii` grades.
+    the module-level `BLOCKED`, keyed by run id and read out as the machine's own list of
+    shortfalls; a redraw restores that dict. What it found is on the returned run's `radii`,
+    where a corner drawn square is 0.0 — the figure `_scorecard.bend_radii` grades.
 
     A run whose author capped its corners ONE AT A TIME cannot be redrawn here. `_straighten`
-    drops a waypoint the new centreline runs straight through, and every corner index after it
-    moves, so a cap keyed by index would come down on a different turn than the one it was
-    written for. One cap over the whole run carries, and every run on this machine has one.
+    drops a waypoint the new centreline runs straight through and every corner index after it
+    moves, so a cap keyed by index comes down on a different turn than it was written for.
     """
     ceilings = set(run.caps.values()) or {run.bend}
     if len(ceilings) > 1:
