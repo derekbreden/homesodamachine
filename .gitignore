@@ -61,17 +61,6 @@ tools/cad-venv/
 # when one is absent.
 *.step.mesh
 
-# The same triangles as a scene of nodes and matrices, for an engine to read
-# (hardware/scripts/_scene.py). Written on ask, off the assembly the layout builds.
-*-assembly.glb
-
 # Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
 # always cost; deleting this is always safe.
 .cache/
-
-# Shots and import scratch from the engine project (hardware/godot). Written on ask.
-hardware/godot/*.png
-hardware/godot/.godot/
-
-# Arrangements the engine proposes (hardware/godot/settle.gd). Written on ask.
-hardware/godot/*.json
