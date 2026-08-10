@@ -56,6 +56,22 @@ callers per file accumulate as separate bullets (deduped, sorted).
 A caller's bullet stays in place even if the script later stops
 calling substitute_md on the file; pruning is manual.
 
+Sources sidecar
+---------------
+
+Beside a markdown file under a `hardware/` tree, substitute_md writes
+`<doc>.sources.json`: for each caller, every repo file whose text can
+decide what that caller substitutes, each with the hash of its bytes.
+The walk is `_realized.source_files`, taken here because THIS is where
+the caller's own `sys.path` is standing — the same module name resolves
+to different files, or to none, from a different one, so a reader that
+takes the walk again elsewhere is not asking about the same graph.
+
+What the sidecar answers is whether a doc's figures are still the ones
+its inputs make, which is a question no reader of the doc can settle:
+the values cost the caller's whole build. `check_doc_sources.py` reads
+the recorded hashes back and compares bytes.
+
 Cross-file collision linter
 ---------------------------
 
@@ -74,8 +90,11 @@ Invoke as:
 Exit code is 0 if no collisions are found, 1 otherwise.
 """
 
+import hashlib
+import importlib.util
 import inspect
 import io
+import json
 import re
 import tokenize
 from pathlib import Path
@@ -110,6 +129,19 @@ def _find_repo_root(path: Path) -> Path | None:
     return None
 
 
+def _caller_file(stack_depth: int = 2) -> Path | None:
+    """The file of the script that called substitute_md, resolved.
+
+    `stack_depth` = how far up the call stack to look. Default 2, for a call made
+    from substitute_md itself: 0 is this helper, 1 is substitute_md, 2 is the caller.
+    `_caller_repo_path` stands one frame further out and passes 3.
+    """
+    try:
+        return Path(inspect.stack()[stack_depth].filename).resolve()
+    except (IndexError, OSError):
+        return None
+
+
 def _caller_repo_path(stack_depth: int = 2) -> str | None:
     """Repo-root-relative path of the script that called substitute_md.
 
@@ -119,9 +151,8 @@ def _caller_repo_path(stack_depth: int = 2) -> str | None:
     Returns a string like `/hardware/foo/bar/foo_bar.py`,
     or None if the caller's file is outside the repo or unidentifiable.
     """
-    try:
-        caller_file = Path(inspect.stack()[stack_depth].filename).resolve()
-    except (IndexError, OSError):
+    caller_file = _caller_file(stack_depth + 1)
+    if caller_file is None:
         return None
     repo = _find_repo_root(caller_file)
     if repo is None:
@@ -131,6 +162,52 @@ def _caller_repo_path(stack_depth: int = 2) -> str | None:
     except ValueError:
         return None
     return f"/{rel.as_posix()}"
+
+
+SIDECAR_SUFFIX = ".sources.json"
+
+
+def _realized_for(caller_file: Path):
+    """`_realized` off the `hardware` tree `caller_file` stands in, or None.
+
+    Anchored on the caller and not on the repo root, so a caller outside a hardware tree
+    resolves nothing and writes no sidecar."""
+    hw = next((p for p in caller_file.parents if p.name == "hardware"), None)
+    target = hw / "scripts" / "_realized.py" if hw else None
+    if target is None or not target.is_file():
+        return None
+    spec = importlib.util.spec_from_file_location("_docgen_realized", target)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _write_sources_sidecar(md_path: Path, caller_file: Path, caller_path: str) -> None:
+    """Record every file `caller_file` reads to decide what it substitutes, with each
+    one's hash, in `<md_path stem>.sources.json`. Other callers' entries stay."""
+    realized = _realized_for(caller_file)
+    if realized is None:
+        return
+    root = _find_repo_root(caller_file)
+    if root is None:
+        return
+    files = {}
+    for src in realized.source_files(caller_file):
+        h = hashlib.blake2b(digest_size=16)
+        h.update(Path(src).read_bytes())
+        files[Path(src).relative_to(root).as_posix()] = h.hexdigest()
+
+    sidecar = md_path.with_name(md_path.stem + SIDECAR_SUFFIX)
+    held = {}
+    if sidecar.is_file():
+        try:
+            held = json.loads(sidecar.read_text())
+        except ValueError:
+            held = {}
+    held[caller_path] = files
+    text = json.dumps(held, indent=2, sort_keys=True) + "\n"
+    if not sidecar.is_file() or sidecar.read_text() != text:
+        sidecar.write_text(text)
 
 
 def _render_sources_section(bullets: list[str]) -> str:
@@ -228,11 +305,18 @@ def substitute_md(
     # caller's repo path via the call stack; silently skips if the
     # caller isn't inside a .git checkout.
     caller_path = _caller_repo_path()
+    caller_file = _caller_file()
     if caller_path:
         new_text = _update_sources_section(new_text, caller_path)
 
     if new_text != text:
         md_path.write_text(new_text)
+
+    # The sidecar records the graph as this caller sees it, so it is written on every
+    # run and not only on the runs that move a figure: a source can change what the
+    # caller reads and still land on the same value.
+    if caller_path and caller_file:
+        _write_sources_sidecar(md_path, caller_file, caller_path)
 
 
 def substitute_mmd(

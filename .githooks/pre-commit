@@ -47,6 +47,10 @@
 #      - any staged *.py under hardware/    → check_cards.py, which asks whether the
 #        committed cards still describe the tree. A card carries the digest of the text
 #        its build could reach; this takes it again and compares. ~2 s.
+#      - any staged *.py under hardware/    → check_doc_sources.py, the same question for
+#        a doc's [value](NAME) figures. Each doc's driver leaves <doc>.sources.json beside
+#        it — every file that decides what it substitutes, hashed — and this hashes them
+#        again. Reads only recorded files, so no import and no CadQuery: stdlib, ~0.4 s.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   3. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
@@ -240,6 +244,20 @@ for hw in $editions; do
     else
       echo "pre-commit: no cad-venv — $hw card freshness skipped" >&2
     fi
+
+    # WHAT A DOC'S `[value](NAME)` SAYS IS WHAT SOME SYNC MEASURED, and the same drift the
+    # cards have: a source moves, the driver is not re-run, and the doc goes on quoting the
+    # last run's figure. Beside each doc its driver leaves `<doc>.sources.json` — every file
+    # that decides what it substitutes, each with the hash of its bytes — so this hashes
+    # those files again. It names the driver to run and settles nothing itself: a sync is
+    # that driver's whole build.
+    #
+    # KEYED with the cards, on staged Python, and for the same reason: the inputs are the
+    # drivers' import graphs. What it reads is only the files already recorded, so it costs
+    # no import and no CadQuery — stdlib python3 runs it. A doc with no sidecar yet is
+    # counted and passes; it enrols the next time its driver runs.
+    gate "$hw docs carry their sources' figures" \
+         python3 "$root/$hw/scripts/check_doc_sources.py"
   fi
 done
 
