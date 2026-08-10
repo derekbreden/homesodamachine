@@ -278,8 +278,8 @@ def box(shape):
 def sit(shape, *, cx=None, y0=None, y1=None, z0=None, dz=None):
     """Move a shape by whole planes: centre it in X, put its near face at `y0` or its far face
     at `y1`, its floor at `z0`, or step it `dz`. Each argument names where a face of its own box
-    lands."""
-    return shape.translate(_shift(box(shape), cx=cx, y0=y0, y1=y1, z0=z0, dz=dz))
+    lands. Hung over the drawn geometry, as `seat_body` hangs it."""
+    return shape.moved(cq.Location(_shift(box(shape), cx=cx, y0=y0, y1=y1, z0=z0, dz=dz)))
 
 
 def _shift(b, *, cx=None, x0=None, x1=None, cy=None, y0=None, y1=None, z0=None, dz=None):
@@ -377,9 +377,15 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
     Returns `(placed, carry)`. `carry` takes a `(position, outward axis)` station in the body's
     OWN frame through the same turns and the same move — so a port table written once in a
     reference module rides every placement of the body it is on, and a port cannot drift from
-    the metal it is a hole in."""
+    the metal it is a hole in.
+
+    THE POSE IS HUNG ON THE SHAPE, NOT FOLDED INTO IT. `Shape.rotate` and `Shape.translate` go
+    through `BRepBuilderAPI_Transform` and hand back a body whose coordinates ARE its pose;
+    `moved` hangs a `TopLoc_Location` over the drawn geometry instead. `_meshes` names a body's
+    kept triangles after the shape under that location, so a body that moves is re-seated by a
+    matrix multiply rather than re-tessellated, and `_scene` has a 4×4 to write down."""
     for axis, deg in turns:
-        shape = shape.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
+        shape = shape.moved(cq.Location(cq.Vector(0, 0, 0), cq.Vector(*axis), deg))
     if station is None:
         shift = _shift(box(shape), **planes)
     else:
@@ -402,7 +408,7 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
         a = axis if isinstance(axis, cq.Vector) else cq.Vector(*axis)
         return ((p.x, p.y, p.z), (a.x, a.y, a.z))
 
-    placed = shape.translate(shift)
+    placed = shape.moved(cq.Location(shift))
     if seat is not None:
         if station is None:
             record_seat(seat, turns=turns, planes=planes, got=box(placed))
@@ -3302,8 +3308,42 @@ def report_seats(a: cq.Assembly, placed_names) -> None:
         print(f"  {len(loose)} body(s) with no seat: " + ", ".join(loose))
 
 
+def selftest():
+    """What `seat_body` promises about the body it hands back."""
+    import _meshes
+
+    part = cq.Workplane("XY").box(18.0, 11.0, 7.0).faces(">Z").workplane().hole(4.0).val()
+    turns = (((0, 0, 1), 90.0), ((1, 0, 0), -37.0))
+    drawn = _meshes._named(part.wrapped, _meshes.DEFLECTION)
+
+    # A SEAT IS A LOCATION OVER THE DRAWN BODY. `_meshes` names a body's kept triangles after
+    # the shape under its location, so a seat that reached the coordinates would name a new
+    # mesh — and every rule that moves a body would redraw it.
+    for label, where in (("plane rule", dict(cx=0.0, y0=40.0, z0=12.0)),
+                         ("the same rule, one constant moved", dict(cx=0.0, y0=95.5, z0=12.0))):
+        placed, _carry = seat_body(part, turns=turns, **where)
+        got = _meshes._named(_meshes._unplaced(placed)[0], _meshes.DEFLECTION)
+        if got != drawn:
+            raise AssertionError(
+                f"a body seated by {label} names a mesh the drawn body does not — the pose is in "
+                f"its coordinates, so every seat redraws it and no scene has a transform to carry")
+    yield "a seated body's kept triangles are the drawn body's, wherever the rule puts it"
+
+    # And the seat still lands where it says: the ledger reads the rule back off the geometry.
+    placed, _carry = seat_body(part, turns=turns, cx=0.0, y0=40.0, z0=12.0, seat="selftest-body")
+    off = seat_off(SEATS.pop("selftest-body"))
+    if off > SEAT_TOL:
+        raise AssertionError(f"a hung seat lands {off:.2e} off its own rule, past {SEAT_TOL:g}")
+    yield f"a hung seat lands {off:.1e} off the rule it was given"
+
+
 def main():
     import _scorecard as _card
+    if sys.argv[1:] == ["selftest"]:
+        for line in selftest():
+            print(" ", line)
+        print("enclosure_assembly selftest OK")
+        return
     a = build_enclosure_assembly()
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(a, str(out))
