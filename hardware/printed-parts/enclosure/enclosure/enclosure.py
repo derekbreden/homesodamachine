@@ -2157,12 +2157,11 @@ asse_cradle_up = 9.0
 asse_cradle_down = 18.0
 asse_v_half = 60.0          # half the V's included angle, off the axis plane
 asse_cradle_lip = 4.0       # material carried past the lower lip, for the tie slot to cut
-# A tie's own channel — its width along the run and the room it needs to pass.
-asse_tie_w = 5.0
-asse_tie_t = 2.6
-# What the top wall gives back so a tie can cross the chain. Cut into its INNER face only, so
-# the appliance's outside is untouched and what is left over the band is `wall` less this.
-asse_ceiling_relief = 1.5
+# The slot each tie passes through in the trough's lips — its width along the run and how deep
+# it is cut back off the lip. Not the strap's own section: that is
+# `enclosure_assembly.ASSE_TIE_T`, and it is what the DECK'S STOREY is struck to clear.
+asse_tie_slot_w = 5.0
+asse_tie_slot_d = 2.6
 
 
 def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
@@ -2198,9 +2197,9 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     is a slip and not a socket.
 
     WHAT A TIE CAN AND CANNOT DO HERE. A tie is a closed loop, and a loop round this chain has to
-    pass over its top flat, which stands one `clearance-floor` under the top wall — so the ties
-    do not work at all unless the ceiling gives the channel back. It does, out of its inner face
-    only (`asse_ceiling_relief`), and the loop then runs: out of the trough's upper slot, east
+    pass over its top flat — so the storey the chain lies on is struck to leave that channel
+    under the top wall, and the wall itself is never cut for it
+    (`enclosure_assembly.DECK_CEILING_CLEAR`). The loop runs out of the trough's upper slot, east
     over the flat through that channel, down the east flank, under the barrel, and back in
     through the lower slot. It closes on the trough's own two lips, so what it pulls is the chain
     into the V and not the chain against a wall.
@@ -2224,32 +2223,11 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     # The tie channels. Each is one slot through the upper lip and one through the lower, cut
     # after every section is fused so a neighbour's block cannot fill one back in.
     for ty in ties:
-        for lip, zl0, zl1 in ((up, z_axis + up - asse_tie_t, z_axis + up + 1.0),
-                              (dn, z_axis - dn - 1.0, z_axis - dn + asse_tie_t)):
+        for lip, zl0, zl1 in ((up, z_axis + up - asse_tie_slot_d, z_axis + up + 1.0),
+                              (dn, z_axis - dn - 1.0, z_axis - dn + asse_tie_slot_d)):
             apex = min(a for sy0, sy1, a in sections if sy0 <= ty <= sy1)
-            solid = solid.cut(_ybox(apex + lip * run - asse_tie_t, apex + lip * run + 20.0,
-                                    ty - asse_tie_w / 2.0, ty + asse_tie_w / 2.0, zl0, zl1))
-    return solid
-
-
-def _asse_ceiling_relief(solid, inner, station, y0, y1, z0, z1):
-    """The top wall's own share of the tie channel — a shallow flat cut up into its INNER face
-    over each tie band, so the loop has somewhere to cross the chain's top flat.
-
-    On the ceiling and not on the cradle because that is where the millimetre is missing, and
-    only as deep as the tie: what is left over the band is `wall` less `asse_ceiling_relief`, and
-    the outer face never knows."""
-    if not station or z1 < inner[5] - 1e-6:
-        return solid                       # only the piece that carries the ceiling
-    z_axis, sections, ties = station
-    east = max(a for _y0, _y1, a in sections) + asse_cradle_down / math.tan(
-        math.radians(asse_v_half)) + 40.0
-    for ty in ties:
-        if not (y0 <= ty <= y1):
-            continue
-        solid = solid.cut(_ybox(min(a for _y0, _y1, a in sections) - 1.0, east,
-                                ty - asse_tie_w / 2.0, ty + asse_tie_w / 2.0,
-                                inner[5], inner[5] + asse_ceiling_relief))
+            solid = solid.cut(_ybox(apex + lip * run - asse_tie_slot_d, apex + lip * run + 20.0,
+                                    ty - asse_tie_slot_w / 2.0, ty + asse_tie_slot_w / 2.0, zl0, zl1))
     return solid
 
 
@@ -2337,7 +2315,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
     # trough this fuses, so nothing may fuse into them afterwards.
     piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
-    piece = _asse_ceiling_relief(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 
