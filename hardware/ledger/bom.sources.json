@@ -74,5 +74,9 @@
     "hardware/scripts/_seating.py": "5c82444dedb829535ff52d72cb192956",
     "hardware/scripts/_stated_bounds.py": "6dd26f4721921883f10e86fb777bc2b8",
     "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
+  },
+  "/hardware/scripts/_bom_totals.py": {
+    "hardware/scripts/_bom_totals.py": "16c4790209df8e90f113a0928f4b6c74",
+    "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
   }
 }
