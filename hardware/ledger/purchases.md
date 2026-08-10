@@ -356,6 +356,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | BNTECHGO 16 AWG silicone wire kit, stranded tinned copper, 5 colors (red/black/white/blue/green) × 25 ft each. Order #112-8448573-3185817, placed Jun 22, 2026 | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | 1 kit (5× 25 ft) | $38.29 | ON-ORDER (arriving Jun 23) |
 | BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft. Order #112-8492724-3195462, placed Jun 22, 2026 | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | ON-ORDER (arriving Jun 23) |
 | HS 6" zip ties, black, 18 lb tensile, nylon PA66 UV-resistant, 100-pack — harness/cable management. Order #112-7522816-0777851, placed Jun 22, 2026 | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | 1 pk (100) | $6.42 | ON-ORDER (arriving Jun 24) |
+| TANTTI 4" zip ties, black, 18 lb tensile, nylon 66 UV-resistant, stated 0.1" across the strap, 200-pack — cabinet cable management, plus the two straps on the flow meter's saddles and the one on the carb-water run's rib. Order #112-5463509-3741018, placed Aug 10, 2026 | [B0BC1VH4XB](https://www.amazon.com/dp/B0BC1VH4XB) | 1 pk (200) | $4.28 | ON-ORDER (arriving Aug 11) |
+| TANTTI 8" zip ties, black, 50 lb tensile, nylon 66 UV-resistant, stated 0.19" across the strap, 100-pack — the two straps that shut the tap-water trough's mouth on the Multiplex barrel, whose 100 mm loop passes what a 4" closes. The wider strap is what `enclosure.tie_cav_wide_w` cuts that one cavity for. Order #112-8079907-6555421, placed Aug 10, 2026 | [B08BKSHJ93](https://www.amazon.com/dp/B08BKSHJ93) | 1 pk (100) | $5.35 | ON-ORDER (arriving Aug 11) |
 | BNTECHGO 22 AWG silicone wire, 250 ft black single-color spool — bulk all-black hookup, cut-to-length at build for the valve branches + low-power DC + signal fan-outs (the cut-to-length workhorse, replaces the pre-crimped pigtails for length-specific runs). Order #112-4343274-7898624, placed June 28, 2026 | [B06Y2PNW41](https://www.amazon.com/dp/B06Y2PNW41) | 1 (250 ft) | $27.86 | ON-ORDER (arriving ~Jun 30) |
 | ~~BNTECHGO 24 AWG silicone wire, 100 ft black single-color spool~~ — superseded; the reed + sensor runs are cut from the same 22 AWG black spool as every other low-voltage run ([inventory.md](/hardware/ledger/inventory.md) "Abandoned"). Order #112-7185180-0909846, placed June 28, 2026 | [B01K4TLR1W](https://www.amazon.com/dp/B01K4TLR1W) | 1 (100 ft) | $13.38 | ON-ORDER (arriving ~Jun 30) |
 | Alex Tech 1/2" black PET expandable braided sleeve, 100 ft — primary harness bundling (replaces spiral wrap). Order #112-6043616-7501828, placed June 28, 2026 | [B074GMNW7T](https://www.amazon.com/dp/B074GMNW7T) | 1 (100 ft) | $17.15 | ON-ORDER (arriving ~Jun 30) |
@@ -596,10 +598,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,331.64](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$30,939.56](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,202.51](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,212.14](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$33,184.96](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$33,194.59](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
