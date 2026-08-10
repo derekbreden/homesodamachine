@@ -435,9 +435,13 @@ z_lip_y_margin = 2.0
 #   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties, reach_down) — the
 #                 axis the trough is struck on, one (y0, y1, apex_x) per section of the chain,
 #                 the Y of each tie band, and how far under the axis its flanks run
+#   digiten_saddles  the top wall's two flow-meter saddles, (axis_x, axis_z, seat_r, bands) —
+#                 the arm axis the Vs are struck on, the barrel they seat, and the run of
+#                 each arm one takes
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle")
+           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle "
+           "digiten_saddles")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -446,8 +450,8 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses side_wells floor_bosses west_cradle asse_cradle")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), ())
+            "east_bosses side_wells floor_bosses west_cradle asse_cradle digiten_saddles")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1057,7 +1061,8 @@ def _dims(pack):
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
-               pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle)
+               pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle,
+               pack.digiten_saddles)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1905,7 +1910,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               None)
+               None, None)
 
 
 def build_front_half(box):
@@ -2165,8 +2170,10 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # `asse_tie_back / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
 # leaves a strap pushed through the room to turn the vertex by cutting its corner.
 #
-# It runs the trough's whole length as ONE opening, over every station between the two tie bands,
-# and its print support draws out end to end.
+# It is ONE opening from the first tie band to the last, a strap's width past each. The two bands
+# are what it has to serve, so the block's back is solid fore and aft of them, and what is left in
+# the one opening draws out end to end.
+asse_tie_w = 5.0            # the strap's working width, and what the cavity runs past each band
 asse_tie_gap = 2.6          # across the cavity at its narrowest — the strap and its clearance
 asse_tie_back = 2.5         # PETG between the cavity and the trough it stands behind
 
@@ -2217,7 +2224,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
 
     THE BLOCK'S TOP FACE HANGS. Printed ceiling-down that face is a horizontal soffit over the
     lane, and it takes print support the way the drip tray's rails do. The cavity is one opening
-    the trough's whole length, and what is left in it draws out end to end.
+    from the first tie band to the last, and what is left in it draws out end to end.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -2246,7 +2253,8 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. The cavity a strap passes through "
                 f"is the trough's whole length, so a band off either end has no cavity at all.")
     return solid.cut(_asse_tie_cavity(min(a for _y0, _y1, a in sections), z_axis,
-                                      sections[0][0], sections[-1][1], up, dn))
+                                      min(ties) - asse_tie_w / 2.0,
+                                      max(ties) + asse_tie_w / 2.0, up, dn))
 
 
 def _asse_tie_cavity(x_apex, z_axis, y0, y1, up, dn):
@@ -2275,6 +2283,83 @@ def _asse_tie_cavity(x_apex, z_axis, y0, y1, up, dn):
         .val()
         .translate((0.0, y0, 0.0))
     )
+
+
+# --- the flow meter's two saddles, off the top wall -------------------------
+#
+# The same 120° V the tap-water trough takes, apex UP and opening DOWN, read off a round barrel's
+# tangent. Each saddle is as wide as the arm it takes plus its own wall, and runs from the top
+# wall's inner face down to where its V faces reach that width.
+digiten_saddle_wall = 3.0
+# The strap's cavity through each saddle, above the V: the SEAT'S OWN V offset up on the arm side
+# and FLAT on the ceiling side, so it is narrowest over the apex and flares to the mouth on each
+# flank. Offset rather than steepened, so the web reads `digiten_cav_back` at every station — a
+# floor that fell away faster than the seat's would come out through it at the flanks.
+#
+# Printed ceiling-down this floor is the one roof in the saddle, a 30°-off-horizontal bridge over
+# a `digiten_cav_gap` channel.
+digiten_cav_gap = 2.6
+digiten_cav_back = 2.5
+
+
+def _digiten_v(x_axis, z_apex, y0, y1, half, reach, z_top):
+    """A saddle's own room: a V of `2 * half` included angle, apex UP on the arm's column, open
+    downward, carried out to `reach` either side and closed off at `z_top`.
+
+    `half` is measured off the V's own bisector, which stands vertical here — so a face of it lies
+    `90 - half` off horizontal, and the circle it seats has its centre `r / sin(half)` under the
+    apex."""
+    drop = math.tan(math.radians(90.0 - half))
+    return (
+        cq.Workplane("XZ")
+        .polyline([(x_axis, z_apex),
+                   (x_axis + reach, z_apex - reach * drop),
+                   (x_axis + reach, z_top),
+                   (x_axis - reach, z_top),
+                   (x_axis - reach, z_apex - reach * drop)])
+        .close()
+        .extrude(-(y1 - y0))
+        .val()
+        .translate((0.0, y0, 0.0))
+    )
+
+
+def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
+    """The flow meter's two saddles hung off the top wall, for the piece that owns the ceiling.
+
+    ONE PER ARM AND NONE OVER THE BODY. The round body reaches to within a hair of the top wall
+    and the two collet barrels leave the best part of a centimetre under it, so the arms are the
+    only part of this meter a printed feature can reach without the storey moving. Each barrel
+    takes the same 120° V a round section takes anywhere on this wall, apex up on the arm's own
+    column, and the saddle is as wide as the barrel plus `digiten_saddle_wall`.
+
+    THE STRAP IS THE LOAD PATH. A V that opens downward carries nothing, so the two ties here are
+    not the trough's ties: cut them and the meter comes out of its saddles. What is hanging is a
+    purchased part of a few tens of grams on two nylon straps.
+
+    Printed ceiling-down every face of the saddle stands up off the bed — its V flanks rise 30° off
+    horizontal, its outer flanks are vertical, and its lowest edges are the last thing printed. The
+    strap's cavity is the one roof in it."""
+    if not station or z1 < inner[5] - 1e-6:
+        return solid
+    x_axis, z_axis, seat_r, bands = station
+    seat = 1.0 / math.sin(math.radians(asse_v_half))            # apex over the arm's own axis
+    z_apex = z_axis + seat_r * seat
+    reach = seat_r + digiten_saddle_wall
+    for by0, by1 in bands:
+        if not (y0 <= by0 and by1 <= y1):
+            continue
+        drop = math.tan(math.radians(90.0 - asse_v_half))
+        solid = solid.fuse(_ybox(x_axis - reach, x_axis + reach, by0, by1,
+                                 z_apex - reach * drop, inner[5]))
+        solid = solid.cut(_digiten_v(x_axis, z_apex, by0, by1, asse_v_half, reach + 1.0,
+                                     z_apex - reach * drop - 1.0))
+        # The strap's cavity: its 45° floor struck one `digiten_cav_back` over the seat's apex,
+        # and a flat ceiling one `digiten_cav_gap` over that. Open on both flanks.
+        z_floor = z_apex + digiten_cav_back / math.sin(math.radians(asse_v_half))
+        solid = solid.cut(_digiten_v(x_axis, z_floor, by0, by1, asse_v_half, reach + 1.0,
+                                     z_floor + digiten_cav_gap))
+    return solid
 
 
 def _c14_bosses(solid, inner, outer, stations, z0, z1):
@@ -2361,6 +2446,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
     # trough this fuses, so nothing may fuse into them afterwards.
     piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
+    # And the flow meter's two saddles off the same piece's ceiling.
+    piece = _digiten_saddles(piece, inner, box.digiten_saddles, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 

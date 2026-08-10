@@ -44,8 +44,8 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "held": 94,
- "mounted": 32,
+ "held": 95,
+ "mounted": 34,
  "checks": [
   {
    "id": "coverage",
@@ -778,6 +778,16 @@
    "active": true
   },
   {
+   "id": "digiten-seated",
+   "label": "The flow meter hangs in its two printed saddles",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.202 mm off the ceiling's furniture",
+   "target": "0.231 mm at most",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
@@ -916,10 +926,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "25/77 mounted",
+   "value": "26/77 mounted",
    "target": "a printed joint per body",
    "detail": [
-    "digiten-flow: held by none",
     "discharge-chain: held by none",
     "mpr121: held by none",
     "suction-chain: held by none",
@@ -1051,7 +1060,7 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "fail",
-   "value": "72/77 held",
+   "value": "73/77 held",
    "target": "a holder per body",
    "detail": [
     "basin holds 1: moisture-plate",
@@ -1062,11 +1071,11 @@
     "floor holds 3: compressor, condenser+fan, foam-assembly",
     "gap-press holds 1: fuse-clamp",
     "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-boss, pump-a-head, pump-a-motor, pump-b-boss, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
+    "saddle holds 1: digiten-flow",
     "tube-clamp holds 3: bpv31, cap-sleeve-a, cap-sleeve-b",
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
     "well holds 10: wago-g, wago-gnd, wago-h, wago-mana, wago-manb, wago-n, wago-reeds-a, wago-reeds-b, wago-sensors, wago-v12",
-    "digiten-flow: nothing holds it at all",
     "discharge-chain: nothing holds it at all",
     "mpr121: nothing holds it at all",
     "suction-chain: nothing holds it at all",
@@ -5637,8 +5646,8 @@
   },
   {
    "component": "digiten-flow",
-   "by": null,
-   "held": "none",
+   "by": "enclosure-back-top",
+   "held": "saddle",
    "kind": "real"
   },
   {
@@ -5834,5 +5843,5 @@
    "kind": "real"
   }
  ],
- "sources": "04520a36c34c1153c9694e2dad5cadbe"
+ "sources": "5ff0ed28f9d752c264b2cf29dcd36ba6"
 }
