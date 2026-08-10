@@ -1058,6 +1058,11 @@ cap_anchors = {
     "suction-chain":   CapAnchor((37.600,  65.050), 8.700),
     # The tap-water branch to V-K, which crosses this lid on the plane V-K's own inlet sets.
     "water-3":         CapAnchor((120.500, -77.000), 3.375, 14.700),
+    # Reservoir A's own fill, crossing the lid on `_lines.FILL_A_LANE_Z` between V-K's aft face
+    # and the pump's front one — the stretch of this face that carries nothing. It stands on the
+    # discharge chain's own station across the cap, and reaches a storey and a half over the face
+    # to meet a run whose plane is its two ports'.
+    "fluid-14":        CapAnchor((61.000,  43.500), 3.375, 35.600),
 }
 
 # What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same
