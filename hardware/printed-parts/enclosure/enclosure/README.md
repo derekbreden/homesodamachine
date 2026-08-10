@@ -277,6 +277,13 @@ fall out as faces square to the axis.
 | Multiplex hex barrel | 33.0 | its own two flats |
 | GAGIRA coupling | 25.67 | its circumscribed circle — its clock is wherever the thread stopped |
 
+The two end sections are there to make the barrel's steps and for nothing else, so
+each runs the **shorter of the two fittings' lengths** rather than its own: the
+coupling is more than twice the nut, and trough past a section already seated is PETG
+paid for in the deck's own headroom. The flanks reach under the axis exactly as far as
+the chain's own lowest arris — the barrel's apothem, `asse_reach_down` — and no
+further, for the same reason.
+
 Every section is the **same 120° V** and only its apex moves. A V of that angle is
 the two flanks of a hex read off its corner, and it is equally the tangent seat of
 any circle — so the section that sits deepest in the wall is the section that is
@@ -295,14 +302,25 @@ steps stop it travelling rather than hold it still. Aft it needs neither: the ch
 inlet collet butts the tap-water union's, and that joint takes the length up.
 
 Two **zip ties** shut the trough's mouth, one in each band the vent leaves clear on
-the barrel. A tie is a closed loop, so its strap has to cross the chain's top flat —
-and **the top wall is never cut for it.** The storey the chain lies on is struck to
-leave that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the strap's own
-section plus its clearance), so `wall` stays whole across the whole ceiling and the
-deck pays the millimetre out of its own headroom. The strap is **laid, not threaded**:
-this piece prints ceiling-down and is populated the same way up, so the tie goes on
-the ceiling's inner face and the chain comes down onto it. Nothing about the chain's
-weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
+the barrel — the brass, which is the only section a tie may close on.
+
+Each runs down a **bore through the trough's back** (`asse_tie_bore_*`), closed on
+every side and opening only on the block's own top and bottom faces. A notch in the
+lip would be a slot the strap lifts out of, and a mouth shut by a strap that can
+leave is a mouth. The bore stands `asse_tie_bore_back` west of the apex, so at no
+station is it anything but a hole through solid material, and it is **straight**: a
+closed bore has to be threaded, and a straight one is the only shape a tie can be
+pushed down. The strap turns on the two mouths' arrises, which are rounded for it.
+
+A tie is a closed loop, so its strap also has to cross the chain's top flat — and
+**the top wall is never cut for it.** The storey the chain lies on is struck to leave
+that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the strap's own section
+plus its clearance), so `wall` stays whole across the whole ceiling and the deck pays
+the millimetre out of its own headroom. That leg is **laid, not pulled**: this piece
+prints ceiling-down and is populated the same way up, so the strap lies on the
+ceiling's inner face and the chain comes down onto it.
+
+Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
 closed on the barrel, measured off the two placed solids, because every other
 reading on the card is satisfied by a chain floating in air.
 

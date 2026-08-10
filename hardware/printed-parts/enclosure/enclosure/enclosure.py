@@ -432,9 +432,9 @@ z_lip_y_margin = 2.0
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches)
 #   west_cradle   the −X wall's MQ-6 card slot, (y, z) — the card's plane and its centre
-#   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties) — the axis the
-#                 trough is struck on, one (y0, y1, apex_x) per section of the chain, and
-#                 the Y of each tie band
+#   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties, reach_down) — the
+#                 axis the trough is struck on, one (y0, y1, apex_x) per section of the chain,
+#                 the Y of each tie band, and how far under the axis its flanks run
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle")
@@ -1905,7 +1905,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               ())
+               None)
 
 
 def build_front_half(box):
@@ -2149,19 +2149,28 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
 # --- the tap-water chain's cradle on the −X wall ---------------------------
 #
 # The trough's own section, and what it spends on either side of the chain's axis.
-# How far the trough's two flanks run off the axis. UP is short: the chain's own top flat stands
-# one `clearance-floor` under the ceiling, so a lip carried up to that flat's arris is a lip
-# standing in the only air a tie could have used. DOWN is long, because under the chain there is
-# the vent's fall and nothing else, and the lower lip is what a tie's other end anchors on.
+# How far the trough's upper flank runs off the axis. It is SHORT: the chain's own top flat
+# stands one `clearance-floor` under the ceiling, so a lip carried up to that flat's arris is a
+# lip standing in the only air a tie could have used, and the strap climbs past this lip on its
+# way over the chain. The lower flank's reach is not stated here at all — the station carries it,
+# struck on the chain's own lowest arris, because a trough deeper than the body it holds is PETG
+# holding air.
 asse_cradle_up = 9.0
-asse_cradle_down = 18.0
 asse_v_half = 60.0          # half the V's included angle, off the axis plane
-asse_cradle_lip = 4.0       # material carried past the lower lip, for the tie slot to cut
-# The slot each tie passes through in the trough's lips — its width along the run and how deep
-# it is cut back off the lip. Not the strap's own section: that is
-# `enclosure_assembly.ASSE_TIE_T`, and it is what the DECK'S STOREY is struck to clear.
-asse_tie_slot_w = 5.0
-asse_tie_slot_d = 2.6
+asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is never clipped
+# THE TIE'S BORE THROUGH THE TROUGH'S BACK. Closed on every side: a notch in the lip is a notch
+# the strap can lift out of, and what holds this chain in its V is the strap staying where it was
+# put. It runs the block's whole height, west of the apex, so it is bored through solid PETG at
+# every station and opens only on the block's own top and bottom faces.
+#
+# STRAIGHT, AND NOT FOLLOWING THE V. A bore closed all round has to be THREADED, and a straight
+# one is the only shape a tie can be pushed down; a bore that chevroned around the apex to shorten
+# the strap's path would be a bore nothing can be got through. The strap turns on the block's two
+# arrises instead, which are rounded for it.
+asse_tie_bore_w = 5.0       # along the run
+asse_tie_bore_t = 2.0       # across it — the strap's own thickness and its clearance
+asse_tie_bore_back = 3.0    # PETG between the bore and the trough it stands behind
+asse_tie_bore_r = 1.0       # the arris the strap turns on, at each mouth
 
 
 def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
@@ -2197,20 +2206,26 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     is a slip and not a socket.
 
     WHAT A TIE CAN AND CANNOT DO HERE. A tie is a closed loop, and a loop round this chain has to
-    pass over its top flat — so the storey the chain lies on is struck to leave that channel
-    under the top wall, and the wall itself is never cut for it
-    (`enclosure_assembly.DECK_CEILING_CLEAR`). The loop runs out of the trough's upper slot, east
-    over the flat through that channel, down the east flank, under the barrel, and back in
-    through the lower slot. It closes on the trough's own two lips, so what it pulls is the chain
-    into the V and not the chain against a wall.
+    pass over its top flat — so the storey the chain lies on is struck to leave that channel under
+    the top wall, and the wall itself is never cut for it
+    (`enclosure_assembly.DECK_CEILING_CLEAR`). The loop runs down a BORE through the back of this
+    trough, out under the block, east beneath the barrel, up its east flank, over the top flat
+    through that channel, and back into the bore. So it closes round the chain and the trough's
+    own back together, and what it pulls is the chain into the V.
+
+    THE BORE IS CLOSED ON EVERY SIDE, which is the whole of why it is a bore and not a notch in
+    the lip: a strap in an open slot lifts out of it the first time the chain is worked, and a
+    trough whose mouth is shut by a strap that can leave is a trough with a mouth. It stands west
+    of the apex with `asse_tie_bore_back` of PETG between it and the trough, so at no station is
+    it anything but a hole through solid material.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
     which is the whole point of putting the load on printed geometry and the preload on nylon."""
     if not station:
         return solid
-    z_axis, sections, ties = station
-    up, dn = asse_cradle_up, asse_cradle_down
+    z_axis, sections, ties, dn = station
+    up = asse_cradle_up
     run = 1.0 / math.tan(math.radians(asse_v_half))
     if not (y0 <= sections[0][0] and sections[-1][1] <= y1):
         return solid                       # a piece that does not own the whole run builds none
@@ -2220,15 +2235,30 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         east = apex + dn * run + asse_cradle_lip
         solid = solid.fuse(_ybox(inner[0], east, sy0, sy1, z_axis - dn, z_axis + up))
         solid = solid.cut(_asse_v(apex, z_axis, sy0, sy1, up, dn, east + 1.0))
-    # The tie channels. Each is one slot through the upper lip and one through the lower, cut
-    # after every section is fused so a neighbour's block cannot fill one back in.
+    # The two bores, cut after every section is fused so a neighbour's block cannot fill one back
+    # in. Each stands behind the apex of the section its own band falls in, which is the barrel's
+    # — the only one a tie may close on — and runs clean through the block's two faces.
     for ty in ties:
-        for lip, zl0, zl1 in ((up, z_axis + up - asse_tie_slot_d, z_axis + up + 1.0),
-                              (dn, z_axis - dn - 1.0, z_axis - dn + asse_tie_slot_d)):
-            apex = min(a for sy0, sy1, a in sections if sy0 <= ty <= sy1)
-            solid = solid.cut(_ybox(apex + lip * run - asse_tie_slot_d, apex + lip * run + 20.0,
-                                    ty - asse_tie_slot_w / 2.0, ty + asse_tie_slot_w / 2.0, zl0, zl1))
+        apex = min(a for sy0, sy1, a in sections if sy0 <= ty <= sy1)
+        x1b = apex - asse_tie_bore_back
+        bore = _ybox(x1b - asse_tie_bore_t, x1b,
+                     ty - asse_tie_bore_w / 2.0, ty + asse_tie_bore_w / 2.0,
+                     z_axis - dn - 1.0, z_axis + up + 1.0)
+        solid = solid.cut(bore)
+        # The arris at each mouth, so the strap turns on a round and not on a corner. One
+        # cylinder on the bore's own axis of travel at each flank of each mouth: the face has
+        # material on one side of it only, so a whole cylinder cuts exactly the quarter round
+        # that is there to cut.
+        for zf in (z_axis + up, z_axis - dn):
+            for x in (x1b - asse_tie_bore_t, x1b):
+                solid = solid.cut(_ycyl(asse_tie_bore_r, x, zf,
+                                        ty - asse_tie_bore_w / 2.0, ty + asse_tie_bore_w / 2.0))
     return solid
+
+
+def _ycyl(r, x, z, y0, y1):
+    """A cylinder on Y, for an arris a strap turns on."""
+    return cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0))
 
 
 def _c14_bosses(solid, inner, outer, stations, z0, z1):

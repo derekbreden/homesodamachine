@@ -1510,10 +1510,11 @@ def _would_land_on(b, placed):
 
 # The zip tie's own stock, and the room it needs to lie in. Two of them shut the mouth of the
 # trough the chain lies in (`asse_cradle`), and a tie is a closed loop: the strap has to cross
-# the chain's top flat, which is the highest thing on this storey. It is LAID rather than
-# threaded — the piece prints ceiling-down and is populated the same way up, so the strap goes on
-# the ceiling's inner face and the chain comes down onto it — which is why the room over it is a
-# clearance and not a working reach.
+# the chain's top flat, which is the highest thing on this storey. The strap is THREADED through
+# the trough's bore and then LAID across this channel — the piece prints ceiling-down and is
+# populated the same way up, so the strap lies on the ceiling's inner face and the chain comes
+# down onto it. Nothing is pulled through here, which is why the room is a clearance and not a
+# working reach.
 ASSE_TIE_T = 1.0
 ASSE_TIE_CLEAR = 0.5
 # What the tap-water chain's crown keeps under the top wall's inner face. The appliance's height
@@ -2173,6 +2174,14 @@ def asse_sections(asse_carry) -> tuple:
     # and which of its two sections owns the millimetre either side decides whether the run drops
     # in: give it to the shallow one and the deep section is a socket the drawn length has to
     # hit, give it to the deep one and it is a stop the run travels to.
+    # THE END SECTIONS ARE THERE TO MAKE THE STEPS AND FOR NOTHING ELSE. What the trough owes the
+    # chain is a face square to the axis at each end of the barrel; the fitting past that face
+    # only has to be seated, not followed. So both ends run the SHORTER of the two fittings'
+    # lengths — the coupling is more than twice the nut and the extra is trough over a section
+    # already held, printed in PETG and paid for in the deck's own headroom.
+    reach = min(r[1] - r[0] for r in (rows[0], rows[-1]))
+    rows = ((rows[0][1] - reach, rows[0][1], rows[0][2]), rows[1],
+            (rows[-1][0], rows[-1][0] + reach, rows[-1][2]))
     out = [list(r) for r in rows]
     for i in range(len(out) - 1):
         deep = i if out[i][2] < out[i + 1][2] else i + 1
@@ -2191,21 +2200,44 @@ ASSE_TIE_VENT_CLEAR = 1.5
 def asse_ties(asse_carry) -> tuple:
     """The Y of each tie band — the middle of the clear run the vent leaves on either side of it.
 
-    A TIE CANNOT PASS OVER THIS CHAIN. Its top flat stands one `clearance-floor` under the top
-    wall and a tie is thicker than that, so what closes the trough is not a wrap but a STRAP: the mouth
-    faces east, the chain leaves that way or not at all, and a chord from the ceiling's own lug
-    down across the east flank to the trough's lower lip is what shuts it."""
+    BOTH ARE ON THE BRASS. The barrel is the one section a tie may close on: the JG acetal nut
+    and the PP reducer go out of round under one, and the nut is the part whose clock means
+    nothing anyway. Its vent stub stands out of the middle of it, so the barrel's own length
+    offers exactly these two bands and no others."""
     _fwd, barrel, _aft = asse_sections(asse_carry)
     vent = asse_carry(_asse.port("vent-tip"))[0]
     edge = _asse.VENT_STUB_OD / 2.0 + ASSE_TIE_VENT_CLEAR
     return ((barrel[0] + (vent[1] - edge)) / 2.0, ((vent[1] + edge) + barrel[1]) / 2.0)
 
 
+def asse_reach_down(asse_carry) -> float:
+    """How far under the axis the trough's flanks run — the chain's OWN lowest arris, and not a
+    millimetre past it.
+
+    Every section's lowest point below the axis is its apothem if the trough reads its flats and
+    its radius if it reads its tangent, so the deepest of the three is what the trough has to
+    reach and anything under that is PETG holding air. It is the barrel's, being both the widest
+    section and the one seated on flats.
+
+    The vent stub hangs far below all of this and is not in it: the trough would have to be
+    notched around the fall, and what stands under the barrel is the tray."""
+    return max(axis_z_drop for axis_z_drop in _asse_section_drops(asse_carry))
+
+
+def _asse_section_drops(asse_carry):
+    """Each section's own reach under the axis — apothem for the one read off flats, radius for
+    the ones read off their tangent."""
+    yield _asse.bfp.HEX_ACROSS_CORNERS / 2.0 * math.cos(math.radians(30.0))
+    yield _oad.NUT_ACROSS_CORNERS / 2.0
+    yield _asse.coupling.HEX_ACROSS_CORNERS / 2.0
+
+
 def asse_cradle(asse_carry) -> tuple:
     """The whole station `enclosure._asse_cradle` builds from: the axis the trough is struck on,
-    its sections, and the two tie bands."""
+    its sections, the two tie bands, and how far under the axis its flanks reach."""
     axis = asse_carry(_asse.flow_axis())[0]
-    return (axis[2], asse_sections(asse_carry), asse_ties(asse_carry))
+    return (axis[2], asse_sections(asse_carry), asse_ties(asse_carry),
+            asse_reach_down(asse_carry))
 
 
 def check_asse_seated(chain, piece, asse_carry) -> Bound:
