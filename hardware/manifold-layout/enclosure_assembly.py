@@ -1305,11 +1305,11 @@ def back_wall_ports(*bulkhead_carries):
 # Below that storey the cold core reaches nearly to the back wall, and what it leaves there is
 # less than
 # `jg_bulkhead_union.far_ring_face_y` — a union seated on that band has its collet inside the
-# foam. The +X flank is the power block, the C14 and the CO2 chain, floor to ceiling. The pump
-# fills the middle to its own crown. What is left is the band OVER THAT CROWN and under the top
-# wall, and it is open from the west boss chain across to the C14's own corner — one room, wall
-# to wall, with nothing standing in it. Re-read it by sweeping the union's own body over the
-# wall:
+# foam. The +X flank is the power block and the C14, floor to ceiling. The pump fills the middle
+# to its own crown. What is left is the band OVER THAT CROWN and under the top wall, and it is
+# open from the west boss chain across to the C14's own corner — one room, wall to wall. THE GAS
+# CHAIN STANDS IN IT, on the column past the carb union's; `CO2_COLUMN` is where. Re-read the room
+# by sweeping the union's own body over the wall:
 #
 #     w.cast((x, enclosure.rear_plane_y, z), (0, -1, 0), dia=jg_bulkhead_union.BODY_D)
 #
@@ -1525,6 +1525,8 @@ TUBE_ANCHOR_SLIP = 0.2
 TUBE_ANCHOR_SITES = (
     # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm.
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # And the gas line's, on that same deck and under that same wall, one cap conduit aft of it.
+    ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # Reservoir A's fill, on the cruise it climbs to under the same wall — `_lines.FILL_A_HIGH_CLEAR`
     # is what that climb leaves for this rib.
     ("fluid-14", 3, (0.0, 0.0, 1.0), "enclosure-back-top"),
@@ -1570,6 +1572,86 @@ def tube_anchors(runs) -> tuple:
         stations.append((tuple((p[k] + q[k]) / 2.0 for k in range(3)), u, tuple(root),
                          r.diam / 2.0 + TUBE_ANCHOR_SLIP))
     return tuple(stations)
+
+
+# --- the anchors a BODY hangs in --------------------------------------------
+#
+# THE SAME RIB, BORED FOR A FITTING INSTEAD OF A TUBE. `enclosure._tube_anchors` is handed an
+# axis, a direction along it and a radius, and knows nothing about what is on that axis — so a
+# round section of a placed body is a station like any other.
+#
+# A ROW NAMES the body, the section of it the seat closes on, the face the rib roots on, and the
+# piece that owns that face. `check_body_seated` reads the last of those back off the two solids.
+BODY_ANCHOR_SLIP = 0.2
+BODY_ANCHOR_SITES = (
+    # The regulator's barrel, between its two wrench hexes.
+    ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
+)
+
+
+def body_anchors(carries) -> tuple:
+    """One station per body anchor — `(mid, along, root, seat_r)`, the shape `_tube_anchors`
+    builds a rib from, all of it read off the body's own section.
+
+    THE SECTION IS THE REFERENCE MODULE'S, and that module holds it to the file the pack seats.
+    So the seat rides every move of the body, and there is no radius stated here to go stale.
+
+    THE RIB LIES INSIDE ITS SECTION. A run is one radius its whole length and a fitting is not: a
+    rib longer than the barrel it is bored for closes on the hex next to it, which is a wrench
+    flat clocked by a made-up thread."""
+    stations = []
+    for name, section, root, _piece in BODY_ANCHOR_SITES:
+        carry = carries.get(name)
+        if carry is None:
+            continue                        # a body that is not placed yet
+        station, r, length = section()
+        mid, u = carry(station)
+        if abs(sum(u[k] * root[k] for k in range(3))) > 1e-9:
+            raise ValueError(
+                f"body_anchors: {name}'s section runs along {u} and this row roots it on {root}. "
+                f"An anchor stands ACROSS the body, never off the face the body points at.")
+        if length < _enc.tube_anchor_len:
+            raise ValueError(
+                f"body_anchors: {name}'s section is {length:.2f} mm and a rib is "
+                f"{_enc.tube_anchor_len:.2f}. A seat longer than the section it bears on closes "
+                f"on whatever is either side of it.")
+        stations.append((tuple(mid), tuple(u), tuple(root), r + BODY_ANCHOR_SLIP))
+    return tuple(stations)
+
+
+def check_body_seated(bodies, pieces) -> Bound:
+    """Whether every body-anchored fitting is up in the rib its row names, off the placed solids.
+
+    The reading `check_digiten_seated` takes, on a bore rather than a V — so the gap it holds is
+    the slip itself, with no angle in it. And like the meter's saddles this seat opens DOWNWARD:
+    what it says is that the strap has the body to pull up against and the bore to pull it into,
+    not that the rib is carrying it.
+
+    It reads back WHICH piece, the same way `check_tube_seated` does: a rib is built by whichever
+    piece owns the whole of it, and a body seated against a piece its row does not name is a body
+    whose rib landed somewhere else."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    want = BODY_ANCHOR_SLIP
+    rows, worst = [], 0.0
+    for name, _section, _root, piece in BODY_ANCHOR_SITES:
+        body, part = bodies.get(name), pieces.get(piece.removeprefix("enclosure-"))
+        if body is None or part is None:
+            rows.append(f"{name}: no {'body' if body is None else piece} to read")
+            worst = max(worst, want + 1.0)
+            continue
+        got = _clearing.gap(solid(body), solid(part), 5.0)
+        worst = max(worst, got)
+        if got > want + 1e-3:
+            rows.append(
+                f"{name} stands {got:.3f} mm off {piece} and its rib is drawn to close on the "
+                f"barrel at {want:.3f}. Either the body moved off the storey the rib roots at, "
+                f"or the rib landed in a piece this row does not name.")
+    return record_bound(Bound(
+        "body-seated", "Every body-anchored fitting lies in its printed rib", not rows,
+        f"{len(BODY_ANCHOR_SITES)} anchored, furthest off {worst:.3f} mm",
+        f"{want:.3f} mm at most", rows))
 
 
 def cap_tube_anchors(foam_carry, runs) -> tuple:
@@ -1749,6 +1831,15 @@ def check_deck_floor(z: float, floor) -> Bound:
             f"deck through `asse_crown_over_axis`; the floor is the descent."])))
 
 
+def deck_storey() -> float:
+    """The Z the panel deck lies on, off the ceiling alone.
+
+    The top wall is a stated plane and the tap-water chain's crown is the tallest thing the storey
+    carries, so this is arithmetic on two figures and stands before anything is placed. `deck_z`
+    is the strike: it takes this and measures the floor under it."""
+    return interior_ceiling() - asse_crown_over_axis() - DECK_CEILING_CLEAR
+
+
 def deck_z(placed, gate: float):
     """The Z the panel deck lies on: the top of the band its own two bounds leave it.
 
@@ -1771,7 +1862,7 @@ def deck_z(placed, gate: float):
     Returns `(z, {body: the fall it still has at that storey})`. The second is the band this
     strike states — one body is left standing on exactly `DECK_CLEAR` and the rest on whatever
     their own descent leaves — and it is what the ledger's `room` side records."""
-    z = interior_ceiling() - asse_crown_over_axis() - DECK_CEILING_CLEAR
+    z = deck_storey()
     trial = max(box(s).zmax for s in placed) + DECK_CLEAR + _jg.BODY_D / 2.0
     falls = {name: descent(s, _would_land_on(box(s), placed))
              for name, s in build_deck(trial, gate)[0].items()
@@ -1840,16 +1931,12 @@ CO2_CHAIN_TURN = (((0.0, 0.0, 1.0), 180.0),)
 DERPIPE_STEP = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
 GASHER_STEP = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
 WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
-# Where it crosses the back wall — EAST OF THE PUMP AND UNDER THE MAINS INLET. What the station
-# has to buy is straight-line depth for a rigid chain, so it is swept on the regulator's own hex,
-# the fattest body the chain carries —
-#
-#     w.cast((x, enclosure.rear_plane_y, z), (0, -1, 0), dia=wr1110.HEX_ACROSS_CORNERS)
-#
-# — and read against what the three bodies and their hop stand. The three that close the sweep
-# around this station are the pump's casting west, the power block's brick east, and `water-7`
-# ahead; the C14's own housing is what takes the wall above it.
-CO2_STATION = (48.0, 290.0)
+# WHERE IT CROSSES THE BACK WALL IS THE UNION ROW'S OWN NEXT COLUMN. `PORT_PITCH` is what a
+# column costs on this wall — a fitting's panel footprint, the gap two nuts leave a socket, and
+# the room the bodies hanging off each column ask for over it — and the gas inlet is a fitting on
+# that same wall with a body hanging off it. So it stands one pitch EAST of the carb union, on
+# `deck_storey`: the meter's own axis, one column over, parallel and level with it.
+CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
 # Air between the wrench hex's inboard end and the wall's outer face — the room a socket needs
 # to get on the flats. The fitting is seated on this, so its stub tip is wherever that leaves it.
 DERPIPE_WRENCH_CLEAR = 2.0
@@ -1867,13 +1954,14 @@ def co2_inlet_mouth_y():
     return outer + DERPIPE_WRENCH_CLEAR + _derpipe.PROUD_LENGTH - _derpipe.BODY_LENGTH
 
 
-def build_co2_inlet():
+def build_co2_inlet(deck: float):
     """The 5/16" push-to-connect the customer's CO2 line goes into, clamped through the back
-    wall on `CO2_STATION`, seated on its own INBOARD STUB TIP."""
+    wall one `PORT_PITCH` east of the carb union and on the deck's own storey, seated on its own
+    INBOARD STUB TIP."""
     body = cq.importers.importStep(str(DERPIPE_STEP)).val()
     return seat_body(body, CO2_CHAIN_TURN, seat="co2-inlet",
                      station=(_derpipe.stub_tip(),
-                              (CO2_STATION[0], co2_inlet_mouth_y(), CO2_STATION[1])))
+                              (CO2_COLUMN, co2_inlet_mouth_y(), deck)))
 
 
 def build_gasher_co2(inlet_carry):
@@ -3385,21 +3473,23 @@ def build_pack() -> cq.Assembly:
     check_pump_mount(a.pump_mount)
     c14, _c14_carry = build_c14()
     a.add(c14, name="c14-inlet", color=C_C14)
-    co2in, co2in_carry = build_co2_inlet()
+    # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
+    # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
+    # the tap-water union takes the deck's own storey, the chain butts that union, and the
+    # split, the regulator and the drip tray all take station off the chain. NEITHER IS THE GAS
+    # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
+    # strike and answers to `deck_storey` the way the union row does.
+    a.gate_z = nozzle_storey(
+        _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2]), seaflo)
+    under_deck = [s for s, _c in _solids(a).values()]
+    a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
+    co2in, co2in_carry = build_co2_inlet(a.deck_z)
     a.add(co2in, name="co2-inlet", color=C_CO2)
     gasher, gasher_carry = build_gasher_co2(co2in_carry)
     a.add(gasher, name="gasher-co2", color=C_CO2)
     wr1110, wr1110_carry = build_wr1110(gasher_carry)
     a.add(wr1110, name="wr1110", color=C_WR1110)
     a.co2_inlet_carry = co2in_carry
-    # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
-    # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
-    # the tap-water union takes the deck's own storey, the chain butts that union, and the
-    # split, the regulator and the drip tray all take station off the chain.
-    a.gate_z = nozzle_storey(
-        _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2]), seaflo)
-    under_deck = [s for s, _c in _solids(a).values()]
-    a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry,
@@ -3470,6 +3560,9 @@ def build_pack() -> cq.Assembly:
     # the BOX builds from, and a station on the core has no business being handed to a wall. Both
     # hold a run, so `tube-anchored` counts them together.
     a.cap_tube_anchors = cap_tube_anchors(carries["foam-assembly"], a.runs)
+    # And the ribs the box stands for a BODY. The wall builds these from the same station shape,
+    # and `tube-anchored` counts none of them: they hold no run.
+    a.body_anchors = body_anchors(carries)
     # THE CAP-SENSE PAIR, ONCE THE LINES THEY GRIP EXIST. A sleeve closes on a length of
     # tube, so it can only be placed after the run that tube is; the controller then goes
     # between the two of them and the leads are read against the loom.
@@ -3554,7 +3647,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
-                     digiten_saddles=a.digiten_saddles, tube_anchors=a.tube_anchors)
+                     digiten_saddles=a.digiten_saddles,
+                     tube_anchors=a.tube_anchors + a.body_anchors)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -3726,6 +3820,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
     check_tube_seated(tubes, pieces)
+    # And every body the box stands a rib for, against the same pieces.
+    check_body_seated(a.pack_solids, pieces)
     # And every run the COLD CORE's cap is bored for, against the cap it lies on.
     check_run_seated(tubes, a.pack_solids["foam-assembly"])
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an

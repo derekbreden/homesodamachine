@@ -374,6 +374,48 @@ up off the bed, its flanks are vertical, and the bore's crown is the deepest thi
 it, facing up the whole way round. Nothing in it needs support and nothing has to be
 picked out of it.
 
+## Tube anchors
+
+One pattern wherever a wall comes near enough to reach something round
+(`_tube_anchors`): a **bore concentric with the body**, half a cylinder at
+`seat_r`, and the strap's channel behind it. Four of these hold a length of tube
+(`enclosure_assembly.TUBE_ANCHOR_SITES`) and one holds a fitting
+(`enclosure_assembly.BODY_ANCHOR_SITES`) — the same rib either way, since what the
+builder is handed is an axis, a direction along it and a radius.
+
+**The arc stops on the body's own axis plane and the rib carries one `wall` past
+it**, so each lip is a flat strip rather than a feather — the saddles' bargain,
+on the one body this machine has twenty of. The rib's length is its cavity's:
+`tie_cav_w` of strap and buffer with `tie_cav_wall` of itself at each end. It states
+no height of its own — it is handed the body, and the wall it stands on is where it
+stops.
+
+**The strap's channel is what is never fused.** The rib is one box its whole length
+up to one `wall` over the bore's crown, its two ends carried on up to the face it
+roots on, and one bore through all of it — so the channel has no floor to draw and no
+cut to make it, and the face the rib roots on is its roof. A strap therefore goes in
+**before** the body does.
+
+**The regulator's rib** is the one bored for a fitting. The WR1110 lies fore and aft
+on the panel deck one column east of the carb union, and the section under the rib is
+the **⌀19 barrel between its two wrench hexes** — the two hexes stand on made-up NPT
+threads, so where their flats come to rest is wherever the thread stopped, while the
+barrel is the same circle whatever the makeup did. The rib is 9.500 long inside a
+27 mm barrel, so it reaches neither hex.
+
+On the built piece: one cylindrical seat face at R 9.700 crowning at 345.911, both
+end walls filled 100% from the channel's floor at 348.911 to the top wall's inner
+face, the channel between them a true void 3.089 deep, the web under the bore filled
+100%, and each lip **one 9.500 edge** on a flat 3.000 strip of 28.5 mm². Travel off
+the placed pack is 0.199 either way across, 0.197 up into the seat, and free
+downward — the mouth the strap shuts.
+
+**The strap is the load path here**, the same bargain the meter's saddles make: a
+seat that opens downward carries nothing. Barrel and rib make an [84.1 mm](LOOP_WR1110)
+loop, past what a 4" tie closes, so this one takes the 6".
+`enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
+itself, and `check_tube_seated` reads the four run anchors the same way.
+
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries

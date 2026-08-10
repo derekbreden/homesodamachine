@@ -46,19 +46,36 @@ def outlet():
     return (0.0, TOTAL_LENGTH, 0.0), (0.0, 1.0, 0.0)
 
 
+def barrel():
+    """The round body between the two wrench hexes — `(station, radius, length)`.
+
+    Both hexes stand on made-up NPT threads, so where their flats come to rest is wherever the
+    thread stopped. The barrel is the same circle whatever the makeup did.
+
+    `station` is its mid-point and the flow axis through it, in the same frame the two sockets
+    are stated in."""
+    return (((0.0, HEX_LENGTH + BODY_LENGTH / 2.0, 0.0), (0.0, 1.0, 0.0)),
+            BODY_D / 2.0, BODY_LENGTH)
+
+
 def stations() -> dict:
     """Both sockets, in the order the gas meets them."""
     return {"inlet": inlet(), "outlet": outlet()}
 
 
 def stations_hold():
-    """Hold both sockets to `wr1110-regulator.step` — the file the enclosure seats, while it
-    takes these stations out of this module's live figures.
+    """Hold both sockets and the barrel to `wr1110-regulator.step` — the file the enclosure
+    seats, while it takes these stations out of this module's live figures.
 
     The regulator is a straight run on one axis, so its two stations ARE the ends of that
     solid's box: the hex faces the adapters bottom against. The hop that reaches the inlet is
-    seated on this reading."""
-    bb = cq.importers.importStep(str(STEP)).val().BoundingBox()
+    seated on this reading.
+
+    The two sockets are extents of that solid's box. THE BARREL IS NOT — it is a section inside
+    the envelope, so it is read as everything the file holds over its own Y band, and the box
+    that band comes back with."""
+    solid = cq.importers.importStep(str(STEP)).val()
+    bb = solid.BoundingBox()
     for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
                                        ("outlet", outlet(), bb.ymax)):
         if abs(pos[1] - actual) > 1e-6:
@@ -66,6 +83,19 @@ def stations_hold():
                 f"wr1110 {name} stands at y = {pos[1]:g} and {STEP.name} ends at "
                 f"{actual:.4f} — {abs(pos[1] - actual):.4f} mm apart. The pack seats that file "
                 f"and reads this station, so the hop that closes on it reaches nothing.")
+    (mid, _axis), r, length = barrel()
+    y0, y1 = mid[1] - length / 2.0, mid[1] + length / 2.0
+    band = solid.intersect(cq.Solid.makeBox(
+        4 * r, y1 - y0, 4 * r, cq.Vector(mid[0] - 2 * r, y0, mid[2] - 2 * r)))
+    got = band.BoundingBox()
+    for axis, lo, hi, centre in (("X", got.xmin, got.xmax, mid[0]),
+                                 ("Z", got.zmin, got.zmax, mid[2])):
+        if abs((hi - lo) - 2 * r) > 1e-6 or abs((lo + hi) / 2.0 - centre) > 1e-6:
+            raise ValueError(
+                f"wr1110 BODY_D is {BODY_D:g}, so the {length:g} mm band at y "
+                f"[{y0:g}, {y1:g}] should be {2 * r:g} across {axis} about {centre:g}; "
+                f"{STEP.name} runs [{lo:.4f}, {hi:.4f}] there. A seat bored on `barrel` closes "
+                f"on a section that is not the one it was drawn for.")
 
 
 def build():

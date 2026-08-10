@@ -299,7 +299,11 @@ MOUNTS = (
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("co2-inlet", None, "wall-capture"),
     ("gasher-co2", None, "wall-capture"),
-    ("wr1110", None, "none"),
+    # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
+    # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a strap
+    # through the rib's own cavity closes round the barrel and the rib's back together. The seat
+    # opens downward, so the strap is the load path and the bore is what it pulls into.
+    ("wr1110", "enclosure-back-top", "cradle"),
     ("bulkhead-flavor-a", None, "wall-capture"),
     ("bulkhead-flavor-b", None, "wall-capture"),
     ("bulkhead-carb", None, "wall-capture"),
@@ -987,7 +991,8 @@ def anchored_pairs() -> set:
 
     A rib closes on its tube at `enclosure_assembly.TUBE_ANCHOR_SLIP`, under the floor by
     construction, and `check_tube_seated` is what holds that contact to the figure the seat is
-    drawn at."""
+    drawn at. A rib bored for a BODY never matches here: this set is read in the run pass, where
+    the names are runs, and `enclosure_assembly.check_body_seated` is what holds those."""
     import enclosure_assembly as _ea
     pairs = {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
     # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and

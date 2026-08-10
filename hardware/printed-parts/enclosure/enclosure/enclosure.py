@@ -2191,13 +2191,15 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
-#     carb-1 tube in its rib      38.2 mm
+#     carb-1 tube in its rib      [40.1 mm](LOOP_CARB_1)
 #     DIGITEN arm in its saddle   55.2 mm
+#     WR1110 barrel in its rib    [84.1 mm](LOOP_WR1110)
 #     ASSE barrel in its trough  100.6 mm
 #
-# A 4" tie closes about 69 mm of loop, which takes the first two. The barrel's passes it and takes
-# the 8", and an 8" tie is a 50 lb tie at 0.19" where a 4" is 18 lb at 0.1" — so the barrel's
-# cavity, alone on this box, is cut to the wider strap.
+# A 4" tie closes about 69 mm of loop, which takes the first two; the regulator's takes the 6",
+# which closes about 110. The ASSE barrel's passes both and takes the 8", and an 8" tie is a 50 lb
+# tie at 0.19" where the rest are 18 lb at 0.1" — so that trough's cavity, alone on this box, is
+# cut to the wider strap. Every other cavity here takes the same 0.1" section at any length.
 tie_strap_w = 2.5           # the 18 lb strap, across its width — 0.1"
 tie_strap_wide_w = 4.826    # and the 50 lb strap's — 0.19"
 tie_strap_t = 1.0           # both, through the thickness
@@ -2450,6 +2452,22 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
 # ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `digiten_saddle_len` strikes: one strap
 # crosses one anchor, so the rib is that strap's cavity with `tie_cav_wall` of itself at each end.
 tube_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
+
+
+def tube_anchor_strap_loop(seat_r: float) -> float:
+    """The shortest strap that closes round a seated body and its rib together.
+
+    A strap turns INSIDE the channel, so what it reaches round is the body with the rib's own
+    back behind it — the convex perimeter of that pair, and not of the wall the rib stands on.
+    Read on the bore, which is the section this box knows.
+
+    The hull is the rib's rectangle with a cap of the bore over it: the channel's floor, the
+    rib's two flanks down to the axis plane, a tangent from each corner onto the bore, and the
+    arc between the two tangent points. Floor and flank are both `seat_r + wall`, so the
+    rectangle is square and the whole figure is a function of the seat."""
+    w = seat_r + wall
+    return (4.0 * w + 2.0 * math.sqrt(w * w - seat_r * seat_r)
+            + seat_r * (math.pi - 2.0 * math.acos(seat_r / w)))
 
 # Which interior face each root direction names. The anchor states no height of its own: it is
 # handed the tube, and the wall it stands on is where its rib stops.
@@ -2815,7 +2833,18 @@ def main():
     _report_split(coupon_pieces)
 
     co, bo = coupon.outer, box.outer
+    # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
+    # holding a RUN is bored for the one stock, so the anchors stand on two radii — that stock's
+    # and the regulator's barrel — and the table quotes one loop apiece.
+    seats = sorted({round(r, 6) for *_s, r in (machine.tube_anchors or ())})
+    if len(seats) != 2:
+        raise ValueError(
+            f"the box's tube anchors are bored at {seats}. The strap table reads out one loop "
+            f"for the runs' stock and one for the regulator's barrel, so either they go back on "
+            f"two radii or the table reads out every anchor apiece.")
     variables = {
+        "LOOP_CARB_1": f"{tube_anchor_strap_loop(seats[0]):.3g} mm",
+        "LOOP_WR1110": f"{tube_anchor_strap_loop(seats[1]):.3g} mm",
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
@@ -2827,13 +2856,15 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={"DISPLAY_FACET_X": 2, "DISPLAY_FACET_SLOPE": 2},
+        expected_counts={"DISPLAY_FACET_X": 2, "DISPLAY_FACET_SLOPE": 2,
+                         "LOOP_CARB_1": 1, "LOOP_WR1110": 1},
     )
     substitute_md(
         _here.parent / "README.md",
         variables=variables,
         expected_counts={"DISPLAY_FACET_X": 1, "DISPLAY_FACET_SLOPE": 1,
-                         "APPLIANCE_HEIGHT": 1, "BOX_SIZE": 1, "COUPON_SIZE": 1},
+                         "APPLIANCE_HEIGHT": 1, "BOX_SIZE": 1, "COUPON_SIZE": 1,
+                         "LOOP_WR1110": 1},
     )
     print("-> README.md")
 

@@ -231,8 +231,8 @@ def build_runs(placed, carries):
         runs.append(_water_3(F))
     if {"gasher-co2", "wr1110"} <= set(F):
         runs.append(_co2_1(F))
-    if {"wr1110", "foam-assembly", "seaflo-pump"} <= set(F) and "vk-solenoid" in placed:
-        runs.append(_co2_2(F, placed))
+    if {"wr1110", "foam-assembly"} <= set(F):
+        runs.append(_co2_2(F))
     if {"flow-regulator", "valve-v-a"} <= set(F) and "coil-v-a" in placed:
         runs.append(_fluid_2(F, placed))
     if {"foam-assembly", "digiten-flow"} <= set(F):
@@ -456,52 +456,32 @@ def _water_5(F):
              "slant across the fall")
 
 
-# The storey `co2-2` crosses the deck on. `water-7` lies across the lane between the regulator
-# and the core's cap and the suction chain lies forward of it, so the run climbs over the pair
-# and travels at a height neither reaches — one clearance over the taller of the two, which is
-# the hose.
-CO2_DECK_CLEAR = 10.0
-# The straight off the regulator's outlet before it starts that climb, and the reach the climb
-# itself takes down the lane. Both are the gap the corner at each end of the lean seats its arc
-# in; the lean is one leg and its two corners share it.
-CO2_OUT_LEAD = 10.0
-CO2_CLIMB_REACH = 15.0
-# What the run leaves over the fill-A lane where the two cross, tube over tube. The band it
-# threads is narrow: `fluid-14` cruises under it and the hopper funnel's cone comes down over
-# it — the funnel spans the machine's whole width forward of y 251.6, which is where this run
-# turns east onto the bore's column. `clearance-floor` reads both sides.
-CO2_LANE_CLEAR = 2.0
-
-
-def _co2_2(F, solids):
+def _co2_2(F):
     """co2-2 — the regulator's outlet to the cold core's CO2 conduit, and the whole gas path
     inside the machine.
 
-    IT CROSSES TWO LANES ON ITS WAY FORWARD and travels over both. `water-7` crosses this lane
-    at the pump's suction, aft; `fluid-14` cruises across it forward of that, on its own way to
-    reservoir A's fill bore. So the run leaves the outlet, leans up in one leg, and travels
-    forward at a storey neither reaches. Then east onto the port lane's own column and straight
-    down into the bore.
+    IT NEVER CHANGES HEIGHT UNTIL IT DROPS. The regulator lies on the panel deck, so the run
+    leaves its outlet on that storey, comes forward onto the bore's own Y, crosses east onto the
+    bore's own column and falls the whole way down the port lane in one leg. Three legs, two
+    corners, and the only descent is the last of them.
 
-    The bore is the one window the +X flank leaves: the power block's column stands on the lid
-    from the cap to the ceiling aft of it, and V-K's plate forward of it.
+    IT IS `carb-1` ON THE SAME DECK, ONE CAP CONDUIT AFT. That run climbs this same lane off the
+    lid's other bore and crosses the deck the other way, to the meter. The two conduits stand
+    side by side on the lid and their two runs stand side by side over it.
 
-    Both readings that fix the storey are struck on the body under them — the hose off the barb
-    it leaves, the fill lane off V-K's crown — so a move of either carries this run with it. The
-    hose is cleared by `CO2_DECK_CLEAR` and the lane, tube over tube, by `CO2_LANE_CLEAR`."""
+    The lane is the one window the +X flank leaves: the power block's column stands on the lid
+    from the cap to the ceiling aft of it, and V-K's plate forward of it. Both ends of this run
+    are on the deck, so a move of the deck carries the whole of it."""
     out = F["wr1110"].at("outlet")
     bore = F["foam-assembly"].at("co2-in")
-    deck = max(F["seaflo-pump"].at("suction")[2] + _suct.HOSE_OD / 2.0 + CO2_DECK_CLEAR,
-               _fill_a_cruise(solids) + _split.TUBE_D + CO2_LANE_CLEAR)
     return R.bent(
         "co2-2", "wr1110.outlet",
-        (out[0], out[1] - CO2_OUT_LEAD - CO2_CLIMB_REACH, deck),   # the lean's far end
-        (out[0], bore[1], deck),                                   # forward over the hose
-        (bore[0], bore[1], deck),                                  # east onto the bore's column
-        "foam-assembly.co2-in",
-        kind="co2", lead=(CO2_OUT_LEAD, TUBE_BEND), skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="CO2: WR1110 outlet → the core's CO2 cap conduit, one lean up over the pump's "
-             "suction hose, forward at that storey, east onto the port lane's column and down")
+        (out[0], bore[1], out[2]),           # forward down the chain's own column onto the bore's Y
+        (bore[0], bore[1], out[2]),          # east along the deck onto the bore's column
+        "foam-assembly.co2-in",              # and straight down the port lane into it
+        kind="co2", lead=(TUBE_BEND, TUBE_BEND), skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
+        note="CO2: WR1110 outlet → the core's CO2 cap conduit, forward along the panel deck, "
+             "east onto the port lane's column and down it")
 
 
 # The straight `fluid-2` runs forward off the regulator's outlet before it turns. It is longer

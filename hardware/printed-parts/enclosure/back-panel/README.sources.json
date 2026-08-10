@@ -1,6 +1,5 @@
 {
-  "/hardware/scripts/_bom_sync.py": {
-    "hardware/cold-core-layout/_cold_scorecard.py": "f7aca56a9417942b5e241c8dde9fb8f3",
+  "/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": {
     "hardware/manifold-layout/_lines.py": "65991832ac89fc7ebd85bf224b895142",
     "hardware/manifold-layout/_scorecard.py": "a9419920f1dc0abd35da7fe1e7c1b4f9",
     "hardware/manifold-layout/enclosure_assembly.py": "f43d8925c185dc07cd62758bfd7c6a5d",
@@ -20,10 +19,9 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir.py": "fec5b4adf86284e3ee7a58f9a738c258",
     "hardware/printed-parts/electronics/module_tray.py": "58d3dcea93560235bd874b5bdfb544f1",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "e6dec536195786a1693fb86fbbf2a0be",
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": "34b75dc4dc636e6d6a8a1aba237d2d30",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "eabe51bc7afc60620ba6781b0b4a50b1",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3697b1350faf5b173afce2e54d90b220",
-    "hardware/printed-parts/faucet/_touch_flo_interface.py": "44f25115152bf320b9ed51c3b9eae99c",
-    "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": "59f64dbdaac1deedc9d97c8eb082f896",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap_sense_sleeve.py": "b0b72bf01aa49edefb10b70156796beb",
     "hardware/printed-parts/flavor/pump-case/pump_case.py": "b942a09f30e4255a8e54773d5b04191e",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": "971a89ce3a000df82a8f816e3dd48383",
@@ -60,7 +58,6 @@
     "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": "729ca19c9b4dbe9740f120c6d417646f",
     "hardware/reference/wr1110-regulator/wr1110_regulator.py": "43476be3bec19afeb44fc67f7532f59f",
     "hardware/reference/y-divider/y_divider.py": "34bb2a40b781e6512fc919751e26e648",
-    "hardware/scripts/_bom_sync.py": "28a8cf776a7ddfa32f7c29f86c8b2657",
     "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
     "hardware/scripts/_cadq_export.py": "27f5530daca447f876de07565e2ba104",
     "hardware/scripts/_clearing.py": "e48676a20a0be5e136796ea9e4ddb00a",
@@ -73,10 +70,6 @@
     "hardware/scripts/_run_lock.py": "3114e45894711dacf96c1ed361c7f938",
     "hardware/scripts/_seating.py": "5c82444dedb829535ff52d72cb192956",
     "hardware/scripts/_stated_bounds.py": "6dd26f4721921883f10e86fb777bc2b8",
-    "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
-  },
-  "/hardware/scripts/_bom_totals.py": {
-    "hardware/scripts/_bom_totals.py": "16c4790209df8e90f113a0928f4b6c74",
     "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
   }
 }
