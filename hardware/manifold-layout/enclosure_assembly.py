@@ -1315,8 +1315,10 @@ PORT_NUT_GAP = 7.0
 # What the two columns carry BESIDE their nuts, and it is wider than they are: the ASSE chain
 # hangs off the west column and the DIGITEN meter lies on the east one, both on the deck's own
 # storey and both broader about their column than a union's nut. `clearance-floor` measures that
-# pair, and this is the extra the pitch carries for them.
-PORT_DECK_EXTRA = 1.5
+# pair, and this is the extra the pitch carries for them. It is what stands between the chain's
+# own east corner and the meter's west face, and a bracket closing on either body reaches across
+# it — so the pitch buys a working lane between the two bodies and not just air between two nuts.
+PORT_DECK_EXTRA = 7.5
 # The pitch two columns stand at — each fitting's own panel footprint, the gap two nuts need, and
 # what the bodies hanging off them ask for over that.
 PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
@@ -1334,7 +1336,12 @@ PORT_LANE_CLEAR = 1.0
 # The west column, and the widest body it carries: the ASSE chain hangs off the tap-water union
 # on this column and is broader than any union, so it is what stands the pair off the wall's own
 # ribs. `check_port_pair` measures both flanks of the pair against the lane they are given.
-PORT_WEST_COLUMN = -77.0
+#
+# THE EAST COLUMN IS WHERE THE TWO OF THESE LEAVE IT. This number and `PORT_DECK_EXTRA` both
+# reach it — one as the origin the pitch is measured from, the other as a term of that pitch —
+# so the storey's east column stands at `PORT_WEST_COLUMN + PORT_PITCH` = -45.64 and reading it
+# off the pair is how a change to either is checked against the flank the pump fences.
+PORT_WEST_COLUMN = -83.0
 PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
            "bulkhead-flavor-a": PORT_WEST_COLUMN + PORT_PITCH,
            "bulkhead-carb": PORT_WEST_COLUMN + PORT_PITCH}
@@ -2418,18 +2425,28 @@ BOWL_CLEAR = 1.0
 # mouths face each other down one column with the step between them, so what this has to be is
 # the run that step's two corners and the lean between them take.
 WATER_2 = 44.0
+# THE SPLIT STANDS ON ITS OWN COLUMN AND `water-2` IS WHAT CROSSES TO IT. The chain answers to
+# the rear wall — all three of its coordinates are the tap-water union's, and `PORT_WEST_COLUMN`
+# is what stands that union's pair in the lane. The storey below is a different room: the gate
+# line takes the outboard strip at `_lines.GATE_LANE_X` on its way aft, `water-3` falls out of
+# this split's own downward branch on whatever column the split stands on, and the two pass tube
+# over tube. So the sequence forward of the step keeps its column when the wall's moves, and the
+# lean already in `water-2` for the step carries the offset across as well as down.
+SPLIT_COLUMN = -77.0
 
 
 def build_split(asse_carry):
-    """The split seated on its SUPPLY COLLET, one `WATER_2` forward of the chain's outlet and one
-    `FLAVOR_STEP` under it.
+    """The split seated on its SUPPLY COLLET, one `WATER_2` forward of the chain's outlet, one
+    `FLAVOR_STEP` under it and on `SPLIT_COLUMN` across.
 
     A fitting answers to its mouth and not to a face of its box: what has to land in the right
-    place is the collet the tube pushes into. Both are read off the chain's own outlet, so the
-    split rides the chain wherever the chain goes, a storey below it."""
+    place is the collet the tube pushes into. Its reach and its storey are read off the chain's
+    own outlet, so the split rides the chain fore and aft wherever the chain goes; its column is
+    its own, because what fences the lane it stands in is not what fences the wall above."""
     out_pos, out_axis = asse_carry(_asse.port("tube-out"))
     target = tuple(out_pos[i] + out_axis[i] * WATER_2 - (FLAVOR_STEP if i == 2 else 0.0)
                    for i in range(3))
+    target = (SPLIT_COLUMN, target[1], target[2])
     return seat_body(_split.build(), SPLIT_TURN, seat="water-split",
                      station=(_split.supply(), target))
 
