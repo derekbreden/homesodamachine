@@ -61,6 +61,10 @@ tools/cad-venv/
 # when one is absent.
 *.step.mesh
 
+# The same triangles as a scene of nodes and matrices, for an engine to read
+# (hardware/scripts/_scene.py). Written on ask, off the assembly the layout builds.
+*-assembly.glb
+
 # Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
 # always cost; deleting this is always safe.
 .cache/
