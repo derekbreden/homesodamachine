@@ -103,12 +103,20 @@ gate() {
 # --check gates after these still stop the commit on them.
 #
 # Only the named file is staged, and only when the sync itself moved it, so a commit
-# never sweeps up a neighbouring edit that happened to be dirty.
+# never sweeps up a neighbouring edit that happened to be dirty. Its sources sidecar
+# goes with it and is weighed on its own: the sidecar moves when an INPUT moves, which
+# a run that lands on the same figures does too, so a commit that leaves it behind
+# ships a record of a graph that is not the one in the tree.
 sync() {
   _name=$1; _file=$2; shift 2
+  _car="${_file%.md}.sources.json"
   _was=$(git -C "$root" hash-object "$_file" 2>/dev/null)
+  _carwas=$(git -C "$root" hash-object "$_car" 2>/dev/null)
   if _out=$("$@" 2>&1); then
     _now=$(git -C "$root" hash-object "$_file" 2>/dev/null)
+    if [ "$(git -C "$root" hash-object "$_car" 2>/dev/null)" != "$_carwas" ]; then
+      git -C "$root" add "$_car"
+    fi
     if [ "$_was" != "$_now" ]; then
       git -C "$root" add "$_file"
       echo "pre-commit: $_name — re-derived and staged:" >&2
