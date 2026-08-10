@@ -83,6 +83,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "electronics",
            _hw / "printed-parts" / "electronics" / "pcba-tray",
            _hw / "reference" / "asse1022-assembly",
+           _hw / "reference" / "flare38-14ptc",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "reference" / "shutao-moisture-plate",
            _hw / "reference" / "mq6-gas-sensor",
@@ -125,6 +126,7 @@ import seaflo_suction_chain as _suct                  # noqa: E402
 import seaflo_discharge_chain as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
+import flare38_14ptc as _oad                          # noqa: E402
 import drip_pan as _pan                               # noqa: E402
 import shutao_moisture_plate as _plate                # noqa: E402
 import mq6_gas_sensor as _mq6                         # noqa: E402
@@ -2093,6 +2095,141 @@ def build_asse(deck):
                               (PANEL_X["bulkhead-flavor-b"], bulkhead_mouth_y(), deck)))
 
 
+# --- the cradle the tap-water chain lies in --------------------------------
+#
+# A HALF-PIPE ON THE −X WALL, STEPPED TO THE CHAIN'S OWN SECTIONS. The chain is a made-up
+# assembly of five fittings on one axis, and every one of them is a different diameter about that
+# axis — so a trough cut at the widest of them holds nothing, and one cut at the narrowest takes
+# only the narrowest. Cut at each section's own, the steps BETWEEN sections are faces square to
+# the axis, and the barrel is trapped between two of them.
+#
+# EVERY SECTION IS THE SAME 120° V AND ONLY ITS APEX MOVES, which is what makes those steps fall
+# out rather than be drawn: a V of this angle is the two flanks of a hex read off its corner, and
+# it is also the tangent seat of any circle. So the same trough beds a hex on two whole flats and
+# a barrel on two lines, and the section that is deepest in the wall is the section that is
+# widest — the stair the chain lies in.
+#
+# ONLY THE BARREL'S V KEYS THE CLOCK, and only the barrel's may. `flare38_14ptc` says its nut "is
+# a wrench hex that spins on the body" and the GAGIRA's clock is wherever its thread stopped, so
+# a V cut to either one's flats would demand an angle the assembly does not control and bind on
+# the build that landed 30° off. Those sections are seated on their CIRCUMSCRIBED circle, which
+# takes any clock. The Multiplex's hex does not spin — its vent is machined into it — so its V is
+# read off the corner, and keying that one hex is what holds the vent over the pan.
+ASSE_SEAT_SLIP = 0.2
+# And what the STEPS give it along the axis. The same hand makes up five joints to "snug + 1
+# turn", so the run's own length is not a number this wall knows either — a step struck on the
+# barrel's drawn face is a step the next build's barrel does not reach or does not clear. The
+# deeper section takes this much past each of its ends, so the barrel drops in with play and the
+# steps stop it travelling rather than hold it still. Aft it does not have to: the chain's inlet
+# collet butts the tap-water union's, and that joint is where the run's length is taken up.
+ASSE_STEP_SLIP = 0.5
+
+
+def asse_sections(asse_carry) -> tuple:
+    """The chain's own sections, forward to aft, as `(y0, y1, apex_x)` — the band each occupies
+    down the lane and the apex the 120° V takes under it.
+
+    A HEX READS OFF ITS CORNER AND A CIRCLE OFF ITS TANGENT. The V's apex lies one circumradius
+    under a hex's axis and `R / sin 60°` under a round one's, so a section this seats on its
+    flats sits `1 - sin 60°` of its own radius deeper than one it seats on two lines. That is the
+    whole of why the barrel steps down out of its neighbours and not a number chosen here.
+
+    Read through `asse_carry`, so a fitting whose length changes moves its own step."""
+    axis = asse_carry(_asse.flow_axis())[0]
+    def band(part_x0, part_x1, across, hexed):
+        # +X in the chain's frame is the machine's −Y: the yaw lays the flow forward down the
+        # lane, so a section's upstream end is its AFT end.
+        ends = sorted(asse_carry(((x, 0.0, _asse.bfp.BODY_CENTER_Z), (1.0, 0.0, 0.0)))[0][1]
+                      for x in (part_x0, part_x1))
+        drop = across / 2.0 if hexed else across / 2.0 / math.sin(math.radians(60.0))
+        return (ends[0], ends[1], axis[0] - drop - ASSE_SEAT_SLIP / math.sin(math.radians(60.0)))
+    rows = (
+        # the PI4512F6S's swivel nut, forward of the barrel — round, because it spins
+        band(_asse.OUTLET_X, _asse.OUTLET_X + _oad.NUT_LENGTH, _oad.NUT_ACROSS_CORNERS, False),
+        # the Multiplex's brass hex barrel, and the one section whose flats are read as flats
+        band(_asse.BARREL_UPSTREAM, _asse.BARREL_DOWNSTREAM,
+             _asse.bfp.HEX_ACROSS_CORNERS, True),
+        # the GAGIRA coupling, aft. NOT the 3/8" NPT inlet stub it threads onto: the coupling's
+        # `LARGE_SOCKET_DEPTH` is the whole of that stub, so the stub is never a section this
+        # wall sees — what stands in the band is the coupling's own hex, round-seated because
+        # its clock is wherever its thread stopped.
+        band(_asse.COUPLING_X, _asse.COUPLING_X + _asse.coupling.LENGTH,
+             _asse.coupling.HEX_ACROSS_CORNERS, False),
+    )
+    # THE DEEPER SECTION TAKES THE SLIP AT EVERY BOUNDARY. A step is a face square to the axis,
+    # and which of its two sections owns the millimetre either side decides whether the run drops
+    # in: give it to the shallow one and the deep section is a socket the drawn length has to
+    # hit, give it to the deep one and it is a stop the run travels to.
+    out = [list(r) for r in rows]
+    for i in range(len(out) - 1):
+        deep = i if out[i][2] < out[i + 1][2] else i + 1
+        edge = out[i][1] + (ASSE_STEP_SLIP if deep == i else -ASSE_STEP_SLIP)
+        out[i][1], out[i + 1][0] = edge, edge
+    return tuple(tuple(r) for r in out)
+
+
+# Where the two ties close the trough's mouth. The barrel is the only section a tie may cinch on
+# — the JG acetal nut and the PP reducer would take a collet out of round — and its vent stub
+# stands out of the middle of it, so `multiplex_asse1022.BARREL_LENGTH` offers exactly two bands.
+# One each side of the fall, struck on the stub's OD and not on the barb's.
+ASSE_TIE_VENT_CLEAR = 1.5
+
+
+def asse_ties(asse_carry) -> tuple:
+    """The Y of each tie band — the middle of the clear run the vent leaves on either side of it.
+
+    A TIE CANNOT PASS OVER THIS CHAIN. Its top flat stands one `clearance-floor` under the top
+    wall and a tie is thicker than that, so what closes the trough is not a wrap but a STRAP: the mouth
+    faces east, the chain leaves that way or not at all, and a chord from the ceiling's own lug
+    down across the east flank to the trough's lower lip is what shuts it."""
+    _fwd, barrel, _aft = asse_sections(asse_carry)
+    vent = asse_carry(_asse.port("vent-tip"))[0]
+    edge = _asse.VENT_STUB_OD / 2.0 + ASSE_TIE_VENT_CLEAR
+    return ((barrel[0] + (vent[1] - edge)) / 2.0, ((vent[1] + edge) + barrel[1]) / 2.0)
+
+
+def asse_cradle(asse_carry) -> tuple:
+    """The whole station `enclosure._asse_cradle` builds from: the axis the trough is struck on,
+    its sections, and the two tie bands."""
+    axis = asse_carry(_asse.flow_axis())[0]
+    return (axis[2], asse_sections(asse_carry), asse_ties(asse_carry))
+
+
+def check_asse_seated(chain, piece, asse_carry) -> Bound:
+    """Whether the chain is actually IN its trough, read off the two placed solids.
+
+    A body drawn beside a groove is not a body lying in one, and every reading this card takes of
+    the tap-water chain is satisfied by a chain floating in air — `placed` sees a seat it holds,
+    `vent-lands` sees a drip that falls where it should, `clearance-floor` sees a millimetre it
+    keeps. None of them can tell a cradle that closes on the barrel from one drawn a centimetre
+    off it, because nothing about the pack changes.
+
+    So this reads the STACK ACROSS THE V, in the one direction the trough is meant to stop:
+
+        seat   how far west the chain stands off the wall's own furniture — one
+               `ASSE_SEAT_SLIP` on the V's normal is the trough closed on the barrel's two
+               flats, and anything more is a chain resting on nothing
+
+    Measured on the solids and not on the sections table, because the table is what DREW the
+    trough: a bound read back off its own inputs is a bound that cannot fail."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    # `_clearing.gap` reports a floor past its reach, so ask it for more than the trough may
+    # have: a chain resting on nothing has to come back with the number, not with the reach.
+    got = _clearing.gap(solid(chain), solid(piece), 5.0)
+    want = ASSE_SEAT_SLIP / math.sin(math.radians(60.0))
+    ok = got <= want + 1e-3
+    return record_bound(Bound(
+        "asse-seated", "The tap-water chain lies in its printed trough", ok,
+        f"{got:.3f} mm off the wall's furniture", f"{want:.3f} mm at most",
+        ([] if ok else [
+            f"the chain stands {got:.3f} mm off everything `enclosure-back-top` puts near it, "
+            f"and the trough is drawn to close on it at {want:.3f}. Either the cradle's sections "
+            f"no longer read the chain's own — `asse_sections` — or the chain moved and the "
+            f"station did not follow it."])))
+
+
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
 # chain that hangs off it takes the lane's forward end, so the basin's forward rim is struck on
 # the barb's own aft edge with this much daylight past it. That plane fixes the tray in Y — the
@@ -2895,6 +3032,7 @@ def build_pack() -> cq.Assembly:
         if name in _lines.STATIONS:
             carries[name] = mcarry
     a.bulkhead_carry = bulkhead_carry
+    a.asse_cradle = asse_cradle(asse_carry)
     a.runs = []
     # The bodies and their placements, carried on the assembly: a run whose other mouth is on
     # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
@@ -2983,7 +3121,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
-                     west_cradle=a.west_cradle)
+                     west_cradle=a.west_cradle, asse_cradle=a.asse_cradle)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -3140,8 +3278,13 @@ def build_enclosure_assembly() -> cq.Assembly:
             note_room("hopper-funnel", "the fall off the spout `fluid-4`'s first corner turns in",
                       r.bend, math.dist(r.pts[0], r.pts[1]))
     a.add(build_display(box), name="display", color=C_DISPLAY)
-    for name, piece in _enc.build_pieces(box)[0].items():
+    pieces = _enc.build_pieces(box)[0]
+    for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    # The chain against the piece that cradles it, once that piece exists — the one reading on
+    # this card that can tell a trough closed on the barrel from a trough drawn near it.
+    check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
+                      a.carries["asse1022-assembly"])
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
     # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
     # here — after the bodies the box seats have stated theirs — is what puts it there.

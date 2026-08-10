@@ -243,7 +243,13 @@ MOUNTS = (
     ("wago-reeds-b", "enclosure-back-top", "well"),
     ("wago-reeds-a", "enclosure-back-top", "well"),
     ("wago-sensors", "enclosure-back-top", "well"),
-    ("asse1022-assembly", None, "none"),
+    # THE TAP-WATER CHAIN LIES IN A TROUGH PRINTED ON THE −X WALL. `enclosure._asse_cradle` cuts
+    # a 120° V to each of the chain's own three sections, so the steps between them are faces
+    # square to the axis and the brass barrel is trapped between two of them. What the V beds on
+    # is that barrel's own two flats, which is the one section on the run whose clock the vent is
+    # machined into — so keying it is what holds the drip over the pan. Two zip ties through the
+    # trough's lips shut its mouth; nothing about the chain's weight is theirs to carry.
+    ("asse1022-assembly", "enclosure-back-top", "cradle"),
     ("drip-pan", "enclosure-back-top", "channel"),
     # The probe plate lies loose in the basin the way the basin rides loose in its rails: what
     # fastens it is the tray's own printed floor and coves, which fence it on four sides at

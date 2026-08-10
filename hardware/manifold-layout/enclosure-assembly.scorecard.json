@@ -44,8 +44,8 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "held": 92,
- "mounted": 31,
+ "held": 94,
+ "mounted": 32,
  "checks": [
   {
    "id": "coverage",
@@ -768,6 +768,16 @@
    "active": true
   },
   {
+   "id": "asse-seated",
+   "label": "The tap-water chain lies in its printed trough",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.200 mm off the wall's furniture",
+   "target": "0.231 mm at most",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
@@ -906,10 +916,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "24/77 mounted",
+   "value": "25/77 mounted",
    "target": "a printed joint per body",
    "detail": [
-    "asse1022-assembly: held by none",
     "digiten-flow: held by none",
     "discharge-chain: held by none",
     "mpr121: held by none",
@@ -1042,13 +1051,13 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "fail",
-   "value": "71/77 held",
+   "value": "72/77 held",
    "target": "a holder per body",
    "detail": [
     "basin holds 1: moisture-plate",
     "bosses holds 6: c14-inlet, ground-stack, pcba, psu, relay-1, relay-2",
     "channel holds 2: drip-pan, thermal-fuse",
-    "cradle holds 4: mq6-sensor, valve-v-a, valve-v-b, vk-solenoid",
+    "cradle holds 5: asse1022-assembly, mq6-sensor, valve-v-a, valve-v-b, vk-solenoid",
     "deck-mount holds 1: seaflo-pump",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
     "gap-press holds 1: fuse-clamp",
@@ -1057,7 +1066,6 @@
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
     "well holds 10: wago-g, wago-gnd, wago-h, wago-mana, wago-manb, wago-n, wago-reeds-a, wago-reeds-b, wago-sensors, wago-v12",
-    "asse1022-assembly: nothing holds it at all",
     "digiten-flow: nothing holds it at all",
     "discharge-chain: nothing holds it at all",
     "mpr121: nothing holds it at all",
@@ -5503,8 +5511,8 @@
   },
   {
    "component": "asse1022-assembly",
-   "by": null,
-   "held": "none",
+   "by": "enclosure-back-top",
+   "held": "cradle",
    "kind": "real"
   },
   {
@@ -5826,5 +5834,5 @@
    "kind": "real"
   }
  ],
- "sources": "75d500620fc14176abbc2473533f8bb2"
+ "sources": "60565a626e38a0d6d8939200a4135845"
 }

@@ -432,9 +432,12 @@ z_lip_y_margin = 2.0
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches)
 #   west_cradle   the −X wall's MQ-6 card slot, (y, z) — the card's plane and its centre
+#   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties) — the axis the
+#                 trough is struck on, one (y0, y1, apex_x) per section of the chain, and
+#                 the Y of each tie band
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle")
+           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -443,8 +446,8 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses side_wells floor_bosses west_cradle")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), ())
+            "east_bosses side_wells floor_bosses west_cradle asse_cradle")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1054,7 +1057,7 @@ def _dims(pack):
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
-               pack.side_wells, pack.floor_bosses, pack.west_cradle)
+               pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1901,7 +1904,8 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), ())
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
+               ())
 
 
 def build_front_half(box):
@@ -2142,6 +2146,113 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
+# --- the tap-water chain's cradle on the −X wall ---------------------------
+#
+# The trough's own section, and what it spends on either side of the chain's axis.
+# How far the trough's two flanks run off the axis. UP is short: the chain's own top flat stands
+# one `clearance-floor` under the ceiling, so a lip carried up to that flat's arris is a lip
+# standing in the only air a tie could have used. DOWN is long, because under the chain there is
+# the vent's fall and nothing else, and the lower lip is what a tie's other end anchors on.
+asse_cradle_up = 9.0
+asse_cradle_down = 18.0
+asse_v_half = 60.0          # half the V's included angle, off the axis plane
+asse_cradle_lip = 4.0       # material carried past the lower lip, for the tie slot to cut
+# A tie's own channel — its width along the run and the room it needs to pass.
+asse_tie_w = 5.0
+asse_tie_t = 2.6
+# What the top wall gives back so a tie can cross the chain. Cut into its INNER face only, so
+# the appliance's outside is untouched and what is left over the band is `wall` less this.
+asse_ceiling_relief = 1.5
+
+
+def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
+    """The room the chain lies in: a 120° V, apex west on its own axis, open east.
+
+    ONE SHAPE FOR EVERY SECTION. Read off a hex's corner it lies on two whole flats; read off a
+    round one's tangent it lies on two lines; and either way the section that sits deepest is
+    the section that is widest, which is what makes the steps between them faces square to the
+    axis rather than anything drawn here."""
+    run = 1.0 / math.tan(math.radians(asse_v_half))
+    return (
+        cq.Workplane("XZ")
+        .polyline([(x_apex, z_axis),
+                   (x_apex + up * run, z_axis + up),
+                   (x_east, z_axis + up),
+                   (x_east, z_axis - dn),
+                   (x_apex + dn * run, z_axis - dn)])
+        .close()
+        .extrude(-(y1 - y0))
+        .val()
+        .translate((0.0, y0, 0.0))
+    )
+
+
+def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
+    """The tap-water chain's cradle fused onto the −X wall, if this piece owns its band.
+
+    THE CHAIN IS MADE UP BY HAND AND THIS IS WHAT THAT COSTS. Five fittings on one axis, each
+    threaded to its neighbour "snug + 1 turn", so neither the length of the run nor the clock any
+    one of them lands at is a number this wall can know. What the wall can know is the SECTION
+    each one presents about the axis, because that is the fitting's own — so the trough is cut to
+    each in turn, the steps between them catch the barrel fore and aft, and the fit across the V
+    is a slip and not a socket.
+
+    WHAT A TIE CAN AND CANNOT DO HERE. A tie is a closed loop, and a loop round this chain has to
+    pass over its top flat, which stands one `clearance-floor` under the top wall — so the ties
+    do not work at all unless the ceiling gives the channel back. It does, out of its inner face
+    only (`asse_ceiling_relief`), and the loop then runs: out of the trough's upper slot, east
+    over the flat through that channel, down the east flank, under the barrel, and back in
+    through the lower slot. It closes on the trough's own two lips, so what it pulls is the chain
+    into the V and not the chain against a wall.
+
+    NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
+    part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
+    which is the whole point of putting the load on printed geometry and the preload on nylon."""
+    if not station:
+        return solid
+    z_axis, sections, ties = station
+    up, dn = asse_cradle_up, asse_cradle_down
+    run = 1.0 / math.tan(math.radians(asse_v_half))
+    if not (y0 <= sections[0][0] and sections[-1][1] <= y1):
+        return solid                       # a piece that does not own the whole run builds none
+    if not (z0 <= z_axis - dn and z_axis + up <= z1):
+        return solid
+    for sy0, sy1, apex in sections:
+        east = apex + dn * run + asse_cradle_lip
+        solid = solid.fuse(_ybox(inner[0], east, sy0, sy1, z_axis - dn, z_axis + up))
+        solid = solid.cut(_asse_v(apex, z_axis, sy0, sy1, up, dn, east + 1.0))
+    # The tie channels. Each is one slot through the upper lip and one through the lower, cut
+    # after every section is fused so a neighbour's block cannot fill one back in.
+    for ty in ties:
+        for lip, zl0, zl1 in ((up, z_axis + up - asse_tie_t, z_axis + up + 1.0),
+                              (dn, z_axis - dn - 1.0, z_axis - dn + asse_tie_t)):
+            apex = min(a for sy0, sy1, a in sections if sy0 <= ty <= sy1)
+            solid = solid.cut(_ybox(apex + lip * run - asse_tie_t, apex + lip * run + 20.0,
+                                    ty - asse_tie_w / 2.0, ty + asse_tie_w / 2.0, zl0, zl1))
+    return solid
+
+
+def _asse_ceiling_relief(solid, inner, station, y0, y1, z0, z1):
+    """The top wall's own share of the tie channel — a shallow flat cut up into its INNER face
+    over each tie band, so the loop has somewhere to cross the chain's top flat.
+
+    On the ceiling and not on the cradle because that is where the millimetre is missing, and
+    only as deep as the tie: what is left over the band is `wall` less `asse_ceiling_relief`, and
+    the outer face never knows."""
+    if not station or z1 < inner[5] - 1e-6:
+        return solid                       # only the piece that carries the ceiling
+    z_axis, sections, ties = station
+    east = max(a for _y0, _y1, a in sections) + asse_cradle_down / math.tan(
+        math.radians(asse_v_half)) + 40.0
+    for ty in ties:
+        if not (y0 <= ty <= y1):
+            continue
+        solid = solid.cut(_ybox(min(a for _y0, _y1, a in sections) - 1.0, east,
+                                ty - asse_tie_w / 2.0, ty + asse_tie_w / 2.0,
+                                inner[5], inner[5] + asse_ceiling_relief))
+    return solid
+
+
 def _c14_bosses(solid, inner, outer, stations, z0, z1):
     """The C14's two heat-set bosses added to a back wall, for the stations whose Z lies in
     `z0..z1`.
@@ -2222,6 +2333,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The −X wall's card slot, last of all: its bottom rail lands on the same slab those posts
     # rise from, so cutting its grooves after them is what keeps a groove a groove.
     piece = _west_cradle(piece, inner, box.west_cradle, ylo, yhi, zlo, zhi)
+    # And the tap-water chain's, on the same wall a storey up. After the tray's rails, whose
+    # band it stands over, and last like every other pocket: its tie slots are cut out of the
+    # trough this fuses, so nothing may fuse into them afterwards.
+    piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
+    piece = _asse_ceiling_relief(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 
