@@ -37,9 +37,11 @@ sys.path.insert(
 from _cold_core_interface import cap_conduits, cap_conduit_bore_radius  # noqa: E402
 
 import _lines  # noqa: E402  — the stock every water run is drawn on
+import enclosure as _enc  # noqa: E402  — the box, and the hull its own strap cavities state
 import enclosure_assembly as _ea  # noqa: E402  — the placed pack, and the runs cut to it
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
 import seaflo_discharge_chain as _dis  # noqa: E402  — on the path once `_lines` is imported
+import wr1110_regulator as _wr1110  # noqa: E402  — the barrel the box bores a rib for
 
 from docgen import substitute_md  # noqa: E402
 
@@ -49,13 +51,25 @@ def main():
     # a bench cuts is read off the run and not rounded beside it. `_cards_ip` states the
     # same two lengths on IP-02 off the same runs at the same precision — one cut under
     # one figure, so card and procedure cannot send a bench to two different lengths.
-    _runs = {r.id: r for r in _ea.build_pack().runs}
+    _a = _ea.build_pack()
+    _runs = {r.id: r for r in _a.runs}
     for _rid in ("water-6", "water-7"):
         if _runs[_rid].bend != _lines.HOSE_BEND:
             raise ValueError(
                 f"`{_rid}` is drawn on a {_runs[_rid].bend} mm bend and the procedure quotes "
                 f"the 3/8\" reinforced PVC's {_lines.HOSE_BEND} mm for both pump-port stubs — "
                 f"either they go back on one stock or the doc reads them out apiece.")
+
+    # The two loops a tie is picked by on this path, off the hull `enclosure` states for its own
+    # ribs and the seats the pack actually bored. Every rib holding a RUN is bored for the one
+    # stock, so the runs answer with one figure and the regulator's barrel with its own.
+    _run_seats = {round(r, 6) for *_s, r in _a.tube_anchors}
+    if len(_run_seats) != 1:
+        raise ValueError(
+            f"the box's run anchors are bored at {sorted(_run_seats)}. This procedure quotes one "
+            f"loop for all of them, so either they go back on one stock or it reads them apiece.")
+    _barrel_seat = next(r for mid, _u, _n, r in _a.body_anchors
+                        if mid == _a.carries["wr1110"](_wr1110.barrel()[0])[0])
 
     variables = {
         # Every warm-side fluid termination this procedure lands on is a conduit
@@ -85,6 +99,8 @@ def main():
         # What each of the flow meter's saddles leaves alone at the outer end of its barrel —
         # the push-fit ring, off the layout that strikes the saddle's own band on it.
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
+        "WR1110_LOOP": f"{_enc.tube_anchor_strap_loop(_barrel_seat):.3g} mm",
+        "CARB_1_LOOP": f"{_enc.tube_anchor_strap_loop(next(iter(_run_seats))):.3g} mm",
     }
 
     substitute_md(
@@ -100,6 +116,8 @@ def main():
             "DISCHARGE_CHAIN_LEN": 1,
             "MANIFOLD_VALVES": 2,
             "MANIFOLD_TEES": 2,
+            "WR1110_LOOP": 1,
+            "CARB_1_LOOP": 2,
         },
     )
     print("-> internal-plumbing.md")
