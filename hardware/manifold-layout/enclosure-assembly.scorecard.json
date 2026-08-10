@@ -144,7 +144,6 @@
     "carb-1 \u2014 suction-chain: 1.056 mm",
     "fluid-14 \u2014 valve-v-a: 1.384 mm",
     "fluid-14 \u2014 vk-solenoid: 1.530 mm",
-    "water-7 \u2014 fluid-14: 1.676 mm",
     "fluid-14 \u2014 coil-v-a: 1.710 mm",
     "water-7 \u2014 co2-2: 1.725 mm",
     "fluid-4 \u2014 coil-v-a: 1.980 mm",
@@ -162,9 +161,9 @@
     "fluid-2 \u2014 fluid-24: 2.685 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 2.763 mm",
     "carb-1 \u2014 pcba: 3.002 mm",
+    "fluid-14 \u2014 seaflo-pump: 3.009 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-2 \u2014 fluid-26: 3.248 mm",
-    "fluid-14 \u2014 seaflo-pump: 3.325 mm",
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.326 mm",
@@ -981,7 +980,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 45/45 corners at spec",
+   "value": "B \u2014 47/47 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1113,7 +1112,7 @@
     "pump-a-motor: still a bare primitive, 1 solid",
     "pump-b-motor: still a bare primitive, 1 solid",
     "hopper-funnel: 1 box holds 5% material",
-    "foam-assembly: 5 boxes hold 10% material",
+    "foam-assembly: 5 boxes hold 11% material",
     "ground-stack: 1 box holds 17% material",
     "display: 2 boxes hold 18% material",
     "mpr121: 1 box holds 22% material",
@@ -1151,11 +1150,12 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "18/20 within span",
+   "value": "17/20 within span",
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 480.1 mm unheld, 280.1 over",
     "fluid-2: 237.1 mm unheld, 37.1 over",
+    "fluid-14: 229.9 mm unheld, 29.9 over",
     "carb-1: 150.8 mm, held at its anchor",
     "co2-2: 119.7 mm, held at its anchor",
     "fluid-28: 193.0 mm, held at its anchor"
@@ -2406,7 +2406,7 @@
      248.2,
      90.5,
      461.0,
-     289.0
+     268.575
     ],
     [
      -90.5,
@@ -2417,7 +2417,7 @@
      20.0
     ]
    ],
-   "fill": 0.1016,
+   "fill": 0.109,
    "primitive": false,
    "declared": null
   },
@@ -4045,6 +4045,132 @@
    }
   },
   {
+   "id": "fluid-14",
+   "kind": "fluid",
+   "frm": "valve-v-f.outlet",
+   "to": "foam-assembly.reservoir-a-fill",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 380.15,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      21.68,
+      97.04
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 20.2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      97.04,
+      79.7
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 63.9,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      79.7,
+      22.74
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 63.9,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      22.74,
+      82.19
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 9.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      82.19,
+      77.39
+     ]
+    },
+    {
+     "at": 6,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      77.39,
+      15.17
+     ]
+    }
+   ],
+   "atSpec": 6,
+   "bends": 6,
+   "worstTurn": 90.0,
+   "seat": 15.175,
+   "reach": 18.228,
+   "reachRatio": 1.302,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 3,
+    "length": 22.742,
+    "demand": 1.2476,
+    "from": [
+     43.5,
+     253.43,
+     289.0
+    ],
+    "to": [
+     43.5,
+     263.43,
+     268.57
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.07,
+      82.68,
+      267.32
+     ],
+     [
+      56.0,
+      422.0,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 21.07,
+     "y": 339.32,
+     "z": 13.92
+    },
+    "span": 340.26,
+    "path": 380.15,
+    "detour": 1.117
+   }
+  },
+  {
    "id": "water-6",
    "kind": "water",
    "frm": "seaflo-pump.discharge",
@@ -5199,110 +5325,6 @@
    }
   },
   {
-   "id": "fluid-14",
-   "kind": "fluid",
-   "frm": "valve-v-f.outlet",
-   "to": "foam-assembly.reservoir-a-fill",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 391.54,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      21.68,
-      97.04
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 20.2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      97.04,
-      171.9
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 9.3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      171.9,
-      77.39
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      77.39,
-      35.6
-     ]
-    }
-   ],
-   "atSpec": 4,
-   "bends": 4,
-   "worstTurn": 90.0,
-   "seat": 21.685,
-   "reach": 71.573,
-   "reachRatio": 5.1123,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 3,
-    "length": 77.391,
-    "demand": 1.0813,
-    "from": [
-     43.5,
-     345.63,
-     289.0
-    ],
-    "to": [
-     56.0,
-     422.0,
-     289.0
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      77.07,
-      82.68,
-      267.32
-     ],
-     [
-      56.0,
-      422.0,
-      253.4
-     ]
-    ],
-    "axis": {
-     "x": 21.07,
-     "y": 339.32,
-     "z": 13.92
-    },
-    "span": 340.26,
-    "path": 391.54,
-    "detour": 1.151
-   }
-  },
-  {
    "id": "fluid-1",
    "kind": "fluid",
    "frm": "water-split.to-flavor",
@@ -5947,5 +5969,5 @@
    "kind": "real"
   }
  ],
- "sources": "6015e5cafa076db063a619751b334361"
+ "sources": "e025a000b6e27978aa53321da094bb21"
 }

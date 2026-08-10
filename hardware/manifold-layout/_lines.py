@@ -822,20 +822,22 @@ FILL_B_LEAN_Y = 170.0
 FILL_B_JOIN_Y = 192.0
 # What a line holds off a body it passes in a lane, where the lane is the whole of its room.
 LANE_CLEAR = 4.0
-# THE LANE `fluid-14` CROSSES THE MACHINE IN: the daylight between V-K standing on the cap and
-# channel A's own V-A beside it, which runs from the manifold to the back of the core. Both
-# bodies are round where the lane is narrowest and their boxes stand well inside their own metal,
-# so the lane is swept —
+# THE LANE `fluid-14` CROSSES THE VALVE DECK IN: the daylight between V-K standing on the cap and
+# channel A's own V-A beside it. Both bodies are round where the lane is narrowest and their boxes
+# stand well inside their own metal, so the lane is swept —
 #
-#     w.cast((43.5, 432.0, 289.0), (0, -1, 0), dia=6.35)
+#     w.cast((43.5, 244.0, 289.0), (0, -1, 0), dia=6.35)
 #
-# — which runs the machine's whole depth without contact, and stops on V-K or on V-A's coil at
-# every column either side of it.
+# — which runs from V-K's aft face out past the manifold without contact, and stops on V-K or on
+# V-A's coil at every column either side of it.
 #
-# V-A's crown stands under this plane; over it the tap-water riser crosses to the pump's suction
-# on `water-7`, at z 293.85 across x[32.5, 63.5] over y[323.4, 338.5]. The tightest on the sweep
-# is 1.4 mm.
+# V-A's crown stands under this plane and `fluid-16`'s elbow under its forward end, where that run
+# turns off `reservoir-a` at z 284.49. The tightest on the sweep is 1.4 mm.
 FILL_A_LANE_Z = 289.0
+# How much depth the fall off that lane onto the cap takes. Both its corners spend `TUBE_BEND` as
+# tangent, so what reaches the cap's plane is the fall plus those two arcs; this is the run that
+# lands the straight forward of the rib the cap stands.
+FILL_A_FALL_RUN = 10.0
 
 
 def _fill_a_lane_y(solids) -> float:
@@ -844,8 +846,25 @@ def _fill_a_lane_y(solids) -> float:
     return solids["vk-solenoid"].BoundingBox().ymin - _split.TUBE_D - LANE_CLEAR
 
 
+def _fill_a_fall_y(solids) -> float:
+    """Where it leaves the lane for the cap — one clear section aft of V-K's own face, the same
+    figure the other end of the lane is struck on, so the crossing is level the valves' full
+    length."""
+    return solids["vk-solenoid"].BoundingBox().ymax + _split.TUBE_D + LANE_CLEAR
+
+
+def _fill_a_cap_z(solids) -> float:
+    """The plane the run holds over the cap: one `LANE_CLEAR` over the pump's own foot pad.
+
+    THE LANE IS THE PUMP'S BRACKET AND NOT THE LID. West of the SeaFlo's barrel its foot pad is
+    what the run passes over, `seaflo_22_pump.FOOT_T` up from the face both of them stand on, and
+    the pad reaches further west than anything else the pocket carries."""
+    return (solids["seaflo-pump"].BoundingBox().zmin + _pump.FOOT_T
+            + _split.TUBE_D / 2.0 + LANE_CLEAR)
+
+
 def _fill_a_turn_y(F) -> float:
-    """Where it leaves the lane for the bore's own column — aft of the tap-water riser.
+    """Where it leaves the cap's plane for the bore's own column — aft of the tap-water riser.
 
     `water-7` crosses this lane on the pump's suction barb in 3/8" braided, the fattest stock the
     machine carries. The run holds the lane past that hose and leans east only behind it."""
@@ -857,31 +876,40 @@ def _fluid_14(F, solids):
 
     RESERVOIR A IS THE AFT POCKET AND THE PUMP STANDS ON IT. The SeaFlo takes the middle of A's
     cap and the power brick the far side, and what they leave is the strip between them — which
-    is where the bore is. So this run has the machine's whole depth to cross, and it crosses on
-    the CAP'S OWN STOREY: up off the gate onto `FILL_A_LANE_Z`, one diagonal aft and inboard into
-    the lane V-K and V-A leave between them, aft down that lane the length of the core, one lean
-    east onto the bore's column behind the tap-water riser, and straight down the strip into it.
+    is where the bore is. So this run has the machine's whole depth to cross, and it crosses ON
+    THE CAP: up off the gate onto `FILL_A_LANE_Z`, one diagonal aft and inboard into the lane V-K
+    and V-A leave between them, level down that lane the valves' full length, one fall onto
+    `_fill_a_cap_z` behind V-K, aft over the pump's own bracket, one lean east onto the bore's
+    column behind the tap-water riser, and straight down the strip into it.
+
+    THE LANE IS THE HIGH PART AND IT IS AS SHORT AS V-K MAKES IT. What holds the crossing up
+    there is `fluid-16`'s elbow at the forward end and V-A's crown along it; aft of V-K's face
+    neither stands, and the run comes down onto the cap for the whole of the rest.
 
     ITS COLUMN IS THE DRAW BORE'S OWN. `fluid-16` rises off `reservoir-a` and leans away forward;
     the fill runs aft on that same column and crosses over its own channel's draw where it stands.
 
-    THE RIB IT LIES IN IS THE CAP'S. The lane passes over the stretch of lid between V-K's aft
-    face and the pump's front one, and `_cold_core_interface.cap_anchors["fluid-14"]` stands
-    there."""
+    THE RIB IT LIES IN IS THE CAP'S, and it is on the cap's plane that the rib reaches it:
+    `_cold_core_interface.cap_anchors["fluid-14"]` stands on the suction chain's own station
+    across the lid, one lane west of that chain's rib."""
     gate = F["valve-v-f"].at("outlet")
     bore = F["foam-assembly"].at("reservoir-a-fill")
     lane_x = F["foam-assembly"].at("reservoir-a")[0]
+    fall = _fill_a_fall_y(solids)
+    cap = _fill_a_cap_z(solids)
     return R.bent(
         "fluid-14", "valve-v-f.outlet",
-        (gate[0], gate[1], FILL_A_LANE_Z),          # up onto the cap's own storey
-        (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),   # one diagonal aft and inboard, onto the lane
-        (lane_x, _fill_a_turn_y(F), FILL_A_LANE_Z),        # aft down the lane, west of the riser
-        (bore[0], bore[1], FILL_A_LANE_Z),          # one lean east onto the bore's own column
-        "foam-assembly.reservoir-a-fill",           # and straight down the strip into it
+        (gate[0], gate[1], FILL_A_LANE_Z),                  # up onto the lane's own storey
+        (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),    # one diagonal aft and inboard, onto the lane
+        (lane_x, fall, FILL_A_LANE_Z),                      # level down the lane, past V-K
+        (lane_x, fall + FILL_A_FALL_RUN, cap),              # one fall onto the cap's own plane
+        (lane_x, _fill_a_turn_y(F), cap),                   # aft over the bracket, west of the riser
+        (bore[0], bore[1], cap),                            # one lean east onto the bore's column
+        "foam-assembly.reservoir-a-fill",                   # and straight down the strip into it
         kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="reservoir A fill: V-F-O → the fill bore in its own cap, up onto the cap's storey, "
-             "aft down the lane V-K and V-A leave between them and one lean east onto the bore's "
-             "column behind the tap-water riser")
+        note="reservoir A fill: V-F-O → the fill bore in its own cap, over V-A's crown in the "
+             "lane V-K leaves beside it, down onto the cap behind V-K and aft over the pump's "
+             "bracket to the bore's own column")
 
 
 def _fluid_16(F):
