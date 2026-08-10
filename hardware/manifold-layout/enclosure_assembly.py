@@ -1569,6 +1569,35 @@ def tube_anchors(runs) -> tuple:
     return tuple(stations)
 
 
+def cap_tube_anchors(foam_carry, runs) -> tuple:
+    """Every rib the cold core's cap stands for a RUN, as `unsupported_spans` reads a station.
+
+    A row in `_cold_core_interface.cap_anchors` named for a run is one; a row named for a body is
+    the chains', and holds nothing this counts. The seat's world axis is the cap's own station
+    carried out, and the tube lies along whichever of its legs passes through it."""
+    by_id = {r.id: r for r in runs}
+    out = []
+    for name in _cci.cap_anchors:
+        r = by_id.get(name)
+        if r is None:
+            continue
+        mid = foam_carry(cap_anchor(name))[0]
+        for i in range(len(r.pts) - 1):
+            p, q = r.pts[i], r.pts[i + 1]
+            if not _on_leg(mid, p, q, 1e-3):
+                continue
+            d = math.dist(p, q)
+            out.append((mid, tuple((q[k] - p[k]) / d for k in range(3)),
+                        (0.0, 0.0, -1.0), _cci.cap_anchors[name].seat_r))
+            break
+        else:
+            raise ValueError(
+                f"cap_tube_anchors: the rib for {name} stands at {mid} and no leg of that run "
+                f"passes through it. `_cold_core_interface.cap_anchors[{name!r}].centre` is in "
+                f"the cap's own frame, and the run is where its two ports put it.")
+    return tuple(out)
+
+
 def unsupported_spans(runs, stations) -> dict:
     """The longest stretch of each run that nothing holds — the reading `tube-anchored` grades.
 
@@ -2479,9 +2508,15 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
     other one it overhangs onto has to pass under it. `fouls` names any that does not.
 
     `wants` is the filling section's own circumradius plus `CHAIN_SEAT_SLIP`, read off the body's
-    own stack. The cap prints a rib it never sees the body of, so the body is what corrects it."""
+    own stack. The cap prints a rib it never sees the body of, so the body is what corrects it.
+
+    A RIB BORED FOR A RUN IS NOT ROWED HERE. A tube is one section its whole length, so there is
+    no stack to read and nothing for a rib to foul; what holds those honest is
+    `check_run_seated`, which reads the contact itself."""
     rows = []
     for name, station in _cci.cap_anchors.items():
+        if name not in bodies:
+            continue
         carry, mod = bodies[name]
         axis = foam_carry(cap_anchor(name))[0]
         tip = carry(mod.barb_tip())[0]
@@ -2589,6 +2624,35 @@ def check_tube_seated(tubes, pieces) -> Bound:
         "tube-seated", "Every anchored run lies in its printed rib", not rows,
         f"{len(TUBE_ANCHOR_SITES)} anchored, furthest off {worst:.3f} mm",
         f"{want:.3f} mm at most", rows))
+
+
+def check_run_seated(tubes, foam) -> Bound:
+    """Whether every run the cap is bored for lies in its rib, read off the placed solids.
+
+    The reading `check_tube_seated` takes on the box's own ribs, on the cap's. What differs is
+    which way the correction runs: a chain is seated ON its rib, so a gap there is the body's to
+    fix; a run's plane is its two ports', so a gap here is the ROW'S — `over_face` is what the rib
+    was built up to, and the tube is where it already was."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    want = TUBE_ANCHOR_SLIP
+    rows, worst, seen = [], 0.0, 0
+    for name in _cci.cap_anchors:
+        tube = tubes.get(f"tube-{name}")
+        if tube is None:
+            continue                       # a rib bored for a body, which `anchor-lands` holds
+        seen += 1
+        got = _clearing.gap(solid(tube), solid(foam), 5.0)
+        worst = max(worst, got)
+        if got > want + 1e-3:
+            rows.append(
+                f"{name} stands {got:.3f} mm off the cold core and its rib is bored to close on "
+                f"the tube at {want:.3f}. `_cold_core_interface.cap_anchors[{name!r}].over_face` "
+                f"is what the rib reaches, and the run lies {got - want:+.3f} off it.")
+    return record_bound(Bound(
+        "run-seated", "Every run the cap is bored for lies in its rib", not rows,
+        f"{seen} bored, furthest off {worst:.3f} mm", f"{want:.3f} mm at most", rows))
 
 
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
@@ -3399,6 +3463,10 @@ def build_pack() -> cq.Assembly:
     draw_runs(a, _lines.build_runs(solids, carries))
     # AND THE ANCHORS ON THOSE LINES, struck on the runs themselves so a reroute carries them.
     a.tube_anchors = tube_anchors(a.runs)
+    # The cold core's own ribs that hold a run are kept apart from those: `a.tube_anchors` is what
+    # the BOX builds from, and a station on the core has no business being handed to a wall. Both
+    # hold a run, so `tube-anchored` counts them together.
+    a.cap_tube_anchors = cap_tube_anchors(carries["foam-assembly"], a.runs)
     # THE CAP-SENSE PAIR, ONCE THE LINES THEY GRIP EXIST. A sleeve closes on a length of
     # tube, so it can only be placed after the run that tube is; the controller then goes
     # between the two of them and the leads are read against the loom.
@@ -3650,10 +3718,13 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
     # And both made-up chains against the cap they lie on, which needs no piece — the ribs are
     # printed in the core's own lid, so every solid in the reading is in the pack.
-    check_chains_seated({n: a.pack_solids[n] for n in _cci.cap_anchors},
+    check_chains_seated({n: a.pack_solids[n] for n in _cci.cap_anchors if n in a.pack_solids},
                         a.pack_solids["foam-assembly"])
     # And every anchored run against the rib its own site names.
-    check_tube_seated({n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}, pieces)
+    tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
+    check_tube_seated(tubes, pieces)
+    # And every run the COLD CORE's cap is bored for, against the cap it lies on.
+    check_run_seated(tubes, a.pack_solids["foam-assembly"])
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
     # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
     # here — after the bodies the box seats have stated theirs — is what puts it there.

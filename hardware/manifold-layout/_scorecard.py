@@ -989,7 +989,11 @@ def anchored_pairs() -> set:
     construction, and `check_tube_seated` is what holds that contact to the figure the seat is
     drawn at."""
     import enclosure_assembly as _ea
-    return {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
+    pairs = {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
+    # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and
+    # that rib stands on the cap — so the pair is the run against `foam-assembly`. A row bored for
+    # a body never matches here: this set is only read in the run pass, where the names are runs.
+    return pairs | {frozenset((name, "foam-assembly")) for name in _ea._cci.cap_anchors}
 
 
 def lane_notes(a, runs, rows) -> list[str]:
@@ -1357,7 +1361,8 @@ def _tube_anchored(a, runs) -> Check:
     is longer than that and can carry one where a printed face comes within reach of a straight
     length of it; most of the long ones here cruise through the pack with neither."""
     import enclosure_assembly as _ea
-    spans = _ea.unsupported_spans(runs, getattr(a, "tube_anchors", ()))
+    spans = _ea.unsupported_spans(runs, tuple(getattr(a, "tube_anchors", ()))
+                                  + tuple(getattr(a, "cap_tube_anchors", ())))
     cap = _ea.TUBE_ANCHOR_SPAN
     over = sorted(((s, rid) for rid, s in spans.items() if s > cap), reverse=True)
     anchored = {rid for rid, _leg, _root, _piece in _ea.TUBE_ANCHOR_SITES}
