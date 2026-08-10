@@ -39,14 +39,21 @@ transform, and every `cq.Assembly` node location in the pack is identity.
 way `_realized` and `_meshes` are checked: one process, cache defeated against
 cold against warm.
 
-**2 — `_scene.py`.** One node per body, carrying its name, its 4×4, its color,
-and the local-frame mesh it references, addressed on the BREP the way
-`_meshes._named` addresses it. A `.glb` per distinct shape, a `.tscn` per
-assembly. Runs with no engine installed.
+**2 — [`_scene.py`](../scripts/_scene.py).** One glTF node per body, carrying
+its name, its 4×4, its colour, and the local-frame triangles it stands over,
+named the way `_meshes._named` names kept triangles so two placements of one
+drawn body meet at one mesh:
 
-**3 — the viewer.** A Godot project loads the scene and web-exports. Held
-against `web/public/js/viewer` on the same assembly: the same 145 parts, the
-same selection, the same card.
+```
+tools/cad-venv/bin/python hardware/scripts/_scene.py hardware/manifold-layout/enclosure_assembly.py
+```
+
+The enclosure writes 145 nodes over 139 drawn bodies, 5.1 MB against the
+STEP's 21 MB. The cold core writes 63 over 63.
+
+**3 — the viewer.** A Godot project imports the scene, hangs a `.tscn` over it
+and web-exports. Held against `web/public/js/viewer` on the same assembly: the
+same 145 parts, the same selection, the same card.
 
 **4 — settling.** Bodies enter a Jolt world as hulls of the meshes phase 2
 bakes, and several move at once. What comes back is an arrangement; the
