@@ -2171,14 +2171,12 @@ def asse_sections(asse_carry) -> tuple:
              _asse.coupling.HEX_ACROSS_CORNERS, False),
     )
     # THE DEEPER SECTION TAKES THE SLIP AT EVERY BOUNDARY. A step is a face square to the axis,
-    # and which of its two sections owns the millimetre either side decides whether the run drops
-    # in: give it to the shallow one and the deep section is a socket the drawn length has to
-    # hit, give it to the deep one and it is a stop the run travels to.
-    # THE END SECTIONS ARE THERE TO MAKE THE STEPS AND FOR NOTHING ELSE. What the trough owes the
-    # chain is a face square to the axis at each end of the barrel; the fitting past that face
-    # only has to be seated, not followed. So both ends run the SHORTER of the two fittings'
-    # lengths — the coupling is more than twice the nut and the extra is trough over a section
-    # already held, printed in PETG and paid for in the deck's own headroom.
+    # and the millimetre either side of it belongs to the deeper of the two sections it divides —
+    # so the deep section is longer than the fitting in it and the step is a stop that fitting
+    # travels to.
+    # BOTH END SECTIONS RUN THE SHORTER OF THE TWO FITTINGS' LENGTHS. What the trough puts at each
+    # end of the barrel is a face square to the axis, and the fitting past that face is seated on
+    # the section it presents rather than followed down its length.
     reach = min(r[1] - r[0] for r in (rows[0], rows[-1]))
     rows = ((rows[0][1] - reach, rows[0][1], rows[0][2]), rows[1],
             (rows[-1][0], rows[-1][0] + reach, rows[-1][2]))
