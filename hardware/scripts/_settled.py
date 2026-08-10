@@ -4,17 +4,23 @@
 
 `settle.gd` starts every named body where its rule put it, with nothing pulling on it, and lets
 contact push apart whatever is inside something else. A body that comes back unmoved is one the
-engine agrees is clear. A body that moves is either a pack that does not close or a body the
-engine cannot hold the shape of, and the two read the same here.
+engine agrees is clear. A body that moves has been pushed somewhere, and how far says which
+direction and roughly how much — not the smallest move that would have opened the pack, because
+nothing minimises and nothing restores.
 
-A MOVING BODY IS CARRIED AS CONVEX PIECES. Jolt collides convex shapes, so a concave body is
-decomposed and every piece is that piece's region or larger. The error is one-signed — pieces
-run large, so a body reads as touching sooner than it does — and it grows with how concave the
-body is. A valve's coil comes back inside a millimetre. A tube routed through several bends does
-not, and its reading says more about the decomposition than about the pack.
+EVERY READING CARRIES THE BOX IT WAS TAKEN IN, and the box is printed above the answer. Four of
+its numbers decide what moves: the mover set, the decomposition's hull cap and resolution, and
+how long stillness has to hold before it counts. A reading is about the machine only to the
+extent those were not the binding constraint.
 
-`_clearing.gap` on the same pair is the exact answer. This is what to ask when the question is
-about several bodies at once, which is the question that has no exact form here.
+FREE A SET THAT CROSSES NOTHING. This machine interpenetrates by design — a bulkhead union
+through a wall, a tube through a cap bore, a display in its cutout — and the card knows those
+are legal where the engine does not. Freed all together they cascade, and what comes back is
+about the cascade. `wago-*` alone reads 0.00 mm on all ten; the same ten inside a whole-pack
+run read 6.24-6.35.
+
+`_clearing.gap` on a pair is the exact answer. This is what to ask about several bodies at once,
+which is the question with no exact form here.
 """
 
 import json
@@ -43,12 +49,31 @@ def families(rows):
     return out
 
 
+def box(whole):
+    """The bounds the run was taken under, before the answer it produced."""
+    b = whole.get("box")
+    if not b:
+        return ["  box  not stated — an older run, and its bounds are not recoverable"]
+    return [
+        f"  box  free {b['free']!r}: {b['movers']} moved, {b['held']} held "
+        f"({b['held_as'].split(' — ')[0]})",
+        f"       gravity {b['gravity']:g}, started from {b['started_from']}",
+        f"       hulls ≤{b['max_convex_hulls']} at resolution {b['resolution']}, "
+        f"concavity {b['max_concavity']:.3g}",
+        f"       still under {b['still_under'][0]:g} mm and {b['still_under'][1]:g}° a step, "
+        f"held for {b['quiet_steps_wanted']} steps",
+        f"       {b['note']}",
+    ]
+
+
 def report(path):
     rows, whole = read(path)
     moved = sorted((r["moved"] for r in rows), reverse=True)
     over = [r for r in rows if r["moved"] > FLOOR]
     print(f"{len(rows)} bodies, {whole['steps']} steps, "
-          f"{'settled' if whole['settled'] else 'still moving'}")
+          f"{'settled' if whole['settled'] else 'STILL MOVING at the step cap — raise --steps'}")
+    for line in box(whole):
+        print(line)
     print(f"  median {statistics.median(moved):.3f} mm   "
           f"{len(rows) - len(over)} of {len(rows)} inside the {FLOOR:g} mm floor")
     if not over:

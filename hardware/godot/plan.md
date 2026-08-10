@@ -90,20 +90,30 @@ own names that turn up in it.
 
 Jolt collides convex shapes. A concave body is decomposed and every piece is
 that piece's region or larger, so the error runs one way — a body reads as
-touching sooner than it does — and it grows with how concave the body is.
+touching sooner than it does.
 
-Freed in place with nothing pulling on them, against an exact audit that reads
-**0 clashes**:
+Freed against a held world, crossing no wall and no port, against an exact
+audit that reads **0 clashes**:
 
-| | bodies moved past the 1 mm floor | worst |
+| freed | moved past the 1 mm floor | worst |
 |---|---|---|
-| valve coils alone | 0 of 30 | 0.95 mm |
-| the whole pack | 121 of 145 | 157.7 mm |
+| `wago-*` | 0 of 10 | 0.00 mm |
+| `relay-*` | 2 of 2 | 2.54 mm |
+| `coil-v-*` | 0 of 30 | 0.95 mm |
 
-A compact body comes back inside a millimetre. A tube through several bends
-comes back a hundred, and that reading is about the decomposition rather than
-about the pack. `_clearing.gap` is the exact answer for a pair; this is what to
-ask about several bodies at once, which is the question with no exact form.
+Taken at `max_convex_hulls` 16, resolution 20000, concavity 0.001, gravity 0,
+each run held 90 steps still in both terms. A body that came back moved was
+pushed there; nothing minimises and nothing restores, so the distance is a
+direction and an order of magnitude.
+
+**A set freed all at once measures the cascade, not the pack.** This machine
+interpenetrates on purpose — a bulkhead union through a wall, a tube through a
+cap bore, the display in its cutout — and the card knows those are legal where
+the engine does not. The same ten `wago-*` that read 0.00 mm alone read
+6.24–6.35 mm inside a whole-pack run. Free a set that crosses nothing.
+
+`_clearing.gap` is the exact answer for a pair; this is what to ask about
+several bodies at once, which is the question with no exact form.
 
 ## The walls
 
