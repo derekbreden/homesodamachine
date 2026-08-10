@@ -2468,6 +2468,86 @@ def check_digiten_seated(meter, piece) -> Bound:
             f"station did not follow it."])))
 
 
+def anchor_rows(foam_carry, disch_carry) -> list:
+    """Each chain anchor as `(name, label, seat_r, wants, span_ok)` — the rib the cap carries
+    against the section of the placed body it stands under.
+
+    `wants` is the seated section's own circumradius plus `DISCH_SEAT_SLIP`, read off the chain's
+    own stack; `span_ok` is whether the rib's whole length lies inside that one section. The cap
+    prints a rib it never sees the body of, so the body is what corrects it."""
+    rows = []
+    for name, station in _cci.cap_anchors.items():
+        axis = foam_carry(cap_anchor(name))[0]
+        tip = disch_carry(_dis.barb_tip())[0]
+        half = _cci.cap_anchor_len / 2.0
+        # `s` runs from the barb tip down the chain, and the chain is laid barb aft — so a rib
+        # standing at `axis` sits this far along the stack, with its two ends either side.
+        s0, s1 = (tip[1] - axis[1]) - half, (tip[1] - axis[1]) + half
+        hit = [(label, r) for label, r, a, b in _dis.sections() if a - 1e-9 <= s0 and s1 <= b + 1e-9]
+        label, r = hit[0] if hit else ("no one section", 0.0)
+        rows.append((name, label, station.seat_r, r + DISCH_SEAT_SLIP, bool(hit)))
+    return rows
+
+
+def check_anchor_lands(rows) -> Bound:
+    """Whether every cap rib is bored for the section it stands under, and spans only that one.
+
+    The detail is the row `_cold_core_interface.cap_anchors` should carry, so a body that has
+    moved or changed section corrects the cap from the machine rather than being guessed at."""
+    bad = [r for r in rows if not r[4] or abs(r[2] - r[3]) > 1e-3]
+    return record_bound(Bound(
+        "anchor-lands", "Every cap rib is bored for the section it stands under",
+        bool(rows) and not bad,
+        "no rib stood" if not rows else f"{len(rows)} ribs, {len(rows) - len(bad)} on section",
+        "each rib inside one section, bored to its own radius",
+        ([] if rows and not bad else
+         [f"chain anchor {n}: the rib spans {lab} and is bored {has:.3f}, where that section "
+          f"asks {want:.3f}. This is the row `_cold_core_interface.cap_anchors` should carry:"
+          for n, lab, has, want, _ok in bad]
+         + [f'    "{n}": CapAnchor({_cci.cap_anchors[n].centre}, {want:.3f}),'
+            for n, _lab, _has, want, _ok in bad])))
+
+
+def check_disch_seated(chain, foam) -> Bound:
+    """Whether the discharge chain lies in its printed rib, read off the two placed solids.
+
+    The same reading the tap-water chain's and the meter's take. This seat is a bore, so the gap
+    it holds is the slip itself — and it opens UP, so the reading says the body is DOWN in it and
+    the strap has something to pull against rather than something to carry."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    got = _clearing.gap(solid(chain), solid(foam), 5.0)
+    want = DISCH_SEAT_SLIP
+    ok = got <= want + 1e-3
+    return record_bound(Bound(
+        "disch-seated", "The discharge chain lies in its printed rib on the core's cap", ok,
+        f"{got:.3f} mm off the cap's furniture", f"{want:.3f} mm at most",
+        ([] if ok else [
+            f"the chain stands {got:.3f} mm off everything the cold core puts near it, and its "
+            f"rib is drawn to close on one section at {want:.3f}. Either `cap_anchors` no longer "
+            f"reads that section's own radius, or the chain moved and the rib did not follow "
+            f"it — `anchor-lands` is the row that says which."])))
+
+
+def check_strap_vocabulary() -> Bound:
+    """Whether the two boxes that cut a strap cavity cut it for the same strap.
+
+    `enclosure` and `_cold_core_interface` each state the fastener their own features read, and
+    neither can import the other. This is the module that seats both, so it is where the two are
+    held together."""
+    pairs = (("width", _enc.tie_strap_w, _cci.cap_anchor_strap_w),
+             ("cavity", _enc.tie_cav_w, _cci.cap_anchor_cav_w),
+             ("end wall", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall))
+    bad = [(what, a, b) for what, a, b in pairs if abs(a - b) > 1e-9]
+    return record_bound(Bound(
+        "strap-vocabulary", "Both boxes cut their strap cavities for the same strap", not bad,
+        f"{len(pairs) - len(bad)}/{len(pairs)} agree", "every figure the same in both",
+        [f"the strap's {what}: `enclosure` cuts for {a:.3f} and `_cold_core_interface` for "
+         f"{b:.3f}. One tie goes through both, so one of these is a cavity the strap in the "
+         f"BOM does not pass." for what, a, b in bad]))
+
+
 def check_tube_seated(tubes, pieces) -> Bound:
     """Whether every anchored run lies in the rib its row names, read off the placed solids.
 
@@ -3264,6 +3344,11 @@ def build_pack() -> cq.Assembly:
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     disch, disch_carry = build_discharge_chain(foam_carry, seaflo_carry)
     a.add(disch, name="discharge-chain", color=C_SUCT)
+    # The rib the cap prints against the section of the chain it stands under, both read back
+    # off the placed body — the same reading the pump's four columns take.
+    a.anchors = anchor_rows(foam_carry, disch_carry)
+    check_anchor_lands(a.anchors)
+    check_strap_vocabulary()
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     deck_solids, panel_carries = build_deck(a.deck_z, a.gate_z, seat=True)
@@ -3559,6 +3644,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
+    # And the discharge chain against the cap it lies on, which needs no piece — the rib is
+    # printed in the core's own lid, so both solids are in the pack.
+    check_disch_seated(a.pack_solids["discharge-chain"], a.pack_solids["foam-assembly"])
     # And every anchored run against the rib its own site names.
     check_tube_seated({n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}, pieces)
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
