@@ -64,14 +64,14 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
-| Umbilical unions × 3 (PP1208E) | [-77 / -45.64 / -45.64](UMBILICAL_STATIONS) at z [336.7](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
+| Umbilical unions × 3 (PP1208E) | [-83 / -45.64 / -45.64](UMBILICAL_STATIONS) at z [336.7](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
 | Tap-water union (PP1208E) | x [-83](WATER_BACK_X), z [336.7](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
 | CO2 DERPIPE PTC | [x 48, z 290](CO2_BACK) | Ø[15.42](CO2_HOLE_D) round | Seated on its own inboard stub tip; the GASHER check threads onto that stub in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
 **The CO2 comes in at the back wall**, not at the front — tank, tap and umbilical all land on the one face the customer reaches at install. Nothing at all is cut in the front wall.
 
-The four PP1208E unions stand in a **rectangle** on two columns [31.36 mm](UMBILICAL_PITCH) apart: the carbonated-water and tap-water unions on the upper storey at z [336.7](PORT_ROW_Z), the two flavor unions on their own below. A JG bulkhead nut is [22.86](PORT_NUT_D) mm across the face and a chain of three made-up nuts occupies [82.58](PORT_CHAIN_3) mm, so the pitch leaves a socket room to get on each nut with its neighbour already made up. The C14's flange is [47](C14_FLANGE_W) mm wide and stands east of them on its own storey.
+The four PP1208E unions stand in a **rectangle** on two columns [37.36 mm](UMBILICAL_PITCH) apart: the carbonated-water and tap-water unions on the upper storey at z [336.7](PORT_ROW_Z), the two flavor unions on their own below. A JG bulkhead nut is [22.86](PORT_NUT_D) mm across the face and a chain of three made-up nuts occupies [82.58](PORT_CHAIN_3) mm, so the pitch leaves a socket room to get on each nut with its neighbour already made up. The C14's flange is [47](C14_FLANGE_W) mm wide and stands east of them on its own storey.
 
 Install, in this order:
 
@@ -151,7 +151,7 @@ Then **slide the tray in through the slot in the −X side wall**, rim first, ea
 
 The **display** goes into the 45° facet chamfered across the top-front arris of `enclosure-front-top` — a solid surface running the box's full width, with the glass centred on it and flat facet either side. The glass is the datum: it seats in the bezel counterbore and the body hangs behind it through the PCB cut-through. Handle it ESD-safe. It is held by the counterbore and nothing else today — see Open items 3. Leave its RS485 and power leads loose for [`wiring.md`](/hardware/assembly/wiring.md).
 
-The **hopper is an opening, not a part.** `enclosure._hopper_hole` cuts it in the top wall behind the display facet, sized off the placed funnel's own collar, and the opening crosses the Y seam — so both top pieces carry their share of it and there is no screw pattern to land. Deburr and wipe the collar seat: the removable silicone funnel's brim underside rests on this face, and brim residue or a stray support nib holds the basin proud and crooked in its frame. Then sight straight down the opening and confirm the fall corridor to the pump row below is clear. What drops through it is `fluid-4`, drawn 1/4" LLDPE from the funnel's spout to V-B's own inlet, and it threads the two source coils with **[0.770 mm a side](HOPPER_LANE_SIDE)** — the tightest lane in the machine, and the one row `clearance-floor` [currently reports red](HOPPER_GATE_STATUS). Nothing holds that corridor open: the card's own note is that the coils leave [7.890 mm](HOPPER_LANE_GAP) for a [Ø6.35](HOPPER_TUBE_D) tube, so the lane has no slack to give and the tube is centred in what there is. Treat a stray nib or a bent tube here as a defect, not a tolerance. The funnel itself ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)) is seated at finish-and-pack, after the wipe-down, not here.
+The **hopper is an opening, not a part.** `enclosure._hopper_hole` cuts it in the top wall behind the display facet, sized off the placed funnel's own collar, and the opening crosses the Y seam — so both top pieces carry their share of it and there is no screw pattern to land. Deburr and wipe the collar seat: the removable silicone funnel's brim underside rests on this face, and brim residue or a stray support nib holds the basin proud and crooked in its frame. Then sight straight down the opening and confirm the fall corridor to the pump row below is clear. What drops through it is `fluid-4`, drawn 1/4" LLDPE from the funnel's spout to V-B's own inlet — the machine's one gravity feed, so what the corridor owes it is a clear fall. It passes between the two source coils on the way down: they leave [10.310 mm](HOPPER_LANE_GAP) for a [Ø6.35](HOPPER_TUBE_D) tube, so it runs with **[1.980 mm a side](HOPPER_LANE_SIDE)**, and `clearance-floor` — which holds every drawn run off everything its own line does not join it to — [currently passes](HOPPER_GATE_STATUS) with this corridor in the count. Nothing holds it open: the coils are placed bodies and the tube is drawn between them, so that air is what the arrangement leaves rather than a feature anyone cut. Treat a stray nib or a tube off its drawn line as a defect, not a tolerance. The funnel itself ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)) is seated at finish-and-pack, after the wipe-down, not here.
 
 ## Output condition
 
@@ -170,7 +170,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated under one of the compressor's four floor screws, on the grommet's steel bushing, routed toward the ground stack, not yet terminated at the bus
 - No internal plumbing runs, no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [59](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [77](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 
