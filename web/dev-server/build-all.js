@@ -15,10 +15,9 @@
 //
 // --check is the guard that would have caught the week-long enclosure staleness.
 //
-// This is a staleness sweep, not a commit-time check: every generator in the tree
-// runs, each as its own CadQuery process, so it costs minutes (--list prints the
-// count without building). .githooks/pre-commit is the commit-time gate, and it
-// keys each check to the files actually staged. Don't put this in front of a commit.
+// It runs every generator in the tree, each as its own CadQuery process, so it
+// costs minutes; `--list` prints the count without building. The commit-time gate
+// is .githooks/pre-commit, which keys each check to the files actually staged.
 
 import fs from "fs";
 import path from "path";
