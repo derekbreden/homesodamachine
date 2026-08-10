@@ -63,6 +63,31 @@ LENGTH = (BARB_L + MAAC_HEX_L + MAAC_NPT_L
           - 2 * NPT_ENGAGE)
 
 
+# The stack barb-tip first, as `(label, diameter, length)`. `build()` lays these down and a
+# holder reads the same list for the section it seats on — the MAACFLOW is stainless, the check
+# metal, and the PP450822E polypropylene, which is what says where a strap may close.
+SECTIONS = (
+    ("MAACFLOW barb", BARB_D, BARB_L),
+    ("MAACFLOW hex", MAAC_HEX, MAAC_HEX_L),
+    ("MAACFLOW NPT", MAAC_NPT_D, MAAC_NPT_L - NPT_ENGAGE),
+    ("GASHER socket", check.SOCKET_D, check.SOCKET_LENGTH),
+    ("GASHER hex", check.HEX_ACROSS_CORNERS, check.HEX_LENGTH),
+    ("GASHER stub", check.THREAD_D, check.STUB_LENGTH - NPT_ENGAGE),
+    ("PP450822E socket", JG_SOCKET_D, JG_SOCKET_L),
+    ("PP450822E hex", JG_HEX, JG_HEX_L),
+    ("PP450822E collet", JG_COLLET_D, JG_COLLET_L),
+)
+
+
+def sections():
+    """Every section as `(label, radius, s0, s1)`, `s` running from the barb tip down the chain."""
+    out, s = [], 0.0
+    for label, dia, length in SECTIONS:
+        out.append((label, dia / 2.0, s, s + length))
+        s += length
+    return tuple(out)
+
+
 def barb_tip():
     """The MAACFLOW's barb tip — the open end the 3/8" hose stub slips over:
     (position, outward axis). This is where the chain meets the hose off the
@@ -80,15 +105,7 @@ def build():
     NPT joint so the stack stands its real length. The check's three sections come off
     its own module — socket boss, hex barrel, male stub, at the sizes it draws them."""
     part, z = None, 0.0
-    for dia, length in ((BARB_D, BARB_L),
-                        (MAAC_HEX, MAAC_HEX_L),
-                        (MAAC_NPT_D, MAAC_NPT_L - NPT_ENGAGE),
-                        (check.SOCKET_D, check.SOCKET_LENGTH),
-                        (check.HEX_ACROSS_CORNERS, check.HEX_LENGTH),
-                        (check.THREAD_D, check.STUB_LENGTH - NPT_ENGAGE),
-                        (JG_SOCKET_D, JG_SOCKET_L),
-                        (JG_HEX, JG_HEX_L),
-                        (JG_COLLET_D, JG_COLLET_L)):
+    for _label, dia, length in SECTIONS:
         z -= length
         seg = cq.Solid.makeCylinder(
             dia / 2.0, length, cq.Vector(0, 0, z), cq.Vector(0, 0, 1))

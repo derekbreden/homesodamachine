@@ -61,6 +61,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 from _cadq_export import export_assembly
 from _cold_core_interface import (
     attachment_xy_positions,
+    cap_anchors,
     cap_conduits,
     cap_conduit_axis,
     cap_conduit_bore_radius,
@@ -148,6 +149,16 @@ def cap_conduit_axis_out():
     """The way out of a cap conduit, in the assembly's frame — the top cap's +Z, which the
     spin about Z leaves alone."""
     return cap_conduit_axis
+
+
+def cap_anchor_station(name):
+    """One chain anchor's seat centre in the ASSEMBLY'S OWN frame: `(x, y)`.
+
+    The rib is authored in the CAP's frame and the cap installs spun, so this is where the seat
+    a body lies in actually stands. Its height over the lid's outer face is
+    `_cold_core_interface.cap_anchor_axis_over_face`, and the rib runs along the assembly's own
+    ∓X — the spin carries the cap's +X onto it."""
+    return spin_xy(cap_anchors[name].centre)
 
 
 def deck_mount_station(name):

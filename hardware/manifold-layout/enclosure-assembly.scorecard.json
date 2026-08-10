@@ -44,8 +44,8 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "held": 95,
- "mounted": 34,
+ "held": 96,
+ "mounted": 35,
  "checks": [
   {
    "id": "coverage",
@@ -135,19 +135,20 @@
     "fluid-28 \u2014 cap-sleeve-b: 0.049 mm \u2014 seated against it",
     "fluid-18 \u2014 cap-sleeve-a: 0.049 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "fluid-14 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
-    "water-split \u2014 discharge-chain: 1.000 mm",
     "carb-1 \u2014 suction-chain: 1.056 mm",
-    "co2-1 \u2014 fluid-14: 1.652 mm",
+    "co2-1 \u2014 fluid-14: 1.651 mm",
     "water-7 \u2014 co2-2: 1.727 mm",
-    "water-5 \u2014 fluid-24: 1.761 mm",
     "fluid-14 \u2014 wr1110: 1.825 mm",
-    "fluid-14 \u2014 gasher-co2: 1.957 mm",
+    "fluid-14 \u2014 gasher-co2: 1.956 mm",
     "fluid-4 \u2014 coil-v-a: 1.980 mm",
     "fluid-4 \u2014 coil-v-b: 1.980 mm",
     "co2-2 \u2014 fluid-14: 2.000 mm",
     "fluid-4 \u2014 valve-v-a: 2.054 mm",
     "carb-1 \u2014 fluid-18: 2.266 mm",
+    "water-6 \u2014 fluid-18: 2.470 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-2: 2.500 mm",
     "relay-2 \u2014 pcba: 2.532 mm",
@@ -158,16 +159,15 @@
     "carb-1 \u2014 pcba: 3.002 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-2 \u2014 fluid-26: 3.248 mm",
+    "fluid-14 \u2014 seaflo-pump: 3.325 mm",
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.326 mm",
     "fluid-28 \u2014 enclosure-back-top: 3.326 mm",
-    "fluid-14 \u2014 seaflo-pump: 3.326 mm",
     "water-3 \u2014 fluid-28: 3.624 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "foam-assembly \u2014 suction-chain: 3.803 mm",
-    "fluid-18 \u2014 discharge-chain: 3.822 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
     "fluid-14 \u2014 vk-solenoid: 4.000 mm",
     "co2-2 \u2014 pcba: 4.065 mm",
@@ -180,7 +180,7 @@
     "water-7 \u2014 foam-assembly: 4.750 mm",
     "fluid-28 \u2014 fluid-24: 4.802 mm",
     "fluid-4 \u2014 seaflo-pump: 4.817 mm",
-    "water-2 \u2014 discharge-chain: 5.065 mm",
+    "water-3 \u2014 discharge-chain: 5.075 mm",
     "water-3 \u2014 tee-y-a: 5.075 mm",
     "water-3 \u2014 tee-y-b: 5.075 mm",
     "tee-y-a \u2014 mpr121: 5.366 mm",
@@ -211,6 +211,16 @@
    "status": "pass",
    "value": "4/4 on the bed",
    "target": "every piece on the bed",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-ramp-grade",
+   "label": "The X half-run is the funnel floor's shallowest line",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the Y half-run at or under the X (74.53 mm)",
    "detail": [],
    "active": true
   },
@@ -375,22 +385,22 @@
    "active": true
   },
   {
+   "id": "anchor-room",
+   "label": "Every chain anchor stands its room off everything else the face opens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "1 mm off the nearest",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "cap-conduit-pair",
    "label": "Every pair of conduits stands apart or merges on a neck, never tangent",
    "kind": "gate",
    "status": "pass",
    "value": "21/21 hold",
    "target": "the pour gap apart or a 2 mm neck",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-ramp-grade",
-   "label": "The X half-run is the funnel floor's shallowest line",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "the Y half-run at or under the X (74.53 mm)",
    "detail": [],
    "active": true
   },
@@ -699,6 +709,26 @@
    "active": true
   },
   {
+   "id": "anchor-lands",
+   "label": "Every cap rib is bored for the section it stands under",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1 ribs, 1 on section",
+   "target": "each rib inside one section, bored to its own radius",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "strap-vocabulary",
+   "label": "Both boxes cut their strap cavities for the same strap",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3/3 agree",
+   "target": "every figure the same in both",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "port-pair",
    "label": "The nozzle unions' pair stands inside the west lane",
    "kind": "gate",
@@ -789,11 +819,21 @@
    "active": true
   },
   {
+   "id": "disch-seated",
+   "label": "The discharge chain lies in its printed rib on the core's cap",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.200 mm off the cap's furniture",
+   "target": "0.200 mm at most",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "tube-seated",
    "label": "Every anchored run lies in its printed rib",
    "kind": "gate",
    "status": "pass",
-   "value": "1 anchored, furthest off 0.199 mm",
+   "value": "2 anchored, furthest off 0.199 mm",
    "target": "0.200 mm at most",
    "detail": [],
    "active": true
@@ -923,7 +963,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 44/44 corners at spec",
+   "value": "B \u2014 47/47 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -937,10 +977,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "26/77 mounted",
+   "value": "27/77 mounted",
    "target": "a printed joint per body",
    "detail": [
-    "discharge-chain: held by none",
     "mpr121: held by none",
     "suction-chain: held by none",
     "wr1110: held by none",
@@ -1071,13 +1110,13 @@
    "label": "Something holds every body",
    "kind": "goal",
    "status": "fail",
-   "value": "73/77 held",
+   "value": "74/77 held",
    "target": "a holder per body",
    "detail": [
     "basin holds 1: moisture-plate",
     "bosses holds 6: c14-inlet, ground-stack, pcba, psu, relay-1, relay-2",
     "channel holds 2: drip-pan, thermal-fuse",
-    "cradle holds 5: asse1022-assembly, mq6-sensor, valve-v-a, valve-v-b, vk-solenoid",
+    "cradle holds 6: asse1022-assembly, discharge-chain, mq6-sensor, valve-v-a, valve-v-b, vk-solenoid",
     "deck-mount holds 1: seaflo-pump",
     "floor holds 3: compressor, condenser+fan, foam-assembly",
     "gap-press holds 1: fuse-clamp",
@@ -1087,7 +1126,6 @@
     "tube-hung holds 2: flow-regulator, water-split",
     "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
     "well holds 10: wago-g, wago-gnd, wago-h, wago-mana, wago-manb, wago-n, wago-reeds-a, wago-reeds-b, wago-sensors, wago-v12",
-    "discharge-chain: nothing holds it at all",
     "mpr121: nothing holds it at all",
     "suction-chain: nothing holds it at all",
     "wr1110: nothing holds it at all"
@@ -1103,11 +1141,12 @@
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 480.1 mm unheld, 280.1 over",
-    "fluid-14: 443.6 mm unheld, 243.6 over",
+    "fluid-14: 356.6 mm unheld, 156.6 over \u2014 anchored once already",
     "fluid-28: 348.0 mm unheld, 148.0 over",
     "water-3: 258.7 mm unheld, 58.7 over",
     "fluid-2: 237.1 mm unheld, 37.1 over",
-    "carb-1: 150.8 mm, held at its anchor"
+    "carb-1: 150.8 mm, held at its anchor",
+    "fluid-14: 356.6 mm, held at its anchor"
    ],
    "active": false
   }
@@ -1386,7 +1425,7 @@
    "pos": [
     -60.5,
     306.9,
-    301.4
+    268.1
    ],
    "face": [
     0.0,
@@ -1405,7 +1444,7 @@
    "pos": [
     -60.5,
     223.5,
-    301.4
+    268.1
    ],
    "face": [
     0.0,
@@ -2355,7 +2394,7 @@
      248.2,
      90.5,
      461.0,
-     262.015
+     268.1
     ],
     [
      -90.5,
@@ -2366,7 +2405,7 @@
      20.0
     ]
    ],
-   "fill": 0.111,
+   "fill": 0.1087,
    "primitive": false,
    "declared": null
   },
@@ -3112,10 +3151,10 @@
     [
      -69.0,
      223.5,
-     292.9,
+     259.6,
      -52.0,
      306.9,
-     309.9
+     276.6
     ]
    ],
    "fill": 0.5954,
@@ -4098,6 +4137,88 @@
    }
   },
   {
+   "id": "water-6",
+   "kind": "water",
+   "frm": "seaflo-pump.discharge",
+   "to": "discharge-chain.barb-tip",
+   "stock": "3/8\" braided PVC",
+   "od": 15.1,
+   "length": 57.58,
+   "radius": 15.9,
+   "cap": 15.9,
+   "minBend": 15.9,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 82.4,
+     "radius": 15.9,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      15.9,
+      34.58
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 76.5,
+     "radius": 15.9,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      34.58,
+      15.9
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 82.4,
+   "seat": 18.177,
+   "reach": 20.8,
+   "reachRatio": 1.3082,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 34.578,
+    "demand": 1.6624,
+    "from": [
+     -55.9,
+     330.9,
+     301.4
+    ],
+    "to": [
+     -60.5,
+     322.8,
+     268.1
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -40.0,
+      330.9,
+      301.4
+     ],
+     [
+      -60.5,
+      306.9,
+      268.1
+     ]
+    ],
+    "axis": {
+     "x": 20.5,
+     "y": 24.0,
+     "z": 33.3
+    },
+    "span": 45.88,
+    "path": 57.58,
+    "detour": 1.255
+   }
+  },
+  {
    "id": "refrig-3",
    "kind": "refrigerant",
    "frm": "compressor.refrig-suction",
@@ -4259,6 +4380,88 @@
     "span": 49.78,
     "path": 61.75,
     "detour": 1.24
+   }
+  },
+  {
+   "id": "water-5",
+   "kind": "water",
+   "frm": "discharge-chain.tube-port",
+   "to": "foam-assembly.water-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 48.26,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 10.1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      14.0,
+      25.9
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 88.5,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      25.9,
+      14.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 88.5,
+   "seat": 14.384,
+   "reach": 24.393,
+   "reachRatio": 1.7423,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 25.903,
+    "demand": 1.0619,
+    "from": [
+     -60.5,
+     209.5,
+     268.1
+    ],
+    "to": [
+     -56.0,
+     184.0,
+     267.4
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -60.5,
+      223.5,
+      268.1
+     ],
+     [
+      -56.0,
+      184.0,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 4.5,
+     "y": 39.5,
+     "z": 14.7
+    },
+    "span": 42.39,
+    "path": 48.26,
+    "detour": 1.138
    }
   },
   {
@@ -4678,88 +4881,6 @@
    }
   },
   {
-   "id": "water-5",
-   "kind": "water",
-   "frm": "discharge-chain.tube-port",
-   "to": "foam-assembly.water-in",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 69.37,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 53.4,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      14.0,
-      42.74
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 37.3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      42.74,
-      14.0
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 53.4,
-   "seat": 27.855,
-   "reach": 50.876,
-   "reachRatio": 3.634,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 42.738,
-    "demand": 0.84,
-    "from": [
-     -60.5,
-     209.5,
-     301.4
-    ],
-    "to": [
-     -56.0,
-     184.0,
-     267.4
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -60.5,
-      223.5,
-      301.4
-     ],
-     [
-      -56.0,
-      184.0,
-      253.4
-     ]
-    ],
-    "axis": {
-     "x": 4.5,
-     "y": 39.5,
-     "z": 48.0
-    },
-    "span": 62.33,
-    "path": 69.37,
-    "detour": 1.113
-   }
-  },
-  {
    "id": "fluid-26",
    "kind": "fluid",
    "frm": "foam-assembly.reservoir-b",
@@ -4924,6 +5045,110 @@
    }
   },
   {
+   "id": "fluid-14",
+   "kind": "fluid",
+   "frm": "valve-v-f.outlet",
+   "to": "foam-assembly.reservoir-a-fill",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 476.53,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      50.86,
+      232.77
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 35.9,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      232.77,
+      43.61
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 36.6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      43.61,
+      72.0
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      72.0,
+      89.92
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 50.86,
+   "reach": 54.098,
+   "reachRatio": 3.8641,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 3,
+    "length": 72.0,
+    "demand": 1.3309,
+    "from": [
+     56.0,
+     350.0,
+     343.32
+    ],
+    "to": [
+     56.0,
+     422.0,
+     343.32
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.07,
+      82.68,
+      267.32
+     ],
+     [
+      56.0,
+      422.0,
+      253.4
+     ]
+    ],
+    "axis": {
+     "x": 21.07,
+     "y": 339.32,
+     "z": 13.92
+    },
+    "span": 340.26,
+    "path": 476.53,
+    "detour": 1.4
+   }
+  },
+  {
    "id": "water-2",
    "kind": "water",
    "frm": "asse1022-assembly.tube-out",
@@ -5085,145 +5310,6 @@
     "span": 176.31,
     "path": 289.14,
     "detour": 1.64
-   }
-  },
-  {
-   "id": "fluid-14",
-   "kind": "fluid",
-   "frm": "valve-v-f.outlet",
-   "to": "foam-assembly.reservoir-a-fill",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 443.59,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      50.86,
-      339.97
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      339.97,
-      64.77
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 90.0,
-   "seat": 50.86,
-   "reach": 169.987,
-   "reachRatio": 12.1419,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 339.974,
-    "demand": 2.0,
-    "from": [
-     77.07,
-     82.68,
-     318.18
-    ],
-    "to": [
-     56.0,
-     422.0,
-     318.18
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      77.07,
-      82.68,
-      267.32
-     ],
-     [
-      56.0,
-      422.0,
-      253.4
-     ]
-    ],
-    "axis": {
-     "x": 21.07,
-     "y": 339.32,
-     "z": 13.92
-    },
-    "span": 340.26,
-    "path": 443.59,
-    "detour": 1.304
-   }
-  },
-  {
-   "id": "water-6",
-   "kind": "water",
-   "frm": "seaflo-pump.discharge",
-   "to": "discharge-chain.barb-tip",
-   "stock": "3/8\" braided PVC",
-   "od": 15.1,
-   "length": 37.68,
-   "radius": 15.9,
-   "cap": 15.9,
-   "minBend": 15.9,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 15.9,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      20.5,
-      24.0
-     ]
-    }
-   ],
-   "atSpec": 1,
-   "bends": 1,
-   "worstTurn": 90.0,
-   "seat": 20.5,
-   "reach": null,
-   "reachRatio": null,
-   "reachGrade": "A",
-   "binding": null,
-   "need": {
-    "ends": [
-     [
-      -40.0,
-      330.9,
-      301.4
-     ],
-     [
-      -60.5,
-      306.9,
-      301.4
-     ]
-    ],
-    "axis": {
-     "x": 20.5,
-     "y": 24.0,
-     "z": 0.0
-    },
-    "span": 31.56,
-    "path": 37.68,
-    "detour": 1.194
    }
   },
   {
@@ -5452,8 +5538,8 @@
   },
   {
    "component": "discharge-chain",
-   "by": null,
-   "held": "none",
+   "by": "foam-assembly",
+   "held": "cradle",
    "kind": "real"
   },
   {
@@ -5871,5 +5957,5 @@
    "kind": "real"
   }
  ],
- "sources": "9278c4fff75746621a0b3213b7e8d6e7"
+ "sources": "1b381bc12dd515f533e4bbaa85d619ca"
 }

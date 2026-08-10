@@ -18,7 +18,7 @@ sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_printed / "valve-seat"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
-from world_workplane import WorldWorkplane, xy_plane_z_up
+from world_workplane import WorldWorkplane, xy_plane_z_up, yz_plane_x_up
 from _cadq_export import export_step
 import valve_seat as seat
 from _foam_cap import (
@@ -52,6 +52,12 @@ from _cold_core_interface import (
     cap_cradle_boss_radius,
     cap_cradle_socket_radius,
     cap_cradle_wall,
+    cap_anchors,
+    cap_anchor_axis_over_face,
+    cap_anchor_cav_w,
+    cap_anchor_cav_wall,
+    cap_anchor_len,
+    cap_anchor_wall,
     outer_shell_x_length,
     outer_shell_y_length,
 )
@@ -177,6 +183,54 @@ def add_cradles(lid, face_z):
     return lid
 
 
+def add_chain_anchors(lid, face_z):
+    """Every chain anchor, standing on the lid's outer face at `face_z`.
+
+    THE CHANNEL IS A REMAINDER: the rib stands one `cap_anchor_wall` over the face down its whole
+    length and only its two ends carry on down to meet it, so the strap's channel is the room
+    between those ends. The lid's own face is the channel's floor and the rib's underside is its
+    roof — neither is drawn, and there is no cut anywhere in it to graze a face with.
+
+    THE STRAP CLOSES ROUND THE BODY AND THE RIB'S OWN BACK TOGETHER: through the channel, out one
+    flank, over the far side of the body and back in the other. What it pulls is the body down
+    into the bore, and the bore is what says where the body is.
+
+    The lower box runs the rib's whole length so the seat's own lip is ONE edge, and the rib is
+    UNIFIED before it joins the lid — a fuse imprints the seam of every solid that went into it,
+    so a rib fused straight onto the plate carries its lip in as many pieces as it was laid down
+    in, and its bore in as many again."""
+    for name, station in cap_anchors.items():
+        (cx, cy) = station.centre
+        seat_r = station.seat_r
+        reach = seat_r + cap_anchor_wall
+        axis_z = face_z + cap_anchor_axis_over_face(name)
+        x0 = cx - cap_anchor_len / 2.0
+
+        def block(xa, length, za, zb):
+            return (
+                WorldWorkplane(yz_plane_x_up)
+                .workplane(offset=xa)
+                .polyline([(cy - reach, za), (cy + reach, za),
+                           (cy + reach, zb), (cy - reach, zb)])
+                .close()
+                .extrude(length)
+            )
+
+        rib = block(x0, cap_anchor_len, face_z + cap_anchor_wall, axis_z)
+        for s0, s1 in ((0.0, cap_anchor_cav_wall),
+                       (cap_anchor_cav_wall + cap_anchor_cav_w, cap_anchor_len)):
+            rib = rib.union(block(x0 + s0, s1 - s0, face_z, face_z + cap_anchor_wall))
+        bore = (
+            WorldWorkplane(yz_plane_x_up)
+            .workplane(offset=x0)
+            .pushPoints([(cy, axis_z)])
+            .circle(seat_r)
+            .extrude(cap_anchor_len)
+        )
+        lid = lid.union(rib.cut(bore).clean().val())
+    return lid
+
+
 def cut_deck_mounts_lid(lid):
     """The lid's opening at every deck-mount station — a standing column passes it, and a
     flush one meets its underside with only the screw crossing."""
@@ -203,9 +257,11 @@ def main():
     # the same flag as the caps they close, not one derived from the other.
     lid_bottom = build_foam_cap_lid(open_down=True)
     # The top lid's outer face is the one surface in this stack anything stands on, so it is
-    # the one that carries the valve cradles — added last, after every hole is cut, because a
-    # boss is material and the openings under it are what it has to stand clear of.
-    lid_top = add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height)
+    # the one that carries the valve cradles and the chain anchor — added last, after every hole
+    # is cut, because both are material and the openings under them are what they stand clear of.
+    lid_top = add_chain_anchors(
+        add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
+        lid_total_height)
     gasket = build_foam_cap_gasket()
 
     # Each deck column is a full-section cylinder off the floor's cavity side, less
@@ -261,9 +317,20 @@ def main():
     # gains that sum and no more; a boss that plugged one of the lid's own openings, ran into its
     # neighbour, or grew a plate between the four comes up short here.
     cradle_volume = sum(seat.seat_volume(s.seat) for s in cap_cradles.values())
+    # An anchor is priced the way it is laid down: one box the rib's length carrying a HALF bore
+    # (the cylinder's own axis is the box's top face, so exactly half of it lies in the material),
+    # and two end bands from the face up to that box. The bands stand a `cap_anchor_wall` clear of
+    # the bore's own floor, so nothing here is cut twice; a rib that grew a plate across its
+    # channel, or a bore that broke into the bands, comes up over.
+    anchor_volume = sum(
+        cap_anchor_len * 2.0 * (s.seat_r + cap_anchor_wall) * (s.seat_r + cap_anchor_wall)
+        - 0.5 * math.pi * s.seat_r ** 2 * cap_anchor_len
+        + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_wall
+        for s in cap_anchors.values()
+    )
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
-                  + conduit_lid_relief_volume - cradle_volume)
+                  + conduit_lid_relief_volume - cradle_volume - anchor_volume)
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \
@@ -292,12 +359,14 @@ def main():
     # nominal) on each counterbore floor: it shares no volume with the lid, and
     # the lid is no taller than its own plate + pad + whatever stands on its
     # outer face. The bottom lid stands nothing there, so its outer face is a
-    # plane; the top lid's cradle bosses are the whole of its extra height.
+    # plane; the top lid's extra height is the taller of its cradle bosses and
+    # its chain anchors, whose crown is the seated body's own axis.
     cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
+    anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
     head_radius = 2.75
     for name, lid, outer_z, inward, proud in (
         ("foam-cap-lid-bottom", lid_bottom, 0.0, 1.0, 0.0),
-        ("foam-cap-lid-top", lid_top, lid_total_height, -1.0, cradle_proud),
+        ("foam-cap-lid-top", lid_top, lid_total_height, -1.0, max(cradle_proud, anchor_proud)),
     ):
         zlen = lid.val().BoundingBox().zlen
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \

@@ -1016,6 +1016,132 @@ for _name in cap_cradles:
                 f"leaves the boss a floor under it")
 
 
+# --- Chain anchors on the lid's outer face -----------------------------------
+#
+# ONE RIB UNDER A BODY THAT LIES OVER THIS FACE. The discharge chain is three fittings made up on
+# the bench as one bar, held at one end by a hose clamp over the pump's stub and at the other by a
+# push-fit collet. Between them it lies in this.
+#
+# THE SEAT IS A BORE, concentric with the section it takes. Every hex on that chain sits on a
+# made-up thread, so where its flats land is wherever the thread stopped, and nothing on the body
+# is clocked — the check's arrow is axial.
+#
+# IT OPENS UP, AND THE STRAP ONLY PRELOADS IT. The chain lies IN this rib, so cutting the strap
+# leaves it where it lies; what the strap carries is lift-out and the pump's own pulse. The pump
+# bolts to this same plate through `deck_mounts`, so the stub between them spans no joint.
+#
+# The station lives here, in the cap's own frame, because the rib is printed in this part.
+# `foam_cap.add_chain_anchors` stands it, `enclosure_assembly.build_discharge_chain` seats the
+# body on `cap_anchor_axis_over_face`, and `check_disch_seated` reads the gap back off the two
+# placed solids rather than off this table.
+#
+# Per anchor: the seat's centre in the CAP'S OWN frame, and the radius of the bore — the seated
+# section's own circumradius plus the slip the machine closes on it. The rib is extruded along the
+# cap's +X.
+CapAnchor = namedtuple("CapAnchor", "centre seat_r")
+cap_anchors = {
+    #                             centre         seat_r
+    "discharge-chain": CapAnchor((61.000, -60.500), 8.700),
+}
+
+# What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same
+# fastener stated for the other box; `enclosure_assembly.check_strap_vocabulary` holds the two
+# against each other.
+#   WHAT PICKS THE TIE IS THE LOOP, not the width: `cap_anchor_strap_loop` is [77 mm](ANCHOR_LOOP)
+# round the chain and its rib, past the ~69 mm a 4" closes, so this one takes the 6" 18 lb the
+# ledger already carries. An 18 lb strap is 0.1" across at every length it is sold in, so the
+# longer tie goes through the same cavity.
+cap_anchor_strap_w = 2.5              # the 18 lb strap, across its width — 0.1"
+cap_anchor_cav_buffer = 1.0           # the room a cavity carries over the strap
+cap_anchor_cav_w = cap_anchor_strap_w + cap_anchor_cav_buffer
+# Solid either side of the channel, ALONG the run: what the rib keeps of itself at each end.
+cap_anchor_cav_wall = 3.0
+# ITS LENGTH ALONG THE BODY IS ITS CHANNEL'S. One strap crosses one anchor, so the rib is that
+# strap's cavity with `cap_anchor_cav_wall` of itself at each end of it.
+cap_anchor_len = cap_anchor_cav_w + 2.0 * cap_anchor_cav_wall
+# One wall of material under the bore's floor, and one more from there down to the lid's face —
+# the height the rib's two ends stand, and the strap's channel between them. `valve_seat`'s is
+# the wall this face already carries.
+cap_anchor_wall = cap_cradle_wall
+
+
+def cap_anchor_axis_over_face(name):
+    """How far the seated body's AXIS stands over the lid's outer face.
+
+    Three layers of the rib, read from the face up: the channel the strap is pushed through, one
+    `cap_anchor_wall`; the material under the bore, one more; then the bore's own radius. A body
+    seated lower than that sits on its own strap."""
+    return cap_anchors[name].seat_r + 2.0 * cap_anchor_wall
+
+
+def cap_anchor_strap_loop(name):
+    """The shortest strap that closes round the seated body and the rib together.
+
+    A strap turns INSIDE the channel, so what it reaches round is the body with the rib's own
+    back behind it — the convex perimeter of that pair, and not of the lid the rib stands on.
+    Read on the bore rather than on the body, which is the section this part knows.
+
+    The hull is the rib's rectangle with a cap of the bore over it: its floor, its two flanks,
+    a tangent from each top corner onto the bore, and the arc between the two tangent points."""
+    r = cap_anchors[name].seat_r
+    w = r + cap_anchor_wall                       # the rib's half-width, and its depth
+    return 2.0 * w + 2.0 * w + 2.0 * math.sqrt(w * w - r * r) + r * (math.pi - 2.0 * math.acos(r / w))
+
+
+def cap_anchor_room(name):
+    """The least room this rib leaves to anything else opening on the lid's outer face:
+    `(mm, what)` — a conduit's entry countersink, a clamp screw's counterbore, a deck mount's
+    lid hole, a cradle boss, the pour hole, a vent, the lid's own edge.
+
+    Read on the rib's own rectangle, which is the whole of it: `cap_anchor_len` down the cap's
+    +X and one `reach` either side of the centre across it."""
+    (cx, cy) = cap_anchors[name].centre
+    reach = cap_anchors[name].seat_r + cap_anchor_wall
+    x0, x1 = cx - cap_anchor_len / 2.0, cx + cap_anchor_len / 2.0
+    y0, y1 = cy - reach, cy + reach
+
+    def off(px, py, r):
+        """How far a disc of radius `r` at (px, py) stands off the rib's rectangle."""
+        dx = max(x0 - px, 0.0, px - x1)
+        dy = max(y0 - py, 0.0, py - y1)
+        return math.hypot(dx, dy) - r
+
+    room = []
+    for cname, (bx, by) in cap_conduits.items():
+        room.append((off(bx, by, cap_conduit_entry_relief_radius),
+                     f"the {cname} conduit's entry"))
+    for bx, by in attachment_xy_positions:
+        room.append((off(bx, by, head_cbore_radius), "a clamp screw's counterbore"))
+    for dname in deck_mounts:
+        for dx, dy in deck_mount_xy(dname):
+            room.append((off(dx, dy, deck_lid_hole_radius(dname)),
+                         f"the {dname} mount's lid hole"))
+    for vname in cap_cradles:
+        for sx, sy in cap_cradle_xy(vname):
+            room.append((off(sx, sy, cap_cradle_boss_radius), f"the {vname} cradle"))
+    room.append((off(*foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius), "the pour hole"))
+    for hx, hy in foam_cap_lid_vent_xy():
+        room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
+    room.append((min(outer_shell_x_length / 2.0 - abs(x0),
+                     outer_shell_x_length / 2.0 - abs(x1),
+                     outer_shell_y_length / 2.0 - abs(y0),
+                     outer_shell_y_length / 2.0 - abs(y1)), "the lid's own edge"))
+    return min(room)
+
+
+# The rib stands on a plate it only touches, so everything the face opens has to be somewhere
+# else: a rib over a hole is a channel with no floor and a strap that falls into the cup.
+_anchor_room = bound(
+    "anchor-room", "Every chain anchor stands its room off everything else the face opens",
+    f"{cap_cradle_room_gap:g} mm off the nearest")
+for _name in cap_anchors:
+    _room, _what = cap_anchor_room(_name)
+    _anchor_room(
+        _room >= cap_cradle_room_gap - 1e-9,
+        f"chain anchor {_name}: the rib stands {_room:.3f} mm off {_what}, inside the "
+        f"{cap_cradle_room_gap:g} mm this face keeps between two things it opens")
+
+
 def cap_conduit_pair_neck(a, b):
     """What a PAIR of conduits leaves between them: `(mm, what)`.
 
@@ -1259,6 +1385,7 @@ if __name__ == "__main__":
         "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",
         "ENTRY_RELIEF_D": f"{2.0 * cap_conduit_entry_relief_radius:.4g}",
         "ENTRY_SKEW_CEILING": f"{cap_conduit_entry_skew_ceiling:.4g}°",
+        "ANCHOR_LOOP": f"{cap_anchor_strap_loop('discharge-chain'):.3g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -1284,6 +1411,7 @@ if __name__ == "__main__":
             "LLDPE_TUBE_OD": 1,
             "ENTRY_RELIEF_D": 1,
             "ENTRY_SKEW_CEILING": 1,
+            "ANCHOR_LOOP": 1,
         },
     )
     print("-> _cold_core_interface.py (self)")

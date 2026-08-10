@@ -223,7 +223,10 @@ MOUNTS = (
     ("hopper-funnel", None, "wall-capture"),
     ("display", None, "wall-capture"),
     ("suction-chain", None, "none"),
-    ("discharge-chain", None, "none"),
+    # The chain lies in a rib printed on the cold core's cap lid — the same plate the pump bolts
+    # to, so the hose stub between the two spans no joint (`_cold_core_interface.cap_anchors`,
+    # read by `disch-seated`).
+    ("discharge-chain", "foam-assembly", "cradle"),
     ("psu", "enclosure-back-top", "bosses"),
     ("pcba", "enclosure-back-top", "bosses"),
     ("relay-1", "enclosure-back-top", "bosses"),
@@ -389,6 +392,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
+    # THE DISCHARGE CHAIN IN THE RIB THAT LID STANDS. A bore closed on a section reads its own
+    # slip, and that reading IS the seat holding: `enclosure_assembly.check_disch_seated` takes
+    # it, and `anchor-lands` holds the rib over the section it is bored for.
+    ("foam-assembly", "discharge-chain"),
     # THE PROBE PLATE LIES ON THE BASIN'S FLOOR, which is the whole of what it does: a plate
     # standing a millimetre off the floor reads only once the pool is a millimetre deep, and the
     # weep this watches for is a drip at a time. `enclosure_assembly.build_moisture_plate` seats
