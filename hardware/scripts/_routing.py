@@ -27,6 +27,11 @@ in: the run is DRAWN at what it has — the diagonal leg, the stub clamped to th
 the square corner — and its shortfall recorded in `BLOCKED` with the measurement. `tube` sweeps
 the port's bore Ø along that centreline like any other.
 
+`redrawn(run, pts)` puts an authored run down a different centreline and re-solves its corners,
+so a waypoint can be MOVED and the cost read before anything is edited.
+[`probe.World.shift`](/hardware/scripts/probe.py) is what sweeps that across a range of
+positions and says what the run runs into at each one.
+
 Coordinates are the assembly's world frame. Authorship:
 [`manifold-layout/_lines.py`](/hardware/manifold-layout/_lines.py). Precedent:
 [`routing.ts`](/hardware/pcb/pcba/routing.ts).
@@ -203,6 +208,7 @@ class Run:
     note: str = ""
     bends: list = field(default_factory=list)   # (index, turn°, leg-in, leg-out) per corner
     radii: dict = field(default_factory=dict)   # corner index → the radius it turns at
+    caps: dict = field(default_factory=dict)    # corner index → the ceiling it rose under
 
     @property
     def length(self) -> float:
@@ -319,8 +325,9 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
                  f"takes straight — the first leg runs out along the port. Drawn at the {lead:.1f}°; "
                  f"stand the lane off the port, or turn the collet onto the run.")
     corners = _bends(pts, cid)
-    radii = seat_radii(pts, corners, _caps(corners, bend, cid, d), cid, d)
-    return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii)
+    caps = _caps(corners, bend, cid, d)
+    radii = seat_radii(pts, corners, caps, cid, d)
+    return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii, caps)
 
 
 def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | None = None,
@@ -382,8 +389,52 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
                       f"drawn at it — move the last waypoint onto the port's normal, or pass "
                       f"`lead=` to plant one.")
     corners = _bends(pts, cid)
-    radii = seat_radii(pts, corners, _caps(corners, bend, cid, d), cid, d)
-    return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii)
+    caps = _caps(corners, bend, cid, d)
+    radii = seat_radii(pts, corners, caps, cid, d)
+    return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii, caps)
+
+
+def redrawn(run: Run, pts) -> Run:
+    """The same run down a DIFFERENT CENTRELINE — its corners found again and its radii
+    re-solved for the waypoints given, and nothing else about it changed.
+
+    What moving a piece of an authored route costs is not the move: it is every corner the move
+    lengthens or shortens a leg of. A corner backs its arc `r·tan(θ/2)` down each of its legs
+    and shares that leg with its neighbour (`seat_radii`), so shifting one waypoint 20 mm can
+    leave the two corners either side of it seating under a millimetre while the run still
+    clears everything in the machine. That reading comes out of here, and `probe.World.shift`
+    is what sweeps it across a range of positions.
+
+    A HYPOTHETICAL NEVER MARKS THE RUN. `seat_radii` records a corner with no room at all in
+    the module-level `BLOCKED`, which is keyed by run id and read out as the machine's own list
+    of shortfalls; a redraw restores that dict, so a position nobody built cannot put a line on
+    it. The reading survives on the returned run's `radii` — a corner drawn square is 0.0
+    there — which is the same figure `_scorecard.bend_radii` grades.
+
+    A run whose author capped its corners ONE AT A TIME cannot be redrawn here. `_straighten`
+    drops a waypoint the new centreline runs straight through, and every corner index after it
+    moves, so a cap keyed by index would come down on a different turn than the one it was
+    written for. One cap over the whole run carries, and every run on this machine has one.
+    """
+    ceilings = set(run.caps.values()) or {run.bend}
+    if len(ceilings) > 1:
+        raise ValueError(
+            f"{run.id}: this run caps its corners one at a time ({run.caps}) and a redraw can "
+            f"straighten one out of the path, which moves every index after it — so those caps "
+            f"cannot be carried onto a new centreline. Redraw it at its call in `_lines.py`.")
+    cap = ceilings.pop()
+    pts = _straighten(_dedupe([tuple(float(c) for c in p) for p in pts]))
+    if len(pts) < 2:
+        raise ValueError(f"{run.id}: a redrawn centreline needs at least two distinct points")
+    corners = _bends(pts, run.id)
+    kept = dict(BLOCKED)
+    try:
+        radii = seat_radii(pts, corners, {i: cap for i, _t, _a, _b in corners}, run.id, run.diam)
+    finally:
+        BLOCKED.clear()
+        BLOCKED.update(kept)
+    return Run(run.id, run.kind, run.frm, run.to, pts, run.diam, run.bend, run.note,
+               corners, radii, {i: cap for i, _t, _a, _b in corners})
 
 
 def meet(p, u, q, v, bias):

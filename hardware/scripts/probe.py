@@ -3,8 +3,8 @@
 The whole placed machine as one flat `{name: shape}` world — `enclosure_assembly`'s pack
 bodies, the display and hopper funnel seated in the walls, the four printed
 enclosure pieces and the routed tubes — with the queries that answer where a part
-is, how close two parts come, what a candidate volume runs into, and how far a
-line can travel before it hits something.
+is, how close two parts come, what a candidate volume runs into, how far a
+line can travel before it hits something, and where a piece of a routed line can stand.
 
 The world is one `enclosure_assembly.build_enclosure_assembly()`, body for body: `w.parts` are the
 bodies, `w.pieces` are the box's four printable pieces, and both are in the one
@@ -43,7 +43,21 @@ Use from anywhere in the repo:
     w.travel("psu", (1, 0, 0))                        # how far a BODY moves, and past what
     w.hits(vol, skip=w.pieces)                        # the interior pack alone
 
+    print(w.route("fluid-14"))                        # an authored run's waypoints, numbered
+    w.shift("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))   # move a bend, collisions only
+
     probe.sweep(range(0, 360, 10), lambda a: w.cast(tip(a), aim(a)).free)
+
+MOVING A PIECE OF A DRAWN LINE is `shift`, and it is its own query because the thing that moves
+is not a body. It translates named waypoints of an authored run over a range of offsets,
+REDRAWS the whole run at each one, and reports what that run collides with there — the bodies
+and nothing else, one row per position, plus the contiguous bands of positions that are clear
+and what bounds each of them. A bend, a corner, a fall, a crossing, a whole leg: whatever the
+piece is called, it is some waypoints of the route, and those indices are the handle.
+`w.route(id)` prints them numbered and takes `near=` a pick off the STEP to say which index a
+set of coordinates is. Redrawing rather than translating is what makes the answer honest: a
+moved waypoint lengthens one leg and shortens another, and a corner starved of tangent is as
+real a limit as an obstacle, so every row carries the radius its tightest corner seats.
 
 From the shell, without writing a file:
 
@@ -53,6 +67,8 @@ From the shell, without writing a file:
     tools/cad-venv/bin/python hardware/scripts/probe.py cast 110.14,98.36,273.1 0,0,-1 --dia 6.35
     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275
     tools/cad-venv/bin/python hardware/scripts/probe.py travel psu +x
+    tools/cad-venv/bin/python hardware/scripts/probe.py route fluid-14 --near 43.5,244.7,289
+    tools/cad-venv/bin/python hardware/scripts/probe.py shift fluid-14 3-4 y- -20:80:2.5
     tools/cad-venv/bin/python hardware/scripts/probe.py selftest
 
 `selftest` runs the instrument against known-answer geometry — a known hit, a
@@ -74,6 +90,7 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 import _clearing
 import _meshes
 import _overlap
+import _routing
 
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
 _ML = _HW / "manifold-layout"                              # `enclosure_assembly` — the machine
@@ -184,9 +201,6 @@ def _swept_tube(*pts, diam: float = TUBE_OD, bend: float = 25.4):
     Only a body made the way `world()`'s tubes are made puts that question, which is why the
     selftest's tangent-crossing control is built here and not out of `corridor`."""
     import types
-
-    _ensure_paths()
-    import _routing
 
     n = len(pts)
     return _routing.tube(types.SimpleNamespace(
@@ -300,6 +314,138 @@ class Travel:
         return "\n".join(out)
 
 
+@dataclass
+class Pose:
+    """One offset of a `shift`: what the redrawn run runs into there, and whether the corners
+    it moved can still be bent.
+
+    `hits` is the question asked and the whole of the answer — the bodies the run
+    interpenetrates at this offset, empty when it interpenetrates none. `seats` is the rider a
+    moved waypoint always carries and the reason a sweep of clearances would not have done:
+    a shift lengthens one leg and shortens another, the corners either side of a leg share what
+    is left of it (`_routing.seat_radii`), and so an offset can stand clear of every body in the
+    machine and still be a corner the stock will not take. An offset that is one and not the
+    other is not a position the run can be drawn at."""
+
+    at: float               # mm along the shift's direction
+    hits: tuple             # the bodies interpenetrated, worst overlap first
+    seats: float            # the smallest radius any corner seats at this offset
+    corner: int | None      # which corner that is, indexed in the REDRAWN centreline
+    floor: float            # the stock's minimum bend radius, what `seats` answers to
+    corners: int            # how many corners the redraw has — a shift can straighten one out
+
+    @property
+    def tight(self) -> bool:
+        """A corner under its stock's floor: drawable on paper, not bendable on the bench."""
+        return self.corner is not None and self.seats < self.floor - 1e-9
+
+    @property
+    def clear(self) -> bool:
+        return not self.hits and not self.tight
+
+    @property
+    def why(self) -> str:
+        """Why this offset is no good, in one phrase — the bodies, or the corner."""
+        if self.hits:
+            return ", ".join(self.hits)
+        if self.tight:
+            return f"corner {self.corner} seats R{self.seats:.3f}"
+        return ""
+
+    def __str__(self) -> str:
+        what = ", ".join(self.hits) if self.hits else "CLEAR"
+        if not self.tight:
+            return f"{self.at:9.3f}  {what}"
+        return (f"{self.at:9.3f}  {what:40s} · corner {self.corner} seats R{self.seats:.3f}, "
+                f"under the stock's {self.floor:g}")
+
+
+@dataclass
+class Band:
+    """A contiguous stretch of the sample the run can be drawn in, and what ends it either side.
+
+    `under` and `over` name what the first BLOCKED offset outside the band ran into — the thing
+    to move if the band has to be wider. Either is None where the band runs off the end of the
+    sweep, which is a fact about the range that was asked for and not about the machine."""
+
+    lo: float
+    hi: float
+    under: str | None
+    over: str | None
+
+    def __str__(self) -> str:
+        # Both ends are always named, and an end the sweep simply stopped at says so. A band
+        # printed with one side blank reads as a band the machine bounds on one side only,
+        # which is the one thing this cannot know.
+        end = "the sweep ended here, not the machine"
+        return (f"{self.lo:+.3f} … {self.hi:+.3f}   (under: {self.under or end}"
+                f" · over: {self.over or end})")
+
+
+@dataclass
+class Shift:
+    """A range of positions for one piece of a run, and what the run hits at each of them.
+
+    A SWEEP IS A SAMPLE. Every row is exact at its own offset and says nothing about the
+    millimetre either side of it, so a band is only as trustworthy as the step that drew it —
+    narrow the range and step finer to pin an edge. `held_out` is the other half of every
+    CLEAR here: the run's own body is not measured against, because the moving line is what it
+    is drawn from."""
+
+    run: str
+    moving: tuple           # the waypoint indices that translated
+    along: tuple
+    poses: list
+    held_out: tuple
+    measured: str = ""
+
+    @property
+    def clear(self) -> list:
+        """Every offset the run can actually be drawn at — nothing in the way, corners at
+        spec."""
+        return [p for p in self.poses if p.clear]
+
+    @property
+    def bands(self) -> list:
+        """The clear offsets gathered into contiguous stretches of the sample, each carrying
+        what stops it either side."""
+        out, run_ = [], []
+        for i, p in enumerate(self.poses):
+            if p.clear:
+                run_.append((i, p))
+                continue
+            if run_:
+                out.append(self._band(run_))
+                run_ = []
+        if run_:
+            out.append(self._band(run_))
+        return out
+
+    def _band(self, gathered: list) -> Band:
+        first, last = gathered[0][0], gathered[-1][0]
+        under = self.poses[first - 1].why if first > 0 else None
+        over = self.poses[last + 1].why if last + 1 < len(self.poses) else None
+        return Band(gathered[0][1].at, gathered[-1][1].at, under, over)
+
+    def __str__(self) -> str:
+        d = self.along
+        moving = ", ".join(str(i) for i in self.moving)
+        out = [f"{self.run}, waypoint{'s' if len(self.moving) > 1 else ''} {moving} along "
+               f"({d[0]:g}, {d[1]:g}, {d[2]:g})"]
+        if self.measured:
+            out.append(f"  measured against {self.measured}")
+        out.append(f"  holding out: {', '.join(self.held_out)}")
+        out.append(f"  {'offset':>9}  runs into")
+        out += [f"  {p}" for p in self.poses]
+        bands = self.bands
+        if not bands:
+            out.append(f"  nothing clear anywhere in the {len(self.poses)} offsets swept")
+        else:
+            out.append(f"  clear at {len(self.clear)} of {len(self.poses)} offsets:")
+            out += [f"    {b}" for b in bands]
+        return "\n".join(out)
+
+
 # --- the world ------------------------------------------------------------
 
 class World:
@@ -310,15 +456,20 @@ class World:
     the way `scorecard.pack_clashes` splits its arguments."""
 
     def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False,
-                 frames: dict = None, box=None):
+                 frames: dict = None, box=None, runs: dict = None,
+                 runs_held_out: bool = False):
         self.solids = solids
         # name → "component" | "display" | "funnel" | "run" | PIECE
         self.sources = sources
         self.pieces_held_out = pieces_held_out      # asked for without pieces, see measured
+        self.runs_held_out = runs_held_out          # asked for without tubes, see measured
         # The frames the tubes were swept along and the box the pieces were cut from, as the
         # assembly carries them.
         self._frames = frames
         self.box = box
+        # The AUTHORED runs behind the `tube-*` bodies — `{id: _routing.Run}`, the centrelines
+        # themselves rather than the swept solids. `shift` moves a piece of one.
+        self._runs = runs
         self._boxes = {}                # name → (solid, box), see bb()
 
     # -- what is here --
@@ -353,6 +504,8 @@ class World:
         reports its bounds and not this is reporting half of where its answer came from:
         the pieces are what a placement in a full machine runs into first."""
         head = f"{len(self.solids)} bod{'y' if len(self.solids) == 1 else 'ies'}"
+        if self.runs_held_out:
+            head += ", NO routed tubes (runs=False) — every line on the machine is missing"
         if self.pieces:
             return f"{head}, {len(self.pieces)} of them printed enclosure pieces"
         if self.pieces_held_out:
@@ -407,6 +560,53 @@ class World:
 
     def ports(self, component: str) -> list:
         return sorted(self.frames()[component].ports)
+
+    # -- the authored runs --
+
+    @property
+    def runs(self) -> dict:
+        """`{id: _routing.Run}` — the CENTRELINES the `tube-*` bodies were swept along, as
+        `_lines` authored them. The body `tube-fluid-14` is what that run runs into; the run
+        `fluid-14` is the waypoints it was drawn through, and the thing `shift` moves."""
+        if self._runs is None:
+            raise ValueError("this world carries no authored runs — it was built from an "
+                             "assembly without them")
+        return self._runs
+
+    def run(self, name: str):
+        """One authored run by id (`fluid-14`, not `tube-fluid-14`)."""
+        name = name[5:] if name.startswith("tube-") else name
+        if name not in self.runs:
+            raise KeyError(f"no run {name!r} — have: {', '.join(sorted(self.runs))}")
+        return self.runs[name]
+
+    def route(self, run, near=None) -> str:
+        """One run's centreline written out waypoint by waypoint — the table an INDEX is read
+        off before `shift` moves one.
+
+        Each interior waypoint is a corner and carries the two figures that decide whether it
+        can move: the angle it turns and the radius it seats there, against its stock's floor.
+        `near=(x, y, z)` marks the waypoint closest to a point, which is how a pick off the
+        STEP — the coordinates of an arc, a face, an edge — becomes an index."""
+        r = run if hasattr(run, "pts") else self.run(run)
+        floor = _routing.stock_min(r.kind, r.diam)
+        head = (f"{r.id}  {r.frm} → {r.to}  {r.kind} Ø{r.diam:g}  {r.length:.2f} mm  "
+                f"{len(r.bends)} corner{'s' if len(r.bends) != 1 else ''}, stock min R{floor:g}")
+        pick = None
+        if near is not None:
+            pick = min(range(len(r.pts)), key=lambda i: math.dist(r.pts[i], near))
+        turns = {i: t for i, t, _a, _b in r.bends}
+        out = [head]
+        for i, p in enumerate(r.pts):
+            row = f"  {i:2d}  ({p[0]:9.3f}, {p[1]:9.3f}, {p[2]:9.3f})"
+            if i in turns:
+                seat = r.radii[i]
+                row += (f"   turns {turns[i]:5.1f}°  seats R{seat:6.3f}"
+                        f"{'' if seat >= floor - 1e-9 else '  UNDER STOCK'}")
+            if i == pick:
+                row += f"   ← nearest the pick, {math.dist(p, near):.3f} mm off"
+            out.append(row)
+        return "\n".join(out)
 
     # -- distance --
 
@@ -567,10 +767,90 @@ class World:
                 best, who = max(0.0, t), name
         return Contact(best, who, tuple(origin), d, limit, dia)
 
+    # -- where a piece of a routed line can stand --
+
+    def shift(self, run, moving, along, values, skip=(), tol: float = VOL_TOL) -> Shift:
+        """Slide named waypoints of an authored run along a direction, and say what the run
+        RUNS INTO at each offset. Collisions and nothing else, one row per position.
+
+        The answer to "can this bend move, and how far". `moving` is which waypoints translate
+        — one index, or any iterable of them (`w.route(id)` prints them numbered, and takes a
+        pick off the STEP to say which index that is). A bend is two of them, a corner is one, a
+        crossing is however many carry it; the noun does not matter, the indices do. `values`
+        are offsets in mm along `along`, either sign, and `steps()` makes the float range.
+
+            w.shift("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))
+
+        THE RUN IS REDRAWN, not translated. Moving a waypoint stretches the leg on one side of
+        it and shortens the leg on the other, and both corners on a shortened leg lose the
+        tangent they seat their arcs in — so the whole centreline is put through
+        `_routing.redrawn` at every offset and swept again at its own bore. That is what makes
+        an offset's radius as real a limit as an obstacle, and `Pose.tight` is where it lands.
+
+        WHAT IT IS MEASURED AGAINST is every body in this world except the run's own tube,
+        which is held out because the moving line is the thing that tube was swept from. Add
+        `skip=` for anything else you mean to move with it. Everything else — the pack, the
+        other lines, the printed walls — is in, and `Shift.__str__` prints what that was.
+
+        The run's two END waypoints are its ports and cannot be shifted: they are mouths on
+        placed bodies, and a run that leaves one is not a run. The build reads the rest —
+        anchors are struck on the run's own legs (`enclosure_assembly.tube_anchors`) and the
+        spans between them graded — so a position this finds is a position to author, not a
+        finished answer."""
+        r = run if hasattr(run, "pts") else self.run(run)
+        idx = _moving(moving, len(r.pts), r.id)
+        d = unit(along)
+        own = f"tube-{r.id}"
+        held = tuple(sorted(set(skip) | ({own} if own in self.solids else set())))
+        floor = _routing.stock_min(r.kind, r.diam)
+        values = [float(v) for v in values]
+        if not values:
+            raise ValueError(f"{r.id}: a shift over no offsets answers nothing — give it a "
+                             f"range (`probe.steps(lo, hi, step)`), 0.0 among them to read "
+                             f"the run where it stands")
+        poses = []
+        for v in values:
+            pts = [p if i not in idx else tuple(p[k] + d[k] * v for k in range(3))
+                   for i, p in enumerate(r.pts)]
+            drawn = _routing.redrawn(r, pts)
+            try:
+                tube = _routing.tube(drawn)
+            except Exception as exc:
+                raise RuntimeError(
+                    f"{r.id} will not sweep at {v:+g} mm along {d} ({exc}) — what it runs into "
+                    f"there is unknown, not nothing. Narrow the range past this offset, or "
+                    f"move fewer waypoints at once.") from exc
+            seats, corner = min(((drawn.radii[i], i) for i, _t, _a, _b in drawn.bends),
+                                default=(math.inf, None))
+            poses.append(Pose(v, tuple(h.name for h in self.hits(tube, skip=held, tol=tol)),
+                              seats, corner, floor, len(drawn.bends)))
+        return Shift(r.id, idx, d, poses, held, self.measured)
+
 
 # --- vector helpers -------------------------------------------------------
 
+_AXIS = {"x": (1.0, 0.0, 0.0), "y": (0.0, 1.0, 0.0), "z": (0.0, 0.0, 1.0)}
+
+
 def unit(v) -> tuple:
+    """A unit direction from a 3-vector, or from a NAMED axis: `"+x"`, `"x+"`, `"-y"`, `"y-"`,
+    `"z"`, `"0,-1,0"`.
+
+    The sign is taken on either end because a bare `-y` in a shell positional is read as a flag
+    by argparse and never reaches here — `y-` is the form that always arrives, and the two mean
+    the same thing wherever a direction is asked for."""
+    if isinstance(v, str):
+        t = v.strip()
+        for sign, axis in ((t[:1], t[1:]), (t[-1:], t[:-1])):
+            if sign in "+-" and axis in _AXIS:
+                a = _AXIS[axis]
+                return a if sign == "+" else tuple(-c for c in a)
+        if t in _AXIS:
+            return _AXIS[t]
+        if "," not in t:
+            raise ValueError(f"direction {v!r} names no axis — write y-, +z, or x,y,z (the sign "
+                             f"goes LAST from a shell, where a leading -y reads as a flag)")
+        v = t.split(",")
     n = math.sqrt(sum(float(c) * float(c) for c in v))
     if n < 1e-12:
         raise ValueError(f"direction {tuple(v)} has no length")
@@ -591,7 +871,47 @@ def _swept_box(sh, d, length: float):
     return box(x=(lo[0], hi[0]), y=(lo[1], hi[1]), z=(lo[2], hi[2]))
 
 
+def _moving(moving, n: int, cid: str) -> tuple:
+    """Which waypoints a `shift` translates: one index, or any iterable of them.
+
+    The first and last are the run's PORTS and are refused. They are mouths on placed bodies
+    and they move when those bodies move — a run drawn off one does not reach its fitting, so
+    the sweep would be over positions that are not connections."""
+    idx = (moving,) if isinstance(moving, int) else tuple(moving)
+    if not idx:
+        raise ValueError(f"{cid}: a shift has to move at least one waypoint")
+    bad = [i for i in idx if not isinstance(i, int) or not -n <= i < n]
+    if bad:
+        raise ValueError(f"{cid}: {', '.join(str(i) for i in bad)} "
+                         f"{'name' if len(bad) > 1 else 'names'} no waypoint of a run that has "
+                         f"{n} of them (0…{n - 1}) — `w.route({cid!r})` prints them numbered")
+    idx = tuple(sorted({i % n for i in idx}))
+    ends = [i for i in idx if i in (0, n - 1)]
+    if ends:
+        raise ValueError(
+            f"{cid}: waypoint{'s' if len(ends) > 1 else ''} "
+            f"{', '.join(str(i) for i in ends)} "
+            f"{'are' if len(ends) > 1 else 'is'} the run's PORT — a mouth on a placed body, "
+            f"which moves when that body moves and not before. "
+            + (f"This run is one straight between two of them and has no interior waypoint "
+               f"to shift. " if n == 2 else f"Shift the interior waypoints (1…{n - 2}). ")
+            + f"To stand a fitting somewhere else, move its body in `enclosure_assembly.py`, "
+              f"and every waypoint measured off it follows.")
+    return idx
+
+
 # --- sweeping a continuous parameter --------------------------------------
+
+def steps(lo: float, hi: float, step: float) -> list:
+    """`lo` to `hi` INCLUSIVE in `step` mm — the float range `range()` will not give, and what
+    a sweep of positions is asked over. Ends given the other way round come back ascending."""
+    if step <= 0:
+        raise ValueError(f"steps({lo}, {hi}, {step}): the step has to be positive — the range "
+                         f"runs from the smaller end whichever order it is given in")
+    lo, hi = (lo, hi) if hi >= lo else (hi, lo)
+    n = int(math.floor((hi - lo) / step + 1e-9))
+    return [round(lo + i * step, 9) for i in range(n + 1)]
+
 
 def sweep(values, fn, label: str = "value", fmt: str = "{}") -> list:
     """Run `fn` across `values` and print one row each — the answer to "which
@@ -772,8 +1092,13 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
             continue
         add(name, solid, src)
 
+    # The AUTHORED runs come across whether or not their tubes did: they are the centrelines
+    # `_lines` drew, and `shift` asks what a piece of one could do. A world built `runs=False`
+    # says so in `measured`, which is what a shift there has to be read against.
     _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces,
-                         frames=getattr(a, "frames", None), box=getattr(a, "box", None))
+                         frames=getattr(a, "frames", None), box=getattr(a, "box", None),
+                         runs={r.id: r for r in getattr(a, "runs", ())},
+                         runs_held_out=not runs)
     return _WORLDS[key]
 
 
@@ -1005,12 +1330,70 @@ def selftest() -> int:
     if not tw2.clear(t2_up):
         fails.append("tangent crossing control")
 
+    print("controls — shifting a piece of a run:")
+    # A U lying in the XY plane whose crossbar is two waypoints, a post standing in the middle
+    # of the band that crossbar sweeps through, and the run's OWN swept tube in the world
+    # beside it. The last is the control that matters most: at offset 0 the redrawn run is
+    # exactly the body already standing there, so a shift that did not hold the run out would
+    # report a total overlap with itself at every offset and never find anything else.
+    u_pts = [(0.0, 0.0, 0.0), (0.0, 40.0, 0.0), (60.0, 40.0, 0.0), (60.0, 0.0, 0.0)]
+    u_run = _routing.redrawn(
+        _routing.Run("u", "fluid", "a.out", "b.in", list(u_pts), TUBE_OD, 14.0), u_pts)
+    sw = World({"tube-u": _routing.tube(u_run), "post": box(x=(20, 30), y=(66, 74), z=(-5, 5))},
+               {"tube-u": "run", "post": "test"}, runs={"u": u_run})
+    moved = sw.shift("u", (1, 2), "+y", steps(0.0, 60.0, 10.0))
+    at = {p.at: p for p in moved.poses}
+    print(f"  {'ok  ' if not at[0.0].hits else 'FAIL'}  the run's own tube is never its "
+          f"obstacle{'':10s} got {list(at[0.0].hits)}  want []")
+    if at[0.0].hits:
+        fails.append("shift holds the run out")
+    print(f"  {'ok  ' if at[30.0].hits == ('post',) else 'FAIL'}  the crossbar driven onto the "
+          f"post names it{'':4s} got {list(at[30.0].hits)}  want ['post']")
+    if at[30.0].hits != ("post",):
+        fails.append("shift finds the obstacle")
+    print(f"  {'ok  ' if not at[40.0].hits else 'FAIL'}  and past it is clear again"
+          f"{'':21s} got {list(at[40.0].hits)}  want []")
+    if at[40.0].hits:
+        fails.append("shift past the obstacle")
+    edges = [(b.lo, b.hi, b.under, b.over) for b in moved.bands]
+    want_edges = [(0.0, 20.0, None, "post"), (40.0, 60.0, "post", None)]
+    print(f"  {'ok  ' if edges == want_edges else 'FAIL'}  two bands, each naming what ends it"
+          f"{'':9s} got {edges}")
+    if edges != want_edges:
+        fails.append("shift bands")
+    # The reading a sweep of clearances would have missed: pulled back, the crossbar clears
+    # every body in the world and its two corners are left seating 10 mm of the 14 the stock
+    # wants — the same shape as two bends run into each other with no straight between them.
+    short = sw.shift("u", (1, 2), "-y", [30.0]).poses[0]
+    ok_tight = not short.hits and short.tight and abs(short.seats - 10.0) < 1e-3
+    print(f"  {'ok  ' if ok_tight else 'FAIL'}  a corner starved of tangent is not clear"
+          f"{'':11s} got hits {list(short.hits)}, seats R{short.seats:.3f} vs "
+          f"{short.floor:g}  want [] and R10 under spec")
+    if not ok_tight:
+        fails.append("shift grades the corner")
+    print(f"  {'ok  ' if not short.clear else 'FAIL'}  so the offset is not one the run can "
+          f"take{'':7s} got clear={short.clear}  want False")
+    if short.clear:
+        fails.append("shift clear folds both in")
+    # And the redraw is a hypothetical: it must not put the authored run on the machine's own
+    # list of shortfalls, which is keyed by run id and read out as `_lines.BLOCKED`.
+    print(f"  {'ok  ' if 'u' not in _routing.BLOCKED else 'FAIL'}  a swept position never marks "
+          f"the real run{'':6s} got BLOCKED={ {k: v for k, v in _routing.BLOCKED.items() if k == 'u'} }")
+    if "u" in _routing.BLOCKED:
+        fails.append("shift leaks into BLOCKED")
+
     print("controls — refusals:")
     for label, thunk in (
         ("unnormalizable body raises", lambda: shape("not a solid", "x")),
         ("unknown body name raises", lambda: w.solid("nope")),
         ("zero-length direction raises", lambda: unit((0, 0, 0))),
         ("sampling a wall of a world with no pieces raises", lambda: wall_sample(held)),
+        ("shifting a run's port waypoint raises", lambda: sw.shift("u", 0, "+y", [1.0])),
+        ("shifting a waypoint the run has not got raises",
+         lambda: sw.shift("u", 9, "+y", [1.0])),
+        ("shifting an unknown run raises", lambda: sw.shift("nope", 1, "+y", [1.0])),
+        ("a world with no runs raises rather than answering", lambda: w.runs),
+        ("a step of zero raises", lambda: steps(0.0, 10.0, 0.0)),
     ):
         try:
             thunk()
@@ -1071,8 +1454,43 @@ def _range(s: str) -> tuple:
     return (float(parts[0]), float(parts[1]))
 
 
+def _axis(s: str) -> tuple:
+    """`unit` on a shell argument, with its refusal reported as usage rather than a traceback."""
+    try:
+        return unit(s)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from None
+
+
+def _moving_arg(s: str) -> tuple:
+    """Which waypoints move: `3`, the inclusive span `3-4`, or the set `3,5,6`."""
+    try:
+        if "," in s:
+            return tuple(int(p) for p in s.split(","))
+        if "-" in s:
+            lo, _, hi = s.partition("-")
+            return tuple(range(int(lo), int(hi) + 1))
+        return (int(s),)
+    except ValueError:
+        raise SystemExit(f"expected a waypoint index, the span 3-4, or the set 3,5 — "
+                         f"got {s!r}") from None
+
+
+def _values(s: str) -> list:
+    """The offsets to sweep: `lo:hi:step`, or a comma list of them."""
+    try:
+        if ":" in s:
+            lo, hi, step = (float(p) for p in s.split(":"))
+            return steps(lo, hi, step)
+        return [float(p) for p in s.split(",")]
+    except ValueError as exc:
+        raise SystemExit(f"expected offsets — lo:hi:step, or a comma list — got {s!r} "
+                         f"({exc})") from None
+
+
 def main(argv: list) -> int:
     import argparse
+    import re
 
     ap = argparse.ArgumentParser(prog="probe", description=__doc__.split("\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -1109,7 +1527,31 @@ def main(argv: list) -> int:
         p.add_argument(f"--{axis}", required=True, help="lo,hi")
     p.add_argument("--skip", default="")
 
+    p = sub.add_parser("route", help="one run's waypoints, numbered — the index `shift` moves")
+    p.add_argument("run", nargs="?", help="a run id (fluid-14); omit to list every run")
+    p.add_argument("--near", default="", metavar="x,y,z",
+                   help="mark the waypoint closest to a pick off the STEP")
+
+    p = sub.add_parser("shift", help="sweep a piece of a run over a range of positions and "
+                                     "report what it collides with at each one")
+    p.add_argument("run", help="a run id (fluid-14), not its tube body")
+    p.add_argument("moving", help="which waypoints move: 3, the span 3-4, or the set 3,5")
+    p.add_argument("direction", help="y-, +z, or x,y,z — sign LAST (a leading -y reads as a flag)")
+    p.add_argument("values", help="offsets in mm: lo:hi:step, or a comma list")
+    p.add_argument("--skip", default="", help="other bodies to hold out, comma separated")
+
     sub.add_parser("selftest", help="known-answer controls, then load the world")
+
+    # THESE ARGUMENTS ARE SIGNED BY NATURE — a cast runs `0,0,-1`, a shift sweeps `-20:80:5` —
+    # and argparse reads any token starting with `-` that is not one of its own flags as an
+    # unknown flag. It already excepts what it recognizes as a negative number, on the rule
+    # that a parser carrying no negative-number OPTION cannot be ambiguous about one; none of
+    # these do, so widening that recognizer to the shapes these values take is the same rule
+    # over the same parsers. A direction is the one signed argument it will not cover (`-y` is
+    # not a number), which is why `unit` also takes the sign last, as `y-`.
+    signed = re.compile(r"^-[\d.]")
+    for parser in (ap, *sub.choices.values()):
+        parser._negative_number_matcher = signed
 
     a = ap.parse_args(argv)
     if a.cmd == "selftest":
@@ -1135,10 +1577,18 @@ def main(argv: list) -> int:
             print(f"{a.port} at ({pos[0]:.3f}, {pos[1]:.3f}, {pos[2]:.3f}) "
                   f"normal ({nrm[0]:g}, {nrm[1]:g}, {nrm[2]:g})")
     elif a.cmd == "travel":
-        axes = {"+x": (1, 0, 0), "-x": (-1, 0, 0), "+y": (0, 1, 0),
-                "-y": (0, -1, 0), "+z": (0, 0, 1), "-z": (0, 0, -1)}
-        d = axes.get(a.direction) or _pt(a.direction)
-        print(w.travel(a.mover, d, limit=a.limit, clearance=a.clearance, skip=skip))
+        print(w.travel(a.mover, _axis(a.direction), limit=a.limit, clearance=a.clearance,
+                       skip=skip))
+    elif a.cmd == "route":
+        if not a.run:
+            for rid, r in sorted(w.runs.items()):
+                print(f"  {rid:12s} {len(r.pts):2d} waypoints  {len(r.bends)} corner(s)  "
+                      f"{r.frm} → {r.to}")
+        else:
+            print(w.route(a.run, near=_pt(a.near) if a.near else None))
+    elif a.cmd == "shift":
+        print(w.shift(a.run, _moving_arg(a.moving), _axis(a.direction), _values(a.values),
+                      skip=skip))
     elif a.cmd in ("cast", "hits"):
         # A held-out body is part of the answer: "CLEAR" over a list of bodies nobody
         # measured is the same word as "CLEAR" over the whole machine.

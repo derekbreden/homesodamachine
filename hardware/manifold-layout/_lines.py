@@ -18,6 +18,20 @@ it, and the lines reaching those bodies are drawn once the box exists.
 Frames come off the placed pack, so a run rides a move of its parts: change a pose in
 `enclosure_assembly.py` and every waypoint measured off that body's ports moves with it.
 
+BEFORE MOVING A WAYPOINT, SWEEP IT. [`probe.World.shift`](/hardware/scripts/probe.py) slides
+named waypoints of a run drawn here across a range of offsets, redraws the run at each one, and
+reports what it collides with there — one row per position, and the bands of positions that are
+clear:
+
+    tools/cad-venv/bin/python hardware/scripts/probe.py route fluid-14
+    tools/cad-venv/bin/python hardware/scripts/probe.py shift fluid-14 3-4 y- 0:80:2.5
+
+A bend, a fall, a crossing, a leg — whatever the piece is called it is some waypoints of the
+route, and those indices are the handle (`route` numbers them, and `--near x,y,z` says which
+index a pick off the STEP is). It redraws rather than translates because a moved waypoint
+shortens the leg on one side of it, and a corner left without the tangent its arc seats in is as
+hard a limit as an obstacle; every row carries that radius too.
+
 Run it through the assembly:
     tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py
 """
@@ -837,7 +851,14 @@ LANE_CLEAR = 4.0
 # held over it. What the run comes down through is V-A's forward end.
 FILL_A_LANE_Z = 289.0
 # How long the run holds that storey before it falls — one stock radius, of which the corner off
-# the diagonal and the corner into the fall take 11.2 between them.
+# the diagonal and the corner into the fall take 11.2 between them. What is left is the only
+# straight there is between those two bends, so the fall is nearly as far forward as it goes.
+# Re-read how far by sweeping the two waypoints that carry it —
+#
+#     tools/cad-venv/bin/python hardware/scripts/probe.py shift fluid-14 3-4 y- 0:6:0.5
+#
+# — which stands clear to 2.5 mm forward of here and then starves that corner, with `fluid-16`
+# arriving a few millimetres behind it.
 FILL_A_LANE_RUN = TUBE_BEND
 # How much depth the fall onto the cap takes. Both its corners spend `TUBE_BEND` as tangent, so
 # what reaches the cap's plane is the fall plus those two arcs.
