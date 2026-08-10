@@ -5,7 +5,7 @@
     "hardware/cold-core-layout/_cold_scorecard.py": "f7aca56a9417942b5e241c8dde9fb8f3",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "1a1a6bf07e01904c980c17dd6b9ef3a2",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "f64119517cc5c58e0aa1edeba68a9df3",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "7afd3ee93d062af1750b0df745466107",
     "hardware/printed-parts/cold-core/_internal_routes.py": "fc10424fbcc99ee69dc3e35f03b4ada3",
     "hardware/printed-parts/cold-core/_port_cuts.py": "1d661c32c2011f843b75774a70576545",
     "hardware/printed-parts/cold-core/_reed_channels.py": "bed9455a4f6bd68217da7e5e02173510",
