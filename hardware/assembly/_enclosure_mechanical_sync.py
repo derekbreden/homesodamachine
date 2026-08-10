@@ -3,7 +3,6 @@
 Run: tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
 """
 
-import re
 import sys
 from pathlib import Path
 
@@ -33,6 +32,7 @@ from _cold_core_interface import (  # noqa: E402
 )
 import enclosure_assembly as _ea  # noqa: E402  — the placed pack, and the box sized around it
 import _scorecard as _card  # noqa: E402  — the fastening table, one row per placed body
+import _clearing  # noqa: E402  — the solid distance the card's own clearance rows are read at
 import enclosure as _enc  # noqa: E402  — on the path once `enclosure_assembly` is imported
 import iec_c14_inlet as _c14  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
@@ -94,27 +94,35 @@ def main():
             f"so either they go back on one diameter or the rows read out separately.")
     _co2_hole_d = _ea.co2_wall_port(_a.co2_inlet_carry)[3]
 
-    # Hopper corridor — `fluid-4` runs from the funnel's spout to V-B's own inlet, threading
-    # between the two source coils on the way. That run only exists once the funnel is placed
-    # and its lines drawn, past what `build_pack` reaches, so this is the one figure in the doc
-    # that costs its own (fuller) build rather than reading off `_a`.
+    # Hopper corridor — `fluid-4` falls from the funnel's spout to V-B's own inlet, passing
+    # between the two source coils on the way. That run exists only once the funnel is placed
+    # and its lines drawn, past what `build_pack` reaches.
     _ea_full = _ea.build_enclosure_assembly()
     _hopper_runs = list(getattr(_ea_full, "runs", []))
     _hopper_clearances = _card.part_clearances(_ea_full, _hopper_runs)
-    _hopper_lanes = _card.lane_notes(_ea_full, _hopper_runs, _hopper_clearances)
-    _hopper_note = next((n for n in _hopper_lanes if n.startswith("fluid-4 threads")), None)
-    if _hopper_note is None:
+    _hopper_run = next((r for r in _hopper_runs if r.id == "fluid-4"), None)
+    if _hopper_run is None:
         raise ValueError(
-            "fluid-4 no longer threads a lane in `lane_notes()` — the hopper-corridor "
-            "paragraph in enclosure-mechanical.md needs rewriting, not resyncing.")
-    _hopper_m = re.search(
-        r"they leave (?P<gap>[\d.]+) mm and the tube is Ø(?P<d>[\d.]+), "
-        r"so (?P<side>[\d.]+) mm a side",
-        _hopper_note)
-    if _hopper_m is None:
-        raise ValueError(f"the hopper corridor note changed shape: {_hopper_note!r}")
-    # The gate's own verdict, read rather than stated — a paragraph that names a check red
-    # cannot stay honest against a fix made on the other side of it.
+            "no `fluid-4` is drawn — the hopper-corridor paragraph in enclosure-mechanical.md "
+            "describes a tube the machine no longer has, so it needs rewriting, not resyncing.")
+    # The corridor's two pins, off the same rows `clearance-floor` grades — `lane_notes`' own
+    # reading of a lane, without its floor. That note is written only for a run PINCHED under
+    # the floor.
+    _hopper_bodies = _card._split_placed(_ea_full)[0]
+    _hopper_near = sorted(
+        (g, other) for x, y, g, _ok in _hopper_clearances
+        for rid, other in ((x, y), (y, x))
+        if rid == "fluid-4" and other in _hopper_bodies)
+    if {n for _g, n in _hopper_near[:2]} != {"coil-v-a", "coil-v-b"}:
+        raise ValueError(
+            f"`fluid-4` falls nearest {[n for _g, n in _hopper_near[:2]]}, and the hopper-"
+            f"corridor paragraph in enclosure-mechanical.md names the two source coils — that "
+            f"paragraph needs rewriting, not resyncing.")
+    (_side_a, _coil_a), (_side_b, _coil_b) = _hopper_near[:2]
+    # The tube stands `_side_a` off one coil and `_side_b` off the other, so the two cannot be
+    # further apart than the stack they sandwich — a horizon the lane falls inside.
+    _hopper_lane = _clearing.gap(_hopper_bodies[_coil_a], _hopper_bodies[_coil_b],
+                                 _side_a + _hopper_run.diam + _side_b)
     _hopper_gate = next(c for c in _card.build(_ea_full).checks if c.id == "clearance-floor")
 
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box.outer
@@ -170,10 +178,10 @@ def main():
         "EAST_BOSSES": f"{len(_pack.east_bosses)}",
         # Every placed body carries one fastening row, so the card's own table is the census.
         "BODY_COUNT": f"{len(_card.mounts())}",
-        # The hopper corridor — `lane_notes`'s own note for `fluid-4`, and the gate it feeds.
-        "HOPPER_LANE_SIDE": f"{_hopper_m['side']} mm a side",
-        "HOPPER_LANE_GAP": f"{_hopper_m['gap']} mm",
-        "HOPPER_TUBE_D": f"Ø{_hopper_m['d']}",
+        # The hopper corridor `fluid-4` falls down, and the gate it stands in.
+        "HOPPER_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm a side",
+        "HOPPER_LANE_GAP": f"{_hopper_lane:.3f} mm",
+        "HOPPER_TUBE_D": f"Ø{_hopper_run.diam:g}",
         "HOPPER_GATE_STATUS": (
             "currently reports red" if _hopper_gate.status == "fail" else "currently passes"),
     }
