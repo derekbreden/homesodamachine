@@ -1,0 +1,27 @@
+{
+  "/hardware/assembly/_handwork_sync.py": {
+    "hardware/assembly/_handwork_sync.py": "057629aceb4f31d63019746a8fab57f7",
+    "hardware/assembly/_pressure_vessel_sync.py": "5e45437938625936cca98e488a824214",
+    "hardware/cold-core-layout/_cold_scorecard.py": "f7aca56a9417942b5e241c8dde9fb8f3",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "1a1a6bf07e01904c980c17dd6b9ef3a2",
+    "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "9dfd0ccd6ac50b202040c249a425ea61",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "fc10424fbcc99ee69dc3e35f03b4ada3",
+    "hardware/printed-parts/cold-core/_port_cuts.py": "1d661c32c2011f843b75774a70576545",
+    "hardware/printed-parts/cold-core/_reed_channels.py": "bed9455a4f6bd68217da7e5e02173510",
+    "hardware/printed-parts/cold-core/_support_ring.py": "639e8feeed014927a25fac7f4771b5de",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "66951ae3ef9dbd7f32fe3c9c23c7e107",
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "01f5a32eb4c40ea562a72e8fed9cc2f4",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py": "fec5b4adf86284e3ee7a58f9a738c258",
+    "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
+    "hardware/scripts/_cadq_export.py": "27f5530daca447f876de07565e2ba104",
+    "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
+    "hardware/scripts/_meshes.py": "11ce45c073bc674e6df752dd712a9c5a",
+    "hardware/scripts/_overlap.py": "261c09c3ec78a61beccaf098c7d5ced4",
+    "hardware/scripts/_realized.py": "92deb9ee972129c966092bfdf7a39f3c",
+    "hardware/scripts/_routing.py": "cfece3f971e40a096a10384ec4764570",
+    "hardware/scripts/_run_lock.py": "3114e45894711dacf96c1ed361c7f938",
+    "hardware/scripts/_stated_bounds.py": "6dd26f4721921883f10e86fb777bc2b8",
+    "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
+  }
+}
