@@ -6,8 +6,9 @@
 #
 #   godot --path hardware/godot -- --scene <path.glb> --shot <out.png> --view iso
 #
-# `--hide enclosure*` drops bodies by name, the way the elevations drop the shell to read the
-# pack inside it. `--card <scorecard.json>` puts the card on the view and paints the bodies its
+# `--only <globs>` names the SOLID set and everything else ghosts to its own colour, still in
+# frame. `--ortho` puts a millimetre grid with numbered ticks under it and a scale bar beside it,
+# which is the projection a coordinate reads off. `--hide <globs>` drops bodies entirely. `--card <scorecard.json>` puts the card on the view and paints the bodies its
 # failing rows name, so a row and the metal it is about are the same picture. With no `--shot`
 # the window stays open and the mouse orbits.
 
@@ -30,12 +31,26 @@ var _orbit := Vector3(0.62, 0.45, 0.65)
 var _dragging := false
 var _shot := ""
 var _only := ""
+var _solid := ""
+var _ortho := false
+var _span := 0.0
+var _look: Control
+var _scene_name := ""
+var _frame := AABB()
+var _args := {}
 var _settle := 0
 
 
 func _ready() -> void:
 	var args := _arguments()
+	_args = args
+	# ON THE WEB THE SWITCHES ARE IN THE QUERY STRING, read before anything can be missing —
+	# there is no command line to have carried them.
+	if OS.has_feature("web"):
+		_over_http()
+		return
 	var path: String = args.get("scene", "")
+	_scene_name = path.get_file()
 	if path == "":
 		push_error("no --scene given; _scene.py writes one beside each layout's STEP")
 		get_tree().quit(2)
@@ -44,10 +59,20 @@ func _ready() -> void:
 	if pack == null:
 		get_tree().quit(2)
 		return
+	_stand(pack)
+
+
+func _stand(pack: Node3D) -> void:
+	var args := _args
 	add_child(pack)
 	var dropped := _hide(pack, args.get("hide", ""))
+	_solid = args.get("only", "")
+	_ortho = args.has("ortho") or args.has("span")
+	_span = float(args.get("span", "0"))
 
-	var box := _extents(pack)
+	var box := _extents(pack, _solid)
+	var whole := _extents(pack, "")
+	_frame = box
 	_target = box.get_center()
 	_reach = box.size.length()
 	_orbit = VIEWS.get(args.get("view", "iso"), VIEWS["iso"]).normalized()
@@ -55,11 +80,52 @@ func _ready() -> void:
 
 	_light()
 	_environment()
-	_look()
+	_look_at()
 	_only = args.get("check", "")
+	var painted := _paint(pack, _solid)
 	_card(pack, args.get("card", ""))
+	_overlay(pack, dropped, painted, whole)
 	print("%d bodies over %.0f × %.0f × %.0f mm, %d hidden" %
 		[_bodies(pack), box.size.x, box.size.y, box.size.z, dropped])
+
+
+func _over_http() -> void:
+	"""On the web there is no disk and no command line. The scene arrives from `/models/*` — the
+	route that already serves a `.glb` beside its STEP — and the query string carries the same
+	switches the shell passes."""
+	for key in ["scene", "view", "hide", "only", "ortho", "card", "check", "span"]:
+		var got: Variant = JavaScriptBridge.eval(
+			"new URLSearchParams(location.search).get(%s) || \"\"" % JSON.stringify(key), true)
+		if got != null and String(got) != "":
+			_args[key] = String(got)
+	var url: String = _args.get("scene", "")
+	if url == "":
+		push_error("no ?scene= in the query string")
+		return
+	_scene_name = url.get_file()
+	# HTTPRequest wants a whole URL; the page knows where it was served from.
+	if not url.begins_with("http"):
+		if not url.begins_with("/"):
+			url = "/models/" + url
+		var origin: Variant = JavaScriptBridge.eval("location.origin", true)
+		url = String(origin) + url
+	var http := HTTPRequest.new()
+	add_child(http)
+	http.request_completed.connect(_fetched)
+	if http.request(url) != OK:
+		push_error("could not ask for %s" % url)
+
+
+func _fetched(_result: int, code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if code != 200:
+		push_error("the scene came back %d" % code)
+		return
+	var doc := GLTFDocument.new()
+	var state := GLTFState.new()
+	if doc.append_from_buffer(body, "", state) != OK:
+		push_error("what came back did not read as glTF")
+		return
+	_stand(doc.generate_scene(state) as Node3D)
 
 
 func _arguments() -> Dictionary:
@@ -67,10 +133,16 @@ func _arguments() -> Dictionary:
 	var argv := OS.get_cmdline_user_args()
 	var i := 0
 	while i < argv.size():
-		if argv[i].begins_with("--") and i + 1 < argv.size():
+		if not argv[i].begins_with("--"):
+			i += 1
+			continue
+		# A FLAG TAKES NO VALUE. Reading the next token blindly makes `--ortho --hide x` set
+		# ortho to "--hide" and drop the hide entirely, which is a silent wrong picture.
+		if i + 1 < argv.size() and not argv[i + 1].begins_with("--"):
 			out[argv[i].substr(2)] = argv[i + 1]
 			i += 2
 		else:
+			out[argv[i].substr(2)] = "1"
 			i += 1
 	return out
 
@@ -85,12 +157,14 @@ func _read(path: String) -> Node3D:
 	return doc.generate_scene(state) as Node3D
 
 
-func _extents(root: Node) -> AABB:
+func _extents(root: Node, pattern: String = "") -> AABB:
 	# A body's own box, stood up by the matrix its node carries — the scene's extents are the
 	# union, and nothing here re-measures geometry the layout already measured.
 	var box := AABB()
 	var first := true
 	for node in _meshes(root):
+		if pattern != "" and not node.name.match(pattern):
+			continue
 		var own: AABB = node.get_aabb()
 		var world: AABB = node.global_transform * own
 		box = world if first else box.merge(world)
@@ -111,6 +185,19 @@ func _bodies(root: Node) -> int:
 	return _meshes(root).size()
 
 
+func _paint(root: Node, pattern: String) -> int:
+	"""The named bodies solid, every other one a ghost of its own colour, still in frame."""
+	if pattern == "":
+		return _meshes(root).size()
+	var solid := 0
+	for mesh in _meshes(root):
+		if mesh.name.match(pattern):
+			solid += 1
+		else:
+			mesh.material_override = _ghost(mesh)
+	return solid
+
+
 func _hide(root: Node, pattern: String) -> int:
 	# A hidden body is out of the picture and out of the extents, so what is left frames itself.
 	if pattern == "":
@@ -122,6 +209,42 @@ func _hide(root: Node, pattern: String) -> int:
 			node.get_parent().remove_child(node)
 			gone += 1
 	return gone
+
+
+func _overlay(pack: Node3D, hidden: int, solid: int, whole: AABB) -> void:
+	"""What was drawn, in what projection, at what scale, and what was left out."""
+	var layer := CanvasLayer.new()
+	layer.layer = -1
+	add_child(layer)
+	_look = preload("res://look.gd").new()
+	_look.camera = _camera
+	# The node carrying the +Z-up-into-+Y-up turn `_scene.py` wrote, so a tick reads the
+	# machine's own millimetres rather than the engine's. glTF's scene root is a child of what
+	# `generate_scene` hands back.
+	var stood: Node3D = pack.find_child("root", true, false)
+	_look.pack = stood if stood != null else pack
+	_look.ortho = _ortho
+	_look.target = _target
+	_look.span = _camera.size * 0.5 if _ortho else _reach * 0.5
+	var projection := ""
+	var mm_per_px := 0.0
+	if _ortho:
+		projection = "ortho span %.1f mm across" % _camera.size
+		mm_per_px = _camera.size / float(get_viewport().size.y)
+	else:
+		projection = "persp fov %.0f" % FOV
+		var away := (_camera.global_position - _target).length()
+		mm_per_px = 2.0 * away * tan(deg_to_rad(FOV) * 0.5) / float(get_viewport().size.y)
+	# The target in the machine's millimetres, which is the frame every other number here is in.
+	var aim: Vector3 = _look.pack.global_transform.affine_inverse() * _target
+	var frame := "%s  target %.1f,%.1f,%.1f  %.3f mm/px" % [
+		projection, aim.x, aim.y, aim.z, mm_per_px]
+	var counts := "%d solid  %d ghost (edges kept)  %d hidden   over %.0f by %.0f by %.0f mm" % [
+		solid, _bodies(pack) - solid, hidden, whole.size.x, whole.size.y, whole.size.z]
+	_look.legend = PackedStringArray([_scene_name, frame, counts])
+	if _solid != "":
+		_look.legend.append("only  %s - nothing outside it is solid" % _solid)
+	layer.add_child(_look)
 
 
 func _card(pack: Node, path: String) -> void:
@@ -267,10 +390,42 @@ func _environment() -> void:
 	_camera.near = 1.0
 	_camera.far = _reach * 12.0
 	add_child(_camera)
-	get_viewport().use_taa = true
+	# FORWARD+ ONLY. A web export runs the Compatibility renderer, where TAA, SSAO, SSIL and
+	# SDFGI are not implemented — asking for them there logs an error and changes nothing.
+	if not OS.has_feature("web"):
+		get_viewport().use_taa = true
 
 
-func _look() -> void:
+func _look_at() -> void:
+	if _ortho:
+		# AN ELEVATION IS AXIS-ALIGNED. The named views carry a small tilt so a solid render reads
+		# as a solid; under a grid that tilt puts every tick on a plane the label does not name.
+		_orbit = Vector3(signf(_orbit.x) if absf(_orbit.x) > 0.5 else 0.0,
+			signf(_orbit.y) if absf(_orbit.y) > 0.5 else 0.0,
+			signf(_orbit.z) if absf(_orbit.z) > 0.5 else 0.0).normalized()
+		# THE SUBJECT'S EXTENT IN THE FRAME, not its diagonal. An elevation of a 358 mm tall pack
+		# framed on a 660 mm diagonal leaves half the picture empty, and a coordinate read off a
+		# grid that coarse is the reading this projection exists to give.
+		_camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+		_camera.global_position = _target + _orbit * _reach * 4.0
+		_camera.look_at(_target, Vector3.UP)
+		if _span > 0.0:
+			_camera.size = _span * 2.0
+		else:
+			var basis := _camera.global_transform.basis
+			var half_up := 0.0
+			var half_right := 0.0
+			for i in 8:
+				var corner := _frame.position + _frame.size * Vector3(
+					float(i & 1), float((i >> 1) & 1), float((i >> 2) & 1)) - _target
+				half_up = maxf(half_up, absf(corner.dot(basis.y)))
+				half_right = maxf(half_right, absf(corner.dot(basis.x)))
+			var aspect := float(get_viewport().size.x) / float(get_viewport().size.y)
+			_camera.size = maxf(half_up * 2.0, half_right * 2.0 / aspect) * 1.15
+		if _look != null:
+			_look.span = _camera.size * 0.5
+			_look.queue_redraw()
+		return
 	# Far enough back that the scene's own sphere fills the frame, so a pack and a coupon are
 	# each framed on themselves rather than on a distance picked for one of them.
 	var half := deg_to_rad(FOV) * 0.5
@@ -301,15 +456,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		_dragging = event.pressed and event.button_index == MOUSE_BUTTON_LEFT
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_reach *= 0.92
-			_look()
+			_look_at()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			_reach /= 0.92
-			_look()
+			_look_at()
 	elif event is InputEventMouseMotion and _dragging:
 		var yaw: float = -event.relative.x * 0.008
 		var pitch: float = -event.relative.y * 0.008
 		_orbit = _orbit.rotated(Vector3.UP, yaw)
 		_orbit = _orbit.rotated(_orbit.cross(Vector3.UP).normalized(), pitch).normalized()
-		_look()
+		_look_at()
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		get_tree().quit()
