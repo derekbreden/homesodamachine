@@ -1,8 +1,8 @@
 {
   "/hardware/topology/_fluid_topology_sync.py": {
     "hardware/manifold-layout/_lines.py": "3426e7a971cc5fce7939f12e6ab66109",
-    "hardware/manifold-layout/_scorecard.py": "510c1e09a36e8c18d1d12dfc75507dc5",
-    "hardware/manifold-layout/enclosure_assembly.py": "849163f92c03deabb3d2694a3f9aa29f",
+    "hardware/manifold-layout/_scorecard.py": "bcc9f0e3d684a21ca659409cd12f07a8",
+    "hardware/manifold-layout/enclosure_assembly.py": "904ef8eb7daec59f14d460c477e65523",
     "hardware/manifold-layout/manifold_layout.py": "69a9649cb0f27a2c6e99093eab608d7e",
     "hardware/printed-parts/cadlib/snap.py": "9ad14bfce6215da092d14c2f3bc799de",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
@@ -20,7 +20,7 @@
     "hardware/printed-parts/electronics/module_tray.py": "58d3dcea93560235bd874b5bdfb544f1",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "e6dec536195786a1693fb86fbbf2a0be",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "eabe51bc7afc60620ba6781b0b4a50b1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b6f2055502e6efe1b5434098cba706a9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "d37b43b7bad3660ea6a740b7c2def37d",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap_sense_sleeve.py": "b0b72bf01aa49edefb10b70156796beb",
     "hardware/printed-parts/flavor/pump-case/pump_case.py": "b942a09f30e4255a8e54773d5b04191e",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": "971a89ce3a000df82a8f816e3dd48383",
