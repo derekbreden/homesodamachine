@@ -357,12 +357,17 @@ seats closed on the barrels at the slip itself, there being no angle in a bore t
 divide by; travel off the placed pack is 0.231 up into them, 0.400 either way across,
 and free downward.
 
-Each saddle's strap runs a cavity over its bore: the **seat's own arc offset out by
-one `wall`**, concentric, so the web reads that all the way round the crown — and the
-**top wall's own inner face** above. The channel is what is left between the two,
-deepest over the crown and flaring as the arc falls away to each mouth. On the built
-piece: seat R 6.2 crowning at 342.411, cavity floor R 9.2 crowning at 345.411, and
-6.589 mm of channel under the wall.
+Each saddle's strap runs a cavity over its bore, and **nothing is cut for it.** The
+rib is one box its whole length up to one `wall` over the bore's crown, its two ends
+carried on up to the top wall, and one bore through all of it — so the channel is the
+length the ends do not span. It has no floor of its own to draw and no cut to make it.
+On the built piece: seat R 6.2 crowning at 342.411, channel floor flat at 345.411,
+and 6.589 mm of it under the wall.
+
+**The rib is unified before it joins the wall.** A fuse imprints the seam of every
+solid that went into it, so a rib fused straight on carries its lip in as many pieces
+as it was laid down in. Cleaned first, the built piece reads one cylindrical seat face
+9.50 long, one channel floor of 64.40 mm², and each lip **one 9.500 edge**.
 
 Printed ceiling-down there is **no overhang in this feature at all** — the rib stands
 up off the bed, its flanks are vertical, and the bore's crown is the deepest thing in
