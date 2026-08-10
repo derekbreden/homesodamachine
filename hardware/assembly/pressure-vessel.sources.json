@@ -3,7 +3,7 @@
     "hardware/assembly/_pressure_vessel_sync.py": "5e45437938625936cca98e488a824214",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "1a1a6bf07e01904c980c17dd6b9ef3a2",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "42591e718568f73607c22c518dc46a4d",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "f64119517cc5c58e0aa1edeba68a9df3",
     "hardware/scripts/_cadq_export.py": "27f5530daca447f876de07565e2ba104",
     "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
     "hardware/scripts/_run_lock.py": "3114e45894711dacf96c1ed361c7f938",
