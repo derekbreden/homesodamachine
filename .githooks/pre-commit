@@ -328,7 +328,10 @@ fi
 if [ "$owed" -gt 0 ]; then
   echo "" >&2
   echo "pre-commit: THIS COMMIT IS IN, and it owes a follow-up. $owed check(s) came back red:$owed_names" >&2
-  echo "pre-commit: each names what it found and what re-derives it. Fix them and commit again." >&2
+  echo "pre-commit: PUSH IT NOW, BEFORE fixing any of them. The deploy runs off what is on" >&2
+  echo "pre-commit:   origin, so a commit held back while the follow-up is worked is a change" >&2
+  echo "pre-commit:   nobody can see yet. Each red above is a SEPARATE commit, pushed in turn." >&2
+  echo "pre-commit:   git push, then fix what each check names and commit again." >&2
 fi
 
 exit 0
