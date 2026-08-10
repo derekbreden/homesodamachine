@@ -1527,9 +1527,6 @@ TUBE_ANCHOR_SITES = (
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # And the gas line's, on that same deck and under that same wall, one cap conduit aft of it.
     ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
-    # Reservoir A's fill, on the cruise it climbs to under the same wall — `_lines.FILL_A_HIGH_CLEAR`
-    # is what that climb leaves for this rib.
-    ("fluid-14", 3, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # Nozzle B's outboard lane, off the −X wall it runs 20.5 mm inboard of. The leg leans, but
     # only in that wall's own plane, so the wall lies one distance down the whole of it.
     ("fluid-28", 2, (-1.0, 0.0, 0.0), "enclosure-back-top"),

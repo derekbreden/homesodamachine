@@ -378,7 +378,7 @@ picked out of it.
 
 One pattern wherever a wall comes near enough to reach something round
 (`_tube_anchors`): a **bore concentric with the body**, half a cylinder at
-`seat_r`, and the strap's channel behind it. Four of these hold a length of tube
+`seat_r`, and the strap's channel behind it. Three of these hold a length of tube
 (`enclosure_assembly.TUBE_ANCHOR_SITES`) and one holds a fitting
 (`enclosure_assembly.BODY_ANCHOR_SITES`) — the same rib either way, since what the
 builder is handed is an axis, a direction along it and a radius.
@@ -414,7 +414,7 @@ downward — the mouth the strap shuts.
 seat that opens downward carries nothing. Barrel and rib make an [84.1 mm](LOOP_WR1110)
 loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
-itself, and `check_tube_seated` reads the four run anchors the same way.
+itself, and `check_tube_seated` reads the three run anchors the same way.
 
 ## Display housing
 
