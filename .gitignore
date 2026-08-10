@@ -68,3 +68,7 @@ tools/cad-venv/
 # Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
 # always cost; deleting this is always safe.
 .cache/
+
+# Shots and import scratch from the engine project (hardware/godot). Written on ask.
+hardware/godot/*.png
+hardware/godot/.godot/
