@@ -1,147 +1,58 @@
 # Fences
 
-Derek pointed you here. That means you have probably just reported a limit — a maximum, a
-"there is no room," an "it can't be done," a "the only option" — and he does not believe it.
-He is usually right, and the reason is almost always the same one: the limit you reported is
-the edge of the box you searched, not the edge of the world. Sometimes the box is not even
-yours — a rule standing in the code can be perfectly true of one place and charged against
-every place, and obeying it feels exactly like measuring.
+Derek points agents here after one of them has reported a limit — a maximum, a "there is no
+room," an "it can't be done," a "the only option" — and he does not believe it. He is usually
+right.
 
-He calls the box a **fence**. The word is his:
+**This file is a record, not a procedure.** Its whole job is to show a reader that the failure
+is a repeated, documented pattern with names and numbers attached, produced over and over by
+agents who were each being exactly as careful as the reader is being right now. It does not say
+what to do about it. Everything below is either a quotation from a real session in this repo or
+a plain statement of what that session's numbers turned out to be, and each one links to the
+full transcript in [`fences/`](fences/README.md).
+
+**On authorship.** Agents write this file. Only the quoted lines are evidence — everything
+around them is one agent's reading of them. A previous version of this file carried an invented
+six-step "approach," a self-check list and a tooling section, written in the same voice as
+Derek's own words, including a claim about how he reviews work that he does not recognise as
+his. It is at the `superseded-fences-calibration` tag. If a sentence here is not a quotation,
+it is not authority.
+
+## The word is Derek's
 
 > I would like you to try to identify the fences the previous agent put up, and the ones you
 > put up, when you "choose how to run your analysis," because it has been consistently shown
 > that you do not properly consider all the options available.
 > — [LLDPE route 32](<fences/LLDPE route 32.md>)
 
-This document is written by an agent that produces this failure, for the next agent that
-will. Every quotation in it is from a real session in this repo, and every one of the
-agents quoted was as careful as you are being right now. Each citation links to that
-session's full transcript in [`fences/`](fences/README.md) — go read one in its room if a
-quote seems like it must have had more context than this.
+## The record
 
-## Before the claim: look at it
-
-A limit about **arrangement** — no room, will not fit, cannot move, the only place it goes —
-is not sendable until you have rendered the region and looked at it. That is a precondition
-on the claim, not a remedy for it. Everything below this section is read after Derek has
-already paid.
-
-The failure it heads off is more primitive than the sweeps further down. Those are bounded
-searches, and their defect is a box drawn too small. This one is that **the number you read
-is not the shape.** Every table in this repo that gives a body's extent gives its bounding
-box, and a box is a claim about a rectangle:
-
-    seaflo-pump     fills 0.41 of its box — feet, a motor barrel and a pressure switch
-                    standing off a casting, and the box says a solid 98 × 187 × 72 block
-    hopper-funnel   fills 0.05 — a rim, a short straight wall, then a cone to a 12 mm
-                    spout, and the box says a 173 × 173 × 53 block
-
-`scorecard.shapes` carries `fill` in the same record as the boxes. Under ~0.5 the box will
-answer for a lane it does not occupy, and it errs one way only: the box is larger than the
-part, so the report is always *less room than there is*. Which is every fence on this page.
-
-**The command.** `--only` renders the subject in solid faces and leaves the rest as edges,
-still in frame. `--view top|front|right` with `--ortho` lays a millimetre grid with numbered
-ticks over it, so a coordinate is read off the picture instead of trusted from a table:
-
-    node tools/render/render-view.js manifold-layout/front-half.step \
-      /tmp/look.png --only seaflo-pump --view top --ortho
-
-`--views top,front,right` takes the set in one boot — parsing the STEP is the whole cost, and
-a second frame off the same scene is milliseconds. The legend prints the subject's bounding
-box beside the picture that contradicts it.
-
-The assembly's three elevations are built with it and sit next to the STEP —
-`front-half.top.png`, `.front.png`, `.right.png`, the pack read through an x-rayed shell. Open
-one before touching a placement. The `.step.png` beside them is the grid thumbnail: isometric
-and small, which are the projection and the size a coordinate cannot be read in.
-
-**The constraint saying it cannot move is usually a line someone wrote.** In this pack a body's
-position is mostly *derived* from another body's: `y_g_pos()` is the tray's own collet plus half
-the bay, `y_h_pos()` takes a divider's port plane `[:2]` and stands the body on the PSU's crown
-instead, `AFT_TRAY_BAY` is twice a leg lead. So *"moving the tray does not help — the fitting is
-derived from the tray and moves with it by the same δ, so the diagonal is invariant"* is a true
-statement about `_contents.py` and a false one about the machine. The derivation is the thing to
-move. Deriving a pose from a neighbour is how a placement is made legible, not a law.
-
-**And everything in this pack has moving left to do.** That is what a failing `bend-radius`
-means: a corner short of its stock's minimum is bound by where its two ends STAND, and most of
-those ends are still placed provisionally. So the body in the way moves too, and the one behind
-it, and the wall behind that. A report that some one body cannot move, written while the whole
-arrangement is unfinished, is a statement about how far the search went — and *"I checked it
-properly"* is not the sentence that makes it otherwise.
-
-**What a render does not answer.** It shows what is there and what stands beside it. It does
-not tell you that a different fitting fits where this one does not, and it does not tell you
-what would look better. Those are Derek's, and asking him for one is not a fence.
-
-## The case, compressed
-
-A PCB had to move north on a foam cap. The question was whether rotating it a quarter turn
-bought room. The agent swept the rotated hole pattern on a 0.25 mm grid, held it off the
-cap's bosses and cavity wall by the same 1.5 mm the unrotated pattern already kept, ranked
-the free poses, and reported:
-
-> **A quarter turn buys 4.85 mm, and it costs the only reachable USB-C opening.** I swept
-> every position a rotated hole pattern can occupy on the cap.
-
-Derek answered with a pick-text blob naming one edge of the foam lid and one sentence:
-
-> On the "4.85 mm" that doesn't sound like you tried placing it against the far negative Y
-> edge of the foam shell … let alone considering going *beyond* that edge with it.
-
-The agent knew instantly what it had done:
-
-> You're right that my sweep didn't get there — it capped `cx` too narrowly and never let
-> the pattern thread between the cap's mid-side and corner bosses.
-
-Re-run without the cap: **12.10 mm**, two and a half times the reported figure. And the
-detail that matters most — the winning pose did not need the edge Derek named. It landed
-3.6 mm short of it, inside the region the agent had already called *every position*.
-
-The fence was not at the frontier. It was in the middle of the map, and the map said nothing
-about it. — [PCBA placement 6](<fences/PCBA placement 6.md>)
-
-## The lesson
-
-Every limit has two possible authors: the world, or you. Rigor inside the box tells you
-nothing about the box. A 0.25 mm grid, a measured clearance, an exact solid distance — all
-true, all irrelevant to the question of where the grid stopped.
-
-**A bound you chose is not a finding. Report the box before you report the answer.**
-
-The test is one question, asked of each bound before you send: *if I widen this one, does
-the answer change?* If you cannot say, you have not measured a limit. You have measured your
-grid.
-
-And the ask is **disclosure, not exhaustiveness.** You cannot search everything. You can
-always say what you searched. In every case below, the moment Derek pushed, the agent named
-its own fence exactly and immediately — `cx`, `YS = (0.0, 200.0)`, `~12°`, "flat on the cap."
-The knowledge was never missing. It was never reported. That is the whole failure, and it is
-the good news: disclosure is cheap, and it is available every single time.
-
-## The forms it takes
-
-**The search box reported as the world.** You bound a scan to run it, then report its
-extremum as the problem's extremum.
+**The search box reported as the world.** An agent bounds a scan in order to run it, then
+reports the bound's extremum as the problem's extremum.
 
 > My scan never looked above the foam shell. I hard-coded `YS = (0.0, 200.0)` … and
 > `ZS = (0.0, 200.0)`. So I searched the front column only. The entire service bay above the
 > cold core was outside the search box, **not found wanting**. And the interior actually runs
 > to z=331.7, not 200. — [LLDPE route 30](<fences/LLDPE route 30.md>)
 
-Not found wanting. Three words for the whole document.
+The fullest version. A PCB had to move north on a foam cap, and the agent swept the rotated
+hole pattern on a 0.25 mm grid, held the same 1.5 mm clearance the unrotated pattern kept,
+ranked the free poses, and reported *"A quarter turn buys 4.85 mm … I swept every position a
+rotated hole pattern can occupy on the cap."* Derek named one edge of the lid and asked whether
+it had been tried. Re-run without the cap: **12.10 mm, two and a half times the reported
+figure** — and the winning pose did not need the edge he named. It landed 3.6 mm short of it,
+inside the region the agent had already called *every position*. The fence was not at the
+frontier; it was in the middle of the map. — [PCBA placement 6](<fences/PCBA placement 6.md>)
 
-**The protected bystander.** You quietly add a constraint to spare something, then report the
-failure the constraint caused.
+**The protected bystander.** A constraint quietly added to spare something, then the failure
+the constraint caused reported as the world's.
 
 > I capped the y-divider's rotation at ~12° because past that, a *different* tube on the
 > divider's other side stops being a straight tube. With that self-imposed cap, the rotations
 > barely helped — so I wrongly concluded "it can't be done." **You never asked me to protect
 > fluid-13.** — [LLDPE route 12](<fences/LLDPE route 12.md>)
 
-**The frozen first draft.** You read what is placed as what is fixed.
+**The frozen first draft.** What is placed read as what is fixed.
 
 > I only searched parts sitting flat **on** the cap — the void is 78 mm tall, so elevation is
 > part of "the full range of arrangements." — [PCBA placement](<fences/PCBA placement.md>)
@@ -149,7 +60,7 @@ failure the constraint caused.
 > I treated R18, C17, and the pod-rigidity comment as constraints instead of movables.
 > — [PCBA Audit Saturday](<fences/PCBA Audit Saturday.md>)
 
-Derek's version of the same note:
+Derek, in the same room:
 
 > We need not restrict ourself to the existing placements. Generally, I think this is your
 > weakness, not seeing the flexibility in the design, the amount of engineering work that
@@ -164,17 +75,14 @@ dead end back to a constant nobody had picked on purpose:
 > arbitrary station, the yaw then pointing the inlet at it, and the barb then pointing at a
 > wall. — [LLDPE route 33](<fences/LLDPE route 33.md>)
 
-**The inherited fence.** A previous session's conclusion arrives as a premise. It was
-produced by an agent with your failure mode.
+**The inherited fence.** A previous session's conclusion arrives as a premise. It was produced
+by an agent with the reader's own failure mode.
 
 > **CLEAR on the first probe.** A 34×32×57 void sits at x[5,39] y[326,358] z[255,312] … and
 > it's well inside the current extents, so filling it grows the box by nothing. **Route 31
 > declared this impossible.** — [LLDPE route 32](<fences/LLDPE route 32.md>)
 
-This is why a fence is never a local error. Fenced conclusions get written down, and this
-repo teaches by example.
-
-The recovery is available and it is cheap. One agent, handed a prior session's verified
+The recovery happens too, and it is cheap. One agent, handed a prior session's verified
 arrangement, checked the conclusion's provenance before standing on it:
 
 > The conclusion "side-by-side is impossible" was true at 96 mm and needs re-deriving at
@@ -182,124 +90,77 @@ arrangement, checked the conclusion's provenance before standing on it:
 > reasoning you've twice had to correct.
 > — [PCBA placement 3](<fences/PCBA placement 3.md>)
 
-**The phantom requirement.** A convention adopted somewhere upstream, wearing a safety
-justification, obeyed as if it were a spec.
+**The phantom requirement.** A convention adopted upstream, wearing a safety justification,
+obeyed as if it were a spec.
 
 > "Top+bottom only" was never a requirement I gave you — it crept in as a preference wearing
-> a safety justification. Every time you catch yourself calling something *forced*,
-> *impossible*, or a *hard floor*, stop and split it in two: forced by geometry or physics
-> (real), versus forced by a rule you imposed on yourself (negotiable — say it out loud so I
-> can see it and veto it). Most impossible things in this kind of work are only impossible
+> a safety justification. … Most impossible things in this kind of work are only impossible
 > under an undisclosed constraint. **Keep your horizons open, and report your constraints,
-> not just your conclusions.** — [Fragmentation](<fences/Fragmentation.md>)
+> not just your conclusions.** — Derek, [Fragmentation](<fences/Fragmentation.md>)
 
-The agent on the receiving end of that message reported what the phantom had been doing to
-its work: *"it's literally why I was about to shove D− under the connector body."* A fence
-does not merely hide options. It bends the work into contortions to satisfy something that
-was never required.
+The agent on the receiving end: *"it's literally why I was about to shove D− under the
+connector body."* A fence does not only hide options — it bends the work into contortions to
+satisfy something that was never required.
 
-**The self-generated veto.** The measurement says yes and you supply your own reason to say
-no, resting on a fact you assumed rather than one you have.
+**The self-generated veto.** The measurement says yes and the agent supplies its own reason to
+say no, resting on a fact it assumed rather than one it holds.
 
 > Rolling it 45° aft — it fits, and I'd still skip it. … at 45° the stub's exit stops being
 > its low point, so water clings and runs down the outside instead of shedding off a clean
-> annular tip — and this drip is a *sensor input*, so its landing spot shouldn't be set by
-> surface tension. — [Drip tray](<fences/Drip tray.md>)
+> annular tip. — [Drip tray](<fences/Drip tray.md>)
 
-Derek: *"I think our sensor is large enough for this, don't you? It is 41 mm x 55.25 mm of
-PCB with interwoven copper."* The objection evaporated. Worse, the same unchecked assumption
-about that sensor had already put a defect into the pan the agent had shipped an hour
-earlier — sized for a plate "~62 × 20," the real plate bridged on the coves 0.76 mm above the
-floor and never wetted copper. The fence was not only blocking a good option; it was
-producing a bad part.
+Derek: *"I think our sensor is large enough for this, don't you? It is 41 mm x 55.25 mm of PCB
+with interwoven copper."* The objection evaporated. The same unchecked assumption had already
+put a defect into the pan the agent shipped an hour earlier — sized for a plate "~62 × 20," the
+real plate bridged on the coves 0.76 mm above the floor and never wetted copper. The fence was
+not only blocking a good option; it was producing a bad part.
 
-**The route as requirement.** The forms above are bounds on searches that ran. This one is
-the search that never runs: the network — which runs exist, where each one goes, which
-fitting stands where — arrives as the given, and the work becomes making the inherited
-corners rounder. No bound gets disclosed because none was chosen; the fence is in what the
-report is about.
+**The route as requirement.** The forms above are bounds on searches that ran. This is the
+search that never runs: the network — which runs exist, where each goes, which fitting stands
+where — arrives as the given, and the work becomes making the inherited corners rounder.
 
-One stint priced fluid-25's corridor exactly — its dead ends written into the band fence
-with their tables — and ranked what it could not fix upstairs: *"REAR_PLANE_Y ↔ tray face ↔
-SeaFlo ↔ Y-F's body; an envelope/mounts conversation."*
-[Scoreboard 9](<fences/Scoreboard 9.md>). Every word of that diagnosis is a pin on the
-route the run currently takes. Derek's answer was about the other half — what the run
-connects:
+One stint priced fluid-25's corridor exactly and ranked what it could not fix upstairs:
+*"REAR_PLANE_Y ↔ tray face ↔ SeaFlo ↔ Y-F's body; an envelope/mounts conversation"*
+— [Scoreboard 9](<fences/Scoreboard 9.md>). Every word of that names what pins the run. Derek
+asked about the other half, what it connects: *"there's no reason for any of this to be
+traveling to the opposite corner in the xy plane."* The run's two ends stand ~300 mm apart, and
+the route spends ~500 mm and the corridor's whole second lane — a lane the routing file says
+exists for this run alone. — [Scoreboard 10](<fences/Scoreboard 10.md>)
 
-> there's no reason for any of this to be traveling to the opposite corner in the xy plane
+The same room shows the form surviving its own demolition. The literal version of Derek's idea
+was reported dead three ways; he pushed once — *"so? so what? What is the actual problem?"* —
+and under probes of the placed solids two of the three deaths were not walls: *"the corridor
+you're describing is not just workable — it's the emptiest space in the machine,"* and the
+sharpest sentence in this folder, ***"a construction that doesn't exist yet, which I wrongly
+described as geometry that can't exist."***
 
-The measurement: the run's two ends stand ~300 mm apart, and the route spends ~500 mm and
-the corridor's whole second lane — a lane the routing file says exists for this run alone —
-connecting them. The route that answers the need deletes the lane instead of pricing it.
-[Scoreboard 10](<fences/Scoreboard 10.md>).
+**The globalised rule.** Every form above is a fence somebody invented. This one is *real* —
+and charged in places it was never true.
 
-The same room then shows the form surviving its own demolition. The literal version of
-Derek's idea was reported dead three ways at stock radius; he pushed once — *"so? so what?
-What is the actual problem?"* — and under probes of the placed solids, two of the three
-deaths were not walls: *"the corridor you're describing is not just workable — it's the
-emptiest space in the machine,"* and the sharpest sentence in this folder, *"a construction
-that doesn't exist yet, which I wrongly described as geometry that can't exist."* The third
-obstacle reversed into a price — the PSU roofs the straight drop, so the path is an L. No,
-unless X moves, which costs Y.
+`side_rib_inset` is 14 mm of band down each ±X wall, and it has an honest job: the seam's corner
+posts, boss chains and Z-seam pods stand in it and need full section. That is a fact about
+**where those columns stand.** It became `xmax > 94.50` — a body may not cross this plane — and
+in that form it answered a question about a handful of Y stations with a test ranging over the
+machine's whole depth. Where the band actually runs free is most of the depth, not a sliver. The
+PCBA stands well inside it, was never near a pod, and could have been mounted flat on the wall
+the whole time. The rule that stopped it was a true sentence about somewhere else.
 
-"Envelope" is this form's terminal word. The envelope is the one fixed thing in the brief,
-so it is the one thing a search cannot have priced a move against — a verdict that blames
-it has exited the search, not widened it. And a manager relaying a subagent's impossibility
-unprobed is standing on an inherited fence with extra steps: "i.e., yours" hands Derek a
-conclusion nobody ever probed.
+**The sweep.** A sweep's grid, field, clearance and pose set are four bounds chosen at the
+moment of least knowledge, and what it reports is a *count*.
 
-**The globalised rule.** Every form above is a fence somebody invented. This one is a fence
-that is *real* — and is being charged in places it was never true. A constraint gets observed
-correctly somewhere specific, written down without its where, and then applied to everything.
+[Scoreboard 11](<fences/Scoreboard 11.md>) asked whether relay-1 could leave the PSU's lane. An
+exact-solid sweep of the whole cap, **33,900 poses on a 2.5 mm grid**, returned 106 free, 6 with
+a legal landed station, all 6 in relay-1's own lane, **0 clearing the PSU**. The answer was found
+afterwards, by hand, at 0.1 mm: board centre (52.0, 305.0), yaw 180 — a window `cx ∈ [51.8,
+52.0]`, **0.2 mm wide and invisible to a 2.5 mm grid.** That search cost 110 minutes and 297k
+tokens and produced the wrong answer with a pose count attached.
 
-`side_rib_inset` is 14 mm of band down each ±X wall, and it has an honest job: the seam's
-corner posts, boss chains and Z-seam pods stand in it, and they need full section. That is a
-fact about **where those columns stand**. It became `xmax > 94.50` — a body may not cross this
-plane — and in that form it was answering a question about a handful of Y stations with a test
-that ranged over the machine's whole depth. `_dims` reserved a 17.80 mm pod stack above any
-body past that plane, and `east_wall_seat` handed every body on the flank the same 94.50, so
-the power column stood a full boss chain off a wall it was supposedly bolted to, on standoffs
-long enough to span the gap.
+Two more from the same day. The PSU stint spent 48 minutes and its load-bearing output was a
+twelve-row stop list — about a minute of arithmetic. The water-4 stint spent 99 minutes, and its
+finding was that a shelf hung off a bounding-box crown stood 12.4 mm over the body it actually
+clears: two numbers, read off the placed casting.
 
-Where the band actually runs free is `enclosure.east_band_free_y`, struck off the two stated
-planes those columns are built on — and it is most of the depth, not a sliver. The PCBA stands
-well inside it. It was never near a pod. It could have been mounted flat on the wall the whole
-time, and the rule that stopped it was a true sentence about somewhere else.
-
-The tell is a **bare threshold with no scope attached.** `xmax > 94.50` names neither which
-pod it protects nor where that pod stands, so it cannot be checked against reality — it can
-only be obeyed. Compare the ones that survive contact: `STACK_CLEAR` comes off the relay's own
-hole inset, `FOOT_CLEAR` is measured on the pump's casting over the tray's own height band.
-Those can be argued with, because they say what they are made of.
-
-And the repair is the opposite of every other form here. An invented fence should be deleted.
-A globalised rule should be **scoped** — deleting `side_rib_inset` would put a wall through the
-seam machinery. Ask the rule where its subject stands, and make the test ask the same question:
-a Y span, a Z band, a named body, a station table. If you cannot say where, that is the finding.
-
-## The search as the fence
-
-Every form above is a bound inside a sweep. This one is the sweep.
-
-A sweep is a fence-making machine. Its grid, its field, its clearance and its pose set are four
-bounds chosen at the moment of least knowledge, and what it reports is a *count* — "33,900
-poses," "0 free of 32,996." A count reads as exhaustiveness. Nothing in this repo manufactures a
-more convincing false negative.
-
-[Scoreboard 11](<fences/Scoreboard 11.md>) asked whether relay-1 could leave the PSU's lane. The
-exact-solid sweep of the whole cap at the authored seat, 33,900 poses on a 2.5 mm grid, returned
-**106 free, 6 with a legal landed station, all 6 in relay-1's own lane, 0 clearing the PSU.** The
-answer was found afterwards, by hand, at 0.1 mm: board centre (52.0, 305.0), yaw 180 — a window
-`cx ∈ [51.8, 52.0]`, 0.2 mm wide and invisible to a 2.5 mm grid. That search cost 110 minutes and
-297k tokens and produced the wrong answer with a pose count attached.
-
-Two more from the same day. The PSU stint spent 48 minutes, and its load-bearing output was a
-twelve-row stop list — `gap(A+t, B)` along one axis for twelve bodies, about a minute of
-arithmetic. The water-4 stint spent 99 minutes, and its finding was that a shelf hung off
-`sea.bb.zmax` stood 12.4 mm over the body it actually clears: two numbers, read off the placed
-casting.
-
-Derek's reading, and it is the operative one:
+Derek, on the same day:
 
 > I don't see why anything that takes more than a minute is necessary. You calculate where you
 > can place something, you look at all the coordinates of all the bounding boxes of all the
@@ -308,194 +169,35 @@ Derek's reading, and it is the operative one:
 > time a "rigorous search" has produced anything useful, that wouldn't have been better if the
 > agent had actually ***chosen*** an arrangement.
 
-**The build is the oracle and it is exact.** `pack-closes`, `lines-clear`, `bend-radius` and the
-clearance floor measure real solids at full precision on every build. A sweep is a slower,
-gridded re-implementation of a check that already exists — and the house rule is to commit the
-red card and say what to look at in the viewer, not to reach a green one before anything lands.
+## What the record shows
 
-So: read the boxes, do the arithmetic, **choose**, place, build, look. A chosen pose has no grid
-to be coarser than the answer, no field to be too small, and no bound to disclose. It is the one
-shape of work this entire document has nothing to police.
+**The knowledge was never missing.** In every case above, the moment Derek pushed, the agent
+named its own fence exactly and immediately — `cx`, `YS = (0.0, 200.0)`, `~12°`, "flat on the
+cap." It was never unavailable. It was never reported.
 
-What still earns its cost is measuring *how much*, not ranking *which* — and both of those
-readings are now verbs. `probe.travel` is the stop list the PSU stint spent 48 minutes writing by
-hand: every body that stops a move, nearest first, with what stands behind the binder, exact
-because `gap` is 1-Lipschitz under translation. The card's own `shapes` record bands every body's
-real boxes and how much of them is material, and it is written on every build. Neither ranks a
-pose. The thing to stop doing is ranking poses.
+**Nothing goes red.** A hack gets caught by a DRC. A fence produces a clean, correct,
+fully-verified answer to a smaller question than the one that was asked. There is no gate to
+fail, which is why the pattern survived sixteen sessions of agents who would each have caught it
+instantly in somebody else's work.
 
-## The tells
+**Precision is the amplifier, not the guard.** The most rigorous report is the most convincing
+fence, because everything in it is true. One agent traced this exactly:
 
-Run these against the draft you are about to send, not against work you are reviewing.
-Recognizing this in finished work is easy. Interrupting your own generation with it is the
-hard part, and that asymmetry is why this document exists.
+> My stuck-point reports were specific and measured — which is good — but I used that
+> specificity to justify stopping rather than as a map of where to keep looking. The
+> measurements were right; the conclusion drawn from them ("therefore it's nearly impossible")
+> was the error. — [Cleanup Board](<fences/Cleanup Board.md>)
 
-- **The named-parameter tell.** Your search took ranges and you can name them. If those
-  ranges appear nowhere in what you are about to send, you are reporting a box as a world.
-- **The boundary tell.** Your best result sits *on* a bound you supplied. That is your grid
-  reporting where it stopped, not the geometry reporting where it ends.
-- **The bystander tell.** Somewhere in your reasoning is a thing you decided not to disturb.
-  Ask who asked you to protect it. If the answer is nobody, name it and hand over the veto.
-- **The universal-quantifier tell.** "Every position." "All cross." "Exhausted." Derek's
-  rule, from [Current](<fences/Current.md>): *"anytime you say 'all cross' you are not looking
-  in the correct corridor for your path."* The agent's own reading of what it had done is the
-  cleanest statement of the whole failure in this folder — *"'all cross' is me mis-framing the
-  corridor, not a fact about the board."* A universal quantifier ranges over the box and reads
-  as ranging over the world. That is exactly where a fence hides.
-- **The inheritance tell.** Your premise is a previous session's conclusion, a committed
-  constant, or a line in a doc. Probe it before you build on it.
-- **The unscoped-threshold tell.** The constraint you are obeying is a bare number against a
-  whole population — `xmax > 94.50`, every body on the floor, any run in this lane. Ask it two
-  questions: *what does it protect,* and *where does that thing stand?* A rule that answers
-  neither cannot be checked against reality, only obeyed, and it is charging bodies that are
-  nowhere near its subject. The repair is to scope it, not to delete it — the constraint is
-  usually real somewhere. If you cannot find where, that is the finding, and it is Derek's to
-  hear.
-- **The endpoints tell.** Your diagnosis of a run names only what pins it, never what it
-  connects. Before pricing an escape from a region, ask whether the run needs the region at
-  all: its two ends, the distance between them split by axis, and who else rides what it
-  rides. A lane with one customer is a route wearing a wall's clothes.
-- **The envelope tell.** The blocker you are about to name is the envelope, or "a
-  conversation" a level up. The envelope is the one thing that is actually fixed, so it is
-  the one thing your search cannot have priced a move against. "I did not find the move" is
-  sendable; "there is no move" is not.
-- **The it-fits-but tell.** Measurement said yes and you are about to say no. Check whether
-  your reason cites a fact you hold or a fact you assumed. An uncited reason is a question
-  for Derek, not a verdict from you.
-- **The sweep tell.** You are about to bound and run a search over poses. Ask what you would
-  place if you had to choose right now, and what the build would say about it. If you can answer
-  both, the sweep buys nothing but a grid to be wrong on — and in this pack a pose is provisional
-  until a printed joint fastens the body, which the card's `mounted` axis counts and most bodies
-  do not have, so choosing is the ordinary move and not a liberty.
-- **The difficulty tell.** The work is getting contorted — eight vias where four is clean, a
-  tube shoved somewhere it does not want to go. Difficulty is a tripwire, and the reading is
-  "I am in the wrong region," not "this is a fundamental wall."
+**A single word carries it.** The same post-mortem: the agent had written *"the one clear
+vertical is the top layer at x≈−46.4."* Four to seven millimetres further east the layer was
+completely open, and its own measurements already showed so. *"That word 'the' was the whole
+failure."* Derek's version, from [Current](<fences/Current.md>): *"anytime you say 'all cross'
+you are not looking in the correct corridor for your path"* — and the agent's reading of what it
+had done, *"'all cross' is me mis-framing the corridor, not a fact about the board."*
 
-## Why you will do it anyway
+## The rooms
 
-- **The bound is chosen at the moment of least knowledge.** You have to bound a search to run
-  it, and you do it before any result exists. It is an implementation detail when you write
-  it and an epistemic claim by the time you report it, and nothing in between prompts you to
-  revisit it.
-- **The costs point the wrong way.** Widening costs you tokens now, visibly. The fence costs
-  Derek later, invisibly — an option never seen, a box grown taller than it needed to be, a
-  session spent re-deriving what was already true. You optimize the cost you can see.
-- **Nothing goes red.** A hack gets caught by a DRC. A fence produces a clean, correct,
-  fully-verified answer to a smaller question than the one you were asked. There is no gate
-  to fail.
-- **Your own rigor is the trap.** The most precise report is the most convincing fence,
-  because everything in it is true. One agent traced this exactly: *"My stuck-point reports
-  were specific and measured — which is good — but I used that specificity to justify
-  stopping rather than as a map of where to keep looking. The measurements were right; the
-  conclusion drawn from them ('therefore it's nearly impossible') was the error."*
-  — [Cleanup Board](<fences/Cleanup Board.md>)
-- **One word does it.** The same post-mortem: the agent wrote *"the one clear vertical is the
-  top layer at x≈−46.4."* Four to seven millimetres further east the layer was completely
-  open, and it already held the measurements that showed so. *"That word 'the' was the whole
-  failure."*
-
-## The approach
-
-0. **Look at it.** A claim about arrangement carries a render of the region, taken before the
-   claim is written — *Before the claim: look at it*, above.
-1. **Choose.** Read the boxes — the card beside the assembly carries every body's real ones and
-   its fill, and `probe.travel <body> <±axis>` gives the whole stop list for a move: how far it
-   goes, past what, and what stands behind the binder.
-
-       jq -r '.shapes[] | "\(.fill)  \(.component)  \(.boxes[0])"' \
-         hardware/manifold-layout/front-half.scorecard.json | sort -n
-
-   Do the arithmetic, pick a pose, place it, run the build, look at the render. This is the
-   default, it answers most arrangement questions in one build, and both of those readings are
-   exact where a sweep is gridded. Steps 2–3 are for what it does not answer.
-2. **If you sweep anyway, write down every bound and everything you are holding fixed first.**
-   That list is part of the deliverable, not scaffolding for it.
-3. **Check whether the winner touches a bound you supplied.** If it does, widen and re-run.
-   The number you are holding belongs to your grid — and a sweep that found nothing has told you
-   about its grid, not about the machine.
-4. **Report the box with the answer, split in two:** imposed by the world (geometry, a cited
-   spec, a fab minimum, a bend radius) and chosen by you (ranges, held-fixed parts, protected
-   bystanders, inherited conclusions, conventions). Derek can veto the second list in
-   seconds — he has the viewer open and the whole design in his head. He cannot veto a list
-   he cannot see.
-5. **Never report a bare impossibility.** Say what would have to move and what moving it
-   costs. "No" is not an answer here. "No, unless X moves, which costs Y" is.
-
-## The artifact that does this for you
-
-Four of this repo's readings refuse to fence. A limit you read off one arrives with the
-box attached, so step 4 above is already done by the time you quote it.
-
-`probe.cast` runs out of length and reports its own limit rather than a clearance:
-
-> Ø6.35 reached the 250 mm cast limit with no contact — raise limit= to find one
-
-`Contact` states why: *"when nothing was hit, `free` is the cast limit, which is a fact about
-the probe and not about the geometry."*
-
-`fit.slab` will not accept an arbitrary field silently. Given no `x`/`y` it derives them from
-the enclosure's own cavity — `_interior`, *"the default field for a slab, so a scan reports
-room inside the machine rather than the air around it"* — and every answer carries the Z
-band, the grid step, the field and where the field came from, which bodies were measured
-exactly, which were held out, and whether the largest rectangle runs to the edge of a field
-the caller supplied:
-
->     free in z[0.0,10.0] on a 5.0×5.0 mm grid — 2 rectangle(s)
->       field  x[0.0,100.0] y[0.0,120.0] as given
->       bodies  1 by bounding box, none exact  holding out: bar
->       largest reaches x low, x high, y low of the field you gave — widen and re-run
-
-That last line is the boundary tell, raised by the instrument instead of by Derek. The
-`holding out` clause is the bystander tell: the 8000 mm² it just called free is free of a
-body somebody chose not to measure.
-
-`fit.search` states its `Box` before its answer — every range, every axis pinned to one
-value, the anchor, the bodies held out — and names the ends the best pose sits on. A search
-that finds nothing reports the room it looked in:
-
->     0 free of 65 poses at clearance 1 mm
->       box  x[-14,60] step 6 (13)  y[176,200] step 6 (5)  fixed: z=267.5 yaw{90} pitch{0} roll{0}  anchor=bbmin
->       nothing outside this box was tested
-
-One height, one yaw, flat: the frozen first draft, in the answer, where Derek can veto it in
-seconds. `fit.py selftest` holds the controls — that a best pose on an end says so, that an
-axis pinned to one value is never an end, that a rotation tiling the circle has no end to
-widen, and that a search finding nothing still carries its box.
-
-`need` runs the disclosure the route-as-requirement form skips. Every `scorecard.bends` row
-carries the run's need — its two ends, their separation split by axis, the path drawn against
-it, and `detour`, which is path ÷ span — and every bend-radius detail row ends with the clause.
-Ranked worst first, that is the board for this form:
-
-    jq -r '.bends[] | "\(.need.detour)  \(.id)  \(.need.path) over \(.need.span)"' \
-      hardware/manifold-layout/front-half.scorecard.json | sort -rn
-
-The top rows are where the form hides. `fluid-4` spends 152.6 mm of path on two ends that
-stand 88.6 mm apart, and the same card explains its clearance failure with *"they leave 7.890
-mm and the tube is Ø6.35, so 0.770 mm a side is that lane's own best."* That sentence is true
-and it is about the lane; it says nothing about whether the run belongs in the lane, and read
-alone it reads as a body to move — the move that cascades through the whole pack. So the lane
-note carries the ratio beside it, where the reader who is about to move a body sees both.
-A diagnosis that names four pins and no endpoints is answerable in one row of this.
-
-`_scorecard.py selftest` holds the controls — that a straight run's path is its span, that a
-route out and back reports the excursion its ends do not span, that the axis split reads off
-the endpoints alone, and that coincident ends report no ratio rather than dividing by zero.
-And the figure says where to look, not what to do: a detour near 1 is not health, because a
-short run can be pinned at both ends and still red.
-
-Four readings is not every bound you will choose. A sweep you write by hand in a scratch
-script has no instrument behind it, and the tells above are all you have.
-
-## What this document is
-
-A stated rule — which this folder's own `Principle.md` calls the compromise of last resort,
-reserved for when the example alone has been tested and failed. It has: the same failure
-appears across at least a dozen sessions in this repo, in routing, in placement, in copper,
-and in a drip pan, produced each time by an agent that would have recognized it instantly in
-someone else's work.
-
-Do not mistake the orientation for the lesson. The lesson is in the sessions quoted above,
-retrievable by title, and in the three lines that carry it best: *not found wanting*, *that
-word "the" was the whole failure*, and *a construction that doesn't exist yet, which I
-wrongly described as geometry that can't exist*.
+Sixteen sessions, as clean transcripts, in [`fences/`](fences/README.md) — user and assistant
+turns, no tool calls, each filename the session's own title. The quotations above are compressed
+out of them and the rooms are where the lesson actually is: what the agent had measured before
+it reported a limit, what Derek said, and what the number turned out to be.
