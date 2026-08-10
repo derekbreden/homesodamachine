@@ -2158,19 +2158,17 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
 asse_cradle_up = 9.0
 asse_v_half = 60.0          # half the V's included angle, off the axis plane
 asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is never clipped
-# THE TIE'S BORE THROUGH THE TROUGH'S BACK. Closed on every side: a notch in the lip is a notch
-# the strap can lift out of, and what holds this chain in its V is the strap staying where it was
-# put. It runs the block's whole height, west of the apex, so it is bored through solid PETG at
-# every station and opens only on the block's own top and bottom faces.
+# THE STRAP'S CAVITY THROUGH THE TROUGH'S BACK, closed on every side but its two mouths.
 #
-# STRAIGHT, AND NOT FOLLOWING THE V. A bore closed all round has to be THREADED, and a straight
-# one is the only shape a tie can be pushed down; a bore that chevroned around the apex to shorten
-# the strap's path would be a bore nothing can be got through. The strap turns on the block's two
-# arrises instead, which are rounded for it.
-asse_tie_bore_w = 5.0       # along the run
-asse_tie_bore_t = 2.0       # across it — the strap's own thickness and its clearance
-asse_tie_bore_back = 3.0    # PETG between the bore and the trough it stands behind
-asse_tie_bore_r = 1.0       # the arris the strap turns on, at each mouth
+# STRAIGHT ON THE WEST, THE TROUGH'S OWN V ON THE EAST. The V's apex stands closest to that
+# straight, so the cavity is narrowest at the axis and flares to both mouths: each mouth opens
+# `asse_tie_back / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
+# leaves a strap pushed through the room to turn the vertex by cutting its corner.
+#
+# It runs the trough's whole length as ONE opening, over every station between the two tie bands,
+# and its print support draws out end to end.
+asse_tie_gap = 2.6          # across the cavity at its narrowest — the strap and its clearance
+asse_tie_back = 2.5         # PETG between the cavity and the trough it stands behind
 
 
 def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
@@ -2208,16 +2206,18 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     WHAT A TIE CAN AND CANNOT DO HERE. A tie is a closed loop, and a loop round this chain has to
     pass over its top flat — so the storey the chain lies on is struck to leave that channel under
     the top wall, and the wall itself is never cut for it
-    (`enclosure_assembly.DECK_CEILING_CLEAR`). The loop runs down a BORE through the back of this
-    trough, out under the block, east beneath the barrel, up its east flank, over the top flat
-    through that channel, and back into the bore. So it closes round the chain and the trough's
+    (`enclosure_assembly.DECK_CEILING_CLEAR`). The loop runs down the CAVITY through the back of
+    this trough, out under the block, east beneath the barrel, up its east flank, over the top flat
+    through that channel, and back into the cavity. So it closes round the chain and the trough's
     own back together, and what it pulls is the chain into the V.
 
-    THE BORE IS CLOSED ON EVERY SIDE, which is the whole of why it is a bore and not a notch in
-    the lip: a strap in an open slot lifts out of it the first time the chain is worked, and a
-    trough whose mouth is shut by a strap that can leave is a trough with a mouth. It stands west
-    of the apex with `asse_tie_bore_back` of PETG between it and the trough, so at no station is
-    it anything but a hole through solid material.
+    THE CAVITY IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of the apex with
+    `asse_tie_back` of PETG between it and the trough, so at no station is it anything but a hole
+    through solid material, and a strap in it stays where it was put.
+
+    THE BLOCK'S TOP FACE HANGS. Printed ceiling-down that face is a horizontal soffit over the
+    lane, and it takes print support the way the drip tray's rails do. The cavity is one opening
+    the trough's whole length, and what is left in it draws out end to end.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -2235,30 +2235,46 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         east = apex + dn * run + asse_cradle_lip
         solid = solid.fuse(_ybox(inner[0], east, sy0, sy1, z_axis - dn, z_axis + up))
         solid = solid.cut(_asse_v(apex, z_axis, sy0, sy1, up, dn, east + 1.0))
-    # The two bores, cut after every section is fused so a neighbour's block cannot fill one back
-    # in. Each stands behind the apex of the section its own band falls in, which is the barrel's
-    # — the only one a tie may close on — and runs clean through the block's two faces.
+    # THE STRAP'S CAVITY, cut after every section is fused so a neighbour's block cannot fill it
+    # back in. Struck on the DEEPEST section's apex, which is the barrel's: that V stands furthest
+    # west, so a cavity clear of it by `asse_tie_back` is clear of the other two by more and the
+    # web comes out no thinner than stated at any station.
     for ty in ties:
-        apex = min(a for sy0, sy1, a in sections if sy0 <= ty <= sy1)
-        x1b = apex - asse_tie_bore_back
-        bore = _ybox(x1b - asse_tie_bore_t, x1b,
-                     ty - asse_tie_bore_w / 2.0, ty + asse_tie_bore_w / 2.0,
-                     z_axis - dn - 1.0, z_axis + up + 1.0)
-        solid = solid.cut(bore)
-        # The arris at each mouth, so the strap turns on a round and not on a corner. One
-        # cylinder on the bore's own axis of travel at each flank of each mouth: the face has
-        # material on one side of it only, so a whole cylinder cuts exactly the quarter round
-        # that is there to cut.
-        for zf in (z_axis + up, z_axis - dn):
-            for x in (x1b - asse_tie_bore_t, x1b):
-                solid = solid.cut(_ycyl(asse_tie_bore_r, x, zf,
-                                        ty - asse_tie_bore_w / 2.0, ty + asse_tie_bore_w / 2.0))
-    return solid
+        if not (sections[0][0] <= ty <= sections[-1][1]):
+            raise ValueError(
+                f"_asse_cradle: tie band {ty:.2f} falls outside the trough's run "
+                f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. The cavity a strap passes through "
+                f"is the trough's whole length, so a band off either end has no cavity at all.")
+    return solid.cut(_asse_tie_cavity(min(a for _y0, _y1, a in sections), z_axis,
+                                      sections[0][0], sections[-1][1], up, dn))
 
 
-def _ycyl(r, x, z, y0, y1):
-    """A cylinder on Y, for an arris a strap turns on."""
-    return cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0))
+def _asse_tie_cavity(x_apex, z_axis, y0, y1, up, dn):
+    """The strap's cavity: STRAIGHT on the west, the trough's own V on the east.
+
+    Five points and one cut. The V's apex stands closest to that straight, so the cavity comes out
+    narrowest in the middle and flared at both mouths — which is the reach where a hand needs it
+    and the room to turn the vertex where a strap needs that, out of one shape rather than out of a
+    chamfer and a round.
+
+    Both ends run one millimetre past the block's faces, so each mouth is cut open rather than
+    closed by a plane coincident with the face it opens on."""
+    run = 1.0 / math.tan(math.radians(asse_v_half))
+    x_in = x_apex - asse_tie_back / math.sin(math.radians(asse_v_half))   # the V, offset west
+    x_w = x_in - asse_tie_gap                                            # the straight behind it
+    over_up, over_dn = up + 1.0, dn + 1.0
+    return (
+        cq.Workplane("XZ")
+        .polyline([(x_w, z_axis + over_up),
+                   (x_in + over_up * run, z_axis + over_up),
+                   (x_in, z_axis),
+                   (x_in + over_dn * run, z_axis - over_dn),
+                   (x_w, z_axis - over_dn)])
+        .close()
+        .extrude(-(y1 - y0))
+        .val()
+        .translate((0.0, y0, 0.0))
+    )
 
 
 def _c14_bosses(solid, inner, outer, stations, z0, z1):
