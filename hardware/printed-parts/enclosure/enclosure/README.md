@@ -295,11 +295,14 @@ steps stop it travelling rather than hold it still. Aft it needs neither: the ch
 inlet collet butts the tap-water union's, and that joint takes the length up.
 
 Two **zip ties** shut the trough's mouth, one in each band the vent leaves clear on
-the barrel. They cannot wrap without help — the chain's top flat stands one
-`clearance-floor` under the top wall — so the ceiling gives the channel back out of
-its **inner face only** (`asse_ceiling_relief`), and the appliance's outside never
-knows. Nothing about the chain's weight is theirs: cut both and it still lies where
-it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
+the barrel. A tie is a closed loop, so its strap has to cross the chain's top flat —
+and **the top wall is never cut for it.** The storey the chain lies on is struck to
+leave that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the strap's own
+section plus its clearance), so `wall` stays whole across the whole ceiling and the
+deck pays the millimetre out of its own headroom. The strap is **laid, not threaded**:
+this piece prints ceiling-down and is populated the same way up, so the tie goes on
+the ceiling's inner face and the chain comes down onto it. Nothing about the chain's
+weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
 closed on the barrel, measured off the two placed solids, because every other
 reading on the card is satisfied by a chain floating in air.
 

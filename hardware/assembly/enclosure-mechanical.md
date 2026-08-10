@@ -64,14 +64,14 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
-| Umbilical unions × 3 (PP1208E) | [-83 / -45.64 / -45.64](UMBILICAL_STATIONS) at z [336.7](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
-| Tap-water union (PP1208E) | x [-83](WATER_BACK_X), z [336.7](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
+| Umbilical unions × 3 (PP1208E) | [-83 / -45.64 / -45.64](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
+| Tap-water union (PP1208E) | x [-83](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
 | CO2 DERPIPE PTC | [x 48, z 290](CO2_BACK) | Ø[15.42](CO2_HOLE_D) round | Seated on its own inboard stub tip; the GASHER check threads onto that stub in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
 **The CO2 comes in at the back wall**, not at the front — tank, tap and umbilical all land on the one face the customer reaches at install. Nothing at all is cut in the front wall.
 
-The four PP1208E unions stand in a **rectangle** on two columns [37.36 mm](UMBILICAL_PITCH) apart: the carbonated-water and tap-water unions on the upper storey at z [336.7](PORT_ROW_Z), the two flavor unions on their own below. A JG bulkhead nut is [22.86](PORT_NUT_D) mm across the face and a chain of three made-up nuts occupies [82.58](PORT_CHAIN_3) mm, so the pitch leaves a socket room to get on each nut with its neighbour already made up. The C14's flange is [47](C14_FLANGE_W) mm wide and stands east of them on its own storey.
+The four PP1208E unions stand in a **rectangle** on two columns [37.36 mm](UMBILICAL_PITCH) apart: the carbonated-water and tap-water unions on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below. A JG bulkhead nut is [22.86](PORT_NUT_D) mm across the face and a chain of three made-up nuts occupies [82.58](PORT_CHAIN_3) mm, so the pitch leaves a socket room to get on each nut with its neighbour already made up. The C14's flange is [47](C14_FLANGE_W) mm wide and stands east of them on its own storey.
 
 Install, in this order:
 
@@ -161,7 +161,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Condenser + fan standing on the compressor's +X tangent, the two closed on that line and the discharge joint made on it
 - Cold core seated flat on the floor slab behind the stratum, front face mated flush against it, no tension on the refrigerant lines, all [7](CAP_CONDUITS) cap conduits open on the lid
 - Four printed pieces telescoped and cross-pinned at the Y seam and both Z seams, every seam screw driven from a ±X exterior face — `enclosure-back-top` last, since it is the lid over the whole service bay
-- Rear wall carrying all six connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.7](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, and the DERPIPE CO2 inlet below that. Nothing is cut in the front wall.
+- Rear wall carrying all six connection bodies: the four PP1208E unions in a rectangle on two columns — carbonated water (blue ring) and tap water on the upper storey at z [336.2](PORT_ROW_Z), the two flavor unions on their own below — the C14 inlet on its own storey east of them, and the DERPIPE CO2 inlet below that. Nothing is cut in the front wall.
 - Power column bolted to `enclosure-back-top`'s +X wall on [17](EAST_BOSSES) printed bosses, feet on the cold core's cap — PSU, both relays, ground stack and PCBA, every mounting plane on one seat, plus five Wago lever nuts pressed into the wall's own wells, no tray under any of them — unpowered, AC pigtails hanging free
 - Drip tray + moisture sensor in their channels under the backflow vent's fall, sensor leads routed toward the power column (not yet terminated)
 - Display let into the facet of `enclosure-front-top`, leads loose

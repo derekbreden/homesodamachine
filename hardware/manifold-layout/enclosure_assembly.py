@@ -1508,10 +1508,23 @@ def _would_land_on(b, placed):
                     or box(s).zmin >= b.zmax)]
 
 
+# The zip tie's own stock, and the room it needs to lie in. Two of them shut the mouth of the
+# trough the chain lies in (`asse_cradle`), and a tie is a closed loop: the strap has to cross
+# the chain's top flat, which is the highest thing on this storey. It is LAID rather than
+# threaded — the piece prints ceiling-down and is populated the same way up, so the strap goes on
+# the ceiling's inner face and the chain comes down onto it — which is why the room over it is a
+# clearance and not a working reach.
+ASSE_TIE_T = 1.0
+ASSE_TIE_CLEAR = 0.5
 # What the tap-water chain's crown keeps under the top wall's inner face. The appliance's height
 # is STATED (`enclosure.appliance_height`) rather than grown from the pack, so this ceiling is a
 # fixed plane and the storey under it is a room the deck can be given rather than one it takes.
-DECK_CEILING_CLEAR = 1.0
+#
+# IT IS GIVEN TO THE TIE, and to nothing else. A millimetre here is a millimetre of air the pack
+# cannot use for anything, so the number is the one thing that has to pass through it — and the
+# wall is never cut for it. `enclosure.wall` stays whole over this band; the storey moves instead,
+# which costs the deck's own headroom and is measured by `check_deck_floor`.
+DECK_CEILING_CLEAR = ASSE_TIE_T + ASSE_TIE_CLEAR
 
 
 def interior_ceiling() -> float:
