@@ -258,6 +258,51 @@ which is air by construction. So the pair prints on support, two strips 73 mm lo
 by the bearing width, in the band above the tray's slot — as does the stop bar
 that closes their east ends, whose own top face is flat at the rim's height.
 
+The **tap-water cradle** one storey above it costs nothing, and for the opposite
+reason: every face it presents is either the wall it grows out of or a 60° flank
+off that wall, so ceiling-down there is no horizontal face in it to hang.
+
+## Tap-water cradle
+
+A stepped trough on the −X wall that the ASSE 1022 chain lies in
+(`_asse_cradle`). The chain is five fittings made up by hand on one axis, so
+neither the run's length nor the clock any one fitting lands at is a number this
+wall can know — but the **section** each one presents about that axis is the
+fitting's own. The trough is cut to each in turn, and the steps between sections
+fall out as faces square to the axis.
+
+| section | across | seated on |
+|---|---|---|
+| PI4512F6S swivel nut | 22.0 | its circumscribed circle — the nut spins on the body |
+| Multiplex hex barrel | 33.0 | its own two flats |
+| GAGIRA coupling | 25.67 | its circumscribed circle — its clock is wherever the thread stopped |
+
+Every section is the **same 120° V** and only its apex moves. A V of that angle is
+the two flanks of a hex read off its corner, and it is equally the tangent seat of
+any circle — so the section that sits deepest in the wall is the section that is
+widest, and the barrel steps down out of both its neighbours rather than out of a
+number chosen here.
+
+**Only the barrel's V is read off flats, and only the barrel's may.** The other two
+spin: a V cut to their flats would demand an angle the assembly does not control and
+bind on the build that landed 30° off. The Multiplex's hex does not spin — its
+atmospheric vent is machined into it — so keying that one section is what holds the
+drip over the tray, and it is the whole reason this is a trough and not a strap.
+
+`asse_seat_slip` is the fit across the V and `ASSE_STEP_SLIP` the play along it, the
+deeper section taking the latter past both its ends so the barrel drops in and the
+steps stop it travelling rather than hold it still. Aft it needs neither: the chain's
+inlet collet butts the tap-water union's, and that joint takes the length up.
+
+Two **zip ties** shut the trough's mouth, one in each band the vent leaves clear on
+the barrel. They cannot wrap without help — the chain's top flat stands one
+`clearance-floor` under the top wall — so the ceiling gives the channel back out of
+its **inner face only** (`asse_ceiling_relief`), and the appliance's outside never
+knows. Nothing about the chain's weight is theirs: cut both and it still lies where
+it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
+closed on the barrel, measured off the two placed solids, because every other
+reading on the card is satisfied by a chain floating in air.
+
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries
