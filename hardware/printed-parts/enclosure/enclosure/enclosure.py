@@ -2383,24 +2383,28 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
                 f"(`DIGITEN_BODY_CLEAR`, `DIGITEN_COLLET_FREE`) or the rib does.")
         mid = (by0 + by1) / 2.0
         sy0, sy1 = mid - digiten_saddle_len / 2.0, mid + digiten_saddle_len / 2.0
-        z_crown = z_axis + seat_r + wall          # the cavity's floor, concentric with the seat
+        z_crown = z_axis + seat_r + wall          # one `wall` over the bore's own crown
         if inner[5] - z_crown < tie_strap_t + 1e-6:
             raise ValueError(
                 f"_digiten_saddles: a `wall` off the bore's crown leaves {inner[5] - z_crown:.3f} "
                 f"mm under the top wall's inner face, and the strap is {tie_strap_t:.3g} thick. The "
                 f"storey the meter stands on is what gives way here "
                 f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the wall.")
-        # THE CAVITY IS WHAT IS NEVER FUSED, not what is cut away. Its ceiling is the top wall's
-        # own inner face, and a cut ending on that face is a cut sharing a plane with it — so the
-        # rib is built in three: two ends carried up to the wall, and a middle carried only to the
-        # cavity's floor. Nothing here touches the wall's own section.
+        # THE CAVITY IS WHAT IS NEVER FUSED, and nothing is cut for it. The rib is ONE box its whole
+        # length up to `z_crown`, the two ends carried on up to the top wall, and ONE bore through
+        # all of it. What the ends do not span IS the strap's channel — so it has no floor to draw,
+        # no cut to make it, and no face for either to graze.
+        #
+        # The lower box runs the rib's whole length so the seat's own lip is ONE edge, and the rib
+        # is UNIFIED before it joins the piece. A fuse imprints the seam of every solid that went
+        # into it, so a rib fused straight onto the wall carries its lip in as many pieces as it
+        # was laid down in — three here — and its bore in as many again.
         cy0, cy1 = mid - tie_cav_w / 2.0, mid + tie_cav_w / 2.0
-        for ry0, ry1, top in ((sy0, cy0, inner[5]), (cy1, sy1, inner[5]), (cy0, cy1, z_crown)):
-            solid = solid.fuse(_ybox(x_axis - reach, x_axis + reach, ry0, ry1, z_axis, top))
-            solid = solid.cut(_digiten_bore(x_axis, z_axis, seat_r, ry0, ry1, reach))
-        # The middle's own top IS the cavity's floor: the seat's arc offset out by one `wall`, so
-        # the web reads that all the way round the crown.
-        solid = solid.cut(_digiten_bore(x_axis, z_axis, seat_r + wall, cy0, cy1, reach))
+        rib = _ybox(x_axis - reach, x_axis + reach, sy0, sy1, z_axis, z_crown)
+        for ry0, ry1 in ((sy0, cy0), (cy1, sy1)):
+            rib = rib.fuse(_ybox(x_axis - reach, x_axis + reach, ry0, ry1, z_crown, inner[5]))
+        rib = rib.cut(_digiten_bore(x_axis, z_axis, seat_r, sy0, sy1, reach))
+        solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
     return solid
 
 
@@ -2446,7 +2450,7 @@ def _anchor_plane(origin, u, n):
 
 
 def _anchor_bore(origin, u, r, length):
-    """A cylinder on the tube's own axis — the seat, and offset by a `wall`, the cavity's floor.
+    """The seat — a cylinder on the tube's own axis.
 
     The rib stands entirely on the root side of the axis plane, so a whole cylinder cut from it
     takes exactly the half the seat is and needs no half-space to trim it."""
@@ -2472,10 +2476,11 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
     where the wall stops. A piece that owns only part of a rib builds none of it, the way every
     other station on these walls behaves.
 
-    THE CAVITY IS A REMAINDER BETWEEN TWO WALLS: its floor is the seat's own bore opened one
-    `wall`, its roof is flat one `wall` under the root face, and what is left between them is the
-    channel. Both ends of it come out on the rib's own flanks, at the axis plane, which is where
-    the strap turns down round the tube.
+    THE CAVITY IS A REMAINDER BETWEEN TWO WALLS: its floor is flat one `wall` over the bore's
+    crown, its roof is flat one `wall` under the root face, and what is left between them is the
+    channel. It comes out on both of the rib's flanks, square to each, and under each mouth
+    stands the solid the bore does not reach — which is where the strap turns down round the
+    tube.
 
     THE STRAP CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
@@ -2511,13 +2516,16 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
             continue
         solid = solid.fuse(_anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_root))
         solid = solid.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
-        # The cavity: everything the seat's opened bore does not hold, under the roof. Carried one
-        # millimetre past each flank so both mouths are cut open rather than closed by a plane
-        # coincident with the face they open on.
+        # THE CAVITY'S FLOOR IS A CHORD AND NOT AN ARC. One `wall` over the bore's crown, flat, so
+        # it meets each flank square; struck concentric it would be a cylinder of the rib's own
+        # half-width, tangent to both flanks along their whole length and running out to a knife
+        # where each one meets the underside. The web is thinnest at the crown either way — `wall`
+        # there and more toward the flanks, where the bore falls away from a floor that does not.
+        #
+        # Carried one millimetre past each flank so both mouths are cut open rather than closed by
+        # a plane coincident with the face they open on.
         cav = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
-        solid = solid.cut(
-            _anchor_rib(cav, u, n, tie_cav_w, reach + 1.0, 0.0, b_roof)
-            .cut(_anchor_bore(cav, u, reach, tie_cav_w)))
+        solid = solid.cut(_anchor_rib(cav, u, n, tie_cav_w, reach + 1.0, seat_r + wall, b_roof))
     return solid
 
 
