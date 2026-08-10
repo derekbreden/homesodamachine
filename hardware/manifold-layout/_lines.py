@@ -361,12 +361,14 @@ def _water_2(F):
 
     ONE LEAN IN THE OPEN ROOM AFT OF THE HOPPER. The chain hands the water over facing forward
     down the west lane and the split's own run axis IS that lane, a storey lower — so the two
-    collets face each other down one column with `enclosure_assembly.FLAVOR_STEP` between them.
+    collets face each other down the lane with `enclosure_assembly.FLAVOR_STEP` between them.
     The run leaves and enters on-axis off its own `WATER_2_LEAD` stubs and takes the whole fall
     in the leg between, which lies in the room the bowl stops short of.
 
-    The waypoint is the middle of that lean: the column both collets stand on, half the step down
-    at half the reach, so each corner turns the same angle."""
+    THE TWO ARE NOT ON ONE COLUMN. The chain's is the rear wall's `PORT_WEST_COLUMN` and the
+    split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses whatever stands between
+    them as well as falling the step. The waypoint is its middle: the split's own column, half
+    the step down at half the reach."""
     src = F["asse1022-assembly"].at("tube-out")
     dst = F["water-split"].at("supply")
     return R.bent(
