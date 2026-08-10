@@ -366,14 +366,20 @@ def _water_2(F):
     in the leg between, which lies in the room the bowl stops short of.
 
     THE TWO ARE NOT ON ONE COLUMN. The chain's is the rear wall's `PORT_WEST_COLUMN` and the
-    split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses whatever stands between
-    them as well as falling the step. The waypoint is its middle: the split's own column, half
-    the step down at half the reach."""
+    split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses as well as falls.
+
+    THE WAYPOINT IS THE MIDDLE OF ALL THREE, which is the whole of what makes this one lean and
+    not two. Halfway along each of the run's own coordinates, the two legs it splits the lean
+    into are collinear and the waypoint is a point on a straight rather than a corner — so the
+    lean turns twice, once out of each stub, and each of those two turns the same angle. Take
+    the middle of any two of the three and the offset in the third is spent entirely in one
+    half: the legs come out at different angles, the waypoint becomes a kink, and the run pays
+    a corner tighter than either stub asked for."""
     src = F["asse1022-assembly"].at("tube-out")
     dst = F["water-split"].at("supply")
     return R.bent(
         "water-2", "asse1022-assembly.tube-out",
-        (dst[0], (src[1] + dst[1]) / 2.0, (src[2] + dst[2]) / 2.0),
+        tuple((src[i] + dst[i]) / 2.0 for i in range(3)),
         "water-split.supply",
         kind="water", bend=TUBE_BEND, lead=WATER_2_LEAD,
         note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
