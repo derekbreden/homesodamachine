@@ -75,7 +75,3 @@ hardware/godot/.godot/
 
 # Arrangements the engine proposes (hardware/godot/settle.gd). Written on ask.
 hardware/godot/*.json
-
-# The engine web build (hardware/godot/export_presets.cfg). 40 MB of wasm, rebuilt by
-# `godot --headless --path hardware/godot --export-release Web web/public/godot/index.html`.
-web/public/godot/
