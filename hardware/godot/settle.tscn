@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhsm0settle00"]
+
+[ext_resource type="Script" path="res://settle.gd" id="1_settle"]
+
+[node name="Settle" type="Node3D"]
+script = ExtResource("1_settle")

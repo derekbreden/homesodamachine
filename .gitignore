@@ -72,3 +72,6 @@ tools/cad-venv/
 # Shots and import scratch from the engine project (hardware/godot). Written on ask.
 hardware/godot/*.png
 hardware/godot/.godot/
+
+# Arrangements the engine proposes (hardware/godot/settle.gd). Written on ask.
+hardware/godot/*.json
