@@ -258,9 +258,10 @@ which is air by construction. So the pair prints on support, two strips 73 mm lo
 by the bearing width, in the band above the tray's slot — as does the stop bar
 that closes their east ends, whose own top face is flat at the rim's height.
 
-The **tap-water cradle** one storey above it costs nothing, and for the opposite
-reason: every face it presents is either the wall it grows out of or a 60° flank
-off that wall, so ceiling-down there is no horizontal face in it to hang.
+The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
+stand 30° off vertical and are free; its **top face is flat**, a soffit off the wall
+over the lane, and that face hangs. The strap's cavity behind the trough is one
+opening the trough's whole length, and the support in it draws out end to end.
 
 ## Tap-water cradle
 
@@ -304,13 +305,14 @@ inlet collet butts the tap-water union's, and that joint takes the length up.
 Two **zip ties** shut the trough's mouth, one in each band the vent leaves clear on
 the barrel — the brass, which is the only section a tie may close on.
 
-Each runs down a **bore through the trough's back** (`asse_tie_bore_*`), closed on
-every side and opening only on the block's own top and bottom faces. A notch in the
-lip would be a slot the strap lifts out of, and a mouth shut by a strap that can
-leave is a mouth. The bore stands `asse_tie_bore_back` west of the apex, so at no
-station is it anything but a hole through solid material, and it is **straight**: a
-closed bore has to be threaded, and a straight one is the only shape a tie can be
-pushed down. The strap turns on the two mouths' arrises, which are rounded for it.
+Both run in **one cavity through the trough's back** (`asse_tie_*`), closed on every
+side but its two mouths and spanning the trough's whole length. It is **straight on
+the west and the trough's own V on the east**, so it is narrowest at the axis and
+flares to both mouths: each mouth opens `asse_tie_back / sin 60°` off its lip's own
+arris, on the block's face where a hand reaches it, and at the axis the flare leaves
+a strap pushed through the room to turn the vertex by cutting its corner. It stands
+`asse_tie_back` west of the apex at every station, struck on the deepest section's
+apex so the web is no thinner than that anywhere.
 
 A tie is a closed loop, so its strap also has to cross the chain's top flat — and
 **the top wall is never cut for it.** The storey the chain lies on is struck to leave
