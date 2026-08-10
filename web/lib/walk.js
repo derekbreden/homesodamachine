@@ -128,10 +128,15 @@ function cardText(s) {
 }
 
 // Pull the identity a card prints on itself: the `.code` chip, the title, the
-// `.deckpos` line, and the subsystem body class. A field the card doesn't carry
-// comes back null and the caller falls back to the filename. The title reads
-// from `h1` (every operation card) or `.title` (the cover, which has no header
-// band).
+// `.deckpos` line, the first line of the `.src` footer, and the subsystem body
+// class. A field the card doesn't carry comes back null and the caller falls
+// back to the filename. The title reads from `h1` (every operation card) or
+// `.title` (the cover, which has no header band).
+//
+// The footer's FIRST LINE is the one that names where the card comes from — the
+// procedure and the step it renders — and the second is the sync driver and the
+// revision. So `src` stops at the `<br>` between them, which is what
+// contracts/build-tree.js `parseCardSource` reads.
 function readCardIdentity(abs) {
   let html;
   try {
@@ -148,6 +153,7 @@ function readCardIdentity(abs) {
     code: pick(/<div class="code">([\s\S]*?)<\/div>/),
     title: pick(/<h1[^>]*>([\s\S]*?)<\/h1>/) || pick(/<div class="title">([\s\S]*?)<\/div>/),
     deckpos: pick(/<div class="deckpos">\s*<b>([\s\S]*?)<\/b>/),
+    src: pick(/<div class="src">([\s\S]*?)(?:<br\s*\/?>|<\/div>)/),
   };
 }
 
@@ -178,6 +184,7 @@ export function walkAssemblyCards(rootDir) {
       code: id.code || null,
       title: id.title || entry.name.replace(/\.html$/, "").replace(/-/g, " "),
       deckpos: id.deckpos,
+      src: id.src,
       subsystem: sub,
       // The cover and any other class-less page group under "Deck" and lead.
       subsystemLabel: sub ? meta.get(sub).label : "Deck",
