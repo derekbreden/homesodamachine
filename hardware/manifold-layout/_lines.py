@@ -401,7 +401,7 @@ def _water_7(F):
     difference on the same leg it turns on.
 
     Both corners want the stock's whole `HOSE_BEND` as tangent in each leg they touch, and
-    the placement is what buys those legs: `SUCT_PUMP_GAP` sets the reach east and
+    the placement is what buys those legs: the rib's own column sets the reach east and
     `SUCT_CORNER_ROOM` the reach aft. Neither is in `BLOCKED`, so both seat it.
 
     `lead` plants a waypoint on each port's own axis, so the hose leaves the barb and enters the
