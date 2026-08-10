@@ -103,29 +103,22 @@ func _over_http() -> void:
 		push_error("no ?scene= in the query string")
 		return
 	_scene_name = url.get_file()
-	# HTTPRequest wants a whole URL; the page knows where it was served from.
-	if not url.begins_with("http"):
-		if not url.begins_with("/"):
-			url = "/models/" + url
-		var origin: Variant = JavaScriptBridge.eval("location.origin", true)
-		url = String(origin) + url
-	var http := HTTPRequest.new()
-	add_child(http)
-	http.request_completed.connect(_fetched)
-	if http.request(url) != OK:
-		push_error("could not ask for %s" % url)
-
-
-func _fetched(_result: int, code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	if code != 200:
-		push_error("the scene came back %d" % code)
+	# THE SCENE RIDES IN THE EXPORT. `hardware/godot/models/` is copied in at export time, so the
+	# page carries the machine it draws and there is no fetch to fail. A scene rebuilt by
+	# `_scene.py` reaches the page by re-exporting.
+	# The engine imports a `.glb` under `res://` into a scene of its own, so the build carries a
+	# PackedScene rather than the bytes — which is the same node tree `GLTFDocument` builds on the
+	# desktop, made once at export instead of once per open.
+	var res := "res://models/" + url.get_file()
+	if not ResourceLoader.exists(res):
+		push_error("%s is not in this build — put the .glb in hardware/godot/models/ and export again" % res)
 		return
-	var doc := GLTFDocument.new()
-	var state := GLTFState.new()
-	if doc.append_from_buffer(body, "", state) != OK:
-		push_error("what came back did not read as glTF")
+	var packed := load(res) as PackedScene
+	if packed == null:
+		push_error("%s did not load as a scene" % res)
 		return
-	_stand(doc.generate_scene(state) as Node3D)
+	print("%s" % res.get_file())
+	_stand(packed.instantiate() as Node3D)
 
 
 func _arguments() -> Dictionary:
@@ -225,7 +218,7 @@ func _overlay(pack: Node3D, hidden: int, solid: int, whole: AABB) -> void:
 	_look.pack = stood if stood != null else pack
 	_look.ortho = _ortho
 	_look.target = _target
-	_look.span = _camera.size * 0.5 if _ortho else _reach * 0.5
+	_look.span = (_camera.size * 0.5) if _ortho else (_reach * 0.5)
 	var projection := ""
 	var mm_per_px := 0.0
 	if _ortho:
