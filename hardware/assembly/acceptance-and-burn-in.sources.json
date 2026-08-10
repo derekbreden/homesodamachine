@@ -7,7 +7,7 @@
     "hardware/manifold-layout/manifold_layout.py": "69a9649cb0f27a2c6e99093eab608d7e",
     "hardware/printed-parts/cadlib/snap.py": "9ad14bfce6215da092d14c2f3bc799de",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "956eadc4fd90e6998b05cad452b2e594",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "1b341c8230827a7a4ff31018919f2cd4",
     "hardware/printed-parts/cold-core/_internal_routes.py": "fc10424fbcc99ee69dc3e35f03b4ada3",
     "hardware/printed-parts/cold-core/_port_cuts.py": "1d661c32c2011f843b75774a70576545",
     "hardware/printed-parts/cold-core/_reed_channels.py": "bed9455a4f6bd68217da7e5e02173510",
