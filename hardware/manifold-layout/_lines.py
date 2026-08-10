@@ -34,6 +34,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
+           _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "reference" / "compressor",
            _hw / "reference" / "condenser-block",
            _hw / "reference" / "seaflo-22-pump",
@@ -49,6 +50,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "digiten-flow-sensor"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
+import enclosure as _enc                               # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import hopper_funnel as _funnel                        # noqa: E402
@@ -417,27 +419,22 @@ def _water_6(F):
 
     ONE CORNER IN PLAN AND NOTHING ELSE. `SEAFLO_YAW` puts the discharge barb on the head's WEST
     face pointing west, and the chain lies in that lane forward of it with its own barb facing AFT
-    — so the hose leaves across the machine, turns once, and arrives square on. The chain's axis is
-    struck from this same mouth's Z (`enclosure_assembly.build_discharge_chain`), so the two ends
-    lie on one plane and the corner is flat.
+    — so the hose leaves across the machine and turns along it. The chain lies in a rib printed on
+    the core's cap, one seat's height off that face, while the barb is `seaflo_22_pump.PORT_Z` up
+    the head — so the run falls that difference on the same leg it turns on, which is `water-7`'s
+    own shape read across the machine.
 
-    THE STEP THIS RUN CAN TAKE IS ZERO, and it is what fixes the chain's own height. Its two legs
-    are 17.5 and 24 mm — the pump's casting to the chain's column, and `DISCH_CORNER_ROOM` — and
-    3/8" braided PVC seats `HOSE_BEND` of tangent in every leg it touches. A run with any fall in
-    it turns twice rather than once, and the diagonal between those two corners wants 2 ×
-    `HOSE_BEND` on its own, which is more than the whole lane holds.
+    Both corners want the stock's whole `HOSE_BEND` as tangent in each leg they touch, and the
+    placement is what buys those legs: the anchor's own column sets the reach west and
+    `DISCH_CORNER_ROOM` the reach forward.
 
-    The waypoint is the corner itself: the chain's own column at the barb's own Y. What buys
-    its arc is `DISCH_SPLIT_CLEAR` down one leg and `DISCH_CORNER_ROOM` down the other."""
-    pump, chain = F["seaflo-pump"], F["discharge-chain"]
-    src, dst = pump.at("discharge"), chain.at("barb-tip")
+    `lead` plants a waypoint on each port's own axis, so the hose leaves the barb and enters the
+    chain dead straight and a clamp closes on a straight length at either end."""
     return R.bent(
-        "water-6", "seaflo-pump.discharge",
-        (dst[0], src[1], src[2]),
-        "discharge-chain.barb-tip",
-        kind="water", bend=HOSE_BEND, skew=BARB_SKEW,
-        note="carb water: SeaFlo discharge barb → discharge chain, west off the barb and one "
-             "quarter forward onto the chain's own axis (3/8\" braided PVC, two clamps)")
+        "water-6", "seaflo-pump.discharge", "discharge-chain.barb-tip",
+        kind="water", bend=HOSE_BEND, skew=BARB_SKEW, lead=HOSE_BEND,
+        note="carb water: SeaFlo discharge barb → discharge chain, west off the barb, one quarter "
+             "forward and down onto the chain's own axis (3/8\" braided PVC, two clamps)")
 
 
 def _water_5(F):
@@ -854,6 +851,15 @@ def _fill_a_cruise(solids) -> float:
     return solids["vk-solenoid"].BoundingBox().zmax + _split.TUBE_D / 2.0 + LANE_CLEAR
 
 
+# What the aft cruise stands under, off the top wall's inner face: a seat on the tube, a `wall`
+# behind it and a strap over that — the section `enclosure._tube_anchors` cuts a rib out of — and
+# a margin past it.
+FILL_A_HIGH_CLEAR = _split.TUBE_D / 2.0 + _enc.wall + _enc.tie_strap_t + 1.5
+# The band the climb is taken in. It lies aft of both lines that cross this lane, and the raised
+# cruise stands over each of them.
+FILL_A_CLIMB_Y = (315.0, 350.0)
+
+
 def _fluid_14(F, solids):
     """fluid-14 — the channel-A fill gate to the bore in reservoir A's own cap.
 
@@ -863,19 +869,31 @@ def _fluid_14(F, solids):
     it in: the storey OVER V-K, which is clear from the gate's own column across to the bore and
     aft the full depth of the core.
 
-    It rises that storey off its collet, takes one diagonal aft and inboard onto the bore, and
-    drops the whole way down the strip."""
+    It rises that storey off its collet, takes one diagonal aft and inboard, CLIMBS to the top
+    wall in the band `FILL_A_CLIMB_Y`, runs aft under that wall on the bore's own column, and
+    drops the whole way down the strip.
+
+    THE CLIMB IS WHAT LEAVES A RIB ROOM. The forward reach of this lane runs under the hopper
+    funnel, which is silicone and carries nothing; aft of the funnel the top wall is what stands
+    over the lane, and the raised cruise stands one `FILL_A_HIGH_CLEAR` under it. That cruise is
+    on the bore's own column, so it lies square to the wall a rib comes off."""
     gate = F["valve-v-f"].at("outlet")
     bore = F["foam-assembly"].at("reservoir-a-fill")
     cruise = _fill_a_cruise(solids)
+    high = _enc.appliance_height - 2.0 * _enc.wall - FILL_A_HIGH_CLEAR
+    y0, y1 = FILL_A_CLIMB_Y
+    lean = gate[0] + (bore[0] - gate[0]) * (y0 - gate[1]) / (bore[1] - gate[1])
     return R.bent(
         "fluid-14", "valve-v-f.outlet",
         (gate[0], gate[1], cruise),             # up the storey, over what the lane stands
-        (bore[0], bore[1], cruise),             # one diagonal aft and inboard onto the bore
+        (lean, y0, cruise),                     # the diagonal aft and inboard, to the climb
+        (bore[0], y1, high),                    # up onto the top wall's own storey
+        (bore[0], bore[1], high),               # aft under it, on the bore's column
         "foam-assembly.reservoir-a-fill",       # and straight down the strip into it
         kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="reservoir A fill: V-F-O → the fill bore in its own cap, up over V-K and one "
-             "diagonal aft onto the strip the pump and the brick leave between them")
+        note="reservoir A fill: V-F-O → the fill bore in its own cap, up over V-K, one diagonal "
+             "aft, a climb to the top wall and aft under it onto the strip the pump and the "
+             "brick leave between them")
 
 
 def _fluid_16(F):
