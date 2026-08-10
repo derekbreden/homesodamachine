@@ -137,15 +137,15 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 1.901 | $21.30 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.973 | $22.09 <!--@printed--> |
+| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.982 | $22.20 <!--@printed--> |
 | Drip pan | 1 | PETG | 0.031 | $0.35 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
 | Cap-sense sleeve (2-piece clamshell) | 2 sets | PETG | 0.004 | $0.04 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.93** | **[$82.23](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.94** | **[$82.34](BOM_SEC7)** |
 
-By material: PETG ≈ 6.77 kg / $75.77 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.77 kg / $75.87 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -193,7 +193,7 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | [smseace #4 (M3) insulated ring terminals, 22–16 AWG (150 pc)](https://www.amazon.com/dp/B08B5VS8ZR) | Every ground landing that takes a screw rather than a lever: the three chassis bonds (pressure vessel, compressor body under one of its four floor screws, faucet under-counter plate) per [`wiring.md`](/hardware/assembly/wiring.md) §1, plus the bus-side pigtail ends staged at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). ~10 per unit; $9.64/150 | 10 (of 150 pk) | $0.06 | $0.64 <!--@wiring--> |
 | Insulated fork (spade) terminals, #6 stud, 22–16 AWG | **SKU TBD.** Every screw terminal a conductor lands under, per [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) §2/§4/§5 and [`wiring.md`](/hardware/assembly/wiring.md) §2: **AC-2 ×3** (H/N/G onto the Mean Well IRM-90-12ST primary + earth lug), **AC-3 ×1** (H onto Teyleten relay #1 "COM"), **AC-4 ×1** (the SJOOW's switched-H onto relay #1 "NO"), **DC-1 ×2** (12 V + and GND off the PSU secondary) → **7/build**. A fork slides under a captive screw head; a ring will not, which is why these are not the §11 ring terminals above. Sized to the Teyleten and Mean Well terminal screws — confirm at the bench before ordering. | 7 | — | — <!--@wiring--> |
 | Heat-shrink tubing, 2:1, assorted sizes ([B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q)) | The finish on every cut end in the harness set, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) steps 2 + 4 and [`cards/gt-05-heat-shrink-sleeve.html`](/hardware/assembly/cards/gt-05-heat-shrink-sleeve.html): both ends of each of the 13 braided sleeves so they cannot fray (~26), the reed-column lacing between reeds (2 columns, [`cold-core.md`](/hardware/assembly/cold-core.md) §4), the four bare TO-92 probe leads, and the run-ID flags on the staged AC/DC pigtails. ~45 collars/build. Amazon 112-0066205 Apr 22: $7.50 for the kit; the kit's piece count is not recorded, so the per-build allocation below is nominal. | ~45 collars | — | $1.25 <!--@wiring--> |
-| [Zip Ties (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | ~15 zip ties per unit (cable management), plus **2 on the tap-water chain** — one in each band the backflow vent leaves clear on the Multiplex's barrel, closing the mouth of the trough `enclosure._asse_cradle` prints into the −X wall ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2). Those two carry no weight: the trough does, on two flats of the brass hex, and the ties only stop the chain leaving it eastward. Cinch on the **brass barrel only** — never on the JG acetal flare adapter or the PP reducer, which go out of round. Black UV-nylon, flush-cut, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). 17/200 | 17 (of 200 pk) | $0.02 | $0.34 <!--@cable-mgmt--> |
+| [Zip Ties (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | ~15 zip ties per unit (cable management), plus **2 on the tap-water chain and 2 on the flow meter** — one in each band the backflow vent leaves clear on the Multiplex's barrel, closing the mouth of the trough `enclosure._asse_cradle` prints into the −X wall ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2). Those two carry no weight: the trough does, on two flats of the brass hex, and the ties only stop the chain leaving it eastward. Cinch on the **brass barrel only** — never on the JG acetal flare adapter or the PP reducer, which go out of round. The meter's two are the load path instead: its saddles open downward, so the straps are what hold it up (`enclosure._digiten_saddles`). Black UV-nylon, flush-cut, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). 19/200 | 19 (of 200 pk) | $0.02 | $0.38 <!--@cable-mgmt--> |
 | [CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2RB524Y) | 4-pin XH — female housings + crimp terminals for the six 4P board looms (FAUCET J3, RELAYS J5, I2C J8, DISPLAY J9, GAS J11, PUMPS J13); the male wafers are on the PCBA, so the kits' loose housings/terminals are what's consumed. ~6/unit; $8.45/50 × 6 | 6 (of 50 pk) | $0.17 | $1.01 <!--@wiring--> |
 | [CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2R8Q1JL) | 6-pin XH — MANIFOLD B (J2) loom housing + terminals; ~1/unit; $9.19/50 | 1 (of 50 pk) | $0.18 | $0.18 <!--@wiring--> |
 | [CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R73RQB) | 9-pin XH — MANIFOLD A (J1) loom housing + terminals; ~1/unit; $9.19/30 | 1 (of 30 pk) | $0.31 | $0.31 <!--@wiring--> |
@@ -280,15 +280,15 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$93.10](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.23](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.34](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$29.45](BOM_SEC11) |
+| 11. Wiring | [$29.49](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,284.87](BOM_GRAND)** |
+| **Total** | **[$1,285.02](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

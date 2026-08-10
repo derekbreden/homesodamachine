@@ -300,7 +300,12 @@ MOUNTS = (
     ("bulkhead-flavor-a", None, "wall-capture"),
     ("bulkhead-flavor-b", None, "wall-capture"),
     ("bulkhead-carb", None, "wall-capture"),
-    ("digiten-flow", None, "none"),
+    # THE METER HANGS IN TWO SADDLES OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
+    # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
+    # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
+    # feature can reach. A strap through each saddle's own cavity closes it, and here the straps
+    # are the load path: a V that opens downward carries nothing.
+    ("digiten-flow", "enclosure-back-top", "saddle"),
 )
 
 
