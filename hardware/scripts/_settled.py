@@ -8,10 +8,10 @@ engine agrees is clear. A body that moves has been pushed somewhere, and how far
 direction and roughly how much — not the smallest move that would have opened the pack, because
 nothing minimises and nothing restores.
 
-EVERY READING CARRIES THE BOX IT WAS TAKEN IN, and the box is printed above the answer. Four of
-its numbers decide what moves: the mover set, the decomposition's hull cap and resolution, and
-how long stillness has to hold before it counts. A reading is about the machine only to the
-extent those were not the binding constraint.
+EVERY READING CARRIES THE BOX IT WAS TAKEN IN, printed above the answer. Four of its numbers
+decide what moves: the mover set, the decomposition's hull cap and resolution, and how long
+stillness has to hold before it counts. A reading is about the machine only where those were not
+the binding constraint.
 
 FREE A SET THAT CROSSES NOTHING. This machine interpenetrates by design — a bulkhead union
 through a wall, a tube through a cap bore, a display in its cutout — and the card knows those
