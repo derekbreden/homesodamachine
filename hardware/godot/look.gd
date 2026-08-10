@@ -84,8 +84,10 @@ func _draw() -> void:
 	_read_plane()
 	_pick_step()
 	_measure()
-	_grid()
-	_bar()
+	if ortho:
+		# A grid off a perspective camera is a set of lines that do not read as a coordinate.
+		_grid()
+		_bar()
 	_legend()
 
 
