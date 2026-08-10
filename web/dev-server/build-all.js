@@ -18,6 +18,13 @@
 // It runs every generator in the tree, each as its own CadQuery process, so it
 // costs minutes; `--list` prints the count without building. The commit-time gate
 // is .githooks/pre-commit, which keys each check to the files actually staged.
+//
+// STDOUT IS THE ANSWER AND NOTHING ELSE — what failed, what was stale, and a final
+// line that stands alone as the verdict. The per-generator progress goes to stderr,
+// where the generators' own tracebacks already land. A run that finds nothing says
+// so in one line, so there is no transcript here to filter and no reason for a
+// caller to pipe this anywhere: whatever reads stdout gets the whole answer, and
+// the exit code survives to mean what it says.
 
 import fs from "fs";
 import path from "path";
@@ -127,42 +134,54 @@ async function main() {
 
   const before = mode === "--check" ? new Set(dirtyOutputs()) : null;
 
-  let failed = 0;
+  const failed = [];
+  // Progress on stderr, beside the tracebacks it explains: a line that only says a
+  // step is under way is stale the moment the next one starts, and stdout is
+  // reserved for what is still true when the run ends.
+  const step = (label, name) => process.stderr.write(`[${label}] ${name} ... `);
+  const done = (code, name) => {
+    process.stderr.write(code === 0 ? "ok\n" : `FAILED (${code})\n`);
+    if (code !== 0) failed.push(name);
+  };
+
   for (let i = 0; i < order.length; i++) {
-    const s = order[i];
-    process.stdout.write(`[${i + 1}/${order.length}] ${rel(s)} ... `);
-    const code = await run(s);
-    console.log(code === 0 ? "ok" : `FAILED (${code})`);
-    if (code !== 0) failed++;
+    const name = rel(order[i]);
+    step(`${i + 1}/${order.length}`, name);
+    done(await run(order[i]), name);
   }
   for (let i = 0; i < boards.length; i++) {
     const b = boards[i];
-    process.stdout.write(`[board ${i + 1}/${boards.length}] ${rel(path.join(b.dir, b.file))} ... `);
-    const code = await runBoard(b);
-    console.log(code === 0 ? "ok" : `FAILED (${code})`);
-    if (code !== 0) failed++;
+    const name = rel(path.join(b.dir, b.file));
+    step(`board ${i + 1}/${boards.length}`, name);
+    done(await runBoard(b), name);
   }
   for (let i = 0; i < syncs.length; i++) {
-    const s = syncs[i];
-    process.stdout.write(`[doc-sync ${i + 1}/${syncs.length}] ${rel(s)} ... `);
-    const code = await run(s);
-    console.log(code === 0 ? "ok" : `FAILED (${code})`);
-    if (code !== 0) failed++;
+    const name = rel(syncs[i]);
+    step(`doc-sync ${i + 1}/${syncs.length}`, name);
+    done(await run(syncs[i]), name);
   }
   const total = order.length + boards.length + syncs.length;
-  console.log(`\nDone: ${total - failed} ok, ${failed} failed.`);
 
-  if (mode === "--check") {
-    const stale = dirtyOutputs().filter((f) => !before.has(f));
-    if (stale.length > 0) {
-      console.log(`\n--check: ${stale.length} output(s) were stale (regenerated now):`);
-      for (const f of stale) console.log(`  ${f}`);
-      console.log("\nCommit the regenerated outputs.");
-      process.exit(1);
-    }
-    console.log("--check: all outputs were already up to date.");
+  if (failed.length > 0) {
+    console.log(`${failed.length} of ${total} failed to build (traceback on stderr):`);
+    for (const f of failed) console.log(`  ${f}`);
   }
-  if (failed > 0) process.exit(1);
+
+  const stale = mode === "--check" ? dirtyOutputs().filter((f) => !before.has(f)) : [];
+  if (stale.length > 0) {
+    console.log(`${stale.length} output(s) were stale, regenerated in the tree — commit them:`);
+    for (const f of stale) console.log(`  ${f}`);
+  }
+
+  // The last line is the whole verdict on its own, so a caller who reads nothing
+  // else still reads the truth.
+  const verdict = [
+    failed.length > 0 ? `${failed.length} failed` : null,
+    mode === "--check" ? (stale.length > 0 ? `${stale.length} stale` : "nothing stale") : null,
+  ].filter(Boolean);
+  console.log(`${total} run, ${verdict.length ? verdict.join(", ") : "0 failed"}.`);
+
+  if (failed.length > 0 || stale.length > 0) process.exit(1);
 }
 
 main();
