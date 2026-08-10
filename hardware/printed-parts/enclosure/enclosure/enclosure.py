@@ -2476,11 +2476,10 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
     where the wall stops. A piece that owns only part of a rib builds none of it, the way every
     other station on these walls behaves.
 
-    THE CAVITY IS A REMAINDER BETWEEN TWO WALLS: its floor is flat one `wall` over the bore's
-    crown, its roof is flat one `wall` under the root face, and what is left between them is the
-    channel. It comes out on both of the rib's flanks, square to each, and under each mouth
-    stands the solid the bore does not reach — which is where the strap turns down round the
-    tube.
+    THE CAVITY IS A REMAINDER: the rib stands one `wall` over the bore's crown down its whole
+    length and only its two ends carry on up to the face it roots on, so the strap's channel is
+    the room between those ends. That face is the channel's roof and the crown is its floor —
+    neither is drawn, and there is no cut anywhere in it to graze a face with.
 
     THE STRAP CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
@@ -2494,15 +2493,14 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
                 f"_tube_anchors: root direction {n} names no interior face. An anchor stands on "
                 f"one of the box's six faces, and that face is what its rib stops on.")
         b_root = (inner[face] - mid[face // 2]) * (1.0 if face % 2 else -1.0)
-        reach = seat_r + wall              # the lip's outer edge, and the cavity floor's radius
-        b_roof = b_root - wall
-        if b_roof - reach < tie_strap_t:
+        reach = seat_r + wall              # the lip's outer edge
+        b_crown = seat_r + wall            # one `wall` over the bore's own crown
+        if b_root - b_crown < tie_strap_t:
             raise ValueError(
-                f"_tube_anchors: this run stands {b_root:.2f} mm off the face its anchor roots on, "
-                f"and the seat's own bore opened a `wall` reaches {reach:.3f} of that with the roof "
-                f"at {b_roof:.3f} — {b_roof - reach:.3f} mm for a strap {tie_strap_t:.3g} thick. "
-                f"What gives way here is the run's own lane, not the walls: route it further off "
-                f"the face, or anchor it to another one.")
+                f"_tube_anchors: a `wall` off the bore's crown leaves {b_root - b_crown:.3f} mm "
+                f"under the face this rib roots on, and the strap is {tie_strap_t:.3g} thick. What "
+                f"gives way here is the run's own lane, not the wall: route it further off that "
+                f"face, or anchor it to another one.")
         origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
         # The rib's own extent, so a piece that owns part of it builds none of it.
         t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
@@ -2514,18 +2512,22 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
         if not (y0 <= min(p[1] for p in span) and max(p[1] for p in span) <= y1
                 and z0 <= min(p[2] for p in span) and max(p[2] for p in span) <= z1):
             continue
-        solid = solid.fuse(_anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_root))
-        solid = solid.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
-        # THE CAVITY'S FLOOR IS A CHORD AND NOT AN ARC. One `wall` over the bore's crown, flat, so
-        # it meets each flank square; struck concentric it would be a cylinder of the rib's own
-        # half-width, tangent to both flanks along their whole length and running out to a knife
-        # where each one meets the underside. The web is thinnest at the crown either way — `wall`
-        # there and more toward the flanks, where the bore falls away from a floor that does not.
+        # THE CAVITY IS WHAT IS NEVER FUSED, and nothing is cut for it. The rib is ONE box its
+        # whole length up to `b_crown`, the two ends carried on up to the face it roots on, and
+        # ONE bore through all of it. What the ends do not span IS the strap's channel — so it has
+        # no floor to draw, no cut to make it, and no face for either to graze. The face the rib
+        # roots on is its roof, and a plate of our own under that face would be a second one.
         #
-        # Carried one millimetre past each flank so both mouths are cut open rather than closed by
-        # a plane coincident with the face they open on.
-        cav = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
-        solid = solid.cut(_anchor_rib(cav, u, n, tie_cav_w, reach + 1.0, seat_r + wall, b_roof))
+        # The lower box runs the rib's whole length so the seat's own lip is ONE edge, and the rib
+        # is UNIFIED before it joins the piece. A fuse imprints the seam of every solid that went
+        # into it, so a rib fused straight onto the wall carries its lip in as many pieces as it
+        # was laid down in — three here — and its bore in as many again.
+        rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
+        for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
+            end = tuple(origin[k] + u[k] * s0 for k in range(3))
+            rib = rib.fuse(_anchor_rib(end, u, n, s1 - s0, reach, b_crown, b_root))
+        rib = rib.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
+        solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
     return solid
 
 
