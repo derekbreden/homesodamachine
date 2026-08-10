@@ -28,22 +28,6 @@ See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patte
 
 Flash with `tools/flash.sh`.
 
-## Gates
-
-`.githooks/pre-commit` is the gate, and it runs itself. Every check in it is keyed to exactly the files it reads, so a commit pays only for the answers it could have changed. Don't hand-roll a gate line in front of `git commit` — it charges the commit for checks the hook already knows to skip.
-
-`npm --prefix web run build:check` is not a commit-time check. It rebuilds the whole graph — every generator in the tree, each a fresh CadQuery process, then the PCB render and the doc-syncs — and costs minutes. Run it on its own, when something may have been committed stale.
-
-When you do run a check by hand, keep its output and let the commit go through:
-
-```bash
-npm --prefix web run build:check > /tmp/build.log 2>&1; echo "exit=$?"; tail -20 /tmp/build.log
-```
-
-`;` and not `&&`, because a broken thing that is committed can be read in the diff. Redirect and tail rather than pipe: `cmd | tail` takes the pipeline's status from `tail`, which always succeeds, and discards the traceback above the window. A check's output is evidence — put it somewhere it outlives the run.
-
-Stage by path, never `git add -A`. Another session is often working in this folder, and its half-finished tree is not yours to commit — the hook's syncs stage only the one file they moved for the same reason.
-
 ## tscircuit forks
 
 The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `hardware/pcb/pcba/FORKS.md`.
