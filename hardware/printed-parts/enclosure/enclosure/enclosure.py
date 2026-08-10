@@ -2187,16 +2187,17 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # Every cavity on this wall carries the same fastener, so its section is stated once here and the
 # features read it. `enclosure_assembly.ASSE_TIE_T` is the same strap's THICKNESS, and it is stated
 # over there because what it sets is the deck's own storey rather than anything printed.
-# TWO STRAPS, AND WHAT PICKS BETWEEN THEM IS THE LOOP. A tie has to reach round the body AND the
-# rib holding it, and the convex perimeter of that pair is the shortest strap that closes:
+# TWO STRAPS, AND WHAT PICKS BETWEEN THEM IS THE LOOP. A strap turns INSIDE the cavity, so what it
+# reaches round is the body together with the web between that body and the cavity — the convex
+# perimeter of the pair, and not of the wall the rib stands on:
 #
-#     carb-1 tube in its rib      68.8 mm
-#     DIGITEN arm in its saddle   88.1 mm
-#     ASSE barrel in its trough  165.5 mm
+#     carb-1 tube in its rib      38.2 mm
+#     DIGITEN arm in its saddle   55.2 mm
+#     ASSE barrel in its trough  100.6 mm
 #
-# An 18 lb tie is 0.1" wide at every length it comes in, so the first two take the narrow strap
-# whatever length they are cut from. The barrel's loop passes what any 18 lb tie reaches and takes
-# the 8" 50 lb instead, which is 0.19" — so its cavity, and only its cavity, is the wider one.
+# A 4" tie closes about 69 mm of loop, which takes the first two. The barrel's passes it and takes
+# the 8", and an 8" tie is a 50 lb tie at 0.19" where a 4" is 18 lb at 0.1" — so the barrel's
+# cavity, alone on this box, is cut to the wider strap.
 tie_strap_w = 2.5           # the 18 lb strap, across its width — 0.1"
 tie_strap_wide_w = 4.826    # and the 50 lb strap's — 0.19"
 tie_strap_t = 1.0           # both, through the thickness
@@ -2286,9 +2287,9 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     # west, so a cavity clear of it by one `wall` is clear of the other two by more and the
     # web comes out no thinner than stated at any station.
     #
-    # IT IS THE WIDE STRAP'S CAVITY. The barrel and this trough together make a 165 mm loop, past
-    # what any 18 lb tie reaches, so what closes it is the 8" 50 lb — half again as wide as the
-    # strap the meter's saddles and the runs' ribs take.
+    # IT IS THE WIDE STRAP'S CAVITY. The barrel and this trough make a 100 mm loop, past what a 4"
+    # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
+    # 18 lb strap the meter's saddles and the runs' ribs take.
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
