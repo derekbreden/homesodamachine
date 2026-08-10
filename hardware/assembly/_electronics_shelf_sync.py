@@ -16,8 +16,10 @@ from docgen import substitute_md
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics" / "pcba-tray"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
+sys.path.insert(0, str(_hw / "manifold-layout"))
 
 import pcba_tray as _pcba  # noqa: E402  — the board outline the tray is built around
+import enclosure_assembly as _ea  # noqa: E402  — the +X wall's own Wago row
 
 # Import from the AC schedule's sync driver — the schedule owns the
 # AC-4/5/6 SJOOW lead length. The lead is built and landed at
@@ -50,8 +52,8 @@ pigtail_inlet_mm = 150                  # AC-1 (C14 → AC distribution block)
 pigtail_slack_mm = 150                  # AC-1 inlet-side slack
 
 # ─── Wago 221-413 lever-block count ────────────────────────────────────
-# Source: ../ledger/bom.md §11 (one per AC conductor — H, N, G).
-wago_count = 3
+# The row `enclosure_assembly.build_wago_row` presses into the wall's wells, one lug per pole.
+wago_count = len(_ea.WAGO_POLES)
 
 
 def main():
