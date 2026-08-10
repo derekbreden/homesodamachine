@@ -138,6 +138,7 @@
     "fluid-14 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
+    "water-3 \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "carb-1 \u2014 suction-chain: 1.056 mm",
     "co2-1 \u2014 fluid-14: 1.651 mm",
@@ -149,6 +150,7 @@
     "co2-2 \u2014 fluid-14: 2.000 mm",
     "fluid-4 \u2014 valve-v-a: 2.054 mm",
     "carb-1 \u2014 fluid-18: 2.266 mm",
+    "fluid-28 \u2014 foam-assembly: 2.449 mm",
     "water-6 \u2014 fluid-18: 2.470 mm",
     "seaflo-pump \u2014 wr1110: 2.500 mm",
     "psu \u2014 relay-2: 2.500 mm",
@@ -388,7 +390,7 @@
    "label": "Every chain anchor stands its room off everything else the face opens",
    "kind": "gate",
    "status": "pass",
-   "value": "2/2 hold",
+   "value": "3/3 hold",
    "target": "1 mm off the nearest",
    "detail": [],
    "active": true
@@ -838,6 +840,16 @@
    "active": true
   },
   {
+   "id": "run-seated",
+   "label": "Every run the cap is bored for lies in its rib",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1 bored, furthest off 0.200 mm",
+   "target": "0.200 mm at most",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
@@ -1134,13 +1146,12 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "15/20 within span",
+   "value": "16/20 within span",
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 480.1 mm unheld, 280.1 over",
     "fluid-14: 357.8 mm unheld, 157.8 over \u2014 anchored once already",
     "fluid-28: 348.0 mm unheld, 148.0 over",
-    "water-3: 256.3 mm unheld, 56.3 over",
     "fluid-2: 237.1 mm unheld, 37.1 over",
     "carb-1: 150.8 mm, held at its anchor",
     "fluid-14: 357.8 mm, held at its anchor"
@@ -2364,6 +2375,14 @@
     [
      -90.5,
      178.0,
+     248.2,
+     90.5,
+     461.0,
+     268.1
+    ],
+    [
+     -90.5,
+     178.0,
      233.4,
      90.5,
      461.0,
@@ -2388,21 +2407,13 @@
     [
      -90.5,
      178.0,
-     248.2,
-     90.5,
-     461.0,
-     268.1
-    ],
-    [
-     -90.5,
-     178.0,
      2.0,
      90.5,
      461.0,
      20.0
     ]
    ],
-   "fill": 0.109,
+   "fill": 0.1091,
    "primitive": false,
    "declared": null
   },
@@ -5954,5 +5965,5 @@
    "kind": "real"
   }
  ],
- "sources": "bc541031bc23da27f7f8c8cf221b6fee"
+ "sources": "16e636dfca812857146268a53572fb9a"
 }

@@ -1045,11 +1045,19 @@ for _name in cap_cradles:
 # discharge side — so its rib overhangs onto the barb and the NPT either side. Both are thinner
 # than the bore and neither touches it. `enclosure_assembly.anchor_rows` holds that: every section
 # under a rib clears the bore, and exactly one fills it.
-CapAnchor = namedtuple("CapAnchor", "centre seat_r")
+#   A ROW MAY STATE ITS OWN HEIGHT, and one kind of row has to. A CHAIN is free in Z — nothing
+# above it fixes it — so it is seated on the rib and the rib takes the height the section stack
+# asks for. A RUN is not: the plane a tube lies on is set by the two ports it joins, so there the
+# rib comes to the tube instead, and `over_face` is what it has to reach. `check_run_seated` reads
+# that back off the placed solids.
+CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face")
+CapAnchor.__new__.__defaults__ = (None,)
 cap_anchors = {
-    #                             centre         seat_r
+    #                             centre         seat_r  over_face
     "discharge-chain": CapAnchor((61.000, -60.500), 8.700),
     "suction-chain":   CapAnchor((37.600,  65.050), 8.700),
+    # The tap-water branch to V-K, which crosses this lid on the plane V-K's own inlet sets.
+    "water-3":         CapAnchor((120.500, -77.000), 3.375, 14.700),
 }
 
 # What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same
@@ -1078,8 +1086,21 @@ def cap_anchor_axis_over_face(name):
 
     Three layers of the rib, read from the face up: the channel the strap is pushed through, one
     `cap_anchor_wall`; the material under the bore, one more; then the bore's own radius. A body
-    seated lower than that sits on its own strap."""
-    return cap_anchors[name].seat_r + 2.0 * cap_anchor_wall
+    seated lower than that sits on its own strap.
+
+    A row that STATES its own height is one whose body cannot move to meet the rib, so the rib is
+    built up to it. What it must not do is come out under the three layers, which is the same
+    floor a seated body has."""
+    stated = cap_anchors[name].over_face
+    least = cap_anchors[name].seat_r + 2.0 * cap_anchor_wall
+    if stated is None:
+        return least
+    if stated < least - 1e-9:
+        raise ValueError(
+            f"cap_anchor_axis_over_face: {name} states {stated:.3f} mm over the lid's face and "
+            f"the rib's own three layers come to {least:.3f}. A seat lower than that stands the "
+            f"body on its own strap.")
+    return stated
 
 
 def cap_anchor_strap_loop(name):

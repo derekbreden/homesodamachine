@@ -322,11 +322,15 @@ def main():
     # and two end bands from the face up to that box. The bands stand a `cap_anchor_wall` clear of
     # the bore's own floor, so nothing here is cut twice; a rib that grew a plate across its
     # channel, or a bore that broke into the bands, comes up over.
+    #   A RIB STANDS AS HIGH AS ITS OWN ROW SAYS. One bored for a body takes the height the three
+    # layers come to; one bored for a RUN is built up to a plane the run already lies on, so what
+    # the block spans over the face is `cap_anchor_axis_over_face` less the channel under it.
     anchor_volume = sum(
-        cap_anchor_len * 2.0 * (s.seat_r + cap_anchor_wall) * (s.seat_r + cap_anchor_wall)
+        cap_anchor_len * 2.0 * (s.seat_r + cap_anchor_wall)
+        * (cap_anchor_axis_over_face(n) - cap_anchor_wall)
         - 0.5 * math.pi * s.seat_r ** 2 * cap_anchor_len
         + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_wall
-        for s in cap_anchors.values()
+        for n, s in cap_anchors.items()
     )
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
