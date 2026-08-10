@@ -55,13 +55,39 @@ STEP's 21 MB. The cold core writes 63 over 63.
 and web-exports. Held against `web/public/js/viewer` on the same assembly: the
 same 145 parts, the same selection, the same card.
 
-**4 — settling.** Bodies enter a Jolt world as hulls of the meshes phase 2
-bakes, and several move at once. What comes back is an arrangement; the
-derivation takes it as the target a rule is seated on, so `placed` still reads
-a rule off the geometry.
+**4 — [settling](settle.gd).** Bodies enter a Jolt world where their rules put
+them, several are free at once, and contact opens whatever is inside something
+else:
+
+```
+godot --path hardware/godot res://settle.tscn -- --scene <path.glb> --free "coil-v-*" --out settled.json
+tools/cad-venv/bin/python hardware/scripts/_settled.py settled.json
+```
+
+What comes back is an arrangement. The derivation takes it as the target a rule
+is seated on, so `placed` still reads a rule off the geometry.
 
 **5 — the audit in the engine.** Selection, drill-down and the scorecard as
 editor panels.
+
+## What the collision world can hold
+
+Jolt collides convex shapes. A concave body is decomposed and every piece is
+that piece's region or larger, so the error runs one way — a body reads as
+touching sooner than it does — and it grows with how concave the body is.
+
+Freed in place with nothing pulling on them, against an exact audit that reads
+**0 clashes**:
+
+| | bodies moved past the 1 mm floor | worst |
+|---|---|---|
+| valve coils alone | 0 of 30 | 0.95 mm |
+| the whole pack | 121 of 145 | 157.7 mm |
+
+A compact body comes back inside a millimetre. A tube through several bends
+comes back a hundred, and that reading is about the decomposition rather than
+about the pack. `_clearing.gap` is the exact answer for a pair; this is what to
+ask about several bodies at once, which is the question with no exact form.
 
 ## The walls
 
