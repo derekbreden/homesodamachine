@@ -1,7 +1,7 @@
 {
   "/hardware/assembly/_internal_plumbing_sync.py": {
     "hardware/assembly/_internal_plumbing_sync.py": "1c0054bdb65b3fd84261da870afbd027",
-    "hardware/manifold-layout/_lines.py": "009ea079fb1cc6758e6a5cb3eadc870e",
+    "hardware/manifold-layout/_lines.py": "411af6639cc8e1e8540faced301f9a66",
     "hardware/manifold-layout/_scorecard.py": "a9419920f1dc0abd35da7fe1e7c1b4f9",
     "hardware/manifold-layout/enclosure_assembly.py": "bdeec4a4c9f025c7fc67fec10e153fbf",
     "hardware/manifold-layout/manifold_layout.py": "69a9649cb0f27a2c6e99093eab608d7e",
@@ -66,7 +66,7 @@
     "hardware/scripts/_meshes.py": "11ce45c073bc674e6df752dd712a9c5a",
     "hardware/scripts/_overlap.py": "261c09c3ec78a61beccaf098c7d5ced4",
     "hardware/scripts/_realized.py": "92deb9ee972129c966092bfdf7a39f3c",
-    "hardware/scripts/_routing.py": "54984096cb19b454dad14c53c9ab4b36",
+    "hardware/scripts/_routing.py": "50d782de653a86fb9aea680e4a007833",
     "hardware/scripts/_run_lock.py": "3114e45894711dacf96c1ed361c7f938",
     "hardware/scripts/_seating.py": "5c82444dedb829535ff52d72cb192956",
     "hardware/scripts/_stated_bounds.py": "6dd26f4721921883f10e86fb777bc2b8",

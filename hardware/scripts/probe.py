@@ -44,20 +44,22 @@ Use from anywhere in the repo:
     w.hits(vol, skip=w.pieces)                        # the interior pack alone
 
     print(w.route("fluid-14"))                        # an authored run's waypoints, numbered
-    w.shift("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))   # move a bend, collisions only
+    w.reroute("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))   # move a bend, collisions only
 
     probe.sweep(range(0, 360, 10), lambda a: w.cast(tip(a), aim(a)).free)
 
-MOVING A PIECE OF A DRAWN LINE is `shift`, and it is its own query because the thing that moves
-is not a body. It translates named waypoints of an authored run over a range of offsets,
-REDRAWS the whole run at each one, and reports what that run collides with there — the bodies
-and nothing else, one row per position, plus the contiguous bands of positions that are clear
-and what bounds each of them. A bend, a corner, a fall, a crossing, a whole leg: whatever the
-piece is called, it is some waypoints of the route, and those indices are the handle.
-`w.route(id)` prints them numbered and takes `near=` a pick off the STEP to say which index a
-set of coordinates is. Redrawing rather than translating is what makes the answer honest: a
-moved waypoint lengthens one leg and shortens another, and a corner starved of tangent is as
-real a limit as an obstacle, so every row carries the radius its tightest corner seats.
+MOVING A PIECE OF A DRAWN LINE is `reroute`. It translates named waypoints of an authored run
+over a range of offsets, REDRAWS the whole run at each one, and reports what that run collides
+with there — one row per position, the contiguous bands of positions that are clear, and the
+radius each row's tightest corner seats. A bend, a corner, a fall, a crossing, a whole leg:
+whatever the piece is called, it is some waypoints of the route, and those indices are the
+handle. `w.route(id)` prints them numbered and takes `near=` a pick off the STEP to say which
+index a set of coordinates is.
+
+The centreline is what moves. `w.chain(id)` is the rest of the build that reads the run and
+does not — the ribs struck on it, the cap's seat for it, the stretch it is graded on, the
+sleeve that closes on it — and every sweep prints it. The whole move is
+[`calibration/Chain.md`](/calibration/Chain.md).
 
 From the shell, without writing a file:
 
@@ -68,7 +70,7 @@ From the shell, without writing a file:
     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275
     tools/cad-venv/bin/python hardware/scripts/probe.py travel psu +x
     tools/cad-venv/bin/python hardware/scripts/probe.py route fluid-14 --near 43.5,244.7,289
-    tools/cad-venv/bin/python hardware/scripts/probe.py shift fluid-14 3-4 y- -20:80:2.5
+    tools/cad-venv/bin/python hardware/scripts/probe.py reroute fluid-14 3-4 y- -20:80:2.5
     tools/cad-venv/bin/python hardware/scripts/probe.py selftest
 
 `selftest` runs the instrument against known-answer geometry — a known hit, a
@@ -315,24 +317,22 @@ class Travel:
 
 
 @dataclass
-class Pose:
-    """One offset of a `shift`: what the redrawn run runs into there, and whether the corners
-    it moved can still be bent.
+class Offset:
+    """One offset of a `reroute`: what the redrawn run runs into there, and the radius its
+    tightest corner seats.
 
-    `hits` is the question asked and the whole of the answer — the bodies the run
-    interpenetrates at this offset, empty when it interpenetrates none. `seats` is the rider a
-    moved waypoint always carries and the reason a sweep of clearances would not have done:
-    a shift lengthens one leg and shortens another, the corners either side of a leg share what
-    is left of it (`_routing.seat_radii`), and so an offset can stand clear of every body in the
-    machine and still be a corner the stock will not take. An offset that is one and not the
-    other is not a position the run can be drawn at."""
+    `hits` is the bodies the run interpenetrates at this offset, empty when it interpenetrates
+    none. `seats` is what the corners have left: a reroute lengthens one leg and shortens
+    another, and the corners either side of a leg share what is left of it
+    (`_routing.seat_radii`), so an offset stands clear of every body in the machine at one
+    figure and is a corner the stock will not take at another. `clear` is both."""
 
-    at: float               # mm along the shift's direction
+    at: float               # mm along the reroute's direction
     hits: tuple             # the bodies interpenetrated, worst overlap first
     seats: float            # the smallest radius any corner seats at this offset
     corner: int | None      # which corner that is, indexed in the REDRAWN centreline
     floor: float            # the stock's minimum bend radius, what `seats` answers to
-    corners: int            # how many corners the redraw has — a shift can straighten one out
+    corners: int            # how many corners the redraw has — a reroute can straighten one out
 
     @property
     def tight(self) -> bool:
@@ -361,6 +361,48 @@ class Pose:
 
 
 @dataclass
+class Link:
+    """One derivation that reads a run: what it reads it for, where it is stated, whether a
+    redraw of the run's centreline carries it, and the gate that prices it in a build."""
+
+    reads: str
+    where: str
+    carries: bool
+    gates: str
+
+    def __str__(self) -> str:
+        return (f"{'rides ' if self.carries else 'STANDS'}  {self.reads}\n"
+                f"            {self.where} — graded by {self.gates}")
+
+
+def _chain_of(a, rid: str) -> tuple:
+    """The derivations in the built assembly that name this run, read off the structures that
+    key on a run id — a row added to one of them appears here without this being rewritten."""
+    import enclosure_assembly as ea
+
+    out = [Link("the longest stretch of it nothing holds, walked off the run and its anchors",
+                "enclosure_assembly.unsupported_spans", True, "tube-anchored")]
+    for row_id, leg, _root, piece in ea.TUBE_ANCHOR_SITES:
+        if row_id == rid:
+            out.append(Link(
+                f"the rib {piece} stands for it, centred on leg {leg} — the leg INDEX is "
+                f"stated, and a redraw that straightens a corner out renumbers the legs",
+                "enclosure_assembly.TUBE_ANCHOR_SITES", True, "tube-seated, anchor-lands"))
+    seat = ea._cci.cap_anchors.get(rid)
+    if seat is not None:
+        out.append(Link(
+            f"the rib the cold core's cap stands for it, at {seat.centre} in the CAP's own "
+            f"frame, reaching {seat.over_face:g} over that face",
+            f"_cold_core_interface.cap_anchors[{rid!r}]", False, "run-seated, anchor-room"))
+    for sleeve, line in ea.SLEEVE_LINES.items():
+        if line == rid:
+            out.append(Link(f"{sleeve}, closed on a length of it, with the MPR121's leads read "
+                            f"off where it sits", "enclosure_assembly.SLEEVE_LINES", False,
+                            "sleeve-grips"))
+    return tuple(out)
+
+
+@dataclass
 class Band:
     """A contiguous stretch of the sample the run can be drawn in, and what ends it either side.
 
@@ -374,29 +416,30 @@ class Band:
     over: str | None
 
     def __str__(self) -> str:
-        # Both ends are always named, and an end the sweep simply stopped at says so. A band
-        # printed with one side blank reads as a band the machine bounds on one side only,
-        # which is the one thing this cannot know.
         end = "the sweep ended here, not the machine"
         return (f"{self.lo:+.3f} … {self.hi:+.3f}   (under: {self.under or end}"
                 f" · over: {self.over or end})")
 
 
 @dataclass
-class Shift:
+class Reroute:
     """A range of positions for one piece of a run, and what the run hits at each of them.
 
-    A SWEEP IS A SAMPLE. Every row is exact at its own offset and says nothing about the
-    millimetre either side of it, so a band is only as trustworthy as the step that drew it —
-    narrow the range and step finer to pin an edge. `held_out` is the other half of every
-    CLEAR here: the run's own body is not measured against, because the moving line is what it
-    is drawn from."""
+    EVERY ROW IS A HALF-MOVE. The centreline is redrawn and `chain` — the ribs struck on the
+    run, the cap's own seat for it, the span it is graded on, the sleeve that closes on it —
+    stands where it stood. The whole move is [`calibration/Chain.md`](/calibration/Chain.md).
+
+    `held_out` is the other half of every CLEAR: the run's own tube is out of the measurement,
+    being the body this centreline was swept into. Every row is exact at its own offset and
+    says nothing about the millimetre either side of it, so a band reaches as far as the step
+    that drew it."""
 
     run: str
     moving: tuple           # the waypoint indices that translated
     along: tuple
     poses: list
     held_out: tuple
+    chain: tuple = ()       # the derivations reading this run, see `World.chain`
     measured: str = ""
 
     @property
@@ -435,6 +478,10 @@ class Shift:
         if self.measured:
             out.append(f"  measured against {self.measured}")
         out.append(f"  holding out: {', '.join(self.held_out)}")
+        out.append(f"  the rest of the build that reads {self.run}, none of which any row "
+                   f"below moves (calibration/Chain.md):")
+        out += [f"    {link}" for link in self.chain] or [
+            "    nothing recorded — this world was not built from the assembly"]
         out.append(f"  {'offset':>9}  runs into")
         out += [f"  {p}" for p in self.poses]
         bands = self.bands
@@ -457,7 +504,7 @@ class World:
 
     def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False,
                  frames: dict = None, box=None, runs: dict = None,
-                 runs_held_out: bool = False):
+                 runs_held_out: bool = False, chains: dict = None):
         self.solids = solids
         # name → "component" | "display" | "funnel" | "run" | PIECE
         self.sources = sources
@@ -468,8 +515,11 @@ class World:
         self._frames = frames
         self.box = box
         # The AUTHORED runs behind the `tube-*` bodies — `{id: _routing.Run}`, the centrelines
-        # themselves rather than the swept solids. `shift` moves a piece of one.
+        # themselves rather than the swept solids. `reroute` moves a piece of one.
         self._runs = runs
+        # `{id: (Link, …)}` — what else in the build reads each run, taken off the assembly
+        # that drew them, see `chain`.
+        self._chains = chains or {}
         self._boxes = {}                # name → (solid, box), see bb()
 
     # -- what is here --
@@ -567,7 +617,7 @@ class World:
     def runs(self) -> dict:
         """`{id: _routing.Run}` — the CENTRELINES the `tube-*` bodies were swept along, as
         `_lines` authored them. The body `tube-fluid-14` is what that run runs into; the run
-        `fluid-14` is the waypoints it was drawn through, and the thing `shift` moves."""
+        `fluid-14` is the waypoints it was drawn through, and the thing `reroute` moves."""
         if self._runs is None:
             raise ValueError("this world carries no authored runs — it was built from an "
                              "assembly without them")
@@ -580,9 +630,20 @@ class World:
             raise KeyError(f"no run {name!r} — have: {', '.join(sorted(self.runs))}")
         return self.runs[name]
 
+    def chain(self, run) -> tuple:
+        """Everything else in the build that reads this run, and whether a redraw of its
+        centreline carries them.
+
+        Ribs are struck on its legs, the cold core's cap stands a seat for it at a station in
+        the cap's own frame, the stretch between held points is graded, a cap-sense sleeve
+        closes on the line it grips. `reroute` moves the centreline and none of these; this is
+        the list of what it leaves standing. [`calibration/Chain.md`](/calibration/Chain.md)."""
+        r = run if hasattr(run, "pts") else self.run(run)
+        return self._chains.get(r.id, ())
+
     def route(self, run, near=None) -> str:
         """One run's centreline written out waypoint by waypoint — the table an INDEX is read
-        off before `shift` moves one.
+        off before `reroute` moves one.
 
         Each interior waypoint is a corner and carries the two figures that decide whether it
         can move: the angle it turns and the radius it seats there, against its stock's floor.
@@ -769,34 +830,31 @@ class World:
 
     # -- where a piece of a routed line can stand --
 
-    def shift(self, run, moving, along, values, skip=(), tol: float = VOL_TOL) -> Shift:
+    def reroute(self, run, moving, along, values, skip=(), tol: float = VOL_TOL) -> Reroute:
         """Slide named waypoints of an authored run along a direction, and say what the run
-        RUNS INTO at each offset. Collisions and nothing else, one row per position.
+        RUNS INTO at each offset. Collisions, one row per position.
 
-        The answer to "can this bend move, and how far". `moving` is which waypoints translate
-        — one index, or any iterable of them (`w.route(id)` prints them numbered, and takes a
-        pick off the STEP to say which index that is). A bend is two of them, a corner is one, a
-        crossing is however many carry it; the noun does not matter, the indices do. `values`
-        are offsets in mm along `along`, either sign, and `steps()` makes the float range.
+        `moving` is which waypoints translate — one index, or any iterable of them; a bend is
+        two, a corner one, a crossing however many carry it. `w.route(id)` prints them
+        numbered and takes a pick off the STEP to say which index that is. `values` are offsets
+        in mm along `along`, either sign; `steps()` makes the float range.
 
-            w.shift("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))
+            w.reroute("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))
 
-        THE RUN IS REDRAWN, not translated. Moving a waypoint stretches the leg on one side of
-        it and shortens the leg on the other, and both corners on a shortened leg lose the
-        tangent they seat their arcs in — so the whole centreline is put through
-        `_routing.redrawn` at every offset and swept again at its own bore. That is what makes
-        an offset's radius as real a limit as an obstacle, and `Pose.tight` is where it lands.
+        THE CENTRELINE IS REDRAWN, not translated. A moved waypoint stretches one of its legs
+        and shortens the other, and both corners on a shortened leg lose the tangent they seat
+        their arcs in, so the whole run goes through `_routing.redrawn` at every offset and is
+        swept again at its own bore. The radius that leaves is `Offset.seats`.
 
-        WHAT IT IS MEASURED AGAINST is every body in this world except the run's own tube,
-        which is held out because the moving line is the thing that tube was swept from. Add
-        `skip=` for anything else you mean to move with it. Everything else — the pack, the
-        other lines, the printed walls — is in, and `Shift.__str__` prints what that was.
+        MEASURED AGAINST every body in this world but the run's own tube, which is out of it —
+        that body is what this centreline was swept into. `skip=` takes anything else moving
+        with it. The pack, the other lines and the printed walls are in, and `Reroute.__str__`
+        prints what they were.
 
-        The run's two END waypoints are its ports and cannot be shifted: they are mouths on
-        placed bodies, and a run that leaves one is not a run. The build reads the rest —
-        anchors are struck on the run's own legs (`enclosure_assembly.tube_anchors`) and the
-        spans between them graded — so a position this finds is a position to author, not a
-        finished answer."""
+        WHAT DOES NOT MOVE is `Reroute.chain`, printed with the sweep: the ribs struck on this
+        run, the cap's own seat for it, the stretch it is graded on, the sleeve that closes on
+        it. Its two END waypoints do not move either — they are mouths on placed bodies, and a
+        run drawn off one reaches no fitting."""
         r = run if hasattr(run, "pts") else self.run(run)
         idx = _moving(moving, len(r.pts), r.id)
         d = unit(along)
@@ -805,7 +863,7 @@ class World:
         floor = _routing.stock_min(r.kind, r.diam)
         values = [float(v) for v in values]
         if not values:
-            raise ValueError(f"{r.id}: a shift over no offsets answers nothing — give it a "
+            raise ValueError(f"{r.id}: a reroute over no offsets answers nothing — give it a "
                              f"range (`probe.steps(lo, hi, step)`), 0.0 among them to read "
                              f"the run where it stands")
         poses = []
@@ -822,9 +880,9 @@ class World:
                     f"move fewer waypoints at once.") from exc
             seats, corner = min(((drawn.radii[i], i) for i, _t, _a, _b in drawn.bends),
                                 default=(math.inf, None))
-            poses.append(Pose(v, tuple(h.name for h in self.hits(tube, skip=held, tol=tol)),
+            poses.append(Offset(v, tuple(h.name for h in self.hits(tube, skip=held, tol=tol)),
                               seats, corner, floor, len(drawn.bends)))
-        return Shift(r.id, idx, d, poses, held, self.measured)
+        return Reroute(r.id, idx, d, poses, held, self.chain(r), self.measured)
 
 
 # --- vector helpers -------------------------------------------------------
@@ -872,14 +930,14 @@ def _swept_box(sh, d, length: float):
 
 
 def _moving(moving, n: int, cid: str) -> tuple:
-    """Which waypoints a `shift` translates: one index, or any iterable of them.
+    """Which waypoints a `reroute` translates: one index, or any iterable of them.
 
     The first and last are the run's PORTS and are refused. They are mouths on placed bodies
     and they move when those bodies move — a run drawn off one does not reach its fitting, so
     the sweep would be over positions that are not connections."""
     idx = (moving,) if isinstance(moving, int) else tuple(moving)
     if not idx:
-        raise ValueError(f"{cid}: a shift has to move at least one waypoint")
+        raise ValueError(f"{cid}: a reroute has to move at least one waypoint")
     bad = [i for i in idx if not isinstance(i, int) or not -n <= i < n]
     if bad:
         raise ValueError(f"{cid}: {', '.join(str(i) for i in bad)} "
@@ -894,7 +952,7 @@ def _moving(moving, n: int, cid: str) -> tuple:
             f"{'are' if len(ends) > 1 else 'is'} the run's PORT — a mouth on a placed body, "
             f"which moves when that body moves and not before. "
             + (f"This run is one straight between two of them and has no interior waypoint "
-               f"to shift. " if n == 2 else f"Shift the interior waypoints (1…{n - 2}). ")
+               f"to reroute. " if n == 2 else f"Reroute the interior waypoints (1…{n - 2}). ")
             + f"To stand a fitting somewhere else, move its body in `enclosure_assembly.py`, "
               f"and every waypoint measured off it follows.")
     return idx
@@ -1093,12 +1151,14 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
         add(name, solid, src)
 
     # The AUTHORED runs come across whether or not their tubes did: they are the centrelines
-    # `_lines` drew, and `shift` asks what a piece of one could do. A world built `runs=False`
-    # says so in `measured`, which is what a shift there has to be read against.
+    # `_lines` drew, and `reroute` asks what a piece of one could do. A world built `runs=False`
+    # says so in `measured`, which is what a reroute there has to be read against. Each one
+    # arrives with the rest of the build that reads it (`chain`), taken off the same assembly.
+    drawn = {r.id: r for r in getattr(a, "runs", ())}
     _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces,
                          frames=getattr(a, "frames", None), box=getattr(a, "box", None),
-                         runs={r.id: r for r in getattr(a, "runs", ())},
-                         runs_held_out=not runs)
+                         runs=drawn, runs_held_out=not runs,
+                         chains={rid: _chain_of(a, rid) for rid in drawn})
     return _WORLDS[key]
 
 
@@ -1330,57 +1390,57 @@ def selftest() -> int:
     if not tw2.clear(t2_up):
         fails.append("tangent crossing control")
 
-    print("controls — shifting a piece of a run:")
+    print("controls — rerouting a piece of a run:")
     # A U lying in the XY plane whose crossbar is two waypoints, a post standing in the middle
     # of the band that crossbar sweeps through, and the run's OWN swept tube in the world
     # beside it. The last is the control that matters most: at offset 0 the redrawn run is
-    # exactly the body already standing there, so a shift that did not hold the run out would
+    # exactly the body already standing there, so a reroute that did not hold the run out would
     # report a total overlap with itself at every offset and never find anything else.
     u_pts = [(0.0, 0.0, 0.0), (0.0, 40.0, 0.0), (60.0, 40.0, 0.0), (60.0, 0.0, 0.0)]
     u_run = _routing.redrawn(
         _routing.Run("u", "fluid", "a.out", "b.in", list(u_pts), TUBE_OD, 14.0), u_pts)
     sw = World({"tube-u": _routing.tube(u_run), "post": box(x=(20, 30), y=(66, 74), z=(-5, 5))},
                {"tube-u": "run", "post": "test"}, runs={"u": u_run})
-    moved = sw.shift("u", (1, 2), "+y", steps(0.0, 60.0, 10.0))
+    moved = sw.reroute("u", (1, 2), "+y", steps(0.0, 60.0, 10.0))
     at = {p.at: p for p in moved.poses}
     print(f"  {'ok  ' if not at[0.0].hits else 'FAIL'}  the run's own tube is never its "
           f"obstacle{'':10s} got {list(at[0.0].hits)}  want []")
     if at[0.0].hits:
-        fails.append("shift holds the run out")
+        fails.append("reroute holds the run out")
     print(f"  {'ok  ' if at[30.0].hits == ('post',) else 'FAIL'}  the crossbar driven onto the "
           f"post names it{'':4s} got {list(at[30.0].hits)}  want ['post']")
     if at[30.0].hits != ("post",):
-        fails.append("shift finds the obstacle")
+        fails.append("reroute finds the obstacle")
     print(f"  {'ok  ' if not at[40.0].hits else 'FAIL'}  and past it is clear again"
           f"{'':21s} got {list(at[40.0].hits)}  want []")
     if at[40.0].hits:
-        fails.append("shift past the obstacle")
+        fails.append("reroute past the obstacle")
     edges = [(b.lo, b.hi, b.under, b.over) for b in moved.bands]
     want_edges = [(0.0, 20.0, None, "post"), (40.0, 60.0, "post", None)]
     print(f"  {'ok  ' if edges == want_edges else 'FAIL'}  two bands, each naming what ends it"
           f"{'':9s} got {edges}")
     if edges != want_edges:
-        fails.append("shift bands")
+        fails.append("reroute bands")
     # The reading a sweep of clearances would have missed: pulled back, the crossbar clears
     # every body in the world and its two corners are left seating 10 mm of the 14 the stock
     # wants — the same shape as two bends run into each other with no straight between them.
-    short = sw.shift("u", (1, 2), "-y", [30.0]).poses[0]
+    short = sw.reroute("u", (1, 2), "-y", [30.0]).poses[0]
     ok_tight = not short.hits and short.tight and abs(short.seats - 10.0) < 1e-3
     print(f"  {'ok  ' if ok_tight else 'FAIL'}  a corner starved of tangent is not clear"
           f"{'':11s} got hits {list(short.hits)}, seats R{short.seats:.3f} vs "
           f"{short.floor:g}  want [] and R10 under spec")
     if not ok_tight:
-        fails.append("shift grades the corner")
+        fails.append("reroute grades the corner")
     print(f"  {'ok  ' if not short.clear else 'FAIL'}  so the offset is not one the run can "
           f"take{'':7s} got clear={short.clear}  want False")
     if short.clear:
-        fails.append("shift clear folds both in")
+        fails.append("reroute clear folds both in")
     # And the redraw is a hypothetical: it must not put the authored run on the machine's own
     # list of shortfalls, which is keyed by run id and read out as `_lines.BLOCKED`.
     print(f"  {'ok  ' if 'u' not in _routing.BLOCKED else 'FAIL'}  a swept position never marks "
           f"the real run{'':6s} got BLOCKED={ {k: v for k, v in _routing.BLOCKED.items() if k == 'u'} }")
     if "u" in _routing.BLOCKED:
-        fails.append("shift leaks into BLOCKED")
+        fails.append("reroute leaks into BLOCKED")
 
     print("controls — refusals:")
     for label, thunk in (
@@ -1388,10 +1448,10 @@ def selftest() -> int:
         ("unknown body name raises", lambda: w.solid("nope")),
         ("zero-length direction raises", lambda: unit((0, 0, 0))),
         ("sampling a wall of a world with no pieces raises", lambda: wall_sample(held)),
-        ("shifting a run's port waypoint raises", lambda: sw.shift("u", 0, "+y", [1.0])),
-        ("shifting a waypoint the run has not got raises",
-         lambda: sw.shift("u", 9, "+y", [1.0])),
-        ("shifting an unknown run raises", lambda: sw.shift("nope", 1, "+y", [1.0])),
+        ("rerouting a run's port waypoint raises", lambda: sw.reroute("u", 0, "+y", [1.0])),
+        ("rerouting a waypoint the run has not got raises",
+         lambda: sw.reroute("u", 9, "+y", [1.0])),
+        ("rerouting an unknown run raises", lambda: sw.reroute("nope", 1, "+y", [1.0])),
         ("a world with no runs raises rather than answering", lambda: w.runs),
         ("a step of zero raises", lambda: steps(0.0, 10.0, 0.0)),
     ):
@@ -1527,12 +1587,12 @@ def main(argv: list) -> int:
         p.add_argument(f"--{axis}", required=True, help="lo,hi")
     p.add_argument("--skip", default="")
 
-    p = sub.add_parser("route", help="one run's waypoints, numbered — the index `shift` moves")
+    p = sub.add_parser("route", help="one run's waypoints, numbered — the index `reroute` moves")
     p.add_argument("run", nargs="?", help="a run id (fluid-14); omit to list every run")
     p.add_argument("--near", default="", metavar="x,y,z",
                    help="mark the waypoint closest to a pick off the STEP")
 
-    p = sub.add_parser("shift", help="sweep a piece of a run over a range of positions and "
+    p = sub.add_parser("reroute", help="sweep a piece of a run over a range of positions and "
                                      "report what it collides with at each one")
     p.add_argument("run", help="a run id (fluid-14), not its tube body")
     p.add_argument("moving", help="which waypoints move: 3, the span 3-4, or the set 3,5")
@@ -1542,13 +1602,10 @@ def main(argv: list) -> int:
 
     sub.add_parser("selftest", help="known-answer controls, then load the world")
 
-    # THESE ARGUMENTS ARE SIGNED BY NATURE — a cast runs `0,0,-1`, a shift sweeps `-20:80:5` —
-    # and argparse reads any token starting with `-` that is not one of its own flags as an
-    # unknown flag. It already excepts what it recognizes as a negative number, on the rule
-    # that a parser carrying no negative-number OPTION cannot be ambiguous about one; none of
-    # these do, so widening that recognizer to the shapes these values take is the same rule
-    # over the same parsers. A direction is the one signed argument it will not cover (`-y` is
-    # not a number), which is why `unit` also takes the sign last, as `y-`.
+    # A cast runs `0,0,-1` and a reroute sweeps `-20:80:5`. Argparse reads a token starting with
+    # `-` as a flag unless it matches this, which it excepts on the condition that the parser
+    # carries no option looking like a negative number — none of these do. `-y` is not a
+    # number and stays a flag, so `unit` takes the sign last, as `y-`.
     signed = re.compile(r"^-[\d.]")
     for parser in (ap, *sub.choices.values()):
         parser._negative_number_matcher = signed
@@ -1586,8 +1643,8 @@ def main(argv: list) -> int:
                       f"{r.frm} → {r.to}")
         else:
             print(w.route(a.run, near=_pt(a.near) if a.near else None))
-    elif a.cmd == "shift":
-        print(w.shift(a.run, _moving_arg(a.moving), _axis(a.direction), _values(a.values),
+    elif a.cmd == "reroute":
+        print(w.reroute(a.run, _moving_arg(a.moving), _axis(a.direction), _values(a.values),
                       skip=skip))
     elif a.cmd in ("cast", "hits"):
         # A held-out body is part of the answer: "CLEAR" over a list of bodies nobody
