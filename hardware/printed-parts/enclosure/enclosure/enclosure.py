@@ -2167,15 +2167,29 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 #
 # STRAIGHT ON THE WEST, THE TROUGH'S OWN V ON THE EAST. The V's apex stands closest to that
 # straight, so the cavity is narrowest at the axis and flares to both mouths: each mouth opens
-# `asse_tie_back / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
+# `wall / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
 # leaves a strap pushed through the room to turn the vertex by cutting its corner.
 #
-# It is ONE opening from the first tie band to the last, a strap's width past each. The two bands
+# It is ONE opening from the first tie band to the last, half a cavity past each. The two bands
 # are what it has to serve, so the block's back is solid fore and aft of them, and what is left in
 # the one opening draws out end to end.
-asse_tie_w = 5.0            # the strap's working width, and what the cavity runs past each band
-asse_tie_gap = 2.6          # across the cavity at its narrowest — the strap and its clearance
-asse_tie_back = 2.5         # PETG between the cavity and the trough it stands behind
+#
+# ITS TWO FLANKS ARE BOTH ONE `wall`. The cavity is what is LEFT between them — a `wall` off the
+# trough on the east and a `wall` off the side wall's own inner face on the west — so its width is
+# a remainder and not a number, and every face of it is the section the rest of this box is.
+
+# --- what a strap is, wherever one is cut for on this box --------------------
+#
+# Every cavity on this wall carries the same fastener, so its section is stated once here and the
+# features read it. `enclosure_assembly.ASSE_TIE_T` is the same strap's THICKNESS, and it is stated
+# over there because what it sets is the deck's own storey rather than anything printed.
+tie_strap_w = 2.5           # the strap, across its width
+tie_strap_t = 1.0           # and through its thickness
+tie_cav_buffer = 1.0        # the room a cavity carries over the strap
+tie_cav_w = tie_strap_w + tie_cav_buffer
+# Solid either side of a cavity, ALONG the run. A cavity is a hole through a rib, and this is what
+# the rib keeps of itself at each end of that hole.
+tie_cav_wall = 3.0
 
 
 def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
@@ -2219,7 +2233,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     own back together, and what it pulls is the chain into the V.
 
     THE CAVITY IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of the apex with
-    `asse_tie_back` of PETG between it and the trough, so at no station is it anything but a hole
+    one `wall` of PETG between it and the trough, so at no station is it anything but a hole
     through solid material, and a strap in it stays where it was put.
 
     THE BLOCK'S TOP FACE HANGS. Printed ceiling-down that face is a horizontal soffit over the
@@ -2244,7 +2258,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         solid = solid.cut(_asse_v(apex, z_axis, sy0, sy1, up, dn, east + 1.0))
     # THE STRAP'S CAVITY, cut after every section is fused so a neighbour's block cannot fill it
     # back in. Struck on the DEEPEST section's apex, which is the barrel's: that V stands furthest
-    # west, so a cavity clear of it by `asse_tie_back` is clear of the other two by more and the
+    # west, so a cavity clear of it by one `wall` is clear of the other two by more and the
     # web comes out no thinner than stated at any station.
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
@@ -2252,12 +2266,12 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
                 f"_asse_cradle: tie band {ty:.2f} falls outside the trough's run "
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. The cavity a strap passes through "
                 f"is the trough's whole length, so a band off either end has no cavity at all.")
-    return solid.cut(_asse_tie_cavity(min(a for _y0, _y1, a in sections), z_axis,
-                                      min(ties) - asse_tie_w / 2.0,
-                                      max(ties) + asse_tie_w / 2.0, up, dn))
+    return solid.cut(_asse_tie_cavity(min(a for _y0, _y1, a in sections), inner[0], z_axis,
+                                      min(ties) - tie_cav_w / 2.0,
+                                      max(ties) + tie_cav_w / 2.0, up, dn))
 
 
-def _asse_tie_cavity(x_apex, z_axis, y0, y1, up, dn):
+def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     """The strap's cavity: STRAIGHT on the west, the trough's own V on the east.
 
     Five points and one cut. The V's apex stands closest to that straight, so the cavity comes out
@@ -2268,8 +2282,8 @@ def _asse_tie_cavity(x_apex, z_axis, y0, y1, up, dn):
     Both ends run one millimetre past the block's faces, so each mouth is cut open rather than
     closed by a plane coincident with the face it opens on."""
     run = 1.0 / math.tan(math.radians(asse_v_half))
-    x_in = x_apex - asse_tie_back / math.sin(math.radians(asse_v_half))   # the V, offset west
-    x_w = x_in - asse_tie_gap                                            # the straight behind it
+    x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the trough
+    x_w = x_wall + wall                                          # and a `wall` off the side wall
     over_up, over_dn = up + 1.0, dn + 1.0
     return (
         cq.Workplane("XZ")
@@ -2291,15 +2305,18 @@ def _asse_tie_cavity(x_apex, z_axis, y0, y1, up, dn):
 # tangent. Each saddle is as wide as the arm it takes plus its own wall, and runs from the top
 # wall's inner face down to where its V faces reach that width.
 digiten_saddle_wall = 3.0
-# The strap's cavity through each saddle, above the V: the SEAT'S OWN V offset up on the arm side
-# and FLAT on the ceiling side, so it is narrowest over the apex and flares to the mouth on each
-# flank. Offset rather than steepened, so the web reads `digiten_cav_back` at every station — a
-# floor that fell away faster than the seat's would come out through it at the flanks.
+# ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One strap crosses each saddle, so the rib is that
+# strap's cavity with `tie_cav_wall` of itself at each end of it, and the band `digiten_saddles`
+# reads off the barrel is what that rib is centred in.
+digiten_saddle_len = tie_cav_w + 2.0 * tie_cav_wall
+# The strap's cavity through each saddle, above the V, and the same remainder between two walls:
+# its floor is the SEAT'S OWN V offset up by one `wall`, its ceiling is FLAT one `wall` under the
+# top wall's inner face, and what is left between them is the channel. So it is narrowest over the
+# apex and flares to the mouth on each flank.
 #
-# Printed ceiling-down this floor is the one roof in the saddle, a 30°-off-horizontal bridge over
-# a `digiten_cav_gap` channel.
-digiten_cav_gap = 2.6
-digiten_cav_back = 2.5
+# Offset rather than steepened — a floor falling away faster than the seat's comes out through it
+# at the flanks. Printed ceiling-down that floor is the one roof in the saddle, a
+# 30°-off-horizontal bridge.
 
 
 def _digiten_v(x_axis, z_apex, y0, y1, half, reach, z_top):
@@ -2346,19 +2363,35 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
     seat = 1.0 / math.sin(math.radians(asse_v_half))            # apex over the arm's own axis
     z_apex = z_axis + seat_r * seat
     reach = seat_r + digiten_saddle_wall
+    drop = math.tan(math.radians(90.0 - asse_v_half))
     for by0, by1 in bands:
         if not (y0 <= by0 and by1 <= y1):
             continue
-        drop = math.tan(math.radians(90.0 - asse_v_half))
-        solid = solid.fuse(_ybox(x_axis - reach, x_axis + reach, by0, by1,
+        if by1 - by0 < digiten_saddle_len - 1e-6:
+            raise ValueError(
+                f"_digiten_saddles: the barrel leaves {by1 - by0:.2f} mm between the body's rim "
+                f"and the collet's ring, and a saddle is {digiten_saddle_len:.2f} — one strap's "
+                f"cavity with `tie_cav_wall` at each end of it. Either the band gives way "
+                f"(`DIGITEN_BODY_CLEAR`, `DIGITEN_COLLET_FREE`) or the rib does.")
+        mid = (by0 + by1) / 2.0
+        sy0, sy1 = mid - digiten_saddle_len / 2.0, mid + digiten_saddle_len / 2.0
+        solid = solid.fuse(_ybox(x_axis - reach, x_axis + reach, sy0, sy1,
                                  z_apex - reach * drop, inner[5]))
-        solid = solid.cut(_digiten_v(x_axis, z_apex, by0, by1, asse_v_half, reach + 1.0,
+        solid = solid.cut(_digiten_v(x_axis, z_apex, sy0, sy1, asse_v_half, reach + 1.0,
                                      z_apex - reach * drop - 1.0))
-        # The strap's cavity: its 45° floor struck one `digiten_cav_back` over the seat's apex,
-        # and a flat ceiling one `digiten_cav_gap` over that. Open on both flanks.
-        z_floor = z_apex + digiten_cav_back / math.sin(math.radians(asse_v_half))
-        solid = solid.cut(_digiten_v(x_axis, z_floor, by0, by1, asse_v_half, reach + 1.0,
-                                     z_floor + digiten_cav_gap))
+        # The strap's cavity through the middle of that rib, `tie_cav_wall` short of each end of
+        # it: floor the seat's own V offset up by one `wall`, ceiling flat one `wall` under the
+        # top wall's own inner face, and what is left between them is the strap's channel.
+        z_floor = z_apex + wall / math.sin(math.radians(asse_v_half))
+        z_roof = inner[5] - wall
+        if z_roof - z_floor < tie_strap_t + 1e-6:
+            raise ValueError(
+                f"_digiten_saddles: two walls off the seat and the ceiling leave "
+                f"{z_roof - z_floor:.3f} mm over the V's apex, and the strap is {tie_strap_t:.3g} "
+                f"thick. The storey the meter stands on is what gives way here "
+                f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the walls.")
+        solid = solid.cut(_digiten_v(x_axis, z_floor, mid - tie_cav_w / 2.0,
+                                     mid + tie_cav_w / 2.0, asse_v_half, reach + 1.0, z_roof))
     return solid
 
 
