@@ -67,8 +67,16 @@ tools/cad-venv/bin/python hardware/scripts/_settled.py settled.json
 What comes back is an arrangement. The derivation takes it as the target a rule
 is seated on, so `placed` still reads a rule off the geometry.
 
-**5 — the audit in the engine.** Selection, drill-down and the scorecard as
-editor panels.
+**5 — [the audit in the engine](machine.gd).** The card over the view, the
+bodies a failing row names painted, everything else a ghost of its own colour.
+`--check <id>` narrows to one row:
+
+```
+godot --path hardware/godot -- --scene <path.glb> --card <scorecard.json> --check bodies-clear
+```
+
+A row names its bodies in its own prose, so the bodies painted are the scene's
+own names that turn up in it.
 
 ## What the collision world can hold
 

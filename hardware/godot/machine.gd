@@ -7,7 +7,9 @@
 #   godot --path hardware/godot -- --scene <path.glb> --shot <out.png> --view iso
 #
 # `--hide enclosure*` drops bodies by name, the way the elevations drop the shell to read the
-# pack inside it. With no `--shot` the window stays open and the mouse orbits.
+# pack inside it. `--card <scorecard.json>` puts the card on the view and paints the bodies its
+# failing rows name, so a row and the metal it is about are the same picture. With no `--shot`
+# the window stays open and the mouse orbits.
 
 extends Node3D
 
@@ -27,6 +29,7 @@ var _reach := 1.0
 var _orbit := Vector3(0.62, 0.45, 0.65)
 var _dragging := false
 var _shot := ""
+var _only := ""
 var _settle := 0
 
 
@@ -53,6 +56,8 @@ func _ready() -> void:
 	_light()
 	_environment()
 	_look()
+	_only = args.get("check", "")
+	_card(pack, args.get("card", ""))
 	print("%d bodies over %.0f × %.0f × %.0f mm, %d hidden" %
 		[_bodies(pack), box.size.x, box.size.y, box.size.z, dropped])
 
@@ -117,6 +122,98 @@ func _hide(root: Node, pattern: String) -> int:
 			node.get_parent().remove_child(node)
 			gone += 1
 	return gone
+
+
+func _card(pack: Node, path: String) -> void:
+	if path == "":
+		return
+	var text := FileAccess.get_file_as_string(path)
+	var card = JSON.parse_string(text)
+	if card == null or not card.has("checks"):
+		push_error("%s does not read as a scorecard" % path)
+		return
+
+	var only: String = _only
+	var failing := []
+	for check in card["checks"]:
+		if check.get("status", "pass") != "fail":
+			continue
+		if only == "" or check.get("id", "") == only:
+			failing.append(check)
+	if failing.is_empty():
+		push_error("no failing row%s" % ("" if only == "" else " with id %s" % only))
+		return
+
+	# A row names its bodies in its own prose, so the bodies are the scene's own names that turn
+	# up in it — no second list to fall out of step with the card.
+	var names := {}
+	for mesh in _meshes(pack):
+		for check in failing:
+			for line in check.get("detail", []):
+				if String(line).contains(mesh.name):
+					names[mesh] = true
+	# What a row is about is solid and everything else is a ghost, so a body named by a failing
+	# row is readable through the machine it sits inside.
+	for mesh in _meshes(pack):
+		mesh.material_override = _flagged() if names.has(mesh) else _ghost(mesh)
+
+	_panel(failing, card["checks"].size(), names.size())
+	print("%d of %d checks failing, %d bodies painted" %
+		[failing.size(), card["checks"].size(), names.size()])
+
+
+func _flagged() -> StandardMaterial3D:
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.92, 0.20, 0.14)
+	mat.emission_enabled = true
+	mat.emission = Color(0.55, 0.06, 0.03)
+	mat.emission_energy_multiplier = 0.9
+	mat.render_priority = 2
+	return mat
+
+
+func _ghost(mesh: MeshInstance3D) -> StandardMaterial3D:
+	# The body's own colour, thin enough to see past. Depth stays written so the ghost keeps the
+	# shape of the machine rather than washing to a haze.
+	var base := mesh.mesh.surface_get_material(0) as StandardMaterial3D
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(base.albedo_color if base else Color(0.6, 0.6, 0.6), 0.10)
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_DEPTH_PRE_PASS
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	return mat
+
+
+func _panel(failing: Array, total: int, painted: int) -> void:
+	var layer := CanvasLayer.new()
+	add_child(layer)
+	var box := PanelContainer.new()
+	box.position = Vector2(28, 28)
+	box.custom_minimum_size = Vector2(600, 0)
+	var skin := StyleBoxFlat.new()
+	skin.bg_color = Color(0.055, 0.060, 0.082, 0.96)
+	skin.border_color = Color(0.18, 0.20, 0.26)
+	skin.set_border_width_all(1)
+	skin.set_corner_radius_all(6)
+	skin.set_content_margin_all(16)
+	box.add_theme_stylebox_override("panel", skin)
+	layer.add_child(box)
+	var label := RichTextLabel.new()
+	label.bbcode_enabled = true
+	label.fit_content = true
+	label.custom_minimum_size = Vector2(568, 0)
+	box.add_child(label)
+
+	var lines := PackedStringArray()
+	for check in failing:
+		lines.append("[color=#ff6b5a]✗[/color]  %s" % check.get("label", check.get("id", "")))
+		lines.append("      [color=#9aa3b2]%s  ·  wants %s[/color]" %
+			[check.get("value", ""), check.get("target", "")])
+		for line in check.get("detail", []).slice(0, 3):
+			lines.append("      [color=#7d8494]— %s[/color]" % line)
+	lines.append("")
+	lines.append("[color=#8fbf7f]%d holding[/color]   ·   %d bodies painted" %
+		[total - failing.size(), painted])
+	label.text = "\n".join(lines)
 
 
 func _light() -> void:
