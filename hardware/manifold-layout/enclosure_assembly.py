@@ -1438,13 +1438,54 @@ def build_digiten(carb_carry, seat: bool = True):
     land in the right place is the one the union is waiting on. Where the inlet ends up is
     `digiten_flow_sensor.port_face` ahead of the body centre, and that is where `carb-1` closes.
 
-    Nothing threads onto it and nothing clamps it — the bracket is an open item; this is where
-    it hangs."""
+    The two saddles it hangs in are `digiten_saddles`, printed off the top wall."""
     pos, axis = carb_carry(_jg.port(-1.0))
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
     body = cq.importers.importStep(str(DIGITEN_STEP)).val()
     return seat_body(body, DIGITEN_TURN, seat="digiten-flow" if seat else None,
                      station=(_digiten.outlet(), target))
+
+
+# --- the saddles the meter hangs in ----------------------------------------
+#
+# TWO SADDLES OFF THE TOP WALL, ONE PER ARM, AND NOTHING OVER THE BODY. The meter is a round
+# ⌀26 body with a ⌀12 collet barrel out of each rim, and the body is the part with no room: it
+# reaches to within `DECK_CEILING_CLEAR` and change of the top wall, while the barrels leave the
+# best part of a centimetre. So the arms are what a saddle can reach, and each takes the same 120°
+# V the tap-water trough takes, read off a round section's tangent — apex up, opening down.
+#
+# WHAT THE STRAP CARRIES HERE IS THE METER. A V that opens downward holds nothing on its own, so
+# unlike the trough's two ties these are the load path, and what they carry is a purchased part of
+# a few tens of grams on two nylon straps.
+DIGITEN_SEAT_SLIP = 0.2
+# Off the body's own rim. The rim is a circle in plan, so it stands closest to a saddle at the
+# arm's own column and falls away either side of it; this is struck on the closest.
+DIGITEN_BODY_CLEAR = 1.0
+# HOW MUCH OF EACH BARREL IS LEFT ALONE at its outer end. That end is a push-fit collet: a tube
+# goes into it and the ring that lets the tube back out is on the face. A saddle over that ring is
+# a joint that cannot be broken without cutting the strap first.
+DIGITEN_COLLET_FREE = 6.0
+
+
+def digiten_saddles(carry) -> tuple:
+    """The station `enclosure._digiten_saddles` builds from — `(axis_x, axis_z, seat_r, bands)`.
+
+    `seat_r` is the barrel the V is struck on, one `DIGITEN_SEAT_SLIP` over its own radius, so the
+    saddle stands off the arm by that slip on the V's own normal. `bands` is the run of each arm a
+    saddle takes: from the body's rim out to where the collet's ring begins, which is the whole of
+    the barrel that is neither the body nor the joint."""
+    axis = carry(_digiten.inlet())[0]
+    rim = _digiten.body_dia / 2.0
+    r = _digiten.port_dia / 2.0
+    bands = []
+    for port in (_digiten.inlet, _digiten.outlet):
+        face, out = carry(port())
+        # `out` points out of the collet, so the barrel runs INBOARD from that face — both ends of
+        # the band are struck against it.
+        inner_end = face[1] - out[1] * (_digiten.port_face - rim - DIGITEN_BODY_CLEAR)
+        outer_end = face[1] - out[1] * DIGITEN_COLLET_FREE
+        bands.append(tuple(sorted((inner_end, outer_end))))
+    return (axis[0], axis[2], r + DIGITEN_SEAT_SLIP, tuple(bands))
 
 
 # --- the storey those four stand on ----------------------------------------
@@ -2273,6 +2314,29 @@ def check_asse_seated(chain, piece, asse_carry) -> Bound:
             f"station did not follow it."])))
 
 
+def check_digiten_seated(meter, piece) -> Bound:
+    """Whether the meter is up in its two saddles, read off the two placed solids.
+
+    The same reading `check_asse_seated` takes and for the same reason: a saddle drawn near a
+    barrel and a saddle closed on one are the same to every other row on this card. What differs is
+    what the number means. This V opens DOWNWARD, so the seat is not carrying the meter — the two
+    straps are, and this is the reading that says they have something to pull it up against."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    got = _clearing.gap(solid(meter), solid(piece), 5.0)
+    want = DIGITEN_SEAT_SLIP / math.sin(math.radians(60.0))
+    ok = got <= want + 1e-3
+    return record_bound(Bound(
+        "digiten-seated", "The flow meter hangs in its two printed saddles", ok,
+        f"{got:.3f} mm off the ceiling's furniture", f"{want:.3f} mm at most",
+        ([] if ok else [
+            f"the meter stands {got:.3f} mm off everything `enclosure-back-top` puts near it, and "
+            f"its saddles are drawn to close on the two barrels at {want:.3f}. Either "
+            f"`digiten_saddles` no longer reads the meter's own ports, or the meter moved and the "
+            f"station did not follow it."])))
+
+
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
 # chain that hangs off it takes the lane's forward end, so the basin's forward rim is struck on
 # the barb's own aft edge with this much daylight past it. That plane fixes the tray in Y — the
@@ -3076,6 +3140,7 @@ def build_pack() -> cq.Assembly:
             carries[name] = mcarry
     a.bulkhead_carry = bulkhead_carry
     a.asse_cradle = asse_cradle(asse_carry)
+    a.digiten_saddles = digiten_saddles(meter_carry)
     a.runs = []
     # The bodies and their placements, carried on the assembly: a run whose other mouth is on
     # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
@@ -3164,7 +3229,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
-                     west_cradle=a.west_cradle, asse_cradle=a.asse_cradle)
+                     west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
+                     digiten_saddles=a.digiten_saddles)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -3328,6 +3394,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     # this card that can tell a trough closed on the barrel from a trough drawn near it.
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
+    check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
     # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
     # here — after the bodies the box seats have stated theirs — is what puts it there.

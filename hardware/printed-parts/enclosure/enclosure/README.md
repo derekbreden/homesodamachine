@@ -326,6 +326,36 @@ Nothing about the chain's weight is theirs: cut both and it still lies where it 
 closed on the barrel, measured off the two placed solids, because every other
 reading on the card is satisfied by a chain floating in air.
 
+## Flow-meter saddles
+
+Two saddles off the **top wall**, one over each of the DIGITEN meter's collet
+barrels, and nothing over the round body between them (`_digiten_saddles`).
+
+The meter is a ⌀26 body with a ⌀12 barrel out of each rim. The body reaches to
+within a hair of the top wall's inner face; the barrels leave the best part of a
+centimetre under it. So the arms are what a printed feature reaches here, and each
+takes the **same 120° V** the tap-water trough takes — read off a round section's
+tangent, apex up on the arm's own column, opening down. Each saddle is as wide as
+its barrel plus `digiten_saddle_wall`, and runs the middle of the barrel: one
+`DIGITEN_BODY_CLEAR` off the body's rim, and clear of the outer
+`DIGITEN_COLLET_FREE`, which is the push-fit ring the tube comes back out of.
+
+**The straps are the load path here.** A V that opens downward carries nothing, so
+unlike the trough's two ties these hold the meter up — a purchased part of a few tens
+of grams on two nylon straps. `enclosure_assembly.check_digiten_seated` reads the
+saddles closed on the barrels; travel off the placed pack is 0.231 up into the Vs,
+0.400 either way across them, and free downward.
+
+Each saddle's strap runs a cavity above its V: the **seat's own V offset up** on the
+arm side and **flat** on the ceiling side, so it is narrowest over the apex and flares
+to a mouth on each flank. Offset rather than steepened — a floor falling away faster
+than the seat's would come out through it at the flanks.
+
+Printed ceiling-down the saddle stands up off the bed: its V flanks rise 30° off
+horizontal, its outer flanks are vertical, and its lowest edges are the last thing
+printed. The strap's cavity floor is the one roof in it, a 30° bridge over a
+`digiten_cav_gap` channel.
+
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries

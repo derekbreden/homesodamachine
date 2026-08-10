@@ -82,6 +82,9 @@ def main():
         # `_cards_ip` puts on IP-03 — a station added to the topology moves both.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{sum(1 for n in _ml.P if n.startswith('Y-'))}",
+        # What each of the flow meter's saddles leaves alone at the outer end of its barrel —
+        # the push-fit ring, off the layout that strikes the saddle's own band on it.
+        "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
     }
 
     substitute_md(
@@ -93,6 +96,7 @@ def main():
             "SUCTION_STUB_LEN": 1,
             "DISCHARGE_STUB_LEN": 1,
             "PVC_BEND_R": 2,
+            "DIGITEN_COLLET_FREE": 1,
             "DISCHARGE_CHAIN_LEN": 1,
             "MANIFOLD_VALVES": 2,
             "MANIFOLD_TEES": 2,
