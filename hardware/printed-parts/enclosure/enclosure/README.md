@@ -311,8 +311,9 @@ the west and the trough's own V on the east**, so it is narrowest at the axis an
 flares to both mouths: each mouth opens `asse_tie_back / sin 60°` off its lip's own
 arris, on the block's face where a hand reaches it, and at the axis the flare leaves
 a strap pushed through the room to turn the vertex by cutting its corner. It stands
-`asse_tie_back` west of the apex at every station, struck on the deepest section's
-apex so the web is no thinner than that anywhere.
+one `wall` west of the apex at every station, struck on the deepest section's apex so
+the web is no thinner than that anywhere, and one `wall` off the side wall behind it —
+so its width is a remainder between the two rather than a number.
 
 A tie is a closed loop, so its strap also has to cross the chain's top flat — and
 **the top wall is never cut for it.** The storey the chain lies on is struck to leave
@@ -346,10 +347,15 @@ of grams on two nylon straps. `enclosure_assembly.check_digiten_seated` reads th
 saddles closed on the barrels; travel off the placed pack is 0.231 up into the Vs,
 0.400 either way across them, and free downward.
 
-Each saddle's strap runs a cavity above its V: the **seat's own V offset up** on the
-arm side and **flat** on the ceiling side, so it is narrowest over the apex and flares
-to a mouth on each flank. Offset rather than steepened — a floor falling away faster
-than the seat's would come out through it at the flanks.
+Each saddle's strap runs a cavity above its V: the **seat's own V offset up by one
+`wall`** on the arm side and **flat one `wall` under the top wall's inner face** on the
+other, so the channel is what is left between two walls of the box's own section. It
+comes out narrowest over the apex and flares to a mouth on each flank. Offset rather
+than steepened — a floor falling away faster than the seat's would come out through it
+at the flanks.
+
+The rib itself is that cavity's length: `tie_cav_w` of strap and buffer with
+`tie_cav_wall` of itself at each end, centred in the band the barrel allows.
 
 Printed ceiling-down the saddle stands up off the bed: its V flanks rise 30° off
 horizontal, its outer flanks are vertical, and its lowest edges are the last thing
