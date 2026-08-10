@@ -96,10 +96,16 @@ func _arguments() -> Dictionary:
 	var argv := OS.get_cmdline_user_args()
 	var i := 0
 	while i < argv.size():
-		if argv[i].begins_with("--") and i + 1 < argv.size():
+		if not argv[i].begins_with("--"):
+			i += 1
+			continue
+		# A FLAG TAKES NO VALUE. Reading the next token blindly makes `--ortho --hide x` set
+		# ortho to "--hide" and drop the hide entirely, which is a silent wrong picture.
+		if i + 1 < argv.size() and not argv[i + 1].begins_with("--"):
 			out[argv[i].substr(2)] = argv[i + 1]
 			i += 2
 		else:
+			out[argv[i].substr(2)] = "1"
 			i += 1
 	return out
 
