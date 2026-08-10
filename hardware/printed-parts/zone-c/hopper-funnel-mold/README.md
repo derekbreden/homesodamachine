@@ -11,11 +11,11 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
 
 ## The two halves
 
-- **Cavity** ([189.0 × 189.0 × 63.3 mm](CAVITY_DIMS)). A block with the funnel exterior
+- **Cavity** ([189.0 × 189.0 × 63.6 mm](CAVITY_DIMS)). A block with the funnel exterior
   carved out, opening up. The catch bowl sits in a recess at the top rim; the spout
   pokes down through a register hole in the floor. Wall [8 mm](MOLD_WALL) around
   the part, floor [10 mm](MOLD_BASE) under the spout.
-- **Core** ([201.0 × 201.0 × 73.3 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
+- **Core** ([201.0 × 201.0 × 73.6 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
   hanging from a [10 mm](PLATE_THK) top plate that forms the bowl rim's top face and
   registers over the cavity by a skirt that drops over its outside. A pin —
   tapered at the tip so it self-centers — continues the [6.35 mm](SPOUT_BORE)
