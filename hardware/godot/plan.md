@@ -51,9 +51,17 @@ tools/cad-venv/bin/python hardware/scripts/_scene.py hardware/manifold-layout/en
 The enclosure writes 145 nodes over 139 drawn bodies, 5.1 MB against the
 STEP's 21 MB. The cold core writes 63 over 63.
 
-**3 — the viewer.** A Godot project imports the scene, hangs a `.tscn` over it
-and web-exports. Held against `web/public/js/viewer` on the same assembly: the
-same 145 parts, the same selection, the same card.
+**3 — [the viewer](machine.gd).** `GLTFDocument` reads the scene at run time,
+so a rebuilt scene is picked up by running again and the project carries no
+copy of the machine:
+
+```
+godot --path hardware/godot -- --scene <path.glb> --view iso --hide "enclosure*" --shot out.png
+```
+
+The enclosure reads back as 145 bodies over 223 × 361 × 500 mm, under SSAO,
+SSIL, SDFGI, TAA and an ACES curve. A web export wants the engine's export
+templates, which are not installed.
 
 **4 — [settling](settle.gd).** Bodies enter a Jolt world where their rules put
 them, several are free at once, and contact opens whatever is inside something
