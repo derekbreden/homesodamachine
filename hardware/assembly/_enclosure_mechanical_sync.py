@@ -171,7 +171,11 @@ def main():
         "WATER_BACK_X": f"{_water[0]:.4g}",
         "WATER_BACK_Z": f"{_water[2]:.4g}",
         "C14_BACK": f"x {_ea.C14_STATION[0]:.4g}, z {_ea.C14_STATION[1]:.4g}",
-        "CO2_BACK": f"x {_ea.CO2_STATION[0]:.4g}, z {_ea.CO2_STATION[1]:.4g}",
+        # The gas inlet's own station, read off the placed fitting's collet — the same station
+        # `enclosure_assembly.co2_wall_port` strikes its bore on, so prose and hole cannot land
+        # on two different columns. Its Z is the row's, which is what `PORT_ROW_Z` reads.
+        "CO2_BACK": (f"x {_ea.co2_wall_port(_a.co2_inlet_carry)[1]:.4g}, "
+                     f"z {_ea.co2_wall_port(_a.co2_inlet_carry)[2]:.4g}"),
         # One boss per hole in every body's own pattern, carried through that body's own
         # placement — so a body that moves takes its bosses with it and this is a reading of
         # the +X wall rather than a count kept by hand.
