@@ -1488,6 +1488,110 @@ def digiten_saddles(carry) -> tuple:
     return (axis[0], axis[2], r + DIGITEN_SEAT_SLIP, tuple(bands))
 
 
+# --- the tube anchors -------------------------------------------------------
+#
+# WHAT A RUN DOES BETWEEN ITS TWO COLLETS. It is pushed into a fitting at each end and held by
+# nothing in between, so a long one sags — and a run that sags is not on the centreline
+# `lines-clear` cleared it on. An anchor is a stop on that span.
+#
+# The span an anchor breaks. A tube carrying its own weight and its water sags `5wL⁴/384EI`
+# between supports; for 1/4" LLDPE that reaches the millimetre `clearance-floor` keeps somewhere
+# in 181..284 mm, over the stock's modulus range with creep allowed for and on pinned ends. A
+# collet gripping ten millimetres of straight is stiffer than pinned.
+TUBE_ANCHOR_SPAN = 200.0
+# The V stands off the tube by this on its own normal, the same slip the meter's saddles take.
+TUBE_ANCHOR_SLIP = 0.2
+# A run over the span needs an anchor; a run with a printed face within reach of a straight length
+# of it can have one. Most of this machine's long runs cruise through the pack with no piece near
+# enough to reach them.
+#
+# Each row is a run, the index of the leg the rib is centred on, the face it roots on, and the
+# piece that owns that face there. `check_tube_seated` reads the last of those back off the two
+# solids, so a rib that lands in a different piece than its row names is a red row and not a
+# silent one.
+TUBE_ANCHOR_SITES = (
+    # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm.
+    ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
+)
+
+
+def tube_anchors(runs) -> tuple:
+    """One station per anchor — `(mid, along, root, seat_r)`, all four read off the run itself.
+
+    A LEG AND NOT A POINT. The rib is centred on the middle of the leg its row names, so the
+    anchor rides every move of the run that drew it and there is no coordinate here to go stale.
+    What the piece adds is the face: `enclosure._tube_anchors` stops the rib on the wall, and
+    nothing about the anchor's own height is stated on either side."""
+    by_id = {r.id: r for r in runs}
+    stations = []
+    for rid, leg, root, _piece in TUBE_ANCHOR_SITES:
+        r = by_id.get(rid)
+        if r is None:
+            continue                        # a run whose bodies are not both placed yet
+        if leg + 1 >= len(r.pts):
+            raise ValueError(
+                f"tube_anchors: {rid} has {len(r.pts) - 1} legs and this row names leg {leg}. "
+                f"`TUBE_ANCHOR_SITES` names a leg of the route as `_lines` draws it.")
+        p, q = r.pts[leg], r.pts[leg + 1]
+        length = math.dist(p, q)
+        u = tuple((q[k] - p[k]) / length for k in range(3))
+        if sum(1 for c in u if abs(c) > 1e-9) != 1:
+            raise ValueError(
+                f"tube_anchors: {rid} leg {leg} leans ({u}). A rib is extruded along its tube and "
+                f"cut square at both ends, so only an axial leg carries one as drawn.")
+        if abs(sum(u[k] * root[k] for k in range(3))) > 1e-9:
+            raise ValueError(
+                f"tube_anchors: {rid} leg {leg} runs along {u} and this row roots it on {root}. "
+                f"An anchor stands ACROSS its tube, never off the face the tube points at.")
+        if length < _enc.tube_anchor_len:
+            raise ValueError(
+                f"tube_anchors: {rid} leg {leg} is {length:.2f} mm and a rib is "
+                f"{_enc.tube_anchor_len:.2f}. A seat longer than the straight it stands on would "
+                f"close on the corners either side of it.")
+        stations.append((tuple((p[k] + q[k]) / 2.0 for k in range(3)), u, tuple(root),
+                         r.diam / 2.0 + TUBE_ANCHOR_SLIP))
+    return tuple(stations)
+
+
+def unsupported_spans(runs, stations) -> dict:
+    """The longest stretch of each run that nothing holds — the reading `tube-anchored` grades.
+
+    A run is held at its two ends and wherever an anchor sits on it. Between those points it is
+    one continuous elastic member, free to turn at every corner, so what spans is the DEVELOPED
+    length from one held point to the next."""
+    out = {}
+    for r in runs:
+        # Each corner's own shortening, taken at the waypoint it turns about, so the stations walk
+        # the DEVELOPED length `Run.length` reports and this goal cannot disagree with the card
+        # about how long a run is.
+        short = {i: 2.0 * r.radii[i] * math.tan(math.radians(turn) / 2.0)
+                    - r.radii[i] * math.radians(turn)
+                 for i, turn, _li, _lo in r.bends}
+        cuts, s = [0.0], 0.0
+        for i in range(len(r.pts) - 1):
+            s -= short.get(i, 0.0)
+            for mid, _u, _n, _seat in stations:
+                if _on_leg(mid, r.pts[i], r.pts[i + 1]):
+                    cuts.append(s + math.dist(r.pts[i], mid))
+            s += math.dist(r.pts[i], r.pts[i + 1])
+        if abs(s - r.length) > 1e-6:
+            raise ValueError(
+                f"unsupported_spans: {r.id} walks to {s:.4f} mm and `Run.length` reports "
+                f"{r.length:.4f}. The two read the same polyline and the same arcs.")
+        cuts.append(s)
+        cuts.sort()
+        out[r.id] = max(b - a for a, b in zip(cuts, cuts[1:]))
+    return out
+
+
+def _on_leg(pt, p, q, tol=1e-6) -> bool:
+    """Whether `pt` lies on the segment `p..q` — an anchor's own leg and no other."""
+    d = math.dist(p, q)
+    if d < tol:
+        return False
+    return abs(math.dist(p, pt) + math.dist(pt, q) - d) < tol
+
+
 # --- the storey those four stand on ----------------------------------------
 
 def build_deck(z: float, gate: float, seat: bool = False):
@@ -2318,14 +2422,17 @@ def check_digiten_seated(meter, piece) -> Bound:
     """Whether the meter is up in its two saddles, read off the two placed solids.
 
     The same reading `check_asse_seated` takes and for the same reason: a saddle drawn near a
-    barrel and a saddle closed on one are the same to every other row on this card. What differs is
-    what the number means. This V opens DOWNWARD, so the seat is not carrying the meter — the two
-    straps are, and this is the reading that says they have something to pull it up against."""
+    barrel and a saddle closed on one are the same to every other row on this card. Two things
+    differ. The seat here is a BORE, concentric with the barrel, so the gap it holds is the slip
+    itself — the trough's V holds its slip on the V's own normal and reads `slip / sin 60°` between
+    two axis-aligned solids, and a bore has no such angle in it. And this seat opens DOWNWARD, so it
+    is not carrying the meter: the two straps are, and this is the reading that says they have
+    something to pull it up against."""
     def solid(s):
         s = s.toCompound() if hasattr(s, "toCompound") else s
         return s.val() if hasattr(s, "val") else s
     got = _clearing.gap(solid(meter), solid(piece), 5.0)
-    want = DIGITEN_SEAT_SLIP / math.sin(math.radians(60.0))
+    want = DIGITEN_SEAT_SLIP
     ok = got <= want + 1e-3
     return record_bound(Bound(
         "digiten-seated", "The flow meter hangs in its two printed saddles", ok,
@@ -2335,6 +2442,37 @@ def check_digiten_seated(meter, piece) -> Bound:
             f"its saddles are drawn to close on the two barrels at {want:.3f}. Either "
             f"`digiten_saddles` no longer reads the meter's own ports, or the meter moved and the "
             f"station did not follow it."])))
+
+
+def check_tube_seated(tubes, pieces) -> Bound:
+    """Whether every anchored run lies in the rib its row names, read off the placed solids.
+
+    The same reading the chain's and the meter's take, on the one body the machine has twenty of.
+    It also reads back WHICH piece: the site names one, the rib is built by whichever piece owns
+    the whole of it, and a run seated against a piece its row does not name is a run whose
+    exemption in `_scorecard.anchored_pairs` is pointed at the wrong solid."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    want = TUBE_ANCHOR_SLIP          # a bore concentric with the tube stands off it radially
+    rows, worst = [], 0.0
+    for rid, _leg, _root, piece in TUBE_ANCHOR_SITES:
+        tube, part = tubes.get(f"tube-{rid}"), pieces.get(piece.removeprefix("enclosure-"))
+        if tube is None or part is None:
+            rows.append(f"{rid}: no {'run' if tube is None else piece} to read")
+            worst = max(worst, want + 1.0)
+            continue
+        got = _clearing.gap(solid(tube), solid(part), 5.0)
+        worst = max(worst, got)
+        if got > want + 1e-3:
+            rows.append(
+                f"{rid} stands {got:.3f} mm off {piece} and its rib is drawn to close on the tube "
+                f"at {want:.3f}. Either the route moved off the leg `TUBE_ANCHOR_SITES` names, or "
+                f"the rib landed in a piece that row does not name.")
+    return record_bound(Bound(
+        "tube-seated", "Every anchored run lies in its printed rib", not rows,
+        f"{len(TUBE_ANCHOR_SITES)} anchored, furthest off {worst:.3f} mm",
+        f"{want:.3f} mm at most", rows))
 
 
 # THE TRAY STANDS CLEAR OF THE PUMP'S DISCHARGE. The barb fires west into this same lane and the
@@ -3146,6 +3284,8 @@ def build_pack() -> cq.Assembly:
     # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
     a.pack_solids, a.carries = solids, carries
     draw_runs(a, _lines.build_runs(solids, carries))
+    # AND THE ANCHORS ON THOSE LINES, struck on the runs themselves so a reroute carries them.
+    a.tube_anchors = tube_anchors(a.runs)
     # THE CAP-SENSE PAIR, ONCE THE LINES THEY GRIP EXIST. A sleeve closes on a length of
     # tube, so it can only be placed after the run that tube is; the controller then goes
     # between the two of them and the leads are read against the loom.
@@ -3230,7 +3370,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
-                     digiten_saddles=a.digiten_saddles)
+                     digiten_saddles=a.digiten_saddles, tube_anchors=a.tube_anchors)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -3395,6 +3535,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
+    # And every anchored run against the rib its own site names.
+    check_tube_seated({n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}, pieces)
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
     # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
     # here — after the bodies the box seats have stated theirs — is what puts it there.

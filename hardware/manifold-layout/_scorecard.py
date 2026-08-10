@@ -908,9 +908,10 @@ def part_clearances(a, runs=()) -> list[tuple]:
 
     THE PRINTED BOX IS NOT IN THE BODY PASS. Bodies seat against walls by design and six of them
     clamp THROUGH one, so a wall is never a body to stand off — an overlap there is
-    `pack-closes`'s reading, and there is no clearance to hold. It IS in the run pass: nothing
-    seats a tube against a wall, so a run passing one owes it the same millimetre it owes
-    anything else.
+    `pack-closes`'s reading, and there is no clearance to hold. It IS in the run pass: a run
+    passing a wall owes it the same millimetre it owes anything else, and the one contact
+    between the two that is by intent is an ANCHOR, which is declared as such
+    (`anchored_pairs`) and read back by `check_tube_seated`.
 
     NEITHER IS A PAIR INSIDE THE FLAVOUR MANIFOLD. `manifold_layout` arranges that pack on its
     own hairpins and reports its own inner gap; this module seats it as one thing, so what is
@@ -945,7 +946,10 @@ def run_clearances(a, runs) -> list[tuple]:
     disagree about which contact is by design.
 
     A body seated ON a run mid-length rather than at an end — a sleeve closing round the tube —
-    is in `TOUCHING_OK` by the run's own connection id, the same declaration a body pair makes."""
+    is in `TOUCHING_OK` by the run's own connection id, the same declaration a body pair makes.
+    A PIECE seated on one mid-length — an anchor's rib closing on the tube at its seat slip — is
+    the same declaration, made by `anchored_pairs` off the sites that build those ribs."""
+    anchored = anchored_pairs()
     tubes, ends, rest = run_world(a, runs)
     tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
     rbb = {n: _boxes.loose(s) for n, s in rest.items()}
@@ -964,8 +968,20 @@ def run_clearances(a, runs) -> list[tuple]:
                 continue
             g = _clearing.gap(tubes[i], solid, REPORT_NEAR)
             if g < REPORT_NEAR:
-                out.append((i, name, g, frozenset((i, name)) in TOUCHING_OK))
+                out.append((i, name, g,
+                            frozenset((i, name)) in TOUCHING_OK
+                            or frozenset((i, name)) in anchored))
     return out
+
+
+def anchored_pairs() -> set:
+    """Every run one of the box's own ribs seats, as the pair `run_clearances` reads.
+
+    A rib closes on its tube at `enclosure_assembly.TUBE_ANCHOR_SLIP`, under the floor by
+    construction, and `check_tube_seated` is what holds that contact to the figure the seat is
+    drawn at."""
+    import enclosure_assembly as _ea
+    return {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
 
 
 def lane_notes(a, runs, rows) -> list[str]:
@@ -1321,6 +1337,31 @@ def shape_rows(a) -> list[dict]:
     return rows
 
 
+def _tube_anchored(a, runs) -> Check:
+    """How far each run goes with nothing holding it.
+
+    THE OTHER HALF OF `mounted`. That axis counts BODIES a printed feature fastens; twenty tubes
+    are placed in this machine and none of them is a row on it. A run is fastened by the collet at
+    each of its ends and, between them, by whatever rib it lies in — and between held points it
+    sags, which puts it off the centreline the clearance gates cleared it on.
+
+    `enclosure_assembly.TUBE_ANCHOR_SPAN` is the stretch one may go. A run needs an anchor when it
+    is longer than that and can carry one where a printed face comes within reach of a straight
+    length of it; most of the long ones here cruise through the pack with neither."""
+    import enclosure_assembly as _ea
+    spans = _ea.unsupported_spans(runs, getattr(a, "tube_anchors", ()))
+    cap = _ea.TUBE_ANCHOR_SPAN
+    over = sorted(((s, rid) for rid, s in spans.items() if s > cap), reverse=True)
+    anchored = {rid for rid, _leg, _root, _piece in _ea.TUBE_ANCHOR_SITES}
+    detail = [f"{rid}: {s:.1f} mm unheld, {s - cap:.1f} over"
+              + (" — anchored once already" if rid in anchored else "")
+              for s, rid in over]
+    detail += [f"{rid}: {spans[rid]:.1f} mm, held at its anchor" for rid in sorted(anchored)]
+    return Check("tube-anchored", "No run goes further than one span with nothing holding it",
+                 "goal", _verdict(not over), f"{len(spans) - len(over)}/{len(spans)} within span",
+                 f"{cap:.0f} mm between held points", detail)
+
+
 def _shaped(rows) -> Check:
     prim = [d for d in rows if d["primitive"]]
     detail = [f"{d['component']}: still a bare "
@@ -1469,7 +1510,8 @@ def _build(a) -> Scorecard:
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
-              _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes), _held()]
+              _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes), _held(),
+              _tube_anchored(a, runs)]
     return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
 
 
