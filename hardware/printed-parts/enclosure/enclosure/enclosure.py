@@ -438,10 +438,13 @@ z_lip_y_margin = 2.0
 #   digiten_saddles  the top wall's two flow-meter saddles, (axis_x, axis_z, seat_r, bands) —
 #                 the arm axis the Vs are struck on, the barrel they seat, and the run of
 #                 each arm one takes
+#   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
+#                 leg a rib is centred on, which way the tube points there, which way the face
+#                 it stands on lies, and the section it seats
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle "
-           "digiten_saddles")
+           "digiten_saddles tube_anchors")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -450,8 +453,9 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses side_wells floor_bosses west_cradle asse_cradle digiten_saddles")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), ())
+            "east_bosses side_wells floor_bosses west_cradle asse_cradle digiten_saddles "
+            "tube_anchors")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1062,7 +1066,7 @@ def _dims(pack):
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle,
-               pack.digiten_saddles)
+               pack.digiten_saddles, pack.tube_anchors)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1910,7 +1914,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               None, None)
+               None, None, ())
 
 
 def build_front_half(box):
@@ -2301,44 +2305,38 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
 
 # --- the flow meter's two saddles, off the top wall -------------------------
 #
-# The same 120° V the tap-water trough takes, apex UP and opening DOWN, read off a round barrel's
-# tangent. Each saddle is as wide as the arm it takes plus its own wall, and runs from the top
-# wall's inner face down to where its V faces reach that width.
+# A BORE, CONCENTRIC WITH THE BARREL IT TAKES. The arms are round, so the seat is round: half a
+# cylinder on the arm's own axis, opening downward, and the arm comes straight up into it.
+#
+# THE ARC STOPS ON THE ARM'S OWN AXIS PLANE AND THE RIB CARRIES ONE `wall` PAST ITS WIDEST POINT.
+# That plane is where the arc is widest, so the rib's own flanks stand `seat_r + wall` off the axis
+# and each lip comes out a flat strip one `wall` across. An arc carried past its widest point runs
+# out to nothing against the flank and leaves a feather no nozzle can lay down.
 digiten_saddle_wall = 3.0
 # ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One strap crosses each saddle, so the rib is that
 # strap's cavity with `tie_cav_wall` of itself at each end of it, and the band `digiten_saddles`
 # reads off the barrel is what that rib is centred in.
 digiten_saddle_len = tie_cav_w + 2.0 * tie_cav_wall
-# The strap's cavity through each saddle, above the V, and the same remainder between two walls:
-# its floor is the SEAT'S OWN V offset up by one `wall`, its ceiling is FLAT one `wall` under the
-# top wall's inner face, and what is left between them is the channel. So it is narrowest over the
-# apex and flares to the mouth on each flank.
+# The strap's cavity through each saddle, over the bore. Its floor is the SEAT'S OWN ARC offset out
+# by one `wall` — concentric, so the web reads `wall` all the way round — and ITS CEILING IS THE
+# TOP WALL'S OWN INNER FACE. The channel is everything left between them, deepest over the crown
+# and flaring as the arc falls away to each mouth.
 #
-# Offset rather than steepened — a floor falling away faster than the seat's comes out through it
-# at the flanks. Printed ceiling-down that floor is the one roof in the saddle, a
-# 30°-off-horizontal bridge.
+# The strap bears straight on that face and what stands over it is `wall`: the top wall's own
+# section, which is already there. A plate of this rib's under it would be a second `wall` doing
+# the first one's job.
 
 
-def _digiten_v(x_axis, z_apex, y0, y1, half, reach, z_top):
-    """A saddle's own room: a V of `2 * half` included angle, apex UP on the arm's column, open
-    downward, carried out to `reach` either side and closed off at `z_top`.
+def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
+    """A saddle's own room: half a cylinder on the arm's axis, opening DOWNWARD, and the whole of
+    the room under it.
 
-    `half` is measured off the V's own bisector, which stands vertical here — so a face of it lies
-    `90 - half` off horizontal, and the circle it seats has its centre `r / sin(half)` under the
-    apex."""
-    drop = math.tan(math.radians(90.0 - half))
-    return (
-        cq.Workplane("XZ")
-        .polyline([(x_axis, z_apex),
-                   (x_axis + reach, z_apex - reach * drop),
-                   (x_axis + reach, z_top),
-                   (x_axis - reach, z_top),
-                   (x_axis - reach, z_apex - reach * drop)])
-        .close()
-        .extrude(-(y1 - y0))
-        .val()
-        .translate((0.0, y0, 0.0))
-    )
+    The arc runs from one axis-plane lip round the crown to the other, and the box under it carries
+    the opening down clear of the rib — so what this cuts is the barrel's room and the air it comes
+    up through, and the rib is left as a half-round hood with a flat lip on each side."""
+    bore = cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(x_axis, y0, z_axis), cq.Vector(0, 1, 0))
+    under = _ybox(x_axis - r, x_axis + r, y0, y1, z_axis - r - reach, z_axis)
+    return bore.fuse(under)
 
 
 def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
@@ -2346,24 +2344,25 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
 
     ONE PER ARM AND NONE OVER THE BODY. The round body reaches to within a hair of the top wall
     and the two collet barrels leave the best part of a centimetre under it, so the arms are the
-    only part of this meter a printed feature can reach without the storey moving. Each barrel
-    takes the same 120° V a round section takes anywhere on this wall, apex up on the arm's own
-    column, and the saddle is as wide as the barrel plus `digiten_saddle_wall`.
+    only part of this meter a printed feature can reach without the storey moving.
 
-    THE STRAP IS THE LOAD PATH. A V that opens downward carries nothing, so the two ties here are
-    not the trough's ties: cut them and the meter comes out of its saddles. What is hanging is a
-    purchased part of a few tens of grams on two nylon straps.
+    THE SEAT IS A BORE AND NOT A V, because the thing it takes is round. Half a cylinder on the
+    barrel's own axis, `seat_r` across, so the seat and the barrel share a surface all the way round
+    instead of touching on two lines. It stops on the barrel's own axis plane — the widest the arc
+    gets — and the rib carries `digiten_saddle_wall` past that, so each lip is a flat strip one wall
+    across. Carried any further round, the arc would run out to nothing against the flank.
 
-    Printed ceiling-down every face of the saddle stands up off the bed — its V flanks rise 30° off
-    horizontal, its outer flanks are vertical, and its lowest edges are the last thing printed. The
-    strap's cavity is the one roof in it."""
+    THE STRAP IS THE LOAD PATH. A bore that opens downward carries nothing, so the two ties here
+    are not the trough's ties: cut them and the meter comes out of its saddles. What is hanging is
+    a purchased part of a few tens of grams on two nylon straps.
+
+    Printed ceiling-down the rib stands up off the bed and the bore's crown is the deepest thing in
+    it, facing up all the way round — so there is no overhang anywhere in this feature and no
+    support in it to pick out."""
     if not station or z1 < inner[5] - 1e-6:
         return solid
     x_axis, z_axis, seat_r, bands = station
-    seat = 1.0 / math.sin(math.radians(asse_v_half))            # apex over the arm's own axis
-    z_apex = z_axis + seat_r * seat
     reach = seat_r + digiten_saddle_wall
-    drop = math.tan(math.radians(90.0 - asse_v_half))
     for by0, by1 in bands:
         if not (y0 <= by0 and by1 <= y1):
             continue
@@ -2375,23 +2374,141 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
                 f"(`DIGITEN_BODY_CLEAR`, `DIGITEN_COLLET_FREE`) or the rib does.")
         mid = (by0 + by1) / 2.0
         sy0, sy1 = mid - digiten_saddle_len / 2.0, mid + digiten_saddle_len / 2.0
-        solid = solid.fuse(_ybox(x_axis - reach, x_axis + reach, sy0, sy1,
-                                 z_apex - reach * drop, inner[5]))
-        solid = solid.cut(_digiten_v(x_axis, z_apex, sy0, sy1, asse_v_half, reach + 1.0,
-                                     z_apex - reach * drop - 1.0))
-        # The strap's cavity through the middle of that rib, `tie_cav_wall` short of each end of
-        # it: floor the seat's own V offset up by one `wall`, ceiling flat one `wall` under the
-        # top wall's own inner face, and what is left between them is the strap's channel.
-        z_floor = z_apex + wall / math.sin(math.radians(asse_v_half))
-        z_roof = inner[5] - wall
-        if z_roof - z_floor < tie_strap_t + 1e-6:
+        z_crown = z_axis + seat_r + wall          # the cavity's floor, concentric with the seat
+        if inner[5] - z_crown < tie_strap_t + 1e-6:
             raise ValueError(
-                f"_digiten_saddles: two walls off the seat and the ceiling leave "
-                f"{z_roof - z_floor:.3f} mm over the V's apex, and the strap is {tie_strap_t:.3g} "
-                f"thick. The storey the meter stands on is what gives way here "
-                f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the walls.")
-        solid = solid.cut(_digiten_v(x_axis, z_floor, mid - tie_cav_w / 2.0,
-                                     mid + tie_cav_w / 2.0, asse_v_half, reach + 1.0, z_roof))
+                f"_digiten_saddles: a `wall` off the bore's crown leaves {inner[5] - z_crown:.3f} "
+                f"mm under the top wall's inner face, and the strap is {tie_strap_t:.3g} thick. The "
+                f"storey the meter stands on is what gives way here "
+                f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the wall.")
+        # THE CAVITY IS WHAT IS NEVER FUSED, not what is cut away. Its ceiling is the top wall's
+        # own inner face, and a cut ending on that face is a cut sharing a plane with it — so the
+        # rib is built in three: two ends carried up to the wall, and a middle carried only to the
+        # cavity's floor. Nothing here touches the wall's own section.
+        cy0, cy1 = mid - tie_cav_w / 2.0, mid + tie_cav_w / 2.0
+        for ry0, ry1, top in ((sy0, cy0, inner[5]), (cy1, sy1, inner[5]), (cy0, cy1, z_crown)):
+            solid = solid.fuse(_ybox(x_axis - reach, x_axis + reach, ry0, ry1, z_axis, top))
+            solid = solid.cut(_digiten_bore(x_axis, z_axis, seat_r, ry0, ry1, reach))
+        # The middle's own top IS the cavity's floor: the seat's arc offset out by one `wall`, so
+        # the web reads that all the way round the crown.
+        solid = solid.cut(_digiten_bore(x_axis, z_axis, seat_r + wall, cy0, cy1, reach))
+    return solid
+
+
+# --- the tube anchors, one pattern wherever a wall can reach a run ----------
+#
+# THE SAME 120° V AGAIN, on the one body in this machine there are twenty of. A run is held at its
+# two ends by the collets it is pushed into and by nothing between them, so what it does between
+# them is sag — and a run that sags is not on the centreline `lines-clear` cleared. An anchor is a
+# stop on that span: a seat the tube lies in, and a strap's cavity behind the seat, standing on
+# whichever face of the box comes near enough to reach it.
+#
+# A ROUND SEAT ON A ROUND BODY. The section is struck in the anchor's own frame — `u` along the
+# tube, `n` from the tube toward the face the rib roots on — and the seat is a bore concentric
+# with the tube, half of one, taken from the crown round to the tube's own AXIS PLANE. Stopping
+# there is what keeps the lip printable: an arc run past its widest point closes back on the tube
+# and ends in a feather, and an arc stopped on the axis plane ends in a flat face one `wall` wide.
+#
+# EVERY THICKNESS IN IT IS ONE `wall`. The rib reaches `seat_r + wall` off the axis, so the lip is
+# a wall-wide strip; the cavity's floor is the seat's own arc offset one `wall`, so the web is a
+# half-annulus of that thickness at every station of it; the roof stands one `wall` under the face
+# the rib roots on. Nothing between them is stated — the strap's channel is what is left.
+#
+# THESE PIECES ARE POPULATED INVERTED ON THE BENCH. A seat hanging off the top wall is an
+# upward-opening cradle at the moment a tube is laid in it and its strap threaded.
+#
+# ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `digiten_saddle_len` strikes: one strap
+# crosses one anchor, so the rib is that strap's cavity with `tie_cav_wall` of itself at each end.
+tube_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
+
+# Which interior face each root direction names. The anchor states no height of its own: it is
+# handed the tube, and the wall it stands on is where its rib stops.
+_ROOT_FACE = {(-1, 0, 0): 0, (1, 0, 0): 1, (0, -1, 0): 2,
+              (0, 1, 0): 3, (0, 0, -1): 4, (0, 0, 1): 5}
+
+
+def _anchor_plane(origin, u, n):
+    """The anchor's own workplane — profile drawn in (`t`, `n`), extruded along the tube.
+
+    `t = n × u` rather than `u × n`, so the workplane's second axis comes out as `n` itself and a
+    profile point's second coordinate is its own distance toward the root face."""
+    t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
+    return cq.Plane(origin=cq.Vector(*origin), xDir=cq.Vector(*t), normal=cq.Vector(*u))
+
+
+def _anchor_bore(origin, u, r, length):
+    """A cylinder on the tube's own axis — the seat, and offset by a `wall`, the cavity's floor.
+
+    The rib stands entirely on the root side of the axis plane, so a whole cylinder cut from it
+    takes exactly the half the seat is and needs no half-space to trim it."""
+    return cq.Solid.makeCylinder(r, length, cq.Vector(*origin), cq.Vector(*u))
+
+
+def _anchor_rib(origin, u, n, length, reach, b0, b1):
+    """The material the seat and its cavity are cut out of, root face to the seat's own flanks."""
+    return (
+        cq.Workplane(_anchor_plane(origin, u, n))
+        .polyline([(-reach, b0), (reach, b0), (reach, b1), (-reach, b1)])
+        .close()
+        .extrude(length)
+        .val()
+    )
+
+
+def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
+    """Every tube anchor whose whole rib this piece owns.
+
+    A station carries the tube and only the tube — where its axis runs, which way it points, what
+    it seats on — and the box carries the face. So an anchor moves when its run moves and stops
+    where the wall stops. A piece that owns only part of a rib builds none of it, the way every
+    other station on these walls behaves.
+
+    THE CAVITY IS A REMAINDER BETWEEN TWO WALLS: its floor is the seat's own bore opened one
+    `wall`, its roof is flat one `wall` under the root face, and what is left between them is the
+    channel. Both ends of it come out on the rib's own flanks, at the axis plane, which is where
+    the strap turns down round the tube.
+
+    THE STRAP CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
+    flank, round the far side of the tube and back in the other. What it pulls is the tube into
+    the bore, and the bore is what says where the tube is."""
+    if not stations:
+        return solid
+    for mid, u, n, seat_r in stations:
+        face = _ROOT_FACE.get(tuple(int(round(c)) for c in n))
+        if face is None:
+            raise ValueError(
+                f"_tube_anchors: root direction {n} names no interior face. An anchor stands on "
+                f"one of the box's six faces, and that face is what its rib stops on.")
+        b_root = (inner[face] - mid[face // 2]) * (1.0 if face % 2 else -1.0)
+        reach = seat_r + wall              # the lip's outer edge, and the cavity floor's radius
+        b_roof = b_root - wall
+        if b_roof - reach < tie_strap_t:
+            raise ValueError(
+                f"_tube_anchors: this run stands {b_root:.2f} mm off the face its anchor roots on, "
+                f"and the seat's own bore opened a `wall` reaches {reach:.3f} of that with the roof "
+                f"at {b_roof:.3f} — {b_roof - reach:.3f} mm for a strap {tie_strap_t:.3g} thick. "
+                f"What gives way here is the run's own lane, not the walls: route it further off "
+                f"the face, or anchor it to another one.")
+        origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
+        # The rib's own extent, so a piece that owns part of it builds none of it.
+        t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
+        span = [[origin[k] + u[k] * s + n[k] * b + t[k] * aa
+                 for k in range(3)]
+                for s in (0.0, tube_anchor_len)
+                for b in (0.0, b_root)
+                for aa in (-reach, reach)]
+        if not (y0 <= min(p[1] for p in span) and max(p[1] for p in span) <= y1
+                and z0 <= min(p[2] for p in span) and max(p[2] for p in span) <= z1):
+            continue
+        solid = solid.fuse(_anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_root))
+        solid = solid.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
+        # The cavity: everything the seat's opened bore does not hold, under the roof. Carried one
+        # millimetre past each flank so both mouths are cut open rather than closed by a plane
+        # coincident with the face they open on.
+        cav = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
+        solid = solid.cut(
+            _anchor_rib(cav, u, n, tie_cav_w, reach + 1.0, 0.0, b_roof)
+            .cut(_anchor_bore(cav, u, reach, tie_cav_w)))
     return solid
 
 
@@ -2481,6 +2598,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
     # And the flow meter's two saddles off the same piece's ceiling.
     piece = _digiten_saddles(piece, inner, box.digiten_saddles, ylo, yhi, zlo, zhi)
+    # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
+    # reason the trough is: every one of these is a rib with a cavity cut through it.
+    piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
     return cq.Workplane(obj=piece)
 
 

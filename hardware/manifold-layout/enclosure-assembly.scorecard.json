@@ -134,6 +134,7 @@
     "compressor \u2014 condenser+fan: 0.002 mm \u2014 seated against it",
     "fluid-28 \u2014 cap-sleeve-b: 0.049 mm \u2014 seated against it",
     "fluid-18 \u2014 cap-sleeve-a: 0.049 mm \u2014 seated against it",
+    "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "water-split \u2014 discharge-chain: 1.000 mm",
     "carb-1 \u2014 suction-chain: 1.056 mm",
@@ -782,8 +783,18 @@
    "label": "The flow meter hangs in its two printed saddles",
    "kind": "gate",
    "status": "pass",
-   "value": "0.202 mm off the ceiling's furniture",
-   "target": "0.231 mm at most",
+   "value": "0.198 mm off the ceiling's furniture",
+   "target": "0.200 mm at most",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "tube-seated",
+   "label": "Every anchored run lies in its printed rib",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1 anchored, furthest off 0.199 mm",
+   "target": "0.200 mm at most",
    "detail": [],
    "active": true
   },
@@ -1080,6 +1091,23 @@
     "mpr121: nothing holds it at all",
     "suction-chain: nothing holds it at all",
     "wr1110: nothing holds it at all"
+   ],
+   "active": false
+  },
+  {
+   "id": "tube-anchored",
+   "label": "No run goes further than one span with nothing holding it",
+   "kind": "goal",
+   "status": "fail",
+   "value": "15/20 within span",
+   "target": "200 mm between held points",
+   "detail": [
+    "fluid-18: 480.1 mm unheld, 280.1 over",
+    "fluid-14: 443.6 mm unheld, 243.6 over",
+    "fluid-28: 348.0 mm unheld, 148.0 over",
+    "water-3: 258.7 mm unheld, 58.7 over",
+    "fluid-2: 237.1 mm unheld, 37.1 over",
+    "carb-1: 150.8 mm, held at its anchor"
    ],
    "active": false
   }
@@ -5843,5 +5871,5 @@
    "kind": "real"
   }
  ],
- "sources": "aebae6e772e99991b621d16214815012"
+ "sources": "e55a68755f138dbf6dbb5dddaa621c2f"
 }

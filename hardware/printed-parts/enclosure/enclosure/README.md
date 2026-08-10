@@ -335,32 +335,39 @@ barrels, and nothing over the round body between them (`_digiten_saddles`).
 The meter is a ⌀26 body with a ⌀12 barrel out of each rim. The body reaches to
 within a hair of the top wall's inner face; the barrels leave the best part of a
 centimetre under it. So the arms are what a printed feature reaches here, and each
-takes the **same 120° V** the tap-water trough takes — read off a round section's
-tangent, apex up on the arm's own column, opening down. Each saddle is as wide as
-its barrel plus `digiten_saddle_wall`, and runs the middle of the barrel: one
-`DIGITEN_BODY_CLEAR` off the body's rim, and clear of the outer
-`DIGITEN_COLLET_FREE`, which is the push-fit ring the tube comes back out of.
+takes a **bore concentric with its barrel** — half a cylinder at `seat_r`, opening
+down, so the seat and the barrel share a surface all the way round instead of
+touching on the two lines a V gives. The barrel comes straight up into it.
 
-**The straps are the load path here.** A V that opens downward carries nothing, so
+**The arc stops on the barrel's own axis plane, and the rib carries one
+`digiten_saddle_wall` past that.** The axis plane is where the arc is widest, so
+each lip comes out a **flat 3.000 mm strip**. Carried any further round, the arc
+runs out to nothing against the flank and leaves a feather.
+
+Each saddle runs the middle of its barrel: one `DIGITEN_BODY_CLEAR` off the body's
+rim, and clear of the outer `DIGITEN_COLLET_FREE`, which is the push-fit ring the
+tube comes back out of. The rib's length is its cavity's — `tie_cav_w` of strap and
+buffer with `tie_cav_wall` of itself at each end, centred in the band the barrel
+allows.
+
+**The straps are the load path here.** A seat that opens downward carries nothing, so
 unlike the trough's two ties these hold the meter up — a purchased part of a few tens
 of grams on two nylon straps. `enclosure_assembly.check_digiten_seated` reads the
-saddles closed on the barrels; travel off the placed pack is 0.231 up into the Vs,
-0.400 either way across them, and free downward.
+seats closed on the barrels at the slip itself, there being no angle in a bore to
+divide by; travel off the placed pack is 0.231 up into them, 0.400 either way across,
+and free downward.
 
-Each saddle's strap runs a cavity above its V: the **seat's own V offset up by one
-`wall`** on the arm side and **flat one `wall` under the top wall's inner face** on the
-other, so the channel is what is left between two walls of the box's own section. It
-comes out narrowest over the apex and flares to a mouth on each flank. Offset rather
-than steepened — a floor falling away faster than the seat's would come out through it
-at the flanks.
+Each saddle's strap runs a cavity over its bore: the **seat's own arc offset out by
+one `wall`**, concentric, so the web reads that all the way round the crown — and the
+**top wall's own inner face** above. The channel is what is left between the two,
+deepest over the crown and flaring as the arc falls away to each mouth. On the built
+piece: seat R 6.2 crowning at 342.411, cavity floor R 9.2 crowning at 345.411, and
+6.589 mm of channel under the wall.
 
-The rib itself is that cavity's length: `tie_cav_w` of strap and buffer with
-`tie_cav_wall` of itself at each end, centred in the band the barrel allows.
-
-Printed ceiling-down the saddle stands up off the bed: its V flanks rise 30° off
-horizontal, its outer flanks are vertical, and its lowest edges are the last thing
-printed. The strap's cavity floor is the one roof in it, a 30° bridge over a
-`digiten_cav_gap` channel.
+Printed ceiling-down there is **no overhang in this feature at all** — the rib stands
+up off the bed, its flanks are vertical, and the bore's crown is the deepest thing in
+it, facing up the whole way round. Nothing in it needs support and nothing has to be
+picked out of it.
 
 ## Display housing
 
