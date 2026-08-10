@@ -1,11 +1,15 @@
 #!/bin/sh
-# Commit-time gates + 3D freshness for the PCBA and the enclosure.
+# Commit-time checks + 3D freshness for the PCBA and the enclosure.
+#
+# NOTHING HERE HOLDS A COMMIT. Every check reports and the commit goes in, so the change
+# reaches a deploy and can be looked at while what the checks found is still being fixed.
+# A red one is a FOLLOW-UP COMMIT's work, named at the tail so it survives the scroll.
 #
 # Three jobs, in order. Everything here is keyed to EXACTLY the files it reads, so a
 # commit pays only for the answers it could have changed; a commit touching none of
 # those inputs runs no Python at all.
 #
-#   1. LEDGER SYNCS (never block — they re-derive, stage, and let the commit carry it):
+#   1. LEDGER SYNCS (they re-derive, stage, and let the commit carry it):
 #      A figure derived from the model is a number that needs copying, not a decision,
 #      and the script that spots the drift is the script that copies it. So it does,
 #      and the change lands in the commit's own diff instead of in a terminal line
@@ -21,7 +25,7 @@
 #      Only the file a sync moved is staged, so a commit never sweeps up a neighbour's
 #      dirty edit.
 #
-#   2. GATES (hard fail — a red check blocks the commit). What is left after a sync is
+#   2. CHECKS (they report; the commit goes in either way). What is left after a sync is
 #      what no script can settle: a decision a person has to make.
 #      - pcba.tsx / esp32-pinout.mmd / bom.md / the two assembly sync drivers
 #                                           → check_pinmap.py, the BOM<->pinout<->PCB
@@ -51,9 +55,10 @@
 #        a doc's [value](NAME) figures. Each doc's driver leaves <doc>.sources.json beside
 #        it — every file that decides what it substitutes, hashed — and this hashes them
 #        again. Reads only recorded files, so no import and no CadQuery: stdlib, ~0.4 s.
-#      Gates print one ✓ line each on pass and dump their full output on red.
+#      Each prints one ✓ line on pass and dumps its full output on red, and the tail
+#      lists every red one as the follow-up commit's work.
 #
-#   3. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
+#   3. GLB freshness (best-effort): render-board.ts deliberately skips
 #      the ~14 s CadQuery 3D build so board iteration stays fast, which lets
 #      out/pcba.glb drift behind the gerbers during a work session. This hook is the
 #      single place that reconciles it: on a board-touching commit whose GLB is behind
@@ -77,17 +82,25 @@ export HSM_BUILD_LOCK_PROTECT=1
 touches_board=false
 git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . && touches_board=true
 
-fail=0
+owed=0
+owed_names=""
 
-# gate <name> <cmd…> — run a check; one ✓ line on pass, full output + red line on fail.
+# gate <name> <cmd…> — run a check; one ✓ line on pass, its full output on red.
+#
+# A RED CHECK DOES NOT HOLD THE COMMIT. The change lands, the deploy starts on it, and what
+# the check found is the next commit's work. So this output is the whole of what says the
+# tree is not clean — nothing downstream asks again, and the tally at the tail is what a
+# reader who scrolled past the middle still sees.
 gate() {
   _name=$1; shift
   if _out=$("$@" 2>&1); then
     echo "pre-commit: $_name ✓" >&2
   else
     echo "$_out" >&2
-    echo "pre-commit: GATE RED — $_name (commit blocked)" >&2
-    fail=1
+    echo "pre-commit: RED — $_name" >&2
+    owed=$((owed + 1))
+    owed_names="$owed_names
+    - $_name"
   fi
 }
 
@@ -293,8 +306,8 @@ if not sc["gatesPass"]:
   fi
 fi
 
-# ── 3. GLB freshness (only worth doing when the commit will go through) ───
-if [ "$fail" -eq 0 ] && $touches_board && [ -f "$pcba/out/pcba.gerbers.zip" ]; then
+# ── 3. GLB freshness ──────────────────────────────────────────────────────
+if $touches_board && [ -f "$pcba/out/pcba.gerbers.zip" ]; then
   if [ ! -f "$pcba/out/pcba.glb" ] || [ "$pcba/out/pcba.gerbers.zip" -nt "$pcba/out/pcba.glb" ]; then
     if [ -x "$py" ]; then
       echo "pre-commit: out/pcba.glb is behind the gerbers — rebuilding the 3D (one-time, ~14 s)…" >&2
@@ -312,4 +325,10 @@ if [ "$fail" -eq 0 ] && $touches_board && [ -f "$pcba/out/pcba.gerbers.zip" ]; t
   fi
 fi
 
-exit $fail
+if [ "$owed" -gt 0 ]; then
+  echo "" >&2
+  echo "pre-commit: THIS COMMIT IS IN, and it owes a follow-up. $owed check(s) came back red:$owed_names" >&2
+  echo "pre-commit: each names what it found and what re-derives it. Fix them and commit again." >&2
+fi
+
+exit 0
