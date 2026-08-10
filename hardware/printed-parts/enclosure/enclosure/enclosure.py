@@ -2187,10 +2187,22 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # Every cavity on this wall carries the same fastener, so its section is stated once here and the
 # features read it. `enclosure_assembly.ASSE_TIE_T` is the same strap's THICKNESS, and it is stated
 # over there because what it sets is the deck's own storey rather than anything printed.
-tie_strap_w = 2.5           # the strap, across its width
-tie_strap_t = 1.0           # and through its thickness
+# TWO STRAPS, AND WHAT PICKS BETWEEN THEM IS THE LOOP. A tie has to reach round the body AND the
+# rib holding it, and the convex perimeter of that pair is the shortest strap that closes:
+#
+#     carb-1 tube in its rib      68.8 mm
+#     DIGITEN arm in its saddle   88.1 mm
+#     ASSE barrel in its trough  165.5 mm
+#
+# An 18 lb tie is 0.1" wide at every length it comes in, so the first two take the narrow strap
+# whatever length they are cut from. The barrel's loop passes what any 18 lb tie reaches and takes
+# the 8" 50 lb instead, which is 0.19" — so its cavity, and only its cavity, is the wider one.
+tie_strap_w = 2.5           # the 18 lb strap, across its width — 0.1"
+tie_strap_wide_w = 4.826    # and the 50 lb strap's — 0.19"
+tie_strap_t = 1.0           # both, through the thickness
 tie_cav_buffer = 1.0        # the room a cavity carries over the strap
 tie_cav_w = tie_strap_w + tie_cav_buffer
+tie_cav_wide_w = tie_strap_wide_w + tie_cav_buffer
 # Solid either side of a cavity, ALONG the run. A cavity is a hole through a rib, and this is what
 # the rib keeps of itself at each end of that hole.
 tie_cav_wall = 3.0
@@ -2273,6 +2285,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     # back in. Struck on the DEEPEST section's apex, which is the barrel's: that V stands furthest
     # west, so a cavity clear of it by one `wall` is clear of the other two by more and the
     # web comes out no thinner than stated at any station.
+    #
+    # IT IS THE WIDE STRAP'S CAVITY. The barrel and this trough together make a 165 mm loop, past
+    # what any 18 lb tie reaches, so what closes it is the 8" 50 lb — half again as wide as the
+    # strap the meter's saddles and the runs' ribs take.
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
@@ -2280,8 +2296,8 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. The cavity a strap passes through "
                 f"is the trough's whole length, so a band off either end has no cavity at all.")
     return solid.cut(_asse_tie_cavity(min(w for _y0, _y1, w, _r, _a in sections), inner[0], z_axis,
-                                      min(ties) - tie_cav_w / 2.0,
-                                      max(ties) + tie_cav_w / 2.0, up, dn))
+                                      min(ties) - tie_cav_wide_w / 2.0,
+                                      max(ties) + tie_cav_wide_w / 2.0, up, dn))
 
 
 def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
