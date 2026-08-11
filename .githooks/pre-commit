@@ -279,6 +279,14 @@ for hw in $editions; do
     # counted and passes; it enrols the next time its driver runs.
     gate "$hw docs carry their sources' figures" \
          python3 "$root/$hw/scripts/check_doc_sources.py"
+
+    # AND THE UNIT CARDS' PICTURES, which are the same bargain in a third medium. A scene is a
+    # cut of the built machine posed to a camera, and drawing one is minutes; what it was drawn
+    # from is written down beside it, so doubting it is a few dozen file reads and no import at
+    # all. That asymmetry is the whole design: the expensive half runs when a picture is
+    # actually stale, this half runs every time.
+    gate "$hw scenes carry the picture their sources draw" \
+         python3 "$root/$hw/scripts/check_scenes.py"
   fi
 done
 

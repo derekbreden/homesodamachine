@@ -328,8 +328,63 @@ def electronics_shelf(m: Machine):
 
 
 # One function per subsystem, in deck order. `_build.py` runs all of them.
+# ═══ SA — Sub-assembly states ══════════════════════════════════════════════
+
+def sub_assemblies(m: Machine):
+    """The unit cards: what one finished sub-assembly carries, and by what joint.
+
+    EVERY FIGURE HERE IS THE ONE THE PICTURE IS CUT WITH. `hardware/assembly/scenes`
+    decides which bodies a unit shows off `_scorecard.MOUNTS` and the three anchor
+    tables; these counts come off the same reading, so a card cannot say three ribs
+    beside a picture that draws four."""
+    import sys as _sys
+    _sys.path.insert(0, str(_hw / "assembly" / "scenes"))
+    import _scenes
+    import _cold_core_interface as _cci
+
+    holder = _scenes.holders()
+    joint = {name: held for name, _by, held in __import__("_scorecard").mounts()}
+
+    def under(part, *joints):
+        return sorted(n for n, by in holder.items()
+                      if by == part and joint.get(n) in joints)
+
+    back_top_ribs = sorted(n for n, by in holder.items()
+                           if by == "enclosure-back-top" and n.startswith("tube-"))
+    cap_ribs = sorted(n for n, by in holder.items()
+                      if by == "foam-assembly" and n.startswith("tube-"))
+    cap_chains = under("foam-assembly", "cradle")
+    cap_cradled = [n for n in cap_chains if n.startswith("valve-") or n == "vk-solenoid"]
+    cap_chain_bodies = [n for n in cap_chains if n.endswith("-chain")]
+
+    # The rear wall's crossings: the bodies on that piece that no screw fastens
+    # because each is drawn up by its own nut on its own thread. The split-and-
+    # regulator pair bears on the same piece and is NOT this — those hang off the
+    # line they splice — so the joint is what selects, not the piece.
+    captured = under("enclosure-back-top", "wall-capture")
+
+    facts = {
+        "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
+        "SA01_CAPTURED": f"{len(captured)}",
+        "SA01_RIB_RUNS": f"{len(back_top_ribs)}",
+        "SA03_CRADLES": f"{len(cap_cradled)}",
+        "SA03_CHAINS": f"{len(cap_chain_bodies)}",
+        "SA03_RIB_RUNS": f"{len(cap_ribs)}",
+        "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('seaflo-pump'))}",
+        "FOAM_SCREWS": f"{2 * len(_cci.attachment_xy_positions)}",
+    }
+
+    cards = {
+        "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES"},
+        "sa-02-cap-lid-fill": {"FOAM_SCREWS", "CAP_CONDUITS"},
+        "sa-03-cap-lid": {"PUMP_MOUNT_SCREWS", "SA03_CRADLES", "SA03_CHAINS", "SA03_RIB_RUNS"},
+        "sa-04-back-half": {"SEAM_SCREWS_Z"},
+    }
+    return facts, cards
+
+
 SUBSYSTEMS = (enclosure, electronics_shelf, cold_core, refrigerant_loop, internal_plumbing,
-              bench)
+              bench, sub_assemblies)
 
 
 def collect(machine: Machine = None):
