@@ -64,3 +64,11 @@ tools/cad-venv/
 # Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
 # always cost; deleting this is always safe.
 .cache/
+
+# Scene STEPs are a rendering intermediate for the unit cards' pictures — a cut
+# of enclosure-assembly.step, regenerated on demand by
+# hardware/assembly/scenes/render_scenes.py. What is committed is the PNG in
+# cards/img/ and the fingerprint beside it; the STEPs would churn on every move
+# of any body they contain, which is exactly the commit cost the pictures must
+# not add.
+hardware/assembly/scenes/out/

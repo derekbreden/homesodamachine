@@ -46,7 +46,17 @@ import _realized                                        # noqa: E402
 # direction from the target to the camera, so a scene looking INTO a piece through its own open
 # faces points from the side those faces face. `zoom` is the distance in bounding-box radii and
 # `up` the camera's own up — both handed to `tools/render/render-step-posed.js` unchanged.
-Scene = namedtuple("Scene", "id title roots also cam up zoom note")
+Scene = namedtuple("Scene", "id title roots also cam up zoom look note")
+
+# WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the
+# carb riser leaves this box entirely — drags the whole scene's bounding box after it and puts
+# the piece off in a corner of its own picture. The pieces the unit is built ON are what the
+# picture is of, so their box is what is aimed at, taken at render time off the placed solids.
+#
+# `look` says WHERE in that box. "centre" for a piece a unit is built INSIDE; "crown" for one
+# a unit is built ON TOP OF, which aims at its own upper face — the cold core is 268 mm of
+# closed foam under a lid that carries everything, and a camera pointed at its middle is
+# pointed at the part of it with nothing to see.
 
 # The machine's frame: +X east, +Y aft, +Z up. A back piece is open FORWARD (−Y) at the Y seam
 # and open at the Z seam it telescopes on, so a camera forward of it and off its own axis looks
@@ -55,21 +65,21 @@ SCENES = (
     Scene(
         "back-top", "Enclosure back top",
         roots=("enclosure-back-top",), also=(),
-        cam=(0.85, -1.0, 0.45), up=(0, 0, 1), zoom=2.15,
+        cam=(0.6, -1.0, -0.5), up=(0, 0, 1), zoom=2.3, look="centre",
         note="Open at the Y seam and at its own Z seam, both toward the camera — the piece as "
              "it lies on the bench with every body already on it.",
     ),
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
         roots=("foam-assembly",), also=(),
-        cam=(0.9, -0.75, 0.7), up=(0, 0, 1), zoom=2.0,
+        cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
         note="The cold core closed and poured, its lid's outer face bare. Nothing stands on it "
              "yet — this is what the next scene starts from.",
     ),
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
         roots=("foam-assembly",), also=(),
-        cam=(0.9, -0.75, 0.7), up=(0, 0, 1), zoom=2.0,
+        cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
         note="The same core with everything its lid carries: the pump bolted through, the three "
              "valves pressed into their cradles, both chains and two runs strapped into printed "
              "ribs.",
@@ -77,7 +87,7 @@ SCENES = (
     Scene(
         "back-half", "Enclosure back half",
         roots=("enclosure-back-bottom", "enclosure-back-top"), also=(),
-        cam=(0.85, -1.0, 0.4), up=(0, 0, 1), zoom=2.25,
+        cam=(0.95, -1.0, 0.35), up=(0, 0, 1), zoom=2.45, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
              "front half — the last moment anything inside is reachable.",
     ),
@@ -90,13 +100,39 @@ SCENE_BY_ID = {s.id: s for s in SCENES}
 # pictures worth putting side by side.
 BARE = {"cap-lid-fill"}
 
-# WHICH PIECE'S FLOOR A BODY STANDS ON — the column `MOUNTS` does not carry. Its `held` says
-# "floor" and its `by` is None, because nothing FASTENS these: they bear on a printed slab and
-# are fenced by what is around them. For a picture, the slab they bear on is the answer.
-STANDS_ON = {
+# WHICH PIECE A BODY BEARS ON — the column `MOUNTS` does not carry. Its `by` is None for every
+# body no printed feature FASTENS: one that lands on a slab and is fenced by what is around it,
+# one clamped in its own hole through a wall, one hanging off the tube it splices. Each of them
+# still comes to the bench on exactly one piece, and for a picture that is the answer.
+#
+# A body the fastening table leaves without a parent and this table does not name is REPORTED,
+# not dropped — see `holders`. The one exception is the flavour pack, whose bodies rest on their
+# own spine hairpins and arrive as one folded unit of their own.
+BEARS_ON = {
+    # Standing on a printed floor.
     "foam-assembly": "enclosure-back-bottom",
     "compressor": "enclosure-front-bottom",
     "condenser+fan": "enclosure-front-bottom",
+    # Clamped in a hole through a wall by their own nut, which is why no screw is billed for
+    # them. All six of the rear wall's crossings are above the back column's Z seam.
+    "bulkhead-water": "enclosure-back-top",
+    "bulkhead-carb": "enclosure-back-top",
+    "bulkhead-flavor-a": "enclosure-back-top",
+    "bulkhead-flavor-b": "enclosure-back-top",
+    "co2-inlet": "enclosure-back-top",
+    "gasher-co2": "enclosure-back-top",             # made up on the CO2 inlet's inboard stub
+    "display": "enclosure-front-top",               # let into that piece's own facet
+    "hopper-funnel": "enclosure-front-top",         # brim on the top wall, collar forward
+    # Hanging off the line they splice, on the wall that line is cradled against.
+    "water-split": "enclosure-back-top",
+    "flow-regulator": "enclosure-back-top",
+    # Riding another body rather than a piece.
+    "bpv31": "compressor",
+    "fuse-clamp": "compressor",
+    # Clamped on a length of the pack's own tube, so they come with the pack.
+    "cap-sleeve-a": None,
+    "cap-sleeve-b": None,
+    "mpr121": None,
 }
 
 
@@ -111,9 +147,17 @@ def holders():
     import enclosure_assembly as _ea
     import _cold_core_interface as _cci
 
-    out = {}
-    for name, by, _held in _sc.mounts():
-        out[name] = by or STANDS_ON.get(name)
+    out, orphans = {}, []
+    for name, by, held in _sc.mounts():
+        out[name] = by or BEARS_ON.get(name)
+        if out[name] is None and held != "pack" and name not in BEARS_ON:
+            orphans.append(f"{name} (held by {held})")
+    if orphans:
+        raise ValueError(
+            "these bodies have no parent, so no scene can know whether to show them: "
+            + ", ".join(sorted(orphans))
+            + ". `_scorecard.MOUNTS` fastens them to nothing; name the piece each bears on in "
+              "`_scenes.BEARS_ON`, or None for one that comes with the flavour pack.")
     for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES:
         out[f"tube-{rid}"] = piece
     for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:
@@ -164,8 +208,11 @@ def members(scene, assembly):
         bodies |= held_by(root, holder_map)
     bodies |= set(scene.also)
     if scene.id in BARE:
-        bodies = set(scene.roots) | set(scene.also)
-    names = bodies | runs_for(bodies, assembly.runs, holder_map)
+        # The roots and nothing else — not even the runs their own ribs will hold, which is the
+        # whole difference between this picture and the one after it.
+        names = set(scene.roots) | set(scene.also)
+    else:
+        names = bodies | runs_for(bodies, assembly.runs, holder_map)
     present = {c.name for c in assembly.children}
     missing = sorted(n for n in names if n not in present)
     if missing:

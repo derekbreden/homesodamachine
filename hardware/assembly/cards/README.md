@@ -6,6 +6,15 @@ deck walks the whole build in the order of [`/hardware/assembly/`](/hardware/ass
 procedure docs. A card is a rendering of its procedure step — when a procedure
 changes, its cards rebuild.
 
+**The `SA` cards are a different animal**: one per finished sub-assembly rather
+than per operation. A unit card is a large picture of what one unit looks like
+when it leaves the bench, and a column naming each thing on it and the joint that
+holds it — screwed, clamped, pressed, strapped. It states no sequence; the
+operation cards do that. Its picture is a cut of the built machine, posed, from
+[`../scenes/`](/hardware/assembly/scenes/), and which bodies appear in it is
+derived from the same fastening table the machine is gated on — so a body that
+moves to another unit moves cards.
+
 **A figure the machine owns is derived, not typed.** A dimension, a count, a
 station, a fastener quantity: the card carries it in a `data-gen` marker, and
 [`_cards_sync.py`](_cards_sync.py) writes it from the built appliance. What a
