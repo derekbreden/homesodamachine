@@ -1,15 +1,38 @@
 """Candidate poses — carry a part to where it is not yet, and ask whether it fits.
 
 `probe` answers questions about the world as it stands. This answers them about a body
-that is not in it: a reference part carried to a pose, its ports carried by the same
-transform, measured against the placed world.
+that is not in it: a part carried to a pose, its ports carried by the same transform,
+measured against the placed world.
 
     import fit
 
     p = fit.part("beduan-solenoid")             # module, builder and ports, discovered
     pose = p.pose(at=(x, y, z), yaw=90)
-    print(fit.check(pose, skip=("vk-fill-valve",)))
+    print(fit.check(pose, skip=("vk-solenoid",)))
     print(pose.port("inlet"))                   # world position and axis
+
+A FITTING GOES WHERE THE MOUTH IT JOINS IS, and that is a pose too — `mate` gives a port
+the position and normal of the mouth it seats into and the body follows, so a chain hung
+off the thing before it is placed by naming the joint rather than by solving for a corner:
+
+    w = probe.world()
+    elbow = fit.part("jg-pp061208w").mate(
+        "tube_port", at=w.at("vk-solenoid", "outlet"),
+        axis=tuple(-c for c in w.normal("vk-solenoid", "outlet")))
+    print(elbow.port("stem_tip"))               # where the far end lands, for the next link
+
+EVERY BODY IN THE MACHINE IS NAMEABLE HERE, printed ones included. `fit.part` takes a
+`hardware/reference/` directory name, the path of a `.step`, or a `builder=` of its own —
+whichever the caller states, in that order:
+
+    fit.part("hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step")
+    fit.part("pcba-assembly", builder=lambda: pcba_tray.build_assembly())
+
+A LIST of candidates is an arrangement, and `check` takes one: every body against the
+world, and every pair of them against each other, which is what "does this arrangement
+fit" asks. Nothing in the world holds one candidate off another.
+
+    print(fit.check([tray, psu, board], clearance=1.0))      # …  pairs  CLEAR nearest: …
 
 The world is `probe.world()`, which holds the four printed enclosure pieces alongside the
 interior pack — so a pose this reports CLEAR is a pose the enclosure's pack-closes gate
@@ -29,30 +52,42 @@ is mostly air stands far behind its box. `search` ranks the free poses by how mu
 they leave, on the same measured distances.
 
     fit.search(p, x=(xlo, xhi, step), y=(ylo, yhi, step), z=deck,
-               yaw=(0, 90, 180, 270), clearance=2.0, skip=("vk-fill-valve",))
+               yaw=(0, 90, 180, 270), clearance=2.0, skip=("vk-solenoid",))
 
     fit.slab(z=(deck, ceiling), size=(width, depth), exact=("seaflo-pump",))
 
 `slab` maps what is free in a Z band rather than testing one part: the largest rectangles
-a footprint could stand in. Obstacles count by their bounding box unless named in `exact`,
-which measures against the solid — a part that is mostly air reads as mostly air. A
-printed piece is always exact and never boxed: its box is the whole machine, and a scan
-that counted it by box would report the cavity full.
+a footprint could stand in, each with the floor it stands on — a rectangle with nothing
+under it is a hole in the deck and not a place to put a part. Obstacles count by their
+bounding box unless named in `exact`, which measures against the solid, and every body
+reports the fill fraction that decides which it should be: a body 11% full blacks out
+nine times its material by box, and hands back its own cavity as free space when measured
+exactly. A printed piece is always exact and never boxed: its box is the whole machine.
 
 Both scans state their own bounds before their answer, and what they measured them
 against. A search reports the `Box` it ranged over — every range, every axis pinned to one
-value, every body held out, and the world the poses were measured in — and names the ends
-the best pose sits on. A slab reports its field, where the field came from, which bodies
-were measured by box and which exactly, which printed pieces reach into the band, and
-whether its largest rectangle runs to the edge of a field the caller supplied. An end of a
-scan is a fact about the grid and not about the geometry, so a limit read off one arrives
-with the grid attached.
+value, every body held out, the world the poses were measured in, and the width of free
+window its own step falls over — and names the ends the best pose sits on. A slab reports
+its field, where the field came from, which bodies were measured by box and which exactly,
+which printed pieces reach into the band, how far below it looked for a floor, and whether
+its largest rectangle runs to the edge of a field the caller supplied.
+
+AN END OF A SCAN IS A FACT ABOUT THE GRID and not about the geometry, and so is a count of
+free poses: a grid answers where it stands and nowhere else, and the record's free window
+was 0.2 mm wide under a 2.5 mm step. So `search` does not stop at the grid — wherever two
+adjacent points are blocked by two different bodies it splits the interval between them
+and reports any pose standing there, off the grid. `probe.free(holds=…)` asks the same
+question with no grid at all.
 
 From the shell, without writing a file:
 
     tools/cad-venv/bin/python hardware/scripts/fit.py parts
-    tools/cad-venv/bin/python hardware/scripts/fit.py ports beduan-solenoid
     tools/cad-venv/bin/python hardware/scripts/fit.py try beduan-solenoid --at 222,322,274 --yaw 90
+    tools/cad-venv/bin/python hardware/scripts/fit.py try \
+        hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step \
+        --bbmin 2,202,258.4 --pitch 90 --clearance 6 --near 60
+    tools/cad-venv/bin/python hardware/scripts/fit.py mate jg-pp061208w \
+        --port tube_port --onto vk-solenoid.outlet --clearance 1
     tools/cad-venv/bin/python hardware/scripts/fit.py search meanwell-irm90 \
         --x 0,90,10 --y 200,340,10 --z 268 --yaw 0,90 --clearance 2
     tools/cad-venv/bin/python hardware/scripts/fit.py slab --z 267,331 --size 74,52
@@ -62,9 +97,10 @@ From the shell, without writing a file:
 body it belongs to at arbitrary angles, that clearance only ever removes poses, that a
 known fit fits and a known clash clashes, that a body whose bounding box reaches nearer
 than its material is reported at its material, that a pose clear of every interior body
-but standing in a printed piece comes back CLASH, and that a scan reports the box it
-searched and the ends its answer sits on. Run it when an answer looks wrong before
-trusting the answer.
+but standing in a printed piece comes back CLASH, that a free window narrower than the
+grid is found between two of its points, that two candidates clear of the world but inside
+each other are caught, that a hollow body reports its own fill, and that a rectangle over
+a hole says it stands in air. Run it when an answer looks wrong before trusting the answer.
 """
 
 import inspect
@@ -91,6 +127,12 @@ _REF = _HW / "reference"
 VOL_TOL = probe.VOL_TOL         # mm³ below which an intersection is contact, not overlap
 TOUCH = 1e-7                    # mm below which an exact distance is contact, not a gap
 
+# One default each, read by the API and by the shell's verb that calls it.
+NEAR = 25.0                     # mm: how far out a body is still considered at all
+LIMIT = 20000                   # poses a search tests before it asks whether the wait is wanted
+RESOLVE = 0.1                   # mm: how fine a search splits the interval between two points
+FLOOR = 40.0                    # mm: how far under a slab's band to look for a floor
+
 # Names that are builders or entry points rather than ports.
 _NOT_PORTS = ("build", "main", "export", "render", "show", "test")
 
@@ -111,6 +153,30 @@ def _dir_for(name: str) -> Path:
         have = sorted(p.name for p in _REF.iterdir() if p.is_dir())
         raise KeyError(f"no reference part {name!r} — have: {', '.join(have)}")
     return d
+
+
+def _step_path(name: str):
+    """`name` read as the path of a STEP file, or `None` when it is a part's name.
+
+    Most of the machine's bodies are printed, and a printed part has no directory under
+    `hardware/reference/` — it has a `.step` beside the script that generates it. That path
+    is a name this takes."""
+    p = Path(name)
+    if p.suffix.lower() not in (".step", ".stp"):
+        return None
+    if not p.is_file():
+        raise FileNotFoundError(f"{name}: no STEP file there")
+    return p.resolve()
+
+
+def _module_or_none(name: str):
+    """The reference module of that name, or `None` when nothing under
+    `hardware/reference/` is called that — which is the ordinary case for a part whose
+    builder the caller is supplying."""
+    try:
+        return _module_for(name)
+    except KeyError:
+        return None
 
 
 def _module_for(name: str):
@@ -188,23 +254,37 @@ def _discover_ports(mod) -> dict:
 
 
 class Part:
-    """A reference part in its own coordinates, with the ports it declares."""
+    """A part in its own coordinates, with the ports it declares.
+
+    What builds it is settled in the order the caller stated it: a `builder=` IS the part,
+    then a `name` that is the path of a `.step`, and only then `hardware/reference/<name>/`.
+    So every body in the machine is nameable here — the printed ones, which have a `.step`
+    and a generator that is not a reference module, as much as the bought ones.
+
+        fit.part("hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step")
+        fit.part("pcba-assembly", builder=lambda: pcba_tray.build_assembly())"""
 
     def __init__(self, name: str, builder=None):
-        self.name = name
-        self.module = _module_for(name)
-        self.step = None
+        self.step = _step_path(str(name))
+        self.name = self.step.stem if self.step is not None else str(name)
+        self.module = None
         if builder is not None:
             self._builder = builder
-        elif self.module is not None:
-            self._builder = _builder(self.module, name)
-        else:
-            self.step = _step_for(name)
-            if self.step is None:
-                raise FileNotFoundError(
-                    f"{name}: neither a module nor a .step in {_dir_for(name)} — "
-                    f"nothing here builds this part")
+            self.module = _module_or_none(self.name)
+        elif self.step is not None:
             self._builder = lambda: cq.importers.importStep(str(self.step))
+        else:
+            self.module = _module_for(self.name)
+            if self.module is not None:
+                self._builder = _builder(self.module, self.name)
+            else:
+                self.step = _step_for(self.name)
+                if self.step is None:
+                    raise FileNotFoundError(
+                        f"{self.name}: neither a module nor a .step in "
+                        f"{_dir_for(self.name)} — nothing here builds this part; pass "
+                        f"builder= or the path of a .step")
+                self._builder = lambda: cq.importers.importStep(str(self.step))
         self._local = None
         self.local_ports = _discover_ports(self.module) if self.module else {}
 
@@ -272,7 +352,8 @@ class Part:
 
 
 def part(name: str, builder=None) -> Part:
-    """A reference part by its `hardware/reference/` directory name."""
+    """A part by its `hardware/reference/` directory name, by the path of a `.step`, or
+    under a `builder=` that names its own — see `Part`."""
     return Part(name, builder=builder)
 
 
@@ -448,8 +529,109 @@ class Verdict:
                 + (f"   seated on {', '.join(seats)}" if seats else ""))
 
 
-def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 25.0) -> Verdict:
+@dataclass
+class Arrangement:
+    """What a whole placement runs into — every candidate against the world, and every
+    candidate against every other one.
+
+    An arrangement is not its bodies checked one at a time. Nothing in the world holds a
+    candidate off another candidate, so two of them can occupy the same millimetre while
+    both come back CLEAR; `pairs` is that missing half, measured the same way `check`
+    measures the world — exact, and a seat is a seat."""
+
+    verdicts: dict = field(default_factory=dict)        # label -> Verdict against the world
+    pairs: Verdict = None                               # candidate against candidate
+    clearance: float = 0.0
+
+    @property
+    def clear(self) -> bool:
+        return all(v.clear for v in self.verdicts.values()) and self.pairs.clear
+
+    @property
+    def tightest(self) -> Gap:
+        """The nearest two candidates, measured. Infinite room is no pair within reach."""
+        return self.pairs.nearest if self.pairs.gaps else Gap(math.inf, "no pair within reach")
+
+    def __str__(self) -> str:
+        bad = [n for n, v in self.verdicts.items() if not v.clear]
+        head = (f"ARRANGEMENT  {len(self.verdicts)} bod"
+                f"{'y' if len(self.verdicts) == 1 else 'ies'}, "
+                + ("all clear of the world" if not bad
+                   else f"{len(bad)} not clear of the world: {', '.join(bad[:4])}"))
+        return "\n".join([head, f"  pairs  {self.pairs}"]
+                         + [f"  {n:24s} {v}" for n, v in self.verdicts.items()])
+
+
+def _labels(candidates) -> list:
+    """One name per candidate, a repeated part taking a number so a pair can be read."""
+    out, seen = [], {}
+    for i, c in enumerate(candidates):
+        base = c.part.name if isinstance(c, Pose) else f"candidate-{i + 1}"
+        seen[base] = seen.get(base, 0) + 1
+        out.append(base if seen[base] == 1 else f"{base}#{seen[base]}")
+    return out
+
+
+def _pack_entry(x) -> bool:
+    """A `(solid, color)` entry out of the assembly's pack, which is a 2-tuple and not a
+    list of candidates."""
+    return isinstance(x, tuple) and len(x) == 2 and isinstance(x[1], str)
+
+
+def arrangement(candidates, skip=(), clearance: float = 0.0, world=None,
+                near: float = NEAR, labels=None) -> Arrangement:
+    """Every candidate against the world, and every pair of them against each other.
+
+    The pair distances are measured exactly and read the same way `check` reads the world:
+    a pair held apart by their bounding boxes alone carries a floor, occupancy decides
+    wherever two boxes meet, and two candidates measured touching with nothing shared are
+    seated — one is the other's mount."""
+    w = world or probe.world()
+    cands = list(candidates)
+    names = list(labels) if labels else _labels(cands)
+    solids = [c.solid if isinstance(c, Pose) else probe.shape(c, "candidate") for c in cands]
+    verdicts = {n: check(c, skip=skip, clearance=clearance, world=w, near=near)
+                for n, c in zip(names, cands)}
+
+    pw = probe.World(dict(zip(names, solids)), {n: "candidate" for n in names})
+    ends, clashes, gaps = {}, [], []
+    reach = max(float(near), float(clearance))
+    for i in range(len(names)):
+        for j in range(i + 1, len(names)):
+            label = f"{names[i]} ↔ {names[j]}"
+            ends[label] = (names[i], names[j])
+            sep = _bb_gap(solids[i].BoundingBox(), solids[j].BoundingBox())
+            if sep > reach:
+                continue
+            if sep > clearance and sep > TOUCH:
+                gaps.append(Gap(sep, label, False))
+                continue
+            d = pw.gap(names[i], names[j])
+            if d > TOUCH and sep > 0.0:
+                gaps.append(Gap(d, label))
+                continue
+            try:
+                inter, overlap = _overlap.common(solids[i], solids[j])
+            except Exception as exc:
+                raise RuntimeError(
+                    f"intersection of {label} failed ({exc}) — this pair's occupancy is "
+                    f"unknown, not empty") from exc
+            if overlap > VOL_TOL:
+                clashes.append(probe.Hit(label, overlap, probe._meshes.box(inter)))
+            else:
+                gaps.append(Gap(d, label, seated=d <= TOUCH))
+    clashes.sort(key=lambda h: -h.volume)
+    gaps.sort()
+    pairs = Verdict(clashes, gaps, float(clearance), lambda lbl: pw.gap(*ends[lbl]))
+    return Arrangement(verdicts, pairs, float(clearance))
+
+
+def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = NEAR):
     """What `candidate` — a `Pose`, a shape, or a `(solid, color)` pack entry — runs into.
+
+    A LIST of candidates is an arrangement, and comes back as one: every body against the
+    world and every pair against each other, which is the question a placement actually
+    asks. See `arrangement`.
 
     Overlaps are exact intersections, and so is every distance the `Verdict` reports: a
     body held off by its bounding box alone settles the verdict unmeasured and carries a
@@ -457,6 +639,8 @@ def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 
     to the front before a number is read off it. `near` bounds which bodies are considered
     at all: a body whose bounding box is further than that cannot be the nearest and is not
     queried. Raise it when a pose sits alone in a large void."""
+    if isinstance(candidate, (list, tuple)) and not _pack_entry(candidate):
+        return arrangement(candidate, skip=skip, clearance=clearance, world=world, near=near)
     w = world or probe.world()
     sh = candidate.solid if isinstance(candidate, Pose) else probe.shape(candidate, "candidate")
     cb = sh.BoundingBox()
@@ -562,13 +746,16 @@ class Candidate:
     pose: Pose
     verdict: Verdict
     point: dict = field(default_factory=dict)       # the grid point that produced the pose
+    between: tuple = None                           # (axis, lo, hi) when found off the grid
 
     @property
     def room(self) -> float:
         return self.verdict.room
 
     def __str__(self) -> str:
-        return f"{self.pose}  {self.verdict}"
+        off = (f"  between {self.between[0]}={self.between[1]:g} and {self.between[2]:g}, "
+               f"off the grid" if self.between else "")
+        return f"{self.pose}  {self.verdict}{off}"
 
 
 @dataclass
@@ -581,17 +768,57 @@ class Box:
 
     `measured` is the other half of the same disclosure: a grid says where the scan looked,
     and that says what it looked at. A free pose in a world whose printed pieces were held
-    out is free of the interior pack and nothing more."""
+    out is free of the interior pack and nothing more.
+
+    AND A COUNT IS NOT A PROOF. A grid answers where it stands and nowhere else, so its
+    step is the width of free window it steps over — the record's window was 0.2 mm wide
+    under a 2.5 mm step, and 33,900 poses reported zero. `blind` is that step and `spans`,
+    `found` and `exhausted` say what was done about it: how many intervals between two
+    blocked points were split down to `resolve`, how many free poses stood in one, and
+    whether the splitting ran out of budget before the intervals ran out."""
 
     specs: dict                                     # label -> the spec as given
     values: dict                                    # label -> what it expanded to
     anchor: str = "at"
     skip: tuple = ()                                # bodies held out of the measurement
     measured: str = ""                              # the world it was measured in
+    resolve: float = 0.0                            # how fine the intervals were split
+    spans: int = 0                                  # intervals between two blocked points
+    found: int = 0                                  # free poses that stood in one of them
+    exhausted: bool = False                         # the splitting budget ran out first
 
     @property
     def swept(self) -> list:
         return [n for n in AXES if len(self.values.get(n, ())) > 1]
+
+    @property
+    def blind(self) -> float:
+        """The coarsest step on a swept linear axis — the width of free window this grid
+        steps over. Zero when nothing linear was swept, the grid then being the poses it
+        lists and no others."""
+        steps = []
+        for name in self.swept:
+            if name in _SPIN:
+                continue
+            v = sorted(self.values[name])
+            steps.append(max(b - a for a, b in zip(v, v[1:])))
+        return max(steps) if steps else 0.0
+
+    @property
+    def proof(self) -> str:
+        """What this grid could not have seen, in one line."""
+        blind = self.blind
+        head = ("a count is not a proof — this grid tested the poses it lists and no others"
+                if blind <= 0 else
+                f"a count is not a proof — this grid steps {blind:g} mm and a free window "
+                f"narrower than that falls between its points")
+        if self.resolve <= 0:
+            return head + "; the intervals between its points were not split (resolve=0)"
+        if not self.spans:
+            return head + "; no interval between two of its points had both ends blocked"
+        tail = (f"; {self.spans} interval(s) between two blocked points, resolved to "
+                f"{self.resolve:g} mm — {self.found} free pose(s) stood in one")
+        return head + tail + (" — THE SPLITTING RAN OUT OF BUDGET" if self.exhausted else "")
 
     @property
     def fixed(self) -> list:
@@ -635,7 +862,8 @@ class Box:
                 + (f"  fixed: {held}" if held else "")
                 + (f"  anchor={self.anchor}" if self.anchor != "at" else "")
                 + (f"  holding out: {', '.join(self.skip)}" if self.skip else "")
-                + (f"\n  against  {self.measured}" if self.measured else ""))
+                + (f"\n  against  {self.measured}" if self.measured else "")
+                + f"\n  {self.proof}")
 
 
 class Candidates(list):
@@ -666,28 +894,81 @@ def _axis_values(spec, label: str) -> list:
     return [float(v) for v in spec]
 
 
+def _split(fn, lo, blo, hi, bhi, resolve: float, out: list, budget: list) -> None:
+    """Every free value hiding in `[lo, hi]`, both ends blocked, split until one turns up.
+
+    A stretch one body holds at both ends and at the midpoint is that body's, and the half
+    it holds is not split again — so an interval buried in a wall costs ONE query and only
+    an interval where the binding body changes is followed down. That change is the whole
+    signal: two obstacles blocking the two ends is what a free window between them looks
+    like from a grid too coarse to stand in it."""
+    if hi - lo <= resolve or budget[0] <= 0:
+        return
+    mid = 0.5 * (lo + hi)
+    budget[0] -= 1
+    pose, by = fn(mid)
+    if by is None:
+        out.append((mid, pose))
+        return
+    if by != blo:
+        _split(fn, lo, blo, mid, by, resolve, out, budget)
+    if by != bhi:
+        _split(fn, mid, by, hi, bhi, resolve, out, budget)
+
+
+def _between(state: dict, values: dict, axis: str, resolve: float, poser, budget: list) -> list:
+    """Every free pose standing between two adjacent, both-blocked grid points on `axis`.
+
+    A pair with a free end is skipped: that pose is already in hand and splitting the
+    interval only sharpens the edge of a window the grid already found."""
+    others = [a for a in AXES if a != axis]
+    vals = sorted(values[axis])
+    lines = sorted({tuple(dict(zip(AXES, k))[a] for a in others) for k in state})
+    out = []
+    for line in lines:
+        base = dict(zip(others, line))
+        for lo, hi in zip(vals, vals[1:]):
+            blo = state[tuple({**base, axis: lo}[a] for a in AXES)]
+            bhi = state[tuple({**base, axis: hi}[a] for a in AXES)]
+            if blo is None or bhi is None:
+                continue
+            hits = []
+            _split(lambda v: poser({**base, axis: v}), lo, blo, hi, bhi, resolve, hits, budget)
+            out.append((lo, hi, [({**base, axis: v}, p) for v, p in hits]))
+    return out
+
+
 def search(part: Part, x, y, z, yaw=(0.0,), pitch=(0.0,), roll=(0.0,), anchor: str = "at",
-           clearance: float = 0.0, skip=(), world=None, limit=None, top: int = 12,
-           quiet: bool = False) -> Candidates:
+           clearance: float = 0.0, skip=(), world=None, limit: int = LIMIT, top: int = 12,
+           near: float = NEAR, resolve: float = RESOLVE, quiet: bool = False) -> Candidates:
     """Every free pose on a grid, best room first, carrying the grid it searched.
 
-    Each axis takes a scalar, a `(lo, hi, step)` triple or a list. `anchor` is `"at"` (the
-    part's origin lands on the grid point) or `"bbmin"` (its rotated box's low corner does).
-    `skip` must name the body being re-placed — a part already in the world clashes with
-    itself.
+    Each axis takes a scalar, a `(lo, hi, step)` triple or a list — `pitch` and `roll` are
+    axes like the rest, and a part on its side is a pose like any other. `anchor` is `"at"`
+    (the part's origin lands on the grid point) or `"bbmin"` (its rotated box's low corner
+    does). `skip` must name the body being re-placed — a part already in the world clashes
+    with itself.
 
     Raising `clearance` can only remove poses: it is a threshold on a measured distance and
     the distances do not depend on it.
 
-    The report states the `Box` before the answer — the grid, and the world the grid was
-    measured in — and names the ends the best pose sits on; a pose on an end is the grid
-    reporting where it stopped."""
+    A GRID ANSWERS WHERE IT STANDS AND NOWHERE ELSE, so the answer does not stop at the
+    grid. Wherever two adjacent points are blocked by two different bodies, a free window
+    may lie between them — the interval is split down to `resolve` mm and any pose found
+    there comes back with the rest, marked as standing off the grid. `resolve=0` turns that
+    off and the `Box` says so; `probe.free(holds=…)` answers the same question exactly and
+    without a grid at all. `limit` bounds the whole scan, grid and splitting together — the
+    splitting spends what the grid leaves, and the `Box` says when it ran out first.
+
+    The report states the `Box` before the answer — the grid, the world the grid was
+    measured in, and what the grid could not have seen — and names the ends the best pose
+    sits on; a pose on an end is the grid reporting where it stopped."""
     if anchor not in ("at", "bbmin"):
         raise ValueError(f"anchor={anchor!r}: expected 'at' or 'bbmin'")
     w = world or probe.world()
     specs = dict(x=x, y=y, z=z, yaw=yaw, pitch=pitch, roll=roll)
     values = {n: _axis_values(specs[n], n) for n in AXES}
-    box = Box(specs, values, anchor, tuple(skip), w.measured)
+    box = Box(specs, values, anchor, tuple(skip), w.measured, float(resolve))
     grid = [dict(zip(AXES, (gx, gy, gz, ya, pi, ro)))
             for gx in values["x"]
             for gy in values["y"]
@@ -700,13 +981,35 @@ def search(part: Part, x, y, z, yaw=(0.0,), pitch=(0.0,), roll=(0.0,), anchor: s
             f"search would test {len(grid)} poses, over limit={limit} — coarsen a step "
             f"or narrow a range, or raise limit if the wait is wanted")
 
-    out = []
-    for point in grid:
+    def poser(point):
+        """The pose at a point and the body blocking it, or `None` when it is free."""
         kw = {anchor: (point["x"], point["y"], point["z"])}
         p = part.pose(yaw=point["yaw"], pitch=point["pitch"], roll=point["roll"], **kw)
-        if _conflict(p.solid, w, skip=skip, clearance=clearance) is not None:
-            continue
-        out.append(Candidate(p, check(p, skip=skip, clearance=clearance, world=w), point))
+        return p, _conflict(p.solid, w, skip=skip, clearance=clearance)
+
+    def keep(point, pose, between=None):
+        return Candidate(pose, check(pose, skip=skip, clearance=clearance, world=w, near=near),
+                         dict(point), between)
+
+    out, state = [], {}
+    for point in grid:
+        p, by = poser(point)
+        state[tuple(point[a] for a in AXES)] = by
+        if by is None:
+            out.append(keep(point, p))
+
+    # The grid is where the scan looked; between its points is where it did not. Splitting
+    # tests poses like everything else, so it spends what `limit` has left over.
+    budget = [0 if resolve <= 0 else
+              math.inf if limit is None else max(0, int(limit) - len(grid))]
+    for axis in (a for a in box.swept if a not in _SPIN):
+        for lo, hi, hits in _between(state, values, axis, resolve, poser, budget):
+            box.spans += 1
+            for point, pose in hits:
+                box.found += 1
+                out.append(keep(point, pose, (axis, lo, hi)))
+    box.exhausted = resolve > 0 and budget[0] <= 0
+
     out.sort(key=lambda c: -c.room)
     found = Candidates(out, box)
     if not quiet:
@@ -729,12 +1032,39 @@ def search(part: Part, x, y, z, yaw=(0.0,), pitch=(0.0,), roll=(0.0,), anchor: s
 # --- free space in a slab -------------------------------------------------
 
 @dataclass
+class Floor:
+    """What a free rectangle stands on.
+
+    A rectangle is a footprint, not a shelf: the space above a body's top and the space
+    over a hole in the deck are the same free cells, and only one of them is somewhere to
+    put a part. `fraction` is how much of the rectangle has material under it, `x` and `y`
+    are how far that part of it reaches, and `on` names what holds it up with the top of
+    each — so the drop from the band is `z[0] - top`."""
+
+    fraction: float
+    x: tuple
+    y: tuple
+    on: list                    # [(name, top z), …] highest first
+    reach: float                # how far below the band this looked
+
+    def __str__(self) -> str:
+        if self.fraction <= 0:
+            return f"floor  NOTHING within {self.reach:g} mm under it — it stands in air"
+        who = ", ".join(f"{n} top z {t:.1f}" for n, t in self.on[:3])
+        where = ("all of it" if self.fraction >= 1 - 1e-9 else
+                 f"{self.fraction:.0%} of it — x[{self.x[0]:.1f},{self.x[1]:.1f}] "
+                 f"y[{self.y[0]:.1f},{self.y[1]:.1f}], the rest stands in air")
+        return f"floor  under {where}: {who}"
+
+
+@dataclass
 class Rect:
-    """A free footprint in a Z band."""
+    """A free footprint in a Z band, and what stands under it."""
 
     x: tuple
     y: tuple
     z: tuple
+    floor: Floor = None
 
     @property
     def w(self) -> float:
@@ -749,13 +1079,15 @@ class Rect:
         return self.w * self.d
 
     def __str__(self) -> str:
-        return (f"{self.w:6.1f} × {self.d:6.1f} mm  ({self.area:8.0f} mm²)  "
+        head = (f"{self.w:6.1f} × {self.d:6.1f} mm  ({self.area:8.0f} mm²)  "
                 f"x[{self.x[0]:7.1f},{self.x[1]:7.1f}] y[{self.y[0]:7.1f},{self.y[1]:7.1f}] "
                 f"z[{self.z[0]:.1f},{self.z[1]:.1f}]")
+        return head + (f"\n{' ' * 8}{self.floor}" if self.floor is not None else "")
 
 
 def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
-         exact=(), size: tuple = None, world=None, top: int = 8, quiet: bool = False) -> list:
+         exact=(), size: tuple = None, world=None, top: int = 8, floor: float = FLOOR,
+         quiet: bool = False) -> list:
     """The largest free rectangles in the Z band `z`, biggest area first.
 
     A cell is occupied when a body reaches into the band above it. Bodies count by their
@@ -763,12 +1095,19 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
     a part that is mostly air hides space behind its box. Name those in `exact` (or pass
     `exact=True`) to intersect the band against the solid instead.
 
+    EVERY BODY REPORTS ITS FILL FRACTION, its material over its own box, because that one
+    number is both failure directions of the choice: a body 11% full counted by box blacks
+    out nine times the space it holds, and the same body counted exactly hands back every
+    void inside it — a vessel's contents come back as room to put something.
+
     A printed enclosure piece is always exact and can never be boxed: its box is the whole
     machine, so counting one by box would black out the field and report a full cavity. Its
     material — the walls, and the seam lips, cross-pin pods, boss chains and ribs standing
     inboard of them — is measured cell by cell like any other exact body.
 
     `size=(w, d)` keeps only rectangles that hold that footprint in either orientation.
+    `floor=` is how far below the band to look for something to stand on, and every
+    rectangle reports what it found there; `floor=0` skips that scan.
 
     The report states the field, where the field came from, the world it measured against,
     and which bodies were taken by box against which were taken exactly — a field the
@@ -808,12 +1147,14 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
             for j in range(j0, j1):
                 grid[i][j] = True
 
+    fill = {n: _fill(w.solid(n), w.bb(n)) for n in live if n not in want_exact}
     band = probe.box(x=(x0, x1), y=(y0, y1), z=(zlo, zhi))
     for name in sorted(want_exact):
         clipped, boxes = _in_band(w.solid(name), band, name)
         if clipped is None:                 # nothing of this body stands in the field's band
             continue
         cb = clipped.BoundingBox()
+        fill[name] = _fill(clipped, cb)
         i0, i1 = _span(cb.xmin, cb.xmax, x0, sx, nx)
         j0, j1 = _span(cb.ymin, cb.ymax, y0, sy, ny)
         for i in range(i0, i1):
@@ -842,6 +1183,10 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
         rects = [r for r in rects
                  if (r.w >= wmin and r.d >= dmin) or (r.w >= dmin and r.d >= wmin)]
     rects.sort(key=lambda r: -r.area)
+    if floor > 0 and rects:
+        under = _floors(w, zlo, float(floor), x0, y0, sx, sy, nx, ny, skip)
+        for r in rects:
+            r.floor = _floor_of(r, under, x0, y0, sx, sy, float(floor))
     if not quiet:
         print(f"free in z[{zlo:.1f},{zhi:.1f}] on a {sx:.1f}×{sy:.1f} mm grid — "
               f"{len(rects)} rectangle(s)"
@@ -850,14 +1195,24 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
         print(f"  against  {w.measured}")
         named = sorted(n for n in want_exact if n not in in_band)
         print(f"  bodies  {len(live) - len(want_exact)} by bounding box"
-              + (f", {len(named)} exact: {', '.join(named)}" if named else ", none exact")
+              + (f", {len(named)} exact" if named else ", none exact")
               + (f"  holding out: {', '.join(skip)}" if skip else ""))
+        if named:
+            print(f"  exact   {_fills(fill, named)} — measured exactly, so every void inside "
+                  f"one of them comes back as free space, its own cavity included")
+        empty = sorted((n for n in live if n not in want_exact), key=lambda n: fill[n])[:3]
+        if empty:
+            print(f"  boxed   emptiest {_fills(fill, empty)} — a box counts a body's air as "
+                  f"material; name one in exact= to measure it")
         held = [n for n in w.pieces if n in skip]
         print("  pieces  " + (
             f"{len(in_band)} reach this band, measured exactly — a piece's box is the whole "
             f"machine: {', '.join(in_band)}" if in_band else
             f"held out: {', '.join(held)}" if held else
             "none reach this band" if w.pieces else "none in this world"))
+        print("  floor   " + (
+            f"looked {floor:g} mm below the band; a piece by its material, every other body "
+            f"by its box" if floor > 0 else "not looked for (floor=0)"))
         if rects:
             ends = _field_ends(rects[0], (x0, x1), (y0, y1), given)
             if ends:
@@ -900,18 +1255,100 @@ def _in_band(solid, band, name: str):
     return clipped, [s.BoundingBox() for s in clipped.Solids()]
 
 
+def _fill(solid, bb) -> float:
+    """A body's material over its own bounding box. 1.0 is a brick; a swept tube on a
+    diagonal runs under 0.01, and a vessel reads its walls and calls its contents air."""
+    span = bb.xlen * bb.ylen * bb.zlen
+    if span <= 0:
+        return 1.0
+    try:
+        return max(0.0, min(1.0, solid.Volume() / span))
+    except Exception:
+        return 1.0
+
+
+def _fills(fill: dict, names) -> str:
+    return ", ".join(f"{n} {fill.get(n, 1.0):.1%} full" for n in names)
+
+
+def _floors(w, zlo: float, reach: float, x0, y0, sx, sy, nx, ny, skip=()) -> list:
+    """What stands under each cell of the field, within `reach` mm below the band.
+
+    Every body marks by its bounding box, which OVER-states a floor — the direction that
+    invents somewhere to stand — except a printed piece, whose box is the whole machine and
+    would floor the field, and which is measured cell by cell like the band scan measures
+    it. A cell keeps the highest material found under it."""
+    lo = zlo - reach
+    below = sorted(n for n in w.names
+                   if n not in skip and w.bb(n).zmin < zlo - 1e-9 and w.bb(n).zmax > lo + 1e-9)
+    cells = [[None] * ny for _ in range(nx)]
+    band = probe.box(x=(x0, x0 + nx * sx), y=(y0, y0 + ny * sy), z=(lo, zlo))
+    for name in below:
+        piece = w.sources[name] == probe.PIECE
+        clipped, boxes = ((None, [w.bb(name)]) if not piece
+                          else _in_band(w.solid(name), band, name))
+        if piece and clipped is None:
+            continue
+        for b in boxes:
+            top = min(zlo, b.zmax)
+            i0, i1 = _span(b.xmin, b.xmax, x0, sx, nx)
+            j0, j1 = _span(b.ymin, b.ymax, y0, sy, ny)
+            for i in range(i0, i1):
+                cx0, cx1 = x0 + i * sx, x0 + (i + 1) * sx
+                if not (b.xmax > cx0 and b.xmin < cx1):
+                    continue
+                for j in range(j0, j1):
+                    if cells[i][j] is not None and cells[i][j][0] >= top:
+                        continue
+                    cy0, cy1 = y0 + j * sy, y0 + (j + 1) * sy
+                    if not (b.ymax > cy0 and b.ymin < cy1):
+                        continue
+                    if piece:
+                        cell = probe.box(x=(cx0, cx1), y=(cy0, cy1), z=(lo, zlo))
+                        try:
+                            if _overlap.volume(cell, clipped) <= VOL_TOL:
+                                continue
+                        except Exception as exc:
+                            raise RuntimeError(
+                                f"floor under {name} failed ({exc}) — what holds this cell "
+                                f"up is unknown, not nothing") from exc
+                    cells[i][j] = (top, name)
+    return cells
+
+
+def _floor_of(r: Rect, cells: list, x0, y0, sx, sy, reach: float) -> Floor:
+    """The part of `r` with material under it, and what that material is."""
+    i0, i1 = int(round((r.x[0] - x0) / sx)), int(round((r.x[1] - x0) / sx))
+    j0, j1 = int(round((r.y[0] - y0) / sy)), int(round((r.y[1] - y0) / sy))
+    on, xs, ys, held = {}, [], [], 0
+    for i in range(i0, i1):
+        for j in range(j0, j1):
+            c = cells[i][j]
+            if c is None:
+                continue
+            held += 1
+            xs += [x0 + i * sx, x0 + (i + 1) * sx]
+            ys += [y0 + j * sy, y0 + (j + 1) * sy]
+            on[c[1]] = max(on.get(c[1], -math.inf), c[0])
+    total = max(1, (i1 - i0) * (j1 - j0))
+    return Floor(held / total,
+                 (min(xs), max(xs)) if xs else r.x, (min(ys), max(ys)) if ys else r.y,
+                 sorted(on.items(), key=lambda kv: -kv[1]), reach)
+
+
 _CAVITY = None                          # the enclosure's own dimensions, read once
 
 
 def _cavity() -> tuple:
-    """The enclosure's inner extent, built once. `_dims()` rebuilds the shell to measure it
-    and costs seconds, while what it returns is a property of the source and not of the
-    world being scanned — so a second slab reads it rather than paying for it again."""
+    """The enclosure's inner extent, built once. `machine_of()` rebuilds the shell to
+    measure it and costs seconds, while what it returns is a property of the source and not
+    of the world being scanned — so a second slab reads it rather than paying for it
+    again."""
     global _CAVITY
     if _CAVITY is None:
         probe._ensure_paths()
         import enclosure
-        _CAVITY = tuple(enclosure._dims().inner)
+        _CAVITY = tuple(enclosure.machine_of()[1].inner)
     return _CAVITY
 
 
@@ -1043,6 +1480,22 @@ def selftest() -> int:
     ok("at= lands the part's own origin", all(abs(o[i] - v) < 1e-9 for i, v in enumerate((5, 6, 7))),
        f"{tuple(round(v, 3) for v in o)}", "(5, 6, 7)")
 
+    print("controls — what builds a part:")
+    # `builder=` names its own part. Nothing under `hardware/reference/` is called this, and
+    # nothing has to be: every printed body in the machine is in the same position.
+    made = part("no-directory-of-this-name", builder=_build)
+    ok("builder= reaches a part with no reference directory", abs(made.bb.xlen - side) < 1e-9,
+       f"{made.bb.xlen:.3f}", f"{side:g}")
+    ok("and keeps the name it was given", made.name == "no-directory-of-this-name", made.name)
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        f = Path(tmp) / "carried-part.step"
+        cq.exporters.export(_build(), str(f))
+        sp = part(str(f))
+        ok("the path of a .step is a part name", abs(sp.bb.xlen - side) < 1e-6,
+           f"{sp.bb.xlen:.3f}", f"{side:g}")
+        ok("and the file's stem is what it is called", sp.name == "carried-part", sp.name)
+
     print("controls — mating a port onto a mouth:")
     targets = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 0, -1), (0.3, -0.7, 0.65), (0, 0, 1))
     for axis in targets:
@@ -1079,6 +1532,36 @@ def selftest() -> int:
        f"{[h.name for h in v.clashes]}", "['wall']")
     v = check(p.pose(at=(face - side / 2, 0, 0)), world=w)
     ok("touching is not overlapping", v.clear and not v.clashes, f"clashes {len(v.clashes)}")
+
+    print("controls — an arrangement is not its bodies one at a time:")
+    # Two candidates half a cube apart, so they share half their volume. Nothing in the
+    # world is anywhere near either, and every one-at-a-time verdict is CLEAR.
+    over = check([p.pose(at=(0, 0, 0)), p.pose(at=(side / 2, 0, 0))], world=w, near=4 * side)
+    ok("both bodies are clear of the world", all(vv.clear for vv in over.verdicts.values()),
+       f"{[str(vv)[:5] for vv in over.verdicts.values()]}")
+    ok("and the arrangement is not", not over.clear and bool(over.pairs.clashes),
+       f"{[h.name for h in over.pairs.clashes]}")
+    ok("a repeated part is numbered so a pair can be read",
+       list(over.verdicts) == ["_fake", "_fake#2"], f"{list(over.verdicts)}")
+    apart = check([p.pose(at=(0, 0, 0)), p.pose(at=(1.5 * side, 0, 0))], world=w, near=4 * side)
+    ok("a placement with room between its bodies is clear", apart.clear, str(apart).splitlines()[0])
+    ok("the tightest pair is the measured gap between them",
+       abs(apart.tightest.mm - side / 2) < 1e-6, f"{apart.tightest.mm:.6f}", f"{side / 2:g}")
+    ok("a clearance the pair breaks is the arrangement's too",
+       not check([p.pose(at=(0, 0, 0)), p.pose(at=(1.5 * side, 0, 0))],
+                 world=w, clearance=side, near=4 * side).clear)
+    # A DISTANCE IS BETWEEN SURFACES here too: one candidate wholly inside another has a
+    # healthy one to every face of it, and only occupancy settles the pair.
+    buried_pair = check([p.pose(at=(0, 0, 0)),
+                         probe.box(x=(-2, 2), y=(-2, 2), z=(2, 6))], world=w, near=4 * side)
+    ok("a candidate buried in another candidate is a clash, not a gap",
+       bool(buried_pair.pairs.clashes) and not buried_pair.clear,
+       f"{[h.name for h in buried_pair.pairs.clashes]}")
+    # And a body resting on another is what a mount is — the same seat `check` allows.
+    stacked = check([p.pose(at=(0, 0, 0)), p.pose(at=(0, 0, side))],
+                    world=w, clearance=side, near=4 * side)
+    ok("a candidate seated on another is not a violation", stacked.clear,
+       f"{stacked.pairs}")
 
     print("controls — a reported distance is measured, not read off a box:")
     # `wall` is a box, so its box gap happens to be its distance and it could not catch a
@@ -1185,7 +1668,10 @@ def selftest() -> int:
     ok("the rendered box carries the range", "x[0,40] step 4" in str(b), _line(b))
     ok("the rendered box carries the held-out body", "nothing-here" in str(b), _line(b))
     ok("the rendered box carries the world it measured in",
-       str(b).splitlines()[-1].strip().startswith("against"), str(b).splitlines()[-1].strip())
+       str(b).splitlines()[-2].strip().startswith("against"), str(b).splitlines()[-2].strip())
+    ok("and ends saying a count is not a proof",
+       str(b).splitlines()[-1].strip().startswith("a count is not a proof"),
+       str(b).splitlines()[-1].strip())
     ok("the best pose is at the low end and says so", b.edges(found[0].point) == ["x low"],
        f"{b.edges(found[0].point)}", "['x low']")
     ok("a fixed axis is never an end", not any(e.startswith(("y ", "z ")) for e in
@@ -1205,6 +1691,49 @@ def selftest() -> int:
         name = "x" if label.startswith("a linear") else "yaw"
         got = Box({name: tuple(values)}, {name: values}).edges({name: at})
         ok(label, got == want, f"{got}", f"{want}")
+
+    print("controls — a count is a fact about the grid:")
+    # The recorded failure in miniature. Two walls leave the cube's origin a window
+    # x ∈ [10.2, 10.6] — 0.4 mm wide, and every point of a 5 mm grid misses it. West holds
+    # the low end of the straddling interval and east holds the high one, which is what a
+    # free window looks like from a grid too coarse to stand in it.
+    slot = probe.World({"west": probe.box(x=(-3 * side, 0.2), y=(-side, side), z=(0, side)),
+                        "east": probe.box(x=(20.6, 3 * side), y=(-side, side), z=(0, side))},
+                       {"west": "test", "east": "test"})
+    lane = dict(x=(0.0, 30.0, 5.0), y=0.0, z=0.0)
+    gridded = search(p, world=slot, resolve=0.0, quiet=True, **lane)
+    ok("a grid coarser than the free window reports none", gridded == [],
+       f"{len(gridded)} free", "0 free")
+    ok("and discloses the width it steps over", abs(gridded.box.blind - 5.0) < 1e-9
+       and "a count is not a proof" in gridded.box.proof, gridded.box.proof)
+    keen = search(p, world=slot, resolve=0.05, quiet=True, **lane)
+    ok("splitting the intervals between its points finds it", len(keen) > 0,
+       f"{len(keen)} free", "at least 1")
+    ok("the pose it found stands in the 0.4 mm window", bool(keen)
+       and 10.2 - 1e-9 <= keen[0].point["x"] <= 10.6 + 1e-9,
+       f"x={keen[0].point['x']:.4f}" if keen else "nothing", "x in [10.2, 10.6]")
+    ok("and it is really free", bool(keen) and check(keen[0].pose, world=slot,
+                                                     near=4 * side).clear)
+    ok("a pose off the grid says which interval it stood in",
+       bool(keen) and keen[0].between is not None and keen[0].between[0] == "x",
+       f"{keen[0].between}" if keen else "nothing")
+    ok("the box counts the intervals it split and what stood in them",
+       keen.box.spans > 0 and keen.box.found > 0 and str(keen.box.spans) in keen.box.proof,
+       f"{keen.box.spans} split, {keen.box.found} found")
+    # A stretch one body holds all the way across costs one query and finds nothing —
+    # otherwise every interval in a full machine would be followed to the resolution.
+    solidly = probe.World({"west": probe.box(x=(-3 * side, 3 * side), y=(-side, side),
+                                             z=(0, side))}, {"west": "test"})
+    walled_run = search(p, world=solidly, resolve=0.05, quiet=True, **lane)
+    ok("one body blocking both ends is not split down", walled_run == []
+       and walled_run.box.found == 0, f"{walled_run.box.spans} split, "
+       f"{walled_run.box.found} found")
+    # Splitting tests poses like everything else, so it spends what the grid leaves of
+    # `limit` — and a scan that stopped short of its own intervals says so out loud.
+    starved = search(p, world=slot, resolve=0.05, limit=8, quiet=True, **lane)
+    ok("the splitting spends what the grid leaves of limit",
+       starved == [] and starved.box.exhausted and "RAN OUT" in starved.box.proof,
+       starved.box.proof)
 
     print("controls — slab:")
     # One bar across the middle of a square field: two free strips, the north one wider.
@@ -1251,6 +1780,59 @@ def selftest() -> int:
     ok("a clipped body answers every cell the way the whole one does", not disagreed,
        f"{len(disagreed)} disagreed" if disagreed else "36 cells")
 
+    print("controls — a body says how much of its own box it is:")
+    # The number that decides `exact=`, and both directions of it: `rim` counted by box
+    # blacks out nearly twice the space it holds, and counted exactly hands its own
+    # interior back as room — 6400 mm² of it, which the control above just measured.
+    brick = probe.box(x=(0, side), y=(0, side), z=(0, side))
+    ok("a brick is full", abs(_fill(brick, brick.BoundingBox()) - 1.0) < 1e-9,
+       f"{_fill(brick, brick.BoundingBox()):.1%}", "100.0%")
+    rbb = rim.BoundingBox()
+    want = rim.Volume() / (rbb.xlen * rbb.ylen * rbb.zlen)
+    ok("a vessel reports its walls and not its contents",
+       abs(_fill(rim, rbb) - want) < 1e-12 and want < 0.6, f"{_fill(rim, rbb):.1%}",
+       f"{want:.1%}")
+    flat = types.SimpleNamespace(xlen=0.0, ylen=0.0, zlen=0.0)
+    ok("a body with no box to speak of is not divided by zero", _fill(brick, flat) == 1.0)
+
+    print("controls — a rectangle stands on something or it stands in air:")
+    # A deck under the near half of the field and nothing at all under the far half. The
+    # whole field is free in the band either way; only half of it is somewhere to stand.
+    wf = probe.World({"deck": probe.box(x=(0, span), y=(0, 2.5 * side), z=(-side, 0))},
+                     {"deck": "test"})
+    stood = slab(z=(0, side), x=(0, span), y=(0, span), step=side / 4, world=wf,
+                 floor=side, quiet=True)
+    r = max(stood, key=lambda t: t.area)
+    ok("the rectangle is the whole field", abs(r.area - span * span) < 1e-6,
+       f"{r.area:.0f} mm²", f"{span * span:.0f} mm²")
+    ok("and reports what holds it up",
+       r.floor is not None and [n for n, _t in r.floor.on] == ["deck"],
+       f"{[n for n, _t in r.floor.on] if r.floor else None}", "['deck']")
+    ok("over the half that has a floor", abs(r.floor.fraction - 0.5) < 1e-9,
+       f"{r.floor.fraction:.0%}", "50%")
+    ok("naming how far that half reaches", abs(r.floor.y[1] - 2.5 * side) < 1e-9,
+       f"y[{r.floor.y[0]:.1f},{r.floor.y[1]:.1f}]", f"y[0.0,{2.5 * side:.1f}]")
+    ok("and where its top surface is", abs(r.floor.on[0][1] - 0.0) < 1e-9,
+       f"{r.floor.on[0][1]:.2f}", "0.00")
+    hollow = slab(z=(0, side), x=(0, span), y=(0, span), step=side / 4, world=wf,
+                  skip=("deck",), floor=side, quiet=True)
+    ok("a rectangle with nothing under it says it stands in air",
+       hollow[0].floor.fraction == 0.0 and "air" in str(hollow[0].floor), str(hollow[0].floor))
+    low = probe.World({"deck": probe.box(x=(0, span), y=(0, 2.5 * side),
+                                         z=(-3 * side, -2 * side))}, {"deck": "test"})
+    deep = max(slab(z=(0, side), x=(0, span), y=(0, span), step=side / 4, world=low,
+                    floor=side, quiet=True), key=lambda t: t.area)
+    ok("a floor further down than the scan looked is not a floor", deep.floor.fraction == 0.0,
+       f"{deep.floor.fraction:.0%}", "0%")
+    deeper = max(slab(z=(0, side), x=(0, span), y=(0, span), step=side / 4, world=low,
+                      floor=3 * side, quiet=True), key=lambda t: t.area)
+    ok("and looking far enough down finds it", abs(deeper.floor.fraction - 0.5) < 1e-9
+       and abs(deeper.floor.on[0][1] + 2 * side) < 1e-9,
+       f"{deeper.floor.fraction:.0%} top z {deeper.floor.on[0][1]:.1f}", f"50% top z {-2 * side:.1f}")
+    ok("floor=0 leaves the question unasked",
+       slab(z=(0, side), x=(0, span), y=(0, span), step=side / 4, world=wf,
+            floor=0, quiet=True)[0].floor is None)
+
     print("controls — a slab states the field it scanned:")
     ends = _field_ends(widest, (0, span), (0, span), (True, True))
     ok("a rectangle on a given field's edge says so", ends == ["x low", "x high", "y high"],
@@ -1260,9 +1842,37 @@ def selftest() -> int:
     ok("the derived field names where it came from",
        isinstance(_interior(ws)[2], str) and _interior(ws)[2] != "", _interior(ws)[2])
 
+    print("controls — the shell reaches what the API does:")
+    verbs = _parser()._subparsers._group_actions[0].choices
+    import re
+    shown = set(re.findall(r"fit\.py (\w+)", __doc__ or ""))
+    ok("every verb the docstring shows is a verb", shown <= set(verbs),
+       f"{sorted(shown - set(verbs))}", "nothing left over")
+    ok("every verb is in the docstring", set(verbs) <= shown,
+       f"{sorted(set(verbs) - shown)}", "nothing unnamed")
+    for verb in ("try", "mate", "search"):
+        opts = {s for act in verbs[verb]._actions for s in act.option_strings}
+        ok(f"{verb} reaches --near", "--near" in opts, f"{sorted(opts)}")
+    ok("the shell's pose limit is the API's",
+       verbs["search"].get_default("limit")
+       == inspect.signature(search).parameters["limit"].default,
+       f"shell {verbs['search'].get_default('limit')}, "
+       f"API {inspect.signature(search).parameters['limit'].default}")
+    ok("and so is how fine it splits between them",
+       verbs["search"].get_default("resolve")
+       == inspect.signature(search).parameters["resolve"].default,
+       f"shell {verbs['search'].get_default('resolve')}, "
+       f"API {inspect.signature(search).parameters['resolve'].default}")
+    ok("and how far below a slab looks for a floor",
+       verbs["slab"].get_default("floor")
+       == inspect.signature(slab).parameters["floor"].default,
+       f"shell {verbs['slab'].get_default('floor')}, "
+       f"API {inspect.signature(slab).parameters['floor'].default}")
+
     print("controls — refusals:")
     for label, thunk in (
         ("unknown part name raises", lambda: part("no-such-part")),
+        ("a .step path that is not there raises", lambda: part("nowhere/nothing.step")),
         ("unknown port name raises", lambda: p.pose(at=(0, 0, 0)).port("nope")),
         ("giving both at= and bbmin= raises", lambda: p.pose(at=(0, 0, 0), bbmin=(0, 0, 0))),
         ("giving neither at= nor bbmin= raises", lambda: p.pose()),
@@ -1338,7 +1948,9 @@ def _list(s: str) -> list:
     return [float(v) for v in s.split(",") if v != ""]
 
 
-def main(argv: list) -> int:
+def _parser():
+    """The shell's verbs and their defaults, built where the selftest can read them —
+    every default here is the API's own, and every verb is one the docstring names."""
     import argparse
 
     ap = argparse.ArgumentParser(prog="fit", description=__doc__.split("\n")[0])
@@ -1346,20 +1958,19 @@ def main(argv: list) -> int:
 
     sub.add_parser("parts", help="every reference part, its size and its ports")
 
-    p = sub.add_parser("ports", help="one part's ports in its own coordinates")
-    p.add_argument("part")
-
     p = sub.add_parser("try", help="one pose against the placed world")
-    p.add_argument("part")
+    p.add_argument("part", help="a reference part's name, or the path of a .step")
     p.add_argument("--at", help="x,y,z the part's origin lands on")
     p.add_argument("--bbmin", help="x,y,z its bounding box's low corner lands on")
     for a in ("yaw", "pitch", "roll"):
         p.add_argument(f"--{a}", type=float, default=0.0)
     p.add_argument("--clearance", type=float, default=0.0)
     p.add_argument("--skip", default="")
+    p.add_argument("--near", type=float, default=NEAR,
+                   help="how far out a body is still considered — raise it in a large void")
 
     p = sub.add_parser("mate", help="seat a part's port into a placed component's mouth")
-    p.add_argument("part")
+    p.add_argument("part", help="a reference part's name, or the path of a .step")
     p.add_argument("--port", required=True, help="the part's own port to seat")
     p.add_argument("--onto", required=True, help="component.port to seat it into")
     p.add_argument("--spin", type=float, default=0.0, help="turn about the joint axis")
@@ -1367,9 +1978,11 @@ def main(argv: list) -> int:
                    help="point the port the same way as the mouth's normal rather than into it")
     p.add_argument("--clearance", type=float, default=0.0)
     p.add_argument("--skip", default="")
+    p.add_argument("--near", type=float, default=NEAR,
+                   help="how far out a body is still considered — raise it in a large void")
 
     p = sub.add_parser("search", help="every free pose on a grid, best room first")
-    p.add_argument("part")
+    p.add_argument("part", help="a reference part's name, or the path of a .step")
     for a in ("x", "y", "z"):
         p.add_argument(f"--{a}", required=True, help="value or lo,hi,step")
     for a in ("yaw", "pitch", "roll"):
@@ -1377,8 +1990,13 @@ def main(argv: list) -> int:
     p.add_argument("--anchor", default="at", choices=("at", "bbmin"))
     p.add_argument("--clearance", type=float, default=0.0)
     p.add_argument("--skip", default="")
-    p.add_argument("--limit", type=int, default=20000)
+    p.add_argument("--limit", type=int, default=LIMIT,
+                   help="poses the whole scan may test, grid and splitting together")
     p.add_argument("--top", type=int, default=12, help="how many poses to print")
+    p.add_argument("--near", type=float, default=NEAR,
+                   help="how far out a body is still considered — raise it in a large void")
+    p.add_argument("--resolve", type=float, default=RESOLVE,
+                   help="how fine to split the intervals between grid points; 0 leaves them")
 
     p = sub.add_parser("slab", help="the largest free rectangles in a Z band")
     p.add_argument("--z", required=True, help="lo,hi")
@@ -1389,10 +2007,15 @@ def main(argv: list) -> int:
     p.add_argument("--skip", default="")
     p.add_argument("--exact", default="", help="bodies to measure as solids, or 'all'")
     p.add_argument("--top", type=int, default=8, help="how many rectangles to print")
+    p.add_argument("--floor", type=float, default=FLOOR,
+                   help="how far below the band to look for something to stand on; 0 skips")
 
     sub.add_parser("selftest", help="known-answer controls, then load every reference part")
+    return ap
 
-    a = ap.parse_args(argv)
+
+def main(argv: list) -> int:
+    a = _parser().parse_args(argv)
     if a.cmd == "selftest":
         return selftest()
 
@@ -1409,15 +2032,6 @@ def main(argv: list) -> int:
                 print(f"{name:28s} {type(exc).__name__}: {str(exc).splitlines()[0][:60]}")
         return 0
 
-    if a.cmd == "ports":
-        rp = part(a.part)
-        print(rp)
-        for n in rp.ports:
-            pos, ax = rp.local_port(n)
-            print(f"  {n:16s} ({pos[0]:8.2f}, {pos[1]:8.2f}, {pos[2]:8.2f})  "
-                  f"axis ({ax[0]:g}, {ax[1]:g}, {ax[2]:g})")
-        return 0
-
     if a.cmd == "try":
         rp = part(a.part)
         if (a.at is None) == (a.bbmin is None):
@@ -1425,7 +2039,7 @@ def main(argv: list) -> int:
         where = {"at": _list(a.at)} if a.at else {"bbmin": _list(a.bbmin)}
         pose = rp.pose(yaw=a.yaw, pitch=a.pitch, roll=a.roll, **where)
         print(pose)
-        print("  " + str(check(pose, skip=skip, clearance=a.clearance)))
+        print("  " + str(check(pose, skip=skip, clearance=a.clearance, near=a.near)))
         for n in rp.ports:
             pos, ax = pose.port(n)
             print(f"  {n:16s} ({pos[0]:8.2f}, {pos[1]:8.2f}, {pos[2]:8.2f})  "
@@ -1444,7 +2058,7 @@ def main(argv: list) -> int:
         print(f"{a.part}.{a.port} onto {a.onto} at "
               f"({tip[0]:.2f}, {tip[1]:.2f}, {tip[2]:.2f})")
         print(f"  {pose}")
-        print("  " + str(check(pose, skip=skip or (comp,), clearance=a.clearance)))
+        print("  " + str(check(pose, skip=skip or (comp,), clearance=a.clearance, near=a.near)))
         for n in rp.ports:
             if n == a.port:
                 continue
@@ -1456,14 +2070,16 @@ def main(argv: list) -> int:
     if a.cmd == "search":
         search(part(a.part), x=_triple(a.x), y=_triple(a.y), z=_triple(a.z),
                yaw=_list(a.yaw), pitch=_list(a.pitch), roll=_list(a.roll),
-               anchor=a.anchor, clearance=a.clearance, skip=skip, limit=a.limit, top=a.top)
+               anchor=a.anchor, clearance=a.clearance, skip=skip, limit=a.limit, top=a.top,
+               near=a.near, resolve=a.resolve)
         return 0
 
     if a.cmd == "slab":
         exact = True if a.exact == "all" else tuple(s for s in a.exact.split(",") if s)
         slab(z=tuple(_list(a.z)), x=tuple(_list(a.x)) if a.x else None,
              y=tuple(_list(a.y)) if a.y else None, step=a.step,
-             size=tuple(_list(a.size)) if a.size else None, skip=skip, exact=exact, top=a.top)
+             size=tuple(_list(a.size)) if a.size else None, skip=skip, exact=exact,
+             top=a.top, floor=a.floor)
         return 0
     return 0
 
