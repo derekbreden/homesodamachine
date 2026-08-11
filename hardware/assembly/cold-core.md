@@ -141,7 +141,7 @@ With all three pours cured:
 Water-inlet and CO2-inlet lines each carry an inline 1/4" NPT SS PTFE-on-metal check valve (GASHER B0FV2D2FFX) out on the deck, upstream of the cap conduit its line enters. Neither is inside the shell.
 
 - **Water-side check** in the made-up discharge chain lying on the SeaFlo's west flank — between that pump's MAACFLOW 1/4" NPT adapter and the PP450822E the `water-5` tube pushes into.
-- **CO2-side check** threaded onto the rear wall's DERPIPE inboard 1/4" NPT stub, upstream of the WR1110 secondary regulator.
+- **CO2-side check** one hop of tube inboard of the rear wall's ABU44 bulkhead, upstream of the WR1110 secondary regulator.
 
 ## Output condition
 

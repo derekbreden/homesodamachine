@@ -85,6 +85,12 @@ def panel_footprint() -> tuple:
     return (BODY_D, BODY_D)
 
 
+def flange_footprint() -> float:
+    """What the OUTBOARD flange covers, and so what a port ring has to reach past to show.
+    The flange and the collet barrel are one diameter on this fitting."""
+    return BODY_D
+
+
 def port(side: float) -> tuple:
     """One of the two 1/4" tube ports: `(position, outward axis)`, `side` picking the near
     (+Y, outboard) or far (−Y, inboard) end. The bore is recessed into the release ring's own

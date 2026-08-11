@@ -17,11 +17,12 @@ WHAT THESE CARDS STAND ON, and is therefore asserted rather than measured:
 
 - THE MACHINE IS ENTERED FROM THE BACK. Nothing at all is cut in the front
   wall, so the bench rig AB-01 connects and the caps FS-03 fits are all on one
-  face: water into the JG union's outboard collet, CO2 into the DERPIPE's bore,
+  face: water into the JG union's outboard collet, CO2 into the ABU44's outboard
+  collet,
   mains into the C14. "Both inlets are on the rear wall" holds no number, so
   only `_rear_entry` can put those cards back.
 - NEITHER INLET IS A THREAD. Both are push-to-connect — the water a collet on
-  the union's own barrel, the CO2 the DERPIPE's 5/16" collar — which is why
+  the union's own barrel, the CO2 the ABU44's own — which is why
   FS-03's caps are press-on and why GT-02's three-beat is the technique both
   take. A fitting is a body in the pack, not a number, so it is asserted.
 - THE UMBILICAL BULKHEADS STAND IN A ROW, not a cluster: one line, one pitch,
@@ -110,7 +111,7 @@ def bench(m):
         f"{len(box.front_ports)} station(s) are cut in the front wall — AB-01 brings water, "
         f"CO2 and mains to the BACK, and FS-03 caps both inlets on that one face")
     # The three the bench rig plugs into, each on the back wall: the water
-    # union's bore, the DERPIPE's bore, the C14's opening. FS-03 fits a cap to
+    # union's bore, the ABU44's bore, the C14's opening. FS-03 fits a cap to
     # the first two and AB-01 lands a cord on the third.
     assert len(box.back_ports) >= 3 and box.c14, (
         f"the back wall stands {len(box.back_ports)} station(s) and {len(box.c14)} C14 boss(es) "
@@ -119,7 +120,7 @@ def bench(m):
     # ── neither inlet is a thread (FS-03, GT-02) ──────────────────────────
     # Both are push-to-connect, which is why FS-03's caps press on over a collar
     # and why GT-02's cut-click-tug is the technique the bench uses at both. The
-    # water union carries a collet at each end and the CO2 inlet is the DERPIPE.
+    # water union carries a collet at each end, and so does the CO2 bulkhead.
     water = m.a.frames["bulkhead-water"].ports
     assert {"outboard", "inboard"} <= set(water), (
         f"the water union presents {sorted(water)} — FS-03 caps its OUTBOARD collet, the one "

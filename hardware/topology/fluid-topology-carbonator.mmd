@@ -40,12 +40,12 @@ flowchart LR
   %% =========================
   %% CO2 supply — the east lane, off the back wall
   %% =========================
-  %% The DERPIPE is clamped through the back wall and the GASHER threads onto its inboard stub,
-  %% so that joint is construction and carries no line. The check's arrow points away from the
-  %% bulkhead.
+  %% The ABU44 is clamped through the back wall by its own nut, a collet on each face. The
+  %% customer's red tether lands on the outboard one; co2-0 leaves the inboard one for the
+  %% check, whose arrow points away from the bulkhead.
   subgraph CO2Supply["CO2 Supply"]
     direction LR
-    CO2In["co2-inlet<br/>(DERPIPE 5/16&quot; PTC, rear wall)"]
+    CO2In["co2-inlet<br/>(neoFit ABU44 1/4&quot; bulkhead, rear wall)"]
     GasherCO2["gasher-co2<br/>(1/4&quot; NPT check)"]
     WR["wr1110<br/>(secondary regulator, fixed 90 PSI)"]
   end
@@ -114,9 +114,9 @@ flowchart LR
   DischChain -->|"water-5<br/>48.3 mm"| CapWater
   CapWater --> P2
   CO2 --> CO2In
-  CO2In --> GasherCO2
+  CO2In -->|"co2-0<br/>10.0 mm"| GasherCO2
   GasherCO2 -->|"co2-1<br/>10.0 mm"| WR
-  WR -->|"co2-2<br/>207.6 mm"| CapCO2
+  WR -->|"co2-2<br/>191.3 mm"| CapCO2
   CapCO2 --> P1
   P3 --> CapCarb
   CapCarb -->|"carb-1<br/>292.1 mm"| FlowMeter

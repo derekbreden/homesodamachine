@@ -1,7 +1,7 @@
 """GASHER 1/4" NPT inline check valve — a hex-barrel body with a female NPT
 socket on the inlet end and a male NPT stub on the outlet end. Two sit in the
 enclosure pack: the water-pump outlet check (gasher-water, on the SeaFlo
-discharge) and the CO2 inlet check (gasher-co2, on the DERPIPE → WR1110 chain).
+discharge) and the CO2 inlet check (gasher-co2, on the ABU44 → WR1110 chain).
 
 The casting's flow arrow runs from the female socket toward the male stub, so
 the female end is what a male NPT upstream threads INTO and the male stub is

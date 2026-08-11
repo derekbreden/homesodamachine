@@ -59,8 +59,11 @@ THREAD_PITCH = 1.5
 OVERALL = 1.346 * _IN             # L  — 34.188
 FLANGE_AF = 0.748 * _IN           # H1 — 19.000 across flats
 NUT_AF = 0.827 * _IN              # H2 — 21.006 across flats
-BODY_LEN = 0.665 * _IN            # B1 = B2 — 16.891, each end's body from its own face
-PANEL_THREAD = 0.311 * _IN        # A  — 7.899, the barrel outboard of the flange
+BODY_LEN = 0.665 * _IN            # B1 = B2 — 16.891
+# A — 7.899, the BARE BARREL the sheet dimensions between the flange's face and the nut's. It is
+# what the panel is clamped in, so it is the panel this fitting takes, and `selftest` holds the
+# wall and its port ring inside it.
+PANEL_THREAD = 0.311 * _IN
 NUT_LEN = 0.276 * _IN             # E  — 7.010
 MASS_G = 9.4
 PRESSURE_PSI_68F = 290.0
@@ -70,10 +73,16 @@ MAX_TORQUE_FTLB = 1.1
 FLANGE_D = _corners(FLANGE_AF)    # 21.939
 NUT_D = _corners(NUT_AF)          # 24.256
 
-# Seating planes along Y. The flange bears at y = 0 and stands proud outboard; the barrel and
-# the inboard body run to y < 0.
+# Seating planes along Y. The flange bears at y = 0 and stands proud outboard; the bare barrel
+# and the inboard body run to y < 0.
+#
+# THE NUT IS NOT DRAWN. It runs down the barrel to wherever the panel leaves it, so it has no Y
+# of its own until a panel is named — `panel_footprint` carries it as the diameter that crowds a
+# neighbour, and `far_body_face_y` is the envelope it turns inside. Same treatment
+# `jg_bulkhead_union` gives its own nut.
 near_ring_face_y = BODY_LEN
 far_ring_face_y = BODY_LEN - OVERALL
+far_body_face_y = -PANEL_THREAD   # where the bare barrel ends and the inboard body starts
 PROUD_LENGTH = near_ring_face_y   # what stands OUTSIDE the face it bears on
 
 
@@ -101,14 +110,17 @@ def port(side: float) -> tuple:
 
 
 def build_neofit_bulkhead():
-    """The fitting as a single solid: flange, barrel, inboard body, bored through."""
+    """The fitting as a single solid: flange, bare barrel, inboard body, bored through.
+
+    The barrel is bare for its whole `PANEL_THREAD`, which is the room the panel and the nut
+    share — so a wall seated on the flange stands in air and not in the moulding."""
     flange = (cq.Workplane(xz_plane_y_up)
               .circle(FLANGE_D / 2.0).extrude(near_ring_face_y))
     barrel = (cq.Workplane(xz_plane_y_up)
-              .circle(THREAD_D / 2.0).extrude(-(OVERALL - BODY_LEN)))
+              .circle(THREAD_D / 2.0).extrude(far_body_face_y))
     far = (cq.Workplane(xz_plane_y_up)
            .workplane(offset=far_ring_face_y)
-           .circle(NUT_D / 2.0).extrude(BODY_LEN))
+           .circle(NUT_D / 2.0).extrude(far_body_face_y - far_ring_face_y))
     bore = (cq.Workplane(xz_plane_y_up)
             .workplane(offset=far_ring_face_y)
             .circle(TUBE_OD / 2.0).extrude(OVERALL))
@@ -142,8 +154,12 @@ def selftest() -> int:
     stack = 3.0 + 3.0                                    # wall + port ring
     if stack > PANEL_THREAD:
         fails.append(
-            f"the rear wall and its port ring stack {stack:g} mm and the barrel offers "
-            f"{PANEL_THREAD:.3f} mm outboard of the flange")
+            f"the rear wall and its port ring stack {stack:g} mm and the bare barrel between "
+            f"flange and nut is {PANEL_THREAD:.3f} mm")
+    if abs((near_ring_face_y - far_ring_face_y) - OVERALL) > 1e-9:
+        fails.append(
+            f"the two end faces stand {near_ring_face_y - far_ring_face_y:.3f} apart and the "
+            f"sheet's L is {OVERALL:.3f}")
     if FLANGE_D >= NUT_D:
         fails.append(
             f"the flange Ø{FLANGE_D:.3f} is not narrower than the nut Ø{NUT_D:.3f}, and "

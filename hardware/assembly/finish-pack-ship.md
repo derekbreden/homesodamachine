@@ -79,7 +79,7 @@ Cap the two fluid inlets — the water inlet and the CO2 inlet PTC, both on the 
 Inlet-by-inlet:
 
 - **Water inlet** — caps the PP1208E's outboard 1/4" push-to-connect collet, the one upstream of the backflow preventer that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer pushes the supply line home; the cap never goes back on.
-- **CO2 inlet PTC** — caps the 5/16" DERPIPE push-to-connect that the customer's CO2 regulator line plugs into, east of centre on the rear wall and below the umbilical row. Cap is a press-on rubber plug sized to the 5/16" PTC's outer collar.
+- **CO2 inlet collet** — caps the ABU44 bulkhead's outboard 1/4" collet that the customer's CO2 regulator tether plugs into, on the umbilical row's own storey one column east of the blue-ringed union. Cap is a press-on rubber plug sized to the collet's outer collar.
 
 The umbilical-port PP1208E bulkhead row on the rear wall is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
 

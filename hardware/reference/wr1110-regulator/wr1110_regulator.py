@@ -1,5 +1,5 @@
 """Interstate Pneumatics WR1110 fixed 90 PSI secondary regulator — the
-appliance's `wr1110` on the CO2 inlet chain (DERPIPE → GASHER → WR1110, running
+appliance's `wr1110` on the CO2 inlet chain (ABU44 → GASHER → WR1110, running
 +Y). A "Mini Body Series" fixed preset: no adjustment knob, just two wrench
 hexes and a flush vent hole.
 
