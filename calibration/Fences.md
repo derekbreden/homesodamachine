@@ -195,6 +195,31 @@ failure."* Derek's version, from [Current](<fences/Current.md>): *"anytime you s
 you are not looking in the correct corridor for your path"* — and the agent's reading of what it
 had done, *"'all cross' is me mis-framing the corridor, not a fact about the board."*
 
+## What takes the question whole
+
+Every fence above is a smaller question answered exactly, and in each case the question as asked
+is one an instrument in [`hardware/scripts/`](/hardware/scripts/) takes. They are not a second
+opinion on a reading. They answer the thing the reading was standing in for.
+
+[`probe.py`](/hardware/scripts/probe.py) measures the machine as it stands. `gap` and `hits` are
+exact against the solids, which a bounding box is not — this pack is round bodies whose boxes
+stand well inside their own metal, so a box that misses another misses it and two that overlap
+say nothing at all. `cast` names every body a line meets rather than the first, because the
+first is what hides the lane behind it. `free` is the one that answers *"the one clear
+vertical"* and *"all cross"*: it carves every placed body out of a region and hands back the
+pockets that remain, each naming what fences it, and with `holds=` it hands back every place a
+body's centre can stand. A corridor found is not *the* corridor until the others have been asked
+for. `around` is the same question at a point. `pick` reads back the text the viewer copies out
+of a selection, so a pair of coordinates arrives as the run, leg and station it names.
+
+[`fit.py`](/hardware/scripts/fit.py) measures a body that is not placed yet, carried to a
+candidate pose. [`lanes.py`](/hardware/scripts/lanes.py) enumerates every corridor a run could
+take between its two fixed mouths. [`tools/look.sh`](/tools/look.sh) draws it, on a millimetre
+grid, and `--near` draws what stands around it.
+
+Each states in its own docstring what its answers do not cover, and each carries a `selftest`
+that runs it against known-answer geometry.
+
 ## The rooms
 
 Sixteen sessions, as clean transcripts, in [`fences/`](fences/README.md) — user and assistant
