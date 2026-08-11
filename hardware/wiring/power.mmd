@@ -90,8 +90,6 @@ flowchart TD
 
   FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet display,\n 5 V up the umbilical)"]
 
-  MPR["MPR121 cap-sense\n(off-board, 3.3 V via I2C J8)"]
-
   %% AC distribution (hot leg)
   C14 ==>|"120 VAC"| RELAY
   C14 ==>|"120 VAC"| PSU
@@ -111,7 +109,6 @@ flowchart TD
   PCBA -->|"K7805 buck"| REG_5V
   REG_5V -->|"5 V (FAUCET J3,\n up umbilical)"| FAUCET
   REG_5V -->|"AMS1117 LDO"| REG_3V3
-  REG_3V3 -->|"3.3 V (I2C J8)"| MPR
 
   %% Power paths (red, thick).
   %% 0    = C14 -> relay #1 (AC mains)
@@ -129,5 +126,4 @@ flowchart TD
   %% 11 = K7805 buck -> 5 V rail
   %% 12 = 5 V rail -> faucet display (up umbilical)
   %% 13 = AMS1117 -> 3.3 V rail
-  %% 14 = 3.3 V rail -> off-board MPR121 (I2C header)
-  linkStyle 11,12,13,14 stroke:#ccc,stroke-width:2px
+  linkStyle 11,12,13 stroke:#ccc,stroke-width:2px

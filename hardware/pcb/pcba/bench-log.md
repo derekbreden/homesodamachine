@@ -131,7 +131,7 @@ emitter consumes. See [`FORKS.md`](FORKS.md) for the upstream/fork seam that pro
 
 Everything behind the dead bus, and only that: both MCP23017s and their address straps,
 U6 DS3231, BT1/CR2032, both TBD62083 valve drivers, all 12 valve outputs, the fan output,
-10 reed inputs, and the off-board MPR121 through J8. J3's faucet UART carries to the
+and 10 reed inputs. J3's faucet UART carries to the
 connector but has never had the 1.47" display on it. Reaching any of it needs the bodge or
 a batch-2 board. Everything on this board *not* behind the bus has now been exercised.
 

@@ -141,7 +141,7 @@ The unit is fully built. Now it gets plugged in for the first time: load the fir
 |---|---|---|---:|
 | Check the wiring is right; first DC power-on | FC-01 | | 5 |
 | Load the firmware onto the three ESP32s | FC-02 | Base, config display, faucet display | 5 |
-| Read every sensor and confirm it reports | FC-03 | Both DS18x20s, flow, moisture, reeds, cap-sense, gas | 10 |
+| Read every sensor and confirm it reports | FC-03 | Both DS18x20s, flow, moisture, reeds, gas | 10 |
 | Fire every valve and pump; run the compressor and set its setpoints | FC-04, FC-05 | | 10 |
 | First dispenses — water, flavor A, flavor B | AB-03 | | 5 |
 | Clean cycle, air purge, level-sensing transitions | AB-04, AB-05 | | 10 |

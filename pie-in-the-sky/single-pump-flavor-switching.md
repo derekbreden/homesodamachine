@@ -51,9 +51,9 @@ Sixty millilitres of pump work in ten seconds is **~360 mL/min**, three to four 
 
 ## Sensing hardware
 
-[`cap-sense-sleeve`](/hardware/printed-parts/flavor/cap-sense-sleeve/README.md) is a printed clamshell holding two copper foil rings against a 1/4" LLDPE tube, read by an MPR121 at 0x5A on the existing I2C bus with no ESP32 GPIO. The pump-outlet sensor is that part in a different position on the same tube size in the same dry cabinet.
+The machine carries no liquid-in-line sensing today. What this design wants is a printed clamshell holding two copper foil rings against a 1/4" LLDPE tube, read by a charge-transfer controller — an MPR121 at 0x5A takes twelve electrodes behind one address — on the existing I2C bus with no ESP32 GPIO. The J8 header ([`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)) is where it would land, so the board needs no change. The pump-outlet sensor is that same part in a different position on the same tube size in the same dry cabinet.
 
-The faucet pair sits in a PET-CF gooseneck with carbonated water and condensation inches away and a hand on the capacitive LCD during selection. The faucet carries its own ESP32-S3 with an I2C bus and a UART link home over SIG-6, so an MPR121 there adds no umbilical conductors.
+The faucet pair would sit in a PET-CF gooseneck with carbonated water and condensation inches away and a hand on the capacitive LCD during selection. The faucet carries its own ESP32-S3 with an I2C bus and a UART link home over SIG-6, so a controller there adds no umbilical conductors.
 
 Prime is a counted volume with or without the faucet electrodes reporting. Without them, the cycle loses its read on empty reservoir, blockage, and pump slip.
 

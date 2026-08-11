@@ -39,10 +39,8 @@ flowchart LR
   %%     wired but carrying no valve — spare capacity); Rsvr B 4 reeds on PB[0:3];
   %%     carbonator reeds low/high on PB[4:5]; spares elsewhere. See
   %%     valve-control.mmd.
-  %% Also on the I2C bus: an off-board MPR121 cap-sense controller (0x5A) reads
-  %%   copper-foil ring electrodes on the flavor tubes (fluid-in-line detection) —
-  %%   it plugs into the on-board J8 I2C header (GND/3V3/SDA/SCL, all plane nets), no
-  %%   ESP GPIO. See hardware/printed-parts/flavor/cap-sense-sleeve.
+  %% The J8 I2C header (GND/3V3/SDA/SCL, all plane nets) breaks the bus out for
+  %%   expansion; nothing lands on it today.
   %% Two display UARTs:
   %%   GPIO 32/34 = Serial1 -> ALMOCN RS485 transceiver -> 4.3B config display
   %%                (display facet, internal run; the 4.3B has no free TTL UART).
@@ -115,7 +113,7 @@ flowchart LR
 
   FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet flavor display + touch,\n 172×320; TTL UART up the umbilical)"]
 
-  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (8 valves on GPA; 4 reservoir reeds on GPB)\n  MCP23017    0x21  (3 valves + fan on GPA; 4 reservoir + 2 carbonator reeds on GPB)\n  MPR121      0x5A  (off-board via J8 I2C header; cap-sense fluid-in-line)"]
+  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (8 valves on GPA; 4 reservoir reeds on GPB)\n  MCP23017    0x21  (3 valves + fan on GPA; 4 reservoir + 2 carbonator reeds on GPB)"]
 
   DRV["2× DRV8870 H-bridge\n(on-board; pumps A + B)"]
 

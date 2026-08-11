@@ -371,12 +371,14 @@ def sub_assemblies(m: Machine):
         "SA03_CHAINS": f"{len(cap_chain_bodies)}",
         "SA03_RIB_RUNS": f"{len(cap_ribs)}",
         "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('seaflo-pump'))}",
-        "FOAM_SCREWS": f"{2 * len(_cci.attachment_xy_positions)}",
+        # A cap pours with six, clamped to the shell's face, and they come out
+        # again after cure — the stack's other six belong to the other cap.
+        "CAP_POUR_SCREWS": f"{len(_cci.attachment_xy_positions)}",
     }
 
     cards = {
         "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES"},
-        "sa-02-cap-lid-fill": {"FOAM_SCREWS", "CAP_CONDUITS"},
+        "sa-02-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-03-cap-lid": {"PUMP_MOUNT_SCREWS", "SA03_CRADLES", "SA03_CHAINS", "SA03_RIB_RUNS"},
         "sa-04-back-half": {"SEAM_SCREWS_Z"},
     }
