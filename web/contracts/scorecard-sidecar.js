@@ -129,7 +129,13 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @typedef {Object} ScorecardMount  one component's fastening — the record behind `mounted`
  * @property {string} component
  * @property {string|null} by  the part whose printed feature fastens it; null = the joint is
- *                             still to design, and this row is one unit of the focus axis's gap
+ *                             still to design, and this row is one unit of the focus axis's gap.
+ *                             A row carrying `rides` shows its HOST's, which is what fastens it
+ * @property {string|null} [rides]  the placed body this one is part of — a solenoid's coil on
+ *                             its valve, a pump's rear boss and motor can on its head. One
+ *                             purchased thing drawn as several so each takes its own colour;
+ *                             what holds a rider is its host's own hardware. Null, or absent on
+ *                             an edition that predates the field, is the ordinary row
  * @property {string} joint    the construction it stands on ("bosses" | "wall-capture" |
  *                             "cradle" | "pack" | …). Not a score and not a holder — `pack` is
  *                             the flavour manifold's own bodies, which nothing printed fastens.
@@ -222,7 +228,9 @@ export function focusAxes(sc) {
   }
   const mountCk = (sc.checks || []).find((c) => c.id === "mounted");
   if (mountCk && Array.isArray(sc.mounts)) {
-    const can = sc.mounts.filter((m) => !m.never);
+    // A rider is part of another body and answers to its fastening, so it is not a joint —
+    // counting one would count a single joint once per solid its part is drawn as.
+    const can = sc.mounts.filter((m) => !m.never && !m.rides);
     out.push({
       id: "mounted", label: "mounted", status: mountCk.status,
       done: can.filter((m) => m.by).length, total: can.length,
@@ -255,9 +263,10 @@ export function failingBends(sc) {
 // The components with no printed feature fastening them and somewhere to put one, one row per
 // open joint, by name. Each row's `joint` says what the joint would be converting FROM; none of
 // them ranks above another, because `by` is null for every one and that is the whole of what
-// this list measures.
+// this list measures. A rider is left out: it is part of another body, and what fastens it is
+// that body's row, which is already in this list when it is open.
 export function unmountedComponents(sc) {
-  return (sc.mounts || []).filter((m) => !m.by && !m.never)
+  return (sc.mounts || []).filter((m) => !m.by && !m.never && !m.rides)
     .sort((a, b) => a.component.localeCompare(b.component));
 }
 

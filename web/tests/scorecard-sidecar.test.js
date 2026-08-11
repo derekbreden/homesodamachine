@@ -130,8 +130,11 @@ test("the sidecar carries both focus axes and the tables their counts read", (t)
   assert.ok(bend.total > 0, "corners counted off the bends table");
   assert.ok(bend.done <= bend.total, "corners at spec cannot exceed corners");
   assert.equal(mount.id, "mounted");
-  // A row nothing can fasten is outside the count — the axis measures what is left to close.
-  const can = sc.mounts.filter((m) => !m.never);
+  // Two kinds of row are outside the count — the axis measures what is left to close. A row
+  // nothing can fasten is one; a RIDER is the other, because it is part of another placed body
+  // and answers to that body's fastening, so counting it counts one joint once per solid its
+  // part is drawn as.
+  const can = sc.mounts.filter((m) => !m.never && !m.rides);
   assert.equal(mount.total, can.length, "mounted counts every component a joint could reach");
   assert.equal(mount.done, can.filter((m) => m.by).length);
   // The counts the bar prints must be the ones the gate/goal reached its verdict on.
@@ -148,6 +151,13 @@ test("the sidecar carries both focus axes and the tables their counts read", (t)
       assert.ok(m.never.length, `${m.component} says why nothing fastens it`);
       assert.equal(m.by, null, `${m.component} is exempt and unfastened both`);
     }
+    // A rider names a host that is itself a row, and takes that row's fastening.
+    if (m.rides != null) {
+      const host = sc.mounts.find((h) => h.component === m.rides);
+      assert.ok(host, `${m.component} rides ${m.rides}, which is a placed body`);
+      assert.equal(m.by, host.by, `${m.component} carries its host's fastening`);
+      assert.ok(host.rides == null, `${m.rides} is a host, not itself a rider`);
+    }
   }
 });
 
@@ -157,15 +167,17 @@ test("the focus panels itemize down to the body a fix moves", (t) => {
 
   // Unmounted rows are exactly the gap the axis reports, one row each.
   const loose = unmountedComponents(sc);
-  const can = sc.mounts.filter((m) => !m.never);
+  const can = sc.mounts.filter((m) => !m.never && !m.rides);
   assert.equal(loose.length, can.length - can.filter((m) => m.by).length);
   assert.ok(loose.every((m) => !m.by), "every listed row is an open joint");
   assert.ok(loose.every((m) => !m.never), "a row nothing can fasten is not on the work list");
-  // The two lists partition the unfastened rows: work, and what is not work.
+  assert.ok(loose.every((m) => !m.rides), "a body that is part of another is not its own joint");
+  // The two lists partition the unfastened rows that are joints: work, and what is not work. A
+  // rider is on neither — an open one is its host's row, which is already on the first.
   const never = unfastenableComponents(sc);
   assert.equal(loose.length + never.length,
-               sc.mounts.filter((m) => !m.by).length,
-               "every unfastened row is on exactly one of the two lists");
+               sc.mounts.filter((m) => !m.by && !m.rides).length,
+               "every unfastened joint is on exactly one of the two lists");
   assert.ok(never.every((m) => m.never.length), "each exempt row carries its reason");
 
   // Failing runs carry the two anchors the panel turns into clickable part names, and a pinned

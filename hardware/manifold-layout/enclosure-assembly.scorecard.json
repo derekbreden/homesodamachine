@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 51,
+ "mounted": 75,
  "checks": [
   {
    "id": "coverage",
@@ -822,6 +822,25 @@
    "active": true
   },
   {
+   "id": "panels-hold",
+   "label": "Every valve on a printed panel is standing in its seats",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 valves seated, furthest off 0.199 mm",
+   "target": "every valve within 0.2 mm of the plate under it",
+   "detail": [
+    "valve-panel-aft    valve-v-c    y-plane  153.380 -Z   off 0.1991",
+    "valve-panel-aft    valve-v-d    y-plane  153.380 -Z   off 0.1991",
+    "valve-panel-aft    valve-v-g    y-plane  153.380 -Z   off 0.1991",
+    "valve-panel-aft    valve-v-j    y-plane  153.380 -Z   off 0.1991",
+    "valve-panel-fore   valve-v-e    y-plane   71.380 +Z   off 0.1991",
+    "valve-panel-fore   valve-v-f    y-plane   71.380 +Z   off 0.1991",
+    "valve-panel-fore   valve-v-h    y-plane   71.380 +Z   off 0.1991",
+    "valve-panel-fore   valve-v-i    y-plane   71.380 +Z   off 0.1991"
+   ],
+   "active": true
+  },
+  {
    "id": "wall-clamped",
    "label": "Every rear-wall fitting is clamped through the wall it passes",
    "kind": "gate",
@@ -1010,19 +1029,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "39/77 mounted, 2 nothing fastens",
+   "value": "47/63 mounted, 14 part of another body, 2 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "coil-v-a: pack",
-    "coil-v-b: pack",
-    "coil-v-c: pack",
-    "coil-v-d: pack",
-    "coil-v-e: pack",
-    "coil-v-f: pack",
-    "coil-v-g: pack",
-    "coil-v-h: pack",
-    "coil-v-i: pack",
-    "coil-v-j: pack",
     "compressor: floor",
     "condenser+fan: floor",
     "display: wall-capture",
@@ -1030,26 +1039,14 @@
     "foam-assembly: floor",
     "gasher-co2: wall-capture",
     "hopper-funnel: wall-capture",
-    "pump-a-boss: pack",
     "pump-a-head: pack",
-    "pump-a-motor: pack",
-    "pump-b-boss: pack",
     "pump-b-head: pack",
-    "pump-b-motor: pack",
     "tee-y-a: pack",
     "tee-y-b: pack",
     "tee-y-c: pack",
     "tee-y-d: pack",
     "tee-y-f: pack",
     "tee-y-g: pack",
-    "valve-v-c: pack",
-    "valve-v-d: pack",
-    "valve-v-e: pack",
-    "valve-v-f: pack",
-    "valve-v-g: pack",
-    "valve-v-h: pack",
-    "valve-v-i: pack",
-    "valve-v-j: pack",
     "water-split: tube-hung",
     "bpv31: tube-clamp \u2014 nothing fastens it; Its own two screws close the saddle round the compressor's process tube, and that grip on the copper is the whole joint. The can stands on four grommets that keep its running hours off the cabinet, and every printed face within reach of this valve is the cabinet's.",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them."
@@ -5592,6 +5589,7 @@
    "by": null,
    "joint": "floor",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5599,6 +5597,7 @@
    "by": null,
    "joint": "floor",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5606,6 +5605,7 @@
    "by": null,
    "joint": "floor",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5613,6 +5613,7 @@
    "by": "foam-assembly",
    "joint": "deck-mount",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5620,6 +5621,7 @@
    "by": null,
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5627,6 +5629,7 @@
    "by": null,
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5634,6 +5637,7 @@
    "by": "foam-assembly",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5641,6 +5645,7 @@
    "by": "foam-assembly",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5648,6 +5653,7 @@
    "by": "enclosure-back-top",
    "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5655,6 +5661,7 @@
    "by": "enclosure-back-top",
    "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5662,6 +5669,7 @@
    "by": "enclosure-back-top",
    "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5669,6 +5677,7 @@
    "by": "enclosure-back-top",
    "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5676,6 +5685,7 @@
    "by": "enclosure-back-top",
    "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5683,6 +5693,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5690,6 +5701,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5697,6 +5709,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5704,6 +5717,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5711,6 +5725,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5718,6 +5733,7 @@
    "by": "enclosure-front-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5725,6 +5741,7 @@
    "by": "enclosure-front-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5732,6 +5749,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5739,6 +5757,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5746,6 +5765,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5753,6 +5773,7 @@
    "by": "enclosure-back-top",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5760,6 +5781,7 @@
    "by": "enclosure-back-top",
    "joint": "channel",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5767,6 +5789,7 @@
    "by": "drip-pan",
    "joint": "basin",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5774,6 +5797,7 @@
    "by": "enclosure-front-bottom",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5781,6 +5805,7 @@
    "by": "fuse-clamp",
    "joint": "channel",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5788,6 +5813,7 @@
    "by": null,
    "joint": "gap-press",
    "kind": "real",
+   "rides": null,
    "never": "Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them."
   },
   {
@@ -5795,6 +5821,7 @@
    "by": null,
    "joint": "tube-clamp",
    "kind": "real",
+   "rides": null,
    "never": "Its own two screws close the saddle round the compressor's process tube, and that grip on the copper is the whole joint. The can stands on four grommets that keep its running hours off the cabinet, and every printed face within reach of this valve is the cabinet's."
   },
   {
@@ -5802,6 +5829,7 @@
    "by": null,
    "joint": "tube-hung",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5809,6 +5837,7 @@
    "by": null,
    "joint": "tube-hung",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5816,6 +5845,7 @@
    "by": "foam-assembly",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5823,6 +5853,7 @@
    "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5830,6 +5861,7 @@
    "by": "enclosure-back-top",
    "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5837,6 +5869,7 @@
    "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5844,6 +5877,7 @@
    "by": null,
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5851,6 +5885,7 @@
    "by": "enclosure-back-top",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5858,6 +5893,7 @@
    "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5865,6 +5901,7 @@
    "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5872,6 +5909,7 @@
    "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5879,6 +5917,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5886,6 +5925,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5893,6 +5933,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5900,6 +5941,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5907,6 +5949,7 @@
    "by": "enclosure-back-top",
    "joint": "well",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -5914,160 +5957,7 @@
    "by": "enclosure-back-top",
    "joint": "saddle",
    "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-a",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-b",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-c",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-d",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-e",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-f",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-g",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-h",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-i",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "coil-v-j",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "pump-a-boss",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "pump-a-head",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "pump-a-motor",
-   "by": null,
-   "joint": "pack",
-   "kind": "placeholder",
-   "never": null
-  },
-  {
-   "component": "pump-b-boss",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "pump-b-head",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "pump-b-motor",
-   "by": null,
-   "joint": "pack",
-   "kind": "placeholder",
-   "never": null
-  },
-  {
-   "component": "tee-y-a",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "tee-y-b",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "tee-y-c",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "tee-y-d",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "tee-y-f",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "tee-y-g",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -6075,6 +5965,7 @@
    "by": "foam-assembly",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
@@ -6082,64 +5973,249 @@
    "by": "foam-assembly",
    "joint": "cradle",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
    "component": "valve-v-c",
-   "by": null,
-   "joint": "pack",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
    "kind": "real",
+   "rides": null,
    "never": null
   },
   {
    "component": "valve-v-d",
-   "by": null,
-   "joint": "pack",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
    "kind": "real",
-   "never": null
-  },
-  {
-   "component": "valve-v-e",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "valve-v-f",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
+   "rides": null,
    "never": null
   },
   {
    "component": "valve-v-g",
-   "by": null,
-   "joint": "pack",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
    "kind": "real",
-   "never": null
-  },
-  {
-   "component": "valve-v-h",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "never": null
-  },
-  {
-   "component": "valve-v-i",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
+   "rides": null,
    "never": null
   },
   {
    "component": "valve-v-j",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "valve-v-e",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "valve-v-f",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "valve-v-h",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "valve-v-i",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "coil-v-a",
+   "by": "foam-assembly",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-a",
+   "never": null
+  },
+  {
+   "component": "coil-v-b",
+   "by": "foam-assembly",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-b",
+   "never": null
+  },
+  {
+   "component": "coil-v-c",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-c",
+   "never": null
+  },
+  {
+   "component": "coil-v-d",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-d",
+   "never": null
+  },
+  {
+   "component": "coil-v-e",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-e",
+   "never": null
+  },
+  {
+   "component": "coil-v-f",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-f",
+   "never": null
+  },
+  {
+   "component": "coil-v-g",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-g",
+   "never": null
+  },
+  {
+   "component": "coil-v-h",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-h",
+   "never": null
+  },
+  {
+   "component": "coil-v-i",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-i",
+   "never": null
+  },
+  {
+   "component": "coil-v-j",
+   "by": "enclosure-front-top",
+   "joint": "pack",
+   "kind": "real",
+   "rides": "valve-v-j",
+   "never": null
+  },
+  {
+   "component": "pump-a-boss",
    "by": null,
    "joint": "pack",
    "kind": "real",
+   "rides": "pump-a-head",
+   "never": null
+  },
+  {
+   "component": "pump-a-head",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "pump-a-motor",
+   "by": null,
+   "joint": "pack",
+   "kind": "placeholder",
+   "rides": "pump-a-head",
+   "never": null
+  },
+  {
+   "component": "pump-b-boss",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": "pump-b-head",
+   "never": null
+  },
+  {
+   "component": "pump-b-head",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "pump-b-motor",
+   "by": null,
+   "joint": "pack",
+   "kind": "placeholder",
+   "rides": "pump-b-head",
+   "never": null
+  },
+  {
+   "component": "tee-y-a",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "tee-y-b",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "tee-y-c",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "tee-y-d",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "tee-y-f",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "tee-y-g",
+   "by": null,
+   "joint": "pack",
+   "kind": "real",
+   "rides": null,
    "never": null
   }
  ],
- "sources": "4452e6738b247cec9a04d614c61b39f8"
+ "sources": "01c604e43e4ff938fde1cbe1849f79a4"
 }

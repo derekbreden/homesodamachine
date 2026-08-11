@@ -136,16 +136,15 @@ assert not ml.JOINS, (
     f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §4 buys "
     f"none — add the PP0308E row back with this count behind it")
 
-# NO VALVE TRAY IS IN THIS MACHINE, and that is read off the placed bodies rather than typed.
-# Every valve that stands on a printed face stands in a CRADLE the cold core's own cap lid
-# carries (`_cold_core_interface.cap_cradles`) — four bosses (`valve_seat`) printed into the lid,
-# so its material is already priced as that lid — and every other valve is butted collet to
-# collet down a limb of the flavour pack and stands on nothing of its own. So §7 carries no tray
-# row, and a tray body appearing in the placed machine is what fails here.
-_trays = sorted(n for n in _placed if "tray" in n)
+# EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
+# ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
+# the two valve panels, which are `enclosure-front-top`'s own material
+# (`enclosure._valve_panels`). So §7 carries no seat row of its own, and a plate appearing in the
+# machine as a body rather than as a wall is what fails here.
+_trays = sorted(n for n in _placed if "tray" in n or n.startswith("valve-panel"))
 assert not _trays, (
-    f"the machine places {len(_trays)} valve tray(s) ({_trays}) — a valve is held by four "
-    f"bosses (`valve_seat`), and bom.md §7 bills no plate under one")
+    f"the machine places {len(_trays)} body(ies) under its valves ({_trays}) — a valve seat is "
+    f"printed into the piece that carries it, and bom.md §7 bills no part standing under one")
 
 # NO SHEET-METAL COVER SHIPS OVER THE COMPRESSOR, and that too is read off the placed machine.
 # The compressor stands bare on the floor slab, bolted down through its own plate holes, with
