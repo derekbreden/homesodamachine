@@ -303,6 +303,13 @@ MOUNTS = (
     ("bulkhead-flavor-a", None, "wall-capture"),
     ("bulkhead-flavor-b", None, "wall-capture"),
     ("bulkhead-carb", None, "wall-capture"),
+    # A RING LIES IN A POCKET OF THE BACK WALL'S PORT FIELD. `enclosure._port_field` sinks the
+    # pocket to the ring's own thickness and the union's flange lands on the ring's outboard face,
+    # so the ring is fenced by printed crown on every side and shut in by a flange whose bore is
+    # narrower than it is. What holds it is that pocket — the same bargain the lever nuts strike
+    # in their wells, with a placed body's flange over the mouth.
+    ("port-ring-water", "enclosure-back-top", "well"),
+    ("port-ring-carb", "enclosure-back-top", "well"),
     # THE METER HANGS IN TWO SADDLES OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
@@ -455,6 +462,13 @@ TOUCHING_OK = {frozenset(p) for p in (
     # row on this card that can see a clamp standing proud of the thing it holds.
     ("compressor", "fuse-clamp"),
     ("thermal-fuse", "fuse-clamp"),
+    # A RING IN THE PORT FIELD'S POCKET, UNDER THE FLANGE THAT SHUTS IT IN. The pocket is sunk to
+    # the ring's own thickness, so the ring's outboard face and the crown around it are one plane
+    # and the union's flange lands flat across both. `enclosure_assembly.bulkhead_seat_y` is that
+    # plane, and the nut on the far side of the wall draws flange, ring and wall into one stack —
+    # so the pair reads 0 and it is the clamp holding.
+    ("bulkhead-water", "port-ring-water"),
+    ("bulkhead-carb", "port-ring-carb"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 

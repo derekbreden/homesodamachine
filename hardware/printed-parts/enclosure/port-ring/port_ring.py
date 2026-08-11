@@ -89,6 +89,14 @@ def union_bore_d() -> float:
     return _jg.panel_hole_d(SLIP)
 
 
+def seat() -> tuple:
+    """The face a pocket takes it by: `(position, outward axis)` on the ring's INBOARD face,
+    pointing at the wall. That face lands on the pocket's floor, which is the back wall's own
+    outer face, so `enclosure_assembly` seats a ring on the plane the field was raised off
+    rather than on the crown the field raised."""
+    return ((0.0, 0.0, 0.0), (0.0, -1.0, 0.0))
+
+
 def build_port_ring(across: float, bore_d: float):
     """One ring as a solid: a flat annulus spanning y = 0 to THICK."""
     return (cq.Workplane(xz_plane_y_up)
