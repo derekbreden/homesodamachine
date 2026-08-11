@@ -64,9 +64,12 @@ build says so, with the distance. Composing the same text going the other way is
 
 WHERE THERE IS ROOM is `free`, and it is asked before a candidate exists. `hits` and `cast`
 answer about one candidate volume; `free` cuts every placed body out of a region and hands back
-the pockets that remain, and with `holds=(dx, dy, dz)` it erodes those pockets by an envelope so
-what comes back is every place that body's centre can stand. `around` is the same question at a
-point or a body: everything within a radius, nearest first, on exact distances.
+the pockets that remain, each naming the bodies that fence it, and with `holds=(dx, dy, dz)` it
+erodes those pockets by an envelope so what comes back is every place that body's centre can
+stand — in each of its six axis-aligned poses. A pocket fenced by exactly ONE body is that
+body's own cavity: a hollow body is a closed solid, so its inside survives the carve like any
+other pocket, and the hopper's basin is not somewhere to put anything. `around` is the same
+question at a point or a body: everything within a radius, nearest first, on exact distances.
 
 MOVING A PIECE OF A DRAWN LINE is `reroute`. It translates named waypoints of an authored run
 over a range of offsets, REDRAWS the whole run at each one, and reports what that run collides
@@ -137,6 +140,7 @@ TRAVEL_LIMIT = 60.0     # default body travel: past any move this pack has wante
                         # enough that a sweep of a real body stays quick. It is a bound on the
                         # QUERY — a travel that reaches it has found no obstacle, not room.
 BED_TOL = 1.0           # slack on a piece's own extents against the bed, per axis
+_FENCE = 0.05           # how far a pocket is grown to find the bodies whose surface bounds it
 PICK_ON = 0.05          # how far off a surface a copied selection may land and still be on it
 
 PIECE = "piece"         # the source tag a printed enclosure piece carries
@@ -277,6 +281,8 @@ class Contact:
     direction: tuple
     limit: float
     dia: float
+    stops: tuple = ()       # (distance, name) for EVERY body the rod meets, nearest first
+    inside: tuple = ()      # bodies the origin itself stands in — the reading is theirs too
 
     @property
     def blocked(self) -> bool:
@@ -289,10 +295,17 @@ class Contact:
     def __str__(self) -> str:
         e = self.end
         where = f"  end ({e[0]:.2f}, {e[1]:.2f}, {e[2]:.2f})"
-        if self.blocked:
-            return f"Ø{self.dia:g} runs {self.free:.2f} mm, stopped by {self.blocker}{where}"
-        return (f"Ø{self.dia:g} reached the {self.limit:g} mm cast limit with no contact — "
+        head = (f"Ø{self.dia:g} runs {self.free:.2f} mm, stopped by {self.blocker}{where}"
+                if self.blocked else
+                f"Ø{self.dia:g} reached the {self.limit:g} mm cast limit with no contact — "
                 f"raise limit= to find one{where}")
+        out = [head]
+        if self.inside:
+            out.append(f"  THE ORIGIN STANDS IN {', '.join(self.inside)} — the run starts "
+                       f"inside material, and this distance is measured out of it")
+        if len(self.stops) > 1:
+            out.append("  and behind it: " + ", ".join(f"{t:.2f} {n}" for t, n in self.stops[1:]))
+        return "\n".join(out)
 
 
 @dataclass
@@ -678,6 +691,16 @@ class Void:
     volume: float
     bb: object
     holds: tuple = None
+    bounds: tuple = ()      # the bodies whose material fences this pocket, nearest-lying first
+
+    @property
+    def alone(self) -> str | None:
+        """The one body fencing this pocket on every side, when there is one.
+
+        A hollow body is a closed solid, so cutting it out of a region leaves its INSIDE as a
+        pocket like any other: the hopper's basin, a reservoir's cavity, a foam pocket. What
+        tells them apart is that nothing else bounds them."""
+        return self.bounds[0] if len(self.bounds) == 1 else None
 
     @property
     def span(self) -> tuple:
@@ -693,10 +716,16 @@ class Void:
         b, sp, c = self.bb, self.span, self.centre
         where = (f"x[{b.xmin:8.2f},{b.xmax:8.2f}] y[{b.ymin:8.2f},{b.ymax:8.2f}] "
                  f"z[{b.zmin:8.2f},{b.zmax:8.2f}]")
+        inside = (f"   INSIDE {self.alone} — its own cavity, not room in the machine"
+                  if self.alone else "")
+        fenced = ("" if not self.bounds or self.alone
+                  else "   fenced by " + ", ".join(self.bounds[:5]))
         if self.holds is None:
-            return f"{self.volume:11.1f} mm\u00b3  reaches {where}"
-        return (f"stations  {where}  slide {sp[0]:6.2f}\u00d7{sp[1]:6.2f}\u00d7{sp[2]:6.2f}"
-                f"  centre ({c[0]:.2f}, {c[1]:.2f}, {c[2]:.2f})")
+            return f"{self.volume:11.1f} mm\u00b3  reaches {where}{inside}{fenced}"
+        held = "\u00d7".join(f"{v:g}" for v in self.holds)
+        return (f"holds {held:16s} {where}  slide "
+                f"{sp[0]:6.2f}\u00d7{sp[1]:6.2f}\u00d7{sp[2]:6.2f}"
+                f"  centre ({c[0]:.2f}, {c[1]:.2f}, {c[2]:.2f}){inside}{fenced}")
 
 
 # --- the world ------------------------------------------------------------
@@ -792,7 +821,8 @@ class World:
         names = list(only) if only else self.names
         if sort != "name":
             names.sort(key=lambda n: getattr(self.bb(n), sort))
-        out = []
+        out = ["these are BOXES: a box that misses another misses it, and two boxes that "
+               "overlap say nothing at all — `hits`, `gap` and `free` read the solids"]
         for n in names:
             b = self.bb(n)
             out.append(f"{n:28s} {self.sources[n]:9s} "
@@ -1065,9 +1095,9 @@ class World:
     # -- what is empty --
 
     def free(self, x: tuple, y: tuple, z: tuple, holds=None, clearance: float = 0.0,
-             skip=(), least: float = 500.0, top: int = 12) -> list:
+             turned: bool = True, skip=(), least: float = 500.0, top: int = 12) -> list:
         """WHERE THERE IS ROOM — the region with every placed body cut out of it, split into
-        the pockets that remain, largest first.
+        the pockets that remain, largest first, each naming what fences it.
 
         `hits` answers whether one candidate runs into anything, which is a question you can
         only ask once you have picked a candidate. This is the other way round, and it is the
@@ -1078,15 +1108,22 @@ class World:
 
         With `holds=(dx, dy, dz)` the pockets are eroded by that envelope, so what comes back
         is every place its CENTRE can stand — a body fits at any point in one of those regions
-        and nowhere else in this region. `clearance` is held all round on top of it. That is
-        the answer to "where could this go", asked once instead of pose by pose.
+        and nowhere else in this region. `clearance` is held all round on top of it. A body has
+        six axis-aligned poses and `turned` runs them all, each row saying which envelope it
+        stands for; `turned=False` asks only about the envelope as given.
 
-        Exact to the mesh, not sampled: a pocket reported here is one no body reaches into,
-        and an envelope that fits in one of its stations is one `hits` also calls clear.
-        Without `holds` there is NO clearance in the reading — a pocket 6.4 mm across holds a
-        6.35 tube touching both sides."""
-        empty = _meshes.meshed(box(x=x, y=y, z=z))
+        A POCKET IS NOT A BOX and neither is a station region. `bb` is how far it reaches, and
+        an L between two bodies has extents neither arm fills — `hits` is what settles a pose
+        taken out of one. `bounds` names the bodies whose material fences it, and a pocket with
+        exactly ONE is that body's own cavity rather than room in the machine: a hollow body is
+        a closed solid, so its inside survives the carve like any other pocket.
+
+        Exact to the mesh, not sampled. Without `holds` there is NO clearance in the reading —
+        a pocket 6.4 mm across holds a 6.35 tube touching both sides."""
+        region = box(x=x, y=y, z=z)
+        empty = _meshes.meshed(region)
         rb = (min(x), min(y), min(z), max(x), max(y), max(z))
+        near = []
         for name in self.names:
             if name in skip:
                 continue
@@ -1094,21 +1131,40 @@ class World:
             if (o.xmin > rb[3] or o.xmax < rb[0] or o.ymin > rb[4]
                     or o.ymax < rb[1] or o.zmin > rb[5] or o.zmax < rb[2]):
                 continue
+            near.append(name)
             empty = empty - _meshes.meshed(self.solid(name))
-        span = None
-        if holds is not None or clearance:
-            span = tuple(float(c) for c in (holds or (0.0, 0.0, 0.0)))
-            tool = tuple(s + 2.0 * clearance for s in span)
+        if holds is None:
+            rows = [(None, part) for part in empty.decompose() if part.volume() >= least]
+            return self._voided(rows, near, top)
+
+        span = tuple(float(c) for c in holds)
+        shapes = _turns(span) if turned else (span,)
+        rows = []
+        for want in shapes:
+            tool = tuple(v + 2.0 * clearance for v in want)
             if min(tool) <= 0:
                 raise ValueError(
                     f"free(holds={holds}, clearance={clearance}): an envelope to erode by "
                     f"needs a real size on every axis — got {tool}")
-            empty = empty.minkowski_difference(
-                _meshes.meshed(box(x=(-tool[0] / 2, tool[0] / 2), y=(-tool[1] / 2, tool[1] / 2),
-                                   z=(-tool[2] / 2, tool[2] / 2))))
-        out = [Void(part.volume(), _meshes.box(part), span)
-               for part in empty.decompose()
-               if span is not None or part.volume() >= least]
+            room = empty.minkowski_difference(_meshes.meshed(
+                box(x=(-tool[0] / 2, tool[0] / 2), y=(-tool[1] / 2, tool[1] / 2),
+                    z=(-tool[2] / 2, tool[2] / 2))))
+            rows += [(want, part) for part in room.decompose()]
+        return self._voided(rows, near, top)
+
+    def _voided(self, rows: list, near: list, top: int) -> list:
+        """Each carved part as a `Void`, with the bodies whose material fences it.
+
+        A pocket's neighbours are found by growing it a hair and asking what that shares — the
+        pocket's own surface IS their surface, so nothing shares volume with it until it is
+        grown. `_FENCE` is far under any feature and far over the mesh's own chord."""
+        grow = _meshes.meshed(box(x=(-_FENCE, _FENCE), y=(-_FENCE, _FENCE), z=(-_FENCE, _FENCE)))
+        out = []
+        for want, part in rows:
+            wide = part.minkowski_sum(grow)
+            fences = tuple(n for n in near
+                           if (wide ^ _meshes.meshed(self.solid(n))).volume() > VOL_TOL)
+            out.append(Void(part.volume(), _meshes.box(part), want, fences))
         return sorted(out, key=lambda v: -v.volume)[:top]
 
     # -- how far a body can move --
@@ -1206,7 +1262,8 @@ class World:
         happening to sit at the nearest point."""
         d = unit(direction)
         probe_rod = rod(origin, d, limit, dia)
-        best, who = limit, None
+        tip = point(origin)
+        stops, inside = [], []
         for name in self.names:
             if name in skip:
                 continue
@@ -1218,10 +1275,16 @@ class World:
                 raise RuntimeError(
                     f"cast against {name} failed ({exc}) — the free run past this "
                     f"body is unknown, not clear") from exc
-            t = _clearing.axis_min(inter, origin, d)
-            if t < best:
-                best, who = max(0.0, t), name
-        return Contact(best, who, tuple(origin), d, limit, dia)
+            stops.append((max(0.0, _clearing.axis_min(inter, origin, d)), name))
+            if self.gap(name, tip) <= CONTACT_EPS:
+                inside.append(name)
+        # EVERY BODY THE ROD MEETS, not the first. A body standing in the front of a cast
+        # hides the whole lane behind it, and a lane read through one obstruction is a lane
+        # measured at the wrong end — the sort is what puts the cascade in the same reading.
+        stops.sort()
+        best, who = (stops[0] if stops else (limit, None))
+        return Contact(best, who, tuple(origin), d, limit, dia,
+                       tuple(stops), tuple(sorted(inside)))
 
     # -- where a piece of a routed line can stand --
 
@@ -1263,7 +1326,8 @@ class World:
         return Offset(at, tuple(h.name for h in self.hits(tube, skip=held, tol=tol)),
                       seats, corner, _routing.stock_min(r.kind, r.diam), len(redrawn.bends))
 
-    def reroute(self, run, moving, along, values, skip=(), tol: float = VOL_TOL) -> Reroute:
+    def reroute(self, run, moving, along, values, skip=(), pin: float = 0.05,
+                tol: float = VOL_TOL) -> Reroute:
         """Slide named waypoints of an authored run along a direction, and say what the run
         RUNS INTO at each offset. Collisions, one row per position.
 
@@ -1298,9 +1362,29 @@ class World:
             raise ValueError(f"{r.id}: a reroute over no offsets answers nothing — give it a "
                              f"range (`probe.steps(lo, hi, step)`), 0.0 among them to read "
                              f"the run where it stands")
-        rows = [self.drawn(r, [p if i not in idx else tuple(p[k] + d[k] * v for k in range(3))
-                               for i, p in enumerate(r.pts)], v, skip=skip, tol=tol)
-                for v in values]
+        def moved(v):
+            return [p if i not in idx else tuple(p[k] + d[k] * v for k in range(3))
+                    for i, p in enumerate(r.pts)]
+
+        rows = [self.drawn(r, moved(v), v, skip=skip, tol=tol) for v in values]
+        if pin:
+            # A SAMPLE PUTS AN EDGE SOMEWHERE IN A STEP. Between a clear offset and the
+            # blocked one beside it the answer turns exactly once as far as this can tell, so
+            # the turn is bisected and the extra readings join the sample — every row stays a
+            # measurement, and the band's ends land within `pin` instead of within a step.
+            rows.sort(key=lambda o: o.at)
+            found = []
+            for a, b in zip(rows, rows[1:]):
+                if a.clear == b.clear:
+                    continue
+                lo, hi = (a.at, b.at) if a.clear else (b.at, a.at)
+                while abs(hi - lo) > pin:
+                    mid = 0.5 * (lo + hi)
+                    row = self.drawn(r, moved(mid), mid, skip=skip, tol=tol)
+                    found.append(row)
+                    lo, hi = (mid, hi) if row.clear else (lo, mid)
+            rows += found
+        rows.sort(key=lambda o: o.at)
         return Reroute(r.id, idx, d, rows, held, self.chain(r), self.measured)
 
 
@@ -1346,6 +1430,13 @@ def _swept_box(sh, d, length: float):
         lo[i] += min(0.0, step)
         hi[i] += max(0.0, step)
     return box(x=(lo[0], hi[0]), y=(lo[1], hi[1]), z=(lo[2], hi[2]))
+
+
+def _turns(span: tuple) -> tuple:
+    """A body's envelope in each axis-aligned pose it has — three numbers permuted, with the
+    duplicates a square or a cube produces dropped."""
+    import itertools
+    return tuple(dict.fromkeys(itertools.permutations(span)))
 
 
 def _moving(moving, n: int, cid: str) -> tuple:
@@ -1916,12 +2007,26 @@ def selftest() -> int:
           f"{'':21s} got {list(at[40.0].hits)}  want []")
     if at[40.0].hits:
         fails.append("reroute past the obstacle")
-    edges = [(b.lo, b.hi, b.under, b.over) for b in moved.bands]
-    want_edges = [(0.0, 20.0, None, "post"), (40.0, 60.0, "post", None)]
-    print(f"  {'ok  ' if edges == want_edges else 'FAIL'}  two bands, each naming what ends it"
-          f"{'':9s} got {edges}")
-    if edges != want_edges:
+    # TWO BANDS, AND THEIR ENDS ARE THE GEOMETRY'S, NOT THE GRID'S. The post spans y[66, 74]
+    # and the crossbar is a Ø6.35 tube on y = 40 + offset, so it touches at 66 - 40 - 3.175
+    # and is past at 74 - 40 + 3.175. Sampled every 10 mm, both ends are pinned to within the
+    # default 0.05 — which is what `pin` is for and what a grid cannot give.
+    bands = moved.bands
+    got_e = [(round(b.lo, 3), round(b.hi, 3), b.under, b.over) for b in bands]
+    ok_e = (len(bands) == 2
+            and bands[0].lo == 0.0 and abs(bands[0].hi - 22.825) <= 0.05
+            and abs(bands[1].lo - 37.175) <= 0.05 and bands[1].hi == 60.0
+            and bands[0].under is None and bands[0].over == "post"
+            and bands[1].under == "post" and bands[1].over is None)
+    print(f"  {'ok  ' if ok_e else 'FAIL'}  two bands, ends pinned to the geometry"
+          f"{'':10s} got {got_e}  want ends 22.825 / 37.175")
+    if not ok_e:
         fails.append("reroute bands")
+    coarse = sw.reroute("u", (1, 2), "+y", steps(0.0, 60.0, 10.0), pin=0)
+    print(f"  {'ok  ' if [b.hi for b in coarse.bands] == [20.0, 60.0] else 'FAIL'}  and pin=0 "
+          f"leaves the ends on the grid{'':6s} got {[b.hi for b in coarse.bands]}  want [20.0, 60.0]")
+    if [b.hi for b in coarse.bands] != [20.0, 60.0]:
+        fails.append("reroute pin=0")
     # The reading a sweep of clearances would have missed: pulled back, the crossbar clears
     # every body in the world and its two corners are left seating 10 mm of the 14 the stock
     # wants — the same shape as two bends run into each other with no straight between them.
@@ -1951,6 +2056,48 @@ def selftest() -> int:
           f"the real run{'':6s} got BLOCKED={ {k: v for k, v in _routing.BLOCKED.items() if k == 'u'} }")
     if "u" in _routing.BLOCKED:
         fails.append("reroute leaks into BLOCKED")
+
+    print("controls — a cast reports the whole lane:")
+    # Three plates down one line. A cast that named only the first would hide the two behind
+    # it, which is how a lane gets read at the wrong end.
+    cw = World({"first": box(x=(-20, 20), y=(-20, 20), z=(10, 12)),
+                "second": box(x=(-20, 20), y=(-20, 20), z=(30, 32)),
+                "third": box(x=(-20, 20), y=(-20, 20), z=(50, 52))},
+               {n: "test" for n in ("first", "second", "third")})
+    shot = cw.cast((0, 0, 0), (0, 0, 1), dia=1.0, limit=100.0)
+    named = [n for _t, n in shot.stops]
+    print(f"  {'ok  ' if named == ['first', 'second', 'third'] else 'FAIL'}  every body the rod "
+          f"meets, nearest first{'':5s} got {named}")
+    if named != ["first", "second", "third"]:
+        fails.append("cast stop list")
+    check("and the first of them is what `free` reports", shot.free, 10.0, tol=1e-3)
+    # A rod launched from inside material measures out of it, and says so rather than
+    # handing back a number that reads like clearance.
+    within = cw.cast((0, 0, 11), (0, 0, 1), dia=1.0, limit=100.0)
+    print(f"  {'ok  ' if within.inside == ('first',) else 'FAIL'}  an origin inside a body is "
+          f"named{'':16s} got {within.inside}  want ('first',)")
+    if within.inside != ("first",):
+        fails.append("cast origin inside")
+
+    print("controls — a hollow body's inside is its own, not room:")
+    # A shell with a cavity, and a post outside it. Carving the region leaves BOTH the cavity
+    # and the air around the shell — and only one of them is somewhere to put anything.
+    shell = box(x=(-30, 30), y=(-30, 30), z=(-30, 30)).cut(
+        box(x=(-10, 10), y=(-10, 10), z=(-10, 10)))
+    hw = World({"shell": shell, "post": box(x=(40, 50), y=(-5, 5), z=(-30, 30))},
+               {"shell": "test", "post": "test"})
+    voids = hw.free(x=(-60, 60), y=(-40, 40), z=(-30, 30), least=1.0)
+    cavity = [v for v in voids if v.alone == "shell"]
+    print(f"  {'ok  ' if len(cavity) == 1 else 'FAIL'}  the cavity is named as the shell's own"
+          f"{'':10s} got {[v.alone for v in voids]}  want one 'shell'")
+    if len(cavity) != 1:
+        fails.append("free names a cavity")
+    check("and it is the cavity, by volume", cavity[0].volume, 8000.0, tol=1.0)
+    outer = [v for v in voids if v.alone is None]
+    print(f"  {'ok  ' if outer and set(outer[0].bounds) == {'shell', 'post'} else 'FAIL'}  the "
+          f"room outside names both fences{'':7s} got {outer[0].bounds if outer else None}")
+    if not outer or set(outer[0].bounds) != {"shell", "post"}:
+        fails.append("free names its fences")
 
     print("controls — refusals:")
     for label, thunk in (
@@ -2114,6 +2261,8 @@ def main(argv: list) -> int:
     p.add_argument("--holds", default="", metavar="dx,dy,dz",
                    help="an envelope — report where its CENTRE can stand, not the pockets")
     p.add_argument("--clearance", type=float, default=0.0, help="held all round, mm")
+    p.add_argument("--one-way", action="store_true",
+                   help="--holds as given, rather than in every axis-aligned pose")
     p.add_argument("--least", type=float, default=500.0, help="drop pockets under this mm³")
     p.add_argument("--top", type=int, default=12)
     p.add_argument("--skip", default="")
@@ -2177,7 +2326,7 @@ def main(argv: list) -> int:
     elif a.cmd == "free":
         found = w.free(x=_range(a.x), y=_range(a.y), z=_range(a.z), skip=skip,
                        holds=_pt(a.holds) if a.holds else None, clearance=a.clearance,
-                       least=a.least, top=a.top)
+                       turned=not a.one_way, least=a.least, top=a.top)
         print(w.measured)
         print("\n".join(str(v) for v in found) if found else "no pocket over the floor")
     elif a.cmd == "route":
