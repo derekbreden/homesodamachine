@@ -8,7 +8,7 @@ without asking whether the run belongs in it. `lanes()` asks. It enumerates ever
 corridor between the two mouths that keeps a stated floor off every body, redraws each one the
 way the bender would, and hands back the ones a tube can be made to.
 
-NOT A POSE SWEEP — read this next to [`calibration/Chain.md`](/calibration/Chain.md). Every body
+NOT A POSE SWEEP. Every body
 in the machine stands exactly where the tree puts it, in every candidate, including the two
 fittings this run's own mouths are cut into. Nothing here moves a coordinate other coordinates
 read, so no row of it is a half-move and there is no chain to print: what varies is which way a
@@ -110,7 +110,6 @@ WHAT THESE ANSWERS DO NOT COVER:
     cut to and whether the walk ran out of patience are printed with every result.
   * NOTHING HERE MOVES A BODY. Every candidate is a corridor in the machine as it stands, and a
     run whose two mouths are in the wrong place has no lane worth having. That is the gates' table
-    and Chain.md's shape, not this.
 """
 
 import argparse

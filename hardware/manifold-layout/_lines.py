@@ -30,7 +30,6 @@ A bend, a fall, a crossing, a leg — whatever the piece is called it is some wa
 route, and those indices are the handle (`route` numbers them, `--near x,y,z` says which index
 a pick off the STEP is). The centreline is what moves; the ribs struck on the run, the cap's
 seat for it and the stretch it is graded on stand where they stand, and each sweep prints them.
-The whole move is [`calibration/Chain.md`](/calibration/Chain.md).
 
 Run it through the assembly:
     tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py

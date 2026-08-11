@@ -87,8 +87,7 @@ takes its runs with it and is built, not swept.
 
 The centreline is what moves. `w.chain(id)` is the rest of the build that reads the run and
 does not — the ribs struck on it, the cap's seat for it, the stretch it is graded on, the
-sleeve that closes on it — and every sweep prints it. The whole move is
-[`calibration/Chain.md`](/calibration/Chain.md).
+sleeve that closes on it — and every sweep prints it.
 
 From the shell, without writing a file:
 
@@ -490,7 +489,7 @@ class Reroute:
 
     EVERY ROW IS A HALF-MOVE. The centreline is redrawn and `chain` — the ribs struck on the
     run, the cap's own seat for it, the span it is graded on, the sleeve that closes on it —
-    stands where it stood. The whole move is [`calibration/Chain.md`](/calibration/Chain.md).
+    stands where it stood.
 
     `held_out` is the other half of every CLEAR: the run's own tube is out of the measurement,
     being the body this centreline was swept into. Every row is exact at its own offset and
@@ -542,7 +541,7 @@ class Reroute:
             out.append(f"  measured against {self.measured}")
         out.append(f"  holding out: {', '.join(self.held_out)}")
         out.append(f"  the rest of the build that reads {self.run}, none of which any row "
-                   f"below moves (calibration/Chain.md):")
+                   f"below moves:")
         out += [f"    {link}" for link in self.chain] or [
             "    nothing recorded — this world was not built from the assembly"]
         out.append(f"  {'offset':>9}  runs into")
@@ -876,8 +875,7 @@ class World:
 
         Ribs are struck on its legs, the cold core's cap stands a seat for it at a station in
         the cap's own frame, and the stretch between held points is graded. `reroute` moves the
-        centreline and none of these; this is the list of what it leaves standing.
-        [`calibration/Chain.md`](/calibration/Chain.md)."""
+        centreline and none of these; this is the list of what it leaves standing."""
         r = run if hasattr(run, "pts") else self.run(run)
         return self._chains.get(r.id, ())
 
