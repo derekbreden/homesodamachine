@@ -13,9 +13,11 @@
 //     minScale, maxScale,
 //     onTransformChange,   // ({scale,panX,panY}) — debounced ~250ms (persistence)
 //     onTransformLive,     // ({scale,panX,panY}) — immediate, every change (minimap)
+//     fitObstacles,        // [{left,top,right,bottom}] the fit keeps the content clear of
 //   });
 //   pz.fit(); pz.reset(); pz.setTransform({scale,panX,panY}); pz.getTransform();
 //   pz.destroy();
+//   PanZoom.measureObstacles(container, selectors) — those rects, off the live chrome
 //
 // PanZoom never restyles the wrapped element. It writes only `transform` and
 // `transform-origin: 0 0`. The caller sets bg/border/etc. The caller should
@@ -78,6 +80,37 @@
       if (hits(mid)) hi = mid; else lo = mid;
     }
     return lo > 0 ? lo : base; // centre itself blocked ⇒ degenerate; ignore
+  }
+
+  // What `selectors` occupy inside `container`, as fitObstacles rects: container-
+  // local, in the layout px (clientWidth/Height) the fit math works in, each one
+  // grown by `gap` so the content keeps a margin off it.
+  //
+  // getBoundingClientRect comes back multiplied by every transform above the
+  // element, and a modal's open animation scales its card 0.96 → 1 — so the
+  // offsets are divided by the container's own live scale. A fit measured
+  // mid-animation lands in the same place as one measured after it settles.
+  function measureObstacles(container, selectors, gap) {
+    if (!container) return [];
+    const cr = container.getBoundingClientRect();
+    const cw = container.clientWidth, ch = container.clientHeight;
+    if (!cr.width || !cr.height || !cw || !ch) return [];
+    const sx = cr.width / cw, sy = cr.height / ch;
+    const g = gap == null ? 12 : gap;
+    const rects = [];
+    for (const sel of selectors) {
+      for (const el of document.querySelectorAll(sel)) {
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        rects.push({
+          left: (r.left - cr.left) / sx - g,
+          top: (r.top - cr.top) / sy - g,
+          right: (r.right - cr.left) / sx + g,
+          bottom: (r.bottom - cr.top) / sy + g,
+        });
+      }
+    }
+    return rects;
   }
 
   function wrap(el, opts) {
@@ -361,5 +394,9 @@
     };
   }
 
-  window.PanZoom = { wrap: wrap, fitScale: computeFitScale };
+  window.PanZoom = {
+    wrap: wrap,
+    fitScale: computeFitScale,
+    measureObstacles: measureObstacles,
+  };
 })();

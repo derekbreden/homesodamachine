@@ -1243,7 +1243,13 @@ def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
            .val()
            .rotate((0, 0, 0), (1, 0, 0), -90.0)
            .translate(((x0 + x1) / 2.0, y_outer, (z0 + z1) / 2.0)))
-    pad = pad.intersect(_ybox(outer[0], outer[1], y_outer, y_outer + proud, zlo, zhi))
+    # The field takes the box's OWN silhouette, carried outboard by its height — so its west
+    # end runs out into the standing vertical's round the way the wall does, and its crown ends
+    # where the ceiling does. Then the piece's band picks which piece holds it; that band
+    # carries a margin for choosing a station and is no bound on geometry.
+    ox0, ox1, oy0, _oy1, oz0, oz1 = outer
+    pad = pad.intersect(_rounded_outer((ox0, ox1, oy0, y_outer + proud, oz0, oz1)))
+    pad = pad.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, y_outer, y_outer + proud, zlo, zhi))
     solid = solid.fuse(pad)
     for px, pz, dia in pockets:
         solid = solid.cut(cq.Solid.makeCylinder(
