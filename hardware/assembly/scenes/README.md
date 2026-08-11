@@ -21,9 +21,9 @@ transitively. The three anchor tables say the same for what a printed rib holds.
 moves to another parent moves scenes with it and no list goes stale.
 
 Three things that table cannot say are stated in [`_scenes.py`](_scenes.py): **which piece a body
-bears on** when nothing fastens it (`BEARS_ON` — a slab it lands on, a wall its own nut clamps it
-to), **where the camera goes**, and the two below. A body the fastening table leaves parentless
-and `BEARS_ON` does not name is reported, not dropped.
+bears on** when nothing fastens it (`BEARS_ON` — a slab it lands on, a line it hangs off), **where
+the camera goes**, and the two below. A body the fastening table leaves parentless and `BEARS_ON`
+does not name is reported, not dropped.
 
 **`parts` draws part of a root.** The cold core is one solid in the machine, and the unit a
 person actually holds is its top cap and that cap's lid — they take their own foam pour, carry

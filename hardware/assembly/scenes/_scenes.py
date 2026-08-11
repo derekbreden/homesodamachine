@@ -112,10 +112,10 @@ SCENE_BY_ID = {s.id: s for s in SCENES}
 # pictures worth putting side by side.
 BARE = {"cap-lid-fill"}
 
-# WHICH PIECE A BODY BEARS ON — the column `MOUNTS` does not carry. Its `by` is None for every
-# body no printed feature FASTENS: one that lands on a slab and is fenced by what is around it,
-# one clamped in its own hole through a wall, one hanging off the tube it splices. Each of them
-# still comes to the bench on exactly one piece, and for a picture that is the answer.
+# WHICH PIECE A BODY BEARS ON — the column `MOUNTS` does not carry. It names a piece for the
+# fastened and the unfastened alike: a body that lands on a slab and is fenced by what is around
+# it, one hanging off the tube it splices, and one clamped through a wall by its own nut all come
+# to the bench on exactly one piece, and for a picture that is the answer whatever `by` reads.
 #
 # A body the fastening table leaves without a parent and this table does not name is REPORTED,
 # not dropped — see `holders`. The one exception is the flavour pack, whose bodies rest on their
@@ -125,7 +125,7 @@ BEARS_ON = {
     "foam-assembly": "enclosure-back-bottom",
     "compressor": "enclosure-front-bottom",
     "condenser+fan": "enclosure-front-bottom",
-    # Clamped in a hole through a wall by their own nut, which is why no screw is billed for
+    # Clamped through a hole in that wall by their own nut, which is why no screw is billed for
     # them. All six of the rear wall's crossings are above the back column's Z seam.
     "bulkhead-water": "enclosure-back-top",
     "bulkhead-carb": "enclosure-back-top",
