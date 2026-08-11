@@ -28,6 +28,7 @@ const read = (rel) => fs.readFileSync(path.join(PUBLIC, rel), "utf8");
 // Every browser module that dispatches or listens for an hsm:* CustomEvent.
 const EVENT_MODULES = [
   "boot.js",
+  "build.js",
   "js/viewer/live.js",
   "js/viewer/pcb-pick.js",
   "js/viewer/pcb-edit.js",

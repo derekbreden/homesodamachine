@@ -73,14 +73,14 @@ The design length sums a measured half and an assumed half:
 |---|---:|---|
 | Drop, countertop underside → appliance top plane | 418 | 34.5" carcass − 4" toe kick − 3/4" deck = 755.7 mm interior clear, less the enclosure height |
 | Down the rear face to the flavor-bulkhead axis | 42 | CAD |
-| Turn-in at the wall — lead + 90° at R12 + collet | 60 | CAD; the collet stands 9.5 mm proud of the rear wall |
+| Turn-in at the wall — lead + 90° at R12 + collet | 63 | CAD; the collet stands 9.5 mm proud of the port field it bears on, and that field stands 3 mm off the wall (`printed-parts/enclosure/port-ring/`) |
 | Horizontal inside the cabinet, faucet hole → drop line | 380 | 36" sink base: faucet on the sink centreline, appliance at one end |
 | Service loop — the appliance comes forward to reach its own rear wall | 300 | pull-forward to put the rear wall at the cabinet face |
 | **Below-counter subtotal** | **1200** | |
 | Countertop slab | 30 | 3 cm stone (range 19–38) |
 | TPU gasket + mounting plate | 6 | CAD |
 | Gooseneck centreline, shell foot → printed tip | 312 | CAD |
-| **Flavor tube, nominal installed** | **1548** | |
+| **Flavor tube, nominal installed** | **1551** | |
 | **Blue tube, nominal installed** | **1186** | its top end sits 14 mm below the countertop underside |
 
 **Installer-trim allowance: 350 mm per tube**, held separately from the sum — 8 mm for a slab up to 38 mm, 25 mm for cabinet-height variance, 300 mm for an appliance at the far end of the sink base rather than the near end, 20 mm for two square cuts. Factory cut = nominal + allowance.
