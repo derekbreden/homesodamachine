@@ -89,7 +89,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 |---|---|---|---|---|
 | Lillium under-sink carbonated soda maker + 3-way sparkling-water faucet, black, 110–120 V AC (SKU 102) | [liliumfaucet.com](https://liliumfaucet.com/) | 1 | $1,129.00 | ACQUIRED |
 | TAPRITE E-T742 CO2 dual-gauge primary regulator, CGA-320. Order #114-0170640-0334629, placed February 13, 2026 | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0) | 1 | $96.47 | ACQUIRED |
-| WELLBOM 0–120 PSI CO2 dual-gauge regulator, CGA-320, with pressure-release valve. Order #112-8121022-3791448, placed June 22, 2026 | [B0G13P5PMY](https://www.amazon.com/dp/B0G13P5PMY) | 1 | $49.32 | ON-ORDER (arriving Thu Jun 25) |
+| WELLBOM 0–120 PSI CO2 dual-gauge regulator, CGA-320, with pressure-release valve. Order #112-8121022-3791448, placed June 22, 2026 | [B0G13P5PMY](https://www.amazon.com/dp/B0G13P5PMY) | 1 | $49.32 | ACQUIRED |
 | Airgas #8160436286 — prototype CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | ACQUIRED |
 | Airgas #8160436286 — CO2 fill, 5 lb food-grade (prototype cylinder) | airgas.com (Lincoln NE) | 1 | $47.93 | ACQUIRED |
 | Airgas #8162013342 — testing CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | ACQUIRED |
@@ -596,10 +596,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,331.64](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,380.96](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$30,939.56](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,334.82](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$30,988.88](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,285.50](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$33,317.27](LEDGER_GRAND_TOTAL) |
@@ -609,7 +609,7 @@ ACQUIRED hardware by section:
 | § | Section | $ |
 |---|---|---|
 | 1 | Pressure vessel / carbonator fabrication | [$3,892.84](LEDGER_SEC1) |
-| 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
+| 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$1,175.20](LEDGER_SEC5) |
