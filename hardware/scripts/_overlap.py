@@ -40,6 +40,10 @@ GATED = (
     "manifold-layout/manifold_layout.py",
     "manifold-layout/_scorecard.py",
 )
+# `scripts/fit.py` is deliberately not on that list. Every occupancy it GRADES asks here, and
+# its one remaining `intersect` clips a body to a scan band — a construction that decides what
+# a cell costs and never what a cell answers. The flat rule above is right for a module with no
+# use for the bare call, and wrong for one that has.
 
 
 def selftest():
