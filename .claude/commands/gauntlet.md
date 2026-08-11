@@ -9,8 +9,9 @@ is watching this turn, so the deliverable is committed state and nothing else.
 
 Requested: **$ARGUMENTS**
 
-`/routes` carries the procedure — read it and follow it for the move itself. This adds only
-what changes when there is no one to read the report: the ratchet, the marking, and the stop.
+`calibration/Chain.md` carries the move itself — the chain, the one commit, the red that is
+committed red. Read it in full; it is short. This adds only what changes when there is no one
+to read the report: the ratchet, the marking, and the stop.
 
 ## The campaign, and why an iteration is not judged on improving anything
 
@@ -46,7 +47,8 @@ campaign tonight. Otherwise there is work.
    check and baseline are already fixed and are not yours to change. Otherwise open one on
    `$ARGUMENTS`, or on the worst failing check that has not had a campaign tonight.
 
-2. **Move it**, following `/routes`. No subagents. One build.
+2. **Move it**, following `Chain.md`: state the target as a condition, print every derivation
+   that reads the body you are moving, move all of it. No subagents. One build.
 
 3. **Commit it**, whatever colour it came out:
 

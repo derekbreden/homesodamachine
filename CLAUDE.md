@@ -24,7 +24,7 @@ Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
-Ask the placed machine rather than reasoning about it: `hardware/scripts/probe.py` (where a body is, what two bodies share, how far a line runs, where there is room, what a viewer pick names), `hardware/scripts/fit.py` (a body not placed yet, at a candidate pose), `tools/look.sh` (see it, on a millimetre grid). Each carries its own docstring and a `selftest`.
+Ask the placed machine rather than reasoning about it: `hardware/scripts/probe.py` (where a body is, what two bodies share, how far a line runs, where there is room, what a viewer pick names), `hardware/scripts/fit.py` (a body not placed yet, at a candidate pose), `hardware/scripts/lanes.py` (every corridor a run could take between its two mouths), `tools/look.sh` (see it, on a millimetre grid). Each carries its own docstring and a `selftest`.
 
 ## Firmware
 
