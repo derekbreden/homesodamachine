@@ -167,9 +167,9 @@ def _standing_wall(lo, hi):
 
 def _mark_face(ax, sign, i, centre) -> float:
     """The face a marking lies on: the RING'S OWN outboard face where that port wears one, and
-    the wall's own outer face where it does not. A ring stands `port_ring.THICK` off the wall
-    and its pad stands shallower, so the colour a customer sees is the ring's face and not the
-    rim's — read off the part, so a thicker ring carries its marking out with it."""
+    the wall's own outer face where it does not. A ring stands `port_ring.THICK` off the wall,
+    so that is the plane the colour a customer sees lies in — read off the part, so a thicker
+    ring carries its marking out with it."""
     field = _BOX.port_field
     if field is None or (ax, i) != (1, 3):
         return OUTER[i] + sign * 0.05

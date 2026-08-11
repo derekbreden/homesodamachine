@@ -1335,10 +1335,11 @@ PORT_RING_SLIP = 0.2
 # The rim of printed wall the pad keeps around each ring. What the pitch leaves between two
 # neighbouring rims is air, and `port-field-web` is where that is read.
 PORT_RING_RIM = 2.0
-# How far the pad stands off the wall. SHALLOWER THAN THE RING IT HOLDS: the rim locates the ring
-# and the ring stands proud of it, so what a fitting's flange lands on is the ring's own face and
-# never the rim's — `port-pad-under-ring` is what holds the two in that order.
-PORT_PAD_PROUD = 1.0
+# How far the pad stands off the wall, and it is the ring's own thickness — so the rim fences the
+# whole of the ring it holds and their two faces come out one plane. It is the deepest a rim may
+# be: past this the ring lies in a well of its own rim, and the colour the wall is marked with
+# reads sunk. `port-pad-under-ring` is what holds it there.
+PORT_PAD_PROUD = 2.0
 # The pad's own shape, as `enclosure.Box.port_field`: how far it stands off the wall, the rim it
 # keeps around each ring, and one pocket per station.
 PortField = collections.namedtuple("PortField", "proud rim pockets")
@@ -1452,14 +1453,16 @@ _stated.state(
     f"either side — and leaves {PORT_FIELD_WEB:.3f} mm between two of them. `port_ring.RING_W` "
     f"{_ring.RING_W:g} is what a ring shows past the fitting's own flange, and shrinking it is "
     f"what buys the gap back.")
-# The rim LOCATES the ring; the ring is what a flange lands on. A pad that stood as proud as the
-# ring it holds would take that bearing itself, and the colour would be flush rather than raised.
+# THE RIM FENCES THE RING; it never bears on it. Every fitting's flange is narrower than the
+# pocket it stands in, so what a flange lands on is the ring's face whatever the rim does — what
+# a rim taller than its ring costs is the colour, which lies down a well of its own rim instead
+# of on the face of the wall.
 _stated.state(
-    "port-pad-under-ring", "Each pad stands shallower than the ring it holds",
-    f"a pad under `port_ring.THICK` {_ring.THICK:g} mm",
-    PORT_PAD_PROUD < _ring.THICK - 1e-9,
+    "port-pad-under-ring", "No pad stands proud of the ring it holds",
+    f"a pad at or under `port_ring.THICK` {_ring.THICK:g} mm",
+    PORT_PAD_PROUD <= _ring.THICK + 1e-9,
     f"the pad stands {PORT_PAD_PROUD:g} mm off the wall and the ring in it is {_ring.THICK:g} "
-    f"thick, so the fitting's flange lands on the rim and the ring is buried under it.")
+    f"thick, so the ring lies {PORT_PAD_PROUD - _ring.THICK:.2f} mm down a well of its own rim.")
 # AND THE CLAMPED STACK IS WALL PLUS RING, at every station on this wall. Each fitting states how
 # much of its own barrel stands bare between flange and nut, and that is the whole of what the
 # stack may take — the one figure a thicker wall or a thicker ring spends.

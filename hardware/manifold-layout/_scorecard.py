@@ -462,8 +462,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     # row on this card that can see a clamp standing proud of the thing it holds.
     ("compressor", "fuse-clamp"),
     ("thermal-fuse", "fuse-clamp"),
-    # A RING IN ITS PAD, UNDER THE FLANGE THAT SHUTS IT IN. The pad stands shallower than the
-    # ring, so the fitting's flange lands on the ring's own face and nothing else.
+    # A RING IN ITS PAD, UNDER THE FLANGE THAT SHUTS IT IN. Every flange is narrower than the
+    # pocket it stands in, so what it lands on is the ring's own face and nothing else.
     # `enclosure_assembly.bulkhead_seat_y` is that plane, and the nut on the far side of the wall
     # draws flange, ring and wall into one stack — so the pair reads 0 and it is the clamp
     # holding.
