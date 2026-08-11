@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap, Render), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
@@ -517,7 +517,8 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-05-25 | us735568811268960257 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $278.72 | ACQUIRED (delivered May 29) |
 | 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
 | 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ACQUIRED (delivered Jun 20) |
-| **§15 subtotal — 17 orders (17 ACQUIRED)** | | | **ACQUIRED $8,677.34** | |
+| 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ON-ORDER |
+| **§15 subtotal — 18 orders (17 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $8,677.34 + ON-ORDER $131.67** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -529,24 +530,33 @@ Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the stainless 
 
 ## 17. Domain / infrastructure
 
-Internet infrastructure purchases. Currently just the product domain; additional infra (web hosting, email, SSL etc.) will land here as it's added.
+Internet infrastructure purchases: the product domain, and the Render hosting that serves the site defined in [`render.yaml`](/render.yaml) — one web service plus a Postgres instance, billed monthly in arrears on metered usage, so each receipt is its own cash outlay rather than a term purchase.
 
 | Order date | Vendor / order # | Item | $ | Status |
 |---|---|---|---|---|
 | 2026-03-22 | Namecheap — order #197680608 | homesodamachine.com — premium domain, 1-year term | $599.00 | ACQUIRED |
+| 2026-05-06 | Render — receipt #2173-8442, invoice EV3NKLCU-0001 | `homesodamachine` web service + `homesodamachine-db` Postgres — April usage (41 h, 1 instance each) | $1.00 | ACQUIRED |
+| 2026-06-05 | Render — receipt #2249-4172, invoice EV3NKLCU-0002 | Web service + Postgres + builds — May usage (744 h, 1 instance each) | $22.50 | ACQUIRED |
+| 2026-07-04 | Render — receipt #2027-7320, invoice EV3NKLCU-0003 | Web service + Postgres + builds — June usage (1,288 h, 2 instances each) | $50.48 | ACQUIRED |
+| 2026-08-05 | Render — receipt #2366-0573, invoice EV3NKLCU-0004 | Web service + Postgres + builds + 7.4 GB bandwidth — July usage (1,488 h, 2 instances each) | $59.20 | ACQUIRED |
 
 ## 18. Capitalized contract labor — AI-assisted engineering
 
 Not a physical part — direct cash outlay to Anthropic (Claude) for engineering design services specific to this asset: CAD / CadQuery STEP generation, firmware (ESP32 / RP2040 / S3), electrical design, documentation, BOM research and procurement, regulatory analysis. Under GAAP, contracted labor that produces a specific capital asset is capitalized into the asset's cost basis — same line as paying a mechanical-engineering firm for drawings. Booked here at the actual invoice amount, not at any implied hourly rate.
 
-Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is out of scope per ledger conventions (see intro). Owner / founder time is also NOT on this ledger — sweat equity, un-booked.
+Scope reminder: 2026 YTD only (Jan 1 → Aug 11, 2026). Pre-2026 Claude spend is out of scope per ledger conventions (see intro). Owner / founder time is also NOT on this ledger — sweat equity, un-booked.
+
+The subscription line runs Pro → Max 20x, and the Max seat moves off Apple in-app billing onto direct Anthropic billing at the June 28 renewal, which is why the same plan appears at two prices.
 
 | Date range | Type | # of receipts | $ |
 |---|---|---|---|
 | 2026-01-17 → 2026-04-18 | Claude Pro subscription (via Apple iOS in-app purchase) | 4 × $20.00 | $80.00 |
+| 2026-04-28 → 2026-05-28 | Claude Max 20x subscription (via Apple iOS in-app purchase) | 2 × $249.99 | $499.98 |
+| 2026-06-28 → 2026-07-28 | Claude Max 20x subscription (billed direct by Anthropic) | 2 × $200.00 | $400.00 |
 | 2026-03-03 | Anthropic API — one-time prepaid credit | 1 | $50.00 |
 | 2026-03-12 → 2026-04-22 | Anthropic API — auto-recharges + prepaid top-ups (ramp-up to ~$60/day by mid-April) | 49 | $2,477.92 |
-| **§18 subtotal** | | **54 receipts** | **$2,607.92** |
+| 2026-04-23 → 2026-07-23 | Anthropic API — auto-recharges + prepaid top-ups (incl. a $700 prepaid block on Jun 28) | 23 | $1,929.64 |
+| **§18 subtotal** | | **81 receipts** | **$5,437.54** |
 
 ## 19. Video / marketing capture equipment
 
@@ -596,13 +606,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,380.96](LEDGER_ACQUIRED_HW) |
-| ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$30,988.88](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,285.50](LEDGER_ON_ORDER) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,514.14](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
+| ACQUIRED (combined) | [$33,951.68](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,417.17](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$33,317.27](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$36,411.74](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -624,7 +634,7 @@ ACQUIRED hardware by section:
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,677.34](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
-| 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
+| 17 | Domain / infrastructure | [$732.18](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$91.43](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
 | 21 | Silicone molding — Zone C hopper-funnel | [$339.50](LEDGER_SEC21) |
