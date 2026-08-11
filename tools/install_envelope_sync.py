@@ -41,10 +41,14 @@ _PROBE = """
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(sys.argv[1]) / "enclosure"))
-import enclosure
+sys.path.insert(0, str(Path(sys.argv[1]) / "port-ring"))
+sys.path.insert(0, str(Path(sys.argv[1]).parents[1] / "reference" / "jg-bulkhead-union"))
+import enclosure, port_ring, jg_bulkhead_union
 _pack, box = enclosure.machine_of()
 o = box.outer
-print(json.dumps({"w": o[1] - o[0], "d": o[3] - o[2], "h": o[5] - o[4]}))
+print(json.dumps({"w": o[1] - o[0], "d": o[3] - o[2], "h": o[5] - o[4],
+                  "field": port_ring.THICK,
+                  "collet": jg_bulkhead_union.PROUD_LENGTH}))
 """
 
 
@@ -75,6 +79,11 @@ def measure(root):
     return json.loads(r.stdout)
 
 
+# Lead and the 90° bend at R12 the umbilical takes behind the wall, before the collet.
+# Typed: no run is drawn behind the rear face for the machine to read it off.
+TURN_IN_LEAD_BEND = 50.5
+
+
 def main():
     md = REPO / "marketing" / "install-envelope.md"
     variables = {"CABINET_CLEAR_H": f"{CABINET_CLEAR_H:.4g} mm"}
@@ -83,6 +92,14 @@ def main():
     keys = []
     for eid, label, root in editions():
         m = measure(root)
+        if not keys:
+            # What the wall owes a fitting BEHIND it, off the two parts that state it: the
+            # collet stands proud of the face it bears on, and that face is the port field's
+            # crown rather than the wall.
+            variables["COLLET_PROUD"] = f"{m['collet']:g} mm"
+            variables["PORT_FIELD_PROUD"] = f"{m['field']:g} mm"
+            variables["TURN_IN"] = f"{TURN_IN_LEAD_BEND + m['collet'] + m['field']:g} mm"
+            expected.update({"COLLET_PROUD": 1, "PORT_FIELD_PROUD": 1, "TURN_IN": 1})
         key = eid.upper()
         keys.append(key)
         variables[f"{key}_WDH"] = f"{m['w']:.4g} × {m['d']:.4g} × {m['h']:.4g} mm"
