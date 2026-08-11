@@ -173,7 +173,7 @@ west side`, and let the build settle the value.
    worst ratio first, which is the run to take:
 
        jq -r '.bends[] | "\(.ratio)  \(.grade)  \(.id)  \(.frm) -> \(.to)"' \
-         hardware/manifold-layout/front-half.scorecard.json | sort -n
+         hardware/manifold-layout/enclosure-assembly.scorecard.json | sort -n
 
    The run is the assignment — a body is only ever a candidate for moving, and "the problem
    is elsewhere" names the work rather than excusing it.
