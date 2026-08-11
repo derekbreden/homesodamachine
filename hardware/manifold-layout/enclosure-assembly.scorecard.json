@@ -610,11 +610,11 @@
   },
   {
    "id": "port-pad-under-ring",
-   "label": "Each pad stands shallower than the ring it holds",
+   "label": "No pad stands proud of the ring it holds",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a pad under `port_ring.THICK` 2 mm",
+   "target": "a pad at or under `port_ring.THICK` 2 mm",
    "detail": [],
    "active": true
   },
@@ -6137,5 +6137,5 @@
    "never": null
   }
  ],
- "sources": "b95da3aef9f07369b1366db5823bf76f"
+ "sources": "d119373db58508c08346cb6dd8b6d78e"
 }

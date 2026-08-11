@@ -15,8 +15,8 @@ lands on this ring, and the ring carries it to the pocket floor across its whole
     RING_W    how far a ring stands past the fitting's own flange, and so the width of colour
               that shows once the flange is on. The wall strikes its pockets from it and the
               iso line-art paints its discs from it
-    THICK     the ring's thickness, the pocket's depth, and the field's proud height — one
-              number, and `enclosure_assembly.bulkhead_seat_y` is where the wall spends it
+    THICK     the ring's thickness, and the depth its rim is cut to, so the two faces come out
+              one plane. `enclosure_assembly.bulkhead_seat_y` is where the wall spends it
 
 The wall passes two families of fitting and each states its own flange and its own barrel, so
 `STATIONS` is one ring geometry per family and `RING_W` is what they share.
@@ -76,8 +76,8 @@ STEPS = {name: _here.parent / f"port-ring-{name}.step" for name in STATIONS}
 # the web the field keeps between them.
 RING_W = 4.05
 # The ring's thickness. A fitting's flange bears this far outboard of the wall it clamps, which
-# is what `enclosure_assembly.bulkhead_seat_y` adds. The pad the ring stands in is shallower —
-# `enclosure_assembly.PORT_PAD_PROUD` — so the ring stands proud of its own rim.
+# is what `enclosure_assembly.bulkhead_seat_y` adds. The rim it lies in is cut to this same
+# depth — `enclosure_assembly.PORT_PAD_PROUD` — so the ring's face and its rim's are one plane.
 THICK = 2.0
 # The slip a ring takes around the fitting's threading — the wall's own
 # `enclosure_assembly.PORT_HOLE_SLIP`. The two modules cannot import each other, so
