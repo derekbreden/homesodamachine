@@ -1,8 +1,8 @@
-// Reset button + minimap helpers for the 2D PanZoom modal surfaces (mermaid
-// and drawings). The 3D STEP/DXF surface has its own reset (cad-detail.js'
-// makeResetViewButton, which lerps the camera) and the ViewCube gizmo for
-// orientation; this module is the 2D analog so the two surfaces feel
-// equivalent.
+// Reset button + minimap + chrome-aware fit for the 2D PanZoom modal surfaces
+// (mermaid, drawings, assembly cards, boards). The 3D STEP/DXF surface has its
+// own reset (cad-detail.js' makeResetViewButton, which lerps the camera) and
+// the ViewCube gizmo for orientation; this module is the 2D analog so the two
+// surfaces feel equivalent.
 //
 // makeResetButton(pz, { transformKey, refit }) — a bottom-right "Reset view"
 //   button that fits the content and clears the saved transform so a
@@ -16,7 +16,7 @@
 //   under it. This measures those boxes and hands PanZoom the rects its fit
 //   must clear, so "Reset view" shows all of the drawing, card or board.
 //
-// makeMinimap(svgEl, container) — a top-right minimap showing where
+// makeMinimap(svgEl, container, obstacles) — a top-right minimap showing where
 //   inside the *default (fit) view* the user is currently zoomed. Both
 //   boxes are screen-shaped: the outer box matches the container's
 //   aspect (the wrapper IS the screen), the inner box represents the
@@ -108,6 +108,18 @@ export function makeChromeFit(wrapper, extra) {
         return;
       }
       requestAnimationFrame(refit);
+      if (wrapper.clientWidth && wrapper.clientHeight) return;
+      // Nothing to fit into yet — a deep link opening into a document still
+      // laying out, or a tab that isn't painting. Both fits above measured a
+      // zero box and left the content at its natural size, which is the
+      // artifact spilling past every edge. Watch for the first real box.
+      if (typeof ResizeObserver !== "function") return;
+      const ro = new ResizeObserver(() => {
+        if (!wrapper.clientWidth || !wrapper.clientHeight) return;
+        ro.disconnect();
+        refit();
+      });
+      ro.observe(wrapper);
     },
   };
 }

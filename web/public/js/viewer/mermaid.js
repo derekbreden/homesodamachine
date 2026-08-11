@@ -6,7 +6,7 @@
 
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 import { state } from "./state.js";
-import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
+import { makeResetButton, makeMinimap, makeChromeFit } from "./pan-zoom-extras.js";
 
 mermaid.initialize({
   startOnLoad: false,
@@ -94,17 +94,22 @@ async function reRenderOpenMmd(content) {
   try { state.currentMmdMinimap?.destroy(); } catch {}
   state.currentMmdWrapper.innerHTML = "";
   state.currentMmdWrapper.appendChild(svgEl);
-  const minimap = makeMinimap(svgEl, state.currentMmdWrapper);
+  const chrome = makeChromeFit(state.currentMmdWrapper);
+  const minimap = makeMinimap(svgEl, state.currentMmdWrapper, chrome.obstacles);
   state.currentMmdPz = PanZoom.wrap(svgEl, {
     container: state.currentMmdWrapper,
     initialFit: false,
+    fitObstacles: chrome.obstacles,
     onTransformChange: (t) => { if (file) mmdSaveTransform(file, t); },
     onTransformLive: (t) => minimap.update(t),
   });
   state.currentMmdWrapper.appendChild(minimap.el);
   state.currentMmdWrapper.appendChild(makeResetButton(state.currentMmdPz, {
     transformKey: file ? mmdTransformKey(file) : null,
+    refit: chrome.refit,
   }));
+  chrome.attach(state.currentMmdPz, minimap);
+  chrome.measure();
   state.currentMmdMinimap = minimap;
   state.currentMmdPz.setTransform(prev);
 }
@@ -172,15 +177,21 @@ export async function openMmdDetail(file, pushHistory = true) {
   wrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
   wrapper.appendChild(svgEl);
 
-  const minimap = makeMinimap(svgEl, wrapper);
+  const chrome = makeChromeFit(wrapper);
+  const minimap = makeMinimap(svgEl, wrapper, chrome.obstacles);
   const pz = PanZoom.wrap(svgEl, {
     container: wrapper,
     initialFit: true,
+    fitObstacles: chrome.obstacles,
     onTransformChange: (t) => mmdSaveTransform(file, t),
     onTransformLive: (t) => minimap.update(t),
   });
   wrapper.appendChild(minimap.el);
-  wrapper.appendChild(makeResetButton(pz, { transformKey: mmdTransformKey(file) }));
+  wrapper.appendChild(makeResetButton(pz, {
+    transformKey: mmdTransformKey(file),
+    refit: chrome.refit,
+  }));
+  chrome.attach(pz, minimap);
 
   state.currentDetail = { type: "mmd", file };
   state.currentMmdContent = content;
@@ -193,12 +204,9 @@ export async function openMmdDetail(file, pushHistory = true) {
     filename: shortName(file, ".mmd").name,
     onOpen: () => {
       // Container's real layout box is only known after the dialog has been
-      // shown. Re-fit now (PanZoom's initialFit ran before showModal made the
-      // wrapper measurable) and then apply any saved transform on top.
-      pz.fit();
-      const saved = mmdLoadTransform(file);
-      if (saved) pz.setTransform(saved);
-      minimap.update();
+      // shown; PanZoom's initialFit ran before showModal made the wrapper
+      // measurable, and it had no chrome to measure either way.
+      chrome.open(mmdLoadTransform(file));
     },
     onClose: () => {
       try { pz.destroy(); } catch {}
