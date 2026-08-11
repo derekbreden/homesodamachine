@@ -128,6 +128,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Fresh Water Systems order WEBFWS100677768 — **MTB-0606WP** 3/8"barb × 3/8"MNPT tee (×10, swapped from discontinued MTB-0604WP) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | ACQUIRED (delivered Jun 15; UPS 1ZW0062A0297032825; itemized 10× MTB-0606WP + 10× PP450822E. FWS swapped the discontinued MTB-0604WP to MTB-0606WP and credited the $0.60 upcharge, total held at $62.08. 0606's 3/8" MNPT branch ≠ PP450822E 1/4" NPTF — adapters reassigned to general stock, and the 10× PP450822E now carry the water path's two male-facing joints — the SeaFlo suction's MAACFLOW and the GASHER check's male outlet stub, 2/build; branch adapter ordered separately on WEBFWS100682118) |
 | Fresh Water Systems order WEBFWS100682118 — JG PP451223W 3/8"NPTF × 3/8"PTC female adapter (bag of 10) + JG PP061208W 3/8"stem × 1/4"PTC reducer stem (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $81.33 | ACQUIRED (delivered Jun 15; confirmed WEBFWS100682118. Bought as the tap-point branch adapter. The 10× PP061208W now serve as the reducer half of the ASSE 1022 outlet stack, pushed into the PI4512F6S's 3/8" collet, 1/build; the 10× PP451223W have no role in the current path) |
 | Fresh Water Systems order WEBFWS100693702 — JG **PI4512F6S** 3/8"FFL × 3/8"PTC flare adapter (bag of 10) + **neoPure PVCR-0610** reinforced clear PVC 3/8"ID × .594"OD (10 ft) + **WC-316SS-06** 316 SS hose clamp SAE #6 (pack of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (3 items) | $73.27 | ON-ORDER (placed Jul 24, 2026; subtotal $54.90 + $13.42 ship + $4.95 tax; ground, 4–5 business days. Itemized $27.44 / $6.12 / $21.34. Closes the water path's last three gaps: the ASSE 1022 outlet has no potable single-piece flare-to-1/4" adapter in any brand, and the SeaFlo's barbs are molded into its head, so each port needs a reinforced stub and two clamps a size up from the LOKMANs) |
+| Fresh Water Systems order WEBFWS100697928 — neoFit **ABU44-E** acetal black bulkhead connector 1/4" (bag of 10) + JG **PI010822S** 1/4" × 1/4" NPTF male connector (bag of 10) + **red 1/4" OD LLDPE** (100 ft) + JG **MI4508F4SLF** lead-free brass 1/4" × 1/4" FFL flare female connector (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $122.68 | ON-ORDER (placed Aug 11, 2026; subtotal $100.65 + $13.75 ship + $8.28 tax; ground, 4–5 business days. Itemized $24.78 / $11.64 / $12.00 / $52.23. The whole rear-wall CO2 chain in one order and one tube size: the bulkhead is acetal, which its own listing states is rated for CO2 and inert gases where John Guest's black polypropylene range is not, and it is black so it reads as one row with the four PP1208E unions beside it. The brass FFL lands on the Wellbom's own 7/16"-20 male flare, so the tether is 1/4" OD push-fit at both ends and carries no clamp) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -598,10 +599,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$28,331.64](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$30,939.56](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,212.14](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,334.82](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$33,194.59](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$33,317.27](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

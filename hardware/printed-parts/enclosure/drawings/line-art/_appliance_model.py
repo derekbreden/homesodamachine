@@ -35,13 +35,15 @@ _HW = next(p for p in _HERE.parents if p.name == "hardware")
 for _p in (next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) / "tools",
            _HW / "scripts",
            _HW / "manifold-layout",
-           _HW / "printed-parts" / "enclosure" / "back-panel"):
+           _HW / "printed-parts" / "enclosure" / "back-panel",
+           _HW / "printed-parts" / "enclosure" / "port-ring"):
     sys.path.insert(0, str(_p))
 
 from docgen import substitute_py_comments               # noqa: E402
 import _boxes                                           # noqa: E402
 import enclosure_assembly as _ea                                # noqa: E402
 import _back_panel_dimensions as _rear                  # noqa: E402
+import port_ring as _ring                               # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -142,9 +144,10 @@ CO2_DISC_COLOR = list(_rear.port_colors["co2"])
 WATER_DISC_COLOR = list(_rear.port_colors["water"])
 CARB_DISC_COLOR = list(_rear.port_colors["carb"])
 
-# How far a marking stands out past the fitting it rings. CHOSEN, not derived:
-# it is how much printed ring is left showing around the fitting's own body.
-PORT_MARK_RING = 6.0
+# How far a marking stands out past the fitting it rings — the printed ring left
+# showing around the fitting's own body, read off that part so the drawing and
+# the ring on the machine are one figure.
+PORT_MARK_RING = _ring.RING_W
 
 # The six outer faces, as (axis index, outward sign, index into `OUTER`).
 _WALLS = ((0, -1.0, 0), (0, 1.0, 1),
@@ -162,9 +165,22 @@ def _standing_wall(lo, hi):
     return max(_WALLS, key=reach)
 
 
+def _mark_face(ax, sign, i, centre) -> float:
+    """The face a marking lies on: the port field's CROWN where that port has a pocket in it,
+    and the wall's own outer face where it has none. Read off the field the wall carries, so a
+    ring rendered on the machine sits on the surface the ring is bedded in."""
+    field = _BOX.port_field
+    if field is None or (ax, i) != (1, 3):
+        return OUTER[i] + sign * 0.05
+    proud, pockets = field[4], field[5]
+    bedded = any(abs(px - centre[0]) < 1e-6 and abs(pz - centre[2]) < 1e-6
+                 for px, pz, _d in pockets)
+    return OUTER[i] + sign * ((proud if bedded else 0.0) + 0.05)
+
+
 def port_marking(name: str) -> dict:
     """One port's marking, in the shape the renderer takes: the disc's centre on
-    the wall's outer face, its axis out of that wall, its radius one
+    the face that port's ring beds in, its axis out of that wall, its radius one
     `PORT_MARK_RING` past the fitting's own footprint, and `target` — the hole
     out at the fitting's proud end, which is what an arrow points at rather than
     the ring painted around it."""
@@ -173,7 +189,7 @@ def port_marking(name: str) -> dict:
     ax, sign, i = _standing_wall(lo, hi)
     centre = [(lo[k] + hi[k]) / 2.0 for k in range(3)]
     target = list(centre)
-    centre[ax] = OUTER[i] + sign * 0.05
+    centre[ax] = _mark_face(ax, sign, i, centre)
     target[ax] = hi[ax] if sign > 0 else lo[ax]
     axis = [0.0, 0.0, 0.0]
     axis[ax] = sign
