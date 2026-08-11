@@ -82,6 +82,11 @@ probe.py    the machine as it stands — the gap between two bodies, what a cand
             stands near a body or a point (`around`), what a pick copied out of the viewer
             names (`pick`), and where a piece of a drawn run can stand (`reroute`)
 fit.py      a body that is not placed yet, carried to a pose and measured there
+lanes.py    every corridor a run could take between its two FIXED mouths at a stated
+            clearance floor, holding every body still — each one reporting its tube, its
+            corners, its tightest clearance, the lowest z it reaches down to and the
+            sub-assembly each of its legs lies on, none of them ranked against another,
+            and `verify` for the exact answer on the one you pick
 ```
 
 A table of boxes is not one of them. A box that misses another misses it; two boxes that
