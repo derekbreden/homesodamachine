@@ -108,17 +108,22 @@ async function reRenderOpenDrawing(svgText) {
   try { state.currentDrawingMinimap?.destroy(); } catch {}
   state.currentDrawingWrapper.innerHTML = "";
   state.currentDrawingWrapper.appendChild(svgEl);
-  const minimap = makeMinimap(svgEl, state.currentDrawingWrapper);
+  const chrome = makeChromeFit(state.currentDrawingWrapper);
+  const minimap = makeMinimap(svgEl, state.currentDrawingWrapper, chrome.obstacles);
   state.currentDrawingPz = PanZoom.wrap(svgEl, {
     container: state.currentDrawingWrapper,
     initialFit: false,
+    fitObstacles: chrome.obstacles,
     onTransformChange: (t) => { if (file) drawingSaveTransform(file, t); },
     onTransformLive: (t) => minimap.update(t),
   });
   state.currentDrawingWrapper.appendChild(minimap.el);
   state.currentDrawingWrapper.appendChild(makeResetButton(state.currentDrawingPz, {
     transformKey: file ? drawingTransformKey(file) : null,
+    refit: chrome.refit,
   }));
+  chrome.attach(state.currentDrawingPz, minimap);
+  chrome.measure();
   state.currentDrawingMinimap = minimap;
   state.currentDrawingPz.setTransform(prev);
 }
@@ -160,15 +165,21 @@ export async function openDrawingDetail(file, pushHistory = true) {
   wrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
   wrapper.appendChild(svgEl);
 
-  const minimap = makeMinimap(svgEl, wrapper);
+  const chrome = makeChromeFit(wrapper);
+  const minimap = makeMinimap(svgEl, wrapper, chrome.obstacles);
   const pz = PanZoom.wrap(svgEl, {
     container: wrapper,
     initialFit: true,
+    fitObstacles: chrome.obstacles,
     onTransformChange: (t) => drawingSaveTransform(file, t),
     onTransformLive: (t) => minimap.update(t),
   });
   wrapper.appendChild(minimap.el);
-  wrapper.appendChild(makeResetButton(pz, { transformKey: drawingTransformKey(file) }));
+  wrapper.appendChild(makeResetButton(pz, {
+    transformKey: drawingTransformKey(file),
+    refit: chrome.refit,
+  }));
+  chrome.attach(pz, minimap);
 
   state.currentDrawingContent = svgText;
   state.currentDrawingWrapper = wrapper;
@@ -178,12 +189,7 @@ export async function openDrawingDetail(file, pushHistory = true) {
   ContentViewer.open({
     content: wrapper,
     filename: shortName(file).name,
-    onOpen: () => {
-      pz.fit();
-      const saved = drawingLoadTransform(file);
-      if (saved) pz.setTransform(saved);
-      minimap.update();
-    },
+    onOpen: () => chrome.open(drawingLoadTransform(file)),
     onClose: () => {
       try { pz.destroy(); } catch {}
       try { minimap.destroy(); } catch {}

@@ -42,6 +42,7 @@ export const state = {
   currentPcbToggle: null,     // the view segmented control element (Top/Inner/Bottom/Overlay)
   currentPcbPz: null,         // PanZoom handle for currentPcbWrapper
   currentPcbMinimap: null,    // Minimap handle
+  currentPcbChrome: null,     // makeChromeFit handle — the board's fit, and what it clears
   currentPcbPicks: null,      // {pads,unitsPerMm} pad-picker data for the open board
   currentPcbEdit: null,       // {name,components} dev-only editor data for the open board (null in prod)
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)

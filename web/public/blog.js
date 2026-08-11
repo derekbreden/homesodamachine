@@ -35,10 +35,24 @@
         const wrapper = document.createElement("div");
         wrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
         wrapper.appendChild(cloned);
-        const pz = PanZoom.wrap(cloned, { container: wrapper, initialFit: true });
+        // The fit clears the modal's own chrome, so the whole photo is on
+        // screen rather than running under the filename pill and the close X.
+        const obstacles = [];
+        const pz = PanZoom.wrap(cloned, {
+          container: wrapper,
+          initialFit: true,
+          fitObstacles: obstacles,
+        });
+        const refit = function () {
+          const rects = PanZoom.measureObstacles(wrapper, ContentViewer.CHROME);
+          obstacles.length = 0;
+          obstacles.push.apply(obstacles, rects);
+          pz.fit();
+        };
         ContentViewer.open({
           content: wrapper,
           filename: img.alt || undefined,
+          onOpen: function () { refit(); requestAnimationFrame(refit); },
           onClose: function () { pz.destroy(); },
         });
       });

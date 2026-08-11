@@ -212,13 +212,18 @@
       apply();
     }
 
-    function apply() {
+    // `persist` marks a committed view — the user's, and the one worth
+    // restoring next open. The identity below is the placeholder this mounts
+    // with while it waits for a measurable container; saved, it becomes a
+    // stored "view" no gesture produced, and every later open restores that
+    // instead of fitting.
+    function apply(persist) {
       el.style.transform =
         "translate(" + panX + "px, " + panY + "px) scale(" + scale + ")";
       if (onLive) {
         try { onLive({ scale: scale, panX: panX, panY: panY }); } catch (_) {}
       }
-      if (onChange) {
+      if (onChange && persist !== false) {
         if (changeTimer) clearTimeout(changeTimer);
         changeTimer = setTimeout(function () {
           onChange({ scale: scale, panX: panX, panY: panY });
@@ -331,11 +336,13 @@
 
     let fitObserver = null;
     function maybeFit() {
-      if (opts.initialFit === false) { apply(); return; }
+      // initialFit: false means the caller sets the view itself, on the line
+      // after this one — the identity here is only what renders until it does.
+      if (opts.initialFit === false) { apply(false); return; }
       // Always set an initial identity transform so the element renders
       // somewhere sane while we wait for layout / image load. fit() will
       // overwrite this once dimensions are known.
-      apply();
+      apply(false);
       const tryFit = function () {
         if (destroyed) return false;
         const fs = fitScale();
