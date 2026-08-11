@@ -120,6 +120,8 @@ sys.path.insert(0, str(_tools))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-panel"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
@@ -127,6 +129,8 @@ import _realized
 import hopper_funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
+import valve_seat as _seat
+import valve_panel as _panel
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -448,10 +452,15 @@ z_lip_y_margin = 2.0
 #                 the way the C14's own bosses on this wall need none. A pocket is the pad's
 #                 own depth, so its floor is the wall's face and the wall keeps its whole
 #                 thickness under every ring
+#   valve_panels  the flavour manifold's decks, one (plane, sign, seats) each — the world Y a
+#                 deck's valves stand their mounting faces on, which way their own +Z runs off
+#                 it, and one (x, z) per valve. A panel is a plate wall to wall carrying one
+#                 four-boss `valve_seat` per valve (`valve_panel`), and it is this piece's own
+#                 material the way the trough and the saddles are
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle "
-           "digiten_saddles tube_anchors port_field")
+           "digiten_saddles tube_anchors port_field valve_panels")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -461,8 +470,8 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
             "east_bosses side_wells floor_bosses west_cradle asse_cradle digiten_saddles "
-            "tube_anchors port_field")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), None)
+            "tube_anchors port_field valve_panels")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), None, ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1073,7 +1082,7 @@ def _dims(pack):
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle,
-               pack.digiten_saddles, pack.tube_anchors, pack.port_field)
+               pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1950,7 +1959,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               None, None, (), None)
+               None, None, (), None, ())
 
 
 def build_front_half(box):
@@ -2403,6 +2412,42 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
     return bore.fuse(under)
 
 
+# --- the flavour manifold's valve panels ------------------------------------
+#
+# A PANEL IS A PLATE WALL TO WALL, carrying one four-boss `valve_seat` per valve on the deck it
+# stands under. `valve_panel` states its thickness, its margin and its seat height and draws one
+# in its own frame; this turns that onto the deck's own plane and fuses it into the piece, the
+# way `_asse_cradle` fuses the trough and `_digiten_saddles` the meter's two Vs.
+#
+# NOTHING FASTENS A VALVE TO IT. The four corner posts press into their sockets and the valve's
+# own round body boss lands on the boss tops, which is what sets its height — the same bargain
+# the cold core's cap lid strikes under its own three valves.
+def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
+    """Every valve panel whose deck falls in the depth and height band this piece owns.
+
+    Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
+    faces on, which way their own +Z runs off it, and one `(x, z)` per valve. The plate's own
+    extent is the seats' — wall to wall across, and one `valve_panel.reach` plus a margin either
+    way along — so nothing here is a dimension this module chose."""
+    for plane, sign, seats in stations:
+        zs = [z for _x, z in seats]
+        mid_z = (min(zs) + max(zs)) / 2.0
+        half = _panel.height() / 2.0
+        if not (y0 <= plane <= y1 and z0 <= mid_z <= z1):
+            continue
+        # The plate: its valve-side face on the deck's own plane, its back one `THICK` outboard.
+        face = plane - sign * _panel.SEAT
+        near, far = sorted((face, face - sign * _panel.THICK))
+        solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
+        # And a seat under each valve, drawn in the valve's own frame and turned onto the deck.
+        for sx, sz in seats:
+            seat = _seat.build_seat(_panel.SEAT).val()
+            seat = seat.moved(cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
+                                          -90.0 if sign > 0 else 90.0))
+            solid = solid.fuse(seat.moved(cq.Location(cq.Vector(sx, face, sz))))
+    return solid
+
+
 def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
     """The flow meter's two saddles hung off the top wall, for the piece that owns the ceiling.
 
@@ -2692,6 +2737,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
     # And the flow meter's two saddles off the same piece's ceiling.
     piece = _digiten_saddles(piece, inner, box.digiten_saddles, ylo, yhi, zlo, zhi)
+    # And the flavour manifold's valve panels, on whichever piece owns each deck's band. A plate
+    # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
+    # for the same reason they go after the seam columns.
+    piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)

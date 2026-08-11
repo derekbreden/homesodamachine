@@ -15,9 +15,10 @@ four round bosses is carried onto itself by a quarter turn, so a station's yaw l
 valve and does not turn the print.
 
 The seat's numbers are the valve's own (`hardware/reference/beduan-solenoid/`) plus two
-clearances and a wall. The cold core's cap lid prints these seats
-(`_cold_core_interface.cap_cradles`, `foam_cap.add_cradles`); every other valve in the machine
-is butted collet to collet down a limb of the flavour pack and stands on nothing.
+clearances and a wall. Two parts print these seats: the cold core's cap lid carries three
+(`_cold_core_interface.cap_cradles`, `foam_cap.add_cradles`) and the two valve panels carry
+four apiece (`printed-parts/enclosure/valve-panel/`) — one plate per deck of the flavour pack,
+wall to wall in `enclosure-front-top`.
 
     tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py
 """

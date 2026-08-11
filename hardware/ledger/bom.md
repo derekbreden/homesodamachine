@@ -136,7 +136,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 1.901 | $21.30 <!--@printed--> |
+| Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 1.997 | $22.37 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.996 | $22.36 <!--@printed--> |
 | Port ring — one per rear-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.006 | $0.07 <!--@printed--> |
@@ -144,15 +144,15 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.97** | **[$82.65](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.06** | **[$83.72](BOM_SEC7)** |
 
-By material: PETG ≈ 6.80 kg / $76.18 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.90 kg / $77.25 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
 No PCBA tray ships. The board bolts straight to the +X wall's own bosses ([`pcba-tray/README.md`](/hardware/printed-parts/electronics/pcba-tray/)), so the tray is bench geometry only — the same status as the coil-winding mandrel below.
 
-Soft seals print in Bambu TPU 90A from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel and the two-piece hopper-funnel silicone mold. Every valve standing on a printed face stands in a [3](CAP_CRADLES)-cradle set the cold core's own cap lid prints, and every other valve is butted collet to collet down a limb of the flavour pack, so no tray body is placed and none is billed.
+Soft seals print in Bambu TPU 90A from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel and the two-piece hopper-funnel silicone mold. Every valve in the machine stands in four bosses ([`valve-seat/`](/hardware/printed-parts/valve-seat/)) printed into a part already billed above: [3](CAP_CRADLES) of them on the cradle set the cold core's own cap lid prints, and the other eight on the two valve panels — a plate wall to wall on each deck, and `enclosure-front-top`'s own material ([`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)). No plate ships under a valve and none is billed.
 
 ## 8. Flavor subsystem
 
@@ -283,7 +283,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$96.44](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.65](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$83.72](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -291,7 +291,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,285.59](BOM_GRAND)** |
+| **Total** | **[$1,286.66](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

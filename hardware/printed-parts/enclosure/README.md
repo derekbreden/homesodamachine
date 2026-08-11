@@ -60,6 +60,8 @@ The arrangement above is the current pack — a working layout. It is free to re
 - [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — the rear wall's connection inventory. Not a separate part: the rear face is a wall of `enclosure-back-top`.
 - [`drip-pan/`](/hardware/printed-parts/enclosure/drip-pan/) — internal catch basin under the ASSE 1022 chain's atmospheric vent.
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear wall.
+- [`port-ring/`](/hardware/printed-parts/enclosure/port-ring/) — the flat annulus under each rear-wall fitting's flange, in the colour that names its port.
+- [`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
 
 ## Sources
 [value](NAME) texts are updated by:
