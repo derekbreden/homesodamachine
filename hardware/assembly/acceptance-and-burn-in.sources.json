@@ -21,7 +21,7 @@
     "hardware/reference/tee-connector/tee_connector.py": "1877a76ec8cfe3efd1194295de7e805f",
     "hardware/reference/y-divider/y_divider.py": "34bb2a40b781e6512fc919751e26e648",
     "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
-    "hardware/scripts/_cadq_export.py": "4c47cceb67ba35c613b8bd3b99c24b8e",
+    "hardware/scripts/_cadq_export.py": "27f5530daca447f876de07565e2ba104",
     "hardware/scripts/_measuring.py": "241185841bdf75c222d582b53e13b5fb",
     "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
     "hardware/scripts/_meshes.py": "11ce45c073bc674e6df752dd712a9c5a",

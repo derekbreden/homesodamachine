@@ -86,7 +86,6 @@ def to_dict(sc: Scorecard) -> dict:
         "located": score(by_id["located"]),
         "shaped": score(by_id["shaped"]),
         "routed": score(by_id["routed"]),
-        "held": score(by_id["held"]),
         "mounted": score(by_id["mounted"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
@@ -97,9 +96,9 @@ def to_dict(sc: Scorecard) -> dict:
         "ports": sc.ports,
         "shapes": sc.shapes,
         "bends": sc.bends,
-        "mounts": [{"component": n, "by": by, "held": h,
+        "mounts": [{"component": n, "by": by, "joint": j,
                     "kind": "placeholder" if prim.get(n) else "real"}
-                   for n, by, h in sc.mounts],
+                   for n, by, j in sc.mounts],
     }
 
 
