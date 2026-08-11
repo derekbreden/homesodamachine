@@ -29,7 +29,7 @@ the others. This lock is the one thing they all share.
 
 HSM_BUILD_SOURCE labels a build in the messages ("dev-server", "pre-commit", else
 "manual"). HSM_NO_BUILD_LOCK=1 opts out entirely, for tooling that imports a
-generator's helpers without meaning to build — `arrange.py`, `probe.py` and the card
+generator's helpers without meaning to build — `lanes.py`, `probe.py` and the card
 renderers set it on themselves before the import that would take the lock.
 
 An opted-out build records itself in `unlocked.<pid>.json` and, whenever another build
