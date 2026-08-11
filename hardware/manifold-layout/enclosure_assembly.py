@@ -1474,10 +1474,27 @@ for _n, (_fit, _r, _w, _f) in BACK_WALL_FITTINGS.items():
     _port_stack(_enc.wall + _ring.THICK <= _bare + 1e-9,
                 f"{_n} offers {_bare:.2f} mm of bare barrel and the wall and its ring stack "
                 f"{_enc.wall + _ring.THICK:g} mm, leaving the nut none of it")
-# THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the −X
-# wall's inner face to the pump's casting, and the two nozzle unions stand side by side across it
-# at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the wall on one
-# flank and the casting on the other.
+def west_interior_face():
+    """The −X wall's own inner face, off the stated width — the same face `enclosure._dims`
+    builds the box on."""
+    return _enc.interior_x()[0]
+
+
+def west_seam_crown():
+    """What actually fences the west lane at the back wall: the crown of the seam's own boss
+    chain, one `enclosure.boss_in` inboard of that face.
+
+    THE WALL IS NOT THE FENCE THERE. `enclosure.boss_in` is the section of the cross-pin column
+    the rear seam stands on this flank, and at the back wall — which is exactly where the unions
+    cross it — that column is what a body on the west lane meets first. A lane measured to the
+    bare face reports fourteen millimetres that are not there."""
+    return west_interior_face() + _enc.boss_in
+
+
+# THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the
+# seam column's crown to the pump's casting, and the two nozzle unions stand side by side across
+# it at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the column on
+# one flank and the casting on the other.
 #
 # THE EAST COLUMN IS THE ONE THE PUMP FENCES. It stands as far east as the casting leaves it at
 # the nozzle storey, and the west column takes one pitch beyond that. Swept over the wall by
@@ -1485,15 +1502,18 @@ for _n, (_fit, _r, _w, _f) in BACK_WALL_FITTINGS.items():
 #
 #     enclosure_assembly.pump_west_face(seaflo, z0, z1, bulkhead_mouth_y(), rear_plane_y)
 PORT_LANE_CLEAR = 1.0
-# The west column, and the widest body it carries: the ASSE chain hangs off the tap-water union
-# on this column and is broader than any union, so it is what stands the pair off the wall's own
-# ribs. `check_port_pair` measures both flanks of the pair against the lane they are given.
+# THE WEST COLUMN IS STRUCK, NOT CHOSEN. What fences this lane on that flank is not the −X wall
+# but the seam's own furniture standing off it — `west_seam_crown` — and a union clamped through
+# the back wall reaches its widest at the flange. So the column is that crown, one
+# `PORT_LANE_CLEAR`, and half a flange: the narrowest lane the rule allows, and no number of its
+# own. Every body on it follows — the tap-water union stands on the ASSE chain's inlet and the
+# chain on this column, so what the wall gives the nozzle pair it gives the storey above too.
 #
-# THE EAST COLUMN IS WHERE THE TWO OF THESE LEAVE IT. This number and `PORT_DECK_EXTRA` both
-# reach it — one as the origin the pitch is measured from, the other as a term of that pitch —
-# so the storey's east column stands at `PORT_WEST_COLUMN + PORT_PITCH` = -45.64 and reading it
-# off the pair is how a change to either is checked against the flank the pump fences.
-PORT_WEST_COLUMN = -83.0
+# THE EAST COLUMN IS WHERE THE TWO OF THESE LEAVE IT. This and `PORT_DECK_EXTRA` both reach it —
+# one as the origin the pitch is measured from, the other as a term of that pitch — so the
+# storey's east column stands at `PORT_WEST_COLUMN + PORT_PITCH` and reading it off the pair is
+# how a change to either is checked against the flank the pump fences.
+PORT_WEST_COLUMN = west_seam_crown() + PORT_LANE_CLEAR + _jg.BODY_D / 2.0
 PANEL_X = {"bulkhead-flavor-b": PORT_WEST_COLUMN,
            "bulkhead-flavor-a": PORT_WEST_COLUMN + PORT_PITCH,
            "bulkhead-carb": PORT_WEST_COLUMN + PORT_PITCH}
@@ -1523,8 +1543,10 @@ PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
 
 def check_port_pair(placed, west_face, seaflo) -> Bound:
     """The two nozzle unions across the west lane, measured against the two things that fence it:
-    the −X wall's inner face on one flank and the pump's own casting on the other, read at the
-    storey the pair stands on."""
+    the seam column's crown on one flank and the pump's own casting on the other, read at the
+    storey the pair stands on.
+
+    `west_seam_crown` and not the wall, because the wall is not what the pair meets there."""
     pair = [box(placed[n]) for n in PANEL_ON_GATE_LANE]
     lo, hi = min(b.xmin for b in pair), max(b.xmax for b in pair)
     face = pump_west_face(seaflo, min(b.zmin for b in pair), max(b.zmax for b in pair),
@@ -1534,10 +1556,10 @@ def check_port_pair(placed, west_face, seaflo) -> Bound:
     ok = got >= PORT_LANE_CLEAR - 1e-6
     return record_bound(Bound(
         "port-pair", "The nozzle unions' pair stands inside the west lane", ok,
-        f"{left:.3f} mm to the wall, {right:.3f} mm to the casting",
+        f"{left:.3f} mm to the seam column, {right:.3f} mm to the casting",
         f"{PORT_LANE_CLEAR:g} mm each flank",
         ([] if ok else [
-            f"the nozzle pair spans x[{lo:.2f}, {hi:.2f}] between a wall at {west_face:.2f} and "
+            f"the nozzle pair spans x[{lo:.2f}, {hi:.2f}] between a column at {west_face:.2f} and "
             f"the pump's casting at {face:.2f} — {got:.3f} mm on its tightest flank. The span is "
             f"one `PORT_PITCH` plus a barrel; move `PANEL_X`'s two nozzle columns, or give the "
             f"pair back the width by moving the pump."])))
@@ -2260,12 +2282,6 @@ def floor_mounts(*mounted):
             pos, _axis = carry(((hx, hy, face_z), (0.0, 0.0, 1.0)))
             out.append((pos[0], pos[1], pos[2]))
     return tuple(out)
-
-
-def west_interior_face():
-    """The −X wall's own inner face, off the stated width — the same face `enclosure._dims`
-    builds the box on."""
-    return _enc.interior_x()[0]
 
 
 # The brick lies on its side against that wall: a quarter about Y stands its 52 mm width up as
@@ -3574,7 +3590,7 @@ def build_pack() -> cq.Assembly:
                   deck_fall[name] if name in deck_fall
                   else descent(solid, _would_land_on(box(solid), under_deck)))
     panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
-    check_port_pair(panels, west_interior_face(), seaflo)
+    check_port_pair(panels, west_seam_crown(), seaflo)
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
     # The wall's five crossings, all placed by here. The field, the rings and the bores are all
