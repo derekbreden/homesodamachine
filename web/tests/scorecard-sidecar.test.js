@@ -12,7 +12,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, failingBends,
-  bendPinned, unmountedComponents, sizeText, MM_PER_INCH } from "../contracts/scorecard-sidecar.js";
+  bendPinned, unmountedComponents, unfastenableComponents, sizeText,
+  MM_PER_INCH } from "../contracts/scorecard-sidecar.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -129,8 +130,10 @@ test("the sidecar carries both focus axes and the tables their counts read", (t)
   assert.ok(bend.total > 0, "corners counted off the bends table");
   assert.ok(bend.done <= bend.total, "corners at spec cannot exceed corners");
   assert.equal(mount.id, "mounted");
-  assert.equal(mount.total, sc.mounts.length, "mounted counts every component");
-  assert.equal(mount.done, sc.mounts.filter((m) => m.by).length);
+  // A row nothing can fasten is outside the count — the axis measures what is left to close.
+  const can = sc.mounts.filter((m) => !m.never);
+  assert.equal(mount.total, can.length, "mounted counts every component a joint could reach");
+  assert.equal(mount.done, can.filter((m) => m.by).length);
   // The counts the bar prints must be the ones the gate/goal reached its verdict on.
   assert.equal(bend.status === "pass", bend.done === bend.total);
   assert.equal(mount.status === "pass", mount.done === mount.total);
@@ -140,6 +143,11 @@ test("the sidecar carries both focus axes and the tables their counts read", (t)
   for (const m of sc.mounts) {
     assert.equal(typeof m.joint, "string", `${m.component} declares the construction it stands on`);
     if (m.by !== null) assert.ok(m.by.length, `${m.component} names the part it mounts into`);
+    // An exemption states why, and a fastened body is not one nothing can fasten.
+    if (m.never != null) {
+      assert.ok(m.never.length, `${m.component} says why nothing fastens it`);
+      assert.equal(m.by, null, `${m.component} is exempt and unfastened both`);
+    }
   }
 });
 
@@ -149,8 +157,16 @@ test("the focus panels itemize down to the body a fix moves", (t) => {
 
   // Unmounted rows are exactly the gap the axis reports, one row each.
   const loose = unmountedComponents(sc);
-  assert.equal(loose.length, sc.mounts.length - sc.mounts.filter((m) => m.by).length);
+  const can = sc.mounts.filter((m) => !m.never);
+  assert.equal(loose.length, can.length - can.filter((m) => m.by).length);
   assert.ok(loose.every((m) => !m.by), "every listed row is an open joint");
+  assert.ok(loose.every((m) => !m.never), "a row nothing can fasten is not on the work list");
+  // The two lists partition the unfastened rows: work, and what is not work.
+  const never = unfastenableComponents(sc);
+  assert.equal(loose.length + never.length,
+               sc.mounts.filter((m) => !m.by).length,
+               "every unfastened row is on exactly one of the two lists");
+  assert.ok(never.every((m) => m.never.length), "each exempt row carries its reason");
 
   // Failing runs carry the two anchors the panel turns into clickable part names, and a pinned
   // run — one whose legs cannot seat a legal radius either — sorts ahead of one that is only a

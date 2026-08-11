@@ -345,6 +345,45 @@ def mounts() -> tuple:
     return MOUNTS + pack_mounts()
 
 
+# --- the rows nothing can fasten -------------------------------------------
+#
+# A null `by` in the table above is a joint still to design. A name here is a body already
+# fastened — by a clamp that ships with it, onto a donor the machine stands on grommets to hold
+# off itself. These rows come out of the axis's denominator, and their text goes out on the card.
+NEVER = {
+    "bpv31":
+        "Its own two screws close the saddle round the compressor's process tube, and that "
+        "grip on the copper is the whole joint. The can stands on four grommets that keep its "
+        "running hours off the cabinet, and every printed face within reach of this valve is "
+        "the cabinet's.",
+    "fuse-clamp":
+        "Both faces of the slot the clamp presses into are the compressor's own — the air its "
+        "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
+        "four holes carry the floor's posts and the grommets, and every printed feature in "
+        "reach of the clamp stands on the cabinet side of them.",
+}
+
+
+def never_holds(rows) -> None:
+    """Every name in `NEVER` is a row of the fastening table, unfastened, carrying its reason."""
+    by_name = {name: by for name, by, _joint in rows}
+    for name, why in NEVER.items():
+        if name not in by_name:
+            raise ValueError(
+                f"`NEVER` holds {name!r} out of the mounted axis and no row of the fastening "
+                f"table carries that name — the body has been renamed or has left the machine, "
+                f"and this exemption is what is still holding a place for it.")
+        if by_name[name] is not None:
+            raise ValueError(
+                f"{name!r} is fastened by {by_name[name]!r}, and `NEVER` says nothing can "
+                f"fasten it. Drop the exemption if the joint is real, or the row's `by` if it "
+                f"is not.")
+        if not why.strip():
+            raise ValueError(
+                f"{name!r} is held out of the mounted axis with no reason given, and the card "
+                f"prints this text.")
+
+
 # --- the joints that carry no line -----------------------------------------
 #
 # Two mouths meeting with nothing between them are still joined, and `port-leads` has to read
@@ -1177,14 +1216,23 @@ def _mounted() -> Check:
     The construction each open row stands on today rides in the detail, so the list says what
     a joint would be converting FROM. `pack` is 30 of them and is not a holder — it is the
     flavour manifold's own bodies, butted collet to collet down its limbs, standing on the
-    hairpins the machine sets the whole pose down on."""
+    hairpins the machine sets the whole pose down on.
+
+    `NEVER`'s rows are counted apart: out of the denominator, and last in the detail with the
+    reason each carries."""
     rows = mounts()
-    open_joints = sorted((n, joint) for n, by, joint in rows if by is None)
+    never_holds(rows)
+    open_joints = sorted((n, joint) for n, by, joint in rows
+                         if by is None and n not in NEVER)
     detail = [f"{n}: {joint}" for n, joint in open_joints]
-    done = len(rows) - len(open_joints)
+    detail += [f"{n}: {joint} — nothing fastens it; {NEVER[n]}"
+               for n, _by, joint in sorted(rows, key=lambda r: r[0]) if n in NEVER]
+    total = len(rows) - len(NEVER)
+    done = total - len(open_joints)
     return Check("mounted",
                  "A printed feature of another placed part fastens every body", "goal",
-                 _verdict(not open_joints), f"{done}/{len(rows)} mounted",
+                 _verdict(not open_joints),
+                 f"{done}/{total} mounted, {len(NEVER)} nothing fastens",
                  "a printed joint per body", detail)
 
 
@@ -1540,7 +1588,8 @@ def to_dict(sc: Scorecard) -> dict:
         "shapes": sc.shapes,
         "bends": sc.bends,
         "mounts": [{"component": n, "by": by, "joint": j,
-                    "kind": "placeholder" if prim.get(n) else "real"}
+                    "kind": "placeholder" if prim.get(n) else "real",
+                    "never": NEVER.get(n)}
                    for n, by, j in mounts()],
     }
 
