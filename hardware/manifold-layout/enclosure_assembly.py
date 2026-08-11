@@ -95,7 +95,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
-           _hw / "reference" / "derpipe-co2-inlet",
+           _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor",
@@ -146,7 +146,7 @@ import port_ring as _ring                             # noqa: E402
 import _back_panel_dimensions as _rear                # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
-import derpipe_co2_inlet as _derpipe                   # noqa: E402
+import neofit_bulkhead as _neofit                      # noqa: E402
 import gasher_check_valve as _gasher                   # noqa: E402
 import wr1110_regulator as _wr1110                     # noqa: E402
 import digiten_flow_sensor as _digiten                 # noqa: E402
@@ -1300,16 +1300,25 @@ def back_wall_ports(*bulkhead_carries):
              _jg.panel_hole_d(PORT_HOLE_SLIP)) for carry in bulkhead_carries]
 
 
-# The stations a colour rings, and the fluid each is named by — the key into
-# `_back_panel_dimensions.port_colors`, so the pocket, the ring lying in it and the disc the
-# drawing paints are one station wearing one colour. The two flavour unions take none — a customer
-# pushes black into either black and the manifold sorts them — so the field is solid around their
-# bores and their flanges bear on its crown
-# (`../printed-parts/enclosure/drawings/line-art/_appliance_model`).
+# EVERY CROSSING THE BACK WALL PASSES A TUBE THROUGH, as `station -> (the module that states
+# that fitting's own panel figures, the ring station in `port_ring.STATIONS`, the fluid a colour
+# names it by)`. Two families and one construction: each bears a flange on the port field's
+# crown, each is bored one `PORT_HOLE_SLIP` over its own barrel, and each fitting's own nut
+# clamps it from inboard.
 #
-# A RING IS TRAPPED BY THE FLANGE THAT LANDS ON IT. The DERPIPE at the CO2 station has no flange,
-# and `co2_inlet_mouth_y` stands its wrench hex `DERPIPE_WRENCH_CLEAR` off the wall.
-MARKED_UNIONS = {"bulkhead-water": "water", "bulkhead-carb": "carb"}
+# The two flavour unions take no colour — a customer pushes black into either black and the
+# manifold sorts them — so the field is solid around their bores and their flanges bear on the
+# crown (`../printed-parts/enclosure/drawings/line-art/_appliance_model`). The fluid is the key
+# into `_back_panel_dimensions.port_colors`, so the pocket, the ring lying in it and the disc
+# the drawing paints are one station wearing one colour.
+BACK_WALL_FITTINGS = {
+    "bulkhead-water": (_jg, "union", "water"),
+    "bulkhead-carb": (_jg, "union", "carb"),
+    "bulkhead-flavor-a": (_jg, "union", None),
+    "bulkhead-flavor-b": (_jg, "union", None),
+    "co2-inlet": (_neofit, "neofit", "co2"),
+}
+MARKED_UNIONS = {n: fluid for n, (_m, _r, fluid) in BACK_WALL_FITTINGS.items() if fluid}
 
 
 def ring_name(fluid: str) -> str:
@@ -1322,52 +1331,60 @@ PORT_RING_SLIP = 0.2
 # What the crown reaches past the widest thing standing at each of its stations — a ring where
 # one lies, a flange where none does.
 PORT_FIELD_MARGIN = 3.0
-PORT_RING_STEP = (_hw / "printed-parts" / "enclosure" / "port-ring"
-                  / "port-ring-union.step")
 
 
-def port_pocket_d() -> float:
+def port_pocket_d(ring: str = "union") -> float:
     """The pocket a ring drops into: the ring's own OD and the slip it takes in it. The wall cuts
     it and `port-field-web` reads it against the pitch, off this one call."""
-    return _ring.union_od() + 2.0 * PORT_RING_SLIP
+    return _ring.od(ring) + 2.0 * PORT_RING_SLIP
 
 
-def back_wall_field(bulkhead_carry, panel_carries):
+def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
+    """Every `BACK_WALL_FITTINGS` station on the wall, as `name -> (x, z, fitting, ring, fluid)`.
+
+    Each column is read off the FITTING'S OWN INBOARD COLLET, which is what `back_wall_ports` and
+    `co2_wall_port` bore from — so a pocket, a ring and the hole through both cannot land on two
+    different columns."""
+    carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry}
+    out = {}
+    for name, (fitting, ring, fluid) in BACK_WALL_FITTINGS.items():
+        x, _y, z = carries[name](fitting.port(-1.0))[0]
+        out[name] = (x, z, fitting, ring, fluid)
+    return out
+
+
+def back_wall_field(stations):
     """The raised field the marked ports' rings lie in, as `enclosure.Box.port_field`.
 
-    Struck on the same inboard collets `back_wall_ports` bores from, so a pocket and the hole
-    through it cannot land on two different columns. The crown reaches `PORT_FIELD_MARGIN` past
-    the widest thing at every station it spans, so every union's flange bears on the crown and
-    none of them lands on a flank."""
-    stations = {"bulkhead-water": bulkhead_carry, **panel_carries}
+    The crown reaches `PORT_FIELD_MARGIN` past the widest thing at every station it spans, so
+    every fitting's flange bears on the crown and none of them lands on a flank."""
     pockets, reach = [], []
-    for name, carry in stations.items():
-        x, _y, z = carry(_jg.port(-1.0))[0]
-        if name in MARKED_UNIONS:
-            dia = port_pocket_d()
+    for x, z, fitting, ring, fluid in stations.values():
+        if fluid:
+            dia = port_pocket_d(ring)
             pockets.append((x, z, dia))
         else:
-            dia = _jg.BODY_D
+            dia = fitting.flange_footprint()
         reach.append((x, z, dia / 2.0 + PORT_FIELD_MARGIN))
     return (min(x - r for x, _z, r in reach), max(x + r for x, _z, r in reach),
             min(z - r for _x, z, r in reach), max(z + r for _x, z, r in reach),
             _ring.THICK, tuple(pockets))
 
 
-def build_port_rings(bulkhead_carry, panel_carries):
-    """The rings themselves, one per `MARKED_UNIONS` station, as `(name, solid, colour)`.
+def build_port_rings(stations):
+    """The rings themselves, one per marked station, as `(name, solid, colour)`.
 
-    Each is seated on the same inboard collet its pocket was struck on, with its own inboard face
-    on the back wall's OUTER FACE — the pocket's floor, and the plane the field was raised off.
-    So the union's flange lands on the ring where the bare crown would otherwise carry it, and the
+    Each is seated on the same column its pocket was struck on, with its own inboard face on the
+    back wall's OUTER FACE — the pocket's floor, and the plane the field was raised off. So the
+    fitting's flange lands on the ring where the bare crown would otherwise carry it, and the
     ring is in the clamped stack the way the wall is."""
-    stations = {"bulkhead-water": bulkhead_carry, **panel_carries}
     floor = _enc.rear_plane_y + _enc.wall
     out = []
-    for station, fluid in MARKED_UNIONS.items():
-        x, _y, z = stations[station](_jg.port(-1.0))[0]
+    for x, z, _fitting, ring, fluid in stations.values():
+        if not fluid:
+            continue
         name = ring_name(fluid)
-        placed, _carry = seat_body(cq.importers.importStep(str(PORT_RING_STEP)).val(), (),
+        placed, _carry = seat_body(cq.importers.importStep(str(_ring.STEPS[ring])).val(), (),
                                    seat=name, station=(_ring.seat(), (x, floor, z)))
         out.append((name, placed, cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))))
     return out
@@ -2006,15 +2023,17 @@ def c14_cutout():
 # --- the CO2 inlet chain, through the back wall ----------------------------
 #
 # The customer's cylinder stands beside the machine and its red tether lands here. Three bodies
-# on one axis, inline off the wall: the DERPIPE's NPT stub reaches inboard, the GASHER check
-# threads straight onto it — a made-up joint, no line — and the WR1110 stands one hop of tube
-# ahead of the check on the same axis, holding the appliance side at 90 PSI.
+# on one axis, inline off the wall: the ABU44 bulkhead clamps through it with a collet on each
+# face, the GASHER check stands one hop of tube ahead of the inboard collet, and the WR1110
+# stands one more hop ahead of the check, holding the appliance side at 90 PSI.
 #
 # The axis is the WALL'S OWN NORMAL, so the chain takes a half turn about Z and nothing else:
 # each fitting's frame already runs its flow down +Y with the upstream mouth on −Y, and the half
-# turn lays that on world −Y — collet outboard, gas running forward into the machine.
+# turn lays that on world −Y — collet outboard, gas running forward into the machine. The
+# bulkhead is the one body that takes NO turn: its own frame already runs +Y outboard toward
+# the customer's tube, which is the axis and the plane the back wall gives it.
 CO2_CHAIN_TURN = (((0.0, 0.0, 1.0), 180.0),)
-DERPIPE_STEP = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
+NEOFIT_STEP = _hw / "reference" / "neofit-bulkhead" / "neofit-bulkhead.step"
 GASHER_STEP = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
 WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # WHERE IT CROSSES THE BACK WALL IS THE UNION ROW'S OWN NEXT COLUMN. `PORT_PITCH` is what a
@@ -2023,9 +2042,10 @@ WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # that same wall with a body hanging off it. So it stands one pitch EAST of the carb union, on
 # `deck_storey`: the meter's own axis, one column over, parallel and level with it.
 CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
-# Air between the wrench hex's inboard end and the wall's outer face — the room a socket needs
-# to get on the flats. The fitting is seated on this, so its stub tip is wherever that leaves it.
-DERPIPE_WRENCH_CLEAR = 2.0
+# The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
+# socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
+# bulkhead's collet and the adapter's collet both take hold of.
+CO2_INLET_HOP = 10.0
 # The hop `co2-1` closes, mouth to mouth: the check's stub tip to the regulator's inlet socket.
 # It holds a PP450822E on the check's male stub, a PP010822E in the regulator's female one, and
 # the stretch of 1/4" tube between the two collets.
@@ -2033,30 +2053,32 @@ CO2_HOP = 10.0
 
 
 def co2_inlet_mouth_y():
-    """The Y of the DERPIPE's INBOARD stub tip — the shoulder the GASHER's socket makes up
-    against, and so where the whole chain starts. Read off the wall's outer face through the
-    fitting's own reach, so a thicker wall moves the chain it carries."""
-    outer = _enc.rear_plane_y + _enc.wall
-    return outer + DERPIPE_WRENCH_CLEAR + _derpipe.PROUD_LENGTH - _derpipe.BODY_LENGTH
+    """The Y of the ABU44's INBOARD collet face — the mouth `co2-0` leaves by, and so where the
+    whole chain starts. Read off `bulkhead_seat_y` through the fitting's own reach, exactly as
+    `bulkhead_mouth_y` reads the unions: the flange bears on the port field's crown and what the
+    fitting takes inboard of that is its own business."""
+    return bulkhead_seat_y() + _neofit.far_ring_face_y
 
 
 def build_co2_inlet(deck: float):
-    """The 5/16" push-to-connect the customer's CO2 line goes into, clamped through the back
-    wall one `PORT_PITCH` east of the carb union and on the deck's own storey, seated on its own
-    INBOARD STUB TIP."""
-    body = cq.importers.importStep(str(DERPIPE_STEP)).val()
-    return seat_body(body, CO2_CHAIN_TURN, seat="co2-inlet",
-                     station=(_derpipe.stub_tip(),
+    """The 1/4" bulkhead union the customer's CO2 tether goes into, clamped through the back wall
+    one `PORT_PITCH` east of the carb union and on the deck's own storey, seated on its INBOARD
+    COLLET — the same seating the four PP1208E unions take, on the same plane."""
+    body = cq.importers.importStep(str(NEOFIT_STEP)).val()
+    return seat_body(body, (), seat="co2-inlet",
+                     station=(_neofit.port(-1.0),
                               (CO2_COLUMN, co2_inlet_mouth_y(), deck)))
 
 
 def build_gasher_co2(inlet_carry):
-    """The check on the DERPIPE's stub, seated by its INLET on that same station — so the
-    made-up thread is construction and there is no line to close. Its arrow points away from
-    the bulkhead: the carbonator's pressure never reaches the customer's regulator."""
+    """The check standing one `CO2_INLET_HOP` ahead of the bulkhead on the chain's own axis,
+    seated on its INLET socket. Its arrow points away from the bulkhead: the carbonator's
+    pressure never reaches the customer's regulator."""
+    pos, axis = inlet_carry(_neofit.port(-1.0))
+    target = tuple(pos[i] + axis[i] * CO2_INLET_HOP for i in range(3))
     body = cq.importers.importStep(str(GASHER_STEP)).val()
     return seat_body(body, CO2_CHAIN_TURN, seat="gasher-co2",
-                     station=(_gasher.inlet(), inlet_carry(_derpipe.stub_tip())[0]))
+                     station=(_gasher.inlet(), target))
 
 
 def build_wr1110(gasher_carry):
@@ -2071,10 +2093,11 @@ def build_wr1110(gasher_carry):
 
 
 def co2_wall_port(inlet_carry):
-    """The bore the DERPIPE's threading passes, as a `back_ports` entry. Struck on the
-    fitting's own collet so hole and shank cannot land on two different columns."""
-    pos = inlet_carry(_derpipe.collet())[0]
-    return ("round", pos[0], pos[2], _derpipe.SHANK_D + 2 * PORT_HOLE_SLIP)
+    """The bore the ABU44's M17 barrel passes, as a `back_ports` entry. Struck on the fitting's
+    own inboard collet so hole and barrel cannot land on two different columns, and bored one
+    `PORT_HOLE_SLIP` over that barrel — the same construction the four unions' bores take."""
+    pos = inlet_carry(_neofit.port(-1.0))[0]
+    return ("round", pos[0], pos[2], _neofit.panel_hole_d(PORT_HOLE_SLIP))
 
 
 # The assembly's non-manifold members, by name. `report` measures the manifold pack as
@@ -3460,9 +3483,12 @@ def build_pack() -> cq.Assembly:
     check_port_pair(panels, west_interior_face(), seaflo)
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
-    # The rings go down after the unions that trap them, on the same collets their pockets were
+    # The wall's five crossings, all placed by here. The field, the rings and the bores are all
+    # struck off this one reading.
+    a.wall_stations = wall_stations(bulkhead_carry, panel_carries, co2in_carry)
+    # The rings go down after the fittings that trap them, on the same columns their pockets were
     # struck on. They lie OUTBOARD of the back wall's outer face, in the field the wall raises.
-    for name, solid, colour in build_port_rings(bulkhead_carry, panel_carries):
+    for name, solid, colour in build_port_rings(a.wall_stations):
         a.add(solid, name=name, color=colour)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
@@ -3472,15 +3498,16 @@ def build_pack() -> cq.Assembly:
                "compressor": comp_carry, "condenser+fan": cond_carry,
                "asse1022-assembly": asse_carry, "water-split": split_carry,
                "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
-               "bulkhead-water": bulkhead_carry, "gasher-co2": gasher_carry,
+               "bulkhead-water": bulkhead_carry, "co2-inlet": co2in_carry,
+               "gasher-co2": gasher_carry,
                "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
     solids = {"foam-assembly": foam, "seaflo-pump": seaflo, "suction-chain": chain,
               "discharge-chain": disch,
               "compressor": comp, "condenser+fan": cond,
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
-              "bulkhead-water": bulkhead, "gasher-co2": gasher, "wr1110": wr1110,
-              "digiten-flow": meter, **panels}
+              "bulkhead-water": bulkhead, "co2-inlet": co2in, "gasher-co2": gasher,
+              "wr1110": wr1110, "digiten-flow": meter, **panels}
     # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
     # in `manifold_layout`'s world and ride the pose this module stood them in.
     for name, solid, _colour in stood:
@@ -3584,7 +3611,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
-                     port_field=back_wall_field(a.bulkhead_carry, a.panel_carries))
+                     port_field=back_wall_field(a.wall_stations))
 
 
 def check_through_wall_headroom(a, shell) -> Bound:

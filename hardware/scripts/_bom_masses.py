@@ -66,12 +66,14 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
-    # ONE GEOMETRY, TWO COLOURS. Both rings are the same annulus off the same STEP — what makes
-    # one of them the carbonated-water port and the other the tap-water port is which spool is
-    # loaded, so the row carries the solid twice and the Qty cell says two.
-    "Port ring — carbonated water + tap water": [
+    # ONE ROW, THREE RINGS, TWO SIZES. The two PP1208E stations take the same annulus off the
+    # same STEP and the CO2 station's ABU44 takes its own — what makes one of them the
+    # carbonated-water port and another the tap-water port is which spool is loaded, so the row
+    # lists each solid it ships and the Qty cell says three.
+    "Port ring — carbonated water + tap water + CO2": [
         "enclosure/port-ring/port-ring-union.step",
         "enclosure/port-ring/port-ring-union.step",
+        "enclosure/port-ring/port-ring-neofit.step",
     ],
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",

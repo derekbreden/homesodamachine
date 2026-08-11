@@ -184,10 +184,11 @@ WATER_SEGMENTS = (
     ("water-7", "seaflo-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
 )
 
-# The gas, from the back-panel DERPIPE through the GASHER check and the WR1110 secondary
-# regulator to the carbonator's bottom-plate CO2 port — `assembly/internal-plumbing.md` §1. The
-# DERPIPE → GASHER joint is a made-up 1/4" NPT thread and carries no line.
+# The gas, from the back-panel ABU44 bulkhead through the GASHER check and the WR1110 secondary
+# regulator to the carbonator's bottom-plate CO2 port — `assembly/internal-plumbing.md` §1. Three
+# hops of 1/4" LLDPE, each fitting standing apart from its neighbour.
 CO2_SEGMENTS = (
+    ("co2-0", "co2-inlet inboard", "gasher-co2 inlet"),
     ("co2-1", "gasher-co2 outlet", "wr1110 inlet"),
     ("co2-2", "wr1110 outlet", "foam-assembly co2-in"),
 )
@@ -310,6 +311,7 @@ MOUNTS = (
     # in their wells, with a placed body's flange over the mouth.
     ("port-ring-water", "enclosure-back-top", "well"),
     ("port-ring-carb", "enclosure-back-top", "well"),
+    ("port-ring-co2", "enclosure-back-top", "well"),
     # THE METER HANGS IN TWO SADDLES OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
@@ -401,10 +403,6 @@ MADE_UP = (
     # butts the union's inboard collet". The first tube in the machine is a length of stock cut to
     # the two grips and swallowed whole by them, which is why there is no `water-1`.
     ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
-    # A made-up 1/4" NPT thread: `enclosure_assembly.build_gasher_co2` stations the check valve's
-    # inlet on the DERPIPE's own stub tip. `co2-inlet` states no port table, so the pair is named
-    # on the end that has one.
-    ("gasher-co2.inlet", "co2-inlet"),
 )
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
@@ -469,6 +467,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # so the pair reads 0 and it is the clamp holding.
     ("bulkhead-water", "port-ring-water"),
     ("bulkhead-carb", "port-ring-carb"),
+    ("co2-inlet", "port-ring-co2"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 

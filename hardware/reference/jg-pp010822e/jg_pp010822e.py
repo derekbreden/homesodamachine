@@ -4,7 +4,7 @@ black polypropylene — the appliance's NPT-to-PTC transition. Six per build
 the CO2 path, one on the carbonated-water outlet.
 
 External envelope only — a PTC collet body, a wrench hex, and a plain-cylinder
-NPT shank at its nominal major, no helix. Same modeling class as the DERPIPE
+NPT shank at its nominal major, no helix. Same modeling class as the neoFit bulkhead
 inlet next door, one tube size down.
 
 On the ASSE 1022 chain this is the last piece before the metal: the 1/4" LLDPE

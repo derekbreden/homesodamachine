@@ -12,11 +12,14 @@ a colour means on that wall is stated once, in `../back-panel/_back_panel_dimens
 The push a 1/4" push-to-connect takes to seat — past the collet's grabbers and an EPDM O-ring —
 lands on this ring, and the ring carries it to the pocket floor across its whole face.
 
-    RING_W    how far a ring stands past the fitting's own panel footprint, and so the width of
-              colour that shows once the flange is on. The wall strikes its pockets from it and
-              the iso line-art paints its discs from it
+    RING_W    how far a ring stands past the fitting's own flange, and so the width of colour
+              that shows once the flange is on. The wall strikes its pockets from it and the
+              iso line-art paints its discs from it
     THICK     the ring's thickness, the pocket's depth, and the field's proud height — one
               number, and `enclosure_assembly.bulkhead_seat_y` is where the wall spends it
+
+The wall passes two families of fitting and each states its own flange and its own barrel, so
+`STATIONS` is one ring geometry per family and `RING_W` is what they share.
 
 Two neighbouring rings stand one `enclosure_assembly.PORT_PITCH` apart, and what that pitch
 leaves between their pockets is the pad the field keeps between them; `port-field-web` reads
@@ -45,7 +48,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cadlib",
-           _hw / "reference" / "jg-bulkhead-union"):
+           _hw / "reference" / "jg-bulkhead-union",
+           _hw / "reference" / "neofit-bulkhead"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
@@ -53,9 +57,15 @@ from _cadq_export import export_step  # noqa: E402
 from _measuring import bores  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
+import neofit_bulkhead as _neo  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
-UNION_STEP = _here.parent / "port-ring-union.step"
+# ONE ANNULUS IN TWO SIZES, because the wall takes two families of fitting. Each ring is struck on
+# the flange it hides under and the barrel it passes, so a ring is named by the fitting it rings:
+# `union` for the PP1208E unions the water and umbilical ports use, `neofit` for the ABU44 the CO2
+# inlet uses. `RING_W` and `THICK` are the same for both.
+STATIONS = {"union": _jg, "neofit": _neo}
+STEPS = {name: _here.parent / f"port-ring-{name}.step" for name in STATIONS}
 
 
 # How far the ring stands past the fitting's own panel footprint — the width of colour that
@@ -79,14 +89,14 @@ def ring_od(across: float) -> float:
     return across + 2.0 * RING_W
 
 
-def union_od() -> float:
-    """The PP1208E union's ring, read off the fitting."""
-    return ring_od(_jg.BODY_D)
+def od(station: str) -> float:
+    """One station's ring OD, read off the flange it lies under."""
+    return ring_od(STATIONS[station].flange_footprint())
 
 
-def union_bore_d() -> float:
-    """Its bore — the hole the wall passes the same threading through."""
-    return _jg.panel_hole_d(SLIP)
+def bore_d(station: str) -> float:
+    """Its bore — the hole the wall passes that fitting's own barrel through."""
+    return STATIONS[station].panel_hole_d(SLIP)
 
 
 def seat() -> tuple:
@@ -97,56 +107,65 @@ def seat() -> tuple:
     return ((0.0, 0.0, 0.0), (0.0, -1.0, 0.0))
 
 
-def build_port_ring(across: float, bore_d: float):
+def build_port_ring(across: float, bore: float):
     """One ring as a solid: a flat annulus spanning y = 0 to THICK."""
     return (cq.Workplane(xz_plane_y_up)
             .circle(ring_od(across) / 2.0)
-            .circle(bore_d / 2.0)
+            .circle(bore / 2.0)
             .extrude(THICK))
 
 
-def build_union_ring():
-    """The ring the two marked PP1208E stations wear — carbonated water in blue, tap water in
-    white. One geometry, two colours."""
-    return build_port_ring(_jg.BODY_D, union_bore_d())
+def build_ring(station: str):
+    """One station's ring, struck on the fitting that station carries."""
+    return build_port_ring(STATIONS[station].flange_footprint(), bore_d(station))
 
 
 def stations_hold():
-    """Hold the figures the wall and the drawing read to `port-ring-union.step` itself.
+    """Hold the figures the wall and the drawing read to each ring's own STEP.
 
     The OD is an extent of that solid, the thickness its run along the axis, and the bore a
     turned face inside it — so a ring exported from different numbers is caught here rather
     than by a pocket it will not drop into."""
-    solid = cq.importers.importStep(str(UNION_STEP)).val()
-    bb = solid.BoundingBox()
-    for what, claimed, actual in (("ring OD", union_od(), bb.xlen),
-                                  ("ring height", union_od(), bb.zlen),
-                                  ("ring thickness", THICK, bb.ylen)):
-        if abs(claimed - actual) > 1e-6:
+    for station, step in STEPS.items():
+        solid = cq.importers.importStep(str(step)).val()
+        bb = solid.BoundingBox()
+        for what, claimed, actual in (("ring OD", od(station), bb.xlen),
+                                      ("ring height", od(station), bb.zlen),
+                                      ("ring thickness", THICK, bb.ylen)):
+            if abs(claimed - actual) > 1e-6:
+                raise ValueError(
+                    f"port-ring {station} {what} is {claimed:g} and {step.name} carries "
+                    f"{actual:.4f} — a wall pocketed to the declared figure does not take the "
+                    f"ring that is there.")
+        radii = sorted({r for _axis, r in bores(solid)})
+        if not any(abs(2.0 * r - bore_d(station)) <= 1e-6 for r in radii):
             raise ValueError(
-                f"port-ring {what} is {claimed:g} and {UNION_STEP.name} carries {actual:.4f} — "
-                f"a wall pocketed to the declared figure does not take the ring that is there.")
-    radii = sorted({r for _axis, r in bores(solid)})
-    if not any(abs(2.0 * r - union_bore_d()) <= 1e-6 for r in radii):
-        raise ValueError(
-            f"the ring's bore is declared Ø{union_bore_d():g} and {UNION_STEP.name} turns no "
-            f"face at that diameter — it carries Ø{[round(2 * r, 3) for r in radii]}. A ring "
-            f"bored under the wall's own figure closes on the threading the wall passes.")
+                f"the {station} ring's bore is declared Ø{bore_d(station):g} and {step.name} "
+                f"turns no face at that diameter — it carries "
+                f"Ø{[round(2 * r, 3) for r in radii]}. A ring bored under the wall's own figure "
+                f"closes on the barrel the wall passes.")
 
 
 def selftest() -> int:
-    """The ring against the fitting it rings and the wall that pockets it."""
+    """Each ring against the fitting it rings and the wall that pockets it."""
     fails = []
-    if union_od() <= _jg.BODY_D:
-        fails.append(f"a ring of Ø{union_od():g} shows nothing past a Ø{_jg.BODY_D:g} flange")
-    if union_bore_d() <= _jg.THREAD_D:
-        fails.append(
-            f"the ring's bore Ø{union_bore_d():g} does not pass the fitting's own "
-            f"Ø{_jg.THREAD_D:g} threading")
+    for station, fitting in STATIONS.items():
+        flange = fitting.flange_footprint()
+        if od(station) <= flange:
+            fails.append(f"a {station} ring of Ø{od(station):g} shows nothing past a "
+                         f"Ø{flange:g} flange")
+        if bore_d(station) <= fitting.THREAD_D:
+            fails.append(
+                f"the {station} ring's bore Ø{bore_d(station):g} does not pass the fitting's "
+                f"own Ø{fitting.THREAD_D:g} barrel")
     if THICK >= _jg.THREAD_LEN:
         fails.append(
-            f"a ring {THICK:g} thick stands in the {_jg.THREAD_LEN:g} mm of thread the fitting "
+            f"a ring {THICK:g} thick stands in the {_jg.THREAD_LEN:g} mm of thread the union "
             f"has, and leaves none of it for the nut")
+    if THICK >= _neo.PANEL_THREAD:
+        fails.append(
+            f"a ring {THICK:g} thick stands in the {_neo.PANEL_THREAD:.2f} mm of barrel the "
+            f"ABU44 offers outboard of its flange, and leaves none of it for the wall")
     try:
         stations_hold()
     except Exception as exc:                                     # noqa: BLE001
@@ -154,36 +173,43 @@ def selftest() -> int:
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print(f"ok  port-ring  Ø{union_od():g} × Ø{union_bore_d():g} × {THICK:g}, "
-              f"{RING_W:g} mm of colour past the flange")
+        print("ok  port-ring  " + ", ".join(
+            f"{s} Ø{od(s):g} × Ø{bore_d(s):g}" for s in STATIONS)
+            + f" × {THICK:g}, {RING_W:g} mm of colour past each flange")
     return 1 if fails else 0
 
 
 def main():
-    part = build_union_ring()
-    bb = part.val().BoundingBox()
-    print("Port ring — PP1208E union station")
-    print(f"  OD Ø{union_od():g} / bore Ø{union_bore_d():g} / thickness {THICK:g}")
-    print(f"  Colour showing past the flange: {RING_W:g} mm")
-    print(f"  Canonical-frame bounding box: "
-          f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Solid valid: {part.val().isValid()}")
-
-    export_step(part, str(UNION_STEP))
-    print(f"-> {UNION_STEP.name}")
+    volumes = {}
+    for station, step in STEPS.items():
+        part = build_ring(station)
+        bb = part.val().BoundingBox()
+        volumes[station] = part.val().Volume() / 1000.0
+        print(f"Port ring — {station} station")
+        print(f"  OD Ø{od(station):g} / bore Ø{bore_d(station):g} / thickness {THICK:g}")
+        print(f"  Colour showing past the flange: {RING_W:g} mm")
+        print(f"  Canonical-frame bounding box: "
+              f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
+              f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
+              f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
+        print(f"  Solid valid: {part.val().isValid()}")
+        export_step(part, str(step))
+        print(f"-> {step.name}")
 
     variables = {
         "RING_W": f"{RING_W:g}",
         "RING_THICK": f"{THICK:g}",
-        "RING_OD": f"{union_od():g}",
-        "RING_BORE": f"{union_bore_d():g}",
-        "RING_VOL": f"{part.val().Volume() / 1000.0:.2f}",
+        "RING_OD": f"{od('union'):g}",
+        "RING_BORE": f"{bore_d('union'):g}",
+        "RING_VOL": f"{volumes['union']:.2f}",
+        "CO2_RING_OD": f"{od('neofit'):.2f}",
+        "CO2_RING_BORE": f"{bore_d('neofit'):g}",
+        "CO2_RING_VOL": f"{volumes['neofit']:.2f}",
     }
     substitute_md(_here.parent / "README.md", variables=variables,
                   expected_counts={"RING_W": 1, "RING_THICK": 2, "RING_OD": 1,
-                                   "RING_BORE": 1, "RING_VOL": 1})
+                                   "RING_BORE": 1, "RING_VOL": 1, "CO2_RING_OD": 1,
+                                   "CO2_RING_BORE": 1, "CO2_RING_VOL": 1})
     print("-> README.md")
 
 

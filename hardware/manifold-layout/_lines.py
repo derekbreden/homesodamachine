@@ -58,6 +58,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
+           _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor"):
@@ -72,6 +73,7 @@ import seaflo_suction_chain as _suct                   # noqa: E402
 import seaflo_discharge_chain as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
+import neofit_bulkhead as _neofit                      # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
 import manifold_layout as _ml                           # noqa: E402
@@ -144,6 +146,10 @@ STATIONS = {
                        "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
     "bulkhead-water": {"inboard": (lambda: _jg.port(-1.0), _jg.PORT_D),
                        "outboard": (lambda: _jg.port(1.0), _jg.PORT_D)},
+    # The other inlet on that wall, and the same two mouths under the same names: the customer's
+    # red tether lands on the outboard collet and the gas chain leaves by the inboard one.
+    "co2-inlet": {"inboard": (lambda: _neofit.port(-1.0), _neofit.TUBE_OD),
+                  "outboard": (lambda: _neofit.port(1.0), _neofit.TUBE_OD)},
     "gasher-co2": {"inlet": (_gasher.inlet, _split.TUBE_D),
                    "outlet": (_gasher.outlet, _split.TUBE_D)},
     "wr1110": {"inlet": (_wr1110.inlet, _split.TUBE_D),
@@ -242,6 +248,8 @@ def build_runs(placed, carries):
         runs.append(_water_4(F))
     if {"water-split", "vk-solenoid"} <= set(F):
         runs.append(_water_3(F))
+    if {"co2-inlet", "gasher-co2"} <= set(F):
+        runs.append(_co2_0(F))
     if {"gasher-co2", "wr1110"} <= set(F):
         runs.append(_co2_1(F))
     if {"wr1110", "foam-assembly"} <= set(F):
@@ -280,6 +288,18 @@ def build_seated_runs(placed, carries):
     if {"hopper-funnel", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
         runs.append(_fluid_4(F, placed))
     return runs
+
+
+def _co2_0(F):
+    """co2-0 — the wall bulkhead's inboard collet to the check's inlet socket, one straight hop.
+
+    The two mouths face each other down the chain's own axis with
+    `enclosure_assembly.CO2_INLET_HOP` between them, so this is a PI010822S in the check's female
+    inlet and the length of tube the bulkhead's collet and the adapter's collet both grip."""
+    return R.bent(
+        "co2-0", "co2-inlet.inboard", "gasher-co2.inlet",
+        kind="co2", note="CO2: rear-wall bulkhead → check inlet, one straight hop on the "
+                         "chain's axis")
 
 
 def _co2_1(F):
@@ -1016,8 +1036,8 @@ def authored() -> frozenset:
 # The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
-             "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28", "fluid-18",
-             "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3")
+             "co2-0", "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28",
+             "fluid-18", "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3")
 
 
 def tubes(runs):
