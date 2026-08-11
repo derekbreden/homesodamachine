@@ -72,6 +72,22 @@ tools/look.sh <run>,<its two end bodies>
 A check's `detail` names the bodies it fails on. They are candidates. The bodies that have to
 move may not be any of them — a fix is often a body the check never names.
 
+The instruments that answer the rest of this are in `hardware/scripts/`, each with a docstring
+that states what its answers do not cover, and a `selftest` that runs it against known-answer
+geometry:
+
+```
+probe.py    the machine as it stands — the gap between two bodies, what a candidate volume
+            runs into, how far a line runs and past what, WHERE THERE IS ROOM (`free`), what
+            stands near a body or a point (`around`), what a pick copied out of the viewer
+            names (`pick`), and where a piece of a drawn run can stand (`reroute`)
+fit.py      a body that is not placed yet, carried to a pose and measured there
+```
+
+A table of boxes is not one of them. A box that misses another misses it; two boxes that
+overlap say nothing at all, and this pack is full of round bodies whose boxes stand well
+inside their own metal — `calibration/Fences.md` is what that costs.
+
 That row carries the run's `need` with it: where its two ends stand, how far apart, and the
 path it spends between them. Read it before you settle on a body. High on the detour board,
 the bodies a check names are the pins of a lane the run should not be in, and moving one of
