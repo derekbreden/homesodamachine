@@ -4,9 +4,17 @@
 // orientation; this module is the 2D analog so the two surfaces feel
 // equivalent.
 //
-// makeResetButton(pz, { transformKey }) — a bottom-right "Reset view"
-//   button that calls pz.fit() and clears the saved transform so a
-//   subsequent open restarts from fit-to-container.
+// makeResetButton(pz, { transformKey, refit }) — a bottom-right "Reset view"
+//   button that fits the content and clears the saved transform so a
+//   subsequent open restarts from the same view. `refit` is the chrome-aware
+//   fit (makeChromeFit below); without one the button falls back to pz.fit().
+//
+// makeChromeFit(wrapper, extra) — the fit that lands the whole artifact on
+//   screen. Every 2D surface floats chrome over its content — the filename
+//   pill, the close X, the minimap, this module's own reset button, and
+//   whatever the surface adds — and a plain fit puts the artifact's corners
+//   under it. This measures those boxes and hands PanZoom the rects its fit
+//   must clear, so "Reset view" shows all of the drawing, card or board.
 //
 // makeMinimap(svgEl, container) — a top-right minimap showing where
 //   inside the *default (fit) view* the user is currently zoomed. Both
@@ -45,9 +53,63 @@ export function makeResetButton(pz, opts = {}) {
     if (opts.transformKey) {
       try { localStorage.removeItem(opts.transformKey); } catch {}
     }
-    if (pz && typeof pz.fit === "function") pz.fit();
+    // Re-measured on every press: the chrome moves with the viewport, and the
+    // button itself is one of the boxes being cleared.
+    if (opts.refit) opts.refit();
+    else if (pz && typeof pz.fit === "function") pz.fit();
   });
   return btn;
+}
+
+// The chrome a surface has to fit clear of: what ContentViewer lays over any
+// content, plus what this module adds, plus `extra` — the surface's own
+// overlays, named by that surface.
+function chromeSelectors(extra) {
+  const cv = (typeof ContentViewer !== "undefined" && ContentViewer.CHROME) || [];
+  return cv.concat([".pan-zoom-minimap", ".reset-view"], extra || []);
+}
+
+// `obstacles` is the live array PanZoom and the minimap both read, so a
+// re-measure reaches them without either being rebuilt. The handles arrive
+// through attach() because the array has to exist before the PanZoom that
+// takes it does.
+export function makeChromeFit(wrapper, extra) {
+  const selectors = chromeSelectors(extra);
+  const obstacles = [];
+  let pz = null;
+  let minimap = null;
+
+  function measure() {
+    // The minimap's box is aspect-driven, so it is at its pre-layout maximum
+    // until it has drawn once — size it before reading its rect.
+    try { minimap?.update(); } catch {}
+    const rects = PanZoom.measureObstacles(wrapper, selectors);
+    obstacles.length = 0;
+    obstacles.push(...rects);
+  }
+  function refit() {
+    try { measure(); pz?.fit(); } catch {}
+    try { minimap?.update(); } catch {}
+  }
+
+  return {
+    obstacles,
+    attach(p, m) { pz = p; minimap = m; },
+    measure,
+    refit,
+    // Opening: fit clear of the chrome, then again next frame — the minimap
+    // takes its final height on its first paint, after the first fit read it.
+    // A saved transform is the user's own view and takes the surface instead.
+    open(saved) {
+      refit();
+      if (saved && pz) {
+        pz.setTransform(saved);
+        try { minimap?.update(); } catch {}
+        return;
+      }
+      requestAnimationFrame(refit);
+    },
+  };
 }
 
 export function makeMinimap(svgEl, container, obstacles) {
