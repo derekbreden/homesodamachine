@@ -125,7 +125,7 @@ def main():
             "AWG_AC_MAIN": 4,
             "AWG_AC_BRANCH_U": 1,
             "AWG_DC_BRANCH": 2,
-            "AWG_SIGNAL": 3,
+            "AWG_SIGNAL": 2,
             "AWG_TRIPLE": 2,
             "AC_LINE_V": 2,
             "DC_BUS_V": 9,

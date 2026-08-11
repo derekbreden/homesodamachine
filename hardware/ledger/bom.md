@@ -8,7 +8,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 
 ## 1. Controllers + electronics
 
-All controller, driver, and logic-rail electronics arrive pre-assembled on the JLCPCB-built controller PCBA ([`pcb/pcba/`](/hardware/pcb/pcba/)) — so it is **one delivered part** at the per-board price below, not a bag of components. The full on-board inventory (every LCSC part, per-part cost, designated second-sources) is the board's own BOM: [`pcb/pcba/jlcpcb-parts.md`](/hardware/pcb/pcba/jlcpcb-parts.md) + the machine-generated `pcb/pcba/out/pcba.bom.csv`. Only the electronics that mount and wire **off** the board get their own rows here — both displays, the PSU, the MPR121, and the DS3231's coin cell; the relays + MQ-6 live in §5.
+All controller, driver, and logic-rail electronics arrive pre-assembled on the JLCPCB-built controller PCBA ([`pcb/pcba/`](/hardware/pcb/pcba/)) — so it is **one delivered part** at the per-board price below, not a bag of components. The full on-board inventory (every LCSC part, per-part cost, designated second-sources) is the board's own BOM: [`pcb/pcba/jlcpcb-parts.md`](/hardware/pcb/pcba/jlcpcb-parts.md) + the machine-generated `pcb/pcba/out/pcba.bom.csv`. Only the electronics that mount and wire **off** the board get their own rows here — both displays, the PSU, and the DS3231's coin cell; the relays + MQ-6 live in §5.
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
@@ -16,7 +16,6 @@ All controller, driver, and logic-rail electronics arrive pre-assembled on the J
 | [Duracell CR2032 3 V lithium cell (9-ct)](https://www.amazon.com/dp/B0C15WJXL2) | BT1's cell — the DS3231 timekeeping backup, retained by the on-board KH-CR2032-2-1 base (on the PCBA above); ships in the unit, seated at bench test. Order #114-3384762-6934634 Feb 22: $12.00 ÷ 9 = $1.33/ea | 1 (of 9 pk) | $1.33 | $1.33 <!--@electronics--> |
 | [Waveshare ESP32-S3-Touch-LCD-4.3B](https://www.amazon.com/dp/B0D925SBYF) | Enclosure-front config + interaction display: flavor-image/ratio tuning, clean cycles, pump priming, factory reset, screensaver, and the BLE bridge to the iOS app. 4.3" 800×480 IPS RGB capacitive touch (ST7262 RGB + GT911 touch via CH422G I/O expander), ESP32-S3-WROOM-1-N16R8 (Wi-Fi/BLE 5, 16 MB flash / 8 MB PSRAM); 7–36 V screw-terminal input off the 12 V bus (rides the J9 loom, SIG-7). Flavor display + flavor toggle live on the faucet touch LCD (below). Order #112-5620567-3321809 Jun 13: $42.99 + $3.12 tax = $46.11 | 1 | $46.11 | $46.11 <!--@electronics--> |
 | [Waveshare ESP32-S3 1.47" Touch LCD, 172×320 (B0FCF1MGT3)](https://www.amazon.com/dp/B0FCF1MGT3) | **Faucet flavor display + touch toggle.** 1.47" IPS capacitive touch (JD9853 driver + AXS5106L touch chip), ESP32-S3R8 (Wi-Fi/BLE 5). Shows the selected flavor and switches flavor by touch — no separate physical button. Mounts on the gooseneck dispense head; talks to the base ESP32 over the J3 TTL UART (SIG-6). Order #112-7687617-6094631 Jun 7: 2 @ $23.99 + $3.48 tax = $51.46 ÷ 2 = $25.73/ea | 1 | $25.73 | $25.73 <!--@electronics--> |
-| [HiLetgo MPR121 12-channel I²C cap-touch breakout (2-pk)](https://www.amazon.com/dp/B06XXYZPPX) | Off-board cap-sense controller (0x5A) beside the flavor-tube sleeves at the manifold ([`printed-parts/flavor/cap-sense-sleeve/`](/hardware/printed-parts/flavor/cap-sense-sleeve/)); the only off-board I²C device, on the J8 loom (SIG-8). 1 of 2 per unit ($6.85/2, purchases.md §9) | 1 (of 2 pk) | $3.43 | $3.43 <!--@sensors--> |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | 12 V supply for the low-voltage bus; IEC 60335-1 household-appliance safety listed | 1 | $31.66 | $31.66 <!--@electronics--> |
 
 ## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates, 316L)
@@ -140,12 +139,11 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.993 | $22.32 <!--@printed--> |
 | Drip pan | 1 | PETG | 0.031 | $0.35 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
-| Cap-sense sleeve (2-piece clamshell) | 2 sets | PETG | 0.004 | $0.04 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.96** | **[$82.58](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.96** | **[$82.54](BOM_SEC7)** |
 
-By material: PETG ≈ 6.80 kg / $76.11 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.79 kg / $76.07 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -276,13 +274,13 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$178.46](BOM_SEC1) |
+| 1. Controllers + electronics | [$175.03](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$207.29](BOM_SEC2) |
 | 3. Water inlet | [$223.17](BOM_SEC3) |
 | 4. CO2 subsystem | [$93.10](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.58](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.54](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -290,7 +288,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,285.61](BOM_GRAND)** |
+| **Total** | **[$1,282.14](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

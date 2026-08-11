@@ -283,15 +283,6 @@ MOUNTS = (
     # compressor's process tube, and the grip on that copper holds it. The fastening ships
     # with the part and closes on a body no printed feature of this machine touches.
     ("bpv31", None, "tube-clamp"),
-    # The two cap-sense clamshells close on the flavour lines themselves: dowel pins at the
-    # cut plane pull the halves together and the bore grips the tube. The tube is what holds
-    # them, and it is the tube they are there to read.
-    ("cap-sleeve-a", None, "tube-clamp"),
-    ("cap-sleeve-b", None, "tube-clamp"),
-    # The controller lies between the two risers with a lead to each sleeve and the J8 loom
-    # aft. Nothing printed reaches it and nothing else does either — the leads and the loom
-    # carry its weight, which is not a fastening.
-    ("mpr121", None, "none"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
@@ -407,13 +398,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # its underside on that floor and `drip_pan.check_plate` holds the floor wide enough to take
     # it, so the pair reads 0 and it is the sensor working.
     ("drip-pan", "moisture-plate"),
-    # EACH CAP-SENSE SLEEVE CLOSES ROUND ITS OWN LINE. The clamshell's bore is the tube's OD
-    # plus `cap_sense_sleeve.bore_clearance` on the radius, so the pair reads that clearance
-    # and it is the sleeve gripping. A sleeve standing a millimetre off the tube is two foil
-    # rings reading air. The pair is named by the run's connection id, which is how
-    # `run_clearances` names a tube.
-    ("fluid-18", "cap-sleeve-a"),
-    ("fluid-28", "cap-sleeve-b"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
@@ -957,10 +941,10 @@ def run_clearances(a, runs) -> list[tuple]:
     same exemption `lines-clear` takes, off the same `run_world`, so the two gates cannot
     disagree about which contact is by design.
 
-    A body seated ON a run mid-length rather than at an end — a sleeve closing round the tube —
-    is in `TOUCHING_OK` by the run's own connection id, the same declaration a body pair makes.
-    A PIECE seated on one mid-length — an anchor's rib closing on the tube at its seat slip — is
-    the same declaration, made by `anchored_pairs` off the sites that build those ribs."""
+    A PIECE seated on a run mid-length rather than at an end — an anchor's rib closing on the
+    tube at its seat slip — is in `TOUCHING_OK` by the run's own connection id, the same
+    declaration a body pair makes, and `anchored_pairs` makes it off the sites that build
+    those ribs."""
     anchored = anchored_pairs()
     tubes, ends, rest = run_world(a, runs)
     tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
