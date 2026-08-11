@@ -36,7 +36,7 @@ from _cadq_export import export_assembly                # noqa: E402
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
 RENDERER = _ROOT / "tools" / "render" / "render-step-posed.js"
-SIZE = "1500x1150"
+SIZE = "1600x1200"
 
 
 def png_for(scene) -> Path:
@@ -44,30 +44,47 @@ def png_for(scene) -> Path:
 
 
 def cut(assembly, scene):
-    """The scene as its own assembly: the named children of the built machine, each world-placed
-    and keeping its own colour, so the picture is the machine's own geometry and not a redraw."""
+    """The scene as its own assembly, and the point the camera looks at.
+
+    Every named child of the built machine, world-placed and keeping its own colour, so the
+    picture is the machine's own geometry and not a redraw. The look-at point is the ROOTS'
+    box — see `_scenes.SCENES`."""
     import enclosure_assembly as ea
     placed = ea._solids(assembly)
     out = cq.Assembly(name=scene.id)
     for name in _scenes.members(scene, assembly):
         solid, colour = placed[name]
         out.add(solid, name=name, color=colour)
-    return out
+    lo = [1e9] * 3
+    hi = [-1e9] * 3
+    for root in scene.roots:
+        b = placed[root][0].BoundingBox()
+        for i, (a, z) in enumerate(((b.xmin, b.xmax), (b.ymin, b.ymax), (b.zmin, b.zmax))):
+            lo[i], hi[i] = min(lo[i], a), max(hi[i], z)
+    mid = [(lo[i] + hi[i]) / 2.0 for i in range(3)]
+    if scene.look == "crown":
+        mid[2] = hi[2]
+    return out, tuple(mid)
 
 
 def draw(scene, assembly) -> Path:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     step = OUT_DIR / f"{scene.id}.step"
-    export_assembly(cut(assembly, scene), str(step))
+    scene_assembly, target = cut(assembly, scene)
+    export_assembly(scene_assembly, str(step))
 
     png = png_for(scene)
     rel = step.relative_to(_HW).as_posix()          # the renderer takes a content-root path
     cmd = [
         "node", str(RENDERER), rel, str(png),
         "--cam", ",".join(str(v) for v in scene.cam),
+        "--target", ",".join(f"{v:.3f}" for v in target),
         "--up", ",".join(str(v) for v in scene.up),
         "--zoom", str(scene.zoom),
         "--size", SIZE,
+        # Trimmed to the subject. A box seen at an angle projects to a parallelogram and leaves
+        # a corner of any rectangle empty; the card wants the picture, not the corner.
+        "--trim",
     ]
     print("   " + " ".join(cmd[1:]))
     subprocess.run(cmd, cwd=str(_ROOT), check=True)

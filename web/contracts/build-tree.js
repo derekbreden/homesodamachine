@@ -62,7 +62,7 @@ export const BAND_BY_SUBSYSTEM = {
   ca: "feeders", es: "feeders", fu: "feeders",
   en: "chassis", ip: "chassis", wr: "chassis",
   fc: "chassis", ab: "chassis", fs: "chassis",
-  gt: "anytime",
+  sa: "anytime", gt: "anytime",
 };
 
 // Where the build order and the deck's own stylesheet disagree about which

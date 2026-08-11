@@ -30,6 +30,7 @@ body.fc { --accent: #5b6acb; }  /* firmware + commissioning */
 body.ab { --accent: #2e8540; }  /* acceptance + burn-in */
 body.fs { --accent: #8a6d3b; }  /* finish, pack, ship */
 body.gt { --accent: #5c6570; }  /* technique appendix — graphite */
+body.sa { --accent: #6b4e8f; }  /* sub-assembly states — the unit deck */
 
 html, body {
   width: 1800px; height: 1200px;
@@ -233,4 +234,48 @@ footer {
   font-size: 22px; color: var(--muted); line-height: 1.4;
   font-family: var(--mono);
   padding-top: 4px;
+}
+
+
+/* ── Unit cards ───────────────────────────────────────────────
+   A sub-assembly's FINISHED STATE, not an operation: what one unit looks like
+   when it leaves the bench, and what fastens each thing to it. The picture is
+   the card — it takes the whole left field and every millimetre of height the
+   band leaves — and the text beside it names the bodies and the method and
+   stops. Rendered from a cut of the machine's own assembly, so a body that
+   moves moves in the picture: hardware/assembly/scenes/.
+
+   `object-fit: contain` because a scene is trimmed to its own subject and comes
+   back at whatever aspect the pose gave it — a portrait cut of the cold core
+   and a landscape cut of the back top both have to sit in this one frame
+   without being stretched to fit it. */
+main.unit { gap: 44px; padding: 34px 60px 14px; }
+.unit .shot {
+  flex: 1 1 62%;
+  min-width: 0;
+  background: var(--navy);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.unit .shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.unit .side { flex: 0 0 33%; min-width: 0; }
+.unit .side .lede { font-size: 27px; line-height: 1.28; margin-bottom: 18px; }
+
+/* One group per fastening method: a heading that names the joint, then the
+   bodies it holds. The rule is the card's whole claim — these things, this
+   way. */
+.unit .grp { margin-bottom: 16px; }
+.unit .grp h2 {
+  font-size: 21px; font-weight: 700; letter-spacing: 1.4px;
+  text-transform: uppercase; color: var(--accent);
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 4px; margin-bottom: 8px;
+}
+.unit .grp p { font-size: 24px; line-height: 1.3; }
+.unit .grp p b { font-weight: 700; }
+.unit .grp .how { color: var(--muted); }
+.unit .note {
+  font-size: 21px; line-height: 1.3; color: var(--muted);
+  border-left: 5px solid var(--line); padding-left: 14px; margin-top: 4px;
 }
