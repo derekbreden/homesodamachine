@@ -30,12 +30,12 @@
    ],
    "max": [
     111.5,
-    494.0,
+    494.891,
     358.0
    ],
    "mm": [
     223.0,
-    500.0,
+    500.891,
     361.0
    ]
   }
@@ -44,14 +44,14 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 42,
+ "mounted": 43,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "76/76 declared",
+   "value": "77/77 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -100,7 +100,7 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "pass",
-   "value": "60/60 clear",
+   "value": "62/62 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to \u2014 the pack's own interior mouths carry a swept line off the collet and ask for none",
@@ -126,7 +126,7 @@
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 seated against it",
-    "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
+    "co2-inlet \u2014 port-ring-co2: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
     "bulkhead-water \u2014 port-ring-water: 0.000 mm \u2014 seated against it",
@@ -167,9 +167,11 @@
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
+    "port-ring-carb \u2014 port-ring-co2: 3.861 mm",
     "co2-2 \u2014 pcba: 4.065 mm",
     "fluid-2 \u2014 valve-v-b: 4.321 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
+    "seaflo-pump \u2014 co2-inlet: 4.479 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
     "fluid-24 \u2014 fluid-26: 4.607 mm",
     "coil-v-i \u2014 wago-manb: 4.680 mm",
@@ -765,7 +767,7 @@
    "label": "Every body seated through a wall stands under the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest reaches z 347.64, ceiling 352.00",
+   "value": "tallest reaches z 348.34, ceiling 352.00",
    "target": "every body under the ceiling",
    "detail": [],
    "active": true
@@ -855,7 +857,7 @@
    "label": "The pack stands inside the appliance's stated depth",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y 470.00, back wall at 472.00",
+   "value": "pack reaches y 464.00, back wall at 472.00",
    "target": "ahead of `rear_plane_y` 472",
    "detail": [],
    "active": true
@@ -955,7 +957,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "20/20 as drawn",
+   "value": "21/21 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -979,7 +981,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "31/74 mounted, 2 nothing fastens",
+   "value": "32/75 mounted, 2 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "bulkhead-carb: wall-capture",
@@ -1035,7 +1037,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "76/76 stated",
+   "value": "77/77 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1045,12 +1047,12 @@
    "label": "Every tube connection the machine owes, made as a real 3-D path",
    "kind": "goal",
    "status": "pass",
-   "value": "39/39 made",
+   "value": "40/40 made",
    "target": "every connection made",
    "detail": [
     "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
-    "drawn 20, butt 11, fold 4, mate 2, turn 2 \u2014 0 still to route",
-    "by circuit \u2014 co2 2/2, fluid 26/26, refrigerant 3/3, water 8/8",
+    "drawn 21, butt 11, fold 4, mate 2, turn 2 \u2014 0 still to route",
+    "by circuit \u2014 co2 3/3, fluid 26/26, refrigerant 3/3, water 8/8",
     "refrig-1 (refrigerant): compressor discharge \u2192 condenser+fan inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
     "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
@@ -1078,7 +1080,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "61/61 located",
+   "value": "63/63 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -1088,7 +1090,7 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "74/76 authored",
+   "value": "75/77 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
@@ -1107,7 +1109,7 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "18/20 within span",
+   "value": "19/21 within span",
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 483.1 mm unheld, 283.1 over",
@@ -1317,6 +1319,44 @@
    "pos": [
     -83.0,
     487.5,
+    336.211
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "co2-inlet",
+   "name": "inboard",
+   "kind": "fluid",
+   "pos": [
+    -8.28,
+    460.703,
+    336.211
+   ],
+   "face": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "co2-0",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "co2-inlet",
+   "name": "outboard",
+   "kind": "fluid",
+   "pos": [
+    -8.28,
+    494.891,
     336.211
    ],
    "face": [
@@ -1639,7 +1679,7 @@
    "kind": "fluid",
    "pos": [
     -8.28,
-    467.0,
+    450.703,
     336.211
    ],
    "face": [
@@ -1648,7 +1688,7 @@
     0.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "co2-0",
    "status": "ok",
    "note": ""
   },
@@ -1658,7 +1698,7 @@
    "kind": "fluid",
    "pos": [
     -8.28,
-    427.0,
+    410.703,
     336.211
    ],
    "face": [
@@ -2247,7 +2287,7 @@
    "kind": "fluid",
    "pos": [
     -8.28,
-    417.0,
+    400.703,
     336.211
    ],
    "face": [
@@ -2266,7 +2306,7 @@
    "kind": "fluid",
    "pos": [
     -8.28,
-    360.0,
+    343.703,
     336.211
    ],
    "face": [
@@ -3002,6 +3042,22 @@
    "declared": null
   },
   {
+   "component": "port-ring-co2",
+   "boxes": [
+    [
+     -24.799,
+     475.0,
+     319.691,
+     8.239,
+     478.0,
+     352.73
+    ]
+   ],
+   "fill": 0.5559,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "water-split",
    "boxes": [
     [
@@ -3046,6 +3102,22 @@
     ]
    ],
    "fill": 0.5648,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "co2-inlet",
+   "boxes": [
+    [
+     -20.408,
+     460.703,
+     324.083,
+     3.848,
+     494.891,
+     348.338
+    ]
+   ],
+   "fill": 0.5686,
    "primitive": false,
    "declared": null
   },
@@ -3122,30 +3194,14 @@
    "declared": null
   },
   {
-   "component": "co2-inlet",
-   "boxes": [
-    [
-     -16.53,
-     467.0,
-     328.211,
-     -0.03,
-     494.0,
-     344.211
-    ]
-   ],
-   "fill": 0.6693,
-   "primitive": false,
-   "declared": null
-  },
-  {
    "component": "gasher-co2",
    "boxes": [
     [
      -16.78,
-     427.0,
+     410.703,
      328.461,
      0.22,
-     467.0,
+     450.703,
      343.961
     ]
    ],
@@ -3158,10 +3214,10 @@
    "boxes": [
     [
      -18.78,
-     360.0,
+     343.703,
      326.711,
      2.22,
-     417.0,
+     400.703,
      345.711
     ]
    ],
@@ -4752,7 +4808,7 @@
    "to": "foam-assembly.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 207.57,
+   "length": 191.28,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4766,7 +4822,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      51.0,
+      34.7,
       85.78
      ]
     },
@@ -4785,7 +4841,7 @@
    "atSpec": 2,
    "bends": 2,
    "worstTurn": 90.0,
-   "seat": 42.89,
+   "seat": 34.703,
    "reach": 42.89,
    "reachRatio": 3.0636,
    "reachGrade": "A",
@@ -4808,7 +4864,7 @@
     "ends": [
      [
       -8.28,
-      360.0,
+      343.7,
       336.21
      ],
      [
@@ -4819,12 +4875,12 @@
     ],
     "axis": {
      "x": 85.78,
-     "y": 51.0,
+     "y": 34.7,
      "z": 82.81
     },
-    "span": 129.68,
-    "path": 207.57,
-    "detour": 1.601
+    "span": 124.18,
+    "path": 191.28,
+    "detour": 1.54
    }
   },
   {
@@ -5339,6 +5395,51 @@
    }
   },
   {
+   "id": "co2-0",
+   "kind": "co2",
+   "frm": "co2-inlet.inboard",
+   "to": "gasher-co2.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 10.0,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      -8.28,
+      460.7,
+      336.21
+     ],
+     [
+      -8.28,
+      450.7,
+      336.21
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 10.0,
+     "z": 0.0
+    },
+    "span": 10.0,
+    "path": 10.0,
+    "detour": 1.0
+   }
+  },
+  {
    "id": "co2-1",
    "kind": "co2",
    "frm": "gasher-co2.outlet",
@@ -5364,12 +5465,12 @@
     "ends": [
      [
       -8.28,
-      427.0,
+      410.7,
       336.21
      ],
      [
       -8.28,
-      417.0,
+      400.7,
       336.21
      ]
     ],
@@ -5732,6 +5833,13 @@
    "never": null
   },
   {
+   "component": "port-ring-co2",
+   "by": "enclosure-back-top",
+   "joint": "well",
+   "kind": "real",
+   "never": null
+  },
+  {
    "component": "digiten-flow",
    "by": "enclosure-back-top",
    "joint": "saddle",
@@ -5963,5 +6071,5 @@
    "never": null
   }
  ],
- "sources": "c858f455ad20dda9ba5cd29254cd4b95"
+ "sources": "bd436ff717e3a65f7b444e98c69a6564"
 }

@@ -8,7 +8,7 @@ in the enclosure:
 
 - **gasher-water** — the SeaFlo pump's discharge check, riding the pump top on
   the carb-water riser path.
-- **gasher-co2** — the CO2 inlet check on the DERPIPE → WR1110 chain.
+- **gasher-co2** — the CO2 inlet check on the ABU44 → WR1110 chain.
 
 Fluid roles are in `hardware/topology/fluid-topology.md`.
 

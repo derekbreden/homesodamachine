@@ -65,10 +65,12 @@ def internal_plumbing(m):
     co2_bore = _ea.co2_wall_port(a.co2_inlet_carry)[3]
     assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
         f"no {co2_bore:.4g} mm bore stands in the back wall — IP-01 threads the GASHER onto a "
-        f"DERPIPE clamped through it, and the back wall is where the card sends the bench")
-    # The regulator threads onto NOTHING: a tube reaches it and a tube leaves it,
-    # which is the fitting count bom.md §4 buys and the reason IP-01 draws it
-    # standing apart from the check rather than screwed to it.
+        f"bulkhead clamped through it, and the back wall is where the card sends the bench")
+    # NOTHING ON THIS CHAIN THREADS ONTO ITS NEIGHBOUR: the bulkhead reaches the check by tube
+    # and the check reaches the regulator by tube, which is the fitting count bom.md §4 buys and
+    # the reason IP-01 draws all three standing apart.
+    assert (runs["co2-0"].frm, runs["co2-0"].to) == ("co2-inlet.inboard", "gasher-co2.inlet"), (
+        f"`co2-0` runs {runs['co2-0'].frm} → {runs['co2-0'].to} — IP-01 hops bulkhead to check")
     assert (runs["co2-1"].frm, runs["co2-1"].to) == ("gasher-co2.outlet", "wr1110.inlet"), (
         f"`co2-1` runs {runs['co2-1'].frm} → {runs['co2-1'].to} — IP-01 hops check to regulator")
     assert runs["co2-2"].frm == "wr1110.outlet" and runs["co2-2"].to == "foam-assembly.co2-in", (

@@ -83,7 +83,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | [John Guest MI4508F4SLF lead-free brass flare female connector, 1/4" tube × 1/4" FFL (bag of 10)](https://www.freshwatersystems.com/search?q=MI4508F4SLF) | **Regulator end of the CO2 tether.** Its swivel nut pulls down on the Wellbom's own 7/16"-20 male flare — a metal-to-metal cone seat, hand-tight, no tool — and the tether pushes into its 1/4" collet. Lead-free brass. WEBFWS100697928 Aug 11: $52.23 ÷ 10 = $5.223/ea | 1 (of bag of 10) | $5.22 | $5.22 <!--@plumbing--> |
 | [neoFit ABU44-E acetal black bulkhead connector, 1/4" tube (bag of 10)](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-1-4-tube) | **Rear-wall CO2 inlet bulkhead** — clamped through the back wall by its own panel nut, alongside the water inlet and the three umbilical unions, wearing the red port ring under its flange ([`printed-parts/enclosure/port-ring/`](/hardware/printed-parts/enclosure/port-ring/README.md)). The customer's tether pushes into the outboard collet. **Acetal**, which its own listing states is suitable for CO2 and nitrogen beverage gas lines; John Guest's black polypropylene bulkhead range (§8's PP1208E) is marked not suitable for compressed air and vacuum, so the two SKUs are not interchangeable even though both are 1/4" and both are black. Food-grade EPDM O-ring, lead-free. Alt part CI1208W. WEBFWS100697928 Aug 11: $24.78 ÷ 10 = $2.478/ea | 1 (of bag of 10) | $2.48 | $2.48 <!--@plumbing--> |
 | [John Guest PI010822S male connector NPTF, 1/4" tube × 1/4" NPTF (bag of 10)](https://www.freshwatersystems.com/search?q=john+guest+male+connector+NPTF+1%2F4+x+1%2F4) | **Inboard side of the CO2 bulkhead** — a stub of 1/4" tube out of the bulkhead's inner collet pushes into this, and its male NPTF threads into the GASHER check's socket, then the WR1110 secondary regulator, then the cold core's `co2-in` cap conduit ([`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1). The same stub-between-two-threads shape `co2-1` already makes across to the regulator. WEBFWS100697928 Aug 11: $11.64 ÷ 10 = $1.164/ea | 1 (of bag of 10) | $1.16 | $1.16 <!--@plumbing--> |
-| [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00)](https://www.amazon.com/dp/B0FV2D2FFX) | CO2-side check, threaded onto the DERPIPE bulkhead's inboard 1/4" NPT stub with its arrow pointing away from the wall; rationale in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md) "Warm-side check valves". Same 2-pack as the §3 water-side check, second valve of the pair | 1 (of 2) | $7.50 | $7.50 <!--@plumbing--> |
+| [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00)](https://www.amazon.com/dp/B0FV2D2FFX) | CO2-side check, its female inlet taking the PI010822S above and its arrow pointing away from the wall; rationale in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md) "Warm-side check valves". Same 2-pack as the §3 water-side check, second valve of the pair | 1 (of 2) | $7.50 | $7.50 <!--@plumbing--> |
 
 ## 5. Refrigeration (harvested compressor path)
 
@@ -119,7 +119,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall, and the two port rings print in the colour each names — blue for carbonated water, white for tap water ([`back-panel/_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py) `port_colors`); the rest print black. All are Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. `hardware/scripts/_bom_masses.py` is what derives them: it reads each row's own STEP solids, writes this Mass column and the `$` that follows from it, and `--check` is a commit gate on any change under `printed-parts/`, so a row and the part it names cannot drift apart. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
+Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall, and the three port rings print in the colour each names — blue for carbonated water, white for tap water, red for CO2 ([`back-panel/_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py) `port_colors`); the rest print black. All are Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. `hardware/scripts/_bom_masses.py` is what derives them: it reads each row's own STEP solids, writes this Mass column and the `$` that follows from it, and `--check` is a commit gate on any change under `printed-parts/`, so a row and the part it names cannot drift apart. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
 
 The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)'s screen against the actual syrup — no spool's resin compliance stands in for it.
 
@@ -138,15 +138,15 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 1.901 | $21.30 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 2.013 | $22.55 <!--@printed--> |
-| Port ring — carbonated water + tap water | 2 | PETG (blue, white) | 0.005 | $0.06 <!--@printed--> |
+| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 2.023 | $22.66 <!--@printed--> |
+| Port ring — carbonated water + tap water + CO2 | 3 | PETG (blue, white, red) | 0.007 | $0.08 <!--@printed--> |
 | Drip pan | 1 | PETG | 0.031 | $0.35 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.98** | **[$82.83](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.99** | **[$82.96](BOM_SEC7)** |
 
-By material: PETG ≈ 6.82 kg / $76.36 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.83 kg / $76.50 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -283,7 +283,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$96.44](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.83](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.96](BOM_SEC7) |
 | 8. Flavor subsystem | [$201.42](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -291,7 +291,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$9.80](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,285.77](BOM_GRAND)** |
+| **Total** | **[$1,285.90](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
