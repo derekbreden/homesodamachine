@@ -1219,13 +1219,7 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
 
 
-def _port_field_proud(field) -> float:
-    """How far a wall's port field stands off its outer face — what a cutter through that wall
-    has to reach past to clear the field standing on it."""
-    return 0.0 if field is None else field[4]
-
-
-def _port_field(solid, field, outer, y_outer, zlo, zhi):
+def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
     """The raised field on a ±Y wall's outer face, and the pockets its port rings lie in.
 
     The crown is the plane the fittings' flanges bear on. Each flank falls from that crown to
@@ -1235,7 +1229,9 @@ def _port_field(solid, field, outer, y_outer, zlo, zhi):
 
     It stands OUTSIDE the print silhouette, so like the C14's bosses it goes on after the clip,
     on whichever piece holds its Z — `zlo..zhi` is that piece's band, and the field takes the
-    wall's own width across it."""
+    wall's own width across it. Everything the wall carries through it carries through the
+    field too, so `ports` is bored here across the field's own depth: the wall's holes are the
+    wall's, and these are the field's."""
     if field is None:
         return solid
     x0, x1, z0, z1, proud, pockets = field
@@ -1252,6 +1248,8 @@ def _port_field(solid, field, outer, y_outer, zlo, zhi):
     for px, pz, dia in pockets:
         solid = solid.cut(cq.Solid.makeCylinder(
             dia / 2.0, proud, cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0)))
+    for cutter in _port_cuts(ports, y_outer, y_outer + proud):
+        solid = solid.cut(cutter)
     return solid
 
 
@@ -2049,8 +2047,7 @@ def build_back_half(box):
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the back wall in the band above the
     # cold core; their bodies hang in the band's open rear half.
-    for cutter in _port_cuts(box.back_ports, inner[3] - 5.0,
-                             outer[3] + _port_field_proud(box.port_field) + 5.0):
+    for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
     back = _c14_bosses(back, inner, outer, box.c14, outer[4] - 1.0, outer[5] + 1.0)
     # The drip tray's withdrawal slot through the −X wall, and the rail pair it rides. Cut the
@@ -2677,12 +2674,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # holds their Z.
         piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi)
         # The port field stands outboard of that same silhouette, for the same reason: the
-        # fittings clamp against its crown, not against the wall. On after the clip, then the
-        # face's own through-holes are re-cut so every bore that crossed the wall crosses it.
-        piece = _port_field(piece, box.port_field, outer, oy1, zlo, zhi)
-        for cutter in _port_cuts(box.back_ports, oy1 - 1.0,
-                                 oy1 + _port_field_proud(box.port_field) + 1.0):
-            piece = piece.cut(cutter)
+        # fittings clamp against its crown, not against the wall. It carries the face's own
+        # through-holes across its depth, so a bore that crosses the wall crosses it too.
+        piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
