@@ -156,10 +156,10 @@ def holders():
     import _cold_core_interface as _cci
 
     out, orphans = {}, []
-    for name, by, held in _sc.mounts():
+    for name, by, joint in _sc.mounts():
         out[name] = by or BEARS_ON.get(name)
-        if out[name] is None and held != "pack" and name not in BEARS_ON:
-            orphans.append(f"{name} (held by {held})")
+        if out[name] is None and joint != "pack" and name not in BEARS_ON:
+            orphans.append(f"{name} ({joint})")
     if orphans:
         raise ValueError(
             "these bodies have no parent, so no scene can know whether to show them: "

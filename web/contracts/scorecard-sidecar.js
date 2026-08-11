@@ -130,8 +130,11 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {string} component
  * @property {string|null} by  the part whose printed feature fastens it; null = the joint is
  *                             still to design, and this row is one unit of the focus axis's gap
- * @property {string} held     what merely holds it today ("none" | "wall-capture" | "tray" | …).
- *                             The distance from this to `by` is the joint to print.
+ * @property {string} joint    the construction it stands on ("bosses" | "wall-capture" |
+ *                             "cradle" | "pack" | …). Not a score and not a holder — `pack` is
+ *                             the flavour manifold's own bodies, which nothing printed fastens.
+ *                             It is what lets a card count the bodies bossed to a piece apart
+ *                             from the ones captured in its wall
  * @property {string} kind     "real" | "placeholder" — the component's geometry authorship
  */
 
@@ -151,12 +154,11 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {number} located  0..100 — every connector positioned AND sized on the component
  * @property {number} shaped   0..100 — real geometry, not a placeholder box
  * @property {number} routed   0..100 — connections modeled as real 3D paths
- * @property {number} held     0..100 — a printed holder fastens each component
  * @property {number} [mounted]  0..100 — the feature that fastens each component is printed
- *                               INTO another placed part. Stricter than `held`, which also
- *                               counts capture and adhesive. Optional: an edition whose
- *                               scorecard predates the axis omits it, so the guard below does
- *                               not require it and a bar still draws without it.
+ *                               INTO another placed part, and the only fastening measure the
+ *                               card carries. Optional: an edition whose scorecard predates the
+ *                               axis omits it, so the guard below does not require it and a bar
+ *                               still draws without it.
  * @property {ScorecardSize[]} [size]  how big the thing is: the printed box, and everything
  *                               placed. Optional: an edition whose scorecard predates the
  *                               table omits it, and the card draws without a size block
@@ -244,13 +246,12 @@ export function failingBends(sc) {
                     || a.ratio - b.ratio || a.id.localeCompare(b.id));
 }
 
-// The components with no printed feature fastening them, one row per open joint. A body already
-// held by something looser sorts last — that joint is a conversion, and one nothing holds at all
-// is a joint to invent.
+// The components with no printed feature fastening them, one row per open joint, by name. Each
+// row's `joint` says what the joint would be converting FROM; none of them ranks above another,
+// because `by` is null for every one and that is the whole of what this list measures.
 export function unmountedComponents(sc) {
   return (sc.mounts || []).filter((m) => !m.by)
-    .sort((a, b) => Number(a.held !== "none") - Number(b.held !== "none")
-                    || a.component.localeCompare(b.component));
+    .sort((a, b) => a.component.localeCompare(b.component));
 }
 
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client
@@ -258,7 +259,7 @@ export function unmountedComponents(sc) {
 export function isScorecard(o) {
   if (!o || typeof o !== "object") return false;
   if (typeof o.gatesPass !== "boolean") return false;
-  for (const k of ["placed", "located", "shaped", "routed", "held"]) {
+  for (const k of ["placed", "located", "shaped", "routed"]) {
     if (typeof o[k] !== "number") return false;
   }
   if (!Array.isArray(o.checks)) return false;
@@ -346,7 +347,7 @@ export function isScorecard(o) {
         m &&
         typeof m.component === "string" &&
         (m.by === null || typeof m.by === "string") &&
-        typeof m.held === "string",
+        typeof m.joint === "string",
     );
     if (!mountsOk) return false;
   }

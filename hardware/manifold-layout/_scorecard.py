@@ -203,18 +203,23 @@ CARB_SEGMENTS = (
 
 # --- what fastens each body ------------------------------------------------
 #
-# One row per body `enclosure_assembly` seats, as `(component, by, held)`.
+# One row per body `enclosure_assembly` seats, as `(component, by, joint)`.
 #
-#   `by`   — the part whose PRINTED FEATURE fastens it. A boss a screw goes into, a socket a
-#            thread makes up in. `None` is a joint still to design, and every `None` here is
-#            one unit of the `mounted` axis's gap.
-#   `held` — what holds it today, which is a different question. A body resting on a crown or
-#            hanging off its own two collets is HELD and is not MOUNTED: nothing about either
-#            survives the machine being picked up by one corner.
+#   `by`    — the part whose PRINTED FEATURE fastens it. A boss a screw goes into, a socket a
+#             thread makes up in. `None` is a joint still to design, and every `None` here is
+#             one unit of the `mounted` axis's gap. IT IS THE ONLY FASTENING MEASURE: a body
+#             resting on a crown or hanging off its own two collets is not mounted, because
+#             nothing about either survives the machine being picked up by one corner.
+#   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
+#             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `tube-clamp`, `deck-mount`,
+#             `basin`, `gap-press`, `floor`, `tube-hung`, `pack`. Not an axis and not a score —
+#             it is how the machine puts this body down, and it is what lets a card count the
+#             bodies bossed to a piece apart from the ones captured in its wall
+#             (`assembly/cards/_cards_sync.py`) and a scene tell a pack body from an orphan.
 #
 # The flavour manifold's own bodies are not typed here. They are still COUNTED — `pack_mounts`
-# reads them off `manifold_layout` and adds a row apiece, so the denominator every fastening
-# axis reports is the whole machine and not the part of it this module seats by hand.
+# reads them off `manifold_layout` and adds a row apiece, so the denominator `mounted` reports
+# is the whole machine and not the part of it this module seats by hand.
 MOUNTS = (
     ("compressor", None, "floor"),
     ("condenser+fan", None, "floor"),
@@ -1158,7 +1163,7 @@ def _coverage(a) -> Check:
     box: a tube is fastened by the collets it seats in, and a wall is what the rest fastens TO."""
     bodies, _tubes, _pieces = _split_placed(a)
     placed = set(bodies)
-    declared = {name for name, _by, _held in mounts()}
+    declared = {name for name, _by, _joint in mounts()}
     detail = [f"placed, undeclared: {n}" for n in sorted(placed - declared)]
     detail += [f"declared, unplaced: {n}" for n in sorted(declared - placed)]
     return Check("coverage", "Every placed body is declared in the fastening table",
@@ -1167,37 +1172,20 @@ def _coverage(a) -> Check:
 
 
 def _mounted() -> Check:
+    """The one fastening axis: a printed feature of another placed part, or nothing.
+
+    The construction each open row stands on today rides in the detail, so the list says what
+    a joint would be converting FROM. `pack` is 30 of them and is not a holder — it is the
+    flavour manifold's own bodies, butted collet to collet down its limbs, standing on the
+    hairpins the machine sets the whole pose down on."""
     rows = mounts()
-    open_joints = [(n, held) for n, by, held in rows if by is None]
-    # A body already held by something looser sorts last — that joint is a conversion, and one
-    # nothing holds at all is a joint to invent.
-    open_joints.sort(key=lambda r: (r[1] != "none", r[0]))
-    detail = [f"{n}: held by {held}" for n, held in open_joints]
+    open_joints = sorted((n, joint) for n, by, joint in rows if by is None)
+    detail = [f"{n}: {joint}" for n, joint in open_joints]
     done = len(rows) - len(open_joints)
     return Check("mounted",
                  "A printed feature of another placed part fastens every body", "goal",
                  _verdict(not open_joints), f"{done}/{len(rows)} mounted",
                  "a printed joint per body", detail)
-
-
-def _held() -> Check:
-    """Something holds every body — the looser axis `mounted` is measured against.
-
-    A body captured in a wall's bore, resting on a crown, riding on rails, hanging off its own
-    two collets or standing in the pack is HELD. What is not held is a body the machine has
-    nowhere to put down: it is where it is because the model says so, and an assembler handed
-    the parts could not reproduce the pose."""
-    rows = mounts()
-    loose = sorted(n for n, _by, held in rows if held == "none")
-    by_holder: dict = {}
-    for name, _by, held in rows:
-        if held != "none":
-            by_holder.setdefault(held, []).append(name)
-    detail = [f"{held} holds {len(ns)}: {', '.join(sorted(ns))}"
-              for held, ns in sorted(by_holder.items())]
-    detail += [f"{n}: nothing holds it at all" for n in loose]
-    return Check("held", "Something holds every body", "goal", _verdict(not loose),
-                 f"{len(rows) - len(loose)}/{len(rows)} held", "a holder per body", detail)
 
 
 # --- where each body stands ------------------------------------------------
@@ -1512,7 +1500,7 @@ def _build(a) -> Scorecard:
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
-              _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes), _held(),
+              _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes),
               _tube_anchored(a, runs)]
     return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
 
@@ -1539,7 +1527,6 @@ def to_dict(sc: Scorecard) -> dict:
         "located": _score(by_id["located"]),
         "shaped": _score(by_id["shaped"]),
         "routed": _score(by_id["routed"]),
-        "held": _score(by_id["held"]),
         "mounted": _score(by_id["mounted"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
@@ -1552,9 +1539,9 @@ def to_dict(sc: Scorecard) -> dict:
         "ports": sc.ports,
         "shapes": sc.shapes,
         "bends": sc.bends,
-        "mounts": [{"component": n, "by": by, "held": h,
+        "mounts": [{"component": n, "by": by, "joint": j,
                     "kind": "placeholder" if prim.get(n) else "real"}
-                   for n, by, h in mounts()],
+                   for n, by, j in mounts()],
     }
 
 

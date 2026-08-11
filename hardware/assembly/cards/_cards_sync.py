@@ -343,7 +343,7 @@ def sub_assemblies(m: Machine):
     import _cold_core_interface as _cci
 
     holder = _scenes.holders()
-    joint = {name: held for name, _by, held in __import__("_scorecard").mounts()}
+    joint = {name: j for name, _by, j in __import__("_scorecard").mounts()}
 
     def under(part, *joints):
         return sorted(n for n, by in holder.items()

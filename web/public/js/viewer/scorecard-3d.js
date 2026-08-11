@@ -157,7 +157,7 @@ function bendPanel(sc, wrapper, partNames) {
 function mountPanel(sc, wrapper, partNames) {
   return unmountedComponents(sc).map((m) =>
     linkRow("sc-row sub warn", `— ${m.component}`,
-            m.held && m.held !== "none" ? `${m.held} — not printed in` : "nothing holds it",
+            m.joint ? `${m.joint} — not printed in` : "no joint",
             partNames.has(m.component) ? [m.component] : [], wrapper));
 }
 
@@ -254,7 +254,7 @@ function openModal(wrapper, sc, title) {
   }
   if (deferred.length) {
     card.appendChild(el("div", "sc-h", `Deferred — placed ${sc.placed}% · located ${sc.located}% · `
-      + `shaped ${sc.shaped}% · routed ${sc.routed}% · held ${sc.held}%`));
+      + `shaped ${sc.shaped}% · routed ${sc.routed}%`));
     addCollapsedChecks(card, deferred, `${deferred.length} not asked for yet`,
                        wrapper, partNames, true);
   }

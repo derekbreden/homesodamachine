@@ -44,7 +44,6 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "held": 100,
  "mounted": 39,
  "checks": [
   {
@@ -970,51 +969,51 @@
    "value": "29/74 mounted",
    "target": "a printed joint per body",
    "detail": [
-    "bpv31: held by tube-clamp",
-    "bulkhead-carb: held by wall-capture",
-    "bulkhead-flavor-a: held by wall-capture",
-    "bulkhead-flavor-b: held by wall-capture",
-    "bulkhead-water: held by wall-capture",
-    "co2-inlet: held by wall-capture",
-    "coil-v-a: held by pack",
-    "coil-v-b: held by pack",
-    "coil-v-c: held by pack",
-    "coil-v-d: held by pack",
-    "coil-v-e: held by pack",
-    "coil-v-f: held by pack",
-    "coil-v-g: held by pack",
-    "coil-v-h: held by pack",
-    "coil-v-i: held by pack",
-    "coil-v-j: held by pack",
-    "compressor: held by floor",
-    "condenser+fan: held by floor",
-    "display: held by wall-capture",
-    "flow-regulator: held by tube-hung",
-    "foam-assembly: held by floor",
-    "fuse-clamp: held by gap-press",
-    "gasher-co2: held by wall-capture",
-    "hopper-funnel: held by wall-capture",
-    "pump-a-boss: held by pack",
-    "pump-a-head: held by pack",
-    "pump-a-motor: held by pack",
-    "pump-b-boss: held by pack",
-    "pump-b-head: held by pack",
-    "pump-b-motor: held by pack",
-    "tee-y-a: held by pack",
-    "tee-y-b: held by pack",
-    "tee-y-c: held by pack",
-    "tee-y-d: held by pack",
-    "tee-y-f: held by pack",
-    "tee-y-g: held by pack",
-    "valve-v-c: held by pack",
-    "valve-v-d: held by pack",
-    "valve-v-e: held by pack",
-    "valve-v-f: held by pack",
-    "valve-v-g: held by pack",
-    "valve-v-h: held by pack",
-    "valve-v-i: held by pack",
-    "valve-v-j: held by pack",
-    "water-split: held by tube-hung"
+    "bpv31: tube-clamp",
+    "bulkhead-carb: wall-capture",
+    "bulkhead-flavor-a: wall-capture",
+    "bulkhead-flavor-b: wall-capture",
+    "bulkhead-water: wall-capture",
+    "co2-inlet: wall-capture",
+    "coil-v-a: pack",
+    "coil-v-b: pack",
+    "coil-v-c: pack",
+    "coil-v-d: pack",
+    "coil-v-e: pack",
+    "coil-v-f: pack",
+    "coil-v-g: pack",
+    "coil-v-h: pack",
+    "coil-v-i: pack",
+    "coil-v-j: pack",
+    "compressor: floor",
+    "condenser+fan: floor",
+    "display: wall-capture",
+    "flow-regulator: tube-hung",
+    "foam-assembly: floor",
+    "fuse-clamp: gap-press",
+    "gasher-co2: wall-capture",
+    "hopper-funnel: wall-capture",
+    "pump-a-boss: pack",
+    "pump-a-head: pack",
+    "pump-a-motor: pack",
+    "pump-b-boss: pack",
+    "pump-b-head: pack",
+    "pump-b-motor: pack",
+    "tee-y-a: pack",
+    "tee-y-b: pack",
+    "tee-y-c: pack",
+    "tee-y-d: pack",
+    "tee-y-f: pack",
+    "tee-y-g: pack",
+    "valve-v-c: pack",
+    "valve-v-d: pack",
+    "valve-v-e: pack",
+    "valve-v-f: pack",
+    "valve-v-g: pack",
+    "valve-v-h: pack",
+    "valve-v-i: pack",
+    "valve-v-j: pack",
+    "water-split: tube-hung"
    ],
    "active": true
   },
@@ -1087,30 +1086,6 @@
     "display: 2 boxes hold 18% material",
     "fuse-clamp: 1 box holds 23% material",
     "pcba: 1 box holds 24% material"
-   ],
-   "active": false
-  },
-  {
-   "id": "held",
-   "label": "Something holds every body",
-   "kind": "goal",
-   "status": "pass",
-   "value": "74/74 held",
-   "target": "a holder per body",
-   "detail": [
-    "basin holds 1: moisture-plate",
-    "bosses holds 6: c14-inlet, ground-stack, pcba, psu, relay-1, relay-2",
-    "channel holds 2: drip-pan, thermal-fuse",
-    "cradle holds 8: asse1022-assembly, discharge-chain, mq6-sensor, suction-chain, valve-v-a, valve-v-b, vk-solenoid, wr1110",
-    "deck-mount holds 1: seaflo-pump",
-    "floor holds 3: compressor, condenser+fan, foam-assembly",
-    "gap-press holds 1: fuse-clamp",
-    "pack holds 30: coil-v-a, coil-v-b, coil-v-c, coil-v-d, coil-v-e, coil-v-f, coil-v-g, coil-v-h, coil-v-i, coil-v-j, pump-a-boss, pump-a-head, pump-a-motor, pump-b-boss, pump-b-head, pump-b-motor, tee-y-a, tee-y-b, tee-y-c, tee-y-d, tee-y-f, tee-y-g, valve-v-c, valve-v-d, valve-v-e, valve-v-f, valve-v-g, valve-v-h, valve-v-i, valve-v-j",
-    "saddle holds 1: digiten-flow",
-    "tube-clamp holds 1: bpv31",
-    "tube-hung holds 2: flow-regulator, water-split",
-    "wall-capture holds 8: bulkhead-carb, bulkhead-flavor-a, bulkhead-flavor-b, bulkhead-water, co2-inlet, display, gasher-co2, hopper-funnel",
-    "well holds 10: wago-g, wago-gnd, wago-h, wago-mana, wago-manb, wago-n, wago-reeds-a, wago-reeds-b, wago-sensors, wago-v12"
    ],
    "active": false
   },
@@ -5413,447 +5388,447 @@
   {
    "component": "compressor",
    "by": null,
-   "held": "floor",
+   "joint": "floor",
    "kind": "real"
   },
   {
    "component": "condenser+fan",
    "by": null,
-   "held": "floor",
+   "joint": "floor",
    "kind": "real"
   },
   {
    "component": "foam-assembly",
    "by": null,
-   "held": "floor",
+   "joint": "floor",
    "kind": "real"
   },
   {
    "component": "seaflo-pump",
    "by": "foam-assembly",
-   "held": "deck-mount",
+   "joint": "deck-mount",
    "kind": "real"
   },
   {
    "component": "hopper-funnel",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "display",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "suction-chain",
    "by": "foam-assembly",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "discharge-chain",
    "by": "foam-assembly",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "psu",
    "by": "enclosure-back-top",
-   "held": "bosses",
+   "joint": "bosses",
    "kind": "real"
   },
   {
    "component": "pcba",
    "by": "enclosure-back-top",
-   "held": "bosses",
+   "joint": "bosses",
    "kind": "real"
   },
   {
    "component": "relay-1",
    "by": "enclosure-back-top",
-   "held": "bosses",
+   "joint": "bosses",
    "kind": "real"
   },
   {
    "component": "relay-2",
    "by": "enclosure-back-top",
-   "held": "bosses",
+   "joint": "bosses",
    "kind": "real"
   },
   {
    "component": "ground-stack",
    "by": "enclosure-back-top",
-   "held": "bosses",
+   "joint": "bosses",
    "kind": "real"
   },
   {
    "component": "wago-h",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-n",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-g",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-v12",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-gnd",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-mana",
    "by": "enclosure-front-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-manb",
    "by": "enclosure-front-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-reeds-b",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-reeds-a",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "wago-sensors",
    "by": "enclosure-back-top",
-   "held": "well",
+   "joint": "well",
    "kind": "real"
   },
   {
    "component": "asse1022-assembly",
    "by": "enclosure-back-top",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "drip-pan",
    "by": "enclosure-back-top",
-   "held": "channel",
+   "joint": "channel",
    "kind": "real"
   },
   {
    "component": "moisture-plate",
    "by": "drip-pan",
-   "held": "basin",
+   "joint": "basin",
    "kind": "real"
   },
   {
    "component": "mq6-sensor",
    "by": "enclosure-front-bottom",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "thermal-fuse",
    "by": "fuse-clamp",
-   "held": "channel",
+   "joint": "channel",
    "kind": "real"
   },
   {
    "component": "fuse-clamp",
    "by": null,
-   "held": "gap-press",
+   "joint": "gap-press",
    "kind": "real"
   },
   {
    "component": "bpv31",
    "by": null,
-   "held": "tube-clamp",
+   "joint": "tube-clamp",
    "kind": "real"
   },
   {
    "component": "water-split",
    "by": null,
-   "held": "tube-hung",
+   "joint": "tube-hung",
    "kind": "real"
   },
   {
    "component": "flow-regulator",
    "by": null,
-   "held": "tube-hung",
+   "joint": "tube-hung",
    "kind": "real"
   },
   {
    "component": "vk-solenoid",
    "by": "foam-assembly",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "bulkhead-water",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "c14-inlet",
    "by": "enclosure-back-top",
-   "held": "bosses",
+   "joint": "bosses",
    "kind": "real"
   },
   {
    "component": "co2-inlet",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "gasher-co2",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "wr1110",
    "by": "enclosure-back-top",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "bulkhead-flavor-a",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "bulkhead-flavor-b",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "bulkhead-carb",
    "by": null,
-   "held": "wall-capture",
+   "joint": "wall-capture",
    "kind": "real"
   },
   {
    "component": "digiten-flow",
    "by": "enclosure-back-top",
-   "held": "saddle",
+   "joint": "saddle",
    "kind": "real"
   },
   {
    "component": "coil-v-a",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-b",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-c",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-d",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-e",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-f",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-g",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-h",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-i",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "coil-v-j",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "pump-a-boss",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "pump-a-head",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "pump-a-motor",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "placeholder"
   },
   {
    "component": "pump-b-boss",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "pump-b-head",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "pump-b-motor",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "placeholder"
   },
   {
    "component": "tee-y-a",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "tee-y-b",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "tee-y-c",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "tee-y-d",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "tee-y-f",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "tee-y-g",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-a",
    "by": "foam-assembly",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "valve-v-b",
    "by": "foam-assembly",
-   "held": "cradle",
+   "joint": "cradle",
    "kind": "real"
   },
   {
    "component": "valve-v-c",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-d",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-e",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-f",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-g",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-h",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-i",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   },
   {
    "component": "valve-v-j",
    "by": null,
-   "held": "pack",
+   "joint": "pack",
    "kind": "real"
   }
  ],
- "sources": "8a1c3e0b7c20a0de39ba90c762af0a1b"
+ "sources": "afe72d6ba071a4d8e03d7903b9f1954d"
 }

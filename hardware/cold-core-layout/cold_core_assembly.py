@@ -747,12 +747,11 @@ def build_card(a) -> Scorecard:
     mouths = [("carbonator-vessel", n, m, n) for n, m in _V.mouths().items()]
     mouths += [(f"bulkhead-{n}", "collet", m, n) for n, m in _I.mouths().items()]
     shapes = _shape_rows(placed)
-    # `by` is what FASTENS a body and `held` what holds it. Here they are the same feature
-    # wherever one exists, and `by` is None for the two the tape holds — which is the field
-    # `web/contracts/scorecard-sidecar.js` counts, so both surfaces read one number.
+    # `by` is what FASTENS a body and `joint` the construction it stands on. Here they are the
+    # same feature wherever one exists, and `by` is None for the two the tape holds — which is
+    # the field `web/contracts/scorecard-sidecar.js` counts, so both surfaces read one number.
     mounts = [(n, None if held_for(n) in NOT_A_FEATURE else held_for(n), held_for(n))
               for n in sorted(placed)]
-    held = sum(1 for _n, _by, h in mounts if h != "none")
 
     checks = [
         _one_core(placed),
@@ -774,11 +773,10 @@ def build_card(a) -> Scorecard:
               sum(1 for s in shapes if not s["primitive"]), len(shapes), "no primitives"),
         _goal("routed", "Every line the core owes is drawn", len(fitted), len(fitted),
               "a line per connection"),
-        _goal("held", "Something holds every body", held, len(mounts), "a holder per body"),
         _goal("mounted", "A feature of another placed part locates every body",
-              sum(1 for _n, _by, h in mounts if h not in NOT_A_FEATURE), len(mounts),
+              sum(1 for _n, by, _j in mounts if by is not None), len(mounts),
               "a located joint per body",
-              [f"{n}: held by {h}" for n, _by, h in mounts if h in NOT_A_FEATURE]),
+              [f"{n}: {j}" for n, by, j in mounts if by is None]),
     ]
     return Scorecard(checks, _bend_rows(fitted, a.points), _port_rows(mouths), shapes, mounts)
 
