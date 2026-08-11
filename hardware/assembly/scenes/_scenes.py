@@ -173,14 +173,12 @@ def holders():
     for name, station in _cci.cap_anchors.items():
         # A run's rib holds the tube; a chain's holds the chain itself.
         out[f"tube-{name}" if station.over_face is not None else name] = "foam-assembly"
-    # A COIL RIDES ITS VALVE. `pack_mounts` gives every pack body to "the pack" because no
-    # printed feature fastens one, but a coil is on the valve it drives and goes wherever that
-    # valve goes — which for the three on the cap is the cold core.
-    for name in list(out):
-        if name.startswith("valve-v-"):
-            coil = name.replace("valve-", "coil-")
-            if coil in out:
-                out[coil] = out[name]
+    # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
+    # Kamoers' rear bosses and motor cans on their heads. One purchased thing apiece, drawn as
+    # several so each takes its own colour.
+    for rider, host in _sc.RIDES.items():
+        if rider in out and host in out:
+            out[rider] = out[host]
     return out
 
 

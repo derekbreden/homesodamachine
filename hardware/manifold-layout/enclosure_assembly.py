@@ -103,6 +103,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "port-ring",
+           _hw / "printed-parts" / "enclosure" / "valve-panel",
            _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
@@ -139,6 +140,7 @@ import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import port_ring as _ring                             # noqa: E402
+import valve_panel as _panel                          # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
@@ -870,6 +872,138 @@ def check_valve_row(placed: dict) -> Bound:
         "cap-valve-row", "The three valves on the cap stand in one row, evenly spaced", ok,
         f"pitch {pitch[0]:.3f} / {pitch[1]:.3f} mm, depths within {off_y:.3f} mm",
         f"one depth and one pitch within {ROW_TOL:g} mm", detail))
+
+
+# --- the flavour manifold's valve panels ------------------------------------
+#
+# TWO PLATES, ONE PER VALVE DECK (`valve_panel`). The fold stands the manifold's eight
+# non-cap valves on two planes, four to a plane, and each plate reaches the box's two side
+# walls carrying one `valve_seat` per valve — four bosses, sockets the corner posts press into.
+#
+# NOTHING BELOW IS A STATION. A valve's plane, the columns its seats stand on and the plate's
+# own extent are all read off the placed valves at every build: `manifold_layout` folds the pack
+# and this module stands it on the base's crown, so where a deck lands is that stack's
+# arithmetic. A panel table would be a second machine's.
+#   Which face of a valve is its mounting plane is read off ITS OWN COIL. The Beduan's coil
+# stands on the body's crown, so the axis from the valve's centre to its coil's IS the valve's
+# own +Z, and the plane the four posts stand on is the box face at the other end of it.
+#
+# How far off contact a valve on a panel may read. It is the same figure every seat on this card
+# is held to — the trough's, the saddles' and both ribs' — and what it measures is the mesh the
+# gap is taken across, so a valve resting on its boss tops reads just under it.
+PANEL_SEAT_SLIP = 0.2
+
+
+def _valve_up(placed: dict, name: str) -> tuple:
+    """One valve's own +Z in world, as `(axis, sign)` — the way its coil stands off it."""
+    coil = name.replace("valve-", "coil-")
+    if coil not in placed:
+        raise KeyError(
+            f"{name} is placed and {coil} is not, so nothing says which way it faces — a "
+            f"Beduan's coil stands on its crown and that is what tells a panel which of the "
+            f"body's six faces its four posts stand on.")
+    vb, cb = box(placed[name]), box(placed[coil])
+    d = [(cb.xmin + cb.xmax - vb.xmin - vb.xmax) / 2.0,
+         (cb.ymin + cb.ymax - vb.ymin - vb.ymax) / 2.0,
+         (cb.zmin + cb.zmax - vb.zmin - vb.zmax) / 2.0]
+    axis = max(range(3), key=lambda i: abs(d[i]))
+    return axis, (1.0 if d[axis] > 0.0 else -1.0)
+
+
+def valve_panel_decks(placed: dict) -> dict:
+    """The valves a panel holds, grouped by the plane they stand on.
+
+    `name -> (axis, sign, plane, ((valve, u, v), …))` — which world axis the valves' own +Z
+    runs on, which way it points, the world coordinate of their shared mounting plane, and each
+    valve's centre in the plate's two in-plane axes.
+
+    The cap's three valves are not here: the cold core's lid prints their seats
+    (`_cold_core_interface.cap_cradles`), and a body is held once."""
+    groups = collections.defaultdict(list)
+    for name in placed:
+        if not name.startswith("valve-v-") or name in _cci.cap_cradles:
+            continue
+        axis, sign = _valve_up(placed, name)
+        b = box(placed[name])
+        centre = ((b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0)
+        # The mounting plane is the box face the coil stands away from.
+        plane = ([b.xmin, b.ymin, b.zmin] if sign > 0 else [b.xmax, b.ymax, b.zmax])[axis]
+        groups[(axis, sign, round(plane, 6))].append((name, centre))
+    out = {}
+    for (axis, sign, plane), members in sorted(groups.items()):
+        # The plate's own two axes: X across the machine wherever it can be, and whichever of
+        # the remaining two is not the valves' own +Z.
+        across = 0 if axis != 0 else 1
+        along = next(i for i in range(3) if i not in (axis, across))
+        seats = tuple((n, c[across], c[along]) for n, c in sorted(members))
+        out[panel_name(axis, sign, plane, out)] = (axis, sign, plane, seats)
+    return out
+
+
+def panel_name(axis: int, sign: float, plane: float, taken: dict) -> str:
+    """The body name one panel goes into the assembly under — where in the machine the plate
+    itself stands, which is opposite the way its valves' coils point."""
+    where = {(0, 1.0): "west", (0, -1.0): "east", (1, 1.0): "fore", (1, -1.0): "aft",
+             (2, 1.0): "bottom", (2, -1.0): "top"}[(axis, sign)]
+    name = f"valve-panel-{where}"
+    return name if name not in taken else f"{name}-{plane:.0f}"
+
+
+def valve_panel_stations(placed: dict) -> tuple:
+    """Every deck as `enclosure.Box.valve_panels` — `(plane, sign, ((x, z), …))` per panel.
+
+    The world Y a deck's valves stand their mounting faces on, which way their own +Z runs off
+    it, and each valve's footprint centre. This is the whole of what the wall is handed: the
+    plate's extent is the seats' own, and its thickness, margin and seat height are
+    `valve_panel`'s."""
+    out = []
+    for _name, (axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
+        if axis != 1:
+            raise ValueError(
+                f"a valve deck stands its valves' own +Z on {'xyz'[axis]} and "
+                f"`enclosure._valve_panels` fuses a plate across the box's width on a Y plane — "
+                f"a deck on another axis needs the builder to learn it, not this table.")
+        out.append((plane, sign, tuple((round(u, 6), round(v, 6)) for _n, u, v in seats)))
+    return tuple(out)
+
+
+def valve_panel_plans() -> dict:
+    """`name -> (width, seats)` in each plate's own frame — what `valve_panel` draws.
+
+    The seats are centred on the plate: across, on the box's own centreline, because the plate
+    runs wall to wall; along, on the row the valves stand in."""
+    a = build_pack()
+    placed = {n: s for n, (s, _c) in _solids(a).items()}
+    x0, x1 = _enc.interior_x()
+    out = {}
+    for name, (_axis, _sign, _plane, seats) in valve_panel_decks(placed).items():
+        mid_v = (min(v for _n, _u, v in seats) + max(v for _n, _u, v in seats)) / 2.0
+        out[name] = (x1 - x0, tuple((round(u - (x0 + x1) / 2.0, 6), round(v - mid_v, 6))
+                                    for _n, u, v in seats))
+    return out
+
+
+def check_panels_hold(pieces: dict, placed: dict) -> Bound:
+    """Whether every valve on a panel is standing in the piece that carries its seats.
+
+    Read as the seat is: a valve's four corner posts hang in four sockets and its round body
+    boss lands on the four boss tops, so the valve and the printed piece TOUCH. Anything else is
+    a plate drawn beside a valve rather than under it. The detail is the table, so a deck that
+    has moved prints what it now is."""
+    rows, worst = [], 0.0
+    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+    for name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
+        for valve, _u, _v in seats:
+            gap = min(_clearing.gap(placed[valve], piece, 1.0) for piece in solids)
+            worst = max(worst, gap)
+            rows.append((name, valve, plane, sign, gap))
+    bad = [r for r in rows if r[4] > PANEL_SEAT_SLIP]
+    return record_bound(Bound(
+        "panels-hold", "Every valve on a printed panel is standing in its seats", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} valves seated, furthest off {worst:.3f} mm",
+        f"every valve within {PANEL_SEAT_SLIP:g} mm of the plate under it",
+        [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   off {g:.4f}"
+         for n, v, p, s, g in rows]))
 
 
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
@@ -3481,6 +3615,11 @@ def build_pack() -> cq.Assembly:
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
                 planes={"z0": crown}, got=_whole([s for _n, s, _c in stood]),
                 members=tuple(in_pack))
+    # THE TWO VALVE PANELS' STATIONS, on the planes the fold left the manifold's eight non-cap
+    # valves standing on. They are read straight off the pack: the deck a plate lands on and the
+    # columns its seats stand on are the placed valves', and nothing here is a chosen number.
+    # `enclosure._valve_panels` is what fuses each plate into the piece that owns its band.
+    a.valve_panels = valve_panel_stations({n: s for n, s, _c in stood})
     # What the core butts is whatever stands ahead of it AT THE CORE'S OWN HEIGHT. The
     # source valves' quarter turns carry them aft over the core's crown, and a body standing
     # over it is not a body in its way — so the seam is measured against the bodies that reach
@@ -3722,7 +3861,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
-                     port_field=back_wall_field(a.wall_stations))
+                     port_field=back_wall_field(a.wall_stations),
+                     valve_panels=a.valve_panels)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -3887,6 +4027,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
+    # And every valve on a panel against the piece whose plate carries its four sockets — the
+    # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
+    # plate nothing on this card would otherwise name.
+    check_panels_hold(pieces, a.pack_solids)
     # And every rear-wall fitting against the ring it bears on and the bore it passes. The rings
     # go into the assembly rather than the pack — they stand outboard of the wall — so they come
     # back off the placed children the way the runs do.

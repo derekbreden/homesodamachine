@@ -33,11 +33,12 @@ clearance the sockets are cut on — a seat clears a valve as freely as it grips
 
 ## Who prints one
 
-The cold core's top cap lid, and nothing else: `_cold_core_interface.cap_cradles` is the table
-of stations and [`foam_cap.add_cradles`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
-stands them on the lid's outer face. Every other valve in the machine is butted collet to collet
-down a limb of the flavour pack ([`manifold-layout/`](/hardware/manifold-layout/)) and stands on
-nothing of its own.
+Two parts. The cold core's top cap lid carries three: `_cold_core_interface.cap_cradles` is the
+table of stations and [`foam_cap.add_cradles`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+stands them on the lid's outer face. The other eight stand on the two **valve panels**
+([`../enclosure/valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)) — a
+plate of four seats under each of the flavour pack's two decks, printed into
+`enclosure-front-top` wall to wall.
 
 A seat is square, so a quarter turn carries it onto itself: a station's yaw locates the valve
 and does not turn the print.

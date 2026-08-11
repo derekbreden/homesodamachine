@@ -218,9 +218,10 @@ CARB_SEGMENTS = (
 #             bodies bossed to a piece apart from the ones captured in its wall
 #             (`assembly/cards/_cards_sync.py`) and a scene tell a pack body from an orphan.
 #
-# The flavour manifold's own bodies are not typed here. They are still COUNTED — `pack_mounts`
-# reads them off `manifold_layout` and adds a row apiece, so the denominator `mounted` reports
-# is the whole machine and not the part of it this module seats by hand.
+# WHERE A BODY IS DRAWN IS NOT WHAT HOLDS IT. Rows for the flavour manifold's own bodies stand
+# in this table beside every other, because what fastens a valve is a printed seat under it and
+# not the sub-assembly it was arranged in. `derived_mounts` adds a row for each placed body this
+# table does not name, so the denominator is the whole machine.
 MOUNTS = (
     ("compressor", None, "floor"),
     ("condenser+fan", None, "floor"),
@@ -328,40 +329,81 @@ MOUNTS = (
     # feature can reach. A strap through each saddle's own cavity closes it, and here the straps
     # are the load path: a V that opens downward carries nothing.
     ("digiten-flow", "enclosure-back-top", "saddle"),
+    # THE CAP LID PRINTS A CRADLE UNDER EACH VALVE THAT STANDS ON IT
+    # (`_cold_core_interface.cap_cradles`) — four bosses, and the valve's own corner posts press
+    # into their sockets. The cap is inside `foam-assembly`, which is the placed body the cradle
+    # is a feature of, so that is what fastens them.
+    ("valve-v-a", "foam-assembly", "cradle"),
+    ("valve-v-b", "foam-assembly", "cradle"),
+    # AND THE OTHER EIGHT STAND ON TWO VALVE PANELS — a plate wall to wall on each plane the
+    # fold left a deck on, carrying that same four-boss seat per valve. A panel is not a part:
+    # it is `enclosure-front-top`'s own material, fused the way the tap-water trough and the
+    # meter's saddles are (`enclosure._valve_panels` off
+    # `enclosure_assembly.valve_panel_stations`, read by `panels-hold`).
+    ("valve-v-c", "enclosure-front-top", "bosses"),
+    ("valve-v-d", "enclosure-front-top", "bosses"),
+    ("valve-v-g", "enclosure-front-top", "bosses"),
+    ("valve-v-j", "enclosure-front-top", "bosses"),
+    ("valve-v-e", "enclosure-front-top", "bosses"),
+    ("valve-v-f", "enclosure-front-top", "bosses"),
+    ("valve-v-h", "enclosure-front-top", "bosses"),
+    ("valve-v-i", "enclosure-front-top", "bosses"),
 )
 
 
-# THE PACK'S OWN BODIES A PRINTED FEATURE FASTENS. Everything else in the pack rides the pack:
-# `pack_mounts` types no row, so a body that gains a joint is named here and nowhere else.
-#   The cold core's cap lid prints a cradle under each valve that stands on it
-# (`_cold_core_interface.cap_cradles`), and the valve's four corner posts press into it. The
-# cap is inside `foam-assembly`, which is the placed body the cradle is a feature of, so that
-# is what fastens them — the same way a wall boss fastens the power column.
-PACK_MOUNTS = {
-    "valve-v-a": ("foam-assembly", "cradle"),
-    "valve-v-b": ("foam-assembly", "cradle"),
+# A BODY THAT IS PART OF ANOTHER BODY, as `rider -> host`. What holds a rider is whatever holds
+# its host: the fastening it answers to is one its host's own hardware makes, shipped with the
+# part and closed on the part.
+#   These are one purchased thing apiece drawn as several. `manifold_layout.flat_bodies` gives a
+# Beduan two solids so the coil takes its own colour, and `build_pump` gives a Kamoer the three
+# its STEP carries — head, rear boss and motor can. `hardware/ledger/bom.md` bills one row for
+# each of those, and `hardware/reference/beduan-solenoid` fuses body, coil and port into one
+# solid. A rider takes its host's row, so a colour never reads as an open joint.
+RIDES = {
+    **{f"coil-v-{v}": f"valve-v-{v}" for v in "abcdefghij"},
+    **{f"pump-{p}-{part}": f"pump-{p}-head"
+       for p in ("a", "b") for part in ("boss", "motor")},
 }
 
 
-def pack_mounts() -> tuple:
-    """The flavour manifold's own bodies, one fastening row each.
+def rides_hold(rows) -> None:
+    """Every rider and every host in `RIDES` is a placed body, and no host is itself a rider."""
+    have = {name for name, _by, _joint in rows}
+    for rider, host in sorted(RIDES.items()):
+        for who, what in ((rider, "rider"), (host, "host")):
+            if who not in have:
+                raise ValueError(
+                    f"`RIDES` names {who!r} as the {what} of {rider!r} → {host!r} and no placed "
+                    f"body carries that name — the body has been renamed or has left the "
+                    f"machine, and this row is what is still holding a place for it.")
+        if host in RIDES:
+            raise ValueError(
+                f"`RIDES` has {rider!r} riding {host!r}, which rides {RIDES[host]!r} — a rider "
+                f"takes its host's row, and a chain of them takes no row at all.")
 
-    `manifold_layout` arranges them on the pack's four spine hairpins and this module stands
-    that whole pose on the base's crown, so what carries every one of them is THE PACK: the
-    hairpins are what the machine sets it down on, and no printed feature fastens a body inside
-    it. They are placed bodies of this machine and no other card grades their fastening, so they
-    are counted here rather than left out of the denominator — a card whose `mounted` figure
-    omits the flavour pumps is measuring a different machine from the one it draws.
 
-    Derived rather than typed, so the ten valves, their coils, the two pumps and the junction
-    tees ride whatever the pack does next."""
-    return tuple((name, *PACK_MOUNTS.get(name, (None, "pack")))
-                 for name in sorted(pack_bodies()))
+def derived_mounts() -> tuple:
+    """One row for every placed body `MOUNTS` does not name.
+
+    `manifold_layout` arranges the flavour manifold's own bodies on the pack's four spine
+    hairpins and this module stands that whole pose on the base's crown, so a body no printed
+    feature reaches is carried by THE PACK — the hairpins are what the machine sets it down on.
+
+    Read off the placed assembly rather than typed, so a body the machine gains arrives with a
+    row instead of waiting for one."""
+    typed = {name for name, _by, _joint in MOUNTS}
+    return tuple((name, None, "pack") for name in sorted(pack_bodies()) if name not in typed)
 
 
 def mounts() -> tuple:
-    """Every placed body's fastening row — the bodies this module seats, then the pack's."""
-    return MOUNTS + pack_mounts()
+    """Every placed body's fastening row — the ones this module types, then the rest."""
+    return MOUNTS + derived_mounts()
+
+
+def fastened_by(name: str):
+    """What actually fastens one body: its own row's `by`, or its host's if it rides one."""
+    by_name = {n: by for n, by, _joint in mounts()}
+    return by_name[RIDES.get(name, name)]
 
 
 # --- the rows nothing can fasten -------------------------------------------
@@ -446,6 +488,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
+    # AND THE EIGHT IN THE TWO VALVE PANELS' — the same seat and the same press, on a plate the
+    # front-top piece carries instead of a lid. `enclosure_assembly.check_panels_hold` is what
+    # reads each valve against that plate.
+    *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
     # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding: `enclosure_assembly.check_chains_seated` takes
     # it, and `anchor-lands` holds each rib over the section it is bored for.
@@ -1239,25 +1285,30 @@ def _mounted() -> Check:
     """The one fastening axis: a printed feature of another placed part, or nothing.
 
     The construction each open row stands on today rides in the detail, so the list says what
-    a joint would be converting FROM. `pack` is 30 of them and is not a holder — it is the
-    flavour manifold's own bodies, butted collet to collet down its limbs, standing on the
-    hairpins the machine sets the whole pose down on.
+    a joint would be converting FROM. `pack` is the flavour manifold's own bodies, butted collet
+    to collet down its limbs, standing on the hairpins the machine sets the whole pose down on.
 
-    `NEVER`'s rows are counted apart: out of the denominator, and last in the detail with the
-    reason each carries."""
+    A RIDER IS NOT A JOINT. `RIDES`'s rows are part of another placed body and answer to its
+    fastening, so counting them would be counting one joint as many times as its part is drawn.
+    They are out of this axis entirely; `coverage` is what holds every one of them declared.
+    `NEVER`'s rows are counted apart too: out of the denominator, and last in the detail with
+    the reason each carries."""
     rows = mounts()
     never_holds(rows)
-    open_joints = sorted((n, joint) for n, by, joint in rows
+    rides_hold(rows)
+    own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
+    open_joints = sorted((n, joint) for n, by, joint in own
                          if by is None and n not in NEVER)
     detail = [f"{n}: {joint}" for n, joint in open_joints]
     detail += [f"{n}: {joint} — nothing fastens it; {NEVER[n]}"
-               for n, _by, joint in sorted(rows, key=lambda r: r[0]) if n in NEVER]
-    total = len(rows) - len(NEVER)
+               for n, _by, joint in sorted(own, key=lambda r: r[0]) if n in NEVER]
+    total = len(own) - len(NEVER)
     done = total - len(open_joints)
     return Check("mounted",
                  "A printed feature of another placed part fastens every body", "goal",
                  _verdict(not open_joints),
-                 f"{done}/{total} mounted, {len(NEVER)} nothing fastens",
+                 f"{done}/{total} mounted, {len(RIDES)} part of another body, "
+                 f"{len(NEVER)} nothing fastens",
                  "a printed joint per body", detail)
 
 
@@ -1612,10 +1663,13 @@ def to_dict(sc: Scorecard) -> dict:
         "ports": sc.ports,
         "shapes": sc.shapes,
         "bends": sc.bends,
-        "mounts": [{"component": n, "by": by, "joint": j,
+        # `by` is what the axis counts, so a rider carries its host's — the same reading
+        # `_mounted` makes, and the panel's open-joint list is that reading sorted.
+        "mounts": [{"component": n, "by": fastened_by(n), "joint": j,
                     "kind": "placeholder" if prim.get(n) else "real",
+                    "rides": RIDES.get(n),
                     "never": NEVER.get(n)}
-                   for n, by, j in mounts()],
+                   for n, _by, j in mounts()],
     }
 
 

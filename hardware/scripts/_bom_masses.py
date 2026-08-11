@@ -82,11 +82,12 @@ PARTS = {
         "enclosure/drip-pan/drip-pan.step",
     ],
     "Fuse clamp": ["refrigeration/fuse-clamp/fuse-clamp.step"],
-    # NO VALVE TRAY ROW. The three valves that stand on a printed face stand in cradles the
-    # cold core's own cap lid carries (`_cold_core_interface.cap_cradles`), so their bosses are
-    # already priced as part of that lid; the rest are butted collet to collet down the
-    # flavour pack's own limbs and stand on nothing. `_bom_sync` derives the count off the
-    # placed pack and fails if a tray body ever appears in it.
+    # NO VALVE PANEL ROW AND NO TRAY ROW. Every valve in the machine stands in four bosses
+    # (`valve_seat`), and every set of them is printed into a part already billed: three on the
+    # cold core's cap lid (`_cold_core_interface.cap_cradles`) and eight on the two valve panels
+    # (`enclosure._valve_panels`), which are `enclosure-front-top`'s own material. So a valve's
+    # seat is priced as part of the piece that carries it, and nothing stands under one that
+    # ships on its own.
     "Faucet touch-flo shell (3-piece: bottom + middle + top)": [
         "faucet/touch-flo-shell/touch-flo-shell-bottom.step",
         "faucet/touch-flo-shell/touch-flo-shell-middle.step",
