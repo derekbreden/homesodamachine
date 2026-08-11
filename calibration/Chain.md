@@ -135,10 +135,9 @@ A reverted red is destroyed evidence. Land it, name in the commit message the de
 could not re-answer, and say what it did to the gates. `git revert` is his, not yours.
 
 The one exception is an unattended iteration, where nobody is reading the state before the
-next one is built on it. There `/gauntlet` reverts what the ratchet rejects — and `git revert`
-is the form that keeps the bargain, because it lands an inverse commit and leaves the red one
-in history to be read. `git reset` and `git checkout <path>` are what destroy evidence, and
-they are never yours.
+next one is built on it. There `git revert` is the form that keeps the bargain, because it
+lands an inverse commit and leaves the red one in history to be read. `git reset` and
+`git checkout <path>` are what destroy evidence, and they are never yours.
 
 > .... the previous agent wrote a novel. You wrote 2 novels. I haven't understood any of it,
 > and now you are saying "no nevermind" and still not explaining to me what the hell you were
