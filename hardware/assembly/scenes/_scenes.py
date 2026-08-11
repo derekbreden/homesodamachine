@@ -46,7 +46,7 @@ import _realized                                        # noqa: E402
 # direction from the target to the camera, so a scene looking INTO a piece through its own open
 # faces points from the side those faces face. `zoom` is the distance in bounding-box radii and
 # `up` the camera's own up — both handed to `tools/render/render-step-posed.js` unchanged.
-Scene = namedtuple("Scene", "id title roots also cam up zoom look note")
+Scene = namedtuple("Scene", "id title roots parts flip also cam up zoom look note")
 
 # WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the
 # carb riser leaves this box entirely — drags the whole scene's bounding box after it and puts
@@ -58,35 +58,47 @@ Scene = namedtuple("Scene", "id title roots also cam up zoom look note")
 # closed foam under a lid that carries everything, and a camera pointed at its middle is
 # pointed at the part of it with nothing to see.
 
+# `parts` DRAWS PART OF A ROOT. The cold core is one solid in the machine — `foam-assembly` —
+# and the unit a person actually holds is its top cap and that cap's lid, which take their own
+# foam pour and carry everything on the crown long before the shell is under them. A scene names
+# the sub-solids of the root it wants and `render_scenes.cut` carries them through the root's own
+# placement; the root still decides which bodies come with it.
+#
+# `flip` IS THE POSE THE UNIT IS WORKED IN, not a camera trick. A piece open at its ceiling is
+# turned over on the bench so the open faces look up, and the picture shows the piece the way a
+# hand meets it.
+#
 # The machine's frame: +X east, +Y aft, +Z up. A back piece is open FORWARD (−Y) at the Y seam
-# and open at the Z seam it telescopes on, so a camera forward of it and off its own axis looks
-# in through both.
+# and open at the Z seam it telescopes on.
 SCENES = (
     Scene(
         "back-top", "Enclosure back top",
-        roots=("enclosure-back-top",), also=(),
-        cam=(0.6, -1.0, -0.5), up=(0, 0, 1), zoom=2.3, look="centre",
-        note="Open at the Y seam and at its own Z seam, both toward the camera — the piece as "
-             "it lies on the bench with every body already on it.",
+        roots=("enclosure-back-top",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.3, look="centre",
+        note="Turned over, which is how it is worked: its ceiling is the bench and both open "
+             "faces look up. Every body is on it before it goes back the other way.",
     ),
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
-        roots=("foam-assembly",), also=(),
+        roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
+        flip=None, also=(),
         cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
-        note="The cold core closed and poured, its lid's outer face bare. Nothing stands on it "
-             "yet — this is what the next scene starts from.",
+        note="The top cap and its lid alone, poured and cleaned, the lid's outer face bare. "
+             "The shell is not under it yet and nothing stands on it — this is what the next "
+             "scene starts from.",
     ),
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
-        roots=("foam-assembly",), also=(),
+        roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
+        flip=None, also=(),
         cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
-        note="The same core with everything its lid carries: the pump bolted through, the three "
-             "valves pressed into their cradles, both chains and two runs strapped into printed "
-             "ribs.",
+        note="The same cap and lid with everything that face carries: the pump bolted through, "
+             "three valves pressed into their cradles, both chains and two runs strapped into "
+             "printed ribs. It meets the rest of the core after all of it is on.",
     ),
     Scene(
         "back-half", "Enclosure back half",
-        roots=("enclosure-back-bottom", "enclosure-back-top"), also=(),
+        roots=("enclosure-back-bottom", "enclosure-back-top"), parts=(), flip=None, also=(),
         cam=(0.95, -1.0, 0.35), up=(0, 0, 1), zoom=2.45, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
              "front half — the last moment anything inside is reachable.",
@@ -129,10 +141,6 @@ BEARS_ON = {
     # Riding another body rather than a piece.
     "bpv31": "compressor",
     "fuse-clamp": "compressor",
-    # Clamped on a length of the pack's own tube, so they come with the pack.
-    "cap-sleeve-a": None,
-    "cap-sleeve-b": None,
-    "mpr121": None,
 }
 
 
