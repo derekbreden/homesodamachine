@@ -30,8 +30,8 @@ Six complementary checks:
 
 6. BYTE-HASHED STEPS: SHA256-compare frozen STEP outputs; bytes must
    match exactly. Spans the cold-core single parts (foam, copper,
-   coil-mandrel, prv-shroud), the flavor parts (cap-sense sleeves,
-   peristaltic tube), and the reference STEPs (beduan solenoid, JG
+   coil-mandrel, prv-shroud), the flavor parts (peristaltic tube),
+   and the reference STEPs (beduan solenoid, JG
    bulkhead union, water-test cup, valve body, faucet assembly).
    `capture` is what widens the set.
 
@@ -77,8 +77,6 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
     # flavor
-    "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step",
-    "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
     # reference
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
@@ -104,7 +102,6 @@ _shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shel
 _faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
 
 _flavor_generators = [
-    "hardware/printed-parts/flavor/cap-sense-sleeve/cap_sense_sleeve.py",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
 ]
 

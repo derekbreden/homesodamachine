@@ -16,7 +16,7 @@ top connectors, south-edge GPIO the bottom — so each connector's traces comb s
 its pins instead of crossing the fan.
 
 - I²C: IO21 (SDA), IO22 (SCL) — 4.7k pull-ups to 3V3 on-board (R19/R20); bus serves the two
-  MCP23017s, the DS3231, and the off-board MPR121 via the I2C header (J8)
+  MCP23017s and the DS3231, and breaks out at the I2C header (J8)
 - UART → RS485 config display: IO32 (TX), IO34 (RX, input-only) — south edge
 - UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
 - Pumps → on-board DRV8870 H-bridges, single-direction drive: IO17→A.IN1, IO4→B.IN1 (each IN2 is tied to the GND plane, so each bridge drives one way or coasts; IO16/IO18 are the reserved IN2 feeds a reversing respin takes)

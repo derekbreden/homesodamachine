@@ -33,7 +33,7 @@ awg_mains = 16          # AC-1, DC-1/DC-2/DC-3/DC-4, ground bus
 awg_ac_branch = 16      # AC-2/AC-3 (power gauge)
 awg_compressor_lead = 18  # AC-4/AC-5/AC-6 — the SJOOW cord's three conductors
 awg_sig = 22            # DC-5/DC-6/DC-7/DC-8, SIG-1
-awg_lv = 22             # LV-1/2/3, SIG-2/3/4/7/8/9/10/11/12 (signal gauge)
+awg_lv = 22             # LV-1/2/3, SIG-2/3/4/7/9/10/11/12 (signal gauge)
 
 # ─── PSU (Mean Well IRM-90-12ST) ──────────────────────────────────────
 psu_primary_a = 0.67    # primary-side current at full load (80 W ÷ 120 V)
@@ -86,7 +86,7 @@ len_short_mm = 50       # AC-3 (shelf hop)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, DC-5 pigtail
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), LV-1/2/3, DC-4, DC-6/DC-7 valve fan-outs, SIG-4
 len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to the peristaltic pumps
-len_manifold_mm = 300   # DC-6/DC-7 (shelf → manifold trunks), SIG-8 (MPR121 at the sleeves)
+len_manifold_mm = 300   # DC-6/DC-7 (shelf → manifold trunks)
 len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor on the unbroken SJOOW jacket), DC-8 (shelf → side-wall fan)
 len_cold_core_mm = 600  # SIG-1/2/3/10/11 (shelf → cold core), SIG-9 (drip pan), SIG-12 (rear cabinet floor)
 len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (front-face 4.3B config display, internal)
@@ -154,7 +154,7 @@ def main():
             "AWG_AC_BRANCH": 2,    # AC-2/3
             "AWG_COMP_LEAD": 3,       # AC-4/5/6
             "AWG_SIG": 5,          # DC-5/6/7/8, SIG-1
-            "AWG_LV": 12,          # LV-1/2/3, SIG-2/3/4/7/8/9/10/11/12
+            "AWG_LV": 11,          # LV-1/2/3, SIG-2/3/4/7/9/10/11/12
             # Conductor gauges with " AWG" suffix in prose.
             "AWG_MAINS_U": 3,
             "AWG_AC_BRANCH_U": 1,
@@ -170,7 +170,7 @@ def main():
             # Logic rails.
             "V_DC": 18,
             "V_LOGIC": 5,
-            "V_IO": 5,
+            "V_IO": 4,
             "DS18B20_PULLUP": 1,
             # Conductor counts.
             "COMP_WIRES": 1,
@@ -181,7 +181,7 @@ def main():
             "LEN_SHORT_2": 4,
             "LEN_MID": 8,
             "LEN_PUMP": 2,
-            "LEN_MANIFOLD": 3,
+            "LEN_MANIFOLD": 2,
             "LEN_COMPRESSOR": 4,
             "LEN_COLD_CORE": 7,
             "LEN_UMBILICAL": 2,

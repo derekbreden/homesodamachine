@@ -90,8 +90,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "sf76e-thermal-fuse",
            _hw / "printed-parts" / "refrigeration" / "fuse-clamp",
            _hw / "reference" / "supco-bpv31",
-           _hw / "reference" / "mpr121-breakout",
-           _hw / "printed-parts" / "flavor" / "cap-sense-sleeve",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
@@ -133,8 +131,6 @@ import mq6_gas_sensor as _mq6                         # noqa: E402
 import sf76e_thermal_fuse as _fuse                    # noqa: E402
 import fuse_clamp as _clamp                           # noqa: E402
 import supco_bpv31 as _bpv                            # noqa: E402
-import mpr121_breakout as _mpr                        # noqa: E402
-import cap_sense_sleeve as _css                       # noqa: E402
 import foam_assembly as _foam                         # noqa: E402
 import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
@@ -159,7 +155,6 @@ import _scorecard as _card                             # noqa: E402
 PSU_STEP = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 PCBA_STEP = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 RELAY_STEP = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
-MPR121_STEP = _hw / "reference" / "mpr121-breakout" / "mpr121-breakout.step"
 GND_STACK_STEP = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
 
 
@@ -253,8 +248,6 @@ C_MQ6 = cq.Color(0.25, 0.40, 0.70)
 C_FUSE = cq.Color(0.88, 0.72, 0.22)
 C_CLAMP = cq.Color(0.30, 0.32, 0.36)
 C_BPV = cq.Color(0.78, 0.78, 0.82)
-C_MPR = cq.Color(0.20, 0.50, 0.35)
-C_SLEEVE = cq.Color(0.30, 0.32, 0.36)
 C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 C_VK = cq.Color(0.45, 0.50, 0.58)
@@ -1996,7 +1989,6 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
               "moisture-plate", "mq6-sensor", "thermal-fuse", "fuse-clamp", "bpv31",
-              "mpr121", "cap-sleeve-a", "cap-sleeve-b",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
@@ -2836,154 +2828,6 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry, west_face):
     return placed, carry
 
 
-# --- the cap-sense sleeves, and the controller that reads them --------------
-#
-# Two printed clamshells, one on each flavour line, each holding two copper foil rings
-# against the tube wall; the MPR121 measures between a pair of rings and reads water
-# (~80 dielectric) against air (~1). `printed-parts/flavor/cap-sense-sleeve/README.md` is
-# the part and `assembly/firmware-and-commissioning.md` "MPR121 cap-sense" is the check.
-#
-# THE RINGS ARE THE ELECTRODES, so the wire between a ring and the controller is inside the
-# measurement. That is what puts the MPR121 off the board: `wiring/ac-wiring-schedule.md`
-# SIG-8 runs 300 mm of I²C out to the manifold so the electrode leads do not run back.
-# `check_cap_leads` is where that arrangement is held to itself.
-#
-# EACH SLEEVE GOES ON ITS LINE'S FIRST RISER, the straight out of the nozzle gate's own
-# outlet — the length of tube that is full when the channel is primed and empty when it is
-# not. `check_sleeve_grips` holds the bore on that straight: the bore is a cylinder
-# `cap_sense_sleeve.sleeve_length` long, and a corner under it is a sleeve that will not
-# close.
-SLEEVE_LINES = {"cap-sleeve-a": "fluid-18", "cap-sleeve-b": "fluid-28"}
-# The leg of each line the sleeve rides, and the axis that leg has to run on for the roll
-# below to mean anything.
-SLEEVE_LEG = 0
-SLEEVE_AXIS = (0.0, 0.0, 1.0)
-
-
-def sleeve_seat(run):
-    """Where a clamshell closes on a run, as `(the bore's mid-point, the leg's axis, the
-    straight the leg leaves)`.
-
-    A leg's own length is not its straight: each end that turns a corner spends the run's
-    bend radius on the arc, and what is left between the two tangent points is what a body
-    with a straight bore can sit on. The sleeve takes the middle of it."""
-    p, q = run.pts[SLEEVE_LEG], run.pts[SLEEVE_LEG + 1]
-    v = cq.Vector(*[q[i] - p[i] for i in range(3)])
-    length = v.Length
-    v = v.normalized()
-    head = run.bend if SLEEVE_LEG > 0 else 0.0
-    tail = run.bend if SLEEVE_LEG < len(run.pts) - 2 else 0.0
-    free = length - head - tail
-    mid = cq.Vector(*p) + v * (head + free / 2.0)
-    return (mid.x, mid.y, mid.z), (v.x, v.y, v.z), free
-
-
-def check_sleeve_grips(rows) -> Bound:
-    """How much straight each sleeve is left standing on, against its own length.
-
-    The clamshell's bore is a cylinder `cap_sense_sleeve.sleeve_length` long. A run's leg
-    that is shorter than that once its corners have taken their arcs cannot be gripped at
-    all; one only a little longer is gripped on tube that is still bending, and the two
-    halves close on an oval.
-
-    Nothing else on the card reads it. The bore is one `cap_sense_sleeve.bore_clearance`
-    over the tube's own radius, so the two share no volume however the tube runs under them
-    — `pack-closes` and `lines-clear` both come back empty, and `clearance-floor` reads the
-    bore clearance and is told it is a seat."""
-    worst = min((free for _n, free, _s in rows), default=0.0)
-    short = [(n, free, span) for n, free, span in rows if free < span]
-    return record_bound(Bound(
-        "sleeve-grips", "Each cap-sense sleeve closes on a straight length of its line",
-        not short,
-        f"{worst:.2f} mm of straight, least of {len(rows)}",
-        f"{_css.sleeve_length:g} mm per sleeve",
-        ([] if not short else [
-            f"{n}: the leg it rides leaves {free:.2f} mm of straight between its corners' "
-            f"arcs and the sleeve is {span:g} long — the clamshell would close on "
-            f"{span - free:.2f} mm of bend. The leg is `{SLEEVE_LINES[n]}` leg "
-            f"{SLEEVE_LEG}; lengthen it, or move the sleeve to a leg that has the room."
-            for n, free, span in short])))
-
-
-def build_sleeve(name, run):
-    """One cap-sense clamshell closed on its line's first riser, both halves.
-
-    The bore's own axis is the part's +Z and the run's leg is already vertical, so the
-    only turn is the ROLL: `cap_sense_sleeve`'s +X is the side the two wire-exit slots
-    breach, and this points it at the machine's mirror plane, where the controller stands.
-    The leads leave the sleeve facing the part that reads them."""
-    mid, axis, _free = sleeve_seat(run)
-    got = tuple(round(v, 9) for v in axis)
-    if got != SLEEVE_AXIS:
-        raise ValueError(
-            f"{name} rides `{SLEEVE_LINES[name]}` leg {SLEEVE_LEG}, which runs {got} — the "
-            f"line has been rerouted off the vertical this sleeve's roll is struck on, and "
-            f"the bore no longer lies on the tube it is drawn round.")
-    body = cq.Compound.makeCompound(
-        [_css.build_pos_y_half().val(), _css.build_neg_y_half().val()])
-    roll = 180.0 if mid[0] > 0.0 else 0.0
-    return seat_body(body, (((0.0, 0.0, 1.0), roll),), seat=name,
-                     station=(((0.0, 0.0, _css.sleeve_length / 2.0), SLEEVE_AXIS), mid))
-
-
-def sleeve_exit():
-    """The sleeve's two wire-exit slots, as one station in the part's own frame: the +X
-    side of the +Y half, on the plane midway between the two foil grooves. This is where
-    an electrode lead leaves the sleeve, and the point a lead's length is measured from."""
-    return ((_css.outer_radius, 0.0, sum(_css.groove_centers_z) / 2.0), (1.0, 0.0, 0.0))
-
-
-def check_cap_leads(mpr_carry, sleeve_carries, pcba) -> Bound:
-    """The electrode leads against the I²C run that buys them.
-
-    An electrode lead is part of the electrode; an I²C conductor is not. That trade is the
-    whole reason this controller is off the board, and `ac-wiring-schedule.md` SIG-8 is the
-    300 mm of loom it costs. A controller sitting further from a sleeve than from the PCBA
-    is a controller that has spent the loom and kept the leads.
-
-    Both figures come off placed geometry — the sleeves' own wire-exit slots, the board's
-    two header rows, and the PCBA where the wall hangs it."""
-    row = mpr_carry(_mpr.electrode_row())[0]
-    bus = mpr_carry(_mpr.bus())[0]
-    loom = math.dist(bus, box(pcba).center.toTuple())
-    leads = [(math.dist(carry(sleeve_exit())[0], row), n) for n, carry in sleeve_carries]
-    worst, worst_n = max(leads, default=(0.0, "—"))
-    ok = worst <= loom
-    return record_bound(Bound(
-        "cap-leads", "The cap-sense electrode leads are shorter than the I²C loom that buys them",
-        ok,
-        f"longest lead {worst:.2f} mm ({worst_n}), loom {loom:.2f} mm",
-        "every lead under the loom",
-        ([] if ok else [
-            f"mpr121: the lead to {worst_n} reaches {worst:.2f} mm and the J8 loom back to "
-            f"the PCBA is {loom:.2f} — the controller stands further from the sleeve it "
-            f"reads than from the board it reports to. It lies on the mirror plane between "
-            f"the two risers; what moved is a riser, the board, or this seat."])))
-
-
-def build_mpr121(tee_a, foam):
-    """The controller lying flat on the mirror plane, between the two nozzle risers.
-
-    IN X IT IS CENTRED, which is the whole of the rule on that axis: the two sleeves stand
-    mirrored either side of the plane, so the point equidistant from both is the plane
-    itself. `check_cap_leads` reads back what it leaves.
-
-    IN Y it takes the middle of the band the junction tees leave in front of the cold core
-    — the one stretch of the upper storey's mirror line with nothing standing in it. IN Z
-    it lies on the plane the tees stand on, which is that band's own floor.
-
-    The board's own frame puts the bus row on +Y and the electrodes on -Y, and no turn is
-    made: the J8 loom leaves aft, at the wall the PCBA hangs on, and the electrode row
-    faces forward at the two risers it reads."""
-    band = (box(tee_a).ymax, box(foam).ymin)
-    board, carry = seat_body(cq.importers.importStep(str(MPR121_STEP)).val(), (),
-                             seat="mpr121",
-                             cx=0.0, cy=sum(band) / 2.0, z0=box(tee_a).zmin)
-    note_room("mpr121", "the band it lies in, either side",
-              _mpr.PCB_Y / 2.0, (band[1] - band[0]) / 2.0)
-    return board, carry
-
-
 # --- the moisture plate, lying in the basin ---------------------------------
 #
 # The Shutao module is two boards: the LM393 comparator, which mounts dry off elsewhere, and the
@@ -3560,20 +3404,6 @@ def build_pack() -> cq.Assembly:
     # And the ribs the box stands for a BODY. The wall builds these from the same station shape,
     # and `tube-anchored` counts none of them: they hold no run.
     a.body_anchors = body_anchors(carries)
-    # THE CAP-SENSE PAIR, ONCE THE LINES THEY GRIP EXIST. A sleeve closes on a length of
-    # tube, so it can only be placed after the run that tube is; the controller then goes
-    # between the two of them and the leads are read against the loom.
-    by_id = {r.id: r for r in a.runs}
-    sleeve_carries, grips = [], []
-    for name, line in SLEEVE_LINES.items():
-        sleeve, sleeve_carry = build_sleeve(name, by_id[line])
-        a.add(sleeve, name=name, color=C_SLEEVE)
-        sleeve_carries.append((name, sleeve_carry))
-        grips.append((name, sleeve_seat(by_id[line])[2], _css.sleeve_length))
-    check_sleeve_grips(grips)
-    mpr, mpr_carry = build_mpr121(solids["tee-y-a"], foam)
-    a.add(mpr, name="mpr121", color=C_MPR)
-    check_cap_leads(mpr_carry, sleeve_carries, pcba)
     # THE SEALED LOOP, READ ONCE THE MACHINE HAS DRAWN WHAT IT DRAWS. Two of its legs cross a
     # plane their bodies already share and no copper is drawn between them; the third is cut and
     # brazed like any other run. Which is which is not this module's to declare — `_lines` having
@@ -3869,7 +3699,6 @@ def report(a: cq.Assembly) -> None:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
               "ground-stack", "asse1022-assembly", "drip-pan", "bpv31",
-              "mpr121", "cap-sleeve-a", "cap-sleeve-b",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):

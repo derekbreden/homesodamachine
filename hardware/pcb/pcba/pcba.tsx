@@ -281,7 +281,7 @@ const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" 
 const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
-// The bus members (U2/U3 MCPs, U6 RTC, J8 → the off-board MPR121) framed for the routeInner
+// The bus members (U2/U3 MCPs, U6 RTC, J8 → the I2C expansion header) framed for the routeInner
 // edges below. R19/R20 are the bus pull-ups (4.7k → 3V3): every device on the bus is
 // open-drain with no pull-up of its own, and the ESP32's ~45k internal ones are too weak for
 // a board-length multi-drop bus. Each parks with pin1 rising into the row-28.2 corridor and
@@ -534,7 +534,7 @@ export default () => (
     <trace from=".C15 > .pin2" to="net.GND" />
     <trace from=".C16 > .pin1" to="net.V5" />
     <trace from=".C16 > .pin2" to="net.GND" />
-    {/* I2C expansion header (J8) for the off-board MPR121 cap-sense controller. GND/3V3 land
+    {/* I2C expansion header (J8), the bus's break-out to anything off-board. GND/3V3 land
         on their plane pours at the barrel; the SDA/SCL barrels are the BUS JUNCTIONS — every
         routeInner edge of the I2C block (below) terminates at them, so the connector's spot
         anchors the whole bus tree. R19/R20 pull-up high sides stitch to the 3V3 plane. */}

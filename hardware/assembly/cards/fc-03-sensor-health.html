@@ -22,14 +22,14 @@
     <ol class="steps">
       <li><b>Open the monitor</b> —
         <span class="dim">pio device monitor -e esp32dev</span>.</li>
-      <li><b>Read the bus</b> — every address ACKs (plate). Missing 0x5A
-        = J8 loom / MPR121; any other = board fault.</li>
+      <li><b>Read the bus</b> — every address ACKs (plate). Any miss is
+        a board fault.</li>
       <li><b>Prove the probes</b> — two families only:
         <span class="dim">0x28</span> tank + <span class="dim">0x10</span>
         coil, both <span class="dim">&plusmn;2&nbsp;&deg;C</span> of room.
         One address = parasitic-power miswire, J4 loom.</li>
       <li><b>Provoke the rest</b> — magnet to each reed, spin the
-        impeller, touch sleeves + display, damp the pads.</li>
+        impeller, touch the display, damp the pads.</li>
       <li><b>Wait out the MQ-6</b> — <span class="dim">~60 s</span>
         warm-up, then clean-air baseline; out-of-bounds blocks FC-04.</li>
     </ol>
@@ -45,7 +45,6 @@
       <div class="s"><div class="k">Valves &amp; A</div><div class="v">0x20</div></div>
       <div class="s"><div class="k">B + carb</div><div class="v">0x21</div></div>
       <div class="s"><div class="k">DS3231 RTC</div><div class="v">0x68</div></div>
-      <div class="s"><div class="k">MPR121</div><div class="v">0x5A</div></div>
       <div class="s"><div class="k">1-wire bus</div><div class="v">GPIO 26</div></div>
       <div class="s"><div class="k">Flow meter</div><div class="v">GPIO 25</div></div>
     </div>
@@ -55,7 +54,6 @@
       <tr><td>Probes &times;<span data-gen="PROBE_COUNT">2</span></td><td>&plusmn;2&nbsp;&deg;C ambient &#183; 0x28 + 0x10</td></tr>
       <tr><td>Reeds &times;<span data-gen="REEDS_TOTAL">10</span></td><td>high no-magnet &rarr; low at magnet</td></tr>
       <tr><td>Flow meter</td><td>pulses per hand spin</td></tr>
-      <tr><td>MPR121</td><td>touch flag per sleeve</td></tr>
       <tr><td>Faucet display</td><td>toggle logs over SIG-6</td></tr>
       <tr><td>MQ-6</td><td>~60 s warm-up &rarr; baseline</td></tr>
       <tr><td>Drip pan</td><td>dry &#183; swings at damp probe</td></tr>

@@ -433,11 +433,6 @@ def _chain_of(a, rid: str) -> tuple:
             f"the rib the cold core's cap stands for it, at {seat.centre} in the CAP's own "
             f"frame, reaching {seat.over_face:g} over that face",
             f"_cold_core_interface.cap_anchors[{rid!r}]", False, "run-seated, anchor-room"))
-    for sleeve, line in ea.SLEEVE_LINES.items():
-        if line == rid:
-            out.append(Link(f"{sleeve}, closed on a length of it, with the MPR121's leads read "
-                            f"off where it sits", "enclosure_assembly.SLEEVE_LINES", False,
-                            "sleeve-grips"))
     return tuple(out)
 
 
@@ -834,9 +829,9 @@ class World:
         centreline carries them.
 
         Ribs are struck on its legs, the cold core's cap stands a seat for it at a station in
-        the cap's own frame, the stretch between held points is graded, a cap-sense sleeve
-        closes on the line it grips. `reroute` moves the centreline and none of these; this is
-        the list of what it leaves standing. [`calibration/Chain.md`](/calibration/Chain.md)."""
+        the cap's own frame, and the stretch between held points is graded. `reroute` moves the
+        centreline and none of these; this is the list of what it leaves standing.
+        [`calibration/Chain.md`](/calibration/Chain.md)."""
         r = run if hasattr(run, "pts") else self.run(run)
         return self._chains.get(r.id, ())
 

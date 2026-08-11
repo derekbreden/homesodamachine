@@ -51,7 +51,6 @@ Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {[9](
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 28 AWG ribbon | TTL UART up the umbilical; **the TTL lines are ESD-clamped on the board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | jacketed ribbon |
 | Config display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
 | Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black | MQ-6 leads | 1/4" |
-| Cap-sense | J8 / SIG-8 | [4](J8_PINS) (GND / `3V3` / `SDA` / `SCL`) | 22 AWG black | MPR121 header at the manifold | 1/4" |
 | Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black | female Faston receptacles onto the pump-motor spade tabs | 1/2" |
 | 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the shelf's 12 V distribution block (lands on-shelf at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; Fastons at compressor; rings to ground | SJOOW jacket on the compressor lead |
