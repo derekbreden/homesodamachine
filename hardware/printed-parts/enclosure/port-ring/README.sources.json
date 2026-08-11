@@ -1,0 +1,12 @@
+{
+  "/hardware/printed-parts/enclosure/port-ring/port_ring.py": {
+    "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
+    "hardware/printed-parts/enclosure/port-ring/port_ring.py": "047482b27769651ab59da77d2af0ee2d",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "2250cf704a73d671d855192ae7c816e2",
+    "hardware/scripts/_cadq_export.py": "27f5530daca447f876de07565e2ba104",
+    "hardware/scripts/_measuring.py": "241185841bdf75c222d582b53e13b5fb",
+    "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
+    "hardware/scripts/_run_lock.py": "1e3be322667ee5b6463d16db7d6f6e21",
+    "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
+  }
+}
