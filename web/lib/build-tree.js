@@ -19,6 +19,10 @@
 // Server-rendered as nested <details>, so the whole tree is in the HTML and a
 // drill-down needs no script. Dev-gated in the public nav like the other
 // engineering surfaces; the route itself always responds.
+//
+// A card opens where the tree names it, in the deck's own modal — public/build.js
+// over the same ContentViewer + PanZoom surface /drawings opens a card in. The
+// anchors under it are links to the card pages themselves.
 
 import path from "path";
 import fs from "fs";
@@ -179,7 +183,7 @@ function renderCard(c) {
   const refs = (c.src?.refs || []).length
     ? `<span class="bt-refs">${esc(c.src.refs.join(" · "))}</span>` : "";
   return `<li class="bt-card">` +
-    `<a href="${esc(cardAssetUrl(c.path))}" target="_blank" rel="noopener">` +
+    `<a href="${esc(cardAssetUrl(c.path))}" data-card="${esc(c.path)}">` +
     `<code>${esc(c.file.replace(/\.html$/, "").slice(0, 5))}</code>` +
     `<span class="bt-card-title">${esc(c.title)}</span></a>${span}${opens}${refs}</li>`;
 }
@@ -265,7 +269,10 @@ export function renderBuildBody(tree) {
   const warn = block("bt-warn", "Not seated:", tree.unplaced) +
     block("bt-drift", "Two orders disagree:", tree.drift || []);
 
-  return `<main class="bt-wrap">
+  // viewer.css dresses the open card: the paper stage, the minimap, the
+  // reset button.
+  return `<link rel="stylesheet" href="/css/viewer.css">
+<main class="bt-wrap">
   <h1 class="bt-title">Build tree</h1>
   <p class="bt-lede">One unit, as the repository currently states it: ${nBench} benches
   over ${nSteps} numbered steps and ${nCards} cards. Bands come from
@@ -277,7 +284,10 @@ export function renderBuildBody(tree) {
   <code>.src</code> footer names.</p>
   ${warn}
   ${tree.bands.map(renderBand).join("")}
-</main>`;
+</main>
+<script src="/pan-zoom.js"></script>
+<script src="/content-viewer.js"></script>
+<script type="module" src="/build.js"></script>`;
 }
 
 const BUILD_CSS = `

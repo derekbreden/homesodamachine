@@ -1225,7 +1225,7 @@ def _port_field_proud(field) -> float:
     return 0.0 if field is None else field[4]
 
 
-def _port_field(solid, field, outer, y_outer):
+def _port_field(solid, field, outer, y_outer, zlo, zhi):
     """The raised field on a ±Y wall's outer face, and the pockets its port rings lie in.
 
     The crown is the plane the fittings' flanges bear on. Each flank falls from that crown to
@@ -1233,8 +1233,9 @@ def _port_field(solid, field, outer, y_outer):
     that oversteps the one below it. A pocket is cut to that same height, which puts its floor
     on the wall's own face and leaves the wall its whole thickness under every ring.
 
-    The field takes the wall it stands on: what reaches past that piece's own silhouette is
-    clipped there, the way every other feature on this box is."""
+    It stands OUTSIDE the print silhouette, so like the C14's bosses it goes on after the clip,
+    on whichever piece holds its Z — `zlo..zhi` is that piece's band, and the field takes the
+    wall's own width across it."""
     if field is None:
         return solid
     x0, x1, z0, z1, proud, pockets = field
@@ -1246,7 +1247,7 @@ def _port_field(solid, field, outer, y_outer):
            .val()
            .rotate((0, 0, 0), (1, 0, 0), -90.0)
            .translate(((x0 + x1) / 2.0, y_outer, (z0 + z1) / 2.0)))
-    pad = pad.intersect(_ybox(outer[0], outer[1], y_outer, y_outer + proud, outer[4], outer[5]))
+    pad = pad.intersect(_ybox(outer[0], outer[1], y_outer, y_outer + proud, zlo, zhi))
     solid = solid.fuse(pad)
     for px, pz, dia in pockets:
         solid = solid.cut(cq.Solid.makeCylinder(
@@ -2044,9 +2045,6 @@ def build_back_half(box):
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _pz in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
-    # The raised field the marked ports' rings lie in, standing on the wall the print silhouette
-    # has already clipped, and bored through with everything else that crosses this face.
-    back = _port_field(back, box.port_field, outer, outer[3])
     # Panel through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the back wall in the band above the
@@ -2678,6 +2676,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # wall cannot hold stands outboard. They go on after the clip, on whichever piece
         # holds their Z.
         piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi)
+        # The port field stands outboard of that same silhouette, for the same reason: the
+        # fittings clamp against its crown, not against the wall. On after the clip, then the
+        # face's own through-holes are re-cut so every bore that crossed the wall crosses it.
+        piece = _port_field(piece, box.port_field, outer, oy1, zlo, zhi)
+        for cutter in _port_cuts(box.back_ports, oy1 - 1.0,
+                                 oy1 + _port_field_proud(box.port_field) + 1.0):
+            piece = piece.cut(cutter)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
