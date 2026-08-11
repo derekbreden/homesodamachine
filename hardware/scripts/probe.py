@@ -45,6 +45,7 @@ Use from anywhere in the repo:
 
     print(w.route("fluid-14"))                        # an authored run's waypoints, numbered
     w.reroute("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))   # move a bend, collisions only
+    w.drawn("fluid-14", pts)                          # one candidate centreline, waypoints and all
 
     probe.sweep(range(0, 360, 10), lambda a: w.cast(tip(a), aim(a)).free)
 
@@ -55,6 +56,12 @@ radius each row's tightest corner seats. A bend, a corner, a fall, a crossing, a
 whatever the piece is called, it is some waypoints of the route, and those indices are the
 handle. `w.route(id)` prints them numbered and takes `near=` a pick off the STEP to say which
 index a set of coordinates is.
+
+`w.drawn(run, pts)` is the same reading for ONE candidate centreline given whole, so a waypoint
+can be dropped as well as moved. Both hold every BODY where it stands. A run's waypoints are
+expressions over the bodies its author measured them off — `fluid-14`'s read `valve-v-f`,
+`foam-assembly`, `vk-solenoid` and `seaflo-pump` — so a body moved in `enclosure_assembly.py`
+takes its runs with it and is built, not swept.
 
 The centreline is what moves. `w.chain(id)` is the rest of the build that reads the run and
 does not — the ribs struck on it, the cap's seat for it, the stretch it is graded on, the
@@ -830,6 +837,44 @@ class World:
 
     # -- where a piece of a routed line can stand --
 
+    def drawn(self, run, pts, at: float = 0.0, skip=(), tol: float = VOL_TOL) -> Offset:
+        """What a run runs into when drawn through `pts` instead of its own waypoints — one
+        candidate centreline, redrawn at its own bore and measured against everything but the
+        body it already has in the world.
+
+        Takes the whole point list, so a waypoint can be DROPPED as well as moved: a cluster
+        authored around a body that has gone somewhere else comes out by handing back the list
+        without it.
+
+            r = w.run("fluid-14")
+            w.drawn(r, [p for i, p in enumerate(r.pts) if i not in (3, 4)])
+
+        `reroute` is this over a range of translations. `at` labels the row. The two ends must
+        stay on their ports, and `chain` is what this leaves standing either way."""
+        r = run if hasattr(run, "pts") else self.run(run)
+        pts = [tuple(float(c) for c in p) for p in pts]
+        for end, (i, j) in (("first", (0, 0)), ("last", (-1, -1))):
+            off = math.dist(pts[i], r.pts[j])
+            if off > 1e-6:
+                raise ValueError(
+                    f"{r.id}: the {end} point is {off:.3f} mm off the port it closes on "
+                    f"({r.frm if end == 'first' else r.to}). A run's ends are mouths on placed "
+                    f"bodies — move the body in `enclosure_assembly.py` and every waypoint "
+                    f"measured off it follows, this list included.")
+        redrawn = _routing.redrawn(r, pts)
+        try:
+            tube = _routing.tube(redrawn)
+        except Exception as exc:
+            raise RuntimeError(
+                f"{r.id} will not sweep down this centreline ({exc}) — what it runs into is "
+                f"unknown, not nothing.") from exc
+        own = f"tube-{r.id}"
+        held = tuple(sorted(set(skip) | ({own} if own in self.solids else set())))
+        seats, corner = min(((redrawn.radii[i], i) for i, _t, _a, _b in redrawn.bends),
+                            default=(math.inf, None))
+        return Offset(at, tuple(h.name for h in self.hits(tube, skip=held, tol=tol)),
+                      seats, corner, _routing.stock_min(r.kind, r.diam), len(redrawn.bends))
+
     def reroute(self, run, moving, along, values, skip=(), tol: float = VOL_TOL) -> Reroute:
         """Slide named waypoints of an authored run along a direction, and say what the run
         RUNS INTO at each offset. Collisions, one row per position.
@@ -860,29 +905,15 @@ class World:
         d = unit(along)
         own = f"tube-{r.id}"
         held = tuple(sorted(set(skip) | ({own} if own in self.solids else set())))
-        floor = _routing.stock_min(r.kind, r.diam)
         values = [float(v) for v in values]
         if not values:
             raise ValueError(f"{r.id}: a reroute over no offsets answers nothing — give it a "
                              f"range (`probe.steps(lo, hi, step)`), 0.0 among them to read "
                              f"the run where it stands")
-        poses = []
-        for v in values:
-            pts = [p if i not in idx else tuple(p[k] + d[k] * v for k in range(3))
-                   for i, p in enumerate(r.pts)]
-            drawn = _routing.redrawn(r, pts)
-            try:
-                tube = _routing.tube(drawn)
-            except Exception as exc:
-                raise RuntimeError(
-                    f"{r.id} will not sweep at {v:+g} mm along {d} ({exc}) — what it runs into "
-                    f"there is unknown, not nothing. Narrow the range past this offset, or "
-                    f"move fewer waypoints at once.") from exc
-            seats, corner = min(((drawn.radii[i], i) for i, _t, _a, _b in drawn.bends),
-                                default=(math.inf, None))
-            poses.append(Offset(v, tuple(h.name for h in self.hits(tube, skip=held, tol=tol)),
-                              seats, corner, floor, len(drawn.bends)))
-        return Reroute(r.id, idx, d, poses, held, self.chain(r), self.measured)
+        rows = [self.drawn(r, [p if i not in idx else tuple(p[k] + d[k] * v for k in range(3))
+                               for i, p in enumerate(r.pts)], v, skip=skip, tol=tol)
+                for v in values]
+        return Reroute(r.id, idx, d, rows, held, self.chain(r), self.measured)
 
 
 # --- vector helpers -------------------------------------------------------
@@ -1435,6 +1466,15 @@ def selftest() -> int:
           f"take{'':7s} got clear={short.clear}  want False")
     if short.clear:
         fails.append("reroute clear folds both in")
+    # A waypoint DROPPED rather than moved: the U's crossbar taken out entirely leaves one leg
+    # straight down the far side of the post, which is a centreline `reroute` cannot express
+    # and `drawn` takes whole.
+    cut = sw.drawn("u", [u_run.pts[0], (60.0, 40.0, 0.0), u_run.pts[-1]])
+    print(f"  {'ok  ' if not cut.hits and cut.corners == 1 else 'FAIL'}  a waypoint dropped "
+          f"redraws the whole run{'':6s} got hits {list(cut.hits)}, {cut.corners} corner(s)  "
+          f"want [] and 1")
+    if cut.hits or cut.corners != 1:
+        fails.append("drawn drops a waypoint")
     # And the redraw is a hypothetical: it must not put the authored run on the machine's own
     # list of shortfalls, which is keyed by run id and read out as `_lines.BLOCKED`.
     print(f"  {'ok  ' if 'u' not in _routing.BLOCKED else 'FAIL'}  a swept position never marks "
@@ -1449,6 +1489,8 @@ def selftest() -> int:
         ("zero-length direction raises", lambda: unit((0, 0, 0))),
         ("sampling a wall of a world with no pieces raises", lambda: wall_sample(held)),
         ("rerouting a run's port waypoint raises", lambda: sw.reroute("u", 0, "+y", [1.0])),
+        ("a candidate centreline off its port raises",
+         lambda: sw.drawn("u", [(0.0, 9.0, 0.0), (60.0, 40.0, 0.0), u_run.pts[-1]])),
         ("rerouting a waypoint the run has not got raises",
          lambda: sw.reroute("u", 9, "+y", [1.0])),
         ("rerouting an unknown run raises", lambda: sw.reroute("nope", 1, "+y", [1.0])),
