@@ -1,9 +1,9 @@
 {
   "/hardware/scripts/_bom_sync.py": {
     "hardware/cold-core-layout/_cold_scorecard.py": "4730f543fa9d021a55e61a91b7e08297",
-    "hardware/manifold-layout/_lines.py": "411af6639cc8e1e8540faced301f9a66",
+    "hardware/manifold-layout/_lines.py": "8ff4ee73aab8c2e4636efc24ab35c251",
     "hardware/manifold-layout/_scorecard.py": "1549f8928eee4ad172889cc4715843af",
-    "hardware/manifold-layout/enclosure_assembly.py": "916abf97e011c8396f2db4a2967fee42",
+    "hardware/manifold-layout/enclosure_assembly.py": "fa976ebd93a53587a3d0d26c643660c6",
     "hardware/manifold-layout/manifold_layout.py": "69a9649cb0f27a2c6e99093eab608d7e",
     "hardware/printed-parts/cadlib/snap.py": "9ad14bfce6215da092d14c2f3bc799de",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
@@ -21,7 +21,8 @@
     "hardware/printed-parts/electronics/module_tray.py": "58d3dcea93560235bd874b5bdfb544f1",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "e6dec536195786a1693fb86fbbf2a0be",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "eabe51bc7afc60620ba6781b0b4a50b1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "3697b1350faf5b173afce2e54d90b220",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "1cb23df67b2a5dd6b3796b1747fa86ce",
+    "hardware/printed-parts/enclosure/port-ring/port_ring.py": "047482b27769651ab59da77d2af0ee2d",
     "hardware/printed-parts/faucet/_touch_flo_interface.py": "44f25115152bf320b9ed51c3b9eae99c",
     "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": "59f64dbdaac1deedc9d97c8eb082f896",
     "hardware/printed-parts/flavor/pump-case/pump_case.py": "b942a09f30e4255a8e54773d5b04191e",
