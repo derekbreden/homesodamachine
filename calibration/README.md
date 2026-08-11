@@ -19,16 +19,15 @@ number from a session in [`fences/`](fences/README.md).
 | [Principle.md](Principle.md) | Any rule is better encoded as an example. Explanations mislead when a reader takes one for the design space — **residue**, distinct from clutter. | [`principle/`](principle/) — You.md, Framing.md |
 | [Fences.md](Fences.md) | The record, not a rule. Agents report limits that are the edge of the box they searched rather than the edge of the world, they do not notice, and when pushed they name their own bound immediately. Sixteen sessions of it. | [`fences/`](fences/README.md) — sixteen sessions |
 | [Discretion.md](Discretion.md) | A softened instruction is still an instruction. Ending a turn on an offer spends it on the one output with no value. | [`discretion/`](discretion/README.md) — one session |
-| [Chain.md](Chain.md) | A move is the whole chain or it is nothing. A sweep surveys half-moves and reports their defeat as the world's; a red half-move reverted is evidence destroyed. | [`chain/`](chain/README.md) — three sessions |
 | [Hack vs Teach meta lesson.md](<Hack vs Teach meta lesson.md>) | Where a fix stands. The decision point is where the knowledge your fix needs is already native. | [`hack-vs-teach/`](hack-vs-teach/) — one session |
 | [Model.md](Model.md) | In 3D model work, name the construction operation, not just the resulting shape. | — |
 
-[`sessions/`](sessions/) holds conversations that nothing distills yet — `Avoidance.md` and
-`Comments are a code smell.md`.
+[`sessions/`](sessions/) holds conversations that nothing distills yet — `Avoidance.md`,
+`Comments are a code smell.md`, and `Routes 22`/`23`/`24`.
 
-Four hooks in `~/Developer/claude-code-setup/hooks/` read paths under this folder:
-`block-residue.sh` at `Principle.md` and its rooms, and `block-parameter-sweep.sh`,
-`block-unlooked-move.sh` and `note-inherited-fence.sh` at `Fences.md`. The last one bails
+Hooks in `~/Developer/claude-code-setup/hooks/` read paths under this folder:
+`block-residue.sh` at `Principle.md` and its rooms, and `block-unlooked-move.sh` and
+`note-inherited-fence.sh` at `Fences.md`. The last one bails
 silently when that file is absent, so the path is load-bearing — moving or renaming `Fences.md`
 turns the hook off without saying so. `block-underived-measurement.sh` points at this repo's
 docgen rather than here.
