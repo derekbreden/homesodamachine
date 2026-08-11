@@ -41,13 +41,13 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
     assert.ok(c.detail.every((d) => typeof d === "string"), "detail rows are strings");
   }
 
-  // The six goal axes exist by id, and the live/deferred split is encoded in `active`.
+  // The five goal axes exist by id, and the live/deferred split is encoded in `active`.
   const goalById = Object.fromEntries(goals.map((c) => [c.id, c]));
-  for (const id of ["placed", "located", "shaped", "routed", "held", "mounted"]) {
+  for (const id of ["placed", "located", "shaped", "routed", "mounted"]) {
     assert.ok(goalById[id], `goal axis ${id} present`);
   }
   assert.equal(goalById.mounted.active, true, "mounted is the live axis");
-  for (const id of ["placed", "located", "shaped", "routed", "held"]) {
+  for (const id of ["placed", "located", "shaped", "routed"]) {
     assert.equal(goalById[id].active, false, `${id} is deferred`);
   }
 });
@@ -138,7 +138,7 @@ test("the sidecar carries both focus axes and the tables their counts read", (t)
   // A carrier is a placed component or a printed piece of the enclosure, and it is named — a
   // joint printed into nothing has nowhere for its screw to go.
   for (const m of sc.mounts) {
-    assert.equal(typeof m.held, "string", `${m.component} declares what holds it`);
+    assert.equal(typeof m.joint, "string", `${m.component} declares the construction it stands on`);
     if (m.by !== null) assert.ok(m.by.length, `${m.component} names the part it mounts into`);
   }
 });
@@ -172,10 +172,10 @@ test("the focus panels itemize down to the body a fix moves", (t) => {
 test("isScorecard rejects malformed input", () => {
   assert.equal(isScorecard(null), false);
   assert.equal(isScorecard({}), false);
-  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, shaped: 0, routed: 0, held: 0, checks: [] }), false);
-  assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, held: 0, checks: [{ kind: "gate" }] }), false);
+  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, shaped: 0, routed: 0, checks: [] }), false);
+  assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, checks: [{ kind: "gate" }] }), false);
   // A malformed ports entry (pos not a triple, diam not numeric) is rejected — the guard fires.
-  const base = { gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, held: 0, checks: [] };
+  const base = { gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, checks: [] };
   assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: [1, 2], diam: 6, mates: "y", status: "ok" }] }), false);
   assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: null, diam: "big", mates: "y", status: "no-pos" }] }), false);
   // A well-formed ports entry (and an absent ports field) both pass.
