@@ -1606,12 +1606,19 @@ def wall_sample(w: World = None, side: float = 10.0):
             if not buried:
                 tried.append(f"({cx:.0f}, {cy:.0f}) is not in a piece")
                 continue
-            sample, _vol = _common(cut, w.solid(buried[0].name))
-            loose = w.hits(sample, skip=w.pieces)
+            # WHOLLY buried, not trimmed to the piece: the sample is handed to callers that
+            # measure distance against it, and a trimmed intersection comes back as a mesh
+            # rather than a solid. Requiring the cut to be entirely inside is both the
+            # stronger control and the one that hands back something a caller can use.
+            _inter, shared = _common(cut, w.solid(buried[0].name))
+            if shared < cut.Volume() - 1e-6:
+                tried.append(f"({cx:.0f}, {cy:.0f}) is only part in {buried[0].name}")
+                continue
+            loose = w.hits(cut, skip=w.pieces)
             if loose:
                 tried.append(f"({cx:.0f}, {cy:.0f}) shares the slab with {loose[0].name}")
                 continue
-            return sample
+            return cut
     raise ValueError("wall_sample: no floor-slab volume is both inside a piece and clear of "
                      "every interior body — " + "; ".join(tried))
 

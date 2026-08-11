@@ -75,6 +75,8 @@ from pathlib import Path
 
 import cadquery as cq
 
+import _overlap
+
 _HERE = Path(__file__).resolve().parent
 if str(_HERE) not in sys.path:
     sys.path.insert(0, str(_HERE))
@@ -366,9 +368,11 @@ class Gap:
     mm: float
     name: str
     exact: bool = True
+    seated: bool = False        # measured touching with nothing shared — a seat, not a clash
 
     def __str__(self) -> str:
-        return f"{self.name} {'' if self.exact else '≥'}{self.mm:.2f}"
+        return (f"{self.name} {'' if self.exact else '≥'}{self.mm:.2f}"
+                + (" seated" if self.seated else ""))
 
 
 @dataclass
@@ -395,8 +399,10 @@ class Verdict:
         """Bodies inside the clearance threshold without overlapping.
 
         Every one was measured: a floor is only ever taken for a body whose box already
-        stood outside the threshold, so no floor can decide a verdict."""
-        return [g for g in self.gaps if g.mm < self.clearance]
+        stood outside the threshold, so no floor can decide a verdict. A SEAT is not one of
+        them — a body the candidate rests on stands at zero however much clearance is asked
+        for, and it is what the pose is for."""
+        return [g for g in self.gaps if g.mm < self.clearance and not g.seated]
 
     def resolve(self, depth: int = 1) -> list:
         """The `depth` nearest bodies, each measured against the solid.
@@ -437,7 +443,9 @@ class Verdict:
         if self.tight:
             return "TIGHT " + ", ".join(str(g) for g in self.tight[:4])
         near = ", ".join(str(g) for g in self.resolve(4)) or "nothing within reach"
-        return f"CLEAR  nearest: {near}"
+        seats = [g.name for g in self.gaps if g.seated]
+        return (f"CLEAR  nearest: {near}"
+                + (f"   seated on {', '.join(seats)}" if seats else ""))
 
 
 def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 25.0) -> Verdict:
@@ -466,20 +474,29 @@ def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 
             gaps.append(Gap(sep, name, False))   # outside the threshold by its box alone
             continue
         d = w.gap(name, sh)
-        if d > TOUCH:
+        # A DISTANCE IS BETWEEN SURFACES, and a candidate standing wholly inside a body has
+        # a healthy one to every face of it — the wall it is buried in is the furthest thing
+        # from it that its own box reaches. So a gap only settles a body whose box stands
+        # clear too; where the boxes meet, occupancy is asked.
+        if d > TOUCH and sep > 0.0:
             gaps.append(Gap(d, name))
             continue
         try:
-            inter = sh.intersect(w.solid(name))
-            overlap = inter.Volume()
+            inter, overlap = _overlap.common(sh, w.solid(name))
         except Exception as exc:
             raise RuntimeError(
                 f"intersection with {name} failed ({exc}) — this body's occupancy is "
                 f"unknown, not empty") from exc
         if overlap > VOL_TOL:
             clashes.append(probe.Hit(name, overlap, probe._meshes.box(inter)))
+        elif d > TOUCH:
+            gaps.append(Gap(d, name))       # boxes met, solids did not
         else:
-            gaps.append(Gap(d, name))       # touching, not overlapping
+            # Measured touching and sharing nothing: the candidate RESTS on this body. A
+            # part is designed to meet its mount, so counting the seat as a clearance
+            # violation rejects the pose the design asks for — `probe.Travel` names the
+            # same bodies `sliding` and never lets one stop a move.
+            gaps.append(Gap(d, name, seated=True))
     clashes.sort(key=lambda h: -h.volume)
     gaps.sort()
     return Verdict(clashes, gaps, float(clearance), lambda n: w.gap(n, sh))
@@ -506,17 +523,22 @@ def _conflict(sh, w, skip=(), clearance: float = 0.0):
         near.append((sep, ob.xlen * ob.ylen * ob.zlen, name))
     for _sep, _vol, name in sorted(near):
         d = w.gap(name, sh)
-        if d >= clearance and d > TOUCH:
-            continue
-        if d < clearance:
-            return name
+        if d > TOUCH:
+            if d < clearance:
+                return name                 # near without touching: a real violation
+            # Boxes that meet may be one body inside the other, whose surfaces never do —
+            # see `check`. Only a box standing clear lets a distance settle the question.
+            if _sep > 0.0:
+                continue
         try:
-            if sh.intersect(w.solid(name)).Volume() > VOL_TOL:
+            if _overlap.volume(sh, w.solid(name)) > VOL_TOL:
                 return name
         except Exception as exc:
             raise RuntimeError(
                 f"intersection with {name} failed ({exc}) — this body's occupancy is "
                 f"unknown, not empty") from exc
+        # Touching and sharing nothing: the candidate RESTS on this body, which is what a
+        # mount is. `check` files the same body as a seated gap and does not call it tight.
     return None
 
 
@@ -807,7 +829,7 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
                     continue                # no material's box reaches this cell
                 cell = probe.box(x=(cx0, cx1), y=(cy0, cy1), z=(zlo, zhi))
                 try:
-                    if cell.intersect(clipped).Volume() > VOL_TOL:
+                    if _overlap.volume(cell, clipped) > VOL_TOL:
                         grid[i][j] = True
                 except Exception as exc:
                     raise RuntimeError(
@@ -859,9 +881,18 @@ def _in_band(solid, band, name: str):
     material's box reaches cannot hold material. `(None, [])` when nothing of the body
     stands in the band."""
     try:
+        # WHETHER THIS BODY IS IN THE BAND AT ALL is a measurement and asks `_overlap`: an
+        # exact boolean answers empty for two surfaces tangent where they meet, and a body
+        # dropped here is a body every cell in the band then reads as free.
+        if _overlap.volume(solid, band) <= VOL_TOL:
+            return None, []
+        # The CLIP itself is a construction — it decides what a cell COSTS and never what a
+        # cell answers, since every cell is measured against `_overlap` either way. Exact,
+        # for the solids and boxes it hands back; the whole body when the clip comes back
+        # empty against a measurement that says it should not have.
         clipped = solid.intersect(band)
         if clipped.Volume() <= VOL_TOL:
-            return None, []
+            clipped = solid
     except Exception as exc:
         raise RuntimeError(
             f"clipping {name} to the scan band failed ({exc}) — its occupancy in the band "
@@ -1214,8 +1245,8 @@ def selftest() -> int:
     for gx in [field[0] + k * side for k in range(6)]:
         for gy in [field[0] + k * side for k in range(6)]:
             cell = probe.box(x=(gx, gx + side), y=(gy, gy + side), z=(0, 2 * side))
-            if (cell.intersect(clipped).Volume() > VOL_TOL) != (
-                    cell.intersect(rim).Volume() > VOL_TOL):
+            if (_overlap.volume(cell, clipped) > VOL_TOL) != (
+                    _overlap.volume(cell, rim) > VOL_TOL):
                 disagreed.append((gx, gy))
     ok("a clipped body answers every cell the way the whole one does", not disagreed,
        f"{len(disagreed)} disagreed" if disagreed else "36 cells")
