@@ -10,7 +10,7 @@
 // fetch -> parse to <svg> element -> wrap.
 
 import { state } from "./state.js";
-import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
+import { makeResetButton, makeMinimap, makeChromeFit } from "./pan-zoom-extras.js";
 
 function drawingTransformKey(file) { return `drawing-transform:${file}`; }
 

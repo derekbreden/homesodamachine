@@ -15,7 +15,7 @@
 // to click, so nothing is lost.
 
 import { state } from "./state.js";
-import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
+import { makeResetButton, makeMinimap, makeChromeFit } from "./pan-zoom-extras.js";
 import { PLACEHOLDER } from "./lazy.js";
 import { CARD_W, CARD_H, cardAssetUrl } from "/contracts/cards.js";
 
@@ -123,17 +123,22 @@ function reRenderOpenCard(file) {
   const frame = makeCardFrame(file, { bust: true });
   state.currentCardWrapper.innerHTML = "";
   state.currentCardWrapper.appendChild(frame);
-  const minimap = makeMinimap(frame, state.currentCardWrapper);
+  const chrome = makeChromeFit(state.currentCardWrapper);
+  const minimap = makeMinimap(frame, state.currentCardWrapper, chrome.obstacles);
   state.currentCardPz = PanZoom.wrap(frame, {
     container: state.currentCardWrapper,
     initialFit: false,
+    fitObstacles: chrome.obstacles,
     onTransformChange: (t) => cardSaveTransform(file, t),
     onTransformLive: (t) => minimap.update(t),
   });
   state.currentCardWrapper.appendChild(minimap.el);
   state.currentCardWrapper.appendChild(makeResetButton(state.currentCardPz, {
     transformKey: cardTransformKey(file),
+    refit: chrome.refit,
   }));
+  chrome.attach(state.currentCardPz, minimap);
+  chrome.measure();
   state.currentCardMinimap = minimap;
   state.currentCardPz.setTransform(prev);
 }
@@ -154,15 +159,21 @@ export async function openCardDetail(file, pushHistory = true) {
   const frame = makeCardFrame(file);
   wrapper.appendChild(frame);
 
-  const minimap = makeMinimap(frame, wrapper);
+  const chrome = makeChromeFit(wrapper);
+  const minimap = makeMinimap(frame, wrapper, chrome.obstacles);
   const pz = PanZoom.wrap(frame, {
     container: wrapper,
     initialFit: true,
+    fitObstacles: chrome.obstacles,
     onTransformChange: (t) => cardSaveTransform(file, t),
     onTransformLive: (t) => minimap.update(t),
   });
   wrapper.appendChild(minimap.el);
-  wrapper.appendChild(makeResetButton(pz, { transformKey: cardTransformKey(file) }));
+  wrapper.appendChild(makeResetButton(pz, {
+    transformKey: cardTransformKey(file),
+    refit: chrome.refit,
+  }));
+  chrome.attach(pz, minimap);
 
   state.currentCardWrapper = wrapper;
   state.currentCardPz = pz;
@@ -171,12 +182,7 @@ export async function openCardDetail(file, pushHistory = true) {
   ContentViewer.open({
     content: wrapper,
     filename: shortName(file),
-    onOpen: () => {
-      pz.fit();
-      const saved = cardLoadTransform(file);
-      if (saved) pz.setTransform(saved);
-      minimap.update();
-    },
+    onOpen: () => chrome.open(cardLoadTransform(file)),
     onClose: () => {
       try { pz.destroy(); } catch {}
       try { minimap.destroy(); } catch {}

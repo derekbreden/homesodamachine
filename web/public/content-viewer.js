@@ -305,5 +305,10 @@ body.cv-locked { overflow: hidden !important; }
     });
   }
 
-  window.ContentViewer = { open: open, close: close, isOpen: isOpen };
+  // The chrome this modal floats over its content — what a fitted viewer has to
+  // clear to be fully visible (PanZoom.measureObstacles, viewer/pan-zoom-extras
+  // makeChromeFit). A surface's own overlays are named by that surface.
+  const CHROME = [".cv-filename", ".cv-close"];
+
+  window.ContentViewer = { open: open, close: close, isOpen: isOpen, CHROME: CHROME };
 })();
