@@ -103,6 +103,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "port-ring",
+           _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -138,6 +139,11 @@ import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import port_ring as _ring                             # noqa: E402
+# One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
+# the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
+# third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
+# so the arrow points one way.
+import _back_panel_dimensions as _rear                # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 import derpipe_co2_inlet as _derpipe                   # noqa: E402
@@ -1294,15 +1300,36 @@ def back_wall_ports(*bulkhead_carries):
              _jg.panel_hole_d(PORT_HOLE_SLIP)) for carry in bulkhead_carries]
 
 
-# The stations a colour rings. The two flavour unions take none — a customer pushes black into
-# either black and the manifold sorts them — so the field is solid around their bores and their
-# flanges bear on its crown (`../printed-parts/enclosure/drawings/line-art/_appliance_model`).
-MARKED_UNIONS = ("bulkhead-water", "bulkhead-carb")
+# The stations a colour rings, and the fluid each is named by — the key into
+# `_back_panel_dimensions.port_colors`, so the pocket, the ring lying in it and the disc the
+# drawing paints are one station wearing one colour. The two flavour unions take none — a customer
+# pushes black into either black and the manifold sorts them — so the field is solid around their
+# bores and their flanges bear on its crown
+# (`../printed-parts/enclosure/drawings/line-art/_appliance_model`).
+#
+# A RING IS TRAPPED BY THE FLANGE THAT LANDS ON IT. The DERPIPE at the CO2 station has no flange,
+# and `co2_inlet_mouth_y` stands its wrench hex `DERPIPE_WRENCH_CLEAR` off the wall.
+MARKED_UNIONS = {"bulkhead-water": "water", "bulkhead-carb": "carb"}
+
+
+def ring_name(fluid: str) -> str:
+    """The body name one ring goes into the assembly under."""
+    return f"port-ring-{fluid}"
+
+
 # The slip a pocket keeps around the ring that drops into it.
 PORT_RING_SLIP = 0.2
 # What the crown reaches past the widest thing standing at each of its stations — a ring where
 # one lies, a flange where none does.
 PORT_FIELD_MARGIN = 3.0
+PORT_RING_STEP = (_hw / "printed-parts" / "enclosure" / "port-ring"
+                  / "port-ring-union.step")
+
+
+def port_pocket_d() -> float:
+    """The pocket a ring drops into: the ring's own OD and the slip it takes in it. The wall cuts
+    it and `port-field-web` reads it against the pitch, off this one call."""
+    return _ring.union_od() + 2.0 * PORT_RING_SLIP
 
 
 def back_wall_field(bulkhead_carry, panel_carries):
@@ -1317,7 +1344,7 @@ def back_wall_field(bulkhead_carry, panel_carries):
     for name, carry in stations.items():
         x, _y, z = carry(_jg.port(-1.0))[0]
         if name in MARKED_UNIONS:
-            dia = _ring.union_od() + 2.0 * PORT_RING_SLIP
+            dia = port_pocket_d()
             pockets.append((x, z, dia))
         else:
             dia = _jg.BODY_D
@@ -1325,6 +1352,25 @@ def back_wall_field(bulkhead_carry, panel_carries):
     return (min(x - r for x, _z, r in reach), max(x + r for x, _z, r in reach),
             min(z - r for _x, z, r in reach), max(z + r for _x, z, r in reach),
             _ring.THICK, tuple(pockets))
+
+
+def build_port_rings(bulkhead_carry, panel_carries):
+    """The rings themselves, one per `MARKED_UNIONS` station, as `(name, solid, colour)`.
+
+    Each is seated on the same inboard collet its pocket was struck on, with its own inboard face
+    on the back wall's OUTER FACE — the pocket's floor, and the plane the field was raised off.
+    So the union's flange lands on the ring where the bare crown would otherwise carry it, and the
+    ring is in the clamped stack the way the wall is."""
+    stations = {"bulkhead-water": bulkhead_carry, **panel_carries}
+    floor = _enc.rear_plane_y + _enc.wall
+    out = []
+    for station, fluid in MARKED_UNIONS.items():
+        x, _y, z = stations[station](_jg.port(-1.0))[0]
+        name = ring_name(fluid)
+        placed, _carry = seat_body(cq.importers.importStep(str(PORT_RING_STEP)).val(), (),
+                                   seat=name, station=(_ring.seat(), (x, floor, z)))
+        out.append((name, placed, cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))))
+    return out
 
 
 # --- the panel deck: the three unions the machine dispenses through ---------
@@ -1367,6 +1413,19 @@ PORT_DECK_EXTRA = 7.5
 # The pitch two columns stand at — each fitting's own panel footprint, the gap two nuts need, and
 # what the bodies hanging off them ask for over that.
 PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
+# WHAT THE PITCH LEAVES BETWEEN TWO POCKETS IS A STRIP OF THE CROWN, and a strip of the crown is a
+# printed wall of this box like any other. `port_ring.RING_W` is what a pocket spends the pitch on
+# and `enclosure.wall` is what the box carries everywhere else, so the two are read against each
+# other here rather than in either module alone.
+PORT_FIELD_WEB = PORT_PITCH - port_pocket_d()
+_stated.state(
+    "port-field-web", "The field keeps a printed wall between two neighbouring pockets",
+    f"a web of `enclosure.wall` {_enc.wall:g} mm or more",
+    PORT_FIELD_WEB >= _enc.wall - 1e-9,
+    f"one PORT_PITCH of {PORT_PITCH:.2f} carries a pocket of {port_pocket_d():.2f} and leaves "
+    f"{PORT_FIELD_WEB:.3f} mm of crown between two of them, under the {_enc.wall:g} mm this box "
+    f"prints a wall at. `port_ring.RING_W` {_ring.RING_W:g} is what a pocket spends past the "
+    f"fitting's own footprint, and the two marked stations stand one pitch apart.")
 # THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the −X
 # wall's inner face to the pump's casting, and the two nozzle unions stand side by side across it
 # at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the wall on one
@@ -3401,6 +3460,10 @@ def build_pack() -> cq.Assembly:
     check_port_pair(panels, west_interior_face(), seaflo)
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
+    # The rings go down after the unions that trap them, on the same collets their pockets were
+    # struck on. They lie OUTBOARD of the back wall's outer face, in the field the wall raises.
+    for name, solid, colour in build_port_rings(bulkhead_carry, panel_carries):
+        a.add(solid, name=name, color=colour)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -3490,12 +3553,19 @@ def _solids(a: cq.Assembly):
 # (`build_enclosure_assembly`) rather than to the pack.
 THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet",
                 "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb")
+# And the bodies seated OUTBOARD of a wall, on the far side of the face the box ends at. A ring
+# lies in a pocket of the port field, between the wall's outer face and a fitting's flange, so
+# every millimetre of it is outside the box. It is left out of what the box is sized on for the
+# same reason as `THROUGH_WALL` and measured against the ceiling for none of them — a body with
+# nothing inside the skin is under no ceiling of the interior.
+OUTBOARD_OF_WALL = tuple(ring_name(fluid) for fluid in MARKED_UNIONS.values())
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
-    `THROUGH_WALL` is what that excludes, and the funnel is the same case by a different route.
+    `THROUGH_WALL` and `OUTBOARD_OF_WALL` are what that excludes, and the funnel is the same case
+    by a different route.
 
     `front_ports` is empty and stays empty. The box is four printed pieces and every face is a
     wall of one of them — there is no front panel to cut through — so that field is settled,
@@ -3504,7 +3574,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])
     west = west_interior_face()
-    return _enc.Pack(placed={n: v for n, v in placed.items() if n not in THROUGH_WALL},
+    outside = set(THROUGH_WALL) | set(OUTBOARD_OF_WALL)
+    return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=west_wall_ports(pan), pan_rails=pan_rails(pan, west),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),

@@ -44,14 +44,14 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 40,
+ "mounted": 42,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "74/74 declared",
+   "value": "76/76 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -129,6 +129,8 @@
     "co2-inlet \u2014 gasher-co2: 0.000 mm \u2014 seated against it",
     "asse1022-assembly \u2014 bulkhead-water: 0.000 mm \u2014 seated against it",
     "drip-pan \u2014 moisture-plate: 0.000 mm \u2014 seated against it",
+    "bulkhead-water \u2014 port-ring-water: 0.000 mm \u2014 seated against it",
+    "bulkhead-carb \u2014 port-ring-carb: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.002 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
@@ -161,6 +163,7 @@
     "fluid-18 \u2014 enclosure-front-top: 3.325 mm",
     "fluid-18 \u2014 enclosure-back-top: 3.325 mm",
     "fluid-28 \u2014 enclosure-front-top: 3.326 mm",
+    "port-ring-water \u2014 port-ring-carb: 3.400 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
@@ -594,6 +597,16 @@
    "active": true
   },
   {
+   "id": "port-field-web",
+   "label": "The field keeps a printed wall between two neighbouring pockets",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a web of `enclosure.wall` 3 mm or more",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "cutoff-bedded",
    "label": "The cutoff's case is pinched between the power box and its clamp",
    "kind": "gate",
@@ -966,7 +979,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "29/72 mounted, 2 nothing fastens",
+   "value": "31/74 mounted, 2 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "bulkhead-carb: wall-capture",
@@ -1022,7 +1035,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "74/74 stated",
+   "value": "76/76 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1075,7 +1088,7 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "72/74 authored",
+   "value": "74/76 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
@@ -3001,6 +3014,38 @@
     ]
    ],
    "fill": 0.5603,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "port-ring-carb",
+   "boxes": [
+    [
+     -62.62,
+     475.0,
+     319.231,
+     -28.66,
+     478.0,
+     353.191
+    ]
+   ],
+   "fill": 0.5648,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "port-ring-water",
+   "boxes": [
+    [
+     -99.98,
+     475.0,
+     319.231,
+     -66.02,
+     478.0,
+     353.191
+    ]
+   ],
+   "fill": 0.5648,
    "primitive": false,
    "declared": null
   },
@@ -5673,6 +5718,20 @@
    "never": null
   },
   {
+   "component": "port-ring-water",
+   "by": "enclosure-back-top",
+   "joint": "well",
+   "kind": "real",
+   "never": null
+  },
+  {
+   "component": "port-ring-carb",
+   "by": "enclosure-back-top",
+   "joint": "well",
+   "kind": "real",
+   "never": null
+  },
+  {
    "component": "digiten-flow",
    "by": "enclosure-back-top",
    "joint": "saddle",
@@ -5904,5 +5963,5 @@
    "never": null
   }
  ],
- "sources": "4904f484ccb9249caad79e273d99f679"
+ "sources": "c858f455ad20dda9ba5cd29254cd4b95"
 }

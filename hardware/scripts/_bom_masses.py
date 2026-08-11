@@ -66,6 +66,13 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
+    # ONE GEOMETRY, TWO COLOURS. Both rings are the same annulus off the same STEP — what makes
+    # one of them the carbonated-water port and the other the tap-water port is which spool is
+    # loaded, so the row carries the solid twice and the Qty cell says two.
+    "Port ring — carbonated water + tap water": [
+        "enclosure/port-ring/port-ring-union.step",
+        "enclosure/port-ring/port-ring-union.step",
+    ],
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",
     ],
