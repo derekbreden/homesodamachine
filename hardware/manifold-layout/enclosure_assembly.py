@@ -102,6 +102,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
+           _hw / "printed-parts" / "enclosure" / "port-ring",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly              # noqa: E402
@@ -136,6 +137,7 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
+import port_ring as _ring                             # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 import derpipe_co2_inlet as _derpipe                   # noqa: E402
@@ -1255,8 +1257,10 @@ PORT_HOLE_SLIP = 0.86
 
 
 def bulkhead_seat_y():
-    """The plane the union's flange bears on — the back wall's OUTER face."""
-    return _enc.rear_plane_y + _enc.wall
+    """The plane the union's flange bears on — the port field's CROWN, standing one port ring's
+    thickness off the back wall's outer face. Read off the ring rather than stated here, so the
+    plane the wall raises and the plane a fitting seats on are one number."""
+    return _enc.rear_plane_y + _enc.wall + _ring.THICK
 
 
 def bulkhead_mouth_y():
@@ -1288,6 +1292,39 @@ def back_wall_ports(*bulkhead_carries):
     `PORT_HOLE_SLIP` over the barrel that goes through it."""
     return [("round", carry(_jg.port(-1.0))[0][0], carry(_jg.port(-1.0))[0][2],
              _jg.panel_hole_d(PORT_HOLE_SLIP)) for carry in bulkhead_carries]
+
+
+# The stations a colour rings. The two flavour unions take none — a customer pushes black into
+# either black and the manifold sorts them — so the field is solid around their bores and their
+# flanges bear on its crown (`../printed-parts/enclosure/drawings/line-art/_appliance_model`).
+MARKED_UNIONS = ("bulkhead-water", "bulkhead-carb")
+# The slip a pocket keeps around the ring that drops into it.
+PORT_RING_SLIP = 0.2
+# What the crown reaches past the widest thing standing at each of its stations — a ring where
+# one lies, a flange where none does.
+PORT_FIELD_MARGIN = 3.0
+
+
+def back_wall_field(bulkhead_carry, panel_carries):
+    """The raised field the marked ports' rings lie in, as `enclosure.Box.port_field`.
+
+    Struck on the same inboard collets `back_wall_ports` bores from, so a pocket and the hole
+    through it cannot land on two different columns. The crown reaches `PORT_FIELD_MARGIN` past
+    the widest thing at every station it spans, so every union's flange bears on the crown and
+    none of them lands on a flank."""
+    stations = {"bulkhead-water": bulkhead_carry, **panel_carries}
+    pockets, reach = [], []
+    for name, carry in stations.items():
+        x, _y, z = carry(_jg.port(-1.0))[0]
+        if name in MARKED_UNIONS:
+            dia = _ring.union_od() + 2.0 * PORT_RING_SLIP
+            pockets.append((x, z, dia))
+        else:
+            dia = _jg.BODY_D
+        reach.append((x, z, dia / 2.0 + PORT_FIELD_MARGIN))
+    return (min(x - r for x, _z, r in reach), max(x + r for x, _z, r in reach),
+            min(z - r for _x, z, r in reach), max(z + r for _x, z, r in reach),
+            _ring.THICK, tuple(pockets))
 
 
 # --- the panel deck: the three unions the machine dispenses through ---------
@@ -3475,7 +3512,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
                      digiten_saddles=a.digiten_saddles,
-                     tube_anchors=a.tube_anchors + a.body_anchors)
+                     tube_anchors=a.tube_anchors + a.body_anchors,
+                     port_field=back_wall_field(a.bulkhead_carry, a.panel_carries))
 
 
 def check_through_wall_headroom(a, shell) -> Bound:

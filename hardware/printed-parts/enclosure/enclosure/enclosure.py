@@ -441,10 +441,17 @@ z_lip_y_margin = 2.0
 #   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
 #                 leg a rib is centred on, which way the tube points there, which way the face
 #                 it stands on lies, and the section it seats
+#   port_field    the raised field on the back wall's outer face, (x0, x1, z0, z1, proud,
+#                 pockets) — the CROWN rectangle the fittings' flanges bear on, how far it
+#                 stands off the wall, and one (x, z, diameter) per pocket a port ring lies in.
+#                 Each flank runs from the crown out to the wall over that same proud height,
+#                 so nothing on the field oversteps the layer below it on a wall printed
+#                 standing up. A pocket is the field's own depth, so its floor is the wall's
+#                 own face and the wall keeps its thickness under every ring
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle "
-           "digiten_saddles tube_anchors")
+           "digiten_saddles tube_anchors port_field")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -454,8 +461,8 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
             "east_bosses side_wells floor_bosses west_cradle asse_cradle digiten_saddles "
-            "tube_anchors")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), ())
+            "tube_anchors port_field")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), None)
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1066,7 +1073,7 @@ def _dims(pack):
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle,
-               pack.digiten_saddles, pack.tube_anchors)
+               pack.digiten_saddles, pack.tube_anchors, pack.port_field)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1210,6 +1217,41 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     cut = (cq.Workplane("XY").box(x1 - x0, wy, wz)
            .translate(((x0 + x1) / 2.0, hy, hz)))
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
+
+
+def _port_field_proud(field) -> float:
+    """How far a wall's port field stands off its outer face — what a cutter through that wall
+    has to reach past to clear the field standing on it."""
+    return 0.0 if field is None else field[4]
+
+
+def _port_field(solid, field, outer, y_outer):
+    """The raised field on a ±Y wall's outer face, and the pockets its port rings lie in.
+
+    The crown is the plane the fittings' flanges bear on. Each flank falls from that crown to
+    the wall over the field's own proud height, so a wall printed standing up carries no course
+    that oversteps the one below it. A pocket is cut to that same height, which puts its floor
+    on the wall's own face and leaves the wall its whole thickness under every ring.
+
+    The field takes the wall it stands on: what reaches past that piece's own silhouette is
+    clipped there, the way every other feature on this box is."""
+    if field is None:
+        return solid
+    x0, x1, z0, z1, proud, pockets = field
+    pad = (cq.Workplane("XY")
+           .rect(x1 - x0 + 2.0 * proud, z1 - z0 + 2.0 * proud)
+           .workplane(offset=proud)
+           .rect(x1 - x0, z1 - z0)
+           .loft(ruled=True)
+           .val()
+           .rotate((0, 0, 0), (1, 0, 0), -90.0)
+           .translate(((x0 + x1) / 2.0, y_outer, (z0 + z1) / 2.0)))
+    pad = pad.intersect(_ybox(outer[0], outer[1], y_outer, y_outer + proud, outer[4], outer[5]))
+    solid = solid.fuse(pad)
+    for px, pz, dia in pockets:
+        solid = solid.cut(cq.Solid.makeCylinder(
+            dia / 2.0, proud, cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0)))
+    return solid
 
 
 def _x_port_cuts(ports, x0, x1):
@@ -1914,7 +1956,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               None, None, ())
+               None, None, (), None)
 
 
 def build_front_half(box):
@@ -2002,11 +2044,15 @@ def build_back_half(box):
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _pz in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
+    # The raised field the marked ports' rings lie in, standing on the wall the print silhouette
+    # has already clipped, and bored through with everything else that crosses this face.
+    back = _port_field(back, box.port_field, outer, outer[3])
     # Panel through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the back wall in the band above the
     # cold core; their bodies hang in the band's open rear half.
-    for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
+    for cutter in _port_cuts(box.back_ports, inner[3] - 5.0,
+                             outer[3] + _port_field_proud(box.port_field) + 5.0):
         back = back.cut(cutter)
     back = _c14_bosses(back, inner, outer, box.c14, outer[4] - 1.0, outer[5] + 1.0)
     # The drip tray's withdrawal slot through the −X wall, and the rail pair it rides. Cut the
