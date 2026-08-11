@@ -264,6 +264,9 @@ C_C14 = cq.Color(0.18, 0.18, 0.20)
 C_CO2 = cq.Color(0.85, 0.35, 0.30)
 C_WR1110 = cq.Color(0.70, 0.30, 0.26)
 C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
+# A port ring that names no fluid, in the enclosure's own black stock. What a colour MEANS on
+# that wall is `_back_panel_dimensions.port_colors`, and this is not one of them.
+C_RING_STOCK = cq.Color(0.14, 0.14, 0.15)
 
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -1301,36 +1304,44 @@ def back_wall_ports(*bulkhead_carries):
 
 
 # EVERY CROSSING THE BACK WALL PASSES A TUBE THROUGH, as `station -> (the module that states
-# that fitting's own panel figures, the ring station in `port_ring.STATIONS`, the fluid a colour
-# names it by)`. Two families and one construction: each bears a flange on the port field's
-# crown, each is bored one `PORT_HOLE_SLIP` over its own barrel, and each fitting's own nut
-# clamps it from inboard.
+# that fitting's own panel figures, the ring station in `port_ring.STATIONS`, that ring's own
+# name, the fluid a colour names it by)`. Two families and one construction: each bears a flange
+# on a ring of its own, each is bored one `PORT_HOLE_SLIP` over its own barrel, and each
+# fitting's own nut clamps it from inboard.
 #
-# The two flavour unions take no colour — a customer pushes black into either black and the
-# manifold sorts them — so the field is solid around their bores and their flanges bear on the
-# crown (`../printed-parts/enclosure/drawings/line-art/_appliance_model`). The fluid is the key
-# into `_back_panel_dimensions.port_colors`, so the pocket, the ring lying in it and the disc
-# the drawing paints are one station wearing one colour.
+# EVERY STATION WEARS A RING; not every ring carries a colour. The fluid is the key into
+# `_back_panel_dimensions.port_colors`, so the pad, the ring lying in it and the disc the drawing
+# paints are one station wearing one colour. A customer pushes black into either flavour port and
+# the manifold sorts them, so those two rings print in the wall's own stock and identify nothing
+# — what they carry is the rim, so no station on this wall is a different kind of thing from its
+# neighbour.
 BACK_WALL_FITTINGS = {
-    "bulkhead-water": (_jg, "union", "water"),
-    "bulkhead-carb": (_jg, "union", "carb"),
-    "bulkhead-flavor-a": (_jg, "union", None),
-    "bulkhead-flavor-b": (_jg, "union", None),
-    "co2-inlet": (_neofit, "neofit", "co2"),
+    "bulkhead-water": (_jg, "union", "water", "water"),
+    "bulkhead-carb": (_jg, "union", "carb", "carb"),
+    "bulkhead-flavor-a": (_jg, "union", "flavor-a", None),
+    "bulkhead-flavor-b": (_jg, "union", "flavor-b", None),
+    "co2-inlet": (_neofit, "neofit", "co2", "co2"),
 }
-MARKED_UNIONS = {n: fluid for n, (_m, _r, fluid) in BACK_WALL_FITTINGS.items() if fluid}
+MARKED_UNIONS = {n: fluid for n, (_m, _r, _nm, fluid) in BACK_WALL_FITTINGS.items() if fluid}
 
 
-def ring_name(fluid: str) -> str:
+def ring_name(which: str) -> str:
     """The body name one ring goes into the assembly under."""
-    return f"port-ring-{fluid}"
+    return f"port-ring-{which}"
 
 
-# The slip a pocket keeps around the ring that drops into it.
+# The slip a pad keeps around the ring that drops into it.
 PORT_RING_SLIP = 0.2
-# What the crown reaches past the widest thing standing at each of its stations — a ring where
-# one lies, a flange where none does.
-PORT_FIELD_MARGIN = 3.0
+# The rim of printed wall the pad keeps around each ring. What the pitch leaves between two
+# neighbouring rims is air, and `port-field-web` is where that is read.
+PORT_RING_RIM = 2.0
+# How far the pad stands off the wall. SHALLOWER THAN THE RING IT HOLDS: the rim locates the ring
+# and the ring stands proud of it, so what a fitting's flange lands on is the ring's own face and
+# never the rim's — `port-pad-under-ring` is what holds the two in that order.
+PORT_PAD_PROUD = 1.0
+# The pad's own shape, as `enclosure.Box.port_field`: how far it stands off the wall, the rim it
+# keeps around each ring, and one pocket per station.
+PortField = collections.namedtuple("PortField", "proud rim pockets")
 
 
 def port_pocket_d(ring: str = "union") -> float:
@@ -1339,54 +1350,50 @@ def port_pocket_d(ring: str = "union") -> float:
     return _ring.od(ring) + 2.0 * PORT_RING_SLIP
 
 
+def port_pad_d(ring: str = "union") -> float:
+    """What one station's pad measures across — its pocket and a rim either side."""
+    return port_pocket_d(ring) + 2.0 * PORT_RING_RIM
+
+
 def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
-    """Every `BACK_WALL_FITTINGS` station on the wall, as `name -> (x, z, fitting, ring, fluid)`.
+    """Every `BACK_WALL_FITTINGS` station on the wall, as
+    `name -> (x, z, fitting, ring, ring name, fluid)`.
 
     Each column is read off the FITTING'S OWN INBOARD COLLET, which is what `back_wall_ports` and
-    `co2_wall_port` bore from — so a pocket, a ring and the hole through both cannot land on two
+    `co2_wall_port` bore from — so a pad, a ring and the hole through both cannot land on two
     different columns."""
     carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry}
     out = {}
-    for name, (fitting, ring, fluid) in BACK_WALL_FITTINGS.items():
+    for name, (fitting, ring, which, fluid) in BACK_WALL_FITTINGS.items():
         x, _y, z = carries[name](fitting.port(-1.0))[0]
-        out[name] = (x, z, fitting, ring, fluid)
+        out[name] = (x, z, fitting, ring, which, fluid)
     return out
 
 
 def back_wall_field(stations):
-    """The raised field the marked ports' rings lie in, as `enclosure.Box.port_field`.
-
-    The crown reaches `PORT_FIELD_MARGIN` past the widest thing at every station it spans, so
-    every fitting's flange bears on the crown and none of them lands on a flank."""
-    pockets, reach = [], []
-    for x, z, fitting, ring, fluid in stations.values():
-        if fluid:
-            dia = port_pocket_d(ring)
-            pockets.append((x, z, dia))
-        else:
-            dia = fitting.flange_footprint()
-        reach.append((x, z, dia / 2.0 + PORT_FIELD_MARGIN))
-    return (min(x - r for x, _z, r in reach), max(x + r for x, _z, r in reach),
-            min(z - r for _x, z, r in reach), max(z + r for _x, z, r in reach),
-            _ring.THICK, tuple(pockets))
+    """The pad each ring lies in, as `enclosure.Box.port_field` — one per station, not one field
+    across them. `enclosure._port_field` stands a rim of `PORT_RING_RIM` around each pocket."""
+    return PortField(PORT_PAD_PROUD, PORT_RING_RIM,
+                     tuple((x, z, port_pocket_d(ring))
+                           for x, z, _fitting, ring, _which, _fluid in stations.values()))
 
 
 def build_port_rings(stations):
-    """The rings themselves, one per marked station, as `(name, solid, colour)`.
+    """The rings themselves, one per station, as `(name, solid, colour)`.
 
-    Each is seated on the same column its pocket was struck on, with its own inboard face on the
-    back wall's OUTER FACE — the pocket's floor, and the plane the field was raised off. So the
-    fitting's flange lands on the ring where the bare crown would otherwise carry it, and the
-    ring is in the clamped stack the way the wall is."""
+    Each is seated on the same column its pad was struck on, with its own inboard face on the
+    back wall's OUTER FACE — the floor the rim stands off. So the fitting's flange lands on the
+    ring where the bare wall would otherwise carry it, and the ring is in the clamped stack the
+    way the wall is. A station with no fluid takes the wall's own stock and identifies nothing."""
     floor = _enc.rear_plane_y + _enc.wall
     out = []
-    for x, z, _fitting, ring, fluid in stations.values():
-        if not fluid:
-            continue
-        name = ring_name(fluid)
+    for x, z, _fitting, ring, which, fluid in stations.values():
+        name = ring_name(which)
         placed, _carry = seat_body(cq.importers.importStep(str(_ring.STEPS[ring])).val(), (),
                                    seat=name, station=(_ring.seat(), (x, floor, z)))
-        out.append((name, placed, cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))))
+        colour = (cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid])) if fluid
+                  else C_RING_STOCK)
+        out.append((name, placed, colour))
     return out
 
 
@@ -1430,19 +1437,40 @@ PORT_DECK_EXTRA = 7.5
 # The pitch two columns stand at — each fitting's own panel footprint, the gap two nuts need, and
 # what the bodies hanging off them ask for over that.
 PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
-# WHAT THE PITCH LEAVES BETWEEN TWO POCKETS IS A STRIP OF THE CROWN, and a strip of the crown is a
-# printed wall of this box like any other. `port_ring.RING_W` is what a pocket spends the pitch on
-# and `enclosure.wall` is what the box carries everywhere else, so the two are read against each
-# other here rather than in either module alone.
-PORT_FIELD_WEB = PORT_PITCH - port_pocket_d()
+# WHAT THE PITCH LEAVES BETWEEN TWO PADS IS AIR, and a pad that runs into its neighbour stops
+# being a rim around one ring. `port_ring.RING_W` is what a ring spends the pitch on and
+# `PORT_RING_RIM` is what the pad spends around it, so the three are read against each other here
+# rather than in any one module alone. The two union columns are the tightest pair on the wall —
+# both pads take the same OD — so the pitch is read against that one.
+PORT_FIELD_WEB = PORT_PITCH - port_pad_d()
 _stated.state(
-    "port-field-web", "The field keeps a printed wall between two neighbouring pockets",
-    f"a web of `enclosure.wall` {_enc.wall:g} mm or more",
-    PORT_FIELD_WEB >= _enc.wall - 1e-9,
-    f"one PORT_PITCH of {PORT_PITCH:.2f} carries a pocket of {port_pocket_d():.2f} and leaves "
-    f"{PORT_FIELD_WEB:.3f} mm of crown between two of them, under the {_enc.wall:g} mm this box "
-    f"prints a wall at. `port_ring.RING_W` {_ring.RING_W:g} is what a pocket spends past the "
-    f"fitting's own footprint, and the two marked stations stand one pitch apart.")
+    "port-field-web", "Two neighbouring pads leave air between their rims",
+    f"a gap of {PORT_RING_RIM:g} mm or more, one rim's own width",
+    PORT_FIELD_WEB >= PORT_RING_RIM - 1e-9,
+    f"one PORT_PITCH of {PORT_PITCH:.2f} carries a pad of {port_pad_d():.2f} — a ring of "
+    f"Ø{_ring.od('union'):.2f}, its {PORT_RING_SLIP:g} slip and a {PORT_RING_RIM:g} mm rim "
+    f"either side — and leaves {PORT_FIELD_WEB:.3f} mm between two of them. `port_ring.RING_W` "
+    f"{_ring.RING_W:g} is what a ring shows past the fitting's own flange, and shrinking it is "
+    f"what buys the gap back.")
+# The rim LOCATES the ring; the ring is what a flange lands on. A pad that stood as proud as the
+# ring it holds would take that bearing itself, and the colour would be flush rather than raised.
+_stated.state(
+    "port-pad-under-ring", "Each pad stands shallower than the ring it holds",
+    f"a pad under `port_ring.THICK` {_ring.THICK:g} mm",
+    PORT_PAD_PROUD < _ring.THICK - 1e-9,
+    f"the pad stands {PORT_PAD_PROUD:g} mm off the wall and the ring in it is {_ring.THICK:g} "
+    f"thick, so the fitting's flange lands on the rim and the ring is buried under it.")
+# AND THE CLAMPED STACK IS WALL PLUS RING, at every station on this wall. Each fitting states how
+# much of its own barrel stands bare between flange and nut, and that is the whole of what the
+# stack may take — the one figure a thicker wall or a thicker ring spends.
+_port_stack = _stated.bound(
+    "port-clamp-stack", "Every fitting's bare barrel takes the wall and its ring",
+    f"a stack of {_enc.wall:g} + {_ring.THICK:g} = {_enc.wall + _ring.THICK:g} mm")
+for _n, (_fit, _r, _w, _f) in BACK_WALL_FITTINGS.items():
+    _bare = getattr(_fit, "PANEL_THREAD", None) or _fit.THREAD_LEN
+    _port_stack(_enc.wall + _ring.THICK <= _bare + 1e-9,
+                f"{_n} offers {_bare:.2f} mm of bare barrel and the wall and its ring stack "
+                f"{_enc.wall + _ring.THICK:g} mm, leaving the nut none of it")
 # THE WEST LANE CARRIES TWO COLUMNS AND EVERY UNION IS ON ONE OF THEM. The lane runs from the −X
 # wall's inner face to the pump's casting, and the two nozzle unions stand side by side across it
 # at `PORT_PITCH` — so `check_port_pair` is where that span is measured, against the wall on one
@@ -3585,7 +3613,8 @@ THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet",
 # every millimetre of it is outside the box. It is left out of what the box is sized on for the
 # same reason as `THROUGH_WALL` and measured against the ceiling for none of them — a body with
 # nothing inside the skin is under no ceiling of the interior.
-OUTBOARD_OF_WALL = tuple(ring_name(fluid) for fluid in MARKED_UNIONS.values())
+OUTBOARD_OF_WALL = tuple(ring_name(which)
+                         for _m, _r, which, _fluid in BACK_WALL_FITTINGS.values())
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":

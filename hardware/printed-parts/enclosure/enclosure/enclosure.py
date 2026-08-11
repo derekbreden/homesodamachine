@@ -441,13 +441,13 @@ z_lip_y_margin = 2.0
 #   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
 #                 leg a rib is centred on, which way the tube points there, which way the face
 #                 it stands on lies, and the section it seats
-#   port_field    the raised field on the back wall's outer face, (x0, x1, z0, z1, proud,
-#                 pockets) — the CROWN rectangle the fittings' flanges bear on, how far it
-#                 stands off the wall, and one (x, z, diameter) per pocket a port ring lies in.
-#                 Each flank runs from the crown out to the wall over that same proud height,
-#                 so nothing on the field oversteps the layer below it on a wall printed
-#                 standing up. A pocket is the field's own depth, so its floor is the wall's
-#                 own face and the wall keeps its thickness under every ring
+#   port_field    the pads the back wall's outer face carries, (proud, rim, pockets) — how far
+#                 a pad stands off the wall, the rim of it left standing around its ring, and
+#                 one (x, z, diameter) per pocket a port ring lies in. One pad per pocket, each
+#                 a plain cylinder of pocket + rim: round and this shallow it needs no flank,
+#                 the way the C14's own bosses on this wall need none. A pocket is the pad's
+#                 own depth, so its floor is the wall's face and the wall keeps its whole
+#                 thickness under every ring
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle "
@@ -1220,41 +1220,30 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
 
 
 def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
-    """The raised field on a ±Y wall's outer face, and the pockets its port rings lie in.
+    """The pad each port ring lies in, on a ±Y wall's outer face — one per station.
 
-    The crown is the plane the fittings' flanges bear on. Each flank falls from that crown to
-    the wall over the field's own proud height, so a wall printed standing up carries no course
-    that oversteps the one below it. A pocket is cut to that same height, which puts its floor
-    on the wall's own face and leaves the wall its whole thickness under every ring.
+    A pad is a plain cylinder standing `proud` off the wall with its ring's pocket cut through
+    it, which leaves a rim of that width around the ring. Round and this shallow, it stands
+    without a flank the way the C14's own bosses do on the same wall. The pocket is cut the
+    pad's whole height, so its floor is the wall's own face and the wall keeps its full
+    thickness under every ring.
 
-    It stands OUTSIDE the print silhouette, so like the C14's bosses it goes on after the clip,
-    on whichever piece holds its Z — `zlo..zhi` is that piece's band, and the field takes the
-    wall's own width across it. Everything the wall carries through it carries through the
-    field too, so `ports` is bored here across the field's own depth: the wall's holes are the
-    wall's, and these are the field's."""
+    A pad stands OUTSIDE the print silhouette, so like those bosses it goes on after the clip,
+    on whichever piece holds its Z — `zlo..zhi` is that piece's band. Everything the wall
+    carries through a pad it carries through the pad too, so `ports` is bored here across the
+    pad's own depth: the wall's holes are the wall's, and these are the pads'."""
     if field is None:
         return solid
-    x0, x1, z0, z1, proud, pockets = field
-    pad = (cq.Workplane("XY")
-           .rect(x1 - x0 + 2.0 * proud, z1 - z0 + 2.0 * proud)
-           .workplane(offset=proud)
-           .rect(x1 - x0, z1 - z0)
-           .loft(ruled=True)
-           .val()
-           .rotate((0, 0, 0), (1, 0, 0), -90.0)
-           .translate(((x0 + x1) / 2.0, y_outer, (z0 + z1) / 2.0)))
-    # The field takes the box's OWN silhouette, carried outboard by its height — so its west
-    # end runs out into the standing vertical's round the way the wall does, and its crown ends
-    # where the ceiling does. Then the piece's band picks which piece holds it; that band
-    # carries a margin for choosing a station and is no bound on geometry.
     ox0, ox1, oy0, _oy1, oz0, oz1 = outer
-    pad = pad.intersect(_rounded_outer((ox0, ox1, oy0, y_outer + proud, oz0, oz1)))
-    pad = pad.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, y_outer, y_outer + proud, zlo, zhi))
-    solid = solid.fuse(pad)
-    for px, pz, dia in pockets:
+    silhouette = _rounded_outer((ox0, ox1, oy0, y_outer + field.proud, oz0, oz1))
+    band = _ybox(ox0 - 1.0, ox1 + 1.0, y_outer, y_outer + field.proud, zlo, zhi)
+    for px, pz, dia in field.pockets:
+        pad = cq.Solid.makeCylinder(dia / 2.0 + field.rim, field.proud,
+                                    cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0))
+        solid = solid.fuse(pad.intersect(silhouette).intersect(band))
         solid = solid.cut(cq.Solid.makeCylinder(
-            dia / 2.0, proud, cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0)))
-    for cutter in _port_cuts(ports, y_outer, y_outer + proud):
+            dia / 2.0, field.proud, cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0)))
+    for cutter in _port_cuts(ports, y_outer, y_outer + field.proud):
         solid = solid.cut(cutter)
     return solid
 

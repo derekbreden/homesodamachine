@@ -61,8 +61,8 @@ FLANGE_AF = 0.748 * _IN           # H1 — 19.000 across flats
 NUT_AF = 0.827 * _IN              # H2 — 21.006 across flats
 BODY_LEN = 0.665 * _IN            # B1 = B2 — 16.891
 # A — 7.899, the BARE BARREL the sheet dimensions between the flange's face and the nut's. It is
-# what the panel is clamped in, so it is the panel this fitting takes, and `selftest` holds the
-# wall and its port ring inside it.
+# what the panel is clamped in, so it is the panel this fitting takes, and
+# `enclosure_assembly.port-clamp-stack` holds the wall and its port ring inside it.
 PANEL_THREAD = 0.311 * _IN
 NUT_LEN = 0.276 * _IN             # E  — 7.010
 MASS_G = 9.4
@@ -149,13 +149,8 @@ def stations_hold():
 
 
 def selftest() -> int:
-    """The fitting against the wall it clamps and the ring it wears."""
+    """The fitting against the sheet it is read from."""
     fails = []
-    stack = 3.0 + 3.0                                    # wall + port ring
-    if stack > PANEL_THREAD:
-        fails.append(
-            f"the rear wall and its port ring stack {stack:g} mm and the bare barrel between "
-            f"flange and nut is {PANEL_THREAD:.3f} mm")
     if abs((near_ring_face_y - far_ring_face_y) - OVERALL) > 1e-9:
         fails.append(
             f"the two end faces stand {near_ring_face_y - far_ring_face_y:.3f} apart and the "

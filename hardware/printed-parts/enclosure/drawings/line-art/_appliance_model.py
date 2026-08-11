@@ -166,16 +166,16 @@ def _standing_wall(lo, hi):
 
 
 def _mark_face(ax, sign, i, centre) -> float:
-    """The face a marking lies on: the port field's CROWN where that port has a pocket in it,
-    and the wall's own outer face where it has none. Read off the field the wall carries, so a
-    ring rendered on the machine sits on the surface the ring is bedded in."""
+    """The face a marking lies on: the RING'S OWN outboard face where that port wears one, and
+    the wall's own outer face where it does not. A ring stands `port_ring.THICK` off the wall
+    and its pad stands shallower, so the colour a customer sees is the ring's face and not the
+    rim's — read off the part, so a thicker ring carries its marking out with it."""
     field = _BOX.port_field
     if field is None or (ax, i) != (1, 3):
         return OUTER[i] + sign * 0.05
-    proud, pockets = field[4], field[5]
-    bedded = any(abs(px - centre[0]) < 1e-6 and abs(pz - centre[2]) < 1e-6
-                 for px, pz, _d in pockets)
-    return OUTER[i] + sign * ((proud if bedded else 0.0) + 0.05)
+    ringed = any(abs(px - centre[0]) < 1e-6 and abs(pz - centre[2]) < 1e-6
+                 for px, pz, _d in field.pockets)
+    return OUTER[i] + sign * ((_ring.THICK if ringed else 0.0) + 0.05)
 
 
 def port_marking(name: str) -> dict:
