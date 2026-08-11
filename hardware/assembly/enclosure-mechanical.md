@@ -64,10 +64,10 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 
 | Body | Station (x, z) | Wall opening | Seating |
 |---|---|---|---|
-| Umbilical unions × 3 (PP1208E) | [-83 / -45.64 / -45.64](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
-| Tap-water union (PP1208E) | x [-83](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
+| Umbilical unions × 3 (PP1208E) | [-82.07 / -44.71 / -44.71](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
+| Tap-water union (PP1208E) | x [-82.07](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
-| CO2 ABU44 bulkhead | [x -8.28, z 336.2](CO2_BACK) | Ø[17.86](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
+| CO2 ABU44 bulkhead | [x -7.35, z 336.2](CO2_BACK) | Ø[17.86](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
 **The CO2 comes in at the back wall**, not at the front — tank, tap and umbilical all land on the one face the customer reaches at install. Nothing at all is cut in the front wall.
 
@@ -75,7 +75,7 @@ The four PP1208E unions stand in a **rectangle** on two columns [37.36 mm](UMBIL
 
 Install, in this order:
 
-- **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-45.64](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [back-panel "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/back-panel/README.md), and that rule only works if the ring is where the customer expects it.
+- **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-44.71](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [back-panel "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/back-panel/README.md), and that rule only works if the ring is where the customer expects it.
 - **The C14 inlet** — it lands from *inside*: flange against the wall's inner face, two M3 into the printed bosses either side of it, and only its moulded shroud reaches out through the cutout. Drawn home, the C13 cord housing nests into the [3–5 mm](AC_RECESS_DEPTH) recess on insertion. Solder-tab pins face into the cabinet.
 - **The ABU44** — a 1/4" collet on each face, the red port ring dropped into its rim before the fitting goes in, flange bearing on that ring and the panel nut made up inside. Nothing threads onto either collet here.
 
