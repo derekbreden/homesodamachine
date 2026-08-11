@@ -43,11 +43,30 @@ Use from anywhere in the repo:
     w.travel("psu", (1, 0, 0))                        # how far a BODY moves, and past what
     w.hits(vol, skip=w.pieces)                        # the interior pack alone
 
+    print(w.pick(pasted))                             # what a viewer selection NAMES
+    w.around("wr1110")                                # everything standing near a body
+    w.around((43.5, 242.0, 268.6), 25)                # or near a point off a pick
+    w.free(x=…, y=…, z=…)                             # the empty pockets in a region
+    w.free(x=…, y=…, z=…, holds=(29, 60, 26))         # where a body of that size FITS
+
     print(w.route("fluid-14"))                        # an authored run's waypoints, numbered
     w.reroute("fluid-14", (3, 4), "-y", probe.steps(0, 80, 2.5))   # move a bend, collisions only
     w.drawn("fluid-14", pts)                          # one candidate centreline, waypoints and all
 
     probe.sweep(range(0, 360, 10), lambda a: w.cast(tip(a), aim(a)).free)
+
+PICK TEXT IS AN INPUT. The step viewer copies a selection as a block of `solid:` / `edge:` /
+`face:` / `click:` lines, and `pick` reads one back: which body it is on and whether it still
+lands there, which authored thing it belongs to — a run's waypoint and leg, a component's port,
+an anchor's station — and what else stands within reach of it. A pick that came off an older
+build says so, with the distance. Composing the same text going the other way is
+[`pick_text.py`](pick_text.py).
+
+WHERE THERE IS ROOM is `free`, and it is asked before a candidate exists. `hits` and `cast`
+answer about one candidate volume; `free` cuts every placed body out of a region and hands back
+the pockets that remain, and with `holds=(dx, dy, dz)` it erodes those pockets by an envelope so
+what comes back is every place that body's centre can stand. `around` is the same question at a
+point or a body: everything within a radius, nearest first, on exact distances.
 
 MOVING A PIECE OF A DRAWN LINE is `reroute`. It translates named waypoints of an authored run
 over a range of offsets, REDRAWS the whole run at each one, and reports what that run collides
@@ -76,6 +95,10 @@ From the shell, without writing a file:
     tools/cad-venv/bin/python hardware/scripts/probe.py cast 110.14,98.36,273.1 0,0,-1 --dia 6.35
     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275
     tools/cad-venv/bin/python hardware/scripts/probe.py travel psu +x
+    pbpaste | tools/cad-venv/bin/python hardware/scripts/probe.py pick
+    tools/cad-venv/bin/python hardware/scripts/probe.py around wr1110 --within 20
+    tools/cad-venv/bin/python hardware/scripts/probe.py free --x 0,90 --y 180,460 --z 254,340
+    tools/cad-venv/bin/python hardware/scripts/probe.py free --x … --holds 29,60,26 --clearance 1
     tools/cad-venv/bin/python hardware/scripts/probe.py route fluid-14 --near 43.5,244.7,289
     tools/cad-venv/bin/python hardware/scripts/probe.py reroute fluid-14 3-4 y- -20:80:2.5
     tools/cad-venv/bin/python hardware/scripts/probe.py selftest
@@ -88,6 +111,7 @@ when a number looks wrong before trusting the number.
 
 import math
 import os
+import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -113,6 +137,7 @@ TRAVEL_LIMIT = 60.0     # default body travel: past any move this pack has wante
                         # enough that a sweep of a real body stays quick. It is a bound on the
                         # QUERY — a travel that reaches it has found no obstacle, not room.
 BED_TOL = 1.0           # slack on a piece's own extents against the bed, per axis
+PICK_ON = 0.05          # how far off a surface a copied selection may land and still be on it
 
 PIECE = "piece"         # the source tag a printed enclosure piece carries
 SKIP_PIECES = "HSM_SKIP_PIECES"     # env flag that leaves the printed pieces out
@@ -167,6 +192,13 @@ def box(x: tuple, y: tuple, z: tuple):
             .box(x[1] - x[0], y[1] - y[0], z[1] - z[0], centered=False)
             .translate((x[0], y[0], z[0]))
             .val())
+
+
+def point(p) -> cq.Vertex:
+    """One world point as a shape, so `gap` and `around` can be asked about a coordinate the
+    way they are asked about a body. Exact and dimensionless — a sphere would answer its own
+    radius short."""
+    return cq.Vertex.makeVertex(*(float(c) for c in p))
 
 
 def rod(origin, direction, length: float, dia: float = TUBE_OD):
@@ -500,6 +532,162 @@ class Reroute:
         return "\n".join(out)
 
 
+# --- pick text ------------------------------------------------------------
+#
+# The step viewer's picker copies a selection as PICK TEXT, and its Find box takes the same
+# text back. `pick_text.py` composes it, going out; this reads it, coming in. The format's
+# truth is `web/public/js/viewer/pick-format.js` (the viewer's own parser), and the kinds and
+# their fields below are that parser's, line for line.
+
+_TRIPLE = re.compile(r"x=(-?\d+(?:\.\d+)?)\s+y=(-?\d+(?:\.\d+)?)\s+z=(-?\d+(?:\.\d+)?)")
+_LABEL = re.compile(r"^([A-Za-z][\w-]*)\s*:\s*(.*)$")
+_NUM = r"(-?\d+(?:\.\d+)?)"
+
+
+def _triples(s: str) -> list:
+    return [tuple(float(g) for g in m.groups()) for m in _TRIPLE.finditer(s)]
+
+
+def _after(s: str, label: str):
+    i = s.find(label)
+    if i < 0:
+        return None
+    got = _triples(s[i:])
+    return got[0] if got else None
+
+
+def _num_after(s: str, pattern: str):
+    m = re.search(pattern, s)
+    return float(m.group(1)) if m else None
+
+
+@dataclass
+class Pick:
+    """One selection out of a pasted pick block, and the point that stands for it.
+
+    `at` is what a query is put at: a circle's centre, an edge's midpoint, a point on a
+    cylinder's axis, a plane's `thru`, a click's own coordinates."""
+
+    kind: str               # circle | edge | edge-arc | face-plane | face-cylinder | point
+    at: tuple
+    line: str
+    data: dict
+
+    def __str__(self) -> str:
+        return f"{self.kind:14s} ({self.at[0]:9.3f}, {self.at[1]:9.3f}, {self.at[2]:9.3f})"
+
+
+def picks(text: str) -> tuple:
+    """A pasted pick block, read: `(picks, solids, files)`.
+
+    Every `label: body` line the viewer emits — `solid:`, `edge:`, `faceA:`, `faceB:`,
+    `face:`, `click:` — and the bare ones it does not."""
+    found, solids, files = [], [], []
+    for raw in str(text or "").split("\n"):
+        line = raw.strip()
+        if not line:
+            continue
+        m = _LABEL.match(line)
+        label, body = (m.group(1).lower(), m.group(2)) if m else (None, line)
+        if label == "file":
+            files.append(body.strip())
+            continue
+        if label == "solid":
+            solids += [w for w in body.replace(",", " ").split() if w]
+            continue
+        if re.search(r"circle\s*[⌀ø]", body, re.I):
+            c = _after(body, "center")
+            if c:
+                found.append(Pick("circle", c, line, {
+                    "d": _num_after(body, rf"[⌀ø]\s*{_NUM}"), "axis": _after(body, "axis")}))
+            continue
+        if "→" in body:
+            pts = _triples(body.split("·")[0])
+            if len(pts) < 2:
+                continue
+            mid = tuple((pts[0][i] + pts[1][i]) / 2.0 for i in range(3))
+            kind = "edge-arc" if re.search(r"\barc\b", body) else "edge"
+            found.append(Pick(kind, mid, line, {
+                "a": pts[0], "b": pts[1], "len": _num_after(body, rf"len\s+{_NUM}"),
+                "r": _num_after(body, rf"r={_NUM}"), "center": _after(body, "center"),
+                "axis": _after(body, "axis")}))
+            continue
+        if re.search(r"\bplane\b", body):
+            n, thru = _after(body, "n "), _after(body, "thru")
+            if n and thru:
+                found.append(Pick("face-plane", thru, line, {"n": n, "thru": thru}))
+            continue
+        if re.search(r"\bcylinder\b", body):
+            axis, direction = _after(body, "axis"), _after(body, "dir")
+            r = _num_after(body, rf"r={_NUM}")
+            if r is not None and axis and direction:
+                found.append(Pick("face-cylinder", axis, line,
+                                  {"r": r, "axis": axis, "dir": direction}))
+            continue
+        for p in _triples(body):
+            found.append(Pick("point", p, line, {}))
+    return tuple(found), tuple(solids), tuple(files)
+
+
+def _leg_off(pt, a, b) -> float:
+    """How far a point stands off the segment a→b — the reading that says which leg of a run
+    a selection lies on."""
+    v = [b[i] - a[i] for i in range(3)]
+    n = sum(c * c for c in v)
+    if n < 1e-12:
+        return math.dist(pt, a)
+    t = max(0.0, min(1.0, sum((pt[i] - a[i]) * v[i] for i in range(3)) / n))
+    return math.dist(pt, tuple(a[i] + t * v[i] for i in range(3)))
+
+
+@dataclass
+class Near:
+    """One body standing close to a point or another body."""
+
+    gap: float
+    name: str
+    source: str
+
+    def __str__(self) -> str:
+        return f"{self.gap:9.3f}  {self.name:28s} {self.source}"
+
+
+@dataclass
+class Void:
+    """One connected pocket of empty space in a region.
+
+    `bb` is how far the pocket REACHES on each axis, and a pocket is rarely a box — an L
+    between two bodies has extents neither arm fills, so an envelope is fitted with
+    `free(holds=…)` rather than read off these numbers.
+
+    Asked with `holds`, this is not the pocket but the STATIONS inside it: every place the
+    centre of that envelope can stand, so `bb` is the travel a body has once it is in there
+    and a span of 0 on an axis means it fits exactly and cannot slide."""
+
+    volume: float
+    bb: object
+    holds: tuple = None
+
+    @property
+    def span(self) -> tuple:
+        b = self.bb
+        return (b.xmax - b.xmin, b.ymax - b.ymin, b.zmax - b.zmin)
+
+    @property
+    def centre(self) -> tuple:
+        b = self.bb
+        return ((b.xmin + b.xmax) / 2, (b.ymin + b.ymax) / 2, (b.zmin + b.zmax) / 2)
+
+    def __str__(self) -> str:
+        b, sp, c = self.bb, self.span, self.centre
+        where = (f"x[{b.xmin:8.2f},{b.xmax:8.2f}] y[{b.ymin:8.2f},{b.ymax:8.2f}] "
+                 f"z[{b.zmin:8.2f},{b.zmax:8.2f}]")
+        if self.holds is None:
+            return f"{self.volume:11.1f} mm\u00b3  reaches {where}"
+        return (f"stations  {where}  slide {sp[0]:6.2f}\u00d7{sp[1]:6.2f}\u00d7{sp[2]:6.2f}"
+                f"  centre ({c[0]:.2f}, {c[1]:.2f}, {c[2]:.2f})")
+
+
 # --- the world ------------------------------------------------------------
 
 class World:
@@ -511,7 +699,8 @@ class World:
 
     def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False,
                  frames: dict = None, box=None, runs: dict = None,
-                 runs_held_out: bool = False, chains: dict = None):
+                 runs_held_out: bool = False, chains: dict = None,
+                 anchors: dict = None):
         self.solids = solids
         # name → "component" | "display" | "funnel" | "run" | PIECE
         self.sources = sources
@@ -527,6 +716,9 @@ class World:
         # `{id: (Link, …)}` — what else in the build reads each run, taken off the assembly
         # that drew them, see `chain`.
         self._chains = chains or {}
+        # `{what prints it: ((mid, along, root, seat_r), …)}` — the anchor stations the
+        # assembly built, in world. `pick` names one when a selection lands on it.
+        self._anchors = anchors or {}
         self._boxes = {}                # name → (solid, box), see bb()
 
     # -- what is here --
@@ -648,6 +840,106 @@ class World:
         r = run if hasattr(run, "pts") else self.run(run)
         return self._chains.get(r.id, ())
 
+    def pick(self, text: str, within: float = 15.0) -> str:
+        """DECODE PICK TEXT — the block the step viewer copies out of a selection, read back
+        into the machine's own names.
+
+        Paste what the viewer gave you and this says what it is: which body the selection is
+        on and whether the point is really on it, which authored thing it belongs to — a run's
+        waypoint or leg, a component's port, an anchor's station — and what else stands within
+        `within` mm of it.
+
+            print(w.pick(open("picked.txt").read()))
+            probe.py pick < picked.txt          # or:  pbpaste | probe.py pick
+
+        A `solid:` line is taken as a claim and CHECKED rather than believed: the body it names
+        has to be in this world and the picks have to lie on it, and it says so when they do
+        not. Coordinates are the assembly's world frame, which is the frame the viewer copies
+        in, so nothing is transformed on the way in.
+
+        This is the other half of [`pick_text.py`](pick_text.py), which composes the same text
+        going the other way."""
+        found, solids, files = picks(text)
+        if not found and not solids:
+            raise ValueError(
+                "no picks in that text — expected the step viewer's copied block, whose lines "
+                "read `solid: <name>`, `edge: …`, `face: …`, `click: x=… y=… z=…`")
+        out = []
+        for f in files:
+            out.append(f"file    {f}")
+        for s in solids:
+            known = "" if s in self.solids else "   — NOT a body in this world"
+            out.append(f"solid   {s}{known}")
+        claimed = [s for s in solids if s in self.solids]
+        for p in found:
+            out.append("")
+            out.append(f"{p.line}")
+            out.append(f"  at      ({p.at[0]:.3f}, {p.at[1]:.3f}, {p.at[2]:.3f})")
+            for line in self._decode(p, claimed, within):
+                out.append(f"  {line}")
+        return "\n".join(out)
+
+    def _decode(self, p: Pick, claimed: list, within: float) -> list:
+        """What one pick names: the body it is on, the authored thing it belongs to, and the
+        neighbourhood it stands in."""
+        out = []
+        for name in claimed:
+            g = self.gap(name, point(p.at))
+            if g <= PICK_ON:
+                out.append(f"on      {name}, on its surface")
+            else:
+                out.append(
+                    f"on      {name} — NOT on it: {g:.3f} mm off its surface. The body has "
+                    f"moved since this text was copied, or it came off another build.")
+        # The authored objects a point can BE: a run's waypoint or leg, a port, an anchor.
+        for name in claimed or [n for n in self.names if n.startswith("tube-")]:
+            if not name.startswith("tube-") or name[5:] not in (self._runs or {}):
+                continue
+            r = self.run(name)
+            i = min(range(len(r.pts)), key=lambda k: math.dist(r.pts[k], p.at))
+            d = math.dist(r.pts[i], p.at)
+            leg = min(range(len(r.pts) - 1),
+                      key=lambda k: _leg_off(p.at, r.pts[k], r.pts[k + 1]))
+            turn = next((t for j, t, _a, _b in r.bends if j == i), None)
+            where = (f"waypoint {i} ({d:.3f} mm off)" if d < within
+                     else f"no waypoint within {within:g} mm")
+            out.append(f"run     {r.id} — {where}, on leg {leg}"
+                       + (f", which turns {turn:.1f}° at R{r.radii[i]:.3f}"
+                          if turn is not None and d < within else ""))
+            out.append(f"        `w.reroute({r.id!r}, {leg if d >= within else i}, …)` moves it;"
+                       f" `w.route({r.id!r})` numbers them all")
+            break
+        if self._frames:
+            ports = [(math.dist(fr.at(pt), p.at), f"{comp}.{pt}")
+                     for comp, fr in self._frames.items() for pt in fr.ports]
+            if ports:
+                g, which = min(ports)
+                if g < within:
+                    out.append(f"port    {which}, {g:.3f} mm off")
+        for label, station in self._stations(p.at, within):
+            out.append(f"anchor  {label} — {station}")
+        near = self.around(p.at, within=within, skip=tuple(claimed))
+        if near:
+            out.append(f"around  within {within:g} mm, nearest first:")
+            out += [f"          {n}" for n in near]
+        else:
+            out.append(f"around  nothing else within {within:g} mm")
+        return out
+
+    def _stations(self, at, within: float) -> list:
+        """Any anchor station standing near a point, off the ones the assembly BUILT — the
+        ribs the box prints for a run and the ones the cold core's cap prints, already carried
+        into world by whatever placed them."""
+        out = []
+        for kind, stations in self._anchors.items():
+            for mid, _along, _root, seat_r in stations:
+                d = math.dist(mid, at)
+                if d <= within:
+                    out.append((kind, f"seat r{seat_r:g} at "
+                                      f"({mid[0]:.3f}, {mid[1]:.3f}, {mid[2]:.3f}), "
+                                      f"{d:.3f} mm off its centre"))
+        return out
+
     def route(self, run, near=None) -> str:
         """One run's centreline written out waypoint by waypoint — the table an INDEX is read
         off before `reroute` moves one.
@@ -699,6 +991,42 @@ class World:
             raise ValueError("nearest: every body was skipped")
         return min(gaps)
 
+    def around(self, target, within: float = 15.0, skip=()) -> list:
+        """EVERY body standing within `within` mm of `target`, nearest first.
+
+        `nearest` answers with one name, which is the question "what is closest"; this answers
+        "what is HERE", which is what a body's neighbourhood is and what decides whether there
+        is anywhere to mount, route or move. `target` is a body name, a point, or any solid —
+        a point is measured from, not around, so a click off the viewer asks this directly.
+
+            w.around("wr1110")                    # what the regulator lives among
+            w.around((43.5, 242.0, 268.575), 25)  # what is around a spot you picked
+
+        Boxes prefilter and the exact distance decides, so a body listed is a body measured:
+        two boxes that miss are two solids that miss, and two boxes that overlap say nothing
+        at all. `within` bounds the QUERY — a body absent from this list is further off than
+        `within`, which is not the same as far."""
+        if isinstance(target, str):
+            probe_at, skip = self.solid(target), tuple(skip) + (target,)
+        elif isinstance(target, (tuple, list)) and len(target) == 3:
+            probe_at = point(target)
+        else:
+            probe_at = shape(target, "target")
+        b = probe_at.BoundingBox()
+        out = []
+        for name in self.names:
+            if name in skip:
+                continue
+            o = self.bb(name)
+            if (o.xmin > b.xmax + within or o.xmax < b.xmin - within
+                    or o.ymin > b.ymax + within or o.ymax < b.ymin - within
+                    or o.zmin > b.zmax + within or o.zmax < b.zmin - within):
+                continue
+            g = self.gap(name, probe_at)
+            if g <= within:
+                out.append(Near(g, name, self.sources[name]))
+        return sorted(out, key=lambda n: n.gap)
+
     # -- what a volume runs into --
 
     def hits(self, vol, skip=(), tol: float = VOL_TOL) -> list:
@@ -722,6 +1050,55 @@ class World:
 
     def clear(self, vol, skip=()) -> bool:
         return not self.hits(vol, skip=skip)
+
+    # -- what is empty --
+
+    def free(self, x: tuple, y: tuple, z: tuple, holds=None, clearance: float = 0.0,
+             skip=(), least: float = 500.0, top: int = 12) -> list:
+        """WHERE THERE IS ROOM — the region with every placed body cut out of it, split into
+        the pockets that remain, largest first.
+
+        `hits` answers whether one candidate runs into anything, which is a question you can
+        only ask once you have picked a candidate. This is the other way round, and it is the
+        one that says how many candidates there are.
+
+            w.free(x=(0, 90), y=(180, 460), z=(254, 340))              # the pockets
+            w.free(x=…, y=…, z=…, holds=(29, 60, 26), clearance=1.0)   # where a body FITS
+
+        With `holds=(dx, dy, dz)` the pockets are eroded by that envelope, so what comes back
+        is every place its CENTRE can stand — a body fits at any point in one of those regions
+        and nowhere else in this region. `clearance` is held all round on top of it. That is
+        the answer to "where could this go", asked once instead of pose by pose.
+
+        Exact to the mesh, not sampled: a pocket reported here is one no body reaches into,
+        and an envelope that fits in one of its stations is one `hits` also calls clear.
+        Without `holds` there is NO clearance in the reading — a pocket 6.4 mm across holds a
+        6.35 tube touching both sides."""
+        empty = _meshes.meshed(box(x=x, y=y, z=z))
+        rb = (min(x), min(y), min(z), max(x), max(y), max(z))
+        for name in self.names:
+            if name in skip:
+                continue
+            o = self.bb(name)
+            if (o.xmin > rb[3] or o.xmax < rb[0] or o.ymin > rb[4]
+                    or o.ymax < rb[1] or o.zmin > rb[5] or o.zmax < rb[2]):
+                continue
+            empty = empty - _meshes.meshed(self.solid(name))
+        span = None
+        if holds is not None or clearance:
+            span = tuple(float(c) for c in (holds or (0.0, 0.0, 0.0)))
+            tool = tuple(s + 2.0 * clearance for s in span)
+            if min(tool) <= 0:
+                raise ValueError(
+                    f"free(holds={holds}, clearance={clearance}): an envelope to erode by "
+                    f"needs a real size on every axis — got {tool}")
+            empty = empty.minkowski_difference(
+                _meshes.meshed(box(x=(-tool[0] / 2, tool[0] / 2), y=(-tool[1] / 2, tool[1] / 2),
+                                   z=(-tool[2] / 2, tool[2] / 2))))
+        out = [Void(part.volume(), _meshes.box(part), span)
+               for part in empty.decompose()
+               if span is not None or part.volume() >= least]
+        return sorted(out, key=lambda v: -v.volume)[:top]
 
     # -- how far a body can move --
 
@@ -1189,7 +1566,10 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces,
                          frames=getattr(a, "frames", None), box=getattr(a, "box", None),
                          runs=drawn, runs_held_out=not runs,
-                         chains={rid: _chain_of(a, rid) for rid in drawn})
+                         chains={rid: _chain_of(a, rid) for rid in drawn},
+                         anchors={k: tuple(getattr(a, k, ()) or ())
+                                  for k in ("tube_anchors", "cap_tube_anchors",
+                                            "body_anchors")})
     return _WORLDS[key]
 
 
@@ -1421,6 +1801,78 @@ def selftest() -> int:
     if not tw2.clear(t2_up):
         fails.append("tangent crossing control")
 
+    print("controls — reading pick text:")
+    # One of each kind the viewer emits, in the block shape it copies them in.
+    block = ("file: hardware/manifold-layout/enclosure-assembly.step\n"
+             "solid: tube-fluid-14\n"
+             "edge: circle ⌀0006.350 · center x=1.000 y=2.000 z=3.000 · axis x=0 y=-1 z=0\n"
+             "edge: x=0.000 y=0.000 z=0.000 → x=0.000 y=10.000 z=0.000 · len 10.000 · straight\n"
+             "faceA: plane · n x=-1.000 y=0.000 z=0.000 · thru x=4.000 y=5.000 z=6.000\n"
+             "faceB: cylinder · r=3.175 · axis x=7.000 y=8.000 z=9.000 · dir x=0 y=0 z=1\n"
+             "click: x=11.000 y=12.000 z=13.000\n").replace("⌀0006.350", "⌀6.350")
+    got, named, files = picks(block)
+    kinds = [p.kind for p in got]
+    want = ["circle", "edge", "face-plane", "face-cylinder", "point"]
+    print(f"  {'ok  ' if kinds == want else 'FAIL'}  every kind the viewer copies is read"
+          f"{'':11s} got {kinds}")
+    if kinds != want:
+        fails.append("pick kinds")
+    print(f"  {'ok  ' if named == ('tube-fluid-14',) else 'FAIL'}  and the solid it came off"
+          f"{'':22s} got {named}  want ('tube-fluid-14',)")
+    if named != ("tube-fluid-14",):
+        fails.append("pick solid")
+    check("a circle stands at its centre", got[0].at[1], 2.0)
+    check("an edge stands at its midpoint", got[1].at[1], 5.0)
+    check("a plane stands at its thru point", got[2].at[0], 4.0)
+    check("a cylinder stands on its axis", got[3].at[2], 9.0)
+    check("a click stands where it was clicked", got[4].at[0], 11.0)
+    print(f"  {'ok  ' if files and files[0].endswith('.step') else 'FAIL'}  the file line is "
+          f"carried{'':21s} got {files}")
+    if not files:
+        fails.append("pick file")
+
+    print("controls — a neighbourhood, and empty space:")
+    # A plate, a post 4 mm east of it and a second post 30 mm on. Around the plate at 10 mm
+    # reaches the first and not the second, and the reading is the exact solid gap.
+    nw = World({"plate": box(x=(0, 10), y=(0, 10), z=(0, 10)),
+                "post": box(x=(14, 18), y=(0, 10), z=(0, 10)),
+                "far": box(x=(40, 44), y=(0, 10), z=(0, 10))},
+               {n: "test" for n in ("plate", "post", "far")})
+    got_n = [(round(n.gap, 3), n.name) for n in nw.around("plate", within=10.0)]
+    print(f"  {'ok  ' if got_n == [(4.0, 'post')] else 'FAIL'}  around reaches the near one and "
+          f"stops{'':6s} got {got_n}  want [(4.0, 'post')]")
+    if got_n != [(4.0, "post")]:
+        fails.append("around radius")
+    got_p = [(round(n.gap, 3), n.name) for n in nw.around((12.0, 5.0, 5.0), within=3.0)]
+    print(f"  {'ok  ' if got_p == [(2.0, 'plate'), (2.0, 'post')] else 'FAIL'}  and a POINT is "
+          f"measured from, not around{'':4s} got {got_p}")
+    if got_p != [(2.0, "plate"), (2.0, "post")]:
+        fails.append("around a point")
+    # The same rail with one post across it: two pockets, and their volumes are exact.
+    pockets = nw.free(x=(0, 44), y=(0, 10), z=(0, 10), skip=("plate", "far"), least=1.0)
+    vols = sorted(round(v.volume, 1) for v in pockets)
+    # 44 x 10 x 10 is 4400; the post takes 400 of it and cuts the rest at x 14 and x 18.
+    print(f"  {'ok  ' if vols == [1400.0, 2600.0] else 'FAIL'}  free splits a region at what "
+          f"stands in it{'':4s} got {vols}  want [1400.0, 2600.0]")
+    if vols != [1400.0, 2600.0]:
+        fails.append("free pockets")
+    # An envelope 4 wide fits west of the post with 10 mm of travel, and east with 22.
+    where = nw.free(x=(0, 44), y=(0, 10), z=(0, 10), skip=("plate", "far"),
+                    holds=(4.0, 4.0, 4.0))
+    slides = sorted(round(v.span[0], 3) for v in where)
+    print(f"  {'ok  ' if slides == [10.0, 22.0] else 'FAIL'}  and holds= reports where a body "
+          f"CENTRES{'':3s} got {slides}  want [10.0, 22.0]")
+    if slides != [10.0, 22.0]:
+        fails.append("free stations")
+    # The station regions are the truth: a pose taken from one has to read clear to `hits`.
+    spot = max(where, key=lambda v: v.volume).centre
+    landed = nw.hits(box(x=(spot[0] - 2, spot[0] + 2), y=(spot[1] - 2, spot[1] + 2),
+                         z=(spot[2] - 2, spot[2] + 2)), skip=("plate", "far"))
+    print(f"  {'ok  ' if not landed else 'FAIL'}  a body stood at a station is clear"
+          f"{'':13s} got {[h.name for h in landed]}  want []")
+    if landed:
+        fails.append("free station is clear")
+
     print("controls — rerouting a piece of a run:")
     # A U lying in the XY plane whose crossbar is two waypoints, a post standing in the middle
     # of the band that crossbar sweeps through, and the run's OWN swept tube in the world
@@ -1629,6 +2081,25 @@ def main(argv: list) -> int:
         p.add_argument(f"--{axis}", required=True, help="lo,hi")
     p.add_argument("--skip", default="")
 
+    p = sub.add_parser("pick", help="decode pick text from the step viewer (reads stdin)")
+    p.add_argument("text", nargs="?", help="the pasted block; omit to read stdin")
+    p.add_argument("--within", type=float, default=15.0, help="neighbourhood radius, mm")
+
+    p = sub.add_parser("around", help="every body within a radius of a body or a point")
+    p.add_argument("target", help="a body name, or x,y,z")
+    p.add_argument("--within", type=float, default=15.0)
+    p.add_argument("--skip", default="")
+
+    p = sub.add_parser("free", help="every connected empty pocket in a region, largest first")
+    for axis in "xyz":
+        p.add_argument(f"--{axis}", required=True, help="lo,hi")
+    p.add_argument("--holds", default="", metavar="dx,dy,dz",
+                   help="an envelope — report where its CENTRE can stand, not the pockets")
+    p.add_argument("--clearance", type=float, default=0.0, help="held all round, mm")
+    p.add_argument("--least", type=float, default=500.0, help="drop pockets under this mm³")
+    p.add_argument("--top", type=int, default=12)
+    p.add_argument("--skip", default="")
+
     p = sub.add_parser("route", help="one run's waypoints, numbered — the index `reroute` moves")
     p.add_argument("run", nargs="?", help="a run id (fluid-14); omit to list every run")
     p.add_argument("--near", default="", metavar="x,y,z",
@@ -1678,6 +2149,19 @@ def main(argv: list) -> int:
     elif a.cmd == "travel":
         print(w.travel(a.mover, _axis(a.direction), limit=a.limit, clearance=a.clearance,
                        skip=skip))
+    elif a.cmd == "pick":
+        print(w.pick(a.text if a.text else sys.stdin.read(), within=a.within))
+    elif a.cmd == "around":
+        target = _pt(a.target) if "," in a.target else a.target
+        found = w.around(target, within=a.within, skip=skip)
+        print("\n".join(str(n) for n in found) if found
+              else f"nothing within {a.within:g} mm")
+    elif a.cmd == "free":
+        found = w.free(x=_range(a.x), y=_range(a.y), z=_range(a.z), skip=skip,
+                       holds=_pt(a.holds) if a.holds else None, clearance=a.clearance,
+                       least=a.least, top=a.top)
+        print(w.measured)
+        print("\n".join(str(v) for v in found) if found else "no pocket over the floor")
     elif a.cmd == "route":
         if not a.run:
             for rid, r in sorted(w.runs.items()):
