@@ -292,18 +292,26 @@ MOUNTS = (
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
-    ("bulkhead-water", None, "wall-capture"),
+    # EVERY FITTING ON THE REAR WALL IS CLAMPED THROUGH IT. The flange lands on the ring in its
+    # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
+    # draws up on the inside — so the printed material is the clamped member and the joint is a
+    # thread made up on it. `enclosure_assembly.check_wall_clamped` reads both faces of that off
+    # the placed solids, and `port-clamp-stack` holds the barrel against what the stack spends.
+    ("bulkhead-water", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
-    ("co2-inlet", None, "wall-capture"),
+    ("co2-inlet", "enclosure-back-top", "wall-capture"),
+    # The check makes up on the CO2 inlet's inboard stub, and that fitting is a bought body: what
+    # holds it is a thread in another purchased part, with no printed feature anywhere in the
+    # path.
     ("gasher-co2", None, "wall-capture"),
     # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
     # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a strap
     # through the rib's own cavity closes round the barrel and the rib's back together. The seat
     # opens downward, so the strap is the load path and the bore is what it pulls into.
     ("wr1110", "enclosure-back-top", "cradle"),
-    ("bulkhead-flavor-a", None, "wall-capture"),
-    ("bulkhead-flavor-b", None, "wall-capture"),
-    ("bulkhead-carb", None, "wall-capture"),
+    ("bulkhead-flavor-a", "enclosure-back-top", "wall-capture"),
+    ("bulkhead-flavor-b", "enclosure-back-top", "wall-capture"),
+    ("bulkhead-carb", "enclosure-back-top", "wall-capture"),
     # A RING LIES IN A PAD ON THE BACK WALL'S OUTER FACE. `enclosure._port_field` stands a rim
     # of printed wall around each one and the fitting's flange lands on the ring's outboard face,
     # so the ring is fenced on every side and shut in by a flange whose bore is narrower than it

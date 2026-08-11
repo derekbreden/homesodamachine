@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 44,
+ "mounted": 51,
  "checks": [
   {
    "id": "coverage",
@@ -823,6 +823,16 @@
    "active": true
   },
   {
+   "id": "wall-clamped",
+   "label": "Every rear-wall fitting is clamped through the wall it passes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5 clamped, furthest off its ring 0.000 mm, tightest in its bore 0.427 mm",
+   "target": "bearing at 0.000 mm and 0.430 mm of bore",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "chains-seated",
    "label": "Every made-up chain lies in its printed rib on the core's cap",
    "kind": "gate",
@@ -1001,14 +1011,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "34/77 mounted, 2 nothing fastens",
+   "value": "39/77 mounted, 2 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "bulkhead-carb: wall-capture",
-    "bulkhead-flavor-a: wall-capture",
-    "bulkhead-flavor-b: wall-capture",
-    "bulkhead-water: wall-capture",
-    "co2-inlet: wall-capture",
     "coil-v-a: pack",
     "coil-v-b: pack",
     "coil-v-c: pack",
@@ -5816,7 +5821,7 @@
   },
   {
    "component": "bulkhead-water",
-   "by": null,
+   "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
    "never": null
@@ -5830,7 +5835,7 @@
   },
   {
    "component": "co2-inlet",
-   "by": null,
+   "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
    "never": null
@@ -5851,21 +5856,21 @@
   },
   {
    "component": "bulkhead-flavor-a",
-   "by": null,
+   "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
    "never": null
   },
   {
    "component": "bulkhead-flavor-b",
-   "by": null,
+   "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
    "never": null
   },
   {
    "component": "bulkhead-carb",
-   "by": null,
+   "by": "enclosure-back-top",
    "joint": "wall-capture",
    "kind": "real",
    "never": null
@@ -6137,5 +6142,5 @@
    "never": null
   }
  ],
- "sources": "d119373db58508c08346cb6dd8b6d78e"
+ "sources": "e9b1a957fc488c242c666fe4766bcd06"
 }

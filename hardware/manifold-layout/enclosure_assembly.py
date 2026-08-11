@@ -1543,6 +1543,69 @@ def check_port_pair(placed, west_face, seaflo) -> Bound:
             f"pair back the width by moving the pump."])))
 
 
+def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
+    """Whether each rear-wall fitting is CLAMPED THROUGH the wall, read off the placed solids.
+
+    This is the reading that makes `wall-capture` a mount and not a word. A fitting drawn in front
+    of a hole and a fitting clamped through one are the same to every other row on this card: the
+    bore is bored either way, the pad stands either way, and `port-clamp-stack` holds a stack of
+    stated figures that the machine may not actually be built to. Two numbers tell them apart, and
+    both are the joint itself:
+
+        bear   the flange against the RING lying in its pocket. A clamp has a bearing face, and
+               this is it — the ring bottoms on the wall's own outer face, so the flange's load
+               crosses ring and wall together and the ring is in the stack the way the wall is.
+        slip   the barrel against the WALL it passes. One `PORT_HOLE_SLIP` on the diameter is a
+               barrel standing in its own bore; anything wider is a fitting hanging in a hole, and
+               anything closed is a barrel fouling the wall it is meant to pass freely.
+
+    THE SLIP IS READ IN THE STATION'S OWN COLUMN, not against the whole piece. A wall this full
+    carries furniture that comes nearer a fitting than its own bore does — the west column's two
+    unions pass within a tenth of a millimetre of what stands off the −X wall — so a reading taken
+    against `enclosure-back-top` entire reports that neighbour and not this joint. The column is
+    the pad's own footprint carried through wall and pad, so what is left in it is the bore, its
+    pocket and nothing else.
+
+    What the nut does is not read here — it is not modelled, and `port-clamp-stack` is where the
+    barrel it runs down is held against the stack these two numbers measure."""
+    def solid(s):
+        s = s.toCompound() if hasattr(s, "toCompound") else s
+        return s.val() if hasattr(s, "val") else s
+    wall = pieces.get("back-top")
+    want = PORT_HOLE_SLIP / 2.0
+    rows, worst_bear, tight = [], 0.0, want
+    for name, (_fitting, _ring, which, _fluid) in BACK_WALL_FITTINGS.items():
+        body, ring = bodies.get(name), rings.get(ring_name(which))
+        if body is None or ring is None or wall is None:
+            rows.append(f"{name}: no {'fitting' if body is None else 'ring'} to read")
+            worst_bear = max(worst_bear, 1.0)
+            continue
+        x, z, _fit, ring_kind, _which, _f = stations[name]
+        column = cq.Solid.makeCylinder(
+            port_pad_d(ring_kind) / 2.0, _enc.wall + PORT_PAD_PROUD + 2.0,
+            cq.Vector(x, _enc.rear_plane_y - 1.0, z), cq.Vector(0, 1, 0))
+        bear = _clearing.gap(solid(body), solid(ring), 5.0)
+        slip = _clearing.gap(solid(body), solid(wall).intersect(column), 5.0)
+        worst_bear, tight = max(worst_bear, bear), min(tight, slip)
+        if bear > 1e-3:
+            rows.append(
+                f"{name}'s flange stands {bear:.3f} mm off `{ring_name(which)}` and bears on "
+                f"nothing. A fitting that does not land on its ring is not clamping the wall "
+                f"through it — either the ring's pocket is deeper than the ring, or the fitting's "
+                f"seat plane no longer reads `bulkhead_seat_y`.")
+        if abs(slip - want) > 1e-2:
+            rows.append(
+                f"{name}'s barrel stands {slip:.3f} mm off the wall in its own column, where its "
+                f"bore is struck one `PORT_HOLE_SLIP` over it — {want:.3f} on the radius. Either "
+                f"the bore is no longer the barrel's, or the fitting is off the column "
+                f"`wall_stations` bored on.")
+    return record_bound(Bound(
+        "wall-clamped", "Every rear-wall fitting is clamped through the wall it passes", not rows,
+        f"{len(BACK_WALL_FITTINGS)} clamped, furthest off its ring {worst_bear:.3f} mm, "
+        f"tightest in its bore {tight:.3f} mm",
+        f"bearing at 0.000 mm and {want:.3f} mm of bore", rows))
+
+
 def panel_z(name: str, deck: float, gate: float) -> float:
     """The storey one union of the row crosses the wall on — the deck, or its own run's lane."""
     return gate if name in PANEL_ON_GATE_LANE else deck
@@ -3808,6 +3871,12 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
+    # And every rear-wall fitting against the ring it bears on and the bore it passes. The rings
+    # go into the assembly rather than the pack — they stand outboard of the wall — so they come
+    # back off the placed children the way the runs do.
+    check_wall_clamped(a.pack_solids,
+                       {n: s for n, (s, _c) in _solids(a).items()
+                        if n.startswith("port-ring-")}, pieces, a.wall_stations)
     # And both made-up chains against the cap they lie on, which needs no piece — the ribs are
     # printed in the core's own lid, so every solid in the reading is in the pack.
     check_chains_seated({n: a.pack_solids[n] for n in _cci.cap_anchors if n in a.pack_solids},
