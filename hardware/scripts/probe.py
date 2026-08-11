@@ -416,23 +416,39 @@ class Link:
 
 def _chain_of(a, rid: str) -> tuple:
     """The derivations in the built assembly that name this run, read off the structures that
-    key on a run id — a row added to one of them appears here without this being rewritten."""
+    key on a run id — a row added to one of them appears here without this being rewritten.
+
+    A TABLE THAT CANNOT BE READ IS REPORTED. Skipped, a reroute prints a short chain and
+    reads as though nothing else held the run, which is the one thing this list exists to
+    prevent; raised, one table renamed in another session stops the whole world loading. Both
+    leave the reader worse off than being told which list went unread."""
     import enclosure_assembly as ea
 
     out = [Link("the longest stretch of it nothing holds, walked off the run and its anchors",
                 "enclosure_assembly.unsupported_spans", True, "tube-anchored")]
-    for row_id, leg, _root, piece in ea.TUBE_ANCHOR_SITES:
-        if row_id == rid:
+
+    def unread(where, exc):
+        out.append(Link(f"UNREAD ({type(exc).__name__}: {exc}) — whatever this holds of the "
+                        f"run is missing from this list", where, False, "unknown"))
+
+    try:
+        for row_id, leg, _root, piece in ea.TUBE_ANCHOR_SITES:
+            if row_id == rid:
+                out.append(Link(
+                    f"the rib {piece} stands for it, centred on leg {leg} — the leg INDEX is "
+                    f"stated, and a redraw that straightens a corner out renumbers the legs",
+                    "enclosure_assembly.TUBE_ANCHOR_SITES", True, "tube-seated, anchor-lands"))
+    except Exception as exc:
+        unread("enclosure_assembly.TUBE_ANCHOR_SITES", exc)
+    try:
+        seat = ea._cci.cap_anchors.get(rid)
+        if seat is not None:
             out.append(Link(
-                f"the rib {piece} stands for it, centred on leg {leg} — the leg INDEX is "
-                f"stated, and a redraw that straightens a corner out renumbers the legs",
-                "enclosure_assembly.TUBE_ANCHOR_SITES", True, "tube-seated, anchor-lands"))
-    seat = ea._cci.cap_anchors.get(rid)
-    if seat is not None:
-        out.append(Link(
-            f"the rib the cold core's cap stands for it, at {seat.centre} in the CAP's own "
-            f"frame, reaching {seat.over_face:g} over that face",
-            f"_cold_core_interface.cap_anchors[{rid!r}]", False, "run-seated, anchor-room"))
+                f"the rib the cold core's cap stands for it, at {seat.centre} in the CAP's own "
+                f"frame, reaching {seat.over_face:g} over that face",
+                f"_cold_core_interface.cap_anchors[{rid!r}]", False, "run-seated, anchor-room"))
+    except Exception as exc:
+        unread("_cold_core_interface.cap_anchors", exc)
     return tuple(out)
 
 
