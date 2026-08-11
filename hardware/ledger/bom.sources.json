@@ -21,7 +21,7 @@
     "hardware/printed-parts/electronics/module_tray.py": "58d3dcea93560235bd874b5bdfb544f1",
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "e6dec536195786a1693fb86fbbf2a0be",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "eabe51bc7afc60620ba6781b0b4a50b1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "d5f74adf81ec8eb16ce532f30e619abe",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e8bd5449ab7e29c58eb533108cad806d",
     "hardware/printed-parts/enclosure/port-ring/port_ring.py": "047482b27769651ab59da77d2af0ee2d",
     "hardware/printed-parts/faucet/_touch_flo_interface.py": "44f25115152bf320b9ed51c3b9eae99c",
     "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": "59f64dbdaac1deedc9d97c8eb082f896",
