@@ -10,14 +10,14 @@ for both.
 | | union station | CO2 station |
 |---|---|---|
 | fitting | John Guest PP1208E | neoFit ABU44 |
-| OD | Ø[33.96](RING_OD) | Ø[33.04](CO2_RING_OD) |
+| OD | Ø[30.96](RING_OD) | Ø[30.04](CO2_RING_OD) |
 | bore | Ø[18](RING_BORE) | Ø[17.86](CO2_RING_BORE) |
-| volume | [1.95](RING_VOL) cm³ | [1.82](CO2_RING_VOL) cm³ |
+| volume | [1.00](RING_VOL) cm³ | [0.92](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|
-| thickness | [3](RING_THICK) mm — the pocket's depth, and how far the fitting's flange bears outboard of the wall |
-| colour showing past the flange | [5.55](RING_W) mm |
+| thickness | [2](RING_THICK) mm — the pocket's depth, and how far the fitting's flange bears outboard of the wall |
+| colour showing past the flange | [4.05](RING_W) mm |
 
 ## Where each one goes
 
@@ -40,7 +40,7 @@ Flat on the bed, many to a plate, one colour per ring. PETG, the enclosure's own
 ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 The pocket it drops into is struck by [`enclosure.py`](../enclosure/enclosure.py) from the same
-`back_ports` stations that bore the wall, one [3](RING_THICK) mm deep at each marked station in
+`back_ports` stations that bore the wall, one [2](RING_THICK) mm deep at each marked station in
 the port field's crown.
 
 ## Files
