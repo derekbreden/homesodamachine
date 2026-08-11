@@ -136,6 +136,11 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                             It is what lets a card count the bodies bossed to a piece apart
  *                             from the ones captured in its wall
  * @property {string} kind     "real" | "placeholder" — the component's geometry authorship
+ * @property {string|null} [never]  set on a body already fastened by a clamp that ships with
+ *                             it, onto a donor the machine stands on grommets to hold off
+ *                             itself. The text is why. These rows sit outside the axis's
+ *                             count and off the list of open joints; null, or absent on an
+ *                             edition that predates the field, is the ordinary row
  */
 
 /**
@@ -217,9 +222,10 @@ export function focusAxes(sc) {
   }
   const mountCk = (sc.checks || []).find((c) => c.id === "mounted");
   if (mountCk && Array.isArray(sc.mounts)) {
+    const can = sc.mounts.filter((m) => !m.never);
     out.push({
       id: "mounted", label: "mounted", status: mountCk.status,
-      done: sc.mounts.filter((m) => m.by).length, total: sc.mounts.length,
+      done: can.filter((m) => m.by).length, total: can.length,
     });
   }
   return out;
@@ -246,11 +252,20 @@ export function failingBends(sc) {
                     || a.ratio - b.ratio || a.id.localeCompare(b.id));
 }
 
-// The components with no printed feature fastening them, one row per open joint, by name. Each
-// row's `joint` says what the joint would be converting FROM; none of them ranks above another,
-// because `by` is null for every one and that is the whole of what this list measures.
+// The components with no printed feature fastening them and somewhere to put one, one row per
+// open joint, by name. Each row's `joint` says what the joint would be converting FROM; none of
+// them ranks above another, because `by` is null for every one and that is the whole of what
+// this list measures.
 export function unmountedComponents(sc) {
-  return (sc.mounts || []).filter((m) => !m.by)
+  return (sc.mounts || []).filter((m) => !m.by && !m.never)
+    .sort((a, b) => a.component.localeCompare(b.component));
+}
+
+// The rows carrying `never`, by name — each one's text is why nothing fastens it. The panel
+// draws them under the open joints, so the exemption is something a reader meets and can
+// disagree with.
+export function unfastenableComponents(sc) {
+  return (sc.mounts || []).filter((m) => m.never)
     .sort((a, b) => a.component.localeCompare(b.component));
 }
 
@@ -347,7 +362,8 @@ export function isScorecard(o) {
         m &&
         typeof m.component === "string" &&
         (m.by === null || typeof m.by === "string") &&
-        typeof m.joint === "string",
+        typeof m.joint === "string" &&
+        (m.never == null || (typeof m.never === "string" && m.by === null)),
     );
     if (!mountsOk) return false;
   }

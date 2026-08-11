@@ -6,7 +6,7 @@
 // on the model. One verdict, two surfaces: the same data the terminal prints.
 
 import { scorecardPathFor, isScorecard, FOCUS_IDS, focusAxes, failingBends, bendPinned,
-         unmountedComponents, sizeText } from "/contracts/scorecard-sidecar.js";
+         unmountedComponents, unfastenableComponents, sizeText } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
@@ -153,12 +153,17 @@ function bendPanel(sc, wrapper, partNames) {
 }
 
 // Every component with no printed feature fastening it — one row per joint still to design,
-// clicking through to the body that needs it.
+// clicking through to the body that needs it. Then the rows nothing fastens, each carrying the
+// reason on hover.
 function mountPanel(sc, wrapper, partNames) {
-  return unmountedComponents(sc).map((m) =>
+  const open = unmountedComponents(sc).map((m) =>
     linkRow("sc-row sub warn", `— ${m.component}`,
             m.joint ? `${m.joint} — not printed in` : "no joint",
             partNames.has(m.component) ? [m.component] : [], wrapper));
+  return open.concat(unfastenableComponents(sc).map((m) =>
+    linkRow("sc-row sub", `— ${m.component}`,
+            `${m.joint} — nothing fastens it`,
+            partNames.has(m.component) ? [m.component] : [], wrapper, m.never)));
 }
 
 const FOCUS_PANEL = { "bend-radius": bendPanel, mounted: mountPanel };
