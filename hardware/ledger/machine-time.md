@@ -19,9 +19,9 @@ Masses come from bom.md §7, which is geometry-derived and commit-gated, so a pr
 |---|---|---|---:|---:|
 | Bulk PETG, 0.8 nozzle | Cold-core shell, both enclosure sets, four foam-cap pieces | [10.8](MT_RATE_BULK) h/kg — **measured** | [5.863](MT_KG_BULK) kg | [63.3](MT_H_BULK) |
 | Watertight translucent PETG | Both reservoir bodies + caps — 3 mm walls, Arachne, fine nozzle for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)) | [22](MT_RATE_TIGHT) h/kg — est., ~½ the bulk volumetric rate | [0.880](MT_KG_TIGHT) kg | [19.4](MT_H_TIGHT) |
-| Small PETG parts | Drip pan, plug stack, PRV shroud, reed bridge, fuse clamp | [30](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.068](MT_KG_SMALL) kg | [2.0](MT_H_SMALL) |
+| Small PETG parts | Drip pan, plug stack, PRV shroud, reed bridge, fuse clamp | [30](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.073](MT_KG_SMALL) kg | [2.2](MT_H_SMALL) |
 | PET-CF, 0.4 nozzle | Faucet touch-flo shell + mounting plate — fine layers, 50 °C chamber, hardened nozzle | [60](MT_RATE_PETCF) h/kg — est. | [0.163](MT_KG_PETCF) kg | [9.8](MT_H_PETCF) |
-| **Printer time per unit** | | | **[6.974](MT_KG)** kg | **[94.5](MT_H_PRINT)** |
+| **Printer time per unit** | | | **[6.979](MT_KG)** kg | **[94.7](MT_H_PRINT)** |
 
 Spread across [2](MT_PRINTERS) machines that is **[47.3](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
@@ -67,7 +67,7 @@ The printers are the constraint and nothing else is close. Per unit:
 | Funnel mold + oven | [9.0](MT_OCC_MOLD) h | [973](MT_CEIL_MOLD) | |
 | Hydro rig, passivation tub, vacuum pump | [2.6](MT_OCC_VESSEL) h | [3,369](MT_CEIL_VESSEL) | |
 
-At [65 %](MT_DUTY) machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the printers give **[~120](MT_UNITS_YEAR) units a year**. A third H2C moves that to [~181](MT_UNITS_YEAR_3); nothing else bought moves it at all.
+At [65 %](MT_DUTY) machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the printers give **[~120](MT_UNITS_YEAR) units a year**. A third H2C moves that to [~180](MT_UNITS_YEAR_3); nothing else bought moves it at all.
 
 ## Turnaround — one unit, cold start
 
