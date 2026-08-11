@@ -21,9 +21,10 @@ lands on this ring, and the ring carries it to the pocket floor across its whole
 The wall passes two families of fitting and each states its own flange and its own barrel, so
 `STATIONS` is one ring geometry per family and `RING_W` is what they share.
 
-Two neighbouring rings stand one `enclosure_assembly.PORT_PITCH` apart, and what that pitch
-leaves between their pockets is the pad the field keeps between them; `port-field-web` reads
-the two against each other.
+Each ring stands in a pad of its own — a rim of printed wall one `enclosure_assembly.PORT_RING_RIM`
+wide around it, standing `PORT_PAD_PROUD` off the wall. Two neighbouring rings stand one
+`enclosure_assembly.PORT_PITCH` apart, and what that pitch leaves between their two rims is air;
+`port-field-web` reads the two against each other.
 
 Coordinate frame — THE FITTING'S, so `enclosure_assembly` seats one on a union's own station
 with no turn of its own:
@@ -73,11 +74,11 @@ STEPS = {name: _here.parent / f"port-ring-{name}.step" for name in STATIONS}
 # and `drawings/line-art/_appliance_model` paints its discs from it. A pocket is this ring plus
 # its slip, and what one `enclosure_assembly.PORT_PITCH` leaves between two of those pockets is
 # the web the field keeps between them.
-RING_W = 5.55
-# The ring's thickness, the pocket's depth, and the field's proud height — one number. A
-# fitting's flange bears this far outboard of the wall it clamps, which is what
-# `enclosure_assembly.bulkhead_seat_y` adds.
-THICK = 3.0
+RING_W = 4.05
+# The ring's thickness. A fitting's flange bears this far outboard of the wall it clamps, which
+# is what `enclosure_assembly.bulkhead_seat_y` adds. The pad the ring stands in is shallower —
+# `enclosure_assembly.PORT_PAD_PROUD` — so the ring stands proud of its own rim.
+THICK = 2.0
 # The slip a ring takes around the fitting's threading — the wall's own
 # `enclosure_assembly.PORT_HOLE_SLIP`. The two modules cannot import each other, so
 # `port-ring-bore` is what holds them equal.
@@ -100,10 +101,9 @@ def bore_d(station: str) -> float:
 
 
 def seat() -> tuple:
-    """The face a pocket takes it by: `(position, outward axis)` on the ring's INBOARD face,
-    pointing at the wall. That face lands on the pocket's floor, which is the back wall's own
-    outer face, so `enclosure_assembly` seats a ring on the plane the field was raised off
-    rather than on the crown the field raised."""
+    """The face a pad takes it by: `(position, outward axis)` on the ring's INBOARD face,
+    pointing at the wall. That face lands on the back wall's own outer face, which is the floor
+    the pad's rim stands off — so the wall keeps its whole thickness under every ring."""
     return ((0.0, 0.0, 0.0), (0.0, -1.0, 0.0))
 
 

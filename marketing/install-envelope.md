@@ -48,9 +48,9 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
 
 ## What the appliance needs beyond its own box
 
-- **[63 mm](TURN_IN) behind the rear face** — lead, 90° bend at R12, and collet. The collet
-  stands [9.5 mm](COLLET_PROUD) proud of the port field it bears on, and that field stands
-  [3 mm](PORT_FIELD_PROUD) off the wall
+- **[62 mm](TURN_IN) behind the rear face** — lead, 90° bend at R12, and collet. The collet
+  stands [9.5 mm](COLLET_PROUD) proud of the port ring it bears on, and that ring stands
+  [2 mm](PORT_RING_THICK) off the wall
   (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/port-ring/`).
 - **300 mm of pull-forward** — the umbilical's service loop, sized to bring the rear wall to
   the cabinet face so its own connections can be reached.

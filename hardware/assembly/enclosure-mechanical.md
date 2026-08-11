@@ -16,7 +16,7 @@ Four printed PETG pieces — `enclosure-front-bottom`, `enclosure-front-top`, `e
 
 ## Scope
 
-In: the integrated refrigerant-loop assembly (output of [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) — cold core with wound coil + plumbed compressor + condenser/fan, charged and run-up-verified); the four printed enclosure pieces + nameplate plaque blank ([`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/)); the six bodies seated through the rear wall (three umbilical PP1208E unions with the blue accent ring on the carbonated-water one, the tap-water PP1208E, the C14 mains inlet, and the CO2 neoFit ABU44) per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md); the drip tray + moisture sensor for the backflow vent; the Waveshare 4.3B display; the bench-built unpowered electronics shelf (output of [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)).
+In: the integrated refrigerant-loop assembly (output of [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) — cold core with wound coil + plumbed compressor + condenser/fan, charged and run-up-verified); the four printed enclosure pieces + nameplate plaque blank ([`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/)); the six bodies seated through the rear wall (three umbilical PP1208E unions, the tap-water PP1208E, the C14 mains inlet, and the CO2 neoFit ABU44) each over a printed port ring, blue on the carbonated-water one per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md); the drip tray + moisture sensor for the backflow vent; the Waveshare 4.3B display; the bench-built unpowered electronics shelf (output of [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)).
 
 Out: a complete mechanical chassis — refrigeration stratum standing on the floor slab with the compressor bolted down to it, cold core seated flat on that slab behind it with its front face mated against the stratum's aft plane, the power column standing on the core's cap against the +X wall, the four pieces telescoped and cross-pinned with every rear-wall body installed (`enclosure-back-top` last — see Open items 4), drip tray in its channels, display in its facet. Ready for [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md).
 
@@ -34,7 +34,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | C14 panel-mount inlet | MXR B07DCXKNXQ ([`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) §1) | Lands from INSIDE — flange on the rear wall's inner face, housing inboard, shroud out through the cutout, recessed [3–5 mm](AC_RECESS_DEPTH) |
 | Tap-water bulkhead | John Guest PP1208E B00JYFU8MM ([back-panel §2](/hardware/printed-parts/enclosure/back-panel/README.md)) | Customer-facing 1/4" JG QC on the rear wall; the internal ASSE 1022 chain it feeds sits inside the cabinet |
 | CO2-inlet bulkhead | neoFit ABU44-E 1/4" acetal bulkhead union ([`/hardware/reference/neofit-bulkhead/`](/hardware/reference/neofit-bulkhead/)) | **On the rear wall**, on the umbilical row's own storey one column east of the blue-ringed union; red port ring under its flange |
-| Umbilical PP1208E bulkheads × 3 | John Guest B00JYFU8MM ([back-panel §6](/hardware/printed-parts/enclosure/back-panel/README.md)) | One row across the rear wall; blue accent ring on the carbonated-water union |
+| Umbilical PP1208E bulkheads × 3 | John Guest B00JYFU8MM ([back-panel §6](/hardware/printed-parts/enclosure/back-panel/README.md)) | One row across the rear wall; each over its own port ring, blue on the carbonated-water union |
 | Drip tray + moisture sensor | Tray: [`/hardware/printed-parts/enclosure/drip-pan/`](/hardware/printed-parts/enclosure/drip-pan/) (printed PETG); sensor: Shutao LM393 water-sensor module (B0B2W76MB1, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md)) | Backflow-vent observation per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; sensor wires to SIG-9 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md), terminated at the shelf during [`wiring.md`](/hardware/assembly/wiring.md); the tray rides a channel printed on the −X wall's inner face and draws west out through that wall to be emptied |
 | Waveshare ESP32-S3-Touch-LCD-4.3B display | B0D925SBYF ([`/hardware/reference/waveshare-43b-display/`](/hardware/reference/waveshare-43b-display/)) | Let into the 45° facet of `enclosure-front-top`; its RS485 link lands in [`wiring.md`](/hardware/assembly/wiring.md) |
 | MQ-6 combustible-gas sensor | ACEIRMC B0978JSCZ8 ([`/hardware/reference/mq6-gas-sensor/`](/hardware/reference/mq6-gas-sensor/)) | Slides on edge into the card slot printed on the −X wall of the refrigeration bay; no fastener — the board has no mounting hole. Wires to SIG-12 on the J11 GAS loom in [`wiring.md`](/hardware/assembly/wiring.md); safety rationale at [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety" |
@@ -67,7 +67,7 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 | Umbilical unions × 3 (PP1208E) | [-83 / -45.64 / -45.64](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
 | Tap-water union (PP1208E) | x [-83](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
 | C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
-| CO2 ABU44 bulkhead | [x -8.28, z 336.2](CO2_BACK) | Ø[17.86](CO2_HOLE_D) round | Flange on the port field's crown over its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
+| CO2 ABU44 bulkhead | [x -8.28, z 336.2](CO2_BACK) | Ø[17.86](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
 **The CO2 comes in at the back wall**, not at the front — tank, tap and umbilical all land on the one face the customer reaches at install. Nothing at all is cut in the front wall.
 
@@ -77,7 +77,7 @@ Install, in this order:
 
 - **The four JG unions** — flange + EPDM O-ring bearing on the wall's outer face, threading through the bore, nut drawn up from inside. Mechanical capture only; no wall-side gasket. Push-to-connect on both sides, so no tool touches either collet. Confirm the blue-ringed union is the one at [-45.64](UMBILICAL_CARB_X) — the user-facing rule at install is "blue tube into the blue-ringed bulkhead" per [back-panel "Umbilical port — tube identification"](/hardware/printed-parts/enclosure/back-panel/README.md), and that rule only works if the ring is where the customer expects it.
 - **The C14 inlet** — it lands from *inside*: flange against the wall's inner face, two M3 into the printed bosses either side of it, and only its moulded shroud reaches out through the cutout. Drawn home, the C13 cord housing nests into the [3–5 mm](AC_RECESS_DEPTH) recess on insertion. Solder-tab pins face into the cabinet.
-- **The ABU44** — a 1/4" collet on each face, the red port ring dropped into its pocket before the fitting goes in, flange bearing on the field's crown and the panel nut made up inside. Nothing threads onto either collet here.
+- **The ABU44** — a 1/4" collet on each face, the red port ring dropped into its rim before the fitting goes in, flange bearing on that ring and the panel nut made up inside. Nothing threads onto either collet here.
 
 Set the populated back-top piece aside; the power column joins it at step 5, and it closes in step 6.
 
@@ -170,7 +170,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Chassis bonding lead ring-terminated under one of the compressor's four floor screws, on the grommet's steel bushing, routed toward the ground stack, not yet terminated at the bus
 - No internal plumbing runs, no AC/DC/signal wiring runs
 
-The card's own reading of the chassis at this point: [77](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
+The card's own reading of the chassis at this point: [79](BODY_COUNT) bodies placed, the pack closing with no two solids sharing volume, and every printed piece on the bed.
 
 ## Open items
 

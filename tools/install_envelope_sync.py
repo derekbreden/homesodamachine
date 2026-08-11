@@ -94,12 +94,12 @@ def main():
         m = measure(root)
         if not keys:
             # What the wall owes a fitting BEHIND it, off the two parts that state it: the
-            # collet stands proud of the face it bears on, and that face is the port field's
-            # crown rather than the wall.
+            # collet stands proud of the face it bears on, and that face is its port ring's
+            # rather than the wall's.
             variables["COLLET_PROUD"] = f"{m['collet']:g} mm"
-            variables["PORT_FIELD_PROUD"] = f"{m['field']:g} mm"
+            variables["PORT_RING_THICK"] = f"{m['field']:g} mm"
             variables["TURN_IN"] = f"{TURN_IN_LEAD_BEND + m['collet'] + m['field']:g} mm"
-            expected.update({"COLLET_PROUD": 1, "PORT_FIELD_PROUD": 1, "TURN_IN": 1})
+            expected.update({"COLLET_PROUD": 1, "PORT_RING_THICK": 1, "TURN_IN": 1})
         key = eid.upper()
         keys.append(key)
         variables[f"{key}_WDH"] = f"{m['w']:.4g} × {m['d']:.4g} × {m['h']:.4g} mm"
