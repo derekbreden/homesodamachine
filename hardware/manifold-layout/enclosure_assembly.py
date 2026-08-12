@@ -4616,6 +4616,14 @@ def selftest():
 
 
 def main():
+    # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. Run as a script it is `__main__`,
+    # so a module that does `import enclosure_assembly` gets a SECOND copy — one that has built
+    # nothing, whose `_ROUTED`, `TUBE_ANCHOR_SITES` and `BODY_ANCHOR_SITES` are empty, and which
+    # therefore answers about a different machine. `_facts` read 67 manifold bodies where there
+    # are 45; the scenes drew a different set of bodies and cropped to it. Both took a picture of
+    # a machine nobody built. One name, one module, one machine.
+    sys.modules.setdefault(__name__ if __name__ != "__main__" else "enclosure_assembly",
+                           sys.modules[__name__])
     import _scorecard as _card
     if sys.argv[1:] == ["selftest"]:
         for line in selftest():
