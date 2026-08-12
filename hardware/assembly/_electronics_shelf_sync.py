@@ -22,6 +22,13 @@ sys.path.insert(0, str(_hw / "scripts"))
 import pcba_tray as _pcba  # noqa: E402  — the board outline the tray is built around
 import _facts  # noqa: E402  — the +X wall's own Wago row, off the last build
 
+# WHAT THIS DOC WATCHES, WHICH IS NOT WHAT IT CALLS. Nothing here stands a machine; the
+# figure comes off `_facts`. But the sidecar records the files this driver READS, and that
+# walk resolves imports as they are WRITTEN here — it does not follow the one `_facts` makes
+# inside `gather`. Drop this and the closure falls from 75 files to 23, and the shelf stops
+# watching the pack it describes.
+import enclosure_assembly as _ea  # noqa: E402,F401
+
 # Import from the AC schedule's sync driver — the schedule owns the
 # AC-4/5/6 SJOOW lead length. The lead is built and landed at
 # wiring.md §2; the shelf only leaves its landings open.
