@@ -223,7 +223,13 @@ CARB_SEGMENTS = (
 # not the sub-assembly it was arranged in. `derived_mounts` adds a row for each placed body this
 # table does not name, so the denominator is the whole machine.
 MOUNTS = (
-    ("compressor", None, "floor"),
+    # THE ONE BODY ON THE FLOOR THE SLAB FASTENS. Four posts stand on the front piece's slab
+    # under the four holes in the compressor's own plate, each rising through its grommet's
+    # bore to that grommet's crown and bored there for a ruthex M5
+    # (`enclosure_assembly.floor_mounts` / `enclosure._floor_bosses`, read by
+    # `floor-mounts-land`). The screw's washer bottoms on the post and the rubber carries the
+    # can, so the joint is a printed feature under a body and the isolation is the donor's.
+    ("compressor", "enclosure-front-bottom", "bosses"),
     ("condenser+fan", None, "floor"),
     ("foam-assembly", None, "floor"),
     ("seaflo-pump", "foam-assembly", "deck-mount"),
