@@ -2648,6 +2648,11 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     cy, cz = storey.pop()
     zb0, zb1 = cz, cz + _tray.PLATE
     far, hw = cy + _tray.far_reach(), _tray.half_width()
+    # A WEB IS THE AIR BETWEEN A TRAY AND WHAT IT REACHES, and the air stops where the cavity
+    # does. Its standing corners are relieved for the print bed (`corner_round`), so a box run to
+    # the nominal interior planes stands OUTSIDE the shell at every corner it reaches. Each web
+    # is clipped to the cavity itself rather than to those planes.
+    cavity = _round_z(_ybox(*inner), corner_round - wall)
     # ACROSS: the wall, each tray's two flanks in turn, and the far wall. What the pairs leave
     # between them is exactly the air, so a tray that grows closes its own web rather than
     # overlapping it.
@@ -2656,7 +2661,7 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
              + [inner[1]])
     for a, b in zip(edges[0::2], edges[1::2]):
         if b - a > 1e-9:
-            solid = solid.fuse(_ybox(a, b, inner[2], far, zb0, zb1))
+            solid = solid.fuse(_ybox(a, b, inner[2], far, zb0, zb1).intersect(cavity))
     # AND AFT onto the nearest panel plate that crosses this same band — its own near face, so
     # the two meet plane to plane and the web is the gap and not a millimetre more.
     reach = None
@@ -2670,7 +2675,7 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
         if near >= far - 1e-9 and (reach is None or near < reach):
             reach = near
     if reach is not None and reach - far > 1e-9:
-        solid = solid.fuse(_ybox(inner[0], inner[1], far, reach, zb0, zb1))
+        solid = solid.fuse(_ybox(inner[0], inner[1], far, reach, zb0, zb1).intersect(cavity))
     return solid
 
 
