@@ -55,10 +55,17 @@ for _p in (_repo / "tools", _repo / "hardware" / "scripts",
         sys.path.insert(0, str(_p))
 
 from docgen import substitute_md, substitute_mmd  # noqa: E402
+import _facts                                     # noqa: E402
 import _lines                                     # noqa: E402
 import _scorecard                                 # noqa: E402
-import enclosure_assembly                                 # noqa: E402
 import manifold_layout as ml                      # noqa: E402
+
+# WHAT THIS DOC IS DRAWN FROM, WHICH IS NOT WHAT IT CALLS. The figures come off `_facts`, so
+# nothing here stands a machine. The sidecar beside this doc records the files this driver
+# READS, and a run's length answers to bodies whose modules only this import reaches — the
+# funnel it drains from, the reservoirs it fills. Drop the import and the doc stops watching
+# them, and a cold-core body that moves a mouth moves a length here with nothing to say so.
+import enclosure_assembly                         # noqa: E402,F401
 
 MANIFOLD = _here / "fluid-topology-manifold.mmd"
 LIMBS = _here / "fluid-topology-limbs.mmd"
@@ -148,11 +155,13 @@ def segments() -> dict:
     the one segment in this table that arrives that way. Read the pack alone and that run falls
     through to the `MOUTHS` loop and is labelled `not drawn` — a chart claiming an open mouth on a
     line the machine has already routed, and no gate here catches it, because this driver would be
-    self-consistent against its own partial reading."""
-    a = enclosure_assembly.build_enclosure_assembly()
+    self-consistent against its own partial reading.
+
+    THE RUNS ARE READ, NOT REDRAWN. `_facts` carries what the assembly's own run measured, and
+    an id, two mouths, a length and a corner count is the whole of what a segment is here."""
     segs = {}
-    for r in a.runs:
-        segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, len(r.bends))
+    for r in _facts.read().runs:
+        segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, r.corners)
     for cid, frm, to, how in ml.SEGMENTS:
         made, length, corners = _interior(cid, how)
         segs[f"fluid-{cid}"] = Seg(f"fluid-{cid}", (frm, to), made, length, corners)
