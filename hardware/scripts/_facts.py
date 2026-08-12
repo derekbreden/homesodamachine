@@ -37,7 +37,7 @@ _HERE = Path(__file__).resolve()
 _HW = _HERE.parent.parent
 _ROOT = _HW.parent
 
-for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "printed-parts" / "enclosure" / "enclosure", _HW / "reference" / "digiten-flow-sensor"):
+for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "printed-parts" / "enclosure" / "enclosure", _HW / "reference" / "digiten-flow-sensor", _HW / "reference" / "wr1110-regulator"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
@@ -90,7 +90,8 @@ def gather():
     # that rounds again off that reads a different last digit than the machine drew — so the
     # runs are carried here unrounded and the card's rows stay what they are, a reading.
     runs = [{"id": r.id, "frm": r.frm, "to": r.to,
-             "length": float(r.length), "corners": len(r.bends)}
+             "length": float(r.length), "corners": len(r.bends),
+             "bend": float(r.bend), "diam": float(r.diam)}
             for r in getattr(whole, "runs", ())]
 
     pieces, _rest = _enc.build_pieces(box)
@@ -114,11 +115,17 @@ def gather():
     if "foam-assembly" in solids:
         faces["foam-assembly.cap"] = round(float(ea.cap_face(solids["foam-assembly"])), 4)
 
+    # A reference module's own point, carried to where the machine stands the body. A driver
+    # that wants one otherwise loads the reference module AND the placement to apply it.
     carried = {}
-    if "digiten-flow" in getattr(a, "carries", {}):
+    carries = getattr(a, "carries", {})
+    if "digiten-flow" in carries:
         import digiten_flow_sensor as _digiten
-        pos, axis = a.carries["digiten-flow"](_digiten.wire_exit())
+        pos, axis = carries["digiten-flow"](_digiten.wire_exit())
         carried["digiten-flow.wire_exit"] = {"pos": _plain(pos), "axis": _plain(axis)}
+    if "wr1110" in carries:
+        import wr1110_regulator as _wr1110
+        carried["wr1110.barrel"] = {"pos": _plain(carries["wr1110"](_wr1110.barrel()[0])[0])}
 
     # WHAT A DRIVER WOULD IMPORT THE CAD TO READ. These are module-level and cost no build,
     # but reaching them means loading cadquery and the forty modules behind it — which is the

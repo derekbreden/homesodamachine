@@ -17,9 +17,10 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics" / "pcba-tray"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
+sys.path.insert(0, str(_hw / "scripts"))
 
 import pcba_tray as _pcba  # noqa: E402  — the board outline the tray is built around
-import enclosure_assembly as _ea  # noqa: E402  — the +X wall's own Wago row
+import _facts  # noqa: E402  — the +X wall's own Wago row, off the last build
 
 # Import from the AC schedule's sync driver — the schedule owns the
 # AC-4/5/6 SJOOW lead length. The lead is built and landed at
@@ -53,7 +54,7 @@ pigtail_slack_mm = 150                  # AC-1 inlet-side slack
 
 # ─── Wago 221-413 lever-block count ────────────────────────────────────
 # The row `enclosure_assembly.build_wago_row` presses into the wall's wells, one lug per pole.
-wago_count = len(_ea.WAGO_POLES)
+wago_count = len(_facts.read().constants["WAGO_POLES"])
 
 
 def main():
