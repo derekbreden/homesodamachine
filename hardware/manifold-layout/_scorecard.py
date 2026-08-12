@@ -367,13 +367,14 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # AND BOTH PUMPS HANG UNDER A TRAY ON THE SAME PIECE — a plate lying on the head's own +Z
-    # face with the head's rear boss up through the octagon cut in it, so the socket takes the
-    # pump in plan and in yaw over its whole depth (`enclosure._pump_trays` off
-    # `enclosure_assembly.pump_tray_stations`, read by `trays-hold`). One zip tie per pump closes
-    # round the head and the plate together through the tray's two channels, and that strap is
-    # what carries the pump: a plate a body hangs UNDER holds nothing on its own, the same
-    # bargain the flow meter's saddles and the regulator's rib strike.
+    # AND BOTH PUMPS HANG UNDER A TRAY ON THE SAME PIECE — the two-piece pump case with its
+    # cylinder cut off, so the same four surfaces that fitted the part still do: a plate on the
+    # head's crown, a ramp off it, the octagon bore on the boss, and a shoulder of tower on the
+    # boss's crown (`enclosure._pump_trays` off `enclosure_assembly.pump_tray_stations`, read by
+    # `trays-hold`). One zip tie per pump closes round the pump and the tray together through the
+    # plate's two channels, and that strap is what carries the pump: a tray a body hangs UNDER
+    # holds nothing on its own, the same bargain the flow meter's saddles and the regulator's rib
+    # strike.
     ("pump-a-head", "enclosure-front-top", "saddle"),
     ("pump-b-head", "enclosure-front-top", "saddle"),
 )

@@ -62,7 +62,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear wall.
 - [`port-ring/`](/hardware/printed-parts/enclosure/port-ring/) — the flat annulus under each rear-wall fitting's flange, in the colour that names its port.
 - [`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
-- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the plate each Kamoer hangs under, bored for its motor can with the pump case's own octagon socketed beneath for the head's rear boss. Not a separate part either: both are that same piece's material, off the front wall.
+- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the two-piece pump case with its cylinder cut off, which is what each Kamoer hangs under: plate on the head's crown, octagon bore on the boss, shoulder on the boss's crown. Not a separate part either: both are that same piece's material, off the front wall.
 
 ## Sources
 [value](NAME) texts are updated by:
