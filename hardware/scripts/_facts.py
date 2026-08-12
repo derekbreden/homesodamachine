@@ -299,6 +299,12 @@ class Facts:
     def manifold_bodies(self):
         return self._f["manifold_bodies"]
 
+    @property
+    def bodies(self):
+        """Every placed body's name, against its box — iterates and counts like the dict of
+        placed solids a driver used to build to get."""
+        return self._f["bodies"]
+
     def bb(self, name: str):
         """One placed body's optimal box, the reading `_boxes.boxed` took of it."""
         try:
