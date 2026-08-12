@@ -10,6 +10,7 @@ _here = Path(__file__).resolve().parent
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
+sys.path.insert(0, str(_hw / "scripts"))
 
 from docgen import substitute_md  # noqa: E402
 
@@ -86,23 +87,23 @@ def panel_hole_diameters():
     struck (a chamfer allowance, a different slip for gas than for water) arrives here
     instead of leaving the README quoting the old rule.
 
-    Both strike against a placed fitting, so both want the pack. That is why this is a
-    function and not a module constant, and why `enclosure_assembly` is imported inside it: the
-    reading costs a build, and the drivers that import this module for the AC recess or
-    the port colours must not pay for one — or for loading the layout to get them.
+    Both strike against a placed fitting, so both wanted the pack. `_facts` carries what
+    those two calls returned when the machine was last stood, so the reading is the same
+    reading and no build is taken for it — which is why this stays a function and why
+    `_facts` is imported inside it: the drivers that import this module for the AC recess
+    or the port colours load nothing to get them.
 
     All four PP1208E bulkheads on this panel — 1 water inlet + 3 umbilical-port unions —
     share one hole, which is the figure the README quotes.
     """
-    import enclosure_assembly as _ea
-    a = _ea.build_pack()
-    bores = _ea.back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
-    diameters = {round(p[3], 6) for p in bores}
+    import _facts
+    ports = _facts.read().wall_ports
+    diameters = {round(p[3], 6) for p in ports["union"]}
     if len(diameters) != 1:
         raise ValueError(
             f"the four panel unions are bored at {sorted(diameters)}. The README gives them "
             f"one hole, so either they go back on one diameter or it reads them out apiece.")
-    return bores[0][3], _ea.co2_wall_port(a.co2_inlet_carry)[3]
+    return ports["union"][0][3], ports["co2"][3]
 
 
 def main():
