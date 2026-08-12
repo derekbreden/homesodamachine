@@ -58,10 +58,13 @@ its pump-head front face down. Its own +Z — the axis its two valve decks stack
 +Y, so the decks stand aft of the pumps rather than over them, and every mouth that faced the
 back now faces up.
 
-What it then sets down ON is the four spine hairpins, not any body: the fold put them on the
-pack's own underside and they reach past the pump-head faces. They sit at the AFT end, under
-the valve decks, where the pumps are forward — so the pack rests on four tube arcs and the
-pump faces stand clear of the crown by what the hairpins reach.
+The storey it stands at is `PACK_CROWN`, a plane the machine states. What lands on that plane
+is the fold's four spine hairpins — the lowest thing the pack has, put on its own underside at
+the AFT end under the valve decks — so they are what the lift is measured to and the pump faces
+stand clear of it by what they reach. THEY CARRY NOTHING. What holds this pack is a printed
+seat under each of its ten valves, eight in the valve panels and three in the cap's own
+cradles; its six tees and both pump heads hang on the tube between those valves, and the
+`mounted` axis carries a row apiece for them.
 
 Run it
 ------
@@ -3807,9 +3810,10 @@ def manifold_carry(lift: float):
     return carry
 
 
-# What the pack actually sets down on is not a body at all — it is the four spine hairpins.
-# The fold turned them onto the pack's own underside, and they hang past the pump-head faces,
-# so THEY are the mating surface and the pump faces stand off the crown by whatever is left.
+# The lowest thing the pack has is the four spine hairpins: the fold turned them onto its own
+# underside and they hang past the pump-head faces, so THEY are what `PACK_CROWN` is measured
+# to and the pump faces stand off that plane by whatever is left. Being lowest is not carrying
+# anything — what holds this pack is the seat under each of its valves.
 PUMP_FACE_Z = -ml.BARB_INSET                 # where that face lands once the pack is turned
 
 
