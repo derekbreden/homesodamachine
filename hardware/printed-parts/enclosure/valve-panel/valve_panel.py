@@ -182,11 +182,19 @@ def panels_of_machine():
     """The panels the enclosure stands, as `{name: (width, seats)}` in each plate's own frame.
 
     `enclosure_assembly` groups the valves no cap cradle holds by the plane each stands on and
-    hands back one panel per plane. Imported inside the call, because that module builds its box
-    out of this one's figures."""
+    hands back one panel per plane, and the artifact carries what that grouping came to — so a
+    plate is drawn off a machine the assembly's own run already stood.
+
+    BOTH IMPORTS ARE IN THE CALL. `enclosure_assembly` builds its box out of this module's
+    figures, so importing it at module scope closes a cycle through `enclosure`. And the import
+    is what the sidecar's walk needs: that walk resolves a module name against the `sys.path`
+    its driver stands on, and does not follow the one `_facts` makes inside `gather` — without
+    this the plate's doc watches 24 files instead of 73 and stops noticing the machine that
+    decides where its seats go."""
     sys.path.insert(0, str(_hw / "manifold-layout"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415
-    return _ea.valve_panel_plans()
+    import enclosure_assembly as _ea                            # noqa: PLC0415,F401
+    import _facts                                               # noqa: PLC0415
+    return _facts.read().valve_panels
 
 
 def main():

@@ -226,6 +226,10 @@ def gather(whole=None, module=None):
         "hopper_hole": hopper_hole,
         "strap_loops": strap_loops,
         "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
+        # What the two plate generators draw from. Both read their bodies out of a placed
+        # machine by name, so they take this one rather than standing a second.
+        "valve_panels": _plain(ea.valve_panel_plans(whole)),
+        "pump_trays": _plain(ea.pump_tray_plans(whole, box)),
         "pack": {
             "placed": sorted(whole.pack.placed),
             "body_anchors": _plain(getattr(a, "body_anchors", ())),
@@ -329,6 +333,16 @@ class Facts:
     @property
     def pieces(self):
         return {k: _Row(v) for k, v in self._f["pieces"].items()}
+
+    @property
+    def valve_panels(self):
+        """`name -> (width, ((u, v), …))`, as `enclosure_assembly.valve_panel_plans` reads it."""
+        return {k: (w, tuple(tuple(s) for s in seats))
+                for k, (w, seats) in self._f["valve_panels"].items()}
+
+    @property
+    def pump_trays(self):
+        return dict(self._f["pump_trays"])
 
     @property
     def gaps(self):

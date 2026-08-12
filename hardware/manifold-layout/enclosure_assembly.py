@@ -955,12 +955,15 @@ def valve_panel_stations(placed: dict) -> tuple:
     return tuple(out)
 
 
-def valve_panel_plans() -> dict:
+def valve_panel_plans(a=None) -> dict:
     """`name -> (width, seats)` in each plate's own frame — what `valve_panel` draws.
 
     The seats are centred on the plate: across, on the box's own centreline, because the plate
-    runs wall to wall; along, on the row the valves stand in."""
-    a = build_pack()
+    runs wall to wall; along, on the row the valves stand in.
+
+    `a` is a machine somebody already stood; without one this stands the pack itself. The
+    valves are read out of it by name, so a whole assembly answers what a bare pack does."""
+    a = build_pack() if a is None else a
     placed = {n: s for n, (s, _c) in _solids(a).items()}
     x0, x1 = _enc.interior_x()
     out = {}
@@ -1062,10 +1065,14 @@ def pump_tray_stations(placed: dict) -> tuple:
     return tuple(out)
 
 
-def pump_tray_plans() -> dict:
+def pump_tray_plans(a=None, shell=None) -> dict:
     """`head -> root` — how far each tray runs off its pump's axis to the wall it stands on,
-    which is what `pump_tray` draws one from."""
-    a, _p, shell = machine()
+    which is what `pump_tray` draws one from.
+
+    `a` and `shell` are a machine and its box somebody already stood; without them this stands
+    one. The heads are read out by name, so a whole assembly answers what `machine` does."""
+    if a is None or shell is None:
+        a, _p, shell = machine()
     placed = {n: s for n, (s, _c) in _solids(a).items()}
     return {head: round(centre[1] - shell.inner[2], 6)
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}

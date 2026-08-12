@@ -3394,6 +3394,14 @@
     ],
     [
      -50.71,
+     398.21,
+     330.211,
+     -38.71,
+     428.21,
+     342.211
+    ],
+    [
+     -50.71,
      368.21,
      330.211,
      -38.71,
@@ -3407,14 +3415,6 @@
      -31.71,
      411.21,
      347.211
-    ],
-    [
-     -50.71,
-     398.21,
-     330.211,
-     -38.71,
-     428.21,
-     342.211
     ]
    ],
    "fill": 0.7854,
@@ -6386,5 +6386,5 @@
    "never": "Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   }
  ],
- "sources": "d60d372bd58dc70384f4a304d043da48"
+ "sources": "2fc27273dc7d68e15683dc6bc3af24ac"
 }

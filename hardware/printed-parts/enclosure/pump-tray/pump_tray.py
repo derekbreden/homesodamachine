@@ -272,11 +272,19 @@ def storeys(root: float) -> tuple:
 
 
 def trays_of_machine():
-    """The trays the enclosure stands, as `{name: root}` — one off each placed pump. Imported
-    inside the call, because that module builds its box out of this one's figures."""
+    """The trays the enclosure stands, as `{name: root}` — one off each placed pump, as the
+    artifact carries them from the run that stood the machine.
+
+    BOTH IMPORTS ARE IN THE CALL. `enclosure_assembly` builds its box out of this module's
+    figures, so importing it at module scope closes a cycle through `enclosure`. And the import
+    is what the sidecar's walk needs: that walk resolves a module name against the `sys.path`
+    its driver stands on, and does not follow the one `_facts` makes inside `gather` — without
+    this the tray's doc watches 26 files instead of 73 and stops noticing the machine that
+    decides how far it runs to the wall."""
     sys.path.insert(0, str(_hw / "manifold-layout"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415
-    return _ea.pump_tray_plans()
+    import enclosure_assembly as _ea                            # noqa: PLC0415,F401
+    import _facts                                               # noqa: PLC0415
+    return _facts.read().pump_trays
 
 
 def selftest() -> int:
