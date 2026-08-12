@@ -193,9 +193,9 @@ def _write_sources_sidecar(md_path: Path, caller_file: Path, caller_path: str) -
         return
     files = {}
     for src in realized.source_files(caller_file):
-        h = hashlib.blake2b(digest_size=16)
-        h.update(Path(src).read_bytes())
-        files[Path(src).relative_to(root).as_posix()] = h.hexdigest()
+        # `code_digest` and not the bytes: a comment moving is not a figure moving, and
+        # `check_doc_sources` reads these back through the same name.
+        files[Path(src).relative_to(root).as_posix()] = realized.code_digest(src)
 
     sidecar = md_path.with_name(md_path.stem + SIDECAR_SUFFIX)
     held = {}

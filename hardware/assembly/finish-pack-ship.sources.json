@@ -1,7 +1,7 @@
 {
   "/hardware/assembly/_finish_pack_ship_sync.py": {
-    "hardware/assembly/_finish_pack_ship_sync.py": "a9234da859b2003d3b5d5d7fd519a6f9",
-    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "43d0fac714c76bff139de812c9e9e8a3",
-    "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
+    "hardware/assembly/_finish_pack_ship_sync.py": "6745750c3b357cb4c4735f6b08db9102",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "1661c44a4a453de28ab4fcd90c1c8e1b",
+    "tools/docgen/__init__.py": "a759d8e9d2714bd2198d59fcc2090660"
   }
 }

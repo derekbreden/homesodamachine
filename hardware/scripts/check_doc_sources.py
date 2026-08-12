@@ -21,7 +21,6 @@ driver runs. A doc whose Sources section is prose about a drawing someone read, 
 `[value](NAME)` of its own, has nothing to enrol and is not counted.
 """
 
-import hashlib
 import json
 import re
 import sys
@@ -30,6 +29,11 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _root = _hw.parent
+if str(_hw / "scripts") not in sys.path:
+    sys.path.insert(0, str(_hw / "scripts"))
+
+import _realized                                        # noqa: E402
+
 SIDECAR_SUFFIX = ".sources.json"
 
 #: `docgen`'s own marker. A doc carrying none of these has no figure any run writes, so its
@@ -39,13 +43,8 @@ _LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
 
 
 def _hash(path: Path) -> str | None:
-    """The hash of `path`'s bytes, in `docgen`'s own terms. None when it is gone."""
-    try:
-        h = hashlib.blake2b(digest_size=16)
-        h.update(path.read_bytes())
-        return h.hexdigest()
-    except OSError:
-        return None
+    """The name of what `path` computes, in `docgen`'s own terms. None when it is gone."""
+    return _realized.code_digest(path)
 
 
 def _moved(files: dict) -> list[str]:

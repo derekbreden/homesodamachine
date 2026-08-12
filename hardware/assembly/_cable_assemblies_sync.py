@@ -51,7 +51,13 @@ def main():
     # schedule row. J2 carries it a third time in "MANIFOLD B — the empty
     # contact": its row reads "5 of 6", the populated count being a literal
     # (only 5 contacts are crimped) and the housing size the driven token.
-    expected_counts = {f"{j}_PINS": (3 if j == "J2" else 2) for j in wanted}
+    #
+    # J8 CARRIES IT ONCE. It is the I2C expansion header, the bus's break-out to
+    # anything off-board, and nothing in this machine plugs into it — so it stands
+    # with J12 and J14 in having no loom and no row in the schedule.
+    once = {"J8"}
+    expected_counts = {f"{j}_PINS": (3 if j == "J2" else 1 if j in once else 2)
+                       for j in wanted}
 
     substitute_md(_here / "cable-assemblies.md", variables, expected_counts)
     print(" ".join(f"{j}={pins[j]}" for j in wanted))
