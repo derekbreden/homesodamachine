@@ -44,6 +44,22 @@ def box_gap(a, b) -> float:
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 
 
+def shadows(a, b) -> bool:
+    """Whether `a` coming straight down can ever reach `b` — do their plan outlines overlap.
+
+    EXACT FOR A VERTICAL FALL, AND THE ONE THING A DISTANCE READING CANNOT SAY. A body carried
+    along -Z keeps its outline at every station, so two bodies whose outlines miss are two bodies
+    that miss at every height, and no part of the fall changes that. `gap` reads such a pair as
+    the same small number at every station and has no way to report that the smallness is
+    sideways — so a walk that advances by its own gap crawls the whole fall in strides that
+    width, and lands on nothing.
+
+    A BOX CANNOT ANSWER IT EITHER, and the pair it fails on is the expensive one: two bodies a
+    hundredth of a millimetre apart in plan have boxes that overlap, which is exactly the pair a
+    box test keeps and this one throws out."""
+    return not (_meshes.meshed(a).project() ^ _meshes.meshed(b).project()).is_empty()
+
+
 def gap(a, b, within: float, offset=(0.0, 0.0, 0.0)) -> float:
     """The least distance between two solids, measured as far as `within`. 0 when they touch.
 
