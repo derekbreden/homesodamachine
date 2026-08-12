@@ -108,13 +108,14 @@ COMPRESSOR_ROOF = _COMP.zmax
 STRATUM_TOP = max(_COMP.zmax, _COND.zmax)     # the crown the manifold sets down on
 STRATUM_STEP = abs(_COMP.zmax - _COND.zmax)   # how far the pair's two crowns differ
 STRATUM_W = _COND.xmax - _COMP.xmin           # the two mated, across the machine
-# THE STRATUM IS THE PAIR, front to back as well as across. The condenser is the deeper of the
-# two and reaches the core's front face; the compressor's plate stands inset from it at both
-# ends, so the depth the front wall follows is the pair's box and not either body's.
+# THE STRATUM IS THE PAIR, front to back as well as across. The condenser stands aft of the
+# compressor and reaches the core's front face; the compressor's plate reaches further forward,
+# so the depth the front wall follows is the pair's box and not either body's.
 STRATUM_D = _COMP.add(_COND).ylen
 CONDENSER_ACROSS = _cond.AIRFLOW                # the fan's own axis, the short one
 CONDENSER_LONG = _cond.FACE_A
 CONDENSER_STANDING = _cond.FACE_B
+CONDENSER_LIFT = _COND.zmin                     # how far its mount stands it off the slab
 MATE_X = _COMP.xmax                           # the plane the two bodies meet on
 
 # --- the cold core, on the floor behind it ---------------------------------
@@ -201,6 +202,7 @@ def main():
         "CONDENSER_ACROSS": f"{CONDENSER_ACROSS:.4g}",
         "CONDENSER_LONG": f"{CONDENSER_LONG:.4g}",
         "CONDENSER_STANDING": f"{CONDENSER_STANDING:.4g}",
+        "CONDENSER_LIFT": f"{CONDENSER_LIFT:.4g}",
         # The cold core.
         "CORE_FRONT_Y": f"{CORE_FRONT_Y:.4g}",
         "CORE_CROWN": f"{CORE_CROWN:.4g}",
@@ -258,6 +260,7 @@ def main():
             "CONDENSER_ACROSS": 1,
             "CONDENSER_LONG": 1,
             "CONDENSER_STANDING": 1,
+            "CONDENSER_LIFT": 1,
             "CORE_FRONT_Y": 1,
             "CORE_CROWN": 1,
             "MANIFOLD_W": 1,

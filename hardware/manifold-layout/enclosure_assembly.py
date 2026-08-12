@@ -4,7 +4,8 @@ and the cold core behind the pair.
 Four bodies, mated face to face with nothing between them:
 
     compressor          its shell's +X tangent against
-    condenser+fan       turned onto it, and the pair yawed as one by `BASE_YAW`
+    condenser+fan       turned onto it, off the floor on its own mount, and the pair yawed as
+                        one by `BASE_YAW`
     manifold-layout     set down on the crown of those two, on the four SPINE HAIRPINS
     foam-assembly       at the machine's own `FOAM_YAW`, on the floor, its front face on the
                         plane the bodies ahead of it end at
@@ -15,11 +16,12 @@ stand on its own tangent lines, and the condenser is an envelope whose serpentin
 re-dressed to reach whichever face is convenient, so such a joint crosses a plane its two bodies
 already share and both of its stations are ONE POINT READ TWICE.
 
-THE COMPRESSOR IS THE BODY THAT DOES NOT REACH THE CORE. The condenser is the deeper of the
-pair and both are struck on the same centre, so the condenser alone lands on the plane the core
-butts and the compressor's plate stands inset from it at both ends. Its suction therefore cannot
-be made up across a shared plane, and reaches the evaporator's outlet as cut and brazed copper
-that `_lines` draws like any other run. `JOINT_STATIONS` names the two mouths of all three legs;
+THE COMPRESSOR IS THE BODY THAT DOES NOT REACH THE CORE. It is the deeper of the pair, but the
+condenser stands one `SUCTION_LANE` aft of it — so the condenser alone lands on the plane the
+core butts, and what the lane holds open is the room the can's own suction leg is drawn in. That
+leg cannot be made up across a shared plane, and reaches the evaporator's outlet as cut and
+brazed copper that `_lines` draws like any other run. `JOINT_STATIONS` names the two mouths of
+all three legs;
 which of them the machine mates and which it draws is settled by `_lines` having authored a run,
 so no leg is read twice and none falls between the two. `refrigerant_joints` takes the reading
 over the whole loop at every build — `REFRIGERANT_IDS` is the card's own population — grading a
@@ -44,6 +46,13 @@ at the cold core, and its power box at the front.
 The **condenser** turns a quarter about Z to bring its west face onto the compressor's tangent.
 That carries its `AIRFLOW` axis with it — across the machine before, front-to-back after — so
 the air crosses the cabinet the short way and the finstack faces the two side walls.
+
+It is also the one body on this floor that does not stand on it. The block is a donor envelope
+whose two Y faces are a recess between folded sheet flanges, and those four flanges are its
+whole purchase — so the box takes them: a groove off the front wall at the fore pair, a bored
+boss under each of the aft pair's own two holes, and the crown of what carries it is
+`COND_LIFT` off the slab. What sets that height is `PACK_CROWN`, because this block's crown is
+what the flavour pack sets down on.
 
 The **manifold** turns a quarter about X and a half about Z, which is the one pose that lays
 its pump-head front face down. Its own +Z — the axis its two valve decks stack on — comes to
@@ -445,13 +454,39 @@ def build_compressor():
                      cx=0.0, y0=0.0, z0=0.0)
 
 
+# WHAT THE CORE BUTTS IS THE CONDENSER, so the condenser's aft face is the deepest plane on this
+# floor and the compressor's own stands one lane ahead of it. THE LANE IS WHAT `_refrig_3` IS
+# DRAWN IN and nothing else: the can meets its neighbours along a tangent line rather than a
+# plane, its suction stub stands 7.5 fore of its own aft face, and the leg cut off that stub has
+# to lead out and turn its bend radius before it reaches the core's front slot. Spent, the
+# suction has nowhere to go.
+SUCTION_LANE = 18.0
+# THE PLANE THE FLAVOUR PACK SETS DOWN ON. The pack rests on the crown of this floor's two
+# bodies (`build_pack`), and its two SOURCE VALVES reach aft over the cold core's cap — so what
+# this plane is worth is the air under those valves and over that lid. Drop it and they land on
+# the core, `build_pack`'s own `aft` reads them as bodies in its way, and the core is carried
+# back past the wall behind it.
+PACK_CROWN = 151.0
+# THE BLOCK STANDS OFF THE SLAB, and what sets that height is the pack it carries: the
+# compressor's crown stands under `PACK_CROWN`, so the condenser is the body that has to reach
+# it and its mount is what makes up the difference (`enclosure._cond_mount`, `_cond_cradle`).
+# That standoff is also the whole depth the finger under the base flange has, and it carries an
+# `enclosure.cond_bore_depth` bore, so the slab under it stays whole.
+COND_LIFT = PACK_CROWN - _cond.FACE_B
+
+
 def build_condenser(comp):
     """The block turned a quarter about Z, which brings the WEST face the mating names round
-    onto the compressor's own tangent, and stood on the same floor."""
+    onto the compressor's own tangent, and stood off the same floor on its own mount.
+
+    The seated frame's +X is the machine's −Y — `place_base` yaws the pair a quarter the other
+    way — so `x0` here is the block's AFT face, and setting it one `SUCTION_LANE` BELOW the
+    compressor's own puts it that far aft of the can in the machine."""
     c = _cond.build()
     c = c.toCompound() if hasattr(c, "toCompound") else c
     return seat_body(c, (((0.0, 0.0, 1.0), 90.0),),
-                     cx=0.0, y0=box(comp).ymax, z0=0.0)
+                     x0=box(comp).xmin - SUCTION_LANE,
+                     y0=box(comp).ymax, z0=COND_LIFT)
 
 
 # The turn that lays the cutoff's seating plane on a face looking down -Y. Its own frame runs
@@ -1041,6 +1076,57 @@ def check_floor_mounts(stations, pieces: dict) -> Bound:
         [f"x {x:8.3f}  y {y:8.3f}  Ø{d:<5.1f} to z {t:7.3f}   "
          f"{'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
          f"   ({f * 100:.1f}% of the annulus)" for x, y, t, d, f, ok in rows]))
+
+
+# The same reading `check_floor_mounts` takes, and the same mesh error either way.
+COND_MOUNT_TOL = 0.02
+# What a probe stands in from the edge of the feature it reads, so a face the box drew exactly
+# on the probe's own is not a coin toss between material and air.
+COND_PROBE_INSET = 0.5
+
+
+def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
+    """Whether all four of the condenser block's flanges have printed material to land on.
+
+    The block is a donor envelope and these four sheets are its whole purchase, so what the box
+    owes each is a face. FORE, that is a groove: material under the flange and material over it,
+    across the block's own width and the whole of `cond_slot_grip`. AFT, it is a boss: the
+    annulus a ruthex bore leaves in a finger, read from the flange face down one insert.
+
+    Read the way `check_floor_mounts` reads a post — a probe volume against the printed pieces —
+    because a station that no piece's band owns is a station nothing prints, and the assembly
+    would otherwise stand a block on air and say nothing."""
+    rows, ins = [], COND_PROBE_INSET
+    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+
+    def filled(vol):
+        return max(_overlap.volume(vol, s) for s in solids) / vol.Volume()
+
+    press, grip, sect = _enc.cond_slot_press, _enc.cond_slot_grip, _enc.cond_rail_wall
+    for face, cx0, cx1, fz0, fz1, _root in cradle:
+        for what, z0 in (("under", fz0 - press - sect), ("over", fz1 + press)):
+            probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins, z0 + ins))
+                     .box(cx1 - cx0 - 2 * ins, grip - 2 * ins, sect - 2 * ins,
+                          centered=False).val())
+            got = filled(probe)
+            rows.append((f"fore flange at z {fz0:7.3f}, {what} its groove", got,
+                         got >= 1.0 - COND_MOUNT_TOL))
+    _flank, _my0, _my1, bosses = mount
+    for bx, by, tip in bosses:
+        plug = cq.Solid.makeCylinder(
+            _enc.mount_boss_dia / 2.0, _enc.heatset_depth,
+            cq.Vector(bx, by, tip - _enc.heatset_depth), cq.Vector(0, 0, 1))
+        got = filled(plug)
+        want = 1.0 - (_enc.heatset_dia / _enc.mount_boss_dia) ** 2
+        rows.append((f"aft boss under the hole at z {tip:7.3f}", got, got >= want - COND_MOUNT_TOL))
+    bad = [r for r in rows if not r[2]]
+    return record_bound(Bound(
+        "cond-mount-lands", "The condenser block's four flanges all have printed material "
+        "to land on", bool(rows) and not bad,
+        "nothing stationed" if not rows else f"{len(rows) - len(bad)}/{len(rows)} standing",
+        "a groove at each fore flange and a bored boss under each aft one",
+        [f"{what:44s} {'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
+         f"   ({got * 100:.1f}% of the probe)" for what, got, ok in rows]))
 
 
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
@@ -2483,6 +2569,48 @@ def floor_mounts(*mounted):
     return tuple(out)
 
 
+# --- the condenser block's own two ends -------------------------------------
+#
+# The block is a donor envelope with four sheet flanges on it and no other purchase, so both
+# stations below are read straight out of `condenser_block`'s own tables through the placement.
+# Nothing here says where a flange is; the block does, and the box takes it from here.
+
+def condenser_cradle(cond, cond_carry, floor: float) -> tuple:
+    """The front wall's rails, as `enclosure._cond_cradle` reads them — one
+    `(face, x0, x1, fz0, fz1, root)` per FORE flange.
+
+    `face` is the plane the block's own fore face comes to rest on, so the rail's shoulder is
+    where the block stops and its reach into the bay is the block's own depth. THE BASE RAIL
+    ROOTS ON THE SLAB and the crown one hangs off the wall a section under its flange, which is
+    the difference between a corner bracket carrying the block's standoff and a shelf."""
+    b = box(cond)
+    rows = []
+    for i, (fz0, fz1) in enumerate(_cond.flange_z()):
+        face = cond_carry(((0.0, 0.0, fz0), (0.0, -1.0, 0.0)))[0][1]
+        z0, z1 = sorted(cond_carry(((0.0, 0.0, fz), (0.0, 0.0, 1.0)))[0][2]
+                        for fz in (fz0, fz1))
+        rows.append((face, b.xmin, b.xmax, z0, z1,
+                     floor if i == 0 else z0 - _enc.cond_rail_wall))
+    return tuple(rows)
+
+
+def condenser_mount(cond, cond_carry) -> tuple:
+    """The +X wall's fin and its two fingers, as `enclosure._cond_mount` reads them:
+    `(flank, y0, y1, ((x, y, tip), …))`.
+
+    The band is the AFT RECESS'S OWN, less one `cond_mount_clear` at its inner end and the
+    block's own slide at its mouth — so the fingers stand inside the recess with the room to
+    draw the block back off them. The tips are `condenser_block.mount_seats()`, which is the
+    face under each hole rather than the hole itself: what a screw closes on is the sheet, and
+    what the sheet lands on is the boss."""
+    clear = _enc.cond_mount_clear
+    _fore, aft = _cond.recess_y()
+    band = sorted(cond_carry(((0.0, y, 0.0), (0.0, 1.0, 0.0)))[0][1]
+                  for y in (aft[0] + clear, aft[1] - _enc.cond_slot_grip - clear))
+    seats = tuple(cond_carry(st)[0] for st in _cond.mount_seats().values())
+    return (box(cond).xmax + clear, band[0], band[1], seats)
+
+
 # The brick lies on its side against that wall: a quarter about Y stands its 52 mm width up as
 # height and lays its 33.5 mm depth across the machine, so only that much of the lane reaches
 # inboard and its 109 mm long axis runs fore and aft down the flank.
@@ -3727,6 +3855,10 @@ def build_pack() -> cq.Assembly:
     # its Ø14 grommet bore is what the post stands in, so both figures are the donor's.
     a.floor_bosses = floor_mounts(
         (comp_carry, _comp.mount_pattern(), _comp.BASE_Z, _comp.MOUNT_D))
+    # The condenser is the other body on this slab the box holds, and it is held at its own four
+    # flanges: two in a groove off the front wall, two on a boss apiece off the +X one.
+    a.cond_cradle = condenser_cradle(cond, cond_carry, box(comp).zmin)
+    a.cond_mount = condenser_mount(cond, cond_carry)
     # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
     # well IS its mount, and that goes on the wall through `side_wells`.
     a.east_bosses = wall_mounts(
@@ -3924,7 +4056,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
-                     west_cradle=a.west_cradle, asse_cradle=a.asse_cradle,
+                     west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
+                     cond_mount=a.cond_mount, asse_cradle=a.asse_cradle,
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      port_field=back_wall_field(a.wall_stations),
@@ -4100,6 +4233,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)
+    # And the condenser's own four, which are a groove at one end of the block and a bored boss
+    # at the other — the same question asked of a body with no hole to boss and one with two.
+    check_cond_mount(a.cond_cradle, a.cond_mount, pieces)
     # And every rear-wall fitting against the ring it bears on and the bore it passes. The rings
     # go into the assembly rather than the pack — they stand outboard of the wall — so they come
     # back off the placed children the way the runs do.

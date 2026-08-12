@@ -14,7 +14,7 @@ that one build and keeps what stands OUTSIDE the closed machine:
 NOTHING HERE DRAWS A FEATURE OF ITS OWN. A port that moves in `enclosure_assembly`
 moves in the drawing on the next run, a wall the pack hands no station is drawn
 blank, and no number in the line art is a second machine's: the appliance is
-[223 mm](APPLIANCE_W) wide, [481 mm](APPLIANCE_D) deep and [358 mm](APPLIANCE_H)
+[223 mm](APPLIANCE_W) wide, [487.8 mm](APPLIANCE_D) deep and [358 mm](APPLIANCE_H)
 tall because that is what the box around the pack came out at.
 
 Coordinates are the machine's own: +X across the width with x = 0 the axis the
