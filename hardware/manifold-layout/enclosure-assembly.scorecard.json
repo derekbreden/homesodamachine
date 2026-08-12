@@ -888,16 +888,18 @@
   },
   {
    "id": "cond-mount-lands",
-   "label": "The condenser block's four flanges all have printed material to land on",
+   "label": "The condenser block's four flanges all have printed material to land on, and both fore grooves stand open for the sheet",
    "kind": "gate",
    "status": "pass",
-   "value": "6/6 standing",
-   "target": "a groove at each fore flange and a bored boss under each aft one",
+   "value": "8/8 standing",
+   "target": "a groove standing open at each fore flange and a bored boss under each aft one",
    "detail": [
     "fore flange at z   9.000, under its groove   standing   (100.0% of the probe)",
     "fore flange at z   9.000, over its groove    standing   (100.0% of the probe)",
+    "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
     "fore flange at z 145.600, under its groove   standing   (100.0% of the probe)",
     "fore flange at z 145.600, over its groove    standing   (100.0% of the probe)",
+    "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
    ],
@@ -6421,5 +6423,5 @@
    "never": "Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   }
  ],
- "sources": "e8ce9f66c1e4435ae2f44beddb48fecb"
+ "sources": "9d293261bf543d812e24b7498b9f4018"
 }

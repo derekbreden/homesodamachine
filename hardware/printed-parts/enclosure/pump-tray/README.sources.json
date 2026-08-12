@@ -2,7 +2,7 @@
   "/hardware/printed-parts/enclosure/pump-tray/pump_tray.py": {
     "hardware/manifold-layout/_lines.py": "20bb10463f6cb554a825e8f47a1791fa",
     "hardware/manifold-layout/_scorecard.py": "39d6c6e2b9c3d64a6d6cde829d957fc9",
-    "hardware/manifold-layout/enclosure_assembly.py": "8fcfa9efafdc8f15b7c878615fbcea70",
+    "hardware/manifold-layout/enclosure_assembly.py": "0496538ee1a377b294d4cbfd330aac43",
     "hardware/manifold-layout/manifold_layout.py": "69a9649cb0f27a2c6e99093eab608d7e",
     "hardware/printed-parts/cadlib/snap.py": "9ad14bfce6215da092d14c2f3bc799de",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
@@ -21,7 +21,7 @@
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "e6dec536195786a1693fb86fbbf2a0be",
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": "5de276f004edced7e8195f37df96fe14",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "eabe51bc7afc60620ba6781b0b4a50b1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "0c7e43fdffb6618dd0006cee98c38573",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "9bd9657b9ebb3a6611723229ffcf5739",
     "hardware/printed-parts/enclosure/port-ring/port_ring.py": "0b0b9b9cd93fd6814d6a949f5a00736c",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "d8d05543ef77bd354f2f9d303a2d2795",
     "hardware/printed-parts/enclosure/valve-panel/valve_panel.py": "ed1cc8a4e5d451bfc03eedf7e97690ef",
