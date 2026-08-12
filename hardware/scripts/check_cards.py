@@ -66,6 +66,13 @@ def main() -> int:
             stale.append(rel)
         else:
             print(f"  {rel}\n      current at {held}")
+    if stale:
+        # WHAT RUNS THEM. A reader who has this list in front of it writes a loop
+        # around it — the same loop, by hand, every time — so the list says what
+        # takes it. `owed` asks all three of us, runs exactly what is named, and
+        # loops to a fixpoint, which a hand-rolled pass over one check's answer
+        # cannot: a sync that rewrites a figure stales the doc watching it.
+        print("\n  all of them, to a fixpoint: python3 hardware/scripts/owed.py --run")
     print(f"\n{len(CARDS) - len(stale)}/{len(CARDS)} cards describe the tree")
     return 1 if stale else 0
 
