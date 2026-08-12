@@ -75,7 +75,7 @@ shut at the factory ([`../ice-maker/README.md`](/hardware/reference/ice-maker/RE
 
 `process_tube()` reads [20](PROCESS_CLAMP) mm out along that stub, where the Supco
 BPV31's saddle bands it. The valve goes on once and stays for the life of the appliance —
-[`../supco-bpv31/`](/hardware/reference/supco-bpv31/).
+[`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
 
 ## Holds
 
