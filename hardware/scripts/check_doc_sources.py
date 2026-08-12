@@ -76,6 +76,13 @@ def main() -> int:
                       f"      run tools/cad-venv/bin/python {driver.lstrip('/')}")
                 stale.add(rel)
 
+    if stale:
+        # WHAT RUNS THEM. A reader who has this list in front of it writes a loop
+        # around it — the same loop, by hand, every time — so the list says what
+        # takes it. `owed` asks all three of us, runs exactly what is named, and
+        # loops to a fixpoint, which a hand-rolled pass over one check's answer
+        # cannot: a sync that rewrites a figure stales the doc watching it.
+        print("\n  all of them, to a fixpoint: python3 hardware/scripts/owed.py --run")
     print(f"{enrolled - len(stale)}/{enrolled} docs carry the figures their sources make"
           + (f", and {len(bare)} have yet to enrol" if bare else ""))
     return 1 if stale else 0

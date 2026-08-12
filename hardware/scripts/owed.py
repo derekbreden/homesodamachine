@@ -64,6 +64,13 @@ def _coalesce(cmds: list) -> list:
     for key in order:
         args = groups[key]
         out.append(f"{key} {' '.join(args)}" if args else key)
+
+    # TWO REMEDIES FOR ONE THING. The assembly's run draws the scenes whose sources moved, so a
+    # pass that already stands it has the pictures in hand and `render_scenes` would stand a
+    # second appliance for them. The checks each name a remedy of their own and cannot see the
+    # overlap; this is where it is known.
+    if any(c.endswith("enclosure_assembly.py") for c in out):
+        out = [c for c in out if "render_scenes.py" not in c]
     return out
 
 
