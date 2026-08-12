@@ -61,6 +61,14 @@ head_depth = 48.88           # head body depth, front face to rear
 motor_dia = 35.73            # silver DC motor body (clears the tower bore)
 pump_len = 111.43            # front face to motor end cap, excluding the 5.05 shaft nub
 body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings seat on
+# THE MOUNTING BRACKET, STATED AND NOT DRAWN. A stamped steel plate at the junction face between
+# head and boss — `geometry-description.md` §3 — carrying the 4×M3 on a 50 mm square that the
+# part is meant to be screwed down by. It stands PROUD OF THE HEAD all the way round, and that
+# lip is what a strap closing on this pump reaches under. The three solids below are a coarse
+# keep-out and none of them is this plate, so a consumer that needs it takes these two figures.
+bracket_w = 68.6             # across the plate, against the head's own 62.61
+bracket_t = 2.0              # through it, the thick end of the 1.5–2 the part measures
+bracket_z = base_plane_z     # the junction face it sits on — the head's rear, the boss's front
 
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)

@@ -16,21 +16,23 @@ It is `enclosure-front-top`'s own material, fused the way the tap-water trough, 
 saddles and the valve panels are: `enclosure._pump_trays` stands one per pump, off the stations
 `enclosure_assembly.pump_tray_stations` reads off the placed pumps. NO TRAY SHIPS AS A PART.
 
-    ACROSS  the case's own footprint, carried out to the strap's two channels and one `MARGIN`
+    ACROSS  the case's own footprint, carried out to the straps' channels and one `MARGIN`
             past each
     ALONG   the case's own footprint, cut back to the face it roots on
     DEEP    the bore's whole run on the boss, and one `SHOULDER` of tower over its crown
 
-THE STRAP IS THE LOAD PATH, the bargain the flow meter's saddles and the regulator's rib strike:
-a pump hangs UNDER its tray. One strap closes round the pump and the tray together — up through
-one channel in the plate, over the ramp and the shoulder, down the far channel, down that flank
-of the head, and across the head's front face. What it pulls is the head's crown onto the plate.
-The bore takes every moment; the strap stops the pump dropping.
+THE STRAPS ARE THE LOAD PATH, the bargain the flow meter's saddles and the regulator's rib
+strike: a pump hangs UNDER its tray. TWO of them close round the pump and the tray together, one
+either side of the can — across the plate's face, down a channel at each end of the run, and
+under the BRACKET the part carries at that same crown (`kamoer_kphm400.bracket_w`, stated there
+and drawn by nobody). That lip stands proud of the head all the way round, in the plane the plate
+lands on, so a loop here is a bracket wide and never a pump long. What it pulls is the head's
+crown onto the plate; the bore takes every moment.
 
-THE STRAP'S BAND IS WHAT THE CAN LEAVES OF THE HEAD. Its two channels stand outside the head, so
-the run between them crosses the shoulder's own face: inboard of the can's radius that run lies
-against the can, and outboard of the head's half-square its legs come down off the end of the
-head and wrap nothing.
+THE BAND EACH STRAP LIES IN is clear of the can where the run crosses the shoulder, and carried
+out to the head's own edge where that lip is: inboard of the can's radius the run lies against
+the can, and outboard of the bracket's half-width the legs come down off the lip they reach
+under.
 
 This module states what the tray adds over the case and draws one in its own frame; `enclosure`
 turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` draws it:
@@ -47,7 +49,6 @@ Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py selftest
 """
 
-import math
 import sys
 from pathlib import Path
 
@@ -79,6 +80,12 @@ boss_depth = _pc.bore_bottom_z
 # The bore the case turns the can in, half of it: what rises out of the shoulder, and what the
 # strap's run has to clear where it crosses.
 can_half = _pc.cylinder_id / 2.0
+# The mounting bracket the part carries at that same crown, stated by `kamoer_kphm400` and drawn
+# by nobody. It stands proud of the head all the way round, in the plane the plate lands on, and
+# THAT LIP IS WHAT A STRAP REACHES UNDER — so a loop here is the bracket's width and not the
+# head's depth.
+bracket_half = _kp.bracket_w / 2.0
+bracket_t = _kp.bracket_t
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 
@@ -99,6 +106,9 @@ SHOULDER = 3.0
 MARGIN = 3.0
 # The strap band's own standoff off the can.
 CAN_LEAD = 0.5
+# And how far the band is carried outboard of that, onto the head's own edge where the bracket's
+# lip stands.
+BAND_SHIFT = 6.0
 
 
 def depth() -> float:
@@ -108,10 +118,12 @@ def depth() -> float:
 
 
 def chan_y() -> tuple:
-    """The strap band, as `(near, far)` off the pump's axis — what the can leaves of the head's
-    own square, which is where a run that crosses the shoulder clears the can and still lands on
-    the head."""
-    near = can_half + CAN_LEAD
+    """The strap band, as `(near, far)` off the pump's axis — clear of the can where the run
+    crosses the shoulder, and carried out to the head's own edge where the bracket's lip is.
+
+    TWO BANDS, one either side of the can: a tray cuts this pair at −y and its mirror at +y, and
+    each takes a strap of its own."""
+    near = can_half + CAN_LEAD + BAND_SHIFT
     return near, near + cav_w
 
 
@@ -161,15 +173,19 @@ def build_pump_tray(root: float):
     that side."""
     near, far = chan_y()
     x0, x1 = chan_x()
-    if far > head_half + 1e-9:
+    if far > bracket_half + 1e-9:
         raise ValueError(
-            f"the strap's band runs to {far:.3f} mm off the axis and the head reaches "
-            f"{head_half:.3f} — its legs come down off the end of the head and wrap nothing. "
-            f"The can's {can_half:g} and the head are what leave this band")
+            f"the strap's band runs to {far:.3f} mm off the axis and the bracket reaches "
+            f"{bracket_half:.3f} — its legs come down off the end of the lip they reach under "
+            f"and wrap nothing. The can's {can_half:g} and that bracket leave this band")
     if near <= can_half:
         raise ValueError(
             f"the strap's band starts {near:.3f} mm off the axis, inside the can's {can_half:g} "
             f"— the run between its channels lies against the can")
+    if x1 <= bracket_half:
+        raise ValueError(
+            f"a channel ends {x1:.3f} mm off the axis, inside the bracket's {bracket_half:.3f} "
+            f"— a strap has no lane outboard of the lip to come down in before it turns under")
     if root < head_half + MARGIN - 1e-9:
         raise ValueError(
             f"a tray rooted {root:.3f} mm off the axis stops short of the head's own "
@@ -195,10 +211,13 @@ def build_pump_tray(root: float):
                     .center(cx, cy)
                     .polyline(_pc.bore_profile).close()
                     .extrude(boss_depth + 1.0))
-    # THE STRAP'S TWO CHANNELS through that plate, one either side of the can.
-    for sx in (-1.0, 1.0):
-        tray = tray.cut(_slab(cx + min(sx * x0, sx * x1), cx + max(sx * x0, sx * x1),
-                              cy - far, cy - near, -1.0, _pc.base_thickness + 1.0))
+    # THE STRAPS' FOUR CHANNELS through that plate: a pair either side of the can, and each pair
+    # a strap.
+    for sy in (-1.0, 1.0):
+        for sx in (-1.0, 1.0):
+            tray = tray.cut(_slab(cx + min(sx * x0, sx * x1), cx + max(sx * x0, sx * x1),
+                                  cy + min(sy * near, sy * far), cy + max(sy * near, sy * far),
+                                  -1.0, _pc.base_thickness + 1.0))
     # AND THE TRAY STOPS ON THE FACE IT ROOTS ON, so it meets the wall plane to plane.
     tray = tray.cut(_slab(cx - big, cx + big, cy - root - big, cy - root, -1.0, d + 1.0))
     return tray.translate((-cx, -cy, 0.0))
@@ -211,41 +230,16 @@ def pump_bodies():
                  for _name, part, _colour in _kp.BODY_PARTS)
 
 
-def _hull_perimeter(points) -> float:
-    """The perimeter of the convex hull of `points`, by monotone chain."""
-    pts = sorted(set((round(x, 6), round(z, 6)) for x, z in points))
-    if len(pts) < 3:
-        return 0.0
+def strap_loop() -> float:
+    """The shortest strap that closes round the pump's BRACKET and the tray's plate together.
 
-    def half(seq):
-        out = []
-        for p in seq:
-            while len(out) >= 2:
-                (ax, az), (bx, bz) = out[-2], out[-1]
-                if (bx - ax) * (p[1] - az) - (bz - az) * (p[0] - ax) > 0:
-                    break
-                out.pop()
-            out.append(p)
-        return out
-
-    hull = half(pts)[:-1] + half(reversed(pts))[:-1]
-    return sum(math.dist(hull[i], hull[(i + 1) % len(hull)]) for i in range(len(hull)))
-
-
-def strap_loop(root: float) -> float:
-    """The shortest strap that closes round a pump and its tray together.
-
-    A strap turns INSIDE the channels, so what it reaches round is the pump with the tray's own
-    body over it — the convex perimeter of that pair, read on the plane the band's own centre
-    stands in, which is the section the strap lies in."""
-    y = -sum(chan_y()) / 2.0
-    pair = build_pump_tray(root).val()
-    for body in pump_bodies():
-        pair = pair.fuse(body)
-    slice_ = pair.intersect(cq.Workplane("XY")
-                            .box(1e3, 0.2, 1e3, centered=True)
-                            .translate((0.0, y, 0.0)).val())
-    return _hull_perimeter((v.X, v.Z) for v in slice_.Vertices())
+    A strap turns INSIDE the channels, so what it reaches round is the plate between them and the
+    bracket's lip under it: across the plate's face from one channel's inner edge to the other,
+    down each channel through the plate, out under the bracket's own width, and round its
+    thickness at each turn. It never reaches the head's depth, which is why this loop is a
+    bracket wide rather than a pump long."""
+    return (2.0 * chan_x()[0] + 2.0 * _pc.base_thickness
+            + 2.0 * bracket_t + 2.0 * bracket_half)
 
 
 def fouled_volume(root: float) -> float:
@@ -285,10 +279,16 @@ def selftest() -> int:
     """The tray against the pump it takes and the case it is cut out of."""
     fails = []
     near, far = chan_y()
-    x0, _x1 = chan_x()
+    x0, x1 = chan_x()
     if x0 <= head_half:
         fails.append(f"a channel opens {x0:.3f} mm off the axis, inside the head's "
                      f"{head_half:.3f} — the strap turns down onto the head's own crown")
+    if x1 <= bracket_half:
+        fails.append(f"a channel ends {x1:.3f} mm off the axis, inside the bracket's "
+                     f"{bracket_half:.3f} — no lane outboard of the lip to come down in")
+    if far > bracket_half:
+        fails.append(f"the strap band ends {far:.3f} mm off the axis, past the bracket's "
+                     f"{bracket_half:.3f} — its legs wrap nothing")
     if can_half >= boss_half:
         fails.append(f"the can's bore reaches {can_half:g} mm and the boss's octagon "
                      f"{boss_half:g} — the shoulder lands on nothing")
@@ -327,7 +327,8 @@ def selftest() -> int:
     if not fails:
         print(f"ok  pump-tray  {2 * half_width():g} across, {SHOULDER:g} of shoulder over "
               f"{boss_depth:g} of bore, octagon {2 * boss_half:g} at the flats, can bore "
-              f"{2 * can_half:g}, strap band {near:g}..{far:g}, "
+              f"{2 * can_half:g}, two strap bands at ±{near:g}..{far:g} under a "
+              f"{2 * bracket_half:g} bracket, loop {strap_loop():.1f}, "
               f"{on_head:.0f} mm² on the head and {on_crown:.0f} on the crown")
     return 1 if fails else 0
 
@@ -339,7 +340,7 @@ def main():
     for name, root in sorted(trays.items()):
         solid = build_pump_tray(root).val()
         total += solid.Volume()
-        loop, storey = strap_loop(root), storeys(root)
+        loop, storey = strap_loop(), storeys(root)
         print(f"  {name}: {2 * half_width():g} x {root + far_reach():g}, {SHOULDER:g} of "
               f"shoulder over {boss_depth:g} of bore, rooted {root:g} mm off the pump's axis")
         print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, valid {solid.isValid()}, "
@@ -365,8 +366,9 @@ def main():
             "HEAD_W": f"{_kp.head_w:g}",
             "HEAD_D": f"{_kp.head_depth:g}",
             "CAN_DIA": f"{_kp.motor_dia:g}",
-            "STRAP_LOOP": f"{loop:.1f}",
+            "STRAP_LOOP": f"{loop:.0f}",
             "STRAP_W": f"{strap_w:g}",
+            "BRACKET_W": f"{2 * bracket_half:g}",
             "BAND_NEAR": f"{chan_y()[0]:.4g}",
             "BAND_FAR": f"{chan_y()[1]:.4g}",
             "ON_HEAD": f"{storey[0]:.0f}",
@@ -378,7 +380,7 @@ def main():
             "TRAY_W": 1, "TRAY_L": 1, "TRAY_D": 1, "SHOULDER": 2, "CAN_BORE": 1,
             "TRAY_MARGIN": 1, "TRAY_COUNT": 1, "TRAY_VOL": 1, "SOCKET_SPAN": 1,
             "SOCKET_LEDGE": 1, "BOSS_DEPTH": 2, "HEAD_W": 1, "HEAD_D": 1, "CAN_DIA": 1,
-            "STRAP_LOOP": 2, "STRAP_W": 1, "BAND_NEAR": 1, "BAND_FAR": 1,
+            "STRAP_LOOP": 2, "STRAP_W": 1, "BRACKET_W": 1, "BAND_NEAR": 1, "BAND_FAR": 1,
             "ON_HEAD": 1, "ON_CROWN": 1, "RAMP_H": 1, "CASE_W": 1,
         },
     )

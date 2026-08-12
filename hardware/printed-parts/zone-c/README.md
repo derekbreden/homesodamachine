@@ -19,7 +19,7 @@ One rectangular opening spans the top wall behind the display facet
   [`hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/).
 - **The pumps.** Lifting the funnel out exposes the two peristaltic pumps
   beneath it. Rare-touch item — reached only to swap a worn pump, which is one
-  strap cut and a lift straight up out of the tray's octagonal bore.
+  pair of straps cut and a lift straight up out of the tray's octagonal bore.
 
 The frequent-access piece sits over the rare-access piece, so one opening
 serves both fill and pump service, and the funnel covers the pumps the rest

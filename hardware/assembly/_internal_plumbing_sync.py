@@ -48,14 +48,6 @@ import pump_tray as _tray  # noqa: E402  — the plate each Kamoer's head lies o
 from docgen import substitute_md  # noqa: E402
 
 
-def _pump_root() -> float:
-    """How far a pump's tray runs off that pump's own axis to the front wall it roots on, read
-    off the last build the way `enclosure._pump_trays` reads it off the box."""
-    f = _facts.read()
-    bb = f.bb("pump-a-head")
-    return (bb.ymin + bb.ymax) / 2.0 - f.box.inner[2]
-
-
 def main():
     # The two pump-port stubs are cut to the runs the placed pack draws, so the length
     # a bench cuts is read off the run and not rounded beside it. `_cards_ip` states the
@@ -112,10 +104,11 @@ def main():
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
         "WR1110_LOOP": f"{_enc.tube_anchor_strap_loop(_barrel_seat):.3g} mm",
         "CARB_1_LOOP": f"{_enc.tube_anchor_strap_loop(next(iter(_run_seats))):.3g} mm",
-        # And the loop a pump's own strap closes — the pump with its tray's body over it, off the
-        # module that draws the tray, with the bore and socket that tray takes the pump on. The
-        # tray's reach to the wall is read off the placed pump the same way the wall reads it.
-        "PUMP_LOOP": f"{_tray.strap_loop(_pump_root()):.4g} mm",
+        # And the loop each of a pump's two straps closes — the tray's plate and the bracket the
+        # part carries under it, off the module that draws the tray, with the bore and the can's
+        # own hole that tray takes the pump on.
+        "PUMP_LOOP": f"{_tray.strap_loop():.3g} mm",
+        "PUMP_BRACKET": f"{_tray.bracket_half * 2:.4g} mm",
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
         "PUMP_SOCKET_D": f"{_tray.boss_depth:.4g} mm",
         "PUMP_CAN_BORE": f"{2 * _tray.can_half:.4g} mm",
@@ -137,6 +130,7 @@ def main():
             "WR1110_LOOP": 1,
             "CARB_1_LOOP": 2,
             "PUMP_LOOP": 1,
+            "PUMP_BRACKET": 1,
             "PUMP_SOCKET": 1,
             "PUMP_SOCKET_D": 1,
             "PUMP_CAN_BORE": 1,
