@@ -2,7 +2,7 @@
   "/hardware/printed-parts/valve-seat/valve_seat.py": {
     "hardware/printed-parts/valve-seat/valve_seat.py": "31656a30a6da284907cd92550a4cf5b3",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "759dd8dc2565af8bc5cb227b20221898",
-    "hardware/scripts/_cadq_export.py": "818eb44a6c1e4e2ed05644188d2eddaa",
+    "hardware/scripts/_cadq_export.py": "5c817e74ab20ffe8f90cc41e2d1ce43f",
     "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
     "hardware/scripts/_run_lock.py": "1e3be322667ee5b6463d16db7d6f6e21",
     "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"

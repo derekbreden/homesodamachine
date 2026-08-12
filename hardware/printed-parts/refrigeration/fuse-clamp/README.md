@@ -43,8 +43,8 @@ normal is across that push; a hook over any of them resists nothing pressing
 straight out of the front, and no band closes around a box whose aft face is
 moulded onto the shell.
 
-The plate's four holes are spoken for — donor grommet, steel bushing and the
-floor's own printed post through each ([`bom.md`](/hardware/ledger/bom.md) §13,
+The plate's four holes are spoken for — donor grommet and the floor's own
+printed post rising through each ([`bom.md`](/hardware/ledger/bom.md) §13,
 [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §5). The
 grommet is the isolation element, so anything landing on one of those screws is
 fastened to the **cabinet** while the cover it presses rides the can, and every

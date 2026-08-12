@@ -23,6 +23,53 @@ The home soda machine's physical design — the integrated under-counter applian
 | [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, first-tap plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
 | [`scripts/`](/hardware/scripts/) | Project Python tooling. The instruments: [`probe.py`](/hardware/scripts/probe.py) asks the placed machine a geometry question instead of reasoning about it — where a body is, how close two come, what a volume runs into, how far a line runs, where there is room for one, what a pick copied out of the viewer names, and where a piece of a routed line can stand; [`fit.py`](/hardware/scripts/fit.py) asks the same of a body that is not placed yet, carried to a candidate pose; [`lanes.py`](/hardware/scripts/lanes.py) enumerates every corridor a run could take between its two fixed mouths at a stated clearance floor, holding every body still, and reports each one's tube, corners, tightest clearance, lowest z and the sub-assembly its legs lie on without ranking them. Each carries a `selftest`. Then `_cadq_export.py` (the shared atomic STEP/DXF/PDF export helper imported tree-wide) and the doc-sync / totals generators that maintain the `ledger/` docs. |
 
+## What a build costs
+
+Wall clock on the owner's machine at `081a1bee` — warm caches, no other build running, one
+run each unless a range is given.
+
+`enclosure_assembly.py` has two costs. The stamp beside the STEP decides which one a run
+pays: a run whose STEP hashes to what the stamp holds draws no elevations, and a run that
+moved the STEP draws three and a thumbnail.
+
+| `enclosure_assembly.py` | wall |
+|---|---|
+| STEP unchanged | 47 s |
+| STEP moved | 67 s — taken on the run that renumbered the whole file, so it is a ceiling |
+
+Inside one run:
+
+| phase | wall |
+|---|---|
+| derive + audit — `build_enclosure_assembly`, then the card | 20.1 s |
+| OCCT STEP write, 21 MB | 1.3 s |
+| canonicalise — renumber 382,700 entities | 3.7 s |
+| tessellate the `.mesh` payload | 1.6 s |
+| three ortho elevations, x-ray, 1600×1200 | 3 s |
+| one thumbnail, drawn off the payload | 3 s |
+| one thumbnail, drawn off the STEP with no payload beside it | 16 s |
+
+Every generator that stands the whole machine, plus the instruments' selftests:
+
+| | wall | | wall |
+|---|---|---|---|
+| `_enclosure_mechanical_sync.py` | 41–42 s | `_bom_sync.py` | 18–20 s |
+| `render_scenes.py`, four scenes | 39–44 s | `_appliance_model.py` | 19 s |
+| `enclosure.py` | 29–30 s | `_cards_sync.py` | 19–22 s |
+| `lanes.py selftest` | 24 s | `_internal_plumbing_sync.py` | 15 s |
+| `probe.py selftest` | 22 s | `valve_panel.py` | 15 s |
+| `_enclosure_dimensions.py` | 20–21 s | `_back_panel_dimensions.py` | 14 s |
+| `_fluid_topology_sync.py` | 19–20 s | `cold_core_assembly.py` | 12–14 s |
+| `manifold_layout.py` | 12 s | `_scorecard.py selftest` | 2 s |
+
+The benchtop syncs that stand no machine — `_acceptance_and_burn_in_sync.py`,
+`_cold_core_sync.py`, `_electronics_shelf_sync.py`, `_firmware_and_commissioning_sync.py`,
+`_handwork_sync.py`, `_pressure_vessel_sync.py`, `port_ring.py`, `valve_seat.py` — are 1–2 s
+each, and `_lines.py selftest` is 1 s.
+
+Twenty generators end to end, which is what a commit touching a widely-imported module owes:
+**268–282 s**.
+
 ## Part metadata sidecars
 
 Every fabricated part has a JSON sidecar next to it recording material + thickness + process. The dev viewer reads these to extrude DXF outlines into real 3D plates; tooling and future agents should treat them as the source of truth for material/thickness queries.

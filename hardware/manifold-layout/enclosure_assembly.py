@@ -1006,6 +1006,43 @@ def check_panels_hold(pieces: dict, placed: dict) -> Bound:
          for n, v, p, s, g in rows]))
 
 
+# What a standing post's annulus may read short by. A post is fused as one cylinder and bored
+# as another, so this is the mesh's own error on the two.
+FLOOR_POST_TOL = 0.02
+
+
+def check_floor_mounts(stations, pieces: dict) -> Bound:
+    """Whether every floor post the slab was stationed for is standing, off the built pieces.
+
+    `enclosure._floor_bosses` grows a post for the stations whose Y falls in the piece's own
+    column, and for no others.
+
+    Read as a probe of the piece's own material: a plug on the station's axis, from the crown
+    down one insert's depth, is solid where the post stands and empty where it does not. The
+    insert's bore takes its own share out of that plug, so a whole post reads the annulus."""
+    rows = []
+    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+    for sx, sy, tip, dia in stations:
+        plug = cq.Solid.makeCylinder(
+            dia / 2.0, _enc.floor_heatset_depth,
+            cq.Vector(sx, sy, tip - _enc.floor_heatset_depth), cq.Vector(0, 0, 1))
+        filled = max(_overlap.volume(plug, s) for s in solids) / plug.Volume()
+        # The annulus this station's own bore leaves — each post is bored the same, and each
+        # stands in whatever section its donor's hole gave it.
+        want = 1.0 - (_enc.floor_heatset_dia / dia) ** 2
+        rows.append((sx, sy, tip, dia, filled, filled >= want - FLOOR_POST_TOL))
+    bad = [r for r in rows if not r[5]]
+    return record_bound(Bound(
+        "floor-mounts-land", "Every floor post under a bolted-down body is printed",
+        bool(rows) and not bad,
+        "no post stationed" if not rows else
+        f"{len(rows) - len(bad)}/{len(rows)} posts standing",
+        "a printed post at every hole the donor presents",
+        [f"x {x:8.3f}  y {y:8.3f}  Ø{d:<5.1f} to z {t:7.3f}   "
+         f"{'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
+         f"   ({f * 100:.1f}% of the annulus)" for x, y, t, d, f, ok in rows]))
+
+
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
 # nothing in it to take up, so this is the closing's own float and nothing else.
 BEDDED_TOL = 0.01
@@ -2406,20 +2443,30 @@ def east_wall_seat():
     return _enc.interior_x()[1] - _enc.mount_boss_out
 
 
+# What a floor post stands off the wall of the bore it rises through, on the radius. The bore
+# is rubber — a grommet wrapped through the donor's own metal hole, flanged over both faces —
+# and that rubber is the isolator, working in shear round the post's whole standing length.
+FLOOR_BOSS_SLIP = 1.0
+
+
 def floor_mounts(*mounted):
-    """The floor slab's boss stations, as `(x, y, tip)`.
+    """The floor slab's boss stations, as `(x, y, tip, dia)`.
 
     `wall_mounts`' analogue for a body bolted DOWN onto the slab rather than hung on the
-    flank. One `(carry, holes, face_z)` per body: the placement, the body's own hole pattern,
-    and the height in that body's own frame of the face a screw head lands on. A body standing
-    on the floor has that face at the TOP of whatever the hole passes through, not at its own
-    Z = 0 — the post rises through the hole to it, which is what locates the body as well as
-    fastens it."""
+    flank. One `(carry, holes, face_z, bore_d)` per body: the placement, the body's own hole
+    pattern, the height in that body's own frame of the face a screw's washer lands on, and the
+    bore each post rises through. A body standing on the floor has that face at the TOP of
+    whatever the hole passes through, not at its own Z = 0 — the post rises through the hole to
+    it, which is what locates the body as well as fastens it.
+
+    THE POST'S SECTION IS THE DONOR'S, struck off that bore less one `FLOOR_BOSS_SLIP` on the
+    radius, so a body whose holes are measured again moves its own posts with it and no
+    diameter for them is typed anywhere."""
     out = []
-    for carry, holes, face_z in mounted:
+    for carry, holes, face_z, bore_d in mounted:
         for hx, hy in holes:
             pos, _axis = carry(((hx, hy, face_z), (0.0, 0.0, 1.0)))
-            out.append((pos[0], pos[1], pos[2]))
+            out.append((pos[0], pos[1], pos[2], bore_d - 2.0 * FLOOR_BOSS_SLIP))
     return tuple(out)
 
 
@@ -3663,9 +3710,10 @@ def build_pack() -> cq.Assembly:
                     + [(n, s) for n, s, _c in wagos]
                     + [(n, s) for n, s, _c, _k in stack])
     # The compressor is the one body on the floor that is bolted DOWN to it, so its four
-    # holes are the slab's own boss stations.
+    # holes are the slab's own boss stations. The plate's crown is where the washer lands and
+    # its Ø14 grommet bore is what the post stands in, so both figures are the donor's.
     a.floor_bosses = floor_mounts(
-        (comp_carry, _comp.mount_pattern(), _comp.BASE_Z))
+        (comp_carry, _comp.mount_pattern(), _comp.BASE_Z, _comp.MOUNT_D))
     # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
     # well IS its mount, and that goes on the wall through `side_wells`.
     a.east_bosses = wall_mounts(
@@ -4036,6 +4084,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
     # plate nothing on this card would otherwise name.
     check_panels_hold(pieces, a.pack_solids)
+    # And every floor post against the piece that grows it: a station outside every piece's
+    # own Y column is not printed.
+    check_floor_mounts(a.floor_bosses, pieces)
     # And every rear-wall fitting against the ring it bears on and the bore it passes. The rings
     # go into the assembly rather than the pack — they stand outboard of the wall — so they come
     # back off the placed children the way the runs do.

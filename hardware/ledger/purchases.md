@@ -409,6 +409,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish. Order #112-3709957-5726619, placed June 2, 2026 | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | ACQUIRED (delivered Jun 3) |
 | Sutemribor M2 × 6 mm Hex Socket Head Cap Screws, 105 pc, M2-0.4, 12.9 alloy steel, black oxide finish, fully threaded. Order #112-1905695-2405047, placed June 22, 2026 | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $18.22 | ON-ORDER (arriving Jun 24) |
 | LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile. Order #112-4393734-6836206, placed May 11, 2026 | [B0D41KT345](https://www.amazon.com/dp/B0D41KT345) | 1 pk (100) | $13.23 | ACQUIRED (delivered May 12) |
+| ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set (7.0 mm OD) — the compressor's four floor posts (bom.md §13 item 5), the one M5 station in the appliance | [B07YSVXWS8](https://www.amazon.com/dp/B07YSVXWS8) | 1 pk (50) | $9.99 | NOT ORDERED |
+| Fullerkreg M5 × 10 mm Socket Head Cap Screws, 50 pc, DIN 912, 304 stainless steel (18-8), full thread — compressor floor screws. 304 rather than black-oxide 12.9: the floor of a bay that sees condensation | [B07CJK4W8L](https://www.amazon.com/dp/B07CJK4W8L) | 1 pk (50) | $8.31 | NOT ORDERED |
+| M5 × 25 mm OD fender washers, 60 pc, 304 stainless steel — one under each compressor floor screw, spanning the grommet's Ø14 bore onto its top flange and bottoming on the post's crown | [B0GSMDY5GL](https://www.amazon.com/dp/B0GSMDY5GL) | 1 pk (60) | $7.99 | NOT ORDERED |
 | Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black). Order #112-8598924-2300214, placed May 17, 2026 | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | ACQUIRED (delivered May 18) |
 
 ## 12. Shop / bench infrastructure

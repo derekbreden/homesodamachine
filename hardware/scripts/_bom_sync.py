@@ -208,22 +208,26 @@ shelf_short_screws_per_build = shelf_screws_per_build - shelf_long_screws_per_bu
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
 # the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
-# compressor's own plate pattern, each post bored for a ruthex short at the plane the plate's
-# crown lies on. So the count is the pack's the way the shelf's is — a body arriving on the
-# floor with a hole pattern brings its posts, inserts and screws with it.
+# compressor's own plate pattern, each post rising through that hole's rubber grommet to its
+# crown and bored there for a ruthex M5. So the count is the pack's the way the shelf's is — a
+# body arriving on the floor with a hole pattern brings its posts, inserts and screws with it.
+#
+# THE FLOOR IS THE ONE M5 STATION IN THE APPLIANCE. A post stands in a Ø14 grommet bore rather
+# than on a board between its pin fields, so it takes the section for the larger insert.
 floor_inserts_per_build = len(_floor_bosses)
-# One M3 down into each post's insert, bearing on the donor grommet's steel bushing — 1:1 with
-# the posts. One of the four also takes the compressor's chassis bond (AC-6) under its head.
+# One M5 down into each post's insert, through a fender washer that spans the grommet's bore —
+# 1:1 with the posts.
 floor_screws_per_build = floor_inserts_per_build
+floor_washers_per_build = floor_screws_per_build
 
-# Combined heat-set insert count across the appliance.
+# Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
     + touchflo_inserts_per_build
     + shelf_inserts_per_build
-    + floor_inserts_per_build
 )
+total_m5_inserts_per_build = floor_inserts_per_build
 
 # And the screws that go into them. EVERY INSERT IN THIS BUILD TAKES ONE SCREW, which is what
 # the equality below says — an insert with no screw is a threaded hole nobody reaches, and the
@@ -234,12 +238,14 @@ total_m3_screws_per_build = (
     + reservoir_cap_screws_per_build
     + touchflo_screws_per_build
     + shelf_screws_per_build
-    + floor_screws_per_build
 )
-assert total_m3_screws_per_build == total_m3_inserts_per_build, (
-    f"the build presses {total_m3_inserts_per_build} heat-set inserts and drives "
-    f"{total_m3_screws_per_build} screws into them — name the body that bolts to the "
-    f"{total_m3_inserts_per_build - total_m3_screws_per_build} left over, or stop printing them")
+total_m5_screws_per_build = floor_screws_per_build
+for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
+                                   ("M5", total_m5_inserts_per_build, total_m5_screws_per_build)):
+    assert _screws == _inserts, (
+        f"the build presses {_inserts} {_thread} heat-set inserts and drives "
+        f"{_screws} {_thread} screws into them — name the body that bolts to the "
+        f"{_inserts - _screws} left over, or stop printing them")
 
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
@@ -279,10 +285,13 @@ def main():
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
+        "FLOOR_WASHERS": f"{floor_washers_per_build:.4g}",
+        "COMPRESSOR_LIGAMENT": f"{_ea._comp.MOUNT_LIGAMENT:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
         "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
+        "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
         # Evaporator-coil copper (§5 GOORY row). LAID_FT is the copper a build CONSUMES —
@@ -331,8 +340,11 @@ def main():
             "SHELF_SCREWS": 3,
             "SHELF_SCREWS_M3X8": 2,
             "SHELF_SCREWS_M3X10": 3,
-            "FLOOR_INSERTS": 2,
+            "FLOOR_INSERTS": 1,
             "FLOOR_SCREWS": 3,
+            "FLOOR_WASHERS": 3,
+            "COMPRESSOR_LIGAMENT": 1,
+            "TOTAL_M5_INSERTS": 2,
             "DECK_INSERTS": 3,
             "PUMP_MOUNT_SCREWS": 5,
             "CAP_CRADLES": 2,
@@ -357,8 +369,12 @@ def main():
     substitute_md(
         _here.parent / "ledger" / "labor.md",
         variables={
+            # The bench presses a thread it is handed; both passes are counted whole.
+            "TOTAL_INSERTS":
+                f"{total_m3_inserts_per_build + total_m5_inserts_per_build:.4g}",
+            "TOTAL_SCREWS":
+                f"{total_m3_screws_per_build + total_m5_screws_per_build:.4g}",
             "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
-            "TOTAL_M3_SCREWS": f"{total_m3_screws_per_build:.4g}",
             "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
             "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
             "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
@@ -370,8 +386,9 @@ def main():
             "SOLENOIDS": f"{solenoid_count:.4g}",
         },
         expected_counts={
-            "TOTAL_M3_INSERTS": 2,
-            "TOTAL_M3_SCREWS": 2,
+            "TOTAL_INSERTS": 2,
+            "TOTAL_SCREWS": 2,
+            "TOTAL_M3_INSERTS": 1,
             "FOAM_CLAMP_INSERTS": 1,
             "FOAM_SCREWS": 1,
             "PUMP_MOUNT_SCREWS": 1,

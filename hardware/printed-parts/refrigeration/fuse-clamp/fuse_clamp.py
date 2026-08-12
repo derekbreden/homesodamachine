@@ -19,8 +19,8 @@ THE LEAVES ARE THE MOUNT, and that gap is the only place on this donor a clamp c
 The case's force is a NORMAL force. A cover has a front, a top, a bottom and two sides, every
 one of them a plane whose normal is across that push; a hook over any of them resists nothing
 pressing straight out of the front, and no band closes around a box whose aft face is moulded
-onto the shell. The plate's four holes are spoken for — donor grommet, steel bushing and the
-floor's own printed post through each — and the grommet is the isolation element, so anything
+onto the shell. The plate's four holes are spoken for — donor grommet and the floor's own
+printed post rising through each — and the grommet is the isolation element, so anything
 landing on that screw is fastened to the CABINET while the cover it presses rides the can. What
 is left is the gap: a slot [15](CLAMP_GAP) mm tall whose two faces, the box's underside and the
 plate's crown, both belong to the compressor. The leaves press it, so the clamp rides the

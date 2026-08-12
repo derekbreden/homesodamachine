@@ -4,7 +4,7 @@
     "hardware/printed-parts/enclosure/port-ring/port_ring.py": "0b0b9b9cd93fd6814d6a949f5a00736c",
     "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "90371f646947224b235b2e4fc471ecc8",
     "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "59c732bf7dfdaa41e2d684738e65b233",
-    "hardware/scripts/_cadq_export.py": "818eb44a6c1e4e2ed05644188d2eddaa",
+    "hardware/scripts/_cadq_export.py": "5c817e74ab20ffe8f90cc41e2d1ce43f",
     "hardware/scripts/_measuring.py": "241185841bdf75c222d582b53e13b5fb",
     "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
     "hardware/scripts/_run_lock.py": "1e3be322667ee5b6463d16db7d6f6e21",

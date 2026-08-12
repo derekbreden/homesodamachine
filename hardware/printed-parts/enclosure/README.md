@@ -43,7 +43,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The cold core stands flat on the floor, on its bottom foam-cap lid: the six M3 cap screws driven up from below sit in counterbores in the lid's own head pads.
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.
 - The compressor stands upright, on its own feet, and cannot be laid on its side or inverted: the oil charge sits in the bottom of the hermetic can and the pickup is gravity-fed. That fixes its plate on the floor, which leaves a yaw as the only turn it has — and a yaw keeps its copper-bearing tangents horizontal, so the copper always leaves sideways.
-- The compressor is the one body on the floor the box fastens: four posts on the slab, struck off its own plate pattern, each rising through a plate hole to the plate's crown.
+- The compressor is the one body on the floor the box fastens: four posts on the slab, struck off its own plate pattern, each rising through the rubber grommet in a plate hole to that grommet's crown, where a washer stops on it.
 - The flavor funnel feeds the pumps from above and stays top-removable for cleaning.
 - The drip pan sits directly under the ASSE 1022 chain's atmospheric vent; the backflow preventer + drip pan + moisture sensor co-locate on the water-inlet path.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.

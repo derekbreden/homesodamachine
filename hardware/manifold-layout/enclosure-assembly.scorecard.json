@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 75,
+ "mounted": 76,
  "checks": [
   {
    "id": "coverage",
@@ -841,6 +841,21 @@
    "active": true
   },
   {
+   "id": "floor-mounts-land",
+   "label": "Every floor post under a bolted-down body is printed",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 posts standing",
+   "target": "a printed post at every hole the donor presents",
+   "detail": [
+    "x  -61.500  y   23.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)",
+    "x  -61.500  y  154.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)",
+    "x    5.500  y   23.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)",
+    "x    5.500  y  154.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)"
+   ],
+   "active": true
+  },
+  {
    "id": "wall-clamped",
    "label": "Every rear-wall fitting is clamped through the wall it passes",
    "kind": "gate",
@@ -1029,10 +1044,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "47/63 mounted, 14 part of another body, 2 nothing fastens",
+   "value": "48/63 mounted, 14 part of another body, 2 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "compressor: floor",
     "condenser+fan: floor",
     "display: wall-capture",
     "flow-regulator: tube-hung",
@@ -5586,8 +5600,8 @@
  "mounts": [
   {
    "component": "compressor",
-   "by": null,
-   "joint": "floor",
+   "by": "enclosure-front-bottom",
+   "joint": "bosses",
    "kind": "real",
    "rides": null,
    "never": null
@@ -6217,5 +6231,5 @@
    "never": null
   }
  ],
- "sources": "3fd3d1155b2032b5d3eaa92ac6010bf4"
+ "sources": "2c2640388583dabd7765f1f5d093fe6c"
 }
