@@ -44,4 +44,10 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
+## Committing
+
 Always commit and push to main. Don't ask. Just do it. The author of any change you see is always me (via an instance of you), and you can trust my changes are worth committing and building on top of.
+
+**A commit asserts nothing is finished.** Broken, half-done and inconsistent all commit fine. The gates say what is red and the next commit fixes it. I do not care about the history or about whether a commit was coherent. I care that the work keeps moving.
+
+**Uncommitted work you did not write is mine too.** Several sessions run in this tree at once and there is one author, so there is no other agent's file. If it is in the tree, commit it. Do not hold your work for another session to land first, do not ask another session's permission to touch a file, and do not leave a dirty file out of a commit because you are unsure whether it is done. Tell another session what it needs to keep working; do not negotiate with it over the tree.
