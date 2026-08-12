@@ -2448,25 +2448,38 @@ def east_wall_seat():
 # and that rubber is the isolator, working in shear round the post's whole standing length.
 FLOOR_BOSS_SLIP = 1.0
 
+# HOW FAR THE WASHER SQUEEZES THE GROMMET BEFORE THE POST STOPS IT. The post's crown stands
+# this far UNDER the donor's own crown, so drawing the screw up pulls the top flange down by
+# this much and then lands on printed material. An elastomeric mount wants preload — a flange
+# left at its free height lifts off between cycles and the plate chatters on it — and it wants
+# a limit, because rubber taken far up its curve stiffens and stops isolating. Both come out of
+# one printed dimension here rather than out of a torque spec, so every unit gets the same
+# squeeze and no operator judges it. The flange's own thickness is what turns this into a
+# percentage; the number is the one to move once a donor grommet is under calipers.
+FLOOR_GROMMET_SQUEEZE = 0.4
+
 
 def floor_mounts(*mounted):
     """The floor slab's boss stations, as `(x, y, tip, dia)`.
 
     `wall_mounts`' analogue for a body bolted DOWN onto the slab rather than hung on the
     flank. One `(carry, holes, face_z, bore_d)` per body: the placement, the body's own hole
-    pattern, the height in that body's own frame of the face a screw's washer lands on, and the
-    bore each post rises through. A body standing on the floor has that face at the TOP of
-    whatever the hole passes through, not at its own Z = 0 — the post rises through the hole to
-    it, which is what locates the body as well as fastens it.
+    pattern, the height in that body's own frame of its grommet's crown, and the bore each post
+    rises through. A body standing on the floor has that crown at the TOP of whatever the hole
+    passes through, not at its own Z = 0 — the post rises through the hole to it, which is what
+    locates the body as well as fastens it.
 
     THE POST'S SECTION IS THE DONOR'S, struck off that bore less one `FLOOR_BOSS_SLIP` on the
     radius, so a body whose holes are measured again moves its own posts with it and no
-    diameter for them is typed anywhere."""
+    diameter for them is typed anywhere. ITS CROWN IS THE DONOR'S LESS THE SQUEEZE: the post
+    stops the washer one `FLOOR_GROMMET_SQUEEZE` under the grommet's own crown, which is the
+    preload the flange carries."""
     out = []
     for carry, holes, face_z, bore_d in mounted:
         for hx, hy in holes:
             pos, _axis = carry(((hx, hy, face_z), (0.0, 0.0, 1.0)))
-            out.append((pos[0], pos[1], pos[2], bore_d - 2.0 * FLOOR_BOSS_SLIP))
+            out.append((pos[0], pos[1], pos[2] - FLOOR_GROMMET_SQUEEZE,
+                        bore_d - 2.0 * FLOOR_BOSS_SLIP))
     return tuple(out)
 
 
