@@ -185,13 +185,22 @@ def main():
 
     print(f"building the machine once for {len(scenes)} scene(s)…")
     import enclosure_assembly as ea
-    assembly = ea.build_enclosure_assembly()
+    draw_all(scenes, ea.build_enclosure_assembly())
 
+
+def draw_all(scenes, assembly) -> list:
+    """Every scene in `scenes`, off a machine somebody already stood.
+
+    The assembly's own run has one in hand when it writes the STEP, so the pictures cost the
+    cuts and the renders rather than a second appliance."""
+    out = []
     for scene in scenes:
         names = _scenes.members(scene, assembly)
         print(f"\n{scene.id} — {scene.title}: {len(names)} bodies")
         print("   " + ", ".join(names))
-        print(f"-> {draw(scene, assembly).relative_to(_ROOT)}")
+        out.append(draw(scene, assembly))
+        print(f"-> {out[-1].relative_to(_ROOT)}")
+    return out
 
 
 if __name__ == "__main__":

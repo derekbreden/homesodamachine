@@ -79,16 +79,30 @@ def _plain(v):
     raise TypeError(f"{type(v).__name__} has no plain form — teach `_plain` about it")
 
 
-def gather():
-    """Every fact this file adds, off ONE build of the machine."""
+def gather(whole=None, module=None):
+    """Every fact this file adds, off ONE build of the machine.
+
+    `whole` is a machine somebody already stood. The assembly's own run has one in hand when
+    it writes the STEP and the card, and handing it here is the difference between a chain
+    that derives the appliance twice and one that derives it once."""
     import _boxes
     import _clearing
-    import enclosure_assembly as ea
     import enclosure as _enc
     import _realized
 
-    a, p, box = ea.machine()
-    whole = ea.build_enclosure_assembly()
+    # THE CALLER'S OWN MODULE, when it has one. `_manifold` answers off `_ROUTED`, a module set
+    # that fills as runs are authored — so a SECOND copy of `enclosure_assembly`, which is what
+    # `import` hands back while the first is running as `__main__`, has never authored a run and
+    # calls every tube part of the pack. Same names, different machine.
+    if module is None:
+        import enclosure_assembly as module
+    ea = module
+
+    # ONE DERIVATION. `build_enclosure_assembly` calls `machine` itself and hangs the box it
+    # sized on what it hands back, so asking for both stands the appliance twice.
+    whole = whole if whole is not None else ea.build_enclosure_assembly()
+    a, box = whole, whole.box
+    p = whole.pack
     solids = {n: s for n, (s, _c) in ea._solids(whole).items()}
 
     # AT THE PRECISION THE DRAWING HAD. The card rounds a length for reading, and a document
@@ -213,7 +227,7 @@ def gather():
         "strap_loops": strap_loops,
         "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
         "pack": {
-            "placed": sorted(p.placed),
+            "placed": sorted(whole.pack.placed),
             "body_anchors": _plain(getattr(a, "body_anchors", ())),
             "tube_anchors": _plain(getattr(a, "tube_anchors", ())),
         },
@@ -230,10 +244,10 @@ def gather():
     }
 
 
-def write(facts=None) -> Path:
+def write(facts=None, whole=None, module=None) -> Path:
     from _cadq_export import _atomic_write
 
-    facts = facts if facts is not None else gather()
+    facts = facts if facts is not None else gather(whole, module)
     text = json.dumps(facts, indent=1, sort_keys=True) + "\n"
     _atomic_write(ARTIFACT, lambda p: Path(p).write_text(text))
     return ARTIFACT
