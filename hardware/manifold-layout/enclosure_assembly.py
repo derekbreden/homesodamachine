@@ -481,6 +481,29 @@ PACK_CROWN = 151.0
 COND_LIFT = _enc.cond_bore_depth
 
 
+def east_lane_free(cond) -> float:
+    """How far the block may go east off the plane the mating puts it on, read off the placed
+    body and the wall it is going toward.
+
+    THE WALL IS NOT THE LIMIT — its own furniture is. Every corner post, boss chain and Z-seam
+    pod on a ±X wall stands one `enclosure.side_rib_inset` in from that wall's inner face, over
+    the depths the seam puts one there, and this block's fore end reaches into the frontmost of
+    those bands. A rigid body answers to the tightest station under it, so the plane it may come
+    to is the chain's and not the wall's."""
+    return (_enc.interior_x()[1] - _enc.side_rib_inset) - box(cond).xmax
+
+
+def slide_east(solid, carry, dx: float):
+    """The block and its carry, moved `dx` east. A station rides it, the way it rides a seat."""
+    moved = solid.translate(cq.Vector(dx, 0.0, 0.0))
+
+    def carried(station):
+        (px, py, pz), axis = carry(station)
+        return ((px + dx, py, pz), axis)
+
+    return moved, carried
+
+
 def build_condenser(comp):
     """The block turned a quarter about Z, which brings the WEST face the mating names round
     onto the compressor's own tangent, and stood off the same floor on its own mount.
@@ -3933,6 +3956,11 @@ def build_pack() -> cq.Assembly:
     ((comp, comp_carry),
      (cond, cond_carry)) = place_base([seated_comp, build_condenser(seated_comp[0])],
                                       names=("compressor", "condenser+fan"))
+    # AND THEN THE BLOCK ALONE GOES EAST. The mating above is what PLACES it — the pair is
+    # struck on the can's tangent and centred as one, which is what sites the compressor — and
+    # this is the slide off that plane into the lane the +X wall leaves free. It is the last
+    # move on this body, so the seat's own row still reads the pair the rule was struck on.
+    cond, cond_carry = slide_east(cond, cond_carry, east_lane_free(cond))
     a.add(comp, name="compressor", color=C_COMP)
     a.add(cond, name="condenser+fan", color=C_COND)
     # The gas sensor goes down with the bodies it watches, off the compressor's own plate: it

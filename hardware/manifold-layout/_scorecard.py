@@ -542,9 +542,6 @@ TERMINI = ("asse1022-assembly.vent-tip",)
 # SEATS against each other, each named against the construction that seats it — a contact by
 # intent, not a pack closing on itself.
 TOUCHING_OK = {frozenset(p) for p in (
-    # The base's own two bodies, on the seam `enclosure_assembly.report` prints as a mate at 0 by
-    # intent.
-    ("compressor", "condenser+fan"),
     # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "seaflo-pump"),
     ("foam-assembly", "psu"),
