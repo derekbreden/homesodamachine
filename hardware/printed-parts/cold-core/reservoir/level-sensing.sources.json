@@ -21,7 +21,7 @@
     "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "66951ae3ef9dbd7f32fe3c9c23c7e107",
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "01f5a32eb4c40ea562a72e8fed9cc2f4",
     "hardware/printed-parts/cold-core/reservoir/reservoir.py": "fec5b4adf86284e3ee7a58f9a738c258",
-    "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
+    "hardware/scripts/_boxes.py": "19523d831d06655ce7253e61c61b3460",
     "hardware/scripts/_cadq_export.py": "5c817e74ab20ffe8f90cc41e2d1ce43f",
     "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
     "hardware/scripts/_meshes.py": "43ef8b02d59e8970d0d18d10c12557a2",
