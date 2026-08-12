@@ -524,9 +524,9 @@ z_lip_y_margin = 2.0
 #                 four-boss `valve_seat` per valve (`valve_panel`), and it is this piece's own
 #                 material the way the trough and the saddles are
 #   pump_trays    the flavour manifold's two pumps, one world `centre` each — the point a pump's
-#                 own axis meets the +Z face of its head, which is the face its tray lies on. A
-#                 tray is a plate with that pump's own boss cut through it (`pump_tray`), run
-#                 from the axis to the front wall, and it is this piece's material like a panel
+#                 own axis meets the +Z face of its head, which is `pump_case`'s own base plane.
+#                 A tray is that case with its cylinder cut off (`pump_tray`), run from the axis
+#                 to the front wall, and it is this piece's own material like a panel
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
@@ -2598,20 +2598,22 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
 
 # --- the flavour manifold's pump trays --------------------------------------
 #
-# A TRAY IS A PLATE WITH THE PUMP'S OWN BOSS CUT THROUGH IT. `pump_tray` states its depth, its
-# margin and the band its strap's two channels stand in, and draws one in the pump's own frame;
-# this roots that on the front wall and fuses it into the piece, the way `_valve_panels` fuses a
-# plate and `_digiten_saddles` the meter's two Vs.
+# A TRAY IS THE PUMP CASE WITH ITS CYLINDER CUT OFF — `pump_case`'s base plate, its ramp, its
+# octagon bore wall and one shoulder of its tower, so it wraps the head's crown AND the boss's.
+# `pump_tray` states what that cut adds and draws one in the pump's own frame; this roots it on
+# the front wall and fuses it into the piece, the way `_valve_panels` fuses a plate and
+# `_digiten_saddles` the meter's two Vs.
 #
-# THE STRAP IS WHAT HOLDS A PUMP UP. It hangs under its tray, so one closes round the head and
-# the plate together through those two channels — the meter's bargain, on the heaviest body
+# THE STRAP IS WHAT HOLDS A PUMP UP. It hangs under its tray, so one closes round the pump and
+# the tray together through the plate's two channels — the meter's bargain, on the heaviest body
 # either wall carries.
 def _pump_trays(solid, inner, stations, y0, y1, z0, z1):
-    """Every pump tray whose plate falls in the depth and height band this piece owns.
+    """Every pump tray whose whole run falls in the depth and height band this piece owns.
 
-    Each station is the world point a pump's axis meets the +Z face of its head. The pumps stand
-    their cans on +Z and their trays run to the FRONT wall, so a plate reaches from that point
-    to `inner[2]` and `pump_tray`'s own frame lands on it with no turn in it."""
+    Each station is the world point a pump's axis meets the +Z face of its head, which is
+    `pump_case`'s own base plane. The pumps stand their cans on +Z and their trays run to the
+    FRONT wall, so a tray reaches from that point to `inner[2]` and `pump_tray`'s own frame lands
+    on it with no turn in it."""
     for cx, cy, cz in stations:
         root = cy - inner[2]
         if not (y0 <= inner[2] and cy + _tray.far_reach() <= y1

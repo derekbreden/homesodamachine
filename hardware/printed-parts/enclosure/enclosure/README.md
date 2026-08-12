@@ -424,17 +424,24 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 ## Pump trays
 
 The front wall carries one per Kamoer (`_pump_trays`, off
-`enclosure_assembly.pump_tray_stations`): a plate bored for the motor can with an
-**octagonal socket under it for the head's rear boss**, running from the pump's own
-axis out to the wall's interior face. Both the bore and the socket are the two-piece
-pump case's — `pump_case.cylinder_id` for the can, `pump_case.bore_profile` with its
-ledges for the boss — so a tray takes the same section that case was fitted on.
-`printed-parts/enclosure/pump-tray/` owns the figures.
+`enclosure_assembly.pump_tray_stations`), and it is **the two-piece pump case with its
+cylinder cut off**. `printed-parts/flavor/pump-case/` draws that case; its base is a
+plate on the head's crown, a 45° ramp off the plate, an octagon bore wall standing in
+the ramp, and a cylindrical tower over the bore. Cut the tower off above the bore and
+cut down to one shoulder over it, and the four surfaces that were fitted on the part
+are the four that hold it. `printed-parts/enclosure/pump-tray/` owns what the cut adds.
 
-**The socket is the whole of the location.** It stands the boss's own depth, so a pump
-is held in X, in Y and in yaw by the octagon alone; nothing about where a pump sits is
-a number this wall chose. The plate lands on the boss's crown and the socket's rim on
-the head's face, which are planes — a tray and the pump it takes share no volume.
+**It wraps two storeys of the pump, and that is why it is a case and not a plate.** The
+base plate lands on the head's own crown and wraps its top edge; the bore wall takes
+the boss on each of its eight faces and both its ledges, over the boss's whole depth;
+and the shoulder the cut tower leaves lands on the boss's crown and wraps that edge
+too. No plate reaches both — they stand a bore's depth apart. The can rises out of the
+tower's own bore and the tray never touches it.
+
+**The bore is the whole of the location.** A pump is held in X, in Y and in yaw by the
+octagon alone; nothing about where one sits is a number this wall chose. Plate on the
+head's crown, shoulder on the boss's, bore on the boss's flanks — each a plane or a
+shared wall, so a tray and the pump it takes share no volume.
 
 **The strap is the load path**, the meter's bargain again and on the heaviest body
 either wall carries: a pump hangs UNDER its tray, so the plate on its own holds
@@ -443,17 +450,17 @@ plate's two channels, past the socket and down both flanks of the head, and acro
 head's front face.
 
 **The band those two channels stand in is what the can leaves of the head.** They sit
-outside the head, so the run between them crosses the plate's own face: inboard of the
-can's radius that run lies against the can, and outboard of the head's half-square its
-legs come down off the end of the head and wrap nothing. Unlike every other cavity on
-this box the channels are **cut**, because a tray is a plate and not a rib — there is no
-pair of end walls here for a channel to be the gap between.
+outside the head, so the run between them crosses the shoulder's own face: inboard of
+the can's radius that run lies against the can, and outboard of the head's half-square
+its legs come down off the end of the head and wrap nothing. Unlike every other cavity
+on this box the channels are **cut**, because there is no pair of end walls in a plate
+for a channel to be the gap between.
 
-Printed ceiling-down the plate goes on the bed first and the socket's octagon walls
-grow off its underside, so there is no overhang in the socket at all. The plate itself
-is a horizontal soffit over the lane its pump hangs in and takes print support, the way
-the tap-water trough's block does. `enclosure_assembly.check_trays_hold` reads each
-pump against the plate on it.
+Printed ceiling-down the plate goes on the bed first and everything over it — ramp,
+bore wall, shoulder — grows off its underside, so the only face that hangs is the
+plate's own. It is a soffit over the lane its pump hangs in and takes print support,
+the way the tap-water trough's block does.
+`enclosure_assembly.check_trays_hold` reads each pump against the tray on it.
 
 ## Display housing
 
