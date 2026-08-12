@@ -25,23 +25,24 @@ The home soda machine's physical design — the integrated under-counter applian
 
 ## What a build costs
 
-Wall clock on the owner's machine at `081a1bee` — warm caches, no other build running, one
-run each unless a range is given.
+Wall clock on the owner's machine at `c813264b` — warm caches, no other build running, one
+run each.
 
 `enclosure_assembly.py` has two costs. The stamp beside the STEP decides which one a run
 pays: a run whose STEP hashes to what the stamp holds draws no elevations, and a run that
-moved the STEP draws three and a thumbnail.
+moved the STEP draws three, a thumbnail, and any scene whose sources moved with it.
 
 | `enclosure_assembly.py` | wall |
 |---|---|
-| STEP unchanged | 47 s |
-| STEP moved | 67 s — taken on the run that renumbered the whole file, so it is a ceiling |
+| STEP unchanged, scenes current | 28 s |
+| STEP moved, four scenes redrawn | 81 s |
 
 Inside one run:
 
 | phase | wall |
 |---|---|
-| derive + audit — `build_enclosure_assembly`, then the card | 20.1 s |
+| derive + audit — `build_enclosure_assembly`, then the card | 8.7 s |
+| — of which `_boxes.boxed`, 1372 calls against the disk-kept six | 0.55 s |
 | OCCT STEP write, 21 MB | 1.3 s |
 | canonicalise — renumber 382,700 entities | 3.7 s |
 | tessellate the `.mesh` payload | 1.6 s |
@@ -49,26 +50,23 @@ Inside one run:
 | one thumbnail, drawn off the payload | 3 s |
 | one thumbnail, drawn off the STEP with no payload beside it | 16 s |
 
-Every generator that stands the whole machine, plus the instruments' selftests:
+The export and render rows are timed at `081a1bee`; the two derive rows at `c813264b`.
+
+What a chain of eighteen came to, each generator in it:
 
 | | wall | | wall |
 |---|---|---|---|
-| `_enclosure_mechanical_sync.py` | 41–42 s | `_bom_sync.py` | 18–20 s |
-| `render_scenes.py`, four scenes | 39–44 s | `_appliance_model.py` | 19 s |
-| `enclosure.py` | 29–30 s | `_cards_sync.py` | 19–22 s |
-| `lanes.py selftest` | 24 s | `_internal_plumbing_sync.py` | 15 s |
-| `probe.py selftest` | 22 s | `valve_panel.py` | 15 s |
-| `_enclosure_dimensions.py` | 20–21 s | `_back_panel_dimensions.py` | 14 s |
-| `_fluid_topology_sync.py` | 19–20 s | `cold_core_assembly.py` | 12–14 s |
-| `manifold_layout.py` | 12 s | `_scorecard.py selftest` | 2 s |
+| `enclosure.py` | 26 s | `manifold_layout.py` | 10 s |
+| `cold_core_assembly.py` | 19 s | `reservoir.py` | 5 s |
+| `pump_tray.py` | 10 s | `foam_shell.py` | 5 s |
+| `valve_panel.py` | 4 s | `_enclosure_mechanical_sync.py` | 4 s |
+| `_fluid_topology_sync.py` | 3 s | every other doc sync | 2 s |
 
-The benchtop syncs that stand no machine — `_acceptance_and_burn_in_sync.py`,
-`_cold_core_sync.py`, `_electronics_shelf_sync.py`, `_firmware_and_commissioning_sync.py`,
-`_handwork_sync.py`, `_pressure_vessel_sync.py`, `port_ring.py`, `valve_seat.py` — are 1–2 s
-each, and `_lines.py selftest` is 1 s.
+The doc syncs read `enclosure-assembly.facts.json` and stand no machine, so they are 2–4 s
+whether or not they name a figure the pack decides.
 
-Twenty generators end to end, which is what a commit touching a widely-imported module owes:
-**268–282 s**.
+Eighteen generators end to end, which is what a commit touching a widely-imported module
+owes: **106 s**.
 
 ## Part metadata sidecars
 
