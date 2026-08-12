@@ -27,6 +27,7 @@ and says which scenes have moved since they were drawn, reading no geometry at a
 """
 
 import hashlib
+import json
 import sys
 from collections import namedtuple
 from pathlib import Path
@@ -279,6 +280,24 @@ def hash_of(rel: str) -> str | None:
 
 def sidecar_path(png: Path) -> Path:
     return png.with_suffix(png.suffix + ".scene.json")
+
+
+def digest_of(path: Path) -> str | None:
+    """The hash of a file's bytes, or None when it is not there."""
+    try:
+        h = hashlib.blake2b(digest_size=16)
+        h.update(Path(path).read_bytes())
+        return h.hexdigest()
+    except OSError:
+        return None
+
+
+def held_record(png: Path) -> dict:
+    """What the last render wrote beside `png`, or an empty record."""
+    try:
+        return json.loads(sidecar_path(png).read_text())
+    except (OSError, ValueError):
+        return {}
 
 
 # --- the picture itself ----------------------------------------------------

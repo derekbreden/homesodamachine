@@ -137,27 +137,44 @@ def draw(scene, assembly) -> Path:
                           tolerance=GLB_TOL, angularTolerance=GLB_TOL)
 
     png = png_for(scene)
-    rel = step.relative_to(_HW).as_posix()          # the renderer takes a content-root path
-    cmd = [
-        "node", str(RENDERER), rel, str(png),
-        "--cam", ",".join(str(v) for v in scene.cam),
-        "--target", ",".join(f"{v:.3f}" for v in target),
-        "--up", ",".join(str(v) for v in scene.up),
-        "--zoom", str(scene.zoom),
-        "--size", SIZE,
-        # Trimmed to the subject. A box seen at an angle projects to a parallelogram and leaves
-        # a corner of any rectangle empty; the card wants the picture, not the corner.
-        "--trim",
-    ]
-    print("   " + " ".join(cmd[1:]))
-    subprocess.run(cmd, cwd=str(_ROOT), check=True)
+
+    # WHAT THE PICTURE IS OF IS THIS FILE. The scene's STEP is the exact geometry the renderer is
+    # handed, and the scene's own tuple is the camera it is handed with — so two runs agreeing on
+    # both would hand the browser the same job. A source moving is what makes a scene worth
+    # doubting; these two are what answer the doubt, and most edits in this tree move neither.
+    geometry = _scenes.digest_of(step)
+    held = _scenes.held_record(png)
+    unchanged = (held.get("geometry") == geometry
+                 and held.get("scene") == _scenes.scene_digest(scene)
+                 and png.is_file()
+                 and held.get("image") == _scenes.image_fingerprint(png))
+
+    if unchanged:
+        print(f"   (geometry unchanged — {png.name} stands)")
+    else:
+        rel = step.relative_to(_HW).as_posix()      # the renderer takes a content-root path
+        cmd = [
+            "node", str(RENDERER), rel, str(png),
+            "--cam", ",".join(str(v) for v in scene.cam),
+            "--target", ",".join(f"{v:.3f}" for v in target),
+            "--up", ",".join(str(v) for v in scene.up),
+            "--zoom", str(scene.zoom),
+            "--size", SIZE,
+            # Trimmed to the subject. A box seen at an angle projects to a parallelogram and
+            # leaves a corner of any rectangle empty; the card wants the picture, not the corner.
+            "--trim",
+        ]
+        print("   " + " ".join(cmd[1:]))
+        subprocess.run(cmd, cwd=str(_ROOT), check=True)
 
     # What drew it, so `check_scenes` can doubt the picture without importing anything: the
     # scene's own tuple hashed, and every repo file the build reads, walked from in here where
-    # the graph is complete and free. Beside those, the picture that came out and the bodies that
-    # went into it — the machine's answer at the moment of the render, which the check reads back.
+    # the graph is complete and free. Beside those, the geometry it was drawn of, the picture
+    # that came out, and the bodies that went into it — the machine's answer at the moment of
+    # the render, which the check reads back.
     _scenes.sidecar_path(png).write_text(json.dumps({
         "scene": _scenes.scene_digest(scene),
+        "geometry": geometry,
         "sources": _scenes.source_map(),
         "drawn": sorted(c.name for c in scene_assembly.children),
         "image": _scenes.image_fingerprint(png),
