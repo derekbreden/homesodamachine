@@ -142,7 +142,7 @@ rod_tack_fillet = 1.5   # the tack bead the donut lands on at the rod base
 magnet_lowest_z = interior_floor_z + rod_tack_fillet + float_height / 2
 magnet_highest_z = interior_ceiling_z - float_height / 2
 
-# [3 mm](MAGNET_WALL_BIAS) — how far the plate's register parks the rod PAST
+# [3 mm](REGISTER_WALL_BIAS) — how far the plate's register parks the rod PAST
 # the bore wall. The donut is loose on the rod, so the wall takes the bias up
 # and that is what holds the magnet-to-wall gap at zero for the whole travel —
 # the reed is outside the vessel and reads through it.
@@ -397,7 +397,7 @@ def main():
         "STORED_SERVINGS": f"{stored_ml / carbonated_water_per_serving:.3g}",
         "MAGNET_LOWEST": f"{magnet_lowest_z:.4g} mm",
         "MAGNET_HIGHEST": f"{magnet_highest_z:.4g} mm",
-        "MAGNET_WALL_BIAS": f"{donut_wall_bias:.3g} mm",
+        "REGISTER_WALL_BIAS": f"{donut_wall_bias:.3g} mm",
         "DONUT_OD": f"{donut_od * 25.4:.4g} mm",
         "REED_GLASS_L": f"{reed_glass_length:.4g} mm",
         "REED_GLASS_D": f"{reed_glass_diameter:.4g} mm",
@@ -447,7 +447,7 @@ def main():
             "STORED_SERVINGS": 1,
             "MAGNET_LOWEST": 1,
             "MAGNET_HIGHEST": 1,
-            "MAGNET_WALL_BIAS": 1,
+            "REGISTER_WALL_BIAS": 1,
             "REED_GLASS_L": 1,
             "REED_GLASS_D": 1,
             "POCKET_DEPTH": 2,
@@ -502,7 +502,7 @@ def main():
             "LOW_LEVEL": 1,
             "MAGNET_LOWEST": 1,
             "MAGNET_HIGHEST": 1,
-            "MAGNET_WALL_BIAS": 1,
+            "REGISTER_WALL_BIAS": 1,
             "REED_GLASS_L": 2,
             "REED_GLASS_D": 1,
             "POCKET_DEPTH": 1,
