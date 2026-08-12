@@ -487,11 +487,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The base's own two bodies, on the seam `enclosure_assembly.report` prints as a mate at 0 by
     # intent.
     ("compressor", "condenser+fan"),
-    # The cold core's front face stands on the base's aft face: `enclosure_assembly.build_pack`
-    # strikes `aft` off the bodies that reach below the core's crown, and `build_foam` seats it
-    # there.
-    ("compressor", "foam-assembly"),
-    ("condenser+fan", "foam-assembly"),
     # What stands on the core's cap — `build_seaflo` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "seaflo-pump"),
     ("foam-assembly", "psu"),
