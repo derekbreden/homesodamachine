@@ -159,9 +159,9 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, the condenser's aft face
 to the cold core's front wall, and the crown of the pair to this pack's spine hairpins. The
-compressor does not reach that wall — the condenser is the deeper of the two and both are struck
-on the same centre before the pair is yawed, so the compressor's plate stands inset from it by
-half the difference at each end.
+compressor does not reach that wall — the condenser stands one `SUCTION_LANE` aft of it, so the
+condenser's aft face alone lands on the plane the core butts and the lane behind the can is what
+its suction leg is drawn in.
 
 The gaps are 0 by intent, and the refrigerant loop is what they are for. The compressor is an
 oblong can whose stubs stand on its own tangent lines, the condenser is an envelope whose headers are

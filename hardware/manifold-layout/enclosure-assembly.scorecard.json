@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -111.5,
-    -6.0,
+    -12.79,
     -3.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     223.0,
-    486.25,
+    493.04,
     358.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -111.5,
-    -6.0,
+    -12.79,
     -3.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     223.0,
-    499.891,
+    506.681,
     361.0
    ]
   }
@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 76,
+ "mounted": 78,
  "checks": [
   {
    "id": "coverage",
@@ -117,7 +117,6 @@
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -133,6 +132,7 @@
     "bulkhead-flavor-b \u2014 port-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 port-ring-flavor-a: 0.000 mm \u2014 seated against it",
     "bulkhead-carb \u2014 port-ring-carb: 0.000 mm \u2014 seated against it",
+    "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.002 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
@@ -191,9 +191,7 @@
     "fluid-24 \u2014 coil-v-b: 5.851 mm",
     "relay-2 \u2014 relay-1: 5.860 mm",
     "water-3 \u2014 tee-y-a: 5.878 mm",
-    "water-3 \u2014 tee-y-b: 5.878 mm",
-    "coil-v-b \u2014 hopper-funnel: 5.979 mm",
-    "coil-v-a \u2014 hopper-funnel: 5.981 mm"
+    "water-3 \u2014 tee-y-b: 5.878 mm"
    ],
    "active": true
   },
@@ -796,7 +794,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "11.141 mm to the basin",
+   "value": "11.174 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -848,10 +846,27 @@
    "value": "4/4 posts standing",
    "target": "a printed post at every hole the donor presents",
    "detail": [
-    "x  -61.500  y   23.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x  -61.500  y  154.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x    5.500  y   23.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x    5.500  y  154.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
+    "x  -61.500  y   14.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x  -61.500  y  145.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x    5.500  y   14.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x    5.500  y  145.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
+   ],
+   "active": true
+  },
+  {
+   "id": "cond-mount-lands",
+   "label": "The condenser block's four flanges all have printed material to land on",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 standing",
+   "target": "a groove at each fore flange and a bored boss under each aft one",
+   "detail": [
+    "fore flange at z  14.000, under its groove   standing   (100.0% of the probe)",
+    "fore flange at z  14.000, over its groove    standing   (100.0% of the probe)",
+    "fore flange at z 150.600, under its groove   standing   (100.0% of the probe)",
+    "fore flange at z 150.600, over its groove    standing   (100.0% of the probe)",
+    "aft boss under the hole at z  14.000         standing   (67.3% of the probe)",
+    "aft boss under the hole at z 150.600         standing   (67.3% of the probe)"
    ],
    "active": true
   },
@@ -980,8 +995,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 79.56",
-   "target": "aft of 81.56",
+   "value": "seam at 200.00, housing back plane at 72.77",
+   "target": "aft of 74.77",
    "detail": [],
    "active": true
   },
@@ -990,8 +1005,8 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 85.56..244.56",
-   "target": "frame x -93.50..93.50, y 85.56..469.00",
+   "value": "collar x -79.50..79.50, y 78.77..237.77",
+   "target": "frame x -93.50..93.50, y 78.77..469.00",
    "detail": [],
    "active": true
   },
@@ -1010,7 +1025,7 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 14.00, +X 14.00, +Y 224.44 mm",
+   "value": "\u2212X 14.00, +X 14.00, +Y 231.23 mm",
    "target": "each at least brim_margin 10.00 mm",
    "detail": [],
    "active": true
@@ -1044,10 +1059,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "48/63 mounted, 14 part of another body, 2 nothing fastens",
+   "value": "49/63 mounted, 14 part of another body, 2 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "condenser+fan: floor",
     "display: wall-capture",
     "flow-regulator: tube-hung",
     "foam-assembly: floor",
@@ -1410,7 +1424,7 @@
    "kind": "fluid",
    "pos": [
     -28.0,
-    161.5,
+    152.5,
     60.0
    ],
    "face": [
@@ -1752,7 +1766,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    165.06,
+    158.27,
     304.378
    ],
    "face": [
@@ -2393,10 +2407,10 @@
    "boxes": [
     [
      -86.5,
-     78.56,
+     71.77,
      304.378,
      86.5,
-     251.56,
+     244.77,
      358.0
     ]
    ],
@@ -2473,18 +2487,18 @@
    "boxes": [
     [
      -52.5,
-     -0.343,
+     -7.133,
      287.118,
      53.5,
-     60.468,
+     53.678,
      347.929
     ],
     [
      -56.75,
-     -3.172,
+     -9.962,
      297.017,
      56.75,
-     51.983,
+     45.193,
      352.172
     ]
    ],
@@ -2497,10 +2511,10 @@
    "boxes": [
     [
      -37.0,
-     2.3,
+     -6.7,
      15.0,
      -19.0,
-     31.0,
+     22.0,
      61.5
     ]
    ],
@@ -2689,10 +2703,10 @@
    "boxes": [
     [
      -53.4,
-     2.21,
+     -6.79,
      88.885,
      -16.885,
-     30.79,
+     21.79,
      144.45
     ]
    ],
@@ -3145,10 +3159,10 @@
    "boxes": [
     [
      -36.5,
-     4.8,
+     -4.2,
      50.4,
      -19.5,
-     9.0,
+     0.0,
      54.6
     ]
    ],
@@ -3241,18 +3255,18 @@
    "boxes": [
     [
      -83.0,
-     9.0,
+     0.0,
      0.0,
      27.0,
-     169.0,
+     160.0,
      135.0
     ],
     [
      -50.5,
-     9.0,
+     0.0,
      30.0,
      -5.5,
-     36.5,
+     27.5,
      75.0
     ]
    ],
@@ -3289,6 +3303,22 @@
     ]
    ],
    "fill": 0.7144,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "condenser+fan",
+   "boxes": [
+    [
+     27.0,
+     24.0,
+     14.0,
+     83.0,
+     178.0,
+     151.0
+    ]
+   ],
+   "fill": 0.7418,
    "primitive": false,
    "declared": null
   },
@@ -3377,22 +3407,6 @@
     ]
    ],
    "fill": 0.9611,
-   "primitive": false,
-   "declared": null
-  },
-  {
-   "component": "condenser+fan",
-   "boxes": [
-    [
-     27.0,
-     0.0,
-     0.0,
-     83.0,
-     178.0,
-     151.0
-    ]
-   ],
-   "fill": 0.9681,
    "primitive": false,
    "declared": null
   },
@@ -3901,7 +3915,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 153.63,
+   "length": 160.42,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3916,7 +3930,7 @@
      "grade": "B",
      "legs": [
       14.59,
-      102.07
+      108.86
      ]
     },
     {
@@ -3926,7 +3940,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      102.07,
+      108.86,
       30.95
      ]
     },
@@ -3968,7 +3982,7 @@
     "ends": [
      [
       1.21,
-      165.06,
+      158.27,
       304.38
      ],
      [
@@ -3979,12 +3993,12 @@
     ],
     "axis": {
      "x": 21.28,
-     "y": 78.02,
+     "y": 84.81,
      "z": 37.06
     },
-    "span": 88.96,
-    "path": 153.63,
-    "detour": 1.727
+    "span": 94.97,
+    "path": 160.42,
+    "detour": 1.689
    }
   },
   {
@@ -4300,88 +4314,6 @@
    }
   },
   {
-   "id": "refrig-3",
-   "kind": "refrigerant",
-   "frm": "compressor.refrig-suction",
-   "to": "foam-assembly.evap-outlet",
-   "stock": "1/4\" soft ACR copper",
-   "od": 6.35,
-   "length": 67.67,
-   "radius": 12.7,
-   "cap": 12.7,
-   "minBend": 12.7,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 114.7,
-     "radius": 12.7,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      20.0,
-      56.15
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 114.7,
-     "radius": 12.7,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      56.15,
-      20.0
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 114.7,
-   "seat": 12.805,
-   "reach": 17.974,
-   "reachRatio": 1.4153,
-   "reachGrade": "B",
-   "binding": {
-    "leg": 1,
-    "length": 56.148,
-    "demand": 3.1239,
-    "from": [
-     -28.0,
-     181.5,
-     60.0
-    ],
-    "to": [
-     -77.5,
-     158.0,
-     47.75
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -28.0,
-      161.5,
-      60.0
-     ],
-     [
-      -77.5,
-      178.0,
-      47.75
-     ]
-    ],
-    "axis": {
-     "x": 49.5,
-     "y": 16.5,
-     "z": 12.25
-    },
-    "span": 53.6,
-    "path": 67.67,
-    "detour": 1.263
-   }
-  },
-  {
    "id": "water-7",
    "kind": "water",
    "frm": "seaflo-pump.suction",
@@ -4461,6 +4393,88 @@
     "span": 48.09,
     "path": 59.78,
     "detour": 1.243
+   }
+  },
+  {
+   "id": "refrig-3",
+   "kind": "refrigerant",
+   "frm": "compressor.refrig-suction",
+   "to": "foam-assembly.evap-outlet",
+   "stock": "1/4\" soft ACR copper",
+   "od": 6.35,
+   "length": 72.69,
+   "radius": 12.7,
+   "cap": 12.7,
+   "minBend": 12.7,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 105.9,
+     "radius": 12.7,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.0,
+      53.01
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 105.9,
+     "radius": 12.7,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      53.01,
+      20.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 105.9,
+   "seat": 15.106,
+   "reach": 20.021,
+   "reachRatio": 1.5764,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 53.015,
+    "demand": 2.648,
+    "from": [
+     -28.0,
+     172.5,
+     60.0
+    ],
+    "to": [
+     -77.5,
+     158.0,
+     47.75
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -28.0,
+      152.5,
+      60.0
+     ],
+     [
+      -77.5,
+      178.0,
+      47.75
+     ]
+    ],
+    "axis": {
+     "x": 49.5,
+     "y": 25.5,
+     "z": 12.25
+    },
+    "span": 57.01,
+    "path": 72.69,
+    "detour": 1.275
    }
   },
   {
@@ -5608,8 +5622,8 @@
   },
   {
    "component": "condenser+fan",
-   "by": null,
-   "joint": "floor",
+   "by": "enclosure-front-bottom",
+   "joint": "bosses",
    "kind": "real",
    "rides": null,
    "never": null
@@ -6231,5 +6245,5 @@
    "never": null
   }
  ],
- "sources": "45a08964d4bb5a9d014227ef4d4ecc61"
+ "sources": "521cb9ab46e8a93778f03334b27c2171"
 }

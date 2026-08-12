@@ -11,13 +11,17 @@ Coordinate frame
   dimensions. `AIRFLOW` on X — the fan's own axis, the short one — `FACE_A` on Y and
   `FACE_B` on Z, the standing serpentine's two large faces. The fan is on the face its air
   leaves by.
-- The MOUNT is one vertical line through the body: a Ø5 hole in the base plate, a Ø5 hole
-  in the crown plate, and a 16 x 20 slot between them running the full standing height.
-  The slot OPENS ON THE AFT FACE rather than standing sealed inside the block — it eats
-  that face, so a driver reaches both holes from behind.
-  It stands 29 in from the INTAKE face and 15 in from the AFT face. The machine currently
-  sets the block down unturned (`enclosure_assembly.build_condenser`), so those two read as the
-  world's X− and Y+ faces at this pose.
+- BOTH Y FACES ARE A RECESS BETWEEN TWO FLANGES. The serpentine's end brackets are folded
+  sheet at the crown and the base, and between them each face stands `RECESS_Y` back: the
+  block's own width the whole way across, the standing height less a flange at either end.
+  So each face presents two flanges of `AIRFLOW` x `RECESS_Y` x `PLATE_T` with open air
+  between them, and the recess opens on THREE sides — its own face and both flanks.
+- The MOUNT is one vertical line through the AFT flanges: a Ø5 hole in the base one and a
+  Ø5 hole in the crown one, standing 29 in from the INTAKE face and 15 in from the AFT
+  face. THE FORE FLANGES CARRY NO HOLE — that end of the block is held by sliding into
+  something, and the mount is the two screws at this one.
+  The machine sets the block down unturned (`enclosure_assembly.build_condenser`), so those
+  two insets read off the world's X− and Y+ faces at this pose.
 - BOTH REFRIGERANT LEGS ARRIVE ON A FACE THE BLOCK PRESENTS TO ITS NEIGHBOUR, which is what
   a donor packed as an envelope is for: the serpentine's own headers are re-dressed to reach them.
   Hot gas enters the INTAKE face on the compressor's own discharge stub, a plane the two bodies
@@ -43,19 +47,22 @@ sys.path.insert(0, str(_hw / "scripts"))
 
 # --- Calipered off the donor ----------------------------------------------
 AIRFLOW = 56.0        # fan + finstack stack depth, along the flow
-FACE_A = 178.0        # the serpentine's long face
-FACE_B = 151.0        # the serpentine's standing face
+FACE_A = 154.0        # the serpentine's long face
+FACE_B = 137.0        # the serpentine's standing face
+
+# --- The two recesses -------------------------------------------------------
+# One on each Y face, and the same on both: the block's own width, `RECESS_Y` in from the
+# face, and the standing height less the sheet of a flange at either end.
+PLATE_T = 0.4         # the folded end brackets, and the sheet the two holes are drilled in
+RECESS_Y = 20.0       # how far each recess reaches IN from the face it opens on
+RECESS_Z = FACE_B - 2.0 * PLATE_T   # 136.2 — the standing height less a flange at each end
 
 # --- The mount --------------------------------------------------------------
-# Two holes, drilled in sheet — one at the base, one at the crown — on one shaft that runs
-# the block's whole standing height.
-PLATE_T = 0.4         # the sheet the two holes are drilled in, at base and at crown
+# Two holes, drilled in the AFT flanges — one at the base, one at the crown — on one line
+# that runs the block's whole standing height.
 MOUNT_D = 5.0         # the holes themselves
 MOUNT_IN_INTAKE = 29.0  # hole centre, in from the INTAKE face (x = 0)
 MOUNT_IN_AFT = 15.0     # hole centre, in from the AFT face (y = FACE_A)
-SHAFT_X = 16.0        # the slot between the two plates, on the AIRFLOW axis
-SHAFT_Y = 20.0        #   and how far it reaches IN from the AFT face, which it opens on
-SHAFT_Z = FACE_B - 2.0 * PLATE_T   # 150.2 — the standing height less a plate at each end
 
 
 def mount_xy() -> tuple:
@@ -63,17 +70,29 @@ def mount_xy() -> tuple:
     return (MOUNT_IN_INTAKE, FACE_A - MOUNT_IN_AFT)
 
 
+def recess_y() -> tuple:
+    """Each recess's own Y band, as `(fore, aft)` — the fore one first."""
+    return ((0.0, RECESS_Y), (FACE_A - RECESS_Y, FACE_A))
+
+
+def flange_z() -> tuple:
+    """A recess's two flanges in height, as `(base, crown)`. Both recesses read the same:
+    the sheet left standing at either end of the recess."""
+    return ((0.0, PLATE_T), (FACE_B - PLATE_T, FACE_B))
+
+
 def build():
     """The block as the pack carries it: one box, its own corner at the origin, less the
-    shaft that runs its full standing height and the hole drilled through the plate at
-    either end of that shaft."""
+    recess each Y face stands back to and the hole drilled through the flange at either end
+    of the aft one."""
     x, y = mount_xy()
     block = cq.Workplane("XY").box(AIRFLOW, FACE_A, FACE_B, centered=(False, False, False))
-    shaft = (cq.Workplane("XY", origin=(x, FACE_A - SHAFT_Y / 2.0, PLATE_T))
-             .rect(SHAFT_X, SHAFT_Y).extrude(SHAFT_Z))
+    for y0, y1 in recess_y():
+        block = block.cut(cq.Workplane("XY", origin=(0.0, y0, PLATE_T))
+                          .box(AIRFLOW, y1 - y0, RECESS_Z, centered=(False, False, False)))
     bore = cq.Solid.makeCylinder(MOUNT_D / 2.0, FACE_B,
                                  cq.Vector(x, y, 0.0), cq.Vector(0, 0, 1))
-    return block.cut(shaft).cut(bore).val()
+    return block.cut(bore).val()
 
 
 # --- The three penetrations, in the block's own frame -----------------------
@@ -90,15 +109,15 @@ def build():
 def stations() -> dict:
     """All three, under the names the loop knows them by."""
     return {
-        "refrig-inlet":  ((0.0, 99.0, 75.0), (-1.0, 0.0, 0.0)),
-        "refrig-outlet": ((50.5, FACE_A, 47.75), (0.0, 1.0, 0.0)),
+        "refrig-inlet":  ((0.0, 66.0, 61.0), (-1.0, 0.0, 0.0)),
+        "refrig-outlet": ((50.5, FACE_A, 33.75), (0.0, 1.0, 0.0)),
         "fan-power":     ((AIRFLOW, 30.0, FACE_B / 2.0), (1.0, 0.0, 0.0)),
     }
 
 
 def mounts() -> dict:
-    """Both mount points, shaped like `stations()`: one drilled DOWN through the base plate,
-    one UP through the crown plate, on the one shaft."""
+    """Both mount points, shaped like `stations()`: one drilled DOWN through the base flange,
+    one UP through the crown flange, on the one line."""
     x, y = mount_xy()
     return {
         "mount-base":  ((x, y, 0.0), (0.0, 0.0, -1.0)),
@@ -106,45 +125,58 @@ def mounts() -> dict:
     }
 
 
-def mounts_hold():
-    """Hold the mount to the block it is cut in: the shaft standing clear of all four sides,
-    both holes inside that shaft, the sheet at either end left at its own thickness, and
-    material or air where each of those puts it."""
+def mount_seats() -> dict:
+    """What a boss under each mount hole has to reach: the face the screw pulls that flange
+    down onto — the base flange's underside and the crown flange's underside.
+
+    BOTH LOOK UP, because both screws come down the one line the mount is, and each closes
+    on the face below the sheet it passes through."""
     x, y = mount_xy()
-    if not (0.0 < x - SHAFT_X / 2.0 and x + SHAFT_X / 2.0 < AIRFLOW):
+    return {
+        "mount-base":  ((x, y, 0.0), (0.0, 0.0, 1.0)),
+        "mount-crown": ((x, y, FACE_B - PLATE_T), (0.0, 0.0, 1.0)),
+    }
+
+
+def mounts_hold():
+    """Hold the mount to the block it is cut in: both holes standing clear of all four sides,
+    inside the aft recess's own depth, through sheet left at its own thickness, and material
+    or air where each of those puts it."""
+    x, y = mount_xy()
+    if not (MOUNT_D / 2.0 < x < AIRFLOW - MOUNT_D / 2.0):
         raise ValueError(
-            f"the slot reaches {x - SHAFT_X / 2.0:g}..{x + SHAFT_X / 2.0:g} on x and the "
-            f"block's own face runs 0..{AIRFLOW:g} — it has broken out of the block's flanks.")
-    if SHAFT_X / 2.0 - MOUNT_D / 2.0 <= 0.0:
+            f"the Ø{MOUNT_D:g} hole stands at x {x:g} and the block's own face runs "
+            f"0..{AIRFLOW:g} — it has broken out of the block's flanks.")
+    fore, aft = recess_y()
+    if not (aft[0] < y - MOUNT_D / 2.0 and y + MOUNT_D / 2.0 < aft[1]):
         raise ValueError(
-            f"the Ø{MOUNT_D:g} hole is {MOUNT_D / 2.0 - SHAFT_X / 2.0:g} wider than its own "
-            f"slot on x — the hole is cutting the slot's wall rather than the plate.")
-    # The slot OPENS ON THE AFT FACE — it is reached from behind, not sealed inside the block —
-    # so what holds on Y is that it reaches that face and that the hole falls inside its depth.
-    if not (FACE_A - SHAFT_Y < y < FACE_A):
+            f"the Ø{MOUNT_D:g} hole at y {y:g} runs past the aft recess's own "
+            f"{aft[0]:g}..{aft[1]:g} — it is cutting the flange's own root or its free edge, "
+            f"and a screw through it would find no sheet to pull on.")
+    if fore[1] > aft[0]:
         raise ValueError(
-            f"the mount hole stands at y {y:g} and the slot runs {FACE_A - SHAFT_Y:g}..{FACE_A:g} "
-            f"in from the aft face — the hole is not inside the slot it is drilled at the end of, "
-            f"so nothing reaches the fastener.")
-    if y + MOUNT_D / 2.0 > FACE_A or y - MOUNT_D / 2.0 < FACE_A - SHAFT_Y:
+            f"the two recesses reach {fore[1]:g} and {aft[0]:g} in from their own faces and "
+            f"meet — a {FACE_A:g} deep block cannot stand {RECESS_Y:g} back on both faces, so "
+            f"there is no serpentine left between them.")
+    if RECESS_Z + 2.0 * PLATE_T - FACE_B:
         raise ValueError(
-            f"the Ø{MOUNT_D:g} hole at y {y:g} runs past the slot's own "
-            f"{FACE_A - SHAFT_Y:g}..{FACE_A:g} — it is cutting the slot's end wall.")
-    if SHAFT_Z + 2.0 * PLATE_T - FACE_B:
-        raise ValueError(
-            f"shaft {SHAFT_Z:g} and two {PLATE_T:g} plates come to "
-            f"{SHAFT_Z + 2.0 * PLATE_T:g} against the block's own {FACE_B:g} standing height "
+            f"recess {RECESS_Z:g} and two {PLATE_T:g} flanges come to "
+            f"{RECESS_Z + 2.0 * PLATE_T:g} against the block's own {FACE_B:g} standing height "
             f"— the sheet at one end is not the thickness it is drilled at.")
     solid = build()
-    probes = [("base plate", (x + MOUNT_D, y, PLATE_T / 2.0), True),
-              ("crown plate", (x + MOUNT_D, y, FACE_B - PLATE_T / 2.0), True),
+    probes = [("base flange", (x + MOUNT_D, y, PLATE_T / 2.0), True),
+              ("crown flange", (x + MOUNT_D, y, FACE_B - PLATE_T / 2.0), True),
               ("base hole", (x, y, PLATE_T / 2.0), False),
               ("crown hole", (x, y, FACE_B - PLATE_T / 2.0), False),
-              ("shaft", (x, y, FACE_B / 2.0), False),
-              ("slot at the aft face", (x, FACE_A - 0.5, FACE_B / 2.0), False),
-              ("slot's inner end", (x, FACE_A - SHAFT_Y + 0.5, FACE_B / 2.0), False),
-              ("body ahead of the slot", (x, FACE_A - SHAFT_Y - 2.0, FACE_B / 2.0), True),
-              ("body beside the slot", (x + SHAFT_X, y, FACE_B / 2.0), True)]
+              ("aft recess", (x, y, FACE_B / 2.0), False),
+              ("aft recess at its own face", (x, FACE_A - 0.5, FACE_B / 2.0), False),
+              ("aft recess at the intake flank", (0.5, y, FACE_B / 2.0), False),
+              ("aft recess at the exhaust flank", (AIRFLOW - 0.5, y, FACE_B / 2.0), False),
+              ("aft recess's inner end", (x, aft[0] + 0.5, FACE_B / 2.0), False),
+              ("fore recess", (x, fore[1] - 0.5, FACE_B / 2.0), False),
+              ("fore base flange", (x, fore[1] - 0.5, PLATE_T / 2.0), True),
+              ("fore crown flange", (x, fore[1] - 0.5, FACE_B - PLATE_T / 2.0), True),
+              ("the serpentine between them", (x, FACE_A / 2.0, FACE_B / 2.0), True)]
     for name, (px, py, pz), want_material in probes:
         state = BRepClass3d_SolidClassifier(solid.wrapped, gp_Pnt(px, py, pz), 1e-3).State()
         if (state == 0) != want_material:
@@ -156,9 +188,12 @@ def mounts_hold():
 
 def stations_hold():
     """Hold every station to the box this module draws: on the FACE its own axis points out
-    of, and inside that face's own two edges."""
-    bb = build().BoundingBox()
-    span = {"x": (bb.xmin, bb.xmax), "y": (bb.ymin, bb.ymax), "z": (bb.zmin, bb.zmax)}
+    of, and inside that face's own two edges.
+
+    THE FACE AND NOT THE SOLID, because both Y faces are a recess now: the block's box reaches
+    `FACE_A` on the aft flanges alone, and the outlet leaves on that plane — where the
+    serpentine's own header is re-dressed to meet the core, not where the recess stands back."""
+    span = {"x": (0.0, AIRFLOW), "y": (0.0, FACE_A), "z": (0.0, FACE_B)}
     for name, (pos, axis) in stations().items():
         for i, ax in enumerate("xyz"):
             lo, hi = span[ax]
@@ -179,10 +214,12 @@ def stations_hold():
 def selftest():
     stations_hold()
     mounts_hold()
+    fore, aft = recess_y()
     return ["  all three penetrations stand on the block's own faces",
-            f"  the mount is one Ø{MOUNT_D:g} line at {mount_xy()}, through "
-            f"{PLATE_T:g} of plate at each end of a {SHAFT_X:g} x {SHAFT_Y:g} x "
-            f"{SHAFT_Z:g} slot that opens on the aft face"]
+            f"  each Y face stands {RECESS_Y:g} back over the block's whole {AIRFLOW:g} width, "
+            f"leaving a {PLATE_T:g} flange at either end of a {RECESS_Z:g} opening",
+            f"  the mount is one Ø{MOUNT_D:g} line at {mount_xy()}, through the aft recess's "
+            f"two flanges, and the fore ones carry no hole"]
 
 
 def main():
@@ -191,10 +228,12 @@ def main():
           f"  Z[{bb.zmin:.1f}, {bb.zmax:.1f}]")
     for name, (pos, axis) in {**stations(), **mounts()}.items():
         print(f"  {name:15s} {tuple(round(c, 2) for c in pos)}  out {axis}")
-    x, y = mount_xy()
-    print(f"  slot            x[{x - SHAFT_X / 2:.1f}, {x + SHAFT_X / 2:.1f}] "
-          f"y[{FACE_A - SHAFT_Y:.1f}, {FACE_A:.1f}] open on the aft face "
-          f"z[{PLATE_T:.1f}, {FACE_B - PLATE_T:.1f}]  {SHAFT_X:g} x {SHAFT_Y:g} x {SHAFT_Z:g}")
+    (fz0, fz1), (cz0, cz1) = flange_z()
+    for face, (y0, y1) in zip(("fore", "aft"), recess_y()):
+        print(f"  {face + ' recess':15s} x[0.0, {AIRFLOW:.1f}] y[{y0:.1f}, {y1:.1f}] "
+              f"z[{fz1:.1f}, {cz0:.1f}]  {AIRFLOW:g} x {y1 - y0:g} x {RECESS_Z:g}, "
+              f"open on its own face and both flanks")
+    print(f"  flanges         base z[{fz0:.1f}, {fz1:.1f}]  crown z[{cz0:.1f}, {cz1:.1f}]")
 
 
 if __name__ == "__main__":
