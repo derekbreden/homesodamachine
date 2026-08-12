@@ -116,6 +116,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "port-ring",
            _hw / "printed-parts" / "enclosure" / "valve-panel",
+           _hw / "printed-parts" / "enclosure" / "pump-tray",
            _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
@@ -153,6 +154,7 @@ import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import port_ring as _ring                             # noqa: E402
 import valve_panel as _panel                          # noqa: E402
+import pump_tray as _tray                             # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
@@ -1047,6 +1049,104 @@ def check_panels_hold(pieces: dict, placed: dict) -> Bound:
         f"every valve within {PANEL_SEAT_SLIP:g} mm of the plate under it",
         [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   off {g:.4f}"
          for n, v, p, s, g in rows]))
+
+
+# --- the flavour manifold's pump trays --------------------------------------
+#
+# ONE PLATE PER KAMOER (`pump_tray`). A tray lies flat on the +Z face of its pump's head with
+# that head's own rear boss standing up through the octagon cut in it, and runs from the pump's
+# axis to the front wall it is printed off.
+#
+# NOTHING BELOW IS A STATION. Which way a pump stands and where the face its tray lies on is are
+# read off the placed bodies at every build, the way a valve deck's plane is.
+#   Which face of a pump its tray takes is read off ITS OWN MOTOR CAN. The can stands on the
+# boss and the boss on the head, so the axis from the head's centre to the can's IS the pump's
+# depth axis, and the head's face at the far end of it is the face the plate lies on.
+#
+# How far off contact a pump under its tray may read — the same figure every seat on this card
+# is held to, the trough's, the saddles' and both panels'.
+PUMP_TRAY_SLIP = 0.2
+
+
+def _pump_up(placed: dict, head: str) -> tuple:
+    """One pump's own depth axis in world, as `(axis, sign)` — the way its motor can stands off
+    its head."""
+    can = head.replace("-head", "-motor")
+    if can not in placed:
+        raise KeyError(
+            f"{head} is placed and {can} is not, so nothing says which way it faces — a Kamoer's "
+            f"can stands on the boss behind its head, and that is what tells a tray which of the "
+            f"head's six faces it lies on.")
+    hb, cb = box(placed[head]), box(placed[can])
+    d = [(cb.xmin + cb.xmax - hb.xmin - hb.xmax) / 2.0,
+         (cb.ymin + cb.ymax - hb.ymin - hb.ymax) / 2.0,
+         (cb.zmin + cb.zmax - hb.zmin - hb.zmax) / 2.0]
+    axis = max(range(3), key=lambda i: abs(d[i]))
+    return axis, (1.0 if d[axis] > 0.0 else -1.0)
+
+
+def pump_tray_seats(placed: dict) -> dict:
+    """The trays the box stands, `head -> (axis, sign, centre)`.
+
+    `centre` is the world point the pump's own axis meets the face its tray lies on: the head's
+    centre in the two axes across the pump, and the head's own face in the third."""
+    out = {}
+    for head in sorted(placed):
+        if not (head.startswith("pump-") and head.endswith("-head")):
+            continue
+        axis, sign = _pump_up(placed, head)
+        b = box(placed[head])
+        centre = [(b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0]
+        centre[axis] = ([b.xmax, b.ymax, b.zmax] if sign > 0
+                        else [b.xmin, b.ymin, b.zmin])[axis]
+        out[head] = (axis, sign, tuple(round(c, 6) for c in centre))
+    return out
+
+
+def pump_tray_stations(placed: dict) -> tuple:
+    """Every pump as `enclosure.Box.pump_trays` — one world `centre` each.
+
+    This is the whole of what the wall is handed: how far a plate runs to the wall is the box's
+    own figure, and its depth, its margin and its strap band are `pump_tray`'s."""
+    out = []
+    for head, (axis, sign, centre) in sorted(pump_tray_seats(placed).items()):
+        if (axis, sign) != (2, 1.0):
+            raise ValueError(
+                f"{head} stands its can on {'+' if sign > 0 else '-'}{'xyz'[axis]} and "
+                f"`enclosure._pump_trays` lays a plate on a Z face — a pump on another axis "
+                f"needs the builder to learn it, not this table.")
+        out.append(centre)
+    return tuple(out)
+
+
+def pump_tray_plans() -> dict:
+    """`head -> root` — how far each tray runs off its pump's axis to the wall it stands on,
+    which is what `pump_tray` draws one from."""
+    a, _p, shell = machine()
+    placed = {n: s for n, (s, _c) in _solids(a).items()}
+    return {head: round(centre[1] - shell.inner[2], 6)
+            for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
+
+
+def check_trays_hold(pieces: dict, placed: dict) -> Bound:
+    """Whether every pump is standing in the tray its head's face lies against.
+
+    Read as the tray is: the plate lands on the head's +Z face all the way round the boss it
+    takes, so the pump and the printed piece TOUCH. Anything else is a plate drawn beside a pump
+    rather than on it."""
+    rows, worst = [], 0.0
+    solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+    for head, (_axis, _sign, centre) in sorted(pump_tray_seats(placed).items()):
+        gap = min(_clearing.gap(placed[head], piece, 1.0) for piece in solids)
+        worst = max(worst, gap)
+        rows.append((head, centre, gap))
+    bad = [r for r in rows if r[2] > PUMP_TRAY_SLIP]
+    return record_bound(Bound(
+        "trays-hold", "Every pump is standing in its printed tray", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} pumps seated, furthest off {worst:.3f} mm",
+        f"every pump within {PUMP_TRAY_SLIP:g} mm of the plate on it",
+        [f"{h:14} axis ({c[0]:8.3f}, {c[1]:8.3f}) face z {c[2]:8.3f}   off {g:.4f}"
+         for h, c, g in rows]))
 
 
 # What a standing post's annulus may read short by. A post is fused as one cylinder and bored
@@ -3271,21 +3371,24 @@ def check_chains_seated(chains: dict, foam) -> Bound:
 
 
 def check_strap_vocabulary() -> Bound:
-    """Whether the two boxes that cut a strap cavity cut it for the same strap.
+    """Whether every module that cuts a strap cavity cuts it for the same strap.
 
-    `enclosure` and `_cold_core_interface` each state the fastener their own features read, and
-    neither can import the other. This is the module that seats both, so it is where the two are
-    held together."""
-    pairs = (("width", _enc.tie_strap_w, _cci.cap_anchor_strap_w),
-             ("cavity", _enc.tie_cav_w, _cci.cap_anchor_cav_w),
-             ("end wall", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall))
-    bad = [(what, a, b) for what, a, b in pairs if abs(a - b) > 1e-9]
+    `enclosure`, `_cold_core_interface` and `pump_tray` each state the fastener their own
+    features read, and the box imports the tray rather than the other way round. This is the
+    module that seats all three, so it is where they are held together."""
+    pairs = (("width", "_cold_core_interface", _enc.tie_strap_w, _cci.cap_anchor_strap_w),
+             ("cavity", "_cold_core_interface", _enc.tie_cav_w, _cci.cap_anchor_cav_w),
+             ("end wall", "_cold_core_interface", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall),
+             # The tray takes the WIDE strap, so it is the box's wide pair this one answers to.
+             ("wide width", "pump_tray", _enc.tie_strap_wide_w, _tray.strap_w),
+             ("wide cavity", "pump_tray", _enc.tie_cav_wide_w, _tray.cav_w))
+    bad = [(what, who, a, b) for what, who, a, b in pairs if abs(a - b) > 1e-9]
     return record_bound(Bound(
-        "strap-vocabulary", "Both boxes cut their strap cavities for the same strap", not bad,
+        "strap-vocabulary", "Every box cuts its strap cavities for the same strap", not bad,
         f"{len(pairs) - len(bad)}/{len(pairs)} agree", "every figure the same in both",
-        [f"the strap's {what}: `enclosure` cuts for {a:.3f} and `_cold_core_interface` for "
-         f"{b:.3f}. One tie goes through both, so one of these is a cavity the strap in the "
-         f"BOM does not pass." for what, a, b in bad]))
+        [f"the strap's {what}: `enclosure` cuts for {a:.3f} and `{who}` for {b:.3f}. One tie "
+         f"goes through both, so one of these is a cavity the strap in the BOM does not pass."
+         for what, who, a, b in bad]))
 
 
 def check_tube_seated(tubes, pieces) -> Bound:
@@ -3882,6 +3985,10 @@ def build_pack() -> cq.Assembly:
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
     # `enclosure._valve_panels` is what fuses each plate into the piece that owns its band.
     a.valve_panels = valve_panel_stations({n: s for n, s, _c in stood})
+    # AND THE TWO PUMP TRAYS' STATIONS, on the faces the fold left each Kamoer's head standing
+    # its boss off. Read straight off the pack the same way: the point a plate lies on is the
+    # placed pump's own, and how far it runs to the wall is the box's.
+    a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
     # THE CORE IS PACKED AGAINST THE BACK, not against the bodies ahead of it. The water pump
     # lies flat on its cap and runs off its aft face, and what the rear wall stands off is that
     # pump — so the core's own depth answers to `rear_plane_y` and `CORE_REAR_CLEAR` behind it,
@@ -4140,7 +4247,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      port_field=back_wall_field(a.wall_stations),
-                     valve_panels=a.valve_panels)
+                     valve_panels=a.valve_panels, pump_trays=a.pump_trays)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -4309,6 +4416,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
     # plate nothing on this card would otherwise name.
     check_panels_hold(pieces, a.pack_solids)
+    # And each pump against the piece whose plate lies on its head, one storey up from those.
+    check_trays_hold(pieces, a.pack_solids)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)
