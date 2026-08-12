@@ -24,7 +24,7 @@ Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
-What each generator costs to run is recorded in `hardware/README.md`, under "What a build costs".
+What a commit owes, and running it: `python3 hardware/scripts/owed.py --run`. It asks the three checks what has gone stale, runs exactly those generators until nothing is owed, and prints the verdict as its last line. What each one costs is recorded in `hardware/README.md`, under "What a build costs".
 
 Ask the placed machine rather than reasoning about it: `hardware/scripts/probe.py` (where a body is, what two bodies share, how far a line runs, where there is room, what a viewer pick names), `hardware/scripts/fit.py` (a body not placed yet, at a candidate pose), `hardware/scripts/lanes.py` (every corridor a run could take between its two mouths), `tools/look.sh` (see it, on a millimetre grid). Each carries its own docstring and a `selftest`.
 
