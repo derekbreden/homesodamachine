@@ -2108,12 +2108,8 @@ def descent(body, under, limit=DECK_FALL_LIMIT):
     question was asked and not by what came back. The body is carried by `offset` rather than
     rebuilt at each station: it is the same body at every one of them.
 
-    THE PLAN IS ASKED FIRST, because a stride is only as long as the gap that sets it. A body
-    standing beside another rather than over it reads the same small gap at every station, and
-    the walk then takes the whole fall in strides that width to land on nothing. `shadows` is
-    exact for a fall — outlines that miss are bodies that miss at every height — so the pair is
-    struck before the first stride rather than crawled past. `_would_land_on` cannot do it: it
-    is boxes, and boxes overlap for exactly the pair that costs the most."""
+    THE PLAN IS ASKED FIRST: a body comes down only on what its own outline covers, so a pair
+    whose outlines miss is struck before the first stride."""
     best = None
     for other in under:
         if not _clearing.shadows(body, other):

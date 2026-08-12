@@ -5,6 +5,7 @@ zero — the gap between bodies that do not share anything, and the free straigh
 
     import _clearing
     _clearing.box_gap(bb_a, bb_b)                 # a lower bound, for prefiltering
+    _clearing.shadows(a, b)                       # whether a fall can reach it at all
     _clearing.gap(a, b, within)                   # the distance up to `within`, 0 when touching
     who, free = _clearing.cast(pos, axis, dia, reach, solids, skip=("self",))
 
@@ -47,16 +48,9 @@ def box_gap(a, b) -> float:
 def shadows(a, b) -> bool:
     """Whether `a` coming straight down can ever reach `b` — do their plan outlines overlap.
 
-    EXACT FOR A VERTICAL FALL, AND THE ONE THING A DISTANCE READING CANNOT SAY. A body carried
-    along -Z keeps its outline at every station, so two bodies whose outlines miss are two bodies
-    that miss at every height, and no part of the fall changes that. `gap` reads such a pair as
-    the same small number at every station and has no way to report that the smallness is
-    sideways — so a walk that advances by its own gap crawls the whole fall in strides that
-    width, and lands on nothing.
-
-    A BOX CANNOT ANSWER IT EITHER, and the pair it fails on is the expensive one: two bodies a
-    hundredth of a millimetre apart in plan have boxes that overlap, which is exactly the pair a
-    box test keeps and this one throws out."""
+    EXACT FOR A FALL, where the other two readings are bounds. A body carried along -Z keeps
+    its outline at every station, so outlines that miss are bodies that miss at every height —
+    a hundredth of a millimetre apart in plan is as far apart as a metre."""
     return not (_meshes.meshed(a).project() ^ _meshes.meshed(b).project()).is_empty()
 
 
