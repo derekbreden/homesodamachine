@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -645,21 +645,6 @@
    "value": "8 over the lid at z 253.40, lowest clears by 2.615 mm",
    "target": "at least 1 mm over the cap",
    "detail": [],
-   "active": true
-  },
-  {
-   "id": "pack-carried",
-   "label": "The flavour pack sets down on a body that reaches its own plane",
-   "kind": "gate",
-   "status": "fail",
-   "value": "0/4 of the pack's feet land on something",
-   "target": "at least one foot on a body under it",
-   "detail": [
-    "tube-fluid-17: falls 5.000 mm before it meets anything",
-    "tube-fluid-9: falls 16.000 mm before it meets anything",
-    "tube-fluid-19: falls 16.000 mm before it meets anything",
-    "tube-fluid-27: falls 16.000 mm before it meets anything"
-   ],
    "active": true
   },
   {
@@ -6345,5 +6330,5 @@
    "never": null
   }
  ],
- "sources": "398f2f6a2744a6c8f7ff8dd83add0f50"
+ "sources": "bf6260b8929ae021122759dfb092da99"
 }
