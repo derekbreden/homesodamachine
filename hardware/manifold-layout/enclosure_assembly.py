@@ -101,7 +101,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "mq6-gas-sensor",
            _hw / "reference" / "sf76e-thermal-fuse",
            _hw / "printed-parts" / "refrigeration" / "fuse-clamp",
-           _hw / "reference" / "supco-bpv31",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
@@ -146,7 +145,6 @@ import shutao_moisture_plate as _plate                # noqa: E402
 import mq6_gas_sensor as _mq6                         # noqa: E402
 import sf76e_thermal_fuse as _fuse                    # noqa: E402
 import fuse_clamp as _clamp                           # noqa: E402
-import supco_bpv31 as _bpv                            # noqa: E402
 import foam_assembly as _foam                         # noqa: E402
 import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
@@ -271,7 +269,6 @@ C_PLATE = cq.Color(0.20, 0.55, 0.35)
 C_MQ6 = cq.Color(0.25, 0.40, 0.70)
 C_FUSE = cq.Color(0.88, 0.72, 0.22)
 C_CLAMP = cq.Color(0.30, 0.32, 0.36)
-C_BPV = cq.Color(0.78, 0.78, 0.82)
 C_SPLIT = cq.Color(0.80, 0.72, 0.40)
 C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
 C_VK = cq.Color(0.45, 0.50, 0.58)
@@ -452,9 +449,10 @@ BASE_YAW = -90.0
 
 # THE PLANE THE COMPRESSOR'S OWN PLATE STANDS ON. It is stated rather than derived for the same
 # reason `rear_plane_y` is: this can is the body the refrigeration bay is built around, and a
-# body that moves when its neighbour is measured again drags its floor posts, its service valve
-# and its suction leg with it. What the number is worth is the room in front of the can — the
-# BPV31 stands `bpv31` proud of its front face and the machine's own front datum is y = 0.
+# body that moves when its neighbour is measured again drags its floor posts and its suction leg
+# with it. What the number is worth is the room in front of the can, which is where the piercing
+# valve banded on the process tube is reached and worked — `assembly/refrigerant-loop.md` carries
+# that fitting and every service call that comes back to it.
 COMPRESSOR_FRONT = 9.0
 
 
@@ -579,48 +577,6 @@ def build_fuse_clamp(comp_carry, fuse):
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), face))
     check_cutoff_bedded(placed, fuse, face)
     return placed, carry
-
-
-# --- the piercing valve, on the compressor's process tube -------------------
-#
-# The Supco BPV31 goes on at `assembly/refrigerant-loop.md` step 2 and stays for the life
-# of the appliance: it vents the donor's factory R-600a, carries the argon purge from the
-# first cut to the start of vacuum, takes the manifold for the pull-down, takes the charge,
-# and is then closed and capped. Every later service of the sealed loop comes back to this
-# one fitting, so what the placement owes it is REACH — the 2" Supco states the part needs
-# to install and operate, measured out of the tube along the valve's own axis, and read as
-# `check_bpv_reach`.
-#
-# The saddle bands the process stub where `compressor.process_tube` states it leaves the
-# shell, over the terminal cover. The valve stands UP off it, into the band between the
-# compressor's crown and the flavour pack's pump heads, which keeps the whole fitting
-# inside the compressor's own plan footprint.
-#
-# The turn is a single quarter about Z: it lays the part's tube axis on the stub's own Y,
-# leaves its valve axis on +Z, and swings the flare port WEST, down the lane between the
-# compressor's front and the -X wall.
-BPV_TURN = (((0.0, 0.0, 1.0), 90.0),)
-# What the stub has to look like in the machine for that turn to mean what it says.
-BPV_STUB_AXIS = (0.0, -1.0, 0.0)
-
-
-def build_bpv31(comp_carry):
-    """The BPV31 banded on the process tube, standing up off it.
-
-    Seated on its SADDLE: what has to land in the right place is the clamp's grip on the
-    copper, and `compressor.process_tube` is where that copper is. The stub is not drawn,
-    the way the suction and discharge stubs are not, so this valve is the only body in the
-    machine that says where the process tube runs."""
-    pos, axis = comp_carry(_comp.process_tube())
-    got = tuple(round(v, 9) for v in axis)
-    if got != BPV_STUB_AXIS:
-        raise ValueError(
-            f"the compressor's process stub points {got} in the machine and this valve's "
-            f"quarter turn lays its clamp on {BPV_STUB_AXIS} — the base has been turned "
-            f"out from under this pose, and the saddle now bands the tube across its axis "
-            f"rather than round it.")
-    return seat_body(_bpv.build(), BPV_TURN, seat="bpv31",
-                     station=(_bpv.saddle(), pos))
 
 
 # What the core's own aft face stands off the rear wall's inner plane. The pump lies flush with
@@ -753,42 +709,6 @@ def record_bound(bound: Bound) -> Bound:
     """Enter one bound's reading in the ledger, replacing any of the same id."""
     BOUNDS[:] = [b for b in BOUNDS if b.id != bound.id] + [bound]
     return bound
-
-
-def check_bpv_reach(bpv_carry, solids) -> Bound:
-    """What the piercing valve is left along its own axis, against the 2" Supco asks for.
-
-    *Requires only 2" clearance for installation and operation* is the manufacturer's line
-    and `supco_bpv31.SERVICE_CLEAR` is that figure. The valve spends `STANDOFF` of it
-    standing up; the rest is the allen key on the needle and the flare nut on the port.
-
-    The column is cast from the TUBE, which is where Supco measures from, at the valve's
-    own width across it. What comes back is the first body in the way.
-
-    `pack-closes` reads solids sharing volume and `clearance-floor` holds every pair a
-    millimetre apart. A body parked 2 mm over the needle passes both, and the loop is
-    charged once and never opened again."""
-    pos, axis = bpv_carry(_bpv.saddle())
-    who, free = _clearing.cast(pos, axis, _bpv.CLAMP_W, 3.0 * _bpv.SERVICE_CLEAR,
-                               solids, skip=("bpv31",))
-    ok = free >= _bpv.SERVICE_CLEAR - 1e-6
-    # The hose's own lead off the flare port, on the radius the roll aimed it down — the
-    # second thing a service call needs, riding the seat rather than the card.
-    fpos, faxis = bpv_carry(_bpv.flare())
-    _who, port_free = _clearing.cast(fpos, faxis, _bpv.PORT_D, 3.0 * _bpv.SERVICE_CLEAR,
-                                     solids, skip=("bpv31",))
-    note_room("bpv31", "free straight off the flare port", _bpv.SERVICE_CLEAR, port_free)
-    return record_bound(Bound(
-        "bpv-reach", "The piercing valve keeps the 2\" Supco asks to work it", ok,
-        (f"{free:.2f} mm of column" + ("" if who is None else f", then {who}")),
-        f"{_bpv.SERVICE_CLEAR:g} mm off the tube",
-        ([] if ok else [
-            f"bpv31: the service column off the process tube runs {free:.2f} mm and then "
-            f"meets {who}, under the {_bpv.SERVICE_CLEAR:g} mm Supco states the valve "
-            f"needs to install and operate. The body alone is {_bpv.STANDOFF:g} of that, "
-            f"so what is left over the needle is {free - _bpv.STANDOFF:.2f}. The column "
-            f"rises from where `compressor.process_tube` puts the stub; move {who} off "
-            f"it, or the loop is charged once and never opened again."])))
 
 
 def carry_enclosure_bounds() -> None:
@@ -2682,7 +2602,7 @@ def co2_wall_port(inlet_carry):
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
-              "moisture-plate", "mq6-sensor", "thermal-fuse", "fuse-clamp", "bpv31",
+              "moisture-plate", "mq6-sensor", "thermal-fuse", "fuse-clamp",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
@@ -3998,10 +3918,6 @@ def build_pack() -> cq.Assembly:
     # earns is taken between the two.
     clamp, clamp_carry = build_fuse_clamp(comp_carry, fuse)
     a.add(clamp, name="fuse-clamp", color=C_CLAMP)
-    # The service port goes down with the compressor as well: the stub it bands is the
-    # can's own, and `check_bpv_reach` reads the column over it once the pack is standing.
-    bpv, bpv_carry = build_bpv31(comp_carry)
-    a.add(bpv, name="bpv31", color=C_BPV)
 
     posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
@@ -4224,10 +4140,6 @@ def build_pack() -> cq.Assembly:
     a.refrigerant = refrigerant_joints(carries, a.runs)
     a.refrigerant_mates = refrigerant_mates(a.refrigerant)
     check_refrigerant_joints(a.refrigerant)
-    # The service column over the piercing valve, read against everything the pack put in
-    # the bay — the bodies and the tube swept between them. The three bodies the BOX adds
-    # afterwards stand in the top wall, the display facet and the walls themselves.
-    check_bpv_reach(bpv_carry, {n: s for n, (s, _c) in _solids(a).items()})
     a.seats = dict(SEATS)
     a.bounds = list(BOUNDS)
     return a
@@ -4538,7 +4450,7 @@ def report(a: cq.Assembly) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
-              "ground-stack", "asse1022-assembly", "drip-pan", "bpv31",
+              "ground-stack", "asse1022-assembly", "drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):

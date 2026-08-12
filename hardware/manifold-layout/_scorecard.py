@@ -305,10 +305,6 @@ MOUNTS = (
     # isolate the can, so a clamp on one of those screws would be bolted to the cabinet. This
     # axis counts a PRINTED feature, so the row is open on it and the joint is not.
     ("fuse-clamp", None, "gap-press"),
-    # The piercing valve is a saddle: two screws pull its halves together round the
-    # compressor's process tube, and the grip on that copper holds it. The fastening ships
-    # with the part and closes on a body no printed feature of this machine touches.
-    ("bpv31", None, "tube-clamp"),
     ("water-split", None, "tube-hung"),
     ("flow-regulator", None, "tube-hung"),
     ("vk-solenoid", "foam-assembly", "cradle"),
@@ -441,11 +437,6 @@ def fastened_by(name: str):
 # fastened — by a clamp that ships with it, onto a donor the machine stands on grommets to hold
 # off itself. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
-    "bpv31":
-        "Its own two screws close the saddle round the compressor's process tube, and that "
-        "grip on the copper is the whole joint. The can stands on four grommets that keep its "
-        "running hours off the cabinet, and every printed face within reach of this valve is "
-        "the cabinet's.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
