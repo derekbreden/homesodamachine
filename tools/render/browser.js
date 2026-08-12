@@ -1,10 +1,10 @@
 // browser.js — one Chrome lifetime, shared by every tool here that renders
 // through a headless browser.
 //
-// Chrome is a separate process, and an abandoned one does not idle: the
-// viewer's compose step leaves a requestAnimationFrame loop redrawing the whole
-// model at frame rate, so a browser nobody is reading still costs a core. That
-// is what makes the leak compound. A killed render leaves its tree spinning;
+// Chrome is a separate process, and an abandoned one does not idle: the viewer
+// redraws the whole model at frame rate on scene.js's own animation loop, so a
+// browser nobody is reading still costs a core. That is what makes the leak
+// compound. A killed render leaves its tree spinning;
 // the next render finds a machine with less to give and takes longer; the
 // caller's own timeout fires and SIGKILLs it, leaking another tree — until
 // every render dies on `Page.captureScreenshot timed out` and the renderer
@@ -48,6 +48,32 @@ const BROWSER_ROOT = (() => {
 // round trip is what runs out first, and it fails naming the protocol instead
 // of the file.
 export const PARSE_TIMEOUT = Number(process.env.HSM_PARSE_TIMEOUT || 900000);
+
+// A FRAME IS READ BACK IN THE TASK THAT DREW IT. scene.js's WebGLRenderer is
+// built without `preserveDrawingBuffer`, so the drawing buffer holds a frame
+// only between a render and the browser's next composite. A capture that goes
+// through the page — `page.screenshot`, however long it waits first — reaches
+// that cycle wherever it happens to land, which is a different frame each run:
+// one scene gave four distinct pictures in eight runs of identical geometry,
+// and `trim` then measured a different content box off each. Waiting cannot fix
+// it and makes it worse, because the wait is what the arbitrary landing is
+// measured across.
+//
+// So every renderer here ends its `page.evaluate` with the render and the read
+// on adjacent lines,
+//
+//     renderer.render(scene, cam);
+//     return renderer.domElement.toDataURL("image/png");
+//
+// and passes what comes back to this. One task runs to completion, so nothing
+// composites between those two statements and the read sees the frame the
+// render just drew.
+//
+// The picture is the canvas, not the page, so the viewer's nav, gizmo, buttons
+// and modal are not in it and no tool here hides them to take a clean shot.
+export function frameBuffer(dataURL) {
+  return Buffer.from(String(dataURL).split(",")[1], "base64");
+}
 
 const LIVE_BROWSERS = new Set();
 

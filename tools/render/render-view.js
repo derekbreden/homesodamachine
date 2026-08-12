@@ -123,7 +123,7 @@ import sharp from "sharp";
 import { start } from "../../web/server.js";
 import { DEFAULT_EDITION, EDITION_IDS, editionById } from "../../web/lib/editions.js";
 import { withHistoricalTree } from "./temporal.js";
-import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -548,12 +548,11 @@ async function inPageCompose(o) {
   cam.updateProjectionMatrix();
   cam.updateMatrixWorld(true);
 
-  // THE FRAME IS READ BACK IN THE TASK THAT DREW IT. The viewer's WebGLRenderer is built
-  // without preserveDrawingBuffer, so the drawing buffer is defined only between a render
-  // and the browser's next composite — and a capture that goes through the page reaches it
-  // at whatever point of that cycle it lands on, which is a different frame each run. The
-  // read-back happens on the line after the render, and travels back with the annotations
-  // struck off the same camera.
+  // The read is on the line after the render — see browser.js frameBuffer. It
+  // travels back with the annotations struck off the same camera. The clear
+  // colour is what `--bg` means: the ground comes off the canvas, so setting it
+  // on the page would leave the frame on scene.js's own navy whatever was asked.
+  renderer.setClearColor(o.bg, 1);
   renderer.render(scene, cam);
   const frame = renderer.domElement.toDataURL("image/png");
 
@@ -1231,24 +1230,6 @@ async function main() {
   ];
   const shots = planned.length ? planned : [null];
   const taken = await withViewer({ stepRel, opts }, async (page) => {
-    // Chrome hidden as in render-step.js. Applied before the overlay is built,
-    // so none of these rules catch it.
-    await page.addStyleTag({
-      content: `
-        nav, #site-nav, .nav-gear, footer, #site-footer,
-        .cv-filename, .cv-close, .cv-backdrop, #gizmoCanvas,
-        .cad-wrapper > .cad-loading, .cad-wrapper > .ruler-toggle,
-        .cad-wrapper > .reset-view { display: none !important; }
-        button, [role="button"] { display: none !important; }
-        [class^="sc-"], [class*=" sc-"] { display: none !important; }
-        .cv-card { width:100vw !important; height:100vh !important;
-                   max-width:100vw !important; max-height:100vh !important;
-                   border-radius:0 !important; }
-        body, html, .cv-card, .cv-content, .cad-wrapper, #viewport {
-          background: ${opts.bg} !important; }
-      `,
-    });
-
     const out = [];
     for (const v of shots) {
       // A planned shot carries its own camera. An explicit --cam/--up given alongside --views or
@@ -1264,7 +1245,7 @@ async function main() {
       if (resolved.grid === null) resolved.grid = shot.ortho;
 
       const info = await page.evaluate(inPageCompose, resolved);
-      const raw = Buffer.from(String(info.frame).split(",")[1], "base64");
+      const raw = frameBuffer(info.frame);
       const buf = await sharp(raw)
         .composite([{ input: annotationSvg(info.annot), top: 0, left: 0 }])
         .png({ compressionLevel: 9 })

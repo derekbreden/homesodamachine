@@ -30,7 +30,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -136,32 +136,6 @@ async function renderOne({ stepRel, outAbs, opts }) {
       stepRel,
     );
 
-    // Same chrome-hiding rationale as render-step.js: everything in the
-    // wrapper that isn't the renderer canvas must be hidden or it lands in
-    // the frame.
-    await page.addStyleTag({
-      content: `
-        nav, #site-nav, .nav-gear, footer, #site-footer,
-        .cv-filename, .cv-close, .cv-backdrop,
-        #gizmoCanvas,
-        .cad-wrapper > .cad-loading,
-        .cad-wrapper > .ruler-toggle,
-        .cad-wrapper > .reset-view { display: none !important; }
-        /* No interactive chrome of any kind belongs in a still frame. */
-        button, [role="button"] { display: none !important; }
-        /* Scorecard HUD (sc-* classes, scorecard-3d.js) rides on assemblies. */
-        [class^="sc-"], [class*=" sc-"] { display: none !important; }
-        .cv-card {
-          width: 100vw !important; height: 100vh !important;
-          max-width: 100vw !important; max-height: 100vh !important;
-          border-radius: 0 !important;
-        }
-        body, html, .cv-card, .cv-content, .cad-wrapper, #viewport {
-          background: ${opts.bg} !important;
-        }
-      `,
-    });
-
     console.log("posing camera + rendering frame...");
     const shot = await page.evaluate(async (o) => {
       const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
@@ -208,22 +182,16 @@ async function renderOne({ stepRel, outAbs, opts }) {
       cam.updateProjectionMatrix();
       cam.updateMatrixWorld(true);
 
-      // THE FRAME IS READ BACK IN THE TASK THAT DREW IT. The viewer's WebGLRenderer is
-      // built without preserveDrawingBuffer, so the drawing buffer is defined only
-      // between a render and the browser's next composite — and a capture that goes
-      // through the page reaches it at whatever point of that cycle it lands on, which
-      // is a different frame each run. `toDataURL` on the canvas, called on the same
-      // line as the render, reads the buffer that render just filled.
-      //
-      // The clear colour is set here so the read-back carries the background the card
-      // wants: it comes off the canvas, and CSS on the page behind it is not in it.
+      // The read is on the line after the render — see browser.js frameBuffer.
+      // The clear colour is set here so the read-back carries the background the
+      // card wants: it comes off the canvas, not the page behind it.
       renderer.setClearColor(o.bg, 1);
       renderer.render(scene, cam);
       return renderer.domElement.toDataURL("image/png");
     }, opts);
 
     console.log("reading the frame back...");
-    const raw = Buffer.from(String(shot).split(",")[1], "base64");
+    const raw = frameBuffer(shot);
 
     let buf = raw;
     if (opts.trim) {

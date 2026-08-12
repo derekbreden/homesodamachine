@@ -40,9 +40,21 @@ and stales nothing: `owed.py` reports every doc, card and scene current and runs
 | `render_scenes.py`, four scenes, geometry unchanged | 19 s |
 | `render_scenes.py`, four scenes redrawn | 30 s |
 
-A picture is the same picture every run. Both posed renderers read the frame back off the
-canvas in the task that drew it, so nothing here is a race and a redraw of unmoved geometry
-lands byte-identical — eight runs of one scene, six of another, one hash each.
+A picture is the same picture every run. Every renderer in `tools/render/` reads the frame
+back off the canvas in the task that drew it (`browser.js` `frameBuffer` carries why), so
+nothing here is a race and a redraw of unmoved geometry lands byte-identical — eight runs of
+one scene, eight of one part, three elevations, one hash each.
+
+What the walk names, a build reads:
+
+```
+tools/cad-venv/bin/python hardware/scripts/check_closure.py
+```
+
+`_realized.source_files` decides whose text can stale a wall, a card and a doc, and
+`_realized.ENTRY_POINTS` stops it at `main` and `selftest`. This stands the machine and
+asserts every module the build actually read is named by that walk. A module it misses is a
+module that can move while everything downstream holds still.
 
 Inside one run:
 
