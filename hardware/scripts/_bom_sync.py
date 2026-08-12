@@ -27,18 +27,19 @@ from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
 
 import manifold_layout as ml
-import enclosure_assembly as _ea
+import _facts
+import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 
 import importlib.util
 
-# The placed pack, for the counts that are the machine's rather than a part's. `machine()`
-# is the whole appliance, so this is the one expensive import in this driver.
-_machine = _ea.machine()
-_placed = {c.name for c in _machine[0].children}
-_east_bosses = _machine[2].east_bosses
-_floor_bosses = _machine[2].floor_bosses
-_cond_bosses = _machine[2].cond_mount[3] if _machine[2].cond_mount else ()
+# The placed pack, for the counts that are the machine's rather than a part's — off the
+# artifact the last build wrote, so this driver stands no appliance to count bosses.
+_f = _facts.read()
+_placed = set(_f.pack["placed"])
+_east_bosses = _f.box["east_bosses"]
+_floor_bosses = _f.box["floor_bosses"]
+_cond_bosses = _f.box["cond_mount"][3] if _f.box["cond_mount"] else ()
 
 
 def _load_module(name: str, file_path: Path):
