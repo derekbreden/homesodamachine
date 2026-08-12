@@ -570,27 +570,44 @@ def _write_mesh_payload(target, source):
         return None
 
 
-def _thumbnail_current(target, thumb):
-    """Whether `thumb` was rendered from the STEP as it now stands. `_atomic_write` leaves an
-    unchanged target's mtime alone, so a STEP newer than its thumbnail is one whose bytes have
-    moved since the render — by this build or by one that rendered nothing."""
+def _current(target, beside):
+    """Whether `beside` was made from the STEP as it now stands — the thumbnail rendered from
+    it, or the mesh payload tessellated for it.
+
+    `_atomic_write` leaves an unchanged target's mtime alone, so a STEP newer than the file
+    beside it is one whose bytes have moved since that file was made — by this build or by one
+    that made nothing."""
     try:
-        return thumb.stat().st_mtime_ns >= target.stat().st_mtime_ns
+        return beside.stat().st_mtime_ns >= target.stat().st_mtime_ns
     except OSError:
         return False
 
 
 def _queue_thumbnail(target_path, source=None):
-    if os.environ.get("HSM_SKIP_THUMBNAILS"):
-        return
     target = Path(target_path).resolve()
     if target.suffix != ".step":
         return
     # The payload is what the PAGE reads, and it goes down whenever the STEP does. A thumbnail
     # already standing for these bytes is a thumbnail nobody has to render again — it is not a
     # reason to leave the page parsing the model it stands for.
-    payload = _write_mesh_payload(target, source) if source else None
-    if _thumbnail_current(target, target.with_name(target.name + ".png")):
+    #
+    # IT IS WRITTEN BEFORE EITHER SKIP, and that is the whole of its correctness. `loadStepFile`
+    # PREFERS a payload to the STEP beside it, so a payload left behind by a STEP that moved is
+    # every reader — the page, the elevations, the scene shots — drawing the model as it used to
+    # be, and saying nothing. HSM_SKIP_THUMBNAILS asks for no browser to be booted, which is what
+    # a thumbnail costs; tessellating a shape the generator is still holding is neither a
+    # thumbnail nor expensive, and skipping it is how the sidecar goes stale under the watcher
+    # that sets the flag on every generator it spawns.
+    #
+    # A payload no older than the STEP was made from these bytes — `_atomic_write` leaves an
+    # unchanged target's mtime alone — so a build that moved nothing re-tessellates nothing.
+    mesh = target.with_name(target.name + ".mesh")
+    payload = None
+    if source is not None:
+        payload = str(mesh) if _current(target, mesh) else _write_mesh_payload(target, source)
+    if os.environ.get("HSM_SKIP_THUMBNAILS"):
+        return
+    if _current(target, target.with_name(target.name + ".png")):
         return
     _pending_thumbnails[str(target)] = payload
     global _thumbnail_atexit_registered
