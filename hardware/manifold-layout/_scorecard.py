@@ -209,8 +209,13 @@ CARB_SEGMENTS = (
 #   `by`    — the part whose PRINTED FEATURE fastens it. A boss a screw goes into, a socket a
 #             thread makes up in. `None` is a joint still to design, and every `None` here is
 #             one unit of the `mounted` axis's gap. IT IS THE ONLY FASTENING MEASURE: a body
-#             resting on a crown or hanging off its own two collets is not mounted, because
-#             nothing about either survives the machine being picked up by one corner.
+#             resting on a crown is not mounted, because nothing about that survives the
+#             machine being picked up by one corner.
+#             WHAT A COLLET CHAIN IS WORTH IS WHERE IT ENDS. A body made up onto one whose own
+#             far end is a printed seat is held through that seat; a body made up onto one that
+#             ends on nothing is held by nothing, and both read the same from the body itself.
+#             So a chain that lands is a `NEVER` row naming what it lands on, and a chain that
+#             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
 #             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `tube-clamp`, `deck-mount`,
 #             `basin`, `gap-press`, `floor`, `tube-hung`, `pack`. Not an axis and not a score —
@@ -436,7 +441,50 @@ NEVER = {
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
         "four holes carry the floor's posts and the grommets, and every printed feature in "
         "reach of the clamp stands on the cabinet side of them.",
+    # THE SIX Y-TEES, EACH BUTTED ONTO A VALVE IN A PRINTED SEAT. A butt is two collet faces
+    # meeting on one stub of tube with no tube between them (`manifold_layout.SEGMENTS`), so a
+    # tee and the valve it butts are one made-up body. Every one of these six lands on a valve
+    # the two panels hold, which is what makes the chain worth something: `tees_butt_held` reads
+    # each row's named partner back off the pack and off this table's own `by`, so a valve that
+    # loses its seat takes its tee's exemption with it.
+    **{tee: (f"Its collets make up onto {valve.upper()[len('VALVE-'):]}'s, face to face on one "
+             f"stub with no tube between them, and that valve stands in four printed sockets — "
+             f"so what holds this tee is the seat under the valve it butts. Nothing printed "
+             f"reaches the tee itself, and a second seat on a body already made up onto a held "
+             f"one would fight it for the joint's own position.")
+       for tee, valve in (("tee-y-a", "valve-v-c"), ("tee-y-b", "valve-v-d"),
+                          ("tee-y-c", "valve-v-e"), ("tee-y-d", "valve-v-f"),
+                          ("tee-y-f", "valve-v-h"), ("tee-y-g", "valve-v-i"))},
 }
+
+
+# Which valve each exempt tee butts, so the exemption is a claim the machine can refuse. A tee's
+# reason names a valve; this is that pairing as data, and `tees_butt_held` holds it to two
+# things — the pack still draws the butt, and the valve still has a printed seat.
+TEE_BUTTS = {"tee-y-a": "valve-v-c", "tee-y-b": "valve-v-d", "tee-y-c": "valve-v-e",
+             "tee-y-d": "valve-v-f", "tee-y-f": "valve-v-h", "tee-y-g": "valve-v-i"}
+
+
+def tees_butt_held(rows) -> None:
+    """Every exempt tee butts a valve the pack still draws, and that valve is still fastened."""
+    import manifold_layout as ml
+
+    by_name = {name: by for name, by, _joint in rows}
+    butts = {(a.rsplit("-", 1)[0], b.rsplit("-", 1)[0])
+             for _cid, a, b, how in ml.SEGMENTS if how == "butt"}
+    for tee, valve in sorted(TEE_BUTTS.items()):
+        pair = (tee[len("tee-"):].upper(), valve[len("valve-"):].upper())
+        if pair not in butts and pair[::-1] not in butts:
+            raise ValueError(
+                f"{tee} is held out of the mounted axis because it butts {valve}, and "
+                f"`manifold_layout.SEGMENTS` no longer draws a butt between them — the joint "
+                f"the exemption rests on has been rerouted, so the row is claiming a hold that "
+                f"is not there.")
+        if by_name.get(valve) is None:
+            raise ValueError(
+                f"{tee} is held out of the mounted axis because {valve} stands in a printed "
+                f"seat, and {valve} is now fastened by nothing — a chain is worth where it "
+                f"ends, so this tee is an open joint again rather than an exemption.")
 
 
 def never_holds(rows) -> None:
@@ -1305,6 +1353,7 @@ def _mounted() -> Check:
     rows = mounts()
     never_holds(rows)
     rides_hold(rows)
+    tees_butt_held(rows)
     own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
     open_joints = sorted((n, joint) for n, by, joint in own
                          if by is None and n not in NEVER)
