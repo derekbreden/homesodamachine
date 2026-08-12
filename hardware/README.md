@@ -36,9 +36,13 @@ and stales nothing: `owed.py` reports every doc, card and scene current and runs
 |---|---|
 | a comment-only edit to a file in every closure | nothing owed |
 | `enclosure_assembly.py`, nothing moved | 17 s |
-| `enclosure_assembly.py`, STEP moved — three elevations and a thumbnail | 81 s |
-| `render_scenes.py`, four scenes, geometry unchanged | 24–25 s |
-| `render_scenes.py`, four scenes redrawn | 60 s |
+| `enclosure_assembly.py`, three elevations drawn | 27–30 s |
+| `render_scenes.py`, four scenes, geometry unchanged | 19 s |
+| `render_scenes.py`, four scenes redrawn | 30 s |
+
+A picture is the same picture every run. Both posed renderers read the frame back off the
+canvas in the task that drew it, so nothing here is a race and a redraw of unmoved geometry
+lands byte-identical — eight runs of one scene, six of another, one hash each.
 
 Inside one run:
 
