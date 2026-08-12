@@ -234,9 +234,25 @@ c14_boss_proud = heatset_depth - wall + socket_cap
 # this machine, and it is not the C14's: these land on a board's own hole pattern, between its
 # pin fields, and a boss that carried a whole wall around its insert would foul them.
 mount_boss_dia = 7.0
+# What that section keeps round its insert, which is the material any boss in this machine
+# stands a heat-set in.
+boss_ligament = (mount_boss_dia - heatset_dia) / 2.0
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = 1.0
+
+# --- the floor slab's posts -------------------------------------------------
+#
+# THE POST IS THE SLEEVE. It rises through the bore of the rubber grommet the donor's plate
+# carries, and it runs to that grommet's own crown — the plane the screw's washer lands on, so
+# the washer bottoms on printed material and the torque stops there. The rubber between the
+# post and the metal hole it is wrapped through is the isolator.
+#
+# The section is the donor's: each station carries its own diameter, struck off that bore in
+# `enclosure_assembly.floor_mounts`. What the post holds is a ruthex M5, and `_floor_bosses`
+# reads the two against each other every build.
+floor_heatset_dia = 6.8      # ruthex M5, Ø7.0 knurl
+floor_heatset_depth = 9.5
 
 # --- the side walls' Wago wells ---------------------------------------------
 #
@@ -434,7 +450,8 @@ z_lip_y_margin = 2.0
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
 #   side_wells    the side walls' Wago wells, (side, y, z, size) — one press-fit pocket
 #                 per lever nut, on the flank its own cluster stands on
-#   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches)
+#   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
+#                 section the donor's own bore leaves the post standing in it)
 #   west_cradle   the −X wall's MQ-6 card slot, (y, z) — the card's plane and its centre
 #   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties, reach_down) — the
 #                 axis the trough is struck on, one (y0, y1, apex_x) per section of the chain,
@@ -2080,11 +2097,12 @@ def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
     """The floor slab's mounting bosses added to a PIECE, for the stations whose plan point
     the piece owns and whose slab it holds.
 
-    Each station is `(x, y, tip)`: the two plan coordinates the boss stands on, and the plane
-    its top face reaches — the mounting plane of the body bolted down onto it, which is where
-    that body's hole pattern lies. The post runs UP from the slab's own inner face to that
-    plane and the insert bore is cut back down from it, so what the slab gives a screw is the
-    standoff the body asked for.
+    Each station is `(x, y, tip, dia)`: the two plan coordinates the boss stands on, the plane
+    its top face reaches, and the section the donor's own bore leaves it. The plane is where
+    the screw's washer lands — the crown of the grommet the post rises through — so the post
+    runs UP from the slab's own inner face to it and the insert bore is cut back down from it.
+    What the slab gives a screw is the standoff the body asked for, and what it gives the
+    rubber is a hard stop at the height the body's own stack stands.
 
     The ±X walls take their bodies on the flank and the slab takes them from underneath, which
     is the whole difference between this and `_east_bosses`: the shaft runs on Z, the band that
@@ -2092,12 +2110,18 @@ def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
     reaches the floor."""
     if z0 > inner[4] + 1e-6:
         return solid                       # a top piece has no slab to stand a post on
-    for sx, sy, tip in stations:
+    for sx, sy, tip, dia in stations:
         if not (y0 <= sy <= y1):
             continue
-        solid = solid.fuse(_zcyl(mount_boss_dia / 2.0, sx, sy, inner[4], tip))
-        solid = solid.cut(_zcyl(heatset_dia / 2.0, sx, sy,
-                                tip - heatset_depth - mount_bore_relief, tip))
+        if (dia - floor_heatset_dia) / 2.0 < boss_ligament:
+            raise ValueError(
+                f"the floor post at ({sx:g}, {sy:g}) is Ø{dia:g}, which leaves "
+                f"{(dia - floor_heatset_dia) / 2.0:g} of material round a Ø{floor_heatset_dia:g} "
+                f"insert bore — under the {boss_ligament:g} a ±X wall boss keeps round its own. "
+                f"This station's donor bore takes a smaller insert than the M5.")
+        solid = solid.fuse(_zcyl(dia / 2.0, sx, sy, inner[4], tip))
+        solid = solid.cut(_zcyl(floor_heatset_dia / 2.0, sx, sy,
+                                tip - floor_heatset_depth - mount_bore_relief, tip))
     return solid
 
 

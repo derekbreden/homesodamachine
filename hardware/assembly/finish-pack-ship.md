@@ -43,7 +43,7 @@ Inspect every exposed surface against the following pass criteria:
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any wall cutout. Every cutout on the wall is a fitting's own
   flange or housing — the machine carries no cable gland.
-- The compressor sitting square on its four floor posts, every screw home on its grommet's steel bushing and none of them driven into the rubber; the green ring under one of those four heads, and the AC lead's jacket unbroken back to the shelf.
+- The compressor sitting square on its four floor posts, every washer home on its post's crown and none of them pressed into the rubber; the green ring on the can's own earth screw, and the AC lead's jacket unbroken back to the shelf.
 - The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The C14 inlet recessed cleanly into the rear wall's printed shroud per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md); the recess shroud's seam against the wall's outer face shows no gap, and the receptacle's own moulded shroud stands square in the cutout.
 - The umbilical-port PP1208E bulkheads on the rear wall — three unions on one line, blue accent ring on the carbonated-water one at the east end of the row — all three finger-tight against the wall with no rotation play.
