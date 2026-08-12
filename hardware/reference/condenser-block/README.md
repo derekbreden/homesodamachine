@@ -16,16 +16,18 @@ on X, `FACE_A` on Y, `FACE_B` on Z:
 
 | Station | Face | Location | Stands on |
 |---|---|---|---|
-| `refrig-inlet` | intake, −X | (0, 66, 61) | the compressor's discharge stub, on its shell's +X tangent |
-| `refrig-outlet` | aft, +Y | (50.5, 154, 33.75) | the cold core's evaporator-inlet station |
+| `refrig-inlet` | intake, −X | (0, 87, 61) | the compressor's discharge stub, on its shell's +X tangent |
+| `refrig-outlet` | aft, +Y | (50.5, 154, 33.75) | the cold core's evaporator-inlet column and plane |
 | `fan-power` | exhaust, +X | (56, 30, 68.5) | — |
 
-**Both refrigerant legs arrive on a face the block is mated to**, which is what a
+**Both refrigerant legs arrive where the neighbour puts them**, which is what a
 donor packed as an envelope is for: the serpentine's own headers are re-dressed to
-reach them. Each joint is therefore one point read twice, with no copper drawn
-between the two bodies, and
+reach them. The INLET is a mating — the compressor's discharge stub stands on the plane
+the two bodies share, so it is one point read twice with no copper drawn between them.
+The OUTLET stands on the cold core's own evaporator-inlet column and plane, and the lane
+between the two is crossed as one straight length of tube.
 [`enclosure_assembly.refrigerant_joints()`](/hardware/manifold-layout/enclosure_assembly.py) measures
-both at every build, each off the two stations meant to be one point, and
+both at every build — a mating on its two stations, a tube on both its mouths — and
 `check_refrigerant_joints` reds the `refrigerant-joints` gate if either opens. The fan
 is on the face its air leaves by.
 
@@ -75,8 +77,9 @@ and what the lane beside it is worth are the machine's —
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
 It stands east of the compressor with its intake face closed on that shell's own +X
 tangent — an oblong can meets a plane along one line, and the discharge stub it is
-made up to stands on the same line — one `SUCTION_LANE` aft of that can, so its own
-aft face is the plane the cold core butts. It does **not** stand on the floor slab:
+made up to stands on the same line — and the two are struck on the same centre. The cold
+core is packed off the rear wall rather than butted against this block, so a lane stands
+between them and the liquid line crosses it. It does **not** stand on the floor slab:
 the box takes its four flanges, a groove off the front wall at the fore pair and a
 bored boss under each aft hole, and the crown of what carries it is what the flavour
 pack sets down on.

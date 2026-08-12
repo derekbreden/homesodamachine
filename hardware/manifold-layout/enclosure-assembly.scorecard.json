@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -111.5,
-    -12.79,
+    -6.0,
     -3.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     223.0,
-    493.04,
+    486.25,
     358.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -111.5,
-    -12.79,
+    -6.0,
     -3.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     223.0,
-    506.681,
+    499.891,
     361.0
    ]
   }
@@ -100,7 +100,7 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "pass",
-   "value": "62/62 clear",
+   "value": "63/63 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to \u2014 the pack's own interior mouths carry a swept line off the collet and ask for none",
@@ -117,8 +117,8 @@
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
-    "condenser+fan \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
@@ -132,7 +132,6 @@
     "bulkhead-flavor-b \u2014 port-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 port-ring-flavor-a: 0.000 mm \u2014 seated against it",
     "bulkhead-carb \u2014 port-ring-carb: 0.000 mm \u2014 seated against it",
-    "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 condenser+fan: 0.002 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
@@ -179,6 +178,7 @@
     "fluid-28 \u2014 fluid-24: 4.802 mm",
     "fluid-4 \u2014 seaflo-pump: 4.817 mm",
     "water-3 \u2014 discharge-chain: 5.078 mm",
+    "refrig-2 \u2014 enclosure-front-bottom: 5.202 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
@@ -191,7 +191,9 @@
     "fluid-24 \u2014 coil-v-b: 5.851 mm",
     "relay-2 \u2014 relay-1: 5.860 mm",
     "water-3 \u2014 tee-y-a: 5.878 mm",
-    "water-3 \u2014 tee-y-b: 5.878 mm"
+    "water-3 \u2014 tee-y-b: 5.878 mm",
+    "coil-v-b \u2014 hopper-funnel: 5.979 mm",
+    "coil-v-a \u2014 hopper-funnel: 5.981 mm"
    ],
    "active": true
   },
@@ -636,6 +638,16 @@
    "active": true
   },
   {
+   "id": "core-lane",
+   "label": "The floor ahead of the cold core stops short of it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "core front at 178.00, nearest body 9.00 mm ahead of it",
+   "target": "every body on the floor short of the core's front face",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "east-band",
    "label": "The +X wall's column stands in the depth that wall runs free",
    "kind": "gate",
@@ -764,7 +776,7 @@
    "label": "Every leg of the refrigerant loop closes, mated or drawn",
    "kind": "gate",
    "status": "pass",
-   "value": "2 mated, 1 drawn of 3, widest 0.000 mm",
+   "value": "1 mated, 2 drawn of 3, widest 0.000 mm",
    "target": "every leg within 0.05 mm \u2014 a mating on its two stations, a tube on both its mouths",
    "detail": [],
    "active": true
@@ -794,7 +806,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "11.174 mm to the basin",
+   "value": "11.141 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -846,10 +858,10 @@
    "value": "4/4 posts standing",
    "target": "a printed post at every hole the donor presents",
    "detail": [
-    "x  -61.500  y   14.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x  -61.500  y  145.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x    5.500  y   14.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x    5.500  y  145.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
+    "x  -61.500  y   23.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x  -61.500  y  154.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x    5.500  y   23.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x    5.500  y  154.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
    ],
    "active": true
   },
@@ -995,8 +1007,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 72.77",
-   "target": "aft of 74.77",
+   "value": "seam at 200.00, housing back plane at 79.56",
+   "target": "aft of 81.56",
    "detail": [],
    "active": true
   },
@@ -1005,8 +1017,8 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 78.77..237.77",
-   "target": "frame x -93.50..93.50, y 78.77..469.00",
+   "value": "collar x -79.50..79.50, y 85.56..244.56",
+   "target": "frame x -93.50..93.50, y 85.56..469.00",
    "detail": [],
    "active": true
   },
@@ -1025,7 +1037,7 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 14.00, +X 14.00, +Y 231.23 mm",
+   "value": "\u2212X 14.00, +X 14.00, +Y 224.44 mm",
    "target": "each at least brim_margin 10.00 mm",
    "detail": [],
    "active": true
@@ -1035,7 +1047,7 @@
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
    "status": "pass",
-   "value": "21/21 as drawn",
+   "value": "22/22 as drawn",
    "target": "0 short",
    "detail": [],
    "active": true
@@ -1100,10 +1112,9 @@
    "target": "every connection made",
    "detail": [
     "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
-    "drawn 21, butt 11, fold 4, mate 2, turn 2 \u2014 0 still to route",
+    "drawn 22, butt 11, fold 4, turn 2, mate 1 \u2014 0 still to route",
     "by circuit \u2014 co2 3/3, fluid 26/26, refrigerant 3/3, water 8/8",
     "refrig-1 (refrigerant): compressor discharge \u2192 condenser+fan inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
-    "refrig-2 (refrigerant): condenser+fan outlet (drier + cap tube) \u2192 foam-assembly evaporator inlet \u2014 made up across the plane its two bodies share, 0.000 mm apart",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
     "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3 \u2014 made by a butt between two collets",
@@ -1129,7 +1140,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "63/63 located",
+   "value": "64/64 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -1158,7 +1169,7 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "19/21 within span",
+   "value": "20/22 within span",
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 481.2 mm unheld, 281.2 over",
@@ -1424,7 +1435,7 @@
    "kind": "fluid",
    "pos": [
     -28.0,
-    152.5,
+    161.5,
     60.0
    ],
    "face": [
@@ -1434,6 +1445,25 @@
    ],
    "diam": 6.35,
    "mates": "refrig-3",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "condenser+fan",
+   "name": "refrig-outlet",
+   "kind": "fluid",
+   "pos": [
+    77.5,
+    166.0,
+    47.75
+   ],
+   "face": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "diam": 6.35,
+   "mates": "refrig-2",
    "status": "ok",
    "note": ""
   },
@@ -1604,7 +1634,7 @@
     0.0
    ],
    "diam": 6.35,
-   "mates": "\u2014",
+   "mates": "refrig-2",
    "status": "ok",
    "note": ""
   },
@@ -1766,7 +1796,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    158.27,
+    165.06,
     304.378
    ],
    "face": [
@@ -2407,10 +2437,10 @@
    "boxes": [
     [
      -86.5,
-     71.77,
+     78.56,
      304.378,
      86.5,
-     244.77,
+     251.56,
      358.0
     ]
    ],
@@ -2487,18 +2517,18 @@
    "boxes": [
     [
      -52.5,
-     -7.133,
+     -0.343,
      287.118,
      53.5,
-     53.678,
+     60.468,
      347.929
     ],
     [
      -56.75,
-     -9.962,
+     -3.172,
      297.017,
      56.75,
-     45.193,
+     51.983,
      352.172
     ]
    ],
@@ -2511,10 +2541,10 @@
    "boxes": [
     [
      -37.0,
-     -6.7,
+     2.3,
      15.0,
      -19.0,
-     22.0,
+     31.0,
      61.5
     ]
    ],
@@ -2671,10 +2701,10 @@
    "boxes": [
     [
      -108.5,
-     15.3,
+     24.3,
      3.0,
      -88.5,
-     36.9,
+     45.9,
      35.0
     ]
    ],
@@ -2703,10 +2733,10 @@
    "boxes": [
     [
      -53.4,
-     -6.79,
+     2.21,
      88.885,
      -16.885,
-     21.79,
+     30.79,
      144.45
     ]
    ],
@@ -3159,10 +3189,10 @@
    "boxes": [
     [
      -36.5,
-     -4.2,
+     4.8,
      50.4,
      -19.5,
-     0.0,
+     9.0,
      54.6
     ]
    ],
@@ -3255,18 +3285,18 @@
    "boxes": [
     [
      -83.0,
-     0.0,
+     9.0,
      0.0,
      27.0,
-     160.0,
+     169.0,
      135.0
     ],
     [
      -50.5,
-     0.0,
+     9.0,
      30.0,
      -5.5,
-     27.5,
+     36.5,
      75.0
     ]
    ],
@@ -3311,10 +3341,10 @@
    "boxes": [
     [
      27.0,
-     24.0,
+     12.0,
      14.0,
      83.0,
-     178.0,
+     166.0,
      151.0
     ]
    ],
@@ -3915,7 +3945,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 160.42,
+   "length": 153.63,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3930,7 +3960,7 @@
      "grade": "B",
      "legs": [
       14.59,
-      108.86
+      102.07
      ]
     },
     {
@@ -3940,7 +3970,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      108.86,
+      102.07,
       30.95
      ]
     },
@@ -3982,7 +4012,7 @@
     "ends": [
      [
       1.21,
-      158.27,
+      165.06,
       304.38
      ],
      [
@@ -3993,12 +4023,12 @@
     ],
     "axis": {
      "x": 21.28,
-     "y": 84.81,
+     "y": 78.02,
      "z": 37.06
     },
-    "span": 94.97,
-    "path": 160.42,
-    "detour": 1.689
+    "span": 88.96,
+    "path": 153.63,
+    "detour": 1.727
    }
   },
   {
@@ -4314,6 +4344,88 @@
    }
   },
   {
+   "id": "refrig-3",
+   "kind": "refrigerant",
+   "frm": "compressor.refrig-suction",
+   "to": "foam-assembly.evap-outlet",
+   "stock": "1/4\" soft ACR copper",
+   "od": 6.35,
+   "length": 67.67,
+   "radius": 12.7,
+   "cap": 12.7,
+   "minBend": 12.7,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 114.7,
+     "radius": 12.7,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.0,
+      56.15
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 114.7,
+     "radius": 12.7,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      56.15,
+      20.0
+     ]
+    }
+   ],
+   "atSpec": 2,
+   "bends": 2,
+   "worstTurn": 114.7,
+   "seat": 12.805,
+   "reach": 17.974,
+   "reachRatio": 1.4153,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 56.148,
+    "demand": 3.1239,
+    "from": [
+     -28.0,
+     181.5,
+     60.0
+    ],
+    "to": [
+     -77.5,
+     158.0,
+     47.75
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -28.0,
+      161.5,
+      60.0
+     ],
+     [
+      -77.5,
+      178.0,
+      47.75
+     ]
+    ],
+    "axis": {
+     "x": 49.5,
+     "y": 16.5,
+     "z": 12.25
+    },
+    "span": 53.6,
+    "path": 67.67,
+    "detour": 1.263
+   }
+  },
+  {
    "id": "water-7",
    "kind": "water",
    "frm": "seaflo-pump.suction",
@@ -4393,88 +4505,6 @@
     "span": 48.09,
     "path": 59.78,
     "detour": 1.243
-   }
-  },
-  {
-   "id": "refrig-3",
-   "kind": "refrigerant",
-   "frm": "compressor.refrig-suction",
-   "to": "foam-assembly.evap-outlet",
-   "stock": "1/4\" soft ACR copper",
-   "od": 6.35,
-   "length": 72.69,
-   "radius": 12.7,
-   "cap": 12.7,
-   "minBend": 12.7,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 105.9,
-     "radius": 12.7,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      20.0,
-      53.01
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 105.9,
-     "radius": 12.7,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      53.01,
-      20.0
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 105.9,
-   "seat": 15.106,
-   "reach": 20.021,
-   "reachRatio": 1.5764,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 53.015,
-    "demand": 2.648,
-    "from": [
-     -28.0,
-     172.5,
-     60.0
-    ],
-    "to": [
-     -77.5,
-     158.0,
-     47.75
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -28.0,
-      152.5,
-      60.0
-     ],
-     [
-      -77.5,
-      178.0,
-      47.75
-     ]
-    ],
-    "axis": {
-     "x": 49.5,
-     "y": 25.5,
-     "z": 12.25
-    },
-    "span": 57.01,
-    "path": 72.69,
-    "detour": 1.275
    }
   },
   {
@@ -5386,6 +5416,51 @@
    }
   },
   {
+   "id": "refrig-2",
+   "kind": "refrigerant",
+   "frm": "condenser+fan.refrig-outlet",
+   "to": "foam-assembly.evap-inlet",
+   "stock": "1/4\" soft ACR copper",
+   "od": 6.35,
+   "length": 12.0,
+   "radius": 12.7,
+   "cap": 12.7,
+   "minBend": 12.7,
+   "ratio": 1.0,
+   "grade": null,
+   "corners": [],
+   "atSpec": 0,
+   "bends": 0,
+   "worstTurn": null,
+   "seat": null,
+   "reach": null,
+   "reachRatio": null,
+   "reachGrade": null,
+   "binding": null,
+   "need": {
+    "ends": [
+     [
+      77.5,
+      166.0,
+      47.75
+     ],
+     [
+      77.5,
+      178.0,
+      47.75
+     ]
+    ],
+    "axis": {
+     "x": 0.0,
+     "y": 12.0,
+     "z": 0.0
+    },
+    "span": 12.0,
+    "path": 12.0,
+    "detour": 1.0
+   }
+  },
+  {
    "id": "fluid-1",
    "kind": "fluid",
    "frm": "water-split.to-flavor",
@@ -6245,5 +6320,5 @@
    "never": null
   }
  ],
- "sources": "521cb9ab46e8a93778f03334b27c2171"
+ "sources": "3c7976e18623a1c2f4c3b157427f8a81"
 }

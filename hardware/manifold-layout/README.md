@@ -157,19 +157,18 @@ is 0 as well; a barb is not a quick-connect, so that one is a modelling convenie
 ## Standing it on the refrigeration stratum
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
-them: the compressor's own +X tangent to the condenser's intake face, the condenser's aft face
-to the cold core's front wall, and the crown of the pair to this pack's spine hairpins. The
-compressor does not reach that wall — the condenser stands one `SUCTION_LANE` aft of it, so the
-condenser's aft face alone lands on the plane the core butts and the lane behind the can is what
-its suction leg is drawn in.
+them: the compressor's own +X tangent to the condenser's intake face, and the crown of the pair
+to this pack's spine hairpins. The cold core is not one of them — it is packed off the rear wall
+instead, so a LANE stands between it and the stratum, and the two legs of the loop that cross it
+are drawn in copper.
 
-The gaps are 0 by intent, and the refrigerant loop is what they are for. The compressor is an
-oblong can whose stubs stand on its own tangent lines, the condenser is an envelope whose headers are
-re-dressed to whichever face suits, and the core's front wall has a lane on each side of it
-carrying one of the evaporator's coppers — so two of the loop's legs cross a plane two of these
-bodies already share, both stations of each are one point read twice, and no copper is drawn
-between them. The third is the compressor's suction, which stands off that wall and reaches the
-evaporator's outlet as cut and brazed copper `_lines` draws like any other run.
+The gaps that ARE 0 are by intent, and the refrigerant loop is what they are for. The compressor
+is an oblong can whose stubs stand on its own tangent lines and the condenser is an envelope
+whose headers are re-dressed to whichever face suits — so the loop's first leg crosses a plane
+those two bodies already share, both its stations are one point read twice, and no copper is
+drawn between them. The other two cross the lane in front of the core: the condenser's liquid
+line into the evaporator's inlet, one straight on the core's own port column, and the
+compressor's suction out of its aft tangent into the evaporator's outlet. `_lines` draws both.
 `refrigerant_joints` reads all three at every build — a mating on its two stations, a tube on
 both its mouths — and `check_refrigerant_joints` writes the card red for any leg standing open
 and for any with no pair of placed stations to measure.

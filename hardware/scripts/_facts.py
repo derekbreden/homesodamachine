@@ -94,6 +94,14 @@ def gather():
              "bend": float(r.bend), "diam": float(r.diam)}
             for r in getattr(whole, "runs", ())]
 
+    # Every placed body's OPTIMAL box, taken by the same call a reader would have taken. The
+    # card carries boxes too, but a figure read off one and a figure read off the other are
+    # two readings of one body, and a document that quotes both quotes two machines.
+    bodies = {}
+    for name, s in solids.items():
+        bb = _boxes.boxed(s)
+        bodies[name] = [bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax]
+
     pieces, _rest = _enc.build_pieces(box)
     piece_boxes = {}
     for name, wp in pieces.items():
@@ -171,6 +179,7 @@ def gather():
             "body_anchors": _plain(getattr(a, "body_anchors", ())),
             "tube_anchors": _plain(getattr(a, "tube_anchors", ())),
         },
+        "bodies": bodies,
         "runs": runs,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2)},
         "pieces": piece_boxes,
@@ -190,6 +199,38 @@ def write(facts=None) -> Path:
 
 
 # --- the reader --------------------------------------------------------------
+
+
+class _BB:
+    """A body's box as the artifact holds it, answering what `_boxes.boxed` answers: the six
+    faces, the three spans, and the union with another."""
+
+    __slots__ = ("xmin", "ymin", "zmin", "xmax", "ymax", "zmax")
+
+    def __init__(self, xmin, ymin, zmin, xmax, ymax, zmax):
+        self.xmin, self.ymin, self.zmin = xmin, ymin, zmin
+        self.xmax, self.ymax, self.zmax = xmax, ymax, zmax
+
+    def add(self, other):
+        return _BB(min(self.xmin, other.xmin), min(self.ymin, other.ymin),
+                   min(self.zmin, other.zmin), max(self.xmax, other.xmax),
+                   max(self.ymax, other.ymax), max(self.zmax, other.zmax))
+
+    @property
+    def xlen(self):
+        return self.xmax - self.xmin
+
+    @property
+    def ylen(self):
+        return self.ymax - self.ymin
+
+    @property
+    def zlen(self):
+        return self.zmax - self.zmin
+
+    def __repr__(self):
+        return (f"_BB(x[{self.xmin:.3f},{self.xmax:.3f}] y[{self.ymin:.3f},{self.ymax:.3f}] "
+                f"z[{self.zmin:.3f},{self.zmax:.3f}])")
 
 
 class _Row(dict):
@@ -257,6 +298,28 @@ class Facts:
     @property
     def manifold_bodies(self):
         return self._f["manifold_bodies"]
+
+    def bb(self, name: str):
+        """One placed body's optimal box, the reading `_boxes.boxed` took of it."""
+        try:
+            return _BB(*self._f["bodies"][name])
+        except KeyError as exc:
+            raise KeyError(
+                f"{name} is not among the {len(self._f['bodies'])} bodies the machine places "
+                f"— it has been renamed or dropped, and the figure reading it is stale. "
+                f"Have: {', '.join(sorted(self._f['bodies']))}") from exc
+
+    def group(self, pick):
+        """The box holding every placed body `pick` accepts."""
+        out = None
+        for name in self._f["bodies"]:
+            if not pick(name):
+                continue
+            b = self.bb(name)
+            out = b if out is None else out.add(b)
+        if out is None:
+            raise ValueError("no placed body matched — this measurement has nothing in it")
+        return out
 
     def strap_loop(self, seat_r: float) -> float:
         """The strap that closes round a body seated on a rib of this radius."""
