@@ -2,7 +2,7 @@
 
 A flat plate carrying four valve seats, running from side wall to side wall inside
 `enclosure-front-top`. **It is not a part.** It is that piece's own material, fused the way the
-tap-water trough and the flow meter's saddles are — `enclosure._valve_panels` stands one, off
+tap-water trough, the flow meter's saddles and the pump trays are — `enclosure._valve_panels` stands one, off
 the stations `enclosure_assembly.valve_panel_stations` reads off the placed valves. Nothing
 ships under a valve and nothing is billed for one.
 
