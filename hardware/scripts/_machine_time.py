@@ -206,7 +206,7 @@ def main():
         "MT_PRINTERS": PRINTERS,
         "MT_MEASURED": MEASURED[0],
         "MT_MEASURED_KG": f"{MEASURED[1]:.3f}",
-        "MT_PETCF_DRY": "12 h at 85 °C",
+        "MT_PETCF_DRY": "10 h at 100 °C",
         "MT_DUTY": f"{DUTY * 100:.0f} %",
         "MT_KG": f"{sum(kg.values()):.3f}",
         "MT_H_PRINT": f"{h_print:.1f}",
