@@ -31,44 +31,34 @@ from _cold_core_interface import (  # noqa: E402
 import _boxes  # noqa: E402
 import condenser_block as _cond  # noqa: E402
 import enclosure  # noqa: E402
-import enclosure_assembly as _ea  # noqa: E402
+import _facts  # noqa: E402  — the machine as the last build wrote it down
+import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this doc watches
 import manifold_layout as _ml  # noqa: E402
 import _scorecard  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
 
-# The machine, once: the placed pack, what its walls carry, and the box around it. Every
-# figure below is read off this one build, so no two of them can describe two machines.
-_ASSY, _PACK, _BOX = _ea.machine()
-_SOLIDS = _ea._solids(_ASSY)
-_OUTER, _INNER = _BOX.outer, _BOX.inner
+# The machine, once — as the last build wrote it down. Every figure below is read off that one
+# reading, so no two of them can describe two machines, and this file stands none.
+_F = _facts.read()
+_BOX = _F.box
+_SOLIDS = _F.bodies
+_OUTER, _INNER = _BOX["outer"], _BOX["inner"]
+_MANIFOLD_NAMES = set(_F.manifold_bodies)
 
 
 def _bb(name: str):
     """One placed body's box, by the name it goes into the assembly under."""
-    if name not in _SOLIDS:
-        raise KeyError(
-            f"{name} is not among the {len(_SOLIDS)} bodies `enclosure_assembly` places — "
-            f"this file measures a body that has been renamed or dropped, and the README "
-            f"figure it feeds is stale. Have: {', '.join(sorted(_SOLIDS))}")
-    return _boxes.boxed(_SOLIDS[name][0])
+    return _F.bb(name)
 
 
 def _group(pick):
     """The box holding every placed body `pick` accepts."""
-    out = None
-    for name in _SOLIDS:
-        if not pick(name):
-            continue
-        b = _bb(name)
-        out = b if out is None else out.add(b)
-    if out is None:
-        raise ValueError("no placed body matched — this measurement has nothing in it")
-    return out
+    return _F.group(pick)
 
 
 # Every authored run, by id, built ONCE — several figures below read a run's length.
-_RUNS = {r.id: r for r in _ASSY.runs}
+_RUNS = {r.id: r for r in _F.runs}
 
 
 def _run_len(cid: str) -> float:
@@ -125,12 +115,12 @@ CORE_FRONT_Y = _FOAM.ymin                       # its front face — the stratum
 # The cap prints a valve cradle at each of its stations off that face, and the rails of those
 # cradles are what the solid's own `zmax` reaches — so the lid's height is read where
 # `enclosure_assembly` states it, and not off the box.
-CORE_CROWN = _ea.cap_face(_SOLIDS["foam-assembly"][0])
+CORE_CROWN = _F.faces["foam-assembly.cap"]
 
 # --- the flavour manifold, on the stratum's crown --------------------------
 # `enclosure_assembly._manifold` is what names a body as the pack's rather than a standalone, so
 # the pack measures here exactly as it measures in the assembly's own report.
-_MANIFOLD = _group(_ea._manifold)
+_MANIFOLD = _group(lambda n: n in _MANIFOLD_NAMES)
 MANIFOLD_W = _MANIFOLD.xmax - _MANIFOLD.xmin
 MANIFOLD_D = _MANIFOLD.ymax - _MANIFOLD.ymin
 MANIFOLD_H = _MANIFOLD.zmax - _MANIFOLD.zmin
@@ -140,7 +130,7 @@ MANIFOLD_TOP = _MANIFOLD.zmax
 PUMP_FACE_CLEAR = min(_bb(n).zmin for n in _SOLIDS if n.endswith("-head")) - STRATUM_TOP
 DECK_SEP = _ml.DECK_SEP                         # the two valve decks, deck to deck
 # The pack overhangs the core's front face, and what it clears there is the core's own crown.
-_OVER = [n for n in _SOLIDS if _ea._manifold(n) and _bb(n).ymax > CORE_FRONT_Y + 1e-6]
+_OVER = [n for n in _SOLIDS if n in _MANIFOLD_NAMES and _bb(n).ymax > CORE_FRONT_Y + 1e-6]
 CORE_OVERHANG = max(_bb(n).ymax for n in _OVER) - CORE_FRONT_Y
 CORE_OVERHANG_CLEAR = min(_bb(n).zmin for n in _OVER) - CORE_CROWN
 OVERHANG_N = len(_OVER)
@@ -150,8 +140,8 @@ DECK_TOP = CORE_CROWN
 DECK_HEIGHT = _INNER[5] - DECK_TOP
 PUMP_CROWN = _bb("seaflo-pump").zmax
 # The back column's own Z seam, the piece it leaves under it, and what the bed carries.
-BACK_Z_SEAM = _BOX.splits[1]
-BACK_BOTTOM_H = _boxes.boxed(enclosure.build_pieces(_BOX)[0]["back-bottom"].val()).zlen
+BACK_Z_SEAM = _BOX["splits"][1]
+BACK_BOTTOM_H = _F.pieces["back-bottom"]["box"][5] - _F.pieces["back-bottom"]["box"][2]
 BED_Z = enclosure.H2C_Z
 
 # --- what crosses the back wall --------------------------------------------
@@ -159,7 +149,8 @@ BED_Z = enclosure.H2C_Z
 # `back_wall_ports` strikes its bore on.
 PORT_ROW_Z = _bb("bulkhead-carb").zmin + (_bb("bulkhead-carb").zlen / 2.0)
 WATER_PORT_Z = _bb("bulkhead-water").zmin + (_bb("bulkhead-water").zlen / 2.0)
-PANEL_PITCH = (max(_ea.PANEL_X.values()) - min(_ea.PANEL_X.values())) / (len(_ea.PANEL_X) - 1)
+_PANEL_X = _F.constants["PANEL_X"]
+PANEL_PITCH = (max(_PANEL_X.values()) - min(_PANEL_X.values())) / (len(_PANEL_X) - 1)
 
 # --- the lines the cold core is reached on ---------------------------------
 # All four reservoir lines land on CAP CONDUITS — bores up the cap's own columns opening on
@@ -177,7 +168,7 @@ CARB_LEN = _run_len("carb-1")
 # The routed axis, read off the same scorecard the assembly prints rather than kept by hand.
 # Both counts are named, because a percentage in prose is always read back as a count and
 # the count is the half that goes stale silently.
-_CONNS = _scorecard.load_connections(_ASSY.runs)
+_CONNS = _scorecard.load_connections(_F.runs)
 ROUTED_N = sum(1 for c in _CONNS if c.routed)
 CONNECTIONS_N = len(_CONNS)
 ROUTED_PCT = 100.0 * ROUTED_N / CONNECTIONS_N
