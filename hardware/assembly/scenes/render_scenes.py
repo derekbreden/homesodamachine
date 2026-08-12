@@ -154,10 +154,13 @@ def draw(scene, assembly) -> Path:
 
     # What drew it, so `check_scenes` can doubt the picture without importing anything: the
     # scene's own tuple hashed, and every repo file the build reads, walked from in here where
-    # the graph is complete and free.
+    # the graph is complete and free. Beside those, the picture that came out and the bodies that
+    # went into it — the machine's answer at the moment of the render, which the check reads back.
     _scenes.sidecar_path(png).write_text(json.dumps({
         "scene": _scenes.scene_digest(scene),
         "sources": _scenes.source_map(),
+        "drawn": sorted(c.name for c in scene_assembly.children),
+        "image": _scenes.image_fingerprint(png),
     }, indent=2, sort_keys=True) + "\n")
     return png
 

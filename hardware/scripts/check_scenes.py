@@ -9,10 +9,15 @@ on printing whatever the last one drew.
     tools/cad-venv/bin/python hardware/scripts/check_scenes.py     (0 = current, 1 = stale)
 
 WHAT THIS COSTS IS READING THE FILES THE RENDER WROTE DOWN. Beside each PNG the render leaves
-`<png>.scene.json`: the scene's own tuple, hashed, and every repo file whose text could decide
-the picture, each with the hash of its bytes. This hashes those files again and compares. No
-module is imported, no geometry is built — which is the whole bargain, because a picture is
-expensive to draw and cheap to doubt, and the doubting is what runs on every commit.
+`<png>.scene.json`: the scene's own tuple, hashed; the picture that came out, by size and hash;
+the bodies that went into it; and every repo file whose text could decide the picture, each with
+the hash of its bytes. This hashes the picture and those files again and compares. No module is
+imported, no geometry is built — which is the whole bargain, because a picture is expensive to
+draw and cheap to doubt, and the doubting is what runs on every commit.
+
+The recorded `drawn` list is the machine's answer at the moment of the render. Reading it back
+costs a build, so it is carried and not checked; two renders that disagree about which bodies a
+unit holds differ there in text.
 
 THE RECORDED LIST IS THE READING and not a list to take again here. Resolving the build's import
 graph means asking `find_spec` for each name, which imports the package a dotted name hangs off;
@@ -58,14 +63,24 @@ def state(scene) -> tuple:
     if held.get("scene") != _scenes.scene_digest(scene):
         return "stale", "the scene's own roots or camera have changed"
 
+    was = held.get("image")
+    if not was:
+        return "stale", "the record does not say which picture was drawn"
+    now = _scenes.image_fingerprint(png)
+    if now != was:
+        if (now["w"], now["h"]) != (was["w"], was["h"]):
+            return "stale", (f"the picture is {now['w']}x{now['h']}, drawn at "
+                             f"{was['w']}x{was['h']}")
+        return "stale", f"the picture's bytes are not the ones drawn ({now['bytes']} on disk)"
+
     sources = held.get("sources") or {}
     if not sources:
         return "stale", "the record names no sources"
-    moved = [rel for rel, was in sorted(sources.items()) if _scenes.hash_of(rel) != was]
+    moved = [rel for rel, w in sorted(sources.items()) if _scenes.hash_of(rel) != w]
     if moved:
         head = ", ".join(moved[:3]) + (f" and {len(moved) - 3} more" if len(moved) > 3 else "")
         return "stale", f"{len(moved)} of {len(sources)} sources moved: {head}"
-    return "current", f"current against {len(sources)} sources"
+    return "current", f"{now['w']}x{now['h']}, current against {len(sources)} sources"
 
 
 def main() -> int:

@@ -16,11 +16,14 @@ name against the `sys.path` its driver is standing on, and the same name resolve
 different file — or to none — from anywhere else, so a graph taken in this process would be a
 different graph and the comparison would be against nothing. The driver records; this reads.
 
-A doc with no sidecar is named and passes: it enrols the next time its driver runs.
+A doc with no sidecar and a figure to write is named and passes: it enrols the next time its
+driver runs. A doc whose Sources section is prose about a drawing someone read, carrying no
+`[value](NAME)` of its own, has nothing to enrol and is not counted.
 """
 
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -28,6 +31,11 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _root = _hw.parent
 SIDECAR_SUFFIX = ".sources.json"
+
+#: `docgen`'s own marker. A doc carrying none of these has no figure any run writes, so its
+#: Sources section is prose about where a person read the numbers — `seaflo-22-pump/README.md`
+#: transcribes a vendor drawing — and there is nothing for a driver to enrol.
+_LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
 
 
 def _hash(path: Path) -> str | None:
@@ -61,7 +69,8 @@ def main() -> int:
     for doc in docs:
         sidecar = doc.with_name(doc.stem + SIDECAR_SUFFIX)
         if not sidecar.is_file():
-            if "## Sources" in doc.read_text():
+            text = doc.read_text()
+            if "## Sources" in text and _LINK_RE.search(text):
                 bare.append(doc.relative_to(_root))
             continue
         enrolled += 1
