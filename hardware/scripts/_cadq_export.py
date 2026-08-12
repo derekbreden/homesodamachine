@@ -38,7 +38,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 # --- Build single-flight -----------------------------------------------------
@@ -252,8 +252,7 @@ def _canonicalize_step_entity_ids(text):
     # the round before, since nothing else can change what it hashes; and the
     # entities a moved one refers to are exactly the ones to look at next. A
     # round reads only the previous round's hashes and writes after it closes,
-    # so the sequence of rounds is the one a full sweep produces. On the
-    # enclosure assembly this is the difference between 6.9M hashes and 2.7M.
+    # so the sequence of rounds is the one a full sweep produces.
     #
     # Two populations never need the sort: an entity nothing refers to has a
     # constant signature and is taken once, before the rounds; an entity one
@@ -275,7 +274,15 @@ def _canonicalize_step_entity_ids(text):
             (fwd_hash[eid] + "|[]").encode("utf-8")
         ).hexdigest()
 
-    stale = set(one_ref) | set(many_ref)
+    # A ROUND ONLY EVER TELLS ENTITIES APART, so an entity whose forward hash is shared by no
+    # other is already as far apart as it can get and its name is settled before the first
+    # round. Two thirds of this file is the other kind — interchangeable points and directions
+    # that carry the same hash by the thousand and are told apart only by what points at them.
+    # The rounds carry those.
+    _fwd_count = Counter(fwd_hash[eid] for eid in records)
+    settled = {eid for eid in records if _fwd_count[fwd_hash[eid]] == 1}
+
+    stale = (set(one_ref) | set(many_ref)) - settled
     for _ in range(_STEP_REV_HASH_ITERATIONS):
         moved = {}
         for eid in stale:
@@ -298,7 +305,7 @@ def _canonicalize_step_entity_ids(text):
         rev_hash.update(moved)
         stale = set()
         for eid in moved:
-            stale.update(refs_of[eid])
+            stale.update(r for r in refs_of[eid] if r not in settled)
 
     # Stable canonical order: by rev hash, with original position as a
     # final tiebreaker for the (rare) cases where two entities are truly
