@@ -130,8 +130,10 @@ STATIONS = {
                       # the core's own flanks rather than up its cap columns.
                       "evap-outlet": (lambda: _plugs.slot_station("evap-outlet"), CU_OD),
                       "evap-inlet": (lambda: _plugs.slot_station("evap-inlet"), CU_OD)},
-    "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD)},
-    "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD)},
+    "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD),
+                   "refrig-discharge": (lambda: _comp.stations()["refrig-discharge"], CU_OD)},
+    "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD),
+                      "refrig-inlet": (lambda: _cond.stations()["refrig-inlet"], CU_OD)},
     "seaflo-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
@@ -235,6 +237,8 @@ def build_runs(placed, carries):
     runs = []
     if {"compressor", "foam-assembly"} <= set(F):
         runs.append(_refrig_3(F))
+    if {"compressor", "condenser+fan"} <= set(F):
+        runs.append(_refrig_1(F))
     if {"condenser+fan", "foam-assembly"} <= set(F):
         runs.append(_refrig_2(F))
     if {"seaflo-pump", "suction-chain"} <= set(F):
@@ -1029,6 +1033,18 @@ def _refrig_3(F):
              "that is drawn rather than made across a shared plane")
 
 
+def _refrig_1(F):
+    """refrig-1 — the compressor's discharge into the condenser's intake, in copper.
+
+    BOTH MOUTHS FACE EACH OTHER ON ONE LINE. The can's discharge stub stands on its own +X
+    tangent and the block's header is re-dressed to that stub's column and plane, so what
+    crosses the lane the block's slide east opens is one length of tube."""
+    return R.bent(
+        "refrig-1", "compressor.refrig-discharge", "condenser+fan.refrig-inlet",
+        kind="refrigerant",
+        note="sealed loop: compressor discharge → condenser inlet, one straight across the lane")
+
+
 def _refrig_2(F):
     """refrig-2 — the condenser's liquid line into the evaporator's inlet, in copper.
 
@@ -1054,7 +1070,7 @@ def authored() -> frozenset:
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
              "co2-0", "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28",
              "fluid-18", "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3",
-             "refrig-2")
+             "refrig-2", "refrig-1")
 
 
 def tubes(runs):
