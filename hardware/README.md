@@ -25,17 +25,20 @@ The home soda machine's physical design — the integrated under-counter applian
 
 ## What a build costs
 
-Wall clock on the owner's machine at `c813264b` — warm caches, no other build running, one
+Wall clock on the owner's machine at `94aa493a` — warm caches, no other build running, one
 run each.
 
-`enclosure_assembly.py` has two costs. The stamp beside the STEP decides which one a run
-pays: a run whose STEP hashes to what the stamp holds draws no elevations, and a run that
-moved the STEP draws three, a thumbnail, and any scene whose sources moved with it.
+**What an edit that moves no code owes is nothing.** A file is named by its parsed code
+(`_realized.code_digest`), so a comment, a blank line or a reflowed docstring renames nothing
+and stales nothing: `owed.py` reports every doc, card and scene current and runs no generator.
 
-| `enclosure_assembly.py` | wall |
+| | wall |
 |---|---|
-| STEP unchanged, scenes current | 28 s |
-| STEP moved, four scenes redrawn | 81 s |
+| a comment-only edit to a file in every closure | nothing owed |
+| `enclosure_assembly.py`, nothing moved | 17 s |
+| `enclosure_assembly.py`, STEP moved — three elevations and a thumbnail | 81 s |
+| `render_scenes.py`, four scenes, geometry unchanged | 24–25 s |
+| `render_scenes.py`, four scenes redrawn | 60 s |
 
 Inside one run:
 
@@ -52,6 +55,10 @@ Inside one run:
 
 The export and render rows are timed at `081a1bee`; the two derive rows at `c813264b`.
 
+A scene carries the hash of the STEP it was drawn of, so a run agreeing on that and on the
+scene's own tuple leaves the picture standing and boots no browser. What is left in the 24 s
+is the four scene STEP exports and their `.glb`s.
+
 What a chain of eighteen came to, each generator in it:
 
 | | wall | | wall |
@@ -65,8 +72,9 @@ What a chain of eighteen came to, each generator in it:
 The doc syncs read `enclosure-assembly.facts.json` and stand no machine, so they are 2–4 s
 whether or not they name a figure the pack decides.
 
-Eighteen generators end to end, which is what a commit touching a widely-imported module
-owes: **106 s**.
+Eighteen generators end to end: **106 s**. That is what a commit owes when it moves a figure
+those generators write. A commit that touches a widely-imported module without changing what
+it computes owes none of them.
 
 ## Part metadata sidecars
 
