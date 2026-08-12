@@ -47,6 +47,8 @@ Read off the placed pumps at every build, never stated. `pump_tray_seats` reads 
 
 Plate on head's crown, shoulder on boss's crown, bore on the boss's flanks — every one of them a plane or a shared wall, so a tray and the pump it takes share no volume.
 
+**What ties a tray to the rest of the piece is the box's, not the tray's.** A tray reaches the front wall and nothing else, so `enclosure._tray_webs` closes the four gaps around it — one web to each side wall, one between the two trays, one aft onto the valve panel — each this plate thick and in this plate's own band. The storey comes out one plate wall to wall.
+
 ## Print
 
 Both trays come off the bed inside `enclosure-front-top`, which prints ceiling-down. The plate goes down first and everything above it — ramp, bore wall, shoulder — grows off its underside, so the only face that hangs is the plate's own. It is a soffit over the lane its pump hangs in, anchored along its whole width where it meets the wall, and it takes print support the way the tap-water trough's block and the drip tray's rails do. The pump is laid into it that way up, both straps threaded through their channels first — there is no reaching under a seated pump afterwards. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces row).
