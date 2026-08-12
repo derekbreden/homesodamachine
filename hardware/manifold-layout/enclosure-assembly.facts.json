@@ -579,6 +579,13 @@
     398.21,
     336.2105808375568
    ]
+  },
+  "wr1110.barrel": {
+   "pos": [
+    -7.350000000000004,
+    371.2026,
+    336.2105808375568
+   ]
   }
  },
  "constants": {
@@ -882,147 +889,189 @@
  },
  "runs": [
   {
+   "bend": 12.7,
    "corners": 2,
+   "diam": 6.35,
    "frm": "compressor.refrig-suction",
    "id": "refrig-3",
    "length": 72.6908938370015,
    "to": "foam-assembly.evap-outlet"
   },
   {
+   "bend": 15.9,
    "corners": 2,
+   "diam": 15.1,
    "frm": "seaflo-pump.suction",
    "id": "water-7",
    "length": 59.78330968277593,
    "to": "suction-chain.barb-tip"
   },
   {
+   "bend": 15.9,
    "corners": 2,
+   "diam": 15.1,
    "frm": "seaflo-pump.discharge",
    "id": "water-6",
    "length": 57.58403994720158,
    "to": "discharge-chain.barb-tip"
   },
   {
+   "bend": 14.0,
    "corners": 2,
+   "diam": 6.35,
    "frm": "discharge-chain.tube-port",
    "id": "water-5",
    "length": 48.25649191637704,
    "to": "foam-assembly.water-in"
   },
   {
+   "bend": 14.0,
    "corners": 2,
+   "diam": 6.35,
    "frm": "asse1022-assembly.tube-out",
    "id": "water-2",
    "length": 56.30310187146829,
    "to": "water-split.supply"
   },
   {
+   "bend": 14.0,
    "corners": 0,
+   "diam": 6.35,
    "frm": "water-split.to-flavor",
    "id": "fluid-1",
    "length": 24.0,
    "to": "flow-regulator.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 0,
+   "diam": 6.35,
    "frm": "vk-solenoid.outlet",
    "id": "water-4",
    "length": 9.420000000000016,
    "to": "suction-chain.tube-port"
   },
   {
+   "bend": 14.0,
    "corners": 3,
+   "diam": 6.35,
    "frm": "water-split.to-vk",
    "id": "water-3",
    "length": 258.2840265629424,
    "to": "vk-solenoid.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 0,
+   "diam": 6.35,
    "frm": "co2-inlet.inboard",
    "id": "co2-0",
    "length": 10.0,
    "to": "gasher-co2.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 0,
+   "diam": 6.35,
    "frm": "gasher-co2.outlet",
    "id": "co2-1",
    "length": 10.0,
    "to": "wr1110.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 2,
+   "diam": 6.35,
    "frm": "wr1110.outlet",
    "id": "co2-2",
    "length": 189.345477787814,
    "to": "foam-assembly.co2-in"
   },
   {
+   "bend": 14.0,
    "corners": 4,
+   "diam": 6.35,
    "frm": "flow-regulator.outlet",
    "id": "fluid-2",
    "length": 235.12769666417455,
    "to": "valve-v-a.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 2,
+   "diam": 6.35,
    "frm": "foam-assembly.carb-water-out",
    "id": "carb-1",
    "length": 290.2128777878139,
    "to": "digiten-flow.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 0,
+   "diam": 6.35,
    "frm": "digiten-flow.outlet",
    "id": "carb-2",
    "length": 24.0,
    "to": "bulkhead-carb.tube-in"
   },
   {
+   "bend": 14.0,
    "corners": 4,
+   "diam": 6.35,
    "frm": "valve-v-j.outlet",
    "id": "fluid-28",
    "length": 350.09371011040326,
    "to": "bulkhead-flavor-b.tube-in"
   },
   {
+   "bend": 14.0,
    "corners": 5,
+   "diam": 6.35,
    "frm": "valve-v-g.outlet",
    "id": "fluid-18",
    "length": 481.1791028936634,
    "to": "bulkhead-flavor-a.tube-in"
   },
   {
+   "bend": 14.0,
    "corners": 4,
+   "diam": 6.35,
    "frm": "valve-v-i.outlet",
    "id": "fluid-24",
    "length": 194.3380308996507,
    "to": "foam-assembly.reservoir-b-fill"
   },
   {
+   "bend": 14.0,
    "corners": 2,
+   "diam": 6.35,
    "frm": "foam-assembly.reservoir-b",
    "id": "fluid-26",
    "length": 133.8910821581315,
    "to": "valve-v-h.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 6,
+   "diam": 6.35,
    "frm": "valve-v-f.outlet",
    "id": "fluid-14",
    "length": 380.1544992521306,
    "to": "foam-assembly.reservoir-a-fill"
   },
   {
+   "bend": 14.0,
    "corners": 2,
+   "diam": 6.35,
    "frm": "foam-assembly.reservoir-a",
    "id": "fluid-16",
    "length": 133.8910821581315,
    "to": "valve-v-e.inlet"
   },
   {
+   "bend": 14.0,
    "corners": 3,
+   "diam": 6.35,
    "frm": "hopper-funnel.drain",
    "id": "fluid-4",
    "length": 160.417926069842,
@@ -1030,7 +1079,7 @@
   }
  ],
  "schema": 1,
- "sources": "521cb9ab46e8a93778f03334b27c2171",
+ "sources": "f5721b84ced677a2d9ea9967e0db6175",
  "strap_loops": {
   "3.3750": 40.0825,
   "9.7000": 84.0566

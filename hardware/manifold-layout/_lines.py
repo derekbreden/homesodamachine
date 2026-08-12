@@ -131,6 +131,7 @@ STATIONS = {
                       "evap-outlet": (lambda: _plugs.slot_station("evap-outlet"), CU_OD),
                       "evap-inlet": (lambda: _plugs.slot_station("evap-inlet"), CU_OD)},
     "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD)},
+    "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD)},
     "seaflo-pump": {"suction": (_pump.suction, _suct.HOSE_OD),
                     "discharge": (_pump.discharge, _suct.HOSE_OD)},
     "suction-chain": {"barb-tip": (_suct.barb_tip, _suct.HOSE_OD),
@@ -234,6 +235,8 @@ def build_runs(placed, carries):
     runs = []
     if {"compressor", "foam-assembly"} <= set(F):
         runs.append(_refrig_3(F))
+    if {"condenser+fan", "foam-assembly"} <= set(F):
+        runs.append(_refrig_2(F))
     if {"seaflo-pump", "suction-chain"} <= set(F):
         runs.append(_water_7(F))
     if {"seaflo-pump", "discharge-chain"} <= set(F):
@@ -1026,6 +1029,16 @@ def _refrig_3(F):
              "that is drawn rather than made across a shared plane")
 
 
+def _refrig_2(F):
+    """refrig-2 — the condenser's liquid line into the evaporator's inlet, in copper.
+
+    The drier sits inside the block's own envelope; what leaves it is tube."""
+    return R.bent(
+        "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
+        kind="refrigerant", bend=CU_BEND, lead=CU_LEAD,
+        note="sealed loop: condenser outlet → evaporator inlet")
+
+
 def authored() -> frozenset:
     """The connection ids this module draws a run for, without building one. `enclosure_assembly`
     reads it before the pack is assembled, to know which of the manifold's placeholder mouth stubs
@@ -1037,7 +1050,8 @@ def authored() -> frozenset:
 # only decides whether the bodies to draw it are placed yet.
 _AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
              "co2-0", "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28",
-             "fluid-18", "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3")
+             "fluid-18", "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3",
+             "refrig-2")
 
 
 def tubes(runs):
