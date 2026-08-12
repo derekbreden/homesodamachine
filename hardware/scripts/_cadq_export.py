@@ -591,13 +591,11 @@ def _queue_thumbnail(target_path, source=None):
     # already standing for these bytes is a thumbnail nobody has to render again — it is not a
     # reason to leave the page parsing the model it stands for.
     #
-    # IT IS WRITTEN BEFORE EITHER SKIP, and that is the whole of its correctness. `loadStepFile`
-    # PREFERS a payload to the STEP beside it, so a payload left behind by a STEP that moved is
-    # every reader — the page, the elevations, the scene shots — drawing the model as it used to
-    # be, and saying nothing. HSM_SKIP_THUMBNAILS asks for no browser to be booted, which is what
-    # a thumbnail costs; tessellating a shape the generator is still holding is neither a
-    # thumbnail nor expensive, and skipping it is how the sidecar goes stale under the watcher
-    # that sets the flag on every generator it spawns.
+    # IT IS WRITTEN BEFORE EITHER SKIP. `loadStepFile` PREFERS a payload to the STEP beside it,
+    # so a payload older than the STEP is every reader — the page, the elevations, the scene
+    # shots — drawing the model the STEP no longer holds. HSM_SKIP_THUMBNAILS asks for no
+    # browser, which is what a thumbnail costs; a shape the generator is still holding
+    # tessellates without one.
     #
     # A payload no older than the STEP was made from these bytes — `_atomic_write` leaves an
     # unchanged target's mtime alone — so a build that moved nothing re-tessellates nothing.
