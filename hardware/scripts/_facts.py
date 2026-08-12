@@ -37,7 +37,7 @@ _HERE = Path(__file__).resolve()
 _HW = _HERE.parent.parent
 _ROOT = _HW.parent
 
-for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "printed-parts" / "enclosure" / "enclosure", _HW / "reference" / "digiten-flow-sensor", _HW / "reference" / "wr1110-regulator"):
+for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "printed-parts" / "enclosure" / "enclosure", _HW / "reference" / "digiten-flow-sensor", _HW / "reference" / "wr1110-regulator", _HW / "reference" / "jg-bulkhead-union"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
@@ -55,6 +55,11 @@ SCHEMA = 1
 DECLARED_GAPS = (
     ("coil-v-a", "coil-v-b", 32.0),
 )
+
+# The runs a document names the neighbours of. `part_clearances` reports every pair inside its
+# own floor; this keeps, per run, what it passes and how close — nearest first — so a driver
+# can say which two bodies a lane runs between without standing the machine to find out.
+DECLARED_RUN_NEIGHBOURS = ("fluid-4",)
 
 
 def _plain(v):
@@ -135,6 +140,31 @@ def gather():
         import wr1110_regulator as _wr1110
         carried["wr1110.barrel"] = {"pos": _plain(carries["wr1110"](_wr1110.barrel()[0])[0])}
 
+    # The mouth a bulkhead presents, carried to where the machine stands it — the same station
+    # `back_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
+    import jg_bulkhead_union as _jg
+    mouths = {}
+    if hasattr(a, "bulkhead_carry"):
+        mouths["bulkhead-water"] = _plain(a.bulkhead_carry(_jg.port(-1.0))[0])
+    for _n, _c in getattr(a, "panel_carries", {}).items():
+        mouths[_n] = _plain(_c(_jg.port(-1.0))[0])
+
+    # What a named run passes, nearest first. Same reading `clearance-floor` grades, without
+    # its floor, so a lane's two sides are readable whatever they measure.
+    import _scorecard as _card
+    _pairs = _card.part_clearances(whole, list(getattr(whole, "runs", ())))
+    _bodies_only = _card._split_placed(whole)[0]
+    run_near = {}
+    for rid in DECLARED_RUN_NEIGHBOURS:
+        rows = sorted((float(g), other)
+                      for x, y, g, _ok in _pairs
+                      for r, other in ((x, y), (y, x))
+                      if r == rid and other in _bodies_only)
+        if not rows:
+            raise KeyError(f"{rid} passes nothing inside the card's floor — a document naming "
+                           f"its neighbours is describing a lane the machine no longer has")
+        run_near[rid] = [[other, round(g, 4)] for g, other in rows]
+
     # WHAT A DRIVER WOULD IMPORT THE CAD TO READ. These are module-level and cost no build,
     # but reaching them means loading cadquery and the forty modules behind it — which is the
     # whole of what `_electronics_shelf_sync` pays to learn how many poles a Wago row has.
@@ -180,6 +210,8 @@ def gather():
             "tube_anchors": _plain(getattr(a, "tube_anchors", ())),
         },
         "bodies": bodies,
+        "mouths": mouths,
+        "run_near": run_near,
         "runs": runs,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2)},
         "pieces": piece_boxes,
@@ -298,6 +330,19 @@ class Facts:
     @property
     def manifold_bodies(self):
         return self._f["manifold_bodies"]
+
+    @property
+    def mouths(self):
+        """A bulkhead's mouth, carried to where the machine stands it."""
+        return self._f["mouths"]
+
+    def near(self, rid):
+        """What a run passes, nearest first, as (body, gap)."""
+        try:
+            return [(n, g) for n, g in self._f["run_near"][rid]]
+        except KeyError as exc:
+            raise KeyError(f"{rid}'s neighbours are not recorded — add it to "
+                           f"DECLARED_RUN_NEIGHBOURS") from exc
 
     @property
     def bodies(self):

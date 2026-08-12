@@ -16,8 +16,8 @@ on X, `FACE_A` on Y, `FACE_B` on Z:
 
 | Station | Face | Location | Stands on |
 |---|---|---|---|
-| `refrig-inlet` | intake, −X | (0, 87, 61) | the compressor's discharge stub, on its shell's +X tangent |
-| `refrig-outlet` | aft, +Y | (50.5, 154, 33.75) | the cold core's evaporator-inlet column and plane |
+| `refrig-inlet` | intake, −X | (0, 87, 66) | the compressor's discharge stub, on its shell's +X tangent |
+| `refrig-outlet` | aft, +Y | (50.5, 154, 38.75) | the cold core's evaporator-inlet column and plane |
 | `fan-power` | exhaust, +X | (56, 30, 68.5) | — |
 
 **Both refrigerant legs arrive where the neighbour puts them**, which is what a
@@ -81,5 +81,4 @@ made up to stands on the same line — and the two are struck on the same centre
 core is packed off the rear wall rather than butted against this block, so a lane stands
 between them and the liquid line crosses it. It does **not** stand on the floor slab:
 the box takes its four flanges, a groove off the front wall at the fore pair and a
-bored boss under each aft hole, and the crown of what carries it is what the flavour
-pack sets down on.
+bored boss under each aft hole, and it stands off the slab by that boss's own bore.
