@@ -42,7 +42,7 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -109,7 +109,7 @@ async function snapModel(page, stepRel) {
   // Pose camera per spec: position at center + (1,1,1)·radius·1.6, look at
   // center, up (0,1,0). Multiplied by 2 in practice — radius is half the max
   // bbox dim, so 1.6 of half-dim is too tight; 1.6·full-dim frames cleanly.
-  await page.evaluate(() => {
+  const shot = await page.evaluate(() => {
     const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
     const box = new THREE.Box3().setFromObject(currentGroup);
     const center = box.getCenter(new THREE.Vector3());
@@ -124,12 +124,11 @@ async function snapModel(page, stepRel) {
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+    // The read is on the line after the render — see browser.js frameBuffer.
     renderer.render(scene, camera);
+    return renderer.domElement.toDataURL("image/png");
   });
-  // One more compositor frame so the canvas has the new pixels.
-  await new Promise((r) => setTimeout(r, 200));
-
-  const raw = await page.screenshot({ type: "png", omitBackground: false });
+  const raw = frameBuffer(shot);
 
   // Trim against the bg color, then re-flatten to make any transparent
   // edge pixels solid bg again.
@@ -206,27 +205,6 @@ async function renderPair({
       () => window.__hsm && window.__hsm.scene && window.__hsm.camera && window.__hsm.loadStepFile,
       { timeout: 30000 },
     );
-
-    // Hide chrome so the screenshot only contains the rendered model. The
-    // STEP detail now lives inside the ContentViewer modal — hide the
-    // filename pill, close X, gizmo cube; expand the modal card to the
-    // full viewport so the canvas covers everything; force backgrounds to
-    // the site bg so sharp's trim() has a clean color to crop against.
-    await page.addStyleTag({
-      content: `
-        nav, #site-nav, .nav-gear, footer, #site-footer,
-        .cv-filename, .cv-close, .cv-backdrop,
-        #gizmoCanvas { display: none !important; }
-        .cv-card {
-          width: 100vw !important; height: 100vh !important;
-          max-width: 100vw !important; max-height: 100vh !important;
-          border-radius: 0 !important;
-        }
-        body, html, .cv-card, .cv-content, .cad-wrapper, #viewport {
-          background: ${BG_HEX} !important;
-        }
-      `,
-    });
 
     console.log(`snapping ${stepAviewerRel}...`);
     const pngA = await snapModel(page, stepAviewerRel);

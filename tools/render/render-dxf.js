@@ -30,7 +30,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -106,41 +106,12 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
       dxfRel,
     );
 
-    // Hide chrome so the screenshot only contains the rendered model.
-    // Same overrides as render-step.js since both surface inside the
-    // shared ContentViewer modal with a .cad-wrapper.
-    //
-    // Anything that lives inside .cad-wrapper but ISN'T the renderer
-    // canvas must be hidden too, or sharp's trim() will anchor on it
-    // and leave dead space around the part. The list below covers every
-    // chrome element cad-detail.js attaches alongside the viewport:
-    // gizmo cube, loading pill, ruler toggle, reset-view button. If a
-    // new chrome element gets added to the wrapper, add it here too.
-    await page.addStyleTag({
-      content: `
-        nav, #site-nav, .nav-gear, footer, #site-footer,
-        .cv-filename, .cv-close, .cv-backdrop,
-        #gizmoCanvas,
-        .cad-wrapper > .cad-loading,
-        .cad-wrapper > .ruler-toggle,
-        .cad-wrapper > .reset-view { display: none !important; }
-        .cv-card {
-          width: 100vw !important; height: 100vh !important;
-          max-width: 100vw !important; max-height: 100vh !important;
-          border-radius: 0 !important;
-        }
-        body, html, .cv-card, .cv-content, .cad-wrapper, #viewport {
-          background: ${BG_HEX} !important;
-        }
-      `,
-    });
-
     // Pose the camera 3/4 isometric. Same factor (1.6) as render-step
     // for visual consistency between Prints and Cuts in blog posts.
     // Up is +Z so the plate's top stays on top of the screen — DXF
     // extrudes in +Z, unlike STEPs which use the natural Y-up.
     console.log("posing camera + rendering frame...");
-    await page.evaluate(() => {
+    const shot = await page.evaluate(() => {
       const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
       const box = new THREE.Box3().setFromObject(currentGroup);
       const center = box.getCenter(new THREE.Vector3());
@@ -155,13 +126,11 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
       renderer.setSize(window.innerWidth, window.innerHeight, false);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      // The read is on the line after the render — see browser.js frameBuffer.
       renderer.render(scene, camera);
+      return renderer.domElement.toDataURL("image/png");
     });
-
-    await new Promise((r) => setTimeout(r, 200));
-
-    console.log("snapping screenshot...");
-    const raw = await page.screenshot({ type: "png", omitBackground: false });
+    const raw = frameBuffer(shot);
 
     console.log("trimming + resizing...");
     let img = sharp(raw).trim({ background: BG_HEX, threshold: 10 });
