@@ -139,7 +139,6 @@ BEARS_ON = {
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
     # Riding another body rather than a piece.
-    "bpv31": "compressor",
     "fuse-clamp": "compressor",
 }
 
