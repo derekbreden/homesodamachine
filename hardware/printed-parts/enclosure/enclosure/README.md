@@ -458,6 +458,15 @@ off the lip they reach under. Unlike every other cavity on this box the channels
 **cut**, because there is no pair of end walls in a plate for a channel to be the gap
 between.
 
+**A tray is a cantilever off the front wall and nothing else, so `_tray_webs` closes
+what it leaves.** One web to each side wall, one between the two trays, and one aft
+onto the valve panel standing behind them — each the trays' own plate thick and in that
+plate's own band, so the storey comes out **one plate wall to wall** rather than two
+tongues in air. None of the four is a typed span: the three across are the remainder
+between the interior faces and the flanks the trays already have, and the aft one reads
+the panel's own near face, taking the nearest panel plate that crosses this band and
+leaving the aft deck's to its own storey.
+
 Printed ceiling-down the plate goes on the bed first and everything over it — ramp,
 bore wall, shoulder — grows off its underside, so the only face that hangs is the
 plate's own. It is a soffit over the lane its pump hangs in and takes print support,

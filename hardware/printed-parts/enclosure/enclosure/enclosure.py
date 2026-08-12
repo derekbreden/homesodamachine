@@ -2624,6 +2624,56 @@ def _pump_trays(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
+# A TRAY IS A CANTILEVER OFF THE FRONT WALL AND NOTHING ELSE, and these are what it meets on
+# every other side: one web to each side wall, one between the two trays, and one aft onto the
+# valve panel the fold stands behind them. Each is the trays' own plate — `pump_tray.PLATE`
+# thick, in that plate's own band — so the whole storey comes out one plate wall to wall.
+def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
+    """The webs that tie every pump tray in this piece's band to what stands beside it.
+
+    The trays stand their plates on ONE storey — they are the same pump on one deck — so the
+    band is theirs and every web is a box in it. Across, the gaps are what the plates leave
+    between the two interior faces; aft, it is what one leaves in front of the nearest panel
+    plate crossing that same band."""
+    live = [(cx, cy, cz) for cx, cy, cz in stations
+            if (y0 <= inner[2] and cy + _tray.far_reach() <= y1
+                and z0 <= cz and cz + _tray.depth() <= z1)]
+    if not live:
+        return solid
+    storey = {(round(cy, 6), round(cz, 6)) for _cx, cy, cz in live}
+    if len(storey) != 1:
+        raise ValueError(
+            f"_tray_webs: the trays in this piece stand on {len(storey)} storeys ({storey}). A "
+            f"web is one box in one band, so trays on their own decks each want their own.")
+    cy, cz = storey.pop()
+    zb0, zb1 = cz, cz + _tray.PLATE
+    far, hw = cy + _tray.far_reach(), _tray.half_width()
+    # ACROSS: the wall, each tray's two flanks in turn, and the far wall. What the pairs leave
+    # between them is exactly the air, so a tray that grows closes its own web rather than
+    # overlapping it.
+    edges = ([inner[0]]
+             + [v for cx in sorted(cx for cx, _y, _z in live) for v in (cx - hw, cx + hw)]
+             + [inner[1]])
+    for a, b in zip(edges[0::2], edges[1::2]):
+        if b - a > 1e-9:
+            solid = solid.fuse(_ybox(a, b, inner[2], far, zb0, zb1))
+    # AND AFT onto the nearest panel plate that crosses this same band — its own near face, so
+    # the two meet plane to plane and the web is the gap and not a millimetre more.
+    reach = None
+    for plane, sign, seats in panels:
+        zs = [z for _x, z in seats]
+        mid_z, half = (min(zs) + max(zs)) / 2.0, _panel.height() / 2.0
+        if mid_z + half <= zb0 or mid_z - half >= zb1:
+            continue                       # a panel on another storey is not this web's
+        face = plane - sign * _panel.SEAT
+        near = min(face, face - sign * _panel.THICK)
+        if near >= far - 1e-9 and (reach is None or near < reach):
+            reach = near
+    if reach is not None and reach - far > 1e-9:
+        solid = solid.fuse(_ybox(inner[0], inner[1], far, reach, zb0, zb1))
+    return solid
+
+
 def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
     """The flow meter's two saddles hung off the top wall, for the piece that owns the ceiling.
 
@@ -2925,6 +2975,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And that manifold's two pump trays, on the piece that owns the band each plate lies in.
     # After the panels, whose own plate stands one behind them on the same storey.
     piece = _pump_trays(piece, inner, box.pump_trays, ylo, yhi, zlo, zhi)
+    # And the webs that tie those trays to the walls, to each other and aft onto the panel —
+    # after both, because what each one spans is the air the two left between them.
+    piece = _tray_webs(piece, inner, box.pump_trays, box.valve_panels, ylo, yhi, zlo, zhi)
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
