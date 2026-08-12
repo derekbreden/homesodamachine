@@ -70,25 +70,43 @@ def _repo_file(name: str):
     return None if _ROOT not in path.parents or "site-packages" in path.parts else path
 
 
+#: The module-level functions a script runs from, and nothing a module draws is reached through
+#: them. `main` orchestrates a run — it exports, renders, re-checks — and `selftest` exercises
+#: one. What they import is what the RUN needs, so it is read as the run's and not the shape's.
+ENTRY_POINTS = ("main", "selftest")
+
+
 def _imported(path: Path) -> set:
     """The module names a file imports, read off its own import statements.
 
     THE STATEMENT AND NOT THE NAMESPACE. `from _seating import seat_body` leaves `_seating`
     nowhere in the importing module's namespace, so a namespace walk cannot see the file that
     decides what `seat_body` does — and a key that cannot see a file is a key that holds still
-    while that file moves. The text says what was imported however the name was bound."""
+    while that file moves. The text says what was imported however the name was bound.
+
+    THE BODY AND THE FUNCTIONS, NOT THE ENTRY POINTS. `enclosure_assembly.main` imports the
+    scene renderer, the facts writer and the scene check, because one run writes all four
+    artifacts; none of them can move a millimetre of what the module draws. Reading them as
+    the shape's puts every renderer in the closure of every wall, so `ENTRY_POINTS` is where
+    the walk stops. `hardware/scripts/check_closure.py` stands the machine and reports any
+    module the build imports that the walk did not name."""
     try:
         tree = ast.parse(path.read_bytes())
     except (OSError, SyntaxError):
         return set()
+    skip = {id(fn) for fn in tree.body
+            if isinstance(fn, (ast.FunctionDef, ast.AsyncFunctionDef)) and fn.name in ENTRY_POINTS}
     out = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            out.update(a.name for a in node.names)
-        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
-            out.add(node.module)
-            # `from pkg import mod` names a module too; `_repo_file` says which names are files.
-            out.update(f"{node.module}.{a.name}" for a in node.names)
+    for top in ast.iter_child_nodes(tree):
+        if id(top) in skip:
+            continue
+        for node in ast.walk(top):
+            if isinstance(node, ast.Import):
+                out.update(a.name for a in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+                out.add(node.module)
+                # `from pkg import mod` names a module too; `_repo_file` says which are files.
+                out.update(f"{node.module}.{a.name}" for a in node.names)
     return out
 
 

@@ -1,0 +1,10 @@
+{
+  "/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py": {
+    "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
+    "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py": "6dfb48f13057a93b41d9663e698633ab",
+    "hardware/scripts/_cadq_export.py": "5c817e74ab20ffe8f90cc41e2d1ce43f",
+    "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
+    "hardware/scripts/_run_lock.py": "1e3be322667ee5b6463d16db7d6f6e21",
+    "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
+  }
+}

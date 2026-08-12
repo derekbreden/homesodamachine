@@ -115,15 +115,18 @@ def meshed(solid, deflection: float = DEFLECTION):
 _DIR = _realized._ROOT / ".cache" / "meshes"
 
 # One pack's triangles are tens of megabytes and every edit to a part's shape names a new set,
-# so what is kept here grows with the work rather than with the machine. The oldest entries go
-# once the pile passes this; a build that wanted one of them tessellates it as it always did.
+# so what is kept here grows with the work rather than with the machine. The least recently read
+# entries go once the pile passes this; a build that wanted one of them tessellates it as it
+# always did. An entry's stamp is set when it is written and again on every hit, so a body that
+# never changes and is read by every build stands at the near end of that order.
 KEEP_BYTES = 1 << 30
 _pruned = False
 
 
 def _prune():
-    """The pile brought back under `KEEP_BYTES`, oldest first. Once per process, on the first
-    entry written — a build that reads and writes nothing has nothing to tidy after it."""
+    """The pile brought back under `KEEP_BYTES`, least recently read first. Once per process, on
+    the first entry written — a build that reads and writes nothing has nothing to tidy after
+    it."""
     global _pruned
     _pruned = True
     entries = []
@@ -177,9 +180,15 @@ def _local_mesh(shape, deflection: float):
     if path.is_file():
         try:
             with np.load(path) as kept:
-                return kept["verts"], kept["tris"]
+                got = kept["verts"], kept["tris"]
         except Exception:
-            pass                                 # an entry that cannot be read is a miss
+            got = None                           # an entry that cannot be read is a miss
+        if got is not None:
+            try:
+                os.utime(path, None)             # a hit is what `_prune` reads as the entry's age
+            except OSError:
+                pass                             # a stamp that cannot be set is not an error
+            return got
     verts, tris = _drawn(shape, deflection)
     try:
         _DIR.mkdir(parents=True, exist_ok=True)

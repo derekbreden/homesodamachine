@@ -1,7 +1,6 @@
 {
   "/hardware/assembly/_cold_core_sync.py": {
     "hardware/assembly/_cold_core_sync.py": "388a1c44cb8e33d3e5bb86e81e5612da",
-    "hardware/cold-core-layout/_cold_scorecard.py": "4730f543fa9d021a55e61a91b7e08297",
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "7afd3ee93d062af1750b0df745466107",
     "hardware/printed-parts/cold-core/_internal_routes.py": "fc10424fbcc99ee69dc3e35f03b4ada3",
@@ -14,9 +13,9 @@
     "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
     "hardware/scripts/_cadq_export.py": "5c817e74ab20ffe8f90cc41e2d1ce43f",
     "hardware/scripts/_mesh_payload.py": "350108bdf5957fb28e082bda7f122065",
-    "hardware/scripts/_meshes.py": "11ce45c073bc674e6df752dd712a9c5a",
+    "hardware/scripts/_meshes.py": "43ef8b02d59e8970d0d18d10c12557a2",
     "hardware/scripts/_overlap.py": "153003a57389cfb46a861455f622e845",
-    "hardware/scripts/_realized.py": "92deb9ee972129c966092bfdf7a39f3c",
+    "hardware/scripts/_realized.py": "89c5ffd6281b168593d6210584664d14",
     "hardware/scripts/_routing.py": "50d782de653a86fb9aea680e4a007833",
     "hardware/scripts/_run_lock.py": "1e3be322667ee5b6463d16db7d6f6e21",
     "hardware/scripts/_stated_bounds.py": "6dd26f4721921883f10e86fb777bc2b8",

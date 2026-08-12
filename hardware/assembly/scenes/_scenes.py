@@ -279,3 +279,20 @@ def hash_of(rel: str) -> str | None:
 
 def sidecar_path(png: Path) -> Path:
     return png.with_suffix(png.suffix + ".scene.json")
+
+
+# --- the picture itself ----------------------------------------------------
+#
+# THE SOURCES SAY WHAT WOULD DRAW A PICTURE; THIS SAYS WHICH PICTURE WAS DRAWN.
+
+
+def image_fingerprint(png: Path) -> dict:
+    """`{w, h, bytes, sha}` for a drawn picture."""
+    raw = png.read_bytes()
+    h = hashlib.blake2b(digest_size=16)
+    h.update(raw)
+    # A PNG's IHDR is fixed: eight bytes of signature, a four-byte length, `IHDR`, then the two
+    # dimensions as big-endian u32.
+    w = int.from_bytes(raw[16:20], "big")
+    ht = int.from_bytes(raw[20:24], "big")
+    return {"w": w, "h": ht, "bytes": len(raw), "sha": h.hexdigest()}

@@ -5,8 +5,12 @@ lines; the script writes each tool's cost into its [value](NAME) marker in
 tools.md and the grand TOOLS_TOTAL — so the total reflects exactly the tools
 listed in tools.md.
 
-Default run prints the resolution (dry). `--write` restructures tools.md (adds
-the $ column + markers if missing) and fills them.
+A run restructures tools.md (adds the $ column + markers if missing), fills
+them, and prints the resolution. `--dry` prints without writing.
+
+WHAT `check_doc_sources` NAMES IS THIS COMMAND, bare, and `owed.py` runs what
+it names — so a run that only printed left the doc unwritten and its sidecar
+unrecorded, which reads as a doc that has yet to enrol however often it runs.
 
 Resolvers per tool:
   A(asin)        one Amazon line by ASIN
@@ -261,7 +265,7 @@ def inject_structure(text):
 def main():
     resolved = compute()
     total = round(sum(c for _, _, c in resolved), 2)
-    if "--write" in sys.argv:
+    if "--dry" not in sys.argv:
         text = open(TOOLS_MD, encoding="utf-8").read()
         if "TOOLS_TOTAL" not in text:
             new = inject_structure(text)  # compute fully before truncating the file
