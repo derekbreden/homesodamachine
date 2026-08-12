@@ -24,10 +24,6 @@ Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
-What a commit owes, and running it: `python3 hardware/scripts/owed.py --run`. It asks the three checks what has gone stale, runs exactly those generators until nothing is owed, and prints the verdict as its last line. What each one costs is recorded in `hardware/README.md`, under "What a build costs".
-
-Ask the placed machine rather than reasoning about it: `hardware/scripts/probe.py` (where a body is, what two bodies share, how far a line runs, where there is room, what a viewer pick names), `hardware/scripts/fit.py` (a body not placed yet, at a candidate pose), `hardware/scripts/lanes.py` (every corridor a run could take between its two mouths), `tools/look.sh` (see it, on a millimetre grid). Each carries its own docstring and a `selftest`.
-
 ## Firmware
 
 Flash with `tools/flash.sh`.
@@ -44,10 +40,4 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
-## Committing
-
 Always commit and push to main. Don't ask. Just do it. The author of any change you see is always me (via an instance of you), and you can trust my changes are worth committing and building on top of.
-
-**A commit asserts nothing is finished.** Broken, half-done and inconsistent all commit fine. The gates say what is red and the next commit fixes it. I do not care about the history or about whether a commit was coherent. I care that the work keeps moving.
-
-**Uncommitted work you did not write is mine too.** Several sessions run in this tree at once and there is one author, so there is no other agent's file. If it is in the tree, commit it. Do not hold your work for another session to land first, do not ask another session's permission to touch a file, and do not leave a dirty file out of a commit because you are unsure whether it is done. Tell another session what it needs to keep working; do not negotiate with it over the tree.
