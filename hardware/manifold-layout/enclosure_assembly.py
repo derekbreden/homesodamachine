@@ -50,9 +50,8 @@ the air crosses the cabinet the short way and the finstack faces the two side wa
 It is also the one body on this floor that does not stand on it. The block is a donor envelope
 whose two Y faces are a recess between folded sheet flanges, and those four flanges are its
 whole purchase — so the box takes them: a groove off the front wall at the fore pair, a bored
-boss under each of the aft pair's own two holes, and the crown of what carries it is
-`COND_LIFT` off the slab. What sets that height is `PACK_CROWN`, because this block's crown is
-what the flavour pack sets down on.
+boss under each of the aft pair's own two holes. It stands `COND_LIFT` off the slab, which is
+what the boss under its base flange needs to hold an insert and nothing else.
 
 The **manifold** turns a quarter about X and a half about Z, which is the one pose that lays
 its pump-head front face down. Its own +Z — the axis its two valve decks stack on — comes to
@@ -462,18 +461,18 @@ def build_compressor():
                      cx=0.0, y0=0.0, z0=0.0)
 
 
-# THE PLANE THE FLAVOUR PACK SETS DOWN ON. The pack rests on the crown of this floor's two
-# bodies (`build_pack`), and its two SOURCE VALVES reach aft over the cold core's cap — so what
-# this plane is worth is the air under those valves and over that lid. Drop it and they land on
-# the core, `build_pack`'s own `aft` reads them as bodies in its way, and the core is carried
-# back past the wall behind it.
+# THE PLANE THE FLAVOUR PACK SETS DOWN ON, stated the way `rear_plane_y` and `COMPRESSOR_FRONT`
+# are. What it is worth is the AIR OVER THE COLD CORE'S CAP: the pack's two source valves take a
+# quarter turn that carries them aft over that lid, and this plane is what holds them off it
+# (`check_pack_over_core`). Struck instead on whatever body happens to stand tallest under it,
+# the pack's whole storey would follow a donor block being calipered again.
 PACK_CROWN = 151.0
-# THE BLOCK STANDS OFF THE SLAB, and what sets that height is the pack it carries: the
-# compressor's crown stands under `PACK_CROWN`, so the condenser is the body that has to reach
-# it and its mount is what makes up the difference (`enclosure._cond_mount`, `_cond_cradle`).
-# That standoff is also the whole depth the finger under the base flange has, and it carries an
-# `enclosure.cond_bore_depth` bore, so the slab under it stays whole.
-COND_LIFT = PACK_CROWN - _cond.FACE_B
+# WHAT THE CONDENSER STANDS OFF THE SLAB, and it is the insert under its own base flange and
+# nothing else. Both mount screws come DOWN the one line the donor drilled, so the lower one
+# closes on a boss UNDER a sheet that would otherwise be lying on the floor. This is the depth
+# that boss needs (`enclosure.cond_bore_depth`), so its bore ends on the slab's own inner face
+# and the floor is never breached.
+COND_LIFT = _enc.cond_bore_depth
 
 
 def build_condenser(comp):
@@ -1132,6 +1131,65 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
         "a groove at each fore flange and a bored boss under each aft one",
         [f"{what:44s} {'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
          f"   ({got * 100:.1f}% of the probe)" for what, got, ok in rows]))
+
+
+def check_pack_carried(stood, under) -> Bound:
+    """What the flavour pack sets down ON, read off the placed machine.
+
+    `PACK_CROWN` is a stated plane, so the pack stands at it whether or not anything reaches up
+    to meet it. This is the reading that says which: the fall from each of the pack's lowest
+    bodies — the fold's own spine hairpins — to whatever is under it in plan."""
+    rows = []
+    lowest = min(box(s).zmin for _n, s, _c in stood)
+    for name, solid, _colour in stood:
+        b = box(solid)
+        if b.zmin > lowest + 1e-6:
+            continue
+        got = descent(solid, _would_land_on(b, under))
+        rows.append((name, got))
+    on = [r for r in rows if r[1] is not None and r[1] <= _card.CLEARANCE_FLOOR]
+    return record_bound(Bound(
+        "pack-carried", "The flavour pack sets down on a body that reaches its own plane",
+        bool(on),
+        f"{len(on)}/{len(rows)} of the pack's feet land on something"
+        if rows else "no foot read",
+        "at least one foot on a body under it",
+        [f"{n}: " + ("nothing under it at all" if g is None else f"falls {g:.3f} mm before it "
+                     f"meets anything") for n, g in sorted(
+            rows, key=lambda r: (r[1] is None, r[1] if r[1] is not None else 0.0))]
+         if not on else []))
+
+
+def check_pack_over_core(stood, foam) -> Bound:
+    """Every body of the flavour pack that stands over the cold core's cap clears its lid.
+
+    `PACK_CROWN` is what buys that air. The pack's two source valves take a quarter turn that
+    carries them aft over the core, and a body standing over the lid is only not in the core's
+    way while it is standing OVER it — one storey down and it is resting on it, which is a clash
+    the seam between the two halves is not measured to catch.
+
+    Read in plan and not in box: a body whose footprint misses the cap is a body this says
+    nothing about, however low it hangs."""
+    lid = cap_face(foam)
+    c = box(foam)
+    rows = []
+    for name, solid, _colour in stood:
+        b = box(solid)
+        if b.xmin >= c.xmax or b.xmax <= c.xmin or b.ymin >= c.ymax or b.ymax <= c.ymin:
+            continue
+        rows.append((name, b.zmin - lid))
+    worst = min((g for _n, g in rows), default=None)
+    over = [r for r in rows if r[1] < _card.CLEARANCE_FLOOR]
+    return record_bound(Bound(
+        "pack-over-core", "Every pack body reaching over the cold core clears its cap", not over,
+        "nothing reaches over it" if worst is None else
+        f"{len(rows)} over the lid at z {lid:.2f}, lowest clears by {worst:.3f} mm",
+        f"at least {_card.CLEARANCE_FLOOR:g} mm over the cap",
+        [f"{n} hangs {-g:.3f} mm INTO the cap's own lid — the pack sets down on `PACK_CROWN` "
+         f"and the core's crown is the core's. Raise that plane, or carry that body's own turn "
+         f"higher" if g < 0 else
+         f"{n} clears the cap by {g:.3f} mm, under the {_card.CLEARANCE_FLOOR:g} the machine holds"
+         for n, g in sorted(over, key=lambda r: r[1])]))
 
 
 def check_core_lane(front_y: float, ahead) -> Bound:
@@ -3819,8 +3877,7 @@ def build_pack() -> cq.Assembly:
 
     posed = [(c.name, pose_manifold((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))), c.color) for c in ml.build_assembly().children]
-    crown = max(box(comp).zmax, box(cond).zmax)
-    lift = crown - min(box(s).zmin for _n, s, _c in posed)
+    lift = PACK_CROWN - min(box(s).zmin for _n, s, _c in posed)
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
@@ -3840,7 +3897,7 @@ def build_pack() -> cq.Assembly:
     # combined box, and every body in the pack rides it.
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
-                planes={"z0": crown}, got=_whole([s for _n, s, _c in stood]),
+                planes={"z0": PACK_CROWN}, got=_whole([s for _n, s, _c in stood]),
                 members=tuple(in_pack))
     # THE TWO VALVE PANELS' STATIONS, on the planes the fold left the manifold's eight non-cap
     # valves standing on. They are read straight off the pack: the deck a plate lands on and the
@@ -3860,6 +3917,8 @@ def build_pack() -> cq.Assembly:
     # What still has to hold is that nothing ahead of it reaches INTO it — measured at the core's
     # own height, since the source valves' quarter turns carry them aft OVER its crown and a body
     # standing over the cap is not a body in its way.
+    check_pack_over_core(stood, foam)
+    check_pack_carried(stood, (comp, cond))
     check_core_lane(
         box(foam).ymin,
         [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
