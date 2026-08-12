@@ -14,15 +14,15 @@ The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Eac
 | shoulder over the boss's crown | [3](SHOULDER) mm of tower, bored Ø[37](CAN_BORE) for the can |
 | whole run on the pump's axis | [24](TRAY_D) mm |
 | head under it | [62.61](HEAD_W) mm square, hanging [48.88](HEAD_D) mm below |
-| channels | 2, in the band [19](BAND_NEAR)–[24.83](BAND_FAR) mm off the pump's axis |
-| strap | [4.826](STRAP_W) mm across, one per pump, [263.2](STRAP_LOOP) mm of loop |
-| material, both trays | [94.56](TRAY_VOL) cm³ of `enclosure-front-top` |
+| channels | 4 — a pair either side of the can, each band [25](BAND_NEAR)–[30.83](BAND_FAR) mm off the pump's axis |
+| straps | 2 per pump, [4.826](STRAP_W) mm across, [143](STRAP_LOOP) mm of loop apiece |
+| material, both trays | [94.10](TRAY_VOL) cm³ of `enclosure-front-top` |
 
 ## What it covers
 
 **Two storeys of the pump, not one.** That is the whole reason it is a case and not a plate — no plate reaches both.
 
-- The **base plate** lands on the head's own +Z face and wraps its top edge all the way round, [3992](ON_HEAD) mm² of section on that face.
+- The **base plate** lands on the head's own +Z face and wraps its top edge all the way round, [3925](ON_HEAD) mm² of section on that face.
 - The **ramp** climbs off that plate at 45°.
 - The **bore wall** takes the boss on each of its eight faces and both its ledges, over the boss's whole [21](BOSS_DEPTH) mm.
 - The **shoulder** the cut tower leaves lands on the boss's crown and wraps its top edge, [1752](ON_CROWN) mm² on that face.
@@ -31,13 +31,15 @@ The [35.73](CAN_DIA) mm can rises out of the tower's own bore and the tray never
 
 ## What holds a pump
 
-The bore and the strap do different jobs, and only one of them carries weight.
+The bore and the straps do different jobs, and only one of them carries weight.
 
 **The bore holds it square.** It is `pump_case.bore_profile`, ledges included — the section `kamoer_kphm400.build_rotor_housing` extrudes the boss on — so the tray takes the pump in X, in Y and in yaw over 21 mm of engagement. Nothing about where a pump sits is a number this part chose.
 
-**The strap holds it up.** A pump hangs UNDER its tray, so the tray on its own holds nothing — the same bargain the meter's saddles and the regulator's rib strike. One zip tie closes round the pump and the tray together: up through one channel in the plate, over the ramp and the shoulder, down the far channel, down that flank of the head, and across the head's front face. Pump and tray make a [263.2](STRAP_LOOP) mm loop, read on the convex perimeter of the pair in the plane the strap lies in.
+**The straps hold it up.** A pump hangs UNDER its tray, so the tray on its own holds nothing — the same bargain the meter's saddles and the regulator's rib strike. Two ties close round the tray's plate and **the pump's own stamped mounting bracket**: the steel plate at the head-to-motor junction, [68.6](BRACKET_W) mm across where the head is 62.61, standing ~3 mm proud all round *in the very plane the tray's plate lands on*. `kamoer_kphm400` states that bracket ([`geometry-description.md`](/hardware/off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md) §3) and draws none of it — the three solids it builds are a coarse keep-out, and the bracket is not among them.
 
-The two channels stand outside the head, so the run between them crosses the shoulder's own face. That run has to clear the can and still land on the head, and what the can leaves of the head's square is the band that is both.
+Each tie runs across the plate's face, down a channel at either end of that run, and back under the lip. **It never reaches the head's depth**, which is why plate and bracket make a [143](STRAP_LOOP) mm loop and the 8" tie the tap-water trough already takes closes it, rather than a length of its own.
+
+The band each strap lies in is clear of the can where the run crosses the shoulder, and carried out to the head's edge where the lip stands: inboard of the can's radius the run lies against the can, and outboard of the bracket's half-width the legs come down off the lip they reach under.
 
 ## Where the two go
 
@@ -47,7 +49,7 @@ Plate on head's crown, shoulder on boss's crown, bore on the boss's flanks — e
 
 ## Print
 
-Both trays come off the bed inside `enclosure-front-top`, which prints ceiling-down. The plate goes down first and everything above it — ramp, bore wall, shoulder — grows off its underside, so the only face that hangs is the plate's own. It is a soffit over the lane its pump hangs in, anchored along its whole width where it meets the wall, and it takes print support the way the tap-water trough's block and the drip tray's rails do. The pump is laid into it that way up, its strap threaded through both channels first — there is no reaching under a seated pump afterwards. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces row).
+Both trays come off the bed inside `enclosure-front-top`, which prints ceiling-down. The plate goes down first and everything above it — ramp, bore wall, shoulder — grows off its underside, so the only face that hangs is the plate's own. It is a soffit over the lane its pump hangs in, anchored along its whole width where it meets the wall, and it takes print support the way the tap-water trough's block and the drip tray's rails do. The pump is laid into it that way up, both straps threaded through their channels first — there is no reaching under a seated pump afterwards. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces row).
 
 ## Files
 

@@ -443,18 +443,20 @@ octagon alone; nothing about where one sits is a number this wall chose. Plate o
 head's crown, shoulder on the boss's, bore on the boss's flanks — each a plane or a
 shared wall, so a tray and the pump it takes share no volume.
 
-**The strap is the load path**, the meter's bargain again and on the heaviest body
-either wall carries: a pump hangs UNDER its tray, so the plate on its own holds
-nothing. One strap closes round the pump and the plate together, down through the
-plate's two channels, past the socket and down both flanks of the head, and across the
-head's front face.
+**The straps are the load path**, the meter's bargain again and on the heaviest body
+either wall carries: a pump hangs UNDER its tray, so the tray on its own holds nothing.
+**Two** close round the plate and the pump's own stamped mounting bracket — the steel
+plate at the head-to-motor junction, which stands proud of the head all the way round
+in the very plane the tray's plate lands on. `kamoer_kphm400` states that bracket and
+draws none of it; a strap here reaches under its lip rather than round the head, so the
+loop is a bracket wide and the 8" tie the tap-water trough takes closes it.
 
-**The band those two channels stand in is what the can leaves of the head.** They sit
-outside the head, so the run between them crosses the shoulder's own face: inboard of
-the can's radius that run lies against the can, and outboard of the head's half-square
-its legs come down off the end of the head and wrap nothing. Unlike every other cavity
-on this box the channels are **cut**, because there is no pair of end walls in a plate
-for a channel to be the gap between.
+**The four channels stand in two bands, one either side of the can.** They sit outside
+the head, so each run crosses the shoulder's own face: inboard of the can's radius a
+run lies against the can, and outboard of the bracket's half-width its legs come down
+off the lip they reach under. Unlike every other cavity on this box the channels are
+**cut**, because there is no pair of end walls in a plate for a channel to be the gap
+between.
 
 Printed ceiling-down the plate goes on the bed first and everything over it — ramp,
 bore wall, shoulder — grows off its underside, so the only face that hangs is the

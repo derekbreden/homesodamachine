@@ -371,10 +371,10 @@ MOUNTS = (
     # cylinder cut off, so the same four surfaces that fitted the part still do: a plate on the
     # head's crown, a ramp off it, the octagon bore on the boss, and a shoulder of tower on the
     # boss's crown (`enclosure._pump_trays` off `enclosure_assembly.pump_tray_stations`, read by
-    # `trays-hold`). One zip tie per pump closes round the pump and the tray together through the
-    # plate's two channels, and that strap is what carries the pump: a tray a body hangs UNDER
-    # holds nothing on its own, the same bargain the flow meter's saddles and the regulator's rib
-    # strike.
+    # `trays-hold`). Two zip ties per pump close round the pump and the tray together through the
+    # plate's four channels, reaching under the stamped bracket the part carries at that same
+    # crown, and those straps are what carry the pump: a tray a body hangs UNDER holds nothing on
+    # its own, the same bargain the flow meter's saddles and the regulator's rib strike.
     ("pump-a-head", "enclosure-front-top", "saddle"),
     ("pump-b-head", "enclosure-front-top", "saddle"),
 )

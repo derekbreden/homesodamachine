@@ -2604,9 +2604,9 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
 # the front wall and fuses it into the piece, the way `_valve_panels` fuses a plate and
 # `_digiten_saddles` the meter's two Vs.
 #
-# THE STRAP IS WHAT HOLDS A PUMP UP. It hangs under its tray, so one closes round the pump and
-# the tray together through the plate's two channels — the meter's bargain, on the heaviest body
-# either wall carries.
+# THE STRAPS ARE WHAT HOLD A PUMP UP. It hangs under its tray, so two close round it and the
+# tray together through the plate's four channels, reaching under the bracket the part carries at
+# that crown — the meter's bargain, on the heaviest body either wall carries.
 def _pump_trays(solid, inner, stations, y0, y1, z0, z1):
     """Every pump tray whose whole run falls in the depth and height band this piece owns.
 
