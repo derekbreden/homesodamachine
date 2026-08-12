@@ -141,12 +141,13 @@ assert not ml.JOINS, (
 # EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
 # ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
 # the two valve panels, which are `enclosure-front-top`'s own material
-# (`enclosure._valve_panels`). So §7 carries no seat row of its own, and a plate appearing in the
-# machine as a body rather than as a wall is what fails here.
+# (`enclosure._valve_panels`) — and both flavour pumps hang in a tray of that same piece's
+# material (`enclosure._pump_trays`). So §7 carries no seat row of its own, and a plate appearing
+# in the machine as a body rather than as a wall is what fails here.
 _trays = sorted(n for n in _placed if "tray" in n or n.startswith("valve-panel"))
 assert not _trays, (
-    f"the machine places {len(_trays)} body(ies) under its valves ({_trays}) — a valve seat is "
-    f"printed into the piece that carries it, and bom.md §7 bills no part standing under one")
+    f"the machine places {len(_trays)} body(ies) under its valves and pumps ({_trays}) — a seat "
+    f"is printed into the piece that carries it, and bom.md §7 bills no part standing under one")
 
 # NO SHEET-METAL COVER SHIPS OVER THE COMPRESSOR, and that too is read off the placed machine.
 # The compressor stands bare on the floor slab, bolted down through its own plate holes, with

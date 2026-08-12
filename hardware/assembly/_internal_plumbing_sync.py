@@ -43,6 +43,7 @@ import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this 
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
 import seaflo_discharge_chain as _dis  # noqa: E402  — on the path once `_lines` is imported
 import wr1110_regulator as _wr1110  # noqa: E402  — the barrel the box bores a rib for
+import pump_tray as _tray  # noqa: E402  — the plate each Kamoer's head lies on
 
 from docgen import substitute_md  # noqa: E402
 
@@ -103,6 +104,12 @@ def main():
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
         "WR1110_LOOP": f"{_enc.tube_anchor_strap_loop(_barrel_seat):.3g} mm",
         "CARB_1_LOOP": f"{_enc.tube_anchor_strap_loop(next(iter(_run_seats))):.3g} mm",
+        # And the loop a pump's own strap closes — the pump with its tray's plate over it, off
+        # the module that draws the tray, with the socket and bore that tray takes the pump on.
+        "PUMP_LOOP": f"{_tray.strap_loop():.4g} mm",
+        "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
+        "PUMP_SOCKET_D": f"{_tray.boss_depth:.4g} mm",
+        "PUMP_CAN_BORE": f"{2 * _tray.can_half:.4g} mm",
     }
 
     substitute_md(
@@ -120,6 +127,10 @@ def main():
             "MANIFOLD_TEES": 2,
             "WR1110_LOOP": 1,
             "CARB_1_LOOP": 2,
+            "PUMP_LOOP": 1,
+            "PUMP_SOCKET": 2,
+            "PUMP_SOCKET_D": 1,
+            "PUMP_CAN_BORE": 2,
         },
     )
     print("-> internal-plumbing.md")

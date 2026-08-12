@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 86,
+ "mounted": 89,
  "checks": [
   {
    "id": "coverage",
@@ -214,6 +214,26 @@
    "status": "pass",
    "value": "holds",
    "target": "the Y half-run at or under the X (74.53 mm)",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-boss-leaves-motor",
+   "label": "The case-derived seams leave the part a motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a boss ending before the part's 62.55 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-motor-clears-tower",
+   "label": "The case's tower bore is deep enough for the motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a bore reaching 62.55 mm or past it",
    "detail": [],
    "active": true
   },
@@ -394,26 +414,6 @@
    "status": "pass",
    "value": "21/21 hold",
    "target": "the pour gap apart or a 2 mm neck",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-boss-leaves-motor",
-   "label": "The case-derived seams leave the part a motor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a boss ending before the part's 62.55 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-motor-clears-tower",
-   "label": "The case's tower bore is deep enough for the motor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a bore reaching 62.55 mm or past it",
    "detail": [],
    "active": true
   },
@@ -763,10 +763,10 @@
   },
   {
    "id": "strap-vocabulary",
-   "label": "Both boxes cut their strap cavities for the same strap",
+   "label": "Every box cuts its strap cavities for the same strap",
    "kind": "gate",
    "status": "pass",
-   "value": "3/3 agree",
+   "value": "5/5 agree",
    "target": "every figure the same in both",
    "detail": [],
    "active": true
@@ -857,6 +857,19 @@
     "valve-panel-fore   valve-v-f    y-plane   71.380 +Z   off 0.1991",
     "valve-panel-fore   valve-v-h    y-plane   71.380 +Z   off 0.1991",
     "valve-panel-fore   valve-v-i    y-plane   71.380 +Z   off 0.1991"
+   ],
+   "active": true
+  },
+  {
+   "id": "trays-hold",
+   "label": "Every pump is standing in its printed tray",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 pumps seated, furthest off 0.000 mm",
+   "target": "every pump within 0.2 mm of the plate on it",
+   "detail": [
+    "pump-a-head    axis ( -48.570,   31.305) face z  216.745   off 0.0000",
+    "pump-b-head    axis (  48.570,   31.305) face z  216.745   off 0.0000"
    ],
    "active": true
   },
@@ -977,7 +990,7 @@
    "label": "The front Z seam leaves both its pieces on the H2C's bed",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, band 35.00..303.90",
+   "value": "seam at 150.00, band 35.00..303.90",
    "target": "inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
@@ -1007,7 +1020,7 @@
    "label": "The two Z seams stand the pitch two Y-seam levels need apart",
    "kind": "gate",
    "status": "pass",
-   "value": "back seam at 207.70, 47.70 mm off the front's 160.00",
+   "value": "back seam at 197.70, 47.70 mm off the front's 150.00",
    "target": "at least 47.70 mm apart",
    "detail": [],
    "active": true
@@ -1081,7 +1094,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "49/57 mounted, 14 part of another body, 8 nothing fastens",
+   "value": "51/57 mounted, 14 part of another body, 8 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "display: wall-capture",
@@ -1089,8 +1102,6 @@
     "foam-assembly: floor",
     "gasher-co2: wall-capture",
     "hopper-funnel: wall-capture",
-    "pump-a-head: pack",
-    "pump-b-head: pack",
     "water-split: tube-hung",
     "bpv31: tube-clamp \u2014 nothing fastens it; Its own two screws close the saddle round the compressor's process tube, and that grip on the copper is the whole joint. The can stands on four grommets that keep its running hours off the cabinet, and every printed face within reach of this valve is the cabinet's.",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
@@ -6154,6 +6165,22 @@
    "never": null
   },
   {
+   "component": "pump-a-head",
+   "by": "enclosure-front-top",
+   "joint": "saddle",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "pump-b-head",
+   "by": "enclosure-front-top",
+   "joint": "saddle",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
    "component": "coil-v-a",
    "by": "foam-assembly",
    "joint": "pack",
@@ -6235,23 +6262,15 @@
   },
   {
    "component": "pump-a-boss",
-   "by": null,
+   "by": "enclosure-front-top",
    "joint": "pack",
    "kind": "real",
    "rides": "pump-a-head",
    "never": null
   },
   {
-   "component": "pump-a-head",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "rides": null,
-   "never": null
-  },
-  {
    "component": "pump-a-motor",
-   "by": null,
+   "by": "enclosure-front-top",
    "joint": "pack",
    "kind": "placeholder",
    "rides": "pump-a-head",
@@ -6259,23 +6278,15 @@
   },
   {
    "component": "pump-b-boss",
-   "by": null,
+   "by": "enclosure-front-top",
    "joint": "pack",
    "kind": "real",
    "rides": "pump-b-head",
    "never": null
   },
   {
-   "component": "pump-b-head",
-   "by": null,
-   "joint": "pack",
-   "kind": "real",
-   "rides": null,
-   "never": null
-  },
-  {
    "component": "pump-b-motor",
-   "by": null,
+   "by": "enclosure-front-top",
    "joint": "pack",
    "kind": "placeholder",
    "rides": "pump-b-head",
@@ -6330,5 +6341,5 @@
    "never": "Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   }
  ],
- "sources": "7f65e3bfd4ffc18325426ec46a9ccb3d"
+ "sources": "5d1df85d387d6a031d1de1dc881e21cc"
 }
