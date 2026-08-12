@@ -138,11 +138,47 @@ def sources(module_name: str) -> list:
     return out
 
 
+_CODE: dict = {}
+
+
+def code_digest(path) -> str | None:
+    """A name for what a file COMPUTES, or None when it is not there.
+
+    THE PARSED CODE AND NOT THE TEXT. A comment is invisible to Python, so a file whose comments
+    moved draws the same walls, writes the same figures and takes the same picture — and a name
+    taken over its bytes says otherwise, which is a rebuild of the whole tree to arrive back
+    where it started. Two files that parse alike are named alike here.
+
+    Docstrings stay in the name: they are values the code carries, and a doc that prints one has
+    moved when it moves. Anything that will not parse is named by its bytes, which is what a
+    `.json` table and a file mid-edit both want."""
+    p = Path(path)
+    try:
+        st = p.stat()
+    except OSError:
+        return None
+    stamp = (st.st_mtime_ns, st.st_size)
+    hit = _CODE.get(path)
+    if hit is not None and hit[0] == stamp:
+        return hit[1]
+    try:
+        raw = p.read_bytes()
+    except OSError:
+        return None
+    try:
+        form = ast.dump(ast.parse(raw)).encode()
+    except (SyntaxError, ValueError):
+        form = raw
+    out = hashlib.blake2b(form, digest_size=16).hexdigest()
+    _CODE[path] = (stamp, out)
+    return out
+
+
 def digest(paths) -> str:
-    """One name for the whole text of `paths`, in the order given."""
+    """One name for what the whole of `paths` computes, in the order given."""
     h = hashlib.blake2b(digest_size=16)
     for path in paths:
-        h.update(Path(path).read_bytes())
+        h.update((code_digest(path) or "").encode())
     return h.hexdigest()
 
 
