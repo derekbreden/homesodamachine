@@ -16,11 +16,11 @@ stand on its own tangent lines, and the condenser is an envelope whose serpentin
 re-dressed to reach whichever face is convenient, so such a joint crosses a plane its two bodies
 already share and both of its stations are ONE POINT READ TWICE.
 
-THE COMPRESSOR IS THE BODY THAT DOES NOT REACH THE CORE. It is the deeper of the pair, but the
-condenser stands one `SUCTION_LANE` aft of it — so the condenser alone lands on the plane the
-core butts, and what the lane holds open is the room the can's own suction leg is drawn in. That
-leg cannot be made up across a shared plane, and reaches the evaporator's outlet as cut and
-brazed copper that `_lines` draws like any other run. `JOINT_STATIONS` names the two mouths of
+NEITHER OF THE TWO REACHES THE CORE. It is packed off the rear wall (`CORE_REAR_CLEAR`) rather
+than butted against the stratum, so what stands between them is a LANE, and the loop's two legs
+that cross it are cut and brazed copper `_lines` draws like any other run — the condenser's
+liquid line straight across it on one column and one plane, the compressor's suction up out of
+its own aft tangent. `JOINT_STATIONS` names the two mouths of
 all three legs;
 which of them the machine mates and which it draws is settled by `_lines` having authored a run,
 so no leg is read twice and none falls between the two. `refrigerant_joints` takes the reading
@@ -445,6 +445,14 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
 BASE_YAW = -90.0
 
 
+# THE PLANE THE COMPRESSOR'S OWN PLATE STANDS ON. It is stated rather than derived for the same
+# reason `rear_plane_y` is: this can is the body the refrigeration bay is built around, and a
+# body that moves when its neighbour is measured again drags its floor posts, its service valve
+# and its suction leg with it. What the number is worth is the room in front of the can — the
+# BPV31 stands `bpv31` proud of its front face and the machine's own front datum is y = 0.
+COMPRESSOR_FRONT = 9.0
+
+
 def build_compressor():
     """The compressor as the machine turns it, its plate on the floor.
 
@@ -587,10 +595,16 @@ def build_bpv31(comp_carry):
                      station=(_bpv.saddle(), pos))
 
 
+# What the core's own aft face stands off the rear wall's inner plane. The pump lies flush with
+# that face and runs aft off it, so this is the lane the pump's own rear fittings and the runs
+# reaching them are made up in. It is the plane the whole service bay is packed from.
+CORE_REAR_CLEAR = 11.0
+
+
 def build_foam(front_y: float):
     """The cold core at the machine's own `FOAM_YAW` and on the machine's own floor, its front
-    face on the plane the bodies ahead of it end at. Its native box hangs 20 mm below its
-    origin, so the floor is the box's own bottom and not that origin.
+    face on `front_y`. Its native box hangs 20 mm below its origin, so the floor is the box's own
+    bottom and not that origin.
 
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
@@ -1118,6 +1132,23 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
         "a groove at each fore flange and a bored boss under each aft one",
         [f"{what:44s} {'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
          f"   ({got * 100:.1f}% of the probe)" for what, got, ok in rows]))
+
+
+def check_core_lane(front_y: float, ahead) -> Bound:
+    """Nothing on the floor ahead of the cold core reaches into it.
+
+    The core is packed off the rear wall, so the lane in front of it is what the stratum leaves
+    rather than what it butts — and the refrigerant loop's two drawn legs are cut and brazed in
+    that lane. A body that grew into it is a body the core is standing on."""
+    over = [(n, y - front_y) for n, y in ahead if y > front_y + 1e-9]
+    lane = min((front_y - y for _n, y in ahead), default=0.0)
+    return record_bound(Bound(
+        "core-lane", "The floor ahead of the cold core stops short of it", not over,
+        f"core front at {front_y:.2f}, nearest body {lane:.2f} mm ahead of it",
+        "every body on the floor short of the core's front face",
+        [f"{n} reaches {much:.2f} mm past the core's front face — the core is packed off "
+         f"`rear_plane_y` and does not give way. Move that body forward, or raise "
+         f"`rear_plane_y`" for n, much in sorted(over, key=lambda r: -r[1])]))
 
 
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
@@ -3674,14 +3705,19 @@ def _whole(bodies):
 
 def place_base(seated, names=()):
     """Turn the mated pair `BASE_YAW` about the vertical through their own combined centre, then
-    seat the PAIR — centred on x = 0 and its front face on y = 0. Both moves are rigid and taken
-    on the pair's own box, so the plane between them rides along and the crown does not change.
+    seat it — centred on x = 0 and the COMPRESSOR's own front face on `COMPRESSOR_FRONT`. Both
+    moves are rigid and taken on the pair, so the plane between them rides along and the crown
+    does not change.
 
     A yaw about a centre is not a placement: the turn leaves the pair's front wherever its own
     width used to reach, which is not the front of the machine.
 
-    ONE SEAT FOR THE TWO, because the rule is struck on the combined box and neither body has it
-    on its own — the ledger's row names both.
+    THE STAND IS STRUCK ON THE CAN AND NOT ON THE PAIR'S BOX. The compressor is the sited body on
+    this floor — four posts under its feet, a service valve reaching off its front, a suction leg
+    drawn off its aft tangent — so it holds still and the condenser is placed relative to it. Off
+    the pair's box, a condenser measured again moves the can, and every one of those follows.
+    `seated[0]` is that body, which is the order `build_pack` hands them in and the order the
+    ledger's row names them in.
 
     `seated` is each body as `(solid, carry)` off its own seat, and this hands back the same
     pair with the yaw and the stand composed onto each carry: a penetration declared in either
@@ -3692,11 +3728,18 @@ def place_base(seated, names=()):
     axis = (cq.Vector(cx, cy, 0.0), cq.Vector(cx, cy, 1.0))
     turned = [s.rotate(*axis, BASE_YAW) for s in bodies]
     t = _whole(turned)
-    step = cq.Vector(-(t.xmin + t.xmax) / 2.0, -t.ymin, 0.0)
+    step = cq.Vector(-(t.xmin + t.xmax) / 2.0,
+                     COMPRESSOR_FRONT - box(turned[0]).ymin, 0.0)
     stood = [s.translate(step) for s in turned]
     if names:
+        # TWO BOXES, BECAUSE THE RULE IS STRUCK ON TWO THINGS. The pair is centred and stood as
+        # one — that reads off its combined box — and the DEPTH is the compressor's own front
+        # face, which reads off the can alone. A row per box, so each plane is read back off the
+        # geometry it was asked of.
         record_seat("refrigeration-base", turns=(((0.0, 0.0, 1.0), BASE_YAW),),
-                    planes={"cx": 0.0, "y0": 0.0, "z0": 0.0}, got=_whole(stood), members=names)
+                    planes={"cx": 0.0, "z0": 0.0}, got=_whole(stood), members=names)
+        record_seat("refrigeration-base depth", planes={"y0": COMPRESSOR_FRONT},
+                    got=box(stood[0]), members=(names[0],))
 
     def compose(carry):
         def carried(station):
@@ -3804,14 +3847,23 @@ def build_pack() -> cq.Assembly:
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
     # `enclosure._valve_panels` is what fuses each plate into the piece that owns its band.
     a.valve_panels = valve_panel_stations({n: s for n, s, _c in stood})
-    # What the core butts is whatever stands ahead of it AT THE CORE'S OWN HEIGHT. The
-    # source valves' quarter turns carry them aft over the core's crown, and a body standing
-    # over it is not a body in its way — so the seam is measured against the bodies that reach
-    # below that crown, and the ones above it are left to overhang.
+    # THE CORE IS PACKED AGAINST THE BACK, not against the bodies ahead of it. The water pump
+    # lies flat on its cap and runs off its aft face, and what the rear wall stands off is that
+    # pump — so the core's own depth answers to `rear_plane_y` and `CORE_REAR_CLEAR` behind it,
+    # and the gap left in front of it is what the refrigerant loop's two drawn legs cross.
+    # Struck the other way it would follow whichever body ahead of it reached furthest, and a
+    # block measured again would carry the core, the pump and the whole service bay with it.
     top = cap_face(build_foam(0.0)[0])
-    aft = max([box(comp).ymax, box(cond).ymax]
-              + [box(s).ymax for _n, s, _c in stood if box(s).zmin < top])
-    foam, foam_carry = build_foam(aft)
+    core = box(build_foam(0.0)[0])
+    foam, foam_carry = build_foam(
+        _enc.rear_plane_y - CORE_REAR_CLEAR - (core.ymax - core.ymin))
+    # What still has to hold is that nothing ahead of it reaches INTO it — measured at the core's
+    # own height, since the source valves' quarter turns carry them aft OVER its crown and a body
+    # standing over the cap is not a body in its way.
+    check_core_lane(
+        box(foam).ymin,
+        [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
+        + [(n, box(s).ymax) for n, s, _c in stood if box(s).zmin < top])
     a.add(foam, name="foam-assembly", color=C_FOAM)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)

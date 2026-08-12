@@ -22,11 +22,12 @@ Coordinate frame
   something, and the mount is the two screws at this one.
   The machine sets the block down unturned (`enclosure_assembly.build_condenser`), so those
   two insets read off the world's X− and Y+ faces at this pose.
-- BOTH REFRIGERANT LEGS ARRIVE ON A FACE THE BLOCK PRESENTS TO ITS NEIGHBOUR, which is what
-  a donor packed as an envelope is for: the serpentine's own headers are re-dressed to reach them.
-  Hot gas enters the INTAKE face on the compressor's own discharge stub, a plane the two bodies
-  share, so that leg is made up across it with no copper drawn between them. The liquid line leaves
-  the AFT face for the cold core's evaporator inlet. `enclosure_assembly.refrigerant_joints()`
+- BOTH REFRIGERANT LEGS ARRIVE WHERE THE NEIGHBOUR PUTS THEM, which is what a donor packed as an
+  envelope is for: the serpentine's own headers are re-dressed to reach them. Hot gas enters the
+  INTAKE face on the compressor's own discharge stub, a plane the two bodies share, so that leg is
+  made up across it with no copper drawn between them. The liquid line leaves the AFT face on the
+  cold core's own evaporator-inlet column and plane, and crosses the lane to it as tube —
+  `_lines._refrig_2`, one straight. `enclosure_assembly.refrigerant_joints()`
   takes a reading over every leg of the loop at each build, and `check_refrigerant_joints` reads
   red on the card for one standing open and for one with no pair of placed stations to measure.
 
@@ -109,7 +110,7 @@ def build():
 def stations() -> dict:
     """All three, under the names the loop knows them by."""
     return {
-        "refrig-inlet":  ((0.0, 66.0, 61.0), (-1.0, 0.0, 0.0)),
+        "refrig-inlet":  ((0.0, 87.0, 61.0), (-1.0, 0.0, 0.0)),
         "refrig-outlet": ((50.5, FACE_A, 33.75), (0.0, 1.0, 0.0)),
         "fan-power":     ((AIRFLOW, 30.0, FACE_B / 2.0), (1.0, 0.0, 0.0)),
     }
