@@ -40,6 +40,33 @@ MAX_PASSES = 4
 _RUN = re.compile(r"\brun\s+(?P<cmd>\S+(?:\s+\S+)*?)\s*$")
 
 
+def _coalesce(cmds: list) -> list:
+    """One invocation where the checks named several.
+
+    A check prints one line per stale thing, so four stale scenes arrive as four
+    `render_scenes.py <name>` commands — and that generator STANDS THE MACHINE ONCE for
+    however many scenes it is asked for. Run them apart and the machine is built four times
+    for four pictures, which was half of this chain's wall clock.
+
+    So commands that differ only in a final argument are run as one. A generator that does
+    not take several says so on its own argument parser, loudly, rather than quietly doing
+    the wrong thing."""
+    groups, order = {}, []
+    for c in cmds:
+        head, _, tail = c.rpartition(" ")
+        key = head if head and not tail.endswith(".py") else c
+        if key not in groups:
+            groups[key] = []
+            order.append(key)
+        if key != c:
+            groups[key].append(tail)
+    out = []
+    for key in order:
+        args = groups[key]
+        out.append(f"{key} {' '.join(args)}" if args else key)
+    return out
+
+
 def _ask() -> tuple:
     """Every generator the checks name, in the order they name it, and whether all three
     came back clean."""
@@ -58,7 +85,7 @@ def _ask() -> tuple:
                 cmd = f"tools/cad-venv/bin/python {cmd}"
             if cmd not in owed:
                 owed.append(cmd)
-    return owed, clean
+    return _coalesce(owed), clean
 
 
 def _run(cmd: str) -> tuple:
