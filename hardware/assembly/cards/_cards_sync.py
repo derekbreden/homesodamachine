@@ -69,9 +69,14 @@ NDASH = "&ndash;"   # –
 
 
 def _machine() -> Machine:
-    """The appliance, built once. Every fact below is read off this."""
-    import enclosure_assembly as _ea  # noqa: E402  — expensive; imported inside the build
-    return Machine(*_ea.machine())
+    """The appliance as the last build wrote it down. Every fact below is read off that one
+    reading, and nothing here stands a machine to get it.
+
+    `box` and `pack` are the same record: the Box carries every station the Pack put on a
+    wall, which is all these cards read either of them for."""
+    import _facts
+    f = _facts.read()
+    return Machine(f, f.box, f.box)
 
 
 # ═══ EN — Enclosure mechanical ═════════════════════════════════════════════
@@ -91,7 +96,7 @@ def enclosure(m: Machine):
                                       outer_shell_x_length, outer_shell_y_length)
 
     box, pack = m.box, m.pack
-    pieces = sorted(_enc.build_pieces(box)[0])
+    pieces = sorted(m.a.pieces)
 
     # ── what the cards' sentences stand on ────────────────────────────────
     # EN-01 and EN-02 both say the box is four pieces and no panel. A fifth
@@ -134,13 +139,13 @@ def enclosure(m: Machine):
     # bores, and these are the calls that fill it — with the same carries — so a card
     # cannot state a hole the wall does not have. The union's figure is quoted once for
     # a row of four, which holds only while the four are on one diameter.
-    union_bores = _ea.back_wall_ports(m.a.bulkhead_carry, *m.a.panel_carries.values())
+    union_bores = m.a.wall_ports["union"]
     port_hole_ds = {round(p[3], 6) for p in union_bores}
     assert len(port_hole_ds) == 1, (
         f"the back wall's four unions are bored at {sorted(port_hole_ds)} and EN-02/IP-02 "
         f"quote one figure for all of them")
     port_hole_d = union_bores[0][3]
-    co2_hole_d = _ea.co2_wall_port(m.a.co2_inlet_carry)[3]
+    co2_hole_d = m.a.wall_ports["co2"][3]
 
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     nut_d, _ = _jg.panel_footprint()
@@ -170,12 +175,12 @@ def enclosure(m: Machine):
     # EN-07 pins each Z seam at both ends of each ±X wall so it cannot hinge open
     # at the end it was not pinned at. That is the shape of the sentence, so the
     # count is read off the stations rather than typed beside it.
-    z_stations = _enc._z_stations(box.inner, box.y_joint)
+    z_stations = m.a.z_stations
     assert len({s[4] for s in z_stations}) == 2, (
         "the Z seams no longer pin per Y column and EN-07 closes them one column at a time")
 
     # The hopper opening's own rectangle against the seam it may cross.
-    hx0, hx1, hy0, hy1 = _enc._hopper_hole(box.funnel)
+    hx0, hx1, hy0, hy1 = m.a.hopper_hole
     hopper_pieces = ("both top pieces" if hy1 > box.y_joint
                      else "`enclosure-front-top`")
     assert abs((hx0 + hx1) / 2.0 - (ox0 + ox1) / 2.0) < 1e-6, (
@@ -189,21 +194,21 @@ def enclosure(m: Machine):
     # stated appliance width has to take whichever of them is wider, and neither the
     # card nor this comment gets to name which — the two spans do.
     def _span(*names):
-        boxes = [_ea.box(pack.placed[n][0]) for n in names]
+        boxes = [m.a.bb(n) for n in names]
         return max(b.xmax for b in boxes) - min(b.xmin for b in boxes)
 
     facts = {
         # The box.
         "BOX_SIZE": f"{ox1 - ox0:.0f} {X} {oy1 - oy0:.0f} {X} {oz1 - oz0:.0f} mm",
         "BOX_PIECES": f"{len(pieces)}",
-        "WALL_T": f"{_enc.wall:.4g} mm",
+        "WALL_T": f"{m.a.constants['wall']:.4g} mm",
         "Y_SEAM": f"{box.y_joint:.4g}",
         "Z_SEAM_FRONT": f"{box.splits[0]:.4g}",
         "Z_SEAM_BACK": f"{box.splits[1]:.4g}",
         "SEAM_SCREWS_Z": f"{sum(1 for s in z_stations if s[4] == 'front')}",
         "STRATUM_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
         "CORE_X": f"{_span('foam-assembly'):.0f} mm",
-        "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
+        "SIDE_BAND": f"{m.a.constants['side_rib_inset']:.4g} mm",
         # Inserts set while the box is still open bench (EN-01). The +X wall's
         # count is one fact under one name: EN-01 presses those inserts, EN-06
         # drives their screws and ES-01/ES-03 send the bench to them, and four
@@ -228,7 +233,7 @@ def enclosure(m: Machine):
         "COMP_MOUNT_D": f"{_comp.MOUNT_D:.4g}",
         "COMP_MOUNT_PITCH": f"{_comp.MOUNT_PITCH_X:.4g} {X} {_comp.MOUNT_PITCH_Y:.4g} mm",
         "COMP_PLATE": f"{_comp.BASE_X:.4g} {X} {_comp.BASE_Y:.4g} mm",
-        "COMP_CROWN": f"{_ea.box(pack.placed['compressor'][0]).zmax:.4g} mm",
+        "COMP_CROWN": f"{m.a.bb('compressor').zmax:.4g} mm",
         "SIDE_OPENINGS": f"{len(box.east_ports)}",
         # The cold core (EN-05).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
