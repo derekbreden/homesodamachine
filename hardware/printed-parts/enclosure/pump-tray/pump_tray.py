@@ -1,46 +1,46 @@
-"""A PUMP TRAY IS A PLATE WITH A HOLE FOR THE MOTOR CAN AND A SOCKET UNDER IT FOR THE BOSS, and
-it is a wall of the enclosure.
+"""A PUMP TRAY IS THE PUMP CASE WITH ITS CYLINDER CUT OFF, and it is a wall of the enclosure.
 
-One per Kamoer. The can passes up through the hole and everything round it bears: the plate lands
-on the boss's own top face all the way round that hole, and the socket hanging under the plate
-takes the boss down to the head. The can's end face is the pump's highest and the tray never
-touches it. It is `enclosure-front-top`'s own material, fused the way the tap-water trough, the
-meter's saddles and the valve panels are: `enclosure._pump_trays` stands one per pump, off the
-stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps. NO TRAY SHIPS AS A
-PART.
+One per Kamoer. `pump_case` draws a two-piece case for this pump; its BASE is a plate on the
+head's crown, a 45° ramp off that plate, an octagonal bore wall standing in the ramp, and a
+cylindrical tower over the bore that the motor can turns in. Cut the tower off above the bore and
+cut down to one `SHOULDER` over it, and what is left is the tray: the same four surfaces, still
+conforming to the same pump.
 
-THE TRAY IS THE PUMP CASE'S OWN BORE. The socket is `pump_case.bore_profile`, the octagon that
-case bores for this pump, ledges and all, and the section `kamoer_kphm400.build_rotor_housing`
-extrudes the boss on; the hole is `pump_case.cylinder_id`, the tower bore that case turns the can
-in. The socket takes the boss in X, in Y and in YAW over the boss's whole depth, so nothing about
-where a pump stands is stated here.
+WHAT IT COVERS IS TWO STOREYS OF THE PUMP, NOT ONE. The base plate lands on the head's own +Z
+face and wraps its top edge all the way round; the ramp climbs off that plate; the bore wall
+takes the boss on each of its eight faces and both its ledges; and the shoulder the cut tower
+leaves lands on the boss's crown and wraps ITS top edge. The can rises out of the tower's own
+bore and the tray never touches it.
 
-    ACROSS  the strap's two channels, and one `MARGIN` past each
-    ALONG   the head's own square, one `MARGIN` past its far edge, and as far toward the wall
-            it roots on as the piece says
-    DEEP    `THICK` of plate on the boss's crown, and the boss's own run of socket under it
+It is `enclosure-front-top`'s own material, fused the way the tap-water trough, the meter's
+saddles and the valve panels are: `enclosure._pump_trays` stands one per pump, off the stations
+`enclosure_assembly.pump_tray_stations` reads off the placed pumps. NO TRAY SHIPS AS A PART.
+
+    ACROSS  the case's own footprint, carried out to the strap's two channels and one `MARGIN`
+            past each
+    ALONG   the case's own footprint, cut back to the face it roots on
+    DEEP    the bore's whole run on the boss, and one `SHOULDER` of tower over its crown
 
 THE STRAP IS THE LOAD PATH, the bargain the flow meter's saddles and the regulator's rib strike:
-a pump hangs UNDER its tray. One strap closes round the pump and the tray together — down one
-channel, past the socket and down that flank of the head, across the head's front face, up the
-far flank and back up the other channel — and what it pulls is the boss's crown onto the plate.
-The socket takes every moment; the strap stops the pump dropping.
+a pump hangs UNDER its tray. One strap closes round the pump and the tray together — up through
+one channel in the plate, over the ramp and the shoulder, down the far channel, down that flank
+of the head, and across the head's front face. What it pulls is the head's crown onto the plate.
+The bore takes every moment; the strap stops the pump dropping.
 
 THE STRAP'S BAND IS WHAT THE CAN LEAVES OF THE HEAD. Its two channels stand outside the head, so
-the run between them crosses the plate's own face: inboard of the can's own radius that run lies
+the run between them crosses the shoulder's own face: inboard of the can's radius that run lies
 against the can, and outboard of the head's half-square its legs come down off the end of the
-head.
+head and wrap nothing.
 
-This module states the tray's own figures and draws one in its own frame; `enclosure` turns it
-onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` draws it:
-  Z = the pump's depth axis, out of the head toward the can. `z = 0` IS THE HEAD'S +Z FACE, so
-      the socket spans z = 0 to the boss's own depth and the plate stands on top of that.
+This module states what the tray adds over the case and draws one in its own frame; `enclosure`
+turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` draws it:
+  Z = the pump's depth axis, out of the head toward the can. `z = 0` IS THE HEAD'S +Z FACE, which
+      is `pump_case`'s own base plane, so the case drops in with no turn and only a shift.
   X = across the tray. Y = along it, and `root` is the way it runs to the wall.
   Origin is the pump's own axis on that face.
 
-In the piece's own print orientation — ceiling on the bed — the tray is a horizontal soffit over
-the lane its pump hangs in, and it takes print support the way the tap-water trough's block and
-the drip tray's rails do. The pump is laid INTO it that way up, its strap threaded first.
+Printed ceiling-down the plate goes on the bed first and everything above it — ramp, bore wall,
+shoulder — grows off its underside, so the only face that hangs is the plate's own.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py
@@ -67,22 +67,20 @@ from docgen import substitute_md                          # noqa: E402
 
 
 # --- what the pump brings ----------------------------------------------------
-# The head's square, half of it: how far its face reaches off the pump's axis, and the flank the
+# The head's square, half of it: how far its crown reaches off the pump's axis, and the flank the
 # strap turns down.
 head_half = _kp.head_w / 2.0
-# How far the head hangs under that face — the strap's two long legs.
+# How far the head hangs under that crown — the strap's two long legs.
 head_depth = _kp.head_depth
-# The boss's octagon, half of it at the flats: the socket's own span.
+# The boss's octagon, half of it at the flats.
 boss_half = _pc.bore_half_span
-# That octagon, ledges and all, in the pump's own frame.
-bore = _pc.bore_profile
-# The socket's outer wall, one `pump_case.wall_thickness` round that octagon.
-bore_wall = _pc.bore_wall_profile
-# The boss's whole run off the head's face — the socket's depth.
+# The boss's whole run off the head's crown — the bore wall's depth.
 boss_depth = _pc.bore_bottom_z
-# The bore the case turns the motor can in, half of it: the hole the can passes through, and
-# what the strap's run has to clear where it crosses the plate.
+# The bore the case turns the can in, half of it: what rises out of the shoulder, and what the
+# strap's run has to clear where it crosses.
 can_half = _pc.cylinder_id / 2.0
+# The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
+case_half = _pc.footprint_half_extent
 
 # --- what a strap is, here ---------------------------------------------------
 # The WIDE strap, which is the one the tap-water trough's cavity is cut for.
@@ -92,26 +90,27 @@ strap_t = 1.0            # and through its thickness
 cav_buffer = 1.0         # the room a cavity carries over the strap
 cav_w = strap_w + cav_buffer
 
-# --- what the tray adds over the pump it takes -------------------------------
-# The plate on the boss's crown, and twice itself on the strap's loop.
-THICK = 3.0
-# Material carried past a channel's far edge and past the head's own, the same figure
-# `valve_panel` carries past its last boss.
+# --- what the tray adds over the case it is cut out of -----------------------
+# Tower kept over the boss's crown after the cylinder comes off. One wall, and it is the face
+# that lands on that crown.
+SHOULDER = 3.0
+# Material carried past a channel's far edge, the same figure `valve_panel` carries past its last
+# boss.
 MARGIN = 3.0
 # The strap band's own standoff off the can.
 CAN_LEAD = 0.5
 
 
 def depth() -> float:
-    """The tray's whole run along the pump's axis — the socket on the boss and the plate on its
-    crown. What the piece has to own in height to build one."""
-    return boss_depth + THICK
+    """The tray's whole run along the pump's axis — the bore on the boss, and one `SHOULDER` of
+    tower over its crown. What the piece has to own in height to build one."""
+    return boss_depth + SHOULDER
 
 
 def chan_y() -> tuple:
     """The strap band, as `(near, far)` off the pump's axis — what the can leaves of the head's
-    own square, which is where a run that crosses the plate clears the can and still lands on the
-    head."""
+    own square, which is where a run that crosses the shoulder clears the can and still lands on
+    the head."""
     near = can_half + CAN_LEAD
     return near, near + cav_w
 
@@ -124,24 +123,34 @@ def chan_x() -> tuple:
 
 
 def half_width() -> float:
-    """Half the tray across: the strap's channels, and one `MARGIN` past them."""
-    return chan_x()[1] + MARGIN
+    """Half the tray across: the case's own footprint, or the strap's channels and one `MARGIN`
+    past them where those reach further."""
+    return max(case_half, chan_x()[1] + MARGIN)
 
 
 def far_reach() -> float:
-    """How far the tray runs off the pump's axis away from the wall it roots on: the head's own
-    square and one `MARGIN` past it, so the plate bears on the whole of that face."""
-    return head_half + MARGIN
+    """How far the tray runs off the pump's axis away from the wall it roots on — the case's own
+    footprint, which already carries past the head."""
+    return case_half
 
 
-def strap_loop() -> float:
-    """The shortest strap that closes round a pump and its tray together.
+def _case_base():
+    """`pump_case`'s BASE, in that module's own frame: the calls `build_pump_case` makes for
+    everything standing on the head's crown, and none of the skirt below it.
 
-    A strap turns INSIDE the channels, so what it reaches round is the pump with the plate's own
-    material over it: across the plate's face between the two channels, down each channel, past
-    the socket and down each flank of the head, and across the head's front face."""
-    return (2.0 * chan_x()[0] + 2.0 * THICK
-            + 2.0 * (boss_depth + head_depth) + 2.0 * head_half)
+    The bore is left for `build_pump_tray` to cut. The case bores its own one `overcut` past the
+    boss, which is what pierces a cut cleanly through to the skirt below; here there is no skirt
+    under it and that overcut is the shoulder standing off the crown it is meant to land on."""
+    solid = _pc.build_base_plate_with_ramp()
+    solid = _pc.add_bore_wall(solid)
+    return solid.union(_pc.build_tower())
+
+
+def _slab(x0, x1, y0, y1, z0, z1):
+    """One box, in `pump_case`'s frame."""
+    return (cq.Workplane("XY")
+            .box(x1 - x0, y1 - y0, z1 - z0, centered=False)
+            .translate((x0, y0, z0)))
 
 
 def build_pump_tray(root: float):
@@ -151,50 +160,48 @@ def build_pump_tray(root: float):
     piece's figure, since where that wall is is not the pump's business. The channels stand on
     that side."""
     near, far = chan_y()
+    x0, x1 = chan_x()
     if far > head_half + 1e-9:
         raise ValueError(
             f"the strap's band runs to {far:.3f} mm off the axis and the head reaches "
             f"{head_half:.3f} — its legs come down off the end of the head and wrap nothing. "
             f"The can's {can_half:g} and the head are what leave this band")
-    if root < far + MARGIN - 1e-9:
+    if near <= can_half:
         raise ValueError(
-            f"a tray rooted {root:.3f} mm off the axis carries no material past its own strap "
-            f"channel, which ends at {far:.3f} and wants one `MARGIN` past it. The wall stands "
-            f"nearer this pump than its strap does")
-    if can_half >= boss_half:
+            f"the strap's band starts {near:.3f} mm off the axis, inside the can's {can_half:g} "
+            f"— the run between its channels lies against the can")
+    if root < head_half + MARGIN - 1e-9:
         raise ValueError(
-            f"the can's bore is {can_half:g} mm off the axis and the boss's octagon reaches "
-            f"{boss_half:g} — the hole takes the whole crown and the plate lands on nothing")
-    hw, fr, d = half_width(), far_reach(), depth()
-    # THE SOCKET: the case's own bore wall standing off the head's face, bored to the octagon
-    # that is the boss — so the boss is taken on each of its eight faces and both its ledges.
-    tray = (cq.Workplane("XY")
-            .polyline(bore_wall).close()
-            .extrude(boss_depth))
-    # AND THE PLATE ON ITS CROWN, with the case's own tower bore through it for the can.
-    tray = tray.union(cq.Workplane("XY")
-                      .workplane(offset=boss_depth)
-                      .polyline([(-hw, -root), (hw, -root), (hw, fr), (-hw, fr)])
-                      .close()
-                      .extrude(THICK))
+            f"a tray rooted {root:.3f} mm off the axis stops short of the head's own "
+            f"{head_half:.3f} and the `MARGIN` past it. The plate has to wrap the head's top "
+            f"edge on the side it roots on, and the wall stands nearer this pump than that")
+    if SHOULDER <= 0.0:
+        raise ValueError(
+            f"a {SHOULDER:g} mm shoulder leaves no tower over the boss's crown — the cut lands "
+            f"on the crown itself and the tray covers only the head")
+    cx, cy, hw, fr, d = _pc.center_x, _pc.center_y, half_width(), far_reach(), depth()
+    big = max(hw, fr, root) + case_half + 10.0
+    tray = _case_base()
+    # CUT OFF THE CYLINDER, and then more: the tower down to one `SHOULDER` over the boss's crown.
+    tray = tray.cut(_slab(cx - big, cx + big, cy - big, cy + big, d, d + big))
+    # AND CARRY THE PLATE OUT to where the strap's channels stand, then re-cut the bore the plate
+    # just filled back in.
+    tray = tray.union(_slab(cx - hw, cx + hw, cy - root, cy + fr, 0.0, _pc.base_thickness))
+    # THE BORE, on the boss's own depth exactly, so the shoulder over it lands ON the crown. Its
+    # top face stands inside the tower's material, which is what a cut needs instead of the
+    # overcut that would pierce free air here.
     tray = tray.cut(cq.Workplane("XY")
                     .workplane(offset=-1.0)
-                    .polyline(bore).close()
+                    .center(cx, cy)
+                    .polyline(_pc.bore_profile).close()
                     .extrude(boss_depth + 1.0))
-    tray = tray.cut(cq.Workplane("XY")
-                    .workplane(offset=boss_depth)
-                    .circle(can_half)
-                    .extrude(THICK + 1.0))
-    # AND THE STRAP'S TWO CHANNELS through the plate, one either side of the can.
-    x0, x1 = chan_x()
+    # THE STRAP'S TWO CHANNELS through that plate, one either side of the can.
     for sx in (-1.0, 1.0):
-        tray = tray.cut(cq.Workplane("XY")
-                        .workplane(offset=boss_depth - 1.0)
-                        .polyline([(sx * x0, -near), (sx * x1, -near),
-                                   (sx * x1, -far), (sx * x0, -far)])
-                        .close()
-                        .extrude(THICK + 2.0))
-    return tray
+        tray = tray.cut(_slab(cx + min(sx * x0, sx * x1), cx + max(sx * x0, sx * x1),
+                              cy - far, cy - near, -1.0, _pc.base_thickness + 1.0))
+    # AND THE TRAY STOPS ON THE FACE IT ROOTS ON, so it meets the wall plane to plane.
+    tray = tray.cut(_slab(cx - big, cx + big, cy - root - big, cy - root, -1.0, d + 1.0))
+    return tray.translate((-cx, -cy, 0.0))
 
 
 def pump_bodies():
@@ -204,36 +211,66 @@ def pump_bodies():
                  for _name, part, _colour in _kp.BODY_PARTS)
 
 
-def _polygon_area(pts) -> float:
-    """A closed polygon's area, by the shoelace — the socket's own section."""
-    n = len(pts)
-    return abs(sum(pts[i][0] * pts[(i + 1) % n][1] - pts[(i + 1) % n][0] * pts[i][1]
-                   for i in range(n))) / 2.0
+def _hull_perimeter(points) -> float:
+    """The perimeter of the convex hull of `points`, by monotone chain."""
+    pts = sorted(set((round(x, 6), round(z, 6)) for x, z in points))
+    if len(pts) < 3:
+        return 0.0
+
+    def half(seq):
+        out = []
+        for p in seq:
+            while len(out) >= 2:
+                (ax, az), (bx, bz) = out[-2], out[-1]
+                if (bx - ax) * (p[1] - az) - (bz - az) * (p[0] - ax) > 0:
+                    break
+                out.pop()
+            out.append(p)
+        return out
+
+    hull = half(pts)[:-1] + half(reversed(pts))[:-1]
+    return sum(math.dist(hull[i], hull[(i + 1) % len(hull)]) for i in range(len(hull)))
 
 
-def tray_volume(root: float) -> float:
-    """One tray's material, in closed form — the socket's ring, and the plate less the can's hole
-    and its two channels.
+def strap_loop(root: float) -> float:
+    """The shortest strap that closes round a pump and its tray together.
 
-    Every one of the four is a prism through its own layer's whole depth, and no two of them meet
-    (`selftest`). The socket's outer wall stands inside the plate's plan, so the two layers meet
-    on a plane and the union adds no volume."""
-    x0, x1 = chan_x()
-    near, far = chan_y()
-    ring = _polygon_area(bore_wall) - _polygon_area(bore)
-    plan = 2.0 * half_width() * (root + far_reach())
-    channels = 2.0 * (x1 - x0) * (far - near)
-    return ring * boss_depth + (plan - math.pi * can_half ** 2 - channels) * THICK
+    A strap turns INSIDE the channels, so what it reaches round is the pump with the tray's own
+    body over it — the convex perimeter of that pair, read on the plane the band's own centre
+    stands in, which is the section the strap lies in."""
+    y = -sum(chan_y()) / 2.0
+    pair = build_pump_tray(root).val()
+    for body in pump_bodies():
+        pair = pair.fuse(body)
+    slice_ = pair.intersect(cq.Workplane("XY")
+                            .box(1e3, 0.2, 1e3, centered=True)
+                            .translate((0.0, y, 0.0)).val())
+    return _hull_perimeter((v.X, v.Z) for v in slice_.Vertices())
 
 
 def fouled_volume(root: float) -> float:
     """How much of the pump a tray stands inside — 0 mm³, or the tray is in the pump's way.
 
-    The socket is the section the boss is extruded on, so the two share their eight walls; the
-    plate's face lands on the boss's crown and the socket's rim on the head's, which are planes;
+    The bore is the section the boss is extruded on, so the two share their eight walls; the
+    plate's face lands on the head's crown and the shoulder's on the boss's, which are planes;
     and the can turns in a bore the case cuts wider than it."""
     tray = build_pump_tray(root).val()
     return sum(tray.intersect(body).Volume() for body in pump_bodies())
+
+
+def storeys(root: float) -> tuple:
+    """The tray's material on each of the two faces it covers, as `(on the head, on the crown)`
+    in mm² of section — the reading that says a tray wraps BOTH storeys of the pump and not one.
+
+    Read a hair above each face, so what is measured is the tray standing on it."""
+    tray = build_pump_tray(root).val()
+    out = []
+    for z in (0.0, boss_depth):
+        cut = tray.intersect(cq.Workplane("XY")
+                             .box(1e3, 1e3, 0.02, centered=True)
+                             .translate((0.0, 0.0, z + 0.05)).val())
+        out.append(cut.Volume() / 0.02)
+    return tuple(out)
 
 
 def trays_of_machine():
@@ -245,40 +282,40 @@ def trays_of_machine():
 
 
 def selftest() -> int:
-    """The tray against the pump it takes and the case it is bored like."""
+    """The tray against the pump it takes and the case it is cut out of."""
     fails = []
     near, far = chan_y()
     x0, _x1 = chan_x()
-    if far > head_half:
-        fails.append(f"the strap band ends {far:.3f} mm off the axis, past the head's "
-                     f"{head_half:.3f} — its legs wrap nothing")
-    if near <= can_half:
-        fails.append(f"the strap band starts {near:.3f} mm off the axis, inside the can's "
-                     f"{can_half:g} — the run between its channels lies against the can")
     if x0 <= head_half:
         fails.append(f"a channel opens {x0:.3f} mm off the axis, inside the head's "
-                     f"{head_half:.3f} — the strap turns down onto the head's own face")
+                     f"{head_half:.3f} — the strap turns down onto the head's own crown")
     if can_half >= boss_half:
         fails.append(f"the can's bore reaches {can_half:g} mm and the boss's octagon "
-                     f"{boss_half:g} — the plate lands on nothing")
-    root = far_reach()
+                     f"{boss_half:g} — the shoulder lands on nothing")
+    root = head_half + MARGIN
     try:
         built = build_pump_tray(root).val()
-        closed = tray_volume(root)
-        if abs(built.Volume() - closed) > 1e-6 * closed:
-            fails.append(f"a tray measures {built.Volume():.3f} mm^3 against the {closed:.3f} "
-                         f"its closed form says — a channel has met the socket or run off the "
-                         f"plate")
-        foul = fouled_volume(root)
-        if foul > 1e-6:
-            fails.append(f"the tray stands {foul:.6f} mm^3 inside the pump it holds")
+        if not built.isValid():
+            fails.append("the tray is not a valid solid")
+        if len(built.Solids()) != 1:
+            fails.append(f"the tray comes out {len(built.Solids())} solids, not one — the plate "
+                         f"carried out has parted from the case's own")
         bb = built.BoundingBox()
         if abs(bb.zlen - depth()) > 1e-6:
             fails.append(f"a tray runs {bb.zlen:.4f} mm along the pump's axis against the "
                          f"{depth():g} it declares")
+        foul = fouled_volume(root)
+        if foul > 1e-6:
+            fails.append(f"the tray stands {foul:.6f} mm^3 inside the pump it holds")
+        on_head, on_crown = storeys(root)
+        if on_head <= 0.0:
+            fails.append("the tray carries no material on the head's own crown")
+        if on_crown <= 0.0:
+            fails.append("the tray carries no material on the boss's crown — the cut took the "
+                         "shoulder with the cylinder")
     except Exception as exc:                                     # noqa: BLE001
         fails.append(str(exc))
-    for what, bad in (("a tray rooted inside its own channel", far),
+    for what, bad in (("a tray rooted short of the head's own edge", head_half),
                       ("a tray rooted on the pump's axis", 0.0)):
         try:
             build_pump_tray(bad)
@@ -288,24 +325,27 @@ def selftest() -> int:
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print(f"ok  pump-tray  {2 * half_width():g} across, {THICK:g} of plate on "
-              f"{boss_depth:g} of socket, octagon {2 * boss_half:g} at the flats, can bore "
-              f"{2 * can_half:g}, strap band {near:g}..{far:g}, loop {strap_loop():.1f} mm")
+        print(f"ok  pump-tray  {2 * half_width():g} across, {SHOULDER:g} of shoulder over "
+              f"{boss_depth:g} of bore, octagon {2 * boss_half:g} at the flats, can bore "
+              f"{2 * can_half:g}, strap band {near:g}..{far:g}, "
+              f"{on_head:.0f} mm² on the head and {on_crown:.0f} on the crown")
     return 1 if fails else 0
 
 
 def main():
     trays = trays_of_machine()
     print(f"Pump tray — {len(trays)} stood in enclosure-front-top: {', '.join(sorted(trays))}")
-    total = 0.0
+    total, loop, storey = 0.0, 0.0, (0.0, 0.0)
     for name, root in sorted(trays.items()):
         solid = build_pump_tray(root).val()
         total += solid.Volume()
-        print(f"  {name}: {2 * half_width():g} x {root + far_reach():g} plate {THICK:g} on "
-              f"{boss_depth:g} of socket, rooted {root:g} mm off the pump's axis")
-        print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, closed form "
-              f"{tray_volume(root) / 1000.0:.2f} cm^3, valid {solid.isValid()}, fouls the pump "
-              f"by {fouled_volume(root):.6f} mm^3")
+        loop, storey = strap_loop(root), storeys(root)
+        print(f"  {name}: {2 * half_width():g} x {root + far_reach():g}, {SHOULDER:g} of "
+              f"shoulder over {boss_depth:g} of bore, rooted {root:g} mm off the pump's axis")
+        print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, valid {solid.isValid()}, "
+              f"fouls the pump by {fouled_volume(root):.6f} mm^3")
+        print(f"    covers {storey[0]:.0f} mm^2 on the head's crown and {storey[1]:.0f} on the "
+              f"boss's, strap loop {loop:.1f} mm")
     root = next(iter(sorted(trays.values())))
 
     substitute_md(
@@ -313,8 +353,8 @@ def main():
         variables={
             "TRAY_W": f"{2 * half_width():g}",
             "TRAY_L": f"{root + far_reach():g}",
-            "TRAY_T": f"{THICK:g}",
             "TRAY_D": f"{depth():g}",
+            "SHOULDER": f"{SHOULDER:g}",
             "CAN_BORE": f"{2 * can_half:g}",
             "TRAY_MARGIN": f"{MARGIN:g}",
             "TRAY_COUNT": f"{len(trays)}",
@@ -325,17 +365,21 @@ def main():
             "HEAD_W": f"{_kp.head_w:g}",
             "HEAD_D": f"{_kp.head_depth:g}",
             "CAN_DIA": f"{_kp.motor_dia:g}",
-            "STRAP_LOOP": f"{strap_loop():.1f}",
+            "STRAP_LOOP": f"{loop:.1f}",
             "STRAP_W": f"{strap_w:g}",
             "BAND_NEAR": f"{chan_y()[0]:.4g}",
             "BAND_FAR": f"{chan_y()[1]:.4g}",
+            "ON_HEAD": f"{storey[0]:.0f}",
+            "ON_CROWN": f"{storey[1]:.0f}",
+            "RAMP_H": f"{_pc.ramp_from_skirt_to_octagon_height:g}",
+            "CASE_W": f"{2 * case_half:g}",
         },
         expected_counts={
-            "TRAY_W": 1, "TRAY_L": 1, "TRAY_T": 1, "TRAY_D": 1, "CAN_BORE": 1,
-            "TRAY_MARGIN": 1, "TRAY_COUNT": 1,
-            "TRAY_VOL": 1, "SOCKET_SPAN": 1, "SOCKET_LEDGE": 1, "BOSS_DEPTH": 2,
-            "HEAD_W": 1, "HEAD_D": 1, "CAN_DIA": 1, "STRAP_LOOP": 2, "STRAP_W": 1,
-            "BAND_NEAR": 1, "BAND_FAR": 1,
+            "TRAY_W": 1, "TRAY_L": 1, "TRAY_D": 1, "SHOULDER": 2, "CAN_BORE": 1,
+            "TRAY_MARGIN": 1, "TRAY_COUNT": 1, "TRAY_VOL": 1, "SOCKET_SPAN": 1,
+            "SOCKET_LEDGE": 1, "BOSS_DEPTH": 2, "HEAD_W": 1, "HEAD_D": 1, "CAN_DIA": 1,
+            "STRAP_LOOP": 2, "STRAP_W": 1, "BAND_NEAR": 1, "BAND_FAR": 1,
+            "ON_HEAD": 1, "ON_CROWN": 1, "RAMP_H": 1, "CASE_W": 1,
         },
     )
     print("-> README.md")
