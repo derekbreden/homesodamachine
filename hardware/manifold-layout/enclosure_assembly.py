@@ -4338,6 +4338,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     a.bounds = list(BOUNDS)
     # The box the pieces were cut from, carried like `runs` and `frames`.
     a.box = box
+    # And the pack it was sized on, so a reader that wants both does not stand the
+    # appliance a second time to get the half this one already has.
+    a.pack = _p
     a.seats = dict(SEATS)
     return a
 
@@ -4557,7 +4560,23 @@ def main():
     report(a)
     _card.report(a)
     print(f"-> {_card.write(a, out, __file__).name}")
+    # AND WHAT THE READERS READ, off this same machine. Eight doc drivers take their figures
+    # from the artifact rather than standing an appliance apiece; writing it here is what makes
+    # that one derivation instead of two.
+    import _facts
+    print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
     ml.render_elevations(out, xray="enclosure*")
+    # AND THE CARDS' PICTURES, for the scenes whose sources have moved. A scene is a subset of
+    # THIS machine, so drawing it here costs the cuts and the renders; asking `render_scenes` for
+    # it afterwards costs a second appliance. HSM_SKIP_SCENES leaves them for a hand run.
+    if not os.environ.get("HSM_SKIP_SCENES"):
+        sys.path.insert(0, str(_here.parent / "assembly" / "scenes"))
+        import check_scenes as _chk
+        import _scenes as _sc
+        import render_scenes as _rs
+        stale = [s for s in _sc.SCENES if _chk.state(s)[0] != "current"]
+        if stale:
+            _rs.draw_all(stale, a)
 
 
 if __name__ == "__main__":
