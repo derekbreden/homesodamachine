@@ -72,7 +72,7 @@
     "hardware/scripts/_run_lock.py": "1e3be322667ee5b6463d16db7d6f6e21",
     "hardware/scripts/_seating.py": "5c82444dedb829535ff52d72cb192956",
     "hardware/scripts/_stated_bounds.py": "6dd26f4721921883f10e86fb777bc2b8",
-    "hardware/scripts/check_scenes.py": "68aa798d21b8dbcc7e96e97dc8b7b019",
+    "hardware/scripts/check_scenes.py": "1147cd95c0764a190090e0ea0f0fa103",
     "tools/docgen/__init__.py": "9b57f3feee02c14420962ab2ad943f43"
   }
 }
