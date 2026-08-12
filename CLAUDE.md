@@ -22,6 +22,8 @@ See `marketing/target-market.md` for details.
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
+What a commit owes: `python3 hardware/scripts/owed.py --run`. It asks the three checks what went stale, runs exactly those, and prints the verdict as its last line.
+
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
 ## Firmware
