@@ -5,7 +5,7 @@
     "hardware/printed-parts/cadlib/world_workplane.py": "196e4e6efff48cf0ff62e5898f43828c",
     "hardware/printed-parts/flavor/pump-case/pump_case.py": "b942a09f30e4255a8e54773d5b04191e",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "759dd8dc2565af8bc5cb227b20221898",
-    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "4693c3eef469451b1ed30e406c00bec0",
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": "79f778e529fee63687863690024030eb",
     "hardware/reference/tee-connector/tee_connector.py": "1877a76ec8cfe3efd1194295de7e805f",
     "hardware/reference/y-divider/y_divider.py": "34bb2a40b781e6512fc919751e26e648",
     "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
