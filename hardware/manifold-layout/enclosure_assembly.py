@@ -454,13 +454,6 @@ def build_compressor():
                      cx=0.0, y0=0.0, z0=0.0)
 
 
-# WHAT THE CORE BUTTS IS THE CONDENSER, so the condenser's aft face is the deepest plane on this
-# floor and the compressor's own stands one lane ahead of it. THE LANE IS WHAT `_refrig_3` IS
-# DRAWN IN and nothing else: the can meets its neighbours along a tangent line rather than a
-# plane, its suction stub stands 7.5 fore of its own aft face, and the leg cut off that stub has
-# to lead out and turn its bend radius before it reaches the core's front slot. Spent, the
-# suction has nowhere to go.
-SUCTION_LANE = 18.0
 # THE PLANE THE FLAVOUR PACK SETS DOWN ON. The pack rests on the crown of this floor's two
 # bodies (`build_pack`), and its two SOURCE VALVES reach aft over the cold core's cap — so what
 # this plane is worth is the air under those valves and over that lid. Drop it and they land on
@@ -479,14 +472,12 @@ def build_condenser(comp):
     """The block turned a quarter about Z, which brings the WEST face the mating names round
     onto the compressor's own tangent, and stood off the same floor on its own mount.
 
-    The seated frame's +X is the machine's −Y — `place_base` yaws the pair a quarter the other
-    way — so `x0` here is the block's AFT face, and setting it one `SUCTION_LANE` BELOW the
-    compressor's own puts it that far aft of the can in the machine."""
+    The two are struck on the same centre, so the shallower of the pair stands off the plane the
+    core butts at both ends and its liquid line reaches the evaporator as drawn copper."""
     c = _cond.build()
     c = c.toCompound() if hasattr(c, "toCompound") else c
     return seat_body(c, (((0.0, 0.0, 1.0), 90.0),),
-                     x0=box(comp).xmin - SUCTION_LANE,
-                     y0=box(comp).ymax, z0=COND_LIFT)
+                     cx=0.0, y0=box(comp).ymax, z0=COND_LIFT)
 
 
 # The turn that lays the cutoff's seating plane on a face looking down -Y. Its own frame runs
