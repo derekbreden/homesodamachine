@@ -59,7 +59,7 @@
     "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": "729ca19c9b4dbe9740f120c6d417646f",
     "hardware/reference/wr1110-regulator/wr1110_regulator.py": "9d78668ef9805ae02597ac939b9d20fa",
     "hardware/reference/y-divider/y_divider.py": "34bb2a40b781e6512fc919751e26e648",
-    "hardware/scripts/_boxes.py": "c1eaf8524221da30fd55184cf998a4cc",
+    "hardware/scripts/_boxes.py": "19523d831d06655ce7253e61c61b3460",
     "hardware/scripts/_cadq_export.py": "5c817e74ab20ffe8f90cc41e2d1ce43f",
     "hardware/scripts/_clearing.py": "5fb35cc71c6286c53431526a7fb58c4b",
     "hardware/scripts/_facts.py": "f7d24ba0554ce276e3f72b754b6d8b1b",
