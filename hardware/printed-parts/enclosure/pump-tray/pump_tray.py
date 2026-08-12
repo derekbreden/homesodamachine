@@ -88,6 +88,10 @@ bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
+# And that base plate's own thickness. It is the band a tray meets its neighbours in: every web
+# `enclosure._tray_webs` runs to a wall, to the other tray or aft onto the valve panel is this
+# thick and stands in this band, so the whole storey reads as one plate.
+PLATE = _pc.base_thickness
 
 # --- what a strap is, here ---------------------------------------------------
 # The WIDE strap, which is the one the tap-water trough's cavity is cut for.
