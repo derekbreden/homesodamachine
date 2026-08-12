@@ -357,9 +357,9 @@ mq6_card_z = _mq6.PCB_X     # 32 — height, the card's long side
 # ONE END SLIDES AND THE OTHER SCREWS. The FORE flanges carry no hole, so what takes them is a
 # GROOVE: a rail off the front wall at each end, the pair of them straddling nothing but air,
 # and the block goes in aft-first and forward until its fore face meets the rail's own shoulder.
-# THE RAIL IS THE DATUM in Y, its grooves in Z, the way the gas sensor's card slot is. The lower
-# rail's underside is the slab, which makes it a corner bracket rather than a shelf — and its
-# crown is the whole of what stands the block off the floor.
+# THE RAIL IS THE DATUM IN Y. In Z each groove closes over its flange with air on both faces of
+# the sheet, and what stands the block off the floor is the bore under its base flange. The lower
+# rail's underside is the slab, which makes it a corner bracket rather than a shelf.
 #
 # The AFT flanges carry the donor's own two holes, one line through both, and each takes a screw
 # DOWN into a ruthex M3. So both bosses stand under the sheet their screw passes through, and
@@ -372,9 +372,23 @@ mq6_card_z = _mq6.PCB_X     # 32 — height, the card's long side
 # reaches the crown flange has to root outside the block's own flanks, and the lane between the
 # block and the +X wall is the one that is free.
 cond_rail_wall = 3.0        # rail and finger section around a groove or a bore
-cond_slot_press = 0.15      # per-side slip in a groove, the wells' own figure
 cond_slot_grip = 3.0        # how much of a fore flange's own depth each groove swallows
 cond_mount_clear = 1.0      # air off the block: the fin's own lane, and each end of the band
+# A GROOVE IS STRUCK ON THE SHEET THAT STANDS IN IT. Two figures meet in `cond_slot_half`: the
+# SLIP, which is what the gas sensor's [1.6 mm](MQ6_CARD_T) card gets either side of it in its
+# own [1.9 mm](MQ6_SLOT_OPEN) slot, and the OPENING, which is what a groove stands at least,
+# however thin the sheet it takes. The block keeps its own sheet thickness and the box keeps
+# what it will open for one.
+cond_slot_press = 0.15      # per-side slip in a groove, the wells' own figure
+cond_slot_open = 1.0        # [1 mm](COND_SLOT_OPEN) — the least a groove may stand open
+
+
+def cond_slot_half(sheet: float) -> float:
+    """The air a groove keeps on EACH side of the sheet standing in it: the slip, or what the
+    opening leaves over that sheet, whichever is the wider."""
+    return max(cond_slot_press, (cond_slot_open - sheet) / 2.0)
+
+
 # THE BORE SWALLOWS THE WHOLE SCREW. Every other insert in this box is reached through a body
 # that holds a share of the screw's own length; this one is reached through four tenths of sheet,
 # which holds none of it. So the bore is the screw and the air past its tip, and the grip inside
@@ -2293,16 +2307,21 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
     reach into the bay is its own depth and not a number typed here.
 
     The BASE rail's `root` is the slab, so it comes out of the print as a corner bracket in one
-    piece with both faces it stands on, and its crown carries the block. The CROWN rail's is one
-    section under its own flange, and it hangs off the wall."""
+    piece with both faces it stands on. The CROWN rail's is one section under its own groove, and
+    it hangs off the wall.
+
+    THE GROOVE IS STRUCK OFF THE FLANGE IT TAKES and not off a figure typed here: `cond_slot_half`
+    reads the station's own sheet. The rail's crown stands one section over that opening, so it
+    follows the groove wherever the sheet in it puts it."""
     for face, cx0, cx1, fz0, fz1, root in stations:
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
+        half = cond_slot_half(fz1 - fz0)
         solid = solid.fuse(_ybox(cx0, cx1, inner[2], face + cond_slot_grip,
-                                 root, fz1 + cond_slot_press + cond_rail_wall))
+                                 root, fz1 + half + cond_rail_wall))
         # The groove runs out past the rail's own aft end, so the flange enters from the bay.
         solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, face, face + cond_slot_grip + 1.0,
-                                fz0 - cond_slot_press, fz1 + cond_slot_press))
+                                fz0 - half, fz1 + half))
     return solid
 
 
@@ -3178,6 +3197,9 @@ def main():
         "LOOP_WR1110": f"{tube_anchor_strap_loop(seats[1]):.3g} mm",
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
+        "MQ6_CARD_T": f"{mq6_card_y:.4g} mm",
+        "MQ6_SLOT_OPEN": f"{mq6_card_y + 2 * mq6_slot_press:.4g} mm",
+        "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
                      f"{bo[5] - bo[4]:.0f} mm"),
@@ -3188,7 +3210,8 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={"DISPLAY_FACET_X": 2, "DISPLAY_FACET_SLOPE": 2,
-                         "LOOP_CARB_1": 1, "LOOP_WR1110": 1},
+                         "LOOP_CARB_1": 1, "LOOP_WR1110": 1,
+                         "MQ6_CARD_T": 1, "MQ6_SLOT_OPEN": 1, "COND_SLOT_OPEN": 1},
     )
     substitute_md(
         _here.parent / "README.md",

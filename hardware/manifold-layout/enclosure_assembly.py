@@ -1214,34 +1214,50 @@ COND_MOUNT_TOL = 0.02
 # What a probe stands in from the edge of the feature it reads, so a face the box drew exactly
 # on the probe's own is not a coin toss between material and air.
 COND_PROBE_INSET = 0.5
+# The same, for the probe that stands inside a groove's OPENING rather than in the material
+# either side of it.
+COND_AIR_INSET = 0.05
+_COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 
 
 def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
     """Whether all four of the condenser block's flanges have printed material to land on.
 
     The block is a donor envelope and these four sheets are its whole purchase, so what the box
-    owes each is a face. FORE, that is a groove: material under the flange and material over it,
-    across the block's own width and the whole of `cond_slot_grip`. AFT, it is a boss: the
-    annulus a ruthex bore leaves in a finger, read from the flange face down one insert.
+    owes each is a face. FORE, that is a groove: material under the flange, material over it, and
+    AIR BETWEEN THE TWO for the sheet to enter — all three across the block's own width and the
+    whole of `cond_slot_grip`. AFT, it is a boss: the annulus a ruthex bore leaves in a finger,
+    read from the flange face down one insert.
 
     Read the way `check_floor_mounts` reads a post — a probe volume against the printed pieces —
     because a station that no piece's band owns is a station nothing prints, and the assembly
-    would otherwise stand a block on air and say nothing."""
+    would otherwise stand a block on air and say nothing. The opening is read the same way and
+    against the same solids: a groove the box has drawn something into is a groove the block's
+    flange does not enter."""
     rows, ins = [], COND_PROBE_INSET
     solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
 
     def filled(vol):
         return max(_overlap.volume(vol, s) for s in solids) / vol.Volume()
 
-    press, grip, sect = _enc.cond_slot_press, _enc.cond_slot_grip, _enc.cond_rail_wall
+    grip, sect = _enc.cond_slot_grip, _enc.cond_rail_wall
     for face, cx0, cx1, fz0, fz1, _root in cradle:
-        for what, z0 in (("under", fz0 - press - sect), ("over", fz1 + press)):
+        half = _enc.cond_slot_half(fz1 - fz0)
+        for what, z0 in (("under", fz0 - half - sect), ("over", fz1 + half)):
             probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins, z0 + ins))
                      .box(cx1 - cx0 - 2 * ins, grip - 2 * ins, sect - 2 * ins,
                           centered=False).val())
             got = filled(probe)
             rows.append((f"fore flange at z {fz0:7.3f}, {what} its groove", got,
-                         got >= 1.0 - COND_MOUNT_TOL))
+                         got >= 1.0 - COND_MOUNT_TOL, _COND_UNPRINTED))
+        air = COND_AIR_INSET
+        probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins, fz0 - half + air))
+                 .box(cx1 - cx0 - 2 * ins, grip - 2 * ins,
+                      (fz1 - fz0) + 2 * half - 2 * air, centered=False).val())
+        got = filled(probe)
+        rows.append((f"fore flange at z {fz0:7.3f}, {(fz1 - fz0) + 2 * half:.2f} mm open",
+                     1.0 - got, got <= COND_MOUNT_TOL,
+                     "OBSTRUCTED — a piece stands in the opening the flange enters"))
     _flank, _my0, _my1, bosses = mount
     for bx, by, tip in bosses:
         plug = cq.Solid.makeCylinder(
@@ -1249,15 +1265,16 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
             cq.Vector(bx, by, tip - _enc.heatset_depth), cq.Vector(0, 0, 1))
         got = filled(plug)
         want = 1.0 - (_enc.heatset_dia / _enc.mount_boss_dia) ** 2
-        rows.append((f"aft boss under the hole at z {tip:7.3f}", got, got >= want - COND_MOUNT_TOL))
+        rows.append((f"aft boss under the hole at z {tip:7.3f}", got,
+                     got >= want - COND_MOUNT_TOL, _COND_UNPRINTED))
     bad = [r for r in rows if not r[2]]
     return record_bound(Bound(
         "cond-mount-lands", "The condenser block's four flanges all have printed material "
-        "to land on", bool(rows) and not bad,
+        "to land on, and both fore grooves stand open for the sheet", bool(rows) and not bad,
         "nothing stationed" if not rows else f"{len(rows) - len(bad)}/{len(rows)} standing",
-        "a groove at each fore flange and a bored boss under each aft one",
-        [f"{what:44s} {'standing' if ok else 'NOT PRINTED — no piece owns this station'}"
-         f"   ({got * 100:.1f}% of the probe)" for what, got, ok in rows]))
+        "a groove standing open at each fore flange and a bored boss under each aft one",
+        [f"{what:44s} {'standing' if ok else bad_msg}"
+         f"   ({got * 100:.1f}% of the probe)" for what, got, ok, bad_msg in rows]))
 
 
 def check_pack_over_core(stood, foam) -> Bound:
@@ -2761,16 +2778,18 @@ def condenser_cradle(cond, cond_carry, floor: float) -> tuple:
 
     `face` is the plane the block's own fore face comes to rest on, so the rail's shoulder is
     where the block stops and its reach into the bay is the block's own depth. THE BASE RAIL
-    ROOTS ON THE SLAB and the crown one hangs off the wall a section under its flange, which is
-    the difference between a corner bracket carrying the block's standoff and a shelf."""
+    ROOTS ON THE SLAB and the crown one hangs off the wall a section under its GROOVE, which is
+    the difference between a corner bracket carrying the block's standoff and a shelf. That root
+    is struck under the groove's own lower face, not under the flange's."""
     b = box(cond)
     rows = []
     for i, (fz0, fz1) in enumerate(_cond.flange_z()):
         face = cond_carry(((0.0, 0.0, fz0), (0.0, -1.0, 0.0)))[0][1]
         z0, z1 = sorted(cond_carry(((0.0, 0.0, fz), (0.0, 0.0, 1.0)))[0][2]
                         for fz in (fz0, fz1))
+        half = _enc.cond_slot_half(z1 - z0)
         rows.append((face, b.xmin, b.xmax, z0, z1,
-                     floor if i == 0 else z0 - _enc.cond_rail_wall))
+                     floor if i == 0 else z0 - half - _enc.cond_rail_wall))
     return tuple(rows)
 
 
