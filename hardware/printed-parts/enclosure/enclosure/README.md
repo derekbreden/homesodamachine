@@ -416,6 +416,40 @@ loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
 itself, and `check_tube_seated` reads the three run anchors the same way.
 
+## Pump trays
+
+The front wall carries one per Kamoer (`_pump_trays`, off
+`enclosure_assembly.pump_tray_stations`): a plate bored for the motor can with an
+**octagonal socket under it for the head's rear boss**, running from the pump's own
+axis out to the wall's interior face. Both the bore and the socket are the two-piece
+pump case's — `pump_case.cylinder_id` for the can, `pump_case.bore_profile` with its
+ledges for the boss — so a tray takes the same section that case was fitted on.
+`printed-parts/enclosure/pump-tray/` owns the figures.
+
+**The socket is the whole of the location.** It stands the boss's own depth, so a pump
+is held in X, in Y and in yaw by the octagon alone; nothing about where a pump sits is
+a number this wall chose. The plate lands on the boss's crown and the socket's rim on
+the head's face, which are planes — a tray and the pump it takes share no volume.
+
+**The strap is the load path**, the meter's bargain again and on the heaviest body
+either wall carries: a pump hangs UNDER its tray, so the plate on its own holds
+nothing. One strap closes round the pump and the plate together, down through the
+plate's two channels, past the socket and down both flanks of the head, and across the
+head's front face.
+
+**The band those two channels stand in is what the can leaves of the head.** They sit
+outside the head, so the run between them crosses the plate's own face: inboard of the
+can's radius that run lies against the can, and outboard of the head's half-square its
+legs come down off the end of the head and wrap nothing. Unlike every other cavity on
+this box the channels are **cut**, because a tray is a plate and not a rib — there is no
+pair of end walls here for a channel to be the gap between.
+
+Printed ceiling-down the plate goes on the bed first and the socket's octagon walls
+grow off its underside, so there is no overhang in the socket at all. The plate itself
+is a horizontal soffit over the lane its pump hangs in and takes print support, the way
+the tap-water trough's block does. `enclosure_assembly.check_trays_hold` reads each
+pump against the plate on it.
+
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries

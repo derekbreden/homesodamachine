@@ -122,6 +122,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-panel"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
@@ -131,6 +132,7 @@ import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import valve_seat as _seat
 import valve_panel as _panel
+import pump_tray as _tray
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -439,7 +441,11 @@ rear_plane_y = 472.0
 # stands from the floor slab and the service bay stands on its lid, so that column runs
 # solid and its seam has to take whatever height the bed and the lip's own ring allow.
 y_seam = 200.0
-front_z_seam = 160.0
+# The front column's seam stands clear UNDER the flavour pack's two pumps. Its lip carries
+# `lip_len` up into the cavity one wall proud of the interior face, and a pump head's front
+# face is on that face — so the plane is struck low enough that the lip's rim passes beneath
+# the head rather than against it (`z-seam-under-pumps`).
+front_z_seam = 150.0
 
 # The bottom↔top seam planes, one per Y column. The seam machinery (a one-wall lip
 # + the cross-pin pods) protrudes into the cavity at the walls, and every body in the
@@ -517,10 +523,15 @@ z_lip_y_margin = 2.0
 #                 it, and one (x, z) per valve. A panel is a plate wall to wall carrying one
 #                 four-boss `valve_seat` per valve (`valve_panel`), and it is this piece's own
 #                 material the way the trough and the saddles are
+#   pump_trays    the flavour manifold's two pumps, one world `centre` each — the point a pump's
+#                 own axis meets the +Z face of its head, which is the face its tray lies on. A
+#                 tray is a plate with that pump's own boss cut through it (`pump_tray`), run
+#                 from the axis to the front wall, and it is this piece's material like a panel
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
-           "cond_mount asse_cradle digiten_saddles tube_anchors port_field valve_panels")
+           "cond_mount asse_cradle digiten_saddles tube_anchors port_field valve_panels "
+           "pump_trays")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -530,9 +541,9 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
-            "asse_cradle digiten_saddles tube_anchors port_field valve_panels")
+            "asse_cradle digiten_saddles tube_anchors port_field valve_panels pump_trays")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), (),
-                             (), (), None, ())
+                             (), (), None, (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1144,7 +1155,8 @@ def _dims(pack):
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
                pack.cond_mount, pack.asse_cradle,
-               pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels)
+               pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels,
+               pack.pump_trays)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -2021,7 +2033,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               (), (), None, None, (), None, ())
+               (), (), None, None, (), None, (), ())
 
 
 def build_front_half(box):
@@ -2584,6 +2596,32 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
+# --- the flavour manifold's pump trays --------------------------------------
+#
+# A TRAY IS A PLATE WITH THE PUMP'S OWN BOSS CUT THROUGH IT. `pump_tray` states its depth, its
+# margin and the band its strap's two channels stand in, and draws one in the pump's own frame;
+# this roots that on the front wall and fuses it into the piece, the way `_valve_panels` fuses a
+# plate and `_digiten_saddles` the meter's two Vs.
+#
+# THE STRAP IS WHAT HOLDS A PUMP UP. It hangs under its tray, so one closes round the head and
+# the plate together through those two channels — the meter's bargain, on the heaviest body
+# either wall carries.
+def _pump_trays(solid, inner, stations, y0, y1, z0, z1):
+    """Every pump tray whose plate falls in the depth and height band this piece owns.
+
+    Each station is the world point a pump's axis meets the +Z face of its head. The pumps stand
+    their cans on +Z and their trays run to the FRONT wall, so a plate reaches from that point
+    to `inner[2]` and `pump_tray`'s own frame lands on it with no turn in it."""
+    for cx, cy, cz in stations:
+        root = cy - inner[2]
+        if not (y0 <= inner[2] and cy + _tray.far_reach() <= y1
+                and z0 <= cz and cz + _tray.depth() <= z1):
+            continue
+        tray = _tray.build_pump_tray(root).val()
+        solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
+    return solid
+
+
 def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
     """The flow meter's two saddles hung off the top wall, for the piece that owns the ceiling.
 
@@ -2882,6 +2920,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam columns.
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
+    # And that manifold's two pump trays, on the piece that owns the band each plate lies in.
+    # After the panels, whose own plate stands one behind them on the same storey.
+    piece = _pump_trays(piece, inner, box.pump_trays, ylo, yhi, zlo, zhi)
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
