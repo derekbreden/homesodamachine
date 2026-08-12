@@ -2313,6 +2313,12 @@ def _cond_mount(solid, inner, station, y0, y1, z0, z1):
         return solid
     crown = max(t for _bx, _by, t in bosses)
     floor_tip = min(t for _bx, _by, t in bosses)
+    if floor_tip - inner[4] < cond_bore_depth - 1e-6:
+        raise ValueError(
+            f"the lowest condenser flange stands {floor_tip - inner[4]:g} over the slab and the "
+            f"boss under it carries a {cond_bore_depth:g} bore — a body set down closer than its "
+            f"own insert is a body whose screw has nowhere to close. Stand it off by at least "
+            f"that, or capture that flange the way the fore pair is captured.")
     west = min(bx for bx, _by, _t in bosses) - mount_boss_dia
     for bx, by, _tip in bosses:
         room = min(bx - west, inner[1] - bx, by - my0, my1 - by) - heatset_dia / 2.0

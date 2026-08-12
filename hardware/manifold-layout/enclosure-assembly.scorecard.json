@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -638,6 +638,31 @@
    "active": true
   },
   {
+   "id": "pack-over-core",
+   "label": "Every pack body reaching over the cold core clears its cap",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8 over the lid at z 253.40, lowest clears by 2.615 mm",
+   "target": "at least 1 mm over the cap",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pack-carried",
+   "label": "The flavour pack sets down on a body that reaches its own plane",
+   "kind": "gate",
+   "status": "fail",
+   "value": "0/4 of the pack's feet land on something",
+   "target": "at least one foot on a body under it",
+   "detail": [
+    "tube-fluid-17: falls 5.000 mm before it meets anything",
+    "tube-fluid-9: falls 16.000 mm before it meets anything",
+    "tube-fluid-19: falls 16.000 mm before it meets anything",
+    "tube-fluid-27: falls 16.000 mm before it meets anything"
+   ],
+   "active": true
+  },
+  {
    "id": "core-lane",
    "label": "The floor ahead of the cold core stops short of it",
    "kind": "gate",
@@ -873,12 +898,12 @@
    "value": "6/6 standing",
    "target": "a groove at each fore flange and a bored boss under each aft one",
    "detail": [
-    "fore flange at z  14.000, under its groove   standing   (100.0% of the probe)",
-    "fore flange at z  14.000, over its groove    standing   (100.0% of the probe)",
-    "fore flange at z 150.600, under its groove   standing   (100.0% of the probe)",
-    "fore flange at z 150.600, over its groove    standing   (100.0% of the probe)",
-    "aft boss under the hole at z  14.000         standing   (67.3% of the probe)",
-    "aft boss under the hole at z 150.600         standing   (67.3% of the probe)"
+    "fore flange at z   9.000, under its groove   standing   (100.0% of the probe)",
+    "fore flange at z   9.000, over its groove    standing   (100.0% of the probe)",
+    "fore flange at z 145.600, under its groove   standing   (100.0% of the probe)",
+    "fore flange at z 145.600, over its groove    standing   (100.0% of the probe)",
+    "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
+    "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
    ],
    "active": true
   },
@@ -3342,10 +3367,10 @@
     [
      27.0,
      12.0,
-     14.0,
+     9.0,
      83.0,
      166.0,
-     151.0
+     146.0
     ]
    ],
    "fill": 0.7418,
@@ -6320,5 +6345,5 @@
    "never": null
   }
  ],
- "sources": "3c7976e18623a1c2f4c3b157427f8a81"
+ "sources": "0175a702a82268ab51bf0cf0499062ab"
 }
