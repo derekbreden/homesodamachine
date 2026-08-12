@@ -25,7 +25,7 @@ Masses come from bom.md §7, which is geometry-derived and commit-gated, so a pr
 
 Spread across [2](MT_PRINTERS) machines that is **[48.9](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
-Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the print from the same unit, so PETG costs no separate cycle. PET-CF is dried [12 h at 85 °C](MT_PETCF_DRY) per spool, not per build.
+Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the print from the same unit, so PETG costs no separate cycle. PET-CF is dried [10 h at 100 °C](MT_PETCF_DRY) per spool, not per build.
 
 ## 2. Curing and baking
 
