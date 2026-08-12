@@ -163,7 +163,7 @@ async function renderOne({ stepRel, outAbs, opts }) {
     });
 
     console.log("posing camera + rendering frame...");
-    await page.evaluate(async (o) => {
+    const shot = await page.evaluate(async (o) => {
       const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
 
       // scene.js's animate() closes over its own module binding of `camera` and
@@ -208,22 +208,22 @@ async function renderOne({ stepRel, outAbs, opts }) {
       cam.updateProjectionMatrix();
       cam.updateMatrixWorld(true);
 
-      // The viewer's WebGLRenderer is built without preserveDrawingBuffer, so the
-      // drawing buffer is undefined once the browser has composited it and a
-      // screenshot taken after that reads back blank. Re-render every frame, from
-      // the posed camera, so whenever the capture lands there is a fresh frame in
-      // the buffer.
-      const draw = () => {
-        renderer.render(scene, cam);
-        window.__hsmPosedRaf = requestAnimationFrame(draw);
-      };
-      draw();
+      // THE FRAME IS READ BACK IN THE TASK THAT DREW IT. The viewer's WebGLRenderer is
+      // built without preserveDrawingBuffer, so the drawing buffer is defined only
+      // between a render and the browser's next composite — and a capture that goes
+      // through the page reaches it at whatever point of that cycle it lands on, which
+      // is a different frame each run. `toDataURL` on the canvas, called on the same
+      // line as the render, reads the buffer that render just filled.
+      //
+      // The clear colour is set here so the read-back carries the background the card
+      // wants: it comes off the canvas, and CSS on the page behind it is not in it.
+      renderer.setClearColor(o.bg, 1);
+      renderer.render(scene, cam);
+      return renderer.domElement.toDataURL("image/png");
     }, opts);
 
-    await new Promise((r) => setTimeout(r, 200));
-
-    console.log("snapping screenshot...");
-    const raw = await page.screenshot({ type: "png", omitBackground: false });
+    console.log("reading the frame back...");
+    const raw = Buffer.from(String(shot).split(",")[1], "base64");
 
     let buf = raw;
     if (opts.trim) {

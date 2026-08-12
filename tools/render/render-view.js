@@ -548,20 +548,14 @@ async function inPageCompose(o) {
   cam.updateProjectionMatrix();
   cam.updateMatrixWorld(true);
 
-  // The viewer's WebGLRenderer is built without preserveDrawingBuffer, so the
-  // drawing buffer is undefined once the browser has composited it and a
-  // screenshot taken after that reads back blank. Re-render every frame, from the
-  // posed camera, so whenever the capture lands there is a fresh frame in the
-  // buffer.
-  // A set poses once per view through this function, and each draw closure holds
-  // its own camera, so the loop from the previous view has to come off or the
-  // views render concurrently — every one of them, for the rest of the session.
-  if (window.__hsmPosedRaf) cancelAnimationFrame(window.__hsmPosedRaf);
-  const draw = () => {
-    renderer.render(scene, cam);
-    window.__hsmPosedRaf = requestAnimationFrame(draw);
-  };
-  draw();
+  // THE FRAME IS READ BACK IN THE TASK THAT DREW IT. The viewer's WebGLRenderer is built
+  // without preserveDrawingBuffer, so the drawing buffer is defined only between a render
+  // and the browser's next composite — and a capture that goes through the page reaches it
+  // at whatever point of that cycle it lands on, which is a different frame each run. The
+  // read-back happens on the line after the render, and travels back with the annotations
+  // struck off the same camera.
+  renderer.render(scene, cam);
+  const frame = renderer.domElement.toDataURL("image/png");
 
   // --- Projection helpers --------------------------------------------------
   const toScreen = (v) => {
@@ -938,6 +932,7 @@ async function inPageCompose(o) {
   }
 
   return {
+    frame,
     annot: {
       size: [W, H],
       gridLines,
@@ -1269,14 +1264,7 @@ async function main() {
       if (resolved.grid === null) resolved.grid = shot.ortho;
 
       const info = await page.evaluate(inPageCompose, resolved);
-      await new Promise((r) => setTimeout(r, 150));
-      const raw = await page.screenshot({ type: "png", omitBackground: false });
-      // The frame is read; the loop that kept one fresh has nothing left to do.
-      // It stops here rather than at teardown so the page is quiet even if this
-      // browser is later abandoned with the tab still open.
-      await page.evaluate(() => {
-        if (window.__hsmPosedRaf) { cancelAnimationFrame(window.__hsmPosedRaf); window.__hsmPosedRaf = 0; }
-      });
+      const raw = Buffer.from(String(info.frame).split(",")[1], "base64");
       const buf = await sharp(raw)
         .composite([{ input: annotationSvg(info.annot), top: 0, left: 0 }])
         .png({ compressionLevel: 9 })
