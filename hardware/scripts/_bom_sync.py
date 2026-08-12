@@ -38,6 +38,7 @@ _machine = _ea.machine()
 _placed = {c.name for c in _machine[0].children}
 _east_bosses = _machine[2].east_bosses
 _floor_bosses = _machine[2].floor_bosses
+_cond_bosses = _machine[2].cond_mount[3] if _machine[2].cond_mount else ()
 
 
 def _load_module(name: str, file_path: Path):
@@ -220,12 +221,22 @@ floor_inserts_per_build = len(_floor_bosses)
 floor_screws_per_build = floor_inserts_per_build
 floor_washers_per_build = floor_screws_per_build
 
+# Condenser-block hardware (assembly/enclosure-mechanical.md §3). The block is a donor envelope
+# whose two Y faces stand back between folded sheet flanges, and `enclosure._cond_mount` stands
+# ONE BORED FINGER PER HOLE in the aft pair — so this count is the pack's the way the shelf's
+# and the floor's are. The fore pair takes a groove and no fastener.
+cond_inserts_per_build = len(_cond_bosses)
+# One M3 × 8 down through each aft flange into its finger's insert — 1:1 with the fingers, and
+# the same screw the shelf's sixteen are.
+cond_screws_per_build = cond_inserts_per_build
+
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
     + touchflo_inserts_per_build
     + shelf_inserts_per_build
+    + cond_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
 
@@ -238,6 +249,7 @@ total_m3_screws_per_build = (
     + reservoir_cap_screws_per_build
     + touchflo_screws_per_build
     + shelf_screws_per_build
+    + cond_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -282,6 +294,9 @@ def main():
         "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
+        "COND_INSERTS": f"{cond_inserts_per_build:.4g}",
+        "COND_SCREWS": f"{cond_screws_per_build:.4g}",
+        "M3X8_TOTAL": f"{shelf_short_screws_per_build + cond_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
@@ -344,7 +359,10 @@ def main():
             "TOUCHFLO_SCREWS": 2,
             "SHELF_INSERTS": 2,
             "SHELF_SCREWS": 3,
-            "SHELF_SCREWS_M3X8": 2,
+            "SHELF_SCREWS_M3X8": 1,
+            "COND_INSERTS": 2,
+            "COND_SCREWS": 2,
+            "M3X8_TOTAL": 2,
             "SHELF_SCREWS_M3X10": 3,
             "FLOOR_INSERTS": 1,
             "FLOOR_SCREWS": 3,
@@ -388,6 +406,7 @@ def main():
             "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
             "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
+            "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",
         },
@@ -402,6 +421,7 @@ def main():
             "TOUCHFLO_SCREWS": 1,
             "SHELF_INSERTS": 1,
             "SHELF_SCREWS": 1,
+            "COND_SCREWS": 1,
             "FLOOR_SCREWS": 1,
             "SOLENOIDS": 1,
         },

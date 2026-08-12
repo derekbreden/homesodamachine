@@ -120,11 +120,45 @@ def gather():
         pos, axis = a.carries["digiten-flow"](_digiten.wire_exit())
         carried["digiten-flow.wire_exit"] = {"pos": _plain(pos), "axis": _plain(axis)}
 
+    # WHAT A DRIVER WOULD IMPORT THE CAD TO READ. These are module-level and cost no build,
+    # but reaching them means loading cadquery and the forty modules behind it — which is the
+    # whole of what `_electronics_shelf_sync` pays to learn how many poles a Wago row has.
+    constants = {
+        "C14_STATION": _plain(ea.C14_STATION),
+        "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),
+        "FLOOR_GROMMET_SQUEEZE": _plain(ea.FLOOR_GROMMET_SQUEEZE),
+        "PANEL_X": _plain(ea.PANEL_X),
+        "PORT_NUT_GAP": _plain(ea.PORT_NUT_GAP),
+        "WAGO_POLES": _plain(ea.WAGO_POLES),
+        "appliance_width": _plain(_enc.appliance_width),
+        "side_rib_inset": _plain(_enc.side_rib_inset),
+        "wall": _plain(_enc.wall),
+    }
+
+    # Derived off the box, by the functions that derive them. A driver that recomputed any of
+    # these would be keeping a second copy of the rule.
+    z_stations = _plain(_enc._z_stations(box.inner, box.y_joint))
+    hopper_hole = _plain(_enc._hopper_hole(box.funnel))
+
+    # The strap that closes round a seated body and its rib, for every seat radius the machine
+    # actually stands one on — keyed by the radius, which is what a caller has.
+    seats = {round(float(s[-1]), 4)
+             for s in list(getattr(a, "tube_anchors", ()) or ())
+             + list(getattr(a, "body_anchors", ()) or ())
+             if s and isinstance(s[-1], (int, float))}
+    strap_loops = {f"{r:.4f}": round(float(_enc.tube_anchor_strap_loop(r)), 4)
+                   for r in sorted(seats)}
+
     return {
         "schema": SCHEMA,
         "sources": _realized.digest(_realized.source_files(
             Path(ea.__file__).resolve())),
         "box": _plain(box),
+        "constants": constants,
+        "z_stations": z_stations,
+        "hopper_hole": hopper_hole,
+        "strap_loops": strap_loops,
+        "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
         "pack": {
             "placed": sorted(p.placed),
             "body_anchors": _plain(getattr(a, "body_anchors", ())),
@@ -199,6 +233,33 @@ class Facts:
     @property
     def sources(self):
         return self._f["sources"]
+
+    @property
+    def constants(self):
+        """What a driver would otherwise import the CAD to read."""
+        return _Row(self._f["constants"])
+
+    @property
+    def z_stations(self):
+        return self._f["z_stations"]
+
+    @property
+    def hopper_hole(self):
+        return self._f["hopper_hole"]
+
+    @property
+    def manifold_bodies(self):
+        return self._f["manifold_bodies"]
+
+    def strap_loop(self, seat_r: float) -> float:
+        """The strap that closes round a body seated on a rib of this radius."""
+        key = f"{round(float(seat_r), 4):.4f}"
+        try:
+            return self._f["strap_loops"][key]
+        except KeyError as exc:
+            raise KeyError(
+                f"no strap is recorded for a seat of {seat_r} — the machine stands one on "
+                f"{sorted(self._f['strap_loops'])}") from exc
 
     # --- what the scorecard already carried ---
     @property

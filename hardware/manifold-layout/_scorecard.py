@@ -230,7 +230,15 @@ MOUNTS = (
     # `floor-mounts-land`). The screw's washer bottoms on the post and the rubber carries the
     # can, so the joint is a printed feature under a body and the isolation is the donor's.
     ("compressor", "enclosure-front-bottom", "bosses"),
-    ("condenser+fan", None, "floor"),
+    # THE OTHER BODY ON THIS FLOOR, held at the four sheet flanges its two recesses leave and
+    # nowhere else. The FORE pair slides into a groove off the front wall, one rail at the base
+    # and one at the crown, and the base rail's crown is what stands the block off the slab. The
+    # AFT pair takes a screw apiece DOWN into a ruthex M3, in a finger reaching west off a fin on
+    # the +X wall — the fin roots outside the block's own flanks because the recess it reaches
+    # into has the base flange for a floor (`enclosure_assembly.condenser_cradle` /
+    # `condenser_mount`, `enclosure._cond_cradle` / `_cond_mount`, read by `cond-mount-lands`).
+    # Two screws close the whole joint: the groove takes everything but the pull off them.
+    ("condenser+fan", "enclosure-front-bottom", "bosses"),
     ("foam-assembly", None, "floor"),
     ("seaflo-pump", "foam-assembly", "deck-mount"),
     ("hopper-funnel", None, "wall-capture"),

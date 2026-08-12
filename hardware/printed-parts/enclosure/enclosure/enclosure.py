@@ -344,6 +344,43 @@ mq6_header_relief = 2.0
 mq6_card_x = _mq6.PCB_Y     # 20 — reach inboard, the card's short side
 mq6_card_y = _mq6.PCB_T     # 1.6 — the card itself, what the groove grips
 mq6_card_z = _mq6.PCB_X     # 32 — height, the card's long side
+
+# --- the condenser block's four flanges -------------------------------------
+#
+# THE BLOCK IS HELD AT ITS FOUR FLANGES AND NOWHERE ELSE. Each of its two Y faces stands back
+# over the block's whole width, leaving a folded sheet at the crown and one at the base, and
+# both recesses open on their own face and both flanks — so the box can reach in at either end
+# of the block without reaching round it.
+#
+# ONE END SLIDES AND THE OTHER SCREWS. The FORE flanges carry no hole, so what takes them is a
+# GROOVE: a rail off the front wall at each end, the pair of them straddling nothing but air,
+# and the block goes in aft-first and forward until its fore face meets the rail's own shoulder.
+# THE RAIL IS THE DATUM in Y, its grooves in Z, the way the gas sensor's card slot is. The lower
+# rail's underside is the slab, which makes it a corner bracket rather than a shelf — and its
+# crown is the whole of what stands the block off the floor.
+#
+# The AFT flanges carry the donor's own two holes, one line through both, and each takes a screw
+# DOWN into a ruthex M3. So both bosses stand under the sheet their screw passes through, and
+# the geometry that carries them is one fin on the +X wall with a finger reaching west off it
+# into the recess at either end. The lower finger runs to the slab and is what the block's aft
+# end stands on; the upper one is a finger and nothing else.
+#
+# THE FIN IS EAST BECAUSE THE RECESS'S OWN FLOOR IS THE BASE FLANGE. Nothing can stand on the
+# slab inside that recess — the sheet is in the way at every point of it — so the column that
+# reaches the crown flange has to root outside the block's own flanks, and the lane between the
+# block and the +X wall is the one that is free.
+cond_rail_wall = 3.0        # rail and finger section around a groove or a bore
+cond_slot_press = 0.15      # per-side slip in a groove, the wells' own figure
+cond_slot_grip = 3.0        # how much of a fore flange's own depth each groove swallows
+cond_mount_clear = 1.0      # air off the block: the fin's own lane, and each end of the band
+# THE BORE SWALLOWS THE WHOLE SCREW. Every other insert in this box is reached through a body
+# that holds a share of the screw's own length; this one is reached through four tenths of sheet,
+# which holds none of it. So the bore is the screw and the air past its tip, and the grip inside
+# it is still the ruthex's own `heatset_depth`.
+cond_screw_len = screw_len - 2.0                    # M3 × 8, the box's own shelf screw
+cond_bore_depth = cond_screw_len + mount_bore_relief
+# What a finger keeps under that bore: the bore itself and a wall beneath it.
+cond_boss_t = cond_bore_depth + cond_rail_wall
 # How far one of those bosses stands OFF the wall's inner face — which is the standoff a body
 # hung on the flank gets, and every millimetre of it is insert: the bore runs the boss's whole
 # length and stops on the wall's own inner face, so the wall behind is what caps its blind end.
@@ -454,6 +491,11 @@ z_lip_y_margin = 2.0
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
 #   west_cradle   the −X wall's MQ-6 card slot, (y, z) — the card's plane and its centre
+#   cond_cradle   the front wall's condenser rails, one (face, x0, x1, fz0, fz1, root) per fore
+#                 flange — the plane the block's fore face rests on, that flange's width, its
+#                 two faces in height, and how far the rail runs down under it
+#   cond_mount    the condenser's aft mount, (flank, y0, y1, bosses) — the fin's own west face,
+#                 the Y band it stands in, and one (x, y, the flange face it reaches) per hole
 #   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties, reach_down) — the
 #                 axis the trough is struck on, one (y0, y1, apex_x) per section of the chain,
 #                 the Y of each tie band, and how far under the axis its flanks run
@@ -477,8 +519,8 @@ z_lip_y_margin = 2.0
 #                 material the way the trough and the saddles are
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle asse_cradle "
-           "digiten_saddles tube_anchors port_field valve_panels")
+           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
+           "cond_mount asse_cradle digiten_saddles tube_anchors port_field valve_panels")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -487,9 +529,10 @@ Box = namedtuple(
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
-            "east_bosses side_wells floor_bosses west_cradle asse_cradle digiten_saddles "
-            "tube_anchors port_field valve_panels")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), None, ())
+            "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
+            "asse_cradle digiten_saddles tube_anchors port_field valve_panels")
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), (),
+                             (), (), None, ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1099,7 +1142,8 @@ def _dims(pack):
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
-               pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.asse_cradle,
+               pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
+               pack.cond_mount, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels)
 
 
@@ -1977,7 +2021,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               None, None, (), None, ())
+               (), (), None, None, (), None, ())
 
 
 def build_front_half(box):
@@ -2222,6 +2266,67 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.cut(_ybox(hx - span - mq6_header_relief, hx + span + mq6_header_relief,
                                 ry0 - 1.0, gy0,
                                 zb - mq6_rail_wall - 1.0, zt + mq6_rail_wall + 1.0))
+    return solid
+
+
+def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
+    """The condenser block's FORE rails added to a PIECE, one per fore flange, for the stations
+    inside the depth and height band that piece owns.
+
+    Each station is `(face, x0, x1, fz0, fz1, root)`: the plane the block's fore face comes to
+    rest on, that flange's own width, its two faces in height, and how far the rail runs DOWN
+    under it. A rail is one slab off the front wall's inner face, out to `cond_slot_grip` past
+    the face — and the groove is cut out of that last stretch alone, so what stands fore of the
+    block is solid material and the flange bottoms on it. THE RAIL IS THE DATUM: the block's
+    reach into the bay is its own depth and not a number typed here.
+
+    The BASE rail's `root` is the slab, so it comes out of the print as a corner bracket in one
+    piece with both faces it stands on, and its crown carries the block. The CROWN rail's is one
+    section under its own flange, and it hangs off the wall."""
+    for face, cx0, cx1, fz0, fz1, root in stations:
+        if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
+            continue
+        solid = solid.fuse(_ybox(cx0, cx1, inner[2], face + cond_slot_grip,
+                                 root, fz1 + cond_slot_press + cond_rail_wall))
+        # The groove runs out past the rail's own aft end, so the flange enters from the bay.
+        solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, face, face + cond_slot_grip + 1.0,
+                                fz0 - cond_slot_press, fz1 + cond_slot_press))
+    return solid
+
+
+def _cond_mount(solid, inner, station, y0, y1, z0, z1):
+    """The condenser block's AFT mount added to a PIECE: one fin on the +X wall and a finger
+    reaching west off it under each of the block's two mount holes.
+
+    The station is `(flank, my0, my1, bosses)`: the plane the fin's own west face stands on —
+    the block's east flank and one `cond_mount_clear` — the Y band the whole of this occupies,
+    and one `(x, y, tip)` per hole, where `tip` is the face of the flange that screw pulls down.
+
+    THE LOWEST FINGER RUNS TO THE SLAB, because nothing stands between its own tip and the floor
+    and the block's aft end comes down on it. Every other is one `cond_boss_t` deep and hangs off
+    the fin, which is the only thing it can hang off: the recess it reaches into has the base
+    flange for a floor, so no column may root inside the block's own flanks."""
+    if not station:
+        return solid
+    flank, my0, my1, bosses = station
+    if not (y0 <= (my0 + my1) / 2.0 <= y1 and z0 <= inner[4] <= z1):
+        return solid
+    crown = max(t for _bx, _by, t in bosses)
+    floor_tip = min(t for _bx, _by, t in bosses)
+    west = min(bx for bx, _by, _t in bosses) - mount_boss_dia
+    for bx, by, _tip in bosses:
+        room = min(bx - west, inner[1] - bx, by - my0, my1 - by) - heatset_dia / 2.0
+        if room < boss_ligament:
+            raise ValueError(
+                f"the condenser boss at ({bx:g}, {by:g}) keeps {room:g} of material round its "
+                f"Ø{heatset_dia:g} insert bore, under the {boss_ligament:g} every boss in this "
+                f"box keeps round one. The hole has moved off the band this finger stands in.")
+    solid = solid.fuse(_ybox(flank, inner[1], my0, my1, inner[4], crown))
+    for bx, by, tip in bosses:
+        root = inner[4] if tip == floor_tip else tip - cond_boss_t
+        solid = solid.fuse(_ybox(west, inner[1], my0, my1, root, tip))
+    for bx, by, tip in bosses:
+        solid = solid.cut(_zcyl(heatset_dia / 2.0, bx, by, tip - cond_bore_depth, tip))
     return solid
 
 
@@ -2756,6 +2861,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The −X wall's card slot, last of all: its bottom rail lands on the same slab those posts
     # rise from, so cutting its grooves after them is what keeps a groove a groove.
     piece = _west_cradle(piece, inner, box.west_cradle, ylo, yhi, zlo, zhi)
+    # The condenser block's four flanges, on the same slab and the walls either side of it: the
+    # fore rails off the front wall, the aft fin off the +X one. After the floor's posts for the
+    # card slot's own reason — a rail rooted on the slab is rooted on whatever is standing there.
+    piece = _cond_cradle(piece, inner, box.cond_cradle, ylo, yhi, zlo, zhi)
+    piece = _cond_mount(piece, inner, box.cond_mount, ylo, yhi, zlo, zhi)
     # And the tap-water chain's, on the same wall a storey up. After the tray's rails, whose
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
     # trough this fuses, so nothing may fuse into them afterwards.
