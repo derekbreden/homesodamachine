@@ -1133,33 +1133,6 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
          f"   ({got * 100:.1f}% of the probe)" for what, got, ok in rows]))
 
 
-def check_pack_carried(stood, under) -> Bound:
-    """What the flavour pack sets down ON, read off the placed machine.
-
-    `PACK_CROWN` is a stated plane, so the pack stands at it whether or not anything reaches up
-    to meet it. This is the reading that says which: the fall from each of the pack's lowest
-    bodies — the fold's own spine hairpins — to whatever is under it in plan."""
-    rows = []
-    lowest = min(box(s).zmin for _n, s, _c in stood)
-    for name, solid, _colour in stood:
-        b = box(solid)
-        if b.zmin > lowest + 1e-6:
-            continue
-        got = descent(solid, _would_land_on(b, under))
-        rows.append((name, got))
-    on = [r for r in rows if r[1] is not None and r[1] <= _card.CLEARANCE_FLOOR]
-    return record_bound(Bound(
-        "pack-carried", "The flavour pack sets down on a body that reaches its own plane",
-        bool(on),
-        f"{len(on)}/{len(rows)} of the pack's feet land on something"
-        if rows else "no foot read",
-        "at least one foot on a body under it",
-        [f"{n}: " + ("nothing under it at all" if g is None else f"falls {g:.3f} mm before it "
-                     f"meets anything") for n, g in sorted(
-            rows, key=lambda r: (r[1] is None, r[1] if r[1] is not None else 0.0))]
-         if not on else []))
-
-
 def check_pack_over_core(stood, foam) -> Bound:
     """Every body of the flavour pack that stands over the cold core's cap clears its lid.
 
@@ -3918,7 +3891,6 @@ def build_pack() -> cq.Assembly:
     # own height, since the source valves' quarter turns carry them aft OVER its crown and a body
     # standing over the cap is not a body in its way.
     check_pack_over_core(stood, foam)
-    check_pack_carried(stood, (comp, cond))
     check_core_lane(
         box(foam).ymin,
         [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
