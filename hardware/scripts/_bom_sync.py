@@ -287,6 +287,12 @@ def main():
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "FLOOR_WASHERS": f"{floor_washers_per_build:.4g}",
         "COMPRESSOR_LIGAMENT": f"{_ea._comp.MOUNT_LIGAMENT:.4g}",
+        "COMPRESSOR_BORE": f"{_ea._comp.MOUNT_D:.4g}",
+        # The widest washer the plate's own steel still carries: the bore plus the ligament
+        # either side of it.
+        "WASHER_MAX_OD":
+            f"{_ea._comp.MOUNT_D + 2.0 * _ea._comp.MOUNT_LIGAMENT:.4g}",
+        "GROMMET_SQUEEZE": f"{_ea.FLOOR_GROMMET_SQUEEZE:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
         "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",

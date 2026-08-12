@@ -848,10 +848,10 @@
    "value": "4/4 posts standing",
    "target": "a printed post at every hole the donor presents",
    "detail": [
-    "x  -61.500  y   23.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)",
-    "x  -61.500  y  154.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)",
-    "x    5.500  y   23.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)",
-    "x    5.500  y  154.500  \u00d812.0  to z  15.000   standing   (67.9% of the annulus)"
+    "x  -61.500  y   23.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x  -61.500  y  154.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x    5.500  y   23.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x    5.500  y  154.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
    ],
    "active": true
   },
@@ -6231,5 +6231,5 @@
    "never": null
   }
  ],
- "sources": "2c2640388583dabd7765f1f5d093fe6c"
+ "sources": "45a08964d4bb5a9d014227ef4d4ecc61"
 }

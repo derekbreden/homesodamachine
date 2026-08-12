@@ -244,8 +244,9 @@ mount_bore_relief = 1.0
 # --- the floor slab's posts -------------------------------------------------
 #
 # THE POST IS THE SLEEVE. It rises through the bore of the rubber grommet the donor's plate
-# carries, and it runs to that grommet's own crown — the plane the screw's washer lands on, so
-# the washer bottoms on printed material and the torque stops there. The rubber between the
+# carries, and it stops just under that grommet's crown — so drawing the screw up squeezes the
+# top flange by the difference and then lands on printed material. The preload and the limit on
+# it are the one dimension (`enclosure_assembly.FLOOR_GROMMET_SQUEEZE`). The rubber between the
 # post and the metal hole it is wrapped through is the isolator.
 #
 # The section is the donor's: each station carries its own diameter, struck off that bore in
@@ -2099,10 +2100,10 @@ def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
 
     Each station is `(x, y, tip, dia)`: the two plan coordinates the boss stands on, the plane
     its top face reaches, and the section the donor's own bore leaves it. The plane is where
-    the screw's washer lands — the crown of the grommet the post rises through — so the post
-    runs UP from the slab's own inner face to it and the insert bore is cut back down from it.
-    What the slab gives a screw is the standoff the body asked for, and what it gives the
-    rubber is a hard stop at the height the body's own stack stands.
+    the screw's washer comes to rest — just under the crown of the grommet the post rises
+    through — so the post runs UP from the slab's own inner face to it and the insert bore is
+    cut back down from it. What the slab gives a screw is the standoff the body asked for, and
+    what it gives the rubber is a squeeze that stops where the printed material does.
 
     The ±X walls take their bodies on the flank and the slab takes them from underneath, which
     is the whole difference between this and `_east_bosses`: the shaft runs on Z, the band that

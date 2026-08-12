@@ -180,6 +180,9 @@ def main():
         # placement — so a body that moves takes its bosses with it and this is a reading of
         # the +X wall rather than a count kept by hand.
         "EAST_BOSSES": f"{len(_pack.east_bosses)}",
+        # How far under the grommet's own crown a floor post stops the washer, which is the
+        # squeeze the operator's hand does not set.
+        "GROMMET_SQUEEZE": f"{_ea.FLOOR_GROMMET_SQUEEZE:.4g}",
         # Every placed body carries one fastening row, so the card's own table is the census.
         "BODY_COUNT": f"{len(_card.mounts())}",
         # The hopper corridor `fluid-4` falls down, and the gate it stands in.
@@ -223,6 +226,7 @@ def main():
             "C14_BACK": 1,
             "CO2_BACK": 1,
             "EAST_BOSSES": 3,
+            "GROMMET_SQUEEZE": 2,
             "BODY_COUNT": 1,
             "HOPPER_LANE_SIDE": 1,
             "HOPPER_LANE_GAP": 1,
