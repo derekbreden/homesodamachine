@@ -262,20 +262,13 @@ def source_map() -> dict:
         files |= set(_realized.source_files(start))
     out = {}
     for path in sorted(files):
-        h = hashlib.blake2b(digest_size=16)
-        h.update(Path(path).read_bytes())
-        out[Path(path).resolve().relative_to(_HW.parent).as_posix()] = h.hexdigest()
+        out[Path(path).resolve().relative_to(_HW.parent).as_posix()] = _realized.code_digest(path)
     return out
 
 
 def hash_of(rel: str) -> str | None:
-    """The hash of one recorded file as it stands now, or None when it is gone."""
-    try:
-        h = hashlib.blake2b(digest_size=16)
-        h.update((_HW.parent / rel).read_bytes())
-        return h.hexdigest()
-    except OSError:
-        return None
+    """The name of what one recorded file computes now, or None when it is gone."""
+    return _realized.code_digest(_HW.parent / rel)
 
 
 def sidecar_path(png: Path) -> Path:
