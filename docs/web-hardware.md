@@ -12,7 +12,9 @@ The threads below reach past that surface — couplings that live outside `web/`
 
 ## Threads outside web/
 
-- **Headless render reads the viewer's globals.** `window.__hsm` is set in [`main.js`](/web/public/js/viewer/main.js) and read by [`render-step.js`](/tools/render/render-step.js), [`render-dxf.js`](/tools/render/render-dxf.js), [`render-thumbnails.js`](/tools/render/render-thumbnails.js), [`render-step-side-by-side.js`](/tools/render/render-step-side-by-side.js).
+- **Headless render reads the viewer's globals.** `window.__hsm` is set in [`main.js`](/web/public/js/viewer/main.js) and read by [`render-step.js`](/tools/render/render-step.js), [`render-dxf.js`](/tools/render/render-dxf.js), [`render-thumbnails.js`](/tools/render/render-thumbnails.js), [`render-step-side-by-side.js`](/tools/render/render-step-side-by-side.js), [`render-step-posed.js`](/tools/render/render-step-posed.js), [`render-view.js`](/tools/render/render-view.js).
+
+- **A frame is read back in the task that drew it.** [`scene.js`](/web/public/js/viewer/scene.js)'s renderer is built without `preserveDrawingBuffer`, so a capture that goes through the page gets an arbitrary frame and no wait can fix it. Every renderer above ends its `page.evaluate` with `renderer.render(...)` and `toDataURL` on adjacent lines and passes the result to `frameBuffer` — [`browser.js`](/tools/render/browser.js) carries the whole reason. A new renderer that calls `page.screenshot` on the viewer is nondeterministic even though it will look fine the first few runs. The picture being the canvas is also why none of these hide the viewer's nav, gizmo or buttons.
 
 - **Live reload runs the hardware build tools.** CadQuery scripts run under `tools/cad-venv/bin/python`; boards run `bun render-board.ts`. [`dev-server/server.js`](/web/dev-server/server.js), [`dev-server/deps.js`](/web/dev-server/deps.js). Generators write `.step`/`.dxf` beside their `.py`; [`hardware/scripts/_cadq_export.py`](/hardware/scripts/_cadq_export.py) writes them atomically and byte-stable.
 
