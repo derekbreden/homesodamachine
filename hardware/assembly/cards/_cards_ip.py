@@ -41,7 +41,7 @@ def internal_plumbing(m):
     def corners(rid):
         """How many times a run turns. A run with none is a butt-length of stock
         cut to two mouths facing each other, which is a different bench job."""
-        return len(runs[rid].pts) - 2
+        return runs[rid].corners
 
     def mm(rid):
         return f"{runs[rid].length:.0f} mm"
@@ -62,7 +62,7 @@ def internal_plumbing(m):
     # arithmetic: `co2_wall_port` is what `enclosure_assembly.pack` fills `back_ports` with,
     # so a change to how the hole is struck arrives here instead of leaving this
     # assertion checking the wall against a rule it no longer follows.
-    co2_bore = _ea.co2_wall_port(a.co2_inlet_carry)[3]
+    co2_bore = a.wall_ports["co2"][3]
     assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
         f"no {co2_bore:.4g} mm bore stands in the back wall — IP-01 threads the GASHER onto a "
         f"bulkhead clamped through it, and the back wall is where the card sends the bench")
@@ -168,15 +168,15 @@ def internal_plumbing(m):
     # Read as an ARRANGEMENT: two columns, two storeys, the two nozzle unions
     # sharing the lower one, and which corner each tube lands in. IP-05 and FU-04
     # both describe that arrangement.
-    zs = {round(port(n, "tube-in")[0][2], 6) for n in _ea.PANEL_X}
+    zs = {round(port(n, "tube-in")[0][2], 6) for n in a.constants["PANEL_X"]}
     assert len(zs) == 2, (
         f"the riser unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 send the "
         f"bundle to two, the nozzle pair under the storey the carb riser lands in")
-    lower = {n for n in _ea.PANEL_X if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
+    lower = {n for n in a.constants["PANEL_X"] if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
     assert lower == {"bulkhead-flavor-a", "bulkhead-flavor-b"}, (
         f"the lower storey carries {sorted(lower)} — IP-05 sends both nozzle risers there and "
         f"the carb riser alone to the storey over them")
-    cols = {n: round(x, 3) for n, x in _ea.PANEL_X.items()}
+    cols = {n: round(x, 3) for n, x in a.constants["PANEL_X"].items()}
     assert cols["bulkhead-carb"] == cols["bulkhead-flavor-a"] != cols["bulkhead-flavor-b"], (
         f"the three riser unions stand on columns {cols} — IP-05 sends the carb riser up the "
         f"nozzle-A union's own column and the nozzle-B riser up the one beside it")
@@ -191,7 +191,7 @@ def internal_plumbing(m):
     assert meter_out[0][1] < union_in[0][1] and meter_in[0][1] < meter_out[0][1], (
         "the DIGITEN no longer lies fore and aft forward of the carb union — IP-05 closes "
         "`carb-1` into its inlet from the deck and `carb-2` out of its outlet into the union")
-    boss = a.carries["digiten-flow"](_digiten.wire_exit())[1]
+    boss = a.carried_points["digiten-flow.wire_exit"]["axis"]
     boss = tuple(round(v, 6) for v in boss)
     assert boss == EAST, (
         f"the meter's pigtail boss points {boss} — WR-05 reaches it from the +X flank the "
@@ -212,16 +212,16 @@ def internal_plumbing(m):
     # on it would be standing on another valve's cradle. `enclosure_assembly.cap_face` is the lid's
     # own outer face and `cap_cradles` is the seat each valve takes over it, which is the pair
     # this reads V-K against.
-    vk, pump = _ea.box(a.pack_solids["vk-solenoid"]), _ea.box(a.pack_solids["seaflo-pump"])
-    chain = _ea.box(a.pack_solids["suction-chain"])
+    vk, pump = a.bb("vk-solenoid"), a.bb("seaflo-pump")
+    chain = a.bb("suction-chain")
     vk_x = (vk.xmin + vk.xmax) / 2.0
     assert "vk-solenoid" in cap_cradles, (
         f"the cold core's cap prints cradles for {sorted(cap_cradles)} and none of them is "
         f"V-K's — WR-04 sends the DC-9 branch to a valve standing on that cap, and a valve "
         f"with no cradle there stands somewhere else")
     vk_seat = cap_cradles["vk-solenoid"].seat
-    face = _ea.cap_face(a.pack_solids["foam-assembly"])
-    assert abs(vk.zmin - (face + vk_seat)) <= _ea.CRADLE_TOL, (
+    face = a.faces["foam-assembly.cap"]
+    assert abs(vk.zmin - (face + vk_seat)) <= a.constants["CRADLE_TOL"], (
         f"V-K's mounting plane stands {vk.zmin - face:.4g} mm over the cold core's cap face "
         f"and its cradle seats it at {vk_seat:.4g} mm — WR-04 sends the DC-9 branch to a "
         f"valve pressed home in that cradle")
@@ -265,7 +265,7 @@ def internal_plumbing(m):
         "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
         # The row on the back wall — IP-05, FU-04.
-        "UMBILICAL_UNIONS": f"{len(_ea.PANEL_X)}",
+        "UMBILICAL_UNIONS": f"{len(a.constants["PANEL_X"])}",
         "UMBILICAL_DROP": f"{max(zs) - min(zs):.4g} mm",
         "FLAVOR_A_STATION": "middle",
         "FLAVOR_B_END": "west",

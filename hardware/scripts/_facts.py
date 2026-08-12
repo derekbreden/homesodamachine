@@ -140,6 +140,13 @@ def gather():
         import wr1110_regulator as _wr1110
         carried["wr1110.barrel"] = {"pos": _plain(carries["wr1110"](_wr1110.barrel()[0])[0])}
 
+    # EVERY PORT AS THE MACHINE PLACED IT, unrounded. The card carries ports too, rounded for
+    # reading, and a comparison made on a rounded coordinate is a comparison of two machines.
+    ports = {}
+    for _body, _fr in getattr(a, "frames", {}).items():
+        ports[_body] = {n: {"pos": _plain(_pos), "axis": _plain(_ax), "diam": float(_d)}
+                        for n, (_pos, _ax, _d) in _fr.ports.items()}
+
     # The mouth a bulkhead presents, carried to where the machine stands it — the same station
     # `back_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
     import jg_bulkhead_union as _jg
@@ -173,6 +180,7 @@ def gather():
         "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),
         "FLOOR_GROMMET_SQUEEZE": _plain(ea.FLOOR_GROMMET_SQUEEZE),
         "PANEL_X": _plain(ea.PANEL_X),
+        "CRADLE_TOL": _plain(ea.CRADLE_TOL),
         "PORT_NUT_GAP": _plain(ea.PORT_NUT_GAP),
         "WAGO_POLES": _plain(ea.WAGO_POLES),
         "appliance_width": _plain(_enc.appliance_width),
@@ -211,6 +219,7 @@ def gather():
         },
         "bodies": bodies,
         "mouths": mouths,
+        "ports_placed": ports,
         "run_near": run_near,
         "runs": runs,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2)},
@@ -263,6 +272,15 @@ class _BB:
     def __repr__(self):
         return (f"_BB(x[{self.xmin:.3f},{self.xmax:.3f}] y[{self.ymin:.3f},{self.ymax:.3f}] "
                 f"z[{self.zmin:.3f},{self.zmax:.3f}])")
+
+
+class _Frame:
+    """One placed body's ports, reachable the way the assembly's own frame is."""
+
+    __slots__ = ("ports",)
+
+    def __init__(self, d):
+        self.ports = {n: (tuple(v["pos"]), tuple(v["axis"]), v["diam"]) for n, v in d.items()}
 
 
 class _Row(dict):
@@ -330,6 +348,12 @@ class Facts:
     @property
     def manifold_bodies(self):
         return self._f["manifold_bodies"]
+
+    @property
+    def frames(self):
+        """`frames[body].ports[name]` -> (pos, axis, diam), as the assembly hands it, at the
+        precision the machine placed it."""
+        return {b: _Frame(v) for b, v in self._f["ports_placed"].items()}
 
     @property
     def mouths(self):
