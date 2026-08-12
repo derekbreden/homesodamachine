@@ -18,7 +18,8 @@ One rectangular opening spans the top wall behind the display facet
   has to come all the way out. Weekly-touch item. Detail:
   [`hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/).
 - **The pumps.** Lifting the funnel out exposes the two peristaltic pumps
-  beneath it. Rare-touch item — reached only to swap a worn pump.
+  beneath it. Rare-touch item — reached only to swap a worn pump, which is one
+  strap cut and a lift straight up out of the tray's octagonal socket.
 
 The frequent-access piece sits over the rare-access piece, so one opening
 serves both fill and pump service, and the funnel covers the pumps the rest
@@ -45,7 +46,9 @@ and inject it at the dispense nozzle alongside the carbonated water.
 Direction is forward-only; fill, dispense, and clean are selected by the
 valve manifold. The silicone pump tubing is the wear item — the reason the
 pumps are what you reach when the funnel comes out. The funnel's throat drops
-the clear column between the two pumps; the enclosure mount is an open item.
+the clear column between the two pumps; each of them hangs in a tray printed
+into `enclosure-front-top`'s front wall
+([`../enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)).
 
 ## Lives in other zones
 

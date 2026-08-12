@@ -48,7 +48,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The drip pan sits directly under the ASSE 1022 chain's atmospheric vent; the backflow preventer + drip pan + moisture sensor co-locate on the water-inlet path.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.
 
-**What is still open:** the side grilles the crossing airflow needs — an intake on the −X face and an exhaust on the +X one — and what ducts the block's faces to them; the funnel and pump access; and the brackets several bodies still hang without. The ASSE 1022 chain, the suction chain, the discharge chain, the CO2 regulator and the flow meter each have a measured datum and measured room; none of them has a holder. Those five are the `held` axis. V-K is not among them — it presses into a cradle printed in the cap's lid, alongside V-A and V-B.
+**What is still open:** the side grilles the crossing airflow needs — an intake on the −X face and an exhaust on the +X one — and what ducts the block's faces to them; and the six bodies nothing yet fastens. The cold core is held by the slab it stands on and the bodies it butts; the funnel, the display and the CO2 check valve are each captured in a wall they cross; and the water split and the flow regulator hang on the tube between bodies that are held. Those six are the `mounted` axis's gap. V-K is not among them — it presses into a cradle printed in the cap's lid, alongside V-A and V-B.
 
 ## What is on the front face
 

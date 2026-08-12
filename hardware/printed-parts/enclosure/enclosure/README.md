@@ -249,7 +249,7 @@ prints on a thin support strip at the seam, the ceiling tongue's twin one slab
 down. The side-wall segments, vertical to the bed, are free.
 
 The **drip tray's rail pair** in the back-top piece costs the same, and it is the
-one feature in the box that does. Each rail is a ledge off the −X wall running
+first of three features in the box that do. Each rail is a ledge off the −X wall running
 east on the withdrawal axis, and its bearing face is the tray's seat — a flat
 plane, held at one height for the rail's whole length, so it cannot be reached at
 45° from the wall it grows out of. Ceiling-down it is that face and not the
@@ -262,6 +262,11 @@ The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
 stand 30° off vertical and are free; its **top face is flat**, a soffit off the wall
 over the lane, and that face hangs. The strap's cavity behind the trough is one
 opening the trough's whole length, and the support in it draws out end to end.
+
+The **pump trays** off the front wall are the third. A tray's plate goes down on the
+bed first and its socket's octagon walls grow off the underside, so the socket itself
+has no overhang in it; the plate is a soffit over the lane its pump hangs in, anchored
+along its whole width where it meets the wall and bridging out from there.
 
 ## Tap-water cradle
 
