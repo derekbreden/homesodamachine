@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 97,
  "routed": 100,
- "mounted": 78,
+ "mounted": 86,
  "checks": [
   {
    "id": "coverage",
@@ -1081,7 +1081,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "49/63 mounted, 14 part of another body, 2 nothing fastens",
+   "value": "49/57 mounted, 14 part of another body, 8 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "display: wall-capture",
@@ -1091,15 +1091,15 @@
     "hopper-funnel: wall-capture",
     "pump-a-head: pack",
     "pump-b-head: pack",
-    "tee-y-a: pack",
-    "tee-y-b: pack",
-    "tee-y-c: pack",
-    "tee-y-d: pack",
-    "tee-y-f: pack",
-    "tee-y-g: pack",
     "water-split: tube-hung",
     "bpv31: tube-clamp \u2014 nothing fastens it; Its own two screws close the saddle round the compressor's process tube, and that grip on the copper is the whole joint. The can stands on four grommets that keep its running hours off the cabinet, and every printed face within reach of this valve is the cabinet's.",
-    "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them."
+    "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
+    "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
+    "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
+    "tee-y-c: pack \u2014 nothing fastens it; Its collets make up onto V-E's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
+    "tee-y-d: pack \u2014 nothing fastens it; Its collets make up onto V-F's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
+    "tee-y-f: pack \u2014 nothing fastens it; Its collets make up onto V-H's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
+    "tee-y-g: pack \u2014 nothing fastens it; Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
    ],
    "active": true
   },
@@ -6287,7 +6287,7 @@
    "joint": "pack",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
   {
    "component": "tee-y-b",
@@ -6295,7 +6295,7 @@
    "joint": "pack",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
   {
    "component": "tee-y-c",
@@ -6303,7 +6303,7 @@
    "joint": "pack",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Its collets make up onto V-E's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
   {
    "component": "tee-y-d",
@@ -6311,7 +6311,7 @@
    "joint": "pack",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Its collets make up onto V-F's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
   {
    "component": "tee-y-f",
@@ -6319,7 +6319,7 @@
    "joint": "pack",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Its collets make up onto V-H's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
   {
    "component": "tee-y-g",
@@ -6327,8 +6327,8 @@
    "joint": "pack",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   }
  ],
- "sources": "bf6260b8929ae021122759dfb092da99"
+ "sources": "9e0a0ce32a350ec801e16f08ac6d3c75"
 }
