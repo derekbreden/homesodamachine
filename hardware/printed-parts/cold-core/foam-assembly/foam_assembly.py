@@ -73,22 +73,12 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     head_pad_height,
 )
-from _foam_cap import lid_total_height
+from _foam_cap import cap_face_z, lid_total_height, stack_floor_z
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 
-# --- the two planes the machine outside this stack answers to ---------------
-#
-# THE STACK'S FLOOR is the bottom lid's outer face, the most-negative-Z layer, which is what
-# the appliance stands the whole core on.
-#   THE CAP FACE is the top lid's outer face — the plane every body on the core's crown is
-# placed off. It is NOT the stack's highest point and must not be read as one: the valve
-# cradles (`_cold_core_interface.cap_cradles`) stand off that face, so the assembly's box top
-# is a cradle pad, and a body seated on it would stand on a valve seat.
-stack_floor_z = -(foam_cap_height + lid_total_height - head_pad_height)
-cap_face_z = (foam_shell_outer_height + foam_cap_height - head_pad_height + lid_total_height)
-# The one figure whoever seats this assembly needs: how far the cap face stands over the
-# floor the stack is set down on.
+# The one figure whoever seats this assembly needs: how far the cap face stands over the floor
+# the stack is set down on. Both planes are `_foam_cap`'s, beside the lid whose faces they are.
 cap_face_over_floor = cap_face_z - stack_floor_z
 
 SHELL_STEP = _cold_core / "foam-shell" / "foam-shell.step"
