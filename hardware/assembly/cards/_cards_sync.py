@@ -400,11 +400,16 @@ def sub_assemblies(m: Machine):
     # with the pictures beside them, not two numbers typed next to two photographs.
     hanging = {sid: _scenes.SCENE_BY_ID[sid].also for sid in ("back-half", "cold-core")}
 
-    # SA-08 IS SA-07 LESS SA-04, and the card's count of standing lines is that subtraction taken
-    # rather than a number beside a picture: the runs the open core still carries once everything
-    # its top cap holds comes off it.
+    # SA-08 IS SA-07 LESS SA-04, drawn from the core's own model rather than the machine's one
+    # solid — so the lines it counts are the core's internal ones, standing where the cap is not.
+    # `CAP_CONDUITS` of them rise into the cap; the PRV vent leaves at a wall slot instead, which
+    # is the whole of the difference between the two counts.
     open_core = sorted(n for n in _scenes.named(_scenes.SCENE_BY_ID["cold-core-open"], m.a.runs)
-                       if n.startswith("tube-"))
+                       if n.startswith("line-"))
+    assert len(open_core) == len(_cci.cap_conduits) + 1, (
+        f"the open core stands {len(open_core)} internal lines against "
+        f"{len(_cci.cap_conduits)} cap conduits — SA-08 says every conduit's line and the PRV "
+        f"vent, and nothing else leaves this shell")
 
     # EVERY CAP CONDUIT LEAVES THE CORE CARRYING A TUBE. SA-07 stands one in each and says how
     # many end in the air; both come off the mouths the runs actually land on, so a conduit that
