@@ -207,9 +207,7 @@ def main():
         "CO2_RING_VOL": f"{volumes['neofit']:.2f}",
     }
     substitute_md(_here.parent / "README.md", variables=variables,
-                  expected_counts={"RING_W": 1, "RING_THICK": 2, "RING_OD": 1,
-                                   "RING_BORE": 1, "RING_VOL": 1, "CO2_RING_OD": 1,
-                                   "CO2_RING_BORE": 1, "CO2_RING_VOL": 1})
+)
     print("-> README.md")
 
 

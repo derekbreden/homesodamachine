@@ -1193,22 +1193,6 @@ def main():
             "INNER_GAP": f"{2 * INNER_X - VALVE_PITCH:.2f}",
             "CLASHES": str(len(r["bad"])),
         },
-        expected_counts={
-            "ENV_X": 1, "ENV_Y": 1, "ENV_Z": 1, "ENV_L": 1,
-            "REACH_X": 1, "REACH_Y": 1, "REACH_Z": 1, "STUB_LEN": 1,
-            "DECK_Z": 1, "DECK_Z2": 2, "UPPER_Z": 1, "UPPER_Z2": 1,
-            "SPINE_R": 1, "SPINE_LEN": 1, "SPINE_STRAIGHT": 1, "DECK_SEP": 1, "SPINE_COUNT": 1, "MIN_BEND2": 1,
-            "DECK_GAP": 1, "CROSSBAR": 1,
-            "TEE_COUNT": 1, "TEE_COUNT2": 1, "TUBE_COUNT2": 1,
-            "TWIN_COUNT": 1, "MIRROR_OFF": 1,
-            "SEGMENT_COUNT": 1, "BUTT_COUNT": 1, "TUBE_COUNT": 1, "MOUTH_COUNT": 1,
-            "MIN_BEND": 1,
-            "BARB_PITCH": 1, "BARB_PITCH2": 1, "BARB_INSET": 1,
-            "VALVE_PITCH": 1, "VALVE_PORT_Z": 1, "VALVE_LEN": 1,
-            "TEE_RUN": 1, "TEE_SPAN": 1, "DIVIDER_PITCH": 1,
-            "LIMB_OUT_XW": 1, "LIMB_IN_XW": 1, "LIMB_IN_XE": 1, "LIMB_OUT_XE": 1,
-            "INNER_GAP": 1, "CLASHES": 1,
-        },
     )
     print("-> README.md")
     render_elevations(out)

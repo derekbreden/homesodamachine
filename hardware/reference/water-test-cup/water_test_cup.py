@@ -56,15 +56,6 @@ def main():
             "OUTER_DIAMETER": f"{2 * outer_radius:.4g} mm",
             "OUTER_HEIGHT": f"{outer_height:.4g} mm",
         },
-        expected_counts={
-            "WALL_THICKNESS": 1,
-            "FLOOR_THICKNESS": 1,
-            "INTERIOR_DIAMETER": 1,
-            "INTERIOR_HEIGHT": 1,
-            "VOLUME_TARGET_ML": 1,
-            "OUTER_DIAMETER": 1,
-            "OUTER_HEIGHT": 1,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

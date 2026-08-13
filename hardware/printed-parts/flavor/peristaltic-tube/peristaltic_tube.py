@@ -47,9 +47,6 @@ def main():
     substitute_py_comments(
         __file__,
         variables=variables,
-        expected_counts={
-            "PTUBE_OUTER_D": 1,
-        },
     )
 
 

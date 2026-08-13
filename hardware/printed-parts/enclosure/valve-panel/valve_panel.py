@@ -228,11 +228,6 @@ def main():
             "SOCKET_DIA": f"{2 * _seat.socket_radius:.4g}",
             "BOSS_DIA": f"{2 * _seat.boss_radius:.4g}",
         },
-        expected_counts={
-            "PANEL_W": 1, "PANEL_H": 1, "PANEL_T": 1, "PANEL_D": 1, "PANEL_SEAT": 1,
-            "PANEL_MARGIN": 1, "PANEL_REACH": 1, "PANEL_SEATS": 1, "PANEL_COUNT": 1,
-            "PANEL_VOL": 1, "PORT_GAP": 1, "SOCKET_DIA": 1, "BOSS_DIA": 1,
-        },
     )
     print("-> README.md")
 

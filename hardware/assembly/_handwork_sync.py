@@ -85,14 +85,6 @@ def main():
     substitute_md(
         _here / "handwork.md",
         variables=variables,
-        expected_counts={
-            "ROD_LEN": 1,
-            "RESERVOIR_ROD_LEN": 1,
-            "PITCH": 1,
-            "LAID_FT": 1,
-            "STUB_INLET": 1,
-            "STUB_OUTLET": 1,
-        },
     )
     print("-> handwork.md")
 

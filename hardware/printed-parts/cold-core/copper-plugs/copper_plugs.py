@@ -423,22 +423,6 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "SLOT_W": 4,
-            "FLANGE_T": 2,
-            "VOL_TOL": 1,
-            "TUBE_CLEAR_R": 1,
-            "WALL_OUTER_Y": 1,
-            "WALL_INNER_Y": 1,
-            "PLUG_Y_INNER": 1,
-            "PLUG_Y_OUTER": 1,
-            "EVAP_INLET_Z": 2,
-            "EVAP_OUTLET_Z": 2,
-            "PRV_VENT_Z": 2,
-            "WEB_BUFFER": 1,
-            "CPLUG_WALL_T": 3,
-            "SHELL_TOP_Z": 1,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

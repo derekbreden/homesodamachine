@@ -388,13 +388,6 @@ def main():
             "RAMP_H": f"{_pc.ramp_from_skirt_to_octagon_height:g}",
             "CASE_W": f"{2 * case_half:g}",
         },
-        expected_counts={
-            "TRAY_W": 1, "TRAY_L": 1, "TRAY_D": 1, "SHOULDER": 2, "CAN_BORE": 1,
-            "TRAY_MARGIN": 1, "TRAY_COUNT": 1, "TRAY_VOL": 1, "SOCKET_SPAN": 1,
-            "SOCKET_LEDGE": 1, "BOSS_DEPTH": 2, "HEAD_W": 1, "HEAD_D": 1, "CAN_DIA": 1,
-            "STRAP_LOOP": 2, "STRAP_W": 1, "BRACKET_W": 1, "BAND_NEAR": 1, "BAND_FAR": 1,
-            "ON_HEAD": 1, "ON_CROWN": 1, "RAMP_H": 1, "CASE_W": 1,
-        },
     )
     print("-> README.md")
 

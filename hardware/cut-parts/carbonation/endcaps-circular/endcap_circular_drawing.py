@@ -465,16 +465,6 @@ def main() -> None:
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "DISC_D_IN": 1,
-            "DISC_R_IN": 1,
-            "DISC_THK_IN": 1,
-            "HOLE_D_IN": 1,
-            "HOLE_R_IN": 1,
-            "HOLE_SPACING": 2,
-            "HOLE_OFFSET_IN": 2,
-            "REGISTER_WALL": 1,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

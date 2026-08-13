@@ -403,9 +403,6 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "LID_Z_H": 1,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

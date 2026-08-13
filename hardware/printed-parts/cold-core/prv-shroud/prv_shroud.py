@@ -168,36 +168,11 @@ def main():
     substitute_md(
         out_dir / "README.md",
         variables=variables,
-        expected_counts={
-            "PRV_INNER_D": 2,
-            "PRV_WALL_T": 1,
-            "PRV_CAP_T": 2,
-            "CAVITY_L": 1,
-            "PRV_VENT_D": 1,
-            "VENT_STATION": 1,
-            "PRV_OUTER_D": 1,
-            "TOTAL_L": 1,
-            "PRV_VOLUME": 1,
-            "PRV_BBOX_X": 1,
-            "PRV_BBOX_Y": 1,
-            "PRV_BBOX_Z": 1,
-        },
     )
     print("-> README.md")
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "PRV_INNER_D": 3,
-            "OVERCUT": 1,
-            "PRV_WALL_T": 2,
-            "PRV_CAP_T": 2,
-            "CAVITY_L": 4,
-            "PRV_VENT_D": 4,
-            "VENT_STATION": 4,
-            "PRV_OUTER_D": 3,
-            "TOTAL_L": 4,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

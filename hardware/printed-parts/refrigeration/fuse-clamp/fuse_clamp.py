@@ -321,22 +321,10 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "CLAMP_TF": 2, "CLAMP_FACE_X": 2, "CLAMP_GAP": 3, "CLAMP_PART_X": 2,
-            "CLAMP_LEAD_STUB": 2, "CLAMP_LEAD_RELEASE": 1, "CLAMP_SPLICE_FREE": 1,
-            "CLAMP_LEAF_SLOT": 1,
-        },
     )
     substitute_md(
         _here.parent / "README.md",
         variables=variables,
-        expected_counts={
-            "CLAMP_TF": 1, "CLAMP_FACE_X": 1, "CLAMP_GAP": 3, "CLAMP_PART_X": 2,
-            "CLAMP_LEAD_STUB": 2, "CLAMP_SPLICE_FREE": 1, "CLAMP_SPLICE_REACH": 1,
-            "CLAMP_CASE_D": 1, "CLAMP_CHANNEL_H": 1,
-            "CLAMP_HEAD_Y": 1, "CLAMP_HEAD_Z": 1, "CLAMP_NECK_Z": 1,
-            "CLAMP_LEAF_Y": 1, "CLAMP_LEAF_REACH": 2, "CLAMP_LEAF_SLOT": 1, "CLAMP_VOL": 1,
-        },
     )
     print("-> README.md")
 

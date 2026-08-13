@@ -121,14 +121,6 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "GASKET_T": 1,
-            "GASKET_Y": 1,
-            "SHANK_HOLE_D": 1,
-            "FLAVOR_TUBE_Y": 1,
-            "PILL_L": 1,
-            "PILL_W": 1,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

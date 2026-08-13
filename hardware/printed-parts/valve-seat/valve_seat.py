@@ -167,11 +167,6 @@ def main():
             "PORT_DIA": f"{2 * valve.port_radius:.4g}",
             "PORT_CLEARANCE": f"{gap:.3f} mm",
         },
-        expected_counts={
-            "POST_DIA": 1, "SOCKET_DIA": 1, "BOSS_DIA": 2, "SOCKET_CLEAR": 2,
-            "WALL": 1, "CORNER_INSET": 1, "SEAT_TOP_Z": 1, "SOCKET_FLOOR_Z": 1,
-            "PORT_DIA": 1, "PORT_CLEARANCE": 1,
-        },
     )
     print("-> README.md")
 

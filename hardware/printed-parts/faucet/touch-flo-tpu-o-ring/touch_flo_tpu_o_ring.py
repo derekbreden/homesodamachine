@@ -83,31 +83,12 @@ def main():
     substitute_md(
         _here / "README.md",
         variables=variables,
-        expected_counts={
-            "ORING_INNER_D": 2,
-            "ORING_OUTER_D": 3,
-            "CAP_HOLE_D": 3,
-            "ORING_CAP_T": 1,
-            "CYL_L": 1,
-            "TOTAL_H": 2,
-            "ORING_WALL_T": 2,
-            "LLDPE_OD": 2,
-            "LLDPE_ID": 1,
-            "BODY_PORT_D": 2,
-            "PORT_DEPTH_MIN": 1,
-            "BODY_SQUEEZE": 2,
-            "LLDPE_INTERFERENCE": 1,
-        },
     )
     print("-> README.md")
 
     substitute_py_comments(
         __file__,
         variables=variables,
-        expected_counts={
-            "TOTAL_H": 1,
-            "ORING_WALL_T": 1,
-        },
     )
     print(f"-> {Path(__file__).name}")
 

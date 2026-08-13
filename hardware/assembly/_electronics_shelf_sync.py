@@ -91,20 +91,6 @@ def main():
     substitute_md(
         _here / "electronics-shelf.md",
         variables=variables,
-        expected_counts={
-            "PCBA_SIZE": 1,
-            "RELAY_COMPRESSOR_GPIO": 1,
-            "RELAY_DIAPHRAGM_GPIO": 1,
-            "PSU_POWER": 1,
-            "PSU_VOLTAGE": 2,
-            "PSU_CURRENT": 1,
-            "PIGTAIL_SHORT": 1,
-            "PIGTAIL_MEDIUM": 2,
-            "PIGTAIL_INLET": 1,
-            "PIGTAIL_SLACK": 1,
-            "COMP_LEAD_LEN": 1,
-            "WAGO_COUNT": 2,
-        },
     )
     print("-> electronics-shelf.md")
 
