@@ -29,11 +29,22 @@ bears on** when nothing fastens it (`BEARS_ON` — a slab it lands on, a line it
 the camera goes**, and the five below. A body the fastening table leaves parentless and `BEARS_ON`
 does not name is reported, not dropped.
 
-**`parts` draws part of a root.** The cold core is one solid in the machine, and the unit a
-person actually holds is its top cap and that cap's lid — they take their own foam pour, carry
-everything on the crown, and meet the shell long afterwards. A scene names the sub-solids it
-wants and they are carried through the root's own placement, recovered from the placed body
-rather than restated.
+**`inner` draws a root at the depth its own model has.** Two models draw the cold core, and each
+owns one thing. [`printed-parts/cold-core/foam-assembly`](/hardware/printed-parts/cold-core/foam-assembly/)
+owns the five printed pieces and the port table on their faces; it is the **interface**, and both
+larger models load it. [`cold-core-layout`](/hardware/cold-core-layout/) owns what stands inside
+the shell — the vessel, the coil, both reservoirs, the sensing, the eight internal lines — in the
+shell's own frame. [`manifold-layout`](/hardware/manifold-layout/) owns the machine, and imports
+the interface as **one solid** with that port table.
+
+So a picture of the machine wants the solid, and a picture of the core wants the inside. `inner`
+names bodies from the core's model, drawn instead of the one solid `roots` puts there;
+`INNER_ALL` takes every one, so no list of 63 names lives in the scene table. `one-core` gates
+that the two models agree about what they share.
+
+**The seating is the bridge between the two frames.** The core's model builds in
+`foam-assembly`'s own frame, and the machine seats that body: `seat_body` hands the placement
+back as `carry.where`, and the core's own solids stand under it.
 
 **`flip` is the pose the unit is worked in**, not a camera trick. `enclosure-back-top` is open at
 its ceiling, so on the bench it is turned over and both open faces look up. The scene is turned
