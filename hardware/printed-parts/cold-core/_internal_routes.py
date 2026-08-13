@@ -184,10 +184,12 @@ prv_vent_flank_y = outer_shell_y_length / 2.0     # the +Y outer face, where it 
 # wherever that lands. Move the arc, the shroud or the plate and the station follows.
 prv_vent_fall_margin = 2.0
 prv_vent_cross_z = prv_vent_start[2] - (route_bend_radius + prv_vent_fall_margin)
-# How far the tube stands proud of the flank. The corner needs only what the out leg is short
-# by; the rest is SOCKET — the appliance's chase presents a bore across the band on this axis
-# and the tube bottoms in it, so the discharge is carried and not spilled into the band.
-prv_vent_reach = 8.0
+# How far the tube stands proud of the flank: what the out leg is short of the stock arc by,
+# and a millimetre more so the cut end stands clear of the skin's own corridor. The appliance's
+# chase holds a MOUTH off that end (`enclosure.vent_catch_gap`) and catches the jet across the
+# gap — nothing downstream of the valve is a pressure boundary, and the flow that crosses is a
+# free jet, which spreads by about its own diameter over ten of them.
+prv_vent_reach = route_bend_radius - (prv_vent_flank_y - prv_vent_lane_y) + 1.0
 
 # WHERE THE WATER INLET CROSSES THE VESSEL'S OWN TOP. Its port is the top plate's −Y hole and
 # its conduit stands over the +Y band, so the line has to cross the axis somewhere in the band

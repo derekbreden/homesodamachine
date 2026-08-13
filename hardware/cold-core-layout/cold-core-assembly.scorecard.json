@@ -109,7 +109,7 @@
     "carb-water-out end: 28.1 mm into a bore, which takes a lean",
     "co2-in start: 202.4 mm into a bore, which takes a lean",
     "prv-vent start: 2.0 mm into a bore, which takes a lean",
-    "prv-vent end: 7.0 mm into a bore, which takes a lean",
+    "prv-vent end: 1.0 mm into a bore, which takes a lean",
     "reservoir-a end: 213.4 mm into a bore, which takes a lean",
     "reservoir-b end: 213.4 mm into a bore, which takes a lean",
     "water-in end: 23.3 mm into a bore, which takes a lean"
@@ -149,7 +149,7 @@
    "detail": [
     "the shroud's vent bore opens at (+0.00, +77.50, 187.90), on the west lane (77.5) \u2014 the strip the barrel's own bore can reach with no corner",
     "it stands 11.50 mm under the elbow's own axis, against the 11.5 mm barrel radius a bore facing DOWN reads",
-    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.90 and out the +Y flank at y 98.50"
+    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.90 and out the +Y flank at y 92.50"
    ],
    "active": true
   },
@@ -1275,13 +1275,13 @@
    "to": "prv-vent.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 30.99,
+   "length": 24.99,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 26.4,
+   "reach": 21.93,
    "reachGrade": "C",
    "binding": null,
    "corners": [
@@ -1293,7 +1293,7 @@
     }
    ],
    "need": {
-    "detour": 1.174
+    "detour": 1.139
    }
   },
   {
