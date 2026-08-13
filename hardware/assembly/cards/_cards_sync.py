@@ -49,7 +49,9 @@ CARDS_DIR = Path(__file__).resolve().parent
 _hw = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
            "printed-parts/enclosure/back-panel", "reference/compressor",
-           "reference/jg-bulkhead-union", "reference/iec-c14-inlet"):
+           "reference/jg-bulkhead-union", "reference/iec-c14-inlet",
+           "printed-parts/zone-c/hopper-funnel", "reference/worm-clamp",
+           "reference/jg-pp0408w", "reference/hopper-drain-stub"):
     sys.path.insert(0, str(_hw / _p.replace("/", os.sep)))
 
 sys.path.insert(0, str(CARDS_DIR))
@@ -346,6 +348,8 @@ def sub_assemblies(m: Machine):
     _sys.path.insert(0, str(_hw / "assembly" / "scenes"))
     import _scenes
     import _cold_core_interface as _cci
+    import hopper_drain_stub as _stub
+    import hopper_funnel as _funnel
 
     holder = _scenes.holders()
     joint = {name: j for name, _by, j in __import__("_scorecard").mounts()}
@@ -372,11 +376,17 @@ def sub_assemblies(m: Machine):
     # one, the funnel in the other. The piece carries it in the finished machine and
     # the scene holds it back, which is the pair of readings those two sentences
     # stand on.
-    for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "hopper-funnel")):
+    for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "hopper-funnel"),
+                             ("hopper-drain", "hopper-drain-union")):
         scene = _scenes.SCENE_BY_ID[scene_id]
         assert holder.get(absent) in scene.roots and absent in scene.later, (
             f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
             f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
+
+    # SA-06's three figures are the drain joint's own stack, and each of them is read off the
+    # part that owns it: the stub states its own length and how much of it the spout takes, the
+    # union states the grip, and the funnel states the wall the band closes.
+    _stub.joint_holds()
 
     facts = {
         "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
@@ -391,6 +401,10 @@ def sub_assemblies(m: Machine):
         "SA04_CRADLES": f"{len(cap_cradled)}",
         "SA04_CHAINS": f"{len(cap_chain_bodies)}",
         "SA04_RIB_RUNS": f"{len(cap_ribs)}",
+        "SA06_STUB_LEN": f"{_stub.LENGTH:g}",
+        "SA06_SPOUT_LAND": f"{_stub.FUNNEL_ENGAGEMENT:g}",
+        "SA06_UNION_INSERT": f"{_stub.UNION_INSERTION:g}",
+        "SA06_SPOUT_WALL": f"{_funnel.spout_wall:g}",
         "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('seaflo-pump'))}",
         # A cap pours with six, clamped to the shell's face, and they come out
         # again after cure — the stack's other six belong to the other cap.
@@ -403,6 +417,8 @@ def sub_assemblies(m: Machine):
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS"},
         "sa-05-back-half": {"SEAM_SCREWS_Z"},
+        "sa-06-hopper-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
+                               "SA06_SPOUT_WALL"},
     }
     return facts, cards
 
