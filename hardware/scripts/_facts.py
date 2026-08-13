@@ -199,7 +199,7 @@ def gather(whole=None, module=None):
         "PORT_NUT_GAP": _plain(ea.PORT_NUT_GAP),
         "WAGO_POLES": _plain(ea.WAGO_POLES),
         "appliance_width": _plain(_enc.appliance_width),
-        "side_rib_inset": _plain(_enc.side_rib_inset),
+        "side_band_inset": _plain(_enc.side_band_inset),
         "wall": _plain(_enc.wall),
     }
 

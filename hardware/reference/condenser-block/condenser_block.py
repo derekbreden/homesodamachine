@@ -112,7 +112,7 @@ def stations() -> dict:
     """All three, under the names the loop knows them by."""
     return {
         "refrig-inlet":  ((0.0, 87.0, 66.0), (-1.0, 0.0, 0.0)),
-        "refrig-outlet": ((39.0, FACE_A, 38.75), (0.0, 1.0, 0.0)),
+        "refrig-outlet": ((30.0, FACE_A, 38.75), (0.0, 1.0, 0.0)),
         "fan-power":     ((AIRFLOW, 30.0, FACE_B / 2.0), (1.0, 0.0, 0.0)),
     }
 
