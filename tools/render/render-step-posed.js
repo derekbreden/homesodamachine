@@ -20,6 +20,11 @@
 //   --bg #hex        background. Default #1a1a2e (site navy)
 //   --trim           trim to background and cap long side 1600 (default: off —
 //                    cards want the exact framed viewport)
+//   --solid          shade the assembly solid instead of the viewer's default
+//                    x-ray ghost. A ghost draws every part through every other
+//                    one, which is how you read a body nested three deep; a
+//                    picture of a unit a hand is about to pick up wants the
+//                    silhouette a hand meets, so the unit cards ask for this.
 //   --ortho          orthographic projection (dimension-drawing look)
 //   --edition id     which machine's tree the step path is in (web/lib/editions.js).
 //                    Default kitchen.
@@ -43,8 +48,8 @@ function usage(msg) {
   if (msg) console.error(`render-step-posed: ${msg}`);
   console.error(
     "usage: node tools/render/render-step-posed.js <step-file-relative> <output-png> " +
-      "[--cam x,y,z] [--target x,y,z] [--zoom f] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] [--ortho] " +
-      "[--edition id]",
+      "[--cam x,y,z] [--target x,y,z] [--zoom f] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] " +
+      "[--solid] [--ortho] [--edition id]",
   );
   process.exit(1);
 }
@@ -67,6 +72,7 @@ function parseArgs(argv) {
     height: 1200,
     bg: "#1a1a2e",
     trim: false,
+    solid: false,
     ortho: false,
     edition: DEFAULT_EDITION,
   };
@@ -85,6 +91,7 @@ function parseArgs(argv) {
     } else if (a.startsWith("--bg")) opts.bg = val("bg");
     else if (a.startsWith("--edition")) opts.edition = val("edition");
     else if (a === "--trim") opts.trim = true;
+    else if (a === "--solid") opts.solid = true;
     else if (a === "--ortho") opts.ortho = true;
     else positional.push(a);
   }
@@ -148,6 +155,11 @@ async function renderOne({ stepRel, outAbs, opts }) {
       const sceneMod = await import("/js/viewer/scene.js");
       sceneMod.stopAnimate();
       controls.enabled = false;
+
+      // X-ray is the viewer's default and is remembered per browser; a headless
+      // render gets a fresh profile every time, so this call is the only thing
+      // that decides which way the assembly is shaded.
+      if (o.solid) (await import("/js/viewer/xray.js")).setXrayEnabled(false);
 
       const box = new THREE.Box3().setFromObject(currentGroup);
       const center = box.getCenter(new THREE.Vector3());
