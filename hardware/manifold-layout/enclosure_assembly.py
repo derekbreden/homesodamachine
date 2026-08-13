@@ -483,9 +483,9 @@ def east_lane_free(cond) -> float:
     """How far the block may go east off the plane the mating puts it on, read off the placed
     body and the wall it is going toward.
 
-    THE WALL IS NOT THE LIMIT — its own furniture is. Every corner post, boss chain and Z-seam
-    pod on a ±X wall stands one `enclosure.side_rib_inset` in from that wall's inner face, over
-    the depths the seam puts one there, and this block's fore end reaches into the frontmost of
+    THE WALL IS NOT THE LIMIT — its own furniture is. Every mouth, plug and socket collar on a
+    ±X wall stands one `enclosure.side_rib_inset` in from that wall's inner face, over the
+    depths the seam puts one there, and this block's fore end reaches into the frontmost of
     those bands. A rigid body answers to the tightest station under it, so the plane it may come
     to is the chain's and not the wall's."""
     return (_enc.interior_x()[1] - _enc.side_rib_inset) - box(cond).xmax
@@ -646,9 +646,8 @@ def build_mq6(comp, cond):
     stands on — nothing bolts this card down, it slides into a slot printed on the wall
     (`enclosure._west_cradle`) and bottoms on the wall itself, so the wall is where it goes.
 
-    FORE one `MQ6_FORE_CLEAR` behind the front Z seam's own post. That post is a cross-pin
-    column and `enclosure._z_pod` carries it to the floor, so it stands in this band at every
-    height a low body would want — `enclosure.front_band_free_y` is where the band reopens
+    FORE one `MQ6_FORE_CLEAR` behind the front Z seam's aft cross-pin station, which stands in
+    this band at its own depth — `enclosure.front_band_free_y` is where the band reopens
     behind it. The pack's frontmost body is what the front wall stands off, so the two bodies
     on this floor are what the run is struck from.
 

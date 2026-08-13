@@ -5,7 +5,7 @@ the brim underside — the plane that rests on the enclosure's top surface.
 The machine places it (`enclosure_assembly.build_funnel`, on `enclosure_assembly.funnel_centre`
 and the box's outer top), and the enclosure cuts its top-wall opening from this collar
 (`enclosure.py _hopper_hole`), asserting the placement clears the display
-gusset, the corner pod, and the Y-seam lip. The drain is defined here, in
+gusset, the ±X boss chains, and the Y-seam lip. The drain is defined here, in
 the funnel's frame, and rides the part wherever it is placed.
 
 Top to bottom:

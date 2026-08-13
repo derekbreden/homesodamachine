@@ -189,8 +189,8 @@ def enclosure(m: Machine):
 
     # The refrigeration stratum's own width across the pair as it stands, and the cold
     # core's beside it. A body ON THE FLOOR is held one `side_rib_inset` in from the ±X
-    # walls at the depths the seam's columns stand there, so the corner posts, boss
-    # chains and seam pods seat at full section. Both figures are carried because the
+    # walls at the depths the seam's bosses stand there, so each mouth, plug and
+    # socket collar seats at full section. Both figures are carried because the
     # stated appliance width has to take whichever of them is wider, and neither the
     # card nor this comment gets to name which — the two spans do.
     def _span(*names):

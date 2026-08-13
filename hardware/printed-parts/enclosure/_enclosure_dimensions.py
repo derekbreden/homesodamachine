@@ -86,7 +86,7 @@ def _run_len(cid: str) -> float:
 # ahead of the frontmost body.
 #
 # `side_rib_inset` is what that width check REQUIRES of a body standing on the floor, not
-# what sets the wall — the band the seam's columns need at the depths they stand.
+# what sets the wall — the band the seam's bosses need at the depths they stand.
 APPLIANCE_W = _OUTER[1] - _OUTER[0]
 APPLIANCE_D = _OUTER[3] - _OUTER[2]
 APPLIANCE_H = _OUTER[5] - _OUTER[4]
