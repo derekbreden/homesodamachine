@@ -47,52 +47,57 @@ def png_for(scene) -> Path:
     return IMG_DIR / f"scene-{scene.id}.png"
 
 
-def core_parts(placed_core):
-    """The cold core's five printed parts, each carried into the world the whole core stands in.
+# The core's own bodies, placed, for however many scenes in one run ask for them. Standing the
+# cold core costs a fraction of standing the machine and nothing at all for a run that never
+# reaches inside it — `render_scenes.py back-top` builds what it always did.
+_CORE = {}
+
+
+def core_bodies(placed_core):
+    """Every body the cold core's own assembly places, carried into the world the core stands in.
 
     `enclosure_assembly` imports `foam-assembly.step` as ONE solid, so the machine has no handle
-    on the top cap or its lid — and those two ARE the unit a person holds: they take their own
-    foam pour and carry everything on the crown long before the shell is under them.
+    on the top cap, on the vessel, or on a line inside the shell — and those ARE what a bench
+    unit of the core is made of. `cold-core-layout/cold_core_assembly` is that frame.
 
     THE PLACEMENT IS RECOVERED, NOT RESTATED. `build_foam` yaws the core about Z and then shifts
-    it, and a shift is what is left between two poses of one shape — so the same yaw on the parts
-    and the offset between the yawed whole and the placed whole puts every part exactly where the
-    machine has it. Nothing here repeats the seat's own rule."""
+    it, and a shift is what is left between two poses of one shape — so the same yaw on the core's
+    own bodies and the offset between the yawed foam stack and the placed one puts every one of
+    them exactly where the machine has it. Nothing here repeats the seat's own rule."""
+    import cold_core_assembly as cca
     import enclosure_assembly as ea
     import foam_assembly as fa
 
+    seat = tuple(round(v, 6) for v in ea.box(placed_core).center.toTuple())
+    if seat in _CORE:
+        return _CORE[seat]
     yaw = cq.Location(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), ea.FOAM_YAW)
     _assy, parts = fa.build()
     whole = cq.Compound.makeCompound([shape for shape, _c in parts.values()]).moved(yaw)
     shift = ea.box(placed_core).center.sub(ea.box(whole).center)
     move = cq.Location(cq.Vector(shift.x, shift.y, shift.z))
-    return {name: (shape.moved(yaw).moved(move), colour) for name, (shape, colour) in parts.items()}
+    core = cca.build_assembly()
+    _CORE[seat] = {c.name: (c.obj.moved(yaw).moved(move), c.color) for c in core.children}
+    return _CORE[seat]
 
 
 def cut(assembly, scene):
     """The scene as its own assembly, and the point the camera looks at.
 
-    Every named child of the built machine, world-placed and keeping its own colour, so the
-    picture is the machine's own geometry and not a redraw. A root drawn by `parts` is swapped
-    for those parts of it. The look-at point is what is drawn OF the roots — see
-    `_scenes.SCENES`."""
+    Every named body, world-placed and keeping its own colour, so the picture is the model's own
+    geometry and not a redraw. A name `inner` claims comes from the cold core's frame and the
+    rest from the machine's. The look-at point is what is drawn OF the unit — the roots, or the
+    core's own bodies where a scene draws those instead. See `_scenes.SCENES`."""
     import enclosure_assembly as ea
     placed = ea._solids(assembly)
+    inner = set(_scenes.inner_of(scene))
+    core = core_bodies(placed[scene.roots[0]][0]) if inner else {}
     out = cq.Assembly(name=scene.id)
     drawn_roots = []
-    parts_of = {}
     for name in _scenes.members(scene, assembly):
-        if scene.parts and name in scene.roots:
-            if name not in parts_of:
-                parts_of[name] = core_parts(placed[name][0])
-            for part in scene.parts:
-                solid, colour = parts_of[name][part]
-                out.add(solid, name=part, color=colour)
-                drawn_roots.append(solid)
-            continue
-        solid, colour = placed[name]
+        solid, colour = core[name] if name in inner else placed[name]
         out.add(solid, name=name, color=colour)
-        if name in scene.roots:
+        if name in inner or (not inner and name in scene.roots):
             drawn_roots.append(solid)
     # THE POSE THE UNIT IS WORKED IN. A piece open at its ceiling is turned over on the bench,
     # so the scene is turned with it and the camera stays a camera.

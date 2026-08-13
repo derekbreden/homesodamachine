@@ -36,7 +36,8 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
-for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "printed-parts" / "cold-core"):
+for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "cold-core-layout",
+           _HW / "printed-parts" / "cold-core"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
@@ -49,8 +50,38 @@ import _realized                                        # noqa: E402
 # direction from the target to the camera, so a scene looking INTO a piece through its own open
 # faces points from the side those faces face. `zoom` is the distance in bounding-box radii and
 # `up` the camera's own up — both handed to `tools/render/render-step-posed.js` unchanged.
-Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom look note without",
+Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom look note without",
                    defaults=(None,))
+
+# TWO MODELS OF THE CORE, AND A SCENE MAY WANT EITHER. `manifold-layout/enclosure_assembly` is the
+# appliance and places the core as ONE solid with a port table — which is the right body for a
+# picture of the machine. `cold-core-layout/cold_core_assembly` is the same stack one frame in:
+# the five printed pieces AND the vessel, the coil, both reservoirs, every fitting, the sensing
+# and the eight lines among them, in the shell's own frame. Its `one-core` gate holds every body
+# the outer model draws standing in the inner one, so the two agree about what they share.
+#
+# `inner` NAMES BODIES FROM THAT INNER MODEL, and they are drawn INSTEAD of the one solid `roots`
+# puts there. `INNER_ALL` takes every one of them — the core on a bench with its lid off is a
+# picture of what is inside it, and no list of 63 names belongs in this file.
+INNER_ALL = "*"
+_COLD_CARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
+
+
+def core_names() -> tuple:
+    """Every body the cold core's own assembly places, off the card written beside its STEP.
+
+    A doc driver has the card and no machine; `render_scenes` builds the assembly for the solids.
+    Same bargain `_facts.json` takes for the appliance."""
+    card = json.loads(_COLD_CARD.read_text())
+    return tuple(sorted([shape["component"] for shape in card["shapes"]]
+                        + [f"line-{bend['id']}" for bend in card["bends"]]))
+
+
+def inner_of(scene) -> tuple:
+    """The cold-core bodies this scene draws: every one it places, or the named few."""
+    if not scene.inner:
+        return ()
+    return core_names() if scene.inner == INNER_ALL else tuple(scene.inner)
 
 # WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the
 # carb riser leaves this box entirely — drags the whole scene's bounding box after it and puts
@@ -62,11 +93,11 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 # closed foam under a lid that carries everything, and a camera pointed at its middle is
 # pointed at the part of it with nothing to see.
 
-# `parts` DRAWS PART OF A ROOT. The cold core is one solid in the machine — `foam-assembly` —
-# and the unit a person actually holds is its top cap and that cap's lid, which take their own
-# foam pour and carry everything on the crown long before the shell is under them. A scene names
-# the sub-solids of the root it wants and `render_scenes.cut` carries them through the root's own
-# placement; the root still decides which bodies come with it.
+# `inner` DRAWS THE CORE'S OWN BODIES IN PLACE OF THE MACHINE'S ONE SOLID. The unit a person
+# holds on a bench is the top cap and that cap's lid, or the shell with everything standing in
+# it — neither is a body `enclosure_assembly` has. `render_scenes.cut` carries them through the
+# core's own placement, recovered from the placed solid; the root still decides which of the
+# MACHINE's bodies come with it, so a cap that carries a pump carries it either way.
 #
 # `also` IS THE MIRROR OF `later` — what the unit carries and the tables give to somebody else.
 # A LENGTH OF TUBE IS MADE UP ONCE, on the unit whose mouth it can reach, and it leaves that
@@ -104,7 +135,7 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 SCENES = (
     Scene(
         "back-top", "Enclosure back top",
-        roots=("enclosure-back-top",), parts=(), flip=((0, 1, 0), 180.0),
+        roots=("enclosure-back-top",), inner=(), flip=((0, 1, 0), 180.0),
         # The flavour-A riser, pushed into its union from the room while this piece is open.
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
@@ -118,7 +149,7 @@ SCENES = (
     ),
     Scene(
         "front-top", "Enclosure front top",
-        roots=("enclosure-front-top",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
         later=("hopper-funnel",),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
@@ -141,7 +172,7 @@ SCENES = (
     # pump, and the pump goes to the top right corner, which is the whole diagonal.
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
-        roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
+        roots=("foam-assembly",), inner=("foam-cap-top", "foam-cap-lid-top"),
         flip=None, also=(), later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The top cap and its lid alone, poured and cleaned, the lid's outer face bare. "
@@ -150,7 +181,7 @@ SCENES = (
     ),
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
-        roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
+        roots=("foam-assembly",), inner=("foam-cap-top", "foam-cap-lid-top"),
         flip=None, also=(),
         # THE RIB IS PRINTED HERE AND CLOSED SOMEWHERE ELSE. `fluid-14` runs from V-F on the
         # front top down onto this lid's reservoir-A fill bore, and this plate is on a bench
@@ -165,7 +196,7 @@ SCENES = (
     ),
     Scene(
         "cold-core", "Cold core, plumbed",
-        roots=("foam-assembly",), parts=(), flip=None,
+        roots=("foam-assembly",), inner=INNER_ALL, flip=None,
         # EVERY CAP CONDUIT CARRIES ITS TUBE OUT OF THIS UNIT. Two of the seven the tables
         # already give the core — `water-5` has both mouths on it and `fluid-14` lies in a rib
         # its own cap prints — and the other five are made up here with their far end hanging:
@@ -181,29 +212,25 @@ SCENES = (
     ),
     Scene(
         "cold-core-open", "Cold core, ready to foam",
-        roots=("foam-assembly",),
-        # THE THREE PIECES THAT ARE ON. The shell closed underneath by the bottom cap and its
-        # lid; the top cap and its lid are a unit of their own and go down over the lines after
-        # the pour, so they are not drawn at all rather than drawn empty.
-        parts=("foam-shell", "foam-cap-bottom", "foam-cap-lid-bottom"),
-        flip=None,
-        # The same five the plumbed core is made up with, less the two whose far end is on the
-        # crown — nothing on that face exists yet, so nothing routed to it does either.
-        also=("tube-carb-1", "tube-co2-2", "tube-fluid-16", "tube-fluid-24", "tube-fluid-26"),
-        later=(),
-        # THIS IS THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. The pump, the three valves, both
-        # chains and every run between them stand on a plate that is not down yet, and stating
-        # it that way is what keeps the two pictures one reading apart.
+        roots=("foam-assembly",), inner=INNER_ALL, flip=None, also=(),
+        # The cap conduit `fluid-14` lands in is on a plate that is not down; its rib is here
+        # and the run is not.
+        later=("tube-fluid-14",),
+        # THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. What SA-04 stands on that plate — the pump,
+        # three valves, both chains and every run between them — and the plate and lid with it.
         without="cap-lid",
-        cam=(0.85, -1.0, 1.0), up=(0, 0, 1), zoom=3.25, look="centre",
-        note="The shell closed underneath, everything that goes inside inside it, and every "
-             "line standing up out of the open mouth. This is what the body pour goes into — "
-             "the top cap comes down over these lines afterwards, and the crown is populated "
-             "on a bench of its own before it does.",
+        # Over the open mouth, which is what there is to see: the cavities the shot has to find,
+        # both reservoirs standing in their pockets, and every line's own end at the rim.
+        cam=(0.7, -0.9, 1.5), up=(0, 0, 1), zoom=3.6, look="centre",
+        note="The shell closed underneath, the vessel and both reservoirs standing in it, and "
+             "every internal line up at the rim. This is what the body pour goes into. Each "
+             "line stops at the shell's own top — `_internal_routes` draws it that far and the "
+             "cap's conduit carries it the rest of the way, so what stands proud of this rim "
+             "belongs to a part that is not on yet.",
     ),
     Scene(
         "hopper-drain", "Hopper basin drain stub",
-        roots=("hopper-funnel",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        roots=("hopper-funnel",), inner=(), flip=((1, 0, 0), 180.0), also=(),
         # The union is on the far end of the stub and is the joint that PARTS: it stays in the
         # machine when the basin comes out, so it is not on the bench with this one.
         later=("hopper-drain-union",),
@@ -219,7 +246,7 @@ SCENES = (
     ),
     Scene(
         "back-half", "Enclosure back half",
-        roots=("enclosure-back-bottom", "enclosure-back-top"), parts=(), flip=None,
+        roots=("enclosure-back-bottom", "enclosure-back-top"), inner=(), flip=None,
         # The four that cross the Y seam: the flavour-A riser off the rear wall's own union,
         # and the three reservoir lines standing in the core's cap. All four are made up on
         # this half and all four leave it hanging, for the front half's valves to take.
@@ -363,6 +390,7 @@ def named(scene, runs):
         carried = set()
         for root in scene.roots:
             carried |= held_by(root, holder_map)
+        carried |= set(inner_of(scene))
         adrift = sorted(n for n in scene.later if n not in carried)
         if adrift:
             raise ValueError(
@@ -378,6 +406,13 @@ def named(scene, runs):
         derived = bodies | runs_for(bodies, runs, holder_map)
     # `later` reaches the run pass too — a rib alone gives a run to the unit its rib is on.
     derived -= set(scene.later)
+    # THE CORE'S OWN BODIES STAND WHERE THE MACHINE'S ONE SOLID WOULD. `roots` still decided
+    # which of the machine's bodies this unit carries; what it names is drawn from the frame
+    # that has the pieces.
+    inner = set(inner_of(scene))
+    if inner:
+        derived -= set(scene.roots)
+        derived |= inner - set(scene.later)
     if scene.without:
         other = SCENE_BY_ID[scene.without]
         if other.without:
@@ -406,13 +441,14 @@ def named(scene, runs):
 def members(scene, assembly):
     """`named`, held against the machine that has to place every one of them."""
     names = named(scene, assembly.runs)
-    present = {c.name for c in assembly.children}
+    present = {c.name for c in assembly.children} | set(core_names())
     missing = sorted(n for n in names if n not in present)
     if missing:
         raise ValueError(
-            f"scene {scene.id!r} names {', '.join(missing)}, which the built assembly does not "
-            f"place. The fastening table and the anchor tables are what this reads; a body in "
-            f"one of them and not in the machine is the table to correct.")
+            f"scene {scene.id!r} names {', '.join(missing)}, which neither the machine nor the "
+            f"cold core places. The fastening tables and the two assemblies' own body lists are "
+            f"what this reads; a name in one of them and not in either model is the table to "
+            f"correct.")
     return names
 
 
@@ -440,12 +476,14 @@ def scene_digest(scene) -> str:
 def source_map() -> dict:
     """`{repo-relative path: hash}` for every file whose text can decide any picture.
 
-    CALLED FROM INSIDE A RENDER and nowhere else. Two roots: the module that builds the machine,
-    and this one, which holds the cameras and the rule for which bodies a unit carries."""
+    CALLED FROM INSIDE A RENDER and nowhere else. Three roots: the module that builds the
+    machine, the one that builds the core a scene may draw the inside of, and this one, which
+    holds the cameras and the rule for which bodies a unit carries."""
+    import cold_core_assembly
     import enclosure_assembly
 
     files = set()
-    for start in (enclosure_assembly.__file__, __file__):
+    for start in (enclosure_assembly.__file__, cold_core_assembly.__file__, __file__):
         files |= set(_realized.source_files(start))
     out = {}
     for path in sorted(files):
