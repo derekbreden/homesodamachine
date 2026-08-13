@@ -64,6 +64,24 @@ tools/cad-venv/bin/python hardware/scripts/check_closure.py
 asserts every module the build actually read is named by that walk. A module it misses is a
 module that can move while everything downstream holds still.
 
+What a commit says, measured again from nothing:
+
+```
+python3 hardware/scripts/verify_clean.py
+```
+
+The commit is checked out into a worktree of its own, `owed.py --run` is run there, and what
+it leaves is compared to what was checked out. The `.cache/` there is empty, so no stamp says
+a generator has been watched and every figure is measured rather than compared to a hash of
+what measured it last; the working tree is the commit's own, so a file that never reached the
+index is absent however plainly it sits on the disk this ran from. The verdict is `git
+status`. This is the slow reading — the hook's three checks are the fast one.
+
+`.gitignore` holds `tools/cad-venv/` and `node_modules/`, so a checkout carries neither the
+interpreter nor the renderer's packages — without the second, `render-step-posed.js` resolves
+no import and every scene comes back exit 1. `verify_clean.TOOLCHAIN` names both, links them
+in for the run, and unlinks them before the verdict is read.
+
 Inside one run:
 
 | phase | wall |
