@@ -1561,6 +1561,34 @@ def shape_rows(a) -> list[dict]:
     return rows
 
 
+# --- the runs nothing holds on purpose --------------------------------------
+#
+# A run over `TUBE_ANCHOR_SPAN` with no rib on it is a run that sags. A name here is one the
+# machine leaves loose because a HAND takes it — the same shape as `NEVER` on the mounted axis:
+# out of the denominator, and its text goes out on the card.
+LOOSE = {
+    "fluid-4":
+        "The basin's own drain, and the one line in the machine a customer handles. It parts at "
+        "the union under the spout every time the hopper goes to the dishwasher and is pushed "
+        "back at the same collet, so the length between that joint and V-B has to give: a rib "
+        "strapped across it would be a fixed point the customer works against, and the run would "
+        "take the load at the collet instead of along its own length.",
+}
+
+
+def loose_holds(spans) -> None:
+    """Every name in `LOOSE` is a run the machine still draws."""
+    for rid, why in LOOSE.items():
+        if rid not in spans:
+            raise ValueError(
+                f"`LOOSE` leaves {rid!r} unanchored on purpose and the machine draws no run by "
+                f"that name — it has been renamed or rerouted away, and this exemption is what "
+                f"is still holding a place for it.")
+        if not why.strip():
+            raise ValueError(
+                f"{rid!r} is left unanchored with no reason given, and the card prints this text.")
+
+
 def _tube_anchored(a, runs) -> Check:
     """How far each run goes with nothing holding it.
 
@@ -1576,14 +1604,20 @@ def _tube_anchored(a, runs) -> Check:
     spans = _ea.unsupported_spans(runs, tuple(getattr(a, "tube_anchors", ()))
                                   + tuple(getattr(a, "cap_tube_anchors", ())))
     cap = _ea.TUBE_ANCHOR_SPAN
-    over = sorted(((s, rid) for rid, s in spans.items() if s > cap), reverse=True)
+    loose_holds(spans)
+    over = sorted(((s, rid) for rid, s in spans.items() if s > cap and rid not in LOOSE),
+                  reverse=True)
     anchored = {rid for rid, _leg, _root, _piece in _ea.TUBE_ANCHOR_SITES}
     detail = [f"{rid}: {s:.1f} mm unheld, {s - cap:.1f} over"
               + (" — anchored once already" if rid in anchored else "")
               for s, rid in over]
     detail += [f"{rid}: {spans[rid]:.1f} mm, held at its anchor" for rid in sorted(anchored)]
+    detail += [f"{rid}: {spans[rid]:.1f} mm unheld — left loose; {LOOSE[rid]}"
+               for rid in sorted(LOOSE)]
     return Check("tube-anchored", "No run goes further than one span with nothing holding it",
-                 "goal", _verdict(not over), f"{len(spans) - len(over)}/{len(spans)} within span",
+                 "goal", _verdict(not over),
+                 f"{len(spans) - len(over) - len(LOOSE)}/{len(spans) - len(LOOSE)} within span, "
+                 f"{len(LOOSE)} left loose",
                  f"{cap:.0f} mm between held points", detail)
 
 
