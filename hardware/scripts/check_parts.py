@@ -13,9 +13,13 @@ Under `.cache/stamps/parts/`, `_cadq_export._atomic_write` leaves, per solid, th
 drew it and the digest of every file that generator's text can reach. This hashes those files
 again and compares. What it costs is reading them; what drawing the solid costs is the build.
 
-A solid this machine has not watched is named with the generator beside it — the `.py` in its
-own directory — so a first run enrols it. A solid with no generator there is not this repo's to
-draw: `hardware/reference/` holds vendor geometry, and `git` is what watches that.
+A SOLID NOTHING HERE HAS STAMPED IS CARRIED, NOT OWED. `hardware/reference/` holds solids
+harvested from a vendor — `tee-connector.step` stands in for a John Guest PP0208E — and the
+`.py` beside one of those READS it to hold figures against, so naming that script as the remedy
+asks it to draw what it was written to measure, and asks again on the next pass forever. What
+this counts is the solids a run of this repo has been seen to cut. A part whose first build has
+yet to happen on this machine enrols at that build; `verify_clean.py`, which starts from no
+stamps at all, is what asks the question of a whole commit.
 """
 
 import subprocess
@@ -31,29 +35,17 @@ if str(_hw / "scripts") not in sys.path:
 import _realized                                        # noqa: E402
 
 
-def _generator_beside(step: Path):
-    """The `.py` in `step`'s own directory that draws it, or None.
-
-    ONE PER DIRECTORY IS THE CONVENTION and 101 of the 102 committed solids keep it, so the
-    remedy for a solid nothing has watched is derived rather than listed. A hand-kept list is
-    a list that goes stale the first time somebody adds a part and does not find it."""
-    here = [p for p in step.parent.glob("*.py") if not p.name.startswith("_")]
-    return here[0] if len(here) == 1 else None
-
-
 def main() -> int:
     tracked = subprocess.run(["git", "-C", str(_root), "ls-files", "hardware"],
                              capture_output=True, text=True, check=True).stdout.split()
     steps = [_root / f for f in tracked if f.endswith(".step")]
 
-    watched, owed, unwatched = 0, set(), []
+    watched, owed, carried = 0, set(), []
     for step in sorted(steps):
         rel = step.relative_to(_root)
         held = _realized.stamp_read("parts", step)
         if not held:
-            gen = _generator_beside(step)
-            if gen is not None:
-                unwatched.append((rel, gen.relative_to(_root)))
+            carried.append(rel)
             continue
         watched += 1
         moved = _realized.moved(held.get("sources") or {})
@@ -65,20 +57,14 @@ def main() -> int:
                   f"      run tools/cad-venv/bin/python {held['by']}")
             owed.add(rel)
 
-    for rel, gen in unwatched[:8]:
-        print(f"  {rel}\n      nothing here has watched this solid being cut\n"
-              f"      run tools/cad-venv/bin/python {gen}")
-    if len(unwatched) > 8:
-        print(f"  …and {len(unwatched) - 8} more solids nothing here has watched")
-
-    if owed or unwatched:
+    if owed:
         # WHAT RUNS THEM. `owed` asks every check, runs exactly what they name, and does it in
         # the order a part is drawn before an assembly measures it and a sync copies the
         # measurement — which a hand-rolled pass over one check's answer cannot.
         print("\n  all of them, to a fixpoint: python3 hardware/scripts/owed.py --run")
-    print(f"{watched - len(owed)}/{watched} solids are the ones their generators draw"
-          + (f", and {len(unwatched)} have yet to enrol" if unwatched else ""))
-    return 1 if (owed or unwatched) else 0
+    print(f"{watched - len(owed)}/{watched} solids are the ones their generators cut"
+          + (f", and {len(carried)} are carried" if carried else ""))
+    return 1 if owed else 0
 
 
 if __name__ == "__main__":

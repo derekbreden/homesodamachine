@@ -808,19 +808,20 @@ water_outlet_climb_x = -48.5
 # cable's way out is the slot it is already lying in and a bore in the cap over the mouth of it.
 # The column drops into the channel at `assembly/cold-core.md` step 7 and the cap goes on after
 # it, so what this bore passes is the cable and never the column.
-#   IT STEPS OFF THE CAVITY'S CENTRE TOWARD RESERVOIR B'S DRAW. B's channel shares the forward
-# band with that draw's own conduit one lane over, and on the cavity's centre the two columns
-# stand at exactly the tangent `cap_conduit_pair_neck` refuses — too near to leave the pour its
-# gap between them, too far to fuse. The step carries them into the MERGED state instead: one
-# post with two bores up it and a neck between them thicker than the wall it takes. A's channel
-# has nothing beside it and takes the same station mirrored, because one figure for both sides
-# is what makes the pair read as one lane.
+#   IT STEPS OFF THE CAVITY'S CENTRE AWAY FROM RESERVOIR B'S DRAW. B's channel shares the
+# forward band with that draw's own conduit one lane over, and on the cavity's centre the two
+# columns stand at exactly the tangent `cap_conduit_pair_neck` refuses — too near to leave the
+# pour its gap between them, too far to fuse. Stepping the other way, INTO the merge, is a
+# window `cap_conduit_entry_skew` closes from the other side: two bores near enough to share a
+# post still open two entry cones in the lid, and those may not overlap. So the pair stands
+# APART, and the step is what buys the gap. A's channel has nothing beside it and takes the same
+# station mirrored, because one figure for both sides is what makes the pair read as one lane.
 #   The bore is wider than the cavity and stands proud of it either side in X; what it owes is
 # that it OPEN on the cavity rather than clip its corner, which is `_reed_channels` bound
 # `reed-cable-conduit-stands-over-its-channel`.
 reed_cable_conduit_x = bag_pocket_outermost_x + reed_x_depth / 2.0
-reed_cable_conduit_merge_step = 1.5
-reed_cable_conduit_y = level_rod_y + reed_cable_conduit_merge_step
+reed_cable_conduit_step = 1.5
+reed_cable_conduit_y = level_rod_y - reed_cable_conduit_step
 
 
 def reed_cable_conduit_xy(side):

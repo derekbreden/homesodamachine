@@ -45,6 +45,7 @@
     "SCREW_HEAD_H": "3 mm",
     "SCREW_LEN": "25",
     "SCREW_REACH": "6.2 mm",
+    "SLOT_FLOOR_Z": "6.75 mm",
     "SLOT_Z": "port-lane evap-inlet 27.75; west-lane evap-outlet 27.75",
     "SUPPORT_RING_H": "30 mm",
     "SUPPORT_RING_INNER_R": "61.5 mm",
