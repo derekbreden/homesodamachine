@@ -62,7 +62,7 @@ PARTS = (
     ("foam cap bottom", "Cold-core foam cap — bottom", ("foam-cap-bottom",)),
     ("foam cap lid bottom", "Cold-core foam cap lid — bottom", ("foam-cap-lid-bottom",)),
     ("copper plugs", "Copper-plug stack (3 plugs)",
-     ("copper-plug-lower", "copper-plug-middle", "copper-plug-top")),
+     ("copper-plug-west", "copper-plug-port")),
     ("PRV shroud", "PRV shroud", ("prv-shroud",)),
     ("reservoir body L", "Flavor reservoir body — left", ("reservoir-b",)),
     ("reservoir body R", "Flavor reservoir body — right", ("reservoir-a",)),

@@ -456,7 +456,7 @@ Pass-through Z heights (centers, absolute in the model — the floor occupies
 z = 0 to z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the
 cavity floor):
 
-[port-lane evap-inlet 27.75; west-lane prv-vent 19.75, evap-outlet 27.75](SLOT_Z)
+[port-lane evap-inlet 27.75; west-lane evap-outlet 27.75](SLOT_Z)
 
 The three stand at the front port field's own pitch rather than each crossing
 where its own fitting sits: each line leaves its fitting, turns onto its lane and climbs
@@ -469,19 +469,19 @@ of the shell's front face — field and slots together — is one band in the bo
 packed against this face reach every port in one reach. `copper_plugs.py` derives
 them.
 
-Three printed PETG **copper plugs**, one per span, slide down into their own lane's slot
+Two printed PETG **copper plugs**, one per lane, slide down into their own lane's slot
 from above:
 
 | Plug | Lane | Z span (mm) | Z end arches |
 |---|---|---|---|
-| `copper-plug-lower` | west | [19.75 → 27.75](PLUG_SPAN_LOWER) | both ends |
-| `copper-plug-middle` | west | [27.75 → 213.4](PLUG_SPAN_MIDDLE) | bottom end only (top flat) |
-| `copper-plug-top` | port | [27.75 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
+| `copper-plug-west` | west | [27.75 → 213.4](PLUG_SPAN_WEST) | bottom end only (top flat) |
+| `copper-plug-port` | port | [27.75 → 213.4](PLUG_SPAN_PORT) | bottom end only (top flat) |
 
-The spans meet end-to-end **at the pass-through centers**: each plug
-runs from one tube's center to the next, and the arch cutout at each
-end holds exactly half of that tube. A stack tiles its own slot from that lane's
-lowest line to the wall top with no linear gaps — the tube is the gap.
+Each plug runs from its own tube's center to the wall top, and the arch cutout at
+its bottom end holds exactly half of that tube — the tube is the gap. **The two come
+out the same solid**, because the two lanes carry one copper each and both cross at
+the same height; they stay two parts because a plug is what fills one column, and a
+station added to either lane divides that lane's plug alone.
 
 Each plug has a **binder-clip cross-section** that grips the wall
 edge instead of floating loosely in the slot. Viewed end-on, it's a
@@ -642,8 +642,8 @@ This drives several dimension choices:
 
 **Print with stock Bambu Studio defaults.**
 
-Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
-`copper-plug-middle` + `copper-plug-top` together; the two `foam-cap`s +
+Plate contents (when slicing): `foam-shell` + `copper-plug-west` +
+`copper-plug-port` together; the two `foam-cap`s +
 their two lids on a separate plate (the TPU gaskets on their own TPU
 plate).
 
@@ -685,11 +685,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1040192.733 mm³](FSHELL_VOLUME) |
+| volume | [1040232.963 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.733506, 0.450806, 87.576919) mm](CENTROID) |
+| centroid | [(0.718979, 0.453021, 87.564428) mm](CENTROID) |
 
 Quick reproduction:
 

@@ -253,6 +253,30 @@ def cut_line_corridors(foam_shell, gives_way):
     return foam_shell
 
 
+def cut_prv_vent_port(foam_shell):
+    """The PRV vent's opening through the +Y OUTER wall — the one place a line is let out
+    through this shell's skin, and it is named here rather than swept up by
+    `cut_line_corridors` for exactly that reason.
+
+    THE OUTER SHELL IS NOT IN `gives_way` AND MUST NOT BE. What keeps six lines climbing to
+    the lid instead of punching out wherever they happen to touch the skin is that the skin
+    never yields to a corridor: a run that meets it reads blocked, and `report_routes` says
+    so. Opening it for one line is a decision about that line, so it is written as one line's
+    own cut with that line's own name on it.
+
+    WHY THIS LINE. The core is reached through its lid because nothing potted in it can be
+    reached again, so every run the machine has to make up is brought to the one face the
+    service bay stands on. A relief vent is made up on nothing — it ends open — and what it
+    owes instead is the shortest path to air outside the cabinet, because tube length on a
+    relief path is discharge taken off the valve's rating. The opening is the line's own
+    ⌀[6.5](PORT_HOLE_DIAMETER) corridor, the same tight fit round the tube that keeps the pour
+    out of a pocket, and the tube runs on through it into the socket the appliance's own west
+    wall holds across the band."""
+    from _internal_routes import route_corridor
+
+    return foam_shell.cut(route_corridor("prv-vent"))
+
+
 def cut_lane_slots(foam_shell):
     """One Z-elongated slot through the outer-shell −X wall per LANE, each plugged by a stack
     slid down in from above.

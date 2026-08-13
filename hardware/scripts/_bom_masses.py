@@ -48,9 +48,8 @@ PARTS = {
     "Cold-core foam cap — bottom": ["cold-core/foam-cap/foam-cap-bottom.step"],
     "Cold-core foam cap lid — bottom": ["cold-core/foam-cap/foam-cap-lid-bottom.step"],
     "Copper-plug stack (3 plugs)": [
-        "cold-core/copper-plugs/copper-plug-lower.step",
-        "cold-core/copper-plugs/copper-plug-middle.step",
-        "cold-core/copper-plugs/copper-plug-top.step",
+        "cold-core/copper-plugs/copper-plug-west.step",
+        "cold-core/copper-plugs/copper-plug-port.step",
     ],
     "PRV shroud": ["cold-core/prv-shroud/prv-shroud.step"],
     "Flavor reservoir body — left": ["cold-core/reservoir/reservoir-left.step"],
