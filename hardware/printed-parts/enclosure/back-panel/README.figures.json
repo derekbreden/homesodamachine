@@ -1,0 +1,13 @@
+{
+  "/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": {
+    "AC_RECESS_DEPTH": "3\u20135 mm",
+    "CARB_COLOR": "#1f6feb",
+    "CARB_END": "east",
+    "CO2_COLOR": "#d63a3a",
+    "CO2_HOLE_D": "17.86",
+    "FLAVOR_B_END": "west",
+    "PANEL_HOLE_D": "18.0 mm",
+    "PANEL_HOLE_D_SHORT": "18",
+    "WATER_COLOR": "#ffffff"
+  }
+}

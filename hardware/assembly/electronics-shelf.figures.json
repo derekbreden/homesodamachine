@@ -1,0 +1,16 @@
+{
+  "/hardware/assembly/_electronics_shelf_sync.py": {
+    "COMP_LEAD_LEN": "~400 mm",
+    "PCBA_SIZE": "85 \u00d7 72.8 mm",
+    "PIGTAIL_INLET": "~150 mm",
+    "PIGTAIL_MEDIUM": "~100 mm",
+    "PIGTAIL_SHORT": "~50 mm",
+    "PIGTAIL_SLACK": "~150 mm",
+    "PSU_CURRENT": "6.7 A",
+    "PSU_POWER": "80 W",
+    "PSU_VOLTAGE": "12 V",
+    "RELAY_COMPRESSOR_GPIO": "IO19",
+    "RELAY_DIAPHRAGM_GPIO": "IO2",
+    "WAGO_COUNT": "5"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "/hardware/assembly/_handwork_sync.py": {
+    "LAID_FT": "13.41 ft",
+    "PITCH": "12.33 mm",
+    "RESERVOIR_ROD_LEN": "175.4 mm (6.91 in)",
+    "ROD_LEN": "131.1 mm (5.16 in)",
+    "STUB_INLET": "335.5 mm",
+    "STUB_OUTLET": "404.6 mm"
+  }
+}

@@ -103,14 +103,14 @@ def to_dict(sc: Scorecard) -> dict:
 
 
 def write(sc: Scorecard, step: Path, drawn_by) -> Path:
-    """The card beside `step`, carrying the digest of the text `drawn_by` was drawn from —
-    `_scorecard.write` states what that digest is for."""
+    """The card beside `step`, and the digest of the text `drawn_by` was drawn from stamped off
+    the tree — `_scorecard.write` states what that digest is for."""
     import _realized
 
     out = step.parent / (step.stem + ".scorecard.json")
-    card = to_dict(sc)
-    card["sources"] = _realized.digest(_realized.source_files(drawn_by))
-    out.write_text(json.dumps(card, indent=1) + "\n")
+    out.write_text(json.dumps(to_dict(sc), indent=1) + "\n")
+    _realized.stamp_write("cards", out,
+                          {"sources": _realized.digest(_realized.source_files(drawn_by))})
     return out
 
 

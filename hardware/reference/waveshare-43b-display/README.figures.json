@@ -1,0 +1,14 @@
+{
+  "/hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {
+    "BEZEL_CORNER_R": "2.5",
+    "BEZEL_DEPTH": "1",
+    "BEZEL_HEIGHT": "77",
+    "BEZEL_OFFSET_X": "-0.5 mm",
+    "BEZEL_OFFSET_Z": "1 mm",
+    "BEZEL_WIDTH": "113.5",
+    "BODY_DEPTH": "17",
+    "BODY_HEIGHT": "69",
+    "BODY_WIDTH": "106",
+    "TOTAL_DEPTH": "18"
+  }
+}

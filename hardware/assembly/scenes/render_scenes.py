@@ -30,6 +30,7 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
+import _realized                                        # noqa: E402
 import _scenes                                          # noqa: E402
 from _cadq_export import export_assembly                # noqa: E402
 
@@ -167,18 +168,18 @@ def draw(scene, assembly) -> Path:
         print("   " + " ".join(cmd[1:]))
         subprocess.run(cmd, cwd=str(_ROOT), check=True)
 
-    # What drew it, so `check_scenes` can doubt the picture without importing anything: the
-    # scene's own tuple hashed, and every repo file the build reads, walked from in here where
-    # the graph is complete and free. Beside those, the geometry it was drawn of, the picture
-    # that came out, and the bodies that went into it — the machine's answer at the moment of
-    # the render, which the check reads back.
+    # What the picture is OF, so `check_scenes` can doubt it without importing anything: the
+    # scene's own tuple hashed, the geometry it was drawn of, the picture that came out, and the
+    # bodies that went into it — the machine's answer at the moment of the render.
     _scenes.sidecar_path(png).write_text(json.dumps({
         "scene": _scenes.scene_digest(scene),
         "geometry": geometry,
-        "sources": _scenes.source_map(),
         "drawn": sorted(c.name for c in scene_assembly.children),
         "image": _scenes.image_fingerprint(png),
     }, indent=2, sort_keys=True) + "\n")
+    # And every repo file the build reads, walked from in here where the graph is complete and
+    # free, off the tree.
+    _realized.stamp_write("scenes", png, _scenes.source_map())
     return png
 
 

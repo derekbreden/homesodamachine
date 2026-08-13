@@ -1,0 +1,20 @@
+{
+  "/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py": {
+    "FILLET_R": "1.5 mm",
+    "PILL_L": "13.4 mm",
+    "PILL_W": "7.05 mm",
+    "PLATE_D": "54.45 mm",
+    "SHANK_HOLE_D": "12.6 mm"
+  },
+  "/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": {
+    "BODY_CYL_TOP_Z": "13 mm",
+    "BODY_OD": "31.5 mm",
+    "BODY_RECT_LONG": "31.5 mm",
+    "BODY_RECT_SHORT": "17 mm",
+    "BORE_CLEAR": "0.25 mm",
+    "BORE_COVE_Z": "19.25 mm",
+    "FLAVOR_TUBE_Y": "18.93 mm",
+    "PILL_L": "13.4 mm",
+    "PILL_W": "7.05 mm"
+  }
+}

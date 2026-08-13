@@ -1,0 +1,10 @@
+{
+  "/hardware/assembly/_pressure_vessel_sync.py": {
+    "ELBOW_ENV": "30 mm",
+    "REG_FIXED": "fixed-90 PSI",
+    "ROD_CLEARANCE": "1 mm",
+    "ROD_LEN": "131.1 mm (5.16 in)",
+    "TANK_H": "152.4 mm",
+    "WORKING_PSI": "90 PSI"
+  }
+}

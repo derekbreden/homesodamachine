@@ -1,0 +1,21 @@
+{
+  "/hardware/printed-parts/enclosure/drip-pan/drip_pan.py": {
+    "PAN_BEARING": "6.70",
+    "PAN_CAPACITY": "23.4",
+    "PAN_CORNER_R": "6",
+    "PAN_COVE_R": "2",
+    "PAN_DEPTH": "76",
+    "PAN_FLANGE": "10",
+    "PAN_FLOOR": "3",
+    "PAN_HEIGHT": "10",
+    "PAN_LEN": "52",
+    "PAN_RIM_CORNER_R": "16",
+    "PAN_RIM_DEPTH": "96",
+    "PAN_RIM_LEN": "72",
+    "PAN_VENT_GAP": "4",
+    "PAN_WALL": "2.5",
+    "PLATE_DEPTH": "40",
+    "PLATE_LEN": "54",
+    "PLATE_SLIP_MM": "1"
+  }
+}

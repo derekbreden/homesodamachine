@@ -1,0 +1,20 @@
+{
+  "/hardware/assembly/_faucet_and_umbilical_sync.py": {
+    "BODY_PORT_D": "10 mm",
+    "BODY_SQUEEZE": "0.22 mm",
+    "CAP_HOLE_D": "6.5 mm",
+    "CYL_L": "13.5 mm",
+    "FILLET_R": "1.5 mm",
+    "LLDPE_ID": "6.35 mm",
+    "LLDPE_INTERFERENCE": "0.1625 mm",
+    "LLDPE_OD": "9.525 mm",
+    "ORING_CAP_T": "2.1 mm",
+    "ORING_INNER_D": "9.2 mm",
+    "ORING_OUTER_D": "10.44 mm",
+    "PILL_L": "13.4 mm",
+    "PILL_W": "7.05 mm",
+    "PLATE_D": "54.45 mm",
+    "SHANK_HOLE_D": "12.6 mm",
+    "TOTAL_H": "15.6 mm"
+  }
+}

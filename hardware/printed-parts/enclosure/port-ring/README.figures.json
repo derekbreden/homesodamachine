@@ -1,0 +1,12 @@
+{
+  "/hardware/printed-parts/enclosure/port-ring/port_ring.py": {
+    "CO2_RING_BORE": "17.86",
+    "CO2_RING_OD": "30.04",
+    "CO2_RING_VOL": "0.92",
+    "RING_BORE": "18",
+    "RING_OD": "30.96",
+    "RING_THICK": "2",
+    "RING_VOL": "1.00",
+    "RING_W": "4.05"
+  }
+}

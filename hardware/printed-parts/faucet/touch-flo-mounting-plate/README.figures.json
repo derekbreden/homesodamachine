@@ -1,0 +1,18 @@
+{
+  "/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py": {
+    "BOSS_CHAMFER": "0.6 mm",
+    "BOSS_H": "7 mm",
+    "CBORE_D": "6.15 mm",
+    "PLATE_BOSS_D": "12.15 mm",
+    "PLATE_FLAVOR_Y": "18.93 mm",
+    "PLATE_PILL_L": "13.4 mm",
+    "PLATE_PILL_W": "7.05 mm",
+    "PLATE_T": "4 mm",
+    "PLATE_Y": "3.175 mm",
+    "PLATE_Z_BOTTOM": "-4",
+    "SHANK_D": "3.9 mm",
+    "SHANK_HOLE_D": "12.6 mm",
+    "SHANK_OD": "11 mm",
+    "TUBE_CENTER_X": "6.35 mm"
+  }
+}
