@@ -83,8 +83,8 @@ flowchart LR
       VI["V-I"]
     end
 
-    PB["pump-b<br/>channel A"]
-    PA["pump-a<br/>channel B"]
+    PA["pump-a<br/>channel A"]
+    PB["pump-b<br/>channel B"]
   end
 
   %% =========================
@@ -129,14 +129,14 @@ flowchart LR
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Y-C and Y-D each sit on one of pump B's two barbs, taken by the branch, at the hinge — so
+  %% Y-C and Y-D each sit on one of pump A's two barbs, taken by the branch, at the hinge — so
   %% each tee's run lies across the head's face and IS the outboard half of a limb. fluid-9 and
   %% fluid-17 are the two hairpins that cross the hinge: a quarter of R14, 31.4 mm of straight,
   %% and a quarter back. Everything else along the limbs is butted.
   VC -->|"fluid-9<br/>75.4 mm"| YC
   VE -->|"fluid-10<br/>butt"| YC
-  YC -->|"fluid-11<br/>butt"| PB
-  PB -->|"fluid-12<br/>butt"| YD
+  YC -->|"fluid-11<br/>butt"| PA
+  PA -->|"fluid-12<br/>butt"| YD
   YD -->|"fluid-13<br/>butt"| VF
   VF -->|"fluid-14<br/>380.4 mm"| ResAFill
   ResA -->|"fluid-16<br/>133.9 mm"| VE
@@ -146,13 +146,13 @@ flowchart LR
   %% =========================
   %% Channel B — fluid-19 … fluid-28
   %% =========================
-  %% Channel B mirrors channel A about x = 0. Y-F and Y-G sit on pump A's barbs, fluid-19 and
+  %% Channel B mirrors channel A about x = 0. Y-F and Y-G sit on pump B's barbs, fluid-19 and
   %% fluid-27 are its two hairpins, and V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19<br/>75.4 mm"| YF
   VH -->|"fluid-20<br/>butt"| YF
-  YF -->|"fluid-21<br/>butt"| PA
-  PA -->|"fluid-22<br/>butt"| YG
+  YF -->|"fluid-21<br/>butt"| PB
+  PB -->|"fluid-22<br/>butt"| YG
   YG -->|"fluid-23<br/>butt"| VI
   VI -->|"fluid-24<br/>194.3 mm"| ResBFill
   ResB -->|"fluid-26<br/>133.9 mm"| VH

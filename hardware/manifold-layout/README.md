@@ -25,7 +25,7 @@ about the hinge the four barb tees' front collets stand on.
 
 ## Frame
 
-X is width, mirrored about x = 0 — channel A (pump B) west, channel B (pump A) east. Y is
+X is width, mirrored about x = 0 — channel A west, channel B east, each over its own pump. Y is
 depth; the two nozzle mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
 height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
 [82.68](DECK_Z) and [142.08](UPPER_Z).
