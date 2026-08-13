@@ -2128,24 +2128,27 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 # ITS DEPTH COMES OUT OF A WALL THICKENED FROM THE INSIDE, into the band the core already
 # stands off, and the outer face stays the plane `outer` names.
 #
-# THE PASSAGE IS CLOSED WHERE THE TUBE LANDS AND OPEN BELOW IT. At the socket it is roofed on
-# the bore's own crown with the wall's SKIN still standing outboard of it, so the flank is
-# unbroken at that height and the one way out of the socket is DOWN. `vent_duct_drop` under
-# the bore the skin opens, and the passage carries on as a three-walled groove.
+# THE TUBE DROPS INTO A CRADLE AND ITS TIP FACES A CLOSED CHAMBER. The core comes down as one
+# unit (`cards/en-05-seat-cold-core`), so the cradle opens UPWARD and its cheeks flare over the
+# tube's own centre into the mouth it enters by. Around and under the tube those cheeks close
+# on it; west of its tip the chamber is the bore's own section, roofed on the bore's crown,
+# with the wall's SKIN standing outboard. The flank is unbroken at that height and the way out
+# of the chamber is DOWN. `vent_duct_drop` under the bore the skin opens, and the passage
+# carries on as a three-walled groove.
 #
 # AND THE GROOVE ENDS BY RUNNING OUT. Its floor ramps back to the outer face over
 # `vent_ramp_rise`, so the recess grows shallower until it is gone, and the flow reaches the
 # face travelling away from it, well above the foot. CO2 is heavier than air and falls from
 # there on its own.
-vent_socket_reach = 8.0        # what the core's tube stands proud of its flank — one number,
-                               # read against `_internal_routes.prv_vent_reach` by the machine
-vent_rib_reach = 6.0           # how far the wall is thickened inboard, to the tube's own tip
 vent_bore_d = 6.5              # the shell's own ⌀6.5-round-⌀6.35 standard, again
 vent_channel_w = 12.0          # the channel, across — several times the tube's bore in section
 vent_rib_wall = 2.0            # PETG either side of it, and behind it
-# Struck off the skin's INNER face, with the rib's balance standing behind it. `vent_rib_reach`
-# follows the tube's tip; this follows that.
-vent_channel_depth = vent_rib_reach - vent_rib_wall
+# The cradle, struck off the tube's TIP — which the station carries, so how far the wall
+# reaches inboard is the core's own placement and not a number typed here. Everything east of
+# the tip is under the tube; everything the tube must fall through is the mouth.
+vent_saddle_reach = 4.0        # how much of the tube's last length the cheeks close on
+vent_saddle_rise = 2.0         # how far they stand over its centre
+vent_saddle_flare = 2.5        # and how far they open out over that
 vent_duct_drop = 25.0          # the closed fall under the bore, before the skin opens
 vent_groove_drop = 25.0        # the open groove under that, which the duct discharges into
 vent_ramp_rise = 40.0          # over which the floor runs back out and turns the flow west
@@ -2154,26 +2157,34 @@ vent_ramp_rise = 40.0          # over which the floor runs back out and turns th
 def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     """The PRV vent's chase on a −X wall PIECE, for the station inside the band it owns.
 
-    One station, `(y, z)`: where the core's tube arrives, in the machine's own frame. Three
-    moves. A RIB is fused up the wall's inner face over the channel's run, reaching
-    `vent_rib_reach` inboard, which lands its face exactly on the tube's tip so the tube
-    BOTTOMS rather than spanning the band. The CHANNEL is cut back out of it in one profile —
-    roofed duct, open groove and run-out ramp are one polygon, one passage, and what changes
-    down it is how much of the wall is still standing outboard. And between them the SOCKET,
-    the tube's own bore, cut FORWARD-OPEN: the core is slid aft onto its stops, so the tube
-    sweeps in from the front and comes to rest at the socket's aft end.
+    One station, `(x, y, z)`: the tube's own tip, in the machine's own frame. A RIB is fused up
+    the wall's inner face and everything else is cut back out of it. It stands `vent_saddle_reach`
+    past the tip as far up as the cheeks go, and only to the tip above them — so the column the
+    tube falls down is clear of wall from the mouth to the roof of the box.
+
+    Three cuts. The CHANNEL, west of the tip: roofed duct, open groove and run-out ramp in one
+    polygon, one passage, and what changes down it is how much of the wall is still standing
+    outboard. The CHAMBER, the bore's own section, roofed on the bore's crown and closed on
+    every side but the tip's and the duct's. And the CRADLE east of the tip, a trough of the
+    tube's own bore opening upward, its cheeks vertical to the tube's centre and flared over it
+    into the mouth — so the tube lands in an `vent_saddle_flare`-wider opening and is carried
+    down to a bore fit.
 
     THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
     down as that floor is still inboard of what the skin alone stands `vent_rib_wall` behind.
     Under that the ramp is cutting skin the wall already had, and the rib ends on the ramp's
     own slope."""
-    for sy, sz in stations:
+    for sx, sy, sz in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        rib_x = inner[0] + vent_rib_reach
-        floor_x = inner[0] + vent_channel_depth     # the channel's own back face, all the way down
+        bore_h = vent_bore_d / 2.0
+        rib_x = sx + vent_saddle_reach              # the cradle's east face
+        floor_x = rib_x - vent_rib_wall             # the channel's back face, all the way down
         half = vent_channel_w / 2.0 + vent_rib_wall
-        duct_top = sz + vent_bore_d / 2.0           # the roof, on the bore's own crown
+        duct_top = sz - bore_h                      # the duct's roof, and the cradle's floor
+        cham_top = sz + bore_h                      # the chamber's, on the bore's own crown
+        saddle_top = sz + vent_saddle_rise
+        mouth_h = bore_h + vent_saddle_flare
         groove_top = sz - vent_duct_drop            # where the skin opens
         ramp_top = groove_top - vent_groove_drop
         ramp_bot = ramp_top - vent_ramp_rise        # where the floor has met the outer face
@@ -2183,7 +2194,8 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         rib_end = ramp_top - vent_ramp_rise * ((floor_x - (inner[0] - vent_rib_wall))
                                                / (floor_x - outer[0]))
         solid = solid.fuse(_xz_prism(sy - half, sy + half,
-                                     [(inner[0], sz + half), (rib_x, sz + half),
+                                     [(inner[0], sz + half), (sx, sz + half),
+                                      (sx, saddle_top), (rib_x, saddle_top),
                                       (rib_x, ramp_top), (inner[0], rib_end)]))
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(floor_x, duct_top),            # \ the floor, straight down
@@ -2192,10 +2204,14 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                      (outer[0] - 1.0, groove_top),   # the groove's open side
                                      (inner[0], groove_top),         # over it the skin stands,
                                      (inner[0], duct_top)]))         # and that closes the duct
-        # The socket: the tube's bore through the rib, open forward for the core's own travel.
-        # It stops on the skin's inner face, so the flank is unbroken at the height it lands.
-        solid = solid.cut(_ybox(inner[0], rib_x + 1.0, sy - half - 1.0, sy + vent_bore_d / 2.0,
-                                sz - vent_bore_d / 2.0, sz + vent_bore_d / 2.0))
+        solid = solid.cut(_ybox(inner[0], sx + 1.0, sy - bore_h, sy + bore_h,
+                                duct_top, cham_top))
+        solid = solid.cut(_yz_prism(sx, rib_x + 1.0,
+                                    [(sy - bore_h, duct_top), (sy + bore_h, duct_top),
+                                     (sy + bore_h, sz), (sy + mouth_h, saddle_top),
+                                     (sy + mouth_h, saddle_top + 1.0),
+                                     (sy - mouth_h, saddle_top + 1.0),
+                                     (sy - mouth_h, saddle_top), (sy - bore_h, sz)]))
     return solid
 
 

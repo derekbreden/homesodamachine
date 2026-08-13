@@ -1333,7 +1333,10 @@ def core_stops(foam) -> tuple:
 
 def vent_chase(foam_carry) -> tuple:
     """Where the cold core's PRV relief line arrives at the west wall, as
-    `enclosure.Box.vent_chase` — one `(y, z)` in the machine's own frame.
+    `enclosure.Box.vent_chase` — one `(x, y, z)` in the machine's own frame.
+
+    The X is the tube's own TIP, and it is what the wall's cradle is struck from, so how far
+    the line stands off that wall is the core's statement too and not a reach retyped here.
 
     THE CORE STATES THIS, NOT THE BOX. `_internal_routes` draws the line to the far end of its
     own run — out through the shell's +Y flank and `prv_vent_reach` proud of it — and the point
@@ -1348,7 +1351,7 @@ def vent_chase(foam_carry) -> tuple:
     hazard `check_cards._digest` now walks in a subprocess to avoid. `_foam` already holds it."""
     tip = _foam.routes.routes["prv-vent"][-1]
     at, _axis = foam_carry((tip, (0.0, 1.0, 0.0)))
-    return ((at[1], at[2]),)
+    return ((at[0], at[1], at[2]),)
 
 
 def core_holds(foam) -> tuple:
