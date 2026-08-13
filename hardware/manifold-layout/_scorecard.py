@@ -457,12 +457,12 @@ def fastened_by(name: str):
 # fastened — by a clamp that ships with it, onto a donor the machine stands on grommets to hold
 # off itself. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
-    # THE BASIN AND THE TWO BODIES MADE UP ON ITS SPOUT. The basin lifts out of the top wall and
-    # goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the top
-    # wall's outer face and its collar fills the opening cut for it, and the union's collet grips
-    # the stub through the wall — thumb on the collet and the whole basin comes away. A printed
-    # feature closing on any of the three would be a feature the customer has to work past every
-    # time the basin is washed.
+    # THE BASIN AND THE THREE BODIES ON ITS SPOUT'S COLUMN. The basin lifts out of the top wall
+    # and goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the
+    # top wall's outer face and its collar fills the opening cut for it, and the union's collet
+    # grips the stub through the wall — thumb on the collet and the whole basin comes away. The
+    # union stays behind on its two collets. A printed feature closing on any of the four would be
+    # a feature the customer has to work past every time the basin is washed.
     "hopper-funnel":
         "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, "
         "and the union's collet grips the stub the spout carries — so the basin is held down by "
@@ -474,6 +474,11 @@ NEVER = {
     "hopper-drain-clamp":
         "A worm clamp closes on itself — the band draws through its own housing and the housing "
         "rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
+    "hopper-drain-union":
+        "Both its collets land on held bodies — the upper takes the stub the basin carries, the "
+        "lower starts `fluid-4` down to V-B in its cradle on the cold core's cap — so the barrel "
+        "hangs between two seats with nothing printed closing on it. It is the joint the customer "
+        "opens, and a thumb on that collet is the whole of the motion.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -501,6 +506,34 @@ NEVER = {
 # things — the pack still draws the butt, and the valve still has a printed seat.
 TEE_BUTTS = {"tee-y-a": "valve-v-c", "tee-y-b": "valve-v-d", "tee-y-c": "valve-v-e",
              "tee-y-d": "valve-v-f", "tee-y-f": "valve-v-h", "tee-y-g": "valve-v-i"}
+
+
+# The disconnect's lower end as data, `(body, port, run, what the run lands on)`. Its reason names
+# a run and a valve the same way a tee's names a valve, and `union_chain_lands` reads all three
+# back off the machine.
+UNION_CHAIN = ("hopper-drain-union", "outlet", "fluid-4", "valve-v-b")
+
+
+def union_chain_lands(rows, runs) -> None:
+    """The union's lower collet still starts the run it names, and that run still ends on a seat."""
+    name, port, rid, lands = UNION_CHAIN
+    by_name = {n: by for n, by, _joint in rows}
+    run = next((r for r in runs if r.id == rid), None)
+    if run is None or f"{name}.{port}" not in (run.frm, run.to):
+        raise ValueError(
+            f"{name} is held out of the mounted axis because {rid} leaves its {port!r} collet, "
+            f"and no run by that name starts there — the chain the exemption rests on has been "
+            f"rerouted, so the row is claiming a hold that is not there.")
+    if lands not in {end.split(".")[0] for end in (run.frm, run.to)}:
+        raise ValueError(
+            f"{name} is held out of the mounted axis because {rid} lands on {lands}, and that "
+            f"run now ends {run.frm} → {run.to} — a chain is worth where it ends, and this one "
+            f"ends somewhere else.")
+    if by_name.get(lands) is None:
+        raise ValueError(
+            f"{name} is held out of the mounted axis because {rid} lands on {lands} in a printed "
+            f"seat, and {lands} is now fastened by nothing — so the union hangs off a body that "
+            f"hangs off nothing, and the row is an open joint again rather than an exemption.")
 
 
 def tees_butt_held(rows) -> None:
@@ -1391,7 +1424,7 @@ def _coverage(a) -> Check:
                  f"{len(placed & declared)}/{len(placed)} declared", "all declared", detail)
 
 
-def _mounted() -> Check:
+def _mounted(runs) -> Check:
     """The one fastening axis: a printed feature of another placed part, or nothing.
 
     The construction each open row stands on today rides in the detail, so the list says what
@@ -1407,6 +1440,7 @@ def _mounted() -> Check:
     never_holds(rows)
     rides_hold(rows)
     tees_butt_held(rows)
+    union_chain_lands(rows, runs)
     own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
     open_joints = sorted((n, joint) for n, by, joint in own
                          if by is None and n not in NEVER)
@@ -1769,7 +1803,7 @@ def _build(a) -> Scorecard:
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
-              _mounted(), _placed(a), _routed(conns), _located(a), _shaped(shapes),
+              _mounted(runs), _placed(a), _routed(conns), _located(a), _shaped(shapes),
               _tube_anchored(a, runs)]
     return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
 
