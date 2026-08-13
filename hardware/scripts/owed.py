@@ -74,6 +74,32 @@ def _coalesce(cmds: list) -> list:
     return out
 
 
+# The builds that MEASURE the machine, as against the ones that draw a part and the ones that
+# copy a measurement into a doc.
+ASSEMBLIES = ("enclosure_assembly.py", "cold_core_assembly.py", "foam_assembly.py")
+
+
+def _tier(cmd: str) -> int:
+    """Which of the three strata a generator is in: parts draw solids, assemblies measure them,
+    syncs copy the measurements.
+
+    A PASS RUNS IN THE ORDER THE CHECKS NAME THINGS, and no check can see that one generator
+    writes what another reads. The doc syncs read `enclosure-assembly.facts.json`; the assembly
+    writes it. Named the other way round — which is the order they came in — a sync copies the
+    PREVIOUS build's figures into its doc and then stamps itself current, so the next `_ask` has
+    no reason to name it again and the run reports green over a doc that is one build behind.
+    Nothing downstream ever catches it: the checks compare the digest of a generator's SOURCES,
+    and those did not move.
+
+    So the order is the fix, and it is the only fix — a second pass cannot help something that
+    has already declared itself current. Sorted stably, so within a stratum the checks' own
+    order still stands."""
+    name = cmd.split()[-1].rsplit("/", 1)[-1]
+    if name.endswith("_sync.py") or name.endswith("_dimensions.py"):
+        return 2
+    return 1 if name in ASSEMBLIES else 0
+
+
 def _ask() -> tuple:
     """Every generator the checks name, in the order they name it, and whether all three
     came back clean."""
@@ -92,7 +118,7 @@ def _ask() -> tuple:
                 cmd = f"tools/cad-venv/bin/python {cmd}"
             if cmd not in owed:
                 owed.append(cmd)
-    return _coalesce(owed), clean
+    return sorted(_coalesce(owed), key=_tier), clean
 
 
 def _run(cmd: str) -> tuple:
