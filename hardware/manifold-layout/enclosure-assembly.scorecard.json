@@ -7,7 +7,7 @@
    "min": [
     -110.5,
     -6.0,
-    -3.0
+    -4.0
    ],
    "max": [
     110.5,
@@ -17,7 +17,7 @@
    "mm": [
     221.0,
     478.25,
-    358.0
+    359.0
    ]
   },
   {
@@ -26,7 +26,7 @@
    "min": [
     -110.5,
     -6.0,
-    -3.0
+    -4.0
    ],
    "max": [
     110.5,
@@ -36,7 +36,7 @@
    "mm": [
     221.0,
     491.891,
-    361.0
+    362.0
    ]
   }
  ],
@@ -150,6 +150,7 @@
     "water-3 \u2014 step-fluid-5: 1.338 mm",
     "carb-1 \u2014 pcba: 1.485 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
+    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
     "water-7 \u2014 co2-2: 1.725 mm",
     "fluid-4 \u2014 coil-v-a: 1.981 mm",
@@ -157,13 +158,12 @@
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm",
     "fluid-4 \u2014 valve-v-a: 2.055 mm",
     "fluid-14 \u2014 fluid-16: 2.091 mm",
+    "fluid-18 \u2014 vk-solenoid: 2.250 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
-    "carb-1 \u2014 fluid-18: 2.266 mm",
     "water-5 \u2014 water-3: 2.327 mm",
     "fluid-28 \u2014 foam-assembly: 2.449 mm",
     "pcba \u2014 relay-1: 2.532 mm",
     "water-3 \u2014 hopper-drain-union: 2.640 mm",
-    "fluid-18 \u2014 vk-solenoid: 2.650 mm",
     "fluid-2 \u2014 fluid-24: 2.685 mm",
     "foam-assembly \u2014 pcba: 2.957 mm",
     "fluid-14 \u2014 seaflo-pump: 3.009 mm",
@@ -173,12 +173,14 @@
     "coil-v-i \u2014 wago-manb: 3.680 mm",
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
+    "fluid-18 \u2014 fluid-14: 3.852 mm",
+    "fluid-18 \u2014 seaflo-pump: 4.000 mm",
     "seaflo-pump \u2014 co2-inlet: 4.155 mm",
     "fluid-2 \u2014 valve-v-b: 4.321 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
-    "water-6 \u2014 fluid-18: 4.382 mm",
     "water-3 \u2014 valve-v-b: 4.406 mm",
     "water-3 \u2014 valve-v-a: 4.413 mm",
+    "water-6 \u2014 fluid-18: 4.439 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
     "refrig-2 \u2014 enclosure-front-bottom: 4.575 mm",
     "refrig-3 \u2014 enclosure-front-bottom: 4.575 mm",
@@ -189,11 +191,9 @@
     "fluid-26 \u2014 fluid-4: 5.080 mm",
     "water-3 \u2014 fluid-4: 5.092 mm",
     "wago-reeds-b \u2014 water-split: 5.200 mm",
-    "fluid-18 \u2014 pcba: 5.374 mm",
     "foam-assembly \u2014 hopper-drain-union: 5.392 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "water-3 \u2014 discharge-chain: 5.505 mm",
-    "fluid-18 \u2014 seaflo-pump: 5.535 mm",
     "fluid-28 \u2014 wago-reeds-b: 5.636 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
@@ -1204,7 +1204,7 @@
    "value": "20/22 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 472.2 mm unheld, 272.2 over",
+    "fluid-18: 461.0 mm unheld, 261.0 over",
     "fluid-2: 243.1 mm unheld, 43.1 over",
     "carb-1: 143.8 mm, held at its anchor",
     "co2-2: 118.7 mm, held at its anchor",
@@ -4901,121 +4901,6 @@
    }
   },
   {
-   "id": "fluid-18",
-   "kind": "fluid",
-   "frm": "valve-v-g.outlet",
-   "to": "bulkhead-flavor-a.tube-in",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 472.18,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      43.79,
-      34.69
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 27.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      34.69,
-      93.32
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      93.32,
-      131.71
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      131.71,
-      82.67
-     ]
-    },
-    {
-     "at": 5,
-     "turn": 20.7,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      82.67,
-      104.21
-     ]
-    }
-   ],
-   "atSpec": 5,
-   "bends": 5,
-   "worstTurn": 90.0,
-   "seat": 27.982,
-   "reach": 27.982,
-   "reachRatio": 1.9987,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 34.687,
-    "demand": 1.2396,
-    "from": [
-     77.07,
-     142.08,
-     270.97
-    ],
-    "to": [
-     88.0,
-     175.0,
-     270.97
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      77.07,
-      142.08,
-      227.18
-     ],
-     [
-      -43.71,
-      444.21,
-      273.83
-     ]
-    ],
-    "axis": {
-     "x": 120.78,
-     "y": 302.13,
-     "z": 46.65
-    },
-    "span": 328.71,
-    "path": 472.18,
-    "detour": 1.436
-   }
-  },
-  {
    "id": "fluid-28",
    "kind": "fluid",
    "frm": "valve-v-j.outlet",
@@ -5117,6 +5002,121 @@
     "span": 305.74,
     "path": 342.25,
     "detour": 1.119
+   }
+  },
+  {
+   "id": "fluid-18",
+   "kind": "fluid",
+   "frm": "valve-v-g.outlet",
+   "to": "bulkhead-flavor-a.tube-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 461.04,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      72.02,
+      47.02
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 45.6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      47.02,
+      91.83
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      91.83,
+      87.21
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      87.21,
+      77.45
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 19.1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      77.45,
+      104.21
+     ]
+    }
+   ],
+   "atSpec": 5,
+   "bends": 5,
+   "worstTurn": 90.0,
+   "seat": 33.112,
+   "reach": 33.112,
+   "reachRatio": 2.3652,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 47.018,
+    "demand": 1.42,
+    "from": [
+     77.07,
+     142.08,
+     299.2
+    ],
+    "to": [
+     43.5,
+     175.0,
+     299.2
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.07,
+      142.08,
+      227.18
+     ],
+     [
+      -43.71,
+      444.21,
+      273.83
+     ]
+    ],
+    "axis": {
+     "x": 120.78,
+     "y": 302.13,
+     "z": 46.65
+    },
+    "span": 328.71,
+    "path": 461.04,
+    "detour": 1.403
    }
   },
   {
