@@ -44,14 +44,16 @@ every tracked file byte-identical.
 | a comment-only edit to a file in every closure | nothing owed |
 | a code edit to `_boxes.py` that moves no figure | 184 s, no file changed |
 | `enclosure_assembly.py`, nothing moved | 17 s |
-| `enclosure_assembly.py`, three elevations drawn | 27–30 s |
 | `render_scenes.py`, four scenes, geometry unchanged | 19 s |
 | `render_scenes.py`, four scenes redrawn | 30 s |
 
 A picture is the same picture every run. Every renderer in `tools/render/` reads the frame
 back off the canvas in the task that drew it (`browser.js` `frameBuffer` carries why), so
 nothing here is a race and a redraw of unmoved geometry lands byte-identical — eight runs of
-one scene, eight of one part, three elevations, one hash each.
+one scene and eight of one part, one hash each.
+
+A view of any STEP, from any angle, is `tools/look.sh` — drawn when someone asks for one, so
+there is none of it in the tree to go stale.
 
 What the walk names, a build reads:
 
@@ -91,7 +93,6 @@ Inside one run:
 | OCCT STEP write, 21 MB | 1.3 s |
 | canonicalise — renumber 382,700 entities | 3.7 s |
 | tessellate the `.mesh` payload | 1.6 s |
-| three ortho elevations, x-ray, 1600×1200 | 3 s |
 | one thumbnail, drawn off the payload | 3 s |
 | one thumbnail, drawn off the STEP with no payload beside it | 16 s |
 
