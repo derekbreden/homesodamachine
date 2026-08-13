@@ -728,59 +728,6 @@ def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
     return probe.intersect(block).Volume() <= 1e-6
 
 
-def _chain_bands(inner):
-    """The two ±X boss-chain bands as (x0, x1) pairs — the walls' own standoff off
-    the cold core, where the seam's mouth, plugs and sockets stand."""
-    ix0, ix1 = inner[0], inner[1]
-    return [tuple(sorted((x_in, x_in + sx * boss_in)))
-            for x_in, sx in ((ix0, +1.0), (ix1, -1.0))]
-
-
-def _seam_bands_clear(placed, inner):
-    """How far aft each part of the Y seam may reach before it meets content:
-    (chain, ceiling) — the frontmost thing standing in the ±X boss-chain bands,
-    and in the ceiling band the lip's top segment sweeps.
-
-    Those are the only two places the seam occupies. This is the y_joint-free
-    reading of them — it asks where content STARTS, not whether content stands
-    where the furniture lands, so it can be measured before the seam is chosen.
-    It bounds the seam whenever the band ahead of the content is all the seam
-    can have; `_chain_span_clear` is what lets the seam pass content that sits
-    forward of the furniture entirely."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
-
-    def frontmost(prism):
-        limit = iy1
-        for s, _c in placed.values():
-            hit = prism.intersect(s)
-            if hit.Volume() > 1.0:
-                limit = min(limit, hit.BoundingBox().ymin)
-        return limit
-
-    chain = iy1
-    for xa, xb in _chain_bands(inner):
-        chain = min(chain, frontmost(_ybox(xa, xb, iy0, iy1, iz0, iz1)))
-    return chain, frontmost(_ybox(ix0, ix1, iy0, iy1, iz1 - wall, iz1))
-
-
-def _chain_spans_clear(placed, inner, spans):
-    """Whether both ±X boss-chain bands run empty over every Y span the seam's own
-    bosses occupy (`_seam_furniture_spans`).
-
-    The bands are a lane, not a keep-out: what matters is that nothing stands
-    where the furniture lands, not that the furniture sits ahead of everything in
-    the lane. A fitting parked between two stations leaves both their full section
-    and never meets either, so it does not move the seam."""
-    _ix0, _ix1, _iy0, _iy1, iz0, iz1 = inner
-    for xa, xb in _chain_bands(inner):
-        for y0, y1 in spans:
-            prism = _ybox(xa, xb, y0, y1, iz0, iz1)
-            for s, _c in placed.values():
-                if prism.intersect(s).Volume() > 1.0:
-                    return False
-    return True
-
-
 def _seam_furniture_spans(inner, y_joint):
     """Every Y span the seam occupies in the ±X boss-chain bands at `y_joint` — the
     Y-seam boss group (front half's collar through the back half's plug), plus each
@@ -984,9 +931,9 @@ def _dims(pack):
     #
     # What the pack still has to earn is the clearance. A body on the slab is held one
     # `side_rib_inset` off the ±X walls at the depths the seam's bosses stand there —
-    # `_seam_furniture_spans`, the spans `_chain_spans_clear` reads and the ceiling's own
-    # band takes below. Between those stations the band is the wall's own air, and a body
-    # clear of all of them answers on `cxmax`.
+    # `_seam_furniture_spans`, the same spans the ceiling's own band takes below. Between
+    # those stations the band is the wall's own air, and a body clear of all of them
+    # answers on `cxmax`.
     ix0, ix1 = interior_x()
     iy0_probe = cymin - interior_clearance - front_seam_clear
     band_spans = _seam_furniture_spans(
