@@ -1,0 +1,14 @@
+{
+  "/hardware/printed-parts/valve-seat/valve_seat.py": {
+    "BOSS_DIA": "13.2",
+    "CORNER_INSET": "12.2",
+    "PORT_CLEARANCE": "0.210 mm",
+    "PORT_DIA": "15",
+    "POST_DIA": "6.8",
+    "SEAT_TOP_Z": "6",
+    "SOCKET_CLEAR": "0.2 mm",
+    "SOCKET_DIA": "7.2",
+    "SOCKET_FLOOR_Z": "-1",
+    "WALL": "3 mm"
+  }
+}

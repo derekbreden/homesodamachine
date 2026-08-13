@@ -1,0 +1,10 @@
+{
+  "/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
+    "BODY_LEN": "22",
+    "FLOW_BODY_DIA": "26",
+    "FLOW_PORT_DIA": "12",
+    "PORT_FACE": "30",
+    "WIRE_BOSS_DIA": "8",
+    "WIRE_BOSS_LEN": "3"
+  }
+}

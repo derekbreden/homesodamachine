@@ -1,0 +1,11 @@
+{
+  "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
+    "BULK_NOZZLE_D": "0.4 mm",
+    "FOUNDER_EDITION_COUNT": "50",
+    "FOUNDER_EDITION_LAST": "050",
+    "FOUNDER_EDITION_NEXT": "051",
+    "LAYER_H_MAX": "0.12 mm",
+    "LAYER_H_MIN": "0.08",
+    "NAMEPLATE_NOZZLE_D": "0.2 mm"
+  }
+}

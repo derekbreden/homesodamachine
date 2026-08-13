@@ -1730,17 +1730,17 @@ def to_dict(sc: Scorecard) -> dict:
 
 
 def write(a, step: Path, drawn_by) -> Path:
-    """The card beside `step`, carrying the digest of the text `drawn_by` was drawn from.
+    """The card beside `step` — every reading this build took, and nothing else.
 
     `drawn_by` is the file that built the assembly. `_realized.source_files` walks its imports
-    to every file of this repo that can reach the readings, and the digest is their whole text —
-    so `hardware/scripts/check_cards.py` answers whether a committed card still describes the
-    tree by reading two hex strings, where the alternative is running the build."""
+    to every file of this repo that can reach the readings, and the digest of their whole text
+    goes to `_realized.stamp_write("cards", …)` — which is what `hardware/scripts/check_cards.py`
+    reads to doubt the card by two hex strings, where the alternative is running the build."""
     sc = build(a)
     out = step.parent / (step.stem + ".scorecard.json")
-    card = to_dict(sc)
-    card["sources"] = _realized.digest(_realized.source_files(drawn_by))
-    out.write_text(json.dumps(card, indent=1) + "\n")
+    out.write_text(json.dumps(to_dict(sc), indent=1) + "\n")
+    _realized.stamp_write("cards", out,
+                          {"sources": _realized.digest(_realized.source_files(drawn_by))})
     return out
 
 

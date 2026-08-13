@@ -36,12 +36,14 @@ import ast
 import hashlib
 import importlib.util
 import io
+import json
 import os
 import sys
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
 _DIR = _ROOT / ".cache" / "realized"
+_STAMPS = _ROOT / ".cache" / "stamps"
 
 # A build that must not read a kept solid — the one that proves the cache is honest — sets this.
 DISABLED = bool(os.environ.get("HSM_NO_REALIZED_CACHE"))
@@ -180,6 +182,51 @@ def digest(paths) -> str:
     for path in paths:
         h.update((code_digest(path) or "").encode())
     return h.hexdigest()
+
+
+def stamp_path(kind: str, name) -> Path:
+    """Where this machine keeps its stamp for `name` under `kind`. `name` names the artifact,
+    as a repo-relative path or a full one — every caller has one or the other in hand."""
+    p = Path(name)
+    if p.is_absolute():
+        p = p.resolve().relative_to(_ROOT)
+    return _STAMPS / kind / (p.as_posix() + ".json")
+
+
+def stamp_read(kind: str, name) -> dict:
+    """What this machine last recorded about the inputs of `name`, or `{}` when nothing here has
+    run the generator — a fresh clone and a first commit alike."""
+    try:
+        return json.loads(stamp_path(kind, name).read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def stamp_write(kind: str, name, held: dict) -> None:
+    """Record `held` as the inputs `name` was last made from, under `.cache/stamps/<kind>/`.
+
+    Kept beside `realized/` and gone with it: a miss costs the generator's own run, and deleting
+    the directory is always safe."""
+    path = stamp_path(kind, name)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(f".{os.getpid()}.tmp")
+        tmp.write_text(json.dumps(held, indent=2, sort_keys=True) + "\n")
+        os.replace(tmp, path)                # a reader never sees a half-written stamp
+    except OSError:
+        pass                                 # a cache that cannot be written is not an error
+
+
+def moved(files: dict) -> list:
+    """Which of `{repo-relative path: digest}` no longer computes what was recorded."""
+    out = []
+    for rel, held in sorted(files.items()):
+        now = code_digest(_ROOT / rel)
+        if now is None:
+            out.append(f"{rel} — gone")
+        elif now != held:
+            out.append(rel)
+    return out
 
 
 def key(module_name: str, *inputs) -> str:

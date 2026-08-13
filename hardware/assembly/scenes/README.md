@@ -51,7 +51,8 @@ The machine is built **once** for however many scenes are asked for, then cut fo
 scene STEPs land in `out/`, which `.gitignore` holds — a 20 MB intermediate that churns on every
 move of any body it contains is exactly the commit cost these pictures must not add. What is
 committed is the PNG in [`cards/img/`](/hardware/assembly/cards/img/) and a `.scene.json` beside
-it naming everything that drew it.
+it naming what the picture is of — the scene, the geometry, the image, the bodies. The hash of
+every file that decided it goes under `.cache/stamps/scenes/`.
 
 Each render also writes `glb/<scene>.glb` — the artifact `/3d` opens, at a coarser tessellation
 than the B-rep so four of them come to 5.6 MB rather than 22. **That one is committed**, the same
@@ -59,7 +60,7 @@ bargain [the PCB carrier](/hardware/pcb/pcba/) already takes: the big drawing st
 tree, the thing a browser opens goes in.
 
 **Doubting a picture is cheap; drawing one is not.** So the two are split.
-[`check_scenes.py`](/hardware/scripts/check_scenes.py) re-hashes the files the render wrote down
+[`check_scenes.py`](/hardware/scripts/check_scenes.py) re-hashes the files the render stamped
 — no import, no geometry, stdlib python3, ~40 ms for all four against 71 sources — and says which
 scenes have moved since they were drawn. That runs on every commit; the render runs when it says
 to.

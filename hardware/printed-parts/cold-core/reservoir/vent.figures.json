@@ -1,0 +1,16 @@
+{
+  "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
+    "FILTER_D": "13 mm",
+    "FILTER_T": "0.5 mm",
+    "VENT_BOSS_OD": "17.2 mm",
+    "VENT_BOSS_WALL": "2 mm",
+    "VENT_CYL_ID": "5 mm",
+    "VENT_CYL_OD": "10 mm",
+    "VENT_HOLE_D": "5 mm",
+    "VENT_POCKET_D": "13.2 mm",
+    "VENT_POCKET_DEPTH": "2.5 mm",
+    "VENT_SLOT_COUNT": "4",
+    "VENT_SLOT_H": "2 mm",
+    "VENT_SLOT_W": "3 mm"
+  }
+}

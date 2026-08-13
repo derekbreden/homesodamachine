@@ -1,0 +1,33 @@
+{
+  "/hardware/assembly/_firmware_and_commissioning_sync.py": {
+    "AMBIENT_TOL": "\u00b12 \u00b0C",
+    "COMP_OFF_TEMP": "2 \u00b0C",
+    "COMP_ON_TEMP": "4 \u00b0C",
+    "FREEZE_CUTOFF": "\u22128 \u00b0C",
+    "GPIO_FLOW": "GPIO 25",
+    "GPIO_ONEWIRE": "GPIO 26",
+    "GPIO_RELAY1": "GPIO 19",
+    "HYSTERESIS": "\u00b12 \u00b0C",
+    "MCP_RESERVOIRS": "0x21",
+    "MCP_VALVES": "0x20",
+    "MIN_OFF_TIME": "3-minute",
+    "MIN_OFF_TIME_BARE": "3 min",
+    "MIN_OFF_TIME_HYPHEN": "3-min",
+    "ONEWIRE_PULLUP": "4.7 k\u03a9",
+    "RAIL_12V": "12 V",
+    "RAIL_12V_TOL": "\u00b1 0.2 V",
+    "RAIL_33V": "3.3 V",
+    "RAIL_33V_TOL": "\u00b1 0.05 V",
+    "RAIL_5V": "5 V",
+    "RAIL_5V_TOL": "\u00b1 0.1 V",
+    "REEDS_CARB": "2",
+    "REEDS_PER_RSVR": "4",
+    "REEDS_TOTAL": "10",
+    "REED_HIGH": "0x21 PB5",
+    "REED_LOW": "0x21 PB4",
+    "RSVR_COUNT": "2",
+    "RTC_ADDR": "0x68",
+    "TANK_TARGET": "2 \u00b0C",
+    "VALVE_COUNT": "10"
+  }
+}

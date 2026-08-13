@@ -1,7 +1,0 @@
-{
-  "/hardware/assembly/_wiring_sync.py": {
-    "hardware/assembly/_wiring_sync.py": "667ef2f58de06a178b52c18c07f5c0cf",
-    "hardware/wiring/_ac_wiring_schedule_sync.py": "d7a7ff95bd2b69784e85b1ba4c49f9f3",
-    "tools/docgen/__init__.py": "a759d8e9d2714bd2198d59fcc2090660"
-  }
-}

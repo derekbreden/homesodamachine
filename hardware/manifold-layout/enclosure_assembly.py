@@ -16,7 +16,7 @@ stand on its own tangent lines, and the condenser is an envelope whose serpentin
 re-dressed to reach whichever face is convenient, so such a joint crosses a plane its two bodies
 already share and both of its stations are ONE POINT READ TWICE.
 
-NEITHER OF THE TWO REACHES THE CORE. It is packed off the rear wall (`CORE_REAR_CLEAR`) rather
+NEITHER OF THE TWO REACHES THE CORE. It is packed off the rear wall (`rear_seam_clear`) rather
 than butted against the stratum, so what stands between them is a LANE, and the loop's two legs
 that cross it are cut and brazed copper `_lines` draws like any other run — the condenser's
 liquid line straight across it on one column and one plane, the compressor's suction up out of
@@ -577,12 +577,6 @@ def build_fuse_clamp(comp_carry, fuse):
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)), face))
     check_cutoff_bedded(placed, fuse, face)
     return placed, carry
-
-
-# What the core's own aft face stands off the rear wall's inner plane. The pump lies flush with
-# that face and runs aft off it, so this is the lane the pump's own rear fittings and the runs
-# reaching them are made up in. It is the plane the whole service bay is packed from.
-CORE_REAR_CLEAR = 11.0
 
 
 def build_foam(front_y: float):
@@ -3958,16 +3952,22 @@ def build_pack() -> cq.Assembly:
     # its boss off. Read straight off the pack the same way: the point a plate lies on is the
     # placed pump's own, and how far it runs to the wall is the box's.
     a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
-    # THE CORE IS PACKED AGAINST THE BACK, not against the bodies ahead of it. The water pump
-    # lies flat on its cap and runs off its aft face, and what the rear wall stands off is that
-    # pump — so the core's own depth answers to `rear_plane_y` and `CORE_REAR_CLEAR` behind it,
-    # and the gap left in front of it is what the refrigerant loop's two drawn legs cross.
-    # Struck the other way it would follow whichever body ahead of it reached furthest, and a
-    # block measured again would carry the core, the pump and the whole service bay with it.
+    # THE CORE IS PACKED AGAINST THE BACK, not against the bodies ahead of it. It is the body
+    # `rear_seam_clear` is written about — the rearmost content, seated flush on the inner face
+    # of the rear Z-seam lip that hangs off the back wall — so its aft face stands that one
+    # number inside `rear_plane_y`, and the gap left in FRONT of it is what the refrigerant
+    # loop's two drawn legs cross. Struck the other way it would follow whichever body ahead of
+    # it reached furthest, and a block measured again would carry the core, the pump and the
+    # whole service bay with it.
+    #
+    # ONE NUMBER, not two. `enclosure._dims` measures the depth bound against exactly this
+    # standoff, so a second one stated here is a lane the box asks nobody for: the wall reads
+    # clear of the pack, and the millimetres between the core and the lip it is supposed to be
+    # sitting on go unspent.
     top = cap_face(build_foam(0.0)[0])
     core = box(build_foam(0.0)[0])
     foam, foam_carry = build_foam(
-        _enc.rear_plane_y - CORE_REAR_CLEAR - (core.ymax - core.ymin))
+        _enc.rear_plane_y - _enc.rear_seam_clear - (core.ymax - core.ymin))
     # What still has to hold is that nothing ahead of it reaches INTO it — measured at the core's
     # own height, since the source valves' quarter turns carry them aft OVER its crown and a body
     # standing over the cap is not a body in its way.
@@ -4078,7 +4078,14 @@ def build_pack() -> cq.Assembly:
     meter_carry = panel_carries.pop("digiten-flow")
     for name, solid in deck_solids.items():
         a.add(solid, name=name, color=C_DIGITEN if name == "digiten-flow" else C_BULKHEAD)
-        note_room(name, "fall onto what stands under it", DECK_CLEAR,
+        # THE BAND IS THE ONE THAT BODY'S OWN STOREY WAS STRUCK ON, and the two storeys here were
+        # struck on two different ones. `deck_z` drops its four and stands them where the least
+        # still has a `DECK_CLEAR` of fall; `nozzle_storey` carries the gate lane's pair over the
+        # pump's FEET, which is `PORT_FOOT_CLEAR` — a barrel passing the widest section the
+        # casting has, above which the lane opens by twenty millimetres. Charged the deck's band,
+        # a union standing exactly where its own strike put it reads short by the difference.
+        note_room(name, "fall onto what stands under it",
+                  PORT_FOOT_CLEAR if name in PANEL_ON_GATE_LANE else DECK_CLEAR,
                   deck_fall[name] if name in deck_fall
                   else descent(solid, _would_land_on(box(solid), under_deck)))
     panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}

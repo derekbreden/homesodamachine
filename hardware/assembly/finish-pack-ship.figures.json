@@ -1,0 +1,20 @@
+{
+  "/hardware/assembly/_finish_pack_ship_sync.py": {
+    "APPLIANCE_W_HIGH": "15 kg",
+    "APPLIANCE_W_LOW": "10",
+    "CARRIER_LIMIT_KG": "~32 kg",
+    "CARRIER_LIMIT_LB": "70 lb",
+    "CARTON_H_DIM": "50 cm",
+    "CARTON_L": "60",
+    "CARTON_W_DIM": "50",
+    "CARTON_W_HIGH": "20 kg",
+    "CARTON_W_LOW": "15",
+    "FLAVOR_DRAINED": "~1 kg",
+    "FOUNDER_EDITION_COUNT": "50",
+    "FOUNDER_EDITION_PRICE": "$7,500",
+    "SCALE_PRECISION": "0.1 kg",
+    "SLOSH_CARTON_W": "20 kg",
+    "TILT_ANGLE": "~15\u00b0",
+    "WATER_DRAINED": "~1.5 kg"
+  }
+}

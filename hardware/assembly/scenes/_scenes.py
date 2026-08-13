@@ -233,7 +233,7 @@ def members(scene, assembly):
 #
 # What decides a picture is the code that builds the machine, the tables that say who holds whom,
 # and this file's own camera. THE LIST OF THOSE FILES IS RECORDED WHEN THE PICTURE IS DRAWN, and
-# the check re-hashes exactly that list — `docgen`'s `.sources.json` bargain, for the same reason
+# the check re-hashes exactly that list — `docgen`'s own bargain, for the same reason
 # it takes it.
 #
 # The walk itself is not the check's to take. `_realized.source_files` resolves a module name

@@ -1,0 +1,30 @@
+{
+  "/hardware/reference/compressor/compressor.py": {
+    "BASE_X": "96",
+    "BASE_Y": "160",
+    "BASE_Z": "15",
+    "CYL_EXCESS_PCT": "14",
+    "MOUNT_D": "14",
+    "MOUNT_INSET": "14.5",
+    "MOUNT_LIGAMENT": "7.5",
+    "MOUNT_PITCH_X": "67",
+    "MOUNT_PITCH_Y": "131",
+    "OVERALL_H": "135",
+    "PLATE_REACH_LONG": "27.5",
+    "PLATE_REACH_SHORT": "7.5",
+    "POWER_X": "45",
+    "POWER_Y": "27.5",
+    "POWER_Z": "45",
+    "POWER_Z0": "30",
+    "POWER_Z1": "75",
+    "PROCESS_CLAMP": "20",
+    "PROCESS_OVER_BOX": "25",
+    "PROCESS_Z": "100",
+    "SHELL_OFFSET_Y": "10",
+    "SHELL_OVERHANG_X": "7",
+    "SHELL_TANGENT_Y": "-52.5",
+    "SHELL_X": "110",
+    "SHELL_Y": "125",
+    "SHELL_Z": "120"
+  }
+}

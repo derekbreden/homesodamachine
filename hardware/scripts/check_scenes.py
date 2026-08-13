@@ -9,11 +9,12 @@ on printing whatever the last one drew.
     tools/cad-venv/bin/python hardware/scripts/check_scenes.py     (0 = current, 1 = stale)
 
 WHAT THIS COSTS IS READING THE FILES THE RENDER WROTE DOWN. Beside each PNG the render leaves
-`<png>.scene.json`: the scene's own tuple, hashed; the picture that came out, by size and hash;
-the bodies that went into it; and every repo file whose text could decide the picture, each with
-the hash of its bytes. This hashes the picture and those files again and compares. No module is
-imported, no geometry is built — which is the whole bargain, because a picture is expensive to
-draw and cheap to doubt, and the doubting is what runs on every commit.
+`<png>.scene.json`: the scene's own tuple, hashed; the geometry it was drawn of; the picture
+that came out, by size and hash; and the bodies that went into it. Under `.cache/stamps/scenes/`
+it leaves every repo file whose text could decide the picture, each with the hash of its bytes.
+This hashes the picture and those files again and compares. No module is imported, no geometry
+is built — which is the whole bargain, because a picture is expensive to draw and cheap to
+doubt, and the doubting is what runs on every commit.
 
 The recorded `drawn` list is the machine's answer at the moment of the render. Reading it back
 costs a build, so it is carried and not checked; two renders that disagree about which bodies a
@@ -34,10 +35,12 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
-_ROOT = _HW.parent
 if str(_HW / "assembly" / "scenes") not in sys.path:
     sys.path.insert(0, str(_HW / "assembly" / "scenes"))
+if str(_HW / "scripts") not in sys.path:
+    sys.path.insert(0, str(_HW / "scripts"))
 
+import _realized                                        # noqa: E402
 import _scenes                                          # noqa: E402
 
 IMG_DIR = _HW / "assembly" / "cards" / "img"
@@ -73,9 +76,9 @@ def state(scene) -> tuple:
                              f"{was['w']}x{was['h']}")
         return "stale", f"the picture's bytes are not the ones drawn ({now['bytes']} on disk)"
 
-    sources = held.get("sources") or {}
+    sources = _realized.stamp_read("scenes", png)
     if not sources:
-        return "stale", "the record names no sources"
+        return "stale", "nothing here has watched this picture being drawn"
     moved = [rel for rel, w in sorted(sources.items()) if _scenes.hash_of(rel) != w]
     if moved:
         head = ", ".join(moved[:3]) + (f" and {len(moved) - 3} more" if len(moved) > 3 else "")

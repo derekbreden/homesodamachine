@@ -1,0 +1,20 @@
+{
+  "/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
+    "CLAMP_CASE_D": "4.2",
+    "CLAMP_CHANNEL_H": "4.6",
+    "CLAMP_FACE_X": "45",
+    "CLAMP_GAP": "15",
+    "CLAMP_HEAD_Y": "18",
+    "CLAMP_HEAD_Z": "6.7",
+    "CLAMP_LEAD_STUB": "3",
+    "CLAMP_LEAF_REACH": "22",
+    "CLAMP_LEAF_SLOT": "10",
+    "CLAMP_LEAF_Y": "2.5",
+    "CLAMP_NECK_Z": "3.5",
+    "CLAMP_PART_X": "18",
+    "CLAMP_SPLICE_FREE": "16.5",
+    "CLAMP_SPLICE_REACH": "12",
+    "CLAMP_TF": "77",
+    "CLAMP_VOL": "5.56"
+  }
+}

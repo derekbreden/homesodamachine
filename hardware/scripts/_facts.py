@@ -23,9 +23,9 @@ distances between declared pairs.
 So a driver reads two files and stands no machine. `enclosure-assembly.scorecard.json` is
 written by the assembly's own run; this artifact is written beside it.
 
-THE DIGEST RIDES WITH THE VALUES. `sources` is the same reading the scorecard carries — the
-digest of every file the drawing reads — so a reader that has the artifact can still answer
-"was this made from the tree as it now stands" without importing the CAD.
+THE CARD RIDES WITH THE VALUES. `card` names what `enclosure-assembly.scorecard.json` measured
+at the moment this was written beside it, so a reader holding both can tell whether they came
+off the same machine without importing the CAD.
 """
 
 import json
@@ -40,6 +40,8 @@ _ROOT = _HW.parent
 for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "printed-parts" / "enclosure" / "enclosure", _HW / "reference" / "digiten-flow-sensor", _HW / "reference" / "wr1110-regulator", _HW / "reference" / "jg-bulkhead-union"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
+
+import _realized                                                        # noqa: E402
 
 ARTIFACT = _HW / "manifold-layout" / "enclosure-assembly.facts.json"
 SCORECARD = _HW / "manifold-layout" / "enclosure-assembly.scorecard.json"
@@ -88,7 +90,6 @@ def gather(whole=None, module=None):
     import _boxes
     import _clearing
     import enclosure as _enc
-    import _realized
 
     # THE CALLER'S OWN MODULE, when it has one. `_manifold` answers off `_ROUTED`, a module set
     # that fills as runs are authored — so a SECOND copy of `enclosure_assembly`, which is what
@@ -218,8 +219,9 @@ def gather(whole=None, module=None):
 
     return {
         "schema": SCHEMA,
-        "sources": _realized.digest(_realized.source_files(
-            Path(ea.__file__).resolve())),
+        # THE CARD THIS WAS TAKEN BESIDE, by what it measured. One run writes the card and then
+        # this, so a reader holding both can tell whether they came off the same machine.
+        "card": _realized.code_digest(SCORECARD),
         "box": _plain(box),
         "constants": constants,
         "z_stations": z_stations,
@@ -357,8 +359,9 @@ class Facts:
         return {k: _Row(v) for k, v in self._f["carried_points"].items()}
 
     @property
-    def sources(self):
-        return self._f["sources"]
+    def card_digest(self):
+        """What the card measured when this artifact was taken beside it."""
+        return self._f["card"]
 
     @property
     def constants(self):
@@ -478,8 +481,8 @@ class Facts:
         raise KeyError(f"{cid} is not among the {len(self._c.get('checks', ()))} checks")
 
     def agrees_with_card(self) -> bool:
-        """Whether both files were made from the same tree."""
-        return self._f.get("sources") == self._c.get("sources")
+        """Whether the card beside this artifact is the one it was taken beside."""
+        return self._f.get("card") == _realized.code_digest(SCORECARD)
 
 
 def read() -> Facts:

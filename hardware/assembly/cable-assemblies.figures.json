@@ -1,0 +1,16 @@
+{
+  "/hardware/assembly/_cable_assemblies_sync.py": {
+    "J10_PINS": "2",
+    "J11_PINS": "4",
+    "J13_PINS": "4",
+    "J1_PINS": "9",
+    "J2_PINS": "6",
+    "J3_PINS": "4",
+    "J4_PINS": "7",
+    "J5_PINS": "4",
+    "J6_PINS": "5",
+    "J7_PINS": "7",
+    "J8_PINS": "4",
+    "J9_PINS": "4"
+  }
+}

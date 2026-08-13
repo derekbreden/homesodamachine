@@ -434,7 +434,7 @@ def interior_x():
 # component dragged forward inside the machine does not make the machine shallower,
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
-rear_plane_y = 472.0
+rear_plane_y = 464.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
@@ -446,7 +446,14 @@ rear_plane_y = 472.0
 # The BACK column's Z seam is the one that is searched (`_z_joints`): the cold core
 # stands from the floor slab and the service bay stands on its lid, so that column runs
 # solid and its seam has to take whatever height the bed and the lip's own ring allow.
-y_seam = 200.0
+#
+# THE SEAM RIDES THE BACK WALL. What the back column's ±X flanks run free is the depth between
+# this plane's own cross-pin pods and the rear wall's (`east_band_free_y`), and the power block
+# — brick, relay, board, and the ground stack over them — fills that depth end to end. The front
+# column's flanks carry two lever nuts in a hundred millimetres and give the depth up without
+# noticing. So a back wall that comes forward brings this plane with it, and the band the block
+# stands in keeps its length; struck the other way, the block is what a shallower machine costs.
+y_seam = 192.0
 # The front column's seam stands clear UNDER the flavour pack's two pumps. Its lip carries
 # `lip_len` up into the cavity one wall proud of the interior face, and a pump head's front
 # face is on that face — so the plane is struck low enough that the lip's rim passes beneath

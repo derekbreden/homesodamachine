@@ -1,0 +1,16 @@
+{
+  "/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": {
+    "CAVITY_L": "44 mm",
+    "PRV_BBOX_X": "-11.500 to 11.500 mm",
+    "PRV_BBOX_Y": "-11.500 to 11.500 mm",
+    "PRV_BBOX_Z": "-0.000 to 46.000 mm",
+    "PRV_CAP_T": "2 mm",
+    "PRV_INNER_D": "19 mm",
+    "PRV_OUTER_D": "23 mm",
+    "PRV_VENT_D": "6.35 mm",
+    "PRV_VOLUME": "6546.505 mm\u00b3",
+    "PRV_WALL_T": "2 mm",
+    "TOTAL_L": "46 mm",
+    "VENT_STATION": "37.88 mm"
+  }
+}

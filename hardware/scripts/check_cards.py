@@ -5,10 +5,11 @@ A card is what the machine measured, and it is written by a build. Between two b
 edits a source and the card on disk goes on reading whatever the last build found — the numbers
 look like measurements and are a memory of one. That is the state this answers.
 
-Each card carries `sources`: the digest of the whole text of every file of this repo its build
-could reach, walked off the import statements by `_realized.source_files`. This imports the same
-builder, takes the digest again, and compares two hex strings. What it costs is the import; what
-running the build costs is the build.
+The card is what the build measured. Under `.cache/stamps/cards/`, the same run leaves the
+digest of the whole text of every file of this repo it could reach, walked off the import
+statements by `_realized.source_files`. This imports the same builder, takes the digest again,
+and compares two hex strings. What it costs is the import; what running the build costs is the
+build. A card no run here has watched is named, and the build that would watch it with it.
 
     tools/cad-venv/bin/python hardware/scripts/check_cards.py    (0 = current, 1 = stale)
 
@@ -18,7 +19,6 @@ walk already holds. A vendor STEP replaced by hand is the case it does not see, 
 """
 
 import importlib
-import json
 import sys
 from pathlib import Path
 
@@ -54,10 +54,11 @@ def main() -> int:
             print(f"  {rel}\n      no card on disk")
             stale.append(rel)
             continue
-        held = json.loads(card.read_text()).get("sources")
+        held = _realized.stamp_read("cards", rel.as_posix()).get("sources")
         now = _digest(builder)
         if held is None:
-            print(f"  {rel}\n      carries no `sources` — rebuild it once to give it one")
+            print(f"  {rel}\n      nothing here has watched this card being made; "
+                  f"run {builder.relative_to(_hw.parent)}")
             stale.append(rel)
         elif held != now:
             print(f"  {rel}\n      card {held}  tree {now}\n"

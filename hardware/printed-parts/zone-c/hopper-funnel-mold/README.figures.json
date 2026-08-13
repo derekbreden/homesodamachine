@@ -1,0 +1,15 @@
+{
+  "/hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py": {
+    "CAVITY_DIMS": "189.0 \u00d7 189.0 \u00d7 63.6 mm",
+    "CORE_DIMS": "201.0 \u00d7 201.0 \u00d7 73.6 mm",
+    "FILL_D": "4 mm",
+    "MOLD_BASE": "10 mm",
+    "MOLD_VENT_D": "2.5 mm",
+    "MOLD_WALL": "8 mm",
+    "N_VENTS": "5",
+    "PLATE_THK": "10 mm",
+    "SIL_VOLUME": "83 mL",
+    "SIL_WALL": "3 mm",
+    "SPOUT_BORE": "6.35 mm"
+  }
+}
