@@ -1,7 +1,6 @@
 {
   "/hardware/assembly/_cold_core_sync.py": {
     "BRIDGE_Z_BOTTOM": "46.12 mm",
-    "CABLE_HOLE_X": "\u00b1109",
     "CAP_CLAMP_INSERTS": "12",
     "CAP_CRADLES": "3",
     "CAP_DECK_INSERTS": "4",
@@ -32,6 +31,7 @@
     "POUR_D": "20 mm",
     "PROT_INLET": "200 mm",
     "PROT_OUTLET": "175 mm",
+    "REED_CONDUIT_XY": "reed-cable-a (134.5, 34), reed-cable-b (-134.5, 34)",
     "RESERVOIR_GAP": "0.5 mm",
     "RES_INSERTS": "12",
     "ROLL_SHARE": "1/3",

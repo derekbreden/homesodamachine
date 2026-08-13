@@ -161,7 +161,6 @@
     "fluid-4 \u2014 valve-v-a: 2.055 mm",
     "water-7 \u2014 co2-2: 2.060 mm",
     "fluid-14 \u2014 fluid-16: 2.091 mm",
-    "wago-reeds-b \u2014 water-split: 2.200 mm",
     "fluid-18 \u2014 vk-solenoid: 2.250 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "water-5 \u2014 water-3: 2.327 mm",
@@ -177,6 +176,7 @@
     "fluid-18 \u2014 seaflo-pump: 4.000 mm",
     "fluid-14 \u2014 psu: 4.076 mm",
     "seaflo-pump \u2014 co2-inlet: 4.086 mm",
+    "wago-reeds-b \u2014 wago-reeds-a: 4.150 mm",
     "foam-assembly \u2014 relay-2: 4.250 mm",
     "fluid-2 \u2014 valve-v-b: 4.321 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
@@ -195,7 +195,6 @@
     "foam-assembly \u2014 hopper-drain-union: 5.392 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "water-3 \u2014 discharge-chain: 5.505 mm",
-    "fluid-28 \u2014 wago-reeds-b: 5.554 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
     "psu \u2014 wago-g: 5.650 mm",
@@ -352,7 +351,7 @@
    "label": "Every conduit column leaves the pour its gap in the cup",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 hold",
+   "value": "9/9 hold",
    "target": "1.5 mm off everything else standing in the cup",
    "detail": [],
    "active": true
@@ -362,7 +361,7 @@
    "label": "Every conduit column stands the pour gap off the wall or merges in",
    "kind": "gate",
    "status": "pass",
-   "value": "7/7 hold",
+   "value": "9/9 hold",
    "target": "the pour gap apart or a 2 mm neck",
    "detail": [],
    "active": true
@@ -422,7 +421,7 @@
    "label": "Every pair of conduits stands apart or merges on a neck, never tangent",
    "kind": "gate",
    "status": "pass",
-   "value": "21/21 hold",
+   "value": "36/36 hold",
    "target": "the pour gap apart or a 2 mm neck",
    "detail": [],
    "active": true
@@ -574,6 +573,16 @@
    "status": "pass",
    "value": "7/7 hold",
    "target": "3.175 mm off the nearer channel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "reed-cable-conduit-stands-over-its-channel",
+   "label": "Every reed-cable conduit opens on the channel its own cable climbs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 hold",
+   "target": "3.25 mm of shared mouth on each axis",
    "detail": [],
    "active": true
   },
@@ -3604,11 +3613,11 @@
    "boxes": [
     [
      -104.5,
-     240.1,
-     281.1,
+     294.6,
+     285.1,
      -86.2,
-     255.9,
-     310.9
+     310.4,
+     314.9
     ]
    ],
    "fill": 0.9812,
@@ -3636,11 +3645,11 @@
    "boxes": [
     [
      -104.5,
-     295.8,
-     295.0,
+     314.55,
+     285.0,
      -85.9,
-     304.2,
-     325.0
+     322.95,
+     315.0
     ]
    ],
    "fill": 0.9827,

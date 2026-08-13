@@ -13,7 +13,6 @@ from _port_cuts import (
 from _reed_channels import (
     build_reed_channels,
     cut_reed_channel_openings,
-    cut_reed_cable_holes,
 )
 
 
@@ -50,7 +49,6 @@ def build_full_shell():
         cut_prv_vent_port,
         cut_lane_slots,
         cut_reed_channel_openings,
-        cut_reed_cable_holes,
     ):
         foam_shell = cut(foam_shell)
     return foam_shell
