@@ -90,7 +90,7 @@
     "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
     "port-lane: reservoir-a at z 2.8..233.4, x -138.7..104.1",
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
-    "west-lane: prv-vent at z 16.6..187.9, x -143.5..3.2",
+    "west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2",
     "west-lane: reservoir-b at z 2.8..233.4, x -138.7..-101.8",
     "west-lane: water-in at z 196.2..233.4, x -138.7..-6.2"
    ],
@@ -108,8 +108,8 @@
     "reservoir-a start: 14.5 mm of straight into reservoir A's floor-bulkhead collet, 28.0 wanted",
     "carb-water-out end: 28.2 mm into a bore, which takes a lean",
     "co2-in start: 202.4 mm into a bore, which takes a lean",
-    "prv-vent start: 154.2 mm into a bore, which takes a lean",
-    "prv-vent end: 129.5 mm into a bore, which takes a lean",
+    "prv-vent start: 2.0 mm into a bore, which takes a lean",
+    "prv-vent end: 7.0 mm into a bore, which takes a lean",
     "reservoir-a end: 213.4 mm into a bore, which takes a lean",
     "reservoir-b end: 213.4 mm into a bore, which takes a lean",
     "water-in end: 23.3 mm into a bore, which takes a lean"
@@ -121,11 +121,10 @@
    "label": "Every wall station carries a run",
    "kind": "gate",
    "status": "pass",
-   "value": "3/3 stations",
+   "value": "2/2 stations",
    "target": "a run per station",
    "detail": [
     "port-lane evap-inlet at z 27.75: evap-tail-inlet",
-    "west-lane prv-vent at z 19.75: evap-tail-outlet, prv-vent",
     "west-lane evap-outlet at z 27.75: evap-tail-outlet"
    ],
    "active": true
@@ -148,9 +147,9 @@
    "value": "0.004 mm off",
    "target": "within 0.01 mm of the lane",
    "detail": [
-    "the shroud's vent bore opens at (+0.00, +77.50, 187.90), on the west-lane (77.5) \u2014 the lane `copper_plugs.columns` carries its wall station on",
+    "the shroud's vent bore opens at (+0.00, +77.50, 187.90), on the west lane (77.5) \u2014 the strip the barrel's own bore can reach with no corner",
     "it stands 11.50 mm under the elbow's own axis, against the 11.5 mm barrel radius a bore facing DOWN reads",
-    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 19.75 and out"
+    "station 37.88 mm along a 46 mm barrel; the line falls from there to z 171.90 and out the +Y flank at y 98.50"
    ],
    "active": true
   },
@@ -173,7 +172,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "55/55",
+   "value": "54/54",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -193,7 +192,7 @@
    "label": "Every body is real geometry rather than a primitive",
    "kind": "goal",
    "status": "pass",
-   "value": "55/55",
+   "value": "54/54",
    "target": "no primitives",
    "detail": [],
    "active": false
@@ -213,7 +212,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "53/55",
+   "value": "52/54",
    "target": "a located joint per body",
    "detail": [
     "probe-coil-ds18s20: foil tape",
@@ -452,30 +451,14 @@
    "declared": "real"
   },
   {
-   "component": "copper-plug-lower",
+   "component": "copper-plug-port",
    "boxes": [
     [
      -142.5,
-     73.25,
-     19.75,
-     -138.5,
-     81.75,
-     27.75
-    ]
-   ],
-   "fill": 0.3278,
-   "primitive": false,
-   "declared": "real"
-  },
-  {
-   "component": "copper-plug-middle",
-   "boxes": [
-    [
-     -142.5,
-     73.25,
+     -81.75,
      27.75,
      -138.5,
-     81.75,
+     -73.25,
      213.4
     ]
    ],
@@ -484,14 +467,14 @@
    "declared": "real"
   },
   {
-   "component": "copper-plug-top",
+   "component": "copper-plug-west",
    "boxes": [
     [
      -142.5,
-     -81.75,
+     73.25,
      27.75,
      -138.5,
-     -73.25,
+     81.75,
      213.4
     ]
    ],
@@ -1292,14 +1275,14 @@
    "to": "prv-vent.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 305.64,
+   "length": 30.99,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 221.06,
-   "reachGrade": "D",
+   "reach": 26.4,
+   "reachGrade": "C",
    "binding": null,
    "corners": [
     {
@@ -1310,7 +1293,7 @@
     }
    ],
    "need": {
-    "detour": 1.383
+    "detour": 1.174
    }
   },
   {
@@ -1532,19 +1515,13 @@
    "kind": "real"
   },
   {
-   "component": "copper-plug-lower",
+   "component": "copper-plug-port",
    "by": "wall slot",
    "joint": "wall slot",
    "kind": "real"
   },
   {
-   "component": "copper-plug-middle",
-   "by": "wall slot",
-   "joint": "wall slot",
-   "kind": "real"
-  },
-  {
-   "component": "copper-plug-top",
+   "component": "copper-plug-west",
    "by": "wall slot",
    "joint": "wall slot",
    "kind": "real"

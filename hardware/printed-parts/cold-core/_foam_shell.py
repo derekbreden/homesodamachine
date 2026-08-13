@@ -8,6 +8,7 @@ from _outer_shell import build_outer_shell, cut_insert_pockets
 from _port_cuts import (
     cut_line_corridors,
     cut_lane_slots,
+    cut_prv_vent_port,
 )
 from _reed_channels import (
     build_reed_channels,
@@ -24,6 +25,14 @@ def build_full_shell():
     # corridor where it meets one (`_port_cuts.cut_line_corridors`). Nothing else in the
     # shell does — the outer shell, the tank support ring and the reed channels all fence a
     # line, and `_internal_routes.report_routes` reads what that costs at every build.
+    #   THE OUTER SHELL IS FENCE, NOT GIVE-WAY, and that is what sends six of the seven lines
+    # up to the lid. The one opening in the skin is `cut_prv_vent_port`, below: named for the
+    # single line it lets out, so opening the skin stays a decision about that line rather
+    # than a property of every corridor that happens to touch it.
+    #   THE OUTER SHELL IS FENCE, NOT GIVE-WAY, and that is what sends six of the seven lines
+    # up to the lid. The one opening in the skin is `cut_prv_vent_port`, below: named for the
+    # single line it lets out, so opening the skin stays a decision about that line rather
+    # than a property of every corridor that happens to touch it.
     pocket_walls = build_reservoir_pocket_walls()
     corner_posts = build_reservoir_supports()
 
@@ -38,6 +47,7 @@ def build_full_shell():
     foam_shell = cut_insert_pockets(foam_shell)
     foam_shell = cut_line_corridors(foam_shell, (pocket_walls, corner_posts))
     for cut in (
+        cut_prv_vent_port,
         cut_lane_slots,
         cut_reed_channel_openings,
         cut_reed_cable_holes,

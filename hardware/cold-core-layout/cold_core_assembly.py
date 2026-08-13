@@ -106,9 +106,8 @@ HELD_BY = {
     "reservoir-b": "pocket",
     "reservoir-a-cap": "body rim",
     "reservoir-b-cap": "body rim",
-    "copper-plug-lower": "wall slot",
-    "copper-plug-middle": "wall slot",
-    "copper-plug-top": "wall slot",
+    "copper-plug-west": "wall slot",
+    "copper-plug-port": "wall slot",
     "prv-shroud": "the PRV it caps",
     "prv-sv125": "elbow socket",
     "reed-bridge": "support ring",
@@ -555,21 +554,22 @@ def _stations_met(fitted: dict, placed: dict) -> Check:
 def _prv_vent_lands(points: dict) -> Check:
     """The shroud's own vent bore, against the lane its line has to fall.
 
-    Two readings of one station, struck at opposite ends of the machine. The WALL says which
-    lane the vent crosses on — `copper_plugs.columns` carries the station and the plug that
-    seals it — and `prv_shroud.vent_station_z` says how far along the barrel the bore stands,
-    which is what decides where the cup, once made up on the elbow, opens it. This reads the
-    second back off the PLACED shroud and holds it against the first. Neither side is a
-    constant here: move the valve to the other port or the vent to the other lane and this
-    keeps measuring the same thing, and a bore that misses its lane is a line that needs a
+    Two readings of one station, struck at opposite ends of the part. `_internal_routes` says
+    which strip the line starts on — the west lane's own y, because that is the one the barrel
+    can reach without a corner — and `prv_shroud.vent_station_z` says how far along the barrel
+    the bore stands, which is what decides where the cup, once made up on the elbow, opens it.
+    This reads the second back off the PLACED shroud and holds it against the first. Neither
+    side is a constant here: move the valve to the other port or the bore along the barrel and
+    this keeps measuring the same thing, and a bore that misses its lane is a line that needs a
     corner in a band that has none.
 
     AND IT HAS TO OPEN DOWNWARD. Landing on the lane is a reading in Y alone, and a cup rolled
     a half turn about its own axis lands on the same lane with its bore on TOP — where the tube
     would leave into the cap's floor instead of down the lane. So the drop off the elbow's own
-    axis is measured beside it, and it is the barrel's radius or the roll is wrong."""
+    axis is measured beside it, and it is the barrel's radius or the roll is wrong. The fall
+    that follows is the whole of the line's height: it turns once and leaves by the flank."""
     at = prv_vent_mouth()
-    lane, want = _plugs.station_lane("prv-vent")
+    lane, want = "west lane", _routes.prv_vent_lane_y
     off = at[1] - want
     drop = _V.mouths()["prv"].pos[2] - at[2]
     # The two readings are struck in different frames and carried through a rotation, so what
@@ -578,12 +578,13 @@ def _prv_vent_lands(points: dict) -> Check:
     good = abs(off) < agree and abs(drop - _shroud.outer_diameter / 2.0) < agree
     detail = [f"the shroud's vent bore opens at ({at[0]:+.2f}, {at[1]:+.2f}, {at[2]:.2f}), "
               f"{'on' if abs(off) < agree else f'{off:+.2f} off'} the {lane} ({want:g}) — "
-              f"the lane `copper_plugs.columns` carries its wall station on",
+              f"the strip the barrel's own bore can reach with no corner",
               f"it stands {drop:.2f} mm under the elbow's own axis, against the "
               f"{_shroud.outer_diameter / 2.0:g} mm barrel radius a bore facing DOWN reads",
               f"station {_shroud.vent_station_z:g} mm along a {_shroud.total_length:g} mm "
               f"barrel; the line falls from there to z "
-              f"{points['prv-vent'][-1][2]:.2f} and out"]
+              f"{points['prv-vent'][-1][2]:.2f} and out the +Y flank at y "
+              f"{points['prv-vent'][-1][1]:.2f}"]
     return Check("prv-vent-lands", "The PRV shroud's vent bore opens on the lane its line "
                  "falls", "gate", verdict(good),
                  f"{abs(off):.3f} mm off", f"within {agree:g} mm of the lane", detail)

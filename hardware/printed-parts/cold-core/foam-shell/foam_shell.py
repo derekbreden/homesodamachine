@@ -284,9 +284,8 @@ def main():
             "COLUMN_TOP": f"{max(z for c in columns.values() for _n, z in c.stations):.4g} mm",
             # Copper-plug Z spans — the plugs tile their own slot end-to-end, each
             # end face landing on a pass-through center.
-            "PLUG_SPAN_LOWER": _plug_span("lower"),
-            "PLUG_SPAN_MIDDLE": _plug_span("middle"),
-            "PLUG_SPAN_TOP": _plug_span("top"),
+            "PLUG_SPAN_WEST": _plug_span("west"),
+            "PLUG_SPAN_PORT": _plug_span("port"),
             "FSHELL_VOLUME": f"{volume:.3f} mm³",
             "FSHELL_BBOX_X": f"{bbox.xmin:.3f} to {bbox.xmax:.3f} mm",
             "FSHELL_BBOX_Y": f"{bbox.ymin:.3f} to {bbox.ymax:.3f} mm",

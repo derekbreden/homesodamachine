@@ -6,11 +6,16 @@ what the printer and the bench get.
 
 WHAT THE CC CARDS STAND ON, and therefore what is asserted rather than measured:
 
-- The core is reached THROUGH ITS LID. Seven conduits stand on the top cap and
-  every fluid line takes one; the −X face is mated flat against the refrigeration
-  base, so what crosses it is the two reed cables and the two lane slots above
-  them and nothing else. No number in that sentence, so `_front_wall_census` is
-  what puts it back.
+- The core is reached THROUGH ITS LID, and the rule is about what the machine has
+  to MAKE UP. Nothing potted in this core is reachable again, so every run with a
+  fitting on its far end is brought to the one face the service bay stands on:
+  seven conduits on the top cap, and the −X face — mated flat against the
+  refrigeration base — carrying the two reed cables and the two lane slots and
+  nothing else. `_front_wall_census` is what puts that back, since the sentence
+  holds no number. THE PRV VENT IS THE ONE EXCEPTION and it is asserted beside it:
+  a relief vent is made up on nothing, it ends open, and tube length on a relief
+  path is discharge taken off the valve's rating — so it takes the shortest way
+  out, one corner and through the +Y flank. One line, one opening, no second door.
 - EVERY VESSEL IS FILLED HIGH AND DRAWN LOW — the carbonator at its top plate and
   its bottom, each reservoir at its cap and at its floor bulkhead. That is what
   the air-purge and clean-flush service modes run on, and it is a pairing of
@@ -57,6 +62,7 @@ import _cold_core_interface as cci  # noqa: E402
 import _port_cuts as pcuts  # noqa: E402
 import _reed_channels as reed  # noqa: E402
 import copper_plugs as plugs  # noqa: E402
+import _internal_routes as routes  # noqa: E402
 import foam_assembly as stack  # noqa: E402
 
 X = "&#215;"        # ×
@@ -123,11 +129,21 @@ def cold_core(m):
     # CC-12's whole page. A fluid station appearing on the front wall — or a reed
     # cable leaving it — makes the card's first sentence false, and there is no
     # number in "and nothing else" for the value to drift on.
-    assert _front_wall_census() == ["evap-inlet", "evap-outlet", "prv-vent",
+    assert _front_wall_census() == ["evap-inlet", "evap-outlet",
                                     "reed-cable-a", "reed-cable-b"], (
         f"the shell's −X face carries {_front_wall_census()} — CC-12 sends every fluid "
         f"line out the top and leaves that face the two reed cables and the two lane "
-        f"slots, and CC-13 stacks plugs for exactly those slots")
+        f"slots, and CC-13 plugs exactly those slots")
+    # THE ONE LINE THAT LEAVES BY A FLANK, and the only opening in the shell's skin that is
+    # not on the −X face. CC-12's rule is about what the machine has to MAKE UP: those runs
+    # are brought to the lid, because nothing potted in this core is reachable again. A
+    # relief vent is made up on nothing and ends open, so what it owes is the short way to
+    # outside air — tube length on a relief path is discharge off the valve's rating. The
+    # fence is that it is still exactly one line, on the +Y wall, and not a second door.
+    assert routes.routes["prv-vent"][-1][1] == routes.prv_vent_flank_y + routes.prv_vent_reach \
+        and len(routes.routes["prv-vent"]) == 3, (
+        f"the PRV vent runs {routes.routes['prv-vent']} — CC-12 lets this one line out the "
+        f"+Y flank on one corner and nothing else through the skin")
     # Filled high, drawn low. Each of the three vessels is entered once and drawn
     # once, and the pairs are named: two ends per vessel, never two of a kind.
     entries = {"water-in", "co2-in", "reservoir-a-fill", "reservoir-b-fill"}
@@ -266,13 +282,13 @@ def cold_core(m):
         "REED_B_Z": f"{cci.front_port_z('reed-cable-b'):.4g}",
         "EVAP_IN_Z": f"{plugs.slot_station('evap-inlet')[0][2]:.4g}",
         "EVAP_OUT_Z": f"{plugs.slot_station('evap-outlet')[0][2]:.4g}",
-        "PRV_VENT_Z": f"{plugs.slot_station('prv-vent')[0][2]:.4g}",
+        "PRV_VENT_Z": f"{routes.prv_vent_cross_z:.4g}",
+        "PRV_VENT_MM": f"{routes.route_wire(routes.routes['prv-vent']).Length():.4g}",
         "SLOT_W": f"{DIA}{plugs.slot_width_x:.4g}",
         # The plug stacks (CC-13).
         "PLUG_COUNT": f"{plug_count}",
-        "PLUG_LOWER": span("lower"),
-        "PLUG_MIDDLE": span("middle"),
-        "PLUG_TOP": span("top"),
+        "PLUG_WEST": span("west"),
+        "PLUG_PORT": span("port"),
     }
 
     cards = {
@@ -295,10 +311,10 @@ def cold_core(m):
             "CAP_CONDUITS", "CORE_FRONT_PORTS", "TUBE_HOLE_D", "FORWARD_BAND",
             "TOP_BAND", "FLAVOR_HOLE_X", "CABLE_HOLE_X", "RING_SLOT_DEG",
             "FIELD_PITCH", "REED_A_Z", "REED_B_Z", "EVAP_IN_Z", "EVAP_OUT_Z",
-            "PRV_VENT_Z"},
+            "PRV_VENT_Z", "PRV_VENT_MM"},
         "cc-13-stack-copper-plugs": {
-            "PLUG_COUNT", "PLUG_LOWER", "PLUG_MIDDLE", "PLUG_TOP", "SLOT_W",
-            "SHELL_H", "FIELD_PITCH", "EVAP_IN_Z", "EVAP_OUT_Z", "PRV_VENT_Z"},
+            "PLUG_COUNT", "PLUG_WEST", "PLUG_PORT", "SLOT_W",
+            "SHELL_H", "FIELD_PITCH", "EVAP_IN_Z", "EVAP_OUT_Z"},
         "cc-14-pour-body-foam": {"CORE_FOOTPRINT", "RESERVOIR_GAP"},
         "cc-15-columns-gaskets-caps": {
             "CORE_CAPPED", "SHELL_INSERTS", "FACE_BOSSES", "CAP_SCREW",

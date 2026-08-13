@@ -15,37 +15,28 @@ from, and each lane is one slot with its own stack. `columns` is that table.
     • [27.75 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
       condenser's outlet through the drier and the cap tube
 
-  WEST LANE, low → high:
-    • [19.75 mm](PRV_VENT_Z) PRV vent — 1/4" LLDPE down the lane from the prv-shroud's barrel
+  WEST LANE, one station:
     • [27.75 mm](EVAP_OUTLET_Z) evaporator outlet — the warm-side copper, reached from the
       compressor's suction. It crosses at the height its opposite number does: the two
       lanes are the same strip mirrored, and one coil's two tails reach either the same way.
 
-THE VENT CROSSES UNDER THE COPPER IT SHARES A LANE WITH, and that is the west lane's own
-arithmetic rather than a preference. Reservoir B's pocket closes the standoff annulus at the
-outlet tail's azimuth, so that tail falls IN the lane (`_coil.FALL_IN_LANE`) — a riser from its
-wrap all the way down to its station, and a wall to anything crossing that column at any storey
-above it. What is left is the storey below, one pitch down. The port lane's own copper stands
-its fall outside the lane, so nothing there is a riser and its one station sits at the field's
-own floor.
+ONE STATION PER LANE, because the coppers are the only things that need this opening. A tail
+formed off a coil lowered into the cavity travels DOWN the wall to its station rather than being
+threaded through it, and THAT is what the slot is for; a line that can be laid in and bored
+through takes a bore instead. The SV-125's relief line used to ride the west lane's slot for
+want of anywhere else, and it does not any more — it leaves by the shell's +Y flank on the
+shortest path it can take (`_internal_routes.prv_vent_cross_z`), because on a relief path tube
+length is discharge taken off the valve's rating.
 
-Not one of them crosses at the height its own fitting sits at. Each line leaves its fitting,
-turns onto its lane and climbs or drops it — the cold tail drops to its station, the warm
-tail drops the far lane, the PRV vent comes down off the shroud's barrel — so all of it stands
-in one band low on the wall rather than spreading up it.
+Neither copper crosses at the height its own fitting sits at. Each tail leaves its wrap, turns
+onto its lane and drops it, so both stand in one band low on the wall rather than spreading up
+it — which is what lets whatever is packed against this face outside meet them in one reach.
 
-The PRV vent line is unpressurized in normal operation — it carries
-relief-event discharge from the prv-shroud cavity (see
-`../prv-shroud/`) out to the appliance interior. It takes the same 1/4" OD tube and the same
-⌀[6.5 mm](SLOT_W) slot punch as the copper beside it.
-
-Three plugs, one printed part each. A plug fills from one station up to the next, and the
-last plug of a column reaches the wall's top face so nothing is left open above the stack:
-  • copper-plug-lower:  WEST lane, PRV vent up to the evaporator outlet.
-  • copper-plug-middle: WEST lane, the evaporator outlet up to (just below) the +Z top face
-                        of the outer_shell.
-  • copper-plug-top:    PORT lane, the evaporator inlet up to that same face — the whole
-                        of its own column, because one line crosses that lane.
+Two plugs, one printed part each, one lane each. A plug fills from its station up to the
+wall's top face, so nothing is left open above it:
+  • copper-plug-west: WEST lane, the evaporator outlet up to (just below) the +Z top face
+                      of the outer_shell.
+  • copper-plug-port: PORT lane, the evaporator inlet up to that same face.
 
 Cross-section (looking along −Z; X horizontal, Y vertical) — a
 true I-beam: a thin web fills the slot's X range at the wall's Y
@@ -100,7 +91,6 @@ from _cold_core_interface import (
     outer_shell_x_length,
     front_port_axis,
     front_port_field_top_z,
-    front_port_pitch,
     front_wall_x,
     port_lane_mid_y,
     port_lane_wall,
@@ -175,13 +165,6 @@ slot_bottom_below_lowest_plug = 5.0     # open slot under the lowest plug's bott
 # to reach it — which is why the coil's geometry and these stations are separate numbers.
 evap_cross_z = (front_port_field_top_z + port_lane_wall
                 + slot_width_x / 2 + slot_bottom_below_lowest_plug)
-# [19.75 mm](PRV_VENT_Z) — PRV relief line, down the WEST lane from the prv-shroud's barrel,
-# one pitch UNDER the copper beside it. That direction is the outlet tail's doing: it falls in
-# the lane from its wrap to its own station, so the column is closed at every storey above and
-# this is the only one left. The field the port lane keeps below its slot has no counterpart
-# here, so the west slot's bottom simply follows this station down.
-prv_vent_z = evap_cross_z - front_port_pitch
-
 # THE TWO COLUMNS. A column is a lane, the stations crossing the wall on it in climbing
 # order, and the slot bottom under the lowest of them — the straight section's low end, with
 # the punch's rounded end reaching `slot_width_x / 2` further down.
@@ -195,8 +178,7 @@ def _column(lane_y, stations):
 
 columns = {
     "port-lane": _column(port_lane_mid_y, [("evap-inlet", evap_cross_z)]),
-    "west-lane": _column(west_lane_mid_y,
-                         [("prv-vent", prv_vent_z), ("evap-outlet", evap_cross_z)]),
+    "west-lane": _column(west_lane_mid_y, [("evap-outlet", evap_cross_z)]),
 }
 
 
@@ -219,10 +201,9 @@ def station_lane(station):
 # its lowest station to the wall top with no linear gaps — the tube IS the gap.
 PlugSpec = namedtuple("PlugSpec", ["z_range", "arch_bottom", "arch_top", "column", "station"])
 
-# Which printed part fills which span. The three names are the three STEPs, and each is one
-# span of one column: `lower` and `middle` tile the west lane, `top` is the whole of the
-# port lane's own stack.
-PLUG_ORDER = (("lower", "west-lane", 0), ("middle", "west-lane", 1), ("top", "port-lane", 0))
+# Which printed part fills which span. The two names are the two STEPs, and each is the whole
+# of one column — a plug is named for its lane because a lane is what it fills.
+PLUG_ORDER = (("west", "west-lane", 0), ("port", "port-lane", 0))
 
 plug_specs = {}
 for _plug, _col, _i in PLUG_ORDER:
@@ -414,7 +395,6 @@ def main():
         "PLUG_Y_OUTER": f"{plug_y_outer:.4g} mm",
         "EVAP_INLET_Z": f"{evap_cross_z:.4g} mm",
         "EVAP_OUTLET_Z": f"{evap_cross_z:.4g} mm",
-        "PRV_VENT_Z": f"{prv_vent_z:.4g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
         "CPLUG_WALL_T": f"{wall_and_floor_thickness:.4g} mm",

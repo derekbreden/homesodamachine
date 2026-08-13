@@ -37,7 +37,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | [Lint-free cleanroom wipes, 9" × 9", cellulose/polyester Grade A (150 pcs)](https://www.amazon.com/dp/B0GD16CMYL) | PT penetrant wipe-off + the low-lint reading surface; dampened with isopropyl alcohol, never sprayed on the part. ~6 wipes per vessel; $17.15/25 builds | 6 (of 150) | $0.69 | $0.69 <!--@consumables--> |
 | 100% RTV silicone caulk (e.g. GE Silicone II) | **SKU TBD.** The weather bead on the PRV-shroud subassembly — run around the shroud-to-elbow joint and tooled to a fillet with a wet fingertip, per [`printed-parts/cold-core/prv-shroud/README.md`](/hardware/printed-parts/cold-core/prv-shroud/README.md) step 4 and [`cards/pv-13-prv-shroud-subassembly.html`](/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html). 100% silicone, not a latex/acrylic caulk. A few mL per build; one tube covers many. | ~1 bead (of 1 tube) | — | — <!--@consumables--> |
 | [Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass](https://www.amazon.com/dp/B01G2F6EMY) | Port 4 tank PRV (top plate, dedicated); sizing rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). Amazon 112-6323725 May 13: $7.49 + $0.54 tax = $8.03 | 1 | $8.03 | $8.03 <!--@plumbing--> |
-| neoFlo black 1/4" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540) | **PRV vent line** — what the SV-125 discharges INTO the appliance through. The valve pops into the `prv-shroud` cup that keeps the pour off it, and the cup vents through a ⌀6.35 bore in its barrel's underside, straight down the foam shell's WEST LANE and out that lane's slot one station under the evaporator outlet copper ([`printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/)), ending open in the cabinet below the deck. Unpressurized except during a relief event. [306 mm](PRV_VENT_MM) of it is drawn inside the core (`cold-core-layout`, line `prv-vent`); with the shroud's own bore and the reach past the wall it is ~1.2 ft/build, cut from the same black spool §3 draws on at the blue riser's $0.171/ft | ~1.2 ft (of 100 ft) | $0.17 | $0.21 <!--@plumbing--> |
+| neoFlo black 1/4" OD LLDPE tubing, 100 ft (FWS, WEBFWS100673540) | **PRV vent line** — what the SV-125 discharges INTO the appliance through. The valve pops into the `prv-shroud` cup that keeps the pour off it, and the cup vents through a ⌀6.35 bore in its barrel's underside, falls one corner and leaves by the shell's +Y FLANK, standing proud into the chase on the appliance's west wall. It is short because tube length on a relief path is discharge taken off the valve's rating. Unpressurized except during a relief event. [31 mm](PRV_VENT_MM) of it is drawn inside the core (`cold-core-layout`, line `prv-vent`); with the shroud's own bore and the wall chase beyond it, call it ~0.3 ft/build, cut from the same black spool §3 draws on at the blue riser's $0.171/ft | ~0.3 ft (of 100 ft) | $0.17 | $0.05 <!--@plumbing--> |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | citric acid passivation soak tub — holds the ~1 qt of 4% citric solution the vessel soaks in during passivation (the acid is its own line below). Reused build-to-build, not consumed — the per-unit item is the fresh solution, not the tub; the polycarbonate is replaced only when repeated soaks craze/cloud it, ~20 builds conservatively. Amazon 112-5291452 Apr 12: $21.45 ÷ 20 = $1.07/build | 1 (of ~20) | $1.07 | $1.07 <!--@consumables--> |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 <!--@consumables--> |
 | [STARTECHWELD ER316L .030 MIG wire, 10-lb spool](https://www.amazon.com/dp/B09BKFBXT9) | filler for the plate-to-tube and float-rod-to-plate laser welds; filler-alloy rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md); ~12 g of wire per ~32" of weld per vessel × ~378 builds per 10-lb spool; $129.50/378 | 1 (of 378) | $0.34 | $0.34 <!--@welding--> |
@@ -283,7 +283,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | [$175.03](BOM_SEC1) |
-| 2. Carbonator vessel (plan A, 316L) | [$207.29](BOM_SEC2) |
+| 2. Carbonator vessel (plan A, 316L) | [$207.13](BOM_SEC2) |
 | 3. Water inlet | [$225.15](BOM_SEC3) |
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
@@ -296,7 +296,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$11.12](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,284.93](BOM_GRAND)** |
+| **Total** | **[$1,284.77](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
