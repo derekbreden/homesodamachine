@@ -33,9 +33,7 @@ from _cold_core_interface import (
     gasket_thickness,
     insert_pocket_depth,
     bag_pocket_floor_top_z,
-    front_port_order,
-    front_port_stations,
-    front_port_z,
+    front_port_floor_z,
     front_wall_x,
     mid_screw_x_offset,
     outer_shell_foam_gap,
@@ -63,7 +61,6 @@ from _port_cuts import (
     co2_inlet_xyz,
     flavor_line_hole_x,
 )
-from _reed_channels import cable_hole_offset_from_bulkhead_hole_x
 from _cold_core_interface import reservoir_bulkhead_port_x
 from _cold_core_interface import (
     cap_screw_beyond_face,
@@ -138,8 +135,7 @@ def _report_front_ports(shell):
     # carry one of the evaporator's coppers, so a check that read them all on the port
     # lane would report the west lane's as blocked and the port lane's slot as its bore.
     clear = port_hole_radius - 0.25            # the probe, one clearance inside the bore
-    stations = dict(front_port_stations())
-    stations.update(slot_stations())
+    stations = dict(slot_stations())
     for name, ((sx, sy, sz), _axis) in sorted(stations.items(), key=lambda kv: kv[1][0][2]):
         probe = cq.Solid.makeCylinder(
             clear, wall_and_floor_thickness + 2.0,
@@ -154,20 +150,17 @@ def _report_front_ports(shell):
 
 
 def _report_wall_openings():
-    """The land between the two openings each −Y bag-pocket wall carries.
+    """The one opening each −Y bag-pocket wall carries.
 
-    A reed cable's crossing is a round bore, because a cable is limp. A DRAW's is that
-    line's own corridor (`_port_cuts.cut_line_corridors`), so its footprint in the wall is a
-    consequence of where the route goes and not of a diameter — move the run and the hole
-    changes shape. Its neighbour is that side's cable bore, one bore pitch outboard, and
-    what has to survive between them is a wall of PETG.
+    A DRAW's crossing is that line's own corridor (`_port_cuts.cut_line_corridors`), so its
+    footprint in the wall is a consequence of where the route goes and not of a diameter —
+    move the run and the hole changes shape. Nothing else pierces that wall: the reed cable
+    leaves by the top of its own channel, so the pocket is opened once and for the draw.
       Each opening is met with the pocket walls themselves — the hole in the wall, not the
-    run through it — and the land between two of them is what their boxes leave. A box is
-    enough here because it can only understate a gap, so a reading over one wall is a proof
-    and never a guess."""
+    run through it — and what it leaves is what its box leaves. A box is enough here because
+    it can only understate a gap, so a reading over one wall is a proof and never a guess."""
     sys.path.insert(0, str(_here.parent))
     from _internal_routes import route_corridor
-    from _reed_channels import reed_cable_pocket_punch, reed_cable_pocket_x
     from _reservoir_pocket_walls import build_reservoir_pocket_walls
 
     walls = build_reservoir_pocket_walls().val()
@@ -176,25 +169,10 @@ def _report_wall_openings():
         """One body's openings in the pocket walls, as boxes — one per wall it pierces."""
         return [lump.BoundingBox() for lump in solid.intersect(walls).Solids()]
 
-    def apart(a, b):
-        """How far two boxes stand apart on their best-separated axis. Zero means they
-        overlap on every one, which for two holes in one wall is one hole."""
-        return max(b.xmin - a.xmax, a.xmin - b.xmax,
-                   b.ymin - a.ymax, a.ymin - b.ymax,
-                   b.zmin - a.zmax, a.zmin - b.zmax)
-
-    for name, side in (("reservoir-a", +1), ("reservoir-b", -1)):
-        cable = holes(reed_cable_pocket_punch(side).val())
+    for name in ("reservoir-a", "reservoir-b"):
         for draw in holes(route_corridor(name)):
-            land = min((apart(draw, c) for c in cable), default=float("inf"))
-            assert land >= wall_and_floor_thickness, (
-                f"{name}: its pocket-wall opening stands {land:.2f} mm off the reed cable "
-                f"bore at x {reed_cable_pocket_x(side):g}, under one "
-                f"{wall_and_floor_thickness:g} mm wall — the two are on their way to being "
-                f"one hole")
             print(f"  {name} crossing: its own corridor at the stock arc, x "
-                  f"{draw.xmin:.4g} .. {draw.xmax:.4g}; {land:.2f} mm of land to the cable "
-                  f"bore at x {reed_cable_pocket_x(side):.4g}  OK")
+                  f"{draw.xmin:.4g} .. {draw.xmax:.4g}, the wall's only opening  OK")
 
 
 def _plug_span(name):
@@ -262,16 +240,14 @@ def main():
             # port axis) and the Z it shares with the water outlet.
             "CO2_BORE_Y": f"{co2_inlet_xyz[1]:.4g}",
             "CO2_BORE_Z": f"{co2_inlet_xyz[2]:.4g}",
-            # Front pass-throughs — each is two bores that do not meet: the
-            # pocket-side one beside the bulkhead, and a station on the front
-            # field, joined by a run along the port lane.
+            # The draw's own crossing of its pocket wall — the one opening each
+            # −Y bag-pocket wall carries, joined to the cap by a run up the band.
             "FLAVOR_POCKET_X": f"{flavor_line_hole_x:.4g} mm",
-            "CABLE_POCKET_X": f"{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g} mm",
             # The front face and its port lane.
             "LANE_Y": f"{port_lane_outer_y:.4g} to {port_lane_inner_y:.4g}",
             "LANE_W": f"{port_lane_inner_y - port_lane_outer_y:.4g} mm",
             "LANE_MID_Y": f"{port_lane_mid_y:.4g}",
-            "FIELD_Z": ", ".join(f"{n} {front_port_z(n):.4g}" for n in front_port_order),
+            "SLOT_FLOOR_Z": f"{front_port_floor_z:.4g} mm",
             # What each lane's slot carries, named for the LINE rather than the plug
             # whose bottom end lands on it — a stack tiles its slot, so a
             # pass-through center IS a plug boundary.

@@ -220,15 +220,17 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #   wago-sensors  J4 SENSORS `GND` → the 1-wire bus, the DIGITEN meter and the moisture
 #                 plate, all three of which land aft and west
 #
-# The last three run fore to aft down the west wall in the order the cold core's own harness
-# does, in the band between the flavour riser under them and the drip tray over them. Every
-# station clears the side walls' seam furniture (`enclosure.seam_bosses`) by the
-# lever swing as well as the well, so a lug can be worked in place.
+# THE LAST THREE ARE ONE BLOCK, aft on the west wall on one storey, at the same `wago_pitch`
+# the five poles keep on the wall opposite. `wago-sensors` stands where its own cluster lands
+# and the two reed nuts close up forward of it, which clears the whole band ahead for the tap
+# water's split and the flavour tap under it. Every station clears the side walls' seam
+# furniture (`enclosure.seam_bosses`) by the lever swing as well as the well, so a lug can be
+# worked in place.
 CLUSTER_WAGOS = {
     "wago-mana": (+1, 113.0, 290.0, "420"),
     "wago-manb": (-1, 119.0, 281.0, "415"),
-    "wago-reeds-b": (-1, 248.0, 296.0, "420"),
-    "wago-reeds-a": (-1, 300.0, 310.0, "415"),
+    "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 300.0, "420"),
+    "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 300.0, "415"),
     "wago-sensors": (-1, 335.0, 300.0, "415"),
 }
 

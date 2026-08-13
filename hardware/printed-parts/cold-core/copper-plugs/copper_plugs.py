@@ -11,7 +11,7 @@ condenser on the PORT lane's flank, the compressor on the WEST lane's. So the ev
 two coppers leave by opposite lanes, each one out on the side the leg that reaches it comes
 from, and each lane is one slot with its own stack. `columns` is that table.
 
-  PORT LANE, one station, over the front port field's two reed cables:
+  PORT LANE, one station, one lane pitch up off the lane's own floor:
     • [27.75 mm](EVAP_INLET_Z) evaporator inlet — the cold-side copper, reached from the
       condenser's outlet through the drier and the cap tube
 
@@ -145,10 +145,10 @@ top_flange_y_range = (outer_wall_outer_y, plug_y_outer)
 bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
 
 # Pass-through Z positions (centers).
-# A LANE IS ONE COLUMN AT ONE PITCH. On the port lane the front port field
-# (`_cold_core_interface.front_port_stations`) takes the bottom of it and the slot
-# takes the span above; both are one bore wide, so they share one line and cannot
-# overlap. A station's Z is where its line CROSSES THE WALL, not the height of the
+# A LANE IS ONE COLUMN AT ONE PITCH. The slot takes the whole of it, standing off the
+# lane's own floor by `_cold_core_interface.front_slot_standoff` — which is what keeps
+# both coppers out of the appliance's floor slab. A station's Z is where its line
+# CROSSES THE WALL, not the height of the
 # fitting it serves — every line turns onto its lane and climbs or drops it to get
 # here — so the slot's stations sit at the field's own `front_port_pitch` rather
 # than each crossing at its fitting's own height. That is what keeps every

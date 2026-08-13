@@ -201,12 +201,11 @@ near, which stiffens that corner; every boss gets one toward its own ±Y wall.
 Each carries a heat-set insert pocket at each end (drilled in from each face) —
 twelve inserts total, six per face, for fastening the foam-cap stacks.
 
-The outer **−X** wall carries every penetration that crosses a wall at all: a
-Z-elongated slot on each of its two lanes and the two ⌀[6.5 mm](TUBE_HOLE_D) round bores of the
-front port field, which are the reed cables'. **No fluid line crosses it** — this
-face is mated against the refrigeration base, so a bore struck here opens
-into that base rather than into the machine, and all seven leave by the top cap's
-conduits instead. See Penetrations.
+The outer **−X** wall carries one Z-elongated slot on each of its two lanes and
+**no round bore at all**. **Nothing else crosses it** — this face is mated against the
+refrigeration base, so a bore struck here opens into that base rather than into the
+machine. All seven fluid lines leave by the top cap's conduits, and so do both reed
+cables, each up the channel its own column stands in. See Penetrations.
 
 ### foam_cap and foam_cap_lid
 
@@ -297,8 +296,8 @@ a tight fit.
 conduit through the foam cap and its lid (`_cold_core_interface.cap_conduits`), and the
 service bay stands on the face they open on. What is left on the −X face — the one the
 enclosure's quarter turn puts at the front of the machine, mated flat against the
-refrigeration base — is the two reed cables on the front port field and the three
-refrigeration-side lines in the two lane slots above it.
+refrigeration base — is the three refrigeration-side lines in the two lane slots, and
+nothing else.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
@@ -372,22 +371,21 @@ of the exterior ones — bulge into the lane's outboard edge and pinch it to abo
 bore's width at the very corner. That is not an obstruction: it is the material
 each station's bore is cut through.
 
-The lane is **one bore wide**, which is what makes the front port field a column
-rather than a grid.
+The lane is **one bore wide**, which is what makes each lane a column rather than a
+grid.
 
-### Front port field
+### What holds the slot up
 
-Two round bores, one per reed cable, stacked up the lane on one Y at a pitch of one
-bore plus one wall:
+A lane's floor is the pocket floor's own band — [6.75 mm](SLOT_FLOOR_Z), one wall of PETG
+over the floor, one bore of lane, one wall again. The slot does not sit there: it stands
+one lane pitch above it, on `_cold_core_interface.front_slot_standoff`.
 
-[reed-cable-a 6.75, reed-cable-b 14.75](FIELD_Z)
-
-A station's Z is **not** the height of the fitting it serves. A cable leaves its
-pocket, turns onto the lane and climbs it, so the field is ordered by what leaves
-together — and both cables leave the pockets' bulkhead band together. Above the field
-this lane's slot takes the rest of the column, and `copper_plugs.evap_cross_z` is
-derived from where the field ends — so adding a station pushes the slot up rather
-than colliding with it, and dropping one brings the slot down.
+That standoff is **stated, not derived**. Nothing inside this shell sets it — what does is
+the appliance's own floor slab outside this face, which both of the evaporator's coppers
+would cross into if the slot dropped to the bottom of its lane. `enclosure_assembly` reads
+that against the loop itself, on `clearance-floor`, `port-leads` and `lines-clear`, so a
+slot that drops reads red over there rather than quietly walking the refrigerant loop into
+a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up from this top.
 
 **Three fluid lines use this lane and none of them crosses this wall:** reservoir A's
 draw runs forward along the lane's own floor at the bulkhead band, under everything;
@@ -425,8 +423,8 @@ threaded after the pour has cured, and are potted nowhere.
 ### The two lane slots and their copper plug stacks
 
 The −X outer_shell wall carries a **Z-elongated slot** on each of its two lanes, and
-between them they take three pass-throughs above the front port field: the two copper
-evaporator lines and the PRV vent. Each slot is
+between them they take three pass-throughs, one lane pitch up off each lane's floor: the
+two copper evaporator lines and the PRV vent. Each slot is
 ⌀[6.5 mm](TUBE_HOLE_D) wide (rounded ends along Z) and both are cut by
 `cut_lane_slots` in `_port_cuts.py`. A slot's
 top extends past the wall top so no sliver of wall material remains
@@ -458,7 +456,7 @@ cavity floor):
 
 [port-lane evap-inlet 27.75; west-lane evap-outlet 27.75](SLOT_Z)
 
-The three stand at the front port field's own pitch rather than each crossing
+The three stand at their lane's own pitch rather than each crossing
 where its own fitting sits: each line leaves its fitting, turns onto its lane and climbs
 or drops it. The two coppers cross at one height because the lanes are one strip mirrored
 and one coil's two tails reach either the same way. The PRV vent crosses UNDER the copper
@@ -685,11 +683,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1040156.574 mm³](FSHELL_VOLUME) |
+| volume | [1040422.277 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.722860, 0.458098, 87.556833) mm](CENTROID) |
+| centroid | [(0.704722, 0.438955, 87.536613) mm](CENTROID) |
 
 Quick reproduction:
 
