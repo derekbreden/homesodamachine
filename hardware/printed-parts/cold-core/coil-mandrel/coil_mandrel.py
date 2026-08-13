@@ -140,13 +140,13 @@ spring_gain = fitted_wrap_length - mandrel_wrap_length
 # cut. `manifold-layout/_lines.py` draws exactly ONE refrigerant leg — refrig-3,
 # foam-assembly.evap-outlet → compressor.refrig-suction — because the other two
 # joints of the sealed loop are made across a plane their bodies already share and
-# draw no tube at all. That leg spans 67.7 mm end to end on the built pack
+# draw no tube at all. That leg spans 92.0 mm end to end on the built pack
 # (`manifold-layout/enclosure-assembly.scorecard.json`, bend `refrig-3`). Any stub
 # longer than its own end's reach is trimmed off before the torch is lit — so what
 # the allowance buys is fit-up and re-cuts, and each end is sized off what
 # `assembly/refrigerant-loop.md` actually does to THAT end.
 #
-#   outlet  [150 mm](PROT_OUTLET) — refrig-3's 67.7 mm of routed reach, ~20 mm of
+#   outlet  [175 mm](PROT_OUTLET) — refrig-3's 92.0 mm of routed reach, ~20 mm of
 #           fit-up (the factory suction line is cut by hand at step 3), and ~60 mm
 #           for two re-cuts. Step 9 requires the joint be re-cut and re-brazed on
 #           any leak, so the rework allowance is a stated requirement, not padding.
@@ -157,7 +157,7 @@ spring_gain = fitted_wrap_length - mandrel_wrap_length
 #           pinch-swage is the higher-risk of the two joints — size mismatch, hand
 #           technique, no reducer fitting — and a failed one is re-swaged from
 #           fresh copper, not just re-brazed.
-stub_protrusion = {"inlet": 200.0, "outlet": 150.0}
+stub_protrusion = {"inlet": 200.0, "outlet": 175.0}
 
 # WHAT EACH TAIL DOES BEFORE IT PROTRUDES, AND NOTHING ELSE IN THE REPO BILLS IT.
 # `cold-core-layout/_coil.tail_length` draws each tail off the helix, down its own
@@ -169,7 +169,7 @@ stub_protrusion = {"inlet": 200.0, "outlet": 150.0}
 # figures are held against the tails actually drawn, since that module sees both.
 tail_in_shell = {"inlet": 135.5, "outlet": 254.6}
 
-# [335.5 mm](STUB_INLET) at the inlet, [404.6 mm](STUB_OUTLET) at the outlet.
+# [335.5 mm](STUB_INLET) at the inlet, [429.6 mm](STUB_OUTLET) at the outlet.
 stub_allowance = {end: tail_in_shell[end] + stub_protrusion[end] for end in tail_in_shell}
 stub_total = sum(stub_allowance.values())
 
