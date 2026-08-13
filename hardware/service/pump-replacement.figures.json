@@ -1,0 +1,29 @@
+{
+  "/hardware/service/_pump_replacement_sync.py": {
+    "CAP_VALVES": "3",
+    "CORE_CROWN": "268.6",
+    "DRAW_CREST": "281.3",
+    "JOINT_COUNT_2": "8",
+    "JOINT_COUNT_3": "8",
+    "JOINT_COUNT_4": "8",
+    "JOINT_COUNT_5": "8",
+    "JOINT_COUNT_6": "8",
+    "JOINT_COUNT_7": "8",
+    "JOINT_ML": "26",
+    "LEN_14": "380.2",
+    "LEN_16": "133.9",
+    "LEN_18": "472.2",
+    "LEN_24": "194.3",
+    "LEN_26": "133.9",
+    "LEN_28": "342.2",
+    "LEN_3": "54.1",
+    "LEN_5": "54.0",
+    "LIFT_TEES": "6",
+    "LIFT_VALVES": "8",
+    "PUMP_SOCKET": "53 mm",
+    "SIPHON_MARGIN": "12.7",
+    "SOURCE_CREST": "281.3",
+    "TUBE_OD": "6.35 mm",
+    "WET_ML": "0.8"
+  }
+}
