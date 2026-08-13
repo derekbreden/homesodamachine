@@ -4,7 +4,7 @@
     python3 hardware/scripts/owed.py --run      # run them until nothing is owed
     python3 hardware/scripts/owed.py selftest
 
-`check_doc_figures`, `check_cards` and `check_scenes` each name the generator that would
+`check_parts`, `check_doc_figures`, `check_cards` and `check_scenes` each name the generator that would
 make a stale thing current — `run tools/cad-venv/bin/python …` — and between them they know
 exactly what a commit owes. This runs that set and nothing else.
 
@@ -32,7 +32,7 @@ _HW = _HERE.parent.parent
 _ROOT = _HW.parent
 _PY = _ROOT / "tools" / "cad-venv" / "bin" / "python"
 
-CHECKS = ("check_doc_figures.py", "check_cards.py", "check_scenes.py")
+CHECKS = ("check_parts.py", "check_doc_figures.py", "check_cards.py", "check_scenes.py")
 MAX_PASSES = 4
 
 # Both shapes the checks print: a bare `run <cmd>`, and the cards' `…; run <cmd>` which names
