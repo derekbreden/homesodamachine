@@ -33,9 +33,11 @@ _HW = next(p for p in _HERE.parents if p.name == "hardware")
 _ROOT = _HW.parent
 
 #: What a run needs that no commit carries. `.gitignore` holds each of these, and a fresh
-#: checkout has none of them: without the second, `render-step-posed.js` cannot resolve a
-#: single import and every scene comes back exit 1.
-TOOLCHAIN = ("tools/cad-venv", "tools/render/node_modules")
+#: checkout has none of them. A scene is drawn by posing the viewer at the STEP and reading
+#: the frame back, so drawing one wants all three: `render-step-posed.js` resolves its own
+#: imports out of the second, and it starts `web/server.js`, which resolves its own out of
+#: the third.
+TOOLCHAIN = ("tools/cad-venv", "tools/render/node_modules", "web/node_modules")
 
 
 def _git(*args, cwd=None, check=True):

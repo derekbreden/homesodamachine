@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -144,15 +144,12 @@
     "water-7 \u2014 co2-2: 1.725 mm",
     "fluid-4 \u2014 coil-v-a: 1.980 mm",
     "fluid-4 \u2014 coil-v-b: 1.980 mm",
-    "fluid-18 \u2014 pcba: 1.983 mm",
     "fluid-4 \u2014 valve-v-a: 2.054 mm",
     "fluid-14 \u2014 fluid-16: 2.091 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "carb-1 \u2014 fluid-18: 2.266 mm",
     "fluid-28 \u2014 foam-assembly: 2.449 mm",
-    "carb-1 \u2014 pcba: 2.475 mm",
-    "psu \u2014 relay-2: 2.500 mm",
-    "relay-2 \u2014 pcba: 2.532 mm",
+    "carb-1 \u2014 pcba: 2.483 mm",
     "pcba \u2014 relay-1: 2.532 mm",
     "water-3 \u2014 fluid-28: 2.593 mm",
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
@@ -164,12 +161,11 @@
     "fluid-2 \u2014 fluid-4: 3.698 mm",
     "foam-assembly \u2014 pcba: 3.747 mm",
     "co2-2 \u2014 suction-chain: 3.846 mm",
-    "co2-2 \u2014 pcba: 4.262 mm",
+    "co2-2 \u2014 pcba: 4.065 mm",
     "seaflo-pump \u2014 co2-inlet: 4.317 mm",
     "fluid-2 \u2014 valve-v-b: 4.321 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
-    "carb-1 \u2014 relay-1: 4.540 mm",
     "fluid-24 \u2014 fluid-26: 4.607 mm",
     "coil-v-i \u2014 wago-manb: 4.680 mm",
     "fluid-28 \u2014 fluid-24: 4.802 mm",
@@ -184,7 +180,6 @@
     "water-6 \u2014 enclosure-back-top: 5.652 mm",
     "fluid-28 \u2014 wago-reeds-b: 5.827 mm",
     "fluid-24 \u2014 coil-v-b: 5.851 mm",
-    "relay-2 \u2014 relay-1: 5.860 mm",
     "water-3 \u2014 tee-y-a: 5.878 mm",
     "water-3 \u2014 tee-y-b: 5.878 mm",
     "coil-v-b \u2014 hopper-funnel: 5.979 mm",
@@ -654,15 +649,12 @@
   },
   {
    "id": "east-band",
-   "label": "The +X wall's column stands in the depth that wall runs free",
+   "label": "The +X wall's column stands in the depth that wall states",
    "kind": "gate",
-   "status": "fail",
-   "value": "column spans y 225.88..447.70, band 231.40..447.70",
-   "target": "inside y 231.40..447.70",
-   "detail": [
-    "pcba reaches 5.52 mm forward of the free depth \u2014 the seam's own column stands there floor to ceiling, so a body on the wall meets it. Move the column along the flank, or seat that body back on `enclosure.boss_in` and let it stand off the wall instead",
-    "ground-stack reaches 5.20 mm forward of the free depth \u2014 the seam's own column stands there floor to ceiling, so a body on the wall meets it. Move the column along the flank, or seat that body back on `enclosure.boss_in` and let it stand off the wall instead"
-   ],
+   "status": "pass",
+   "value": "column spans y 231.68..460.50, band 213.10..463.57",
+   "target": "inside y 213.10..463.57",
+   "detail": [],
    "active": true
   },
   {
@@ -946,38 +938,6 @@
    "active": true
   },
   {
-   "id": "box-width",
-   "label": "The pack stands inside the appliance's stated width",
-   "kind": "gate",
-   "status": "pass",
-   "value": "pack reaches x \u00b1108.50, wall at \u00b1108.50",
-   "target": "inside a 223 mm appliance",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "box-depth",
-   "label": "The pack stands inside the appliance's stated depth",
-   "kind": "gate",
-   "status": "pass",
-   "value": "pack reaches y 464.00, back wall at 464.00",
-   "target": "ahead of `rear_plane_y` 464",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "box-height",
-   "label": "The pack stands under the appliance's stated ceiling",
-   "kind": "gate",
-   "status": "fail",
-   "value": "pack reaches z 364.19, ceiling at 352.00",
-   "target": "under a 358 mm appliance",
-   "detail": [
-    "the pack reaches z 364.19 but a 358 mm appliance ceilings at 352.00 \u2014 12.19 mm over. Raise `appliance_height` or repack downward"
-   ],
-   "active": true
-  },
-  {
    "id": "z-seam-front-bed",
    "label": "The front Z seam leaves both its pieces on the H2C's bed",
    "kind": "gate",
@@ -1014,6 +974,36 @@
    "status": "pass",
    "value": "back seam at 197.70, 47.70 mm off the front's 150.00",
    "target": "at least 47.70 mm apart",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-width",
+   "label": "The pack stands inside the appliance's stated width",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches x \u00b1108.50, wall at \u00b1108.50",
+   "target": "inside a 223 mm appliance",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-depth",
+   "label": "The pack stands inside the appliance's stated depth",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches y 464.00, back wall at 464.00",
+   "target": "ahead of `rear_plane_y` 464",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "box-height",
+   "label": "The pack stands under the appliance's stated ceiling",
+   "kind": "gate",
+   "status": "pass",
+   "value": "pack reaches z 350.50, ceiling at 352.00",
+   "target": "under a 358 mm appliance",
    "detail": [],
    "active": true
   },
@@ -2550,10 +2540,10 @@
    "boxes": [
     [
      88.45,
-     226.2,
+     232.0,
      328.7,
      102.25,
-     244.2,
+     250.0,
      346.388
     ]
    ],
@@ -2606,10 +2596,10 @@
    "boxes": [
     [
      83.15,
-     225.884,
+     231.684,
      253.4,
      102.25,
-     316.7,
+     322.5,
      326.2
     ]
    ],
@@ -2838,10 +2828,10 @@
    "boxes": [
     [
      83.25,
-     246.7,
+     252.5,
      328.7,
      102.25,
-     316.7,
+     322.5,
      345.7
     ]
    ],
@@ -2854,10 +2844,10 @@
    "boxes": [
     [
      83.25,
-     319.2,
+     328.5,
      253.4,
      102.25,
-     336.2,
+     345.5,
      323.4
     ]
    ],
@@ -3430,10 +3420,10 @@
    "boxes": [
     [
      68.75,
-     338.7,
+     351.5,
      253.4,
      102.25,
-     447.7,
+     460.5,
      305.4
     ]
    ],
@@ -3558,10 +3548,10 @@
    "boxes": [
     [
      89.9,
-     388.075,
+     400.875,
      311.05,
      108.5,
-     396.475,
+     409.275,
      329.85
     ]
    ],
@@ -3574,10 +3564,10 @@
    "boxes": [
     [
      89.9,
-     420.575,
+     433.375,
      311.05,
      108.5,
-     428.975,
+     441.775,
      329.85
     ]
    ],
@@ -3590,10 +3580,10 @@
    "boxes": [
     [
      89.9,
-     355.575,
+     368.375,
      311.05,
      108.5,
-     363.975,
+     376.775,
      329.85
     ]
    ],
@@ -3606,10 +3596,10 @@
    "boxes": [
     [
      89.9,
-     371.825,
+     384.625,
      311.05,
      108.5,
-     380.225,
+     393.025,
      329.85
     ]
    ],
@@ -3622,10 +3612,10 @@
    "boxes": [
     [
      89.9,
-     404.325,
+     417.125,
      311.05,
      108.5,
-     412.725,
+     425.525,
      329.85
     ]
    ],

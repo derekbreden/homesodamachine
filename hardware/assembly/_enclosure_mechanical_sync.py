@@ -135,6 +135,9 @@ def main():
         "STRATUM_X": f"{_span(_F, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_F, 'foam-assembly'):.0f}",
         "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
+        # What one boss takes of that band, across and up: a body clears it either way, so the
+        # doc quotes the collar's own diameter rather than the wall's height.
+        "SOCKET_OD": f"{2.0 * _enc.socket_r:.4g} mm",
         # The PSU's own body, off the reference module the pack places it from. The
         # brick is laid on its side so its SHORTEST axis is the one reaching into the
         # lane, and the doc says which axis does what — so both are read off the same

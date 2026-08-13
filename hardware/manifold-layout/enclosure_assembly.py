@@ -216,7 +216,7 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 #
 # The last three run fore to aft down the west wall in the order the cold core's own harness
 # does, in the band between the flavour riser under them and the drip tray over them. Every
-# station clears the side walls' seam furniture (`enclosure._seam_furniture_spans`) by the
+# station clears the side walls' seam furniture (`enclosure.seam_bosses`) by the
 # lever swing as well as the well, so a lug can be worked in place.
 CLUSTER_WAGOS = {
     "wago-mana": (+1, 113.0, 290.0, "420"),
@@ -1858,10 +1858,11 @@ def west_seam_crown():
     """What actually fences the west lane at the back wall: the crown of the seam's own boss
     chain, one `enclosure.boss_in` inboard of that face.
 
-    THE WALL IS NOT THE FENCE THERE. `enclosure.boss_in` is the section of the cross-pin column
-    the rear seam stands on this flank, and at the back wall — which is exactly where the unions
-    cross it — that column is what a body on the west lane meets first. A lane measured to the
-    bare face reports fourteen millimetres that are not there."""
+    THE WALL IS NOT THE FENCE THERE. `enclosure.boss_in` is how far the rear seam's own socket
+    collar reaches inboard on this flank, and at the back wall — which is exactly where the
+    unions cross it, at the height that collar stands — the collar is what a body on the west
+    lane meets first. A lane measured to the bare face reports fourteen millimetres that are
+    not there."""
     return west_interior_face() + _enc.boss_in
 
 
@@ -2626,12 +2627,15 @@ _ROUTED: set = set()
 # heat-set and the air past the screw tip, and nothing else, because that is the whole of what
 # a boss carrying a body has to be. The wall's inner face is what caps the bore's blind end.
 #
-# The seam's own furniture caps a whole `enclosure.boss_in` further inboard, so a body seated
-# here stands INSIDE the band the rail's columns occupy. It gets away with that because those
-# columns stand only where the seam puts them: the Y-seam corner column at one end and the
-# rear wall's cross-pin column at the other, with the wall's own air between. That free depth
-# is `enclosure.east_band_free_y`, and every body on this flank is placed inside it — which is
-# what `PSU_REAR_CLEAR` closes the column's aft end on.
+# The seam's own furniture reaches a whole `enclosure.boss_in` further inboard, and each piece
+# of it is a pipe round its own screw, one `enclosure.socket_r` about the level it pins. A body
+# seated here meets one where its own height crosses one of theirs, which is a question about
+# two placed solids and is `pack-closes`'s to answer.
+#
+# What fences this flank at EVERY height is the standing corner's relief, and
+# `enclosure.wall_boss_aft_limit` is the station where it takes the wall out from under a
+# boss. The power
+# block closes its aft end on that plane, through the brick's own rear mount hole.
 #
 # Read off the wall and not off the pack, so a body here can be seated before the box that
 # carries it has been sized, and nothing arriving on the floor moves it afterwards.
@@ -2734,28 +2738,18 @@ def condenser_mount(cond, cond_carry) -> tuple:
 # height and lays its 33.5 mm depth across the machine, so only that much of the lane reaches
 # inboard and its 109 mm long axis runs fore and aft down the flank.
 PSU_TURN = (((0.0, 1.0, 0.0), -90.0),)
-# What the brick stands off the rear wall's cross-pin column, which is where the free depth on
-# this flank ENDS: standing on the wall, the whole power block is inside that column's own band,
-# so the column is the aft face the block closes on and not the rear seam behind it.
-#
-# IT IS ZERO, AND THAT IS THE PRICE OF RELAY #2. Three bodies now stand in this band where two
-# did — board, relay, brick — and what they leave over is every gap there is. Spent aft, the
-# relay has nowhere to stand; spent between the bodies it clears `STACK_CLEAR` either side of
-# it. So the brick closes on the column, and its AC screw block is made off from INBOARD, off
-# the open lane, rather than from behind. What the band has left is the `east-band` gate's to
-# report, off the placed column, every run.
-PSU_REAR_CLEAR = 0.0
 
 
 def build_psu(foam, wall_seat):
     """The MeanWell brick on the +X wall, standing on the cold core's cap.
 
-    Three faces of the machine and not three numbers: EAST on the wall seat, AFT one
-    `PSU_REAR_CLEAR` ahead of where `enclosure.east_band_free_y` ends, FOOT on the cap's own
-    lid. The lane it lies in is what the SeaFlo leaves east of itself on that cap."""
+    Three faces of the machine and not three numbers: EAST on the wall seat, FOOT on the cap's
+    own lid, and AFT its own rear mount hole on `enclosure.wall_boss_aft_limit` — the brick
+    answers to the corner with the hole pattern it has, so its aft face lands wherever that
+    puts it. The lane it lies in is what the SeaFlo leaves east of itself on that cap."""
     return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
-                     y1=_enc.east_band_free_y()[1] - PSU_REAR_CLEAR,
+                     y1=_enc.wall_boss_aft_limit() + (_psu.length / 2.0 - _psu.hole_dy),
                      z0=cap_face(foam))
 
 
@@ -2766,26 +2760,28 @@ def build_psu(foam, wall_seat):
 # is in that plane — a quarter about X lays the board's LONG edge fore and aft down the flank, so
 # the short edge is what stands, and the corner that meets the cap is the one nearest the brick.
 PCBA_TURN = (((0.0, 1.0, 0.0), -90.0), ((1.0, 0.0, 0.0), -90.0))
-# What the board stands off the brick along the flank. Both are wired, and a hand making off a
-# connector between them needs the gap to be a gap.
-PCBA_PSU_CLEAR = 6.0
+# What one wired body on the cap storey stands off the next along this flank. Brick, relay and
+# board all take their conductors on the faces that look down the column at each other, and a
+# hand making off a connector between two of them needs the gap to be a gap — a working reach
+# rather than the `STACK_CLEAR` the boss between them would leave on its own.
+WIRED_CLEAR = 6.0
 
 
 def build_pcba(foam, ahead_of, wall_seat):
     """The controller board on the +X wall, forward of whatever the brick's column presents.
 
     EAST on the same wall seat the brick takes, so the two stand in one plane and one length of
-    boss holds them both; AFT one `STACK_CLEAR` ahead of `ahead_of`'s own front face — which is
+    boss holds them both; AFT one `WIRED_CLEAR` ahead of `ahead_of`'s own front face — which is
     relay #2, not the brick, since the relay stands between them; FOOT on the cap. What holds it
     is the pcba-tray, which is not placed — this is the board's envelope."""
     return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
-                     x1=wall_seat, y1=box(ahead_of).ymin - STACK_CLEAR, z0=cap_face(foam))
+                     x1=wall_seat, y1=box(ahead_of).ymin - WIRED_CLEAR, z0=cap_face(foam))
 
 
 # The rest of the power block, on the two crowns: relay #1 on the BOARD'S crown with the ground
 # stud one clearance forward of it, and the five Wago wells on the BRICK'S. Each takes the same
 # wall seat as its east face, so the whole group stands on one plane against the wall, in the
-# depth `enclosure.east_band_free_y` leaves between the seam's two columns — the lever nuts
+# depth `enclosure.east_band_free_y` leaves aft of the Y seam's own bosses — the lever nuts
 # excepted, which seat on the wall itself because a well is not a boss.
 #
 # Each turn lays the body's own long axis fore and aft down the flank and its board facing
@@ -2830,11 +2826,11 @@ def _wago_skirt(size="413"):
 def build_relay2(psu, foam, wall_seat):
     """Relay #2 on end, in the band between the brick and the board.
 
-    EAST on the wall seat every body on this flank takes; AFT one `STACK_CLEAR` ahead of the
-    brick's own front face; FOOT on the cap, the same lid the brick and the board stand on. It
-    is the body the band was reorganised around — see `PSU_REAR_CLEAR`."""
+    EAST on the wall seat every body on this flank takes; AFT one `WIRED_CLEAR` ahead of the
+    brick's own front face; FOOT on the cap, the same lid the brick and the board stand on. Its
+    screw block and its header stand one over the other, both facing the room."""
     return seat_body(cq.importers.importStep(str(RELAY_STEP)).val(), RELAY2_TURN, seat="relay-2",
-                     x1=wall_seat, y1=box(psu).ymin - STACK_CLEAR, z0=cap_face(foam))
+                     x1=wall_seat, y1=box(psu).ymin - WIRED_CLEAR, z0=cap_face(foam))
 
 
 def build_wago_row(psu, wall_seat):
@@ -2947,16 +2943,21 @@ def wall_mounts(*mounted):
 
 
 def check_east_band(seated) -> Bound:
-    """Every body hung on the +X wall stands inside the depth that wall runs free.
+    """Every body hung on the +X wall stands in the depth that wall states.
 
     Standing ON the wall puts a body INSIDE the ±X boss-chain band, which is the whole of what
-    `east_wall_seat` buys and the whole of what it costs: the band is free air only between the
-    Y-seam corner column and the rear wall's cross-pin column, and either one fills it floor to
-    ceiling. `enclosure.east_band_free_y` is where they leave off.
+    `east_wall_seat` buys and the whole of what it costs. What it costs is two STATED planes,
+    and they are the two this measures: forward, the aft face every Y-seam level shares
+    (`y_seam + lip_len` — the levels differ in height and share one station, so one plane
+    stops all of them); aft, the back corner's own relief, which curves the wall away from the
+    seat plane at every height. `enclosure.east_band_free_y` strikes both.
 
-    `pack-closes` would report a body past either end as a clash against a printed piece, once
-    the piece exists. This says which body left the lane and by how much, off planes the box
-    states before it is drawn — so the answer is the same whether or not the walls are on."""
+    IT DOES NOT MEASURE THE Z-SEAM COLLARS, and that is the shape of the answer rather than a
+    gap in it. Each is a pipe `2 * socket_r` tall at a height its own seam is SEARCHED to
+    (`_z_joints`), so whether a body meets one is a question about where two solids stand — and
+    the body clears it by standing over or under it as readily as beside it. `pack-closes`
+    answers that, against the printed pieces themselves. This runs while the pack is being
+    built, before the box has been sized, so it asks only what the box states about itself."""
     y0, y1 = _enc.east_band_free_y()
     out = []
     for name, solid in seated:
@@ -2968,14 +2969,15 @@ def check_east_band(seated) -> Bound:
     fore = min((box(s).ymin for _n, s in seated), default=y0)
     aft = max((box(s).ymax for _n, s in seated), default=y1)
     return record_bound(Bound(
-        "east-band", "The +X wall's column stands in the depth that wall runs free", not out,
+        "east-band", "The +X wall's column stands in the depth that wall states", not out,
         f"column spans y {fore:.2f}..{aft:.2f}, band {y0:.2f}..{y1:.2f}",
         f"inside y {y0:.2f}..{y1:.2f}",
         ([] if not out else [
-            f"{n} reaches {much:.2f} mm {where} the free depth — the seam's own column stands "
-            f"there floor to ceiling, so a body on the wall meets it. Move the column along "
-            f"the flank, or seat that body back on `enclosure.boss_in` and let it stand off "
-            f"the wall instead" for n, where, much in sorted(out, key=lambda r: -r[2])])))
+            f"{n} reaches {much:.2f} mm {where} the stated depth — forward of it the Y seam's "
+            f"own bosses stand at every level, and aft of it the corner takes the wall out "
+            f"from under the boss. Move the column along the flank, or seat that body back on "
+            f"`enclosure.boss_in` and let it stand off the wall instead"
+            for n, where, much in sorted(out, key=lambda r: -r[2])])))
 
 
 # --- the tap-water sequence, in the west lane ------------------------------
