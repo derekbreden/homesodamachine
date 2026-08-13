@@ -76,6 +76,7 @@ from _cold_core_interface import (
 from _foam_cap import cap_face_z, lid_total_height, stack_floor_z
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
+import _routing
 
 # The one figure whoever seats this assembly needs: how far the cap face stands over the floor
 # the stack is set down on. Both planes are `_foam_cap`'s, beside the lid whose faces they are.
@@ -99,17 +100,20 @@ COLORS = {
     "foam-cap-lid-bottom": cq.Color(0.66, 0.86, 0.62), # pale green
 }
 
-# One colour per line, read by what it carries: water blue, gas grey, flavour by its bag.
-ROUTE_COLORS = {
-    "water-in": cq.Color(0.35, 0.60, 0.90),
-    "carb-water-out": cq.Color(0.20, 0.80, 0.85),
-    "co2-in": cq.Color(0.60, 0.62, 0.66),
-    "prv-vent": cq.Color(0.95, 0.75, 0.25),
-    "reservoir-a": cq.Color(0.85, 0.35, 0.30),
-    "reservoir-a-fill": cq.Color(0.95, 0.62, 0.55),
-    "reservoir-b": cq.Color(0.55, 0.35, 0.75),
-    "reservoir-b-fill": cq.Color(0.78, 0.66, 0.92),
+# The spool each potted route is cut off, in `_routing.SPOOLS`' own keys — the same six rolls
+# the enclosure's runs come off, and every one of these lines butts an enclosure run at the
+# conduit it leaves the stack by.
+ROUTE_SPOOLS = {
+    "water-in": "white",
+    "carb-water-out": "blue",
+    "co2-in": "red",
+    "prv-vent": "black",
+    "reservoir-a": "black",
+    "reservoir-a-fill": "black",
+    "reservoir-b": "black",
+    "reservoir-b-fill": "black",
 }
+ROUTE_COLORS = {name: _routing.color(key) for name, key in ROUTE_SPOOLS.items()}
 
 
 def _load(path):
