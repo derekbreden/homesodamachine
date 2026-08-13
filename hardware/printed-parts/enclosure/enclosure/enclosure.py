@@ -603,7 +603,7 @@ Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
            "cond_mount asse_cradle digiten_saddles tube_anchors port_field valve_panels "
-           "pump_trays core_stops core_holds")
+           "pump_trays core_stops core_holds vent_chase")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -614,9 +614,9 @@ Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "asse_cradle digiten_saddles tube_anchors port_field valve_panels pump_trays "
-            "core_stops core_holds")
+            "core_stops core_holds vent_chase")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), (),
-                             (), (), None, (), (), (), ())
+                             (), (), None, (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1185,7 +1185,7 @@ def _dims(pack):
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
                pack.cond_mount, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels,
-               pack.pump_trays, pack.core_stops, pack.core_holds)
+               pack.pump_trays, pack.core_stops, pack.core_holds, pack.vent_chase)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1918,7 +1918,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               (), (), None, None, (), None, (), (), (), ())
+               (), (), None, None, (), None, (), (), (), (), ())
 
 
 def build_front_half(box):
@@ -2101,6 +2101,65 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
                                 sy + (stand_y / 2.0 + wago_well_press),
                                 sz - (stand_z / 2.0 + wago_well_press),
                                 sz + (stand_z / 2.0 + wago_well_press)))
+    return solid
+
+
+# --- the PRV's chase, down the OUTSIDE of the west wall ----------------------
+#
+# The cold core's relief line is the one run that leaves that core by a flank instead of by
+# its lid (`_internal_routes.prv_vent_cross_z` says why: a relief vent is made up on nothing,
+# so what it owes is the short way to air, and tube length is discharge off the valve's
+# rating). It arrives here pointing west, standing `vent_socket_reach` proud of the core's
+# own flank, and this is the other half of that — what carries the discharge OUT OF THE BOX.
+#
+# IT IS A GROOVE IN THE OUTER FACE AND NOT A SPOUT, so the appliance is no wider for having
+# it. A spout would put the machine's width wherever the spout ends; a groove takes its depth
+# out of a wall thickened from the INSIDE, into the band the core already stands off, and the
+# outer face stays the plane `outer` names. Pressed flat against a cabinet the groove becomes
+# a duct rather than a blocked hole — which is the whole reason a vent is cut this way — and
+# it runs to the panel's own bottom edge, so the end it discharges from is the one edge no
+# install can seal. CO2 is heavier than air and wants that direction anyway.
+#
+# LENGTH IS FREE HERE AND IT IS NOT FREE IN THE TUBE. The groove runs several times the
+# tube's bore in section, so the run down the wall costs the relief path almost nothing,
+# while every diameter of TUBE does. That is the trade the whole reroute stands on: the tube
+# is drawn as short as the corner allows and the length is spent out here instead.
+vent_socket_reach = 8.0        # what the core's tube stands proud of its flank — one number,
+                               # read against `_internal_routes.prv_vent_reach` by the machine
+vent_rib_reach = 6.0           # how far the wall is thickened inboard, to the tube's own tip
+vent_bore_d = 6.5              # the shell's own ⌀6.5-round-⌀6.35 standard, again
+vent_channel_w = 12.0          # the groove, across
+vent_channel_depth = 4.0       # and into the outer face — under `wall + vent_rib_reach`
+vent_rib_wall = 2.0            # PETG either side of the groove
+
+
+def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
+    """The PRV vent's chase on a −X wall PIECE, for the station inside the band it owns.
+
+    One station, `(y, z)`: where the core's tube arrives, in the machine's own frame. Three
+    moves. A RIB is fused up the wall's inner face over the groove's whole run, because a
+    groove cut into a `wall`-thick sheet would be a hole; it reaches `vent_rib_reach` inboard,
+    which lands its face exactly on the tube's tip so the tube BOTTOMS rather than spanning
+    the band. The GROOVE is cut back out of the outer face, leaving the rib's balance standing
+    behind it. And between them the SOCKET, which is the tube's own bore — cut FORWARD-OPEN,
+    because the core is slid aft onto its stops and a blind bore is one no tube could ever
+    enter. The tube sweeps in from the front and comes to rest at the socket's aft end."""
+    for sy, sz in stations:
+        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
+            continue
+        rib_x = inner[0] + vent_rib_reach
+        half = vent_channel_w / 2.0 + vent_rib_wall
+        foot = outer[4] - 1.0                       # out through the panel's own bottom edge
+        solid = solid.fuse(_ybox(inner[0], rib_x, sy - half, sy + half, foot, sz + half))
+        # The groove, and it runs OFF the bottom edge rather than ending in the wall: a recess
+        # closed at its foot is a pocket, and a pocket is what a cabinet pressed against this
+        # face would seal shut.
+        solid = solid.cut(_ybox(outer[0] - 1.0, outer[0] + vent_channel_depth,
+                                sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
+                                foot, sz + vent_channel_w / 2.0))
+        # The socket: the tube's bore through the rib, open forward for the core's own travel.
+        solid = solid.cut(_ybox(inner[0], rib_x + 1.0, sy - half - 1.0, sy + vent_bore_d / 2.0,
+                                sz - vent_bore_d / 2.0, sz + vent_bore_d / 2.0))
     return solid
 
 
@@ -2897,6 +2956,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # with the other pockets — after everything that could fuse material back into one.
     piece = _core_stops(piece, inner, box.core_stops, ylo, yhi, zlo, zhi)
     piece = _core_holds(piece, inner, box.core_holds, ylo, yhi, zlo, zhi)
+    # And the core's relief, which leaves it by a flank and needs somewhere to go: the rib is
+    # fused before the groove is cut out of it, which is the same order the card slot takes.
+    piece = _vent_chase(piece, inner, outer, box.vent_chase, ylo, yhi, zlo, zhi)
     # And the tap-water chain's, on the same wall a storey up. After the tray's rails, whose
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
     # trough this fuses, so nothing may fuse into them afterwards.
