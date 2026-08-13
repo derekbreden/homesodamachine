@@ -2121,10 +2121,10 @@ def nozzle_storey(gate: float, seaflo) -> float:
 # regulator and the drip tray under the vent all hang off that union, and the column is what
 # stands them in the lane.
 #
-# THE STOREY THE NOZZLE UNIONS TAKE IS THEIR OWN RUNS'. `fluid-28` and `fluid-18` cruise the
-# outboard lanes at `_lines.gate_cruise` — the plane the two gates climb to under the reservoir
-# lines that cross their columns — so a union standing there is reached by a leg that crosses to
-# its column without changing height, and each run's last move into its collet is flat. It also
+# THE STOREY THE NOZZLE UNIONS TAKE IS THEIR OWN RUNS'. `_lines.gate_cruise` is the plane the
+# west gate climbs to under the reservoir line crossing its column, and it is the plane both
+# unions stand on: `fluid-28` cruises its outboard lane onto its collet on it and `fluid-18`
+# comes down its union's column onto it, so each run's last move into its collet is flat. It also
 # carries both barrels clear under the drip tray's channel.
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
 

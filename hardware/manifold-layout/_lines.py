@@ -729,23 +729,30 @@ def _carb_2(F):
         kind="water", note="carb water: DIGITEN outlet → rear union, one straight down the deck")
 
 
-# How high a gate's line climbs on its own column before it steps outboard. Each gate has its own
-# channel's reservoir line standing over it, so the column is a bay and not a shaft, and this is
-# the air left under whatever that is.
+# How high the WEST gate's line climbs on its own column before it steps outboard. That gate has
+# its own channel's reservoir line standing over it, so the column is a bay and not a shaft, and
+# this is the air left under whatever that is.
 #
 # WHAT CROSSES A GATE'S COLUMN IS ITS OWN CHANNEL'S FILL LINE. West that is `fluid-24`, which
-# runs aft up the outboard lane on `RESERVOIR_CRUISE` and passes directly over V-J. East,
-# `fluid-14` climbs a storey higher to cross V-K, so nothing fences V-G at all — and the two
-# gates still take ONE plane, because they are twins and a pair that reads the same on both
-# flanks is worth more than the few millimetres the east one could have.
+# runs aft up the outboard lane on `RESERVOIR_CRUISE` and passes directly over V-J and fixes this
+# plane. East, `fluid-14` climbs a storey higher to cross V-K, so NOTHING FENCES V-G AT ALL —
+# and `fluid-18` climbs its own bay through this plane to the crown lane. This figure is the
+# west line's.
 GATE_STUB_CLEAR = 4.0
-# The outboard lane the two gate lines run aft in. It is the strip between the hopper's bowl and
-# the ±X boss chain, and it is the one column on either flank that carries a line from the valve
-# deck to the back wall. Re-measure it by sweeping the lane —
+# The outboard lane the WEST gate's line runs aft in, stated as a reach and negated at its use.
+# It is the strip between the hopper's bowl and that flank's boss chain, and it is the one column
+# there that carries a line from the valve deck to the back wall. Re-measure it by sweeping the
+# lane —
 #
 #     w.cast((x, 160.0, z), (0, 1, 0), dia=6.35)
 #
 # — which reads clear at ±88 and stops on the machine's own bodies at every station inboard of it.
+#
+# THE EAST FLANK IS NOT ITS TWIN. The strip reads clear at +88 with the tube alone in it, but the
+# board and its relay hang on the +X wall's own seat and take that column from y 232 aft for the
+# whole of the height a gate line would climb it in — so a line run there stands in the one flank
+# the box has least of, and every millimetre the wall comes in is taken off it. `fluid-18` takes
+# the crown lane over the core, and this figure is the west line's.
 GATE_LANE_X = 88.0
 # How far aft the line has run by the time it reaches that lane. The step outboard is taken as one
 # DIAGONAL with this reach in it, so the leg is 34.7 mm rather than the 10.9 mm between the gate's
@@ -755,57 +762,59 @@ GATE_LANE_X = 88.0
 # It also stands FORWARD OF V-K, whose body reaches into the east flank at this height: the
 # diagonal is on the lane before it reaches the valve's own face.
 GATE_LANE_Y = 175.0
-# Where each line comes about onto the panel deck — the far end of the lean it climbs its whole
-# storey in — and where it then crosses to its union's own column.
+# Where each line comes about to cross to its union's own column. A crossing is a leg wall to
+# wall, so what bounds it is whatever fills the strip it is taken on. Re-read either by sweeping
+# that strip —
 #
-# THE HOPPER IS WHAT BOUNDS THE CROSSING. At the deck's own height the bowl is near its full
-# width, reaching x ±79.5 until its aft face; a crossing is a leg wall to wall, so it is taken
-# behind that face and nowhere else. Re-read it by sweeping the deck —
+#     w.cast((100.0, y, z), (-1, 0, 0), dia=6.35)
 #
-#     w.cast((100.0, y, deck), (-1, 0, 0), dia=6.35)
-#
-# EAST the crossing is the far end of the lean itself: the lean is steep, tops out one board's
-# depth behind the hopper, and turns straight into the crossing, so the two share a corner. It
-# also stands AHEAD of the carb riser's own crossing, which reaches this line's column further
-# aft — and the riser is what actually sets it. `carb-1` climbs the cap's `carb-water-out`
-# conduit on one column that runs the machine's whole height, so it crosses this storey whatever
-# storey this is; the only room between them is Y, and this is the plane that leaves it. Struck
-# off the riser rather than stated, so a conduit that moves takes the crossing with it.
-GATE_A_RISER_CLEAR = 2.0
-
-
-def _gate_a_deck_y(F) -> float:
-    """Where the east gate's lean tops out — one clear section forward of the carb riser.
-
-    The lean and the crossing SHARE THIS CORNER, so the arc that joins them leans back toward
-    the riser and the two are nearest on the arc rather than on either straight. That is what
-    `GATE_A_RISER_CLEAR` is over and above the two half-sections."""
-    return F["foam-assembly"].at("carb-water-out")[1] - _split.TUBE_D - GATE_A_RISER_CLEAR
+# EAST the run comes about on ITS OWN STOREY and not on a deck, so this is a plan corner and
+# nothing more. What stands at the aft end of the crown lane is the PUMP, whose barrel fills that
+# storey from its front face back, so the lane runs until that face and the corner is taken at
+# the last station forward of it. Struck off the pump rather than stated, so a pump that shifts
+# fore takes the crossing with it.
+def _gate_a_deck_y(solids) -> float:
+    """Where the east line comes about to cross — the last station forward of the pump's face."""
+    return solids["seaflo-pump"].BoundingBox().ymin - _split.TUBE_D / 2.0 - LANE_CLEAR
 # WEST the union stands 8 mm off the lane, which is not two stock arcs — so the lean runs on aft
 # past the ASSE chain and the step inboard is taken as one plan DIAGONAL, with the reach aft in it
 # to make the leg.
 GATE_B_DECK_Y = 340.0
 GATE_B_CROSS_Y = 380.0
-# EAST the line has the machine to cross, because its union stands in the WEST pair. The crossing
-# is taken fore of the pump, on the one strip that is clear wall to wall there: under it the
-# manifold's own crossings fill the band — `fluid-2` and `fluid-4` reach z 294 across the middle
-# — and over it `fluid-14` and `co2-2` take the room. Re-read it by sweeping the strip:
+# EAST the line has the machine to cross, because its union stands in the WEST pair — and it
+# takes ONE STOREY from the bay it climbs out of to the column it falls down: the strip that
+# carries it aft over the core's crown and the strip that carries it west are one daylight, so
+# nothing between them is a lean.
+#
+# WHAT THAT DAYLIGHT IS BETWEEN. Under it the manifold's own crossings fill the band — `fluid-2`
+# and `fluid-4` reach 294.0 across the middle — and over it the hopper's bowl closes the ceiling
+# at its own underside, 304.4. Both are hard and neither governs, so this stands in the MIDDLE of
+# the two rather than held off either: a run stood one clearance off one wall is the run that
+# starves when the other moves. That leaves a section and a half of daylight each way. Re-read
+# the band by sweeping the strip:
 #
 #     w.hits(probe.box(x=(-50, 90), y=(258, 270), z=(z, z + 6)))
-GATE_A_CROSS_Z = 303.0
+#
+# `fluid-14` SHARES THAT COLUMN A STOREY UNDER THIS. The fill line holds `FILL_A_LANE_Z` across
+# the core's front and falls onto the cap behind it, so the tallest of it stands a full section
+# below, and the crown lane passes over it the whole way aft.
+GATE_A_CROSS_Z = 299.2
 # Where the line has come down onto its union's own storey: forward of the drip tray, whose
 # channel takes that column from y 346 aft.
 GATE_A_FALL_Y = 340.0
 
 
 def gate_cruise(v_i_outlet_z: float) -> float:
-    """The storey the two nozzle gates cruise their outboard lanes at, off the collet of the
-    valve whose own channel crosses the west gate's column.
+    """The storey the WEST nozzle gate cruises its outboard lane at, off the collet of the valve
+    whose own channel crosses that gate's column.
 
-    The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate
-    climbs to under `fluid-24`. A run's own underside is one half-section below its axis, exactly
-    as a stub's box is, so the two flanks come out on one plane while the two reservoir lines
-    cross on one.
+    The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate climbs
+    to under `fluid-24`. A run's own underside is one half-section below its axis, exactly as a
+    stub's box is, so the lane and the reservoir line crossing it come out on one plane.
+
+    IT IS BOTH UNIONS' STOREY. The west line cruises its lane onto its collet on this plane and
+    the east line comes down its union's column onto it, so each union is met flat by the line
+    that closes on it, and both barrels stand clear under the drip tray's channel.
 
     Takes the Z rather than the frames, so a body may be STOOD on this plane before any run is
     drawn — `enclosure_assembly.panel_z` puts the nozzle-B union on it."""
@@ -854,31 +863,40 @@ def _fluid_18(F, solids):
     """fluid-18 — the nozzle-A gate to its rear union, and the line the manifold sends out of the
     machine on the EAST side.
 
-    THE SAME FOUR MOVES AS ITS TWIN AND TWO MORE, because its union stands in the WEST pair and
-    this gate is on the east flank. V-G-O faces up under the same bowl behind the same kind of
-    stub, and the outboard lane is the same strip; but where `fluid-28` closes on a column three
-    fittings away, this one has the machine to cross.
+    IT CLIMBS ITS OWN BAY. Its union stands in the WEST pair, so where `fluid-28` closes on a
+    column three fittings away this one has the machine to cross, and the column it crosses from is
+    V-G's own: `fluid-14` crosses that column a storey higher than the stub and nothing else fences
+    it, so the bay stands open the whole way to the crown. The east outboard strip is the board's —
+    `pcba` and `relay-1` hang on the +X wall's seat and take it from y 232 aft.
 
-    IT CROSSES FORE OF THE PUMP AND FALLS BEHIND IT. The lean carries it past the manifold's own
-    crossings to `GATE_A_CROSS_Z`, it takes the strip west onto its union's column, and then it
-    comes down that column to the union's storey — forward of the drip tray, which takes the same
-    column from its own front rim aft."""
+    THEN IT IS ON ONE STOREY THE WHOLE WAY. One diagonal west and aft puts it on `fluid-14`'s own
+    column over the cold core's crown, and the plane it arrives on is the plane it crosses on —
+    the strip that carries it aft under the bowl and the strip that carries it west over the
+    manifold's own crossings are the same daylight, so nothing between them is a lean.
+
+    IT PASSES OVER `fluid-14` FOR THE WHOLE OF THAT LANE. The fill line holds its own high lane
+    across the core's front and falls onto the cap behind it, so the tallest of it stands a
+    section and more below this run, and the two share the column with a storey between them.
+
+    IT CROSSES FORE OF THE PUMP AND FALLS BEHIND IT — west onto its union's column, and then down
+    that column to the union's storey, forward of the drip tray, which takes the same column from
+    its own front rim aft."""
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
-    climb = _gate_climb_under_cruise(F)
-    deck_y = _gate_a_deck_y(F)
+    lane_x = F["foam-assembly"].at("reservoir-a")[0]
+    deck_y = _gate_a_deck_y(solids)
     return R.bent(
         "fluid-18", "valve-v-g.outlet",
-        (gate[0], gate[1], climb),                        # up what the reservoir stub leaves
-        (GATE_LANE_X, GATE_LANE_Y, climb),                # one diagonal east and aft into the lane
-        (GATE_LANE_X, deck_y, GATE_A_CROSS_Z),            # one lean aft and up onto the crossing
+        (gate[0], gate[1], GATE_A_CROSS_Z),               # up the bay nothing fences, to the storey
+        (lane_x, GATE_LANE_Y, GATE_A_CROSS_Z),            # one diagonal west and aft onto the crown lane
+        (lane_x, deck_y, GATE_A_CROSS_Z),                 # aft over `fluid-14`, under the bowl
         (tin[0], deck_y, GATE_A_CROSS_Z),                 # west across the machine, fore of the pump
         (tin[0], GATE_A_FALL_Y, tin[2]),                  # down the column onto the union's storey
         "bulkhead-flavor-a.tube-in",                      # and straight aft into the collet
         kind="fluid", bend=TUBE_BEND,
-        note="nozzle A: V-G-O → rear union, up the gate's own bay, out into the east outboard "
-             "lane, one lean onto the crossing strip, west across the machine fore of the pump "
-             "and down its union's own column")
+        note="nozzle A: V-G-O → rear union, up the gate's own bay onto the crown lane over "
+             "`fluid-14`, and west across the machine fore of the pump on that same storey and "
+             "down its union's own column")
 
 
 # --- the four reservoir lines, gate to vessel and vessel to gate --------------
