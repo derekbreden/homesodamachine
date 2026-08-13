@@ -92,11 +92,19 @@ def cut(assembly, scene):
     placed = ea._solids(assembly)
     inner = set(_scenes.inner_of(scene))
     core = core_bodies(placed[scene.roots[0]][0]) if inner else {}
+    names = _scenes.members(scene, assembly)
+    # ONE LENGTH OF TUBE, ONE COLOUR. Each model paints its own half — the core tells its eight
+    # lines apart, the machine paints fluid — and a picture carrying both would break colour at
+    # the conduit, where there is no joint. Where both halves are drawn the machine's is what
+    # both take; a line that crosses nothing keeps the colour its own model gives it.
+    joined = {line: placed[half][1]
+              for line, half in _scenes.crossings(assembly.runs).items()
+              if line in names and half in names}
     out = cq.Assembly(name=scene.id)
     drawn_roots = []
-    for name in _scenes.members(scene, assembly):
+    for name in names:
         solid, colour = core[name] if name in inner else placed[name]
-        out.add(solid, name=name, color=colour)
+        out.add(solid, name=name, color=joined.get(name, colour))
         if name in inner or (not inner and name in scene.roots):
             drawn_roots.append(solid)
     # THE POSE THE UNIT IS WORKED IN. A piece open at its ceiling is turned over on the bench,
