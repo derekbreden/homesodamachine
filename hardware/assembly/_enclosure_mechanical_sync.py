@@ -130,7 +130,7 @@ def main():
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
         # The refrigeration stratum's own width, across the pair as it stands, beside the core's
         # for comparison — `box-width` asks its boss chain of a body ON THE FLOOR at the depths
-        # the seam's columns stand there. Both spans are carried so the doc can say which is
+        # the seam's bosses stand there. Both spans are carried so the doc can say which is
         # wider by quoting them, rather than this comment naming a winner that goes stale.
         "STRATUM_X": f"{_span(_F, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_F, 'foam-assembly'):.0f}",
