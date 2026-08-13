@@ -178,6 +178,8 @@
     "fluid-2 \u2014 valve-v-b: 4.321 mm",
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
+    "refrig-2 \u2014 enclosure-front-bottom: 4.575 mm",
+    "refrig-3 \u2014 enclosure-front-bottom: 4.575 mm",
     "fluid-24 \u2014 fluid-26: 4.607 mm",
     "water-3 \u2014 fluid-28: 4.651 mm",
     "coil-v-i \u2014 wago-manb: 4.680 mm",

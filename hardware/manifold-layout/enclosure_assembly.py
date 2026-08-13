@@ -1269,18 +1269,14 @@ CORE_HOLD_LANE = (58.0, 67.0)
 
 
 def core_stops(foam) -> tuple:
-    """The core's two FRONT corners as `enclosure.Box.core_stops` — `(cx, cy, r, tip)` each.
+    """The core's two FRONT corners as `enclosure.Box.core_stops` — `(cx, cy, r)` each.
 
     `cx, cy` is the centre the core's own corner round is struck on and `r` that round's radius,
-    both read off `_cold_core_interface` through the placement, so a block is drawn about the
-    same axis the corner is.
-
-    `tip` is the top of the core's BASE CAP — the lid and cup the stack stands on, whose own
-    outer face is the plane the slab takes. The block reaches the seam between that cap and the
-    shell above it, which is the course of the core standing on the floor the block stands on."""
+    read off `_cold_core_interface` through the placement, so a block is pocketed about the same
+    axis the corner is. Those three are the whole of what the wall is handed: how far the block
+    laps, stands and webs is the box's own figure."""
     b, r = box(foam), _cci.corner_round_radius
-    tip = b.zmin - _foam.stack_floor_z
-    return tuple((sign * (b.xmax - r), b.ymin + r, r, tip) for sign in (-1.0, 1.0))
+    return tuple((sign * (b.xmax - r), b.ymin + r, r) for sign in (-1.0, 1.0))
 
 
 def core_holds(foam) -> tuple:
@@ -1305,11 +1301,14 @@ def _core_grip_windows(foam, shell) -> tuple:
 
     A window holds that grip and nothing else of the piece it is printed on, so what the piece
     leaves inside one is the grip itself and the gap to the core is the grip's own fit."""
-    b, r, out = box(foam), _cci.corner_round_radius, []
-    for cx, cy, _r, tip in core_stops(foam):
-        x0, x1 = sorted((cx, shell.inner[1] if cx > 0.0 else shell.inner[0]))
+    b, out = box(foam), []
+    for cx, cy, r in core_stops(foam):
+        side = 1.0 if cx > 0.0 else -1.0
+        x0, x1 = sorted((cx - side * r, shell.inner[1] if side > 0 else shell.inner[0]))
+        face = cy - r - _enc.core_stop_slip / 2.0
         out.append((f"front block at x {cx:+8.2f}",
-                    _boxed(x0, x1, cy - r - _enc.core_stop_wall, cy, b.zmin, tip)))
+                    _boxed(x0, x1, face - _enc.core_stop_web, cy,
+                           b.zmin, b.zmin + _enc.core_stop_rise)))
     for x0, x1, aft, crown in core_holds(foam):
         out.append((f"aft bracket at x {(x0 + x1) / 2.0:+8.2f}",
                     _boxed(x0, x1, aft - _enc.core_hold_reach, shell.inner[3],

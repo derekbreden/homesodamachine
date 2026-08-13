@@ -119,6 +119,25 @@ def main():
     _hopper_gate = _F.check("clearance-floor")
 
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box["outer"]
+    # WHAT EACH OF THE CORE'S GRIPS STANDS CLEAR OF, off the placed bodies rather than typed
+    # beside them. A front block's headroom is the refrigerant loop's: both drawn legs cross the
+    # lane in front of the core and land on its front face, and the block stops under the lower
+    # of them. An aft bracket's is the flavour-A union's barrel, which is the body its lane is
+    # bounded by on the −X flank; the two overlap in Y and in Z, so the distance between them is
+    # the X gap and nothing else, and the assertion is what holds that true.
+    _legs = [_F.bb(n) for n in ("tube-refrig-2", "tube-refrig-3")]
+    _core_stop_headroom = min(b.zmin for b in _legs) - (_box["inner"][4] + _enc.core_stop_rise)
+    _hold = _box["core_holds"][0] if _box.get("core_holds") else None
+    _union = _F.bb("bulkhead-flavor-a")
+    _crown = _hold[3] if _hold else 0.0
+    if _hold and not (_union.ymin < _box["inner"][3] and
+                      _union.zmin < _crown + _enc.core_hold_rise and _union.zmax > _crown):
+        raise ValueError(
+            f"the flavour-A union no longer overlaps the aft bracket's band in Y and Z, so the "
+            f"gap between them is not the X difference this reads. Measure it as a solid "
+            f"distance, or name whatever the bracket is nearest now.")
+    _core_hold_clear = abs(_hold[1]) - abs(_union.xmin) if _hold else 0.0
+
     variables = {
         # The box `enclosure._dims` builds around the pack, and where it comes apart.
         "BOX_SIZE": (f"{_ox1 - _ox0:.0f} × {_oy1 - _oy0:.0f} × {_oz1 - _oz0:.0f} mm"),
@@ -154,13 +173,16 @@ def main():
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
         "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
-        # The core's own grips: the corner round a front block is bored on, that bore, and how
-        # far an aft bracket's foot runs onto the cap out of the band it stands in.
+        # The core's own grips: the corner round a front block is pocketed to, that bore, how far
+        # it stands off the slab, and how far an aft bracket's foot runs onto the cap.
         "CORE_ROUND": f"{2.0 * corner_round_radius:.4g} mm",
         "CORE_STOP_BORE": (
             f"{2.0 * (_box['core_stops'][0][2] + _enc.core_stop_slip / 2.0):.4g} mm"
             if _box.get("core_stops") else "no station"),
+        "CORE_STOP_RISE": f"{_enc.core_stop_rise:.4g} mm",
+        "CORE_STOP_HEADROOM": f"{_core_stop_headroom:.3g} mm",
         "CORE_HOLD_REACH": f"{_enc.core_hold_reach:.4g} mm",
+        "CORE_HOLD_CLEAR": f"{_core_hold_clear:.3g} mm",
         "REAR_SEAM_CLEAR": f"{_enc.rear_seam_clear:.4g} mm",
         # The rear wall's six stations, its hardware, and what a chain of it occupies.
         "PORT_HOLE_D": f"{_union_bores[0][3]:.4g}",

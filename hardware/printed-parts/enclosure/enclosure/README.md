@@ -210,35 +210,39 @@ core together.
 Four features, two mirror pairs, and nothing on either that is not a face of the core:
 
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
-  corner of the slab, running from the ±X wall inboard to the core's own corner-round centre
-  and standing one `wall` ahead of its front face, with a single
-  Ø[24.4 mm](CORE_STOP_BORE) bore struck on that round's own axis. The core's front face and
-  its flank both run tangent out of that arc, so one bore takes the core forward, across and in
-  yaw at once, and the pair leaves it no lateral travel. Underside on the slab, outboard face on
-  the wall: a corner bracket in one piece with both faces it stands on, the card slot's own form.
-  It reaches [20 mm](CORE_STOP_TIP) up, the seam between the core's base cap and the shell over
-  it — the course of the core standing on the same floor the block stands on.
-- **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A leg standing in the
-  `rear_seam_clear` band behind the core, carrying [40 mm](CORE_HOLD_RISE) up the back wall, and
-  a foot turning off it at the cap face to run [12 mm](CORE_HOLD_REACH) forward onto the crown,
-  [8 mm](CORE_HOLD_LAND) thick and [9 mm](CORE_HOLD_WIDE) wide. The foot lands on the cap — 0 by
-  intent, the way every other seat in this box lands on the face it takes — and the leg is what
-  carries its load into the wall over a height rather than over a thickness. The lane is the one
-  strip of the aft crown clear of the water pump inboard, the power column outboard and the rear
-  wall's two flavour unions in the band, taken on both flanks so the pair is a mirror.
+  corner of the slab, [42 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
+  past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
+  own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.4 mm](CORE_STOP_BORE)
+  bore on the round's own axis outboard of the tangent, and the core's own flat front face
+  inboard of it. So the block bears flat where the core is flat and round where it is round —
+  the flat takes it forward, the round takes it across and in yaw, and the pair leaves it no
+  lateral travel. The web ahead of that outline is [6 mm](CORE_STOP_WEB) at every point of it,
+  including the tangent, where a bore alone leaves it thinnest. Underside on the slab, outboard
+  face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
+  own form.
+- **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A right trapezoid in section,
+  [9 mm](CORE_HOLD_WIDE) wide: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
+  forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
+  the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
+  [8 mm](CORE_HOLD_LAND) over the crown. The foot lands on the cap — 0 by intent, the way every
+  other seat in this box lands on the face it takes — and that straight is what makes the foot a
+  flange on a web instead of a cantilever. The lane is the one strip of the aft crown clear of
+  the water pump inboard, the power column outboard and the rear wall's two flavour unions in the
+  band, taken on both flanks so the pair is a mirror.
 
 The slab takes the weight and the back wall takes the aft, so the four between them close every
 direction the core could go. `enclosure_assembly.check_core_held` reads each inside its own
 window off the built pieces (`core-held`).
 
-**The core enters the bore from ahead or from above.** The bore is struck about the corner's own
-centre, so it stands clear of that corner at every stand-off and closes on it at zero: the front
-assembly slides aft onto a core already down, or the core comes straight down into a box already
-telescoped.
+**The core enters the pocket from ahead or from above.** The pocket is that outline carried
+straight down, so it stands clear of the core at every stand-off and closes on it at the slip:
+the front assembly slides aft onto a core already down, or the core comes straight down into a
+box already telescoped.
 
-Printed ceiling-down, an aft bracket's leg stands up off the bed and its foot's bearing face is
-uppermost; what hangs is the foot's own top face, and it takes support the way the drip tray's
-rails do. The front blocks print floor-down with no overhang in them at all.
+**Neither feature needs support.** The front blocks print floor-down with no overhang in them at
+all. An aft bracket's leg stands up off the bed and its foot's bearing face is uppermost, and the
+straight between them descends toward the tip at 25° off vertical, so every layer of the foot is
+laid on the one above it.
 
 ## Print orientation + corner relief
 

@@ -393,9 +393,10 @@ def cond_slot_half(sheet: float) -> float:
 # mirror pair about x = 0:
 #
 #   `_core_stops`  on **enclosure-front-bottom** — a block in each front corner of the slab,
-#                  bored at the core's own corner-round centre. The core's front face and its
-#                  flank both run tangent out of that one arc, so the bore takes the core
-#                  FORWARD, in X and in yaw together, and the pair leaves it no lateral travel.
+#                  pocketed to the core's own plan outline: the corner round outboard of the
+#                  tangent and one round of the flat front face inboard of it. The flat takes the
+#                  core FORWARD and the round takes it in X and in yaw, and the pair leaves it no
+#                  lateral travel.
 #   `_core_holds`  on **enclosure-back-top** — a bracket standing in the `rear_seam_clear` band
 #                  behind the core and turning over the aft edge of its cap. It takes the core
 #                  UP: the slab is under it, so a pad on the crown stands in the way of a
@@ -404,17 +405,29 @@ def cond_slot_half(sheet: float) -> float:
 # The floor takes the weight and the back wall the aft. `enclosure_assembly.check_core_held`
 # reads all four off the built pieces and the placed core.
 #
-# THE CORE ENTERS THE BORE FROM AHEAD OR FROM ABOVE. The bore is struck about the corner's own
-# centre, so it stands clear of that corner at every stand-off and closes on it at zero: the
-# front assembly slides aft onto a core already down, or the core comes straight down into a
+# THE CORE ENTERS THE POCKET FROM AHEAD OR FROM ABOVE. The pocket is that outline carried
+# straight down, so it stands clear of the core at every stand-off and closes on it at the slip:
+# the front assembly slides aft onto a core already down, or the core comes straight down into a
 # box already telescoped.
-core_stop_wall = wall         # material kept ahead of the core's front face at the arc's tangent
-# The bore's fit on that corner: the diametral slide the seam's own plug takes in its socket.
+#
+# The fit is the diametral slide the seam's own plug takes in its socket, and it is one figure on
+# the round and on the flat — one offset of one outline.
 core_stop_slip = split_slip
+core_stop_web = 6.0           # material ahead of that outline, at every point of the pocket
+# How far the block stands off the slab. The lane in front of the core belongs to the refrigerant
+# loop — both drawn legs cross it and land on the core's front face — so the block takes the depth
+# of it that is empty and stops under them. A leg that came down into it is a `pack-closes` clash.
+core_stop_rise = 40.0
 core_hold_reach = 12.0        # how far a bracket's foot runs onto the cap off the core's aft face
-core_hold_land = 8.0          # that foot's own thickness — what it bends in, over that reach
+core_hold_land = 8.0          # that foot's own thickness where it leaves the gusset
 # How far the bracket's leg carries UP the back wall behind the foot, standing in the band
 # `rear_seam_clear` holds open. The foot's load arrives at the wall over the leg's whole height.
+#
+# THE SECTION IS A TRIANGLE AND NOT AN L. One face runs from the foot's own tip to the head of
+# that leg, so the corner between them is solid and the foot is a flange on a web rather than a
+# cantilever. It takes no envelope the L's two arms did not already reach, and printed
+# ceiling-down it falls `core_hold_reach + rear_seam_clear` in `core_hold_rise - core_hold_land`
+# — 25° off vertical — so the foot is drawn out of the air rather than off a support strip.
 core_hold_rise = 40.0
 
 
@@ -647,6 +660,19 @@ def _ycyl(r, x, z, y0, y1):
 def _zcyl(r, x, y, z0, z1):
     """Cylinder of radius r along Z from z0 to z1, axis at (x, y)."""
     return cq.Solid.makeCylinder(r, abs(z1 - z0), cq.Vector(x, y, min(z0, z1)), cq.Vector(0, 0, 1))
+
+
+def _yz_prism(x0, x1, section):
+    """A prism along X from x0 to x1, whose `section` is a closed `(y, z)` polygon.
+
+    `_ybox` with one of its four section corners free. The `YZ` workplane's own axes are the
+    world's Y and Z, so the points are read in the frame every station is stated in."""
+    return (
+        cq.Workplane("YZ", origin=(min(x0, x1), 0.0, 0.0))
+        .polyline(list(section)).close()
+        .extrude(abs(x1 - x0))
+        .val()
+    )
 
 
 def _round_z(solid, r):
@@ -2170,11 +2196,15 @@ def _core_stops(solid, inner, stations, y0, y1, z0, z1):
     """The cold core's two front corner blocks added to a PIECE, for the stations whose plan
     point the piece owns and whose slab it holds.
 
-    Each station is `(cx, cy, r, tip)`: the centre of the core's own corner round, that round's
-    radius, and the plane the block's top face reaches. The block runs from the arc's centre
-    column out to the ±X wall and from one `core_stop_wall` ahead of the core's front face back
-    to the arc's centre plane, and one bore on the arc's own axis takes the corner out of it —
-    so what faces the core is that arc and every other face is flat.
+    Each station is `(cx, cy, r)`: the centre of the core's own corner round and that round's
+    radius. Everything else the block is comes off those three and the box's own faces — it runs
+    the ±X wall inboard to one round past the tangent, the slab up `core_stop_rise`, and one
+    `core_stop_web` ahead of the core's outline the whole way.
+
+    THE POCKET IS THAT OUTLINE, OFFSET ONE SLIP AND NOT A SHAPE OF ITS OWN: a bore on the round's
+    own axis outboard of the tangent, a plane on the core's own front face inboard of it. So the
+    web is the same 6 mm at the tangent, where a bore alone leaves it thinnest, and along the
+    whole lap — and the block bears flat where the core is flat and round where it is round.
 
     Its underside is the slab and its outboard face the wall, so it comes out of the print as a
     corner bracket in one piece with both faces it stands on — the card slot's own form, on the
@@ -2182,14 +2212,19 @@ def _core_stops(solid, inner, stations, y0, y1, z0, z1):
     and only a piece reaching the floor grows one."""
     if z0 > inner[4] + 1e-6:
         return solid                       # a top piece has no slab to stand one on
-    for cx, cy, r, tip in stations:
+    for cx, cy, r in stations:
         if not (y0 <= cy <= y1):
             continue
-        wall_x = inner[1] if cx > 0.0 else inner[0]
-        solid = solid.fuse(_ybox(min(cx, wall_x), max(cx, wall_x),
-                                 cy - r - core_stop_wall, cy, inner[4], tip))
-        solid = solid.cut(_zcyl(r + core_stop_slip / 2.0, cx, cy,
+        side = 1.0 if cx > 0.0 else -1.0
+        slip = core_stop_slip / 2.0
+        wall_x = inner[1] if side > 0 else inner[0]
+        lap, face = cx - side * r, cy - r - slip
+        tip = inner[4] + core_stop_rise
+        solid = solid.fuse(_ybox(min(lap, wall_x), max(lap, wall_x),
+                                 face - core_stop_web, cy, inner[4], tip))
+        solid = solid.cut(_ybox(min(lap, cx), max(lap, cx), face, cy + 1.0,
                                 inner[4] - 1.0, tip + 1.0))
+        solid = solid.cut(_zcyl(r + slip, cx, cy, inner[4] - 1.0, tip + 1.0))
     return solid
 
 
@@ -2198,20 +2233,23 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1):
     depth and height band that piece owns.
 
     Each station is `(x0, x1, aft, crown)`: the lane on the cap the bracket stands in, the
-    core's own aft face, and the plane its cap presents. The LEG fills the band between that
-    aft face and the back wall's inner face and carries `core_hold_rise` up it; the FOOT turns
-    off the leg at the crown and runs `core_hold_reach` forward onto the cap, landing on it —
-    0 by intent, the way every other seat in this box lands on the face it takes.
+    core's own aft face, and the plane its cap presents. Its section is a right trapezoid on
+    those two planes — the BEARING FACE along the crown from `core_hold_reach` forward of the
+    core's aft face back to the wall, the LEG up the wall's inner face for `core_hold_rise`, and
+    one straight from the head of that leg down to the foot's own tip, which is `core_hold_land`
+    over the crown. The foot lands on the cap at 0, the way every other seat in this box lands
+    on the face it takes.
 
-    Printed ceiling-down the leg stands up off the bed and the foot's bearing face is uppermost;
-    what hangs is the foot's own top face, a strip `core_hold_reach` deep, and it takes support
-    the way the drip tray's rails do."""
+    THAT STRAIGHT IS BOTH THE GUSSET AND THE PRINT. It leaves no re-entrant corner for the foot
+    to bend at, and printed ceiling-down it descends toward the tip at 25° off vertical, so every
+    layer of the foot is laid on the one above it and nothing under this bracket needs support."""
     for sx0, sx1, aft, crown in stations:
         if not (y0 <= aft <= y1 and z0 <= crown <= z1):
             continue
-        solid = solid.fuse(_ybox(sx0, sx1, aft, inner[3], crown, crown + core_hold_rise))
-        solid = solid.fuse(_ybox(sx0, sx1, aft - core_hold_reach, aft,
-                                 crown, crown + core_hold_land))
+        tip, back = aft - core_hold_reach, inner[3]
+        solid = solid.fuse(_yz_prism(sx0, sx1, (
+            (tip, crown), (back, crown), (back, crown + core_hold_rise),
+            (tip, crown + core_hold_land))))
     return solid
 
 
@@ -3051,8 +3089,12 @@ def main():
         "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
         "CORE_STOP_BORE": (f"{2.0 * (machine.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
                            if machine.core_stops else "no station"),
-        "CORE_STOP_TIP": (f"{machine.core_stops[0][3]:.4g} mm" if machine.core_stops
-                          else "no station"),
+        "CORE_STOP_WEB": f"{core_stop_web:.4g} mm",
+        "CORE_STOP_RISE": f"{core_stop_rise:.4g} mm",
+        # The block runs the wall inboard to one round past the tangent, and both are mirrored.
+        "CORE_STOP_WIDE": (
+            f"{interior_x()[1] - (abs(machine.core_stops[0][0]) - machine.core_stops[0][2]):.4g} mm"
+            if machine.core_stops else "no station"),
         "CORE_HOLD_LAND": f"{core_hold_land:.4g} mm",
         "CORE_HOLD_REACH": f"{core_hold_reach:.4g} mm",
         "CORE_HOLD_RISE": f"{core_hold_rise:.4g} mm",
