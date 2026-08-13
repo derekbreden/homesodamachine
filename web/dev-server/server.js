@@ -2,6 +2,9 @@
 // then attaches the watcher, Python runner, and file-change broadcast for hot
 // reload — everything that only makes sense locally.
 //
+//   node dev-server/server.js              serve + watch (the usual)
+//   node dev-server/server.js --no-watch   serve only; nothing watches the tree
+//
 // URL structure is identical to production: localhost:3000/ is the landing
 // page, localhost:3000/3d is the parts viewer, /charts is the diagrams
 // viewer, /blog is the Updates feed, and so on. The wrapper is purely
@@ -39,6 +42,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // generators lives at the repo root under tools/cad-venv.
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
+
+// --no-watch: serve the site and nothing else. No chokidar anywhere, so no
+// generator re-runs on save, no board renders, no background thumbnails, no
+// hot-reload broadcast — the viewer shows the artifacts as they sit on disk
+// until you reload it yourself. The editor rebuild routes below are a
+// deliberate gesture in the viewer, not a watcher, so they still work.
+const NO_WATCH = process.argv.includes("--no-watch");
 
 const { app, broadcast, hardwareDir: HARDWARE_DIR, editionDirs: EDITION_DIRS } = await start({ dev: true });
 
@@ -523,7 +533,7 @@ function runBoard3d(tsxPath) {
 // `__pycache__` is ignored both to cut down on the event volume (every
 // generator run rewrites a .pyc) and because we never act on .pyc
 // changes anyway.
-const watcher = chokidar.watch(CONTENT_ROOTS, {
+const WATCH_OPTS = {
   ignoreInitial: true,
   // __pycache__: every generator run rewrites .pyc. node_modules: the PCB
   // toolchain (hardware/pcb/*/node_modules) is a large tree we never act on,
@@ -543,7 +553,7 @@ const watcher = chokidar.watch(CONTENT_ROOTS, {
   usePolling: true,
   interval: 200,
   binaryInterval: 400,
-});
+};
 const debounce = new Map();
 
 // Assembly deck (hardware/assembly/cards). Cards are hand-authored HTML, not a
@@ -574,9 +584,7 @@ function maybeBroadcastCard(absPath) {
   return true;
 }
 
-watcher.on("add", (absPath) => { maybeBroadcastCard(absPath); });
-
-watcher.on("change", (absPath) => {
+function onContentChange(absPath) {
   // Shared library changed — rebuild all scripts.
   if (absPath.includes("/cadlib/") && absPath.endsWith(".py")) {
     if (debounce.has("cadlib")) clearTimeout(debounce.get("cadlib"));
@@ -725,7 +733,7 @@ watcher.on("change", (absPath) => {
     );
     return;
   }
-});
+}
 
 // --- Viewer source hot-reload ---
 //
@@ -748,20 +756,36 @@ const VIEWER_JS_DIR = path.resolve(__dirname, "../public/js/viewer");
 // keep in sync with loaders.js (CAD leaves) + detail-shims.js (PanZoom kinds)
 const HOT_LEAVES = new Set(["glb.js", "step.js", "dxf.js", "mermaid.js", "drawings.js", "pcb.js"]);
 const codeDebounce = new Map();
-chokidar
-  .watch(VIEWER_JS_DIR, { ignoreInitial: true, usePolling: true, interval: 200 })
-  .on("change", (absPath) => {
-    const base = path.basename(absPath);
-    if (!HOT_LEAVES.has(base)) return;
-    if (codeDebounce.has(base)) clearTimeout(codeDebounce.get(base));
-    codeDebounce.set(
-      base,
-      setTimeout(() => {
-        codeDebounce.delete(base);
-        console.log(`Viewer code changed: ${relForLog(absPath)}`);
-        broadcast({ type: WS.CODE_CHANGED, version: String(Date.now()) });
-      }, 200),
-    );
-  });
 
-console.log("Watching for changes...");
+function onViewerCodeChange(absPath) {
+  const base = path.basename(absPath);
+  if (!HOT_LEAVES.has(base)) return;
+  if (codeDebounce.has(base)) clearTimeout(codeDebounce.get(base));
+  codeDebounce.set(
+    base,
+    setTimeout(() => {
+      codeDebounce.delete(base);
+      console.log(`Viewer code changed: ${relForLog(absPath)}`);
+      broadcast({ type: WS.CODE_CHANGED, version: String(Date.now()) });
+    }, 200),
+  );
+}
+
+// --- Watchers, or not ---
+//
+// Both watchers are created here and nowhere else, so --no-watch is the whole
+// switch: under it not a single chokidar instance exists, and the polling loop
+// that would otherwise stat the content roots every 200 ms never starts.
+if (NO_WATCH) {
+  console.log("Not watching (--no-watch): nothing rebuilds, nothing hot-reloads.");
+} else {
+  const watcher = chokidar.watch(CONTENT_ROOTS, WATCH_OPTS);
+  watcher.on("add", (absPath) => { maybeBroadcastCard(absPath); });
+  watcher.on("change", onContentChange);
+
+  chokidar
+    .watch(VIEWER_JS_DIR, { ignoreInitial: true, usePolling: true, interval: 200 })
+    .on("change", onViewerCodeChange);
+
+  console.log("Watching for changes...");
+}
