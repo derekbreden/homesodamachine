@@ -660,9 +660,9 @@ def main() -> int:
         MANIFOLD.write_text("\n".join(lines) + "\n")
     if carb_lines != carb_before:
         CARBONATOR.write_text("\n".join(carb_lines) + "\n")
-    substitute_mmd(MANIFOLD, mf_vars, {k: 1 for k in mf_vars})
-    substitute_mmd(LIMBS, limb_vars, {k: 1 for k in limb_vars})
-    substitute_md(TOPOLOGY, limb_vars, {k: 1 for k in limb_vars})
+    substitute_mmd(MANIFOLD, mf_vars)
+    substitute_mmd(LIMBS, limb_vars)
+    substitute_md(TOPOLOGY, limb_vars)
 
     fluid = [s for k, s in sorted(segs.items(), key=lambda kv: _seg_no(kv[0]))
              if k.startswith("fluid-")]

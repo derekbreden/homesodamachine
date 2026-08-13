@@ -226,20 +226,10 @@ def main():
         "MT_H_TURN": f"{turn:.1f}",
         "MT_DAYS_TURN": f"{turn / 24:.1f}",
     }
-    counts = {"MT_PRINTERS": 3, "MT_MEASURED": 1, "MT_MEASURED_KG": 1,
-              "MT_PETCF_DRY": 1, "MT_DUTY": 2, "MT_KG": 1, "MT_H_PRINT": 1,
-              "MT_H_PRINT_WALL": 4, "MT_H_CURE": 1, "MT_H_SOAK": 1,
-              "MT_H_RUN": 1, "MT_CEIL_PRINT": 1, "MT_CEIL_BENCH": 1,
-              "MT_CEIL_MOLD": 1, "MT_CEIL_VESSEL": 1, "MT_UNITS_YEAR": 1,
-              "MT_OCC_BENCH": 1, "MT_OCC_MOLD": 1, "MT_OCC_VESSEL": 1,
-              "MT_UNITS_YEAR_3": 1, "MT_H_TURN": 1, "MT_DAYS_TURN": 2}
     for g, tag in GROUP_MARKER.items():
         variables[f"MT_RATE_{tag}"] = f"{RATES[g]:g}"
         variables[f"MT_KG_{tag}"] = f"{kg[g]:.3f}"
         variables[f"MT_H_{tag}"] = f"{hours[g]:.1f}"
-        counts[f"MT_RATE_{tag}"] = 2 if g == "bulk" else 1   # bulk cited in the intro
-        counts[f"MT_KG_{tag}"] = 1
-        counts[f"MT_H_{tag}"] = 1
 
     if "--check" in sys.argv:
         if orphans:
@@ -258,7 +248,7 @@ def main():
         print("machine-time.md totals ✓")
         return 0
 
-    substitute_md(MT, variables, counts)
+    substitute_md(MT, variables)
     for g in ("bulk", "tight", "small", "petcf"):
         print(f"  {g:<6} {kg[g]:6.3f} kg × {RATES[g]:>4} h/kg = {hours[g]:6.1f} h")
     print(f"  {'PRINT':<6} {sum(kg.values()):6.3f} kg{'':14} {h_print:6.1f} h"

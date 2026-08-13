@@ -272,7 +272,7 @@ def main():
             open(TOOLS_MD, "w", encoding="utf-8").write(new)
         variables = {nm: ("—" if c == 0 else f"${c:,.2f}") for _, nm, c in resolved}
         variables["TOOLS_TOTAL"] = f"${total:,.2f}"
-        substitute_md(TOOLS_MD, variables, {k: 1 for k in variables})
+        substitute_md(TOOLS_MD, variables)
     for _, name, cost in resolved:
         disp = "—" if cost == 0 else f"${cost:,.2f}"
         print(f"  {disp:>10}  {name}")
