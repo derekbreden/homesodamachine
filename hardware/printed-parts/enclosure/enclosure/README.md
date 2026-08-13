@@ -11,7 +11,7 @@ clash in `pack-closes` at the body that overran.
 - **Width** is `appliance_width`, struck symmetric about x = 0. What the pack owes
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
   floor body stands one `side_rib_inset` in from the wall **at the depths the seam's
-  columns stand there**, leaving each post, chain and pod its full section. The cold
+  bosses stand there**, leaving each mouth, plug and collar its full section. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
@@ -46,9 +46,9 @@ its lid, so the column runs solid to the bay's crown and what it leaves open is 
 all of it. So that seam runs **through** its column, on the lane its lip needs — a
 one-`wall` ring inset from the cavity, held open at every height by the standoffs the
 pack is packed to, one wall off the front and back walls and one boss chain off the
-sides, which `_lip_denied` measures. The four station pods and the posts over them
-stand in the ±X boss-chain bands over their piece's whole height, so a seam height
-moves only the lip. The cold core spans that
+sides, which `_lip_denied` measures. The four station collars ride with that ring, in
+the ±X boss-chain bands its own side segments run down, so a seam height carries the
+lip and the collars together. The cold core spans that
 seam, as it spans the front column's on the other side of the Y joint.
 
 The two stand `z_joint_pitch` apart — closer and the Y seam quietly comes out with
@@ -124,8 +124,8 @@ the back seam's under-seam level are the pair that meet, and the offset holds th
 a collar pitch apart.
 
 Bottom↔top, per column: the same joint rotated 90°, at `z_joint_front` and
-`z_joint_back` — the bottom pieces carry a 3-sided lip + socket pods, the top
-pieces carry the D-pins and the posts that carry them, more X-axis screws crossing
+`z_joint_back` — the bottom pieces carry a 3-sided lip + socket collars, the top
+pieces carry the pins, more X-axis screws crossing
 each seam. The front pair joins, the back pair joins, then the front assembly
 telescopes into the back as one.
 
@@ -136,7 +136,7 @@ rear-wall corner. Every station stands in the ±X band the walls' standoff opens
 off the cold core, which runs clear the full depth, so none has to dodge the
 pack.
 Each cross-pin mates the walls of its overlap (the
-pin's mouth-side face on the receiving mouth, the socket pod's rim-side face
+pin's mouth-side face on the receiving mouth, the socket collar's rim-side face
 on the lip rim) and the two are coaxial by construction, so the **overlap
 depth is derived from those matings**, not chosen — it works out to
 (plug + bore)/2 + one wall.
@@ -147,53 +147,38 @@ the head seat to the heat-set, so the body is screw length − heat-set long), t
 the heat-set, then a one-wall cap.
 
 - **Receiving piece = pin** (the back pieces on the Y seam, the top pieces on
-  the Z seam): a Ø9.9 mm cylinder (the shank + one wall each side, *not* the
-  head — the head sits in the wall counterbore) from the exterior to the
-  heat-set, registering in the socket bore. On the Z seam a flat tab carries it
-  up to the lip rim, where the post above takes over.
-- **Lip piece = socket** (the front pieces / the bottom pieces): a pod bored
-  Ø10.3 mm to take the round pin as a slide fit, with the ruthex M3 heat-set
-  (Ø4.0 × 5.25) capped at its deep inboard end.
+  the Z seam): a Ø[9.9 mm](PLUG_DIA) cylinder (the shank + one wall each side, *not*
+  the head — the head sits in the wall counterbore) from the exterior to the
+  heat-set, registering in the socket bore.
+- **Lip piece = socket** (the front pieces / the bottom pieces): a collar bored
+  Ø[10.3 mm](SOCKET_BORE) to take the round pin as a slide fit, with the ruthex M3
+  heat-set (Ø4.0 × 5.25) capped at its deep inboard end.
 
-**Every boss stands on a post of its own section, run to the bed face at constant
-section.** Not a collar on a spine — the whole socket footprint, carried the full
-height of its piece: bed face to the seam. Printed Z-down that face is what the
-piece lies on, so there is material under every part of the boss the whole way
-down and the piece simply stacks. A narrower stalk leaves the socket cantilevered
-over open air on the layer it starts; so does a post that reaches the wall on one
-piece and stops short of it on the other, or two posts on one wall standing a
-sliver apart. **A station's pod and the post over it take the same section, and a
-post runs to whatever its neighbour reaches** — the corner is one column or it is
-an overhang. The two pieces' posts meet at the seam, so assembled the corner
-reads one column floor to ceiling, which is also the corner stiffener a printed
-shell this size wants.
-
-**Where a corner is the other piece's, the two interlock.** The Y-seam overlap
-belongs to the front half — its lip and pod fill that corner floor to ceiling —
-so the back half's pins stood in it with nothing beneath them and its own post
-could only begin behind the lip rim. The slide path the pin's tab needed is run
-the pod's **full height** instead, and the back half fills it with a web of the
-same section: each piece then prints with a continuous column under every boss on
-it, and assembled the slot and the web make the corner solid. The floor and
-ceiling strata over the overlap interlock the same way — the front post's foot
-and head come through a relief in the back half's floor and ceiling, so the post
-reaches its bed face instead of starting an overlap's length out over air.
+**Each boss stands on the joint it pins.** A plug is the wall it drives through and
+the reach it needs past it: the first `wall` of its length *is* that wall's own
+material and the rest a stub off it, its mouth-side face on the receiving mouth. A
+socket is a **pipe round that plug** — Ø[16.3 mm](SOCKET_OD) outside,
+Ø[10.3 mm](SOCKET_BORE) bored, one `wall` of material the whole way, a `socket_cap`
+over the insert's blind end — its rim-side face on the lip rim and its far face a
+hair inside the lip's own fusion shoulder, so it stands on the lip band down its
+whole length. That band is one `wall` deep and runs the piece's full height, the way
+a telescoping lip does. Those two matings are the pair the overlap depth is struck
+from. Between two levels the corner is the wall's own air.
 
 **What makes all of that fit is the band the walls keep.** A body standing on the
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
 leave the seam machinery nowhere to stand. Every **floor body is held one
-`side_rib_inset` in from the ±X walls where the seam's columns stand** — the boss
+`side_rib_inset` in from the ±X walls where the seam's bosses stand** — the boss
 chain's own reach — and the **back wall keeps one `rear_seam_clear`**, the rear
 Z-seam lip's own thickness. That is a requirement on the body at those depths, not
-a rule about the wall: the columns stand at their own Y stations, and between them
+a rule about the wall: the bosses stand at their own Y stations, and between them
 the band is nothing but the wall's own air. Everything on the slab sits flat on it:
 the print-corner relief runs on the standing verticals and the Y-seam's floor lap
 stays inside the slab, so the seat is square and there is nothing standing there to
 clear.
 
-So the pack seats flush against the **seams**, not against the walls. Every post
-has its full section, both walls carry all six levels, and the rear station's
-post runs its own corner the whole way to the floor.
+So the pack seats flush against the **seams**, not against the walls, and both
+walls carry all six levels at full section.
 
 The Y seam is a stated plane, `enclosure.y_seam`, checked against those bands
 rather than derived from them: which pieces the box comes apart into is a decision
@@ -204,11 +189,12 @@ assembly is off.
 rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
-The crowding mechanism stays in place even though nothing is crowded now: a post
-necks to whatever is measured clear at its wall with 45° run-outs, and no level
-is offered where the necking would leave a socket with no body to bore. It reads
-zero on both walls today, and the build prints each wall's levels so a wall that
-ever loses one is visible rather than silent.
+The crowding mechanism stays in place even though nothing is crowded now: each level
+is offered only where the socket's whole body — bore, heat-set and cap, one collar
+radius either side of the axis — stands clear of what `_measure_wall_block` found in
+that corner, measured against the contents themselves rather than their bounding
+boxes. It reads zero on both walls today, and the build prints each wall's levels so
+a wall that ever loses one is visible rather than silent.
 
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
@@ -235,9 +221,9 @@ on the ±X exterior walls and runs out into their own rounds.
 
 The seam furniture follows the same rule: the Z-seam lip is a *horizontal* band
 that telescopes straight through those verticals, so its corners are relieved on
-Z concentric with the cavity it enters, as are the front Z-seam socket pods that
-sit in them; the Y-seam lip sits mid-wall where there is no vertical arris, so it
-stays square.
+Z concentric with the cavity it enters, and a socket collar standing in one of them
+is held inside that same cavity; the Y-seam lip sits mid-wall where there is no
+vertical arris, so it stays square.
 
 The Y-seam lip is the one joint the orientation costs something. Its ceiling
 tongue juts one overlap past the body into the space the back piece's ceiling
@@ -495,7 +481,7 @@ the display let in. The glass is the datum: a shallow 2 mm bezel counterbore,
 centred on the box (corners rounded 2.5 mm to match the glass), recesses the
 glass with the 3 mm buffer uniform all around. The glass overhangs the body
 unevenly (further up-and-left), so the 106 × 69 mm PCB through-hole sits offset
-the opposite way; where a corner pod sits behind the facet, the hole takes it
+the opposite way; where a socket collar sits behind the facet, the hole takes it
 clean through.
 
 The whole housing is cut into the box itself, flush with the front wall: the
@@ -524,7 +510,7 @@ The funnel is a static placed part: the opening is cut at its collar
 (`_hopper_hole` reads the funnel's own dims at `enclosure_assembly.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
 facet's own back plane ahead (with a ledge of top wall between the two), the ±X
-top corner pods either side, and the back wall behind — and the collar is measured
+boss chains either side, and the back wall behind — and the collar is measured
 one `brim_margin` inside it on all four sides at once, so a placement that crowds an
 edge is a red row naming the edge and the margin it is short. That margin
 is the brim's landing: it is wider than the flange's overhang, so a full
