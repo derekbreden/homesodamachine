@@ -220,13 +220,12 @@ SCENES = (
         # three valves, both chains and every run between them — and the plate and lid with it.
         without="cap-lid",
         # Over the open mouth, which is what there is to see: the cavities the shot has to find,
-        # both reservoirs standing in their pockets, and every line's own end at the rim.
+        # both reservoirs standing in their pockets, and every line standing out of the top.
         cam=(0.7, -0.9, 1.5), up=(0, 0, 1), zoom=3.6, look="centre",
         note="The shell closed underneath, the vessel and both reservoirs standing in it, and "
-             "every internal line up at the rim. This is what the body pour goes into. Each "
-             "line stops at the shell's own top — `_internal_routes` draws it that far and the "
-             "cap's conduit carries it the rest of the way, so what stands proud of this rim "
-             "belongs to a part that is not on yet.",
+             "every line standing out of the open top. This is what the body pour goes into. "
+             "Each line runs from the fitting it is made up on to the cap face, so what stands "
+             "proud of this rim is the cap's own thickness and the cap comes down over it.",
     ),
     Scene(
         "hopper-drain", "Hopper basin drain stub",

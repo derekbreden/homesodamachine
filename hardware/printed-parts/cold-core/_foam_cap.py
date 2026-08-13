@@ -13,6 +13,7 @@ from _cold_core_interface import (
     cap_conduit_boss_radius,
     cap_conduit_entry_relief_radius,
     foam_cap_height,
+    foam_shell_outer_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
     foam_cap_lid_pour_xy,
@@ -31,6 +32,22 @@ from _outer_shell import build_attachment_bosses
 # The lid is one wall of plate plus a head pad at each of the six stations.
 lid_total_height = wall_and_floor_thickness + head_pad_height
 lid_cut_through_depth = lid_total_height + wall_and_floor_thickness
+
+# --- the two planes outside the stack answers to ---------------------------
+#
+# THE STACK'S FLOOR is the bottom lid's outer face, the most-negative-Z layer, which is what the
+# appliance stands the whole core on.
+#   THE CAP FACE is the top lid's outer face — the plane every body on the core's crown is placed
+# off, and the plane a cap conduit's bore opens on. It is NOT the stack's highest point and must
+# not be read as one: the valve cradles (`_cold_core_interface.cap_cradles`) stand off that face,
+# so the assembly's box top is a cradle pad, and a body seated on it would stand on a valve seat.
+#
+# Both are arithmetic over the lid this module makes and the two heights the interface states, so
+# they live beside the lid. `foam_assembly` re-exports them for the appliance and
+# `_internal_routes` ends every riser on the cap face, which is where the machine's own run to
+# that conduit begins.
+stack_floor_z = -(foam_cap_height + lid_total_height - head_pad_height)
+cap_face_z = foam_shell_outer_height + foam_cap_height - head_pad_height + lid_total_height
 
 
 def attachment_clearances_extrude(height):

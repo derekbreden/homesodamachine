@@ -348,6 +348,7 @@ def sub_assemblies(m: Machine):
     _sys.path.insert(0, str(_hw / "assembly" / "scenes"))
     import _scenes
     import _cold_core_interface as _cci
+    import _foam_cap
     import hopper_drain_stub as _stub
     import hopper_funnel as _funnel
 
@@ -406,6 +407,10 @@ def sub_assemblies(m: Machine):
     # is the whole of the difference between the two counts.
     open_core = sorted(n for n in _scenes.named(_scenes.SCENE_BY_ID["cold-core-open"], m.a.runs)
                        if n.startswith("line-"))
+    # WHAT A LINE STANDS PROUD OF THE SHELL IS THE CAP'S OWN THICKNESS, and both planes are the
+    # parts' own: the shell states its height and the lid states the face its bore opens on. A
+    # cap that gets thicker moves this figure and the picture beside it together.
+    proud = _foam_cap.cap_face_z - _cci.foam_shell_outer_height
     assert len(open_core) == len(_cci.cap_conduits) + 1, (
         f"the open core stands {len(open_core)} internal lines against "
         f"{len(_cci.cap_conduits)} cap conduits — SA-08 says every conduit's line and the PRV "
@@ -440,6 +445,7 @@ def sub_assemblies(m: Machine):
         "SA04_RIB_RUNS": f"{len(ribs_strapped)}",
         "SA04_RIB_EMPTY": f"{len(ribs_empty)}",
         "SA08_LINES": f"{len(open_core)}",
+        "SA08_PROUD": f"{proud:g}",
         "SA05_HANGING": f"{len(hanging['back-half'])}",
         "SA07_HANGING": f"{len(hanging['cold-core'])}",
         "SA07_CLOSED": f"{len(conduit_runs) - len(hanging['cold-core'])}",
@@ -464,7 +470,7 @@ def sub_assemblies(m: Machine):
         "sa-06-hopper-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
-        "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
+        "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES", "SA08_PROUD"},
     }
     return facts, cards
 
