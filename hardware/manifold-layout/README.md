@@ -161,7 +161,7 @@ whose headers are re-dressed to whichever face suits — so the loop's first leg
 those two bodies already share, both its stations are one point read twice, and no copper is
 drawn between them. The other two cross the lane in front of the core: the condenser's liquid
 line into the evaporator's inlet, one straight on the core's own port column, and the
-compressor's suction out of its aft tangent into the evaporator's outlet. `_lines` draws both.
+compressor's suction out of its west tangent into the evaporator's outlet. `_lines` draws both.
 `refrigerant_joints` reads all three at every build — a mating on its two stations, a tube on
 both its mouths — and `check_refrigerant_joints` writes the card red for any leg standing open
 and for any with no pair of placed stations to measure.

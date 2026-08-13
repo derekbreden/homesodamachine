@@ -19,8 +19,8 @@ already share and both of its stations are ONE POINT READ TWICE.
 NEITHER OF THE TWO REACHES THE CORE. It is packed off the rear wall (`rear_seam_clear`) rather
 than butted against the stratum, so what stands between them is a LANE, and the loop's two legs
 that cross it are cut and brazed copper `_lines` draws like any other run — the condenser's
-liquid line straight across it on one column and one plane, the compressor's suction up out of
-its own aft tangent. `JOINT_STATIONS` names the two mouths of
+liquid line straight across it on one column and one plane, the compressor's suction out of its
+own west tangent and back across the lane on a diagonal. `JOINT_STATIONS` names the two mouths of
 all three legs;
 which of them the machine mates and which it draws is settled by `_lines` having authored a run,
 so no leg is read twice and none falls between the two. `refrigerant_joints` takes the reading
@@ -40,8 +40,8 @@ What the mating does to each body
 ---------------------------------
 The **compressor** keeps the machine's own `COMPRESSOR_YAW`: the can's oil sits in its bottom
 and its pickup is gravity-fed, so upright is the compressor's constraint and the turn can only
-be a yaw. That yaw lays its discharge tangent EAST at the condenser, its suction tangent NORTH
-at the cold core, and its power box at the front.
+be a yaw. That yaw lays its discharge tangent EAST at the condenser, its suction tangent WEST at
+the side wall, and its power box at the front.
 
 The **condenser** turns a quarter about Z to bring its west face onto the compressor's tangent.
 That carries its `AIRFLOW` axis with it — across the machine before, front-to-back after — so
@@ -245,7 +245,7 @@ FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funne
 FOAM_YAW = 90.0
 # The compressor stands UPRIGHT: the can's oil sits in its bottom and the pickup is
 # gravity-fed, so upright is the constraint and the only turn it is free in is a yaw. This
-# one carries its discharge tangent to +X and its suction tangent to +Y.
+# one carries its discharge tangent to +X and its suction tangent to -X, the can's two flanks.
 COMPRESSOR_YAW = 90.0
 # The water pump lies flat on the core's crown. Its barbs are molded into the casting
 # and leave its ±Y side faces, so this yaw lands them on the machine's ±X, and lays its
@@ -3963,7 +3963,7 @@ def place_base(seated, names=()):
 
     THE STAND IS STRUCK ON THE CAN AND NOT ON THE PAIR'S BOX. The compressor is the sited body on
     this floor — four posts under its feet, a service valve reaching off its front, a suction leg
-    drawn off its aft tangent — so it holds still and the condenser is placed relative to it. Off
+    drawn off its west tangent — so it holds still and the condenser is placed relative to it. Off
     the pair's box, a condenser measured again moves the can, and every one of those follows.
     `seated[0]` is that body, which is the order `build_pack` hands them in and the order the
     ledger's row names them in.

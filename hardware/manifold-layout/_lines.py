@@ -1077,10 +1077,11 @@ def _refrig_3(F):
     """refrig-3 — the evaporator's outlet back to the compressor's suction, in copper.
 
     The other two joints of the sealed loop are made across a plane their bodies already share
-    and draw no tube. This one cannot be: the compressor's shell is a pressed oblong, so it
-    meets a neighbour along a tangent line, and that tangent stands short of the cold core's
-    front. So this leg is cut and brazed like any other run — up out of the shell's suction and
-    back into the core's own outlet slot."""
+    and draw no tube. This one cannot be: the suction stands on the shell's WEST tangent, which
+    looks at the side wall and at no neighbour at all, and the core stands a lane behind the can
+    besides. So this leg is cut and brazed like any other run — out into the west lane, then one
+    long diagonal aft and back inboard, past the shell's own shoulder and down into the core's
+    outlet slot."""
     return R.bent(
         "refrig-3", "compressor.refrig-suction", "foam-assembly.evap-outlet",
         kind="refrigerant", bend=CU_BEND, lead=CU_LEAD,

@@ -86,7 +86,7 @@ braze_joint_temp_c = 700                # BCuP-5 working temperature
 ambient_c = 20                          # shop ambient the rise is over
 copper_k_w_mk = 380                     # 1/4" ACR copper conductivity
 fin_h_w_m2k = 35                        # natural convection + radiation, combined
-joint_standoff_mm = 67.7                # refrig-3's own reach — `_lines` draws no longer one
+joint_standoff_mm = 92.0                # refrig-3's own reach — `_lines` draws no longer one
 
 _tube_od_mm = 6.35                      # 1/4" OD
 _tube_wall_mm = 0.031 * 25.4            # 0.031" wall
@@ -97,6 +97,10 @@ _perimeter_m = math.pi * _tube_od_mm / 1e3
 fin_decay_mm = math.sqrt(copper_k_w_mk * _area_m2 / (fin_h_w_m2k * _perimeter_m)) * 1e3
 plug_face_rise_c = ((braze_joint_temp_c - ambient_c)
                     * math.exp(-joint_standoff_mm / fin_decay_mm))
+# What that leaves the plug's own face standing at, and how far over its Tg that is. The
+# estimate has to be wrong by the whole of that factor before the plug survives the torch.
+plug_face_c = ambient_c + plug_face_rise_c
+tg_margin = plug_face_c / petg_glass_transition_c
 
 
 def main():
@@ -135,6 +139,8 @@ def main():
         "JOINT_STANDOFF": f"~{joint_standoff_mm:.4g} mm",
         "FIN_DECAY": f"{fin_decay_mm:.1f} mm",
         "PLUG_RISE": f"~{plug_face_rise_c:.0f} °C",
+        "PLUG_FACE": f"~{plug_face_c:.0f} °C",
+        "TG_MARGIN": f"{tg_margin:.1f}×",
     }
 
     substitute_md(
