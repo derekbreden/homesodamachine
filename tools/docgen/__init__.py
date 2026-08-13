@@ -56,21 +56,21 @@ callers per file accumulate as separate bullets (deduped, sorted).
 A caller's bullet stays in place even if the script later stops
 calling substitute_md on the file; pruning is manual.
 
-Sources sidecar
+Figures sidecar
 ---------------
 
 Beside a markdown file under a `hardware/` tree, substitute_md writes
-`<doc>.sources.json`: for each caller, every repo file whose text can
-decide what that caller substitutes, each with the hash of its bytes.
-The walk is `_realized.source_files`, taken here because THIS is where
-the caller's own `sys.path` is standing — the same module name resolves
-to different files, or to none, from a different one, so a reader that
-takes the walk again elsewhere is not asking about the same graph.
+`<doc>.figures.json`: for each caller, the [value](NAME) texts that
+caller just wrote into the doc, by name. It is written when one of them
+differs from what is recorded, and not otherwise.
+`check_doc_figures.py` reads them back.
 
-What the sidecar answers is whether a doc's figures are still the ones
-its inputs make, which is a question no reader of the doc can settle:
-the values cost the caller's whole build. `check_doc_sources.py` reads
-the recorded hashes back and compares bytes.
+The hash of every repo file whose text can decide those texts goes to
+`_realized.stamp_write("docs", …)`, under `.cache/`. The walk is
+`_realized.source_files`, taken here because THIS is where the caller's
+own `sys.path` is standing — the same module name resolves to different
+files, or to none, from a different one, so a reader that takes the
+walk again elsewhere is not asking about the same graph.
 
 Cross-file collision linter
 ---------------------------
@@ -90,7 +90,6 @@ Invoke as:
 Exit code is 0 if no collisions are found, 1 otherwise.
 """
 
-import hashlib
 import importlib.util
 import inspect
 import io
@@ -164,7 +163,7 @@ def _caller_repo_path(stack_depth: int = 2) -> str | None:
     return f"/{rel.as_posix()}"
 
 
-SIDECAR_SUFFIX = ".sources.json"
+FIGURES_SUFFIX = ".figures.json"
 
 
 def _realized_for(caller_file: Path):
@@ -182,32 +181,35 @@ def _realized_for(caller_file: Path):
     return module
 
 
-def _write_sources_sidecar(md_path: Path, caller_file: Path, caller_path: str) -> None:
-    """Record every file `caller_file` reads to decide what it substitutes, with each
-    one's hash, in `<md_path stem>.sources.json`. Other callers' entries stay."""
+def _record(md_path: Path, caller_file: Path, caller_path: str, figures: dict) -> None:
+    """The `[value](NAME)` texts `caller_file` just wrote into `md_path`, beside the doc; the
+    hash of every file it read to decide them, under `.cache/`. Other callers' entries stay."""
     realized = _realized_for(caller_file)
     if realized is None:
         return
     root = _find_repo_root(caller_file)
     if root is None:
         return
-    files = {}
-    for src in realized.source_files(caller_file):
-        # `code_digest` and not the bytes: a comment moving is not a figure moving, and
-        # `check_doc_sources` reads these back through the same name.
-        files[Path(src).relative_to(root).as_posix()] = realized.code_digest(src)
 
-    sidecar = md_path.with_name(md_path.stem + SIDECAR_SUFFIX)
+    sidecar = md_path.with_name(md_path.stem + FIGURES_SUFFIX)
     held = {}
     if sidecar.is_file():
         try:
             held = json.loads(sidecar.read_text())
         except ValueError:
             held = {}
-    held[caller_path] = files
+    held[caller_path] = figures
     text = json.dumps(held, indent=2, sort_keys=True) + "\n"
     if not sidecar.is_file() or sidecar.read_text() != text:
         sidecar.write_text(text)
+
+    files = {}
+    for src in realized.source_files(caller_file):
+        # `code_digest` and not the bytes: a comment moving is not a figure moving.
+        files[Path(src).relative_to(root).as_posix()] = realized.code_digest(src)
+    stamp = realized.stamp_read("docs", md_path)
+    stamp[caller_path] = files
+    realized.stamp_write("docs", md_path, stamp)
 
 
 def _render_sources_section(bullets: list[str]) -> str:
@@ -312,11 +314,13 @@ def substitute_md(
     if new_text != text:
         md_path.write_text(new_text)
 
-    # The sidecar records the graph as this caller sees it, so it is written on every
-    # run and not only on the runs that move a figure: a source can change what the
-    # caller reads and still land on the same value.
+    # What this caller wrote into this doc — the names it manages that the doc carries, each
+    # with the text now standing in the brackets.
     if caller_path and caller_file:
-        _write_sources_sidecar(md_path, caller_file, caller_path)
+        _record(md_path, caller_file, caller_path,
+                # Through the same f-string `repl` writes with, so a recorded figure and the
+                # text standing in the doc are one string and not two renderings of a value.
+                {name: f"{variables[name]}" for name in sorted(name_counts)})
 
 
 def substitute_mmd(

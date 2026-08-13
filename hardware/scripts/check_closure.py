@@ -2,7 +2,7 @@
 """check_closure.py — whether the source walk names every module a build actually reads.
 
 `_realized.source_files` reads import statements to say whose text can decide what a module
-draws, and that answer is what keys the wall cache and what every `.sources.json` records. A
+draws, and that answer is what keys the wall cache and what every doc's stamp records. A
 module the walk misses is a module that can move while a cached wall, a card and a document all
 hold still.
 

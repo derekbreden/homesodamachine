@@ -1,0 +1,10 @@
+{
+  "/hardware/topology/_fluid_topology_sync.py": {
+    "LIMB_COUNT": "4",
+    "LIMB_VALVES": "10",
+    "LOWER_COUNT": "8",
+    "PUMP_COUNT": "2",
+    "TEE_COUNT": "6",
+    "UPPER_COUNT": "8"
+  }
+}

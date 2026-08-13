@@ -1,0 +1,23 @@
+{
+  "/hardware/reference/beduan-solenoid/beduan_solenoid.py": {
+    "BODY_TOP_Z": "30.6",
+    "BOSS_Z0": "6",
+    "COIL_DEPTH": "24",
+    "COIL_FACE_Y": "12",
+    "COIL_H": "26",
+    "COIL_TOP": "56.6",
+    "PORT_LEN": "59",
+    "POST_DIA": "6.8",
+    "SOLENOID_BODY_DIA": "32.25",
+    "SOLENOID_PORT_DIA": "15",
+    "SPADE_LEN": "15",
+    "SPADE_SPACING": "10",
+    "SPADE_T": "0.8",
+    "SPADE_W": "6.3",
+    "SPADE_Y_END": "27",
+    "SPADE_Z": "50",
+    "TOP_BOX_H": "5",
+    "TOP_BOX_X": "34.25",
+    "TOP_BOX_Z0": "25.6"
+  }
+}

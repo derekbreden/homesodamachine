@@ -1,0 +1,11 @@
+{
+  "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
+    "BULKHEAD_BELOW_FLOOR_STACK": "24.4 mm",
+    "BULKHEAD_DRY_FLANGE_OD": "18.7 mm",
+    "BULKHEAD_PANEL_HOLE_D": "16 mm",
+    "BULKHEAD_SEAL_DRY_OD": "18.5 mm",
+    "BULKHEAD_SEAL_WET_OD": "24 mm",
+    "BULKHEAD_WET_NUT_OD": "21.9 mm",
+    "FLOOR_BELOW_TROUGH_HEADROOM": "22.6 mm"
+  }
+}

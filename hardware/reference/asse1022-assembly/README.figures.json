@@ -1,0 +1,8 @@
+{
+  "/hardware/reference/asse1022-assembly/asse1022_assembly.py": {
+    "ASSE_ENVELOPE": "140.0 \u00d7 33.0 \u00d7 43.3 mm",
+    "ASSE_TUBE_IN": "(-36.00, 0.00, 27.00)",
+    "ASSE_TUBE_OUT": "(104.00, 0.00, 27.00)",
+    "ASSE_VENT_TIP": "(32.00, 0.00, -2.00)"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py": {
+    "BODY_PORT_D": "10 mm",
+    "BODY_SQUEEZE": "0.22 mm",
+    "CAP_HOLE_D": "6.5 mm",
+    "CYL_L": "13.5 mm",
+    "LLDPE_ID": "6.35 mm",
+    "LLDPE_INTERFERENCE": "0.1625 mm",
+    "LLDPE_OD": "9.525 mm",
+    "ORING_CAP_T": "2.1 mm",
+    "ORING_INNER_D": "9.2 mm",
+    "ORING_OUTER_D": "10.44 mm",
+    "ORING_WALL_T": "0.62 mm",
+    "PORT_DEPTH_MIN": "20 mm",
+    "TOTAL_H": "15.6 mm"
+  }
+}
