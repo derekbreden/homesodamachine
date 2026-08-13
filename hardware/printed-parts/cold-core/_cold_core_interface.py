@@ -1177,6 +1177,130 @@ for _name in cap_anchors:
         f"{cap_cradle_room_gap:g} mm this face keeps between two things it opens")
 
 
+# --- the anchors that grip SIDEWAYS -----------------------------------------
+#
+# The ribs above open at the sky: a run is laid down into the trough and the strap comes up round
+# it. A run laid ACROSS this lid cannot be held that way. `water-3` crosses the machine along the
+# cap's own Y, one lane off the core's front face, and an upward trough on that line would open
+# its mouth at the hopper basin — a tube dropped into it would come down through the storey the
+# source valves fill.
+#
+# SO THIS ONE STANDS ON THE STEP AND GRIPS THE RUN FROM BEHIND. A post, its FORWARD face the run's
+# own axis plane, a half pipe cut into that face, and the tube pushed in horizontally.
+#
+# THE POST GROWS ALONG THE CAP'S OWN −X, which the machine lays on world +Y: the pipe's axis
+# plane is its forward face and everything behind it is between the run and the core the run is
+# assembled onto. `centre` is that axis plane, so the post is on the far side of it from the room.
+#
+# THE TIE'S TUNNEL IS A REMAINDER, the same bargain the up-opening ribs strike: the post carries
+# its whole depth down to the lid's face at its two ENDS only, and its middle stops one wall under
+# the pipe — so what is left between that middle and the face is the tunnel, floored by the lid
+# itself and roofed by the post. Nothing is cut for it. The tie goes through the tunnel, out the
+# front, round the tube and back over the post's crown, and buckles in the channel down its back.
+SideAnchor = namedtuple("SideAnchor", "centre over_face seat_r axis_off")
+
+cap_side_wall = cap_anchor_wall           # every solid section in the post
+cap_side_len = cap_anchor_len             # along the run, one tie's tunnel and its two flanks
+cap_side_cav_w = cap_anchor_cav_w         # the tunnel's width, on the strap and its slip
+cap_side_flank = (cap_side_len - cap_side_cav_w) / 2.0
+# THE TUNNEL IS CUT AND NOT LEFT. The up-opening ribs leave theirs between two feet that carry on
+# down to the lid; this post's own floor is the run's tie path, so a post built that way would
+# stand on two legs with nothing over them. Cut, the block over the tunnel is continuous.
+# The 18 lb strap through its thickness — `enclosure.tie_strap_t`, and the one figure the tunnel
+# has to leave standing.
+cap_side_strap_t = 1.0
+# The tie's own channel down the post's back face, so the buckle seats and the strap cannot walk
+# along the run.
+cap_side_back_relief = 1.2
+# How deep the post runs BEHIND the axis plane, and it is not its own to choose: the axis plane
+# is the CORE'S OWN FRONT FACE, so everything the post is stands inside the core's plan outline —
+# nothing of it is proud, and the grips the box closes on that outline do not move. What it has
+# aft is the band to the source pair's own bodies.
+cap_side_depth = 5.0
+# The least material the post may carry behind the pipe's deepest point. The tie pulls the tube
+# into the pipe and the whole section reacts it, so this is a printing floor and not a strength
+# one: under it the back face is a skin with no fill behind the bore.
+cap_side_web = 1.5
+
+cap_side_anchors = {
+    # The tap-water branch to V-K, on the lid's front step. `centre` is the run's own axis where
+    # it crosses this post — the cap's (x, y), with the run along the cap's Y — and `over_face`
+    # is the height that axis stands over the lid's outer face.
+    #   The cap's X is the CORE'S OWN FRONT FACE — the post is behind it and nothing is proud —
+    # and the cap's Y is on the mirror line, between the two port stubs the source pair leaves
+    # over this step. `axis_off` stands the pipe forward of that face by what reservoir B's own
+    # riser leaves the run: the seat is the shallower wrap that leaves, and the tie is what holds.
+    "water-3": SideAnchor((141.500, 3.242), 7.600, 3.375, 1.500),
+}
+
+
+def cap_side_axis_y(name) -> float:
+    """The pipe's axis in the cap's own X — the post's front face, stood `axis_off` forward of
+    it. The cap's +X is the world's forward, so the axis is at the greater figure."""
+    a = cap_side_anchors[name]
+    return a.centre[0] + a.axis_off
+
+
+def cap_side_wrap_deg(name) -> float:
+    """How much of the tube's own circle the seat closes on, in degrees. A pipe on the face
+    itself takes half; one stood proud of it takes less, and what makes up the difference is the
+    tie."""
+    a = cap_side_anchors[name]
+    return 2.0 * math.degrees(math.acos(a.axis_off / a.seat_r))
+
+
+def cap_side_tunnel_h(name) -> float:
+    """The tie's tunnel: what is left between the lid's face and the material under the pipe."""
+    a = cap_side_anchors[name]
+    return a.over_face - a.seat_r - cap_side_wall
+
+
+def cap_side_anchor_height(name) -> float:
+    """How tall the post stands over the lid's outer face — the axis, the pipe's own radius over
+    it, and one wall over that."""
+    a = cap_side_anchors[name]
+    return a.over_face + a.seat_r + cap_side_wall
+
+
+def cap_side_anchor_holds(name) -> None:
+    """The post's own stack, against what the run's height gives it.
+
+    A run laid closer to the lid's face than the pipe, one wall and the strap together is a run
+    with no tie path under it, and the post would stand on its own strap."""
+    a = cap_side_anchors[name]
+    tunnel = cap_side_tunnel_h(name)
+    if tunnel < cap_side_strap_t - 1e-9:
+        raise ValueError(
+            f"cap_side_anchor_holds: {name} runs {a.over_face:.3f} mm over the lid's face; the "
+            f"pipe takes {a.seat_r:.3f} of that and one wall {cap_side_wall:.3f} more, leaving "
+            f"{tunnel:.3f} mm of tunnel where the strap is {cap_side_strap_t:g} thick. What gives "
+            f"way here is the run's own lane, not the lid: route it further off that face.")
+    if a.axis_off >= a.seat_r - cap_side_strap_t:
+        raise ValueError(
+            f"cap_side_anchor_holds: {name} stands its pipe {a.axis_off:.3f} mm forward of the "
+            f"post's face on a seat of {a.seat_r:.3f} — what is left of the seat is a scratch in "
+            f"the face, and the tube would lie on the face rather than in anything.")
+    web = cap_side_depth + a.axis_off - a.seat_r
+    if web < cap_side_web - 1e-9:
+        raise ValueError(
+            f"cap_side_anchor_holds: the post runs {cap_side_depth:.3f} mm behind the axis and "
+            f"the pipe takes {a.seat_r:.3f}, leaving a web of {web:.3f} where this face wants "
+            f"{cap_side_web:g}. What caps the depth is the body behind the post, so what gives "
+            f"is the pipe or the lane — not the web.")
+
+
+def cap_side_anchor_strap_loop(name) -> float:
+    """The shortest tie that closes round the tube and the post's own back together.
+
+    A tie turns INSIDE the tunnel, so what it reaches round is the tube with the post behind it:
+    the tunnel's floor, the post's two faces up to the axis plane, a tangent from each of those
+    top corners onto the pipe, and the arc between the two tangent points."""
+    a = cap_side_anchors[name]
+    w = a.seat_r + cap_side_wall
+    return (2.0 * cap_side_depth + 2.0 * w + 2.0 * math.sqrt(w * w - a.seat_r * a.seat_r)
+            + a.seat_r * (math.pi - 2.0 * math.acos(a.seat_r / w)))
+
+
 def cap_conduit_pair_neck(a, b):
     """What a PAIR of conduits leaves between them: `(mm, what)`.
 

@@ -1603,6 +1603,19 @@ def cap_anchor(name: str):
             _foam.cap_conduit_axis_out())
 
 
+def cap_side_anchor(name: str):
+    """One of the cold core's SIDEWAYS anchors as a station in the CORE'S OWN frame:
+    `((x, y, z), the way the run comes into it)`.
+
+    The pipe opens on the core's own −Y, so a run beds into it from the room rather than being
+    laid down into it. Its Z stands `_cold_core_interface.cap_side_anchor_height`'s own axis term
+    over the lid's outer face, and its Y is the pipe's axis — `axis_off` forward of the post's
+    face, which `foam_assembly.cap_side_anchor_station` already carries."""
+    x, y = _foam.cap_side_anchor_station(name)
+    return ((x, y, _foam.cap_face_z + _cci.cap_side_anchors[name].over_face),
+            (0.0, -1.0, 0.0))
+
+
 def cap_conduit(name: str):
     """One of the cold core's cap conduits as a station in the CORE'S OWN frame:
     `((x, y, z), outward axis)`.
@@ -2375,6 +2388,28 @@ def cap_tube_anchors(foam_carry, runs) -> tuple:
                 f"cap_tube_anchors: the rib for {name} stands at {mid} and no leg of that run "
                 f"passes through it. `_cold_core_interface.cap_anchors[{name!r}].centre` is in "
                 f"the cap's own frame, and the run is where its two ports put it.")
+    # AND THE POSTS THAT GRIP SIDEWAYS. Same reading, one axis over: the seat's root is the core
+    # behind it rather than the lid under it, so the station carries −Y where the troughs carry
+    # −Z, and the run has to pass through the pipe's own axis just the same.
+    for name in _cci.cap_side_anchors:
+        r = by_id.get(name)
+        if r is None:
+            continue
+        mid, root = foam_carry(cap_side_anchor(name))
+        for i in range(len(r.pts) - 1):
+            p, q = r.pts[i], r.pts[i + 1]
+            if not _on_leg(mid, p, q, 1e-3):
+                continue
+            d = math.dist(p, q)
+            out.append((mid, tuple((q[k] - p[k]) / d for k in range(3)),
+                        tuple(root), _cci.cap_side_anchors[name].seat_r))
+            break
+        else:
+            raise ValueError(
+                f"cap_tube_anchors: the side post for {name} stands its pipe at {mid} and no leg "
+                f"of that run passes through it. "
+                f"`_cold_core_interface.cap_side_anchors[{name!r}]` is in the cap's own frame, "
+                f"and the run is where its two ports put it.")
     return tuple(out)
 
 

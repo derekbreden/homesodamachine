@@ -60,6 +60,7 @@ sys.path.insert(0, str(_cold_core))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 from _cadq_export import export_assembly
 from _cold_core_interface import (
+    cap_side_anchors,
     attachment_xy_positions,
     cap_anchors,
     cap_conduits,
@@ -159,6 +160,16 @@ def cap_anchor_station(name):
     `_cold_core_interface.cap_anchor_axis_over_face`, and the rib runs along the assembly's own
     ∓X — the spin carries the cap's +X onto it."""
     return spin_xy(cap_anchors[name].centre)
+
+
+def cap_side_anchor_station(name):
+    """One SIDEWAYS anchor's pipe axis in the ASSEMBLY'S OWN frame: `(x, y)`.
+
+    The post is authored in the CAP's frame and the cap installs spun, so this is where the seat
+    a run beds into actually stands. The pipe runs along the assembly's own ∓X and opens toward
+    the assembly's own −Y, which the spin carries the cap's +X onto."""
+    a = cap_side_anchors[name]
+    return spin_xy((a.centre[0] + a.axis_off, a.centre[1]))
 
 
 def deck_mount_station(name):
