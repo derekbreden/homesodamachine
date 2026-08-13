@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 98,
  "routed": 100,
- "mounted": 91,
+ "mounted": 93,
  "checks": [
   {
    "id": "coverage",
@@ -1107,17 +1107,17 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "52/57 mounted, 14 part of another body, 10 nothing fastens",
+   "value": "52/56 mounted, 14 part of another body, 11 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "display: wall-capture",
     "flow-regulator: tube-hung",
     "gasher-co2: wall-capture",
-    "hopper-drain-union: tube-hung",
     "water-split: tube-hung",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
     "hopper-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "hopper-drain-stub: tube-clamp \u2014 nothing fastens it; The worm clamp closes the basin's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the basin every time it is washed.",
+    "hopper-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the upper takes the stub the basin carries, the lower starts `fluid-4` down to V-B in its cradle on the cold core's cap \u2014 so the barrel hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",
     "hopper-funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, and the union's collet grips the stub the spout carries \u2014 so the basin is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
     "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
     "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
@@ -5995,7 +5995,7 @@
    "joint": "tube-hung",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Both its collets land on held bodies \u2014 the upper takes the stub the basin carries, the lower starts `fluid-4` down to V-B in its cradle on the cold core's cap \u2014 so the barrel hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion."
   },
   {
    "component": "display",
