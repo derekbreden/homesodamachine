@@ -75,7 +75,9 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 #
 # `flip` IS THE POSE THE UNIT IS WORKED IN, not a camera trick. A piece open at its ceiling is
 # turned over on the bench so the open faces look up, and the picture shows the piece the way a
-# hand meets it.
+# hand meets it. WHICH AXIS IT TURNS ABOUT IS WHICH WAY IT THEN FACES: the two top pieces are
+# open at opposite Y faces, and each turns about the axis that leaves its own mouth toward the
+# camera — the back top about Y, the front top about X. Both end up on their ceilings.
 #
 # The machine's frame: +X east, +Y aft, +Z up. A back piece is open FORWARD (−Y) at the Y seam
 # and open at the Z seam it telescopes on; a front piece is open AFT (+Y) at that same seam, and
@@ -83,12 +85,13 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 SCENES = (
     Scene(
         "back-top", "Enclosure back top",
-        roots=("enclosure-back-top",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        roots=("enclosure-back-top",), parts=(), flip=((0, 1, 0), 180.0), also=(),
         later=("drip-pan",),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.3, look="centre",
-        note="Turned over, which is how it is worked: its ceiling is the bench and both open "
-             "faces look up. Every body is on it before it goes back the other way, and the "
-             "tray's channels on the −X wall stand empty.",
+        note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
+             "looks up and the Y-seam mouth faces the room — the shelf is seen from where a "
+             "hand reaches it. Every body is on it before it goes back the other way, and the "
+             "tray's channels stand empty.",
     ),
     Scene(
         "front-top", "Enclosure front top",
@@ -99,9 +102,9 @@ SCENES = (
         # they stand one behind the other on two Y planes, and a camera down the valves' own
         # axis draws them as one row.
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=3.3, look="centre",
-        note="The same pose as the back top and the other half of the same box: turned over, "
-             "both open faces up. Every seat under this manifold is the piece's own material, "
-             "and the hopper opening is an opening — nothing is in it yet.",
+        note="The same pose as the back top and the other half of the same box: on its ceiling, "
+             "the mouth to the room. Every seat under this manifold is the piece's own "
+             "material, and the hopper opening is an opening — nothing is in it yet.",
     ),
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
