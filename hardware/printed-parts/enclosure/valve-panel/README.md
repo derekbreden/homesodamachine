@@ -11,13 +11,13 @@ four to a plane. Each plane gets a panel: [2](PANEL_COUNT) per machine.
 
 | | |
 |---|---|
-| plate | [215](PANEL_W) wide × [43.6](PANEL_H) × [3](PANEL_T) mm |
+| plate | [209](PANEL_W) wide × [43.6](PANEL_H) × [3](PANEL_T) mm |
 | seats | [4](PANEL_SEATS), on the plate's own centreline |
 | socket | Ø[7.2](SOCKET_DIA) — a corner post presses in |
 | boss | Ø[13.2](BOSS_DIA) |
 | seat height | [1](PANEL_SEAT) mm, so every socket floor lands on the plate's own face |
 | depth on the deck's plane | [10](PANEL_D) mm, plate and bosses together |
-| material, both panels | [77.78](PANEL_VOL) cm³ of `enclosure-front-top` |
+| material, both panels | [76.21](PANEL_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
 

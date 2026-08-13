@@ -156,7 +156,7 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # up there is the tube.
 reservoir_fill_port = {
     -1: (-88.0, 43.5),      # B, forward pocket — the corner opposite its drain
-    +1: (102.5, -56.0),     # A, aft pocket — the strip between the pump and the brick
+    +1: (102.5, -57.5),     # A, aft pocket — the strip between the pump and the brick
 }
 reservoir_fill_sides = tuple(sorted(reservoir_fill_port))
 
@@ -493,7 +493,7 @@ deck_mount_cap_gap = 1.5
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
-    "seaflo-pump": DeckMount((-93.20,   0.00),  59.00,  79.00,   0.0,  8.50, 16.0),
+    "seaflo-pump": DeckMount((-93.20,   2.50),  59.00,  79.00,   0.0,  8.50, 16.0),
 }
 
 
@@ -803,16 +803,24 @@ co2_lane_x = 72.5
 # it turns on that floor either way. Splitting them lets the cap conduit stand where the
 # APPLIANCE has room for it, and that is what picks this column: the conduit is what the
 # enclosure's CO2 chain comes down onto, enclosure y is `319.5 − x` here, and this lands the
-# chain at y 309 — forward of the Mean Well, whose potted middle is the one body on that flank
-# reaching inboard of its own column, and outboard of the PCBA's face.
-co2_cap_x = 10.5
+# chain at y 318 — clear of the relay's own terminal block, which is what the +X column puts
+# in this lane at the deck's storey, and far enough off the regulator's outlet plane that the
+# leg between the two still carries a rib.
+co2_cap_x = 1.5
+# THE CARBONATED WATER IS SPLIT THE SAME WAY, at the other end of its line. Its CLIMB is
+# pinned: it crosses the tank support ring at one of the ring's own four slots, so the column
+# it rises on may not wander without notching a bearing segment, and the slot leaves it under
+# 8 mm of travel — all of it under the same deck body its bore has to dodge. Its cap bore has
+# no such tie: the run is already on the lane by then, and a jog ALONG a lane costs it nothing.
+# So the ring reads this column and the appliance reads the bore's, and neither is the other's.
+water_outlet_climb_x = -48.5
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
     "reservoir-b": (135.5, -43.5),
     "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
-    "carb-water-out": (48.5, -port_lane_mid_y),
+    "carb-water-out": (52.2, -port_lane_mid_y),
     "co2-in": (co2_cap_x, -port_lane_mid_y),
 }
 

@@ -475,7 +475,7 @@ appliance_height = 358.0
 # its place, does not make the machine narrower; a pack that outgrows this is a red
 # `box-width`. What sets the number is the cold core standing its own `side_band_inset`
 # off both walls: 181 across, 14 either side, and one wall each side of that.
-appliance_width = 221.0
+appliance_width = 215.0
 
 
 # WHAT A STATED BOUND IS READ TO. Each of the three is a placed body's own box against a plane,
