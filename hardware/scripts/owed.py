@@ -135,7 +135,7 @@ def main(argv) -> int:
 
     owed, clean = _ask()
     if not owed:
-        print("nothing owed — every doc, card and scene carries what its sources make"
+        print("nothing owed — every solid, doc, card and scene carries what its sources make"
               if clean else "nothing to run, but a check is unhappy — read it directly")
         return 0 if clean else 1
 
