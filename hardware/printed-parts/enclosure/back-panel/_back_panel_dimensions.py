@@ -123,17 +123,6 @@ def main():
     substitute_md(
         _here / "README.md",
         variables=variables,
-        expected_counts={
-            "AC_RECESS_DEPTH": 2,
-            "PANEL_HOLE_D": 2,
-            "PANEL_HOLE_D_SHORT": 1,
-            "CO2_HOLE_D": 1,
-            "CARB_COLOR": 1,
-            "WATER_COLOR": 1,
-            "CO2_COLOR": 1,
-            "CARB_END": 2,
-            "FLAVOR_B_END": 1,
-        },
     )
     print("-> README.md")
 

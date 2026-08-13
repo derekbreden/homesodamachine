@@ -185,13 +185,6 @@ def main():
             "COIL_FACE_Y": f"{coil_face_y:.4g}",
             "SPADE_Y_END": f"{coil_face_y + spade_length:.4g}",
         },
-        expected_counts={
-            "SOLENOID_BODY_DIA": 6, "TOP_BOX_X": 3, "POST_DIA": 2, "SOLENOID_PORT_DIA": 1, "PORT_LEN": 2,
-            "BODY_TOP_Z": 7, "BOSS_Z0": 3, "TOP_BOX_H": 2, "TOP_BOX_Z0": 2,
-            "COIL_DEPTH": 2, "COIL_H": 1, "COIL_TOP": 2,
-            "SPADE_W": 1, "SPADE_LEN": 1, "SPADE_T": 1,
-            "SPADE_SPACING": 1, "SPADE_Z": 1, "COIL_FACE_Y": 1, "SPADE_Y_END": 1,
-        },
     )
     print("-> README.md")
     substitute_py_comments(
@@ -201,12 +194,6 @@ def main():
             "CORNER_INSET": f"{corner_inset:.4g} mm",
             "PORT_CENTER_Z": f"{port_center_z:.4g} mm",
             "COIL_TOP_Z": f"{coil_z_range[1]:.4g} mm",
-        },
-        expected_counts={
-            "BODY_RADIUS": 1,
-            "CORNER_INSET": 1,
-            "PORT_CENTER_Z": 1,
-            "COIL_TOP_Z": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")

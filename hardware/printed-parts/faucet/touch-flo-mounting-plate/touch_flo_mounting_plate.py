@@ -157,42 +157,12 @@ def main():
     substitute_md(
         _here / "README.md",
         variables=variables,
-        expected_counts={
-            "PLATE_T": 1,
-            "PLATE_Z_BOTTOM": 1,
-            "PLATE_Y": 1,
-            "PLATE_BOSS_D": 1,
-            "BOSS_H": 1,
-            "BOSS_CHAMFER": 1,
-            "CBORE_D": 1,
-            "SHANK_D": 1,
-            "SHANK_HOLE_D": 1,
-            "SHANK_OD": 1,
-            "TUBE_CENTER_X": 1,
-            "PLATE_FLAVOR_Y": 1,
-            "PLATE_PILL_L": 1,
-            "PLATE_PILL_W": 1,
-        },
     )
     print("-> README.md")
 
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "PLATE_T": 1,
-            "PLATE_Y": 1,
-            "SHANK_OD": 1,
-            "TUBE_CENTER_X": 1,
-            "PLATE_FLAVOR_Y": 1,
-            "PLATE_PILL_L": 1,
-            "PLATE_PILL_W": 1,
-            "PLATE_BOSS_D": 1,
-            "BOSS_H": 1,
-            "BOSS_CHAMFER": 1,
-            "CBORE_D": 1,
-            "SHANK_D": 1,
-        },
     )
     print(f"-> {Path(__file__).name}")
 

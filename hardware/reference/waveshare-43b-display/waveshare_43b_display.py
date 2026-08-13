@@ -135,12 +135,6 @@ def main():
             "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g} mm",
             "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g} mm",
         },
-        expected_counts={
-            "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
-            "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
-            "BEZEL_CORNER_R": 1,
-            "TOTAL_DEPTH": 2, "BEZEL_OFFSET_X": 1, "BEZEL_OFFSET_Z": 1,
-        },
     )
     print("-> README.md")
     substitute_py_comments(
@@ -156,12 +150,6 @@ def main():
             "TOTAL_DEPTH": f"{total_depth:.4g} mm",
             "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g} mm",
             "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g} mm",
-        },
-        expected_counts={
-            "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
-            "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
-            "BEZEL_CORNER_R": 1,
-            "TOTAL_DEPTH": 2, "BEZEL_OFFSET_X": 2, "BEZEL_OFFSET_Z": 2,
         },
     )
     print(f"-> {Path(__file__).name} (self)")

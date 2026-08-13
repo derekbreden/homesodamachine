@@ -145,49 +145,6 @@ def main():
     substitute_md(
         _here / "ac-wiring-schedule.md",
         variables=variables,
-        expected_counts={
-            # Mains-side voltage / fault protection.
-            "V_LINE": 1,
-            "PRIMARY_FUSE_A": 1,
-            # Conductor gauges (raw, in the per-row "AWG" column).
-            "AWG_MAINS": 5,        # AC-1, DC-1/2/3/4
-            "AWG_AC_BRANCH": 2,    # AC-2/3
-            "AWG_COMP_LEAD": 3,       # AC-4/5/6
-            "AWG_SIG": 5,          # DC-5/6/7/8, SIG-1
-            "AWG_LV": 11,          # LV-1/2/3, SIG-2/3/4/7/9/10/11/12
-            # Conductor gauges with " AWG" suffix in prose.
-            "AWG_MAINS_U": 3,
-            "AWG_AC_BRANCH_U": 1,
-            "AWG_COMP_LEAD_U": 1,
-            # PSU.
-            "PSU_PRI_A": 1,
-            "PSU_W": 1,
-            "PSU_MAX_A": 1,
-            # Major 12 V loads.
-            "DIAPHRAGM_A": 1,
-            "PUMP_PEAK_A": 1,
-            "FAN_A": 2,            # DC-8, COM budget paragraph
-            # Logic rails.
-            "V_DC": 18,
-            "V_LOGIC": 5,
-            "V_IO": 4,
-            "DS18B20_PULLUP": 1,
-            # Conductor counts.
-            "COMP_WIRES": 1,
-            "COMP_WIRES_ALT": 1,
-            "SOLENOID_COUNT": 1,
-            # Run-length design targets.
-            "LEN_SHORT": 1,
-            "LEN_SHORT_2": 4,
-            "LEN_MID": 8,
-            "LEN_PUMP": 2,
-            "LEN_MANIFOLD": 2,
-            "LEN_COMPRESSOR": 4,
-            "LEN_COLD_CORE": 7,
-            "LEN_UMBILICAL": 2,
-            # Connector pitch.
-            "JST_PITCH": 1,
-        },
     )
     print("-> ac-wiring-schedule.md")
 

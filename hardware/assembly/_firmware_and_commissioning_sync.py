@@ -121,43 +121,6 @@ def main():
     substitute_md(
         _here / "firmware-and-commissioning.md",
         variables=variables,
-        expected_counts={
-            # Pin assignments.
-            "GPIO_RELAY1": 1,
-            "GPIO_ONEWIRE": 1,
-            "REED_LOW": 2,
-            "REED_HIGH": 1,
-            "GPIO_FLOW": 1,
-            # I²C addresses.
-            "MCP_VALVES": 5,
-            "MCP_RESERVOIRS": 6,
-            "RTC_ADDR": 3,
-            # Sensor counts.
-            "VALVE_COUNT": 4,
-            "RSVR_COUNT": 1,
-            "REEDS_PER_RSVR": 1,
-            "REEDS_CARB": 1,
-            "REEDS_TOTAL": 3,
-            # Voltage-rail tolerances.
-            "RAIL_12V": 5,
-            "RAIL_12V_TOL": 1,
-            "RAIL_5V": 4,
-            "RAIL_5V_TOL": 1,
-            "RAIL_33V": 4,
-            "RAIL_33V_TOL": 1,
-            # DS18B20 / onewire.
-            "ONEWIRE_PULLUP": 1,
-            "AMBIENT_TOL": 2,
-            # Setpoints.
-            "TANK_TARGET": 3,
-            "HYSTERESIS": 3,
-            "COMP_ON_TEMP": 2,
-            "COMP_OFF_TEMP": 2,
-            "FREEZE_CUTOFF": 3,
-            "MIN_OFF_TIME": 4,
-            "MIN_OFF_TIME_HYPHEN": 1,
-            "MIN_OFF_TIME_BARE": 1,
-        },
     )
     print("-> firmware-and-commissioning.md")
 

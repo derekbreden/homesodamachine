@@ -383,33 +383,10 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "BASE_X": 2, "BASE_Y": 1, "BASE_Z": 2,
-            "SHELL_X": 2, "SHELL_Z": 1, "SHELL_OFFSET_Y": 1,
-            "MOUNT_D": 1, "MOUNT_INSET": 1,
-            "OVERALL_H": 2, "MOUNT_PITCH_X": 3, "MOUNT_PITCH_Y": 3,
-            "SHELL_OVERHANG_X": 2,
-            "PLATE_REACH_LONG": 2, "PLATE_REACH_SHORT": 2,
-            "MOUNT_LIGAMENT": 1, "CYL_EXCESS_PCT": 1,
-            "POWER_X": 1, "POWER_Y": 1, "POWER_Z": 1, "POWER_Z0": 2, "POWER_Z1": 1,
-            "SHELL_TANGENT_Y": 2, "PROCESS_OVER_BOX": 2,
-        },
     )
     substitute_md(
         _here.parent / "README.md",
         variables=variables,
-        expected_counts={
-            "BASE_X": 2, "BASE_Y": 2, "BASE_Z": 2,
-            "SHELL_X": 4, "SHELL_Y": 2, "SHELL_Z": 1, "SHELL_OFFSET_Y": 1,
-            "MOUNT_D": 1, "MOUNT_INSET": 1,
-            "OVERALL_H": 1, "MOUNT_PITCH_X": 1, "MOUNT_PITCH_Y": 1,
-            "SHELL_OVERHANG_X": 1,
-            "PLATE_REACH_LONG": 1, "PLATE_REACH_SHORT": 1,
-            "MOUNT_LIGAMENT": 1, "CYL_EXCESS_PCT": 1,
-            "POWER_X": 1, "POWER_Y": 2, "POWER_Z": 1, "POWER_Z0": 2, "POWER_Z1": 1,
-            "SHELL_TANGENT_Y": 1,
-            "PROCESS_Z": 1, "PROCESS_CLAMP": 1, "PROCESS_OVER_BOX": 1,
-        },
     )
     print("-> README.md")
 

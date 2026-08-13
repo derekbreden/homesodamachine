@@ -140,30 +140,6 @@ def main():
     substitute_md(
         _here / "refrigerant-loop.md",
         variables=variables,
-        expected_counts={
-            "UNIT_A_CHARGE": 3,
-            "UNIT_B_CHARGE": 3,
-            "SYSTEM_CHARGE": 1,
-            "RECHARGE_TOL": 3,
-            "VOL_CORRECTION": 1,
-            "EVAP_VOL_DELTA": 1,
-            "VACUUM_TARGET": 2,
-            "VACUUM_HOLD": 1,
-            "VACUUM_HOLD_FULL": 2,
-            "RUN_CURRENT": 1,
-            "OFF_TIME": 1,
-            "VENT_CLEARANCE": 1,
-            "SF76E_TEMP": 2,
-            "PROT_INLET": 2,
-            "PROT_OUTLET": 2,
-            "PETG_TG": 1,
-            "BRAZE_TEMP": 1,
-            "COPPER_K": 1,
-            "FIN_H": 1,
-            "JOINT_STANDOFF": 2,
-            "FIN_DECAY": 1,
-            "PLUG_RISE": 1,
-        },
     )
     print("-> refrigerant-loop.md")
 

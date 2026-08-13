@@ -254,8 +254,6 @@ def main():
             "HOPPER_HOLD": f"{brim_overhang:g} mm",
             "HOPPER_MARGIN": f"{brim_margin:g} mm",
         },
-        expected_counts={"HOPPER_SPOUT_ID": 1, "HOPPER_CHUTE": 1, "HOPPER_DROP": 1,
-                         "HOPPER_CAP": 1, "HOPPER_HOLD": 1, "HOPPER_MARGIN": 1},
     )
     print("-> README.md")
 

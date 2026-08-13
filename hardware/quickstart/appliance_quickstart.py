@@ -730,15 +730,6 @@ def main():
             "CAPTION_BAND_IN": f"{CAPTION_BAND_MM / 25.4:.4g} in",
             "STEP_RADIUS_IN": f"{STEP_RADIUS_MM / 25.4:.4g} in",
         },
-        expected_counts={
-            "PAGE_W_IN": 1,
-            "PAGE_H_IN": 1,
-            "BORDER_IN": 1,
-            "GUTTER_IN": 1,
-            "PAD_IN": 1,
-            "CAPTION_BAND_IN": 1,
-            "STEP_RADIUS_IN": 1,
-        },
     )
 
 

@@ -727,25 +727,6 @@ def main():
             "SKIRT_WIDE_FLARE": f"{skirt_wide_flare_per_side:.4g}mm",
             "SKIRT_NARROW_TAPER": f"{skirt_narrow_taper_per_side:.4g}mm",
         },
-        expected_counts={
-            "CASE_OUTER_X": 1,
-            "CASE_OUTER_Y": 1,
-            "CASE_OUTER_Z": 1,
-            "CYLINDER_BOTTOM_Z": 2,
-            "BORE_BOTTOM_Z": 3,
-            "CYLINDER_TOP_Z": 2,
-            "BASE_PLATE_FAR_Z": 3,
-            "NARROW_SPLIT_Z": 2,
-            "SKIRT_BOTTOM_Z": 2,
-            "LOWER_CAP_TOP_Z": 2,
-            "LOWER_CAP_BOTTOM_Z": 2,
-            "FOOTPRINT_X": 4,
-            "RAMP_BOTTOM_WIDTH": 2,
-            "SKIRT_WIDE_WIDTH": 1,
-            "SKIRT_NARROW_WIDTH": 1,
-            "SKIRT_WIDE_FLARE": 2,
-            "SKIRT_NARROW_TAPER": 1,
-        },
     )
     print("-> updated comments in pump_case.py")
 

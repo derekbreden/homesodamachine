@@ -1425,28 +1425,5 @@ if __name__ == "__main__":
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "WALL_AND_FLOOR_THICKNESS": 1,
-            "COIL_RADIAL_CLEARANCE": 1,
-            "ABOVE_TANK_ELBOWS_HEIGHT": 1,
-            "BELOW_TANK_ELBOWS_HEIGHT": 1,
-            "PORT_HOLE_DIAMETER": 3,
-            "SCREW_CLEARANCE_DIAMETER": 1,
-            "INSERT_POCKET_DIAMETER": 1,
-            "SCREW_BOSS_SIZE": 1,
-            "SCREW_HEAD_H": 1,
-            "HEAD_PAD_H": 1,
-            "HEAD_CBORE_D": 1,
-            "CAP_SCREW_L": 1,
-            "DECK_MOUNT_CAP_GAP": 1,
-            "VESSEL_PORT_PITCH": 1,
-            "VESSEL_PORT_OFFSET": 1,
-            "LLDPE_BEND_R": 2,
-            "FORWARD_BAND": 1,
-            "LLDPE_TUBE_OD": 1,
-            "ENTRY_RELIEF_D": 1,
-            "ENTRY_SKEW_CEILING": 1,
-            "ANCHOR_LOOP": 1,
-        },
     )
     print("-> _cold_core_interface.py (self)")

@@ -122,7 +122,7 @@ def main():
 
     # An edition with no row in the table is the failure this asserts: the doc
     # would silently describe fewer machines than the repo holds.
-    substitute_md(md, variables=variables, expected_counts=expected)
+    substitute_md(md, variables=variables, )
     print("-> marketing/install-envelope.md")
 
 

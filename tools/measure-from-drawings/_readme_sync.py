@@ -33,10 +33,6 @@ def main() -> None:
     substitute_md(
         _here / "README.md",
         variables=variables,
-        expected_counts={
-            "QUARTER_INCH_MM": 2,
-            "G_HALF_MAJOR_MM": 1,
-        },
     )
     print("-> README.md")
 

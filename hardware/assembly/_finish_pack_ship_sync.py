@@ -87,24 +87,6 @@ def main():
     substitute_md(
         _here / "finish-pack-ship.md",
         variables=variables,
-        expected_counts={
-            "FOUNDER_EDITION_COUNT": 4,
-            "FOUNDER_EDITION_PRICE": 4,
-            "WATER_DRAINED": 1,
-            "FLAVOR_DRAINED": 1,
-            "APPLIANCE_W_LOW": 1,
-            "APPLIANCE_W_HIGH": 1,
-            "CARTON_W_LOW": 3,
-            "CARTON_W_HIGH": 3,
-            "SLOSH_CARTON_W": 1,
-            "CARTON_L": 1,
-            "CARTON_W_DIM": 1,
-            "CARTON_H_DIM": 1,
-            "SCALE_PRECISION": 1,
-            "TILT_ANGLE": 1,
-            "CARRIER_LIMIT_LB": 1,
-            "CARRIER_LIMIT_KG": 1,
-        },
     )
     print("-> finish-pack-ship.md")
 

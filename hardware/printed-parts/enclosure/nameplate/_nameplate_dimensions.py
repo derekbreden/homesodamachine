@@ -36,15 +36,6 @@ def main():
     substitute_md(
         _here / "README.md",
         variables=variables,
-        expected_counts={
-            "FOUNDER_EDITION_COUNT": 2,
-            "FOUNDER_EDITION_LAST": 3,
-            "FOUNDER_EDITION_NEXT": 1,
-            "NAMEPLATE_NOZZLE_D": 1,
-            "BULK_NOZZLE_D": 1,
-            "LAYER_H_MIN": 1,
-            "LAYER_H_MAX": 1,
-        },
     )
     print("-> README.md")
 

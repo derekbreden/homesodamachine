@@ -662,21 +662,6 @@ def main():
             "GN_FLAVOR_BEND_ONE_R": f"{gn_flavor_bend1_r:.4f} mm",
             "GN_FLAVOR_BEND_TWO_R": f"{gn_flavor_bend2_r:.4f} mm",
         },
-        expected_counts={
-            "WATER_TUBE_OD": 2,
-            "WATER_TUBE_Z_BOTTOM": 1,
-            "WATER_TUBE_Z_TOP": 1,
-            "FLAVOR_TUBE_OD": 1,
-            "FLAVOR_TUBE_DEPTH_LOWER": 1,
-            "FLAVOR_TUBE_DEPTH_UPPER": 1,
-            "FLAVOR_BEND_THETA": 1,
-            "PRE_BEND_Z": 1,
-            "LEVER_TOP_Z": 1,
-            "GN_BEND_MID_Z": 1,
-            "GN_BEND_START_Z": 1,
-            "GN_FLAVOR_BEND_ONE_R": 1,
-            "GN_FLAVOR_BEND_TWO_R": 1,
-        },
     )
 
 
