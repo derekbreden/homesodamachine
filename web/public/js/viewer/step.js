@@ -35,30 +35,45 @@ async function parseStep(buffer) {
   return result;
 }
 
-// The same `{ meshes: [...] }` occt hands back, decoded from a tessellation the
-// generator already had in hand rather than re-derived from the STEP text —
-// reading a 24 MB assembly back through the wasm parser costs ~13 s, the
-// tessellation that produced it ~1 s. Only the headless thumbnailer takes this
-// path (tools/render/render-thumbnails.js); the live viewer still parses the
-// STEP, because in the browser the STEP is all there is.
+// The same `{ meshes: [...] }` occt hands back, decoded from the tessellation the
+// export wrote beside the STEP. Both the headless thumbnailer
+// (tools/render/render-thumbnails.js) and the live viewer answer off a model's
+// payload when it has one; a model without one is read from its STEP.
 //
 // Layout: u32 header length, that many bytes of JSON, then one blob every
 // array indexes into by [byteOffset, length] — positions and normals f32,
-// indices u32. See hardware/scripts/_mesh_payload.py, which writes it.
+// indices and face ranges u32. See hardware/scripts/_mesh_payload.py, which
+// writes it.
+//
+// `fac` is `brep_faces` packed flat: [first, last, ...] inclusive TRIANGLE
+// indices, one pair per BREP face, restored to the shape occt reports it in.
+// edge-picker.js reconstructs every pickable edge from that grouping.
+//
+// A payload whose version isn't MESH_PAYLOAD_VERSION decodes to null, and the
+// caller reads the STEP.
+const MESH_PAYLOAD_VERSION = 2; // keep in sync with VERSION in _mesh_payload.py
+
 export function decodeMeshPayload(bytes) {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   const headLen = view.getUint32(0, true);
   const head = JSON.parse(new TextDecoder().decode(bytes.subarray(4, 4 + headLen)));
+  if (head.v !== MESH_PAYLOAD_VERSION) return null;
   const blob = bytes.buffer.slice(bytes.byteOffset + 4 + headLen, bytes.byteOffset + bytes.byteLength);
-  const meshes = head.meshes.map((m) => ({
-    name: m.name,
-    color: m.color || undefined,
-    attributes: {
-      position: { array: new Float32Array(blob, m.pos[0], m.pos[1]) },
-      normal: { array: new Float32Array(blob, m.nrm[0], m.nrm[1]) },
-    },
-    index: { array: new Uint32Array(blob, m.idx[0], m.idx[1]) },
-  }));
+  const meshes = head.meshes.map((m) => {
+    const fac = new Uint32Array(blob, m.fac[0], m.fac[1]);
+    const brep_faces = [];
+    for (let i = 0; i + 1 < fac.length; i += 2) brep_faces.push({ first: fac[i], last: fac[i + 1] });
+    return {
+      name: m.name,
+      color: m.color || undefined,
+      attributes: {
+        position: { array: new Float32Array(blob, m.pos[0], m.pos[1]) },
+        normal: { array: new Float32Array(blob, m.nrm[0], m.nrm[1]) },
+      },
+      index: { array: new Uint32Array(blob, m.idx[0], m.idx[1]) },
+      brep_faces,
+    };
+  });
   return { meshes };
 }
 
@@ -168,8 +183,9 @@ async function fetchMeshes(file, headers) {
     const resp = await fetch(`/meshes/${file}.mesh`, { headers });
     if (resp.status === 304) return { unchanged: true };
     if (!resp.ok) return null;
-    return { etag: resp.headers.get("etag"),
-             result: decodeMeshPayload(new Uint8Array(await resp.arrayBuffer())) };
+    const result = decodeMeshPayload(new Uint8Array(await resp.arrayBuffer()));
+    if (!result) return null; // a payload this code doesn't read is no payload
+    return { etag: resp.headers.get("etag"), result };
   } catch {
     return null;
   }

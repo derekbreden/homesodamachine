@@ -10,10 +10,12 @@ parse buys nothing but a round trip through text.
 
 This module tessellates that shape into the same `meshes[]` occt-import-js
 returns — one entry per solid, carrying its name, its color, positions,
-normals and indices — and packs it for the browser to unpack (the reader is
-`decodeMeshPayload` in web/public/js/viewer/step.js). Everything downstream of
-`meshes[]` is untouched: the same buildMesh, the same x-ray shading, the same
-camera. Where the triangles came from cannot change how the part looks.
+normals, indices, and the triangle range of each BREP face — and packs it for
+the browser to unpack (the reader is `decodeMeshPayload` in
+web/public/js/viewer/step.js). Everything downstream of `meshes[]` is
+untouched: the same buildMesh, the same x-ray shading, the same camera, the
+same pickable edges. Where the triangles came from cannot change how the part
+looks, or what a click on it means.
 
 Deflections and colors match what occt-import-js hands the viewer when it
 passes no parameters, so the two routes agree on what a part looks like. They
@@ -50,6 +52,11 @@ from OCP.TopoDS import TopoDS, TopoDS_Compound
 # extents, not of its diagonal, and the box taken without triangulation.
 LINEAR_DEFLECTION_RATIO = 0.001
 ANGULAR_DEFLECTION = 0.5
+
+# Stated in the header, matched exactly by `decodeMeshPayload` in
+# web/public/js/viewer/step.js. 2 carries the per-face triangle ranges beside
+# the triangles.
+VERSION = 2
 
 
 def deflection(shape) -> float:
@@ -93,10 +100,16 @@ def _mesh_all(solids, linear: float):
 
 
 def _solid_arrays(shape):
-    """Flat (positions, normals, indices) for one already-triangulated TopoDS
-    shape, in world coordinates, with reversed faces flipped so every normal
-    points out."""
-    pos, nrm, idx = [], [], []
+    """Flat (positions, normals, indices, face ranges) for one already-triangulated
+    TopoDS shape, in world coordinates, with reversed faces flipped so every normal
+    points out.
+
+    The face ranges are `brep_faces` under another name: a flat [first, last, ...]
+    of inclusive TRIANGLE indices, one pair per BREP face, in the order the faces
+    were walked — the grouping occt-import-js reports, and what the edge picker
+    (web/public/js/viewer/edge-picker.js) reconstructs the BREP edges from.
+    """
+    pos, nrm, idx, fac = [], [], [], []
     exp = TopExp_Explorer(shape, TopAbs_FACE)
     while exp.More():
         face = TopoDS.Face_s(exp.Current())
@@ -109,6 +122,7 @@ def _solid_arrays(shape):
         trsf = loc.Transformation()
         flip = face.Orientation() == TopAbs_REVERSED
         base = len(pos) // 3
+        first = len(idx) // 3
         for i in range(1, tri.NbNodes() + 1):
             p = tri.Node(i).Transformed(trsf)
             pos += [p.X(), p.Y(), p.Z()]
@@ -120,18 +134,20 @@ def _solid_arrays(shape):
             if flip:
                 a, c = c, a
             idx += [base + a - 1, base + b - 1, base + c - 1]
-    return pos, nrm, idx
+        if len(idx) // 3 > first:  # a face that meshed to nothing names no range
+            fac += [first, len(idx) // 3 - 1]
+    return pos, nrm, idx, fac
 
 
 def _mesh(shape, name, color):
-    pos, nrm, idx = _solid_arrays(shape)
+    pos, nrm, idx, fac = _solid_arrays(shape)
     if not idx:
         return None
     # Linear RGB, not cq.Color.toTuple()'s sRGB: a color written to STEP and read
     # back through occt-import-js arrives linear, and that round trip is what the
     # viewer has always shaded. Handing over sRGB would wash every part out.
     rgb = list(color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB)) if color else None
-    return {"name": name, "color": rgb, "pos": pos, "nrm": nrm, "idx": idx}
+    return {"name": name, "color": rgb, "pos": pos, "nrm": nrm, "idx": idx, "fac": fac}
 
 
 def _placed(node, parent_loc=None):
@@ -180,20 +196,33 @@ def from_shape(model):
     return [m for solid in meshed if (m := _mesh(solid, "", None))]
 
 
+def read_version(path):
+    """The VERSION stated in an existing payload's header. Raises on a file that is
+    not one."""
+    with open(path, "rb") as f:
+        head_len = struct.unpack("<I", f.read(4))[0]
+        return json.loads(f.read(head_len)).get("v")
+
+
 def write(meshes, path):
     """u32 header length, that many bytes of JSON, then one blob every array
     indexes into by [byteOffset, length]. Typed-array offsets must be aligned
     to their element size, and every array here is 4 bytes wide, so the header
-    is padded to a multiple of 4 and the blob stays aligned throughout."""
+    is padded to a multiple of 4 and the blob stays aligned throughout.
+
+    The header states VERSION. These files are untracked and rewritten by the
+    export that writes the STEP, so a tree holds whatever the last export left;
+    `decodeMeshPayload` decodes the version it knows and reads the STEP for
+    anything else."""
     entries, blob = [], bytearray()
     for m in meshes:
         e = {"name": m["name"], "color": m["color"]}
         for key, fmt, arr in (("pos", "f", m["pos"]), ("nrm", "f", m["nrm"]),
-                              ("idx", "I", m["idx"])):
+                              ("idx", "I", m["idx"]), ("fac", "I", m["fac"])):
             e[key] = [len(blob), len(arr)]
             blob += struct.pack(f"<{len(arr)}{fmt}", *arr)
         entries.append(e)
-    head = json.dumps({"meshes": entries}, separators=(",", ":")).encode()
+    head = json.dumps({"v": VERSION, "meshes": entries}, separators=(",", ":")).encode()
     head += b" " * (-(len(head) + 4) % 4)
     with open(path, "wb") as f:
         f.write(struct.pack("<I", len(head)))
@@ -247,6 +276,13 @@ def _selftest():
     # whose REVERSED orientation went unhonoured lights from the inside instead,
     # which reads as a hole in the part rather than as an error.
     check("box tessellates to 12 triangles", len(mesh["idx"]) // 3, 12)
+
+    # A box is 6 BREP faces of 2 triangles each, and the ranges tile the triangles
+    # end to end. The edge picker walks a segment's two faces to decide it is an
+    # edge, so ranges that overlap, gap, or run past the last triangle put edges
+    # where the part has none.
+    check("six faces, each two triangles", mesh["fac"],
+          [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
     p, n = mesh["pos"], mesh["nrm"]
     outward = sum(p[i] * n[i] + p[i + 1] * n[i + 1] + p[i + 2] * n[i + 2] > 0
                   for i in range(0, len(p), 3))
@@ -293,10 +329,10 @@ def _selftest():
         head = json.loads(raw[4:4 + head_len])
         check("header ends 4-byte aligned", (4 + head_len) % 4, 0)
         check("every array offset is 4-byte aligned",
-              sorted({e[k][0] % 4 for e in head["meshes"] for k in ("pos", "nrm", "idx")}), [0])
+              sorted({e[k][0] % 4 for e in head["meshes"] for k in ("pos", "nrm", "idx", "fac")}), [0])
         check("blob holds exactly what the header indexes",
               len(raw) - 4 - head_len,
-              max(e[k][0] + e[k][1] * 4 for e in head["meshes"] for k in ("pos", "nrm", "idx")))
+              max(e[k][0] + e[k][1] * 4 for e in head["meshes"] for k in ("pos", "nrm", "idx", "fac")))
 
     # The controls that matter, and the only ones that can see the thing this
     # module is actually claiming: ask the other implementation. Everything
@@ -319,6 +355,11 @@ def _selftest():
             check(f"{_REF_STEP.name}: solid count matches occt-import-js", len(mine), js["meshes"])
             off = abs(sum(len(m["idx"]) // 3 for m in mine) - js["tris"]) / max(js["tris"], 1)
             check(f"{_REF_STEP.name}: triangles within 1% of occt-import-js", off < 0.01, True)
+            # Faces are BREP topology, not tessellation, so the two implementations
+            # count them the same or the grouping handed over is not the grouping the
+            # edge picker would have reconstructed from.
+            check(f"{_REF_STEP.name}: face count matches occt-import-js",
+                  sum(len(m["fac"]) // 2 for m in mine), js["faces"])
 
         # And the colors: export the assembly built above, read it back the way
         # the viewer does, and require that what is handed over is what would
@@ -350,6 +391,7 @@ require('occt-import-js')().then((occt) => {
   const r = occt.ReadStepFile(new Uint8Array(fs.readFileSync(process.argv[1])), null);
   console.log(JSON.stringify({ meshes: r.meshes.length,
     tris: r.meshes.reduce((s, m) => s + m.index.array.length / 3, 0),
+    faces: r.meshes.reduce((s, m) => s + (m.brep_faces ? m.brep_faces.length : 0), 0),
     colors: r.meshes.map((m) => ({ color: m.color || null })) }));
 });
 """
