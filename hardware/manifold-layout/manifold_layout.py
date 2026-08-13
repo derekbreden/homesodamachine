@@ -80,13 +80,9 @@ Run it
 this file, so every one of those three is a measurement rather than a claim.
 """
 
-import hashlib
 import math
 import os
-import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 from typing import NamedTuple
 
@@ -98,7 +94,6 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
-_edition = "kitchen" if _repo == _tools.parent else _repo.name
 for _p in (_hw / "scripts",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "tee-connector",
@@ -969,76 +964,6 @@ def skew_deg(a, b, axis) -> float:
     return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
 
 
-ELEVATIONS = "top,front,right"
-
-
-def _print_render_log(log, tail: int = 12) -> None:
-    """The render's last words, under the line that says it did not draw. A
-    skip that names no reason is a skip nobody can act on."""
-    try:
-        log.seek(0)
-        lines = [ln.rstrip() for ln in log.read().decode("utf-8", "replace").splitlines() if ln.strip()]
-    except OSError:
-        return
-    for ln in lines[-tail:]:
-        print(f"    | {ln}")
-
-
-def render_elevations(step: Path, xray: str = None) -> None:
-    """Plan, front and right beside the STEP — the same three `enclosure_assembly.py` draws, and
-    for the same reason: an isometric thumbnail cannot be read off with a ruler.
-
-    `xray` is a name glob drawn as a translucent hull instead of a solid, so a body inside a
-    shell reads through it. Without it the outermost body is the only one an elevation
-    shows."""
-    if os.environ.get("HSM_SKIP_VIEWS"):
-        return
-    stamp = step.with_name(f".{step.stem}.views.sha")
-    drawn = [step.with_suffix("").with_suffix(f".{v}.png") for v in ELEVATIONS.split(",")]
-    digest = hashlib.sha256(step.read_bytes()).hexdigest()
-    try:
-        if stamp.read_text().strip() == digest and all(p.is_file() for p in drawn):
-            print("  (elevations unchanged)")
-            return
-    except OSError:
-        pass
-    node, tool = shutil.which("node"), _tools / "render" / "render-view.js"
-    if node is None or not tool.is_file():
-        print("  (elevations skipped: no render tool)")
-        return
-    # The render's stderr goes to a file rather than a pipe. `subprocess.run`'s
-    # timeout kills the child and then calls `communicate()` again with no
-    # bound, and that second call waits for EOF on the pipe — which every
-    # process that inherited the write end holds open, browser subprocesses
-    # included. A build that timed out would stop there and never come back,
-    # which costs the STEP, the scorecard and the thumbnail as well as the
-    # elevations. A file has no write end to wait on.
-    with tempfile.TemporaryFile() as log:
-        try:
-            r = subprocess.run(
-                [node, str(tool), str(step.relative_to(_repo / "hardware")),
-                 str(step.with_suffix(".png")), "--edition", _edition,
-                 "--views", ELEVATIONS, "--ortho", "--size", "1600x1200"]
-                + ([] if xray is None else ["--xray", xray]),
-                cwd=str(_tools.parent), stdout=subprocess.DEVNULL, stderr=log,
-                timeout=900, check=False)
-            rc = r.returncode
-        except Exception as exc:
-            print(f"  (elevations skipped: {exc})")
-            _print_render_log(log)
-            return
-        if rc:
-            print(f"  (elevations skipped: render-view exited {rc})")
-            _print_render_log(log)
-            return
-    try:
-        stamp.write_text(digest + "\n")
-    except OSError:
-        pass
-    for v in ELEVATIONS.split(","):
-        print(f"-> {step.stem}.{v}.png")
-
-
 def report(assy: cq.Assembly) -> dict:
     bb, reach = envelope(assy, stubs=False), envelope(assy, stubs=True)
     print("\nlimbs (front → back, y at each body's centre)")
@@ -1195,7 +1120,6 @@ def main():
         },
     )
     print("-> README.md")
-    render_elevations(out)
 
 
 if __name__ == "__main__":
