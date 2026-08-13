@@ -15,8 +15,9 @@ generator runs and every figure is measured again rather than compared to a hash
 measured it last. The working tree here is also the commit's own — a file that never reached
 the index is absent, whatever sits beside it on the disk this ran from.
 
-The venv is linked in rather than built: it is one interpreter and the packages under it,
-and nothing this checks lives there.
+`TOOLCHAIN` is linked in rather than installed — an interpreter, its packages, and the
+renderer's — and unlinked again before the verdict is read, so what `git status` answers about
+is the commit's own files and nothing this ran with.
 """
 
 import argparse
@@ -30,7 +31,11 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
 _ROOT = _HW.parent
-_VENV = _ROOT / "tools" / "cad-venv"
+
+#: What a run needs that no commit carries. `.gitignore` holds each of these, and a fresh
+#: checkout has none of them: without the second, `render-step-posed.js` cannot resolve a
+#: single import and every scene comes back exit 1.
+TOOLCHAIN = ("tools/cad-venv", "tools/render/node_modules")
 
 
 def _git(*args, cwd=None, check=True):
@@ -52,8 +57,14 @@ def main() -> int:
     wt = Path(tempfile.mkdtemp(prefix=f"hsm-verify-{sha}-"))
     shutil.rmtree(wt)                                   # git wants to make it itself
     _git("worktree", "add", "-q", "--detach", str(wt), sha)
+    def unlink_toolchain():
+        for rel in TOOLCHAIN:
+            (wt / rel).unlink(missing_ok=True)
+
     try:
-        (wt / "tools" / "cad-venv").symlink_to(_VENV)
+        for rel in TOOLCHAIN:
+            (wt / rel).parent.mkdir(parents=True, exist_ok=True)
+            (wt / rel).symlink_to(_ROOT / rel)
 
         t0 = time.time()
         run = subprocess.run([sys.executable, "hardware/scripts/owed.py", "--run"],
@@ -66,7 +77,10 @@ def main() -> int:
 
         # WHAT IT LEFT, against what it was handed. `--porcelain` names a tracked file that
         # moved and an untracked one that arrived; `.gitignore` holds the caches and the
-        # rendering intermediates, so what is left is the tree's own answer.
+        # rendering intermediates, so what is left is the tree's own answer. The toolchain
+        # links go first: `.gitignore` names those paths as directories and a symlink is not
+        # one, so a link left standing reports itself as a file the commit does not have.
+        unlink_toolchain()
         moved = _git("status", "--porcelain", cwd=wt).splitlines()
         if moved:
             print(f"\n  {len(moved)} file(s) are not what {sha} says they are:")
@@ -75,14 +89,20 @@ def main() -> int:
             if len(moved) > 20:
                 print(f"    …and {len(moved) - 20} more")
             print(f"\n  the diff: git -C {wt} diff")
+        # A GENERATOR THAT DIED WROTE NOTHING, and a tree nothing was written to is a tree
+        # nothing moved in. The clean status is the reading; the exit code says whether the
+        # reading was taken.
+        elif run.returncode != 0:
+            print(f"  {sha} left the tree alone because a generator never finished — "
+                  f"nothing here was measured")
         else:
             print(f"  every figure, card and picture in {sha} is the one its sources make")
         return 1 if (moved or run.returncode != 0) else 0
     finally:
+        unlink_toolchain()
         if args.keep:
             print(f"  worktree kept at {wt}")
         else:
-            (wt / "tools" / "cad-venv").unlink(missing_ok=True)
             _git("worktree", "remove", "--force", str(wt), check=False)
 
 
