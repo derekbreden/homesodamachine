@@ -32,9 +32,17 @@ run each.
 (`_realized.code_digest`), so a comment, a blank line or a reflowed docstring renames nothing
 and stales nothing: `owed.py` reports every doc, card and scene current and runs no generator.
 
+**What an edit that moves code but no figure owes is the run, and nothing in the tree.** A doc
+records the `[value](NAME)` texts its driver wrote — `<doc>.figures.json` — and the hashes of
+what decided them go under `.cache/stamps/`. So a source edit that lands on the figures already
+recorded stales the stamp, runs the driver, and writes nothing: a module-level constant added to
+`_boxes.py` turns 21 of 49 docs red, and `owed.py --run` discharges all of them in 184 s leaving
+every tracked file byte-identical.
+
 | | wall |
 |---|---|
 | a comment-only edit to a file in every closure | nothing owed |
+| a code edit to `_boxes.py` that moves no figure | 184 s, no file changed |
 | `enclosure_assembly.py`, nothing moved | 17 s |
 | `enclosure_assembly.py`, three elevations drawn | 27–30 s |
 | `render_scenes.py`, four scenes, geometry unchanged | 19 s |
@@ -90,7 +98,7 @@ whether or not they name a figure the pack decides.
 
 Eighteen generators end to end: **106 s**. That is what a commit owes when it moves a figure
 those generators write. A commit that touches a widely-imported module without changing what
-it computes owes none of them.
+it computes owes their run and no diff.
 
 ## Part metadata sidecars
 
