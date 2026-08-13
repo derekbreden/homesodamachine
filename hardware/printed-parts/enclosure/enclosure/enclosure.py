@@ -675,33 +675,66 @@ def _y_corner_back(iy1, y_joint):
     return _y_boss(y_joint) - plug_dia / 2.0, min(iy1, _y_boss(y_joint) + plug_dia / 2.0)
 
 
+def wall_band_corner_y(reach):
+    """How far aft a body standing `reach` inboard of a ±X wall's inner face reaches before
+    the box's own standing-vertical relief curves that wall away from it.
+
+    The cavity is rounded `corner_round - wall` about a centre one radius in from each face,
+    so at a back corner the wall leaves the body's plane along an arc. This is where the arc
+    crosses that plane — and unlike a boss it is a bound at EVERY height, which makes it the
+    aft end of what the band has to give. A body reaching further inboard than the radius is
+    clear of the arc entirely and answers to the rear wall itself."""
+    r = corner_round - wall
+    if reach >= r:
+        return rear_plane_y
+    return (rear_plane_y - r) + math.sqrt(r * r - (r - reach) * (r - reach))
+
+
+def wall_boss_aft_limit():
+    """The aftmost station on a ±X wall that carries a boss its whole `mount_boss_out` long.
+
+    THE STANDING CORNER IS THE FENCE HERE. The cavity's vertical corners are relieved
+    `corner_round - wall` for the bed, so from that arc's centre plane aft the wall is no
+    longer at `interior_x`: it curves inboard, a boss on it is shorter than the heat-set it
+    carries, and where the arc crosses the boss tip there is no boss at all. The centre plane
+    is the last station with the whole length under it, and it is a bound at every height, the
+    relief running the box's full standing depth.
+
+    A mounting pattern answers to this; an envelope answers to `wall_band_corner_y`, which is
+    where the same arc crosses the plane the BODY stands on, further aft."""
+    return rear_plane_y - (corner_round - wall)
+
+
 def east_band_free_y():
-    """The BACK half's free run of the ±X boss-chain bands, as `(y0, y1)`.
+    """The BACK half's free run of the ±X boss-chain bands, as `(y0, y1)` — the depth a body
+    hung on that flank has aft of the Y seam.
 
-    The seam's bosses stand in those bands at their own Y stations, and behind the seam
-    there are two: the Y-seam cross-pins at `y0`, and the rear wall's own Z station at `y1`.
-    Between the two the band is nothing but the wall's air at every height, so a body hung
-    on this flank may stand OUTBOARD of where that furniture caps — on the wall itself, on a
-    boss no longer than its insert — for exactly this depth, and meets a boss either side of
-    it. (The front half has its own free run ahead of the Y seam; this is not it.)
+    ONE Y SPAN CARRIES EVERY Y-SEAM LEVEL. The levels differ in height and share a station,
+    so `y_seam + lip_len` is the aft face of all of them at once and no height has to be
+    named to say where they stop. Aft of it the band meets the back corner's own relief
+    (`wall_band_corner_y` at a wall seat's reach), which is the one thing on this flank that
+    stands at every height.
 
-    Struck off the stated planes those bosses are built on, `y_seam` and `rear_plane_y`, and
-    not off a placed piece — so a body reads it before the box that carries it has been
-    sized, the same way it reads the wall itself through `interior_x`."""
-    yb, ybr = _z_back_station_y(rear_plane_y, y_seam)
-    return (max(_y_corner_back(rear_plane_y, y_seam)[1],   # the Y-seam corner column's aft face
-                yb + socket_r),                            # the station behind its mouth
-            ybr - socket_r)                                # the rear wall's own station
+    THE Z-SEAM STATIONS ARE NOT IN IT. Each is a collar `2 * socket_r` tall at the height its
+    own seam lands on, and that height is searched rather than stated (`_z_joints`) — so a
+    body standing clear of it in z passes it, and whether one does is a question about a
+    placed pack. `enclosure_assembly.check_east_band` asks that against `seam_bosses`, which
+    carries each boss's height as well as its station.
+
+    Struck off the stated planes alone, `y_seam` and `rear_plane_y` — so a body reads it
+    before the box that carries it has been sized, the same way it reads the wall itself
+    through `interior_x`."""
+    return (y_seam + lip_len, wall_band_corner_y(mount_boss_out))
 
 
-def front_band_free_y(front_face):
+def front_band_free_y(front_face, z0=None, z1=None):
     """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
     `east_band_free_y` says this half has and is not.
 
-    Same two facts either side of the seam: a Z station's socket stands in that band at its
-    own Y, and what is between two of them is the wall's own air. The front column's are the
-    front-wall corner and the aft end of its own lip, and a body hung on either flank outside
-    this run is a body standing where one of those bosses is.
+    The front column's two Z stations are its ends, and this seam's height IS stated
+    (`front_z_seam`), so a caller that says what height it stands at gets the answer for that
+    height: a body clear of the collars in z has the column from the front wall to the Y
+    seam's own bosses. A caller that names no height gets the run with both collars standing.
 
     IT TAKES THE FRONT FACE because it cannot state it. The back half's two ends are both
     struck on planes the box states about itself — `y_seam` and `rear_plane_y` — but the front
@@ -711,6 +744,9 @@ def front_band_free_y(front_face):
     iy0 = front_face - interior_clearance - front_seam_clear
     yf = iy0 + wall + socket_bore_dia / 2.0
     yfr = y_seam - wall - z_lip_y_margin - socket_r
+    zc = _z_pin_z(front_z_seam)
+    if z0 is not None and (z1 <= zc - socket_r or z0 >= zc + socket_r):
+        return (iy0, yfr + socket_r)          # clear of both collars in height
     return (yf + socket_r, yfr - socket_r)
 
 
@@ -728,19 +764,34 @@ def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
     return probe.intersect(block).Volume() <= 1e-6
 
 
-def _seam_furniture_spans(inner, y_joint):
-    """Every Y span the seam occupies in the ±X boss-chain bands at `y_joint` — the
-    Y-seam boss group (front half's collar through the back half's plug), plus each
-    Z-seam station's own collar, which stands in the same band at its own station.
+def seam_bosses(inner, y_joint, splits):
+    """Every boss the seam stands in a ±X boss-chain band, as `(y0, y1, z0, z1)` — what each
+    one actually occupies of that wall, both walls' taken together.
 
-    Read from the definitions that BUILD them (`_y_corner`, `_y_corner_back`,
-    `_z_station_y`), so a span cannot drift from the geometry it stands for. The
-    stations are why the band is not free depth: it runs clear between them, not
-    along its whole length."""
-    spans = [(_y_corner(inner, y_joint)[0], _y_corner_back(inner[3], y_joint)[1])]
-    for _x_in, _x_ext, _sx, ys, _col in _z_stations(inner, y_joint):
-        spans.append(_z_station_y(ys))
-    return spans
+    A boss is a collar round a bore, so what it takes of the band is `2 * socket_r` across
+    and the same tall, at the station its own screw is on. Read from the definitions that
+    BUILD them (`_bosses`, `_y_corner`, `_z_stations`, `_z_station_y`), so a footprint cannot
+    drift from the geometry it stands for.
+
+    THE HEIGHT IS HALF THE ANSWER. A body hung on a flank clears a boss by standing beside it
+    or by standing over it, and a reading with no z in it can only see the first — it would
+    charge a body the whole height of a wall for a collar 16 mm tall. Between two bosses, and
+    above and below every one of them, the band is the wall's own air."""
+    r = socket_r
+    yb0, yb1 = _y_corner(inner, y_joint)
+    out = [(yb0, yb1, z - r, z + r)
+           for _x_in, _x_ext, _sx, z in _bosses(inner, splits, y_joint)]
+    for _x_in, _x_ext, _sx, ys, col in _z_stations(inner, y_joint):
+        zp = _z_pin_z(splits[0] if col == "front" else splits[1])
+        y0, y1 = _z_station_y(ys)
+        out.append((y0, y1, zp - r, zp + r))
+    return out
+
+
+def _in_a_boss(b, bosses):
+    """Whether a placed body's bounding box meets any of `bosses` in BOTH y and z."""
+    return any(b.ymin < y1 and b.ymax > y0 and b.zmin < z1 and b.zmax > z0
+               for y0, y1, z0, z1 in bosses)
 
 
 def _open_bands(spans, z0, z1, clear):
@@ -929,18 +980,25 @@ def _dims(pack):
     # as `appliance_width` and struck symmetric about x = 0, the axis the pack is centred
     # on, the same way depth is `rear_plane_y` and height is `appliance_height`.
     #
-    # What the pack still has to earn is the clearance. A body on the slab is held one
-    # `side_rib_inset` off the ±X walls at the depths the seam's bosses stand there —
-    # `_seam_furniture_spans`, the same spans the ceiling's own band takes below. Between
-    # those stations the band is the wall's own air, and a body clear of all of them
-    # answers on `cxmax`.
+    # The cavity every one of these bounds is measured against, and the seam heights that
+    # ride it. Struck first because a boss's FOOTPRINT is what the width and height checks
+    # both ask after, and a footprint is a station and a height together — the height comes
+    # off the seams, and the seams come off the pack.
     ix0, ix1 = interior_x()
-    iy0_probe = cymin - interior_clearance - front_seam_clear
-    band_spans = _seam_furniture_spans(
-        (ix0, ix1, iy0_probe, rear_plane_y, czmin, czmax), y_seam)
+    iy0 = cymin - interior_clearance - front_seam_clear
+    iy1 = rear_plane_y
+    iz0 = min(czmin, 0.0) - interior_clearance
+    iz1 = (iz0 - wall) + appliance_height - wall
+    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
+    y_joint = y_seam
+    splits = _z_joints(placed, inner, front_z_seam)
+    band_bosses = seam_bosses(inner, y_joint, splits)
+    # What the pack still has to earn is the clearance. A body on the slab is held one
+    # `side_rib_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
+    # same footprints the ceiling's own band takes below. Beside one, and over or under one,
+    # the band is the wall's own air, and a body clear of all of them answers on `cxmax`.
     floor = [b for b in bbs
-             if b.zmin < wall + 1e-6
-             and any(b.ymin < sy1 and b.ymax > sy0 for sy0, sy1 in band_spans)]
+             if b.zmin < wall + 1e-6 and _in_a_boss(b, band_bosses)]
     wide_need = max([cxmax + interior_clearance, -(cxmin - interior_clearance)]
                     + [b.xmax + side_rib_inset for b in floor]
                     + [-(b.xmin - side_rib_inset) for b in floor])
@@ -959,12 +1017,11 @@ def _dims(pack):
     # closing the line — and this run is the box's most visible face, so the wall
     # gives way, not the segment. A body mounted on the front wall seats on the plane
     # this opens.
-    iy0 = cymin - interior_clearance - front_seam_clear
+    #
     # The BACK wall is the stated `rear_plane_y`, for the same reason the ceiling is the
     # stated `appliance_height`: depth is a bound, not a consequence. Taken off the pack it
     # would follow whichever body reached furthest back, and anything seated on this plane
     # would follow that body too, holding every clearance between the two constant.
-    iy1 = rear_plane_y
     rear_need = cymax + interior_clearance + rear_seam_clear
     record_bound(Bound(
         "box-depth", "The pack stands inside the appliance's stated depth",
@@ -975,32 +1032,29 @@ def _dims(pack):
             f"the pack reaches y {rear_need:.2f} but the back wall stands at {iy1:.2f} — "
             f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward"])))
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
-    # on feet above it (the floor, seam lip, and posts stay put). The CEILING is
+    # on feet above it (the floor and the seam lip stay put). The CEILING is
     # the stated `appliance_height` measured from the floor slab's underside: the
     # thin machine's height is a bound, not a consequence, so the tallest content
     # does not lift it and slack above the pack is the column the unpacked
     # subsystems go in.
-    iz0 = min(czmin, 0.0) - interior_clearance
-    iz1 = (iz0 - wall) + appliance_height - wall
-    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    y_joint = y_seam
+    #
     # What the contents demand, measured against the bound rather than setting it, so a pack
     # that outgrows it says so instead of quietly poking through the top wall. The ±X wall
-    # bands are measured separately: the seam's top cross-pin pods hug the ceiling and reach
-    # one boss chain inboard, so content inside that reach needs the pod stack over it as well
-    # as its own height.
+    # bands are measured separately: ONE boss on each of them hugs the ceiling — the Y seam's
+    # top level, `2 * socket_r` of collar hanging off the top wall — so content inside its
+    # station and inside a boss chain of the wall answers for that collar as well as for its
+    # own height.
     #
-    # THE REACH IS IN Y AS MUCH AS IN X. Those pods stand in a band only where the seam puts a
-    # column there — `_seam_furniture_spans`, the same spans the seam's own furniture is built
-    # over — and between them the band is the wall's own air the whole way to the ceiling.
-    # Charging that stack to a body parked in the free depth would reserve headroom for a pod
-    # that is nowhere near it, and the body that answers for it is the one hung on the wall.
-    pod_stack = wall + socket_bore_dia / 2.0 + socket_r + 1.5    # ceiling → pod bottom + margin
-    seam_spans = _seam_furniture_spans(inner, y_joint)
+    # IT IS THAT COLLAR AND NO OTHER. Every other boss on the flank stands somewhere down the
+    # wall with air over it, and charging a body the ceiling's collar because it shares a
+    # station with one of them would reserve headroom for material a hundred millimetres
+    # below. The body that answers here is the one standing under the top collar.
+    pod_stack = 2.0 * socket_r + 1.5              # ceiling → top collar's underside + margin
+    ceiling_boss = [b for b in band_bosses if b[3] >= iz1 - 1e-6]
     wall_band_top = max(
         (b.zmax for b in bbs
          if (b.xmin < ix0 + boss_in or b.xmax > ix1 - boss_in)
-         and any(b.ymin < sy1 and b.ymax > sy0 for sy0, sy1 in seam_spans)),
+         and _in_a_boss(b, ceiling_boss)),
         default=iz0)
     need = max(czmax + interior_clearance, wall_band_top + pod_stack)
     record_bound(Bound(
@@ -1015,7 +1069,6 @@ def _dims(pack):
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
-    splits = _z_joints(placed, inner, front_z_seam)
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
@@ -1911,11 +1964,11 @@ def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
     cut back from that face, so the length the wall gives a screw is the standoff the body
     asked for and not a number typed here.
 
-    ON THE PIECE AND NOT ON THE HALF, because the Z seam's own column is fused piece-side:
-    the rear station's post reaches the same plane the bodies on this flank seat on, so a bore
-    cut before that post is fused is a bore the post fills back in. Cut here, the two share
-    their material — the boss fuses nothing where the post already stands, and is bored
-    through it all the same."""
+    ON THE PIECE AND NOT ON THE HALF, because the Z seam's own socket collar is fused
+    piece-side: where a station's height meets a mounting boss's, the two share the same
+    material, and a bore cut before that collar is fused is a bore the collar fills back in.
+    Cut here, the boss fuses nothing where the collar already stands and is bored through it
+    all the same."""
     for sy, sz, tip in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
