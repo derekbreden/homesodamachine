@@ -868,8 +868,8 @@
    "value": "2/2 pumps seated, furthest off 0.000 mm",
    "target": "every pump within 0.2 mm of the plate on it",
    "detail": [
-    "pump-a-head    axis ( -48.570,   31.305) face z  216.745   off 0.0000",
-    "pump-b-head    axis (  48.570,   31.305) face z  216.745   off 0.0000"
+    "pump-a-head    axis (  48.570,   31.305) face z  216.745   off 0.0000",
+    "pump-b-head    axis ( -48.570,   31.305) face z  216.745   off 0.0000"
    ],
    "active": true
   },
@@ -1156,14 +1156,14 @@
     "fluid-8 (fluid): Y-B-2 \u2192 V-D-I \u2014 made by a butt between two collets",
     "fluid-9 (fluid): V-C-O \u2192 Y-C-1 \u2014 made by the fold's hairpin",
     "fluid-10 (fluid): V-E-O \u2192 Y-C-2 \u2014 made by a butt between two collets",
-    "fluid-11 (fluid): Y-C-3 \u2192 P-B-I \u2014 made by a butt between two collets",
-    "fluid-12 (fluid): P-B-O \u2192 Y-D-1 \u2014 made by a butt between two collets",
+    "fluid-11 (fluid): Y-C-3 \u2192 P-A-I \u2014 made by a butt between two collets",
+    "fluid-12 (fluid): P-A-O \u2192 Y-D-1 \u2014 made by a butt between two collets",
     "fluid-13 (fluid): Y-D-2 \u2192 V-F-I \u2014 made by a butt between two collets",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I \u2014 made by the fold's hairpin",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1 \u2014 made by the fold's hairpin",
     "fluid-20 (fluid): V-H-O \u2192 Y-F-2 \u2014 made by a butt between two collets",
-    "fluid-21 (fluid): Y-F-3 \u2192 P-A-I \u2014 made by a butt between two collets",
-    "fluid-22 (fluid): P-A-O \u2192 Y-G-1 \u2014 made by a butt between two collets",
+    "fluid-21 (fluid): Y-F-3 \u2192 P-B-I \u2014 made by a butt between two collets",
+    "fluid-22 (fluid): P-B-O \u2192 Y-G-1 \u2014 made by a butt between two collets",
     "fluid-23 (fluid): Y-G-3 \u2192 V-I-I \u2014 made by a butt between two collets",
     "fluid-27 (fluid): Y-G-2 \u2192 V-J-I \u2014 made by the fold's hairpin"
    ],
@@ -2515,10 +2515,10 @@
    "component": "pump-a-motor",
    "boxes": [
     [
-     -66.435,
+     30.705,
      13.44,
      237.745,
-     -30.705,
+     66.435,
      49.17,
      279.295
     ]
@@ -2531,10 +2531,10 @@
    "component": "pump-b-motor",
    "boxes": [
     [
-     30.705,
+     -66.435,
      13.44,
      237.745,
-     66.435,
+     -30.705,
      49.17,
      279.295
     ]
@@ -3379,10 +3379,10 @@
    "component": "pump-a-boss",
    "boxes": [
     [
-     -75.07,
+     22.07,
      4.805,
      216.745,
-     -22.07,
+     75.07,
      57.805,
      237.745
     ]
@@ -3395,10 +3395,10 @@
    "component": "pump-b-boss",
    "boxes": [
     [
-     22.07,
+     -75.07,
      4.805,
      216.745,
-     75.07,
+     -22.07,
      57.805,
      237.745
     ]
@@ -3555,10 +3555,10 @@
    "component": "pump-a-head",
    "boxes": [
     [
-     -79.875,
+     17.265,
      -0.0,
      167.865,
-     -17.265,
+     79.875,
      62.61,
      216.745
     ]
@@ -3571,10 +3571,10 @@
    "component": "pump-b-head",
    "boxes": [
     [
-     17.265,
+     -79.875,
      -0.0,
      167.865,
-     79.875,
+     -17.265,
      62.61,
      216.745
     ]

@@ -6,14 +6,14 @@
 |---|---|
 | V-A | Tap water inlet gate |
 | V-B | Hopper funnel gate |
-| V-C | Shared source → Pump B (channel A select) |
-| V-D | Shared source → Pump A (channel B select) |
-| V-E | Reservoir A → Pump B inlet |
-| V-F | Pump B outlet → Reservoir A |
-| V-G | Pump B outlet → Nozzle A |
-| V-H | Reservoir B → Pump A inlet |
-| V-I | Pump A outlet → Reservoir B |
-| V-J | Pump A outlet → Nozzle B |
+| V-C | Shared source → Pump A (channel A select) |
+| V-D | Shared source → Pump B (channel B select) |
+| V-E | Reservoir A → Pump A inlet |
+| V-F | Pump A outlet → Reservoir A |
+| V-G | Pump A outlet → Nozzle A |
+| V-H | Reservoir B → Pump B inlet |
+| V-I | Pump B outlet → Reservoir B |
+| V-J | Pump B outlet → Nozzle B |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
@@ -49,10 +49,10 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. On a b
 |---|---|---|---|
 | Y-A | V-A-O (tap water) | V-C-I (channel A select) | Y-B-3 (crossbar to Y-B) |
 | Y-B | V-B-O (hopper) | V-D-I (channel B select) | Y-A-3 (crossbar to Y-A) |
-| Y-C | V-C-O (channel A shared source) | V-E-O (reservoir A to pump return) | P-B-I (pump B inlet) |
-| Y-D | P-B-O (pump B outlet) | V-F-I (pump to reservoir A) | V-G-I (pump to nozzle A) |
-| Y-F | V-D-O (channel B shared source) | V-H-O (reservoir B to pump return) | P-A-I (pump A inlet) |
-| Y-G | P-A-O (pump A outlet) | V-J-I (pump to nozzle B) | V-I-I (pump to reservoir B) |
+| Y-C | V-C-O (channel A shared source) | V-E-O (reservoir A to pump return) | P-A-I (pump A inlet) |
+| Y-D | P-A-O (pump A outlet) | V-F-I (pump to reservoir A) | V-G-I (pump to nozzle A) |
+| Y-F | V-D-O (channel B shared source) | V-H-O (reservoir B to pump return) | P-B-I (pump B inlet) |
+| Y-G | P-B-O (pump B outlet) | V-J-I (pump to nozzle B) | V-I-I (pump to reservoir B) |
 
 ## Tube Segments
 
@@ -79,8 +79,8 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
 | 10 | V-E-O | Y-C-2 | Butted |
-| 11 | Y-C-3 | P-B-I | The tee's branch on the pump's suction barb |
-| 12 | P-B-O | Y-D-1 | The tee's branch on the pump's discharge barb |
+| 11 | Y-C-3 | P-A-I | The tee's branch on the pump's suction barb |
+| 12 | P-A-O | Y-D-1 | The tee's branch on the pump's discharge barb |
 | 13 | Y-D-2 | V-F-I | Butted |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
@@ -93,8 +93,8 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
 | 20 | V-H-O | Y-F-2 | Butted |
-| 21 | Y-F-3 | P-A-I | The tee's branch on the pump's suction barb |
-| 22 | P-A-O | Y-G-1 | The tee's branch on the pump's discharge barb |
+| 21 | Y-F-3 | P-B-I | The tee's branch on the pump's suction barb |
+| 22 | P-B-O | Y-G-1 | The tee's branch on the pump's discharge barb |
 | 23 | Y-G-3 | V-I-I | Butted |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |
@@ -107,101 +107,101 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 
 Open valves listed; all others closed.
 
-This table is canonical for the integrated flavor manifold. Pumps run forward only. **P-B is channel A's pump and P-A is channel B's** — the pairing the junction and segment tables above carry, and the one the placed pack is built to. Valve state selects whether a pump draws from a reservoir, hopper, or tap-water source and whether the outlet returns to a reservoir or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
+This table is canonical for the integrated flavor manifold. Pumps run forward only. Valve state selects whether a pump draws from a reservoir, hopper, or tap-water source and whether the outlet returns to a reservoir or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
 
 ### Dispense A
 
 - Open: V-E, V-G
-- Pump B: ON
-- Path: Reservoir A → V-E → P-B → V-G → Nozzle A
+- Pump A: ON
+- Path: Reservoir A → V-E → P-A → V-G → Nozzle A
 
 ### Dispense B
 
 - Open: V-H, V-J
-- Pump A: ON
-- Path: Reservoir B → V-H → P-A → V-J → Nozzle B
+- Pump B: ON
+- Path: Reservoir B → V-H → P-B → V-J → Nozzle B
 
 ### Fill from Hopper → Reservoir A
 
 - Open: V-B, V-C, V-F
-- Pump B: ON
-- Path: Hopper → V-B → V-C → P-B → V-F → Reservoir A
+- Pump A: ON
+- Path: Hopper → V-B → V-C → P-A → V-F → Reservoir A
 
 ### Fill from Hopper → Reservoir B
 
 - Open: V-B, V-D, V-I
-- Pump A: ON
-- Path: Hopper → V-B → V-D → P-A → V-I → Reservoir B
+- Pump B: ON
+- Path: Hopper → V-B → V-D → P-B → V-I → Reservoir B
 
 ### Clean Water Fill → Reservoir A
 
 - Open: V-A, V-C, V-F
-- Pump B: OFF (line pressure through idle pump)
-- Path: Tap → V-A → V-C → P-B (idle) → V-F → Reservoir A
+- Pump A: OFF (line pressure through idle pump)
+- Path: Tap → V-A → V-C → P-A (idle) → V-F → Reservoir A
 
 ### Clean Water Fill → Reservoir B
 
 - Open: V-A, V-D, V-I
-- Pump A: OFF (line pressure through idle pump)
-- Path: Tap → V-A → V-D → P-A (idle) → V-I → Reservoir B
+- Pump B: OFF (line pressure through idle pump)
+- Path: Tap → V-A → V-D → P-B (idle) → V-I → Reservoir B
 
 ### Clean Flush A (water out)
 
 - Open: V-E, V-G
-- Pump B: ON
-- Path: Reservoir A → V-E → P-B → V-G → Nozzle A
+- Pump A: ON
+- Path: Reservoir A → V-E → P-A → V-G → Nozzle A
 - (Same as Dispense A)
 
 ### Clean Flush B (water out)
 
 - Open: V-H, V-J
-- Pump A: ON
-- Path: Reservoir B → V-H → P-A → V-J → Nozzle B
+- Pump B: ON
+- Path: Reservoir B → V-H → P-B → V-J → Nozzle B
 - (Same as Dispense B)
 
 ### Air Purge In → Reservoir A
 
 - Open: V-B, V-C, V-F
-- Pump B: ON
+- Pump A: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-C → P-B → V-F → Reservoir A
+- Path: Air → V-B → V-C → P-A → V-F → Reservoir A
 - (Same path as hopper fill)
 
 ### Air Purge In → Reservoir B
 
 - Open: V-B, V-D, V-I
-- Pump A: ON
+- Pump B: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-D → P-A → V-I → Reservoir B
+- Path: Air → V-B → V-D → P-B → V-I → Reservoir B
 
 ### Air Purge Out A
 
 - Open: V-E, V-G
-- Pump B: ON
-- Path: Reservoir A → V-E → P-B → V-G → Nozzle A
+- Pump A: ON
+- Path: Reservoir A → V-E → P-A → V-G → Nozzle A
 - (Same as Dispense A)
 
 ### Air Purge Out B
 
 - Open: V-H, V-J
-- Pump A: ON
-- Path: Reservoir B → V-H → P-A → V-J → Nozzle B
+- Pump B: ON
+- Path: Reservoir B → V-H → P-B → V-J → Nozzle B
 - (Same as Dispense B)
 
 ### Air Purge Through A (source to nozzle)
 
 - Open: V-B, V-C, V-G
-- Pump B: ON
+- Pump A: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-C → P-B → V-G → Nozzle A
+- Path: Air → V-B → V-C → P-A → V-G → Nozzle A
 - Reservoir A is not on the path; V-F stays closed and the whole discharge goes to the nozzle
 
 ### Air Purge Through B (source to nozzle)
 
 - Open: V-B, V-D, V-J
-- Pump A: ON
+- Pump B: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-D → P-A → V-J → Nozzle B
+- Path: Air → V-B → V-D → P-B → V-J → Nozzle B
 - Reservoir B is not on the path; V-I stays closed
 
 The two Through states with the two Purge In states above them air-fill every segment the flavor

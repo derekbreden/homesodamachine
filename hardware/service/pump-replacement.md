@@ -67,10 +67,10 @@ Four states in order, both pumps forward, every valve inlet to outlet.
 
 | # | Open | Pump | Path |
 |---|---|---|---|
-| 1 | V-B, V-C, V-F | B | hopper → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump B** → Y-D → V-F → `fluid-14` → reservoir A |
-| 2 | V-B, V-C, V-G | B | same head, then Y-D → hairpin `fluid-17` → V-G → `fluid-18` → out the tip |
-| 3 | V-B, V-D, V-I | A | mirror of 1, into reservoir B |
-| 4 | V-B, V-D, V-J | A | mirror of 2, out the tip |
+| 1 | V-B, V-C, V-F | A | hopper → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump A** → Y-D → V-F → `fluid-14` → reservoir A |
+| 2 | V-B, V-C, V-G | A | same head, then Y-D → hairpin `fluid-17` → V-G → `fluid-18` → out the tip |
+| 3 | V-B, V-D, V-I | B | mirror of 1, into reservoir B |
+| 4 | V-B, V-D, V-J | B | mirror of 2, out the tip |
 
 States 2 and 4 are the ones that carry air to a nozzle without drawing on a reservoir, so a pump
 swap costs no concentrate. Three valves is the most any state opens, and states 1 and 2 sit entirely

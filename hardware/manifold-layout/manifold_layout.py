@@ -9,7 +9,7 @@ run.
 
 Frame
 -----
-- X = width, mirrored about x = 0. Channel A (pump B) west, channel B (pump A) east.
+- X = width, mirrored about x = 0. Channel A west, channel B east, each over its own pump.
 - Y = depth. Six of the eight mouths leave out the back, +Y — the two nozzles and the
   reservoirs' four; the other two are turned onto +Z by the quarter turns below.
 - Z = height, 0 at the pumps' own floor. The valves stand on TWO decks above them, and the
@@ -289,7 +289,7 @@ LIMBS = {
         ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1)]),
 }
 
-PUMPS = {"pump-b": -PUMP_DX, "pump-a": +PUMP_DX}   # channel A west, channel B east
+PUMPS = {"pump-a": -PUMP_DX, "pump-b": +PUMP_DX}   # each pump under its own channel's limbs
 
 # The barb each anchor tee is fed by, as (pump centre, which of the two barbs).
 BARB_OF = {"Y-C": (-PUMP_DX, +1), "Y-D": (-PUMP_DX, -1),
@@ -748,10 +748,10 @@ SEGMENTS = [
     (6, "Y-A-3", "Y-B-3", "crossbar"),
     (7, "Y-A-2", "V-C-I", "butt"), (8, "Y-B-2", "V-D-I", "butt"),
     (9, "V-C-O", "Y-C-1", "spine"), (10, "V-E-O", "Y-C-2", "butt"),
-    (11, "Y-C-3", "P-B-I", "Y-C"), (12, "P-B-O", "Y-D-1", "Y-D"),
+    (11, "Y-C-3", "P-A-I", "Y-C"), (12, "P-A-O", "Y-D-1", "Y-D"),
     (13, "Y-D-2", "V-F-I", "butt"), (17, "Y-D-3", "V-G-I", "spine"),
     (19, "V-D-O", "Y-F-1", "spine"), (20, "V-H-O", "Y-F-2", "butt"),
-    (21, "Y-F-3", "P-A-I", "Y-F"), (22, "P-A-O", "Y-G-1", "Y-G"),
+    (21, "Y-F-3", "P-B-I", "Y-F"), (22, "P-B-O", "Y-G-1", "Y-G"),
     (23, "Y-G-3", "V-I-I", "butt"), (27, "Y-G-2", "V-J-I", "spine"),
 ]
 
@@ -952,7 +952,7 @@ def mirror_off() -> list:
     out = []
     for a, b in TWINS:
         out.append((a, b, abs(P[a]["x"] + P[b]["x"]), abs(P[a]["y"] - P[b]["y"])))
-    out.append(("pump-b", "pump-a", abs(PUMPS["pump-b"] + PUMPS["pump-a"]), 0.0))
+    out.append(("pump-a", "pump-b", abs(PUMPS["pump-a"] + PUMPS["pump-b"]), 0.0))
     return out
 
 
