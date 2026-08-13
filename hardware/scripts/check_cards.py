@@ -7,9 +7,10 @@ look like measurements and are a memory of one. That is the state this answers.
 
 The card is what the build measured. Under `.cache/stamps/cards/`, the same run leaves the
 digest of the whole text of every file of this repo it could reach, walked off the import
-statements by `_realized.source_files`. This imports the same builder, takes the digest again,
-and compares two hex strings. What it costs is the import; what running the build costs is the
-build. A card no run here has watched is named, and the build that would watch it with it.
+statements by `_realized.source_files`. This walks the same builder — each in a process of its
+own, so no builder's `sys.path` reaches another's graph — and compares two hex strings. What
+it costs is the import; what running the build costs is the build. A card no run here has
+watched is named, and the build that would watch it with it.
 
     tools/cad-venv/bin/python hardware/scripts/check_cards.py    (0 = current, 1 = stale)
 
@@ -18,7 +19,7 @@ and those are drawn by a builder of this repo, so an edit that moves one moves a
 walk already holds. A vendor STEP replaced by hand is the case it does not see, and `git` does.
 """
 
-import importlib
+import subprocess
 import sys
 from pathlib import Path
 
@@ -38,12 +39,40 @@ CARDS = [
 ]
 
 
-def _digest(builder: Path) -> str:
-    """The digest of everything `builder` imports, with the module imported so the walk can
-    resolve each name it reads to a file."""
-    sys.path.insert(0, str(builder.parent))
-    importlib.import_module(builder.stem)
-    return _realized.digest(_realized.source_files(builder))
+_WALK = """
+import sys
+from pathlib import Path
+builder = Path(sys.argv[1])
+sys.path.insert(0, str(Path(sys.argv[2])))
+sys.path.insert(0, str(builder.parent))
+import importlib, _realized
+importlib.import_module(builder.stem)
+print(_realized.digest(_realized.source_files(builder)))
+"""
+
+
+def _digest(builder: Path, _cache={}) -> str:
+    """The digest of everything `builder` imports, taken in a PROCESS OF ITS OWN.
+
+    ONE CARD'S WALK MAY NOT SEE ANOTHER'S IMPORTS. A builder puts its own directories on
+    `sys.path` as it is imported and they stay there, so walked one after another in a single
+    process the second builder resolves names the first one's path made reachable, and its
+    graph grows by whatever that other machine imports. `cold_core_assembly` walks 40 files
+    alone and 86 behind `enclosure_assembly` — and no run of the generator can write the
+    second, because the generator only ever runs alone. The card then reads stale at every
+    pass and `owed.py` never reaches its fixpoint.
+
+    A subprocess is the same answer from every caller, which is what `_realized._repo_file`
+    promises and cannot keep for walks that share an interpreter. Memoized on the builder,
+    since two cards here are written by one build."""
+    key = str(builder)
+    if key not in _cache:
+        out = subprocess.run([sys.executable, "-c", _WALK, key, str(_hw / "scripts")],
+                             capture_output=True, text=True)
+        if out.returncode != 0:
+            raise SystemExit(f"walking {builder.name} failed:\n{out.stderr.strip()}")
+        _cache[key] = out.stdout.strip()
+    return _cache[key]
 
 
 def main() -> int:
