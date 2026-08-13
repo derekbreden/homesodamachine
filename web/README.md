@@ -11,12 +11,13 @@ cd web
 npm install
 npm start          # production server (port 3001 by default; PORT env overrides)
 npm run dev        # dev wrapper: chokidar + Python runner + WebSocket hot reload (port 3000)
+npm run dev -- --no-watch  # same server, no watchers: nothing rebuilds on save
 npm test           # smoke tests: route mount + Puppeteer viewer (no DB needed)
 npm run build      # rebuild every CAD generator + PCB board, producers first (minutes)
 npm run build:check # same, then exit 1 if a rebuild moved anything — the fix is left in the tree
 ```
 
-`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over the WebSocket so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
+`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over the WebSocket so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. `--no-watch` serves the same site with no chokidar at all — no generator runs, no board renders, no thumbnails, no hot-reload broadcast — so an edit anywhere in the tree costs nothing and the viewer shows what is on disk until you reload it. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
 
 ## Page request lifecycle
 
