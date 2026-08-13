@@ -9,15 +9,16 @@ keeps.
 WHICH BODIES A UNIT CARRIES IS DERIVED. `_scorecard.MOUNTS` is `(body, the part that holds it,
 the joint)` and is gated at every build, so a body that moves to another parent moves scenes with
 it and no list here goes stale. The three anchor tables say the same thing for the bodies and
-runs a printed rib holds. What is stated below is the two things that table cannot say: which
-piece's FLOOR a body stands on when nothing fastens it, and where the camera goes.
+runs a printed rib holds. What is stated below is the three things that table cannot say: which
+piece's FLOOR a body stands on when nothing fastens it, which of the bodies it holds a unit has
+not got yet, and where the camera goes.
 
 A RUN JOINS A UNIT BY ITS ENDS. A length of tube belongs to the unit that holds both of its
 mouths, or to the unit whose rib closes on it — which is how `fluid-14` is part of the cold
 core's finished state with its far end still hanging, and how the pump's two hose stubs come
 with the pump.
 
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py          # all four
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py          # all five
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top # one
 
 Nothing here is committed but the PNG and its fingerprint: the scene STEPs land in `out/`, which
@@ -47,7 +48,7 @@ import _realized                                        # noqa: E402
 # direction from the target to the camera, so a scene looking INTO a piece through its own open
 # faces points from the side those faces face. `zoom` is the distance in bounding-box radii and
 # `up` the camera's own up — both handed to `tools/render/render-step-posed.js` unchanged.
-Scene = namedtuple("Scene", "id title roots parts flip also cam up zoom look note")
+Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom look note")
 
 # WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the
 # carb riser leaves this box entirely — drags the whole scene's bounding box after it and puts
@@ -65,24 +66,47 @@ Scene = namedtuple("Scene", "id title roots parts flip also cam up zoom look not
 # the sub-solids of the root it wants and `render_scenes.cut` carries them through the root's own
 # placement; the root still decides which bodies come with it.
 #
+# `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
+# its piece in the finished machine — the fastening table is right about it — and arrives after
+# the box is closed, through an opening in a wall: the drip tray slides east into its own
+# channels through the −X wall, and the funnel drops into the hopper on nothing but its own brim
+# at final staging. Neither is on the bench unit, so neither is in its picture, and whatever
+# stands on one goes with it. A name here the roots do not hold is reported.
+#
 # `flip` IS THE POSE THE UNIT IS WORKED IN, not a camera trick. A piece open at its ceiling is
 # turned over on the bench so the open faces look up, and the picture shows the piece the way a
 # hand meets it.
 #
 # The machine's frame: +X east, +Y aft, +Z up. A back piece is open FORWARD (−Y) at the Y seam
-# and open at the Z seam it telescopes on.
+# and open at the Z seam it telescopes on; a front piece is open AFT (+Y) at that same seam, and
+# at the Z seam of its own column.
 SCENES = (
     Scene(
         "back-top", "Enclosure back top",
         roots=("enclosure-back-top",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        later=("drip-pan",),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.3, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench and both open "
-             "faces look up. Every body is on it before it goes back the other way.",
+             "faces look up. Every body is on it before it goes back the other way, and the "
+             "tray's channels on the −X wall stand empty.",
+    ),
+    Scene(
+        "front-top", "Enclosure front top",
+        roots=("enclosure-front-top",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        later=("hopper-funnel",),
+        # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
+        # piece: the radius is the piece's. The elevation is what opens the two valve rows —
+        # they stand one behind the other on two Y planes, and a camera down the valves' own
+        # axis draws them as one row.
+        cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=3.3, look="centre",
+        note="The same pose as the back top and the other half of the same box: turned over, "
+             "both open faces up. Every seat under this manifold is the piece's own material, "
+             "and the hopper opening is an opening — nothing is in it yet.",
     ),
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
-        flip=None, also=(),
+        flip=None, also=(), later=(),
         cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
         note="The top cap and its lid alone, poured and cleaned, the lid's outer face bare. "
              "The shell is not under it yet and nothing stands on it — this is what the next "
@@ -91,7 +115,7 @@ SCENES = (
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
-        flip=None, also=(),
+        flip=None, also=(), later=(),
         cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
              "three valves pressed into their cradles, both chains and two runs strapped into "
@@ -100,9 +124,11 @@ SCENES = (
     Scene(
         "back-half", "Enclosure back half",
         roots=("enclosure-back-bottom", "enclosure-back-top"), parts=(), flip=None, also=(),
+        later=("drip-pan",),
         cam=(0.95, -1.0, 0.35), up=(0, 0, 1), zoom=2.45, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
-             "front half — the last moment anything inside is reachable.",
+             "front half — the last moment anything inside is reachable. The tray is not in "
+             "yet: it goes east into its channels through the −X wall, with the box standing.",
     ),
 )
 
@@ -182,12 +208,16 @@ def holders():
     return out
 
 
-def held_by(root, holder_map):
-    """Every body `root` carries, transitively, `root` itself included."""
-    out, queue = set(), [root]
+def held_by(root, holder_map, stop=()):
+    """Every body `root` carries, transitively, `root` itself included.
+
+    A body in `stop` is not carried and neither is anything standing on it — the walk turns
+    round there. That is one reading and not two: the moisture plate lies in the drip tray, so
+    a unit the tray has not reached has no plate in it either."""
+    out, queue, stop = set(), [root], set(stop)
     while queue:
         node = queue.pop()
-        if node in out:
+        if node in out or node in stop:
             continue
         out.add(node)
         queue += [n for n, by in holder_map.items() if by == node and n not in out]
@@ -211,8 +241,21 @@ def members(scene, assembly):
     holder_map = holders()
     bodies = set()
     for root in scene.roots:
-        bodies |= held_by(root, holder_map)
+        bodies |= held_by(root, holder_map, scene.later)
     bodies |= set(scene.also)
+    # WHAT IS HELD BACK IS SOMETHING THE PIECE HOLDS. `later` is written against the fastening
+    # table, and a body that leaves that piece — or is renamed — leaves the row naming nothing.
+    if scene.later:
+        carried = set()
+        for root in scene.roots:
+            carried |= held_by(root, holder_map)
+        adrift = sorted(n for n in scene.later if n not in carried)
+        if adrift:
+            raise ValueError(
+                f"scene {scene.id!r} holds back {', '.join(adrift)}, which nothing in "
+                f"{', '.join(scene.roots)} carries. `later` names a body the piece DOES hold "
+                f"and the unit has not got yet; a body that has moved to another piece leaves "
+                f"this row with the piece it moved to.")
     if scene.id in BARE:
         # The roots and nothing else — not even the runs their own ribs will hold, which is the
         # whole difference between this picture and the one after it.

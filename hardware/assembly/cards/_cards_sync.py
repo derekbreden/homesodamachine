@@ -368,13 +368,29 @@ def sub_assemblies(m: Machine):
     # line they splice — so the joint is what selects, not the piece.
     captured = under("enclosure-back-top", "wall-capture")
 
+    # SA-01 and SA-02 each end on a body that is NOT in their picture: the tray in
+    # one, the funnel in the other. The piece carries it in the finished machine and
+    # the scene holds it back, which is the pair of readings those two sentences
+    # stand on.
+    for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "hopper-funnel")):
+        scene = _scenes.SCENE_BY_ID[scene_id]
+        assert holder.get(absent) in scene.roots and absent in scene.later, (
+            f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
+            f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
+
     facts = {
         "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
         "SA01_CAPTURED": f"{len(captured)}",
         "SA01_RIB_RUNS": f"{len(back_top_ribs)}",
-        "SA03_CRADLES": f"{len(cap_cradled)}",
-        "SA03_CHAINS": f"{len(cap_chain_bodies)}",
-        "SA03_RIB_RUNS": f"{len(cap_ribs)}",
+        # The front top's three columns, each a different joint on one piece: the
+        # valves press into seats fused into its own decks, the pumps hang in trays
+        # fused to its own walls, the lever nuts stand in wells printed in them.
+        "SA02_SEATED": f"{len(under('enclosure-front-top', 'bosses'))}",
+        "SA02_TRAYS": f"{len(under('enclosure-front-top', 'saddle'))}",
+        "SA02_WELLS": f"{len(under('enclosure-front-top', 'well'))}",
+        "SA04_CRADLES": f"{len(cap_cradled)}",
+        "SA04_CHAINS": f"{len(cap_chain_bodies)}",
+        "SA04_RIB_RUNS": f"{len(cap_ribs)}",
         "PUMP_MOUNT_SCREWS": f"{len(_cci.deck_mount_xy('seaflo-pump'))}",
         # A cap pours with six, clamped to the shell's face, and they come out
         # again after cure — the stack's other six belong to the other cap.
@@ -383,9 +399,10 @@ def sub_assemblies(m: Machine):
 
     cards = {
         "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES"},
-        "sa-02-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
-        "sa-03-cap-lid": {"PUMP_MOUNT_SCREWS", "SA03_CRADLES", "SA03_CHAINS", "SA03_RIB_RUNS"},
-        "sa-04-back-half": {"SEAM_SCREWS_Z"},
+        "sa-02-front-top": {"SA02_SEATED", "SA02_TRAYS", "SA02_WELLS"},
+        "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
+        "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS"},
+        "sa-05-back-half": {"SEAM_SCREWS_Z"},
     }
     return facts, cards
 
