@@ -27,6 +27,7 @@ from _back_panel_dimensions import (  # noqa: E402
 )
 from _cold_core_interface import (  # noqa: E402
     cap_conduits,
+    corner_round_radius,
     outer_shell_x_length,
     outer_shell_y_length,
 )
@@ -153,6 +154,14 @@ def main():
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
         "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
+        # The core's own grips: the corner round a front block is bored on, that bore, and how
+        # far an aft bracket's foot runs onto the cap out of the band it stands in.
+        "CORE_ROUND": f"{2.0 * corner_round_radius:.4g} mm",
+        "CORE_STOP_BORE": (
+            f"{2.0 * (_box['core_stops'][0][2] + _enc.core_stop_slip / 2.0):.4g} mm"
+            if _box.get("core_stops") else "no station"),
+        "CORE_HOLD_REACH": f"{_enc.core_hold_reach:.4g} mm",
+        "REAR_SEAM_CLEAR": f"{_enc.rear_seam_clear:.4g} mm",
         # The rear wall's six stations, its hardware, and what a chain of it occupies.
         "PORT_HOLE_D": f"{_union_bores[0][3]:.4g}",
         "CO2_HOLE_D": f"{_co2_hole_d:.4g}",
