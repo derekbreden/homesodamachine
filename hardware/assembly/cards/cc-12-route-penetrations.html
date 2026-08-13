@@ -68,9 +68,6 @@
           <!-- both lane slots run from z 19.5 out through the shell's top face -->
           <rect class="slot" x="18.5" y="-8" width="12.4" height="376.5" rx="6.2"/>
           <rect class="slot" x="313" y="-8" width="12.4" height="376.5" rx="6.2"/>
-          <!-- front port field: the two reed cables, port lane only -->
-          <circle class="hole" cx="24.7" cy="392.7" r="6.2"/>
-          <circle class="hole" cx="24.7" cy="377.5" r="6.2"/>
           <!-- the three lines the slots carry -->
           <circle class="cu" cx="24.7" cy="352.8" r="6.2"/>
           <circle class="cu" cx="24.7" cy="337.6" r="6.2"/>
@@ -86,14 +83,12 @@
         <!-- the column, read out: z above the shell's own floor -->
         <text class="lbl" x="410" y="30">EVERY CROSSING, low to high</text>
         <g transform="translate(410,0)">
-          <text class="dimtx" x="0" y="88" data-gen="REED_A_Z">6.75</text>
-          <text class="sub"   x="96" y="88">reed cable A &#183; port</text>
-          <text class="dimtx" x="0" y="136" data-gen="REED_B_Z">14.75</text>
-          <text class="sub"   x="96" y="136">reed cable B &#183; port</text>
-          <text class="dimtx" x="0" y="184" data-gen="EVAP_IN_Z">27.75</text>
-          <text class="sub"   x="96" y="184">evap inlet &#183; port</text>
-          <text class="dimtx" x="0" y="232" data-gen="EVAP_OUT_Z">27.75</text>
-          <text class="sub"   x="96" y="232">evap outlet &#183; WEST</text>
+          <text class="dimtx" x="0" y="88" data-gen="EVAP_IN_Z">27.75</text>
+          <text class="sub"   x="96" y="88">evap inlet &#183; port</text>
+          <text class="dimtx" x="0" y="136" data-gen="EVAP_OUT_Z">27.75</text>
+          <text class="sub"   x="96" y="136">evap outlet &#183; WEST</text>
+          <text class="sub"   x="0" y="192">both reed cables leave by the</text>
+          <text class="sub"   x="0" y="218">LID, up their own channels</text>
           <text class="sub"   x="0" y="374">crosses, never where its own</text>
           <text class="sub"   x="0" y="400">fitting sits &#8212; each turns onto</text>
           <text class="sub"   x="0" y="426">its lane and climbs or drops.</text>
@@ -115,7 +110,7 @@
       <tr><td>Forward band</td><td class="v" data-gen="FORWARD_BAND">8 mm</td>
           <td>Top band</td><td class="v" data-gen="TOP_BAND">14 mm</td></tr>
       <tr><td>Draw out the pocket</td><td class="v" data-gen="FLAVOR_HOLE_X">&#177;97</td>
-          <td>Cable out the pocket</td><td class="v" data-gen="CABLE_HOLE_X">&#177;109</td></tr>
+          <td>Reed cable, out the lid</td><td class="v" data-gen="REED_CONDUIT_XY">reed-cable-a (134.5, 34), reed-cable-b (-134.5, 34)</td></tr>
     </table>
   </div>
 </main>

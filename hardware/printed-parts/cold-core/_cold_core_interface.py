@@ -74,6 +74,10 @@ port_hole_radius = 3.25
 # its wall butt the outer shell wall (see outer_shell_x_length). Consumed by
 # _reed_channels.py too.
 reed_x_depth = 6.0
+# Half the cavity's reach along the reservoir, either side of the column's own station. The
+# cavity carries the laced column and the cable that leaves up it, and `reed_cable_conduit_xy`
+# stands on the same two figures — one lane, read here rather than in two places.
+reed_y_half_w = 4.0
 
 # WHERE THE LEVEL SENSOR STANDS along the reservoir — the float rod inside
 # (`reservoir.rod_position_y`) and the reed column outside (`_reed_channels.reed_y_center`),
@@ -294,8 +298,8 @@ head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
 # `screw_boss_size` in from its outer face, so the lane is exactly what they leave,
 # and it runs clear end to end at every height above the floor slab.
 #
-# The lane is ONE BORE WIDE. That is what makes the front port field a column
-# rather than a grid — see `front_port_stations`.
+# The lane is ONE BORE WIDE. That is what makes each lane a column rather than a grid, and
+# what its slot stands on is `front_port_floor_z` below.
 front_wall_x = -outer_shell_x_length / 2
 port_lane_outer_y = -(outer_shell_y_length / 2 - screw_boss_size)
 port_lane_inner_y = pour_band_pocket_side_y
@@ -330,48 +334,33 @@ evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_tank_e
 evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
                     - wall_and_floor_thickness - above_tank_elbows_height)
 
-# The FRONT PORT FIELD — where each penetration crosses the −X wall on the PORT LANE.
-# One column, pitched a bore plus one wall, climbing from the floor. What sets a
-# station's Z is NOT the height of the fitting it serves: a line leaves its fitting,
-# turns into a lane and climbs it freely. The field carries the two reed cables, which
-# leave together out of the pockets' bulkhead band. Everything above the field belongs to
-# that lane's SLOT, which takes the rest of the column (`copper_plugs.columns`).
+# NOTHING CROSSES THIS FACE BUT THE SLOTS. The front wall is mated face to face with the
+# refrigeration base — the condenser against it and the compressor's own plate just short of that
+# plane — so a bore struck here opens into that base rather than into the machine. Every one of
+# the seven fluid lines leaves by the TOP, up its own band to a conduit in the cap
+# (`cap_conduits`), and so do the two reed cables, each up the channel its column stands in
+# (`reed_cable_conduit_xy`). What is left on this face is the copper/PRV slot on each lane and
+# no round bore at all.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-# NO FLUID LINE IS HERE. The front wall is mated face to face with the refrigeration base —
-# the condenser against it and the compressor's own plate just short of that plane — so a bore
-# struck here opens into that base rather than into the machine. Every one of the seven fluid lines leaves by
-# the TOP instead, up its own band to a conduit in the cap (`cap_conduits`). What is left on
-# this face is the two reed cables and the copper/PRV slot above them.
-front_port_order = ("reed-cable-a", "reed-cable-b")
+# WHAT THE SLOT STANDS ON is the pocket floor's own band — one wall of PETG over the floor, one
+# bore of lane, one wall again. That is the lowest anything can sit on this lane and still leave
+# the floor its material.
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
-
-
-def front_port_z(name):
-    """The Z one front-field station crosses the −X wall at."""
-    return front_port_floor_z + front_port_pitch * front_port_order.index(name)
-
-
-front_port_field_top_z = front_port_z(front_port_order[-1]) + port_hole_radius
+# AND WHAT HOLDS IT UP OFF THAT IS THE APPLIANCE'S OWN FLOOR. The core stands on `enclosure`'s
+# slab with the refrigeration stratum mated to this face, and both coppers cross here — so a slot
+# that sits at the bottom of its lane puts the evaporator's two legs in the slab's material
+# instead of the machine's air. `enclosure_assembly` reads that on `clearance-floor`, `port-leads`
+# and `lines-clear`, all three against the loop rather than against this figure.
+#   ONE LANE PITCH IS THE STANDOFF, and it is STATED here rather than derived: nothing inside this
+# shell sets it, so a crossing that drops reads red in the appliance instead of quietly walking
+# the refrigerant loop into a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up
+# from this top.
+front_slot_standoff = front_port_pitch
+front_port_field_top_z = front_port_floor_z + front_slot_standoff + port_hole_radius
 
 # The face every penetration opens on, as a direction: the shell's own −X. A station is a
 # position and the way out of it, so a turn that moves the shell moves both.
 front_port_axis = (-1.0, 0.0, 0.0)
-
-
-def front_port_station(name):
-    """One front-field station in the SHELL'S OWN frame: `(position, outward axis)`.
-
-    Both stand on the port lane's centreline, in the wall's own plane, each at its own
-    height up the column. The lane is one bore wide (above), so X and Y are the field's and
-    only Z is the station's."""
-    return ((front_wall_x, port_lane_mid_y, front_port_z(name)), front_port_axis)
-
-
-def front_port_stations() -> dict:
-    """Both, under the names the machine knows them by. What crosses ABOVE the field belongs
-    to a lane's slot, and `copper_plugs.slot_stations` declares those — the two on this lane
-    and the one on the west."""
-    return {name: front_port_station(name) for name in front_port_order}
 
 
 # Rounded outer-shell corners. Each corner's exterior wall is a true arc:
@@ -814,6 +803,32 @@ co2_cap_x = 1.5
 # no such tie: the run is already on the lane by then, and a jog ALONG a lane costs it nothing.
 # So the ring reads this column and the appliance reads the bore's, and neither is the other's.
 water_outlet_climb_x = -48.5
+# THE TWO REED CABLES LEAVE BY THE LID, each up the channel its own column stands in. A reed
+# channel is a cavity open from the shell's floor to its top face (`_reed_channels`), so the
+# cable's way out is the slot it is already lying in and a bore in the cap over the mouth of it.
+# The column drops into the channel at `assembly/cold-core.md` step 7 and the cap goes on after
+# it, so what this bore passes is the cable and never the column.
+#   IT STEPS OFF THE CAVITY'S CENTRE TOWARD RESERVOIR B'S DRAW. B's channel shares the forward
+# band with that draw's own conduit one lane over, and on the cavity's centre the two columns
+# stand at exactly the tangent `cap_conduit_pair_neck` refuses — too near to leave the pour its
+# gap between them, too far to fuse. The step carries them into the MERGED state instead: one
+# post with two bores up it and a neck between them thicker than the wall it takes. A's channel
+# has nothing beside it and takes the same station mirrored, because one figure for both sides
+# is what makes the pair read as one lane.
+#   The bore is wider than the cavity and stands proud of it either side in X; what it owes is
+# that it OPEN on the cavity rather than clip its corner, which is `_reed_channels` bound
+# `reed-cable-conduit-stands-over-its-channel`.
+reed_cable_conduit_x = bag_pocket_outermost_x + reed_x_depth / 2.0
+reed_cable_conduit_merge_step = 1.5
+reed_cable_conduit_y = level_rod_y + reed_cable_conduit_merge_step
+
+
+def reed_cable_conduit_xy(side):
+    """One side's reed-cable conduit in the CAP's frame — the cap installs spun a half turn,
+    so a bore over the shell-frame station `(x, y)` is authored at `(−x, −y)` here."""
+    return (-side * reed_cable_conduit_x, -reed_cable_conduit_y)
+
+
 cap_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
@@ -822,6 +837,8 @@ cap_conduits = {
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": (52.2, -port_lane_mid_y),
     "co2-in": (co2_cap_x, -port_lane_mid_y),
+    "reed-cable-a": reed_cable_conduit_xy(+1),
+    "reed-cable-b": reed_cable_conduit_xy(-1),
 }
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.

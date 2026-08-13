@@ -37,6 +37,7 @@ from _cold_core_interface import (  # noqa: E402
     insert_pocket_depth,
     insert_pocket_radius,
     lldpe_bend_radius,
+    cap_conduit_shell_xy,
     outer_shell_x_length,
     outer_shell_y_length,
     port_hole_radius,
@@ -45,10 +46,6 @@ from _cold_core_interface import (  # noqa: E402
     top_band_to_cap,
     wall_and_floor_thickness,
 )
-from _reed_channels import (  # noqa: E402
-    cable_hole_offset_from_bulkhead_hole_x,
-)
-
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
 from reservoir import insert_positions_for_side_plus_1  # noqa: E402
 
@@ -165,11 +162,14 @@ def main():
         "FORWARD_BAND": f"{forward_band_width:.4g} mm",
         # The two pocket-wall holes per reservoir side: flavor line inboard,
         # reed cable outboard of the bulkhead axis. There is no matching pair of
-        # outer-wall holes — each run turns onto the port lane and leaves through
-        # its own station on the front port field, which is why the second bore
-        # is a Z on the column rather than an X on the line's own axis.
+        # outer-wall holes — each draw turns onto its own band and climbs to its cap
+        # conduit, so the pocket wall is opened once and only for that run.
         "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
-        "CABLE_HOLE_X": f"±{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
+        # Where each reed cable leaves the core: the bore the cap stands over its own
+        # channel's mouth, in the SHELL's frame — the frame the channel is drawn in.
+        "REED_CONDUIT_XY": ", ".join(
+            f"{n} ({cap_conduit_shell_xy(n)[0]:.4g}, {cap_conduit_shell_xy(n)[1]:.4g})"
+            for n in ("reed-cable-a", "reed-cable-b")),
         # Reservoir-to-pocket clearance — why the pockets take no foam.
         "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────
@@ -209,10 +209,6 @@ def main():
             # Off `_cold_core_interface`, the constant's own home — `_port_cuts`
             # imports what it needs and re-exports nothing on purpose.
             "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
-            # Pocket-wall spacing between a side's flavor bore and its reed
-            # cable bore — the two offsets from the bulkhead axis, one
-            # inboard and one outboard.
-            "FLAVOR_REED_PITCH": f"{_port_cuts.flavor_line_hole_offset_from_bulkhead_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
         },
     )
     print("-> _port_cuts.py")

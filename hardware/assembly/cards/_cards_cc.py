@@ -74,9 +74,9 @@ PM = "&#177;"       # ±
 def _front_wall_census():
     """Everything that crosses the shell's −X face, by name.
 
-    The field's two stations plus every lane slot's. CC-12 draws this face and
-    CC-13 fills it, so the census is the one reading both stand on."""
-    return sorted(set(cci.front_port_order) | set(plugs.slot_stations()))
+    Every lane slot's station and nothing else — no round bore is struck in this face.
+    CC-12 draws it and CC-13 fills it, so the census is the one reading both stand on."""
+    return sorted(plugs.slot_stations())
 
 
 def _ring_azimuths(a, b, tube_radius):
@@ -264,7 +264,9 @@ def cold_core(m):
         "FORWARD_BAND": f"{cci.forward_band_width:.4g} mm",
         "TOP_BAND": f"{cci.top_band_to_cap:.4g} mm",
         "FLAVOR_HOLE_X": f"{PM}{pcuts.flavor_line_hole_x:.4g}",
-        "CABLE_HOLE_X": f"{PM}{reed.reed_cable_pocket_x(+1):.4g}",
+        "REED_CONDUIT_XY": ", ".join(
+            f"{n} ({cci.cap_conduit_shell_xy(n)[0]:.4g}, {cci.cap_conduit_shell_xy(n)[1]:.4g})"
+            for n in ("reed-cable-a", "reed-cable-b")),
         "RESERVOIR_GAP": f"{cci.reservoir_clearance:.4g} mm",
         "POCKET_FILLET": f"{cci.bag_pocket_corner_inner_radius:.4g} mm",
         "BULKHEAD_CLEARANCE": f"{cci.bulkhead_floor_clearance:.4g} mm",
@@ -276,10 +278,8 @@ def cold_core(m):
                       + DEG,
         "RING_SLOT_DEG": f"{ring_slot_deg}{DEG}",
         # The front wall's two lanes (CC-12, CC-13).
-        "CORE_FRONT_PORTS": f"{len(cci.front_port_order)}",
+        "CORE_FRONT_PORTS": f"{len(_front_wall_census())}",
         "FIELD_PITCH": f"{cci.front_port_pitch:.4g}",
-        "REED_A_Z": f"{cci.front_port_z('reed-cable-a'):.4g}",
-        "REED_B_Z": f"{cci.front_port_z('reed-cable-b'):.4g}",
         "EVAP_IN_Z": f"{plugs.slot_station('evap-inlet')[0][2]:.4g}",
         "EVAP_OUT_Z": f"{plugs.slot_station('evap-outlet')[0][2]:.4g}",
         "PRV_VENT_Z": f"{routes.prv_vent_cross_z:.4g}",
@@ -309,8 +309,8 @@ def cold_core(m):
             "RESERVOIR_GAP", "POCKET_FILLET", "BULKHEAD_CLEARANCE", "FLAVOR_HOLE_X"},
         "cc-12-route-penetrations": {
             "CAP_CONDUITS", "CORE_FRONT_PORTS", "TUBE_HOLE_D", "FORWARD_BAND",
-            "TOP_BAND", "FLAVOR_HOLE_X", "CABLE_HOLE_X", "RING_SLOT_DEG",
-            "FIELD_PITCH", "REED_A_Z", "REED_B_Z", "EVAP_IN_Z", "EVAP_OUT_Z",
+            "TOP_BAND", "FLAVOR_HOLE_X", "REED_CONDUIT_XY", "RING_SLOT_DEG",
+            "FIELD_PITCH", "EVAP_IN_Z", "EVAP_OUT_Z",
             "PRV_VENT_Z", "PRV_VENT_MM"},
         "cc-13-stack-copper-plugs": {
             "PLUG_COUNT", "PLUG_WEST", "PLUG_PORT", "SLOT_W",
@@ -318,7 +318,7 @@ def cold_core(m):
         "cc-14-pour-body-foam": {"CORE_FOOTPRINT", "RESERVOIR_GAP"},
         "cc-15-columns-gaskets-caps": {
             "CORE_CAPPED", "SHELL_INSERTS", "FACE_BOSSES", "CAP_SCREW",
-            "DECK_COLUMNS", "CAP_CRADLES", "CABLE_HOLE_X"},
+            "DECK_COLUMNS", "CAP_CRADLES", "REED_CONDUIT_XY"},
     }
     return facts, cards
 

@@ -111,8 +111,8 @@ Device end: female disconnects at valves, pumps, fan, and compressor; ring termi
 |---|---|---|---|---|
 | J1 MANIFOLD A `COM` | 221-420 | 9 of 10 | +X, over the manifold | V-A…V-H |
 | J2 MANIFOLD B `COM` | 221-415 | 5 of 5 | −X, over the manifold | V-I, V-J, condenser fan, V-K's `+` tap |
-| J7 REEDS B `GND` | 221-420 | 7 of 10 | −X, by the cold core | reservoir B's 4 reeds + the carbonator's 2 |
-| J6 REEDS A `GND` | 221-415 | 5 of 5 | −X, by the cold core | reservoir A's 4 reeds |
+| J7 REEDS B `GND` | 221-420 | 7 of 10 | −X, aft, over the core's lid | reservoir B's 4 reeds + the carbonator's 2 |
+| J6 REEDS A `GND` | 221-415 | 5 of 5 | −X, aft, over the core's lid | reservoir A's 4 reeds |
 | J4 SENSORS `GND` | 221-415 | 4 of 5 | −X, aft | 1-wire bus, DIGITEN meter, moisture plate |
 
 The peristaltic pumps have no such nut: DC-5 is two DRV8870 H-bridge pairs, each motor driven differentially on its own two conductors, so there is no rail to share and nothing to fan out.

@@ -16,7 +16,7 @@ which its cap conduit no longer has to stand over — and the assertion under it
 holds the crossing inside the slot.
 
 Only the two lane slots open on the shell's −X FACE. The two reed cables take the
-front port field on the port lane below its slot (`_reed_channels`), and they are the whole
+reed channels' own cavities, open to the cap (`_reed_channels`), and they are the whole
 of what crosses that wall besides the slots: it is mated face to face with the refrigeration
 base, and what the slots carry is made up on that base's own picks.
 """
@@ -193,10 +193,9 @@ state(
 # onto the port lane, B its +Y wall onto the west lane. Both then come about and climb the
 # forward band to their own cap conduits — neither crosses the −X wall.
 #
-# A's crossing sits inboard of the bulkhead axis, opposite the outboard reed cable hole
-# — the two openings [12](FLAVOR_REED_PITCH) mm apart center-to-center with PETG between
-# them. That step is the reed cable's price, and B's crossing does not pay it: nothing else
-# crosses the +Y wall, so B's stands on the BULKHEAD'S OWN AXIS.
+# A's crossing stands inboard of the bulkhead axis and B's stands on it. Each pocket wall is
+# opened once and for its own draw: the reed cable never crosses a pocket wall, having left by
+# the top of the channel its column stands in.
 flavor_line_hole_offset_from_bulkhead_x = 8.0
 flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
 
@@ -297,8 +296,9 @@ def cut_lane_slots(foam_shell):
     stack that fills it are one reading. The rounded top tapers above the foam-shell
     top edge, so the straight portion reaches the edge exactly with no sliver left.
 
-    A slot's bottom stands clear of whatever the lane carries below it: on the port lane
-    that is the front port field, and `copper_plugs.evap_cross_z` is derived from it.
+    A slot's bottom stands off the lane's own floor by `_cold_core_interface.front_slot_standoff`,
+    which is what holds both coppers clear of the appliance's floor slab outside this face;
+    `copper_plugs.evap_cross_z` is derived from it.
 
     AND EACH SLOT TAKES A FLAT SEAT WITH IT. A plug is an I-beam whose inboard flange lands
     on the wall's inner face, and that face is only flat between the corners: the shell's

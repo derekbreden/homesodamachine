@@ -1,6 +1,6 @@
 """The lines INSIDE the cold core, drawn.
 
-Seven conduits stand on the top cap and two cables leave by the front field; this
+Nine conduits stand on the top cap — seven fluid lines and both reed cables; this
 module is the other half of each of those — the run from the fitting a line lands on
 to the mouth it leaves by, as a swept ⌀[6.35](LLDPE_TUBE_OD) solid on the tube's own
 centreline. The shell is a set of voids and a line is a void's occupant, so nothing

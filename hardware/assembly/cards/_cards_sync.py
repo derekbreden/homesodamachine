@@ -94,7 +94,7 @@ def enclosure(m: Machine):
     import jg_bulkhead_union as _jg
     from _back_panel_dimensions import (ac_inlet_recess_depth_max,
                                         ac_inlet_recess_depth_min)
-    from _cold_core_interface import (cap_conduits, front_port_order,
+    from _cold_core_interface import (cap_conduits,
                                       outer_shell_x_length, outer_shell_y_length)
 
     box, pack = m.box, m.pack
@@ -130,11 +130,13 @@ def enclosure(m: Machine):
         f"the floor slab stands {len(pack.floor_bosses)} boss(es) and the compressor's "
         f"plate has {len(_comp.mount_pattern())} holes — EN-03 fastens one body on four "
         f"posts and says nothing else in the box is bolted down")
-    # EN-05: the core is reached through its lid, and what is left on the face it
-    # mates against the stratum is the two reed cables.
-    assert front_port_order == ("reed-cable-a", "reed-cable-b"), (
-        f"the core's front face carries {front_port_order} — EN-05 says two reed cables "
-        f"and the copper/PRV slot, and that face is mated shut against the stratum")
+    # EN-05: the core is reached through its LID, and the face it mates against the stratum
+    # carries the copper/PRV slot and no round bore at all. Both reed cables are conduits in
+    # the cap for that reason — a station on the front face is a fitting behind the condenser.
+    assert {"reed-cable-a", "reed-cable-b"} <= set(cap_conduits), (
+        f"the cap carries {sorted(cap_conduits)} and neither reed cable is among them — "
+        f"EN-05 brings both up their own channels and out the lid, because the front face "
+        f"is mated shut against the stratum")
 
     # The two bores in that wall, taken from the functions that STRIKE them rather
     # than recomputed beside them. `pack.back_ports` is the list `enclosure._port_cuts`
@@ -240,7 +242,6 @@ def enclosure(m: Machine):
         # The cold core (EN-05).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
-        "CORE_FRONT_PORTS": f"{len(front_port_order)}",
         # The hopper (EN-09).
         "HOPPER_PIECES": hopper_pieces,
         # What the closed chassis reads as (EN-07).

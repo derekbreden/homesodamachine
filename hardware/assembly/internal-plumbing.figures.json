@@ -1,6 +1,6 @@
 {
   "/hardware/assembly/_internal_plumbing_sync.py": {
-    "CAP_CONDUITS": "7",
+    "CAP_CONDUITS": "9",
     "CAP_CONDUIT_D": "6.5 mm",
     "CARB_1_LOOP": "40.1 mm",
     "DIGITEN_COLLET_FREE": "6 mm",

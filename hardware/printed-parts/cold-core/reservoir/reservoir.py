@@ -23,6 +23,7 @@ from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
+    cap_conduit_shell_xy,
     bag_pocket_far_inner_x,
     bag_pocket_y_inner_max,
     bag_pocket_floor_top_z,
@@ -41,7 +42,7 @@ from _cold_core_interface import (
     make_box,
     state,
 )
-from _reed_channels import reeds_per_reservoir, cable_hole_offset_from_bulkhead_hole_x
+from _reed_channels import reeds_per_reservoir
 from _port_cuts import flavor_line_hole_x
 
 
@@ -1332,10 +1333,13 @@ def main():
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "RESERVOIR_ROD_LEN": f"{reservoir_rod_len:.4g} mm ({reservoir_rod_len / 25.4:.3g} in)",
         "RESERVOIR_SEAT_TO_SEAT": f"{reservoir_rod_len + reservoir_rod_clearance:.4g} mm",
-        # level-sensing.md — the two −Y wall holes that flank the bulkhead
-        # axis, cut by _port_cuts (flavor line) and _reed_channels (cable).
+        # level-sensing.md — the one −Y wall hole, the draw's own, cut by _port_cuts.
+        # The reed cable does not cross this wall: it leaves up its channel and out the
+        # bore the cap stands over that channel's mouth, stated in the SHELL's frame.
         "FLAVOR_HOLE_X": f"±{flavor_line_hole_x:.4g}",
-        "CABLE_HOLE_X": f"±{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
+        "REED_CONDUIT_XY": ", ".join(
+            f"{n} ({cap_conduit_shell_xy(n)[0]:.4g}, {cap_conduit_shell_xy(n)[1]:.4g})"
+            for n in ("reed-cable-a", "reed-cable-b")),
         "WALL_HOLE_Y": f"{reservoir_bulkhead_port_y:.4g}",
         "WALL_HOLE_Z": f"{bulkhead_elbow_exit_z:.4g}",
         # Dynamic-comment markers above derived constants in this .py file.
