@@ -199,6 +199,47 @@ a wall that ever loses one is visible rather than silent.
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
 
+## Cold-core grips
+
+The core is the heaviest body in the machine and the one with no hole in it — a foamed cup
+under a screwed cap, plain skin the whole way round. What fastens it is the seams: **every
+quadrant is screwed to the two beside it**, so a feature printed on one piece stands over a
+body sitting in another, and the front-bottom, the back-bottom and the back-top close on the
+core together.
+
+Four features, two mirror pairs, and nothing on either that is not a face of the core:
+
+- **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
+  corner of the slab, running from the ±X wall inboard to the core's own corner-round centre
+  and standing one `wall` ahead of its front face, with a single
+  Ø[24.4 mm](CORE_STOP_BORE) bore struck on that round's own axis. The core's front face and
+  its flank both run tangent out of that arc, so one bore takes the core forward, across and in
+  yaw at once, and the pair leaves it no lateral travel. Underside on the slab, outboard face on
+  the wall: a corner bracket in one piece with both faces it stands on, the card slot's own form.
+  It reaches [20 mm](CORE_STOP_TIP) up, the seam between the core's base cap and the shell over
+  it — the course of the core standing on the same floor the block stands on.
+- **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A leg standing in the
+  `rear_seam_clear` band behind the core, carrying [40 mm](CORE_HOLD_RISE) up the back wall, and
+  a foot turning off it at the cap face to run [12 mm](CORE_HOLD_REACH) forward onto the crown,
+  [8 mm](CORE_HOLD_LAND) thick and [9 mm](CORE_HOLD_WIDE) wide. The foot lands on the cap — 0 by
+  intent, the way every other seat in this box lands on the face it takes — and the leg is what
+  carries its load into the wall over a height rather than over a thickness. The lane is the one
+  strip of the aft crown clear of the water pump inboard, the power column outboard and the rear
+  wall's two flavour unions in the band, taken on both flanks so the pair is a mirror.
+
+The slab takes the weight and the back wall takes the aft, so the four between them close every
+direction the core could go. `enclosure_assembly.check_core_held` reads each inside its own
+window off the built pieces (`core-held`).
+
+**The core enters the bore from ahead or from above.** The bore is struck about the corner's own
+centre, so it stands clear of that corner at every stand-off and closes on it at zero: the front
+assembly slides aft onto a core already down, or the core comes straight down into a box already
+telescoped.
+
+Printed ceiling-down, an aft bracket's leg stands up off the bed and its foot's bearing face is
+uppermost; what hangs is the foot's own top face, and it takes support the way the drip tray's
+rails do. The front blocks print floor-down with no overhang in them at all.
+
 ## Print orientation + corner relief
 
 Every piece prints on a **Z face** — the bottom pieces floor-down, the top

@@ -125,6 +125,18 @@ SCENES = (
              "printed ribs. It meets the rest of the core after all of it is on.",
     ),
     Scene(
+        "hopper-drain", "Hopper basin drain stub",
+        roots=("hopper-funnel",), parts=(), flip=((1, 0, 0), 180.0), also=(),
+        # The union is on the far end of the stub and is the joint that PARTS: it stays in the
+        # machine when the basin comes out, so it is not on the bench with this one.
+        later=("hopper-drain-union",),
+        cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=1.9, look="crown",
+        note="The basin inverted, which is how the joint is made: the brim is the bench and the "
+             "spout stands up where two hands reach it. The stub is in as far as it goes and the "
+             "band is on the land between its two shoulders — nothing of the stub shows below "
+             "the spout's face, because what is below that face is the collet it pushes into.",
+    ),
+    Scene(
         "back-half", "Enclosure back half",
         roots=("enclosure-back-bottom", "enclosure-back-top"), parts=(), flip=None, also=(),
         later=("drip-pan",),
@@ -165,6 +177,11 @@ BEARS_ON = {
     "gasher-co2": "enclosure-back-top",             # made up on the CO2 inlet's inboard stub
     "display": "enclosure-front-top",               # let into that piece's own facet
     "hopper-funnel": "enclosure-front-top",         # brim on the top wall, collar forward
+    # The basin's disconnect, all of it on the spout the basin carries: the stub and the clamp
+    # go to the dishwasher with it, and the union is on the stub's far end.
+    "hopper-drain-stub": "hopper-funnel",
+    "hopper-drain-clamp": "hopper-funnel",
+    "hopper-drain-union": "hopper-funnel",
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
@@ -186,7 +203,10 @@ def holders():
 
     out, orphans = {}, []
     for name, by, joint in _sc.mounts():
-        out[name] = by or BEARS_ON.get(name)
+        # TWO PIECES CLOSING ON ONE BODY PUT IT IN NEITHER'S UNIT. `_scorecard.MOUNTS` gives such
+        # a body a tuple, and where it stands is `BEARS_ON` — the cold core is fastened by the
+        # front-bottom's blocks and the back-top's brackets and sits on the back-bottom's slab.
+        out[name] = (by if isinstance(by, str) else None) or BEARS_ON.get(name)
         if out[name] is None and joint != "pack" and name not in BEARS_ON:
             orphans.append(f"{name} ({joint})")
     if orphans:

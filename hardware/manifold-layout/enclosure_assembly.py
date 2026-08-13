@@ -86,6 +86,9 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
+           _hw / "reference" / "worm-clamp",
+           _hw / "reference" / "jg-pp0408w",
+           _hw / "reference" / "hopper-drain-stub",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "waveshare-43b-display",
@@ -134,6 +137,8 @@ import condenser_block as _cond                       # noqa: E402
 import copper_plugs as _plugs                         # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
+import hopper_drain_stub as _stub                     # noqa: E402
+import jg_pp0408w as _pp0408w                         # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
 import seaflo_discharge_chain as _dis                 # noqa: E402
@@ -255,6 +260,9 @@ C_COND = cq.Color(0.78, 0.55, 0.35)
 C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
 C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
+C_STUB = cq.Color(0.94, 0.95, 0.97)
+C_WORM = cq.Color(0.62, 0.64, 0.68)
+C_PP0408W = cq.Color(0.93, 0.93, 0.90)
 C_SUCT = cq.Color(0.72, 0.72, 0.76)
 C_HOSE = cq.Color(0.35, 0.55, 0.85)
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
@@ -1244,6 +1252,100 @@ def check_core_lane(front_y: float, ahead) -> Bound:
         [f"{n} reaches {much:.2f} mm past the core's front face — the core is packed off "
          f"`rear_plane_y` and does not give way. Move that body forward, or raise "
          f"`rear_plane_y`" for n, much in sorted(over, key=lambda r: -r[1])]))
+
+
+# --- what fastens the cold core ---------------------------------------------
+#
+# The core presents no hole, so the box shuts on it instead: `enclosure._core_stops` blocks a
+# corner of the slab in front of each of its front corners, and `enclosure._core_holds` turns a
+# bracket off the back wall over the aft edge of its cap. The stations below are the planes
+# those two are struck on, read off the placed core.
+#
+# THE LANE THE HOLD-DOWNS STAND IN, off the machine's own centreline. The aft cap carries the
+# water pump inboard of it, the power column outboard on the +X flank, and the rear wall's two
+# flavour unions run through the band on the −X one; this is the strip clear of all four, taken
+# on both flanks so the pair is a mirror.
+CORE_HOLD_LANE = (58.0, 67.0)
+
+
+def core_stops(foam) -> tuple:
+    """The core's two FRONT corners as `enclosure.Box.core_stops` — `(cx, cy, r, tip)` each.
+
+    `cx, cy` is the centre the core's own corner round is struck on and `r` that round's radius,
+    both read off `_cold_core_interface` through the placement, so a block is drawn about the
+    same axis the corner is.
+
+    `tip` is the top of the core's BASE CAP — the lid and cup the stack stands on, whose own
+    outer face is the plane the slab takes. The block reaches the seam between that cap and the
+    shell above it, which is the course of the core standing on the floor the block stands on."""
+    b, r = box(foam), _cci.corner_round_radius
+    tip = b.zmin - _foam.stack_floor_z
+    return tuple((sign * (b.xmax - r), b.ymin + r, r, tip) for sign in (-1.0, 1.0))
+
+
+def core_holds(foam) -> tuple:
+    """The core's aft crown as `enclosure.Box.core_holds` — `(x0, x1, aft, crown)` each.
+
+    The lane is `CORE_HOLD_LANE` struck on both flanks; `aft` is the core's own aft face, which
+    is the plane `rear_seam_clear` is measured to, and `crown` is `cap_face` — the lid's outer
+    face, not the box's top, which carries the valve cradles."""
+    b, crown = box(foam), cap_face(foam)
+    lo, hi = CORE_HOLD_LANE
+    return tuple((min(sign * lo, sign * hi), max(sign * lo, sign * hi), b.ymax, crown)
+                 for sign in (-1.0, 1.0))
+
+
+# How far off contact a face of the core may read from the grip that takes it — the same figure
+# every seat on this card is held to, the trough's, the saddles' and both panels'.
+CORE_GRIP_SLIP = PANEL_SEAT_SLIP
+
+
+def _core_grip_windows(foam, shell) -> tuple:
+    """One `(what, window)` per grip — the room a grip stands in, as a world box.
+
+    A window holds that grip and nothing else of the piece it is printed on, so what the piece
+    leaves inside one is the grip itself and the gap to the core is the grip's own fit."""
+    b, r, out = box(foam), _cci.corner_round_radius, []
+    for cx, cy, _r, tip in core_stops(foam):
+        x0, x1 = sorted((cx, shell.inner[1] if cx > 0.0 else shell.inner[0]))
+        out.append((f"front block at x {cx:+8.2f}",
+                    _boxed(x0, x1, cy - r - _enc.core_stop_wall, cy, b.zmin, tip)))
+    for x0, x1, aft, crown in core_holds(foam):
+        out.append((f"aft bracket at x {(x0 + x1) / 2.0:+8.2f}",
+                    _boxed(x0, x1, aft - _enc.core_hold_reach, shell.inner[3],
+                           crown, crown + _enc.core_hold_land)))
+    return tuple(out)
+
+
+def _boxed(x0, x1, y0, y1, z0, z1):
+    return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
+
+
+def check_core_held(pieces: dict, foam, shell) -> Bound:
+    """Whether all four of the cold core's grips are closed on it.
+
+    Read inside each grip's own window, off the built pieces: the piece's material in there IS
+    the grip, so the distance from it to the core is the fit the grip was drawn at — one
+    `enclosure.core_stop_slip` on a front block's bore, 0 on an aft bracket's foot. Read over the
+    whole piece instead and a box drawn round the core with no grip in it still returns 0, from
+    the slab under it.
+
+    A window no piece has material in is a grip nothing prints, and reads as the full horizon."""
+    rows, solids = [], [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+    for what, window in _core_grip_windows(foam, shell):
+        grip = [g for g in (s.intersect(window) for s in solids) if g.Volume() > 1.0]
+        rows.append((what, sum(g.Volume() for g in grip),
+                     min((_clearing.gap(foam, g, 1.0) for g in grip), default=1.0)))
+    bad = [r for r in rows if r[2] > CORE_GRIP_SLIP]
+    worst = max((g for _w, _v, g in rows), default=0.0)
+    return record_bound(Bound(
+        "core-held", "Every grip on the cold core is closed on it", bool(rows) and not bad,
+        "nothing stationed" if not rows else
+        f"{len(rows) - len(bad)}/{len(rows)} grips closed, furthest off {worst:.3f} mm",
+        f"every grip within {CORE_GRIP_SLIP:g} mm of the core",
+        [f"{what} holds {vol:.0f} mm³ of printed material and stands {g:.4f} mm off the core — "
+         f"the grip is drawn beside the core rather than on it"
+         for what, vol, g in rows if g > CORE_GRIP_SLIP]))
 
 
 # How far off contact either end of the pinch may read. A stack drawn to close on the case has
@@ -3972,6 +4074,12 @@ def build_pack() -> cq.Assembly:
         [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
         + [(n, box(s).ymax) for n, s, _c in stood if box(s).zmin < top])
     a.add(foam, name="foam-assembly", color=C_FOAM)
+    # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
+    # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
+    # wall — both struck on the core's own faces here, and grown by `enclosure._core_stops` /
+    # `_core_holds` in whichever piece owns each station.
+    a.core_stops = core_stops(foam)
+    a.core_holds = core_holds(foam)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(foam_carry, seaflo_carry(_lines._pump.suction()))
@@ -4213,7 +4321,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      port_field=back_wall_field(a.wall_stations),
-                     valve_panels=a.valve_panels, pump_trays=a.pump_trays)
+                     valve_panels=a.valve_panels, pump_trays=a.pump_trays,
+                     core_stops=a.core_stops, core_holds=a.core_holds)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
@@ -4294,6 +4403,36 @@ def build_funnel(box):
                               (cx, cy, box.outer[5])))
 
 
+def build_drain_joint(funnel_carry):
+    """The basin's disconnect, seated on the spout the funnel carries.
+
+    Three bodies on one axis, all of them read off `reference/hopper-drain-stub`'s own frame —
+    origin the spout's exit face, +Z up into the basin — so the joint's stack is stated once
+    beside the parts and placed here:
+
+      * the stub, up inside the silicone and down into the union, hidden at both ends;
+      * the worm clamp, closed on the spout's land above the exit face;
+      * the union, its upper collet face ON that exit face, hanging `_union.OVERALL` below it.
+
+    The funnel is turned about Z alone, so the spout's axis is still the world's, and the joint
+    frame differs from the world by the drain's own position.
+
+    Returns `(name, solid, colour, carry)` per body — the union's carry is what `fluid-4`
+    anchors on now that it starts at a collet rather than at silicone."""
+    _stub.joint_holds()
+    drain, _axis = funnel_carry((_funnel.drain_local, (0.0, 0.0, -1.0)))
+    origin = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
+    stub, _ = seat_body(_stub.build_stub().val(), seat="hopper-drain-stub",
+                        station=(origin, drain))
+    clamp, _ = seat_body(_stub.build_clamp().val(), seat="hopper-drain-clamp",
+                         station=(origin, drain))
+    union, union_carry = seat_body(_pp0408w.build_jg_pp0408w().val(), seat="hopper-drain-union",
+                                   station=(_pp0408w.port(1.0), drain))
+    return (("hopper-drain-stub", stub, C_STUB, None),
+            ("hopper-drain-clamp", clamp, C_WORM, None),
+            ("hopper-drain-union", union, C_PP0408W, union_carry))
+
+
 # The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
 # up-and-forward at `enclosure.display_facet_angle_deg`. One turn about X carries the screen
 # normal onto the facet's and the up-screen axis up the slope with it.
@@ -4360,15 +4499,25 @@ def build_enclosure_assembly() -> cq.Assembly:
     # runs anchor on, with the funnel's now among them.
     a.pack_solids["hopper-funnel"], a.carries["hopper-funnel"] = funnel, funnel_carry
     check_bowl_clear(a.pack_solids["flow-regulator"], funnel)
+    # The disconnect, on the spout the basin carries. `fluid-4` starts at the union's lower
+    # collet, so the joint goes in before the run is drawn.
+    for name, solid, colour, carry in build_drain_joint(funnel_carry):
+        a.add(solid, name=name, color=colour)
+        if carry is not None:
+            a.pack_solids[name], a.carries[name] = solid, carry
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The basin's
-    # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the fall
-    # `fluid-4` leaves the spout with is what the run's first corner has to turn its stock radius
-    # in. Every millimetre off `enclosure.appliance_height` comes out of this one.
+    # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling, the union
+    # hangs its own length under the drain, and what is left is the fall `fluid-4`'s first corner
+    # has to turn its stock radius in. Every millimetre off `enclosure.appliance_height` comes
+    # out of this one, and so does every millimetre of the disconnect.
+    # THE FALL, AND NOT THE LENGTH. `fluid-4` carries head and is the basin's air-purge path, so
+    # its first leg has to DESCEND the straight its first corner turns in. A leg measured by
+    # distance reads a rise as room; measured by drop, a rise reads negative and the gate says so.
     for r in a.runs:
         if r.id == "fluid-4":
-            note_room("hopper-funnel", "the fall off the spout `fluid-4`'s first corner turns in",
-                      r.bend, math.dist(r.pts[0], r.pts[1]))
+            note_room("hopper-funnel", "the fall off the union `fluid-4`'s first corner turns in",
+                      r.bend, r.pts[0][2] - r.pts[1][2])
     a.add(build_display(box), name="display", color=C_DISPLAY)
     pieces = _enc.build_pieces(box)[0]
     for name, piece in pieces.items():
@@ -4390,6 +4539,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the condenser's own four, which are a groove at one end of the block and a bored boss
     # at the other — the same question asked of a body with no hole to boss and one with two.
     check_cond_mount(a.cond_cradle, a.cond_mount, pieces)
+    # And the cold core's four, which are the same question asked of a body with no hole at all:
+    # two blocks on one piece's slab and two brackets off another's back wall, each read inside
+    # the room it stands in.
+    check_core_held(pieces, a.pack_solids["foam-assembly"], box)
     # And every rear-wall fitting against the ring it bears on and the bore it passes. The rings
     # go into the assembly rather than the pack — they stand outboard of the wall — so they come
     # back off the placed children the way the runs do.

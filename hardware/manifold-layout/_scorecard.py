@@ -211,14 +211,19 @@ CARB_SEGMENTS = (
 #             one unit of the `mounted` axis's gap. IT IS THE ONLY FASTENING MEASURE: a body
 #             resting on a crown is not mounted, because nothing about that survives the
 #             machine being picked up by one corner.
+#             A TUPLE IS TWO PIECES CLOSING ON ONE BODY, and the fastening is the pair: each
+#             piece is screwed to the ones beside it, so a feature printed on one stands over a
+#             body sitting in another and neither could be lifted off without the seam coming
+#             apart first. `_scenes.holders` reads such a body's unit off `BEARS_ON` — it is in
+#             neither piece by the fact of being held by both.
 #             WHAT A COLLET CHAIN IS WORTH IS WHERE IT ENDS. A body made up onto one whose own
 #             far end is a printed seat is held through that seat; a body made up onto one that
 #             ends on nothing is held by nothing, and both read the same from the body itself.
 #             So a chain that lands is a `NEVER` row naming what it lands on, and a chain that
 #             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
-#             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `tube-clamp`, `deck-mount`,
-#             `basin`, `gap-press`, `floor`, `tube-hung`, `pack`. Not an axis and not a score —
+#             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `seam-capture`, `tube-clamp`,
+#             `deck-mount`, `basin`, `gap-press`, `tube-hung`, `pack`. Not an axis and not a score —
 #             it is how the machine puts this body down, and it is what lets a card count the
 #             bodies bossed to a piece apart from the ones captured in its wall
 #             (`assembly/cards/_cards_sync.py`) and a scene tell a pack body from an orphan.
@@ -244,9 +249,24 @@ MOUNTS = (
     # `condenser_mount`, `enclosure._cond_cradle` / `_cond_mount`, read by `cond-mount-lands`).
     # Two screws close the whole joint: the groove takes everything but the pull off them.
     ("condenser+fan", "enclosure-front-bottom", "bosses"),
-    ("foam-assembly", None, "floor"),
+    # THE HEAVIEST BODY IN THE MACHINE, AND THE ONE WITH NO HOLE IN IT. The core is a foamed cup
+    # under a screwed cap, plain skin the whole way round, so what closes on it is the box: a
+    # block on the FRONT-BOTTOM's slab bored at each of its front corner rounds
+    # (`enclosure._core_stops`), and a bracket off the BACK-TOP's rear wall turning over the aft
+    # edge of its cap (`enclosure._core_holds`), read by `core-held`. The blocks take it forward,
+    # in X and in yaw; the brackets take it up; the slab under it takes the weight and the back
+    # wall the aft. Neither piece holds it alone and both are screwed to the back-bottom it
+    # stands in, so the fastening is the three quadrants pinned together.
+    ("foam-assembly", ("enclosure-front-bottom", "enclosure-back-top"), "seam-capture"),
     ("seaflo-pump", "foam-assembly", "deck-mount"),
     ("hopper-funnel", None, "wall-capture"),
+    # THE BASIN'S DISCONNECT, THREE BODIES ON THE SPOUT'S OWN AXIS. The stub stands inside the
+    # silicone under the clamp's band; the clamp closes silicone onto steel; the union takes the
+    # stub in its upper collet and starts `fluid-4` at its lower one. The first two are made up
+    # at the factory and never come apart; the third is the joint the customer opens.
+    ("hopper-drain-stub", None, "tube-clamp"),
+    ("hopper-drain-clamp", None, "tube-clamp"),
+    ("hopper-drain-union", None, "tube-hung"),
     ("display", None, "wall-capture"),
     # Both chains lie in ribs printed on the cold core's cap lid — the same plate the pump bolts
     # to, so the hose stub at each of its barbs spans no joint
@@ -437,6 +457,23 @@ def fastened_by(name: str):
 # fastened — by a clamp that ships with it, onto a donor the machine stands on grommets to hold
 # off itself. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
+    # THE BASIN AND THE TWO BODIES MADE UP ON ITS SPOUT. The basin lifts out of the top wall and
+    # goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the top
+    # wall's outer face and its collar fills the opening cut for it, and the union's collet grips
+    # the stub through the wall — thumb on the collet and the whole basin comes away. A printed
+    # feature closing on any of the three would be a feature the customer has to work past every
+    # time the basin is washed.
+    "hopper-funnel":
+        "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, "
+        "and the union's collet grips the stub the spout carries — so the basin is held down by "
+        "the joint it releases from. It is a dishwasher part and comes out by hand.",
+    "hopper-drain-stub":
+        "The worm clamp closes the basin's silicone spout onto it over the whole of the spout's "
+        "land, and the pair is made up at the factory. Nothing printed is in the path: the stub "
+        "leaves the machine with the basin every time it is washed.",
+    "hopper-drain-clamp":
+        "A worm clamp closes on itself — the band draws through its own housing and the housing "
+        "rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -518,6 +555,17 @@ MADE_UP = (
     # butts the union's inboard collet". The first tube in the machine is a length of stock cut to
     # the two grips and swallowed whole by them, which is why there is no `water-1`.
     ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
+    # The basin's stub and the union's upper collet. The stub IS the tube in that grip — it runs
+    # `hopper_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
+    # filled by the thing it is a grip on.
+    ("hopper-drain-stub.spout", "hopper-drain-union.stub"),
+    # And the same stub in the basin's own spout, `hopper_drain_stub.FUNNEL_ENGAGEMENT` up the
+    # bore under the clamp's band. The basin drains THROUGH the stub, so the drain's lead is the
+    # stub's own bore and there is no length of anything else to leave room for.
+    ("hopper-funnel.drain", "hopper-drain-stub.funnel"),
+    # The spout's exit face and the union's upper collet face, which meet. That contact is what
+    # leaves no stub standing in the room between the silicone and the fitting.
+    ("hopper-funnel.drain", "hopper-drain-union.stub"),
 )
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
@@ -581,6 +629,13 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("co2-inlet", "port-ring-co2"),
     ("bulkhead-flavor-a", "port-ring-flavor-a"),
     ("bulkhead-flavor-b", "port-ring-flavor-b"),
+    # THE BASIN'S DISCONNECT, WHICH IS THREE CONTACTS ON ONE AXIS. The stub is inside the spout's
+    # bore for the whole of the spout's land; the band lies on the spout's outer face and closes
+    # the silicone between the two; and the union's collet face meets that same spout's exit
+    # face, which is what leaves no stub showing in the room between them.
+    ("hopper-funnel", "hopper-drain-stub"),
+    ("hopper-funnel", "hopper-drain-clamp"),
+    ("hopper-funnel", "hopper-drain-union"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
