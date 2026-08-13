@@ -71,9 +71,8 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
     # flavor

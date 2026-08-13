@@ -15,30 +15,30 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede"><span class="dim" data-gen="PLUG_COUNT">3</span> printed
+    <p class="lede"><span class="dim" data-gen="PLUG_COUNT">2</span> printed
     plugs close the wall's <strong>two lane slots</strong>, each gripping its
     slot like a <strong>binder clip</strong> — and <strong>the tube is the
     gap</strong> between end arches.</p>
 
     <ol class="steps">
-      <li><b>Sort them by lane first.</b> <b>lower</b> then <b>middle</b>
-        tile the <b>west lane</b> — the PRV vent crosses UNDER the copper
-        there; <b>top</b> is the whole port stack, because one line
-        crosses that lane.</li>
+      <li><b>One plug per lane, and they are the same part.</b> Each lane
+        carries one copper crossing at one height, so each plug runs that
+        station to the wall top — <b>west</b> and <b>port</b> name the slot
+        each goes in, not two geometries.</li>
       <li><b>Slide each down its own slot from above</b> — web in the
         slot, wall in the gap between the flanges: the binder-clip
         grip.</li>
       <li><b>Arches seat the tubes — never crushing.</b> A plug's bottom
         arch takes the upper half of the line under it.</li>
-      <li><b>Both stacks close flat at the wall top</b> — only
-        <b>lower</b> arches at both ends.</li>
+      <li><b>Both close flat at the wall top</b> — each arches at its
+        foot only, over the copper it seals.</li>
       <li><b>Leave the slivers to the pour</b> — the rounded slot bottom
         and the bands round each tube fill at CC-14.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Parts</span>
-      copper-plug lower / middle / top &#8212; printed PETG
+      copper-plug west / port &#8212; printed PETG, one geometry &#215; 2
     </div>
   </div>
 
@@ -88,43 +88,41 @@
         <circle class="cu" cx="520" cy="347.0" r="5"/>
         <circle class="ghost" cx="520" cy="367.1" r="5"/>
         <circle class="ghost" cx="520" cy="379.5" r="5"/>
-        <!-- west lane band: lower (19.75-27.75) then middle (27.75-top) -->
+        <!-- west lane band: one plug, the whole column (27.75-wall top) -->
         <rect class="petg" x="638" y="59.2" width="44" height="330.8"/>
-        <rect x="654.9" y="59.2" width="10.1" height="313.0" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
-        <rect class="plug" x="653.4" y="347.0" width="13.2" height="12.4"/>
+        <rect x="654.9" y="59.2" width="10.1" height="300.6" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
         <rect class="plug" x="653.4" y="59.2" width="13.2" height="287.8"/>
         <circle class="cu" cx="660" cy="347.0" r="5"/>
-        <circle class="cu" cx="660" cy="359.4" r="5"/>
         <!-- z callouts, fanned clear of one another -->
         <line class="dimln" x1="480" y1="392" x2="510" y2="349"/>
         <text class="dimtx" x="474" y="400" text-anchor="end" data-gen="EVAP_IN_Z">27.75</text>
         <line class="dimln" x1="700" y1="300" x2="670" y2="347.0"/>
         <text class="dimtx" x="706" y="296" data-gen="EVAP_OUT_Z">27.75</text>
-        <line class="dimln" x1="700" y1="392" x2="670" y2="361"/>
-        <text class="dimtx" x="706" y="400" data-gen="PRV_VENT_Z">19.75</text>
         <!-- which plug is which -->
-        <text class="sub" x="520" y="418" text-anchor="middle">top</text>
-        <text class="sub" x="520" y="444" text-anchor="middle">the whole stack</text>
-        <text class="sub" x="660" y="418" text-anchor="middle">lower + middle</text>
+        <text class="sub" x="520" y="418" text-anchor="middle">port</text>
+        <text class="sub" x="520" y="444" text-anchor="middle">the whole column</text>
+        <text class="sub" x="660" y="418" text-anchor="middle">west</text>
+        <text class="sub" x="660" y="444" text-anchor="middle">the same part again</text>
       </svg>
-      <div class="cap"><b>End faces meet at the tube centers</b> — no
-      linear gaps in either stack; the tube is the gap. Grey: the field's
-      two reed cables, which take no plug.</div>
+      <div class="cap"><b>One plug per lane, and the two are one part</b> —
+      each runs from its own copper's center to the wall top, and the arch at
+      its foot is the gap. Grey: the field's two reed cables, which take no
+      plug.</div>
     </div>
 
     <table class="spec" style="margin-top:16px">
-      <tr><td>lower &#183; west</td><td class="v" data-gen="PLUG_LOWER">19.75 &#8594; 27.75</td>
-          <td>middle &#183; west</td><td class="v" data-gen="PLUG_MIDDLE">27.75 &#8594; 213.4</td></tr>
-      <tr><td>top &#183; port</td><td class="v" data-gen="PLUG_TOP">27.75 &#8594; 213.4</td>
-          <td>Slot &#183; wall top</td><td class="v" data-gen="SLOT_W">&#8960;6.5</td></tr>
-      <tr><td>Station pitch</td><td class="v" data-gen="FIELD_PITCH">8</td>
-          <td>Wall stands</td><td class="v" data-gen="SHELL_H">213.4</td></tr>
+      <tr><td>west</td><td class="v" data-gen="PLUG_WEST">27.75 &#8594; 213.4</td>
+          <td>port</td><td class="v" data-gen="PLUG_PORT">27.75 &#8594; 213.4</td></tr>
+      <tr><td>Slot &#183; wall top</td><td class="v" data-gen="SLOT_W">&#8960;6.5</td>
+          <td>Station pitch</td><td class="v" data-gen="FIELD_PITCH">8</td></tr>
+      <tr><td>Wall stands</td><td class="v" data-gen="SHELL_H">213.4</td>
+          <td>Plugs</td><td class="v" data-gen="PLUG_COUNT">2</td></tr>
     </table>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span><span data-gen="PLUG_COUNT">3</span> plugs gripping the wall edge, every arch closed on its tube, both stacks flush with the wall top.</div>
+  <div class="done"><span class="lbl">Done when</span><span data-gen="PLUG_COUNT">2</span> plugs gripping the wall edge, each arch closed on its copper, both flush with the wall top.</div>
   <div class="src">cold-core.md &#167;5 &#183; copper_plugs.py<br>_cards_sync.py &#183; rev 2026-08-07</div>
 </footer>
 

@@ -75,7 +75,6 @@ import cadquery as cq
 
 from _cold_core_interface import (
     bulkhead_elbow_exit_z,
-    front_wall_x,
     cap_conduit_shell_xy,
     co2_inlet_y,
     foam_shell_outer_height,
@@ -83,6 +82,7 @@ from _cold_core_interface import (
     lldpe_bend_radius,
     lldpe_tube_od,
     port_hole_radius,
+    outer_shell_y_length,
     port_lane_mid_y,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
@@ -107,7 +107,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / "copper-plugs"))
 sys.path.insert(0, str(Path(__file__).resolve().parent / "prv-shroud"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import reservoir as _reservoir  # noqa: E402
-import copper_plugs as _plugs  # noqa: E402
 import prv_shroud as _shroud  # noqa: E402
 from _routing import stock_min, stock_of  # noqa: E402
 import _overlap  # noqa: E402
@@ -156,18 +155,39 @@ forward_band_x = cap_conduit_shell_xy("water-in")[0]
 reservoir_cap_z = _reservoir.cap_assembly_lift
 reservoir_cap_top_z = reservoir_cap_z + _reservoir.cap_total_height
 
-# THE PRV'S RELIEF, both ends of it. `prv-shroud` caps the SV-125 for the pour and vents
-# through its BARREL's underside rather than its cap face, so what leaves the shroud is
-# already pointing down the lane and takes no corner to get onto it
-# (`prv-shroud/prv_shroud.py` says why the cap cannot). WHICH lane is the vessel's port
-# clocking (`_cold_core_interface.prv_port_y`) and it is read off the station the wall leaves
-# rather than restated, so the cup, the line and the plug that seals it cannot land on three
-# different strips. The far end is that station, in the same slot and under the same plug stack
-# (`copper_plugs.columns`). Between them the line is one fall and one corner.
-_prv_vent_lane, prv_vent_lane_y = _plugs.station_lane("prv-vent")
+# THE PRV'S RELIEF, and the only line that leaves this core by a FLANK. `prv-shroud` caps the
+# SV-125 for the pour and vents through its BARREL's underside, so what leaves the shroud is
+# already pointing down and takes no corner to start (`prv-shroud/prv_shroud.py` says why the
+# cap cannot send one). The bore stands on the west lane's own y by the station it is bored at,
+# so the line falls that lane, turns once, and goes straight out the +Y wall.
+#
+# WHY THIS ONE DOES NOT LEAVE BY THE LID. The core is reached through its lid because nothing
+# potted in it can ever be reached again — every other run here ends on a fitting the machine
+# makes up, the seven on the cap deck and the two coppers on the refrigeration base's own picks.
+# A relief vent has no far fitting: it terminates open, and what it owes is the shortest path to
+# air outside the cabinet. THE TUBE IS THE THROTTLE IN A RELIEF PATH: the SV-125's rated
+# discharge is about what a bare 1/4" orifice passes at its set pressure, so every diameter of
+# tube after the bore is friction taken straight off that number. This line is drawn the short
+# way out, and the appliance's own chase carries the discharge down the OUTSIDE of the west wall
+# — where length costs nothing, because the chase runs several times the tube's bore in section.
+prv_vent_lane_y = west_lane_mid_y
 prv_vent_start = (0.0, prv_vent_lane_y,
                   tank_top_plate_z + hole_shift_from_edge - _shroud.outer_diameter / 2.0)
-prv_vent_cross_z = _plugs.slot_station("prv-vent")[0][2]
+prv_vent_flank_y = outer_shell_y_length / 2.0     # the +Y outer face, where it leaves
+
+# WHAT FIXES THE TWO ENDS IS THE ONE CORNER BETWEEN THEM, so neither is a chosen height.
+# A square corner sets back one radius on each of its legs. The OUT leg has the lane-to-wall
+# standoff to spend and that is under the stock arc on its own, so the tube stands proud of the
+# flank to finish it; the FALL leg has to find the whole setback in the drop from the bore, and
+# nothing above it can be traded — the bore is one shroud radius under the top plate's band and
+# the shell's top is over that. So the fall is the arc plus a margin, and the crossing is
+# wherever that lands. Move the arc, the shroud or the plate and the station follows.
+prv_vent_fall_margin = 2.0
+prv_vent_cross_z = prv_vent_start[2] - (route_bend_radius + prv_vent_fall_margin)
+# How far the tube stands proud of the flank. The corner needs only what the out leg is short
+# by; the rest is SOCKET — the appliance's chase presents a bore across the band on this axis
+# and the tube bottoms in it, so the discharge is carried and not spilled into the band.
+prv_vent_reach = 8.0
 
 # WHERE THE WATER INLET CROSSES THE VESSEL'S OWN TOP. Its port is the top plate's −Y hole and
 # its conduit stands over the +Y band, so the line has to cross the axis somewhere in the band
@@ -322,14 +342,14 @@ def _routes():
             (carb_x, carb_lane_y, lane_step_top_z),
             (carb_x, carb_lane_y, conduit_mouth_z),
         ],
-        # The PRV's relief, and the only line here that starts on a PRINTED part rather
-        # than on a fitting: out of the shroud's underside pointing down, the lane's whole
-        # height, and out through the wall at its own station into the appliance interior,
-        # where it ends open. Unpressurized until the valve pops.
+        # The PRV's relief: the only line here that starts on a PRINTED part rather than on a
+        # fitting, and the only one that leaves by a FLANK instead of by the lid. Out of the
+        # shroud's underside pointing down, one corner, and straight out the +Y wall into the
+        # socket the appliance's chase holds across the band. Unpressurized until the valve pops.
         "prv-vent": [
             prv_vent_start,
             (prv_vent_start[0], prv_vent_lane_y, prv_vent_cross_z),
-            (front_wall_x - wall_and_floor_thickness, prv_vent_lane_y, prv_vent_cross_z),
+            (prv_vent_start[0], prv_vent_flank_y + prv_vent_reach, prv_vent_cross_z),
         ],
         # The two fills are the gap between two bores: the cap conduit above and the bore in
         # the reservoir's own cap below, with the pour clearance over the reservoir between
