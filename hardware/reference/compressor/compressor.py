@@ -176,13 +176,13 @@ def stations() -> dict:
 
     An ELLIPSE HAS NO FLAT FACE. This shell touches a neighbour's plane along ONE LINE — the
     tangent at its own extreme — so both picks stand on a tangent and nowhere else, where a
-    box would let a station stand anywhere on a wall. Discharge on the
-    +X tangent, at `SHELL_OFFSET_Y` because that is where the +X extreme falls; suction on
-    the +Y tangent, on the shell's centreline. A neighbour mated to this body meets it there,
-    which is what the two of them read as one point."""
+    box would let a station stand anywhere on a wall. Both stand at `SHELL_OFFSET_Y`, because
+    that is where the two X extremes fall: discharge on the +X tangent, suction on the -X one,
+    the two of them on opposite flanks of the same can. A neighbour mated to this body meets it
+    there, which is what the two of them read as one point."""
     return {
         "refrig-discharge": ((SHELL_X / 2.0, SHELL_OFFSET_Y, DISCHARGE_Z), (1.0, 0.0, 0.0)),
-        "refrig-suction":   ((0.0, SHELL_OFFSET_Y + SHELL_Y / 2.0, SUCTION_Z), (0.0, 1.0, 0.0)),
+        "refrig-suction":   ((-SHELL_X / 2.0, SHELL_OFFSET_Y, SUCTION_Z), (-1.0, 0.0, 0.0)),
     }
 
 
@@ -191,10 +191,10 @@ def stations_hold():
     takes, and inside the shell's standing height."""
     for name, (pos, axis) in stations().items():
         if axis[0]:
-            want = (SHELL_X / 2.0, SHELL_OFFSET_Y)
+            want = (math.copysign(SHELL_X / 2.0, axis[0]), SHELL_OFFSET_Y)
             got = (pos[0], pos[1])
         else:
-            want = (0.0, SHELL_OFFSET_Y + SHELL_Y / 2.0)
+            want = (0.0, SHELL_OFFSET_Y + math.copysign(SHELL_Y / 2.0, axis[1]))
             got = (pos[0], pos[1])
         if abs(got[0] - want[0]) > 1e-9 or abs(got[1] - want[1]) > 1e-9:
             raise ValueError(
@@ -346,7 +346,7 @@ def selftest():
     return [
         f"  power face centred at ({fy:g}, {fz:g}) on the box's own -Y plane",
         f"  both loop stubs stand on a shell tangent — discharge +X at z {DISCHARGE_Z:g}, "
-        f"suction +Y at z {SUCTION_Z:g}",
+        f"suction -X at z {SUCTION_Z:g}",
         f"  the process stub leaves -Y at z {pz:g}, {PROCESS_OVER_BOX:g} over the cover, "
         f"and the saddle bands it at y {py:g}",
         f"  envelope stands {SHELL_X:g} x {BASE_Y:g} x {OVERALL_H:g} off the mounting plane",
