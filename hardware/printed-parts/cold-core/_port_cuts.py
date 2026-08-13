@@ -11,8 +11,8 @@ B's is in its +Y wall, onto the west lane; and the CO2's is the port lane run th
 way, its line coming DOWN from the cap into a bore that runs the whole reach in.
 
 The carbonated-water outlet has no opening here at all. It crosses the tank support
-ring at one of the ring's own slots, on the column its cap conduit stands over —
-`water_outlet_ring_crossing_x` is that column, and the assertion under it is what
+ring at one of the ring's own slots, on the column it CLIMBS — `water_outlet_climb_x`,
+which its cap conduit no longer has to stand over — and the assertion under it is what
 holds the crossing inside the slot.
 
 Only the two lane slots open on the shell's −X FACE. The two reed cables take the
@@ -32,6 +32,7 @@ from _cold_core_interface import (
     outer_shell_x_length,
     reservoir_bulkhead_port_x,
     cap_conduit_shell_xy,
+    water_outlet_climb_x,
     co2_inlet_y,
     co2_lane_x,
     lldpe_tube_od,
@@ -55,14 +56,15 @@ from _support_ring import slot_angular_width, slot_count
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
 # WHERE THE CARBONATED-WATER OUTLET LEAVES THE RING, and the one thing this module says
-# about that line: it crosses at a SLOT, on the column its own cap conduit stands over,
-# so the line turns once under the tank and then climbs on one X the whole way up. The
+# about that line: it crosses at a SLOT, on the column it CLIMBS, so the line turns once
+# under the tank and holds one X the whole way up to the lane. What it does once it is ON
+# the lane is the lane's business and not this module's. The
 # ring is already slotted at four azimuths (`_support_ring`) to let the pour reach the
 # under-tank floor, and one of them lies where a line heading for that column wants to
 # go — so this crossing costs no bore, notches no bearing segment, and the ⌀6.5
 # standard does not apply to it. The assertion is what keeps it inside the slot when
 # either the column or the ring moves.
-water_outlet_ring_crossing_x = cap_conduit_shell_xy("carb-water-out")[0]
+water_outlet_ring_crossing_x = water_outlet_climb_x
 support_ring_outer_radius = tank_coil_envelope_radius
 support_ring_inner_radius = support_ring_outer_radius - support_ring_radial_width
 

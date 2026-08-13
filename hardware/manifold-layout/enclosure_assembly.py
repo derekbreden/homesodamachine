@@ -226,7 +226,7 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 # lever swing as well as the well, so a lug can be worked in place.
 CLUSTER_WAGOS = {
     "wago-mana": (+1, 113.0, 290.0, "420"),
-    "wago-manb": (-1, 119.0, 275.0, "415"),
+    "wago-manb": (-1, 119.0, 281.0, "415"),
     "wago-reeds-b": (-1, 248.0, 296.0, "420"),
     "wago-reeds-a": (-1, 300.0, 310.0, "415"),
     "wago-sensors": (-1, 335.0, 300.0, "415"),

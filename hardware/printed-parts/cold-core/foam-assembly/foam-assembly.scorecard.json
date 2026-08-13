@@ -85,8 +85,8 @@
    "value": "8 run-lane pairs",
    "target": "a reading, not a bound",
    "detail": [
-    "port-lane: carb-water-out at z 13.8..233.4, x -51.7..-20.6",
-    "port-lane: co2-in at z 13.8..233.4, x -13.7..50.0",
+    "port-lane: carb-water-out at z 13.8..233.4, x -55.4..-20.6",
+    "port-lane: co2-in at z 13.8..233.4, x -4.7..50.0",
     "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
     "port-lane: reservoir-a at z 2.8..233.4, x -138.7..104.1",
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
@@ -106,7 +106,7 @@
    "detail": [
     "carb-water-out start: 13.9 mm of straight into the bottom plate's PP010822E collet, 28.0 wanted",
     "reservoir-a start: 14.5 mm of straight into reservoir A's floor-bulkhead collet, 28.0 wanted",
-    "carb-water-out end: 28.2 mm into a bore, which takes a lean",
+    "carb-water-out end: 28.1 mm into a bore, which takes a lean",
     "co2-in start: 202.4 mm into a bore, which takes a lean",
     "prv-vent start: 2.0 mm into a bore, which takes a lean",
     "prv-vent end: 7.0 mm into a bore, which takes a lean",
@@ -1195,13 +1195,13 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 316.28,
+   "length": 316.49,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 238.6,
+   "reach": 239.06,
    "reachGrade": "C",
    "binding": null,
    "corners": [
@@ -1231,7 +1231,7 @@
     }
    ],
    "need": {
-    "detour": 1.326
+    "detour": 1.324
    }
   },
   {
@@ -1241,13 +1241,13 @@
    "to": "carbonator-vessel.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 321.09,
+   "length": 312.09,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 222.72,
+   "reach": 221.83,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -1265,7 +1265,7 @@
     }
    ],
    "need": {
-    "detour": 1.442
+    "detour": 1.407
    }
   },
   {

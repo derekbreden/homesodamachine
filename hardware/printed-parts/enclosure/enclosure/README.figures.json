@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
     "APPLIANCE_HEIGHT": "358 mm",
-    "BOX_SIZE": "221 \u00d7 473 \u00d7 358 mm",
+    "BOX_SIZE": "215 \u00d7 473 \u00d7 358 mm",
     "CORE_HOLD_LAND": "8 mm",
     "CORE_HOLD_REACH": "12 mm",
     "CORE_HOLD_RISE": "40 mm",
@@ -9,7 +9,7 @@
     "CORE_STOP_BORE": "24.4 mm",
     "CORE_STOP_RISE": "40 mm",
     "CORE_STOP_WEB": "6 mm",
-    "CORE_STOP_WIDE": "41 mm",
+    "CORE_STOP_WIDE": "38 mm",
     "COUPON_SIZE": "158 \u00d7 140 \u00d7 136 mm",
     "DISPLAY_FACET_SLOPE": "83 mm",
     "DISPLAY_FACET_X": "119.5 mm",
