@@ -21,7 +21,7 @@
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "ebd0ccfb4924b9bcf6b88596bb6e20f2",
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": "7acd305f8485ab8644e8930391ef1854",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "85be901e851d1720ecaafcce58a7591b",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "337545b031b3becb1f69b03b750ddf56",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "7255e32b1dd34999e877af4d114f2056",
     "hardware/printed-parts/enclosure/port-ring/port_ring.py": "e97690d8403ee668b9b353bc39ddb96f",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "b076996f1578ec833a685f8860ce96d6",
     "hardware/printed-parts/enclosure/valve-panel/valve_panel.py": "161c44f22530efff1170a1699eeeb745",
