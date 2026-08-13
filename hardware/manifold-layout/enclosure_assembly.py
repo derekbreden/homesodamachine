@@ -1274,9 +1274,20 @@ def core_stops(foam) -> tuple:
     `cx, cy` is the centre the core's own corner round is struck on and `r` that round's radius,
     read off `_cold_core_interface` through the placement, so a block is pocketed about the same
     axis the corner is. Those three are the whole of what the wall is handed: how far the block
-    laps, stands and webs is the box's own figure."""
+    laps, stands and webs is the box's own figure.
+
+    THE CORNER IS READ OVER THE COURSE THE BLOCK STANDS AGAINST, and not off the body's box. The
+    core carries printed features on its cap — valve cradles, tube anchors — and one of those
+    standing proud of the shell's footprint moves that box in a plane no block is near. A station
+    struck on the box carries BOTH blocks forward off a corner that has not moved, at
+    ±(flank − r), where nothing is proud at all: 3 mm on the centreline reads `cy` 187 for a
+    corner still at 190. So the footprint is taken over the block's own height, which is the
+    outline the pocket wraps and the only part of the core it can touch."""
     b, r = box(foam), _cci.corner_round_radius
-    return tuple((sign * (b.xmax - r), b.ymin + r, r) for sign in (-1.0, 1.0))
+    course = foam.intersect(_boxed(b.xmin - 1.0, b.xmax + 1.0, b.ymin - 1.0, b.ymax + 1.0,
+                                   b.zmin, b.zmin + _enc.core_stop_rise))
+    foot = box(course)
+    return tuple((sign * (foot.xmax - r), foot.ymin + r, r) for sign in (-1.0, 1.0))
 
 
 def core_holds(foam) -> tuple:
