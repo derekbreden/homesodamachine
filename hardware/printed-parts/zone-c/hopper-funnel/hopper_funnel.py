@@ -40,11 +40,14 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "worm-clamp"))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_step
 from docgen import substitute_md
 # The bound this file states about its own collar, recorded at import for the machine's card.
 import _stated_bounds as _bounds
+# The band that closes the spout on the drain stub, and so the length of round the spout owes it.
+import worm_clamp as _clamp
 
 # --- funnel parameters ------------------------------------------------------
 # The collar sits at least one `brim_margin` inside the zone-C top-wall frame on
@@ -81,9 +84,13 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # scorecard's `room-holds` gate). It takes that band whole rather than stopping at the
 # floor: the collar already fills its frame in both axes, so depth is the only thing
 # left that buys capacity.
+#   The band the chute stands in is the fall, and the SPOUT takes its cut of that band first:
+# the clamp land below is straight tube, and every millimetre of it lowers the drain exactly as a
+# millimetre of chute does. So the two are one budget, and the chute is the half of it that buys
+# capacity while the spout is the half that buys a joint.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
-chute_h = 27.65        # straight rectangular chute height — brim top down to the ramp start
+chute_h = 21.65        # straight rectangular chute height — brim top down to the ramp start
 neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
                         # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
                         # centre: the two source valves leave it between their coils and the
@@ -108,7 +115,12 @@ ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-r
                         # its pump-discharge crossings use are directly under the spout.
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 6.0        # straight spout tube below the ramp tip
+clamp_shoulder = 2.0    # silicone left standing either side of the clamp's band
+# The straight spout tube below the ramp tip — the CLAMP LAND. The drain stub runs up the
+# whole of it (`reference/hopper-drain-stub`) and the worm clamp's band closes on the middle,
+# between two shoulders. Above the tip the outer face is the ramp cone, and it is the ramp's
+# own grade over the collar's own half-run: a band that reaches it closes on nothing.
+spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder
 # The drop stacks the chute below the brim, the ramp rise the shallowest line
 # needs at its grade, and the spout tube.
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + neck_dx
@@ -249,6 +261,7 @@ def main():
         variables={
             "HOPPER_SPOUT_ID": f"{spout_id:g} mm",
             "HOPPER_CHUTE": f"{chute_h:g} mm",
+            "HOPPER_LAND": f"{spout_tube:g} mm",
             "HOPPER_DROP": f"{total:.0f} mm",
             "HOPPER_CAP": f"{fill / 1000.0:.0f} mL",
             "HOPPER_HOLD": f"{brim_overhang:g} mm",

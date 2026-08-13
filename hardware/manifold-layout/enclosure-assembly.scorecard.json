@@ -42,16 +42,16 @@
  ],
  "placed": 100,
  "located": 100,
- "shaped": 97,
+ "shaped": 98,
  "routed": 100,
- "mounted": 89,
+ "mounted": 91,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "78/78 declared",
+   "value": "81/81 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -65,7 +65,7 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
-    "hopper-funnel: the fall off the spout `fluid-4`'s first corner turns in \u2014 wants 14, has 14.588",
+    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 14.578",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 14.000",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
@@ -99,7 +99,7 @@
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
    "status": "pass",
-   "value": "65/65 clear",
+   "value": "67/67 clear",
    "target": "all clear",
    "detail": [
     "a port needs 2 bend radii of its own bore along its own axis, clear of every body but the one its own line joins it to \u2014 the pack's own interior mouths carry a swept line off the collet and ask for none",
@@ -131,6 +131,10 @@
     "bulkhead-flavor-b \u2014 port-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 port-ring-flavor-a: 0.000 mm \u2014 seated against it",
     "bulkhead-carb \u2014 port-ring-carb: 0.000 mm \u2014 seated against it",
+    "hopper-funnel \u2014 hopper-drain-stub: 0.000 mm \u2014 seated against it",
+    "hopper-funnel \u2014 hopper-drain-clamp: 0.000 mm \u2014 seated against it",
+    "hopper-funnel \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
+    "hopper-drain-stub \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
@@ -140,18 +144,22 @@
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.056 mm",
+    "fluid-4 \u2014 step-fluid-5: 1.206 mm",
+    "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "water-3 \u2014 fluid-4: 1.711 mm",
     "water-7 \u2014 co2-2: 1.725 mm",
-    "fluid-4 \u2014 coil-v-a: 1.980 mm",
-    "fluid-4 \u2014 coil-v-b: 1.980 mm",
-    "fluid-4 \u2014 valve-v-a: 2.054 mm",
+    "fluid-4 \u2014 coil-v-a: 1.981 mm",
+    "fluid-4 \u2014 coil-v-b: 1.981 mm",
+    "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm",
+    "fluid-4 \u2014 valve-v-a: 2.055 mm",
     "fluid-14 \u2014 fluid-16: 2.091 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "carb-1 \u2014 fluid-18: 2.266 mm",
     "fluid-28 \u2014 foam-assembly: 2.449 mm",
+    "water-3 \u2014 hopper-drain-union: 2.455 mm",
     "carb-1 \u2014 pcba: 2.483 mm",
     "pcba \u2014 relay-1: 2.532 mm",
-    "water-3 \u2014 fluid-28: 2.593 mm",
     "fluid-18 \u2014 vk-solenoid: 2.650 mm",
     "fluid-2 \u2014 fluid-24: 2.685 mm",
     "fluid-14 \u2014 seaflo-pump: 3.009 mm",
@@ -167,9 +175,13 @@
     "fluid-2 \u2014 coil-v-b: 4.325 mm",
     "foam-assembly \u2014 relay-2: 4.500 mm",
     "fluid-24 \u2014 fluid-26: 4.607 mm",
+    "water-3 \u2014 fluid-28: 4.651 mm",
     "coil-v-i \u2014 wago-manb: 4.680 mm",
     "fluid-28 \u2014 fluid-24: 4.802 mm",
-    "fluid-4 \u2014 seaflo-pump: 4.817 mm",
+    "fluid-4 \u2014 seaflo-pump: 4.818 mm",
+    "fluid-26 \u2014 fluid-4: 5.080 mm",
+    "water-3 \u2014 tee-y-a: 5.104 mm",
+    "water-3 \u2014 tee-y-b: 5.104 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "water-3 \u2014 discharge-chain: 5.505 mm",
     "psu \u2014 wago-h: 5.650 mm",
@@ -179,11 +191,7 @@
     "psu \u2014 wago-gnd: 5.650 mm",
     "water-6 \u2014 enclosure-back-top: 5.652 mm",
     "fluid-28 \u2014 wago-reeds-b: 5.827 mm",
-    "fluid-24 \u2014 coil-v-b: 5.851 mm",
-    "water-3 \u2014 tee-y-a: 5.878 mm",
-    "water-3 \u2014 tee-y-b: 5.878 mm",
-    "coil-v-b \u2014 hopper-funnel: 5.979 mm",
-    "coil-v-a \u2014 hopper-funnel: 5.981 mm"
+    "fluid-24 \u2014 coil-v-b: 5.851 mm"
    ],
    "active": true
   },
@@ -796,7 +804,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "11.117 mm to the basin",
+   "value": "16.919 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -885,6 +893,16 @@
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
    ],
+   "active": true
+  },
+  {
+   "id": "core-held",
+   "label": "Every grip on the cold core is closed on it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 grips closed, furthest off 0.196 mm",
+   "target": "every grip within 0.2 mm of the core",
+   "detail": [],
    "active": true
   },
   {
@@ -1062,7 +1080,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 47/47 corners at spec",
+   "value": "B \u2014 52/52 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1076,16 +1094,18 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "51/57 mounted, 14 part of another body, 7 nothing fastens",
+   "value": "52/57 mounted, 14 part of another body, 10 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "display: wall-capture",
     "flow-regulator: tube-hung",
-    "foam-assembly: floor",
     "gasher-co2: wall-capture",
-    "hopper-funnel: wall-capture",
+    "hopper-drain-union: tube-hung",
     "water-split: tube-hung",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
+    "hopper-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
+    "hopper-drain-stub: tube-clamp \u2014 nothing fastens it; The worm clamp closes the basin's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the basin every time it is washed.",
+    "hopper-funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, and the union's collet grips the stub the spout carries \u2014 so the basin is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
     "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
     "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
     "tee-y-c: pack \u2014 nothing fastens it; Its collets make up onto V-E's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
@@ -1100,7 +1120,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "78/78 stated",
+   "value": "81/81 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1141,7 +1161,7 @@
    "label": "Every port a placed body declares is carried into world",
    "kind": "goal",
    "status": "pass",
-   "value": "66/66 located",
+   "value": "68/68 located",
    "target": "every declared port positioned and sized",
    "detail": [],
    "active": false
@@ -1151,12 +1171,12 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "76/78 authored",
+   "value": "79/81 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
     "pump-b-motor: still a bare primitive, 1 solid",
-    "hopper-funnel: 1 box holds 5% material",
+    "hopper-funnel: 1 box holds 4% material",
     "foam-assembly: 5 boxes hold 11% material",
     "ground-stack: 1 box holds 17% material",
     "display: 2 boxes hold 18% material",
@@ -1170,11 +1190,13 @@
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
    "status": "fail",
-   "value": "21/23 within span",
+   "value": "19/23 within span",
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 473.2 mm unheld, 273.2 over",
     "fluid-2: 243.1 mm unheld, 43.1 over",
+    "fluid-4: 227.6 mm unheld, 27.6 over",
+    "water-3: 201.7 mm unheld, 1.7 over",
     "carb-1: 144.3 mm, held at its anchor",
     "co2-2: 119.2 mm, held at its anchor",
     "fluid-28: 187.2 mm, held at its anchor"
@@ -1830,6 +1852,44 @@
    "note": ""
   },
   {
+   "component": "hopper-drain-union",
+   "name": "outlet",
+   "kind": "fluid",
+   "pos": [
+    1.21,
+    165.06,
+    262.578
+   ],
+   "face": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "diam": 6.35,
+   "mates": "fluid-4",
+   "status": "ok",
+   "note": ""
+  },
+  {
+   "component": "hopper-drain-union",
+   "name": "stub",
+   "kind": "fluid",
+   "pos": [
+    1.21,
+    165.06,
+    304.378
+   ],
+   "face": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "diam": 6.35,
+   "mates": "\u2014",
+   "status": "ok",
+   "note": ""
+  },
+  {
    "component": "hopper-funnel",
    "name": "drain",
    "kind": "fluid",
@@ -1844,7 +1904,7 @@
     -1.0
    ],
    "diam": 6.35,
-   "mates": "fluid-4",
+   "mates": "\u2014",
    "status": "ok",
    "note": ""
   },
@@ -2483,7 +2543,7 @@
      358.0
     ]
    ],
-   "fill": 0.0516,
+   "fill": 0.0448,
    "primitive": false,
    "declared": null
   },
@@ -2768,6 +2828,38 @@
    "declared": null
   },
   {
+   "component": "hopper-drain-clamp",
+   "boxes": [
+    [
+     -4.565,
+     154.06,
+     305.628,
+     13.985,
+     172.06,
+     315.128
+    ]
+   ],
+   "fill": 0.407,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "hopper-drain-stub",
+   "boxes": [
+    [
+     -1.965,
+     161.885,
+     288.378,
+     4.385,
+     168.235,
+     316.378
+    ]
+   ],
+   "fill": 0.4219,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "asse1022-assembly",
    "boxes": [
     [
@@ -2884,6 +2976,22 @@
     ]
    ],
    "fill": 0.442,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "hopper-drain-union",
+   "boxes": [
+    [
+     -6.34,
+     157.51,
+     262.578,
+     8.76,
+     172.61,
+     304.378
+    ]
+   ],
+   "fill": 0.4588,
    "primitive": false,
    "declared": null
   },
@@ -3964,11 +4072,11 @@
   {
    "id": "fluid-4",
    "kind": "fluid",
-   "frm": "hopper-funnel.drain",
+   "frm": "hopper-drain-union.outlet",
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 153.63,
+   "length": 227.56,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -3982,8 +4090,8 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      14.59,
-      102.07
+      14.58,
+      29.21
      ]
     },
     {
@@ -3993,12 +4101,45 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      102.07,
-      30.95
+      29.21,
+      41.79
      ]
     },
     {
      "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      41.79,
+      34.28
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 58.4,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      34.28,
+      84.13
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      84.13,
+      30.95
+     ]
+    },
+    {
+     "at": 6,
      "turn": 90.0,
      "radius": 14.0,
      "ratio": 1.0,
@@ -4009,26 +4150,26 @@
      ]
     }
    ],
-   "atSpec": 3,
-   "bends": 3,
+   "atSpec": 6,
+   "bends": 6,
    "worstTurn": 90.0,
-   "seat": 14.588,
-   "reach": 15.475,
-   "reachRatio": 1.1054,
+   "seat": 14.578,
+   "reach": 14.605,
+   "reachRatio": 1.0432,
    "reachGrade": "B",
    "binding": {
-    "leg": 2,
-    "length": 30.951,
+    "leg": 1,
+    "length": 29.21,
     "demand": 2.0,
     "from": [
      1.21,
-     267.13,
-     289.79
+     165.06,
+     248.0
     ],
     "to": [
-     -20.07,
-     267.13,
-     267.32
+     -28.0,
+     165.06,
+     248.0
     ]
    },
    "need": {
@@ -4036,7 +4177,7 @@
      [
       1.21,
       165.06,
-      304.38
+      262.58
      ],
      [
       -20.07,
@@ -4047,11 +4188,11 @@
     "axis": {
      "x": 21.28,
      "y": 78.02,
-     "z": 37.06
+     "z": 4.74
     },
-    "span": 88.96,
-    "path": 153.63,
-    "detour": 1.727
+    "span": 81.01,
+    "path": 227.56,
+    "detour": 2.809
    }
   },
   {
@@ -4942,7 +5083,7 @@
    "to": "vk-solenoid.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 250.28,
+   "length": 252.87,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4957,18 +5098,18 @@
      "grade": "B",
      "legs": [
       16.04,
-      83.14
+      50.14
      ]
     },
     {
      "at": 2,
-     "turn": 90.0,
+     "turn": 17.0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      83.14,
-      142.05
+      50.14,
+      34.51
      ]
     },
     {
@@ -4978,31 +5119,53 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      142.05,
+      34.51,
+      97.0
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 12.6,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      97.0,
+      46.17
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      46.17,
       27.08
      ]
     }
    ],
-   "atSpec": 3,
-   "bends": 3,
+   "atSpec": 5,
+   "bends": 5,
    "worstTurn": 90.0,
    "seat": 16.041,
-   "reach": 41.57,
-   "reachRatio": 2.9693,
+   "reach": 30.02,
+   "reachRatio": 2.1443,
    "reachGrade": "A",
    "binding": {
-    "leg": 1,
-    "length": 83.14,
-    "demand": 2.0,
+    "leg": 2,
+    "length": 34.511,
+    "demand": 1.1496,
     "from": [
      -77.0,
-     240.14,
+     190.0,
      268.1
     ],
     "to": [
      -77.0,
      157.0,
-     268.1
+     258.0
     ]
    },
    "need": {
@@ -5024,8 +5187,8 @@
      "z": 16.04
     },
     "span": 153.55,
-    "path": 250.28,
-    "detour": 1.63
+    "path": 252.87,
+    "detour": 1.647
    }
   },
   {
@@ -5773,8 +5936,11 @@
   },
   {
    "component": "foam-assembly",
-   "by": null,
-   "joint": "floor",
+   "by": [
+    "enclosure-front-bottom",
+    "enclosure-back-top"
+   ],
+   "joint": "seam-capture",
    "kind": "real",
    "rides": null,
    "never": null
@@ -5791,6 +5957,30 @@
    "component": "hopper-funnel",
    "by": null,
    "joint": "wall-capture",
+   "kind": "real",
+   "rides": null,
+   "never": "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, and the union's collet grips the stub the spout carries \u2014 so the basin is held down by the joint it releases from. It is a dishwasher part and comes out by hand."
+  },
+  {
+   "component": "hopper-drain-stub",
+   "by": null,
+   "joint": "tube-clamp",
+   "kind": "real",
+   "rides": null,
+   "never": "The worm clamp closes the basin's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the basin every time it is washed."
+  },
+  {
+   "component": "hopper-drain-clamp",
+   "by": null,
+   "joint": "tube-clamp",
+   "kind": "real",
+   "rides": null,
+   "never": "A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it."
+  },
+  {
+   "component": "hopper-drain-union",
+   "by": null,
+   "joint": "tube-hung",
    "kind": "real",
    "rides": null,
    "never": null

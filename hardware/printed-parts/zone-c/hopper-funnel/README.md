@@ -22,7 +22,7 @@ bottom:
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [27.65 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [21.65 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
@@ -36,8 +36,16 @@ bottom:
   air-purge path, so the tube from drain to V-B must only fall. The pack is
   measured on the real solids by the enclosure-assembly scorecard. Total drop
   [54 mm](HOPPER_DROP) below the brim.
+- **The clamp land.** That spout tube is [12 mm](HOPPER_LAND) of straight round,
+  which is a worm clamp's band and a shoulder of silicone either side of it. A
+  1/4" LLDPE stub runs up the whole of it and the band closes the silicone onto
+  the stub — the joint is made at the factory and washes with the basin
+  ([`reference/hopper-drain-stub`](/hardware/reference/hopper-drain-stub/), card
+  SA-06). The stub is what the machine's push-fit collet grips, since a collet
+  grips tube and this spout is silicone. Every millimetre of this land lowers the
+  drain exactly as a millimetre of chute does, so the two come out of one budget.
 
-Capacity to the brim is [809 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [669 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's
