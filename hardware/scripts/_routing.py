@@ -38,9 +38,18 @@ Coordinates are the assembly's world frame. Authorship:
 """
 
 import math
+import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 
 import cadquery as cq
+
+# `port_colors`, for `SPOOLS` below. It reaches for `enclosure_assembly` inside its own
+# functions and never at import, so the arrow points one way.
+_bp = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "back-panel"
+if str(_bp) not in sys.path:
+    sys.path.insert(0, str(_bp))
+import _back_panel_dimensions as _rear                 # noqa: E402
 
 # A port's declared face → the outward normal the line must leave along.
 FACE_NORMAL = {
@@ -533,6 +542,72 @@ def stock_min(kind: str, diam: float) -> float:
     """The roundest a corner in this stock is ever asked to be — its published minimum radius,
     and the ceiling a run carries when its author names none."""
     return stock_of(kind, diam).min_bend
+
+
+# The spool each run is cut off. A stock is a material at a diameter; a SPOOL is a stock in one
+# colour, keyed by that colour, and `names` is the fluid the colour identifies. White, blue and
+# red are `_back_panel_dimensions.port_colors` read through, so a tube, the ring around the hole
+# it leaves by, and the customer's own tube outboard of that ring are one colour struck once.
+@dataclass(frozen=True)
+class Spool:
+    name: str
+    rgb: tuple           # 0–255, the units `port_colors` is stated in
+    names: str
+    alpha: float = 1.0
+
+
+SPOOLS = {
+    "white": Spool("neoFlo white 1/4\" LLDPE (LLDPE4-WHITE)",
+                   _rear.port_colors["water"], "tap water"),
+    "blue": Spool("neoFlo blue 1/4\" LLDPE (LLDPE4-BLUE)",
+                  _rear.port_colors["carb"], "carbonated water"),
+    "red": Spool("neoFlo red 1/4\" LLDPE (LLDPE4-RED)",
+                 _rear.port_colors["co2"], "CO2"),
+    "black": Spool("neoFlo black 1/4\" LLDPE (LLDPE4-BLACK)", (38, 38, 41), "nothing"),
+    "clear": Spool("neoPure reinforced clear PVC 3/8\" ID (PVCR-0610)", (206, 214, 218),
+                   "nothing", alpha=0.6),
+    "copper": Spool("1/4\" soft ACR copper", (184, 115, 51), "nothing"),
+}
+
+# Which spool a run is cut off. Its connection id gives it for all but five:
+#
+#   `fluid-1/2/3` are the flavour circuit's tap-water leg — the split's branch, the regulator
+#   that throttles it, and V-A's outlet into Y-A. `fluid-3` is the last of them; everything
+#   downstream of Y-A has met the hopper's syrup.
+#
+#   `water-6/7` are the SeaFlo's two stubs, 3/8" reinforced PVC over a moulded barb under a
+#   clamp.
+#
+# The cold core's own potted routes carry their own names and name their spools in
+# `foam_assembly.ROUTE_SPOOLS`.
+SPOOL_OF = {"fluid-1": "white", "fluid-2": "white", "fluid-3": "white",
+            "water-6": "clear", "water-7": "clear"}
+_BY_PREFIX = {"water": "white", "fluid": "black", "co2": "red", "carb": "blue",
+              "refrig": "copper"}
+
+
+def spool_of(cid: str) -> Spool:
+    """The spool one run is cut off, by its connection id."""
+    if cid in SPOOL_OF:
+        return SPOOLS[SPOOL_OF[cid]]
+    prefix = str(cid).rsplit("-", 1)[0]
+    if prefix not in _BY_PREFIX:
+        raise KeyError(
+            f"no spool declared for `{cid}` — name it in SPOOL_OF, or give its circuit a prefix "
+            f"in _BY_PREFIX (have: {', '.join(sorted(_BY_PREFIX))})")
+    return SPOOLS[_BY_PREFIX[prefix]]
+
+
+def color(key: str) -> "cq.Color":
+    """One spool's colour as an assembly takes it, in 0–1."""
+    s = SPOOLS[key]
+    return cq.Color(*(c / 255.0 for c in s.rgb), s.alpha)
+
+
+def tube_color(cid: str) -> "cq.Color":
+    """One run's colour — the spool it is cut off, by its connection id."""
+    s = spool_of(cid)
+    return cq.Color(*(c / 255.0 for c in s.rgb), s.alpha)
 
 
 def _caps(bends: list, bend, cid: str, diam: float) -> dict:
