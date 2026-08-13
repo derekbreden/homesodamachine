@@ -108,18 +108,12 @@ def main():
     grand = sum(sums.values())
 
     variables = {"BATCH_SIZE": BATCH_SIZE, "LABOR_RATE": f"${LABOR_RATE:,}"}
-    counts = {"BATCH_SIZE": 1, "LABOR_RATE": 2}
     for n, v in sums.items():
         variables[f"LAB_SEC{n}"] = f"{v:,}"
         variables[f"LAB_HM{n}"] = hm(v)
         variables[f"LAB_USD{n}"] = usd(v)
-        counts[f"LAB_SEC{n}"] = 1        # the section's own subtotal row
-        counts[f"LAB_USD{n}"] = 1        # the Totals table
-        # The Totals table, plus §6 and §8 cited in "where the next jig pays".
-        counts[f"LAB_HM{n}"] = 2 if n in (6, 8) else 1
     variables["LAB_HM"] = hm(grand)
     variables["LAB_USD"] = usd(grand)
-    counts.update({"LAB_HM": 2, "LAB_USD": 1})
 
     if "--check" in sys.argv:
         if offenders:
@@ -138,7 +132,7 @@ def main():
         print("labor.md totals ✓")
         return 0
 
-    substitute_md(LABOR, variables, counts)
+    substitute_md(LABOR, variables)
     for n in sorted(sums):
         print(f"  §{n:<2} {hm(sums[n]):>10}   {usd(sums[n]):>10}")
     print(f"  ── {hm(grand):>10}   {usd(grand):>10}")
