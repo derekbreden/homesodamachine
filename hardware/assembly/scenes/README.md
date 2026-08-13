@@ -10,7 +10,8 @@ contains exactly it.
 | `back-top` | The back top piece and the 38 bodies it carries, seen in through its own open faces |
 | `front-top` | The front top piece and its flavor manifold — eight valves, both pumps, two lever nuts, the display |
 | `cap-lid-fill` | The top cap and its lid alone, poured, that face bare |
-| `cap-lid` | The same pair with the pump, three valves, both chains and two runs on that face |
+| `cap-lid` | The same pair with the pump, three valves, both chains and one run on that face |
+| `cold-core-open` | The core closed underneath and open at the top, every line standing out of the mouth, ready for its body pour |
 | `cold-core` | The whole core, its crown populated and a tube standing in each of its seven cap conduits |
 | `back-half` | The two back quadrants mated, through the Y-seam mouth they hand the front half |
 | `hopper-drain` | The basin inverted, its drain stub and clamp on the spout |
@@ -25,7 +26,7 @@ moves to another parent moves scenes with it and no list goes stale.
 
 Three things that table cannot say are stated in [`_scenes.py`](_scenes.py): **which piece a body
 bears on** when nothing fastens it (`BEARS_ON` — a slab it lands on, a line it hangs off), **where
-the camera goes**, and the four below. A body the fastening table leaves parentless and `BEARS_ON`
+the camera goes**, and the five below. A body the fastening table leaves parentless and `BEARS_ON`
 does not name is reported, not dropped.
 
 **`parts` draws part of a root.** The cold core is one solid in the machine, and the unit a
@@ -45,6 +46,11 @@ already standing ([EN-08](/hardware/assembly/cards/en-08-drip-tray.html), FS). S
 its bench unit and neither is in its picture, and whatever stands on one goes with it: the
 moisture plate lies in the tray. A name here the roots do not hold is reported.
 
+A run can be late too. The cap's lid prints a rib for `fluid-14`, so the anchor table hands that
+run to the cold core and every unit built on the core takes it — `cap-lid` among them, where the
+run's far end is a valve on a piece nobody has brought. That rib leaves the bench empty, and the
+run is made up when the core is plumbed.
+
 **A run joins a unit by its ends** — the unit that holds both of its mouths, or the unit whose
 rib closes on it. That second clause is how `fluid-14` is part of the cold core's finished state
 with its far end still hanging, and how the pump's hose stubs come with the pump.
@@ -53,13 +59,16 @@ with its far end still hanging, and how the pump's hose stubs come with the pump
 A length of tube is made up once, on the unit whose mouth it can reach, and leaves that bench
 with its far end in the air: `fluid-18` goes into the nozzle-A union with the back top still
 open, and the three reservoir lines go into the core's own cap conduits with the core still on
-its own. Two mouths cannot say that — a run with one mouth in a unit is as often one the unit
-*receives* — so those are named per scene. A name there the scene already derives is reported.
+its own. Those are named per scene. A name there the scene already derives is reported.
 
-**The pictures are shaded solid.** The viewer ghosts an assembly by default, which is how a body
-nested three deep is read through the ones over it; a unit card asks what the thing looks like
-when it leaves the bench, and that answer is the silhouette — an opaque wall, and the inside seen
-through the mouth the unit actually leaves open. `render-step-posed.js --solid`.
+**`without` is one unit stated as another, less a third.** `cold-core-open` is `cold-core` without
+everything `cap-lid` carries — the pump, the three valves, both chains and every run between them
+stand on a plate that is not down yet. It names the other scene and takes its members out, less
+the roots they share, so a body that moves onto the crown leaves this picture with it.
+
+**The pictures are shaded solid** — opaque walls, and the inside seen through the mouth the unit
+leaves open. `render-step-posed.js --solid`; the viewer's own default is x-ray, which every part
+draws through.
 
 ## Cost
 

@@ -20,11 +20,8 @@
 //   --bg #hex        background. Default #1a1a2e (site navy)
 //   --trim           trim to background and cap long side 1600 (default: off —
 //                    cards want the exact framed viewport)
-//   --solid          shade the assembly solid instead of the viewer's default
-//                    x-ray ghost. A ghost draws every part through every other
-//                    one, which is how you read a body nested three deep; a
-//                    picture of a unit a hand is about to pick up wants the
-//                    silhouette a hand meets, so the unit cards ask for this.
+//   --solid          opaque surfaces, no feature-edge ghost (default: the
+//                    viewer's own x-ray, which every part draws through)
 //   --ortho          orthographic projection (dimension-drawing look)
 //   --edition id     which machine's tree the step path is in (web/lib/editions.js).
 //                    Default kitchen.
@@ -156,9 +153,8 @@ async function renderOne({ stepRel, outAbs, opts }) {
       sceneMod.stopAnimate();
       controls.enabled = false;
 
-      // X-ray is the viewer's default and is remembered per browser; a headless
-      // render gets a fresh profile every time, so this call is the only thing
-      // that decides which way the assembly is shaded.
+      // xray.js remembers the mode in localStorage; a headless render lands on a
+      // fresh profile, so it reads the default.
       if (o.solid) (await import("/js/viewer/xray.js")).setXrayEnabled(false);
 
       const box = new THREE.Box3().setFromObject(currentGroup);

@@ -362,6 +362,11 @@ def sub_assemblies(m: Machine):
                            if by == "enclosure-back-top" and n.startswith("tube-"))
     cap_ribs = sorted(n for n, by in holder.items()
                       if by == "foam-assembly" and n.startswith("tube-"))
+    # A rib the cap prints and a rib a strap closes are two counts. `fluid-14` reaches a valve
+    # on the front top, so its channel leaves SA-04 empty and SA-07 is where the tie goes on.
+    cap_lid = _scenes.SCENE_BY_ID["cap-lid"]
+    ribs_strapped = [n for n in cap_ribs if n not in cap_lid.later]
+    ribs_empty = [n for n in cap_ribs if n in cap_lid.later]
     cap_chains = under("foam-assembly", "cradle")
     cap_cradled = [n for n in cap_chains if n.startswith("valve-") or n == "vk-solenoid"]
     cap_chain_bodies = [n for n in cap_chains if n.endswith("-chain")]
@@ -377,7 +382,8 @@ def sub_assemblies(m: Machine):
     # the scene holds it back, which is the pair of readings those two sentences
     # stand on.
     for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "hopper-funnel"),
-                             ("hopper-drain", "hopper-drain-union")):
+                             ("hopper-drain", "hopper-drain-union"),
+                             ("cap-lid", "tube-fluid-14")):
         scene = _scenes.SCENE_BY_ID[scene_id]
         assert holder.get(absent) in scene.roots and absent in scene.later, (
             f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
@@ -393,6 +399,12 @@ def sub_assemblies(m: Machine):
     # exactly a far end nobody has taken yet — so SA-05's four and SA-07's five are one reading
     # with the pictures beside them, not two numbers typed next to two photographs.
     hanging = {sid: _scenes.SCENE_BY_ID[sid].also for sid in ("back-half", "cold-core")}
+
+    # SA-08 IS SA-07 LESS SA-04, and the card's count of standing lines is that subtraction taken
+    # rather than a number beside a picture: the runs the open core still carries once everything
+    # its top cap holds comes off it.
+    open_core = sorted(n for n in _scenes.named(_scenes.SCENE_BY_ID["cold-core-open"], m.a.runs)
+                       if n.startswith("tube-"))
 
     # EVERY CAP CONDUIT LEAVES THE CORE CARRYING A TUBE. SA-07 stands one in each and says how
     # many end in the air; both come off the mouths the runs actually land on, so a conduit that
@@ -420,7 +432,9 @@ def sub_assemblies(m: Machine):
         "SA02_WELLS": f"{len(under('enclosure-front-top', 'well'))}",
         "SA04_CRADLES": f"{len(cap_cradled)}",
         "SA04_CHAINS": f"{len(cap_chain_bodies)}",
-        "SA04_RIB_RUNS": f"{len(cap_ribs)}",
+        "SA04_RIB_RUNS": f"{len(ribs_strapped)}",
+        "SA04_RIB_EMPTY": f"{len(ribs_empty)}",
+        "SA08_LINES": f"{len(open_core)}",
         "SA05_HANGING": f"{len(hanging['back-half'])}",
         "SA07_HANGING": f"{len(hanging['cold-core'])}",
         "SA07_CLOSED": f"{len(conduit_runs) - len(hanging['cold-core'])}",
@@ -439,11 +453,13 @@ def sub_assemblies(m: Machine):
                            "FLUID_18_LEN"},
         "sa-02-front-top": {"SA02_SEATED", "SA02_TRAYS", "SA02_WELLS"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
-        "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS"},
+        "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
+                          "SA04_RIB_EMPTY"},
         "sa-05-back-half": {"SEAM_SCREWS_Z", "SA05_HANGING"},
         "sa-06-hopper-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
+        "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
     }
     return facts, cards
 

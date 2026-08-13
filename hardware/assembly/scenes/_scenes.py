@@ -49,7 +49,8 @@ import _realized                                        # noqa: E402
 # direction from the target to the camera, so a scene looking INTO a piece through its own open
 # faces points from the side those faces face. `zoom` is the distance in bounding-box radii and
 # `up` the camera's own up — both handed to `tools/render/render-step-posed.js` unchanged.
-Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom look note")
+Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom look note without",
+                   defaults=(None,))
 
 # WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the
 # carb riser leaves this box entirely — drags the whole scene's bounding box after it and puts
@@ -72,9 +73,8 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 # bench with its far end hanging: `fluid-18` is pushed into the nozzle-A union while the back top
 # is open and travels the length of the machine to a valve the front half has not brought yet,
 # and the three reservoir lines are pushed into the core's own cap conduits with the core still
-# on its own. `runs_for` cannot read that off the two mouths — a run with one mouth in a unit is
-# as often one the unit receives later — so the ones made up early are named, per scene, here.
-# A name here the scene already derives is REPORTED: the row would then be saying nothing.
+# on its own. `runs_for` reads a run off its two mouths and its rib; the ones made up early are
+# named, per scene, here. A name here the scene already derives is REPORTED.
 #
 # `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
 # its piece in the finished machine — the fastening table is right about it — and arrives after
@@ -82,6 +82,15 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 # channels through the −X wall, and the funnel drops into the hopper on nothing but its own brim
 # at final staging. Neither is on the bench unit, so neither is in its picture, and whatever
 # stands on one goes with it. A name here the roots do not hold is reported.
+#   A RUN CAN BE LATE. The cap's lid prints a rib for `fluid-14`, so the anchor table hands that
+# run to the cold core and every unit built on the core takes it — the cap and lid alone on a
+# bench among them, where the run's far end is a valve on a piece nobody has brought. The rib
+# leaves that bench empty and the run is made up when the core is plumbed.
+#
+# `without` IS ONE UNIT STATED AS ANOTHER, LESS A THIRD: the core standing open for its body pour
+# is the plumbed core without everything its top cap carries. It names another scene id and takes
+# that scene's members out of this one, less the roots they share. A body that moves onto the
+# crown leaves this picture with it.
 #
 # `flip` IS THE POSE THE UNIT IS WORKED IN, not a camera trick. A piece open at its ceiling is
 # turned over on the bench so the open faces look up, and the picture shows the piece the way a
@@ -125,11 +134,6 @@ SCENES = (
     # the pump's can read as things standing up off the plate rather than as outlines. `up` is
     # what lays the plate across the frame instead of down it — the long axis runs to the
     # pump, and the pump goes to the top right corner, which is the whole diagonal.
-    #
-    # THE TWO TAKE DIFFERENT DISTANCES FOR THE SAME FRAMING, because `zoom` is a multiple of the
-    # SCENE's radius and only one of them has a run hanging off it: `fluid-14` leaves the
-    # populated plate and doubles the box the bare one fits in. Same pose, same plate, and the
-    # numbers differ by exactly what is hanging.
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
@@ -142,10 +146,16 @@ SCENES = (
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
-        flip=None, also=(), later=(),
-        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.6, look="crown",
+        flip=None, also=(),
+        # THE RIB IS PRINTED HERE AND CLOSED SOMEWHERE ELSE. `fluid-14` runs from V-F on the
+        # front top down onto this lid's reservoir-A fill bore, and this plate is on a bench
+        # with no manifold in the world yet — the run is made up when the core is plumbed, and
+        # what leaves here is an empty channel. The anchor table cannot say that: it knows the
+        # rib is the cap's and stops there.
+        later=("tube-fluid-14",),
+        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "three valves pressed into their cradles, both chains and two runs strapped into "
+             "three valves pressed into their cradles, both chains and one run strapped into "
              "printed ribs. It meets the rest of the core after all of it is on.",
     ),
     Scene(
@@ -163,6 +173,28 @@ SCENES = (
              "the crown populated, and one tube standing in each of the seven cap conduits "
              "with its far end loose. The evaporator's two coppers are not among them — those "
              "are brazed with the machine built, not on this bench.",
+    ),
+    Scene(
+        "cold-core-open", "Cold core, ready to foam",
+        roots=("foam-assembly",),
+        # THE THREE PIECES THAT ARE ON. The shell closed underneath by the bottom cap and its
+        # lid; the top cap and its lid are a unit of their own and go down over the lines after
+        # the pour, so they are not drawn at all rather than drawn empty.
+        parts=("foam-shell", "foam-cap-bottom", "foam-cap-lid-bottom"),
+        flip=None,
+        # The same five the plumbed core is made up with, less the two whose far end is on the
+        # crown — nothing on that face exists yet, so nothing routed to it does either.
+        also=("tube-carb-1", "tube-co2-2", "tube-fluid-16", "tube-fluid-24", "tube-fluid-26"),
+        later=(),
+        # THIS IS THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. The pump, the three valves, both
+        # chains and every run between them stand on a plate that is not down yet, and stating
+        # it that way is what keeps the two pictures one reading apart.
+        without="cap-lid",
+        cam=(0.85, -1.0, 1.0), up=(0, 0, 1), zoom=3.25, look="centre",
+        note="The shell closed underneath, everything that goes inside inside it, and every "
+             "line standing up out of the open mouth. This is what the body pour goes into — "
+             "the top cap comes down over these lines afterwards, and the crown is populated "
+             "on a bench of its own before it does.",
     ),
     Scene(
         "hopper-drain", "Hopper basin drain stub",
@@ -307,8 +339,11 @@ def runs_for(bodies, runs, holder_map):
     return out
 
 
-def members(scene, assembly):
-    """Every child name of the built assembly this scene shows, bodies and tube both."""
+def named(scene, runs):
+    """Every name this scene shows, bodies and tube both, off the tables and the drawn runs.
+
+    A doc driver has the runs and the tables and no machine; a render has all three. This is the
+    half both can ask for — see `members`."""
     holder_map = holders()
     bodies = set()
     for root in scene.roots:
@@ -331,7 +366,22 @@ def members(scene, assembly):
         # whole difference between this picture and the one after it.
         derived = set(scene.roots)
     else:
-        derived = bodies | runs_for(bodies, assembly.runs, holder_map)
+        derived = bodies | runs_for(bodies, runs, holder_map)
+    # `later` reaches the run pass too — a rib alone gives a run to the unit its rib is on.
+    derived -= set(scene.later)
+    if scene.without:
+        other = SCENE_BY_ID[scene.without]
+        if other.without:
+            raise ValueError(
+                f"scene {scene.id!r} is {scene.without!r} less its own {other.without!r}. "
+                f"State this scene against a unit that is drawn whole.")
+        gone = set(named(other, runs)) - set(scene.roots)
+        surplus = sorted(gone - derived)
+        if surplus:
+            raise ValueError(
+                f"scene {scene.id!r} takes {scene.without!r} out of itself and does not carry "
+                f"{', '.join(surplus)} to take. The two are no longer built on the same thing.")
+        derived -= gone
     # WHAT IS ADDED IS SOMETHING THE TABLES GIVE AWAY. A row that names what the scene already
     # takes is a row saying nothing, and the day the tables change their mind about it nothing
     # here would notice.
@@ -341,7 +391,12 @@ def members(scene, assembly):
             f"scene {scene.id!r} names {', '.join(idle)} in `also`, which it already draws. "
             f"`also` is for what the unit carries and the tables hand to another piece — a "
             f"name the scene derives on its own belongs to the tables, not to this row.")
-    names = derived | set(scene.also)
+    return sorted(derived | set(scene.also))
+
+
+def members(scene, assembly):
+    """`named`, held against the machine that has to place every one of them."""
+    names = named(scene, assembly.runs)
     present = {c.name for c in assembly.children}
     missing = sorted(n for n in names if n not in present)
     if missing:
@@ -349,7 +404,7 @@ def members(scene, assembly):
             f"scene {scene.id!r} names {', '.join(missing)}, which the built assembly does not "
             f"place. The fastening table and the anchor tables are what this reads; a body in "
             f"one of them and not in the machine is the table to correct.")
-    return sorted(names)
+    return names
 
 
 # --- the fingerprint -------------------------------------------------------
