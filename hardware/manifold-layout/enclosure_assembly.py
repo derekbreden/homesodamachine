@@ -126,6 +126,7 @@ from _cadq_export import export_assembly              # noqa: E402
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
+import _routing                                       # noqa: E402
 import _overlap                                       # noqa: E402
 # The import-time ledger. Every module below that states a bound about its own constants has
 # already recorded into it by the time this import list is through, so `carry_stated_bounds`
@@ -260,11 +261,11 @@ C_COND = cq.Color(0.78, 0.55, 0.35)
 C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
 C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
 C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
-C_STUB = cq.Color(0.94, 0.95, 0.97)
+# The basin's own length of tube, off the roll `fluid-4` carries on below the union.
+C_STUB = _routing.tube_color("fluid-4")
 C_WORM = cq.Color(0.62, 0.64, 0.68)
 C_PP0408W = cq.Color(0.93, 0.93, 0.90)
 C_SUCT = cq.Color(0.72, 0.72, 0.76)
-C_HOSE = cq.Color(0.35, 0.55, 0.85)
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
 C_PSU = cq.Color(0.20, 0.20, 0.24)
 C_PCBA = cq.Color(0.15, 0.45, 0.25)
@@ -4373,12 +4374,13 @@ def build_pack() -> cq.Assembly:
 
 
 def draw_runs(a: cq.Assembly, runs) -> None:
-    """Sweep each run at its own bore, add it to the assembly, and carry the runs and the port
-    frames they were drawn from. Called once for the pack's own runs and again for the ones a
-    body the box seats is an end of."""
-    for name, solid in _lines.tubes(runs):
+    """Sweep each run at its own bore, add it to the assembly in the colour of the spool it is
+    cut off (`_routing.SPOOLS`), and carry the runs and the port frames they were drawn from.
+    Called once for the pack's own runs and again for the ones a body the box seats is an end
+    of."""
+    for run, (name, solid) in zip(runs, _lines.tubes(runs)):
         _ROUTED.add(name)
-        a.add(solid, name=name, color=C_HOSE)
+        a.add(solid, name=name, color=_routing.tube_color(run.id))
     a.runs = list(a.runs) + list(runs)
     a.frames = _lines.frames(a.pack_solids, a.carries)
 

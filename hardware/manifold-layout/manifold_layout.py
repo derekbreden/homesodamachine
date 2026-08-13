@@ -244,8 +244,6 @@ C_TEE = cq.Color(0.12, 0.12, 0.14)
 C_HEAD = cq.Color(0.16, 0.16, 0.18)
 C_BOSS = cq.Color(0.30, 0.30, 0.33)
 C_MOTOR = cq.Color(0.74, 0.76, 0.80)
-C_TUBE = cq.Color(0.85, 0.88, 0.92)
-C_STUB = cq.Color(0.62, 0.70, 0.78)
 
 
 # --- Placement -------------------------------------------------------------
@@ -819,20 +817,26 @@ def build_assembly() -> cq.Assembly:
         a.add(boss, name=f"{pname}-boss", color=C_BOSS)
         a.add(motor, name=f"{pname}-motor", color=C_MOTOR)
     # Only the segments that carry tube outside their collets get a solid; the rest are butts.
+    # Each is drawn in the colour of the spool it is cut off (`_routing.SPOOLS`), which on this
+    # deck is black everywhere but `fluid-3` — V-A's outlet into Y-A, the last of the tap water
+    # before the hopper's syrup meets it.
     for cid, _f, _t, how in SEGMENTS:
         if how in RUNS and dist(*RUNS[how]) > 1e-9:
-            a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}", color=C_TUBE)
+            a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}",
+                  color=_routing.tube_color(f"fluid-{cid}"))
     for cid, x in SPINE.items():
-        a.add(uturn(x), name=f"tube-fluid-{cid}", color=C_TUBE)
+        a.add(uturn(x), name=f"tube-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     for cid, (x, z0) in QUARTERS.items():
-        a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=C_TUBE)
+        a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     for cid, name in SBENDS.items():
         x, z0 = QUARTERS[cid]
         a.add(sbend((x, BEND_Y + BEND_R, z0 + BEND_R), source_cross(name), SOURCE_TRAVEL),
-              name=f"step-fluid-{cid}", color=C_TUBE)
+              name=f"step-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
+    # A mouth's stub is the first bend radius of the run that leaves on it, and carries that
+    # run's own colour.
     for cid, _p, _what, p, axis in MOUTHS:
         a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
-              name=f"stub-{cid}", color=C_STUB)
+              name=f"stub-{cid}", color=_routing.tube_color(cid))
     return a
 
 
