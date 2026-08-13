@@ -10,11 +10,8 @@ neither channel has a reservoir junction. Segments 15 and 25 do not exist; 14 an
 fills, 16 and 26 the draws. Free here: where every body stands, how it is turned, and which of a junction's
 three ports takes its run.
 
-Built by [`manifold_layout.py`](manifold_layout.py) → `manifold-layout.step`, and the three
-elevations beside it. Two decks of valves over the pumps, the upper one folded onto the lower
+Built by [`manifold_layout.py`](manifold_layout.py) → `manifold-layout.step`. Two decks of valves over the pumps, the upper one folded onto the lower
 about the hinge the four barb tees' front collets stand on.
-
-![plan](manifold-layout.top.png)
 
 ## The bodies, and the figures that set the packing
 
@@ -150,10 +147,6 @@ part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it 
 is 0 as well; a barb is not a quick-connect, so that one is a modelling convenience, and z
 [82.68](DECK_Z2) rides on it one millimetre for one.
 
-![front](manifold-layout.front.png)
-
-![right](manifold-layout.right.png)
-
 ## Standing it on the refrigeration stratum
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
@@ -172,8 +165,6 @@ compressor's suction out of its aft tangent into the evaporator's outlet. `_line
 `refrigerant_joints` reads all three at every build — a mating on its two stations, a tube on
 both its mouths — and `check_refrigerant_joints` writes the card red for any leg standing open
 and for any with no pair of placed stations to measure.
-
-![the enclosure assembly](enclosure-assembly.right.png)
 
 ## Regenerate
 

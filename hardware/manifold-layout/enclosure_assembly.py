@@ -4649,7 +4649,6 @@ def main():
     # that one derivation instead of two.
     import _facts
     print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
-    ml.render_elevations(out, xray="enclosure*")
     # AND THE CARDS' PICTURES, for the scenes whose sources have moved. A scene is a subset of
     # THIS machine, so drawing it here costs the cuts and the renders; asking `render_scenes` for
     # it afterwards costs a second appliance. HSM_SKIP_SCENES leaves them for a hand run.

@@ -53,7 +53,6 @@ tools/cad-venv/
 # Enclosure scorecard cache — local, regenerable, opt-in (HSM_SCORECARD_CACHE)
 *.scorecard-cache.pkl
 *.scorecard-cache.pkl.tmp
-*.views.sha
 *.pack-cache/
 
 # Tessellation written beside each STEP for the viewer to read instead of parsing it
