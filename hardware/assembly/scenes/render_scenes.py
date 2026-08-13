@@ -2,7 +2,8 @@
 
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py            # all
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top   # one
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --stale     # only moved
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --stale    # only moved
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force    # anyway
 
 THE MACHINE IS BUILT ONCE for however many scenes are asked for: a scene is a subset of that one
 assembly, so the cost of four pictures is the cost of one build plus four cuts. What lands in the
@@ -116,7 +117,7 @@ def cut(assembly, scene):
     return out, tuple(mid)
 
 
-def draw(scene, assembly) -> Path:
+def draw(scene, assembly, force=False) -> Path:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     GLB_DIR.mkdir(parents=True, exist_ok=True)
     step = OUT_DIR / f"{scene.id}.step"
@@ -128,8 +129,8 @@ def draw(scene, assembly) -> Path:
     # same way it reads a board's. Same bargain the PCB carrier already takes: the big drawing
     # stays out of the tree, the thing a browser opens goes in.
     #
-    # `GLB_TOL` is what makes it affordable: the five come to 7 MB at this tolerance and three
-    # times that at the 0.1 mm default, and the difference is invisible on a body a browser
+    # `GLB_TOL` is what makes it affordable: the whole set comes to 9 MB at this tolerance and
+    # three times that at the 0.1 mm default, and the difference is invisible on a body a browser
     # draws 900 px wide.
     # Written straight rather than through `_cadq_export`: that helper's atomic write and
     # thumbnail queue are for a repo artifact a page lists, and it is imported by nearly every
@@ -146,7 +147,12 @@ def draw(scene, assembly) -> Path:
     # doubting; these two are what answer the doubt, and most edits in this tree move neither.
     geometry = _scenes.digest_of(step)
     held = _scenes.held_record(png)
-    unchanged = (held.get("geometry") == geometry
+    # WHAT THE SIDECAR WATCHES IS THIS TREE. The renderer's own flags are node's, and a change
+    # there — the shading the card asks for, the trim — moves no file this record hashes. So
+    # `--force` is the way to redraw against a renderer that has moved under a scene that
+    # has not.
+    unchanged = (not force
+                 and held.get("geometry") == geometry
                  and held.get("scene") == _scenes.scene_digest(scene)
                  and png.is_file()
                  and held.get("image") == _scenes.image_fingerprint(png))
@@ -165,6 +171,13 @@ def draw(scene, assembly) -> Path:
             # Trimmed to the subject. A box seen at an angle projects to a parallelogram and
             # leaves a corner of any rectangle empty; the card wants the picture, not the corner.
             "--trim",
+            # SHADED SOLID, WHICH IS WHAT A HAND MEETS. The viewer ghosts an assembly by default
+            # so a body nested three deep can be read through the ones over it, and that is the
+            # right answer for a question about the machine. A unit card asks a different one —
+            # what does this thing look like when it leaves the bench — and its answer is the
+            # silhouette: an opaque wall, and what is seen of the inside seen through the mouth
+            # the unit actually leaves open.
+            "--solid",
         ]
         print("   " + " ".join(cmd[1:]))
         subprocess.run(cmd, cwd=str(_ROOT), check=True)
@@ -189,6 +202,8 @@ def main():
     ap.add_argument("scenes", nargs="*", help="scene ids; default every one")
     ap.add_argument("--stale", action="store_true",
                     help="only the scenes whose fingerprint has moved")
+    ap.add_argument("--force", action="store_true",
+                    help="redraw even where the geometry and the camera both stand")
     args = ap.parse_args()
 
     import check_scenes
@@ -207,10 +222,10 @@ def main():
 
     print(f"building the machine once for {len(scenes)} scene(s)…")
     import enclosure_assembly as ea
-    draw_all(scenes, ea.build_enclosure_assembly())
+    draw_all(scenes, ea.build_enclosure_assembly(), force=args.force)
 
 
-def draw_all(scenes, assembly) -> list:
+def draw_all(scenes, assembly, force=False) -> list:
     """Every scene in `scenes`, off a machine somebody already stood.
 
     The assembly's own run has one in hand when it writes the STEP, so the pictures cost the
@@ -220,7 +235,7 @@ def draw_all(scenes, assembly) -> list:
         names = _scenes.members(scene, assembly)
         print(f"\n{scene.id} — {scene.title}: {len(names)} bodies")
         print("   " + ", ".join(names))
-        out.append(draw(scene, assembly))
+        out.append(draw(scene, assembly, force=force))
         print(f"-> {out[-1].relative_to(_ROOT)}")
     return out
 

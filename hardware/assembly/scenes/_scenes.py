@@ -18,7 +18,7 @@ mouths, or to the unit whose rib closes on it — which is how `fluid-14` is par
 core's finished state with its far end still hanging, and how the pump's two hose stubs come
 with the pump.
 
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py          # all five
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py          # every one
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top # one
 
 Nothing here is committed but the PNG and its fingerprint: the scene STEPs land in `out/`, which
@@ -66,6 +66,15 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 # the sub-solids of the root it wants and `render_scenes.cut` carries them through the root's own
 # placement; the root still decides which bodies come with it.
 #
+# `also` IS THE MIRROR OF `later` — what the unit carries and the tables give to somebody else.
+# A LENGTH OF TUBE IS MADE UP ONCE, on the unit whose mouth it can reach, and it leaves that
+# bench with its far end hanging: `fluid-18` is pushed into the nozzle-A union while the back top
+# is open and travels the length of the machine to a valve the front half has not brought yet,
+# and the three reservoir lines are pushed into the core's own cap conduits with the core still
+# on its own. `runs_for` cannot read that off the two mouths — a run with one mouth in a unit is
+# as often one the unit receives later — so the ones made up early are named, per scene, here.
+# A name here the scene already derives is REPORTED: the row would then be saying nothing.
+#
 # `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
 # its piece in the finished machine — the fastening table is right about it — and arrives after
 # the box is closed, through an opening in a wall: the drip tray slides east into its own
@@ -85,7 +94,11 @@ Scene = namedtuple("Scene", "id title roots parts flip also later cam up zoom lo
 SCENES = (
     Scene(
         "back-top", "Enclosure back top",
-        roots=("enclosure-back-top",), parts=(), flip=((0, 1, 0), 180.0), also=(),
+        roots=("enclosure-back-top",), parts=(), flip=((0, 1, 0), 180.0),
+        # The flavour-A riser, pushed into its union from the room while this piece is open.
+        # It is the longest run in the appliance and its far end is a valve on the front top,
+        # which is why it is made up here rather than reached for down a closed box.
+        also=("tube-fluid-18",),
         later=("drip-pan",),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.3, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
@@ -106,11 +119,16 @@ SCENES = (
              "the mouth to the room. Every seat under this manifold is the piece's own "
              "material, and the hopper opening is an opening — nothing is in it yet.",
     ),
+    # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
+    # down the lid's own normal, leaned just far enough onto the near edge that a valve body and
+    # the pump's can read as things standing up off the plate rather than as outlines. `up` is
+    # what lays the plate across the frame instead of down it — the long axis runs to the
+    # pump, and the pump goes to the top right corner, which is the whole diagonal.
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
         flip=None, also=(), later=(),
-        cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
+        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.5, look="crown",
         note="The top cap and its lid alone, poured and cleaned, the lid's outer face bare. "
              "The shell is not under it yet and nothing stands on it — this is what the next "
              "scene starts from.",
@@ -119,10 +137,26 @@ SCENES = (
         "cap-lid", "Foam shell top cap lid assembly",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
         flip=None, also=(), later=(),
-        cam=(0.5, -0.6, 1.3), up=(0, -1, 0), zoom=2.5, look="crown",
+        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.5, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
              "three valves pressed into their cradles, both chains and two runs strapped into "
              "printed ribs. It meets the rest of the core after all of it is on.",
+    ),
+    Scene(
+        "cold-core", "Cold core, plumbed",
+        roots=("foam-assembly",), parts=(), flip=None,
+        # EVERY CAP CONDUIT CARRIES ITS TUBE OUT OF THIS UNIT. Two of the seven the tables
+        # already give the core — `water-5` has both mouths on it and `fluid-14` lies in a rib
+        # its own cap prints — and the other five are made up here with their far end hanging:
+        # the gas line and the carbonated riser wait on the rear wall's bodies, the three
+        # reservoir lines on valves the flavour manifold has not brought yet.
+        also=("tube-carb-1", "tube-co2-2", "tube-fluid-16", "tube-fluid-24", "tube-fluid-26"),
+        later=(),
+        cam=(0.85, -1.0, 0.75), up=(0, 0, 1), zoom=2.3, look="centre",
+        note="The core as it comes off its own bench and before the box is anywhere near it: "
+             "the crown populated, and one tube standing in each of the seven cap conduits "
+             "with its far end loose. The evaporator's two coppers are not among them — those "
+             "are brazed with the machine built, not on this bench.",
     ),
     Scene(
         "hopper-drain", "Hopper basin drain stub",
@@ -138,12 +172,20 @@ SCENES = (
     ),
     Scene(
         "back-half", "Enclosure back half",
-        roots=("enclosure-back-bottom", "enclosure-back-top"), parts=(), flip=None, also=(),
+        roots=("enclosure-back-bottom", "enclosure-back-top"), parts=(), flip=None,
+        # The four that cross the Y seam: the flavour-A riser off the rear wall's own union,
+        # and the three reservoir lines standing in the core's cap. All four are made up on
+        # this half and all four leave it hanging, for the front half's valves to take.
+        also=("tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
         later=("drip-pan",),
-        cam=(0.95, -1.0, 0.35), up=(0, 0, 1), zoom=2.45, look="centre",
+        # High enough over the box to see down into the mouth AND across the top wall, which is
+        # how the half is looked at with the front one still off the bench: the seam faces the
+        # room and everything the front half must reach is under the eye at once.
+        cam=(0.95, -1.1, 1.4), up=(0, 0, 1), zoom=2.3, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
-             "front half — the last moment anything inside is reachable. The tray is not in "
-             "yet: it goes east into its channels through the −X wall, with the box standing.",
+             "front half — the last moment anything inside is reachable. Four runs hang out of "
+             "that mouth for the front half to take. The tray is not in yet: it goes east into "
+             "its channels through the −X wall, with the box standing.",
     ),
 )
 
@@ -265,7 +307,6 @@ def members(scene, assembly):
     bodies = set()
     for root in scene.roots:
         bodies |= held_by(root, holder_map, scene.later)
-    bodies |= set(scene.also)
     # WHAT IS HELD BACK IS SOMETHING THE PIECE HOLDS. `later` is written against the fastening
     # table, and a body that leaves that piece — or is renamed — leaves the row naming nothing.
     if scene.later:
@@ -282,9 +323,19 @@ def members(scene, assembly):
     if scene.id in BARE:
         # The roots and nothing else — not even the runs their own ribs will hold, which is the
         # whole difference between this picture and the one after it.
-        names = set(scene.roots) | set(scene.also)
+        derived = set(scene.roots)
     else:
-        names = bodies | runs_for(bodies, assembly.runs, holder_map)
+        derived = bodies | runs_for(bodies, assembly.runs, holder_map)
+    # WHAT IS ADDED IS SOMETHING THE TABLES GIVE AWAY. A row that names what the scene already
+    # takes is a row saying nothing, and the day the tables change their mind about it nothing
+    # here would notice.
+    idle = sorted(n for n in scene.also if n in derived)
+    if idle:
+        raise ValueError(
+            f"scene {scene.id!r} names {', '.join(idle)} in `also`, which it already draws. "
+            f"`also` is for what the unit carries and the tables hand to another piece — a "
+            f"name the scene derives on its own belongs to the tables, not to this row.")
+    names = derived | set(scene.also)
     present = {c.name for c in assembly.children}
     missing = sorted(n for n in names if n not in present)
     if missing:

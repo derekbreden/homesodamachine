@@ -333,32 +333,29 @@ def _co2_1(F):
 # and no `water-1` in this table.
 
 
-# Where the machine is CROSSABLE at V-K's inlet height. The valve manifold fills this storey
-# from wall to wall, and a 1/4" line cast east off the split's own column reaches the east wall
-# through one window in it: the junction tee `tee-y-b` closes that window forward, the source
-# column's `step-fluid-5` closes it aft. Re-measure it by sweeping the cast in y —
+# WHERE THE MACHINE IS CROSSABLE, and it is the cold core's own front step. The lid's outer face
+# runs forward at z 253.4 from the deck the valve cradles stand on, and the band over that face —
+# between the core's front and the hopper union's ring — is clear from wall to wall. The crossing
+# lies in it, one lane off the core it is assembled onto, and the core's cap prints the rib that
+# holds it there. Re-measure it by sweeping the cast in y —
 #
-#     w.cast((-74.0, y, w.at("vk-solenoid", "inlet")[2]), (1, 0, 0), dia=6.35)
+#     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
-# `CROSS_Y` sits inside the window's forward lip rather than on its centre. That is the aft
-# leg's doing: the corner at V-K's column seats its arc out of that leg, and whatever is left
-# over is the tube that enters the collet straight — so a crossing further aft is a shorter
-# grip, and the window's centre is not where the run wants to be.
-CROSS_Y = 157.0
-# And how far UNDER V-K's own inlet plane the crossing runs. The hopper's disconnect hangs on the
-# spout's column down to `hopper_drain_stub` + `jg_pp0408w.OVERALL`, and its ring stands in the
-# window this run has always used — so the crossing drops beneath the union's foot and climbs
-# back onto the inlet's plane on V-K's own column, where the mouth is.
-CROSS_DROP = 10.1
-# And where it leaves that plane. The cold core's cap prints a rib on this run
-# (`_cold_core_interface.cap_anchors["water-3"]`) and the rib is bored on the inlet's plane, so
-# the west column holds that height until it is past the rib and takes the drop forward of it.
-CROSS_DROP_Y = 190.0
-# And where it starts climbing back. The lift is spent along the crossing itself rather than on
-# V-K's column: the column has only the collet's own stub on it, and two stock arcs do not fit in
-# that. East of the union's ring there is nothing left to duck, so the last third of the crossing
-# rises while it runs.
+CROSS_Y = 175.0
+# And how far UNDER V-K's own inlet plane it runs. The hopper's disconnect hangs on the spout's
+# column and its ring stands in the storey this run used to cross on, so the crossing drops
+# beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
+# the lid's face, which is what `_cold_core_interface.cap_anchors` states.
+CROSS_DROP = 7.1
+# And where it leaves the inlet's plane. The cap prints a second rib on this run further aft,
+# bored on that plane, so the west column holds the height until it is past that rib.
+CROSS_DROP_Y = 192.0
+# Where it starts leaning off the core again. The crossing hugs the core as far east as the
+# hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
+# the collet needs its own straight, and a crossing that stayed against the core to the end would
+# leave a closing leg too short to turn a stock arc in.
 CROSS_LIFT_X = 20.0
+CROSS_APPROACH_Y = 164.0
 
 
 def _water_3(F):
@@ -385,9 +382,9 @@ def _water_3(F):
         "water-3", "water-split.to-vk",
         (src[0], src[1], dst[2]),           # down the branch onto the inlet's plane
         (src[0], CROSS_DROP_Y, dst[2]),     # forward down the west column, through the cap's rib
-        (src[0], CROSS_Y, z),               # on forward, taking the drop under the union
-        (CROSS_LIFT_X, CROSS_Y, z),         # east through the window, beneath the union's foot
-        (dst[0], CROSS_Y, dst[2]),          # rising east onto V-K's column and the inlet's plane
+        (src[0], CROSS_Y, z),               # on forward, down onto the core's own front lane
+        (CROSS_LIFT_X, CROSS_Y, z),         # east along that lane, beneath the union's foot
+        (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
         kind="water", lead=(None, _ml.STUB),
         note="tap water: split branch → V-K inlet, down the west column, across the window under "
