@@ -9,9 +9,10 @@ keeps.
 WHICH BODIES A UNIT CARRIES IS DERIVED. `_scorecard.MOUNTS` is `(body, the part that holds it,
 the joint)` and is gated at every build, so a body that moves to another parent moves scenes with
 it and no list here goes stale. The three anchor tables say the same thing for the bodies and
-runs a printed rib holds. What is stated below is the three things that table cannot say: which
+runs a printed rib holds. What is stated below is the four things that table cannot say: which
 piece's FLOOR a body stands on when nothing fastens it, which of the bodies it holds a unit has
-not got yet, and where the camera goes.
+not got yet, which run it is carrying that the tables have given to another piece, and where the
+camera goes.
 
 A RUN JOINS A UNIT BY ITS ENDS. A length of tube belongs to the unit that holds both of its
 mouths, or to the unit whose rib closes on it — which is how `fluid-14` is part of the cold
@@ -100,7 +101,7 @@ SCENES = (
         # which is why it is made up here rather than reached for down a closed box.
         also=("tube-fluid-18",),
         later=("drip-pan",),
-        cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.3, look="centre",
+        cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the shelf is seen from where a "
              "hand reaches it. Every body is on it before it goes back the other way, and the "
@@ -124,11 +125,16 @@ SCENES = (
     # the pump's can read as things standing up off the plate rather than as outlines. `up` is
     # what lays the plate across the frame instead of down it — the long axis runs to the
     # pump, and the pump goes to the top right corner, which is the whole diagonal.
+    #
+    # THE TWO TAKE DIFFERENT DISTANCES FOR THE SAME FRAMING, because `zoom` is a multiple of the
+    # SCENE's radius and only one of them has a run hanging off it: `fluid-14` leaves the
+    # populated plate and doubles the box the bare one fits in. Same pose, same plate, and the
+    # numbers differ by exactly what is hanging.
     Scene(
         "cap-lid-fill", "Foam shell top cap lid, filled",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
         flip=None, also=(), later=(),
-        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.5, look="crown",
+        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The top cap and its lid alone, poured and cleaned, the lid's outer face bare. "
              "The shell is not under it yet and nothing stands on it — this is what the next "
              "scene starts from.",
@@ -137,7 +143,7 @@ SCENES = (
         "cap-lid", "Foam shell top cap lid assembly",
         roots=("foam-assembly",), parts=("foam-cap-top", "foam-cap-lid-top"),
         flip=None, also=(), later=(),
-        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.5, look="crown",
+        cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.6, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
              "three valves pressed into their cradles, both chains and two runs strapped into "
              "printed ribs. It meets the rest of the core after all of it is on.",
@@ -152,7 +158,7 @@ SCENES = (
         # reservoir lines on valves the flavour manifold has not brought yet.
         also=("tube-carb-1", "tube-co2-2", "tube-fluid-16", "tube-fluid-24", "tube-fluid-26"),
         later=(),
-        cam=(0.85, -1.0, 0.75), up=(0, 0, 1), zoom=2.3, look="centre",
+        cam=(0.85, -1.0, 1.0), up=(0, 0, 1), zoom=3.25, look="centre",
         note="The core as it comes off its own bench and before the box is anywhere near it: "
              "the crown populated, and one tube standing in each of the seven cap conduits "
              "with its far end loose. The evaporator's two coppers are not among them — those "
@@ -181,7 +187,7 @@ SCENES = (
         # High enough over the box to see down into the mouth AND across the top wall, which is
         # how the half is looked at with the front one still off the bench: the seam faces the
         # room and everything the front half must reach is under the eye at once.
-        cam=(0.95, -1.1, 1.4), up=(0, 0, 1), zoom=2.3, look="centre",
+        cam=(0.95, -1.1, 1.4), up=(0, 0, 1), zoom=3.2, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
              "front half — the last moment anything inside is reachable. Four runs hang out of "
              "that mouth for the front half to take. The tray is not in yet: it goes east into "
