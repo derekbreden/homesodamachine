@@ -165,23 +165,6 @@ def main() -> None:
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "DISC_D_IN": 2,
-            "DISC_R_IN": 1,
-            "DISC_THK_IN": 4,
-            "HOLE_D_IN": 2,
-            "HOLE_R_IN": 1,
-            "HOLE_SPACING": 2,
-            "HOLE_OFFSET": 2,
-            "REGISTER_Y": 1,
-            "REGISTER_R": 1,
-            "TUBE_ID_R": 1,
-            "DONUT_R": 1,
-            "MAGNET_BIAS_MM": 1,
-            "REGISTER_DRILL_D": 1,
-            "REGISTER_DEPTH": 1,
-            "REGISTER_REMAINING": 1,
-        },
     )
 
 

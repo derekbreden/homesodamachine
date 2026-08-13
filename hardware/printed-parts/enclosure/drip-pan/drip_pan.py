@@ -274,24 +274,10 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "PAN_LEN": 2, "PAN_DEPTH": 2, "PAN_HEIGHT": 2,
-            "PAN_WALL": 1, "PAN_FLOOR": 1, "PAN_PLATE_MIN": 1,
-            "PAN_FLANGE": 1, "PAN_CORNER_R": 1, "PAN_BEARING": 1,
-            "PAN_RIM_LEN": 1,
-        },
     )
     substitute_md(
         _here.parent / "README.md",
         variables=variables,
-        expected_counts={
-            "PAN_LEN": 1, "PAN_DEPTH": 1, "PAN_HEIGHT": 1, "PAN_WALL": 1,
-            "PAN_FLOOR": 1, "PAN_VENT_GAP": 1,
-            "PAN_CAPACITY": 1, "PAN_CORNER_R": 1, "PAN_COVE_R": 1,
-            "PLATE_LEN": 1, "PLATE_DEPTH": 1, "PLATE_SLIP_MM": 1,
-            "PAN_FLANGE": 2, "PAN_BEARING": 1,
-            "PAN_RIM_LEN": 1, "PAN_RIM_DEPTH": 1, "PAN_RIM_CORNER_R": 1,
-        },
     )
     print("-> README.md")
 

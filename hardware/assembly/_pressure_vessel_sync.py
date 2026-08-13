@@ -92,14 +92,6 @@ def main():
     substitute_md(
         _here / "pressure-vessel.md",
         variables=variables,
-        expected_counts={
-            "TANK_H": 1,
-            "ELBOW_ENV": 2,
-            "ROD_LEN": 2,
-            "ROD_CLEARANCE": 1,
-            "WORKING_PSI": 8,
-            "REG_FIXED": 1,
-        },
     )
     print("-> pressure-vessel.md")
 

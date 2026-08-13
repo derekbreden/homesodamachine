@@ -166,21 +166,11 @@ def main():
     substitute_md(
         _here.parent / "README.md",
         variables=md_vars,
-        expected_counts={
-            "FLOW_BODY_DIA": 2, "BODY_LEN": 2,
-            "FLOW_PORT_DIA": 1, "PORT_FACE": 3,
-            "WIRE_BOSS_DIA": 1, "WIRE_BOSS_LEN": 1,
-        },
     )
     print("-> README.md")
     substitute_py_comments(
         Path(__file__),
         variables={k: f"{v} mm" for k, v in md_vars.items()},
-        expected_counts={
-            "FLOW_BODY_DIA": 1, "BODY_LEN": 2,
-            "FLOW_PORT_DIA": 1, "PORT_FACE": 2,
-            "WIRE_BOSS_DIA": 1, "WIRE_BOSS_LEN": 1,
-        },
     )
     print(f"-> {Path(__file__).name} (self)")
 

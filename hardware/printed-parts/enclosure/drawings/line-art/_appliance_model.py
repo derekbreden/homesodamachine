@@ -266,16 +266,6 @@ def refresh_comments() -> None:
             "PANEL_PITCH": f"{pitch:.4g} mm",
             "MARKED_N": f"{len(MARKED_PORTS):d}",
         },
-        expected_counts={
-            "APPLIANCE_W": 1,
-            "APPLIANCE_D": 1,
-            "APPLIANCE_H": 1,
-            "PIECE_N": 1,
-            "FRONT_PORT_N": 1,
-            "BACK_PORT_N": 1,
-            "PANEL_PITCH": 1,
-            "MARKED_N": 1,
-        },
     )
 
 

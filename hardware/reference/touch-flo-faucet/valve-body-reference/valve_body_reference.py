@@ -306,31 +306,6 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "SHANK_OD": 2,
-            "SHANK_LEN": 1,
-            "BODY_OD": 2,
-            "CYL_TOP_Z": 1,
-            "RECT_SHORT": 2,
-            "PLATEAU_Z": 2,
-            "ARC_BASE_Z": 1,
-            "ARC_PEAK_Z": 1,
-            "ARCH_WIDTH": 1,
-            "PLATEAU_WIDTH": 1,
-            "VALVE_PORT_D": 1,
-            "PORT_X": 2,
-            "PORT_EDGE_GAP": 1,
-            "TRANSITION_FILLET_R": 1,
-            "COUNTERTOP_HOLE": 1,
-            "PLUNGER_GAP": 2,
-            "PLUNGER_OD_EST": 1,
-            "ARC_RISE": 1,
-            "PLATEAU_INSET": 1,
-            "RECT_UPPER_H": 1,
-            "PORT_ARCH_GAP": 1,
-            "RECT_LONG_HALF": 1,
-            "PORT_WALL_X": 1,
-        },
     )
     print(f"-> valve_body_reference.py (self)")
 

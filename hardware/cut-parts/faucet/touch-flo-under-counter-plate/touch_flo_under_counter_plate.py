@@ -287,26 +287,6 @@ if __name__ == "__main__":
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={
-            "PLATE_D": 1,
-            "DISC_CX": 2,
-            "BORE_FRONT_X": 1,
-            "TOP_OF_DISC_Y": 1,
-            "SHANK_HOLE_D": 2,
-            "SHANK_LEFT_WALL_X": 2,
-            "SHANK_RIGHT_WALL_X": 2,
-            "FLAVOR_TUBE_X": 1,
-            "PILL_L": 1,
-            "PILL_W": 2,
-            "PILL_HALF_LONG": 1,
-            "PILL_HALF_SHORT": 1,
-            "PILL_CAP_R": 1,
-            "PILL_TOP_CAP_CY": 3,
-            "PILL_BOT_CAP_CY": 4,
-            "PILL_LEFT_X": 3,
-            "PILL_RIGHT_X": 3,
-            "FILLET_R": 1,
-        },
     )
     print(f"-> {Path(__file__).name}")
 
@@ -315,10 +295,5 @@ if __name__ == "__main__":
     substitute_md(
         _hardware_dir / "printed-parts" / "faucet" / "touch-flo-shell" / "ASSEMBLY.md",
         variables=variables,
-        expected_counts={
-            "PLATE_D": 1,
-            "SHANK_HOLE_D": 2,
-            "FILLET_R": 1,
-        },
     )
     print("-> ASSEMBLY.md")

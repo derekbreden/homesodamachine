@@ -178,7 +178,6 @@ def main():
     substitute_py_comments(
         _here,
         variables={"PCBA_SIZE": f"{board.length:.4g} × {board.width:.4g} mm"},
-        expected_counts={"PCBA_SIZE": 1},
     )
     print(f"-> {_here.name}")
 

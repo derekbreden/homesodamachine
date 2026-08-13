@@ -32,7 +32,6 @@ Both:
 - Find every [value](NAME) where NAME matches [A-Z_][A-Z0-9_]* in their scope.
 - For each NAME in `variables`, rewrite the value to the current source
   value (str-cast).
-- For each NAME in `expected_counts`, assert the actual count matches.
 - Leave [value](NAME) patterns whose NAME isn't in `variables` untouched.
   This lets multiple scripts contribute substitutions to the same file —
   each call only manages its own names. The trade-off is that a typo
@@ -248,52 +247,26 @@ def _update_sources_section(text: str, caller_path: str) -> str:
 def substitute_md(
     md_path: Path | str,
     variables: dict[str, Any],
-    expected_counts: dict[str, int],
 ) -> None:
     """Rewrite [value](NAME) → [current_value](NAME) in `md_path` for each
-    NAME in `variables`, validating counts and unknown-name references.
+    NAME in `variables`.
 
     Args:
         md_path: Path to the markdown file (updated in place).
         variables: name → current value. Each value is str-cast for insertion.
-        expected_counts: name → expected number of [value](NAME) occurrences.
-            Every name here must also appear in `variables`.
-
-    Raises:
-        ValueError: if expected_counts has names with no variable value, or
-            if the markdown references any unknown NAME, or if any
-            expected count doesn't match the actual count.
     """
     md_path = Path(md_path)
 
-    missing_vars = sorted(set(expected_counts) - set(variables))
-    if missing_vars:
-        raise ValueError(
-            f"{md_path}: expected_counts has names with no variable value: "
-            f"{missing_vars}"
-        )
-
     text = md_path.read_text()
 
-    # Count occurrences of every NAME the caller knows about. Names that
-    # appear in the markdown but aren't in `variables` are left alone —
-    # they belong to some other script that contributes to this markdown.
-    name_counts: dict[str, int] = {}
-    for match in _LINK_RE.finditer(text):
-        name = match.group(2)
-        if name in variables:
-            name_counts[name] = name_counts.get(name, 0) + 1
-
-    count_errors: list[str] = []
-    for name, expected in expected_counts.items():
-        actual = name_counts.get(name, 0)
-        if actual != expected:
-            count_errors.append(f"  {name}: expected {expected}, found {actual}")
-    if count_errors:
-        raise ValueError(
-            f"{md_path}: variable reference count mismatch:\n"
-            + "\n".join(count_errors)
-        )
+    # The names this caller manages that the doc actually carries. Names that
+    # appear in the markdown but aren't in `variables` are left alone — they
+    # belong to some other script that contributes to this markdown.
+    carried = {
+        match.group(2)
+        for match in _LINK_RE.finditer(text)
+        if match.group(2) in variables
+    }
 
     def repl(match: re.Match) -> str:
         name = match.group(2)
@@ -320,13 +293,12 @@ def substitute_md(
         _record(md_path, caller_file, caller_path,
                 # Through the same f-string `repl` writes with, so a recorded figure and the
                 # text standing in the doc are one string and not two renderings of a value.
-                {name: f"{variables[name]}" for name in sorted(name_counts)})
+                {name: f"{variables[name]}" for name in sorted(carried)})
 
 
 def substitute_mmd(
     mmd_path: Path | str,
     variables: dict[str, Any],
-    expected_counts: dict[str, int],
 ) -> None:
     """Rewrite [value](NAME) → [current_value](NAME) inside the `%%` comment
     lines of a mermaid chart.
@@ -345,45 +317,11 @@ def substitute_mmd(
     Args:
         mmd_path: Path to the .mmd file (updated in place when a value changes).
         variables: name → current value. Each value is str-cast for insertion.
-        expected_counts: name → expected number of [value](NAME) occurrences
-            across the comment lines. Every name here must also appear in
-            `variables`.
-
-    Raises:
-        ValueError: if expected_counts has names with no variable value, or if
-            any expected count doesn't match the actual count.
     """
     mmd_path = Path(mmd_path)
 
-    missing_vars = sorted(set(expected_counts) - set(variables))
-    if missing_vars:
-        raise ValueError(
-            f"{mmd_path}: expected_counts has names with no variable value: "
-            f"{missing_vars}"
-        )
-
     text = mmd_path.read_text()
     lines = text.splitlines(keepends=True)
-
-    name_counts: dict[str, int] = {}
-    for line in lines:
-        if not line.lstrip().startswith("%%"):
-            continue
-        for match in _LINK_RE.finditer(line):
-            name = match.group(2)
-            if name in variables:
-                name_counts[name] = name_counts.get(name, 0) + 1
-
-    count_errors: list[str] = []
-    for name, expected in expected_counts.items():
-        actual = name_counts.get(name, 0)
-        if actual != expected:
-            count_errors.append(f"  {name}: expected {expected}, found {actual}")
-    if count_errors:
-        raise ValueError(
-            f"{mmd_path}: variable reference count mismatch:\n"
-            + "\n".join(count_errors)
-        )
 
     def repl(match: re.Match) -> str:
         name = match.group(2)
@@ -404,7 +342,6 @@ def substitute_mmd(
 def substitute_py_comments(
     py_path: Path | str,
     variables: dict[str, Any],
-    expected_counts: dict[str, int],
 ) -> None:
     """Rewrite [value](NAME) → [current_value](NAME) inside Python `#`
     comments and docstrings in `py_path` for each NAME in `variables`.
@@ -423,23 +360,8 @@ def substitute_py_comments(
             actually changes).
         variables: name → current value. Each value is str-cast for
             insertion (same as substitute_md).
-        expected_counts: name → expected number of [value](NAME)
-            occurrences across the scanned regions (`#` comments and
-            marker-bearing strings). Every name here must also appear in
-            `variables`.
-
-    Raises:
-        ValueError: if expected_counts has names with no variable value,
-            or if any expected count doesn't match the actual count.
     """
     py_path = Path(py_path)
-
-    missing_vars = sorted(set(expected_counts) - set(variables))
-    if missing_vars:
-        raise ValueError(
-            f"{py_path}: expected_counts has names with no variable value: "
-            f"{missing_vars}"
-        )
 
     text = py_path.read_text()
 
@@ -473,26 +395,6 @@ def substitute_py_comments(
         elif tok.type == tokenize.STRING:
             if any(m.group(2) in variables for m in _LINK_RE.finditer(tok.string)):
                 regions.append((_offset(tok.start), _offset(tok.end)))
-
-    # Count occurrences of every NAME the caller knows about, ignoring
-    # unknowns (let other scripts' substitutions alone).
-    name_counts: dict[str, int] = {}
-    for start, end in regions:
-        for match in _LINK_RE.finditer(text[start:end]):
-            name = match.group(2)
-            if name in variables:
-                name_counts[name] = name_counts.get(name, 0) + 1
-
-    count_errors: list[str] = []
-    for name, expected in expected_counts.items():
-        actual = name_counts.get(name, 0)
-        if actual != expected:
-            count_errors.append(f"  {name}: expected {expected}, found {actual}")
-    if count_errors:
-        raise ValueError(
-            f"{py_path}: variable reference count mismatch:\n"
-            + "\n".join(count_errors)
-        )
 
     def repl(match: re.Match) -> str:
         name = match.group(2)

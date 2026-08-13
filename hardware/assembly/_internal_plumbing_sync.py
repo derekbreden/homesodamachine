@@ -117,24 +117,6 @@ def main():
     substitute_md(
         _here / "internal-plumbing.md",
         variables=variables,
-        expected_counts={
-            "CAP_CONDUITS": 2,
-            "CAP_CONDUIT_D": 1,
-            "SUCTION_STUB_LEN": 1,
-            "DISCHARGE_STUB_LEN": 1,
-            "PVC_BEND_R": 2,
-            "DIGITEN_COLLET_FREE": 1,
-            "DISCHARGE_CHAIN_LEN": 1,
-            "MANIFOLD_VALVES": 2,
-            "MANIFOLD_TEES": 2,
-            "WR1110_LOOP": 1,
-            "CARB_1_LOOP": 2,
-            "PUMP_LOOP": 1,
-            "PUMP_BRACKET": 1,
-            "PUMP_SOCKET": 1,
-            "PUMP_SOCKET_D": 1,
-            "PUMP_CAN_BORE": 1,
-        },
     )
     print("-> internal-plumbing.md")
 

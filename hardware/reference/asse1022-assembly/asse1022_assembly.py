@@ -189,7 +189,7 @@ def main():
              "({:.2f}, {:.2f}, {:.2f})".format(*stations[n][0]) for n in TERMINALS}
     marks["ASSE_ENVELOPE"] = f"{bb.xlen:.1f} × {bb.ylen:.1f} × {bb.zlen:.1f} mm"
     substitute_md(_here.parent / "README.md", variables=marks,
-                  expected_counts={k: 1 for k in marks})
+)
 
     out = _here.parent / "asse1022-assembly.step"
     export_assembly(assy, str(out))

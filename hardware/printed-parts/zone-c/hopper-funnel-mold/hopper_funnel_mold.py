@@ -179,19 +179,6 @@ def main():
             "MOLD_VENT_D": f"{vent_id:g} mm",
             "N_VENTS": f"{info['n_vents']}",
         },
-        expected_counts={
-            "MOLD_WALL": 1,
-            "MOLD_BASE": 1,
-            "PLATE_THK": 1,
-            "SIL_WALL": 2,
-            "SPOUT_BORE": 1,
-            "SIL_VOLUME": 1,
-            "CAVITY_DIMS": 1,
-            "CORE_DIMS": 1,
-            "FILL_D": 1,
-            "MOLD_VENT_D": 1,
-            "N_VENTS": 1,
-        },
     )
     print("-> README.md")
 

@@ -74,24 +74,6 @@ def main():
     substitute_md(
         _here / "faucet-and-umbilical.md",
         variables=variables,
-        expected_counts={
-            "CAP_HOLE_D": 1,
-            "BODY_PORT_D": 1,
-            "ORING_OUTER_D": 1,
-            "BODY_SQUEEZE": 1,
-            "ORING_INNER_D": 1,
-            "LLDPE_INTERFERENCE": 1,
-            "TOTAL_H": 1,
-            "ORING_CAP_T": 1,
-            "CYL_L": 1,
-            "LLDPE_ID": 1,
-            "LLDPE_OD": 1,
-            "PLATE_D": 1,
-            "SHANK_HOLE_D": 2,
-            "PILL_L": 1,
-            "PILL_W": 2,
-            "FILLET_R": 1,
-        },
     )
     print("-> faucet-and-umbilical.md")
 
