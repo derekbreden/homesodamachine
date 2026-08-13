@@ -93,6 +93,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     west_lane_mid_y,
 )
+from _foam_cap import cap_face_z
 from _port_cuts import (
     co2_inlet_lane_xyz,
     co2_inlet_xyz,
@@ -133,12 +134,15 @@ route_stock = stock_of("fluid", lldpe_tube_od)
 pocket_storey_z = bulkhead_elbow_exit_z                       # both reservoirs' floor bulkheads
 plate_storey_z = front_face_port_z                            # both bottom-plate elbows
 top_band_z = tank_top_plate_z + hole_shift_from_edge          # both top-plate elbows
-shell_top_z = foam_shell_outer_height                         # where a riser meets its conduit
+shell_top_z = foam_shell_outer_height                         # where a riser enters its conduit
+conduit_mouth_z = cap_face_z                                  # and where it comes back out
 
 # WHERE A RISER JOINS A LANE, and what it holds under the shell's top when it gets there.
 # The last leg of every riser is on its conduit's own axis, because the bore through the cap
 # is, and one stock arc of it is what the corner at the bottom of that leg takes. So a line
-# still stepping sideways at the top has that arc to finish in and no more.
+# still stepping sideways at the top has that arc to finish in and no more — the arc is fenced
+# by the SHELL's top and not by the conduit's mouth, because what is over the shell is a ⌀6.5
+# bore and a tube inside it is straight or it is not in it.
 lane_step_top_z = shell_top_z - route_bend_radius
 
 # The strip every riser to the forward band climbs, read off the conduits that stand over
@@ -214,9 +218,12 @@ def co2_run_y(x):
 
 # --- The routes -------------------------------------------------------------
 #
-# Each is a centreline through the shell's own frame, fitting first, conduit last. A run
-# stops at `shell_top_z`, the shell's open top: above that the cap's conduit carries it,
-# and the cap is a different part.
+# Each is a centreline through the shell's own frame, fitting first, conduit last. A run ends at
+# `conduit_mouth_z`, the cap face — one length of tube from the fitting it is made up on, up its
+# lane, through the cap's own bore, and out. That is the plane the machine's run to the same
+# conduit starts on (`enclosure_assembly`'s `foam-assembly.<conduit>` port), so the two are one
+# tube end to end with nothing counted twice and nothing left out between them. With the cap off
+# the bench it is the 40 mm every line stands proud of the shell.
 
 
 def _routes():
@@ -264,7 +271,7 @@ def _routes():
             (water_in_cross_x, west_lane_mid_y, top_band_z),
             (forward_band_x, west_lane_mid_y, top_band_z),
             (forward_band_x, water_in_y, top_band_z),
-            (forward_band_x, water_in_y, shell_top_z),
+            (forward_band_x, water_in_y, conduit_mouth_z),
         ],
         # Reservoir B's trough. Its elbow points straight at its wall bore, so the run out
         # of the pocket is one line across the open space under the raised floor.
@@ -274,7 +281,7 @@ def _routes():
             (-reservoir_bulkhead_port_x, west_lane_mid_y, pocket_storey_z),
             (forward_band_x, west_lane_mid_y, pocket_storey_z),
             (forward_band_x, b_riser_y, pocket_storey_z),
-            (forward_band_x, b_riser_y, shell_top_z),
+            (forward_band_x, b_riser_y, conduit_mouth_z),
         ],
         # Reservoir A's trough. Its wall bore steps inboard of the bulkhead axis to leave
         # the outboard slot for the reed cable, so its elbow is clocked off the wall's own
@@ -285,7 +292,7 @@ def _routes():
             (flavor_line_hole_x, port_lane_mid_y, pocket_storey_z),  # out through the bore
             (forward_band_x, port_lane_mid_y, pocket_storey_z),
             (forward_band_x, a_riser_y, pocket_storey_z),
-            (forward_band_x, a_riser_y, shell_top_z),
+            (forward_band_x, a_riser_y, conduit_mouth_z),
         ],
         # The only line that runs down, and the only riser the port lane carries. It falls the
         # whole shell on the CAP CONDUIT's column, runs the lane's floor to the column the
@@ -294,7 +301,7 @@ def _routes():
         # floor and the conduit is in the cap: the run turns on that floor either way, so the
         # floor leg buys the conduit its own column for the price of a turn already spent.
         "co2-in": [
-            (co2_x, co2_lane_y, shell_top_z),
+            (co2_x, co2_lane_y, conduit_mouth_z),
         ] + ([(co2_x, co2_lane_y, co2_inlet_lane_xyz[2])]
              if abs(co2_x - co2_inlet_lane_xyz[0]) > 1e-9 else []) + [
             co2_inlet_lane_xyz,
@@ -313,7 +320,7 @@ def _routes():
             (carb_x, carb_riser_y, plate_storey_z + carb_co2_rise),
             (carb_x, carb_riser_y, lane_step_top_z - carb_lane_step),
             (carb_x, carb_lane_y, lane_step_top_z),
-            (carb_x, carb_lane_y, shell_top_z),
+            (carb_x, carb_lane_y, conduit_mouth_z),
         ],
         # The PRV's relief, and the only line here that starts on a PRINTED part rather
         # than on a fitting: out of the shroud's underside pointing down, the lane's whole
@@ -329,11 +336,11 @@ def _routes():
         # them and nothing else to cross.
         "reservoir-a-fill": [
             cap_conduit_shell_xy("reservoir-a-fill") + (reservoir_cap_top_z,),
-            cap_conduit_shell_xy("reservoir-a-fill") + (shell_top_z,),
+            cap_conduit_shell_xy("reservoir-a-fill") + (conduit_mouth_z,),
         ],
         "reservoir-b-fill": [
             cap_conduit_shell_xy("reservoir-b-fill") + (reservoir_cap_top_z,),
-            cap_conduit_shell_xy("reservoir-b-fill") + (shell_top_z,),
+            cap_conduit_shell_xy("reservoir-b-fill") + (conduit_mouth_z,),
         ],
     }
 
