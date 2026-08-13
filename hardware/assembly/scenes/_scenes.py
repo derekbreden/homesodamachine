@@ -64,6 +64,12 @@ Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom lo
 # puts there. `INNER_ALL` takes every one of them — the core on a bench with its lid off is a
 # picture of what is inside it, and no list of 63 names belongs in this file.
 INNER_ALL = "*"
+
+# THE BODY THE INNER MODEL IS THE INSIDE OF. The machine places the core under this one name and
+# `cold_core_assembly` is that same object one frame in, so this is both where a scene's `inner`
+# bodies come from and — through the machine's own seating of it — where they stand.
+INNER_ROOT = "foam-assembly"
+
 _COLD_CARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 
 
@@ -112,9 +118,9 @@ def crossings(runs) -> dict:
 
 # `inner` DRAWS THE CORE'S OWN BODIES IN PLACE OF THE MACHINE'S ONE SOLID. The unit a person
 # holds on a bench is the top cap and that cap's lid, or the shell with everything standing in
-# it — neither is a body `enclosure_assembly` has. `render_scenes.cut` carries them through the
-# core's own placement, recovered from the placed solid; the root still decides which of the
-# MACHINE's bodies come with it, so a cap that carries a pump carries it either way.
+# it — neither is a body `enclosure_assembly` has. `render_scenes.cut` stands them under the
+# location that machine seats `INNER_ROOT` with; the root still decides which of the MACHINE's
+# bodies come with it, so a cap that carries a pump carries it either way.
 #
 # `also` IS THE MIRROR OF `later` — what the unit carries and the tables give to somebody else.
 # A LENGTH OF TUBE IS MADE UP ONCE, on the unit whose mouth it can reach, and it leaves that

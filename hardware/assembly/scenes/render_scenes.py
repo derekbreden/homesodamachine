@@ -53,32 +53,24 @@ def png_for(scene) -> Path:
 _CORE = {}
 
 
-def core_bodies(placed_core):
-    """Every body the cold core's own assembly places, carried into the world the core stands in.
+def core_bodies(carry):
+    """Every body the cold core's own assembly places, stood where the machine stands the core.
 
     `enclosure_assembly` imports `foam-assembly.step` as ONE solid, so the machine has no handle
     on the top cap, on the vessel, or on a line inside the shell — and those ARE what a bench
-    unit of the core is made of. `cold-core-layout/cold_core_assembly` is that frame.
+    unit of the core is made of. `cold-core-layout/cold_core_assembly` has them, and it builds in
+    `foam-assembly`'s own frame: the same five printed pieces, and everything else around them.
 
-    THE PLACEMENT IS RECOVERED, NOT RESTATED. `build_foam` yaws the core about Z and then shifts
-    it, and a shift is what is left between two poses of one shape — so the same yaw on the core's
-    own bodies and the offset between the yawed foam stack and the placed one puts every one of
-    them exactly where the machine has it. Nothing here repeats the seat's own rule."""
+    `carry.where` is the placement the machine seats that stack under, so it is what stands
+    these."""
     import cold_core_assembly as cca
-    import enclosure_assembly as ea
-    import foam_assembly as fa
 
-    seat = tuple(round(v, 6) for v in ea.box(placed_core).center.toTuple())
-    if seat in _CORE:
-        return _CORE[seat]
-    yaw = cq.Location(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), ea.FOAM_YAW)
-    _assy, parts = fa.build()
-    whole = cq.Compound.makeCompound([shape for shape, _c in parts.values()]).moved(yaw)
-    shift = ea.box(placed_core).center.sub(ea.box(whole).center)
-    move = cq.Location(cq.Vector(shift.x, shift.y, shift.z))
-    core = cca.build_assembly()
-    _CORE[seat] = {c.name: (c.obj.moved(yaw).moved(move), c.color) for c in core.children}
-    return _CORE[seat]
+    where = carry.where
+    key = repr(where.toTuple())
+    if key not in _CORE:
+        core = cca.build_assembly()
+        _CORE[key] = {c.name: (c.obj.moved(where), c.color) for c in core.children}
+    return _CORE[key]
 
 
 def cut(assembly, scene):
@@ -91,7 +83,7 @@ def cut(assembly, scene):
     import enclosure_assembly as ea
     placed = ea._solids(assembly)
     inner = set(_scenes.inner_of(scene))
-    core = core_bodies(placed[scene.roots[0]][0]) if inner else {}
+    core = core_bodies(assembly.carries[_scenes.INNER_ROOT]) if inner else {}
     names = _scenes.members(scene, assembly)
     # ONE LENGTH OF TUBE, ONE COLOUR. Each model paints its own half — the core tells its eight
     # lines apart, the machine paints fluid — and a picture carrying both would break colour at
