@@ -388,6 +388,26 @@ def sub_assemblies(m: Machine):
     # union states the grip, and the funnel states the wall the band closes.
     _stub.joint_holds()
 
+    # WHAT A UNIT LEAVES THE BENCH HOLDING IN THE AIR. A scene's `also` is what the unit
+    # carries and the fastening tables give to another piece, and for a length of tube that is
+    # exactly a far end nobody has taken yet — so SA-05's four and SA-07's five are one reading
+    # with the pictures beside them, not two numbers typed next to two photographs.
+    hanging = {sid: _scenes.SCENE_BY_ID[sid].also for sid in ("back-half", "cold-core")}
+
+    # EVERY CAP CONDUIT LEAVES THE CORE CARRYING A TUBE. SA-07 stands one in each and says how
+    # many end in the air; both come off the mouths the runs actually land on, so a conduit that
+    # stops being plumbed — or a line that stops leaving by the top — fails here rather than
+    # leaving a sentence quietly wrong beside a picture that has already changed.
+    core_mouths = {f"foam-assembly.{c}" for c in _cci.cap_conduits}
+    conduit_runs = sorted(r.id for r in m.a.runs if r.frm in core_mouths or r.to in core_mouths)
+    assert len(conduit_runs) == len(_cci.cap_conduits), (
+        f"{len(conduit_runs)} run(s) land on the core's {len(_cci.cap_conduits)} cap conduits "
+        f"({', '.join(conduit_runs)}) — SA-07 stands one tube in every one of them")
+    adrift = sorted(set(hanging["cold-core"]) - {f"tube-{r}" for r in conduit_runs})
+    assert not adrift, (
+        f"the cold-core scene hangs {', '.join(adrift)}, which no cap conduit carries — "
+        f"SA-07's loose ends are those conduits' own far ends and nothing else")
+
     facts = {
         "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
         "SA01_CAPTURED": f"{len(captured)}",
@@ -401,6 +421,9 @@ def sub_assemblies(m: Machine):
         "SA04_CRADLES": f"{len(cap_cradled)}",
         "SA04_CHAINS": f"{len(cap_chain_bodies)}",
         "SA04_RIB_RUNS": f"{len(cap_ribs)}",
+        "SA05_HANGING": f"{len(hanging['back-half'])}",
+        "SA07_HANGING": f"{len(hanging['cold-core'])}",
+        "SA07_CLOSED": f"{len(conduit_runs) - len(hanging['cold-core'])}",
         "SA06_STUB_LEN": f"{_stub.LENGTH:g}",
         "SA06_SPOUT_LAND": f"{_stub.FUNNEL_ENGAGEMENT:g}",
         "SA06_UNION_INSERT": f"{_stub.UNION_INSERTION:g}",
@@ -412,13 +435,15 @@ def sub_assemblies(m: Machine):
     }
 
     cards = {
-        "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES"},
+        "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES",
+                           "FLUID_18_LEN"},
         "sa-02-front-top": {"SA02_SEATED", "SA02_TRAYS", "SA02_WELLS"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS"},
-        "sa-05-back-half": {"SEAM_SCREWS_Z"},
+        "sa-05-back-half": {"SEAM_SCREWS_Z", "SA05_HANGING"},
         "sa-06-hopper-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},
+        "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
     }
     return facts, cards
 

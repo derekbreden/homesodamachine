@@ -265,7 +265,8 @@ the built machine, posed, and the column beside it names each body and the joint
 that holds it. What a unit does **not** carry yet is held back in
 [`_scenes.py`](/hardware/assembly/scenes/_scenes.py) — the drip tray and the
 hopper funnel both come in through a wall long after their piece leaves the
-bench.
+bench — and what it carries that the tables give to another piece is added
+there too: a run made up on one unit leaves it with its far end hanging.
 
 | Card | Unit |
 |---|---|
@@ -275,6 +276,7 @@ bench.
 | SA-04 | Foam shell top cap lid assembly |
 | SA-05 | Enclosure back half |
 | SA-06 | Hopper basin drain stub |
+| SA-07 | Cold core, plumbed |
 
 ### GT — Technique (appendix)
 
