@@ -30,6 +30,7 @@ Usage from any generator script:
 
 import atexit
 import filecmp
+import inspect
 import hashlib
 import json
 import os
@@ -46,6 +47,9 @@ from pathlib import Path
 # covers all of them without editing 79 scripts. A newer build supersedes the one
 # already running, and both say so — see _run_lock.py. Taken at import, before any
 # geometry work, so the machine is freed as early as possible.
+_HERE = Path(__file__).resolve()
+_ROOT = _HERE.parents[2]
+
 from _run_lock import acquire as _acquire_build_lock
 
 if sys.argv and sys.argv[0].endswith(".py"):
@@ -485,6 +489,36 @@ def _matches_existing_target(tmp_path, target):
     return target.exists() and filecmp.cmp(tmp_path, str(target), shallow=False)
 
 
+def _stamp_part(target):
+    """What drew `target`, and the digest of everything its text can reach, off the tree.
+
+    TAKEN HERE BECAUSE THIS IS WHERE THE DRAWING MODULE'S OWN `sys.path` IS STANDING. The same
+    module name resolves to a different file — or to none — from a reader's process, so a walk
+    taken anywhere else is not asking about this graph. The drawer records; `check_parts` reads.
+
+    A solid is a build product that the next build LOADS RATHER THAN DRAWS: `foam_assembly`
+    reads `foam-cap-top.step` off the disk, `enclosure_assembly` reads `foam-assembly.step`.
+    Neither edge is an import, so `source_files` cannot walk it and no card's digest covers it."""
+    try:
+        import _realized
+    except ImportError:
+        return
+    for frame in inspect.stack()[1:]:
+        drawer = Path(frame.filename).resolve()
+        if drawer != _HERE and drawer.is_file():
+            try:
+                files = {}
+                for src in _realized.source_files(drawer):
+                    files[Path(src).relative_to(_ROOT).as_posix()] = _realized.code_digest(src)
+                _realized.stamp_write("parts", target, {
+                    "by": drawer.relative_to(_ROOT).as_posix(),
+                    "sources": files,
+                })
+            except (ValueError, OSError):
+                pass                     # a drawer outside this repo records nothing
+            return
+
+
 def _atomic_write(target_path, write_fn):
     """Write atomically; return True if the target's bytes changed, False if
     the new output matched the existing file (no rename performed)."""
@@ -502,6 +536,11 @@ def _atomic_write(target_path, write_fn):
             _canonicalize_pdf(tmp_path)
         # Skip the rename when content matches — keeps target.mtime stable
         # and leaves git status clean across no-op regenerations.
+        # THE STAMP RIDES EVERY RUN, not only the ones that move bytes: a drawer whose
+        # sources moved and whose solid came out the same is a solid this machine has now
+        # watched, and the next pass has no reason to draw it again.
+        if target.suffix == ".step":
+            _stamp_part(target)
         if _matches_existing_target(tmp_path, target):
             os.unlink(tmp_path)
             return False
