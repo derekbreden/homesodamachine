@@ -31,7 +31,7 @@
     "POUR_D": "20 mm",
     "PROT_INLET": "200 mm",
     "PROT_OUTLET": "175 mm",
-    "REED_CONDUIT_XY": "reed-cable-a (134.5, 34), reed-cable-b (-134.5, 34)",
+    "REED_CONDUIT_XY": "reed-cable-a (134.5, 31), reed-cable-b (-134.5, 31)",
     "RESERVOIR_GAP": "0.5 mm",
     "RES_INSERTS": "12",
     "ROLL_SHARE": "1/3",
