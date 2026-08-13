@@ -590,6 +590,20 @@ def _current(target, beside):
         return False
 
 
+def _payload_current(target, mesh):
+    """Whether `mesh` stands for the STEP as it now stands AND states the version the
+    page reads. `_mesh_payload.VERSION` names what a mesh entry carries; the page decodes
+    that version and reads the STEP for any other, so a payload of an older one is a
+    payload to write again — the STEP's bytes need not have moved for that to be true."""
+    if not _current(target, mesh):
+        return False
+    try:
+        import _mesh_payload
+        return _mesh_payload.read_version(mesh) == _mesh_payload.VERSION
+    except Exception:
+        return False
+
+
 def _queue_thumbnail(target_path, source=None):
     target = Path(target_path).resolve()
     if target.suffix != ".step":
@@ -604,12 +618,13 @@ def _queue_thumbnail(target_path, source=None):
     # browser, which is what a thumbnail costs; a shape the generator is still holding
     # tessellates without one.
     #
-    # A payload no older than the STEP was made from these bytes — `_atomic_write` leaves an
-    # unchanged target's mtime alone — so a build that moved nothing re-tessellates nothing.
+    # A payload no older than the STEP, and of the version the page reads, was made from these
+    # bytes by this format — `_atomic_write` leaves an unchanged target's mtime alone — so a
+    # build that moved nothing re-tessellates nothing.
     mesh = target.with_name(target.name + ".mesh")
     payload = None
     if source is not None:
-        payload = str(mesh) if _current(target, mesh) else _write_mesh_payload(target, source)
+        payload = str(mesh) if _payload_current(target, mesh) else _write_mesh_payload(target, source)
     if os.environ.get("HSM_SKIP_THUMBNAILS"):
         return
     if _current(target, target.with_name(target.name + ".png")):

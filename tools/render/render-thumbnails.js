@@ -140,7 +140,8 @@ async function renderRootGroup(root, rels, payloads) {
           if (meshUrl) {
             const resp = await fetch(meshUrl);
             if (resp.ok) {
-              return m.renderMeshes(m.decodeMeshPayload(new Uint8Array(await resp.arrayBuffer())));
+              const decoded = m.decodeMeshPayload(new Uint8Array(await resp.arrayBuffer()));
+              if (decoded) return m.renderMeshes(decoded);
             }
           }
           return await m.renderThumbnail(file);
