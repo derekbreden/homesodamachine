@@ -3952,18 +3952,11 @@ def build_pack() -> cq.Assembly:
     # its boss off. Read straight off the pack the same way: the point a plate lies on is the
     # placed pump's own, and how far it runs to the wall is the box's.
     a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
-    # THE CORE IS PACKED AGAINST THE BACK, not against the bodies ahead of it. It is the body
-    # `rear_seam_clear` is written about — the rearmost content, seated flush on the inner face
-    # of the rear Z-seam lip that hangs off the back wall — so its aft face stands that one
-    # number inside `rear_plane_y`, and the gap left in FRONT of it is what the refrigerant
-    # loop's two drawn legs cross. Struck the other way it would follow whichever body ahead of
-    # it reached furthest, and a block measured again would carry the core, the pump and the
-    # whole service bay with it.
-    #
-    # ONE NUMBER, not two. `enclosure._dims` measures the depth bound against exactly this
-    # standoff, so a second one stated here is a lane the box asks nobody for: the wall reads
-    # clear of the pack, and the millimetres between the core and the lip it is supposed to be
-    # sitting on go unspent.
+    # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
+    # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
+    # the back wall — so its aft face stands that one number inside `rear_plane_y`, which is the
+    # same standoff `enclosure._dims` measures the depth bound against. The gap left in FRONT of
+    # it is what the refrigerant loop's two drawn legs cross.
     top = cap_face(build_foam(0.0)[0])
     core = box(build_foam(0.0)[0])
     foam, foam_carry = build_foam(
@@ -4082,8 +4075,7 @@ def build_pack() -> cq.Assembly:
         # struck on two different ones. `deck_z` drops its four and stands them where the least
         # still has a `DECK_CLEAR` of fall; `nozzle_storey` carries the gate lane's pair over the
         # pump's FEET, which is `PORT_FOOT_CLEAR` — a barrel passing the widest section the
-        # casting has, above which the lane opens by twenty millimetres. Charged the deck's band,
-        # a union standing exactly where its own strike put it reads short by the difference.
+        # casting has, above which the lane opens by twenty millimetres.
         note_room(name, "fall onto what stands under it",
                   PORT_FOOT_CLEAR if name in PANEL_ON_GATE_LANE else DECK_CLEAR,
                   deck_fall[name] if name in deck_fall
