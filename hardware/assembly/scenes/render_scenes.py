@@ -147,10 +147,8 @@ def draw(scene, assembly, force=False) -> Path:
     # doubting; these two are what answer the doubt, and most edits in this tree move neither.
     geometry = _scenes.digest_of(step)
     held = _scenes.held_record(png)
-    # WHAT THE SIDECAR WATCHES IS THIS TREE. The renderer's own flags are node's, and a change
-    # there — the shading the card asks for, the trim — moves no file this record hashes. So
-    # `--force` is the way to redraw against a renderer that has moved under a scene that
-    # has not.
+    # WHAT THE SIDECAR WATCHES IS THIS TREE. The flags below are node's and move no file this
+    # record hashes; `--force` redraws against a renderer that has moved under a standing scene.
     unchanged = (not force
                  and held.get("geometry") == geometry
                  and held.get("scene") == _scenes.scene_digest(scene)
@@ -171,12 +169,8 @@ def draw(scene, assembly, force=False) -> Path:
             # Trimmed to the subject. A box seen at an angle projects to a parallelogram and
             # leaves a corner of any rectangle empty; the card wants the picture, not the corner.
             "--trim",
-            # SHADED SOLID, WHICH IS WHAT A HAND MEETS. The viewer ghosts an assembly by default
-            # so a body nested three deep can be read through the ones over it, and that is the
-            # right answer for a question about the machine. A unit card asks a different one —
-            # what does this thing look like when it leaves the bench — and its answer is the
-            # silhouette: an opaque wall, and what is seen of the inside seen through the mouth
-            # the unit actually leaves open.
+            # A unit as a hand meets it: opaque walls, and what is seen of the inside seen
+            # through the mouth the unit leaves open. The viewer ghosts an assembly otherwise.
             "--solid",
         ]
         print("   " + " ".join(cmd[1:]))

@@ -277,6 +277,7 @@ there too: a run made up on one unit leaves it with its far end hanging.
 | SA-05 | Enclosure back half |
 | SA-06 | Hopper basin drain stub |
 | SA-07 | Cold core, plumbed |
+| SA-08 | Cold core, ready to foam |
 
 ### GT — Technique (appendix)
 
