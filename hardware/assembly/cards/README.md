@@ -258,6 +258,23 @@ One card per procedure step, in the procedure's own order.
 | FS-04 | Pack the install kit + carton |
 | FS-05 | Weigh, label, hand off |
 
+### SA — Sub-assembly states ([scenes/](/hardware/assembly/scenes/))
+
+One card per finished unit rather than per operation: the picture is a cut of
+the built machine, posed, and the column beside it names each body and the joint
+that holds it. What a unit does **not** carry yet is held back in
+[`_scenes.py`](/hardware/assembly/scenes/_scenes.py) — the drip tray and the
+hopper funnel both come in through a wall long after their piece leaves the
+bench.
+
+| Card | Unit |
+|---|---|
+| SA-01 | Enclosure back top |
+| SA-02 | Enclosure front top |
+| SA-03 | Foam shell top cap lid — fill |
+| SA-04 | Foam shell top cap lid assembly |
+| SA-05 | Enclosure back half |
+
 ### GT — Technique (appendix)
 
 General instructions for techniques the numbered cards lean on; each
