@@ -124,7 +124,12 @@ SCENES = (
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
         # they stand one behind the other on two Y planes, and a camera down the valves' own
         # axis draws them as one row.
-        cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=3.3, look="centre",
+        #
+        # THE RADIUS IS NOT THE SILHOUETTE. This piece's box is a cube and the camera looks into
+        # its open corner, so the diagonal it presents runs past what a radius-fitted frame
+        # holds: the fit is taken on the rendered PNG's own borders, and the frame carries the
+        # facet's bottom arris with air under it.
+        cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
              "material, and the hopper opening is an opening — nothing is in it yet.",
@@ -202,7 +207,11 @@ SCENES = (
         # The union is on the far end of the stub and is the joint that PARTS: it stays in the
         # machine when the basin comes out, so it is not on the bench with this one.
         later=("hopper-drain-union",),
-        cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=1.9, look="crown",
+        # THE BRIM IS WHAT THE FRAME HAS TO HOLD, not the spout the card is about. Inverted, the
+        # basin is a 173 mm plate with a 20 mm joint standing on the middle of it, and `crown`
+        # aims at the plate's own face — so the distance is set by the plate's diagonal and the
+        # subject comes out small inside it. Fitted on the PNG's borders.
+        cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=4.0, look="crown",
         note="The basin inverted, which is how the joint is made: the brim is the bench and the "
              "spout stands up where two hands reach it. The stub is in as far as it goes and the "
              "band is on the land between its two shoulders — nothing of the stub shows below "
