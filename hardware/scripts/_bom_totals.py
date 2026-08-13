@@ -76,8 +76,6 @@ def main():
         return f"${v:,.2f}"
     variables = {f"BOM_SEC{n}": fmt(v) for n, v in sums.items()}
     variables["BOM_GRAND"] = fmt(grand)
-    counts = {k: 1 for k in variables}
-    counts["BOM_SEC7"] = 2  # Totals table + §7's inline "Printed parts total"
 
     # --check is the commit gate (.githooks/pre-commit, keyed on bom.md). It
     # exists because the totals went stale twice inside two days: a row's cost
@@ -96,7 +94,7 @@ def main():
         print("bom.md totals ✓")
         return 0
 
-    substitute_md(BOM, variables, counts)
+    substitute_md(BOM, variables)
 
     for n in sorted(sums):
         print(f"  §{n:<2} {fmt(sums[n]):>10}")

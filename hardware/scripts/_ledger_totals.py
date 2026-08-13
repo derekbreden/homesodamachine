@@ -151,7 +151,7 @@ def main():
         print("purchases.md totals ✓")
         return 0
 
-    substitute_md(LEDGER, variables, {k: 1 for k in variables})
+    substitute_md(LEDGER, variables)
 
     print("ACQUIRED by section:")
     for s, v in sec.items():
