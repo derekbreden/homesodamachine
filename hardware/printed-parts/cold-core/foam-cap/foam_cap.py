@@ -18,7 +18,8 @@ sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_printed / "valve-seat"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
-from world_workplane import WorldWorkplane, xy_plane_z_up, yz_plane_x_up
+from world_workplane import (WorldWorkplane, xy_plane_z_up, xz_plane_y_up,
+                             yz_plane_x_up)
 from _cadq_export import export_step
 import valve_seat as seat
 from _foam_cap import (
@@ -54,6 +55,17 @@ from _cold_core_interface import (
     cap_cradle_wall,
     cap_anchors,
     cap_anchor_axis_over_face,
+    cap_side_anchors,
+    cap_side_anchor_height,
+    cap_side_anchor_holds,
+    cap_side_axis_y,
+    cap_side_tunnel_h,
+    cap_side_back_relief,
+    cap_side_cav_w,
+    cap_side_flank,
+    cap_side_depth,
+    cap_side_len,
+    cap_side_wall,
     cap_anchor_cav_w,
     cap_anchor_cav_wall,
     cap_anchor_len,
@@ -231,6 +243,79 @@ def add_chain_anchors(lid, face_z):
     return lid
 
 
+def add_side_anchors(lid, face_z):
+    """Every SIDEWAYS anchor, standing on the lid's outer face at `face_z`.
+
+    A post ACROSS the run rather than along it: its forward face is the run's own axis plane, a
+    half pipe is cut into that face, and the tube is pushed in horizontally.
+
+    ONE BLOCK AND THREE CUTS. The pipe is cut as a full cylinder and the block stops at the axis
+    plane, so what is left is a half pipe whose lip is one edge and not two. The tie's tunnel is
+    cut through under it — the lid's own face is the tunnel's floor, so only its width and its
+    roof are drawn. The tie's channel down the back face is the third.
+
+    The post is unified before it joins the lid, for the reason the up-opening ribs are: a fuse
+    imprints the seam of every solid that went into it."""
+    for name, station in cap_side_anchors.items():
+        cap_side_anchor_holds(name)
+        (cx, cy) = station.centre
+        seat_r = station.seat_r
+        axis_z = face_z + station.over_face
+        roof_z = axis_z - seat_r - cap_side_wall     # the tunnel's roof, one wall under the pipe
+        top_z = face_z + cap_side_anchor_height(name)
+        y0 = cy - cap_side_len / 2.0                 # the post's ends, along the run
+
+        def block(ya, length, za, zb):
+            """One slab of the post: `length` of it along the run, spanning z."""
+            return (
+                WorldWorkplane(xy_plane_z_up)
+                .workplane(offset=za)
+                .polyline([(cx, ya), (cx - cap_side_depth, ya),
+                           (cx - cap_side_depth, ya + length), (cx, ya + length)])
+                .close()
+                .extrude(zb - za)
+            )
+
+        post = block(y0, cap_side_len, face_z, top_z)
+        # THE TIE'S TUNNEL, cut front to back under the pipe. The lid's own face is its floor and
+        # one wall of the post its roof, so what is cut is the width and nothing else.
+        tunnel = (
+            WorldWorkplane(xy_plane_z_up)
+            .workplane(offset=face_z)
+            .polyline([(cx, cy - cap_side_cav_w / 2.0),
+                       (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
+                       (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
+                       (cx, cy + cap_side_cav_w / 2.0)])
+            .close()
+            .extrude(roof_z - face_z)
+        )
+        # The pipe runs ALONG the post, which is the cap's own Y — so its plane is the one whose
+        # normal is Y, and the offset that walks it is the post's own end. Its axis stands
+        # `axis_off` FORWARD of the post's front face, so what the cut leaves in that face is a
+        # seat shallower than a half pipe and the tube beds into it from the room.
+        bore = (
+            WorldWorkplane(xz_plane_y_up)
+            .workplane(offset=y0)
+            .pushPoints([(cap_side_axis_y(name), axis_z)])
+            .circle(seat_r)
+            .extrude(cap_side_len)
+        )
+        # THE TIE'S OWN CHANNEL DOWN THE BACK, on the tunnel's own width and over its mouth, so
+        # the strap leaves the tunnel and climbs the post in one line and the buckle sits in it.
+        relief = (
+            WorldWorkplane(xy_plane_z_up)
+            .workplane(offset=face_z)
+            .polyline([(cx - cap_side_depth + cap_side_back_relief, cy - cap_side_cav_w / 2.0),
+                       (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
+                       (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
+                       (cx - cap_side_depth + cap_side_back_relief, cy + cap_side_cav_w / 2.0)])
+            .close()
+            .extrude(top_z - face_z)
+        )
+        lid = lid.union(post.cut(bore).cut(tunnel).cut(relief).clean().val())
+    return lid
+
+
 def cut_deck_mounts_lid(lid):
     """The lid's opening at every deck-mount station — a standing column passes it, and a
     flush one meets its underside with only the screw crossing."""
@@ -259,8 +344,10 @@ def main():
     # The top lid's outer face is the one surface in this stack anything stands on, so it is
     # the one that carries the valve cradles and the chain anchor — added last, after every hole
     # is cut, because both are material and the openings under them are what they stand clear of.
-    lid_top = add_chain_anchors(
-        add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
+    lid_top = add_side_anchors(
+        add_chain_anchors(
+            add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
+            lid_total_height),
         lid_total_height)
     gasket = build_foam_cap_gasket()
 
@@ -332,9 +419,24 @@ def main():
         + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_wall
         for n, s in cap_anchors.items()
     )
+    # A SIDEWAYS anchor is priced the way it is laid down: one block the post's whole footprint,
+    # standing the lid's face to its own crown, carrying a HALF bore because the pipe's axis is
+    # that block's forward face; then the tie's tunnel taken out under the pipe, and the tie's
+    # channel out of the back — which only reaches the material over the tunnel, the rest of its
+    # own column being tunnel already. A post that swallowed a boss beside it, or a bore that
+    # broke out of its back, comes up over.
+    side_anchor_volume = sum(
+        cap_side_depth * cap_side_len * cap_side_anchor_height(n)
+        - _circle_beyond(s.axis_off, s.seat_r) * cap_side_len
+        - cap_side_depth * cap_side_cav_w * cap_side_tunnel_h(n)
+        - cap_side_back_relief * cap_side_cav_w
+        * (cap_side_anchor_height(n) - cap_side_tunnel_h(n))
+        for n, s in cap_side_anchors.items()
+    )
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
-                  + conduit_lid_relief_volume - cradle_volume - anchor_volume)
+                  + conduit_lid_relief_volume - cradle_volume - anchor_volume
+                  - side_anchor_volume)
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \

@@ -341,7 +341,7 @@ def _co2_1(F):
 #
 #     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
-CROSS_Y = 175.0
+CROSS_Y = 176.5
 # And how far UNDER V-K's own inlet plane it runs. The hopper's disconnect hangs on the spout's
 # column and its ring stands in the storey this run used to cross on, so the crossing drops
 # beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
