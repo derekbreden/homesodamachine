@@ -348,7 +348,6 @@ def sub_assemblies(m: Machine):
     _sys.path.insert(0, str(_hw / "assembly" / "scenes"))
     import _scenes
     import _cold_core_interface as _cci
-    import _foam_cap
     import hopper_drain_stub as _stub
     import hopper_funnel as _funnel
 
@@ -395,11 +394,25 @@ def sub_assemblies(m: Machine):
     # union states the grip, and the funnel states the wall the band closes.
     _stub.joint_holds()
 
-    # WHAT A UNIT LEAVES THE BENCH HOLDING IN THE AIR. A scene's `also` is what the unit
-    # carries and the fastening tables give to another piece, and for a length of tube that is
-    # exactly a far end nobody has taken yet — so SA-05's four and SA-07's five are one reading
-    # with the pictures beside them, not two numbers typed next to two photographs.
-    hanging = {sid: _scenes.SCENE_BY_ID[sid].also for sid in ("back-half", "cold-core")}
+    # WHAT A UNIT LEAVES THE BENCH HOLDING IN THE AIR, and for the two units it is two readings.
+    # A box half's is its `also` rows — runs made up early, which nothing derives. The core's is
+    # read off its crossings: every conduit's tube is drawn whole, so what says whether its far
+    # end is taken is whether the body that end lands on is in the picture too.
+    by_id = {r.id: r for r in m.a.runs}
+
+    def loose(scene_id):
+        drawn = set(_scenes.named(_scenes.SCENE_BY_ID[scene_id], m.a.runs))
+        out = []
+        for _line, half in _scenes.crossings(m.a.runs).items():
+            if half not in drawn:
+                continue
+            run = by_id[half[len("tube-"):]]
+            far = next(e for e in (run.frm, run.to) if not e.startswith("foam-assembly."))
+            if far.split(".")[0] not in drawn:
+                out.append(half)
+        return sorted(out)
+
+    core_loose = loose("cold-core")
 
     # SA-08 IS SA-07 LESS SA-04, drawn from the core's own model rather than the machine's one
     # solid — so the lines it counts are the core's internal ones, standing where the cap is not.
@@ -407,10 +420,9 @@ def sub_assemblies(m: Machine):
     # is the whole of the difference between the two counts.
     open_core = sorted(n for n in _scenes.named(_scenes.SCENE_BY_ID["cold-core-open"], m.a.runs)
                        if n.startswith("line-"))
-    # WHAT A LINE STANDS PROUD OF THE SHELL IS THE CAP'S OWN THICKNESS, and both planes are the
-    # parts' own: the shell states its height and the lid states the face its bore opens on. A
-    # cap that gets thicker moves this figure and the picture beside it together.
-    proud = _foam_cap.cap_face_z - _cci.foam_shell_outer_height
+    # EVERY LINE INSIDE THE SHELL IS DRAWN WHOLE, so the shortest of them is the one a bench
+    # would mistake for a stub — the reservoir fills, which are the gap between two bores plus
+    # the run their conduit hands to the manifold.
     assert len(open_core) == len(_cci.cap_conduits) + 1, (
         f"the open core stands {len(open_core)} internal lines against "
         f"{len(_cci.cap_conduits)} cap conduits — SA-08 says every conduit's line and the PRV "
@@ -425,10 +437,9 @@ def sub_assemblies(m: Machine):
     assert len(conduit_runs) == len(_cci.cap_conduits), (
         f"{len(conduit_runs)} run(s) land on the core's {len(_cci.cap_conduits)} cap conduits "
         f"({', '.join(conduit_runs)}) — SA-07 stands one tube in every one of them")
-    adrift = sorted(set(hanging["cold-core"]) - {f"tube-{r}" for r in conduit_runs})
-    assert not adrift, (
-        f"the cold-core scene hangs {', '.join(adrift)}, which no cap conduit carries — "
-        f"SA-07's loose ends are those conduits' own far ends and nothing else")
+    assert set(core_loose) <= {f"tube-{r}" for r in conduit_runs}, (
+        f"the cold-core scene hangs {', '.join(sorted(set(core_loose)))}, and not every one of "
+        f"them is a cap conduit's own far end — SA-07 counts loose ends by conduit")
 
     facts = {
         "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
@@ -445,10 +456,9 @@ def sub_assemblies(m: Machine):
         "SA04_RIB_RUNS": f"{len(ribs_strapped)}",
         "SA04_RIB_EMPTY": f"{len(ribs_empty)}",
         "SA08_LINES": f"{len(open_core)}",
-        "SA08_PROUD": f"{proud:g}",
-        "SA05_HANGING": f"{len(hanging['back-half'])}",
-        "SA07_HANGING": f"{len(hanging['cold-core'])}",
-        "SA07_CLOSED": f"{len(conduit_runs) - len(hanging['cold-core'])}",
+        "SA05_HANGING": f"{len(_scenes.SCENE_BY_ID['back-half'].also)}",
+        "SA07_HANGING": f"{len(core_loose)}",
+        "SA07_CLOSED": f"{len(conduit_runs) - len(core_loose)}",
         "SA06_STUB_LEN": f"{_stub.LENGTH:g}",
         "SA06_SPOUT_LAND": f"{_stub.FUNNEL_ENGAGEMENT:g}",
         "SA06_UNION_INSERT": f"{_stub.UNION_INSERTION:g}",
@@ -470,7 +480,7 @@ def sub_assemblies(m: Machine):
         "sa-06-hopper-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
-        "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES", "SA08_PROUD"},
+        "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
     }
     return facts, cards
 

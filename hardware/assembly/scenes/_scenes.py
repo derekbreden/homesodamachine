@@ -83,6 +83,23 @@ def inner_of(scene) -> tuple:
         return ()
     return core_names() if scene.inner == INNER_ALL else tuple(scene.inner)
 
+
+def crossings(runs) -> dict:
+    """`line-<conduit>` -> the `tube-<run>` that is the rest of the same length of tube.
+
+    A CAP CONDUIT IS WHERE ONE MODEL HANDS A LINE TO THE OTHER. `_internal_routes` draws to the
+    face the bore opens on, and the machine's own run starts on that same face — at the port both
+    of them call `foam-assembly.<conduit>`. The two halves are joined by a name already, so this
+    reads the pair off the runs rather than keeping a table of them."""
+    import _cold_core_interface as _cci
+    out = {}
+    for r in runs:
+        for end in (r.frm, r.to):
+            part, _dot, mouth = end.partition(".")
+            if part == "foam-assembly" and mouth in _cci.cap_conduits:
+                out[f"line-{mouth}"] = f"tube-{r.id}"
+    return out
+
 # WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the
 # carb riser leaves this box entirely — drags the whole scene's bounding box after it and puts
 # the piece off in a corner of its own picture. The pieces the unit is built ON are what the
@@ -197,13 +214,7 @@ SCENES = (
     Scene(
         "cold-core", "Cold core, plumbed",
         roots=("foam-assembly",), inner=INNER_ALL, flip=None,
-        # EVERY CAP CONDUIT CARRIES ITS TUBE OUT OF THIS UNIT. Two of the seven the tables
-        # already give the core — `water-5` has both mouths on it and `fluid-14` lies in a rib
-        # its own cap prints — and the other five are made up here with their far end hanging:
-        # the gas line and the carbonated riser wait on the rear wall's bodies, the three
-        # reservoir lines on valves the flavour manifold has not brought yet.
-        also=("tube-carb-1", "tube-co2-2", "tube-fluid-16", "tube-fluid-24", "tube-fluid-26"),
-        later=(),
+        also=(), later=(),
         cam=(0.85, -1.0, 1.0), up=(0, 0, 1), zoom=3.25, look="centre",
         note="The core as it comes off its own bench and before the box is anywhere near it: "
              "the crown populated, and one tube standing in each of the seven cap conduits "
@@ -212,16 +223,13 @@ SCENES = (
     ),
     Scene(
         "cold-core-open", "Cold core, ready to foam",
-        roots=("foam-assembly",), inner=INNER_ALL, flip=None, also=(),
-        # The cap conduit `fluid-14` lands in is on a plate that is not down; its rib is here
-        # and the run is not.
-        later=("tube-fluid-14",),
+        roots=("foam-assembly",), inner=INNER_ALL, flip=None, also=(), later=(),
         # THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. What SA-04 stands on that plate — the pump,
         # three valves, both chains and every run between them — and the plate and lid with it.
         without="cap-lid",
         # Over the open mouth, which is what there is to see: the cavities the shot has to find,
         # both reservoirs standing in their pockets, and every line standing out of the top.
-        cam=(0.7, -0.9, 1.5), up=(0, 0, 1), zoom=3.6, look="centre",
+        cam=(0.7, -0.9, 1.5), up=(0, 0, 1), zoom=3.2, look="centre",
         note="The shell closed underneath, the vessel and both reservoirs standing in it, and "
              "every line standing out of the open top. This is what the body pour goes into. "
              "Each line runs from the fitting it is made up on to the cap face, so what stands "
@@ -434,7 +442,12 @@ def named(scene, runs):
             f"scene {scene.id!r} names {', '.join(idle)} in `also`, which it already draws. "
             f"`also` is for what the unit carries and the tables hand to another piece — a "
             f"name the scene derives on its own belongs to the tables, not to this row.")
-    return sorted(derived | set(scene.also))
+    names = derived | set(scene.also)
+    # ONE LENGTH OF TUBE IS ONE LENGTH OF TUBE. A unit drawing the half inside the core draws the
+    # half outside it too, wherever the fastening tables put that half: the cut, the bends and the
+    # length are the bench's, and the conduit is a hole the one tube passes through.
+    names |= {half for line, half in crossings(runs).items() if line in names}
+    return sorted(names)
 
 
 def members(scene, assembly):
