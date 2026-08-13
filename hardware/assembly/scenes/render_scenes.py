@@ -128,8 +128,9 @@ def draw(scene, assembly) -> Path:
     # same way it reads a board's. Same bargain the PCB carrier already takes: the big drawing
     # stays out of the tree, the thing a browser opens goes in.
     #
-    # `GLB_TOL` is what makes it affordable: at the 0.1 mm default the four come to 22 MB and at
-    # this one to 7, and the difference is invisible on a body a browser draws 900 px wide.
+    # `GLB_TOL` is what makes it affordable: the five come to 7 MB at this tolerance and three
+    # times that at the 0.1 mm default, and the difference is invisible on a body a browser
+    # draws 900 px wide.
     # Written straight rather than through `_cadq_export`: that helper's atomic write and
     # thumbnail queue are for a repo artifact a page lists, and it is imported by nearly every
     # generator in the tree — a keyword added there for one mesh moves the hash of every build
