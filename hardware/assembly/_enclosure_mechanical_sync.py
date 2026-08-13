@@ -154,7 +154,7 @@ def main():
         # wider by quoting them, rather than this comment naming a winner that goes stale.
         "STRATUM_X": f"{_span(_F, 'compressor', 'condenser+fan'):.0f}",
         "CORE_X": f"{_span(_F, 'foam-assembly'):.0f}",
-        "SIDE_BAND": f"{_enc.side_rib_inset:.4g} mm",
+        "SIDE_BAND": f"{_enc.side_band_inset:.4g} mm",
         # What one boss takes of that band, across and up: a body clears it either way, so the
         # doc quotes the collar's own diameter rather than the wall's height.
         "SOCKET_OD": f"{2.0 * _enc.socket_r:.4g} mm",

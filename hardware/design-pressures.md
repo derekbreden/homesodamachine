@@ -16,10 +16,12 @@ made, once.
 
 ## Not optimised
 
-**Field service.** There is none. Units are sold over the internet to customers in other
-states; a physical fault is answered by shipping a replacement, and the returned unit comes
-back to the factory. Diagnosis of a returned unit is a teardown with factory tools — cutting
-included — not a repair.
+**Field service.** One operation: the pump swap in
+[`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
+own access — `enclosure-front-top` off, eight collets released — rather than on anything placed for
+it. Every other physical fault is answered by shipping a replacement; units are sold over the
+internet to customers in other states, and the returned unit comes back to the factory. Diagnosis
+of a returned unit is a teardown with factory tools — cutting included — not a repair.
 
 **Disassembly.** Not a goal and not a tiebreaker. A part that can only come out by being
 destroyed is a part that comes out by being destroyed.

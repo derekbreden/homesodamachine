@@ -2,7 +2,7 @@
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [223 × 473 × 358 mm](BOX_SIZE), and **width, height and the back wall
+It measures [221 × 473 × 358 mm](BOX_SIZE), and **width, height and the back wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -10,8 +10,10 @@ clash in `pack-closes` at the body that overran.
 
 - **Width** is `appliance_width`, struck symmetric about x = 0. What the pack owes
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
-  floor body stands one `side_rib_inset` in from the wall **at the depths the seam's
-  bosses stand there**, leaving each mouth, plug and collar its full section. The cold
+  floor body stands one `side_band_inset` in from the wall **where it meets one of the
+  seam's bosses in depth and in height**, leaving each mouth, plug and collar its full
+  section. A boss is a pipe as tall as it is wide, so over and under one, as much as
+  between two, the band is the wall's own air. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
@@ -167,12 +169,14 @@ from. Between two levels the corner is the wall's own air.
 
 **What makes all of that fit is the band the walls keep.** A body standing on the
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
-leave the seam machinery nowhere to stand. Every **floor body is held one
-`side_rib_inset` in from the ±X walls where the seam's bosses stand** — the boss
-chain's own reach — and the **back wall keeps one `rear_seam_clear`**, the rear
-Z-seam lip's own thickness. That is a requirement on the body at those depths, not
-a rule about the wall: the bosses stand at their own Y stations, and between them
-the band is nothing but the wall's own air. Everything on the slab sits flat on it:
+leave the seam machinery nowhere to stand. A **floor body is held one
+`side_band_inset` in from the ±X walls where it meets one of the seam's bosses** — the
+boss chain's own reach — and the **back wall keeps one `rear_seam_clear`**, the rear
+Z-seam lip's own thickness. That is a requirement on the body where it meets one, not
+a rule about the wall: each boss is a pipe at its own station and its own height, and
+beside one — over or under one — the band is nothing but the wall's own air. Of the
+three bodies on the slab only the cold core meets the chain; the compressor stands
+under the front column's collars. Everything on the slab sits flat on it:
 the print-corner relief runs on the standing verticals and the Y-seam's floor lap
 stays inside the slab, so the seat is square and there is nothing standing there to
 clear.
@@ -210,7 +214,7 @@ core together.
 Four features, two mirror pairs, and nothing on either that is not a face of the core:
 
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
-  corner of the slab, [42 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
+  corner of the slab, [41 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
   past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
   own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.4 mm](CORE_STOP_BORE)
   bore on the round's own axis outboard of the tangent, and the core's own flat front face

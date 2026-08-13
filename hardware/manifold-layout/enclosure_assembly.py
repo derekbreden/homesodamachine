@@ -471,6 +471,22 @@ BASE_YAW = -90.0
 COMPRESSOR_FRONT = 9.0
 
 
+def suction_lane_x() -> float:
+    """The plane the compressor's WEST TANGENT stands on — the lane its suction leg needs off
+    the −X wall's inner face.
+
+    THE LEG IS WHY THIS BODY IS WHERE IT IS IN X. The suction fires west out of that tangent, and
+    a port is a bore nothing can be plugged into until a line can leave it straight: two bend
+    radii of its own stock before the first corner, which is what `_scorecard.port_leads` reads
+    every port in the machine against. Copper is the coarsest stock on this floor, so the lane is
+    `_lines.CU_BEND` twice.
+
+    Struck on the wall and not on the pair's combined box. Centred as a pair, the can's lane was
+    whatever the condenser's width left over — so a condenser measured again moved the can, its
+    four floor posts and this leg together, and narrowing the appliance took the lane away."""
+    return _enc.interior_x()[0] + _card.PORT_LEAD_BENDS * _lines.CU_BEND
+
+
 def build_compressor():
     """The compressor as the machine turns it, its plate on the floor.
 
@@ -498,12 +514,29 @@ def east_lane_free(cond) -> float:
     """How far the block may go east off the plane the mating puts it on, read off the placed
     body and the wall it is going toward.
 
-    THE WALL IS NOT THE LIMIT — its own furniture is. Every mouth, plug and socket collar on a
-    ±X wall stands one `enclosure.side_rib_inset` in from that wall's inner face, over the
-    depths the seam puts one there, and this block's fore end reaches into the frontmost of
-    those bands. A rigid body answers to the tightest station under it, so the plane it may come
-    to is the chain's and not the wall's."""
-    return (_enc.interior_x()[1] - _enc.side_rib_inset) - box(cond).xmax
+    THE SEAM'S FURNITURE IS NOT THE FENCE HERE, and saying so is the whole of this. The block's
+    fore end reaches into the frontmost ±X band, where the front column's collars stand — but a
+    collar is a pipe `2 * socket_r` tall at its own seam height, and this block's crown comes up
+    UNDER that seam (`enclosure.front_band_free_below`). A body under a boss is beside nothing,
+    and charging it the chain's whole reach would be charging it for a column that is not there.
+
+    WHAT IS THERE IS ITS OWN AFT MOUNT. The block hangs off a fin fused to the wall's inner face
+    (`condenser_mount`, `enclosure._cond_mount`), standing one `enclosure.cond_mount_clear` off
+    the block's east flank — so the lane the block may take is the lane that leaves the fin one
+    printable `enclosure.wall` of section. The block answers to the thing that holds it."""
+    b = box(cond)
+    collar_z = _enc.front_band_collar_z()[0]
+    # The block's own front face is what goes in: the fore end of the run comes back struck on
+    # it and is not read, this block being cradled on the front wall already. What is read is
+    # the aft end, which the box states about itself.
+    band_aft = _enc.front_band_free_y(b.ymin, b.zmin, b.zmax)[1]
+    if b.zmax > collar_z + 1e-9 or b.ymax > band_aft + 1e-9:
+        raise ValueError(
+            f"the condenser reaches y {b.ymax:g} and z {b.zmax:g}, out of the corner of the ±X "
+            f"band the front column leaves empty — under z {collar_z:g}, forward of y "
+            f"{band_aft:g}. A block that meets that collar answers to the chain's whole reach "
+            f"and not to its own fin, so it stands off `enclosure.side_band_inset` instead.")
+    return (_enc.interior_x()[1] - _enc.cond_mount_clear - _enc.wall) - b.xmax
 
 
 def slide_east(solid, carry, dx: float):
@@ -1645,13 +1678,40 @@ def cap_conduit(name: str):
     return ((x, y, _foam.cap_face_z), _foam.cap_conduit_axis_out())
 
 
+def seaflo_west_limit() -> float:
+    """The westmost the pump's casting may reach on the tray's storey.
+
+    THE TRAY IS THE BODY WITH A WALL TO GET THROUGH. It draws out through a slot in the −X wall
+    (`west_wall_ports`), so it is stated off that wall and not off whatever lies east of it: one
+    rim — `drip_pan`'s own outline and the flange turned out either way — and one `FOOT_CLEAR`
+    is the lane it takes, and the casting begins where that lane ends. The pump has air on its
+    east flank and the tray has a wall on its west, so the millimetre is the tray's to keep."""
+    return _enc.interior_x()[0] + _pan.PAN_X + 2.0 * _pan.FLANGE_W + FOOT_CLEAR
+
+
 def build_seaflo(foam):
-    """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, centred
-    on the mirror plane, its aft face flush with the core's own back."""
+    """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, its aft
+    face flush with the core's own back, and standing east of the tray beside it.
+
+    IT IS SITED BY WHAT LIES WEST, not by the mirror plane. Centred, the pump left the tray
+    whatever the −X wall happened to be, which made the tray's rim a function of the appliance's
+    stated width; stood off `seaflo_west_limit`, the tray keeps its lane at any width and the
+    pump spends the air on its own east flank instead. `check_pan_lane` reads back the lip that
+    leaves, and the pump stays centred wherever the lane is already wide enough.
+
+    The casting is measured over the storey the tray lies in — above its own feet and aft of the
+    discharge barb, the two places the box would answer for the whole part and be wrong (the
+    feet are 8 mm of a 72 mm casting, the barb one 10 mm band of a 187 mm one)."""
     b = box(foam)
-    return seat_body(cq.importers.importStep(str(SEAFLO_STEP)).val(),
-                (((0, 0, 1), SEAFLO_YAW),), seat="seaflo-pump",
-                cx=0.0, y1=b.ymax, z0=cap_face(foam))
+    shape = cq.importers.importStep(str(SEAFLO_STEP)).val()
+    turns = (((0, 0, 1), SEAFLO_YAW),)
+    planes = dict(y1=b.ymax, z0=cap_face(foam))
+    probe, probe_carry = seat_body(shape, turns, cx=0.0, **planes)
+    pb = box(probe)
+    west = pump_west_face(probe, pb.zmin + _lines._pump.FOOT_T, pb.zmax,
+                          pan_front_y(probe_carry), pb.ymax)
+    return seat_body(shape, turns, seat="seaflo-pump",
+                     cx=max(0.0, seaflo_west_limit() - west), **planes)
 
 
 # --- the suction chain, lying in the lane beside the pump ------------------
@@ -3983,17 +4043,17 @@ def place_base(seated, names=()):
     cx, cy = (w.xmin + w.xmax) / 2.0, (w.ymin + w.ymax) / 2.0
     axis = (cq.Vector(cx, cy, 0.0), cq.Vector(cx, cy, 1.0))
     turned = [s.rotate(*axis, BASE_YAW) for s in bodies]
-    t = _whole(turned)
-    step = cq.Vector(-(t.xmin + t.xmax) / 2.0,
+    step = cq.Vector(suction_lane_x() - box(turned[0]).xmin,
                      COMPRESSOR_FRONT - box(turned[0]).ymin, 0.0)
     stood = [s.translate(step) for s in turned]
     if names:
-        # TWO BOXES, BECAUSE THE RULE IS STRUCK ON TWO THINGS. The pair is centred and stood as
-        # one — that reads off its combined box — and the DEPTH is the compressor's own front
-        # face, which reads off the can alone. A row per box, so each plane is read back off the
-        # geometry it was asked of.
+        # ONE BOX, AND IT IS THE CAN'S. Both planes the pair is stood on read off the compressor
+        # alone — its west tangent on the suction's own lane, its front face on
+        # `COMPRESSOR_FRONT` — so the row is struck on the geometry each was asked of, and a
+        # condenser measured again moves neither.
         record_seat("refrigeration-base", turns=(((0.0, 0.0, 1.0), BASE_YAW),),
-                    planes={"cx": 0.0, "z0": 0.0}, got=_whole(stood), members=names)
+                    planes={"x0": suction_lane_x(), "z0": 0.0},
+                    got=box(stood[0]), members=names)
         record_seat("refrigeration-base depth", planes={"y0": COMPRESSOR_FRONT},
                     got=box(stood[0]), members=(names[0],))
 
