@@ -687,6 +687,21 @@ def _yz_prism(x0, x1, section):
     )
 
 
+def _xz_prism(y0, y1, section):
+    """A prism along Y from y0 to y1, whose `section` is a closed `(x, z)` polygon.
+
+    `_yz_prism` turned a quarter. The `XZ` workplane faces −Y, so the extrusion is taken back
+    the other way and the prism set down at y0 — and its axes are the world's X and Z, which
+    is the plane a feature on a ±X wall is drawn in."""
+    return (
+        cq.Workplane("XZ")
+        .polyline(list(section)).close()
+        .extrude(-(y1 - y0))
+        .val()
+        .translate((0.0, y0, 0.0))
+    )
+
+
 def _round_z(solid, r):
     """Round a box solid's four standing-vertical (Z) corner edges by r — the
     print-bed corner relief, about the Z axis the pieces print along. r <= 0
@@ -2106,58 +2121,79 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 
 # --- the PRV's chase, down the OUTSIDE of the west wall ----------------------
 #
-# The cold core's relief line is the one run that leaves that core by a flank instead of by
-# its lid (`_internal_routes.prv_vent_cross_z` says why: a relief vent is made up on nothing,
-# so what it owes is the short way to air, and tube length is discharge off the valve's
-# rating). It arrives here pointing west, standing `vent_socket_reach` proud of the core's
-# own flank, and this is the other half of that — what carries the discharge OUT OF THE BOX.
+# The cold core's relief line leaves that core by a flank (`_internal_routes.prv_vent_cross_z`).
+# It arrives here pointing west, standing `vent_socket_reach` proud of the core's own flank,
+# and this is what carries the discharge OUT OF THE BOX.
 #
-# IT IS A GROOVE IN THE OUTER FACE AND NOT A SPOUT, so the appliance is no wider for having
-# it. A spout would put the machine's width wherever the spout ends; a groove takes its depth
-# out of a wall thickened from the INSIDE, into the band the core already stands off, and the
-# outer face stays the plane `outer` names. Pressed flat against a cabinet the groove becomes
-# a duct rather than a blocked hole — which is the whole reason a vent is cut this way — and
-# it runs to the panel's own bottom edge, so the end it discharges from is the one edge no
-# install can seal. CO2 is heavier than air and wants that direction anyway.
+# ITS DEPTH COMES OUT OF A WALL THICKENED FROM THE INSIDE, into the band the core already
+# stands off, and the outer face stays the plane `outer` names.
 #
-# LENGTH IS FREE HERE AND IT IS NOT FREE IN THE TUBE. The groove runs several times the
-# tube's bore in section, so the run down the wall costs the relief path almost nothing,
-# while every diameter of TUBE does. That is the trade the whole reroute stands on: the tube
-# is drawn as short as the corner allows and the length is spent out here instead.
+# THE PASSAGE IS CLOSED WHERE THE TUBE LANDS AND OPEN BELOW IT. At the socket it is roofed on
+# the bore's own crown with the wall's SKIN still standing outboard of it, so the flank is
+# unbroken at that height and the one way out of the socket is DOWN. `vent_duct_drop` under
+# the bore the skin opens, and the passage carries on as a three-walled groove.
+#
+# AND THE GROOVE ENDS BY RUNNING OUT. Its floor ramps back to the outer face over
+# `vent_ramp_rise`, so the recess grows shallower until it is gone, and the flow reaches the
+# face travelling away from it, well above the foot. CO2 is heavier than air and falls from
+# there on its own.
 vent_socket_reach = 8.0        # what the core's tube stands proud of its flank — one number,
                                # read against `_internal_routes.prv_vent_reach` by the machine
 vent_rib_reach = 6.0           # how far the wall is thickened inboard, to the tube's own tip
 vent_bore_d = 6.5              # the shell's own ⌀6.5-round-⌀6.35 standard, again
-vent_channel_w = 12.0          # the groove, across
-vent_channel_depth = 4.0       # and into the outer face — under `wall + vent_rib_reach`
-vent_rib_wall = 2.0            # PETG either side of the groove
+vent_channel_w = 12.0          # the channel, across — several times the tube's bore in section
+vent_rib_wall = 2.0            # PETG either side of it, and behind it
+# Struck off the skin's INNER face, with the rib's balance standing behind it. `vent_rib_reach`
+# follows the tube's tip; this follows that.
+vent_channel_depth = vent_rib_reach - vent_rib_wall
+vent_duct_drop = 25.0          # the closed fall under the bore, before the skin opens
+vent_groove_drop = 25.0        # the open groove under that, which the duct discharges into
+vent_ramp_rise = 40.0          # over which the floor runs back out and turns the flow west
 
 
 def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     """The PRV vent's chase on a −X wall PIECE, for the station inside the band it owns.
 
     One station, `(y, z)`: where the core's tube arrives, in the machine's own frame. Three
-    moves. A RIB is fused up the wall's inner face over the groove's whole run, because a
-    groove cut into a `wall`-thick sheet would be a hole; it reaches `vent_rib_reach` inboard,
-    which lands its face exactly on the tube's tip so the tube BOTTOMS rather than spanning
-    the band. The GROOVE is cut back out of the outer face, leaving the rib's balance standing
-    behind it. And between them the SOCKET, which is the tube's own bore — cut FORWARD-OPEN,
-    because the core is slid aft onto its stops and a blind bore is one no tube could ever
-    enter. The tube sweeps in from the front and comes to rest at the socket's aft end."""
+    moves. A RIB is fused up the wall's inner face over the channel's run, reaching
+    `vent_rib_reach` inboard, which lands its face exactly on the tube's tip so the tube
+    BOTTOMS rather than spanning the band. The CHANNEL is cut back out of it in one profile —
+    roofed duct, open groove and run-out ramp are one polygon, one passage, and what changes
+    down it is how much of the wall is still standing outboard. And between them the SOCKET,
+    the tube's own bore, cut FORWARD-OPEN: the core is slid aft onto its stops, so the tube
+    sweeps in from the front and comes to rest at the socket's aft end.
+
+    THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
+    down as that floor is still inboard of what the skin alone stands `vent_rib_wall` behind.
+    Under that the ramp is cutting skin the wall already had, and the rib ends on the ramp's
+    own slope."""
     for sy, sz in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
         rib_x = inner[0] + vent_rib_reach
+        floor_x = inner[0] + vent_channel_depth     # the channel's own back face, all the way down
         half = vent_channel_w / 2.0 + vent_rib_wall
-        foot = outer[4] - 1.0                       # out through the panel's own bottom edge
-        solid = solid.fuse(_ybox(inner[0], rib_x, sy - half, sy + half, foot, sz + half))
-        # The groove, and it runs OFF the bottom edge rather than ending in the wall: a recess
-        # closed at its foot is a pocket, and a pocket is what a cabinet pressed against this
-        # face would seal shut.
-        solid = solid.cut(_ybox(outer[0] - 1.0, outer[0] + vent_channel_depth,
-                                sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
-                                foot, sz + vent_channel_w / 2.0))
+        duct_top = sz + vent_bore_d / 2.0           # the roof, on the bore's own crown
+        groove_top = sz - vent_duct_drop            # where the skin opens
+        ramp_top = groove_top - vent_groove_drop
+        ramp_bot = ramp_top - vent_ramp_rise        # where the floor has met the outer face
+        # The ramp is carried one more millimetre of DEPTH past that, out into air.
+        over = vent_ramp_rise / (floor_x - outer[0])
+        # And the rib to where the skin alone stands `vent_rib_wall` behind the floor.
+        rib_end = ramp_top - vent_ramp_rise * ((floor_x - (inner[0] - vent_rib_wall))
+                                               / (floor_x - outer[0]))
+        solid = solid.fuse(_xz_prism(sy - half, sy + half,
+                                     [(inner[0], sz + half), (rib_x, sz + half),
+                                      (rib_x, ramp_top), (inner[0], rib_end)]))
+        solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
+                                    [(floor_x, duct_top),            # \ the floor, straight down
+                                     (floor_x, ramp_top),            # /  behind duct and groove
+                                     (outer[0] - 1.0, ramp_bot - over),   # the ramp, run out
+                                     (outer[0] - 1.0, groove_top),   # the groove's open side
+                                     (inner[0], groove_top),         # over it the skin stands,
+                                     (inner[0], duct_top)]))         # and that closes the duct
         # The socket: the tube's bore through the rib, open forward for the core's own travel.
+        # It stops on the skin's inner face, so the flank is unbroken at the height it lands.
         solid = solid.cut(_ybox(inner[0], rib_x + 1.0, sy - half - 1.0, sy + vent_bore_d / 2.0,
                                 sz - vent_bore_d / 2.0, sz + vent_bore_d / 2.0))
     return solid
@@ -2957,7 +2993,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = _core_stops(piece, inner, box.core_stops, ylo, yhi, zlo, zhi)
     piece = _core_holds(piece, inner, box.core_holds, ylo, yhi, zlo, zhi)
     # And the core's relief, which leaves it by a flank and needs somewhere to go: the rib is
-    # fused before the groove is cut out of it, which is the same order the card slot takes.
+    # fused before the channel is cut out of it, which is the same order the card slot takes.
     piece = _vent_chase(piece, inner, outer, box.vent_chase, ylo, yhi, zlo, zhi)
     # And the tap-water chain's, on the same wall a storey up. After the tray's rails, whose
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
