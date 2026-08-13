@@ -501,7 +501,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "3 plugs",
+   "target": "2 plugs",
    "detail": [],
    "active": true
   },
@@ -510,7 +510,7 @@
    "label": "Every plug leaves a printable wall standing between its arches",
    "kind": "gate",
    "status": "pass",
-   "value": "3/3 hold",
+   "value": "2/2 hold",
    "target": "1 mm of web",
    "detail": [],
    "active": true
