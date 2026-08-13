@@ -9,12 +9,15 @@ the pack and enters the reading in `BOUNDS`. The box comes out at its stated siz
 either way, so a pack that overran it gets a wall drawn through it.
 
 Three bodies stand on the floor slab — the compressor and the condenser side by side
-across the front, and the cold core behind them — and each is held one `side_rib_inset`
-off the ±X walls, so the seam's mouths, plugs and socket collars all seat at full
-section and the body seats against them rather than against the wall. The cold core is
-the widest of the three even yawed a quarter turn (`enclosure_assembly.FOAM_YAW`), which
-is what puts its 181 mm short face across the machine instead of its 283 mm long one. The
-pack is placed by `../../../manifold-layout/enclosure_assembly.py`. Features:
+across the front, and the cold core behind them. A boss is a pipe `2 * socket_r` across
+and the same TALL, so what the ±X band costs a body is a question about the body's own
+height as much as its depth: it is held one `side_band_inset` off the wall where it meets
+one in both, and beside one — over or under one — the band is the wall's own air. The cold
+core meets the chain and is held off it; the compressor stands under the front column's
+collars and the condenser is not on the slab at all. The core is the widest of the three
+even yawed a quarter turn (`enclosure_assembly.FOAM_YAW`), which is what puts its 181 mm
+short face across the machine instead of its 283 mm long one. The pack is placed by
+`../../../manifold-layout/enclosure_assembly.py`. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front arris across the box's FULL WIDTH, with the display's glass
@@ -454,7 +457,7 @@ boss_in = head_cbore_depth + screw_len + socket_cap - wall
 # flush against them. One name for the reader who is thinking about the band and one for the
 # reader thinking about a single boss, and one number under both — an M3 of another length
 # moves the chain and the band together.
-side_rib_inset = boss_in
+side_band_inset = boss_in
 # The telescoping overlap is NOT a free dimension. It is exactly what makes the
 # back plug's −Y face mate the back mouth (y_joint) AND the front socket collar's
 # +Y face mate the lip rim, with the two bosses coaxial for the cross-screw.
@@ -470,9 +473,18 @@ appliance_height = 358.0
 # The stated WIDTH — ±X outer faces, struck symmetric about x = 0, which is the axis
 # the whole pack is centred on. A body that leaves the floor, or a narrower one taking
 # its place, does not make the machine narrower; a pack that outgrows this is a red
-# `box-width`. The ±X walls still stand one `side_rib_inset` off the widest body on the
-# floor — that is what the check measures, rather than what the wall follows.
-appliance_width = 223.0
+# `box-width`. What sets the number is the cold core standing its own `side_band_inset`
+# off both walls: 181 across, 14 either side, and one wall each side of that.
+appliance_width = 221.0
+
+
+# WHAT A STATED BOUND IS READ TO. Each of the three is a placed body's own box against a plane,
+# and that box is an OPTIMAL one — on a filleted or splined body it converges rather than closing
+# exactly. The cold core is `outer_shell_y_length` = 181.0 by construction and its box reads
+# 181.0000002, so it stands flush on this width and answers a finer bound by two ten-millionths
+# of a millimetre. A bound struck under the reading's own precision measures the solver, not the
+# machine. This is the figure the rest of this file reads a solid to.
+stated_bound_tol = 1e-6
 
 
 def interior_x():
@@ -795,6 +807,18 @@ def east_band_free_y():
     return (y_seam + lip_len, wall_band_corner_y(mount_boss_out))
 
 
+def front_band_collar_z():
+    """The FRONT column's collars in height, as `(z0, z1)` — the only thing the seam stands in
+    a ±X boss-chain band forward of the Y seam's own station.
+
+    THIS SEAM'S HEIGHT IS STATED where the back column's is searched (`front_z_seam`,
+    `_z_joints`), so the one boss the front half's bands carry has a height a body can be
+    placed against BEFORE the box is sized. `front_band_free_y` turns it into a depth; a caller
+    that wants to stand under it rather than beside it asks for it directly."""
+    zc = _z_pin_z(front_z_seam)
+    return (zc - socket_r, zc + socket_r)
+
+
 def front_band_free_y(front_face, z0=None, z1=None):
     """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
     `east_band_free_y` says this half has and is not.
@@ -812,8 +836,8 @@ def front_band_free_y(front_face, z0=None, z1=None):
     iy0 = front_face - interior_clearance - front_seam_clear
     yf = iy0 + wall + socket_bore_dia / 2.0
     yfr = y_seam - wall - z_lip_y_margin - socket_r
-    zc = _z_pin_z(front_z_seam)
-    if z0 is not None and (z1 <= zc - socket_r or z0 >= zc + socket_r):
+    cz0, cz1 = front_band_collar_z()
+    if z0 is not None and (z1 <= cz0 or z0 >= cz1):
         return (iy0, yfr + socket_r)          # clear of both collars in height
     return (yf + socket_r, yfr - socket_r)
 
@@ -921,7 +945,7 @@ def _lip_denied(placed, inner):
     So this measures the ring: what reaches into it, and the seam heights that reach
     would put the lip on. What holds the rest of the ring open is the pack's own
     standoffs — one `wall` at the front and back walls (`front_seam_clear`,
-    `rear_seam_clear`) and one boss chain at the sides (`side_rib_inset`)."""
+    `rear_seam_clear`) and one boss chain at the sides (`side_band_inset`)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ring = _ybox(ix0, ix1, iy0, iy1, iz0, iz1).cut(
         _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, iz0 - 1.0, iz1 + 1.0))
@@ -1062,20 +1086,20 @@ def _dims(pack):
     splits = _z_joints(placed, inner, front_z_seam)
     band_bosses = seam_bosses(inner, y_joint, splits)
     # What the pack still has to earn is the clearance. A body on the slab is held one
-    # `side_rib_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
+    # `side_band_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
     # same footprints the ceiling's own band takes below. Beside one, and over or under one,
     # the band is the wall's own air, and a body clear of all of them answers on `cxmax`.
     floor = [b for b in bbs
              if b.zmin < wall + 1e-6 and _in_a_boss(b, band_bosses)]
     wide_need = max([cxmax + interior_clearance, -(cxmin - interior_clearance)]
-                    + [b.xmax + side_rib_inset for b in floor]
-                    + [-(b.xmin - side_rib_inset) for b in floor])
+                    + [b.xmax + side_band_inset for b in floor]
+                    + [-(b.xmin - side_band_inset) for b in floor])
     record_bound(Bound(
         "box-width", "The pack stands inside the appliance's stated width",
-        wide_need <= ix1 + 1e-9,
+        wide_need <= ix1 + stated_bound_tol,
         f"pack reaches x ±{wide_need:.2f}, wall at ±{ix1:.2f}",
         f"inside a {appliance_width:g} mm appliance",
-        ([] if wide_need <= ix1 + 1e-9 else [
+        ([] if wide_need <= ix1 + stated_bound_tol else [
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
             f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
             f"repack inboard"])))
@@ -1093,10 +1117,10 @@ def _dims(pack):
     rear_need = cymax + interior_clearance + rear_seam_clear
     record_bound(Bound(
         "box-depth", "The pack stands inside the appliance's stated depth",
-        rear_need <= iy1 + 1e-9,
+        rear_need <= iy1 + stated_bound_tol,
         f"pack reaches y {rear_need:.2f}, back wall at {iy1:.2f}",
         f"ahead of `rear_plane_y` {rear_plane_y:g}",
-        ([] if rear_need <= iy1 + 1e-9 else [
+        ([] if rear_need <= iy1 + stated_bound_tol else [
             f"the pack reaches y {rear_need:.2f} but the back wall stands at {iy1:.2f} — "
             f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward"])))
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
@@ -1127,10 +1151,10 @@ def _dims(pack):
     need = max(czmax + interior_clearance, wall_band_top + pod_stack)
     record_bound(Bound(
         "box-height", "The pack stands under the appliance's stated ceiling",
-        need <= iz1 + 1e-9,
+        need <= iz1 + stated_bound_tol,
         f"pack reaches z {need:.2f}, ceiling at {iz1:.2f}",
         f"under a {appliance_height:g} mm appliance",
-        ([] if need <= iz1 + 1e-9 else [
+        ([] if need <= iz1 + stated_bound_tol else [
             f"the pack reaches z {need:.2f} but a {appliance_height:g} mm appliance ceilings at "
             f"{iz1:.2f} — {need - iz1:.2f} mm over. Raise `appliance_height` or repack "
             f"downward"])))

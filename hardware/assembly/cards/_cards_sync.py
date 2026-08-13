@@ -190,9 +190,9 @@ def enclosure(m: Machine):
         "straight down it — say where it is instead")
 
     # The refrigeration stratum's own width across the pair as it stands, and the cold
-    # core's beside it. A body ON THE FLOOR is held one `side_rib_inset` in from the ±X
-    # walls at the depths the seam's bosses stand there, so each mouth, plug and
-    # socket collar seats at full section. Both figures are carried because the
+    # core's beside it. A body ON THE FLOOR is held one `side_band_inset` in from the ±X
+    # walls where it meets one of the seam's bosses in depth AND in height, so each mouth,
+    # plug and socket collar seats at full section. Both figures are carried because the
     # stated appliance width has to take whichever of them is wider, and neither the
     # card nor this comment gets to name which — the two spans do.
     def _span(*names):
@@ -210,7 +210,7 @@ def enclosure(m: Machine):
         "SEAM_SCREWS_Z": f"{sum(1 for s in z_stations if s[4] == 'front')}",
         "STRATUM_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
         "CORE_X": f"{_span('foam-assembly'):.0f} mm",
-        "SIDE_BAND": f"{m.a.constants['side_rib_inset']:.4g} mm",
+        "SIDE_BAND": f"{m.a.constants['side_band_inset']:.4g} mm",
         # Inserts set while the box is still open bench (EN-01). The +X wall's
         # count is one fact under one name: EN-01 presses those inserts, EN-06
         # drives their screws and ES-01/ES-03 send the bench to them, and four

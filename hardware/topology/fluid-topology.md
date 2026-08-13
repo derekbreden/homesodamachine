@@ -188,6 +188,27 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 - Path: Reservoir B → V-H → P-A → V-J → Nozzle B
 - (Same as Dispense B)
 
+### Air Purge Through A (source to nozzle)
+
+- Open: V-B, V-C, V-G
+- Pump B: ON
+- Funnel: dry, open to air
+- Path: Air → V-B → V-C → P-B → V-G → Nozzle A
+- Reservoir A is not on the path; V-F stays closed and the whole discharge goes to the nozzle
+
+### Air Purge Through B (source to nozzle)
+
+- Open: V-B, V-D, V-J
+- Pump A: ON
+- Funnel: dry, open to air
+- Path: Air → V-B → V-D → P-A → V-J → Nozzle B
+- Reservoir B is not on the path; V-I stays closed
+
+The two Through states with the two Purge In states above them air-fill every segment the flavor
+manifold carries except the two reservoir draws, whose ports stand under the liquid.
+[`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md) runs the four of
+them as the dry cycle before a quadrant lift.
+
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/topology/_fluid_topology_sync.py`

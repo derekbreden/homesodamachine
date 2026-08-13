@@ -137,7 +137,7 @@ described as geometry that can't exist."***
 **The globalised rule.** Every form above is a fence somebody invented. This one is *real* —
 and charged in places it was never true.
 
-`side_rib_inset` is 14 mm of band down each ±X wall, and it has an honest job: the seam's corner
+`side_band_inset` is 14 mm of band down each ±X wall, and it has an honest job: the seam's corner
 posts, boss chains and Z-seam pods stand in it and need full section. That is a fact about
 **where those columns stand.** It became `xmax > 94.50` — a body may not cross this plane — and
 in that form it answered a question about a handful of Y stations with a test ranging over the
