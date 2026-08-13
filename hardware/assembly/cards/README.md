@@ -274,6 +274,7 @@ bench.
 | SA-03 | Foam shell top cap lid — fill |
 | SA-04 | Foam shell top cap lid assembly |
 | SA-05 | Enclosure back half |
+| SA-06 | Hopper basin drain stub |
 
 ### GT — Technique (appendix)
 

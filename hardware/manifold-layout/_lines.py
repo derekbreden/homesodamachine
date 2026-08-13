@@ -58,6 +58,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
+           _hw / "reference" / "jg-pp0408w",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
@@ -73,6 +74,7 @@ import seaflo_suction_chain as _suct                   # noqa: E402
 import seaflo_discharge_chain as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
+import jg_pp0408w as _pp0408w                          # noqa: E402
 import neofit_bulkhead as _neofit                      # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
@@ -171,6 +173,11 @@ STATIONS = {
     # wherever the top wall carries it.
     "hopper-funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
                                 _funnel.spout_id)},
+    # The disconnect under that drain. Its upper collet takes the stub the basin carries and
+    # its lower one starts `fluid-4`, so the two are named for the joint rather than for flow:
+    # `stub` is the mouth a hand works and `outlet` is the mouth a run leaves by.
+    "hopper-drain-union": {"stub": (lambda: _pp0408w.port(1.0), _pp0408w.PORT_D),
+                           "outlet": (lambda: _pp0408w.port(-1.0), _pp0408w.PORT_D)},
 }
 
 # The three unions the machine dispenses through, all on one row of the back wall. Each carries
@@ -292,7 +299,7 @@ def build_seated_runs(placed, carries):
     do."""
     F = frames(placed, carries)
     runs = []
-    if {"hopper-funnel", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
+    if {"hopper-drain-union", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
         runs.append(_fluid_4(F, placed))
     return runs
 
@@ -338,6 +345,20 @@ def _co2_1(F):
 # over is the tube that enters the collet straight — so a crossing further aft is a shorter
 # grip, and the window's centre is not where the run wants to be.
 CROSS_Y = 157.0
+# And how far UNDER V-K's own inlet plane the crossing runs. The hopper's disconnect hangs on the
+# spout's column down to `hopper_drain_stub` + `jg_pp0408w.OVERALL`, and its ring stands in the
+# window this run has always used — so the crossing drops beneath the union's foot and climbs
+# back onto the inlet's plane on V-K's own column, where the mouth is.
+CROSS_DROP = 10.1
+# And where it leaves that plane. The cold core's cap prints a rib on this run
+# (`_cold_core_interface.cap_anchors["water-3"]`) and the rib is bored on the inlet's plane, so
+# the west column holds that height until it is past the rib and takes the drop forward of it.
+CROSS_DROP_Y = 190.0
+# And where it starts climbing back. The lift is spent along the crossing itself rather than on
+# V-K's column: the column has only the collet's own stub on it, and two stock arcs do not fit in
+# that. East of the union's ring there is nothing left to duck, so the last third of the crossing
+# rises while it runs.
+CROSS_LIFT_X = 20.0
 
 
 def _water_3(F):
@@ -349,22 +370,28 @@ def _water_3(F):
     front of it. There is no shorter way round: the valve manifold occupies the storey between
     the two columns and `CROSS_Y` is the one window through it.
 
-    Three corners, each on a plane the run is already on. The branch drops onto the INLET'S OWN
-    plane and stays there — every leg after the first is at that height, so the run reaches the
-    collet without a fourth corner to climb. Then forward down the split's own column into the
-    window, east through it, and aft into the mouth."""
+    IT CROSSES UNDER THE HOPPER'S DISCONNECT. The union hangs on the basin's spout in the middle
+    of that window, so the branch drops `CROSS_DROP` past the inlet's own plane, runs the whole
+    width of the machine beneath the union's foot and against the cold core's front, and climbs
+    back onto the inlet's plane on V-K'S OWN COLUMN — where the climb costs nothing, because the
+    aft leg into the collet is there anyway and the lean shares it.
+
+    The closing straight is planted on the collet's axis (`lead`), so the mouth is entered square
+    however the lean arrives at it."""
     split, vk = F["water-split"], F["vk-solenoid"]
     src, dst = split.at("to-vk"), vk.at("inlet")
-    z = dst[2]
+    z = dst[2] - CROSS_DROP
     return R.bent(
         "water-3", "water-split.to-vk",
-        (src[0], src[1], z),                # down the branch onto the inlet's plane
-        (src[0], CROSS_Y, z),               # forward down the west column into the window
-        (dst[0], CROSS_Y, z),               # east through it, onto V-K's column
+        (src[0], src[1], dst[2]),           # down the branch onto the inlet's plane
+        (src[0], CROSS_DROP_Y, dst[2]),     # forward down the west column, through the cap's rib
+        (src[0], CROSS_Y, z),               # on forward, taking the drop under the union
+        (CROSS_LIFT_X, CROSS_Y, z),         # east through the window, beneath the union's foot
+        (dst[0], CROSS_Y, dst[2]),          # rising east onto V-K's column and the inlet's plane
         "vk-solenoid.inlet",
-        kind="water",
-        note="tap water: split branch → V-K inlet, down the west column, across the one window "
-             "in the valve manifold, and aft into the mouth")
+        kind="water", lead=(None, _ml.STUB),
+        note="tap water: split branch → V-K inlet, down the west column, across the window under "
+             "the hopper's union, and up V-K's own column into the mouth")
 
 
 def _water_4(F):
@@ -570,9 +597,29 @@ def _fluid_2(F, solids):
 
 # --- the hopper's gravity drain ---------------------------------------------
 #
-# `fluid-4` carries HEAD and not pressure, and it is the basin's air-purge path as well as its
-# drain, so NO LEG OF IT MAY RISE — a hump anywhere in it holds the air the basin has to push
-# out. Every leg below either falls or is level.
+# `fluid-4` carries HEAD and not pressure. The basin's own column is what moves it: the brim
+# stands at the machine's ceiling and V-B's inlet is 88 mm under it, so the line runs full and
+# climbs whatever it is given on the way. What it may not do is END high — the last leg into the
+# collet falls, and the basin empties to the collet's own plane.
+#
+# THE LOW POINT IS A TRAP AND IT IS PUMPED DRY. The disconnect hangs the union's whole length
+# below the spout and `fluid-4` starts under it, so the run's first leg is the deepest point on
+# the line and everything after it climbs back to the lane. Concentrate stands in that dip when
+# the basin runs out; what clears it is the same suction the machine already uses on the clean
+# cycle — V-B opens onto the pump's own draw, and `assembly/acceptance-and-burn-in.md`'s dry
+# purge pulls air through the whole run until the nozzle sputters.
+
+
+# Where the drain climbs back out of the disconnect. The union stands Ø15.10 on the spout's own
+# column and fills the lane the run used to drop into, so the line has to come up somewhere else
+# and lean back. The bay it comes up in is the open one west of the basin's neck, forward of V-B
+# and under the collar — the step across to it is what gives both of its corners their arc, so it
+# is measured from the union rather than chosen: two stock radii is the least a 90° in and a 90°
+# out can be built from, and the column stands one of those past the union's own ring.
+FLUID_4_FLOOR_Z = 248.0  # the plane the step west runs on, under the union's own foot
+FLUID_4_RISER_X = -28.0  # the bay's column, clear of the union's ring and of `fluid-26`'s step
+FLUID_4_REJOIN_Y = 183.0  # where the lean back lands on the mirror line — aft of the union,
+                          # forward of where the source coils close the slot
 
 
 def _fluid_4_lane_z(solids) -> float:
@@ -605,33 +652,44 @@ def _fluid_4_turn_y(F, solids) -> float:
 
 
 def _fluid_4(F, solids):
-    """fluid-4 — the hopper basin's spout to V-B's inlet, and the machine's only gravity feed.
+    """fluid-4 — the hopper's disconnect to V-B's inlet, and the machine's only gravity feed.
 
-    FOUR LEGS, TWO FALLING AND TWO LEVEL. It drops the spout's own column onto the slot the
-    source pair leaves on the mirror line, runs aft down that slot, comes about behind the pair
-    and takes the rest of the fall in ONE LEAN west onto V-B's column and port plane, then runs
-    forward into the aft-facing collet.
+    IT GOES ROUND THE UNION IT LEAVES. The disconnect hangs Ø15.10 on the spout's own column and
+    fills the lane the run used to drop into, so the line leaves the lower collet still falling,
+    steps west under the union's own foot, climbs the open bay in front of the cold core back to
+    the lane, and leans east onto the mirror line in the band between the union and the source
+    coils. From there it is the run it always was: aft down the slot, about behind the pair, and
+    one lean west onto the collet.
 
-    THE LEAN IS ONE LEG AND NOT TWO CORNERS. V-B's column stands one inner limb off the mirror
-    line and its collet faces the way the run arrives from, so slot to collet is a full 180° —
-    and a 180° built of two stock arcs wants 2 × R14 between its straights where those columns
-    leave 20. Spending the fall in the same leg is what makes it: the lean is 30 mm long because
-    it descends while it steps across, so both of its corners seat R14 where a flat dogleg would
-    seat R10."""
-    drain = F["hopper-funnel"].at("drain")
+    THE DIP IS THE LINE'S LOW POINT AND IT IS PUMPED, NOT DRAINED. See the note above this
+    section: V-B opens onto the pump's own draw and the dry purge pulls the whole run through.
+
+    THE LEAN INTO V-B IS ONE LEG AND NOT TWO CORNERS. V-B's column stands one inner limb off the
+    mirror line and its collet faces the way the run arrives from, so slot to collet is a full
+    180° — and a 180° built of two stock arcs wants 2 × R14 between its straights where those
+    columns leave 20. Spending the fall in the same leg is what makes it: the lean descends while
+    it steps across, so both of its corners seat R14 where a flat dogleg would seat R10.
+
+    THE FIRST LEG IS THE FALL OFF THE UNION, and it is what the disconnect is paid for out of —
+    `enclosure_assembly.build_enclosure_assembly` records it against the basin's own seat, and
+    `room-holds` is where it reads."""
+    drain = F["hopper-drain-union"].at("outlet")
     inlet = F["valve-v-b"].at("inlet")
     lane = _fluid_4_lane_z(solids)
     turn = _fluid_4_turn_y(F, solids)
     return R.bent(
-        "fluid-4", "hopper-funnel.drain",
-        (drain[0], drain[1], lane),          # down the spout's own column onto the slot
-        (drain[0], turn, lane),              # aft down the mirror line, between the two valves
-        (inlet[0], turn, inlet[2]),          # one lean west and down onto the collet's column
-        "valve-v-b.inlet",                   # and forward into the mouth
+        "fluid-4", "hopper-drain-union.outlet",
+        (drain[0], drain[1], FLUID_4_FLOOR_Z),                # down off the collet, under the union's foot
+        (FLUID_4_RISER_X, drain[1], FLUID_4_FLOOR_Z),         # west across that floor, clear of the ring
+        (FLUID_4_RISER_X, drain[1], lane),                    # up the bay's own column onto the lane
+        (drain[0], FLUID_4_REJOIN_Y, lane),                   # one lean east and aft, round the union
+        (drain[0], turn, lane),                               # aft down the slot, between the two valves
+        (inlet[0], turn, inlet[2]),                           # one lean west and down onto the collet's column
+        "valve-v-b.inlet",                                    # and forward into the mouth
         kind="fluid", bend=TUBE_BEND,
-        note="hopper: the basin's drain → V-B inlet, down the spout's column, aft down the "
-             "mirror line between the source valves and one lean west onto the collet — every "
-             "leg falls or is level")
+        note="hopper: the basin's disconnect → V-B inlet, down off the union and west under its "
+             "foot, up the bay in front of the cold core, one lean east and aft onto the mirror "
+             "line, then aft down the slot between the source valves")
 
 
 # --- the carb-water riser, and the two nozzle gates' lines to the panel -----
