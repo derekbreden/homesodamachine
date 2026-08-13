@@ -1331,6 +1331,26 @@ def core_stops(foam) -> tuple:
     return tuple((sign * (foot.xmax - r), foot.ymin + r, r) for sign in (-1.0, 1.0))
 
 
+def vent_chase(foam_carry) -> tuple:
+    """Where the cold core's PRV relief line arrives at the west wall, as
+    `enclosure.Box.vent_chase` — one `(y, z)` in the machine's own frame.
+
+    THE CORE STATES THIS, NOT THE BOX. `_internal_routes` draws the line to the far end of its
+    own run — out through the shell's +Y flank and `prv_vent_reach` proud of it — and the point
+    that route ENDS ON is the point the wall has to present a socket at. So it is carried here
+    through the core's own placement, the same way a cap conduit is: move the core, re-yaw it,
+    or move the station the shroud's bore lands on, and the chase follows without a number
+    being retyped.
+
+    Reached THROUGH `foam_assembly` rather than imported. `_internal_routes` puts the cold
+    core's own directories on `sys.path` when it loads, and a module that does that at this
+    one's import time changes what every later import in this process resolves to — the same
+    hazard `check_cards._digest` now walks in a subprocess to avoid. `_foam` already holds it."""
+    tip = _foam.routes.routes["prv-vent"][-1]
+    at, _axis = foam_carry((tip, (0.0, 1.0, 0.0)))
+    return ((at[1], at[2]),)
+
+
 def core_holds(foam) -> tuple:
     """The core's aft crown as `enclosure.Box.core_holds` — `(x0, x1, aft, crown)` each.
 
@@ -4193,6 +4213,7 @@ def build_pack() -> cq.Assembly:
     # `_core_holds` in whichever piece owns each station.
     a.core_stops = core_stops(foam)
     a.core_holds = core_holds(foam)
+    a.vent_chase = vent_chase(foam_carry)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(foam_carry, seaflo_carry(_lines._pump.suction()))
@@ -4436,7 +4457,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      port_field=back_wall_field(a.wall_stations),
                      valve_panels=a.valve_panels, pump_trays=a.pump_trays,
-                     core_stops=a.core_stops, core_holds=a.core_holds)
+                     core_stops=a.core_stops, core_holds=a.core_holds,
+                     vent_chase=a.vent_chase)
 
 
 def check_through_wall_headroom(a, shell) -> Bound:
