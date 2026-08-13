@@ -166,6 +166,3 @@ def boxed_solids(shape) -> list:
     boxes = [boxed(s) for s in shape.Solids()]
     _SOLIDS_CACHE[key] = (shape, boxes)
     return boxes
-
-
-_VALUES_NOT_DIGESTS_PROBE = 1
