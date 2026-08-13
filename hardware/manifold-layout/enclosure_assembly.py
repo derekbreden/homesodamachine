@@ -404,7 +404,8 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
     Returns `(placed, carry)`. `carry` takes a `(position, outward axis)` station in the body's
     OWN frame through the same turns and the same move — so a port table written once in a
     reference module rides every placement of the body it is on, and a port cannot drift from
-    the metal it is a hole in.
+    the metal it is a hole in. `carry.where` is that same map for a whole SHAPE rather than a
+    station: one placement, the two forms a caller can want.
 
     THE POSE IS HUNG ON THE SHAPE, NOT FOLDED INTO IT. `Shape.rotate` and `Shape.translate` go
     through `BRepBuilderAPI_Transform` and hand back a body whose coordinates ARE its pose;
@@ -412,8 +413,10 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
     kept triangles after the shape under that location, so a body that moves is re-seated by a
     matrix multiply rather than re-tessellated: of the pack's 137 solids, 122 keep their
     triangles across a move where 97 did when the pose reached the coordinates."""
+    turn = cq.Location()
     for axis, deg in turns:
-        shape = shape.moved(cq.Location(cq.Vector(0, 0, 0), cq.Vector(*axis), deg))
+        step = cq.Location(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
+        shape, turn = shape.moved(step), step * turn
     if station is None:
         shift = _shift(box(shape), **planes)
     else:
@@ -436,6 +439,10 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
         a = axis if isinstance(axis, cq.Vector) else cq.Vector(*axis)
         return ((p.x, p.y, p.z), (a.x, a.y, a.z))
 
+    # THE SAME PLACEMENT, FOR A BODY INSTEAD OF A MOUTH. `cold-core-layout` draws the inside of
+    # this `foam-assembly` in that body's own frame, and its solids stand in the machine under
+    # this location.
+    carry.where = cq.Location(shift) * turn
     placed = shape.moved(cq.Location(shift))
     if seat is not None:
         if station is None:
