@@ -261,8 +261,6 @@ def build_runs(placed, carries):
         runs.append(_water_2(F))
     if {"water-split", "flow-regulator"} <= set(F):
         runs.append(_fluid_1(F))
-    if {"vk-solenoid", "suction-chain"} <= set(F):
-        runs.append(_water_4(F))
     if {"water-split", "vk-solenoid"} <= set(F):
         runs.append(_water_3(F))
     if {"co2-inlet", "gasher-co2"} <= set(F):
@@ -454,20 +452,6 @@ def _water_3(F):
         kind="water", lead=(None, _ml.STUB),
         note="tap water: split branch → V-K inlet, down into the west channel, across the window "
              "under the hopper's union, and up V-K's own column into the mouth")
-
-
-def _water_4(F):
-    """water-4 — V-K's outlet to the suction chain's collet, and the last link in the pump's
-    supply: V-K, this, the chain, `water-7`, the barb.
-
-    BOTH MOUTHS FACE ALONG Y ON ONE COLUMN AND ONE PLANE. The valve discharges aft and the
-    chain lying forward of the pump opens forward at it, so the run leaves and enters on one
-    axis with nothing to turn around. The plane is `beduan_solenoid.port_center_z`, which is
-    what the chain's own Z is struck from — the two mouths cannot fall out of line, because one
-    of them is measured off the other."""
-    return R.bent(
-        "water-4", "vk-solenoid.outlet", "suction-chain.tube-port",
-        kind="water", note="tap water: V-K outlet → suction chain's collet, one straight")
 
 
 def _fluid_1(F):
@@ -1340,15 +1324,30 @@ def authored() -> frozenset:
 
 # The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
 # only decides whether the bodies to draw it are placed yet.
-_AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-4", "water-3",
+_AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-3",
              "co2-0", "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28",
              "fluid-18", "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3",
              "refrig-2", "refrig-1")
 
 
+
+
+
+
 def tubes(runs):
-    """Each run swept at its own bore, as `(name, solid)` — what the assembly carries."""
-    return [(f"tube-{r.id}", R.tube(r)) for r in runs]
+    """Each run swept at its own bore, as `(name, solid)` — what the assembly carries.
+
+    A RUN WHOSE ENDS MEET IS A BUTT and carries no solid. Both mouths are quick-connects, so
+    there is tube in each of them and none exposed between the two, the same joint
+    `manifold_layout.SEGMENTS` calls a butt on the pack's own interior. The run stays in the
+    ledger at its own length — it is still a connection, and `fluid-topology.md` still owes it
+    a row — but there is no stock to sweep.
+
+    `_routing.BUTT_MAX` is the reading, and it is a PHYSICAL figure and not a numeric one: what stands
+    between two collets is either a length of stock or nothing, and a collet swallows the better
+    part of a bore in tube before it grips. What lands under it here is the float residue two
+    faces brought together by a stated depth leave behind."""
+    return [(f"tube-{r.id}", R.tube(r)) for r in runs if r.length > R.BUTT_MAX]
 
 
 def report(runs):

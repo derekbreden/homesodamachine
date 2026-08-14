@@ -104,7 +104,7 @@ def internal_plumbing(m):
     # A run with no corner is a butt-length cut to two grips; a run with corners
     # is a route. Four of this procedure's lines are the first kind and the cards
     # say so in those words.
-    for rid in ("water-4", "co2-1", "carb-2", "fluid-1"):
+    for rid in ("co2-1", "carb-2", "fluid-1"):
         assert corners(rid) == 0, (
             f"`{rid}` now turns {corners(rid)} time(s) — the cards cut it as a straight length "
             f"between two mouths facing each other")
@@ -248,7 +248,6 @@ def internal_plumbing(m):
         # IP-02 closes them and IP-06 witnesses them.
         "WATER_2_LEN": mm("water-2"),
         "WATER_3_CORNERS": f"{corners('water-3')}",
-        "WATER_4_LEN": mm("water-4"),
         "WATER_5_CORNERS": f"{corners('water-5')}",
         "SUCTION_STUB_LEN": mm("water-7"),
         "DISCHARGE_STUB_LEN": mm("water-6"),

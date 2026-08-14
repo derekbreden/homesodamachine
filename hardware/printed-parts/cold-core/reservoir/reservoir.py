@@ -202,7 +202,7 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # boss hanging below the base plate so the joint has bore length to seat in.
 #
 # EACH SIDE HAS ITS OWN STATION and they are not a mirrored pair — A at
-# [(102.5, -57.5)](FILL_POSITION_A), B at [(-88, 43.5)](FILL_POSITION_B). What this
+# [(102.5, -57.5)](FILL_POSITION_A), B at [(-90.5, 43.5)](FILL_POSITION_B). What this
 # part asks of a station is only that the cap is clear of the vent boss, the rod's
 # register boss and all six screw bosses there, and that the cavity is open under
 # it so the bore lands in the headspace. That leaves a wide choice, and what

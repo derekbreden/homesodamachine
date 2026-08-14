@@ -103,19 +103,12 @@ def main():
         raise ValueError(
             "no `fluid-4` is drawn — the hopper-corridor paragraph in enclosure-mechanical.md "
             "describes a tube the machine no longer has, so it needs rewriting, not resyncing.")
-    # The corridor's two pins, off the same rows `clearance-floor` grades — `lane_notes`' own
-    # reading of a lane, without its floor. That note is written only for a run PINCHED under
-    # the floor.
+    # THE CORRIDOR'S TWO PINS ARE WHATEVER THE FALL RUNS NEAREST, off the same rows
+    # `clearance-floor` grades — `lane_notes`' own reading of a lane, without its floor. The two
+    # are read here and named into the paragraph, so a fall that changes lanes rewrites its own
+    # sentence rather than needing one.
     _hopper_near = [(g, other) for other, g in _F.near("fluid-4")]
-    if {n for _g, n in _hopper_near[:2]} != {"coil-v-a", "coil-v-b"}:
-        raise ValueError(
-            f"`fluid-4` falls nearest {[n for _g, n in _hopper_near[:2]]}, and the hopper-"
-            f"corridor paragraph in enclosure-mechanical.md names the two source coils — that "
-            f"paragraph needs rewriting, not resyncing.")
     (_side_a, _coil_a), (_side_b, _coil_b) = _hopper_near[:2]
-    # The tube stands `_side_a` off one coil and `_side_b` off the other, so the two cannot be
-    # further apart than the stack they sandwich — a horizon the lane falls inside.
-    _hopper_lane = _F.gaps[f"{_coil_a}|{_coil_b}"]
     _hopper_gate = _F.check("clearance-floor")
 
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box["outer"]
@@ -221,8 +214,9 @@ def main():
         "DISPLAY_CBORE_D": f"{_enc.head_cbore_dia:g}",
         "DISPLAY_SEAT_RECESS": f"{_enc.display_cover_seat_recess:g} mm",
         # The hopper corridor `fluid-4` falls down, and the gate it stands in.
-        "HOPPER_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm a side",
-        "HOPPER_LANE_GAP": f"{_hopper_lane:.3f} mm",
+        "HOPPER_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm",
+        "HOPPER_NEAR_A": _coil_a,
+        "HOPPER_NEAR_B": _coil_b,
         "HOPPER_TUBE_D": f"Ø{_hopper_run.diam:g}",
         "HOPPER_GATE_STATUS": (
             "currently reports red" if _hopper_gate.status == "fail" else "currently passes"),
