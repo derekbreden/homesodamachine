@@ -3,15 +3,12 @@
 
     tools/cad-venv/bin/python tools/bazel/gen_build.py
 
-A generator is the one `.py` in a directory that holds committed artifacts; what it cuts is
-those artifacts; what it reads is the Python its imports reach, the solids it loaded, and the
-docs it rewrites in place. The first two the tree records — `.cache/stamps/parts/` per solid,
-`_realized.source_files` for the rest. The third is the one a walk cannot find, so this seeds
-it from the directory and lets the sandbox correct the seed: an action that names too little
-does not read a stale file, it fails to find one at all, and `--fix` reads that failure back
-into the list.
+`inventory.py` says which generators there are and what each one makes. What each one READS is
+every path a run of it was watched opening — `trace_inputs.py` — plus the Python its imports
+reach and the solids its stamps record, which cover a run that stopped early.
 
-WHAT THIS EMITS IS A SEED, NOT AN ANSWER. The build is the authority on its own graph.
+An action that names too little does not read a stale file: it fails to find one at all. So a
+target here can be wrong in exactly one direction, and the build says which.
 """
 
 import argparse
@@ -140,6 +137,14 @@ def main() -> int:
         "# nothing else is in the directory the run happens in. A solid one generator cuts and\n"
         "# the next loads is an edge like any other: unnamed, the reader does not find the file.\n"
     )
+    # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight, so the
+    # packages a renderer needs are named here rather than learned. `.gitignore` holds them,
+    # so they are globbed rather than read off the index.
+    blocks.append(
+        'filegroup(\n    name = "node-packages",\n    srcs = glob(\n'
+        '        ["tools/render/node_modules/**", "web/node_modules/**"],\n'
+        '        allow_empty = True,\n    ),\n)')
+
     # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
     # what it carries is `sync_tree --write`.
     blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
