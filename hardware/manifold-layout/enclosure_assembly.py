@@ -4176,16 +4176,20 @@ def place_base(seated, names=()):
 # — so a figure spent on one and not the other takes every tube off its fitting while every
 # picture still looks made up.
 #
-# WHAT BOUNDS IT IS THE ROW OF THREE ON THE COLD CORE'S CAP. V-A, V-B and V-K stand in cradles
-# the cap prints, and they ride this figure like every other body in the pack — so the seats and
-# the valves part company unless `manifold_layout.SOURCE_TRAVEL` gives back what this takes.
-# That step is two arcs of `BEND_R` from the folded deck to V-A's back port, and what it can
-# give back ends where `manifold_layout.sbend_solve` runs out of shape — `cradles-land` is what
-# reads the seats against the valves, and `runs-drawn` the ports against the tubes.
+# THE ROW OF THREE ON THE COLD CORE'S CAP DOES NOT RIDE IT. V-A, V-B and V-K stand in cradles
+# the cap prints, and the cap is not this pack — so `manifold_layout.SOURCE_TRAVEL` gives back
+# exactly what this takes, millimetre for millimetre, and the three stay in their seats while
+# the eight valves and the two pumps go aft. THE TWO FIGURES ARE ONE FIGURE: spend one without
+# the other and either the row comes out of its cradles or the runs come off their ports.
+# `cradles-land` is what reads the seats against the valves, and `runs-drawn` the ports against
+# the tubes.
 #
-# THE DISPLAY'S ROOM IS NOT ON THIS AXIS. What stands off the display's back is the pump pair,
-# and `clearance-floor` reads that gap the same at every value of this.
-PACK_Y = 0.0
+# WHAT THE STEP TO V-A COSTS IS LENGTH, NOT ROOM. Taking travel off it makes the run LONGER: it
+# carries a hairpin ahead of the step, which turns through the whole circle to put the run
+# behind where it started, and the less travel there is the more of it the hairpin has to hand
+# back. `manifold_layout.hairpin_flat` is why a route can do that at all, and
+# `manifold_layout.HAIRPIN_TILT` is the lane it spends doing it in.
+PACK_Y = 3.0
 
 
 def pose_manifold(shape):

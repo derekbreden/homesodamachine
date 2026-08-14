@@ -749,6 +749,10 @@ def _fluid_2(F, solids):
 # and under the collar — the step across to it is what gives both of its corners their arc, so it
 # is measured from the union rather than chosen: two stock radii is the least a 90° in and a 90°
 # out can be built from, and the column stands one of those past the union's own ring.
+#
+# WHAT ELSE STANDS IN THAT BAY is the hairpin `manifold_layout` turns `fluid-5` through, which
+# sweeps `2·BEND_R` off the source run — so `manifold_layout.HAIRPIN_TILT` has to carry it clear
+# of this column and of the leg that leans back off it. `clearance-floor` reads all three.
 FLUID_4_FLOOR_Z = 248.0  # the plane the step west runs on, under the union's own foot
 FLUID_4_RISER_X = -28.0  # the bay's column, clear of the union's ring and of `fluid-26`'s step
 FLUID_4_REJOIN_Y = 183.0  # where the lean back lands on the mirror line — aft of the union,
