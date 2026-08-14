@@ -179,9 +179,9 @@ def draw(scene, assembly, force=False) -> Path:
         print("   " + " ".join(cmd[1:]))
         subprocess.run(cmd, cwd=str(_ROOT), check=True)
 
-    # What the picture is OF, so `check_scenes` can doubt it without importing anything: the
-    # scene's own tuple hashed, the geometry it was drawn of, the picture that came out, and the
-    # bodies that went into it — the machine's answer at the moment of the render.
+    # What the picture is OF: the scene's own tuple hashed, the geometry it was drawn of, the
+    # picture that came out, and the bodies that went into it — the machine's answer at the
+    # moment of the render. Committed beside the PNG, which the scene STEP is not.
     _scenes.sidecar_path(png).write_text(json.dumps({
         "scene": _scenes.scene_digest(scene),
         "geometry": geometry,

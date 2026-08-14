@@ -23,9 +23,7 @@ with the pump.
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top # one
 
 Nothing here is committed but the PNG and its fingerprint: the scene STEPs land in `out/`, which
-`.gitignore` holds, and the render runs when asked rather than on every build.
-`hardware/scripts/check_scenes.py` is the cheap half — it hashes what would decide the picture
-and says which scenes have moved since they were drawn, reading no geometry at all.
+`.gitignore` holds. `//:render-scenes` runs the render when the assembly's STEP moves.
 """
 
 import hashlib
