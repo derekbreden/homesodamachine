@@ -3843,7 +3843,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
-FLAVOR_STEP = 33.54
+FLAVOR_STEP = 38.30
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
@@ -3886,13 +3886,12 @@ def build_split(asse_carry):
 #
 # THE STEM IS THE ONLY PART OF THIS BODY UNDER THE HOPPER. The valve stands west of the basin's
 # collar and its run and hub stand there with it; what reaches east past the collar's wall is the
-# nut, the barrel and the adjuster, and the bowl's cone comes down over exactly that reach. So the
-# stem is CANTED off level about the flow it stands on: every millimetre out along it drops away
-# from the cone, and the head comes to meet the hand over the cold core's cap rather than to point
-# across at it. `check_bowl_clear` reads what the cant leaves.
-FLOWREG_CANT = 14.0
+# nut, the barrel and the adjuster, and the bowl's cone comes down over exactly that reach. It
+# runs LEVEL under it, on the pair's own storey — the cone stands clear of the whole reach at this
+# height, so nothing has to be tipped out of its way and the adjuster faces the machine's centre
+# square, where a hand comes in over the cold core's cap. `check_bowl_clear` reads what is left.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
-                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), FLOWREG_CANT))
+                ((1.0, 0.0, 0.0), 180.0))
 # `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
 # inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
 # and comes back into the other — two stock quarter-turns, no straight between them or at either

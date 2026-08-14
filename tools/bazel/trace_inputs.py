@@ -117,10 +117,12 @@ def trace(gen: str, files: set) -> dict:
         return {"reads": [], "writes": []}
     out = {side: {p for p in seen.get(side, ()) if p in files}
            for side in ("reads", "writes")}
-    # WHAT A SCAN SAW is the tracked files directly in that directory — what a `glob` there
-    # could have named. Their contents are read by whatever the run hands them to.
-    here = {d for d in seen.get("scanned", ())}
-    out["reads"] |= {f for f in files if str(Path(f).parent) in here}
+    # A SCANNED DIRECTORY IS AN INPUT AREA, and what it holds below the top counts. `_build.py`
+    # globs its own directory for `*.html` and hands each card to a browser, which resolves
+    # `tools.css` and `img/tool/*.png` against it — reads no scan and no `open` here sees.
+    here = tuple(d + "/" for d in seen.get("scanned", ()))
+    if here:
+        out["reads"] |= {f for f in files if f.startswith(here)}
     return {k: sorted(v) for k, v in out.items()}
 
 

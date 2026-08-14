@@ -63,6 +63,12 @@ one scene and eight of one part, one hash each.
 A view of any STEP, from any angle, is `tools/look.sh` — drawn when someone asks for one, so
 there is none of it in the tree to go stale.
 
+WHAT THE ACTIONS RUN WITH IS THE MACHINE'S, not the tree's. `tools/cad-venv` holds the
+interpreter and its packages, `node_modules` the renderer's, and `rsvg-convert` and `blender`
+come off the brew prefix — `.gitignore` holds the first two and the last two are not in the
+repo at all. `.bazelrc` names both roots as mounts and puts them on every action's PATH. A
+checkout on another machine builds when those are installed there and not before.
+
 TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
 
 - **A `.step.png` is not a declared output.** `_cadq_export` draws a thumbnail best-effort —
