@@ -65,8 +65,8 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
+    "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
-    "thermal-fuse: cover either side of the case \u2014 wants 0, has 14.000",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
     "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.578",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
@@ -529,7 +529,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "6/6 hold",
-   "target": "head inside the cover's face, leaves filling its gap and short of its shell",
+   "target": "head inside the flank's face, leaves filling its gap and under its own box",
    "detail": [],
    "active": true
   },
@@ -658,7 +658,7 @@
    "label": "The cutoff's case is pinched between the power box and its clamp",
    "kind": "gate",
    "status": "pass",
-   "value": "case on the cover +0.000 mm, clamp on the case +0.000 mm",
+   "value": "case on the cover -0.000 mm, clamp on the case -0.000 mm",
    "target": "both 0 within 0.01 mm",
    "detail": [],
    "active": true
@@ -1038,7 +1038,7 @@
    "label": "The pack stands behind the appliance's stated front plane",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y -0.70, front wall at -3.00",
+   "value": "pack reaches y 6.00, front wall at -3.00",
    "target": "behind `front_plane_y` -3",
    "detail": [],
    "active": true
@@ -2704,11 +2704,11 @@
    "component": "fuse-clamp",
    "boxes": [
     [
-     -33.1,
-     2.3,
+     -23.6,
+     13.75,
      15.0,
-     -15.1,
-     31.0,
+     5.1,
+     31.75,
      61.5
     ]
    ],
@@ -3400,11 +3400,11 @@
    "component": "thermal-fuse",
    "boxes": [
     [
-     -32.6,
-     4.8,
+     -1.6,
+     14.25,
      50.4,
-     -15.6,
-     9.0,
+     2.6,
+     31.25,
      54.6
     ]
    ],

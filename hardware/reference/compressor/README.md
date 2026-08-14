@@ -86,7 +86,7 @@ BPV31's saddle bands it. The valve goes on once and stays for the life of the ap
 | `envelope_hold()` | the six faces the machine clears, and the underside sitting on Z = 0 |
 | `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it |
 | `power_hold()` | the box coming off the reach it fills, hanging off the plate's X, sitting down on the plate or climbing past the shell's crown, or covering a mount |
-| `power_face_hold()` | `power_face()` — the box's outboard −Y plane, which the thermal cutoff lies on — coming off the box's own centre or turning to face some other way |
+| `power_face_hold()` | `power_face()` — the box's +X flank, which the thermal cutoff lies on — coming off the box's own centre, turning to face some other way, standing inboard of the plate's own edge, or running back past the shell's tangent |
 | `process_tube_hold()` | `process_tube()` — the stub the piercing valve clamps on — dropping into the terminal cover, climbing off the can, or leaving by a face the condenser, the core or the plate stands against |
 | `mounts_hold()` | a hole opening into the plate's edge, or standing under the belly where no bolt reaches it |
 

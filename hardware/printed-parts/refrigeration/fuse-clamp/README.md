@@ -3,7 +3,7 @@
 Printed bracket that holds the BOJACK SF76E thermal cutoff's case against the
 compressor's power box — the moulded cover over the terminal block and the PTC
 start relay ([`reference/compressor`](/hardware/reference/compressor/),
-`power_face()`).
+`power_face()`), on the cover's **+X flank**.
 
 A [77](CLAMP_TF) °C cutoff opens on the temperature of **its own case**. Leads
 carry no thermal load, and a case laid against a face reads cabinet air until
@@ -18,7 +18,7 @@ One part prints here: the **clamp**.
 | head | [18](CLAMP_HEAD_Y) mm tall × [6.7](CLAMP_HEAD_Z) on the seating plane |
 | channel | [4.6](CLAMP_CHANNEL_H) × [4.2](CLAMP_CASE_D) mm through it, open both ends |
 | neck | [3.5](CLAMP_NECK_Z) mm out of the face |
-| leaves | [2.5](CLAMP_LEAF_Y) mm thick, [22](CLAMP_LEAF_REACH) aft, [10](CLAMP_LEAF_SLOT) of slot between |
+| leaves | [2.5](CLAMP_LEAF_Y) mm thick, [22](CLAMP_LEAF_REACH) inboard, [10](CLAMP_LEAF_SLOT) of slot between |
 | volume | [5.56](CLAMP_VOL) cm³ |
 
 ## What holds the case
@@ -52,10 +52,26 @@ running hour of the compressor is then relative motion at the case.
 
 What is left is the gap: a slot [15](CLAMP_GAP) mm tall whose two faces — the
 box's underside and the plate's crown — **both belong to the compressor**. Two
-leaves reach aft into it off the neck, one on each face, chamfered at the tip so
+leaves reach inboard into it off the neck, one on each face, chamfered at the tip so
 they start in rather than butt the mouth. The clamp therefore rides the
 compressor: the vibration is common to the clamp, the cutoff and the face, and
 nothing bridges to the cabinet. Nothing is drilled and the cover is not touched.
+
+## Which face
+
+The flank, and not the box's front. Every face of the box is the same moulding,
+so the thermal argument is indifferent between them — but the depth argument is
+not. The box's −Y face is the deepest plane the donor has (it stands on the
+plate's own edge), so a part proud of it is the frontmost body in the cabinet and
+the appliance's front wall answers to this clamp. On the flank the same part
+stands over [25.5](CLAMP_FLANK_REACH) mm of the can's own plate, in air the
+compressor already owns, and costs the machine nothing.
+
+The gap runs the box's whole footprint, so it is entered from here as readily as
+from the front. What the front had that the flank does not is the shell: the box's
+aft plane *is* the shell's own tangent, so a leaf reaching off the front runs at
+the belly, while one reaching off the flank runs under the box and is fenced by
+the box's own [45](CLAMP_BOX_DEPTH) mm of width.
 
 **Every fit is drawn on the thing it closes on** — the channel's depth is the
 case's diameter, the leaves span the gap's height — so the model is the nominal
@@ -69,7 +85,7 @@ losing the contact.
 
 A thermal fuse is one-shot. The cutoff threads in along the channel from either
 end and comes out the same way, so replacing it disturbs neither the clamp nor
-the compressor. The clamp itself draws straight forward off the gap when a hand
+the compressor. The clamp itself draws straight off the gap when a hand
 pulls it.
 
 The channel holds the whole [3](CLAMP_LEAD_STUB) mm of straight the SEFUSE SF/E
@@ -83,9 +99,8 @@ the donor's own moulded cover on one side, this part on the other.
 
 ## Frame and print
 
-X is the cutoff's axis, across the cover's [45](CLAMP_FACE_X) mm width. **Z = 0
-is the seating plane** — the cover's outboard face, the plane
-`compressor.power_face()` states, which is the plate's own front edge as well —
+X is the cutoff's axis, across the cover's [27.5](CLAMP_FACE_X) mm flank. **Z = 0
+is the seating plane** — that flank, the plane `compressor.power_face()` states —
 with +Z out of it into the cabinet; only the leaves reach behind it, into the
 [15](CLAMP_GAP) mm of air under the box. Y is up, 0 on the face's centre, which
 is the case's own axis and the box's mid-height.
