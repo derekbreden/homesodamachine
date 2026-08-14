@@ -345,6 +345,12 @@ def _co2_1(F):
 #
 #     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
+# WHAT MOVES IT IS THE DISPLAY. The band's forward bound is the hopper union's ring, the union
+# hangs on the funnel's drain, and the top wall sites the funnel as far forward as the display
+# facet's back plane allows — so growing the facet walks this crossing aft by the same figure.
+# The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
+# funnel, so the union is not there to measure against and this is a Y rather than a standoff.
+# `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
 CROSS_Y = 176.5
 # And how far UNDER V-K's own inlet plane it runs. The hopper's disconnect hangs on the spout's
 # column and its ring stands in the storey this run used to cross on, so the crossing drops
@@ -397,7 +403,7 @@ CROSS_RISE = 8.0
 # what that is worth is the tee's own height.
 #   IT IS FENCED BOTH WAYS. The leg into it has to seat corner 0's whole quarter-turn as tangent,
 # so it cannot be struck so near the branch that the fall has no room to turn; and the leg out of
-# it runs the channel to `CROSS_Y`, which is what the run is in the strip FOR.
+# it runs the channel to the crossing, which is what the run is in the strip FOR.
 CHANNEL_ENTRY_Y = 224.0
 CROSS_LIFT_X = 20.0
 CROSS_APPROACH_Y = 164.0
@@ -412,7 +418,7 @@ def _water_3(F):
     It has to. The split stands in the WEST lane and V-K stands on the EAST, and V-K's inlet
     faces FORWARD — so the water leaves the split going down, and has to arrive at V-K from in
     front of it. There is no shorter way round: the valve manifold occupies the storey between
-    the two columns and `CROSS_Y` is the one window through it.
+    the two columns and the band behind the union's ring is the one window through it.
 
     IT FALLS INTO THE CHANNEL AND RUNS IT. The branch drops on the split's own column, and its
     corner turns WEST off that column into `CHANNEL_X` — the strip between the shell's face and
@@ -441,8 +447,8 @@ def _water_3(F):
         "water-3", "water-split.to-vk",
         (src[0], src[1], z - CROSS_RISE),   # the whole fall, on the branch's column, past the lane
         (CHANNEL_X, CHANNEL_ENTRY_Y, z - CROSS_RISE),  # west OUT of the lid's shadow, still low
-        (CHANNEL_X, CROSS_Y, z),            # forward down the channel, rising onto the lane
-        (CROSS_LIFT_X, CROSS_Y, z),         # east along that lane, beneath the union's foot
+        (CHANNEL_X, CROSS_Y, z),              # forward down the channel, rising onto the lane
+        (CROSS_LIFT_X, CROSS_Y, z),           # east along that lane, beneath the union's foot
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
         kind="water", lead=(None, _ml.STUB),

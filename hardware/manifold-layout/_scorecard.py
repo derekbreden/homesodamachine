@@ -223,7 +223,8 @@ CARB_SEGMENTS = (
 #             So a chain that lands is a `NEVER` row naming what it lands on, and a chain that
 #             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
-#             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `seam-capture`, `tube-clamp`,
+#             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `seam-capture`,
+#             `plate-capture`, `tube-clamp`,
 #             `deck-mount`, `basin`, `gap-press`, `tube-hung`, `pack`. Not an axis and not a score —
 #             it is how the machine puts this body down, and it is what lets a card count the
 #             bodies bossed to a piece apart from the ones captured in its wall
@@ -268,7 +269,18 @@ MOUNTS = (
     ("hopper-drain-stub", None, "tube-clamp"),
     ("hopper-drain-clamp", None, "tube-clamp"),
     ("hopper-drain-union", None, "tube-hung"),
-    ("display", None, "wall-capture"),
+    # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
+    # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
+    # four sides, drawn down by two DIN 912 M3s into ruthex inserts in the facet's own inset
+    # floor (`enclosure._display_cuts`, `printed-parts/enclosure/display-cover/`). Neither part
+    # holds it alone: lift the plate off and the display comes out of its hole by hand.
+    ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
+    # And the plate itself on those same two screws, which are the whole of what holds it — it
+    # drops into the inset on a slip fit and bears on the floor.
+    ("display-cover", "enclosure-front-top", "bosses"),
+    # The soft ring between the two. It is what the plate closes onto, so the screws reach the
+    # glass through it rather than standing over it.
+    ("display-gasket", ("display-cover", "display"), "gap-press"),
     # Both chains lie in ribs printed on the cold core's cap lid — the same plate the pump bolts
     # to, so the hose stub at each of its barbs spans no joint
     # (`_cold_core_interface.cap_anchors`, read by `chains-seated`).
@@ -629,6 +641,17 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
+    # THE COVER PLATE ON THE INSET IT FILLS. Its underside lies on the inset floor and each of
+    # its two pads bottoms in the pocket sunk for it, so the plate reads 0 against the piece on
+    # three faces at once — which is the seat, and what puts its own top face in the 45° plane.
+    ("enclosure-front-top", "display-cover"),
+    # AND THE SOFT RING BETWEEN PLATE AND GLASS. It fills what the lap passes over, so it reads
+    # 0 against both of them — which is the whole of why it is there.
+    ("display-cover", "display-gasket"),
+    ("display", "display-gasket"),
+    # The plate and the glass therefore stand one ring apart, which is a seat and not a gap:
+    # `display_gasket.thickness` IS this distance, taken off the same two depths.
+    ("display-cover", "display"),
     # AND THE EIGHT IN THE TWO VALVE PANELS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid. `enclosure_assembly.check_panels_hold` is what
     # reads each valve against that plate.

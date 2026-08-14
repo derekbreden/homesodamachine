@@ -211,6 +211,15 @@ def main():
         "GROMMET_SQUEEZE": f"{_ea.FLOOR_GROMMET_SQUEEZE:.4g}",
         # Every placed body carries one fastening row, so the card's own table is the census.
         "BODY_COUNT": f"{len(_card.mounts())}",
+        # What the display's cover plate laps the glass by, which is also the border's own
+        # width outside it — one figure states both halves of the border, so the doc cannot
+        # quote a lap the plate is not cut to.
+        "DISPLAY_INSET_LAP": f"{_enc.display_inset_lap:g} mm",
+        "DISPLAY_BORDER": f"{2.0 * _enc.display_inset_lap:g} mm",
+        # The head seat the plate's two screws land in — the same counterbore every seam screw
+        # in the box takes, recessed the way the cold core's cap lids recess theirs.
+        "DISPLAY_CBORE_D": f"{_enc.head_cbore_dia:g}",
+        "DISPLAY_SEAT_RECESS": f"{_enc.display_cover_seat_recess:g} mm",
         # The hopper corridor `fluid-4` falls down, and the gate it stands in.
         "HOPPER_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm a side",
         "HOPPER_LANE_GAP": f"{_hopper_lane:.3f} mm",

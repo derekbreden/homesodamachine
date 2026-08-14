@@ -44,14 +44,14 @@
  "located": 100,
  "shaped": 98,
  "routed": 100,
- "mounted": 96,
+ "mounted": 98,
  "checks": [
   {
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "81/81 declared",
+   "value": "83/83 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -135,32 +135,36 @@
     "hopper-funnel \u2014 hopper-drain-clamp: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
     "hopper-drain-stub \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
+    "display \u2014 display-gasket: 0.000 mm \u2014 seated against it",
+    "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
+    "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
+    "water-3 \u2014 hopper-drain-union: 1.098 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
-    "fluid-4 \u2014 step-fluid-5: 1.206 mm",
     "water-3 \u2014 step-fluid-3: 1.214 mm",
     "water-3 \u2014 step-fluid-5: 1.337 mm",
     "coil-v-i \u2014 wago-manb: 1.366 mm",
+    "fluid-4 \u2014 step-fluid-5: 1.568 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
     "foam-assembly \u2014 wago-sensors: 1.600 mm",
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
-    "fluid-2 \u2014 fluid-4: 1.970 mm",
+    "fluid-2 \u2014 fluid-4: 1.969 mm",
     "fluid-14 \u2014 seaflo-pump: 1.975 mm",
-    "fluid-4 \u2014 coil-v-a: 1.981 mm",
-    "fluid-4 \u2014 coil-v-b: 1.981 mm",
+    "fluid-4 \u2014 coil-v-a: 1.980 mm",
+    "fluid-4 \u2014 coil-v-b: 1.980 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm",
     "foam-assembly \u2014 pcba: 2.030 mm",
     "fluid-4 \u2014 valve-v-a: 2.055 mm",
@@ -169,9 +173,10 @@
     "fluid-18 \u2014 vk-solenoid: 2.250 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "water-5 \u2014 water-3: 2.327 mm",
+    "water-3 \u2014 fluid-4: 2.404 mm",
     "pcba \u2014 relay-1: 2.532 mm",
-    "water-3 \u2014 hopper-drain-union: 2.640 mm",
     "co2-2 \u2014 pcba: 2.696 mm",
+    "foam-assembly \u2014 hopper-drain-union: 2.705 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-28 \u2014 foam-assembly: 3.357 mm",
     "water-3 \u2014 fluid-28: 3.617 mm",
@@ -191,16 +196,15 @@
     "fluid-24 \u2014 fluid-26: 4.607 mm",
     "fluid-28 \u2014 wago-reeds-a: 4.655 mm",
     "fluid-28 \u2014 wago-sensors: 4.655 mm",
-    "fluid-4 \u2014 seaflo-pump: 4.818 mm",
+    "fluid-4 \u2014 seaflo-pump: 4.817 mm",
     "water-2 \u2014 fluid-2: 4.875 mm",
     "ground-stack \u2014 hopper-funnel: 4.950 mm",
     "fluid-28 \u2014 wago-reeds-b: 4.955 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
-    "fluid-26 \u2014 fluid-4: 5.080 mm",
-    "water-3 \u2014 fluid-4: 5.091 mm",
+    "pump-a-motor \u2014 display: 5.065 mm",
+    "pump-b-motor \u2014 display: 5.065 mm",
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
     "carb-1 \u2014 relay-1: 5.357 mm",
-    "foam-assembly \u2014 hopper-drain-union: 5.392 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
@@ -209,6 +213,7 @@
     "psu \u2014 wago-gnd: 5.650 mm",
     "water-6 \u2014 enclosure-back-top: 5.652 mm",
     "fluid-24 \u2014 wago-manb: 5.655 mm",
+    "fluid-26 \u2014 fluid-4: 5.678 mm",
     "fluid-24 \u2014 coil-v-b: 5.851 mm"
    ],
    "active": true
@@ -832,7 +837,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "9.725 mm to the basin",
+   "value": "9.209 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -1058,8 +1063,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 79.56",
-   "target": "aft of 81.56",
+   "value": "seam at 200.00, housing back plane at 82.25",
+   "target": "aft of 84.25",
    "detail": [],
    "active": true
   },
@@ -1068,8 +1073,8 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 85.56..244.56",
-   "target": "frame x -89.50..89.50, y 85.56..461.00",
+   "value": "collar x -79.50..79.50, y 88.25..247.25",
+   "target": "frame x -89.50..89.50, y 88.25..461.00",
    "detail": [],
    "active": true
   },
@@ -1088,7 +1093,7 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 10.00, +X 10.00, +Y 216.44 mm",
+   "value": "\u2212X 10.00, +X 10.00, +Y 213.75 mm",
    "target": "each at least brim_margin 10.00 mm",
    "detail": [],
    "active": true
@@ -1122,10 +1127,9 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "goal",
    "status": "fail",
-   "value": "54/56 mounted, 14 part of another body, 11 nothing fastens",
+   "value": "57/58 mounted, 14 part of another body, 11 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "display: wall-capture",
     "gasher-co2: wall-capture",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
     "hopper-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
@@ -1146,7 +1150,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "81/81 stated",
+   "value": "83/83 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1197,17 +1201,17 @@
    "label": "Every body is real geometry rather than a placeholder",
    "kind": "goal",
    "status": "fail",
-   "value": "79/81 authored",
+   "value": "81/83 authored",
    "target": "no placeholder solids",
    "detail": [
     "pump-a-motor: still a bare primitive, 1 solid",
     "pump-b-motor: still a bare primitive, 1 solid",
+    "display-gasket: 1 box holds 0% material",
+    "display-cover: 1 box holds 2% material",
     "hopper-funnel: 1 box holds 4% material",
     "foam-assembly: 5 boxes hold 11% material",
     "ground-stack: 1 box holds 17% material",
-    "display: 2 boxes hold 18% material",
-    "fuse-clamp: 1 box holds 23% material",
-    "pcba: 1 box holds 24% material"
+    "display: 2 boxes hold 18% material"
    ],
    "active": false
   },
@@ -1223,7 +1227,7 @@
     "carb-1: 146.0 mm, held at its anchor",
     "co2-2: 117.2 mm, held at its anchor",
     "fluid-28: 173.2 mm, held at its anchor",
-    "fluid-4: 227.6 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 225.9 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }
@@ -1881,7 +1885,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    165.06,
+    167.747,
     262.578
    ],
    "face": [
@@ -1900,7 +1904,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    165.06,
+    167.747,
     304.378
    ],
    "face": [
@@ -1919,7 +1923,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    165.06,
+    167.747,
     304.378
    ],
    "face": [
@@ -2556,14 +2560,46 @@
    "declared": null
   },
   {
+   "component": "display-gasket",
+   "boxes": [
+    [
+     -56.75,
+     -1.121,
+     294.967,
+     56.75,
+     54.033,
+     350.121
+    ]
+   ],
+   "fill": 0.0032,
+   "primitive": false,
+   "declared": null
+  },
+  {
+   "component": "display-cover",
+   "boxes": [
+    [
+     -76.45,
+     -4.444,
+     293.765,
+     76.45,
+     55.235,
+     353.444
+    ]
+   ],
+   "fill": 0.0191,
+   "primitive": false,
+   "declared": null
+  },
+  {
    "component": "hopper-funnel",
    "boxes": [
     [
      -86.5,
-     78.56,
+     81.247,
      304.378,
      86.5,
-     251.56,
+     254.247,
      358.0
     ]
    ],
@@ -2640,19 +2676,19 @@
    "boxes": [
     [
      -52.5,
-     -0.343,
-     287.118,
+     2.415,
+     284.36,
      53.5,
-     60.468,
-     347.929
+     63.226,
+     345.171
     ],
     [
      -56.75,
-     -3.172,
-     297.017,
+     -0.414,
+     294.26,
      56.75,
-     51.983,
-     352.172
+     54.74,
+     349.414
     ]
    ],
    "fill": 0.1805,
@@ -2872,10 +2908,10 @@
    "boxes": [
     [
      -4.565,
-     154.06,
+     156.747,
      305.628,
      13.985,
-     172.06,
+     174.747,
      315.128
     ]
    ],
@@ -2888,10 +2924,10 @@
    "boxes": [
     [
      -1.965,
-     161.885,
+     164.572,
      288.378,
      4.385,
-     168.235,
+     170.922,
      316.378
     ]
    ],
@@ -3024,10 +3060,10 @@
    "boxes": [
     [
      -6.34,
-     157.51,
+     160.197,
      262.578,
      8.76,
-     172.61,
+     175.297,
      304.378
     ]
    ],
@@ -4297,7 +4333,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 227.56,
+   "length": 225.9,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4334,17 +4370,17 @@
      "grade": "B",
      "legs": [
       41.79,
-      34.28
+      32.95
      ]
     },
     {
      "at": 4,
-     "turn": 58.4,
+     "turn": 62.4,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      34.28,
+      32.95,
       84.13
      ]
     },
@@ -4384,12 +4420,12 @@
     "demand": 2.0,
     "from": [
      1.21,
-     165.06,
+     167.75,
      248.0
     ],
     "to": [
      -28.0,
-     165.06,
+     167.75,
      248.0
     ]
    },
@@ -4397,7 +4433,7 @@
     "ends": [
      [
       1.21,
-      165.06,
+      167.75,
       262.58
      ],
      [
@@ -4408,12 +4444,12 @@
     ],
     "axis": {
      "x": 21.28,
-     "y": 78.02,
+     "y": 75.33,
      "z": 4.74
     },
-    "span": 81.01,
-    "path": 227.56,
-    "detour": 2.809
+    "span": 78.42,
+    "path": 225.9,
+    "detour": 2.88
    }
   },
   {
@@ -6048,8 +6084,30 @@
   },
   {
    "component": "display",
-   "by": null,
-   "joint": "wall-capture",
+   "by": [
+    "enclosure-front-top",
+    "display-cover"
+   ],
+   "joint": "plate-capture",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "display-cover",
+   "by": "enclosure-front-top",
+   "joint": "bosses",
+   "kind": "real",
+   "rides": null,
+   "never": null
+  },
+  {
+   "component": "display-gasket",
+   "by": [
+    "display-cover",
+    "display"
+   ],
+   "joint": "gap-press",
    "kind": "real",
    "rides": null,
    "never": null

@@ -119,6 +119,8 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "valve-panel",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
            _hw / "printed-parts" / "enclosure" / "back-panel",
+           _hw / "printed-parts" / "enclosure" / "display-cover",
+           _hw / "printed-parts" / "enclosure" / "display-gasket",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly, import_step              # noqa: E402
@@ -135,6 +137,8 @@ import _stated_bounds as _stated                      # noqa: E402
 import compressor as _comp                            # noqa: E402
 import condenser_block as _cond                       # noqa: E402
 import copper_plugs as _plugs                         # noqa: E402
+import display_cover as _cover                        # noqa: E402
+import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import hopper_drain_stub as _stub                     # noqa: E402
@@ -277,6 +281,10 @@ C_WORM = cq.Color(0.62, 0.64, 0.68)
 C_PP0408W = cq.Color(0.93, 0.93, 0.90)
 C_SUCT = cq.Color(0.72, 0.72, 0.76)
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
+# The border over that glass, in the enclosure's own black stock.
+C_COVER = cq.Color(0.14, 0.14, 0.15)
+# And the soft ring under its lap, in the same TPU 90A as every other seal here.
+C_DGASKET = cq.Color(0.24, 0.22, 0.26)
 C_PSU = cq.Color(0.20, 0.20, 0.24)
 C_PCBA = cq.Color(0.15, 0.45, 0.25)
 C_RELAY = cq.Color(0.15, 0.35, 0.65)
@@ -2862,7 +2870,9 @@ def co2_wall_port(inlet_carry):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain", "discharge-chain", "display", "psu", "pcba",
+              "hopper-funnel", "suction-chain", "discharge-chain", "display", "display-cover",
+              "display-gasket",
+              "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
               "moisture-plate", "mq6-sensor", "thermal-fuse", "fuse-clamp",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
@@ -4154,21 +4164,45 @@ def place_base(seated, names=()):
 # pump heads open on — face down, and a half about Z brings the pumps to the front of it and
 # the valve decks behind them. X is negated by the pair, which the mirror does not notice.
 
+# WHERE THE PACK STANDS IN DEPTH, the companion to `PACK_CROWN` and stated the same way. The
+# pose above turns the pack's own +Z — the axis its two decks stack on — onto +Y, and that axis
+# has no datum inside the pack: `manifold_layout` pins each chain on its pump's barb plane and
+# lets the rest fall out either side, so the depth the whole of it lands at is the machine's to
+# say. This is that figure. It carries every body in the pack, both valve panels, both pump
+# trays and the eight runs `_lines` anchors on the pack's own mouths.
+#
+# IT GOES ON THE STATIONS AS WELL AS ON THE SOLIDS. `manifold_carry` is the same move for a
+# collet as `build_pack`'s translate is for the metal, and a run reaches a mouth by the station
+# — so a figure spent on one and not the other takes every tube off its fitting while every
+# picture still looks made up.
+#
+# WHAT BOUNDS IT IS THE ROW OF THREE ON THE COLD CORE'S CAP. V-A, V-B and V-K stand in cradles
+# the cap prints, and they ride this figure like every other body in the pack — so the seats and
+# the valves part company unless `manifold_layout.SOURCE_TRAVEL` gives back what this takes.
+# That step is two arcs of `BEND_R` from the folded deck to V-A's back port, and what it can
+# give back ends where `manifold_layout.sbend_solve` runs out of shape — `cradles-land` is what
+# reads the seats against the valves, and `runs-drawn` the ports against the tubes.
+#
+# THE DISPLAY'S ROOM IS NOT ON THIS AXIS. What stands off the display's back is the pump pair,
+# and `clearance-floor` reads that gap the same at every value of this.
+PACK_Y = 0.0
+
+
 def pose_manifold(shape):
     return shape.rotate(*X_AXIS, 90.0).rotate(*Z_AXIS, 180.0)
 
 
 def manifold_carry(lift: float):
-    """The same two turns and the same lift, as a `carry` for a STATION.
+    """The same two turns, the same depth and the same lift, as a `carry` for a STATION.
 
     `manifold_layout.port` and its siblings answer in the pack's OWN world — the frame the fold
     leaves it in — and `build_pack` then poses that whole world and stands it on the base's
     crown. A line reaching a valve's collet has to arrive where the collet ends up, so the
-    station rides the same transform the solid does: `(x, y, z) → (−x, z, y + lift)`, which is
-    what the two rotations compose to."""
+    station rides the same transform the solid does: `(x, y, z) → (−x, z + PACK_Y, y + lift)`,
+    which is what the two rotations and the two datums compose to."""
     def carry(station):
         (px, py, pz), (ax, ay, az) = station
-        return ((-px, pz, py + lift), (-ax, az, ay))
+        return ((-px, pz + PACK_Y, py + lift), (-ax, az, ay))
     return carry
 
 
@@ -4221,7 +4255,7 @@ def build_pack() -> cq.Assembly:
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
-    stood = [(n, s.translate(cq.Vector(0.0, 0.0, lift)), c) for n, s, c in posed]
+    stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c) for n, s, c in posed]
     in_pack = []
     for name, solid, color in stood:
         # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
@@ -4662,6 +4696,44 @@ def build_display(box):
     return placed
 
 
+# The cover plate is drawn in `enclosure.display_plane`'s own frame — +X the box's, +Y up the
+# slope, +Z out at the user — so one turn about X lays its +Z on the facet's normal and its +Y
+# up the slope. The display faces the user along its own −Y and the plate along its +Z, so the
+# two tilts are the same quarter opposite ways about.
+COVER_TILT = ((1.0, 0.0, 0.0), +45.0)
+
+# The plate's origin is the centre of its TOP face, and its top face IS the 45° plane — so the
+# point that origin lands on is `display_plane`'s own, and the seat has no offset of its own to
+# state. `display_plane` is what the facet's own cuts are struck on, so the pocket and the pad
+# that drops into it cannot land on two different frames.
+COVER_ORIGIN = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
+
+
+def build_display_cover(box):
+    """The printed border that fills the display inset and closes the 45° face flat.
+
+    Its top face lies IN that face, its underside one `display_inset_depth` below on the inset
+    floor, and a pad under each screw stands one `display_screw_pad_depth` further into the
+    pocket bored for it. Two DIN 912 M3s come down through those pads into ruthex inserts in
+    `enclosure-front-top`, each head landing in a flat counterbore under the 45° plane, so the
+    glass under the border is captured between the bezel it sits in and the plate over it."""
+    plane = _enc.display_plane(box.outer)
+    return seat_body(_cover.build_display_cover().val(), turns=(COVER_TILT,),
+                     seat="display-cover",
+                     station=(COVER_ORIGIN, plane.origin.toTuple()))
+
+
+def build_display_gasket(box):
+    """The TPU ring under the plate's lap, which is what the plate closes onto.
+
+    It is drawn in the plate's own frame and seated on the same station, so the three of them —
+    glass, ring, plate — stand on one origin and the stack is read off one plane."""
+    plane = _enc.display_plane(box.outer)
+    return seat_body(_dgasket.build_display_gasket().val(), turns=(COVER_TILT,),
+                     seat="display-gasket",
+                     station=(COVER_ORIGIN, plane.origin.toTuple()))
+
+
 def _seated(box):
     """The box with every station its walls carry, seated. Each is read off the box itself,
     so the wall and the body it is cut for come out of one number. `enclosure.with_funnel`
@@ -4714,6 +4786,10 @@ def build_enclosure_assembly() -> cq.Assembly:
             note_room("hopper-funnel", "the fall off the union `fluid-4`'s first corner turns in",
                       r.bend, r.pts[0][2] - r.pts[1][2])
     a.add(build_display(box), name="display", color=C_DISPLAY)
+    cover, _cover_carry = build_display_cover(box)
+    a.add(cover, name="display-cover", color=C_COVER)
+    dgasket, _dgasket_carry = build_display_gasket(box)
+    a.add(dgasket, name="display-gasket", color=C_DGASKET)
     pieces = _enc.build_pieces(box)[0]
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
@@ -4802,6 +4878,8 @@ def report(a: cq.Assembly) -> None:
         line("suction-chain", box(named["suction-chain"]))
     if "display" in named:
         line("display", box(named["display"]))
+    if "display-cover" in named:
+        line("display-cover", box(named["display-cover"]))
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (

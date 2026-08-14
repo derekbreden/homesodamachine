@@ -151,14 +151,15 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # +Z up) toward the standing user.
 #
 # The facet runs the box's FULL WIDTH, wall to wall, and the display is CENTRED on
-# it: the machine is 215 mm wide and the glass 113.5, so what is left is
-# ~47 mm of flat 45° face either side of it. That corner is unpackable at any width
+# it: the machine is 215 mm wide and the inset the cover plate fills 153.5, so what
+# is left is ~31 mm of flat 45° face either side of it. That corner is unpackable at any width
 # — the chamfer is inside the box's own silhouette — so spending all of it buys a
 # face that reads square from the front, and the geometry gets simpler for it: no
 # end wall closing a recess, no shoulder where a window stops, no bed relief on the
 # arris a shoulder would raise. The window's lateral size is therefore the box's,
-# not a parameter; `display_facet_x` remains the glass + a 3 mm buffer all around —
-# [119.5 mm](DISPLAY_FACET_X) × [83 mm](DISPLAY_FACET_SLOPE) up the slope — which is
+# not a parameter; `display_facet_x` is the display FEATURE's own footprint — the
+# inset the cover plate fills plus a buffer all around,
+# [157.3 mm](DISPLAY_FACET_X) × [86.8 mm](DISPLAY_FACET_SLOPE) up the slope — which is
 # what the COUPON is sized to carry and what `_report_facet` prints beside the
 # measured face.
 display_bezel_x = 113.5           # bezel glass, lateral (X)
@@ -169,19 +170,64 @@ display_bezel_slope = 77.0        # bezel glass, up the slope
 display_body_offset_x = 0.5      # PCB body offset from the centered glass, lateral (+X)
 display_body_offset_slope = -1.0 # PCB body offset, down-slope
 display_corner_r = 2.5           # corner rounding, matching the display bezel
-display_facet_buffer = 3.0       # facet buffer around the glass, all around
-display_facet_x = display_bezel_x + 2 * display_facet_buffer          # [119.5 mm](DISPLAY_FACET_X)
-display_facet_slope = display_bezel_slope + 2 * display_facet_buffer  # [83 mm](DISPLAY_FACET_SLOPE)
+# THE FACE CLOSES FLAT. The display is let into the facet down TWO steps, and a printed
+# cover plate fills the outer one — so what a hand meets is one unbroken 45° plane with a
+# border let into it, and the two screws that hold the border are countersunk into their own
+# lands. Nothing stands proud of the face anywhere.
+#
+#   45° face  ─────────┐                       ┌─────────  ← the plate's top, flush
+#                      │  inset, 2 mm          │
+#                      └──────┐         ┌──────┘
+#                             │ bezel   │         ← the glass, 2 mm further in
+#                             └─────────┘
+#
+# The plate laps the glass by `display_inset_lap`, which is the same figure the inset stands
+# outside the glass up the slope — so the border is that lap twice over, and one number
+# states both halves of it.
+display_inset_lap = 3.0          # the plate's lap over the glass, and the inset's land past it
+display_inset_reach = 20.0       # how far the inset runs past the glass laterally — the land
+                                 # the two cover screws stand in, since a countersunk M3 head
+                                 # is wider than the border it would otherwise sit in
+display_inset_depth = 2.0        # inset floor, down from the 45° face — the plate's seat
+display_inset_x = display_bezel_x + 2 * display_inset_reach       # [153.5 mm](DISPLAY_INSET_X)
+display_inset_slope = display_bezel_slope + 2 * display_inset_lap # [83 mm](DISPLAY_INSET_SLOPE)
+# THE HOPPER IS WHAT CAPS THIS. Every millimetre of plain face down the slope carries the
+# facet's back plane √2 further aft, the top wall sites the funnel as far forward as that plane
+# allows, and the funnel's drain union stands over the band `_lines.CROSS_Y` crosses the machine
+# in — a band whose far side is the pack's own source steps. `clearance-floor` reads `water-3`
+# against that union, and what is left there is a tenth of a millimetre.
+display_facet_buffer = 1.9       # plain 45° face kept outside the inset, all around
+display_facet_x = display_inset_x + 2 * display_facet_buffer          # [157.3 mm](DISPLAY_FACET_X)
+display_facet_slope = display_inset_slope + 2 * display_facet_buffer  # [86.8 mm](DISPLAY_FACET_SLOPE)
 display_facet_angle_deg = 45.0
 # The facet is a display housing this deep (the wall behind it, set to the
-# display's overall depth) with the display let into it: a shallow bezel
-# counterbore on the user face and a PCB through-hole down the full thickness.
+# display's overall depth) with the display let into it: a bezel counterbore on
+# the user face and a PCB through-hole down the full thickness.
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
-display_bezel_depth = 2.0        # bezel counterbore depth, user face
+display_bezel_depth = 4.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a socket collar
                                  # clean through (it overhangs the hole otherwise)
+# The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
+# this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
+# `display_cover_seat_recess` under the 45° face so the plane closes over it.
+#
+# THE PAD IS WHAT THE COUNTERBORE STANDS IN: a head seat deeper than the plate would leave no
+# land under the head at all, so the plate thickens under each screw by exactly the
+# counterbore's own depth and the inset floor is pocketed to take it. The land is then the
+# plate's own section. Everything else about the plate stays the border it is.
+display_cover_thickness = 2.0    # = display_inset_depth, so the plate's top lies in the face
+display_cover_slip = 0.30        # per side, plate edge into the inset it drops in
+display_cover_head_h = 3.0       # DIN 912 M3 head, nominal
+display_cover_seat_recess = 0.2  # how far under the 45° face the head lands
+display_cover_cbore_depth = display_cover_head_h + display_cover_seat_recess
+display_screw_pad_dia = 12.0     # the plate's local thickening under each head
+display_screw_pad_depth = display_cover_cbore_depth   # so the land is the plate's own section
+display_screw_pad_slip = 0.30    # per side, pad into its pocket
+# Each screw stands in the middle of the lateral land, halfway between the glass's edge and
+# the inset's own — the widest material either has.
+display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 mm](DISPLAY_SCREW_X)
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
@@ -1283,20 +1329,41 @@ def _shell_with_facet(inner, outer):
     return cq.Workplane(obj=outer_chamfered.cut(inner_clipped))
 
 
-def _display_cuts(outer):
-    """The display let into the facet: a shallow bezel counterbore on the user
-    face and a PCB through-hole down the full facet thickness — both cut along
-    the facet's 45° normal, starting one mm proud of the face for a clean break.
-    The glass is the datum: the bezel counterbore is centred on the facet, which
-    now means centred on the BOX (`display_centre_x`), with flat 45° face either
-    side of it. The glass overhangs the body unevenly, so the PCB hole sits offset
-    by display_body_offset — and is cut display_pcb_cut_through past the back to
-    take a socket collar (which would otherwise overhang it) clean through.
-    Counterbore corners rounded to the display radius."""
-    a, normal, origin, dy, dz = _facet_geom(outer)
+def display_plane(outer):
+    """The 45° face as a workplane centred on the glass — the frame everything let into the
+    facet is struck in, and the frame `enclosure_assembly` poses the cover plate onto. Its
+    +X is the box's, its +Y runs UP the slope, and its normal points out at the user, so a
+    feature cut to depth `d` is extruded `-d`."""
+    _a, normal, origin, _dy, _dz = _facet_geom(outer)
     center = (display_centre_x(outer), origin[1], origin[2])
-    plane = cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
+    return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
+
+
+def _display_cuts(outer):
+    """The display let into the facet, down two steps, plus the lands its cover plate is
+    screwed to. All of it is struck on `display_plane` and cut along the facet's 45° normal,
+    starting one mm proud of the face for a clean break.
+
+    THE INSET IS THE OUTER STEP and the bezel counterbore the inner one, so the glass sits
+    `display_inset_depth` below the plate that laps it and the plate's own top lies in the
+    45° plane. The inset runs `display_inset_reach` past the glass laterally — that land is
+    what a countersunk head needs — and `display_inset_lap` past it up the slope, which is
+    the border's own width.
+
+    The glass is the datum: both rectangles are centred on the facet, which means centred on
+    the BOX (`display_centre_x`), with flat 45° face all around. The glass overhangs the body
+    unevenly, so the PCB hole sits offset by display_body_offset — and is cut
+    display_pcb_cut_through past the back to take a socket collar (which would otherwise
+    overhang it) clean through. Corners rounded to the display radius."""
+    plane = display_plane(outer)
+    normal = plane.zDir.toTuple()
     along_normal = cq.selectors.ParallelDirSelector(cq.Vector(*normal))
+    inset = (
+        cq.Workplane(plane).workplane(offset=1.0)
+        .rect(display_inset_x, display_inset_slope)
+        .extrude(-(display_inset_depth + 1.0))
+        .edges(along_normal).fillet(display_corner_r).val()
+    )
     bezel = (
         cq.Workplane(plane).workplane(offset=1.0)
         .rect(display_bezel_x, display_bezel_slope)
@@ -1309,7 +1376,26 @@ def _display_cuts(outer):
         .rect(display_pcb_x, display_pcb_slope)
         .extrude(-(display_facet_thickness + display_pcb_cut_through + 1.0)).val()  # through the pod
     )
-    return bezel.fuse(pcb)
+    cut = inset.fuse(bezel).fuse(pcb)
+    for sx in (-1.0, +1.0):
+        # The pocket the plate's pad drops into, and under it the insert the screw pulls
+        # against. The bore starts at the pocket's floor, so the insert is set in printed
+        # material and not in the air over the pad.
+        px = sx * display_screw_x
+        pad_floor = display_inset_depth + display_screw_pad_depth
+        pocket = (
+            cq.Workplane(plane).workplane(offset=-display_inset_depth)
+            .center(px, 0.0)
+            .circle((display_screw_pad_dia + 2.0 * display_screw_pad_slip) / 2.0)
+            .extrude(-display_screw_pad_depth).val()
+        )
+        bore = (
+            cq.Workplane(plane).workplane(offset=-pad_floor)
+            .center(px, 0.0).circle(heatset_dia / 2.0)
+            .extrude(-(heatset_depth + mount_bore_relief)).val()
+        )
+        cut = cut.fuse(pocket).fuse(bore)
+    return cut
 
 
 # --- panel through-holes ----------------------------------------------------
@@ -1924,11 +2010,18 @@ def coupon_box():
     # floor level → front seam → its lip rim → back seam → its lip rim →
     # ceiling. Then the ceiling is raised if the facet wants more, since the whole
     # housing must fall above the front seam's lip rim.
+    #
+    # WHAT HAS TO CLEAR THE RIM IS THE HOUSING'S BACK PLANE, not the facet's own edge. The
+    # slab behind the face is solid — `_shell_with_facet` holds the cavity that far back — so
+    # it reaches `display_facet_thickness` further down the front wall along the 45° normal,
+    # which is that thickness times √2 in Z. Measured at the wall's INNER face, the tightest
+    # point: the plane rises going aft, so anywhere else has more room than here.
     zjf = (iz0 + wall + r) + pitch + wall + r
     zjb = (zjf + lip_len + wall + r) + pitch + wall + r
     _a, _n, _o, _dy, facet_dz = _facet_geom(front_face)     # the facet's fall
+    housing_dz = facet_dz + display_facet_thickness * math.sqrt(2.0)
     iz1 = max((zjb + lip_len + wall + r) + pitch + wall + r,
-              zjf + lip_len + coupon_margin + facet_dz - wall)
+              zjf + lip_len + coupon_margin + housing_dz - 2.0 * wall)
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
@@ -3206,6 +3299,9 @@ def main():
         "ANCHOR_SEATS": ", ".join(f"{2 * r:.4g}" for r in seats),
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
+        "DISPLAY_INSET_X": f"{display_inset_x:.4g} mm",
+        "DISPLAY_INSET_SLOPE": f"{display_inset_slope:.4g} mm",
+        "DISPLAY_SCREW_X": f"{display_screw_x:.4g} mm",
         "MQ6_CARD_T": f"{mq6_card_y:.4g} mm",
         "MQ6_SLOT_OPEN": f"{mq6_card_y + 2 * mq6_slot_press:.4g} mm",
         "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
