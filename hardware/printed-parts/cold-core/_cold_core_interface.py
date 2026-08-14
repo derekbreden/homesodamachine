@@ -1082,8 +1082,6 @@ cap_anchors = {
     #                             centre         seat_r  over_face
     "discharge-chain": CapAnchor((61.000, -60.500), 8.700),
     "suction-chain":   CapAnchor((37.600,  65.050), 8.700),
-    # The tap-water branch to V-K, which crosses this lid on the plane V-K's own inlet sets.
-    "water-3":         CapAnchor((120.500, -77.000), 3.375, 14.700),
     # Reservoir A's own fill, which comes down onto this face at V-A's forward end and runs the
     # rest of the way aft on it. The station is the one that splits that run's two unheld spans
     # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading. It reaches

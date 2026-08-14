@@ -45,6 +45,7 @@ from _reed_channels import reed_y_center, reeds_per_reservoir   # noqa: E402
 _ref = _hw / "reference" / "jg-pp010822e"
 sys.path.insert(0, str(_ref))
 import jg_pp010822e as _ptc                              # noqa: E402
+from _cadq_export import import_step
 
 
 # --- the three collets made up on vessel elbows ------------------------------
@@ -60,7 +61,7 @@ def collet_on(mouth):
     """One PP010822E made up on a mouth: `(solid, the mouth it now presents)`."""
     out = cq.Vector(*mouth.axis).normalized()
     origin = cq.Vector(*mouth.pos) + out.multiply(PTC_STANDOFF)
-    solid = F.stand_x_along(cq.importers.importStep(str(_ref / "jg-pp010822e.step")).val(),
+    solid = F.stand_x_along(import_step(str(_ref / "jg-pp010822e.step")).val(),
                             at=origin, axis=-out)
     return solid, F.Mouth(tuple(origin), tuple(out), _ptc.TUBE_D)
 

@@ -76,7 +76,7 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
-from _cadq_export import export_step
+from _cadq_export import export_step, import_step
 from world_workplane import xz_plane_y_up
 
 STEP = _here.parent / "iec-c14-inlet.step"
@@ -173,7 +173,7 @@ def stations_hold():
     The face footprint is the flange's own outline, an extent of that solid's box either
     way. Against the cutout: what stands outboard of the seating plane clears it, the
     flange covers it, and both screws land in flange and miss it."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     face_w, face_h = panel_footprint()
     for what, claimed, actual in (("face width", face_w, bb.xlen),

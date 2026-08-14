@@ -68,7 +68,7 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from _cadq_export import export_assembly
+from _cadq_export import export_assembly, import_step
 from docgen import substitute_py_comments
 
 
@@ -200,7 +200,7 @@ gn_flavor_bend2_r = gn_bend2_r + _gn_flavor_depth_offset
 
 def load_valve_body():
     """Harvested valve body, authored Z-up in the repo frame."""
-    return cq.importers.importStep(str(ref_body_step))
+    return import_step(str(ref_body_step))
 
 
 def load_mounting_plate():
