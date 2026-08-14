@@ -351,9 +351,29 @@ CROSS_Y = 176.5
 # beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
 # the lid's face, which is what `_cold_core_interface.cap_anchors` states.
 CROSS_DROP = 7.1
-# And where it leaves the inlet's plane. The cap prints a second rib on this run further aft,
-# bored on that plane, so the west column holds the height until it is past that rib.
-CROSS_DROP_Y = 193.0
+# THE CHANNEL THE BRANCH FALLS INTO, and it is the strip the box already leaves west of the core.
+# `enclosure.side_band_inset` is the band between the shell's own face and the wall's inner one,
+# and it is clear air the full height of the machine. What narrows it is the Y SEAM: the front
+# piece laps the back one there, so a second wall's thickness stands proud of the inner face on
+# that plane — and this run crosses the seam on its way forward, so the lap and not the wall is
+# what fences it. The run stands midway between the lap and the shell. Re-measure by casting
+# across at the seam's own plane —
+#
+#     w.cast((-90.0, 213.1, z), (-1, 0, 0), dia=6.35)
+#
+CHANNEL_X = -96.0
+# HOW FAR UNDER THE CROSSING'S LANE THE FALL BOTTOMS OUT. The forward leg leans west into that
+# channel and RISES onto the lane as it runs, rather than leaving the collet already standing on
+# it — so the branch's corner turns through more than a right angle and the fall ends beneath the
+# storey it hands the water to.
+#
+# WHICH IS WHERE THE SPLIT'S HEIGHT COMES FROM. What a fall costs the tee above it is its corner's
+# tangent, not its length, so a corner that bottoms out under its lane starts lower than one that
+# bottoms out on it, and the whole tap comes down with it. What stops it going further is the
+# lid's own face: the arc is the deepest the run gets, one `port_lead` below the branch collet,
+# and it has to keep its lane clear of the deck the crossing runs over. `port-leads` and
+# `clearance-floor` are what hold it there.
+CROSS_RISE = 3.75
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
 # hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
@@ -373,17 +393,24 @@ def _water_3(F):
     front of it. There is no shorter way round: the valve manifold occupies the storey between
     the two columns and `CROSS_Y` is the one window through it.
 
-    IT FALLS ONCE. The split stands WEST of the cold core — the shell is 181 wide about x 0 and
-    this column is outboard of its face — so nothing on the core is under this branch and the run
-    has no crown to clear on its way down. It takes the crossing's own storey at the collet and
-    holds it the whole way forward: no staging plane, no step off one, and two fewer corners than
-    a run that had to get over something.
+    IT FALLS ONCE, INTO THE CHANNEL, AND THE FALL ENDS UNDER THE LANE IT FEEDS. The branch drops
+    on the split's own column, and its one corner turns WEST as well as forward — off that column
+    and into `CHANNEL_X`, the strip between the shell's face and the wall's — so the leg leaving
+    that corner leans into the channel and RISES `CROSS_RISE` onto the crossing's storey instead
+    of standing on it from the start.
+
+    WHICH IS WHERE THE SPLIT'S HEIGHT COMES FROM. What a fall costs the tee above it is its
+    corner's tangent, not its length, and a corner that bottoms out under its lane starts lower
+    than one that bottoms out on it. The deepest the run gets is that arc, one `port_lead` below
+    the branch collet, and the lid's outer face is what it answers to — so the tap stands as low
+    as the cap's own deck lets the corner hang, and no lower.
 
     IT CROSSES UNDER THE HOPPER'S DISCONNECT. The union hangs on the basin's spout in the middle
-    of that window, so the branch drops `CROSS_DROP` past the inlet's own plane, runs the whole
-    width of the machine beneath the union's foot and against the cold core's front, and climbs
-    back onto the inlet's plane on V-K'S OWN COLUMN — where the climb costs nothing, because the
-    aft leg into the collet is there anyway and the lean shares it.
+    of that window, so the crossing runs `CROSS_DROP` under the inlet's own plane, the whole width
+    of the machine beneath the union's foot and against the cold core's front, and climbs back
+    onto the inlet's plane on V-K'S OWN COLUMN — where the climb costs nothing, because the aft
+    leg into the collet is there anyway and the lean shares it. The cap's own side post grips the
+    run on that lane (`_cold_core_interface.cap_side_anchors`), which is what fixes its height.
 
     The closing straight is planted on the collet's axis (`lead`), so the mouth is entered square
     however the lean arrives at it."""
@@ -392,14 +419,14 @@ def _water_3(F):
     z = dst[2] - CROSS_DROP
     return R.bent(
         "water-3", "water-split.to-vk",
-        (src[0], src[1], z),                # the whole fall, west of the core, in one leg
-        (src[0], CROSS_Y, z),               # forward on the crossing's own lane
+        (src[0], src[1], z - CROSS_RISE),   # the whole fall, on the branch's column, past the lane
+        (CHANNEL_X, CROSS_Y, z),            # forward and west into the channel, rising onto the lane
         (CROSS_LIFT_X, CROSS_Y, z),         # east along that lane, beneath the union's foot
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
         kind="water", lead=(None, _ml.STUB),
-        note="tap water: split branch → V-K inlet, down the west column, across the window under "
-             "the hopper's union, and up V-K's own column into the mouth")
+        note="tap water: split branch → V-K inlet, down into the west channel, across the window "
+             "under the hopper's union, and up V-K's own column into the mouth")
 
 
 def _water_4(F):
