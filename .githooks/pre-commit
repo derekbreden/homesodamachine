@@ -48,13 +48,9 @@
 #        prints the scorecard at the tail of every run and writes
 #        enclosure-assembly.scorecard.json beside the STEP, so nothing here re-runs them,
 #        and a red row rides the card rather than stopping anything.
-#      - any staged *.py under hardware/    → check_cards.py, which asks whether the
-#        committed cards still describe the tree. The build stamps the digest of the text
-#        it could reach under .cache/; this takes it again and compares. ~2 s.
-#      - any staged *.py under hardware/    → check_doc_figures.py, the same question for
-#        a doc's [value](NAME) figures. Each doc's driver leaves <doc>.figures.json beside
-#        it — the texts it wrote — and the hash of what decided them under .cache/. Reads
-#        the doc and recorded files, so no import and no CadQuery: stdlib, ~0.4 s.
+#      - any staged *.py under hardware/    → `bazel build //:everything`, which runs every
+#        generator whose declared inputs moved, then tools/bazel/sync_tree.py, which says
+#        whether the tree carries what those runs cut.
 #      Each prints one ✓ line on pass and dumps its full output on red, and the tail
 #      lists every red one as the follow-up commit's work.
 #
@@ -243,53 +239,26 @@ for hw in $editions; do
     gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
   fi
 
-  # WHAT THE CARDS SAY IS WHAT SOME BUILD MEASURED, and between two builds a source moves
-  # and the card goes on reading what the last one found — numbers that look like
-  # measurements and are a memory of one. Each card carries `sources`, the digest of the
-  # whole text its build could reach, so this takes the digest again and compares two hex
-  # strings. It names the builder to run and settles nothing itself: re-deriving a card is a
-  # build, which is minutes, and the syncs above are the things that cost seconds.
+  # WHAT THE SOLIDS, CARDS, DOCS AND PICTURES SAY IS WHAT THE BUILD MAKES OF THE SOURCES
+  # BESIDE THEM. `bazel build //:everything` runs every generator whose declared inputs moved,
+  # in parallel, each in a sandbox holding exactly what it named; `sync_tree.py` then compares
+  # what came out to what the tree carries. A commit whose artifacts are the ones its sources
+  # make has nothing to carry over.
   #
-  # KEYED ON STAGED PYTHON, which is wider than the graph it reads and is the widest claim a
-  # pathspec can make about it — the inputs are two import graphs, `check_cards.py` computes
-  # them, and computing them is the whole cost of the answer. A commit staging Python this
-  # side of those graphs pays the check and gets a pass.
-  #
-  # The pack's own gates are not here and do not need to be: enclosure_assembly.py runs its
-  # scorecard at the tail of every build and writes it beside the STEP, so a red row rides
-  # the card. This says only whether that card is still the tree's.
+  # KEYED ON STAGED PYTHON. Bazel decides what actually reruns from the graph in BUILD.bazel;
+  # this only decides whether to ask, and a commit that stages no Python could not have moved
+  # a figure.
   if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
-    if [ -x "$py" ]; then
-      gate "$hw cards describe the tree" "$py" "$root/$hw/scripts/check_cards.py"
+    if [ -x "$py" ] && command -v bazelisk >/dev/null 2>&1; then
+      gate "$hw builds" bazelisk build //:everything
+      gate "$hw carries what the build cut" "$py" "$root/tools/bazel/sync_tree.py"
     else
-      echo "pre-commit: no cad-venv — $hw card freshness skipped" >&2
+      echo "pre-commit: no cad-venv or no bazelisk — $hw build check skipped" >&2
     fi
 
-    # WHAT A DOC'S `[value](NAME)` SAYS IS WHAT SOME SYNC MEASURED, and the same drift the
-    # cards have: a source moves, the driver is not re-run, and the doc goes on quoting the
-    # last run's figure. Beside each doc its driver leaves `<doc>.figures.json` — the texts
-    # it wrote — and this reads the doc's own brackets against them, then the hash of what
-    # decided them. It names the driver to run and settles nothing itself: a sync is that
-    # driver's whole build.
-    #
-    # KEYED with the cards, on staged Python, and for the same reason: the inputs are the
-    # drivers' import graphs. What it reads is only the files already recorded, so it costs
-    # no import and no CadQuery — stdlib python3 runs it. A doc with no sidecar yet is
-    # counted and passes; it enrols the next time its driver runs.
-    gate "$hw docs carry their sources' figures" \
-         python3 "$root/$hw/scripts/check_doc_figures.py"
-
-    # AND THE UNIT CARDS' PICTURES, which are the same bargain in a third medium. A scene is a
-    # cut of the built machine posed to a camera, and drawing one is minutes; what it was drawn
-    # from is written down beside it, so doubting it is a few dozen file reads and no import at
-    # all. That asymmetry is the whole design: the expensive half runs when a picture is
-    # actually stale, this half runs every time.
-    gate "$hw scenes carry the picture their sources draw" \
-         python3 "$root/$hw/scripts/check_scenes.py"
-
-    # AND THAT BOTH HALVES OF EVERY PAIR ARE IN THE INDEX. The two checks above read a record
-    # beside an artifact; this one asks whether the record is in the commit at all. `git
-    # ls-files` and one read per doc — no import, no venv.
+    # AND THAT BOTH HALVES OF EVERY PAIR ARE IN THE INDEX. The build reads a record beside an
+    # artifact; this one asks whether the record is in the commit at all. `git ls-files` and
+    # one read per doc — no import, no venv.
     gate "$hw records are tracked beside what they describe" \
          python3 "$root/$hw/scripts/check_tracked.py"
   fi
