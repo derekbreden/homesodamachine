@@ -368,8 +368,17 @@ CHANNEL_X = -96.0
 #
 # THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it. The arc's
 # own belly is the deepest the run gets, one `port_lead` under the branch collet, and it holds its
-# lane over the lid's outer face. `port-leads` and `clearance-floor` read both.
-CROSS_RISE = 3.75
+# lane over the lid's outer face.
+#
+# THE BELLY IS ARITHMETIC OFF THE ROUTE AND NOT A SOLID DISTANCE. This run is SEATED on the cap —
+# the side post grips it on the crossing — so `clearance-floor` holds the pair exempt, and the
+# distance between tube and shell reads the post's own grip whatever this figure is. What the
+# belly keeps over the lid is `_water_3`'s vertex plus corner 0's tangent, less one `port_lead`.
+# Re-read it by standing a box under the arc —
+#
+#     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -96.1,-89.7 --y 223,229 --z 250,256
+#
+CROSS_RISE = 4.35
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
 # hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
@@ -475,16 +484,19 @@ def _fluid_1(F):
 # and the fall is not, so a longer straight leaves the lean less run for the same drop and steepens
 # it. The corner's own demand rises with it — slower than the lead does, which is why there is a
 # figure that satisfies both, but the two move together and neither may be read alone.
-#   THE TWO STUBS MOVE TOGETHER. Both stand at one end of the same lean, so the leg between them
-# is the step's reach less BOTH, and the fall it covers is the same however short it gets. Each
-# of the two corners backs `R·tan(θ/2)` down that leg and the two share it, so a millimetre taken
-# at either end is spent twice: once off the leg, and once again on the tangent the steeper lean
-# demands of it. `bend-radius` is what reads the pair back.
-WATER_2_LEAD = 10.0
-# The SPLIT end's own reach — the straight that carries the climb's first bend aft, clear of the
-# lane `fluid-2` leaves the regulator on, and what the eye reads as the stub standing off the tee.
-WATER_2_RUN = 23.5   # the horizontal section aft of the tee
-WATER_2_SPLIT_LEAD = 16.75
+WATER_2_LEAD = 12.0
+# THE SPLIT END'S HORIZONTAL SECTION, stated as a leg rather than reached for as a lead. A lead
+# plants its point along the port's own axis and the climb's corner then backs its tangent into
+# that same straight, so what stands off the tee is the lead less that tangent. A waypoint is a
+# place the run passes through: the leg is the length, and the corner takes its tangent out of the
+# LEAN instead. What the eye reads standing off the collet is this figure less `R·tan(θ/2)`.
+#   IT IS FENCED AT BOTH ENDS. Aft, `wago-reeds-b`'s well opens at y 294.60 on that wall, and this
+# leg's far end has to stop short of it. Forward, the lean it hands the run to crosses the lane
+# `fluid-2` leaves the regulator on, and a leg that ends too early puts that crossing in the same
+# band. Between them, `WATER_2_LEAD` and this share one leg — the lean — and each of the two
+# corners backs its tangent down it, so neither figure may be read alone. `bend-radius` reads the
+# pair back and `clearance-floor` reads the crossing.
+WATER_2_RUN = 23.25
 
 
 def _water_2(F):
