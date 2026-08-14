@@ -652,9 +652,9 @@ def _fluid_2(F, solids):
         (inlet[0], cross, inlet[2]),                  # east under the drain, onto V-A's column
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
-        note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, east and down "
-             "level across the lane into the strip west of the nozzle-A line, forward and down "
-             "the drain")
+        note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, level east "
+             "across the lane into the strip west of the nozzle-A line, forward and down that "
+             "strip, and east through the window the drain leaves")
 
 
 # --- the hopper's gravity drain ---------------------------------------------

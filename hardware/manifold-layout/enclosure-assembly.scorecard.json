@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -111,12 +111,11 @@
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 under, tightest 0.473 mm",
+   "status": "pass",
+   "value": "0 under, tightest 1.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "water-2 \u2014 fluid-2: 0.473 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -154,6 +153,7 @@
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "water-2 \u2014 fluid-2: 1.902 mm",
     "fluid-2 \u2014 fluid-4: 1.969 mm",
     "fluid-14 \u2014 seaflo-pump: 1.975 mm",
     "fluid-4 \u2014 coil-v-a: 1.981 mm",
@@ -4590,7 +4590,7 @@
    "to": "valve-v-a.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 163.13,
+   "length": 170.07,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4605,28 +4605,28 @@
      "grade": "B",
      "legs": [
       15.0,
-      43.22
+      40.94
      ]
     },
     {
      "at": 2,
-     "turn": 75.2,
+     "turn": 90.0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      43.22,
-      33.02
+      40.94,
+      44.83
      ]
     },
     {
      "at": 3,
-     "turn": 78.8,
+     "turn": 77.4,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      33.02,
+      44.83,
       75.84
      ]
     },
@@ -4646,22 +4646,22 @@
    "bends": 4,
    "worstTurn": 90.0,
    "seat": 15.0,
-   "reach": 20.738,
-   "reachRatio": 1.4813,
+   "reach": 20.47,
+   "reachRatio": 1.4621,
    "reachGrade": "B",
    "binding": {
-    "leg": 2,
-    "length": 33.025,
-    "demand": 1.5925,
+    "leg": 1,
+    "length": 40.94,
+    "demand": 2.0,
     "from": [
-     -51.06,
+     -92.0,
      278.14,
-     312.05
+     325.91
     ],
     "to": [
      -51.06,
-     258.08,
-     285.82
+     278.14,
+     325.91
     ]
    },
    "need": {
@@ -4683,8 +4683,8 @@
      "z": 58.6
     },
     "span": 130.17,
-    "path": 163.13,
-    "detour": 1.253
+    "path": 170.07,
+    "detour": 1.307
    }
   },
   {
