@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -107.5,
-    -3.0,
+    -0.0,
     -3.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     215.0,
-    475.25,
+    472.25,
     358.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -107.5,
-    -3.0,
+    -0.0,
     -3.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     215.0,
-    488.891,
+    485.891,
     361.0
    ]
   }
@@ -1038,8 +1038,8 @@
    "label": "The pack stands behind the appliance's stated front plane",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y 6.00, front wall at 0.00",
-   "target": "behind `front_plane_y` 0",
+   "value": "pack reaches y 6.00, front wall at 3.00",
+   "target": "behind `front_plane_y` 3",
    "detail": [],
    "active": true
   },
@@ -1068,8 +1068,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 85.25",
-   "target": "aft of 87.25",
+   "value": "seam at 200.00, housing back plane at 88.25",
+   "target": "aft of 90.25",
    "detail": [],
    "active": true
   },
@@ -2569,10 +2569,10 @@
    "boxes": [
     [
      -56.75,
-     1.879,
+     4.879,
      294.967,
      56.75,
-     57.033,
+     60.033,
      350.121
     ]
    ],
@@ -2585,10 +2585,10 @@
    "boxes": [
     [
      -76.45,
-     -1.444,
+     1.556,
      293.765,
      76.45,
-     58.235,
+     61.235,
      353.444
     ]
    ],
@@ -2681,18 +2681,18 @@
    "boxes": [
     [
      -52.5,
-     5.415,
+     8.415,
      284.36,
      53.5,
-     66.226,
+     69.226,
      345.171
     ],
     [
      -56.75,
-     2.586,
+     5.586,
      294.26,
      56.75,
-     57.74,
+     60.74,
      349.414
     ]
    ],
