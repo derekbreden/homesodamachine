@@ -250,13 +250,13 @@ hopper_chain_gap = 1.0
 # no business moving. What the facet leaves the throat is the ledge below, and that is a
 # bound this plane answers rather than a figure that sites it.
 funnel_front_y = 88.25
-# The top wall between the display housing's back plane and the throat, and one `wall` is the
-# section every other plate in this box is. The wall forward of it thickens into the housing
-# rather than running out to an edge, so what it keeps is the throat's cut edge off the
-# housing's own step. `with_funnel` reads it as the frame's forward bound on
-# `funnel-collar-frame`: a front plane far enough aft to carry the housing into the throat
-# turns that row red.
-hopper_front_ledge = wall
+# The top wall between the display housing's back plane and the throat. ZERO, and the throat's
+# front edge is the housing's own back plane: the brim's `brim_overhang` then lands wholly on
+# the housing slab, `display_facet_thickness` of solid and the thickest wall in the box, where
+# a ledge would give it plain top wall instead. `with_funnel` reads this as the frame's forward
+# bound on `funnel-collar-frame`, so a front plane far enough aft to carry the housing INTO the
+# throat turns that row red.
+hopper_front_ledge = 0.0
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -564,8 +564,9 @@ rear_plane_y = 464.0
 # WHAT THIS PLANE SPENDS IS THE TOP WALL BEHIND THE FACET. Every millimetre aft carries the
 # facet's back plane a millimetre aft with it, and the basin stands on its own
 # `funnel_front_y` — so the ledge between the housing and the throat is what closes, and
-# `funnel-collar-frame` is the row that reads it.
-front_plane_y = 0.0
+# `funnel-collar-frame` is the row that reads it. It stands where that ledge runs out, so
+# every millimetre further aft is one the display housing has to give up.
+front_plane_y = 3.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
@@ -1295,8 +1296,13 @@ def facet_back_y(outer):
     """The Y the display housing reaches back to — the 45° face's own run aft
     plus the housing wall behind it, measured along Y. The frontmost the Y seam
     may sit, since the whole facet belongs to the front top piece; and where the
-    top wall resumes, which is what the pack's own funnel centre pushes the basin
-    forward against."""
+    top wall resumes, which is the forward wall of the frame the funnel's collar
+    stands in.
+
+    BOTH TERMS ARE MEASURED ON THE 45°, so each costs more Y than it is: the
+    slope's own run aft is `sin 45°` of it, and the housing behind it stands
+    perpendicular to the face, so its `display_facet_thickness` reaches √2 as
+    far along Y as it is thick."""
     _a, _n, _o, dy, _dz = _facet_geom(outer)
     return outer[2] + dy + display_facet_thickness * math.sqrt(2.0)
 

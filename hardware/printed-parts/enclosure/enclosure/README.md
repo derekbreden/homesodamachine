@@ -2,7 +2,7 @@
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [215 × 473 × 358 mm](BOX_SIZE), and **width, height and the back wall
+It measures [215 × 467 × 358 mm](BOX_SIZE), and **width, height and the back wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -558,7 +558,7 @@ around the cut.
 The funnel is a static placed part: the opening is cut at its collar
 (`_hopper_hole` reads the funnel's own dims at `enclosure_assembly.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
-facet's own back plane ahead (with a ledge of top wall between the two), the ±X
+facet's own back plane ahead (the collar's front edge stands on it), the ±X
 boss chains either side, and the back wall behind — and the collar is measured
 one `brim_margin` inside it on all four sides at once, so a placement that crowds an
 edge is a red row naming the edge and the margin it is short. That margin
