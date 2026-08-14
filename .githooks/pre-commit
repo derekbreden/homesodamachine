@@ -48,9 +48,15 @@
 #        prints the scorecard at the tail of every run and writes
 #        enclosure-assembly.scorecard.json beside the STEP, so nothing here re-runs them,
 #        and a red row rides the card rather than stopping anything.
-#      - any staged *.py under hardware/    → `bazel build //:everything`, which runs every
-#        generator whose declared inputs moved, then tools/bazel/sync_tree.py, which says
-#        whether the tree carries what those runs cut.
+#      - any staged *.py under hardware/    → `bazel build --check_up_to_date //:everything`,
+#        which asks whether any generator's declared inputs have moved and RUNS NOTHING —
+#        0 processes, a hundredth of a second — then tools/bazel/sync_tree.py, which says
+#        whether the tree carries what the last build cut.
+#
+#        DOUBTING IS CHEAP AND DERIVING IS NOT, which is the same split the cards and the
+#        scenes were built on. A hook that builds holds the workspace lock for the minutes
+#        the build takes, and every other session's commit queues behind it. What is owed is
+#        named at the tail and `bazel build //:everything` is what discharges it.
 #      Each prints one ✓ line on pass and dumps its full output on red, and the tail
 #      lists every red one as the follow-up commit's work.
 #
@@ -250,7 +256,7 @@ for hw in $editions; do
   # a figure.
   if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
     if [ -x "$py" ] && command -v bazelisk >/dev/null 2>&1; then
-      gate "$hw builds" bazelisk build //:everything
+      gate "$hw is built" bazelisk build --check_up_to_date //:everything
       gate "$hw carries what the build cut" "$py" "$root/tools/bazel/sync_tree.py"
     else
       echo "pre-commit: no cad-venv or no bazelisk — $hw build check skipped" >&2
