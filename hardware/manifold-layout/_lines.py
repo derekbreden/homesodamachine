@@ -506,18 +506,21 @@ def _water_2(F):
     ONE LEAN IN THE OPEN ROOM AFT OF THE HOPPER. The chain hands the water over facing forward
     down the west lane and the split's own run axis IS that lane, a storey lower — so the two
     collets face each other down the lane with `enclosure_assembly.FLAVOR_STEP` between them.
-    The run leaves and enters on-axis off its own `WATER_2_LEAD` stubs and takes the whole fall
-    in the leg between, which lies in the room the bowl stops short of.
+    The run leaves the chain on-axis off its own `WATER_2_LEAD` stub and arrives at the tee along
+    `WATER_2_RUN`, the level leg stated aft of it; the whole fall is taken in the lean between,
+    which lies in the room the bowl stops short of.
 
     THE TWO ARE NOT ON ONE COLUMN. The chain's is the rear wall's `PORT_WEST_COLUMN` and the
     split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses as well as falls.
 
-    IT IS THE TWO STUBS THAT SHAPE IT, AND NOTHING STANDS BETWEEN THEM. `lead=` plants a point
-    one reach along each collet's own axis, and the lean is the single leg those two points
-    stand at either end of — so the run turns twice, once out of each stub, at whatever angle
-    the step's fall and crossing make of it. The two reaches are free to differ: the lean is
-    struck between the stubs' own ends, so where it starts and where it finishes are each set
-    by the stub under them and by nothing else on the line."""
+    ONE END IS A STUB AND THE OTHER IS A PLACE, and that is the whole shape of it. At the chain,
+    `lead=` plants a point one reach along the collet's axis and the lean starts wherever the
+    corner off it leaves off — a standoff, spent by its own turn. At the tee, `WATER_2_RUN` is a
+    waypoint the run must pass through, so the level leg is the length it says and the lean starts
+    at its far end. The tee's stub is therefore 0, not open: `None` there would ask the router for
+    one bend radius along the same axis the waypoint already stands on.
+      The lean is the single leg between those two, and it turns twice — once out of the chain's
+    stub, once onto the tee's leg — at whatever angle the step's fall and crossing make of it."""
     _S2 = F["water-split"].at("supply")
     return R.bent(
         "water-2", "asse1022-assembly.tube-out",
@@ -527,7 +530,7 @@ def _water_2(F):
         # the run must pass through, so this length is the length.
         (_S2[0], _S2[1] + WATER_2_RUN, _S2[2]),
         "water-split.supply",
-        kind="water", bend=TUBE_BEND, lead=(WATER_2_LEAD, None),
+        kind="water", bend=TUBE_BEND, lead=(WATER_2_LEAD, 0.0),
         note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
              "hopper's bowl leaves")
 
