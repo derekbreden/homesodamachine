@@ -1,8 +1,10 @@
 {
   "/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
+    "CLAMP_BOX_DEPTH": "45",
     "CLAMP_CASE_D": "4.2",
     "CLAMP_CHANNEL_H": "4.6",
-    "CLAMP_FACE_X": "45",
+    "CLAMP_FACE_X": "27.5",
+    "CLAMP_FLANK_REACH": "25.5",
     "CLAMP_GAP": "15",
     "CLAMP_HEAD_Y": "18",
     "CLAMP_HEAD_Z": "6.7",
