@@ -56,7 +56,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py > /dev/null
 cp hardware/assembly/acceptance-and-burn-in.figures.json $$O0
 cp hardware/assembly/acceptance-and-burn-in.md $$O1
 """,
@@ -88,7 +90,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_cable_assemblies_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_cable_assemblies_sync.py > /dev/null
 cp hardware/assembly/cable-assemblies.figures.json $$O0
 cp hardware/assembly/cable-assemblies.md $$O1
 """,
@@ -143,7 +147,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py > /dev/null
 cp hardware/assembly/cold-core.figures.json $$O0
 cp hardware/assembly/cold-core.md $$O1
 cp hardware/printed-parts/cold-core/_port_cuts.py $$O2
@@ -251,7 +257,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_electronics_shelf_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_electronics_shelf_sync.py > /dev/null
 cp hardware/assembly/electronics-shelf.figures.json $$O0
 cp hardware/assembly/electronics-shelf.md $$O1
 """,
@@ -359,7 +367,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py > /dev/null
 cp hardware/assembly/enclosure-mechanical.figures.json $$O0
 cp hardware/assembly/enclosure-mechanical.md $$O1
 """,
@@ -397,7 +407,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py > /dev/null
 cp hardware/assembly/faucet-and-umbilical.figures.json $$O0
 cp hardware/assembly/faucet-and-umbilical.md $$O1
 """,
@@ -429,7 +441,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_finish_pack_ship_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_finish_pack_ship_sync.py > /dev/null
 cp hardware/assembly/finish-pack-ship.figures.json $$O0
 cp hardware/assembly/finish-pack-ship.md $$O1
 """,
@@ -482,7 +496,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py > /dev/null
 cp hardware/assembly/firmware-and-commissioning.figures.json $$O0
 cp hardware/assembly/firmware-and-commissioning.md $$O1
 """,
@@ -536,7 +552,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py > /dev/null
 cp hardware/assembly/handwork.figures.json $$O0
 cp hardware/assembly/handwork.md $$O1
 """,
@@ -642,7 +660,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_internal_plumbing_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_internal_plumbing_sync.py > /dev/null
 cp hardware/assembly/internal-plumbing.figures.json $$O0
 cp hardware/assembly/internal-plumbing.md $$O1
 """,
@@ -679,7 +699,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py > /dev/null
 cp hardware/assembly/pressure-vessel.figures.json $$O0
 cp hardware/assembly/pressure-vessel.md $$O1
 """,
@@ -716,7 +738,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_refrigerant_loop_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_refrigerant_loop_sync.py > /dev/null
 cp hardware/assembly/refrigerant-loop.figures.json $$O0
 cp hardware/assembly/refrigerant-loop.md $$O1
 """,
@@ -754,7 +778,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py > /dev/null
 cp hardware/assembly/wiring.figures.json $$O0
 cp hardware/assembly/wiring.md $$O1
 """,
@@ -913,7 +939,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/cards/tools/_build.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/cards/tools/_build.py > /dev/null
 cp hardware/assembly/cards/tools/out/bs-band-saw.png $$O0
 cp hardware/assembly/cards/tools/out/bz-braze-bench.png $$O1
 cp hardware/assembly/cards/tools/out/cr-crimp-bench.png $$O2
@@ -1122,7 +1150,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py > /dev/null
 cp hardware/assembly/cards/img/scene-back-half.png $$O0
 cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O1
 cp hardware/assembly/cards/img/scene-back-top.png $$O2
@@ -1220,7 +1250,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py > /dev/null
 cp hardware/cold-core-layout/cold-core-assembly.scorecard.json $$O0
 cp hardware/cold-core-layout/cold-core-assembly.step $$O1
 cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json $$O2
@@ -1251,7 +1283,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf $$O0
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py $$O1
 """,
@@ -1281,7 +1315,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf $$O0
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py $$O1
 """,
@@ -1312,7 +1348,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py > /dev/null
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step $$O0
 cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py $$O1
 """,
@@ -1371,8 +1409,10 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py > /dev/null
 cp hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf $$O0
 cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step $$O1
 cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step $$O2
@@ -1508,7 +1548,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
 cp hardware/manifold-layout/enclosure-assembly.facts.json $$O0
 cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O1
 cp hardware/manifold-layout/enclosure-assembly.step $$O2
@@ -1561,7 +1603,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py > /dev/null
 cp hardware/manifold-layout/manifold-layout.step $$O0
 cp hardware/manifold-layout/README.figures.json $$O1
 cp hardware/manifold-layout/README.md $$O2
@@ -1590,7 +1634,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/_cold_core_interface.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/_cold_core_interface.py > /dev/null
 cp hardware/printed-parts/cold-core/_cold_core_interface.py $$O0
 """,
 )
@@ -1623,7 +1669,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
 cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step $$O0
 cp hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py $$O1
 """,
@@ -1659,7 +1707,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py > /dev/null
 cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step $$O0
 cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step $$O1
 cp hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py $$O2
@@ -1716,7 +1766,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step $$O0
 cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step $$O1
 """,
@@ -1762,7 +1814,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O0
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step $$O1
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O2
@@ -1876,9 +1930,11 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step $$O0
 cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $$O1
 cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step $$O2
@@ -1938,7 +1994,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py > /dev/null
 cp hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step $$O0
 cp hardware/printed-parts/cold-core/prv-shroud/README.figures.json $$O1
 cp hardware/printed-parts/cold-core/prv-shroud/README.md $$O2
@@ -1974,7 +2032,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py > /dev/null
 cp hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step $$O0
 cp hardware/printed-parts/electronics/pcba-tray/pcba-board.step $$O1
 """,
@@ -2006,7 +2066,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_tray.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_tray.py > /dev/null
 cp hardware/printed-parts/electronics/pcba-tray/pcba-tray.step $$O0
 cp hardware/printed-parts/electronics/pcba-tray/pcba_tray.py $$O1
 """,
@@ -2113,7 +2175,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
 cp hardware/printed-parts/enclosure/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/README.md $$O1
 """,
@@ -2218,7 +2282,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py > /dev/null
 cp hardware/printed-parts/enclosure/back-panel/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/back-panel/README.md $$O1
 """,
@@ -2348,9 +2414,11 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py > /dev/null
 cp hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg $$O0
 cp hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg $$O1
 cp hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py $$O2
@@ -2390,7 +2458,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py > /dev/null
 cp hardware/printed-parts/enclosure/drip-pan/drip-pan.step $$O0
 cp hardware/printed-parts/enclosure/drip-pan/README.figures.json $$O1
 cp hardware/printed-parts/enclosure/drip-pan/README.md $$O2
@@ -2538,7 +2608,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O0
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O1
 cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-back-bottom.step $$O2
@@ -2580,7 +2652,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
 cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/nameplate/README.md $$O1
 """,
@@ -2622,7 +2696,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/port_ring.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/port_ring.py > /dev/null
 cp hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step $$O0
 cp hardware/printed-parts/enclosure/port-ring/port-ring-union.step $$O1
 cp hardware/printed-parts/enclosure/port-ring/README.figures.json $$O2
@@ -2729,7 +2805,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py > /dev/null
 cp hardware/printed-parts/enclosure/pump-tray/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/pump-tray/README.md $$O1
 """,
@@ -2834,7 +2912,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py > /dev/null
 cp hardware/printed-parts/enclosure/valve-panel/README.figures.json $$O0
 cp hardware/printed-parts/enclosure/valve-panel/README.md $$O1
 """,
@@ -2868,7 +2948,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py > /dev/null
 cp hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step $$O0
 cp hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py $$O1
 """,
@@ -2909,7 +2991,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py > /dev/null
 cp hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step $$O0
 cp hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json $$O1
 cp hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md $$O2
@@ -2950,7 +3034,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py > /dev/null
 cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step $$O0
 cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json $$O1
 cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md $$O2
@@ -2983,7 +3069,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py > /dev/null
 cp hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step $$O0
 cp hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py $$O1
 """,
@@ -3018,7 +3106,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case.py > /dev/null
 cp hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step $$O0
 cp hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step $$O1
 cp hardware/printed-parts/flavor/pump-case/pump_case.py $$O2
@@ -3051,7 +3141,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case_assembly.py > /dev/null
 cp hardware/printed-parts/flavor/pump-case/pump-case-assembly.step $$O0
 """,
 )
@@ -3093,7 +3185,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
 cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step $$O0
 cp hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json $$O1
 cp hardware/printed-parts/refrigeration/fuse-clamp/README.md $$O2
@@ -3129,7 +3223,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py > /dev/null
 cp hardware/printed-parts/valve-seat/README.figures.json $$O0
 cp hardware/printed-parts/valve-seat/README.md $$O1
 """,
@@ -3172,7 +3268,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py > /dev/null
 cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-assembly.step $$O0
 cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-cavity.step $$O1
 cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-core.step $$O2
@@ -3213,7 +3311,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py > /dev/null
 cp hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step $$O0
 cp hardware/printed-parts/zone-c/hopper-funnel/README.figures.json $$O1
 cp hardware/printed-parts/zone-c/hopper-funnel/README.md $$O2
@@ -3339,7 +3439,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py > /dev/null
 cp hardware/quickstart/drawings/prints-and-guides/appliance.pdf $$O0
 cp hardware/quickstart/drawings/prints-and-guides/appliance.svg $$O1
 cp hardware/quickstart/appliance_quickstart.py $$O2
@@ -3381,7 +3483,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py > /dev/null
 cp hardware/reference/asse1022-assembly/asse1022-assembly.step $$O0
 cp hardware/reference/asse1022-assembly/README.figures.json $$O1
 cp hardware/reference/asse1022-assembly/README.md $$O2
@@ -3410,7 +3514,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py > /dev/null
 cp hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step $$O0
 """,
 )
@@ -3447,7 +3553,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py > /dev/null
 cp hardware/reference/beduan-solenoid/beduan-solenoid.step $$O0
 cp hardware/reference/beduan-solenoid/README.figures.json $$O1
 cp hardware/reference/beduan-solenoid/README.md $$O2
@@ -3487,7 +3595,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/compressor/compressor.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/compressor/compressor.py > /dev/null
 cp hardware/reference/compressor/compressor.step $$O0
 cp hardware/reference/compressor/README.figures.json $$O1
 cp hardware/reference/compressor/README.md $$O2
@@ -3527,7 +3637,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
 cp hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step $$O0
 cp hardware/reference/digiten-flow-sensor/README.figures.json $$O1
 cp hardware/reference/digiten-flow-sensor/README.md $$O2
@@ -3557,7 +3669,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/ffl38barb38/ffl38barb38.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/ffl38barb38/ffl38barb38.py > /dev/null
 cp hardware/reference/ffl38barb38/ffl38barb38.step $$O0
 """,
 )
@@ -3584,7 +3698,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/flare38-14ptc/flare38_14ptc.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/flare38-14ptc/flare38_14ptc.py > /dev/null
 cp hardware/reference/flare38-14ptc/flare38-14ptc.step $$O0
 """,
 )
@@ -3611,7 +3727,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py > /dev/null
 cp hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step $$O0
 """,
 )
@@ -3638,7 +3756,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py > /dev/null
 cp hardware/reference/gasher-check-valve/gasher-check-valve.step $$O0
 """,
 )
@@ -3665,7 +3785,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/ground-ring-stack/ground_ring_stack.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/ground-ring-stack/ground_ring_stack.py > /dev/null
 cp hardware/reference/ground-ring-stack/ground-ring-stack.step $$O0
 """,
 )
@@ -3697,7 +3819,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py > /dev/null
 cp hardware/reference/hopper-drain-stub/hopper-drain-stub.step $$O0
 """,
 )
@@ -3725,7 +3849,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py > /dev/null
 cp hardware/reference/iec-c14-inlet/iec-c14-inlet.step $$O0
 """,
 )
@@ -3754,7 +3880,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py > /dev/null
 cp hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step $$O0
 """,
 )
@@ -3781,7 +3909,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py > /dev/null
 cp hardware/reference/jg-pp010822e/jg-pp010822e.step $$O0
 """,
 )
@@ -3808,7 +3938,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py > /dev/null
 cp hardware/reference/jg-pp0408w/jg-pp0408w.step $$O0
 """,
 )
@@ -3835,7 +3967,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py > /dev/null
 cp hardware/reference/jg-pp061208w/jg-pp061208w.step $$O0
 """,
 )
@@ -3862,7 +3996,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp451223w/jg_pp451223w.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp451223w/jg_pp451223w.py > /dev/null
 cp hardware/reference/jg-pp451223w/jg-pp451223w.step $$O0
 """,
 )
@@ -3894,7 +4030,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/kamoer_kphm400.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/kamoer_kphm400.py > /dev/null
 cp hardware/reference/kamoer-kphm400/kamoer-kphm400.step $$O0
 """,
 )
@@ -3928,7 +4066,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/pump_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/pump_assembly.py > /dev/null
 cp hardware/reference/kamoer-kphm400/pump-assembly.step $$O0
 """,
 )
@@ -3955,7 +4095,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/meanwell-irm90/meanwell_irm90.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/meanwell-irm90/meanwell_irm90.py > /dev/null
 cp hardware/reference/meanwell-irm90/meanwell-irm90.step $$O0
 """,
 )
@@ -3982,7 +4124,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py > /dev/null
 cp hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step $$O0
 """,
 )
@@ -4009,7 +4153,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py > /dev/null
 cp hardware/reference/multiplex-asse1022/multiplex-asse1022.step $$O0
 """,
 )
@@ -4038,7 +4184,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py > /dev/null
 cp hardware/reference/neofit-bulkhead/neofit-bulkhead.step $$O0
 """,
 )
@@ -4065,7 +4213,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py > /dev/null
 cp hardware/reference/neofit-flow-control/neofit-flow-control.step $$O0
 """,
 )
@@ -4092,7 +4242,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py > /dev/null
 cp hardware/reference/seaflo-22-pump/seaflo-22-pump.step $$O0
 """,
 )
@@ -4120,7 +4272,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py > /dev/null
 cp hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step $$O0
 """,
 )
@@ -4149,7 +4303,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py > /dev/null
 cp hardware/reference/seaflo-suction-chain/seaflo-suction-chain.step $$O0
 """,
 )
@@ -4176,7 +4332,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py > /dev/null
 cp hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step $$O0
 """,
 )
@@ -4203,7 +4361,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py > /dev/null
 cp hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step $$O0
 """,
 )
@@ -4233,7 +4393,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/tap-point-assembly/tap_point_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/tap-point-assembly/tap_point_assembly.py > /dev/null
 cp hardware/reference/tap-point-assembly/tap-point-assembly.step $$O0
 """,
 )
@@ -4260,7 +4422,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/teyleten-relay/teyleten_relay.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/teyleten-relay/teyleten_relay.py > /dev/null
 cp hardware/reference/teyleten-relay/teyleten-relay.step $$O0
 """,
 )
@@ -4296,7 +4460,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py > /dev/null
 cp hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step $$O0
 cp hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py $$O1
 """,
@@ -4328,7 +4494,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py > /dev/null
 cp hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step $$O0
 cp hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py $$O1
 """,
@@ -4360,7 +4528,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/wago-221/wago_221.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/wago-221/wago_221.py > /dev/null
 cp hardware/reference/wago-221/wago-221-413.step $$O0
 cp hardware/reference/wago-221/wago-221-415.step $$O1
 cp hardware/reference/wago-221/wago-221-420.step $$O2
@@ -4392,7 +4562,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/water-split/water_split.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/water-split/water_split.py > /dev/null
 cp hardware/reference/water-split/water-split.step $$O0
 """,
 )
@@ -4422,7 +4594,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/water-test-cup/water_test_cup.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/water-test-cup/water_test_cup.py > /dev/null
 cp hardware/reference/water-test-cup/water-test-cup.step $$O0
 cp hardware/reference/water-test-cup/water_test_cup.py $$O1
 """,
@@ -4460,7 +4634,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/waveshare-43b-display/waveshare_43b_display.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/waveshare-43b-display/waveshare_43b_display.py > /dev/null
 cp hardware/reference/waveshare-43b-display/waveshare-43b-display.step $$O0
 cp hardware/reference/waveshare-43b-display/README.figures.json $$O1
 cp hardware/reference/waveshare-43b-display/README.md $$O2
@@ -4490,7 +4666,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py > /dev/null
 cp hardware/reference/worm-clamp/worm-clamp.step $$O0
 """,
 )
@@ -4517,7 +4695,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py > /dev/null
 cp hardware/reference/wr1110-regulator/wr1110-regulator.step $$O0
 """,
 )
@@ -4662,10 +4842,12 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_masses.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_sync.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_totals.py > /dev/null
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_labor_totals.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_masses.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_sync.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_totals.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_labor_totals.py > /dev/null
 cp hardware/ledger/bom.figures.json $$O0
 cp hardware/ledger/bom.md $$O1
 cp hardware/ledger/labor.figures.json $$O2
@@ -4698,7 +4880,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
 cp hardware/ledger/purchases.figures.json $$O0
 cp hardware/ledger/purchases.md $$O1
 """,
@@ -4730,7 +4914,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_machine_time.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_machine_time.py > /dev/null
 cp hardware/ledger/machine-time.figures.json $$O0
 cp hardware/ledger/machine-time.md $$O1
 """,
@@ -4762,7 +4948,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_tools_totals.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_tools_totals.py > /dev/null
 cp hardware/ledger/tools.figures.json $$O0
 cp hardware/ledger/tools.md $$O1
 """,
@@ -4819,7 +5007,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/service/_pump_replacement_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/service/_pump_replacement_sync.py > /dev/null
 cp hardware/service/pump-replacement.figures.json $$O0
 cp hardware/service/pump-replacement.md $$O1
 """,
@@ -4934,7 +5124,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py > /dev/null
 cp hardware/topology/fluid-topology-carbonator.mmd $$O0
 cp hardware/topology/fluid-topology-limbs.mmd $$O1
 cp hardware/topology/fluid-topology-manifold.mmd $$O2
@@ -4968,7 +5160,9 @@ for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modul
   if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
 done
 cd work
-HSM_REPO_ROOT=$$PWD /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/wiring/_ac_wiring_schedule_sync.py > /dev/null
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/wiring/_ac_wiring_schedule_sync.py > /dev/null
 cp hardware/wiring/ac-wiring-schedule.figures.json $$O0
 cp hardware/wiring/ac-wiring-schedule.md $$O1
 """,
