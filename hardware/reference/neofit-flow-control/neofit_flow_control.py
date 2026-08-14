@@ -63,6 +63,20 @@ def adjuster():
     return (0.0, 0.0, STEM_REACH), (0.0, 0.0, 1.0)
 
 
+def run_barrel():
+    """The round run between the hub and the INLET collet face — `(station, radius, length)`.
+
+    The shape a printed seat can close on. The hub is a box and the stem standing off it is the
+    adjuster a hand has to reach, so what is left is the run — and the inlet half of it, because
+    the outlet's is the half the tap's own line leaves along.
+
+    `station` is its mid-point and the flow axis through it, in the frame both ports are stated
+    in."""
+    near, far = HUB / 2.0, REACH
+    return (((-(near + far) / 2.0, 0.0, 0.0), (-1.0, 0.0, 0.0)),
+            COLLET_D / 2.0, far - near)
+
+
 def build():
     """Run collets along ±X meeting at a central hub, the needle stem standing
     off it along +Z: bulkhead nut, threaded barrel, knurled adjuster head."""

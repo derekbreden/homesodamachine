@@ -22,7 +22,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts", _here.parent):
     sys.path.insert(0, str(_p))
-from _cadq_export import export_assembly
+from _cadq_export import export_assembly, import_step
 import kamoer_kphm400 as kp
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
@@ -33,7 +33,7 @@ def _elbow(bx):
     """One 90° elbow seated on the +Y outlet at X = bx. Its inlet leg is
     coaxial with the outlet port, collet face flush with the pump body's +Y
     face; the bend turns the line to +Z."""
-    el = cq.importers.importStep(str(ELBOW_STEP)).val()
+    el = import_step(str(ELBOW_STEP)).val()
     leg = el.BoundingBox().ymax                # bend-corner-to-collet-face reach
     # Native frame: one leg runs +Y (collet at +leg), the other +Z, bend at the
     # origin. Spin 180° about Z so the first leg faces the pump (-Y) to mate the

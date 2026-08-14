@@ -24,6 +24,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _measuring import collet_offsets
+from _cadq_export import import_step
 
 STEP = _here.parent / "tee-connector.step"
 
@@ -55,7 +56,7 @@ def stations_hold():
 
     All three are extents of the solid's own box, and the run and the branch are each also a
     1/4" bore standing on the body's own centreline."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for name, claimed, actual in (("RUN_HALF", RUN_HALF, bb.zmax),
                                   ("BRANCH_REACH", BRANCH_REACH, bb.ymax),

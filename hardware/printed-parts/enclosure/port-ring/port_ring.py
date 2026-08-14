@@ -54,7 +54,7 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step  # noqa: E402
+from _cadq_export import export_step, import_step  # noqa: E402
 from _measuring import bores  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
@@ -127,7 +127,7 @@ def stations_hold():
     turned face inside it — so a ring exported from different numbers is caught here rather
     than by a pocket it will not drop into."""
     for station, step in STEPS.items():
-        solid = cq.importers.importStep(str(step)).val()
+        solid = import_step(str(step)).val()
         bb = solid.BoundingBox()
         for what, claimed, actual in (("ring OD", od(station), bb.xlen),
                                       ("ring height", od(station), bb.zlen),

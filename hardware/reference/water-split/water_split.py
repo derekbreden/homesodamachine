@@ -57,6 +57,20 @@ def to_flavor():
     return (0.0, -REACH, 0.0), (0.0, -1.0, 0.0)
 
 
+def run_barrel():
+    """The round run between the hub and the SUPPLY collet face — `(station, radius, length)`.
+
+    The shape a printed seat can close on. The hub is a box and the branch is the port this
+    fitting is turned for, so what is left is the run, and the supply half of it is the half
+    with nothing downstream of it to fight for the joint's position.
+
+    `station` is its mid-point and the run axis through it, in the frame the three ports are
+    stated in."""
+    near, far = HUB / 2.0, REACH
+    return (((0.0, (near + far) / 2.0, 0.0), (0.0, 1.0, 0.0)),
+            COLLET_D / 2.0, far - near)
+
+
 def build():
     """Run collets along ±Y, branch collet along −X, meeting at a central hub."""
     run = cq.Solid.makeCylinder(

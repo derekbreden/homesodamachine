@@ -119,6 +119,7 @@ if str(_HERE) not in sys.path:
 
 import probe                                                        # noqa: E402
 from _seating import _carry_axis, _carry_point                      # noqa: E402  — one carry,
+from _cadq_export import import_step  # noqa: E402
 # shared with the seats the placed bodies read through
 
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
@@ -272,7 +273,7 @@ class Part:
             self._builder = builder
             self.module = _module_or_none(self.name)
         elif self.step is not None:
-            self._builder = lambda: cq.importers.importStep(str(self.step))
+            self._builder = lambda: import_step(str(self.step))
         else:
             self.module = _module_for(self.name)
             if self.module is not None:
@@ -284,7 +285,7 @@ class Part:
                         f"{self.name}: neither a module nor a .step in "
                         f"{_dir_for(self.name)} — nothing here builds this part; pass "
                         f"builder= or the path of a .step")
-                self._builder = lambda: cq.importers.importStep(str(self.step))
+                self._builder = lambda: import_step(str(self.step))
         self._local = None
         self.local_ports = _discover_ports(self.module) if self.module else {}
 
