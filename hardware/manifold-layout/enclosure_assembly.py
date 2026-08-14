@@ -225,12 +225,21 @@ WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
 # water's split and the flavour tap under it. Every station clears the side walls' seam
 # furniture (`enclosure.seam_bosses`) by the lever swing as well as the well, so a lug can be
 # worked in place.
+#
+# THE STOREY IS THE COLD CORE'S OWN CROWN, and it is as low as this wall goes. What used to hold
+# the block up was a tube: `fluid-28` ran the west outboard strip and its section fenced this
+# band for the whole height it crossed at. That run now holds its union's own column three
+# millimetres further inboard than these wells reach, so nothing of the plumbing is under them
+# and the block comes down onto the one thing that is — the shell of the core itself. Re-read
+# what is left by dropping a lug onto it:
+#
+#     w.travel("wago-reeds-b", (0, 0, -1))
 CLUSTER_WAGOS = {
     "wago-mana": (+1, 113.0, 290.0, "420"),
     "wago-manb": (-1, 119.0, 281.0, "415"),
-    "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 300.0, "420"),
-    "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 300.0, "415"),
-    "wago-sensors": (-1, 335.0, 300.0, "415"),
+    "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
+    "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 270.0, "415"),
+    "wago-sensors": (-1, 335.0, 270.0, "415"),
 }
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
