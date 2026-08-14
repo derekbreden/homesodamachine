@@ -18,7 +18,7 @@ __pycache__/
 logs/*.log
 .claude/*
 !.claude/commands/
-node_modules/
+node_modules
 
 # CAD script output (generated STEP/STL files)
 hardware/cartridge/scripts/output/*.step
@@ -47,8 +47,10 @@ marketing/video/remotion/.remotion/
 .firebase-setup/
 tools/flavor_preview.png
 
-# Local CadQuery venv (tools/cad-venv/bin/python) — regenerable, machine-specific
-tools/cad-venv/
+# Local CadQuery venv (tools/cad-venv/bin/python) — regenerable, machine-specific.
+# No trailing slash: a checkout that links the toolchain in rather than installing it
+# has a symlink here, and a trailing slash matches only a directory.
+tools/cad-venv
 
 # Enclosure scorecard cache — local, regenerable, opt-in (HSM_SCORECARD_CACHE)
 *.scorecard-cache.pkl
