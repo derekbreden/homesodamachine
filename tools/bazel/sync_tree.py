@@ -9,13 +9,12 @@ at `/3d` and a shop printing a part both take them off the tree rather than off 
 two live side by side: the build is what decides the bytes, and this is what hands them over.
 
 WHAT DIFFERS IS THE READING. A tree that comes back with nothing to copy is a tree holding the
-artifacts its sources make, which is the same question `verify_clean` used to ask by running
-every generator — asked here for the cost of a comparison, because the build already ran.
+artifacts its sources make — asked here for the cost of a comparison, because the build ran.
 """
 
 import argparse
 import filecmp
-import json
+import re
 import shutil
 import subprocess
 import sys
@@ -23,26 +22,32 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
-BAZEL_BIN = _ROOT / "bazel-bin" / "out"
+
+
+#: An output is `…/bin/out/<target>/<the path the tree keeps it under>`. The query answers with
+#: every file of every target, and `//:node-packages` alone globs eleven thousand that are
+#: inputs; this is what tells a declared output from one of those.
+_DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
 
 def _targets() -> dict:
     """`{bazel output path: tracked path}` — read off the BUILD file's own outs."""
     q = subprocess.run(["bazel", "cquery", "//...", "--output=files"],
                        cwd=str(_ROOT), capture_output=True, text=True)
-    tracked = {Path(f).name: f for f in subprocess.run(
-        ["git", "-C", str(_ROOT), "ls-files"],
-        capture_output=True, text=True, check=True).stdout.split()}
-    out = {}
+    tracked = set(subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
+                                 capture_output=True, text=True, check=True).stdout.split())
+    out, claimed = {}, {}
     for line in q.stdout.split():
-        p = Path(line)
-        if not p.name:
+        m = _DECLARED.search(line)
+        if not m or m.group(1) not in tracked:
             continue
-        # `out/<target>/<name>` and `out/<target>/doc/<name>` both land on the tracked file
-        # of that name; a name the tree does not carry is a build-only artifact.
-        hit = tracked.get(p.name)
-        if hit:
-            out[str(_ROOT / line)] = hit
+        hit = m.group(1)
+        # TWO ACTIONS CUTTING ONE FILE is a graph that cannot be carried into a tree, because
+        # the second copy decides and the first is lost. Named here rather than resolved.
+        if hit in claimed:
+            raise SystemExit(f"  {hit} is cut by two targets: {claimed[hit]} and {line}")
+        claimed[hit] = line
+        out[str(_ROOT / line)] = hit
     return out
 
 

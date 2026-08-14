@@ -94,16 +94,15 @@ The machine is built **once** for however many scenes are asked for, then cut on
 scene STEPs land in `out/`, which `.gitignore` holds — a 22 MB intermediate that churns on every
 move of any body it contains is exactly the commit cost these pictures must not add. What is
 committed is the PNG in [`cards/img/`](/hardware/assembly/cards/img/) and a `.scene.json` beside
-it naming what the picture is of — the scene, the geometry, the image, the bodies. The hash of
-every file that decided it goes under `.cache/stamps/scenes/`.
+it naming what the picture is of — the scene, the geometry, the image, the bodies.
 
 Each render also writes `glb/<scene>.glb` — the artifact `/3d` opens, at a coarser tessellation
 than the B-rep so the whole set comes to 9 MB rather than three times that. **That one is
 committed**, the same bargain [the PCB carrier](/hardware/pcb/pcba/) already takes: the big
 drawing stays out of the tree, the thing a browser opens goes in.
 
-**Doubting a picture is cheap; drawing one is not.** So the two are split.
-[`check_scenes.py`](/hardware/scripts/check_scenes.py) re-hashes the files the render stamped
-— no import, no geometry, stdlib python3, a third of a second for all of them against 74 sources —
-and says which scenes have moved since they were drawn. That runs on every commit; the render
-runs when it says to.
+**`//:render-scenes` is what runs it.** The target names the assembly's STEP and this
+directory's own modules as its inputs, so the render happens when one of those moves and not
+otherwise. It carries `local` rather than running sandboxed: the renderer stands the viewer on
+loopback and photographs it, and that page loads `occt-import-js` off a CDN, so drawing a scene
+reaches the network for a library this tree does not carry.

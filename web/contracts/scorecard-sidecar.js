@@ -182,8 +182,7 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *
  * EVERY FIELD IS A READING, and there is no build stamp — one tree writes one file however
  * often it is built, so a card that comes back changed is a card whose numbers moved. What the
- * build could reach is stamped under `.cache/stamps/cards/` instead, where
- * `hardware/scripts/check_cards.py` reads it.
+ * build could reach is what `BUILD.bazel` declares as the action's inputs instead.
  */
 
 // ── Size ─────────────────────────────────────────────────────────────────────────────────────
@@ -360,13 +359,23 @@ export function isScorecard(o) {
   }
   // mounts is the per-component fastening record — the `mounted` focus axis's structured table.
   // Present on current sidecars; validated when present so an older sidecar without it still reads.
+  //   `by` NAMES A PIECE OR A PAIR OF THEM. One piece printing the feature that fastens a body is
+  // a string; two pieces CLOSING on one body — each screwed to the ones beside it, so a feature
+  // printed on one stands over a body sitting in another and neither comes off without the seam
+  // parting — is the pair, and the fastening is both. `_scorecard.MOUNTS` states it that way and
+  // `_scenes.holders` reads such a body's unit off `BEARS_ON`, it being in neither piece alone.
+  //   `never` is a row nothing fastens, so it carries no piece either way.
+  const heldBy = (v) =>
+    v === null ||
+    typeof v === "string" ||
+    (Array.isArray(v) && v.length > 1 && v.every((p) => typeof p === "string"));
   if (o.mounts !== undefined) {
     if (!Array.isArray(o.mounts)) return false;
     const mountsOk = o.mounts.every(
       (m) =>
         m &&
         typeof m.component === "string" &&
-        (m.by === null || typeof m.by === "string") &&
+        heldBy(m.by) &&
         typeof m.joint === "string" &&
         (m.never == null || (typeof m.never === "string" && m.by === null)),
     );

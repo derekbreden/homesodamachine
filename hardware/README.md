@@ -26,27 +26,29 @@ The home soda machine's physical design — the integrated under-counter applian
 
 ## What a build costs
 
-Wall clock on the owner's machine at `94aa493a` — warm caches, no other build running, one
-run each.
+    bazelisk build //:everything                          # every generator whose inputs moved
+    tools/cad-venv/bin/python tools/bazel/sync_tree.py    # what the tree does not carry yet
 
-**What an edit that moves no code owes is nothing.** A file is named by its parsed code
-(`_realized.code_digest`), so a comment, a blank line or a reflowed docstring renames nothing
-and stales nothing: `owed.py` reports every doc, card and scene current and runs no generator.
+ONE ACTION PER GENERATOR, EACH HOLDING WHAT IT DECLARED AND NOTHING ELSE. What it declared is
+what a run of it was watched reading — `tools/bazel/trace_inputs.py` installs an audit hook,
+runs the generator once, and keeps every path under this repo it opened. So a doc sync that
+reads six files is stale when one of six moves, not when one of the seventy its imports could
+reach does. The graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes
+`BUILD.bazel` from it.
 
-**What an edit that moves code but no figure owes is the run, and nothing in the tree.** A doc
-records the `[value](NAME)` texts its driver wrote — `<doc>.figures.json` — and the hashes of
-what decided them go under `.cache/stamps/`. So a source edit that lands on the figures already
-recorded stales the stamp, runs the driver, and writes nothing: a module-level constant added to
-`_boxes.py` turns 21 of 49 docs red, and `owed.py --run` discharges all of them in 184 s leaving
-every tracked file byte-identical.
+`bazel-bin/` is where a build lands and this repo commits its solids and its docs, because a
+reader at `/3d` and a shop printing a part both take them off the tree. `sync_tree.py` is what
+carries them over, and a tree it has nothing to say about is a tree holding the artifacts its
+sources make.
 
-| | wall |
-|---|---|
-| a comment-only edit to a file in every closure | nothing owed |
-| a code edit to `_boxes.py` that moves no figure | 184 s, no file changed |
-| `enclosure_assembly.py`, nothing moved | 17 s |
-| `render_scenes.py`, four scenes, geometry unchanged | 19 s |
-| `render_scenes.py`, four scenes redrawn | 30 s |
+TIMING_TABLE_GOES_HERE
+
+A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
+reads `foam-cap-top.step` off the disk and `enclosure_assembly` reads `foam-assembly.step`;
+neither is an import, and OCCT opens the file below Python where no audit hook reaches.
+`_cadq_export.import_step` is the one loader and records what it loaded, so both edges are in
+the graph — and an action that names too little does not read a stale solid, it does not find
+the file at all.
 
 A picture is the same picture every run. Every renderer in `tools/render/` reads the frame
 back off the canvas in the task that drew it (`browser.js` `frameBuffer` carries why), so
@@ -56,34 +58,16 @@ one scene and eight of one part, one hash each.
 A view of any STEP, from any angle, is `tools/look.sh` — drawn when someone asks for one, so
 there is none of it in the tree to go stale.
 
-What the walk names, a build reads:
+TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
 
-```
-tools/cad-venv/bin/python hardware/scripts/check_closure.py
-```
-
-`_realized.source_files` decides whose text can stale a wall, a card and a doc, and
-`_realized.ENTRY_POINTS` stops it at `main` and `selftest`. This stands the machine and
-asserts every module the build actually read is named by that walk. A module it misses is a
-module that can move while everything downstream holds still.
-
-What a commit says, measured again from nothing:
-
-```
-python3 hardware/scripts/verify_clean.py
-```
-
-The commit is checked out into a worktree of its own, `owed.py --run` is run there, and what
-it leaves is compared to what was checked out. The `.cache/` there is empty, so no stamp says
-a generator has been watched and every figure is measured rather than compared to a hash of
-what measured it last; the working tree is the commit's own, so a file that never reached the
-index is absent however plainly it sits on the disk this ran from. The verdict is `git
-status`. This is the slow reading — the hook's three checks are the fast one.
-
-`.gitignore` holds `tools/cad-venv/` and `node_modules/`, so a checkout carries neither the
-interpreter nor the renderer's packages — without the second, `render-step-posed.js` resolves
-no import and every scene comes back exit 1. `verify_clean.TOOLCHAIN` names both, links them
-in for the run, and unlinks them before the verdict is read.
+- **A `.step.png` is not a declared output.** `_cadq_export` draws a thumbnail best-effort —
+  "a thumbnail must never break export" — and a Bazel output is one the action must produce or
+  fail. The two are opposite promises. The thumbnails are still drawn by every run.
+- **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
+  the viewer on loopback and photographs it with a headless browser, and that page loads
+  `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this
+  tree does not carry. Vendoring it is what would make the action hermetic. It is the one
+  action here whose inputs are not all declared.
 
 Inside one run:
 
@@ -98,27 +82,6 @@ Inside one run:
 | one thumbnail, drawn off the STEP with no payload beside it | 16 s |
 
 The export and render rows are timed at `081a1bee`; the two derive rows at `c813264b`.
-
-A scene carries the hash of the STEP it was drawn of, so a run agreeing on that and on the
-scene's own tuple leaves the picture standing and boots no browser. What is left in the 24 s
-is the four scene STEP exports and their `.glb`s.
-
-What a chain of eighteen came to, each generator in it:
-
-| | wall | | wall |
-|---|---|---|---|
-| `enclosure.py` | 26 s | `manifold_layout.py` | 10 s |
-| `cold_core_assembly.py` | 19 s | `reservoir.py` | 5 s |
-| `pump_tray.py` | 10 s | `foam_shell.py` | 5 s |
-| `valve_panel.py` | 4 s | `_enclosure_mechanical_sync.py` | 4 s |
-| `_fluid_topology_sync.py` | 3 s | every other doc sync | 2 s |
-
-The doc syncs read `enclosure-assembly.facts.json` and stand no machine, so they are 2–4 s
-whether or not they name a figure the pack decides.
-
-Eighteen generators end to end: **106 s**. That is what a commit owes when it moves a figure
-those generators write. A commit that touches a widely-imported module without changing what
-it computes owes their run and no diff.
 
 ## Part metadata sidecars
 

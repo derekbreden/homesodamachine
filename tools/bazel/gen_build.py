@@ -32,10 +32,12 @@ def target_name(gen: str) -> str:
     return Path(gen).stem.strip("_").replace("_", "-")
 
 
-def render(gen: str, arts: list, srcs: list, docs: list) -> str:
-    name = target_name(gen)
-    outs = [f"out/{name}/{Path(a).name}" for a in arts]
-    outs += [f"out/{name}/doc/{Path(d).name}" for d in docs]
+def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
+    name = target_name(gens[0])
+    # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
+    # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
+    # not a name for any of them.
+    outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
     lines += [f'        "{s}",' for s in srcs]
     # A THUMBNAIL IS DRAWN BY NODE, which resolves its own imports below Python and out of the
@@ -49,7 +51,7 @@ def render(gen: str, arts: list, srcs: list, docs: list) -> str:
     # A THUMBNAIL IS A PHOTOGRAPH OF A PAGE. The renderer stands a server on loopback and
     # points a headless browser at it, so an action that draws one needs a socket; the rest
     # of the tree is built with the network off.
-    if gen in NOT_HERMETIC:
+    if any(g in NOT_HERMETIC for g in gens):
         # A SCENE IS A PHOTOGRAPH OF A LIVE PAGE. `render-step-posed` stands the viewer on
         # loopback and points a headless browser at it, and that page loads occt-import-js
         # off a CDN — so drawing one reaches the network for a library this tree does not
@@ -59,10 +61,8 @@ def render(gen: str, arts: list, srcs: list, docs: list) -> str:
     elif any(a.endswith(".png") for a in arts):
         lines.append('    tags = ["requires-network"],')
     lines += ['    cmd = """', "set -e"]
-    for a, o in zip(arts, outs[:len(arts)]):
-        lines.append(f"O_{Path(a).name.replace('.','_').replace('-','_')}=$$PWD/$(location {o})")
-    for d, o in zip(docs, outs[len(arts):]):
-        lines.append(f"D_{Path(d).name.replace('.','_').replace('-','_')}=$$PWD/$(location {o})")
+    for i, o in enumerate(outs):
+        lines.append(f"O{i}=$$PWD/$(location {o})")
     lines += [
         # THE COPY IS FOR THE FILES `Path(__file__).resolve()` WALKS OUT OF, which is this
         # repo's own Python. A package tree is read by node, which is content with a symlink,
@@ -77,15 +77,14 @@ def render(gen: str, arts: list, srcs: list, docs: list) -> str:
         "ln -sfn $$PWD/$$d work/$$d; fi",
         "done",
         "cd work",
-        # THE ROOT IS THIS DIRECTORY. `docgen` finds it by walking for `.git`, which an action
-        # holding only what it declared does not have — without this the doc's figures are
-        # rewritten and its `.figures.json` is not.
-        f"HSM_REPO_ROOT=$$PWD {VENV} {gen} > /dev/null",
     ]
-    for a, o in zip(arts, outs[:len(arts)]):
-        lines.append(f"cp {a} $$O_{Path(a).name.replace('.','_').replace('-','_')}")
-    for d, o in zip(docs, outs[len(arts):]):
-        lines.append(f"cp {d} $$D_{Path(d).name.replace('.','_').replace('-','_')}")
+    # THE ROOT IS THIS DIRECTORY. `docgen` finds it by walking for `.git`, which an action
+    # holding only what it declared does not have — without this the doc's figures are
+    # rewritten and its `.figures.json` is not.
+    for g in gens:
+        lines.append(f"HSM_REPO_ROOT=$$PWD {VENV} {g} > /dev/null")
+    for i, made in enumerate((*arts, *docs)):
+        lines.append(f"cp {made} $$O{i}")
     lines += ['""",', ")"]
     return "\n".join(lines)
 
@@ -98,16 +97,16 @@ def main() -> int:
     files = tracked()
     inv = inventory(files)
     if args.only:
-        inv = {k: v for k, v in inv.items() if k == args.only}
+        inv = {k: v for k, v in inv.items() if args.only in k}
 
     held = set(files)
     blocks = []
-    for gen, made in sorted(inv.items()):
+    for gens, made in sorted(inv.items()):
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
         # A solid the run cut is only ever handed back.
-        srcs = (set(made["reads"]) | set(made["docs"]) | {gen}) - set(made["solids"])
-        blocks.append(render(gen, made["solids"],
+        srcs = (set(made["reads"]) | set(made["docs"]) | set(gens)) - set(made["solids"])
+        blocks.append(render(gens, made["solids"],
                              sorted(s for s in srcs if s in held), made["docs"]))
 
     head = (
@@ -135,10 +134,10 @@ def main() -> int:
     # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
     # what it carries is `sync_tree --write`.
     blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
-                  + "".join('        ":%s",\n' % target_name(g) for g in sorted(inv))
+                  + "".join('        ":%s",\n' % target_name(g[0]) for g in sorted(inv))
                   + "    ],\n)")
     (_ROOT / "BUILD.bazel").write_text(head + "\n" + "\n\n".join(blocks) + "\n")
-    print(f"  {len(inv)} generator(s) → BUILD.bazel")
+    print(f"  {len(inv)} step(s) over {sum(len(k) for k in inv)} generators → BUILD.bazel")
     return 0
 
 
