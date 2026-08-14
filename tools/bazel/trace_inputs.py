@@ -60,6 +60,15 @@ def _hook(event, args):
     # and moves it over the target, so the name the tree carries is never opened for writing.
     elif event in ("os.rename", "os.replace") and len(args) > 1:
         _keep(wrote, args[1])
+    # A TOOL THIS RUN HANDS A PATH TO opens it out of Python's sight. `render-step-posed.js`
+    # is named on node's command line and `_blender_scene.py` on blender's; both are read.
+    elif event == "subprocess.Popen" and len(args) > 1:
+        for a in (args[1] or ()):
+            try:
+                if os.path.isfile(os.fspath(a)):
+                    _keep(read, a)
+            except (TypeError, ValueError):
+                pass
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
     elif event == "exec" and args:
@@ -104,11 +113,17 @@ def trace(gen: str, files: set) -> dict:
             for side in ("reads", "writes")}
 
 
+#: The board is built by `bun render-board.ts` and carried by the hook's own GLB step. Its
+#: `board-3d.py` reads `out/pcba.circuit.json`, which `tsci` writes and the tree does not
+#: carry, so no action here can hold what it reads.
+ELSEWHERE = ("tools/", "hardware/pcb/pcba/")
+
+
 def _generators(files: set) -> list:
-    """Every `.py` under `hardware/` with a `__main__` — what this tree can run."""
+    """Every `.py` with a `__main__` this tree builds through — see `ELSEWHERE`."""
     out = []
     for f in sorted(files):
-        if not f.endswith(".py") or f.startswith("tools/"):
+        if not f.endswith(".py") or f.startswith(ELSEWHERE):
             continue
         try:
             if '__name__ == "__main__"' in (_ROOT / f).read_text():

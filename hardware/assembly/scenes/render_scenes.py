@@ -31,7 +31,7 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
         sys.path.insert(0, str(_p))
 
 import _scenes                                          # noqa: E402
-from _cadq_export import export_assembly                # noqa: E402
+from _cadq_export import export_assembly, note_write    # noqa: E402
 
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
@@ -139,10 +139,14 @@ def draw(scene, assembly, force=False) -> Path:
     # thumbnail queue are for a repo artifact a page lists, and it is imported by nearly every
     # generator in the tree — a keyword added there for one mesh moves the hash of every build
     # graph that reads it.
-    scene_assembly.export(str(GLB_DIR / f"{scene.id}.glb"),
-                          tolerance=GLB_TOL, angularTolerance=GLB_TOL)
+    glb = GLB_DIR / f"{scene.id}.glb"
+    scene_assembly.export(str(glb), tolerance=GLB_TOL, angularTolerance=GLB_TOL)
+    note_write(glb)
 
     png = png_for(scene)
+    # THE PICTURE IS DRAWN BY NODE, below Python, and the sidecar beside it is not. Both are
+    # what this run makes, and this is the one place that holds either name.
+    note_write(png)
 
     # WHAT THE PICTURE IS OF IS THIS FILE. The scene's STEP is the exact geometry the renderer is
     # handed, and the scene's own tuple is the camera it is handed with — so two runs agreeing on

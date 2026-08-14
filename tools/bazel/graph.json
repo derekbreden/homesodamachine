@@ -524,6 +524,7 @@
       "hardware/assembly/cards/tools/out/bs-band-saw.png",
       "hardware/assembly/cards/tools/out/bz-braze-bench.png",
       "hardware/assembly/cards/tools/out/cr-crimp-bench.png",
+      "hardware/assembly/cards/tools/out/deck-tools.pdf",
       "hardware/assembly/cards/tools/out/dp-drill-press.png",
       "hardware/assembly/cards/tools/out/el-electrical-test.png",
       "hardware/assembly/cards/tools/out/hy-hydro-test.png",
@@ -535,10 +536,24 @@
       "hardware/assembly/cards/tools/out/tb-tube-bench.png",
       "hardware/assembly/cards/tools/out/vc-vacuum-charge.png",
       "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_run_lock.py"
+      "hardware/scripts/_run_lock.py",
+      "tools/render/render-card.js"
     ],
     "writes": [
-      "hardware/assembly/cards/tools/out/deck-tools.pdf"
+      "hardware/assembly/cards/tools/out/bs-band-saw.png",
+      "hardware/assembly/cards/tools/out/bz-braze-bench.png",
+      "hardware/assembly/cards/tools/out/cr-crimp-bench.png",
+      "hardware/assembly/cards/tools/out/deck-tools.pdf",
+      "hardware/assembly/cards/tools/out/dp-drill-press.png",
+      "hardware/assembly/cards/tools/out/el-electrical-test.png",
+      "hardware/assembly/cards/tools/out/hy-hydro-test.png",
+      "hardware/assembly/cards/tools/out/lw-laser-welder.png",
+      "hardware/assembly/cards/tools/out/pc-pour-cure.png",
+      "hardware/assembly/cards/tools/out/pl-tube-fittings.png",
+      "hardware/assembly/cards/tools/out/pr-printers.png",
+      "hardware/assembly/cards/tools/out/so-solder-bench.png",
+      "hardware/assembly/cards/tools/out/tb-tube-bench.png",
+      "hardware/assembly/cards/tools/out/vc-vacuum-charge.png"
     ]
   },
   "hardware/assembly/scenes/render_scenes.py": {
@@ -682,17 +697,34 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py"
+      "tools/docgen/__init__.py",
+      "tools/render/render-step-posed.js"
     ],
     "writes": [
+      "hardware/assembly/cards/img/scene-back-half.png",
       "hardware/assembly/cards/img/scene-back-half.png.scene.json",
+      "hardware/assembly/cards/img/scene-back-top.png",
       "hardware/assembly/cards/img/scene-back-top.png.scene.json",
+      "hardware/assembly/cards/img/scene-cap-lid-fill.png",
       "hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json",
+      "hardware/assembly/cards/img/scene-cap-lid.png",
       "hardware/assembly/cards/img/scene-cap-lid.png.scene.json",
+      "hardware/assembly/cards/img/scene-cold-core-open.png",
       "hardware/assembly/cards/img/scene-cold-core-open.png.scene.json",
+      "hardware/assembly/cards/img/scene-cold-core.png",
       "hardware/assembly/cards/img/scene-cold-core.png.scene.json",
+      "hardware/assembly/cards/img/scene-front-top.png",
       "hardware/assembly/cards/img/scene-front-top.png.scene.json",
-      "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json"
+      "hardware/assembly/cards/img/scene-hopper-drain.png",
+      "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+      "hardware/assembly/scenes/glb/back-half.glb",
+      "hardware/assembly/scenes/glb/back-top.glb",
+      "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+      "hardware/assembly/scenes/glb/cap-lid.glb",
+      "hardware/assembly/scenes/glb/cold-core-open.glb",
+      "hardware/assembly/scenes/glb/cold-core.glb",
+      "hardware/assembly/scenes/glb/front-top.glb",
+      "hardware/assembly/scenes/glb/hopper-drain.glb"
     ]
   },
   "hardware/cold-core-layout/cold_core_assembly.py": {
@@ -956,15 +988,6 @@
       "hardware/manifold-layout/README.figures.json",
       "hardware/manifold-layout/README.md",
       "hardware/manifold-layout/manifold-layout.step"
-    ]
-  },
-  "hardware/pcb/pcba/board-3d.py": {
-    "reads": [
-      "hardware/pcb/pcba/board-3d.py",
-      "hardware/pcb/pcba/out/pcba.glb"
-    ],
-    "writes": [
-      "hardware/pcb/pcba/out/pcba.glb"
     ]
   },
   "hardware/printed-parts/cold-core/_cold_core_interface.py": {
@@ -1562,6 +1585,7 @@
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
       "hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
+      "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
@@ -1671,6 +1695,7 @@
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
       "hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
+      "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",

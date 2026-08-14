@@ -21,7 +21,7 @@ HARDWARE = next(p for p in TOOLS_DIR.parents if p.name == "hardware")
 OUT_DIR = TOOLS_DIR / "out"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import export_pdf  # noqa: E402
+from _cadq_export import export_pdf, note_write  # noqa: E402
 
 sys.path.insert(0, str(TOOLS_DIR))
 from _index import STATIONS  # noqa: E402
@@ -44,6 +44,9 @@ def render_cards() -> None:
         ],
         check=True,
     )
+    # THE CARDS ARE DRAWN BY NODE, below Python. This is the one place that names them.
+    for png in sorted(OUT_DIR.glob("*.png")):
+        note_write(png)
 
 
 def build_pdf() -> None:
