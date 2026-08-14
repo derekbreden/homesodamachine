@@ -3,8 +3,9 @@
 
     tools/cad-venv/bin/python tools/bazel/gen_build.py
 
-`inventory.py` reads `graph.json` and says, per generator, the solids it cuts, the docs it
-rewrites and the files it reads. One `genrule` per generator carries all three.
+`inventory.py` reads `graph.json` and says, per build step, the solids it cuts, the docs it
+rewrites and the files it reads. One `genrule` per step carries all three. A step is usually
+one generator and sometimes several — see `inventory._together`.
 
 An action that names too little does not read a stale file: it fails to find one at all. So a
 target here can be wrong in exactly one direction, and the build says which.
@@ -26,6 +27,15 @@ VENV = "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/p
 NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
 
 
+#: What tells a step that starts node: a script of this repo on node's command line, which
+#: the trace sees. The packages beside that script come with it.
+_NODE = ("tools/render/", "web/")
+
+
+def _needs_node(srcs: list) -> bool:
+    return any(s.startswith(_NODE) for s in srcs)
+
+
 def target_name(gen: str) -> str:
     """A Bazel name for a generator. `_wiring_sync.py` is a doc sync like any other, and its
     leading underscore is a Python convention, not part of what it is called here."""
@@ -40,10 +50,10 @@ def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
     outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
     lines += [f'        "{s}",' for s in srcs]
-    # A THUMBNAIL IS DRAWN BY NODE, which resolves its own imports below Python and out of the
-    # tracer's sight. A target that cuts one names the renderer's packages or it draws nothing
-    # and the copy of its own declared output fails.
-    if any(a.endswith(".png") for a in arts):
+    # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. A step that
+    # hands node a script of this repo reads that script — the trace sees the path on the
+    # command line — and the packages beside it come with it.
+    if _needs_node(srcs):
         lines.append('        ":node-packages",')
     lines += ["    ],", "    outs = ["]
     lines += [f'        "{o}",' for o in outs]
@@ -58,7 +68,7 @@ def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
         # carry. Vendoring it is what would make this action hermetic; until then it runs
         # outside the sandbox and is the one target here whose inputs are not all declared.
         lines.append('    tags = ["local", "requires-network"],')
-    elif any(a.endswith(".png") for a in arts):
+    elif _needs_node(srcs):
         lines.append('    tags = ["requires-network"],')
     lines += ['    cmd = """', "set -e"]
     for i, o in enumerate(outs):
@@ -72,7 +82,8 @@ def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
         "  case $$f in */node_modules/*) continue;; esac",
         "  mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f",
         "done",
-        "for d in tools/render/node_modules web/node_modules; do",
+        "for d in tools/render/node_modules web/node_modules "
+        "hardware/pcb/pcba/node_modules; do",
         "  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); "
         "ln -sfn $$PWD/$$d work/$$d; fi",
         "done",

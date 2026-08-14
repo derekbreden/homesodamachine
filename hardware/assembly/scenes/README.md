@@ -86,7 +86,6 @@ draws through.
 ```
 tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py           # every one
 tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top  # one
-tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --stale   # only what moved
 tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force   # anyway
 ```
 
