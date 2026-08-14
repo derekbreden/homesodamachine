@@ -71,6 +71,18 @@ back with the same bytes and nothing downstream of them runs, but they do run �
 digest taken over parsed code rather than text is what would make a comment free, and there
 is none here.
 
+AND AN ACTION HOLDS NO KEPT WORK. `.cache/` is 1.6 GB — the shapes `_realized` keeps, the
+meshes `_meshes` tessellates, the optimal boxes `_boxes` measures — and none of it is a
+declared input, so every action starts with all three empty. `enclosure_assembly` runs in
+**52 s** against the tree's caches and **232 s** against none.
+
+What keeps it out is the key. `_realized.key` is the drawing module's import closure and its
+description, and `enclosure.py` makes no `import_step` call of its own while its action
+declares 28 solids it reaches through what it imports. So a shape kept under that key can be
+handed back after a solid it was cut against has moved. The kept work is worth 4.5× and the
+key does not cover what the action does; mixing the action's own declared inputs into it is
+what would make it safe to hold.
+
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
 reads `foam-cap-top.step` off the disk and `enclosure_assembly` reads `foam-assembly.step`;
 neither is an import, and OCCT opens the file below Python where no audit hook reaches.
