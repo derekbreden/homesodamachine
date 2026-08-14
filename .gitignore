@@ -71,3 +71,4 @@ tools/cad-venv/
 # of any body they contain, which is exactly the commit cost the pictures must
 # not add.
 hardware/assembly/scenes/out/
+bazel-*
