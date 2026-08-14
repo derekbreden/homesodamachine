@@ -355,24 +355,20 @@ CROSS_DROP = 7.1
 # `enclosure.side_band_inset` is the band between the shell's own face and the wall's inner one,
 # and it is clear air the full height of the machine. What narrows it is the Y SEAM: the front
 # piece laps the back one there, so a second wall's thickness stands proud of the inner face on
-# that plane — and this run crosses the seam on its way forward, so the lap and not the wall is
-# what fences it. The run stands midway between the lap and the shell. Re-measure by casting
-# across at the seam's own plane —
+# that plane — and this run crosses the seam on its way forward, so the lap is what fences it.
+# The run stands midway between the lap and the shell. Re-measure by casting across at the seam's
+# own plane —
 #
 #     w.cast((-90.0, 213.1, z), (-1, 0, 0), dia=6.35)
 #
 CHANNEL_X = -96.0
-# HOW FAR UNDER THE CROSSING'S LANE THE FALL BOTTOMS OUT. The forward leg leans west into that
-# channel and RISES onto the lane as it runs, rather than leaving the collet already standing on
-# it — so the branch's corner turns through more than a right angle and the fall ends beneath the
-# storey it hands the water to.
+# HOW FAR UNDER THE CROSSING'S LANE THE FALL BOTTOMS OUT. The branch's corner turns through more
+# than a right angle: the leg leaving it leans west into the channel and rises onto the lane over
+# the run forward, so the fall ends beneath the storey it hands the water to.
 #
-# WHICH IS WHERE THE SPLIT'S HEIGHT COMES FROM. What a fall costs the tee above it is its corner's
-# tangent, not its length, so a corner that bottoms out under its lane starts lower than one that
-# bottoms out on it, and the whole tap comes down with it. What stops it going further is the
-# lid's own face: the arc is the deepest the run gets, one `port_lead` below the branch collet,
-# and it has to keep its lane clear of the deck the crossing runs over. `port-leads` and
-# `clearance-floor` are what hold it there.
+# THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it. The arc's
+# own belly is the deepest the run gets, one `port_lead` under the branch collet, and it holds its
+# lane over the lid's outer face. `port-leads` and `clearance-floor` read both.
 CROSS_RISE = 3.75
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
 # hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
@@ -395,15 +391,12 @@ def _water_3(F):
 
     IT FALLS ONCE, INTO THE CHANNEL, AND THE FALL ENDS UNDER THE LANE IT FEEDS. The branch drops
     on the split's own column, and its one corner turns WEST as well as forward — off that column
-    and into `CHANNEL_X`, the strip between the shell's face and the wall's — so the leg leaving
-    that corner leans into the channel and RISES `CROSS_RISE` onto the crossing's storey instead
-    of standing on it from the start.
+    and into `CHANNEL_X`, the strip between the shell's face and the wall's. The leg leaving that
+    corner leans down the channel and rises `CROSS_RISE` onto the crossing's storey.
 
-    WHICH IS WHERE THE SPLIT'S HEIGHT COMES FROM. What a fall costs the tee above it is its
-    corner's tangent, not its length, and a corner that bottoms out under its lane starts lower
-    than one that bottoms out on it. The deepest the run gets is that arc, one `port_lead` below
-    the branch collet, and the lid's outer face is what it answers to — so the tap stands as low
-    as the cap's own deck lets the corner hang, and no lower.
+    THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it. The arc's
+    own belly is the deepest the run gets, one `port_lead` under the branch collet, and it holds
+    its lane over the lid's outer face.
 
     IT CROSSES UNDER THE HOPPER'S DISCONNECT. The union hangs on the basin's spout in the middle
     of that window, so the crossing runs `CROSS_DROP` under the inlet's own plane, the whole width
@@ -482,11 +475,15 @@ def _fluid_1(F):
 # and the fall is not, so a longer straight leaves the lean less run for the same drop and steepens
 # it. The corner's own demand rises with it — slower than the lead does, which is why there is a
 # figure that satisfies both, but the two move together and neither may be read alone.
-WATER_2_LEAD = 13.0
-# The SPLIT end gets its own, longer, reach. One figure for both ends spends half of every
-# millimetre at the chain, where nothing needs it — this is the straight that carries the climb's
-# first bend aft, clear of the lane `fluid-2` leaves the regulator on.
-WATER_2_SPLIT_LEAD = 33.0
+#   THE TWO STUBS MOVE TOGETHER. Both stand at one end of the same lean, so the leg between them
+# is the step's reach less BOTH, and the fall it covers is the same however short it gets. Each
+# of the two corners backs `R·tan(θ/2)` down that leg and the two share it, so a millimetre taken
+# at either end is spent twice: once off the leg, and once again on the tangent the steeper lean
+# demands of it. `bend-radius` is what reads the pair back.
+WATER_2_LEAD = 10.0
+# The SPLIT end's own reach — the straight that carries the climb's first bend aft, clear of the
+# lane `fluid-2` leaves the regulator on, and what the eye reads as the stub standing off the tee.
+WATER_2_SPLIT_LEAD = 16.75
 
 
 def _water_2(F):
@@ -502,19 +499,14 @@ def _water_2(F):
     THE TWO ARE NOT ON ONE COLUMN. The chain's is the rear wall's `PORT_WEST_COLUMN` and the
     split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses as well as falls.
 
-    THE WAYPOINT IS THE MIDDLE OF ALL THREE, which is the whole of what makes this one lean and
-    not two. Halfway along each of the run's own coordinates, the two legs it splits the lean
-    into are collinear and the waypoint is a point on a straight rather than a corner — so the
-    lean turns twice, once out of each stub, and each of those two turns the same angle. Take
-    the middle of any two of the three and the offset in the third is spent entirely in one
-    half: the legs come out at different angles, the waypoint becomes a kink, and the run pays
-    a corner tighter than either stub asked for."""
-    src = F["asse1022-assembly"].at("tube-out")
-    dst = F["water-split"].at("supply")
+    IT IS THE TWO STUBS THAT SHAPE IT, AND NOTHING STANDS BETWEEN THEM. `lead=` plants a point
+    one reach along each collet's own axis, and the lean is the single leg those two points
+    stand at either end of — so the run turns twice, once out of each stub, at whatever angle
+    the step's fall and crossing make of it. The two reaches are free to differ: the lean is
+    struck between the stubs' own ends, so where it starts and where it finishes are each set
+    by the stub under them and by nothing else on the line."""
     return R.bent(
-        "water-2", "asse1022-assembly.tube-out",
-        tuple((src[i] + dst[i]) / 2.0 for i in range(3)),
-        "water-split.supply",
+        "water-2", "asse1022-assembly.tube-out", "water-split.supply",
         kind="water", bend=TUBE_BEND, lead=(WATER_2_LEAD, WATER_2_SPLIT_LEAD),
         note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
              "hopper's bowl leaves")
