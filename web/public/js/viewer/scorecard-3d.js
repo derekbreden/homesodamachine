@@ -5,8 +5,7 @@
 // detail rows. The sidecar's port inventory goes to port-markers.js, which draws each connector
 // on the model. One verdict, two surfaces: the same data the terminal prints.
 
-import { scorecardPathFor, isScorecard, FOCUS_IDS, focusAxes, failingBends, bendPinned,
-         unmountedComponents, unfastenableComponents, sizeText } from "/contracts/scorecard-sidecar.js";
+import { scorecardPathFor, isScorecard, sizeText } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
@@ -48,26 +47,9 @@ function addCollapsible(card, rows, limit = 0) {
   card.appendChild(wrap);
 }
 
-// A row that names solids in the scene: click it to close the modal and highlight them. The one
-// gesture every itemized row on this card shares — a failing bend's two end bodies, an unmounted
-// component, a clearance pair.
-function linkRow(cls, left, right, refs, wrapper, title) {
-  const r = row(cls + (refs.length ? " clickable" : ""), left, right);
-  if (refs.length) {
-    r.title = title || "Show " + refs.join(" + ") + " on the model";
-    r.addEventListener("click", (e) => {
-      e.stopPropagation();
-      closeModal(wrapper);
-      highlightParts(refs);
-    });
-  }
-  return r;
-}
-
-function appendCheck(card, c, gray, wrapper, partNames, showDetail = true) {
+function appendCheck(card, c, gray, wrapper, partNames) {
   const statusCls = c.status === "fail" ? " issue" : c.status === "warn" ? " warn" : "";
   card.appendChild(row("sc-row" + statusCls + (gray ? " gray" : ""), `${MARK[c.status]} ${c.label}`, c.value));
-  if (!showDetail) return;
   // A detail row that names solids in the scene becomes clickable — it closes the modal and
   // highlights them on the model (part-highlight.js). A clearance pair names two, a clash names
   // the two bodies that share volume, an unrouted segment names its two ends.
@@ -116,7 +98,7 @@ function closeModal(wrapper) {
 
 // ── Size ────────────────────────────────────────────────────────────────────────────────────
 // How big the thing on the canvas is, in the units both readers use: the printed box, and the
-// whole assembly around it. Above the focus panels, because it is what the rest is measured in.
+// whole assembly around it. At the top of the card, because it is what the rest is measured in.
 function appendSize(card, sc) {
   const rows = Array.isArray(sc.size) ? sc.size : [];
   if (!rows.length) return;
@@ -126,84 +108,6 @@ function appendSize(card, sc) {
     r.title = s.label;
     card.appendChild(r);
   }
-}
-
-// ── The focus panels ────────────────────────────────────────────────────────────────────────
-// The two axes the work is on get the top of the card and a panel each, itemized down to the
-// thing a fix acts on: a run's two end bodies, a component's missing joint. Every other axis is
-// a line. Both panels read the sidecar's uncapped tables (`bends`, `mounts`).
-
-// Every failing run, worst first, each row clicking through to the two bodies its ends stand on.
-function bendPanel(sc, wrapper, partNames) {
-  return failingBends(sc).map((b) => {
-    const ends = [b.frm, b.to].map((a) => String(a).split(".")[0]);
-    const refs = ends.filter((n) => partNames.has(n));
-    const pinned = bendPinned(b);
-    return linkRow(
-      "sc-row sub issue",
-      `— ${b.id} ${ends[0]} → ${ends[1]}` + (pinned ? "  · move a body" : "  · raise the radius"),
-      `${b.atSpec}/${b.bends} · R${b.radius.toFixed(1)} of R${b.minBend}`,
-      refs, wrapper,
-      pinned
-        ? `Pinned by its placement — reach R${b.reach == null ? "∞" : b.reach.toFixed(1)}. `
-          + `Show ${refs.join(" + ")} on the model`
-        : `Its legs seat R${b.reach == null ? "∞" : b.reach.toFixed(1)} — raise bend=. `
-          + `Show ${refs.join(" + ")} on the model`);
-  });
-}
-
-// Every component with no printed feature fastening it — one row per joint still to design,
-// clicking through to the body that needs it. Then the rows nothing fastens, each carrying the
-// reason on hover.
-function mountPanel(sc, wrapper, partNames) {
-  const open = unmountedComponents(sc).map((m) =>
-    linkRow("sc-row sub warn", `— ${m.component}`,
-            m.joint ? `${m.joint} — not printed in` : "no joint",
-            partNames.has(m.component) ? [m.component] : [], wrapper));
-  return open.concat(unfastenableComponents(sc).map((m) =>
-    linkRow("sc-row sub", `— ${m.component}`,
-            `${m.joint} — nothing fastens it`,
-            partNames.has(m.component) ? [m.component] : [], wrapper, m.never)));
-}
-
-const FOCUS_PANEL = { "bend-radius": bendPanel, mounted: mountPanel };
-
-// The FOCUS block: the header counts, then each focus check with its own panel of rows.
-//
-// AN AXIS AT SPEC ITEMIZES NOTHING. Its panel exists to name the thing a fix acts on, and an
-// axis with nothing to fix has no such thing — what stands under a passing check is the note
-// explaining how it is graded, which is reading for whoever is changing the gate and noise for
-// everyone else. It stays behind the toggle with the rest of the detail.
-function appendFocus(card, sc, wrapper, partNames) {
-  const axes = focusAxes(sc);
-  const byId = Object.fromEntries(sc.checks.map((c) => [c.id, c]));
-  const present = FOCUS_IDS.filter((id) => byId[id]);
-  if (!present.length) return present;
-
-  const h = el("div", "sc-h focus");
-  h.appendChild(el("span", null, "Focus"));
-  axes.forEach((a, i) => {
-    if (i) h.appendChild(el("span", "sc-sep", "·"));
-    h.appendChild(el("span", "sc-focus-n" + (a.status === "fail" ? " issue" : a.status === "warn" ? " warn" : ""),
-                     `${a.done}/${a.total} ${a.label}`));
-  });
-  card.appendChild(h);
-
-  for (const id of present) {
-    const c = byId[id];
-    if (c.status === "pass") {
-      appendCheck(card, c, false, wrapper, partNames);   // line + its detail behind the toggle
-      continue;
-    }
-    appendCheck(card, c, false, wrapper, partNames, false);
-    // The panel's rows come off the sidecar's table. A sidecar carrying the check but not its
-    // table falls back to the check's own detail, so the axis still itemizes.
-    const panel = FOCUS_PANEL[id];
-    const rows = panel ? panel(sc, wrapper, partNames) : [];
-    addCollapsible(card, rows.length ? rows
-      : (c.detail || []).map((d) => row("sc-row sub", `— ${d}`)), 6);
-  }
-  return present;
 }
 
 function openModal(wrapper, sc, title) {
@@ -231,27 +135,21 @@ function openModal(wrapper, sc, title) {
   const passed = gates.filter((c) => c.status === "pass").length;
   const partNames = scenePartNames(); // solids in the scene → which rows are clickable
 
-  // How big it is, then the two focus axes itemized. Below, each keeps its line in the block it
-  // belongs to; its rows are above.
+  // How big it is, then every gate: the ones that are red, and a count for the rest.
   appendSize(card, sc);
-  const promoted = appendFocus(card, sc, wrapper, partNames);
-  const shown = (c) => !promoted.includes(c.id);
 
-  // A promoted check already has its line and its panel at the top of the card. Its block below
-  // counts it and does not draw it again.
   const holds = (c) => c.status === "pass";
-  const red = gates.filter((c) => !holds(c) && shown(c));
+  const red = gates.filter((c) => !holds(c));
 
   card.appendChild(el("div", "sc-h",
     `Gates — ${passed}/${gates.length} pass` + (sc.gatesPass ? "" : " · not build-ready")));
   for (const c of red) appendCheck(card, c, false, wrapper, partNames);
-  addCollapsedChecks(card, gates.filter((c) => holds(c) && shown(c)), `${passed} holding`,
-                     wrapper, partNames);
+  addCollapsedChecks(card, gates.filter(holds), `${passed} holding`, wrapper, partNames);
 
   const active = goals.filter((c) => c.active);
   const deferred = goals.filter((c) => !c.active);
-  const open = active.filter((c) => !holds(c) && shown(c));
-  const met = active.filter((c) => holds(c) && shown(c));
+  const open = active.filter((c) => !holds(c));
+  const met = active.filter(holds);
   if (open.length || met.length) {
     card.appendChild(el("div", "sc-h", "Goal"));
     for (const c of open) appendCheck(card, c, false, wrapper, partNames);
@@ -278,20 +176,9 @@ function buildBar(wrapper, sc, title) {
   removeScorecard(wrapper);
   const g = gateCounts(sc);
   const bar = el("div", "sc-bar");
-  // The bar says the two focus axes as counted things; the badge beside it carries the gate
-  // verdict. An edition whose scorecard has neither axis falls back to its percentages.
-  const axes = focusAxes(sc);
-  if (axes.length) {
-    axes.forEach((a, i) => {
-      if (i) bar.appendChild(el("span", "sc-bar-text sc-sep", "·"));
-      bar.appendChild(el("span", "sc-bar-text sc-focus-n"
-        + (a.status === "fail" ? " issue" : a.status === "warn" ? " warn" : ""),
-        `${a.done}/${a.total} ${a.label}`));
-    });
-  } else {
-    bar.appendChild(el("span", "sc-bar-text",
-      `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
-  }
+  // The gates as one count, then each goal's score; the badge beside it carries the verdict.
+  bar.appendChild(el("span", "sc-bar-text",
+    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
   const badge = el("button", "sc-badge" + (g.fail ? " has-issues" : ""),
     g.fail ? `✗ ${g.fail} gate${g.fail === 1 ? "" : "s"}` : "✓ checks");
   badge.type = "button";

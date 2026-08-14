@@ -129,8 +129,9 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @typedef {Object} ScorecardMount  one component's fastening — the record behind `mounted`
  * @property {string} component
  * @property {string|null} by  the part whose printed feature fastens it; null = the joint is
- *                             still to design, and this row is one unit of the focus axis's gap.
- *                             A row carrying `rides` shows its HOST's, which is what fastens it
+ *                             still to design, and this row is one unit of the `mounted` gate's
+ *                             gap. A row carrying `rides` shows its HOST's, which is what
+ *                             fastens it
  * @property {string|null} [rides]  the placed body this one is part of — a solenoid's coil on
  *                             its valve, a pump's rear boss and motor can on its head. One
  *                             purchased thing drawn as several so each takes its own colour;
@@ -147,15 +148,6 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                             itself. The text is why. These rows sit outside the axis's
  *                             count and off the list of open joints; null, or absent on an
  *                             edition that predates the field, is the ordinary row
- */
-
-/**
- * @typedef {Object} ScorecardFocus  the two axes the work is ON, as counted things
- * @property {string} id        the check id — "bend-radius" | "mounted"
- * @property {string} label     the bar's short noun: "tube radii" | "mounted"
- * @property {number} done      how many are at spec
- * @property {number} total     how many there are
- * @property {"fail"|"warn"|"pass"} status
  */
 
 /**
@@ -196,81 +188,6 @@ export function sizeText(row) {
   const mm = (row && row.mm) || [];
   return `${mm.map((v) => v.toFixed(1)).join(" × ")} mm · `
        + `${mm.map((v) => (v / MM_PER_INCH).toFixed(2)).join(" × ")} in`;
-}
-
-// ── Focus ────────────────────────────────────────────────────────────────────────────────────
-// The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal — the live one,
-// every other goal on the card being deferred). Both surfaces that render this scorecard lead
-// with them, in this order.
-//
-// _scorecard.py's own FOCUS_IDS is the same pair, and web/tests/scorecard-focus.test.js holds
-// the two to each other. A constant spelt in two files is a constant that drifts between them,
-// and the drift shows up as the terminal and the viewer leading a reader with different work.
-export const FOCUS_IDS = ["bend-radius", "mounted"];
-
-// The focus axes as counted things — `done/total` read off `bends` and `mounts`. What the bar
-// says, and what the modal's focus panels head with. An edition whose sidecar carries neither
-// axis gets [].
-export function focusAxes(sc) {
-  const out = [];
-  const bendCk = (sc.checks || []).find((c) => c.id === "bend-radius");
-  if (bendCk && Array.isArray(sc.bends)) {
-    out.push({
-      id: "bend-radius", label: "tube radii", status: bendCk.status,
-      done: sc.bends.reduce((n, b) => n + (b.atSpec || 0), 0),
-      total: sc.bends.reduce((n, b) => n + (b.corners ? b.corners.length : 0), 0),
-    });
-  }
-  const mountCk = (sc.checks || []).find((c) => c.id === "mounted");
-  if (mountCk && Array.isArray(sc.mounts)) {
-    // A rider is part of another body and answers to its fastening, so it is not a joint —
-    // counting one would count a single joint once per solid its part is drawn as.
-    const can = sc.mounts.filter((m) => !m.never && !m.rides);
-    out.push({
-      id: "mounted", label: "mounted", status: mountCk.status,
-      done: can.filter((m) => m.by).length, total: can.length,
-    });
-  }
-  return out;
-}
-
-// The bend grades, best to worst, and the worst a run may carry and still clear the gate. Mirrors
-// _scorecard.py's GRADE_BANDS / BEND_GRADE_PASS — the emitter grades, this side only reads a grade
-// back to pass/short.
-export const BEND_GRADES = ["A", "B", "C", "D", "F"];
-export const BEND_GRADE_PASS = "B";
-const short = (g) => !!g && BEND_GRADES.indexOf(g) > BEND_GRADES.indexOf(BEND_GRADE_PASS);
-
-// A run short on `grade` and on `reachGrade` both — see the ScorecardBend typedef above for what
-// the pair says. The two bodies on its ends are what a fix moves.
-export function bendPinned(b) {
-  return short(b.grade) && short(b.reachGrade);
-}
-
-// The runs a bend-radius fix acts on, worst first: every run with a corner under its stock's
-// minimum, pinned ones ahead of the ones that are only a number to raise.
-export function failingBends(sc) {
-  return (sc.bends || []).filter((b) => short(b.grade))
-    .sort((a, b) => Number(bendPinned(b)) - Number(bendPinned(a))
-                    || a.ratio - b.ratio || a.id.localeCompare(b.id));
-}
-
-// The components with no printed feature fastening them and somewhere to put one, one row per
-// open joint, by name. Each row's `joint` says what the joint would be converting FROM; none of
-// them ranks above another, because `by` is null for every one and that is the whole of what
-// this list measures. A rider is left out: it is part of another body, and what fastens it is
-// that body's row, which is already in this list when it is open.
-export function unmountedComponents(sc) {
-  return (sc.mounts || []).filter((m) => !m.by && !m.never && !m.rides)
-    .sort((a, b) => a.component.localeCompare(b.component));
-}
-
-// The rows carrying `never`, by name — each one's text is why nothing fastens it. The panel
-// draws them under the open joints, so the exemption is something a reader meets and can
-// disagree with.
-export function unfastenableComponents(sc) {
-  return (sc.mounts || []).filter((m) => m.never)
-    .sort((a, b) => a.component.localeCompare(b.component));
 }
 
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client

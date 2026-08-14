@@ -7,23 +7,7 @@ beside the STEP as `enclosure-assembly.scorecard.json`, which the 3D viewer's bo
 Two kinds of check:
 
   - GATE — a requirement that must hold for the machine as it stands to be built.
-  - GOAL — the work this effort is converting, reported as a `score` (0..100) rather than a
-           gate, so the pack still builds while it converts.
-
-THE FOCUS IS `bend-radius`, AND THE AXIS BEHIND IT IS `mounted`. Both are answered by where a
-body STANDS, which is what makes them one piece of work: `bend-radius` says whether what is
-drawn turns at a radius its stock takes, a corner short of that minimum is a tube nobody can
-build, and most corners are bound by where their two ends stand — so driving the gate is
-usually moving something rather than raising a number. `mounted` is what fastens the body once
-it is there, and it is the largest open gap the assembly still carries.
-
-WHICH thing to move is what each bend row's `need` says, and the grade cannot: a run far above
-1× the span its own two ends stand at is riding infrastructure its ends never asked for, and
-there the route is the thing to move rather than the corner or the body beside it.
-
-`FOCUS_IDS` names the pair, `web/contracts/scorecard-sidecar.js` names it for the viewer, and
-`web/tests/scorecard-focus.test.js` holds the two to each other — a card whose two surfaces
-lead with different axes points two readers at different work.
+  - GOAL — a reading the card takes and does not gate on, carried as a `score` (0..100).
 
 FOUR OF THE GATES ARE EXACT QUERIES AGAINST THE SOLIDS, not readings off their boxes, and that
 is most of what the run costs. `pack-closes` and `lines-clear` ask what two bodies share,
@@ -69,12 +53,7 @@ _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 # floor is buildable and nothing more; A is the room that survives a part moving a millimetre.
 GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
 BEND_GRADE_PASS = "B"       # the worst grade a run may carry and still clear the gate
-# The two axes the work is ON, in the order both surfaces lead with them. Their detail prints to
-# `FOCUS_DETAIL_MAX` rows rather than `DETAIL_MAX`, and `to_dict` marks the goal among them as
-# the card's live one. `web/contracts/scorecard-sidecar.js` carries the same pair for the viewer.
-FOCUS_IDS = ("bend-radius", "mounted")
 DETAIL_MAX = 8
-FOCUS_DETAIL_MAX = 24
 
 # How close two bodies the machine does not seat against each other may stand.
 CLEARANCE_FLOOR = 1.0
@@ -357,10 +336,10 @@ MOUNTS = (
     ("bulkhead-water", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
-    # The check makes up on the CO2 inlet's inboard stub, and that fitting is a bought body: what
-    # holds it is a thread in another purchased part, with no printed feature anywhere in the
-    # path.
-    ("gasher-co2", None, "wall-capture"),
+    # THE CHECK STANDS BETWEEN THE TWO OF THEM, one `CO2_INLET_HOP` inboard of the bulkhead and
+    # one `CO2_HOP` short of the regulator, fed and drained by tube. Each hop is a stretch of
+    # 1/4" LLDPE in its own pair of collets, off a body the box holds.
+    ("gasher-co2", None, "tube-hung"),
     # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
     # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a strap
     # through the rib's own cavity closes round the barrel and the rib's back together. The seat
@@ -500,6 +479,16 @@ NEVER = {
         "lower starts `fluid-4` down to V-B in its cradle on the cold core's cap — so the barrel "
         "hangs between two seats with nothing printed closing on it. It is the joint the customer "
         "opens, and a thumb on that collet is the whole of the motion.",
+    # THE CHECK IN THE GAS CHAIN, the middle body of three standing on one axis at one height.
+    # The bulkhead ahead of it is clamped through the back wall and the regulator behind it lies
+    # in a rib off the top one, so both ends of the chain are the box's and the check is the span
+    # between them.
+    "gasher-co2":
+        "Both its hops land on held bodies — `co2-0` back to the ABU44 clamped through the rear "
+        "wall, `co2-1` on to the WR1110 strapped into its rib off the top one — and each is ten "
+        "millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's "
+        "own axis with nothing printed closing on it. A seat under the middle body of three "
+        "made-up ones would fight the two either side of it for where the chain stands.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
         "power box hangs over its mounting plate — so the clamp rides the can. The plate's "
@@ -529,32 +518,39 @@ TEE_BUTTS = {"tee-y-a": "valve-v-c", "tee-y-b": "valve-v-d", "tee-y-c": "valve-v
              "tee-y-d": "valve-v-f", "tee-y-f": "valve-v-h", "tee-y-g": "valve-v-i"}
 
 
-# The disconnect's lower end as data, `(body, port, run, what the run lands on)`. Its reason names
-# a run and a valve the same way a tee's names a valve, and `union_chain_lands` reads all three
-# back off the machine.
-UNION_CHAIN = ("hopper-drain-union", "outlet", "fluid-4", "valve-v-b")
+# Every exemption a LENGTH OF TUBE rests on, as `(body, port, run, what the run lands on)` — the
+# disconnect's lower end, and both of the gas check's. Each reason names a run and the body it
+# reaches the same way a tee's names the valve it butts, and `chains_land` reads all three back
+# off the machine. A body hung at both ends states a row per end: what makes it held is that
+# NEITHER of them lands on nothing.
+CHAIN_LANDS = (
+    ("hopper-drain-union", "outlet", "fluid-4", "valve-v-b"),
+    ("gasher-co2", "inlet", "co2-0", "co2-inlet"),
+    ("gasher-co2", "outlet", "co2-1", "wr1110"),
+)
 
 
-def union_chain_lands(rows, runs) -> None:
-    """The union's lower collet still starts the run it names, and that run still ends on a seat."""
-    name, port, rid, lands = UNION_CHAIN
+def chains_land(rows, runs) -> None:
+    """Every hung body's collet still starts the run it names, and that run still ends on a seat."""
     by_name = {n: by for n, by, _joint in rows}
-    run = next((r for r in runs if r.id == rid), None)
-    if run is None or f"{name}.{port}" not in (run.frm, run.to):
-        raise ValueError(
-            f"{name} is held out of the mounted axis because {rid} leaves its {port!r} collet, "
-            f"and no run by that name starts there — the chain the exemption rests on has been "
-            f"rerouted, so the row is claiming a hold that is not there.")
-    if lands not in {end.split(".")[0] for end in (run.frm, run.to)}:
-        raise ValueError(
-            f"{name} is held out of the mounted axis because {rid} lands on {lands}, and that "
-            f"run now ends {run.frm} → {run.to} — a chain is worth where it ends, and this one "
-            f"ends somewhere else.")
-    if by_name.get(lands) is None:
-        raise ValueError(
-            f"{name} is held out of the mounted axis because {rid} lands on {lands} in a printed "
-            f"seat, and {lands} is now fastened by nothing — so the union hangs off a body that "
-            f"hangs off nothing, and the row is an open joint again rather than an exemption.")
+    for name, port, rid, lands in CHAIN_LANDS:
+        run = next((r for r in runs if r.id == rid), None)
+        if run is None or f"{name}.{port}" not in (run.frm, run.to):
+            raise ValueError(
+                f"{name} is held out of the mounted axis because {rid} leaves its {port!r} "
+                f"collet, and no run by that name starts there — the chain the exemption rests "
+                f"on has been rerouted, so the row is claiming a hold that is not there.")
+        if lands not in {end.split(".")[0] for end in (run.frm, run.to)}:
+            raise ValueError(
+                f"{name} is held out of the mounted axis because {rid} lands on {lands}, and that "
+                f"run now ends {run.frm} → {run.to} — a chain is worth where it ends, and this "
+                f"one ends somewhere else.")
+        if by_name.get(lands) is None:
+            raise ValueError(
+                f"{name} is held out of the mounted axis because {rid} lands on {lands} in a "
+                f"printed seat, and {lands} is now fastened by nothing — so it hangs off a body "
+                f"that hangs off nothing, and the row is an open joint again rather than an "
+                f"exemption.")
 
 
 def tees_butt_held(rows) -> None:
@@ -1482,7 +1478,7 @@ def _mounted(runs) -> Check:
     never_holds(rows)
     rides_hold(rows)
     tees_butt_held(rows)
-    union_chain_lands(rows, runs)
+    chains_land(rows, runs)
     own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
     open_joints = sorted((n, joint) for n, by, joint in own
                          if by is None and n not in NEVER)
@@ -1492,7 +1488,7 @@ def _mounted(runs) -> Check:
     total = len(own) - len(NEVER)
     done = total - len(open_joints)
     return Check("mounted",
-                 "A printed feature of another placed part fastens every body", "goal",
+                 "A printed feature of another placed part fastens every body", "gate",
                  _verdict(not open_joints),
                  f"{done}/{total} mounted, {len(RIDES)} part of another body, "
                  f"{len(NEVER)} nothing fastens",
@@ -1857,10 +1853,8 @@ def to_dict(sc: Scorecard) -> dict:
     status` on it answers what moved: a scorecard that comes back dirty is a scorecard whose
     numbers changed, and whether it still describes the tree is what running the build says.
 
-    The goal in `FOCUS_IDS` is the live one and every other goal is deferred, which the viewer
-    renders gray. Each deferred one still carries its measured score, so the bar reads what it
-    is rather than a zero. Read off `FOCUS_IDS` rather than named again here: an axis spelt in
-    two places is an axis that drifts between them."""
+    Every goal on this card is deferred, which the viewer renders gray. Each one still carries
+    its measured score, so the bar reads what it is rather than a zero."""
     by_id = {c.id: c for c in sc.checks}
     # A mount row's `kind` is the body's geometry authorship, which the shape table measures —
     # a joint designed against a placeholder is a joint designed against a guess.
@@ -1876,9 +1870,8 @@ def to_dict(sc: Scorecard) -> dict:
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail),
-             # A goal in `FOCUS_IDS` is the axis the work is on; every other goal is a reading
-             # the card takes but is not converting yet.
-             "active": c.active and c.id in FOCUS_IDS if c.kind == "goal" else c.active}
+             # Every requirement the machine is held to is a gate; a goal is a reading beside it.
+             "active": c.active and c.kind != "goal"}
             for c in sc.checks
         ],
         "ports": sc.ports,
@@ -1915,11 +1908,10 @@ def report(a) -> Scorecard:
     for c in sc.checks:
         mark = {"pass": "OK  ", "fail": "FAIL", "warn": "    "}[c.status]
         print(f"  {mark} {c.id:14} {c.value:34} {c.label}")
-        limit = FOCUS_DETAIL_MAX if c.id in FOCUS_IDS else DETAIL_MAX
-        for line in c.detail[:limit]:
+        for line in c.detail[:DETAIL_MAX]:
             print(f"         {line}")
-        if len(c.detail) > limit:
-            print(f"         … {len(c.detail) - limit} more")
+        if len(c.detail) > DETAIL_MAX:
+            print(f"         … {len(c.detail) - DETAIL_MAX} more")
     if sc.bends:
         # `need` rides the same table rather than a second one: the corner grade and what the
         # run connects answer different halves of "is this run the work", and a reader holding

@@ -11,8 +11,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, failingBends,
-  bendPinned, unmountedComponents, unfastenableComponents, sizeText,
+import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, sizeText,
   MM_PER_INCH } from "../contracts/scorecard-sidecar.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -42,15 +41,17 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
     assert.ok(c.detail.every((d) => typeof d === "string"), "detail rows are strings");
   }
 
-  // The five goal axes exist by id, and the live/deferred split is encoded in `active`.
+  // The four scored goal axes exist by id, each deferred — `active` false is what the viewer
+  // draws gray.
   const goalById = Object.fromEntries(goals.map((c) => [c.id, c]));
-  for (const id of ["placed", "located", "shaped", "routed", "mounted"]) {
-    assert.ok(goalById[id], `goal axis ${id} present`);
-  }
-  assert.equal(goalById.mounted.active, true, "mounted is the live axis");
   for (const id of ["placed", "located", "shaped", "routed"]) {
+    assert.ok(goalById[id], `goal axis ${id} present`);
     assert.equal(goalById[id].active, false, `${id} is deferred`);
   }
+  // The fastening and the corner grade are requirements the machine is held to.
+  const gateById = Object.fromEntries(gates.map((c) => [c.id, c]));
+  for (const id of ["mounted", "bend-radius"]) assert.ok(gateById[id], `gate ${id} present`);
+  assert.equal(sc.gatesPass, gates.every((c) => c.status === "pass"));
 });
 
 test("the port inventory carries a coordinate and a bore for every located connector", (t) => {
@@ -111,35 +112,24 @@ test("scorecardPathFor maps a STEP path to its sidecar", () => {
     "manifold-layout/enclosure-assembly" + SCORECARD_SUFFIX);
 });
 
-// ── Focus ───────────────────────────────────────────────────────────────────────────────────
-// The bar says the two focus axes and the modal leads with them, both counted off `bends` and
-// `mounts`. A producer that emits an axis without its table draws a bar reading 0/0.
-test("the sidecar carries both focus axes and the tables their counts read", (t) => {
+// ── Mounts ──────────────────────────────────────────────────────────────────────────────────
+// The per-component fastening record the `mounted` gate reaches its verdict on. A producer that
+// emits the gate without the table draws a modal that says a verdict and cannot show it.
+test("the mount table is the population the mounted gate counts", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
   const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
   assert.ok(isScorecard(sc), "sidecar passes isScorecard");
 
   const byId = Object.fromEntries(sc.checks.map((c) => [c.id, c]));
-  for (const id of FOCUS_IDS) assert.ok(byId[id], `focus axis ${id} present as a check`);
-  assert.equal(byId.mounted.active, true, "mounted is a live goal axis");
-
-  const axes = focusAxes(sc);
-  assert.equal(axes.length, 2, "both focus axes count");
-  const [bend, mount] = axes;
-  assert.equal(bend.id, "bend-radius");
-  assert.ok(bend.total > 0, "corners counted off the bends table");
-  assert.ok(bend.done <= bend.total, "corners at spec cannot exceed corners");
-  assert.equal(mount.id, "mounted");
-  // Two kinds of row are outside the count — the axis measures what is left to close. A row
+  assert.ok(Array.isArray(sc.mounts) && sc.mounts.length, "sidecar carries a mount table");
+  // Two kinds of row are outside the count — the gate measures what is left to close. A row
   // nothing can fasten is one; a RIDER is the other, because it is part of another placed body
   // and answers to that body's fastening, so counting it counts one joint once per solid its
   // part is drawn as.
   const can = sc.mounts.filter((m) => !m.never && !m.rides);
-  assert.equal(mount.total, can.length, "mounted counts every component a joint could reach");
-  assert.equal(mount.done, can.filter((m) => m.by).length);
-  // The counts the bar prints must be the ones the gate/goal reached its verdict on.
-  assert.equal(bend.status === "pass", bend.done === bend.total);
-  assert.equal(mount.status === "pass", mount.done === mount.total);
+  assert.ok(can.length, "at least one joint is the gate's to close");
+  assert.equal(byId.mounted.status === "pass", can.every((m) => m.by),
+    "the gate's verdict is the table's own");
 
   // A carrier is a placed component or a printed piece of the enclosure, and it is named — a
   // joint printed into nothing has nowhere for its screw to go.
@@ -161,38 +151,23 @@ test("the sidecar carries both focus axes and the tables their counts read", (t)
   }
 });
 
-test("the focus panels itemize down to the body a fix moves", (t) => {
+// ── Bends ───────────────────────────────────────────────────────────────────────────────────
+// One row per routed run, each naming the two anchors it stands between and grading every corner
+// in it separately — a run holds one radius per corner, so its worst says nothing about the rest.
+test("every bend row names its two anchors and grades its own corners", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
   const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
 
-  // Unmounted rows are exactly the gap the axis reports, one row each.
-  const loose = unmountedComponents(sc);
-  const can = sc.mounts.filter((m) => !m.never && !m.rides);
-  assert.equal(loose.length, can.length - can.filter((m) => m.by).length);
-  assert.ok(loose.every((m) => !m.by), "every listed row is an open joint");
-  assert.ok(loose.every((m) => !m.never), "a row nothing can fasten is not on the work list");
-  assert.ok(loose.every((m) => !m.rides), "a body that is part of another is not its own joint");
-  // The two lists partition the unfastened rows that are joints: work, and what is not work. A
-  // rider is on neither — an open one is its host's row, which is already on the first.
-  const never = unfastenableComponents(sc);
-  assert.equal(loose.length + never.length,
-               sc.mounts.filter((m) => !m.by && !m.rides).length,
-               "every unfastened joint is on exactly one of the two lists");
-  assert.ok(never.every((m) => m.never.length), "each exempt row carries its reason");
-
-  // Failing runs carry the two anchors the panel turns into clickable part names, and a pinned
-  // run — one whose legs cannot seat a legal radius either — sorts ahead of one that is only a
-  // number to raise.
-  const short = failingBends(sc);
-  for (const b of short) {
+  assert.ok(Array.isArray(sc.bends) && sc.bends.length, "sidecar carries a bend table");
+  for (const b of sc.bends) {
     for (const a of [b.frm, b.to]) {
       assert.equal(typeof a, "string");
       assert.ok(a.includes("."), `${b.id} anchor "${a}" is component.port`);
     }
-  }
-  const firstLoose = short.findIndex((b) => !bendPinned(b));
-  if (firstLoose !== -1) {
-    assert.ok(short.slice(firstLoose).every((b) => !bendPinned(b)), "pinned runs sort first");
+    assert.equal(b.bends, b.corners.length, `${b.id} counts the corners it carries`);
+    assert.ok(b.atSpec <= b.bends, `${b.id}: corners at spec cannot exceed corners`);
+    assert.ok(b.corners.every((c) => c.radius >= b.radius - 1e-9),
+      `${b.id}: the run's radius is its tightest corner's`);
   }
 });
 

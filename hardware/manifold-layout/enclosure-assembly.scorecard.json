@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -107.5,
-    -6.0,
+    -3.0,
     -3.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     215.0,
-    478.25,
+    475.25,
     358.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -107.5,
-    -6.0,
+    -3.0,
     -3.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     215.0,
-    491.891,
+    488.891,
     361.0
    ]
   }
@@ -44,7 +44,7 @@
  "located": 100,
  "shaped": 98,
  "routed": 100,
- "mounted": 98,
+ "mounted": 100,
  "checks": [
   {
    "id": "coverage",
@@ -148,7 +148,7 @@
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
-    "water-3 \u2014 hopper-drain-union: 1.098 mm",
+    "water-3 \u2014 hopper-drain-union: 1.095 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
@@ -161,16 +161,16 @@
     "fluid-14 \u2014 seaflo-pump: 1.975 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm",
     "foam-assembly \u2014 pcba: 2.030 mm",
-    "fluid-24 \u2014 fluid-4: 2.045 mm",
+    "fluid-24 \u2014 fluid-4: 2.044 mm",
     "water-7 \u2014 co2-2: 2.060 mm",
     "fluid-18 \u2014 vk-solenoid: 2.250 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "fluid-2 \u2014 fluid-4: 2.325 mm",
     "water-5 \u2014 water-3: 2.327 mm",
-    "water-3 \u2014 fluid-4: 2.404 mm",
+    "water-3 \u2014 fluid-4: 2.401 mm",
     "pcba \u2014 relay-1: 2.532 mm",
     "co2-2 \u2014 pcba: 2.696 mm",
-    "foam-assembly \u2014 hopper-drain-union: 2.705 mm",
+    "foam-assembly \u2014 hopper-drain-union: 2.702 mm",
     "fluid-2 \u2014 fluid-18: 3.067 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-2 \u2014 seaflo-pump: 3.326 mm",
@@ -179,7 +179,7 @@
     "water-3 \u2014 fluid-28: 3.617 mm",
     "fluid-18 \u2014 fluid-14: 3.851 mm",
     "fluid-18 \u2014 seaflo-pump: 4.000 mm",
-    "fluid-4 \u2014 valve-v-d: 4.040 mm",
+    "fluid-4 \u2014 valve-v-d: 4.043 mm",
     "fluid-14 \u2014 psu: 4.076 mm",
     "seaflo-pump \u2014 co2-inlet: 4.086 mm",
     "fluid-28 \u2014 fluid-24: 4.087 mm",
@@ -193,10 +193,10 @@
     "fluid-28 \u2014 wago-reeds-a: 4.655 mm",
     "fluid-28 \u2014 wago-sensors: 4.655 mm",
     "water-2 \u2014 fluid-2: 4.875 mm",
-    "fluid-4 \u2014 tee-y-a: 4.924 mm",
+    "fluid-4 \u2014 tee-y-a: 4.927 mm",
     "ground-stack \u2014 hopper-funnel: 4.950 mm",
     "fluid-28 \u2014 wago-reeds-b: 4.955 mm",
-    "fluid-4 \u2014 tee-y-b: 5.034 mm",
+    "fluid-4 \u2014 tee-y-b: 5.037 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
     "fluid-4 \u2014 enclosure-front-top: 5.350 mm",
@@ -832,7 +832,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "9.209 mm to the basin",
+   "value": "9.208 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -1038,8 +1038,8 @@
    "label": "The pack stands behind the appliance's stated front plane",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y 6.00, front wall at -3.00",
-   "target": "behind `front_plane_y` -3",
+   "value": "pack reaches y 6.00, front wall at 0.00",
+   "target": "behind `front_plane_y` 0",
    "detail": [],
    "active": true
   },
@@ -1068,8 +1068,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 82.25",
-   "target": "aft of 84.25",
+   "value": "seam at 200.00, housing back plane at 85.25",
+   "target": "aft of 87.25",
    "detail": [],
    "active": true
   },
@@ -1130,13 +1130,13 @@
   {
    "id": "mounted",
    "label": "A printed feature of another placed part fastens every body",
-   "kind": "goal",
-   "status": "fail",
-   "value": "57/58 mounted, 14 part of another body, 11 nothing fastens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "57/57 mounted, 14 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
-    "gasher-co2: wall-capture",
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
+    "gasher-co2: tube-hung \u2014 nothing fastens it; Both its hops land on held bodies \u2014 `co2-0` back to the ABU44 clamped through the rear wall, `co2-1` on to the WR1110 strapped into its rib off the top one \u2014 and each is ten millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's own axis with nothing printed closing on it. A seat under the middle body of three made-up ones would fight the two either side of it for where the chain stands.",
     "hopper-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "hopper-drain-stub: tube-clamp \u2014 nothing fastens it; The worm clamp closes the basin's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the basin every time it is washed.",
     "hopper-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the upper takes the stub the basin carries, the lower starts `fluid-4` down to V-B in its cradle on the cold core's cap \u2014 so the barrel hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",
@@ -1890,7 +1890,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    167.747,
+    167.75,
     262.578
    ],
    "face": [
@@ -1909,7 +1909,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    167.747,
+    167.75,
     304.378
    ],
    "face": [
@@ -1928,7 +1928,7 @@
    "kind": "fluid",
    "pos": [
     1.21,
-    167.747,
+    167.75,
     304.378
    ],
    "face": [
@@ -2569,10 +2569,10 @@
    "boxes": [
     [
      -56.75,
-     -1.121,
+     1.879,
      294.967,
      56.75,
-     54.033,
+     57.033,
      350.121
     ]
    ],
@@ -2585,10 +2585,10 @@
    "boxes": [
     [
      -76.45,
-     -4.444,
+     -1.444,
      293.765,
      76.45,
-     55.235,
+     58.235,
      353.444
     ]
    ],
@@ -2601,10 +2601,10 @@
    "boxes": [
     [
      -86.5,
-     81.247,
+     81.25,
      304.378,
      86.5,
-     254.247,
+     254.25,
      358.0
     ]
    ],
@@ -2681,18 +2681,18 @@
    "boxes": [
     [
      -52.5,
-     2.415,
+     5.415,
      284.36,
      53.5,
-     63.226,
+     66.226,
      345.171
     ],
     [
      -56.75,
-     -0.414,
+     2.586,
      294.26,
      56.75,
-     54.74,
+     57.74,
      349.414
     ]
    ],
@@ -2913,10 +2913,10 @@
    "boxes": [
     [
      -4.565,
-     156.747,
+     156.75,
      305.628,
      13.985,
-     174.747,
+     174.75,
      315.128
     ]
    ],
@@ -2929,10 +2929,10 @@
    "boxes": [
     [
      -1.965,
-     164.572,
+     164.575,
      288.378,
      4.385,
-     170.922,
+     170.925,
      316.378
     ]
    ],
@@ -3065,10 +3065,10 @@
    "boxes": [
     [
      -6.34,
-     160.197,
+     160.2,
      262.578,
      8.76,
-     175.297,
+     175.3,
      304.378
     ]
    ],
@@ -4847,7 +4847,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 290.11,
+   "length": 290.1,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4951,7 +4951,7 @@
      "z": 4.74
     },
     "span": 87.51,
-    "path": 290.11,
+    "path": 290.1,
     "detour": 3.315
    }
   },
@@ -6307,10 +6307,10 @@
   {
    "component": "gasher-co2",
    "by": null,
-   "joint": "wall-capture",
+   "joint": "tube-hung",
    "kind": "real",
    "rides": null,
-   "never": null
+   "never": "Both its hops land on held bodies \u2014 `co2-0` back to the ABU44 clamped through the rear wall, `co2-1` on to the WR1110 strapped into its rib off the top one \u2014 and each is ten millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's own axis with nothing printed closing on it. A seat under the middle body of three made-up ones would fight the two either side of it for where the chain stands."
   },
   {
    "component": "wr1110",
