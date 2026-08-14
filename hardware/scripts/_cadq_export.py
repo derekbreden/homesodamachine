@@ -500,6 +500,17 @@ _STEP_READS = set()
 _WRITE_TARGETS = set()
 
 
+def note_write(path):
+    """Keep `path` as one this run makes, for a file no `open` in this process lands on.
+
+    A picture drawn by node and a drawing drawn by blender are written by a tool this run
+    starts, below Python. The call that starts the tool is the one place that names them."""
+    try:
+        _WRITE_TARGETS.add(Path(path).resolve().relative_to(_ROOT).as_posix())
+    except ValueError:
+        pass                             # a file outside this repo is nothing this tree cuts
+
+
 def import_step(path):
     """The solid at `path`, and the record that this run read it.
 

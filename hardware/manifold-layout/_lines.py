@@ -352,7 +352,7 @@ CROSS_Y = 176.5
 CROSS_DROP = 7.1
 # And where it leaves the inlet's plane. The cap prints a second rib on this run further aft,
 # bored on that plane, so the west column holds the height until it is past that rib.
-CROSS_DROP_Y = 192.0
+CROSS_DROP_Y = 193.0
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
 # hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
@@ -436,9 +436,12 @@ def _fluid_1(F):
         note="flavor tap: split run -> flow regulator, a 180 degree hairpin forward of the pair")
 
 
-# What each collet on the step gets straight off its own axis before `water-2` starts to lean —
-# the stub a push-to-connect grips, taken out of the reach `enclosure_assembly.WATER_2` gives.
-WATER_2_LEAD = 6.0
+# What each collet on the step gets straight off its own axis before `water-2` starts to lean.
+# NOT A GRIP — a collet grips inside the fitting, behind the face, and a line starts curving at
+# that face. What this holds is the TANGENT its own corner seats on, R·tan(θ/2) for the lean the
+# step takes, so it is priced against the corner rather than against the push-fit. Taken out of
+# the reach `enclosure_assembly.WATER_2` gives.
+WATER_2_LEAD = 7.0
 
 
 def _water_2(F):
