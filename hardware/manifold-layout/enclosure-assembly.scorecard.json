@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -151,9 +151,9 @@
     "water-3 \u2014 step-fluid-5: 1.337 mm",
     "coil-v-i \u2014 wago-manb: 1.366 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
+    "water-2 \u2014 fluid-2: 1.628 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
-    "water-2 \u2014 fluid-2: 1.902 mm",
     "fluid-2 \u2014 fluid-4: 1.969 mm",
     "fluid-14 \u2014 seaflo-pump: 1.975 mm",
     "fluid-4 \u2014 coil-v-a: 1.981 mm",
@@ -1099,13 +1099,14 @@
    "id": "bend-radius",
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
-   "status": "pass",
-   "value": "B \u2014 53/53 corners at spec",
+   "status": "fail",
+   "value": "C \u2014 52/54 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:17",
-    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
+    "runs by grade: B:16 C:1",
+    "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red",
+    "C/C water-2 (asse1022-assembly.tube-out \u2192 water-split.supply): R13.0 against R14, bound by leg 2 at 21.0 mm \u2014 1.19\u00d7 its need: 71 mm of path for ends 60 mm apart"
    ],
    "active": true
   },
@@ -4086,6 +4087,99 @@
  ],
  "bends": [
   {
+   "id": "water-2",
+   "kind": "water",
+   "frm": "asse1022-assembly.tube-out",
+   "to": "water-split.supply",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 71.27,
+   "radius": 12.987,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 0.9276,
+   "grade": "C",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 66.2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      13.0,
+      22.28
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 37.6,
+     "radius": 12.987,
+     "ratio": 0.9276,
+     "grade": "C",
+     "legs": [
+      22.28,
+      20.98
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 103.8,
+     "radius": 12.987,
+     "ratio": 0.9276,
+     "grade": "C",
+     "legs": [
+      20.98,
+      27.0
+     ]
+    }
+   ],
+   "atSpec": 1,
+   "bends": 3,
+   "worstTurn": 103.8,
+   "seat": 12.987,
+   "reach": 12.987,
+   "reachRatio": 0.9276,
+   "reachGrade": "C",
+   "binding": {
+    "leg": 2,
+    "length": 20.982,
+    "demand": 1.6156,
+    "from": [
+     -85.03,
+     282.21,
+     317.06
+    ],
+    "to": [
+     -92.0,
+     287.21,
+     297.91
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -78.07,
+      304.21,
+      336.21
+     ],
+     [
+      -92.0,
+      260.21,
+      297.91
+     ]
+    ],
+    "axis": {
+     "x": 13.93,
+     "y": 44.0,
+     "z": 38.3
+    },
+    "span": 59.97,
+    "path": 71.27,
+    "detour": 1.188
+   }
+  },
+  {
    "id": "fluid-1",
    "kind": "fluid",
    "frm": "water-split.to-flavor",
@@ -5194,88 +5288,6 @@
     "span": 327.61,
     "path": 458.04,
     "detour": 1.398
-   }
-  },
-  {
-   "id": "water-2",
-   "kind": "water",
-   "frm": "asse1022-assembly.tube-out",
-   "to": "water-split.supply",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 65.71,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 63.9,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      12.0,
-      45.4
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 63.9,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      45.4,
-      12.0
-     ]
-    }
-   ],
-   "atSpec": 2,
-   "bends": 2,
-   "worstTurn": 63.9,
-   "seat": 19.256,
-   "reach": 36.424,
-   "reachRatio": 2.6017,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 45.398,
-    "demand": 1.2464,
-    "from": [
-     -78.07,
-     292.21,
-     336.21
-    ],
-    "to": [
-     -92.0,
-     272.21,
-     297.91
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -78.07,
-      304.21,
-      336.21
-     ],
-     [
-      -92.0,
-      260.21,
-      297.91
-     ]
-    ],
-    "axis": {
-     "x": 13.93,
-     "y": 44.0,
-     "z": 38.3
-    },
-    "span": 59.97,
-    "path": 65.71,
-    "detour": 1.096
    }
   },
   {
