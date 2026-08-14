@@ -184,8 +184,15 @@ def digest(paths) -> str:
 
 
 def key(module_name: str, *inputs) -> str:
-    """A name for the shape `module_name` draws from `inputs`."""
+    """A name for the shape `module_name` draws from `inputs`.
+
+    `HSM_INPUT_DIGEST` NAMES EVERYTHING THE RUN WAS GIVEN, and a build that sets it holds
+    every file it declared and nothing else. The walk below reaches what `module_name`
+    imports; a solid loaded off disk is not an import, and `enclosure.py` makes no
+    `import_step` call while the run it happens in reaches 28 of them. So a key taken from
+    the walk alone stands for a shape after a solid it was cut against has moved."""
     h = hashlib.blake2b(digest_size=16)
+    h.update(os.environ.get("HSM_INPUT_DIGEST", "").encode())
     h.update(digest(sources(module_name)).encode())
     for i in inputs:
         h.update(repr(i).encode())

@@ -22,6 +22,9 @@ sys.path.insert(0, str(_HERE.parent))
 from inventory import inventory, tracked   # noqa: E402
 
 VENV = "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python"
+#: The kept work — shapes off BREP, tessellations, optimal boxes — held where every action
+#: reaches it. `.bazelignore` holds it out of the workspace and `.bazelrc` mounts it in.
+CACHE = "/Users/derekbredensteiner/Developer/homesodamachine/.cache"
 
 #: See the tag it earns in `render`.
 NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
@@ -88,12 +91,23 @@ def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
         "ln -sfn $$PWD/$$d work/$$d; fi",
         "done",
         "cd work",
+        # TWO THINGS DECIDE A SHAPE and the key must hold both. `_realized.key` walks the
+        # drawing module's imports, which covers the Python; this is the other half — the
+        # solids the action was given, which no import statement reaches. A doc moving is
+        # neither of them, so it leaves the kept work standing.
+        #
+        # `_boxes` and `_meshes` need no such name: each keys an entry by the serialized
+        # shape it was taken from, which is already only what it was given.
+        f"ln -sfn {CACHE} .cache",
+        "D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf'"
+        " -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null"
+        " | shasum -a 256 | cut -c1-32)",
     ]
     # THE ROOT IS THIS DIRECTORY. `docgen` finds it by walking for `.git`, which an action
     # holding only what it declared does not have — without this the doc's figures are
     # rewritten and its `.figures.json` is not.
     for g in gens:
-        lines.append(f"HSM_REPO_ROOT=$$PWD {VENV} {g} > /dev/null")
+        lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {VENV} {g} > /dev/null")
     for i, made in enumerate((*arts, *docs)):
         lines.append(f"cp {made} $$O{i}")
     lines += ['""",', ")"]

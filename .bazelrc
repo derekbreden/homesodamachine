@@ -9,6 +9,11 @@ build --sandbox_default_allow_network=false
 build --sandbox_add_mount_pair=/opt/homebrew
 build --sandbox_add_mount_pair=/usr/local
 build --action_env=PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
+
+# The kept work is not a declared input and not an output: `_boxes` and `_meshes` name an entry
+# by the serialized shape it came off, and `_realized` by that plus the digest of everything the
+# action holds. An action that finds one has been given the same thing twice.
+build --sandbox_add_mount_pair=/Users/derekbredensteiner/Developer/homesodamachine/.cache
 build --action_env=HSM_SKIP_VIEWS=1
 build --action_env=HSM_NO_BUILD_LOCK=1
 build --action_env=HSM_SKIP_SCENES=1
