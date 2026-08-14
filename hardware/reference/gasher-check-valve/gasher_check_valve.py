@@ -27,7 +27,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_step, import_step
 
 STEP = _here.parent / "gasher-check-valve.step"
 
@@ -64,7 +64,7 @@ def stations_hold():
     The valve is a straight run on one axis, so its two stations ARE the ends of that solid's
     box: the socket mouth a male threads into, and the stub tip that threads into the next
     female. The chain either side of it is seated on this reading."""
-    bb = cq.importers.importStep(str(STEP)).val().BoundingBox()
+    bb = import_step(str(STEP)).val().BoundingBox()
     for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
                                        ("outlet", outlet(), bb.ymax)):
         if abs(pos[1] - actual) > 1e-6:

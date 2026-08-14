@@ -122,7 +122,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
-from _cadq_export import export_assembly              # noqa: E402
+from _cadq_export import export_assembly, import_step              # noqa: E402
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
@@ -637,7 +637,7 @@ def build_foam(front_y: float):
 
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
-    f = cq.importers.importStep(str(FOAM_STEP)).val()
+    f = import_step(str(FOAM_STEP)).val()
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
                      cx=0.0, y0=front_y, z0=0.0)
 
@@ -699,7 +699,7 @@ def build_mq6(comp, cond):
     LOW on the slab the compressor stands on, one rail section up — which is the whole of what
     lifts it. The mesh comes out under the power box's floor, so the layer reaches this board
     before it reaches the one ignition source in the compartment."""
-    body = cq.importers.importStep(str(MQ6_STEP)).val()
+    body = import_step(str(MQ6_STEP)).val()
     fore, _aft = _enc.front_band_free_y(min(box(comp).ymin, box(cond).ymin))
     return seat_body(body, MQ6_TURN, seat="mq6-sensor",
                      x0=_enc.interior_x()[0], y0=fore + MQ6_FORE_CLEAR,
@@ -1729,7 +1729,7 @@ def build_seaflo(foam):
     discharge barb, the two places the box would answer for the whole part and be wrong (the
     feet are 8 mm of a 72 mm casting, the barb one 10 mm band of a 187 mm one)."""
     b = box(foam)
-    shape = cq.importers.importStep(str(SEAFLO_STEP)).val()
+    shape = import_step(str(SEAFLO_STEP)).val()
     turns = (((0, 0, 1), SEAFLO_YAW),)
     planes = dict(y1=b.ymax, z0=cap_face(foam))
     probe, probe_carry = seat_body(shape, turns, cx=0.0, **planes)
@@ -1879,7 +1879,7 @@ def build_bulkhead(asse_carry):
     `jg_bulkhead_union.PROUD_LENGTH` outboard of the box — the collet the customer's line pushes
     onto, and the only part of the machine behind its own back wall."""
     inlet = asse_carry(_asse.port("tube-in"))[0]
-    body = cq.importers.importStep(str(BULKHEAD_STEP)).val()
+    body = import_step(str(BULKHEAD_STEP)).val()
     return seat_body(body, (), seat="bulkhead-water",
                      station=(_jg.port(-1.0),
                               (inlet[0], bulkhead_mouth_y(), inlet[2])))
@@ -1982,7 +1982,7 @@ def build_port_rings(stations):
     out = []
     for x, z, _fitting, ring, which, fluid in stations.values():
         name = ring_name(which)
-        placed, _carry = seat_body(cq.importers.importStep(str(_ring.STEPS[ring])).val(), (),
+        placed, _carry = seat_body(import_step(str(_ring.STEPS[ring])).val(), (),
                                    seat=name, station=(_ring.seat(), (x, floor, z)))
         colour = (cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid])) if fluid
                   else C_RING_STOCK)
@@ -2233,7 +2233,7 @@ def build_panel_bulkhead(name: str, x: float, z: float):
     outer face, the threading passes through, and the nut clamps inside. What it reaches inboard
     is `jg_bulkhead_union.far_ring_face_y`, and `bulkhead_mouth_y` is where that leaves the
     collet the run pushes into."""
-    body = cq.importers.importStep(str(BULKHEAD_STEP)).val()
+    body = import_step(str(BULKHEAD_STEP)).val()
     return seat_body(body, (), seat=name,
                      station=(_jg.port(-1.0), (x, bulkhead_mouth_y(), z)))
 
@@ -2269,7 +2269,7 @@ def build_digiten(carb_carry, seat: bool = True):
     The two saddles it hangs in are `digiten_saddles`, printed off the top wall."""
     pos, axis = carb_carry(_jg.port(-1.0))
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
-    body = cq.importers.importStep(str(DIGITEN_STEP)).val()
+    body = import_step(str(DIGITEN_STEP)).val()
     return seat_body(body, DIGITEN_TURN, seat="digiten-flow" if seat else None,
                      station=(_digiten.outlet(), target))
 
@@ -2398,6 +2398,14 @@ BODY_ANCHOR_SLIP = 0.2
 BODY_ANCHOR_SITES = (
     # The regulator's barrel, between its two wrench hexes.
     ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # THE FLAVOUR TAP'S OWN TWO, one over the other on one column off the −X wall. The split and
+    # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
+    # run between its hub and the collet the tap arrives by — the one round section on either body
+    # that is neither a box, a branch, nor the adjuster a hand has to reach.
+    #   ONE WALL TAKES BOTH because the pair's axes are parallel and level in X: a rib off this
+    # face stands across each run the same way, and the two seats print in one column of material.
+    ("water-split", _split.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
+    ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
 
@@ -2735,7 +2743,7 @@ def build_c14():
     bears on that inner face, the housing hangs `BODY_DEPTH` inboard of it, and the shroud rises
     `SHROUD_PROUD` the other way — through a wall of `enclosure.wall` and standing proud of the
     outside by what is left."""
-    body = cq.importers.importStep(str(C14_STEP)).val()
+    body = import_step(str(C14_STEP)).val()
     return seat_body(body, (), seat="c14-inlet",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
                               (C14_STATION[0], _enc.rear_plane_y, C14_STATION[1])))
@@ -2800,7 +2808,7 @@ def build_co2_inlet(deck: float):
     """The 1/4" bulkhead union the customer's CO2 tether goes into, clamped through the back wall
     one `PORT_PITCH` east of the carb union and on the deck's own storey, seated on its INBOARD
     COLLET — the same seating the four PP1208E unions take, on the same plane."""
-    body = cq.importers.importStep(str(NEOFIT_STEP)).val()
+    body = import_step(str(NEOFIT_STEP)).val()
     return seat_body(body, (), seat="co2-inlet",
                      station=(_neofit.port(-1.0),
                               (CO2_COLUMN, co2_inlet_mouth_y(), deck)))
@@ -2812,7 +2820,7 @@ def build_gasher_co2(inlet_carry):
     pressure never reaches the customer's regulator."""
     pos, axis = inlet_carry(_neofit.port(-1.0))
     target = tuple(pos[i] + axis[i] * CO2_INLET_HOP for i in range(3))
-    body = cq.importers.importStep(str(GASHER_STEP)).val()
+    body = import_step(str(GASHER_STEP)).val()
     return seat_body(body, CO2_CHAIN_TURN, seat="gasher-co2",
                      station=(_gasher.inlet(), target))
 
@@ -2823,7 +2831,7 @@ def build_wr1110(gasher_carry):
     is an open item; this is where it hangs."""
     pos, axis = gasher_carry(_gasher.outlet())
     target = tuple(pos[i] + axis[i] * CO2_HOP for i in range(3))
-    body = cq.importers.importStep(str(WR1110_STEP)).val()
+    body = import_step(str(WR1110_STEP)).val()
     return seat_body(body, CO2_CHAIN_TURN, seat="wr1110",
                      station=(_wr1110.inlet(), target))
 
@@ -2987,7 +2995,7 @@ def build_psu(foam, wall_seat):
     own lid, and AFT its own rear mount hole on `enclosure.wall_boss_aft_limit` — the brick
     answers to the corner with the hole pattern it has, so its aft face lands wherever that
     puts it. The lane it lies in is what the SeaFlo leaves east of itself on that cap."""
-    return seat_body(cq.importers.importStep(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
+    return seat_body(import_step(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
                      y1=_enc.wall_boss_aft_limit() + (_psu.length / 2.0 - _psu.hole_dy),
                      z0=cap_face(foam))
@@ -3014,7 +3022,7 @@ def build_pcba(foam, ahead_of, wall_seat):
     boss holds them both; AFT one `WIRED_CLEAR` ahead of `ahead_of`'s own front face — which is
     relay #2, not the brick, since the relay stands between them; FOOT on the cap. What holds it
     is the pcba-tray, which is not placed — this is the board's envelope."""
-    return seat_body(cq.importers.importStep(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
+    return seat_body(import_step(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
                      x1=wall_seat, y1=box(ahead_of).ymin - WIRED_CLEAR, z0=cap_face(foam))
 
 
@@ -3069,7 +3077,7 @@ def build_relay2(psu, foam, wall_seat):
     EAST on the wall seat every body on this flank takes; AFT one `WIRED_CLEAR` ahead of the
     brick's own front face; FOOT on the cap, the same lid the brick and the board stand on. Its
     screw block and its header stand one over the other, both facing the room."""
-    return seat_body(cq.importers.importStep(str(RELAY_STEP)).val(), RELAY2_TURN, seat="relay-2",
+    return seat_body(import_step(str(RELAY_STEP)).val(), RELAY2_TURN, seat="relay-2",
                      x1=wall_seat, y1=box(psu).ymin - WIRED_CLEAR, z0=cap_face(foam))
 
 
@@ -3091,7 +3099,7 @@ def build_wago_row(psu, wall_seat):
     y0 = (pb.ymin + pb.ymax) / 2.0 - span / 2.0
     out = []
     for i, name in enumerate(WAGO_POLES):
-        solid, carry = seat_body(cq.importers.importStep(str(wago_step("413"))).val(), WAGO_TURN,
+        solid, carry = seat_body(import_step(str(wago_step("413"))).val(), WAGO_TURN,
                                  seat=name, x1=_enc.interior_x()[1],
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
                                  z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
@@ -3111,7 +3119,7 @@ def build_cluster_wagos():
         stand_y, stand_z, _sx = _enc.wago_stand(size)
         turn = WAGO_TURN if side > 0 else WAGO_TURN_WEST
         face = {"x1": _enc.interior_x()[1]} if side > 0 else {"x0": _enc.interior_x()[0]}
-        solid, carry = seat_body(cq.importers.importStep(str(wago_step(size))).val(), turn,
+        solid, carry = seat_body(import_step(str(wago_step(size))).val(), turn,
                                  seat=name, y0=y - stand_y / 2.0, z0=z - stand_z / 2.0, **face)
         out.append((name, solid, carry, size))
     return out
@@ -3126,11 +3134,11 @@ def build_stack(psu, pcba, wagos, wall_seat):
     one body here that will go wherever there is a corner. Relay #2 is not on either crown; it
     stands on the cap between the board and the brick (`build_relay2`)."""
     out = []
-    relay1, r1_carry = seat_body(cq.importers.importStep(str(RELAY_STEP)).val(), RELAY_TURN,
+    relay1, r1_carry = seat_body(import_step(str(RELAY_STEP)).val(), RELAY_TURN,
                                  seat="relay-1", x1=wall_seat, y1=box(pcba).ymax,
                                  z0=box(pcba).zmax + STACK_CLEAR)
     out.append(("relay-1", relay1, C_RELAY, r1_carry))
-    stud, stud_carry = seat_body(cq.importers.importStep(str(GND_STACK_STEP)).val(), RELAY_TURN,
+    stud, stud_carry = seat_body(import_step(str(GND_STACK_STEP)).val(), RELAY_TURN,
                                  seat="ground-stack", x1=wall_seat,
                                  y1=box(relay1).ymin - STACK_CLEAR, z0=box(relay1).zmin)
     out.append(("ground-stack", stud, C_GND, stud_carry))
@@ -3819,10 +3827,12 @@ def build_moisture_plate(pan_carry, asse_carry):
 # turn is about the BRANCH, which is the one of its three ports that can be given a level the
 # other two are not on.
 #
-# A roll about Y leaves the run where it is and swings the branch from −X to −Z: the split's
-# two run collets stay on the chain's line and its third looks straight DOWN, at the storey the
-# pump and the manifold are on.
-SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
+# A roll about Y leaves the run where it is and swings the branch: the split's two run collets
+# stay on the chain's line whatever it does, and the third goes wherever the roll puts it. A HALF
+# TURN points it at +X, straight across the lane at V-K's own side of the machine, and lays the
+# fitting flat — the tee then reads one hub tall instead of a hub plus the branch's whole reach,
+# which is what lets the pair below stack inside the room the bowl leaves.
+SPLIT_TURN = (((0.0, 1.0, 0.0), 180.0),)
 # THE HOPPER'S BOWL IS THE FORWARD LANE'S CEILING. The chain crosses the wall on the panel deck
 # and the lane it hands the water to runs forward under that bowl, so the tap steps down out of
 # the deck between the chain and the split, in the open room aft of the hopper. Everything
@@ -3832,7 +3842,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
-FLAVOR_STEP = 32.0
+FLAVOR_STEP = 46.0
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
@@ -3872,11 +3882,17 @@ def build_split(asse_carry):
 # over onto +X, so the valve reads 14.72 mm tall and 40.85 mm across the lane rather than the
 # other way round, and the knurled head faces the machine's centre where a hand comes in over the
 # cold core's cap. `design-pressures.md` sets it once on the bench.
-FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0))
-# The straight between the split's flavour collet and the regulator's inlet — `fluid-1`, which
-# has no corner in it because both mouths face each other down one line on one storey: the split
-# already took the step down out of the deck.
-FLUID_1 = 24.0
+FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
+                ((1.0, 0.0, 0.0), 180.0))
+# `fluid-1` IS A HAIRPIN AND NOTHING ELSE. The regulator stands over the split on the split's own
+# column with its inlet facing the same way the split's flavour collet does, so the run leaves one
+# mouth, turns 180° and comes back into the other — two stock quarter-turns with no straight
+# between them and none at either end.
+#   WHAT THAT COSTS IS TWO RADII OF Z, exactly. A semicircle's two ends are one diameter apart
+# across the turn, so the rise between the two collet axes is not a number this file may pick: it
+# is the stock's own floor doubled, and picking anything else puts a corner in the run or a
+# straight in the hairpin. The two mouths share a Y for the same reason.
+FLUID_1_RISE = 2.0 * _lines.TUBE_BEND
 
 
 def check_bowl_clear(flowreg, funnel) -> Bound:
@@ -3898,11 +3914,15 @@ def check_bowl_clear(flowreg, funnel) -> Bound:
 
 
 def build_flowreg(split_carry):
-    """The regulator seated on its INLET, one `FLUID_1` forward of the split's flavour collet
-    and on that collet's own line — so the tap runs split, regulator down one axis under the
-    hopper's bowl, and the joint between them is a straight."""
-    pos, axis = split_carry(_split.to_flavor())
-    target = tuple(pos[i] + axis[i] * FLUID_1 for i in range(3))
+    """The regulator seated on its INLET, one `FLUID_1_RISE` OVER the split's flavour collet and
+    on that collet's own station in X and Y — so the two mouths stand on one vertical, facing the
+    same way, and `fluid-1` is the hairpin between them.
+
+    THE PAIR IS A STACK AND THE SPLIT IS ITS DATUM. Everything about where this body goes is read
+    off the collet it is fed from, so the regulator rides the split wherever the chain carries it
+    and the hairpin between them never changes shape."""
+    pos, _axis = split_carry(_split.to_flavor())
+    target = (pos[0], pos[1], pos[2] + FLUID_1_RISE)
     return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
                      station=(_flowreg.inlet(), target))
 
@@ -4538,7 +4558,7 @@ def build_funnel(box):
     Returns `(placed, carry)` like every other seated body, so the drain the basin empties
     through rides the basin."""
     cx, cy = funnel_centre(box)
-    return seat_body(cq.importers.importStep(str(FUNNEL_STEP)).val(),
+    return seat_body(import_step(str(FUNNEL_STEP)).val(),
                      (((0.0, 0.0, 1.0), FUNNEL_ROT),), seat="hopper-funnel",
                      station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
                               (cx, cy, box.outer[5])))

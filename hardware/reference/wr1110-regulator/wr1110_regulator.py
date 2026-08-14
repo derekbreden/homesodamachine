@@ -21,7 +21,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_step, import_step
 
 STEP = _here.parent / "wr1110-regulator.step"
 
@@ -74,7 +74,7 @@ def stations_hold():
     The two sockets are extents of that solid's box. THE BARREL IS NOT — it is a section inside
     the envelope, so it is read as everything the file holds over its own Y band, and the box
     that band comes back with."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
                                        ("outlet", outlet(), bb.ymax)):

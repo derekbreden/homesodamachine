@@ -58,7 +58,7 @@ _cold_core = _hw / "printed-parts" / "cold-core"
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_cold_core))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly
+from _cadq_export import export_assembly, import_step
 from _cold_core_interface import (
     cap_side_anchors,
     attachment_xy_positions,
@@ -117,7 +117,7 @@ ROUTE_COLORS = {name: _routing.color(key) for name, key in ROUTE_SPOOLS.items()}
 
 
 def _load(path):
-    return cq.importers.importStep(str(path)).val()
+    return import_step(str(path)).val()
 
 
 def _spin(shape):

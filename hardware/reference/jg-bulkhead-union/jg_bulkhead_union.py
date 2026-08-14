@@ -37,7 +37,7 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
-from _cadq_export import export_step
+from _cadq_export import export_step, import_step
 from _measuring import bores
 from world_workplane import xz_plane_y_up
 
@@ -106,7 +106,7 @@ def stations_hold():
     The nut is the body's widest section, an extent of that solid's box, and each port stands
     on the ring face at the end of it. The threading is neither: it is a turned face inside
     the envelope, so it is read off the bore itself."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for what, claimed, actual in (("nut width", BODY_D, bb.xlen),
                                   ("nut height", BODY_D, bb.zlen),

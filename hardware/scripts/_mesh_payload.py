@@ -44,6 +44,7 @@ from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
 from OCP.TopExp import TopExp_Explorer
 from OCP.TopLoc import TopLoc_Location
 from OCP.TopoDS import TopoDS, TopoDS_Compound
+from _cadq_export import import_step
 
 # What the viewer gets by calling ReadStepFile(buffer, null): a linear
 # deflection stated as a ratio of the model's size, and an angular deflection
@@ -350,7 +351,7 @@ def _selftest():
         # if these land together. An upstream change to occt-import-js's
         # defaults shows up here and nowhere else.
         if _REF_STEP.exists():
-            mine = from_shape(cq.importers.importStep(str(_REF_STEP)))
+            mine = from_shape(import_step(str(_REF_STEP)))
             js = occt(_REF_STEP)
             check(f"{_REF_STEP.name}: solid count matches occt-import-js", len(mine), js["meshes"])
             off = abs(sum(len(m["idx"]) // 3 for m in mine) - js["tris"]) / max(js["tris"], 1)

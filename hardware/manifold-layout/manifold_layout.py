@@ -103,7 +103,7 @@ for _p in (_hw / "scripts",
            _hw / "printed-parts" / "flavor" / "pump-case"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
-from _cadq_export import export_assembly              # noqa: E402
+from _cadq_export import export_assembly, import_step              # noqa: E402
 from docgen import substitute_md                      # noqa: E402
 import beduan_solenoid as vlv                         # noqa: E402
 import kamoer_kphm400 as kp                           # noqa: E402
@@ -345,7 +345,7 @@ _tee_solid = None
 def tee_solid():
     global _tee_solid
     if _tee_solid is None:
-        _tee_solid = cq.importers.importStep(str(TEE_STEP)).val()
+        _tee_solid = import_step(str(TEE_STEP)).val()
     return _tee_solid
 
 
@@ -672,7 +672,7 @@ def uturn(x: float):
 def build_elbow(gate: str, side: float):
     """One draw gate's elbow. Native frame: legs out +Y and +Z, bend corner at the origin."""
     corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
-    solid = cq.importers.importStep(str(ELBOW_STEP)).val()
+    solid = import_step(str(ELBOW_STEP)).val()
     return place(solid, corner, x_dir, z_dir)
 
 
@@ -684,7 +684,7 @@ def kamoer_bodies():
     solid in front of the base plane, the boss the one behind it, and the can behind that."""
     global _KAMOER
     if _KAMOER is None:
-        solids = sorted(cq.importers.importStep(str(KAMOER_STEP)).val().Solids(),
+        solids = sorted(import_step(str(KAMOER_STEP)).val().Solids(),
                         key=lambda s: s.BoundingBox().zmin)
         _KAMOER = tuple(solids[:3])
     return _KAMOER

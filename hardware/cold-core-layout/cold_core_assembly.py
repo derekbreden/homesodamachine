@@ -35,7 +35,7 @@ for _p in (_hw / "scripts", _cold, _cold / "foam-assembly", _cold / "reservoir",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-from _cadq_export import export_assembly                 # noqa: E402
+from _cadq_export import export_assembly, import_step                 # noqa: E402
 import _overlap                                          # noqa: E402
 import foam_assembly as _foam                            # noqa: E402
 import _internal_routes as _routes                       # noqa: E402
@@ -195,7 +195,7 @@ PORT_LEAD_BENDS = 2.0
 
 
 def _load(path: Path):
-    return cq.importers.importStep(str(path)).val()
+    return import_step(str(path)).val()
 
 
 def _plug_into_shell(solid, column: str):

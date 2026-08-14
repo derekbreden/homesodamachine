@@ -30,7 +30,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_step, import_step
 
 STEP = _here.parent / "jg-pp0408w.step"
 
@@ -85,7 +85,7 @@ def stations_hold():
     """Hold the envelope and both ports to `jg-pp0408w.step` — the file the machine spaces
     the hopper's disconnect by, while it hangs the basin's stub in one end and starts a run
     at the other."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for what, claimed, actual in (("ring width", RING_D, bb.xlen),
                                   ("ring height", RING_D, bb.ylen),

@@ -26,6 +26,7 @@ Then `_bom_totals.py` to carry the new line costs into the section + grand total
 import re
 import sys
 from pathlib import Path
+from _cadq_export import import_step
 
 REPO = next(p for p in Path(__file__).resolve().parents if (p / "hardware").is_dir())
 BOM = REPO / "hardware" / "ledger" / "bom.md"
@@ -111,7 +112,7 @@ def volume_cm3(rel):
         path = PARTS_DIR / rel
         if not path.exists():
             raise SystemExit(f"_bom_masses: {rel} has no STEP at {path}")
-        _VOLUMES[rel] = cq.importers.importStep(str(path)).val().Volume() / 1000.0
+        _VOLUMES[rel] = import_step(str(path)).val().Volume() / 1000.0
     return _VOLUMES[rel]
 
 

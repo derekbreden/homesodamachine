@@ -23,6 +23,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _measuring import collet_offsets
+from _cadq_export import import_step
 
 STEP = _here.parent / "y-divider.step"
 
@@ -54,7 +55,7 @@ def stations_hold():
 
     The reaches and the radius are extents of the solid's own box. The outlet offset is not —
     it is a bore centre inside the envelope, and it is read off the tube bores themselves."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for name, claimed, actual in (("HALF", HALF, bb.zmax), ("HALF_W", HALF_W, bb.xmax)):
         if abs(actual - claimed) > MEASURE_TOL:

@@ -37,7 +37,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_step  # noqa: E402
+from _cadq_export import export_step, import_step  # noqa: E402
 from _measuring import bores  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 
@@ -129,7 +129,7 @@ def build_neofit_bulkhead():
 
 def stations_hold():
     """Hold the figures the wall bores and spaces from to `neofit-bulkhead.step`."""
-    solid = cq.importers.importStep(str(STEP)).val()
+    solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for what, claimed, actual in (("nut width", NUT_D, bb.xlen),
                                   ("nut height", NUT_D, bb.zlen),

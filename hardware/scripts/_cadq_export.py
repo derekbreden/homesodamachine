@@ -489,6 +489,27 @@ def _matches_existing_target(tmp_path, target):
     return target.exists() and filecmp.cmp(tmp_path, str(target), shallow=False)
 
 
+#: Every solid THIS RUN loaded off the disk. A solid one generator cuts and the next loads is an
+#: edge no import statement carries, so no walk over import statements can find it — which is how
+#: a cap cut at 09:56 stood in an assembly built at 15:00 with every digest agreeing.
+_STEP_READS = set()
+
+
+def import_step(path):
+    """The solid at `path`, and the record that this run read it.
+
+    THE READ IS DECLARED HERE OR IT IS NOT DECLARED. `cq.importers.importStep` called directly
+    loads the same solid and tells nobody, and what nobody was told is what nothing rebuilds."""
+    import cadquery as cq
+
+    p = Path(path).resolve()
+    try:
+        _STEP_READS.add(p.relative_to(_ROOT).as_posix())
+    except ValueError:
+        pass                             # a solid outside this repo is nothing this tree cuts
+    return cq.importers.importStep(str(p))
+
+
 def _stamp_part(target):
     """What drew `target`, and the digest of everything its text can reach, off the tree.
 
@@ -510,6 +531,11 @@ def _stamp_part(target):
                 files = {}
                 for src in _realized.source_files(drawer):
                     files[Path(src).relative_to(_ROOT).as_posix()] = _realized.code_digest(src)
+                # The solids this run loaded, beside the Python it read them with. Both decide
+                # the shape; only one of them is reachable from an import statement.
+                for rel in _STEP_READS:
+                    if rel != target.relative_to(_ROOT).as_posix():
+                        files[rel] = _realized.code_digest(_ROOT / rel)
                 _realized.stamp_write("parts", target, {
                     "by": drawer.relative_to(_ROOT).as_posix(),
                     "sources": files,
