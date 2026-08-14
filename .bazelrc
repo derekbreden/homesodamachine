@@ -1,0 +1,11 @@
+# The reason this repo is on Bazel. An action sees the files it declared and nothing else,
+# so a generator that loads a solid it did not name fails where it used to read a stale one.
+build --spawn_strategy=sandboxed
+build --sandbox_default_allow_network=false
+
+# The interpreter and its packages are not in the workspace; the geometry is.
+build --sandbox_add_mount_pair=/opt/homebrew
+build --action_env=HSM_SKIP_VIEWS=1
+
+build --jobs=auto
+test --test_output=errors
