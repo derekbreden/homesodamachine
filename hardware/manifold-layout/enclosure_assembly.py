@@ -4189,7 +4189,7 @@ def place_base(seated, names=()):
 # behind where it started, and the less travel there is the more of it the hairpin has to hand
 # back. `manifold_layout.hairpin_flat` is why a route can do that at all, and
 # `manifold_layout.HAIRPIN_TILT` is the lane it spends doing it in.
-PACK_Y = 3.0
+PACK_Y = 11.0
 
 
 def pose_manifold(shape):
