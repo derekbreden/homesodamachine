@@ -41,7 +41,6 @@ for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "cold-core-layout",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-import _realized                                        # noqa: E402
 
 
 # --- what a scene is -------------------------------------------------------
@@ -472,46 +471,11 @@ def members(scene, assembly):
 
 # --- the fingerprint -------------------------------------------------------
 #
-# What decides a picture is the code that builds the machine, the tables that say who holds whom,
-# and this file's own camera. THE LIST OF THOSE FILES IS RECORDED WHEN THE PICTURE IS DRAWN, and
-# the check re-hashes exactly that list — `docgen`'s own bargain, for the same reason
-# it takes it.
-#
-# The walk itself is not the check's to take. `_realized.source_files` resolves a module name
-# with `find_spec`, which imports the package a dotted name hangs off — so asking for the graph
-# from a cold process loads OCP, costs seconds, and still comes back short because the paths the
-# build runs under are not set up. Taken from inside the render, where every module is already
-# imported, it is free and complete. So the render walks and records; the check reads and hashes.
-
-
 def scene_digest(scene) -> str:
     """A name for the scene's own tuple — its roots, its camera, its framing."""
     h = hashlib.blake2b(digest_size=16)
     h.update(repr(tuple(scene)).encode())
     return h.hexdigest()
-
-
-def source_map() -> dict:
-    """`{repo-relative path: hash}` for every file whose text can decide any picture.
-
-    CALLED FROM INSIDE A RENDER and nowhere else. Three roots: the module that builds the
-    machine, the one that builds the core a scene may draw the inside of, and this one, which
-    holds the cameras and the rule for which bodies a unit carries."""
-    import cold_core_assembly
-    import enclosure_assembly
-
-    files = set()
-    for start in (enclosure_assembly.__file__, cold_core_assembly.__file__, __file__):
-        files |= set(_realized.source_files(start))
-    out = {}
-    for path in sorted(files):
-        out[Path(path).resolve().relative_to(_HW.parent).as_posix()] = _realized.code_digest(path)
-    return out
-
-
-def hash_of(rel: str) -> str | None:
-    """The name of what one recorded file computes now, or None when it is gone."""
-    return _realized.code_digest(_HW.parent / rel)
 
 
 def sidecar_path(png: Path) -> Path:

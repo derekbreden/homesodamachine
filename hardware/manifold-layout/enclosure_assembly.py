@@ -73,7 +73,6 @@ Run it
 
 import collections
 import math
-import os
 import sys
 from pathlib import Path
 
@@ -478,16 +477,15 @@ def suction_lane_x() -> float:
     """The plane the compressor's WEST TANGENT stands on — the lane its suction leg needs off
     the −X wall's inner face.
 
-    THE LEG IS WHY THIS BODY IS WHERE IT IS IN X. The suction fires west out of that tangent, and
-    a port is a bore nothing can be plugged into until a line can leave it straight: two bend
-    radii of its own stock before the first corner, which is what `_scorecard.port_leads` reads
-    every port in the machine against. Copper is the coarsest stock on this floor, so the lane is
-    `_lines.CU_BEND` twice.
+    THE LEG IS WHY THIS BODY IS WHERE IT IS IN X. The suction fires west out of that tangent and
+    turns aft in the lane, and a turn reaches one bend radius PAST the straight it leaves on — the
+    arc's own centre stands square to the run, so the far side of it lies a radius further west
+    than the tangent point does. `_lines.CU_SUCTION_LANE` is that reach in copper.
 
     Struck on the wall and not on the pair's combined box. Centred as a pair, the can's lane was
     whatever the condenser's width left over — so a condenser measured again moved the can, its
     four floor posts and this leg together, and narrowing the appliance took the lane away."""
-    return _enc.interior_x()[0] + _card.PORT_LEAD_BENDS * _lines.CU_BEND
+    return _enc.interior_x()[0] + _lines.CU_SUCTION_LANE
 
 
 def build_compressor():
@@ -4953,23 +4951,14 @@ def main():
     print(f"-> {out.name}")
     report(a)
     _card.report(a)
-    print(f"-> {_card.write(a, out, __file__).name}")
+    print(f"-> {_card.write(a, out).name}")
     # AND WHAT THE READERS READ, off this same machine. Eight doc drivers take their figures
     # from the artifact rather than standing an appliance apiece; writing it here is what makes
     # that one derivation instead of two.
     import _facts
     print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
-    # AND THE CARDS' PICTURES, for the scenes whose sources have moved. A scene is a subset of
-    # THIS machine, so drawing it here costs the cuts and the renders; asking `render_scenes` for
-    # it afterwards costs a second appliance. HSM_SKIP_SCENES leaves them for a hand run.
-    if not os.environ.get("HSM_SKIP_SCENES"):
-        sys.path.insert(0, str(_here.parent / "assembly" / "scenes"))
-        import check_scenes as _chk
-        import _scenes as _sc
-        import render_scenes as _rs
-        stale = [s for s in _sc.SCENES if _chk.state(s)[0] != "current"]
-        if stale:
-            _rs.draw_all(stale, a)
+    # THE CARDS' PICTURES ARE `render_scenes.py`, which loads this assembly's STEP and draws
+    # every scene of it. One generator per artifact, and the build runs it when this moves.
 
 
 if __name__ == "__main__":

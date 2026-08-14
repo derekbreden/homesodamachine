@@ -189,9 +189,9 @@ MADE_UP_ON = {
     "prv-vent": ("prv-shroud",),
 }
 
-# The straight a run leaves a fitting on, as a multiple of its own bend radius: one reach for
-# the stub and one for the tangent its first corner seats on.
-PORT_LEAD_BENDS = 2.0
+# The straight a run leaves a fitting on, as a multiple of its own bend radius — the tangent a
+# quarter turn seats on, which is the sharpest a stock corner off the mouth can be.
+PORT_LEAD_BENDS = 1.0
 
 
 def _load(path: Path):
@@ -472,10 +472,10 @@ def _lane_census(fitted: dict, placed: dict) -> Check:
                  f"{len(detail)} run-lane pairs", "a reading, not a bound", detail)
 
 
-# WHICH ENDS THE LEAD IS A RULE ABOUT. A COLLET grips the tube all round on its own axis, so
-# a tube arriving off that axis cannot be pushed home and a tube still bending inside the grip
-# never bottoms: what such an end needs is a straight to receive it, and `PORT_LEAD_BENDS` is
-# how much. A BORE is not a collet. A cap conduit is a hole up a printed column and its mouth
+# WHICH ENDS THE LEAD IS A RULE ABOUT. A COLLET grips the tube all round on its own axis, so a
+# tube arriving off that axis cannot be pushed home: what such an end needs is a straight to
+# receive it, and `PORT_LEAD_BENDS` is how much. A BORE is not a collet. A cap conduit is a hole
+# up a printed column and its mouth
 # is countersunk to `cap_conduit_entry_skew` for exactly this reason — a line may lean into it
 # — and a wall slot is an opening cut to the line's own corridor, which is the same again. So
 # this names the made-up ends rather than charging every end the collet's rule; the rest are
@@ -493,9 +493,8 @@ def _port_leads(fitted: dict, points: dict) -> Check:
     """The straight each line leaves its own COLLET on.
 
     A collet takes the tube on its own axis, so what a made-up end needs is a straight to
-    receive it — `PORT_LEAD_BENDS` reaches of the line's own radius, one for the stub and one
-    for the tangent the first corner seats on. Shorter than that is a tube that cannot be
-    pushed home without bending it in the grip.
+    receive it — `PORT_LEAD_BENDS` reaches of the line's own radius, the tangent its first
+    corner seats on. Shorter than that is a corner drawn under its own stock.
 
     `MADE_UP_ENDS` is where that rule is true. The other ends land in a BORE — a cap conduit
     or a lane slot — which takes a leaning line by construction, so charging them a collet's
@@ -804,7 +803,7 @@ def main() -> int:
     sc = build_card(a)
     _card.report(sc)
     for step in (STEP_OUT, FOAM_STEP):
-        out = _card.write(sc, step, __file__)
+        out = _card.write(sc, step)
         print(f"\n-> {out.relative_to(_hw)}")
     return 0
 

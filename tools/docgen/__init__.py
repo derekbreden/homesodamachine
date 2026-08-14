@@ -62,14 +62,6 @@ Beside a markdown file under a `hardware/` tree, substitute_md writes
 `<doc>.figures.json`: for each caller, the [value](NAME) texts that
 caller just wrote into the doc, by name. It is written when one of them
 differs from what is recorded, and not otherwise.
-`check_doc_figures.py` reads them back.
-
-The hash of every repo file whose text can decide those texts goes to
-`_realized.stamp_write("docs", …)`, under `.cache/`. The walk is
-`_realized.source_files`, taken here because THIS is where the caller's
-own `sys.path` is standing — the same module name resolves to different
-files, or to none, from a different one, so a reader that takes the
-walk again elsewhere is not asking about the same graph.
 
 Cross-file collision linter
 ---------------------------
@@ -93,6 +85,7 @@ import importlib.util
 import inspect
 import io
 import json
+import os
 import re
 import tokenize
 from pathlib import Path
@@ -119,12 +112,33 @@ _SOURCES_SECTION_RE = re.compile(
 )
 
 
+#: Every doc a substituter was handed, whether or not its text moved. A run that lands on the
+#: figures already standing in a doc writes nothing, and maintaining it is still what it did.
+_WRITE_TARGETS = set()
+
+
 def _find_repo_root(path: Path) -> Path | None:
-    """Walk up from `path` looking for a `.git` directory."""
+    """Walk up from `path` looking for a `.git` directory.
+
+    `HSM_REPO_ROOT` names it outright, for a run whose tree holds the files it declared and
+    nothing else — a sandboxed build action stands in a checkout with no `.git` in it."""
+    named = os.environ.get("HSM_REPO_ROOT")
+    if named:
+        root = Path(named).resolve()
+        if path == root or root in path.parents:
+            return root
     for p in [path, *path.parents]:
         if (p / ".git").exists():
             return p
     return None
+
+
+def _note_target(path: Path) -> None:
+    """Keep `path` as one this run maintains, named from the repo root."""
+    p = Path(path).resolve()
+    root = _find_repo_root(p)
+    if root is not None:
+        _WRITE_TARGETS.add(p.relative_to(root).as_posix())
 
 
 def _caller_file(stack_depth: int = 2) -> Path | None:
@@ -199,16 +213,11 @@ def _record(md_path: Path, caller_file: Path, caller_path: str, figures: dict) -
             held = {}
     held[caller_path] = figures
     text = json.dumps(held, indent=2, sort_keys=True) + "\n"
+    _note_target(sidecar)
     if not sidecar.is_file() or sidecar.read_text() != text:
         sidecar.write_text(text)
 
-    files = {}
-    for src in realized.source_files(caller_file):
-        # `code_digest` and not the bytes: a comment moving is not a figure moving.
-        files[Path(src).relative_to(root).as_posix()] = realized.code_digest(src)
-    stamp = realized.stamp_read("docs", md_path)
-    stamp[caller_path] = files
-    realized.stamp_write("docs", md_path, stamp)
+
 
 
 def _render_sources_section(bullets: list[str]) -> str:
@@ -284,6 +293,7 @@ def substitute_md(
     if caller_path:
         new_text = _update_sources_section(new_text, caller_path)
 
+    _note_target(md_path)
     if new_text != text:
         md_path.write_text(new_text)
 
@@ -335,6 +345,7 @@ def substitute_mmd(
     ]
     new_text = "".join(new_lines)
 
+    _note_target(mmd_path)
     if new_text != text:
         mmd_path.write_text(new_text)
 
@@ -412,5 +423,6 @@ def substitute_py_comments(
         if new_seg != seg:
             new_text = new_text[:start] + new_seg + new_text[end:]
 
+    _note_target(py_path)
     if new_text != text:
         py_path.write_text(new_text)
