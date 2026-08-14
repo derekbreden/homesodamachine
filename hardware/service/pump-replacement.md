@@ -35,19 +35,19 @@ Derived at every build from `manifold_layout.SEGMENTS` and `manifold_layout.MOUT
 
 | Joint | Lifting end | Staying end | Tube | Air-filled by |
 |---|---|---|---|---|
-| `fluid-5` | Y-B-1 | V-B-O | [51.8](LEN_5) mm | every state — it is the air inlet |
-| `fluid-14` | V-F-O | reservoir A fill conduit | [377.6](LEN_14) mm | state 1 |
-| `fluid-24` | V-I-O | reservoir B fill conduit | [191.3](LEN_24) mm | state 3 |
-| `fluid-18` | V-G-O | `bulkhead-flavor-a` | [455.9](LEN_18) mm | state 2 |
-| `fluid-28` | V-J-O | `bulkhead-flavor-b` | [337.1](LEN_28) mm | state 4 |
-| `fluid-16` | V-E-I | reservoir A draw conduit | [131.0](LEN_16) mm | no state — comes apart wet |
-| `fluid-26` | V-H-I | reservoir B draw conduit | [131.0](LEN_26) mm | no state — comes apart wet |
-| `fluid-3` | Y-A-1 | V-A-O | [51.9](LEN_3) mm | no state — comes apart wet |
+| `fluid-5` | Y-B-1 | V-B-O | [173.5](LEN_5) mm | every state — it is the air inlet |
+| `fluid-14` | V-F-O | reservoir A fill conduit | [370.1](LEN_14) mm | state 1 |
+| `fluid-24` | V-I-O | reservoir B fill conduit | [183.3](LEN_24) mm | state 3 |
+| `fluid-18` | V-G-O | `bulkhead-flavor-a` | [450.5](LEN_18) mm | state 2 |
+| `fluid-28` | V-J-O | `bulkhead-flavor-b` | [329.1](LEN_28) mm | state 4 |
+| `fluid-16` | V-E-I | reservoir A draw conduit | [123.2](LEN_16) mm | no state — comes apart wet |
+| `fluid-26` | V-H-I | reservoir B draw conduit | [123.2](LEN_26) mm | no state — comes apart wet |
+| `fluid-3` | Y-A-1 | V-A-O | [172.7](LEN_3) mm | no state — comes apart wet |
 
 **`fluid-3` holds tap water.** Its supply side runs V-A → `fluid-2` → flow regulator → `fluid-1` →
 water split → `water-2` → ASSE 1022 → rear bulkhead → the customer's stop, a closed column at house
 pressure with no atmospheric opening on it, so opening V-A admits water. The run crests at
-[281.3](SOURCE_CREST) mm between its two ends: broken at the tee it drains its descending leg out
+[313.8](SOURCE_CREST) mm between its two ends: broken at the tee it drains its descending leg out
 and its ascending leg back onto V-A's closed seat, which stays with the core.
 
 **The two draw lines hold syrup.** Each runs from the bulkhead in its reservoir's trough, under the
@@ -140,8 +140,8 @@ clean.
    against its standing head or churns at the interface.
 2. **The reel's bore is not in this tree.** Every figure here is a tube length; `_routing.STOCKS`
    carries 1/4" LLDPE's [6.35 mm](TUBE_OD) OD and the bend floor, and no ID. At a nominal 0.170"
-   the [8](JOINT_COUNT_2) joints come to [25](JOINT_ML) mL between them and `fluid-3` to
-   [0.8](WET_ML) mL — arithmetic on `_pump_replacement_sync.NOMINAL_BORE` rather than a reading.
+   the [8](JOINT_COUNT_2) joints come to [28](JOINT_ML) mL between them and `fluid-3` to
+   [2.5](WET_ML) mL — arithmetic on `_pump_replacement_sync.NOMINAL_BORE` rather than a reading.
    Measure a reel and these become volumes.
 3. **Dry-run wear on a KPHM400's BPT tube is not characterised.** States 1, 2, 4 and 5 turn both
    rotors on air.
