@@ -88,15 +88,15 @@ transform per deck and a mirrored pair still faces itself.
 
 ### The source valves' step
 
-Once they are round, V-A and V-B go [28](STEP_TRAVEL) mm further along their run and
+Once they are round, V-A and V-B go [25](STEP_TRAVEL) mm further along their run and
 [14](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
 of one radius with a straight between them do that, and the two distances fix the pair:
 
     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
 
 which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_R) that is
-θ = [36.870](STEP_ANGLE)° either side of s = [14.00](STEP_STRAIGHT) mm —
-[32.02](STEP_LEN) mm of tube.
+θ = [48.495](STEP_ANGLE)° either side of s = [6.08](STEP_STRAIGHT) mm —
+[29.78](STEP_LEN) mm of tube.
 
 **A 90° pair is the member of that family with no straight in it, and it puts the jog EQUAL to
 the travel**, because each quarter spends R on both axes. So 90° turns step 28 across as well as
@@ -106,8 +106,8 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 that holds the run and the way it steps, so leaning that plane about the run costs the step
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
 only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
-[14.21](STEP_CROSS_A) mm across in the same 28 along, θ = [37.552](STEP_ANGLE_A)° either side of
-s = [13.79](STEP_STRAIGHT_A) mm, [32.14](STEP_LEN_A) mm of tube. What the spread buys is the slot
+[14.21](STEP_CROSS_A) mm across in the same 28 along, θ = [49.828](STEP_ANGLE_A)° either side of
+s = [5.59](STEP_STRAIGHT_A) mm, [29.94](STEP_LEN_A) mm of tube. What the spread buys is the slot
 on the mirror line — the pair stands a valve's half-width either side of x 0 and the hopper's
 gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
 one for one.
@@ -136,10 +136,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[188](ENV_X) × [162](ENV_Y) × [243](ENV_Z) mm — [7.40](ENV_L) L of bounding box over the
+[188](ENV_X) × [162](ENV_Y) × [240](ENV_Z) mm — [7.31](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [162](REACH_Y) × [257](REACH_Z).
+[188](REACH_X) × [162](REACH_Y) × [254](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

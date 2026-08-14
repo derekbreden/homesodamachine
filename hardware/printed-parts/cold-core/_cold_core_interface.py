@@ -1254,6 +1254,9 @@ cap_side_anchors = {
     # and the cap's Y is on the mirror line, between the two port stubs the source pair leaves
     # over this step. `axis_off` stands the pipe forward of that face by what reservoir B's own
     # riser leaves the run: the seat is the shallower wrap that leaves, and the tie is what holds.
+    #   THE POST AND `_lines.CROSS_Y` ARE ONE FIGURE IN TWO FILES — the run crosses where this
+    # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
+    # through, so the pair cannot drift apart quietly.
     "water-3": SideAnchor((141.500, 3.242), 7.600, 3.375, 1.500),
 }
 

@@ -29,6 +29,11 @@ CACHE = "/Users/derekbredensteiner/Developer/homesodamachine/.cache"
 #: See the tag it earns in `render`.
 NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
 
+#: Where `pysrc.py` lays a Python file down with its comments taken out. A step reads its
+#: sources from under here, so a comment edit leaves every input it holds byte for byte the
+#: same and Bazel runs none of it.
+PYSRC = "pysrc"
+
 
 #: What tells a step that starts node: a script of this repo on node's command line, which
 #: the trace sees. The packages beside that script come with it.
@@ -45,14 +50,22 @@ def target_name(gen: str) -> str:
     return Path(gen).stem.strip("_").replace("_", "-")
 
 
-def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
+def read_from(src: str, rewritten: set) -> str:
+    """Where a step reads `src` from — under `pysrc/` once its comments are out of it.
+
+    A generator whose own docstring holds figures is handed its file raw: the run rewrites what
+    it was given, and `sync_tree` carries that back into the tree."""
+    return f"{PYSRC}/{src}" if src.endswith(".py") and src not in rewritten else src
+
+
+def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set) -> str:
     name = target_name(gens[0])
     # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
     # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
     # not a name for any of them.
     outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
-    lines += [f'        "{s}",' for s in srcs]
+    lines += [f'        "{read_from(s, rewritten)}",' for s in srcs]
     # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. A step that
     # hands node a script of this repo reads that script — the trace sees the path on the
     # command line — and the packages beside it come with it.
@@ -81,9 +94,12 @@ def render(gens: tuple, arts: list, srcs: list, docs: list) -> str:
         # repo's own Python. A package tree is read by node, which is content with a symlink,
         # and copying eleven thousand files into every action took the critical path from
         # 89 s to 281 s.
+        # A SOURCE LANDS ON THE PATH THE TREE KEEPS IT UNDER, comments taken out or not, so
+        # `import` finds it and a traceback names it.
         "for f in $(SRCS); do",
         "  case $$f in */node_modules/*) continue;; esac",
-        "  mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f",
+        f"  t=$${{f##*/{PYSRC}/}}",
+        "  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t",
         "done",
         "for d in tools/render/node_modules web/node_modules "
         "hardware/pcb/pcba/node_modules; do",
@@ -125,14 +141,32 @@ def main() -> int:
         inv = {k: v for k, v in inv.items() if args.only in k}
 
     held = set(files)
-    blocks = []
+    if any(f"/{PYSRC}/" in f for f in held):
+        raise SystemExit(f"  a tracked path holds /{PYSRC}/, which is where a stripped source"
+                         f" lands — the staging loop cannot tell the two apart")
+
+    blocks, comments_out = [], set()
     for gens, made in sorted(inv.items()):
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
         # A solid the run cut is only ever handed back.
         srcs = (set(made["reads"]) | set(made["docs"]) | set(gens)) - set(made["solids"])
-        blocks.append(render(gens, made["solids"],
-                             sorted(s for s in srcs if s in held), made["docs"]))
+        srcs = sorted(s for s in srcs if s in held)
+        rewritten = {d for d in made["docs"] if d.endswith(".py")}
+        comments_out |= {s for s in srcs if s.endswith(".py") and s not in rewritten}
+        blocks.append(render(gens, made["solids"], srcs, made["docs"], rewritten))
+
+    # ONE ACTION FOR THE WHOLE OF IT, so a comment edit is one short run and then a build that
+    # finds every input where it left it.
+    comments_out = sorted(comments_out)
+    blocks.append(
+        'genrule(\n    name = "%s",\n    srcs = [\n' % PYSRC
+        + "".join(f'        "{s}",\n' for s in comments_out)
+        + "    ],\n    outs = [\n"
+        + "".join(f'        "{PYSRC}/{s}",\n' for s in comments_out)
+        + '    ],\n    tools = ["tools/bazel/pysrc.py"],\n'
+        + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
+        + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
 
     head = (
         "# The appliance's geometry, docs and pictures — one action per generator. Written by\n"
