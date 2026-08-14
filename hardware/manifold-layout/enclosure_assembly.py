@@ -2402,8 +2402,11 @@ BODY_ANCHOR_SITES = (
     # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
     # run between its hub and the collet the tap arrives by — the one round section on either body
     # that is neither a box, a branch, nor the adjuster a hand has to reach.
-    #   ONE WALL TAKES BOTH because the pair's axes are parallel and level in X: a rib off this
-    # face stands across each run the same way, and the two seats print in one column of material.
+    #   ONE FACE TAKES BOTH AND TWO PIECES BUILD THEM. The pair's axes are parallel and level in
+    # X, so a rib off this face stands across each run the same way — but the tap runs forward
+    # across the Y seam, and a piece builds only the ribs whose whole length it owns. The split is
+    # aft of the seam and the regulator forward of it, so each seat prints on the piece its own
+    # body stands in and the two are one column of material across the joint.
     ("water-split", _split.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
     ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
@@ -3827,12 +3830,12 @@ def build_moisture_plate(pan_carry, asse_carry):
 # turn is about the BRANCH, which is the one of its three ports that can be given a level the
 # other two are not on.
 #
-# A roll about Y leaves the run where it is and swings the branch: the split's two run collets
-# stay on the chain's line whatever it does, and the third goes wherever the roll puts it. A HALF
-# TURN points it at +X, straight across the lane at V-K's own side of the machine, and lays the
-# fitting flat — the tee then reads one hub tall instead of a hub plus the branch's whole reach,
-# which is what lets the pair below stack inside the room the bowl leaves.
-SPLIT_TURN = (((0.0, 1.0, 0.0), 180.0),)
+# A roll about Y leaves the run where it is and swings the branch from −X to −Z: the split's
+# two run collets stay on the chain's line and its third looks straight DOWN, at the storey the
+# pump and the manifold are on. WHICH IS THE WHOLE POINT OF THE BRANCH — `water-3` leaves by it
+# and has to get to the floor before it can cross the machine, so a branch pointing anywhere but
+# down buys the crossing a descent it would otherwise not make.
+SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # THE HOPPER'S BOWL IS THE FORWARD LANE'S CEILING. The chain crosses the wall on the panel deck
 # and the lane it hands the water to runs forward under that bowl, so the tap steps down out of
 # the deck between the chain and the split, in the open room aft of the hopper. Everything
@@ -3842,7 +3845,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), 180.0),)
 # `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
-FLAVOR_STEP = 46.0
+FLAVOR_STEP = 38.4
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
@@ -3856,7 +3859,7 @@ WATER_2 = 44.0
 # this split's own downward branch on whatever column the split stands on, and the two pass tube
 # over tube. So the sequence forward of the step keeps its column when the wall's moves, and the
 # lean already in `water-2` for the step carries the offset across as well as down.
-SPLIT_COLUMN = -77.0
+SPLIT_COLUMN = -92.0
 
 
 def build_split(asse_carry):
@@ -3884,14 +3887,11 @@ def build_split(asse_carry):
 # cold core's cap. `design-pressures.md` sets it once on the bench.
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
                 ((1.0, 0.0, 0.0), 180.0))
-# `fluid-1` IS A HAIRPIN AND NOTHING ELSE. The regulator stands over the split on the split's own
-# column with its inlet facing the same way the split's flavour collet does, so the run leaves one
-# mouth, turns 180° and comes back into the other — two stock quarter-turns with no straight
-# between them and none at either end.
-#   WHAT THAT COSTS IS TWO RADII OF Z, exactly. A semicircle's two ends are one diameter apart
-# across the turn, so the rise between the two collet axes is not a number this file may pick: it
-# is the stock's own floor doubled, and picking anything else puts a corner in the run or a
-# straight in the hairpin. The two mouths share a Y for the same reason.
+# `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
+# inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
+# and comes back into the other — two stock quarter-turns, no straight between them or at either
+# end. WHAT THAT COSTS IS TWO RADII OF Z and nothing else, so this is not a figure to pick: a
+# semicircle's ends are one diameter apart across the turn.
 FLUID_1_RISE = 2.0 * _lines.TUBE_BEND
 
 
@@ -3914,13 +3914,9 @@ def check_bowl_clear(flowreg, funnel) -> Bound:
 
 
 def build_flowreg(split_carry):
-    """The regulator seated on its INLET, one `FLUID_1_RISE` OVER the split's flavour collet and
-    on that collet's own station in X and Y — so the two mouths stand on one vertical, facing the
-    same way, and `fluid-1` is the hairpin between them.
-
-    THE PAIR IS A STACK AND THE SPLIT IS ITS DATUM. Everything about where this body goes is read
-    off the collet it is fed from, so the regulator rides the split wherever the chain carries it
-    and the hairpin between them never changes shape."""
+    """The regulator seated on its INLET, one `FLUID_1` forward of the split's flavour collet
+    and on that collet's own line — so the tap runs split, regulator down one axis under the
+    hopper's bowl, and the joint between them is a straight."""
     pos, _axis = split_carry(_split.to_flavor())
     target = (pos[0], pos[1], pos[2] + FLUID_1_RISE)
     return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
