@@ -144,6 +144,7 @@
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
+    "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
     "fluid-4 \u2014 step-fluid-5: 1.206 mm",
@@ -169,35 +170,35 @@
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "water-5 \u2014 water-3: 2.327 mm",
     "pcba \u2014 relay-1: 2.532 mm",
-    "water-3 \u2014 hopper-drain-union: 2.639 mm",
+    "water-3 \u2014 hopper-drain-union: 2.640 mm",
     "co2-2 \u2014 pcba: 2.696 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-28 \u2014 foam-assembly: 3.357 mm",
-    "water-3 \u2014 enclosure-front-top: 3.600 mm",
-    "water-3 \u2014 fluid-28: 3.616 mm",
+    "water-3 \u2014 fluid-28: 3.617 mm",
     "fluid-18 \u2014 fluid-14: 3.852 mm",
     "fluid-18 \u2014 seaflo-pump: 4.000 mm",
     "fluid-28 \u2014 fluid-24: 4.024 mm",
     "fluid-14 \u2014 psu: 4.076 mm",
     "seaflo-pump \u2014 co2-inlet: 4.086 mm",
+    "water-3 \u2014 enclosure-back-top: 4.125 mm",
     "wago-reeds-b \u2014 wago-reeds-a: 4.150 mm",
     "foam-assembly \u2014 relay-2: 4.250 mm",
     "water-3 \u2014 valve-v-b: 4.405 mm",
-    "water-3 \u2014 valve-v-a: 4.413 mm",
+    "water-3 \u2014 valve-v-a: 4.414 mm",
+    "fluid-28 \u2014 water-split: 4.553 mm",
     "refrig-2 \u2014 enclosure-front-bottom: 4.575 mm",
     "refrig-3 \u2014 enclosure-front-bottom: 4.575 mm",
     "fluid-24 \u2014 fluid-26: 4.607 mm",
     "fluid-28 \u2014 wago-reeds-a: 4.655 mm",
     "fluid-28 \u2014 wago-sensors: 4.655 mm",
     "fluid-4 \u2014 seaflo-pump: 4.818 mm",
+    "water-2 \u2014 fluid-2: 4.875 mm",
     "ground-stack \u2014 hopper-funnel: 4.950 mm",
     "fluid-28 \u2014 wago-reeds-b: 4.955 mm",
-    "water-2 \u2014 fluid-2: 5.015 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
     "fluid-26 \u2014 fluid-4: 5.080 mm",
     "water-3 \u2014 fluid-4: 5.091 mm",
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
-    "fluid-28 \u2014 water-split: 5.308 mm",
     "carb-1 \u2014 relay-1: 5.357 mm",
     "foam-assembly \u2014 hopper-drain-union: 5.392 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
@@ -831,7 +832,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "7.886 mm to the basin",
+   "value": "9.725 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -1107,7 +1108,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 53/53 corners at spec",
+   "value": "B \u2014 54/54 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1634,7 +1635,7 @@
    "pos": [
     -92.0,
     217.14,
-    320.711
+    318.811
    ],
    "face": [
     -0.0,
@@ -1653,7 +1654,7 @@
    "pos": [
     -92.0,
     263.14,
-    320.711
+    318.811
    ],
    "face": [
     0.0,
@@ -2432,7 +2433,7 @@
    "pos": [
     -92.0,
     260.21,
-    292.711
+    290.811
    ],
    "face": [
     0.0,
@@ -2451,7 +2452,7 @@
    "pos": [
     -92.0,
     220.07,
-    292.711
+    290.811
    ],
    "face": [
     0.0,
@@ -2470,7 +2471,7 @@
    "pos": [
     -92.0,
     240.14,
-    272.641
+    270.741
    ],
    "face": [
     -0.0,
@@ -2792,10 +2793,10 @@
     [
      -98.858,
      220.074,
-     272.645,
+     270.745,
      -85.142,
      260.206,
-     299.569
+     297.669
     ]
    ],
    "fill": 0.2663,
@@ -2856,10 +2857,10 @@
     [
      -99.0,
      217.14,
-     313.349,
+     311.449,
      -58.0,
      263.14,
-     328.072
+     326.172
     ]
    ],
    "fill": 0.3799,
@@ -4143,12 +4144,12 @@
     "from": [
      -92.0,
      203.14,
-     292.71
+     290.81
     ],
     "to": [
      -92.0,
      203.14,
-     320.71
+     318.81
     ]
    },
    "need": {
@@ -4156,12 +4157,12 @@
      [
       -92.0,
       220.07,
-      292.71
+      290.81
      ],
      [
       -92.0,
       217.14,
-      320.71
+      318.81
      ]
     ],
     "axis": {
@@ -4172,6 +4173,121 @@
     "span": 28.15,
     "path": 46.91,
     "detour": 1.666
+   }
+  },
+  {
+   "id": "water-3",
+   "kind": "water",
+   "frm": "water-split.to-vk",
+   "to": "vk-solenoid.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 244.36,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      17.74,
+      16.96
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 20.2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      16.96,
+      48.17
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      48.17,
+      117.2
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 17.7,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      117.2,
+      47.29
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 105.3,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      47.29,
+      20.08
+     ]
+    }
+   ],
+   "atSpec": 5,
+   "bends": 5,
+   "worstTurn": 105.3,
+   "seat": 14.395,
+   "reach": 14.395,
+   "reachRatio": 1.0282,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 16.957,
+    "demand": 1.178,
+    "from": [
+     -92.0,
+     240.14,
+     253.0
+    ],
+    "to": [
+     -97.2,
+     224.0,
+     253.0
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -92.0,
+      240.14,
+      270.74
+     ],
+     [
+      65.05,
+      184.08,
+      268.1
+     ]
+    ],
+    "axis": {
+     "x": 157.05,
+     "y": 56.06,
+     "z": 2.64
+    },
+    "span": 166.78,
+    "path": 244.36,
+    "detour": 1.465
    }
   },
   {
@@ -4701,7 +4817,7 @@
    "to": "valve-v-a.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 165.42,
+   "length": 163.76,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4727,17 +4843,17 @@
      "grade": "B",
      "legs": [
       40.94,
-      40.25
+      38.61
      ]
     },
     {
      "at": 3,
-     "turn": 77.8,
+     "turn": 78.0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      40.25,
+      38.61,
       75.84
      ]
     },
@@ -4767,12 +4883,12 @@
     "from": [
      -92.0,
      278.14,
-     320.71
+     318.81
     ],
     "to": [
      -51.06,
      278.14,
-     320.71
+     318.81
     ]
    },
    "need": {
@@ -4780,7 +4896,7 @@
      [
       -92.0,
       263.14,
-      320.71
+      318.81
      ],
      [
       22.49,
@@ -4791,11 +4907,11 @@
     "axis": {
      "x": 114.49,
      "y": 20.06,
-     "z": 53.4
+     "z": 51.5
     },
-    "span": 127.91,
-    "path": 165.42,
-    "detour": 1.293
+    "span": 127.13,
+    "path": 163.76,
+    "detour": 1.288
    }
   },
   {
@@ -4991,7 +5107,7 @@
    "to": "water-split.supply",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 74.15,
+   "length": 75.79,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -5000,38 +5116,38 @@
    "corners": [
     {
      "at": 1,
-     "turn": 79.2,
+     "turn": 79.6,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
       12.0,
-      46.51
+      48.29
      ]
     },
     {
      "at": 2,
-     "turn": 79.2,
+     "turn": 79.6,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      46.51,
+      48.29,
       23.25
      ]
     }
    ],
    "atSpec": 2,
    "bends": 2,
-   "worstTurn": 79.2,
-   "seat": 14.517,
-   "reach": 28.131,
-   "reachRatio": 2.0093,
+   "worstTurn": 79.6,
+   "seat": 14.413,
+   "reach": 28.999,
+   "reachRatio": 2.0714,
    "reachGrade": "A",
    "binding": {
     "leg": 1,
-    "length": 46.507,
-    "demand": 1.6532,
+    "length": 48.288,
+    "demand": 1.6652,
     "from": [
      -78.07,
      292.21,
@@ -5040,7 +5156,7 @@
     "to": [
      -92.0,
      283.46,
-     292.71
+     290.81
     ]
    },
    "need": {
@@ -5053,121 +5169,17 @@
      [
       -92.0,
       260.21,
-      292.71
+      290.81
      ]
     ],
     "axis": {
      "x": 13.93,
      "y": 44.0,
-     "z": 43.5
+     "z": 45.4
     },
-    "span": 63.42,
-    "path": 74.15,
-    "detour": 1.169
-   }
-  },
-  {
-   "id": "water-3",
-   "kind": "water",
-   "frm": "water-split.to-vk",
-   "to": "vk-solenoid.inlet",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 238.29,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 93.9,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      15.99,
-      63.91
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 93.6,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      63.91,
-      116.0
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 17.7,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      116.0,
-      47.29
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 105.3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      47.29,
-      20.08
-     ]
-    }
-   ],
-   "atSpec": 4,
-   "bends": 4,
-   "worstTurn": 105.3,
-   "seat": 14.937,
-   "reach": 29.933,
-   "reachRatio": 2.1381,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 63.914,
-    "demand": 2.1352,
-    "from": [
-     -92.0,
-     240.14,
-     256.65
-    ],
-    "to": [
-     -96.0,
-     176.5,
-     261.0
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -92.0,
-      240.14,
-      272.64
-     ],
-     [
-      65.05,
-      184.08,
-      268.1
-     ]
-    ],
-    "axis": {
-     "x": 157.05,
-     "y": 56.06,
-     "z": 4.54
-    },
-    "span": 166.82,
-    "path": 238.29,
-    "detour": 1.428
+    "span": 64.74,
+    "path": 75.79,
+    "detour": 1.171
    }
   },
   {

@@ -3867,7 +3867,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # distance rather than a height. Re-read it —
 #
 #     w.gap(split, tube_fluid_28, 8.0, offset=(0, 0, -d))
-FLAVOR_STEP = 43.50
+FLAVOR_STEP = 45.40
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
