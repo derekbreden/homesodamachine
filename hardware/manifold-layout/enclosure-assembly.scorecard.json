@@ -65,10 +65,10 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
-    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 14.578",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 14.000",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
+    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.578",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
@@ -148,7 +148,6 @@
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "water-3 \u2014 hopper-drain-union: 1.098 mm",
-    "fluid-4 \u2014 step-fluid-5: 1.098 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
@@ -170,6 +169,7 @@
     "fluid-4 \u2014 valve-v-a: 2.055 mm",
     "water-7 \u2014 co2-2: 2.060 mm",
     "fluid-14 \u2014 fluid-16: 2.125 mm",
+    "fluid-4 \u2014 step-fluid-5: 2.173 mm",
     "fluid-18 \u2014 vk-solenoid: 2.250 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "water-5 \u2014 water-3: 2.327 mm",
@@ -200,13 +200,13 @@
     "water-2 \u2014 fluid-2: 4.875 mm",
     "ground-stack \u2014 hopper-funnel: 4.950 mm",
     "fluid-28 \u2014 wago-reeds-b: 4.955 mm",
+    "fluid-4 \u2014 hopper-drain-stub: 5.036 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
     "carb-1 \u2014 relay-1: 5.357 mm",
     "pump-a-motor \u2014 display: 5.449 mm",
     "pump-b-motor \u2014 display: 5.449 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
-    "fluid-26 \u2014 fluid-4: 5.552 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
     "psu \u2014 wago-g: 5.650 mm",
@@ -1123,7 +1123,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 54/54 corners at spec",
+   "value": "B \u2014 56/56 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1237,7 +1237,7 @@
     "carb-1: 146.0 mm, held at its anchor",
     "co2-2: 117.2 mm, held at its anchor",
     "fluid-28: 170.2 mm, held at its anchor",
-    "fluid-4: 225.9 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 285.3 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }
@@ -4343,7 +4343,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 225.9,
+   "length": 285.32,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4357,8 +4357,8 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      14.58,
-      29.21
+      34.58,
+      43.21
      ]
     },
     {
@@ -4368,8 +4368,8 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      29.21,
-      41.79
+      43.21,
+      30.0
      ]
     },
     {
@@ -4379,19 +4379,19 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      41.79,
-      32.95
+      30.0,
+      30.38
      ]
     },
     {
      "at": 4,
-     "turn": 62.4,
+     "turn": 90.0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      32.95,
-      84.13
+      30.38,
+      31.79
      ]
     },
     {
@@ -4401,12 +4401,34 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      84.13,
-      30.95
+      31.79,
+      27.44
      ]
     },
     {
      "at": 6,
+     "turn": 27.9,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      27.44,
+      75.13
+     ]
+    },
+    {
+     "at": 7,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      75.13,
+      30.95
+     ]
+    },
+    {
+     "at": 8,
      "turn": 90.0,
      "radius": 14.0,
      "ratio": 1.0,
@@ -4417,26 +4439,26 @@
      ]
     }
    ],
-   "atSpec": 6,
-   "bends": 6,
+   "atSpec": 8,
+   "bends": 8,
    "worstTurn": 90.0,
-   "seat": 14.578,
-   "reach": 14.605,
-   "reachRatio": 1.0432,
+   "seat": 15.0,
+   "reach": 15.0,
+   "reachRatio": 1.0714,
    "reachGrade": "B",
    "binding": {
-    "leg": 1,
-    "length": 29.21,
+    "leg": 2,
+    "length": 30.0,
     "demand": 2.0,
     "from": [
-     1.21,
+     -42.0,
      167.75,
-     248.0
+     228.0
     ],
     "to": [
-     -28.0,
+     -42.0,
      167.75,
-     248.0
+     258.0
     ]
    },
    "need": {
@@ -4458,8 +4480,8 @@
      "z": 4.74
     },
     "span": 78.42,
-    "path": 225.9,
-    "detour": 2.88
+    "path": 285.32,
+    "detour": 3.638
    }
   },
   {
