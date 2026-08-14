@@ -455,7 +455,11 @@ def _fluid_1(F):
 # and the fall is not, so a longer straight leaves the lean less run for the same drop and steepens
 # it. The corner's own demand rises with it — slower than the lead does, which is why there is a
 # figure that satisfies both, but the two move together and neither may be read alone.
-WATER_2_LEAD = 12.0
+WATER_2_LEAD = 13.0
+# The SPLIT end gets its own, longer, reach. One figure for both ends spends half of every
+# millimetre at the chain, where nothing needs it — this is the straight that carries the climb's
+# first bend aft, clear of the lane `fluid-2` leaves the regulator on.
+WATER_2_SPLIT_LEAD = 33.0
 
 
 def _water_2(F):
@@ -484,7 +488,7 @@ def _water_2(F):
         "water-2", "asse1022-assembly.tube-out",
         tuple((src[i] + dst[i]) / 2.0 for i in range(3)),
         "water-split.supply",
-        kind="water", bend=TUBE_BEND, lead=WATER_2_LEAD,
+        kind="water", bend=TUBE_BEND, lead=(WATER_2_LEAD, WATER_2_SPLIT_LEAD),
         note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
              "hopper's bowl leaves")
 
