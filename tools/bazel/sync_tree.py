@@ -34,6 +34,13 @@ def _targets() -> dict:
     """`{bazel output path: tracked path}` — read off the BUILD file's own outs."""
     q = subprocess.run(["bazel", "cquery", "//...", "--output=files"],
                        cwd=str(_ROOT), capture_output=True, text=True)
+    # A GRAPH THAT DOES NOT LOAD IS NOT A TREE THAT IS STALE. An unanswerable query and a
+    # tree nobody has built for come back the same way — no outputs — and reporting the
+    # second sends a reader to look at geometry when what failed was `BUILD.bazel`.
+    if q.returncode != 0:
+        first = next((ln for ln in q.stderr.splitlines() if ln.startswith("ERROR")), "")
+        raise SystemExit(f"  the build graph does not load, so nothing here can be read\n"
+                         f"  {first}")
     tracked = set(subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
                                  capture_output=True, text=True, check=True).stdout.split())
     out, claimed = {}, {}
