@@ -192,10 +192,9 @@ display_inset_depth = 2.0        # inset floor, down from the 45° face — the 
 display_inset_x = display_bezel_x + 2 * display_inset_reach       # [153.5 mm](DISPLAY_INSET_X)
 display_inset_slope = display_bezel_slope + 2 * display_inset_lap # [83 mm](DISPLAY_INSET_SLOPE)
 # THE HOPPER IS WHAT CAPS THIS. Every millimetre of plain face down the slope carries the
-# facet's back plane √2 further aft, the top wall sites the funnel as far forward as that plane
-# allows, and the funnel's drain union stands over the band `_lines.CROSS_Y` crosses the machine
-# in — a band whose far side is the pack's own source steps. `clearance-floor` reads `water-3`
-# against that union, and what is left there is a tenth of a millimetre.
+# facet's back plane √2 further aft, and the basin stands on its own `funnel_front_y` — so
+# what the housing takes comes out of `hopper_front_ledge`, the top wall between its back
+# plane and the throat, which `funnel-collar-frame` reads.
 display_facet_buffer = 1.9       # plain 45° face kept outside the inset, all around
 display_facet_x = display_inset_x + 2 * display_facet_buffer          # [157.3 mm](DISPLAY_FACET_X)
 display_facet_slope = display_inset_slope + 2 * display_facet_buffer  # [86.8 mm](DISPLAY_FACET_SLOPE)
@@ -234,16 +233,30 @@ display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 m
 # static part (../../zone-c/hopper-funnel/, its own frame) placed at
 # the box's own `funnel` centre with its brim on the box top, and with_funnel
 # measures the top-wall frame against it (the facet's back plane ahead, the
-# ±X boss chains either side, the back wall behind). The funnel is pushed as
-# far forward as that frame allows and reaches aft for its capacity, so it may
-# CROSS the Y seam — both halves take their share of the cut.
+# ±X boss chains either side, the back wall behind). The collar stands on
+# `funnel_front_y` and reaches aft for its capacity, so it may CROSS the Y
+# seam — both halves take their share of the cut.
 # Air between the funnel's collar frame and the ±X boss chains it runs beside. CHOSEN, not
 # derived: the two are printed in the same piece, so this is clearance for the eye and the
 # deburring tool rather than a fit.
 hopper_chain_gap = 1.0
-hopper_front_ledge = 6.0  # top wall kept between the facet's back plane and the throat —
-                          # the whole of what stands between the two, since the wall forward
-                          # of it thickens into the housing rather than running out to an edge
+# WHERE THE BASIN STANDS — the collar's FRONT EDGE, stated the way `front_plane_y` and
+# `rear_plane_y` are and read by `enclosure_assembly.funnel_centre`.
+#
+# WHAT FENCES IT IS UNDER THE DRAIN, NOT OVER THE BRIM. The union hangs on the spout and
+# stands in the window between `_lines.CROSS_Y`'s crossing and the cold core's front face;
+# `clearance-floor` reads both of those gaps. Neither wall of that window rides the display,
+# so a basin that followed the facet aft would close one of them on a union the display has
+# no business moving. What the facet leaves the throat is the ledge below, and that is a
+# bound this plane answers rather than a figure that sites it.
+funnel_front_y = 88.25
+# The top wall between the display housing's back plane and the throat, and one `wall` is the
+# section every other plate in this box is. The wall forward of it thickens into the housing
+# rather than running out to an edge, so what it keeps is the throat's cut edge off the
+# housing's own step. `with_funnel` reads it as the frame's forward bound on
+# `funnel-collar-frame`: a front plane far enough aft to carry the housing into the throat
+# turns that row red.
+hopper_front_ledge = wall
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -544,14 +557,15 @@ def interior_x():
 # the appliance.
 rear_plane_y = 464.0
 # And the interior FRONT PLANE, stated for the same reason and holding the other end. What
-# hangs on this wall is the whole visible front — the 45° facet, the display in it, and the
-# hopper's funnel, which the top wall sites off the facet's back plane. A body dragged aft
-# inside the machine therefore does not merely shorten the box: it walks the funnel and its
-# drain union aft with it, into the band `_lines.CROSS_Y` crosses, and `water-3` is pinned to
-# the cold core and does not follow. That band has NOTHING in it — `clearance-floor` reads
-# the pair at the floor exactly — so the front is a bound and not a consequence. A pack with
-# room to spare here reads it on `box-front`.
-front_plane_y = -3.0
+# hangs on this wall is the whole visible front — the 45° facet and the display in it. A body
+# dragged aft inside the machine does not shorten the box; the front is a bound and not a
+# consequence, and a pack with room to spare here reads it on `box-front`.
+#
+# WHAT THIS PLANE SPENDS IS THE TOP WALL BEHIND THE FACET. Every millimetre aft carries the
+# facet's back plane a millimetre aft with it, and the basin stands on its own
+# `funnel_front_y` — so the ledge between the housing and the throat is what closes, and
+# `funnel-collar-frame` is the row that reads it.
+front_plane_y = 0.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision

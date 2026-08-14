@@ -294,13 +294,12 @@ BEARS_ON = {
     "compressor": "enclosure-front-bottom",
     "condenser+fan": "enclosure-front-bottom",
     # Clamped through a hole in that wall by their own nut, which is why no screw is billed for
-    # them. All six of the rear wall's crossings are above the back column's Z seam.
+    # them. All five of the rear wall's crossings are above the back column's Z seam.
     "bulkhead-water": "enclosure-back-top",
     "bulkhead-carb": "enclosure-back-top",
     "bulkhead-flavor-a": "enclosure-back-top",
     "bulkhead-flavor-b": "enclosure-back-top",
     "co2-inlet": "enclosure-back-top",
-    "gasher-co2": "enclosure-back-top",             # made up on the CO2 inlet's inboard stub
     "display": "enclosure-front-top",               # let into that piece's own facet
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
     "hopper-funnel": "enclosure-front-top",         # brim on the top wall, collar forward
@@ -312,6 +311,8 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
+    # A hop inboard of the CO2 inlet and a hop short of the regulator, on that same wall.
+    "gasher-co2": "enclosure-back-top",
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }

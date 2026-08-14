@@ -565,9 +565,13 @@ edge is a red row naming the edge and the margin it is short. That margin
 is the brim's landing: it is wider than the flange's overhang, so a full
 overhang's width of wall remains outboard of the brim edge the whole way around.
 
-The basin is pushed as far **forward** as that frame allows and takes the top
+The basin stands on the box's own stated **`funnel_front_y`** and takes the top
 wall's full width, because the facet in front of it spans the machine and there is
-nothing beside it to leave room for. It then reaches aft for the plan area its
+nothing beside it to leave room for. What fences that plane is under the drain
+rather than over the brim: the union on the spout stands in the window between
+`_lines.CROSS_Y`'s crossing and the cold core's front face, and neither wall of
+that window rides the display. The ledge the facet leaves the throat is read back
+as a bound on the frame above. The basin reaches aft for the plan area its
 capacity needs — which puts it **across the Y seam**. Both halves take their share
 of the cut and the collar bridges it; what the seam gives up there is its top-wall
 lip over the hole's span, which the mouth shelf's own relief already accounts for.
