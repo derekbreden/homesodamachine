@@ -667,11 +667,17 @@ FLUID_2_LEAD = 15.0
 # The fall onto V-A's port plane is spent afterwards, down the valve's own column, where nothing
 # is over it.
 #
-# WHAT SETS IT IS THAT FALL. The crossing and the straight into the collet are both square to the
-# column between them, and a square corner spends its whole radius as tangent in each leg it
-# touches — so the column carries two of them and the storey stands `2 x TUBE_BEND` over V-A's
-# own port plane, plus what the run wants in hand. The ceiling is the hopper's bowl.
-FLUID_2_CROSS_Z = 296.0
+# WHAT IT HAS OVER IT is `fluid-18`, which crosses this same band on `GATE_A_CROSS_Z`, and the
+# daylight between the two is this run's whole clearance to it.
+FLUID_2_CROSS_Z = 289.0
+# WHERE THE CROSSING STOPS BEING LEVEL. Only the stretch over the drain's lean has to hold the
+# storey; east of the lean's own column the run is free to spend its height, and it spends it in
+# the SAME leg that carries it the rest of the way east. Taken as a column instead, the fall
+# would stand square to the crossing above it and square to the collet's axis below, and two
+# square corners want two whole radii of the leg between them — where this lean turns a third of
+# that at the top and seats the collet's own straight at the bottom. The figure is what the run
+# holds past the lean's column before it starts down.
+FLUID_2_LEVEL_CLEAR = 6.0
 # How far past the pack's own stub this run turns onto V-A's column. A square corner spends its
 # whole radius as tangent in each leg it touches, so a turn planted ON the stub's far end has
 # exactly the stub to seat in and no more — this is what the leg carries over that.
@@ -705,9 +711,10 @@ def _fluid_2(F, solids):
     share, and the two spend under two thirds of what they then stand in.
 
     THE CROSSING RUNS OVER THE DRAIN AND NOT THROUGH IT. `fluid-4` climbs west of V-B and leans
-    down onto that valve's collet from out there, so this run holds `FLUID_2_CROSS_Z` the whole
-    way across, clears the lean by the height between them, and takes its own fall afterwards —
-    straight down V-A's column, in the daylight aft of that valve's coil.
+    down onto that valve's collet from out there, so this run holds `FLUID_2_CROSS_Z` level for
+    the whole width of that lean and clears it by the height between them. Past the lean's own
+    column it stops holding: the fall onto V-A's port plane is spent in the same leg that carries
+    the run the rest of the way east, which is what keeps both of that leg's corners off square.
 
     The last leg is `manifold_layout.STUB` and `FLUID_2_CROSS_SET` over it — the straight that
     pack draws on every mouth that leaves it, which is what its first corner needs before it can
@@ -718,12 +725,13 @@ def _fluid_2(F, solids):
     lane = out[1] + FLUID_2_LEAD
     lane_x = F["bulkhead-flavor-a"].at("tube-in")[0] - FLUID_2_LANE_CLEAR
     cross = inlet[1] + _ml.STUB + FLUID_2_CROSS_SET
+    level_end = F["valve-v-b"].at("inlet")[0] + FLUID_2_LEVEL_CLEAR
     return R.bent(
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, out[2]),                       # east across the lane, level on its own storey
         (lane_x, cross, FLUID_2_CROSS_Z),             # forward down that strip onto the crossing storey
-        (inlet[0], cross, FLUID_2_CROSS_Z),           # east over the drain's lean, level the whole way
-        (inlet[0], cross, inlet[2]),                  # and down V-A's own column
+        (level_end, cross, FLUID_2_CROSS_Z),          # east over the drain's lean, level for all of it
+        (inlet[0], cross, inlet[2]),                  # east and down onto V-A's column in one leg
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, level east "
