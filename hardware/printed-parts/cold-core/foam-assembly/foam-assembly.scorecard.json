@@ -98,14 +98,13 @@
   },
   {
    "id": "port-leads",
-   "label": "Every collet has a straight to receive the tube",
+   "label": "Every collet's own corner seats at stock",
    "kind": "gate",
    "status": "fail",
-   "value": "3/5 collets",
-   "target": "2 bend radii",
+   "value": "4/5 collets",
+   "target": "the stock arc at every made-up end",
    "detail": [
-    "carb-water-out start: 13.9 mm of straight into the bottom plate's PP010822E collet, 28.0 wanted",
-    "reservoir-a start: 14.5 mm of straight into reservoir A's floor-bulkhead collet, 28.0 wanted",
+    "water-in start: its first corner off the top plate's PP010822E collet comes back at R10.74, under the R14 its stock holds",
     "carb-water-out end: 28.1 mm into a bore, which takes a lean",
     "co2-in start: 202.4 mm into a bore, which takes a lean",
     "prv-vent start: 2.0 mm into a bore, which takes a lean",

@@ -110,6 +110,9 @@ CU_OD = 6.35
 # of the run and neither brazed stub is asked to bend where it is made up.
 CU_BEND = R.stock_min("refrigerant", CU_OD)
 CU_LEAD = 20.0
+# The lane the compressor's suction turns in, off the −X wall's inner face: the straight the leg
+# leaves on and the radius its first corner carries past that straight.
+CU_SUCTION_LANE = 2.0 * CU_BEND
 # How far off its own axis a line may enter a CAP CONDUIT. The lid's hole is countersunk to this
 # angle (`_cold_core_interface.cap_conduit_entry_skew`), so the lip a leaning line crosses lies
 # along it and what the tube bears on there is a face.
@@ -414,13 +417,16 @@ def _fluid_1(F):
     the split's flavour collet faces, so the run leaves one mouth going forward, turns through
     180° in the open room ahead of the pair, and comes back into the other.
 
-    THE TWO WAYPOINTS ARE THE TURN'S OWN CORNERS, one radius forward of the mouths and one over
-    the other. A square U is what the router is given and two quarter-arcs are what it returns:
-    the rise is `enclosure_assembly.FLUID_1_RISE`, each arc spends a radius of it, and nothing is
-    left over. Both mouths are on one X, so the turn lies in the lane's own vertical plane."""
+    THE TWO WAYPOINTS ARE THE TURN'S OWN CORNERS, one radius forward of the FURTHER mouth and one
+    over the other. A square U is what the router is given and two quarter-arcs are what it
+    returns: the rise is `enclosure_assembly.FLUID_1_RISE`, each arc spends a radius of it, and
+    nothing is left over. Both mouths are on one X, so the turn lies in the lane's own vertical
+    plane; the two stand one reach apart along it, because the pair is stacked on its BODIES'
+    centres and their two collets look the same way off that column. So the apex is struck on
+    whichever mouth reaches further forward, and the other's leg is the reach longer."""
     split, reg = F["water-split"], F["flow-regulator"]
     src, dst = split.at("to-flavor"), reg.at("inlet")
-    apex = src[1] - TUBE_BEND
+    apex = min(src[1], dst[1]) - TUBE_BEND
     return R.bent(
         "fluid-1", "water-split.to-flavor",
         (src[0], apex, src[2]),             # forward off the split's collet, and turn up
@@ -562,9 +568,15 @@ def _co2_2(F):
              "east onto the port lane's column and down it")
 
 
-# The straight `fluid-2` runs forward off the regulator's outlet before it turns. It is longer
-# than the arc's own tangent so a length of tube still leaves the collet straight.
-FLUID_2_LEAD = 20.0
+# The straight `fluid-2` runs aft off the regulator's outlet before it turns. It is longer than
+# the arc's own tangent so a length of tube still leaves the collet straight, and no longer:
+# `water-2` comes down this same lane from the chain overhead, and the further aft this run turns
+# the nearer it turns to that descent.
+FLUID_2_LEAD = 16.0
+# What the crossing keeps under the drain's own slot. `fluid-2` goes east across the band on V-A's
+# stub plane and `fluid-4` comes aft down the mirror line to meet V-B, so the two share that band
+# and cross it at right angles — this run beneath, on the storey `_fluid_4_lane_z` leaves it.
+FLUID_2_DRAIN_CLEAR = 1.5
 # The column the run goes aft in: the strip between the WEST source valve and the tap-water lane,
 # struck off that valve's own outboard face, so the run rides the valve wherever the valve goes.
 FLUID_2_LANE_CLEAR = 7.5
@@ -578,12 +590,17 @@ def _fluid_2(F, solids):
     """fluid-2 — the flow regulator's outlet to V-A's inlet, and the tap water's last leg
     before the flavour manifold.
 
-    THE TWO MOUTHS FACE THE SAME WAY AND THE VALVE IS BEHIND THE REGULATOR. The regulator lies
-    in the west lane with its flow running forward, so its outlet fires FORWARD; V-A stands
-    coil-up on the deck with its inlet on the AFT end, so the run has to come at that collet from
-    behind. It goes forward off the regulator, leans east and down into the strip west of V-B,
-    runs aft down that strip beside the two source valves, crosses the machine east on the storey
-    BEHIND their coils, and comes down V-A's own column into the collet.
+    THE TWO MOUTHS FACE THE SAME WAY AND THE VALVE IS BEHIND THE REGULATOR. The regulator stands
+    over the split with its flow running aft, so its outlet fires AFT; V-A stands coil-up on the
+    deck with its inlet on the AFT end, so the run has to come at that collet from behind. It goes
+    aft off the regulator, leans east and down into the strip west of V-B, runs forward down that
+    strip beside the two source valves, drops onto the crossing's own storey, and leans east
+    behind both coils into V-A's column.
+
+    THE CROSSING GOES UNDER THE DRAIN. `fluid-4` comes aft down the mirror line on the storey
+    `_fluid_4_lane_z` strikes, and this run crosses that line square. So the drop in the strip is
+    what puts the whole lean beneath it, and the lean spends the rest of its height getting down
+    V-A's own column.
 
     The last leg is `manifold_layout.STUB` — the straight that pack draws on every mouth that
     leaves it, which is what its first corner needs before it can turn at all. Drawing this run
@@ -591,19 +608,21 @@ def _fluid_2(F, solids):
     placeholder once the run exists."""
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
-    lane = out[1] - FLUID_2_LEAD
+    lane = out[1] + FLUID_2_LEAD
     lane_x = solids["coil-v-b"].BoundingBox().xmin - FLUID_2_LANE_CLEAR
     deck = solids["flow-regulator"].BoundingBox().zmin - FLUID_2_DECK_CLEAR
+    under = _fluid_4_lane_z(solids) - _split.TUBE_D - FLUID_2_DRAIN_CLEAR
     cross = inlet[1] + _ml.STUB
     return R.bent(
         "fluid-2", "flow-regulator.outlet",
         (lane_x, lane, deck),                         # east and down into the strip in one lean
-        (lane_x, cross, deck),                        # aft down the strip, beside the valves
+        (lane_x, cross, deck),                        # forward down the strip, beside the valves
+        (lane_x, cross, under),                       # down that strip onto the crossing's storey
         (inlet[0], cross, inlet[2]),                  # east behind both coils and down in one lean
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
-        note="tap water: flow regulator outlet → V-A inlet, forward off the regulator, east and "
-             "down into the strip west of V-B, aft past the source valves and east behind them")
+        note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, east and down "
+             "into the strip west of V-B, forward past the source valves and east under the drain")
 
 
 # --- the hopper's gravity drain ---------------------------------------------
