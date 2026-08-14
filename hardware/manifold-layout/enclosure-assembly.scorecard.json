@@ -193,6 +193,7 @@
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
     "carb-1 \u2014 relay-1: 5.357 mm",
     "foam-assembly \u2014 hopper-drain-union: 5.392 mm",
+    "water-2 \u2014 wago-reeds-b: 5.444 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
@@ -1106,7 +1107,7 @@
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
     "runs by grade: B:16 C:1",
     "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red",
-    "C/C water-2 (asse1022-assembly.tube-out \u2192 water-split.supply): R13.0 against R14, bound by leg 2 at 21.0 mm \u2014 1.19\u00d7 its need: 71 mm of path for ends 60 mm apart"
+    "C/C water-2 (asse1022-assembly.tube-out \u2192 water-split.supply): R10.7 against R14, bound by leg 2 at 23.2 mm \u2014 1.25\u00d7 its need: 75 mm of path for ends 60 mm apart"
    ],
    "active": true
   },
@@ -4093,11 +4094,11 @@
    "to": "water-split.supply",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 71.27,
-   "radius": 12.987,
+   "length": 74.87,
+   "radius": 10.691,
    "cap": 14.0,
    "minBend": 14.0,
-   "ratio": 0.9276,
+   "ratio": 0.7636,
    "grade": "C",
    "corners": [
     {
@@ -4113,38 +4114,38 @@
     },
     {
      "at": 2,
-     "turn": 37.6,
-     "radius": 12.987,
-     "ratio": 0.9276,
+     "turn": 52.2,
+     "radius": 10.691,
+     "ratio": 0.7636,
      "grade": "C",
      "legs": [
       22.28,
-      20.98
+      23.16
      ]
     },
     {
      "at": 3,
-     "turn": 103.8,
-     "radius": 12.987,
-     "ratio": 0.9276,
+     "turn": 118.4,
+     "radius": 10.691,
+     "ratio": 0.7636,
      "grade": "C",
      "legs": [
-      20.98,
-      27.0
+      23.16,
+      33.0
      ]
     }
    ],
    "atSpec": 1,
    "bends": 3,
-   "worstTurn": 103.8,
-   "seat": 12.987,
-   "reach": 12.987,
-   "reachRatio": 0.9276,
+   "worstTurn": 118.4,
+   "seat": 10.691,
+   "reach": 10.691,
+   "reachRatio": 0.7636,
    "reachGrade": "C",
    "binding": {
     "leg": 2,
-    "length": 20.982,
-    "demand": 1.6156,
+    "length": 23.157,
+    "demand": 2.166,
     "from": [
      -85.03,
      282.21,
@@ -4152,7 +4153,7 @@
     ],
     "to": [
      -92.0,
-     287.21,
+     293.21,
      297.91
     ]
    },
@@ -4175,8 +4176,8 @@
      "z": 38.3
     },
     "span": 59.97,
-    "path": 71.27,
-    "detour": 1.188
+    "path": 74.87,
+    "detour": 1.248
    }
   },
   {
