@@ -32,7 +32,8 @@ _repo = _hw.parent
 
 DETAIL_MAX = 8
 FOCUS_DETAIL_MAX = 24
-# The axis this effort is on, in the order both surfaces lead with them.
+# The axes this effort is on: their detail prints to `FOCUS_DETAIL_MAX` rows on the terminal
+# rather than `DETAIL_MAX`, and `to_dict` marks the goal among them as this card's live one.
 FOCUS_IDS = ("bom-covered", "mounted")
 # Two surfaces built to one nominal face meet at a sliver of this order.
 TOUCH_VOLUME = 0.1
