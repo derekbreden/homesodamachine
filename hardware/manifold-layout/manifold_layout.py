@@ -471,9 +471,14 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 #     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
 #
 # which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`. A 90° pair is the member with no
-# straight in it, and it puts the jog EQUAL to the travel — each quarter spends R on both axes —
-# so 28 across is what 28 along would cost, and this pair spends 14.
-SOURCE_TRAVEL = 28.0
+# straight in it, and it puts the jog EQUAL to the travel — each quarter spends R on both axes.
+#
+# THE TRAVEL IS NOT THIS RUN'S TO CHOOSE. V-A and V-B stand on the cold core's cap, which is not
+# the pack, so every millimetre `enclosure_assembly.PACK_Y` carries the pack aft is a millimetre
+# taken off this — and `two_arc_floor` says the pair runs out of shape well before the travel
+# runs out. WHAT SPANS LESS HERE IS A LONGER TUBE, NOT A SHORTER ONE, and a run that never
+# heads backward cannot be longer than the straight line between its ends.
+SOURCE_TRAVEL = 25.0
 SOURCE_JOG = 14.0
 # The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
 # VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
@@ -485,6 +490,37 @@ SOURCE_JOG = 14.0
 # study, so the figure is stated here and measured there:
 # `enclosure_assembly.check_valve_row` prints the spread the row wants.
 SOURCE_SPREAD = {"V-A": 2.42, "V-B": 0.0}
+
+
+# WHAT THE RUN DOES BEFORE IT STEPS IS GO BACKWARD. A hairpin — half a turn, a straight, and
+# the other half — leaves the heading exactly where it found it and puts the run BEHIND where it
+# started, which is travel handed back to the two-arc step that follows. The half-turns cancel
+# between them (a heading that sweeps the whole circle sums its arcs to nothing), so the hairpin
+# costs `2πR` and moves the run by its straight alone.
+#
+# THIS FIGURE IS WHERE THAT STARTS. It is the travel the step keeps over `two_arc_floor` before
+# the hairpin is what carries it: above the floor by this much, the pair of arcs has a shape of
+# its own and the run is the step alone. `hairpins_drawn` reports how many are drawn, and at the
+# travel this file states that is none.
+SOURCE_SLACK = 0.5
+# WHERE THE HAIRPIN LEAVES THE RUN, outboard of the column it came down. The run climbs back up
+# past the height its own quarter turn is at, so it climbs in a different column than the one
+# the quarter is in, and this is the gap between them. The step that follows spends it: what
+# the hairpin puts outboard the step has to bring back, and its cross-move carries both.
+#
+# The lane it stands in leans OUTBOARD AND AWAY FROM THE CROWN, and `HAIRPIN_TILT` is how far
+# it leans: 0° is straight outboard, 90° straight away. The turn stands `2·BEND_R` off the run
+# whichever way it faces, and that is more than either axis has on its own — outboard runs into
+# the reservoir draws and straight away runs into V-A's coil — so the lean is what splits it
+# between the two. The sign of outboard is away from the mirror plane; inboard is the twin's.
+HAIRPIN_OUT = 15.0
+HAIRPIN_TILT = 49.0
+
+
+def two_arc_floor(r: float, jog: float) -> float:
+    """The least travel a PAIR of arcs of radius `r` can step `jog` across in. Under this the
+    two-arc family has no member at all."""
+    return math.sqrt(max(0.0, (2.0 * r) ** 2 - (2.0 * r - jog) ** 2))
 
 
 def sbend_solve(r: float, travel: float, jog: float) -> tuple:
@@ -500,6 +536,31 @@ def sbend_solve(r: float, travel: float, jog: float) -> tuple:
     return th, (travel - 2.0 * r * math.sin(th)) / math.cos(th)
 
 
+def source_offset(name: str) -> tuple:
+    """The hairpin's own move, `(dx, dy)` in the pack's frame — `HAIRPIN_OUT` along the lane
+    `HAIRPIN_TILT` names, which is also the plane the hairpin turns in. Zero when the travel
+    needs no hairpin, and then the step is the whole run and has the whole cross."""
+    if hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*source_cross(name))) <= 1e-9:
+        return (0.0, 0.0)
+    t = math.radians(HAIRPIN_TILT)
+    return (math.copysign(HAIRPIN_OUT * math.cos(t), P[name]["x"]),
+            HAIRPIN_OUT * math.sin(t))
+
+
+def step_cross(name: str) -> tuple:
+    """What is left for the two-arc step once the hairpin has had its move: the whole cross to
+    the valve, less the hairpin's. The step brings the run back inboard as it drops it."""
+    cross, off = source_cross(name), source_offset(name)
+    return (cross[0] - off[0], cross[1] - off[1])
+
+
+def hairpin_back(r: float, travel: float, jog: float) -> float:
+    """How far behind its start the hairpin has to put the run, so that what is left for the
+    two-arc step clears `two_arc_floor` by `SOURCE_SLACK`. Zero is the answer whenever the
+    travel already clears it, and then there is no hairpin and the step is the whole run."""
+    return max(0.0, two_arc_floor(r, jog) + SOURCE_SLACK - travel)
+
+
 def source_cross(name: str) -> tuple:
     """A source valve's cross-move, `(dx, dy)` in the pack's own frame: `SOURCE_JOG` toward the
     crown, which is −Y, and its own `SOURCE_SPREAD` away from the mirror plane."""
@@ -507,10 +568,16 @@ def source_cross(name: str) -> tuple:
 
 
 def source_step(name: str) -> tuple:
-    """The two-arc step that carries one source valve off its quarter, as
-    `(angle, straight, length)`. Each valve solves its own, because the spread is its own."""
-    th, s = sbend_solve(MIN_BEND, SOURCE_TRAVEL, math.hypot(*source_cross(name)))
-    return th, s, 2.0 * MIN_BEND * th + s
+    """The step that carries one source valve off its quarter, as `(angle, straight, length)`,
+    the length carrying the hairpin ahead of it when there is one. Each valve solves its own,
+    because the spread is its own."""
+    jog = math.hypot(*step_cross(name))
+    back = hairpin_back(MIN_BEND, SOURCE_TRAVEL, jog)
+    th, s = sbend_solve(MIN_BEND, SOURCE_TRAVEL + back, jog)
+    length = 2.0 * MIN_BEND * th + s
+    if back > 1e-9:
+        length += 2.0 * math.pi * MIN_BEND + math.hypot(*source_offset(name), back)
+    return th, s, length
 
 
 # In the pack's own frame the source valves run along +Z once they are round, and the crown
@@ -533,34 +600,88 @@ def bent(solid, z0: float):
                         cq.Vector(1.0, BEND_Y, z0 + BEND_R), 90.0)
 
 
-def sbend(start, cross, travel: float):
-    """The two-arc step, off a run heading +Z at `start` and stepping `cross` — a vector in the
-    pack's XY — while it climbs `travel`. It ends heading +Z again, on `start + cross + travel`.
+def hairpin_flat(r: float, across: float, back: float) -> list:
+    """The hairpin in its own plane's `(across, along)`, as `("arc", a, mid, b)` and
+    `("line", a, b)`. It starts at the origin heading +along and ends on `(across, −back)`
+    heading +along again, its arcs bearing toward +across.
 
-    IT IS DRAWN FLAT AND STOOD UP. The whole step lies in the plane that holds the run and
-    `cross`, so it is solved once in that plane's own `(across, along)` and each point is then
-    put back in world along the step's own direction — which is what lets a valve step toward
-    the crown and outboard on ONE pair of arcs rather than two."""
-    r = BEND_R
-    th, s = sbend_solve(r, travel, math.hypot(*cross))
-    c, si = math.cos(th), math.sin(th)
-    c1 = (r, 0.0)                                      # the first arc's centre, r across
-    e1 = (c1[0] - r * c, c1[1] + r * si)
+    THE ARCS ARE NOT ANYONE'S TO SPEND. The heading sweeps the whole circle, so the arcs sum to
+    nothing at all between them and the route lands entirely on the straight — one straight,
+    aimed straight down the chord, at a cost of `2πr` and the chord. THAT is what puts the run
+    BEHIND where it started, which no route of one heading-sweep less can do: the chord may
+    point wherever it likes, backward included.
+
+    A heading `h` on a turn of this hand has its centre at `p + r·(cos h, −sin h)` and its
+    point back at `centre + r·(−cos h, sin h)`, which is all the tracing this needs."""
+    aim = math.atan2(across, -back)
+    segs, p, h = [], (0.0, 0.0), 0.0
+    for turn, straight in ((aim, math.hypot(across, back)), (2.0 * math.pi - aim, 0.0)):
+        c = (p[0] + r * math.cos(h), p[1] - r * math.sin(h))
+        at = lambda hh: (c[0] - r * math.cos(hh), c[1] + r * math.sin(hh))     # noqa: E731
+        # A three-point arc is only itself over a quarter or less, so the turn is cut into them.
+        n = max(1, int(math.ceil(turn / (math.pi / 2.0) - 1e-9)))
+        for k in range(n):
+            h0, h1 = h + turn * k / n, h + turn * (k + 1) / n
+            segs.append(("arc", at(h0), at((h0 + h1) / 2.0), at(h1)))
+        p, h = at(h + turn), h + turn
+        if straight > 1e-9:
+            q = (p[0] + straight * math.sin(h), p[1] + straight * math.cos(h))
+            segs.append(("line", p, q))
+            p = q
+    return segs
+
+
+def hairpins_drawn() -> int:
+    """How many of the source runs carry a hairpin. Zero whenever the travel is its own."""
+    return sum(1 for v in SBENDS.values()
+               if hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*step_cross(v))) > 1e-9)
+
+
+def sbend_flat(r: float, travel: float, jog: float) -> list:
+    """The two-arc step in its own plane's `(across, along)`, in the same segments. It starts at
+    the origin heading +along and ends on `(jog, travel)` heading +along again, and here the
+    arcs bear toward +across — which is where the step is going."""
+    th, s = sbend_solve(r, travel, jog)
+    c1 = (r, 0.0)
+    e1 = (c1[0] - r * math.cos(th), c1[1] + r * math.sin(th))
     m1 = (c1[0] - r * math.cos(th / 2.0), c1[1] + r * math.sin(th / 2.0))
-    e2 = (e1[0] + s * si, e1[1] + s * c)
-    c2 = (e2[0] - r * c, e2[1] + r * si)
+    e2 = (e1[0] + s * math.sin(th), e1[1] + s * math.cos(th))
+    c2 = (e2[0] - r * math.cos(th), e2[1] + r * math.sin(th))
     e3 = (c2[0] + r, c2[1])
     ba, bz = (e2[0] - c2[0]) + (e3[0] - c2[0]), (e2[1] - c2[1]) + (e3[1] - c2[1])
     bl = math.hypot(ba, bz)
-    m2 = (c2[0] + r * ba / bl, c2[1] + r * bz / bl)
-    o = cq.Vector(*start)
-    u = cq.Vector(cross[0], cross[1], 0.0).normalized()
-    V = lambda p: o + u * p[0] + cq.Vector(0.0, 0.0, p[1])                     # noqa: E731
-    edges = [cq.Edge.makeThreePointArc(o, V(m1), V(e1))]
+    segs = [("arc", (0.0, 0.0), m1, e1)]
     if s > 1e-9:
-        edges.append(cq.Edge.makeLine(V(e1), V(e2)))
-    edges.append(cq.Edge.makeThreePointArc(V(e2), V(m2), V(e3)))
-    prof = cq.Wire.makeCircle(TUBE_D / 2.0, o, cq.Vector(0.0, 0.0, 1.0))
+        segs.append(("line", e1, e2))
+    segs.append(("arc", e2, (c2[0] + r * ba / bl, c2[1] + r * bz / bl), e3))
+    return segs
+
+
+def source_run(name: str, start, travel: float):
+    """The whole run off one quarter, heading +Z at `start` and ending heading +Z on
+    `start + source_cross(name) + travel`.
+
+    TWO PLANES, ONE RUN. The hairpin is drawn in the plane the pack's X and the run span, and
+    the step in the one `step_cross` and the run span; each is solved in its own
+    `(across, along)` and stood up along its own across. They meet heading +Z, which is the
+    only heading either of them ever ends on, so the tube is smooth through the joint without
+    either knowing the other. The hairpin comes first, and what it hands the step is a travel
+    that clears `two_arc_floor` and a column that is not the quarter's."""
+    off, cross = source_offset(name), step_cross(name)
+    jog = math.hypot(*cross)
+    back = hairpin_back(BEND_R, travel, jog)
+    o, edges = cq.Vector(*start), []
+    lanes = [(cq.Vector(off[0], off[1], 0.0).normalized(),
+              hairpin_flat(BEND_R, math.hypot(*off), back))] if back > 1e-9 else []
+    lanes.append((cq.Vector(cross[0], cross[1], 0.0).normalized(),
+                  sbend_flat(BEND_R, travel + back, jog)))
+    for axis, segs in lanes:
+        V = lambda p: o + axis * p[0] + cq.Vector(0.0, 0.0, p[1])              # noqa: E731
+        for s in segs:
+            edges.append(cq.Edge.makeThreePointArc(V(s[1]), V(s[2]), V(s[3])) if s[0] == "arc"
+                         else cq.Edge.makeLine(V(s[1]), V(s[2])))
+        o = edges[-1].endPoint()
+    prof = cq.Wire.makeCircle(TUBE_D / 2.0, cq.Vector(*start), cq.Vector(0.0, 0.0, 1.0))
     return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges), makeSolid=True, isFrenet=True)
 
 
@@ -837,7 +958,7 @@ def build_assembly() -> cq.Assembly:
         a.add(quarter(x, z0), name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     for cid, name in SBENDS.items():
         x, z0 = QUARTERS[cid]
-        a.add(sbend((x, BEND_Y + BEND_R, z0 + BEND_R), source_cross(name), SOURCE_TRAVEL),
+        a.add(source_run(name, (x, BEND_Y + BEND_R, z0 + BEND_R), SOURCE_TRAVEL),
               name=f"step-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
     # A mouth's stub is the first bend radius of the run that leaves on it, and carries that
     # run's own colour.
@@ -992,10 +1113,14 @@ def report(assy: cq.Assembly) -> dict:
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:
                 th, s, length = source_step(SBENDS[cid])
+                v = SBENDS[cid]
+                back = hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*step_cross(v)))
+                lead = (f"a hairpin {back:.2f} back and {math.hypot(*source_offset(v)):.2f} "
+                        f"out, then " if back > 1e-9 else "")
                 note = (f"{QUARTER_LEN + length:.2f} mm — one 90° turn at R{BEND_R:g}, then "
-                        f"two of {math.degrees(th):.3f}° with {s:.2f} mm "
+                        f"{lead}two of {math.degrees(th):.3f}° with {s:.2f} mm "
                         f"between: {SOURCE_TRAVEL:g} along and "
-                        f"{math.hypot(*source_cross(SBENDS[cid])):.2f} across")
+                        f"{math.hypot(*source_cross(v)):.2f} across")
         else:
             length = made.get(how, 0.0)
             note = ("butt — 0 mm outside the collets" if length < 1e-9
@@ -1032,15 +1157,17 @@ def report(assy: cq.Assembly) -> dict:
     print(f"spine: {len(SPINE)} turns, each 2 quarter-turns at R{SPINE_R:g} and "
           f"{SPINE_STRAIGHT:.2f} mm of straight, reaching {SPINE_R:g} mm past the hinge")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
+    hairpins = hairpins_drawn()
     print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
-          f"run and {SOURCE_JOG:g} across it toward the crown — "
+          f"run and {SOURCE_JOG:g} across it toward the crown, {hairpins} behind a hairpin — "
           + "; ".join(f"{v} {math.degrees(th):.3f}° each side of {s:.2f} mm, {ln:.2f} mm of tube"
                       + (f", spread {SOURCE_SPREAD[v]:g} outboard" if SOURCE_SPREAD[v] else "")
                       for v, th, s, ln in steps))
     print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
           f"all on the plane y {BEND_Y:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
           f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
-    print(f"corners: {2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)} — every one of them at "
+    print(f"corners: {2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS) + 2 * hairpins} — "
+          f"every one of them at "
           f"R{BEND_R:g}, which is the floor itself ({STOCK.source})")
 
     meets = turns_meet()
@@ -1091,7 +1218,8 @@ def main():
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
             "BEND_Y": f"{BEND_Y:.2f}",
-            "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)),
+            "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)
+                                + 2 * hairpins_drawn()),
             "STEP_ANGLE": f"{math.degrees(source_step('V-B')[0]):.3f}",
             "STEP_STRAIGHT": f"{source_step('V-B')[1]:.2f}",
             "STEP_LEN": f"{source_step('V-B')[2]:.2f}",

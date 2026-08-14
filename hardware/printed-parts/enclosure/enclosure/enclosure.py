@@ -543,6 +543,15 @@ def interior_x():
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
 rear_plane_y = 464.0
+# And the interior FRONT PLANE, stated for the same reason and holding the other end. What
+# hangs on this wall is the whole visible front — the 45° facet, the display in it, and the
+# hopper's funnel, which the top wall sites off the facet's back plane. A body dragged aft
+# inside the machine therefore does not merely shorten the box: it walks the funnel and its
+# drain union aft with it, into the band `_lines.CROSS_Y` crosses, and `water-3` is pinned to
+# the cold core and does not follow. That band has NOTHING in it — `clearance-floor` reads
+# the pair at the floor exactly — so the front is a bound and not a consequence. A pack with
+# room to spare here reads it on `box-front`.
+front_plane_y = -3.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
@@ -1138,7 +1147,7 @@ def _dims(pack):
     # both ask after, and a footprint is a station and a height together — the height comes
     # off the seams, and the seams come off the pack.
     ix0, ix1 = interior_x()
-    iy0 = cymin - interior_clearance - front_seam_clear
+    iy0 = front_plane_y
     iy1 = rear_plane_y
     iz0 = min(czmin, 0.0) - interior_clearance
     iz1 = (iz0 - wall) + appliance_height - wall
@@ -1164,17 +1173,24 @@ def _dims(pack):
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
             f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
             f"repack inboard"])))
-    # The FRONT wall stands one wall off the pack, for the same kind of reason
-    # the ±X walls stand a boss chain off the widest floor body: a lip missing a side
-    # is a butt joint over that run — nothing registering the two pieces, nothing
-    # closing the line — and this run is the box's most visible face, so the wall
-    # gives way, not the segment. A body mounted on the front wall seats on the plane
-    # this opens.
+    # The FRONT wall is the stated `front_plane_y`, and what the pack owes it is one
+    # `front_seam_clear`: the seam's lip carries into the cavity there, and a lip missing a
+    # side is a butt joint over the box's most visible run. A body mounted on the front wall
+    # seats on the plane this opens.
     #
     # The BACK wall is the stated `rear_plane_y`, for the same reason the ceiling is the
     # stated `appliance_height`: depth is a bound, not a consequence. Taken off the pack it
     # would follow whichever body reached furthest back, and anything seated on this plane
     # would follow that body too, holding every clearance between the two constant.
+    front_need = cymin - interior_clearance - front_seam_clear
+    record_bound(Bound(
+        "box-front", "The pack stands behind the appliance's stated front plane",
+        front_need >= iy0 - stated_bound_tol,
+        f"pack reaches y {front_need:.2f}, front wall at {iy0:.2f}",
+        f"behind `front_plane_y` {front_plane_y:g}",
+        ([] if front_need >= iy0 - stated_bound_tol else [
+            f"the pack reaches y {front_need:.2f} but the front wall stands at {iy0:.2f} — "
+            f"{iy0 - front_need:.2f} mm over. Lower `front_plane_y` or repack aft"])))
     rear_need = cymax + interior_clearance + rear_seam_clear
     record_bound(Bound(
         "box-depth", "The pack stands inside the appliance's stated depth",
