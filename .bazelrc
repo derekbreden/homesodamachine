@@ -3,9 +3,12 @@
 build --spawn_strategy=sandboxed,local
 build --sandbox_default_allow_network=false
 
-# The interpreter and its packages are not in the workspace; the geometry is.
+# The interpreter and its packages are not in the workspace; the geometry is. A genrule's own
+# PATH stops at /usr/local/bin, which is where node is and where rsvg-convert and blender are
+# not — so an action that draws a print or a line-art SVG needs the brew prefix named too.
 build --sandbox_add_mount_pair=/opt/homebrew
 build --sandbox_add_mount_pair=/usr/local
+build --action_env=PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
 build --action_env=HSM_SKIP_VIEWS=1
 build --action_env=HSM_NO_BUILD_LOCK=1
 build --action_env=HSM_SKIP_SCENES=1

@@ -75,8 +75,11 @@ def main() -> int:
         print(f"  …and {len(differs) - 20} more")
 
     if args.write:
+        # THE BYTES AND NOT THE MODE. Bazel leaves an output read-only and executable, and a
+        # copy that carries that over hands the tree a file its own generator cannot rewrite
+        # and git a mode change nobody made. `copyfile` keeps the mode the tree already has.
         for b, t, _rel in differs:
-            shutil.copy2(b, t)
+            shutil.copyfile(b, t)
         print(f"{len(differs)} carried into the tree")
     else:
         print(f"{len(pairs) - len(differs) - len(missing)}/{len(pairs)} artifacts in the tree "
