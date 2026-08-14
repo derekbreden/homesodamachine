@@ -256,6 +256,8 @@ for hw in $editions; do
   # a figure.
   if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
     if [ -x "$py" ] && command -v bazelisk >/dev/null 2>&1; then
+      # A GRAPH THAT DOES NOT LOAD FAILS THIS TOO, and says so in its own words rather than
+      # wearing a staleness failure's costume — the load error is what the gate prints.
       gate "$hw is built" bazelisk build --check_up_to_date //:everything
       gate "$hw carries what the build cut" "$py" "$root/tools/bazel/sync_tree.py"
     else
