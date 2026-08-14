@@ -792,10 +792,17 @@ def mouth_of(end: str) -> str | None:
     return f"{body_name(body)}.{'inlet' if end_id == 'I' else 'outlet'}"
 
 
-# The mouths that STAY: every port `SEGMENTS` spends inside the pack. Each carries the line
-# `build_assembly` sweeps for its own segment, and no `STUB`.
-INTERIOR_MOUTHS = frozenset(
-    m for _cid, frm, to, _how in SEGMENTS for m in (mouth_of(frm), mouth_of(to)) if m)
+
+# What each mouth the pack KEEPS is made up to: every port `SEGMENTS` spends inside the pack,
+# under the body on the other end of its own segment. Some of those segments are a butt between
+# two collets and some are a line `build_assembly` sweeps, and either way the thing standing in
+# front of the mouth is the body its own segment joins it to.
+MOUTH_MATES = {}
+for _cid, _frm, _to, _how in SEGMENTS:
+    for _end, _other in ((_frm, _to), (_to, _frm)):
+        _mouth = mouth_of(_end)
+        if _mouth:
+            MOUTH_MATES.setdefault(_mouth, set()).add(body_name(_other.rpartition("-")[0]))
 
 
 def build_assembly() -> cq.Assembly:
