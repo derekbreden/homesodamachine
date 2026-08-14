@@ -358,19 +358,6 @@ CROSS_LIFT_X = 20.0
 CROSS_APPROACH_Y = 164.0
 
 
-# How far east of the split's branch the fall stands. The branch fires across the lane and the
-# run has to get DOWN before it goes anywhere, so it steps off the collet first: far enough that
-# the falling column clears the fitting's own body and the seats under it, and no further, because
-# every millimetre here is one the crossing pays for twice.
-CROSS_STEP_X = TUBE_BEND
-# The storey the branch comes back west on. The discharge chain lies across this quarter on the
-# cap's own lid, so the return crosses OVER it and only then falls the rest of the way onto the
-# fitting's column — west of the chain, where the long forward leg has always run.
-CROSS_RETURN_Z = 282.0
-# And the Y it does it at. The tee's own body fills the lane between the fills and this, so the
-# return goes round the BACK of it: aft of the split's supply collet, forward of where `water-2`
-# comes down, and over the chain the whole way across.
-CROSS_RETURN_Y = 268.0
 
 
 def _water_3(F):
@@ -382,12 +369,6 @@ def _water_3(F):
     front of it. There is no shorter way round: the valve manifold occupies the storey between
     the two columns and `CROSS_Y` is the one window through it.
 
-    THE BRANCH FIRES EAST NOW, not down, so the fall stands on a column of its own one
-    `CROSS_STEP_X` off the collet. WHAT MAKES THAT COLUMN FREE IS THE SPLIT'S OWN Y: both
-    reservoir fills climb this quarter of the box and both stop short of the split, so the band
-    aft of them is open from the deck to the crossing's own lane. The run spends its whole
-    descent in one leg there and is already on that lane before it turns forward into traffic.
-
     IT CROSSES UNDER THE HOPPER'S DISCONNECT. The union hangs on the basin's spout in the middle
     of that window, so the branch drops `CROSS_DROP` past the inlet's own plane, runs the whole
     width of the machine beneath the union's foot and against the cold core's front, and climbs
@@ -398,17 +379,12 @@ def _water_3(F):
     however the lean arrives at it."""
     split, vk = F["water-split"], F["vk-solenoid"]
     src, dst = split.at("to-vk"), vk.at("inlet")
-    col = split.at("to-flavor")[0]          # the fitting's own column, which the long leg keeps
     z = dst[2] - CROSS_DROP
     return R.bent(
         "water-3", "water-split.to-vk",
-        (src[0] + CROSS_STEP_X, src[1], src[2]),      # east off the branch, one stock corner
-        (src[0] + CROSS_STEP_X, CROSS_RETURN_Y, src[2]),  # aft, into the room behind the tee
-        (src[0] + CROSS_STEP_X, CROSS_RETURN_Y, CROSS_RETURN_Z),   # down to the chain's own storey
-        (col, CROSS_RETURN_Y, CROSS_RETURN_Z),   # west over the chain, onto the fitting's column
-        (col, CROSS_RETURN_Y, dst[2]),                # the rest of the fall, west of the chain
-        (col, CROSS_DROP_Y, dst[2]),        # forward down that column, over the core's crown
-        (col, CROSS_Y, z),                  # on forward, down onto the core's own front lane
+        (src[0], src[1], dst[2]),           # down the branch onto the inlet's plane
+        (src[0], CROSS_DROP_Y, dst[2]),     # forward down the west column, through the cap's rib
+        (src[0], CROSS_Y, z),               # on forward, down onto the core's own front lane
         (CROSS_LIFT_X, CROSS_Y, z),         # east along that lane, beneath the union's foot
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
@@ -434,28 +410,24 @@ def _water_4(F):
 def _fluid_1(F):
     """fluid-1 — the flavour tap off the split, into the regulator that throttles it.
 
-    A HAIRPIN, AND THE ONLY THING IN THIS MACHINE THAT IS ONE ON ITS OWN. The regulator stands
-    over the split on the split's own column with its inlet facing the way the split's flavour
-    collet faces, so the run leaves one mouth going forward, turns through 180° in the open room
-    ahead of the pair, and comes back into the other. `enclosure_assembly.FLUID_1_RISE` is two
-    stock radii for exactly this reason, so the turn is two quarter-arcs meeting: no straight
-    between them, and none at either end.
+    A HAIRPIN. The regulator stands over the split on one column with its inlet facing the way
+    the split's flavour collet faces, so the run leaves one mouth going forward, turns through
+    180° in the open room ahead of the pair, and comes back into the other.
 
-    THE TWO WAYPOINTS ARE THE TURN'S OWN CORNERS, both one radius forward of the mouths and one
-    over the other. A square U is what the router is given and two quarter-arcs are what it comes
-    back as: the rise between the corners is `FLUID_1_RISE`, both arcs spend a radius of it, and
-    what is left over is nothing. Both mouths are on one X, so the whole turn lies in the lane's
-    own vertical plane and reaches nothing either side of it."""
+    THE TWO WAYPOINTS ARE THE TURN'S OWN CORNERS, one radius forward of the mouths and one over
+    the other. A square U is what the router is given and two quarter-arcs are what it returns:
+    the rise is `enclosure_assembly.FLUID_1_RISE`, each arc spends a radius of it, and nothing is
+    left over. Both mouths are on one X, so the turn lies in the lane's own vertical plane."""
     split, reg = F["water-split"], F["flow-regulator"]
     src, dst = split.at("to-flavor"), reg.at("inlet")
-    apex_y = src[1] - TUBE_BEND
+    apex = src[1] - TUBE_BEND
     return R.bent(
         "fluid-1", "water-split.to-flavor",
-        (src[0], apex_y, src[2]),           # forward off the split's collet, and turn up
-        (src[0], apex_y, dst[2]),           # up the turn's own column, and turn back aft
+        (src[0], apex, src[2]),             # forward off the split's collet, and turn up
+        (src[0], apex, dst[2]),             # up the turn's own column, and turn back aft
         "flow-regulator.inlet",
         kind="fluid", bend=TUBE_BEND,
-        note="flavor tap: split run → flow regulator, a 180° hairpin forward of the pair")
+        note="flavor tap: split run -> flow regulator, a 180 degree hairpin forward of the pair")
 
 
 # What each collet on the step gets straight off its own axis before `water-2` starts to lean —
@@ -795,7 +767,7 @@ GATE_STUB_CLEAR = 4.0
 # whole of the height a gate line would climb it in — so a line run there stands in the one flank
 # the box has least of, and every millimetre the wall comes in is taken off it. `fluid-18` takes
 # the crown lane over the core, and this figure is the west line's.
-GATE_LANE_X = 88.0
+GATE_LANE_X = 83.0
 # How far aft the line has run by the time it reaches that lane. The step outboard is taken as one
 # DIAGONAL with this reach in it, so the leg is 34.7 mm rather than the 10.9 mm between the gate's
 # column and the lane — a square corner spends its whole radius as tangent in each leg it touches,
