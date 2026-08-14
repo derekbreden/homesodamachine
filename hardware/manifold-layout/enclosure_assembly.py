@@ -1348,7 +1348,7 @@ def vent_chase(foam_carry) -> tuple:
     Reached THROUGH `foam_assembly` rather than imported. `_internal_routes` puts the cold
     core's own directories on `sys.path` when it loads, and a module that does that at this
     one's import time changes what every later import in this process resolves to — the same
-    hazard `check_cards._digest` now walks in a subprocess to avoid. `_foam` already holds it."""
+    hazard a walk taken in a cold process runs into. `_foam` already holds it."""
     tip = _foam.routes.routes["prv-vent"][-1]
     at, _axis = foam_carry((tip, (0.0, 1.0, 0.0)))
     return ((at[0], at[1], at[2]),)
@@ -3843,7 +3843,7 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
-FLAVOR_STEP = 38.4
+FLAVOR_STEP = 34.04
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
@@ -3883,8 +3883,16 @@ def build_split(asse_carry):
 # over onto +X, so the valve reads 14.72 mm tall and 40.85 mm across the lane rather than the
 # other way round, and the knurled head faces the machine's centre where a hand comes in over the
 # cold core's cap. `design-pressures.md` sets it once on the bench.
+#
+# THE STEM IS THE ONLY PART OF THIS BODY UNDER THE HOPPER. The valve stands west of the basin's
+# collar and its run and hub stand there with it; what reaches east past the collar's wall is the
+# nut, the barrel and the adjuster, and the bowl's cone comes down over exactly that reach. So the
+# stem is CANTED off level about the flow it stands on: every millimetre out along it drops away
+# from the cone, and the head comes to meet the hand over the cold core's cap rather than to point
+# across at it. `check_bowl_clear` reads what the cant leaves.
+FLOWREG_CANT = 12.0
 FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
-                ((1.0, 0.0, 0.0), 180.0))
+                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), FLOWREG_CANT))
 # `fluid-1` IS A HAIRPIN. The regulator stands OVER the split on the split's own column with its
 # inlet facing the way the split's flavour collet faces, so the run leaves one mouth, turns 180°
 # and comes back into the other — two stock quarter-turns, no straight between them or at either
@@ -3912,11 +3920,20 @@ def check_bowl_clear(flowreg, funnel) -> Bound:
 
 
 def build_flowreg(split_carry):
-    """The regulator seated on its INLET, one `FLUID_1` forward of the split's flavour collet
-    and on that collet's own line — so the tap runs split, regulator down one axis under the
-    hopper's bowl, and the joint between them is a straight."""
-    pos, _axis = split_carry(_split.to_flavor())
-    target = (pos[0], pos[1], pos[2] + FLUID_1_RISE)
+    """The regulator seated on its INLET, one `FLUID_1_RISE` OVER the split and on the split's own
+    centre across — so the two bodies stand on ONE VERTICAL, both flows lie fore and aft along it,
+    and `fluid-1` is the hairpin between the two mouths.
+
+    SEATED OFF THE SPLIT'S CENTRE AND NOT OFF ITS COLLET. What the stack is is two bodies on one
+    column, so the thing that has to land on that column is the body — and a fitting's centre is
+    the only point of it that stands on its own axes. Seating off the collet instead puts the two
+    centres one reach apart in Y and leans the hairpin.
+
+    THE PAIR IS A STACK AND THE SPLIT IS ITS DATUM. Everything about where this body goes is read
+    off the split, so the regulator rides it wherever the chain carries it and the hairpin between
+    them never changes shape."""
+    hub, _axis = split_carry(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
+    target = (hub[0], hub[1] - _flowreg.REACH, hub[2] + FLUID_1_RISE)
     return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
                      station=(_flowreg.inlet(), target))
 

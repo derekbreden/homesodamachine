@@ -189,9 +189,6 @@ MADE_UP_ON = {
     "prv-vent": ("prv-shroud",),
 }
 
-# The straight a run leaves a fitting on, as a multiple of its own bend radius — the tangent a
-# quarter turn seats on, which is the sharpest a stock corner off the mouth can be.
-PORT_LEAD_BENDS = 1.0
 
 
 def _load(path: Path):
@@ -472,9 +469,10 @@ def _lane_census(fitted: dict, placed: dict) -> Check:
                  f"{len(detail)} run-lane pairs", "a reading, not a bound", detail)
 
 
-# WHICH ENDS THE LEAD IS A RULE ABOUT. A COLLET grips the tube all round on its own axis, so a
-# tube arriving off that axis cannot be pushed home: what such an end needs is a straight to
-# receive it, and `PORT_LEAD_BENDS` is how much. A BORE is not a collet. A cap conduit is a hole
+# WHICH ENDS THE RULE IS ABOUT. A COLLET grips the tube all round on its own axis, and it grips
+# it INSIDE the fitting — so what a made-up end owes is not a straight outside the face but a
+# corner that seats at stock, because a tube kinked at a collet is kinked where the pour will
+# hold it forever. A BORE is not a collet. A cap conduit is a hole
 # up a printed column and its mouth
 # is countersunk to `cap_conduit_entry_skew` for exactly this reason — a line may lean into it
 # — and a wall slot is an opening cut to the line's own corridor, which is the same again. So
@@ -490,39 +488,47 @@ MADE_UP_ENDS = {
 
 
 def _port_leads(fitted: dict, points: dict) -> Check:
-    """The straight each line leaves its own COLLET on.
+    """The corner each line turns FIRST, off its own COLLET.
 
-    A collet takes the tube on its own axis, so what a made-up end needs is a straight to
-    receive it — `PORT_LEAD_BENDS` reaches of the line's own radius, the tangent its first
-    corner seats on. Shorter than that is a corner drawn under its own stock.
+    A LINE STARTS CURVING AT THE COLLET FACE. There is no straight stub between the two: the
+    machine's own built geometry says so — a quarter turn off `tee-y-g`'s mouth puts its
+    horizontal axis exactly one bend radius below that face, with nothing in between. So a
+    collet asks nothing of the tube beyond its own grip, which is behind the face and inside
+    the fitting, and a leftover straight outside it is not a thing to charge for.
 
-    `MADE_UP_ENDS` is where that rule is true. The other ends land in a BORE — a cap conduit
-    or a lane slot — which takes a leaning line by construction, so charging them a collet's
-    straight would be one part's rule spent on another's. They are listed, not graded.
+    What CAN go wrong at a made-up end is the corner itself. `_internal_routes.corner_radii`
+    gives every corner the stock arc and then shrinks whichever pair cannot both set back on
+    the leg they share — so a corner that comes back under stock is a corner the route bought
+    with, and next to a collet it is bought with a tube kinked where it is potted and can
+    never be reached again. That is the reading here: the first corner in and the last corner
+    out, against the stock they were asked for.
 
-    A run with NO corner is straight through and seats no tangent, so it is not asked for one:
-    each reservoir fill is the gap between two bores and is shorter than the lead itself."""
+    `MADE_UP_ENDS` is where the rule is true. The other ends land in a BORE — a cap conduit or
+    a lane slot — which takes a leaning line by construction, so they are listed, not graded.
+    A run with no corner at all turns nothing and is not asked about: each reservoir fill is
+    the gap between two bores."""
     detail, bores = [], []
     total = 0
     for name in sorted(fitted):
         bend, _tube = fitted[name]
-        legs = _routes.route_legs(points[name], bend)
-        if len(legs) < 2:
+        v, radius = _routes.corner_radii(points[name], bend)
+        if len(v) < 3:
             continue
-        want = PORT_LEAD_BENDS * bend
-        for end, (a, b) in (("start", legs[0]), ("end", legs[-1])):
-            got = (b - a).Length
+        legs = _routes.route_legs(points[name], bend)
+        for end, corner, (a, b) in (("start", 1, legs[0]), ("end", len(v) - 2, legs[-1])):
             lands_on = MADE_UP_ENDS.get((name, end))
             if lands_on is None:
-                bores.append(f"{name} {end}: {got:.1f} mm into a bore, which takes a lean")
+                bores.append(f"{name} {end}: {(b - a).Length:.1f} mm into a bore, which takes "
+                             f"a lean")
                 continue
             total += 1
-            if got < want - 1e-6:
-                detail.append(f"{name} {end}: {got:.1f} mm of straight into {lands_on}, "
-                              f"{want:.1f} wanted")
-    return Check("port-leads", "Every collet has a straight to receive the tube", "gate",
+            got = radius[corner]
+            if got < bend - 1e-6:
+                detail.append(f"{name} {end}: its first corner off {lands_on} comes back at "
+                              f"R{got:.2f}, under the R{bend:g} its stock holds")
+    return Check("port-leads", "Every collet's own corner seats at stock", "gate",
                  verdict(not detail), f"{total - len(detail)}/{total} collets",
-                 f"{PORT_LEAD_BENDS:g} bend radii", detail + bores)
+                 "the stock arc at every made-up end", detail + bores)
 
 
 def _stations_met(fitted: dict, placed: dict) -> Check:

@@ -35,10 +35,26 @@ HALF_W = 6.86             # the body's own radius about the run axis
 TUBE_D = 6.35             # the 1/4" OD LLDPE all three ports accept
 MEASURE_TOL = 0.01        # what the figures above are rounded to
 
+# THE ROUND BARREL ON EACH ARM — the stretch a printed seat closes on. Every arm carries the same
+# three sections outward from the centre: a waist the branch's own arm crosses, then the barrel
+# and the collet cap standing `BARREL_R` about the axis, then the release nose stepping back in
+# so a thumb reaches it. `BARREL_NEAR` is where the waist ends and `BARREL_FAR` where the nose
+# begins, so a rib laid between them bears on the cap and clears the release.
+BARREL_NEAR = 7.0
+BARREL_FAR = 17.0
+BARREL_R = 6.858
+
 
 def run(sign):
     """One of the run's two collinear ports, `sign` picking the +Z or −Z end."""
     return ((0.0, 0.0, sign * RUN_HALF), (0.0, 0.0, sign))
+
+
+def run_barrel(sign):
+    """The barrel on one of the run's two arms — `(station, radius, length)`, `station` its
+    mid-point and the run axis through it."""
+    return (((0.0, 0.0, sign * (BARREL_NEAR + BARREL_FAR) / 2.0), (0.0, 0.0, sign)),
+            BARREL_R, BARREL_FAR - BARREL_NEAR)
 
 
 def branch():
@@ -72,6 +88,30 @@ def stations_hold():
             raise ValueError(
                 f"the tee's {what} bore runs at {seen} and not on the body's own centreline — "
                 f"the stations here all stand at the centre, so a port is off its own axis.")
+    for label, lo, hi, claimed in (("barrel", BARREL_NEAR, BARREL_FAR, BARREL_R),
+                                   ("release nose", BARREL_FAR, RUN_HALF, None)):
+        actual = _arm_radius(solid, lo, hi)
+        if claimed is None:
+            if actual >= BARREL_R - MEASURE_TOL:
+                raise ValueError(
+                    f"the tee's {label} stands {actual:.4f} about the run and the barrel stands "
+                    f"{BARREL_R:g} — a seat bored for the barrel would close on the release "
+                    f"instead of leaving it for a thumb.")
+        elif abs(actual - claimed) > MEASURE_TOL:
+            raise ValueError(
+                f"tee-connector BARREL_R is {claimed:g} and the STEP's own {label} stands "
+                f"{actual:.4f} about the run over {lo:g}..{hi:g} — {abs(actual - claimed):.4f} mm "
+                f"apart, over the {MEASURE_TOL:g} mm this file rounds to. A seat bored for it "
+                f"closes on a body that is not that shape.")
+
+
+def _arm_radius(solid, lo: float, hi: float) -> float:
+    """The widest the body stands about the run axis between two stations on the +Z arm."""
+    bb = solid.BoundingBox()
+    band = cq.Solid.makeBox(
+        2 * bb.xlen, 2 * bb.ylen, hi - lo, cq.Vector(-bb.xlen, -bb.ylen, lo))
+    cut = solid.intersect(band).BoundingBox()
+    return max(cut.xmax, -cut.xmin)
 
 
 # --- controls -------------------------------------------------------------
