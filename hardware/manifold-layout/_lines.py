@@ -353,15 +353,20 @@ CROSS_Y = 176.5
 CROSS_DROP = 7.1
 # THE CHANNEL THE BRANCH FALLS INTO, and it is the strip the box already leaves west of the core.
 # `enclosure.side_band_inset` is the band between the shell's own face and the wall's inner one,
-# and it is clear air the full height of the machine. What narrows it is the Y SEAM: the front
-# piece laps the back one there, so a second wall's thickness stands proud of the inner face on
-# that plane — and this run crosses the seam on its way forward, so the lap is what fences it.
-# The run stands midway between the lap and the shell. Re-measure by casting across at the seam's
-# own plane —
+# and NOTHING UNDER IT IS THE CORE'S — which is what this run comes here for: a belly in the strip
+# is floored by the cabinet rather than by the cap lid the shell's own x-band stands over.
+#   TWO THINGS STAND IN IT. The Y SEAM, where the front piece laps the back one, puts a second
+# wall's thickness proud of the inner face on that plane, and this run crosses the seam on its way
+# forward — so the lap is what fences it across, and the run stands midway between the lap and the
+# shell. And `fluid-28`'s anchor rib crosses the band bodily at tube height, on the slice of Y its
+# own `GATE_B_STEP_Y` places it in. This run is forward of that rib and does not meet it; a run
+# taken up the band aft of it would. Re-measure across at the seam's own plane, and along it for
+# the rib —
 #
 #     w.cast((-90.0, 213.1, z), (-1, 0, 0), dia=6.35)
+#     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -101.5,-90.5 --y 265,290 --z 260,280
 #
-CHANNEL_X = -96.0
+CHANNEL_X = -97.2
 # HOW FAR UNDER THE CROSSING'S LANE THE FALL BOTTOMS OUT. The branch's corner turns through more
 # than a right angle: the leg leaving it leans west into the channel and rises onto the lane over
 # the run forward, so the fall ends beneath the storey it hands the water to.
@@ -378,11 +383,22 @@ CHANNEL_X = -96.0
 #
 #     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -96.1,-89.7 --y 223,229 --z 250,256
 #
-CROSS_RISE = 4.35
+CROSS_RISE = 8.0
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
 # hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
 # leave a closing leg too short to turn a stock arc in.
+# WHERE THE RUN REACHES THE CHANNEL'S OWN COLUMN, and it is what carries the fall's belly out of
+# the lid's shadow. The branch collet fires down on `enclosure_assembly.SPLIT_COLUMN`, whose tube
+# stands its east face inside the shell's x-band — so a corner whose outgoing leg is mostly
+# FORWARD keeps its arc on that column and bellies over the cap. Struck aft of the crossing, the
+# leg out of that corner heads WEST instead, the arc swings with it, and the belly comes down in
+# the strip where the lid is not underneath. What the fall may then spend is `CROSS_RISE`, and
+# what that is worth is the tee's own height.
+#   IT IS FENCED BOTH WAYS. The leg into it has to seat corner 0's whole quarter-turn as tangent,
+# so it cannot be struck so near the branch that the fall has no room to turn; and the leg out of
+# it runs the channel to `CROSS_Y`, which is what the run is in the strip FOR.
+CHANNEL_ENTRY_Y = 224.0
 CROSS_LIFT_X = 20.0
 CROSS_APPROACH_Y = 164.0
 
@@ -398,14 +414,16 @@ def _water_3(F):
     front of it. There is no shorter way round: the valve manifold occupies the storey between
     the two columns and `CROSS_Y` is the one window through it.
 
-    IT FALLS ONCE, INTO THE CHANNEL, AND THE FALL ENDS UNDER THE LANE IT FEEDS. The branch drops
-    on the split's own column, and its one corner turns WEST as well as forward — off that column
-    and into `CHANNEL_X`, the strip between the shell's face and the wall's. The leg leaving that
-    corner leans down the channel and rises `CROSS_RISE` onto the crossing's storey.
+    IT FALLS INTO THE CHANNEL AND RUNS IT. The branch drops on the split's own column, and its
+    corner turns WEST off that column into `CHANNEL_X` — the strip between the shell's face and
+    the wall's — reaching that column at `CHANNEL_ENTRY_Y`, aft of the crossing. What follows is
+    a leg down the channel itself, rising `CROSS_RISE` onto the crossing's storey as it goes.
 
-    THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it. The arc's
-    own belly is the deepest the run gets, one `port_lead` under the branch collet, and it holds
-    its lane over the lid's outer face.
+    THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it, so where
+    the corner's arc bellies is what sets the tap's height. `SPLIT_COLUMN` stands the branch's own
+    tube with its east face inside the shell's x-band, so an arc that leaves mostly FORWARD stays
+    on that column and bellies over the cap lid. Leaving WEST swings the arc into the strip, where
+    what is under the belly is the cabinet floor rather than the lid.
 
     IT CROSSES UNDER THE HOPPER'S DISCONNECT. The union hangs on the basin's spout in the middle
     of that window, so the crossing runs `CROSS_DROP` under the inlet's own plane, the whole width
@@ -422,7 +440,8 @@ def _water_3(F):
     return R.bent(
         "water-3", "water-split.to-vk",
         (src[0], src[1], z - CROSS_RISE),   # the whole fall, on the branch's column, past the lane
-        (CHANNEL_X, CROSS_Y, z),            # forward and west into the channel, rising onto the lane
+        (CHANNEL_X, CHANNEL_ENTRY_Y, z - CROSS_RISE),  # west OUT of the lid's shadow, still low
+        (CHANNEL_X, CROSS_Y, z),            # forward down the channel, rising onto the lane
         (CROSS_LIFT_X, CROSS_Y, z),         # east along that lane, beneath the union's foot
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
