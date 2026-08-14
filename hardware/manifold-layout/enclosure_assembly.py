@@ -3843,7 +3843,15 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # `check_bowl_clear` measures what the step leaves once the funnel is in the box, which is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
-FLAVOR_STEP = 38.30
+#
+# AND `fluid-28` IS ITS FLOOR. The nozzle-B gate line takes the west outboard lane at
+# `_lines.GATE_LANE_X` and climbs it aft onto the panel deck, through the band this tee stands in.
+# The lane and the tee's collet cap OVERLAP IN PLAN — the cap reaches east of the lane's own west
+# face — so height is what stands between them, and this step is what sets that height.
+# `clearance-floor` reads the pair. Re-read it by sweeping the step —
+#
+#     w.gap(split, tube_fluid_28, 8.0, offset=(0, 0, -d))
+FLAVOR_STEP = 41.50
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
