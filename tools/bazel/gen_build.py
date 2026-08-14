@@ -29,10 +29,19 @@ from inventory import inventory, tracked   # noqa: E402
 VENV = "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python"
 
 #: What a generator cuts. A `.mesh` rides beside a solid for the viewer and is not committed.
-OUT_SUFFIXES = (".step", ".dxf", ".stl", ".step.png", ".dxf.png")
+#:
+#: A `.step.png` IS NOT AMONG THEM. `_cadq_export` draws a thumbnail best-effort — "a thumbnail
+#: must never break export" — by standing a server on loopback and photographing a page. An
+#: output declared here is one the action must produce or fail, which is the opposite promise,
+#: so the two cannot be the same thing. The thumbnails are still drawn by the run; they are
+#: not what the build is asked to guarantee.
+OUT_SUFFIXES = (".step", ".dxf", ".stl")
 #: What a generator rewrites in place — an input to the run and an output of it, so it is
 #: named on both sides under two names, and `sync` is what carries the second back.
 DOC_SUFFIXES = (".md", ".figures.json")
+
+#: See the tag it earns in `render`.
+NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
 
 _MISSING_FILE = re.compile(r"No such file or directory: '[^']*?/work/([^']+)'")
 _MISSING_MOD = re.compile(r"No module named '([^']+)'")
@@ -90,15 +99,44 @@ def render(gen: str, arts: list, srcs: list, docs: list) -> str:
     outs += [f"out/{name}/doc/{Path(d).name}" for d in docs]
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
     lines += [f'        "{s}",' for s in srcs]
+    # A THUMBNAIL IS DRAWN BY NODE, which resolves its own imports below Python and out of the
+    # tracer's sight. A target that cuts one names the renderer's packages or it draws nothing
+    # and the copy of its own declared output fails.
+    if any(a.endswith(".png") for a in arts):
+        lines.append('        ":node-packages",')
     lines += ["    ],", "    outs = ["]
     lines += [f'        "{o}",' for o in outs]
-    lines += ["    ],", '    cmd = """', "set -e"]
+    lines += ["    ],"]
+    # A THUMBNAIL IS A PHOTOGRAPH OF A PAGE. The renderer stands a server on loopback and
+    # points a headless browser at it, so an action that draws one needs a socket; the rest
+    # of the tree is built with the network off.
+    if gen in NOT_HERMETIC:
+        # A SCENE IS A PHOTOGRAPH OF A LIVE PAGE. `render-step-posed` stands the viewer on
+        # loopback and points a headless browser at it, and that page loads occt-import-js
+        # off a CDN — so drawing one reaches the network for a library this tree does not
+        # carry. Vendoring it is what would make this action hermetic; until then it runs
+        # outside the sandbox and is the one target here whose inputs are not all declared.
+        lines.append('    tags = ["local", "requires-network"],')
+    elif any(a.endswith(".png") for a in arts):
+        lines.append('    tags = ["requires-network"],')
+    lines += ['    cmd = """', "set -e"]
     for a, o in zip(arts, outs[:len(arts)]):
         lines.append(f"O_{Path(a).name.replace('.','_').replace('-','_')}=$$PWD/$(location {o})")
     for d, o in zip(docs, outs[len(arts):]):
         lines.append(f"D_{Path(d).name.replace('.','_').replace('-','_')}=$$PWD/$(location {o})")
     lines += [
-        "for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done",
+        # THE COPY IS FOR THE FILES `Path(__file__).resolve()` WALKS OUT OF, which is this
+        # repo's own Python. A package tree is read by node, which is content with a symlink,
+        # and copying eleven thousand files into every action took the critical path from
+        # 89 s to 281 s.
+        "for f in $(SRCS); do",
+        "  case $$f in */node_modules/*) continue;; esac",
+        "  mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f",
+        "done",
+        "for d in tools/render/node_modules web/node_modules; do",
+        "  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); "
+        "ln -sfn $$PWD/$$d work/$$d; fi",
+        "done",
         "cd work",
         f"{VENV} {gen} > /dev/null",
     ]
@@ -142,7 +180,12 @@ def main() -> int:
     # so they are globbed rather than read off the index.
     blocks.append(
         'filegroup(\n    name = "node-packages",\n    srcs = glob(\n'
-        '        ["tools/render/node_modules/**", "web/node_modules/**"],\n'
+        '        [\n'
+        '            "tools/render/*.js",\n'
+        '            "tools/render/node_modules/**",\n'
+        '            "web/**/*.js",\n'
+        '            "web/node_modules/**",\n'
+        '        ],\n'
         '        allow_empty = True,\n    ),\n)')
 
     # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
