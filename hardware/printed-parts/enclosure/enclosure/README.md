@@ -69,7 +69,7 @@ intact (mirrors `faucet/touch-flo-shell`).
 ## Test-print coupon
 
 It exports those same five files a second time as `enclosure-coupon-*.step` —
-the whole four-piece assembly shrunk to a [158 × 140 × 136 mm](COUPON_SIZE)
+the whole four-piece assembly shrunk to a [195 × 143 × 138 mm](COUPON_SIZE)
 box, printable in an evening, to prove the fit before the real one is
 committed. It is the same geometry from the same code: only the numbers
 describing the box differ, so a coupon that assembles is evidence about the
@@ -521,7 +521,7 @@ silhouette, so that corner is unpackable at any width — and the geometry gets
 simpler for it. There is no end wall closing a recess, no shoulder where a window
 stops, and no bed relief on the arris a shoulder would raise. The window's lateral
 size is the box's; `display_facet_x` is what the *glass plus its buffer* needs —
-[119.5 mm](DISPLAY_FACET_X) × [83 mm](DISPLAY_FACET_SLOPE) up the slope — which is
+[157.3 mm](DISPLAY_FACET_X) × [86.8 mm](DISPLAY_FACET_SLOPE) up the slope — which is
 what the coupon is sized to carry and what `main()` prints beside the measured
 face.
 

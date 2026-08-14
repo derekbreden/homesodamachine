@@ -1,0 +1,30 @@
+{
+  "/hardware/printed-parts/enclosure/display-cover/display_cover.py": {
+    "BORDER_SLOPE": "5.7 mm",
+    "BORDER_X": "22.7 mm",
+    "CBORE_D": "6.15 mm",
+    "CBORE_DEPTH": "3.2 mm",
+    "COVER_CORNER_R": "2.2 mm",
+    "COVER_SLIP": "0.3 mm",
+    "COVER_SLOPE": "82.4 mm",
+    "COVER_T": "2 mm",
+    "COVER_X": "152.9 mm",
+    "GLASS_FACE_DEPTH": "3 mm",
+    "GLASS_LAP_AIR": "1 mm",
+    "HEATSET_DEPTH": "5.25 mm",
+    "INSET_LAP": "3 mm",
+    "LAND": "2 mm",
+    "PAD_D": "12 mm",
+    "PAD_DEPTH": "3.2 mm",
+    "PAD_SEAT": "5.2 mm",
+    "PAD_X": "66.75 mm",
+    "SCREW_LEN": "8 mm",
+    "SCREW_REACH": "8.25 mm",
+    "SEAT_RECESS": "0.2 mm",
+    "SHANK_D": "3.9 mm",
+    "THREAD_ENGAGED": "5.25 mm",
+    "WINDOW_CORNER_R": "2.5 mm",
+    "WINDOW_SLOPE": "71 mm",
+    "WINDOW_X": "107.5 mm"
+  }
+}

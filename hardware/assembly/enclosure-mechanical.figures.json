@@ -16,6 +16,8 @@
     "CORE_STOP_HEADROOM": "4.57 mm",
     "CORE_STOP_RISE": "40 mm",
     "CORE_X": "181",
+    "DISPLAY_BORDER": "6 mm",
+    "DISPLAY_INSET_LAP": "3 mm",
     "EAST_BOSSES": "17",
     "FOAM_SHELL_X": "283",
     "FOAM_SHELL_Y": "181",
