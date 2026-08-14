@@ -1,5 +1,6 @@
 {
   "-ac-wiring-schedule-sync": [
+    "hardware/scripts/_realized.py",
     "hardware/wiring/_ac_wiring_schedule_sync.py",
     "hardware/wiring/ac-wiring-schedule.figures.json",
     "hardware/wiring/ac-wiring-schedule.md",
@@ -225,6 +226,7 @@
     "hardware/ledger/bom.figures.json",
     "hardware/ledger/bom.md",
     "hardware/scripts/_bom_totals.py",
+    "hardware/scripts/_realized.py",
     "tools/docgen/__init__.py"
   ],
   "-cable-assemblies-sync": [
@@ -527,6 +529,14 @@
     "hardware/assembly/_faucet_and_umbilical_sync.py",
     "hardware/assembly/faucet-and-umbilical.figures.json",
     "hardware/assembly/faucet-and-umbilical.md",
+    "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/faucet/_touch_flo_interface.py",
+    "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+    "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
   "-finish-pack-ship-sync": [
@@ -534,6 +544,7 @@
     "hardware/assembly/finish-pack-ship.figures.json",
     "hardware/assembly/finish-pack-ship.md",
     "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/scripts/_realized.py",
     "tools/docgen/__init__.py"
   ],
   "-firmware-and-commissioning-sync": [
@@ -667,6 +678,7 @@
     "hardware/assembly/_pressure_vessel_sync.py",
     "hardware/assembly/handwork.figures.json",
     "hardware/assembly/handwork.md",
+    "hardware/cold-core-layout/_coil.py",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
@@ -680,8 +692,10 @@
     "hardware/printed-parts/cold-core/_port_cuts.py",
     "hardware/printed-parts/cold-core/_reed_channels.py",
     "hardware/printed-parts/cold-core/_support_ring.py",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
     "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+    "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
     "hardware/printed-parts/cold-core/reservoir/reservoir.py",
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/scripts/_boxes.py",
@@ -784,12 +798,14 @@
     "hardware/ledger/labor.figures.json",
     "hardware/ledger/labor.md",
     "hardware/scripts/_labor_totals.py",
+    "hardware/scripts/_realized.py",
     "tools/docgen/__init__.py"
   ],
   "-ledger-totals": [
     "hardware/ledger/purchases.figures.json",
     "hardware/ledger/purchases.md",
     "hardware/scripts/_ledger_totals.py",
+    "hardware/scripts/_realized.py",
     "tools/docgen/__init__.py"
   ],
   "-machine-time": [
@@ -797,12 +813,14 @@
     "hardware/ledger/machine-time.figures.json",
     "hardware/ledger/machine-time.md",
     "hardware/scripts/_machine_time.py",
+    "hardware/scripts/_realized.py",
     "tools/docgen/__init__.py"
   ],
   "-nameplate-dimensions": [
     "hardware/printed-parts/enclosure/nameplate/README.figures.json",
     "hardware/printed-parts/enclosure/nameplate/README.md",
     "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/scripts/_realized.py",
     "tools/docgen/__init__.py"
   ],
   "-pressure-vessel-sync": [
@@ -861,12 +879,20 @@
     "hardware/assembly/_refrigerant_loop_sync.py",
     "hardware/assembly/refrigerant-loop.figures.json",
     "hardware/assembly/refrigerant-loop.md",
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
   "-tools-totals": [
     "hardware/ledger/purchases.md",
     "hardware/ledger/tools.figures.json",
     "hardware/ledger/tools.md",
+    "hardware/scripts/_realized.py",
     "hardware/scripts/_tools_totals.py",
     "tools/docgen/__init__.py"
   ],
@@ -874,6 +900,13 @@
     "hardware/assembly/_wiring_sync.py",
     "hardware/assembly/wiring.figures.json",
     "hardware/assembly/wiring.md",
+    "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/faucet/_touch_flo_interface.py",
+    "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py",
     "hardware/wiring/_ac_wiring_schedule_sync.py",
     "tools/docgen/__init__.py"
   ],
@@ -1334,6 +1367,7 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -1913,6 +1947,7 @@
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_seating.py",
     "hardware/scripts/_stated_bounds.py",
+    "hardware/scripts/check_scenes.py",
     "tools/docgen/__init__.py"
   ],
   "reservoir": [
@@ -2017,7 +2052,10 @@
     "hardware/scripts/_run_lock.py"
   ],
   "tee-connector": [
-    "hardware/reference/tee-connector/tee_connector.py"
+    "hardware/reference/tee-connector/tee_connector.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_run_lock.py"
   ],
   "teyleten-relay": [
     "hardware/reference/teyleten-relay/teyleten-relay.step",
@@ -2255,6 +2293,9 @@
     "hardware/scripts/_run_lock.py"
   ],
   "y-divider": [
-    "hardware/reference/y-divider/y_divider.py"
+    "hardware/reference/y-divider/y_divider.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_run_lock.py"
   ]
 }

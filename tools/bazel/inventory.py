@@ -26,8 +26,7 @@ sys.path.insert(0, str(_ROOT / "hardware" / "scripts"))
 
 import _realized                                        # noqa: E402
 
-SOLID_SUFFIXES = (".step", ".dxf", ".stl", ".step.png", ".dxf.png",
-                  ".scorecard.json", ".facts.json")
+SOLID_SUFFIXES = (".step", ".dxf", ".stl", ".scorecard.json", ".facts.json")
 
 #: What one run draws that lands nowhere near its own directory. `render_scenes` cuts a scene
 #: out of a machine somebody else stood, so the picture, its record and the mesh a browser
