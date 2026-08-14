@@ -60,11 +60,12 @@ at once, it LEANS: one diagonal in place of two square corners on a step's own w
 which is what the carbonated water does under the tank to cross the CO2 and again at the
 top to put itself on its conduit's column.
 
-WHAT IS LEFT SHORT is printed by name at every build. `water-in` is the one: it comes off
-the top plate's elbow, has to be outboard of both pockets to travel, and has to be back
-on its conduit's own station to leave — and the whole of that step is taken inside
-`top_band_to_cap`, the band between that plate and the cap's floor. The step is wider
-than the band is tall, so the two corners either end of it share a leg neither can have.
+WHAT IS LEFT SHORT is printed by name at every build. `top_band_to_cap` is the band between
+the tank's top plate and the cap's floor, and it is narrower than the step `water-in` takes
+in to its conduit's station — so that step is not taken in it. `top_band_z` is the TANK's
+storey and the tank is what holds a line on it; past the rim the strip under the forward
+band stands open to the shell's floor, and `water-in` drops onto `water_in_lane_z` to cross
+and spends the height it gains on the lean into the station.
 """
 
 import math
@@ -147,6 +148,16 @@ lane_step_top_z = shell_top_z - route_bend_radius
 # The strip every riser to the forward band climbs, read off the conduits that stand over
 # it rather than restated: all three are on it, so any one of them names it.
 forward_band_x = cap_conduit_shell_xy("water-in")[0]
+
+# The storey `water-in` crosses to the forward band on, under the tank's own. It drops onto
+# this on the lane leg, once the diagonal off the top plate is past the tank's rim — the
+# evaporator's outlet copper is the west lane's occupant under it, at z 169.6 and below.
+water_in_lane_z = 180.0
+
+# How much of its rise `water-in` takes on the step in to its own conduit's station. What is
+# left above the step is the straight the bore is entered on. `report_routes` prints the arc
+# each line comes back at.
+water_in_step_climb = 25.0
 
 # The reservoir cap's outer face — what a fill conduit's tube bottoms on. The reservoir body's
 # own top with its cap on, which is the part's reading and not a figure here: `cap_assembly_lift`
@@ -289,18 +300,20 @@ def _routes():
         # crosses the vessel's own top to the +Y band — the tank has ended by this height, so
         # the crossing costs nothing but the room between the PRV stack and reservoir B's
         # pocket (`water_in_cross_x`) — then forward along that band and in to the strip.
-        #   THE STEP AT THE END IS WHAT THIS RUN IS SHORT OF. It has to travel outboard of both
-        # pockets — the reservoirs and their caps fill them to within a pour clearance of the
-        # cap's floor, so there is no crossing over one at this height — and it has to arrive on
-        # its conduit's own station, which stands inboard of that. The step between the two is
-        # wider than `top_band_to_cap` is tall, so leaning it buys less than the vertical it
-        # spends and the two corners either end of it share a leg neither can have.
-        # `report_routes` prints what they come back at.
+        #   IT LEAVES THE TANK'S OWN STOREY ON THE LANE LEG. `top_band_z` is struck off the top
+        # plate and the tank is what holds a line up on it; past the rim the strip is open to
+        # the shell's floor, so the lane leg falls to `water_in_lane_z` as it runs forward.
+        #   THE STEP AT THE END CLIMBS WHILE IT STEPS. It travels outboard of both pockets —
+        # the reservoirs and their caps fill them to within a pour clearance of the cap's floor
+        # — and arrives on its conduit's own station, which stands inboard of that. The step
+        # carries `water_in_step_climb` of the rise with it, so it reaches the station on a Y-Z
+        # diagonal and the corner into the mouth turns about forty degrees. What stands above
+        # it is the straight the bore is entered on.
         "water-in": [
             (0.0, -vessel_port_offset, top_band_z),
             (water_in_cross_x, west_lane_mid_y, top_band_z),
-            (forward_band_x, west_lane_mid_y, top_band_z),
-            (forward_band_x, water_in_y, top_band_z),
+            (forward_band_x, west_lane_mid_y, water_in_lane_z),
+            (forward_band_x, water_in_y, water_in_lane_z + water_in_step_climb),
             (forward_band_x, water_in_y, conduit_mouth_z),
         ],
         # Reservoir B's trough. Its elbow points straight at its wall bore, so the run out

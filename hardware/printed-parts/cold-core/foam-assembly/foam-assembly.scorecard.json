@@ -92,7 +92,7 @@
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
     "west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2",
     "west-lane: reservoir-b at z 2.8..233.4, x -138.7..-101.8",
-    "west-lane: water-in at z 196.2..233.4, x -138.7..-6.2"
+    "west-lane: water-in at z 179.9..233.4, x -138.7..-6.2"
    ],
    "active": true
   },
@@ -100,18 +100,17 @@
    "id": "port-leads",
    "label": "Every collet's own corner seats at stock",
    "kind": "gate",
-   "status": "fail",
-   "value": "4/5 collets",
+   "status": "pass",
+   "value": "5/5 collets",
    "target": "the stock arc at every made-up end",
    "detail": [
-    "water-in start: its first corner off the top plate's PP010822E collet comes back at R10.74, under the R14 its stock holds",
     "carb-water-out end: 28.1 mm into a bore, which takes a lean",
     "co2-in start: 202.4 mm into a bore, which takes a lean",
     "prv-vent start: 2.0 mm into a bore, which takes a lean",
     "prv-vent end: 1.0 mm into a bore, which takes a lean",
     "reservoir-a end: 213.4 mm into a bore, which takes a lean",
     "reservoir-b end: 213.4 mm into a bore, which takes a lean",
-    "water-in end: 23.3 mm into a bore, which takes a lean"
+    "water-in end: 23.2 mm into a bore, which takes a lean"
    ],
    "active": true
   },
@@ -1430,37 +1429,37 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 220.16,
+   "length": 227.71,
    "bend": 14.0,
-   "radius": 10.739,
+   "radius": 14.0,
    "minBend": 14.0,
-   "ratio": 0.767,
-   "grade": "C",
+   "ratio": 1.0,
+   "grade": "B",
    "reach": 142.67,
    "reachGrade": "D",
    "binding": null,
    "corners": [
     {
      "at": 1,
-     "radius": 10.739,
-     "ratio": 0.767,
-     "grade": "C"
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
      "at": 2,
-     "radius": 10.739,
-     "ratio": 0.767,
-     "grade": "C"
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     },
     {
      "at": 3,
-     "radius": 10.739,
-     "ratio": 0.767,
-     "grade": "C"
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
     }
    ],
    "need": {
-    "detour": 1.543
+    "detour": 1.596
    }
   }
  ],
