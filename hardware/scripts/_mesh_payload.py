@@ -401,6 +401,6 @@ require('occt-import-js')().then((occt) => {
 if __name__ == "__main__":
     import sys
     if sys.argv[1:2] == ["selftest"]:
-        raise SystemExit(_selftest())
+        sys.exit(_selftest())
     print(__doc__)
     print("usage: _mesh_payload.py selftest")
