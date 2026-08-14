@@ -139,8 +139,8 @@
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
-    "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
+    "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
@@ -151,15 +151,15 @@
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
-    "water-3 \u2014 step-fluid-3: 1.212 mm",
-    "water-3 \u2014 step-fluid-5: 1.337 mm",
-    "coil-v-i \u2014 wago-manb: 1.573 mm",
+    "water-3 \u2014 step-fluid-3: 1.166 mm",
+    "water-3 \u2014 step-fluid-5: 1.280 mm",
+    "fluid-18 \u2014 step-fluid-3: 1.425 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
     "foam-assembly \u2014 wago-sensors: 1.600 mm",
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
-    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-2 \u2014 fluid-4: 1.969 mm",
     "fluid-14 \u2014 seaflo-pump: 1.975 mm",
     "fluid-4 \u2014 coil-v-a: 1.980 mm",
@@ -168,44 +168,48 @@
     "foam-assembly \u2014 pcba: 2.030 mm",
     "fluid-4 \u2014 valve-v-a: 2.055 mm",
     "water-7 \u2014 co2-2: 2.060 mm",
-    "fluid-14 \u2014 fluid-16: 2.125 mm",
-    "fluid-4 \u2014 step-fluid-5: 2.173 mm",
-    "fluid-18 \u2014 vk-solenoid: 2.250 mm",
+    "fluid-14 \u2014 fluid-16: 2.218 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
+    "fluid-18 \u2014 vk-solenoid: 2.250 mm",
     "water-5 \u2014 water-3: 2.327 mm",
     "water-3 \u2014 fluid-4: 2.404 mm",
     "pcba \u2014 relay-1: 2.532 mm",
+    "fluid-4 \u2014 step-fluid-5: 2.535 mm",
+    "fluid-4 \u2014 turn-fluid-5: 2.632 mm",
     "co2-2 \u2014 pcba: 2.696 mm",
     "foam-assembly \u2014 hopper-drain-union: 2.705 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-28 \u2014 foam-assembly: 3.357 mm",
-    "water-3 \u2014 fluid-28: 3.616 mm",
-    "fluid-18 \u2014 fluid-14: 3.852 mm",
+    "water-3 \u2014 fluid-28: 3.617 mm",
+    "fluid-18 \u2014 fluid-14: 3.862 mm",
     "fluid-18 \u2014 seaflo-pump: 4.000 mm",
-    "fluid-28 \u2014 fluid-24: 4.034 mm",
+    "fluid-4 \u2014 valve-v-d: 4.040 mm",
     "fluid-14 \u2014 psu: 4.075 mm",
     "seaflo-pump \u2014 co2-inlet: 4.086 mm",
+    "fluid-28 \u2014 fluid-24: 4.087 mm",
     "water-3 \u2014 enclosure-back-top: 4.125 mm",
     "wago-reeds-b \u2014 wago-reeds-a: 4.150 mm",
     "foam-assembly \u2014 relay-2: 4.250 mm",
     "water-3 \u2014 valve-v-b: 4.405 mm",
     "water-3 \u2014 valve-v-a: 4.414 mm",
-    "fluid-28 \u2014 water-split: 4.554 mm",
+    "fluid-28 \u2014 water-split: 4.553 mm",
     "refrig-2 \u2014 enclosure-front-bottom: 4.575 mm",
     "refrig-3 \u2014 enclosure-front-bottom: 4.575 mm",
-    "fluid-24 \u2014 fluid-26: 4.614 mm",
+    "fluid-24 \u2014 fluid-26: 4.632 mm",
     "fluid-28 \u2014 wago-reeds-a: 4.655 mm",
     "fluid-28 \u2014 wago-sensors: 4.655 mm",
+    "fluid-4 \u2014 tee-y-b: 4.674 mm",
     "fluid-4 \u2014 seaflo-pump: 4.817 mm",
     "water-2 \u2014 fluid-2: 4.875 mm",
+    "fluid-4 \u2014 tee-y-a: 4.924 mm",
     "ground-stack \u2014 hopper-funnel: 4.950 mm",
     "fluid-28 \u2014 wago-reeds-b: 4.955 mm",
     "fluid-4 \u2014 hopper-drain-stub: 5.036 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
+    "fluid-16 \u2014 step-fluid-3: 5.209 mm",
+    "fluid-4 \u2014 enclosure-front-top: 5.350 mm",
     "carb-1 \u2014 relay-1: 5.357 mm",
-    "pump-a-motor \u2014 display: 5.449 mm",
-    "pump-b-motor \u2014 display: 5.449 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
     "psu \u2014 wago-h: 5.650 mm",
     "psu \u2014 wago-n: 5.650 mm",
@@ -214,6 +218,7 @@
     "psu \u2014 wago-gnd: 5.650 mm",
     "water-6 \u2014 enclosure-back-top: 5.652 mm",
     "fluid-24 \u2014 wago-manb: 5.655 mm",
+    "fluid-26 \u2014 step-fluid-5: 5.725 mm",
     "fluid-24 \u2014 coil-v-b: 5.851 mm"
    ],
    "active": true
@@ -870,14 +875,14 @@
    "value": "8/8 valves seated, furthest off 0.199 mm",
    "target": "every valve within 0.2 mm of the plate under it",
    "detail": [
-    "valve-panel-aft    valve-v-c    y-plane  156.380 -Z   off 0.1991",
-    "valve-panel-aft    valve-v-d    y-plane  156.380 -Z   off 0.1991",
-    "valve-panel-aft    valve-v-g    y-plane  156.380 -Z   off 0.1991",
-    "valve-panel-aft    valve-v-j    y-plane  156.380 -Z   off 0.1991",
-    "valve-panel-fore   valve-v-e    y-plane   74.380 +Z   off 0.1991",
-    "valve-panel-fore   valve-v-f    y-plane   74.380 +Z   off 0.1991",
-    "valve-panel-fore   valve-v-h    y-plane   74.380 +Z   off 0.1991",
-    "valve-panel-fore   valve-v-i    y-plane   74.380 +Z   off 0.1991"
+    "valve-panel-aft    valve-v-c    y-plane  164.380 -Z   off 0.1991",
+    "valve-panel-aft    valve-v-d    y-plane  164.380 -Z   off 0.1991",
+    "valve-panel-aft    valve-v-g    y-plane  164.380 -Z   off 0.1991",
+    "valve-panel-aft    valve-v-j    y-plane  164.380 -Z   off 0.1991",
+    "valve-panel-fore   valve-v-e    y-plane   82.380 +Z   off 0.1991",
+    "valve-panel-fore   valve-v-f    y-plane   82.380 +Z   off 0.1991",
+    "valve-panel-fore   valve-v-h    y-plane   82.380 +Z   off 0.1991",
+    "valve-panel-fore   valve-v-i    y-plane   82.380 +Z   off 0.1991"
    ],
    "active": true
   },
@@ -889,8 +894,8 @@
    "value": "2/2 pumps seated, furthest off 0.000 mm",
    "target": "every pump within 0.2 mm of the plate on it",
    "detail": [
-    "pump-a-head    axis (  48.570,   34.305) face z  216.745   off 0.0000",
-    "pump-b-head    axis ( -48.570,   34.305) face z  216.745   off 0.0000"
+    "pump-a-head    axis (  48.570,   42.305) face z  216.745   off 0.0000",
+    "pump-b-head    axis ( -48.570,   42.305) face z  216.745   off 0.0000"
    ],
    "active": true
   },
@@ -983,7 +988,7 @@
    "label": "Every run the cap is bored for lies in its rib",
    "kind": "gate",
    "status": "pass",
-   "value": "1 bored, furthest off 0.199 mm",
+   "value": "1 bored, furthest off 0.200 mm",
    "target": "0.200 mm at most",
    "detail": [],
    "active": true
@@ -1233,10 +1238,10 @@
    "value": "21/22 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 455.9 mm unheld, 255.9 over",
+    "fluid-18: 450.5 mm unheld, 250.5 over",
     "carb-1: 146.0 mm, held at its anchor",
     "co2-2: 117.2 mm, held at its anchor",
-    "fluid-28: 170.2 mm, held at its anchor",
+    "fluid-28: 167.7 mm, held at its anchor",
     "fluid-4: 285.3 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
@@ -2104,7 +2109,7 @@
    "kind": "fluid",
    "pos": [
     20.07,
-    145.08,
+    153.08,
     227.175
    ],
    "face": [
@@ -2123,7 +2128,7 @@
    "kind": "fluid",
    "pos": [
     20.07,
-    145.08,
+    153.08,
     168.175
    ],
    "face": [
@@ -2142,7 +2147,7 @@
    "kind": "fluid",
    "pos": [
     -20.07,
-    145.08,
+    153.08,
     227.175
    ],
    "face": [
@@ -2161,7 +2166,7 @@
    "kind": "fluid",
    "pos": [
     -20.07,
-    145.08,
+    153.08,
     168.175
    ],
    "face": [
@@ -2180,7 +2185,7 @@
    "kind": "fluid",
    "pos": [
     20.07,
-    85.68,
+    93.68,
     267.315
    ],
    "face": [
@@ -2199,7 +2204,7 @@
    "kind": "fluid",
    "pos": [
     20.07,
-    85.68,
+    93.68,
     208.315
    ],
    "face": [
@@ -2218,7 +2223,7 @@
    "kind": "fluid",
    "pos": [
     77.07,
-    85.68,
+    93.68,
     208.315
    ],
    "face": [
@@ -2237,7 +2242,7 @@
    "kind": "fluid",
    "pos": [
     77.07,
-    85.68,
+    93.68,
     267.315
    ],
    "face": [
@@ -2256,7 +2261,7 @@
    "kind": "fluid",
    "pos": [
     77.07,
-    145.08,
+    153.08,
     168.175
    ],
    "face": [
@@ -2275,7 +2280,7 @@
    "kind": "fluid",
    "pos": [
     77.07,
-    145.08,
+    153.08,
     227.175
    ],
    "face": [
@@ -2294,7 +2299,7 @@
    "kind": "fluid",
    "pos": [
     -20.07,
-    85.68,
+    93.68,
     267.315
    ],
    "face": [
@@ -2313,7 +2318,7 @@
    "kind": "fluid",
    "pos": [
     -20.07,
-    85.68,
+    93.68,
     208.315
    ],
    "face": [
@@ -2332,7 +2337,7 @@
    "kind": "fluid",
    "pos": [
     -77.07,
-    85.68,
+    93.68,
     208.315
    ],
    "face": [
@@ -2351,7 +2356,7 @@
    "kind": "fluid",
    "pos": [
     -77.07,
-    85.68,
+    93.68,
     267.315
    ],
    "face": [
@@ -2370,7 +2375,7 @@
    "kind": "fluid",
    "pos": [
     -77.07,
-    145.08,
+    153.08,
     168.175
    ],
    "face": [
@@ -2389,7 +2394,7 @@
    "kind": "fluid",
    "pos": [
     -77.07,
-    145.08,
+    153.08,
     227.175
    ],
    "face": [
@@ -2542,10 +2547,10 @@
    "boxes": [
     [
      30.705,
-     16.44,
+     24.44,
      237.745,
      66.435,
-     52.17,
+     60.17,
      279.295
     ]
    ],
@@ -2558,10 +2563,10 @@
    "boxes": [
     [
      -66.435,
-     16.44,
+     24.44,
      237.745,
      -30.705,
-     52.17,
+     60.17,
      279.295
     ]
    ],
@@ -2742,10 +2747,10 @@
    "boxes": [
     [
      0.004,
-     138.222,
+     146.222,
      227.179,
      26.928,
-     151.938,
+     159.938,
      267.311
     ]
    ],
@@ -2758,10 +2763,10 @@
    "boxes": [
     [
      -26.928,
-     138.222,
+     146.222,
      227.179,
      -0.004,
-     151.938,
+     159.938,
      267.311
     ]
    ],
@@ -2774,10 +2779,10 @@
    "boxes": [
     [
      13.212,
-     65.614,
+     73.614,
      168.179,
      26.928,
-     92.538,
+     100.538,
      208.311
     ]
    ],
@@ -2790,10 +2795,10 @@
    "boxes": [
     [
      70.212,
-     65.614,
+     73.614,
      168.179,
      83.928,
-     92.538,
+     100.538,
      208.311
     ]
    ],
@@ -2806,10 +2811,10 @@
    "boxes": [
     [
      -26.928,
-     65.614,
+     73.614,
      168.179,
      -13.212,
-     92.538,
+     100.538,
      208.311
     ]
    ],
@@ -2822,10 +2827,10 @@
    "boxes": [
     [
      -83.928,
-     65.614,
+     73.614,
      168.179,
      -70.212,
-     92.538,
+     100.538,
      208.311
     ]
    ],
@@ -3182,10 +3187,10 @@
    "boxes": [
     [
      2.945,
-     125.78,
+     133.78,
      168.175,
      37.195,
-     156.38,
+     164.38,
      227.175
     ]
    ],
@@ -3198,10 +3203,10 @@
    "boxes": [
     [
      -37.195,
-     125.78,
+     133.78,
      168.175,
      -2.945,
-     156.38,
+     164.38,
      227.175
     ]
    ],
@@ -3214,10 +3219,10 @@
    "boxes": [
     [
      2.945,
-     74.38,
+     82.38,
      208.315,
      37.195,
-     104.98,
+     112.98,
      267.315
     ]
    ],
@@ -3230,10 +3235,10 @@
    "boxes": [
     [
      59.945,
-     74.38,
+     82.38,
      208.315,
      94.195,
-     104.98,
+     112.98,
      267.315
     ]
    ],
@@ -3246,10 +3251,10 @@
    "boxes": [
     [
      59.945,
-     125.78,
+     133.78,
      168.175,
      94.195,
-     156.38,
+     164.38,
      227.175
     ]
    ],
@@ -3262,10 +3267,10 @@
    "boxes": [
     [
      -37.195,
-     74.38,
+     82.38,
      208.315,
      -2.945,
-     104.98,
+     112.98,
      267.315
     ]
    ],
@@ -3278,10 +3283,10 @@
    "boxes": [
     [
      -94.195,
-     74.38,
+     82.38,
      208.315,
      -59.945,
-     104.98,
+     112.98,
      267.315
     ]
    ],
@@ -3294,10 +3299,10 @@
    "boxes": [
     [
      -94.195,
-     125.78,
+     133.78,
      168.175,
      -59.945,
-     156.38,
+     164.38,
      227.175
     ]
    ],
@@ -3438,10 +3443,10 @@
    "boxes": [
     [
      22.07,
-     7.805,
+     15.805,
      216.745,
      75.07,
-     60.805,
+     68.805,
      237.745
     ]
    ],
@@ -3454,10 +3459,10 @@
    "boxes": [
     [
      -75.07,
-     7.805,
+     15.805,
      216.745,
      -22.07,
-     60.805,
+     68.805,
      237.745
     ]
    ],
@@ -3614,10 +3619,10 @@
    "boxes": [
     [
      17.265,
-     3.0,
+     11.0,
      167.865,
      79.875,
-     65.61,
+     73.61,
      216.745
     ]
    ],
@@ -3630,10 +3635,10 @@
    "boxes": [
     [
      -79.875,
-     3.0,
+     11.0,
      167.865,
      -17.265,
-     65.61,
+     73.61,
      216.745
     ]
    ],
@@ -3886,26 +3891,26 @@
    "boxes": [
     [
      3.945,
-     99.78,
+     107.78,
      185.675,
      36.195,
-     125.78,
+     133.78,
      209.675
     ],
     [
      21.92,
-     105.98,
+     113.98,
      170.675,
      28.22,
-     106.78,
+     114.78,
      185.675
     ],
     [
      11.92,
-     105.98,
+     113.98,
      170.675,
      18.22,
-     106.78,
+     114.78,
      185.675
     ]
    ],
@@ -3918,26 +3923,26 @@
    "boxes": [
     [
      -36.195,
-     99.78,
+     107.78,
      185.675,
      -3.945,
-     125.78,
+     133.78,
      209.675
     ],
     [
      -18.22,
-     105.98,
+     113.98,
      170.675,
      -11.92,
-     106.78,
+     114.78,
      185.675
     ],
     [
      -28.22,
-     105.98,
+     113.98,
      170.675,
      -21.92,
-     106.78,
+     114.78,
      185.675
     ]
    ],
@@ -3950,26 +3955,26 @@
    "boxes": [
     [
      3.945,
-     104.98,
+     112.98,
      225.815,
      36.195,
-     130.98,
+     138.98,
      249.815
     ],
     [
      11.92,
-     123.98,
+     131.98,
      210.815,
      18.22,
-     124.78,
+     132.78,
      225.815
     ],
     [
      21.92,
-     123.98,
+     131.98,
      210.815,
      28.22,
-     124.78,
+     132.78,
      225.815
     ]
    ],
@@ -3982,26 +3987,26 @@
    "boxes": [
     [
      60.945,
-     104.98,
+     112.98,
      225.815,
      93.195,
-     130.98,
+     138.98,
      249.815
     ],
     [
      78.92,
-     123.98,
+     131.98,
      249.815,
      85.22,
-     124.78,
+     132.78,
      264.815
     ],
     [
      68.92,
-     123.98,
+     131.98,
      249.815,
      75.22,
-     124.78,
+     132.78,
      264.815
     ]
    ],
@@ -4014,26 +4019,26 @@
    "boxes": [
     [
      60.945,
-     99.78,
+     107.78,
      185.675,
      93.195,
-     125.78,
+     133.78,
      209.675
     ],
     [
      68.92,
-     105.98,
+     113.98,
      209.675,
      75.22,
-     106.78,
+     114.78,
      224.675
     ],
     [
      78.92,
-     105.98,
+     113.98,
      209.675,
      85.22,
-     106.78,
+     114.78,
      224.675
     ]
    ],
@@ -4046,26 +4051,26 @@
    "boxes": [
     [
      -36.195,
-     104.98,
+     112.98,
      225.815,
      -3.945,
-     130.98,
+     138.98,
      249.815
     ],
     [
      -28.22,
-     123.98,
+     131.98,
      210.815,
      -21.92,
-     124.78,
+     132.78,
      225.815
     ],
     [
      -18.22,
-     123.98,
+     131.98,
      210.815,
      -11.92,
-     124.78,
+     132.78,
      225.815
     ]
    ],
@@ -4078,26 +4083,26 @@
    "boxes": [
     [
      -93.195,
-     104.98,
+     112.98,
      225.815,
      -60.945,
-     130.98,
+     138.98,
      249.815
     ],
     [
      -75.22,
-     123.98,
+     131.98,
      249.815,
      -68.92,
-     124.78,
+     132.78,
      264.815
     ],
     [
      -85.22,
-     123.98,
+     131.98,
      249.815,
      -78.92,
-     124.78,
+     132.78,
      264.815
     ]
    ],
@@ -4110,26 +4115,26 @@
    "boxes": [
     [
      -93.195,
-     99.78,
+     107.78,
      185.675,
      -60.945,
-     125.78,
+     133.78,
      209.675
     ],
     [
      -85.22,
-     105.98,
+     113.98,
      209.675,
      -78.92,
-     106.78,
+     114.78,
      224.675
     ],
     [
      -75.22,
-     105.98,
+     113.98,
      209.675,
      -68.92,
-     106.78,
+     114.78,
      224.675
     ]
    ],
@@ -4485,117 +4490,13 @@
    }
   },
   {
-   "id": "fluid-28",
-   "kind": "fluid",
-   "frm": "valve-v-j.outlet",
-   "to": "bulkhead-flavor-b.tube-in",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 337.14,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      43.79,
-      16.95
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 3.4,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      16.95,
-      231.0
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 8.2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      231.0,
-      20.2
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 8.2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      20.2,
-      31.21
-     ]
-    }
-   ],
-   "atSpec": 4,
-   "bends": 4,
-   "worstTurn": 90.0,
-   "seat": 16.463,
-   "reach": 16.463,
-   "reachRatio": 1.176,
-   "reachGrade": "B",
-   "binding": {
-    "leg": 1,
-    "length": 16.95,
-    "demand": 1.0295,
-    "from": [
-     -77.07,
-     145.08,
-     270.97
-    ],
-    "to": [
-     -78.07,
-     162.0,
-     270.97
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -77.07,
-      145.08,
-      227.18
-     ],
-     [
-      -78.07,
-      444.21,
-      273.83
-     ]
-    ],
-    "axis": {
-     "x": 1.0,
-     "y": 299.13,
-     "z": 46.65
-    },
-    "span": 302.75,
-    "path": 337.14,
-    "detour": 1.114
-   }
-  },
-  {
    "id": "fluid-14",
    "kind": "fluid",
    "frm": "valve-v-f.outlet",
    "to": "foam-assembly.reservoir-a-fill",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 377.59,
+   "length": 370.15,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4610,17 +4511,17 @@
      "grade": "B",
      "legs": [
       21.68,
-      94.23
+      86.8
      ]
     },
     {
      "at": 2,
-     "turn": 20.9,
+     "turn": 22.8,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      94.23,
+      86.8,
       14.0
      ]
     },
@@ -4673,13 +4574,13 @@
    "bends": 6,
    "worstTurn": 90.0,
    "seat": 15.175,
-   "reach": 17.327,
-   "reachRatio": 1.2376,
+   "reach": 16.969,
+   "reachRatio": 1.2121,
    "reachGrade": "B",
    "binding": {
     "leg": 2,
     "length": 14.0,
-    "demand": 0.808,
+    "demand": 0.825,
     "from": [
      43.5,
      173.73,
@@ -4695,7 +4596,7 @@
     "ends": [
      [
       77.07,
-      85.68,
+      93.68,
       267.32
      ],
      [
@@ -4706,12 +4607,12 @@
     ],
     "axis": {
      "x": 19.57,
-     "y": 336.32,
+     "y": 328.32,
      "z": 13.92
     },
-    "span": 337.18,
-    "path": 377.59,
-    "detour": 1.12
+    "span": 329.2,
+    "path": 370.15,
+    "detour": 1.124
    }
   },
   {
@@ -4876,6 +4777,110 @@
     "span": 47.05,
     "path": 58.78,
     "detour": 1.249
+   }
+  },
+  {
+   "id": "fluid-28",
+   "kind": "fluid",
+   "frm": "valve-v-j.outlet",
+   "to": "bulkhead-flavor-b.tube-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 329.13,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      43.79,
+      19.93
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 2.9,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      19.93,
+      220.02
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 8.2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      220.02,
+      20.2
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 8.2,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      20.2,
+      31.21
+     ]
+    }
+   ],
+   "atSpec": 4,
+   "bends": 4,
+   "worstTurn": 90.0,
+   "seat": 19.437,
+   "reach": 19.437,
+   "reachRatio": 1.3884,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 1,
+    "length": 19.925,
+    "demand": 1.0251,
+    "from": [
+     -77.07,
+     153.08,
+     270.97
+    ],
+    "to": [
+     -78.07,
+     172.98,
+     270.97
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -77.07,
+      153.08,
+      227.18
+     ],
+     [
+      -78.07,
+      444.21,
+      273.83
+     ]
+    ],
+    "axis": {
+     "x": 1.0,
+     "y": 291.13,
+     "z": 46.65
+    },
+    "span": 294.85,
+    "path": 329.13,
+    "detour": 1.116
    }
   },
   {
@@ -5071,7 +5076,7 @@
    "to": "foam-assembly.reservoir-b-fill",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 191.34,
+   "length": 183.34,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -5086,7 +5091,7 @@
      "grade": "B",
      "legs": [
       14.0,
-      84.32
+      76.32
      ]
     },
     {
@@ -5096,7 +5101,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      84.32,
+      76.32,
       40.14
      ]
     },
@@ -5149,7 +5154,7 @@
     "ends": [
      [
       -77.07,
-      85.68,
+      93.68,
       267.32
      ],
      [
@@ -5160,12 +5165,127 @@
     ],
     "axis": {
      "x": 33.57,
-     "y": 145.82,
+     "y": 137.82,
      "z": 13.92
     },
-    "span": 150.28,
-    "path": 191.34,
-    "detour": 1.273
+    "span": 142.53,
+    "path": 183.34,
+    "detour": 1.286
+   }
+  },
+  {
+   "id": "fluid-18",
+   "kind": "fluid",
+   "frm": "valve-v-g.outlet",
+   "to": "bulkhead-flavor-a.tube-in",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 450.48,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      72.02,
+      40.09
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 56.9,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      40.09,
+      91.83
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      91.83,
+      84.21
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      84.21,
+      77.45
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 19.1,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      77.45,
+      104.21
+     ]
+    }
+   ],
+   "atSpec": 5,
+   "bends": 5,
+   "worstTurn": 90.0,
+   "seat": 26.012,
+   "reach": 26.012,
+   "reachRatio": 1.858,
+   "reachGrade": "A",
+   "binding": {
+    "leg": 1,
+    "length": 40.093,
+    "demand": 1.5413,
+    "from": [
+     77.07,
+     153.08,
+     299.2
+    ],
+    "to": [
+     43.5,
+     175.0,
+     299.2
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      77.07,
+      153.08,
+      227.18
+     ],
+     [
+      -40.71,
+      444.21,
+      273.83
+     ]
+    ],
+    "axis": {
+     "x": 117.78,
+     "y": 291.13,
+     "z": 46.65
+    },
+    "span": 317.5,
+    "path": 450.48,
+    "detour": 1.419
    }
   },
   {
@@ -5248,121 +5368,6 @@
     "span": 64.74,
     "path": 75.79,
     "detour": 1.171
-   }
-  },
-  {
-   "id": "fluid-18",
-   "kind": "fluid",
-   "frm": "valve-v-g.outlet",
-   "to": "bulkhead-flavor-a.tube-in",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 455.86,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      72.02,
-      44.97
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 48.3,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      44.97,
-      91.83
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      91.83,
-      84.21
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      84.21,
-      77.45
-     ]
-    },
-    {
-     "at": 5,
-     "turn": 19.1,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      77.45,
-      104.21
-     ]
-    }
-   ],
-   "atSpec": 5,
-   "bends": 5,
-   "worstTurn": 90.0,
-   "seat": 31.05,
-   "reach": 31.05,
-   "reachRatio": 2.2178,
-   "reachGrade": "A",
-   "binding": {
-    "leg": 1,
-    "length": 44.968,
-    "demand": 1.4483,
-    "from": [
-     77.07,
-     145.08,
-     299.2
-    ],
-    "to": [
-     43.5,
-     175.0,
-     299.2
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      77.07,
-      145.08,
-      227.18
-     ],
-     [
-      -40.71,
-      444.21,
-      273.83
-     ]
-    ],
-    "axis": {
-     "x": 117.78,
-     "y": 299.13,
-     "z": 46.65
-    },
-    "span": 324.85,
-    "path": 455.86,
-    "detour": 1.403
    }
   },
   {
@@ -5536,7 +5541,7 @@
    "to": "valve-v-h.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 130.97,
+   "length": 123.21,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -5551,7 +5556,7 @@
      "grade": "B",
      "legs": [
       27.92,
-      101.07
+      93.31
      ]
     },
     {
@@ -5561,7 +5566,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      101.07,
+      93.31,
       14.0
      ]
     }
@@ -5570,12 +5575,12 @@
    "bends": 2,
    "worstTurn": 90.0,
    "seat": 14.0,
-   "reach": 50.537,
-   "reachRatio": 3.6098,
+   "reach": 46.655,
+   "reachRatio": 3.3325,
    "reachGrade": "A",
    "binding": {
     "leg": 1,
-    "length": 101.073,
+    "length": 93.31,
     "demand": 2.0,
     "from": [
      -43.5,
@@ -5584,7 +5589,7 @@
     ],
     "to": [
      -20.07,
-     85.68,
+     93.68,
      281.32
     ]
    },
@@ -5597,18 +5602,18 @@
      ],
      [
       -20.07,
-      85.68,
+      93.68,
       267.32
      ]
     ],
     "axis": {
      "x": 23.43,
-     "y": 98.32,
+     "y": 90.32,
      "z": 13.92
     },
-    "span": 102.03,
-    "path": 130.97,
-    "detour": 1.284
+    "span": 94.34,
+    "path": 123.21,
+    "detour": 1.306
    }
   },
   {
@@ -5618,7 +5623,7 @@
    "to": "valve-v-e.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 130.97,
+   "length": 123.21,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -5633,7 +5638,7 @@
      "grade": "B",
      "legs": [
       27.92,
-      101.07
+      93.31
      ]
     },
     {
@@ -5643,7 +5648,7 @@
      "ratio": 1.0,
      "grade": "B",
      "legs": [
-      101.07,
+      93.31,
       14.0
      ]
     }
@@ -5652,12 +5657,12 @@
    "bends": 2,
    "worstTurn": 90.0,
    "seat": 14.0,
-   "reach": 50.537,
-   "reachRatio": 3.6098,
+   "reach": 46.655,
+   "reachRatio": 3.3325,
    "reachGrade": "A",
    "binding": {
     "leg": 1,
-    "length": 101.073,
+    "length": 93.31,
     "demand": 2.0,
     "from": [
      43.5,
@@ -5666,7 +5671,7 @@
     ],
     "to": [
      20.07,
-     85.68,
+     93.68,
      281.32
     ]
    },
@@ -5679,18 +5684,18 @@
      ],
      [
       20.07,
-      85.68,
+      93.68,
       267.32
      ]
     ],
     "axis": {
      "x": 23.43,
-     "y": 98.32,
+     "y": 90.32,
      "z": 13.92
     },
-    "span": 102.03,
-    "path": 130.97,
-    "detour": 1.284
+    "span": 94.34,
+    "path": 123.21,
+    "detour": 1.306
    }
   },
   {

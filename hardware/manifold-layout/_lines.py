@@ -927,8 +927,12 @@ GATE_STUB_CLEAR = 4.0
 # so `TUBE_BEND` of this leg is spoken for before the jog's own corner asks for any — and the jog
 # turns only `atan(1 / reach)`, which `_routing._straighten` DROPS under 2°: past 28.6 mm of reach
 # there is no corner here at all and the run is drawn as one straight into the collet, off its
-# axis. This stands between the two, at 19.9 mm of leg and 2.87° of turn.
-GATE_B_JOG_Y = 162.0
+# axis. This stands between the two, at 2.87° of turn.
+#
+# WHAT IT IS MEASURED FROM is V-J's own outlet, which rides `enclosure_assembly.PACK_Y`. Both
+# fences above are on the leg, so both are read from there too, and `bend-radius` is what reports
+# the climb's quarter when the leg is short of the first one.
+GATE_B_JOG_LEG = 19.9
 # Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
 # the run holds the plane it climbed to for everything before it, so what this figure places is
 # THE ANCHOR: the rib rides the middle of the leg it names, and the middle of this one stands in
@@ -962,7 +966,7 @@ GATE_LANE_Y = 175.0
 #
 # THE WEST LINE HAS NO CROSSING. Its union stands on the column it is already running, one
 # millimetre off its own gate's, so what the east line spends a whole leg on the west line spent
-# at `GATE_B_JOG_Y` before the cold core began.
+# at the jog before the cold core began.
 def _gate_a_deck_y(solids) -> float:
     """Where the east line comes about to cross — the last station forward of the pump's face."""
     return solids["seaflo-pump"].BoundingBox().ymin - _split.TUBE_D / 2.0 - LANE_CLEAR
@@ -1028,7 +1032,7 @@ def _fluid_28(F, solids):
 
     IT CROSSES ONCE AND THE CROSSING IS A MILLIMETRE. Gate and union stand one millimetre apart
     across the machine, so there is no lane to take and nothing to come back from: the run is on
-    its final column before the cold core's front face, and every station aft of `GATE_B_JOG_Y`
+    its final column before the cold core's front face, and every station aft of the jog
     reads the same X.
 
     WHAT IT LEAVES BEHIND IS THE WEST FLANK. The tap-water lane stands outboard of this column —
@@ -1046,7 +1050,7 @@ def _fluid_28(F, solids):
     return R.bent(
         "fluid-28", "valve-v-j.outlet",
         (gate[0], gate[1], climb),                          # up what the reservoir stub leaves
-        (tin[0], GATE_B_JOG_Y, climb),                      # the one jog, onto the union's column
+        (tin[0], gate[1] + GATE_B_JOG_LEG, climb),          # the one jog, onto the union's column
         (tin[0], GATE_B_STEP_Y, climb),                     # the cold core's whole length, one column
         (tin[0], GATE_B_STEP_Y + GATE_B_RISE_RUN, tin[2]),  # one lean onto the union's own storey
         "bulkhead-flavor-b.tube-in",                        # and straight aft into the collet
