@@ -29,12 +29,17 @@ The home soda machine's physical design — the integrated under-counter applian
     bazelisk build //:everything                          # every generator whose inputs moved
     tools/cad-venv/bin/python tools/bazel/sync_tree.py    # what the tree does not carry yet
 
-ONE ACTION PER GENERATOR, EACH HOLDING WHAT IT DECLARED AND NOTHING ELSE. What it declared is
-what a run of it was watched reading — `tools/bazel/trace_inputs.py` installs an audit hook,
-runs the generator once, and keeps every path under this repo it opened. So a doc sync that
-reads six files is stale when one of six moves, not when one of the seventy its imports could
-reach does. The graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes
-`BUILD.bazel` from it.
+ONE ACTION PER STEP, EACH HOLDING WHAT IT DECLARED AND NOTHING ELSE. What it declared is what
+a run of it was watched reading — `tools/bazel/trace_inputs.py` installs an audit hook, runs
+the generator once, and keeps every path under this repo it opened, including the ones handed
+to a tool it starts. The median step declares nine files; `_cable_assemblies_sync` declares
+six, and the assembly syncs that import the machine to reach its constants declare eighty. The
+graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes `BUILD.bazel` from it.
+
+A step is usually one generator. Four are several: `docgen` lets more than one script keep a
+doc's `[value](NAME)` figures, each managing its own names, so `touch_flo_shell.py` and
+`touch_flo_under_counter_plate.py` both write `ASSEMBLY.md` and are one action. `bazel` needs
+one action per file, and `inventory._together` is what groups them.
 
 `bazel-bin/` is where a build lands and this repo commits its solids and its docs, because a
 reader at `/3d` and a shop printing a part both take them off the tree. `sync_tree.py` is what

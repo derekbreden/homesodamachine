@@ -129,16 +129,16 @@ def main() -> int:
         "# nothing else is in the directory the run happens in. A solid one generator cuts and\n"
         "# the next loads is an edge like any other: unnamed, the reader does not find the file.\n"
     )
-    # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight, so the
-    # packages a renderer needs are named here rather than learned. `.gitignore` holds them,
-    # so they are globbed rather than read off the index.
+    # A RENDERER STANDS THE VIEWER AND PHOTOGRAPHS IT, so what it reads is the whole served
+    # tree — `web/lib/templates/viewer-body.html` as much as the `.js` beside it — and the
+    # packages node resolves those imports through. Globbed rather than read off the index,
+    # because `.gitignore` holds `node_modules`, and named here rather than learned, because
+    # node resolves below Python where the trace cannot follow.
     blocks.append(
         'filegroup(\n    name = "node-packages",\n    srcs = glob(\n'
         '        [\n'
-        '            "tools/render/*.js",\n'
-        '            "tools/render/node_modules/**",\n'
-        '            "web/**/*.js",\n'
-        '            "web/node_modules/**",\n'
+        '            "tools/render/**",\n'
+        '            "web/**",\n'
         '        ],\n'
         '        allow_empty = True,\n    ),\n)')
 
