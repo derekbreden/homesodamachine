@@ -744,19 +744,34 @@ def _fluid_2(F, solids):
 
 
 # Where the drain climbs back out of the disconnect. The union stands Ø15.10 on the spout's own
-# column and fills the lane the run used to drop into, so the line has to come up somewhere else
-# and lean back. The bay it comes up in is the open one west of the basin's neck, forward of V-B
-# and under the collar — the step across to it is what gives both of its corners their arc, so it
-# is measured from the union rather than chosen: two stock radii is the least a 90° in and a 90°
-# out can be built from, and the column stands one of those past the union's own ring.
+# column and fills the lane the run used to drop into, so the line has to come up somewhere else.
+# THE COLUMN IT COMES UP IN IS THE SLOT BESIDE THE UNION, midway between the ring's own west edge
+# and the source quarter's tube — the widest a quarter-inch line can stand in it, and the only
+# lane between the two that does not put the run in the bay `manifold_layout`'s hairpin sweeps.
 #
-# WHAT ELSE STANDS IN THAT BAY is the hairpin `manifold_layout` turns `fluid-5` through, which
-# sweeps `2·BEND_R` off the source run — so `manifold_layout.HAIRPIN_TILT` has to carry it clear
-# of this column and of the leg that leans back off it. `clearance-floor` reads all three.
-FLUID_4_FLOOR_Z = 248.0  # the plane the step west runs on, under the union's own foot
-FLUID_4_RISER_X = -28.0  # the bay's column, clear of the union's ring and of `fluid-26`'s step
-FLUID_4_REJOIN_Y = 183.0  # where the lean back lands on the mirror line — aft of the union,
-                          # forward of where the source coils close the slot
+# A REVERSAL COSTS 2·R14 BETWEEN ITS COLUMNS and this slot is nothing like that far from the
+# union's, so the turn is not made here. It is made BELOW: under the union's foot the cold core's
+# front face is bare wall from there to the floor slab, and the run spends the reversal down
+# there, flat against it — out west along one storey, up, and back east along another, so every
+# leg is longer than the corners it stands between. What comes back up the slot has already
+# turned. `clearance-floor` reads the slot against the ring on one side and the quarter on the
+# other; `bend-radius` reads the legs.
+FLUID_4_FLOOR_Z = 228.0   # the storey the loop runs out on, well under the union's foot
+FLUID_4_RETURN_Z = 258.0  # and the one it comes back east on, still under it
+FLUID_4_LOOP_X = -42.0    # how far west the loop reaches — what gives both its legs their arc
+# WHERE THE LEAN BACK LANDS on the mirror line. The run comes east across the union's own
+# column, so it has to be AFT OF THE RING by the time it gets there — and what it has until is
+# V-B's east face, which the lean has to be off the mirror line to pass. The band between those
+# two is wide, and this stands in it.
+FLUID_4_REJOIN_Y = 192.0
+
+
+def _fluid_4_riser_x(solids) -> float:
+    """The slot's own centre, which is not this file's to state: the ring's west face and the
+    source quarter's east face are what bound it, and both are drawn elsewhere. Halfway is the
+    widest a quarter-inch line stands anywhere between them."""
+    return (solids["hopper-drain-union"].BoundingBox().xmin
+            + solids["turn-fluid-5"].BoundingBox().xmax) / 2.0
 
 
 def _fluid_4_lane_z(solids) -> float:
@@ -792,11 +807,19 @@ def _fluid_4(F, solids):
     """fluid-4 — the hopper's disconnect to V-B's inlet, and the machine's only gravity feed.
 
     IT GOES ROUND THE UNION IT LEAVES. The disconnect hangs Ø15.10 on the spout's own column and
-    fills the lane the run used to drop into, so the line leaves the lower collet still falling,
-    steps west under the union's own foot, climbs the open bay in front of the cold core back to
-    the lane, and leans east onto the mirror line in the band between the union and the source
-    coils. From there it is the run it always was: aft down the slot, about behind the pair, and
-    one lean west onto the collet.
+    fills the lane the run used to drop into, so the line comes back up in the SLOT beside the
+    ring — a lane barely wider than the tube, between the ring's west face and the source
+    quarter's east one.
+
+    A REVERSAL COSTS 2 × R14 BETWEEN ITS COLUMNS and the slot is nowhere near that far from the
+    union's, so the line does not turn around up here. It falls past the union's foot into the
+    bare wall of the cold core's front face, and turns around DOWN THERE, flat against it: west
+    along one storey, up, and back east along another, each leg longer than the corners it
+    stands between. What arrives at the slot is already heading the way it needs to go.
+
+    From the lane it is the run it always was: leans east onto the mirror line in the band
+    between the union and the source coils, aft down the slot, about behind the pair, and one
+    lean west onto the collet.
 
     THE DIP IS THE LINE'S LOW POINT AND IT IS PUMPED, NOT DRAINED. See the note above this
     section: V-B opens onto the pump's own draw and the dry purge pulls the whole run through.
@@ -814,11 +837,14 @@ def _fluid_4(F, solids):
     inlet = F["valve-v-b"].at("inlet")
     lane = _fluid_4_lane_z(solids)
     turn = _fluid_4_turn_y(F, solids)
+    riser = _fluid_4_riser_x(solids)
     return R.bent(
         "fluid-4", "hopper-drain-union.outlet",
-        (drain[0], drain[1], FLUID_4_FLOOR_Z),                # down off the collet, under the union's foot
-        (FLUID_4_RISER_X, drain[1], FLUID_4_FLOOR_Z),         # west across that floor, clear of the ring
-        (FLUID_4_RISER_X, drain[1], lane),                    # up the bay's own column onto the lane
+        (drain[0], drain[1], FLUID_4_FLOOR_Z),                # down off the collet, past the union's foot
+        (FLUID_4_LOOP_X, drain[1], FLUID_4_FLOOR_Z),          # west along the core's bare face
+        (FLUID_4_LOOP_X, drain[1], FLUID_4_RETURN_Z),         # up its far column
+        (riser, drain[1], FLUID_4_RETURN_Z),                  # and back east, the reversal spent
+        (riser, drain[1], lane),                              # up the slot beside the ring onto the lane
         (drain[0], FLUID_4_REJOIN_Y, lane),                   # one lean east and aft, round the union
         (drain[0], turn, lane),                               # aft down the slot, between the two valves
         (inlet[0], turn, inlet[2]),                           # one lean west and down onto the collet's column
