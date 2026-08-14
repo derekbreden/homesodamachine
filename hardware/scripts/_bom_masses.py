@@ -111,7 +111,7 @@ def volume_cm3(rel):
 
         path = PARTS_DIR / rel
         if not path.exists():
-            raise SystemExit(f"_bom_masses: {rel} has no STEP at {path}")
+            sys.exit(f"_bom_masses: {rel} has no STEP at {path}")
         _VOLUMES[rel] = import_step(str(path)).val().Volume() / 1000.0
     return _VOLUMES[rel]
 
@@ -120,14 +120,14 @@ def material_of(cell):
     """The material cell names a stock; the parenthetical is its colour."""
     name = cell.split("(")[0].strip()
     if name not in MATERIALS:
-        raise SystemExit(f"_bom_masses: no density for material {cell!r}")
+        sys.exit(f"_bom_masses: no density for material {cell!r}")
     return name
 
 
 def mass_kg(label, material):
     density, _price = MATERIALS[material]
     if label not in PARTS:
-        raise SystemExit(
+        sys.exit(
             f"_bom_masses: §7 row {label!r} names no geometry. Add it to PARTS "
             f"(or drop the row) — a printed part with no solid has no mass.")
     return sum(volume_cm3(f) for f in PARTS[label]) * density / 1000.0
@@ -162,8 +162,8 @@ def main():
 
     missing = set(PARTS) - seen
     if missing:
-        raise SystemExit("_bom_masses: PARTS names rows §7 does not have: "
-                         + ", ".join(sorted(missing)))
+        sys.exit("_bom_masses: PARTS names rows §7 does not have: "
+                 + ", ".join(sorted(missing)))
 
     grand = sum(totals.values())
     petg, petcf = totals.get("PETG", 0.0), totals.get("PET-CF", 0.0)

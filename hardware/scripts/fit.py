@@ -1942,7 +1942,7 @@ def _triple(s: str):
         return parts[0]
     if len(parts) == 3:
         return (parts[0], parts[1], parts[2])
-    raise SystemExit(f"expected a value or lo,hi,step — got {s!r}")
+    sys.exit(f"expected a value or lo,hi,step — got {s!r}")
 
 
 def _list(s: str) -> list:
@@ -2036,7 +2036,7 @@ def main(argv: list) -> int:
     if a.cmd == "try":
         rp = part(a.part)
         if (a.at is None) == (a.bbmin is None):
-            raise SystemExit("try needs exactly one of --at or --bbmin")
+            sys.exit("try needs exactly one of --at or --bbmin")
         where = {"at": _list(a.at)} if a.at else {"bbmin": _list(a.bbmin)}
         pose = rp.pose(yaw=a.yaw, pitch=a.pitch, roll=a.roll, **where)
         print(pose)
@@ -2051,7 +2051,7 @@ def main(argv: list) -> int:
         rp = part(a.part)
         comp, _, mouth = a.onto.partition(".")
         if not mouth:
-            raise SystemExit(f"--onto {a.onto!r}: expected component.port")
+            sys.exit(f"--onto {a.onto!r}: expected component.port")
         w = probe.world()
         tip, nrm = w.at(comp, mouth), w.normal(comp, mouth)
         axis = nrm if a.along else tuple(-c for c in nrm)
