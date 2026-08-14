@@ -37,14 +37,25 @@ GEN = %r
 OUT = %r
 seen = set()
 
+def _keep(path):
+    try:
+        p = os.path.abspath(os.fspath(path))
+    except (TypeError, ValueError):
+        return
+    if p.startswith(ROOT + os.sep):
+        seen.add(os.path.relpath(p, ROOT))
+
 def _hook(event, args):
+    # `open` is most of it. `import` is the rest: a module loaded by path through importlib —
+    # `_bom_sync` takes a dozen generators that way — is read by the loader, not by open().
     if event == "open" and args and isinstance(args[0], (str, bytes, os.PathLike)):
-        try:
-            p = os.path.abspath(os.fspath(args[0]))
-        except (TypeError, ValueError):
-            return
-        if p.startswith(ROOT + os.sep):
-            seen.add(os.path.relpath(p, ROOT))
+        _keep(args[0])
+    elif event == "import" and len(args) > 1 and args[1]:
+        _keep(args[1])
+    elif event == "exec" and args:
+        code = getattr(args[0], "co_filename", None)
+        if code:
+            _keep(code)
 
 sys.addaudithook(_hook)
 sys.argv = [GEN]
