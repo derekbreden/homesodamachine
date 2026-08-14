@@ -52,7 +52,10 @@ _ROOT = _HERE.parents[2]
 
 from _run_lock import acquire as _acquire_build_lock
 
-if sys.argv and sys.argv[0].endswith(".py"):
+# A BUILD THAT SCHEDULES ITS OWN ACTIONS HOLDS NO MUTEX. The lock is single-flight for a
+# machine where anyone may start a generator by hand; under Bazel the graph decides what runs
+# beside what, and a lock taken at import would serialize every action on one another.
+if sys.argv and sys.argv[0].endswith(".py") and not os.environ.get("HSM_NO_BUILD_LOCK"):
     _entry = Path(sys.argv[0]).resolve()
     _root = Path(__file__).resolve().parent.parent.parent
     try:
