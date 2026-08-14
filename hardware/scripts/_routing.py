@@ -93,6 +93,19 @@ def leg_skew(a, b, d) -> float:
 BEND_RATIO = 2.0
 # The exit/approach stub: the straight a line runs off its fitting before it turns. None = one
 # bend radius. A longer reach drops a run onto a lane.
+#
+# A STUB IS A STANDOFF, NOT A PLACE. It says how far a fitting is stood off before the run is
+# free to turn — and the corner that follows spends it. What comes back as visible straight is
+# `stub − r·tan(θ/2)`, and θ is not fixed: a longer stub leaves the run less length to make the
+# same crossing in, so the turn sharpens and takes more of the stub back. Past a point the two
+# nearly cancel, and a stub grown further buys almost no straight at all.
+#   SO A STUB CANNOT SAY WHERE A STRAIGHT ENDS. If that is what an author wants — the tube to run
+# level out of a mouth to a stated place, clear of something it must not reach — the instrument is
+# a WAYPOINT, which the run passes through and no corner may move. State the leg, and its length
+# is its length. Reach for a stub for clearance AT the mouth; reach for a waypoint for position.
+#   AND ONE FIGURE FEEDS BOTH ENDS unless a pair is given: `stub=(exit, approach)`. Symmetry hides
+# the difference — two ends fed one number read alike, so a reading taken off one and attributed
+# to the other is right until the day they differ, and wrong from then on without changing.
 STUB = None
 # How far off a collet's own axis a straight tube may enter it and still run unbent. A
 # push-to-connect collet grips the tube all round and soft LLDPE takes up the rest. Seeded,
@@ -490,7 +503,12 @@ def _unit(a, b):
 
 
 def _bends(pts: list, cid: str) -> list:
-    """Every interior corner, with its turn angle and the two legs it seats its arc in."""
+    """Every interior corner, with its turn angle and the two legs it seats its arc in.
+
+    LEGS ARE IN THE RUN'S OWN ORDER, source first. `corners[0].legs[0]` is the straight off the
+    SOURCE port and `corners[-1].legs[1]` the one into the DESTINATION — never the other way
+    round. Worth stating because the two read alike whenever one `stub` feeds both ends, so a
+    reading taken off the wrong one agrees with the right one until the ends differ."""
     out = []
     for i in range(1, len(pts) - 1):
         din, dout = _unit(pts[i - 1], pts[i]), _unit(pts[i], pts[i + 1])
