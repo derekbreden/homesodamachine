@@ -46,7 +46,30 @@ reader at `/3d` and a shop printing a part both take them off the tree. `sync_tr
 carries them over, and a tree it has nothing to say about is a tree holding the artifacts its
 sources make.
 
-TIMING_TABLE_GOES_HERE
+WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess:
+
+| a comment added to | steps it reruns |
+|---|---|
+| a doc sync's own driver | **1** |
+| `_boxes.py` | 21 |
+| `_measuring.py` | 25 |
+| `_realized.py` | 57 |
+| `_cadq_export.py`, which every generator imports | 95 |
+
+| | wall |
+|---|---|
+| the whole tree, nothing moved | **0.24 s**, no action run |
+| whether anything is owed — `--check_up_to_date` | **0.04 s**, no action run |
+| the whole tree from nothing, 101 steps | 491 s of critical path |
+
+The first two are what a commit pays. The third is measured under five other builds on the
+same machine and is a ceiling rather than a reading; the actions themselves ran at roughly
+half speed for want of cores.
+
+A BYTE IS WHAT DECIDES A RERUN, so a comment moves a file and its steps run again. They come
+back with the same bytes and nothing downstream of them runs, but they do run — a whole-tree
+digest taken over parsed code rather than text is what would make a comment free, and there
+is none here.
 
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
 reads `foam-cap-top.step` off the disk and `enclosure_assembly` reads `foam-assembly.step`;
