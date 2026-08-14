@@ -151,6 +151,9 @@
     "water-3 \u2014 step-fluid-5: 1.337 mm",
     "coil-v-i \u2014 wago-manb: 1.366 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
+    "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
+    "foam-assembly \u2014 wago-sensors: 1.600 mm",
+    "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
     "fluid-2 \u2014 fluid-4: 1.970 mm",
@@ -170,7 +173,6 @@
     "co2-2 \u2014 pcba: 2.696 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-28 \u2014 foam-assembly: 3.357 mm",
-    "water-2 \u2014 wago-reeds-b: 3.573 mm",
     "water-3 \u2014 enclosure-front-top: 3.600 mm",
     "water-3 \u2014 fluid-28: 3.616 mm",
     "fluid-18 \u2014 fluid-14: 3.852 mm",
@@ -185,8 +187,11 @@
     "refrig-2 \u2014 enclosure-front-bottom: 4.575 mm",
     "refrig-3 \u2014 enclosure-front-bottom: 4.575 mm",
     "fluid-24 \u2014 fluid-26: 4.607 mm",
+    "fluid-28 \u2014 wago-reeds-a: 4.655 mm",
+    "fluid-28 \u2014 wago-sensors: 4.655 mm",
     "fluid-4 \u2014 seaflo-pump: 4.818 mm",
     "ground-stack \u2014 hopper-funnel: 4.950 mm",
+    "fluid-28 \u2014 wago-reeds-b: 4.955 mm",
     "water-2 \u2014 fluid-2: 5.015 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
     "fluid-26 \u2014 fluid-4: 5.080 mm",
@@ -3611,10 +3616,10 @@
     [
      -104.5,
      294.6,
-     285.1,
+     255.1,
      -86.2,
      310.4,
-     314.9
+     284.9
     ]
    ],
    "fill": 0.9812,
@@ -3643,10 +3648,10 @@
     [
      -104.5,
      314.55,
-     285.0,
+     255.0,
      -85.9,
      322.95,
-     315.0
+     285.0
     ]
    ],
    "fill": 0.9827,
@@ -3659,10 +3664,10 @@
     [
      -104.5,
      330.8,
-     285.0,
+     255.0,
      -85.9,
      339.2,
-     315.0
+     285.0
     ]
    ],
    "fill": 0.9827,
