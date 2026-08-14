@@ -110,6 +110,9 @@ STUB = None
 # How far off a collet's own axis a straight tube may enter it and still run unbent. A
 # push-to-connect collet grips the tube all round and soft LLDPE takes up the rest. Seeded,
 # not ratified, like `BEND_RATIO`.
+# What two mouths may stand apart and still be touching: under this there is no tube between
+# them, only what each collet already grips. `_lines.tubes` sweeps nothing for one.
+BUTT_MAX = 0.01
 COLLET_SKEW = 3.0
 
 # Runs the pack does not carry as drawn, each with the measurement that falls short — run id →
@@ -390,6 +393,12 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
 
     n_from, n_to = f_from.normal(p_from), f_to.normal(p_to)
     src, dst = tuple(f_from.at(p_from)), tuple(f_to.at(p_to))
+    # TWO MOUTHS THAT MEET ARE A BUTT, and a butt has no path. There is tube in each collet and
+    # none between them, so there is no leg to plant on either port's axis and no corner to
+    # seat — every constraint below is about a route that exists. The run is still the
+    # connection, and still owes its row: it is drawn at nothing, which is its length.
+    if math.dist(src, dst) <= BUTT_MAX:
+        return Run(cid, kind, frm, to, (src, dst), d, nominal, note, [], {}, {})
     mids = [tuple(w) for w in rest[:-1]]
     if lead is not None:
         lead_out, lead_in = lead if isinstance(lead, (tuple, list)) else (lead, lead)

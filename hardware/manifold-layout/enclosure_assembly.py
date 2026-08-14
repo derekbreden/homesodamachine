@@ -1792,8 +1792,8 @@ def build_suction_chain(foam_carry, suction):
     the pump's suction mouth, which is what buys `water-7`'s corner.
 
     WHAT FOLLOWS THIS PLANE IS V-K. `build_vk` seats the valve on this chain's own collet, so the
-    two mouths `water-4` runs between stay on one plane and that run stays a straight — a collet
-    grips a tube through 3°, and the two stand 9 mm apart. `cap_cradles["vk-solenoid"].seat` is
+    two mouths stay on one plane and the joint stays a butt — there is tube in both grips and
+    none between them. `cap_cradles["vk-solenoid"].seat` is
     what carries the valve up to meet it, and `cradles-land` is where the two are held together.
 
     What holds it off the pump's own casting is `clearance-floor`, the reading every other pair
@@ -3980,15 +3980,15 @@ def build_flowreg(split_carry):
 #
 # V-K STANDS IN THE ROW THE SOURCE PAIR MAKES. Three Beduans sit on this cap — V-A, V-B and this
 # one — and the two the pack carries land on one plane facing one way. V-K's depth is theirs,
-# and `water-4` is what is left between its outlet and the chain's collet: both mouths lie on
-# that plane and on one column, so it is a length of tube and not a route. The cap prints its
+# and what is left between its outlet and the chain's collet is nothing: both mouths lie on that
+# plane and on one column and meet face to face, so the joint is a butt. The cap prints its
 # three cradles on that same row (`_cold_core_interface.cap_cradles`), and `cap-valve-row`
 # measures it.
 # THE VALVE'S SEAT is the cradle's. The cap prints four bosses (`valve_seat`) at this
 # valve's own station (`_cold_core_interface.cap_cradles`), and what a seat says is where the
 # Beduan's Z = 0 — the underside of its white body — stands once its four posts are pressed
 # home. So the seat is read off the part that carries it rather than stated here, and a cradle
-# that moves takes the valve, the chain behind it and `water-4` with it.
+# that moves takes the valve and the chain behind it with it.
 
 
 def source_row_y(stood) -> float:
@@ -4010,7 +4010,7 @@ def build_vk(chain_carry, row_y: float):
     seat — and on `row_y`, the face the source pair stands its own ends on.
 
     The outlet is this valve's aft collet, so the whole body stands in the pair's own depth and
-    `water-4` is what is left back to the chain."""
+    the outlet lands on the chain's own collet."""
     pos, _axis = chain_carry(_suct.tube_port())
     target = (pos[0], row_y, pos[2])
     body = _beduan.build_beduan_solenoid()

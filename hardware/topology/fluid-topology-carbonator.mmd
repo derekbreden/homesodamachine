@@ -106,9 +106,11 @@ flowchart LR
   BFP -->|"water-2<br/>75.8 mm"| Split
   BFP --> Vent
   Split -->|"fluid-1<br/>46.9 mm"| FlowReg
-  FlowReg -->|"fluid-2<br/>163.8 mm"| VA
-  Split -->|"water-3<br/>244.4 mm"| VK
-  VK -->|"water-4<br/>9.4 mm"| SuctChain
+  FlowReg -->|"fluid-2<br/>157.9 mm"| VA
+  Split -->|"water-3<br/>253.8 mm"| VK
+  %% V-K's outlet and the suction chain's collet meet face to face, so what joins them
+  %% is the tube inside each grip and nothing between. There is no `water-4`.
+  VK --> SuctChain
   SuctChain -->|"water-7<br/>58.6 mm"| PW
   PW -->|"water-6<br/>58.8 mm"| DischChain
   DischChain -->|"water-5<br/>48.3 mm"| CapWater

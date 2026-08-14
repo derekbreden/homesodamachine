@@ -88,15 +88,15 @@ transform per deck and a mirrored pair still faces itself.
 
 ### The source valves' step
 
-Once they are round, V-A and V-B go [17](STEP_TRAVEL) mm further along their run and
+Once they are round, V-A and V-B go [26.42](STEP_TRAVEL) mm further along their run and
 [14](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
 of one radius with a straight between them do that, and the two distances fix the pair:
 
     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
 
 which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_R) that is
-θ = [67.371](STEP_ANGLE)° either side of s = [10.77](STEP_STRAIGHT) mm —
-[151.50](STEP_LEN) mm of tube.
+θ = [41.545](STEP_ANGLE)° either side of s = [10.49](STEP_STRAIGHT) mm —
+[30.79](STEP_LEN) mm of tube.
 
 That pair has a member only while `(2R − jog)² + travel² ≥ (2R)²`, and the travel is not this
 run's to choose: V-A and V-B stand on the cold core's cap, which the pack does not carry, so
@@ -115,8 +115,8 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 that holds the run and the way it steps, so leaning that plane about the run costs the step
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
 only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
-[14.21](STEP_CROSS_A) mm across in the same 28 along, θ = [65.891](STEP_ANGLE_A)° either side of
-s = [10.76](STEP_STRAIGHT_A) mm, [150.75](STEP_LEN_A) mm of tube. What the spread buys is the slot
+[14.21](STEP_CROSS_A) mm across in the same 28 along, θ = [42.399](STEP_ANGLE_A)° either side of
+s = [10.21](STEP_STRAIGHT_A) mm, [30.93](STEP_LEN_A) mm of tube. What the spread buys is the slot
 on the mirror line — the pair stands a valve's half-width either side of x 0 and the hopper's
 gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
 one for one.
@@ -136,7 +136,7 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
 [0](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
 turns and [2](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
-[18](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
+[14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
@@ -145,10 +145,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[188](ENV_X) × [166](ENV_Y) × [232](ENV_Z) mm — [7.26](ENV_L) L of bounding box over the
+[188](ENV_X) × [162](ENV_Y) × [242](ENV_Z) mm — [7.35](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [166](REACH_Y) × [246](REACH_Z).
+[188](REACH_X) × [162](REACH_Y) × [256](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.

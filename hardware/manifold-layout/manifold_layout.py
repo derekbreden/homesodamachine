@@ -478,7 +478,7 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 # taken off this — and `two_arc_floor` says the pair runs out of shape well before the travel
 # runs out. WHAT SPANS LESS HERE IS A LONGER TUBE, NOT A SHORTER ONE, and a run that never
 # heads backward cannot be longer than the straight line between its ends.
-SOURCE_TRAVEL = 17.0
+SOURCE_TRAVEL = 26.42
 SOURCE_JOG = 14.0
 # The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
 # VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
@@ -502,7 +502,7 @@ SOURCE_SPREAD = {"V-A": 2.42, "V-B": 0.0}
 # the hairpin is what carries it: above the floor by this much, the pair of arcs has a shape of
 # its own and the run is the step alone. `hairpins_drawn` reports how many are drawn, and at the
 # travel this file states that is none.
-SOURCE_SLACK = 2.0
+SOURCE_SLACK = 0.5
 # WHERE THE HAIRPIN LEAVES THE RUN, outboard of the column it came down. The run climbs back up
 # past the height its own quarter turn is at, so it climbs in a different column than the one
 # the quarter is in, and this is the gap between them. The step that follows spends it: what
