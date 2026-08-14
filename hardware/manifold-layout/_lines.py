@@ -447,7 +447,15 @@ def _fluid_1(F):
 # that face. What this holds is the TANGENT its own corner seats on, R·tan(θ/2) for the lean the
 # step takes, so it is priced against the corner rather than against the push-fit. Taken out of
 # the reach `enclosure_assembly.WATER_2` gives.
-WATER_2_LEAD = 7.0
+#   IT ALSO CARRIES THE LEAN OUT OF THE TAP'S OWN STOREY. The split's supply mouth faces aft and
+# this straight runs aft on its axis, level, a storey under the regulator — so every millimetre
+# here is a millimetre the climb does not spend in the band `fluid-2` leaves the regulator
+# through. The lean starts where this ends.
+#   AND IT IS SELF-OPPOSING, which is what keeps it honest: the lead is taken out of the step's Y
+# and the fall is not, so a longer straight leaves the lean less run for the same drop and steepens
+# it. The corner's own demand rises with it — slower than the lead does, which is why there is a
+# figure that satisfies both, but the two move together and neither may be read alone.
+WATER_2_LEAD = 12.0
 
 
 def _water_2(F):
@@ -598,10 +606,6 @@ FLUID_2_CROSS_SET = 1.0
 # struck off the union that line falls onto and rides it wherever the union goes. Both are 1/4",
 # and the figure is axis to axis — one tube's diameter of it is the two skins.
 FLUID_2_LANE_CLEAR = 10.35
-# The storey that strip carries. The regulator lies over the strip — its needle stem reaches east
-# across the lane — and the strip is open below it, so the run hangs its centreline this far under
-# the regulator's own underside.
-FLUID_2_DECK_CLEAR = 6.5
 
 
 def _fluid_2(F, solids):
@@ -611,8 +615,14 @@ def _fluid_2(F, solids):
     THE TWO MOUTHS FACE THE SAME WAY AND THE VALVE IS BEHIND THE REGULATOR. The regulator stands
     over the split with its flow running aft, so its outlet fires AFT; V-A stands coil-up on the
     deck with its inlet on the AFT end, so the run has to come at that collet from behind. It goes
-    aft off the regulator, leans east and down into the strip, comes forward and down that strip
-    in one leg, and leans east behind both coils onto V-A's column.
+    aft off the regulator, turns east across the lane, comes forward and down the strip in one
+    leg, and leans east behind both coils onto V-A's column.
+
+    IT CROSSES THE LANE LEVEL, ON THE OUTLET'S OWN STOREY, AND SPENDS NO HEIGHT DOING IT. `water-2`
+    comes down this same lane from the chain overhead and passes under this run on its way to the
+    split, so what the two have between them is whatever this one has not yet given away — and the
+    crossing stands where the descent has barely begun. Every millimetre of the fall is taken in
+    the strip instead, east of the lane and clear of that line altogether.
 
     THE STRIP'S DESCENT AND ITS RUN FORWARD ARE ONE LEG. Taken as two they are two SQUARE corners
     sharing the strip's own depth, and a square corner spends its whole radius as tangent in each
@@ -633,18 +643,17 @@ def _fluid_2(F, solids):
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
     lane = out[1] + FLUID_2_LEAD
     lane_x = F["bulkhead-flavor-a"].at("tube-in")[0] - FLUID_2_LANE_CLEAR
-    deck = solids["flow-regulator"].BoundingBox().zmin - FLUID_2_DECK_CLEAR
     under = inlet[2] + FLUID_2_CROSS_RISE
     cross = inlet[1] + _ml.STUB + FLUID_2_CROSS_SET
     return R.bent(
         "fluid-2", "flow-regulator.outlet",
-        (lane_x, lane, deck),                         # east and down into the strip in one lean
+        (lane_x, lane, out[2]),                       # east across the lane, level on its own storey
         (lane_x, cross, under),                       # forward and down that strip in one leg
         (inlet[0], cross, inlet[2]),                  # east under the drain, onto V-A's column
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, east and down "
-             "into the strip west of the nozzle-A lane, forward and down it, and east under "
+             "level across the lane into the strip west of the nozzle-A line, forward and down "
              "the drain")
 
 
