@@ -2125,10 +2125,11 @@ def nozzle_storey(gate: float, seaflo) -> float:
 # stands them in the lane.
 #
 # THE STOREY THE NOZZLE UNIONS TAKE IS THEIR OWN RUNS'. `_lines.gate_cruise` is the plane the
-# west gate climbs to under the reservoir line crossing its column, and it is the plane both
-# unions stand on: `fluid-28` cruises its outboard lane onto its collet on it and `fluid-18`
-# comes down its union's column onto it, so each run's last move into its collet is flat. It also
-# carries both barrels clear under the drip tray's channel.
+# west gate climbs to under the reservoir line crossing its column, and it is the plane both runs
+# arrive on: `fluid-28` cruises its union's own column onto it and `fluid-18` comes down that
+# column onto it, so each run's last move into its collet is flat. `nozzle_storey` then carries
+# both barrels clear over the pump's bracket, and what the runs spend on that is one short lean
+# apiece at the aft end.
 PANEL_ON_GATE_LANE = ("bulkhead-flavor-b", "bulkhead-flavor-a")
 
 
@@ -2340,8 +2341,10 @@ TUBE_ANCHOR_SITES = (
     ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # And the gas line's, on that same deck and under that same wall, one cap conduit aft of it.
     ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
-    # Nozzle B's outboard lane, off the −X wall it runs 20.5 mm inboard of. The leg leans, but
-    # only in that wall's own plane, so the wall lies one distance down the whole of it.
+    # Nozzle B's cruise aft, off the −X wall it runs 26.4 mm inboard of. That leg is the run's
+    # longest and it is dead straight, so the wall lies one distance down the whole of it — and
+    # `_lines.GATE_B_STEP_Y` places its MIDDLE, which is where the rib goes, in the one band of
+    # that wall neither the tap-water split nor the cluster wells are in.
     ("fluid-28", 2, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
@@ -3861,9 +3864,9 @@ WATER_2 = 44.0
 # THE SPLIT STANDS ON ITS OWN COLUMN AND `water-2` IS WHAT CROSSES TO IT. The chain answers to
 # the rear wall — all three of its coordinates are the tap-water union's, and `PORT_WEST_COLUMN`
 # is what stands that union's pair in the lane. The storey below is a different room: the gate
-# line takes the outboard strip at `_lines.GATE_LANE_X` on its way aft, `water-3` falls out of
-# this split's own downward branch on whatever column the split stands on, and the two pass tube
-# over tube. So the sequence forward of the step keeps its column when the wall's moves, and the
+# line holds its own union's column inboard of this one the whole way aft, `water-3` falls out of
+# this split's own downward branch on whatever column the split stands on, and neither is under
+# the other. So the sequence forward of the step keeps its column when the wall's moves, and the
 # lean already in `water-2` for the step carries the offset across as well as down.
 SPLIT_COLUMN = -92.0
 
