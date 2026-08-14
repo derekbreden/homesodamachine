@@ -102,15 +102,10 @@ def to_dict(sc: Scorecard) -> dict:
     }
 
 
-def write(sc: Scorecard, step: Path, drawn_by) -> Path:
-    """The card beside `step`, and the digest of the text `drawn_by` was drawn from stamped off
-    the tree — `_scorecard.write` states what that digest is for."""
-    import _realized
-
+def write(sc: Scorecard, step: Path) -> Path:
+    """The card beside `step` — every reading this build took, and nothing else."""
     out = step.parent / (step.stem + ".scorecard.json")
     out.write_text(json.dumps(to_dict(sc), indent=1) + "\n")
-    _realized.stamp_write("cards", out,
-                          {"sources": _realized.digest(_realized.source_files(drawn_by))})
     return out
 
 

@@ -30,7 +30,6 @@ Usage from any generator script:
 
 import atexit
 import filecmp
-import inspect
 import hashlib
 import json
 import os
@@ -496,6 +495,9 @@ def _matches_existing_target(tmp_path, target):
 #: edge no import statement carries, so no walk over import statements can find it — which is how
 #: a cap cut at 09:56 stood in an assembly built at 15:00 with every digest agreeing.
 _STEP_READS = set()
+#: Every path `_atomic_write` was handed, whether or not the bytes moved. A run that lands on
+#: the solid already in the tree performs no rename, and cutting it is still what it came for.
+_WRITE_TARGETS = set()
 
 
 def import_step(path):
@@ -513,45 +515,14 @@ def import_step(path):
     return cq.importers.importStep(str(p))
 
 
-def _stamp_part(target):
-    """What drew `target`, and the digest of everything its text can reach, off the tree.
-
-    TAKEN HERE BECAUSE THIS IS WHERE THE DRAWING MODULE'S OWN `sys.path` IS STANDING. The same
-    module name resolves to a different file — or to none — from a reader's process, so a walk
-    taken anywhere else is not asking about this graph. The drawer records; `check_parts` reads.
-
-    A solid is a build product that the next build LOADS RATHER THAN DRAWS: `foam_assembly`
-    reads `foam-cap-top.step` off the disk, `enclosure_assembly` reads `foam-assembly.step`.
-    Neither edge is an import, so `source_files` cannot walk it and no card's digest covers it."""
-    try:
-        import _realized
-    except ImportError:
-        return
-    for frame in inspect.stack()[1:]:
-        drawer = Path(frame.filename).resolve()
-        if drawer != _HERE and drawer.is_file():
-            try:
-                files = {}
-                for src in _realized.source_files(drawer):
-                    files[Path(src).relative_to(_ROOT).as_posix()] = _realized.code_digest(src)
-                # The solids this run loaded, beside the Python it read them with. Both decide
-                # the shape; only one of them is reachable from an import statement.
-                for rel in _STEP_READS:
-                    if rel != target.relative_to(_ROOT).as_posix():
-                        files[rel] = _realized.code_digest(_ROOT / rel)
-                _realized.stamp_write("parts", target, {
-                    "by": drawer.relative_to(_ROOT).as_posix(),
-                    "sources": files,
-                })
-            except (ValueError, OSError):
-                pass                     # a drawer outside this repo records nothing
-            return
-
-
 def _atomic_write(target_path, write_fn):
     """Write atomically; return True if the target's bytes changed, False if
     the new output matched the existing file (no rename performed)."""
     target = Path(target_path).resolve()
+    try:
+        _WRITE_TARGETS.add(target.relative_to(_ROOT).as_posix())
+    except ValueError:
+        pass                             # a solid outside this repo is nothing this tree cuts
     target.parent.mkdir(parents=True, exist_ok=True)
     _sweep_orphan_temps(target)
     tmp_path = _make_sibling_tempfile(target)
@@ -565,11 +536,6 @@ def _atomic_write(target_path, write_fn):
             _canonicalize_pdf(tmp_path)
         # Skip the rename when content matches — keeps target.mtime stable
         # and leaves git status clean across no-op regenerations.
-        # THE STAMP RIDES EVERY RUN, not only the ones that move bytes: a drawer whose
-        # sources moved and whose solid came out the same is a solid this machine has now
-        # watched, and the next pass has no reason to draw it again.
-        if target.suffix == ".step":
-            _stamp_part(target)
         if _matches_existing_target(tmp_path, target):
             os.unlink(tmp_path)
             return False
@@ -611,9 +577,13 @@ def _atomic_write(target_path, write_fn):
 # at a tools/ its edition does not have. The tool is already edition-aware — it
 # classifies each .step against the content roots itself — so only finding it is the
 # question. `tools/docgen` is the sentinel every other shared-machinery anchor uses.
-_TOOLS_ROOT = next(p for p in Path(__file__).resolve().parents
-                   if (p / "tools" / "docgen").is_dir())
-_THUMBNAIL_TOOL = _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"
+# A RUN THAT CANNOT FIND IT DRAWS NO THUMBNAIL AND EXPORTS ANYWAY. The anchor's only
+# consumer is best-effort, so not finding one is the same event as not finding the tool
+# beside it — `_render_pending_thumbnails` already says so and skips. An action holding
+# only what it declared has no `tools/` at all, and a solid is still what it came for.
+_TOOLS_ROOT = next((p for p in Path(__file__).resolve().parents
+                    if (p / "tools" / "docgen").is_dir()), None)
+_THUMBNAIL_TOOL = _TOOLS_ROOT and _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"
 _pending_thumbnails = {}       # abs .step path -> abs payload path, or None
 _thumbnail_tmpdir = None
 _thumbnail_atexit_registered = False
@@ -711,7 +681,7 @@ def _render_pending_thumbnails():
     queued = dict(sorted(_pending_thumbnails.items()))
     _pending_thumbnails.clear()
     node = shutil.which("node")
-    if node is None or not _THUMBNAIL_TOOL.exists():
+    if node is None or _THUMBNAIL_TOOL is None or not _THUMBNAIL_TOOL.exists():
         reason = "node not found on PATH" if node is None else "render tool missing"
         print(
             f"[_cadq_export] thumbnail render skipped for {len(queued)} part(s): {reason}",

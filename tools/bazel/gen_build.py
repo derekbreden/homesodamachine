@@ -1,90 +1,29 @@
 #!/usr/bin/env python3
-"""Write BUILD.bazel from what the tree already records about its own generators.
+"""Write BUILD.bazel from what a run of each generator was watched doing.
 
     tools/cad-venv/bin/python tools/bazel/gen_build.py
 
-`inventory.py` says which generators there are and what each one makes. What each one READS is
-every path a run of it was watched opening — `trace_inputs.py` — plus the Python its imports
-reach and the solids its stamps record, which cover a run that stopped early.
+`inventory.py` reads `graph.json` and says, per generator, the solids it cuts, the docs it
+rewrites and the files it reads. One `genrule` per generator carries all three.
 
 An action that names too little does not read a stale file: it fails to find one at all. So a
 target here can be wrong in exactly one direction, and the build says which.
 """
 
 import argparse
-import json
-import re
-import subprocess
 import sys
 from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
-sys.path.insert(0, str(_ROOT / "hardware" / "scripts"))
 sys.path.insert(0, str(_HERE.parent))
 
-import _realized                                        # noqa: E402
 from inventory import inventory, tracked   # noqa: E402
 
 VENV = "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python"
 
-#: What a generator cuts. A `.mesh` rides beside a solid for the viewer and is not committed.
-#:
-#: A `.step.png` IS NOT AMONG THEM. `_cadq_export` draws a thumbnail best-effort — "a thumbnail
-#: must never break export" — by standing a server on loopback and photographing a page. An
-#: output declared here is one the action must produce or fail, which is the opposite promise,
-#: so the two cannot be the same thing. The thumbnails are still drawn by the run; they are
-#: not what the build is asked to guarantee.
-OUT_SUFFIXES = (".step", ".dxf", ".stl")
-#: What a generator rewrites in place — an input to the run and an output of it, so it is
-#: named on both sides under two names, and `sync` is what carries the second back.
-DOC_SUFFIXES = (".md", ".figures.json")
-
 #: See the tag it earns in `render`.
 NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
-
-_MISSING_FILE = re.compile(r"No such file or directory: '[^']*?/work/([^']+)'")
-_MISSING_MOD = re.compile(r"No module named '([^']+)'")
-
-
-EXTRA = _HERE.parent / "extra_srcs.json"
-
-
-def _extra() -> dict:
-    """Every file a run of each generator was watched opening — see `trace_inputs.py`.
-
-    Keyed the way `target_name` keys a target, and a key written before it stopped leading
-    with the generator's own underscore is read here under either spelling."""
-    try:
-        held = json.loads(EXTRA.read_text())
-    except (OSError, ValueError):
-        return {}
-    return {k.lstrip("-"): v for k, v in held.items()}
-
-
-def seed_srcs(gen: str, arts: list, files) -> list:
-    """Every file this generator is known or likely to read."""
-    srcs = set()
-    # the Python its imports reach, walked from outside — short, and the sandbox says so
-    try:
-        for p in _realized.source_files(_ROOT / gen):
-            srcs.add(Path(p).relative_to(_ROOT).as_posix())
-    except (ValueError, OSError):
-        srcs.add(gen)
-    # the solids it loaded, as the stamps recorded them
-    for art in arts:
-        held = _realized.stamp_read("parts", _ROOT / art)
-        srcs.update(held.get("sources") or {})
-    # the docs beside it, which docgen rewrites in place
-    d = str(Path(gen).parent)
-    srcs.update(f for f in files
-                if str(Path(f).parent) == d and f.endswith(DOC_SUFFIXES))
-    # and every file a run of it was watched opening
-    srcs.update(_extra().get(target_name(gen), []))
-    # WHAT IT OPENED TO WRITE IS NOT WHAT IT READ. A trace sees a solid being cut the same way
-    # it sees one being loaded, and a generator that takes its own output as an input rebuilds
-    # whenever the copy in the tree moves — which is the copy this action exists to replace.
-    return sorted(s for s in srcs - set(arts) if s in set(files))
 
 
 def target_name(gen: str) -> str:
@@ -138,7 +77,10 @@ def render(gen: str, arts: list, srcs: list, docs: list) -> str:
         "ln -sfn $$PWD/$$d work/$$d; fi",
         "done",
         "cd work",
-        f"{VENV} {gen} > /dev/null",
+        # THE ROOT IS THIS DIRECTORY. `docgen` finds it by walking for `.git`, which an action
+        # holding only what it declared does not have — without this the doc's figures are
+        # rewritten and its `.figures.json` is not.
+        f"HSM_REPO_ROOT=$$PWD {VENV} {gen} > /dev/null",
     ]
     for a, o in zip(arts, outs[:len(arts)]):
         lines.append(f"cp {a} $$O_{Path(a).name.replace('.','_').replace('-','_')}")
@@ -158,13 +100,15 @@ def main() -> int:
     if args.only:
         inv = {k: v for k, v in inv.items() if k == args.only}
 
+    held = set(files)
     blocks = []
     for gen, made in sorted(inv.items()):
-        srcs = seed_srcs(gen, made["solids"], files)
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
-        srcs = sorted(set(srcs) | set(made["docs"]))
-        blocks.append(render(gen, made["solids"], srcs, made["docs"]))
+        # A solid the run cut is only ever handed back.
+        srcs = (set(made["reads"]) | set(made["docs"]) | {gen}) - set(made["solids"])
+        blocks.append(render(gen, made["solids"],
+                             sorted(s for s in srcs if s in held), made["docs"]))
 
     head = (
         "# The appliance's geometry, docs and pictures — one action per generator. Written by\n"

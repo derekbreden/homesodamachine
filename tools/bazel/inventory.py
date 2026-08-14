@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
-"""Every generator in the tree and what it makes, read off what the tree already records.
+"""Every generator in the tree and what it makes, read off what a run of it was watched doing.
 
     tools/cad-venv/bin/python tools/bazel/inventory.py        # print it
 
-Three readings, in the order they are trusted:
-
-  - A SOLID SAYS WHO CUT IT. `.cache/stamps/parts/<solid>.json` carries `by`, written by the
-    run that cut it. Six directories hold artifacts and more than one `.py` — `manifold-layout`
-    holds the assembly and the manifold — and this is what tells them apart.
-  - A DOC SAYS WHO WROTE ITS FIGURES. `<doc>.figures.json` is keyed by driver, written by
-    `docgen.substitute_md`. A doc sync cuts no solid and is invisible to any rule about
-    artifacts, and this finds every one of them.
-  - Failing both, the one `.py` beside the artifact. A first build has no stamp, and the
-    convention holds for 101 of the 102 committed solids.
+`trace_inputs.py` watches each generator run and writes down every tracked file it opened, by
+the side it opened it on. `graph.json` is that record. This sorts each generator's writes into
+the solids it cuts and the docs it rewrites, and carries its reads through to `gen_build.py`.
 """
 
 import json
@@ -22,20 +15,11 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
-sys.path.insert(0, str(_ROOT / "hardware" / "scripts"))
+GRAPH = _HERE.parent / "graph.json"
 
-import _realized                                        # noqa: E402
-
-SOLID_SUFFIXES = (".step", ".dxf", ".stl", ".scorecard.json", ".facts.json")
-
-#: What one run draws that lands nowhere near its own directory. `render_scenes` cuts a scene
-#: out of a machine somebody else stood, so the picture, its record and the mesh a browser
-#: opens are three trees away from the script.
-ELSEWHERE = {
-    "hardware/assembly/scenes/render_scenes.py": (
-        "hardware/assembly/cards/img/scene-", "hardware/assembly/scenes/glb/"),
-}
-FIGURES_SUFFIX = ".figures.json"
+#: What a run reads and writes back over: a doc and its figures, a mermaid chart's `%%` lines,
+#: and the generator's own comments and docstrings. Everything else a run writes it only cuts.
+REWRITTEN_SUFFIXES = (".md", ".figures.json", ".mmd", ".py")
 
 
 def tracked() -> list:
@@ -43,60 +27,26 @@ def tracked() -> list:
                           capture_output=True, text=True, check=True).stdout.split()
 
 
-def _one_py_beside(art: str, by_dir: dict):
-    pys = [f for f in by_dir.get(str(Path(art).parent), [])
-           if f.endswith(".py") and not Path(f).name.startswith("_")]
-    return pys[0] if len(pys) == 1 else None
-
-
 def inventory(files=None) -> dict:
-    """`{generator: {"solids": [...], "docs": [...]}}` for every generator this tree has."""
-    files = files or tracked()
-    by_dir = {}
-    for f in files:
-        by_dir.setdefault(str(Path(f).parent), []).append(f)
+    """`{generator: {"solids": [...], "docs": [...], "reads": [...]}}` for every generator."""
+    files = set(files or tracked())
+    try:
+        graph = json.loads(GRAPH.read_text())
+    except (OSError, ValueError):
+        return {}
 
     out = {}
-    for art in sorted(f for f in files if f.endswith(SOLID_SUFFIXES)):
-        gen = (_realized.stamp_read("parts", _ROOT / art).get("by")
-               or _one_py_beside(art, by_dir))
-        if gen and gen in files:
-            out.setdefault(gen, {"solids": [], "docs": []})["solids"].append(art)
-
-    # A card in `manifold-layout` holds the assembly's readings and one beside it holds the
-    # manifold's; the name is what tells them apart where the directory cannot.
-    for gen in list(out):
-        stem = Path(gen).stem.replace("_", "-")
-        for f in files:
-            if (f.endswith((".scorecard.json", ".facts.json"))
-                    and Path(f).name.startswith(stem) and f not in out[gen]["solids"]):
-                out[gen]["solids"].append(f)
-
-    for gen, prefixes in ELSEWHERE.items():
+    for gen, seen in sorted(graph.items()):
         if gen not in files:
             continue
-        entry = out.setdefault(gen, {"solids": [], "docs": []})
-        for f in files:
-            if f.startswith(prefixes) and f not in entry["solids"]:
-                entry["solids"].append(f)
-            side = f + ".scene.json"
-            if f.startswith(prefixes[0]) and side in files and side not in entry["solids"]:
-                entry["solids"].append(side)
-
-    for side in sorted(f for f in files if f.endswith(FIGURES_SUFFIX)):
-        doc = side[:-len(FIGURES_SUFFIX)] + ".md"
-        try:
-            drivers = json.loads((_ROOT / side).read_text())
-        except (OSError, ValueError):
-            continue
-        for driver in drivers:
-            gen = driver.lstrip("/")
-            if gen not in files:
-                continue
-            entry = out.setdefault(gen, {"solids": [], "docs": []})
-            for f in (doc, side):
-                if f in files and f not in entry["docs"]:
-                    entry["docs"].append(f)
+        wrote = [f for f in seen["writes"] if f in files]
+        entry = {"solids": [], "docs": [],
+                 "reads": [f for f in seen["reads"] if f in files]}
+        for f in sorted(wrote):
+            (entry["docs"] if f.endswith(REWRITTEN_SUFFIXES)
+             else entry["solids"]).append(f)
+        if entry["solids"] or entry["docs"]:
+            out[gen] = entry
     return out
 
 

@@ -61,7 +61,6 @@ for _p in (_hw / "scripts", _here.parent):
 import _boxes                                          # noqa: E402
 import _clearing                                       # noqa: E402
 import _overlap                                        # noqa: E402
-import _realized                                       # noqa: E402
 import _routing as R                                   # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
@@ -82,10 +81,12 @@ CLEARANCE_FLOOR = 1.0
 # Only pairs nearer than this are ranked, so the clearance detail reads as the tight end of the
 # pack rather than as every pair in it.
 REPORT_NEAR = 6.0
-# The straight a run leaves a fitting on, as a multiple of the line's own bend radius: one reach
-# for the stub and one for the tangent its first corner is seated on — `_routing.route`'s own
-# two, and the shortest straight any turn off a port can be built in.
-PORT_LEAD_BENDS = 2.0
+# The straight a run leaves a fitting on — how far down its own axis a turn off this port reaches.
+# The tube begins curving at the collet face, so a quarter turn carries its axis one bend radius
+# along the port's own and its outer surface the tube's half-diameter past that. Shallower turns
+# stop short of it; a turn past 90° comes back up.
+def port_lead(bend: float, diam: float) -> float:
+    return bend + diam / 2.0
 # How far under its own stated band a MEASURED pose may read and still hold. A strike closes on
 # the band it states, so this is float noise across that closing and nothing else.
 ROOM_TOL = 1e-6
@@ -1059,22 +1060,16 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     can be plugged into: two fittings a clean millimetre apart with their collets facing each
     other clear every other gate on this card and clear nothing a tube can be built through.
 
-    So the port's own bore is cast along its own axis, at its own Ø, for `PORT_LEAD_BENDS` of the
-    line's bend radius, and the cast has to reach. The radius is the LINE's and not the port's:
-    the run that mates the port says what stock is drawn there, and a port with no run yet is
-    read against the coarsest stock its own bore takes — 1/4" LLDPE asks 28 mm of straight where
-    3/8" braided PVC asks 31.8.
+    So the port's own bore is cast along its own axis, at its own Ø, for one `port_lead`, and the
+    cast has to reach. The bend radius in it is the LINE's and not the port's: the run that mates
+    the port says what stock is drawn there, and a port with no run yet is read against the
+    coarsest stock its own bore takes — 1/4" LLDPE asks 17.18 mm of straight where 3/8" braided
+    PVC asks 20.66.
 
     WHAT THE CAST MAY END ON is the body the port is JOINED to, read off the authored runs rather
     than from prose, plus the `MADE_UP` joints that have no run to read. A port whose connection
     is still un-authored is held to the full lead against everything, which is the useful
     direction — that is the state every undrawn segment's two ends are in.
-
-    THE PACK'S OWN MOUTHS ARE NOT CAST. `PORT_LEAD_BENDS` is `_routing.route`'s own shape — one
-    bend radius of stub off the port, and the tangent of the corner it turns in next — and
-    `manifold_layout.INTERIOR_MOUTHS` is every port the pack sweeps its own line off instead,
-    with no stub. Those rows carry a lead of 0. The swept line goes into the assembly, where
-    `pack-closes` reads it against every body in the machine.
 
     A CLOSED MATING is the same case on the refrigerant loop. `enclosure_assembly.refrigerant_mates`
     is the legs a shared plane shut — two stations that are one point read twice, with no copper
@@ -1102,6 +1097,8 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
         mates.setdefault(x, set()).add(y.partition(".")[0])
         mates.setdefault(y, set()).add(x.partition(".")[0])
     import manifold_layout as ml
+    for mouth, bodies_ in ml.MOUTH_MATES.items():
+        mates.setdefault(mouth, set()).update(bodies_)
     rows = []
     for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
         for port in sorted(fr.ports):
@@ -1110,22 +1107,18 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
                 continue
             anchor = f"{name}.{port}"
             drawn = mating.get(anchor)
-            interior = anchor in ml.INTERIOR_MOUTHS
-            if interior:
-                who, free, need = None, 0.0, 0.0
+            if drawn:
+                bend = max(R.stock_of(r.kind, r.diam).min_bend for r in drawn)
             else:
-                if drawn:
-                    bend = max(R.stock_of(r.kind, r.diam).min_bend for r in drawn)
-                else:
-                    takes = [s.min_bend for s in R.STOCKS if abs(s.od - diam) < 0.05]
-                    bend = max(takes) if takes else R.BEND_RATIO * diam
-                need = PORT_LEAD_BENDS * bend
-                who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
-                                           skip={name} | mates.get(anchor, set()))
+                takes = [s.min_bend for s in R.STOCKS if abs(s.od - diam) < 0.05]
+                bend = max(takes) if takes else R.BEND_RATIO * diam
+            need = port_lead(bend, diam)
+            who, free = _clearing.cast(pos, R.normal_of(face), diam, need, solids,
+                                       skip={name} | mates.get(anchor, set()))
             rows.append({"component": name, "port": port, "meets": who,
                          "free": round(free, 3), "need": round(need, 3),
                          "ok": who is None, "gated": anchor not in TERMINI,
-                         "routed": bool(drawn) or interior,
+                         "routed": bool(drawn),
                          "onPlaceholder": who in placeholders})
     rows.sort(key=lambda d: (d["ok"], d["free"]))
     return rows
@@ -1134,9 +1127,8 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
 def _port_leads(rows) -> Check:
     gated = [d for d in rows if d["gated"]]
     short = [d for d in gated if not d["ok"]]
-    detail = [f"a port needs {PORT_LEAD_BENDS:g} bend radii of its own bore along its own axis, "
-              f"clear of every body but the one its own line joins it to — the pack's own "
-              f"interior mouths carry a swept line off the collet and ask for none"]
+    detail = ["a port needs the reach of a quarter turn off it — one bend radius of its line plus "
+              "the tube's own half-diameter — clear of every body but the one its line joins it to"]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
                f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
                + (" — and that body is still a placeholder box" if d["onPlaceholder"] else "")
@@ -1862,18 +1854,11 @@ def to_dict(sc: Scorecard) -> dict:
     }
 
 
-def write(a, step: Path, drawn_by) -> Path:
-    """The card beside `step` — every reading this build took, and nothing else.
-
-    `drawn_by` is the file that built the assembly. `_realized.source_files` walks its imports
-    to every file of this repo that can reach the readings, and the digest of their whole text
-    goes to `_realized.stamp_write("cards", …)` — which is what `hardware/scripts/check_cards.py`
-    reads to doubt the card by two hex strings, where the alternative is running the build."""
+def write(a, step: Path) -> Path:
+    """The card beside `step` — every reading this build took, and nothing else."""
     sc = build(a)
     out = step.parent / (step.stem + ".scorecard.json")
     out.write_text(json.dumps(to_dict(sc), indent=1) + "\n")
-    _realized.stamp_write("cards", out,
-                          {"sources": _realized.digest(_realized.source_files(drawn_by))})
     return out
 
 

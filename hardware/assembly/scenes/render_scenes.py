@@ -2,7 +2,6 @@
 
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py            # all
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top   # one
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --stale    # only moved
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force    # anyway
 
 THE MACHINE IS BUILT ONCE for however many scenes are asked for: a scene is a subset of that one
@@ -11,8 +10,8 @@ tree is the PNG and a fingerprint beside it; the scene STEPs go to `out/`, which
 holds, because they are a rendering intermediate and a 20 MB artifact that churns on every move
 of any body is exactly what this must not add to a commit.
 
-Run when a picture has gone stale — `hardware/scripts/check_scenes.py` says which, off text
-alone — not on every build.
+`//:render-scenes` is what runs it: the build hands this the assembly's STEP and takes the
+pictures back, and it runs when that STEP moves.
 """
 
 import argparse
@@ -31,7 +30,6 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-import _realized                                        # noqa: E402
 import _scenes                                          # noqa: E402
 from _cadq_export import export_assembly                # noqa: E402
 
@@ -190,22 +188,15 @@ def draw(scene, assembly, force=False) -> Path:
         "drawn": sorted(c.name for c in scene_assembly.children),
         "image": _scenes.image_fingerprint(png),
     }, indent=2, sort_keys=True) + "\n")
-    # And every repo file the build reads, walked from in here where the graph is complete and
-    # free, off the tree.
-    _realized.stamp_write("scenes", png, _scenes.source_map())
     return png
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("scenes", nargs="*", help="scene ids; default every one")
-    ap.add_argument("--stale", action="store_true",
-                    help="only the scenes whose fingerprint has moved")
     ap.add_argument("--force", action="store_true",
                     help="redraw even where the geometry and the camera both stand")
     args = ap.parse_args()
-
-    import check_scenes
 
     wanted = args.scenes or [s.id for s in _scenes.SCENES]
     unknown = [s for s in wanted if s not in _scenes.SCENE_BY_ID]
@@ -213,11 +204,6 @@ def main():
         ap.error(f"no such scene: {', '.join(unknown)} — have "
                  f"{', '.join(s.id for s in _scenes.SCENES)}")
     scenes = [_scenes.SCENE_BY_ID[s] for s in wanted]
-    if args.stale:
-        scenes = [s for s in scenes if check_scenes.state(s)[0] != "current"]
-        if not scenes:
-            print("every scene carries the picture its sources make")
-            return
 
     print(f"building the machine once for {len(scenes)} scene(s)…")
     import enclosure_assembly as ea
