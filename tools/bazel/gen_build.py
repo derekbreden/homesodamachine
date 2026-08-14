@@ -45,11 +45,15 @@ EXTRA = _HERE.parent / "extra_srcs.json"
 
 
 def _extra() -> dict:
-    """What the sandbox has already told us an action reads — see `fix_build.py`."""
+    """Every file a run of each generator was watched opening — see `trace_inputs.py`.
+
+    Keyed the way `target_name` keys a target, and a key written before it stopped leading
+    with the generator's own underscore is read here under either spelling."""
     try:
-        return json.loads(EXTRA.read_text())
+        held = json.loads(EXTRA.read_text())
     except (OSError, ValueError):
         return {}
+    return {k.lstrip("-"): v for k, v in held.items()}
 
 
 def seed_srcs(gen: str, arts: list, files) -> list:
@@ -69,13 +73,18 @@ def seed_srcs(gen: str, arts: list, files) -> list:
     d = str(Path(gen).parent)
     srcs.update(f for f in files
                 if str(Path(f).parent) == d and f.endswith(DOC_SUFFIXES))
-    # and whatever the sandbox has since said this action actually reads
+    # and every file a run of it was watched opening
     srcs.update(_extra().get(target_name(gen), []))
-    return sorted(s for s in srcs if s in set(files))
+    # WHAT IT OPENED TO WRITE IS NOT WHAT IT READ. A trace sees a solid being cut the same way
+    # it sees one being loaded, and a generator that takes its own output as an input rebuilds
+    # whenever the copy in the tree moves — which is the copy this action exists to replace.
+    return sorted(s for s in srcs - set(arts) if s in set(files))
 
 
 def target_name(gen: str) -> str:
-    return Path(gen).stem.replace("_", "-")
+    """A Bazel name for a generator. `_wiring_sync.py` is a doc sync like any other, and its
+    leading underscore is a Python convention, not part of what it is called here."""
+    return Path(gen).stem.strip("_").replace("_", "-")
 
 
 def render(gen: str, arts: list, srcs: list, docs: list) -> str:
@@ -131,6 +140,11 @@ def main() -> int:
         "# nothing else is in the directory the run happens in. A solid one generator cuts and\n"
         "# the next loads is an edge like any other: unnamed, the reader does not find the file.\n"
     )
+    # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
+    # what it carries is `sync_tree --write`.
+    blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
+                  + "".join('        ":%s",\n' % target_name(g) for g in sorted(inv))
+                  + "    ],\n)")
     (_ROOT / "BUILD.bazel").write_text(head + "\n" + "\n\n".join(blocks) + "\n")
     print(f"  {len(inv)} generator(s) → BUILD.bazel")
     return 0

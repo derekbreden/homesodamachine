@@ -1,13 +1,1525 @@
-# The appliance's geometry, one action per generator.
+# The appliance's geometry, docs and pictures — one action per generator. Written by
+# tools/bazel/gen_build.py off tools/bazel/inventory.py; the sandbox corrects it.
 #
-# WHAT AN ACTION SEES IS WHAT IT DECLARED. A generator reads Python it imports and solids it
-# loads; both are `srcs` here, and the sandbox holds nothing else. `foam_assembly` loading
-# `foam-cap-top.step` without naming it does not read a stale cap — it does not find the file.
+# WHAT AN ACTION HOLDS IS WHAT IT NAMED. A generator reads the Python its imports
+# reach, the solids it loads and the docs it rewrites; all three are `srcs`, and
+# nothing else is in the directory the run happens in. A solid one generator cuts and
+# the next loads is an edge like any other: unnamed, the reader does not find the file.
 
+genrule(
+    name = "-acceptance-and-burn-in-sync",
+    srcs = [
+        "hardware/assembly/_acceptance_and_burn_in_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-acceptance-and-burn-in-sync/doc/acceptance-and-burn-in.md",
+        "out/-acceptance-and-burn-in-sync/doc/acceptance-and-burn-in.figures.json",
+    ],
+    cmd = """
+set -e
+D_acceptance_and_burn_in_md=$$PWD/$(location out/-acceptance-and-burn-in-sync/doc/acceptance-and-burn-in.md)
+D_acceptance_and_burn_in_figures_json=$$PWD/$(location out/-acceptance-and-burn-in-sync/doc/acceptance-and-burn-in.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py > /dev/null
+cp hardware/assembly/acceptance-and-burn-in.md $$D_acceptance_and_burn_in_md
+cp hardware/assembly/acceptance-and-burn-in.figures.json $$D_acceptance_and_burn_in_figures_json
+""",
+)
+
+genrule(
+    name = "-cable-assemblies-sync",
+    srcs = [
+        "hardware/assembly/_cable_assemblies_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-cable-assemblies-sync/doc/cable-assemblies.md",
+        "out/-cable-assemblies-sync/doc/cable-assemblies.figures.json",
+    ],
+    cmd = """
+set -e
+D_cable_assemblies_md=$$PWD/$(location out/-cable-assemblies-sync/doc/cable-assemblies.md)
+D_cable_assemblies_figures_json=$$PWD/$(location out/-cable-assemblies-sync/doc/cable-assemblies.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_cable_assemblies_sync.py > /dev/null
+cp hardware/assembly/cable-assemblies.md $$D_cable_assemblies_md
+cp hardware/assembly/cable-assemblies.figures.json $$D_cable_assemblies_figures_json
+""",
+)
+
+genrule(
+    name = "-cold-core-sync",
+    srcs = [
+        "hardware/assembly/_cold_core_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-cold-core-sync/doc/cold-core.md",
+        "out/-cold-core-sync/doc/cold-core.figures.json",
+    ],
+    cmd = """
+set -e
+D_cold_core_md=$$PWD/$(location out/-cold-core-sync/doc/cold-core.md)
+D_cold_core_figures_json=$$PWD/$(location out/-cold-core-sync/doc/cold-core.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py > /dev/null
+cp hardware/assembly/cold-core.md $$D_cold_core_md
+cp hardware/assembly/cold-core.figures.json $$D_cold_core_figures_json
+""",
+)
+
+genrule(
+    name = "-electronics-shelf-sync",
+    srcs = [
+        "hardware/assembly/_electronics_shelf_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/-electronics-shelf-sync/doc/electronics-shelf.md",
+        "out/-electronics-shelf-sync/doc/electronics-shelf.figures.json",
+    ],
+    cmd = """
+set -e
+D_electronics_shelf_md=$$PWD/$(location out/-electronics-shelf-sync/doc/electronics-shelf.md)
+D_electronics_shelf_figures_json=$$PWD/$(location out/-electronics-shelf-sync/doc/electronics-shelf.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_electronics_shelf_sync.py > /dev/null
+cp hardware/assembly/electronics-shelf.md $$D_electronics_shelf_md
+cp hardware/assembly/electronics-shelf.figures.json $$D_electronics_shelf_figures_json
+""",
+)
+
+genrule(
+    name = "-enclosure-mechanical-sync",
+    srcs = [
+        "hardware/assembly/_enclosure_mechanical_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/-enclosure-mechanical-sync/doc/enclosure-mechanical.md",
+        "out/-enclosure-mechanical-sync/doc/enclosure-mechanical.figures.json",
+    ],
+    cmd = """
+set -e
+D_enclosure_mechanical_md=$$PWD/$(location out/-enclosure-mechanical-sync/doc/enclosure-mechanical.md)
+D_enclosure_mechanical_figures_json=$$PWD/$(location out/-enclosure-mechanical-sync/doc/enclosure-mechanical.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py > /dev/null
+cp hardware/assembly/enclosure-mechanical.md $$D_enclosure_mechanical_md
+cp hardware/assembly/enclosure-mechanical.figures.json $$D_enclosure_mechanical_figures_json
+""",
+)
+
+genrule(
+    name = "-faucet-and-umbilical-sync",
+    srcs = [
+        "hardware/assembly/_faucet_and_umbilical_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-faucet-and-umbilical-sync/doc/faucet-and-umbilical.md",
+        "out/-faucet-and-umbilical-sync/doc/faucet-and-umbilical.figures.json",
+    ],
+    cmd = """
+set -e
+D_faucet_and_umbilical_md=$$PWD/$(location out/-faucet-and-umbilical-sync/doc/faucet-and-umbilical.md)
+D_faucet_and_umbilical_figures_json=$$PWD/$(location out/-faucet-and-umbilical-sync/doc/faucet-and-umbilical.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py > /dev/null
+cp hardware/assembly/faucet-and-umbilical.md $$D_faucet_and_umbilical_md
+cp hardware/assembly/faucet-and-umbilical.figures.json $$D_faucet_and_umbilical_figures_json
+""",
+)
+
+genrule(
+    name = "-finish-pack-ship-sync",
+    srcs = [
+        "hardware/assembly/_finish_pack_ship_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-finish-pack-ship-sync/doc/finish-pack-ship.md",
+        "out/-finish-pack-ship-sync/doc/finish-pack-ship.figures.json",
+    ],
+    cmd = """
+set -e
+D_finish_pack_ship_md=$$PWD/$(location out/-finish-pack-ship-sync/doc/finish-pack-ship.md)
+D_finish_pack_ship_figures_json=$$PWD/$(location out/-finish-pack-ship-sync/doc/finish-pack-ship.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_finish_pack_ship_sync.py > /dev/null
+cp hardware/assembly/finish-pack-ship.md $$D_finish_pack_ship_md
+cp hardware/assembly/finish-pack-ship.figures.json $$D_finish_pack_ship_figures_json
+""",
+)
+
+genrule(
+    name = "-firmware-and-commissioning-sync",
+    srcs = [
+        "hardware/assembly/_firmware_and_commissioning_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-firmware-and-commissioning-sync/doc/firmware-and-commissioning.md",
+        "out/-firmware-and-commissioning-sync/doc/firmware-and-commissioning.figures.json",
+    ],
+    cmd = """
+set -e
+D_firmware_and_commissioning_md=$$PWD/$(location out/-firmware-and-commissioning-sync/doc/firmware-and-commissioning.md)
+D_firmware_and_commissioning_figures_json=$$PWD/$(location out/-firmware-and-commissioning-sync/doc/firmware-and-commissioning.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py > /dev/null
+cp hardware/assembly/firmware-and-commissioning.md $$D_firmware_and_commissioning_md
+cp hardware/assembly/firmware-and-commissioning.figures.json $$D_firmware_and_commissioning_figures_json
+""",
+)
+
+genrule(
+    name = "-handwork-sync",
+    srcs = [
+        "hardware/assembly/_handwork_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-handwork-sync/doc/handwork.md",
+        "out/-handwork-sync/doc/handwork.figures.json",
+    ],
+    cmd = """
+set -e
+D_handwork_md=$$PWD/$(location out/-handwork-sync/doc/handwork.md)
+D_handwork_figures_json=$$PWD/$(location out/-handwork-sync/doc/handwork.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py > /dev/null
+cp hardware/assembly/handwork.md $$D_handwork_md
+cp hardware/assembly/handwork.figures.json $$D_handwork_figures_json
+""",
+)
+
+genrule(
+    name = "-internal-plumbing-sync",
+    srcs = [
+        "hardware/assembly/_internal_plumbing_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/-internal-plumbing-sync/doc/internal-plumbing.md",
+        "out/-internal-plumbing-sync/doc/internal-plumbing.figures.json",
+    ],
+    cmd = """
+set -e
+D_internal_plumbing_md=$$PWD/$(location out/-internal-plumbing-sync/doc/internal-plumbing.md)
+D_internal_plumbing_figures_json=$$PWD/$(location out/-internal-plumbing-sync/doc/internal-plumbing.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_internal_plumbing_sync.py > /dev/null
+cp hardware/assembly/internal-plumbing.md $$D_internal_plumbing_md
+cp hardware/assembly/internal-plumbing.figures.json $$D_internal_plumbing_figures_json
+""",
+)
+
+genrule(
+    name = "-pressure-vessel-sync",
+    srcs = [
+        "hardware/assembly/_pressure_vessel_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-pressure-vessel-sync/doc/pressure-vessel.md",
+        "out/-pressure-vessel-sync/doc/pressure-vessel.figures.json",
+    ],
+    cmd = """
+set -e
+D_pressure_vessel_md=$$PWD/$(location out/-pressure-vessel-sync/doc/pressure-vessel.md)
+D_pressure_vessel_figures_json=$$PWD/$(location out/-pressure-vessel-sync/doc/pressure-vessel.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py > /dev/null
+cp hardware/assembly/pressure-vessel.md $$D_pressure_vessel_md
+cp hardware/assembly/pressure-vessel.figures.json $$D_pressure_vessel_figures_json
+""",
+)
+
+genrule(
+    name = "-refrigerant-loop-sync",
+    srcs = [
+        "hardware/assembly/_refrigerant_loop_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-refrigerant-loop-sync/doc/refrigerant-loop.md",
+        "out/-refrigerant-loop-sync/doc/refrigerant-loop.figures.json",
+    ],
+    cmd = """
+set -e
+D_refrigerant_loop_md=$$PWD/$(location out/-refrigerant-loop-sync/doc/refrigerant-loop.md)
+D_refrigerant_loop_figures_json=$$PWD/$(location out/-refrigerant-loop-sync/doc/refrigerant-loop.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_refrigerant_loop_sync.py > /dev/null
+cp hardware/assembly/refrigerant-loop.md $$D_refrigerant_loop_md
+cp hardware/assembly/refrigerant-loop.figures.json $$D_refrigerant_loop_figures_json
+""",
+)
+
+genrule(
+    name = "-wiring-sync",
+    srcs = [
+        "hardware/assembly/_wiring_sync.py",
+        "hardware/assembly/acceptance-and-burn-in.figures.json",
+        "hardware/assembly/acceptance-and-burn-in.md",
+        "hardware/assembly/cable-assemblies.figures.json",
+        "hardware/assembly/cable-assemblies.md",
+        "hardware/assembly/cold-core.figures.json",
+        "hardware/assembly/cold-core.md",
+        "hardware/assembly/electronics-shelf.figures.json",
+        "hardware/assembly/electronics-shelf.md",
+        "hardware/assembly/enclosure-mechanical.figures.json",
+        "hardware/assembly/enclosure-mechanical.md",
+        "hardware/assembly/faucet-and-umbilical.figures.json",
+        "hardware/assembly/faucet-and-umbilical.md",
+        "hardware/assembly/finish-pack-ship.figures.json",
+        "hardware/assembly/finish-pack-ship.md",
+        "hardware/assembly/firmware-and-commissioning.figures.json",
+        "hardware/assembly/firmware-and-commissioning.md",
+        "hardware/assembly/handwork.figures.json",
+        "hardware/assembly/handwork.md",
+        "hardware/assembly/internal-plumbing.figures.json",
+        "hardware/assembly/internal-plumbing.md",
+        "hardware/assembly/pressure-vessel.figures.json",
+        "hardware/assembly/pressure-vessel.md",
+        "hardware/assembly/refrigerant-loop.figures.json",
+        "hardware/assembly/refrigerant-loop.md",
+        "hardware/assembly/wiring.figures.json",
+        "hardware/assembly/wiring.md",
+    ],
+    outs = [
+        "out/-wiring-sync/doc/wiring.md",
+        "out/-wiring-sync/doc/wiring.figures.json",
+    ],
+    cmd = """
+set -e
+D_wiring_md=$$PWD/$(location out/-wiring-sync/doc/wiring.md)
+D_wiring_figures_json=$$PWD/$(location out/-wiring-sync/doc/wiring.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py > /dev/null
+cp hardware/assembly/wiring.md $$D_wiring_md
+cp hardware/assembly/wiring.figures.json $$D_wiring_figures_json
+""",
+)
+
+genrule(
+    name = "render-scenes",
+    srcs = [
+        "hardware/assembly/scenes/README.md",
+        "hardware/assembly/scenes/render_scenes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/render-scenes/scene-back-half.png",
+        "out/render-scenes/scene-back-half.png.scene.json",
+        "out/render-scenes/scene-back-top.png",
+        "out/render-scenes/scene-back-top.png.scene.json",
+        "out/render-scenes/scene-cap-lid-fill.png",
+        "out/render-scenes/scene-cap-lid-fill.png.scene.json",
+        "out/render-scenes/scene-cap-lid.png",
+        "out/render-scenes/scene-cap-lid.png.scene.json",
+        "out/render-scenes/scene-cold-core-open.png",
+        "out/render-scenes/scene-cold-core-open.png.scene.json",
+        "out/render-scenes/scene-cold-core.png",
+        "out/render-scenes/scene-cold-core.png.scene.json",
+        "out/render-scenes/scene-front-top.png",
+        "out/render-scenes/scene-front-top.png.scene.json",
+        "out/render-scenes/scene-hopper-drain.png",
+        "out/render-scenes/scene-hopper-drain.png.scene.json",
+        "out/render-scenes/back-half.glb",
+        "out/render-scenes/back-top.glb",
+        "out/render-scenes/cap-lid-fill.glb",
+        "out/render-scenes/cap-lid.glb",
+        "out/render-scenes/cold-core-open.glb",
+        "out/render-scenes/cold-core.glb",
+        "out/render-scenes/front-top.glb",
+        "out/render-scenes/hopper-drain.glb",
+    ],
+    cmd = """
+set -e
+O_scene_back_half_png=$$PWD/$(location out/render-scenes/scene-back-half.png)
+O_scene_back_half_png_scene_json=$$PWD/$(location out/render-scenes/scene-back-half.png.scene.json)
+O_scene_back_top_png=$$PWD/$(location out/render-scenes/scene-back-top.png)
+O_scene_back_top_png_scene_json=$$PWD/$(location out/render-scenes/scene-back-top.png.scene.json)
+O_scene_cap_lid_fill_png=$$PWD/$(location out/render-scenes/scene-cap-lid-fill.png)
+O_scene_cap_lid_fill_png_scene_json=$$PWD/$(location out/render-scenes/scene-cap-lid-fill.png.scene.json)
+O_scene_cap_lid_png=$$PWD/$(location out/render-scenes/scene-cap-lid.png)
+O_scene_cap_lid_png_scene_json=$$PWD/$(location out/render-scenes/scene-cap-lid.png.scene.json)
+O_scene_cold_core_open_png=$$PWD/$(location out/render-scenes/scene-cold-core-open.png)
+O_scene_cold_core_open_png_scene_json=$$PWD/$(location out/render-scenes/scene-cold-core-open.png.scene.json)
+O_scene_cold_core_png=$$PWD/$(location out/render-scenes/scene-cold-core.png)
+O_scene_cold_core_png_scene_json=$$PWD/$(location out/render-scenes/scene-cold-core.png.scene.json)
+O_scene_front_top_png=$$PWD/$(location out/render-scenes/scene-front-top.png)
+O_scene_front_top_png_scene_json=$$PWD/$(location out/render-scenes/scene-front-top.png.scene.json)
+O_scene_hopper_drain_png=$$PWD/$(location out/render-scenes/scene-hopper-drain.png)
+O_scene_hopper_drain_png_scene_json=$$PWD/$(location out/render-scenes/scene-hopper-drain.png.scene.json)
+O_back_half_glb=$$PWD/$(location out/render-scenes/back-half.glb)
+O_back_top_glb=$$PWD/$(location out/render-scenes/back-top.glb)
+O_cap_lid_fill_glb=$$PWD/$(location out/render-scenes/cap-lid-fill.glb)
+O_cap_lid_glb=$$PWD/$(location out/render-scenes/cap-lid.glb)
+O_cold_core_open_glb=$$PWD/$(location out/render-scenes/cold-core-open.glb)
+O_cold_core_glb=$$PWD/$(location out/render-scenes/cold-core.glb)
+O_front_top_glb=$$PWD/$(location out/render-scenes/front-top.glb)
+O_hopper_drain_glb=$$PWD/$(location out/render-scenes/hopper-drain.glb)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py > /dev/null
+cp hardware/assembly/cards/img/scene-back-half.png $$O_scene_back_half_png
+cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O_scene_back_half_png_scene_json
+cp hardware/assembly/cards/img/scene-back-top.png $$O_scene_back_top_png
+cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O_scene_back_top_png_scene_json
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O_scene_cap_lid_fill_png
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O_scene_cap_lid_fill_png_scene_json
+cp hardware/assembly/cards/img/scene-cap-lid.png $$O_scene_cap_lid_png
+cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O_scene_cap_lid_png_scene_json
+cp hardware/assembly/cards/img/scene-cold-core-open.png $$O_scene_cold_core_open_png
+cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O_scene_cold_core_open_png_scene_json
+cp hardware/assembly/cards/img/scene-cold-core.png $$O_scene_cold_core_png
+cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O_scene_cold_core_png_scene_json
+cp hardware/assembly/cards/img/scene-front-top.png $$O_scene_front_top_png
+cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O_scene_front_top_png_scene_json
+cp hardware/assembly/cards/img/scene-hopper-drain.png $$O_scene_hopper_drain_png
+cp hardware/assembly/cards/img/scene-hopper-drain.png.scene.json $$O_scene_hopper_drain_png_scene_json
+cp hardware/assembly/scenes/glb/back-half.glb $$O_back_half_glb
+cp hardware/assembly/scenes/glb/back-top.glb $$O_back_top_glb
+cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O_cap_lid_fill_glb
+cp hardware/assembly/scenes/glb/cap-lid.glb $$O_cap_lid_glb
+cp hardware/assembly/scenes/glb/cold-core-open.glb $$O_cold_core_open_glb
+cp hardware/assembly/scenes/glb/cold-core.glb $$O_cold_core_glb
+cp hardware/assembly/scenes/glb/front-top.glb $$O_front_top_glb
+cp hardware/assembly/scenes/glb/hopper-drain.glb $$O_hopper_drain_glb
+""",
+)
+
+genrule(
+    name = "cold-core-assembly",
+    srcs = [
+        "hardware/cold-core-layout/README.md",
+        "hardware/cold-core-layout/cold_core_assembly.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/cold-core-assembly/cold-core-assembly.scorecard.json",
+        "out/cold-core-assembly/cold-core-assembly.step",
+        "out/cold-core-assembly/cold-core-assembly.step.png",
+    ],
+    cmd = """
+set -e
+O_cold_core_assembly_scorecard_json=$$PWD/$(location out/cold-core-assembly/cold-core-assembly.scorecard.json)
+O_cold_core_assembly_step=$$PWD/$(location out/cold-core-assembly/cold-core-assembly.step)
+O_cold_core_assembly_step_png=$$PWD/$(location out/cold-core-assembly/cold-core-assembly.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py > /dev/null
+cp hardware/cold-core-layout/cold-core-assembly.scorecard.json $$O_cold_core_assembly_scorecard_json
+cp hardware/cold-core-layout/cold-core-assembly.step $$O_cold_core_assembly_step
+cp hardware/cold-core-layout/cold-core-assembly.step.png $$O_cold_core_assembly_step_png
+""",
+)
+
+genrule(
+    name = "touch-flo-under-counter-plate",
+    srcs = [
+        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
+        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+        "out/touch-flo-under-counter-plate/doc/ASSEMBLY.md",
+        "out/touch-flo-under-counter-plate/doc/ASSEMBLY.figures.json",
+    ],
+    cmd = """
+set -e
+O_touch_flo_under_counter_plate_dxf=$$PWD/$(location out/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf)
+D_ASSEMBLY_md=$$PWD/$(location out/touch-flo-under-counter-plate/doc/ASSEMBLY.md)
+D_ASSEMBLY_figures_json=$$PWD/$(location out/touch-flo-under-counter-plate/doc/ASSEMBLY.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py > /dev/null
+cp hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf $$O_touch_flo_under_counter_plate_dxf
+cp hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md $$D_ASSEMBLY_md
+cp hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json $$D_ASSEMBLY_figures_json
+""",
+)
+
+genrule(
+    name = "enclosure-assembly",
+    srcs = [
+        "hardware/manifold-layout/README.figures.json",
+        "hardware/manifold-layout/README.md",
+        "hardware/manifold-layout/_lines.py",
+        "hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/printed-parts/cadlib/snap.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_foam_cap.py",
+        "hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/printed-parts/cold-core/_outer_shell.py",
+        "hardware/printed-parts/cold-core/_port_cuts.py",
+        "hardware/printed-parts/cold-core/_reed_channels.py",
+        "hardware/printed-parts/cold-core/_support_ring.py",
+        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "hardware/printed-parts/electronics/module_tray.py",
+        "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
+        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step",
+        "hardware/printed-parts/enclosure/port-ring/port-ring-union.step",
+        "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+        "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/flavor/pump-case/pump_case.py",
+        "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+        "hardware/printed-parts/valve-seat/valve_seat.py",
+        "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
+        "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+        "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "hardware/reference/compressor/compressor.py",
+        "hardware/reference/condenser-block/condenser_block.py",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+        "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+        "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+        "hardware/reference/gasher-check-valve/gasher-check-valve.step",
+        "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+        "hardware/reference/ground-ring-stack/ground-ring-stack.step",
+        "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+        "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
+        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+        "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
+        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
+        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+        "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
+        "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
+        "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+        "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+        "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
+        "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+        "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
+        "hardware/reference/tee-connector/tee_connector.py",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten_relay.py",
+        "hardware/reference/wago-221/wago-221-413.step",
+        "hardware/reference/wago-221/wago-221-415.step",
+        "hardware/reference/wago-221/wago-221-420.step",
+        "hardware/reference/wago-221/wago_221.py",
+        "hardware/reference/water-split/water_split.py",
+        "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+        "hardware/reference/worm-clamp/worm_clamp.py",
+        "hardware/reference/wr1110-regulator/wr1110-regulator.step",
+        "hardware/reference/wr1110-regulator/wr1110_regulator.py",
+        "hardware/reference/y-divider/y_divider.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_seating.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/enclosure-assembly/enclosure-assembly.step",
+        "out/enclosure-assembly/enclosure-assembly.facts.json",
+        "out/enclosure-assembly/enclosure-assembly.scorecard.json",
+    ],
+    cmd = """
+set -e
+O_enclosure_assembly_step=$$PWD/$(location out/enclosure-assembly/enclosure-assembly.step)
+O_enclosure_assembly_facts_json=$$PWD/$(location out/enclosure-assembly/enclosure-assembly.facts.json)
+O_enclosure_assembly_scorecard_json=$$PWD/$(location out/enclosure-assembly/enclosure-assembly.scorecard.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
+cp hardware/manifold-layout/enclosure-assembly.step $$O_enclosure_assembly_step
+cp hardware/manifold-layout/enclosure-assembly.facts.json $$O_enclosure_assembly_facts_json
+cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O_enclosure_assembly_scorecard_json
+""",
+)
+
+genrule(
+    name = "manifold-layout",
+    srcs = [
+        "hardware/manifold-layout/README.figures.json",
+        "hardware/manifold-layout/README.md",
+        "hardware/manifold-layout/_lines.py",
+        "hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/printed-parts/cadlib/snap.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/printed-parts/flavor/pump-case/pump_case.py",
+        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
+        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "hardware/reference/tee-connector/tee-connector.step",
+        "hardware/reference/tee-connector/tee_connector.py",
+        "hardware/reference/y-divider/y_divider.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/manifold-layout/manifold-layout.step",
+        "out/manifold-layout/doc/README.md",
+        "out/manifold-layout/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_manifold_layout_step=$$PWD/$(location out/manifold-layout/manifold-layout.step)
+D_README_md=$$PWD/$(location out/manifold-layout/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/manifold-layout/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py > /dev/null
+cp hardware/manifold-layout/manifold-layout.step $$O_manifold_layout_step
+cp hardware/manifold-layout/README.md $$D_README_md
+cp hardware/manifold-layout/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "coil-mandrel",
+    srcs = [
+        "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/coil-mandrel/coil-mandrel.step",
+        "out/coil-mandrel/coil-mandrel.step.png",
+    ],
+    cmd = """
+set -e
+O_coil_mandrel_step=$$PWD/$(location out/coil-mandrel/coil-mandrel.step)
+O_coil_mandrel_step_png=$$PWD/$(location out/coil-mandrel/coil-mandrel.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step $$O_coil_mandrel_step
+cp hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.png $$O_coil_mandrel_step_png
+""",
+)
+
+genrule(
+    name = "copper-plugs",
+    srcs = [
+        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/copper-plugs/copper-plug-lower.step.png",
+        "out/copper-plugs/copper-plug-middle.step.png",
+        "out/copper-plugs/copper-plug-port.step",
+        "out/copper-plugs/copper-plug-port.step.png",
+        "out/copper-plugs/copper-plug-top.step.png",
+        "out/copper-plugs/copper-plug-west.step",
+        "out/copper-plugs/copper-plug-west.step.png",
+    ],
+    cmd = """
+set -e
+O_copper_plug_lower_step_png=$$PWD/$(location out/copper-plugs/copper-plug-lower.step.png)
+O_copper_plug_middle_step_png=$$PWD/$(location out/copper-plugs/copper-plug-middle.step.png)
+O_copper_plug_port_step=$$PWD/$(location out/copper-plugs/copper-plug-port.step)
+O_copper_plug_port_step_png=$$PWD/$(location out/copper-plugs/copper-plug-port.step.png)
+O_copper_plug_top_step_png=$$PWD/$(location out/copper-plugs/copper-plug-top.step.png)
+O_copper_plug_west_step=$$PWD/$(location out/copper-plugs/copper-plug-west.step)
+O_copper_plug_west_step_png=$$PWD/$(location out/copper-plugs/copper-plug-west.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py > /dev/null
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step.png $$O_copper_plug_lower_step_png
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step.png $$O_copper_plug_middle_step_png
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step $$O_copper_plug_port_step
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step.png $$O_copper_plug_port_step_png
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step.png $$O_copper_plug_top_step_png
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step $$O_copper_plug_west_step
+cp hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step.png $$O_copper_plug_west_step_png
+""",
+)
+
+genrule(
+    name = "foam-assembly",
+    srcs = [
+        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/foam-assembly/foam-assembly.scorecard.json",
+        "out/foam-assembly/foam-assembly.step",
+        "out/foam-assembly/foam-assembly.step.png",
+        "out/foam-assembly/internal-routes.step",
+        "out/foam-assembly/internal-routes.step.png",
+    ],
+    cmd = """
+set -e
+O_foam_assembly_scorecard_json=$$PWD/$(location out/foam-assembly/foam-assembly.scorecard.json)
+O_foam_assembly_step=$$PWD/$(location out/foam-assembly/foam-assembly.step)
+O_foam_assembly_step_png=$$PWD/$(location out/foam-assembly/foam-assembly.step.png)
+O_internal_routes_step=$$PWD/$(location out/foam-assembly/internal-routes.step)
+O_internal_routes_step_png=$$PWD/$(location out/foam-assembly/internal-routes.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py > /dev/null
+cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json $$O_foam_assembly_scorecard_json
+cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step $$O_foam_assembly_step
+cp hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.png $$O_foam_assembly_step_png
+cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step $$O_internal_routes_step
+cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.png $$O_internal_routes_step_png
+""",
+)
+
+genrule(
+    name = "foam-cap",
+    srcs = [
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/foam-cap/foam-cap-bottom.step",
+        "out/foam-cap/foam-cap-bottom.step.png",
+        "out/foam-cap/foam-cap-gasket.step",
+        "out/foam-cap/foam-cap-gasket.step.png",
+        "out/foam-cap/foam-cap-lid-bottom.step",
+        "out/foam-cap/foam-cap-lid-bottom.step.png",
+        "out/foam-cap/foam-cap-lid-top.step",
+        "out/foam-cap/foam-cap-lid-top.step.png",
+        "out/foam-cap/foam-cap-top.step",
+        "out/foam-cap/foam-cap-top.step.png",
+    ],
+    cmd = """
+set -e
+O_foam_cap_bottom_step=$$PWD/$(location out/foam-cap/foam-cap-bottom.step)
+O_foam_cap_bottom_step_png=$$PWD/$(location out/foam-cap/foam-cap-bottom.step.png)
+O_foam_cap_gasket_step=$$PWD/$(location out/foam-cap/foam-cap-gasket.step)
+O_foam_cap_gasket_step_png=$$PWD/$(location out/foam-cap/foam-cap-gasket.step.png)
+O_foam_cap_lid_bottom_step=$$PWD/$(location out/foam-cap/foam-cap-lid-bottom.step)
+O_foam_cap_lid_bottom_step_png=$$PWD/$(location out/foam-cap/foam-cap-lid-bottom.step.png)
+O_foam_cap_lid_top_step=$$PWD/$(location out/foam-cap/foam-cap-lid-top.step)
+O_foam_cap_lid_top_step_png=$$PWD/$(location out/foam-cap/foam-cap-lid-top.step.png)
+O_foam_cap_top_step=$$PWD/$(location out/foam-cap/foam-cap-top.step)
+O_foam_cap_top_step_png=$$PWD/$(location out/foam-cap/foam-cap-top.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O_foam_cap_bottom_step
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.png $$O_foam_cap_bottom_step_png
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step $$O_foam_cap_gasket_step
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.png $$O_foam_cap_gasket_step_png
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O_foam_cap_lid_bottom_step
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.png $$O_foam_cap_lid_bottom_step_png
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O_foam_cap_lid_top_step
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.png $$O_foam_cap_lid_top_step_png
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O_foam_cap_top_step
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.png $$O_foam_cap_top_step_png
+""",
+)
+
+genrule(
+    name = "foam-shell",
+    srcs = [
+        "hardware/manifold-layout/_lines.py",
+        "hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_foam_cap.py",
+        "hardware/printed-parts/cold-core/_foam_shell.py",
+        "hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/printed-parts/cold-core/_outer_shell.py",
+        "hardware/printed-parts/cold-core/_port_cuts.py",
+        "hardware/printed-parts/cold-core/_reed_channels.py",
+        "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "hardware/printed-parts/cold-core/_reservoir_supports.py",
+        "hardware/printed-parts/cold-core/_support_ring.py",
+        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
+        "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
+        "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/foam-shell/foam-shell.step",
+        "out/foam-shell/foam-shell.step.png",
+        "out/foam-shell/doc/README.md",
+        "out/foam-shell/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_foam_shell_step=$$PWD/$(location out/foam-shell/foam-shell.step)
+O_foam_shell_step_png=$$PWD/$(location out/foam-shell/foam-shell.step.png)
+D_README_md=$$PWD/$(location out/foam-shell/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/foam-shell/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
+cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step $$O_foam_shell_step
+cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step.png $$O_foam_shell_step_png
+cp hardware/printed-parts/cold-core/foam-shell/README.md $$D_README_md
+cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "prv-shroud",
+    srcs = [
+        "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
+        "hardware/printed-parts/cold-core/prv-shroud/README.md",
+        "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/prv-shroud/prv-shroud.step",
+        "out/prv-shroud/prv-shroud.step.png",
+        "out/prv-shroud/doc/README.md",
+        "out/prv-shroud/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_prv_shroud_step=$$PWD/$(location out/prv-shroud/prv-shroud.step)
+O_prv_shroud_step_png=$$PWD/$(location out/prv-shroud/prv-shroud.step.png)
+D_README_md=$$PWD/$(location out/prv-shroud/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/prv-shroud/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py > /dev/null
+cp hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step $$O_prv_shroud_step
+cp hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.png $$O_prv_shroud_step_png
+cp hardware/printed-parts/cold-core/prv-shroud/README.md $$D_README_md
+cp hardware/printed-parts/cold-core/prv-shroud/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "reed-bridge",
+    srcs = [
+        "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
+        "hardware/printed-parts/cold-core/reed-bridge/README.md",
+        "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
+        "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/reed-bridge/reed-bridge-setting-gauge.step",
+        "out/reed-bridge/reed-bridge-setting-gauge.step.png",
+        "out/reed-bridge/reed-bridge.step",
+        "out/reed-bridge/reed-bridge.step.png",
+        "out/reed-bridge/doc/README.md",
+        "out/reed-bridge/doc/README.figures.json",
+        "out/reed-bridge/doc/level-sensing.md",
+        "out/reed-bridge/doc/level-sensing.figures.json",
+    ],
+    cmd = """
+set -e
+O_reed_bridge_setting_gauge_step=$$PWD/$(location out/reed-bridge/reed-bridge-setting-gauge.step)
+O_reed_bridge_setting_gauge_step_png=$$PWD/$(location out/reed-bridge/reed-bridge-setting-gauge.step.png)
+O_reed_bridge_step=$$PWD/$(location out/reed-bridge/reed-bridge.step)
+O_reed_bridge_step_png=$$PWD/$(location out/reed-bridge/reed-bridge.step.png)
+D_README_md=$$PWD/$(location out/reed-bridge/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/reed-bridge/doc/README.figures.json)
+D_level_sensing_md=$$PWD/$(location out/reed-bridge/doc/level-sensing.md)
+D_level_sensing_figures_json=$$PWD/$(location out/reed-bridge/doc/level-sensing.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
+cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $$O_reed_bridge_setting_gauge_step
+cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.png $$O_reed_bridge_setting_gauge_step_png
+cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step $$O_reed_bridge_step
+cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.png $$O_reed_bridge_step_png
+cp hardware/printed-parts/cold-core/reed-bridge/README.md $$D_README_md
+cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$D_README_figures_json
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$D_level_sensing_md
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$D_level_sensing_figures_json
+""",
+)
+
+genrule(
+    name = "reservoir",
+    srcs = [
+        "hardware/manifold-layout/_lines.py",
+        "hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
+        "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_foam_cap.py",
+        "hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/printed-parts/cold-core/_outer_shell.py",
+        "hardware/printed-parts/cold-core/_port_cuts.py",
+        "hardware/printed-parts/cold-core/_reed_channels.py",
+        "hardware/printed-parts/cold-core/_support_ring.py",
+        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
+        "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json",
+        "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md",
+        "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
+        "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
+        "hardware/printed-parts/cold-core/reservoir/print-log.md",
+        "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "hardware/printed-parts/cold-core/reservoir/silicone.md",
+        "hardware/printed-parts/cold-core/reservoir/vent.figures.json",
+        "hardware/printed-parts/cold-core/reservoir/vent.md",
+        "hardware/printed-parts/cold-core/reservoir/watertight-petg.md",
+        "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md",
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/reservoir/reservoir-bulkhead-seal-dry.step",
+        "out/reservoir/reservoir-bulkhead-seal-dry.step.png",
+        "out/reservoir/reservoir-cap-left.step",
+        "out/reservoir/reservoir-cap-left.step.png",
+        "out/reservoir/reservoir-cap-right.step",
+        "out/reservoir/reservoir-cap-right.step.png",
+        "out/reservoir/reservoir-gasket.step",
+        "out/reservoir/reservoir-gasket.step.png",
+        "out/reservoir/reservoir-left.step",
+        "out/reservoir/reservoir-left.step.png",
+        "out/reservoir/reservoir-retaining-ring.step",
+        "out/reservoir/reservoir-retaining-ring.step.png",
+        "out/reservoir/reservoir-right.step",
+        "out/reservoir/reservoir-right.step.png",
+        "out/reservoir/doc/geometry-description.md",
+        "out/reservoir/doc/geometry-description.figures.json",
+        "out/reservoir/doc/README.md",
+        "out/reservoir/doc/README.figures.json",
+        "out/reservoir/doc/floor-and-bulkhead.md",
+        "out/reservoir/doc/floor-and-bulkhead.figures.json",
+        "out/reservoir/doc/level-sensing.md",
+        "out/reservoir/doc/level-sensing.figures.json",
+        "out/reservoir/doc/vent.md",
+        "out/reservoir/doc/vent.figures.json",
+    ],
+    cmd = """
+set -e
+O_reservoir_bulkhead_seal_dry_step=$$PWD/$(location out/reservoir/reservoir-bulkhead-seal-dry.step)
+O_reservoir_bulkhead_seal_dry_step_png=$$PWD/$(location out/reservoir/reservoir-bulkhead-seal-dry.step.png)
+O_reservoir_cap_left_step=$$PWD/$(location out/reservoir/reservoir-cap-left.step)
+O_reservoir_cap_left_step_png=$$PWD/$(location out/reservoir/reservoir-cap-left.step.png)
+O_reservoir_cap_right_step=$$PWD/$(location out/reservoir/reservoir-cap-right.step)
+O_reservoir_cap_right_step_png=$$PWD/$(location out/reservoir/reservoir-cap-right.step.png)
+O_reservoir_gasket_step=$$PWD/$(location out/reservoir/reservoir-gasket.step)
+O_reservoir_gasket_step_png=$$PWD/$(location out/reservoir/reservoir-gasket.step.png)
+O_reservoir_left_step=$$PWD/$(location out/reservoir/reservoir-left.step)
+O_reservoir_left_step_png=$$PWD/$(location out/reservoir/reservoir-left.step.png)
+O_reservoir_retaining_ring_step=$$PWD/$(location out/reservoir/reservoir-retaining-ring.step)
+O_reservoir_retaining_ring_step_png=$$PWD/$(location out/reservoir/reservoir-retaining-ring.step.png)
+O_reservoir_right_step=$$PWD/$(location out/reservoir/reservoir-right.step)
+O_reservoir_right_step_png=$$PWD/$(location out/reservoir/reservoir-right.step.png)
+D_geometry_description_md=$$PWD/$(location out/reservoir/doc/geometry-description.md)
+D_geometry_description_figures_json=$$PWD/$(location out/reservoir/doc/geometry-description.figures.json)
+D_README_md=$$PWD/$(location out/reservoir/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/reservoir/doc/README.figures.json)
+D_floor_and_bulkhead_md=$$PWD/$(location out/reservoir/doc/floor-and-bulkhead.md)
+D_floor_and_bulkhead_figures_json=$$PWD/$(location out/reservoir/doc/floor-and-bulkhead.figures.json)
+D_level_sensing_md=$$PWD/$(location out/reservoir/doc/level-sensing.md)
+D_level_sensing_figures_json=$$PWD/$(location out/reservoir/doc/level-sensing.figures.json)
+D_vent_md=$$PWD/$(location out/reservoir/doc/vent.md)
+D_vent_figures_json=$$PWD/$(location out/reservoir/doc/vent.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
+cp hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step $$O_reservoir_bulkhead_seal_dry_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step.png $$O_reservoir_bulkhead_seal_dry_step_png
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O_reservoir_cap_left_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.png $$O_reservoir_cap_left_step_png
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O_reservoir_cap_right_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.png $$O_reservoir_cap_right_step_png
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O_reservoir_gasket_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.png $$O_reservoir_gasket_step_png
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O_reservoir_left_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step.png $$O_reservoir_left_step_png
+cp hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step $$O_reservoir_retaining_ring_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step.png $$O_reservoir_retaining_ring_step_png
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O_reservoir_right_step
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step.png $$O_reservoir_right_step_png
+cp hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md $$D_geometry_description_md
+cp hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json $$D_geometry_description_figures_json
+cp hardware/printed-parts/cold-core/foam-shell/README.md $$D_README_md
+cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$D_README_figures_json
+cp hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md $$D_floor_and_bulkhead_md
+cp hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json $$D_floor_and_bulkhead_figures_json
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$D_level_sensing_md
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$D_level_sensing_figures_json
+cp hardware/printed-parts/cold-core/reservoir/vent.md $$D_vent_md
+cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$D_vent_figures_json
+""",
+)
+
+genrule(
+    name = "pcba-assembly",
+    srcs = [
+        "hardware/printed-parts/electronics/module_tray.py",
+        "hardware/printed-parts/electronics/pcba-tray/README.md",
+        "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py",
+        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/pcba-assembly/pcba-assembly.step",
+        "out/pcba-assembly/pcba-board.step",
+    ],
+    cmd = """
+set -e
+O_pcba_assembly_step=$$PWD/$(location out/pcba-assembly/pcba-assembly.step)
+O_pcba_board_step=$$PWD/$(location out/pcba-assembly/pcba-board.step)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py > /dev/null
+cp hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step $$O_pcba_assembly_step
+cp hardware/printed-parts/electronics/pcba-tray/pcba-board.step $$O_pcba_board_step
+""",
+)
+
+genrule(
+    name = "pcba-tray",
+    srcs = [
+        "hardware/printed-parts/electronics/module_tray.py",
+        "hardware/printed-parts/electronics/pcba-tray/README.md",
+        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/pcba-tray/pcba-tray.step",
+    ],
+    cmd = """
+set -e
+O_pcba_tray_step=$$PWD/$(location out/pcba-tray/pcba-tray.step)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_tray.py > /dev/null
+cp hardware/printed-parts/electronics/pcba-tray/pcba-tray.step $$O_pcba_tray_step
+""",
+)
+
+genrule(
+    name = "-enclosure-dimensions",
+    srcs = [
+        "hardware/printed-parts/enclosure/README.figures.json",
+        "hardware/printed-parts/enclosure/README.md",
+        "hardware/printed-parts/enclosure/_enclosure_dimensions.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/-enclosure-dimensions/doc/README.md",
+        "out/-enclosure-dimensions/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+D_README_md=$$PWD/$(location out/-enclosure-dimensions/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/-enclosure-dimensions/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
+cp hardware/printed-parts/enclosure/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "-back-panel-dimensions",
+    srcs = [
+        "hardware/printed-parts/enclosure/back-panel/README.figures.json",
+        "hardware/printed-parts/enclosure/back-panel/README.md",
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/-back-panel-dimensions/doc/README.md",
+        "out/-back-panel-dimensions/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+D_README_md=$$PWD/$(location out/-back-panel-dimensions/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/-back-panel-dimensions/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py > /dev/null
+cp hardware/printed-parts/enclosure/back-panel/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/back-panel/README.figures.json $$D_README_figures_json
+""",
+)
 
 genrule(
     name = "drip-pan",
     srcs = [
+        "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
+        "hardware/printed-parts/enclosure/drip-pan/README.md",
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
         "hardware/scripts/_cadq_export.py",
@@ -15,32 +1527,2000 @@ genrule(
         "hardware/scripts/_realized.py",
         "hardware/scripts/_run_lock.py",
         "tools/docgen/__init__.py",
-        # docgen rewrites the README's [value](NAME) texts in place, so the doc is an
-        # input to cutting the solid as much as the Python is.
-        "hardware/printed-parts/enclosure/drip-pan/README.md",
-        "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
     ],
     outs = [
-        "out/drip-pan.step",
-        "out/drip-pan.README.md",
-        "out/drip-pan.README.figures.json",
+        "out/drip-pan/drip-pan.step",
+        "out/drip-pan/drip-pan.step.png",
+        "out/drip-pan/doc/README.md",
+        "out/drip-pan/doc/README.figures.json",
     ],
     cmd = """
 set -e
-OUT=$$PWD/$(location out/drip-pan.step)
-MD=$$PWD/$(location out/drip-pan.README.md)
-FIG=$$PWD/$(location out/drip-pan.README.figures.json)
-# THE SANDBOX STAGES INPUTS AS SYMLINKS TO THE REAL TREE, and every script here takes its
-# bearings from `Path(__file__).resolve()`, which follows one straight back out. Dereferenced
-# into a directory of its own, the same call lands inside the action and a file nobody
-# declared is a file that is not there.
+O_drip_pan_step=$$PWD/$(location out/drip-pan/drip-pan.step)
+O_drip_pan_step_png=$$PWD/$(location out/drip-pan/drip-pan.step.png)
+D_README_md=$$PWD/$(location out/drip-pan/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/drip-pan/doc/README.figures.json)
 for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
 cd work
-/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python \\
-    hardware/printed-parts/enclosure/drip-pan/drip_pan.py > /dev/null
-D=hardware/printed-parts/enclosure/drip-pan
-cp $$D/drip-pan.step $$OUT
-cp $$D/README.md $$MD
-cp $$D/README.figures.json $$FIG
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py > /dev/null
+cp hardware/printed-parts/enclosure/drip-pan/drip-pan.step $$O_drip_pan_step
+cp hardware/printed-parts/enclosure/drip-pan/drip-pan.step.png $$O_drip_pan_step_png
+cp hardware/printed-parts/enclosure/drip-pan/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/drip-pan/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "enclosure",
+    srcs = [
+        "hardware/manifold-layout/_lines.py",
+        "hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/printed-parts/cadlib/snap.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_foam_cap.py",
+        "hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/printed-parts/cold-core/_outer_shell.py",
+        "hardware/printed-parts/cold-core/_port_cuts.py",
+        "hardware/printed-parts/cold-core/_reed_channels.py",
+        "hardware/printed-parts/cold-core/_support_ring.py",
+        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "hardware/printed-parts/electronics/module_tray.py",
+        "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
+        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
+        "hardware/printed-parts/enclosure/enclosure/README.figures.json",
+        "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step",
+        "hardware/printed-parts/enclosure/port-ring/port-ring-union.step",
+        "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+        "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/flavor/pump-case/pump_case.py",
+        "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+        "hardware/printed-parts/valve-seat/valve_seat.py",
+        "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+        "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "hardware/reference/compressor/compressor.py",
+        "hardware/reference/condenser-block/condenser_block.py",
+        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+        "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+        "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+        "hardware/reference/gasher-check-valve/gasher-check-valve.step",
+        "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+        "hardware/reference/ground-ring-stack/ground-ring-stack.step",
+        "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+        "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
+        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+        "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
+        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
+        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
+        "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+        "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
+        "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
+        "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+        "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+        "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
+        "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+        "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/reference/tee-connector/tee-connector.step",
+        "hardware/reference/tee-connector/tee_connector.py",
+        "hardware/reference/teyleten-relay/teyleten-relay.step",
+        "hardware/reference/teyleten-relay/teyleten_relay.py",
+        "hardware/reference/wago-221/wago-221-413.step",
+        "hardware/reference/wago-221/wago-221-415.step",
+        "hardware/reference/wago-221/wago-221-420.step",
+        "hardware/reference/wago-221/wago_221.py",
+        "hardware/reference/water-split/water_split.py",
+        "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+        "hardware/reference/worm-clamp/worm_clamp.py",
+        "hardware/reference/wr1110-regulator/wr1110-regulator.step",
+        "hardware/reference/wr1110-regulator/wr1110_regulator.py",
+        "hardware/reference/y-divider/y_divider.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_seating.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/enclosure/enclosure-back-bottom.step",
+        "out/enclosure/enclosure-back-bottom.step.png",
+        "out/enclosure/enclosure-back-top.step",
+        "out/enclosure/enclosure-back-top.step.png",
+        "out/enclosure/enclosure-coupon-back-bottom.step",
+        "out/enclosure/enclosure-coupon-back-bottom.step.png",
+        "out/enclosure/enclosure-coupon-back-top.step",
+        "out/enclosure/enclosure-coupon-back-top.step.png",
+        "out/enclosure/enclosure-coupon-front-bottom.step",
+        "out/enclosure/enclosure-coupon-front-bottom.step.png",
+        "out/enclosure/enclosure-coupon-front-top.step",
+        "out/enclosure/enclosure-coupon-front-top.step.png",
+        "out/enclosure/enclosure-coupon.step",
+        "out/enclosure/enclosure-coupon.step.png",
+        "out/enclosure/enclosure-front-bottom.step",
+        "out/enclosure/enclosure-front-bottom.step.png",
+        "out/enclosure/enclosure-front-top.step",
+        "out/enclosure/enclosure-front-top.step.png",
+        "out/enclosure/enclosure.step",
+        "out/enclosure/enclosure.step.png",
+        "out/enclosure/enclosure-assembly.facts.json",
+        "out/enclosure/enclosure-assembly.scorecard.json",
+        "out/enclosure/doc/README.md",
+        "out/enclosure/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_enclosure_back_bottom_step=$$PWD/$(location out/enclosure/enclosure-back-bottom.step)
+O_enclosure_back_bottom_step_png=$$PWD/$(location out/enclosure/enclosure-back-bottom.step.png)
+O_enclosure_back_top_step=$$PWD/$(location out/enclosure/enclosure-back-top.step)
+O_enclosure_back_top_step_png=$$PWD/$(location out/enclosure/enclosure-back-top.step.png)
+O_enclosure_coupon_back_bottom_step=$$PWD/$(location out/enclosure/enclosure-coupon-back-bottom.step)
+O_enclosure_coupon_back_bottom_step_png=$$PWD/$(location out/enclosure/enclosure-coupon-back-bottom.step.png)
+O_enclosure_coupon_back_top_step=$$PWD/$(location out/enclosure/enclosure-coupon-back-top.step)
+O_enclosure_coupon_back_top_step_png=$$PWD/$(location out/enclosure/enclosure-coupon-back-top.step.png)
+O_enclosure_coupon_front_bottom_step=$$PWD/$(location out/enclosure/enclosure-coupon-front-bottom.step)
+O_enclosure_coupon_front_bottom_step_png=$$PWD/$(location out/enclosure/enclosure-coupon-front-bottom.step.png)
+O_enclosure_coupon_front_top_step=$$PWD/$(location out/enclosure/enclosure-coupon-front-top.step)
+O_enclosure_coupon_front_top_step_png=$$PWD/$(location out/enclosure/enclosure-coupon-front-top.step.png)
+O_enclosure_coupon_step=$$PWD/$(location out/enclosure/enclosure-coupon.step)
+O_enclosure_coupon_step_png=$$PWD/$(location out/enclosure/enclosure-coupon.step.png)
+O_enclosure_front_bottom_step=$$PWD/$(location out/enclosure/enclosure-front-bottom.step)
+O_enclosure_front_bottom_step_png=$$PWD/$(location out/enclosure/enclosure-front-bottom.step.png)
+O_enclosure_front_top_step=$$PWD/$(location out/enclosure/enclosure-front-top.step)
+O_enclosure_front_top_step_png=$$PWD/$(location out/enclosure/enclosure-front-top.step.png)
+O_enclosure_step=$$PWD/$(location out/enclosure/enclosure.step)
+O_enclosure_step_png=$$PWD/$(location out/enclosure/enclosure.step.png)
+O_enclosure_assembly_facts_json=$$PWD/$(location out/enclosure/enclosure-assembly.facts.json)
+O_enclosure_assembly_scorecard_json=$$PWD/$(location out/enclosure/enclosure-assembly.scorecard.json)
+D_README_md=$$PWD/$(location out/enclosure/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/enclosure/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O_enclosure_back_bottom_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.png $$O_enclosure_back_bottom_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O_enclosure_back_top_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.png $$O_enclosure_back_top_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-back-bottom.step $$O_enclosure_coupon_back_bottom_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-back-bottom.step.png $$O_enclosure_coupon_back_bottom_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-back-top.step $$O_enclosure_coupon_back_top_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-back-top.step.png $$O_enclosure_coupon_back_top_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-front-bottom.step $$O_enclosure_coupon_front_bottom_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-front-bottom.step.png $$O_enclosure_coupon_front_bottom_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-front-top.step $$O_enclosure_coupon_front_top_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon-front-top.step.png $$O_enclosure_coupon_front_top_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon.step $$O_enclosure_coupon_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-coupon.step.png $$O_enclosure_coupon_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O_enclosure_front_bottom_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.png $$O_enclosure_front_bottom_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O_enclosure_front_top_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.png $$O_enclosure_front_top_step_png
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O_enclosure_step
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.png $$O_enclosure_step_png
+cp hardware/manifold-layout/enclosure-assembly.facts.json $$O_enclosure_assembly_facts_json
+cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O_enclosure_assembly_scorecard_json
+cp hardware/printed-parts/enclosure/enclosure/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "-nameplate-dimensions",
+    srcs = [
+        "hardware/printed-parts/enclosure/nameplate/README.figures.json",
+        "hardware/printed-parts/enclosure/nameplate/README.md",
+        "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    ],
+    outs = [
+        "out/-nameplate-dimensions/doc/README.md",
+        "out/-nameplate-dimensions/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+D_README_md=$$PWD/$(location out/-nameplate-dimensions/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/-nameplate-dimensions/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
+cp hardware/printed-parts/enclosure/nameplate/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "port-ring",
+    srcs = [
+        "hardware/printed-parts/enclosure/port-ring/README.figures.json",
+        "hardware/printed-parts/enclosure/port-ring/README.md",
+        "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/port-ring/port-ring-neofit.step",
+        "out/port-ring/port-ring-neofit.step.png",
+        "out/port-ring/port-ring-union.step",
+        "out/port-ring/port-ring-union.step.png",
+        "out/port-ring/doc/README.md",
+        "out/port-ring/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_port_ring_neofit_step=$$PWD/$(location out/port-ring/port-ring-neofit.step)
+O_port_ring_neofit_step_png=$$PWD/$(location out/port-ring/port-ring-neofit.step.png)
+O_port_ring_union_step=$$PWD/$(location out/port-ring/port-ring-union.step)
+O_port_ring_union_step_png=$$PWD/$(location out/port-ring/port-ring-union.step.png)
+D_README_md=$$PWD/$(location out/port-ring/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/port-ring/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/port_ring.py > /dev/null
+cp hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step $$O_port_ring_neofit_step
+cp hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step.png $$O_port_ring_neofit_step_png
+cp hardware/printed-parts/enclosure/port-ring/port-ring-union.step $$O_port_ring_union_step
+cp hardware/printed-parts/enclosure/port-ring/port-ring-union.step.png $$O_port_ring_union_step_png
+cp hardware/printed-parts/enclosure/port-ring/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/port-ring/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "pump-tray",
+    srcs = [
+        "hardware/printed-parts/enclosure/pump-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/pump-tray/README.md",
+        "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/pump-tray/doc/README.md",
+        "out/pump-tray/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+D_README_md=$$PWD/$(location out/pump-tray/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/pump-tray/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py > /dev/null
+cp hardware/printed-parts/enclosure/pump-tray/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/pump-tray/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "valve-panel",
+    srcs = [
+        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-panel/README.md",
+        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/valve-panel/doc/README.md",
+        "out/valve-panel/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+D_README_md=$$PWD/$(location out/valve-panel/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/valve-panel/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py > /dev/null
+cp hardware/printed-parts/enclosure/valve-panel/README.md $$D_README_md
+cp hardware/printed-parts/enclosure/valve-panel/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "touch-flo-mounting-gasket",
+    srcs = [
+        "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
+        "out/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.png",
+    ],
+    cmd = """
+set -e
+O_touch_flo_mounting_gasket_step=$$PWD/$(location out/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step)
+O_touch_flo_mounting_gasket_step_png=$$PWD/$(location out/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py > /dev/null
+cp hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step $$O_touch_flo_mounting_gasket_step
+cp hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.png $$O_touch_flo_mounting_gasket_step_png
+""",
+)
+
+genrule(
+    name = "touch-flo-mounting-plate",
+    srcs = [
+        "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
+        "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
+        "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
+        "out/touch-flo-mounting-plate/touch-flo-mounting-plate.step.png",
+        "out/touch-flo-mounting-plate/doc/README.md",
+        "out/touch-flo-mounting-plate/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_touch_flo_mounting_plate_step=$$PWD/$(location out/touch-flo-mounting-plate/touch-flo-mounting-plate.step)
+O_touch_flo_mounting_plate_step_png=$$PWD/$(location out/touch-flo-mounting-plate/touch-flo-mounting-plate.step.png)
+D_README_md=$$PWD/$(location out/touch-flo-mounting-plate/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/touch-flo-mounting-plate/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py > /dev/null
+cp hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step $$O_touch_flo_mounting_plate_step
+cp hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step.png $$O_touch_flo_mounting_plate_step_png
+cp hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md $$D_README_md
+cp hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "touch-flo-shell",
+    srcs = [
+        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
+        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
+        "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
+        "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
+        "hardware/printed-parts/faucet/touch-flo-shell/print-log.md",
+        "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.md",
+        "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/touch-flo-shell/touch-flo-shell-bottom.step",
+        "out/touch-flo-shell/touch-flo-shell-bottom.step.png",
+        "out/touch-flo-shell/touch-flo-shell-middle.step",
+        "out/touch-flo-shell/touch-flo-shell-middle.step.png",
+        "out/touch-flo-shell/touch-flo-shell-top.step",
+        "out/touch-flo-shell/touch-flo-shell-top.step.png",
+        "out/touch-flo-shell/touch-flo-shell.step",
+        "out/touch-flo-shell/touch-flo-shell.step.png",
+        "out/touch-flo-shell/doc/ASSEMBLY.md",
+        "out/touch-flo-shell/doc/ASSEMBLY.figures.json",
+        "out/touch-flo-shell/doc/MATERIAL.md",
+        "out/touch-flo-shell/doc/MATERIAL.figures.json",
+    ],
+    cmd = """
+set -e
+O_touch_flo_shell_bottom_step=$$PWD/$(location out/touch-flo-shell/touch-flo-shell-bottom.step)
+O_touch_flo_shell_bottom_step_png=$$PWD/$(location out/touch-flo-shell/touch-flo-shell-bottom.step.png)
+O_touch_flo_shell_middle_step=$$PWD/$(location out/touch-flo-shell/touch-flo-shell-middle.step)
+O_touch_flo_shell_middle_step_png=$$PWD/$(location out/touch-flo-shell/touch-flo-shell-middle.step.png)
+O_touch_flo_shell_top_step=$$PWD/$(location out/touch-flo-shell/touch-flo-shell-top.step)
+O_touch_flo_shell_top_step_png=$$PWD/$(location out/touch-flo-shell/touch-flo-shell-top.step.png)
+O_touch_flo_shell_step=$$PWD/$(location out/touch-flo-shell/touch-flo-shell.step)
+O_touch_flo_shell_step_png=$$PWD/$(location out/touch-flo-shell/touch-flo-shell.step.png)
+D_ASSEMBLY_md=$$PWD/$(location out/touch-flo-shell/doc/ASSEMBLY.md)
+D_ASSEMBLY_figures_json=$$PWD/$(location out/touch-flo-shell/doc/ASSEMBLY.figures.json)
+D_MATERIAL_md=$$PWD/$(location out/touch-flo-shell/doc/MATERIAL.md)
+D_MATERIAL_figures_json=$$PWD/$(location out/touch-flo-shell/doc/MATERIAL.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py > /dev/null
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step $$O_touch_flo_shell_bottom_step
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step.png $$O_touch_flo_shell_bottom_step_png
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step $$O_touch_flo_shell_middle_step
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step.png $$O_touch_flo_shell_middle_step_png
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step $$O_touch_flo_shell_top_step
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step.png $$O_touch_flo_shell_top_step_png
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step $$O_touch_flo_shell_step
+cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step.png $$O_touch_flo_shell_step_png
+cp hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md $$D_ASSEMBLY_md
+cp hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json $$D_ASSEMBLY_figures_json
+cp hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md $$D_MATERIAL_md
+cp hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json $$D_MATERIAL_figures_json
+""",
+)
+
+genrule(
+    name = "touch-flo-tpu-o-ring",
+    srcs = [
+        "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
+        "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
+        "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/print-log.md",
+        "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step",
+        "out/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step.png",
+        "out/touch-flo-tpu-o-ring/doc/README.md",
+        "out/touch-flo-tpu-o-ring/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_touch_flo_tpu_o_ring_step=$$PWD/$(location out/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step)
+O_touch_flo_tpu_o_ring_step_png=$$PWD/$(location out/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step.png)
+D_README_md=$$PWD/$(location out/touch-flo-tpu-o-ring/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/touch-flo-tpu-o-ring/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py > /dev/null
+cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step $$O_touch_flo_tpu_o_ring_step
+cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step.png $$O_touch_flo_tpu_o_ring_step_png
+cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md $$D_README_md
+cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "peristaltic-tube",
+    srcs = [
+        "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/peristaltic-tube/peristaltic-tube.step",
+        "out/peristaltic-tube/peristaltic-tube.step.png",
+    ],
+    cmd = """
+set -e
+O_peristaltic_tube_step=$$PWD/$(location out/peristaltic-tube/peristaltic-tube.step)
+O_peristaltic_tube_step_png=$$PWD/$(location out/peristaltic-tube/peristaltic-tube.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py > /dev/null
+cp hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step $$O_peristaltic_tube_step
+cp hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step.png $$O_peristaltic_tube_step_png
+""",
+)
+
+genrule(
+    name = "pump-case",
+    srcs = [
+        "hardware/printed-parts/cadlib/snap.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/flavor/pump-case/pump_case.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/pump-case/pump-case-base-cadquery.step",
+        "out/pump-case/pump-case-cap-cadquery.step",
+    ],
+    cmd = """
+set -e
+O_pump_case_base_cadquery_step=$$PWD/$(location out/pump-case/pump-case-base-cadquery.step)
+O_pump_case_cap_cadquery_step=$$PWD/$(location out/pump-case/pump-case-cap-cadquery.step)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case.py > /dev/null
+cp hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step $$O_pump_case_base_cadquery_step
+cp hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step $$O_pump_case_cap_cadquery_step
+""",
+)
+
+genrule(
+    name = "pump-case-assembly",
+    srcs = [
+        "hardware/printed-parts/cadlib/snap.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/flavor/pump-case/pump_case.py",
+        "hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/pump-case-assembly/pump-case-assembly.step",
+    ],
+    cmd = """
+set -e
+O_pump_case_assembly_step=$$PWD/$(location out/pump-case-assembly/pump-case-assembly.step)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case_assembly.py > /dev/null
+cp hardware/printed-parts/flavor/pump-case/pump-case-assembly.step $$O_pump_case_assembly_step
+""",
+)
+
+genrule(
+    name = "fuse-clamp",
+    srcs = [
+        "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
+        "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
+        "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_stated_bounds.py",
+    ],
+    outs = [
+        "out/fuse-clamp/fuse-clamp.step",
+        "out/fuse-clamp/fuse-clamp.step.png",
+        "out/fuse-clamp/doc/README.md",
+        "out/fuse-clamp/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_fuse_clamp_step=$$PWD/$(location out/fuse-clamp/fuse-clamp.step)
+O_fuse_clamp_step_png=$$PWD/$(location out/fuse-clamp/fuse-clamp.step.png)
+D_README_md=$$PWD/$(location out/fuse-clamp/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/fuse-clamp/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py > /dev/null
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step $$O_fuse_clamp_step
+cp hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.png $$O_fuse_clamp_step_png
+cp hardware/printed-parts/refrigeration/fuse-clamp/README.md $$D_README_md
+cp hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "valve-seat",
+    srcs = [
+        "hardware/printed-parts/valve-seat/README.figures.json",
+        "hardware/printed-parts/valve-seat/README.md",
+        "hardware/printed-parts/valve-seat/valve_seat.py",
+    ],
+    outs = [
+        "out/valve-seat/doc/README.md",
+        "out/valve-seat/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+D_README_md=$$PWD/$(location out/valve-seat/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/valve-seat/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py > /dev/null
+cp hardware/printed-parts/valve-seat/README.md $$D_README_md
+cp hardware/printed-parts/valve-seat/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "hopper-funnel-mold",
+    srcs = [
+        "hardware/printed-parts/zone-c/hopper-funnel-mold/README.figures.json",
+        "hardware/printed-parts/zone-c/hopper-funnel-mold/README.md",
+        "hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/hopper-funnel-mold/hopper-funnel-mold-assembly.step",
+        "out/hopper-funnel-mold/hopper-funnel-mold-assembly.step.png",
+        "out/hopper-funnel-mold/hopper-funnel-mold-cavity.step",
+        "out/hopper-funnel-mold/hopper-funnel-mold-cavity.step.png",
+        "out/hopper-funnel-mold/hopper-funnel-mold-core.step",
+        "out/hopper-funnel-mold/hopper-funnel-mold-core.step.png",
+        "out/hopper-funnel-mold/doc/README.md",
+        "out/hopper-funnel-mold/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_hopper_funnel_mold_assembly_step=$$PWD/$(location out/hopper-funnel-mold/hopper-funnel-mold-assembly.step)
+O_hopper_funnel_mold_assembly_step_png=$$PWD/$(location out/hopper-funnel-mold/hopper-funnel-mold-assembly.step.png)
+O_hopper_funnel_mold_cavity_step=$$PWD/$(location out/hopper-funnel-mold/hopper-funnel-mold-cavity.step)
+O_hopper_funnel_mold_cavity_step_png=$$PWD/$(location out/hopper-funnel-mold/hopper-funnel-mold-cavity.step.png)
+O_hopper_funnel_mold_core_step=$$PWD/$(location out/hopper-funnel-mold/hopper-funnel-mold-core.step)
+O_hopper_funnel_mold_core_step_png=$$PWD/$(location out/hopper-funnel-mold/hopper-funnel-mold-core.step.png)
+D_README_md=$$PWD/$(location out/hopper-funnel-mold/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/hopper-funnel-mold/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py > /dev/null
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-assembly.step $$O_hopper_funnel_mold_assembly_step
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-assembly.step.png $$O_hopper_funnel_mold_assembly_step_png
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-cavity.step $$O_hopper_funnel_mold_cavity_step
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-cavity.step.png $$O_hopper_funnel_mold_cavity_step_png
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-core.step $$O_hopper_funnel_mold_core_step
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-core.step.png $$O_hopper_funnel_mold_core_step_png
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/README.md $$D_README_md
+cp hardware/printed-parts/zone-c/hopper-funnel-mold/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "hopper-funnel",
+    srcs = [
+        "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
+        "hardware/printed-parts/zone-c/hopper-funnel/README.md",
+        "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_stated_bounds.py",
+    ],
+    outs = [
+        "out/hopper-funnel/hopper-funnel.step",
+        "out/hopper-funnel/hopper-funnel.step.png",
+        "out/hopper-funnel/doc/README.md",
+        "out/hopper-funnel/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_hopper_funnel_step=$$PWD/$(location out/hopper-funnel/hopper-funnel.step)
+O_hopper_funnel_step_png=$$PWD/$(location out/hopper-funnel/hopper-funnel.step.png)
+D_README_md=$$PWD/$(location out/hopper-funnel/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/hopper-funnel/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py > /dev/null
+cp hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step $$O_hopper_funnel_step
+cp hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step.png $$O_hopper_funnel_step_png
+cp hardware/printed-parts/zone-c/hopper-funnel/README.md $$D_README_md
+cp hardware/printed-parts/zone-c/hopper-funnel/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "asse1022-assembly",
+    srcs = [
+        "hardware/reference/asse1022-assembly/README.figures.json",
+        "hardware/reference/asse1022-assembly/README.md",
+        "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_seating.py",
+    ],
+    outs = [
+        "out/asse1022-assembly/asse1022-assembly.step",
+        "out/asse1022-assembly/asse1022-assembly.step.png",
+        "out/asse1022-assembly/doc/README.md",
+        "out/asse1022-assembly/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_asse1022_assembly_step=$$PWD/$(location out/asse1022-assembly/asse1022-assembly.step)
+O_asse1022_assembly_step_png=$$PWD/$(location out/asse1022-assembly/asse1022-assembly.step.png)
+D_README_md=$$PWD/$(location out/asse1022-assembly/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/asse1022-assembly/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py > /dev/null
+cp hardware/reference/asse1022-assembly/asse1022-assembly.step $$O_asse1022_assembly_step
+cp hardware/reference/asse1022-assembly/asse1022-assembly.step.png $$O_asse1022_assembly_step_png
+cp hardware/reference/asse1022-assembly/README.md $$D_README_md
+cp hardware/reference/asse1022-assembly/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "basics-mtb-0606wp",
+    srcs = [
+        "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/basics-mtb-0606wp/basics-mtb-0606wp.step",
+        "out/basics-mtb-0606wp/basics-mtb-0606wp.step.png",
+    ],
+    cmd = """
+set -e
+O_basics_mtb_0606wp_step=$$PWD/$(location out/basics-mtb-0606wp/basics-mtb-0606wp.step)
+O_basics_mtb_0606wp_step_png=$$PWD/$(location out/basics-mtb-0606wp/basics-mtb-0606wp.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py > /dev/null
+cp hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step $$O_basics_mtb_0606wp_step
+cp hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step.png $$O_basics_mtb_0606wp_step_png
+""",
+)
+
+genrule(
+    name = "beduan-solenoid",
+    srcs = [
+        "hardware/reference/beduan-solenoid/README.figures.json",
+        "hardware/reference/beduan-solenoid/README.md",
+        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/beduan-solenoid/beduan-solenoid.step",
+        "out/beduan-solenoid/beduan-solenoid.step.png",
+        "out/beduan-solenoid/doc/README.md",
+        "out/beduan-solenoid/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_beduan_solenoid_step=$$PWD/$(location out/beduan-solenoid/beduan-solenoid.step)
+O_beduan_solenoid_step_png=$$PWD/$(location out/beduan-solenoid/beduan-solenoid.step.png)
+D_README_md=$$PWD/$(location out/beduan-solenoid/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/beduan-solenoid/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py > /dev/null
+cp hardware/reference/beduan-solenoid/beduan-solenoid.step $$O_beduan_solenoid_step
+cp hardware/reference/beduan-solenoid/beduan-solenoid.step.png $$O_beduan_solenoid_step_png
+cp hardware/reference/beduan-solenoid/README.md $$D_README_md
+cp hardware/reference/beduan-solenoid/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "compressor",
+    srcs = [
+        "hardware/reference/compressor/README.figures.json",
+        "hardware/reference/compressor/README.md",
+        "hardware/reference/compressor/compressor.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/compressor/compressor.step",
+        "out/compressor/compressor.step.png",
+        "out/compressor/doc/README.md",
+        "out/compressor/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_compressor_step=$$PWD/$(location out/compressor/compressor.step)
+O_compressor_step_png=$$PWD/$(location out/compressor/compressor.step.png)
+D_README_md=$$PWD/$(location out/compressor/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/compressor/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/compressor/compressor.py > /dev/null
+cp hardware/reference/compressor/compressor.step $$O_compressor_step
+cp hardware/reference/compressor/compressor.step.png $$O_compressor_step_png
+cp hardware/reference/compressor/README.md $$D_README_md
+cp hardware/reference/compressor/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "digiten-flow-sensor",
+    srcs = [
+        "hardware/reference/digiten-flow-sensor/README.figures.json",
+        "hardware/reference/digiten-flow-sensor/README.md",
+        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/digiten-flow-sensor/digiten-flow-sensor.step",
+        "out/digiten-flow-sensor/digiten-flow-sensor.step.png",
+        "out/digiten-flow-sensor/doc/README.md",
+        "out/digiten-flow-sensor/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_digiten_flow_sensor_step=$$PWD/$(location out/digiten-flow-sensor/digiten-flow-sensor.step)
+O_digiten_flow_sensor_step_png=$$PWD/$(location out/digiten-flow-sensor/digiten-flow-sensor.step.png)
+D_README_md=$$PWD/$(location out/digiten-flow-sensor/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/digiten-flow-sensor/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py > /dev/null
+cp hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step $$O_digiten_flow_sensor_step
+cp hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.png $$O_digiten_flow_sensor_step_png
+cp hardware/reference/digiten-flow-sensor/README.md $$D_README_md
+cp hardware/reference/digiten-flow-sensor/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "ffl38barb38",
+    srcs = [
+        "hardware/reference/ffl38barb38/ffl38barb38.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/ffl38barb38/ffl38barb38.step",
+        "out/ffl38barb38/ffl38barb38.step.png",
+    ],
+    cmd = """
+set -e
+O_ffl38barb38_step=$$PWD/$(location out/ffl38barb38/ffl38barb38.step)
+O_ffl38barb38_step_png=$$PWD/$(location out/ffl38barb38/ffl38barb38.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/ffl38barb38/ffl38barb38.py > /dev/null
+cp hardware/reference/ffl38barb38/ffl38barb38.step $$O_ffl38barb38_step
+cp hardware/reference/ffl38barb38/ffl38barb38.step.png $$O_ffl38barb38_step_png
+""",
+)
+
+genrule(
+    name = "flare38-14ptc",
+    srcs = [
+        "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/flare38-14ptc/flare38-14ptc.step",
+        "out/flare38-14ptc/flare38-14ptc.step.png",
+    ],
+    cmd = """
+set -e
+O_flare38_14ptc_step=$$PWD/$(location out/flare38-14ptc/flare38-14ptc.step)
+O_flare38_14ptc_step_png=$$PWD/$(location out/flare38-14ptc/flare38-14ptc.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/flare38-14ptc/flare38_14ptc.py > /dev/null
+cp hardware/reference/flare38-14ptc/flare38-14ptc.step $$O_flare38_14ptc_step
+cp hardware/reference/flare38-14ptc/flare38-14ptc.step.png $$O_flare38_14ptc_step_png
+""",
+)
+
+genrule(
+    name = "gagira-reducing-coupling",
+    srcs = [
+        "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/gagira-reducing-coupling/gagira-reducing-coupling.step",
+        "out/gagira-reducing-coupling/gagira-reducing-coupling.step.png",
+    ],
+    cmd = """
+set -e
+O_gagira_reducing_coupling_step=$$PWD/$(location out/gagira-reducing-coupling/gagira-reducing-coupling.step)
+O_gagira_reducing_coupling_step_png=$$PWD/$(location out/gagira-reducing-coupling/gagira-reducing-coupling.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py > /dev/null
+cp hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step $$O_gagira_reducing_coupling_step
+cp hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.png $$O_gagira_reducing_coupling_step_png
+""",
+)
+
+genrule(
+    name = "gasher-check-valve",
+    srcs = [
+        "hardware/reference/gasher-check-valve/README.md",
+        "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/gasher-check-valve/gasher-check-valve.step",
+        "out/gasher-check-valve/gasher-check-valve.step.png",
+    ],
+    cmd = """
+set -e
+O_gasher_check_valve_step=$$PWD/$(location out/gasher-check-valve/gasher-check-valve.step)
+O_gasher_check_valve_step_png=$$PWD/$(location out/gasher-check-valve/gasher-check-valve.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py > /dev/null
+cp hardware/reference/gasher-check-valve/gasher-check-valve.step $$O_gasher_check_valve_step
+cp hardware/reference/gasher-check-valve/gasher-check-valve.step.png $$O_gasher_check_valve_step_png
+""",
+)
+
+genrule(
+    name = "ground-ring-stack",
+    srcs = [
+        "hardware/reference/ground-ring-stack/README.md",
+        "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/ground-ring-stack/ground-ring-stack.step",
+        "out/ground-ring-stack/ground-ring-stack.step.png",
+    ],
+    cmd = """
+set -e
+O_ground_ring_stack_step=$$PWD/$(location out/ground-ring-stack/ground-ring-stack.step)
+O_ground_ring_stack_step_png=$$PWD/$(location out/ground-ring-stack/ground-ring-stack.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/ground-ring-stack/ground_ring_stack.py > /dev/null
+cp hardware/reference/ground-ring-stack/ground-ring-stack.step $$O_ground_ring_stack_step
+cp hardware/reference/ground-ring-stack/ground-ring-stack.step.png $$O_ground_ring_stack_step_png
+""",
+)
+
+genrule(
+    name = "hopper-drain-stub",
+    srcs = [
+        "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/hopper-drain-stub/hopper-drain-stub.step",
+        "out/hopper-drain-stub/hopper-drain-stub.step.png",
+    ],
+    cmd = """
+set -e
+O_hopper_drain_stub_step=$$PWD/$(location out/hopper-drain-stub/hopper-drain-stub.step)
+O_hopper_drain_stub_step_png=$$PWD/$(location out/hopper-drain-stub/hopper-drain-stub.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py > /dev/null
+cp hardware/reference/hopper-drain-stub/hopper-drain-stub.step $$O_hopper_drain_stub_step
+cp hardware/reference/hopper-drain-stub/hopper-drain-stub.step.png $$O_hopper_drain_stub_step_png
+""",
+)
+
+genrule(
+    name = "iec-c14-inlet",
+    srcs = [
+        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/iec-c14-inlet/iec-c14-inlet.step",
+        "out/iec-c14-inlet/iec-c14-inlet.step.png",
+    ],
+    cmd = """
+set -e
+O_iec_c14_inlet_step=$$PWD/$(location out/iec-c14-inlet/iec-c14-inlet.step)
+O_iec_c14_inlet_step_png=$$PWD/$(location out/iec-c14-inlet/iec-c14-inlet.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py > /dev/null
+cp hardware/reference/iec-c14-inlet/iec-c14-inlet.step $$O_iec_c14_inlet_step
+cp hardware/reference/iec-c14-inlet/iec-c14-inlet.step.png $$O_iec_c14_inlet_step_png
+""",
+)
+
+genrule(
+    name = "jg-bulkhead-union",
+    srcs = [
+        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/jg-bulkhead-union/51055K3-no-threads.step",
+        "out/jg-bulkhead-union/51055K3-no-threads.step.png",
+        "out/jg-bulkhead-union/jg-bulkhead-union.step",
+        "out/jg-bulkhead-union/jg-bulkhead-union.step.png",
+    ],
+    cmd = """
+set -e
+O_51055K3_no_threads_step=$$PWD/$(location out/jg-bulkhead-union/51055K3-no-threads.step)
+O_51055K3_no_threads_step_png=$$PWD/$(location out/jg-bulkhead-union/51055K3-no-threads.step.png)
+O_jg_bulkhead_union_step=$$PWD/$(location out/jg-bulkhead-union/jg-bulkhead-union.step)
+O_jg_bulkhead_union_step_png=$$PWD/$(location out/jg-bulkhead-union/jg-bulkhead-union.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py > /dev/null
+cp hardware/reference/jg-bulkhead-union/51055K3-no-threads.step $$O_51055K3_no_threads_step
+cp hardware/reference/jg-bulkhead-union/51055K3-no-threads.step.png $$O_51055K3_no_threads_step_png
+cp hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step $$O_jg_bulkhead_union_step
+cp hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.png $$O_jg_bulkhead_union_step_png
+""",
+)
+
+genrule(
+    name = "jg-pp010822e",
+    srcs = [
+        "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/jg-pp010822e/jg-pp010822e.step",
+        "out/jg-pp010822e/jg-pp010822e.step.png",
+    ],
+    cmd = """
+set -e
+O_jg_pp010822e_step=$$PWD/$(location out/jg-pp010822e/jg-pp010822e.step)
+O_jg_pp010822e_step_png=$$PWD/$(location out/jg-pp010822e/jg-pp010822e.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py > /dev/null
+cp hardware/reference/jg-pp010822e/jg-pp010822e.step $$O_jg_pp010822e_step
+cp hardware/reference/jg-pp010822e/jg-pp010822e.step.png $$O_jg_pp010822e_step_png
+""",
+)
+
+genrule(
+    name = "jg-pp0408w",
+    srcs = [
+        "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/jg-pp0408w/jg-pp0408w.step",
+        "out/jg-pp0408w/jg-pp0408w.step.png",
+    ],
+    cmd = """
+set -e
+O_jg_pp0408w_step=$$PWD/$(location out/jg-pp0408w/jg-pp0408w.step)
+O_jg_pp0408w_step_png=$$PWD/$(location out/jg-pp0408w/jg-pp0408w.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp0408w/jg_pp0408w.py > /dev/null
+cp hardware/reference/jg-pp0408w/jg-pp0408w.step $$O_jg_pp0408w_step
+cp hardware/reference/jg-pp0408w/jg-pp0408w.step.png $$O_jg_pp0408w_step_png
+""",
+)
+
+genrule(
+    name = "jg-pp061208w",
+    srcs = [
+        "hardware/reference/jg-pp061208w/jg_pp061208w.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/jg-pp061208w/jg-pp061208w.step",
+        "out/jg-pp061208w/jg-pp061208w.step.png",
+    ],
+    cmd = """
+set -e
+O_jg_pp061208w_step=$$PWD/$(location out/jg-pp061208w/jg-pp061208w.step)
+O_jg_pp061208w_step_png=$$PWD/$(location out/jg-pp061208w/jg-pp061208w.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp061208w/jg_pp061208w.py > /dev/null
+cp hardware/reference/jg-pp061208w/jg-pp061208w.step $$O_jg_pp061208w_step
+cp hardware/reference/jg-pp061208w/jg-pp061208w.step.png $$O_jg_pp061208w_step_png
+""",
+)
+
+genrule(
+    name = "jg-pp451223w",
+    srcs = [
+        "hardware/reference/jg-pp451223w/jg_pp451223w.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/jg-pp451223w/jg-pp451223w.step",
+        "out/jg-pp451223w/jg-pp451223w.step.png",
+    ],
+    cmd = """
+set -e
+O_jg_pp451223w_step=$$PWD/$(location out/jg-pp451223w/jg-pp451223w.step)
+O_jg_pp451223w_step_png=$$PWD/$(location out/jg-pp451223w/jg-pp451223w.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/jg-pp451223w/jg_pp451223w.py > /dev/null
+cp hardware/reference/jg-pp451223w/jg-pp451223w.step $$O_jg_pp451223w_step
+cp hardware/reference/jg-pp451223w/jg-pp451223w.step.png $$O_jg_pp451223w_step_png
+""",
+)
+
+genrule(
+    name = "meanwell-irm90",
+    srcs = [
+        "hardware/reference/meanwell-irm90/README.md",
+        "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/meanwell-irm90/meanwell-irm90.step",
+        "out/meanwell-irm90/meanwell-irm90.step.png",
+    ],
+    cmd = """
+set -e
+O_meanwell_irm90_step=$$PWD/$(location out/meanwell-irm90/meanwell-irm90.step)
+O_meanwell_irm90_step_png=$$PWD/$(location out/meanwell-irm90/meanwell-irm90.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/meanwell-irm90/meanwell_irm90.py > /dev/null
+cp hardware/reference/meanwell-irm90/meanwell-irm90.step $$O_meanwell_irm90_step
+cp hardware/reference/meanwell-irm90/meanwell-irm90.step.png $$O_meanwell_irm90_step_png
+""",
+)
+
+genrule(
+    name = "mq6-gas-sensor",
+    srcs = [
+        "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/mq6-gas-sensor/mq6-gas-sensor.step",
+        "out/mq6-gas-sensor/mq6-gas-sensor.step.png",
+    ],
+    cmd = """
+set -e
+O_mq6_gas_sensor_step=$$PWD/$(location out/mq6-gas-sensor/mq6-gas-sensor.step)
+O_mq6_gas_sensor_step_png=$$PWD/$(location out/mq6-gas-sensor/mq6-gas-sensor.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py > /dev/null
+cp hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step $$O_mq6_gas_sensor_step
+cp hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.png $$O_mq6_gas_sensor_step_png
+""",
+)
+
+genrule(
+    name = "multiplex-asse1022",
+    srcs = [
+        "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/multiplex-asse1022/multiplex-asse1022.step",
+        "out/multiplex-asse1022/multiplex-asse1022.step.png",
+    ],
+    cmd = """
+set -e
+O_multiplex_asse1022_step=$$PWD/$(location out/multiplex-asse1022/multiplex-asse1022.step)
+O_multiplex_asse1022_step_png=$$PWD/$(location out/multiplex-asse1022/multiplex-asse1022.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py > /dev/null
+cp hardware/reference/multiplex-asse1022/multiplex-asse1022.step $$O_multiplex_asse1022_step
+cp hardware/reference/multiplex-asse1022/multiplex-asse1022.step.png $$O_multiplex_asse1022_step_png
+""",
+)
+
+genrule(
+    name = "neofit-bulkhead",
+    srcs = [
+        "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/neofit-bulkhead/neofit-bulkhead.step",
+        "out/neofit-bulkhead/neofit-bulkhead.step.png",
+    ],
+    cmd = """
+set -e
+O_neofit_bulkhead_step=$$PWD/$(location out/neofit-bulkhead/neofit-bulkhead.step)
+O_neofit_bulkhead_step_png=$$PWD/$(location out/neofit-bulkhead/neofit-bulkhead.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/neofit-bulkhead/neofit_bulkhead.py > /dev/null
+cp hardware/reference/neofit-bulkhead/neofit-bulkhead.step $$O_neofit_bulkhead_step
+cp hardware/reference/neofit-bulkhead/neofit-bulkhead.step.png $$O_neofit_bulkhead_step_png
+""",
+)
+
+genrule(
+    name = "neofit-flow-control",
+    srcs = [
+        "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/neofit-flow-control/neofit-flow-control.step",
+        "out/neofit-flow-control/neofit-flow-control.step.png",
+    ],
+    cmd = """
+set -e
+O_neofit_flow_control_step=$$PWD/$(location out/neofit-flow-control/neofit-flow-control.step)
+O_neofit_flow_control_step_png=$$PWD/$(location out/neofit-flow-control/neofit-flow-control.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/neofit-flow-control/neofit_flow_control.py > /dev/null
+cp hardware/reference/neofit-flow-control/neofit-flow-control.step $$O_neofit_flow_control_step
+cp hardware/reference/neofit-flow-control/neofit-flow-control.step.png $$O_neofit_flow_control_step_png
+""",
+)
+
+genrule(
+    name = "seaflo-22-pump",
+    srcs = [
+        "hardware/reference/seaflo-22-pump/README.md",
+        "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/seaflo-22-pump/seaflo-22-pump.step",
+        "out/seaflo-22-pump/seaflo-22-pump.step.png",
+    ],
+    cmd = """
+set -e
+O_seaflo_22_pump_step=$$PWD/$(location out/seaflo-22-pump/seaflo-22-pump.step)
+O_seaflo_22_pump_step_png=$$PWD/$(location out/seaflo-22-pump/seaflo-22-pump.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py > /dev/null
+cp hardware/reference/seaflo-22-pump/seaflo-22-pump.step $$O_seaflo_22_pump_step
+cp hardware/reference/seaflo-22-pump/seaflo-22-pump.step.png $$O_seaflo_22_pump_step_png
+""",
+)
+
+genrule(
+    name = "seaflo-discharge-chain",
+    srcs = [
+        "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/seaflo-discharge-chain/seaflo-discharge-chain.step",
+        "out/seaflo-discharge-chain/seaflo-discharge-chain.step.png",
+    ],
+    cmd = """
+set -e
+O_seaflo_discharge_chain_step=$$PWD/$(location out/seaflo-discharge-chain/seaflo-discharge-chain.step)
+O_seaflo_discharge_chain_step_png=$$PWD/$(location out/seaflo-discharge-chain/seaflo-discharge-chain.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py > /dev/null
+cp hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step $$O_seaflo_discharge_chain_step
+cp hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step.png $$O_seaflo_discharge_chain_step_png
+""",
+)
+
+genrule(
+    name = "seaflo-suction-chain",
+    srcs = [
+        "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/seaflo-suction-chain/seaflo-suction-chain.step",
+        "out/seaflo-suction-chain/seaflo-suction-chain.step.png",
+    ],
+    cmd = """
+set -e
+O_seaflo_suction_chain_step=$$PWD/$(location out/seaflo-suction-chain/seaflo-suction-chain.step)
+O_seaflo_suction_chain_step_png=$$PWD/$(location out/seaflo-suction-chain/seaflo-suction-chain.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py > /dev/null
+cp hardware/reference/seaflo-suction-chain/seaflo-suction-chain.step $$O_seaflo_suction_chain_step
+cp hardware/reference/seaflo-suction-chain/seaflo-suction-chain.step.png $$O_seaflo_suction_chain_step_png
+""",
+)
+
+genrule(
+    name = "sf76e-thermal-fuse",
+    srcs = [
+        "hardware/reference/sf76e-thermal-fuse/README.md",
+        "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
+        "out/sf76e-thermal-fuse/sf76e-thermal-fuse.step.png",
+    ],
+    cmd = """
+set -e
+O_sf76e_thermal_fuse_step=$$PWD/$(location out/sf76e-thermal-fuse/sf76e-thermal-fuse.step)
+O_sf76e_thermal_fuse_step_png=$$PWD/$(location out/sf76e-thermal-fuse/sf76e-thermal-fuse.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py > /dev/null
+cp hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step $$O_sf76e_thermal_fuse_step
+cp hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step.png $$O_sf76e_thermal_fuse_step_png
+""",
+)
+
+genrule(
+    name = "shutao-moisture-plate",
+    srcs = [
+        "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/shutao-moisture-plate/shutao-moisture-plate.step",
+        "out/shutao-moisture-plate/shutao-moisture-plate.step.png",
+    ],
+    cmd = """
+set -e
+O_shutao_moisture_plate_step=$$PWD/$(location out/shutao-moisture-plate/shutao-moisture-plate.step)
+O_shutao_moisture_plate_step_png=$$PWD/$(location out/shutao-moisture-plate/shutao-moisture-plate.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py > /dev/null
+cp hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step $$O_shutao_moisture_plate_step
+cp hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step.png $$O_shutao_moisture_plate_step_png
+""",
+)
+
+genrule(
+    name = "tap-point-assembly",
+    srcs = [
+        "hardware/reference/tap-point-assembly/README.md",
+        "hardware/reference/tap-point-assembly/tap_point_assembly.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/tap-point-assembly/tap-point-assembly.step",
+        "out/tap-point-assembly/tap-point-assembly.step.png",
+    ],
+    cmd = """
+set -e
+O_tap_point_assembly_step=$$PWD/$(location out/tap-point-assembly/tap-point-assembly.step)
+O_tap_point_assembly_step_png=$$PWD/$(location out/tap-point-assembly/tap-point-assembly.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/tap-point-assembly/tap_point_assembly.py > /dev/null
+cp hardware/reference/tap-point-assembly/tap-point-assembly.step $$O_tap_point_assembly_step
+cp hardware/reference/tap-point-assembly/tap-point-assembly.step.png $$O_tap_point_assembly_step_png
+""",
+)
+
+genrule(
+    name = "tee-connector",
+    srcs = [
+        "hardware/reference/tee-connector/README.md",
+        "hardware/reference/tee-connector/tee_connector.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/tee-connector/tee-connector.step",
+        "out/tee-connector/tee-connector.step.png",
+    ],
+    cmd = """
+set -e
+O_tee_connector_step=$$PWD/$(location out/tee-connector/tee-connector.step)
+O_tee_connector_step_png=$$PWD/$(location out/tee-connector/tee-connector.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/tee-connector/tee_connector.py > /dev/null
+cp hardware/reference/tee-connector/tee-connector.step $$O_tee_connector_step
+cp hardware/reference/tee-connector/tee-connector.step.png $$O_tee_connector_step_png
+""",
+)
+
+genrule(
+    name = "teyleten-relay",
+    srcs = [
+        "hardware/reference/teyleten-relay/README.md",
+        "hardware/reference/teyleten-relay/teyleten_relay.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/teyleten-relay/teyleten-relay.step",
+        "out/teyleten-relay/teyleten-relay.step.png",
+    ],
+    cmd = """
+set -e
+O_teyleten_relay_step=$$PWD/$(location out/teyleten-relay/teyleten-relay.step)
+O_teyleten_relay_step_png=$$PWD/$(location out/teyleten-relay/teyleten-relay.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/teyleten-relay/teyleten_relay.py > /dev/null
+cp hardware/reference/teyleten-relay/teyleten-relay.step $$O_teyleten_relay_step
+cp hardware/reference/teyleten-relay/teyleten-relay.step.png $$O_teyleten_relay_step_png
+""",
+)
+
+genrule(
+    name = "faucet-assembly",
+    srcs = [
+        "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/faucet-assembly/touch-flo-faucet-assembly.step",
+        "out/faucet-assembly/touch-flo-faucet-assembly.step.png",
+    ],
+    cmd = """
+set -e
+O_touch_flo_faucet_assembly_step=$$PWD/$(location out/faucet-assembly/touch-flo-faucet-assembly.step)
+O_touch_flo_faucet_assembly_step_png=$$PWD/$(location out/faucet-assembly/touch-flo-faucet-assembly.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py > /dev/null
+cp hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step $$O_touch_flo_faucet_assembly_step
+cp hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step.png $$O_touch_flo_faucet_assembly_step_png
+""",
+)
+
+genrule(
+    name = "valve-body-reference",
+    srcs = [
+        "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/valve-body-reference/touch-flo-valve-body-reference.step",
+        "out/valve-body-reference/touch-flo-valve-body-reference.step.png",
+    ],
+    cmd = """
+set -e
+O_touch_flo_valve_body_reference_step=$$PWD/$(location out/valve-body-reference/touch-flo-valve-body-reference.step)
+O_touch_flo_valve_body_reference_step_png=$$PWD/$(location out/valve-body-reference/touch-flo-valve-body-reference.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py > /dev/null
+cp hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step $$O_touch_flo_valve_body_reference_step
+cp hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step.png $$O_touch_flo_valve_body_reference_step_png
+""",
+)
+
+genrule(
+    name = "wago-221",
+    srcs = [
+        "hardware/reference/wago-221/README.md",
+        "hardware/reference/wago-221/wago_221.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/wago-221/wago-221-413.step",
+        "out/wago-221/wago-221-413.step.png",
+        "out/wago-221/wago-221-415.step",
+        "out/wago-221/wago-221-415.step.png",
+        "out/wago-221/wago-221-420.step",
+        "out/wago-221/wago-221-420.step.png",
+    ],
+    cmd = """
+set -e
+O_wago_221_413_step=$$PWD/$(location out/wago-221/wago-221-413.step)
+O_wago_221_413_step_png=$$PWD/$(location out/wago-221/wago-221-413.step.png)
+O_wago_221_415_step=$$PWD/$(location out/wago-221/wago-221-415.step)
+O_wago_221_415_step_png=$$PWD/$(location out/wago-221/wago-221-415.step.png)
+O_wago_221_420_step=$$PWD/$(location out/wago-221/wago-221-420.step)
+O_wago_221_420_step_png=$$PWD/$(location out/wago-221/wago-221-420.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/wago-221/wago_221.py > /dev/null
+cp hardware/reference/wago-221/wago-221-413.step $$O_wago_221_413_step
+cp hardware/reference/wago-221/wago-221-413.step.png $$O_wago_221_413_step_png
+cp hardware/reference/wago-221/wago-221-415.step $$O_wago_221_415_step
+cp hardware/reference/wago-221/wago-221-415.step.png $$O_wago_221_415_step_png
+cp hardware/reference/wago-221/wago-221-420.step $$O_wago_221_420_step
+cp hardware/reference/wago-221/wago-221-420.step.png $$O_wago_221_420_step_png
+""",
+)
+
+genrule(
+    name = "water-split",
+    srcs = [
+        "hardware/reference/water-split/water_split.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/water-split/water-split.step",
+        "out/water-split/water-split.step.png",
+    ],
+    cmd = """
+set -e
+O_water_split_step=$$PWD/$(location out/water-split/water-split.step)
+O_water_split_step_png=$$PWD/$(location out/water-split/water-split.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/water-split/water_split.py > /dev/null
+cp hardware/reference/water-split/water-split.step $$O_water_split_step
+cp hardware/reference/water-split/water-split.step.png $$O_water_split_step_png
+""",
+)
+
+genrule(
+    name = "water-test-cup",
+    srcs = [
+        "hardware/reference/water-test-cup/README.md",
+        "hardware/reference/water-test-cup/print-log.md",
+        "hardware/reference/water-test-cup/water_test_cup.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/water-test-cup/water-test-cup.step",
+        "out/water-test-cup/water-test-cup.step.png",
+    ],
+    cmd = """
+set -e
+O_water_test_cup_step=$$PWD/$(location out/water-test-cup/water-test-cup.step)
+O_water_test_cup_step_png=$$PWD/$(location out/water-test-cup/water-test-cup.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/water-test-cup/water_test_cup.py > /dev/null
+cp hardware/reference/water-test-cup/water-test-cup.step $$O_water_test_cup_step
+cp hardware/reference/water-test-cup/water-test-cup.step.png $$O_water_test_cup_step_png
+""",
+)
+
+genrule(
+    name = "waveshare-43b-display",
+    srcs = [
+        "hardware/reference/waveshare-43b-display/README.figures.json",
+        "hardware/reference/waveshare-43b-display/README.md",
+        "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/waveshare-43b-display/waveshare-43b-display.step",
+        "out/waveshare-43b-display/waveshare-43b-display.step.png",
+        "out/waveshare-43b-display/doc/README.md",
+        "out/waveshare-43b-display/doc/README.figures.json",
+    ],
+    cmd = """
+set -e
+O_waveshare_43b_display_step=$$PWD/$(location out/waveshare-43b-display/waveshare-43b-display.step)
+O_waveshare_43b_display_step_png=$$PWD/$(location out/waveshare-43b-display/waveshare-43b-display.step.png)
+D_README_md=$$PWD/$(location out/waveshare-43b-display/doc/README.md)
+D_README_figures_json=$$PWD/$(location out/waveshare-43b-display/doc/README.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/waveshare-43b-display/waveshare_43b_display.py > /dev/null
+cp hardware/reference/waveshare-43b-display/waveshare-43b-display.step $$O_waveshare_43b_display_step
+cp hardware/reference/waveshare-43b-display/waveshare-43b-display.step.png $$O_waveshare_43b_display_step_png
+cp hardware/reference/waveshare-43b-display/README.md $$D_README_md
+cp hardware/reference/waveshare-43b-display/README.figures.json $$D_README_figures_json
+""",
+)
+
+genrule(
+    name = "worm-clamp",
+    srcs = [
+        "hardware/reference/worm-clamp/worm_clamp.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/worm-clamp/worm-clamp.step",
+        "out/worm-clamp/worm-clamp.step.png",
+    ],
+    cmd = """
+set -e
+O_worm_clamp_step=$$PWD/$(location out/worm-clamp/worm-clamp.step)
+O_worm_clamp_step_png=$$PWD/$(location out/worm-clamp/worm-clamp.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/worm-clamp/worm_clamp.py > /dev/null
+cp hardware/reference/worm-clamp/worm-clamp.step $$O_worm_clamp_step
+cp hardware/reference/worm-clamp/worm-clamp.step.png $$O_worm_clamp_step_png
+""",
+)
+
+genrule(
+    name = "wr1110-regulator",
+    srcs = [
+        "hardware/reference/wr1110-regulator/wr1110_regulator.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/wr1110-regulator/wr1110-regulator.step",
+        "out/wr1110-regulator/wr1110-regulator.step.png",
+    ],
+    cmd = """
+set -e
+O_wr1110_regulator_step=$$PWD/$(location out/wr1110-regulator/wr1110-regulator.step)
+O_wr1110_regulator_step_png=$$PWD/$(location out/wr1110-regulator/wr1110-regulator.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py > /dev/null
+cp hardware/reference/wr1110-regulator/wr1110-regulator.step $$O_wr1110_regulator_step
+cp hardware/reference/wr1110-regulator/wr1110-regulator.step.png $$O_wr1110_regulator_step_png
+""",
+)
+
+genrule(
+    name = "y-divider",
+    srcs = [
+        "hardware/reference/y-divider/README.md",
+        "hardware/reference/y-divider/y_divider.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_measuring.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/y-divider/y-divider.step",
+        "out/y-divider/y-divider.step.png",
+    ],
+    cmd = """
+set -e
+O_y_divider_step=$$PWD/$(location out/y-divider/y-divider.step)
+O_y_divider_step_png=$$PWD/$(location out/y-divider/y-divider.step.png)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/y-divider/y_divider.py > /dev/null
+cp hardware/reference/y-divider/y-divider.step $$O_y_divider_step
+cp hardware/reference/y-divider/y-divider.step.png $$O_y_divider_step_png
+""",
+)
+
+genrule(
+    name = "-bom-sync",
+    srcs = [
+        "hardware/ledger/bom.figures.json",
+        "hardware/ledger/bom.md",
+        "hardware/ledger/labor.figures.json",
+        "hardware/ledger/labor.md",
+        "hardware/scripts/_bom_sync.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    outs = [
+        "out/-bom-sync/doc/bom.md",
+        "out/-bom-sync/doc/bom.figures.json",
+        "out/-bom-sync/doc/labor.md",
+        "out/-bom-sync/doc/labor.figures.json",
+    ],
+    cmd = """
+set -e
+D_bom_md=$$PWD/$(location out/-bom-sync/doc/bom.md)
+D_bom_figures_json=$$PWD/$(location out/-bom-sync/doc/bom.figures.json)
+D_labor_md=$$PWD/$(location out/-bom-sync/doc/labor.md)
+D_labor_figures_json=$$PWD/$(location out/-bom-sync/doc/labor.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_sync.py > /dev/null
+cp hardware/ledger/bom.md $$D_bom_md
+cp hardware/ledger/bom.figures.json $$D_bom_figures_json
+cp hardware/ledger/labor.md $$D_labor_md
+cp hardware/ledger/labor.figures.json $$D_labor_figures_json
+""",
+)
+
+genrule(
+    name = "-bom-totals",
+    srcs = [
+        "hardware/ledger/bom.figures.json",
+        "hardware/ledger/bom.md",
+        "hardware/scripts/_bom_totals.py",
+    ],
+    outs = [
+        "out/-bom-totals/doc/bom.md",
+        "out/-bom-totals/doc/bom.figures.json",
+    ],
+    cmd = """
+set -e
+D_bom_md=$$PWD/$(location out/-bom-totals/doc/bom.md)
+D_bom_figures_json=$$PWD/$(location out/-bom-totals/doc/bom.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_bom_totals.py > /dev/null
+cp hardware/ledger/bom.md $$D_bom_md
+cp hardware/ledger/bom.figures.json $$D_bom_figures_json
+""",
+)
+
+genrule(
+    name = "-labor-totals",
+    srcs = [
+        "hardware/ledger/labor.figures.json",
+        "hardware/ledger/labor.md",
+        "hardware/scripts/_labor_totals.py",
+    ],
+    outs = [
+        "out/-labor-totals/doc/labor.md",
+        "out/-labor-totals/doc/labor.figures.json",
+    ],
+    cmd = """
+set -e
+D_labor_md=$$PWD/$(location out/-labor-totals/doc/labor.md)
+D_labor_figures_json=$$PWD/$(location out/-labor-totals/doc/labor.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_labor_totals.py > /dev/null
+cp hardware/ledger/labor.md $$D_labor_md
+cp hardware/ledger/labor.figures.json $$D_labor_figures_json
+""",
+)
+
+genrule(
+    name = "-ledger-totals",
+    srcs = [
+        "hardware/ledger/purchases.figures.json",
+        "hardware/ledger/purchases.md",
+        "hardware/scripts/_ledger_totals.py",
+    ],
+    outs = [
+        "out/-ledger-totals/doc/purchases.md",
+        "out/-ledger-totals/doc/purchases.figures.json",
+    ],
+    cmd = """
+set -e
+D_purchases_md=$$PWD/$(location out/-ledger-totals/doc/purchases.md)
+D_purchases_figures_json=$$PWD/$(location out/-ledger-totals/doc/purchases.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_ledger_totals.py > /dev/null
+cp hardware/ledger/purchases.md $$D_purchases_md
+cp hardware/ledger/purchases.figures.json $$D_purchases_figures_json
+""",
+)
+
+genrule(
+    name = "-machine-time",
+    srcs = [
+        "hardware/ledger/machine-time.figures.json",
+        "hardware/ledger/machine-time.md",
+        "hardware/scripts/_machine_time.py",
+    ],
+    outs = [
+        "out/-machine-time/doc/machine-time.md",
+        "out/-machine-time/doc/machine-time.figures.json",
+    ],
+    cmd = """
+set -e
+D_machine_time_md=$$PWD/$(location out/-machine-time/doc/machine-time.md)
+D_machine_time_figures_json=$$PWD/$(location out/-machine-time/doc/machine-time.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_machine_time.py > /dev/null
+cp hardware/ledger/machine-time.md $$D_machine_time_md
+cp hardware/ledger/machine-time.figures.json $$D_machine_time_figures_json
+""",
+)
+
+genrule(
+    name = "-tools-totals",
+    srcs = [
+        "hardware/ledger/tools.figures.json",
+        "hardware/ledger/tools.md",
+        "hardware/scripts/_tools_totals.py",
+    ],
+    outs = [
+        "out/-tools-totals/doc/tools.md",
+        "out/-tools-totals/doc/tools.figures.json",
+    ],
+    cmd = """
+set -e
+D_tools_md=$$PWD/$(location out/-tools-totals/doc/tools.md)
+D_tools_figures_json=$$PWD/$(location out/-tools-totals/doc/tools.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/scripts/_tools_totals.py > /dev/null
+cp hardware/ledger/tools.md $$D_tools_md
+cp hardware/ledger/tools.figures.json $$D_tools_figures_json
+""",
+)
+
+genrule(
+    name = "-pump-replacement-sync",
+    srcs = [
+        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_routing.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/service/_pump_replacement_sync.py",
+        "hardware/service/pump-replacement.figures.json",
+        "hardware/service/pump-replacement.md",
+    ],
+    outs = [
+        "out/-pump-replacement-sync/doc/pump-replacement.md",
+        "out/-pump-replacement-sync/doc/pump-replacement.figures.json",
+    ],
+    cmd = """
+set -e
+D_pump_replacement_md=$$PWD/$(location out/-pump-replacement-sync/doc/pump-replacement.md)
+D_pump_replacement_figures_json=$$PWD/$(location out/-pump-replacement-sync/doc/pump-replacement.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/service/_pump_replacement_sync.py > /dev/null
+cp hardware/service/pump-replacement.md $$D_pump_replacement_md
+cp hardware/service/pump-replacement.figures.json $$D_pump_replacement_figures_json
+""",
+)
+
+genrule(
+    name = "-fluid-topology-sync",
+    srcs = [
+        "hardware/scripts/_boxes.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_clearing.py",
+        "hardware/scripts/_facts.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_meshes.py",
+        "hardware/scripts/_overlap.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/topology/_fluid_topology_sync.py",
+        "hardware/topology/fluid-topology.figures.json",
+        "hardware/topology/fluid-topology.md",
+    ],
+    outs = [
+        "out/-fluid-topology-sync/doc/fluid-topology.md",
+        "out/-fluid-topology-sync/doc/fluid-topology.figures.json",
+    ],
+    cmd = """
+set -e
+D_fluid_topology_md=$$PWD/$(location out/-fluid-topology-sync/doc/fluid-topology.md)
+D_fluid_topology_figures_json=$$PWD/$(location out/-fluid-topology-sync/doc/fluid-topology.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py > /dev/null
+cp hardware/topology/fluid-topology.md $$D_fluid_topology_md
+cp hardware/topology/fluid-topology.figures.json $$D_fluid_topology_figures_json
+""",
+)
+
+genrule(
+    name = "-ac-wiring-schedule-sync",
+    srcs = [
+        "hardware/wiring/_ac_wiring_schedule_sync.py",
+        "hardware/wiring/ac-wiring-schedule.figures.json",
+        "hardware/wiring/ac-wiring-schedule.md",
+    ],
+    outs = [
+        "out/-ac-wiring-schedule-sync/doc/ac-wiring-schedule.md",
+        "out/-ac-wiring-schedule-sync/doc/ac-wiring-schedule.figures.json",
+    ],
+    cmd = """
+set -e
+D_ac_wiring_schedule_md=$$PWD/$(location out/-ac-wiring-schedule-sync/doc/ac-wiring-schedule.md)
+D_ac_wiring_schedule_figures_json=$$PWD/$(location out/-ac-wiring-schedule-sync/doc/ac-wiring-schedule.figures.json)
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/wiring/_ac_wiring_schedule_sync.py > /dev/null
+cp hardware/wiring/ac-wiring-schedule.md $$D_ac_wiring_schedule_md
+cp hardware/wiring/ac-wiring-schedule.figures.json $$D_ac_wiring_schedule_figures_json
 """,
 )

@@ -3191,17 +3191,19 @@ def main():
 
     co, bo = coupon.outer, box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
-    # holding a RUN is bored for the one stock, so the anchors stand on two radii — that stock's
-    # and the regulator's barrel — and the table quotes one loop apiece.
+    # holding a RUN is bored for the one stock; the ribs holding a BODY are bored for whatever
+    # section that body offers, so the radii are as many as the pack has kinds of seat. The
+    # smallest is the runs' own and the largest is the widest body's, and a strap cut to the
+    # largest closes on every one of them — which is what the table quotes.
     seats = sorted({round(r, 6) for *_s, r in (machine.tube_anchors or ())})
-    if len(seats) != 2:
+    if not seats:
         raise ValueError(
-            f"the box's tube anchors are bored at {seats}. The strap table reads out one loop "
-            f"for the runs' stock and one for the regulator's barrel, so either they go back on "
-            f"two radii or the table reads out every anchor apiece.")
+            "the box bores no tube anchor at all, and the strap table quotes a loop for them. "
+            "Either the pack stands a rib again or the table stops reading one.")
     variables = {
         "LOOP_CARB_1": f"{tube_anchor_strap_loop(seats[0]):.3g} mm",
-        "LOOP_WR1110": f"{tube_anchor_strap_loop(seats[1]):.3g} mm",
+        "LOOP_WR1110": f"{tube_anchor_strap_loop(seats[-1]):.3g} mm",
+        "ANCHOR_SEATS": ", ".join(f"{2 * r:.4g}" for r in seats),
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
         "MQ6_CARD_T": f"{mq6_card_y:.4g} mm",
