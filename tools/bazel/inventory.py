@@ -27,26 +27,55 @@ def tracked() -> list:
                           capture_output=True, text=True, check=True).stdout.split()
 
 
+def _together(writes: dict) -> list:
+    """Generators grouped so that every file has exactly one group writing it.
+
+    `docgen` lets several scripts keep one doc's figures, each managing its own names:
+    `touch_flo_shell.py` and `touch_flo_under_counter_plate.py` both write `ASSEMBLY.md`, and
+    a run of either alone leaves the other's names standing at what they last were. So they
+    are one step."""
+    parent = {g: g for g in writes}
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    home = {}
+    for gen in sorted(writes):
+        for f in sorted(writes[gen]):
+            first = home.setdefault(f, gen)
+            a, b = find(first), find(gen)
+            if a != b:
+                parent[max(a, b)] = min(a, b)
+
+    out = {}
+    for gen in sorted(writes):
+        out.setdefault(find(gen), []).append(gen)
+    return [sorted(v) for _k, v in sorted(out.items())]
+
+
 def inventory(files=None) -> dict:
-    """`{generator: {"solids": [...], "docs": [...], "reads": [...]}}` for every generator."""
+    """`{(generator, …): {"solids": [...], "docs": [...], "reads": [...]}}` per build step."""
     files = set(files or tracked())
     try:
         graph = json.loads(GRAPH.read_text())
     except (OSError, ValueError):
         return {}
 
+    writes = {gen: {f for f in seen["writes"] if f in files}
+              for gen, seen in graph.items() if gen in files}
+    writes = {gen: w for gen, w in writes.items() if w}
+
     out = {}
-    for gen, seen in sorted(graph.items()):
-        if gen not in files:
-            continue
-        wrote = [f for f in seen["writes"] if f in files]
-        entry = {"solids": [], "docs": [],
-                 "reads": [f for f in seen["reads"] if f in files]}
-        for f in sorted(wrote):
+    for gens in _together(writes):
+        entry = {"solids": [], "docs": [], "reads": sorted(
+            {f for g in gens for f in graph[g]["reads"] if f in files})}
+        for f in sorted(set().union(*(writes[g] for g in gens))):
             (entry["docs"] if f.endswith(REWRITTEN_SUFFIXES)
              else entry["solids"]).append(f)
-        if entry["solids"] or entry["docs"]:
-            out[gen] = entry
+        out[tuple(gens)] = entry
     return out
 
 
@@ -54,9 +83,11 @@ def main() -> int:
     inv = inventory()
     solids = sum(len(v["solids"]) for v in inv.values())
     docs = sum(len(v["docs"]) for v in inv.values())
-    print(f"  {len(inv)} generators, {solids} solids, {docs} doc files")
-    multi = [g for g, v in inv.items() if v["solids"] and v["docs"]]
-    print(f"  {len(multi)} cut a solid AND write a doc")
+    gens = sum(len(k) for k in inv)
+    print(f"  {len(inv)} steps over {gens} generators, {solids} solids, {docs} doc files")
+    for k in sorted(inv):
+        if len(k) > 1:
+            print("  one step: " + ", ".join(Path(g).name for g in k))
     return 0
 
 

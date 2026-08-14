@@ -89,7 +89,7 @@ def _imported(path: Path) -> set:
     scene renderer, the facts writer and the scene check, because one run writes all four
     artifacts; none of them can move a millimetre of what the module draws. Reading them as
     the shape's puts every renderer in the closure of every wall, so `ENTRY_POINTS` is where
-    the walk stops. `hardware/scripts/check_closure.py` stands the machine and reports any
+    the walk stops. A sandboxed action holding what it declared reports any
     module the build imports that the walk did not name."""
     try:
         tree = ast.parse(path.read_bytes())

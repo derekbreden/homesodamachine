@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -1099,8 +1099,8 @@
    "id": "bend-radius",
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
-   "status": "pass",
-   "value": "B \u2014 49/55 corners at spec",
+   "status": "fail",
+   "value": "C \u2014 49/55 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",

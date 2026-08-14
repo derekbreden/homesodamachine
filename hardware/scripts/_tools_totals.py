@@ -8,10 +8,6 @@ listed in tools.md.
 A run restructures tools.md (adds the $ column + markers if missing), fills
 them, and prints the resolution. `--dry` prints without writing.
 
-WHAT `check_doc_figures` NAMES IS THIS COMMAND, bare, and `owed.py` runs what
-it names — so a run that only printed left the doc unwritten and its sidecar
-unrecorded, which reads as a doc that has yet to enrol however often it runs.
-
 Resolvers per tool:
   A(asin)        one Amazon line by ASIN
   A2([asins])    sum of several ASIN lines (e.g. two glove variants)

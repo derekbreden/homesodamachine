@@ -1,7 +1,7 @@
 """What one build knows, written down so the readers do not each build it again.
 
-    tools/cad-venv/bin/python hardware/scripts/_facts.py            # write the artifact
-    tools/cad-venv/bin/python hardware/scripts/_facts.py --check    # exit 2 if it moved
+    tools/cad-venv/bin/python hardware/scripts/_facts.py            # exit 2 if it moved
+    tools/cad-venv/bin/python hardware/scripts/_facts.py --write    # write it anyway
     tools/cad-venv/bin/python hardware/scripts/_facts.py selftest
 
     import _facts
@@ -511,7 +511,10 @@ def selftest():
 def main(argv):
     if "selftest" in argv:
         return selftest()
-    if "--check" in argv:
+    # WRITING IS `enclosure_assembly.py`'S. It stands the machine once and writes the STEP, the
+    # card and this off that one derivation; standing it again here to write only this is the
+    # same artifact for a second full build. `--write` is for a hand run that wants one anyway.
+    if "--check" in argv or "--write" not in argv:
         was = json.loads(ARTIFACT.read_text()) if ARTIFACT.is_file() else None
         now = gather()
         if was == now:

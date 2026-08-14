@@ -1326,7 +1326,10 @@ def _bend_radius(bends) -> Check:
     graded = [d for d in bends if d["grade"]]
     corners = sum(len(d["corners"]) for d in graded)
     at_spec = sum(d["atSpec"] for d in graded)
-    worst = min((order[d["grade"]] for d in graded), default=limit)
+    # The WORST grade any run carries, which is the LARGEST index: `GRADE_BANDS` runs best
+    # first, so a higher index is a poorer grade and the gate is only as good as the run
+    # that turns tightest.
+    worst = max((order[d["grade"]] for d in graded), default=limit)
     hist = {g: sum(1 for d in graded if d["grade"] == g) for _lo, g in GRADE_BANDS}
     tally = " ".join(f"{g}:{hist[g]}" for _lo, g in GRADE_BANDS if hist[g])
     detail = [
