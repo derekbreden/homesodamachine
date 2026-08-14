@@ -20,7 +20,9 @@ Coordinate frame
 - The POWER BOX stands in that long reach, hanging off the shell with air under it:
   [45](POWER_X) across, [27.5](POWER_Y) deep — the reach exactly — and [45](POWER_Z) tall,
   its underside at [30](POWER_Z0), its aft face on the shell's own tangent plane at
-  y = [-52.5](SHELL_TANGENT_Y). **-Y is the power end.**
+  y = [-52.5](SHELL_TANGENT_Y). **-Y is the power end.** It is narrower than the plate,
+  which reaches [25.5](POWER_FLANK_REACH) past each of its flanks — so a body pressed on a
+  flank stands over the can's own metal, and `power_face()` is the +X one.
 
 The suction, discharge and process stubs are not modeled. All three are STATIONS instead —
 `stations()` for the two that are in the loop, `process_tube()` for the one that is not —
@@ -89,6 +91,10 @@ SHELL_TANGENT_Y = SHELL_OFFSET_Y - SHELL_Y / 2.0   # [-52.5](SHELL_TANGENT_Y)
 POWER_Y0 = -BASE_Y / 2.0                           # the plate's own -Y edge
 POWER_Z0 = BASE_Z + POWER_GAP                      # [30](POWER_Z0), the box's underside
 POWER_Z1 = POWER_Z0 + POWER_Z                      # [75](POWER_Z1), the box's crown
+# What the plate still reaches past either FLANK of the box. The box is narrower than the
+# plate it stands on, so a body laid on a flank stands over the can's own plate — where the
+# -Y face has nothing past it at all, that being the plate's own edge (`power_face`).
+POWER_FLANK_REACH = BASE_X / 2.0 - POWER_X / 2.0    # [25.5](POWER_FLANK_REACH) each side
 # Where the two loop stubs leave the shell, up its standing height. Both are on a tangent
 # line; only the height along it is free, and these are the heights the donor brazes at.
 DISCHARGE_Z = 75.0
@@ -112,13 +118,25 @@ def mount_pattern():
 
 
 def power_face():
-    """The outboard face of the POWER BOX, as `(centre, outward axis)` in this frame.
+    """The +X FLANK of the POWER BOX, as `(centre, outward axis)` in this frame.
 
     The box is the donor's own moulded cover over the terminal block and the PTC start
-    relay. Its -Y face stands on `POWER_Y0`, which is the plate's own edge, so nothing on
-    this part reaches past it: a body laid flat there lies against the compressor and
-    stands in the open on every other side."""
-    return ((0.0, POWER_Y0, (POWER_Z0 + POWER_Z1) / 2.0), (0.0, -1.0, 0.0))
+    relay, and every face of it is that same moulding — so a case pressed on this one is
+    pressed on the cover as surely as on the box's front.
+
+    WHAT THIS FLANK HAS THAT THE FRONT DOES NOT is that nothing standing proud of it costs
+    the machine any DEPTH. The box's -Y face is the deepest plane on the whole donor —
+    `POWER_Y0` is the plate's own edge — so a body laid there is the frontmost thing in the
+    cabinet and the appliance's front wall stands off IT. Laid on the flank instead, the same
+    body stands over the plate's own [25.5](POWER_FLANK_REACH) mm of reach at +X, in air the
+    can already owns, and the front plane answers to the box.
+
+    The gap the clamp's leaves press runs the box's whole footprint, so it is reached from
+    this face as readily as from the front — and the shell is not a fence here at all, since
+    the box's aft plane IS the shell's own tangent and this face's whole width stands forward
+    of it."""
+    return ((POWER_X / 2.0, POWER_Y0 + POWER_Y / 2.0, (POWER_Z0 + POWER_Z1) / 2.0),
+            (1.0, 0.0, 0.0))
 
 
 def process_tube():
@@ -157,18 +175,34 @@ def process_tube_hold():
 
 
 def power_face_hold():
-    """Hold the face to the box it is a face of — centred on the box's own X and Z, on the
-    -Y plane the box ends at, facing out of it."""
+    """Hold the face to the box it is a face of — on the +X plane the box ends at, centred on
+    the box's own Y and Z, facing out of it.
+
+    And hold the two things that make this flank the one a body goes on: the plate reaches past
+    it, so what stands proud stands over the can's own metal; and the face's whole width is
+    forward of the shell's tangent, so the leaves of anything pressed into `POWER_GAP` from
+    here run under the box and never at the belly."""
     (px, py, pz), axis = power_face()
-    if axis != (0.0, -1.0, 0.0):
+    want = (POWER_X / 2.0, POWER_Y0 + POWER_Y / 2.0, (POWER_Z0 + POWER_Z1) / 2.0)
+    if axis != (1.0, 0.0, 0.0):
         raise ValueError(
-            f"the power face points {axis} — the box's outboard face is the -Y one, and a "
-            f"body laid on any other has been laid on the shell or on air.")
-    if abs(px) > 1e-9 or abs(py - POWER_Y0) > 1e-9 or abs(pz - (POWER_Z0 + POWER_Z1) / 2.0) > 1e-9:
+            f"the power face points {axis} — the box's flank is the +X one, and a body laid "
+            f"on any other has been laid on the shell, on the machine's own front, or on air.")
+    if any(abs(g - w) > 1e-9 for g, w in zip((px, py, pz), want)):
         raise ValueError(
-            f"the power face centres at ({px:g}, {py:g}, {pz:g}) and the box's own face is "
-            f"(0, {POWER_Y0:g}, {(POWER_Z0 + POWER_Z1) / 2.0:g}) — the station has come off "
-            f"the cover it names.")
+            f"the power face centres at ({px:g}, {py:g}, {pz:g}) and the box's own flank is "
+            f"({want[0]:g}, {want[1]:g}, {want[2]:g}) — the station has come off the cover "
+            f"it names.")
+    if POWER_FLANK_REACH <= 0.0:
+        raise ValueError(
+            f"the box is {POWER_X:g} across a plate {BASE_X:g} wide, so its flank stands "
+            f"{POWER_FLANK_REACH:g} inboard of the plate's own edge — a body laid there hangs "
+            f"off the can rather than over it.")
+    if py + POWER_Y / 2.0 > SHELL_TANGENT_Y + 1e-9:
+        raise ValueError(
+            f"the flank runs back to y {py + POWER_Y / 2.0:g} against the shell's tangent at "
+            f"{SHELL_TANGENT_Y:g} — the belly is now beside this face, and a leaf pressed into "
+            f"the gap from here is driven into the can.")
 
 
 def stations() -> dict:
@@ -327,6 +361,7 @@ def _docvars():
              "MOUNT_PITCH_X", "MOUNT_PITCH_Y", "SHELL_OVERHANG_X",
              "PLATE_REACH_LONG", "PLATE_REACH_SHORT", "MOUNT_LIGAMENT",
              "POWER_X", "POWER_Y", "POWER_Z", "POWER_Z0", "POWER_Z1", "SHELL_TANGENT_Y",
+             "POWER_FLANK_REACH",
              "PROCESS_Z", "PROCESS_CLAMP", "PROCESS_OVER_BOX")
     variables = {name: f"{globals()[name]:g}" for name in plain}
     variables["CYL_EXCESS_PCT"] = f"{CYL_EXCESS_PCT:.0f}"
@@ -341,10 +376,11 @@ def selftest():
     mounts_hold()
     stations_hold()
     process_tube_hold()
-    (_fx, fy, fz), _fa = power_face()
+    (fx, _fy, fz), _fa = power_face()
     (_px, py, pz), _pa = process_tube()
     return [
-        f"  power face centred at ({fy:g}, {fz:g}) on the box's own -Y plane",
+        f"  power face centred at ({fx:g}, {fz:g}) on the box's own +X flank, "
+        f"{POWER_FLANK_REACH:g} of plate past it",
         f"  both loop stubs stand on a shell tangent — discharge +X at z {DISCHARGE_Z:g}, "
         f"suction -X at z {SUCTION_Z:g}",
         f"  the process stub leaves -Y at z {pz:g}, {PROCESS_OVER_BOX:g} over the cover, "

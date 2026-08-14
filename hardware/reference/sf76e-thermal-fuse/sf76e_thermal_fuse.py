@@ -4,7 +4,7 @@ hardware-only backstop in series with the compressor's AC hot leg.
 An axial one-shot cutoff: a metal case with a lead out of each end, open for good
 once its own case reaches 77 °C. Nothing reads it, nothing switches it and nothing
 resets it, and what it opens on is the temperature of that case. It lies along the
-compressor's power box — the outside of the donor's moulded cover over the terminal
+compressor's power box — the flank of the donor's moulded cover over the terminal
 block and the PTC start relay — on the station `compressor.power_face` states, laid
 there by `enclosure_assembly.build_thermal_fuse`.
 

@@ -46,16 +46,16 @@ thermal contact.**
 
 ## Where it stands
 
-Lying along the compressor's power box — the outboard face of the donor's moulded
+Lying along the compressor's power box — the +X flank of the donor's moulded
 cover over the terminal block and the PTC start relay, which
 [`compressor.power_face()`](../compressor/compressor.py) states and
-`enclosure_assembly.build_thermal_fuse` seats it on. Nothing on the compressor
-reaches past that face, so the case lies against the part on one side and stands in
-the open on the other five.
+`enclosure_assembly.build_thermal_fuse` seats it on. The box is narrower than the
+plate it stands on, so the case lies against the cover on one side and stands in the
+open on the other five, over the can's own metal and clear of the machine's depth.
 
 **What presses it onto that face** is the printed
 [`fuse-clamp`](/hardware/printed-parts/refrigeration/fuse-clamp/), seated on the same
-station with the same quarter turn: the case lies in a channel whose crown lands on
+station with the same turn: the case lies in a channel whose crown lands on
 the outboard generatrix, so it is pinched between the cover and the clamp with its
 whole diameter between the two. `enclosure_assembly.check_cutoff_bedded` measures
 both ends of that stack off the placed solids and is the `cutoff-bedded` row on the

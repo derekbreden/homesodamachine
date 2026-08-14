@@ -580,27 +580,29 @@ def build_condenser(comp):
                      cx=0.0, y0=box(comp).ymax, z0=COND_LIFT)
 
 
-# The turn that lays the cutoff's seating plane on a face looking down -Y. Its own frame runs
-# the case along X with Z = 0 the generatrix it lies on, and a quarter about X carries that
-# generatrix onto the -Y normal with the case's axis left on X — across the box, along the
-# cover's own `compressor.POWER_X`.
-FUSE_TURN = (((1.0, 0.0, 0.0), 90.0),)
-FUSE_FACE_NORMAL = (0.0, -1.0, 0.0)
+# The turn that lays the cutoff's seating plane on a face looking down +X. Its own frame runs
+# the case along X with Z = 0 the generatrix it lies on, and Y up. Two quarters carry that:
+# the one about X stands the part up — its own Y onto world Z, where the leaves have to press a
+# gap that is a Z gap in the machine — and the one about Z swings the seating plane round onto
+# the +X normal, which leaves the case's axis running fore and aft along the flank's own
+# `compressor.POWER_Y`.
+FUSE_TURN = (((1.0, 0.0, 0.0), 90.0), ((0.0, 0.0, 1.0), 90.0))
+FUSE_FACE_NORMAL = (1.0, 0.0, 0.0)
 
 
 def power_face_station(comp_carry):
     """The centre of the compressor's power face in the machine, for a body laid flat on it.
 
     Both bodies that go there — the cutoff and the clamp that holds it — are drawn in ONE frame
-    with Z = 0 on that face, and `FUSE_TURN` is the quarter that lays that plane on it. So both
-    read this one station, and a yaw that swung the face off −Y is caught once here rather than
-    seating one of them on a wall and the other in the open."""
+    with Z = 0 on that face, and `FUSE_TURN` is the pair of quarters that lays that plane on it.
+    So both read this one station, and a yaw that swung the face off +X is caught once here
+    rather than seating one of them on a wall and the other in the open."""
     (pos, normal) = comp_carry(_comp.power_face())
     got = tuple(round(v, 9) for v in normal)
     if got != FUSE_FACE_NORMAL:
         raise ValueError(
-            f"the compressor's power face looks {got} in the machine and the cutoff's quarter "
-            f"turn lays its contact line on {FUSE_FACE_NORMAL} — the base has been turned out "
+            f"the compressor's power face looks {got} in the machine and the cutoff's quarters "
+            f"lay its contact line on {FUSE_FACE_NORMAL} — the base has been turned out "
             f"from under this pose, and the case is now bedded in the cover rather than on it.")
     return pos
 
@@ -615,10 +617,10 @@ def build_thermal_fuse(comp_carry):
     placed, carry = seat_body(_fuse.build(), FUSE_TURN, seat="thermal-fuse",
                               station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
                                        power_face_station(comp_carry)))
-    # The case has to land ON the cover, both ways: a case longer than the box is wide, or
+    # The case has to land ON the cover, both ways: a case longer than the flank is deep, or
     # taller than the box stands, hangs off the face it is there to read.
     note_room("thermal-fuse", "cover either side of the case",
-              0.0, (_comp.POWER_X - _fuse.LENGTH) / 2.0)
+              0.0, (_comp.POWER_Y - _fuse.LENGTH) / 2.0)
     note_room("thermal-fuse", "cover above and below the case",
               0.0, (_comp.POWER_Z - _fuse.BODY_D) / 2.0)
     return placed, carry
@@ -1461,16 +1463,41 @@ def check_cutoff_bedded(clamp, fuse, face) -> Bound:
     `grip`; a case that lifts off opens `bed`; a clamp drawn into the case closes `grip` past 0
     and shows up in `pack-closes` as well. NOTHING ELSE ON THIS CARD SEES ANY OF THAT — a clamp
     standing a millimetre proud is a clamp with no clash, no clearance fault and no seat miss,
-    and a cutoff reading cabinet air."""
+    and a cutoff reading cabinet air.
+
+    BOTH HOPS ARE TAKEN ALONG THE FACE'S OWN NORMAL, which `FUSE_FACE_NORMAL` names and
+    `power_face_station` has already held the machine to. The cover is a box and the pair goes
+    on whichever of its faces costs the machine least; a reading struck on a fixed axis instead
+    would go quietly meaningless the moment that face changed, which is the one failure this
+    row exists to catch."""
+    out = 0 if abs(FUSE_FACE_NORMAL[0]) > 0.5 else 1
+    sign = 1.0 if FUSE_FACE_NORMAL[out] > 0.0 else -1.0
+    # The case's own axis is the other horizontal one, and its mid-height is Z either way.
+    case = 1 - out
+
+    def span(bb, i):
+        return ((bb.xmin, bb.ymin, bb.zmin)[i], (bb.xmax, bb.ymax, bb.zmax)[i])
+
+    def s(v):                       # a coordinate as a distance OUT of the face
+        return sign * (v - face[out])
+
     fb, cb = box(fuse), box(clamp)
-    mid_x, mid_z = (fb.xmin + fb.xmax) / 2.0, (fb.zmin + fb.zmax) / 2.0
-    bed = face[1] - fb.ymax
+    f_lo, f_hi = span(fb, out)
+    near, far = (f_lo, f_hi) if sign > 0.0 else (f_hi, f_lo)
+    crown = max(s(v) for v in span(cb, out))
+    bed = s(near)
     # A slab on the case's own axis, over the case's own length, from the cover's face out past
     # everything the clamp has: what stands in it is the crown and nothing else the part is.
-    slab = cq.Workplane("XY", origin=(mid_x, (face[1] + cb.ymin) / 2.0, mid_z)).box(
-        _fuse.BODY_L, face[1] - cb.ymin, 2.0 * BEDDED_TOL)
+    mid = [0.0, 0.0, (fb.zmin + fb.zmax) / 2.0]
+    mid[out] = face[out] + sign * crown / 2.0
+    mid[case] = sum(span(fb, case)) / 2.0
+    dims = [0.0, 0.0, 2.0 * BEDDED_TOL]
+    dims[out] = crown
+    dims[case] = _fuse.BODY_L
+    slab = cq.Workplane("XY", origin=tuple(mid)).box(*dims)
     over, vol = _overlap.common(clamp, slab.val())
-    grip = None if vol <= 0.0 else ml.extents(over).ymax - fb.ymin
+    grip = (None if vol <= 0.0
+            else min(s(v) for v in span(ml.extents(over), out)) - s(far))
     ok = abs(bed) <= BEDDED_TOL and grip is not None and abs(grip) <= BEDDED_TOL
     return record_bound(Bound(
         "cutoff-bedded", "The cutoff's case is pinched between the power box and its clamp", ok,
@@ -1479,7 +1506,7 @@ def check_cutoff_bedded(clamp, fuse, face) -> Bound:
         f"both 0 within {BEDDED_TOL:g} mm",
         ([] if ok else [
             f"thermal-fuse: the case's contact line stands {bed:+.3f} mm off the power box's "
-            f"face at y {face[1]:.2f}, and the clamp's crown "
+            f"face at {'xyz'[out]} {face[out]:.2f}, and the clamp's crown "
             + ("stands nowhere over the case at all"
                if grip is None else f"stands {grip:+.3f} mm off the case's far generatrix")
             + f". The pair is seated on ONE station — `power_face_station` — and drawn in one "

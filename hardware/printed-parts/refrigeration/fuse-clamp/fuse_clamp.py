@@ -9,9 +9,9 @@ carry no thermal load, and a case laid loose against a face reads cabinet air.
     HEAD      a block on the seating plane with a channel through it, the channel's crown
               landing on the case's outboard generatrix — so the case is pinched between the
               cover and the crown, and the clamp never comes between the two
-    NECK      one plank down the compressor's own front plane, from the head to the plate's
-              front edge, bearing on the cover the whole way
-    LEAVES    two of them, reaching aft off the neck into the [15](CLAMP_GAP) mm of air the
+    NECK      one plank down the cover's own flank, from the head to the plate's crown,
+              bearing on the cover the whole way
+    LEAVES    two of them, reaching inboard off the neck into the [15](CLAMP_GAP) mm of air the
               power box hangs over its own mounting plate — the upper on the box's underside,
               the lower on the plate's crown
 
@@ -45,20 +45,27 @@ The cutoff threads in along the channel from either end — the channel is open 
 one-shot part is replaced without the clamp coming off and without the compressor being
 disturbed.
 
+THE FLANK AND NOT THE FRONT. The box's -Y face is the deepest plane the donor has, so a part
+standing proud of it is the frontmost body in the cabinet and the appliance's own front wall
+answers to this clamp. The flank costs the machine nothing: the plate reaches past it, so the
+head stands over the can's own metal, and the gap the leaves press runs the box's whole
+footprint and is entered from here as readily as from the front. What the front had that this
+does not is the shell, which stands on the box's aft plane — a leaf reaching off the front runs
+AT the belly, and one reaching off the flank runs along under the box, fenced by the box's own
+[45](CLAMP_BOX_DEPTH) mm of width.
+
 Coordinate frame — the CUTOFF'S OWN, so `enclosure_assembly` lays both bodies with one turn on
 one station and they cannot land apart:
 
-- X = the cutoff's axis, across the cover's own [45](CLAMP_FACE_X) mm width.
-- Z = 0 is the SEATING PLANE — the cover's outboard face, the plane `compressor.power_face`
-  states. It is the plate's own front edge as well, since the box stands on that edge; +Z is out
-  of it into the cabinet, and only the leaves reach behind it.
+- X = the cutoff's axis, across the cover's own [27.5](CLAMP_FACE_X) mm flank.
+- Z = 0 is the SEATING PLANE — the cover's +X flank, the plane `compressor.power_face` states;
+  +Z is out of it into the cabinet, and only the leaves reach behind it.
 - Y is up, 0 on the face's centre — which is the case's own axis and the box's mid-height.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
 """
 
-import math
 import sys
 from pathlib import Path
 
@@ -82,12 +89,14 @@ from docgen import substitute_md, substitute_py_comments  # noqa: E402
 # --- the donor, read off its own module -----------------------------------
 # Every figure the clamp closes on comes from the part it closes on, so a re-calipered
 # compressor moves the clamp rather than leaving it holding air.
-FACE_X = _comp.POWER_X                        # [45](CLAMP_FACE_X) — the cover's own width
-FACE_Y = _comp.POWER_Z                        # its standing height, the same figure
+FACE_X = _comp.POWER_Y                        # [27.5](CLAMP_FACE_X) — the flank's own width
+FACE_Y = _comp.POWER_Z                        # its standing height
 BOX_FLOOR = -FACE_Y / 2.0                     # the box's underside — the gap's own ceiling
 GAP = _comp.POWER_GAP                         # [15](CLAMP_GAP) of air under the box
 PLATE_TOP = BOX_FLOOR - GAP                   # the plate crown — the gap's own floor
-BOX_DEPTH = _comp.POWER_Y                     # how far back the box reaches, to the shell
+BOX_DEPTH = _comp.POWER_X                     # [45](CLAMP_BOX_DEPTH), the box's own width —
+# how far a leaf may reach off this flank before it comes out under the far one.
+FLANK_REACH = _comp.POWER_FLANK_REACH         # the plate still under whatever stands proud
 
 # --- the cutoff, read off its own module ----------------------------------
 CASE_D = _fuse.BODY_D
@@ -132,21 +141,6 @@ SPLICE_FREE = LEAD_SHORT - (PART_X - CASE_L) / 2.0
 CONTACT_TOL = 0.01
 
 
-def shell_front_z(x: float) -> float:
-    """Where the compressor's SHELL stands, at one X across the box, in this frame.
-
-    The box's aft face is on the shell's own tangent and the ellipse falls away from it either
-    side, so how far a leaf may reach back is a function of where across the plate it runs."""
-    half = _comp.SHELL_X / 2.0
-    if abs(x) >= half:
-        return -math.inf
-    y = _comp.SHELL_OFFSET_Y - (_comp.SHELL_Y / 2.0) * math.sqrt(1.0 - (x / half) ** 2)
-    return _comp.POWER_Y0 - y
-
-
-SHELL_AT_LEAF = max(shell_front_z(-PART_X / 2.0), shell_front_z(PART_X / 2.0))
-
-
 # --- the bounds this clamp states about the donor -------------------------
 #
 # Everything the clamp takes hold of belongs to a part nobody here draws. These are the claims
@@ -156,25 +150,25 @@ SHELL_AT_LEAF = max(shell_front_z(-PART_X / 2.0), shell_front_z(PART_X / 2.0))
 
 _donor = _bounds.bound(
     "fuse-clamp-donor", "The clamp closes on features the compressor actually has",
-    "head inside the cover's face, leaves filling its gap and short of its shell")
+    "head inside the flank's face, leaves filling its gap and under its own box")
 _donor(PART_X <= FACE_X,
-       f"the part is {PART_X:g} across a cover {FACE_X:g} wide — it hangs off the face it is "
+       f"the part is {PART_X:g} across a flank {FACE_X:g} wide — it hangs off the face it is "
        f"there to bear on")
 _donor(HEAD_Y <= FACE_Y / 2.0,
-       f"the head reaches y ±{HEAD_Y:g} on a cover {FACE_Y:g} tall — it stands off the top or "
+       f"the head reaches y ±{HEAD_Y:g} on a flank {FACE_Y:g} tall — it stands off the top or "
        f"the bottom of the face it bears on")
+_donor(HEAD_Z <= FLANK_REACH,
+       f"the head stands {HEAD_Z:g} proud of a flank the plate reaches {FLANK_REACH:g} past — "
+       f"the crown is out over the cabinet rather than over the can's own metal")
 _donor(abs(2.0 * LEAF_Y + LEAF_SLOT - GAP) < 1e-9,
        f"the two leaves and their slot come to {2.0 * LEAF_Y + LEAF_SLOT:g} in a gap of "
        f"{GAP:g} — the tongue no longer spans the one slot on this donor that holds it")
 _donor(LEAF_SLOT > 2.0 * LEAF_LEAD_IN,
        f"the slot between the leaves is {LEAF_SLOT:g} and each lead-in takes {LEAF_LEAD_IN:g} "
        f"of leaf — there is nothing left for either to close into")
-_donor(-LEAF_REACH > SHELL_AT_LEAF,
-       f"the leaves reach z {-LEAF_REACH:g} and the shell's belly stands at {SHELL_AT_LEAF:.2f} "
-       f"across the band they run in — the tongue is driven into the can")
 _donor(LEAF_REACH < BOX_DEPTH,
-       f"the leaves reach {LEAF_REACH:g} into a box {BOX_DEPTH:g} deep — they come out of the "
-       f"back of the gap they are pressed in")
+       f"the leaves reach {LEAF_REACH:g} across a box {BOX_DEPTH:g} wide — they come out from "
+       f"under the far flank of the gap they are pressed in")
 
 _bounds.bound(
     "fuse-clamp-lead", "The clamp lets the cutoff's lead go where a bend becomes legal",
@@ -191,9 +185,9 @@ def _profile():
     """The part's whole silhouette in the Y-Z plane, as the polygon it is swept across X on.
 
     Read from the head's outboard top corner: the head stands proud of the neck by what the
-    crown needs over the case, the neck runs down the compressor's own front plane to the
-    plate's crown, and the two leaves reach aft off it into the gap — each chamfered at its tip
-    so it starts into that gap rather than butting the metal at the mouth of it."""
+    crown needs over the case, the neck runs down the cover's own flank to the plate's crown,
+    and the two leaves reach inboard off it into the gap — each chamfered at its tip so it
+    starts into that gap rather than butting the metal at the mouth of it."""
     return [
         (HEAD_Y, HEAD_Z),                                     # the head, outboard top
         (-HEAD_Y, HEAD_Z),                                    # the head, outboard bottom
@@ -264,7 +258,7 @@ def face_hold():
     _shape, vol = _overlap.common(build(), box.val())
     if vol > 1e-6:
         raise ValueError(
-            f"the clamp fills {vol:.3f} mm³ of the power box's own body — Z = 0 is the cover's "
+            f"the clamp fills {vol:.3f} mm³ of the power box's own body — Z = 0 is the flank's "
             f"face, and everything this part puts behind it belongs in the {GAP:g} mm of air "
             f"under the box.")
 
@@ -280,7 +274,7 @@ def main():
     face_hold()
     part = build()
     bb = part.BoundingBox()
-    print("fuse clamp — the SF76E's case, held on the compressor's power box")
+    print("fuse clamp — the SF76E's case, held on the compressor's power box flank")
     print(f"  X[{bb.xmin:.2f}, {bb.xmax:.2f}]  Y[{bb.ymin:.2f}, {bb.ymax:.2f}]"
           f"  Z[{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  head    {PART_X:g} x {2 * HEAD_Y:g} x {HEAD_Z:g} on the seating plane, "
@@ -289,9 +283,9 @@ def main():
           f"case's outboard generatrix, {SLIP:g} of slip a side")
     print(f"  neck    {NECK_Z:g} out of the face, down it from y {-HEAD_Y:g} to the plate's "
           f"crown at {PLATE_TOP:g}")
-    print(f"  leaves  {LEAF_Y:g} thick, {LEAF_REACH:g} aft, {LEAF_SLOT:g} of slot between them "
-          f"in the box's {GAP:g} of gap — {abs(-LEAF_REACH - SHELL_AT_LEAF):.2f} clear of the "
-          f"shell")
+    print(f"  leaves  {LEAF_Y:g} thick, {LEAF_REACH:g} inboard, {LEAF_SLOT:g} of slot between "
+          f"them in the box's {GAP:g} of gap — {BOX_DEPTH - LEAF_REACH:g} short of the far "
+          f"flank")
     print(f"  lead    let go {(PART_X - CASE_L) / 2.0:g} off the case against the {LEAD_STUB:g} "
           f"no-bend zone, {SPLICE_FREE:g} of the short lead left for the splice")
     print(f"  volume  {part.Volume() / 1000.0:.2f} cm³")
@@ -302,6 +296,8 @@ def main():
     variables = {
         "CLAMP_TF": f"{TF_C:g}",
         "CLAMP_FACE_X": f"{FACE_X:g}",
+        "CLAMP_BOX_DEPTH": f"{BOX_DEPTH:g}",
+        "CLAMP_FLANK_REACH": f"{FLANK_REACH:g}",
         "CLAMP_GAP": f"{GAP:g}",
         "CLAMP_PART_X": f"{PART_X:g}",
         "CLAMP_LEAD_STUB": f"{LEAD_STUB:g}",
