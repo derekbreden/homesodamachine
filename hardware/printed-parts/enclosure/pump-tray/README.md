@@ -8,7 +8,7 @@ The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Eac
 
 | | |
 |---|---|
-| plate | [82.262](TRAY_W) across × [80.305](TRAY_L) mm |
+| plate | [82.262](TRAY_W) across × [74.305](TRAY_L) mm |
 | case footprint it is cut from | [70](CASE_W) mm square, ramp [18](RAMP_H) mm high |
 | bore wall | the boss's own octagon, [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
 | shoulder over the boss's crown | [3](SHOULDER) mm of tower, bored Ø[37](CAN_BORE) for the can |
@@ -16,13 +16,13 @@ The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Eac
 | head under it | [62.61](HEAD_W) mm square, hanging [48.88](HEAD_D) mm below |
 | channels | 4 — a pair either side of the can, each band [25](BAND_NEAR)–[30.83](BAND_FAR) mm off the pump's axis |
 | straps | 2 per pump, [4.826](STRAP_W) mm across, [143](STRAP_LOOP) mm of loop apiece |
-| material, both trays | [99.56](TRAY_VOL) cm³ of `enclosure-front-top` |
+| material, both trays | [96.60](TRAY_VOL) cm³ of `enclosure-front-top` |
 
 ## What it covers
 
 **Two storeys of the pump, not one.** That is the whole reason it is a case and not a plate — no plate reaches both.
 
-- The **base plate** lands on the head's own +Z face and wraps its top edge all the way round, [4829](ON_HEAD) mm² of section on that face.
+- The **base plate** lands on the head's own +Z face and wraps its top edge all the way round, [4336](ON_HEAD) mm² of section on that face.
 - The **ramp** climbs off that plate at 45°.
 - The **bore wall** takes the boss on each of its eight faces and both its ledges, over the boss's whole [21](BOSS_DEPTH) mm.
 - The **shoulder** the cut tower leaves lands on the boss's crown and wraps its top edge, [1752](ON_CROWN) mm² on that face.
