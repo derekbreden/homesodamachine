@@ -302,6 +302,7 @@ BEARS_ON = {
     "co2-inlet": "enclosure-back-top",
     "gasher-co2": "enclosure-back-top",             # made up on the CO2 inlet's inboard stub
     "display": "enclosure-front-top",               # let into that piece's own facet
+    "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
     "hopper-funnel": "enclosure-front-top",         # brim on the top wall, collar forward
     # The basin's disconnect, all of it on the spout the basin carries: the stub and the clamp
     # go to the dishwasher with it, and the union is on the stub's far end.

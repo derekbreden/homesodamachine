@@ -46,42 +46,47 @@ reader at `/3d` and a shop printing a part both take them off the tree. `sync_tr
 carries them over, and a tree it has nothing to say about is a tree holding the artifacts its
 sources make.
 
-WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess:
+WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess.
+`_boxes.py` is declared by 95 of the 99 steps, so it is the worst case the tree has:
 
-| a comment added to | steps it reruns |
-|---|---|
-| a doc sync's own driver | **1** |
-| `_boxes.py` | 21 |
-| `_measuring.py` | 25 |
-| `_realized.py` | 57 |
-| `_cadq_export.py`, which every generator imports | 95 |
+| an edit to `_boxes.py` | steps | wall |
+|---|---|---|
+| a comment written into it | **1** — `pysrc` alone | **1.8 s** |
+| a line of code | 95 | 406 s |
 
 | | wall |
 |---|---|
-| the whole tree, nothing moved | **0.24 s**, no action run |
-| whether anything is owed — `--check_up_to_date` | **0.04 s**, no action run |
-| the whole tree from nothing, 101 steps | 491 s of critical path |
+| the whole tree, nothing moved | **0.4 s**, no action run |
+| whether anything is owed — `--check_up_to_date` | **0.3 s**, no action run |
+| every step rerun, the kept work standing | 88 s, 41 s of critical path |
+| every step rerun, the kept work regenerating | 386 s, 219 s of critical path |
 
-The first two are what a commit pays. The third is measured under five other builds on the
-same machine and is a ceiling rather than a reading; the actions themselves ran at roughly
-half speed for want of cores.
+The last two are the same 99 actions and differ only in whether `.cache/` already holds the
+shapes they cut. A geometry edit pays the second on the bodies it moved and the first on the
+rest. All of these were taken on a quiet machine; a reading taken while another build is
+running is roughly half speed for want of cores, and is a ceiling rather than a figure.
 
-A BYTE IS WHAT DECIDES A RERUN, so a comment moves a file and its steps run again. They come
-back with the same bytes and nothing downstream of them runs, but they do run — a whole-tree
-digest taken over parsed code rather than text is what would make a comment free, and there
-is none here.
+A BYTE IS WHAT DECIDES A RERUN, and a comment is not a byte a step reads. `tools/bazel/pysrc.py`
+lays every Python source down with its comments out of it — a line carrying no code is gone,
+and the code lines come through verbatim and in order — and the steps declare that copy rather
+than the file. So writing a comment moves one short action, its output lands on the bytes Bazel
+already built against, and nothing under it runs. What comes out parses to what went in, and
+`pysrc` asserts that per file before it writes: the same reading `_realized.code_digest` takes,
+put where Bazel can see it.
 
-AND AN ACTION HOLDS NO KEPT WORK. `.cache/` is 1.6 GB — the shapes `_realized` keeps, the
-meshes `_meshes` tessellates, the optimal boxes `_boxes` measures — and none of it is a
-declared input, so every action starts with all three empty. `enclosure_assembly` runs in
-**52 s** against the tree's caches and **232 s** against none.
+The 32 generators whose own docstrings hold `[value](NAME)` figures are handed their file raw,
+because the run rewrites what it was given and `sync_tree` carries that back into the tree. So
+is anything under `tools/render/` or `web/`, which `:node-packages` globs in whole.
 
-What keeps it out is the key. `_realized.key` is the drawing module's import closure and its
-description, and `enclosure.py` makes no `import_step` call of its own while its action
-declares 28 solids it reaches through what it imports. So a shape kept under that key can be
-handed back after a solid it was cut against has moved. The kept work is worth 4.5× and the
-key does not cover what the action does; mixing the action's own declared inputs into it is
-what would make it safe to hold.
+A line number in a sandbox traceback is that copy's, not the tree's. The line it names is in
+the tree, found by its text.
+
+AND AN ACTION HOLDS THE KEPT WORK. `.cache/` is the shapes `_realized` keeps, the meshes
+`_meshes` tessellates and the optimal boxes `_boxes` measures; `.bazelrc` mounts it into every
+action and `_realized.key` mixes in `HSM_INPUT_DIGEST`, a hash over the solids the action was
+given. The import walk covers the Python and that digest covers the other half — a solid loaded
+off disk is not an import, and `enclosure.py` makes no `import_step` call of its own while its
+action declares 28 solids it reaches through what it imports.
 
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
 reads `foam-cap-top.step` off the disk and `enclosure_assembly` reads `foam-assembly.step`;
