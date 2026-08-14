@@ -158,14 +158,18 @@ JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-outlet"),
 )}
 
-# Bodies the wrap RIDES ON rather than routes around. The reed bridge stands on the tank on the
-# register azimuth and carries the two carbonator reeds in pockets `reed_bridge.pocket_depth`
-# proud of the wall; the copper crossing it lifts onto the bridge's own plateau, and that lift
-# IS what leaves the glass its `copper_clearance_over_glass`. `_coil.wrap_length` carries the
-# length that costs and `bom.md` §5 bills it — but the drawn SOLID is the wrap's nominal circle
-# (`_coil.helix_wire` says why), so in this frame the three of them read as shared volume. The
-# clearance itself is checked where the bridge is built, against the bridge's own pocket.
+# Bodies the wrap RIDES ON rather than routes around. THE TANK IS THE ONE IT IS WOUND ON:
+# `_coil` stands the wrap's centreline one tube radius off the tank's OD, so the copper's inner
+# surface and the cylinder's outer are the same surface, and the thermal tape is what lies in
+# `coil_radial_clearance` between them. The reed bridge stands on the tank on the register
+# azimuth and carries the two carbonator reeds in pockets `reed_bridge.pocket_depth` proud of
+# the wall; the copper crossing it lifts onto the bridge's own plateau, and that lift IS what
+# leaves the glass its `copper_clearance_over_glass`. `_coil.wrap_length` carries the length
+# that costs and `bom.md` §5 bills it — but the drawn SOLID is the wrap's nominal circle
+# (`_coil.helix_wire` says why), so in this frame all four read as shared volume. The clearance
+# itself is checked where the bridge is built, against the bridge's own pocket.
 RIDES_ON = {frozenset(p) for p in (
+    ("evap-coil", "carbonator-tube"),
     ("evap-coil", "reed-bridge"),
     ("evap-coil", "reed-carb-1"),
     ("evap-coil", "reed-carb-2"),
