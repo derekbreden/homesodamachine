@@ -363,6 +363,14 @@ CROSS_APPROACH_Y = 164.0
 # the falling column clears the fitting's own body and the seats under it, and no further, because
 # every millimetre here is one the crossing pays for twice.
 CROSS_STEP_X = TUBE_BEND
+# The storey the branch comes back west on. The discharge chain lies across this quarter on the
+# cap's own lid, so the return crosses OVER it and only then falls the rest of the way onto the
+# fitting's column — west of the chain, where the long forward leg has always run.
+CROSS_RETURN_Z = 282.0
+# And the Y it does it at. The tee's own body fills the lane between the fills and this, so the
+# return goes round the BACK of it: aft of the split's supply collet, forward of where `water-2`
+# comes down, and over the chain the whole way across.
+CROSS_RETURN_Y = 268.0
 
 
 def _water_3(F):
@@ -390,12 +398,17 @@ def _water_3(F):
     however the lean arrives at it."""
     split, vk = F["water-split"], F["vk-solenoid"]
     src, dst = split.at("to-vk"), vk.at("inlet")
+    col = split.at("to-flavor")[0]          # the fitting's own column, which the long leg keeps
     z = dst[2] - CROSS_DROP
     return R.bent(
         "water-3", "water-split.to-vk",
         (src[0] + CROSS_STEP_X, src[1], src[2]),      # east off the branch, one stock corner
-        (src[0] + CROSS_STEP_X, src[1], z),        # the whole fall, in the gap aft of the fills
-        (src[0] + CROSS_STEP_X, CROSS_Y, z),       # forward on the core's own front lane
+        (src[0] + CROSS_STEP_X, CROSS_RETURN_Y, src[2]),  # aft, into the room behind the tee
+        (src[0] + CROSS_STEP_X, CROSS_RETURN_Y, CROSS_RETURN_Z),   # down to the chain's own storey
+        (col, CROSS_RETURN_Y, CROSS_RETURN_Z),   # west over the chain, onto the fitting's column
+        (col, CROSS_RETURN_Y, dst[2]),                # the rest of the fall, west of the chain
+        (col, CROSS_DROP_Y, dst[2]),        # forward down that column, over the core's crown
+        (col, CROSS_Y, z),                  # on forward, down onto the core's own front lane
         (CROSS_LIFT_X, CROSS_Y, z),         # east along that lane, beneath the union's foot
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
