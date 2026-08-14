@@ -165,6 +165,7 @@
     "foam-assembly \u2014 pcba: 2.030 mm",
     "fluid-24 \u2014 fluid-4: 2.045 mm",
     "water-7 \u2014 co2-2: 2.060 mm",
+    "fluid-2 \u2014 fluid-4: 2.114 mm",
     "fluid-14 \u2014 fluid-16: 2.218 mm",
     "fluid-14 \u2014 vk-solenoid: 2.250 mm",
     "fluid-18 \u2014 vk-solenoid: 2.250 mm",
@@ -173,7 +174,6 @@
     "pcba \u2014 relay-1: 2.532 mm",
     "co2-2 \u2014 pcba: 2.696 mm",
     "foam-assembly \u2014 hopper-drain-union: 2.705 mm",
-    "fluid-2 \u2014 fluid-18: 2.963 mm",
     "fluid-24 \u2014 valve-v-b: 3.137 mm",
     "fluid-28 \u2014 foam-assembly: 3.357 mm",
     "water-3 \u2014 fluid-28: 3.617 mm",
@@ -4221,121 +4221,6 @@
    }
   },
   {
-   "id": "fluid-2",
-   "kind": "fluid",
-   "frm": "flow-regulator.outlet",
-   "to": "valve-v-a.inlet",
-   "stock": "1/4\" LLDPE",
-   "od": 6.35,
-   "length": 173.51,
-   "radius": 14.0,
-   "cap": 14.0,
-   "minBend": 14.0,
-   "ratio": 1.0,
-   "grade": "B",
-   "corners": [
-    {
-     "at": 1,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      15.0,
-      40.94
-     ]
-    },
-    {
-     "at": 2,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      40.94,
-      30.38
-     ]
-    },
-    {
-     "at": 3,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      30.38,
-      73.55
-     ]
-    },
-    {
-     "at": 4,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      73.55,
-      28.68
-     ]
-    },
-    {
-     "at": 5,
-     "turn": 90.0,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B",
-     "legs": [
-      28.68,
-      15.0
-     ]
-    }
-   ],
-   "atSpec": 5,
-   "bends": 5,
-   "worstTurn": 90.0,
-   "seat": 14.342,
-   "reach": 14.342,
-   "reachRatio": 1.0245,
-   "reachGrade": "B",
-   "binding": {
-    "leg": 4,
-    "length": 28.685,
-    "demand": 2.0,
-    "from": [
-     22.49,
-     258.08,
-     296.0
-    ],
-    "to": [
-     22.49,
-     258.08,
-     267.32
-    ]
-   },
-   "need": {
-    "ends": [
-     [
-      -92.0,
-      263.14,
-      318.81
-     ],
-     [
-      22.49,
-      243.08,
-      267.32
-     ]
-    ],
-    "axis": {
-     "x": 114.49,
-     "y": 20.06,
-     "z": 51.5
-    },
-    "span": 127.13,
-    "path": 173.51,
-    "detour": 1.365
-   }
-  },
-  {
    "id": "water-3",
    "kind": "water",
    "frm": "water-split.to-vk",
@@ -4574,6 +4459,121 @@
     "span": 329.2,
     "path": 370.15,
     "detour": 1.124
+   }
+  },
+  {
+   "id": "fluid-2",
+   "kind": "fluid",
+   "frm": "flow-regulator.outlet",
+   "to": "valve-v-a.inlet",
+   "stock": "1/4\" LLDPE",
+   "od": 6.35,
+   "length": 162.15,
+   "radius": 14.0,
+   "cap": 14.0,
+   "minBend": 14.0,
+   "ratio": 1.0,
+   "grade": "B",
+   "corners": [
+    {
+     "at": 1,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      15.0,
+      40.94
+     ]
+    },
+    {
+     "at": 2,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      40.94,
+      35.93
+     ]
+    },
+    {
+     "at": 3,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      35.93,
+      36.99
+     ]
+    },
+    {
+     "at": 4,
+     "turn": 30.7,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      36.99,
+      42.51
+     ]
+    },
+    {
+     "at": 5,
+     "turn": 90.0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B",
+     "legs": [
+      42.51,
+      15.0
+     ]
+    }
+   ],
+   "atSpec": 5,
+   "bends": 5,
+   "worstTurn": 90.0,
+   "seat": 15.0,
+   "reach": 17.966,
+   "reachRatio": 1.2833,
+   "reachGrade": "B",
+   "binding": {
+    "leg": 2,
+    "length": 35.932,
+    "demand": 2.0,
+    "from": [
+     -51.06,
+     278.14,
+     318.81
+    ],
+    "to": [
+     -51.06,
+     258.08,
+     289.0
+    ]
+   },
+   "need": {
+    "ends": [
+     [
+      -92.0,
+      263.14,
+      318.81
+     ],
+     [
+      22.49,
+      243.08,
+      267.32
+     ]
+    ],
+    "axis": {
+     "x": 114.49,
+     "y": 20.06,
+     "z": 51.5
+    },
+    "span": 127.13,
+    "path": 162.15,
+    "detour": 1.275
    }
   },
   {
