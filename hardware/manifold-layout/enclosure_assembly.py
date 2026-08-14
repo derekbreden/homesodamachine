@@ -3847,14 +3847,18 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # first moment the bowl exists to measure against: the box is sized around this pack and the
 # funnel is then set in its top.
 #
-# AND `fluid-28` IS ITS FLOOR. The nozzle-B gate line takes the west outboard lane at
-# `_lines.GATE_LANE_X` and climbs it aft onto the panel deck, through the band this tee stands in.
-# The lane and the tee's collet cap OVERLAP IN PLAN — the cap reaches east of the lane's own west
-# face — so height is what stands between them, and this step is what sets that height.
-# `clearance-floor` reads the pair. Re-read it by sweeping the step —
+# `water-3`'s OWN CORNER IS THE FLOOR, and this figure moves with `_lines.CROSS_RISE`. The tee
+# stands one tangent over the corner its branch falls into, so a deeper step wants a deeper fall
+# under the crossing's lane, and a deeper fall turns through a wider angle on a longer tangent.
+# What bounds the pair is the cap lid's outer face, which that corner's belly runs over —
+# `_lines.CROSS_RISE` carries the reading.
+#
+# The nozzle-B gate line stands clear of this tee in plan: it runs its own union's column aft at
+# x[−81.2, −74.9] and this tee's collet cap reaches x −85.1, so what that pair reads is a solid
+# distance rather than a height. Re-read it —
 #
 #     w.gap(split, tube_fluid_28, 8.0, offset=(0, 0, -d))
-FLAVOR_STEP = 41.50
+FLAVOR_STEP = 43.50
 # What the tap's own headroom under that bowl has to be.
 BOWL_CLEAR = 1.0
 # The reach between the chain's outlet collet and the split's supply collet — `water-2`. The two
