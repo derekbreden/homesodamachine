@@ -39,7 +39,7 @@ import json, os, sys, runpy
 ROOT = %r
 GEN = %r
 OUT = %r
-read, wrote = set(), set()
+read, wrote, scanned = set(), set(), set()
 
 def _keep(into, path):
     try:
@@ -69,6 +69,11 @@ def _hook(event, args):
                     _keep(read, a)
             except (TypeError, ValueError):
                 pass
+    # A DIRECTORY THIS RUN GLOBS names its files without opening one. `_build.py` asks its
+    # own directory for `*.html` to know which cards there are; `Path.glob` scans and nothing
+    # is read until node opens them, out of sight.
+    elif event in ("os.scandir", "os.listdir") and args and args[0]:
+        _keep(scanned, args[0])
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
     elif event == "exec" and args:
@@ -90,7 +95,8 @@ finally:
     for mod in ("_cadq_export", "docgen"):
         wrote |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
     with open(OUT, "w") as fh:
-        json.dump({"reads": sorted(read), "writes": sorted(wrote)}, fh)
+        json.dump({"reads": sorted(read), "writes": sorted(wrote),
+                   "scanned": sorted(scanned)}, fh)
 '''
 
 
@@ -109,13 +115,20 @@ def trace(gen: str, files: set) -> dict:
         seen = json.loads(out.read_text())
     except (OSError, ValueError):
         return {"reads": [], "writes": []}
-    return {side: sorted(p for p in seen.get(side, ()) if p in files)
-            for side in ("reads", "writes")}
+    out = {side: {p for p in seen.get(side, ()) if p in files}
+           for side in ("reads", "writes")}
+    # WHAT A SCAN SAW is the tracked files directly in that directory — what a `glob` there
+    # could have named. Their contents are read by whatever the run hands them to.
+    here = {d for d in seen.get("scanned", ())}
+    out["reads"] |= {f for f in files if str(Path(f).parent) in here}
+    return {k: sorted(v) for k, v in out.items()}
 
 
-#: The board is built by `bun render-board.ts` and carried by the hook's own GLB step. Its
-#: `board-3d.py` reads `out/pcba.circuit.json`, which `tsci` writes and the tree does not
-#: carry, so no action here can hold what it reads.
+#: WHAT THE BOARD READS IS NOT IN THIS REPO. `hardware/pcb/pcba/package.json` pins seven
+#: `@tscircuit/*` packages to commits of `github:derekbreden/*`, resolved at install from
+#: outside the tree, and `board-3d.py` runs `tsci` through them. An action cannot hold what
+#: it reads, so the board is built by `bun render-board.ts` and its GLB carried by the hook.
+#: Vendoring the forks is what would let it join the graph.
 ELSEWHERE = ("tools/", "hardware/pcb/pcba/")
 
 
