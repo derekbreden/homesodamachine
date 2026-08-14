@@ -11,7 +11,7 @@
     "PLUG_FACE": "~255 \u00b0C",
     "PLUG_RISE": "~235 \u00b0C",
     "PROT_INLET": "200 mm",
-    "PROT_OUTLET": "150 mm",
+    "PROT_OUTLET": "175 mm",
     "RECHARGE_TOL": "\u00b11 g",
     "RUN_CURRENT": "~1 A",
     "SF76E_TEMP": "77 \u00b0C",

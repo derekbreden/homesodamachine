@@ -325,8 +325,12 @@ MOUNTS = (
     # isolate the can, so a clamp on one of those screws would be bolted to the cabinet. This
     # axis counts a PRINTED feature, so the row is open on it and the joint is not.
     ("fuse-clamp", None, "gap-press"),
-    ("water-split", None, "tube-hung"),
-    ("flow-regulator", None, "tube-hung"),
+    # THE FLAVOUR TAP'S PAIR, one over the other in two ribs off the −X wall
+    # (`enclosure_assembly.BODY_ANCHOR_SITES`, read by `body-seated`). Each seat closes on the run
+    # between that fitting's hub and the collet the tap arrives by — the one round section on
+    # either body that is not a box, a branch or the adjuster a hand has to reach.
+    ("water-split", "enclosure-back-top", "cradle"),
+    ("flow-regulator", "enclosure-back-top", "cradle"),
     ("vk-solenoid", "foam-assembly", "cradle"),
     # EVERY FITTING ON THE REAR WALL IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
@@ -1240,7 +1244,13 @@ def anchored_pairs() -> set:
     # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and
     # that rib stands on the cap — so the pair is the run against `foam-assembly`. A row bored for
     # a body never matches here: this set is only read in the run pass, where the names are runs.
-    return pairs | {frozenset((name, "foam-assembly")) for name in _ea._cci.cap_anchors}
+    #   BOTH OF THE CAP'S SEATS COUNT, and they are two tables because they stand on two faces:
+    # `cap_anchors` is a rib off the lid's crown, `cap_side_anchors` a post off its front step.
+    # What either one does to the run in it is the same contact at the same slip, so a run held
+    # by one is as seated as a run held by the other, and reading only the first leaves a run
+    # charged for touching the very part that carries it.
+    return pairs | {frozenset((name, "foam-assembly"))
+                    for name in (*_ea._cci.cap_anchors, *_ea._cci.cap_side_anchors)}
 
 
 def lane_notes(a, runs, rows) -> list[str]:
