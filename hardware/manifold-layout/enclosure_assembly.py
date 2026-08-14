@@ -4626,17 +4626,17 @@ WALL_COLORS = {"front-bottom": cq.Color(0.72, 0.74, 0.78, 0.30),
 def funnel_centre(box):
     """The funnel collar's centre in plan: (x, y).
 
-    Centred across the box, and pushed as far FORWARD as the display housing allows: the
-    ceiling reaches the top face at the facet's back plane, and the collar's front edge
-    stands one `enclosure.hopper_front_ledge` of top wall behind that. Nothing else fences
-    it — the brim's front flange bears on the housing slab, which is the thickest wall in
-    the box, so the throat's stand-off from the housing IS the whole requirement. The basin
-    is the first thing behind the glass and the wall a deeper box adds runs behind it, not
-    in front. Read off the box, because the box is a consequence of the pack and the facet's
-    own depth; `enclosure._hopper_hole` asserts the frame this lands in."""
+    Centred across the box, and standing its front edge on the box's own stated
+    `enclosure.funnel_front_y`.
+
+    WHAT FENCES THE BASIN IS UNDER ITS DRAIN. The union hangs on the spout and stands in the
+    window between `_lines.CROSS_Y`'s crossing and the cold core's front face — a window one
+    union wide, whose forward wall is the crossing and whose aft wall is the core, and
+    `water-3` is pinned to that core. Neither rides the display, so the plane the basin
+    stands on does not either. What the display housing leaves the throat is read as a bound
+    on `funnel-collar-frame`."""
     ix0, ix1 = box.inner[0], box.inner[1]
-    y_front = _enc.facet_back_y(box.outer) + _enc.hopper_front_ledge
-    return ((ix0 + ix1) / 2.0, y_front + _funnel.collar_d / 2.0)
+    return ((ix0 + ix1) / 2.0, _enc.funnel_front_y + _funnel.collar_d / 2.0)
 
 
 def build_funnel(box):
