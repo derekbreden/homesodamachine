@@ -752,6 +752,17 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "digiten-flow-sensor": [
+    "hardware/reference/digiten-flow-sensor/README.figures.json",
+    "hardware/reference/digiten-flow-sensor/README.md",
+    "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
+  ],
   "drip-pan": [
     "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
     "hardware/printed-parts/enclosure/drip-pan/README.md",
@@ -986,6 +997,22 @@
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
+  "ffl38barb38": [
+    "hardware/reference/ffl38barb38/ffl38barb38.py",
+    "hardware/reference/ffl38barb38/ffl38barb38.step",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "flare38-14ptc": [
+    "hardware/reference/flare38-14ptc/flare38-14ptc.step",
+    "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
   "foam-assembly": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
@@ -1100,6 +1127,43 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "gagira-reducing-coupling": [
+    "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step",
+    "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "gasher-check-valve": [
+    "hardware/reference/gasher-check-valve/gasher-check-valve.step",
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "ground-ring-stack": [
+    "hardware/reference/ground-ring-stack/ground-ring-stack.step",
+    "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "hopper-drain-stub": [
+    "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+    "hardware/reference/hopper-drain-stub/hopper-drain-stub.step",
+    "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+    "hardware/reference/worm-clamp/worm_clamp.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/_stated_bounds.py",
+    "tools/docgen/__init__.py"
+  ],
   "hopper-funnel": [
     "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
     "hardware/printed-parts/zone-c/hopper-funnel/README.md",
@@ -1128,6 +1192,57 @@
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
+  ],
+  "iec-c14-inlet": [
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "jg-bulkhead-union": [
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "jg-pp010822e": [
+    "hardware/reference/jg-pp010822e/jg-pp010822e.step",
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "jg-pp0408w": [
+    "hardware/reference/jg-pp0408w/jg-pp0408w.step",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "jg-pp061208w": [
+    "hardware/reference/jg-pp061208w/jg-pp061208w.step",
+    "hardware/reference/jg-pp061208w/jg_pp061208w.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "jg-pp451223w": [
+    "hardware/reference/jg-pp451223w/jg-pp451223w.step",
+    "hardware/reference/jg-pp451223w/jg_pp451223w.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
   ],
   "manifold-layout": [
     "hardware/manifold-layout/README.figures.json",
@@ -1160,6 +1275,48 @@
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
+  ],
+  "meanwell-irm90": [
+    "hardware/reference/meanwell-irm90/meanwell-irm90.step",
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "mq6-gas-sensor": [
+    "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "multiplex-asse1022": [
+    "hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "neofit-bulkhead": [
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "neofit-flow-control": [
+    "hardware/reference/neofit-flow-control/neofit-flow-control.step",
+    "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
   ],
   "pcba-assembly": [
     "hardware/pcb/pcba/out/pcba.glb",
@@ -1533,6 +1690,14 @@
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
+  ],
+  "seaflo-22-pump": [
+    "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
+    "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_realized.py",
+    "hardware/scripts/_run_lock.py"
   ],
   "touch-flo-mounting-gasket": [
     "hardware/printed-parts/cadlib/world_workplane.py",

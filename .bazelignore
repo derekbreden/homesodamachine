@@ -1,5 +1,3 @@
 tools/cad-venv
-tools/render/node_modules
-web/node_modules
 hardware/pcb/pcba/node_modules
 .cache
