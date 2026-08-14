@@ -50,12 +50,20 @@ def target_name(gen: str) -> str:
     return Path(gen).stem.strip("_").replace("_", "-")
 
 
-def read_from(src: str, rewritten: set) -> str:
-    """Where a step reads `src` from — under `pysrc/` once its comments are out of it.
+def comments_come_out(src: str, rewritten: set) -> bool:
+    """Whether a step reads `src` with its comments taken out.
 
     A generator whose own docstring holds figures is handed its file raw: the run rewrites what
-    it was given, and `sync_tree` carries that back into the tree."""
-    return f"{PYSRC}/{src}" if src.endswith(".py") and src not in rewritten else src
+    it was given, and `sync_tree` carries that back into the tree. So is anything under a node
+    root — `:node-packages` globs those in whole, and a file arriving twice lands the second
+    copy on the first, which Bazel leaves read-only."""
+    return (src.endswith(".py") and src not in rewritten
+            and not src.startswith(_NODE))
+
+
+def read_from(src: str, rewritten: set) -> str:
+    """Where a step reads `src` from — under `pysrc/` once its comments are out of it."""
+    return f"{PYSRC}/{src}" if comments_come_out(src, rewritten) else src
 
 
 def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set) -> str:
@@ -153,7 +161,7 @@ def main() -> int:
         srcs = (set(made["reads"]) | set(made["docs"]) | set(gens)) - set(made["solids"])
         srcs = sorted(s for s in srcs if s in held)
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
-        comments_out |= {s for s in srcs if s.endswith(".py") and s not in rewritten}
+        comments_out |= {s for s in srcs if comments_come_out(s, rewritten)}
         blocks.append(render(gens, made["solids"], srcs, made["docs"], rewritten))
 
     # ONE ACTION FOR THE WHOLE OF IT, so a comment edit is one short run and then a build that
