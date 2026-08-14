@@ -1,0 +1,46 @@
+# The appliance's geometry, one action per generator.
+#
+# WHAT AN ACTION SEES IS WHAT IT DECLARED. A generator reads Python it imports and solids it
+# loads; both are `srcs` here, and the sandbox holds nothing else. `foam_assembly` loading
+# `foam-cap-top.step` without naming it does not read a stale cap — it does not find the file.
+
+
+genrule(
+    name = "drip-pan",
+    srcs = [
+        "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
+        "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_realized.py",
+        "hardware/scripts/_run_lock.py",
+        "tools/docgen/__init__.py",
+        # docgen rewrites the README's [value](NAME) texts in place, so the doc is an
+        # input to cutting the solid as much as the Python is.
+        "hardware/printed-parts/enclosure/drip-pan/README.md",
+        "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
+    ],
+    outs = [
+        "out/drip-pan.step",
+        "out/drip-pan.README.md",
+        "out/drip-pan.README.figures.json",
+    ],
+    cmd = """
+set -e
+OUT=$$PWD/$(location out/drip-pan.step)
+MD=$$PWD/$(location out/drip-pan.README.md)
+FIG=$$PWD/$(location out/drip-pan.README.figures.json)
+# THE SANDBOX STAGES INPUTS AS SYMLINKS TO THE REAL TREE, and every script here takes its
+# bearings from `Path(__file__).resolve()`, which follows one straight back out. Dereferenced
+# into a directory of its own, the same call lands inside the action and a file nobody
+# declared is a file that is not there.
+for f in $(SRCS); do mkdir -p work/$$(dirname $$f); cp -L $$f work/$$f; done
+cd work
+/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python \\
+    hardware/printed-parts/enclosure/drip-pan/drip_pan.py > /dev/null
+D=hardware/printed-parts/enclosure/drip-pan
+cp $$D/drip-pan.step $$OUT
+cp $$D/README.md $$MD
+cp $$D/README.figures.json $$FIG
+""",
+)

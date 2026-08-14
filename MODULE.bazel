@@ -1,0 +1,8 @@
+"""The build graph for the appliance's geometry, docs and pictures.
+
+Every generator declares what it reads and what it cuts, and Bazel runs it in a sandbox
+holding exactly that. A solid one generator cuts and the next loads is an edge like any
+other here: undeclared, the reader does not find the file at all.
+"""
+
+module(name = "homesodamachine", version = "0.0.0")
