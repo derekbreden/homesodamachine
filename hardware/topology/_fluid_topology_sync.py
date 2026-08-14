@@ -332,6 +332,13 @@ def check_graph(edges: list[Edge], segs: dict, owes_ids: bool) -> list[str]:
         if e.rid is None:
             if not owes_ids or e.a in UNPLACED or e.b in UNPLACED:
                 continue
+            # A BUTT HAS NO ROUTE ID because it has no run. `_scorecard.MADE_UP` is the machine's
+            # own list of the joints where two collets meet face to face and the tube is cut to
+            # the two grips, so an edge standing for one of those owes a picture and not a name.
+            ends = (NODES.get(e.a, frozenset()), NODES.get(e.b, frozenset()))
+            if any((x in ends[0] and y in ends[1]) or (y in ends[0] and x in ends[1])
+                   for x, y in _scorecard.MADE_UP):
+                continue
             bad.append(f"  line {e.lineno + 1}: {e.a} → {e.b} carries no route id, but the "
                        f"machine knows both ends — every segment between two of them has one")
             continue

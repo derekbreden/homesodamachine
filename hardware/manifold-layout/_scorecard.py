@@ -176,10 +176,14 @@ REFRIGERANT_SEGMENTS = (
 # THERE IS NO `water-1`. The rear bulkhead's inboard collet and the ASSE chain's inlet collet
 # meet face to face, so the first tube in the machine is a length of stock cut to the two grips
 # and swallowed whole by them (`enclosure_assembly.py`, the bulkhead block).
+#
+# AND THERE IS NO `water-4`, for the same reason. V-K's outlet and the suction chain's collet
+# stand on one column and one plane — `enclosure_assembly.build_vk` seats the valve on that
+# collet — and the source row's own depth brings the two faces together, so what joins them is
+# the tube inside each grip and nothing between.
 WATER_SEGMENTS = (
     ("water-2", "asse1022-assembly tube-out", "water-split supply"),
     ("water-3", "water-split to-vk", "vk-solenoid inlet"),
-    ("water-4", "vk-solenoid outlet", "suction-chain tube-port"),
     ("water-5", "discharge-chain tube-port", "foam-assembly water-in"),
     ("water-6", "seaflo-pump discharge (3/8\" barb, moulded)", "discharge-chain barb-tip"),
     ("water-7", "seaflo-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
@@ -605,6 +609,11 @@ MADE_UP = (
     # butts the union's inboard collet". The first tube in the machine is a length of stock cut to
     # the two grips and swallowed whole by them, which is why there is no `water-1`.
     ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
+    # V-K's outlet and the suction chain's collet, which meet the same way —
+    # `enclosure_assembly.build_vk` seats the valve ON that collet, and the source row's own depth
+    # brings the two faces together. The tube is cut to the two grips and swallowed whole by them,
+    # which is why there is no `water-4` either.
+    ("vk-solenoid.outlet", "suction-chain.tube-port"),
     # The basin's stub and the union's upper collet. The stub IS the tube in that grip — it runs
     # `hopper_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
     # filled by the thing it is a grip on.
@@ -694,6 +703,11 @@ TOUCHING_OK = {frozenset(p) for p in (
     # bore for the whole of the spout's land; the band lies on the spout's outer face and closes
     # the silicone between the two; and the union's collet face meets that same spout's exit
     # face, which is what leaves no stub showing in the room between them.
+    # V-K'S OUTLET AND THE SUCTION CHAIN'S COLLET, which `water-4` butts. `enclosure_assembly
+    # .build_vk` seats the valve on that collet's own column and plane and the source row's
+    # depth brings the two faces together, so what the run carries is the tube inside each
+    # quick-connect and nothing between them.
+    ("suction-chain", "vk-solenoid"),
     ("hopper-funnel", "hopper-drain-stub"),
     ("hopper-funnel", "hopper-drain-clamp"),
     ("hopper-funnel", "hopper-drain-union"),

@@ -159,7 +159,7 @@ reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 # INSIDE the cap, under the crown those bodies stand on. What has to find room
 # up there is the tube.
 reservoir_fill_port = {
-    -1: (-88.0, 43.5),      # B, forward pocket — the corner opposite its drain
+    -1: (-90.5, 43.5),      # B, forward pocket — the corner opposite its drain
     +1: (102.5, -57.5),     # A, aft pocket — the strip between the pump and the brick
 }
 reservoir_fill_sides = tuple(sorted(reservoir_fill_port))
@@ -587,17 +587,16 @@ for _name in deck_mounts:
 # stands on the refrigeration base's crown, so where they land over this cap is that stack's
 # arithmetic; `enclosure_assembly.cradles_land` re-derives all three rows off the placed valves at
 # every build and raises with the row a moved valve wants, so a drift cannot land silently.
-#   V-K'S SEAT IS THE SUCTION CHAIN'S. `water-4` is a 9 mm straight between the valve's outlet
-# and that chain's collet, and a collet grips a tube through 3° — so the two mouths lie on one
-# plane or the run stops being a straight. The chain lies in the rib `cap_anchors` stands, and
+#   V-K'S SEAT IS THE SUCTION CHAIN'S. The valve's outlet and that chain's collet meet face to
+# face, so the two mouths lie on one plane or the joint stops being a butt. The chain lies in the rib `cap_anchors` stands, and
 # this seat is what brings the valve's own `beduan_solenoid.port_center_z` up to meet it. A seat
 # is boss height standing on the lid's face, so it bores nothing into the plate at any value.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {
     #                      centre           yaw    seat
-    "vk-solenoid": Cradle((105.920,  65.050), 0.0, 3.4000),
-    "valve-v-a":   Cradle((105.920,  22.490), 0.0, 2.6150),
-    "valve-v-b":   Cradle((105.920, -20.070), 0.0, 2.6150),
+    "vk-solenoid": Cradle(( 96.500,  65.050), 0.0, 3.4000),
+    "valve-v-a":   Cradle(( 96.500,  22.490), 0.0, 2.6150),
+    "valve-v-b":   Cradle(( 96.500, -20.070), 0.0, 2.6150),
 }
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
@@ -1087,7 +1086,7 @@ cap_anchors = {
     # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading. It reaches
     # `_lines._fill_a_cap_z` — the plane the run holds over the pump's bracket, which is higher
     # than this seat's own three layers.
-    "fluid-14":        CapAnchor(( 77.500,  43.500), 3.375, 15.175),
+    "fluid-14":        CapAnchor(( 68.500,  43.500), 3.375, 15.175),
 }
 
 # What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same
