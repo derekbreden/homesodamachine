@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "placed": 100,
  "located": 100,
  "shaped": 100,
@@ -28,11 +28,11 @@
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash",
+   "status": "pass",
+   "value": "0 clash",
    "target": "0 clash",
    "detail": [
-    "carbonator-tube \u2229 evap-coil = 0.37 mm\u00b3",
+    "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-2: the wrap rides it \u2014 see RIDES_ON"
