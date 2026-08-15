@@ -73,13 +73,10 @@ def main():
         "PILL_L": f"{plate.pill_long_y:.4g} mm",
         "PILL_W": f"{plate.pill_short_x:.4g} mm",
         "FILLET_R": f"{plate.fillet_radius:.4g} mm",
-        # Customer-drilled countertop hole — open items 4 and 5.
+        # The countertop hole the faucet seats itself in — §1 and open item 4.
         # Source: `faucet-layout/faucet_assembly.py`.
         "COUNTERTOP_HOLE_D": f"{faucet.countertop_hole_diameter:.4g} mm",
-        "HOLE_CENTER_Y": f"{faucet.countertop_hole_center_y:.4g} mm",
-        "HOLE_MARGIN": f"{faucet.countertop_hole_margin:.4g} mm",
-        "HOLE_ON_AXIS_SHANK": f"{faucet.shank_hole_margin(0.0):.4g} mm",
-        "HOLE_ON_AXIS_FLAVOR": f"{faucet.flavor_hole_margin(0.0):.4g} mm",
+        "GASKET_COVER": f"{faucet.gasket_hole_cover():.4g} mm",
     }
 
     substitute_md(
