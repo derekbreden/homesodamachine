@@ -27,6 +27,7 @@ import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, controls, renderer } from "./scene.js";
+import { makeToolChip } from "./tool-rail.js";
 
 const LS_KEY = "step-rulers";
 
@@ -271,20 +272,13 @@ export function areRulersEnabled() {
 }
 
 export function makeRulerToggle() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "ruler-toggle";
-  function refresh() {
-    const on = areRulersEnabled();
-    btn.textContent = on ? "Rulers: on" : "Rulers: off";
-    btn.classList.toggle("off", !on);
-  }
-  btn.addEventListener("click", () => {
-    setRulersEnabled(!areRulersEnabled());
-    refresh();
+  return makeToolChip({
+    className: "ruler-toggle",
+    label: "Rulers",
+    title: "Three labelled world axes through the orbit target, ticked in mm",
+    read: areRulersEnabled,
+    write: setRulersEnabled,
   });
-  refresh();
-  return btn;
 }
 
 scene.add(rulerGroup);

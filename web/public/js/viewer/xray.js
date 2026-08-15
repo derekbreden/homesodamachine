@@ -31,6 +31,7 @@ import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { state } from "./state.js";
+import { makeToolChip } from "./tool-rail.js";
 
 const LS_KEY = "step-xray";
 
@@ -176,17 +177,11 @@ export function isXrayEnabled() {
 }
 
 export function makeXrayToggle() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "xray-toggle";
-  function refresh() {
-    btn.textContent = enabled ? "X-ray: on" : "X-ray: off";
-    btn.classList.toggle("off", !enabled);
-  }
-  btn.addEventListener("click", () => {
-    setXrayEnabled(!enabled);
-    refresh();
+  return makeToolChip({
+    className: "xray-toggle",
+    label: "X-ray",
+    title: "Ghost every solid's surfaces and draw its feature edges, so nested parts read through",
+    read: isXrayEnabled,
+    write: setXrayEnabled,
   });
-  refresh();
-  return btn;
 }
