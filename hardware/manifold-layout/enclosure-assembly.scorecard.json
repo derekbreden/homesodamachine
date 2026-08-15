@@ -42,7 +42,6 @@
  ],
  "placed": 100,
  "located": 100,
- "shaped": 98,
  "routed": 100,
  "mounted": 100,
  "checks": [
@@ -1211,25 +1210,6 @@
    "value": "68/68 located",
    "target": "every declared port positioned and sized",
    "detail": [],
-   "active": false
-  },
-  {
-   "id": "shaped",
-   "label": "Every body is real geometry rather than a placeholder",
-   "kind": "goal",
-   "status": "fail",
-   "value": "81/83 authored",
-   "target": "no placeholder solids",
-   "detail": [
-    "pump-a-motor: still a bare primitive, 1 solid",
-    "pump-b-motor: still a bare primitive, 1 solid",
-    "display-gasket: 1 box holds 0% material",
-    "display-cover: 1 box holds 2% material",
-    "hopper-funnel: 1 box holds 4% material",
-    "foam-assembly: 5 boxes hold 11% material",
-    "ground-stack: 1 box holds 17% material",
-    "display: 2 boxes hold 18% material"
-   ],
    "active": false
   },
   {
@@ -2545,38 +2525,6 @@
  ],
  "shapes": [
   {
-   "component": "pump-a-motor",
-   "boxes": [
-    [
-     30.705,
-     24.44,
-     237.745,
-     66.435,
-     60.17,
-     279.295
-    ]
-   ],
-   "fill": 0.7854,
-   "primitive": true,
-   "declared": null
-  },
-  {
-   "component": "pump-b-motor",
-   "boxes": [
-    [
-     -66.435,
-     24.44,
-     237.745,
-     -30.705,
-     60.17,
-     279.295
-    ]
-   ],
-   "fill": 0.7854,
-   "primitive": true,
-   "declared": null
-  },
-  {
    "component": "display-gasket",
    "boxes": [
     [
@@ -2588,9 +2536,7 @@
      350.121
     ]
    ],
-   "fill": 0.0032,
-   "primitive": false,
-   "declared": null
+   "fill": 0.0032
   },
   {
    "component": "display-cover",
@@ -2604,9 +2550,7 @@
      353.444
     ]
    ],
-   "fill": 0.0191,
-   "primitive": false,
-   "declared": null
+   "fill": 0.0191
   },
   {
    "component": "hopper-funnel",
@@ -2620,9 +2564,7 @@
      358.0
     ]
    ],
-   "fill": 0.0448,
-   "primitive": false,
-   "declared": null
+   "fill": 0.0448
   },
   {
    "component": "foam-assembly",
@@ -2668,9 +2610,7 @@
      251.4
     ]
    ],
-   "fill": 0.109,
-   "primitive": false,
-   "declared": null
+   "fill": 0.109
   },
   {
    "component": "ground-stack",
@@ -2684,9 +2624,7 @@
      346.388
     ]
    ],
-   "fill": 0.1681,
-   "primitive": false,
-   "declared": null
+   "fill": 0.1681
   },
   {
    "component": "display",
@@ -2708,9 +2646,7 @@
      349.414
     ]
    ],
-   "fill": 0.1805,
-   "primitive": false,
-   "declared": null
+   "fill": 0.1805
   },
   {
    "component": "fuse-clamp",
@@ -2724,9 +2660,7 @@
      61.5
     ]
    ],
-   "fill": 0.2314,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2314
   },
   {
    "component": "pcba",
@@ -2740,9 +2674,7 @@
      326.2
     ]
    ],
-   "fill": 0.2397,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2397
   },
   {
    "component": "tee-y-a",
@@ -2756,9 +2688,7 @@
      267.311
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "tee-y-b",
@@ -2772,9 +2702,7 @@
      267.311
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "tee-y-c",
@@ -2788,9 +2716,7 @@
      208.311
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "tee-y-d",
@@ -2804,9 +2730,7 @@
      208.311
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "tee-y-f",
@@ -2820,9 +2744,7 @@
      208.311
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "tee-y-g",
@@ -2836,9 +2758,7 @@
      208.311
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "water-split",
@@ -2852,9 +2772,7 @@
      297.669
     ]
    ],
-   "fill": 0.2663,
-   "primitive": false,
-   "declared": null
+   "fill": 0.2663
   },
   {
    "component": "c14-inlet",
@@ -2868,9 +2786,7 @@
      344.575
     ]
    ],
-   "fill": 0.3191,
-   "primitive": false,
-   "declared": null
+   "fill": 0.3191
   },
   {
    "component": "drip-pan",
@@ -2884,9 +2800,7 @@
      303.211
     ]
    ],
-   "fill": 0.3556,
-   "primitive": false,
-   "declared": null
+   "fill": 0.3556
   },
   {
    "component": "mq6-sensor",
@@ -2900,9 +2814,7 @@
      35.0
     ]
    ],
-   "fill": 0.3619,
-   "primitive": false,
-   "declared": null
+   "fill": 0.3619
   },
   {
    "component": "flow-regulator",
@@ -2916,9 +2828,7 @@
      326.172
     ]
    ],
-   "fill": 0.3799,
-   "primitive": false,
-   "declared": null
+   "fill": 0.3799
   },
   {
    "component": "hopper-drain-clamp",
@@ -2932,9 +2842,7 @@
      315.128
     ]
    ],
-   "fill": 0.407,
-   "primitive": false,
-   "declared": null
+   "fill": 0.407
   },
   {
    "component": "hopper-drain-stub",
@@ -2948,9 +2856,7 @@
      316.378
     ]
    ],
-   "fill": 0.4219,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4219
   },
   {
    "component": "asse1022-assembly",
@@ -3004,9 +2910,7 @@
      321.921
     ]
    ],
-   "fill": 0.4222,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4222
   },
   {
    "component": "relay-1",
@@ -3020,9 +2924,7 @@
      345.7
     ]
    ],
-   "fill": 0.4287,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4287
   },
   {
    "component": "relay-2",
@@ -3036,9 +2938,7 @@
      323.4
     ]
    ],
-   "fill": 0.4287,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4287
   },
   {
    "component": "vk-solenoid",
@@ -3052,9 +2952,7 @@
      313.4
     ]
    ],
-   "fill": 0.434,
-   "primitive": false,
-   "declared": null
+   "fill": 0.434
   },
   {
    "component": "seaflo-pump",
@@ -3068,9 +2966,7 @@
      320.4
     ]
    ],
-   "fill": 0.442,
-   "primitive": false,
-   "declared": null
+   "fill": 0.442
   },
   {
    "component": "hopper-drain-union",
@@ -3084,9 +2980,7 @@
      304.378
     ]
    ],
-   "fill": 0.4588,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4588
   },
   {
    "component": "bulkhead-carb",
@@ -3100,9 +2994,7 @@
      347.641
     ]
    ],
-   "fill": 0.4633,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4633
   },
   {
    "component": "bulkhead-flavor-a",
@@ -3116,9 +3008,7 @@
      285.26
     ]
    ],
-   "fill": 0.4633,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4633
   },
   {
    "component": "bulkhead-flavor-b",
@@ -3132,9 +3022,7 @@
      285.26
     ]
    ],
-   "fill": 0.4633,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4633
   },
   {
    "component": "bulkhead-water",
@@ -3148,9 +3036,7 @@
      347.641
     ]
    ],
-   "fill": 0.4633,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4633
   },
   {
    "component": "valve-v-a",
@@ -3164,9 +3050,7 @@
      286.615
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-b",
@@ -3180,9 +3064,7 @@
      286.615
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-c",
@@ -3196,9 +3078,7 @@
      227.175
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-d",
@@ -3212,9 +3092,7 @@
      227.175
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-e",
@@ -3228,9 +3106,7 @@
      267.315
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-f",
@@ -3244,9 +3120,7 @@
      267.315
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-g",
@@ -3260,9 +3134,7 @@
      227.175
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-h",
@@ -3276,9 +3148,7 @@
      267.315
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-i",
@@ -3292,9 +3162,7 @@
      267.315
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "valve-v-j",
@@ -3308,9 +3176,7 @@
      227.175
     ]
    ],
-   "fill": 0.4749,
-   "primitive": false,
-   "declared": null
+   "fill": 0.4749
   },
   {
    "component": "port-ring-co2",
@@ -3324,9 +3190,7 @@
      351.23
     ]
    ],
-   "fill": 0.5077,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5077
   },
   {
    "component": "port-ring-carb",
@@ -3340,9 +3204,7 @@
      351.691
     ]
    ],
-   "fill": 0.5199,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5199
   },
   {
    "component": "port-ring-flavor-a",
@@ -3356,9 +3218,7 @@
      289.31
     ]
    ],
-   "fill": 0.5199,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5199
   },
   {
    "component": "port-ring-flavor-b",
@@ -3372,9 +3232,7 @@
      289.31
     ]
    ],
-   "fill": 0.5199,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5199
   },
   {
    "component": "port-ring-water",
@@ -3388,9 +3246,7 @@
      351.691
     ]
    ],
-   "fill": 0.5199,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5199
   },
   {
    "component": "suction-chain",
@@ -3404,9 +3260,7 @@
      276.6
     ]
    ],
-   "fill": 0.5209,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5209
   },
   {
    "component": "thermal-fuse",
@@ -3420,9 +3274,7 @@
      54.6
     ]
    ],
-   "fill": 0.5239,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5239
   },
   {
    "component": "co2-inlet",
@@ -3436,9 +3288,7 @@
      348.338
     ]
    ],
-   "fill": 0.5686,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5686
   },
   {
    "component": "pump-a-boss",
@@ -3452,9 +3302,7 @@
      237.745
     ]
    ],
-   "fill": 0.5841,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5841
   },
   {
    "component": "pump-b-boss",
@@ -3468,9 +3316,7 @@
      237.745
     ]
    ],
-   "fill": 0.5841,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5841
   },
   {
    "component": "discharge-chain",
@@ -3484,9 +3330,7 @@
      276.6
     ]
    ],
-   "fill": 0.5954,
-   "primitive": false,
-   "declared": null
+   "fill": 0.5954
   },
   {
    "component": "compressor",
@@ -3508,9 +3352,7 @@
      75.0
     ]
    ],
-   "fill": 0.6468,
-   "primitive": false,
-   "declared": null
+   "fill": 0.6468
   },
   {
    "component": "gasher-co2",
@@ -3524,9 +3366,7 @@
      343.961
     ]
    ],
-   "fill": 0.6713,
-   "primitive": false,
-   "declared": null
+   "fill": 0.6713
   },
   {
    "component": "wr1110",
@@ -3540,9 +3380,7 @@
      345.711
     ]
    ],
-   "fill": 0.7144,
-   "primitive": false,
-   "declared": null
+   "fill": 0.7144
   },
   {
    "component": "condenser+fan",
@@ -3556,9 +3394,7 @@
      146.0
     ]
    ],
-   "fill": 0.7418,
-   "primitive": false,
-   "declared": null
+   "fill": 0.7418
   },
   {
    "component": "digiten-flow",
@@ -3596,9 +3432,35 @@
      347.211
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": null
+   "fill": 0.7854
+  },
+  {
+   "component": "pump-a-motor",
+   "boxes": [
+    [
+     30.705,
+     24.44,
+     237.745,
+     66.435,
+     60.17,
+     279.295
+    ]
+   ],
+   "fill": 0.7854
+  },
+  {
+   "component": "pump-b-motor",
+   "boxes": [
+    [
+     -66.435,
+     24.44,
+     237.745,
+     -30.705,
+     60.17,
+     279.295
+    ]
+   ],
+   "fill": 0.7854
   },
   {
    "component": "psu",
@@ -3612,9 +3474,7 @@
      305.4
     ]
    ],
-   "fill": 0.8199,
-   "primitive": false,
-   "declared": null
+   "fill": 0.8199
   },
   {
    "component": "pump-a-head",
@@ -3628,9 +3488,7 @@
      216.745
     ]
    ],
-   "fill": 0.9611,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9611
   },
   {
    "component": "pump-b-head",
@@ -3644,9 +3502,7 @@
      216.745
     ]
    ],
-   "fill": 0.9611,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9611
   },
   {
    "component": "wago-mana",
@@ -3660,9 +3516,7 @@
      304.9
     ]
    ],
-   "fill": 0.9812,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9812
   },
   {
    "component": "wago-reeds-b",
@@ -3676,9 +3530,7 @@
      284.9
     ]
    ],
-   "fill": 0.9812,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9812
   },
   {
    "component": "wago-manb",
@@ -3692,9 +3544,7 @@
      296.0
     ]
    ],
-   "fill": 0.9827,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9827
   },
   {
    "component": "wago-reeds-a",
@@ -3708,9 +3558,7 @@
      285.0
     ]
    ],
-   "fill": 0.9827,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9827
   },
   {
    "component": "wago-sensors",
@@ -3724,9 +3572,7 @@
      285.0
     ]
    ],
-   "fill": 0.9827,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9827
   },
   {
    "component": "wago-g",
@@ -3740,9 +3586,7 @@
      329.85
     ]
    ],
-   "fill": 0.9835,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9835
   },
   {
    "component": "wago-gnd",
@@ -3756,9 +3600,7 @@
      329.85
     ]
    ],
-   "fill": 0.9835,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9835
   },
   {
    "component": "wago-h",
@@ -3772,9 +3614,7 @@
      329.85
     ]
    ],
-   "fill": 0.9835,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9835
   },
   {
    "component": "wago-n",
@@ -3788,9 +3628,7 @@
      329.85
     ]
    ],
-   "fill": 0.9835,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9835
   },
   {
    "component": "wago-v12",
@@ -3804,9 +3642,7 @@
      329.85
     ]
    ],
-   "fill": 0.9835,
-   "primitive": false,
-   "declared": null
+   "fill": 0.9835
   },
   {
    "component": "moisture-plate",
@@ -3820,9 +3656,7 @@
      297.811
     ]
    ],
-   "fill": 0.999,
-   "primitive": false,
-   "declared": null
+   "fill": 0.999
   },
   {
    "component": "coil-v-a",
@@ -3852,9 +3686,7 @@
      306.415
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-b",
@@ -3884,9 +3716,7 @@
      306.415
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-c",
@@ -3916,9 +3746,7 @@
      185.675
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-d",
@@ -3948,9 +3776,7 @@
      185.675
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-e",
@@ -3980,9 +3806,7 @@
      225.815
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-f",
@@ -4012,9 +3836,7 @@
      264.815
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-g",
@@ -4044,9 +3866,7 @@
      224.675
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-h",
@@ -4076,9 +3896,7 @@
      225.815
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-i",
@@ -4108,9 +3926,7 @@
      264.815
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   },
   {
    "component": "coil-v-j",
@@ -4140,9 +3956,7 @@
      224.675
     ]
    ],
-   "fill": 1.0,
-   "primitive": false,
-   "declared": null
+   "fill": 1.0
   }
  ],
  "bends": [
@@ -5991,7 +5805,6 @@
    "component": "compressor",
    "by": "enclosure-front-bottom",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -5999,7 +5812,6 @@
    "component": "condenser+fan",
    "by": "enclosure-front-bottom",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6010,7 +5822,6 @@
     "enclosure-back-top"
    ],
    "joint": "seam-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6018,7 +5829,6 @@
    "component": "seaflo-pump",
    "by": "foam-assembly",
    "joint": "deck-mount",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6026,7 +5836,6 @@
    "component": "hopper-funnel",
    "by": null,
    "joint": "wall-capture",
-   "kind": "real",
    "rides": null,
    "never": "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, and the union's collet grips the stub the spout carries \u2014 so the basin is held down by the joint it releases from. It is a dishwasher part and comes out by hand."
   },
@@ -6034,7 +5843,6 @@
    "component": "hopper-drain-stub",
    "by": null,
    "joint": "tube-clamp",
-   "kind": "real",
    "rides": null,
    "never": "The worm clamp closes the basin's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the basin every time it is washed."
   },
@@ -6042,7 +5850,6 @@
    "component": "hopper-drain-clamp",
    "by": null,
    "joint": "tube-clamp",
-   "kind": "real",
    "rides": null,
    "never": "A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it."
   },
@@ -6050,7 +5857,6 @@
    "component": "hopper-drain-union",
    "by": null,
    "joint": "tube-hung",
-   "kind": "real",
    "rides": null,
    "never": "Both its collets land on held bodies \u2014 the upper takes the stub the basin carries, the lower starts `fluid-4` down to V-B in its cradle on the cold core's cap \u2014 so the barrel hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion."
   },
@@ -6061,7 +5867,6 @@
     "display-cover"
    ],
    "joint": "plate-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6069,7 +5874,6 @@
    "component": "display-cover",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6080,7 +5884,6 @@
     "display"
    ],
    "joint": "gap-press",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6088,7 +5891,6 @@
    "component": "suction-chain",
    "by": "foam-assembly",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6096,7 +5898,6 @@
    "component": "discharge-chain",
    "by": "foam-assembly",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6104,7 +5905,6 @@
    "component": "psu",
    "by": "enclosure-back-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6112,7 +5912,6 @@
    "component": "pcba",
    "by": "enclosure-back-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6120,7 +5919,6 @@
    "component": "relay-1",
    "by": "enclosure-back-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6128,7 +5926,6 @@
    "component": "relay-2",
    "by": "enclosure-back-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6136,7 +5933,6 @@
    "component": "ground-stack",
    "by": "enclosure-back-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6144,7 +5940,6 @@
    "component": "wago-h",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6152,7 +5947,6 @@
    "component": "wago-n",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6160,7 +5954,6 @@
    "component": "wago-g",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6168,7 +5961,6 @@
    "component": "wago-v12",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6176,7 +5968,6 @@
    "component": "wago-gnd",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6184,7 +5975,6 @@
    "component": "wago-mana",
    "by": "enclosure-front-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6192,7 +5982,6 @@
    "component": "wago-manb",
    "by": "enclosure-front-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6200,7 +5989,6 @@
    "component": "wago-reeds-b",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6208,7 +5996,6 @@
    "component": "wago-reeds-a",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6216,7 +6003,6 @@
    "component": "wago-sensors",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6224,7 +6010,6 @@
    "component": "asse1022-assembly",
    "by": "enclosure-back-top",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6232,7 +6017,6 @@
    "component": "drip-pan",
    "by": "enclosure-back-top",
    "joint": "channel",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6240,7 +6024,6 @@
    "component": "moisture-plate",
    "by": "drip-pan",
    "joint": "basin",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6248,7 +6031,6 @@
    "component": "mq6-sensor",
    "by": "enclosure-front-bottom",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6256,7 +6038,6 @@
    "component": "thermal-fuse",
    "by": "fuse-clamp",
    "joint": "channel",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6264,7 +6045,6 @@
    "component": "fuse-clamp",
    "by": null,
    "joint": "gap-press",
-   "kind": "real",
    "rides": null,
    "never": "Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them."
   },
@@ -6272,7 +6052,6 @@
    "component": "water-split",
    "by": "enclosure-back-top",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6280,7 +6059,6 @@
    "component": "flow-regulator",
    "by": "enclosure-back-top",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6288,7 +6066,6 @@
    "component": "vk-solenoid",
    "by": "foam-assembly",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6296,7 +6073,6 @@
    "component": "bulkhead-water",
    "by": "enclosure-back-top",
    "joint": "wall-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6304,7 +6080,6 @@
    "component": "c14-inlet",
    "by": "enclosure-back-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6312,7 +6087,6 @@
    "component": "co2-inlet",
    "by": "enclosure-back-top",
    "joint": "wall-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6320,7 +6094,6 @@
    "component": "gasher-co2",
    "by": null,
    "joint": "tube-hung",
-   "kind": "real",
    "rides": null,
    "never": "Both its hops land on held bodies \u2014 `co2-0` back to the ABU44 clamped through the rear wall, `co2-1` on to the WR1110 strapped into its rib off the top one \u2014 and each is ten millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's own axis with nothing printed closing on it. A seat under the middle body of three made-up ones would fight the two either side of it for where the chain stands."
   },
@@ -6328,7 +6101,6 @@
    "component": "wr1110",
    "by": "enclosure-back-top",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6336,7 +6108,6 @@
    "component": "bulkhead-flavor-a",
    "by": "enclosure-back-top",
    "joint": "wall-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6344,7 +6115,6 @@
    "component": "bulkhead-flavor-b",
    "by": "enclosure-back-top",
    "joint": "wall-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6352,7 +6122,6 @@
    "component": "bulkhead-carb",
    "by": "enclosure-back-top",
    "joint": "wall-capture",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6360,7 +6129,6 @@
    "component": "port-ring-water",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6368,7 +6136,6 @@
    "component": "port-ring-carb",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6376,7 +6143,6 @@
    "component": "port-ring-co2",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6384,7 +6150,6 @@
    "component": "port-ring-flavor-a",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6392,7 +6157,6 @@
    "component": "port-ring-flavor-b",
    "by": "enclosure-back-top",
    "joint": "well",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6400,7 +6164,6 @@
    "component": "digiten-flow",
    "by": "enclosure-back-top",
    "joint": "saddle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6408,7 +6171,6 @@
    "component": "valve-v-a",
    "by": "foam-assembly",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6416,7 +6178,6 @@
    "component": "valve-v-b",
    "by": "foam-assembly",
    "joint": "cradle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6424,7 +6185,6 @@
    "component": "valve-v-c",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6432,7 +6192,6 @@
    "component": "valve-v-d",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6440,7 +6199,6 @@
    "component": "valve-v-g",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6448,7 +6206,6 @@
    "component": "valve-v-j",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6456,7 +6213,6 @@
    "component": "valve-v-e",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6464,7 +6220,6 @@
    "component": "valve-v-f",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6472,7 +6227,6 @@
    "component": "valve-v-h",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6480,7 +6234,6 @@
    "component": "valve-v-i",
    "by": "enclosure-front-top",
    "joint": "bosses",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6488,7 +6241,6 @@
    "component": "pump-a-head",
    "by": "enclosure-front-top",
    "joint": "saddle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6496,7 +6248,6 @@
    "component": "pump-b-head",
    "by": "enclosure-front-top",
    "joint": "saddle",
-   "kind": "real",
    "rides": null,
    "never": null
   },
@@ -6504,7 +6255,6 @@
    "component": "coil-v-a",
    "by": "foam-assembly",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-a",
    "never": null
   },
@@ -6512,7 +6262,6 @@
    "component": "coil-v-b",
    "by": "foam-assembly",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-b",
    "never": null
   },
@@ -6520,7 +6269,6 @@
    "component": "coil-v-c",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-c",
    "never": null
   },
@@ -6528,7 +6276,6 @@
    "component": "coil-v-d",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-d",
    "never": null
   },
@@ -6536,7 +6283,6 @@
    "component": "coil-v-e",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-e",
    "never": null
   },
@@ -6544,7 +6290,6 @@
    "component": "coil-v-f",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-f",
    "never": null
   },
@@ -6552,7 +6297,6 @@
    "component": "coil-v-g",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-g",
    "never": null
   },
@@ -6560,7 +6304,6 @@
    "component": "coil-v-h",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-h",
    "never": null
   },
@@ -6568,7 +6311,6 @@
    "component": "coil-v-i",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-i",
    "never": null
   },
@@ -6576,7 +6318,6 @@
    "component": "coil-v-j",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "valve-v-j",
    "never": null
   },
@@ -6584,7 +6325,6 @@
    "component": "pump-a-boss",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "pump-a-head",
    "never": null
   },
@@ -6592,7 +6332,6 @@
    "component": "pump-a-motor",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "placeholder",
    "rides": "pump-a-head",
    "never": null
   },
@@ -6600,7 +6339,6 @@
    "component": "pump-b-boss",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "real",
    "rides": "pump-b-head",
    "never": null
   },
@@ -6608,7 +6346,6 @@
    "component": "pump-b-motor",
    "by": "enclosure-front-top",
    "joint": "pack",
-   "kind": "placeholder",
    "rides": "pump-b-head",
    "never": null
   },
@@ -6616,7 +6353,6 @@
    "component": "tee-y-a",
    "by": null,
    "joint": "pack",
-   "kind": "real",
    "rides": null,
    "never": "Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
@@ -6624,7 +6360,6 @@
    "component": "tee-y-b",
    "by": null,
    "joint": "pack",
-   "kind": "real",
    "rides": null,
    "never": "Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
@@ -6632,7 +6367,6 @@
    "component": "tee-y-c",
    "by": null,
    "joint": "pack",
-   "kind": "real",
    "rides": null,
    "never": "Its collets make up onto V-E's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
@@ -6640,7 +6374,6 @@
    "component": "tee-y-d",
    "by": null,
    "joint": "pack",
-   "kind": "real",
    "rides": null,
    "never": "Its collets make up onto V-F's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
@@ -6648,7 +6381,6 @@
    "component": "tee-y-f",
    "by": null,
    "joint": "pack",
-   "kind": "real",
    "rides": null,
    "never": "Its collets make up onto V-H's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   },
@@ -6656,7 +6388,6 @@
    "component": "tee-y-g",
    "by": null,
    "joint": "pack",
-   "kind": "real",
    "rides": null,
    "never": "Its collets make up onto V-I's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position."
   }

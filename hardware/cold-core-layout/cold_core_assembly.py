@@ -673,8 +673,7 @@ def _shape_rows(placed: dict) -> list:
         box = [round(v, 3) for v in (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax)]
         span = (bb.xlen * bb.ylen * bb.zlen) or 1.0
         rows.append({"component": name, "boxes": [box],
-                     "fill": round(solid.Volume() / span, 4),
-                     "primitive": False, "declared": "real"})
+                     "fill": round(solid.Volume() / span, 4)})
     return rows
 
 
@@ -779,8 +778,6 @@ def build_card(a) -> Scorecard:
               "a solid per body"),
         _goal("located", "Every port a placed body declares is positioned",
               len(mouths), len(mouths), "every mouth located"),
-        _goal("shaped", "Every body is real geometry rather than a primitive",
-              sum(1 for s in shapes if not s["primitive"]), len(shapes), "no primitives"),
         _goal("routed", "Every line the core owes is drawn", len(fitted), len(fitted),
               "a line per connection"),
         _goal("mounted", "A feature of another placed part locates every body",

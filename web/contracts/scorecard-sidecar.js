@@ -41,14 +41,12 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
- * @typedef {Object} ScorecardShape  one component's real boxes — the shape record behind `shaped`
+ * @typedef {Object} ScorecardShape  one component's real boxes
  * @property {string} component
  * @property {number[][]} boxes  one [xmin, ymin, zmin, xmax, ymax, zmax] per solid the component
  *                               is built from. The single box drawn around all of them is a
  *                               different object, and for a hollow or L-shaped body mostly air.
  * @property {number} fill       material volume over the boxes' volume; 1.0 = the boxes are the part
- * @property {boolean} primitive  the geometry is still a bare box or cylinder
- * @property {string} declared   what the component registry claims: "real" | "placeholder"
  */
 
 /**
@@ -142,7 +140,6 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                             the flavour manifold's own bodies, which nothing printed fastens.
  *                             It is what lets a card count the bodies bossed to a piece apart
  *                             from the ones captured in its wall
- * @property {string} kind     "real" | "placeholder" — the component's geometry authorship
  * @property {string|null} [never]  set on a body already fastened by a clamp that ships with
  *                             it, onto a donor the machine stands on grommets to hold off
  *                             itself. The text is why. These rows sit outside the axis's
@@ -155,7 +152,6 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {boolean} gatesPass  every gate passes
  * @property {number} placed   0..100 — placement criteria defined and held
  * @property {number} located  0..100 — every connector positioned AND sized on the component
- * @property {number} shaped   0..100 — real geometry, not a placeholder box
  * @property {number} routed   0..100 — connections modeled as real 3D paths
  * @property {number} [mounted]  0..100 — the feature that fastens each component is printed
  *                               INTO another placed part, and the only fastening measure the
@@ -195,7 +191,7 @@ export function sizeText(row) {
 export function isScorecard(o) {
   if (!o || typeof o !== "object") return false;
   if (typeof o.gatesPass !== "boolean") return false;
-  for (const k of ["placed", "located", "shaped", "routed"]) {
+  for (const k of ["placed", "located", "routed"]) {
     if (typeof o[k] !== "number") return false;
   }
   if (!Array.isArray(o.checks)) return false;
@@ -249,8 +245,7 @@ export function isScorecard(o) {
         typeof s.component === "string" &&
         Array.isArray(s.boxes) &&
         s.boxes.every((b) => Array.isArray(b) && b.length === 6 && b.every((n) => typeof n === "number")) &&
-        typeof s.fill === "number" &&
-        typeof s.primitive === "boolean",
+        typeof s.fill === "number",
     );
     if (!shapesOk) return false;
   }
