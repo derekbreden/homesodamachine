@@ -75,10 +75,11 @@ def _hook(event, args):
     #
     # A DIRECTORY THE IMPORT MACHINERY SCANS IS NOT ONE THIS RUN GLOBBED. Python lists every
     # `sys.path` entry to find the module it is about to load, and a scan is read below as an
-    # input area whole — so `sys.path.insert(0, repo / "tools")`, which every doc sync does to
-    # reach `docgen`, declared all four hundred files under `tools/` as inputs to the action:
-    # `flash.sh` and sixteen animation frames among them, in seventy-seven of a hundred
-    # targets. What an import actually reads is the module, which the `import` event below
+    # input area whole — so the entries a generator inserts arrived as every tracked file
+    # beneath them: `tools/` for `docgen`, 61 files into 77 of the hundred targets, `flash.sh`
+    # and sixteen animation frames among them; `hardware/scripts/` for the shared machinery,
+    # 29 into 103; and the run's own directory, which for a doc sync is `hardware/assembly/`
+    # entire, 401 files. What an import reads is the module, which the `import` event below
     # names outright, and `exec` names the ones loaded by path.
     elif event in ("os.scandir", "os.listdir") and args and args[0]:
         try:
