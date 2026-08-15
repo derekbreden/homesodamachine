@@ -18,5 +18,11 @@ build --action_env=HSM_SKIP_VIEWS=1
 build --action_env=HSM_NO_BUILD_LOCK=1
 build --action_env=HSM_SKIP_SCENES=1
 
-build --jobs=auto
+# BAZEL IS ONE SCHEDULER AND `_run_lock` IS THE OTHER, and the box is eight cores. An action
+# cannot take that lock — eight of them each taking a global single-flight mutex is a build
+# that runs one action at a time — so what keeps the two from oversubscribing is this: bazel
+# holds three quarters of the cores, and everything outside it shares the lock for the rest.
+# `--jobs=auto` gave bazel all of them and left a trace, a hand run and a watcher to fight
+# over the same eight.
+build --jobs=HOST_CPUS*0.75
 test --test_output=errors

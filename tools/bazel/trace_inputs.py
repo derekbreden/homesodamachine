@@ -122,7 +122,11 @@ def _tracked() -> set:
 def trace(gen: str, files: set) -> dict:
     """Every tracked file `gen` read and every one it wrote, plus the solids OCCT loaded."""
     out = Path(os.environ.get("TMPDIR", "/tmp")) / f"hsm-trace-{Path(gen).stem}.json"
-    env = dict(os.environ, HSM_NO_BUILD_LOCK="1", HSM_SKIP_VIEWS="1", HSM_SKIP_SCENES="1")
+    # ONE GENERATOR AT A TIME IS WHAT THIS ALREADY DOES, so each run takes the global lock
+    # the way a hand run does. Two traces on one machine are two pileups otherwise, and the
+    # lock is what everything outside `bazel` shares.
+    env = dict(os.environ, HSM_SKIP_VIEWS="1", HSM_SKIP_SCENES="1",
+               HSM_BUILD_SOURCE="trace")
     subprocess.run([sys.executable, "-c", RUNNER % (str(_ROOT), gen, str(out))],
                    cwd=str(_ROOT), env=env, capture_output=True, text=True, timeout=1800)
     try:
