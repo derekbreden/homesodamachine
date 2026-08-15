@@ -72,8 +72,21 @@ def _hook(event, args):
     # A DIRECTORY THIS RUN GLOBS names its files without opening one. `_build.py` asks its
     # own directory for `*.html` to know which cards there are; `Path.glob` scans and nothing
     # is read until node opens them, out of sight.
+    #
+    # A DIRECTORY THE IMPORT MACHINERY SCANS IS NOT ONE THIS RUN GLOBBED. Python lists every
+    # `sys.path` entry to find the module it is about to load, and a scan is read below as an
+    # input area whole — so `sys.path.insert(0, repo / "tools")`, which every doc sync does to
+    # reach `docgen`, declared all four hundred files under `tools/` as inputs to the action:
+    # `flash.sh` and sixteen animation frames among them, in seventy-seven of a hundred
+    # targets. What an import actually reads is the module, which the `import` event below
+    # names outright, and `exec` names the ones loaded by path.
     elif event in ("os.scandir", "os.listdir") and args and args[0]:
-        _keep(scanned, args[0])
+        try:
+            by = sys._getframe(1).f_code.co_filename
+        except ValueError:
+            by = ""
+        if by != "<frozen importlib._bootstrap_external>":
+            _keep(scanned, args[0])
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
     elif event == "exec" and args:
