@@ -34,7 +34,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if p.name == "hardware") / "manifold-layout"),
 )
 
-from _cold_core_interface import cap_conduits, cap_conduit_bore_radius  # noqa: E402
+from _cold_core_interface import cap_fluid_conduits, cap_conduit_bore_radius  # noqa: E402
 
 import _lines  # noqa: E402  — the stock every water run is drawn on
 import enclosure as _enc  # noqa: E402  — the box, and the hull its own strap cavities state
@@ -77,10 +77,11 @@ def main():
     variables = {
         # Every warm-side fluid termination this procedure lands on is a conduit
         # in the cold core's top cap — a bore up one of the cup's own columns,
-        # opening on the lid's outer face. `cap_conduits` is the table; a conduit
-        # added or dropped there moves this count, and the procedure's own list
-        # of what it closes has to move with it.
-        "CAP_CONDUITS": f"{len(cap_conduits)}",
+        # opening on the lid's outer face. `cap_fluid_conduits` is the table; a
+        # conduit added or dropped there moves this count, and the procedure's own
+        # list of what it closes has to move with it. The cap's other two carry a
+        # reed cable apiece, which is a lid this procedure never opens.
+        "CAP_CONDUITS": f"{len(cap_fluid_conduits)}",
         "CAP_CONDUIT_D": f"{2 * cap_conduit_bore_radius:.4g} mm",
         # The two pump-port stubs, and the corner the stock they are cut from holds.
         # The bend radius is the reinforced PVC's own floor as `_lines` reads it off

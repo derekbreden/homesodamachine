@@ -27,6 +27,7 @@ from _back_panel_dimensions import (  # noqa: E402
 )
 from _cold_core_interface import (  # noqa: E402
     cap_conduits,
+    cap_fluid_conduits,
     corner_round_radius,
     outer_shell_x_length,
     outer_shell_y_length,
@@ -161,11 +162,13 @@ def main():
         "AC_RECESS_DEPTH": (
             f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm"
         ),
-        # Foam-shell outer bottom-cap footprint, and the count of lid conduits that is the
-        # whole of what the warm side reaches the core through.
+        # Foam-shell outer bottom-cap footprint, then the lid's bores: every conduit standing
+        # on it, and the fluid ones among them — which are the whole of what the warm side
+        # reaches the core through. The other two carry a reed cable apiece.
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
         "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
+        "CAP_FLUID_LINES": f"{len(cap_fluid_conduits)}",
         # The core's own grips: the corner round a front block is pocketed to, that bore, how far
         # it stands off the slab, and how far an aft bracket's foot runs onto the cap.
         "CORE_ROUND": f"{2.0 * corner_round_radius:.4g} mm",
