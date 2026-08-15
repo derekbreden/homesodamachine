@@ -15,8 +15,8 @@ import { seatParts } from "/contracts/parts-tree.js";
 
 const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail };
 
-// Which branches stand open. Absent: the three assemblies open, the reference
-// shelf shut.
+// Which branches stand open. Absent: none of them — the page opens as four
+// rows, each showing its own assembly, and a branch is opened by asking for it.
 const OPEN_KEY = "parts-open";
 
 function readOpen() {
@@ -168,7 +168,7 @@ export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
   }
 
   const open = readOpen();
-  const isOpen = (id) => (open ? open.has(id) : id !== tree.reference.id);
+  const isOpen = (id) => (open ? open.has(id) : false);
   for (const branch of tree.branches) {
     gridEl.appendChild(renderBranch(branch, isOpen(branch.id)));
   }

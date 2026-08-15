@@ -5,10 +5,13 @@
 //
 //   Enclosure assembly   manifold-layout/enclosure-assembly.step
 //   Cold core            cold-core-layout/cold-core-assembly.step
-//   Faucet               the printed stack over its cut plate
+//   Faucet               faucet-layout/faucet-assembly.step
 //
 // with purchased geometry on a shelf of its own below them — hardware/README.md
 // says what `reference/` is.
+//
+// EACH OF THE FOUR IS HEADED BY ONE MODEL, its `model`, claimed ahead of what
+// stands under it so it leads rather than falling in among its own parts.
 //
 // A BRANCH'S GROUPS ARE THE READING ITS OWN DOC TAKES. The cold core's are
 // hardware/future.md "Cold core (inside out)" — vessel, coil, shell, reservoirs,
@@ -98,9 +101,10 @@ export const BRANCHES = [
   {
     id: "faucet",
     label: "Faucet",
-    model: null,
-    note: "Above the counter: the printed stack that dresses the factory faucet, over the " +
-          "cut plate that clamps it through the countertop.",
+    model: "faucet-layout/faucet-assembly.step",
+    note: "The column the counter is clamped in: the printed stack around the harvested " +
+          "Westbrass body, the display on the tip, and the three tubes running down past " +
+          "the cut plate into the umbilical.",
     groups: [
       { id: "shell", label: "Shell", holds: ["printed-parts/faucet/touch-flo-shell"],
         note: "The dispense head, whole and in the three pieces it prints as." },
@@ -115,9 +119,15 @@ export const BRANCHES = [
 
 // Purchased geometry, on its own shelf, ungrouped — each card carries its own
 // directory. hardware/README.md: imported / harvested reference STEPs.
+//
+// The shelf takes a `model` the way a branch does, and the ASSE 1022 backflow
+// chain is what stands in it: three purchased fittings made up into one body, so
+// it is the shelf's own subject matter in one picture. It does not contain the
+// rest of the shelf the way the three assemblies contain their branches.
 export const REFERENCE = {
   id: "reference",
   label: "Reference",
+  model: "reference/asse1022-assembly/asse1022-assembly.step",
   holds: ["reference", "off-the-shelf-parts"],
   note: "Purchased parts, modelled so the assemblies can place them. Nothing here is made " +
         "by this project.",
@@ -207,7 +217,10 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
     return { ...b, hero, groups: b.groups.map((g) => ({ ...g, parts: claim(g.holds) })) };
   });
 
-  const reference = { ...REFERENCE, parts: claim(REFERENCE.holds) };
+  // Same order as a branch: the shelf's model is claimed first, so it heads the
+  // shelf instead of standing again among the parts alphabetically below it.
+  const referenceHero = REFERENCE.model ? claim([REFERENCE.model])[0] || null : null;
+  const reference = { ...REFERENCE, hero: referenceHero, parts: claim(REFERENCE.holds) };
 
   const unseated = [...new Set(
     pool.filter((e) => !taken.has(e.file)).map((e) => dirOf(e.file)),

@@ -2188,6 +2188,31 @@
       "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md"
     ]
   },
+  "hardware/faucet-layout/faucet_assembly.py": {
+    "reads": [
+      "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+      "hardware/faucet-layout/faucet-assembly.step",
+      "hardware/faucet-layout/faucet_assembly.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/faucet/_touch_flo_interface.py",
+      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
+      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
+      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+      "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/faucet-layout/faucet_assembly.py"
+    ],
+    "writes": [
+      "hardware/faucet-layout/faucet-assembly.step",
+      "hardware/faucet-layout/faucet_assembly.py"
+    ]
+  },
   "hardware/manifold-layout/enclosure_assembly.py": {
     "reads": [
       "hardware/manifold-layout/README.figures.json",
@@ -4562,24 +4587,6 @@
       "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step"
     ]
   },
-  "hardware/reference/tap-point-assembly/tap_point_assembly.py": {
-    "reads": [
-      "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
-      "hardware/reference/jg-pp061208w/jg_pp061208w.py",
-      "hardware/reference/jg-pp451223w/jg_pp451223w.py",
-      "hardware/reference/tap-point-assembly/README.md",
-      "hardware/reference/tap-point-assembly/tap-point-assembly.step",
-      "hardware/reference/tap-point-assembly/tap-point-assembly.step.png",
-      "hardware/reference/tap-point-assembly/tap_point_assembly.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/tap-point-assembly/tap-point-assembly.step"
-    ]
-  },
   "hardware/reference/teyleten-relay/teyleten_relay.py": {
     "reads": [
       "hardware/reference/teyleten-relay/README.md",
@@ -4593,30 +4600,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/teyleten-relay/teyleten-relay.step"
-    ]
-  },
-  "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-      "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
-      "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
-      "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step.png",
-      "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
-    ],
-    "writes": [
-      "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
-      "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step"
     ]
   },
   "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py": {

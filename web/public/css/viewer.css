@@ -896,30 +896,55 @@ details.branch {
 summary.branch-head {
   cursor: pointer;
   list-style: none;
-  padding: 18px 0 14px;
+  padding: 14px 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   gap: 16px;
+  transition: background 0.12s;
 }
 summary.branch-head::-webkit-details-marker { display: none; }
+/* The row is the control, so it takes a hover the way a button does. */
+summary.branch-head:hover { background: var(--surface); }
 summary.branch-head:hover .branch-title { color: var(--accent); }
 .branch-text { flex: 1 1 auto; min-width: 0; }
 .branch-title {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  line-height: 20px;
+  line-height: 22px;
   color: var(--text);
 }
-/* The caret rides with the title rather than the row, so it stays beside the
-   name whatever height the assembly beside it gives the row. */
+/* One chevron that turns rather than two glyphs that swap: the turn is the
+   state, and it animates, so which way a branch stands reads at a glance and
+   from the corner of the eye while it moves. It rides with the title rather
+   than the row, so it stays beside the name whatever height the assembly
+   beside it gives the row. */
 .branch-title::before {
   content: "\25B8";
-  margin-right: 8px;
-  color: var(--text-3);
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-2);
   font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  vertical-align: 1px;
+  transition: transform 0.15s ease, color 0.12s, border-color 0.12s, background 0.12s;
 }
-details.branch[open] > summary .branch-title::before { content: "\25BE"; }
+details.branch[open] > summary .branch-title::before {
+  transform: rotate(90deg);
+  color: var(--text);
+  border-color: var(--text-3);
+}
+summary.branch-head:hover .branch-title::before {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
 .branch-count {
   margin-left: 10px;
   color: var(--text-3);
@@ -965,7 +990,7 @@ details.branch[open] > summary .branch-title::before { content: "\25BE"; }
 /* The branch's own assembly, riding in the header beside the title — where the
    text column leaves the width free, and where a collapsed branch still shows
    it. */
-.card-hero { flex: 0 0 auto; width: 300px; }
+.card-hero { flex: 0 0 auto; width: 260px; }
 .card-hero img,
 .card-hero .placeholder { aspect-ratio: 4 / 3; }
 .card-hero .label { font-size: 14px; }
