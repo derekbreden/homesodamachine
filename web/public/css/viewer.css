@@ -167,7 +167,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  max-width: min(340px, calc(100% - 32px));
+  /* Wide enough for the four overlays to stand in one row. */
+  max-width: min(390px, calc(100% - 32px));
 }
 
 /* Same pill as .reset-view across the wrapper. One convention runs through
@@ -195,6 +196,9 @@
   color: var(--text);
 }
 
+/* The caption is the one thing in the rail with no pill under it, and the
+   model behind it is white where x-ray is on — so it carries its own dark
+   ground as a shadow. */
 .tool-group-label {
   display: block;
   margin: 0 0 4px 3px;
@@ -202,6 +206,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-2);
+  text-shadow: 0 0 4px var(--bg), 0 0 8px var(--bg);
 }
 /* A group holding no controls — DXF reaches the rail with neither pick modes
    nor scorecard overlays — carries no caption either. */
@@ -1469,17 +1474,70 @@ summary.branch-head:hover .branch-title::before {
   color: var(--err);
 }
 .sc-bar .sc-badge:hover { filter: brightness(1.2); }
-/* Phone: the bar runs nearly the full width, so it takes the bottom row alone and the rail and
-   Reset view sit on the row above it. The rail keeps clear of Reset view's corner, which wraps
-   its chips a row earlier rather than running under the pill. */
+/* Driven by a finger, at any width: every control in the modal is a target a thumb can land on.
+   Keyed on the pointer rather than the viewport, so a phone held sideways — wide enough for the
+   desktop layout below — still gets the sizes a finger needs. */
+@media (pointer: coarse) {
+  .tool-btn,
+  .tool-chip,
+  .cad-wrapper > .reset-view {
+    min-height: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .tool-seg { padding: 2px; }
+  .tool-seg-btn { min-height: 36px; }
+  .tool-icon { width: 17px; height: 17px; }
+  .edge-panel-all { min-height: 38px; }
+  .edge-panel-close,
+  .edge-panel-collapse,
+  .component-show,
+  .component-show-all {
+    min-width: 36px;
+    min-height: 36px;
+  }
+  .edge-panel-close, .edge-panel-collapse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* The checks card is read and dismissed with a thumb too. */
+  .sc-x {
+    min-width: 36px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sc-toggle { min-height: 36px; }
+  .sc-bar .sc-badge {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 12px;
+  }
+}
+
+/* Narrow: the bar runs nearly the full width, so it takes the bottom row alone and the rail and
+   Reset view sit on the row above it, clear of the height the bar measured for itself
+   (scorecard-3d.js publishes --sc-bar-lift). Reset view keeps its glyph and drops its label,
+   which leaves the rail width enough for the pick modes to stay on one row. */
 @media (max-width: 600px) {
   .cad-wrapper > .tool-rail,
   .cad-wrapper > .reset-view {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + var(--sc-bar-lift, 0px));
   }
   .cad-wrapper > .tool-rail {
-    max-width: calc(100% - 140px);
+    max-width: calc(100% - 68px);
+    gap: 8px;
   }
+  .cad-wrapper > .reset-view {
+    width: 44px;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .cad-wrapper > .reset-view .tool-label { display: none; }
   /* The cube is 140px here. */
   .cad-wrapper > .pick-find-panel {
     top: calc(env(safe-area-inset-top, 0px) + 168px);
