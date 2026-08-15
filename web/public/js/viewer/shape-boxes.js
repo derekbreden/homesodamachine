@@ -13,6 +13,7 @@
 import * as THREE from "three";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
+import { makeToolChip } from "./tool-rail.js";
 
 const LS_KEY = "step-shape-boxes";
 
@@ -109,7 +110,10 @@ function showTip(shape, clientX, clientY) {
   if (!wrapper) return;
   if (!tipEl) {
     tipEl = document.createElement("div");
-    tipEl.className = "port-tip";
+    // Same readout as the port tip, one row lower: a port disc usually sits on
+    // the body whose box is drawn, so with both switched on the two hover at
+    // once and would otherwise land on the same pixel.
+    tipEl.className = "port-tip box-tip";
     wrapper.appendChild(tipEl);
   }
   const n = shape.boxes.length;
@@ -149,17 +153,16 @@ export function setShapeBoxesEnabled(on) {
   showShapeBoxes(shapes, file);
 }
 
+export function isShapeBoxesEnabled() { return enabled; }
+
 export function makeShapeBoxToggle(count) {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "shape-box-toggle";
-  btn.title = "The boxes each component really occupies — one per solid it is built from, "
-            + "tinted by how much of the box is material";
-  function refresh() {
-    btn.textContent = enabled ? `Boxes: ${count}` : "Boxes: off";
-    btn.classList.toggle("off", !enabled);
-  }
-  btn.addEventListener("click", () => { setShapeBoxesEnabled(!enabled); refresh(); });
-  refresh();
-  return btn;
+  return makeToolChip({
+    className: "shape-box-toggle",
+    label: "Boxes",
+    count,
+    title: "The boxes each component really occupies — one per solid it is built from, "
+         + "tinted by how much of the box is material",
+    read: isShapeBoxesEnabled,
+    write: setShapeBoxesEnabled,
+  });
 }

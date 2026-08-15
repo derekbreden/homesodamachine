@@ -257,18 +257,35 @@ function gizmoRaycastFromEvent(e) {
   return hits.length > 0 ? hits[0] : null;
 }
 
+// The cube canvas is pointer-events:none, so a pointer over the cube reaches
+// the viewport canvas underneath it and the raycast above places it. A pointer
+// over one of the viewer's own panels reaches that panel instead — and the find
+// box overlaps the cube's corner, so a click there is a click in the box.
+function overCanvas(e) {
+  return e.target === renderer.domElement || e.target === gizmoCanvas;
+}
+
+// One texture per face per state, made once. Swapping in a fresh CanvasTexture
+// on every hover crossing left the old one on the GPU.
+const _faceTextures = new Map();
+function faceTexture(label, hot) {
+  const key = `${label}:${hot ? 1 : 0}`;
+  let tex = _faceTextures.get(key);
+  if (!tex) { tex = makeFaceTexture(label, hot); _faceTextures.set(key, tex); }
+  return tex;
+}
+
+function paintFace(index, hot) {
+  cubeMaterials[index].map = faceTexture(cubeFaces[index].label, hot);
+  cubeMaterials[index].needsUpdate = true;
+}
+
 document.addEventListener("mousemove", (e) => {
-  const hit = gizmoRaycastFromEvent(e);
+  const hit = overCanvas(e) ? gizmoRaycastFromEvent(e) : null;
   const newIndex = hit ? hit.face.materialIndex : -1;
   if (newIndex !== hoveredFaceIndex) {
-    if (hoveredFaceIndex >= 0) {
-      cubeMaterials[hoveredFaceIndex].map = makeFaceTexture(cubeFaces[hoveredFaceIndex].label, false);
-      cubeMaterials[hoveredFaceIndex].needsUpdate = true;
-    }
-    if (newIndex >= 0) {
-      cubeMaterials[newIndex].map = makeFaceTexture(cubeFaces[newIndex].label, true);
-      cubeMaterials[newIndex].needsUpdate = true;
-    }
+    if (hoveredFaceIndex >= 0) paintFace(hoveredFaceIndex, false);
+    if (newIndex >= 0) paintFace(newIndex, true);
     hoveredFaceIndex = newIndex;
   }
 });
@@ -277,7 +294,7 @@ document.addEventListener("mousemove", (e) => {
 // gesture and keep OrbitControls from seeing it. Otherwise the event flows
 // through normally to OrbitControls / drag-to-orbit.
 document.addEventListener("pointerdown", (e) => {
-  const hit = gizmoRaycastFromEvent(e);
+  const hit = overCanvas(e) ? gizmoRaycastFromEvent(e) : null;
   if (!hit) { armedAtPointerDown = false; return; }
   armedAtPointerDown = true;
   e.stopPropagation();
@@ -290,7 +307,7 @@ document.addEventListener("pointerdown", (e) => {
 document.addEventListener("pointerup", (e) => {
   if (!armedAtPointerDown) return;
   armedAtPointerDown = false;
-  const hit = gizmoRaycastFromEvent(e);
+  const hit = overCanvas(e) ? gizmoRaycastFromEvent(e) : null;
   e.stopPropagation();
   e.preventDefault();
   if (!hit) return;

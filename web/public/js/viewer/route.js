@@ -26,6 +26,7 @@ import {
   openPcbDetail, closePcbDetail,
   openCardDetail, closeCardDetail,
 } from "./detail-shims.js";
+import { routeToStep } from "./step-nav.js";
 import { isCardPath } from "/contracts/cards.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
@@ -42,6 +43,15 @@ window.addEventListener("popstate", () => {
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
+    return;
+  }
+  // STEP to STEP with the modal already up — the drill-down's own move, and the
+  // way back out of it. Swapping the model keeps the modal, the canvas and the
+  // render loop; closing and reopening would tear down the surface being
+  // navigated, and ContentViewer.close defers its teardown past the reopen.
+  if (want.type === "step" && state.currentDetail && state.currentDetail.type === "step"
+      && ContentViewer.isOpen()) {
+    routeToStep(want.file);
     return;
   }
   // Close whatever is currently open (cad / mmd / drawing close paths

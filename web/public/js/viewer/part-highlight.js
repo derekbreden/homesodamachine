@@ -79,7 +79,11 @@ export function highlightParts(names) {
   const seen = new Set();
   let n = 0;
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || !want.has(mesh.name) || seen.has(mesh.geometry)) continue;
+    // A component hidden from the local view (component-picker.js) stays hidden:
+    // a scorecard row naming it would otherwise paint a ghost of the solid the
+    // reader just took out of the view.
+    if (!mesh.isMesh || !want.has(mesh.name) || mesh.visible === false
+        || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
     const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
     overlay.add(new THREE.LineSegments(eg, edgeMat));
