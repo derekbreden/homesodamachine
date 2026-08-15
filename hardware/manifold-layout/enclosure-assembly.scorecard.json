@@ -68,7 +68,7 @@
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
-    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.583",
+    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.578",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
@@ -148,7 +148,7 @@
     "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
-    "water-3 \u2014 hopper-drain-union: 1.097 mm",
+    "water-3 \u2014 hopper-drain-union: 1.095 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
@@ -226,12 +226,12 @@
    "active": true
   },
   {
-   "id": "funnel-neck-inside",
-   "label": "The offset neck stands on the collar's own floor",
+   "id": "funnel-ramp-grade",
+   "label": "The X half-run is the funnel floor's shallowest line",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "the short half-run on both axes past the spout's bore",
+   "target": "the Y half-run at or under the X (74.53 mm)",
    "detail": [],
    "active": true
   },
@@ -834,7 +834,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "9.626 mm to the basin",
+   "value": "9.208 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -1070,8 +1070,18 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 93.25",
-   "target": "aft of 95.25",
+   "value": "seam at 200.00, housing back plane at 88.25",
+   "target": "aft of 90.25",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "display-housing-seats",
+   "label": "The housing's back cut keeps a wall behind the display's seats",
+   "kind": "gate",
+   "status": "pass",
+   "value": "cut at 83.25 aft of the front face, seats reach 61.45",
+   "target": "a 3 mm wall behind them, so aft of 64.45",
    "detail": [],
    "active": true
   },
@@ -1080,8 +1090,8 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 93.25..252.25",
-   "target": "frame x -89.50..89.50, y 93.25..461.00",
+   "value": "collar x -79.50..79.50, y 88.25..247.25",
+   "target": "frame x -89.50..89.50, y 88.25..461.00",
    "detail": [],
    "active": true
   },
@@ -1100,7 +1110,7 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 10.00, +X 10.00, +Y 208.75 mm",
+   "value": "\u2212X 10.00, +X 10.00, +Y 213.75 mm",
    "target": "each at least brim_margin 10.00 mm",
    "detail": [],
    "active": true
@@ -1893,7 +1903,7 @@
    "pos": [
     1.21,
     167.75,
-    262.583
+    262.578
    ],
    "face": [
     0.0,
@@ -1912,7 +1922,7 @@
    "pos": [
     1.21,
     167.75,
-    304.383
+    304.378
    ],
    "face": [
     0.0,
@@ -1931,7 +1941,7 @@
    "pos": [
     1.21,
     167.75,
-    304.383
+    304.378
    ],
    "face": [
     0.0,
@@ -2603,14 +2613,14 @@
    "boxes": [
     [
      -86.5,
-     86.25,
-     304.383,
+     81.25,
+     304.378,
      86.5,
-     259.25,
+     254.25,
      358.0
     ]
    ],
-   "fill": 0.0442,
+   "fill": 0.0448,
    "primitive": false,
    "declared": null
   },
@@ -2916,10 +2926,10 @@
     [
      -4.565,
      156.75,
-     305.633,
+     305.628,
      13.985,
      174.75,
-     315.133
+     315.128
     ]
    ],
    "fill": 0.407,
@@ -2932,10 +2942,10 @@
     [
      -1.965,
      164.575,
-     288.383,
+     288.378,
      4.385,
      170.925,
-     316.383
+     316.378
     ]
    ],
    "fill": 0.4219,
@@ -3068,10 +3078,10 @@
     [
      -6.34,
      160.2,
-     262.583,
+     262.578,
      8.76,
      175.3,
-     304.383
+     304.378
     ]
    ],
    "fill": 0.4588,
@@ -4849,7 +4859,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 290.11,
+   "length": 290.1,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4950,10 +4960,10 @@
     "axis": {
      "x": 21.28,
      "y": 84.75,
-     "z": 4.73
+     "z": 4.74
     },
     "span": 87.51,
-    "path": 290.11,
+    "path": 290.1,
     "detour": 3.315
    }
   },

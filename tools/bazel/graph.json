@@ -32,6 +32,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/acceptance-and-burn-in.figures.json",
+      "hardware/assembly/acceptance-and-burn-in.md"
+    ],
     "writes": [
       "hardware/assembly/acceptance-and-burn-in.figures.json",
       "hardware/assembly/acceptance-and-burn-in.md"
@@ -84,6 +88,11 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/assembly/cold-core.figures.json",
+      "hardware/assembly/cold-core.md",
+      "hardware/printed-parts/cold-core/_port_cuts.py"
     ],
     "writes": [
       "hardware/assembly/cold-core.figures.json",
@@ -177,6 +186,10 @@
       "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/electronics-shelf.figures.json",
+      "hardware/assembly/electronics-shelf.md"
+    ],
     "writes": [
       "hardware/assembly/electronics-shelf.figures.json",
       "hardware/assembly/electronics-shelf.md"
@@ -269,6 +282,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/enclosure-mechanical.figures.json",
+      "hardware/assembly/enclosure-mechanical.md"
+    ],
     "writes": [
       "hardware/assembly/enclosure-mechanical.figures.json",
       "hardware/assembly/enclosure-mechanical.md"
@@ -289,6 +306,10 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/faucet-and-umbilical.figures.json",
+      "hardware/assembly/faucet-and-umbilical.md"
+    ],
     "writes": [
       "hardware/assembly/faucet-and-umbilical.figures.json",
       "hardware/assembly/faucet-and-umbilical.md"
@@ -302,6 +323,10 @@
       "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/assembly/finish-pack-ship.figures.json",
+      "hardware/assembly/finish-pack-ship.md"
     ],
     "writes": [
       "hardware/assembly/finish-pack-ship.figures.json",
@@ -338,6 +363,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/firmware-and-commissioning.figures.json",
+      "hardware/assembly/firmware-and-commissioning.md"
+    ],
     "writes": [
       "hardware/assembly/firmware-and-commissioning.figures.json",
       "hardware/assembly/firmware-and-commissioning.md"
@@ -373,6 +402,10 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/assembly/handwork.figures.json",
+      "hardware/assembly/handwork.md"
     ],
     "writes": [
       "hardware/assembly/handwork.figures.json",
@@ -464,6 +497,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/internal-plumbing.figures.json",
+      "hardware/assembly/internal-plumbing.md"
+    ],
     "writes": [
       "hardware/assembly/internal-plumbing.figures.json",
       "hardware/assembly/internal-plumbing.md"
@@ -483,6 +520,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/pressure-vessel.figures.json",
+      "hardware/assembly/pressure-vessel.md"
+    ],
     "writes": [
       "hardware/assembly/pressure-vessel.figures.json",
       "hardware/assembly/pressure-vessel.md"
@@ -501,6 +542,10 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/assembly/refrigerant-loop.figures.json",
+      "hardware/assembly/refrigerant-loop.md"
     ],
     "writes": [
       "hardware/assembly/refrigerant-loop.figures.json",
@@ -522,9 +567,596 @@
       "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/wiring.figures.json",
+      "hardware/assembly/wiring.md"
+    ],
     "writes": [
       "hardware/assembly/wiring.figures.json",
       "hardware/assembly/wiring.md"
+    ]
+  },
+  "hardware/assembly/cards/_build.py": {
+    "reads": [
+      "hardware/assembly/_acceptance_and_burn_in_sync.py",
+      "hardware/assembly/_cable_assemblies_sync.py",
+      "hardware/assembly/_finish_pack_ship_sync.py",
+      "hardware/assembly/_firmware_and_commissioning_sync.py",
+      "hardware/assembly/_pressure_vessel_sync.py",
+      "hardware/assembly/cards/00-cover.html",
+      "hardware/assembly/cards/README.md",
+      "hardware/assembly/cards/STYLE.md",
+      "hardware/assembly/cards/_build.py",
+      "hardware/assembly/cards/_cardgen.py",
+      "hardware/assembly/cards/_cards_cc.py",
+      "hardware/assembly/cards/_cards_fs.py",
+      "hardware/assembly/cards/_cards_ip.py",
+      "hardware/assembly/cards/_cards_sync.py",
+      "hardware/assembly/cards/ab-01-inspect-connect-power.html",
+      "hardware/assembly/cards/ab-02-water-fill-co2.html",
+      "hardware/assembly/cards/ab-03-first-dispenses.html",
+      "hardware/assembly/cards/ab-04-clean-air-purge.html",
+      "hardware/assembly/cards/ab-05-level-transitions.html",
+      "hardware/assembly/cards/ab-06-burn-in-log.html",
+      "hardware/assembly/cards/ab-07-drain-purge-transit.html",
+      "hardware/assembly/cards/ca-01-build-harness.html",
+      "hardware/assembly/cards/ca-02-harness-schedule.html",
+      "hardware/assembly/cards/cc-01-wind-coil.html",
+      "hardware/assembly/cards/cc-02-dress-the-vessel-wall.html",
+      "hardware/assembly/cards/cc-03-transfer-the-coil.html",
+      "hardware/assembly/cards/cc-04-bond-coil-probe.html",
+      "hardware/assembly/cards/cc-05-press-shell-inserts.html",
+      "hardware/assembly/cards/cc-06-pour-cap-foam.html",
+      "hardware/assembly/cards/cc-07-build-reed-columns.html",
+      "hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
+      "hardware/assembly/cards/cc-09-close-reservoirs.html",
+      "hardware/assembly/cards/cc-10-lower-the-vessel.html",
+      "hardware/assembly/cards/cc-11-seat-reservoirs.html",
+      "hardware/assembly/cards/cc-12-route-penetrations.html",
+      "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
+      "hardware/assembly/cards/cc-14-pour-body-foam.html",
+      "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+      "hardware/assembly/cards/en-01-stage-the-four-pieces.html",
+      "hardware/assembly/cards/en-02-rear-wall-bodies.html",
+      "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
+      "hardware/assembly/cards/en-04-stand-the-stratum.html",
+      "hardware/assembly/cards/en-05-seat-cold-core.html",
+      "hardware/assembly/cards/en-06-power-column.html",
+      "hardware/assembly/cards/en-07-close-the-box.html",
+      "hardware/assembly/cards/en-08-drip-tray.html",
+      "hardware/assembly/cards/en-09-display-and-hopper.html",
+      "hardware/assembly/cards/es-01-prepare-the-shelf.html",
+      "hardware/assembly/cards/es-02-stage-ac-distribution.html",
+      "hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
+      "hardware/assembly/cards/es-04-land-ac-pigtails.html",
+      "hardware/assembly/cards/es-05-stage-dc-distribution.html",
+      "hardware/assembly/cards/es-06-land-relays-j5-loom.html",
+      "hardware/assembly/cards/es-07-pre-power-checks.html",
+      "hardware/assembly/cards/fc-01-first-dc-power-on.html",
+      "hardware/assembly/cards/fc-02-flash-three-esp32s.html",
+      "hardware/assembly/cards/fc-03-sensor-health.html",
+      "hardware/assembly/cards/fc-04-valve-pump-self-test.html",
+      "hardware/assembly/cards/fc-05-compressor-smoke-test.html",
+      "hardware/assembly/cards/fs-01-wipe-down-inspect.html",
+      "hardware/assembly/cards/fs-02-drain-dry-nameplate.html",
+      "hardware/assembly/cards/fs-03-cap-photograph.html",
+      "hardware/assembly/cards/fs-04-pack-kit-carton.html",
+      "hardware/assembly/cards/fs-05-weigh-label-handoff.html",
+      "hardware/assembly/cards/fu-01-cut-lldpe-tubes.html",
+      "hardware/assembly/cards/fu-02-route-tubes-through-shell.html",
+      "hardware/assembly/cards/fu-03-foam-carbonated-tube.html",
+      "hardware/assembly/cards/fu-04-sleeve-the-bundle.html",
+      "hardware/assembly/cards/fu-05-bag-with-installer-kit.html",
+      "hardware/assembly/cards/gt-01-npt-joints.html",
+      "hardware/assembly/cards/gt-02-push-to-connect.html",
+      "hardware/assembly/cards/gt-03-crimp-lugs.html",
+      "hardware/assembly/cards/gt-04-jst-xh-crimping.html",
+      "hardware/assembly/cards/gt-05-heat-shrink-sleeve.html",
+      "hardware/assembly/cards/img/asse1022-chain.png",
+      "hardware/assembly/cards/img/coil-mandrel.png",
+      "hardware/assembly/cards/img/copper-plug.png",
+      "hardware/assembly/cards/img/en01-shell.png",
+      "hardware/assembly/cards/img/en02-rearwall.png",
+      "hardware/assembly/cards/img/en03-compressor.png",
+      "hardware/assembly/cards/img/en04-stratum.png",
+      "hardware/assembly/cards/img/en05-coldcore.png",
+      "hardware/assembly/cards/img/en06-column.png",
+      "hardware/assembly/cards/img/en08-drippan.png",
+      "hardware/assembly/cards/img/en09-hopper.png",
+      "hardware/assembly/cards/img/enclosure-assembly.png",
+      "hardware/assembly/cards/img/es01-wall-bosses.png",
+      "hardware/assembly/cards/img/foam-assembly-stack.png",
+      "hardware/assembly/cards/img/foam-cap-top.png",
+      "hardware/assembly/cards/img/foam-shell-cavity.png",
+      "hardware/assembly/cards/img/fu02-faucet.png",
+      "hardware/assembly/cards/img/fu05-shell.png",
+      "hardware/assembly/cards/img/ip03-manifold-pack.png",
+      "hardware/assembly/cards/img/pcba-assembly.png",
+      "hardware/assembly/cards/img/power-tray.png",
+      "hardware/assembly/cards/img/prv-shroud.png",
+      "hardware/assembly/cards/img/reservoir-body.png",
+      "hardware/assembly/cards/img/reservoir-cap.png",
+      "hardware/assembly/cards/img/scene-back-half.png",
+      "hardware/assembly/cards/img/scene-back-half.png.scene.json",
+      "hardware/assembly/cards/img/scene-back-top.png",
+      "hardware/assembly/cards/img/scene-back-top.png.scene.json",
+      "hardware/assembly/cards/img/scene-cap-lid-fill.png",
+      "hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json",
+      "hardware/assembly/cards/img/scene-cap-lid.png",
+      "hardware/assembly/cards/img/scene-cap-lid.png.scene.json",
+      "hardware/assembly/cards/img/scene-cold-core-open.png",
+      "hardware/assembly/cards/img/scene-cold-core-open.png.scene.json",
+      "hardware/assembly/cards/img/scene-cold-core.png",
+      "hardware/assembly/cards/img/scene-cold-core.png.scene.json",
+      "hardware/assembly/cards/img/scene-front-top.png",
+      "hardware/assembly/cards/img/scene-front-top.png.scene.json",
+      "hardware/assembly/cards/img/scene-hopper-drain.png",
+      "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+      "hardware/assembly/cards/img/tap-point.png",
+      "hardware/assembly/cards/img/two-valve-tray.png",
+      "hardware/assembly/cards/img/wago-column.png",
+      "hardware/assembly/cards/img/water-split.png",
+      "hardware/assembly/cards/ip-01-co2-path.html",
+      "hardware/assembly/cards/ip-02-water-path.html",
+      "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
+      "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+      "hardware/assembly/cards/ip-05-risers.html",
+      "hardware/assembly/cards/ip-06-witness-tidy.html",
+      "hardware/assembly/cards/out/00-cover.png",
+      "hardware/assembly/cards/out/ab-01-inspect-connect-power.png",
+      "hardware/assembly/cards/out/ab-02-water-fill-co2.png",
+      "hardware/assembly/cards/out/ab-03-first-dispenses.png",
+      "hardware/assembly/cards/out/ab-04-clean-air-purge.png",
+      "hardware/assembly/cards/out/ab-05-level-transitions.png",
+      "hardware/assembly/cards/out/ab-06-burn-in-log.png",
+      "hardware/assembly/cards/out/ab-07-drain-purge-transit.png",
+      "hardware/assembly/cards/out/ca-01-build-harness.png",
+      "hardware/assembly/cards/out/ca-02-harness-schedule.png",
+      "hardware/assembly/cards/out/cc-01-wind-coil.png",
+      "hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.png",
+      "hardware/assembly/cards/out/cc-03-transfer-the-coil.png",
+      "hardware/assembly/cards/out/cc-04-bond-coil-probe.png",
+      "hardware/assembly/cards/out/cc-05-press-shell-inserts.png",
+      "hardware/assembly/cards/out/cc-06-pour-cap-foam.png",
+      "hardware/assembly/cards/out/cc-07-build-reed-columns.png",
+      "hardware/assembly/cards/out/cc-08-seat-reservoir-rods.png",
+      "hardware/assembly/cards/out/cc-09-close-reservoirs.png",
+      "hardware/assembly/cards/out/cc-10-lower-the-vessel.png",
+      "hardware/assembly/cards/out/cc-11-seat-reservoirs.png",
+      "hardware/assembly/cards/out/cc-12-route-penetrations.png",
+      "hardware/assembly/cards/out/cc-13-stack-copper-plugs.png",
+      "hardware/assembly/cards/out/cc-14-pour-body-foam.png",
+      "hardware/assembly/cards/out/cc-15-columns-gaskets-caps.png",
+      "hardware/assembly/cards/out/deck.pdf",
+      "hardware/assembly/cards/out/en-01-stage-the-four-pieces.png",
+      "hardware/assembly/cards/out/en-02-rear-wall-bodies.png",
+      "hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png",
+      "hardware/assembly/cards/out/en-04-stand-the-stratum.png",
+      "hardware/assembly/cards/out/en-05-seat-cold-core.png",
+      "hardware/assembly/cards/out/en-06-power-column.png",
+      "hardware/assembly/cards/out/en-07-close-the-box.png",
+      "hardware/assembly/cards/out/en-08-drip-tray.png",
+      "hardware/assembly/cards/out/en-09-display-and-hopper.png",
+      "hardware/assembly/cards/out/es-01-prepare-the-shelf.png",
+      "hardware/assembly/cards/out/es-02-stage-ac-distribution.png",
+      "hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.png",
+      "hardware/assembly/cards/out/es-04-land-ac-pigtails.png",
+      "hardware/assembly/cards/out/es-05-stage-dc-distribution.png",
+      "hardware/assembly/cards/out/es-06-land-relays-j5-loom.png",
+      "hardware/assembly/cards/out/es-07-pre-power-checks.png",
+      "hardware/assembly/cards/out/fc-01-first-dc-power-on.png",
+      "hardware/assembly/cards/out/fc-02-flash-three-esp32s.png",
+      "hardware/assembly/cards/out/fc-03-sensor-health.png",
+      "hardware/assembly/cards/out/fc-04-valve-pump-self-test.png",
+      "hardware/assembly/cards/out/fc-05-compressor-smoke-test.png",
+      "hardware/assembly/cards/out/fs-01-wipe-down-inspect.png",
+      "hardware/assembly/cards/out/fs-02-drain-dry-nameplate.png",
+      "hardware/assembly/cards/out/fs-03-cap-photograph.png",
+      "hardware/assembly/cards/out/fs-04-pack-kit-carton.png",
+      "hardware/assembly/cards/out/fs-05-weigh-label-handoff.png",
+      "hardware/assembly/cards/out/fu-01-cut-lldpe-tubes.png",
+      "hardware/assembly/cards/out/fu-02-route-tubes-through-shell.png",
+      "hardware/assembly/cards/out/fu-03-foam-carbonated-tube.png",
+      "hardware/assembly/cards/out/fu-04-sleeve-the-bundle.png",
+      "hardware/assembly/cards/out/fu-05-bag-with-installer-kit.png",
+      "hardware/assembly/cards/out/gt-01-npt-joints.png",
+      "hardware/assembly/cards/out/gt-02-push-to-connect.png",
+      "hardware/assembly/cards/out/gt-03-crimp-lugs.png",
+      "hardware/assembly/cards/out/gt-04-jst-xh-crimping.png",
+      "hardware/assembly/cards/out/gt-05-heat-shrink-sleeve.png",
+      "hardware/assembly/cards/out/ip-01-co2-path.png",
+      "hardware/assembly/cards/out/ip-02-water-path.png",
+      "hardware/assembly/cards/out/ip-03-manifold-valves-tees.png",
+      "hardware/assembly/cards/out/ip-04-manifold-pumps-channels.png",
+      "hardware/assembly/cards/out/ip-05-risers.png",
+      "hardware/assembly/cards/out/ip-06-witness-tidy.png",
+      "hardware/assembly/cards/out/pv-01-chamfer-port-holes.png",
+      "hardware/assembly/cards/out/pv-02-tap-npt-ports.png",
+      "hardware/assembly/cards/out/pv-03-rod-register.png",
+      "hardware/assembly/cards/out/pv-04-break-plate-edges.png",
+      "hardware/assembly/cards/out/pv-05-cut-level-rods.png",
+      "hardware/assembly/cards/out/pv-06-tack-float-rod.png",
+      "hardware/assembly/cards/out/pv-07-deburr-and-prep.png",
+      "hardware/assembly/cards/out/pv-08-weld-bottom-plate.png",
+      "hardware/assembly/cards/out/pv-09-close-the-vessel.png",
+      "hardware/assembly/cards/out/pv-10-dye-penetrant.png",
+      "hardware/assembly/cards/out/pv-11-hydro-test.png",
+      "hardware/assembly/cards/out/pv-12-citric-passivation.png",
+      "hardware/assembly/cards/out/pv-13-prv-shroud-subassembly.png",
+      "hardware/assembly/cards/out/pv-14-port-fittings.png",
+      "hardware/assembly/cards/out/rl-01-verify-donor.png",
+      "hardware/assembly/cards/out/rl-02-vent-charge.png",
+      "hardware/assembly/cards/out/rl-03-argon-and-cut.png",
+      "hardware/assembly/cards/out/rl-04-suction-tie-in.png",
+      "hardware/assembly/cards/out/rl-05-pinch-swage.png",
+      "hardware/assembly/cards/out/rl-06-pull-vacuum.png",
+      "hardware/assembly/cards/out/rl-07-recharge.png",
+      "hardware/assembly/cards/out/rl-08-run-up-leak-check.png",
+      "hardware/assembly/cards/out/sa-01-back-top.png",
+      "hardware/assembly/cards/out/sa-02-front-top.png",
+      "hardware/assembly/cards/out/sa-03-cap-lid-fill.png",
+      "hardware/assembly/cards/out/sa-04-cap-lid.png",
+      "hardware/assembly/cards/out/sa-05-back-half.png",
+      "hardware/assembly/cards/out/sa-06-hopper-drain.png",
+      "hardware/assembly/cards/out/sa-07-cold-core.png",
+      "hardware/assembly/cards/out/sa-08-cold-core-open.png",
+      "hardware/assembly/cards/out/wr-01-chassis-ground-bonds.png",
+      "hardware/assembly/cards/out/wr-02-ac-mains.png",
+      "hardware/assembly/cards/out/wr-03-ac-dielectric-check.png",
+      "hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png",
+      "hardware/assembly/cards/out/wr-05-signal-looms.png",
+      "hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png",
+      "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
+      "hardware/assembly/cards/pv-02-tap-npt-ports.html",
+      "hardware/assembly/cards/pv-03-rod-register.html",
+      "hardware/assembly/cards/pv-04-break-plate-edges.html",
+      "hardware/assembly/cards/pv-05-cut-level-rods.html",
+      "hardware/assembly/cards/pv-06-tack-float-rod.html",
+      "hardware/assembly/cards/pv-07-deburr-and-prep.html",
+      "hardware/assembly/cards/pv-08-weld-bottom-plate.html",
+      "hardware/assembly/cards/pv-09-close-the-vessel.html",
+      "hardware/assembly/cards/pv-10-dye-penetrant.html",
+      "hardware/assembly/cards/pv-11-hydro-test.html",
+      "hardware/assembly/cards/pv-12-citric-passivation.html",
+      "hardware/assembly/cards/pv-13-prv-shroud-subassembly.html",
+      "hardware/assembly/cards/pv-14-port-fittings.html",
+      "hardware/assembly/cards/rl-01-verify-donor.html",
+      "hardware/assembly/cards/rl-02-vent-charge.html",
+      "hardware/assembly/cards/rl-03-argon-and-cut.html",
+      "hardware/assembly/cards/rl-04-suction-tie-in.html",
+      "hardware/assembly/cards/rl-05-pinch-swage.html",
+      "hardware/assembly/cards/rl-06-pull-vacuum.html",
+      "hardware/assembly/cards/rl-07-recharge.html",
+      "hardware/assembly/cards/rl-08-run-up-leak-check.html",
+      "hardware/assembly/cards/sa-01-back-top.html",
+      "hardware/assembly/cards/sa-02-front-top.html",
+      "hardware/assembly/cards/sa-03-cap-lid-fill.html",
+      "hardware/assembly/cards/sa-04-cap-lid.html",
+      "hardware/assembly/cards/sa-05-back-half.html",
+      "hardware/assembly/cards/sa-06-hopper-drain.html",
+      "hardware/assembly/cards/sa-07-cold-core.html",
+      "hardware/assembly/cards/sa-08-cold-core-open.html",
+      "hardware/assembly/cards/style.css",
+      "hardware/assembly/cards/tools/README.md",
+      "hardware/assembly/cards/tools/_build.py",
+      "hardware/assembly/cards/tools/_index.py",
+      "hardware/assembly/cards/tools/bs-band-saw.html",
+      "hardware/assembly/cards/tools/bz-braze-bench.html",
+      "hardware/assembly/cards/tools/cr-crimp-bench.html",
+      "hardware/assembly/cards/tools/dp-drill-press.html",
+      "hardware/assembly/cards/tools/el-electrical-test.html",
+      "hardware/assembly/cards/tools/hy-hydro-test.html",
+      "hardware/assembly/cards/tools/img/cr-pcba.png",
+      "hardware/assembly/cards/tools/img/dp-endcap-face.png",
+      "hardware/assembly/cards/tools/img/tool/B00009MDBU.png",
+      "hardware/assembly/cards/tools/img/tool/B0009W6T8G.png",
+      "hardware/assembly/cards/tools/img/tool/B000GSLKIW.png",
+      "hardware/assembly/cards/tools/img/tool/B000LPN3WQ.png",
+      "hardware/assembly/cards/tools/img/tool/B000PDWI4S.png",
+      "hardware/assembly/cards/tools/img/tool/B000X4K9KO.png",
+      "hardware/assembly/cards/tools/img/tool/B001O62V56.png",
+      "hardware/assembly/cards/tools/img/tool/B005317ZMC.png",
+      "hardware/assembly/cards/tools/img/tool/B005KDEIZ0.png",
+      "hardware/assembly/cards/tools/img/tool/B008HQ6GXO.png",
+      "hardware/assembly/cards/tools/img/tool/B00AEXKR4C.png",
+      "hardware/assembly/cards/tools/img/tool/B00CXKOEQ6.png",
+      "hardware/assembly/cards/tools/img/tool/B00DMEYTLW.png",
+      "hardware/assembly/cards/tools/img/tool/B00IXBMS6M.png",
+      "hardware/assembly/cards/tools/img/tool/B00IZ1YHZK.png",
+      "hardware/assembly/cards/tools/img/tool/B00NY1YHHE.png",
+      "hardware/assembly/cards/tools/img/tool/B01N4L8QMW.png",
+      "hardware/assembly/cards/tools/img/tool/B071JL6LLL.png",
+      "hardware/assembly/cards/tools/img/tool/B073ZX58PH.png",
+      "hardware/assembly/cards/tools/img/tool/B079K874CQ.png",
+      "hardware/assembly/cards/tools/img/tool/B07BKSLLG9.png",
+      "hardware/assembly/cards/tools/img/tool/B07C9ZV4PG.png",
+      "hardware/assembly/cards/tools/img/tool/B07CZB2SHZ.png",
+      "hardware/assembly/cards/tools/img/tool/B07DGVRYL3.png",
+      "hardware/assembly/cards/tools/img/tool/B07P7ZRZMD.png",
+      "hardware/assembly/cards/tools/img/tool/B07T45XTD1.png",
+      "hardware/assembly/cards/tools/img/tool/B07T6VLSK3.png",
+      "hardware/assembly/cards/tools/img/tool/B07VWDN29F.png",
+      "hardware/assembly/cards/tools/img/tool/B07XNNNC5Y.png",
+      "hardware/assembly/cards/tools/img/tool/B07YLFLSJW.png",
+      "hardware/assembly/cards/tools/img/tool/B08DNMT96W.png",
+      "hardware/assembly/cards/tools/img/tool/B08F3JKDD3.png",
+      "hardware/assembly/cards/tools/img/tool/B08P1WRZ1S.png",
+      "hardware/assembly/cards/tools/img/tool/B08P5BNHBX.png",
+      "hardware/assembly/cards/tools/img/tool/B08VW15TK8.png",
+      "hardware/assembly/cards/tools/img/tool/B08ZVT5JKC.png",
+      "hardware/assembly/cards/tools/img/tool/B09C4X5R8F.png",
+      "hardware/assembly/cards/tools/img/tool/B09KXT6W46.png",
+      "hardware/assembly/cards/tools/img/tool/B09NDCCW29.png",
+      "hardware/assembly/cards/tools/img/tool/B09XWQCNGT.png",
+      "hardware/assembly/cards/tools/img/tool/B0BCHMQLFB.png",
+      "hardware/assembly/cards/tools/img/tool/B0BPMVTJ1R.png",
+      "hardware/assembly/cards/tools/img/tool/B0BTM3G8DK.png",
+      "hardware/assembly/cards/tools/img/tool/B0C4LP4B3D.png",
+      "hardware/assembly/cards/tools/img/tool/B0CQJMV71Z.png",
+      "hardware/assembly/cards/tools/img/tool/B0D4DJW54S.png",
+      "hardware/assembly/cards/tools/img/tool/B0D78ZM928.png",
+      "hardware/assembly/cards/tools/img/tool/B0D7HM5R3C.png",
+      "hardware/assembly/cards/tools/img/tool/B0DPQX17WM.png",
+      "hardware/assembly/cards/tools/img/tool/B0DS622GKN.png",
+      "hardware/assembly/cards/tools/img/tool/B0F5PMMXKD.png",
+      "hardware/assembly/cards/tools/img/tool/B0F6BPTW3T.png",
+      "hardware/assembly/cards/tools/img/tool/B0FHPS82YG.png",
+      "hardware/assembly/cards/tools/img/tool/B0G1XJ2F68.png",
+      "hardware/assembly/cards/tools/img/tool/BAMBU-AMSHT.png",
+      "hardware/assembly/cards/tools/img/tool/BAMBU-H2C.png",
+      "hardware/assembly/cards/tools/img/tool/XLASERLAB-FEEDER.png",
+      "hardware/assembly/cards/tools/img/tool/XLASERLAB-X1PRO.png",
+      "hardware/assembly/cards/tools/lw-laser-welder.html",
+      "hardware/assembly/cards/tools/out/bs-band-saw.png",
+      "hardware/assembly/cards/tools/out/bz-braze-bench.png",
+      "hardware/assembly/cards/tools/out/cr-crimp-bench.png",
+      "hardware/assembly/cards/tools/out/deck-tools.pdf",
+      "hardware/assembly/cards/tools/out/dp-drill-press.png",
+      "hardware/assembly/cards/tools/out/el-electrical-test.png",
+      "hardware/assembly/cards/tools/out/hy-hydro-test.png",
+      "hardware/assembly/cards/tools/out/lw-laser-welder.png",
+      "hardware/assembly/cards/tools/out/pc-pour-cure.png",
+      "hardware/assembly/cards/tools/out/pl-tube-fittings.png",
+      "hardware/assembly/cards/tools/out/pr-printers.png",
+      "hardware/assembly/cards/tools/out/so-solder-bench.png",
+      "hardware/assembly/cards/tools/out/tb-tube-bench.png",
+      "hardware/assembly/cards/tools/out/vc-vacuum-charge.png",
+      "hardware/assembly/cards/tools/pc-pour-cure.html",
+      "hardware/assembly/cards/tools/pl-tube-fittings.html",
+      "hardware/assembly/cards/tools/pr-printers.html",
+      "hardware/assembly/cards/tools/so-solder-bench.html",
+      "hardware/assembly/cards/tools/tb-tube-bench.html",
+      "hardware/assembly/cards/tools/tools.css",
+      "hardware/assembly/cards/tools/vc-vacuum-charge.html",
+      "hardware/assembly/cards/wr-01-chassis-ground-bonds.html",
+      "hardware/assembly/cards/wr-02-ac-mains.html",
+      "hardware/assembly/cards/wr-03-ac-dielectric-check.html",
+      "hardware/assembly/cards/wr-04-cabinet-12v-runs.html",
+      "hardware/assembly/cards/wr-05-signal-looms.html",
+      "hardware/assembly/cards/wr-06-bundle-route-strain-relieve.html",
+      "hardware/assembly/scenes/_scenes.py",
+      "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/manifold-layout/_lines.py",
+      "hardware/manifold-layout/_scorecard.py",
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+      "hardware/manifold-layout/enclosure_assembly.py",
+      "hardware/manifold-layout/manifold_layout.py",
+      "hardware/pcb/pcba/pcba.tsx",
+      "hardware/printed-parts/cadlib/snap.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "hardware/printed-parts/cold-core/_foam_cap.py",
+      "hardware/printed-parts/cold-core/_internal_routes.py",
+      "hardware/printed-parts/cold-core/_outer_shell.py",
+      "hardware/printed-parts/cold-core/_port_cuts.py",
+      "hardware/printed-parts/cold-core/_reed_channels.py",
+      "hardware/printed-parts/cold-core/_support_ring.py",
+      "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+      "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+      "hardware/printed-parts/electronics/module_tray.py",
+      "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+      "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+      "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/flavor/pump-case/pump_case.py",
+      "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+      "hardware/printed-parts/valve-seat/valve_seat.py",
+      "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+      "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+      "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+      "hardware/reference/compressor/compressor.py",
+      "hardware/reference/condenser-block/condenser_block.py",
+      "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+      "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+      "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+      "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+      "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+      "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+      "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+      "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
+      "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+      "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+      "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+      "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+      "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+      "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+      "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
+      "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+      "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+      "hardware/reference/tee-connector/tee-connector.step",
+      "hardware/reference/tee-connector/tee_connector.py",
+      "hardware/reference/teyleten-relay/teyleten_relay.py",
+      "hardware/reference/wago-221/wago_221.py",
+      "hardware/reference/water-split/water_split.py",
+      "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+      "hardware/reference/worm-clamp/worm_clamp.py",
+      "hardware/reference/wr1110-regulator/wr1110_regulator.py",
+      "hardware/reference/y-divider/y_divider.py",
+      "hardware/scripts/_boxes.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_clearing.py",
+      "hardware/scripts/_facts.py",
+      "hardware/scripts/_measuring.py",
+      "hardware/scripts/_meshes.py",
+      "hardware/scripts/_overlap.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_routing.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_seating.py",
+      "hardware/scripts/_stated_bounds.py",
+      "hardware/topology/fluid-topology.md",
+      "tools/docgen/__init__.py",
+      "tools/render/render-card.js"
+    ],
+    "rewritten": [
+      "hardware/assembly/cards/ab-01-inspect-connect-power.html",
+      "hardware/assembly/cards/ab-02-water-fill-co2.html",
+      "hardware/assembly/cards/ab-05-level-transitions.html",
+      "hardware/assembly/cards/ab-06-burn-in-log.html",
+      "hardware/assembly/cards/ca-02-harness-schedule.html",
+      "hardware/assembly/cards/cc-03-transfer-the-coil.html",
+      "hardware/assembly/cards/cc-05-press-shell-inserts.html",
+      "hardware/assembly/cards/cc-06-pour-cap-foam.html",
+      "hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
+      "hardware/assembly/cards/cc-10-lower-the-vessel.html",
+      "hardware/assembly/cards/cc-11-seat-reservoirs.html",
+      "hardware/assembly/cards/cc-12-route-penetrations.html",
+      "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
+      "hardware/assembly/cards/cc-14-pour-body-foam.html",
+      "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+      "hardware/assembly/cards/en-01-stage-the-four-pieces.html",
+      "hardware/assembly/cards/en-02-rear-wall-bodies.html",
+      "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
+      "hardware/assembly/cards/en-04-stand-the-stratum.html",
+      "hardware/assembly/cards/en-05-seat-cold-core.html",
+      "hardware/assembly/cards/en-06-power-column.html",
+      "hardware/assembly/cards/en-07-close-the-box.html",
+      "hardware/assembly/cards/en-09-display-and-hopper.html",
+      "hardware/assembly/cards/es-01-prepare-the-shelf.html",
+      "hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
+      "hardware/assembly/cards/fc-01-first-dc-power-on.html",
+      "hardware/assembly/cards/fc-03-sensor-health.html",
+      "hardware/assembly/cards/fc-04-valve-pump-self-test.html",
+      "hardware/assembly/cards/fc-05-compressor-smoke-test.html",
+      "hardware/assembly/cards/fs-01-wipe-down-inspect.html",
+      "hardware/assembly/cards/fs-02-drain-dry-nameplate.html",
+      "hardware/assembly/cards/fs-03-cap-photograph.html",
+      "hardware/assembly/cards/fs-04-pack-kit-carton.html",
+      "hardware/assembly/cards/fs-05-weigh-label-handoff.html",
+      "hardware/assembly/cards/fu-04-sleeve-the-bundle.html",
+      "hardware/assembly/cards/gt-02-push-to-connect.html",
+      "hardware/assembly/cards/ip-01-co2-path.html",
+      "hardware/assembly/cards/ip-02-water-path.html",
+      "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
+      "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+      "hardware/assembly/cards/ip-05-risers.html",
+      "hardware/assembly/cards/ip-06-witness-tidy.html",
+      "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
+      "hardware/assembly/cards/pv-02-tap-npt-ports.html",
+      "hardware/assembly/cards/pv-03-rod-register.html",
+      "hardware/assembly/cards/pv-04-break-plate-edges.html",
+      "hardware/assembly/cards/pv-05-cut-level-rods.html",
+      "hardware/assembly/cards/pv-06-tack-float-rod.html",
+      "hardware/assembly/cards/pv-07-deburr-and-prep.html",
+      "hardware/assembly/cards/pv-09-close-the-vessel.html",
+      "hardware/assembly/cards/pv-11-hydro-test.html",
+      "hardware/assembly/cards/pv-13-prv-shroud-subassembly.html",
+      "hardware/assembly/cards/pv-14-port-fittings.html",
+      "hardware/assembly/cards/rl-04-suction-tie-in.html",
+      "hardware/assembly/cards/rl-05-pinch-swage.html",
+      "hardware/assembly/cards/sa-01-back-top.html",
+      "hardware/assembly/cards/sa-02-front-top.html",
+      "hardware/assembly/cards/sa-03-cap-lid-fill.html",
+      "hardware/assembly/cards/sa-04-cap-lid.html",
+      "hardware/assembly/cards/sa-05-back-half.html",
+      "hardware/assembly/cards/sa-06-hopper-drain.html",
+      "hardware/assembly/cards/sa-07-cold-core.html",
+      "hardware/assembly/cards/sa-08-cold-core-open.html",
+      "hardware/assembly/cards/wr-04-cabinet-12v-runs.html",
+      "hardware/assembly/cards/wr-05-signal-looms.html"
+    ],
+    "writes": [
+      "hardware/assembly/cards/ab-01-inspect-connect-power.html",
+      "hardware/assembly/cards/ab-02-water-fill-co2.html",
+      "hardware/assembly/cards/ab-05-level-transitions.html",
+      "hardware/assembly/cards/ab-06-burn-in-log.html",
+      "hardware/assembly/cards/ca-02-harness-schedule.html",
+      "hardware/assembly/cards/cc-03-transfer-the-coil.html",
+      "hardware/assembly/cards/cc-05-press-shell-inserts.html",
+      "hardware/assembly/cards/cc-06-pour-cap-foam.html",
+      "hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
+      "hardware/assembly/cards/cc-10-lower-the-vessel.html",
+      "hardware/assembly/cards/cc-11-seat-reservoirs.html",
+      "hardware/assembly/cards/cc-12-route-penetrations.html",
+      "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
+      "hardware/assembly/cards/cc-14-pour-body-foam.html",
+      "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+      "hardware/assembly/cards/en-01-stage-the-four-pieces.html",
+      "hardware/assembly/cards/en-02-rear-wall-bodies.html",
+      "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
+      "hardware/assembly/cards/en-04-stand-the-stratum.html",
+      "hardware/assembly/cards/en-05-seat-cold-core.html",
+      "hardware/assembly/cards/en-06-power-column.html",
+      "hardware/assembly/cards/en-07-close-the-box.html",
+      "hardware/assembly/cards/en-09-display-and-hopper.html",
+      "hardware/assembly/cards/es-01-prepare-the-shelf.html",
+      "hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
+      "hardware/assembly/cards/fc-01-first-dc-power-on.html",
+      "hardware/assembly/cards/fc-03-sensor-health.html",
+      "hardware/assembly/cards/fc-04-valve-pump-self-test.html",
+      "hardware/assembly/cards/fc-05-compressor-smoke-test.html",
+      "hardware/assembly/cards/fs-01-wipe-down-inspect.html",
+      "hardware/assembly/cards/fs-02-drain-dry-nameplate.html",
+      "hardware/assembly/cards/fs-03-cap-photograph.html",
+      "hardware/assembly/cards/fs-04-pack-kit-carton.html",
+      "hardware/assembly/cards/fs-05-weigh-label-handoff.html",
+      "hardware/assembly/cards/fu-04-sleeve-the-bundle.html",
+      "hardware/assembly/cards/gt-02-push-to-connect.html",
+      "hardware/assembly/cards/ip-01-co2-path.html",
+      "hardware/assembly/cards/ip-02-water-path.html",
+      "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
+      "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+      "hardware/assembly/cards/ip-05-risers.html",
+      "hardware/assembly/cards/ip-06-witness-tidy.html",
+      "hardware/assembly/cards/out/deck.pdf",
+      "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
+      "hardware/assembly/cards/pv-02-tap-npt-ports.html",
+      "hardware/assembly/cards/pv-03-rod-register.html",
+      "hardware/assembly/cards/pv-04-break-plate-edges.html",
+      "hardware/assembly/cards/pv-05-cut-level-rods.html",
+      "hardware/assembly/cards/pv-06-tack-float-rod.html",
+      "hardware/assembly/cards/pv-07-deburr-and-prep.html",
+      "hardware/assembly/cards/pv-09-close-the-vessel.html",
+      "hardware/assembly/cards/pv-11-hydro-test.html",
+      "hardware/assembly/cards/pv-13-prv-shroud-subassembly.html",
+      "hardware/assembly/cards/pv-14-port-fittings.html",
+      "hardware/assembly/cards/rl-04-suction-tie-in.html",
+      "hardware/assembly/cards/rl-05-pinch-swage.html",
+      "hardware/assembly/cards/sa-01-back-top.html",
+      "hardware/assembly/cards/sa-02-front-top.html",
+      "hardware/assembly/cards/sa-03-cap-lid-fill.html",
+      "hardware/assembly/cards/sa-04-cap-lid.html",
+      "hardware/assembly/cards/sa-05-back-half.html",
+      "hardware/assembly/cards/sa-06-hopper-drain.html",
+      "hardware/assembly/cards/sa-07-cold-core.html",
+      "hardware/assembly/cards/sa-08-cold-core-open.html",
+      "hardware/assembly/cards/wr-04-cabinet-12v-runs.html",
+      "hardware/assembly/cards/wr-05-signal-looms.html"
     ]
   },
   "hardware/assembly/cards/_cards_sync.py": {
@@ -888,114 +1520,28 @@
       "hardware/assembly/scenes/_scenes.py",
       "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
-      "hardware/manifold-layout/README.figures.json",
-      "hardware/manifold-layout/README.md",
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
-      "hardware/manifold-layout/enclosure-assembly.step",
-      "hardware/manifold-layout/enclosure-assembly.step.png",
       "hardware/manifold-layout/enclosure_assembly.py",
-      "hardware/manifold-layout/manifold-layout.step",
-      "hardware/manifold-layout/manifold-layout.step.png",
       "hardware/manifold-layout/manifold_layout.py",
       "hardware/pcb/pcba/pcba.tsx",
-      "hardware/printed-parts/cadlib/README.md",
-      "hardware/printed-parts/cadlib/_refactor_sieve.py",
-      "hardware/printed-parts/cadlib/_refactor_sieve_baseline.json",
-      "hardware/printed-parts/cadlib/_world_workplane.md",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
       "hardware/printed-parts/cold-core/_foam_cap.py",
-      "hardware/printed-parts/cold-core/_foam_shell.py",
       "hardware/printed-parts/cold-core/_internal_routes.py",
       "hardware/printed-parts/cold-core/_outer_shell.py",
       "hardware/printed-parts/cold-core/_port_cuts.py",
       "hardware/printed-parts/cold-core/_reed_channels.py",
-      "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
-      "hardware/printed-parts/cold-core/_reservoir_supports.py",
       "hardware/printed-parts/cold-core/_support_ring.py",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.png",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step.png",
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.png",
       "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
-      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
-      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
-      "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
-      "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
-      "hardware/printed-parts/cold-core/foam-shell/README.md",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.png",
-      "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
-      "hardware/printed-parts/cold-core/foam-shell/print-log.md",
-      "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
-      "hardware/printed-parts/cold-core/prv-shroud/README.md",
-      "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
-      "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.png",
       "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-      "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
-      "hardware/printed-parts/cold-core/reed-bridge/README.md",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.png",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.png",
-      "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
-      "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json",
-      "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md",
-      "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
-      "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
-      "hardware/printed-parts/cold-core/reservoir/print-log.md",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/cold-core/reservoir/silicone.md",
-      "hardware/printed-parts/cold-core/reservoir/vent.figures.json",
-      "hardware/printed-parts/cold-core/reservoir/vent.md",
-      "hardware/printed-parts/cold-core/reservoir/watertight-petg.md",
-      "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/back-panel/README.md",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -1008,38 +1554,20 @@
       "hardware/printed-parts/flavor/pump-case/pump_case.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
-      "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
-      "hardware/printed-parts/zone-c/hopper-funnel/README.md",
-      "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
-      "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step.png",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/asse1022-assembly/asse1022_assembly.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-      "hardware/reference/compressor/README.figures.json",
-      "hardware/reference/compressor/README.md",
       "hardware/reference/compressor/compressor.py",
-      "hardware/reference/compressor/compressor.step",
-      "hardware/reference/compressor/compressor.step.png",
       "hardware/reference/condenser-block/condenser_block.py",
       "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
       "hardware/reference/flare38-14ptc/flare38_14ptc.py",
       "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
       "hardware/reference/gasher-check-valve/gasher_check_valve.py",
       "hardware/reference/ground-ring-stack/ground_ring_stack.py",
-      "hardware/reference/hopper-drain-stub/hopper-drain-stub.step",
-      "hardware/reference/hopper-drain-stub/hopper-drain-stub.step.png",
       "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
-      "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
-      "hardware/reference/iec-c14-inlet/iec-c14-inlet.step.png",
       "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-      "hardware/reference/jg-bulkhead-union/51055K3-no-threads.step",
-      "hardware/reference/jg-bulkhead-union/51055K3-no-threads.step.png",
-      "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
-      "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.png",
       "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
       "hardware/reference/jg-pp010822e/jg_pp010822e.py",
-      "hardware/reference/jg-pp0408w/jg-pp0408w.step",
-      "hardware/reference/jg-pp0408w/jg-pp0408w.step.png",
       "hardware/reference/jg-pp0408w/jg_pp0408w.py",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
@@ -1059,24 +1587,14 @@
       "hardware/reference/wago-221/wago_221.py",
       "hardware/reference/water-split/water_split.py",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
-      "hardware/reference/worm-clamp/worm-clamp.step",
-      "hardware/reference/worm-clamp/worm-clamp.step.png",
       "hardware/reference/worm-clamp/worm_clamp.py",
       "hardware/reference/wr1110-regulator/wr1110_regulator.py",
       "hardware/reference/y-divider/y_divider.py",
-      "hardware/scripts/_bom_categories.py",
-      "hardware/scripts/_bom_masses.py",
-      "hardware/scripts/_bom_sync.py",
-      "hardware/scripts/_bom_totals.py",
       "hardware/scripts/_boxes.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_clearing.py",
       "hardware/scripts/_facts.py",
-      "hardware/scripts/_labor_totals.py",
-      "hardware/scripts/_ledger_totals.py",
-      "hardware/scripts/_machine_time.py",
       "hardware/scripts/_measuring.py",
-      "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_meshes.py",
       "hardware/scripts/_overlap.py",
       "hardware/scripts/_realized.py",
@@ -1084,20 +1602,142 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
-      "hardware/scripts/_tools_totals.py",
-      "hardware/scripts/check_build_exit.py",
-      "hardware/scripts/check_ledger.py",
-      "hardware/scripts/check_pinmap.py",
-      "hardware/scripts/check_tracked.py",
-      "hardware/scripts/fit.py",
-      "hardware/scripts/lanes.py",
-      "hardware/scripts/pick_text.py",
-      "hardware/scripts/probe.py",
       "hardware/topology/fluid-topology.md",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/cards/ab-01-inspect-connect-power.html",
+      "hardware/assembly/cards/ab-02-water-fill-co2.html",
+      "hardware/assembly/cards/ab-05-level-transitions.html",
+      "hardware/assembly/cards/ab-06-burn-in-log.html",
+      "hardware/assembly/cards/ca-02-harness-schedule.html",
+      "hardware/assembly/cards/cc-03-transfer-the-coil.html",
+      "hardware/assembly/cards/cc-05-press-shell-inserts.html",
+      "hardware/assembly/cards/cc-06-pour-cap-foam.html",
+      "hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
+      "hardware/assembly/cards/cc-10-lower-the-vessel.html",
+      "hardware/assembly/cards/cc-11-seat-reservoirs.html",
+      "hardware/assembly/cards/cc-12-route-penetrations.html",
+      "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
+      "hardware/assembly/cards/cc-14-pour-body-foam.html",
+      "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+      "hardware/assembly/cards/en-01-stage-the-four-pieces.html",
+      "hardware/assembly/cards/en-02-rear-wall-bodies.html",
+      "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
+      "hardware/assembly/cards/en-04-stand-the-stratum.html",
+      "hardware/assembly/cards/en-05-seat-cold-core.html",
+      "hardware/assembly/cards/en-06-power-column.html",
+      "hardware/assembly/cards/en-07-close-the-box.html",
+      "hardware/assembly/cards/en-09-display-and-hopper.html",
+      "hardware/assembly/cards/es-01-prepare-the-shelf.html",
+      "hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
+      "hardware/assembly/cards/fc-01-first-dc-power-on.html",
+      "hardware/assembly/cards/fc-03-sensor-health.html",
+      "hardware/assembly/cards/fc-04-valve-pump-self-test.html",
+      "hardware/assembly/cards/fc-05-compressor-smoke-test.html",
+      "hardware/assembly/cards/fs-01-wipe-down-inspect.html",
+      "hardware/assembly/cards/fs-02-drain-dry-nameplate.html",
+      "hardware/assembly/cards/fs-03-cap-photograph.html",
+      "hardware/assembly/cards/fs-04-pack-kit-carton.html",
+      "hardware/assembly/cards/fs-05-weigh-label-handoff.html",
+      "hardware/assembly/cards/fu-04-sleeve-the-bundle.html",
+      "hardware/assembly/cards/gt-02-push-to-connect.html",
+      "hardware/assembly/cards/ip-01-co2-path.html",
+      "hardware/assembly/cards/ip-02-water-path.html",
+      "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
+      "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+      "hardware/assembly/cards/ip-05-risers.html",
+      "hardware/assembly/cards/ip-06-witness-tidy.html",
+      "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
+      "hardware/assembly/cards/pv-02-tap-npt-ports.html",
+      "hardware/assembly/cards/pv-03-rod-register.html",
+      "hardware/assembly/cards/pv-04-break-plate-edges.html",
+      "hardware/assembly/cards/pv-05-cut-level-rods.html",
+      "hardware/assembly/cards/pv-06-tack-float-rod.html",
+      "hardware/assembly/cards/pv-07-deburr-and-prep.html",
+      "hardware/assembly/cards/pv-09-close-the-vessel.html",
+      "hardware/assembly/cards/pv-11-hydro-test.html",
+      "hardware/assembly/cards/pv-13-prv-shroud-subassembly.html",
+      "hardware/assembly/cards/pv-14-port-fittings.html",
+      "hardware/assembly/cards/rl-04-suction-tie-in.html",
+      "hardware/assembly/cards/rl-05-pinch-swage.html",
+      "hardware/assembly/cards/sa-01-back-top.html",
+      "hardware/assembly/cards/sa-02-front-top.html",
+      "hardware/assembly/cards/sa-03-cap-lid-fill.html",
+      "hardware/assembly/cards/sa-04-cap-lid.html",
+      "hardware/assembly/cards/sa-05-back-half.html",
+      "hardware/assembly/cards/sa-06-hopper-drain.html",
+      "hardware/assembly/cards/sa-07-cold-core.html",
+      "hardware/assembly/cards/sa-08-cold-core-open.html",
+      "hardware/assembly/cards/wr-04-cabinet-12v-runs.html",
+      "hardware/assembly/cards/wr-05-signal-looms.html"
+    ],
     "writes": [
-      "hardware/assembly/cards/en-01-stage-the-four-pieces.html"
+      "hardware/assembly/cards/ab-01-inspect-connect-power.html",
+      "hardware/assembly/cards/ab-02-water-fill-co2.html",
+      "hardware/assembly/cards/ab-05-level-transitions.html",
+      "hardware/assembly/cards/ab-06-burn-in-log.html",
+      "hardware/assembly/cards/ca-02-harness-schedule.html",
+      "hardware/assembly/cards/cc-03-transfer-the-coil.html",
+      "hardware/assembly/cards/cc-05-press-shell-inserts.html",
+      "hardware/assembly/cards/cc-06-pour-cap-foam.html",
+      "hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
+      "hardware/assembly/cards/cc-10-lower-the-vessel.html",
+      "hardware/assembly/cards/cc-11-seat-reservoirs.html",
+      "hardware/assembly/cards/cc-12-route-penetrations.html",
+      "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
+      "hardware/assembly/cards/cc-14-pour-body-foam.html",
+      "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
+      "hardware/assembly/cards/en-01-stage-the-four-pieces.html",
+      "hardware/assembly/cards/en-02-rear-wall-bodies.html",
+      "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
+      "hardware/assembly/cards/en-04-stand-the-stratum.html",
+      "hardware/assembly/cards/en-05-seat-cold-core.html",
+      "hardware/assembly/cards/en-06-power-column.html",
+      "hardware/assembly/cards/en-07-close-the-box.html",
+      "hardware/assembly/cards/en-09-display-and-hopper.html",
+      "hardware/assembly/cards/es-01-prepare-the-shelf.html",
+      "hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
+      "hardware/assembly/cards/fc-01-first-dc-power-on.html",
+      "hardware/assembly/cards/fc-03-sensor-health.html",
+      "hardware/assembly/cards/fc-04-valve-pump-self-test.html",
+      "hardware/assembly/cards/fc-05-compressor-smoke-test.html",
+      "hardware/assembly/cards/fs-01-wipe-down-inspect.html",
+      "hardware/assembly/cards/fs-02-drain-dry-nameplate.html",
+      "hardware/assembly/cards/fs-03-cap-photograph.html",
+      "hardware/assembly/cards/fs-04-pack-kit-carton.html",
+      "hardware/assembly/cards/fs-05-weigh-label-handoff.html",
+      "hardware/assembly/cards/fu-04-sleeve-the-bundle.html",
+      "hardware/assembly/cards/gt-02-push-to-connect.html",
+      "hardware/assembly/cards/ip-01-co2-path.html",
+      "hardware/assembly/cards/ip-02-water-path.html",
+      "hardware/assembly/cards/ip-03-manifold-valves-tees.html",
+      "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
+      "hardware/assembly/cards/ip-05-risers.html",
+      "hardware/assembly/cards/ip-06-witness-tidy.html",
+      "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
+      "hardware/assembly/cards/pv-02-tap-npt-ports.html",
+      "hardware/assembly/cards/pv-03-rod-register.html",
+      "hardware/assembly/cards/pv-04-break-plate-edges.html",
+      "hardware/assembly/cards/pv-05-cut-level-rods.html",
+      "hardware/assembly/cards/pv-06-tack-float-rod.html",
+      "hardware/assembly/cards/pv-07-deburr-and-prep.html",
+      "hardware/assembly/cards/pv-09-close-the-vessel.html",
+      "hardware/assembly/cards/pv-11-hydro-test.html",
+      "hardware/assembly/cards/pv-13-prv-shroud-subassembly.html",
+      "hardware/assembly/cards/pv-14-port-fittings.html",
+      "hardware/assembly/cards/rl-04-suction-tie-in.html",
+      "hardware/assembly/cards/rl-05-pinch-swage.html",
+      "hardware/assembly/cards/sa-01-back-top.html",
+      "hardware/assembly/cards/sa-02-front-top.html",
+      "hardware/assembly/cards/sa-03-cap-lid-fill.html",
+      "hardware/assembly/cards/sa-04-cap-lid.html",
+      "hardware/assembly/cards/sa-05-back-half.html",
+      "hardware/assembly/cards/sa-06-hopper-drain.html",
+      "hardware/assembly/cards/sa-07-cold-core.html",
+      "hardware/assembly/cards/sa-08-cold-core-open.html",
+      "hardware/assembly/cards/wr-04-cabinet-12v-runs.html",
+      "hardware/assembly/cards/wr-05-signal-looms.html"
     ]
   },
   "hardware/assembly/cards/tools/_build.py": {
@@ -1197,6 +1837,7 @@
       "hardware/scripts/_run_lock.py",
       "tools/render/render-card.js"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/assembly/cards/tools/out/bs-band-saw.png",
       "hardware/assembly/cards/tools/out/bz-braze-bench.png",
@@ -1232,16 +1873,7 @@
       "hardware/assembly/cards/img/scene-front-top.png.scene.json",
       "hardware/assembly/cards/img/scene-hopper-drain.png",
       "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
-      "hardware/assembly/scenes/README.md",
       "hardware/assembly/scenes/_scenes.py",
-      "hardware/assembly/scenes/glb/back-half.glb",
-      "hardware/assembly/scenes/glb/back-top.glb",
-      "hardware/assembly/scenes/glb/cap-lid-fill.glb",
-      "hardware/assembly/scenes/glb/cap-lid.glb",
-      "hardware/assembly/scenes/glb/cold-core-open.glb",
-      "hardware/assembly/scenes/glb/cold-core.glb",
-      "hardware/assembly/scenes/glb/front-top.glb",
-      "hardware/assembly/scenes/glb/hopper-drain.glb",
       "hardware/assembly/scenes/render_scenes.py",
       "hardware/cold-core-layout/_bom.py",
       "hardware/cold-core-layout/_coil.py",
@@ -1369,6 +2001,7 @@
       "tools/docgen/__init__.py",
       "tools/render/render-step-posed.js"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/assembly/cards/img/scene-back-half.png",
       "hardware/assembly/cards/img/scene-back-half.png.scene.json",
@@ -1451,6 +2084,7 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
       "hardware/cold-core-layout/cold-core-assembly.step",
@@ -1472,6 +2106,9 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py"
+    ],
     "writes": [
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py"
@@ -1491,6 +2128,9 @@
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py"
     ],
     "writes": [
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf",
@@ -1513,6 +2153,9 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py"
+    ],
     "writes": [
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py"
@@ -1532,6 +2175,11 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md"
     ],
     "writes": [
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
@@ -1651,6 +2299,7 @@
       "hardware/topology/fluid-topology.md",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
@@ -1693,6 +2342,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/manifold-layout/README.figures.json",
+      "hardware/manifold-layout/README.md"
+    ],
     "writes": [
       "hardware/manifold-layout/README.figures.json",
       "hardware/manifold-layout/README.md",
@@ -1701,127 +2354,13 @@
   },
   "hardware/printed-parts/cold-core/_cold_core_interface.py": {
     "reads": [
-      "hardware/printed-parts/cadlib/README.md",
-      "hardware/printed-parts/cadlib/_refactor_sieve.py",
-      "hardware/printed-parts/cadlib/_refactor_sieve_baseline.json",
-      "hardware/printed-parts/cadlib/_world_workplane.md",
-      "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
-      "hardware/printed-parts/cold-core/_foam_cap.py",
-      "hardware/printed-parts/cold-core/_foam_shell.py",
-      "hardware/printed-parts/cold-core/_internal_routes.py",
-      "hardware/printed-parts/cold-core/_outer_shell.py",
-      "hardware/printed-parts/cold-core/_port_cuts.py",
-      "hardware/printed-parts/cold-core/_reed_channels.py",
-      "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
-      "hardware/printed-parts/cold-core/_reservoir_supports.py",
-      "hardware/printed-parts/cold-core/_support_ring.py",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.png",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
-      "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step.png",
-      "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.png",
-      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
-      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
-      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.png",
-      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
-      "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
-      "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
-      "hardware/printed-parts/cold-core/foam-shell/README.md",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.png",
-      "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
-      "hardware/printed-parts/cold-core/foam-shell/print-log.md",
-      "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
-      "hardware/printed-parts/cold-core/prv-shroud/README.md",
-      "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
-      "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.png",
-      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-      "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
-      "hardware/printed-parts/cold-core/reed-bridge/README.md",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.png",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.png",
-      "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
-      "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json",
-      "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md",
-      "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
-      "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
-      "hardware/printed-parts/cold-core/reservoir/print-log.md",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.png",
-      "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
-      "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/cold-core/reservoir/silicone.md",
-      "hardware/printed-parts/cold-core/reservoir/vent.figures.json",
-      "hardware/printed-parts/cold-core/reservoir/vent.md",
-      "hardware/printed-parts/cold-core/reservoir/watertight-petg.md",
-      "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md",
-      "hardware/scripts/_bom_categories.py",
-      "hardware/scripts/_bom_masses.py",
-      "hardware/scripts/_bom_sync.py",
-      "hardware/scripts/_bom_totals.py",
-      "hardware/scripts/_boxes.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_clearing.py",
-      "hardware/scripts/_facts.py",
-      "hardware/scripts/_labor_totals.py",
-      "hardware/scripts/_ledger_totals.py",
-      "hardware/scripts/_machine_time.py",
-      "hardware/scripts/_measuring.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_meshes.py",
-      "hardware/scripts/_overlap.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_routing.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
-      "hardware/scripts/_tools_totals.py",
-      "hardware/scripts/check_build_exit.py",
-      "hardware/scripts/check_ledger.py",
-      "hardware/scripts/check_pinmap.py",
-      "hardware/scripts/check_tracked.py",
-      "hardware/scripts/fit.py",
-      "hardware/scripts/lanes.py",
-      "hardware/scripts/pick_text.py",
-      "hardware/scripts/probe.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/_cold_core_interface.py"
     ],
     "writes": [
       "hardware/printed-parts/cold-core/_cold_core_interface.py"
@@ -1839,6 +2378,9 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py"
     ],
     "writes": [
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
@@ -1862,6 +2404,9 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py"
     ],
     "writes": [
       "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
@@ -1907,6 +2452,7 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
       "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step"
@@ -1936,6 +2482,9 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py"
     ],
     "writes": [
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -1982,6 +2531,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
+      "hardware/printed-parts/cold-core/foam-shell/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
       "hardware/printed-parts/cold-core/foam-shell/README.md",
@@ -2000,6 +2553,11 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
+      "hardware/printed-parts/cold-core/prv-shroud/README.md",
+      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py"
     ],
     "writes": [
       "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
@@ -2029,6 +2587,13 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
+      "hardware/printed-parts/cold-core/reed-bridge/README.md",
+      "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+      "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
+      "hardware/printed-parts/cold-core/reservoir/level-sensing.md"
     ],
     "writes": [
       "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
@@ -2084,6 +2649,19 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
+      "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
+      "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
+      "hardware/printed-parts/cold-core/foam-shell/README.md",
+      "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json",
+      "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md",
+      "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
+      "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
+      "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+      "hardware/printed-parts/cold-core/reservoir/vent.figures.json",
+      "hardware/printed-parts/cold-core/reservoir/vent.md"
+    ],
     "writes": [
       "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
       "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
@@ -2118,37 +2696,12 @@
       "hardware/printed-parts/electronics/pcba-tray/pcba-tray.step.png",
       "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/scripts/_bom_categories.py",
-      "hardware/scripts/_bom_masses.py",
-      "hardware/scripts/_bom_sync.py",
-      "hardware/scripts/_bom_totals.py",
-      "hardware/scripts/_boxes.py",
       "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_clearing.py",
-      "hardware/scripts/_facts.py",
-      "hardware/scripts/_labor_totals.py",
-      "hardware/scripts/_ledger_totals.py",
-      "hardware/scripts/_machine_time.py",
-      "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_meshes.py",
-      "hardware/scripts/_overlap.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_seating.py",
-      "hardware/scripts/_stated_bounds.py",
-      "hardware/scripts/_tools_totals.py",
-      "hardware/scripts/check_build_exit.py",
-      "hardware/scripts/check_ledger.py",
-      "hardware/scripts/check_pinmap.py",
-      "hardware/scripts/check_tracked.py",
-      "hardware/scripts/fit.py",
-      "hardware/scripts/lanes.py",
-      "hardware/scripts/pick_text.py",
-      "hardware/scripts/probe.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step"
@@ -2170,6 +2723,9 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py"
     ],
     "writes": [
       "hardware/printed-parts/electronics/pcba-tray/pcba-tray.step",
@@ -2262,6 +2818,10 @@
       "hardware/topology/fluid-topology.md",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/README.figures.json",
+      "hardware/printed-parts/enclosure/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/README.figures.json",
       "hardware/printed-parts/enclosure/README.md"
@@ -2351,6 +2911,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/back-panel/README.figures.json",
+      "hardware/printed-parts/enclosure/back-panel/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/back-panel/README.figures.json",
       "hardware/printed-parts/enclosure/back-panel/README.md"
@@ -2383,6 +2947,11 @@
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/display-cover/README.figures.json",
+      "hardware/printed-parts/enclosure/display-cover/README.md",
+      "hardware/printed-parts/enclosure/display-cover/display_cover.py"
     ],
     "writes": [
       "hardware/printed-parts/enclosure/display-cover/README.figures.json",
@@ -2419,6 +2988,11 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
+      "hardware/printed-parts/enclosure/display-gasket/README.md",
+      "hardware/printed-parts/enclosure/display-gasket/display_gasket.py"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
       "hardware/printed-parts/enclosure/display-gasket/README.md",
@@ -2453,12 +3027,6 @@
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
       "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step",
@@ -2534,6 +3102,9 @@
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py"
     ],
     "writes": [
       "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py"
@@ -2570,6 +3141,119 @@
       "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
+      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step",
+      "hardware/printed-parts/enclosure/port-ring/port-ring-union.step",
+      "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/flavor/pump-case/pump_case.py",
+      "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
+      "hardware/printed-parts/valve-seat/valve_seat.py",
+      "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
+      "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+      "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+      "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+      "hardware/reference/compressor/compressor.py",
+      "hardware/reference/condenser-block/condenser_block.py",
+      "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+      "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+      "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+      "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+      "hardware/reference/gasher-check-valve/gasher-check-valve.step",
+      "hardware/reference/gasher-check-valve/gasher_check_valve.py",
+      "hardware/reference/ground-ring-stack/ground-ring-stack.step",
+      "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+      "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+      "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
+      "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+      "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
+      "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+      "hardware/reference/meanwell-irm90/meanwell-irm90.step",
+      "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+      "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
+      "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+      "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+      "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+      "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
+      "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
+      "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+      "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
+      "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+      "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
+      "hardware/reference/tee-connector/tee-connector.step",
+      "hardware/reference/tee-connector/tee_connector.py",
+      "hardware/reference/teyleten-relay/teyleten-relay.step",
+      "hardware/reference/teyleten-relay/teyleten_relay.py",
+      "hardware/reference/wago-221/wago-221-413.step",
+      "hardware/reference/wago-221/wago-221-415.step",
+      "hardware/reference/wago-221/wago-221-420.step",
+      "hardware/reference/wago-221/wago_221.py",
+      "hardware/reference/water-split/water_split.py",
+      "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
+      "hardware/reference/worm-clamp/worm_clamp.py",
+      "hardware/reference/wr1110-regulator/wr1110-regulator.step",
+      "hardware/reference/wr1110-regulator/wr1110_regulator.py",
+      "hardware/reference/y-divider/y_divider.py",
+      "hardware/scripts/_boxes.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_clearing.py",
+      "hardware/scripts/_facts.py",
+      "hardware/scripts/_measuring.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_meshes.py",
+      "hardware/scripts/_overlap.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_routing.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_seating.py",
+      "hardware/scripts/_stated_bounds.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py"
+    ],
+    "writes": [
+      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
+      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg"
+    ]
+  },
+  "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py": {
+    "reads": [
+      "hardware/manifold-layout/_lines.py",
+      "hardware/manifold-layout/_scorecard.py",
+      "hardware/manifold-layout/enclosure_assembly.py",
+      "hardware/manifold-layout/manifold_layout.py",
+      "hardware/printed-parts/cadlib/snap.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "hardware/printed-parts/cold-core/_foam_cap.py",
+      "hardware/printed-parts/cold-core/_internal_routes.py",
+      "hardware/printed-parts/cold-core/_outer_shell.py",
+      "hardware/printed-parts/cold-core/_port_cuts.py",
+      "hardware/printed-parts/cold-core/_reed_channels.py",
+      "hardware/printed-parts/cold-core/_support_ring.py",
+      "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+      "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+      "hardware/printed-parts/electronics/module_tray.py",
+      "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
+      "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+      "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
+      "hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
+      "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
       "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
@@ -2648,119 +3332,8 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
-    "writes": [
-      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg"
-    ]
-  },
-  "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py": {
-    "reads": [
-      "hardware/manifold-layout/_lines.py",
-      "hardware/manifold-layout/_scorecard.py",
-      "hardware/manifold-layout/enclosure_assembly.py",
-      "hardware/manifold-layout/manifold_layout.py",
-      "hardware/printed-parts/cadlib/snap.py",
-      "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/cold-core/_cold_core_interface.py",
-      "hardware/printed-parts/cold-core/_foam_cap.py",
-      "hardware/printed-parts/cold-core/_internal_routes.py",
-      "hardware/printed-parts/cold-core/_outer_shell.py",
-      "hardware/printed-parts/cold-core/_port_cuts.py",
-      "hardware/printed-parts/cold-core/_reed_channels.py",
-      "hardware/printed-parts/cold-core/_support_ring.py",
-      "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
-      "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-      "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/electronics/module_tray.py",
-      "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
-      "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/enclosure/display-cover/display_cover.py",
-      "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
-      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "hardware/printed-parts/enclosure/port-ring/port-ring-neofit.step",
-      "hardware/printed-parts/enclosure/port-ring/port-ring-union.step",
-      "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-      "hardware/printed-parts/flavor/pump-case/pump_case.py",
-      "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
-      "hardware/printed-parts/valve-seat/valve_seat.py",
-      "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
-      "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
-      "hardware/reference/asse1022-assembly/asse1022_assembly.py",
-      "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-      "hardware/reference/compressor/compressor.py",
-      "hardware/reference/condenser-block/condenser_block.py",
-      "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
-      "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-      "hardware/reference/flare38-14ptc/flare38_14ptc.py",
-      "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
-      "hardware/reference/gasher-check-valve/gasher-check-valve.step",
-      "hardware/reference/gasher-check-valve/gasher_check_valve.py",
-      "hardware/reference/ground-ring-stack/ground-ring-stack.step",
-      "hardware/reference/ground-ring-stack/ground_ring_stack.py",
-      "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
-      "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
-      "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-      "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
-      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-      "hardware/reference/jg-pp010822e/jg_pp010822e.py",
-      "hardware/reference/jg-pp0408w/jg_pp0408w.py",
-      "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
-      "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-      "hardware/reference/meanwell-irm90/meanwell-irm90.step",
-      "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-      "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
-      "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-      "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-      "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
-      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-      "hardware/reference/neofit-flow-control/neofit_flow_control.py",
-      "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
-      "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
-      "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
-      "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
-      "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
-      "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-      "hardware/reference/tee-connector/tee-connector.step",
-      "hardware/reference/tee-connector/tee_connector.py",
-      "hardware/reference/teyleten-relay/teyleten-relay.step",
-      "hardware/reference/teyleten-relay/teyleten_relay.py",
-      "hardware/reference/wago-221/wago-221-413.step",
-      "hardware/reference/wago-221/wago-221-415.step",
-      "hardware/reference/wago-221/wago-221-420.step",
-      "hardware/reference/wago-221/wago_221.py",
-      "hardware/reference/water-split/water_split.py",
-      "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
-      "hardware/reference/worm-clamp/worm_clamp.py",
-      "hardware/reference/wr1110-regulator/wr1110-regulator.step",
-      "hardware/reference/wr1110-regulator/wr1110_regulator.py",
-      "hardware/reference/y-divider/y_divider.py",
-      "hardware/scripts/_boxes.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_clearing.py",
-      "hardware/scripts/_facts.py",
-      "hardware/scripts/_measuring.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_meshes.py",
-      "hardware/scripts/_overlap.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_routing.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_seating.py",
-      "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py"
+    "rewritten": [
+      "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py"
     ],
     "writes": [
       "hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
@@ -2919,6 +3492,11 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/enclosure/README.figures.json",
+      "hardware/printed-parts/enclosure/enclosure/README.md",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/enclosure/README.figures.json",
       "hardware/printed-parts/enclosure/enclosure/README.md",
@@ -2943,6 +3521,10 @@
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/nameplate/README.figures.json",
+      "hardware/printed-parts/enclosure/nameplate/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/nameplate/README.figures.json",
       "hardware/printed-parts/enclosure/nameplate/README.md"
@@ -2966,6 +3548,10 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/port-ring/README.figures.json",
+      "hardware/printed-parts/enclosure/port-ring/README.md"
     ],
     "writes": [
       "hardware/printed-parts/enclosure/port-ring/README.figures.json",
@@ -3058,6 +3644,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/pump-tray/README.figures.json",
+      "hardware/printed-parts/enclosure/pump-tray/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/pump-tray/README.figures.json",
       "hardware/printed-parts/enclosure/pump-tray/README.md"
@@ -3147,6 +3737,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
+      "hardware/printed-parts/enclosure/valve-panel/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
       "hardware/printed-parts/enclosure/valve-panel/README.md"
@@ -3165,6 +3759,9 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py"
     ],
     "writes": [
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
@@ -3187,6 +3784,11 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
+      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
+      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py"
     ],
     "writes": [
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
@@ -3221,6 +3823,14 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/faucet/_touch_flo_interface.py",
+      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
+      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
+      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
+      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
+    ],
     "writes": [
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
       "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
@@ -3250,6 +3860,11 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
+      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
+      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py"
+    ],
     "writes": [
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
@@ -3267,6 +3882,9 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py"
     ],
     "writes": [
       "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
@@ -3291,6 +3909,9 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/flavor/pump-case/pump_case.py"
     ],
     "writes": [
       "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step",
@@ -3317,6 +3938,7 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step"
     ]
@@ -3340,6 +3962,11 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
+      "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
+      "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py"
+    ],
     "writes": [
       "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
@@ -3357,6 +3984,10 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/valve-seat/README.figures.json",
+      "hardware/printed-parts/valve-seat/README.md"
     ],
     "writes": [
       "hardware/printed-parts/valve-seat/README.figures.json",
@@ -3383,6 +4014,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/zone-c/hopper-funnel-mold/README.figures.json",
+      "hardware/printed-parts/zone-c/hopper-funnel-mold/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/zone-c/hopper-funnel-mold/README.figures.json",
       "hardware/printed-parts/zone-c/hopper-funnel-mold/README.md",
@@ -3406,6 +4041,10 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
+      "hardware/printed-parts/zone-c/hopper-funnel/README.md"
+    ],
     "writes": [
       "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
       "hardware/printed-parts/zone-c/hopper-funnel/README.md",
@@ -3423,6 +4062,9 @@
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/quickstart/appliance_quickstart.py"
     ],
     "writes": [
       "hardware/quickstart/appliance_quickstart.py",
@@ -3448,6 +4090,10 @@
       "hardware/scripts/_seating.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/reference/asse1022-assembly/README.figures.json",
+      "hardware/reference/asse1022-assembly/README.md"
+    ],
     "writes": [
       "hardware/reference/asse1022-assembly/README.figures.json",
       "hardware/reference/asse1022-assembly/README.md",
@@ -3463,6 +4109,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step"
     ]
@@ -3479,6 +4126,11 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/reference/beduan-solenoid/README.figures.json",
+      "hardware/reference/beduan-solenoid/README.md",
+      "hardware/reference/beduan-solenoid/beduan_solenoid.py"
     ],
     "writes": [
       "hardware/reference/beduan-solenoid/README.figures.json",
@@ -3500,6 +4152,11 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/reference/compressor/README.figures.json",
+      "hardware/reference/compressor/README.md",
+      "hardware/reference/compressor/compressor.py"
+    ],
     "writes": [
       "hardware/reference/compressor/README.figures.json",
       "hardware/reference/compressor/README.md",
@@ -3520,6 +4177,11 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/reference/digiten-flow-sensor/README.figures.json",
+      "hardware/reference/digiten-flow-sensor/README.md",
+      "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py"
+    ],
     "writes": [
       "hardware/reference/digiten-flow-sensor/README.figures.json",
       "hardware/reference/digiten-flow-sensor/README.md",
@@ -3536,6 +4198,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/ffl38barb38/ffl38barb38.step"
     ]
@@ -3549,6 +4212,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/flare38-14ptc/flare38-14ptc.step"
     ]
@@ -3562,6 +4226,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step"
     ]
@@ -3576,6 +4241,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/gasher-check-valve/gasher-check-valve.step"
     ]
@@ -3590,6 +4256,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/ground-ring-stack/ground-ring-stack.step"
     ]
@@ -3608,6 +4275,7 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/hopper-drain-stub/hopper-drain-stub.step"
     ]
@@ -3622,6 +4290,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/iec-c14-inlet/iec-c14-inlet.step"
     ]
@@ -3639,6 +4308,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step"
     ]
@@ -3652,6 +4322,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/jg-pp010822e/jg-pp010822e.step"
     ]
@@ -3665,6 +4336,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/jg-pp0408w/jg-pp0408w.step"
     ]
@@ -3678,6 +4350,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/jg-pp061208w/jg-pp061208w.step"
     ]
@@ -3691,6 +4364,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/jg-pp451223w/jg-pp451223w.step"
     ]
@@ -3712,6 +4386,7 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step"
     ]
@@ -3734,6 +4409,7 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/kamoer-kphm400/pump-assembly.step"
     ]
@@ -3748,6 +4424,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/meanwell-irm90/meanwell-irm90.step"
     ]
@@ -3761,6 +4438,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step"
     ]
@@ -3774,6 +4452,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step"
     ]
@@ -3789,6 +4468,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/neofit-bulkhead/neofit-bulkhead.step"
     ]
@@ -3802,6 +4482,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/neofit-flow-control/neofit-flow-control.step"
     ]
@@ -3816,6 +4497,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/seaflo-22-pump/seaflo-22-pump.step"
     ]
@@ -3830,6 +4512,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step"
     ]
@@ -3845,6 +4528,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/seaflo-suction-chain/seaflo-suction-chain.step"
     ]
@@ -3859,6 +4543,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step"
     ]
@@ -3872,6 +4557,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step"
     ]
@@ -3889,6 +4575,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/tap-point-assembly/tap-point-assembly.step"
     ]
@@ -3903,6 +4590,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/teyleten-relay/teyleten-relay.step"
     ]
@@ -3923,6 +4611,9 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
+    ],
     "writes": [
       "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
       "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step"
@@ -3938,6 +4629,9 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py"
     ],
     "writes": [
       "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
@@ -3958,6 +4652,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/wago-221/wago-221-413.step",
       "hardware/reference/wago-221/wago-221-415.step",
@@ -3976,6 +4671,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/water-split/water-split.step"
     ]
@@ -3992,6 +4688,9 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/reference/water-test-cup/water_test_cup.py"
     ],
     "writes": [
       "hardware/reference/water-test-cup/water-test-cup.step",
@@ -4011,6 +4710,11 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/reference/waveshare-43b-display/README.figures.json",
+      "hardware/reference/waveshare-43b-display/README.md",
+      "hardware/reference/waveshare-43b-display/waveshare_43b_display.py"
+    ],
     "writes": [
       "hardware/reference/waveshare-43b-display/README.figures.json",
       "hardware/reference/waveshare-43b-display/README.md",
@@ -4027,6 +4731,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/worm-clamp/worm-clamp.step"
     ]
@@ -4040,6 +4745,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/reference/wr1110-regulator/wr1110-regulator.step"
     ]
@@ -4072,36 +4778,11 @@
       "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step",
       "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
-      "hardware/scripts/_bom_categories.py",
       "hardware/scripts/_bom_masses.py",
-      "hardware/scripts/_bom_sync.py",
-      "hardware/scripts/_bom_totals.py",
-      "hardware/scripts/_boxes.py",
       "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_clearing.py",
-      "hardware/scripts/_facts.py",
-      "hardware/scripts/_labor_totals.py",
-      "hardware/scripts/_ledger_totals.py",
-      "hardware/scripts/_machine_time.py",
-      "hardware/scripts/_measuring.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_meshes.py",
-      "hardware/scripts/_overlap.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_routing.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_seating.py",
-      "hardware/scripts/_stated_bounds.py",
-      "hardware/scripts/_tools_totals.py",
-      "hardware/scripts/check_build_exit.py",
-      "hardware/scripts/check_ledger.py",
-      "hardware/scripts/check_pinmap.py",
-      "hardware/scripts/check_tracked.py",
-      "hardware/scripts/fit.py",
-      "hardware/scripts/lanes.py",
-      "hardware/scripts/pick_text.py",
-      "hardware/scripts/probe.py"
+      "hardware/scripts/_run_lock.py"
     ],
+    "rewritten": [],
     "writes": [
       "hardware/ledger/bom.md"
     ]
@@ -4199,6 +4880,12 @@
       "hardware/scripts/_stated_bounds.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/ledger/bom.figures.json",
+      "hardware/ledger/bom.md",
+      "hardware/ledger/labor.figures.json",
+      "hardware/ledger/labor.md"
+    ],
     "writes": [
       "hardware/ledger/bom.figures.json",
       "hardware/ledger/bom.md",
@@ -4214,6 +4901,10 @@
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/ledger/bom.figures.json",
+      "hardware/ledger/bom.md"
+    ],
     "writes": [
       "hardware/ledger/bom.figures.json",
       "hardware/ledger/bom.md"
@@ -4227,6 +4918,10 @@
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/ledger/labor.figures.json",
+      "hardware/ledger/labor.md"
+    ],
     "writes": [
       "hardware/ledger/labor.figures.json",
       "hardware/ledger/labor.md"
@@ -4239,6 +4934,10 @@
       "hardware/scripts/_ledger_totals.py",
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/ledger/purchases.figures.json",
+      "hardware/ledger/purchases.md"
     ],
     "writes": [
       "hardware/ledger/purchases.figures.json",
@@ -4254,6 +4953,10 @@
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/ledger/machine-time.figures.json",
+      "hardware/ledger/machine-time.md"
+    ],
     "writes": [
       "hardware/ledger/machine-time.figures.json",
       "hardware/ledger/machine-time.md"
@@ -4267,6 +4970,10 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_tools_totals.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/ledger/tools.figures.json",
+      "hardware/ledger/tools.md"
     ],
     "writes": [
       "hardware/ledger/tools.figures.json",
@@ -4306,6 +5013,10 @@
       "hardware/service/pump-replacement.figures.json",
       "hardware/service/pump-replacement.md",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/service/pump-replacement.figures.json",
+      "hardware/service/pump-replacement.md"
     ],
     "writes": [
       "hardware/service/pump-replacement.figures.json",
@@ -4400,6 +5111,12 @@
       "hardware/topology/fluid-topology.md",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/topology/fluid-topology-limbs.mmd",
+      "hardware/topology/fluid-topology-manifold.mmd",
+      "hardware/topology/fluid-topology.figures.json",
+      "hardware/topology/fluid-topology.md"
+    ],
     "writes": [
       "hardware/topology/fluid-topology-limbs.mmd",
       "hardware/topology/fluid-topology-manifold.mmd",
@@ -4414,6 +5131,10 @@
       "hardware/wiring/ac-wiring-schedule.figures.json",
       "hardware/wiring/ac-wiring-schedule.md",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/wiring/ac-wiring-schedule.figures.json",
+      "hardware/wiring/ac-wiring-schedule.md"
     ],
     "writes": [
       "hardware/wiring/ac-wiring-schedule.figures.json",

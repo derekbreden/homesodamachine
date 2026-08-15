@@ -191,10 +191,9 @@ display_inset_reach = 20.0       # how far the inset runs past the glass lateral
 display_inset_depth = 2.0        # inset floor, down from the 45° face — the plate's seat
 display_inset_x = display_bezel_x + 2 * display_inset_reach       # [153.5 mm](DISPLAY_INSET_X)
 display_inset_slope = display_bezel_slope + 2 * display_inset_lap # [83 mm](DISPLAY_INSET_SLOPE)
-# THE HOPPER IS WHAT CAPS THIS. Every millimetre of plain face down the slope carries the
-# facet's back plane √2 further aft, and the basin stands on its own `funnel_front_y` — so
-# what the housing takes comes out of `hopper_front_ledge`, the top wall between its back
-# plane and the throat, which `funnel-collar-frame` reads.
+# Every millimetre of plain face down the slope carries the facet √2 further aft along Y, and
+# with it the seats let into it — which is what `display-housing-seats` reads the housing's
+# own back cut against.
 display_facet_buffer = 1.9       # plain 45° face kept outside the inset, all around
 display_facet_x = display_inset_x + 2 * display_facet_buffer          # [157.3 mm](DISPLAY_FACET_X)
 display_facet_slope = display_inset_slope + 2 * display_facet_buffer  # [86.8 mm](DISPLAY_FACET_SLOPE)
@@ -203,6 +202,14 @@ display_facet_angle_deg = 45.0
 # display's overall depth) with the display let into it: a bezel counterbore on
 # the user face and a PCB through-hole down the full thickness.
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
+# THE HOUSING'S BACK IS A VERTICAL PLANE, the full width of the box — one cut with no X term,
+# the way the facet itself is one cut. Stated as a reach aft of the box's FRONT FACE, so a
+# coupon strikes it the same way the machine does. Behind the display the slab keeps its full
+# `display_facet_thickness` on the 45°; this takes the top corner off square, where the slab
+# stands over the funnel and carries nothing. What it may not do is come forward into what the
+# face carries: the inset and the bezel counterbore are the display's SEATS, and
+# `display-housing-seats` keeps a wall of slab behind the deeper of the two.
+display_housing_back = 83.25
 display_bezel_depth = 4.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
@@ -232,7 +239,7 @@ display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 m
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
 # static part (../../zone-c/hopper-funnel/, its own frame) placed at
 # the box's own `funnel` centre with its brim on the box top, and with_funnel
-# measures the top-wall frame against it (the facet's back plane ahead, the
+# measures the top-wall frame against it (the housing's back cut ahead, the
 # ±X boss chains either side, the back wall behind). The collar stands on
 # `funnel_front_y` and reaches aft for its capacity, so it may CROSS the Y
 # seam — both halves take their share of the cut.
@@ -243,7 +250,7 @@ hopper_chain_gap = 1.0
 # The collar's front edge, read by `enclosure_assembly.funnel_centre`. What fences it is under
 # the drain rather than over the brim: the union on the spout stands in the window between
 # `_lines.CROSS_Y`'s crossing and the cold core's front face, and neither rides the display.
-funnel_front_y = 93.25
+funnel_front_y = 88.25
 # The top wall between the display housing's back plane and the throat, read on
 # `funnel-collar-frame`. The brim's overhang lands on the housing slab at zero.
 hopper_front_ledge = 0.0
@@ -548,7 +555,7 @@ def interior_x():
 rear_plane_y = 464.0
 # And the interior FRONT PLANE, holding the other end, with the 45° facet and its display
 # hanging on it and `box-front` reading the pack against it. Every millimetre aft carries
-# `facet_back_y` aft too, so what it spends is `hopper_front_ledge`.
+# `housing_back_y` aft too, so what it spends is `hopper_front_ledge`.
 front_plane_y = 8.0
 
 # Where the box splits front from back, and where the front column splits bottom from
@@ -1239,7 +1246,7 @@ def _dims(pack):
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
-    facet_back = facet_back_y(outer)
+    facet_back = housing_back_y(outer)
     record_bound(Bound(
         "y-seam-clears-facet", "The Y seam stands behind the display housing",
         y_joint >= facet_back + 2.0,
@@ -1248,7 +1255,25 @@ def _dims(pack):
         ([] if y_joint >= facet_back + 2.0 else [
             f"the Y seam at {y_joint:.2f} cuts the display housing, whose back plane is at "
             f"{facet_back:.2f} — the facet has to stay whole in the front pieces. Move "
-            f"`y_seam` aft of {facet_back + 2.0:.2f}, or shorten `display_facet_slope`"])))
+            f"`y_seam` aft of {facet_back + 2.0:.2f}, or bring `display_housing_back` "
+            f"forward"])))
+    # The vertical cut squares off slab the funnel's throat wants, and what stops it is the
+    # display's own SEATS — the inset the cover plate drops into and the bezel counterbore
+    # under it. The PCB hole is not one of them: `display_pcb_cut_through` drives it past the
+    # back on purpose, to take a socket collar clean through.
+    seats = max(_seat_back(display_inset_depth, display_inset_slope / 2.0),
+                _seat_back(display_bezel_depth, display_bezel_slope / 2.0))
+    record_bound(Bound(
+        "display-housing-seats", "The housing's back cut keeps a wall behind the display's seats",
+        display_housing_back >= seats + wall,
+        f"cut at {display_housing_back:.2f} aft of the front face, seats reach {seats:.2f}",
+        f"a {wall:g} mm wall behind them, so aft of {seats + wall:.2f}",
+        ([] if display_housing_back >= seats + wall else [
+            f"`display_housing_back` {display_housing_back:.2f} stands "
+            f"{seats + wall - display_housing_back:.2f} mm forward of where the display's "
+            f"seats leave room — the deeper of the inset and the bezel counterbore reaches "
+            f"{seats:.2f} aft of the front face, and the cut opens its back into the box. "
+            f"Take `display_housing_back` aft of {seats + wall:.2f}"])))
     # What the seam's own furniture lands in: the socket collar's footprint, at the full
     # section the screw chain needs, which is the band `_bosses` places a level inside.
     # The plug opposite it stands within that same footprint at a shallower reach.
@@ -1275,19 +1300,27 @@ def _facet_geom(outer):
     return a, normal, origin, dy, dz
 
 
-def facet_back_y(outer):
-    """The Y the display housing reaches back to — the 45° face's own run aft
-    plus the housing wall behind it, measured along Y. The frontmost the Y seam
-    may sit, since the whole facet belongs to the front top piece; and where the
-    top wall resumes, which is the forward wall of the frame the funnel's collar
-    stands in.
+def housing_back_y(outer):
+    """The Y the display housing reaches back to — the vertical plane
+    `display_housing_back` aft of the box's front face, cut the full width. The
+    frontmost the Y seam may sit, since the whole facet belongs to the front top
+    piece; and where the top wall resumes, which is the forward wall of the frame
+    the funnel's collar stands in.
 
-    BOTH TERMS ARE MEASURED ON THE 45°, so each costs more Y than it is: the
-    slope's own run aft is `sin 45°` of it, and the housing behind it stands
-    perpendicular to the face, so its `display_facet_thickness` reaches √2 as
-    far along Y as it is thick."""
-    _a, _n, _o, dy, _dz = _facet_geom(outer)
-    return outer[2] + dy + display_facet_thickness * math.sqrt(2.0)
+    ONE PLANE, NOT A REACH OFF THE 45°. The slab behind the face is
+    `display_facet_thickness` thick measured perpendicular to it, which would put
+    its back plane at a Y that walks with the slope and with the thickness — and
+    at the top face that plane stands aft of everything the display needs, over
+    the funnel's own throat. This states where the slab stops instead."""
+    return outer[2] + display_housing_back
+
+
+def _seat_back(depth, half_slope):
+    """How far aft of the box's front face a pocket of `depth`, reaching
+    `half_slope` up the 45° from the facet's centre, drives into the slab. Both
+    terms are on the 45°, so each costs `sin 45°` of itself along Y."""
+    s = math.sin(math.radians(display_facet_angle_deg))
+    return display_facet_slope * s / 2.0 + (half_slope + depth) * s
 
 
 def display_centre_x(outer):
@@ -1330,7 +1363,12 @@ def _shell_with_facet(inner, outer):
     """Hollow box with the 45° facet as a SOLID `wall`-thick surface: chamfer
     the outer box, and hold the cavity one wall back from the facet plane. The
     standing-vertical corners are relieved for the print bed — outer by
-    `corner_round`, cavity one wall less (square once the inset reaches zero)."""
+    `corner_round`, cavity one wall less (square once the inset reaches zero).
+
+    THE HOUSING IS BOUNDED BEHIND BY TWO SURFACES: the 45° plane one
+    `display_facet_thickness` in, and the vertical `housing_back_y` that squares
+    off its top corner. Aft of that cut the cavity runs on to the ceiling, which
+    is the room the funnel's throat drops through."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
@@ -1342,7 +1380,10 @@ def _shell_with_facet(inner, outer):
     back_origin = (origin[0] - display_facet_thickness * normal[0],
                    origin[1] - display_facet_thickness * normal[1],
                    origin[2] - display_facet_thickness * normal[2])
-    keepout = _halfspace(back_origin, normal, extent)
+    keepout = _halfspace(back_origin, normal, extent).intersect(
+        _ybox(ox0 - extent, ox1 + extent,
+              oy0 - extent, housing_back_y(outer),
+              oz0 - extent, oz1 + extent))
     inner_clipped = inner_box.cut(keepout)
 
     return cq.Workplane(obj=outer_chamfered.cut(inner_clipped))
@@ -1506,16 +1547,15 @@ def _hopper_frame(inner, outer):
     flange overhangs the collar by `brim_overhang` to catch the wall and hold the funnel out of
     the box, and the margin is the wider of the two, so a full overhang's width of top wall
     still remains outboard of the brim's edge. Forward the wall runs straight on into the
-    display housing — `display_facet_thickness` of solid slab between the facet's back plane
-    and its 45° face — and that slab is what the brim's front flange lands on. The front's
-    requirement is `hopper_front_ledge`, the top wall kept between the housing's back plane and
-    the throat itself, and it stands in this frame. `with_funnel` asks the margin of the three
-    free edges."""
+    display housing, whose back is the vertical `housing_back_y` — and the slab ahead of that
+    cut is what the brim's front flange lands on. The front's requirement is
+    `hopper_front_ledge`, the top wall kept between that plane and the throat itself, and it
+    stands in this frame. `with_funnel` asks the margin of the three free edges."""
     ix0, ix1, _iy0, iy1, _iz0, _iz1 = inner
-    return (ix0 + boss_in + hopper_chain_gap,          # clear of the −X chain's bosses
-            ix1 - boss_in - hopper_chain_gap,          # clear of the +X chain's bosses
-            facet_back_y(outer) + hopper_front_ledge,  # behind the facet's housing
-            iy1 - wall)                                # ahead of the back wall
+    return (ix0 + boss_in + hopper_chain_gap,           # clear of the −X chain's bosses
+            ix1 - boss_in - hopper_chain_gap,           # clear of the +X chain's bosses
+            housing_back_y(outer) + hopper_front_ledge, # behind the display housing
+            iy1 - wall)                                 # ahead of the back wall
 
 
 def _hopper_hole(centre):
@@ -2018,7 +2058,7 @@ def coupon_box():
     # face is fixed the moment iy0 is, and the fall is measured off the top face
     # wherever that lands.
     front_face = (ix0, ix0, iy0 - wall, iy0, iz0, iz0)
-    y_joint = facet_back_y(front_face) + coupon_margin
+    y_joint = housing_back_y(front_face) + coupon_margin
     iy1 = y_joint + lip_len + z_lip_y_margin + 2.0 * (wall + r) + pitch
 
     # Width. The display window, with a chain's width and a margin clear at both

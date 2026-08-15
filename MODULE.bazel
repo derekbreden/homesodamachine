@@ -6,3 +6,8 @@ other here: undeclared, the reader does not find the file at all.
 """
 
 module(name = "homesodamachine", version = "0.0.0")
+
+# A MODULE THAT CARRIES A `selftest` STATES ITS OWN HOLDS AND NOTHING RAN THEM. `sh_test` left
+# bazel core in 8; this is what `bazel test //...` is written in, and the only thing this
+# module depends on.
+bazel_dep(name = "rules_shell", version = "0.6.1")

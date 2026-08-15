@@ -12,6 +12,8 @@ target here can be wrong in exactly one direction, and the build says which.
 """
 
 import argparse
+import json
+import re
 import sys
 from pathlib import Path
 
@@ -34,6 +36,9 @@ NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
 #: same and Bazel runs none of it.
 PYSRC = "pysrc"
 
+#: What each module's `selftest` was watched reading — `trace_inputs.py --selftests` writes it.
+SELFTESTS = _HERE.parent / "selftests.json"
+
 
 #: What tells a step that starts node: a script of this repo on node's command line, which
 #: the trace sees. The packages beside that script come with it.
@@ -44,10 +49,27 @@ def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
 
 
-def target_name(gen: str) -> str:
+def carries_selftest(gen: str, root: Path) -> bool:
+    """Whether `gen` answers to `selftest` on its own command line."""
+    try:
+        text = (root / gen).read_text()
+    except OSError:
+        return False
+    return bool(re.search(r"^def selftest\(", text, re.M))
+
+
+def target_name(gen: str, taken=None) -> str:
     """A Bazel name for a generator. `_wiring_sync.py` is a doc sync like any other, and its
-    leading underscore is a Python convention, not part of what it is called here."""
-    return Path(gen).stem.strip("_").replace("_", "-")
+    leading underscore is a Python convention, not part of what it is called here.
+
+    A STEM IS NOT A NAME WHEN TWO FILES SHARE IT. `assembly/cards/_build.py` draws the unit
+    cards and `assembly/cards/tools/_build.py` the tool deck, and one target cannot be both —
+    so where a stem is taken, the directory the file sits in goes in front of it.
+    """
+    stem = Path(gen).stem.strip("_").replace("_", "-")
+    if taken is not None and stem in taken:
+        return f"{Path(gen).parent.name}-{stem}"
+    return stem
 
 
 def comments_come_out(src: str, rewritten: set) -> bool:
@@ -66,8 +88,8 @@ def read_from(src: str, rewritten: set) -> str:
     return f"{PYSRC}/{src}" if comments_come_out(src, rewritten) else src
 
 
-def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set) -> str:
-    name = target_name(gens[0])
+def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set,
+           name: str) -> str:
     # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
     # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
     # not a name for any of them.
@@ -145,8 +167,19 @@ def main() -> int:
 
     files = tracked()
     inv = inventory(files)
+    try:
+        selftests = json.loads(SELFTESTS.read_text())
+    except (OSError, ValueError):
+        selftests = {}
     if args.only:
         inv = {k: v for k, v in inv.items() if args.only in k}
+
+    # WHICH STEMS ARE SHARED, before a name is handed to anything.
+    seen, shared = set(), set()
+    for gens in inv:
+        for g in gens:
+            stem = Path(g).stem.strip("_").replace("_", "-")
+            (shared if stem in seen else seen).add(stem)
 
     held = set(files)
     if any(f"/{PYSRC}/" in f for f in held):
@@ -162,7 +195,8 @@ def main() -> int:
         srcs = sorted(s for s in srcs if s in held)
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
         comments_out |= {s for s in srcs if comments_come_out(s, rewritten)}
-        blocks.append(render(gens, made["solids"], srcs, made["docs"], rewritten))
+        blocks.append(render(gens, made["solids"], srcs, made["docs"], rewritten,
+                             target_name(gens[0], shared)))
 
     # ONE ACTION FOR THE WHOLE OF IT, so a comment edit is one short run and then a build that
     # finds every input where it left it.
@@ -176,7 +210,28 @@ def main() -> int:
         + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
         + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
 
+    # A MODULE THAT CARRIES A `selftest` IS ONE NOBODY RUNS. Twenty-two of them state their own
+    # holds and every one is verified only when a person types the word — `sync_tree`'s ten
+    # include the hold that a card's authored text survives a build handed stale figures, whose
+    # failure is silent destruction. A test target is what runs it, and running one costs
+    # nothing the second time: `bazel test` skips a test whose data has not moved.
+    #
+    # WHAT A TEST READS IS NOT WHAT ITS MODULE BUILDS. `graph.json` answers the second and has
+    # no entry at all for `sync_tree.py`, because the machinery that writes the graph is not a
+    # step in the graph it writes. So a selftest is watched the same way a generator is —
+    # `trace_inputs.py --selftests`, which runs the module on the word and keeps what it opened.
+    for gen, data in sorted(selftests.items()):
+        if gen not in held:
+            continue
+        blocks.append(
+            f'sh_test(\n    name = "{target_name(gen)}-selftest",\n'
+            + '    srcs = ["tools/bazel/selftest.sh"],\n    data = [\n'
+            + "".join(f'        "{s}",\n' for s in sorted(set(data) & held))
+            + f'    ],\n    args = ["{gen}"],\n'
+            + '    size = "enormous",\n    tags = ["local"],\n)')
+
     head = (
+        'load("@rules_shell//shell:sh_test.bzl", "sh_test")\n\n'
         "# The appliance's geometry, docs and pictures — one action per generator. Written by\n"
         "# tools/bazel/gen_build.py off tools/bazel/inventory.py; the sandbox corrects it.\n"
         "#\n"
@@ -201,7 +256,7 @@ def main() -> int:
     # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
     # what it carries is `sync_tree --write`.
     blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
-                  + "".join('        ":%s",\n' % target_name(g[0]) for g in sorted(inv))
+                  + "".join('        ":%s",\n' % target_name(g[0], shared) for g in sorted(inv))
                   + "    ],\n)")
     (_ROOT / "BUILD.bazel").write_text(head + "\n" + "\n\n".join(blocks) + "\n")
     print(f"  {len(inv)} step(s) over {sum(len(k) for k in inv)} generators → BUILD.bazel")

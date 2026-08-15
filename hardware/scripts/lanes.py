@@ -446,6 +446,21 @@ def _rides(name: str) -> str:
 TUBE_CHORD = 6.0
 
 _TUBES: dict = {}
+_AXES: dict = {}
+
+
+def _tube_axis(rid: str, r: dict) -> tuple:
+    """The centreline of the tube the machine actually contains: the run's own polyline with every
+    square vertex replaced by the arc the bender puts there.
+
+    This is what `_routing.tube` sweeps, so it is what a measurement OF a run is a measurement of.
+    A box is a stand-in for a body whose exact shape the snapshot does not carry; a run's shape it
+    does carry, and this is it."""
+    hit = _AXES.get(rid)
+    if hit is None:
+        hit = _rounded(_graded(rid, tuple(tuple(p) for p in r["pts"]), r["diam"], r["bend"]))
+        _AXES[rid] = hit
+    return hit
 
 
 def _tube_boxes(rid: str, r: dict) -> tuple:
@@ -454,11 +469,14 @@ def _tube_boxes(rid: str, r: dict) -> tuple:
     Two things a run's own `pts` are not. They are SQUARE, and the sweep rounds every corner off
     them — so the tube stands inside the vertex and outside the arc, and a box on the polyline is
     a box on a shape that was never built. And they are LONG, so a leaning leg's box is mostly
-    air. `_rounded` fixes the first and the chord fixes the second."""
+    air. `_tube_axis` fixes the first and the chord fixes the second.
+
+    These are what a lane is routed BESIDE. What one run clears another by is `nearest_run`, off
+    the centrelines themselves."""
     hit = _TUBES.get(rid)
     if hit is not None:
         return hit
-    pts = _rounded(_graded(rid, tuple(tuple(p) for p in r["pts"]), r["diam"], r["bend"]))
+    pts = _tube_axis(rid, r)
     rad = r["diam"] / 2.0
     out = []
     for p, q in zip(pts, pts[1:]):
@@ -1344,6 +1362,32 @@ def _nearest_bodies(pts: tuple, od: float, near: tuple, count: int = 6, mouths=(
     return sorted(((g, n) for n, g in best.items()))[:count]
 
 
+def nearest_run(rid: str, snap: dict = None) -> tuple:
+    """The authored run this one comes nearest to, as `(clearance, other run)` — tube against tube.
+
+    BOTH BODIES IN THIS PAIRING ARE CENTRELINES THE SNAPSHOT CARRIES IN FULL. `_tube_axis` is the
+    line `_routing.tube` sweeps, so this reads segment against segment on the two tubes the machine
+    contains and takes both skins off. The figure is exact in both directions: a negative is an
+    overlap, and `verify` will find the same one in the solids.
+
+    `_nearest_bodies` is the reading for a body the snapshot carries as a box, and bounds the truth
+    from below."""
+    snap = snapshot() if snap is None else snap
+    me = snap["runs"][rid]
+    mine = _tube_axis(rid, me)
+    best = (math.inf, "nothing else is routed")
+    for other, r in snap["runs"].items():
+        if other == rid:
+            continue
+        theirs = _tube_axis(other, r)
+        g = min(_seg_seg(a, b, c, d)
+                for a, b in zip(mine, mine[1:])
+                for c, d in zip(theirs, theirs[1:])) - (me["diam"] + r["diam"]) / 2.0
+        if g < best[0]:
+            best = (g, other)
+    return best
+
+
 def _leg_rides(pts: tuple, od: float, near: tuple, mouths=()) -> tuple:
     """WHICH SUB-ASSEMBLY EACH LEG LIES ON — one row per leg, as
     `(leg index, gap, nearest body, sub-assembly)`.
@@ -1394,6 +1438,26 @@ def _seg_box(a, b, box) -> float:
 def _pt_box(p, box) -> float:
     d = [max(box[2 * i] - p[i], 0.0, p[i] - box[2 * i + 1]) for i in range(3)]
     return math.sqrt(sum(x * x for x in d))
+
+
+def _seg_seg(a, b, c, d) -> float:
+    """Least distance between two segments, exactly — clamped to both, so parallels and shared
+    endpoints fall out of the same arithmetic."""
+    u = [b[i] - a[i] for i in range(3)]
+    v = [d[i] - c[i] for i in range(3)]
+    w = [a[i] - c[i] for i in range(3)]
+    uu = sum(x * x for x in u)
+    vv = sum(x * x for x in v)
+    uv = sum(u[i] * v[i] for i in range(3))
+    uw = sum(u[i] * w[i] for i in range(3))
+    vw = sum(v[i] * w[i] for i in range(3))
+    den = uu * vv - uv * uv
+    # Parallel, or either segment degenerate: hold one end and solve the other.
+    s = 0.0 if abs(den) < 1e-12 else min(1.0, max(0.0, (uv * vw - uw * vv) / den))
+    t = min(1.0, max(0.0, (uv * s + vw) / vv)) if vv > 1e-12 else 0.0
+    s = min(1.0, max(0.0, (uv * t - uw) / uu)) if uu > 1e-12 else 0.0
+    return math.dist([a[i] + u[i] * s for i in range(3)],
+                     [c[i] + v[i] * t for i in range(3)])
 
 
 # --- the lane a run is in now ---------------------------------------------
@@ -1599,10 +1663,16 @@ def selftest() -> int:
         print(f"       uncertifiable: {rid:<10} {m:8.3f} against {who}"
               + (f", which fills {fill:.2f} of its box" if fill is not None else ""))
 
-    # AND THE ONE CLASS WHERE THE BOX IS THE BODY. A routed run is carried as its own centreline
-    # chopped into chords, so a chord's box hugs the tube to a hair — which makes a negative
-    # reading between two runs a real overlap and not a blind spot. There are none.
-    worst_pair = (math.inf, "", "")
+    # AND THE PAIRING WHERE BOTH BODIES ARE CENTRELINES. `nearest_run` measures the two tubes, so
+    # a negative here is an overlap and not a blind spot.
+    exact = {rid: nearest_run(rid, snap) for rid in snap["runs"]}
+    worst_pair = min((g, rid, who) for rid, (g, who) in exact.items())
+    check("no authored run overlaps another authored run", worst_pair[0] > -1e-6, True)
+    print(f"       tightest run against run: {worst_pair[1]} / {worst_pair[2]} at "
+          f"{worst_pair[0]:.3f} mm")
+    # What the box reader makes of those same pairings, counted on this snapshot rather than
+    # recalled from another.
+    boxed, saturated = (math.inf, "", ""), []
     for rid in snap["runs"]:
         spec = snap["runs"][rid]
         pts = tuple(tuple(p) for p in spec["pts"])
@@ -1614,12 +1684,14 @@ def selftest() -> int:
         g, who = _nearest_bodies(
             authored(rid, floor=0.0).centreline, spec["diam"], tubes, 1,
             tuple((p, spec["bend"] + spec["diam"]) for p in (pts[0], pts[-1])))[0]
-        if g < worst_pair[0]:
-            worst_pair = (g, rid, who)
-    check("no authored run reads blocked against another authored run", worst_pair[0] > -1e-6,
-          True)
-    print(f"       tightest run against run: {worst_pair[1]} / {worst_pair[2]} at "
-          f"{worst_pair[0]:.3f} mm")
+        if g < -1e-6 <= exact[rid][0]:
+            saturated.append(f"{rid} {g:.3f}/{exact[rid][0]:+.3f}")
+        if g < boxed[0]:
+            boxed = (g, rid, who)
+    print(f"       through boxes: {boxed[1]} / {boxed[2]} at {boxed[0]:.3f} mm; "
+          f"{len(saturated)} of {len(exact)} runs read blocked that the tubes clear")
+    for row in saturated:
+        print(f"       saturated: {row}")
 
     # AND THE SEARCH FINDS THE MACHINE'S OWN LANE. `carb-1` crosses the machine at 0.775 mm,
     # the tightest corridor in it this reader can see all of; searched at that floor, what comes
