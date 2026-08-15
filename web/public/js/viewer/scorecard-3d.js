@@ -194,9 +194,16 @@ function buildBar(wrapper, sc, title) {
   // phone layout to stand the rail and Reset view on top of (viewer.css). The
   // bar wraps to a second line on a narrow screen, so this is measured rather
   // than assumed.
-  barSize = new ResizeObserver(() => {
+  //
+  // Measured here and again on every resize. The first reading is taken inline
+  // because offsetHeight forces the layout it reads, which holds in a tab that
+  // is not being painted — a ResizeObserver in that tab does not run until the
+  // tab is looked at, and the rail would stand over the bar until then.
+  const publish = () => {
     wrapper.style.setProperty("--sc-bar-lift", `${Math.ceil(bar.offsetHeight) + 8}px`);
-  });
+  };
+  publish();
+  barSize = new ResizeObserver(publish);
   barSize.observe(bar);
 }
 
