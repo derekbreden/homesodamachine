@@ -48,15 +48,11 @@
 #        prints the scorecard at the tail of every run and writes
 #        enclosure-assembly.scorecard.json beside the STEP, so nothing here re-runs them,
 #        and a red row rides the card rather than stopping anything.
-#      - any staged *.py under hardware/    → `bazel build --check_up_to_date //:everything`,
-#        which asks whether any generator's declared inputs have moved and RUNS NOTHING —
-#        0 processes, a hundredth of a second — then tools/bazel/sync_tree.py, which says
-#        whether the tree carries what the last build cut.
-#
-#        DOUBTING IS CHEAP AND DERIVING IS NOT, which is the same split the cards and the
-#        scenes were built on. A hook that builds holds the workspace lock for the minutes
-#        the build takes, and every other session's commit queues behind it. What is owed is
-#        named at the tail and `bazel build //:everything` is what discharges it.
+#      - nothing asks bazel. `bazel build //:everything` and tools/bazel/sync_tree.py say
+#        whether the tree carries what its sources make, and they belong wherever somebody
+#        wants that answer — not in front of every commit. A red one does not hold a commit
+#        anyway, so what a check here buys is a line of output, and what it costs is the
+#        wait for whatever holds the workspace lock.
 #      Each prints one ✓ line on pass and dumps its full output on red, and the tail
 #      lists every red one as the follow-up commit's work.
 #
@@ -245,28 +241,15 @@ for hw in $editions; do
     gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
   fi
 
-  # WHAT THE SOLIDS, CARDS, DOCS AND PICTURES SAY IS WHAT THE BUILD MAKES OF THE SOURCES
-  # BESIDE THEM. `bazel build //:everything` runs every generator whose declared inputs moved,
-  # in parallel, each in a sandbox holding exactly what it named; `sync_tree.py` then compares
-  # what came out to what the tree carries. A commit whose artifacts are the ones its sources
-  # make has nothing to carry over.
+  # NOTHING HERE ASKS BAZEL ANYTHING. Whether the tree carries what the build cuts is a real
+  # question and `bazel build //:everything` then `tools/bazel/sync_tree.py` is how it is
+  # asked — but asking it HERE puts it in front of every commit, and one bazel command waits
+  # on the workspace lock whatever it then does. A commit is the wrong place to learn that a
+  # figure moved: the answer does not change what gets committed, it only delays it.
   #
-  # KEYED ON STAGED PYTHON. Bazel decides what actually reruns from the graph in BUILD.bazel;
-  # this only decides whether to ask, and a commit that stages no Python could not have moved
-  # a figure.
+  # AND THAT BOTH HALVES OF EVERY PAIR ARE IN THE INDEX. `git ls-files` and one read per doc,
+  # no import and no venv, which is the whole of what this can afford to be.
   if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
-    if [ -x "$py" ] && command -v bazelisk >/dev/null 2>&1; then
-      # A GRAPH THAT DOES NOT LOAD FAILS THIS TOO, and says so in its own words rather than
-      # wearing a staleness failure's costume — the load error is what the gate prints.
-      gate "$hw is built" bazelisk build --check_up_to_date //:everything
-      gate "$hw carries what the build cut" "$py" "$root/tools/bazel/sync_tree.py"
-    else
-      echo "pre-commit: no cad-venv or no bazelisk — $hw build check skipped" >&2
-    fi
-
-    # AND THAT BOTH HALVES OF EVERY PAIR ARE IN THE INDEX. The build reads a record beside an
-    # artifact; this one asks whether the record is in the commit at all. `git ls-files` and
-    # one read per doc — no import, no venv.
     gate "$hw records are tracked beside what they describe" \
          python3 "$root/$hw/scripts/check_tracked.py"
   fi
