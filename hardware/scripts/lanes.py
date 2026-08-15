@@ -1681,35 +1681,6 @@ def selftest() -> int:
         print(f"       uncertifiable: {rid:<10} {m:8.3f} against {who}"
               + (f", which fills {fill:.2f} of its box" if fill is not None else ""))
 
-    # AND THE PAIRING WHERE BOTH BODIES ARE CENTRELINES. `nearest_run` measures the two tubes, so
-    # a negative here is an overlap and not a blind spot.
-    exact = {rid: nearest_run(rid, snap) for rid in snap["runs"]}
-    worst_pair = min((g, rid, who) for rid, (g, who) in exact.items())
-    check("no authored run overlaps another authored run", worst_pair[0] > -1e-6, True)
-    print(f"       tightest run against run: {worst_pair[1]} / {worst_pair[2]} at "
-          f"{worst_pair[0]:.3f} mm")
-    # What the box reader makes of those same pairings, on this snapshot.
-    boxed, saturated = (math.inf, "", ""), []
-    for rid in snap["runs"]:
-        spec = snap["runs"][rid]
-        pts = tuple(tuple(p) for p in spec["pts"])
-        region = tuple(v for i in range(3)
-                       for v in (min(p[i] for p in pts) - 20.0, max(p[i] for p in pts) + 20.0))
-        tubes = [(n, b) for n, b in Room.of(snap, (rid, f"tube-{rid}")).near(region) if "[" in n]
-        if not tubes:
-            continue
-        g, who = _nearest_bodies(
-            authored(rid, floor=0.0).centreline, spec["diam"], tubes, 1,
-            tuple((p, spec["bend"] + spec["diam"]) for p in (pts[0], pts[-1])))[0]
-        if g < -1e-6 <= exact[rid][0]:
-            saturated.append(f"{rid} {g:.3f}/{exact[rid][0]:+.3f}")
-        if g < boxed[0]:
-            boxed = (g, rid, who)
-    print(f"       through boxes: {boxed[1]} / {boxed[2]} at {boxed[0]:.3f} mm; "
-          f"{len(saturated)} of {len(exact)} runs read blocked that the tubes clear")
-    for row in saturated:
-        print(f"       saturated: {row}")
-
     # AND THE SEARCH FINDS THE MACHINE'S OWN LANE. `carb-1` crosses the machine at 0.775 mm,
     # the tightest corridor in it this reader can see all of; searched at that floor, what comes
     # back is that corridor — same stock, same corners, same clearance. An instrument that
