@@ -70,8 +70,9 @@ valve clamped on one both answer to the can.
 
 The third stub, and the only one not in the loop: a short copper tube pinched and brazed
 shut at the factory ([`../ice-maker/README.md`](/hardware/reference/ice-maker/README.md)
-"Process tube"). It leaves the −Y tangent — the power end — at z = [100](PROCESS_Z),
-[25](PROCESS_OVER_BOX) mm clear over the terminal box's crown.
+"Process tube"). It leaves the −X tangent — the same flank the suction leaves by — at
+z = [100](PROCESS_Z), [40](PROCESS_OVER_SUCTION) mm above the suction's own station, so
+the saddle and the suction leg share one lane down the machine's west side.
 
 `process_tube()` reads [20](PROCESS_CLAMP) mm out along that stub, where the Supco
 BPV31's saddle bands it. The valve goes on once and stays for the life of the appliance —
@@ -87,7 +88,7 @@ BPV31's saddle bands it. The valve goes on once and stays for the life of the ap
 | `shell_hold()` | the shell going round — a cylinder on the larger axis fills the same bounding box and [14](CYL_EXCESS_PCT)% more of it |
 | `power_hold()` | the box coming off the reach it fills, hanging off the plate's X, sitting down on the plate or climbing past the shell's crown, or covering a mount |
 | `power_face_hold()` | `power_face()` — the box's +X flank, which the thermal cutoff lies on — coming off the box's own centre, turning to face some other way, standing inboard of the plate's own edge, or running back past the shell's tangent |
-| `process_tube_hold()` | `process_tube()` — the stub the piercing valve clamps on — dropping into the terminal cover, climbing off the can, or leaving by a face the condenser, the core or the plate stands against |
+| `process_tube_hold()` | `process_tube()` — the stub the piercing valve clamps on — dropping into the suction leg's own lane, climbing off the can, or leaving by a face the condenser, the core or the plate stands against |
 | `mounts_hold()` | a hole opening into the plate's edge, or standing under the belly where no bolt reaches it |
 
 ## Where it stands

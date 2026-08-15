@@ -101,13 +101,17 @@ DISCHARGE_Z = 75.0
 SUCTION_Z = 60.0
 # THE THIRD STUB, the one that is not in the loop: the process tube, a short copper stub
 # pinched and brazed shut at the factory (`../ice-maker/README.md` "Process tube"). It
-# leaves the -Y tangent, the power end, clear over the terminal box's crown, and the
-# piercing valve bands round it. Like the other two it is a STATION and not a solid.
+# leaves the -X tangent, the same flank the suction does, standing above it — so the saddle
+# and the suction leg share one lane down the machine's west side, and the valve is reached
+# from beside the can rather than over it. Like the other two it is a STATION and not a solid.
 PROCESS_Z = 100.0
 # How far out along that stub the saddle bands. The stub is ~50 long and its tip stays
 # pinched, so the clamp goes on the middle of it.
 PROCESS_CLAMP = 20.0
-PROCESS_OVER_BOX = PROCESS_Z - POWER_Z1   # [25](PROCESS_OVER_BOX), the stub over the cover
+# What the stub stands above the suction's own, the other station on this tangent. The saddle
+# and its flare port are worked in the lane the suction leg already occupies, so this is the
+# height that keeps a hand on the valve clear of that copper.
+PROCESS_OVER_SUCTION = PROCESS_Z - SUCTION_Z   # [40](PROCESS_OVER_SUCTION)
 
 
 def mount_pattern():
@@ -143,35 +147,38 @@ def process_tube():
     """Where the piercing valve bands the PROCESS TUBE, as `(the point on the stub's own
     axis, the stub's outward direction)` in this frame.
 
-    The stub leaves the -Y tangent, the power end, `PROCESS_Z` up — which stands it
-    [25](PROCESS_OVER_BOX) clear over the terminal box's crown, so the saddle bands the
-    copper in open air.
+    The stub leaves the -X tangent, `PROCESS_Z` up — the same flank the suction leaves by,
+    [40](PROCESS_OVER_SUCTION) above it, so the saddle bands the copper in the lane that leg
+    already runs in and both are reached from the machine's west side.
 
     The point is on the STUB: `PROCESS_CLAMP` out along the tube, where the clamp grips."""
-    return ((0.0, SHELL_TANGENT_Y - PROCESS_CLAMP, PROCESS_Z), (0.0, -1.0, 0.0))
+    return ((-SHELL_X / 2.0 - PROCESS_CLAMP, SHELL_OFFSET_Y, PROCESS_Z), (-1.0, 0.0, 0.0))
 
 
 def process_tube_hold():
-    """Hold the stub to the can it leaves and to the box it clears.
+    """Hold the stub to the can it leaves and to the lane it is worked in.
 
-    A station below `POWER_Z1` stands the valve inside the donor's own terminal cover; one
+    A station at or below `SUCTION_Z` puts the saddle in the suction leg's own copper; one
     outside the shell's standing height stands it on a stub brazed into nothing. Neither
     shows up in a picture."""
     (px, py, pz), axis = process_tube()
-    if axis != (0.0, -1.0, 0.0):
+    want_x = -SHELL_X / 2.0 - PROCESS_CLAMP
+    if axis != (-1.0, 0.0, 0.0):
         raise ValueError(
-            f"the process stub points {axis} — it leaves the -Y tangent, the power end, "
-            f"and any other face stands it in the condenser, the core or the plate.")
-    if abs(px) > 1e-9 or abs(py - (SHELL_TANGENT_Y - PROCESS_CLAMP)) > 1e-9:
+            f"the process stub points {axis} — it leaves the -X tangent, the flank the "
+            f"suction leaves by, and any other face stands it in the condenser, the core "
+            f"or the plate.")
+    if abs(px - want_x) > 1e-9 or abs(py - SHELL_OFFSET_Y) > 1e-9:
         raise ValueError(
-            f"the process stub's clamp stands at (x, y) = ({px:g}, {py:g}) and the -Y "
-            f"tangent one PROCESS_CLAMP out is (0, {SHELL_TANGENT_Y - PROCESS_CLAMP:g}) "
+            f"the process stub's clamp stands at (x, y) = ({px:g}, {py:g}) and the -X "
+            f"tangent one PROCESS_CLAMP out is ({want_x:g}, {SHELL_OFFSET_Y:g}) "
             f"— the station has come off the one line the shell touches a plane along.")
-    if not (POWER_Z1 <= pz <= OVERALL_H):
+    if not (SUCTION_Z < pz <= OVERALL_H):
         raise ValueError(
             f"the process stub leaves at z = {pz:g}, outside the "
-            f"{POWER_Z1:g}..{OVERALL_H:g} between the terminal box's crown and the can's "
-            f"— the valve would be bedded in the donor's own cover or hung off air.")
+            f"{SUCTION_Z:g}..{OVERALL_H:g} between the suction's own station on this "
+            f"tangent and the can's crown — the saddle would be worked in the suction "
+            f"leg's copper or hung off air.")
 
 
 def power_face_hold():
@@ -362,7 +369,7 @@ def _docvars():
              "PLATE_REACH_LONG", "PLATE_REACH_SHORT", "MOUNT_LIGAMENT",
              "POWER_X", "POWER_Y", "POWER_Z", "POWER_Z0", "POWER_Z1", "SHELL_TANGENT_Y",
              "POWER_FLANK_REACH",
-             "PROCESS_Z", "PROCESS_CLAMP", "PROCESS_OVER_BOX")
+             "PROCESS_Z", "PROCESS_CLAMP", "PROCESS_OVER_SUCTION")
     variables = {name: f"{globals()[name]:g}" for name in plain}
     variables["CYL_EXCESS_PCT"] = f"{CYL_EXCESS_PCT:.0f}"
     return variables
@@ -377,14 +384,14 @@ def selftest():
     stations_hold()
     process_tube_hold()
     (fx, _fy, fz), _fa = power_face()
-    (_px, py, pz), _pa = process_tube()
+    (px, _py, pz), _pa = process_tube()
     return [
         f"  power face centred at ({fx:g}, {fz:g}) on the box's own +X flank, "
         f"{POWER_FLANK_REACH:g} of plate past it",
         f"  both loop stubs stand on a shell tangent — discharge +X at z {DISCHARGE_Z:g}, "
         f"suction -X at z {SUCTION_Z:g}",
-        f"  the process stub leaves -Y at z {pz:g}, {PROCESS_OVER_BOX:g} over the cover, "
-        f"and the saddle bands it at y {py:g}",
+        f"  the process stub leaves -X at z {pz:g}, {PROCESS_OVER_SUCTION:g} over the "
+        f"suction's own station, and the saddle bands it at x {px:g}",
         f"  envelope stands {SHELL_X:g} x {BASE_Y:g} x {OVERALL_H:g} off the mounting plane",
         f"  shell is the pressed oblong, {SHELL_X:g} x {SHELL_Y:g}, not a cylinder",
         f"  the box fills the long reach, y {POWER_Y0:g}..{SHELL_TANGENT_Y:g}, "
