@@ -2193,6 +2193,7 @@
     "reads": [
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
       "hardware/faucet-layout/faucet-assembly.step",
+      "hardware/faucet-layout/faucet-assembly.step.png",
       "hardware/faucet-layout/faucet_assembly.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
