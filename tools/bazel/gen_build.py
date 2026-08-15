@@ -39,10 +39,6 @@ PYSRC = "pysrc"
 #: What each module's `selftest` was watched reading — `trace_inputs.py --selftests` writes it.
 SELFTESTS = _HERE.parent / "selftests.json"
 
-#: Selftests run on the word, by the person changing the module. No test target is written.
-BY_HAND = {"hardware/scripts/lanes.py"}
-
-
 #: What tells a step that starts node: a script of this repo on node's command line, which
 #: the trace sees. The packages beside that script come with it.
 _NODE = ("tools/render/", "web/")
@@ -227,7 +223,7 @@ def main() -> int:
     # step in the graph it writes. So a selftest is watched the same way a generator is —
     # `trace_inputs.py --selftests`, which runs the module on the word and keeps what it opened.
     for gen, data in sorted(selftests.items()):
-        if gen not in held or gen in BY_HAND:
+        if gen not in held:
             continue
         # WHAT A TEST REACHES IS NOT WHAT ONE RUN OF IT TOOK. A watch records the path that
         # run went down, and `lanes.py` reaches `manifold_layout`, which imports `_lines`
