@@ -1348,18 +1348,15 @@ def core_stops(foam) -> tuple:
 
 def vent_chase(foam, foam_carry) -> tuple:
     """Where the cold core's PRV relief line arrives at the west wall, as
-    `enclosure.Box.vent_chase` — one `(x, y, z, flank)` in the machine's own frame.
+    `enclosure.Box.vent_chase` — one `(x, y, z)` in the machine's own frame.
 
-    The X is the tube's own TIP and `flank` is the core's own west face, so both the depth the
-    mouth is sunk to and the plane the lip lands on are the core's statement and not reaches
-    retyped here.
+    The X is the core's own WEST FLANK, which is the plane the chase's lip lands on and the
+    plane the tube is cut off at; the Y and Z are that tube's own axis where it comes through.
 
-    THE CORE STATES THIS, NOT THE BOX. `_internal_routes` draws the line to the far end of its
-    own run — out through the shell's +Y flank and `prv_vent_reach` proud of it — and the point
-    that route ENDS ON is the point the wall has to present a socket at. So it is carried here
-    through the core's own placement, the same way a cap conduit is: move the core, re-yaw it,
-    or move the station the shroud's bore lands on, and the chase follows without a number
-    being retyped.
+    THE CORE STATES BOTH, NOT THE BOX. `_internal_routes` draws the line out through the shell's
+    +Y flank, and the placed body carries the flank the line leaves by. So they come from the
+    core's own placement, the same way a cap conduit does: move the core, re-yaw it, or move the
+    station the shroud's bore lands on, and the chase follows without a number being retyped.
 
     Reached THROUGH `foam_assembly` rather than imported. `_internal_routes` puts the cold
     core's own directories on `sys.path` when it loads, and a module that does that at this
@@ -1367,7 +1364,7 @@ def vent_chase(foam, foam_carry) -> tuple:
     hazard a walk taken in a cold process runs into. `_foam` already holds it."""
     tip = _foam.routes.routes["prv-vent"][-1]
     at, _axis = foam_carry((tip, (0.0, 1.0, 0.0)))
-    return ((at[0], at[1], at[2], box(foam).xmin),)
+    return ((box(foam).xmin, at[1], at[2]),)
 
 
 def core_holds(foam) -> tuple:
