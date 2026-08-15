@@ -610,10 +610,12 @@ def flavor_hole_margin(center_y):
 
 def balanced_hole_center_y():
     """THE DRILLED HOLE DOES NOT CENTRE ON THE SHANK. The flavor pair stands at
-    depth 18.925 and reaches 22.1; a 1-3/8" hole on the body axis reaches 17.465
-    and would cut it. Shank margin falls as the hole moves back and flavor
-    margin rises, so one depth leaves both the same — bisected here rather than
-    solved, and the margin it leaves is printed by the run."""
+    depth 18.925 and ±3.175 lateral, so its far wall lies 22.365 from the body
+    axis — the hypotenuse of the two, plus the tube's own radius, and not the
+    22.1 the depth alone would give. A 1-3/8" hole on the axis reaches 17.465
+    and cuts that wall by 4.899. Shank margin falls as the hole moves back and
+    flavor margin rises, so one depth leaves both the same — bisected here
+    rather than solved, and the margin it leaves is printed by the run."""
     lo, hi = 0.0, flavor_tube_depth_lower
     for _ in range(200):
         mid = (lo + hi) / 2.0
