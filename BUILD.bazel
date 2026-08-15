@@ -927,7 +927,6 @@ genrule(
         "hardware/assembly/cards/img/scene-front-top.png.scene.json",
         "hardware/assembly/cards/img/scene-hopper-drain.png",
         "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
-        "hardware/assembly/cards/img/tap-point.png",
         "hardware/assembly/cards/img/two-valve-tray.png",
         "hardware/assembly/cards/img/wago-column.png",
         "hardware/assembly/cards/img/water-split.png",
