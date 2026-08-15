@@ -148,13 +148,18 @@ def sync(cards_dir: Path, variables: dict, registry: dict, check: bool = False) 
         if DRIVER not in text:
             faults.append(f"{stem}: its .src footer does not name `{DRIVER}`")
 
+        # A CARD THIS RUN MAINTAINS, whether or not this run moved it. Recording it where the
+        # write happens records the cards that drifted on one particular run — one of the
+        # hundred and sixteen, on the run that traced this — and a card left out is a card
+        # the action may rewrite and never hand back.
+        _note_target(path)
+
         drift = [(n, v) for n, v, _s, _e in found
                  if n in variables and v != str(variables[n])]
         if check:
             faults += [f"{stem}: {n} — card says {v!r}, machine says {str(variables[n])!r}"
                        for n, v in drift]
         elif drift:
-            _note_target(path)
             path.write_text(_rewritten(text, variables))
             written.append((stem, [n for n, _v in drift]))
 
