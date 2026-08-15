@@ -10,7 +10,7 @@
     "HEAD_D": "48.88",
     "HEAD_W": "62.61",
     "ON_CROWN": "1752",
-    "ON_HEAD": "4089",
+    "ON_HEAD": "3925",
     "RAMP_H": "18",
     "SHOULDER": "3",
     "SOCKET_LEDGE": "1.5",
@@ -19,9 +19,9 @@
     "STRAP_W": "4.826",
     "TRAY_COUNT": "2",
     "TRAY_D": "24",
-    "TRAY_L": "71.305",
+    "TRAY_L": "69.305",
     "TRAY_MARGIN": "3",
-    "TRAY_VOL": "95.12",
+    "TRAY_VOL": "94.10",
     "TRAY_W": "82.262"
   }
 }

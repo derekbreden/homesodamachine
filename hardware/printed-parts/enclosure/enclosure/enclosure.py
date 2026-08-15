@@ -240,22 +240,12 @@ display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 m
 # derived: the two are printed in the same piece, so this is clearance for the eye and the
 # deburring tool rather than a fit.
 hopper_chain_gap = 1.0
-# WHERE THE BASIN STANDS — the collar's FRONT EDGE, stated the way `front_plane_y` and
-# `rear_plane_y` are and read by `enclosure_assembly.funnel_centre`.
-#
-# WHAT FENCES IT IS UNDER THE DRAIN, NOT OVER THE BRIM. The union hangs on the spout and
-# stands in the window between `_lines.CROSS_Y`'s crossing and the cold core's front face;
-# `clearance-floor` reads both of those gaps. Neither wall of that window rides the display,
-# so a basin that followed the facet aft would close one of them on a union the display has
-# no business moving. What the facet leaves the throat is the ledge below, and that is a
-# bound this plane answers rather than a figure that sites it.
-funnel_front_y = 91.25
-# The top wall between the display housing's back plane and the throat. ZERO, and the throat's
-# front edge is the housing's own back plane: the brim's `brim_overhang` then lands wholly on
-# the housing slab, `display_facet_thickness` of solid and the thickest wall in the box, where
-# a ledge would give it plain top wall instead. `with_funnel` reads this as the frame's forward
-# bound on `funnel-collar-frame`, so a front plane far enough aft to carry the housing INTO the
-# throat turns that row red.
+# The collar's front edge, read by `enclosure_assembly.funnel_centre`. What fences it is under
+# the drain rather than over the brim: the union on the spout stands in the window between
+# `_lines.CROSS_Y`'s crossing and the cold core's front face, and neither rides the display.
+funnel_front_y = 93.25
+# The top wall between the display housing's back plane and the throat, read on
+# `funnel-collar-frame`. The brim's overhang lands on the housing slab at zero.
 hopper_front_ledge = 0.0
 
 # Split + boss parameters — every dimension sized to its function, nothing
@@ -556,17 +546,10 @@ def interior_x():
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
 rear_plane_y = 464.0
-# And the interior FRONT PLANE, stated for the same reason and holding the other end. What
-# hangs on this wall is the whole visible front — the 45° facet and the display in it. A body
-# dragged aft inside the machine does not shorten the box; the front is a bound and not a
-# consequence, and a pack with room to spare here reads it on `box-front`.
-#
-# WHAT THIS PLANE SPENDS IS THE TOP WALL BEHIND THE FACET. Every millimetre aft carries the
-# facet's back plane a millimetre aft with it, and the basin stands on its own
-# `funnel_front_y` — so the ledge between the housing and the throat is what closes, and
-# `funnel-collar-frame` is the row that reads it. It stands where that ledge runs out, so
-# every millimetre further aft is one the display housing has to give up.
-front_plane_y = 6.0
+# And the interior FRONT PLANE, holding the other end, with the 45° facet and its display
+# hanging on it and `box-front` reading the pack against it. Every millimetre aft carries
+# `facet_back_y` aft too, so what it spends is `hopper_front_ledge`.
+front_plane_y = 8.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
