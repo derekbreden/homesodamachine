@@ -125,8 +125,13 @@ def trace(gen: str, files: set) -> dict:
     # ONE GENERATOR AT A TIME IS WHAT THIS ALREADY DOES, so each run takes the global lock
     # the way a hand run does. Two traces on one machine are two pileups otherwise, and the
     # lock is what everything outside `bazel` shares.
+    #
+    # AND NEVER FOLLOWS SOMEBODY ELSE'S. `_run_lock` attaches a second run of the same script
+    # to the one already going and hands back ITS exit status, so the generator's own `main`
+    # never runs and the trace watches a process that opened nothing. A reading needs the run
+    # to happen, so this one asks for the lock and refuses the shortcut.
     env = dict(os.environ, HSM_SKIP_VIEWS="1", HSM_SKIP_SCENES="1",
-               HSM_BUILD_SOURCE="trace")
+               HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
     subprocess.run([sys.executable, "-c", RUNNER % (str(_ROOT), gen, str(out))],
                    cwd=str(_ROOT), env=env, capture_output=True, text=True, timeout=1800)
     try:
@@ -177,11 +182,22 @@ def main() -> int:
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}
     for i, gen in enumerate(gens, 1):
         seen = trace(gen, files)
-        # `probe.py`, `fit.py` and `lanes.py` are instruments: they answer and write nothing.
-        if not seen["writes"]:
-            graph.pop(gen, None)
-        else:
+        # `probe.py`, `fit.py` and `lanes.py` are instruments: they answer and write nothing,
+        # and a generator this has never watched write is not a step of the build.
+        #
+        # A RUN THAT DID NOT HAPPEN IS NOT A GENERATOR THAT MAKES NOTHING. Attached, superseded,
+        # killed, timed out — each comes back the way an instrument does, with no writes, and
+        # dropping the entry on that reading takes the generator out of `graph.json`, out of
+        # `inventory`, out of `BUILD.bazel`, and its solids stop being cut against a green
+        # build. So an entry already standing is left standing, and the line below says the
+        # reading failed rather than writing a verdict over it.
+        if seen["writes"]:
             graph[gen] = seen
+        elif gen in graph:
+            print(f"  [{i:3d}/{len(gens)}] {gen:60s} wrote nothing — keeping what it had")
+            continue
+        else:
+            graph.pop(gen, None)
         print(f"  [{i:3d}/{len(gens)}] {gen:60s} "
               f"{len(seen['reads']):3d} read {len(seen['writes']):3d} written")
         GRAPH.write_text(json.dumps(graph, indent=2, sort_keys=True) + "\n")
