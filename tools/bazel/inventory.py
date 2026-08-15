@@ -18,8 +18,12 @@ _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
 
 #: What a run reads and writes back over: a doc and its figures, a mermaid chart's `%%` lines,
-#: and the generator's own comments and docstrings. Everything else a run writes it only cuts.
-REWRITTEN_SUFFIXES = (".md", ".figures.json", ".mmd", ".py")
+#: a card's `data-gen` elements, and the generator's own comments and docstrings. Everything
+#: else a run writes it only cuts.
+#:
+#: A CARD IS READ WHETHER OR NOT IT IS WRITTEN. `_cards_sync.py` reads all 116 and rewrites the
+#: ones whose figures moved — one, on the run this graph was traced from.
+REWRITTEN_SUFFIXES = (".md", ".figures.json", ".mmd", ".py", ".html")
 
 
 def tracked() -> list:
