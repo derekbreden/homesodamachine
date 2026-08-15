@@ -21,6 +21,9 @@ const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "manifold-layout",
   "enclosure-assembly.scorecard.json");
 const SIDECAR = sidecarIn("hardware");
+// The cold core's own sidecar, written by hardware/cold-core-layout/cold_core_assembly.py.
+const COLD_SIDECAR = path.join(REPO_ROOT, "hardware", "cold-core-layout",
+  "cold-core-assembly.scorecard.json");
 
 test("enclosure scorecard sidecar conforms to the contract", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
@@ -112,62 +115,27 @@ test("scorecardPathFor maps a STEP path to its sidecar", () => {
     "manifold-layout/enclosure-assembly" + SCORECARD_SUFFIX);
 });
 
-// ── Mounts ──────────────────────────────────────────────────────────────────────────────────
-// The per-component fastening record the `mounted` gate reaches its verdict on. A producer that
-// emits the gate without the table draws a modal that says a verdict and cannot show it.
-test("the mount table is the population the mounted gate counts", (t) => {
-  if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
-  const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
-  assert.ok(isScorecard(sc), "sidecar passes isScorecard");
-
-  const byId = Object.fromEntries(sc.checks.map((c) => [c.id, c]));
-  assert.ok(Array.isArray(sc.mounts) && sc.mounts.length, "sidecar carries a mount table");
-  // Two kinds of row are outside the count — the gate measures what is left to close. A row
-  // nothing can fasten is one; a RIDER is the other, because it is part of another placed body
-  // and answers to that body's fastening, so counting it counts one joint once per solid its
-  // part is drawn as.
-  const can = sc.mounts.filter((m) => !m.never && !m.rides);
-  assert.ok(can.length, "at least one joint is the gate's to close");
-  assert.equal(byId.mounted.status === "pass", can.every((m) => m.by),
-    "the gate's verdict is the table's own");
-
-  // A carrier is a placed component or a printed piece of the enclosure, and it is named — a
-  // joint printed into nothing has nowhere for its screw to go.
-  for (const m of sc.mounts) {
-    assert.equal(typeof m.joint, "string", `${m.component} declares the construction it stands on`);
-    if (m.by !== null) assert.ok(m.by.length, `${m.component} names the part it mounts into`);
-    // An exemption states why, and a fastened body is not one nothing can fasten.
-    if (m.never != null) {
-      assert.ok(m.never.length, `${m.component} says why nothing fastens it`);
-      assert.equal(m.by, null, `${m.component} is exempt and unfastened both`);
-    }
-    // A rider names a host that is itself a row, and takes that row's fastening.
-    if (m.rides != null) {
-      const host = sc.mounts.find((h) => h.component === m.rides);
-      assert.ok(host, `${m.component} rides ${m.rides}, which is a placed body`);
-      assert.equal(m.by, host.by, `${m.component} carries its host's fastening`);
-      assert.ok(host.rides == null, `${m.rides} is a host, not itself a rider`);
-    }
-  }
-});
-
 // ── Bends ───────────────────────────────────────────────────────────────────────────────────
-// One row per routed run, each naming the two anchors it stands between and grading every corner
-// in it separately — a run holds one radius per corner, so its worst says nothing about the rest.
-test("every bend row names its two anchors and grades its own corners", (t) => {
-  if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
-  const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
+// The cold core's card carries a bend row per drawn line — `_scenes.core_names` reads an `id`
+// off each one for the core's line names, so a row without one drops a body out of every scene.
+test("every cold-core bend row is named and grades its own corners", (t) => {
+  if (!fs.existsSync(COLD_SIDECAR)) return t.skip("no built cold-core scorecard sidecar");
+  const sc = JSON.parse(fs.readFileSync(COLD_SIDECAR, "utf8"));
+  assert.ok(isScorecard(sc), "cold-core sidecar passes isScorecard");
 
   assert.ok(Array.isArray(sc.bends) && sc.bends.length, "sidecar carries a bend table");
+  const named = new Set();
   for (const b of sc.bends) {
+    assert.ok(typeof b.id === "string" && b.id.length, "a bend row names itself");
+    assert.ok(!named.has(b.id), `${b.id} is named once — a scene's line names are a set`);
+    named.add(b.id);
     for (const a of [b.frm, b.to]) {
       assert.equal(typeof a, "string");
       assert.ok(a.includes("."), `${b.id} anchor "${a}" is component.port`);
     }
-    assert.equal(b.bends, b.corners.length, `${b.id} counts the corners it carries`);
-    assert.ok(b.atSpec <= b.bends, `${b.id}: corners at spec cannot exceed corners`);
+    assert.ok(Array.isArray(b.corners), `${b.id} carries its corners`);
     assert.ok(b.corners.every((c) => c.radius >= b.radius - 1e-9),
-      `${b.id}: the run's radius is its tightest corner's`);
+      `${b.id}: the line's radius is its tightest corner's`);
   }
 });
 

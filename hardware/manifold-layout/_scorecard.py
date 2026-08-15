@@ -58,8 +58,8 @@ DETAIL_MAX = 8
 # How close two bodies the machine does not seat against each other may stand.
 CLEARANCE_FLOOR = 1.0
 # Only pairs nearer than this are ranked, so the clearance detail reads as the tight end of the
-# pack rather than as every pair in it.
-REPORT_NEAR = 6.0
+# pack rather than as every pair in it. Every pair inside it is an exact solid distance.
+REPORT_NEAR = 2.0
 # The straight a run leaves a fitting on — how far down its own axis a turn off this port reaches.
 # The tube begins curving at the collet face, so a quarter turn carries its axis one bend radius
 # along the port's own and its outer surface the tube's half-diameter past that. Shallower turns
@@ -1822,7 +1822,6 @@ def to_dict(sc: Scorecard) -> dict:
         "placed": _score(by_id["placed"]),
         "located": _score(by_id["located"]),
         "routed": _score(by_id["routed"]),
-        "mounted": _score(by_id["mounted"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail),
@@ -1832,13 +1831,6 @@ def to_dict(sc: Scorecard) -> dict:
         ],
         "ports": sc.ports,
         "shapes": sc.shapes,
-        "bends": sc.bends,
-        # `by` is what the axis counts, so a rider carries its host's — the same reading
-        # `_mounted` makes, and the panel's open-joint list is that reading sorted.
-        "mounts": [{"component": n, "by": fastened_by(n), "joint": j,
-                    "rides": RIDES.get(n),
-                    "never": NEVER.get(n)}
-                   for n, _by, j in mounts()],
     }
 
 

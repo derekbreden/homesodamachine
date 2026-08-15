@@ -71,7 +71,6 @@ class Scorecard:
     bends: list = field(default_factory=list)
     ports: list = field(default_factory=list)
     shapes: list = field(default_factory=list)
-    mounts: list = field(default_factory=list)
 
     @property
     def gates_pass(self) -> bool:
@@ -85,7 +84,6 @@ def to_dict(sc: Scorecard) -> dict:
         "placed": score(by_id["placed"]),
         "located": score(by_id["located"]),
         "routed": score(by_id["routed"]),
-        "mounted": score(by_id["mounted"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail),
@@ -94,8 +92,8 @@ def to_dict(sc: Scorecard) -> dict:
         ],
         "ports": sc.ports,
         "shapes": sc.shapes,
+        # `_scenes.core_names` reads an `id` off every row here for the core's line names.
         "bends": sc.bends,
-        "mounts": [{"component": n, "by": by, "joint": j} for n, by, j in sc.mounts],
     }
 
 
