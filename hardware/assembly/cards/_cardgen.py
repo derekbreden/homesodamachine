@@ -50,6 +50,22 @@ from pathlib import Path
 # with a child cannot match — which is how the text-only rule is enforced rather
 # than assumed. The closing tag is a backreference, so nesting cannot be
 # mistaken for a match.
+#: Every card a run was handed, whether or not its text moved. A card is READ AND WRITTEN
+#: BACK — its prose is authored and only the marked values are this driver's — so it belongs
+#: on both sides of its own action, the way a doc does. `docgen._WRITE_TARGETS` is the same
+#: record for the same reason; `tools/bazel/trace_inputs.py` takes both.
+_WRITE_TARGETS = set()
+
+
+def _note_target(path) -> None:
+    """Keep `path` as one this run rewrites in place, named from the repo root."""
+    p = Path(path).resolve()
+    for up in (p, *p.parents):
+        if (up / ".git").exists():
+            _WRITE_TARGETS.add(p.relative_to(up).as_posix())
+            return
+
+
 MARKER = re.compile(
     r"<(?P<tag>[a-z][a-z0-9]*)(?P<attrs>[^<>]*?\sdata-gen=\"(?P<name>[A-Z_][A-Z0-9_]*)\"[^<>]*)>"
     r"(?P<value>[^<>]*)</(?P=tag)>"
@@ -138,6 +154,7 @@ def sync(cards_dir: Path, variables: dict, registry: dict, check: bool = False) 
             faults += [f"{stem}: {n} — card says {v!r}, machine says {str(variables[n])!r}"
                        for n, v in drift]
         elif drift:
+            _note_target(path)
             path.write_text(_rewritten(text, variables))
             written.append((stem, [n for n, _v in drift]))
 

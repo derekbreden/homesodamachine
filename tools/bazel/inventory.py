@@ -17,13 +17,12 @@ _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
 
-#: What a run reads and writes back over: a doc and its figures, a mermaid chart's `%%` lines,
-#: a card's `data-gen` elements, and the generator's own comments and docstrings. Everything
-#: else a run writes it only cuts.
-#:
-#: A CARD IS READ WHETHER OR NOT IT IS WRITTEN. `_cards_sync.py` reads all 116 and rewrites the
-#: ones whose figures moved — one, on the run this graph was traced from.
-REWRITTEN_SUFFIXES = (".md", ".figures.json", ".mmd", ".py", ".html")
+#: WHICH KIND OF WRITE IT WAS IS THE WRITER'S TO SAY, and `graph.json` carries the answer:
+#: `rewritten` is what `docgen` and `_cardgen` read and wrote back, and the rest of `writes`
+#: is what `_cadq_export` cut whole. A name cannot tell them apart — `.figures.json` carries
+#: no marker and is rewritten, a `.step` is read to be compared against and is not — and a
+#: suffix list forgot a medium four times before this: a driver's own docstring, a mermaid
+#: chart's `%%` lines, a doc's figures sidecar, and a card's `data-gen` elements.
 
 
 def tracked() -> list:
@@ -68,6 +67,16 @@ def inventory(files=None) -> dict:
     except (OSError, ValueError):
         return {}
 
+    # A READING TAKEN BEFORE THE WRITERS SAID WHICH KIND OF WRITE IT WAS cannot be sorted, and
+    # sorting it wrong makes every doc an output its own action is not given. Named here rather
+    # than built into a graph that fails one action at a time.
+    stale = sorted(g for g, seen in graph.items() if "rewritten" not in seen)
+    if stale:
+        raise SystemExit(
+            f"  {len(stale)} generator(s) were traced before a run said which of its writes it\n"
+            f"  read back — {Path(stale[0]).name} among them. Re-trace them:\n"
+            f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py")
+
     writes = {gen: {f for f in seen["writes"] if f in files}
               for gen, seen in graph.items() if gen in files}
     writes = {gen: w for gen, w in writes.items() if w}
@@ -76,9 +85,9 @@ def inventory(files=None) -> dict:
     for gens in _together(writes):
         entry = {"solids": [], "docs": [], "reads": sorted(
             {f for g in gens for f in graph[g]["reads"] if f in files})}
+        back = {f for g in gens for f in graph[g].get("rewritten", ()) if f in files}
         for f in sorted(set().union(*(writes[g] for g in gens))):
-            (entry["docs"] if f.endswith(REWRITTEN_SUFFIXES)
-             else entry["solids"]).append(f)
+            (entry["docs"] if f in back else entry["solids"]).append(f)
         out[tuple(gens)] = entry
     return out
 

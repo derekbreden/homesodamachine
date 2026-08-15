@@ -46,6 +46,10 @@
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],
+    "rewritten": [
+      "hardware/assembly/cable-assemblies.figures.json",
+      "hardware/assembly/cable-assemblies.md"
+    ],
     "writes": [
       "hardware/assembly/cable-assemblies.figures.json",
       "hardware/assembly/cable-assemblies.md"
@@ -2776,6 +2780,11 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
+      "hardware/printed-parts/enclosure/drip-pan/README.md",
+      "hardware/printed-parts/enclosure/drip-pan/drip_pan.py"
     ],
     "writes": [
       "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
