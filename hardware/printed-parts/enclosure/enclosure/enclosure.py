@@ -659,6 +659,8 @@ z_lip_y_margin = 2.0
 #                 radius of the core's own corner round, and the plane the block over it reaches
 #   core_holds    the cold core's two hold-downs, one (x0, x1, aft, crown) each — the lane on the
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
+#   vent_chase    the cold core's PRV relief line, one (x, y, z, flank) — the tube's own cut end
+#                 and the core's west flank, which the chase's mouth and lip stand on
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
@@ -2274,17 +2276,24 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 # --- the PRV's chase, down the OUTSIDE of the west wall ----------------------
 #
 # The cold core's relief line leaves that core by a flank (`_internal_routes.prv_vent_cross_z`).
-# It arrives here pointing west, standing `vent_socket_reach` proud of the core's own flank,
-# and this is what carries the discharge OUT OF THE BOX.
+# It arrives here pointing west, standing `_internal_routes.prv_vent_reach` proud of the core's
+# own flank, and this is what carries the discharge OUT OF THE BOX.
 #
 # ITS DEPTH COMES OUT OF A WALL THICKENED FROM THE INSIDE, into the band the core already
 # stands off, and the outer face stays the plane `outer` names.
 #
-# NOTHING TOUCHES THE TUBE. The wall holds a square MOUTH `vent_catch_gap` off the tube's cut
-# end and catches the jet across that gap: the core is located by its own two corner blocks and
-# comes down as one unit (`cards/en-05-seat-cold-core`), so what the wall presents it is a
-# target and not a fit. The mouth is `vent_channel_w` on a side against a jet that crosses the
-# gap barely wider than the bore it left, and the balance is the room the core has to land in.
+# THE LIP LANDS ON THE CORE. The rib's east face is the core's own west flank, and the mouth
+# closes on that flank all round.
+#
+# NOTHING TOUCHES THE TUBE. The tube stands proud of that flank, so it reaches INTO the mouth,
+# and what holds `vent_catch_gap` off its cut end is the passage BEHIND it — the channel's own
+# back face. The core is located by its own two corner blocks and comes down as one unit
+# (`cards/en-05-seat-cold-core`), so what the wall presents it is a target and not a fit: the
+# mouth is `vent_channel_w` on a side against a tube less than half that across, and the
+# balance is the room the core has to land in.
+#
+# OVER THE MOUTH THE RIB STANDS BACK on that same face, and the tube falls past the set-back
+# into the mouth as the core comes down. The bearing face begins at the mouth's roof.
 #
 # Behind the mouth the passage turns DOWN. It is roofed by the rib and the wall's SKIN stands
 # outboard of it, so the flank is unbroken at that height. `vent_duct_drop` under the mouth the
@@ -2295,9 +2304,9 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 # face travelling away from it, well above the foot. CO2 is heavier than air and falls from
 # there on its own.
 vent_channel_w = 12.0          # the channel, across — and the mouth, square on it
-vent_rib_wall = 2.0            # PETG either side of the channel, behind it, and over the mouth
-# What the mouth stands off the tube's cut end — which the station carries, so how far the
-# wall reaches inboard is the core's own placement and not a number typed against it.
+vent_rib_wall = 2.0            # PETG either side of the channel and over the mouth
+# What the channel's back face stands off the tube's cut end — which the station carries, so how
+# deep the mouth is sunk behind the lip is the core's own placement and not a number typed here.
 vent_catch_gap = 2.0
 vent_duct_drop = 25.0          # the closed fall under the mouth, before the skin opens
 vent_groove_drop = 25.0        # the open groove under that, which the duct discharges into
@@ -2307,23 +2316,33 @@ vent_ramp_rise = 40.0          # over which the floor runs back out and turns th
 def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     """The PRV vent's chase on a −X wall PIECE, for the station inside the band it owns.
 
-    One station, `(x, y, z)`: the tube's own cut end, in the machine's own frame. A RIB is fused
-    up the wall's inner face, stopping `vent_catch_gap` short of that end, and the whole passage
-    is cut back out of it in ONE profile — mouth, roofed duct, open groove and run-out ramp are
-    one polygon, one passage, and what changes down it is how much of the wall is still standing
-    outboard of it. The mouth is `vent_channel_w` square, on the tube's own axis, and its lip is
-    the rib's east face.
+    One station, `(x, y, z, flank)`: the tube's own cut end and the core's own west flank, both
+    in the machine's own frame. A RIB is fused up the wall's inner face OUT TO THAT FLANK, and
+    the whole passage is cut back out of it in ONE profile — mouth, roofed duct, open groove and
+    run-out ramp are one polygon, one passage, and what changes down it is how much of the wall
+    is still standing outboard of it. The mouth is `vent_channel_w` square, on the tube's own
+    axis, and its lip is the rib's east face — the face that lands on the core.
+
+    THE LIP STARTS AT THE MOUTH'S ROOF. Over the mouth the rib stands on the channel's own back
+    face instead, `vent_catch_gap` off the tube's cut end, and the tube comes down past it into
+    the mouth.
 
     THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
     down as that floor is still inboard of what the skin alone stands `vent_rib_wall` behind.
     Under that the ramp is cutting skin the wall already had, and the rib ends on the ramp's
     own slope."""
-    for sx, sy, sz in stations:
+    for sx, sy, sz, flank in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
         half = vent_channel_w / 2.0 + vent_rib_wall
-        rib_x = sx - vent_catch_gap                 # the mouth's own lip
-        floor_x = rib_x - vent_rib_wall             # the channel's back face, all the way down
+        rib_x = flank                               # the lip, on the core's own flank
+        floor_x = sx - vent_catch_gap               # the channel's back face, all the way down
+        if rib_x - floor_x < vent_rib_wall:
+            raise ValueError(
+                f"the vent lip comes out {rib_x - floor_x:g} thick between the core's flank at "
+                f"{rib_x:g} and a channel held {vent_catch_gap:g} off the tube's end at {sx:g}, "
+                f"under the {vent_rib_wall:g} every wall of this chase keeps. The tube stands "
+                f"too far proud of the flank for a mouth to be sunk behind it.")
         mouth_top = sz + vent_channel_w / 2.0
         mouth_bot = sz - vent_channel_w / 2.0
         groove_top = sz - vent_duct_drop            # where the skin opens
@@ -2335,7 +2354,8 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         rib_end = ramp_top - vent_ramp_rise * ((floor_x - (inner[0] - vent_rib_wall))
                                                / (floor_x - outer[0]))
         solid = solid.fuse(_xz_prism(sy - half, sy + half,
-                                     [(inner[0], sz + half), (rib_x, sz + half),
+                                     [(inner[0], sz + half), (floor_x, sz + half),
+                                      (floor_x, mouth_top), (rib_x, mouth_top),
                                       (rib_x, ramp_top), (inner[0], rib_end)]))
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(rib_x + 1.0, mouth_top),       # the mouth, through the lip
