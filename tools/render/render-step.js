@@ -108,26 +108,41 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
       stepRel,
     );
 
-    // Pose the camera isometrically per spec: position at center + (1,1,1)
-    // normalized · radius · 1.6, look at center, up (0,1,0).
+    // Pose the camera isometrically: looking at the model's centre down (1,1,1),
+    // up (0,1,0), far enough back that the whole of it is in frame.
     console.log("posing camera + rendering frame...");
     const shot = await page.evaluate(() => {
       const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
       const box = new THREE.Box3().setFromObject(currentGroup);
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
-      const radius = Math.max(size.x, size.y, size.z) * 0.5;
-      // Spec: position at center + (1,1,1) · radius · 1.6 (each component
-      // gets radius · 1.6, so distance = sqrt(3) · radius · 1.6 ≈ 2.77r).
-      const offset = new THREE.Vector3(1, 1, 1).multiplyScalar(radius * 1.6);
+      // The canvas has to match the puppeteer viewport before the distance is
+      // solved, because the distance depends on the aspect.
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      // WHAT HAS TO FIT IS THE SPHERE, NOT THE LONGEST EDGE. Half the box
+      // diagonal contains the box seen from any angle, and an isometric view
+      // turns the diagonal toward the camera — so framing on half the longest
+      // edge crops the corners. Stand back to where that sphere subtends the
+      // narrower of the two fields of view, plus 4% of air.
+      const bound = size.length() * 0.5;
+      const vFov = (camera.fov * Math.PI) / 180;
+      const hFov = 2 * Math.atan(Math.tan(vFov / 2) * camera.aspect);
+      const dist = (bound / Math.sin(Math.min(vFov, hFov) / 2)) * 1.04;
+      const offset = new THREE.Vector3(1, 1, 1).normalize().multiplyScalar(dist);
       camera.position.copy(center).add(offset);
       camera.up.set(0, 1, 0);
       camera.lookAt(center);
       controls.target.copy(center);
       controls.update();
-      // Make sure the canvas matches the puppeteer viewport.
-      renderer.setSize(window.innerWidth, window.innerHeight, false);
-      camera.aspect = window.innerWidth / window.innerHeight;
+      // THE CLIP PLANES CAME FROM THE FRAMING THIS REPLACED. The viewer sets
+      // near/far for wherever it had the camera; moving the camera without
+      // re-bracketing can leave a near plane sitting beyond the model, and
+      // everything in front of it is cut — which reads as an empty frame that
+      // trims down to whatever else was in the scene. Bracket the same sphere
+      // around the new distance, with a tenth of it as slack at each end.
+      camera.near = Math.max(dist - bound * 1.1, bound * 0.001);
+      camera.far = dist + bound * 1.1;
       camera.updateProjectionMatrix();
       // The read is on the line after the render — see browser.js frameBuffer.
       renderer.render(scene, camera);
