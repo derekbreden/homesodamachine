@@ -1670,6 +1670,10 @@ def selftest() -> int:
     # named with the body whose box swallowed them, because a blind spot printed is a blind spot
     # a reader can work around and a blind spot asserted as a clash is an instrument nobody
     # trusts. Every one of these is clear in `probe`'s exact world; `verify` is what settles one.
+    #
+    # A RUN IS SETTLED WITHOUT LEAVING THE SNAPSHOT. Where the body that swallowed the centreline
+    # is another run, both shapes are carried in full and `nearest_run` reads the tubes, so that
+    # row is a figure rather than a blind spot.
     read = sorted((authored(rid, floor=0.0).margin, rid) for rid in snap["runs"])
     blind = [(m, rid) for m, rid in read if m < -1e-6]
     print(f"       the box reader certifies {len(read) - len(blind)} of {len(read)} authored "
@@ -1677,6 +1681,11 @@ def selftest() -> int:
     for m, rid in blind:
         a = authored(rid, floor=0.0)
         who = a.near[0][1]
+        if who in snap["runs"]:
+            g, other = nearest_run(rid, snap)
+            print(f"       settled by tube: {rid:<10} {g:+8.3f} against {other}"
+                  f"  (its box read {m:.3f} against {who})")
+            continue
         fill = snap["bodies"].get(who, {}).get("fill")
         print(f"       uncertifiable: {rid:<10} {m:8.3f} against {who}"
               + (f", which fills {fill:.2f} of its box" if fill is not None else ""))
