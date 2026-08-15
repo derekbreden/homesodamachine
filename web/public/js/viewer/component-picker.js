@@ -24,6 +24,7 @@ import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
 import { drillTo } from "./step-nav.js";
+import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -197,6 +198,7 @@ function buildPanel() {
   close.addEventListener("click", () => { clearSelectionOverlay(); refreshPanel(); });
   head.appendChild(title);
   head.appendChild(nameEl);
+  head.appendChild(makePanelCollapse(panel, "step-component-panel-collapsed"));
   head.appendChild(close);
   panel.appendChild(head);
   panel._nameEl = nameEl;

@@ -24,6 +24,7 @@ import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick
 import { getFindData, faceHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
 import { jumpToStep } from "./step-nav.js";
+import { makeToolButton } from "./tool-rail.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
 const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
@@ -329,13 +330,14 @@ export function closeTopPickFind() {
 }
 
 export function makePickFindToggle() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "pick-find-toggle tool-btn";
-  btn.textContent = "Find";
-  btn.title = "Type a part name, or paste pick text, to highlight it on the model";
+  const btn = makeToolButton({
+    className: "pick-find-toggle",
+    label: "Find",
+    icon: "find",
+    title: "Type a part name, or paste pick text, to highlight it on the model",
+    onClick: () => setPanelOpen(!panelOpen),
+  });
   btn.setAttribute("aria-expanded", panelOpen ? "true" : "false");
-  btn.addEventListener("click", () => setPanelOpen(!panelOpen));
   toggleBtn = btn;
   return btn;
 }

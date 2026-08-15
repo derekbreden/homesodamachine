@@ -159,6 +159,7 @@ export function makeShapeBoxToggle(count) {
   return makeToolChip({
     className: "shape-box-toggle",
     label: "Boxes",
+    icon: "boxes",
     count,
     title: "The boxes each component really occupies — one per solid it is built from, "
          + "tinted by how much of the box is material",

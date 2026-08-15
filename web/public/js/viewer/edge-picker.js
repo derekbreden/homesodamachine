@@ -55,6 +55,7 @@ import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
 import { fnum, fpt, formatFace } from "./pick-format.js";
+import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-edge-pick";
 const PICK_THRESHOLD_PX = 11; // cursor-to-edge distance that counts as a hit
@@ -793,6 +794,7 @@ function buildPanel() {
   head.appendChild(title);
   head.appendChild(fileEl);
   head.appendChild(facesToggle);
+  head.appendChild(makePanelCollapse(panel, "step-edge-panel-collapsed"));
   head.appendChild(close);
   panel.appendChild(head);
   panel._fileEl = fileEl;

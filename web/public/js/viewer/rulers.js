@@ -275,6 +275,7 @@ export function makeRulerToggle() {
   return makeToolChip({
     className: "ruler-toggle",
     label: "Rulers",
+    icon: "rulers",
     title: "Three labelled world axes through the orbit target, ticked in mm",
     read: areRulersEnabled,
     write: setRulersEnabled,

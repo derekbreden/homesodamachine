@@ -214,6 +214,7 @@ export function makePortToggle(count) {
   return makeToolChip({
     className: "port-toggle",
     label: "Ports",
+    icon: "ports",
     count,
     title: "Every located connector at its coordinate, drawn at its bore Ø",
     read: isPortsEnabled,
