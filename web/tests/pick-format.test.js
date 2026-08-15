@@ -63,7 +63,7 @@ test("parses a circle (loop) line", () => {
 
 test("parses a whole copy-all blob with file, solid, faces, click", () => {
   const blob = [
-    "file: hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
+    "file: hardware/faucet-layout/faucet-assembly.step",
     "solid: shell",
     STRAIGHT_LINE,
     "faceA: plane · n x=0.000 y=-0.766 z=0.643 · thru x=0.000 y=-143.555 z=185.799",
@@ -72,7 +72,7 @@ test("parses a whole copy-all blob with file, solid, faces, click", () => {
   ].join("\n");
   const { picks, files } = parsePicks(blob);
   assert.equal(files.length, 1);
-  assert.match(files[0], /touch-flo-faucet-assembly\.step$/);
+  assert.match(files[0], /faucet-assembly\.step$/);
   assert.deepEqual(
     picks.map((p) => p.kind),
     ["edge", "face-plane", "face-cylinder", "point"],

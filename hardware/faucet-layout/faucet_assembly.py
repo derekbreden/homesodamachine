@@ -1,56 +1,40 @@
-"""Touch-Flo faucet assembly — the harvested valve body
-(`../valve-body-reference/touch-flo-valve-body-reference.step`) and the
-parts built around it, written as one multi-solid STEP file.
+"""The faucet, whole — every body above the counter, the countertop it clamps
+through, and the three tubes running down past it into the umbilical.
 
-Coordinates: the repo's +Z-up frame. +Z is height (the body axis runs
-along +Z), +X is lateral (the two flavor tubes mirror across the
-X = 0 plane), -Y is the front — the gooseneck dispenses toward -Y (the
-user's side) and the lever points toward -Y, so the water port and
-flavor-tube pill sit BEHIND the body axis at world +Y (the back).
+`printed-parts/faucet/` holds the four printed pieces one at a time and
+`cut-parts/faucet/` the plate under the slab; this is the column they stack into,
+with the harvested Westbrass body they are built around
+(`reference/touch-flo-faucet/valve-body-reference/`) and the display on the tip.
 
-Parts:
-1. Valve body — seated in the repo frame: water port toward +Y / back,
-   lever side toward -Y / front.
-2. Water dispense tube — Ø 9.525 mm (3/8" LLDPE), seated in the body's
-   10.0 mm water port and extending up through the gooseneck. The
-   0.475 mm diametric (0.2375 mm radial) gap is sealed by a printed TPU
-   bushing (../../../printed-parts/faucet/touch-flo-tpu-o-ring/), not
-   modeled here.
-3. Two flavor dispense tubes — Ø 1/4" (6.35 mm), behind the water
-   tube. Each starts at depth Y = +18.925 mm (tangent to the body's
-   back face and the other flavor tube), runs vertical from Z = -50,
-   S-bends just above the plateau to come in tangent against the water
-   tube, then runs vertical to Z = 79 butted against it.
-4. Lever — swing-clearance blob: union of rest position and pressed-down
-   position (+18° around X axis through Y = +1.5, Z = 46), each with
-   vertical water-tube clearance.
-5. Mounting plate (../../../printed-parts/faucet/touch-flo-mounting-plate/).
-   Ø 54.35 × 4 mm disc centered at depth Y = +3.175, spans Z = [-4, 0].
-   Shank hole at (0, 0); flavor-tube pill slot at Y = +18.925. 5 mm
-   radial gap from the shell base (Ø 44.35).
-6. Shell (../../../printed-parts/faucet/touch-flo-shell/).
-   Three printed pieces in assembled position, as printed — joint
-   voids and all: shell_bottom (angled spout), shell_middle (upper
-   bend + cradle saddle), shell_top (dispense tip + tray). Together
-   they cover zones 1–6, centered at depth Y = +3.175: outer Ø 44.35 mm
-   cylindrical base (zone 1, Z = [0, 13]) → cove transition into a
-   41.175 × 23.5 mm rectangular column (zone 2, Z = [13, 39]) → arch
-   wings + plateau fill over the body's arched top (zone 3,
-   Z = [39, 44.25]) → tube wrapper above the arch and lever
-   (zones 4 + 4.5 + 5, Z = [44.25, 67.5]) → gooseneck wrapper
-   following the bent dispense tubes through bend 1, mid straight,
-   bend 2, and the tip (zone 6).
-7. Mounting gasket (../../../printed-parts/faucet/touch-flo-mounting-gasket/).
-   Ø 54.35 × 2.0 mm TPU 90A disc between the mounting plate and the
-   countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
-8. Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (../display-reference/),
-   a dimensioned stand-in seated on the dispense-tip top skin: long axis
-   up the gooseneck, screen toward the user, the metal feet under the
-   PCB sunk into the cosmetic wrap to a 1 mm web over the pill bore.
-   Body + screen are separate solids.
+FRAME: the repo's +Z-up. +Z is height and the body axis, +X is lateral (the two
+flavor tubes mirror across X = 0), -Y is the front — the gooseneck dispenses
+toward -Y and the lever points toward -Y, so the water port and the flavor-tube
+pill sit BEHIND the body axis at +Y. Z = 0 is the mounting plate's underside;
+the countertop's top face is at Z = -6, under the TPU gasket.
+
+TWO WATER PORTS, and the tube in each is a different size. The blue 1/4" supply
+lands on the compression port at the BOTTOM of the shank (Z = -50, 44 mm below
+the countertop's top face) and water rises inside the shank; the 3/8" dispense
+tube leaves the body's Ø10 top port and runs up the gooseneck, sealed into that
+port by the printed TPU thimble. `assembly/faucet-and-umbilical.md` is the bench
+that makes both up.
+
+The column, top to bottom:
+
+    display          Waveshare ESP32-S3-Touch-LCD-1.47, on the dispense tip
+    shell            three printed pieces, as printed — joint voids and all
+    dispense tubes   3/8" water up the middle, two 1/4" flavor behind it
+    lever            rest and pressed, as one swing-clearance blob
+    valve body       harvested Westbrass R2031-NL
+    o-ring           printed TPU thimble in the body's top water port
+    mounting plate   Ø54.35 × 4 printed disc,       Z = [-4, 0]
+    mounting gasket  Ø54.35 × 2 printed TPU disc,   Z = [-6, -4]
+    countertop       30 mm slab,                    Z = [-36, -6]
+    under-counter    Ø54.45 × 1.524 cut 316 SS,     Z = [-37.524, -36]
+    supply tube      1/4" blue, on the shank's own compression port
 
 Regenerate:
-    tools/cad-venv/bin/python faucet_assembly.py
+    tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py
 """
 
 import math
@@ -73,11 +57,14 @@ from docgen import substitute_py_comments
 
 
 _assembly_dir = Path(__file__).resolve().parent
-_harvested_dir = _assembly_dir.parent
-_repo_hardware_dir = _harvested_dir.parent.parent
+_repo_hardware_dir = _assembly_dir.parent
 _faucet_printed_dir = _repo_hardware_dir / "printed-parts" / "faucet"
+_faucet_cut_dir = _repo_hardware_dir / "cut-parts" / "faucet"
 
-ref_body_step = _harvested_dir / "valve-body-reference" / "touch-flo-valve-body-reference.step"
+ref_body_step = (_repo_hardware_dir / "reference" / "touch-flo-faucet"
+                 / "valve-body-reference" / "touch-flo-valve-body-reference.step")
+under_counter_dxf = (_faucet_cut_dir / "touch-flo-under-counter-plate"
+                     / "touch-flo-under-counter-plate.dxf")
 
 sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "cadlib"))
 from world_workplane import WorldWorkplane, xy_plane_z_up
@@ -86,9 +73,11 @@ from world_workplane import WorldWorkplane, xy_plane_z_up
 sys.path.insert(0, str(_faucet_printed_dir))  # for _touch_flo_interface
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-plate"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-gasket"))
+sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-tpu-o-ring"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
 import touch_flo_mounting_plate
 import touch_flo_mounting_gasket
+import touch_flo_tpu_o_ring
 import touch_flo_shell
 from _touch_flo_interface import (
     display_housing_width,
@@ -111,7 +100,9 @@ port_center_depth = 8.875
 plateau_z = 39.0
 body_od = 31.50  # cylinder OD = rectangle long dim
 body_r = body_od / 2
+shank_od = 11.0
 shank_length = 50.0  # shank runs from Z=0 down to Z=-shank_length
+countertop_hole_diameter = 34.93  # 1-3/8", the standard the shank is sized for
 
 
 # Water dispense tube — ⌀[9.525 mm](WATER_TUBE_OD) (3/8" LLDPE) — seated in the
@@ -140,8 +131,26 @@ flavor_tube_r = flavor_tube_od / 2.0
 # [18.93 mm](FLAVOR_TUBE_DEPTH_LOWER) — tangent to body +Y (back) face.
 flavor_tube_depth_lower = body_r + flavor_tube_r
 flavor_tube_x_offset = flavor_tube_r  # ± — tangent to other tube at X=0
-flavor_tube_z_bottom = -shank_length
+
+# Below the plate the three tubes run together — the sleeve goes on just under
+# it and the umbilical runs 1.2 m to the rear wall (`faucet-and-umbilical.md`
+# §"Cut the three LLDPE tubes to length"). This is the stub of that run the
+# assembly draws, so all three leave on one plane.
+umbilical_stub = 30.0
+umbilical_z_bottom = -shank_length - umbilical_stub  # [-80 mm](UMBILICAL_Z_BOTTOM)
+
+flavor_tube_z_bottom = umbilical_z_bottom
 flavor_tube_z_top = water_tube_z_top
+
+# Carbonated water arrives at the OTHER port: the compression fitting on the
+# bottom of the shank, [44 mm](SUPPLY_BELOW_COUNTER) below the countertop's top
+# face, and rises inside the shank to the body. So the blue tube is 1/4" and is
+# entirely below the counter, where the 3/8" dispense tube above is not. The
+# harvested body models no shank bore and no fitting, so this butts on the
+# shank's own bottom face.
+supply_tube_od = flavor_tube_od
+supply_tube_r = supply_tube_od / 2.0
+supply_tube_z_top = -shank_length
 
 # Upper depth is set by tangency to the water tube at the same X:
 #   (depth_upper - port_center_depth)² + x_offset² = (water_tube_r + flavor_tube_r)²
@@ -570,6 +579,110 @@ def build_display_screen():
     return _seat_on_tip(screen)
 
 
+# --- below the counter -------------------------------------------------------
+#
+# The slab is not a part — it is the customer's kitchen — but it is what sets
+# where the cut plate lands, so the assembly carries it at the figure
+# `assembly/faucet-and-umbilical.md` sums its tube lengths on: 30 mm of 3 cm
+# stone, in a 19–38 range. Drawn 120 mm square, which is enough to read as a
+# slab around a Ø54.45 plate.
+countertop_thickness = 30.0
+countertop_slab_xy = 120.0
+countertop_top_z = touch_flo_mounting_gasket.gasket_z_range[0]      # [-6 mm](COUNTERTOP_TOP_Z)
+countertop_bottom_z = countertop_top_z - countertop_thickness       # [-36 mm](COUNTERTOP_BOTTOM_Z)
+
+under_counter_plate_thickness = 1.524  # 0.060" 316 SS, the DXF's own sidecar
+
+hole_radius = countertop_hole_diameter / 2.0
+
+
+def shank_hole_margin(center_y):
+    """Slab left between the drilled hole and the shank, at a hole on the body
+    axis' own X and `center_y` in depth."""
+    return hole_radius - (abs(center_y) + shank_od / 2.0)
+
+
+def flavor_hole_margin(center_y):
+    """The same for the flavor pair — measured to the far tube's far wall."""
+    reach = math.hypot(flavor_tube_x_offset, flavor_tube_depth_lower - center_y)
+    return hole_radius - (reach + flavor_tube_r)
+
+
+def balanced_hole_center_y():
+    """THE DRILLED HOLE DOES NOT CENTRE ON THE SHANK. The flavor pair stands at
+    depth 18.925 and reaches 22.1; a 1-3/8" hole on the body axis reaches 17.465
+    and would cut it. Shank margin falls as the hole moves back and flavor
+    margin rises, so one depth leaves both the same — bisected here rather than
+    solved, and the margin it leaves is printed by the run."""
+    lo, hi = 0.0, flavor_tube_depth_lower
+    for _ in range(200):
+        mid = (lo + hi) / 2.0
+        if shank_hole_margin(mid) > flavor_hole_margin(mid):
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2.0
+
+
+# [8.537 mm](HOLE_CENTER_Y) behind the body axis.
+countertop_hole_center_y = balanced_hole_center_y()
+# [3.428 mm](HOLE_MARGIN) of slab, to the shank and to the flavor pair alike.
+countertop_hole_margin = shank_hole_margin(countertop_hole_center_y)
+
+
+def build_countertop():
+    """The slab the stack clamps through, with its drilled hole."""
+    slab = (
+        cq.Workplane("XY").workplane(offset=countertop_bottom_z)
+        .box(countertop_slab_xy, countertop_slab_xy, countertop_thickness,
+             centered=(True, True, False))
+    )
+    hole = (
+        cq.Workplane("XY").workplane(offset=countertop_bottom_z - 1.0)
+        .center(0, countertop_hole_center_y)
+        .circle(hole_radius)
+        .extrude(countertop_thickness + 2.0)
+    )
+    return slab.cut(hole)
+
+
+def build_under_counter_plate():
+    """The cut plate, off the DXF the laser reads, at the slab's underside.
+
+    That DXF's own X is world depth and its Y is world lateral (see the part's
+    docstring), so the outline turns a quarter about Z on its way into this
+    frame: DXF (x, y) lands at world (-y, x), which puts the pill pocket at
+    world +Y over the flavor pair and opens both channels toward -X."""
+    outline = cq.importers.importDXF(str(under_counter_dxf))
+    plate = outline.wires().toPending().extrude(under_counter_plate_thickness)
+    return (
+        plate
+        .rotate((0, 0, 0), (0, 0, 1), 90.0)
+        .translate((0, 0, countertop_bottom_z - under_counter_plate_thickness))
+    )
+
+
+def build_o_ring():
+    """The printed TPU thimble sealing the dispense tube into the body's Ø10 top
+    port. Its Z = 0 face is the port floor and the tube bottoms on its cap, so
+    the cap's top face is where the water tube starts."""
+    return touch_flo_tpu_o_ring.build_o_ring().translate((
+        0,
+        +port_center_depth,
+        water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness,
+    ))
+
+
+def build_supply_tube():
+    """The blue 1/4" carbonated-water supply, butted on the shank's bottom face
+    and running down to the umbilical stub."""
+    return (
+        cq.Workplane("XY").workplane(offset=umbilical_z_bottom)
+        .circle(supply_tube_r)
+        .extrude(supply_tube_z_top - umbilical_z_bottom)
+    )
+
+
 def build_assembly():
     """The full faucet assembly in the repo's +Z-up frame."""
     body = load_valve_body()
@@ -579,21 +692,30 @@ def build_assembly():
     lever = build_lever()
     mounting_plate = load_mounting_plate()
     mounting_gasket = load_mounting_gasket()
+    o_ring = build_o_ring()
     shell_bottom, shell_middle, shell_top = load_shell_pieces()
     display_body = build_display_body()
     display_screen = build_display_screen()
+    countertop = build_countertop()
+    under_counter_plate = build_under_counter_plate()
+    supply_tube = build_supply_tube()
 
     silver = cq.Color(0.85, 0.85, 0.88)  # near-stainless silver
     petg_tan = cq.Color(0.85, 0.78, 0.62)  # printed-part tan
     tpu_black = cq.Color(0.15, 0.15, 0.15)  # TPU 90A black gasket
     display_slate = cq.Color(0.12, 0.13, 0.18)  # dark display module
     display_glass = cq.Color(0.20, 0.55, 0.85)  # lit-screen blue
+    steel = cq.Color(0.72, 0.74, 0.78)  # 316 SS cut plate
+    water_blue = cq.Color(0.25, 0.45, 0.80)  # blue LLDPE, the cold line
+    stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab, not a part
 
-    assy = cq.Assembly(name="touch-flo-faucet-assembly")
+    assy = cq.Assembly(name="faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
     assy.add(water_tube, name="water_dispense_tube", color=silver)
+    assy.add(o_ring, name="tpu_o_ring", color=tpu_black)
     assy.add(flavor_tube_pos_x, name="flavor_tube_pos_x", color=silver)
     assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=silver)
+    assy.add(supply_tube, name="carb_supply_tube", color=water_blue)
     assy.add(lever, name="lever", color=silver)
     assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
     assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
@@ -602,13 +724,15 @@ def build_assembly():
     assy.add(shell_top, name="shell_top", color=petg_tan)
     assy.add(display_body, name="faucet_display", color=display_slate)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
+    assy.add(countertop, name="countertop", color=stone)
+    assy.add(under_counter_plate, name="under_counter_plate", color=steel)
     return assy
 
 
 def main():
     assy = build_assembly()
 
-    out = _assembly_dir / "touch-flo-faucet-assembly.step"
+    out = _assembly_dir / "faucet-assembly.step"
     export_assembly(assy, str(out))
 
     bend1_deg = math.degrees(gn_bend1_sweep_rad)
@@ -640,9 +764,26 @@ def main():
           f"@ {bend1_deg:.0f}° from vertical")
     print(f"                         {gn_tip_straight_len} mm tip "
           f"({tip_below_horiz:.0f}° below horizontal)")
+    print(f"  Carb supply tube:      Ø{supply_tube_od:.3f} mm, "
+          f"Z = {umbilical_z_bottom:.1f} → {supply_tube_z_top:.1f} "
+          f"(on the shank's bottom face)")
+    print(f"  TPU o-ring:            in the Ø{touch_flo_tpu_o_ring.body_port_diameter:.1f} mm top port, "
+          f"Z = {water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness:.2f} → "
+          f"{water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness + touch_flo_tpu_o_ring.total_height:.2f}")
     print(f"  Mounting plate:        touch_flo_mounting_plate.build_mounting_plate()")
     print(f"  Mounting gasket:       touch_flo_mounting_gasket.build_mounting_gasket()")
     print(f"  Shell pieces:          touch_flo_shell.build_shell_bottom/middle/top()")
+    print(f"  Countertop:            {countertop_thickness:.0f} mm slab, "
+          f"Z = {countertop_bottom_z:.1f} → {countertop_top_z:.1f}")
+    print(f"    drilled hole:        Ø{countertop_hole_diameter:.2f} mm at Y = "
+          f"{countertop_hole_center_y:.3f} mm — NOT on the body axis")
+    print(f"                         {countertop_hole_margin:.3f} mm of slab to the shank, "
+          f"{flavor_hole_margin(countertop_hole_center_y):.3f} mm to the flavor pair")
+    print(f"                         (on the axis it would leave "
+          f"{flavor_hole_margin(0.0):.3f} mm — the flavor pair cuts the slab)")
+    print(f"  Under-counter plate:   {under_counter_plate_thickness} mm 316 SS off "
+          f"{under_counter_dxf.name}, Z = "
+          f"{countertop_bottom_z - under_counter_plate_thickness:.3f} → {countertop_bottom_z:.1f}")
     print(f"-> {out.name}")
 
     substitute_py_comments(
@@ -661,6 +802,12 @@ def main():
             "GN_BEND_START_Z": f"{gn_bend1_start_z:.2f} mm",
             "GN_FLAVOR_BEND_ONE_R": f"{gn_flavor_bend1_r:.4f} mm",
             "GN_FLAVOR_BEND_TWO_R": f"{gn_flavor_bend2_r:.4f} mm",
+            "UMBILICAL_Z_BOTTOM": f"{umbilical_z_bottom:.4g} mm",
+            "SUPPLY_BELOW_COUNTER": f"{countertop_top_z - supply_tube_z_top:.4g} mm",
+            "COUNTERTOP_TOP_Z": f"{countertop_top_z:.4g} mm",
+            "COUNTERTOP_BOTTOM_Z": f"{countertop_bottom_z:.4g} mm",
+            "HOLE_CENTER_Y": f"{countertop_hole_center_y:.4g} mm",
+            "HOLE_MARGIN": f"{countertop_hole_margin:.4g} mm",
         },
     )
 

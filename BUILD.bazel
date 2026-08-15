@@ -2130,6 +2130,48 @@ cp hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py $$O11
 )
 
 genrule(
+    name = "faucet-assembly",
+    srcs = [
+        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+        "hardware/faucet-layout/faucet_assembly.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
+        "out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
+O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py)
+for f in $(SRCS); do
+  case $$f in */node_modules/*) continue;; esac
+  t=$${f##*/pysrc/}
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py > /dev/null
+cp hardware/faucet-layout/faucet-assembly.step $$O0
+cp hardware/faucet-layout/faucet_assembly.py $$O1
+""",
+)
+
+genrule(
     name = "enclosure-assembly",
     srcs = [
         "hardware/manifold-layout/README.figures.json",
@@ -5317,41 +5359,6 @@ cp hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step $$O0
 )
 
 genrule(
-    name = "tap-point-assembly",
-    srcs = [
-        "pysrc/hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
-        "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
-        "pysrc/hardware/reference/jg-pp451223w/jg_pp451223w.py",
-        "hardware/reference/tap-point-assembly/README.md",
-        "hardware/reference/tap-point-assembly/tap-point-assembly.step.png",
-        "pysrc/hardware/reference/tap-point-assembly/tap_point_assembly.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-    ],
-    outs = [
-        "out/tap-point-assembly/hardware/reference/tap-point-assembly/tap-point-assembly.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/tap-point-assembly/hardware/reference/tap-point-assembly/tap-point-assembly.step)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/tap-point-assembly/tap_point_assembly.py > /dev/null
-cp hardware/reference/tap-point-assembly/tap-point-assembly.step $$O0
-""",
-)
-
-genrule(
     name = "teyleten-relay",
     srcs = [
         "hardware/reference/teyleten-relay/README.md",
@@ -5380,47 +5387,6 @@ ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/teyleten-relay/teyleten_relay.py > /dev/null
 cp hardware/reference/teyleten-relay/teyleten-relay.step $$O0
-""",
-)
-
-genrule(
-    name = "faucet-assembly",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-        "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
-        "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step.png",
-        "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/faucet-assembly/hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
-        "out/faucet-assembly/hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/faucet-assembly/hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step)
-O1=$$PWD/$(location out/faucet-assembly/hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py > /dev/null
-cp hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step $$O0
-cp hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py $$O1
 """,
 )
 
@@ -6270,7 +6236,6 @@ genrule(
         "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "hardware/reference/tap-point-assembly/tap_point_assembly.py",
         "hardware/reference/tee-connector/tee_connector.py",
         "hardware/reference/teyleten-relay/teyleten_relay.py",
         "hardware/reference/wago-221/wago_221.py",
@@ -6420,7 +6385,6 @@ genrule(
         "pysrc/hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
         "pysrc/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
         "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "pysrc/hardware/reference/tap-point-assembly/tap_point_assembly.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/teyleten-relay/teyleten_relay.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -7700,9 +7664,6 @@ sh_test(
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
-        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
-        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf.json",
-        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
         "hardware/manifold-layout/README.figures.json",
         "hardware/manifold-layout/README.md",
         "hardware/manifold-layout/_lines.py",
@@ -7865,33 +7826,6 @@ sh_test(
         "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
         "hardware/printed-parts/enclosure/valve-panel/README.md",
         "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-        "hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
-        "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.json",
-        "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.png",
-        "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step.json",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step.png",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-        "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
-        "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
-        "hardware/printed-parts/faucet/touch-flo-shell/print-log.md",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step.png",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step.png",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step.png",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step.json",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step.png",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.md",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
         "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step",
         "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step.png",
         "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step",
@@ -8024,10 +7958,6 @@ sh_test(
         "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step",
         "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step.png",
         "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "hardware/reference/tap-point-assembly/README.md",
-        "hardware/reference/tap-point-assembly/tap-point-assembly.step",
-        "hardware/reference/tap-point-assembly/tap-point-assembly.step.png",
-        "hardware/reference/tap-point-assembly/tap_point_assembly.py",
         "hardware/reference/tee-connector/README.md",
         "hardware/reference/tee-connector/tee-connector.step",
         "hardware/reference/tee-connector/tee-connector.step.png",
@@ -8038,9 +7968,6 @@ sh_test(
         "hardware/reference/teyleten-relay/teyleten_relay.py",
         "hardware/reference/touch-flo-faucet/README.md",
         "hardware/reference/touch-flo-faucet/display-reference/README.md",
-        "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py",
-        "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
-        "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step.png",
         "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
         "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step.png",
         "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py",
@@ -8831,6 +8758,7 @@ filegroup(
         ":endcap-circular-dxf",
         ":endcap-circular-step",
         ":touch-flo-under-counter-plate",
+        ":faucet-assembly",
         ":enclosure-assembly",
         ":manifold-layout",
         ":cold-core-interface",
@@ -8893,9 +8821,7 @@ filegroup(
         ":seaflo-suction-chain",
         ":sf76e-thermal-fuse",
         ":shutao-moisture-plate",
-        ":tap-point-assembly",
         ":teyleten-relay",
-        ":faucet-assembly",
         ":valve-body-reference",
         ":wago-221",
         ":water-split",

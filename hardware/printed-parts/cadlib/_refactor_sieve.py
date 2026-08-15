@@ -77,9 +77,10 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
     # flavor
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
+    # faucet
+    "hardware/faucet-layout/faucet-assembly.step",
     # reference
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
-    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
     "hardware/reference/water-test-cup/water-test-cup.step",
@@ -98,7 +99,7 @@ _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
 
 _shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
 
-_faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
+_faucet_assembly_generator = "hardware/faucet-layout/faucet_assembly.py"
 
 _flavor_generators = [
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
@@ -248,13 +249,13 @@ def _faucet_parts_scalars():
 
 
 def _faucet_assembly_scalars():
-    """Build the harvested faucet-assembly's tubes + lever in-process
+    """Build the faucet assembly's tubes + lever in-process
     and return their scalars.
 
     Imports faucet_assembly and calls build_water_dispense_tube,
     build_flavor_tube(±1), and build_lever directly — bypassing the
     STEP round-trip (same approach as pump-case + reservoir + shell)."""
-    assembly_dir = _edition / "hardware/reference/touch-flo-faucet/faucet-assembly"
+    assembly_dir = _edition / "hardware/faucet-layout"
     sys.path.insert(0, str(assembly_dir))
     sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet/touch-flo-mounting-plate"))
     sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"))
