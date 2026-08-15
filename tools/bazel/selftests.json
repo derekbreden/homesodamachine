@@ -444,6 +444,7 @@
   ],
   "tools/bazel/sync_tree.py": [
     "hardware/assembly/cards/_cardgen.py",
+    "tools/bazel/graph.json",
     "tools/bazel/sync_tree.py"
   ]
 }

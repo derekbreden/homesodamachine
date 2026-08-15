@@ -8788,6 +8788,7 @@ sh_test(
     srcs = ["tools/bazel/selftest.sh"],
     data = [
         "hardware/assembly/cards/_cardgen.py",
+        "tools/bazel/graph.json",
         "tools/bazel/sync_tree.py",
     ],
     args = ["tools/bazel/sync_tree.py"],
