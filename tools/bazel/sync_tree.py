@@ -10,6 +10,11 @@ two live side by side: the build is what decides the bytes, and this is what han
 
 WHAT DIFFERS IS THE READING. A tree that comes back with nothing to copy is a tree holding the
 artifacts its sources make — asked here for the cost of a comparison, because the build ran.
+
+AN OUTPUT IS SOMETIMES ALSO AN INPUT. `hardware/assembly/*.md` are rewritten in place — the
+sentences are the file's own and the `[value](NAME)` figures are the build's — so the copy this
+hands over carries whatever prose the build it came out of was handed. A sentence written into
+one of those files reaches the tree through a build that read it: edit, build, then sync.
 """
 
 import argparse
