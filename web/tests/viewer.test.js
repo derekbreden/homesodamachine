@@ -85,8 +85,10 @@ test("/3d renders the three assemblies after JS hydrates", async (t) => {
     ["enclosure-assembly", "cold-core", "faucet", "reference"]);
   assert.deepEqual(branches.map((b) => b.title),
     ["Enclosure assembly", "Cold core", "Faucet", "Reference"]);
-  // The three assemblies stand open on a first visit; the reference shelf does not.
-  assert.deepEqual(branches.map((b) => b.open), [true, true, true, false]);
+  // Every branch stands shut on a first visit — the page opens as four rows.
+  assert.deepEqual(branches.map((b) => b.open), [false, false, false, false]);
+  // Shut is not empty: a <details> keeps its content in the DOM, which is what
+  // lets a deep link find its card and open the branch around it.
   for (const b of branches) {
     assert.ok(b.cards > 0, `branch "${b.id}" rendered no cards`);
   }
@@ -99,6 +101,8 @@ test("/3d renders the three assemblies after JS hydrates", async (t) => {
   assert.deepEqual(heroes, [
     "manifold-layout/enclosure-assembly.step",
     "cold-core-layout/cold-core-assembly.step",
+    "faucet-layout/faucet-assembly.step",
+    "reference/asse1022-assembly/asse1022-assembly.step",
   ]);
 });
 

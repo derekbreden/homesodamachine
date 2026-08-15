@@ -15,6 +15,7 @@ The home soda machine's physical design — the integrated under-counter applian
 | [`service/`](/hardware/service/) | Procedures run on a finished appliance rather than a bench: [`pump-replacement.md`](/hardware/service/pump-replacement.md) and the dry cycle it runs first. |
 | [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `enclosure/`, `faucet/`, `flavor/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
 | [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, faucet plate). |
+| [`manifold-layout/`](/hardware/manifold-layout/), [`cold-core-layout/`](/hardware/cold-core-layout/), [`faucet-layout/`](/hardware/faucet-layout/) | The three assemblies the parts above stand in, each written as one multi-solid STEP: the packed appliance, the core one frame further in, and the above-counter column. `/3d` browses the tree these head. |
 | [`off-the-shelf-parts/`](/hardware/off-the-shelf-parts/) | Reference geometry for purchased parts modelled into assemblies. |
 | [`reference/`](/hardware/reference/) | Imported / harvested reference STEPs (factory faucet, solenoid, ice-maker, fittings). Not fabricated by this project — no sidecars. |
 | [`topology/`](/hardware/topology/) | Fluid + valve topology, including the canonical valve-state truth table. |

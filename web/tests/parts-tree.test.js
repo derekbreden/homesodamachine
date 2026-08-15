@@ -61,6 +61,14 @@ test("a branch's own model leads the branch, not the group sharing its directory
   assert.deepEqual(names(groupIn(tree, "enclosure-assembly", "manifold")), ["manifold-layout"]);
 });
 
+test("the reference shelf's own model heads it and is not listed twice", () => {
+  const tree = seatParts({
+    steps: [REFERENCE.model, "reference/worm-clamp/worm-clamp.step"],
+  });
+  assert.equal(tree.reference.hero.name, "asse1022-assembly");
+  assert.deepEqual(names(tree.reference), ["worm-clamp"]);
+});
+
 test("a scene stands under the assembly its roots belong to", () => {
   const tree = seatParts({
     glbs: ["assembly/scenes/glb/back-top.glb", "assembly/scenes/glb/cold-core.glb"],
@@ -107,6 +115,7 @@ test("nothing in the hardware tree is unseated", (t) => {
       ...(b.hero ? b.hero.kinds : []),
       ...b.groups.flatMap((g) => g.parts.flatMap((p) => p.kinds)),
     ]),
+    ...(tree.reference.hero ? tree.reference.hero.kinds : []),
     ...tree.reference.parts.flatMap((p) => p.kinds),
   ].map((k) => k.file));
   const excluded = (f) => EXCLUDED_DIRS.some((d) => f === d || f.startsWith(d + "/"));
