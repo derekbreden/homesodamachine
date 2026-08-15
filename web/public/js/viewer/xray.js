@@ -180,6 +180,7 @@ export function makeXrayToggle() {
   return makeToolChip({
     className: "xray-toggle",
     label: "X-ray",
+    icon: "xray",
     title: "Ghost every solid's surfaces and draw its feature edges, so nested parts read through",
     read: isXrayEnabled,
     write: setXrayEnabled,

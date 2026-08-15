@@ -34,7 +34,7 @@ import { clearEdgePicker } from "./edge-picker.js";
 import { clearComponentPicker } from "./component-picker.js";
 import { clearComponentEdit } from "./component-edit.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
-import { makeToolRail, makeToolGroup, makeChipRow } from "./tool-rail.js";
+import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton } from "./tool-rail.js";
 import { makePickModeControl } from "./pick-mode.js";
 import { resetTrail } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
@@ -57,12 +57,12 @@ import { clearShapeBoxes } from "./shape-boxes.js";
 let resetAnimToken = 0;
 
 function makeResetViewButton() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "reset-view";
-  btn.textContent = "Reset view";
-  btn.title = "Reset to default isometric framing";
-  btn.addEventListener("click", () => {
+  const btn = makeToolButton({
+    className: "reset-view",
+    label: "Reset view",
+    icon: "reset-view",
+    title: "Reset to default isometric framing",
+    onClick: () => {
     if (!state.mountedDetail || !state.currentGroup) return;
     clearHighlight(); // a scorecard part-highlight is a temporary focus; reset restores all
     const { type, file } = state.mountedDetail;
@@ -104,6 +104,7 @@ function makeResetViewButton() {
       if (t < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+    },
   });
   return btn;
 }

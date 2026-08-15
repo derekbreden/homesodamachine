@@ -21,12 +21,12 @@ import {
 } from "./component-edit.js";
 
 const MODES = [
-  { id: "off", label: "Off", title: "Clicks orbit the model" },
-  { id: "component", label: "Component", title: "Click a solid to select the component it belongs to" },
-  { id: "edge", label: "Edge", title: "Click an edge or a face to read its geometry" },
+  { id: "off", label: "Off", icon: "pick-off", title: "Clicks orbit the model" },
+  { id: "component", label: "Component", icon: "pick-component", title: "Click a solid to select the component it belongs to" },
+  { id: "edge", label: "Edge", icon: "pick-edge", title: "Click an edge or a face to read its geometry" },
 ];
 // Appended only once the step-editor API answers for this file.
-const EDIT_MODE = { id: "edit", label: "Edit", className: "edit", title: "Drag a component to a new place in the source" };
+const EDIT_MODE = { id: "edit", label: "Edit", icon: "pick-edit", className: "edit", title: "Drag a component to a new place in the source" };
 
 function currentMode() {
   if (isComponentEditEnabled()) return "edit";
@@ -58,15 +58,7 @@ export function makePickModeControl(file) {
 
   probeEditor(file).then((ok) => {
     if (!ok || !seg.isConnected) return;
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "tool-seg-btn " + EDIT_MODE.className;
-    btn.dataset.mode = EDIT_MODE.id;
-    btn.textContent = EDIT_MODE.label;
-    btn.title = EDIT_MODE.title;
-    btn.setAttribute("role", "radio");
-    btn.addEventListener("click", () => { armMode(EDIT_MODE.id); sync(); });
-    seg.appendChild(btn);
+    seg.addOption(EDIT_MODE, () => { armMode(EDIT_MODE.id); sync(); });
     sync();
   });
 
