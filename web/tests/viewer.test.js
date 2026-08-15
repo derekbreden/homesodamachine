@@ -4,9 +4,8 @@
 // with HTML — it doesn't verify the page actually renders the parts grid,
 // because that requires JS execution + a fetch round-trip to /api/steps
 // and /api/dxf. This test fills that gap: open /3d in a real browser,
-// wait for the grid to populate, assert the subsystem subheaders we
-// expect ("Cold Core", "Faucet", "Flavor", "Reference", "Carbonation")
-// all appear in the DOM.
+// wait for the grid to populate, and assert the three assemblies and the
+// reference shelf are the branches it built.
 //
 // Skipped automatically if puppeteer's Chromium isn't downloaded — useful
 // in CI scenarios where chrome installs are gated. Costs ~3-5 seconds
@@ -49,7 +48,7 @@ after(async () => {
   }
 });
 
-test("/3d renders subsystem subheaders after JS hydrates", async (t) => {
+test("/3d renders the three assemblies after JS hydrates", async (t) => {
   if (!puppeteer) return t.skip("puppeteer unavailable");
   // Skip if both hardware kinds (printed + cut) are empty — the test
   // would have nothing to assert on. The route-smoke /api/steps test
@@ -68,26 +67,39 @@ test("/3d renders subsystem subheaders after JS hydrates", async (t) => {
   const page = await browser.newPage();
   await page.goto(`${baseUrl}/3d`, { waitUntil: "domcontentloaded" });
 
-  // Wait for the grid to populate. The viewer JS fetches /api/steps and
-  // /api/dxf, then renders subsection-header divs per category. 10s is a
-  // generous timeout — typical render is well under a second.
-  await page.waitForSelector(".subsection-header", { timeout: 10_000 });
+  // Wait for the grid to populate. The viewer JS fetches /api/steps, /api/dxf
+  // and /api/glbs, then renders one <details class="branch"> per branch. 10s is
+  // a generous timeout — typical render is well under a second.
+  await page.waitForSelector("details.branch", { timeout: 10_000 });
 
-  const headers = await page.$$eval(".subsection-header", (els) =>
-    els.map((el) => el.textContent.trim()),
+  const branches = await page.$$eval("details.branch", (els) =>
+    els.map((el) => ({
+      id: el.dataset.branch,
+      title: el.querySelector(".branch-title").textContent.trim(),
+      open: el.open,
+      cards: el.querySelectorAll(".card").length,
+    })),
   );
 
-  // Expected subheaders match the folder shape under
-  // hardware/printed-parts/, hardware/cut-parts/, and top-level dirs like
-  // hardware/reference/. If any go missing, the viewer has either lost a
-  // file kind or the category-derivation logic regressed.
-  const expected = ["Cold Core", "Faucet", "Flavor", "Reference", "Carbonation"];
-  for (const want of expected) {
-    assert.ok(
-      headers.includes(want),
-      `expected subheader "${want}" in [${headers.join(", ")}]`,
-    );
+  assert.deepEqual(branches.map((b) => b.id),
+    ["enclosure-assembly", "cold-core", "faucet", "reference"]);
+  assert.deepEqual(branches.map((b) => b.title),
+    ["Enclosure assembly", "Cold core", "Faucet", "Reference"]);
+  // The three assemblies stand open on a first visit; the reference shelf does not.
+  assert.deepEqual(branches.map((b) => b.open), [true, true, true, false]);
+  for (const b of branches) {
+    assert.ok(b.cards > 0, `branch "${b.id}" rendered no cards`);
   }
+
+  // Nothing on the page the tree could not seat, and the assembly leading each
+  // branch is the model parts-tree.js names for it.
+  assert.equal(await page.$$eval(".grid-warn", (els) => els.length), 0,
+    "the parts tree reported an unseated directory");
+  const heroes = await page.$$eval(".card-hero", (els) => els.map((el) => el.dataset.file));
+  assert.deepEqual(heroes, [
+    "manifold-layout/enclosure-assembly.step",
+    "cold-core-layout/cold-core-assembly.step",
+  ]);
 });
 
 test("/pcb board modal shows the board's outer dimensions", async (t) => {

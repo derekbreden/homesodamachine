@@ -24,6 +24,21 @@ same file the server does — Node by path, the browser by URL, one source eithe
   `web/dev-server/server.js`, and `web/public/js/viewer/{cards,live,route}.js`; pinned by
   `web/tests/cards.test.js`.
 
+## The shape of the machine
+
+The two trees a page is a browse of. Each states the one thing the repository's own files do not —
+where a directory or a bench stands relative to the others — and reads everything else off disk, so
+a part or a card added on the tree appears with no edit here and anything unseated is reported on
+the page.
+
+- **parts-tree.js** — the three assemblies `/3d` browses (enclosure assembly, cold core, faucet), the
+  groups inside each, and the reference shelf under them; plus `seatParts`, which folds a part's
+  `.step` / `.dxf` / `.glb` into one card. Read from `/api/{steps,dxf,glbs}` by
+  `web/public/js/viewer/parts.js`; pinned by `web/tests/parts-tree.test.js`.
+- **build-tree.js** — the bands `/build` groups benches into, and the parsers that read a procedure
+  (`hardware/assembly/<name>.md`) and a card's `.src` footer. Read by `web/lib/build-tree.js`;
+  pinned by `web/tests/build-tree.test.js`.
+
 ## Transport & client interface
 
 - **api-shapes.js** — the `/api` endpoints and their responses (PathList, DxfItem, Board, Card). Produced
