@@ -74,35 +74,33 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
- * @typedef {Object} ScorecardBend  one routed run, and every corner in it graded separately
- * @property {string} id        the run's connection id
+ * @typedef {Object} ScorecardBend  one drawn line, and every corner in it graded separately
+ * @property {string} id        the line's connection id. `_scenes.core_names` reads this off
+ *                              every row for the cold core's own line names.
  * @property {string} kind      fluid | water | co2 | refrigerant
  * @property {string} frm       source port anchor, "component.port"
  * @property {string} to        destination port anchor — the two bodies a fix would move
  * @property {string} stock     the tube it is drawn in, which is what sets `minBend`
- * @property {number} od        the run's bore Ø mm
- * @property {number} radius    the TIGHTEST corner in the run. A run holds one radius per corner,
- *                              so this is its worst and says nothing about the rest — read
- *                              `corners` for that.
- * @property {number} cap       the ceiling its author set; corners rise to what their legs seat
+ * @property {number} od        the line's bore Ø mm
+ * @property {number} length    developed centreline length, arcs included
+ * @property {number} bend      the ceiling its author set; corners rise to what their legs seat
  *                              and stop here
+ * @property {number} radius    the TIGHTEST corner in the line. A line holds one radius per
+ *                              corner, so this is its worst and says nothing about the rest —
+ *                              read `corners` for that.
  * @property {number} minBend   the tightest radius that stock takes without kinking
  * @property {number} ratio     radius / minBend
- * @property {string|null} grade  A..F on `ratio`, or null for a run with no corner to grade
+ * @property {string|null} grade  A..F on `ratio`, or null for a line with no corner to grade
  * @property {ScorecardCorner[]} corners  every interior corner with its own radius and grade
- * @property {number} atSpec    how many of those corners are at or above `minBend`
- * @property {number} bends     interior corners
- * @property {number|null} worstTurn  the sharpest turn in degrees, null when straight
- * @property {number|null} seat  largest radius the centreline as drawn seats, every leg counted
  * @property {number|null} reach largest radius its INTERIOR legs seat — the ceiling the pack
  *                               imposes, leads excluded. null = no interior leg bounds it.
- * @property {number|null} reachRatio  reach / minBend
- * @property {string|null} reachGrade  A..F on `reachRatio`. Failing BOTH grades is a placement
- *                                     to move; failing only `grade` is a radius to raise.
+ * @property {string|null} reachGrade  A..F on reach / minBend. Failing BOTH grades is a
+ *                                     placement to move; failing only `grade` is a radius to
+ *                                     raise.
  * @property {{leg: number, length: number, demand: number, from: number[], to: number[]}|null}
  *           binding  the interior leg that sets `reach`: its index, its length, the tangent it
  *                    owes as a multiple of R, and its two endpoints in world mm
- * @property {ScorecardNeed} [need]  what the run CONNECTS, beside how well it turns. Optional:
+ * @property {ScorecardNeed} [need]  what the line CONNECTS, beside how well it turns. Optional:
  *                                   an edition whose scorecard predates the figure omits it.
  */
 
@@ -124,49 +122,24 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
- * @typedef {Object} ScorecardMount  one component's fastening — the record behind `mounted`
- * @property {string} component
- * @property {string|null} by  the part whose printed feature fastens it; null = the joint is
- *                             still to design, and this row is one unit of the `mounted` gate's
- *                             gap. A row carrying `rides` shows its HOST's, which is what
- *                             fastens it
- * @property {string|null} [rides]  the placed body this one is part of — a solenoid's coil on
- *                             its valve, a pump's rear boss and motor can on its head. One
- *                             purchased thing drawn as several so each takes its own colour;
- *                             what holds a rider is its host's own hardware. Null, or absent on
- *                             an edition that predates the field, is the ordinary row
- * @property {string} joint    the construction it stands on ("bosses" | "wall-capture" |
- *                             "cradle" | "pack" | …). Not a score and not a holder — `pack` is
- *                             the flavour manifold's own bodies, which nothing printed fastens.
- *                             It is what lets a card count the bodies bossed to a piece apart
- *                             from the ones captured in its wall
- * @property {string|null} [never]  set on a body already fastened by a clamp that ships with
- *                             it, onto a donor the machine stands on grommets to hold off
- *                             itself. The text is why. These rows sit outside the axis's
- *                             count and off the list of open joints; null, or absent on an
- *                             edition that predates the field, is the ordinary row
- */
-
-/**
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
  * @property {number} placed   0..100 — placement criteria defined and held
  * @property {number} located  0..100 — every connector positioned AND sized on the component
  * @property {number} routed   0..100 — connections modeled as real 3D paths
- * @property {number} [mounted]  0..100 — the feature that fastens each component is printed
- *                               INTO another placed part, and the only fastening measure the
- *                               card carries. Optional: an edition whose scorecard predates the
- *                               axis omits it, so the guard below does not require it and a bar
- *                               still draws without it.
  * @property {ScorecardSize[]} [size]  how big the thing is: the printed box, and everything
  *                               placed. Optional: an edition whose scorecard predates the
  *                               table omits it, and the card draws without a size block
  * @property {ScorecardCheck[]} checks
  * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
- * @property {ScorecardBend[]} bends  per routed run, the radius it turns at and its grade
- * @property {ScorecardMount[]} mounts  per component, the part that fastens it. Optional: an
- *                                      edition whose scorecard predates the axis omits it.
+ * @property {ScorecardBend[]} [bends]  per routed run, the radius it turns at and its grade.
+ *                               Optional: the cold core's card carries it for
+ *                               `_scenes.core_names`, and a card whose bend grades ride their
+ *                               own check's detail omits it.
+ *
+ * A run's corner grades reach a reader through the `bend-radius` check's own detail, and every
+ * body's fastening through `mounted`'s.
  *
  * EVERY FIELD IS A READING, and there is no build stamp — one tree writes one file however
  * often it is built, so a card that comes back changed is a card whose numbers moved. What the
@@ -268,30 +241,6 @@ export function isScorecard(o) {
           (b.binding && typeof b.binding.leg === "number" && typeof b.binding.length === "number")),
     );
     if (!bendsOk) return false;
-  }
-  // mounts is the per-component fastening record — the `mounted` focus axis's structured table.
-  // Present on current sidecars; validated when present so an older sidecar without it still reads.
-  //   `by` NAMES A PIECE OR A PAIR OF THEM. One piece printing the feature that fastens a body is
-  // a string; two pieces CLOSING on one body — each screwed to the ones beside it, so a feature
-  // printed on one stands over a body sitting in another and neither comes off without the seam
-  // parting — is the pair, and the fastening is both. `_scorecard.MOUNTS` states it that way and
-  // `_scenes.holders` reads such a body's unit off `BEARS_ON`, it being in neither piece alone.
-  //   `never` is a row nothing fastens, so it carries no piece either way.
-  const heldBy = (v) =>
-    v === null ||
-    typeof v === "string" ||
-    (Array.isArray(v) && v.length > 1 && v.every((p) => typeof p === "string"));
-  if (o.mounts !== undefined) {
-    if (!Array.isArray(o.mounts)) return false;
-    const mountsOk = o.mounts.every(
-      (m) =>
-        m &&
-        typeof m.component === "string" &&
-        heldBy(m.by) &&
-        typeof m.joint === "string" &&
-        (m.never == null || (typeof m.never === "string" && m.by === null)),
-    );
-    if (!mountsOk) return false;
   }
   return true;
 }

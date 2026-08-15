@@ -758,7 +758,7 @@ def build_card(a) -> Scorecard:
     shapes = _shape_rows(placed)
     # `by` is what FASTENS a body and `joint` the construction it stands on. Here they are the
     # same feature wherever one exists, and `by` is None for the two the tape holds — which is
-    # the field `web/contracts/scorecard-sidecar.js` counts, so both surfaces read one number.
+    # what the `mounted` goal below counts.
     mounts = [(n, None if held_for(n) in NOT_A_FEATURE else held_for(n), held_for(n))
               for n in sorted(placed)]
 
@@ -785,7 +785,7 @@ def build_card(a) -> Scorecard:
               "a located joint per body",
               [f"{n}: {j}" for n, by, j in mounts if by is None]),
     ]
-    return Scorecard(checks, _bend_rows(fitted, a.points), _port_rows(mouths), shapes, mounts)
+    return Scorecard(checks, _bend_rows(fitted, a.points), _port_rows(mouths), shapes)
 
 
 def report(a) -> None:

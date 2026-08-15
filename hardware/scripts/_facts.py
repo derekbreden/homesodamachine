@@ -7,18 +7,15 @@
     import _facts
     f = _facts.read()
     f.box.outer                      # the Box, field for field
-    f.body("compressor").box         # a placed body's bounding box
-    f.run("fluid-18").length         # a drawn run, measured
-    f.port("bulkhead-carb", "tube-in").pos
+    f.runs                           # the drawn runs, measured
     f.check("clearance-floor").status
 
 THE DOC DRIVERS WANT NUMBERS, NOT SOLIDS. Of the figures they substitute, the overwhelming
-majority is arithmetic over module constants and needs no geometry at all; most of the rest
-is already in `enclosure-assembly.scorecard.json`, which carries every placed body's boxes,
-every port's world position, every run's length and corners, and the whole fastening table.
-What is left is the handful this file adds — the `Box` the walls are cut from, the wall
-bores, the printed pieces' own boxes, a named face, a carried point, and a few exact
-distances between declared pairs.
+majority is arithmetic over module constants and needs no geometry at all; the rest is what
+this file adds — the `Box` the walls are cut from, the wall bores, the printed pieces' own
+boxes, a named face, a carried point, the drawn runs, and a few exact distances between
+declared pairs. `enclosure-assembly.scorecard.json` is beside it for a driver that wants a
+check's own verdict.
 
 So a driver reads two files and stands no machine. `enclosure-assembly.scorecard.json` is
 written by the assembly's own run; this artifact is written beside it.
@@ -58,10 +55,16 @@ DECLARED_GAPS = (
     ("coil-v-a", "coil-v-b", 32.0),
 )
 
-# The runs a document names the neighbours of. `part_clearances` reports every pair inside its
-# own floor; this keeps, per run, what it passes and how close — nearest first — so a driver
-# can say which two bodies a lane runs between without standing the machine to find out.
-DECLARED_RUN_NEIGHBOURS = ("fluid-4",)
+# The runs a document names the neighbours of, each with the horizon its own sentence reaches.
+# This keeps, per run, what it passes and how close — nearest first — so a driver can say which
+# two bodies a lane runs between without standing the machine to find out.
+#
+# THE HORIZON IS THIS LIST'S, the way `DECLARED_GAPS`' is. What a lane's two sides measure and
+# where the tight end of the pack lies are two questions, so a sentence naming a neighbour at
+# five millimetres has a reading here whatever the card's `REPORT_NEAR` stops at.
+DECLARED_RUN_NEIGHBOURS = (
+    ("fluid-4", 6.0),
+)
 
 
 def _plain(v):
@@ -171,21 +174,33 @@ def gather(whole=None, module=None):
     for _n, _c in getattr(a, "panel_carries", {}).items():
         mouths[_n] = _plain(_c(_jg.port(-1.0))[0])
 
-    # What a named run passes, nearest first. Same reading `clearance-floor` grades, without
-    # its floor, so a lane's two sides are readable whatever they measure.
+    # What a named run passes, nearest first — the exact solid distance, boxes as a prefilter.
+    # A run's own two end bodies are out of its population: the tube seats into their collets by
+    # construction and reads 0 there, which is the same exemption `run_clearances` takes off the
+    # same `run_world`.
     import _scorecard as _card
-    _pairs = _card.part_clearances(whole, list(getattr(whole, "runs", ())))
     _bodies_only = _card._split_placed(whole)[0]
+    _body_boxes = {n: _boxes.loose(s) for n, s in _bodies_only.items()}
     run_near = {}
-    for rid in DECLARED_RUN_NEIGHBOURS:
-        rows = sorted((float(g), other)
-                      for x, y, g, _ok in _pairs
-                      for r, other in ((x, y), (y, x))
-                      if r == rid and other in _bodies_only)
+    for rid, horizon in DECLARED_RUN_NEIGHBOURS:
+        tubes, ends, _rest = _card.run_world(
+            whole, [r for r in getattr(whole, "runs", ()) if r.id == rid])
+        if rid not in tubes:
+            raise KeyError(f"{rid} is not drawn, so the lane it threads has no reading — a "
+                           f"document naming its neighbours is describing a run the machine "
+                           f"no longer draws")
+        tube_box = _boxes.loose(tubes[rid])
+        rows = []
+        for name, solid in _bodies_only.items():
+            if name in ends[rid] or _clearing.box_gap(tube_box, _body_boxes[name]) >= horizon:
+                continue
+            g = float(_clearing.gap(tubes[rid], solid, horizon))
+            if g < horizon:
+                rows.append((g, name))
         if not rows:
-            raise KeyError(f"{rid} passes nothing inside the card's floor — a document naming "
+            raise KeyError(f"{rid} passes no body inside {horizon:g} mm — a document naming "
                            f"its neighbours is describing a lane the machine no longer has")
-        run_near[rid] = [[other, round(g, 4)] for g, other in rows]
+        run_near[rid] = [[other, round(g, 4)] for g, other in sorted(rows)]
 
     # WHAT A DRIVER WOULD IMPORT THE CAD TO READ. These are module-level and cost no build,
     # but reaching them means loading cadquery and the forty modules behind it — which is the
@@ -437,43 +452,12 @@ class Facts:
                 f"no strap is recorded for a seat of {seat_r} — the machine stands one on "
                 f"{sorted(self._f['strap_loops'])}") from exc
 
-    # --- what the scorecard already carried ---
-    @property
-    def mounts(self):
-        return [_Row(r) for r in self._c.get("mounts", ())]
-
     @property
     def runs(self):
-        """The drawn runs as the machine measured them — unrounded. `card_runs` is the card's
-        own rows, which carry the grades and the corner geometry at reading precision."""
+        """The drawn runs as the machine measured them — unrounded."""
         return [_Row(r) for r in self._f.get("runs", ())]
 
-    @property
-    def card_runs(self):
-        return [_Row(r) for r in self._c.get("bends", ())]
-
-    def body(self, component):
-        for r in self._c.get("shapes", ()):
-            if r.get("component") == component:
-                row = _Row(r)
-                row["box"] = r["boxes"][0] if r.get("boxes") else None
-                return row
-        raise KeyError(f"{component} is not among the {len(self._c.get('shapes', ()))} bodies "
-                       f"the card carries")
-
-    def run(self, rid):
-        for r in self._c.get("bends", ()):
-            if r.get("id") == rid:
-                return _Row(r)
-        raise KeyError(f"{rid} is not among the {len(self._c.get('bends', ()))} runs the card carries")
-
-    def port(self, component, name):
-        for r in self._c.get("ports", ()):
-            if r.get("component") == component and r.get("name") == name:
-                return _Row(r)
-        raise KeyError(f"{component}/{name} is not among the {len(self._c.get('ports', ()))} "
-                       f"ports the card carries")
-
+    # --- what the scorecard already carried ---
     def check(self, cid):
         for r in self._c.get("checks", ()):
             if r.get("id") == cid:
@@ -497,12 +481,11 @@ def selftest():
     f = read()
     assert f.box.outer, "the box states no outer bound"
     assert f.pack.placed, "no placed bodies"
-    assert f.body("compressor").box, "the compressor has no box"
-    assert f.run("fluid-18").length > 0, "fluid-18 has no length"
+    assert f.check("clearance-floor").status, "the card carries no clearance-floor verdict"
     assert f.pieces, "no printed pieces"
     print(f"  the box states an outer bound of {f.box.outer}")
     print(f"  {len(f.pack.placed)} placed bodies, {len(f.pieces)} printed pieces, "
-          f"{len(f.runs)} runs, {len(f.mounts)} fastening rows")
+          f"{len(f.runs)} runs")
     print(f"  declared gaps: {f.gaps}")
     print(f"  artifact and card agree on the tree: {f.agrees_with_card()}")
     print("_facts selftest OK")
