@@ -5,8 +5,7 @@
 // the port markers (port-markers.js).
 //
 // Each component's boxes are tinted by how much of them is material: the emptier the boxes, the
-// hotter the wire, so a body whose box is mostly air reads as such at a glance. A component still
-// modelled as a bare box or cylinder is drawn dashed-bright — its box IS its geometry.
+// hotter the wire, so a body whose box is mostly air reads as such at a glance.
 //
 // One unit BoxGeometry edge set is shared across every wireframe and scaled in place, so clearing
 // removes children without disposing.
@@ -25,10 +24,7 @@ const FILL_COLORS = [
   [0.25, 0xffc857],
   [0.00, 0xff6b6b], // mostly air
 ];
-const PRIMITIVE_COLOR = 0xb388ff; // still a bare box or cylinder
-
 function colorFor(shape) {
-  if (shape.primitive) return PRIMITIVE_COLOR;
   for (const [floor, hex] of FILL_COLORS) if (shape.fill >= floor) return hex;
   return FILL_COLORS[FILL_COLORS.length - 1][1];
 }
@@ -124,12 +120,6 @@ function showTip(shape, clientX, clientY) {
   const spec = document.createElement("div");
   spec.textContent = `${n} ${n === 1 ? "box holds" : "boxes hold"} ${(shape.fill * 100).toFixed(0)}% material`;
   tipEl.append(head, spec);
-  if (shape.primitive) {
-    const bad = document.createElement("div");
-    bad.className = "port-tip-bad";
-    bad.textContent = `still a bare primitive (declared ${shape.declared})`;
-    tipEl.appendChild(bad);
-  }
   const rect = wrapper.getBoundingClientRect();
   tipEl.style.left = Math.min(clientX - rect.left + 14, rect.width - 260) + "px";
   tipEl.style.top = Math.max(clientY - rect.top - 12, 4) + "px";

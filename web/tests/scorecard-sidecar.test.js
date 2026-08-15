@@ -41,10 +41,10 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
     assert.ok(c.detail.every((d) => typeof d === "string"), "detail rows are strings");
   }
 
-  // The four scored goal axes exist by id, each deferred — `active` false is what the viewer
+  // The three scored goal axes exist by id, each deferred — `active` false is what the viewer
   // draws gray.
   const goalById = Object.fromEntries(goals.map((c) => [c.id, c]));
-  for (const id of ["placed", "located", "shaped", "routed"]) {
+  for (const id of ["placed", "located", "routed"]) {
     assert.ok(goalById[id], `goal axis ${id} present`);
     assert.equal(goalById[id].active, false, `${id} is deferred`);
   }
@@ -175,10 +175,10 @@ test("every bend row names its two anchors and grades its own corners", (t) => {
 test("isScorecard rejects malformed input", () => {
   assert.equal(isScorecard(null), false);
   assert.equal(isScorecard({}), false);
-  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, shaped: 0, routed: 0, checks: [] }), false);
-  assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, checks: [{ kind: "gate" }] }), false);
+  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, routed: 0, checks: [] }), false);
+  assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, routed: 0, checks: [{ kind: "gate" }] }), false);
   // A malformed ports entry (pos not a triple, diam not numeric) is rejected — the guard fires.
-  const base = { gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, checks: [] };
+  const base = { gatesPass: true, placed: 0, located: 0, routed: 0, checks: [] };
   assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: [1, 2], diam: 6, mates: "y", status: "ok" }] }), false);
   assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: null, diam: "big", mates: "y", status: "no-pos" }] }), false);
   // A well-formed ports entry (and an absent ports field) both pass.
