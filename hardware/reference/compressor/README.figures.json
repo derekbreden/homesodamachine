@@ -18,7 +18,7 @@
     "POWER_Z0": "30",
     "POWER_Z1": "75",
     "PROCESS_CLAMP": "20",
-    "PROCESS_OVER_BOX": "25",
+    "PROCESS_OVER_SUCTION": "40",
     "PROCESS_Z": "100",
     "SHELL_OFFSET_Y": "10",
     "SHELL_OVERHANG_X": "7",
