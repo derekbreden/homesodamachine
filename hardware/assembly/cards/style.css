@@ -185,6 +185,10 @@ table.spec th {
   color: var(--muted); font-weight: 700;
 }
 table.spec td.v { font-family: var(--mono); font-size: 29px; white-space: nowrap; }
+/* A derived value that is a LIST, not a scalar. Holding a dimension on one line
+   is what `nowrap` is for; a pair of coordinates given the same treatment sets
+   the table's width from its own longest string and pushes it off the card. */
+table.spec td.v.list { white-space: normal; }
 table.spec tr:last-child td { border-bottom: none; }
 
 /* Machine-settings plate — the numbers you set before pulling a trigger */
