@@ -114,11 +114,20 @@ finally:
     # THE SOLIDS OCCT OPENED BELOW PYTHON. `import_step` is the one loader and keeps the list;
     # a generator that cuts nothing of its own has no stamp to carry it, so it is taken here.
     read |= set(getattr(sys.modules.get("_cadq_export"), "_STEP_READS", ()))
-    for mod in ("_cadq_export", "docgen"):
-        wrote |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
+    # A FILE IS CUT WHOLE OR REWRITTEN IN PLACE, and the module that wrote it is the one that
+    # knows which. `_cadq_export` draws a solid from nothing; `docgen` and `_cardgen` read a
+    # doc or a card, replace the values they manage, and write the rest of it back. A file of
+    # the second kind belongs on both sides of its own action, and no suffix says so —
+    # `.figures.json` carries no marker and is rewritten; a `.step` is read to be compared
+    # against and is not.
+    back = set()
+    for mod in ("docgen", "_cardgen"):
+        back |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
+    wrote |= back | set(getattr(sys.modules.get("_cadq_export"), "_WRITE_TARGETS", ()))
     with open(OUT, "w") as fh:
         json.dump({"reads": sorted(read), "writes": sorted(wrote),
-                   "scanned": sorted(scanned), "raised": raised}, fh)
+                   "rewritten": sorted(back), "scanned": sorted(scanned),
+                   "raised": raised}, fh)
 '''
 
 
@@ -148,7 +157,7 @@ def trace(gen: str, files: set) -> dict:
         # The runner left no reading: killed, or stopped before its own `finally`.
         return {"reads": [], "writes": [], "raised": "no reading"}
     out = {side: {p for p in seen.get(side, ()) if p in files}
-           for side in ("reads", "writes")}
+           for side in ("reads", "writes", "rewritten")}
     # A SCANNED DIRECTORY IS AN INPUT AREA, and what it holds below the top counts. `_build.py`
     # globs its own directory for `*.html` and hands each card to a browser, which resolves
     # `tools.css` and `img/tool/*.png` against it — reads no scan and no `open` here sees.
