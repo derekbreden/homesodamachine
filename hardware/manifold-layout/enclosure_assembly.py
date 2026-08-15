@@ -484,9 +484,10 @@ BASE_YAW = -90.0
 # THE PLANE THE COMPRESSOR'S OWN PLATE STANDS ON. It is stated rather than derived for the same
 # reason `rear_plane_y` is: this can is the body the refrigeration bay is built around, and a
 # body that moves when its neighbour is measured again drags its floor posts and its suction leg
-# with it. What the number is worth is the room in front of the can, which is where the piercing
-# valve banded on the process tube is reached and worked — `assembly/refrigerant-loop.md` carries
-# that fitting and every service call that comes back to it.
+# with it. Every service reach on this can is on its −X flank — `compressor.process_tube` puts
+# the BPV31's saddle on that tangent, in the lane the suction leg runs down — so what stands in
+# front of the plate is the front seam's own lip and nothing a hand needs. This plane is the
+# frontmost body in the machine and `box-front` reads `enclosure.front_plane_y` against it.
 COMPRESSOR_FRONT = 9.0
 
 
