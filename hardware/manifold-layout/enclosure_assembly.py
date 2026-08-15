@@ -1346,12 +1346,13 @@ def core_stops(foam) -> tuple:
     return tuple((sign * (foot.xmax - r), foot.ymin + r, r) for sign in (-1.0, 1.0))
 
 
-def vent_chase(foam_carry) -> tuple:
+def vent_chase(foam, foam_carry) -> tuple:
     """Where the cold core's PRV relief line arrives at the west wall, as
-    `enclosure.Box.vent_chase` — one `(x, y, z)` in the machine's own frame.
+    `enclosure.Box.vent_chase` — one `(x, y, z, flank)` in the machine's own frame.
 
-    The X is the tube's own TIP, and it is what the wall's cradle is struck from, so how far
-    the line stands off that wall is the core's statement too and not a reach retyped here.
+    The X is the tube's own TIP and `flank` is the core's own west face, so both the depth the
+    mouth is sunk to and the plane the lip lands on are the core's statement and not reaches
+    retyped here.
 
     THE CORE STATES THIS, NOT THE BOX. `_internal_routes` draws the line to the far end of its
     own run — out through the shell's +Y flank and `prv_vent_reach` proud of it — and the point
@@ -1366,7 +1367,7 @@ def vent_chase(foam_carry) -> tuple:
     hazard a walk taken in a cold process runs into. `_foam` already holds it."""
     tip = _foam.routes.routes["prv-vent"][-1]
     at, _axis = foam_carry((tip, (0.0, 1.0, 0.0)))
-    return ((at[0], at[1], at[2]),)
+    return ((at[0], at[1], at[2], box(foam).xmin),)
 
 
 def core_holds(foam) -> tuple:
@@ -4333,7 +4334,7 @@ def build_pack() -> cq.Assembly:
     # `_core_holds` in whichever piece owns each station.
     a.core_stops = core_stops(foam)
     a.core_holds = core_holds(foam)
-    a.vent_chase = vent_chase(foam_carry)
+    a.vent_chase = vent_chase(foam, foam_carry)
     seaflo, seaflo_carry = build_seaflo(foam)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(foam_carry, seaflo_carry(_lines._pump.suction()))
