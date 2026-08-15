@@ -38,6 +38,10 @@ the page.
 - **build-tree.js** — the bands `/build` groups benches into, and the parsers that read a procedure
   (`hardware/assembly/<name>.md`) and a card's `.src` footer. Read by `web/lib/build-tree.js`;
   pinned by `web/tests/build-tree.test.js`.
+- **component-sources.js** — which file a named solid inside an assembly was modelled in, for the
+  ones whose name is not its file's stem; plus `sourceFileFor`, which answers null for the bodies an
+  assembly builds and keeps. Read by `web/public/js/viewer/component-picker.js` for the drill-down
+  into a selected component; pinned by `web/tests/component-sources.test.js`.
 
 ## Transport & client interface
 
@@ -47,6 +51,9 @@ the page.
   by `web/lib/events.js` (broadcasters `web/server.js`, `web/dev-server/server.js`); read by `web/public/boot.js`.
 - **client-events.js** — the `hsm:*` window CustomEvents. Dispatched by `web/public/boot.js` (pcb-tool
   by the viewer itself); listened for by `web/public/js/viewer/*.js`.
+- **icons.js** — the Feather glyph table and its `<svg>` attributes. Drawn by `web/lib/icons.js`
+  into the shell nav and the notification rows, and by
+  `web/public/js/viewer/tool-rail.js` into the 3D viewer's tool rail.
 - **hsm-globals.js** — `window.__hsm`, the headless-render escape hatch. Set by
   `web/public/js/viewer/main.js`; read by `tools/render/*.js`.
 - **push-notify.js** — the wake-on-commit path: `/api/push/*` + `/api/notifications/*`, the FCM
