@@ -181,6 +181,9 @@ def main() -> int:
             stem = Path(g).stem.strip("_").replace("_", "-")
             (shared if stem in seen else seen).add(stem)
 
+    # What each generator reads, by its own path, for widening a selftest's data below.
+    inv_by_gen = {g: set(made["reads"]) for gens, made in inv.items() for g in gens}
+
     held = set(files)
     if any(f"/{PYSRC}/" in f for f in held):
         raise SystemExit(f"  a tracked path holds /{PYSRC}/, which is where a stripped source"
@@ -223,10 +226,24 @@ def main() -> int:
     for gen, data in sorted(selftests.items()):
         if gen not in held:
             continue
+        # WHAT A TEST REACHES IS NOT WHAT ONE RUN OF IT TOOK. A watch records the path that
+        # run went down, and `lanes.py` reaches `manifold_layout`, which imports `_lines`
+        # inside a function the traced run never called — so an edit to the routing constants
+        # this test exists to check would not rerun it. A build action that names too little
+        # fails to find a file; a test that names too little caches a pass.
+        #
+        # So a module in the data brings what it reads, to a fixpoint. The build graph already
+        # holds that for every generator, and the ones this reaches are generators.
+        want = set(data)
+        while True:
+            more = {r for m in want if m in inv_by_gen for r in inv_by_gen[m]} - want
+            if not more:
+                break
+            want |= more
         blocks.append(
             f'sh_test(\n    name = "{target_name(gen)}-selftest",\n'
             + '    srcs = ["tools/bazel/selftest.sh"],\n    data = [\n'
-            + "".join(f'        "{s}",\n' for s in sorted(set(data) & held))
+            + "".join(f'        "{s}",\n' for s in sorted(want & held))
             + f'    ],\n    args = ["{gen}"],\n'
             + '    size = "enormous",\n    tags = ["local"],\n)')
 
