@@ -87,11 +87,8 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # capacity while the spout is the half that buys a joint.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
-chute_h = 21.17        # straight rectangular chute height — brim top down to the ramp start.
-                        # It is the half of the budget that ADJUSTS: the ramp's rise comes off
-                        # whichever half-run the neck's offsets make longest, and this stands
-                        # where the total `drop` leaves `water-3` its crossing under the union's
-                        # foot. Capacity is the floor it answers to, not the target
+chute_h = 20.63        # straight rectangular chute height — brim top down to the ramp start,
+                        # and what holds `drop` where `water-3` still crosses under the union
 neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
                         # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
                         # centre: the two source valves leave it between their coils and the
@@ -103,14 +100,9 @@ neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SP
                         # it lengthens the floor's long half-run and one rise serves every run,
                         # and what pays for it is the fall under the spout
                         # (`enclosure_assembly.build_funnel`, held by `room-holds`).
-neck_dy = -3.0          # and the same off the collar's centre in Y, forward. THE BASIN AND ITS
-                        # SPOUT ANSWER TO DIFFERENT THINGS: the spout stands over the slot, and
-                        # the collar stands behind the display housing on
-                        # `enclosure.funnel_front_y` — so the basin reaches aft of its own drain
-                        # by this much, and the machine's front wall comes aft by the same. What
-                        # holds the spout still is `water-3` crossing under the union's foot and
-                        # the cold core behind it, neither of which rides the box. The cost is
-                        # the same as the X offset's and `chute_h` gives it back.
+neck_dy = -5.0          # the same in Y, forward. The spout stands over the slot; the collar
+                        # stands behind the display housing on `enclosure.funnel_front_y`, so
+                        # the basin reaches aft of its own drain by this much
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
                         # sticky and the basin has to come out of the machine clean, so

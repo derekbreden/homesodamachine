@@ -481,14 +481,9 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
 BASE_YAW = -90.0
 
 
-# THE PLANE THE COMPRESSOR'S OWN PLATE STANDS ON. It is stated rather than derived for the same
-# reason `rear_plane_y` is: this can is the body the refrigeration bay is built around, and a
-# body that moves when its neighbour is measured again drags its floor posts and its suction leg
-# with it. Every service reach on this can is on its −X flank — `compressor.process_tube` puts
-# the BPV31's saddle on that tangent, in the lane the suction leg runs down — so what stands in
-# front of the plate is the front seam's own lip and nothing a hand needs. This plane is the
-# frontmost body in the machine and `box-front` reads `enclosure.front_plane_y` against it.
-COMPRESSOR_FRONT = 9.0
+# The plane the compressor's plate stands on, stated the way `rear_plane_y` is, and level with
+# the pump heads. Every reach on this can is on its −X flank (`compressor.process_tube`).
+COMPRESSOR_FRONT = 11.0
 
 
 def suction_lane_x() -> float:
