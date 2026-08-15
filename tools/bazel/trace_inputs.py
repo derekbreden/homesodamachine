@@ -81,12 +81,18 @@ def _hook(event, args):
     # 29 into 103; and the run's own directory, which for a doc sync is `hardware/assembly/`
     # entire, 401 files. What an import reads is the module, which the `import` event below
     # names outright, and `exec` names the ones loaded by path.
+    #
+    # TWO PARTS OF THAT MACHINERY WALK `sys.path` AND THEY DO NOT LOOK ALIKE FROM HERE. The
+    # finder runs frozen, so its frame is `<frozen importlib._bootstrap_external>`; the
+    # `importlib.metadata` a package's version lookup reaches runs from a real file. Both are
+    # the import system looking along the path, and a `Path.glob` of a content directory is
+    # neither — its frame is `glob.py`.
     elif event in ("os.scandir", "os.listdir") and args and args[0]:
         try:
             by = sys._getframe(1).f_code.co_filename
         except ValueError:
             by = ""
-        if by != "<frozen importlib._bootstrap_external>":
+        if not (by.startswith("<frozen importlib") or "/importlib/" in by):
             _keep(scanned, args[0])
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
@@ -98,10 +104,12 @@ def _hook(event, args):
 sys.addaudithook(_hook)
 sys.argv = [GEN]
 sys.path.insert(0, os.path.dirname(os.path.join(ROOT, GEN)))
+raised = None
 try:
     runpy.run_path(os.path.join(ROOT, GEN), run_name="__main__")
 except BaseException as exc:
-    print(f"  (raised {type(exc).__name__}; keeping what it read)", file=sys.stderr)
+    raised = type(exc).__name__
+    print(f"  (raised {raised}; keeping what it read)", file=sys.stderr)
 finally:
     # THE SOLIDS OCCT OPENED BELOW PYTHON. `import_step` is the one loader and keeps the list;
     # a generator that cuts nothing of its own has no stamp to carry it, so it is taken here.
@@ -110,7 +118,7 @@ finally:
         wrote |= set(getattr(sys.modules.get(mod), "_WRITE_TARGETS", ()))
     with open(OUT, "w") as fh:
         json.dump({"reads": sorted(read), "writes": sorted(wrote),
-                   "scanned": sorted(scanned)}, fh)
+                   "scanned": sorted(scanned), "raised": raised}, fh)
 '''
 
 
@@ -137,7 +145,8 @@ def trace(gen: str, files: set) -> dict:
     try:
         seen = json.loads(out.read_text())
     except (OSError, ValueError):
-        return {"reads": [], "writes": []}
+        # The runner left no reading: killed, or stopped before its own `finally`.
+        return {"reads": [], "writes": [], "raised": "no reading"}
     out = {side: {p for p in seen.get(side, ()) if p in files}
            for side in ("reads", "writes")}
     # A SCANNED DIRECTORY IS AN INPUT AREA, and what it holds below the top counts. `_build.py`
@@ -146,7 +155,10 @@ def trace(gen: str, files: set) -> dict:
     here = tuple(d + "/" for d in seen.get("scanned", ()))
     if here:
         out["reads"] |= {f for f in files if f.startswith(here)}
-    return {k: sorted(v) for k, v in out.items()}
+    answer = {k: sorted(v) for k, v in out.items()}
+    if seen.get("raised"):
+        answer["raised"] = seen["raised"]
+    return answer
 
 
 #: WHAT THE BOARD READS IS NOT IN THIS REPO. `hardware/pcb/pcba/package.json` pins seven
@@ -191,8 +203,19 @@ def main() -> int:
         # `inventory`, out of `BUILD.bazel`, and its solids stop being cut against a green
         # build. So an entry already standing is left standing, and the line below says the
         # reading failed rather than writing a verdict over it.
+        # A GENERATOR THAT RAISED WROTE NOTHING TOO, and the RUNNER is where the two part: it
+        # names the exception. One that raised keeps the entry it had, and one with no entry
+        # is named on its own line, because a build cannot cut what a red generator makes.
+        raised = seen.pop("raised", None)
         if seen["writes"]:
             graph[gen] = seen
+        elif raised and gen in graph:
+            print(f"  [{i:3d}/{len(gens)}] {gen:60s} raised {raised} — keeping what it had")
+            continue
+        elif raised:
+            print(f"  [{i:3d}/{len(gens)}] {gen:60s} raised {raised} — NOT IN THE GRAPH, so "
+                  f"nothing it makes is cut")
+            continue
         elif gen in graph:
             print(f"  [{i:3d}/{len(gens)}] {gen:60s} wrote nothing — keeping what it had")
             continue
