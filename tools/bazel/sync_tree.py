@@ -12,10 +12,10 @@ two live side by side: the build is what decides the bytes, and this is what han
 WHAT DIFFERS IS THE READING. A tree that comes back with nothing to copy is a tree holding the
 artifacts its sources make — asked here for the cost of a comparison, because the build ran.
 
-AN OUTPUT IS SOMETIMES ALSO AN INPUT. Fifty-two `.md`, two `.mmd` charts and thirty-four
-generators' own `.py` are rewritten in place, so the copy a build hands back carries whatever
-text that build was handed. THE BUILD DECIDES THE `[value](NAME)` FIGURES IN SUCH A FILE AND
-NOT ONE WORD AROUND THEM, so that is the whole of what this carries into one: its figures,
+AN OUTPUT IS SOMETIMES ALSO AN INPUT. Fifty-two `.md`, two `.mmd` charts, thirty-four
+generators' own `.py` and the assembly cards are rewritten in place, so the copy a build hands
+back carries whatever text that build was handed. THE BUILD DECIDES THE FIGURES IN SUCH A FILE
+AND NOT ONE WORD AROUND THEM, so that is the whole of what this carries into one: its figures,
 written into the text the tree holds now. A build that ran before an edit hands back nothing
 that can reach the sentence — or the line of code — that edit wrote, and a tree whose figures
 are the build's reads clean whether or not that build was handed its prose.
@@ -41,9 +41,9 @@ _ROOT = _HERE.parents[2]
 _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
 #: THE FILES WHOSE TEXT IS THEIR OWN. `inventory.REWRITTEN_SUFFIXES` names every file a run
-#: reads and writes back over; of those a `.figures.json` is cut whole and these three are not.
+#: reads and writes back over; of those a `.figures.json` is cut whole and these four are not.
 #: A word in one of them was typed by whoever typed it, and only its figures are the build's.
-_AUTHORED = (".md", ".mmd", ".py")
+_AUTHORED = (".md", ".mmd", ".py", ".html")
 
 #: `docgen`'s own marker, and the section `substitute_md` maintains at the end of every markdown
 #: file it touches. Between them they are the whole of what a build writes into an authored
@@ -137,12 +137,38 @@ def _figures(text: str, suffix: str) -> dict:
     return out
 
 
+_CARDGEN = None
+
+
+def _cardgen():
+    """`_cardgen`, whose `markers()` answers a card's `(name, value, start, end)`."""
+    global _CARDGEN
+    if _CARDGEN is None:
+        sys.path.append(str(_ROOT / "hardware" / "assembly" / "cards"))
+        import _cardgen as module
+        _CARDGEN = module
+    return _CARDGEN
+
+
 def carried(built: str, tracked: str, suffix: str) -> str:
     """`tracked` holding the figures `built` decided, and nothing else that `built` holds.
 
     A NAME the build does not carry stays where it stands: a marker somebody has just typed is
     filled by the build that next reads the file, and by nothing before it.
     """
+    # A CARD'S MARKER IS AN ELEMENT: `<td data-gen="BOX_SIZE">215 × 464 × 358 mm</td>`, whose
+    # text is the figure. Every other word on the card is the card's, the way every sentence
+    # around a `[value](NAME)` is the doc's.
+    if suffix == ".html":
+        cards = _cardgen()
+        figures = {name: value for name, value, _s, _e in cards.markers(built)}
+        out = tracked
+        for name, value, start, end in sorted(cards.markers(tracked),
+                                              key=lambda m: m[2], reverse=True):
+            if name in figures and figures[name] != value:
+                out = out[:start] + figures[name] + out[end:]
+        return out
+
     figures = _figures(built, suffix)
 
     def fill(match: re.Match) -> str:
@@ -281,11 +307,25 @@ def selftest() -> int:
     broken = 'WALL = (  # [99](RIB_Z)\n'
     holds(carried(built, broken, ".py"), broken, "a file that does not parse was written into")
 
+    # A CARD. The figure sits in the element's text; the sentence beside it is the card's, and
+    # an element the build does not carry keeps the text it has.
+    built = ('<p>Stage the four pieces.</p>\n'
+             '<td class="v" data-gen="BOX_SIZE">215 &#215; 464 &#215; 358 mm</td>\n'
+             '<span class="dim" data-gen="LATER">7</span>\n')
+    tree = ('<p>Stage the four pieces on the bench, gasket up.</p>\n'
+            '<td class="v" data-gen="BOX_SIZE">215 &#215; 462 &#215; 358 mm</td>\n'
+            '<span class="dim" data-gen="NEW_ONE">?</span>\n')
+    holds(carried(built, tree, ".html"),
+          '<p>Stage the four pieces on the bench, gasket up.</p>\n'
+          '<td class="v" data-gen="BOX_SIZE">215 &#215; 464 &#215; 358 mm</td>\n'
+          '<span class="dim" data-gen="NEW_ONE">?</span>\n',
+          "a card's own sentence or an uncarried figure moved")
+
     # IDEMPOTENT, so what `--write` changes is what the reading without it named.
     once = carried(built, tree, ".py")
     holds(carried(built, once, ".py"), once, "a second carry moved the file again")
 
-    print("  sync_tree selftest: 9 holds, the build's figures and the tree's own text")
+    print("  sync_tree selftest: 10 holds, the build's figures and the tree's own text")
     return 0
 
 
