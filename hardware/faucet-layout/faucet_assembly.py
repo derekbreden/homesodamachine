@@ -608,28 +608,44 @@ def flavor_hole_margin(center_y):
     return hole_radius - (reach + flavor_tube_r)
 
 
-def balanced_hole_center_y():
-    """THE DRILLED HOLE DOES NOT CENTRE ON THE SHANK. The flavor pair stands at
-    depth 18.925 and ±3.175 lateral, so its far wall lies 22.365 from the body
-    axis — the hypotenuse of the two, plus the tube's own radius, and not the
-    22.1 the depth alone would give. A 1-3/8" hole on the axis reaches 17.465
-    and cuts that wall by 4.899. Shank margin falls as the hole moves back and
-    flavor margin rises, so one depth leaves both the same — bisected here
-    rather than solved, and the margin it leaves is printed by the run."""
-    lo, hi = 0.0, flavor_tube_depth_lower
-    for _ in range(200):
-        mid = (lo + hi) / 2.0
-        if shank_hole_margin(mid) > flavor_hole_margin(mid):
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2.0
+def seated_hole_center_y():
+    """THE FAUCET SEATS ITSELF IN THE HOLE, and this is where it comes to rest.
+
+    The hole is not ours to place — 1-3/8" is the standard the shank is sized
+    for, and it is already in the counter, cut for whatever accessory was there
+    before. What the install chooses is where the faucet stands in it, and the
+    flavor pair chooses that: it reaches further from the body axis than the
+    Ø11 shank does, so the faucet goes back until those two tubes meet the
+    hole's wall and stops against it. Nothing is measured and nothing is
+    aimed at — back until it stops is the whole of it.
+
+    Solved rather than subtracted: moving the hole back toward the tubes
+    shortens the diagonal to them as well, so the answer is where the far
+    tube's far wall lies exactly `hole_radius` from the hole's centre.
+    """
+    to_wall = hole_radius - flavor_tube_r
+    return flavor_tube_depth_lower - math.sqrt(to_wall**2 - flavor_tube_x_offset**2)
 
 
-# [8.537 mm](HOLE_CENTER_Y) behind the body axis.
-countertop_hole_center_y = balanced_hole_center_y()
-# [3.428 mm](HOLE_MARGIN) of slab, to the shank and to the flavor pair alike.
+# [4.992 mm](HOLE_CENTER_Y) behind the body axis, once it is back against the wall.
+countertop_hole_center_y = seated_hole_center_y()
+# [6.973 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
+# left to give, which is what lets the gasket cover the hole behind it.
 countertop_hole_margin = shank_hole_margin(countertop_hole_center_y)
+
+
+def gasket_hole_cover():
+    """How much gasket lies behind the hole's back edge, with the faucet seated.
+
+    WHAT COVERS THE HOLE IS THE GASKET, not the plate over it: the plate is what
+    is seen, the gasket is what seals onto the stone, and the two share an
+    outline. Seating the faucet carries the hole backwards under that outline,
+    so this is the figure that says the seat is a real one — positive is stone
+    under seal the whole way round, and it is what would go negative first if
+    the flavor pair ever moved further off the body's back face.
+    """
+    back = touch_flo_mounting_gasket.build_mounting_gasket().val().BoundingBox().ymax
+    return back - (countertop_hole_center_y + hole_radius)
 
 
 def build_countertop():
@@ -777,12 +793,12 @@ def main():
     print(f"  Shell pieces:          touch_flo_shell.build_shell_bottom/middle/top()")
     print(f"  Countertop:            {countertop_thickness:.0f} mm slab, "
           f"Z = {countertop_bottom_z:.1f} → {countertop_top_z:.1f}")
-    print(f"    drilled hole:        Ø{countertop_hole_diameter:.2f} mm at Y = "
-          f"{countertop_hole_center_y:.3f} mm — NOT on the body axis")
-    print(f"                         {countertop_hole_margin:.3f} mm of slab to the shank, "
-          f"{flavor_hole_margin(countertop_hole_center_y):.3f} mm to the flavor pair")
-    print(f"                         (on the axis it would leave "
-          f"{flavor_hole_margin(0.0):.3f} mm — the flavor pair cuts the slab)")
+    print(f"    standard hole:       Ø{countertop_hole_diameter:.2f} mm at Y = "
+          f"{countertop_hole_center_y:.3f} mm — the faucet back against its wall")
+    print(f"                         flavor pair on the wall, "
+          f"{countertop_hole_margin:.3f} mm of slab forward of the shank")
+    print(f"                         gasket covers the hole behind by "
+          f"{gasket_hole_cover():.3f} mm")
     print(f"  Under-counter plate:   {under_counter_plate_thickness} mm 316 SS off "
           f"{under_counter_dxf.name}, Z = "
           f"{countertop_bottom_z - under_counter_plate_thickness:.3f} → {countertop_bottom_z:.1f}")
