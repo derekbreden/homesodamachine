@@ -15,13 +15,14 @@ Top to bottom:
   * a tall straight rectangular chute — vertical walls, no slope — pressing
     the 3 mm top wall at its top and hanging on down into the box;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout
-    offset off the collar centre on both axes — the whole floor is the ramp,
-    every surface of it falling toward the spout, so the basin drains dry.
-    One rise serves every run, so `ramp_angle` is struck on the LONGEST
-    half-run to the neck and every other line on the floor lands steeper.
-    Each millimetre of offset lengthens its own axis's long half and so
-    deepens the part, and the fall segment 4 needs (the gravity drain and
-    the air-purge path; it may not rise) is what pays for it.
+    offset off the collar centre in X — the whole floor is the ramp, every
+    surface of it falling toward the spout, so the basin drains dry. One rise
+    serves every run, so `ramp_angle` is struck on the LONGEST half-run to
+    the neck — the X one, which the offset lengthens — and every other line
+    on the floor lands steeper. The neck stands on the collar's Y CENTRE, so
+    the front and back runs are equal and the fall segment 4 needs (the
+    gravity drain and the air-purge path; it may not rise) is banked in the
+    placement below the drain rather than spent inside the part.
 
 Capacity to the brim is printed at export and runs past a full 440 mL
 SodaStream bottle.
@@ -59,11 +60,12 @@ collar_w = 159.0        # collar footprint (X) — the frame's width less 2 × b
                         # basin takes the top wall's FULL width: it stands behind the display
                         # facet, which spans the machine, so there is nothing beside it to leave
                         # room for
-collar_d = collar_w     # collar footprint (Y) — as deep as it is wide. Square is where the two
-                        # half-runs meet, so it is the most plan area a given grade and depth
-                        # allow, and plan area is what buys capacity cheaply. Growing it past
-                        # square puts the Y half-run over the X one, which the rise then comes
-                        # off (see ramp_angle) at the cost of depth
+collar_d = collar_w     # collar footprint (Y) — as deep as it is wide. One rise serves every run
+                        # (see ramp_angle), so the grade is measured on the LONGEST of them, and
+                        # a Y half-run past the X one would quietly put the front/back floor
+                        # under `ramp_angle`. Square is where the two meet: the most plan area
+                        # the grade allows, and plan area is what buys capacity cheaply.
+                        # `funnel-ramp-grade` holds the line
 brim_margin = 10.0      # top-wall left between the collar edge and the frame, all around —
                         # one overhang catches the flange, the rest is what stands beyond it
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
@@ -87,7 +89,7 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # capacity while the spout is the half that buys a joint.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
-chute_h = 20.63        # straight rectangular chute height — brim top down to the ramp start,
+chute_h = 21.65        # straight rectangular chute height — brim top down to the ramp start,
                         # and what holds `drop` where `water-3` still crosses under the union
 neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
                         # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
@@ -99,10 +101,10 @@ neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SP
                         # has no corner to spend stepping across. The offset costs depth, since
                         # it lengthens the floor's long half-run and one rise serves every run,
                         # and what pays for it is the fall under the spout
-                        # (`enclosure_assembly.build_funnel`, held by `room-holds`).
-neck_dy = -5.0          # the same in Y, forward. The spout stands over the slot; the collar
-                        # stands behind the display housing on `enclosure.funnel_front_y`, so
-                        # the basin reaches aft of its own drain by this much
+                        # (`enclosure_assembly.build_funnel`, held by `room-holds`). IN Y THE
+                        # NECK STANDS ON THE COLLAR'S OWN CENTRE: the basin is symmetric about
+                        # its spout front to back, and `enclosure.funnel_front_y` stands the
+                        # whole part where that puts the drain.
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
                         # sticky and the basin has to come out of the machine clean, so
@@ -125,31 +127,26 @@ spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder
 # The drop stacks the chute below the brim, the ramp rise the shallowest line
 # needs at its grade, and the spout tube.
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
-_y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
-# ONE RISE SERVES EVERY RUN, so a longer run is a shallower one and `ramp_angle` describes the
-# floor only if it is struck on the LONGEST half-run to the neck. Each offset lengthens its own
-# axis's long half, so whichever of the two reaches further is the line that sets the rise, and
-# every other line on the floor is steeper than `ramp_angle` rather than shallower.
-_long_run = max(_ramp_run, _y_run)
-_ramp_rise = _long_run * math.tan(math.radians(ramp_angle))
+_ramp_rise = _ramp_run * math.tan(math.radians(ramp_angle))
 drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
-# What an offset may not do is walk the neck off the floor it drains. Each one is measured from
-# the collar's own centre, so the short half it leaves has to keep the spout's own bore inside
-# the collar's wall — a neck past that has its ramp running out of basin on the near side.
-_short = min((collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 - abs(neck_dx),
-             (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 - abs(neck_dy))
+# ONE RISE SERVES EVERY RUN, so a longer run is a shallower one, and `ramp_angle` describes the
+# floor only while the X half-run is the LONGEST one to the neck. The neck is offset in X alone,
+# which lengthens that half; a Y run past it would put the front/back floor under the grade this
+# file claims while still claiming it. Widening the collar in Y walks at that line.
+_y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0
 _bounds.state(
-    "funnel-neck-inside", "The offset neck stands on the collar's own floor",
-    "the short half-run on both axes past the spout's bore",
-    _short > 0.0,
-    f"the neck offsets ({neck_dx:g}, {neck_dy:g}) leave {_short:.2f} mm of floor on the near "
-    f"side of the shorter axis — the spout's Ø{spout_id:g} bore reaches the collar's own wall, "
-    f"so the ramp runs out of basin before it reaches the neck. Keep each offset under "
-    f"{min(collar_w, collar_d) / 2.0 - collar_wall - spout_id / 2.0:.1f} mm.")
+    "funnel-ramp-grade", "The X half-run is the funnel floor's shallowest line",
+    f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
+    _y_run <= _ramp_run,
+    f"collar_d {collar_d:g} makes the Y half-run ({_y_run:.2f} mm) longer than the X "
+    f"({_ramp_run:.2f} mm), so the front/back floor grades "
+    f"{math.degrees(math.atan(_ramp_rise / _y_run)):.2f}° — below ramp_angle "
+    f"{ramp_angle:g}°, which no longer describes the shallowest line. Keep collar_d ≤ "
+    f"{2.0 * (_ramp_run + spout_id / 2.0) + 2.0 * collar_wall:.1f} mm.")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.
-drain_local = (neck_dx, neck_dy, -drop)
+drain_local = (neck_dx, 0.0, -drop)
 
 
 # --- primitives -------------------------------------------------------------
@@ -192,27 +189,26 @@ def build_solids(drop=drop):
     top_z = brim_thickness                              # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
-    ncy = cy + neck_dy                                  #   and in Y
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
     end_z = -drop                                       # spout exit (the drain)
     neck_z = end_z + spout_tube                         # ramp tip = tube top
 
     # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
-    # the offset spout, straight spout tube.
+    # the neck_dx-offset spout, straight spout tube.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, 0.0, top_z, cx, cy)
         .fuse(_box(w, d, ramp_top_z, 0.0, cx, cy))
-        .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, ncy, neck_z))
-        .fuse(_cyl(spout_or, neck_z, end_z, ncx, ncy))
+        .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, cy, neck_z))
+        .fuse(_cyl(spout_or, neck_z, end_z, ncx, cy))
     )
     # Bore: the same chain, one wall in, open at the top and out through the tube.
     cavity = (
         _box(bore_w, bore_d, ramp_top_z, top_z + 1.0, cx, cy)
-        .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, ncy, neck_z))
-        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, ncy))
+        .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, cy, neck_z))
+        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, cy))
     )
     meta = {
-        "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
+        "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx,
         "bore_w": bore_w, "bore_d": bore_d,
         "brim_overhang": brim_overhang, "brim_margin": brim_margin,
         "collar_wall": collar_wall,

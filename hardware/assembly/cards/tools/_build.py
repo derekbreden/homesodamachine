@@ -21,7 +21,7 @@ HARDWARE = next(p for p in TOOLS_DIR.parents if p.name == "hardware")
 OUT_DIR = TOOLS_DIR / "out"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import export_pdf, note_write  # noqa: E402
+from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
 sys.path.insert(0, str(TOOLS_DIR))
 from _index import STATIONS  # noqa: E402
@@ -35,10 +35,14 @@ def deck_key(png: Path):
     return (ORDER.index(code) if code in ORDER else len(ORDER), png.stem)
 
 
+RENDERER = REPO_ROOT / "tools" / "render" / "render-card.js"
+
+
 def render_cards() -> None:
+    note_read(RENDERER)
     subprocess.run(
         [
-            "node", str(REPO_ROOT / "tools" / "render" / "render-card.js"),
+            "node", str(RENDERER),
             "--batch", str(TOOLS_DIR), str(OUT_DIR),
             "--size", "3300x2550", "--dpr", "1.2",
         ],

@@ -31,7 +31,7 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
         sys.path.insert(0, str(_p))
 
 import _scenes                                          # noqa: E402
-from _cadq_export import export_assembly, note_write    # noqa: E402
+from _cadq_export import export_assembly, note_read, note_write   # noqa: E402
 
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
@@ -121,6 +121,11 @@ def cut(assembly, scene):
 
 
 def draw(scene, assembly, force=False) -> Path:
+    # THE RENDERER IS READ WHETHER OR NOT THIS RUN STARTS IT. A scene whose geometry and camera
+    # both stand skips the browser, and a trace of that run would not see node's command line
+    # at all — so the file that draws every picture here would go undeclared, and the action
+    # that redraws one would not find it.
+    note_read(RENDERER)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     GLB_DIR.mkdir(parents=True, exist_ok=True)
     step = OUT_DIR / f"{scene.id}.step"

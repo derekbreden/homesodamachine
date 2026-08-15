@@ -500,6 +500,20 @@ _STEP_READS = set()
 _WRITE_TARGETS = set()
 
 
+#: Every path a run named as one it reads, whether or not this run reached it. A tool a run
+#: WOULD start is a file it reads: a scene already current starts no browser, and the renderer
+#: it did not start is still what draws that picture.
+_READ_TARGETS = set()
+
+
+def note_read(path):
+    """Keep `path` as one this run reads, for a tool a conditional branch may not reach."""
+    try:
+        _READ_TARGETS.add(Path(path).resolve().relative_to(_ROOT).as_posix())
+    except ValueError:
+        pass                             # a file outside this repo is nothing this tree reads
+
+
 def note_write(path):
     """Keep `path` as one this run makes, for a file no `open` in this process lands on.
 

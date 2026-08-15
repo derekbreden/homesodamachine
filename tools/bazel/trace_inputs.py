@@ -25,6 +25,7 @@ nothing there.
 import argparse
 import json
 import os
+import re
 import runpy
 import subprocess
 import sys
@@ -39,6 +40,7 @@ import json, os, sys, runpy
 ROOT = %r
 GEN = %r
 OUT = %r
+ARGV = %r
 read, wrote, scanned = set(), set(), set()
 
 def _keep(into, path):
@@ -102,7 +104,7 @@ def _hook(event, args):
             _keep(read, code)
 
 sys.addaudithook(_hook)
-sys.argv = [GEN]
+sys.argv = [GEN, *ARGV]
 sys.path.insert(0, os.path.dirname(os.path.join(ROOT, GEN)))
 raised = None
 try:
@@ -113,7 +115,8 @@ except BaseException as exc:
 finally:
     # THE SOLIDS OCCT OPENED BELOW PYTHON. `import_step` is the one loader and keeps the list;
     # a generator that cuts nothing of its own has no stamp to carry it, so it is taken here.
-    read |= set(getattr(sys.modules.get("_cadq_export"), "_STEP_READS", ()))
+    mod = sys.modules.get("_cadq_export")
+    read |= set(getattr(mod, "_STEP_READS", ())) | set(getattr(mod, "_READ_TARGETS", ()))
     # A FILE IS CUT WHOLE OR REWRITTEN IN PLACE, and the module that wrote it is the one that
     # knows which. `_cadq_export` draws a solid from nothing; `docgen` and `_cardgen` read a
     # doc or a card, replace the values they manage, and write the rest of it back. A file of
@@ -136,7 +139,7 @@ def _tracked() -> set:
                               capture_output=True, text=True, check=True).stdout.split())
 
 
-def trace(gen: str, files: set) -> dict:
+def trace(gen: str, files: set, argv=()) -> dict:
     """Every tracked file `gen` read and every one it wrote, plus the solids OCCT loaded."""
     out = Path(os.environ.get("TMPDIR", "/tmp")) / f"hsm-trace-{Path(gen).stem}.json"
     # ONE GENERATOR AT A TIME IS WHAT THIS ALREADY DOES, so each run takes the global lock
@@ -149,7 +152,8 @@ def trace(gen: str, files: set) -> dict:
     # to happen, so this one asks for the lock and refuses the shortcut.
     env = dict(os.environ, HSM_SKIP_VIEWS="1", HSM_SKIP_SCENES="1",
                HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
-    subprocess.run([sys.executable, "-c", RUNNER % (str(_ROOT), gen, str(out))],
+    subprocess.run([sys.executable, "-c",
+                    RUNNER % (str(_ROOT), gen, str(out), tuple(argv))],
                    cwd=str(_ROOT), env=env, capture_output=True, text=True, timeout=1800)
     try:
         seen = json.loads(out.read_text())
@@ -192,12 +196,53 @@ def _generators(files: set) -> list:
     return out
 
 
+SELFTESTS = _HERE.parent / "selftests.json"
+
+
+def _selftests(files: set) -> list:
+    """Every module that answers to `selftest` on its own command line.
+
+    NOT `_generators`, and not `ELSEWHERE` either. That reading answers which modules BUILD
+    this tree, and `tools/` is left out of it because the machinery that writes the graph is
+    not a step in the graph it writes. What a test reads is a different question with a
+    different answer, and `sync_tree.py` is the one module where the two differ: it holds ten
+    holds, one of them that a card's authored text survives a build handed stale figures.
+    """
+    out = []
+    for f in sorted(files):
+        if not f.endswith(".py"):
+            continue
+        try:
+            text = (_ROOT / f).read_text()
+        except OSError:
+            continue
+        # A DEFINITION AND NOT A MENTION. `gen_build.py` names the word in the code that
+        # looks for it, and matching on the mention gave it a test that its own argument
+        # parser refuses.
+        if re.search(r"^def selftest\(", text, re.M):
+            out.append(f)
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("gen", nargs="*", help="generator paths; default every one")
+    ap.add_argument("--selftests", action="store_true",
+                    help="watch each module's `selftest` instead, into selftests.json")
     args = ap.parse_args()
 
     files = _tracked()
+    if args.selftests:
+        held = json.loads(SELFTESTS.read_text()) if SELFTESTS.is_file() else {}
+        gens = args.gen or _selftests(files)
+        for i, gen in enumerate(gens, 1):
+            seen = trace(gen, files, argv=("selftest",))
+            held[gen] = sorted(set(seen["reads"]) | {gen})
+            print(f"  [{i:3d}/{len(gens)}] {gen:60s} {len(held[gen]):3d} read")
+            SELFTESTS.write_text(json.dumps(held, indent=2, sort_keys=True) + "\n")
+        print(f"{len(held)} selftest(s) watched")
+        return 0
+
     gens = args.gen or _generators(files)
 
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}

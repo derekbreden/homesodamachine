@@ -343,9 +343,11 @@ def _co2_1(F):
 #
 #     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
-# WHAT MOVES IT IS THE DISPLAY. The band's forward bound is the hopper union's ring, the union
-# hangs on the funnel's drain, and the top wall sites the funnel as far forward as the display
-# facet's back plane allows — so growing the facet walks this crossing aft by the same figure.
+# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the hopper union's ring,
+# the union hangs on the funnel's drain, and the drain stands on the collar's Y CENTRE — so this
+# crossing walks with `enclosure.funnel_front_y` and with nothing else. The display housing's
+# back is its own stated cut (`enclosure.display_housing_back`), so the facet does not drag the
+# basin aft behind it.
 # The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
 # funnel, so the union is not there to measure against and this is a Y rather than a standoff.
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
