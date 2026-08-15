@@ -157,7 +157,7 @@ function openModal(wrapper, sc, title) {
   }
   if (deferred.length) {
     card.appendChild(el("div", "sc-h", `Deferred — placed ${sc.placed}% · located ${sc.located}% · `
-      + `shaped ${sc.shaped}% · routed ${sc.routed}%`));
+      + `routed ${sc.routed}%`));
     addCollapsedChecks(card, deferred, `${deferred.length} not asked for yet`,
                        wrapper, partNames, true);
   }
@@ -178,7 +178,7 @@ function buildBar(wrapper, sc, title) {
   const bar = el("div", "sc-bar");
   // The gates as one count, then each goal's score; the badge beside it carries the verdict.
   bar.appendChild(el("span", "sc-bar-text",
-    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
+    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · routed ${sc.routed}%`));
   const badge = el("button", "sc-badge" + (g.fail ? " has-issues" : ""),
     g.fail ? `✗ ${g.fail} gate${g.fail === 1 ? "" : "s"}` : "✓ checks");
   badge.type = "button";

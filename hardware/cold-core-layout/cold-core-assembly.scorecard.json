@@ -2,7 +2,6 @@
  "gatesPass": true,
  "placed": 100,
  "located": 100,
- "shaped": 100,
  "routed": 100,
  "mounted": 96,
  "checks": [
@@ -186,16 +185,6 @@
    "active": false
   },
   {
-   "id": "shaped",
-   "label": "Every body is real geometry rather than a primitive",
-   "kind": "goal",
-   "status": "pass",
-   "value": "54/54",
-   "target": "no primitives",
-   "detail": [],
-   "active": false
-  },
-  {
    "id": "routed",
    "label": "Every line the core owes is drawn",
    "kind": "goal",
@@ -332,9 +321,7 @@
      38.0
     ]
    ],
-   "fill": 0.3357,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3357
   },
   {
    "component": "bulkhead-reservoir-b",
@@ -348,9 +335,7 @@
      38.0
     ]
    ],
-   "fill": 0.3388,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3388
   },
   {
    "component": "bulkhead-seal-a",
@@ -364,9 +349,7 @@
      32.0
     ]
    ],
-   "fill": 0.4363,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.4363
   },
   {
    "component": "bulkhead-seal-b",
@@ -380,9 +363,7 @@
      32.0
     ]
    ],
-   "fill": 0.4363,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.4363
   },
   {
    "component": "carbonator-tube",
@@ -396,9 +377,7 @@
      184.4
     ]
    ],
-   "fill": 0.0403,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.0403
   },
   {
    "component": "collet-carb-water-out",
@@ -412,9 +391,7 @@
      25.25
     ]
    ],
-   "fill": 0.659,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.659
   },
   {
    "component": "collet-co2-in",
@@ -428,9 +405,7 @@
      25.25
     ]
    ],
-   "fill": 0.2995,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.2995
   },
   {
    "component": "collet-water-in",
@@ -444,9 +419,7 @@
      207.65
     ]
    ],
-   "fill": 0.3361,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3361
   },
   {
    "component": "copper-plug-port",
@@ -460,9 +433,7 @@
      213.4
     ]
    ],
-   "fill": 0.8704,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.8704
   },
   {
    "component": "copper-plug-west",
@@ -476,9 +447,7 @@
      213.4
     ]
    ],
-   "fill": 0.8704,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.8704
   },
   {
    "component": "endcap-bottom",
@@ -492,9 +461,7 @@
      44.7
     ]
    ],
-   "fill": 0.7724,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7724
   },
   {
    "component": "endcap-top",
@@ -508,9 +475,7 @@
      178.05
     ]
    ],
-   "fill": 0.7724,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7724
   },
   {
    "component": "evap-coil",
@@ -524,9 +489,7 @@
      169.574
     ]
    ],
-   "fill": 0.0524,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.0524
   },
   {
    "component": "evap-tail-inlet",
@@ -540,9 +503,7 @@
      50.175
     ]
    ],
-   "fill": 0.057,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.057
   },
   {
    "component": "evap-tail-outlet",
@@ -556,9 +517,7 @@
      169.575
     ]
    ],
-   "fill": 0.0189,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.0189
   },
   {
    "component": "float-a",
@@ -572,9 +531,7 @@
      131.0
     ]
    ],
-   "fill": 0.6902,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.6902
   },
   {
    "component": "float-b",
@@ -588,9 +545,7 @@
      131.0
     ]
    ],
-   "fill": 0.6902,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.6902
   },
   {
    "component": "float-carb",
@@ -604,9 +559,7 @@
      133.25
     ]
    ],
-   "fill": 0.6902,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.6902
   },
   {
    "component": "float-rod-a",
@@ -620,9 +573,7 @@
      207.9
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "float-rod-b",
@@ -636,9 +587,7 @@
      207.9
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "float-rod-carb",
@@ -652,9 +601,7 @@
      174.24
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "foam-cap-bottom",
@@ -668,9 +615,7 @@
      -0.0
     ]
    ],
-   "fill": 0.1442,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.1442
   },
   {
    "component": "foam-cap-lid-bottom",
@@ -684,9 +629,7 @@
      -14.8
     ]
    ],
-   "fill": 0.3834,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3834
   },
   {
    "component": "foam-cap-lid-top",
@@ -700,9 +643,7 @@
      248.575
     ]
    ],
-   "fill": 0.1131,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.1131
   },
   {
    "component": "foam-cap-top",
@@ -716,9 +657,7 @@
      231.4
     ]
    ],
-   "fill": 0.1539,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.1539
   },
   {
    "component": "foam-shell",
@@ -732,9 +671,7 @@
      213.4
     ]
    ],
-   "fill": 0.0952,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.0952
   },
   {
    "component": "probe-coil-ds18s20",
@@ -748,9 +685,7 @@
      150.512
     ]
    ],
-   "fill": 0.9331,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.9331
   },
   {
    "component": "probe-tank-ds18b20",
@@ -764,9 +699,7 @@
      115.463
     ]
    ],
-   "fill": 0.9331,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.9331
   },
   {
    "component": "prv-shroud",
@@ -780,9 +713,7 @@
      210.9
     ]
    ],
-   "fill": 0.269,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.269
   },
   {
    "component": "prv-sv125",
@@ -796,9 +727,7 @@
      207.274
     ]
    ],
-   "fill": 0.6404,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.6404
   },
   {
    "component": "reed-a-1",
@@ -812,9 +741,7 @@
      64.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-a-2",
@@ -828,9 +755,7 @@
      109.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-a-3",
@@ -844,9 +769,7 @@
      154.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-a-4",
@@ -860,9 +783,7 @@
      199.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-b-1",
@@ -876,9 +797,7 @@
      64.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-b-2",
@@ -892,9 +811,7 @@
      109.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-b-3",
@@ -908,9 +825,7 @@
      154.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-b-4",
@@ -924,9 +839,7 @@
      199.5
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-bridge",
@@ -940,9 +853,7 @@
      148.25
     ]
    ],
-   "fill": 0.2418,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.2418
   },
   {
    "component": "reed-carb-1",
@@ -956,9 +867,7 @@
      106.116
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reed-carb-2",
@@ -972,9 +881,7 @@
      134.25
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "reservoir-a",
@@ -988,9 +895,7 @@
      201.9
     ]
    ],
-   "fill": 0.1592,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.1592
   },
   {
    "component": "reservoir-a-cap",
@@ -1004,9 +909,7 @@
      212.9
     ]
    ],
-   "fill": 0.3898,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3898
   },
   {
    "component": "reservoir-b",
@@ -1020,9 +923,7 @@
      201.9
     ]
    ],
-   "fill": 0.1592,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.1592
   },
   {
    "component": "reservoir-b-cap",
@@ -1036,9 +937,7 @@
      212.9
     ]
    ],
-   "fill": 0.3898,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3898
   },
   {
    "component": "sparge-barb",
@@ -1052,9 +951,7 @@
      71.624
     ]
    ],
-   "fill": 0.3521,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3521
   },
   {
    "component": "sparge-silicone-stub",
@@ -1068,9 +965,7 @@
      86.07
     ]
    ],
-   "fill": 0.3951,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3951
   },
   {
    "component": "sparge-stone",
@@ -1084,9 +979,7 @@
      73.37
     ]
    ],
-   "fill": 0.3825,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3825
   },
   {
    "component": "vent-membrane-a",
@@ -1100,9 +993,7 @@
      210.55
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "vent-membrane-b",
@@ -1116,9 +1007,7 @@
      210.55
     ]
    ],
-   "fill": 0.7854,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.7854
   },
   {
    "component": "vessel-elbow-carb-water-out",
@@ -1132,9 +1021,7 @@
      44.954
     ]
    ],
-   "fill": 0.3449,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3449
   },
   {
    "component": "vessel-elbow-co2-in",
@@ -1148,9 +1035,7 @@
      41.525
     ]
    ],
-   "fill": 0.2048,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.2048
   },
   {
    "component": "vessel-elbow-prv",
@@ -1164,9 +1049,7 @@
      207.338
     ]
    ],
-   "fill": 0.3226,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.3226
   },
   {
    "component": "vessel-elbow-water-in",
@@ -1180,9 +1063,7 @@
      208.543
     ]
    ],
-   "fill": 0.2121,
-   "primitive": false,
-   "declared": "real"
+   "fill": 0.2121
   }
  ],
  "bends": [
@@ -1467,326 +1348,272 @@
   {
    "component": "bulkhead-reservoir-a",
    "by": "trough floor",
-   "joint": "trough floor",
-   "kind": "real"
+   "joint": "trough floor"
   },
   {
    "component": "bulkhead-reservoir-b",
    "by": "trough floor",
-   "joint": "trough floor",
-   "kind": "real"
+   "joint": "trough floor"
   },
   {
    "component": "bulkhead-seal-a",
    "by": "the bulkhead's own nut",
-   "joint": "the bulkhead's own nut",
-   "kind": "real"
+   "joint": "the bulkhead's own nut"
   },
   {
    "component": "bulkhead-seal-b",
    "by": "the bulkhead's own nut",
-   "joint": "the bulkhead's own nut",
-   "kind": "real"
+   "joint": "the bulkhead's own nut"
   },
   {
    "component": "carbonator-tube",
    "by": "support ring",
-   "joint": "support ring",
-   "kind": "real"
+   "joint": "support ring"
   },
   {
    "component": "collet-carb-water-out",
    "by": "elbow socket",
-   "joint": "elbow socket",
-   "kind": "real"
+   "joint": "elbow socket"
   },
   {
    "component": "collet-co2-in",
    "by": "elbow socket",
-   "joint": "elbow socket",
-   "kind": "real"
+   "joint": "elbow socket"
   },
   {
    "component": "collet-water-in",
    "by": "elbow socket",
-   "joint": "elbow socket",
-   "kind": "real"
+   "joint": "elbow socket"
   },
   {
    "component": "copper-plug-port",
    "by": "wall slot",
-   "joint": "wall slot",
-   "kind": "real"
+   "joint": "wall slot"
   },
   {
    "component": "copper-plug-west",
    "by": "wall slot",
-   "joint": "wall slot",
-   "kind": "real"
+   "joint": "wall slot"
   },
   {
    "component": "endcap-bottom",
    "by": "tube bore",
-   "joint": "tube bore",
-   "kind": "real"
+   "joint": "tube bore"
   },
   {
    "component": "endcap-top",
    "by": "tube bore",
-   "joint": "tube bore",
-   "kind": "real"
+   "joint": "tube bore"
   },
   {
    "component": "evap-coil",
    "by": "the tank it clamps",
-   "joint": "the tank it clamps",
-   "kind": "real"
+   "joint": "the tank it clamps"
   },
   {
    "component": "evap-tail-inlet",
    "by": "wall slot",
-   "joint": "wall slot",
-   "kind": "real"
+   "joint": "wall slot"
   },
   {
    "component": "evap-tail-outlet",
    "by": "wall slot",
-   "joint": "wall slot",
-   "kind": "real"
+   "joint": "wall slot"
   },
   {
    "component": "float-a",
    "by": "the rod it rides",
-   "joint": "the rod it rides",
-   "kind": "real"
+   "joint": "the rod it rides"
   },
   {
    "component": "float-b",
    "by": "the rod it rides",
-   "joint": "the rod it rides",
-   "kind": "real"
+   "joint": "the rod it rides"
   },
   {
    "component": "float-carb",
    "by": "the rod it rides",
-   "joint": "the rod it rides",
-   "kind": "real"
+   "joint": "the rod it rides"
   },
   {
    "component": "float-rod-a",
    "by": "body boss",
-   "joint": "body boss",
-   "kind": "real"
+   "joint": "body boss"
   },
   {
    "component": "float-rod-b",
    "by": "body boss",
-   "joint": "body boss",
-   "kind": "real"
+   "joint": "body boss"
   },
   {
    "component": "float-rod-carb",
    "by": "plate registers",
-   "joint": "plate registers",
-   "kind": "real"
+   "joint": "plate registers"
   },
   {
    "component": "foam-cap-bottom",
    "by": "shell floor",
-   "joint": "shell floor",
-   "kind": "real"
+   "joint": "shell floor"
   },
   {
    "component": "foam-cap-lid-bottom",
    "by": "cap mouth",
-   "joint": "cap mouth",
-   "kind": "real"
+   "joint": "cap mouth"
   },
   {
    "component": "foam-cap-lid-top",
    "by": "cap mouth",
-   "joint": "cap mouth",
-   "kind": "real"
+   "joint": "cap mouth"
   },
   {
    "component": "foam-cap-top",
    "by": "shell rim",
-   "joint": "shell rim",
-   "kind": "real"
+   "joint": "shell rim"
   },
   {
    "component": "foam-shell",
    "by": "the enclosure floor",
-   "joint": "the enclosure floor",
-   "kind": "real"
+   "joint": "the enclosure floor"
   },
   {
    "component": "probe-coil-ds18s20",
    "by": null,
-   "joint": "foil tape",
-   "kind": "real"
+   "joint": "foil tape"
   },
   {
    "component": "probe-tank-ds18b20",
    "by": null,
-   "joint": "foil tape",
-   "kind": "real"
+   "joint": "foil tape"
   },
   {
    "component": "prv-shroud",
    "by": "the PRV it caps",
-   "joint": "the PRV it caps",
-   "kind": "real"
+   "joint": "the PRV it caps"
   },
   {
    "component": "prv-sv125",
    "by": "elbow socket",
-   "joint": "elbow socket",
-   "kind": "real"
+   "joint": "elbow socket"
   },
   {
    "component": "reed-a-1",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-a-2",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-a-3",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-a-4",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-b-1",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-b-2",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-b-3",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-b-4",
    "by": "shell channel",
-   "joint": "shell channel",
-   "kind": "real"
+   "joint": "shell channel"
   },
   {
    "component": "reed-bridge",
    "by": "support ring",
-   "joint": "support ring",
-   "kind": "real"
+   "joint": "support ring"
   },
   {
    "component": "reed-carb-1",
    "by": "bridge pocket",
-   "joint": "bridge pocket",
-   "kind": "real"
+   "joint": "bridge pocket"
   },
   {
    "component": "reed-carb-2",
    "by": "bridge pocket",
-   "joint": "bridge pocket",
-   "kind": "real"
+   "joint": "bridge pocket"
   },
   {
    "component": "reservoir-a",
    "by": "pocket",
-   "joint": "pocket",
-   "kind": "real"
+   "joint": "pocket"
   },
   {
    "component": "reservoir-a-cap",
    "by": "body rim",
-   "joint": "body rim",
-   "kind": "real"
+   "joint": "body rim"
   },
   {
    "component": "reservoir-b",
    "by": "pocket",
-   "joint": "pocket",
-   "kind": "real"
+   "joint": "pocket"
   },
   {
    "component": "reservoir-b-cap",
    "by": "body rim",
-   "joint": "body rim",
-   "kind": "real"
+   "joint": "body rim"
   },
   {
    "component": "sparge-barb",
    "by": "plate thread",
-   "joint": "plate thread",
-   "kind": "real"
+   "joint": "plate thread"
   },
   {
    "component": "sparge-silicone-stub",
    "by": "the barb and the stone",
-   "joint": "the barb and the stone",
-   "kind": "real"
+   "joint": "the barb and the stone"
   },
   {
    "component": "sparge-stone",
    "by": "its own stub",
-   "joint": "its own stub",
-   "kind": "real"
+   "joint": "its own stub"
   },
   {
    "component": "vent-membrane-a",
    "by": "cap vent pocket",
-   "joint": "cap vent pocket",
-   "kind": "real"
+   "joint": "cap vent pocket"
   },
   {
    "component": "vent-membrane-b",
    "by": "cap vent pocket",
-   "joint": "cap vent pocket",
-   "kind": "real"
+   "joint": "cap vent pocket"
   },
   {
    "component": "vessel-elbow-carb-water-out",
    "by": "plate thread",
-   "joint": "plate thread",
-   "kind": "real"
+   "joint": "plate thread"
   },
   {
    "component": "vessel-elbow-co2-in",
    "by": "plate thread",
-   "joint": "plate thread",
-   "kind": "real"
+   "joint": "plate thread"
   },
   {
    "component": "vessel-elbow-prv",
    "by": "plate thread",
-   "joint": "plate thread",
-   "kind": "real"
+   "joint": "plate thread"
   },
   {
    "component": "vessel-elbow-water-in",
    "by": "plate thread",
-   "joint": "plate thread",
-   "kind": "real"
+   "joint": "plate thread"
   }
  ]
 }

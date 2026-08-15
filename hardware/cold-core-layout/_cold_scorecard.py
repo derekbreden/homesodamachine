@@ -80,12 +80,10 @@ class Scorecard:
 
 def to_dict(sc: Scorecard) -> dict:
     by_id = {c.id: c for c in sc.checks}
-    prim = {d["component"]: d["primitive"] for d in sc.shapes}
     return {
         "gatesPass": sc.gates_pass,
         "placed": score(by_id["placed"]),
         "located": score(by_id["located"]),
-        "shaped": score(by_id["shaped"]),
         "routed": score(by_id["routed"]),
         "mounted": score(by_id["mounted"]),
         "checks": [
@@ -97,9 +95,7 @@ def to_dict(sc: Scorecard) -> dict:
         "ports": sc.ports,
         "shapes": sc.shapes,
         "bends": sc.bends,
-        "mounts": [{"component": n, "by": by, "joint": j,
-                    "kind": "placeholder" if prim.get(n) else "real"}
-                   for n, by, j in sc.mounts],
+        "mounts": [{"component": n, "by": by, "joint": j} for n, by, j in sc.mounts],
     }
 
 

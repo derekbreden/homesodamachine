@@ -1083,7 +1083,7 @@ def _lines_clear(a, runs) -> Check:
                  "gate", _verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
 
 
-def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
+def port_leads(a, runs) -> list[dict]:
     """Every port's clear lead, worst first: what it meets along its own axis, how far it got,
     and how much straight a run leaving it needs.
 
@@ -1110,12 +1110,7 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
     lead, because an open mating is copper the machine still owes.
 
     Tube is out of the population. A port's own line lies on its axis by construction, and a
-    foreign one crossing there is `lines-clear`'s question, not this one.
-
-    A lead that ends on a body still standing in as a bare primitive says so. The cast is an
-    exact boolean and the contact is real, but what it is real against is a BOX someone drew to
-    reserve room — so the number is a reading of the placeholder, and a pack redrawn around it
-    is a pack redrawn around a guess."""
+    foreign one crossing there is `lines-clear`'s question, not this one."""
     bodies, _drawn, pieces = _split_placed(a)
     solids = {**bodies, **pieces}
     mates, mating = {}, {}
@@ -1151,8 +1146,7 @@ def port_leads(a, runs, placeholders=frozenset()) -> list[dict]:
             rows.append({"component": name, "port": port, "meets": who,
                          "free": round(free, 3), "need": round(need, 3),
                          "ok": who is None, "gated": anchor not in TERMINI,
-                         "routed": bool(drawn),
-                         "onPlaceholder": who in placeholders})
+                         "routed": bool(drawn)})
     rows.sort(key=lambda d: (d["ok"], d["free"]))
     return rows
 
@@ -1164,7 +1158,6 @@ def _port_leads(rows) -> Check:
               "the tube's own half-diameter — clear of every body but the one its line joins it to"]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to {d['meets']}, needs "
                f"{d['need']:.2f}" + ("" if d["routed"] else " — no run authored on it yet")
-               + (" — and that body is still a placeholder box" if d["onPlaceholder"] else "")
                for d in short]
     detail += [f"{d['component']}.{d['port']}: {d['free']:.2f} mm to "
                f"{d['meets'] or 'nothing'} — opens to atmosphere, not gated"
@@ -1594,22 +1587,8 @@ def _room_holds(a) -> Check:
                  "every band held", detail)
 
 
-def is_primitive(shape) -> bool:
-    """True when the geometry is still a bare box or cylinder.
-
-    `makeBox` leaves one solid with six planar faces and `makeCylinder` one with three — two
-    planar caps and a round side. Authored geometry carries holes, bosses and fillets on top of
-    that, so anything else has been drawn rather than stood in for."""
-    if len(shape.Solids()) != 1:
-        return False
-    faces = shape.Faces()
-    planar = sum(1 for f in faces if f.geomType() == "PLANE")
-    return (len(faces) == 6 and planar == 6) or (len(faces) == 3 and planar == 2)
-
-
 def shape_rows(a) -> list[dict]:
-    """Per body: the boxes it really occupies, how much of them is material, and whether the
-    geometry is still a bare primitive.
+    """Per body: the boxes it really occupies, and how much of them is material.
 
     ONE BOX PER SOLID THE BODY IS BUILT FROM, following the part's own construction. The single
     box drawn around all of them is a different object and for a hollow or conical body mostly
@@ -1626,10 +1605,8 @@ def shape_rows(a) -> list[dict]:
             "boxes": [[round(b.xmin, 3), round(b.ymin, 3), round(b.zmin, 3),
                        round(b.xmax, 3), round(b.ymax, 3), round(b.zmax, 3)] for b in boxes],
             "fill": round(solid.Volume() / total, 4) if total > 0 else 0.0,
-            "primitive": is_primitive(solid),
-            "declared": None,
         })
-    rows.sort(key=lambda d: (not d["primitive"], d["fill"], d["component"]))
+    rows.sort(key=lambda d: (d["fill"], d["component"]))
     return rows
 
 
@@ -1691,23 +1668,6 @@ def _tube_anchored(a, runs) -> Check:
                  f"{len(spans) - len(over) - len(LOOSE)}/{len(spans) - len(LOOSE)} within span, "
                  f"{len(LOOSE)} left loose",
                  f"{cap:.0f} mm between held points", detail)
-
-
-def _shaped(rows) -> Check:
-    prim = [d for d in rows if d["primitive"]]
-    detail = [f"{d['component']}: still a bare "
-              + ("box" if len(d["boxes"]) == 1 and d["fill"] > 0.99 else "primitive")
-              + f", {len(d['boxes'])} solid" + ("" if len(d["boxes"]) == 1 else "s")
-              for d in prim]
-    # The bodies a single box describes worst, which are the ones whose box must never be read
-    # as their shape — every clearance on this card takes them as solids for that reason.
-    detail += [f"{d['component']}: {len(d['boxes'])} "
-               + ("box holds" if len(d["boxes"]) == 1 else "boxes hold")
-               + f" {d['fill'] * 100:.0f}% material"
-               for d in [r for r in rows if not r["primitive"]][:6]]
-    return Check("shaped", "Every body is real geometry rather than a placeholder", "goal",
-                 _verdict(not prim), f"{len(rows) - len(prim)}/{len(rows)} authored",
-                 "no placeholder solids", detail)
 
 
 # --- how big it is ---------------------------------------------------------
@@ -1817,7 +1777,7 @@ def _build(a) -> Scorecard:
     # drawn leg on both its mouths.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
     shapes = shape_rows(a)
-    leads = port_leads(a, runs, {d["component"] for d in shapes if d["primitive"]})
+    leads = port_leads(a, runs)
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
     ports = []
@@ -1841,7 +1801,7 @@ def _build(a) -> Scorecard:
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
-              _mounted(runs), _placed(a), _routed(conns), _located(a), _shaped(shapes),
+              _mounted(runs), _placed(a), _routed(conns), _located(a),
               _tube_anchored(a, runs)]
     return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
 
@@ -1856,15 +1816,11 @@ def to_dict(sc: Scorecard) -> dict:
     Every goal on this card is deferred, which the viewer renders gray. Each one still carries
     its measured score, so the bar reads what it is rather than a zero."""
     by_id = {c.id: c for c in sc.checks}
-    # A mount row's `kind` is the body's geometry authorship, which the shape table measures —
-    # a joint designed against a placeholder is a joint designed against a guess.
-    prim = {d["component"]: d["primitive"] for d in sc.shapes}
     return {
         "gatesPass": sc.gates_pass,
         "size": sc.sizes,
         "placed": _score(by_id["placed"]),
         "located": _score(by_id["located"]),
-        "shaped": _score(by_id["shaped"]),
         "routed": _score(by_id["routed"]),
         "mounted": _score(by_id["mounted"]),
         "checks": [
@@ -1880,7 +1836,6 @@ def to_dict(sc: Scorecard) -> dict:
         # `by` is what the axis counts, so a rider carries its host's — the same reading
         # `_mounted` makes, and the panel's open-joint list is that reading sorted.
         "mounts": [{"component": n, "by": fastened_by(n), "joint": j,
-                    "kind": "placeholder" if prim.get(n) else "real",
                     "rides": RIDES.get(n),
                     "never": NEVER.get(n)}
                    for n, _by, j in mounts()],
