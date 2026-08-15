@@ -699,6 +699,155 @@
   opacity: 0.65;
 }
 
+/* --- /3d: the machine's three assemblies, each a branch -------------------
+
+   A branch spans the page grid and nests its own inside it, the way .deck-grid
+   does: the page's tracks stop at the branch, and the cards lay out on tracks
+   of their own. Which directory stands in which branch is
+   web/contracts/parts-tree.js. */
+details.branch {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--border);
+}
+summary.branch-head {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+summary.branch-head::-webkit-details-marker { display: none; }
+summary.branch-head:hover .branch-title { color: var(--accent); }
+.branch-text { flex: 1 1 auto; min-width: 0; }
+.branch-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 20px;
+  color: var(--text);
+}
+/* The caret rides with the title rather than the row, so it stays beside the
+   name whatever height the assembly beside it gives the row. */
+.branch-title::before {
+  content: "\25B8";
+  margin-right: 8px;
+  color: var(--text-3);
+  font-size: 11px;
+}
+details.branch[open] > summary .branch-title::before { content: "\25BE"; }
+.branch-count {
+  margin-left: 10px;
+  color: var(--text-3);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.branch-note {
+  display: block;
+  margin-top: 5px;
+  max-width: 68ch;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.branch-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding-bottom: 24px;
+}
+.branch-body .subsection-header { opacity: 1; padding-top: 14px; }
+.branch-body .subsection-header:first-child { padding-top: 0; }
+.subsection-header .group-note {
+  display: block;
+  margin-top: 3px;
+  max-width: 68ch;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+/* A group whose directory holds no exported part. */
+.empty-state.empty-group {
+  padding: 10px 0 4px;
+  text-align: left;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* The branch's own assembly, riding in the header beside the title — where the
+   text column leaves the width free, and where a collapsed branch still shows
+   it. */
+.card-hero { flex: 0 0 auto; width: 300px; }
+.card-hero img,
+.card-hero .placeholder { aspect-ratio: 4 / 3; }
+.card-hero .label { font-size: 14px; }
+.card-hero .label .name { font-weight: 600; }
+
+/* A part's extra representations, one chip each. `.name` takes the ellipsis and
+   `.kinds` does not shrink, so the chips stay in the label at any name length. */
+.card .label .name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+}
+.card .label .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card .label .kinds { flex: 0 0 auto; display: inline-flex; gap: 4px; }
+.card .label .kind {
+  font-family: inherit;
+  font-size: 9px;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-2);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0 4px;
+  cursor: pointer;
+}
+.card .label .kind:hover { color: var(--text); border-color: var(--accent); }
+
+/* The directories parts-tree.js seated nothing from. */
+.grid-warn {
+  grid-column: 1 / -1;
+  border: 1px solid var(--err);
+  background: rgba(217, 112, 112, 0.1);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--text);
+}
+.grid-warn ul { margin: 4px 0 0; padding-left: 18px; }
+.grid-warn code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+/* Too narrow for a column beside the note: the assembly takes its own row under
+   the header text. */
+@media (max-width: 760px) {
+  summary.branch-head { flex-wrap: wrap; }
+  .card-hero { flex: 0 0 100%; width: auto; }
+  .card-hero img,
+  .card-hero .placeholder { aspect-ratio: 3 / 2; }
+}
+@media (max-width: 600px) {
+  .branch-body {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+}
+
 /* Mermaid thumbnail in card */
 .card .mmd-thumb {
   width: 100%;

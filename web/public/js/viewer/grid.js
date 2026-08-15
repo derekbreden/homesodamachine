@@ -1,13 +1,16 @@
-// Card grid for both /3d (parts) and /charts (mermaid). Path drives
-// which section renders. Each card lazy-loads its thumbnail via
-// IntersectionObserver and opens its detail surface (CAD modal or
-// Mermaid modal) on click.
+// Card grid for the four viewer pages. Path drives which section renders. Each
+// card lazy-loads its thumbnail via IntersectionObserver and opens its detail
+// surface (CAD modal or Mermaid modal) on click.
+//
+// /3d's parts stand in the machine's three assemblies — contracts/parts-tree.js
+// states the tree, parts.js renders it. The other three pages group by a path
+// segment.
 
 import { state } from "./state.js";
-import { openDetail, openDxfDetail, openGlbDetail } from "./cad-detail.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
 // edit runs fresh code; thumbnail renderers stay from the modules (static).
 import { openMmdDetail, openDrawingDetail, openPcbDetail, openCardDetail } from "./detail-shims.js";
+import { buildPartsSection } from "./parts.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { renderDrawingThumbnail } from "./drawings.js";
 import { mountCardThumbnail, unmountCardThumbnail } from "./cards.js";
@@ -44,13 +47,13 @@ function shortName(file, ext = ".step") {
   return { name, dir };
 }
 
-// Subsystem grouping for the Prints and Cuts grids. Files under
+// Subsystem grouping for the charts and line-art grids. Files under
 // printed-parts/<subsystem>/... or cut-parts/<subsystem>/... bucket by
 // <subsystem>; anything else buckets by its top-level path segment
-// (e.g. reference/ STEPs land in their own group). Categories sort
-// alphabetically. Within a group the card's `dir` label drops the
-// redundant subsystem prefix so the leaf folder reads cleanly under
-// the subheader.
+// (charts live in topology/ and wiring/, so those are their groups).
+// Categories sort alphabetically. Within a group the card's `dir` label
+// drops the redundant subsystem prefix so the leaf folder reads cleanly
+// under the subheader.
 function categoryAndPartPath(file) {
   const parts = file.split("/");
   const filename = parts.pop();
@@ -179,57 +182,19 @@ export function buildGrid() {
   const section = currentSection();
 
   if (section === "parts") {
-    // Two subsections: Prints (STEP, 3D-printable) then Cuts (DXF, laser-
-    // cut sheet). Within each, cards are further grouped under subsystem
-    // subheaders (Cold Core, Flavor, Faucet, ...) derived from the folder
-    // structure in hardware/printed-parts/ and hardware/cut-parts/. The
-    // section headers always render so the structure is explicit even
-    // when a subsection is empty; the empty-state replaces the would-be
-    // card grid for that subsection.
-    // STEP cards get a bare <img>; paintStepThumb sets its src (and error
-    // fallback) after the cards mount. DXF cards still render client-side, so
-    // they keep the "loading..." placeholder the dxf observer fills in.
-    const stepThumb = (file) => `<img loading="lazy" alt="">`;
-    const placeholderThumb = (file) => `<div class="placeholder" data-file="${file}">loading...</div>`;
-
-    const printsHeader = document.createElement("div");
-    printsHeader.className = "section-header";
-    printsHeader.textContent = "Prints";
-    state.gridEl.appendChild(printsHeader);
-    if (state.allFiles.length === 0) {
+    // parts.js does the whole build — the seating, the branches, the cards —
+    // and leaves the `.card[data-type][data-file]` shells the window below and
+    // live.js select on. STEP, DXF and GLB stand together in it, each under the
+    // assembly it is a part of.
+    if (!state.allFiles.length && !state.dxfFiles.length && !state.glbFiles.length) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
-      empty.textContent = "No prints yet.";
+      empty.textContent = "No parts yet.";
       state.gridEl.appendChild(empty);
     } else {
-      renderGroupedCards({ files: state.allFiles, ext: ".step", type: "step", thumbnailHtml: stepThumb, onClick: openDetail });
-    }
-
-    const cutsHeader = document.createElement("div");
-    cutsHeader.className = "section-header";
-    cutsHeader.textContent = "Cuts";
-    state.gridEl.appendChild(cutsHeader);
-    if (state.dxfFiles.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No cuts yet.";
-      state.gridEl.appendChild(empty);
-    } else {
-      renderGroupedCards({ files: state.dxfFiles, ext: ".dxf", type: "dxf", thumbnailHtml: placeholderThumb, onClick: openDxfDetail });
-    }
-
-    // Assemblies (GLB): full-board 3D models, board body + placed components.
-    const asmHeader = document.createElement("div");
-    asmHeader.className = "section-header";
-    asmHeader.textContent = "Assemblies";
-    state.gridEl.appendChild(asmHeader);
-    if (state.glbFiles.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No assemblies yet.";
-      state.gridEl.appendChild(empty);
-    } else {
-      renderGroupedCards({ files: state.glbFiles, ext: ".glb", type: "glb", thumbnailHtml: placeholderThumb, onClick: openGlbDetail });
+      buildPartsSection(state.gridEl, {
+        steps: state.allFiles, dxfs: state.dxfFiles, glbs: state.glbFiles,
+      });
     }
   }
 
