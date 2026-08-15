@@ -9,6 +9,7 @@ import { scorecardPathFor, isScorecard, sizeText } from "/contracts/scorecard-si
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
+import { chipRow } from "./tool-rail.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•" };
 
@@ -166,6 +167,10 @@ function openModal(wrapper, sc, title) {
   wrapper.appendChild(modal);
 }
 
+// Watches the mounted bar's height for the phone layout; one at a time, since
+// one wrapper carries one bar.
+let barSize = null;
+
 function gateCounts(sc) {
   const gates = sc.checks.filter((c) => c.kind === "gate");
   return { pass: gates.filter((c) => c.status === "pass").length, total: gates.length,
@@ -185,12 +190,22 @@ function buildBar(wrapper, sc, title) {
   badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title); });
   bar.appendChild(badge);
   wrapper.appendChild(bar);
+  // How much room the bar takes at the bottom of the wrapper, published for the
+  // phone layout to stand the rail and Reset view on top of (viewer.css). The
+  // bar wraps to a second line on a narrow screen, so this is measured rather
+  // than assumed.
+  barSize = new ResizeObserver(() => {
+    wrapper.style.setProperty("--sc-bar-lift", `${Math.ceil(bar.offsetHeight) + 8}px`);
+  });
+  barSize.observe(bar);
 }
 
 // Remove the bar, the port toggle, and any open modal — used before a re-mount (live reload) and
 // by teardown. The markers themselves belong to the model, and go with it (clearPorts).
 export function removeScorecard(wrapper) {
   if (!wrapper) return;
+  if (barSize) { try { barSize.disconnect(); } catch {} barSize = null; }
+  wrapper.style.removeProperty("--sc-bar-lift");
   const b = wrapper.querySelector(".sc-bar");
   if (b) b.remove();
   for (const sel of [".port-toggle", ".shape-box-toggle"]) {
@@ -212,13 +227,19 @@ export async function mountScorecard(wrapper, file) {
   }
   // The modal may have closed (or reloaded to another model) while we fetched — bail if the
   // wrapper is no longer in the document.
-  if (!sc || !isScorecard(sc) || !wrapper.isConnected) return;
+  if (!wrapper.isConnected) return;
+  // The verdict is in, so whatever the last model left on screen goes — including when this
+  // model has no verdict at all, which is the case that would otherwise leave the previous
+  // model's gates and its dead port and box chips sitting over a model they don't describe.
+  removeScorecard(wrapper);
+  if (!sc || !isScorecard(sc)) { clearPorts(); clearShapeBoxes(); return; }
   // The card is titled by the model it belongs to — more than one assembly writes one now.
   buildBar(wrapper, sc, file.split("/").pop().replace(/\.step$/, ""));
+  const chips = chipRow(wrapper, "show");
   const ports = Array.isArray(sc.ports) ? sc.ports : [];
-  if (ports.length) wrapper.appendChild(makePortToggle(showPorts(ports, file)));
+  if (ports.length && chips) chips.appendChild(makePortToggle(showPorts(ports, file)));
   else clearPorts();
   const shapes = Array.isArray(sc.shapes) ? sc.shapes : [];
-  if (shapes.length) wrapper.appendChild(makeShapeBoxToggle(showShapeBoxes(shapes, file)));
+  if (shapes.length && chips) chips.appendChild(makeShapeBoxToggle(showShapeBoxes(shapes, file)));
   else clearShapeBoxes();
 }

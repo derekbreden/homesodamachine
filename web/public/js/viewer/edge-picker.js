@@ -922,7 +922,10 @@ export function setEdgePickEnabled(on) {
 
 export function isEdgePickEnabled() { return enabled; }
 
+// pick-mode.js registers the segmented control's sync here, so a mode armed
+// anywhere else brings the control with it.
 let toggleRefresh = null;
+export function setEdgeToggleRefresh(fn) { toggleRefresh = fn; }
 export function syncEdgeToggle() { if (toggleRefresh) toggleRefresh(); }
 
 // Another STEP tool (the component picker) armed itself — stand down if it
@@ -938,16 +941,3 @@ window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
   }
 });
 
-export function makeEdgePickToggle() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "edge-pick-toggle";
-  function refresh() {
-    btn.textContent = enabled ? "Select edge: on" : "Select edge: off";
-    btn.classList.toggle("off", !enabled);
-  }
-  btn.addEventListener("click", () => { setEdgePickEnabled(!enabled); refresh(); });
-  toggleRefresh = refresh;
-  refresh();
-  return btn;
-}

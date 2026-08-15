@@ -22,6 +22,8 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
+import { sourceFileFor } from "/contracts/component-sources.js";
+import { drillTo } from "./step-nav.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -199,6 +201,21 @@ function buildPanel() {
   panel.appendChild(head);
   panel._nameEl = nameEl;
 
+  const actions = document.createElement("div");
+  actions.className = "component-actions";
+
+  // Where this component was modelled, when it was modelled anywhere but here.
+  const openBtn = document.createElement("button");
+  openBtn.type = "button";
+  openBtn.className = "edge-panel-all component-open";
+  openBtn.textContent = "Open part";
+  openBtn.addEventListener("click", () => {
+    const file = selection && sourceFileFor(selection, state.allFiles);
+    if (file) drillTo(file);
+  });
+  actions.appendChild(openBtn);
+  panel._openBtn = openBtn;
+
   const hideBtn = document.createElement("button");
   hideBtn.type = "button";
   hideBtn.className = "edge-panel-all component-hide";
@@ -210,8 +227,10 @@ function buildPanel() {
     clearSelectionOverlay();
     applyHiddenComponents();
   });
-  panel.appendChild(hideBtn);
+  actions.appendChild(hideBtn);
   panel._hideBtn = hideBtn;
+
+  panel.appendChild(actions);
 
   const hidden = document.createElement("div");
   hidden.className = "component-hidden";
@@ -239,6 +258,13 @@ function showPanel() {
   panel._hideBtn.style.display = selection ? "block" : "none";
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Already hidden" : "Hide component";
+
+  // The assembly builds its own tubing and valve bodies, and there is nowhere
+  // to go from one of those — so the offer is only on screen when it leads
+  // somewhere (contracts/component-sources.js).
+  const source = selection ? sourceFileFor(selection, state.allFiles) : null;
+  panel._openBtn.style.display = source ? "block" : "none";
+  panel._openBtn.title = source ? `Open ${source}` : "";
 
   // Hidden list.
   const hidden = panel._hidden;
@@ -328,7 +354,9 @@ export function setComponentPickEnabled(on) {
 
 export function isComponentPickEnabled() { return enabled; }
 
+// pick-mode.js registers the segmented control's sync here.
 let toggleRefresh = null;
+export function setComponentToggleRefresh(fn) { toggleRefresh = fn; }
 export function syncComponentToggle() { if (toggleRefresh) toggleRefresh(); }
 
 // Another STEP tool armed itself — stand down if it wasn't us.
@@ -343,16 +371,3 @@ window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
   }
 });
 
-export function makeComponentPickToggle() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "component-pick-toggle";
-  function refresh() {
-    btn.textContent = enabled ? "Select component: on" : "Select component: off";
-    btn.classList.toggle("off", !enabled);
-  }
-  btn.addEventListener("click", () => { setComponentPickEnabled(!enabled); refresh(); });
-  toggleRefresh = refresh;
-  refresh();
-  return btn;
-}

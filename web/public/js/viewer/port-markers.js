@@ -17,6 +17,7 @@ import { state } from "./state.js";
 // A sidecar port's `face` vocabulary — one of the six body faces by name, or the exit axis as a
 // vector — is read by port-format.js, which node:test exercises.
 import { faceNormal, faceLabel } from "./port-format.js";
+import { makeToolChip } from "./tool-rail.js";
 
 const LS_KEY = "step-ports";
 const STUB_LEN = 10;   // mm along the face normal
@@ -210,18 +211,12 @@ export function isPortsEnabled() {
 }
 
 export function makePortToggle(count) {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "port-toggle";
-  btn.title = "Every located connector at its coordinate, drawn at its bore Ø";
-  function refresh() {
-    btn.textContent = enabled ? `Ports: ${count}` : "Ports: off";
-    btn.classList.toggle("off", !enabled);
-  }
-  btn.addEventListener("click", () => {
-    setPortsEnabled(!enabled);
-    refresh();
+  return makeToolChip({
+    className: "port-toggle",
+    label: "Ports",
+    count,
+    title: "Every located connector at its coordinate, drawn at its bore Ø",
+    read: isPortsEnabled,
+    write: setPortsEnabled,
   });
-  refresh();
-  return btn;
 }

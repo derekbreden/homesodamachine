@@ -126,48 +126,6 @@
   font-size: 15px;
   white-space: nowrap;
 }
-.cad-wrapper > .ruler-toggle {
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
-  left: calc(env(safe-area-inset-left, 0px) + 16px);
-  z-index: 11;
-  padding: 6px 10px;
-  background: rgba(35, 35, 66, 0.85);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.cad-wrapper > .ruler-toggle:hover {
-  background: rgba(58, 58, 90, 0.9);
-}
-.cad-wrapper > .ruler-toggle.off {
-  opacity: 0.55;
-}
-.cad-wrapper > .xray-toggle {
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 58px);
-  left: calc(env(safe-area-inset-left, 0px) + 16px);
-  z-index: 11;
-  padding: 6px 10px;
-  background: rgba(35, 35, 66, 0.85);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.cad-wrapper > .xray-toggle:hover {
-  background: rgba(58, 58, 90, 0.9);
-}
-.cad-wrapper > .xray-toggle.off {
-  opacity: 0.55;
-}
 .cad-wrapper > .reset-view,
 .pan-zoom-reset {
   position: absolute;
@@ -189,20 +147,31 @@
   background: rgba(58, 58, 90, 0.9);
 }
 
-/* Edge-picker + component-picker + find toggles — stacked above the x-ray
-   toggle (ruler 16, xray 58, edge 100, component 142, find 184, port 226,
-   shape-box 268), same pill styling as their siblings. */
-.cad-wrapper > .edge-pick-toggle,
-.cad-wrapper > .component-pick-toggle,
-.cad-wrapper > .component-edit-toggle,
-.cad-wrapper > .pick-find-toggle,
-.cad-wrapper > .port-toggle,
-.cad-wrapper > .shape-box-toggle {
+/* ── Tool rail ─────────────────────────────────────────────────────────────────
+   The controls that change what the view shows and what a click does, in one
+   bottom-left column laid out in flow. A control this file has no use for — the
+   dev-only editor segment, the port chip on a model carrying no ports — is
+   absent from the column.
+
+   A pill opens something: Find here, Reset view in the opposite corner. The
+   segmented control holds the pick modes, which are mutually exclusive over
+   HSM_EVENTS.STEP_TOOL — one lit at a time, or none. The chip row holds the
+   overlays, in any combination. */
+.cad-wrapper > .tool-rail {
   position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
   z-index: 11;
-  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: min(340px, calc(100% - 32px));
+}
+
+/* Same pill as .reset-view across the wrapper. */
+.tool-btn {
+  padding: 6px 12px;
   background: rgba(35, 35, 66, 0.85);
   color: var(--text);
   border: 1px solid var(--border);
@@ -212,41 +181,117 @@
   -webkit-appearance: none;
   appearance: none;
 }
-.cad-wrapper > .component-pick-toggle {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 142px);
+.tool-btn:hover { background: rgba(58, 58, 90, 0.9); }
+/* Lit while the panel it opens is on screen. */
+.tool-btn[aria-expanded="true"] {
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  background: color-mix(in srgb, var(--accent) 24%, rgba(35, 35, 66, 0.85));
 }
-.cad-wrapper > .component-edit-toggle {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 184px);
+
+.tool-group-label {
+  display: block;
+  margin: 0 0 4px 3px;
+  font: 600 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
 }
-.cad-wrapper > .pick-find-toggle {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 226px);
+/* A group holding no controls — DXF reaches the rail with neither pick modes
+   nor scorecard overlays — carries no caption either. */
+.tool-group:not(:has(.tool-seg-btn)):not(:has(.tool-chip)) { display: none; }
+
+/* Same segmented control as .pcb-view-toggle on the board viewer. */
+.tool-seg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(35, 35, 66, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
-.cad-wrapper > .port-toggle {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 268px);
+.tool-seg-btn {
+  padding: 4px 11px;
+  background: transparent;
+  color: var(--text-2);
+  border: none;
+  border-radius: 6px;
+  font: 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.12s, color 0.12s;
 }
-.cad-wrapper > .shape-box-toggle {
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 310px);
+.tool-seg-btn:hover { color: var(--text); }
+.tool-seg-btn.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
 }
-.cad-wrapper > .edge-pick-toggle:hover,
-.cad-wrapper > .component-pick-toggle:hover,
-.cad-wrapper > .component-edit-toggle:hover,
-.cad-wrapper > .pick-find-toggle:hover,
-.cad-wrapper > .port-toggle:hover,
-.cad-wrapper > .shape-box-toggle:hover {
-  background: rgba(58, 58, 90, 0.9);
+/* The editor writes to the source; armed, its segment is green. */
+.tool-seg-btn.edit.active { background: #2f9e5e; }
+
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }
-.cad-wrapper > .edge-pick-toggle.off,
-.cad-wrapper > .component-pick-toggle.off,
-.cad-wrapper > .component-edit-toggle.off,
-.cad-wrapper > .port-toggle.off,
-.cad-wrapper > .shape-box-toggle.off {
-  opacity: 0.55;
+.tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(35, 35, 66, 0.85);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font: 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition: background 0.12s, color 0.12s, border-color 0.12s, opacity 0.12s;
 }
-/* The editor is a mutation tool — tint its pill green when armed so it reads
-   apart from the read-only inspectors above it. */
-.cad-wrapper > .component-edit-toggle:not(.off) {
-  border-color: rgba(89, 255, 158, 0.7);
-  color: #9dffc8;
+.tool-chip:hover { color: var(--text); }
+.tool-chip[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background: color-mix(in srgb, var(--accent) 22%, rgba(35, 35, 66, 0.85));
+  color: var(--text);
+}
+.tool-chip[aria-pressed="false"] { opacity: 0.62; }
+/* How many of the thing the switch draws. */
+.tool-chip-count {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* .cad-wrapper and .cv-card both set touch-action:none so a drag orbits the
+   model instead of scrolling the page. Anything inside them that scrolls has to
+   say so, or a finger drag over it is swallowed. */
+.pick-find-input,
+.edge-panel-text,
+.component-hidden,
+.sc-card,
+.cad-crumb {
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+}
+.cad-crumb { touch-action: pan-x; }
+
+/* Keyboard focus, on every control the rail and the crumb carry. */
+.tool-btn:focus-visible,
+.tool-seg-btn:focus-visible,
+.tool-chip:focus-visible,
+.cad-crumb-step:focus-visible,
+.cad-wrapper > .reset-view:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Port hover readout — follows the cursor over a port marker (port-markers.js), naming the
@@ -273,17 +318,83 @@
 .cad-wrapper > .port-tip .port-tip-bad {
   color: #ff6b81;
 }
+/* The shape-box readout, clear of the port readout under the same cursor. */
+.cad-wrapper > .port-tip.box-tip {
+  margin-top: 34px;
+}
 
-/* Edge/face selection readout — top-left panel, shown only while something
-   is selected. Edge picks show edge / face A / face B / click rows; face
-   picks show face / click. Each row copyable on its own, plus a Copy-all. */
+/* ── Breadcrumb ────────────────────────────────────────────────────────────────
+   The trail down from the assembly the reader opened to the part they are in,
+   standing where ContentViewer's filename pill stands and replacing it for as
+   long as the trail has more than one step (step-nav.js hides the pill). Each
+   step above the current one is a button back to that model; the browser's own
+   Back walks the same steps, because each is a history entry.
+
+   The whole trail scrolls sideways inside the pill rather than pushing the
+   close button off the corner. */
+.cad-wrapper > .cad-crumb {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: calc(env(safe-area-inset-left, 0px) + 12px);
+  z-index: 12;
+  display: none;
+  align-items: center;
+  gap: 1px;
+  max-width: calc(100% - 80px);
+  padding: 3px;
+  background: rgba(35, 35, 66, 0.85);
+  border: 1px solid rgba(58, 58, 90, 0.9);
+  border-radius: 7px;
+  font: 13px "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.cad-wrapper > .cad-crumb::-webkit-scrollbar { display: none; }
+.cad-wrapper > .cad-crumb.show { display: flex; }
+.cad-crumb-step {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  background: transparent;
+  color: var(--text-2);
+  border: none;
+  border-radius: 5px;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.cad-crumb-step:hover { color: var(--text); background: rgba(58, 58, 90, 0.9); }
+.cad-crumb-sep {
+  flex: 0 0 auto;
+  color: var(--text-2);
+  opacity: 0.55;
+}
+/* The model on the canvas — the end of the trail, and no longer a way to go. */
+.cad-crumb-here {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* Edge/face selection readout — top-left panel under the filename pill, shown
+   only while something is selected. Edge picks show edge / face A / face B /
+   click rows; face picks show face / click. Each row copyable on its own, plus
+   a Copy-all. */
 .cad-wrapper > .edge-panel,
 .pcb-wrapper > .edge-panel {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  top: calc(env(safe-area-inset-top, 0px) + 54px);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
   z-index: 12;
-  width: min(86vw, 430px);
+  width: min(calc(100% - 32px), 430px);
+  max-height: calc(100% - 70px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y; /* the wrapper blocks touch for the orbit gesture */
   background: rgba(20, 20, 40, 0.93);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -440,8 +551,22 @@
 }
 
 /* Component picker readout — same top-left panel + head/button styling as the
-   edge panel, plus a Hide button and the list of components hidden from the
-   local view (each with its own Show, and a Show-all). */
+   edge panel, plus the way down into the selected component's own part, a Hide
+   button, and the list of components hidden from the local view (each with its
+   own Show, and a Show-all). */
+.component-actions {
+  display: flex;
+  gap: 6px;
+}
+.component-actions > .edge-panel-all { width: auto; flex: 1 1 0; }
+/* The way further in, against Hide's way out of the view. */
+.component-panel .component-open {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background: color-mix(in srgb, var(--accent) 22%, rgba(58, 58, 90, 0.6));
+}
+.component-panel .component-open:hover {
+  background: color-mix(in srgb, var(--accent) 34%, rgba(74, 74, 112, 0.9));
+}
 .component-panel .component-hide {
   margin-top: 8px;
 }
@@ -605,10 +730,20 @@
    edge-panel head/button styles. */
 .cad-wrapper > .pick-find-panel {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  right: calc(env(safe-area-inset-right, 0px) + 52px);
+  /* Under the ViewCube, which is 180px square in its own top-right corner
+     (140 under 600px — scene.js gizmoSize). The cube is the one control here
+     that has to stay readable while a panel is up: it says which way you are
+     looking at what the box just found. */
+  top: calc(env(safe-area-inset-top, 0px) + 208px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
   z-index: 12;
-  width: min(86vw, 430px);
+  /* Measured against the wrapper, which is the viewport less the modal's own
+     inset — a viewport-width panel hangs past the card and is clipped. */
+  width: min(calc(100% - 32px), 430px);
+  max-height: calc(100% - 224px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   background: rgba(20, 20, 40, 0.93);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -1232,7 +1367,7 @@ details.branch[open] > summary .branch-title::before { content: "\25BE"; }
   flex-wrap: wrap;
   gap: 4px 8px;
   width: max-content;
-  max-width: calc(100vw - 24px);
+  max-width: calc(100% - 24px);
   padding: 5px 10px;
   background: rgba(35, 35, 66, 0.85);
   color: var(--text);
@@ -1260,11 +1395,21 @@ details.branch[open] > summary .branch-title::before { content: "\25BE"; }
   color: var(--err);
 }
 .sc-bar .sc-badge:hover { filter: brightness(1.2); }
-/* Phone: the STEP viewer stacks four Inspect pills bottom-left and a Reset pill bottom-right;
-   lift the bar onto its own row above them. */
+/* Phone: the bar runs nearly the full width, so it takes the bottom row alone and the rail and
+   Reset view sit on the row above it. The rail keeps clear of Reset view's corner, which wraps
+   its chips a row earlier rather than running under the pill. */
 @media (max-width: 600px) {
-  .cad-wrapper > .sc-bar {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
+  .cad-wrapper > .tool-rail,
+  .cad-wrapper > .reset-view {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + var(--sc-bar-lift, 0px));
+  }
+  .cad-wrapper > .tool-rail {
+    max-width: calc(100% - 140px);
+  }
+  /* The cube is 140px here. */
+  .cad-wrapper > .pick-find-panel {
+    top: calc(env(safe-area-inset-top, 0px) + 168px);
+    max-height: calc(100% - 184px);
   }
 }
 .cad-wrapper > .sc-modal {

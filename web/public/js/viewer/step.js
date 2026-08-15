@@ -195,7 +195,14 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
   // Loading pill lives inside the current step wrapper (or none if the
   // headless tool drove loadStepFile directly). Tolerate either.
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
+  const pill = loadingEl && loadingEl.querySelector("span");
+  if (pill) pill.textContent = "Loading…";
   if (loadingEl) loadingEl.style.display = "block";
+  // A load that ends without a model on the canvas leaves the scrim up saying
+  // so. Hiding it would leave a featureless dark viewport and a live toolbar
+  // over nothing.
+  let landed = false;
+  const failed = (msg) => { if (pill) pill.textContent = msg; };
 
   try {
     // If we're refetching the same file that's already in the scene, send
@@ -211,14 +218,14 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     let result = null;
     const meshed = await fetchMeshes(file, headers);
-    if (meshed?.unchanged) return;
+    if (meshed?.unchanged) { landed = true; return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
       result = meshed.result;
     } else {
       const resp = await fetch(`/steps/${file}`, { headers });
-      if (resp.status === 304) return;
-      if (!resp.ok) return;
+      if (resp.status === 304) { landed = true; return; }
+      if (!resp.ok) { failed(`Couldn't load ${file} — ${resp.status}`); return; }
       const etag = resp.headers.get("etag");
       if (etag) state.stepEtags.set(file, etag);
       result = await parseStep(new Uint8Array(await resp.arrayBuffer()));
@@ -243,8 +250,12 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     applyHiddenComponents();     // …and take them out of the freshly-built view
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
     if (!preserveCamera) resetCamera(state.currentGroup);
+    landed = true;
+  } catch (err) {
+    failed(`Couldn't read ${file}`);
+    console.warn("loadStepFile:", err);
   } finally {
-    if (loadingEl) loadingEl.style.display = "none";
+    if (loadingEl && landed) loadingEl.style.display = "none";
   }
 }
 

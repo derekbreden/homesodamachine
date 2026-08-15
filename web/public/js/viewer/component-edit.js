@@ -484,7 +484,9 @@ export function setComponentEditEnabled(on) {
 }
 export function isComponentEditEnabled() { return enabled; }
 
+// pick-mode.js registers the segmented control's sync here.
 let toggleRefresh = null;
+export function setEditToggleRefresh(fn) { toggleRefresh = fn; }
 window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
   if (e.detail !== "edit" && enabled) {
     enabled = false;
@@ -501,27 +503,14 @@ export function clearComponentEdit() {
   if (toggleRefresh) toggleRefresh();
 }
 
-// Toggle — hidden until the dev-only editor API confirms this file is editable
-// (so it never shows on the public site, and only for assemblies wired for it).
-export function makeComponentEditToggle(file) {
+// Whether the dev-only editor API answers for `file`. Resolves false on the
+// public site and for any assembly not wired for it, which is what keeps the
+// Edit segment off the pick-mode control (pick-mode.js).
+export function probeEditor(file) {
   currentFile = file;
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "component-edit-toggle off";
-  btn.style.display = "none";
-  function refresh() {
-    btn.textContent = enabled ? "Edit component: on" : "Edit component: off";
-    btn.classList.toggle("off", !enabled);
-  }
-  btn.addEventListener("click", () => { setComponentEditEnabled(!enabled); refresh(); });
-  toggleRefresh = refresh;
-  refresh();
-
   available = false;
-  fetch(`/api/step-editor/overrides?file=${encodeURIComponent(file)}`)
+  return fetch(`/api/step-editor/overrides?file=${encodeURIComponent(file)}`)
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error("unavailable"))))
-    .then(() => { available = true; btn.style.display = ""; })
-    .catch(() => { available = false; });
-
-  return btn;
+    .then(() => { available = true; return true; })
+    .catch(() => { available = false; return false; });
 }

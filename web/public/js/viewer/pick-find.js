@@ -23,7 +23,7 @@ import { state } from "./state.js";
 import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick-format.js";
 import { getFindData, faceHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
-import { loadStepFile } from "./step.js";
+import { jumpToStep } from "./step-nav.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
 const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
@@ -85,7 +85,10 @@ function addPartHighlight(name, box) {
   if (!state.currentGroup) return;
   const seen = new Set();
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || mesh.name !== name || seen.has(mesh.geometry)) continue;
+    // Locally hidden stays hidden — the same rule the pickers and the scorecard
+    // highlight keep (component-picker.js).
+    if (!mesh.isMesh || mesh.name !== name || mesh.visible === false
+        || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
     const edges = new THREE.LineSegments(
       new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG),
@@ -151,6 +154,7 @@ let panel = null;
 let textarea = null;
 let statusEl = null;
 let panelOpen = false;
+let toggleBtn = null;
 
 function buildPanel() {
   panel = document.createElement("div");
@@ -214,7 +218,13 @@ function setPanelOpen(open) {
     state.currentCadWrapper.appendChild(panel);
   }
   panel.classList.toggle("show", panelOpen);
+  if (toggleBtn) toggleBtn.setAttribute("aria-expanded", panelOpen ? "true" : "false");
   if (panelOpen) textarea.focus();
+  // Closing hides the element holding focus, which drops focus to the document
+  // — outside the <dialog>, where Escape stops reaching it. Hand focus back to
+  // the control the box was opened from, so the key that dismissed the box
+  // dismisses the viewer next.
+  else if (toggleBtn && panel.contains(document.activeElement)) toggleBtn.focus();
 }
 
 // What the name half of a run turned up: the parts it lit, then whatever it
@@ -236,7 +246,12 @@ function nameStatus(hits) {
 }
 
 async function runFind() {
-  if (!state.mountedDetail || state.mountedDetail.type !== "step") return;
+  // The box is on screen from the moment the modal opens; a big assembly is
+  // still parsing for seconds after that. Say so rather than doing nothing.
+  if (!state.mountedDetail || state.mountedDetail.type !== "step") {
+    setStatus("still loading the model — try again in a moment");
+    return;
+  }
   const { picks, files, names } = parsePicks(textarea.value);
   clearOverlay();
   if (!picks.length && !files.length && !names.length) {
@@ -244,22 +259,18 @@ async function runFind() {
     return;
   }
 
-  // A file: line names where the picks live — go there first. The load
-  // swaps the model inside the open modal (same flow live.js uses); the
-  // hash is rewritten in place so close/back behave as if the user had
-  // opened this file directly.
+  // A file: line names where the picks live — go there first. step-nav.js
+  // swaps the model inside the open modal and brings the rest of what the modal
+  // is showing with it (name, scorecard, ports, which file the editor writes
+  // to), rewriting the hash in place so close/back behave as if this file had
+  // been opened directly.
   const wanted = files.length ? pickFileToViewerPath(files[0]) : null;
   if (wanted && wanted !== state.mountedDetail.file) {
     setStatus(`opening ${wanted.split("/").pop()}…`);
-    await loadStepFile(wanted);
-    if (!state.mountedDetail || state.mountedDetail.file !== wanted) {
+    if (!(await jumpToStep(wanted))) {
       setStatus(`couldn't open ${wanted}`);
       return;
     }
-    state.currentDetail = { type: "step", file: wanted };
-    history.replaceState(null, "", "#step:" + encodeURIComponent(wanted));
-    const pill = document.querySelector(".cv-filename");
-    if (pill) pill.textContent = wanted.split("/").pop().replace(/\.step$/i, "");
   }
   if (!picks.length && !names.length) { setStatus("opened — nothing to highlight"); return; }
 
@@ -291,18 +302,40 @@ async function runFind() {
 }
 
 // --- public API ---
+// Highlights only — step.js calls this on every load, including the swaps the
+// box itself drives, and a box that closed the moment it found something would
+// be answering out of an empty room.
 export function clearPickFind() {
   clearOverlay();
   setStatus("");
   flyToken++; // cancel an in-flight fly-to
 }
 
+// The modal is going. The panel and its text outlive it (the box reopens
+// holding the last query), so what has to reset is the open flag — otherwise
+// the first Find click in the next modal toggles a panel nothing can see.
+export function closePickFind() {
+  clearPickFind();
+  panelOpen = false;
+  if (panel) panel.classList.remove("show");
+  toggleBtn = null;
+}
+
+// Escape's first stop while the box is open. Answers whether it took the key.
+export function closeTopPickFind() {
+  if (!panelOpen) return false;
+  setPanelOpen(false);
+  return true;
+}
+
 export function makePickFindToggle() {
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "pick-find-toggle";
+  btn.className = "pick-find-toggle tool-btn";
   btn.textContent = "Find";
   btn.title = "Type a part name, or paste pick text, to highlight it on the model";
+  btn.setAttribute("aria-expanded", panelOpen ? "true" : "false");
   btn.addEventListener("click", () => setPanelOpen(!panelOpen));
+  toggleBtn = btn;
   return btn;
 }

@@ -30,10 +30,13 @@ import { resetDxfCamera } from "./dxf.js";
 import { getLoader } from "./loaders.js";
 import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
-import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
-import { makeComponentPickToggle, clearComponentPicker } from "./component-picker.js";
-import { makeComponentEditToggle, clearComponentEdit } from "./component-edit.js";
-import { makePickFindToggle, clearPickFind } from "./pick-find.js";
+import { clearEdgePicker } from "./edge-picker.js";
+import { clearComponentPicker } from "./component-picker.js";
+import { clearComponentEdit } from "./component-edit.js";
+import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
+import { makeToolRail, makeToolGroup, makeChipRow } from "./tool-rail.js";
+import { makePickModeControl } from "./pick-mode.js";
+import { resetTrail } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { clearHighlight } from "./part-highlight.js";
 import { clearPorts } from "./port-markers.js";
@@ -145,16 +148,20 @@ export function openCadDetail(type, file, pushHistory = true) {
   loadingPill.textContent = "Loading...";
   loadingEl.appendChild(loadingPill);
   wrapper.appendChild(loadingEl);
-  wrapper.appendChild(makeRulerToggle());
-  // X-ray + edge picker + find box only for STEP — DXF is a single flat
-  // plate with nothing inside and no reconstructable solid edges.
+  // The rail, top of the column down: the Find pill, the pick modes, then the
+  // overlays. X-ray, the pickers and the find box are STEP's — a DXF is one
+  // flat plate with nothing inside it and no reconstructable solid edges — so
+  // a DXF reaches the rail carrying rulers alone.
+  const rail = makeToolRail();
+  const chips = makeChipRow("show");
   if (type === "step") {
-    wrapper.appendChild(makeXrayToggle());
-    wrapper.appendChild(makeEdgePickToggle());
-    wrapper.appendChild(makeComponentPickToggle());
-    wrapper.appendChild(makeComponentEditToggle(file)); // dev-only; hidden unless the editor API answers
-    wrapper.appendChild(makePickFindToggle());
+    rail.appendChild(makePickFindToggle());
+    rail.appendChild(makeToolGroup("Select", makePickModeControl(file)));
+    chips.appendChild(makeXrayToggle());
   }
+  chips.appendChild(makeRulerToggle());
+  rail.appendChild(makeToolGroup("Show", chips));
+  wrapper.appendChild(rail);
   wrapper.appendChild(makeResetViewButton());
 
   // A STEP model may carry a scorecard sidecar (<model>.scorecard.json) — mount its thin
@@ -163,6 +170,21 @@ export function openCadDetail(type, file, pushHistory = true) {
   if (type === "step") mountScorecard(wrapper, file);
 
   state.currentCadWrapper = wrapper;
+  // Whatever trail the last open left behind ends here: this file is the root
+  // of the one about to be walked.
+  resetTrail(file);
+
+  // Escape dismisses the innermost surface that is up. The <dialog> answers
+  // Escape by closing the whole viewer, so a nested surface takes the key
+  // before the dialog sees it — otherwise dismissing the find box you are
+  // typing in tears the model down with it.
+  const onEscape = (e) => {
+    if (e.key !== "Escape" || !wrapper.isConnected) return;
+    const checks = wrapper.querySelector(".sc-modal");
+    if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
+    if (closeTopPickFind()) { e.preventDefault(); e.stopPropagation(); }
+  };
+  document.addEventListener("keydown", onEscape, true);
 
   // Re-fit the renderer whenever the wrapper's content box changes
   // (modal show, window resize, orientation change). The first
@@ -197,6 +219,7 @@ export function openCadDetail(type, file, pushHistory = true) {
       // type only — a find-box swap changes currentDetail.file while
       // the modal stays the same UI surface.
       const wasUiDriven = state.currentDetail && state.currentDetail.type === type;
+      document.removeEventListener("keydown", onEscape, true);
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
       // fires once more for the move into the hidden host).
@@ -218,7 +241,7 @@ export function openCadDetail(type, file, pushHistory = true) {
       clearEdgePicker(); // drop edge data + any selection/hover overlay
       clearComponentPicker(); // and any component selection/hover overlay + its panel
       clearComponentEdit();   // and the editor's gizmo + selection + preview
-      clearPickFind();   // drop find highlights too
+      closePickFind();   // drop find highlights, and shut the box with the modal
       clearHighlight();  // and any scorecard part-highlight overlay
       clearPorts();      // and the port markers, which belong to the model just dropped
       clearShapeBoxes(); // and its shape boxes
