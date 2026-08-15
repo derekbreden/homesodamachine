@@ -188,17 +188,17 @@ prv_vent_flank_y = outer_shell_y_length / 2.0     # the +Y outer face, where it 
 
 # WHAT FIXES THE TWO ENDS IS THE ONE CORNER BETWEEN THEM, so neither is a chosen height.
 # A square corner sets back one radius on each of its legs. The OUT leg has the lane-to-wall
-# standoff to spend and that is under the stock arc on its own, so the tube stands proud of the
-# flank to finish it; the FALL leg has to find the whole setback in the drop from the bore, and
+# standoff to spend and that is under the stock arc on its own, so it runs past the flank to
+# finish it; the FALL leg has to find the whole setback in the drop from the bore, and
 # nothing above it can be traded — the bore is one shroud radius under the top plate's band and
 # the shell's top is over that. So the fall is the arc plus a margin, and the crossing is
 # wherever that lands. Move the arc, the shroud or the plate and the station follows.
 prv_vent_fall_margin = 2.0
 prv_vent_cross_z = prv_vent_start[2] - (route_bend_radius + prv_vent_fall_margin)
-# How far the tube stands proud of the flank: what the out leg is short of the stock arc by,
-# and a millimetre more so the cut end stands clear of the skin's own corridor. The appliance's
-# chase lands its lip on that same flank and sinks its MOUTH behind it, so this end stands
-# inside the mouth with `enclosure.vent_catch_gap` of passage behind it.
+# How far the OUT LEG runs past the flank: what it is short of the stock arc by, and a
+# millimetre more so the corner is clear of the skin's own corridor. THE TUBE IS CUT FLUSH WITH
+# THE FLANK, and the appliance's chase lands the lip of its mouth on that same plane
+# (`enclosure._vent_chase`).
 prv_vent_reach = route_bend_radius - (prv_vent_flank_y - prv_vent_lane_y) + 1.0
 
 # WHERE THE WATER INLET CROSSES THE VESSEL'S OWN TOP. Its port is the top plate's −Y hole and
