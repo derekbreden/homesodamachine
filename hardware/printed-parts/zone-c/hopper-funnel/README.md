@@ -22,16 +22,19 @@ bottom:
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [21.65 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [21.17 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the manifold tubing), the
-  spout offset off the collar center (`neck_dx`); the placement's
+  spout offset off the collar center on both axes (`neck_dx`, `neck_dy` — the
+  spout stands over the slot it drains into, and the collar stands behind the
+  display housing, so the basin reaches aft of its own drain); the placement's
   `enclosure_assembly.FUNNEL_ROT` picks which side of the box it descends (the
   rectangular collar seats either way). The whole floor is the ramp — every
   surface of it falls toward the spout, no flat anywhere, so the basin drains
-  dry. A straight spout tube carries the exit down to the drain, which sits
+  dry. One rise serves every run, so the grade is struck on whichever half-run
+  the two offsets make longest and every other line on the floor lands steeper. A straight spout tube carries the exit down to the drain, which sits
   **above** V-B's up-facing inlet collet — `fluid-4` is the gravity drain and the
   air-purge path, so the tube from drain to V-B must only fall. The pack is
   measured on the real solids by the enclosure-assembly scorecard. Total drop
@@ -45,7 +48,7 @@ bottom:
   grips tube and this spout is silicone. Every millimetre of this land lowers the
   drain exactly as a millimetre of chute does, so the two come out of one budget.
 
-Capacity to the brim is [669 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [662 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's

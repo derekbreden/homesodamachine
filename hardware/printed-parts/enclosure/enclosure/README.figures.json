@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
     "APPLIANCE_HEIGHT": "358 mm",
-    "BOX_SIZE": "215 \u00d7 467 \u00d7 358 mm",
+    "BOX_SIZE": "215 \u00d7 464 \u00d7 358 mm",
     "CORE_HOLD_LAND": "8 mm",
     "CORE_HOLD_REACH": "12 mm",
     "CORE_HOLD_RISE": "40 mm",
