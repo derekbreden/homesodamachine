@@ -249,7 +249,7 @@ hopper_chain_gap = 1.0
 # so a basin that followed the facet aft would close one of them on a union the display has
 # no business moving. What the facet leaves the throat is the ledge below, and that is a
 # bound this plane answers rather than a figure that sites it.
-funnel_front_y = 88.25
+funnel_front_y = 91.25
 # The top wall between the display housing's back plane and the throat. ZERO, and the throat's
 # front edge is the housing's own back plane: the brim's `brim_overhang` then lands wholly on
 # the housing slab, `display_facet_thickness` of solid and the thickest wall in the box, where
@@ -566,7 +566,7 @@ rear_plane_y = 464.0
 # `funnel_front_y` — so the ledge between the housing and the throat is what closes, and
 # `funnel-collar-frame` is the row that reads it. It stands where that ledge runs out, so
 # every millimetre further aft is one the display housing has to give up.
-front_plane_y = 3.0
+front_plane_y = 6.0
 
 # Where the box splits front from back, and where the front column splits bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision

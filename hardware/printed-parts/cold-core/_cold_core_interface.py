@@ -829,7 +829,7 @@ def reed_cable_conduit_xy(side):
     return (-side * reed_cable_conduit_x, -reed_cable_conduit_y)
 
 
-cap_conduits = {
+cap_fluid_conduits = {
     "water-in": (135.5, -56.0),
     "reservoir-a": (135.5, 43.5),
     "reservoir-b": (135.5, -43.5),
@@ -837,9 +837,17 @@ cap_conduits = {
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": (52.2, -port_lane_mid_y),
     "co2-in": (co2_cap_x, -port_lane_mid_y),
+}
+# AND THE TWO THAT CARRY A CABLE. A bore in the cap over the mouth of a reed channel is the
+# same column with the same bore, so it stands in the same table and answers to the same
+# gates — `cap-conduit-room`, `cap-conduit-wall`, `cap-conduit-pair`, `entry-skew-ceiling`.
+# What it is not is one end of a line: a reader counting the vessels' plumbing counts
+# `cap_fluid_conduits`, and one counting holes in the lid counts these too.
+cap_cable_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
     "reed-cable-b": reed_cable_conduit_xy(-1),
 }
+cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
 
 # Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.
 # Naming is what carries the pairing across the two frames, so the name is checked too: the

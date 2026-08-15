@@ -417,27 +417,28 @@ def sub_assemblies(m: Machine):
 
     # SA-08 IS SA-07 LESS SA-04, drawn from the core's own model rather than the machine's one
     # solid — so the lines it counts are the core's internal ones, standing where the cap is not.
-    # `CAP_CONDUITS` of them rise into the cap; the PRV vent leaves at a wall slot instead, which
-    # is the whole of the difference between the two counts.
+    # `CAP_FLUID_LINES` of them rise into the cap; the PRV vent leaves at a wall slot instead,
+    # which is the whole of the difference between the two counts. The cap's other two conduits
+    # carry a reed cable apiece and no line at all.
     open_core = sorted(n for n in _scenes.named(_scenes.SCENE_BY_ID["cold-core-open"], m.a.runs)
                        if n.startswith("line-"))
     # EVERY LINE INSIDE THE SHELL IS DRAWN WHOLE, so the shortest of them is the one a bench
     # would mistake for a stub — the reservoir fills, which are the gap between two bores plus
     # the run their conduit hands to the manifold.
-    assert len(open_core) == len(_cci.cap_conduits) + 1, (
+    assert len(open_core) == len(_cci.cap_fluid_conduits) + 1, (
         f"the open core stands {len(open_core)} internal lines against "
-        f"{len(_cci.cap_conduits)} cap conduits — SA-08 says every conduit's line and the PRV "
-        f"vent, and nothing else leaves this shell")
+        f"{len(_cci.cap_fluid_conduits)} fluid conduits — SA-08 says every conduit's line and "
+        f"the PRV vent, and nothing else leaves this shell")
 
-    # EVERY CAP CONDUIT LEAVES THE CORE CARRYING A TUBE. SA-07 stands one in each and says how
+    # EVERY FLUID CONDUIT LEAVES THE CORE CARRYING A TUBE. SA-07 stands one in each and says how
     # many end in the air; both come off the mouths the runs actually land on, so a conduit that
     # stops being plumbed — or a line that stops leaving by the top — fails here rather than
     # leaving a sentence quietly wrong beside a picture that has already changed.
-    core_mouths = {f"foam-assembly.{c}" for c in _cci.cap_conduits}
+    core_mouths = {f"foam-assembly.{c}" for c in _cci.cap_fluid_conduits}
     conduit_runs = sorted(r.id for r in m.a.runs if r.frm in core_mouths or r.to in core_mouths)
-    assert len(conduit_runs) == len(_cci.cap_conduits), (
-        f"{len(conduit_runs)} run(s) land on the core's {len(_cci.cap_conduits)} cap conduits "
-        f"({', '.join(conduit_runs)}) — SA-07 stands one tube in every one of them")
+    assert len(conduit_runs) == len(_cci.cap_fluid_conduits), (
+        f"{len(conduit_runs)} run(s) land on the core's {len(_cci.cap_fluid_conduits)} fluid "
+        f"conduits ({', '.join(conduit_runs)}) — SA-07 stands one tube in every one of them")
     assert set(core_loose) <= {f"tube-{r}" for r in conduit_runs}, (
         f"the cold-core scene hangs {', '.join(sorted(set(core_loose)))}, and not every one of "
         f"them is a cap conduit's own far end — SA-07 counts loose ends by conduit")

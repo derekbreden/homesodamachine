@@ -127,13 +127,12 @@ def cold_core(m):
     crosses the boundary and where, and the plug stacks that close the two lanes."""
     # ── the core is reached through its lid ───────────────────────────────
     # CC-12's whole page. A fluid station appearing on the front wall — or a reed
-    # cable leaving it — makes the card's first sentence false, and there is no
-    # number in "and nothing else" for the value to drift on.
-    assert _front_wall_census() == ["evap-inlet", "evap-outlet",
-                                    "reed-cable-a", "reed-cable-b"], (
+    # cable coming back onto it — makes the card's first sentence false, and there is
+    # no number in "and nothing else" for the value to drift on.
+    assert _front_wall_census() == ["evap-inlet", "evap-outlet"], (
         f"the shell's −X face carries {_front_wall_census()} — CC-12 sends every fluid "
-        f"line out the top and leaves that face the two reed cables and the two lane "
-        f"slots, and CC-13 plugs exactly those slots")
+        f"line and both reed cables out the top, and leaves that face the two lane "
+        f"slots, which are the ones CC-13 plugs")
     # THE ONE LINE THAT LEAVES BY A FLANK, and the only opening in the shell's skin that is
     # not on the −X face. CC-12's rule is about what the machine has to MAKE UP: those runs
     # are brought to the lid, because nothing potted in this core is reachable again. A
@@ -148,9 +147,9 @@ def cold_core(m):
     # once, and the pairs are named: two ends per vessel, never two of a kind.
     entries = {"water-in", "co2-in", "reservoir-a-fill", "reservoir-b-fill"}
     draws = {"carb-water-out", "reservoir-a", "reservoir-b"}
-    assert set(cci.cap_conduits) == entries | draws, (
-        f"the cap carries {sorted(cci.cap_conduits)} — CC-12 walks three vessels, each "
-        f"entered above its liquid and drawn at its lowest point, and every conduit on "
+    assert set(cci.cap_fluid_conduits) == entries | draws, (
+        f"the cap carries {sorted(cci.cap_fluid_conduits)} — CC-12 walks three vessels, each "
+        f"entered above its liquid and drawn at its lowest point, and every fluid conduit on "
         f"the cap is one end of one of those")
     pair = {+cci.vessel_port_offset, -cci.vessel_port_offset}
     assert {cci.water_inlet_port_y, cci.prv_port_y} == pair \
@@ -254,6 +253,7 @@ def cold_core(m):
         "CAP_SCREW": f"M3 {X} {cci.cap_screw_length:.4g}",
         # The top cap (CC-06, CC-15).
         "CAP_CONDUITS": f"{len(cci.cap_conduits)}",
+        "CAP_FLUID_LINES": f"{len(cci.cap_fluid_conduits)}",
         "DECK_COLUMNS": f"{deck_columns}",
         "CAP_CRADLES": f"{len(cci.cap_cradles)}",
         "CAP_CAVITY": f"{cci.foam_cap_interior_height:.4g}",
@@ -308,7 +308,7 @@ def cold_core(m):
         "cc-11-seat-reservoirs": {
             "RESERVOIR_GAP", "POCKET_FILLET", "BULKHEAD_CLEARANCE", "FLAVOR_HOLE_X"},
         "cc-12-route-penetrations": {
-            "CAP_CONDUITS", "CORE_FRONT_PORTS", "TUBE_HOLE_D", "FORWARD_BAND",
+            "CAP_CONDUITS", "CAP_FLUID_LINES", "CORE_FRONT_PORTS", "TUBE_HOLE_D", "FORWARD_BAND",
             "TOP_BAND", "FLAVOR_HOLE_X", "REED_CONDUIT_XY", "RING_SLOT_DEG",
             "FIELD_PITCH", "EVAP_IN_Z", "EVAP_OUT_Z",
             "PRV_VENT_Z", "PRV_VENT_MM"},

@@ -91,6 +91,10 @@ def internal_plumbing(m):
     # between them is a joint IP-02 does not build.
     assert "water-1" not in runs, "`water-1` is drawn again — IP-02 butts the bulkhead's "\
         "inboard collet straight onto the ASSE chain's inlet"
+    # AND NO `water-4`, for the same reason at the other end of the head: V-K is seated on the
+    # suction chain's own collet, so the tube between them is the one inside both grips.
+    assert "water-4" not in runs, "`water-4` is drawn again — IP-02 seats V-K's outlet on the "\
+        "suction chain's collet, face to face"
     assert port("bulkhead-water", "inboard")[0] == port("asse1022-assembly", "tube-in")[0], (
         "the back-wall union's inboard collet and the ASSE chain's inlet no longer stand on one "
         "point — IP-02 meets them face to face with nothing between them to turn")
@@ -102,12 +106,18 @@ def internal_plumbing(m):
         f"the water split's branch points {split_branch} — IP-02 drops `water-3` out of the west "
         f"lane and IP-04's caption is about that branch")
     # A run with no corner is a butt-length cut to two grips; a run with corners
-    # is a route. Four of this procedure's lines are the first kind and the cards
+    # is a route. Three of this procedure's lines are the first kind and the cards
     # say so in those words.
-    for rid in ("co2-1", "carb-2", "fluid-1"):
+    for rid in ("co2-0", "co2-1", "carb-2"):
         assert corners(rid) == 0, (
             f"`{rid}` now turns {corners(rid)} time(s) — the cards cut it as a straight length "
             f"between two mouths facing each other")
+    # AND `fluid-1` IS THE HAIRPIN. The regulator stands over the split on one column with both
+    # mouths forward, so the run leaves one, turns through 180° in the room ahead of the pair
+    # and comes back into the other — two stock quarter-turns with no straight in it.
+    assert corners("fluid-1") == 2, (
+        f"`fluid-1` turns {corners('fluid-1')} time(s) — IP-04 stands the flow regulator over "
+        f"the split on one column, both mouths forward, and a hairpin is two quarter-turns")
     # `water-2` is the tap's step off the panel deck onto the lane under the hopper's
     # bowl, so it is a route and IP-02 bends it. Its two corners are the one lean.
     assert corners("water-2") == 2, (
@@ -225,9 +235,13 @@ def internal_plumbing(m):
         f"V-K's mounting plane stands {vk.zmin - face:.4g} mm over the cold core's cap face "
         f"and its cradle seats it at {vk_seat:.4g} mm — WR-04 sends the DC-9 branch to a "
         f"valve pressed home in that cradle")
-    assert vk.ymax <= chain.ymin, (
-        "V-K no longer stands forward of the suction chain — IP-02 has it firing aft into the "
-        "collet that feeds the pump")
+    # The valve is seated ON that collet (`enclosure_assembly.build_vk`) and the pair is one of
+    # `_scorecard.MADE_UP`'s, so these two faces are built to ONE PLANE and the reading closes on
+    # it at `ROOM_TOL` — the noise of that closing, and nothing this card could be told by.
+    assert vk.ymax - chain.ymin <= _card.ROOM_TOL, (
+        f"V-K's aft face stands {vk.ymax - chain.ymin:.4g} mm past the suction chain's forward "
+        f"one — IP-02 has it forward of the chain, firing aft into the collet that feeds the "
+        f"pump with nothing between the two mouths")
     assert port("vk-solenoid", "outlet")[1] == (0.0, 1.0, 0.0), (
         "V-K no longer fires aft into the collet that feeds the pump — IP-02 mounts it taking "
         "no turn at all because its own frame already runs the flow that way")
@@ -286,7 +300,7 @@ def internal_plumbing(m):
         "ip-01-co2-path": {
             "CO2_HOLE_D", "CO2_1_LEN", "CO2_2_LEN", "CO2_2_CORNERS", "CAP_CONDUIT_D"},
         "ip-02-water-path": {
-            "WATER_2_LEN", "WATER_3_CORNERS", "WATER_4_LEN", "WATER_5_CORNERS",
+            "WATER_2_LEN", "WATER_3_CORNERS", "WATER_5_CORNERS",
             "SUCTION_STUB_LEN", "DISCHARGE_STUB_LEN", "PVC_BEND_R", "PUMP_CLAMPS"},
         "ip-03-manifold-valves-tees": {
             "MANIFOLD_VALVES", "MANIFOLD_TEES", "MANIFOLD_SEGMENTS", "MANIFOLD_LIMBS",

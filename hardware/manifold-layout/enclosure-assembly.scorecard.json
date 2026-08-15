@@ -6,7 +6,7 @@
    "label": "the printed box, outside face to outside face",
    "min": [
     -107.5,
-    -0.0,
+    3.0,
     -3.0
    ],
    "max": [
@@ -16,7 +16,7 @@
    ],
    "mm": [
     215.0,
-    472.25,
+    469.25,
     358.0
    ]
   },
@@ -25,7 +25,7 @@
    "label": "every placed body, the box around them included",
    "min": [
     -107.5,
-    -0.0,
+    3.0,
     -3.0
    ],
    "max": [
@@ -35,7 +35,7 @@
    ],
    "mm": [
     215.0,
-    485.891,
+    482.891,
     361.0
    ]
   }
@@ -68,7 +68,7 @@
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
-    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.578",
+    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.579",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
@@ -199,6 +199,8 @@
     "fluid-4 \u2014 tee-y-b: 5.037 mm",
     "fluid-1 \u2014 enclosure-back-top: 5.057 mm",
     "water-2 \u2014 enclosure-back-top: 5.108 mm",
+    "pump-a-motor \u2014 display: 5.165 mm",
+    "pump-b-motor \u2014 display: 5.165 mm",
     "fluid-4 \u2014 enclosure-front-top: 5.350 mm",
     "carb-1 \u2014 relay-1: 5.357 mm",
     "relay-1 \u2014 ground-stack: 5.501 mm",
@@ -224,12 +226,12 @@
    "active": true
   },
   {
-   "id": "funnel-ramp-grade",
-   "label": "The X half-run is the funnel floor's shallowest line",
+   "id": "funnel-neck-inside",
+   "label": "The offset neck stands on the collar's own floor",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "the Y half-run at or under the X (74.53 mm)",
+   "target": "the short half-run on both axes past the spout's bore",
    "detail": [],
    "active": true
   },
@@ -832,7 +834,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "9.208 mm to the basin",
+   "value": "9.264 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -1038,8 +1040,8 @@
    "label": "The pack stands behind the appliance's stated front plane",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y 6.00, front wall at 3.00",
-   "target": "behind `front_plane_y` 3",
+   "value": "pack reaches y 6.00, front wall at 6.00",
+   "target": "behind `front_plane_y` 6",
    "detail": [],
    "active": true
   },
@@ -1068,8 +1070,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 88.25",
-   "target": "aft of 90.25",
+   "value": "seam at 200.00, housing back plane at 91.25",
+   "target": "aft of 93.25",
    "detail": [],
    "active": true
   },
@@ -1078,8 +1080,8 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 88.25..247.25",
-   "target": "frame x -89.50..89.50, y 88.25..461.00",
+   "value": "collar x -79.50..79.50, y 91.25..250.25",
+   "target": "frame x -89.50..89.50, y 91.25..461.00",
    "detail": [],
    "active": true
   },
@@ -1098,7 +1100,7 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 10.00, +X 10.00, +Y 213.75 mm",
+   "value": "\u2212X 10.00, +X 10.00, +Y 210.75 mm",
    "target": "each at least brim_margin 10.00 mm",
    "detail": [],
    "active": true
@@ -1891,7 +1893,7 @@
    "pos": [
     1.21,
     167.75,
-    262.578
+    262.579
    ],
    "face": [
     0.0,
@@ -1910,7 +1912,7 @@
    "pos": [
     1.21,
     167.75,
-    304.378
+    304.379
    ],
    "face": [
     0.0,
@@ -1929,7 +1931,7 @@
    "pos": [
     1.21,
     167.75,
-    304.378
+    304.379
    ],
    "face": [
     0.0,
@@ -2569,10 +2571,10 @@
    "boxes": [
     [
      -56.75,
-     4.879,
+     7.879,
      294.967,
      56.75,
-     60.033,
+     63.033,
      350.121
     ]
    ],
@@ -2585,10 +2587,10 @@
    "boxes": [
     [
      -76.45,
-     1.556,
+     4.556,
      293.765,
      76.45,
-     61.235,
+     64.235,
      353.444
     ]
    ],
@@ -2601,14 +2603,14 @@
    "boxes": [
     [
      -86.5,
-     81.25,
-     304.378,
+     84.25,
+     304.379,
      86.5,
-     254.25,
+     257.25,
      358.0
     ]
    ],
-   "fill": 0.0448,
+   "fill": 0.0445,
    "primitive": false,
    "declared": null
   },
@@ -2681,18 +2683,18 @@
    "boxes": [
     [
      -52.5,
-     8.415,
+     11.415,
      284.36,
      53.5,
-     69.226,
+     72.226,
      345.171
     ],
     [
      -56.75,
-     5.586,
+     8.586,
      294.26,
      56.75,
-     60.74,
+     63.74,
      349.414
     ]
    ],
@@ -2914,10 +2916,10 @@
     [
      -4.565,
      156.75,
-     305.628,
+     305.629,
      13.985,
      174.75,
-     315.128
+     315.129
     ]
    ],
    "fill": 0.407,
@@ -2930,10 +2932,10 @@
     [
      -1.965,
      164.575,
-     288.378,
+     288.379,
      4.385,
      170.925,
-     316.378
+     316.379
     ]
    ],
    "fill": 0.4219,
@@ -3066,10 +3068,10 @@
     [
      -6.34,
      160.2,
-     262.578,
+     262.579,
      8.76,
      175.3,
-     304.378
+     304.379
     ]
    ],
    "fill": 0.4588,
@@ -4847,7 +4849,7 @@
    "to": "valve-v-b.inlet",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 290.1,
+   "length": 290.11,
    "radius": 14.0,
    "cap": 14.0,
    "minBend": 14.0,
@@ -4951,7 +4953,7 @@
      "z": 4.74
     },
     "span": 87.51,
-    "path": 290.1,
+    "path": 290.11,
     "detour": 3.315
    }
   },
