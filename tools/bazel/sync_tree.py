@@ -12,18 +12,19 @@ two live side by side: the build is what decides the bytes, and this is what han
 WHAT DIFFERS IS THE READING. A tree that comes back with nothing to copy is a tree holding the
 artifacts its sources make — asked here for the cost of a comparison, because the build ran.
 
-AN OUTPUT IS SOMETIMES ALSO AN INPUT. Fifty-two `.md`, two `.mmd` charts, thirty-four
-generators' own `.py` and the assembly cards are rewritten in place, so the copy a build hands
-back carries whatever text that build was handed. THE BUILD DECIDES THE FIGURES IN SUCH A FILE
-AND NOT ONE WORD AROUND THEM, so that is the whole of what this carries into one: its figures,
-written into the text the tree holds now. A build that ran before an edit hands back nothing
-that can reach the sentence — or the line of code — that edit wrote, and a tree whose figures
-are the build's reads clean whether or not that build was handed its prose.
+AN OUTPUT IS SOMETIMES ALSO AN INPUT. Two hundred and five files are read and written back
+over, and `graph.json` names them because the writers do — so the copy a build hands one of
+them back carries whatever text that build was handed. THE BUILD DECIDES THE FIGURES IN SUCH A
+FILE AND NOT ONE WORD AROUND THEM, so that is the whole of what this carries into one: its
+figures, written into the text the tree holds now. A build that ran before an edit hands back
+nothing that can reach the sentence — or the line of code — that edit wrote, and a tree whose
+figures are the build's reads clean whether or not that build was handed its prose.
 """
 
 import argparse
 import filecmp
 import io
+import json
 import re
 import shutil
 import subprocess
@@ -40,10 +41,18 @@ _ROOT = _HERE.parents[2]
 #: inputs; this is what tells a declared output from one of those.
 _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
-#: THE FILES WHOSE TEXT IS THEIR OWN. `inventory.REWRITTEN_SUFFIXES` names every file a run
-#: reads and writes back over; of those a `.figures.json` is cut whole and these four are not.
-#: A word in one of them was typed by whoever typed it, and only its figures are the build's.
-_AUTHORED = (".md", ".mmd", ".py", ".html")
+#: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the four whose text is partly their own,
+#: each with a scope a substituter writes in and everything outside it authored; `_WHOLE` is
+#: the one a writer composes every byte of — a `.figures.json` holds figures and nothing a
+#: person typed.
+#:
+#: WHICH FILES ARE REWRITTEN IS `graph.json`'s `rewritten` and not these. A suffix answers how
+#: to carry a medium — the mechanisms differ per medium and no writer reports one — and cannot
+#: answer whether a file was rewritten at all. That second question is the one whose wrong
+#: answer destroys: a medium missing from a list, copied whole, lands a stale build's text over
+#: a sentence somebody wrote. A rewritten medium in neither list is named and left alone.
+_SPLICE = (".md", ".mmd", ".py", ".html")
+_WHOLE = (".json",)
 
 #: `docgen`'s own marker, and the section `substitute_md` maintains at the end of every markdown
 #: file it touches. Between them they are the whole of what a build writes into an authored
@@ -51,6 +60,23 @@ _AUTHORED = (".md", ".mmd", ".py", ".html")
 _LINK = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
 _SOURCES = re.compile(r"## Sources\n\[value\]\(NAME\) texts are updated by:\n"
                       r"(?:- `[^`\n]+`\n)+")
+
+
+def _rewritten() -> set:
+    """Every file a run read and wrote back over, as the writers recorded it.
+
+    `docgen` and `_cardgen` note each target they maintain; `trace_inputs` keeps that beside
+    the writes, and `inventory` sorts the docs from the solids by it. A reading taken without
+    it cannot tell a doc from a STEP — 102 solids stand in both the reads and the writes of
+    their own run, because `_atomic_write` opens the target to compare before it renames.
+    """
+    try:
+        graph = json.loads((_HERE.parent / "graph.json").read_text())
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"  no build graph to read, so which files are rewritten in place is\n"
+                         f"  unknown, and copying one whole lands a build's text over an\n"
+                         f"  author's: {exc}")
+    return {f for seen in graph.values() for f in seen.get("rewritten", ())}
 
 
 def _targets() -> dict:
@@ -203,15 +229,22 @@ def main() -> int:
         print("  nothing built — run `bazel build //...` first")
         return 1
 
-    differs, missing = [], []
+    back = _rewritten()
+    differs, missing, unknown = [], [], []
     for built, tracked in sorted(pairs.items()):
         b, t = Path(built), _ROOT / tracked
+        spliceable = tracked in back and t.suffix in _SPLICE
         if not b.is_file():
             missing.append(tracked)
-        # WHAT DIFFERS IS WHAT A WRITE WOULD CHANGE — every byte of a solid, and of an authored
+        # A MEDIUM READ BACK OVER THAT NOTHING HERE CAN SPLICE is left where it stands. The
+        # copy that would replace it holds the text the build was handed, and handing that to
+        # the tree is the one move this cannot take back.
+        elif tracked in back and not spliceable and t.suffix not in _WHOLE:
+            unknown.append(tracked)
+        # WHAT DIFFERS IS WHAT A WRITE WOULD CHANGE — every byte of a solid, and of a spliceable
         # file its figures alone. One reading for both, so a tree that reports clean is a tree
         # `--write` would leave where it is.
-        elif t.suffix in _AUTHORED and t.is_file():
+        elif spliceable and t.is_file():
             text = t.read_text()
             want = carried(b.read_text(), text, t.suffix)
             if want != text:
@@ -223,6 +256,9 @@ def main() -> int:
         print(f"  {rel}")
     if len(differs) > 20:
         print(f"  …and {len(differs) - 20} more")
+    for rel in unknown:
+        print(f"  {rel} is read back over and {Path(rel).suffix} has no splice here — left "
+              f"alone rather than carried whole")
 
     if args.write:
         for b, t, _rel, want in differs:
@@ -236,10 +272,11 @@ def main() -> int:
                 t.write_text(want)
         print(f"{len(differs)} carried into the tree")
     else:
-        print(f"{len(pairs) - len(differs) - len(missing)}/{len(pairs)} artifacts in the tree "
-              f"are the ones the build cut"
-              + (f", {len(missing)} not built" if missing else ""))
-    return 0 if not differs else 1
+        print(f"{len(pairs) - len(differs) - len(missing) - len(unknown)}/{len(pairs)} artifacts "
+              f"in the tree are the ones the build cut"
+              + (f", {len(missing)} not built" if missing else "")
+              + (f", {len(unknown)} with no splice" if unknown else ""))
+    return 0 if not differs and not unknown else 1
 
 
 def selftest() -> int:
@@ -325,7 +362,17 @@ def selftest() -> int:
     once = carried(built, tree, ".py")
     holds(carried(built, once, ".py"), once, "a second carry moved the file again")
 
-    print("  sync_tree selftest: 10 holds, the build's figures and the tree's own text")
+    # EVERY MEDIUM THE WRITERS READ BACK OVER HAS A CARRY HERE. A `.rst` in `rewritten` and in
+    # neither list is a file `--write` would copy whole, over text nobody generated.
+    from collections import Counter
+    kinds = Counter(Path(f).suffix for f in _rewritten())
+    astray = sorted(k for k in kinds if k not in _SPLICE and k not in _WHOLE)
+    if astray:
+        raise ValueError(f"read back over and carried by nothing here: "
+                         f"{', '.join(f'{k} ({kinds[k]})' for k in astray)}")
+
+    print(f"  sync_tree selftest: 11 holds, the build's figures and the tree's own text; "
+          f"{sum(kinds.values())} files read back over, every medium carried")
     return 0
 
 

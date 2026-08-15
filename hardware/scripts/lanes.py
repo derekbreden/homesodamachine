@@ -398,6 +398,9 @@ def snapshot(reload: bool = False, build: bool = None) -> dict:
     cache.write_text(json.dumps(snap))
     _SNAP.clear()
     _SNAP.update(snap)
+    # The tubes are cut from the runs this replaced, and are keyed by run rather than by world.
+    _TUBES.clear()
+    _AXES.clear()
     return _SNAP
 
 
@@ -1638,6 +1641,21 @@ def selftest() -> int:
           round(14.0 * (math.sqrt(2.0) - 1.0), 4), tol=0.02)
     check("lowest z is read off the tube", l.lowest, 0.0)
 
+    # WHAT ONE RUN CLEARS ANOTHER BY IS THIS ARITHMETIC AND NOTHING ELSE, so the cases where a
+    # closed form divides by zero are the ones stated: parallels, collinears, and a segment of no
+    # length are each a real pairing between two tubes that meet end to end or run side by side.
+    check("skew segments cross at their own least distance",
+          _seg_seg((-5, 0, 0), (5, 0, 0), (0, -5, 2), (0, 5, 2)), 2.0)
+    check("parallels take the offset between them",
+          _seg_seg((0, 0, 0), (10, 0, 0), (0, 3, 0), (10, 3, 0)), 3.0)
+    check("parallels that do not overlap take the gap between their ends",
+          _seg_seg((0, 0, 0), (1, 0, 0), (5, 0, 0), (6, 0, 0)), 4.0)
+    check("collinear and apart is the gap, not zero",
+          _seg_seg((0, 0, 0), (2, 0, 0), (5, 0, 0), (7, 0, 0)), 3.0)
+    check("a shared endpoint is zero", _seg_seg((0, 0, 0), (1, 0, 0), (1, 0, 0), (1, 5, 0)), 0.0)
+    check("a segment of no length is a point",
+          _seg_seg((0, 0, 0), (0, 0, 0), (3, 4, 0), (3, 4, 0)), 5.0)
+
     print("the world — the machine that exists, through the same filter")
     snap = snapshot()
     print(f"       {measured(snap)}")
@@ -1670,8 +1688,7 @@ def selftest() -> int:
     check("no authored run overlaps another authored run", worst_pair[0] > -1e-6, True)
     print(f"       tightest run against run: {worst_pair[1]} / {worst_pair[2]} at "
           f"{worst_pair[0]:.3f} mm")
-    # What the box reader makes of those same pairings, counted on this snapshot rather than
-    # recalled from another.
+    # What the box reader makes of those same pairings, on this snapshot.
     boxed, saturated = (math.inf, "", ""), []
     for rid in snap["runs"]:
         spec = snap["runs"][rid]
