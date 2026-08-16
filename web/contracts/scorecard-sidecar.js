@@ -38,15 +38,6 @@ export function scorecardPathFor(stepPath) {
  */
 
 /**
- * @typedef {Object} ScorecardShape  one component's real boxes
- * @property {string} component
- * @property {number[][]} boxes  one [xmin, ymin, zmin, xmax, ymax, zmax] per solid the component
- *                               is built from. The single box drawn around all of them is a
- *                               different object, and for a hollow or L-shaped body mostly air.
- * @property {number} fill       material volume over the boxes' volume; 1.0 = the boxes are the part
- */
-
-/**
  * @typedef {Object} ScorecardCorner  one interior corner, graded on the radius IT turns at
  * @property {number} at      the corner's waypoint index along the run
  * @property {number} turn    how far it deflects, degrees
@@ -112,7 +103,8 @@ export function scorecardPathFor(stepPath) {
  *                               placed. Optional: an edition whose scorecard predates the
  *                               table omits it, and the card draws without a size block
  * @property {ScorecardCheck[]} checks
- * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
+ * @property {string[]} [bodies]  every body the assembly places, by name. Optional: the cold
+ *                               core's card carries it for `_scenes.core_names`
  * @property {ScorecardBend[]} [bends]  per routed run, the radius it turns at and its grade.
  *                               Optional: the cold core's card carries it for
  *                               `_scenes.core_names`, and a card whose bend grades ride their
@@ -168,20 +160,6 @@ export function isScorecard(o) {
         triple(s.min) && triple(s.max) && triple(s.mm),
     );
     if (!sizeOk) return false;
-  }
-  // shapes is the per-component box record. Present on current sidecars; validated when present
-  // so an older sidecar without it still reads.
-  if (o.shapes !== undefined) {
-    if (!Array.isArray(o.shapes)) return false;
-    const shapesOk = o.shapes.every(
-      (s) =>
-        s &&
-        typeof s.component === "string" &&
-        Array.isArray(s.boxes) &&
-        s.boxes.every((b) => Array.isArray(b) && b.length === 6 && b.every((n) => typeof n === "number")) &&
-        typeof s.fill === "number",
-    );
-    if (!shapesOk) return false;
   }
   // bends is the per-run bend-radius grading. Present on current sidecars; validated when
   // present so an older sidecar without it still reads.

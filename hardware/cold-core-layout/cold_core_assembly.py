@@ -667,17 +667,6 @@ def _arcs_hold(fitted: dict) -> Check:
                  f"{stock:.2f} mm", detail)
 
 
-def _shape_rows(placed: dict) -> list:
-    rows = []
-    for name, solid in sorted(placed.items()):
-        bb = solid.BoundingBox()
-        box = [round(v, 3) for v in (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax)]
-        span = (bb.xlen * bb.ylen * bb.zlen) or 1.0
-        rows.append({"component": name, "boxes": [box],
-                     "fill": round(solid.Volume() / span, 4)})
-    return rows
-
-
 def _bend_rows(fitted: dict, points: dict) -> list:
     """One row per line: what it turns at, and how far it travels against how far it reaches.
 
@@ -734,7 +723,6 @@ def build_card(a) -> Scorecard:
     placed, fitted = a.placed, a.fitted
     mouths = [("carbonator-vessel", n, m, n) for n, m in _V.mouths().items()]
     mouths += [(f"bulkhead-{n}", "collet", m, n) for n, m in _I.mouths().items()]
-    shapes = _shape_rows(placed)
     # `by` is what FASTENS a body and `joint` the construction it stands on. Here they are the
     # same feature wherever one exists, and `by` is None for the two the tape holds — which is
     # what the `mounted` goal below counts.
@@ -764,7 +752,7 @@ def build_card(a) -> Scorecard:
               "a located joint per body",
               [f"{n}: {j}" for n, by, j in mounts if by is None]),
     ]
-    return Scorecard(checks, _bend_rows(fitted, a.points), shapes)
+    return Scorecard(checks, _bend_rows(fitted, a.points), sorted(placed))
 
 
 def report(a) -> None:
