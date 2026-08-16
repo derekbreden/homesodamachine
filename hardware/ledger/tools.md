@@ -103,7 +103,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](/hardware/ledger/purchases.md) | 4-spool capacity, 70 °C ceiling, 350 W PTC, 3 circulation fans. In service as sealed 4-spool storage, not as a dryer. | [$125.47](T_DRYER_S4) |
 | **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through, spool on a center axle, **1 kg** capacity. Unheated. TPU turns freely on the axle and prints straight out of one. | [$117.96](T_POLYDRYER) |
 | **Polymaker PolyDryer Box XL ×2** | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5), [purchases.md §13](/hardware/ledger/purchases.md) | The same sealed box built around a **3 kg** spool — center axle, feed-through, hygrometer in the lid, unheated. The axle turns a 3 kg spool freely, which is what the E2's chamber does not, so the 3 kg Fiberon stock prints out of one of these. | [$120.09](T_POLYDRYER_XL) |
-| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD (DUROZZLE), 0.8 TC HF. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$559.88](T_HOTENDS) |
+| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD ×2 (DUROZZLE), 0.8 TC HF. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$608.04](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
 
 ### What dries where
@@ -153,9 +153,9 @@ path and the big-part path are the same path.
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **PB Motor Tech 5-gal stainless vacuum chamber** | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928), [purchases.md §21](/hardware/ledger/purchases.md) | 18.9 L, 11.8" × 11.8" interior, tempered-glass lid, glycerin gauge, shutoff valve. Degassing the platinum-silicone hopper-funnel pours. Has no pump of its own — it mates the §6 Orion 4 CFM pump (T_VAC_PUMP) over 1/4" SAE flare, so a refrigerant evacuation and a silicone degas compete for one pump. Cup sizing assumes the 3–4× rise of a ~70 mL pour. | [$95.99](T_VAC_CHAMBER) |
-| **Nuwave Bravo 30-QT convection toaster oven** | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M), [purchases.md §21](/hardware/ledger/purchases.md) | 50–500 °F, independent top/bottom heater control 0–100 %. Silicone post-cure bake — drives off volatiles and completes the platinum cure on the food-contact funnel. Dedicated to shop use; not a food oven. | [$129.99](T_CURE_OVEN) |
-| **Rubbermaid Commercial monitoring thermometer** | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0), [purchases.md §21](/hardware/ledger/purchases.md) | Stainless, 60–580 °F. Verifies the post-cure oven's actual cavity temperature against its dial. | [$9.52](T_OVEN_THERMO) |
+| **PB Motor Tech 5-gal stainless vacuum chamber** | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928), [purchases.md §21](/hardware/ledger/purchases.md) | 18.9 L, 11.8" × 11.8" interior, tempered-glass lid, glycerin gauge, shutoff valve. Degassing the platinum-silicone hopper-funnel pours. Has no pump of its own — it mates the §6 Orion 4 CFM pump (T_VAC_PUMP) over 1/4" SAE flare, so a refrigerant evacuation and a silicone degas compete for one pump. Cup sizing assumes the 3–4× rise of a ~70 mL pour. | [$102.95](T_VAC_CHAMBER) |
+| **Nuwave Bravo 30-QT convection toaster oven** | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M), [purchases.md §21](/hardware/ledger/purchases.md) | 50–500 °F, independent top/bottom heater control 0–100 %. Silicone post-cure bake — drives off volatiles and completes the platinum cure on the food-contact funnel. Dedicated to shop use; not a food oven. | [$139.41](T_CURE_OVEN) |
+| **Rubbermaid Commercial monitoring thermometer** | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0), [purchases.md §21](/hardware/ledger/purchases.md) | Stainless, 60–580 °F. Verifies the post-cure oven's actual cavity temperature against its dial. | [$10.21](T_OVEN_THERMO) |
 
 ## Shop / bench infrastructure
 
@@ -176,7 +176,7 @@ path and the big-part path are the same path.
 
 ## Tools total
 
-Total acquired tooling: **[$14,805.53](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,870.76](TOOLS_TOTAL)**
 
 ## Open items
 
