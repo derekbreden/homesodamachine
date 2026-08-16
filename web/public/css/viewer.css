@@ -572,8 +572,13 @@ summary.branch-head:focus-visible,
   height: 11px;
   margin: 0;
   cursor: pointer;
-  accent-color: var(--text-2);
+  /* Ticked is the lit state, in the colour everything lit on this surface
+     wears — unticked, the box is the browser's own pale square, which reads
+     brighter than the label beside it and looks already set. */
+  accent-color: var(--accent);
+  filter: brightness(0.85);
 }
+.edge-panel-faces:hover input { filter: none; }
 /* The whole copy blob, shown verbatim in a selectable box — readable at a
    glance and hand-selectable, with one Copy button below. (Replaced the
    per-row Copy buttons, which only ever got Copy-all'd anyway.) */
@@ -589,7 +594,9 @@ summary.branch-head:focus-visible,
   font-size: 12px;
   line-height: 1.5;
   padding: 7px 8px;
-  resize: vertical;
+  /* Read-only, and sized to its own content — there is nothing for a drag
+     corner to do but suggest otherwise. */
+  resize: none;
   max-height: 40vh;
   overflow: auto;
   -webkit-appearance: none;
@@ -861,6 +868,11 @@ summary.branch-head:focus-visible,
   }
   .cad-wrapper:has(> .pick-find-panel.show) > .edge-panel .edge-panel-head {
     margin-bottom: 0;
+  }
+  /* The width folds this panel, not the reader — its own chevron would stand
+     there claiming a state it no longer sets. */
+  .cad-wrapper:has(> .pick-find-panel.show) > .edge-panel .edge-panel-collapse {
+    display: none;
   }
 }
 
@@ -1304,8 +1316,10 @@ details.branch > summary.branch-head:hover .branch-caret {
 .pcb-wrapper > .pad-pick-toggle:hover {
   background: rgba(58, 58, 90, 0.9);
 }
+/* Disarmed, the label goes quiet — the pill itself keeps its ground, or the
+   copper underneath reads straight through the control. */
 .pcb-wrapper > .pad-pick-toggle.off {
-  opacity: 0.55;
+  color: var(--text-2);
 }
 
 /* Board outer-dimensions readout — bottom-centre, between the pad-pick toggle
@@ -1442,12 +1456,16 @@ details.branch > summary.branch-head:hover .branch-caret {
 /* The head is a div and so is every section caption, so the first caption is
    named by the head above it. */
 .pcb-checks-head + .pcb-checks-h { margin-top: 0; }
-/* The same two tracks the scorecard's rows stand in (.sc-row). */
+/* The same two tracks the scorecard's rows stand in (.sc-row), against this
+   card's own readings — a board's are figures and fit in a quarter, where the
+   scorecard's run to a sentence. The row's ground reaches past its text at
+   both ends; the rules stay on the card's own column. */
 .pcb-checks-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 38%;
+  grid-template-columns: minmax(0, 1fr) 24%;
   gap: 12px;
-  padding: 3px 0;
+  padding: 3px 8px;
+  margin: 0 -8px;
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
 }
 .pcb-checks-row .k { color: var(--text); overflow-wrap: anywhere; }
@@ -1675,7 +1693,8 @@ details.branch > summary.branch-head:hover .branch-caret {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 38%;
   gap: 12px;
-  padding: 3px 0;
+  padding: 3px 8px;
+  margin: 0 -8px;
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
 }
 .sc-row .sc-k { color: var(--text); overflow-wrap: anywhere; }
@@ -1684,12 +1703,18 @@ details.branch > summary.branch-head:hover .branch-caret {
   text-align: right;
   overflow-wrap: anywhere;
 }
+/* A row that carries no reading is prose, and takes the card's whole width
+   rather than a column with an empty track beside it. */
+.sc-row:not(:has(.sc-v)) .sc-k { grid-column: 1 / -1; }
 .sc-row.sub .sc-k { color: var(--text-2); }
 .sc-row.issue .sc-k { color: var(--err); }
 .sc-row.issue .sc-v { color: var(--err); }
 .sc-row.warn .sc-k { color: var(--warn); }
 .sc-row.warn .sc-v { color: var(--warn); }
-.sc-row.gray .sc-k, .sc-row.gray .sc-v { color: var(--text-3); }
+/* A deferred row is dimmed, unless it is also the one that failed — a single
+   red row in a list of two hundred is the whole reason the list is open. */
+.sc-row.gray:not(.issue):not(.warn) .sc-k,
+.sc-row.gray:not(.issue):not(.warn) .sc-v { color: var(--text-3); }
 /* Both units on one line where the card is wide enough, wrapping to two where it isn't. */
 .sc-row.size .sc-k { text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
 .sc-row.size .sc-v { font-variant-numeric: tabular-nums; }
@@ -1765,7 +1790,7 @@ details.branch > summary.branch-head:hover .branch-caret {
   background: rgba(58, 58, 90, 0.9);
 }
 .pcb-wrapper > .pcb-edit-toggle.off {
-  opacity: 0.55;
+  color: var(--text-2);
 }
 
 /* The overlay is inert (invisible, non-interactive) until armed, so it never

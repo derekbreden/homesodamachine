@@ -295,7 +295,9 @@ export function buildGrid() {
         card.className = "card";
         card.dataset.file = board.source;
         card.dataset.type = "pcb";
-        card.innerHTML = `${pcbThumb(board.source)}<div class="label"><span class="dir">${dirLabel}</span>${board.name}</div>`;
+        // A board whose directory is its own name says it once.
+        const dir = dirLabel && dirLabel !== board.name ? `<span class="dir">${dirLabel}</span>` : "";
+        card.innerHTML = `${pcbThumb(board.source)}<div class="label">${dir}<span class="name-row"><span class="name">${board.name}</span></span></div>`;
         card.addEventListener("click", () => openPcbDetail(board.source));
         state.gridEl.appendChild(card);
       }
