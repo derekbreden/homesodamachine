@@ -60,6 +60,7 @@ function memoized(fn) {
     memo = {
       walk: new Map(),
       source: new Map(),
+      stripped: new Map(),
       runnable: new Map(),
       producers: new Map(),
       importers: new Map(),
@@ -85,6 +86,67 @@ function readSource(file) {
   }
   if (memo) memo.source.set(file, source);
   return source;
+}
+
+// A FILENAME NAMED IN A COMMENT IS PROSE, NOT AN EDGE. Every match below — the STEP loads,
+// the imports, the `--python` hand-off — runs against source whose `#` runs are blanked, so
+// a sentence that names an artifact cannot invent a dependency. It is the guard the
+// `--python` edge already states in weaker form ("a bare doc-comment mention"), and the
+// STEP edge needs it more: a comment inside a shared `_module.py` resolves to every runnable
+// that imports it, so one sentence becomes dozens of phantom consumers, and a phantom
+// pointing back upstream closes a cycle — which costs `buildOrder` the topological order it
+// exists to produce, silently, because a cycle there degrades rather than throws.
+//
+// STRING LITERALS SURVIVE, and that is the whole reason this is a scanner and not a regex.
+// A generator names its own outputs in code and in the `-> x.step` lines it prints, and
+// `buildProducerMap` reads exactly those; blanking a string would lose the producer and with
+// it every edge downstream. So this blanks `#` runs and nothing else — offsets and all,
+// matching the COMMENT spans Python's own `tokenize` reports.
+function stripPyComments(source) {
+  let out = "";
+  let i = 0;
+  const n = source.length;
+  while (i < n) {
+    const c = source[i];
+    if (c === "#") {
+      let j = i;
+      while (j < n && source[j] !== "\n") j++;
+      out += " ".repeat(j - i);
+      i = j;
+      continue;
+    }
+    // A quote opens a literal that runs to its matching close. A backslash escapes whatever
+    // follows it — including in an r-string, where the backslash stays in the value but
+    // still does not let the quote terminate. A single-quoted literal cannot cross a newline.
+    if (c === '"' || c === "'") {
+      const triple = source.startsWith(c.repeat(3), i);
+      const q = triple ? c.repeat(3) : c;
+      let j = i + q.length;
+      while (j < n) {
+        if (source[j] === "\\") { j += 2; continue; }
+        if (source.startsWith(q, j)) { j += q.length; break; }
+        if (!triple && source[j] === "\n") break;
+        j++;
+      }
+      out += source.slice(i, Math.min(j, n));
+      i = j;
+      continue;
+    }
+    out += c;
+    i++;
+  }
+  return out;
+}
+
+// The stripped text of a file, cached beside its bytes. One graph asks a hundred STEP
+// questions of seven hundred files, and stripping per question rather than per file is the
+// difference between one pass over the tree and a hundred.
+function readStrippedSource(file) {
+  if (memo && memo.stripped.has(file)) return memo.stripped.get(file);
+  const source = readSource(file);
+  const stripped = source == null ? null : stripPyComments(source);
+  if (memo) memo.stripped.set(file, stripped);
+  return stripped;
 }
 
 // hardware/scripts holds the shared modules and the command-line tools the repo is worked
@@ -211,7 +273,7 @@ function importersOf(changedPath, roots) {
     for (const pyFile of allPyFiles) {
       const abs = path.resolve(pyFile);
       if (abs === modPath) continue;
-      const source = readSource(pyFile);
+      const source = readStrippedSource(pyFile);
       if (source == null) continue;
       const importsIt = importRe.test(source);
       const runsViaBlender = source.includes("--python") && scriptRefRe.test(source);
@@ -321,8 +383,20 @@ function escapeRegExp(s) {
 // (a real collision that otherwise invents reverse edges and cycles). A path
 // separator or quote before the name is fine — that's how a real reference
 // reads, e.g. `_VM / "tray" / "tray.step"`.
+//
+// `source` is the file's STRIPPED text (readStrippedSource) — a comment naming a step is
+// prose, not a load. The matcher is a pure function of the basename and outlives any one
+// graph, so it is compiled once and kept: a full graph asks this of every file for every
+// produced step, and compiling the same pattern each time was the bulk of that.
+const STEP_RE = new Map();
+
 function referencesStep(source, stepBasename) {
-  return new RegExp("(?<![\\w.\\-])" + escapeRegExp(stepBasename) + "(?![\\w.])").test(source);
+  let re = STEP_RE.get(stepBasename);
+  if (re === undefined) {
+    re = new RegExp("(?<![\\w.\\-])" + escapeRegExp(stepBasename) + "(?![\\w.])");
+    STEP_RE.set(stepBasename, re);
+  }
+  return re.test(source);
 }
 
 // Map each produced `.step` (by basename) to the runnable script that writes
@@ -352,7 +426,7 @@ function producerMap(roots) {
       if (!name.endsWith(".py")) continue;
       const script = path.join(dir, name);
       if (!isRunnableScript(script)) continue;
-      const source = readSource(script);
+      const source = readStrippedSource(script);
       if (source != null && referencesStep(source, base)) {
         producerOf.set(base, script);
         break;
@@ -381,7 +455,7 @@ function consumersOfStep(stepBasename, roots, producerOf) {
   const consumers = new Set();
   for (const pyFile of walk(roots, ".py")) {
     if (pyFile === producer) continue;
-    const source = readSource(pyFile);
+    const source = readStrippedSource(pyFile);
     if (source == null || !referencesStep(source, stepBasename)) continue;
     if (isRunnableScript(pyFile)) {
       consumers.add(pyFile);
