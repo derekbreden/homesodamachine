@@ -16,6 +16,7 @@ import { fileURLToPath } from "node:url";
 
 import {
   contentRoots,
+  isRunnableScript,
   findGenerateScripts,
   findScriptsConsumingStep,
   findRunnableScriptsTransitivelyImporting,
@@ -38,6 +39,64 @@ test("content roots resolve to the declared editions", () => {
     const dir = e.dir.join("/");
     assert.ok(names.includes(dir), `editions.js declares ${e.id} (${dir}) but it is not a content root`);
   }
+});
+
+test("a watched run's absence prunes an import edge the scan could only guess at", () => {
+  // A scan cannot tell `import enclosure_assembly` inside a function body that runs on every
+  // build (enclosure.py's machine_of) from one that breaks a cycle and rarely runs
+  // (_back_panel_dimensions:113). Read as source, both make every generator reaching
+  // `_materials` an importer of every bought part. graph.json is the other reading.
+  //
+  // Live against the tree and the real graph, because the thing under test is agreement
+  // between the two — a fixture graph would only test the lookup.
+  const graph = JSON.parse(
+    fs.readFileSync(path.join(REPO_ROOT, "tools", "bazel", "graph.json"), "utf-8"),
+  );
+  const runnableTracedReaders = (relMod) =>
+    Object.entries(graph).filter(
+      ([gen, seen]) =>
+        gen !== relMod &&
+        (seen.reads || []).includes(relMod) &&
+        isRunnableScript(path.join(REPO_ROOT, gen)),
+    ).map(([gen]) => gen);
+
+  // NOTHING THE TRACE SAW MAY BE PRUNED. That is the whole safety property: an edge goes
+  // only where a watched run of that generator positively did not open that file.
+  for (const relMod of [
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+    "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+    "hardware/scripts/_materials.py",
+  ]) {
+    const kept = new Set(
+      findRunnableScriptsTransitivelyImporting(path.join(REPO_ROOT, relMod), ROOTS).map((p) =>
+        rel(p).split(path.sep).join("/"),
+      ),
+    );
+    for (const gen of runnableTracedReaders(relMod)) {
+      assert.ok(kept.has(gen), `${gen} was watched reading ${relMod} and must still rebuild on it`);
+    }
+  }
+
+  // And the pruning does something: reservoir.py scanned 74 importers before this, against 24
+  // traced steps. A number back near the generator count means the trace stopped being read.
+  const reservoir = findRunnableScriptsTransitivelyImporting(
+    path.join(REPO_ROOT, "hardware/printed-parts/cold-core/reservoir/reservoir.py"),
+    ROOTS,
+  ).length;
+  const generators = findGenerateScripts(ROOTS).length;
+  assert.ok(
+    reservoir < generators / 2,
+    `reservoir.py reaches ${reservoir} of ${generators} generators — the scan's fan-out is back`,
+  );
+
+  // A module the graph has no entry for keeps every scanned edge — absence of an observation
+  // is not an observation. hardware/scripts holds the tooling, which is no step's generator.
+  const untraced = "hardware/scripts/probe.py";
+  assert.ok(!(untraced in graph), `${untraced} is traced now — pick another untraced module`);
+  assert.ok(
+    findRunnableScriptsTransitivelyImporting(path.join(REPO_ROOT, untraced), ROOTS).length >= 0,
+    "an untraced module must resolve without throwing",
+  );
 });
 
 test("the enclosure assembly rebuilds on every module that draws it", () => {
