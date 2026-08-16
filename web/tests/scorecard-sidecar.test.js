@@ -29,7 +29,7 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
   const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
 
-  // The contract's own guard — the exact predicate the viewer uses to decide to draw a bar.
+  // The contract's own guard — the exact predicate the viewer uses to decide to draw a badge.
   assert.ok(isScorecard(sc), "sidecar passes isScorecard");
 
   // Gates + goals both present; every check carries the fields the modal reads.
@@ -124,9 +124,9 @@ test("every cold-core bend row is named and grades its own corners", (t) => {
 test("isScorecard rejects malformed input", () => {
   assert.equal(isScorecard(null), false);
   assert.equal(isScorecard({}), false);
-  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, routed: 0, checks: [] }), false);
-  assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, routed: 0, checks: [{ kind: "gate" }] }), false);
-  const base = { gatesPass: true, placed: 0, located: 0, routed: 0, checks: [] };
+  assert.equal(isScorecard({ gatesPass: "yes", checks: [] }), false);
+  assert.equal(isScorecard({ gatesPass: true, checks: [{ kind: "gate" }] }), false);
+  const base = { gatesPass: true, checks: [] };
   assert.equal(isScorecard(base), true);
   // A size row missing an axis is rejected; a whole one passes.
   const size = { id: "enclosure", label: "the printed box", min: [0, 0, 0], max: [1, 2, 3], mm: [1, 2, 3] };

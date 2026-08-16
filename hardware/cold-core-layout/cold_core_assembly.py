@@ -48,7 +48,8 @@ import _internals as _I                                  # noqa: E402
 import _bom as _bom_check                                # noqa: E402
 import prv_shroud as _shroud                             # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
-from _cold_scorecard import Check, Scorecard, verdict     # noqa: E402
+from _card import Check, grade_of, verdict                # noqa: E402
+from _cold_scorecard import Scorecard                     # noqa: E402
 
 STEP_OUT = _here.parent / "cold-core-assembly.step"
 # The OTHER model of this same core: five printed pieces and the faces the enclosure loads
@@ -677,14 +678,6 @@ def _shape_rows(placed: dict) -> list:
     return rows
 
 
-# Grade bands on `radius ÷ the stock's minimum`, the same ladder the enclosure's card uses.
-GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
-
-
-def _grade(ratio: float) -> str:
-    return next(g for lo, g in GRADE_BANDS if ratio >= lo)
-
-
 def _bend_rows(fitted: dict, points: dict) -> list:
     """One row per line: what it turns at, and how far it travels against how far it reaches.
 
@@ -712,12 +705,12 @@ def _bend_rows(fitted: dict, points: dict) -> list:
             "radius": round(tightest, 3),
             "minBend": round(stock, 3),
             "ratio": round(ratio, 3),
-            "grade": _grade(ratio) if corners else None,
+            "grade": grade_of(ratio) if corners else None,
             "reach": round(reach, 2) if reach > 1e-9 else None,
-            "reachGrade": None if reach <= 1e-9 else _grade(min(1.5, reach / length)),
+            "reachGrade": None if reach <= 1e-9 else grade_of(min(1.5, reach / length)),
             "binding": None,
             "corners": [{"at": i, "radius": round(r, 3),
-                         "ratio": round(r / stock, 3), "grade": _grade(r / stock)}
+                         "ratio": round(r / stock, 3), "grade": grade_of(r / stock)}
                         for i, r in enumerate(radii[1:-1], start=1) if r > 0.0],
             "need": {"detour": round(length / reach, 3) if reach > 1e-9 else None},
         })
