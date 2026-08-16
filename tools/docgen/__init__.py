@@ -141,6 +141,20 @@ def _note_target(path: Path) -> None:
         _WRITE_TARGETS.add(p.relative_to(root).as_posix())
 
 
+def note_rewritten(path) -> None:
+    """Keep `path` as one this run read and wrote back over, for a file written by hand.
+
+    A FILE OF THIS KIND BELONGS ON BOTH SIDES OF ITS OWN ACTION, and the substituters below
+    say so for every file they touch. A generator that reads a chart, edits its lines and
+    writes them back without going through one has done the same thing and has no other way
+    to report it — and a rewritten file recorded as a pure output stops being staged into the
+    sandbox, so the read that opens it finds nothing.
+
+    Call it whether or not the bytes moved. A run that lands on the text already there wrote
+    nothing and still read the file to decide that."""
+    _note_target(Path(path))
+
+
 def _caller_file(stack_depth: int = 2) -> Path | None:
     """The file of the script that called substitute_md, resolved.
 
