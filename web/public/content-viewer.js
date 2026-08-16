@@ -83,6 +83,9 @@
   flex-direction: column;
   touch-action: none;
 }
+/* The card holds focus on open so no control has to; it is the frame, not a
+   control, so it does not draw a ring for holding it. */
+.cv-card:focus, .cv-card:focus-visible { outline: none; }
 .cv-dialog.cv-open .cv-card { opacity: 1; transform: scale(1); }
 .cv-dialog.cv-closing .cv-backdrop { opacity: 0; transition: opacity 150ms ease-in; }
 .cv-dialog.cv-closing .cv-card {
@@ -206,6 +209,14 @@ body.cv-locked { overflow: hidden !important; }
 
     const card = document.createElement("div");
     card.className = "cv-card";
+    // showModal() hands focus to the first control it finds inside, and hands
+    // it as keyboard focus — so whichever tool the content happens to build
+    // first opens wearing a focus ring, reading as armed when nothing has been
+    // touched. The card claims it instead: focus starts inside the modal, so
+    // Escape and Tab behave, and it starts on the frame rather than on a
+    // button. (Focusable to take it, never in the tab order.)
+    card.tabIndex = -1;
+    card.autofocus = true;
     dialog.appendChild(card);
 
     const contentSlot = document.createElement("div");
