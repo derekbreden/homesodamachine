@@ -173,7 +173,7 @@ TOOLS = [
     ("silicone mat", "T_MAT", A("B07DGVRYL3")),
     ("helping-hands", "T_HELPING_HANDS", A("B08DNMT96W")),
     ("mini heat gun", "T_HEAT_GUN", A("B09NDCCW29")),
-    ("Haisstronica", "T_CRIMPER", FIXED(0.0)),  # bundle-priced, no separate $
+    ("Haisstronica", "T_CRIMPER", A("B08F3JKDD3")),
     ("Taiss Dupont crimp", "T_DUPONT_KIT", A("B0B11RLGDZ")),
     ("SN-2549", "T_SN2549", A("B01N4L8QMW")),
     ("Kill-A-Watt", "T_KILL_A_WATT", A("B00009MDBU")),

@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$14,870.76",
+    "TOOLS_TOTAL": "$14,890.78",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -10,7 +10,7 @@
     "T_CAP_CUTTER": "$15.74",
     "T_COPPER_BAR": "$42.89",
     "T_COUNTERSINK": "$27.78",
-    "T_CRIMPER": "\u2014",
+    "T_CRIMPER": "$20.02",
     "T_CURE_OVEN": "$139.41",
     "T_DEADHEAD_PLUGS": "$11.79",
     "T_DEBURR": "$20.38",

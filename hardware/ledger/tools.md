@@ -82,7 +82,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **QWORK mini heat gun** | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29), [purchases.md §14](/hardware/ledger/purchases.md) | 300 W / 200–450 °C. Heat-shrink activation, light rework. | [$9.62](T_HEAT_GUN) |
 | **iFixit precision tweezers set** | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ), [purchases.md §14](/hardware/ledger/purchases.md) | Extra-fine + angled + blunt, ESD coating. Board-level rework, pin extraction, BOOT-pad bridging. | [$12.82](T_TWEEZERS) |
 | **KATA micro flush cutters (2-pack)** | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V), [purchases.md §14](/hardware/ledger/purchases.md) | Precision side cutters: header-strip cutting, lead trimming. Shared with 3D-printing post-processing. | [$8.89](T_FLUSH_CUTTERS) |
-| **Haisstronica ratchet crimper** | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 22–10. | [—](T_CRIMPER) |
+| **Haisstronica ratchet crimper** | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 22–10. | [$20.02](T_CRIMPER) |
 | **Taiss Dupont crimp kit + SN-28B** | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ), [purchases.md §9](/hardware/ledger/purchases.md) | Dupont connector terminal crimping. | [$23.58](T_DUPONT_KIT) |
 | **iCrimp SN-2549 ratcheting crimper** | [B01N4L8QMW](https://www.amazon.com/dp/B01N4L8QMW), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 28–18 open-barrel ratcheting crimper. Dedicated nests for JST PH 2.0 / ZH 1.5 / XH 2.5 / VH 3.96 + Dupont 2.54 — crimps the JST-PH 2.0 terminals on the MCP23017 I²C link, which the SN-28B's nests fit only loosely. | [$23.91](T_SN2549) |
 | **Preciva ferrule crimping tool, AWG 28–5** | [B0DS622GKN](https://www.amazon.com/dp/B0DS622GKN), [purchases.md §9](/hardware/ledger/purchases.md) | Quad-indent (square) ratcheting crimp for bootlace / cord-end wire ferrules, 0.08–16 mm² (28–5 AWG) — the conductor landings into the Wago 221 lever nuts and screw terminals. Kit bundles 950 insulated ferrules (the consumable side lives in [bom.md §11](/hardware/ledger/bom.md)). | $48.25 |
@@ -176,7 +176,7 @@ path and the big-part path are the same path.
 
 ## Tools total
 
-Total acquired tooling: **[$14,870.76](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,890.78](TOOLS_TOTAL)**
 
 ## Open items
 

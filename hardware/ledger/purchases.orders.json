@@ -2,10 +2,11 @@
  "_meta": {
   "source": "amazon.com order history, year-2026 filter, scraped 2026-08-15",
   "orders": 318,
-  "ordered/total": "present for all 318",
+  "ordered/total": "ordered present for all 318; total present for 315 \u2014 the three cancelled orders were never charged",
   "delivered": "present only where Amazon still shows a shipment banner \u2014 orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
   "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation; not scraped for the rest",
-  "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call."
+  "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
+  "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
  },
  "orders": {
   "114-2335010-7091469": {
@@ -1500,7 +1501,9 @@
    "shipping": 0.0,
    "tax": 20.55,
    "total": 304.08,
-   "project": true
+   "project": true,
+   "nonproject_amount": 17.15,
+   "why_mixed": "also carried $15.99 of HOMEXCEL microfiber cloths (household)"
   },
   "114-2214596-3435404": {
    "ordered": "2026-03-22",
