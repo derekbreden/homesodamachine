@@ -38,6 +38,9 @@
 #      - ledger/machine-time.md or bom.md   → _machine_time.py --check, for a §7 row
 #        with no print-rate group. GROUP_OF is the decision.
 #      - any staged *.py under hardware/    → check_build_exit.py.
+#      - BUILD.bazel, graph.json, selftests.json, or a staged add or delete
+#                                           → gen_build.py --check, which re-derives
+#        BUILD.bazel from the traced graph and holds it against the file in the tree.
 #      - hardware/pcb/pcba/                 → the render scorecard's fab-ready gates
 #        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
@@ -254,6 +257,14 @@ for hw in $editions; do
          python3 "$root/$hw/scripts/check_tracked.py"
   fi
 done
+
+# BUILD.bazel is written from graph.json, selftests.json and `git ls-files`. A commit that
+# adds or deletes a tracked file moves the third; one that only edits a file does not.
+if staged "BUILD.bazel" "tools/bazel/graph.json" "tools/bazel/selftests.json" ||
+   git diff --cached --name-status | grep -q '^[AD]'; then
+  gate "BUILD.bazel is what the traced graph writes" \
+       python3 "$root/tools/bazel/gen_build.py" --check
+fi
 
 if $touches_board; then
   gate "scorecard fab-ready gates" python3 -c '

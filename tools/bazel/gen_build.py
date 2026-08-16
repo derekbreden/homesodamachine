@@ -12,8 +12,8 @@ target here can be wrong in exactly one direction, and the build says which.
 """
 
 import argparse
+import difflib
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -46,15 +46,6 @@ _NODE = ("tools/render/", "web/")
 
 def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
-
-
-def carries_selftest(gen: str, root: Path) -> bool:
-    """Whether `gen` answers to `selftest` on its own command line."""
-    try:
-        text = (root / gen).read_text()
-    except OSError:
-        return False
-    return bool(re.search(r"^def selftest\(", text, re.M))
 
 
 def target_name(gen: str, taken=None) -> str:
@@ -159,19 +150,16 @@ def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set,
     return "\n".join(lines)
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--only", help="emit one target, by generator path")
-    args = ap.parse_args()
-
+def render_build(only: str = None) -> tuple:
+    """The whole of BUILD.bazel as text, and the steps it was rendered from."""
     files = tracked()
     inv = inventory(files)
     try:
         selftests = json.loads(SELFTESTS.read_text())
     except (OSError, ValueError):
         selftests = {}
-    if args.only:
-        inv = {k: v for k, v in inv.items() if args.only in k}
+    if only:
+        inv = {k: v for k, v in inv.items() if only in k}
 
     # WHICH STEMS ARE SHARED, before a name is handed to anything.
     seen, shared = set(), set()
@@ -274,7 +262,36 @@ def main() -> int:
     blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
                   + "".join('        ":%s",\n' % target_name(g[0], shared) for g in sorted(inv))
                   + "    ],\n)")
-    (_ROOT / "BUILD.bazel").write_text(head + "\n" + "\n\n".join(blocks) + "\n")
+    return head + "\n" + "\n\n".join(blocks) + "\n", inv
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--only", help="print one target, by generator path")
+    ap.add_argument("--check", action="store_true",
+                    help="say whether BUILD.bazel is what this would write")
+    args = ap.parse_args()
+
+    if args.check:
+        text, inv = render_build()
+        have = (_ROOT / "BUILD.bazel").read_text()
+        if text == have:
+            print(f"  BUILD.bazel is what {len(inv)} step(s) write")
+            return 0
+        print("\n".join(difflib.unified_diff(
+            have.splitlines(), text.splitlines(),
+            "BUILD.bazel", "what gen_build.py writes now", lineterm="")))
+        print("\n  BUILD.bazel is not what gen_build.py writes."
+              "\n    tools/cad-venv/bin/python tools/bazel/trace_inputs.py <gen.py>  # re-read one"
+              "\n    tools/cad-venv/bin/python tools/bazel/gen_build.py              # write this")
+        return 1
+
+    if args.only:
+        print(render_build(args.only)[0])
+        return 0
+
+    text, inv = render_build()
+    (_ROOT / "BUILD.bazel").write_text(text)
     print(f"  {len(inv)} step(s) over {sum(len(k) for k in inv)} generators → BUILD.bazel")
     return 0
 
