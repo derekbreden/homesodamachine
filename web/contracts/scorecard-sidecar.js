@@ -108,9 +108,6 @@ export function scorecardPathFor(stepPath) {
 /**
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
- * @property {number} placed   0..100 — placement criteria defined and held
- * @property {number} located  0..100 — every connector positioned AND sized on the component
- * @property {number} routed   0..100 — connections modeled as real 3D paths
  * @property {ScorecardSize[]} [size]  how big the thing is: the printed box, and everything
  *                               placed. Optional: an edition whose scorecard predates the
  *                               table omits it, and the card draws without a size block
@@ -147,9 +144,6 @@ export function sizeText(row) {
 export function isScorecard(o) {
   if (!o || typeof o !== "object") return false;
   if (typeof o.gatesPass !== "boolean") return false;
-  for (const k of ["placed", "located", "routed"]) {
-    if (typeof o[k] !== "number") return false;
-  }
   if (!Array.isArray(o.checks)) return false;
   const checksOk = o.checks.every(
     (c) =>

@@ -153,8 +153,7 @@ function openModal(wrapper, sc, title) {
     addCollapsedChecks(card, met, `${met.length} met`, wrapper, partNames);
   }
   if (deferred.length) {
-    card.appendChild(el("div", "sc-h", `Deferred — placed ${sc.placed}% · located ${sc.located}% · `
-      + `routed ${sc.routed}%`));
+    card.appendChild(el("div", "sc-h", "Deferred"));
     addCollapsedChecks(card, deferred, `${deferred.length} not asked for yet`,
                        wrapper, partNames, true);
   }
