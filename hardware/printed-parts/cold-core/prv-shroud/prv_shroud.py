@@ -74,7 +74,8 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_SHROUD, one_body
 from docgen import substitute_md, substitute_py_comments
 
 
@@ -135,7 +136,8 @@ def build_prv_shroud():
 def main():
     out_dir = _here.parent
     shroud = build_prv_shroud()
-    export_step(shroud, str(out_dir / "prv-shroud.step"))
+    export_assembly(one_body(shroud, "prv-shroud", C_SHROUD),
+                    str(out_dir / "prv-shroud.step"))
 
     solids = shroud.solids().vals()
     assert len(solids) == 1, f"expected 1 solid, got {len(solids)}"

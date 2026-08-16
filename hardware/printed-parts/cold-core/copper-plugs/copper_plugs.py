@@ -82,7 +82,8 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent))
 
 from world_workplane import xz_plane_y_up, WorldWorkplane
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_PLUG, one_body
 from docgen import substitute_py_comments
 from _cold_core_interface import (
     make_box,
@@ -350,7 +351,7 @@ def main():
     for name, spec in plug_specs.items():
         plug = build_plug(spec)
         out = _here / f"copper-plug-{name}.step"
-        export_step(plug, str(out))
+        export_assembly(one_body(plug, f"copper-plug-{name}", C_PLUG), str(out))
 
         solids = plug.solids().vals()
         assert len(solids) == 1, f"plug {name}: expected 1 solid, got {len(solids)}"
