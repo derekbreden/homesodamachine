@@ -39,14 +39,16 @@ build --action_env=HSM_SKIP_MESH_PAYLOAD=1
 # A full build sits in 3.4–4.2 GB of swap with a quarter of the machine in the kernel, and the
 # same work costs 6170 s of action time at eight jobs against 3814 s at four.
 #
-# CAPPING IT ANYWAY BUYS NOTHING BACK, WHICH IS WHY THIS STILL SAYS auto. Full build: 652 s and
-# 662 s at auto, against 617 s at four and one arm that died on a render timeout. Six heavy CAD
-# targets: 95 s and 118 s at auto, against 97 s and 102 s at four. Peak swap moves 5%. The knob
-# cannot reach what costs, because `//:render-scenes` is ONE serial action holding 92–98% of the
-# critical path and the memory peak with it — 33 pictures drawn by 33 sequential subprocesses is
-# a step whose duration is the sum of its parts where bazel could schedule the max.
+# auto STANDS ON A READING TAKEN OF A BUILD THAT NO LONGER EXISTS, and that is the whole of
+# what supports it. Full build: 652 s and 662 s at auto against 617 s at four and one arm that
+# died on a render timeout. Six heavy CAD targets: 95 s and 118 s at auto against 97 s and
+# 102 s at four. Peak swap moves 5%. Every one of those was measured while `//:render-scenes`
+# held 92–98% of the critical path, which it no longer does — it redrew all 33 pictures on
+# every execution until its png and sidecar were declared on both sides of it, and skips them
+# now. A cap has not been measured against the build as it stands.
 #
 # AND MIND THE NOISE FLOOR BEFORE BELIEVING A NUMBER HERE: identical work on this box ranges
-# 95–118 s on a ~100 s build. A single run does not separate two options that differ by less.
+# 95–118 s on a ~100 s build, and a tracked file edited mid-run lands in the action through
+# `cp -L` whether or not it was committed. A single run separates nothing that differs by less.
 build --jobs=auto
 test --test_output=errors
