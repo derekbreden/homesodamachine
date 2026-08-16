@@ -4228,23 +4228,28 @@ def pan_sleeve(pan, west_face):
     face and there is one continuous flat surface on each of its outsides. The basin lies on the
     block's floor the way a drawer lies in its carcase.
 
-    TWO CUTS TAKE IT BACK. The WELL is the basin's body, run west out through the wall and on up
-    through the lid — so the drip falls into the mouth it leaves, and the tray's flange passes
-    under the lid that mouth stands in. The REBATE is the rim, run west the same way, its ceiling
-    the lap that holds the tray down. What neither reaches is solid: the block's floor under the
-    basin, its flanks outboard of the rim, its lid over the flange, and — east of where the
-    tray's own outline ends — the BACKSTOP, full section from floor to lid, which is what the
-    tray comes to rest against."""
-    (wy0, wy1, wz0, _wz1, wx1), (ry0, ry1, rz0, rz1, rx1) = pan_berth(pan)
+    THREE CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
+    the tray's own two sections — the basin's body, and the rim over its shoulders — and both run
+    west THROUGH the wall, because that is the silhouette the tray travels on. The MOUTH is the
+    basin's opening carried up through the lid for the drip to fall in, and it stops at the wall's
+    INNER face: the tray is nowhere near this tall, so an opening cut this high in the wall is a
+    hole nothing passes through.
+
+    What none of the three reaches is solid: the block's floor under the basin, its flanks
+    outboard of the rim, its lid over the flange, and — east of where the tray's own outline ends
+    — the BACKSTOP, full section from floor to lid, which is what the tray comes to rest
+    against."""
+    (wy0, wy1, wz0, wz1, wx1), (ry0, ry1, rz0, rz1, rx1) = pan_berth(pan)
     s, t = _pan.PAN_SLIP, DRIP_SLEEVE_T
     z1 = pan.zmax + s + t
     block = (west_face, pan.xmax + s + t,
              pan.ymin - s - t, pan.ymax + s + t, pan.zmin - s - t, z1)
-    # Both cuts start west of the wall's own outer face, so the berth and the slot the wall
-    # carries are opened by one geometry rather than two that have to agree.
+    # The berth's two cuts start west of the wall's own outer face, so the slot the wall carries
+    # and the room behind it are opened by one geometry rather than two that have to agree.
     x0 = west_face - _enc.wall - 1.0
-    return [block], [(x0, wx1, wy0, wy1, wz0, z1 + 1.0),
-                     (x0, rx1, ry0, ry1, rz0, rz1)]
+    return [block], [(x0, wx1, wy0, wy1, wz0, wz1),
+                     (x0, rx1, ry0, ry1, rz0, rz1),
+                     (west_face, wx1, wy0, wy1, rz1, z1)]
 
 
 def west_wall_ports(pan):
