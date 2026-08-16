@@ -36,6 +36,7 @@ services:
         - web/**
         # one per edition (web/lib/editions.js): kitchen
         - hardware/**
+        - updates/**
         - render.yaml
     envVars:
       - key: DATABASE_URL

@@ -42,6 +42,9 @@ export const ICON_INNER = {
   // two beneath it, which is the whole claim the page makes: things run beside
   // each other.
   tree: '<rect x="9" y="2" width="6" height="5" rx="1"></rect><rect x="2" y="17" width="6" height="5" rx="1"></rect><rect x="16" y="17" width="6" height="5" rx="1"></rect><path d="M12 7v4"></path><path d="M5 17v-2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"></path>',
+  // Open book, two leaves on a spine — Updates. Two strokes, nothing finer
+  // than the gap at the spine.
+  book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>',
 
   // ── The 3D viewer's tool rail ──────────────────────────────────────────────
   // Magnifier — Find: type a part name or paste pick text.

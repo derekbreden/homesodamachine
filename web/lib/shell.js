@@ -21,7 +21,7 @@
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
 //            <body content> + renderFooter());
 
-import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, TREE_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, TREE_SVG, UPDATES_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 import { EDITION_IDS, EDITION_DIRS, DEFAULT_EDITION } from "./editions.js";
 
 function escape(s) {
@@ -159,6 +159,14 @@ html.dev-mode .site-nav-public a[data-nav="pcb"],
 html.dev-mode .site-nav-public a[data-nav="cost"],
 html.dev-mode .site-nav-public a[data-nav="build"] {
   display: inline-flex;
+}
+
+/* Updates rides with the ungated set. The engineering icons plus the right
+   cluster come to 364px of the 375px bar, so the row carries that set or
+   Updates, never both. */
+.site-nav-dev a[data-nav="updates"],
+html.dev-mode .site-nav-public a[data-nav="updates"] {
+  display: none;
 }
 
 /* iOS-style pill toggle. Used on /settings (Dev mode + Notifications).
@@ -356,10 +364,11 @@ ${pageHead}
 // Home is always visible. Parts / Charts / Drawings / Boards / Cost are
 // present in the markup but, on the public surface, hidden by CSS unless
 // html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
-// visible.
+// visible. Updates is the complement: visible wherever that set is hidden.
 export function renderNav({ surface = "public", active = null }) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: HOME_SVG },
+    { href: "/updates", name: "updates", label: "Updates", svg: UPDATES_SVG },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
