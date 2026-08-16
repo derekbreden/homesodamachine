@@ -22,7 +22,7 @@ sys.path.insert(
 from _cold_core_interface import (attachment_xy_positions, cap_cradles, deck_mounts,
                                   deck_mount_xy)
 from _reed_channels import reeds_per_reservoir
-from docgen import substitute_md
+from docgen import load_module, substitute_md
 from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
 
@@ -30,8 +30,6 @@ import manifold_layout as ml
 import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
-
-import importlib.util
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
@@ -42,18 +40,9 @@ _floor_bosses = _f.box["floor_bosses"]
 _cond_bosses = _f.box["cond_mount"][3] if _f.box["cond_mount"] else ()
 
 
-def _load_module(name: str, file_path: Path):
-    """Load a Python file as a uniquely-named module."""
-    spec = importlib.util.spec_from_file_location(name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    sys.path.insert(0, str(file_path.parent))
-    spec.loader.exec_module(module)
-    return module
-
-
 # Evaporator-coil copper consumption (§5 GOORY row) — pitch and wrap arc
 # from the coil-mandrel generator, whose printed groove enforces them.
-_coil_mandrel_gen = _load_module(
+_coil_mandrel_gen = load_module(
     "bom_coil_mandrel_gen",
     _here.parent / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
@@ -62,7 +51,7 @@ _coil_mandrel_gen = _load_module(
 # `cold-core-layout/_coil` is where it is actually laid: sprung out to the tank's own radius
 # and lifted again over the reed bridge it crosses. That is the copper a build consumes, so it
 # is what the row bills; the mandrel's two shorter figures stay beside it in its own module.
-_coil_gen = _load_module(
+_coil_gen = load_module(
     "bom_coil_gen", _here.parent / "cold-core-layout" / "_coil.py")
 _wrap_mm = _coil_gen.wrap_length()
 _cut_mm = _coil_gen.cut_length()
@@ -70,7 +59,7 @@ _roll_spare_ft = _coil_gen.roll_spare_ft()
 
 # The PRV vent line (§2), read off the run `_internal_routes` draws down the port lane rather
 # than restated: the row bills the stock that line is cut from.
-_routes_gen = _load_module(
+_routes_gen = load_module(
     "bom_internal_routes_gen",
     _here.parent / "printed-parts" / "cold-core" / "_internal_routes.py",
 )

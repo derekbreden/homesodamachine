@@ -12,26 +12,14 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from docgen import substitute_md
-
-import importlib.util  # noqa: E402
-
-
-def _load_module(name: str, path: Path):
-    """Load a module from an explicit file path."""
-    spec = importlib.util.spec_from_file_location(name, path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Cannot load {name} from {path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+from docgen import load_module, substitute_md
 
 
 # The under-counter plate's own disc, off the script that cuts it: the diameter falls
 # out of the two pockets' extremes plus one reach margin, so a pocket that moves
 # resizes the disc. `_faucet_and_umbilical_sync` states the same figure off the same
 # module — one plate under one diameter, and the two procedures cannot disagree.
-_plate = _load_module(
+_plate = load_module(
     "_under_counter_plate_gen",
     next(p for p in _here.parents if p.name == "hardware")
     / "cut-parts" / "faucet" / "touch-flo-under-counter-plate"

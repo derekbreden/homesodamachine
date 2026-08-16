@@ -32,7 +32,7 @@ from pathlib import Path  # noqa: E402
 sys.path.insert(
     0, str(next(p for p in Path(HERE).resolve().parents
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
-from docgen import substitute_md  # noqa: E402
+from docgen import cells, substitute_md  # noqa: E402
 
 # The build batch the estimates amortize per-batch setup across — the size the
 # ledger already buys in (endcap plates 20 at a time = 10 vessels, tube 10 at a
@@ -64,10 +64,6 @@ def hm(mins):
 
 def usd(mins):
     return f"${mins / 60 * LABOR_RATE:,.2f}"
-
-
-def cells(line):
-    return [c.strip() for c in line.strip().strip("|").split("|")]
 
 
 def minutes(cell):

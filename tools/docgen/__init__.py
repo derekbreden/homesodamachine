@@ -44,6 +44,14 @@ never match — only our all-caps-and-underscores variable references do. The
 first-character restriction (no leading digit) keeps numeric literals like
 `[0.5](2)` from being interpreted as substitution targets.
 
+Two helpers the driving scripts share:
+
+- load_module(name, path) — import a Python file by path, for a generator
+  that owns a figure and is reached through the parts tree rather than by
+  an import name.
+- cells(row) — the cells of one markdown table row, for a script that reads
+  its figures back out of a table it maintains.
+
 Sources section
 ---------------
 
@@ -96,6 +104,46 @@ from typing import Any
 # (digits allowed after the first character, but not as the first character).
 # Captures: 1 = value (bracket text), 2 = variable name (paren content).
 _LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
+
+
+def load_module(name: str, path) -> Any:
+    """Import the Python file at `path` under `name`.
+
+    A generator that owns a figure is reached by its path: the trees these
+    scripts read are directories of parts, not packages, so there is no import
+    name to reach one by. `name` must be unique per caller — two callers
+    loading one file under one name would share a single module object.
+
+    The file is loaded with nothing added to `sys.path` on its behalf. A module
+    that imports a sibling states that directory itself, above the import, and
+    so loads the same way whoever reaches it.
+    """
+    path = Path(path)
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load {name} from {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def cells(row: str) -> list[str]:
+    """The cells of one markdown table row, stripped of its outer pipes.
+
+    A header, a separator and a data row all split the same way; which one a
+    row is, is the caller's to read off what comes back.
+
+    ONE outer pipe is dropped at each end, not every one. A row whose first
+    column is empty is written `||`, and that column is a column: dropping it
+    would shift every index after it, and the caller reads its figures by
+    index.
+    """
+    parts = row.split("|")
+    if parts and parts[0].strip() == "":
+        parts = parts[1:]
+    if parts and parts[-1].strip() == "":
+        parts = parts[:-1]
+    return [p.strip() for p in parts]
 
 
 # Sources section — appended/updated by substitute_md at the end of every
@@ -202,10 +250,7 @@ def _realized_for(caller_file: Path):
     target = hw / "scripts" / "_realized.py" if hw else None
     if target is None or not target.is_file():
         return None
-    spec = importlib.util.spec_from_file_location("_docgen_realized", target)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+    return load_module("_docgen_realized", target)
 
 
 def _record(md_path: Path, caller_file: Path, caller_path: str, figures: dict) -> None:
