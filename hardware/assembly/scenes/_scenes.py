@@ -28,8 +28,10 @@ with the pump.
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py           # every one
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top  # one
 
-Nothing here is committed but the PNG and its fingerprint: the scene STEPs land in `out/`, which
-`.gitignore` holds. `//:render-scenes` runs the render when the assembly's STEP moves.
+A scene leaves three things in the tree: the PNG, its fingerprint, and the `.glb` /3d opens. The
+scene STEPs land in `out/`, which `.gitignore` holds. `//:render-scenes` runs the render when the
+assembly's STEP moves. `web/contracts/parts-tree.js` seats each `.glb` BY NAME, so a scene added
+here is a line added there.
 """
 
 import hashlib
