@@ -89,12 +89,8 @@ ones; main() prints what each ended up with.
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
 plus enclosure.step — the four as separate solids in assembled position,
-seams intact (mirrors `touch_flo_shell.py`). It exports the same five files
-again for the test-print COUPON (enclosure-coupon-*.step): the smallest box
-that still carries the display housing and all three seams with their full
-ladder of cross-pins, every one of them at full size — the whole four-piece
-assembly, printable in an evening, to prove the fit before the real box is
-committed. Both come through the same code from a `Box`.
+seams intact (mirrors `touch_flo_shell.py`). All five come through the same
+code from a `Box`.
 """
 
 import math
@@ -161,8 +157,7 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # not a parameter; `display_facet_x` is the display FEATURE's own footprint — the
 # inset the cover plate fills plus a buffer all around,
 # [157.3 mm](DISPLAY_FACET_X) × [86.8 mm](DISPLAY_FACET_SLOPE) up the slope — which is
-# what the COUPON is sized to carry and what `_report_facet` prints beside the
-# measured face.
+# what `_report_facet` prints beside the measured face.
 display_bezel_x = 113.5           # bezel glass, lateral (X)
 display_bezel_slope = 77.0        # bezel glass, up the slope
 # The glass is the datum (centered on the facet); the PCB body sits offset behind
@@ -204,8 +199,8 @@ display_facet_angle_deg = 45.0
 # the user face and a PCB through-hole down the full thickness.
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # THE HOUSING'S BACK IS A VERTICAL PLANE, the full width of the box — one cut with no X term,
-# the way the facet itself is one cut. Stated as a reach aft of the box's FRONT FACE, so a
-# coupon strikes it the same way the machine does. Behind the display the slab keeps its full
+# the way the facet itself is one cut. Stated as a reach aft of the box's FRONT FACE, so it is
+# struck off the face rather than off the box. Behind the display the slab keeps its full
 # `display_facet_thickness` on the 45°; this takes the top corner off square, where the slab
 # stands over the funnel and carries nothing. What it may not do is come forward into what the
 # face carries: the inset and the bezel counterbore are the display's SEATS, and
@@ -609,8 +604,7 @@ z_joint_pitch = lip_len + 4.0 * socket_r + 2.0
 z_lip_y_margin = 2.0
 
 
-# The whole description of one box, so the appliance and its test coupon are
-# the same geometry read from different numbers rather than two code paths:
+# The whole description of one box — what `build_pieces` cuts the four pieces from:
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
 #   y_joint       the front↔back seam plane
 #   splits        the bottom↔top seam height per Y column, (front, back)
@@ -2018,99 +2012,6 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     return bore.fuse(heat).fuse(chan)
 
 
-# --- test-print coupon ------------------------------------------------------
-#
-# The same box shrunk to the smallest one that still carries, at FULL size,
-# every feature the four-piece assembly is judged on: the display housing, and all
-# three seams (the Y seam and the two staggered Z seams) with their full ladder of
-# cross-pins. It splits into the same four pieces by the same code, so a print of
-# it proves the assembly before the real one is committed.
-#
-# What it does NOT carry is anything the reduced box cannot host honestly: the
-# contents (there is nothing to pack, so nothing to dodge — the walls' relief and
-# the seam's stand-off have no meaning here), the panel through-holes (there are
-# none yet), and the hopper throat (the placed funnel's collar would not fit the
-# shrunken top-wall frame).
-#
-# Its facet runs the coupon's own full width, the way the appliance's runs the
-# appliance's — but the coupon is only as wide as the display window plus a corner
-# chain either side, because the extra flat 45° face the appliance spends its width
-# on proves nothing about the housing and only makes the coupon wider.
-#
-# No dimension below is chosen. Each is the minimum its own feature allows, so
-# the coupon shrinks and grows with the features rather than drifting from them.
-coupon_margin = 2.0        # clear air wherever a coupon dimension is a minimum
-
-
-def _level_pitch():
-    """The least a coupon may stand two cross-pin levels (or two Z-seam
-    stations) apart: two socket collars, plus air. `_bosses` DROPS a level
-    landing within 2*socket_r of one already placed — so a box packed tighter
-    than this does not fail, it silently comes out with fewer fasteners than
-    the seam is supposed to have."""
-    return 2.0 * socket_r + coupon_margin
-
-
-def coupon_box():
-    """The coupon's Box — every number a minimum, derived from the feature that
-    sets it.
-
-    DEPTH is the display: the front column is the facet's own run aft plus its
-    housing wall, and the seam a margin behind that; the back column is the two
-    Z-seam stations `_z_stations` puts at the ends of its seam, stood far enough
-    apart that their pods do not merge into one blob.
-
-    WIDTH is the display's own window — `display_facet_x` — with a corner chain and
-    a margin clear at BOTH walls, so the housing is proved to fit between the
-    columns that flank it.
-
-    HEIGHT is the cross-pin ladder up the Y seam — a level over the floor, one
-    under each Z seam, one over each lip rim, one under the ceiling, each a
-    clear pitch from the last — raised, if the facet wants more, so the whole
-    housing falls above the front seam's lip rim."""
-    r = socket_bore_dia / 2.0
-    pitch = _level_pitch()
-    ix0 = iy0 = iz0 = 0.0
-
-    # Depth. The seam clears the display housing's back plane; the rear wall
-    # stands where the back column's aft Z station (iy1 − wall − r) falls a
-    # clear pitch behind its forward one (y_joint + lip_len + z_lip_y_margin +
-    # wall + r, standing off the Z-lip gap — see _z_stations). How far
-    # the housing reaches — aft and down — depends only on where the front face
-    # and the top face are, so it can be asked of a box not yet sized: the front
-    # face is fixed the moment iy0 is, and the fall is measured off the top face
-    # wherever that lands.
-    front_face = (ix0, ix0, iy0 - wall, iy0, iz0, iz0)
-    y_joint = housing_back_y(front_face) + coupon_margin
-    iy1 = y_joint + lip_len + z_lip_y_margin + 2.0 * (wall + r) + pitch
-
-    # Width. The display window, with a chain's width and a margin clear at both
-    # walls.
-    ix1 = ix0 + display_facet_x + 2.0 * (boss_in + coupon_margin)
-
-    # Height. Each seam sits a pitch's worth of ladder above the last rung:
-    # floor level → front seam → its lip rim → back seam → its lip rim →
-    # ceiling. Then the ceiling is raised if the facet wants more, since the whole
-    # housing must fall above the front seam's lip rim.
-    #
-    # WHAT HAS TO CLEAR THE RIM IS THE HOUSING'S BACK PLANE, not the facet's own edge. The
-    # slab behind the face is solid — `_shell_with_facet` holds the cavity that far back — so
-    # it reaches `display_facet_thickness` further down the front wall along the 45° normal,
-    # which is that thickness times √2 in Z. Measured at the wall's INNER face, the tightest
-    # point: the plane rises going aft, so anywhere else has more room than here.
-    zjf = (iz0 + wall + r) + pitch + wall + r
-    zjb = (zjf + lip_len + wall + r) + pitch + wall + r
-    _a, _n, _o, _dy, facet_dz = _facet_geom(front_face)     # the facet's fall
-    housing_dz = facet_dz + display_facet_thickness * math.sqrt(2.0)
-    iz1 = max((zjb + lip_len + wall + r) + pitch + wall + r,
-              zjf + lip_len + coupon_margin + housing_dz - 2.0 * wall)
-
-    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, ((), ()), (), (), (),
-               (), (), (), (), None, None, (), None, (), (), (), (), ())
-
-
 def build_front_half(box):
     """The whole front column, both pieces still joined at its Z seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
@@ -3265,10 +3166,9 @@ def _report_levels(box):
               + ", ".join(f"{z:.0f}" for z in zs))
 
 
-def build_pieces(box, stem="enclosure"):
+def build_pieces(box):
     """The four printable pieces of one box, and the assembly of them in place
-    with the seams intact. The appliance and its coupon come through here
-    alike — one box description in, four pieces out.
+    with the seams intact — one box description in, four pieces out.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
     runs — `_dims` states its own as it sizes the shells, `with_funnel` states the throat's as
@@ -3282,20 +3182,20 @@ def build_pieces(box, stem="enclosure"):
                   _realized.key(__name__, box, name),
                   lambda n=name: build_piece(box, *n.split("-"), halves_cache=cache))
               for name in PIECE_COLORS}
-    assy = cq.Assembly(name=stem.replace("-", "_"))
+    assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
-        assy.add(piece, name=f"{stem}-{name}".replace("-", "_"),
+        assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
     return pieces, assy
 
 
-def _export_pieces(pieces, assy, stem, note):
+def _export_pieces(pieces, assy):
     for name, piece in pieces.items():
-        export_assembly(one_body(piece, f"{stem}-{name}", PIECE_COLORS[name]),
-                        str(_here.parent / f"{stem}-{name}.step"))
-        print(f"-> {stem}-{name}.step{note}")
-    export_assembly(assy, str(_here.parent / f"{stem}.step"))
-    print(f"-> {stem}.step (assembled pieces){note}")
+        export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
+                        str(_here.parent / f"enclosure-{name}.step"))
+        print(f"-> enclosure-{name}.step")
+    export_assembly(assy, str(_here.parent / "enclosure.step"))
+    print("-> enclosure.step (assembled pieces)")
 
 
 def stated_box(pack):
@@ -3343,23 +3243,16 @@ def main():
     machine, box = machine_of()
     pieces, assy = build_pieces(box)
     _report_bounds()          # the machine's, with its pieces cut and its throat measured
-    coupon = coupon_box()
-    coupon_pieces, coupon_assy = build_pieces(coupon, "enclosure-coupon")
 
-    _export_pieces(pieces, assy, "enclosure", "")
-    _export_pieces(coupon_pieces, coupon_assy, "enclosure-coupon", " (test print)")
+    _export_pieces(pieces, assy)
 
     print("enclosure:")
     _report_facet(pieces["front-top"], box)
     _report_seams(box)
     _report_levels(box)
     _report_split(pieces, machine.placed["foam-assembly"][0])
-    print("coupon:")
-    _report_facet(coupon_pieces["front-top"], coupon)
-    _report_levels(coupon)
-    _report_split(coupon_pieces)
 
-    co, bo = coupon.outer, box.outer
+    bo = box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
     # holding a RUN is bored for the one stock; the ribs holding a BODY are bored for whatever
     # section that body offers, so the radii are as many as the pack has kinds of seat. The
@@ -3401,8 +3294,6 @@ def main():
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
                      f"{bo[5] - bo[4]:.0f} mm"),
-        "COUPON_SIZE": (f"{co[1] - co[0]:.0f} × {co[3] - co[2]:.0f} × "
-                        f"{co[5] - co[4]:.0f} mm"),
     }
     substitute_py_comments(
         Path(__file__),

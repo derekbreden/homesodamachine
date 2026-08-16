@@ -7,10 +7,6 @@ Geometry: the four-piece box from
 [`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py), one piece per
 plate — sizes in [README.md](README.md), which the generator writes.
 
-A snapshot here holds the production piece, not the test coupon, whenever its object is
-`enclosure-front-top.step` rather than `enclosure-coupon-front-top.step`; the two differ
-in width by the coupon's shrink and are easy to mistake at a glance.
-
 ## PET-GF15 print of the front-top (settings per [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf))
 
 **Running as this is written, 2026-08-15.** The first print of an enclosure piece in
