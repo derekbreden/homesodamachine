@@ -184,9 +184,20 @@ for hw in $editions; do
   # lands without carrying its mass leaves the ledger quoting a part that is not the
   # one that ships. The row and the STEP go in together. ~4 s, and it replaces the
   # --check that used to cost the same and then ask for this run anyway.
+  #
+  # A SYNC READS THE WORKING TREE AND STAGES WHAT IT WROTE, and those are two different
+  # trees when somebody else is mid-edit. Only the file this sync moved is staged — but the
+  # FIGURES in it came off whatever solids happen to be dirty, so a mass for a part nobody
+  # has finished lands in this commit's diff under this commit's name. A solid held back is
+  # a row that stays as it was, which the next commit to land that geometry re-derives.
   bom_synced=false
   if $touches_printed; then
-    if [ -x "$py" ]; then
+    _mid=$(git -C "$root" diff --name-only -- "$hw/printed-parts/" | grep '\.step$' | head -3)
+    if [ -n "$_mid" ]; then
+      echo "pre-commit: $hw bom printed masses — held, these solids are mid-edit and their" >&2
+      echo "pre-commit:   masses would be this commit's figures:" >&2
+      echo "$_mid" | sed 's/^/      /' >&2
+    elif [ -x "$py" ]; then
       sync "$hw bom printed masses" "$bom_md" "$py" "$root/$hw/scripts/_bom_masses.py"
       bom_synced=true
     else
