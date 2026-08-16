@@ -75,3 +75,7 @@ tools/cad-venv
 # not add.
 hardware/assembly/scenes/out/
 bazel-*
+
+# Where this checkout is, which is not where any other checkout is. `gen_build.py` writes it
+# and `.bazelrc` takes it with `try-import`, so BUILD.bazel carries no machine's path.
+.bazelrc.paths
