@@ -25,7 +25,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_VALVE, one_body
 from docgen import substitute_md, substitute_py_comments
 
 # --- White valve body -----------------------------------------------------
@@ -160,7 +161,7 @@ def build_beduan_solenoid():
 
 
 def main():
-    export_step(build_beduan_solenoid(), str(_here.parent / "beduan-solenoid.step"))
+    export_assembly(one_body(build_beduan_solenoid(), "beduan-solenoid", C_VALVE), str(_here.parent / "beduan-solenoid.step"))
     print("-> beduan-solenoid.step")
     substitute_md(
         _here.parent / "README.md",
