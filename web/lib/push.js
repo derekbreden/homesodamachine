@@ -97,9 +97,8 @@ function ensureSchema() {
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
-    // post_hashes is dropped here — it fingerprinted the blog's markdown,
-    // and its rows were pure derived state (sha256 of files that are gone),
-    // so there is nothing to migrate.
+    // Dropped, not kept: every row was a sha256 of a file that no longer
+    // exists, so there is nothing to migrate.
     await pool.query(`DROP TABLE IF EXISTS post_hashes`);
     // Notifications inbox: one row per push per token, with seen state.
     // Replaces the old single-row-per-token `pending_navs` table — that
