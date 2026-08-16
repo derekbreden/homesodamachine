@@ -26,6 +26,11 @@
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#659b70b66fa4b86c9e0be6323d3a094c9da152d2",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
     "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#232911239f5f281b26eee4b4edee13a7db77f9fb",
-    "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d"
+    "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d",
+    "fast-xml-parser": ">=5.10.1",
+    "nanoid": ">=5.1.16",
+    "sharp": ">=0.35.0",
+    "react-router": ">=7.18.0",
+    "react-router-dom": ">=7.18.0"
   }
 }
