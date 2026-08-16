@@ -39,7 +39,8 @@ sys.path.insert(0, str(_here.parents[1]))
 sys.path.insert(0, str(_here.parents[1] / "copper-plugs"))
 sys.path.insert(0, str(_here.parents[1] / "coil-mandrel"))
 sys.path.insert(0, str(_hardware / "cut-parts" / "carbonation" / "endcaps-circular"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_REED, one_body
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
     tank_outer_radius,
@@ -371,8 +372,10 @@ def main():
     gauge = build_setting_gauge()
     bridge_solid = _report("reed-bridge.step", bridge)
     gauge_solid = _report("reed-bridge-setting-gauge.step", gauge)
-    export_step(bridge, str(out_dir / "reed-bridge.step"))
-    export_step(gauge, str(out_dir / "reed-bridge-setting-gauge.step"))
+    export_assembly(one_body(bridge, "reed-bridge", C_REED),
+                    str(out_dir / "reed-bridge.step"))
+    export_assembly(one_body(gauge, "reed-bridge-setting-gauge", C_REED),
+                    str(out_dir / "reed-bridge-setting-gauge.step"))
 
     variables = {
         "BAND_BOTTOM": f"{band_bottom_z:.4g} mm",
