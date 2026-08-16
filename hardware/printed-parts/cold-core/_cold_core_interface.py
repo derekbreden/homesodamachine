@@ -482,7 +482,7 @@ deck_mount_cap_gap = 1.5
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
-    "seaflo-pump": DeckMount((-93.20,   2.50),  59.00,  79.00,   0.0,  8.50, 16.0),
+    "seaflo-pump": DeckMount((-93.20,   2.72),  59.00,  79.00,   0.0,  8.50, 16.0),
 }
 
 
