@@ -13,7 +13,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_SILICONE, one_body
 from docgen import substitute_py_comments
 
 volume_target = 4 * 29573.5
@@ -43,7 +44,7 @@ def build_water_test_cup():
 
 def main():
     cup = build_water_test_cup()
-    export_step(cup, str(_here.parent / "water-test-cup.step"))
+    export_assembly(one_body(cup, "water-test-cup", C_SILICONE), str(_here.parent / "water-test-cup.step"))
     print("-> water-test-cup.step")
     substitute_py_comments(
         Path(__file__),

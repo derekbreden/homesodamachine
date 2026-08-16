@@ -25,7 +25,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_BRASS, one_body
 
 HEX_ACROSS_CORNERS = 25.67  # 7/8" hex (22.23 across flats)
 LENGTH = 30.5               # along the flow axis (1.20")
@@ -72,7 +73,7 @@ def main():
     print(f"  Hex {HEX_ACROSS_CORNERS} across corners × {LENGTH:g} mm; "
           f"sockets {SMALL_SOCKET_DEPTH:g} (1/4\") / {LARGE_SOCKET_DEPTH:g} (3/8\") deep")
     out = _here.parent / "gagira-reducing-coupling.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, out.stem, M_BRASS), str(out))
     print(f"-> {out.name}")
 
 

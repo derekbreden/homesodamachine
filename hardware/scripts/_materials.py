@@ -80,7 +80,31 @@ C_PLATE = cq.Color(0.63, 0.42, 0.24)
 C_MQ6 = cq.Color(0.25, 0.40, 0.70)           # the module's own blue board, under a steel can
 C_C14 = cq.Color(0.18, 0.18, 0.20)
 C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
+
+# --- the faucet's own bodies ---------------------------------------------------
+# `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them.
+C_PETG_TAN = cq.Color(0.85, 0.78, 0.62)      # the printed-part tan the shell stack comes off
+C_TPU_BLACK = cq.Color(0.15, 0.15, 0.15)     # TPU 90A black, the gasket and the o-ring
+C_VALVE = cq.Color(0.93, 0.93, 0.91)         # the touch-flo valve body's own white acetal
 C_REED = cq.Color(0.95, 0.55, 0.85)
+
+
+#: The lightest a colour can be and still reach a STEP. OCCT treats pure white as the default
+#: and writes no `COLOUR_RGB` for it, so a body asked to be white arrives carrying no colour at
+#: all and `web/public/js/viewer/step.js` draws it at `DEFAULT_FRONT` — a blue-grey. One part in
+#: 255 under white is the nearest thing that survives the round trip.
+_WHITEST = 254.0 / 255.0
+
+
+def step_safe(color) -> cq.Color:
+    """`color`, held below the white a STEP cannot carry.
+
+    Every white on this machine is a wayfinding white — the water chip, its word — so the one
+    that comes back has to be white to a reader and not the viewer's default."""
+    r, g, b, a = color.toTuple()
+    if min(r, g, b) >= _WHITEST:
+        return cq.Color(_WHITEST, _WHITEST, _WHITEST, a)
+    return color
 
 
 def one_body(shape, name, color) -> cq.Assembly:
@@ -93,4 +117,4 @@ def one_body(shape, name, color) -> cq.Assembly:
     The shape rides the assembly's ROOT rather than a child under it: a child may not take its
     parent's name, and `_cadq_export._per_solid_color` reads a root's own `obj` and `color` —
     splitting to `<name>/1…n` itself where the body is more than one solid."""
-    return cq.Assembly(shape, name=name, color=color)
+    return cq.Assembly(shape, name=name, color=step_safe(color))

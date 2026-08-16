@@ -47,7 +47,8 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_VALVE, one_body
 from docgen import substitute_md, substitute_py_comments
 from world_workplane import (
     WorldWorkplane,
@@ -271,7 +272,7 @@ def main():
 
     here = Path(__file__).resolve().parent
     out = here / "touch-flo-valve-body-reference.step"
-    export_step(body, str(out))
+    export_assembly(one_body(body, out.stem, C_VALVE), str(out))
     print(f"-> {out.name}")
 
     variables = {

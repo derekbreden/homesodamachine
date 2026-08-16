@@ -14,7 +14,8 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics"))
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_here.parent))
-from _cadq_export import export_assembly, export_step
+from _cadq_export import export_assembly
+from _materials import C_PCBA, one_body
 import module_tray as mt
 import pcba_tray as pt
 
@@ -25,7 +26,7 @@ def main():
     print("-> pcba-assembly.step")
     # The board in its own pcb frame, underside on Z = 0 — the enclosure seats it
     # on the cap's boss tops, so Z = 0 is the boss-top plane.
-    export_step(pt.board.build(), str(_here.parent / "pcba-board.step"))
+    export_assembly(one_body(pt.board.build(), "pcba-board", C_PCBA), str(_here.parent / "pcba-board.step"))
     print("-> pcba-board.step")
 
 

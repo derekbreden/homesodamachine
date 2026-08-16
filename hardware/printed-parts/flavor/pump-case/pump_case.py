@@ -22,7 +22,8 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 
 from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
 from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_py_comments
 
 
@@ -701,8 +702,10 @@ def build_pump_case():
 
 def main():
     base, cap = build_pump_case()
-    export_step(base.unwrap(), str(_here / "pump-case-base-cadquery.step"))
-    export_step(cap.unwrap(), str(_here / "pump-case-cap-cadquery.step"))
+    export_assembly(one_body(base.unwrap(), "pump-case-base-cadquery", M_PETG_BLACK),
+                    str(_here / "pump-case-base-cadquery.step"))
+    export_assembly(one_body(cap.unwrap(), "pump-case-cap-cadquery", M_PETG_BLACK),
+                    str(_here / "pump-case-cap-cadquery.step"))
     print("-> pump-case-base-cadquery.step")
     print("-> pump-case-cap-cadquery.step")
 
