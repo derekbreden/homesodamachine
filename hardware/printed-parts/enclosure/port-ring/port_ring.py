@@ -138,30 +138,6 @@ WORD_DEPTH = 1.0
 # fit in it. So it, and not the tip, is what a stroke and a bridge are counted in.
 WORD_LAYER = 0.08
 WORD_BEAD = 0.22
-# WHAT MAKES THE WORD ONE BODY: a bar across the letters' feet, one `WORD_DEPTH` behind the face,
-# where the chip's own material stands over it and nothing of it shows.
-#   WHAT IT IS WORTH IS ONE SOLID, which is a CAD fact and not a printed one. A chip is laid on its back with the
-# recess up, so the bar and the letters lie in DIFFERENT LAYERS — in
-# every layer the letters print, the second colour is six islands whether the bar is under them or
-# not. What one solid buys is one part to place in a slicer instead of six, and one body for
-# `words_hold` to read a width off.
-#   SO IT IS AS THIN AS THE PLATE CAN HOLD IT. Every layer it adds is a two-colour layer, and both
-# spools run through one nozzle, so a colour change is a filament change and is paid for in purge.
-# What it owes the slicer is a FLOOR of two layers — `THICK - WORD_DEPTH` is not a whole number of
-# them, so the recess floor lands mid-layer and a one-layer bar is a feature the slicer can round
-# away. `word-tie` is the two readings that hold it: whole layers, and at least two.
-#   IT IS ITS OWN FIGURE and not a multiple of `WORD_LAYER`. A product would say the bar is two
-# layers BECAUSE of the profile, so a draft re-slice would move the geometry and re-cut every chip
-# on the plate for a print nobody meant to change the part with — and it would state a floor as an
-# equality, leaving nothing to say if the bar ever wants thickness for a reason that is not layers.
-#   IT RUNS ALONG THE BASELINE and no higher. Every capital has stock at its foot, so a bar there
-# reaches all of them; a bar at mid-cap would cross the counters of O, A, P, R and D, and the chip
-# material inside those would come off the chip's floor and be islands of their own.
-WORD_TIE = 0.16
-# The least the bar may be and still survive a slicer: two layers.
-WORD_TIE_FLOOR_LAYERS = 2
-# How far up the letters' feet that bar reaches.
-WORD_TIE_H = 0.8
 # What the built words measure across, and the tallest cap among them. The face is the SYSTEM'S and
 # not this repo's, so a machine that resolves `WORD_FONT` to something else letters a different chip
 # — and the only thing that catches it is a figure carried here and read back off the solid.
@@ -247,9 +223,14 @@ def word_band(which: str) -> tuple:
 
 
 def build_word(which: str):
-    """One station's word as ONE solid, standing in the recess it fills: `WORD_DEPTH` of lettering
-    with its outboard face flush with the chip's own, and `WORD_TIE` of bar behind that tying the
-    letters together.
+    """One station's word — its letters, standing in the recess they fill, `WORD_DEPTH` deep with
+    their outboard faces flush with the chip's own.
+
+    THE LETTERS ARE LOOSE, one solid each, and nothing joins them. They are placed by the print
+    rather than by hand: the chip is opened as one part carrying both bodies and the lettering is
+    assigned the second filament, so there is nothing to lay on a bed and nothing to lose off one.
+    `_cadq_export._per_solid_color` writes each of them as its own component, so all six carry the
+    colour into the viewer.
 
     TURNED TO FACE THE CUSTOMER. The text is set flat in XY and carried onto the wall's plane by
     two turns — a quarter about X to stand it up, then a half about Z — which leaves it extruding
@@ -265,15 +246,10 @@ def build_word(which: str):
     # resolved to something else would be caught by.
     bb = letters.BoundingBox()
     lo, hi = word_band(which)
-    letters = letters.translate(cq.Vector(
+    return letters.translate(cq.Vector(
         -(bb.xmin + bb.xmax) / 2.0,
         THICK - WORD_DEPTH - bb.ymin,
         (lo + hi) / 2.0 - (bb.zmin + bb.zmax) / 2.0))
-    b = letters.BoundingBox()
-    tie = cq.Solid.makeBox(
-        b.xlen, WORD_TIE, WORD_TIE_H,
-        cq.Vector(b.xmin, THICK - WORD_DEPTH - WORD_TIE, b.zmin))
-    return letters.fuse(tie).clean()
 
 
 def build_ring(which: str):
@@ -303,17 +279,18 @@ def build_part(which: str) -> cq.Assembly:
 def split(shape) -> tuple:
     """A station's STEP back apart, as `(chip, word)`.
 
-    The chip spans the whole of `THICK` and lands on the pocket's floor; the word stands in the
-    recess and reaches nowhere near it. So the body touching the seating face is the chip, which is
-    the same face `seat` hands the wall — and reading THAT face rather than the recess keeps this
-    answer independent of how thick the tie behind the lettering is."""
+    The chip spans the whole of `THICK` and lands on the pocket's floor; the lettering stands in
+    the recess and reaches nowhere near it. So the ONE body touching the seating face is the chip —
+    the same face `seat` hands the wall — and every other body is a letter. Counting letters would
+    tie this to the word each station happens to carry; reading the face does not."""
     solids = shape.Solids() if hasattr(shape, "Solids") else shape
     floor = [s for s in solids if abs(s.BoundingBox().ymin) < 1e-6]
-    if len(solids) != 2 or len(floor) != 1:
+    if len(floor) != 1 or len(solids) < 2:
         raise ValueError(
-            f"a station's STEP is a chip and its word, and this one carries {len(solids)} "
-            f"{'body' if len(solids) == 1 else 'bodies'}, {len(floor)} of them on the seating face")
-    return (floor[0], next(s for s in solids if s is not floor[0]))
+            f"a station's STEP is a chip and the letters lying in it, and this one carries "
+            f"{len(solids)} {'body' if len(solids) == 1 else 'bodies'}, {len(floor)} of them on "
+            f"the seating face")
+    return (floor[0], cq.Compound.makeCompound([s for s in solids if s is not floor[0]]))
 
 
 def stations_hold():
@@ -384,8 +361,9 @@ def words_hold():
     outline, different word entirely. Nothing about that shows up in a bore or an extent, which is
     why every word's width is carried in `WORD_WIDTHS` and read back off the solid here.
 
-    AND EVERY WORD IS ONE SOLID — one part to place on a plate rather than six, and one body to
-    read a width off. `WORD_TIE` is what holds them together and this reads it.
+    AND EVERY LETTER IS ITS OWN SOLID. Nothing joins them and nothing needs to: the chip is opened
+    as one part carrying both bodies and the lettering takes the second filament, so a word is a
+    count of letters rather than a thing to keep together.
 
     AND THE CHIP BETWEEN THE LETTERS is read the same way. A face that resolves elsewhere moves the
     bridges as surely as it moves the widths, and the bridge is the finer feature of the two."""
@@ -393,11 +371,10 @@ def words_hold():
         word = STATIONS[which].word
         _chip, solid = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
-        if len(solid.Solids()) != 1:
+        if len(solid.Solids()) != len(word):
             raise ValueError(
-                f"'{word}' is {len(solid.Solids())} solids in {step.name} and a word is placed as "
-                f"one — the {WORD_TIE:g} mm tie across the letters' feet is not reaching all of "
-                f"them.")
+                f"'{word}' is {len(solid.Solids())} solids in {step.name} and the word is "
+                f"{len(word)} letters — the lettering is not the word it is declared to be.")
         got = min_bridge(which)
         if abs(got - WORD_MIN_BRIDGE) > 1e-3 and got < WORD_MIN_BRIDGE:
             raise ValueError(
@@ -409,10 +386,10 @@ def words_hold():
                 f"'{word}' is declared {WORD_WIDTHS[word]:.3f} mm across and {step.name} carries "
                 f"{bb.xlen:.3f} — `{WORD_FONT}` did not resolve to the face these figures were "
                 f"struck on, and the chip is lettered in something else.")
-        if abs(bb.ylen - WORD_DEPTH - WORD_TIE) > 1e-6:
+        if abs(bb.ylen - WORD_DEPTH) > 1e-6:
             raise ValueError(
                 f"'{word}' runs {bb.ylen:.4f} mm deep and the recess cut for it is "
-                f"{WORD_DEPTH + WORD_TIE:g} — the word and the chip do not come out one plane.")
+                f"{WORD_DEPTH:g} — the word and the chip do not come out one plane.")
 
 
 def selftest() -> int:
@@ -451,24 +428,10 @@ def selftest() -> int:
         fails.append(
             f"a chip {THICK:g} thick stands in the {_neo.PANEL_THREAD:.2f} mm of barrel the "
             f"ABU44 offers outboard of its flange, and leaves none of it for the wall")
-    if WORD_DEPTH + WORD_TIE >= THICK:
+    if WORD_DEPTH >= THICK:
         fails.append(
-            f"a word {WORD_DEPTH + WORD_TIE:g} deep is cut through a chip {THICK:g} thick, and "
-            f"what is behind the lettering is the pocket floor rather than the colour")
-    # THE BAR IS READ TWICE, because what it owes the slicer is a floor and a landing and neither is
-    # the other. Struck off a layer boundary it prints as whatever the slicer rounds it to; struck
-    # under two layers it is a feature the slicer can drop.
-    layers = WORD_TIE / WORD_LAYER
-    if abs(layers - round(layers)) > 1e-9:
-        fails.append(
-            f"the {WORD_TIE:g} mm tie is {layers:.3f} layers of the {WORD_LAYER:g} these print at "
-            f"— a bar that does not land on a layer boundary comes out whatever the slicer rounds "
-            f"it to")
-    if round(layers) < WORD_TIE_FLOOR_LAYERS:
-        fails.append(
-            f"the {WORD_TIE:g} mm tie is {round(layers)} layer(s) and owes "
-            f"{WORD_TIE_FLOOR_LAYERS} — a bar that thin is a feature the slicer can round away, "
-            f"and the word is six loose letters on the plate when it does")
+            f"a word {WORD_DEPTH:g} deep is cut through a chip {THICK:g} thick, and what is "
+            f"behind the lettering is the pocket floor rather than the colour")
     # BOTH FEATURES ARE COUNTED IN BEADS, and the bridge is the one that runs out first — a stroke
     # is the word's spool and a bridge is the chip's, but the same tip lays both at `WORD_BEAD`.
     for what, got in (("stroke these words carry", WORD_MIN_STROKE),
@@ -534,7 +497,6 @@ def main():
         "WORD_KIND": WORD_KIND,
         "WORD_CAP": f"{WORD_CAP:g}",
         "WORD_DEPTH": f"{WORD_DEPTH:g}",
-        "WORD_TIE": f"{WORD_TIE:g}",
         "WORD_LAYER": f"{WORD_LAYER:g}",
         "WORD_BEAD": f"{WORD_BEAD:g}",
         "WORD_MIN_STROKE": f"{WORD_MIN_STROKE:g}",
