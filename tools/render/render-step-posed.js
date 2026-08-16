@@ -227,7 +227,7 @@ async function renderOne({ stepRel, outAbs, opts }) {
 }
 
 async function main() {
-  sweepAbandonedBrowsers("render-step-posed");
+  await sweepAbandonedBrowsers("render-step-posed");
   const { positional, opts } = parseArgs(process.argv.slice(2));
   const [stepRel, outRel] = positional;
   if (!stepRel || !outRel) usage("missing arguments");
