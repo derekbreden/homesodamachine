@@ -75,9 +75,9 @@ function attachSubscribe(app, pool) {
   app.post("/api/subscribe", async (req, res) => {
     const email = String(req.body?.email || "").trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-      return res.status(400).json({ error: "Invalid email" });
+      return res.status(400).json({ error: "That doesn't look like an email address." });
     }
-    if (!pool) return res.status(503).json({ error: "Database unavailable" });
+    if (!pool) return res.status(503).json({ error: "Something went wrong on my end." });
     try {
       await pool.query(
         "INSERT INTO subscribers (email) VALUES ($1) ON CONFLICT (email) DO NOTHING",
@@ -86,7 +86,7 @@ function attachSubscribe(app, pool) {
       res.json({ ok: true });
     } catch (e) {
       console.error("subscribe error:", e);
-      res.status(500).json({ error: "Server error" });
+      res.status(500).json({ error: "Something went wrong on my end." });
     }
   });
 

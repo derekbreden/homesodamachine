@@ -103,7 +103,8 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
       card.className = "card";
       card.dataset.file = file;
       card.dataset.type = type;
-      card.innerHTML = `${thumbnailHtml(file)}<div class="label"><span class="dir">${partPath}</span>${name}</div>`;
+      const dir = partPath ? `<span class="dir">${partPath}</span>` : "";
+      card.innerHTML = `${thumbnailHtml(file)}<div class="label">${dir}<span class="name-row"><span class="name">${name}</span></span></div>`;
       card.addEventListener("click", () => onClick(file));
       state.gridEl.appendChild(card);
     }
@@ -151,7 +152,7 @@ function buildCardSection() {
       const sub = document.createElement("div");
       sub.className = "subsection-header deck-header";
       sub.textContent = group;
-      if (card.accent) sub.style.color = card.accent;
+      if (card.accent) sub.style.setProperty("--card-accent", card.accent);
       deck.appendChild(sub);
     }
     const el = document.createElement("div");

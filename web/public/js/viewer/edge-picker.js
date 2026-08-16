@@ -821,8 +821,16 @@ function showPanel(sel) {
   }
   panel.querySelector(".edge-panel-title").textContent = sel.type === "face" ? "Face" : "Edge";
   const blob = allText(sel);
-  panel._text.value = blob;
-  panel._text.rows = Math.min(12, Math.max(2, blob.split("\n").length));
+  // Sized to the blob as it wraps at the panel's width, not to its newlines —
+  // a pick line runs to two or three rows in a 430px box, and the panel has
+  // room in hand either way.
+  const ta = panel._text;
+  ta.value = blob;
+  ta.rows = 2;
+  const cs = getComputedStyle(ta);
+  const line = parseFloat(cs.lineHeight) || 18;
+  const pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+  ta.rows = Math.min(14, Math.max(2, Math.ceil((ta.scrollHeight - pad) / line)));
   const file = currentFile();
   panel._fileEl.textContent = file ? headerName(file) : "";
   panel._fileEl.title = file ? repoPath(file) : "";

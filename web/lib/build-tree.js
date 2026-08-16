@@ -342,7 +342,7 @@ details.bt-bench[open] > summary::before { content: "▾"; }
 .bt-closed { text-decoration: none; font-size: .68rem; text-transform: uppercase;
   letter-spacing: .06em; color: var(--ok); }
 
-.bt-steps { margin: 0 .55rem .6rem; display: flex; flex-direction: column; gap: .2rem; }
+.bt-steps { margin: 0 .8rem .6rem; display: flex; flex-direction: column; gap: .2rem; }
 details.bt-step { border-left: 2px solid var(--border); }
 details.bt-step > summary { cursor: pointer; padding: .3rem .55rem; display: flex;
   gap: .5rem; align-items: baseline; list-style: none; font-size: .87rem; }
@@ -363,9 +363,20 @@ ul.bt-cards { list-style: none; margin: 0 0 .4rem; padding: 0 0 0 2.1rem;
 .bt-open { color: var(--warn); border: 1px solid currentColor; border-radius: 99px;
   padding: 0 .4rem; }
 .bt-empty { margin: 0 0 .4rem 2.1rem; font-size: .8rem; color: var(--text-2); font-style: italic; }
-.bt-loose { margin: .4rem .8rem .6rem; }
+.bt-loose { margin: .8rem .8rem .6rem; }
 .bt-loose h4 { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--text-2); margin: 0 0 .25rem; }
+  color: var(--text-2); margin: 0 0 .35rem; }
+
+/* Both disclosures are rows you click, and answer the pointer like one. */
+details.bt-bench > summary:hover,
+details.bt-step > summary:hover { background: rgba(255,255,255,.045); }
+
+/* Driven by a thumb: a card link is a line of text, and the list closes up
+   until each line is one a finger can land on. */
+@media (pointer: coarse) {
+  ul.bt-cards { gap: .5rem; }
+  .bt-card a { padding: .35rem 0; }
+}
 `;
 
 // One content root serves both halves: the procedures under `assembly/` and the

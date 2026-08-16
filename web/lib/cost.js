@@ -19,6 +19,10 @@
 import path from "path";
 import fs from "fs";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
+// The ledgers are markdown, and every cell this page shows is prose off a
+// markdown table — link markers, backticks and emphasis come off the same way
+// the build tree takes them off.
+import { plainMarkdown } from "../contracts/build-tree.js";
 
 // Display names mirror hardware/scripts/_bom_categories.py CATEGORIES, the
 // source of truth for the taxonomy. An unknown tag falls back to a prettified
@@ -126,8 +130,7 @@ export function readCostRollup(hardwareDir) {
     if (!tm) continue; // untagged — shouldn't happen (pre-commit enforces coverage)
     const tag = tm[1];
     const cost = parseMoney(cells[cells.length - 1]);
-    // Part-name cell for display: drop the markdown link target + brackets.
-    const name = cells[0].replace(/\]\([^)]*\)/g, "]").replace(/[[\]]/g, "");
+    const name = plainMarkdown(cells[0]);
     const qtyRaw = section === 7 ? (cells[1] || "") : (cells[cells.length - 3] || "");
     const count = parseCount(qtyRaw);
     rowCount += 1;
@@ -187,7 +190,7 @@ export function readLaborRollup(hardwareDir) {
     cat.minutes += minutes;
     // Cards cell is an em-dash when the operation has no card of its own.
     const cards = (cells[1] || "").replace(/^—$/, "");
-    cat.ops.push({ name: first, cards, minutes });
+    cat.ops.push({ name: plainMarkdown(first), cards, minutes });
   }
 
   const filled = cats.filter((c) => c.ops.length);
@@ -230,12 +233,8 @@ export function readMachineRollup(hardwareDir) {
     if (!isFinite(h)) continue;
     // §1 is Group | Parts | Rate | Mass | Hours; §2-4 are Process | Machine |
     // Notes | Hours. The annotation column differs, the last cell does not.
-    // Strip the cell back to prose: markdown links (both docgen markers and
-    // real hrefs) down to their text, and emphasis off entirely.
-    const note = (section === 1 ? cells[2] : cells[1])
-      .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
-      .replace(/\*\*?/g, "");
-    procs.push({ section: SECTION_LABEL[section] || "", name: cells[0], machine: note, hours: h });
+    const note = plainMarkdown(section === 1 ? cells[2] : cells[1]);
+    procs.push({ section: SECTION_LABEL[section] || "", name: plainMarkdown(cells[0]), machine: note, hours: h });
   }
 
   return {
@@ -274,13 +273,15 @@ const COST_CSS = `
 }
 .cost-big { font-size: 2.5rem; font-weight: 700; color: var(--accent); line-height: 1; font-variant-numeric: tabular-nums; }
 .cost-lbl { font-size: 0.85rem; color: var(--text-2); max-width: 34ch; }
-.cost-note { font-size: 0.75rem; color: var(--text-3); margin: 0.75rem 2px 2rem; }
+.cost-note { font-size: 0.75rem; color: var(--text-3); margin: 0.75rem 0 2rem; }
 .cost-h2 {
   font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--text-2); font-weight: 600; margin: 2rem 0 1rem;
 }
 .cost-chart { display: flex; flex-direction: column; gap: 0.5rem; }
-.cost-bar { display: grid; grid-template-columns: minmax(130px, 1.6fr) minmax(70px, 3fr) auto 3rem; align-items: center; gap: 0.75rem; }
+/* The money and percent tracks are fixed, so every bar in the chart starts and
+   ends on the same two lines and their lengths compare. */
+.cost-bar { display: grid; grid-template-columns: minmax(130px, 1.6fr) minmax(70px, 3fr) 4.4rem 3rem; align-items: center; gap: 0.75rem; }
 .cost-bl { font-size: 0.82rem; color: var(--text); line-height: 1.25; }
 .cost-bt { height: 14px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
 .cost-bf { height: 100%; background: var(--accent); border-radius: 4px; min-width: 2px; }
@@ -289,18 +290,25 @@ const COST_CSS = `
 .cost-cat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; overflow: hidden; }
 .cost-cat summary {
   cursor: pointer; padding: 0.75rem 1rem; font-size: 0.85rem; font-weight: 600;
-  display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; list-style: none;
+  display: flex; justify-content: flex-start; align-items: center; gap: 0.75rem; list-style: none;
 }
+.cost-cat summary:hover { background: var(--surface-2); }
 .cost-cat summary::-webkit-details-marker { display: none; }
 .cost-cat summary::after { content: "+"; color: var(--text-2); font-weight: 400; }
 .cost-cat[open] summary::after { content: "\\2013"; }
-.cost-dt { font-weight: 400; color: var(--text-2); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+/* The row's own name takes what it needs; the badge takes the rest of the way
+   to the marker, so it stands on one line down the whole list. */
+.cost-dt { margin-left: auto; font-weight: 400; color: var(--text-2); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
 .cost-items { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
 .cost-items td { padding: 0.45rem 1rem; border-top: 1px solid var(--border); color: var(--text); vertical-align: top; }
+/* A part name is one long token as often as it is words. */
+.cost-items td:first-child { overflow-wrap: anywhere; }
 .cost-items td.cost-qty { text-align: right; white-space: nowrap; color: var(--text-2); font-variant-numeric: tabular-nums; }
 .cost-items td.cost-num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--text); }
 .cost-ea { color: var(--text-3); }
-.cost-secs { color: var(--text-3); font-size: 0.85em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Section markers in the parts table, whole sentences in the labor and machine
+   ones — both wrap. */
+.cost-secs { color: var(--text-3); font-size: 0.85em; font-variant-numeric: tabular-nums; }
 .cost-total { display: flex; justify-content: space-between; align-items: baseline; padding: 0.9rem 1rem; margin-top: 0.75rem; border-top: 2px solid var(--border); font-weight: 700; }
 .cost-total .v { color: var(--accent); font-variant-numeric: tabular-nums; }
 .cost-total .v2 { color: var(--text-3); font-weight: 400; font-variant-numeric: tabular-nums; margin-left: 0.6rem; }
@@ -353,15 +361,14 @@ const COST_CSS = `
 .cost-statv { font-size: 1.9rem; font-weight: 700; line-height: 1.05; color: var(--chart-pink); font-variant-numeric: tabular-nums; }
 .cost-cap { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-2); margin-top: 0.2rem; }
 .cost-statn { font-size: 0.78rem; color: var(--text-3); margin-top: 0.6rem; line-height: 1.45; }
-.cost-items th {
-  padding: 0.4rem 1rem 0.15rem; border-top: 1px solid var(--border); font-weight: 500;
-  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
-}
 @media (max-width: 560px) {
   .cost-top { padding: 1.5rem 1.15rem 1.25rem; }
-  .cost-bar { grid-template-columns: 1fr auto 2.75rem; grid-template-areas: "l l l" "t v p"; }
+  .cost-bar { grid-template-columns: 1fr 4.4rem 2.75rem; grid-template-areas: "l l l" "t v p"; }
   .cost-bl { grid-area: l; } .cost-bt { grid-area: t; } .cost-bv { grid-area: v; } .cost-bp { grid-area: p; }
   .cost-bar.lab { grid-template-columns: 1fr 4.6rem 4.2rem; }
+  /* The card is the width of a phone here, and the qty column carries a rate
+     and a unit as often as a number. */
+  .cost-items td.cost-qty { white-space: normal; }
 }
 `;
 
@@ -385,7 +392,7 @@ function renderLaborSection(labor) {
   const details = cats.map((c) => {
     const rows = c.ops.map((o) => `<tr>
         <td>${escape(o.name)}${o.cards ? ` <span class="cost-secs">${escape(o.cards)}</span>` : ""}</td>
-        <td class="cost-num">${hm(o.minutes)}</td><td class="cost-qty">${cash(o.minutes)}</td>
+        <td class="cost-qty">${hm(o.minutes)}</td><td class="cost-num">${cash(o.minutes)}</td>
       </tr>`).join("");
     const n = c.ops.length;
     return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${hm(c.minutes)} &middot; ${cash(c.minutes)} &middot; ${n} op${n === 1 ? "" : "s"}</span></summary>
@@ -498,7 +505,7 @@ function renderCostBody(rollup, labor, mach) {
           }
         }
       } else {
-        qty = escape(p.rawQty || "");
+        qty = escape(plainMarkdown(p.rawQty || ""));
       }
       const secs = p.sections.size > 1
         ? ` <span class="cost-secs">§${[...p.sections].sort((a, b) => a - b).join(",")}</span>`

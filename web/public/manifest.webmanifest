@@ -1,6 +1,6 @@
 {
   "name": "Home Soda Machine",
-  "short_name": "Home Soda Machine",
+  "short_name": "Soda Machine",
   "description": "Home Soda Machine — pre-order updates and dev viewer.",
   "start_url": "/",
   "scope": "/",

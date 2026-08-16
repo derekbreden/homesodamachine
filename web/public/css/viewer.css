@@ -34,6 +34,9 @@
   color: var(--text-3);
   font-size: 14px;
 }
+/* A column, so the label sits on the bottom edge whether it carries a
+   directory line above the name or the name alone — the grid stretches every
+   card in a row to the tallest of them. */
 .card {
   background: var(--surface);
   border-radius: 8px;
@@ -41,6 +44,8 @@
   cursor: pointer;
   transition: outline 0.15s;
   outline: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
 }
 .card:hover { outline-color: var(--accent); }
 .card img {
@@ -61,6 +66,7 @@
   font-size: 13px;
 }
 .card .label {
+  margin-top: auto;
   padding: 8px 10px;
   font-size: 13px;
   white-space: nowrap;
@@ -126,13 +132,19 @@
   font-size: 15px;
   white-space: nowrap;
 }
+/* The corner opposite the rail, on the 3D surface and the 2D ones alike. */
 .cad-wrapper > .reset-view,
 .pan-zoom-reset {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   right: calc(env(safe-area-inset-right, 0px) + 16px);
   z-index: 11;
-  padding: 6px 10px;
+}
+/* The 3D reset comes out of makeToolButton and wears .tool-btn's pill. The 2D
+   surfaces build their own (pan-zoom-extras makeResetButton), so it carries
+   the pill here — the same one, to the pixel. */
+.pan-zoom-reset {
+  padding: 6px 12px;
   background: rgba(35, 35, 66, 0.85);
   color: var(--text-2);
   border: 1px solid var(--border);
@@ -141,8 +153,8 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  transition: background 0.12s, color 0.12s;
 }
-.cad-wrapper > .reset-view:hover,
 .pan-zoom-reset:hover {
   background: rgba(58, 58, 90, 0.9);
   color: var(--text);
@@ -186,6 +198,7 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
 .tool-btn:hover { background: rgba(58, 58, 90, 0.9); color: var(--text); }
 /* Lit while the panel it opens is on screen. */
@@ -211,7 +224,8 @@
    carries no caption either. */
 .tool-group:not(:has(.tool-seg-btn)):not(:has(.tool-chip)) { display: none; }
 
-/* Same segmented control as .pcb-view-toggle on the board viewer. */
+/* Same segmented control as .pcb-view-toggle on the board viewer, which wears
+   the button half of it (.pcb-view-btn joins .tool-seg-btn below). */
 .tool-seg {
   display: inline-flex;
   flex-wrap: wrap;
@@ -223,7 +237,8 @@
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
-.tool-seg-btn {
+.tool-seg-btn,
+.pcb-view-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -238,8 +253,10 @@
   appearance: none;
   transition: background 0.12s, color 0.12s;
 }
-.tool-seg-btn:hover { color: var(--text); }
-.tool-seg-btn.active {
+.tool-seg-btn:hover,
+.pcb-view-btn:hover { color: var(--text); }
+.tool-seg-btn.active,
+.pcb-view-btn.active {
   background: var(--accent);
   color: #fff;
   font-weight: 600;
@@ -293,18 +310,39 @@
 .edge-panel-text,
 .component-hidden,
 .sc-card,
+.pcb-checks-card,
 .cad-crumb {
   touch-action: pan-y;
   overscroll-behavior: contain;
 }
 .cad-crumb { touch-action: pan-x; }
 
-/* Keyboard focus, on every control the rail and the crumb carry. */
+/* Keyboard focus, on every control on every surface this file dresses — the
+   rail, the crumb, the readout panels, the two checks cards, the board's own
+   chrome, and the branches and chips on the grid behind them. */
 .tool-btn:focus-visible,
 .tool-seg-btn:focus-visible,
 .tool-chip:focus-visible,
 .cad-crumb-step:focus-visible,
-.cad-wrapper > .reset-view:focus-visible {
+.reset-view:focus-visible,
+.edge-panel-all:focus-visible,
+.edge-panel-close:focus-visible,
+.component-show:focus-visible,
+.component-show-all:focus-visible,
+.component-edit-tab:focus-visible,
+.component-edit-reset:focus-visible,
+.sc-badge:focus-visible,
+.sc-x:focus-visible,
+.sc-toggle:focus-visible,
+.pcb-view-btn:focus-visible,
+.pad-pick-toggle:focus-visible,
+.pcb-edit-toggle:focus-visible,
+.pcb-edit-tool-btn:focus-visible,
+.pcb-checks:focus-visible,
+.pcb-checks-x:focus-visible,
+.pcb-checks-toggle:focus-visible,
+summary.branch-head:focus-visible,
+.card .label .kind:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -376,7 +414,11 @@
   top: calc(env(safe-area-inset-top, 0px) + 54px);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
   z-index: 12;
-  width: min(calc(100% - 32px), 430px);
+  /* Clear of the ViewCube's column: it says which way you are looking at what
+     this panel just named, the same reason the Find box sits under it. The
+     cube's edge plus its own 16px inset and a 12px gap; scene.js publishes the
+     edge it is drawn at. */
+  width: min(calc(100% - 32px - var(--cube-size, 180px) - 28px), 430px);
   max-height: calc(100% - 70px);
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -438,6 +480,19 @@
 /* One centre line through the row, so the title, the name, and the controls
    beside them all sit on it — the controls are taller than the text, and a
    shared baseline leaves each of them at a height of its own. */
+/* A <button> takes no font from its ancestors on its own, so the controls in
+   the panels and the checks cards say so and read in the face the labels
+   beside them are set in. */
+.edge-panel-all,
+.edge-panel-close,
+.component-show,
+.component-show-all,
+.component-edit-tab,
+.component-edit-reset,
+.sc-x {
+  font-family: inherit;
+}
+
 .edge-panel-head {
   display: flex;
   align-items: center;
@@ -545,6 +600,7 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  transition: background 0.12s;
 }
 .edge-panel-all:hover {
   background: rgba(74, 74, 112, 0.9);
@@ -734,17 +790,17 @@
    edge-panel head/button styles. */
 .cad-wrapper > .pick-find-panel {
   position: absolute;
-  /* Under the ViewCube, which is 180px square in its own top-right corner
-     (140 under 600px — scene.js gizmoSize). The cube is the one control here
+  /* Under the ViewCube, which stands square in its own top-right corner at the
+     edge scene.js publishes as --cube-size. The cube is the one control here
      that has to stay readable while a panel is up: it says which way you are
      looking at what the box just found. */
-  top: calc(env(safe-area-inset-top, 0px) + 208px);
+  top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 180px) + 28px);
   right: calc(env(safe-area-inset-right, 0px) + 16px);
   z-index: 12;
   /* Measured against the wrapper, which is the viewport less the modal's own
      inset — a viewport-width panel hangs past the card and is clipped. */
   width: min(calc(100% - 32px), 430px);
-  max-height: calc(100% - 224px);
+  max-height: calc(100% - var(--cube-size, 180px) - 44px);
   overflow-y: auto;
   overscroll-behavior: contain;
   touch-action: pan-y;
@@ -784,6 +840,21 @@
   min-height: 14px;
   color: var(--text-2);
   font-size: 11px;
+}
+/* Under ~900px the two panels cannot stand side by side. The find box is the
+   one that was opened on purpose, so it keeps its corner and the readout
+   stands as its head alone — the shape it takes collapsed. */
+@media (max-width: 900px) {
+  .cad-wrapper:has(> .pick-find-panel.show) > .edge-panel {
+    width: max-content;
+    max-width: calc(100% - 32px);
+  }
+  .cad-wrapper:has(> .pick-find-panel.show) > .edge-panel > *:not(.edge-panel-head) {
+    display: none;
+  }
+  .cad-wrapper:has(> .pick-find-panel.show) > .edge-panel .edge-panel-head {
+    margin-bottom: 0;
+  }
 }
 
 /* Minimap for 2D PanZoom surfaces (mermaid + drawings). 2D equivalent
@@ -893,7 +964,9 @@ details.branch[open] > summary .branch-caret {
   color: var(--text);
   border-color: var(--text-3);
 }
-summary.branch-head:hover .branch-caret {
+/* Over the open-state rule above, so an open branch answers the pointer the
+   same way a closed one does. */
+details.branch > summary.branch-head:hover .branch-caret {
   color: var(--text);
   border-color: var(--accent);
   background: color-mix(in srgb, var(--accent) 18%, transparent);
@@ -946,15 +1019,24 @@ summary.branch-head:hover .branch-caret {
 /* The branch's own assembly, riding in the header beside the title — where the
    text column leaves the width free, and where a collapsed branch still shows
    it. */
-.card-hero { flex: 0 0 auto; width: 260px; }
+.card-hero { flex: 0 0 auto; width: 195px; }
+/* The renders are square, and the box is too. */
 .card-hero img,
-.card-hero .placeholder { aspect-ratio: 4 / 3; }
+.card-hero .placeholder { aspect-ratio: 1; }
 .card-hero .label { font-size: 14px; }
 .card-hero .label .name { font-weight: 600; }
 
 /* A part's extra representations, one chip each. `.name` takes the ellipsis and
    `.kinds` does not shrink, so the chips stay in the label at any name length. */
+.card .label .name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
 .card .label .name {
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -973,7 +1055,8 @@ summary.branch-head:hover .branch-caret {
   padding: 0 4px;
   cursor: pointer;
 }
-.card .label .kind:hover { color: var(--text); border-color: var(--accent); }
+.card .label .kind:hover,
+.card .label .kind:focus-visible { color: var(--text); border-color: var(--accent); }
 
 /* The directories parts-tree.js seated nothing from. */
 .grid-warn {
@@ -996,9 +1079,6 @@ summary.branch-head:hover .branch-caret {
    the header text. */
 @media (max-width: 760px) {
   summary.branch-head { flex-wrap: wrap; }
-  .card-hero { flex: 0 0 100%; width: auto; }
-  .card-hero img,
-  .card-hero .placeholder { aspect-ratio: 3 / 2; }
 }
 @media (max-width: 600px) {
   .branch-body {
@@ -1094,10 +1174,17 @@ summary.branch-head:hover .branch-caret {
   position: relative;
 }
 .card .card-thumb .placeholder { aspect-ratio: 3 / 2; }
-.card.card-deck:hover { outline-color: var(--card-accent, var(--accent)); }
-/* The code chip reads in its subsystem's own colour — the same accent the card
-   prints it in — so a scan down the grid tracks the deck's structure. */
-.card.card-deck .label .dir { color: var(--card-accent, var(--text-2)); font-weight: 600; }
+/* The code chip and the group caption read in the subsystem's own colour — the
+   accent the card prints itself in, lifted toward white for the dark surface
+   it stands on here — so a scan down the grid tracks the deck's structure. */
+.deck-grid .deck-header,
+.card.card-deck .label .dir {
+  color: color-mix(in srgb, var(--card-accent, var(--text-2)) 62%, #ffffff);
+}
+.card.card-deck .label .dir { font-weight: 600; }
+.card.card-deck:hover {
+  outline-color: color-mix(in srgb, var(--card-accent, var(--accent)) 62%, #ffffff);
+}
 
 /* Assembly card in the modal. Same paper surround as the thumbnail: the card
    owns every pixel inside the frame, PanZoom scales it, and the wrapper just
@@ -1164,7 +1251,8 @@ summary.branch-head:hover .branch-caret {
      narrow screen, and never exceed the viewport width. */
   flex-wrap: wrap;
   justify-content: center;
-  max-width: calc(100vw - 24px);
+  /* The wrapper, which is the viewport less the modal card's own inset. */
+  max-width: calc(100% - 24px);
   gap: 2px;
   padding: 3px;
   background: rgba(35, 35, 66, 0.85);
@@ -1172,24 +1260,6 @@ summary.branch-head:hover .branch-caret {
   border-radius: 9px;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-}
-.pcb-view-btn {
-  padding: 5px 12px;
-  background: transparent;
-  color: var(--text-2);
-  border: none;
-  border-radius: 6px;
-  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-  transition: background 0.12s, color 0.12s;
-}
-.pcb-view-btn:hover { color: var(--text); }
-.pcb-view-btn.active {
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
 }
 
 /* Pad picker (pcb-pick.js). Toggle bottom-left, same pill as the edge picker.
@@ -1235,9 +1305,10 @@ summary.branch-head:hover .branch-caret {
   justify-content: center;
   flex-wrap: wrap;
   gap: 4px 8px;
-  /* Prefer one line, sized to content; wrap only when it would exceed the viewport. */
+  /* Prefer one line, sized to content; wrap upward when it would reach the
+     Inspect and Reset pills standing in the corners of the same row. */
   width: max-content;
-  max-width: calc(100vw - 24px);
+  max-width: calc(100% - 240px);
   padding: 5px 10px;
   background: rgba(35, 35, 66, 0.85);
   color: var(--text);
@@ -1283,6 +1354,8 @@ summary.branch-head:hover .branch-caret {
 @media (max-width: 600px) {
   .pcb-wrapper > .pcb-dims {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
+    /* Its own row now, so the corners are no longer in the way. */
+    max-width: calc(100% - 24px);
   }
   .pcb-wrapper:has(.pcb-edit-toggle) > .pcb-dims {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px + 40px);
@@ -1340,7 +1413,9 @@ summary.branch-head:hover .branch-caret {
   font-size: 10.5px;
   margin: 12px 0 5px;
 }
-.pcb-checks-h:first-of-type { margin-top: 0; }
+/* The head is a div and so is every section caption, so the first caption is
+   named by the head above it. */
+.pcb-checks-head + .pcb-checks-h { margin-top: 0; }
 .pcb-checks-row {
   display: flex;
   justify-content: space-between;
@@ -1350,6 +1425,9 @@ summary.branch-head:hover .branch-caret {
 }
 .pcb-checks-row .k { color: var(--text); overflow-wrap: anywhere; }
 .pcb-checks-row .v { color: var(--text-2); white-space: nowrap; }
+/* A value that is a list rather than a figure — it wraps down the card's own
+   width instead of running off the side of it. */
+.pcb-checks-row.long-v .v { white-space: normal; text-align: right; overflow-wrap: anywhere; }
 .pcb-checks-row.issue .k { color: var(--err); }
 .pcb-checks-row.issue .v { color: var(--text-3); text-transform: uppercase; font-size: 10px; align-self: center; }
 /* A decoupling cap past its budget — amber on both the label and the gap readout. */
@@ -1403,6 +1481,7 @@ summary.branch-head:hover .branch-caret {
   background: color-mix(in srgb, var(--err) 20%, rgba(35, 35, 66, 0.85));
   color: var(--err);
 }
+.cad-wrapper > .sc-badge { transition: filter 0.12s; }
 .cad-wrapper > .sc-badge:hover { filter: brightness(1.2); }
 /* Driven by a finger, at any width: every control in the modal is a target a thumb can land on.
    Keyed on the pointer rather than the viewport, so a phone held sideways — wide enough for the
@@ -1431,6 +1510,39 @@ summary.branch-head:hover .branch-caret {
     align-items: center;
     justify-content: center;
   }
+  /* The faces opt-in stands in the same head row as those two. */
+  .edge-panel-faces { min-height: 36px; padding: 0 4px; }
+  .edge-panel-faces input { width: 16px; height: 16px; }
+  /* The way back up the trail. */
+  .cad-crumb-step { min-height: 34px; display: inline-flex; align-items: center; }
+  /* A part's other representations, on the grid behind the modal. */
+  .card .label .kind { min-height: 32px; padding: 0 8px; }
+  .card .label .kinds { gap: 6px; }
+  /* The board carries the same controls under different names. */
+  .pcb-view-toggle { padding: 2px; }
+  .pcb-view-btn { min-height: 36px; }
+  .pcb-wrapper > .pad-pick-toggle,
+  .pcb-wrapper > .pcb-edit-toggle,
+  .pan-zoom-reset {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .pcb-dims .pcb-checks { min-height: 32px; display: inline-flex; align-items: center; }
+  .pcb-checks-x {
+    min-width: 36px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pcb-checks-toggle { min-height: 36px; }
+  .pcb-edit-tool-btn { width: 36px; height: 36px; }
+  /* The Edit pill stacks on the Inspect pill, and clears the height it just
+     took. */
+  .pcb-wrapper > .pcb-edit-toggle { bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 48px); }
   /* The checks card is read and dismissed with a thumb too. */
   .sc-x {
     min-width: 36px;
@@ -1463,10 +1575,20 @@ summary.branch-head:hover .branch-caret {
     padding-right: 0;
   }
   .cad-wrapper > .reset-view .tool-label { display: none; }
-  /* The cube is 140px here. */
-  .cad-wrapper > .pick-find-panel {
-    top: calc(env(safe-area-inset-top, 0px) + 168px);
-    max-height: calc(100% - 184px);
+  /* Nothing readable fits beside the cube at this width, so the readout stands
+     under it — the row the find box stands on — and takes the full width. */
+  .cad-wrapper > .edge-panel {
+    top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
+    width: calc(100% - 32px);
+    max-height: calc(100% - var(--cube-size, 140px) - 44px);
+  }
+  /* Down to its head it is a pill again, and fits beside the cube where it
+     started — which is where it goes when the find box has the row below. */
+  .cad-wrapper > .edge-panel.collapsed,
+  .cad-wrapper:has(> .pick-find-panel.show) > .edge-panel {
+    top: calc(env(safe-area-inset-top, 0px) + 54px);
+    width: max-content;
+    max-width: calc(100% - 32px - var(--cube-size, 140px) - 28px);
   }
 }
 .cad-wrapper > .sc-modal {
@@ -1517,7 +1639,7 @@ summary.branch-head:hover .branch-caret {
   font-size: 10.5px;
   margin: 12px 0 5px;
 }
-.sc-h:first-of-type { margin-top: 0; }
+.sc-head + .sc-h { margin-top: 0; }
 .sc-row {
   display: flex;
   justify-content: space-between;
@@ -1716,22 +1838,23 @@ summary.branch-head:hover .branch-caret {
   background: var(--border);
 }
 
-/* Drag readout / save status — bottom-centre, above the dims chip. Transient:
-   shown only mid-drag and briefly after a save. */
+/* Drag readout / save status — bottom-centre, on the Edit pill's row and
+   clear of it at either end. Transient: shown only mid-drag and briefly
+   after a save. */
 .pcb-wrapper > .pcb-edit-status {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 40px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 12;
-  max-width: calc(100vw - 32px);
+  max-width: calc(100% - 240px);
   padding: 5px 10px;
   background: rgba(35, 35, 66, 0.9);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
   font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  white-space: nowrap;
+  text-align: center;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   pointer-events: none;

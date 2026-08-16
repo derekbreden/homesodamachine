@@ -215,11 +215,21 @@
         document.getElementById("subscribe-cancel").removeEventListener("click", onCancel);
         document.getElementById("subscribe-confirm").removeEventListener("click", onConfirm);
         subscribeModal.removeEventListener("click", onBackdrop);
+        document.removeEventListener("keydown", onKey);
+        if (opener && opener.isConnected) opener.focus();
       }
       function onBackdrop(e) { if (e.target === subscribeModal) onCancel(); }
+      // Escape is the third way out, beside the backdrop and Not now — the
+      // one that dismisses without granting anything.
+      function onKey(e) { if (e.key === "Escape") onCancel(); }
+      const opener = document.activeElement;
       document.getElementById("subscribe-cancel").addEventListener("click", onCancel);
       document.getElementById("subscribe-confirm").addEventListener("click", onConfirm);
       subscribeModal.addEventListener("click", onBackdrop);
+      document.addEventListener("keydown", onKey);
+      // The card claims focus, so the keys reach it and the reader is inside
+      // the question. Not now, because it grants nothing.
+      document.getElementById("subscribe-cancel").focus();
     });
   }
 

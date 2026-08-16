@@ -50,10 +50,11 @@ function orderedViews(board) {
 }
 
 // What the board floats under beyond the chrome every 2D surface carries: the
-// view toggle across the top, the dimensions chip, and the dev-only picker and
-// editor toggles down the side.
+// view toggle across the top, the dimensions chip, the inspector's readout, and
+// the dev-only picker and editor toggles down the side. The same list the pad
+// picker treats as chrome rather than board (pcb-pick.js CHROME_SEL).
 const PCB_CHROME = [
-  ".pcb-view-toggle", ".pcb-dims",
+  ".pcb-view-toggle", ".pcb-dims", ".pcb-wrapper > .edge-panel",
   ".pcb-wrapper > .pad-pick-toggle", ".pcb-wrapper > .pcb-edit-toggle",
 ];
 
@@ -443,7 +444,7 @@ function openChecksModal(wrapper, picks) {
     const ps = fab.partsSourced || { sourced: 0, total: 0 };
     const unsourced = Array.isArray(fab.unsourced) ? fab.unsourced : [];
     card.appendChild(makeRow("pcb-checks-row" + (unsourced.length ? " warn" : ""), "Parts sourced", `${ps.sourced} / ${ps.total}`));
-    if (unsourced.length) card.appendChild(makeRow("pcb-checks-row warn", "Unsourced", unsourced.join(", ")));
+    if (unsourced.length) card.appendChild(makeRow("pcb-checks-row warn long-v", "Unsourced", unsourced.join(", ")));
     if (fab.layers != null) card.appendChild(makeRow("pcb-checks-row", "Layers", String(fab.layers)));
     if (fab.minDrillMm != null) card.appendChild(makeRow("pcb-checks-row", "Min drill", `${fab.minDrillMm.toFixed(2)} mm`));
     if (fab.minAnnularMm != null) card.appendChild(makeRow("pcb-checks-row", "Min annular", `${fab.minAnnularMm.toFixed(2)} mm`));
