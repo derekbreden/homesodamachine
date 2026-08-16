@@ -114,7 +114,8 @@ def build_module_tray(mounts):
 
 TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)
 _COLORS = {
-    "pcba": cq.Color(0.13, 0.35, 0.22),
+    # Black mask, white silk — what `pcb/pcba/order.md` places the board at.
+    "pcba": cq.Color(0.11, 0.11, 0.12),
 }
 
 

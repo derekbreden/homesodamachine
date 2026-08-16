@@ -137,6 +137,16 @@ function materialFor(color) {
   return mat;
 }
 
+// A body of several disjoint solids — the cold core, a reference sub-assembly, a
+// valve's coil — is written to STEP as one component per solid, named
+// `<body>/<n>` (_per_solid_color in hardware/scripts/_cadq_export.py). The body
+// is what everything downstream names: a scorecard row, a highlight, the
+// `solid:` line a pick copies out. Both routes into buildMesh carry the index —
+// the wasm parse reads it off the component's label, the handed-over payload
+// states the same name — so it comes off here, once, for both. A body naming no
+// solid of its own passes through.
+const bodyName = (name) => (name || "").replace(/\/\d+$/, "");
+
 function buildMesh(result) {
   const group = new THREE.Group();
 
@@ -160,7 +170,7 @@ function buildMesh(result) {
     solid.userData.side = "front"; // the name the face raycast selects on
     // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
     // the scorecard's clickable rows can find a solid by name (part-highlight.js).
-    solid.name = mesh.name || "";
+    solid.name = bodyName(mesh.name);
     group.add(solid);
   });
 
