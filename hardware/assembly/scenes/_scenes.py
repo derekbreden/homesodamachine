@@ -76,7 +76,7 @@ def core_names() -> tuple:
     A doc driver has the card and no machine; `render_scenes` builds the assembly for the solids.
     Same bargain `_facts.json` takes for the appliance."""
     card = json.loads(_COLD_CARD.read_text())
-    return tuple(sorted([shape["component"] for shape in card["shapes"]]
+    return tuple(sorted(card["bodies"]
                         + [f"line-{bend['id']}" for bend in card["bends"]]))
 
 

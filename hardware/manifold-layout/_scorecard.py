@@ -1567,29 +1567,6 @@ def _room_holds(a) -> Check:
                  "every band held", detail)
 
 
-def shape_rows(a) -> list[dict]:
-    """Per body: the boxes it really occupies, and how much of them is material.
-
-    ONE BOX PER SOLID THE BODY IS BUILT FROM, following the part's own construction. The single
-    box drawn around all of them is a different object and for a hollow or conical body mostly
-    air — the hopper funnel's is nearly all air, and `fill` is the figure that says so: how much
-    of the boxes IS material. At 1.0 they are the part, and the lower it runs the less a box
-    stands in for the shape and the more only the solid will answer."""
-    bodies, _tubes, _pieces = _split_placed(a)
-    rows = []
-    for name, solid in sorted(bodies.items()):
-        boxes = _boxes.boxed_solids(solid)
-        total = sum(b.xlen * b.ylen * b.zlen for b in boxes)
-        rows.append({
-            "component": name,
-            "boxes": [[round(b.xmin, 3), round(b.ymin, 3), round(b.zmin, 3),
-                       round(b.xmax, 3), round(b.ymax, 3), round(b.zmax, 3)] for b in boxes],
-            "fill": round(solid.Volume() / total, 4) if total > 0 else 0.0,
-        })
-    rows.sort(key=lambda d: (d["fill"], d["component"]))
-    return rows
-
-
 # --- the runs nothing holds on purpose --------------------------------------
 #
 # A run over `TUBE_ANCHOR_SPAN` with no rib on it is a run that sags. A name here is one the
@@ -1711,7 +1688,6 @@ class Scorecard:
     checks: list
     bends: list
     conns: list
-    shapes: list
     sizes: list
 
     @property
@@ -1745,7 +1721,6 @@ def _build(a) -> Scorecard:
     # red on `refrigerant-joints`, which grades the whole loop — a mating on its two stations, a
     # drawn leg on both its mouths.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
-    shapes = shape_rows(a)
     leads = port_leads(a, runs)
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
@@ -1755,7 +1730,7 @@ def _build(a) -> Scorecard:
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(runs), _placed(a), _routed(conns), _located(a),
               _tube_anchored(a, runs)]
-    return Scorecard(checks, bends, conns, shapes, size_rows(a))
+    return Scorecard(checks, bends, conns, size_rows(a))
 
 
 def to_dict(sc: Scorecard) -> dict:
@@ -1777,7 +1752,6 @@ def to_dict(sc: Scorecard) -> dict:
              "active": c.active and c.kind != "goal"}
             for c in sc.checks
         ],
-        "shapes": sc.shapes,
     }
 
 
