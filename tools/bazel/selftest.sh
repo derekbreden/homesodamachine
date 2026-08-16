@@ -12,8 +12,20 @@
 # so a test reading one is reading a file nobody declared, which may describe a machine that
 # has since moved. It prints `TAKEN BEFORE … MOVED` and passes or fails without reading its
 # own warning. A directory of its own means it finds nothing and builds what it measures.
+#
+# AND THE TREE IT RUNS IN IS THE TREE BAZEL STAGED. The path below names one checkout, while
+# a worktree of this repo is a second one that bazel serves from its own workspace — where
+# `cd` lands on the first, and every hold reports on geometry the run was never handed. The
+# module in the runfiles is what bazel staged; the module at that path is what is about to be
+# read. Same bytes, same tree.
 set -e
-cd /Users/derekbredensteiner/Developer/homesodamachine
+WORKSPACE=/Users/derekbredensteiner/Developer/homesodamachine
+staged=$TEST_SRCDIR/${TEST_WORKSPACE:-_main}/$1
+if [ -f "$staged" ] && ! cmp -s "$staged" "$WORKSPACE/$1"; then
+  echo "selftest: $1 in $WORKSPACE is not the file bazel staged — this is another checkout" >&2
+  exit 1
+fi
+cd "$WORKSPACE"
 TMPDIR=$(mktemp -d "${TMPDIR:-/tmp}/hsm-selftest.XXXXXX")
 export TMPDIR
 trap 'rm -rf "$TMPDIR"' EXIT
