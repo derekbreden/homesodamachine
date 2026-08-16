@@ -87,6 +87,7 @@ touches_board=false
 git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . && touches_board=true
 
 owed=0
+ran=0
 owed_names=""
 
 # gate <name> <cmd…> — run a check; one ✓ line on pass, its full output on red.
@@ -97,8 +98,9 @@ owed_names=""
 # reader who scrolled past the middle still sees.
 gate() {
   _name=$1; shift
+  ran=$((ran + 1))
   if _out=$("$@" 2>&1); then
-    echo "pre-commit: $_name ✓" >&2
+    echo "pre-commit: $_name — checked ✓" >&2
   else
     echo "$_out" >&2
     echo "pre-commit: RED — $_name" >&2
@@ -138,7 +140,7 @@ sync() {
       echo "pre-commit: $_name — re-derived and staged:" >&2
       echo "$_out" | head -6 | sed 's/^/    /' >&2
     else
-      echo "pre-commit: $_name ✓" >&2
+      echo "pre-commit: $_name — staged ✓" >&2
     fi
   else
     echo "$_out" >&2
@@ -324,10 +326,15 @@ if $touches_board && [ -f "$pcba/out/pcba.gerbers.zip" ]; then
   fi
 fi
 
+# WHAT THIS IS GETS SAID ON THE PATH EVERY COMMIT TAKES. The line below said it only to a
+# commit that broke something, so a run of green ✓ lines from a thing called `pre-commit`
+# read as enforcement to everyone it never stopped — which is everyone.
+echo "" >&2
 if [ "$owed" -gt 0 ]; then
-  echo "" >&2
   echo "pre-commit: THIS COMMIT IS IN, and it owes a follow-up. $owed check(s) came back red:$owed_names" >&2
   echo "pre-commit: git push." >&2
+else
+  echo "pre-commit: THIS COMMIT IS IN. $ran checked, none red — nothing here holds a commit." >&2
 fi
 
 exit 0
