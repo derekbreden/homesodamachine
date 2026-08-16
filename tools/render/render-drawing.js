@@ -3,12 +3,12 @@
 // directory in hardware/) to a PNG that matches the site's dark theme.
 //
 // Usage:
-//   node tools/render/render-drawing.js <svg-file> <output-png> [--at <date|sha>]
+//   node tools/render/render-drawing.js <svg-file> <output-png> [--at <date|ref>]
 //
-// --at <date|sha>
+// --at <date|ref>
 //   Read the .svg source from a throwaway git worktree at the resolved
 //   commit (most recent commit on `main` on or before <date> 23:59:59, or
-//   the literal SHA). Errors non-zero if the file didn't exist at that SHA.
+//   a ref such as a tag). Errors non-zero if the file didn't exist there.
 //
 // Approach: the drawing is already an SVG with explicit width/height in mm
 // and a matching viewBox; we don't need a browser to render anything.
@@ -129,7 +129,7 @@ async function main() {
   const { positional, at } = parseArgs(process.argv.slice(2));
   if (positional.length < 2) {
     console.error(
-      "Usage: node tools/render/render-drawing.js <svg-file> <output-png> [--at <date|sha>]",
+      "Usage: node tools/render/render-drawing.js <svg-file> <output-png> [--at <date|ref>]",
     );
     process.exit(1);
   }

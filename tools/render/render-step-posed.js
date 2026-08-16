@@ -32,7 +32,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -222,9 +222,7 @@ async function renderOne({ stepRel, outAbs, opts }) {
     );
   } finally {
     await closeBrowser(browser);
-    await new Promise((resolve, reject) =>
-      server.close((err) => (err ? reject(err) : resolve())),
-    );
+    await closeServer(server);
   }
 }
 
