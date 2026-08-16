@@ -10,16 +10,24 @@ Convention:
   * The "Totals" block (the summary itself) is excluded from the row sums.
   * §18 (capitalized contract labor) has no status column; its rows are summed
     separately as `labor`.
+  * A row's Order # cells join it to purchases.orders.json, the as-scraped
+    Amazon record: order date, delivery date, and what the invoice charged.
 
 Run:  python3 hardware/scripts/_ledger_totals.py           # rewrite + summary
-      python3 hardware/scripts/_ledger_totals.py --check   # exit 1 if a marker is stale
-      python3 hardware/scripts/_ledger_totals.py --audit   # + ambiguous-row report
+      python3 hardware/scripts/_ledger_totals.py --check   # exit 1 on a stale
+                                                           #   marker, an order
+                                                           #   whose rows miss
+                                                           #   its invoice, or a
+                                                           #   stale ON-ORDER row
+      python3 hardware/scripts/_ledger_totals.py --audit   # + the rows and orders
+                                                           #   that need a person
 
---check is the commit gate (.githooks/pre-commit, keyed on purchases.md) and it
-WRITES NOTHING. A driver that rewrites under --check cannot fail, so the one
-instrument that would catch a stale total would report success instead — which
-is how the grand total came to understate cash outlay by a whole PCBA batch.
+.githooks/pre-commit runs the rewrite, staging what it moved. --check WRITES
+NOTHING and is hand-run. A driver that rewrites under --check cannot fail, so
+the one instrument that would catch a stale total would report success instead.
 """
+import datetime
+import json
 import os
 import re
 import sys
@@ -36,10 +44,17 @@ sys.path.insert(
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
 from docgen import substitute_md  # noqa: E402
 
+ORDERS = os.path.join(HERE, "..", "ledger", "purchases.orders.json")
+
 EXCLUDE_SECTIONS = {"Totals"}
 STATUS_KEYWORDS = ("ACQUIRED", "ON-ORDER", "LIKELY-TO-BUY", "MISSING",
                    "NOT NEEDED", "alt option")
 PRICE = re.compile(r"\$\s?([0-9][0-9,]*(?:\.[0-9]{1,2})?)")
+ORDER_NO = re.compile(r"\b\d{3}-\d{7}-\d{7}\b")
+ISO = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
+EM = "—"
+STALE_ON_ORDER_DAYS = 45
+RECONCILE_TOLERANCE = 0.011
 
 
 def cells(row):
@@ -63,15 +78,20 @@ def lead_int(cell):
 
 def parse(path):
     status_totals, section_acq, labor = {}, {}, 0.0
-    ambiguous, section = [], "(preamble)"
+    ambiguous, section, rows, colmap = [], "(preamble)", [], {}
     for ln in open(path).read().splitlines():
         if ln.startswith("## "):
-            section = ln[3:].strip()
+            section, colmap = ln[3:].strip(), {}
             continue
         if not ln.startswith("|") or section in EXCLUDE_SECTIONS:
             continue
         c = cells(ln)
         if len(c) < 2 or set("".join(c)) <= set("-: "):
+            continue
+        # Header row, naming this table's columns. The order date is "Ordered"
+        # in the Amazon sections and "Order date" in §§15-17 and 20.
+        if "Status" in c and ("$" in c or "Item" in c or "Contents" in c):
+            colmap = {name: i for i, name in enumerate(c)}
             continue
         # §18 labor has no status column; sum its data rows (skip header +
         # the bolded subtotal row).
@@ -114,11 +134,87 @@ def parse(path):
         status_totals[status] = status_totals.get(status, 0.0) + cost
         if status == "ACQUIRED":
             section_acq[section] = section_acq.get(section, 0.0) + cost
-    return status_totals, section_acq, labor, ambiguous
+
+        def col(*names):
+            for n in names:
+                i = colmap.get(n)
+                if i is not None and i < len(c) and c[i] not in ("", EM):
+                    return c[i]
+            return ""
+
+        rows.append({
+            "section": section, "status": status, "cost": cost,
+            "orders": ORDER_NO.findall(col("Order #")),
+            "ordered": col("Ordered", "Order date"),
+            "delivered": col("Delivered"),
+            "part": c[0][:64],
+        })
+    return status_totals, section_acq, labor, ambiguous, rows
+
+
+def load_orders():
+    with open(ORDERS, encoding="utf-8") as f:
+        return json.load(f)["orders"]
+
+
+def days_since(iso_date, today):
+    m = ISO.match(iso_date or "")
+    if not m:
+        return None
+    d = datetime.date(*(int(g) for g in m.groups()))
+    return (today - d).days
+
+
+def reconcile_orders(rows, orders):
+    """Each order's ledger rows against what its invoice charged."""
+    grouped = {}
+    for r in rows:
+        if r["status"] in ("ACQUIRED", "ON-ORDER", "MISSING"):
+            for o in set(r["orders"]):
+                grouped.setdefault(o, []).append(r)
+
+    mismatch, unverifiable, split = [], [], []
+    for order_no, group in sorted(grouped.items()):
+        if any(len(set(r["orders"])) > 1 for r in group):
+            split.append(order_no)
+            continue
+        inv = orders.get(order_no)
+        if inv is None or inv.get("total") is None:
+            unverifiable.append((order_no, sum(r["cost"] for r in group)))
+            continue
+        charged = inv["total"] - (inv.get("nonproject_amount") or 0.0)
+        allocated = sum(r["cost"] for r in group)
+        if abs(allocated - charged) > RECONCILE_TOLERANCE:
+            mismatch.append((order_no, allocated, charged, len(group)))
+    return mismatch, unverifiable, split
+
+
+def stale_on_order(rows, today):
+    aged, undated = [], []
+    for r in rows:
+        if r["status"] != "ON-ORDER":
+            continue
+        n = days_since(r["ordered"], today)
+        if n is None:
+            undated.append(r)
+        elif n >= STALE_ON_ORDER_DAYS:
+            aged.append((n, r))
+    aged.sort(reverse=True)
+    return aged, undated
+
+
+def unrecorded_orders(rows, orders):
+    named = {o for r in rows for o in r["orders"]}
+    return sorted((k, v) for k, v in orders.items()
+                  if v.get("project") is not False and k not in named)
 
 
 def main():
-    st, sec, labor, amb = parse(LEDGER)
+    st, sec, labor, amb, rows = parse(LEDGER)
+    orders = load_orders()
+    today = datetime.date.today()
+    mismatch, unverifiable, split = reconcile_orders(rows, orders)
+    aged, undated = stale_on_order(rows, today)
     acq = st.get("ACQUIRED", 0.0)
     onorder = st.get("ON-ORDER", 0.0)
     missing = st.get("MISSING", 0.0)
@@ -144,12 +240,26 @@ def main():
                  for name, v in variables.items()
                  for m in [re.search(r"\[([^\]]*)\]\(%s\)" % name, text)]
                  if m and m.group(1) != v]
+        rc = 0
         if stale:
             print("purchases.md totals are stale — run _ledger_totals.py:")
             print("\n".join(stale))
-            return 1
-        print("purchases.md totals ✓")
-        return 0
+            rc = 1
+        else:
+            print("purchases.md totals ✓")
+        for order_no, allocated, charged, n in mismatch:
+            print(f"  {order_no}: {n} row(s) allocate ${allocated:,.2f}, "
+                  f"invoice charged ${charged:,.2f} "
+                  f"(off by ${charged - allocated:+,.2f})")
+            rc = 1
+        if not mismatch:
+            print(f"per-order allocation ✓ ({len(rows)} rows)")
+        for n, r in aged:
+            print(f"  ON-ORDER {n} days (ordered {r['ordered']}): {r['part']}")
+            rc = 1
+        if not aged:
+            print(f"no ON-ORDER row past {STALE_ON_ORDER_DAYS} days ✓")
+        return rc
 
     substitute_md(LEDGER, variables)
 
@@ -167,6 +277,25 @@ def main():
         print("\nAmbiguous / multiplied / priceless rows:")
         for status, kind, txt in amb:
             print(f"  [{status:9s}] {kind:20s} | {txt}")
+
+        print("\nOrders a row names that no invoice covers:")
+        for order_no, allocated in unverifiable:
+            print(f"  {order_no}  ${allocated:,.2f} allocated")
+
+        print("\nOrders shared by a row that names several, so no row's cost "
+              "ties to one invoice:")
+        for order_no in split:
+            print(f"  {order_no}")
+
+        print("\nON-ORDER rows with no order date, which no age can reach:")
+        for r in undated:
+            print(f"  [{r['section'][:24]:26s}] {r['part']}")
+
+        print("\nProject orders no row names:")
+        for order_no, inv in unrecorded_orders(rows, orders):
+            flag = "" if inv.get("project") else "  (unclassified)"
+            print(f"  {order_no}  {inv.get('ordered', '?')}  "
+                  f"${inv.get('total') or 0:,.2f}{flag}")
     return 0
 
 
