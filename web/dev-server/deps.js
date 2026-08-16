@@ -65,6 +65,7 @@ function memoized(fn) {
       producers: new Map(),
       importers: new Map(),
       consumers: new Map(),
+      traced: undefined,
     };
     try {
       return fn.apply(this, args);
@@ -75,6 +76,59 @@ function memoized(fn) {
 }
 
 const rootsKey = (roots) => roots.join("\0");
+
+// --- what a run was watched reading --------------------------------------
+//
+// A SCAN CANNOT TELL A CONDITIONAL IMPORT FROM AN UNCONDITIONAL ONE, and the tree turns on
+// that difference. `_back_panel_dimensions` imports `enclosure_assembly` inside two function
+// bodies to break a cycle; `enclosure.py` imports it inside `machine_of()`, which runs on
+// every build. Read as source they are the same line. Read as source, the first one makes
+// every generator that reaches `_materials` — which is nearly all of them — an importer of
+// every bought part: `reservoir.py` scanned 74 importers where 24 run.
+//
+// `tools/bazel/graph.json` is the other reading. `trace_inputs.py` watches each generator's
+// `__main__` and writes down every tracked file it opened, so a branch not taken is a file
+// not there. That answers what the scan is guessing at, for the generators it has watched.
+//
+// AN EDGE IS DROPPED ONLY WHERE THE TRACE POSITIVELY SAW ITS ABSENCE. No graph.json, no entry
+// for that generator, a module outside the tracked set, an edition carrying its own copy —
+// each of those keeps the scanned edge, because none of them is an observation. The one thing
+// that removes an edge is a watched run of that generator that did not open that file.
+//
+// WHAT GOES STALE HERE GOES RED AT THE COMMIT THAT STALES IT. `check_declared_imports.py`
+// runs from `.githooks/pre-commit` on any staged `.py`, parses its imports with `ast`, and
+// names every step whose graph entry does not hold them — static, so it does not need the
+// trace to have seen the import, which is what lets it catch the trace being old. It names
+// the generator that gained the import among the steps to re-trace, and prints the command.
+// It reports rather than holds the commit (`.githooks/pre-commit:4`), so the window is one
+// commit wide and closes when someone runs what it printed.
+const REPO_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..", "..");
+const GRAPH_JSON = path.join(REPO_ROOT, "tools", "bazel", "graph.json");
+
+function tracedReads() {
+  if (memo && memo.traced !== undefined) return memo.traced;
+  let traced = null;
+  try {
+    const raw = JSON.parse(fs.readFileSync(GRAPH_JSON, "utf-8"));
+    traced = new Map(Object.entries(raw).map(([gen, seen]) => [gen, new Set(seen.reads || [])]));
+  } catch {
+    traced = null;               // absent or unreadable: every scanned edge stands
+  }
+  if (memo) memo.traced = traced;
+  return traced;
+}
+
+// The runnables a watched run showed do NOT reach `modPath`, out of the ones the scan found.
+function prunedByTrace(dependents, modPath) {
+  const traced = tracedReads();
+  if (traced === null) return dependents;
+  const mod = path.relative(REPO_ROOT, path.resolve(modPath));
+  if (!mod || mod.startsWith("..")) return dependents;
+  return dependents.filter((dep) => {
+    const reads = traced.get(path.relative(REPO_ROOT, path.resolve(dep)));
+    return reads === undefined || reads.has(mod);
+  });
+}
 
 function readSource(file) {
   if (memo && memo.source.has(file)) return memo.source.get(file);
@@ -343,7 +397,7 @@ function importersOf(changedPath, roots) {
     }
   }
 
-  const out = Array.from(dependents);
+  const out = prunedByTrace(Array.from(dependents), changedPath);
   if (memo) memo.importers.set(key, out);
   return out;
 }
