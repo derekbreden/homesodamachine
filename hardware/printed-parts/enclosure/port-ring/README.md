@@ -89,9 +89,9 @@ Flat on the bed, face up, two colours to a plate — the chips off one spool, th
 other. PETG, the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7). The plate and
 the profile it slices on are [`port-ring-water.3mf`](port-ring-water.3mf).
 
-The figures that lettering is struck from are swept on the combs in
-[`coupons/`](coupons/README.md), one figure to a comb: the em the word is set at, how deep its
-recess is cut, how far it stands past the face, and the air the recess leaves round it.
+What the lettering should be struck from stands on the plate of chips in
+[`coupons/`](coupons/README.md) — the em, how far the word stands past the face, and how deep
+its recess is cut, each one a chip carrying the recommendation and a chip either side of it.
 
 The pocket it drops into is struck by [`enclosure.py`](../enclosure/enclosure.py) from the same
 `back_ports` stations that bore the wall — cut [2](RING_THICK) mm into the outer face, with a boss
