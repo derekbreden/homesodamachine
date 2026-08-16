@@ -260,6 +260,14 @@ for hw in $editions; do
     gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
   fi
 
+  # The other half of `bodies-colored`: that gate rides the enclosure's card and asks whether
+  # the ASSEMBLY painted each placed body. This asks what each body's OWN STEP carries, which
+  # is what its card and /3d draw. A STEP is the only thing that moves the answer.
+  if git diff --cached --name-only -- "$hw/" | grep -q '\.step$'; then
+    gate "$hw a solid's STEP names its material" \
+         python3 "$root/$hw/scripts/check_step_colours.py"
+  fi
+
   # NOTHING HERE ASKS BAZEL ANYTHING. Whether the tree carries what the build cuts is a real
   # question and `bazel build //:everything` then `tools/bazel/sync_tree.py` is how it is
   # asked — but asking it HERE puts it in front of every commit, and one bazel command waits
