@@ -99,10 +99,11 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Bambu Lab AMS 2 Pro (×3)** | Bambu order us718417332286169089 + one inside each H2C AMS Combo, [purchases.md §15](/hardware/ledger/purchases.md) | Where PETG lives. **65 °C ceiling**; PETG's cycle is **65 °C × 12 h**. Fresh spools go straight in, the unit dries them in place, and the same unit feeds the print the moment the cycle ends — no transfer between drying and printing. $ is the standalone unit; the other two came inside the printer bundles. | [$331.99](T_AMS2PRO) |
 | **Bambu Vision Encoder / H2 Series** | Founding bundle, [purchases.md §15](/hardware/ledger/purchases.md) | Print monitoring camera. | [$78.75](T_VISION) |
 | **Bambu Engineering Plate / H2C** | Founding bundle, [purchases.md §15](/hardware/ledger/purchases.md) | Build plate for engineering filaments. | [$49.49](T_ENG_PLATE) |
-| **SUNLU E2 filament dryer** | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD), [purchases.md §13](/hardware/ledger/purchases.md) | Dual-chamber, **110 °C ceiling**, 500 W PTC. Dries both Fiberon grades — PET-CF17 and PET-GF15, each **100 °C × 10 h** — and feeds the printer from the chamber at a 60 °C hold, so the fiber-filled stock prints without leaving the dryer. | [$321.74](T_DRYER_E2) |
+| **SUNLU E2 filament dryer** | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD), [purchases.md §13](/hardware/ledger/purchases.md) | Dual-chamber, **110 °C ceiling**, 500 W PTC. Dries both Fiberon grades — PET-CF17 and PET-GF15, each **100 °C × 10 h** — at either spool size. A **1 kg** spool also feeds the printer from the chamber at a 60 °C hold, so that stock prints without leaving the dryer; a **3 kg** spool turns too stiffly in the chamber to feed a print, and feeds from a PolyDryer Box XL instead. | [$321.74](T_DRYER_E2) |
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](/hardware/ledger/purchases.md) | 4-spool capacity, 70 °C ceiling, 350 W PTC, 3 circulation fans. In service as sealed 4-spool storage, not as a dryer. | [$125.47](T_DRYER_S4) |
-| **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through, spool on a center axle. Unheated. TPU turns freely on the axle and prints straight out of one. | [$117.96](T_POLYDRYER) |
-| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD (DUROZZLE), 0.8 TC HF. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$556.99](T_HOTENDS) |
+| **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](/hardware/ledger/purchases.md) | Sealed spool boxes with a PTFE feed-through, spool on a center axle, **1 kg** capacity. Unheated. TPU turns freely on the axle and prints straight out of one. | [$117.96](T_POLYDRYER) |
+| **Polymaker PolyDryer Box XL ×2** | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5), [purchases.md §13](/hardware/ledger/purchases.md) | The same sealed box built around a **3 kg** spool — center axle, feed-through, hygrometer in the lid, unheated. The axle turns a 3 kg spool freely, which is what the E2's chamber does not, so the 3 kg Fiberon stock prints out of one of these. | [$120.09](T_POLYDRYER_XL) |
+| **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD + 0.8 Diamond PCD (DUROZZLE), 0.8 TC HF. The two sides take different hotend types and buy from different listings — see [Which hotends fit an H2C](#which-hotends-fit-an-h2c). PCD outranks tungsten carbide and ruby on hardness, so the fiber-filled stock runs on it. | [$559.88](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
 
 ### What dries where
@@ -116,8 +117,13 @@ per-unit time.
 |---|---|---|---|
 | Bambu PETG Basic + Translucent | 65 °C × 12 h | AMS 2 Pro | the same AMS 2 Pro |
 | Bambu TPU 90A | 75 °C × 18 h | AMS HT | a PolyDryer Box |
-| Polymaker Fiberon PET-CF17 | 100 °C × 10 h, *only if the material has absorbed moisture* | SUNLU E2 | the same E2, 60 °C hold |
-| Polymaker Fiberon PET-GF15 | 100 °C × 10 h, *only if the material has absorbed moisture* | SUNLU E2 | the same E2, 60 °C hold |
+| Polymaker Fiberon PET-CF17 | 100 °C × 10 h, *only if the material has absorbed moisture* | SUNLU E2 | 1 kg: the same E2, 60 °C hold · 3 kg: a PolyDryer Box XL |
+| Polymaker Fiberon PET-GF15 | 100 °C × 10 h, *only if the material has absorbed moisture* | SUNLU E2 | 1 kg: the same E2, 60 °C hold · 3 kg: a PolyDryer Box XL |
+
+Spool size, not filament, decides the last column. Every unit here dries a
+3 kg spool as readily as a 1 kg one, but only a box that carries the spool on
+a center axle turns 3 kg freely enough to feed a print — which is why TPU and
+the 3 kg Fiberon stock both print out of a PolyDryer, sized to the spool.
 
 What a spool of PET-CF17 has been through, and what changed when it was:
 [touch-flo-shell/print-log.md](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md).
@@ -170,7 +176,7 @@ path and the big-part path are the same path.
 
 ## Tools total
 
-Total acquired tooling: **[$14,682.55](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,805.53](TOOLS_TOTAL)**
 
 ## Open items
 

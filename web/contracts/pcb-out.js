@@ -6,9 +6,6 @@
 // builds these paths when it lists boards; viewer-routes.js confines the /api/pcb-content and
 // /api/pcb-picks routes to them. One definition so the naming stays in lockstep across readers.
 
-// Outer copper views every rendered board carries. Inner planes (inner1…innerN) are discovered.
-export const FIXED_VIEWS = ["top", "bottom", "overlay"];
-
 // Root-relative artifact paths for a board directory `dir` (root-relative) and board `name`.
 export function viewFile(dir, name, view) { return `${dir}/out/${name}.${view}.svg`; }
 export function picksFile(dir, name) { return `${dir}/out/${name}.picks.json`; }

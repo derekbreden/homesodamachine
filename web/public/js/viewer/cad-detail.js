@@ -163,8 +163,8 @@ export function openCadDetail(type, file, pushHistory = true) {
   wrapper.appendChild(rail);
   wrapper.appendChild(makeResetViewButton());
 
-  // A STEP model may carry a scorecard sidecar (<model>.scorecard.json) — mount its thin
-  // bottom bar + drill-down modal. Async fetch, fire-and-forget: no sidecar → no bar, and
+  // A STEP model may carry a scorecard sidecar (<model>.scorecard.json) — mount its checks
+  // badge + drill-down modal. Async fetch, fire-and-forget: no sidecar → no badge, and
   // mountScorecard bails if the modal closed before the fetch resolved.
   if (type === "step") mountScorecard(wrapper, file);
 
@@ -280,5 +280,3 @@ export function closeCadDetail(pushHistory = true) {
 export function openDetail(file, pushHistory = true)    { openCadDetail("step", file, pushHistory); }
 export function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }
 export function openGlbDetail(file, pushHistory = true) { openCadDetail("glb",  file, pushHistory); }
-export function closeDetail(pushHistory = true)         { closeCadDetail(pushHistory); }
-export function closeDxfDetail(pushHistory = true)      { closeCadDetail(pushHistory); }

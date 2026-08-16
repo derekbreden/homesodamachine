@@ -15,9 +15,6 @@ export function scorecardPathFor(stepPath) {
   return stepPath.replace(/\.step$/, SCORECARD_SUFFIX);
 }
 
-// Request-confinement for the served route: the param must name a *.scorecard.json.
-export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
-
 /**
  * @typedef {Object} ScorecardCheck
  * @property {string} id
