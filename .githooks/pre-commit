@@ -312,6 +312,37 @@ if staged "web/package.json" "web/package-lock.json"; then
        sh -c "cd \"$root/web\" && npm ci --dry-run --omit=dev --offline --ignore-scripts"
 fi
 
+# THE SITE'S OWN TESTS. node --test over web/tests: the contracts /3d and /pcb are a browse
+# of, the walkers that feed them, the ledger and date readers. ~10 s, paid by a commit that
+# stages something under web/. The puppeteer tests skip themselves where it is not installed.
+if staged "web/"; then
+  if command -v node >/dev/null 2>&1; then
+    gate "web tests" sh -c "cd \"$root/web\" && npm test --silent"
+  else
+    echo "pre-commit: no node — web tests skipped" >&2
+  fi
+fi
+
+# EVERY FILE /3d BROWSES STANDS IN AN ASSEMBLY. web/contracts/parts-tree.js says where, and a
+# file no group claims is a "Not seated" banner on the page instead of a part somebody can
+# open. A group's `holds` is directories, so a new part directory seats itself; scene GLBs are
+# named one file at a time, because that one directory's contents belong to two assemblies. A
+# scene added to hardware/assembly/scenes/_scenes.py is a line owed in the contract, and the
+# commit that adds it stages nothing under web/.
+#
+# The key is geometry: an added, deleted or renamed .step/.dxf/.glb on a commit the gate above
+# does not already cover. Editing a solid in place leaves every path where it was. No venv, no
+# bazel, and no geometry is read — the walk is over names.
+if ! staged "web/" &&
+   git diff --cached --name-only --diff-filter=ADR -- hardware/ | grep -qE '\.(step|dxf|glb)$'; then
+  if command -v node >/dev/null 2>&1; then
+    gate "every file /3d browses is seated" \
+         sh -c "cd \"$root/web\" && node --test tests/parts-tree.test.js"
+  else
+    echo "pre-commit: no node — the /3d seating check skipped" >&2
+  fi
+fi
+
 if $touches_board; then
   gate "scorecard fab-ready gates" python3 -c '
 import json, sys
