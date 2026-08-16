@@ -3,7 +3,8 @@ title: A build system, and glass fibre on the plate
 start: 2026-08-09
 end: 2026-08-15
 kind: week
-thumb: panel
+image: /update-images/2026-08-15-front-top.png
+image_alt: The front-top piece, carrying its valve panels and pump trays.
 lede: The flavor manifold was absorbed into the enclosure shell itself, and the first enclosure panel went on the printer in glass-filled PET.
 ---
 

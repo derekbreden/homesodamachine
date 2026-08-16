@@ -3,7 +3,8 @@ title: First metal, and a public face
 start: 2026-04-26
 end: 2026-05-23
 kind: period
-thumb: faucet
+image: /update-images/2026-05-23-faucet-shell.png
+image_alt: The printed faucet shell as it stood on 23 May.
 lede: The fallback vessel design was archived, stainless was tapped and welded by hand for the first time, and the project got a live website and a YouTube channel.
 ---
 

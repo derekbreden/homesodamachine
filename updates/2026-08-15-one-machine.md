@@ -3,7 +3,8 @@ title: One machine, and its first hour on a bench
 start: 2026-07-19
 end: 2026-08-15
 kind: period
-thumb: machine
+image: /update-images/2026-08-15-enclosure.png
+image_alt: The packed appliance on 15 August.
 lede: Two machine designs ran side by side for eight days and the narrow one survived, and the controller board was powered up for the first time.
 ---
 
