@@ -404,21 +404,34 @@
   padding-bottom: 4px;
 }
 .edge-panel.collapsed .edge-panel-head { margin-bottom: 0; }
+/* The panel's own disclosure, the same bordered chevron the /3d branches carry
+   (.branch-caret) at the scale of a panel head. It turns off its own
+   aria-expanded, so the mark and the state cannot disagree. */
 .edge-panel-collapse {
   flex: 0 0 auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
   background: none;
-  border: none;
   color: var(--text-2);
-  font-size: 11px;
-  line-height: 1;
+  border: 1px solid var(--border);
+  border-radius: 5px;
   cursor: pointer;
-  padding: 2px 4px;
   -webkit-appearance: none;
   appearance: none;
-  transition: transform 0.12s, color 0.12s;
+  transition: transform 0.15s ease, color 0.12s, border-color 0.12s, background 0.12s;
 }
-.edge-panel-collapse:hover { color: var(--text); }
-.edge-panel.collapsed .edge-panel-collapse { transform: rotate(-90deg); }
+.edge-panel-collapse > .tool-icon { width: 14px; height: 14px; }
+.edge-panel-collapse[aria-expanded="true"] { transform: rotate(90deg); }
+.edge-panel-collapse:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
 .edge-panel-collapse:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
@@ -850,27 +863,25 @@ summary.branch-head:hover .branch-title { color: var(--accent); }
    from the corner of the eye while it moves. It rides with the title rather
    than the row, so it stays beside the name whatever height the assembly
    beside it gives the row. */
-.branch-title::before {
-  content: "\25B8";
+.branch-caret {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  padding: 2px;
   margin-right: 10px;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text-2);
-  font-size: 11px;
-  line-height: 18px;
-  text-align: center;
-  vertical-align: 1px;
+  vertical-align: -5px;
   transition: transform 0.15s ease, color 0.12s, border-color 0.12s, background 0.12s;
 }
-details.branch[open] > summary .branch-title::before {
+details.branch[open] > summary .branch-caret {
   transform: rotate(90deg);
   color: var(--text);
   border-color: var(--text-3);
 }
-summary.branch-head:hover .branch-title::before {
+summary.branch-head:hover .branch-caret {
   color: var(--text);
   border-color: var(--accent);
   background: color-mix(in srgb, var(--accent) 18%, transparent);
@@ -1405,6 +1416,9 @@ summary.branch-head:hover .branch-title::before {
     align-items: center;
     justify-content: center;
   }
+  /* A thumb-sized control is taller than the title beside it, so the row centres
+     on it rather than sitting the two on one baseline. */
+  .edge-panel-head { align-items: center; }
   /* The checks card is read and dismissed with a thumb too. */
   .sc-x {
     min-width: 36px;

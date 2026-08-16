@@ -65,6 +65,13 @@ export const ICON_INNER = {
   // A ticked rule — Rulers. The axis triad it draws is the truer picture and
   // reads as an abstract mark at 15px, where this reads as its own label.
   rulers: '<rect x="2" y="8" width="20" height="9" rx="2"></rect><path d="M7 8v4"></path><path d="M12 8v5"></path><path d="M17 8v4"></path>',
+  // ── Disclosure ─────────────────────────────────────────────────────────────
+  // A chevron, drawn pointing right and turned a quarter clockwise by whatever
+  // it is on when that thing stands open — the /3d branches and the viewer's
+  // readout panels. ONE MARK THAT TURNS, at the stroke weight of every other
+  // glyph here: the small triangles of the box-drawing block render at their
+  // own weight, which at this size is a dot.
+  chevron: '<polyline points="9 18 15 12 9 6"></polyline>',
 };
 
 export function iconSvg(key, className = "") {
