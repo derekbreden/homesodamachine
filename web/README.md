@@ -8,7 +8,7 @@ The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hard
 
 ```bash
 cd web
-npm install
+npm ci             # installs package-lock.json exactly — what Render runs
 npm start          # production server (port 3001 by default; PORT env overrides)
 npm run dev        # dev wrapper: chokidar + Python runner + WebSocket hot reload (port 3000)
 npm run dev -- --no-watch  # same server, no watchers: nothing rebuilds on save
@@ -18,6 +18,14 @@ npm run build:check # same, then exit 1 if a rebuild moved anything — the fix 
 ```
 
 `npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over the WebSocket so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. `--no-watch` serves the same site with no chokidar at all — no generator runs, no board renders, no thumbnails, no hot-reload broadcast — so an edit anywhere in the tree costs nothing and the viewer shows what is on disk until you reload it. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
+
+## Dependencies
+
+`package-lock.json` is tracked. It is the repo's record of what the deployed site installs, so it is read like any other artifact here rather than regenerated on demand: `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and fails outright if the lockfile and `package.json` disagree. The pre-commit hook asks the same question with `npm ci --dry-run` whenever either file is staged, so the failure lands on the commit rather than in a Render build log.
+
+`overrides` pins `uuid` to `^11.1.1`. Six advisories reach this tree through one package — `uuid` below 11.1.1 misses a buffer bounds check in its v3/v5/v6 generators — and it arrives four levels down, under `firebase-admin` → `@google-cloud/storage` → `retry-request`/`teeny-request` → `uuid`, plus a second path through `gaxios`. No direct dependency can move it; the override is the only lever, and with it the production tree audits clean. `package.json` cannot carry a comment, which is why that reason is written here.
+
+Node 22 is the floor, in `engines` and in `.node-version` — `firebase-admin` 14 declares `>=22`, and Render reads `.node-version` from the service's root directory. `npm run audit` is `npm audit --omit=dev`: the production half of the tree, which is the half that faces the internet.
 
 ## Page request lifecycle
 

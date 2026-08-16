@@ -20,7 +20,8 @@
 //     subscriber for every existing file.
 //   - Tokens that come back from FCM as not-registered or invalid are removed.
 
-import admin from "firebase-admin";
+import { initializeApp, cert } from "firebase-admin/app";
+import { getMessaging } from "firebase-admin/messaging";
 import path from "path";
 import fs from "fs";
 import crypto from "crypto";
@@ -144,8 +145,8 @@ export function initPush({ databasePool, serviceAccountJson } = {}) {
       const parsed = typeof serviceAccountJson === "string"
         ? JSON.parse(serviceAccountJson)
         : serviceAccountJson;
-      adminApp = admin.initializeApp(
-        { credential: admin.credential.cert(parsed) },
+      adminApp = initializeApp(
+        { credential: cert(parsed) },
         "push",
       );
       console.log(`Firebase Admin SDK initialized for project ${parsed.project_id}`);
@@ -367,7 +368,7 @@ export async function detectChangedPcb(hardwareDir) {
 // tap on the resulting banner can mark exactly that row read.
 async function fanOutToTokens(tokens, message, errorContext, link, kind) {
   if (tokens.length === 0) return { sent: 0, removed: 0 };
-  const messaging = admin.messaging(adminApp);
+  const messaging = getMessaging(adminApp);
   const webpushDefaults = {
     notification: {
       icon: "/pwa-icons/icon-192.png",
