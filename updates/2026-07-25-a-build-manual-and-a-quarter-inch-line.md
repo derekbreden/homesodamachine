@@ -3,7 +3,8 @@ title: A build manual, and a quarter-inch line
 start: 2026-07-19
 end: 2026-07-25
 kind: week
-thumb: cards
+image: /update-images/2026-07-25-card.png
+image_alt: One card from the 94-card printed build deck.
 lede: The whole appliance got a printed bench manual, and the internal water line was rebuilt to one tube size.
 ---
 
