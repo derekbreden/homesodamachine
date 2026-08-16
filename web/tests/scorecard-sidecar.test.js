@@ -4,7 +4,7 @@
 // to the browser viewer (public/js/viewer/scorecard-3d.js, untyped JS). This pins the consumer
 // end: load the committed enclosure-assembly.scorecard.json and assert it still matches the shape
 // the viewer reads (via the contract's own isScorecard guard), so a producer change that drops
-// or renames a field fails here instead of silently drawing no bar. Skips when unbuilt.
+// or renames a field fails here instead of silently drawing no badge. Skips when unbuilt.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -55,25 +55,6 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
   const gateById = Object.fromEntries(gates.map((c) => [c.id, c]));
   for (const id of ["mounted", "bend-radius"]) assert.ok(gateById[id], `gate ${id} present`);
   assert.equal(sc.gatesPass, gates.every((c) => c.status === "pass"));
-});
-
-test("the port inventory carries a coordinate and a bore for every located connector", (t) => {
-  if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
-  const sc = JSON.parse(fs.readFileSync(SIDECAR, "utf8"));
-
-  assert.ok(Array.isArray(sc.ports), "sidecar carries a ports array");
-  assert.ok(sc.ports.length >= 1, "at least one port declared");
-  for (const p of sc.ports) {
-    for (const k of ["component", "name", "kind", "pos", "face", "diam", "mates", "status", "note"]) {
-      assert.ok(k in p, `port ${p.name} carries ${k}`);
-    }
-    // A port that the audit calls 'ok' (its component counts toward `located`) must have BOTH a
-    // 3-coordinate position AND a numeric bore — the PCBA per-pad specificity this axis enforces.
-    if (p.status === "ok") {
-      assert.ok(Array.isArray(p.pos) && p.pos.length === 3, `located port ${p.name} has an (x,y,z)`);
-      assert.equal(typeof p.diam, "number", `located port ${p.name} has a bore Ø`);
-    }
-  }
 });
 
 // ── Size ────────────────────────────────────────────────────────────────────────────────────
@@ -145,12 +126,7 @@ test("isScorecard rejects malformed input", () => {
   assert.equal(isScorecard({}), false);
   assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, routed: 0, checks: [] }), false);
   assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, routed: 0, checks: [{ kind: "gate" }] }), false);
-  // A malformed ports entry (pos not a triple, diam not numeric) is rejected — the guard fires.
   const base = { gatesPass: true, placed: 0, located: 0, routed: 0, checks: [] };
-  assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: [1, 2], diam: 6, mates: "y", status: "ok" }] }), false);
-  assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: null, diam: "big", mates: "y", status: "no-pos" }] }), false);
-  // A well-formed ports entry (and an absent ports field) both pass.
-  assert.equal(isScorecard({ ...base, ports: [{ component: "x", name: "p", pos: [1, 2, 3], diam: 6.35, mates: "y", status: "ok" }] }), true);
   assert.equal(isScorecard(base), true);
   // A size row missing an axis is rejected; a whole one passes.
   const size = { id: "enclosure", label: "the printed box", min: [0, 0, 0], max: [1, 2, 3], mm: [1, 2, 3] };

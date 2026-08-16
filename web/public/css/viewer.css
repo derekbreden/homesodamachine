@@ -287,15 +287,6 @@
   height: 15px;
 }
 
-/* How many of the thing the switch draws. */
-.tool-chip-count {
-  padding: 0 4px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-}
-
 /* .cad-wrapper and .cv-card both set touch-action:none so a drag orbits the
    model instead of scrolling the page. Anything inside them that scrolls has to
    say so, or a finger drag over it is swallowed. */
@@ -317,35 +308,6 @@
 .cad-wrapper > .reset-view:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}
-
-/* Port hover readout — follows the cursor over a port marker (port-markers.js), naming the
-   connector the disc under the cursor stands for. Pointer-events off so it never eats the
-   orbit gesture it is floating over. */
-.cad-wrapper > .port-tip {
-  position: absolute;
-  z-index: 12;
-  max-width: 250px;
-  padding: 6px 9px;
-  background: rgba(20, 20, 40, 0.94);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 12px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  pointer-events: none;
-}
-.cad-wrapper > .port-tip .port-tip-head {
-  font-weight: 600;
-}
-.cad-wrapper > .port-tip .port-tip-mates {
-  opacity: 0.7;
-}
-.cad-wrapper > .port-tip .port-tip-bad {
-  color: #ff6b81;
-}
-/* The shape-box readout, clear of the port readout under the same cursor. */
-.cad-wrapper > .port-tip.box-tip {
-  margin-top: 34px;
 }
 
 /* ── Breadcrumb ────────────────────────────────────────────────────────────────
@@ -1431,49 +1393,34 @@ summary.branch-head:hover .branch-title::before {
 }
 .pcb-checks-toggle:hover { color: var(--text); }
 
-/* ── 3D-model scorecard: the enclosure requirements verdict as a thin bottom bar + a
-   drill-down modal, mirroring the PCB board-checks UI (.pcb-dims / .pcb-checks*) inside the
-   STEP viewer's .cad-wrapper. Built by public/js/viewer/scorecard-3d.js. ── */
-.cad-wrapper > .sc-bar {
+/* ── 3D-model scorecard: the enclosure requirements verdict as a badge at the bottom of the
+   canvas + a drill-down modal, mirroring the PCB board-checks UI (.pcb-dims / .pcb-checks*)
+   inside the STEP viewer's .cad-wrapper. Built by public/js/viewer/scorecard-3d.js. ── */
+.cad-wrapper > .sc-badge {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 12;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-  width: max-content;
   max-width: calc(100% - 24px);
-  padding: 5px 10px;
-  background: rgba(35, 35, 66, 0.85);
-  color: var(--text);
-  border: 1px solid var(--border);
+  padding: 6px 12px;
   border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 18%, rgba(35, 35, 66, 0.85));
+  color: var(--ok);
   font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  text-align: center;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  pointer-events: none; /* glance-only; the badge re-enables */
 }
-.sc-bar .sc-badge {
-  pointer-events: auto;
-  cursor: pointer;
-  font: inherit;
-  padding: 1px 7px;
-  border-radius: 6px;
-  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
-  background: color-mix(in srgb, var(--ok) 18%, transparent);
-  color: var(--ok);
-}
-.sc-bar .sc-badge.has-issues {
+.cad-wrapper > .sc-badge.has-issues {
   border-color: color-mix(in srgb, var(--err) 60%, transparent);
-  background: color-mix(in srgb, var(--err) 20%, transparent);
+  background: color-mix(in srgb, var(--err) 20%, rgba(35, 35, 66, 0.85));
   color: var(--err);
 }
-.sc-bar .sc-badge:hover { filter: brightness(1.2); }
+.cad-wrapper > .sc-badge:hover { filter: brightness(1.2); }
 /* Driven by a finger, at any width: every control in the modal is a target a thumb can land on.
    Keyed on the pointer rather than the viewport, so a phone held sideways — wide enough for the
    desktop layout below — still gets the sizes a finger needs. */
@@ -1510,22 +1457,17 @@ summary.branch-head:hover .branch-title::before {
     justify-content: center;
   }
   .sc-toggle { min-height: 36px; }
-  .sc-bar .sc-badge {
-    min-height: 34px;
-    display: inline-flex;
-    align-items: center;
-    padding: 1px 12px;
-  }
+  .cad-wrapper > .sc-badge { min-height: 40px; }
 }
 
-/* Narrow: the bar runs nearly the full width, so it takes the bottom row alone and the rail and
-   Reset view sit on the row above it, clear of the height the bar measured for itself
-   (scorecard-3d.js publishes --sc-bar-lift). Reset view keeps its glyph and drops its label,
-   which leaves the rail width enough for the pick modes to stay on one row. */
+/* Narrow: the badge takes the bottom row alone and the rail and Reset view sit on the row above
+   it, clear of the height the badge measured for itself (scorecard-3d.js publishes
+   --sc-badge-lift). Reset view keeps its glyph and drops its label, which leaves the rail width
+   enough for the pick modes to stay on one row. */
 @media (max-width: 600px) {
   .cad-wrapper > .tool-rail,
   .cad-wrapper > .reset-view {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + var(--sc-bar-lift, 0px));
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + var(--sc-badge-lift, 0px));
   }
   .cad-wrapper > .tool-rail {
     max-width: calc(100% - 68px);

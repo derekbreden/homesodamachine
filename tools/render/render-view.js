@@ -88,7 +88,6 @@
 //                      triangles, so `--clip`, `--hide` and ghosting do not move
 //                      it. No contact inside `limit` reports the limit as a fact
 //                      about the cast — `probe.cast`, on the frame.
-//   --ports            keep the port markers (off by default — they are dense)
 //   --caption <text>   extra line in the burned-in legend
 //
 // Identifying what you are looking at:
@@ -190,7 +189,7 @@ function usage(msg) {
       "       [--view right|left|front|back|top|bottom|iso] [--cam x,y,z] [--up x,y,z]\n" +
       "       [--target x,y,z] [--span mm] [--ortho] [--zoom f] [--label|--no-label]\n" +
       "       [--orbit x|y|z:from,to,step[,elev]] [--pick px,py] [--select globs]\n" +
-      "       [--grid|--no-grid] [--clip x|y|z:lo,hi] [--ports] [--caption text]\n" +
+      "       [--grid|--no-grid] [--clip x|y|z:lo,hi] [--caption text]\n" +
       "       [--size WxH] [--bg #hex] [--edition id]\n" +
       "       node tools/render/render-view.js <step-rel> --list",
   );
@@ -234,7 +233,6 @@ function parseArgs(argv) {
     picks: [],
     select: [],
     orbits: [],
-    ports: false,
     caption: null,
     width: 1400,
     height: 1100,
@@ -249,7 +247,6 @@ function parseArgs(argv) {
     const val = (flag) => (a.includes("=") ? a.split("=").slice(1).join("=") : argv[++i]);
     if (a === "--list") opts.list = true;
     else if (a === "--ortho") opts.ortho = true;
-    else if (a === "--ports") opts.ports = true;
     else if (a === "--label") opts.label = true;
     else if (a === "--no-label") opts.label = false;
     else if (a === "--grid") opts.grid = true;
@@ -476,12 +473,6 @@ async function inPageCompose(o) {
     c.visible = true;
     if (m === "ghost") c.material = ghostEdge;
     else if (m === "solid" && tintEdge.has(name)) c.material = tintEdge.get(name);
-  }
-
-  // Overlay groups are scene-level, not part of the model. Off unless asked for.
-  for (const child of scene.children) {
-    if (child.name === "port-markers" && !o.ports) child.visible = false;
-    if (child.name === "shape-boxes") child.visible = false;
   }
 
   // --- Section clips -------------------------------------------------------
@@ -870,7 +861,6 @@ async function inPageCompose(o) {
                (selLit.length ? `${selLit.join(" ")} — AMBER` : "no body on this frame"));
   }
   if (gridInfo.drawn) lines.push(`grid  ${gridInfo.step} mm on ${gridInfo.axes}`);
-  if (!o.ports) lines.push("port markers off");
   if (o.caption) lines.push(o.caption);
   o.legendBottom = 10 + lines.length * 17 + 14;
 
