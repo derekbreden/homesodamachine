@@ -4,19 +4,20 @@
 // the existing /3d viewer, and trimming + resizing the frame with sharp.
 //
 // Usage:
-//   node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|sha>]
+//   node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|ref>]
 // Example:
 //   node tools/render/render-step.js \
-//     printed-parts/cold-core/foam-bag-shell/foam-bag-shell.step \
-//     /tmp/foam-bag-shell.png
+//     printed-parts/cold-core/foam-shell/foam-shell.step \
+//     /tmp/foam-shell.png
 //
 // The step path is relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.
 //
-// --at <date|sha>
+// --at <date|ref>
 //   Render the source STEP as it existed at a past commit. Accepts either a
 //   date (resolved to the most recent commit on `main` on or before
-//   <date> 23:59:59) or a literal SHA. The current HEAD's tooling is used
+//   <date> 23:59:59), or any ref git resolves — a SHA, a branch, or a tag.
+//   The current HEAD's tooling is used
 //   (server.js, viewer-body.html, this script); only the STEP bytes come
 //   from the historical worktree. If the file did not exist at that SHA,
 //   the tool exits non-zero with a clear error.
@@ -24,7 +25,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -37,7 +38,7 @@ const BG_HEX = "#1a1a2e";
 function usage(msg) {
   if (msg) console.error(`render-step: ${msg}`);
   console.error(
-    "usage: node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|sha>]",
+    "usage: node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|ref>]",
   );
   process.exit(1);
 }
@@ -174,9 +175,7 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
     );
   } finally {
     await closeBrowser(browser);
-    await new Promise((resolve, reject) =>
-      server.close((err) => (err ? reject(err) : resolve())),
-    );
+    await closeServer(server);
   }
 }
 

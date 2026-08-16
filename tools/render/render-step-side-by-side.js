@@ -8,11 +8,11 @@
 // Usage:
 //   node tools/render/render-step-side-by-side.js <step-a> <step-b> <output-png> \
 //        [--label-a=<txt>] [--label-b=<txt>] \
-//        [--at <date|sha>] [--at-a <date|sha>] [--at-b <date|sha>]
+//        [--at <date|ref>] [--at-a <date|ref>] [--at-b <date|ref>]
 // Example (the racetrack STEP lives only at the archive-plan-b tag now,
 // so STEP B is pinned to that tag while STEP A stays at HEAD):
 //   node tools/render/render-step-side-by-side.js \
-//     printed-parts/cold-core/foam-bag-shell/foam-bag-shell.step \
+//     printed-parts/cold-core/foam-shell/foam-shell.step \
 //     printed-parts/plan-b/foam-bag-shell-racetrack/foam-bag-shell-upper.step \
 //     /tmp/foam-shell-old-vs-new.png \
 //     --label-a="round (before)" --label-b="racetrack (after)" \
@@ -21,12 +21,12 @@
 // STEP paths are relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.
 //
-// --at <date|sha>           apply the same historical pin to BOTH STEPs.
-// --at-a <date|sha>         pin only STEP A (overrides --at).
-// --at-b <date|sha>         pin only STEP B (overrides --at).
+// --at <date|ref>           apply the same historical pin to BOTH STEPs.
+// --at-a <date|ref>         pin only STEP A (overrides --at).
+// --at-b <date|ref>         pin only STEP B (overrides --at).
 //   When a pin is set, the corresponding STEP is read from a throwaway git
 //   worktree at the resolved commit (most recent commit on `main` on or
-//   before <date> 23:59:59, or the literal SHA). All other tooling (this
+//   before <date> 23:59:59, or any ref git resolves). All other tooling (this
 //   script, server.js, viewer-body.html) stays at HEAD. If a STEP didn't
 //   exist at its pinned SHA, the tool exits non-zero with a clear error.
 //   The pinned source bytes are staged into a temp combined hardwareDir
@@ -42,7 +42,7 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -69,7 +69,7 @@ function usage(msg) {
   console.error(
     "usage: node tools/render/render-step-side-by-side.js " +
       "<step-a> <step-b> <output-png> [--label-a=<txt>] [--label-b=<txt>] " +
-      "[--at <date|sha>] [--at-a <date|sha>] [--at-b <date|sha>]",
+      "[--at <date|ref>] [--at-a <date|ref>] [--at-b <date|ref>]",
   );
   process.exit(1);
 }
@@ -106,23 +106,41 @@ async function snapModel(page, stepRel) {
     stepRel,
   );
 
-  // Pose camera per spec: position at center + (1,1,1)·radius·1.6, look at
-  // center, up (0,1,0). Multiplied by 2 in practice — radius is half the max
-  // bbox dim, so 1.6 of half-dim is too tight; 1.6·full-dim frames cleanly.
+  // Pose the camera isometrically, framing the same way render-step.js does —
+  // the two tools draw the same models and a pair rendered here sits beside
+  // singles rendered there.
   const shot = await page.evaluate(() => {
     const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
     const box = new THREE.Box3().setFromObject(currentGroup);
     const center = box.getCenter(new THREE.Vector3());
     const size = box.getSize(new THREE.Vector3());
-    const radius = Math.max(size.x, size.y, size.z) * 0.5;
-    const dir = new THREE.Vector3(1, 1, 1).normalize();
-    camera.position.copy(center).add(dir.multiplyScalar(radius * 1.6 * 2));
+    // The canvas has to match the puppeteer viewport before the distance is
+    // solved, because the distance depends on the aspect.
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    // WHAT HAS TO FIT IS THE SPHERE, NOT THE LONGEST EDGE. Half the box
+    // diagonal contains the box seen from any angle, and an isometric view
+    // turns the diagonal toward the camera — so framing on half the longest
+    // edge crops the corners. Stand back to where that sphere subtends the
+    // narrower of the two fields of view, plus 4% of air.
+    const bound = size.length() * 0.5;
+    const vFov = (camera.fov * Math.PI) / 180;
+    const hFov = 2 * Math.atan(Math.tan(vFov / 2) * camera.aspect);
+    const dist = (bound / Math.sin(Math.min(vFov, hFov) / 2)) * 1.04;
+    const offset = new THREE.Vector3(1, 1, 1).normalize().multiplyScalar(dist);
+    camera.position.copy(center).add(offset);
     camera.up.set(0, 1, 0);
     camera.lookAt(center);
     controls.target.copy(center);
     controls.update();
-    renderer.setSize(window.innerWidth, window.innerHeight, false);
-    camera.aspect = window.innerWidth / window.innerHeight;
+    // THE CLIP PLANES CAME FROM THE FRAMING THIS REPLACED. The viewer sets
+    // near/far for wherever it had the camera; moving the camera without
+    // re-bracketing can leave a near plane sitting beyond the model, and
+    // everything in front of it is cut — which reads as an empty frame that
+    // trims down to whatever else was in the scene. Bracket the same sphere
+    // around the new distance, with a tenth of it as slack at each end.
+    camera.near = Math.max(dist - bound * 1.1, bound * 0.001);
+    camera.far = dist + bound * 1.1;
     camera.updateProjectionMatrix();
     // The read is on the line after the render — see browser.js frameBuffer.
     renderer.render(scene, camera);
@@ -310,9 +328,7 @@ async function renderPair({
     );
   } finally {
     await closeBrowser(browser);
-    await new Promise((resolve, reject) =>
-      server.close((err) => (err ? reject(err) : resolve())),
-    );
+    await closeServer(server);
   }
 }
 

@@ -41,7 +41,7 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
-import { PARSE_TIMEOUT, closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 import { start } from "../../web/server.js";
 import { EDITIONS } from "../../web/lib/editions.js";
@@ -163,7 +163,7 @@ async function renderRootGroup(root, rels, payloads) {
     }
   } finally {
     await closeBrowser(browser);
-    await new Promise((resolve) => server.close(() => resolve()));
+    await closeServer(server);
   }
   return written;
 }

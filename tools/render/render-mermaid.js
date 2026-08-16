@@ -2,12 +2,12 @@
 // render-mermaid.js — render a .mmd file to a PNG matching the site's dark theme.
 //
 // Usage:
-//   node tools/render/render-mermaid.js <mmd-file> <output-png> [--at <date|sha>]
+//   node tools/render/render-mermaid.js <mmd-file> <output-png> [--at <date|ref>]
 //
-// --at <date|sha>
+// --at <date|ref>
 //   Read the .mmd source from a throwaway git worktree at the resolved
 //   commit (most recent commit on `main` on or before <date> 23:59:59, or
-//   the literal SHA). The mermaid library + theme variables remain at HEAD;
+//   a ref such as a tag). The mermaid library + theme variables remain at HEAD;
 //   only the diagram source is historical. Errors non-zero if the file
 //   didn't exist at that SHA.
 //
@@ -233,7 +233,7 @@ async function main() {
   const [inputArg, outputArg] = positional;
   if (!inputArg || !outputArg) {
     console.error(
-      "Usage: node tools/render/render-mermaid.js <mmd-file> <output-png> [--at <date|sha>]"
+      "Usage: node tools/render/render-mermaid.js <mmd-file> <output-png> [--at <date|ref>]"
     );
     process.exit(2);
   }

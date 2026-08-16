@@ -93,6 +93,21 @@ export async function closeBrowser(browser) {
   killBrowserNow(browser);
 }
 
+// The sibling of closeBrowser: stop the in-process server the render booted.
+//
+// close() stops new connections and then waits for the open ones to end. The
+// viewer holds a websocket on /ws for the life of the page, and that one does
+// not end — so a tool that only calls close() writes its PNG and then hangs,
+// leaving the caller to poll for the file and kill the process. Dropping the
+// sockets first is what makes the wait finish.
+export async function closeServer(server) {
+  if (!server) return;
+  server.closeAllConnections?.();
+  await new Promise((resolve, reject) =>
+    server.close((err) => (err ? reject(err) : resolve())),
+  );
+}
+
 for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) {
   process.on(sig, () => {
     for (const b of LIVE_BROWSERS) killBrowserNow(b);

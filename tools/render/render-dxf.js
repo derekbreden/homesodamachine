@@ -6,7 +6,7 @@
 // resizing the frame with sharp.
 //
 // Usage:
-//   node tools/render/render-dxf.js <dxf-file-relative> <output-png> [--at <date|sha>]
+//   node tools/render/render-dxf.js <dxf-file-relative> <output-png> [--at <date|ref>]
 // Example:
 //   node tools/render/render-dxf.js \
 //     cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf \
@@ -19,10 +19,11 @@
 // hardware/README.md) for thickness_mm. Without one, the screenshot is
 // the wireframe top-down view, not an extruded plate.
 //
-// --at <date|sha>
+// --at <date|ref>
 //   Render the source DXF as it existed at a past commit. Accepts either
 //   a date (resolved to the most recent commit on `main` on or before
-//   <date> 23:59:59) or a literal SHA. The current HEAD's tooling is
+//   <date> 23:59:59), or any ref git resolves — a SHA, a branch, or a tag.
+//   The current HEAD's tooling is
 //   used (server.js, viewer-body.html, this script); only the DXF bytes
 //   come from the historical worktree. If the file did not exist at
 //   that SHA, the tool exits non-zero with a clear error.
@@ -30,7 +31,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -43,7 +44,7 @@ const BG_HEX = "#1a1a2e";
 function usage(msg) {
   if (msg) console.error(`render-dxf: ${msg}`);
   console.error(
-    "usage: node tools/render/render-dxf.js <dxf-file-relative> <output-png> [--at <date|sha>]",
+    "usage: node tools/render/render-dxf.js <dxf-file-relative> <output-png> [--at <date|ref>]",
   );
   process.exit(1);
 }
@@ -151,9 +152,7 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
     );
   } finally {
     await closeBrowser(browser);
-    await new Promise((resolve, reject) =>
-      server.close((err) => (err ? reject(err) : resolve())),
-    );
+    await closeServer(server);
   }
 }
 
