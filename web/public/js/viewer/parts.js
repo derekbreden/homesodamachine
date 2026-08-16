@@ -12,6 +12,7 @@
 
 import { openDetail, openDxfDetail, openGlbDetail } from "./cad-detail.js";
 import { seatParts } from "/contracts/parts-tree.js";
+import { iconSvg } from "/contracts/icons.js";
 
 const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail };
 
@@ -121,7 +122,7 @@ function renderBranch({ id, label, note, hero, groups, parts }, isOpen) {
   const summary = document.createElement("summary");
   summary.className = "branch-head";
   summary.innerHTML = `<div class="branch-text">` +
-    `<span class="branch-title">${esc(label)}</span>` +
+    `<span class="branch-title">${iconSvg("chevron", "branch-caret")}${esc(label)}</span>` +
     `<span class="branch-count">${count} part${count === 1 ? "" : "s"}</span>` +
     `<span class="branch-note">${esc(note)}</span></div>`;
 
