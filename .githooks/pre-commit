@@ -290,6 +290,16 @@ if staged "BUILD.bazel" "tools/bazel/graph.json" "tools/bazel/selftests.json" ||
        python3 "$root/tools/bazel/gen_build.py" --check
 fi
 
+# A STEP HOLDS THE FILES IT DECLARED AND NOTHING ELSE, so a generator importing a module no
+# step names raises ModuleNotFoundError on a file that is tracked, committed and sitting right
+# there. `trace_inputs.py` records what a run was WATCHED opening, so an import added since
+# that run is not in the graph until the run happens again. Ast plus a graph lookup; it starts
+# no interpreter of this repo's and reads no geometry.
+if git diff --cached --name-only --diff-filter=ACM | grep -q '\.py$'; then
+  gate "a staged module's imports are declared where it is read" \
+       python3 "$root/tools/bazel/check_declared_imports.py"
+fi
+
 # RENDER.YAML'S OWN INSTALL COMMAND, ASKED HERE. `npm ci` stops when the lockfile and
 # package.json disagree, so the pair moving apart is a deploy that fails at build time with
 # a Render log for its only reader. It catches an `overrides` edit too, which the lockfile
