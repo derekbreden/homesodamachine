@@ -202,6 +202,7 @@ function buildPanel() {
   head.appendChild(close);
   panel.appendChild(head);
   panel._nameEl = nameEl;
+  panel._close = close;
 
   const actions = document.createElement("div");
   actions.className = "component-actions";
@@ -253,9 +254,11 @@ function showPanel() {
   if (state.currentCadWrapper && panel.parentElement !== state.currentCadWrapper) {
     state.currentCadWrapper.appendChild(panel);
   }
-  // Selected component row.
-  panel._nameEl.textContent = selection || "—";
+  // Selected component row. Nothing selected — the panel is up for the hidden
+  // list — and the head carries its title alone.
+  panel._nameEl.textContent = selection || "";
   panel._nameEl.title = selection || "";
+  panel._close.style.display = selection ? "" : "none";
   const already = selection && state.hiddenComponents.has(selection);
   panel._hideBtn.style.display = selection ? "block" : "none";
   panel._hideBtn.disabled = !!already;
