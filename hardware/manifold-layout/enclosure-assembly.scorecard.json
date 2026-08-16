@@ -30,12 +30,12 @@
    ],
    "max": [
     107.5,
-    485.891,
+    483.891,
     358.0
    ],
    "mm": [
     215.0,
-    480.891,
+    478.891,
     361.0
    ]
   }
@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "83/83 declared",
+   "value": "88/88 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -127,6 +127,11 @@
     "bulkhead-flavor-b \u2014 port-ring-flavor-b: 0.000 mm \u2014 seated against it",
     "bulkhead-flavor-a \u2014 port-ring-flavor-a: 0.000 mm \u2014 seated against it",
     "bulkhead-carb \u2014 port-ring-carb: 0.000 mm \u2014 seated against it",
+    "port-ring-water \u2014 port-ring-water-word: 0.000 mm \u2014 seated against it",
+    "port-ring-carb \u2014 port-ring-carb-word: 0.000 mm \u2014 seated against it",
+    "port-ring-flavor-a \u2014 port-ring-flavor-a-word: 0.000 mm \u2014 seated against it",
+    "port-ring-flavor-b \u2014 port-ring-flavor-b-word: 0.000 mm \u2014 seated against it",
+    "port-ring-co2 \u2014 port-ring-co2-word: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-stub: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-clamp: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
@@ -145,8 +150,13 @@
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "water-3 \u2014 hopper-drain-union: 1.095 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
+    "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.126 mm",
+    "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.126 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
+    "bulkhead-carb \u2014 port-ring-carb-word: 1.278 mm",
+    "bulkhead-water \u2014 port-ring-water-word: 1.297 mm",
+    "co2-inlet \u2014 port-ring-co2-word: 1.419 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
     "foam-assembly \u2014 wago-sensors: 1.600 mm",
@@ -570,21 +580,21 @@
   },
   {
    "id": "port-field-web",
-   "label": "Two neighbouring pads leave air between their rims",
+   "label": "Two neighbouring pockets leave standing wall between them",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a gap of 3 mm or more, one rim's own width",
+   "target": "a web of 3 mm or more, one rim's own width",
    "detail": [],
    "active": true
   },
   {
-   "id": "port-pad-under-ring",
-   "label": "No pad stands proud of the ring it holds",
+   "id": "port-pocket-floor",
+   "label": "Every pocket leaves wall under the chip it holds",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a pad at or under `port_ring.THICK` 2 mm",
+   "target": "a chip under `enclosure.wall` 3 mm",
    "detail": [],
    "active": true
   },
@@ -697,7 +707,7 @@
    "label": "The atmospheric vent drips on the basin's flat floor",
    "kind": "gate",
    "status": "pass",
-   "value": "drips at y 376.21",
+   "value": "drips at y 374.21",
    "target": "y[360.60, 427.60]",
    "detail": [],
    "active": true
@@ -717,7 +727,7 @@
    "label": "The atmospheric vent drips on the moisture plate itself",
    "kind": "gate",
    "status": "pass",
-   "value": "drips at x -78.07, y 376.21",
+   "value": "drips at x -78.07, y 374.21",
    "target": "x[-88.78, -48.78] y[367.10, 421.10]",
    "detail": [],
    "active": true
@@ -885,6 +895,16 @@
    "status": "pass",
    "value": "5 clamped, furthest off its ring 0.000 mm, tightest in its bore 0.427 mm",
    "target": "bearing at 0.000 mm and 0.430 mm of bore",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "port-ring-top-row",
+   "label": "The top row's chips run out on the box's top face",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 chips flush at z 355.000",
+   "target": "no wall standing over the colour",
    "detail": [],
    "active": true
   },
@@ -1087,7 +1107,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "57/57 mounted, 14 part of another body, 12 nothing fastens",
+   "value": "57/57 mounted, 19 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
@@ -1110,7 +1130,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "83/83 stated",
+   "value": "88/88 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1164,7 +1184,7 @@
    "value": "20/21 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 447.5 mm unheld, 247.5 over",
+    "fluid-18: 445.5 mm unheld, 245.5 over",
     "carb-1: 144.5 mm, held at its anchor",
     "co2-2: 114.2 mm, held at its anchor",
     "fluid-28: 167.7 mm, held at its anchor",

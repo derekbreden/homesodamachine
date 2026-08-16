@@ -639,13 +639,13 @@ z_lip_y_margin = 2.0
 #   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
 #                 leg a rib is centred on, which way the tube points there, which way the face
 #                 it stands on lies, and the section it seats
-#   port_field    the pads the back wall's outer face carries, (proud, rim, pockets) — how far
-#                 a pad stands off the wall, the rim of it left standing around its ring, and
-#                 one (x, z, diameter) per pocket a port ring lies in. One pad per pocket, each
-#                 a plain cylinder of pocket + rim: round and this shallow it needs no flank,
-#                 the way the C14's own bosses on this wall need none. A pocket is the pad's
-#                 own depth, so its floor is the wall's face and the wall keeps its whole
-#                 thickness under every ring
+#   port_field    the pockets the back wall's outer face carries and the bosses behind them,
+#                 (proud, rim, pockets) — how deep a pocket is cut and how far its boss stands
+#                 inboard, the wall the field keeps around each chip, and one (x, z, width,
+#                 rise) per pocket. A pocket is a D on its back: a half circle below the bore's
+#                 axis and a rectangle above it, so it takes its chip one way up and no other.
+#                 The boss is that shape one rim larger, and makes back exactly what the pocket
+#                 took, so the wall keeps its whole thickness under every chip
 #   valve_panels  the flavour manifold's decks, one (plane, sign, seats) each — the world Y a
 #                 deck's valves stand their mounting faces on, which way their own +Z runs off
 #                 it, and one (x, z) per valve. A panel is a plate wall to wall carrying one
@@ -1494,31 +1494,50 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
 
 
+def _port_chip(px, pz, width, rise, y0, y1):
+    """One station's outline as a solid spanning `y0..y1` — a D lying on its back: a half circle
+    of `width` below the bore's axis, and a rectangle that wide standing `rise` above it.
+
+    The pocket and the boss behind it are the same shape at two sizes, so both are struck here.
+    Built from primitives rather than sketched, so no plane's own chirality reaches the shape."""
+    r = width / 2.0
+    barrel = cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(px, y0, pz), cq.Vector(0, 1, 0))
+    return (barrel.intersect(_ybox(px - r, px + r, y0, y1, pz - r, pz))
+            .fuse(_ybox(px - r, px + r, y0, y1, pz, pz + rise)))
+
+
 def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
-    """The pad each port ring lies in, on a ±Y wall's outer face — one per station.
+    """The pocket each port chip lies in, cut INTO a ±Y wall's outer face, and the boss standing
+    behind it on the inner one — one pair per station.
 
-    A pad is a plain cylinder standing `proud` off the wall with its ring's pocket cut through
-    it, which leaves a rim of that width around the ring. Round and this shallow, it stands
-    without a flank the way the C14's own bosses do on the same wall. The pocket is cut the
-    pad's whole height, so its floor is the wall's own face and the wall keeps its full
-    thickness under every ring.
+    THE POCKET IS `proud` DEEP AND THE BOSS IS `proud` TALL, so the boss makes back exactly what
+    the pocket took and the stock under every chip is the wall's own full thickness. What the
+    customer meets is a flush face: colour and wall in one plane, with no pad standing off it.
 
-    A pad stands OUTSIDE the print silhouette, so like those bosses it goes on after the clip,
-    on whichever piece holds its Z — `zlo..zhi` is that piece's band. Everything the wall
-    carries through a pad it carries through the pad too, so `ports` is bored here across the
-    pad's own depth: the wall's holes are the wall's, and these are the pads'."""
+    THE BOSS IS `rim` LARGER THAN THE CHIP ALL ROUND, and at this pitch two neighbours on one row
+    run into each other and fuse into one longer boss. `enclosure_assembly.PORT_FIELD_WEB` is the
+    reading that keeps the POCKETS apart.
+
+    A boss goes on after the clip, on whichever piece holds its Z — `zlo..zhi` is that piece's
+    band — and is clipped to the print silhouette, which is what runs the top row's three out into
+    the top wall instead of standing them past it. The pocket is cut on every piece it reaches, so
+    one straddling the seam is cut on both halves of it. Everything the wall carries through a
+    station it carries through that station's boss too, so `ports` is bored here across the boss's
+    own depth: the wall's holes are the wall's, and these are the bosses'."""
     if field is None:
         return solid
-    ox0, ox1, oy0, _oy1, oz0, oz1 = outer
-    silhouette = _rounded_outer((ox0, ox1, oy0, y_outer + field.proud, oz0, oz1))
-    band = _ybox(ox0 - 1.0, ox1 + 1.0, y_outer, y_outer + field.proud, zlo, zhi)
-    for px, pz, dia in field.pockets:
-        pad = cq.Solid.makeCylinder(dia / 2.0 + field.rim, field.proud,
-                                    cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0))
-        solid = solid.fuse(pad.intersect(silhouette).intersect(band))
-        solid = solid.cut(cq.Solid.makeCylinder(
-            dia / 2.0, field.proud, cq.Vector(px, y_outer, pz), cq.Vector(0, 1, 0)))
-    for cutter in _port_cuts(ports, y_outer, y_outer + field.proud):
+    ox0, ox1, _oy0, _oy1, _oz0, _oz1 = outer
+    silhouette = _rounded_outer(outer)
+    y_inner = y_outer - wall
+    boss_y0 = y_inner - field.proud
+    band = _ybox(ox0 - 1.0, ox1 + 1.0, boss_y0, y_inner, zlo, zhi)
+    for px, pz, width, rise in field.pockets:
+        boss = _port_chip(px, pz, width + 2.0 * field.rim, rise + field.rim, boss_y0, y_inner)
+        solid = solid.fuse(boss.intersect(silhouette).intersect(band))
+    for px, pz, width, rise in field.pockets:
+        solid = solid.cut(_port_chip(px, pz, width, rise,
+                                     y_outer - field.proud, y_outer + 1.0))
+    for cutter in _port_cuts(ports, boss_y0 - 1.0, y_inner + 1.0):
         solid = solid.cut(cutter)
     return solid
 
@@ -3113,9 +3132,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # wall cannot hold stands outboard. They go on after the clip, on whichever piece
         # holds their Z.
         piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi)
-        # The port field stands outboard of that same silhouette, for the same reason: the
-        # fittings clamp against its crown, not against the wall. It carries the face's own
-        # through-holes across its depth, so a bore that crosses the wall crosses it too.
+        # The port field goes on here too, but INSIDE that silhouette: its pockets are cut into
+        # the wall's outer face and its bosses stand off the inner one, so the face the customer
+        # meets is flush. The bosses carry the face's own through-holes across their depth, so a
+        # bore that crosses the wall crosses them too.
         piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
