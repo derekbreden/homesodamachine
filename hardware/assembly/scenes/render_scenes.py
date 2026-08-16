@@ -35,7 +35,8 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
         sys.path.insert(0, str(_p))
 
 import _scenes                                          # noqa: E402
-from _cadq_export import export_assembly, note_read, note_write   # noqa: E402
+from _cadq_export import (export_assembly, import_step, note_read,   # noqa: E402
+                          note_write, _payload_current, _write_mesh_payload)
 
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
@@ -230,6 +231,15 @@ def draw_part(part, force=False) -> Path:
     note_read(RENDERER)
     step = _ROOT / part.step
     note_read(step)
+    # AND A MESH BESIDE IT, WRITTEN HERE IF THERE IS NOT ONE. `loadStepFile` PREFERS a payload to
+    # the STEP it stands for, and a subject of this size parsed from raw B-rep does not reach the
+    # viewer inside the renderer's own wait — a missing payload is not a slower render, it is
+    # `ERR_TIMED_OUT`. A payload is `.gitignore`d, so it is never staged and a sandbox always
+    # starts without one; a scene gets its own from `export_assembly` writing its STEP, and this
+    # is the same bargain for a STEP somebody else cut.
+    mesh = step.with_name(step.name + ".mesh")
+    if not _payload_current(step, mesh):
+        _write_mesh_payload(step, import_step(str(step)))
     png = part_png(part)
     note_write(png)
 
