@@ -25,7 +25,8 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-from _cadq_export import export_assembly, export_step
+from _cadq_export import export_assembly
+from _materials import C_PETG_TAN, one_body
 import _touch_flo_interface
 from _touch_flo_interface import (
     flavor_tube_od,
@@ -1659,18 +1660,17 @@ def main():
     # derive from. Separate solids, not a union: a boolean union fuses
     # the joints' nominal-contact faces and dissolves their seams.
     assembled = cq.Assembly(name="touch-flo-shell")
-    assembled.add(bottom, name="shell_bottom")
-    assembled.add(middle, name="shell_middle")
-    assembled.add(top, name="shell_top")
+    assembled.add(bottom, name="shell_bottom", color=C_PETG_TAN)
+    assembled.add(middle, name="shell_middle", color=C_PETG_TAN)
+    assembled.add(top, name="shell_top", color=C_PETG_TAN)
 
     full_out = out_dir / "touch-flo-shell.step"
     bottom_out = out_dir / "touch-flo-shell-bottom.step"
     middle_out = out_dir / "touch-flo-shell-middle.step"
     top_out = out_dir / "touch-flo-shell-top.step"
     export_assembly(assembled, str(full_out))
-    export_step(bottom, str(bottom_out))
-    export_step(middle, str(middle_out))
-    export_step(top, str(top_out))
+    for shape, out in ((bottom, bottom_out), (middle, middle_out), (top, top_out)):
+        export_assembly(one_body(shape, out.stem, C_PETG_TAN), str(out))
     print(f"-> {full_out.name}")
     print(f"-> {bottom_out.name}")
     print(f"-> {middle_out.name}")

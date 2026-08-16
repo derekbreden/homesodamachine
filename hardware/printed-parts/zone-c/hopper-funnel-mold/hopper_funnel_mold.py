@@ -39,7 +39,8 @@ sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 _FUNNEL = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"
 sys.path.insert(0, str(_FUNNEL))
-from _cadq_export import export_assembly, export_step
+from _cadq_export import export_assembly
+from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md
 import hopper_funnel as HF
 
@@ -145,9 +146,11 @@ def build():
 def main():
     cavity, core, info = build()
     here = _here.parent
-    export_step(cq.Workplane(obj=cavity), str(here / "hopper-funnel-mold-cavity.step"))
+    export_assembly(one_body(cq.Workplane(obj=cavity), "hopper-funnel-mold-cavity",
+                             M_PETG_BLACK), str(here / "hopper-funnel-mold-cavity.step"))
     print("-> hopper-funnel-mold-cavity.step")
-    export_step(cq.Workplane(obj=core), str(here / "hopper-funnel-mold-core.step"))
+    export_assembly(one_body(cq.Workplane(obj=core), "hopper-funnel-mold-core",
+                             M_PETG_BLACK), str(here / "hopper-funnel-mold-core.step"))
     print("-> hopper-funnel-mold-core.step")
 
     # Exploded assembly (cavity → silicone funnel → core, stacked up) so the

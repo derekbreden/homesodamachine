@@ -2504,7 +2504,9 @@ genrule(
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -2540,6 +2542,7 @@ genrule(
         "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf.json",
         "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/printed-parts/faucet/_touch_flo_interface.py",
         "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
         "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
@@ -2554,6 +2557,7 @@ genrule(
         "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.md",
         "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -2622,6 +2626,7 @@ genrule(
         "hardware/faucet-layout/faucet-assembly.step.png",
         "hardware/faucet-layout/faucet_assembly.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
         "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
         "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
@@ -2629,6 +2634,7 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
         "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -4494,12 +4500,14 @@ genrule(
     name = "touch-flo-mounting-gasket",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
         "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.json",
         "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.png",
         "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
         "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -4533,6 +4541,7 @@ genrule(
     name = "touch-flo-mounting-plate",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
         "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
         "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
@@ -4541,6 +4550,7 @@ genrule(
         "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
         "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -4581,6 +4591,7 @@ genrule(
     name = "touch-flo-tpu-o-ring",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
         "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
         "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/print-log.md",
@@ -4588,6 +4599,7 @@ genrule(
         "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step.png",
         "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -4627,10 +4639,12 @@ cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py $$
 genrule(
     name = "peristaltic-tube",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step.json",
         "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step.png",
         "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -4665,6 +4679,7 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step",
         "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step.png",
         "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step.json",
@@ -4674,6 +4689,7 @@ genrule(
         "hardware/printed-parts/flavor/pump-case/pump_case.py",
         "pysrc/hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -5025,11 +5041,14 @@ cp hardware/reference/asse1022-assembly/README.md $$O2
 genrule(
     name = "basics-mtb-0606wp",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step.png",
         "pysrc/hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
         "out/basics-mtb-0606wp/hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
@@ -5056,11 +5075,13 @@ cp hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step $$O0
 genrule(
     name = "beduan-solenoid",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/reference/beduan-solenoid/README.figures.json",
         "hardware/reference/beduan-solenoid/README.md",
         "hardware/reference/beduan-solenoid/beduan-solenoid.step.png",
         "hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -5190,11 +5211,14 @@ cp hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py $$O3
 genrule(
     name = "ffl38barb38",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/reference/ffl38barb38/ffl38barb38.py",
         "hardware/reference/ffl38barb38/ffl38barb38.step.png",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
         "out/ffl38barb38/hardware/reference/ffl38barb38/ffl38barb38.step",
@@ -5221,11 +5245,14 @@ cp hardware/reference/ffl38barb38/ffl38barb38.step $$O0
 genrule(
     name = "flare38-14ptc",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/reference/flare38-14ptc/flare38-14ptc.step.png",
         "pysrc/hardware/reference/flare38-14ptc/flare38_14ptc.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
         "out/flare38-14ptc/hardware/reference/flare38-14ptc/flare38-14ptc.step",
@@ -5252,11 +5279,14 @@ cp hardware/reference/flare38-14ptc/flare38-14ptc.step $$O0
 genrule(
     name = "gagira-reducing-coupling",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.png",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
         "out/gagira-reducing-coupling/hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step",
@@ -6063,9 +6093,11 @@ genrule(
     name = "valve-body-reference",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step.png",
         "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
@@ -6178,12 +6210,14 @@ cp hardware/reference/water-split/water-split.step $$O0
 genrule(
     name = "water-test-cup",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/reference/water-test-cup/README.md",
         "hardware/reference/water-test-cup/print-log.md",
         "hardware/reference/water-test-cup/water-test-cup.3mf",
         "hardware/reference/water-test-cup/water-test-cup.step.png",
         "hardware/reference/water-test-cup/water_test_cup.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",

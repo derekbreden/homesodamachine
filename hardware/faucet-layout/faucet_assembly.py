@@ -53,6 +53,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_assembly, import_step
+import _materials as _mat
 from docgen import substitute_py_comments
 
 
@@ -719,8 +720,8 @@ def build_assembly():
     supply_tube = build_supply_tube()
 
     silver = cq.Color(0.85, 0.85, 0.88)  # near-stainless silver
-    petg_tan = cq.Color(0.85, 0.78, 0.62)  # printed-part tan
-    tpu_black = cq.Color(0.15, 0.15, 0.15)  # TPU 90A black gasket
+    petg_tan = _mat.C_PETG_TAN
+    tpu_black = _mat.C_TPU_BLACK
     display_slate = cq.Color(0.12, 0.13, 0.18)  # dark display module
     display_glass = cq.Color(0.20, 0.55, 0.85)  # lit-screen blue
     steel = cq.Color(0.72, 0.74, 0.78)  # 316 SS cut plate

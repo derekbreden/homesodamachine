@@ -11,7 +11,8 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_TPU_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 from world_workplane import xy_plane_z_up
 
@@ -61,7 +62,7 @@ def build_o_ring() -> cq.Workplane:
 
 def main():
     o_ring = build_o_ring()
-    export_step(o_ring, str(_here / "touch-flo-tpu-o-ring.step"))
+    export_assembly(one_body(o_ring, "touch-flo-tpu-o-ring", C_TPU_BLACK), str(_here / "touch-flo-tpu-o-ring.step"))
     print("-> touch-flo-tpu-o-ring.step")
 
     variables = {

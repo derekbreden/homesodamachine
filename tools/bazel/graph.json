@@ -2502,7 +2502,9 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -2549,6 +2551,7 @@
       "hardware/faucet-layout/faucet-assembly.step.png",
       "hardware/faucet-layout/faucet_assembly.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
@@ -2556,6 +2559,7 @@
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
       "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -4235,6 +4239,7 @@
   "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step.json",
@@ -4242,6 +4247,7 @@
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
       "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -4257,6 +4263,7 @@
   "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
@@ -4266,6 +4273,7 @@
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
       "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -4286,6 +4294,7 @@
   "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
       "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
       "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
@@ -4304,6 +4313,7 @@
       "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.md",
       "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -4333,6 +4343,7 @@
   "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/print-log.md",
@@ -4341,6 +4352,7 @@
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step.png",
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -4360,11 +4372,13 @@
   },
   "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
       "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step.json",
       "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step.png",
       "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -4381,6 +4395,7 @@
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step",
       "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step.png",
       "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step",
@@ -4392,6 +4407,7 @@
       "hardware/printed-parts/flavor/pump-case/pump_case.py",
       "hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -4596,12 +4612,15 @@
   },
   "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
       "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step.png",
       "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py"
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -4610,12 +4629,14 @@
   },
   "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/beduan-solenoid/README.figures.json",
       "hardware/reference/beduan-solenoid/README.md",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step.png",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -4687,12 +4708,15 @@
   },
   "hardware/reference/ffl38barb38/ffl38barb38.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/ffl38barb38/ffl38barb38.py",
       "hardware/reference/ffl38barb38/ffl38barb38.step",
       "hardware/reference/ffl38barb38/ffl38barb38.step.png",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py"
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -4701,12 +4725,15 @@
   },
   "hardware/reference/flare38-14ptc/flare38_14ptc.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/flare38-14ptc/flare38-14ptc.step",
       "hardware/reference/flare38-14ptc/flare38-14ptc.step.png",
       "hardware/reference/flare38-14ptc/flare38_14ptc.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py"
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -4715,12 +4742,15 @@
   },
   "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.png",
       "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py"
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5135,10 +5165,12 @@
   "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
       "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step.png",
       "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -5197,6 +5229,7 @@
   },
   "hardware/reference/water-test-cup/water_test_cup.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/water-test-cup/README.md",
       "hardware/reference/water-test-cup/print-log.md",
       "hardware/reference/water-test-cup/water-test-cup.3mf",
@@ -5204,6 +5237,7 @@
       "hardware/reference/water-test-cup/water-test-cup.step.png",
       "hardware/reference/water-test-cup/water_test_cup.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"

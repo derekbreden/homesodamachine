@@ -41,7 +41,8 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_STAINLESS, one_body
 from docgen import substitute_py_comments
 
 inch = 25.4  # mm per inch — the cap's source specs are in inches.
@@ -109,7 +110,7 @@ def build_endcap() -> cq.Workplane:
 def main() -> None:
     model = build_endcap()
     path = out_dir / f"{out_name}.step"
-    export_step(model, str(path))
+    export_assembly(one_body(model, path.stem, M_STAINLESS), str(path))
 
     print(f"Exported: {path}")
     print(f"  Disc:      Ø{disc_diameter:.3f} × {disc_thickness:.3f} mm, 316 SS")

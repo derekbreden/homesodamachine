@@ -61,6 +61,7 @@ for _p in (_hw / "scripts",
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly, import_step  # noqa: E402
+from _materials import step_safe
 from _measuring import bores  # noqa: E402
 import _back_panel_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
@@ -262,7 +263,7 @@ def build_ring(which: str):
 
 
 def _filament(rgb) -> "cq.Color":
-    return cq.Color(*(c / 255.0 for c in rgb))
+    return step_safe(cq.Color(*(c / 255.0 for c in rgb)))
 
 
 def build_part(which: str) -> cq.Assembly:

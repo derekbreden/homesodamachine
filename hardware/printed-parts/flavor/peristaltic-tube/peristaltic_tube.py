@@ -10,7 +10,8 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_SILICONE, one_body
 from docgen import substitute_py_comments
 
 
@@ -38,7 +39,7 @@ def build_tube():
 
 def main():
     tube = build_tube()
-    export_step(tube, str(_here / "peristaltic-tube.step"))
+    export_assembly(one_body(tube, "peristaltic-tube", C_SILICONE), str(_here / "peristaltic-tube.step"))
     print("-> peristaltic-tube.step")
 
     variables = {
