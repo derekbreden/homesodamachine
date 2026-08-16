@@ -820,6 +820,13 @@ function showPanel(sel) {
     state.currentCadWrapper.appendChild(panel);
   }
   panel.querySelector(".edge-panel-title").textContent = sel.type === "face" ? "Face" : "Edge";
+  const file = currentFile();
+  panel._fileEl.textContent = file ? headerName(file) : "";
+  panel._fileEl.title = file ? repoPath(file) : "";
+  // On screen before the blob is measured: the panel is display:none until it
+  // carries `show`, and a hidden textarea reports a scrollHeight of 0.
+  panel.classList.add("show");
+
   const blob = allText(sel);
   // Sized to the blob as it wraps at the panel's width, not to its newlines —
   // a pick line runs to two or three rows in a 430px box, and the panel has
@@ -831,10 +838,6 @@ function showPanel(sel) {
   const line = parseFloat(cs.lineHeight) || 18;
   const pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
   ta.rows = Math.min(14, Math.max(2, Math.ceil((ta.scrollHeight - pad) / line)));
-  const file = currentFile();
-  panel._fileEl.textContent = file ? headerName(file) : "";
-  panel._fileEl.title = file ? repoPath(file) : "";
-  panel.classList.add("show");
 }
 
 function hidePanel() { if (panel) panel.classList.remove("show"); }

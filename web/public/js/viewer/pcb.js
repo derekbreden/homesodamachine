@@ -536,6 +536,8 @@ function mountView(view, preserve) {
     onTransformChange: (t) => { if (source) pcbSaveTransform(source, t); },
     onTransformLive: (t) => minimap.update(t),
   });
+  // The reset pill has no destroy of its own, and a layer swap builds another.
+  wrapper.querySelector(".pan-zoom-reset")?.remove();
   wrapper.appendChild(minimap.el);
   wrapper.appendChild(makeResetButton(pz, {
     transformKey: source ? pcbTransformKey(source) : null,

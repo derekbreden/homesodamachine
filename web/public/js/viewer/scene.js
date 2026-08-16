@@ -167,15 +167,18 @@ const gizmoScene = new THREE.Scene();
 const gizmoCam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
 const gizmoRaycaster = new THREE.Raycaster();
 
-// Face definitions: label, normal (camera direction to see that face), material index.
-// Repo convention is +Z-up CAD: +Z height, -Y front (user side), +X right.
+// The cube's six faces in BoxGeometry's own material order — +X, -X, +Y, -Y,
+// +Z, -Z. That order is the mapping: a face's place in this array is the slot
+// its label is painted on, and the raycast reads the same places back out of
+// `hit.face.materialIndex`. Repo convention is +Z-up CAD: +Z height, -Y front
+// (user side), +X right. `normal` is where the camera stands to see the face.
 const cubeFaces = [
-  { label: "Right",  normal: new THREE.Vector3( 1, 0, 0), index: 0 },
-  { label: "Left",   normal: new THREE.Vector3(-1, 0, 0), index: 1 },
-  { label: "Top",    normal: new THREE.Vector3( 0, 0, 1), index: 2 },
-  { label: "Bottom", normal: new THREE.Vector3( 0, 0,-1), index: 3 },
-  { label: "Front",  normal: new THREE.Vector3( 0,-1, 0), index: 4 },
-  { label: "Back",   normal: new THREE.Vector3( 0, 1, 0), index: 5 },
+  { label: "Right",  normal: new THREE.Vector3( 1, 0, 0) },
+  { label: "Left",   normal: new THREE.Vector3(-1, 0, 0) },
+  { label: "Back",   normal: new THREE.Vector3( 0, 1, 0) },
+  { label: "Front",  normal: new THREE.Vector3( 0,-1, 0) },
+  { label: "Top",    normal: new THREE.Vector3( 0, 0, 1) },
+  { label: "Bottom", normal: new THREE.Vector3( 0, 0,-1) },
 ];
 
 function makeFaceTexture(label, isHovered) {

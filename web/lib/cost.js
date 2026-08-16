@@ -298,8 +298,12 @@ const COST_CSS = `
 .cost-cat[open] summary::after { content: "\\2013"; }
 /* The row's own name takes what it needs; the badge takes the rest of the way
    to the marker, so it stands on one line down the whole list. */
-.cost-dt { margin-left: auto; font-weight: 400; color: var(--text-2); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
-.cost-items { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.cost-dt { margin-left: auto; font-weight: 400; color: var(--text-2); font-size: 0.78rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Fixed columns, so the qty and the price stand on the same two lines in every
+   card rather than on lines each table works out for itself. */
+.cost-items { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.78rem; }
+.cost-items td.cost-qty { width: 8.5rem; }
+.cost-items td.cost-num { width: 5.5rem; }
 .cost-items td { padding: 0.45rem 1rem; border-top: 1px solid var(--border); color: var(--text); vertical-align: top; }
 /* A part name is one long token as often as it is words. */
 .cost-items td:first-child { overflow-wrap: anywhere; }
@@ -366,6 +370,9 @@ const COST_CSS = `
   .cost-bar { grid-template-columns: 1fr 4.4rem 2.75rem; grid-template-areas: "l l l" "t v p"; }
   .cost-bl { grid-area: l; } .cost-bt { grid-area: t; } .cost-bv { grid-area: v; } .cost-bp { grid-area: p; }
   .cost-bar.lab { grid-template-columns: 1fr 4.6rem 4.2rem; }
+  /* The name stands on its own row here, so the space between bars has to beat
+     the space inside one or the name reads against the bar above it. */
+  .cost-chart { gap: 1.5rem; }
   /* The card is the width of a phone here, and the qty column carries a rate
      and a unit as often as a number. */
   .cost-items td.cost-qty { white-space: normal; }

@@ -235,6 +235,10 @@ export function makeMinimap(svgEl, container, obstacles) {
 
   function destroy() {
     if (ro) { try { ro.disconnect(); } catch {} ro = null; }
+    // The element goes with the observer. A surface that swaps what it shows
+    // (the board's layer views) builds a fresh minimap each time, and a box
+    // left behind keeps painting the view it was frozen at.
+    try { wrap.remove(); } catch {}
   }
 
   return { el: wrap, update, destroy };
