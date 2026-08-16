@@ -236,11 +236,11 @@ const UPDATES_CSS = `
 .up-item { border-top: 1px solid var(--border); }
 .up-item:last-child { border-bottom: 1px solid var(--border); }
 /* A row leads with the thing the entry is about, at the full width of the
-   column and its own aspect. These are x-ray drawings — hairline geometry on a
-   ground the same colour as the page — and the lines thin into that ground as
-   they scale down: the packed enclosure is legible near full size and gone by a
-   third of it. So the picture is never boxed to a common height; a tall subject
-   makes a tall row. */
+   column and its own aspect. These drawings carry the whole machine — the box,
+   the cold core, every board and reservoir — and the entry is recognised by
+   that subject, so the picture gets the width the detail is drawn at. It is
+   never boxed to a common height: a tall subject makes a tall row, and nothing
+   is cropped. */
 .up-item > a {
   display: flex; flex-direction: column; gap: .7rem;
   padding: 1rem .35rem 1.2rem; text-decoration: none; color: inherit;
