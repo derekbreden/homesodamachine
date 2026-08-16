@@ -37,11 +37,30 @@ ac_inlet_recess_depth_max = 5.0
 # points at them (`/hardware/quickstart/appliance_quickstart.py`) read them
 # from here, so the face a customer looks at and the sheet in their hand
 # cannot disagree about which colour is which line.
+# FOUR TUBE COLOURS AND FOUR CHIP COLOURS, and they are the same four: a chip
+# is the colour of the tube that goes into it. Black is not the absence of a
+# marking on this wall — it is the FLAVOUR colour, the stock `_routing.SPOOLS`
+# cuts both flavour lines off, and both flavour ports wear it. What black does
+# not do is tell A from B: a customer pushes black into either one and the
+# manifold sorts them.
 port_colors = {
     "carb": (31, 111, 235),     # carbonated water — the umbilical riser
     "water": (255, 255, 255),   # tap water — the customer's teed-in supply
     "co2": (214, 58, 58),       # CO2 — the customer's regulator tether
+    "flavor": (38, 38, 41),     # flavour — both nozzle feeds, one colour
 }
+
+
+def word_color(fluid):
+    """The colour a chip's WORD is lettered in — the one of black and white that
+    reads against the chip's own.
+
+    Struck off the chip's own luminance rather than listed per station, so a
+    colour that changes carries its lettering with it. `port_ring` cuts the
+    recess and this is what fills it."""
+    r, g, b = port_colors[fluid]
+    light = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0
+    return (0, 0, 0) if light > 0.5 else (255, 255, 255)
 
 
 def port_color_hex(fluid):
@@ -116,6 +135,7 @@ def main():
         "CARB_COLOR": port_color_hex("carb"),
         "WATER_COLOR": port_color_hex("water"),
         "CO2_COLOR": port_color_hex("co2"),
+        "FLAVOR_COLOR": port_color_hex("flavor"),
         "CARB_END": carb_union_end(),
         "FLAVOR_B_END": dropped_union_end(),
     }

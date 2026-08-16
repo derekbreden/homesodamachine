@@ -344,16 +344,27 @@ MOUNTS = (
     ("bulkhead-flavor-a", "enclosure-back-top", "wall-capture"),
     ("bulkhead-flavor-b", "enclosure-back-top", "wall-capture"),
     ("bulkhead-carb", "enclosure-back-top", "wall-capture"),
-    # A RING LIES IN A PAD ON THE BACK WALL'S OUTER FACE. `enclosure._port_field` stands a rim
-    # of printed wall around each one and the fitting's flange lands on the ring's outboard face,
-    # so the ring is fenced on every side and shut in by a flange whose bore is narrower than it
-    # is. What holds it is that rim — the same bargain the lever nuts strike in their wells, with
-    # a placed body's flange over the mouth.
+    # A CHIP LIES IN A POCKET CUT INTO THE BACK WALL'S OUTER FACE. `enclosure._port_field` sinks
+    # each one the chip's own thickness and stands the boss that backs it on the inboard face, and
+    # the fitting's flange lands on the chip's outboard face — so the chip is fenced by wall on
+    # every side its outline has and shut in by a flange whose bore is narrower than it is. What
+    # holds it is that pocket: the same bargain the lever nuts strike in their wells, with a placed
+    # body's flange over the mouth. The three on the top row are fenced on three sides and open at
+    # the ceiling, which `enclosure_assembly.check_top_row` is what reads.
     ("port-ring-water", "enclosure-back-top", "well"),
     ("port-ring-carb", "enclosure-back-top", "well"),
     ("port-ring-co2", "enclosure-back-top", "well"),
     ("port-ring-flavor-a", "enclosure-back-top", "well"),
     ("port-ring-flavor-b", "enclosure-back-top", "well"),
+    # AND THE WORD LIES IN A RECESS OF THE CHIP, by the same bargain one step in. A two-colour
+    # print is ONE part in two materials: `port_ring.build_ring` cuts the recess and
+    # `port_ring.build_word` fills it in the same layers, so nothing joins the pair but the print
+    # that lays them both. `RIDES` is what keeps this from counting as a second joint.
+    ("port-ring-water-word", "port-ring-water", "well"),
+    ("port-ring-carb-word", "port-ring-carb", "well"),
+    ("port-ring-co2-word", "port-ring-co2", "well"),
+    ("port-ring-flavor-a-word", "port-ring-flavor-a", "well"),
+    ("port-ring-flavor-b-word", "port-ring-flavor-b", "well"),
     # THE METER HANGS IN TWO SADDLES OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
@@ -404,6 +415,8 @@ RIDES = {
     **{f"coil-v-{v}": f"valve-v-{v}" for v in "abcdefghij"},
     **{f"pump-{p}-{part}": f"pump-{p}-head"
        for p in ("a", "b") for part in ("boss", "motor")},
+    **{f"port-ring-{w}-word": f"port-ring-{w}"
+       for w in ("water", "carb", "co2", "flavor-a", "flavor-b")},
 }
 
 
@@ -691,6 +704,11 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("co2-inlet", "port-ring-co2"),
     ("bulkhead-flavor-a", "port-ring-flavor-a"),
     ("bulkhead-flavor-b", "port-ring-flavor-b"),
+    # AND THE WORD AGAINST THE CHIP IT IS LETTERED INTO. The recess is cut to the word and the
+    # word fills it, so the pair reads 0 across the whole of its back and every flank — which is
+    # not two bodies closing on each other but one printed part in two colours.
+    *((f"port-ring-{w}", f"port-ring-{w}-word")
+      for w in ("water", "carb", "co2", "flavor-a", "flavor-b")),
     # THE BASIN'S DISCONNECT, WHICH IS THREE CONTACTS ON ONE AXIS. The stub is inside the spout's
     # bore for the whole of the spout's land; the band lies on the spout's outer face and closes
     # the silicone between the two; and the union's collet face meets that same spout's exit

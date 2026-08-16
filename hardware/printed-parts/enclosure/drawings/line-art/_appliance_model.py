@@ -165,31 +165,23 @@ def _standing_wall(lo, hi):
     return max(_WALLS, key=reach)
 
 
-def _mark_face(ax, sign, i, centre) -> float:
-    """The face a marking lies on: the RING'S OWN outboard face where that port wears one, and
-    the wall's own outer face where it does not. A ring stands `port_ring.THICK` off the wall,
-    so that is the plane the colour a customer sees lies in — read off the part, so a thicker
-    ring carries its marking out with it."""
-    field = _BOX.port_field
-    if field is None or (ax, i) != (1, 3):
-        return OUTER[i] + sign * 0.05
-    ringed = any(abs(px - centre[0]) < 1e-6 and abs(pz - centre[2]) < 1e-6
-                 for px, pz, _d in field.pockets)
-    return OUTER[i] + sign * ((_ring.THICK if ringed else 0.0) + 0.05)
+# How far off its wall's outer face a marking is drawn — clear of the face, and under anything
+# standing on it.
+MARK_LIFT = 0.05
 
 
 def port_marking(name: str) -> dict:
     """One port's marking, in the shape the renderer takes: the disc's centre on
-    the face that port's ring beds in, its axis out of that wall, its radius one
-    `PORT_MARK_RING` past the fitting's own footprint, and `target` — the hole
-    out at the fitting's proud end, which is what an arrow points at rather than
-    the ring painted around it."""
+    the outer face of the wall that port crosses, its axis out of that wall, its
+    radius one `PORT_MARK_RING` past the fitting's own footprint, and `target` —
+    the hole out at the fitting's proud end, which is what an arrow points at
+    rather than the ring painted around it."""
     b = _boxes.boxed(proud(name))
     lo, hi = (b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax)
     ax, sign, i = _standing_wall(lo, hi)
     centre = [(lo[k] + hi[k]) / 2.0 for k in range(3)]
     target = list(centre)
-    centre[ax] = _mark_face(ax, sign, i, centre)
+    centre[ax] = OUTER[i] + sign * MARK_LIFT
     target[ax] = hi[ax] if sign > 0 else lo[ax]
     axis = [0.0, 0.0, 0.0]
     axis[ax] = sign
@@ -199,8 +191,10 @@ def port_marking(name: str) -> dict:
 
 
 # The ports that carry a marking, by the name the machine seats each under.
-# The two flavor unions carry none: the customer pushes black into either black
-# and the manifold sorts them, so a ring there would mark a choice nobody makes.
+# What a marking does on this page is tell one port from another by the tube
+# that goes into it, so the two flavour stations carry none: both wear the same
+# black chip and the same word, because the customer pushes black into either
+# one and the manifold sorts them. A mark there would distinguish nothing.
 MARKED_PORTS = (("co2-disc", "co2-inlet", CO2_DISC_COLOR),
                 ("water-disc", "bulkhead-water", WATER_DISC_COLOR),
                 ("carb-disc", "bulkhead-carb", CARB_DISC_COLOR))

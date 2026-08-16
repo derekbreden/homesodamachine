@@ -507,7 +507,7 @@ WATER_2_LEAD = 12.0
 # band. Between them, `WATER_2_LEAD` and this share one leg — the lean — and each of the two
 # corners backs its tangent down it, so neither figure may be read alone. `bend-radius` reads the
 # pair back and `clearance-floor` reads the crossing.
-WATER_2_RUN = 23.25
+WATER_2_RUN = 21.25
 
 
 def _water_2(F):

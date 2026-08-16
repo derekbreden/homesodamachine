@@ -66,17 +66,21 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
-    # ONE ROW, FIVE RINGS, TWO SIZES — one per crossing the back wall passes a tube through.
-    # The four PP1208E stations take the same annulus off the same STEP and the CO2 station's
-    # ABU44 takes its own; what makes one of them the carbonated-water port and another the
-    # tap-water port is which spool is loaded. So the row lists each solid it ships and the Qty
-    # cell says five.
+    # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one pair per crossing the back wall
+    # passes a tube through. Each chip is its own solid, because each carries its own word cut
+    # into it, and the word is a second solid in a second colour standing in that recess. Two
+    # spools go on the plate and the row prices both.
     "Port ring — one per rear-wall crossing": [
-        "enclosure/port-ring/port-ring-union.step",
-        "enclosure/port-ring/port-ring-union.step",
-        "enclosure/port-ring/port-ring-union.step",
-        "enclosure/port-ring/port-ring-union.step",
-        "enclosure/port-ring/port-ring-neofit.step",
+        "enclosure/port-ring/port-ring-water.step",
+        "enclosure/port-ring/port-ring-water-word.step",
+        "enclosure/port-ring/port-ring-carb.step",
+        "enclosure/port-ring/port-ring-carb-word.step",
+        "enclosure/port-ring/port-ring-flavor-a.step",
+        "enclosure/port-ring/port-ring-flavor-a-word.step",
+        "enclosure/port-ring/port-ring-flavor-b.step",
+        "enclosure/port-ring/port-ring-flavor-b-word.step",
+        "enclosure/port-ring/port-ring-co2.step",
+        "enclosure/port-ring/port-ring-co2-word.step",
     ],
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",
