@@ -4,8 +4,8 @@ pools in the basin and wets the plate, tripping the moisture alarm. Watertight
 (no drain) — the basin is emptied on service.
 
 One printed part: the BASIN — an open-top rounded-corner box, [51](PAN_LEN) x
-[76](PAN_DEPTH) outer x [10](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
-[3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [10](PAN_FLANGE) mm RIM
+[76](PAN_DEPTH) outer x [15](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
+[3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [4](PAN_FLANGE) mm RIM
 FLANGE turned out all four ways at the top — a baking tray, at tray scale.
 
 ONE SILHOUETTE, ONE RADIUS. The plan outline is a single rounded rectangle at
@@ -14,18 +14,15 @@ the walls are the outline itself, the flange is the outline plus `FLANGE_W`, and
 the cavity is the outline less `WALL`. A corner is the same corner at every height,
 so a hand runs down one arris from the rim to the floor.
 
-The column reads DOWN from the chain: `enclosure_assembly.build_asse` stands the ASSE
-chain on the panel deck's own storey, `VENT_GAP` of splash-and-service air hangs under
-its underside, and the basin's rim takes station there.
-`enclosure_assembly.pan_floor` is the plane the basin's own floor reaches, one basin
-height further down, high over the SeaFlo's casting.
+AND ONE FACE FROM THE FLOOR TO THE FLANGE. The wall's outside is a single vertical face
+for the whole of `PAN_Z` under the flange's own section, so the tray's section across the
+withdrawal axis is two rectangles: the body, and the rim standing out either side of it.
 
-NOTHING STANDS UNDER THE FLOOR. The basin lies over that casting, so section
-beneath it is height the basin pays for twice — once to clear the pump and again
-to carry the load. So the carry takes hold of the RIM instead: the flange's flat
-underside is the bearing face, `enclosure_assembly.pan_rails` runs a channel under,
-beside and over it off the west wall, and the floor is left free. Nothing under the
-floor, so nothing under the floor to pay for.
+THE SLEEVE CARRIES IT, THE RIM KEEPS IT DOWN. `enclosure_assembly.pan_sleeve` stands a
+solid block off the −X wall's inner face and cuts those same two rectangles out of it, one
+`PAN_SLIP` larger all round. The basin lies on that block's floor the way a drawer lies in
+its carcase, and the lid over the berth laps the flange, [3.70](PAN_LAP) mm of it a side
+(`lap_w()`). West through the wall's slot is the one way the berth opens.
 
 Frame: +X long axis (the withdrawal direction — the tray draws WEST through
 `enclosure_assembly.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
@@ -63,13 +60,19 @@ import shutao_moisture_plate as plate
 # `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width, and
 # `check_plate()` reports a basin that gives back more than that.
 #
-# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs off the
-# pump's own casting at one clearance (`enclosure_assembly.pan_east_x`) and its west lip has to
-# land inside the −X wall (`enclosure_assembly.check_pan_lane`), which is what fixes the rim at
-# [71](PAN_RIM_LEN) over the [51](PAN_LEN) of basin. [76](PAN_DEPTH) down, the basin hung on the
-# atmospheric vent's own tip in both plan axes. [10](PAN_HEIGHT) tall is what `VENT_GAP` leaves of
-# the vent's column once the basin's floor has taken its own air over the casting.
-PAN_X, PAN_Y, PAN_Z = 51.0, 76.0, 10.0
+# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs off
+# the −X wall's own outer face (`enclosure_assembly.pan_west_x`) and the sleeve behind it has
+# to stop short of the pump's casting (`enclosure_assembly.check_pan_lane`), which is what
+# fixes the rim at [59](PAN_RIM_LEN) over the [51](PAN_LEN) of basin. [76](PAN_DEPTH) down, the
+# basin hung on the atmospheric vent's own tip in both plan axes.
+#
+# [15](PAN_HEIGHT) TALL STANDS [12](PAN_WATER_DEPTH) mm OF WALL OVER THE WATER, and THE BASIN
+# COMES OUT FULL: drawn west down its slot, clear of the wall, then carried at arm's length to
+# be poured out. The plate reads a pool a millimetre deep, so the alarm has been out since the
+# first few mL and what these millimetres hold is the pool on that trip. They are dug DOWN —
+# `enclosure_assembly.pan_floor` hangs the floor under a rim the chain fixes — into the strip
+# of air over the SeaFlo's casting.
+PAN_X, PAN_Y, PAN_Z = 51.0, 76.0, 15.0
 WALL, FLOOR = 2.5, 3.0
 # The PLAN OUTLINE's radius, and the only one this part has. Floor slab, walls, cavity
 # and flange are all the one outline at their own offset, so the corner a hand runs down
@@ -79,29 +82,18 @@ CORNER_R = 6.0
 # both ±Y walls, and the moisture plate's long edge has to land inside what is left.
 FLOOR_COVE = 2.0
 
-# The rim flange's reach past each wall, ALL FOUR WAYS, at the rim plane rather than at
-# the floor — the basin lies over the casting, so a carry under the floor is height
-# charged twice and this is the face that spares it.
-#   ONE NUMBER FOR TWO GRIPS, and the HAND sets it: the west lip is hooked with a
-# fingertip to draw the tray out through the wall, and a lip a finger pulls on wants ten.
-# The MACHINE takes what that lip leaves — the flat band of underside a rail bears on,
-# which is the reach less the haunch's `FLANGE_HAUNCH` and the fit's `PAN_SLIP`,
-# [6.70](PAN_BEARING) mm of it, `bearing_w()`. One rim runs all four sides at the one
-# figure.
-FLANGE_W = 10.0
+# The rim flange's reach past each wall, ALL FOUR WAYS, at the rim plane. THE LAP IS WHAT
+# CLOSES ON IT: the sleeve's floor takes the tray's weight and the sleeve's lid comes back over
+# this band, `lap_w()` of it once the fit's `PAN_SLIP` is off. The tray's west end, which stands
+# `enclosure_assembly.PAN_PROUD` outside the machine's skin, is where a hand goes.
+#   IT IS ON THE WITHDRAWAL AXIS TWICE, so the rim runs [59](PAN_RIM_LEN) down a lane the basin
+# takes [51](PAN_LEN) of — and that 51 is the plate's own minimum. One rim runs all four sides
+# at the one figure.
+FLANGE_W = 4.0
 # The flange's own section — the wall turned out, so the rim is the gauge the tray is.
 FLANGE_T = WALL
-# The 45° haunch filling the corner between the wall's outer face and the flange's
-# underside. The tray prints floor-down, so that underside is an overhang: the haunch is
-# what the first courses of it grow out of, and it cuts the unsupported reach to
-# `FLANGE_W - FLANGE_HAUNCH`. It also takes the rail's inboard arris, which is what
-# centres the tray across the pair.
-FLANGE_HAUNCH = 3.0
-# A hair of vertical face left under the haunch so the 45° is a chamfer and not a
-# degenerate one — at the full height OCC declines the cut.
-FLANGE_HAUNCH_SKIRT = 0.5
-# Per side, tray to whatever holds it: flange underside to rail flank, and tray
-# silhouette to the wall slot it draws through.
+# Per side, tray to whatever holds it: the berth's flanks and its rebate's ceiling, and the
+# tray's silhouette to the wall slot it draws through.
 PAN_SLIP = 0.3
 
 # The Shutao LM393 module's conductivity plate (bom.md §sensors, B0B2W76MB1), lying
@@ -115,13 +107,12 @@ PAN_SLIP = 0.3
 PLATE_X, PLATE_Y = plate.PLATE_X, plate.PLATE_Y
 PLATE_SLIP = 1.0      # per side, plate edge to where the cove starts rising
 
-# The least clear air the basin's rim keeps under the ASSE chain's underside —
-# which is the vent stub's tip when the chain hangs unrolled, and a body corner
-# when it does not, the stub then standing above it.
+# The least clear air the SLEEVE'S LID keeps under the ASSE chain's underside — which is the
+# vent stub's tip when the chain hangs unrolled, and a body corner when it does not, the stub
+# then standing above it. The lid is the topmost thing the tray's column carries, so it is
+# what this gap is struck on, and the rim takes station one lid and one `PAN_SLIP` below it
+# (`enclosure_assembly.pan_rim_z`).
 VENT_GAP = 4.0
-# How much more than that a carry may leave, so it can be a round printed number
-# under a chain whose underside is a rolled hex corner and irrational.
-VENT_GAP_SLACK = 1.0
 
 
 def _rounded_prism(x, y, z, r):
@@ -138,18 +129,19 @@ def flat_floor():
 
 
 def flange_z():
-    """The flange's UNDERSIDE, in the part's own frame — the bearing plane, and the plane a
-    rail's top face reaches. The flange's top is the rim, so this is one section down from it."""
+    """The flange's UNDERSIDE, in the part's own frame — the plane the wall's one vertical face
+    runs up to, and the floor of the rebate the rim runs in. The flange's top is the rim, so
+    this is one section down from it."""
     return PAN_Z - FLANGE_T
 
 
-def bearing_w():
-    """The flat band of flange underside a rail may stand under, per side.
+def lap_w():
+    """The band of flange the sleeve's lid closes over, per side.
 
-    Not the whole flange: the haunch takes the inboard `FLANGE_HAUNCH` of it at 45°, and the
-    fit takes a `PAN_SLIP` off the outboard end so the rail's flank never becomes the thing
-    that stops the tray. What is left is flat, and it is what carries the tray."""
-    return FLANGE_W - FLANGE_HAUNCH - PAN_SLIP
+    The whole reach less a `PAN_SLIP`, so the lid's own flank never becomes the thing that
+    stops the tray. The tray lies on the sleeve's floor, so what closes here holds it down and
+    carries nothing."""
+    return FLANGE_W - PAN_SLIP
 
 
 # --- the bound this basin states --------------------------------------------
@@ -188,11 +180,11 @@ def check_plate() -> Bound:
 
 
 def build():
-    """The one plan outline at four offsets: shell, rim flange and haunch fused, then the
-    cavity cut back out of the lot — cut LAST, so the flange that laps the rim does not
-    roof the basin it belongs to."""
+    """The one plan outline at three offsets: shell and rim flange fused, then the cavity cut
+    back out of the pair — cut LAST, so the flange that laps the rim does not roof the basin it
+    belongs to."""
     # Floor slab and walls together, on the outline itself. One prism, so the base cannot
-    # take a radius of its own.
+    # take a radius of its own, and its flank is one face the whole way up.
     outer = _rounded_prism(PAN_X, PAN_Y, PAN_Z, CORNER_R)
     # Inner cavity: rounded vertical corners + a filleted bottom, so subtracting
     # it leaves a floor-to-wall cove. Sits on the FLOOR-thick base, open at top.
@@ -202,21 +194,13 @@ def build():
         .translate((WALL, WALL, FLOOR))
     )
     # The RIM FLANGE — the outline plus `FLANGE_W`, one section thick, its top face flush
-    # with the rim so the flange costs the column nothing above the basin.
+    # with the rim so the flange costs the column nothing above the basin. Its underside is
+    # the only overhang on the part, and it reaches `FLANGE_W` off a face the printer has
+    # been laying down since the first layer.
     flange = _rounded_prism(
         PAN_X + 2 * FLANGE_W, PAN_Y + 2 * FLANGE_W, FLANGE_T, CORNER_R + FLANGE_W
     ).translate((-FLANGE_W, -FLANGE_W, flange_z()))
-    # The haunch under it: a prism on the outline plus `FLANGE_HAUNCH`, its lower edge
-    # chamfered the full haunch back to the outline itself — so its underside leaves the
-    # wall at 45° and the flange's overhang starts from something.
-    haunch = (
-        _rounded_prism(PAN_X + 2 * FLANGE_HAUNCH, PAN_Y + 2 * FLANGE_HAUNCH,
-                       FLANGE_HAUNCH + FLANGE_HAUNCH_SKIRT, CORNER_R + FLANGE_HAUNCH)
-        .edges("<Z").chamfer(FLANGE_HAUNCH)
-        .translate((-FLANGE_HAUNCH, -FLANGE_HAUNCH,
-                    flange_z() - FLANGE_HAUNCH - FLANGE_HAUNCH_SKIRT))
-    )
-    return outer.union(flange).union(haunch).cut(cavity)
+    return outer.union(flange).cut(cavity)
 
 
 def capacity_ml():
@@ -243,7 +227,7 @@ def main():
         print(f"      {line}")
     print(f"  Rim flange {FLANGE_W:g} all four ways at z {flange_z():g} — "
           f"{PAN_X + 2 * FLANGE_W:g} x {PAN_Y + 2 * FLANGE_W:g} over the rim, "
-          f"r{CORNER_R + FLANGE_W:g}, {bearing_w():.2f} of flat bearing a side")
+          f"r{CORNER_R + FLANGE_W:g}, {lap_w():.2f} of lap a side")
     print(f"  Withdraws −X: {PAN_X + 2 * FLANGE_W:g} mm long on that axis, so it draws its own "
           f"length plus the wall's section to come clear")
     for shape, name in ((pan, "drip-pan.step"),):
@@ -255,6 +239,7 @@ def main():
         "PAN_LEN": f"{PAN_X:g}",
         "PAN_DEPTH": f"{PAN_Y:g}",
         "PAN_HEIGHT": f"{PAN_Z:g}",
+        "PAN_WATER_DEPTH": f"{PAN_Z - FLOOR:g}",
         "PAN_WALL": f"{WALL:g}",
         "PAN_FLOOR": f"{FLOOR:g}",
         "PLATE_LEN": f"{PLATE_X:g}",
@@ -266,7 +251,7 @@ def main():
         "PAN_CORNER_R": f"{CORNER_R:g}",
         "PAN_COVE_R": f"{FLOOR_COVE:g}",
         "PAN_FLANGE": f"{FLANGE_W:g}",
-        "PAN_BEARING": f"{bearing_w():.2f}",
+        "PAN_LAP": f"{lap_w():.2f}",
         "PAN_RIM_LEN": f"{PAN_X + 2 * FLANGE_W:g}",
         "PAN_RIM_DEPTH": f"{PAN_Y + 2 * FLANGE_W:g}",
         "PAN_RIM_CORNER_R": f"{CORNER_R + FLANGE_W:g}",

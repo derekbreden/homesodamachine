@@ -130,7 +130,7 @@ def crossings(runs) -> dict:
 # `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
 # its piece in the finished machine — the fastening table is right about it — and arrives after
 # the box is closed, through an opening in a wall: the drip tray slides east into its own
-# channels through the −X wall, and the funnel drops into the hopper on nothing but its own brim
+# sleeve through the −X wall, and the funnel drops into the hopper on nothing but its own brim
 # at final staging. Neither is on the bench unit, so neither is in its picture, and whatever
 # stands on one goes with it. A name here the roots do not hold is reported.
 #   A RUN CAN BE LATE. The cap's lid prints a rib for `fluid-14`, so the anchor table hands that
@@ -165,7 +165,7 @@ SCENES = (
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the shelf is seen from where a "
              "hand reaches it. Every body is on it before it goes back the other way, and the "
-             "tray's channels stand empty.",
+             "tray's sleeve stands empty.",
     ),
     Scene(
         "front-top", "Enclosure front top",
@@ -269,7 +269,7 @@ SCENES = (
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
              "front half — the last moment anything inside is reachable. Four runs hang out of "
              "that mouth for the front half to take. The tray is not in yet: it goes east into "
-             "its channels through the −X wall, with the box standing.",
+             "its sleeve through the −X wall, with the box standing.",
     ),
 )
 

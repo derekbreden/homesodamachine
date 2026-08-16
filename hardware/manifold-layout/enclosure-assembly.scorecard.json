@@ -24,7 +24,7 @@
    "id": "assembly",
    "label": "every placed body, the box around them included",
    "min": [
-    -107.5,
+    -113.5,
     5.0,
     -3.0
    ],
@@ -34,7 +34,7 @@
     358.0
    ],
    "mm": [
-    215.0,
+    221.0,
     478.891,
     361.0
    ]
@@ -98,7 +98,7 @@
    "target": "all clear",
    "detail": [
     "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
-    "asse1022-assembly.vent-tip: 9.40 mm to moisture-plate \u2014 opens to atmosphere, not gated"
+    "asse1022-assembly.vent-tip: 17.70 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
    "active": true
   },
@@ -107,7 +107,7 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "pass",
-   "value": "0 under, tightest 1.000 mm",
+   "value": "0 under, tightest 1.004 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
@@ -145,7 +145,6 @@
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
-    "seaflo-pump \u2014 drip-pan: 1.000 mm",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "water-3 \u2014 hopper-drain-union: 1.095 mm",
@@ -708,17 +707,17 @@
    "kind": "gate",
    "status": "pass",
    "value": "drips at y 374.21",
-   "target": "y[360.60, 427.60]",
+   "target": "y[357.90, 424.90]",
    "detail": [],
    "active": true
   },
   {
    "id": "pan-lane",
-   "label": "The drip tray's west lip lands inside the \u2212X wall",
+   "label": "The drip tray's sleeve stands clear of the pump's casting",
    "kind": "gate",
    "status": "pass",
-   "value": "lip at x -104.28, wall at -104.50",
-   "target": "the lip inboard of the wall",
+   "value": "backstop at x -51.20, casting at -32.28 \u2014 18.92 mm",
+   "target": "\u2265 1 mm",
    "detail": [],
    "active": true
   },
@@ -728,7 +727,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "drips at x -78.07, y 374.21",
-   "target": "x[-88.78, -48.78] y[367.10, 421.10]",
+   "target": "x[-104.00, -64.00] y[364.40, 418.40]",
    "detail": [],
    "active": true
   },
