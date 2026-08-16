@@ -57,17 +57,27 @@ set in the band between the flange's edge and the top of the chip — the face t
 customer's quick-start sheet are already set in, so a customer holding that sheet beside the
 machine reads one typeface and not two.
 
-Behind the lettering a bar [0.3](WORD_TIE) mm thick lies across the letters' feet, which makes the
-word ONE body — a single connected run of the second colour rather than six loose islands per word
-to place on a plate and to lose off it. It runs along the baseline and no higher, so it stays clear
-of the counters in O, A, P, R and D: a bar at mid-cap would cut those off the chip's own floor and
-leave them as islands too. It sits a whole [1](WORD_DEPTH) mm behind the face, inside the recess,
-so nothing of it shows on the assembled part.
+Behind the lettering a bar [0.16](WORD_TIE) mm thick lies across the letters' feet, which makes the
+word ONE body: one part to place on a plate rather than six, and one body for `words_hold` to read
+a width off. The plate stands the chip on its back with the recess up, so the bar and the letters
+lie in different layers — in the layers the letters print, the second colour is six islands either
+way, and what the bar buys is in the CAD rather than in the print. Two layers of the
+[0.08](WORD_LAYER) mm these go at, which is as thin as the plate can hold it. It runs along the
+baseline and no higher, so it stays clear of the counters in O, A, P, R and D: a bar at mid-cap
+would cut those off the chip's own floor and leave them as islands too. It sits a whole
+[1](WORD_DEPTH) mm behind the face, inside the recess, so nothing of it shows on the assembled
+part.
 
 | | |
 |---|---|
 | narrowest stroke | [0.771](WORD_MIN_STROKE) mm, measured off the built letterforms |
-| nozzle | [0.2](WORD_NOZZLE) mm — about four beads to a stroke |
+| narrowest bridge of chip between two letters | [0.346](WORD_MIN_BRIDGE) mm — FLAVOR's, between the L and the A |
+| bead | [0.22](WORD_BEAD) mm laid through a [0.2](WORD_NOZZLE) mm tip |
+
+The bridge and not the stroke is what this lettering runs out of first — a stroke is the word's
+spool and a bridge is the chip's, but the same tip lays both, so the finer of the two is the one
+with the margin. It scales with the em, which is what puts a floor under how small these words can
+be set.
 
 Which of black and white each chip takes is
 [`_back_panel_dimensions.chip_word_colors`](../back-panel/_back_panel_dimensions.py), decided
@@ -81,8 +91,13 @@ reads the built solid back against those figures, and against being one solid.
 
 ## Print
 
-Flat on the bed, two colours to a plate — the chips off one spool, the words off the other. PETG,
-the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
+Flat on the bed, face up, two colours to a plate — the chips off one spool, the words off the
+other. PETG, the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7). The plate and
+the profile it slices on are [`port-ring-water.3mf`](port-ring-water.3mf).
+
+The figures that lettering is struck from are swept on the combs in
+[`coupons/`](coupons/README.md), one figure to a comb: the em the word is set at, how deep its
+recess is cut, how far it stands past the face, and the air the recess leaves round it.
 
 The pocket it drops into is struck by [`enclosure.py`](../enclosure/enclosure.py) from the same
 `back_ports` stations that bore the wall — cut [2](RING_THICK) mm into the outer face, with a boss

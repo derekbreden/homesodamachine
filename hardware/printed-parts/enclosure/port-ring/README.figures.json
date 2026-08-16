@@ -11,12 +11,15 @@
     "RING_THICK": "2",
     "RING_VOL": "1.89",
     "RING_W": "7.05",
+    "WORD_BEAD": "0.22",
     "WORD_CAP": "4.951",
     "WORD_DEPTH": "1",
     "WORD_FONT": "Helvetica",
     "WORD_KIND": "bold",
+    "WORD_LAYER": "0.08",
+    "WORD_MIN_BRIDGE": "0.346",
     "WORD_MIN_STROKE": "0.771",
     "WORD_NOZZLE": "0.2",
-    "WORD_TIE": "0.3"
+    "WORD_TIE": "0.16"
   }
 }
