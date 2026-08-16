@@ -35,7 +35,7 @@
       if (r.ok) {
         setState("done");
         status.className = "status ok";
-        status.textContent = "Thanks — we'll be in touch.";
+        status.textContent = "Thanks — I'll be in touch.";
         form.reset();
         // After a beat, return the button to its idle state so the user
         // can submit another email if they want.

@@ -164,7 +164,10 @@ function renderNotificationsPage() {
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  padding: 16px calc(env(safe-area-inset-right, 0px) + 16px) 32px calc(env(safe-area-inset-left, 0px) + 16px);
+  padding: 16px
+           calc(env(safe-area-inset-right, 0px) + 16px)
+           calc(env(safe-area-inset-bottom, 0px) + 32px)
+           calc(env(safe-area-inset-left, 0px) + 16px);
   display: flex;
   flex-direction: column;
 }
@@ -185,7 +188,7 @@ function renderNotificationsPage() {
   font-size: 13px;
   cursor: pointer;
 }
-.notifs-mark-all:hover { background: var(--surface); }
+.notifs-mark-all:hover { background: var(--border); }
 .notifs-mark-all[hidden] { display: none; }
 .notifs-list { list-style: none; margin: 0; padding: 0; }
 .notifs-empty {
@@ -194,17 +197,23 @@ function renderNotificationsPage() {
   padding: 48px 16px;
   font-size: 14px;
 }
+/* The row's ground runs 12px wider than its text on each side, and the text
+   sits on the page's own gutter with the header above it. */
 .notif-row {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 14px 12px;
+  margin: 0 -12px;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: inherit;
   cursor: pointer;
 }
 .notif-row:hover { background: var(--surface-2); }
+.notif-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+/* The list's last rule would be a line under the list. */
+.notifs-list li:last-child .notif-row { border-bottom: none; }
 .notif-dot {
   width: 8px;
   height: 8px;
@@ -246,7 +255,7 @@ function renderNotificationsPage() {
 }
 `,
     }) +
-    renderNav({ surface: "public", active: null }) +
+    renderNav({ surface: "public", active: "notifications" }) +
     `<main class="notifs-page" id="notifs-page">
   <div class="notifs-header">
     <h1 class="notifs-title">Notifications</h1>
@@ -301,8 +310,12 @@ function renderNotificationsPage() {
       var n = items[i];
       if (!n.seen) anyUnread = true;
       var li = document.createElement("li");
-      li.className = "notif-row" + (n.seen ? "" : " unread");
-      li.innerHTML =
+      // The row goes where its href goes, so the Tab key reaches it and Enter
+      // opens it, the same as a click.
+      var row = document.createElement("a");
+      row.className = "notif-row" + (n.seen ? "" : " unread");
+      row.href = n.url;
+      row.innerHTML =
         '<div class="notif-dot"></div>' +
         iconSvg(n.kind) +
         '<div class="notif-text">' +
@@ -311,17 +324,18 @@ function renderNotificationsPage() {
         '</div>' +
         '<span class="notif-time">' + escapeHtml(relTime(n.ts)) + '</span>';
       (function(notif){
-        li.addEventListener("click", function(){
-          // Optimistic: mark seen client-side, navigate, fire-and-forget POST.
+        row.addEventListener("click", function(){
+          // Optimistic: mark seen client-side, fire-and-forget POST, and the
+          // link's own navigation carries the reader off the page.
           fetch("/api/notifications/seen", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({token: token(), ids: [notif.id]}),
             keepalive: true
           }).catch(function(){});
-          window.location.href = notif.url;
         });
       })(n);
+      li.appendChild(row);
       listEl.appendChild(li);
     }
     markAllBtn.hidden = !anyUnread;

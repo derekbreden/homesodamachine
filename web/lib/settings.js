@@ -40,9 +40,13 @@ header.page { margin-bottom: 1.5rem; }
    several content roots, which a two-state pill can't say. */
 .segmented {
   display: flex;
+  align-items: stretch;
   gap: 2px;
+  /* The height and corner .ios-toggle stands at, so the rows in the card line
+     up down their right edge and their top and bottom. */
+  height: 31px;
   padding: 2px;
-  border-radius: 9px;
+  border-radius: 10px;
   /* Same track as .ios-toggle (shell.js) so the two rows read as one control set. */
   background: rgba(120,120,128,0.32);
   flex-shrink: 0;
@@ -57,8 +61,8 @@ header.page { margin-bottom: 1.5rem; }
   color: var(--text);
   opacity: 0.65;
   background: transparent;
-  padding: 0.3rem 0.7rem;
-  border-radius: 7px;
+  padding: 0 0.7rem;
+  border-radius: 8px;
   transition: background 0.15s, opacity 0.15s;
 }
 .segmented .segment:hover { opacity: 0.85; }
@@ -102,8 +106,10 @@ h1 {
   padding: 20px;
   color: var(--text);
 }
-.modal h2 { font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
-.modal p { font-size: 14px; line-height: 1.5; margin-bottom: 10px; color: var(--text-2); }
+/* The card's own 20px is the gutter on all four sides, so the first line
+   starts at the top of it. */
+.modal h2 { font-size: 17px; font-weight: 600; margin: 0 0 12px; color: var(--text); }
+.modal p { font-size: 14px; line-height: 1.5; margin: 0 0 10px; color: var(--text-2); }
 .modal p em { font-style: normal; color: var(--text); font-weight: 600; }
 .modal .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
 .modal button {
@@ -128,7 +134,7 @@ const BODY = `<div class="wrap">
     <div class="setting-row" id="row-devmode">
       <div>
         <div class="setting-label">Dev mode</div>
-        <div class="setting-help">Show Prints and Diagrams in the navigation.</div>
+        <div class="setting-help">Show Parts, Charts, Drawings, Boards, Cost and Build in the navigation.</div>
       </div>
       <button id="devmode-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Dev mode"></button>
     </div>
