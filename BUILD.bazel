@@ -910,7 +910,6 @@ genrule(
         "hardware/assembly/cards/img/fu05-shell.png",
         "hardware/assembly/cards/img/ip03-manifold-pack.png",
         "hardware/assembly/cards/img/pcba-assembly.png",
-        "hardware/assembly/cards/img/power-tray.png",
         "hardware/assembly/cards/img/prv-shroud.png",
         "hardware/assembly/cards/img/reservoir-body.png",
         "hardware/assembly/cards/img/reservoir-cap.png",
@@ -930,7 +929,6 @@ genrule(
         "hardware/assembly/cards/img/scene-front-top.png.scene.json",
         "hardware/assembly/cards/img/scene-hopper-drain.png",
         "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
-        "hardware/assembly/cards/img/two-valve-tray.png",
         "hardware/assembly/cards/img/wago-column.png",
         "hardware/assembly/cards/img/water-split.png",
         "hardware/assembly/cards/ip-01-co2-path.html",
@@ -1847,9 +1845,12 @@ genrule(
         "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "hardware/faucet-layout/faucet-assembly.step",
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
+        "hardware/manifold-layout/manifold-layout.step",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -1860,6 +1861,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
         "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
@@ -1881,13 +1883,17 @@ genrule(
         "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
+        "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step",
         "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "hardware/printed-parts/enclosure/drip-pan/drip-pan.step",
         "pysrc/hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step",
         "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step",
         "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step",
@@ -1896,14 +1902,17 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
         "pysrc/hardware/printed-parts/flavor/pump-case/pump_case.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+        "hardware/reference/asse1022-assembly/asse1022-assembly.step",
         "pysrc/hardware/reference/asse1022-assembly/asse1022_assembly.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/compressor/compressor.py",
+        "hardware/reference/compressor/compressor.step",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
         "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
@@ -1945,6 +1954,7 @@ genrule(
         "hardware/reference/wago-221/wago-221-415.step",
         "hardware/reference/wago-221/wago-221-420.step",
         "pysrc/hardware/reference/wago-221/wago_221.py",
+        "hardware/reference/water-split/water-split.step",
         "pysrc/hardware/reference/water-split/water_split.py",
         "pysrc/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
         "pysrc/hardware/reference/worm-clamp/worm_clamp.py",
@@ -1970,6 +1980,29 @@ genrule(
         ":node-packages",
     ],
     outs = [
+        "out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png",
+        "out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png",
+        "out/render-scenes/hardware/assembly/cards/img/copper-plug.png",
+        "out/render-scenes/hardware/assembly/cards/img/en01-shell.png",
+        "out/render-scenes/hardware/assembly/cards/img/en02-rearwall.png",
+        "out/render-scenes/hardware/assembly/cards/img/en03-compressor.png",
+        "out/render-scenes/hardware/assembly/cards/img/en04-stratum.png",
+        "out/render-scenes/hardware/assembly/cards/img/en05-coldcore.png",
+        "out/render-scenes/hardware/assembly/cards/img/en06-column.png",
+        "out/render-scenes/hardware/assembly/cards/img/en08-drippan.png",
+        "out/render-scenes/hardware/assembly/cards/img/en09-hopper.png",
+        "out/render-scenes/hardware/assembly/cards/img/enclosure-assembly.png",
+        "out/render-scenes/hardware/assembly/cards/img/es01-wall-bosses.png",
+        "out/render-scenes/hardware/assembly/cards/img/foam-assembly-stack.png",
+        "out/render-scenes/hardware/assembly/cards/img/foam-cap-top.png",
+        "out/render-scenes/hardware/assembly/cards/img/foam-shell-cavity.png",
+        "out/render-scenes/hardware/assembly/cards/img/fu02-faucet.png",
+        "out/render-scenes/hardware/assembly/cards/img/fu05-shell.png",
+        "out/render-scenes/hardware/assembly/cards/img/ip03-manifold-pack.png",
+        "out/render-scenes/hardware/assembly/cards/img/pcba-assembly.png",
+        "out/render-scenes/hardware/assembly/cards/img/prv-shroud.png",
+        "out/render-scenes/hardware/assembly/cards/img/reservoir-body.png",
+        "out/render-scenes/hardware/assembly/cards/img/reservoir-cap.png",
         "out/render-scenes/hardware/assembly/cards/img/scene-back-half.png",
         "out/render-scenes/hardware/assembly/cards/img/scene-back-half.png.scene.json",
         "out/render-scenes/hardware/assembly/cards/img/scene-back-top.png",
@@ -1986,6 +2019,8 @@ genrule(
         "out/render-scenes/hardware/assembly/cards/img/scene-front-top.png.scene.json",
         "out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png",
         "out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+        "out/render-scenes/hardware/assembly/cards/img/wago-column.png",
+        "out/render-scenes/hardware/assembly/cards/img/water-split.png",
         "out/render-scenes/hardware/assembly/scenes/glb/back-half.glb",
         "out/render-scenes/hardware/assembly/scenes/glb/back-top.glb",
         "out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb",
@@ -1998,30 +2033,55 @@ genrule(
     tags = ["local", "requires-network"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png)
-O1=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png.scene.json)
-O2=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png)
-O3=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png.scene.json)
-O4=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png)
-O5=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json)
-O6=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png)
-O7=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png.scene.json)
-O8=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png)
-O9=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png.scene.json)
-O10=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png)
-O11=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
-O12=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png)
-O13=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png.scene.json)
-O14=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png)
-O15=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json)
-O16=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-half.glb)
-O17=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-top.glb)
-O18=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb)
-O19=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid.glb)
-O20=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core-open.glb)
-O21=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core.glb)
-O22=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/front-top.glb)
-O23=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/hopper-drain.glb)
+O0=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png)
+O1=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png)
+O2=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/copper-plug.png)
+O3=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en01-shell.png)
+O4=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en02-rearwall.png)
+O5=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en03-compressor.png)
+O6=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en04-stratum.png)
+O7=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en05-coldcore.png)
+O8=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en06-column.png)
+O9=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en08-drippan.png)
+O10=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en09-hopper.png)
+O11=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/enclosure-assembly.png)
+O12=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/es01-wall-bosses.png)
+O13=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-assembly-stack.png)
+O14=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-cap-top.png)
+O15=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-shell-cavity.png)
+O16=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu02-faucet.png)
+O17=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu05-shell.png)
+O18=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/ip03-manifold-pack.png)
+O19=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/pcba-assembly.png)
+O20=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/prv-shroud.png)
+O21=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-body.png)
+O22=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-cap.png)
+O23=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png)
+O24=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png.scene.json)
+O25=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png)
+O26=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png.scene.json)
+O27=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png)
+O28=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json)
+O29=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png)
+O30=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png.scene.json)
+O31=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png)
+O32=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png.scene.json)
+O33=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png)
+O34=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
+O35=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png)
+O36=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png.scene.json)
+O37=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png)
+O38=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json)
+O39=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/wago-column.png)
+O40=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/water-split.png)
+O41=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-half.glb)
+O42=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-top.glb)
+O43=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb)
+O44=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid.glb)
+O45=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core-open.glb)
+O46=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core.glb)
+O47=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/front-top.glb)
+O48=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/hopper-drain.glb)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -2034,30 +2094,55 @@ cd work
 ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py > /dev/null
-cp hardware/assembly/cards/img/scene-back-half.png $$O0
-cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O1
-cp hardware/assembly/cards/img/scene-back-top.png $$O2
-cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O3
-cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O4
-cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O5
-cp hardware/assembly/cards/img/scene-cap-lid.png $$O6
-cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O7
-cp hardware/assembly/cards/img/scene-cold-core-open.png $$O8
-cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O9
-cp hardware/assembly/cards/img/scene-cold-core.png $$O10
-cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O11
-cp hardware/assembly/cards/img/scene-front-top.png $$O12
-cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O13
-cp hardware/assembly/cards/img/scene-hopper-drain.png $$O14
-cp hardware/assembly/cards/img/scene-hopper-drain.png.scene.json $$O15
-cp hardware/assembly/scenes/glb/back-half.glb $$O16
-cp hardware/assembly/scenes/glb/back-top.glb $$O17
-cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O18
-cp hardware/assembly/scenes/glb/cap-lid.glb $$O19
-cp hardware/assembly/scenes/glb/cold-core-open.glb $$O20
-cp hardware/assembly/scenes/glb/cold-core.glb $$O21
-cp hardware/assembly/scenes/glb/front-top.glb $$O22
-cp hardware/assembly/scenes/glb/hopper-drain.glb $$O23
+cp hardware/assembly/cards/img/asse1022-chain.png $$O0
+cp hardware/assembly/cards/img/coil-mandrel.png $$O1
+cp hardware/assembly/cards/img/copper-plug.png $$O2
+cp hardware/assembly/cards/img/en01-shell.png $$O3
+cp hardware/assembly/cards/img/en02-rearwall.png $$O4
+cp hardware/assembly/cards/img/en03-compressor.png $$O5
+cp hardware/assembly/cards/img/en04-stratum.png $$O6
+cp hardware/assembly/cards/img/en05-coldcore.png $$O7
+cp hardware/assembly/cards/img/en06-column.png $$O8
+cp hardware/assembly/cards/img/en08-drippan.png $$O9
+cp hardware/assembly/cards/img/en09-hopper.png $$O10
+cp hardware/assembly/cards/img/enclosure-assembly.png $$O11
+cp hardware/assembly/cards/img/es01-wall-bosses.png $$O12
+cp hardware/assembly/cards/img/foam-assembly-stack.png $$O13
+cp hardware/assembly/cards/img/foam-cap-top.png $$O14
+cp hardware/assembly/cards/img/foam-shell-cavity.png $$O15
+cp hardware/assembly/cards/img/fu02-faucet.png $$O16
+cp hardware/assembly/cards/img/fu05-shell.png $$O17
+cp hardware/assembly/cards/img/ip03-manifold-pack.png $$O18
+cp hardware/assembly/cards/img/pcba-assembly.png $$O19
+cp hardware/assembly/cards/img/prv-shroud.png $$O20
+cp hardware/assembly/cards/img/reservoir-body.png $$O21
+cp hardware/assembly/cards/img/reservoir-cap.png $$O22
+cp hardware/assembly/cards/img/scene-back-half.png $$O23
+cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O24
+cp hardware/assembly/cards/img/scene-back-top.png $$O25
+cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O26
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O27
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O28
+cp hardware/assembly/cards/img/scene-cap-lid.png $$O29
+cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O30
+cp hardware/assembly/cards/img/scene-cold-core-open.png $$O31
+cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O32
+cp hardware/assembly/cards/img/scene-cold-core.png $$O33
+cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O34
+cp hardware/assembly/cards/img/scene-front-top.png $$O35
+cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O36
+cp hardware/assembly/cards/img/scene-hopper-drain.png $$O37
+cp hardware/assembly/cards/img/scene-hopper-drain.png.scene.json $$O38
+cp hardware/assembly/cards/img/wago-column.png $$O39
+cp hardware/assembly/cards/img/water-split.png $$O40
+cp hardware/assembly/scenes/glb/back-half.glb $$O41
+cp hardware/assembly/scenes/glb/back-top.glb $$O42
+cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O43
+cp hardware/assembly/scenes/glb/cap-lid.glb $$O44
+cp hardware/assembly/scenes/glb/cold-core-open.glb $$O45
+cp hardware/assembly/scenes/glb/cold-core.glb $$O46
+cp hardware/assembly/scenes/glb/front-top.glb $$O47
+cp hardware/assembly/scenes/glb/hopper-drain.glb $$O48
 """,
 )
 
@@ -3863,10 +3948,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
         "hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step.png",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step.png",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step.png",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step.png",
+        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step.png",
         "pysrc/hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -3879,21 +3961,15 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step",
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step",
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step",
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step",
+        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step",
         "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
         "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step)
-O1=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step)
-O2=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step)
-O3=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step)
-O4=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json)
-O5=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.md)
+O0=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step)
+O1=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json)
+O2=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.md)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -3906,12 +3982,9 @@ cd work
 ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py > /dev/null
-cp hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step $$O0
-cp hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step $$O1
-cp hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step $$O2
-cp hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step $$O3
-cp hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json $$O4
-cp hardware/printed-parts/enclosure/port-ring/coupons/README.md $$O5
+cp hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step $$O0
+cp hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json $$O1
+cp hardware/printed-parts/enclosure/port-ring/coupons/README.md $$O2
 """,
 )
 
@@ -6915,14 +6988,8 @@ sh_test(
         "hardware/printed-parts/enclosure/port-ring/README.md",
         "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
         "hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step.png",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step.png",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step.png",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step.png",
+        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step",
+        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step.png",
         "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
         "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step",
         "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step.png",

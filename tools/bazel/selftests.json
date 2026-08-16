@@ -2,10 +2,7 @@
   "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-cap.step",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-depth.step",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-fit.step",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupon-relief.step",
+    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step",
     "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
     "hardware/printed-parts/enclosure/port-ring/port_ring.py",
     "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
