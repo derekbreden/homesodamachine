@@ -1,0 +1,46 @@
+# What a generator writes, marked so git stops printing it as a patch.
+#
+# EVERY RULE HERE IS KEYED TO A FILE A SCRIPT CUTS. What a person types keeps its diff;
+# what a script writes does not, because nobody reads that patch and every reader pays
+# for it — `git show` on a commit that moved the enclosure and the port rings emitted
+# 128 MB to carry a few kilobytes of Python. A rule keyed wider than its generator's
+# output would swallow a diff somebody wanted, so the drawings below are named by the
+# directory their generator writes into rather than by suffix, and the hand-drawn SVGs
+# beside them keep theirs.
+#
+# `-diff` IS THE WHOLE OF WHAT IT DOES. The bytes are untouched, `git grep` still reads
+# them, the working tree holds the same file it always held, and `git diff` says the two
+# differ instead of showing how. `linguist-generated` is that same claim made to GitHub,
+# which collapses these in a compare view and leaves them out of the language bar.
+#
+# What is NOT here is as deliberate. A scorecard sidecar is twelve hundred lines and its
+# gate rows are worth reading; ios/AppIcon.svg and tools/anim_frames/*.svg are small and
+# hand-shaped. They diff.
+
+# STEP IS ASCII, and a solid is 28 MB of it. 111 files, 89 MB, and enclosure-assembly.step
+# alone has been rewritten 235 times. The geometry is read by loading it — a reader who
+# wants to know what moved opens the part, never the patch.
+*.step  -diff linguist-generated=true
+
+# GIT DOES NOT DETECT THESE AS BINARY. A card deck's PDF carries no NUL byte inside the
+# first 8000, which is the whole of what the heuristic looks at, so deck.pdf (42 MB) and
+# deck-tools.pdf (17 MB) go out as patch text — 73 MB of the 128 MB above. `binary` is
+# `-diff -merge -text`, and the last of those says the file is not to be line-ending
+# converted, which is true of a PDF and has never been stated here.
+*.pdf  binary linguist-generated=true
+
+# The board's renders are ONE LINE EACH, half a megabyte to nine hundred kilobytes of it.
+# A single character moving in the silk prints the whole file twice — the commit that set
+# the silk's own commit hash cost 8.4 MB to carry ten lines. Keyed to the out/ directory
+# every board renders into, so the carrier is covered by the same rule as the pcba.
+hardware/pcb/*/out/*.svg  -diff linguist-generated=true
+
+# Blender Freestyle stroke soup, cut by the _blender_render.py sitting beside it.
+hardware/**/drawings/line-art/*.svg  -diff linguist-generated=true
+
+# appliance_quickstart.py writes this sheet whole.
+hardware/quickstart/drawings/prints-and-guides/appliance.svg  -diff linguist-generated=true
+
+# gen_animation_frames.py, sixteen 360x360 frames as RGB565 hex, 28 MB of it. Keyed to the
+# images directory rather than to *.h, because every other header under firmware/ is typed.
+firmware/src_front/images/anim_*.h  -diff linguist-generated=true
