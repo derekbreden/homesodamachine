@@ -59,11 +59,13 @@ STEP_OUT = _here.parent / "cold-core-assembly.step"
 FOAM_STEP = _cold / "foam-assembly" / "foam-assembly.step"
 
 # --- colour, by what a body is ------------------------------------------------
-C_FOAM_SHELL = cq.Color(0.62, 0.78, 0.95, 0.22)
-C_CAP = cq.Color(0.90, 0.66, 0.32, 0.55)
-C_LID = cq.Color(0.97, 0.85, 0.55, 0.55)
-C_CAP_B = cq.Color(0.45, 0.70, 0.45, 0.55)
-C_LID_B = cq.Color(0.66, 0.86, 0.62, 0.55)
+# THE FIVE FOAM BODIES ARE COLOURED WHERE THEY ARE CUT. `foam_assembly` bakes these into
+# `foam-assembly.step`, and both models place the same five, so both read them off it.
+C_FOAM_SHELL = _foam.SHELL_COLOR
+C_CAP = _foam.COLORS["foam-cap-top"]
+C_LID = _foam.COLORS["foam-cap-lid-top"]
+C_CAP_B = _foam.COLORS["foam-cap-bottom"]
+C_LID_B = _foam.COLORS["foam-cap-lid-bottom"]
 C_STEEL = cq.Color(0.72, 0.74, 0.78)
 C_PLATE = cq.Color(0.58, 0.61, 0.66)
 C_ROD = cq.Color(0.80, 0.82, 0.86)

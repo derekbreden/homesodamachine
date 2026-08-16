@@ -91,13 +91,18 @@ RESERVOIR_DIR = _cold_core / "reservoir"
 RESERVOIRS = {"reservoir A": "reservoir-right", "reservoir B": "reservoir-left"}
 RESERVOIR_CAP_Z = routes.reservoir_cap_z
 
-# Translucent shell so the caps read through it; distinct flats per cap layer.
+# Translucent shell so the caps read through it; distinct flats per cap layer, each translucent
+# so the vessel and the lines standing inside the stack read through the cap that closes them.
+#
+# THESE ARE THE COLOURS THE FIVE FOAM BODIES CARRY EVERYWHERE. They are baked into
+# `foam-assembly.step` here, and `cold-core-layout/cold_core_assembly` reads them off this
+# module for the same five bodies it places itself.
 SHELL_COLOR = cq.Color(0.62, 0.78, 0.95, 0.25)
 COLORS = {
-    "foam-cap-top": cq.Color(0.90, 0.66, 0.32),        # amber
-    "foam-cap-lid-top": cq.Color(0.97, 0.85, 0.55),    # pale amber
-    "foam-cap-bottom": cq.Color(0.45, 0.70, 0.45),     # green
-    "foam-cap-lid-bottom": cq.Color(0.66, 0.86, 0.62), # pale green
+    "foam-cap-top": cq.Color(0.90, 0.66, 0.32, 0.55),        # amber
+    "foam-cap-lid-top": cq.Color(0.97, 0.85, 0.55, 0.55),    # pale amber
+    "foam-cap-bottom": cq.Color(0.45, 0.70, 0.45, 0.55),     # green
+    "foam-cap-lid-bottom": cq.Color(0.66, 0.86, 0.62, 0.55), # pale green
 }
 
 # The spool each potted route is cut off, in `_routing.SPOOLS`' own keys — the same six rolls
