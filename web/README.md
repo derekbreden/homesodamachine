@@ -147,7 +147,7 @@ To verify dev/prod parity, the test in `tests/smoke.test.js` boots `start({ dev:
 | Open a CAD detail modal | `openCadDetail("step", file)` or `("dxf", file)` from `cad-detail.js`. Don't write a parallel modal flow. |
 | Persist some viewer state across opens | Add to `state.js`'s exported `state` object. Don't introduce a fresh module-scope `let`. |
 | Add a live event type | Define on the server in `lib/events.js` + `lib/push.js`, dispatch on the client in `public/boot.js`'s WebSocket message handler. Page modules listen via `window.addEventListener("hsm:foo")`. |
-| Wake a user via FCM | `notifyFilesChanged` / `notifyPostsChanged` in `lib/push.js`. The boot-time diff in `server.js` shows the canonical wiring. |
+| Wake a user via FCM | `notifyFilesChanged` in `lib/push.js`. The boot-time diff in `server.js` shows the canonical wiring. |
 
 ## Things that are NOT here
 
