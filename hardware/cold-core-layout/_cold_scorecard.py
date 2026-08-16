@@ -45,7 +45,7 @@ TOUCH_VOLUME = 0.1
 class Scorecard:
     checks: list
     bends: list = field(default_factory=list)
-    shapes: list = field(default_factory=list)
+    bodies: list = field(default_factory=list)
 
     @property
     def gates_pass(self) -> bool:
@@ -61,8 +61,9 @@ def to_dict(sc: Scorecard) -> dict:
              "active": c.active and c.id in FOCUS_IDS if c.kind == "goal" else c.active}
             for c in sc.checks
         ],
-        "shapes": sc.shapes,
-        # `_scenes.core_names` reads an `id` off every row here for the core's line names.
+        # `_scenes.core_names` reads these, with an `id` off every bend row, for the
+        # core's body and line names.
+        "bodies": sc.bodies,
         "bends": sc.bends,
     }
 
