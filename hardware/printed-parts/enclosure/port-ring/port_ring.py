@@ -53,13 +53,15 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cadlib",
+           _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "neofit-bulkhead"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step, import_step  # noqa: E402
+from _cadq_export import export_assembly, import_step  # noqa: E402
 from _measuring import bores  # noqa: E402
+import _back_panel_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
 import neofit_bulkhead as _neo  # noqa: E402
 from docgen import substitute_md  # noqa: E402
@@ -83,14 +85,16 @@ THICK = 2.0
 # `enclosure_assembly.PORT_HOLE_SLIP`. The two modules cannot import each other, so
 # `port-ring-bore` is what holds them equal.
 SLIP = 0.86
-# HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS ON THE TOP ROW: the reach from that row's own storey
-# to the box's top face, so those three chips run out FLUSH with it. They are fenced left, right
-# and below, and open at the top. `port-ring-top-row` reads this back against the box, because the
-# two modules cannot import each other.
-TOP_ROW_RISE = 18.789
+# HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, on every chip. The figure is the top row's own
+# storey read to the box's top face, so those three run out FLUSH with it — fenced left, right and
+# below, open above. The bottom row rises the same, which is what makes a chip on one family one
+# height wherever it stands and puts every word in the same band over its own bore.
+# `port-ring-top-row` reads it back against the box, because the two modules cannot import each
+# other.
+RISE = 18.789
 
 # One chip per station: the family whose fitting it rings, the word it carries, and whether it
-# stands on the top row and so takes `TOP_ROW_RISE` instead of its own radius.
+# stands on the top row and so runs out on the box's top face.
 Chip = collections.namedtuple("Chip", "family word top_row")
 STATIONS = {
     "water": Chip("union", "TAP", True),
@@ -99,8 +103,16 @@ STATIONS = {
     "flavor-a": Chip("union", "FLAVOR", False),
     "flavor-b": Chip("union", "FLAVOR", False),
 }
+# ONE FILE PER STATION, AND IT HOLDS BOTH BODIES. The part is one print in two filaments — a chip
+# and the word lying in its recess — so the file is that pair, each body carrying the colour of the
+# spool it comes off. A reader opening a station sees the part a customer meets; a slicer opening
+# it gets the two bodies to assign. `split` is how the pair comes back apart.
 STEPS = {name: _here.parent / f"port-ring-{name}.step" for name in STATIONS}
-WORD_STEPS = {name: _here.parent / f"port-ring-{name}-word.step" for name in STATIONS}
+
+# The key each station reads its two filaments under in `_back_panel_dimensions` — both flavour
+# chips print off one spool and letter in one colour, so both answer to `flavor`.
+FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
+          "flavor-a": "flavor", "flavor-b": "flavor"}
 
 # THE FACE THE REST OF THE MACHINE'S PAPER IS SET IN. `assembly/cards/style.css` sets the build
 # deck's `--sans` to it and `quickstart/appliance_quickstart.py` sets the customer's sheet in it at
@@ -171,19 +183,15 @@ def bore_d(fam: str) -> float:
     return FAMILIES[fam].panel_hole_d(SLIP)
 
 
-def rise(which: str) -> float:
-    """How far one station's chip stands ABOVE the bore's axis — the top of its rectangle.
-
-    The top row runs out to the box's own top edge and the bottom row stops on its own radius, so
-    a chip is as tall as the wall above it has room to be and no taller."""
-    chip = STATIONS[which]
-    return TOP_ROW_RISE if chip.top_row else od(chip.family) / 2.0
+def tall(which: str) -> float:
+    """One station's chip top to bottom: its own half circle below the axis, `RISE` above."""
+    return od(family(which)) / 2.0 + RISE
 
 
 def outline(which: str) -> tuple:
     """One station's chip as `(od, rise)` — the pair that strikes both the chip and the pocket it
     drops into. `enclosure_assembly.back_wall_field` cuts its pockets from this."""
-    return (od(family(which)), rise(which))
+    return (od(family(which)), RISE)
 
 
 def seat() -> tuple:
@@ -213,7 +221,7 @@ def word_band(which: str) -> tuple:
     and the top of the chip. Everything inside the flange is hidden once the fitting is on, so this
     is the whole of what a customer can be shown."""
     chip = STATIONS[which]
-    return (FAMILIES[chip.family].flange_footprint() / 2.0, rise(which))
+    return (FAMILIES[chip.family].flange_footprint() / 2.0, RISE)
 
 
 def build_word(which: str):
@@ -255,6 +263,36 @@ def build_ring(which: str):
     return chip.cut(build_word(which))
 
 
+def _filament(rgb) -> "cq.Color":
+    return cq.Color(*(c / 255.0 for c in rgb))
+
+
+def build_part(which: str) -> cq.Assembly:
+    """One station as it prints: the chip, and the word lying in its recess, each in the filament
+    it comes off. Two bodies of one part, in the frame `seat` places them by."""
+    a = cq.Assembly()
+    a.add(build_ring(which), name=f"port-ring-{which}",
+          color=_filament(_rear.chip_color(FLUIDS[which])))
+    a.add(build_word(which), name=f"port-ring-{which}-word",
+          color=_filament(_rear.word_color(FLUIDS[which])))
+    return a
+
+
+def split(shape) -> tuple:
+    """A station's STEP back apart, as `(chip, word)`.
+
+    The chip spans the whole of `THICK` and lands on the pocket's floor; the word stands in the
+    recess and reaches nowhere near it. So the body touching the seating face is the chip, which is
+    the same face `seat` hands the wall."""
+    solids = shape.Solids() if hasattr(shape, "Solids") else shape
+    floor = [s for s in solids if s.BoundingBox().ymin < THICK - WORD_DEPTH - WORD_TIE]
+    if len(solids) != 2 or len(floor) != 1:
+        raise ValueError(
+            f"a station's STEP is a chip and its word, and this one carries {len(solids)} "
+            f"{'body' if len(solids) == 1 else 'bodies'}, {len(floor)} of them on the seating face")
+    return (floor[0], next(s for s in solids if s is not floor[0]))
+
+
 def stations_hold():
     """Hold the figures the wall and the drawings read to each chip's own STEP.
 
@@ -262,7 +300,7 @@ def stations_hold():
     the bore a turned face inside it — so a chip exported from different numbers is caught here
     rather than by a pocket it will not drop into."""
     for which, step in STEPS.items():
-        solid = import_step(str(step)).val()
+        solid, _word = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
         diameter, top = outline(which)
         for what, claimed, actual in (("chip width", diameter, bb.xlen),
@@ -305,12 +343,12 @@ def words_hold():
     outline, different word entirely. Nothing about that shows up in a bore or an extent, which is
     why every word's width is carried in `WORD_WIDTHS` and read back off the solid here.
 
-    AND EVERY WORD IS ONE SOLID. A word whose letters came apart is a plate of loose islands to
-    place and to lose, and it is lettering the viewer draws grey — `/3d`'s reader surfaces a colour
-    only for a single-solid component. `WORD_TIE` is what holds them together and this reads it."""
-    for which, step in WORD_STEPS.items():
+    AND EVERY WORD IS ONE SOLID. Six loose letter islands are six things to place on a plate and
+    six to lose off it; one connected run is one. `WORD_TIE` is what holds them together and this
+    reads it."""
+    for which, step in STEPS.items():
         word = STATIONS[which].word
-        solid = import_step(str(step)).val()
+        _chip, solid = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
         if len(solid.Solids()) != 1:
             raise ValueError(
@@ -351,11 +389,11 @@ def selftest() -> int:
             fails.append(
                 f"'{chip.word}' runs {WORD_WIDTHS[chip.word]:.3f} mm across a {which} chip that "
                 f"leaves {room:.3f} mm between its own margins")
-        if rise(which) < od(chip.family) / 2.0 - 1e-9:
+        if RISE < od(chip.family) / 2.0 - 1e-9:
             fails.append(
-                f"the {which} chip rises {rise(which):.3f} mm over an axis its own half circle "
-                f"reaches {od(chip.family) / 2.0:.3f} mm below — the rectangle does not close on "
-                f"the circle and the outline is not one shape")
+                f"the {which} chip rises {RISE:.3f} mm over an axis its own half circle reaches "
+                f"{od(chip.family) / 2.0:.3f} mm below — the rectangle does not close on the "
+                f"circle and the outline is not one shape")
     if THICK >= _jg.THREAD_LEN:
         fails.append(
             f"a chip {THICK:g} thick stands in the {_jg.THREAD_LEN:g} mm of thread the union "
@@ -387,7 +425,7 @@ def selftest() -> int:
         print(f"FAIL {line}")
     if not fails:
         print("ok  port-ring  " + ", ".join(
-            f"{w} {STATIONS[w].word} Ø{od(family(w)):g}×{od(family(w)) / 2 + rise(w):.3f}"
+            f"{w} {STATIONS[w].word} Ø{od(family(w)):g}×{tall(w):.3f}"
             for w in STATIONS)
             + f" × {THICK:g}, {RING_W:g} mm of colour past each flange")
     return 1 if fails else 0
@@ -410,9 +448,8 @@ def main():
               f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
               f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
         print(f"  Solid valid: {chip.isValid()}")
-        export_step(cq.Workplane(obj=chip), str(STEPS[which]))
-        export_step(cq.Workplane(obj=word), str(WORD_STEPS[which]))
-        print(f"-> {STEPS[which].name}, {WORD_STEPS[which].name}")
+        export_assembly(build_part(which), str(STEPS[which]))
+        print(f"-> {STEPS[which].name}")
 
     variables = {
         "RING_W": f"{RING_W:g}",
@@ -420,10 +457,11 @@ def main():
         "RING_OD": f"{od('union'):g}",
         "RING_BORE": f"{bore_d('union'):g}",
         "RING_VOL": f"{volumes['flavor-a']:.2f}",
-        "RING_TALL": f"{od('union') / 2.0 + rise('flavor-a'):.2f}",
-        "TOP_TALL": f"{od('union') / 2.0 + TOP_ROW_RISE:.2f}",
+        "RING_TALL": f"{tall('flavor-a'):.2f}",
+        "RING_RISE": f"{RISE:g}",
         "CO2_RING_OD": f"{od('neofit'):.2f}",
         "CO2_RING_BORE": f"{bore_d('neofit'):g}",
+        "CO2_RING_TALL": f"{tall('co2'):.2f}",
         "CO2_RING_VOL": f"{volumes['co2']:.2f}",
         "WORD_FONT": WORD_FONT,
         "WORD_KIND": WORD_KIND,

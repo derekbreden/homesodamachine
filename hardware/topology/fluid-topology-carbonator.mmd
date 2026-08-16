@@ -103,7 +103,7 @@ flowchart LR
   %% reservoirs are filled and drawn the same way.
   Tap --> BhW
   BhW --> BFP
-  BFP -->|"water-2<br/>75.8 mm"| Split
+  BFP -->|"water-2<br/>73.8 mm"| Split
   BFP --> Vent
   Split -->|"fluid-1<br/>46.9 mm"| FlowReg
   FlowReg -->|"fluid-2<br/>157.9 mm"| VA
@@ -116,13 +116,13 @@ flowchart LR
   DischChain -->|"water-5<br/>48.3 mm"| CapWater
   CapWater --> P2
   CO2 --> CO2In
-  CO2In -->|"co2-0<br/>10.0 mm"| GasherCO2
+  CO2In -->|"co2-0<br/>8.0 mm"| GasherCO2
   GasherCO2 -->|"co2-1<br/>10.0 mm"| WR
   WR -->|"co2-2<br/>162.3 mm"| CapCO2
   CapCO2 --> P1
   P3 --> CapCarb
   CapCarb -->|"carb-1<br/>278.9 mm"| FlowMeter
-  FlowMeter -->|"carb-2<br/>24.0 mm"| BhCarb
+  FlowMeter -->|"carb-2<br/>22.0 mm"| BhCarb
   BhCarb --> Faucet
   Faucet --> Nozzle
   P4 ==> PRVOut

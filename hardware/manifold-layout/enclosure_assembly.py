@@ -2050,11 +2050,11 @@ def port_pocket_d(ring: str = "union") -> float:
     return _ring.od(ring) + 2.0 * PORT_RING_SLIP
 
 
-def port_pocket_rise(which: str) -> float:
-    """How far that pocket stands ABOVE the bore's axis — the chip's own rise and its slip. The
-    top row runs out past the box's top face and is cut off by it, which is what leaves those three
+def port_pocket_rise() -> float:
+    """How far a pocket stands ABOVE the bore's axis — the chip's own rise and its slip. The top
+    row runs out past the box's top face and is cut off by it, which is what leaves those three
     chips open at the top."""
-    return _ring.rise(which) + PORT_RING_SLIP
+    return _ring.RISE + PORT_RING_SLIP
 
 
 def port_boss_d(ring: str = "union") -> float:
@@ -2085,8 +2085,8 @@ def back_wall_field(stations):
     across them. `enclosure._port_field` cuts each into the wall's outer face and stands a boss one
     `PORT_RING_RIM` larger on the inner one."""
     return PortField(PORT_BOSS_PROUD, PORT_RING_RIM,
-                     tuple((x, z, port_pocket_d(ring), port_pocket_rise(which))
-                           for x, z, _fitting, ring, which, _fluid in stations.values()))
+                     tuple((x, z, port_pocket_d(ring), port_pocket_rise())
+                           for x, z, _fitting, ring, _which, _fluid in stations.values()))
 
 
 def build_port_rings(stations):
@@ -2097,16 +2097,16 @@ def build_port_rings(stations):
     face and the wall's come out one plane, the fitting's flange lands on the chip where the bare
     wall would otherwise carry it, and the chip is in the clamped stack the way the wall is.
 
-    THE WORD RIDES THE CHIP IT IS CUT INTO, on that same seating: `port_ring` authors the two in
-    one frame with the word already lying in its recess, so the pair cannot come apart here."""
+    THE WORD RIDES THE CHIP IT IS CUT INTO, on that same seating: one station is ONE file holding
+    both bodies in one frame, with the word already lying in its recess, so the pair cannot come
+    apart here. `port_ring.split` is what takes them out of it."""
     floor = _enc.rear_plane_y + _enc.wall - _ring.THICK
     out = []
     for x, z, _fitting, _ring_family, which, fluid in stations.values():
         station = (_ring.seat(), (x, floor, z))
-        chip, _carry = seat_body(import_step(str(_ring.STEPS[which])).val(), (),
-                                 seat=ring_name(which), station=station)
-        word, _wcarry = seat_body(import_step(str(_ring.WORD_STEPS[which])).val(), (),
-                                  seat=word_name(which), station=station)
+        cut, lettering = _ring.split(import_step(str(_ring.STEPS[which])).val())
+        chip, _carry = seat_body(cut, (), seat=ring_name(which), station=station)
+        word, _wcarry = seat_body(lettering, (), seat=word_name(which), station=station)
         out.append((ring_name(which), chip,
                     cq.Color(*(c / 255.0 for c in _rear.chip_color(fluid)))))
         out.append((word_name(which), word,
@@ -2294,10 +2294,10 @@ def check_port_pair(placed, west_face, seaflo) -> Bound:
 def check_top_row(stations) -> Bound:
     """The top row's chips run out FLUSH with the box's own top face.
 
-    `port_ring.TOP_ROW_RISE` is how far those three stand over their bore axis, and it is not a
-    figure that module can derive: it is this row's own storey read against the ceiling, and the
-    two modules cannot import each other. So it is stated there and read back here, off the
-    stations the wall was actually bored on.
+    `port_ring.RISE` is how far a chip stands over its bore axis, and it is not a figure that
+    module can derive: it is this row's own storey read against the ceiling, and the two modules
+    cannot import each other. So it is stated there and read back here, off the stations the wall
+    was actually bored on. Every chip takes it, and this is the row it answers to.
 
     Struck short, a strip of wall stands over the colour too thin for a nozzle to lay. Struck long,
     the pocket cuts up into the top wall past the face it runs out on."""
@@ -2306,12 +2306,12 @@ def check_top_row(stations) -> Bound:
     for name, (_x, z, _fitting, _ring_family, which, _fluid) in stations.items():
         if not _ring.STATIONS[which].top_row:
             continue
-        got = z + _ring.rise(which)
+        got = z + _ring.RISE
         if abs(got - top) > 1e-3:
             rows.append(
                 f"{name}'s chip reaches z {got:.3f} and the box's top face is {top:.3f} — "
-                f"`port_ring.TOP_ROW_RISE` is {_ring.TOP_ROW_RISE:g} and this row is bored on "
-                f"{z:.3f}, so that figure owes {top - z:.3f}.")
+                f"`port_ring.RISE` is {_ring.RISE:g} and this row is bored on {z:.3f}, so that "
+                f"figure owes {top - z:.3f}.")
     return record_bound(Bound(
         "port-ring-top-row", "The top row's chips run out on the box's top face", not rows,
         f"{sum(1 for _n, s in stations.items() if _ring.STATIONS[s[4]].top_row)} chips flush "
