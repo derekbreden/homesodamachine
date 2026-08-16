@@ -75,12 +75,10 @@ test("boot.js imports WS and matches frames by constant", () => {
 // (The server sends WS.* frames in events.js; the pickers key off HSM_EVENTS.)
 test("contract constants hold the agreed wire strings", () => {
   assert.equal(HSM_EVENTS.FILES_CHANGED, "hsm:files-changed");
-  assert.equal(HSM_EVENTS.POSTS_CHANGED, "hsm:posts-changed");
   assert.equal(HSM_EVENTS.DEPLOY, "hsm:deploy");
   assert.equal(HSM_EVENTS.NOTIFICATIONS_UPDATED, "hsm:notifications-updated");
   assert.equal(HSM_EVENTS.PCB_TOOL, "hsm:pcb-tool");
   assert.equal(WS.HELLO, "hello");
   assert.equal(WS.PING, "ping");
   assert.equal(WS.FILES_CHANGED, "files-changed");
-  assert.equal(WS.POSTS_CHANGED, "posts-changed");
 });

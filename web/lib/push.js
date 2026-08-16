@@ -38,23 +38,6 @@ function walkDxfFiles(rootDir) { return walkFiles(rootDir, ".dxf"); }
 function walkDrawingFiles(rootDir) { return walkFilesUnderDir(rootDir, ".svg", "drawings"); }
 function walkCardFiles(rootDir) { return walkAssemblyCards(rootDir).map((c) => c.path); }
 
-// Match the post filename format documented in posts/README.md
-// (`YYYY-MM-DD-HHMM.md`) so docs/helpers like posts/README.md don't get
-// hashed and treated as posts. The README has YAML-like example blocks
-// inside it (e.g. `title: <short noun phrase, ...>`) that the title regex
-// in notifyPostChanged would otherwise pick up, sending bogus notifications
-// every time the README is edited.
-const POST_FILENAME_RE = /^\d{4}-\d{2}-\d{2}-\d{4}\.md$/;
-
-function walkPostFiles(postsDir) {
-  if (!fs.existsSync(postsDir)) return [];
-  const out = [];
-  for (const entry of fs.readdirSync(postsDir, { withFileTypes: true })) {
-    if (entry.isFile() && POST_FILENAME_RE.test(entry.name)) out.push(entry.name);
-  }
-  return out;
-}
-
 function ensureSchema() {
   if (!pool) return Promise.resolve();
   if (schemaReady) return schemaReady;
@@ -114,13 +97,10 @@ function ensureSchema() {
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS post_hashes (
-        file TEXT PRIMARY KEY,
-        sha256 TEXT NOT NULL,
-        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
+    // post_hashes is dropped here — it fingerprinted the blog's markdown,
+    // and its rows were pure derived state (sha256 of files that are gone),
+    // so there is nothing to migrate.
+    await pool.query(`DROP TABLE IF EXISTS post_hashes`);
     // Notifications inbox: one row per push per token, with seen state.
     // Replaces the old single-row-per-token `pending_navs` table — that
     // worked for "warm tap → most recent push" but couldn't represent a
@@ -373,66 +353,14 @@ export async function detectChangedPcb(hardwareDir) {
   return changed;
 }
 
-// Hash every post under postsDir, compare to post_hashes, return list of
-// posts whose hash changed since last boot.
-//
-// First-seen handling differs from detectChangedSteps. A post seen for the
-// first time normally IS a publish event the README promises will page
-// every subscriber, so we want to notify. The only case we suppress is the
-// genuine bootstrap — first deploy after schema creation, when every
-// existing post is "first-seen" but is really backlog. Detect that by
-// checking whether post_hashes is empty before iterating; if so, record
-// hashes silently and notify nothing.
-export async function detectChangedPosts(postsDir) {
-  if (!pool) return [];
-  await ensureSchema();
-
-  const { rows: countRows } = await pool.query(
-    "SELECT COUNT(*)::int AS c FROM post_hashes",
-  );
-  const isBootstrap = countRows[0].c === 0;
-
-  const files = walkPostFiles(postsDir);
-  const changed = [];
-
-  for (const file of files) {
-    const abs = path.join(postsDir, file);
-    let buf;
-    try {
-      buf = fs.readFileSync(abs);
-    } catch {
-      continue;
-    }
-    const sha = crypto.createHash("sha256").update(buf).digest("hex");
-
-    const { rows } = await pool.query(
-      "SELECT sha256 FROM post_hashes WHERE file = $1",
-      [file],
-    );
-    const prev = rows[0]?.sha256;
-
-    if (prev === sha) continue;
-
-    if (prev || !isBootstrap) changed.push(file);
-
-    await pool.query(
-      `INSERT INTO post_hashes (file, sha256, updated_at)
-       VALUES ($1, $2, NOW())
-       ON CONFLICT (file) DO UPDATE SET sha256 = EXCLUDED.sha256, updated_at = NOW()`,
-      [file, sha],
-    );
-  }
-
-  return changed;
-}
-
 // Single source of truth for the FCM fan-out + dead-token cleanup loop.
 // Every notify* function builds a message and hands it here; this keeps
 // the retry/error path consistent and frees the callers to focus on
 // what to send (single post vs batched count vs single STEP vs etc).
 //
-// `kind` distinguishes step / mermaid / post for the in-app notifications
-// list (icon picker, etc). For mixed-kind file batches it's "files".
+// `kind` distinguishes step / mermaid / dxf / … for the in-app
+// notifications list (icon picker, etc). For mixed-kind batches it's
+// "files".
 //
 // `link` is the BASE URL (no `?n=<id>`). For each token, we insert a
 // notifications row, get back the row id, and use the URL with
@@ -501,73 +429,6 @@ async function fanOutToTokens(tokens, message, errorContext, link, kind) {
     }
   }
   return { sent, removed };
-}
-
-// Cheap regex frontmatter parse — the format is a single `title: ...` line,
-// tolerant of optional surrounding quotes. Avoids pulling in gray-matter
-// just for one field. Falls back to "New blog post" if the file can't be
-// read or has no title line.
-function extractPostTitle(postsDir, filename) {
-  try {
-    const raw = fs.readFileSync(path.join(postsDir, filename), "utf-8");
-    const m = raw.match(/^title:\s*(.+?)\s*$/m);
-    if (m) {
-      const t = m[1].replace(/^["']|["']$/g, "").trim();
-      if (t) return t;
-    }
-  } catch {}
-  return "New blog post";
-}
-
-// Resolve each changed post into the metadata the broadcast needs
-// (title for the toast body, link for tap-through). Exported so server.js
-// can hand the same metadata to both the broadcast and the FCM call.
-export function describeChangedPosts({ postsDir, filenames }) {
-  return filenames.map((filename) => ({
-    filename,
-    title: extractPostTitle(postsDir, filename),
-    link: `/blog#post-${filename.replace(/\.md$/, "")}`,
-  }));
-}
-
-// Unified post-update notification. Mirrors notifyFilesChanged: one FCM
-// message regardless of how many posts changed; batch link points at the
-// first post's anchor (cold-launch tap lands on something specific instead
-// of dumping the user at /blog root).
-export async function notifyPostsChanged({ postsDir, filenames }) {
-  if (!pool || !adminApp) return { sent: 0, removed: 0 };
-  if (filenames.length === 0) return { sent: 0, removed: 0 };
-  await ensureSchema();
-
-  // The dev viewer's single Notifications toggle subscribes with `*`,
-  // intent: "tell me about anything new on the project, posts included".
-  const { rows } = await pool.query(
-    `SELECT token FROM push_subscriptions WHERE files && ARRAY['*']::text[]`,
-  );
-
-  const posts = describeChangedPosts({ postsDir, filenames });
-  let title, body;
-  if (posts.length === 1) {
-    title = posts[0].title;
-    body = "New entry on the blog";
-  } else {
-    title = `${posts.length} new updates`;
-    const head = posts.slice(0, 3).map((p) => p.title).join(", ");
-    body = posts.length > 3 ? `${head}, …` : head;
-  }
-  const link = posts[0].link;
-
-  return fanOutToTokens(
-    rows,
-    {
-      notification: { title, body },
-      data: { count: String(posts.length), link },
-      webpush: { fcmOptions: { link } },
-    },
-    `posts (${posts.length})`,
-    link,
-    "post",
-  );
 }
 
 // Unified notification for any viewable-file changes (STEP and/or mermaid).

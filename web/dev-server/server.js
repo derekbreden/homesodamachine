@@ -7,7 +7,7 @@
 //
 // URL structure is identical to production: localhost:3000/ is the landing
 // page, localhost:3000/3d is the parts viewer, /charts is the diagrams
-// viewer, /blog is the Updates feed, and so on. The wrapper is purely
+// viewer, and so on. The wrapper is purely
 // additive — it does NOT change any routes. `dev: true` only changes the
 // commit signal sent to clients and skips the boot-time FCM push diff that
 // fires on real deploys.

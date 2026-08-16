@@ -7,7 +7,6 @@ import { iconSvg } from "../contracts/icons.js";
 
 // Shell nav glyphs.
 export const HOME_SVG      = iconSvg("home");
-export const UPDATES_SVG   = iconSvg("newspaper");
 export const PARTS_SVG     = iconSvg("cube");
 export const CHARTS_SVG    = iconSvg("chart");
 export const DRAWINGS_SVG  = iconSvg("pencil");
@@ -26,7 +25,6 @@ const NOTIF_KIND_TO_INNER = {
   drawing: "pencil",
   pcb:     "cpu",
   card:    "clipboard",
-  post:    "newspaper",
 };
 
 export function notifIconSvg(kind) {
@@ -42,6 +40,5 @@ export const NOTIF_ICON_BY_KIND = {
   drawing: notifIconSvg("drawing"),
   pcb:     notifIconSvg("pcb"),
   card:    notifIconSvg("card"),
-  post:    notifIconSvg("post"),
   default: notifIconSvg("default"),
 };

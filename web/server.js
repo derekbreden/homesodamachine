@@ -6,7 +6,6 @@ import { fileURLToPath, pathToFileURL } from "url";
 import pg from "pg";
 
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
-import { mountBlogRoutes } from "./lib/blog.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
 import { mountCostRoutes } from "./lib/cost.js";
@@ -22,9 +21,6 @@ import {
   detectChangedDrawings,
   detectChangedCards,
   detectChangedPcb,
-  detectChangedPosts,
-  describeChangedPosts,
-  notifyPostsChanged,
   notifyFilesChanged,
 } from "./lib/push.js";
 import { mountNotificationsRoutes } from "./lib/notifications.js";
@@ -32,12 +28,11 @@ import { WS } from "./contracts/ws-frames.js";
 import { EDITIONS, DEFAULT_EDITION } from "./lib/editions.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// Web app lives at /web; hardware/ and posts/ stay at the repo root
-// because they're separate concerns (CAD scripts, blog content) that
-// belong to the larger project, not the web service.
+// Web app lives at /web; hardware/ stays at the repo root because it's a
+// separate concern (CAD scripts) that belongs to the larger project, not
+// the web service.
 const REPO_ROOT = path.join(__dirname, "..");
 const DEFAULT_HARDWARE_DIR = path.join(REPO_ROOT, "hardware");
-const POSTS_DIR = path.join(REPO_ROOT, "posts");
 const LANDING_PUBLIC = path.join(__dirname, "public");
 // The cross-boundary contract definitions (web/contracts/) are served to the
 // browser at /contracts, so the viewer modules import the same event names and
@@ -259,8 +254,8 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     serviceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
   });
 
-  // URL structure is identical in dev and prod: landing at /, blog at
-  // /blog, parts viewer at /3d, charts viewer at /charts, settings at
+  // URL structure is identical in dev and prod: landing at /, parts
+  // viewer at /3d, charts viewer at /charts, settings at
   // /settings, with LANDING_PUBLIC served at /. The localhost dev server
   // hits the same routes the public site does, so ContentViewer and
   // other LANDING_PUBLIC assets just work in dev.
@@ -270,7 +265,6 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   //   - commit signal is "dev" instead of the deploy SHA
   //   - the boot-time push diff is skipped (no real deploy, no FCM)
   mountViewerRoutes(app, { editionDirs: EDITION_DIRS });
-  mountBlogRoutes(app, { postsDir: POSTS_DIR });
   mountPushRoutes(app);
   mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);
@@ -294,15 +288,12 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   app.use("/contracts", express.static(CONTRACTS_DIR));
   app.use(express.static(LANDING_PUBLIC));
 
-  // Production-only: deploy-change push. Hash STEP + mermaid + posts in
-  // parallel against per-kind tables, then broadcast over the WebSocket +
-  // fire FCM for what changed. Two broadcast types (`files-changed` for
-  // step/mermaid/dxf/drawings/cards, `posts-changed` for blog) since posts carry
-  // per-item metadata (title, link) that doesn't fit the bare-paths shape
-  // `files-changed` uses. Both kinds get piggy-backed onto `recent` so
-  // reconnecting clients (PWA was open during deploy, socket killed by
-  // shutdown) catch up via the hello handshake. Best-effort — failures
-  // don't block the listen.
+  // Production-only: deploy-change push. Hash every viewable kind in
+  // parallel against per-kind tables, then broadcast `files-changed` over
+  // the WebSocket + fire FCM for what changed. The change list is also
+  // piggy-backed onto `recent` so reconnecting clients (PWA was open
+  // during deploy, socket killed by shutdown) catch up via the hello
+  // handshake. Best-effort — failures don't block the listen.
   //
   // This reaches only clients connected right now; `recent` (set below)
   // covers a client that reconnects to this container. A client that
@@ -310,56 +301,31 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // /api/version check instead.
   //
   // Skipped in dev since no real deploy event happens; chokidar fires
-  // files-changed on save and there's no equivalent for posts in dev.
+  // files-changed on save.
   if (!dev) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid, changedDxf, changedDrawings, changedCards, changedPcb, changedPostFiles] = await Promise.all([
+        const [changedSteps, changedMermaid, changedDxf, changedDrawings, changedCards, changedPcb] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
           detectChangedMermaid(HARDWARE_DIR),
           detectChangedDxf(HARDWARE_DIR),
           detectChangedDrawings(HARDWARE_DIR),
           detectChangedCards(HARDWARE_DIR),
           detectChangedPcb(HARDWARE_DIR),
-          detectChangedPosts(POSTS_DIR),
         ]);
         const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDrawings, ...changedCards, ...changedPcb];
-        const changedPosts = describeChangedPosts({
-          postsDir: POSTS_DIR,
-          filenames: changedPostFiles,
-        });
 
-        if (changedFiles.length === 0 && changedPosts.length === 0) return;
+        if (changedFiles.length === 0) return;
 
-        // Broadcast each kind to currently-connected clients, AND store
-        // on `recent` so a client reconnecting after the deploy catches
-        // up via hello.
-        const ts = Date.now();
-        if (changedFiles.length > 0) {
-          broadcast({ type: WS.FILES_CHANGED, commit, files: changedFiles });
-        }
-        if (changedPosts.length > 0) {
-          broadcast({ type: WS.POSTS_CHANGED, commit, posts: changedPosts });
-        }
-        const snapshot = { commit, ts };
-        if (changedFiles.length > 0) snapshot.files = changedFiles;
-        if (changedPosts.length > 0) snapshot.posts = changedPosts;
-        setRecent(snapshot);
+        // Broadcast to currently-connected clients, AND store on `recent`
+        // so a client reconnecting after the deploy catches up via hello.
+        broadcast({ type: WS.FILES_CHANGED, commit, files: changedFiles });
+        setRecent({ commit, ts: Date.now(), files: changedFiles });
 
-        // FCM: one banner per kind. Files batch any mix of step/mermaid
-        // into a single banner; posts go through their own notify path.
-        // A deploy that touches both produces two banners — acceptable
-        // and rare; if it becomes annoying we can collapse later.
-        if (changedFiles.length > 0) {
-          console.log(`Push: notifying for ${changedFiles.length} changed file(s)`);
-          const result = await notifyFilesChanged({ files: changedFiles });
-          console.log(`  sent=${result.sent} removed=${result.removed}`);
-        }
-        if (changedPosts.length > 0) {
-          console.log(`Push: notifying for ${changedPosts.length} changed post(s)`);
-          const result = await notifyPostsChanged({ postsDir: POSTS_DIR, filenames: changedPostFiles });
-          console.log(`  sent=${result.sent} removed=${result.removed}`);
-        }
+        // FCM: one banner for the batch, any mix of kinds.
+        console.log(`Push: notifying for ${changedFiles.length} changed file(s)`);
+        const result = await notifyFilesChanged({ files: changedFiles });
+        console.log(`  sent=${result.sent} removed=${result.removed}`);
       } catch (e) {
         console.error("Push diff error:", e.message);
       }
@@ -370,7 +336,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   server.listen(port ?? process.env.PORT ?? defaultPort, () => {
     if (dev) {
       console.log(`Dev server: http://localhost:${server.address().port}`);
-      console.log("  Landing /, Updates /blog, Parts /3d, Charts /charts, Settings /settings");
+      console.log("  Landing /, Parts /3d, Charts /charts, Settings /settings");
     } else {
       console.log(`Listening on :${server.address().port}`);
     }

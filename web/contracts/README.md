@@ -47,7 +47,7 @@ the page.
 
 - **api-shapes.js** — the `/api` endpoints and their responses (PathList, DxfItem, Board, Card). Produced
   by `web/lib/viewer-routes.js`; consumed by `web/public/js/viewer/main.js`.
-- **ws-frames.js** — the `/ws` WebSocket frames (hello, ping, files-changed, posts-changed). Produced
+- **ws-frames.js** — the `/ws` WebSocket frames (hello, ping, files-changed, code-changed). Produced
   by `web/lib/events.js` (broadcasters `web/server.js`, `web/dev-server/server.js`); read by `web/public/boot.js`.
 - **client-events.js** — the `hsm:*` window CustomEvents. Dispatched by `web/public/boot.js` (pcb-tool
   by the viewer itself); listened for by `web/public/js/viewer/*.js`.

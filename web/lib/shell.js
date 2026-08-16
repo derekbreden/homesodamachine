@@ -1,4 +1,4 @@
-// Shared HTML shell for every server-rendered page (landing, blog, parts
+// Shared HTML shell for every server-rendered page (landing, parts
 // viewer, charts viewer, settings). One source of truth for:
 //   - <head> meta tags, font loading, manifest, icons, theme color
 //   - The :root CSS variables (palette tokens shared with the iOS / Android
@@ -11,17 +11,17 @@
 //   - The .ios-toggle pill primitive (shared between /settings rows and
 //     anywhere else that wants the same delightful slide).
 //
-// All primary links are icon-only (Home + Updates included). Two surfaces:
-//   "public" — civilian: Home, Updates [+ Parts, Charts, Drawings, Boards,
+// All primary links are icon-only (Home included). Two surfaces:
+//   "public" — civilian: Home [+ Parts, Charts, Drawings, Boards,
 //              Cost when dev mode], Settings
-//   "dev"    — engineering: Home, Updates, Parts, Charts, Drawings, Boards,
+//   "dev"    — engineering: Home, Parts, Charts, Drawings, Boards,
 //              Cost, Settings (always)
 //
 // Render flow:
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
 //            <body content> + renderFooter());
 
-import { HOME_SVG, UPDATES_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, TREE_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, TREE_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 import { EDITION_IDS, EDITION_DIRS, DEFAULT_EDITION } from "./editions.js";
 
 function escape(s) {
@@ -134,7 +134,7 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 
 /* Public nav hides Parts / Charts / Drawings / Boards / Cost / Build unless
    html.dev-mode is set. The dev surface (.site-nav-dev) always shows them.
-   Home and Updates are never gated. */
+   Home is never gated. */
 .site-nav-public a[data-nav="parts"],
 .site-nav-public a[data-nav="charts"],
 .site-nav-public a[data-nav="drawings"],
@@ -331,22 +331,21 @@ ${pageHead}
 // kind=step / kind=mermaid rows in /notifications use the same cube and
 // bar-chart icons as the Parts / Charts nav items.
 
-// Layout: every primary link is icon-only — Home and Updates included — so the
-// nav fits a phone PWA viewport without overflow. (Adding Boards, and now Cost,
-// to a row that still carried "Home"/"Updates" as text is exactly what pushed
-// it past the edge on mobile.) The right cluster (bell + gear) is wrapped in
-// .nav-right with margin-left: auto, so a single auto margin pushes both icons
-// to the right edge as a unit (two siblings each with margin-left: auto would
-// split the available space and leave a big gap between them).
+// Layout: every primary link is icon-only — Home included — so the nav fits a
+// phone PWA viewport without overflow. (Adding Boards, and now Cost, to a row
+// that still carried "Home" as text is exactly what pushed it past the edge on
+// mobile.) The right cluster (bell + gear) is wrapped in .nav-right with
+// margin-left: auto, so a single auto margin pushes both icons to the right
+// edge as a unit (two siblings each with margin-left: auto would split the
+// available space and leave a big gap between them).
 //
-// Home and Updates are always visible. Parts / Charts / Drawings / Boards /
-// Cost are present in the markup but, on the public surface, hidden by CSS
-// unless html.dev-mode is set (see BASE_CSS). On the dev surface, all are
-// always visible.
+// Home is always visible. Parts / Charts / Drawings / Boards / Cost are
+// present in the markup but, on the public surface, hidden by CSS unless
+// html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
+// visible.
 export function renderNav({ surface = "public", active = null }) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: HOME_SVG },
-    { href: "/blog", name: "updates", label: "Updates", svg: UPDATES_SVG },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },

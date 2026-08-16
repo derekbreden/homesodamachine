@@ -34,7 +34,7 @@
   <h1>ContentViewer test</h1>
   <p class="lede">Loads <code>pan-zoom.js</code> and <code>content-viewer.js</code> from <code>/public</code>. Tap a button.</p>
   <div class="row">
-    <button id="btn-image">Open with image (post-images PNG)</button>
+    <button id="btn-image">Open with image (PNG)</button>
     <button id="btn-svg">Open with inline SVG (800x600 demo)</button>
     <button id="btn-text">Open with long text (verify scroll/pan)</button>
   </div>
@@ -44,8 +44,8 @@
   <script>
     function openWithImage() {
       const img = document.createElement("img");
-      img.src = "/post-images/2026-04-25-carbonator-flow.png";
-      img.alt = "carbonator flow";
+      img.src = "/pwa-icons/icon-512.png";
+      img.alt = "app icon";
       img.draggable = false;
       img.style.display = "block";
       img.style.maxWidth = "none";

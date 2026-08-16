@@ -10,7 +10,7 @@
 // Example:
 //   node tools/render/render-dxf.js \
 //     cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf \
-//     public/post-images/touch-flo-under-counter-plate.png
+//     /tmp/touch-flo-under-counter-plate.png
 //
 // The dxf path is relative to hardware/ (matches /api/dxf + /dxfs/*).
 // Output path may be relative to repo root or absolute.
@@ -107,7 +107,7 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
     );
 
     // Pose the camera 3/4 isometric. Same factor (1.6) as render-step
-    // for visual consistency between Prints and Cuts in blog posts.
+    // so Prints and Cuts read at the same scale side by side.
     // Up is +Z so the plate's top stays on top of the screen — DXF
     // extrudes in +Z, unlike STEPs which use the natural Y-up.
     console.log("posing camera + rendering frame...");

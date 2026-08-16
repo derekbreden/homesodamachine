@@ -8,7 +8,7 @@
 // Example:
 //   node tools/render/render-step.js \
 //     printed-parts/cold-core/foam-bag-shell/foam-bag-shell.step \
-//     public/post-images/foam-bag-shell.png
+//     /tmp/foam-bag-shell.png
 //
 // The step path is relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.
