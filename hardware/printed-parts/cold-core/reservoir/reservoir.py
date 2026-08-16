@@ -20,7 +20,9 @@ sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+import _materials as _mat
+from _materials import one_body
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
     cap_conduit_shell_xy,
@@ -1277,17 +1279,22 @@ def main():
     for side, label in ((+1, "right"), (-1, "left")):
         body = build_reservoir_body(side=side)
         cap = build_reservoir_cap(side=side)
-        export_step(body, str(here / f"reservoir-{label}.step"))
-        export_step(cap, str(here / f"reservoir-cap-{label}.step"))
+        export_assembly(one_body(body, f"reservoir-{label}", _mat.C_RESERVOIR),
+                        str(here / f"reservoir-{label}.step"))
+        export_assembly(one_body(cap, f"reservoir-cap-{label}", _mat.C_RES_CAP),
+                        str(here / f"reservoir-cap-{label}.step"))
         print(f"-> reservoir-{label}.step")
         print(f"-> reservoir-cap-{label}.step")
 
     gasket = build_reservoir_gasket(side=+1)  # y-symmetric: flip to install on −X side
     retaining_ring = build_reservoir_retaining_ring()
     bulkhead_seal_dry = build_reservoir_bulkhead_seal(bulkhead_seal_dry_od)
-    export_step(gasket, str(here / "reservoir-gasket.step"))
-    export_step(retaining_ring, str(here / "reservoir-retaining-ring.step"))
-    export_step(bulkhead_seal_dry, str(here / "reservoir-bulkhead-seal-dry.step"))
+    export_assembly(one_body(gasket, "reservoir-gasket", _mat.C_SILICONE),
+                    str(here / "reservoir-gasket.step"))
+    export_assembly(one_body(retaining_ring, "reservoir-retaining-ring", _mat.M_PETG_BLACK),
+                    str(here / "reservoir-retaining-ring.step"))
+    export_assembly(one_body(bulkhead_seal_dry, "reservoir-bulkhead-seal-dry", _mat.C_SILICONE),
+                    str(here / "reservoir-bulkhead-seal-dry.step"))
     print(f"-> reservoir-gasket.step")
     print(f"-> reservoir-retaining-ring.step")
     print(f"-> reservoir-bulkhead-seal-dry.step")

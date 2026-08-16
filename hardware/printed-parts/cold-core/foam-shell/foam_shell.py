@@ -13,7 +13,8 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_FOAM_SHELL, one_body
 from _foam_shell import build_full_shell
 from _cold_core_interface import (
     above_tank_elbows_height,
@@ -183,7 +184,8 @@ def _plug_span(name):
 
 def main():
     foam_shell = build_full_shell()
-    export_step(foam_shell, str(_here / "foam-shell.step"))
+    export_assembly(one_body(foam_shell, "foam-shell", C_FOAM_SHELL),
+                    str(_here / "foam-shell.step"))
     print("-> foam-shell.step")
 
     _report_front_ports(foam_shell)

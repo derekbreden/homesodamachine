@@ -20,7 +20,9 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 
 from world_workplane import (WorldWorkplane, xy_plane_z_up, xz_plane_y_up,
                              yz_plane_x_up)
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+import _materials as _mat
+from _materials import one_body
 import valve_seat as seat
 from _foam_cap import (
     build_foam_cap,
@@ -488,11 +490,13 @@ def main():
             assert fouled <= 1e-6, \
                 f"{name}: the head at ({x:.1f}, {y:.1f}) fouls the lid by {fouled:.3f} mm^3"
 
-    export_step(cap_top, str(_here / "foam-cap-top.step"))
-    export_step(cap_bottom, str(_here / "foam-cap-bottom.step"))
-    export_step(lid_top, str(_here / "foam-cap-lid-top.step"))
-    export_step(lid_bottom, str(_here / "foam-cap-lid-bottom.step"))
-    export_step(gasket, str(_here / "foam-cap-gasket.step"))
+    for shape, name, colour in (
+            (cap_top, "foam-cap-top", _mat.C_CAP_TOP),
+            (cap_bottom, "foam-cap-bottom", _mat.C_CAP_BOTTOM),
+            (lid_top, "foam-cap-lid-top", _mat.C_CAP_LID_TOP),
+            (lid_bottom, "foam-cap-lid-bottom", _mat.C_CAP_LID_BOTTOM),
+            (gasket, "foam-cap-gasket", _mat.C_SILICONE)):
+        export_assembly(one_body(shape, name, colour), str(_here / f"{name}.step"))
     print("-> foam-cap-top.step")
     print("-> foam-cap-bottom.step")
     print("-> foam-cap-lid-top.step")

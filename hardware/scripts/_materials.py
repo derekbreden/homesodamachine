@@ -40,6 +40,17 @@ M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
 # `cold-core-layout/cold_core_assembly` places these and the generators below cut them, so the
 # two read the same constant.
 C_PLUG = cq.Color(0.35, 0.40, 0.48)
+# Translucent, so the vessel and the lines standing inside the stack read through the cap that
+# closes them and the shell that holds them.
+C_FOAM_SHELL = cq.Color(0.62, 0.78, 0.95, 0.25)
+C_CAP_TOP = cq.Color(0.90, 0.66, 0.32, 0.55)          # amber
+C_CAP_LID_TOP = cq.Color(0.97, 0.85, 0.55, 0.55)      # pale amber
+C_CAP_BOTTOM = cq.Color(0.45, 0.70, 0.45, 0.55)       # green
+C_CAP_LID_BOTTOM = cq.Color(0.66, 0.86, 0.62, 0.55)   # pale green
+C_RESERVOIR = cq.Color(0.85, 0.88, 0.92, 0.35)
+C_RES_CAP = cq.Color(0.70, 0.74, 0.80, 0.55)
+# The platinum-cure silicone the gaskets and the dry seal are cast in.
+C_SILICONE = cq.Color(0.92, 0.92, 0.90, 0.60)
 C_SHROUD = cq.Color(0.30, 0.34, 0.40)
 C_REED = cq.Color(0.95, 0.55, 0.85)
 
