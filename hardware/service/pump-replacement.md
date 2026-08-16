@@ -38,7 +38,7 @@ Derived at every build from `manifold_layout.SEGMENTS` and `manifold_layout.MOUT
 | `fluid-5` | Y-B-1 | V-B-O | [52.8](LEN_5) mm | every state — it is the air inlet |
 | `fluid-14` | V-F-O | reservoir A fill conduit | [369.5](LEN_14) mm | state 1 |
 | `fluid-24` | V-I-O | reservoir B fill conduit | [180.8](LEN_24) mm | state 3 |
-| `fluid-18` | V-G-O | `bulkhead-flavor-a` | [450.5](LEN_18) mm | state 2 |
+| `fluid-18` | V-G-O | `bulkhead-flavor-a` | [447.5](LEN_18) mm | state 2 |
 | `fluid-28` | V-J-O | `bulkhead-flavor-b` | [329.1](LEN_28) mm | state 4 |
 | `fluid-16` | V-E-I | reservoir A draw conduit | [123.2](LEN_16) mm | no state — comes apart wet |
 | `fluid-26` | V-H-I | reservoir B draw conduit | [123.2](LEN_26) mm | no state — comes apart wet |

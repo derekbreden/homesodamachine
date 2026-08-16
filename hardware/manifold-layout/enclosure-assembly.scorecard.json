@@ -61,11 +61,11 @@
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
+    "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
     "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.578",
-    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it",
-    "digiten-flow: fall onto what stands under it \u2014 wants 6, has nothing under it"
+    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
    "active": true
   },
@@ -153,7 +153,7 @@
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
-    "fluid-14 \u2014 seaflo-pump: 1.975 mm",
+    "fluid-14 \u2014 seaflo-pump: 1.756 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm"
    ],
    "active": true
@@ -574,7 +574,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "a gap of 2 mm or more, one rim's own width",
+   "target": "a gap of 3 mm or more, one rim's own width",
    "detail": [],
    "active": true
   },
@@ -677,7 +677,7 @@
    "label": "The panel deck lies over the storey its own descent leaves",
    "kind": "gate",
    "status": "pass",
-   "value": "nothing lands under it",
+   "value": "deck 336.21, floor 328.95",
    "target": "the deck at or over its floor",
    "detail": [],
    "active": true
@@ -707,7 +707,7 @@
    "label": "The drip tray's west lip lands inside the \u2212X wall",
    "kind": "gate",
    "status": "pass",
-   "value": "lip at x -104.50, wall at -104.50",
+   "value": "lip at x -104.28, wall at -104.50",
    "target": "the lip inboard of the wall",
    "detail": [],
    "active": true
@@ -718,7 +718,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "drips at x -78.07, y 376.21",
-   "target": "x[-89.00, -49.00] y[367.10, 421.10]",
+   "target": "x[-88.78, -48.78] y[367.10, 421.10]",
    "detail": [],
    "active": true
   },
@@ -747,7 +747,7 @@
    "label": "The nozzle unions' pair stands inside the west lane",
    "kind": "gate",
    "status": "pass",
-   "value": "1.000 mm to the seam column, 3.780 mm to the casting",
+   "value": "1.000 mm to the seam column, 1.000 mm to the casting",
    "target": "1 mm each flank",
    "detail": [],
    "active": true
@@ -1164,9 +1164,9 @@
    "value": "20/21 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 450.5 mm unheld, 250.5 over",
-    "carb-1: 146.0 mm, held at its anchor",
-    "co2-2: 117.2 mm, held at its anchor",
+    "fluid-18: 447.5 mm unheld, 247.5 over",
+    "carb-1: 144.5 mm, held at its anchor",
+    "co2-2: 114.2 mm, held at its anchor",
     "fluid-28: 167.7 mm, held at its anchor",
     "fluid-4: 290.1 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],

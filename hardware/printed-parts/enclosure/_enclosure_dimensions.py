@@ -151,8 +151,11 @@ BED_Z = enclosure.H2C_Z
 # `back_wall_ports` strikes its bore on.
 PORT_ROW_Z = _bb("bulkhead-carb").zmin + (_bb("bulkhead-carb").zlen / 2.0)
 WATER_PORT_Z = _bb("bulkhead-water").zmin + (_bb("bulkhead-water").zlen / 2.0)
-_PANEL_X = _F.constants["PANEL_X"]
-PANEL_PITCH = (max(_PANEL_X.values()) - min(_PANEL_X.values())) / (len(_PANEL_X) - 1)
+# THE ROW STANDS ON COLUMNS AND TWO OF ITS UNIONS SHARE ONE, so the pitch is the gap between
+# adjacent COLUMNS — the same reading `_enclosure_mechanical_sync` takes of the same stations.
+_PANEL_COLUMNS = sorted({round(x, 6) for x in _F.constants["PANEL_X"].values()})
+PANEL_PITCH = ((_PANEL_COLUMNS[-1] - _PANEL_COLUMNS[0]) / (len(_PANEL_COLUMNS) - 1)
+               if len(_PANEL_COLUMNS) > 1 else 0.0)
 
 # --- the lines the cold core is reached on ---------------------------------
 # All four reservoir lines land on CAP CONDUITS — bores up the cap's own columns opening on
