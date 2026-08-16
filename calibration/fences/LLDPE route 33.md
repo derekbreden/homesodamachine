@@ -185,9 +185,9 @@ The other session finished and committed (`a37c1752`) — tree is clean apart fr
 
 Six agents are out and I have the lay of the land. Status while they run:
 
-**On your five parts** — two of them *are* already in the assembly's `build()`: `jg-pp010822e` and `gagira-coupling` ([asse1022_assembly.py:101-102](hardware/reference/asse1022-assembly/asse1022_assembly.py:101)). So the question for those two is why they don't *read* as present — buried inside the brass body, modeled too small, or just lost in the render. An agent is settling that with intersection volumes rather than opinion.
+**On your five parts** — two of them *are* already in the assembly's `build()`: `jg-pp010822e` and `gagira-coupling` ([asse1022_assembly.py:101-102](/hardware/reference/asse1022-assembly/asse1022_assembly.py:101)). So the question for those two is why they don't *read* as present — buried inside the brass body, modeled too small, or just lost in the render. An agent is settling that with intersection volumes rather than opinion.
 
-The other three genuinely don't exist anywhere in the repo as geometry. They're the **tap-point branch** — per [bom.md:59-61](hardware/ledger/bom.md:59) and [internal-plumbing.md:150](hardware/assembly/internal-plumbing.md:150), the tee goes *inline in the 3/8" silicone hose* between the FFL38BARB38 and the SeaFlo suction, and its branch necks 3/8" MNPT → PP451223W → PP061208W → 1/4" LLDPE → flow regulator → V-A. So they're not a straight extension of the existing chain; they hang off a hose run that doesn't exist yet.
+The other three genuinely don't exist anywhere in the repo as geometry. They're the **tap-point branch** — per [bom.md:59-61](/hardware/ledger/bom.md:59) and [internal-plumbing.md:150](/hardware/assembly/internal-plumbing.md:150), the tee goes *inline in the 3/8" silicone hose* between the FFL38BARB38 and the SeaFlo suction, and its branch necks 3/8" MNPT → PP451223W → PP061208W → 1/4" LLDPE → flow regulator → V-A. So they're not a straight extension of the existing chain; they hang off a hose run that doesn't exist yet.
 
 **Which is where your "boxed in" warning is already earning its keep.** The SeaFlo those parts feed is unplaced, and I found this in your stash list:
 
@@ -362,9 +362,9 @@ That's the answer to half your question. Both parts *were* always there — they
 - **PP010822E** — `BLACK_PP` was `(0.16, 0.16, 0.18)` = rgb(41,41,46) against the viewer's `#1a1a2e` ground = rgb(26,26,46). Identical blue channel, **contrast ratio 1.18:1**. Thumbnails render in x-ray, where a body is carried entirely by its edge lines in its own color — so its 297 exclusive pixels were all within 8/255 of the background, some *darker* than it. It was rendering as a hole.
 - **GAGIRA coupling** — drawn correctly, but it shared `STAINLESS` with the barb, and stainless-vs-brass is **1.51:1**. A Ø25.67 gray hex butted coplanar onto a Ø33 gold hex at near-identical luminance reads as one nut cluster, not two fittings.
 
-Both fixed in [asse1022_assembly.py:49](hardware/reference/asse1022-assembly/asse1022_assembly.py:49) — the coupling gets a hue the chain uses nowhere else (8.19:1), the PP is carried at a value that clears 3:1. I'll design the full palette once the three new parts land, since they're all white PP and will need to separate from each other too.
+Both fixed in [asse1022_assembly.py:49](/hardware/reference/asse1022-assembly/asse1022_assembly.py:49) — the coupling gets a hue the chain uses nowhere else (8.19:1), the PP is carried at a value that clears 3:1. I'll design the full palette once the three new parts land, since they're all white PP and will need to separate from each other too.
 
-**A real bug fell out of it too.** [multiplex_asse1022.py:45](hardware/reference/multiplex-asse1022/multiplex_asse1022.py:45) computed the body's half-height from `HEX_ACROSS_CORNERS / 2` — the circumradius — but `build()` deliberately clocks the hex *flats-down* so the vent exits a face. The real half-height is the apothem, so the underside sits at Z = 12.711, not 10.5. The vent stub was stopping its bore 2.211 mm short, leaving bare barb uncovered against its own docstring. Fixed by publishing `BODY_UNDERSIDE_Z` as a real datum. The multiplex STEP came back **byte-identical** and all three terminals are unchanged — `tube-in (−36, 0, 27)`, `hose-out (87.5, 0, 27)`, `vent-tip (32, 0, −2)` — so nothing placed moved.
+**A real bug fell out of it too.** [multiplex_asse1022.py:45](/hardware/reference/multiplex-asse1022/multiplex_asse1022.py:45) computed the body's half-height from `HEX_ACROSS_CORNERS / 2` — the circumradius — but `build()` deliberately clocks the hex *flats-down* so the vent exits a face. The real half-height is the apothem, so the underside sits at Z = 12.711, not 10.5. The vent stub was stopping its bore 2.211 mm short, leaving bare barb uncovered against its own docstring. Fixed by publishing `BODY_UNDERSIDE_Z` as a real datum. The multiplex STEP came back **byte-identical** and all three terminals are unchanged — `tube-in (−36, 0, 27)`, `hose-out (87.5, 0, 27)`, `vent-tip (32, 0, −2)` — so nothing placed moved.
 
 One judgment call I want to flag rather than bury: I could instead have made `VENT_DROP` mean what its comment claimed (barb reach *below the underside*), which would drop the flow axis 2.211 mm and cascade into `ASSE1022_POS`, the `water-1` run, and the scorecard's fall rule. I didn't, because both numbers are divided off a spec sheet rather than measured — the README already flags the whole chain PROVISIONAL pending shelf measurement. **When you have the Multiplex in hand, the number to caliper is the exposed vent-barb length below the hex flat.** That settles which reading is real.
 
@@ -470,7 +470,7 @@ PP451223W verified — hex at the thread end, stepped collet at the PTC end, 36 
 
 ---
 
-Useful precedent found while waiting: the scorecard already has a category for exactly this kind of part — [scorecard.py:128](hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py:128), *"In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)"*, covering `tee-y-c`, `tee-y-f`, the Y-dividers and the elbows. The MTB tee and its two adapters are the same species: fittings that hang in a run rather than mount to anything. That's real evidence the tee should be its own placed component in the enclosure pack rather than folded into the `asse1022-assembly` reference model — I'll weigh it against the arrangement verdicts when they land.
+Useful precedent found while waiting: the scorecard already has a category for exactly this kind of part — [scorecard.py:128](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L128), *"In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)"*, covering `tee-y-c`, `tee-y-f`, the Y-dividers and the elbows. The MTB tee and its two adapters are the same species: fittings that hang in a run rather than mount to anything. That's real evidence the tee should be its own placed component in the enclosure pack rather than folded into the `asse1022-assembly` reference model — I'll weigh it against the arrangement verdicts when they land.
 
 Three agents still out: the tee's dimensions, the reducer stem's, and both arrangement reads.
 
@@ -809,7 +809,7 @@ Three numbers worth having:
 
 **And directly on your question:** the ASSE's barb currently fires west into 56.5 mm of dead end. `_contents.py:213` documents that as a feature — *"the strip's open end ahead of it… for the stiff silicone to turn in on its way to the SeaFlo."* There is no SeaFlo west and there can never be one; it's 187 mm long into a 56.5 mm pocket. The tee doesn't fit there either — it needs 15 mm of free hose plus a 50-65 mm run, so its west barb lands 8.5-23.5 mm **through the wall**. That's the "boxed in" you predicted, and it traces back to `WATER_BACK_X = 145` picking an arbitrary station, the yaw then pointing the inlet at it, and the barb then pointing at a wall.
 
-On the C14 — **yes, there's a clean corner**: `C14_BACK_X` 90 → 10 verifies CLEAR, leaves 11.75 mm of panel outboard. It's currently the ASSE's *tightest* neighbour at 4.711 mm, and it puts mains cordage straight through the drip-pan band under the atmospheric vent — [internal-plumbing.md](hardware/assembly/internal-plumbing.md) has a hand-dressing warning about exactly that, which the move deletes outright.
+On the C14 — **yes, there's a clean corner**: `C14_BACK_X` 90 → 10 verifies CLEAR, leaves 11.75 mm of panel outboard. It's currently the ASSE's *tightest* neighbour at 4.711 mm, and it puts mains cordage straight through the drip-pan band under the atmospheric vent — [internal-plumbing.md](/hardware/assembly/internal-plumbing.md) has a hand-dressing warning about exactly that, which the move deletes outright.
 
 I'm holding off implementing the re-pose until the second arrangement agent cross-checks it — it's a big move and I want it challenged, not just agreed with. Meanwhile the reducer stem and tee modules are still building.
 
@@ -1602,7 +1602,7 @@ I misread a stale scorecard a moment ago — the clash is real and still there. 
 
 Two of the six done. Where things stand:
 
-**Electronics are out.** `power-tray`, `pcba` and `dc-dist` are no longer placed — they stay declared in the scorecard registry as components without a station, so they read as work still owed rather than vanishing. One real coupling had to be cut: [_lines.py:392](hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:392) used the PCBA's board height as a datum for the nozzle-lane clearance guard, so that guard now checks each body it actually crosses instead of assuming the shelf is there.
+**Electronics are out.** `power-tray`, `pcba` and `dc-dist` are no longer placed — they stay declared in the scorecard registry as components without a station, so they read as work still owed rather than vanishing. One real coupling had to be cut: [_lines.py:392](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L392) used the PCBA's board height as a datum for the nozzle-lane clearance guard, so that guard now checks each body it actually crosses instead of assuming the shelf is there.
 
 **C14 is in the west corner** at x[6.75, 37.25] — was x[74.75, 105.25]. That's it out of the drip pan's ground (x 63–133) entirely, so mains conductors and the backflow vent's deliberate drip no longer share a volume.
 
@@ -1733,7 +1733,7 @@ The build completed and printed the full scorecard, but the sidecar mtime never 
 
 ---
 
-Now the behavior makes sense and it's deliberate: [enclosure_assembly.py:319](hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py:319) hard-exits on a failing gate *before* writing anything, so a headless build never writes an invalid pack. The sidecar on disk is the last valid one. So I can't refresh artifacts until the pack closes.
+Now the behavior makes sense and it's deliberate: [enclosure_assembly.py:319](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L319) hard-exits on a failing gate *before* writing anything, so a headless build never writes an invalid pack. The sidecar on disk is the last valid one. So I can't refresh artifacts until the pack closes.
 
 Let me test a layout with the probe before spending more builds on it:
 
@@ -1762,7 +1762,7 @@ That constrains the pump in **Y** as well as X: usable depth between the CO2 col
 
 Reported to the packing agent. While it works, one thing I found in the build machinery that you should know about, because it's how my last commit got through:
 
-[enclosure_assembly.py:317](hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py:317) says of a failing pack — *"the sidecar records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and blocks the commit — an invalid pack can be inspected but can never land."*
+[enclosure_assembly.py:317](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L317) says of a failing pack — *"the sidecar records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and blocks the commit — an invalid pack can be inspected but can never land."*
 
 That holds under `HSM_EDITOR`. Headless it doesn't: line 319 exits *before* the write, so the sidecar keeps the **last valid** verdict — `gatesPass: true`, describing a pack that no longer exists. The pre-commit hook then reads a passing sidecar and only emits a soft warning (`sidecar may be behind _contents.py`), so the commit lands. That's exactly what happened with `5c5ad1e1`, and it's also what made me misreport the gates twice — I was reading a scorecard from 20:23 against source edited at 20:42.
 

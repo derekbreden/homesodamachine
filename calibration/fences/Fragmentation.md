@@ -365,8 +365,8 @@ Now the J1/J2 task — I've got it, it's mine, and it stays off the other agent'
 Recon's done and it's a clean, contained edit — well away from the USB-C corner the agent is working:
 
 - **U10** (Buck5): `x={15.25} y={-25}`
-- **J1** (Jst, MANIFOLD A): `x={21} y={13.75}` — [pcba.tsx:210](hardware/pcb/pcba/pcba.tsx:210)
-- **J2** (Jst, MANIFOLD B): `x={21} y={-9.5}` — [pcba.tsx:211](hardware/pcb/pcba/pcba.tsx:211)
+- **J1** (Jst, MANIFOLD A): `x={21} y={13.75}` — [pcba.tsx:210](/hardware/pcb/pcba/pcba.tsx:210)
+- **J2** (Jst, MANIFOLD B): `x={21} y={-9.5}` — [pcba.tsx:211](/hardware/pcb/pcba/pcba.tsx:211)
 
 North is +y here (consistent with the USB-C pad stack, and U10 at y=−25 sits *south* of J2 — so moving J2 north widens the J2↔U10 gap, exactly the hug you want gone). So the move is `y: 13.75 → 14.75` for J1 and `y: -9.5 → -8.5` for J2. I'll re-read the exact lines at execution time (in case they've shifted), render to confirm J2 clears U10 and nothing new collides to the north, then commit it on its own.
 

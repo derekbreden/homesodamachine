@@ -84,7 +84,7 @@ Read in full, and grounded against the current tree. Here's what route 31 was do
 
 ## What LLDPE route 31 was trying to accomplish
 
-It began as a relay from route 30 (placing the ASSE 1022 backflow preventer above the foam cap) and then snowballed, through your prodding, into one real objective: **give the machine a way to actually stop water, and somewhere to catch what leaks.** The "above the foam shell" part is specifically the **water deck** — the SeaFlo pump, the ASSE 1022, and the tap point all now live in the service bay *on top of the foam cap* (Zone B, [_contents.py:105](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:105)), and route 31's deliverable was to seat one more part up there:
+It began as a relay from route 30 (placing the ASSE 1022 backflow preventer above the foam cap) and then snowballed, through your prodding, into one real objective: **give the machine a way to actually stop water, and somewhere to catch what leaks.** The "above the foam shell" part is specifically the **water deck** — the SeaFlo pump, the ASSE 1022, and the tap point all now live in the service bay *on top of the foam cap* (Zone B, [_contents.py:105](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L105)), and route 31's deliverable was to seat one more part up there:
 
 **V-K — an 11th Beduan 12 V normally-closed solenoid**, upstream of the SeaFlo, as a **fill valve / inlet shutoff.** The insight that justified it (yours): killing the pump doesn't *positively* close the water path, so house pressure can creep water into the carbonator while the machine sits idle — and it's the only thing that could stop a burst while a customer is away. It costs nothing electrically — the board already has an idle driver channel (`J2.OUT3`, MCP23017 0x21 through ULN U5).
 
@@ -101,7 +101,7 @@ It ended asking you to approve deepening, or else opt into a harder repack. **Yo
 ## Current state (nothing landed)
 
 - **No V-K anywhere in the repo** — no fill valve, no inlet shutoff exists.
-- **Box was not deepened** — `z_joint_back = 267.0`, unchanged ([enclosure.py:214](hardware/printed-parts/enclosure/enclosure/enclosure.py:214)); depth is still ~393.
+- **Box was not deepened** — `z_joint_back = 267.0`, unchanged ([enclosure.py:214](/hardware/printed-parts/enclosure/enclosure/enclosure.py:214)); depth is still ~393.
 - The commits since route 33 landed (`ba9f65a2`) have all been **instruction cards and the electronics-shelf/AC wiring** — nobody picked up the basement or V-K.
 
 So the whole thread is still open exactly where route 31 left it.
@@ -222,7 +222,7 @@ Here's where things stand.
 
 ## Route 31 was wrong, and I can show it
 
-The whole "V-K needs a bigger box" conclusion rested on a stack of fences. The load-bearing one: **route 31 treated the enclosure as a fixed-size box with one 29 mm slot to squeeze into.** But [enclosure.py:463](hardware/printed-parts/enclosure/enclosure/enclosure.py:463) `_dims()` *derives* the box from its contents — ceiling = tallest content, back wall = deepest. So "don't grow the box" doesn't mean "find the 29 mm gap," it means **fit inside the envelope the contents already claim** — and there's slack in there.
+The whole "V-K needs a bigger box" conclusion rested on a stack of fences. The load-bearing one: **route 31 treated the enclosure as a fixed-size box with one 29 mm slot to squeeze into.** But [enclosure.py:463](/hardware/printed-parts/enclosure/enclosure/enclosure.py:463) `_dims()` *derives* the box from its contents — ceiling = tallest content, back wall = deepest. So "don't grow the box" doesn't mean "find the 29 mm gap," it means **fit inside the envelope the contents already claim** — and there's slack in there.
 
 First probe I ran found it: a fully-clear 34×32×57 void at **x[5,39] y[326,358] z[255,312]** — right beside the water bulkhead, above the foam cap, upstream of the ASSE. Clear with the tubes hidden *and* with nothing hidden. Its bbox sits inside the current content extents (x≤283, y≤381, z≤337.7), so **placing V-K there grows the enclosure by exactly zero.**
 
@@ -1087,7 +1087,7 @@ Done — V-K is placed, fully integrated, and pushed to main as [e9be778e](https
 
 The whole "V-K needs a bigger enclosure" conclusion rested on stacked assumptions. Three agents, working in parallel, knocked them down:
 
-- **The box is a fixed size** → it's *derived from contents* ([enclosure.py:463](hardware/printed-parts/enclosure/enclosure/enclosure.py:463)), so "don't grow it" means "fit the envelope the contents already claim." There was slack.
+- **The box is a fixed size** → it's *derived from contents* ([enclosure.py:463](/hardware/printed-parts/enclosure/enclosure/enclosure.py:463)), so "don't grow it" means "fit the envelope the contents already claim." There was slack.
 - **V-K is a solid 34×59×57 block** → it's a 34×32×57 body with thin 15 mm port nipples; orientation is everything.
 - **The pump has one immovable pose** → it has tens of mm of free travel (agent 3 proved it), though in the end V-K didn't even need that.
 
@@ -1246,7 +1246,7 @@ A ZIP embeds per-entry timestamps, so it churns every build even when the gerber
 
 ---
 
-Found it — [render-board.ts:288](hardware/pcb/pcba/render-board.ts:288):
+Found it — [render-board.ts:288](/hardware/pcb/pcba/render-board.ts:288):
 
 ```
 await sh("zip", ["-q", "-j", zip, ...readdirSync(scratch).map((f) => path.join(scratch, f))])

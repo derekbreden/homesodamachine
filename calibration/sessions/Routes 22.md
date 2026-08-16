@@ -144,7 +144,7 @@ Confirmed. Now let me restore the tree and rebuild it green.
 
 I did what you asked and it fails on one line. Nothing is committed — the tree is clean at `dcd74d0b`.
 
-**The move you asked for.** I set fluid-26's cap entry to (48.124, 188) in [`_cold_core_interface.py:528`](hardware/printed-parts/cold-core/_cold_core_interface.py:528) and the build stops immediately:
+**The move you asked for.** I set fluid-26's cap entry to (48.124, 188) in [`_cold_core_interface.py:528`](/hardware/printed-parts/cold-core/_cold_core_interface.py:528) and the build stops immediately:
 
 ```
 AssertionError: cap conduit reservoir-b: the column stands 0.250 mm off the
@@ -211,7 +211,7 @@ That 12 mm is made of exactly four things, and three of them are structure:
 
 A cap conduit is a ⌀10.5 post with a ⌀6.5 hole up the middle, and the foam pour has to reach past it on both sides — 1.5 mm a side. 10.5 + 3.0 = **13.5 mm of clear span**, and it has to land between the shell wall and the pocket wall. There is 8.
 
-**Why moving the reed channel makes it worse, not better.** The shell's outer width is *defined* by the reed channel — [`_cold_core_interface.py:135`](hardware/printed-parts/cold-core/_cold_core_interface.py:135):
+**Why moving the reed channel makes it worse, not better.** The shell's outer width is *defined* by the reed channel — [`_cold_core_interface.py:135`](/hardware/printed-parts/cold-core/_cold_core_interface.py:135):
 
 ```python
 outer_shell_x_length = 2 * (bag_pocket_outermost_x + reed_x_depth + 2 * wall_and_floor_thickness)

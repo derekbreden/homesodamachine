@@ -167,7 +167,7 @@ Answering your rotation question with the measurement first:
 
 It's only 4.85 because the board isn't centred on its holes: the turn saves 18 mm of Y extent, but 12 of those land on the *south* side, and the pattern can't follow them south — the cap's own south-west corner screw boss is 1.55 mm from a column at that pose already. Nor can the board slide south in its current pose: its north-station column is 1.50 mm off the cap's front cavity wall today.
 
-The cost is J14. It's an edge-mount receptacle — [pcba.tsx:1374](hardware/pcb/pcba/pcba.tsx:1374): "opening flush to the west board edge" — so a cable plugs in *horizontally* into whatever that edge faces. Today that edge faces south into the open band. Rotated, it faces west into the 16 mm between the cap edge and the enclosure wall (yaw 0), or east into the SeaFlo (yaw 180). Neither takes a USB-C plug, so the board stops being flashable in the chassis.
+The cost is J14. It's an edge-mount receptacle — [pcba.tsx:1374](/hardware/pcb/pcba/pcba.tsx:1374): "opening flush to the west board edge" — so a cable plugs in *horizontally* into whatever that edge faces. Today that edge faces south into the open band. Rotated, it faces west into the 16 mm between the cap edge and the enclosure wall (yaw 0), or east into the SeaFlo (yaw 180). Neither takes a USB-C plug, so the board stops being flashable in the chassis.
 
 So I'd keep the board where it is. Now let me map what the PSU move actually opened.
 

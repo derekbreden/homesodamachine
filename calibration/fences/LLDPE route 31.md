@@ -225,7 +225,7 @@ You're right, and it's sharper than I framed it. Let me check what SIG-9 actuall
 Yes. SIG-9 spends **two GPIOs on one wet/dry bit**:
 
 - `GPIO 27` — the LM393 DO read
-- `GPIO 23` — a whole GPIO burned as a switched VCC, per [esp32-pinout.mmd:19](hardware/wiring/esp32-pinout.mmd:19), so the bare electrodes sit unpowered between samples and don't electroplate
+- `GPIO 23` — a whole GPIO burned as a switched VCC, per [esp32-pinout.mmd:19](/hardware/wiring/esp32-pinout.mmd:19), so the bare electrodes sit unpowered between samples and don't electroplate
 
 That second one is the over-provision, and it doesn't scale per-plate: electroplating is a property of *powering electrodes*, not of *which* plate. **One switched rail can excite both.** So a base-pan plate costs one conductor and one GPIO — not three. And GPIO **16** and **18** are listed free, so the ESP32 side isn't the constraint either.
 
@@ -233,7 +233,7 @@ The LM393 DO is open-collector, which gives a second shape at the same cost: tie
 
 **The constraint is the connector, not the pin budget.** J4 is a 7-pin JST XH with all seven assigned (`3V3, GND, V5, IO25, IO26, IO27, IO23`). One more conductor makes it 8P: footprint + hand-route on a board that is 100% hand-routed, plus the housing in the BOM and `cable-assemblies.md`.
 
-One thing that falls out of yesterday's move, worth fixing regardless: **SIG-9's spec is stale.** [ac-wiring-schedule.md:99](hardware/wiring/ac-wiring-schedule.md:99) says *"~600 mm to drip pan inside cabinet"* — sized when the pan was on the compressor top. The cup now sits on the foam cap at ~(118, 336, 253.4) and J4 is at (223.8, 198.5, 292.5): **178 mm straight-line**, so ~250 mm routed. The long floor run is now the base pan's, not the cup's.
+One thing that falls out of yesterday's move, worth fixing regardless: **SIG-9's spec is stale.** [ac-wiring-schedule.md:99](/hardware/wiring/ac-wiring-schedule.md:99) says *"~600 mm to drip pan inside cabinet"* — sized when the pan was on the compressor top. The cup now sits on the foam cap at ~(118, 336, 253.4) and J4 is at (223.8, 198.5, 292.5): **178 mm straight-line**, so ~250 mm routed. The long floor run is now the base pan's, not the cup's.
 
 ---
 
@@ -249,14 +249,14 @@ That changes the question. Let me find out exactly what the fabricated board alr
 
 ---
 
-Here's the split. And one time-sensitive fact first: [purchases.md:278](hardware/ledger/purchases.md:278) has that order as **ON-ORDER (in file review)** — placed Jul 15, 10× assembled, $70.20/board delivered. Eight days ago. If it hasn't gone to fab yet, that's the only cheap moment a footprint change exists. Everything below assumes you're keeping it.
+Here's the split. And one time-sensitive fact first: [purchases.md:278](/hardware/ledger/purchases.md:278) has that order as **ON-ORDER (in file review)** — placed Jul 15, 10× assembled, $70.20/board delivered. Eight days ago. If it hasn't gone to fab yet, that's the only cheap moment a footprint change exists. Everything below assumes you're keeping it.
 
 ## Requires a new PCBA — dead for this run
 
 - **8-pin J4.** J4 is a 7-hole wave-soldered THT wafer footprint. You cannot add an eighth hole to a fabricated board.
 - **Two switched VCCs.** Same thing — it's still an eighth conductor on J4.
 
-Both are out. And `GPIO 16 / 18` are a trap: [pcba.tsx:434](hardware/pcb/pcba/pcba.tsx:434) says they were *freed* by grounding the DRV8870 IN2 pins, so they're free at the module and routed nowhere. Reaching them means a bodge wire off the WROOM footprint on all ten boards.
+Both are out. And `GPIO 16 / 18` are a trap: [pcba.tsx:434](/hardware/pcb/pcba/pcba.tsx:434) says they were *freed* by grounding the DRV8870 IN2 pins, so they're free at the module and routed nowhere. Reaching them means a bodge wire off the WROOM footprint on all ten boards.
 
 ## Works on the boards you bought
 
@@ -398,7 +398,7 @@ Before the options — that number is probably an artifact, and it changes what 
 
 ## The pin answer is better than I told you
 
-`IO23` is a plain GPIO on a single inner-layer trace, `U1.IO23 → J4.IO23`, with nothing else on the net ([pcba.tsx:929](hardware/pcb/pcba/pcba.tsx:929)). It's an *output* only because firmware declares it one. Redeclare it as an input with a pull-up and **J4 gives you two digital inputs** — one per pan:
+`IO23` is a plain GPIO on a single inner-layer trace, `U1.IO23 → J4.IO23`, with nothing else on the net ([pcba.tsx:929](/hardware/pcb/pcba/pcba.tsx:929)). It's an *output* only because firmware declares it one. Redeclare it as an input with a pull-up and **J4 gives you two digital inputs** — one per pan:
 
 | J4 pin | new job |
 |---|---|
@@ -441,7 +441,7 @@ What you give up is the switched-VCC anti-electroplating trick. Worth questionin
 - No electrode touches the liquid. A foil pad *under* the printed pan floor senses water above it through the PETG. No corrosion, no plating, no wetted connector, nothing to service.
 - No DC, so no polarization and no drifting reading.
 - Off-board on `J8`, and the sleeves use only pairs of its twelve electrodes. **Zero board change.**
-- The repo already proves the technique — [cap-sense-sleeve](hardware/printed-parts/flavor/cap-sense-sleeve/README.md) reads water through a tube wall on this same controller.
+- The repo already proves the technique — [cap-sense-sleeve](https://github.com/derekbreden/homesodamachine/blob/41f0b566/hardware/printed-parts/flavor/cap-sense-sleeve/README.md) reads water through a tube wall on this same controller.
 
 The catch is lead length: MPR121 electrodes want short runs, and it's specced to mount at the manifold in the front column, while the cup is on the foam cap and the base pan is the floor. Either it moves, or a second MPR121 joins the bus — it has four addresses (0x5A–0x5D). Still zero board change.
 
@@ -592,7 +592,7 @@ You're right — I treated the box height as fixed. It isn't; it's an output of 
 
 Two numbers settle the shape of it.
 
-**The bed is why the plinth shouldn't come out of the existing pieces.** `H2C = 325 × 320 × 320`, and [enclosure.py:1499](hardware/printed-parts/enclosure/enclosure/enclosure.py:1499) checks the piece in its own frame with no rotation:
+**The bed is why the plinth shouldn't come out of the existing pieces.** `H2C = 325 × 320 × 320`, and [enclosure.py:1499](/hardware/printed-parts/enclosure/enclosure/enclosure.py:1499) checks the piece in its own frame with no rotation:
 
 | piece | now | headroom |
 |---|---|---|
@@ -650,7 +650,7 @@ You box yourself in so much.
 
 ---
 
-You're right. That's not a law, it's [enclosure.py:214](hardware/printed-parts/enclosure/enclosure/enclosure.py:214) — `z_joint_back = 267.0`, a hand-set constant. The piece height is just `z_joint_back + lip_len + wall` = 267 + 13.1 + 3 = 283.1. I read a derived number off a build, called it headroom, and let it steer the architecture. Let me go measure what the seam can actually do instead of quoting the comment above it.
+You're right. That's not a law, it's [enclosure.py:214](/hardware/printed-parts/enclosure/enclosure/enclosure.py:214) — `z_joint_back = 267.0`, a hand-set constant. The piece height is just `z_joint_back + lip_len + wall` = 267 + 13.1 + 3 = 283.1. I read a derived number off a build, called it headroom, and let it steer the architecture. Let me go measure what the seam can actually do instead of quoting the comment above it.
 
 ---
 
@@ -800,7 +800,7 @@ I had the situation backwards. Here's what's actually there.
 
 | on the floor | footprint | how it's carried | in CAD? |
 |---|---|---|---|
-| cold core | 283 × 181 at x[0,283] y[200,381] | the tank hangs on a `tank_support_ring` **inside** the foam — 30 mm tall, four 60° segments carrying it by its rim — and the outer_shell's own 2 mm floor closes the bottom | the core's internals yes; **the enclosure-side support ring is prose in [enclosure-mechanical.md](hardware/assembly/enclosure-mechanical.md), not geometry** |
+| cold core | 283 × 181 at x[0,283] y[200,381] | the tank hangs on a `tank_support_ring` **inside** the foam — 30 mm tall, four 60° segments carrying it by its rim — and the outer_shell's own 2 mm floor closes the bottom | the core's internals yes; **the enclosure-side support ring is prose in [enclosure-mechanical.md](/hardware/assembly/enclosure-mechanical.md), not geometry** |
 | compressor + shroud | 178 × 133 at x[14,192] y[0,133] | sits on **its own feet, directly on the floor**; the shroud drops over from above and fastens through 2× Ø4.5 holes near the base | **the floor bosses don't exist** |
 | condenser + fan | 56 × 178 at x[213,269] y[0,178] | specified to **hang off a side wall** — the donor README says "mount against one side wall"; the scorecard carries it as a placeholder with "side-wall bosses TBD" | no |
 | MQ-6 | 32 × 20 | loose | no |
@@ -976,13 +976,13 @@ The tray never sweeps that island, and the compressor bay is dry anyway: it's a 
 
 ## The valve is already in your BOM, and it costs nothing to add
 
-[bom.md:149](hardware/ledger/bom.md:149) — **Beduan 12 V 1/4" NC solenoid, [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9), $9.64**, ten per unit as V-A…V-J. The inlet shutoff is an eleventh identical valve.
+[bom.md:149](/hardware/ledger/bom.md:149) — **Beduan 12 V 1/4" NC solenoid, [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9), $9.64**, ten per unit as V-A…V-J. The inlet shutoff is an eleventh identical valve.
 
 And the board already has the channel: `MCP23017 0x21` PA[4:5] drive **J2.OUT3/OUT4 through ULN U5 — "wired but carrying no valve — spare capacity"**. So it's one more connector on an existing driver output. **No board change, no new part number, no new spares, no new firmware pattern.**
 
 ## The restriction question, precisely
 
-**There is no diameter reduction.** The supply run is *already* 1/4" end to end — [internal-plumbing.md §2](hardware/assembly/internal-plumbing.md): bulkhead 1/4" QC → 1/4" LLDPE → PP010822E → GAGIRA → and the step **up** to 3/8" happens *at* the ASSE's inlet, via that reducing coupling. A 1/4" Beduan between the bulkhead and the ASSE sits in a run that is already 1/4".
+**There is no diameter reduction.** The supply run is *already* 1/4" end to end — [internal-plumbing.md §2](/hardware/assembly/internal-plumbing.md): bulkhead 1/4" QC → 1/4" LLDPE → PP010822E → GAGIRA → and the step **up** to 3/8" happens *at* the ASSE's inlet, via that reducing coupling. A 1/4" Beduan between the bulkhead and the ASSE sits in a run that is already 1/4".
 
 What it does add is its own orifice — these small direct-acting NC solenoids run ~2 mm, which is narrower than the 4.3 mm tube. That's a real restriction and it's on the **pump's suction side**, which is where a diaphragm pump is least tolerant. That's the thing to bench-test, not the tube size.
 
@@ -1032,7 +1032,7 @@ Let me check the actual part rather than my general knowledge of the series.
 
 ---
 
-You're right — I generalized from the series instead of reading the part. [bom.md:54](hardware/ledger/bom.md:54):
+You're right — I generalized from the series instead of reading the part. [bom.md:54](/hardware/ledger/bom.md:54):
 
 > SEAFLO 22-Series 12V **1.3 GPM 100 psi** diaphragm pump (3/8" hose-barb ports) — $48.25
 
@@ -1050,7 +1050,7 @@ But it means **the 3/8" chain between the ASSE and the pump is a local widening 
 
 ## And a detail that reinforces the shutoff
 
-[bom.md:87](hardware/ledger/bom.md:87) — Teyleten relay #2 already gates 12 V to the SeaFlo on `IO2`, so firmware can stop the pump today. But that only stops flow *the pump makes*. A burst upstream is house pressure through an open line, and killing the pump does nothing about it. The NC Beduan is what closes that, and it's the eleventh of a valve you already buy ten of, on a driver channel that's already wired and idle.
+[bom.md:87](/hardware/ledger/bom.md:87) — Teyleten relay #2 already gates 12 V to the SeaFlo on `IO2`, so firmware can stop the pump today. But that only stops flow *the pump makes*. A burst upstream is house pressure through an open line, and killing the pump does nothing about it. The NC Beduan is what closes that, and it's the eleventh of a valve you already buy ten of, on a driver channel that's already wired and idle.
 
 So the shutoff decision doesn't depend on any of the pump questions — it's cheap, it's already in the BOM, and it's the only thing in the machine that can stop water.
 

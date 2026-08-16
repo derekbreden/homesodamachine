@@ -60,6 +60,6 @@ The principles in [`principles.md`](/marketing/video/principles.md) didn't chang
 - [`concepts.md`](/marketing/video/concepts.md) — video ideas and tier ranking.
 - [`sync.py`](/marketing/video/sync.py), [`segment.py`](/marketing/video/segment.py), [`make-subtitles.py`](/marketing/video/make-subtitles.py), [`cut.py`](/marketing/video/cut.py), [`overlays.py`](/marketing/video/overlays.py), [`export-from-photos.sh`](export-from-photos.sh) — the pipeline scripts. Each script's header has the gotchas + design rationale.
 - [`/marketing/thumbnail/make.sh`](/marketing/thumbnail/make.sh) — thumbnail builder.
-- [`/tools/video-venv/`](/tools/video-venv/) — Python venv for the pipeline (numpy, scipy). Self-ignoring per the `tools/cad-venv/` convention.
+- `tools/video-venv/` — Python venv for the pipeline (numpy, scipy). Self-ignoring per the `tools/cad-venv/` convention.
 - [`snapshots/2026-05-04-first-execution.md`](/marketing/video/snapshots/2026-05-04-first-execution.md) — what changed when the on-phone plan met first execution (First Weld).
 - [`snapshots/2026-05-08-mac-pipeline-first-execution.md`](/marketing/video/snapshots/2026-05-08-mac-pipeline-first-execution.md) — what changed when the Mac pipeline met first execution (First Tap).

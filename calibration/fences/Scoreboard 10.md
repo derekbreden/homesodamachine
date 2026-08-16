@@ -126,7 +126,7 @@ I'm with you — and the investigation is done. Verdict up front: **you're right
 ## What's actually there
 
 - Reservoir B is the **front pocket** of the shell (world y 192–242); its PureSec bulkhead elbow hangs in the under-reservoir void at (153, 217, 26), lateral port aimed east at the port lane. The void is real and roomy: **25.4mm tall** (pocket floor 22 → reservoir flat bottom 47.4), and crescent-shaped — it reaches aft in two wings along the pocket's arc wall, the west wing extending to y≈283 at the wall. The Y-H divider body (⌀16.2 × 38.5) fits with room to spare, clear of the corner posts, and it's serviceable — lift the top cap and the reservoir and the void plumbing is exposed.
-- Y-H hovers at (23.25, 249, z=296) — **already directly over that west wing in plan**. The two ends of fluid-25 are ~270mm apart, almost all in Z, and the route spends ~500mm and the corridor's entire second lane connecting them (the comment in [_lines.py:483](thin/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:483) admits the second lane exists *only* for this run).
+- Y-H hovers at (23.25, 249, z=296) — **already directly over that west wing in plan**. The two ends of fluid-25 are ~270mm apart, almost all in Z, and the route spends ~500mm and the corridor's entire second lane connecting them (the comment in [_lines.py:483](https://github.com/derekbreden/homesodamachine/blob/364b8198/thin/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L483) admits the second lane exists *only* for this run).
 
 ## Why the literal proposal can't land as-is
 

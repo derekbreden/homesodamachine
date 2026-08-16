@@ -104,7 +104,7 @@ Your new request answers neither of those but changes the terms: you want the mi
 
 ---
 
-Found the 22°: `FLAVOR_SKEW = 22.0` in [_contents.py:766](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:766). Now let me find fluid-24 and fluid-26.
+Found the 22°: `FLAVOR_SKEW = 22.0` in [_contents.py:766](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L766). Now let me find fluid-24 and fluid-26.
 
 ---
 
