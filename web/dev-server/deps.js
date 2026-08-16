@@ -114,8 +114,10 @@ function readSource(file) {
 // to write the `.step.mesh` beside every export — so one fixture named at module scope made
 // 79 of the graph's 122 edges, every generator in the tree waiting on the faucet shell.
 //
-// Blanked at the first line back at column 0, which is where the body ends; a literal is
-// consumed whole on the way, so the JS blob `_OCCT_PROBE` carries cannot end it early.
+// `def selftest(` down to the paren, which is the rule `trace_inputs._selftests` reads the
+// tree with, so a module is a selftest to both or to neither. The body ends at the first
+// line back at column 0; a literal is consumed whole on the way, so the JS blob
+// `_mesh_payload`'s control carries cannot end it early.
 function stripPySource(source) {
   let out = "";
   let i = 0;
@@ -126,7 +128,7 @@ function stripPySource(source) {
   while (i < n) {
     const c = source[i];
     if (atLineStart() && c !== " " && c !== "\t" && c !== "\n") {
-      inSelftest = source.startsWith("def selftest", i);
+      inSelftest = source.startsWith("def selftest(", i);
     }
     if (c === "#") {
       let j = i;
