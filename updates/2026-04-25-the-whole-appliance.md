@@ -22,6 +22,8 @@ No weld, press or roll is recorded by 25 April. The filler wire matching the cho
 
 The vessel changed shape through the period: a welded round cylinder, briefly an off-the-shelf air tank, a racetrack body rolled from flat sheet, a 3D-printed plastic sphere, then two press-formed steel half-shells.
 
+{{fig:vessel-shapes}}
+
 On 24 April it settled on a commodity 5-inch stainless tube capped with two quarter-inch laser-cut discs, with the four ports tapped straight into the thick discs so no fitting needs welding in. Ten tubes and twenty end plates were ordered the same day, about $1,358 of stock. Every other geometry moved into a folder named plan-b.
 
 Two other things closed with it. The spray nozzle became a bubbler stone, which produces bubbles at the available pressure where the nozzle produced no spray. Level sensing became a magnet floating on a rod, read by sensors glued to the outside, so nothing pierces the wall.

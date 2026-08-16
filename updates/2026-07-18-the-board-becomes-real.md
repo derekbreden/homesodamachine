@@ -20,6 +20,8 @@ The board was audited against itself twice, on 11 and 13 July.
 
 The second audit found that the exported solder-paste layer covered only rectangular pads: 148 of 330 surface-mount lead pads had no paste opening at all. A stencil cut from that file would have placed nine integrated circuits onto bare, paste-free pads. It was fixed in the project's own fork of the gerber exporter, with an automated coverage check added behind it.
 
+{{fig:paste-pads}}
+
 The board also gained protection that does not depend on software being correct — reverse-polarity protection on the 12 V inlet, a surge clamp, a buzzer flyback diode, hardened flow-sensor and display-cable inputs, and a gas-leak-to-compressor interlock built from a logic gate, so the compressor cannot run when the gas sensor trips. A broken wire, an unpowered controller, or unprogrammed firmware all leave the compressor off.
 
 On 15 July ten assembled boards were ordered: four layers, black mask, gold plating, epoxy-filled vias, $702.00 all in.
@@ -35,6 +37,8 @@ A pocketable demo that runs the board and clicks a valve from an iPhone's USB-C 
 ## The casting bench
 
 A silicone casting bench was bought and stood up: a 5-gallon stainless vacuum degassing chamber, a 30-quart convection oven for post-cure, food-contact platinum silicone, pigment, mold release and mixing cups. Two mold part-sets were modelled and four mold prints logged — one failed outright when auto-generated supports toppled mid-print, two completed, and the halves fit with too much clearance.
+
+![The cold core on 18 July — the foam shell with both cap stacks seated, the vessel pocket and reservoir pockets reading through.](/update-images/2026-07-18-cold-core.png)
 
 ## The first scorecard
 

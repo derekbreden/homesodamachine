@@ -274,7 +274,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountViewerPages(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountBuildRoutes(app, { hardwareDir: HARDWARE_DIR });
-  mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR });
+  mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
   attachSubscribe(app, pool);
 
