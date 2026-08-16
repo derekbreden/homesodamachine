@@ -13,7 +13,8 @@ One rectangular opening spans the top wall behind the display facet
 
 - **The funnel.** A wide silicone funnel that drops into the opening as the
   hopper — its flat brim resting on the enclosure top is the only visible
-  edge. It lifts out by hand for
+  edge. Its drain collet releases with the 1/4" jaw of a JG collet
+  quick-connect tool and it lifts out by hand for
   the dishwasher — flavor concentrate is sticky, so the cleanable interface
   has to come all the way out. Weekly-touch item. Detail:
   [`hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/).

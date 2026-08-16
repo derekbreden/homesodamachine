@@ -55,6 +55,24 @@ The enclosure cuts its top-wall opening from this collar at the funnel's
 placement (`enclosure.py` `_hopper_hole`), asserting the top-wall frame
 accommodates it — funnel and hole cannot drift apart.
 
+## Lifting it out
+
+The basin is captive until its collet lets go. `fluid-4` starts at a JG PP0408W
+union coaxial under the spout
+([`reference/jg-pp0408w`](/hardware/reference/jg-pp0408w/)), and that union's
+upper collet holds the drain stub. Releasing it is a push on the sleeve's own
+annular face — Ø9.57 outside, 1.44 mm of wall, 1.34 mm of travel — and the push
+has to land **square**: a collet grips by wedging its teeth against the tube, so
+a sleeve pressed on one side bites harder rather than letting go. That face
+stands below the top wall at the foot of the [54 mm](HOPPER_DROP) drop, and it
+carries concentrate.
+
+**The user releases it with the 1/4" jaw of a JG collet quick-connect tool.**
+The jaw drops over the stub and bears on the whole annulus at once, so the push
+is square by construction — which a thumb on a 1.44 mm land, reached blind and
+sticky, is not. The basin then lifts away with its stub and clamp still on it,
+and `fluid-4` stays on the machine.
+
 ## Regenerate
 
 `tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py`
