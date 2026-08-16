@@ -224,6 +224,29 @@ def main() -> int:
     ap.add_argument("--write", action="store_true", help="copy what differs into the tree")
     args = ap.parse_args()
 
+    # A BUILD THAT DID NOT FINISH LEAVES THE LAST ONE'S OUTPUTS STANDING. Bazel keeps what a
+    # target cut the last time it succeeded, so a failed build's `bazel-bin` is a mix of what
+    # this run made and what some earlier run made — and carrying that into the tree writes
+    # stale bytes over files somebody just got right. Which is not a wrong reading to fix
+    # later: it is the one move here that cannot be taken back.
+    #
+    # `--check_up_to_date` answers whether every output is the one its declared inputs make,
+    # runs no action, and costs a graph read. Only `--write` is held: reporting what differs
+    # against a half-built tree is still worth reading, and it changes nothing.
+    if args.write:
+        q = subprocess.run(["bazel", "build", "--check_up_to_date", "//:everything"],
+                           cwd=str(_ROOT), capture_output=True, text=True)
+        if q.returncode != 0:
+            owed = [ln for ln in q.stderr.splitlines() if "not up-to-date" in ln]
+            print("  the build is not up to date, so what is in bazel-bin is not what these\n"
+                  "  sources make — carrying it into the tree would write stale bytes over\n"
+                  "  whatever is there. Run `bazel build //:everything` first.")
+            for ln in owed[:5]:
+                print(f"  {ln.strip()}")
+            if len(owed) > 5:
+                print(f"  …and {len(owed) - 5} more")
+            return 1
+
     pairs = _targets()
     if not pairs:
         print("  nothing built — run `bazel build //...` first")
