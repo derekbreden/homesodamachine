@@ -119,7 +119,16 @@ function dirtyOutputs() {
 
 async function main() {
   const mode = process.argv[2];
-  const order = buildOrder(ROOTS);
+  // `buildOrder` throws on a cycle rather than hand back an order with a producer
+  // standing after its consumer. Nothing here can run correctly on that, so this stops —
+  // with the ring as the last line, the way the verdict below is the last line.
+  let order;
+  try {
+    order = buildOrder(ROOTS);
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
   const boards = pcbBoards();
   const syncs = docSyncDrivers();
 
