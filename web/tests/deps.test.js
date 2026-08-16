@@ -336,10 +336,15 @@ test("a STEP a selftest reads is a fixture, not a load (phantom-edge regression)
       'import _mesh\nif __name__ == "__main__":\n    pass\n',
     );
 
-    // The same module, loading the step in the work its importers call it for.
+    // The same module, loading the step in the work its importers call it for. `selftesting`
+    // is a name that merely starts with the word — `trace_inputs._selftests` matches
+    // `^def selftest\(` down to the paren, and so does the scanner, or the two disagree about
+    // which modules are selftests.
     fs.writeFileSync(
       path.join(root, "_routes.py"),
-      'ROUTE = load("part.step")\n\ndef selftest():\n    return 0\n',
+      "def selftesting_helper():\n"
+        + '    return load("part.step")\n\n'
+        + "def selftest():\n    return 0\n",
     );
     fs.writeFileSync(
       path.join(root, "router.py"),
