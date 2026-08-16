@@ -372,14 +372,31 @@ test("GET /js/viewer/main.js", async (t) => {
   assert.match(res.headers.get("content-type") || "", /^text\/javascript/);
 });
 
+// EVERY PAGE THE SHELL DRAWS CARRIES THE BELL, so the route it points at is a route this
+// boot serves. `renderNav` puts `/notifications` in the nav unconditionally; a boot with no
+// DATABASE_URL has no pool and holds no rows, which is the empty answer these give.
+test("the nav bell leads somewhere on a boot with no database", async () => {
+  const page = await fetch(baseUrl + "/notifications");
+  assert.equal(page.status, 200, "the bell in every page's nav must not 404");
+
+  const shell = await (await fetch(baseUrl + "/3d")).text();
+  assert.ok(shell.includes('href="/notifications"'), "the nav renders the bell");
+
+  for (const [route, want] of [
+    ["/api/notifications?token=x", { items: [] }],
+    ["/api/notifications/unread-count?token=x", { count: 0 }],
+  ]) {
+    const res = await fetch(baseUrl + route);
+    assert.equal(res.status, 200, route);
+    assert.deepEqual(await res.json(), want, `${route} answers empty without a pool`);
+  }
+});
+
 // Routes we deliberately don't test:
 //   POST /api/subscribe        — needs Postgres; bails 503 without DATABASE_URL
 //   POST /api/push/subscribe   — same
 //   POST /api/push/unsubscribe — same
 //   GET  /api/push/subscription — returns {files: []} without DB; not load-bearing
-//   GET  /notifications        — only mounted when pool is non-null
-//   GET  /api/notifications*   — same
-//   POST /api/notifications/seen — same
 //
 // These need a real database fixture and FCM credentials; that's a
 // different layer of test (integration, not smoke) and out of scope.

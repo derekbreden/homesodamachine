@@ -348,8 +348,10 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   return { app, server, broadcast, hardwareDir: HARDWARE_DIR, editionDirs: EDITION_DIRS };
 }
 
-// If run directly (i.e. by Render as `node server.js`), boot in production mode.
-const isMain = import.meta.url === pathToFileURL(process.argv[1]).href;
+// If run directly (i.e. by Render as `node server.js`), boot in production mode. A run that
+// names no script — `node -e`, the REPL, a test that imports this to boot it on its own port —
+// has no `argv[1]` to be, and importing the module is not running it.
+const isMain = !!process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   start({ dev: false });
 }
