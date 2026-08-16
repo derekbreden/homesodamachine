@@ -66,21 +66,15 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
-    # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one pair per crossing the back wall
-    # passes a tube through. Each chip is its own solid, because each carries its own word cut
-    # into it, and the word is a second solid in a second colour standing in that recess. Two
-    # spools go on the plate and the row prices both.
+    # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one file per crossing the back wall
+    # passes a tube through, and each holds both bodies: the chip, and the word standing in the
+    # recess cut into it. Two spools go on the plate and the row prices both.
     "Port ring — one per rear-wall crossing": [
         "enclosure/port-ring/port-ring-water.step",
-        "enclosure/port-ring/port-ring-water-word.step",
         "enclosure/port-ring/port-ring-carb.step",
-        "enclosure/port-ring/port-ring-carb-word.step",
         "enclosure/port-ring/port-ring-flavor-a.step",
-        "enclosure/port-ring/port-ring-flavor-a-word.step",
         "enclosure/port-ring/port-ring-flavor-b.step",
-        "enclosure/port-ring/port-ring-flavor-b-word.step",
         "enclosure/port-ring/port-ring-co2.step",
-        "enclosure/port-ring/port-ring-co2-word.step",
     ],
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",

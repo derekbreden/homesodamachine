@@ -14,19 +14,22 @@ other.
 | fitting | John Guest PP1208E | neoFit ABU44 |
 | width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
 | bore | Ø[18](RING_BORE) | Ø[17.86](CO2_RING_BORE) |
-| volume | [1.87](RING_VOL) cm³ | [1.84](CO2_RING_VOL) cm³ |
+| height | [37.27](RING_TALL) mm | [36.81](CO2_RING_TALL) mm |
+| volume | [1.89](RING_VOL) cm³ | [1.84](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|
 | thickness | [2](RING_THICK) mm — the depth the pocket is cut to, so the two faces come out one plane, and how far the fitting's flange bears outboard of the wall's stock |
 | colour showing past the flange | [7.05](RING_W) mm |
-| height, bottom row | [36.96](RING_TALL) mm |
-| height, top row | [37.27](TOP_TALL) mm — the rectangle runs out flush with the box's top face |
+| rectangle above the axis | [18.789](RING_RISE) mm at every station |
 
 The top row stands close enough to the ceiling that a rectangle stopped on its own radius would
 leave a strip of wall over the colour too thin for a nozzle to lay. Those three run out on the top
 face instead: fenced left, right and below, open above.
-`enclosure_assembly.check_top_row` is the reading that holds them there.
+`enclosure_assembly.check_top_row` is the reading that holds them there. The bottom row rises the
+same, so a chip on one family is one height wherever it stands, and every word is lettered in the
+same band over its own bore. A chip's height is that rise plus its own half circle, which is why
+the CO2 station's is the shorter of the two.
 
 ## Where each one goes
 
@@ -55,11 +58,11 @@ customer's quick-start sheet are already set in, so a customer holding that shee
 machine reads one typeface and not two.
 
 Behind the lettering a bar [0.3](WORD_TIE) mm thick lies across the letters' feet, which makes the
-word ONE body. That earns its place twice: the second colour is a single connected run rather than
-six loose islands per word to place and to lose, and the reader `/3d` runs surfaces a colour only
-for a single-solid component, so an untied word is lettering the viewer draws grey. It runs along
-the baseline and no higher, so it stays clear of the counters in O, A, P, R and D — a bar at
-mid-cap would cut those off the chip's own floor and leave them as islands too.
+word ONE body — a single connected run of the second colour rather than six loose islands per word
+to place on a plate and to lose off it. It runs along the baseline and no higher, so it stays clear
+of the counters in O, A, P, R and D: a bar at mid-cap would cut those off the chip's own floor and
+leave them as islands too. It sits a whole [1](WORD_DEPTH) mm behind the face, inside the recess,
+so nothing of it shows on the assembled part.
 
 | | |
 |---|---|
@@ -89,8 +92,9 @@ thickness under every chip.
 ## Files
 
 - `port_ring.py` — the part, and the figures the wall and the drawings read
-- `port-ring-<station>.step` — one chip per station, its word's recess cut into it
-- `port-ring-<station>-word.step` — that word, in the second colour
+- `port-ring-<station>.step` — one station, both bodies: the chip and the word lying in its
+  recess, each carrying the colour of the spool it comes off. `port_ring.split` takes the pair
+  back apart for anything that places them one at a time.
 
 Run with `tools/cad-venv/bin/python` per the hardware context file. `selftest` reads each chip
 against the fitting it rings, the band its word stands in, and the word's own built width.
