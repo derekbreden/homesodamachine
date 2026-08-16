@@ -10,6 +10,8 @@ This is the **purchase ledger** — every buy event, kept for tax records and co
 
 Each row below is a purchase event; the same SKU may appear as multiple rows if reordered. Capitalized contract labor (Anthropic / Claude API) is recorded here in §18 as cash outlays.
 
+A row's `Order #` joins it to [purchases.orders.json](/hardware/ledger/purchases.orders.json), the Amazon record these rows are checked against — see [purchases.audit.md](/hardware/ledger/purchases.audit.md) for pulling that record and running the checks.
+
 Price figures are the **as-paid** cost — item price plus the order's actual sales tax and shipping (for multi-item orders, the order's tax/shipping is allocated across items by price). Bundled rows carry the shipment total, not the per-item unit price. Only cash outlays (including contracted labor via Anthropic) are on this ledger.
 
 ---
