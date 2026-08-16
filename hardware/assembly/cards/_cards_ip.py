@@ -31,7 +31,7 @@ def internal_plumbing(m):
 
     a, pack, box = m.a, m.pack, m.box
     runs = {r.id: r for r in a.runs}
-    frames = a.frames
+    frames = a.card_ports
 
     def port(body, name):
         """One placed body's mouth, as `(position, axis)` in world."""

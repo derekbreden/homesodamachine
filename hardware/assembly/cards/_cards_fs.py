@@ -121,7 +121,7 @@ def bench(m):
     # Both are push-to-connect, which is why FS-03's caps press on over a collar
     # and why GT-02's cut-click-tug is the technique the bench uses at both. The
     # water union carries a collet at each end, and so does the CO2 bulkhead.
-    water = m.a.frames["bulkhead-water"].ports
+    water = m.a.card_ports["bulkhead-water"].ports
     assert {"outboard", "inboard"} <= set(water), (
         f"the water union presents {sorted(water)} — FS-03 caps its OUTBOARD collet, the one "
         f"the customer's supply pushes into, and IP-02 butts the inboard one onto the ASSE chain")
