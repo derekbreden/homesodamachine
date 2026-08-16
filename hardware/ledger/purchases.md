@@ -200,8 +200,9 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz kit. Order #112-8801016-4362651, placed May 28, 2026 | [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) | 1 kit (34 oz) | $26.80 | ACQUIRED (delivered May 29) |
 | Pinnacle Mercantile F-style HDPE bottle set. Order #114-5825243-4744249, placed February 12, 2026 | [B0CFP9RRSF](https://www.amazon.com/dp/B0CFP9RRSF) | 1 | $18.22 | ACQUIRED |
 | SodaStream Diet Mountain Dew concentrate. Order #114-7739695-9309821, placed February 1, 2026 | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | ACQUIRED |
-| SodaStream Diet Mountain Dew 4-pack. Orders #114-0084687-6710639 (Apr 26), #114-0749284-0433838 (Feb 24), #114-7016001-0433834 (Jun 10), #114-3163590-0127432 (Mar 8), #114-1990143-8424226 (May 16) | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
-| SodaStream Pepsi Wild Cherry Zero 4-pack. Orders #114-0069643-1757059 (Feb 25), #114-3163590-0127432 (Mar 8) | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack. Orders #114-0084687-6710639 (Apr 26), #114-0749284-0433838 (Feb 24), #114-7016001-0433834 (Jun 10), #114-3163590-0127432 (Mar 8), #114-1990143-8424226 (May 16), #112-2287046-3621006 (Jul 26) | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 6 | $156.82 | ACQUIRED |
+| SodaStream Pepsi Wild Cherry Zero 4-pack. Orders #114-0069643-1757059 (Feb 25), #114-3163590-0127432 (Mar 8) | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 2 | $57.98 | ACQUIRED |
+| SodaStream Starry Zero 4-pack. Order #112-3552935-4239455, placed July 26, 2026 | [B0G4SGCGLN](https://www.amazon.com/dp/B0G4SGCGLN) | 1 | $28.99 | ACQUIRED (delivered July 27) |
 | SodaStream Diet Cola 4-pack. Order #112-0933043-5526613, placed February 23, 2026 | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
 | SodaStream Diet Pepsi Drink Mix 4-pack (cola syrup, 4 × 14.9 fl oz). Order #114-4609926-1663418, placed June 22, 2026 | [B0G25QRMBP](https://www.amazon.com/dp/B0G25QRMBP) | 1 | $28.80 | ACQUIRED (delivered Jun 22) |
 | Magnetic pogo pin connector, 2-pin (2 pair). Order #112-1533167-6762648, placed April 17, 2026 | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | ACQUIRED |
@@ -275,7 +276,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | ESP32-DevKitC-32E. Orders #114-0818390-2733826 (Feb 2, ×1), #112-0933043-5526613 (Feb 23, ×2) | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 3 | $11.80 ea | ACQUIRED |
 | ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ACQUIRED (delivered Jun 8) |
 | Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock.. Orders #114-9973455-6637052 (Mar 8), #114-7373747-7178604 (Mar 9) | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
-| Meshnology ESP32-S3 round rotary display 1.28" — prototype enclosure-front config display. Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
+| Meshnology ESP32-S3 round rotary display 1.28" — prototype enclosure-front config display. Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | $51.22 | ACQUIRED |
 | Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus. Order #112-5620567-3321809, placed Jun 13, 2026 | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | ACQUIRED (delivered Jun 15) |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ACQUIRED (delivered Jun 9) |
 | JLCPCB order W2026062715518432 — controller carrier PCB (`mini.tsx`), 4-layer, 128 × 99 mm through-hole carrier; gerber set `mini.gerbers_Y2` (sub-order Y2-12927587A). $122.17 as-paid = $48.07 merch + $50.15 shipping + $16.82 customs duties/taxes + $7.13 sales tax. Placed Jun 27, 2026 | [jlcpcb.com](https://jlcpcb.com/) | 10 | $122.17 | ON-ORDER (shipped, FedEx DDP) |
@@ -312,7 +313,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Tandefio 1/8" × 12" 316 SS round rod (5 pk). Order #112-7391312-2980226, placed April 24, 2026 | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | ACQUIRED |
 | 1/8" (3 mm) × 7.8" (200 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-7801151-2777012, placed June 17, 2026 | [B0FYC63JCY](https://www.amazon.com/dp/B0FYC63JCY) | 2 pk (20) | $18.22 | ACQUIRED (delivered Jun 21) |
 | MECCANIXITY 1/8" (3 mm) × 9.84" (250 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-2674264-1703446, placed June 17, 2026 | [B0FWZMZBY7](https://www.amazon.com/dp/B0FWZMZBY7) | 2 pk (20) | $17.78 | ACQUIRED (delivered Jun 20) |
-| 12 V 2 A DC power supply, 9-tip. Orders #114-1015191-6799441 (Feb 18), #114-9620011-1329056 (Feb 25) | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
+| 12 V 2 A DC power supply, 9-tip. Orders #114-1015191-6799441 (Feb 18), #114-9620011-1329056 (Feb 25) | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 2 | $21.42 | ACQUIRED |
 | 5 V 3 A AC/DC adapter, 11-tip. Order #114-0818390-2733826, placed February 2, 2026 | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $9.00 | ACQUIRED |
 | Molence C45 PCB DIN-rail adapter clips (10 sets). Order #114-2582317-0018622, placed February 26, 2026 | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $10.71 | ACQUIRED |
 | VAMRONE 35 mm DIN rail, 4" (6 pk). Order #114-2582317-0018622, placed February 26, 2026 | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $7.50 | ACQUIRED |
@@ -320,7 +321,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ACQUIRED (delivered Jun 9) |
 | ALMOCN TTL-to-RS485 auto-direction module, 3.0–30 V, screw-terminal RS485 + JST TTL (5 pk) — RS485 transceiver on the base ESP32 for the 4.3B config-display link. Order #112-8498962-9414661, placed Jun 13, 2026 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | 1 pk (5) | $13.49 | ACQUIRED (delivered Jun 16) |
 | Baomain 0.11" male quick-disconnect spade (100 pk). Order #114-7897645-5210617, placed February 25, 2026 | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
-| Haisstronica ratchet crimper, AWG 22–10. Order #114-9620011-1329056, placed February 25, 2026 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
+| Haisstronica ratchet crimper, AWG 22–10. Order #114-9620011-1329056, placed February 25, 2026 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | $20.02 | ACQUIRED |
 | Feggizuli 280 pc spade connector kit. Order #114-0182432-7123463, placed February 24, 2026 | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
 | 60 pc female spade crimp kit. Order #114-5322942-5213821, placed February 24, 2026 | [B0B9MZJ2ML](https://www.amazon.com/dp/B0B9MZJ2ML) | 1 pk | $10.71 | ACQUIRED |
 | Twidec 20 pc 4.8/6.3 mm spade crimp. Order #114-0884594-8630623, placed February 24, 2026 | [B08F784R9W](https://www.amazon.com/dp/B08F784R9W) | 1 pk | $9.64 | ACQUIRED |
@@ -613,13 +614,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$29,840.57](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$30,119.04](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$35,278.11](LEDGER_ACQUIRED_COMBINED) |
+| ACQUIRED (combined) | [$35,556.58](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$1,348.12](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$36,669.12](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$36,947.59](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -629,11 +630,11 @@ ACQUIRED hardware by section:
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,194.92](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$1,380.73](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,891.95](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$910.03](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$1,390.14](LEDGER_SEC9) |
+| 8 | Electronics — controllers | [$961.25](LEDGER_SEC8) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$1,431.58](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
