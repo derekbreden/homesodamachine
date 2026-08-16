@@ -1,5 +1,8 @@
 # Enclosure
 
+What the pieces have actually been printed in, and at what settings:
+[print-log.md](print-log.md).
+
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
 It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
