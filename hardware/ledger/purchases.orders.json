@@ -84,15 +84,13 @@
    "ordered": "2026-07-26",
    "delivered": "2026-07-27",
    "total": 28.99,
-   "project": null,
-   "why": "review \u2014 plausibly project, not yet ruled on"
+   "project": true
   },
   "112-2287046-3621006": {
    "ordered": "2026-07-26",
    "delivered": "2026-07-27",
    "total": 19.99,
-   "project": null,
-   "why": "review \u2014 plausibly project, not yet ruled on"
+   "project": true
   },
   "112-7818515-5395414": {
    "ordered": "2026-07-25",
