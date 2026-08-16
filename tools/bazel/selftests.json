@@ -262,6 +262,12 @@
     "hardware/scripts/_facts.py",
     "hardware/scripts/_realized.py"
   ],
+  "hardware/scripts/_mesh_payload.py": [
+    "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py"
+  ],
   "hardware/scripts/_meshes.py": [
     "hardware/cold-core-layout/_cold_scorecard.py",
     "hardware/scripts/_meshes.py",
