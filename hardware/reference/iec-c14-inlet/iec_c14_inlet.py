@@ -76,7 +76,8 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
-from _cadq_export import export_step, import_step
+from _cadq_export import export_assembly, import_step
+from _materials import C_C14, one_body
 from world_workplane import xz_plane_y_up
 
 STEP = _here.parent / "iec-c14-inlet.step"
@@ -346,7 +347,7 @@ def main():
 
     here = Path(__file__).resolve().parent
     out = here / "iec-c14-inlet.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "iec-c14-inlet", C_C14), str(out))
     print(f"-> {out.name}")
 
 

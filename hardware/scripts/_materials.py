@@ -64,6 +64,22 @@ WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16),
 C_COVER = cq.Color(0.14, 0.14, 0.15)
 C_DGASKET = cq.Color(0.24, 0.22, 0.26)
 C_PCBA = cq.Color(0.11, 0.11, 0.12)
+
+# --- the bought-in bodies, by what each one is --------------------------------
+# `enclosure_assembly` stands these and each reference generator cuts its own STEP, off these.
+C_COMP = cq.Color(0.18, 0.18, 0.19)          # a hermetic compressor's painted-steel can
+C_COND = cq.Color(0.76, 0.77, 0.78)
+C_SEAFLO = cq.Color(0.89, 0.35, 0.13)        # the pump's orange housing
+C_PP0408W = cq.Color(0.93, 0.93, 0.90)       # John Guest's white acetal stem elbow
+C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
+C_PSU = cq.Color(0.20, 0.20, 0.24)
+C_RELAY = cq.Color(0.16, 0.42, 0.22)         # the relay board's green solder mask
+C_AC_HUB = cq.Color(0.90, 0.55, 0.20)        # Wago's orange levers
+C_GND = cq.Color(0.75, 0.13, 0.13)
+C_PLATE = cq.Color(0.63, 0.42, 0.24)
+C_MQ6 = cq.Color(0.25, 0.40, 0.70)           # the module's own blue board, under a steel can
+C_C14 = cq.Color(0.18, 0.18, 0.20)
+C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 C_REED = cq.Color(0.95, 0.55, 0.85)
 
 

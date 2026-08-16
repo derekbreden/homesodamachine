@@ -26,7 +26,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_JG_BLACK_PP, one_body
 
 COLLET_D = 14.0             # 1/4" PTC collet body OD
 COLLET_LENGTH = 13.5        # push-in cartridge + release collar
@@ -78,7 +79,7 @@ def main():
     print(f"  Collet Ø{COLLET_D} × {COLLET_LENGTH:g}; hex {HEX_ACROSS_CORNERS} corners × "
           f"{HEX_LENGTH:g}; NPT Ø{SHANK_D} × {SHANK_LENGTH:g}; total {LENGTH:g} mm")
     out = _here.parent / "jg-pp010822e.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "jg-pp010822e", M_JG_BLACK_PP), str(out))
     print(f"-> {out.name}")
 
 

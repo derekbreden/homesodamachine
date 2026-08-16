@@ -30,7 +30,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_BRASS, one_body
 
 HEX_ACROSS_CORNERS = 33.0   # hex circumdiameter (28.6 across flats)
 TOTAL_LENGTH = 65.0         # along the flow axis, end to end (2.55")
@@ -108,7 +109,7 @@ def main():
     print(f"  Vent Ø{VENT_D} at x={VENT_X:g}, reaching {BODY_UNDERSIDE_Z:.2f} mm below "
           f"the body's underside to the pan")
     out = _here.parent / "multiplex-asse1022.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "multiplex-asse1022", M_BRASS), str(out))
     print(f"-> {out.name}")
 
 

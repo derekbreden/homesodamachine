@@ -26,7 +26,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_AC_HUB, one_body
 
 # --- Datasheet geometry ----------------------------------------------------
 # width (X) × height (Z) × depth (Y), poles, rows of levers
@@ -71,7 +72,7 @@ def build(size="413"):
 def main():
     for size in SIZES:
         out = _here.parent / f"wago-221-{size}.step"
-        export_step(build(size), str(out))
+        export_assembly(one_body(build(size), out.stem, C_AC_HUB), str(out))
         print(f"-> {out.name}")
 
 
