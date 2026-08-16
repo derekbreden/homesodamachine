@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import {
   contentRoots,
   isRunnableScript,
+  prunedByTrace,
   findGenerateScripts,
   findScriptsConsumingStep,
   findRunnableScriptsTransitivelyImporting,
@@ -41,7 +42,45 @@ test("content roots resolve to the declared editions", () => {
   }
 });
 
-test("a watched run's absence prunes an import edge the scan could only guess at", () => {
+test("an edge goes only where a watched run did not open the file", () => {
+  // The licence for dropping any scanned edge, held as a rule over the three values it reads
+  // rather than against the one graph the tree carries today. A repo-wide sweep cannot hold
+  // this: most of what such a sweep flags is the scan never having found the edge at all —
+  // `tools/` is no content root, so every generator's traced read of `tools/docgen/__init__.py`
+  // is invisible to the scan and was never the pruning's to drop.
+  // Under the real root, because what may be dropped is keyed by repo-relative path — a name
+  // outside the tree is one the graph cannot be naming.
+  const gen = path.join(REPO_ROOT, "hardware/a/gen.py");
+  const other = path.join(REPO_ROOT, "hardware/b/other.py");
+  const mod = path.join(REPO_ROOT, "hardware/scripts/_mod.py");
+  const scanned = [gen, other];
+  const traced = (entries) => new Map(entries);
+
+  assert.deepEqual(
+    prunedByTrace(scanned, mod, traced([["hardware/a/gen.py", new Set(["hardware/scripts/_mod.py"])],
+                                        ["hardware/b/other.py", new Set()]])),
+    [gen],
+    "a watched run that opened the file keeps its edge; one that did not, loses it",
+  );
+  assert.deepEqual(
+    prunedByTrace(scanned, mod, traced([["hardware/a/gen.py", new Set()]])),
+    [other],
+    "a generator the graph has no entry for keeps its edge — no entry is no observation",
+  );
+  assert.deepEqual(
+    prunedByTrace(scanned, mod, null),
+    scanned,
+    "no graph at all keeps every scanned edge",
+  );
+  assert.deepEqual(
+    prunedByTrace(scanned, "/elsewhere/_mod.py",
+                  traced([["hardware/a/gen.py", new Set()], ["hardware/b/other.py", new Set()]])),
+    scanned,
+    "a module outside the repo is nothing the graph names, so nothing it can contradict",
+  );
+});
+
+test("the pruning holds on the tree it runs against", () => {
   // A scan cannot tell `import enclosure_assembly` inside a function body that runs on every
   // build (enclosure.py's machine_of) from one that breaks a cycle and rarely runs
   // (_back_panel_dimensions:113). Read as source, both make every generator reaching
