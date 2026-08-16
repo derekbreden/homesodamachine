@@ -3,8 +3,8 @@ title: A box, and water that stays in
 start: 2026-05-24
 end: 2026-06-20
 kind: period
-image: /update-images/2026-06-20-enclosure.png
-image_alt: The enclosure on 20 June, split into two telescoping halves.
+image: /update-images/2026-06-20-reservoir.png
+image_alt: A flavor reservoir on 20 June, its floor sloped to the drain.
 lede: The subsystems were packed into a real enclosure and split to fit the printer, and the first printed flavor reservoir held water without weeping.
 ---
 
@@ -23,6 +23,8 @@ The box exceeds every print bed available. On 17–18 June it was split into two
 On 29 May a small printed test cup with a new wall, infill and ironing recipe held water on the first attempt.
 
 On 30 May the left flavor reservoir printed with that recipe, assembled into a freshly printed full-size insulation shell with its bulkhead and printed flexible gaskets, and held water for several hours with no weep. The insulation shell printed full-size the same day and warped at the corners; a reprint came off whole in fourteen hours with no warp.
+
+![A flavor reservoir on 20 June, its floor sloped to the drain, with the bosses and the port that carry its bulkhead.](/update-images/2026-06-20-reservoir.png)
 
 The recipe is written down and is independent of filament brand.
 

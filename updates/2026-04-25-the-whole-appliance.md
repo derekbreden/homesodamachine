@@ -3,8 +3,7 @@ title: The whole appliance, and a metal shop to build it
 start: 2026-03-29
 end: 2026-04-25
 kind: period
-image: /update-images/2026-04-25-vessel.png
-image_alt: The pressure vessel geometry at the close of April.
+image_fig: vessel-shapes
 lede: The machine's scope grew to making its own cold carbonated water, and roughly $11,700 of fabrication and refrigeration tooling arrived to build it.
 ---
 

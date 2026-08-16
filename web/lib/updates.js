@@ -162,6 +162,7 @@ export function readUpdates(updatesDir) {
       lede: meta.lede || "",
       image: meta.image || "",
       image_alt: meta.image_alt || "",
+      image_fig: meta.image_fig || "",
       body,
     });
   }
@@ -171,13 +172,19 @@ export function readUpdates(updatesDir) {
 // --- rendering -------------------------------------------------------------
 
 function renderCard(p, imageSize) {
-  // The picture stands only when its file is actually there, so a row whose
+  // An entry leads with a photograph, a render, or one of its own drawings.
+  // Where the entry is about a difference in size, the drawing leads: a render
+  // is framed and trimmed per model, so two of them side by side share no
+  // scale. The picture stands only when it is actually there, so a row whose
   // image has not been made yet reads as text rather than a broken frame.
+  const fig = p.image_fig ? FIGURES[p.image_fig] : null;
   const size = p.image ? imageSize(p.image) : null;
-  const shot = size
-    ? `<span class="up-shot"><img src="${esc(p.image)}" alt="${esc(p.image_alt || p.title)}"` +
-      ` width="${size.w}" height="${size.h}" loading="lazy" decoding="async"></span>`
-    : "";
+  const shot = fig
+    ? `<span class="up-shot up-shot-fig">${fig.svg}</span>`
+    : size
+      ? `<span class="up-shot"><img src="${esc(p.image)}" alt="${esc(p.image_alt || p.title)}"` +
+        ` width="${size.w}" height="${size.h}" loading="lazy" decoding="async"></span>`
+      : "";
   return `<li class="up-item">
   <a href="/updates/${esc(p.slug)}">
     ${shot}
@@ -251,6 +258,10 @@ const UPDATES_CSS = `
   border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
 }
 .up-shot img { width: 100%; height: auto; display: block; }
+/* A drawing leading a row scales to the row; its full-size reading, with the
+   labels at the width they were drawn for, is in the entry itself. */
+.up-shot-fig { background: var(--surface); padding: .5rem 0; }
+.up-shot-fig svg.uf { min-width: 0; border: 0; background: none; padding: 0; }
 .up-item > a:hover { background: var(--surface); }
 .up-item > a:hover .up-title { color: var(--accent); }
 .up-item > a:hover .up-shot { border-color: var(--accent); }
