@@ -25,7 +25,8 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_COVER, one_body
 from docgen import substitute_md, substitute_py_comments
 from enclosure import (
     display_bezel_depth,
@@ -170,7 +171,7 @@ def main():
     cover = build_display_cover()
 
     out = _here.parent / "display-cover.step"
-    export_step(cover, str(out))
+    export_assembly(one_body(cover, "display-cover", C_COVER), str(out))
     print(f"-> {out.name}")
 
     bb = cover.val().BoundingBox()

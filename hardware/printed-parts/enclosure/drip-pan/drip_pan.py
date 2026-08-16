@@ -45,7 +45,8 @@ sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "shutao-moisture-plate"))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 import shutao_moisture_plate as plate
 
@@ -232,7 +233,7 @@ def main():
           f"length plus the wall's section to come clear")
     for shape, name in ((pan, "drip-pan.step"),):
         out = _here.parent / name
-        export_step(shape, str(out))
+        export_assembly(one_body(shape, out.stem, M_PETG_BLACK), str(out))
         print(f"-> {out.name}")
 
     variables = {

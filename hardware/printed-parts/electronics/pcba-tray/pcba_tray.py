@@ -34,7 +34,8 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_PCBA, one_body
 from docgen import substitute_py_comments
 import module_tray as mt
 from module_tray import Mount
@@ -172,7 +173,8 @@ def build_pcba_tray():
 
 def main():
     tray = build_pcba_tray()
-    export_step(tray, str(_here.parent / "pcba-tray.step"))
+    export_assembly(one_body(tray, "pcba-tray", C_PCBA),
+                    str(_here.parent / "pcba-tray.step"))
     print("-> pcba-tray.step (%.1f cm3)" % (tray.val().Volume() / 1000.0))
 
     substitute_py_comments(
