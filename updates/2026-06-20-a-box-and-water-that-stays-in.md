@@ -14,6 +14,8 @@ It is now a parametric PETG box with 3 mm walls that sizes itself to the boundin
 
 The box exceeds every print bed available. On 17–18 June it was split into two halves that telescope and bolt together on four M3 corner cross-pins, and reduced-size test coupons of both halves were exported to prove the joint before a full print. A second, deeper and narrower variant appeared on 20 June with the cold core, compressor and funnel rotated a quarter turn. Both variants stand at the close.
 
+![The box on 20 June, with the telescoping seam and its four corner cross-pin bosses running the perimeter.](/update-images/2026-06-20-enclosure.png)
+
 ## Water that stays in
 
 On 29 May a small printed test cup with a new wall, infill and ironing recipe held water on the first attempt.

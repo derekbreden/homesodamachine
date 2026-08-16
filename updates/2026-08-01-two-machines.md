@@ -10,6 +10,8 @@ On 26 July the whole hardware tree — 955 files — was copied into a second ed
 
 The new machine is a different silhouette. Its cold core is rotated a quarter turn so its short axis runs across the cabinet, which buys a tall column of space above and in front of it. It carries its own full set of printed enclosure pieces, its own valve manifold — five identical two-valve trays where the original has four differently-shaped ones — and its own generator scripts.
 
+{{fig:two-machines}}
+
 The Lite edition was deleted on 27 July: 57 files, an enclosure, electronics trays, a funnel and a silicone funnel mould, preserved under a tag. It was the stripped build — a transparent printed cabinet around the existing counter prototype, paired with a resold external carbonator.
 
 The repository, the viewer and the tooling all learned what an edition is. A single list of machines now feeds the dev server and the 3D viewer's routing, with an edition selector in the interface. Beside it, a static checker walks every edition's scripts and fails on any file path that escapes its own machine's tree — both trees contain the same filenames, so a stray path reports the wrong machine's numbers.

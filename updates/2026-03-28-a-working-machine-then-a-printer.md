@@ -12,6 +12,8 @@ The repository opens on a machine that already pours. A carbonator, three perist
 
 The controller went from one chip to three, built from one project: the main board that reads flow and drives the pumps, a round touchscreen with a rotary knob for configuration, and a small round display that shows the selected flavor. Settings and uploaded flavor artwork survive a power cycle in on-chip flash. A clock module keeps hourly pour statistics per flavor. A wash-cycle state machine exists in the firmware; its valve board is pinned but not installed.
 
+{{fig:three-boards}}
+
 An iPhone app arrived on 13 March and reached about 3,500 lines of Swift. It finds the machine over Bluetooth, edits flavor ratios, uploads and resizes artwork from the photo library, and shows pour statistics.
 
 The link between the three boards was replaced with a standard framing protocol at three times the previous data rate. All three boards were flashed and tested together on 21 March, image uploads completed, and no link failures were observed.

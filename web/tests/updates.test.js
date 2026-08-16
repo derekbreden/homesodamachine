@@ -9,7 +9,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { parseFrontmatter, renderMarkdown, fmtRange } from "../lib/updates.js";
+import { parseFrontmatter, renderMarkdown, fmtRange, pngSize } from "../lib/updates.js";
 
 test("frontmatter splits from the body", () => {
   const { meta, body } = parseFrontmatter(
@@ -51,6 +51,28 @@ test("headings, bold and links render; everything else is text", () => {
 
 test("angle brackets and ampersands survive as text", () => {
   assert.equal(renderMarkdown("a <b> & c\n"), "<p>a &lt;b&gt; &amp; c</p>");
+});
+
+test("a figure line pulls its drawing from the registry", () => {
+  const figs = { "two-machines": { caption: "Both, to scale.", svg: "<svg/>" } };
+  const html = renderMarkdown("{{fig:two-machines}}\n", figs);
+  assert.match(html, /^<figure class="up-fig"><div class="up-fig-scroll"><svg\/><\/div>/);
+  assert.match(html, /<figcaption>Both, to scale\.<\/figcaption>/);
+  // A name with no drawing behind it leaves nothing in the page.
+  assert.equal(renderMarkdown("{{fig:absent}}\n", figs), "");
+});
+
+test("an image line carries the pixel size it will lay out at", () => {
+  const html = renderMarkdown("![a shell](/update-images/x.png)\n", {}, () => ({ w: 963, h: 362 }));
+  assert.match(html, /width="963" height="362"/);
+  // Without a size the tag still renders — it just reserves no space.
+  assert.doesNotMatch(renderMarkdown("![a](/x.png)\n"), /width=/);
+});
+
+test("a png reports the size in its header", () => {
+  const s = pngSize(new URL("../public/update-images/2026-05-23-faucet-shell.png", import.meta.url).pathname);
+  assert.deepEqual(s, { w: 963, h: 362 });
+  assert.equal(pngSize("/nonexistent.png"), null);
 });
 
 test("a date range reads as one span within a year", () => {

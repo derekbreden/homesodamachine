@@ -12,6 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { FIGURES, FIGURE_CSS } from "./update-figures.js";
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 function esc(s) {
@@ -39,7 +40,36 @@ function inline(s) {
     .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>');
 }
 
-export function renderMarkdown(body) {
+// A figure line stands alone in the source and renders as a <figure>: either
+// `{{fig:name}}`, drawn inline from the figure registry, or `![caption](src)`
+// for a rendered image. Both carry their caption below the frame.
+const FIG_LINE = /^\{\{fig:([a-z0-9-]+)\}\}$/;
+const IMG_LINE = /^!\[([^\]]*)\]\(([^)\s]+)\)$/;
+
+function figure(inner, caption, cls = "") {
+  const cap = caption ? `<figcaption>${inline(caption)}</figcaption>` : "";
+  return `<figure class="up-fig${cls ? " " + cls : ""}">${inner}${cap}</figure>`;
+}
+
+// A PNG's pixel size lives in the IHDR chunk, at a fixed offset behind the
+// 8-byte signature. An <img> carrying it holds its own aspect ratio in the
+// layout before the bytes arrive, so the prose below it never jumps.
+export function pngSize(file) {
+  let fd;
+  try {
+    fd = fs.openSync(file, "r");
+    const head = Buffer.alloc(24);
+    if (fs.readSync(fd, head, 0, 24, 0) < 24) return null;
+    if (head.toString("latin1", 1, 4) !== "PNG") return null;
+    return { w: head.readUInt32BE(16), h: head.readUInt32BE(20) };
+  } catch {
+    return null;
+  } finally {
+    if (fd !== undefined) fs.closeSync(fd);
+  }
+}
+
+export function renderMarkdown(body, figures = {}, imageSize = () => null) {
   const out = [];
   let list = null;
   let para = null;
@@ -53,9 +83,25 @@ export function renderMarkdown(body) {
   };
   for (const raw of body.split(/\r?\n/)) {
     const line = raw.trim();
+    const fig = FIG_LINE.exec(line);
+    const img = IMG_LINE.exec(line);
     if (!line) {
       closeList();
       closePara();
+    } else if (fig) {
+      closeList();
+      closePara();
+      const f = figures[fig[1]];
+      if (f) out.push(figure(`<div class="up-fig-scroll">${f.svg}</div>`, f.caption, f.cls));
+    } else if (img) {
+      closeList();
+      closePara();
+      const size = imageSize(img[2]);
+      const dims = size ? ` width="${size.w}" height="${size.h}"` : "";
+      out.push(figure(
+        `<img src="${esc(img[2])}" alt="${esc(img[1])}"${dims} loading="lazy" decoding="async">`,
+        img[1], "up-fig-photo"
+      ));
     } else if (line.startsWith("## ")) {
       closeList();
       closePara();
@@ -144,27 +190,32 @@ export function renderIndexBody(posts) {
   <h1 class="up-h1">Updates</h1>
   <p class="up-lede-top">What changed in the machine, ${esc(fmtRange(first, last))}.
   Four-week entries cover a whole period; week entries cover the most recent one.</p>
+  ${FIGURES.timeline ? `<figure class="up-fig"><div class="up-fig-scroll">${FIGURES.timeline.svg}</div><figcaption>${esc(FIGURES.timeline.caption)}</figcaption></figure>` : ""}
   <ul class="up-list">
 ${posts.map(renderCard).join("\n")}
   </ul>
 </main>`;
 }
 
-export function renderPostBody(p) {
+export function renderPostBody(p, imageSize) {
   return `<main class="up-wrap up-post">
   <p class="up-meta"><span class="up-kind up-kind-${esc(p.kind)}">${esc(KIND_LABEL[p.kind])}</span>
   <span class="up-range">${esc(fmtRange(p.start, p.end))}</span></p>
   <h1 class="up-h1">${esc(p.title)}</h1>
   ${p.lede ? `<p class="up-lede-top">${esc(p.lede)}</p>` : ""}
   <div class="up-body">
-${renderMarkdown(p.body)}
+${renderMarkdown(p.body, FIGURES, imageSize)}
   </div>
   <p class="up-back"><a href="/updates">All updates</a></p>
 </main>`;
 }
 
 const UPDATES_CSS = `
-.up-wrap { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
+/* The shell lays body out as a flex column, where the line's cross size grows
+   to the widest item and stretches the rest to match. An explicit width keeps
+   this column on the viewport, so a figure wider than it scrolls in its own
+   track instead of taking the page sideways. */
+.up-wrap { width: 100%; max-width: 46rem; min-width: 0; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
 .up-h1 { font-size: 1.6rem; margin: 0 0 .5rem; line-height: 1.25; }
 .up-lede-top { color: var(--text-2); line-height: 1.55; margin: 0 0 1.5rem; font-size: .92rem; }
 .up-empty { color: var(--text-2); }
@@ -210,9 +261,16 @@ const UPDATES_CSS = `
   .up-item > a { padding: 1rem .35rem; }
   .up-back a { min-height: 40px; display: inline-flex; align-items: center; }
 }
-`;
+` + FIGURE_CSS;
 
-export function mountUpdatesRoutes(app, { updatesDir }) {
+export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
+  // Posts name their images by URL path; the file behind one lives under the
+  // public root. Only the feed's own image directory resolves.
+  const imageSize = (src) => {
+    if (!publicDir || !src.startsWith("/update-images/") || src.includes("..")) return null;
+    return pngSize(path.join(publicDir, src));
+  };
+
   app.get("/api/updates", (_req, res) => {
     res.set("Cache-Control", "no-cache");
     res.json(readUpdates(updatesDir).map(({ body, ...rest }) => rest));
@@ -239,7 +297,7 @@ export function mountUpdatesRoutes(app, { updatesDir }) {
     res.send(
       renderHead({ title: `${post.title} — Updates`, pageStyles: UPDATES_CSS }) +
       renderNav({ surface, active: "updates" }) +
-      renderPostBody(post) +
+      renderPostBody(post, imageSize) +
       renderFooter()
     );
   });

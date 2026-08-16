@@ -28,6 +28,8 @@ The flexible bladders are gone. The first flavor reservoir printed in food-conta
 
 The faucet began as an unmodelled harvested valve body. It is now a measured 3D reference of that body, a printed shell, a mounting plate, a TPU gasket and o-ring, and a laser-cut stainless under-counter plate — ten of those plates were delivered on 14 May.
 
+![The faucet shell as it stood on 23 May, x-rayed to show the two channels running the length of the neck.](/update-images/2026-05-23-faucet-shell.png)
+
 The print log carries fifteen attempts. Eight consecutive carbon-fibre failures — clogs, a broken extruder, a support tower fused into the peak of the part — then a clean print on the ninth, after tungsten-carbide and diamond nozzles arrived on 9 May. The shell was then split into three slip-fit pieces and the joint clearances tuned by pull test, ending near 0.05 mm radial clearance on both joints, holding at roughly 10 lbf.
 
 The broken extruder on 4 May was followed the same day by an order for a replacement and a second H2C printer.

@@ -16,6 +16,8 @@ Everything since has been subtraction. The stripped-down Lite edition went on 27
 
 Per-unit parts cost fell to about $1,282. Both assembly models went from failing their own checks to 96 of 96 gates passing. The gate count grew from 11 to 72 over the same weeks the scores rose.
 
+![The packed appliance on 15 August: the four-piece box drawn transparent around the cold core, both reservoirs, the manifold, the boards, the refrigeration stratum and the drip pan.](/update-images/2026-08-15-enclosure.png)
+
 ## The board on the bench
 
 On 3 and 4 August a delivered controller board was powered up for the first time and driven from a bench console.
