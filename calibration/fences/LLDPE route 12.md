@@ -126,7 +126,7 @@ Now the divider/elbow/pump architecture is clear. Key question the user's note h
 
 Now I have the ground truth on the ports. Let me capture the key facts before deciding the approach:
 
-**Pump outlets (scorecard `PORTS`, [scorecard.py:472](hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py:472)):** both are **PP0308E elbow collets facing −X (west)** at z≈278 —
+**Pump outlets (scorecard `PORTS`, [scorecard.py:472](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L472)):** both are **PP0308E elbow collets facing −X (west)** at z≈278 —
 - `P-A-O` = `(98.56, 36.01, 278.17)` → `Y-D-1` (segment 12), pump A far **west**
 - `P-B-O` = `(231.44, 22.01, 278.17)` → `Y-G-1` (segment 22), pump B **east**
 

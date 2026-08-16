@@ -143,7 +143,7 @@ Dispatched. While they run, here's the frame I built for them — and one thing 
 
 ## What I checked before briefing anyone
 
-**The electronics were never placed at all.** `POWER_ASSEMBLY` and `PCBA_ASSEMBLY` are declared at [_contents.py:194](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:194) and never seated with `_at`. And [scorecard.py:696](hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py:696) still carries a full J1–J14 port table mapped to world by `(x+258.8, y+228.8)`, z=292.5 — putting the board at roughly x[190.8, 275.8] y[192.5, 265.3]. The pump now occupies x[96,283] y[200,298]. **That port table points into the middle of the SeaFlo.** It's a fossil of a pose that predates two re-lays, and it's been quietly sitting in the scorecard.
+**The electronics were never placed at all.** `POWER_ASSEMBLY` and `PCBA_ASSEMBLY` are declared at [_contents.py:194](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L194) and never seated with `_at`. And [scorecard.py:696](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L696) still carries a full J1–J14 port table mapped to world by `(x+258.8, y+228.8)`, z=292.5 — putting the board at roughly x[190.8, 275.8] y[192.5, 265.3]. The pump now occupies x[96,283] y[200,298]. **That port table points into the middle of the SeaFlo.** It's a fossil of a pose that predates two re-lays, and it's been quietly sitting in the scorecard.
 
 So this isn't "place a part in the void that opened." It's "the world has moved twice under a placement that was never made."
 
@@ -247,13 +247,13 @@ Session 1 held your idea properly. After you pushed back twice it measured the r
 
 Session 2 lost it. Its closing line was *"that re-layout of `power-tray/` is what I'm doing next"* — the tray back as the object.
 
-And my own fence list an hour ago said the power tray is *one part carrying four things* — i.e. I was proposing to **decompose** the tray when you'd already said to **delete** it. That's the same error one notch shallower. Corrected: I've messaged all three geometry agents to stop asking "where does a 90.82 × 73.30 rectangle fit" and start asking "where can four coplanar boss tops be rooted, with clear air for the rest." For the PCBA that's four bosses on a **78.0 × 66.3 mm** rectangle ([pcba_tray.py:40](hardware/printed-parts/electronics/pcba-tray/pcba_tray.py:40)) and the board free to overhang, bridge, or cantilever past whatever carries them — plus wall-rooted bosses as horizontal studs.
+And my own fence list an hour ago said the power tray is *one part carrying four things* — i.e. I was proposing to **decompose** the tray when you'd already said to **delete** it. That's the same error one notch shallower. Corrected: I've messaged all three geometry agents to stop asking "where does a 90.82 × 73.30 rectangle fit" and start asking "where can four coplanar boss tops be rooted, with clear air for the rest." For the PCBA that's four bosses on a **78.0 × 66.3 mm** rectangle ([pcba_tray.py:40](/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py:40)) and the board free to overhang, bridge, or cantilever past whatever carries them — plus wall-rooted bosses as horizontal studs.
 
 Two things the relay gave me that are worth more than the orientation:
 
 **A measurement trap that would have corrupted every geometry answer.** `fit.py try` at default clearance records **bounding-box** gaps, not solid distances — session 1 read 0.63 mm to a tube run, nearly redesigned around it, and the exact `probe gap` was **58.2 mm**. Long diagonal tube runs have boxes that are mostly air. All three agents now have that warning.
 
-**An unmodeled keep-out sitting on your mounting surface.** [_contents.py:54](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:54) declares a CO2 entry down through the foam-cap top at **(141.5, 199.8)**. It isn't modeled — probing that column finds only cap slab. So no clearance check defends it, and an agent surveying the cap would mount straight through it. Session 1 also found it's probably *removable*: the foam's front face already carries a shared slot at world x=141.5 for the evaporator stubs, water inlet and PRV vent. I've handed that to the constraint agent and asked it to sweep for **other** declared-but-unmodeled keep-outs, since that's the class of thing the other three will walk through unseeing.
+**An unmodeled keep-out sitting on your mounting surface.** [_contents.py:54](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L54) declares a CO2 entry down through the foam-cap top at **(141.5, 199.8)**. It isn't modeled — probing that column finds only cap slab. So no clearance check defends it, and an agent surveying the cap would mount straight through it. Session 1 also found it's probably *removable*: the foam's front face already carries a shared slot at world x=141.5 for the evaporator stubs, water inlet and PRV vent. I've handed that to the constraint agent and asked it to sweep for **other** declared-but-unmodeled keep-outs, since that's the class of thing the other three will walk through unseeing.
 
 One caveat on reusing session 1's verified arrangement: those numbers predate the east re-lay and the 5 mm `RING_SEAT` rise. It solved against a **55.5–96 mm** west column; the column is now **107.7 × 147.6 × 77.3**. The conclusion "side-by-side is impossible" was true at 96 mm and needs re-deriving at 107.7 — bare arithmetic still says no (52 + 73.3 = 125.3 across, 109 + 90.8 = 199.8 deep), but that's box arithmetic, which is exactly the reasoning you've twice had to correct.
 
@@ -451,7 +451,7 @@ Both defects verified independently. Reporting.
 
 ## Two live defects at HEAD
 
-**1. The SeaFlo is sitting on the CO2 riser.** The cap-top CO2 entry is at (141.5, **217.8**, 262.9) — [scorecard.py:521](hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py:521). My earlier coordinate was wrong because the docstring block at [_contents.py:43](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:43) is **18 mm stale in Y throughout** (it still quotes a front face of 182 against the real 200.0). Confirmed:
+**1. The SeaFlo is sitting on the CO2 riser.** The cap-top CO2 entry is at (141.5, **217.8**, 262.9) — [scorecard.py:521](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L521). My earlier coordinate was wrong because the docstring block at [_contents.py:43](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L43) is **18 mm stale in Y throughout** (it still quotes a front face of 182 against the real 200.0). Confirmed:
 
 ```
 probe cast 141.5,217.8,259.0 0,0,1 --dia 6.35
@@ -462,11 +462,11 @@ probe hits --x 133.5,149.5 --y 209.8,225.8 --z 258.4,340
 
 The pump's base is flat on the cap directly over the bore. `_contents.py` still claims the pose leaves the CO2 entry "in open air ahead of it." Nothing catches it: the CO2 segment is unrouted, and the port scores `ok` only because `_on_surface`'s tolerance exceeds the 4.5 mm it floats above the cap.
 
-**2. `discharge-chain` is declared twice** — [scorecard.py:127](hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py:127) and `:128`, two `_c(...)` rows with differing notes. `reg` dedupes to 36 but `total = len(COMPONENTS)` is 37, so **every goal denominator is inflated by one** and `parts-sourced` reads 37/37 over a pack holding 36 bodies.
+**2. `discharge-chain` is declared twice** — [scorecard.py:127](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L127) and `:128`, two `_c(...)` rows with differing notes. `reg` dedupes to 36 but `total = len(COMPONENTS)` is 37, so **every goal denominator is inflated by one** and `parts-sourced` reads 37/37 over a pack holding 36 bodies.
 
 ## The finding that matters most
 
-There is a hard ceiling on the board's crown that nobody knew about — [_lines.py:474](hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:474):
+There is a hard ceiling on the board's crown that nobody knew about — [_lines.py:474](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L474):
 
 ```python
 if "pcba" in f:
@@ -478,17 +478,17 @@ for what, crown in crossings:
 
 With `deck_z = 292.43`, `od = 6.35`, `LANE_CLEAR = 5.65`, the maximum board crown is **283.605 mm**. The `pcba-assembly` is 27.10 tall, so **flat on the foam cap it raises the build — by 1.895 mm.** It reads the board's *global* bbox zmax with **no X/Y overlap test**, so it fires wherever the board sits.
 
-**And your idea is what clears it.** That 27.10 includes the tray's own `floor_t = 3.0` ([power_tray.py:51](hardware/printed-parts/electronics/power-tray/power_tray.py:51)). Print the bosses into the cap and the floor disappears: board underside at 258.40 + 5.0 standoff = 263.40, crown at **282.50** — inside the limit by 1.105 mm. The tray isn't just surplus; it's the 3 mm that breaks the build. I've asked the pose agent to verify that against real geometry rather than my arithmetic.
+**And your idea is what clears it.** That 27.10 includes the tray's own `floor_t = 3.0` ([power_tray.py:51](https://github.com/derekbreden/homesodamachine/blob/d025bf95/hardware/printed-parts/electronics/power-tray/power_tray.py#L51)). Print the bosses into the cap and the floor disappears: board underside at 258.40 + 5.0 standoff = 263.40, crown at **282.50** — inside the limit by 1.105 mm. The tray isn't just surplus; it's the 3 mm that breaks the build. I've asked the pose agent to verify that against real geometry rather than my arithmetic.
 
 ## What the audit settled
 
-**Frozen:** the PCBA outline. JLCPCB order W2026071513250534, 10 boards, **$702 paid**, placed 2026-07-15, in file review — [purchases.md:279](hardware/ledger/purchases.md:279). 85.05 × 72.85, holes on the 78.0 × 66.3 rectangle, J14 west / J10 east. That lever is closed.
+**Frozen:** the PCBA outline. JLCPCB order W2026071513250534, 10 boards, **$702 paid**, placed 2026-07-15, in file review — [purchases.md:279](/hardware/ledger/purchases.md:279). 85.05 × 72.85, holes on the 78.0 × 66.3 rectangle, J14 west / J10 east. That lever is closed.
 
 **Also hard:** single-point earth at the shelf (it's what gives the appliance Class I status) — reachable by 16 AWG green from the C14, compressor body, shroud stud, and pressure vessel. And `CLEARANCE_FLOOR = 1.0 mm`, itself flagged unratified in its own source.
 
-**Fossils, obeyed for nothing:** both port tables — the `pcba` one *and* a `power-tray` twin at `scorecard.py:720` that nobody had flagged, whose volume `hits` reports as 120,934 mm³ of pump. Neither is consumed by any route. "The shelf" as one object — two independent trays, no joint geometry, no registry entry; [enclosure/README.md:29](hardware/printed-parts/enclosure/README.md:29) still lists *which zone holds the electronics* as **open**. And the SeaFlo's X, whose three move commits all cite the electronics as their reason.
+**Fossils, obeyed for nothing:** both port tables — the `pcba` one *and* a `power-tray` twin at `scorecard.py:720` that nobody had flagged, whose volume `hits` reports as 120,934 mm³ of pump. Neither is consumed by any route. "The shelf" as one object — two independent trays, no joint geometry, no registry entry; [enclosure/README.md:29](/hardware/printed-parts/enclosure/README.md:29) still lists *which zone holds the electronics* as **open**. And the SeaFlo's X, whose three move commits all cite the electronics as their reason.
 
-**Doesn't exist:** any water-over-electronics rule. The design deliberately routes the flavor lines above the board. And AC/LV segregation — [wiring.md:5](hardware/assembly/wiring.md:5) documents mains, 12 V and signal sharing one zip-tied bundle as accepted.
+**Doesn't exist:** any water-over-electronics rule. The design deliberately routes the flavor lines above the board. And AC/LV segregation — [wiring.md:5](/hardware/assembly/wiring.md:5) documents mains, 12 V and signal sharing one zip-tied bundle as accepted.
 
 One correction to my last message: the void is **107.7 × 147.6**, but only **107.7 × 124.2** of it has the foam cap under it — forward of y=200 there is no floor at that Z.
 
@@ -765,7 +765,7 @@ The crown gate arithmetic holds exactly. Tallest component is **U10, the K7805 b
 
 Max standoff on the cap with no floor: **6.105 mm**. Deleting the tray floor is what makes the board legal.
 
-**But the lid won't take it.** `build_foam_cap_lid()` is a 2 mm flat plate that serves as the *foam-pour clamp* — [bom.md:150](hardware/ledger/bom.md:150) reads *"Printed tooling does not ship: … the foam-pour cap lids."* It also installs rotated 180°, carries pour and vent holes, and is printed twice.
+**But the lid won't take it.** `build_foam_cap_lid()` is a 2 mm flat plate that serves as the *foam-pour clamp* — [bom.md:150](/hardware/ledger/bom.md:150) reads *"Printed tooling does not ship: … the foam-pour cap lids."* It also installs rotated 180°, carries pour and vent holes, and is printed twice.
 
 **The cap itself already does exactly what you described.** `build_foam_cap()` unions `build_attachment_bosses(foam_cap_height)` — **six Ø8.0 columns spanning the full 18 mm cap height, foam poured around them, trimmed flush.** Four more columns on the board's 78.0 × 66.3 pattern is the same operation, printing floor-down at constant section off the bed. Your idea is right; it lands one part below where you named it.
 
@@ -775,7 +775,7 @@ The verified pose: `hits --x 11,84.3 --y 208,298.82 --z 263.4,282.5` → **CLEAR
 
 ## The one number that decides it
 
-The margin is **1.105 mm**, and the cap-top datum isn't certain to that. Two generators disagree: [foam_assembly.py:85](hardware/printed-parts/cold-core/foam_assembly.py:85) stacks caps + lids and no gaskets; `_cold_core_sync.py:117` stacks caps + gaskets and no lids. They both land on 258.40 **only because lid and gasket are each 2.0 mm**. If both ship the top is 262.40 and the mode fails by 2.9 mm; if neither, it's 256.40 and gains 2 mm. That's the first thing to resolve.
+The margin is **1.105 mm**, and the cap-top datum isn't certain to that. Two generators disagree: [foam_assembly.py:85](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py:85) stacks caps + lids and no gaskets; `_cold_core_sync.py:117` stacks caps + gaskets and no lids. They both land on 258.40 **only because lid and gasket are each 2.0 mm**. If both ship the top is 262.40 and the mode fails by 2.9 mm; if neither, it's 256.40 and gains 2 mm. That's the first thing to resolve.
 
 ## A free win, found in passing
 
@@ -945,8 +945,8 @@ Datum resolved — and the alarm was false.
 
 `build_foam_cap_lid()` extrudes `wall_and_floor_thickness` = **2.0 mm**, and `gasket_thickness` = **2.0 mm**. The two stacks include different parts but land on the same Z:
 
-- **CAD** ([foam_assembly.py:92](hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py:92)): shell → cap → **lid on the cap's mouth** (`zmin = cap_top.zmax`). Top = shell + cap_h + 2.0
-- **Shipped** (`_cold_core_sync.py:117`, [bom.md:150](hardware/ledger/bom.md:150)): shell → **gasket 2.0** → cap, **no lid** — it's pour tooling that doesn't ship. Top = shell + 2.0 + cap_h
+- **CAD** ([foam_assembly.py:92](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py:92)): shell → cap → **lid on the cap's mouth** (`zmin = cap_top.zmax`). Top = shell + cap_h + 2.0
+- **Shipped** (`_cold_core_sync.py:117`, [bom.md:150](/hardware/ledger/bom.md:150)): shell → **gasket 2.0** → cap, **no lid** — it's pour tooling that doesn't ship. Top = shell + 2.0 + cap_h
 
 Identical. **258.40 stands, and the 1.105 mm margin with it.** The "262.40" case needs the lid to both ship *and* stack, and it does neither.
 
@@ -1040,7 +1040,7 @@ Four agents, four fences, ~950k tokens. The net:
 
 ## The one thing I want your call on
 
-The board must sit low to clear the lane gate — which is why it takes the cap column and the PSU goes elsewhere. **But that gate is over-broad by its own documented intent.** [_lines.py:474](hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:474) tests the board's *global* bbox zmax with no X/Y overlap check, while its comment says it measures "against every placed part it **crosses**." `fluid-18`/`28` run at x ≥ 199; the west column is x ≤ 96. They never meet.
+The board must sit low to clear the lane gate — which is why it takes the cap column and the PSU goes elsewhere. **But that gate is over-broad by its own documented intent.** [_lines.py:474](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L474) tests the board's *global* bbox zmax with no X/Y overlap check, while its comment says it measures "against every placed part it **crosses**." `fluid-18`/`28` run at x ≥ 199; the west column is x ≤ 96. They never meet.
 
 Fixing that check is defensible on the merits — but it also happens to unlock poses for me, so I'd rather do it as its own change with the reasoning visible than quietly bundle it into a placement. Two paths:
 

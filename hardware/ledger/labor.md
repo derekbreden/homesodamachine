@@ -8,7 +8,7 @@ Attended human minutes to build one finished appliance, one row per hand operati
 
 **The pace is a line's, not a bench's.** Twenty units an hour — three minutes an operation — is a relaxed rate for the repetitive work, so an operation of that shape gets 5 minutes, not 10. A machine screw is seven seconds with a driver; a heat-set insert is fourteen seconds with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
 
-**Costed at [$100](LABOR_RATE) per hour of attended time.** That rate is what [`/cost`](/cost) prices the labor column with; it reads the number from the marker above, so this file sets it.
+**Costed at [$100](LABOR_RATE) per hour of attended time.** That rate is what the site's `/cost` page prices the labor column with; it reads the number from the marker above, so this file sets it.
 
 **Every estimate lands on one of these increments,** and nothing in between:
 
