@@ -460,7 +460,6 @@ export function setPadPickEnabled(on) {
   // claim a click. Only announce on arm, so disarming can't ping-pong.
   if (enabled) window.dispatchEvent(new CustomEvent(HSM_EVENTS.PCB_TOOL, { detail: "inspect" }));
 }
-export function isPadPickEnabled() { return enabled; }
 
 // Another tool (the component editor) armed itself — stand down if it wasn't us.
 window.addEventListener(HSM_EVENTS.PCB_TOOL, (e) => {
