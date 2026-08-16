@@ -539,14 +539,6 @@ async function inPageCompose(o) {
   cam.updateProjectionMatrix();
   cam.updateMatrixWorld(true);
 
-  // The read is on the line after the render — see browser.js frameBuffer. It
-  // travels back with the annotations struck off the same camera. The clear
-  // colour is what `--bg` means: the ground comes off the canvas, so setting it
-  // on the page would leave the frame on scene.js's own navy whatever was asked.
-  renderer.setClearColor(o.bg, 1);
-  renderer.render(scene, cam);
-  const frame = renderer.domElement.toDataURL("image/png");
-
   // --- Projection helpers --------------------------------------------------
   const toScreen = (v) => {
     const p = v.clone().project(cam);
@@ -643,6 +635,18 @@ async function inPageCompose(o) {
     }
   }
   selEdgeMat.dispose();
+
+  // --- The frame -----------------------------------------------------------
+  // THE READ IS ON THE LINE AFTER THE RENDER — see browser.js frameBuffer — and the
+  // render is AFTER the amber, because the amber is scene geometry and this buffer is
+  // the only frame that will ever be read. A render that runs before the overlay is
+  // built reports `AMBER` in a legend struck off a picture the amber is not in, which
+  // is the one failure this whole tool exists to make impossible. The clear colour is
+  // what `--bg` means: the ground comes off the canvas, so setting it on the page
+  // would leave the frame on scene.js's own navy whatever was asked.
+  renderer.setClearColor(o.bg, 1);
+  renderer.render(scene, cam);
+  const frame = renderer.domElement.toDataURL("image/png");
 
   // --- Annotation ----------------------------------------------------------
   // Computed here, drawn in node over the screenshot. A DOM overlay is composited
