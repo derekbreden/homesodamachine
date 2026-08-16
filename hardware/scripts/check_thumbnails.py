@@ -82,9 +82,14 @@ def main(argv) -> int:
         print(f"    {rel}.png")
     if len(behind) > 12:
         print(f"    … and {len(behind) - 12} more")
+    # ZSH DOES NOT WORD-SPLIT AN UNQUOTED PARAMETER EXPANSION, so a list held in a variable
+    # arrives as one argument and the tool answers "not a .step under a known content root"
+    # for a path that is fine — the shell's doing, read as the tool's. This form splits.
     print("  drawing them is a follow-up commit's work:")
-    print(f"    node tools/render/render-thumbnails.js {' '.join(behind[:3])}"
-          + (" …" if len(behind) > 3 else ""))
+    print("    printf '%s\\n' \\")
+    for rel in behind:
+        print(f"      {rel} \\")
+    print("      | tr '\\n' '\\0' | xargs -0 node tools/render/render-thumbnails.js")
     return 1
 
 
