@@ -101,10 +101,6 @@ export function highlightParts(names) {
   return n;
 }
 
-export function isHighlightActive() {
-  return overlay.children.length > 0;
-}
-
 export function clearHighlight() {
   clearOverlay();
   flyToken++; // cancel an in-flight fly-to

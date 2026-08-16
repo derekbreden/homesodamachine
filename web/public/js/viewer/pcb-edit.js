@@ -739,7 +739,6 @@ export function setEditEnabled(on) {
   // claim a click. Only announce on arm, so disarming can't ping-pong.
   if (enabled) window.dispatchEvent(new CustomEvent(HSM_EVENTS.PCB_TOOL, { detail: "edit" }));
 }
-export function isEditEnabled() { return enabled; }
 
 // Another tool armed itself — stand down if it wasn't us.
 window.addEventListener(HSM_EVENTS.PCB_TOOL, (e) => {
