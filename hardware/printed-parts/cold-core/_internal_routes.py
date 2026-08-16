@@ -74,7 +74,14 @@ from pathlib import Path
 
 import cadquery as cq
 
-from _cold_core_interface import (
+_here = Path(__file__).resolve()
+sys.path.insert(0, str(_here.parent))
+sys.path.insert(0, str(_here.parent / "reservoir"))
+sys.path.insert(0, str(_here.parent / "copper-plugs"))
+sys.path.insert(0, str(_here.parent / "prv-shroud"))
+sys.path.insert(0, str(_here.parents[2] / "scripts"))
+
+from _cold_core_interface import (  # noqa: E402
     bulkhead_elbow_exit_z,
     cap_conduit_shell_xy,
     co2_inlet_y,
@@ -94,19 +101,14 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     west_lane_mid_y,
 )
-from _foam_cap import cap_face_z
-from _port_cuts import (
+from _foam_cap import cap_face_z  # noqa: E402
+from _port_cuts import (  # noqa: E402
     co2_inlet_lane_xyz,
     co2_inlet_xyz,
     flavor_line_hole_x,
     front_face_port_z,
     water_outlet_ring_crossing_x,
 )
-
-sys.path.insert(0, str(Path(__file__).resolve().parent / "reservoir"))
-sys.path.insert(0, str(Path(__file__).resolve().parent / "copper-plugs"))
-sys.path.insert(0, str(Path(__file__).resolve().parent / "prv-shroud"))
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import reservoir as _reservoir  # noqa: E402
 import prv_shroud as _shroud  # noqa: E402
 from _routing import stock_min, stock_of  # noqa: E402

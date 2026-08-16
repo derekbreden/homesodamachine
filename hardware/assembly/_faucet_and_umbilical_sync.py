@@ -3,7 +3,6 @@
 Run: tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py
 """
 
-import importlib.util
 import sys
 from pathlib import Path
 
@@ -14,23 +13,13 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from docgen import substitute_md  # noqa: E402
-
-
-def _load_module(name: str, path: Path):
-    """Load a module from an explicit file path."""
-    spec = importlib.util.spec_from_file_location(name, path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Cannot load {name} from {path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+from docgen import load_module, substitute_md  # noqa: E402
 
 
 def main():
     hardware_root = next(p for p in _here.parents if p.name == "hardware")
 
-    tpu = _load_module(
+    tpu = load_module(
         "_tpu_oring_gen",
         hardware_root
         / "printed-parts"
@@ -38,7 +27,7 @@ def main():
         / "touch-flo-tpu-o-ring"
         / "touch_flo_tpu_o_ring.py",
     )
-    plate = _load_module(
+    plate = load_module(
         "_under_counter_plate_gen",
         hardware_root
         / "cut-parts"
@@ -46,7 +35,7 @@ def main():
         / "touch-flo-under-counter-plate"
         / "touch_flo_under_counter_plate.py",
     )
-    faucet = _load_module(
+    faucet = load_module(
         "_faucet_assembly_gen",
         hardware_root / "faucet-layout" / "faucet_assembly.py",
     )

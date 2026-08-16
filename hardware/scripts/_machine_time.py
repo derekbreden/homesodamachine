@@ -36,7 +36,7 @@ from pathlib import Path  # noqa: E402
 sys.path.insert(
     0, str(next(p for p in Path(HERE).resolve().parents
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
-from docgen import substitute_md  # noqa: E402
+from docgen import cells, substitute_md  # noqa: E402
 
 PRINTERS = 2          # Bambu Lab H2C, tools.md
 DUTY = 0.65           # machine duty — failed prints, plate changes, maintenance
@@ -79,10 +79,6 @@ GROUP_MARKER = {"bulk": "BULK", "tight": "TIGHT", "small": "SMALL", "petcf": "PE
 # The turnaround table's one computed cell. Named here because two readers want it:
 # the row is written under this marker, and the sum skips the row it is on.
 PRINT_WALL_MARK = "(MT_H_PRINT_WALL)"
-
-
-def cells(line):
-    return [c.strip() for c in line.strip().strip("|").split("|")]
 
 
 def is_data_row(c):

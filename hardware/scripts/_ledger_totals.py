@@ -42,7 +42,7 @@ from pathlib import Path  # noqa: E402
 sys.path.insert(
     0, str(next(p for p in Path(HERE).resolve().parents
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
-from docgen import substitute_md  # noqa: E402
+from docgen import cells, substitute_md  # noqa: E402
 
 ORDERS = os.path.join(HERE, "..", "ledger", "purchases.orders.json")
 
@@ -55,15 +55,6 @@ ISO = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 EM = "—"
 STALE_ON_ORDER_DAYS = 45
 RECONCILE_TOLERANCE = 0.011
-
-
-def cells(row):
-    parts = row.split("|")
-    if parts and parts[0].strip() == "":
-        parts = parts[1:]
-    if parts and parts[-1].strip() == "":
-        parts = parts[:-1]
-    return [p.strip() for p in parts]
 
 
 def first_price(cell):
