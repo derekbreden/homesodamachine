@@ -327,7 +327,8 @@ details.bt-bench[open] > summary::before { content: "▾"; }
   letter-spacing: .06em; color: var(--bt-accent, var(--text-2)); }
 .bt-bench-title { font-weight: 600; }
 .bt-count { color: var(--text-2); font-size: .78rem; margin-left: auto; white-space: nowrap; }
-.bt-blurb, .bt-doc { margin: 0 .8rem .5rem; color: var(--text-2); font-size: .84rem; line-height: 1.5; }
+/* The top margin is the gap under the head's hover ground. */
+.bt-blurb, .bt-doc { margin: .5rem .8rem .5rem; color: var(--text-2); font-size: .84rem; line-height: 1.5; }
 .bt-h { margin: .8rem .8rem .35rem; font-size: .74rem; text-transform: uppercase;
   letter-spacing: .08em; color: var(--text-2); }
 
@@ -336,7 +337,8 @@ details.bt-bench[open] > summary::before { content: "▾"; }
   color: var(--bt-accent, var(--text-2)); margin-top: .45rem; }
 .bt-scope dd { margin: .1rem 0 0; color: var(--text-2); }
 
-.bt-opens { margin: 0 .8rem .6rem; padding-left: 1.1rem; font-size: .82rem; line-height: 1.5; }
+/* Each item writes its own number, so the list carries no disc as well. */
+.bt-opens { margin: 0 .8rem .6rem; padding-left: 1.1rem; list-style: none; font-size: .82rem; line-height: 1.5; }
 .bt-opens li { color: var(--text); }
 .bt-opens li.closed { color: var(--text-2); text-decoration: line-through; }
 .bt-closed { text-decoration: none; font-size: .68rem; text-transform: uppercase;
@@ -347,6 +349,9 @@ details.bt-step { border-left: 2px solid var(--border); }
 details.bt-step > summary { cursor: pointer; padding: .3rem .55rem; display: flex;
   gap: .5rem; align-items: baseline; list-style: none; font-size: .87rem; }
 details.bt-step > summary::-webkit-details-marker { display: none; }
+/* The same mark the benches turn, at the step's own scale. */
+details.bt-step > summary::before { content: "▸"; color: var(--text-2); font-size: .7em; }
+details.bt-step[open] > summary::before { content: "▾"; }
 .bt-n { font-family: ui-monospace, monospace; font-size: .75rem; color: var(--text-2);
   min-width: 1.1rem; }
 .bt-step-title { flex: 1; }
@@ -357,8 +362,9 @@ ul.bt-cards { list-style: none; margin: 0 0 .4rem; padding: 0 0 0 2.1rem;
 .bt-card a { display: flex; gap: .45rem; align-items: baseline; text-decoration: none;
   color: var(--text); }
 .bt-card a:hover .bt-card-title { text-decoration: underline; }
+/* A card's code is one token — the column narrows before it does. */
 .bt-card code { color: var(--bt-accent, var(--text-2)); font-size: .74rem;
-  text-transform: uppercase; }
+  text-transform: uppercase; white-space: nowrap; flex: none; }
 .bt-span, .bt-open, .bt-refs { font-size: .72rem; color: var(--text-2); }
 .bt-open { color: var(--warn); border: 1px solid currentColor; border-radius: 99px;
   padding: 0 .4rem; }

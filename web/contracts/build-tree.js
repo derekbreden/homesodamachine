@@ -179,8 +179,11 @@ export function parseProcedure(md) {
 
   const scope = { in: "", out: "" };
   const scopeBody = section(text, "Scope");
-  for (const [key, re] of [["in", /^In:\s*([\s\S]*?)(?=\n\s*\n|$)/m],
-                           ["out", /^Out:\s*([\s\S]*?)(?=\n\s*\n|$)/m]]) {
+  // `[^\S\n]*` holds the match on the label's own line: a document that writes
+  // the scope as a list below the label starts it with a bullet, and `\s*`
+  // reaches across the blank line to take the dash with it.
+  for (const [key, re] of [["in", /^In:[^\S\n]*([\s\S]*?)(?=\n\s*\n|$)/m],
+                           ["out", /^Out:[^\S\n]*([\s\S]*?)(?=\n\s*\n|$)/m]]) {
     const hit = re.exec(scopeBody);
     if (hit) scope[key] = plainMarkdown(hit[1]);
   }
