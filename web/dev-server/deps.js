@@ -119,8 +119,11 @@ function tracedReads() {
 }
 
 // The runnables a watched run showed do NOT reach `modPath`, out of the ones the scan found.
-function prunedByTrace(dependents, modPath) {
-  const traced = tracedReads();
+//
+// `traced` is the graph by default and an argument for the hold in deps.test.js: what may be
+// dropped is a rule over three values, and a rule is held against cases rather than against
+// the one graph the tree happens to carry today.
+export function prunedByTrace(dependents, modPath, traced = tracedReads()) {
   if (traced === null) return dependents;
   const mod = path.relative(REPO_ROOT, path.resolve(modPath));
   if (!mod || mod.startsWith("..")) return dependents;
