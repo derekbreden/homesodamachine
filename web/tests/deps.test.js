@@ -302,6 +302,96 @@ test("a STEP named in a comment is prose, not a load (phantom-edge regression)",
   }
 });
 
+test("a STEP a selftest reads is a fixture, not a load (phantom-edge regression)", () => {
+  // `tools/bazel/trace_inputs.py` watches a module's `__main__` into graph.json and its
+  // `selftest` into selftests.json — two records, because a control's reads are not a
+  // build's. This orders a build, so it reads the same line.
+  //
+  // The case that made it: `hardware/scripts/_mesh_payload.py` holds its tessellation against
+  // occt-import-js on one reference solid, and `_cadq_export` imports it to write the
+  // `.step.mesh` beside every export in the tree. That one fixture was 79 of the graph's 122
+  // edges — every generator waiting on the faucet shell.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "deps-selftest-"));
+  try {
+    const partDir = path.join(root, "part");
+    fs.mkdirSync(partDir);
+    fs.writeFileSync(
+      path.join(partDir, "part.py"),
+      'if __name__ == "__main__":\n    export(shape, "part.step")\n',
+    );
+    fs.writeFileSync(path.join(partDir, "part.step"), "ISO-10303-21;\n");
+
+    // A shared module whose selftest reads the step — and whose triple-quoted blob holds a
+    // line starting at column 0, which must not end the body early.
+    fs.writeFileSync(
+      path.join(root, "_mesh.py"),
+      "VALUE = 1\n\n\n"
+        + "def selftest():\n"
+        + '    probe = """\ndef not_a_statement():\n    pass\n"""\n'
+        + '    ref = HERE / "part.step"\n'
+        + "    return check(ref, probe)\n",
+    );
+    fs.writeFileSync(
+      path.join(root, "importer.py"),
+      'import _mesh\nif __name__ == "__main__":\n    pass\n',
+    );
+
+    // The same module, loading the step in the work its importers call it for.
+    fs.writeFileSync(
+      path.join(root, "_routes.py"),
+      'ROUTE = load("part.step")\n\ndef selftest():\n    return 0\n',
+    );
+    fs.writeFileSync(
+      path.join(root, "router.py"),
+      'import _routes\nif __name__ == "__main__":\n    pass\n',
+    );
+
+    assert.equal(
+      path.basename(buildProducerMap([root]).get("part.step") || ""),
+      "part.py",
+      "the producer names its output outside any selftest — stripping must not reach it",
+    );
+
+    const consumers = findScriptsConsumingStep("part.step", [root]).map((p) => path.basename(p));
+    assert.deepEqual(
+      consumers.sort(),
+      ["router.py"],
+      "a selftest fixture invented an edge per importer of the module holding it",
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("a cycle in the STEP-load graph throws rather than dropping a constraint", () => {
+  // No order puts every producer before its consumer around a ring, so a DFS that walks
+  // over one returns an order with a constraint dropped — and which one depends on the walk
+  // order, which is a directory listing. That is a build that is correct or stale by
+  // accident, and it is what made this file's own build-order test intermittent.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "deps-cycle-"));
+  try {
+    for (const [me, other] of [["a", "b"], ["b", "a"]]) {
+      const dir = path.join(root, me);
+      fs.mkdirSync(dir);
+      fs.writeFileSync(
+        path.join(dir, `${me}.py`),
+        'if __name__ == "__main__":\n'
+          + `    load("${other}.step")\n`
+          + `    export(shape, "${me}.step")\n`,
+      );
+      fs.writeFileSync(path.join(dir, `${me}.step`), "ISO-10303-21;\n");
+    }
+    assert.throws(
+      () => buildOrder([root]),
+      (err) =>
+        /cycle/.test(err.message) && err.message.includes("a.py") && err.message.includes("b.py"),
+      "a cycle must throw, naming the ring to look in",
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("the per-call memo does not outlive its call (staleness regression)", () => {
   // The graph functions cache walks, source reads and sub-results for the
   // duration of one top-level call — the same file is read dozens of times

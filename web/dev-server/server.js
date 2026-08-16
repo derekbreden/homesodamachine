@@ -276,7 +276,16 @@ async function runScript(pyFilePath) {
 // the cap that prints it, the assemblies that place it, the enclosures that load
 // those assemblies — while the enclosure still rebuilds only once.
 async function runWave(seeds) {
-  const { order, loadsOf } = affectedBuildOrder(seeds, CONTENT_ROOTS);
+  // Sequenced by `buildOrder`, which throws on a cycle rather than drop a constraint —
+  // printed here the same way, and the wave does not run.
+  let wave;
+  try {
+    wave = affectedBuildOrder(seeds, CONTENT_ROOTS);
+  } catch (err) {
+    console.error(`  Not rebuilding — ${err.message}`);
+    return;
+  }
+  const { order, loadsOf } = wave;
   const seedSet = new Set(seeds);
   const changed = new Set(); // STEP basenames rewritten this wave
   for (const script of order) {
@@ -596,7 +605,19 @@ function onContentChange(absPath) {
         // A shared lib can feed anything, so rebuild every generator — but in
         // dependency order (producers before the scripts that load their STEPs),
         // each once, so a consumer isn't rebuilt against a stale input.
-        for (const f of buildOrder(CONTENT_ROOTS)) {
+        //
+        // `buildOrder` throws on a cycle rather than hand back an order with a
+        // constraint dropped. The watcher prints it and keeps serving: the pages
+        // it is serving are still the pages, and a rebuild that would run some
+        // consumers against stale inputs is worse than the one that did not run.
+        let order;
+        try {
+          order = buildOrder(CONTENT_ROOTS);
+        } catch (err) {
+          console.error(`  Not rebuilding — ${err.message}`);
+          return;
+        }
+        for (const f of order) {
           console.log(`  Rebuilding ${relForLog(f)}`);
           await runScript(f);
         }

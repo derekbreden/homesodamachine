@@ -10285,6 +10285,20 @@ sh_test(
 )
 
 sh_test(
+    name = "mesh-payload-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_mesh_payload.py",
+        "hardware/scripts/_run_lock.py",
+    ],
+    args = ["hardware/scripts/_mesh_payload.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "meshes-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [

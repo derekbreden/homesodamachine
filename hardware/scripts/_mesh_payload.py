@@ -246,10 +246,31 @@ def write(meshes, path):
 # could break silently — the pixels stay plausible and only the part changes.
 
 
-def _selftest():
+def selftest():
     import subprocess
     import tempfile
     import cadquery as cq
+
+    # The reference solid the cross-checks below read, the vendored occt-import-js they read
+    # it a second time with, and the script that does the reading. All three are this
+    # control's, and they stand inside it: a STEP named at module scope is a STEP every
+    # importer of this module looks like it loads, and `_cadq_export` imports it to write the
+    # `.step.mesh` beside every export in the tree.
+    ref_step = (Path(__file__).resolve().parent.parent
+                / "printed-parts/faucet/touch-flo-shell/touch-flo-shell.step")
+    occt_pkg = (Path(__file__).resolve().parent.parent
+                / "pcb/pcba/node_modules/occt-import-js")
+    occt_probe = """
+const fs = require('fs');
+require('occt-import-js')().then((occt) => {
+  const r = occt.ReadStepFile(new Uint8Array(fs.readFileSync(process.argv[1])), null);
+  console.log(JSON.stringify({ meshes: r.meshes.length,
+    tris: r.meshes.reduce((s, m) => s + m.index.array.length / 3, 0),
+    faces: r.meshes.reduce((s, m) => s + (m.brep_faces ? m.brep_faces.length : 0), 0),
+    names: r.meshes.map((m) => m.name || ''),
+    colors: r.meshes.map((m) => ({ color: m.color || null })) }));
+});
+"""
 
     checks = []
 
@@ -346,27 +367,27 @@ def _selftest():
     # module is actually claiming: ask the other implementation. Everything
     # above is a belief about what a STEP carries; these two check it against
     # the occt-import-js the viewer runs.
-    if not _OCCT_PKG.exists():
+    if not occt_pkg.exists():
         print("  skip occt-import-js cross-checks (the vendored package is absent)")
     else:
         def occt(step):
             return json.loads(subprocess.run(
-                ["node", "-e", _OCCT_PROBE, str(step)], cwd=str(_OCCT_PKG.parent),
+                ["node", "-e", occt_probe, str(step)], cwd=str(occt_pkg.parent),
                 capture_output=True, text=True, check=True).stdout)
 
         # Same BREP, both tessellators: the deflection constants are right only
         # if these land together. An upstream change to occt-import-js's
         # defaults shows up here and nowhere else.
-        if _REF_STEP.exists():
-            mine = from_shape(import_step(str(_REF_STEP)))
-            js = occt(_REF_STEP)
-            check(f"{_REF_STEP.name}: solid count matches occt-import-js", len(mine), js["meshes"])
+        if ref_step.exists():
+            mine = from_shape(import_step(str(ref_step)))
+            js = occt(ref_step)
+            check(f"{ref_step.name}: solid count matches occt-import-js", len(mine), js["meshes"])
             off = abs(sum(len(m["idx"]) // 3 for m in mine) - js["tris"]) / max(js["tris"], 1)
-            check(f"{_REF_STEP.name}: triangles within 1% of occt-import-js", off < 0.01, True)
+            check(f"{ref_step.name}: triangles within 1% of occt-import-js", off < 0.01, True)
             # Faces are BREP topology, not tessellation, so the two implementations
             # count them the same or the grouping handed over is not the grouping the
             # edge picker would have reconstructed from.
-            check(f"{_REF_STEP.name}: face count matches occt-import-js",
+            check(f"{ref_step.name}: face count matches occt-import-js",
                   sum(len(m["fac"]) // 2 for m in mine), js["faces"])
 
         # And the colors: export the assembly built above, read it back the way
@@ -407,26 +428,10 @@ def _selftest():
     return 1 if bad else 0
 
 
-_REF_STEP = (Path(__file__).resolve().parent.parent
-             / "printed-parts/faucet/touch-flo-shell/touch-flo-shell.step")
-_OCCT_PKG = (Path(__file__).resolve().parent.parent
-             / "pcb/pcba/node_modules/occt-import-js")
-_OCCT_PROBE = """
-const fs = require('fs');
-require('occt-import-js')().then((occt) => {
-  const r = occt.ReadStepFile(new Uint8Array(fs.readFileSync(process.argv[1])), null);
-  console.log(JSON.stringify({ meshes: r.meshes.length,
-    tris: r.meshes.reduce((s, m) => s + m.index.array.length / 3, 0),
-    faces: r.meshes.reduce((s, m) => s + (m.brep_faces ? m.brep_faces.length : 0), 0),
-    names: r.meshes.map((m) => m.name || ''),
-    colors: r.meshes.map((m) => ({ color: m.color || null })) }));
-});
-"""
-
 
 if __name__ == "__main__":
     import sys
     if sys.argv[1:2] == ["selftest"]:
-        sys.exit(_selftest())
+        sys.exit(selftest())
     print(__doc__)
     print("usage: _mesh_payload.py selftest")

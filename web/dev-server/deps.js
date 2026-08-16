@@ -100,18 +100,38 @@ function readSource(file) {
 // STRING LITERALS SURVIVE, and that is the whole reason this is a scanner and not a regex.
 // A generator names its own outputs in code and in the `-> x.step` lines it prints, and
 // `buildProducerMap` reads exactly those; blanking a string would lose the producer and with
-// it every edge downstream. So this blanks `#` runs and nothing else — offsets and all,
-// matching the COMMENT spans Python's own `tokenize` reports.
-function stripPyComments(source) {
+// it every edge downstream. So this blanks `#` runs — offsets and all, matching the COMMENT
+// spans Python's own `tokenize` reports — and one other span, below.
+//
+// A SELFTEST'S READS ARE THE SELFTEST'S. The repo already keeps the two apart:
+// `tools/bazel/trace_inputs.py` watches a generator's `__main__` into `graph.json` and its
+// `selftest` into `selftests.json`, two files because they answer two questions. This orders
+// a BUILD, so a `def selftest` body is blanked the way a comment is — the STEP a control
+// reads to hold a claim against is a fixture, and a fixture is not an input.
+//
+// `_mesh_payload.selftest` is what that costs when it is not done. It holds this repo's
+// tessellation against occt-import-js on one reference solid, and `_cadq_export` imports it
+// to write the `.step.mesh` beside every export — so one fixture named at module scope made
+// 79 of the graph's 122 edges, every generator in the tree waiting on the faucet shell.
+//
+// Blanked at the first line back at column 0, which is where the body ends; a literal is
+// consumed whole on the way, so the JS blob `_OCCT_PROBE` carries cannot end it early.
+function stripPySource(source) {
   let out = "";
   let i = 0;
+  let inSelftest = false;
   const n = source.length;
+  const atLineStart = () => i === 0 || source[i - 1] === "\n";
+  const blank = (from, to) => " ".repeat(to - from);
   while (i < n) {
     const c = source[i];
+    if (atLineStart() && c !== " " && c !== "\t" && c !== "\n") {
+      inSelftest = source.startsWith("def selftest", i);
+    }
     if (c === "#") {
       let j = i;
       while (j < n && source[j] !== "\n") j++;
-      out += " ".repeat(j - i);
+      out += blank(i, j);
       i = j;
       continue;
     }
@@ -128,11 +148,15 @@ function stripPyComments(source) {
         if (!triple && source[j] === "\n") break;
         j++;
       }
-      out += source.slice(i, Math.min(j, n));
+      j = Math.min(j, n);
+      const literal = source.slice(i, j);
+      // Newlines inside a blanked literal are kept, so the line the next column-0 statement
+      // starts on is the line it starts on.
+      out += inSelftest ? literal.replace(/[^\n]/g, " ") : literal;
       i = j;
       continue;
     }
-    out += c;
+    out += inSelftest && c !== "\n" ? " " : c;
     i++;
   }
   return out;
@@ -144,7 +168,7 @@ function stripPyComments(source) {
 function readStrippedSource(file) {
   if (memo && memo.stripped.has(file)) return memo.stripped.get(file);
   const source = readSource(file);
-  const stripped = source == null ? null : stripPyComments(source);
+  const stripped = source == null ? null : stripPySource(source);
   if (memo) memo.stripped.set(file, stripped);
   return stripped;
 }
@@ -494,8 +518,19 @@ function graphOf(roots) {
 }
 
 // Topological build order: producers before the scripts that load their STEPs
-// (DFS post-order). A cycle (none expected in a CAD build graph) degrades to
-// "built, possibly out of order" rather than dropping nodes.
+// (DFS post-order).
+//
+// A CYCLE THROWS, because the order is the whole product. A ring of producer→consumer
+// edges has no order that puts every producer first, so what a DFS that walks over one
+// returns is an order with a constraint silently dropped — and which one it drops is the
+// order `deps.keys()` happened to be walked in, so a build is correct or stale by the shape
+// of a directory listing. What that cost, before it threw: `_mesh_payload`'s selftest fixture
+// made every generator in the tree a consumer of the faucet shell, one `#` comment closed the
+// ring back, and the test that reads this order passed or failed run to run.
+//
+// A cycle in a CAD build is a scanner reading a MENTION as a load. There is no ring of real
+// STEP loads — a part cannot be cut from the part cut from it — so the ring named below is
+// where to look for the mention.
 export const buildOrder = memoized(orderOf);
 
 function orderOf(roots) {
@@ -503,10 +538,24 @@ function orderOf(roots) {
   const order = [];
   const done = new Set();
   const onStack = new Set();
+  const stack = [];
   function visit(node) {
-    if (done.has(node) || onStack.has(node)) return;
+    if (done.has(node)) return;
+    if (onStack.has(node)) {
+      const ring = [...stack.slice(stack.indexOf(node)), node];
+      throw new Error(
+        "the STEP-load graph has a cycle, so no order puts every producer before the script "
+        + "that loads its STEP:\n  "
+        + ring.map((s) => path.basename(s)).join("\n    → loads the STEP of ")
+        + "\n\nOne of those edges is a mention the scanner read as a load — a selftest "
+        + "fixture, a probe target, a path named in prose. Ask deps.js which STEP each link "
+        + "stands on:\n    findScriptsConsumingStep(<step>, roots)",
+      );
+    }
     onStack.add(node);
+    stack.push(node);
     for (const dep of deps.get(node) || []) visit(dep);
+    stack.pop();
     onStack.delete(node);
     done.add(node);
     order.push(node);
