@@ -25,14 +25,10 @@ from pathlib import Path  # noqa: E402
 sys.path.insert(
     0, str(next(p for p in Path(HERE).resolve().parents
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
-from docgen import substitute_md  # noqa: E402
+from docgen import cells, substitute_md  # noqa: E402
 
 MONEY = re.compile(r"\$\s?([0-9][0-9,]*(?:\.[0-9]{1,2})?)")
 NUM = re.compile(r"-?[0-9][0-9,]*(?:\.[0-9]+)?")
-
-
-def cells(line):
-    return [c.strip() for c in line.strip().strip("|").split("|")]
 
 
 def money(cell):

@@ -13,24 +13,13 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from docgen import substitute_md
-
-import importlib.util
-
-
-def _load_module(name: str, file_path: Path):
-    """Load a Python file as a uniquely-named module."""
-    spec = importlib.util.spec_from_file_location(name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    sys.path.insert(0, str(file_path.parent))
-    spec.loader.exec_module(module)
-    return module
+from docgen import load_module, substitute_md
 
 
 # Coil tie-in stubs — owned by the coil-mandrel generator alongside the wrap arc
 # they extend. What this procedure sees is the PROTRUDING half of each allowance;
 # the rest of it is the tail's own run inside the shell, already foamed in.
-_coil_mandrel_gen = _load_module(
+_coil_mandrel_gen = load_module(
     "refrigerant_loop_coil_mandrel_gen",
     next(p for p in _here.parents if p.name == "hardware")
     / "printed-parts"

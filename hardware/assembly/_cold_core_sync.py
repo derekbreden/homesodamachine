@@ -49,7 +49,7 @@ from _cold_core_interface import (  # noqa: E402
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
 from reservoir import insert_positions_for_side_plus_1  # noqa: E402
 
-import importlib.util  # noqa: E402
+from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E402
 
 # Every ruthex short this procedure presses, off the patterns that hold them.
 # The shell clamps a cap on each face; the top cap's deck-mount columns take one
@@ -72,16 +72,7 @@ POUR_CRADLE_GAP = min(
 )
 
 
-def _load_module(name: str, file_path: Path):
-    """Load a Python file as a uniquely-named module."""
-    spec = importlib.util.spec_from_file_location(name, file_path)
-    module = importlib.util.module_from_spec(spec)
-    sys.path.insert(0, str(file_path.parent))
-    spec.loader.exec_module(module)
-    return module
-
-
-_coil_mandrel_gen = _load_module(
+_coil_mandrel_gen = load_module(
     "cold_core_coil_mandrel_gen",
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
@@ -89,17 +80,16 @@ _coil_mandrel_gen = _load_module(
 # The wrap AS LAID on the tank, and the cut struck on it — `coil_mandrel` holds the two
 # shorter readings (what the tool holds, what the same wraps come to once sprung off it)
 # but only this module sees the lift over the reed bridge, so the cut lives here.
-_coil_gen = _load_module("cold_core_coil_gen", _hw / "cold-core-layout" / "_coil.py")
+_coil_gen = load_module("cold_core_coil_gen", _hw / "cold-core-layout" / "_coil.py")
 
 # Carbonator reed switching levels — the bridge's own geometry sets where CLO
 # and CHI sit above the tube's bottom rim.
-_reed_bridge_gen = _load_module(
+_reed_bridge_gen = load_module(
     "cold_core_reed_bridge_gen",
     _hw / "printed-parts" / "cold-core" / "reed-bridge" / "reed_bridge.py",
 )
 
 import _port_cuts  # noqa: E402
-from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 
 def main():
