@@ -139,15 +139,15 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 1.664 | $18.64 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.522 | $17.05 <!--@printed--> |
+| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.556 | $17.42 <!--@printed--> |
 | Port ring — one per rear-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.14 <!--@printed--> |
-| Drip pan | 1 | PETG | 0.031 | $0.34 <!--@printed--> |
+| Drip pan | 1 | PETG | 0.027 | $0.30 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~6.26** | **[$74.74](BOM_SEC7)** |
+| **Printed parts total** | | | **~6.29** | **[$75.07](BOM_SEC7)** |
 
-By material: PETG ≈ 6.10 kg / $68.28 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.13 kg / $68.62 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -288,7 +288,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$74.74](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$75.07](BOM_SEC7) |
 | 8. Flavor subsystem | [$203.99](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -296,7 +296,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$11.12](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,283.57](BOM_GRAND)** |
+| **Total** | **[$1,283.90](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
