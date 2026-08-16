@@ -3,6 +3,7 @@ title: A box, and water that stays in
 start: 2026-05-24
 end: 2026-06-20
 kind: period
+thumb: droplet
 lede: The subsystems were packed into a real enclosure and split to fit the printer, and the first printed flavor reservoir held water without weeping.
 ---
 
