@@ -3,6 +3,7 @@ title: First metal, and a public face
 start: 2026-04-26
 end: 2026-05-23
 kind: period
+thumb: faucet
 lede: The fallback vessel design was archived, stainless was tapped and welded by hand for the first time, and the project got a live website and a YouTube channel.
 ---
 
@@ -30,7 +31,11 @@ The faucet began as an unmodelled harvested valve body. It is now a measured 3D 
 
 ![The faucet shell as it stood on 23 May, x-rayed to show the two channels running the length of the neck.](/update-images/2026-05-23-faucet-shell.png)
 
-The print log carries fifteen attempts. Eight consecutive carbon-fibre failures — clogs, a broken extruder, a support tower fused into the peak of the part — then a clean print on the ninth, after tungsten-carbide and diamond nozzles arrived on 9 May. The shell was then split into three slip-fit pieces and the joint clearances tuned by pull test, ending near 0.05 mm radial clearance on both joints, holding at roughly 10 lbf.
+The print log carries fifteen attempts inside these four weeks. The first six did not produce a part: two clogs above the hot end, a run of nozzle-calibration failures, a print that began laying air at layer 15, and one that finished full of gaps. The seventh worked — "the most recent PET-CF print worked beautifully" — on a 0.6 mm tungsten-carbide nozzle delivered on 9 May, with the supports printed in the model's own material so they broke away clean. The eighth failed when a tall support tower leaned over and fused into the peak of the faucet. The ninth, with a 20 mm brim under every tower and supports rooted only in the build plate, came out whole.
+
+{{fig:print-log}}
+
+The shell was then split into three slip-fit pieces and the joint clearances tuned by pull test across attempts 10 to 15 — zero clearance would not seat, half a millimetre was "far too much of one", and both joints converged near 0.05 mm before the looser of the two was eased back to about 0.08.
 
 The broken extruder on 4 May was followed the same day by an order for a replacement and a second H2C printer.
 

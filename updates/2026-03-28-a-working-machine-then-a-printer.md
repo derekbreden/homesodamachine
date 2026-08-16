@@ -3,6 +3,7 @@ title: A working machine, then a printer
 start: 2026-03-07
 end: 2026-03-28
 kind: period
+thumb: boards
 lede: The under-sink prototype gained its full software stack, then a production 3D printer turned the project toward a manufacturable appliance.
 ---
 

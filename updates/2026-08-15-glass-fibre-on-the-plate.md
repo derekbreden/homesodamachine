@@ -3,6 +3,7 @@ title: A build system, and glass fibre on the plate
 start: 2026-08-09
 end: 2026-08-15
 kind: week
+thumb: panel
 lede: The flavor manifold was absorbed into the enclosure shell itself, and the first enclosure panel went on the printer in glass-filled PET.
 ---
 

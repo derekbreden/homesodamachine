@@ -292,7 +292,46 @@ const TIMELINE = `
      <text x="${T_X(d)}" y="190" class="uf-dim" text-anchor="middle">${m}</text>`).join("")}
 </svg>`;
 
+// ── Fifteen attempts at one part ─────────────────────────────────────────────
+// Outcomes as the print log records them. Four states, each with its own glyph,
+// so the strip reads without colour.
+const PL_GLYPH = {
+  fail: `<path d="M-6 -6 L6 6 M6 -6 L-6 6" stroke="var(--err)" stroke-width="2" ${A}/>`,
+  part: `<path d="M-7 0 L7 0" stroke="var(--warn)" stroke-width="2.5" ${A}/>`,
+  ok: `<path d="M-7 0 L-2 5 L7 -6" stroke="var(--ok)" stroke-width="2.5" ${A}/>`,
+  none: `<circle r="4" stroke="var(--text-3)" stroke-width="1.5" fill="none"/>`,
+};
+const PL = [
+  "fail", "fail", "fail", "fail", "part", "none",
+  "ok", "fail", "ok",
+  "part", "part", "part", "part", "ok", "none",
+];
+const PRINT_LOG = `
+<svg viewBox="0 0 620 170" class="uf" role="img" aria-label="Fifteen print attempts at the faucet shell. The first six produced no part, the seventh worked, the eighth failed when a support tower fused into the faucet, and attempts ten to fifteen printed while the joint clearances were tuned.">
+  ${PL.map((state, i) => {
+    const x = 30 + i * 38, cx = x + 15;
+    return `<rect x="${x}" y="50" width="30" height="30" rx="4"
+        stroke="var(--border)" stroke-width="1" fill="none"/>
+      <g transform="translate(${cx},65)">${PL_GLYPH[state]}</g>
+      <text x="${cx}" y="98" class="uf-dim" text-anchor="middle">${i + 1}</text>`;
+  }).join("")}
+
+  <path d="M273 32 L273 46" stroke="var(--text-2)" stroke-width="1"/>
+  <text x="273" y="26" class="uf-sub" text-anchor="middle">0.6 mm tungsten-carbide nozzle, 9 May</text>
+
+  <g transform="translate(30,132)">
+    <g transform="translate(8,0)">${PL_GLYPH.fail}</g><text x="22" y="4" class="uf-sub">no part</text>
+    <g transform="translate(118,0)">${PL_GLYPH.part}</g><text x="132" y="4" class="uf-sub">printed, not right</text>
+    <g transform="translate(288,0)">${PL_GLYPH.ok}</g><text x="302" y="4" class="uf-sub">printed clean</text>
+    <g transform="translate(418,0)">${PL_GLYPH.none}</g><text x="432" y="4" class="uf-sub">outcome unrecorded</text>
+  </g>
+</svg>`;
+
 export const FIGURES = {
+  "print-log": {
+    caption: "Every attempt at the faucet shell inside these four weeks, as the print log records it. Attempts ten to fifteen all produced parts; what was being tuned by then was the fit of the joints, not the printing.",
+    svg: PRINT_LOG,
+  },
   "timeline": {
     caption: "Eighteen events across 2026, from the first commit on 7 March to 15 August. Hover a mark for the ones without a label.",
     svg: TIMELINE,
@@ -325,6 +364,49 @@ export const FIGURES = {
     caption: "Six printed carriers become features of the piece above them.",
     svg: MANIFOLD_ABSORBED,
   },
+};
+
+// ── Entry marks ──────────────────────────────────────────────────────────────
+// One per entry, drawn at the size the index shows them rather than shrunk from
+// the figure inside the post. Each is a silhouette the eye can tell from the
+// other nine at a glance: shape carries which entry this is, not colour.
+const M = 'stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"';
+const mark = (inner) =>
+  `<svg viewBox="0 0 48 48" class="uf-mark" aria-hidden="true"><g ${M}>${inner}</g></svg>`;
+
+export const THUMBS = {
+  // Three boards and a phone, wired together.
+  boards: mark(`<circle cx="12" cy="13" r="6"/><circle cx="36" cy="13" r="6"/>
+    <rect x="16" y="30" width="16" height="12" rx="3"/>
+    <path d="M14 19 L21 29 M34 19 L27 29"/>`),
+  // The vessel that was kept: a tube capped top and bottom.
+  vessel: mark(`<rect x="17" y="14" width="14" height="20"/>
+    <rect x="12" y="8" width="24" height="6" rx="1.5"/>
+    <rect x="12" y="34" width="24" height="6" rx="1.5"/>`),
+  // The faucet's gooseneck.
+  faucet: mark(`<path d="M11 42 L11 20 Q11 9 24 9 Q37 9 37 20 L37 29"/>
+    <path d="M6 42 L16 42"/>`),
+  // Water that stays in.
+  droplet: mark(`<path d="M24 7 C24 7 12 21 12 30 A12 12 0 0 0 36 30 C36 21 24 7 24 7 Z"/>`),
+  // A board, seen as its pad field.
+  board: mark(`<rect x="8" y="11" width="32" height="26" rx="3"/>
+    <circle cx="17" cy="20" r="1.8"/><circle cx="24" cy="20" r="1.8"/><circle cx="31" cy="20" r="1.8"/>
+    <circle cx="17" cy="28" r="1.8"/><circle cx="24" cy="28" r="1.8"/><circle cx="31" cy="28" r="1.8"/>`),
+  // The packed machine, tall and narrow.
+  machine: mark(`<rect x="15" y="6" width="18" height="36" rx="3"/>
+    <path d="M15 18 L33 18 M15 30 L33 30"/>`),
+  // The printed deck.
+  cards: mark(`<rect x="8" y="14" width="22" height="28" rx="2"/>
+    <path d="M15 10 L36 10 Q38 10 38 12 L38 36"/>`),
+  // Two machines, side by side and to scale.
+  twin: mark(`<rect x="6" y="16" width="17" height="24" rx="2"/>
+    <rect x="29" y="9" width="12" height="31" rx="2"/>`),
+  // What answered, and what did not.
+  bench: mark(`<path d="M7 23 L12 28 L21 15"/><path d="M29 17 L41 29 M41 17 L29 29"/>`),
+  // The front-top, carrying its panels and trays.
+  panel: mark(`<rect x="6" y="11" width="36" height="27" rx="3"/>
+    <rect x="11" y="16" width="12" height="8" rx="1"/><rect x="25" y="16" width="12" height="8" rx="1"/>
+    <rect x="11" y="28" width="12" height="6" rx="1"/><rect x="25" y="28" width="12" height="6" rx="1"/>`),
 };
 
 export const FIGURE_CSS = `
