@@ -248,9 +248,13 @@ const UPDATES_CSS = `
    that subject, so the picture gets the width the detail is drawn at. It is
    never boxed to a common height: a tall subject makes a tall row, and nothing
    is cropped. */
+/* The hover ground reaches past the entry at the sides the way it does at top
+   and bottom; the negative margin hands the width back, so the text and the
+   picture stay on the page's own column. */
 .up-item > a {
   display: flex; flex-direction: column; gap: .7rem;
-  padding: 1rem .35rem 1.2rem; text-decoration: none; color: inherit;
+  padding: 1rem .9rem 1.2rem; margin: 0 -.9rem;
+  text-decoration: none; color: inherit;
 }
 .up-text { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
 .up-shot {
@@ -294,7 +298,7 @@ const UPDATES_CSS = `
 }
 
 @media (pointer: coarse) {
-  .up-item > a { padding: 1rem .35rem; }
+  .up-item > a { padding: 1rem .9rem; }
   .up-back a { min-height: 40px; display: inline-flex; align-items: center; }
 }
 ` + FIGURE_CSS;
