@@ -53,14 +53,16 @@ import _back_panel_dimensions as _rear  # noqa: E402
 import port_ring as _ring  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
-# THE PLATE THESE ARE READ ON, taken out of `../port-ring-water.3mf`. A coupon struck on one
-# profile and printed on another measures the profile.
-#   LINE_W is the bead the slicer plans, and it is not the nozzle. The orifice meters; the bead
-# is laid at the width the profile asks for and squashed to `LAYER_H` against the layer below.
-# The slicer's own arithmetic runs on this figure: a feature's width over the bead is how many
-# perimeters fit, and what the division leaves is gap fill or nothing.
-LINE_W = 0.22
-LAYER_H = 0.08
+# THE PLATE THESE ARE READ ON, and the part states it — `port_ring.WORD_BEAD` and `WORD_LAYER`
+# are read off `../port-ring-water.3mf` and gate the chip's own strokes and bridges. A coupon
+# struck on one profile and printed on another measures the profile, and a coupon carrying its
+# own copy of the profile measures whichever copy was updated last.
+#   The bead is not the nozzle. The orifice meters; the bead is laid at the width the profile
+# asks for and squashed to `LAYER_H` against the layer below. The slicer's own arithmetic runs on
+# it: a feature's width over the bead is how many perimeters fit, and what the division leaves is
+# gap fill or nothing.
+LINE_W = _ring.WORD_BEAD
+LAYER_H = _ring.WORD_LAYER
 # How many perimeters the profile lays before it falls back to infill. A strip narrower than
 # `WALLS * LINE_W` comes out all wall and no middle.
 WALLS = 4
@@ -81,11 +83,14 @@ WORD = "FLAVOR"
 # `specimen_holds` reads this one back off the solid.
 SPECIMEN_STROKE = 0.802588
 # THE NARROWEST THING ON A CHIP IS NOT A STROKE. It is the bridge of chip standing between two
-# letters — this, at `port_ring.WORD_SIZE`, between the L and the A, and it is 1.57 beads where
-# the narrowest stroke is 3.65. The strokes are the word's colour and the bridges are the chip's,
-# and both come off the same nozzle at the same width, so the bridge is what runs out first.
-# Every `fit` tooth takes twice its own figure out of this one. `specimen_holds` reads it back.
-SPECIMEN_GAP = 0.345900
+# letters, and `port_ring.WORD_MIN_BRIDGE` is the narrowest of them across all five words: 1.57
+# beads, where the narrowest stroke is 3.65. The strokes are the word's colour and the bridges
+# are the chip's, both off the same nozzle at the same width, so the bridge runs out first.
+#   THE WORD IT BELONGS TO IS THE SPECIMEN — it is FLAVOR's, between the L and the A, which is
+# why the sweep can be bounded by it. `specimen_holds` measures the specimen's own bridge and
+# reads it against this, so a face that resolves elsewhere and moves the minimum onto another
+# word is caught here. Every `fit` tooth takes twice its own figure out of it.
+SPECIMEN_GAP = _ring.WORD_MIN_BRIDGE
 # The specimen's narrowest stroke on each tooth of `cap`, in beads. A whole number is a stroke
 # the slicer spends entirely on perimeters; a half is one it cannot. `port_ring.WORD_SIZE` lands
 # at 3.65 and stands on the coupon beside them.
