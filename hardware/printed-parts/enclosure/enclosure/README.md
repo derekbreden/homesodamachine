@@ -286,15 +286,16 @@ open air (the back's bed-side half fills under it only once assembled), so it
 prints on a thin support strip at the seam, the ceiling tongue's twin one slab
 down. The side-wall segments, vertical to the bed, are free.
 
-The **drip tray's rail pair** in the back-top piece costs the same, and it is the
-first of three features in the box that do. Each rail is a ledge off the −X wall running
-east on the withdrawal axis, and its bearing face is the tray's seat — a flat
-plane, held at one height for the rail's whole length, so it cannot be reached at
-45° from the wall it grows out of. Ceiling-down it is that face and not the
-underside that hangs, and what stands over it is the vent gap (`drip_pan.VENT_GAP`),
-which is air by construction. So the pair prints on support, two strips 73 mm long
-by the bearing width, in the band above the tray's slot — as does the stop bar
-that closes their east ends, whose own top face is flat at the rim's height.
+The **drip tray's sleeve** in the back-top piece costs the same, and it is the
+first of three features in the box that do. The sleeve is a solid block off the −X wall
+running east on the withdrawal axis, and the rim rebate cut through it leaves a flat
+ceiling down either flank — the lid the tray's flange runs under, held at one height
+for the block's whole length, so it cannot be reached at 45° from the wall it grows out
+of. Its floor is the same case one storey down, and wider: a slab the tray's whole
+footprint, hanging off that wall. Ceiling-down neither turns into a face that can be
+laid on air, and what stands over the lid is the vent gap (`drip_pan.VENT_GAP`), which
+is air by construction. So the sleeve prints on support, one block 53 mm deep by the
+tray's rim plus a wall either way, in the band above the tray's slot.
 
 The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
 stand 30° off vertical and are free; its **top face is flat**, a soffit off the wall
