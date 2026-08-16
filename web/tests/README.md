@@ -18,7 +18,7 @@ credentials required.
   `VIEWER_DEFAULTS` ReferenceError took down a deploy before commit
   8611dfa), `npm test` fails immediately.
 - **Route surface.** Every GET that doesn't require a database — landing,
-  /3d, /charts, /blog, /settings, the JSON APIs (`/api/steps`,
+  /3d, /charts, /settings, the JSON APIs (`/api/steps`,
   `/api/dxf`, `/api/mermaid`, `/api/firebase-config`), the three service
   worker URLs, the favicons + apple-touch-icon, and every static JS file
   imported by an HTML surface. Status code + Content-Type prefix.

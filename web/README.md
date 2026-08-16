@@ -2,7 +2,7 @@
 
 The Node web server for **homesodamachine.com** + the browser-rendered viewer at `/3d` and `/charts`. No bundler. Runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables. The dev story is the same code with a chokidar wrapper.
 
-The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hardware/) and [`posts/`](/posts/) at the repo root — that side is its own world (CadQuery, KiCad, ESP-IDF). This document covers the web layer only.
+The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hardware/) at the repo root — that side is its own world (CadQuery, KiCad, ESP-IDF). This document covers the web layer only.
 
 ## Running it
 
@@ -55,15 +55,14 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page goes 
 | [`server.js`](/web/server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
 | [`lib/shell.js`](/web/lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Marketing landing + email signup form. |
-| [`lib/blog.js`](/web/lib/blog.js) | `/blog` | Markdown posts under [`posts/`](/posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
 | [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, drawings + the assembly deck, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,cards}`, `/steps/*`, `/dxfs/*`, `/cards/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
 | [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
-| [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed`/`posts-changed` broadcasts. |
+| [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed` broadcasts. |
 | [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
 | [`lib/push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
 | [`lib/walk.js`](/web/lib/walk.js) | — | Shared `walkFiles(rootDir, exts)` helper, plus the per-kind walkers (`walkPcbBoards`, `walkAssemblyCards`). |
-| [`lib/icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper). |
+| [`lib/icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, clipboard). |
 
 The pattern: `export function mountXxxRoutes(app, { … } = {})`. `server.js` calls each in sequence. To add a new page or API surface, add `lib/foo.js` with `mountFooRoutes`, import and call it from `server.js`.
 
@@ -75,11 +74,10 @@ Served flat via `express.static(public/)`.
 |---|---|---|
 | [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
 | [`public/landing.js`](/web/public/landing.js) | `/` | Glass-animation mount, signup form submit. |
-| [`public/blog.js`](/web/public/blog.js) | `/blog` | Click-to-open post images via ContentViewer. |
 | [`public/settings.js`](/web/public/settings.js) | `/settings` | Dev-mode + notification toggles. |
 | [`public/glass-animation.js`](/web/public/glass-animation.js) | `/` | Pours/fizzes the hero animation. |
-| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/blog`, `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
-| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/blog`, `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
+| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
+| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
 | `public/js/viewer/*.js` | `/3d`, `/charts` | The parts/charts viewer modules — see below. |
 | `public/css/viewer.css` | `/3d`, `/charts` | Viewer-specific styles. |
 
@@ -109,8 +107,8 @@ The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all module
 
 ```
 WS  /ws  ─────────────► boot.js                ────► CustomEvent("hsm:files-changed", {files})
-                          │                          ────► CustomEvent("hsm:posts-changed", {posts})
-                          ▼                          ────► CustomEvent("hsm:deploy", {commitChanged})
+                          │                          ────► CustomEvent("hsm:deploy", {commitChanged})
+                          ▼                          │
                      fetchNotifications()           │
                           │                          │
 focus/visibility/pageshow │                          ▼

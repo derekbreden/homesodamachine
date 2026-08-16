@@ -158,7 +158,7 @@ test("a card is a page directly in the deck, not any .html under it", () => {
   // the id the broadcast, the push deep link, and the `card:` hash carry.
   assert.ok(!isCardPath("assembly/cards/out/index.html"));
   assert.ok(!isCardPath("assembly/cards/style.css"));
-  assert.ok(!isCardPath("posts/2026-01-01-0000.md"));
+  assert.ok(!isCardPath("assembly/README.md"));
 });
 
 test("cardAssetUrl is the path the viewer's iframe loads", () => {

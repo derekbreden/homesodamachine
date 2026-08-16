@@ -14,12 +14,12 @@
 // --- FCM message (server -> FCM -> device) ---
 //   notification: { title, body }          the system banner (iOS / Android / Chrome show it natively)
 //   webpush.fcmOptions.link: <url>?n=<id>  deep link to the changed thing; ?n names the inbox row
-// One banner per deploy for the file changes (any mix of kinds); posts get their own banner.
+// One banner per deploy for the file changes (any mix of kinds).
 
 // --- Boot-time change detection (web/server.js on prod boot) ---
-// Per-kind SHA tables — step_hashes, mermaid_hashes, dxf_hashes, drawing_hashes, pcb_hashes,
-// post_hashes — diffed by push.js detect* functions; the changed set drives both the WS
-// files-changed / posts-changed broadcast (ws-frames.js) and the FCM fan-out.
+// Per-kind SHA tables — step_hashes, mermaid_hashes, dxf_hashes, drawing_hashes, card_hashes,
+// pcb_hashes — diffed by push.js detect* functions; the changed set drives both the WS
+// files-changed broadcast (ws-frames.js) and the FCM fan-out.
 
 // --- Notifications inbox (web/lib/notifications.js) ---
 //   GET  /api/notifications?token=X               -> { items: InboxItem[] }   (7-day window)

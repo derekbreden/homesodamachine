@@ -35,9 +35,9 @@
 //
 //   3. WebSocket owner.
 //      Single WebSocket (/ws) for the page. Two roles:
-//        - live-update bridge — dispatch hsm:files-changed,
-//          hsm:posts-changed and hsm:deploy DOM events for the parts
-//          viewer's per-file refresh and the deploy reload logic.
+//        - live-update bridge — dispatch hsm:files-changed and
+//          hsm:deploy DOM events for the parts viewer's per-file
+//          refresh and the deploy reload logic.
 //        - notifications signal — refetch /api/notifications on
 //          every message so the bell + toast track new pushes in
 //          real time.
@@ -455,20 +455,12 @@ import { WS } from "/contracts/ws-frames.js";
         if (msg.recent.files) {
           window.dispatchEvent(new CustomEvent(HSM_EVENTS.FILES_CHANGED, { detail: { files: msg.recent.files } }));
         }
-        if (msg.recent.posts) {
-          window.dispatchEvent(new CustomEvent(HSM_EVENTS.POSTS_CHANGED, { detail: { posts: msg.recent.posts } }));
-        }
       }
       fetchNotifications();
       return;
     }
     if (msg.type === WS.FILES_CHANGED) {
       window.dispatchEvent(new CustomEvent(HSM_EVENTS.FILES_CHANGED, { detail: { files: msg.files || [] } }));
-      fetchNotifications();
-      return;
-    }
-    if (msg.type === WS.POSTS_CHANGED) {
-      window.dispatchEvent(new CustomEvent(HSM_EVENTS.POSTS_CHANGED, { detail: { posts: msg.posts || [] } }));
       fetchNotifications();
       return;
     }
@@ -583,18 +575,13 @@ import { WS } from "/contracts/ws-frames.js";
       .catch(function () { versionInFlight = false; });
   }
 
-  // Default deploy/posts handler for any page that hasn't claimed the
-  // refresh itself. The viewer sets window.__hsmDeploySoft (it refreshes
-  // in place, preserving camera + open modal); content pages reload.
+  // Default deploy handler for any page that hasn't claimed the refresh
+  // itself. The viewer sets window.__hsmDeploySoft (it refreshes in place,
+  // preserving camera + open modal); content pages reload.
   window.addEventListener(HSM_EVENTS.DEPLOY, function (e) {
     if (window.__hsmDeploySoft) return;
     if (e.detail && e.detail.commitChanged === false) return; // socket blip, not a deploy
     dbg("deploy -> reload");
-    window.location.reload();
-  });
-  window.addEventListener(HSM_EVENTS.POSTS_CHANGED, function () {
-    if (window.__hsmDeploySoft) return;
-    dbg("posts-changed -> reload");
     window.location.reload();
   });
 
