@@ -30,7 +30,8 @@ sys.path.insert(
 )
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(_here.parents[1]))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_py_comments
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
@@ -280,7 +281,7 @@ def main():
         )
 
     out_path = Path(__file__).resolve().parent / "coil-mandrel.step"
-    export_step(mandrel, str(out_path))
+    export_assembly(one_body(mandrel, "coil-mandrel", M_PETG_BLACK), str(out_path))
     print(f"\nExported: {out_path}")
 
     variables = {

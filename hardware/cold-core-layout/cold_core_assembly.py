@@ -72,13 +72,13 @@ C_ROD = cq.Color(0.80, 0.82, 0.86)
 C_FITTING = cq.Color(0.86, 0.78, 0.52)
 C_RESERVOIR = cq.Color(0.85, 0.88, 0.92, 0.35)
 C_RES_CAP = cq.Color(0.70, 0.74, 0.80, 0.55)
-C_PLUG = cq.Color(0.35, 0.40, 0.48)
-C_SHROUD = cq.Color(0.30, 0.34, 0.40)
+# The plug, the shroud and the reed bodies are cut by their own generators, which colour their
+# STEPs off `_materials` — the same constants this reads.
+from _materials import C_PLUG, C_REED, C_SHROUD            # noqa: E402
 C_BRIDGE = cq.Color(0.40, 0.44, 0.52)
 C_COPPER = cq.Color(0.80, 0.45, 0.20)
 C_SILICONE = cq.Color(0.92, 0.92, 0.90, 0.60)
 C_FLOAT = cq.Color(0.66, 0.70, 0.75)
-C_REED = cq.Color(0.95, 0.55, 0.85)
 C_PROBE = cq.Color(0.20, 0.55, 0.30)
 
 FOAM_COLORS = {

@@ -36,6 +36,13 @@ M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
 M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
 
+# --- the cold core's own bodies, by what each one is --------------------------
+# `cold-core-layout/cold_core_assembly` places these and the generators below cut them, so the
+# two read the same constant.
+C_PLUG = cq.Color(0.35, 0.40, 0.48)
+C_SHROUD = cq.Color(0.30, 0.34, 0.40)
+C_REED = cq.Color(0.95, 0.55, 0.85)
+
 
 def one_body(shape, name, color) -> cq.Assembly:
     """`shape` as a one-body assembly, so `export_assembly` bakes `color` into its STEP.
