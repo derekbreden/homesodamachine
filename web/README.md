@@ -21,11 +21,11 @@ npm run build:check # same, then exit 1 if a rebuild moved anything — the fix 
 
 ## Dependencies
 
-`package-lock.json` is tracked. It is the repo's record of what the deployed site installs, so it is read like any other artifact here rather than regenerated on demand: `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and fails outright if the lockfile and `package.json` disagree. The pre-commit hook asks the same question with `npm ci --dry-run` whenever either file is staged, so the failure lands on the commit rather than in a Render build log.
+`package-lock.json` is tracked, and is what the deployed site installs. `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and stops when the lockfile and `package.json` disagree; the pre-commit hook runs that same command with `--dry-run` whenever either file is staged.
 
-`overrides` pins `uuid` to `^11.1.1`. Six advisories reach this tree through one package — `uuid` below 11.1.1 misses a buffer bounds check in its v3/v5/v6 generators — and it arrives four levels down, under `firebase-admin` → `@google-cloud/storage` → `retry-request`/`teeny-request` → `uuid`, plus a second path through `gaxios`. No direct dependency can move it; the override is the only lever, and with it the production tree audits clean. `package.json` cannot carry a comment, which is why that reason is written here.
+`overrides` pins `uuid` to `^11.1.1`. Below that it misses a buffer bounds check in its v3/v5/v6 generators. It arrives four levels down — `firebase-admin` → `@google-cloud/storage` → `retry-request`/`teeny-request` → `uuid` — and again through `gaxios`.
 
-Node 22 is the floor, in `engines` and in `.node-version` — `firebase-admin` 14 declares `>=22`, and Render reads `.node-version` from the service's root directory. `npm run audit` is `npm audit --omit=dev`: the production half of the tree, which is the half that faces the internet.
+Node 22 is the floor, in `engines` and in `.node-version`: `firebase-admin` 14 declares `>=22`, and Render reads `.node-version` from the service's root directory. `npm run audit` reads the production half of the tree.
 
 ## Page request lifecycle
 
