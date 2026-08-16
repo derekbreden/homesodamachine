@@ -157,6 +157,7 @@ const BODY = `<div class="wrap">
       <button id="livedebug-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Live-reload debug"></button>
     </div>
 
+    ${EDITIONS.length < 2 ? "" : `
     <div class="setting-row" id="row-edition" hidden>
       <div>
         <div class="setting-label">Edition</div>
@@ -167,7 +168,7 @@ const BODY = `<div class="wrap">
         <button class="segment" type="button" role="radio" aria-checked="false"
                 data-edition="${e.id}" data-help="${e.help}">${e.label}</button>`).join("")}
       </div>
-    </div>
+    </div>`}
   </div>
 </div>
 

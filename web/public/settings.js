@@ -72,7 +72,8 @@
   // hsmEdition cookie the server reads to pick the root. We also write the
   // cookie here so the choice is live on the next viewer navigation without
   // waiting for that script to re-run. Hidden unless dev mode is on, like the
-  // live-debug row.
+  // live-debug row — and rendered at all only where lib/editions.js declares
+  // more than one, so everything below reads a row that may not be there.
   const editionRow = document.getElementById("row-edition");
   const editionHelp = document.getElementById("edition-help");
   const segments = Array.from(document.querySelectorAll("#edition-segmented .segment"));
@@ -84,6 +85,8 @@
     return editionIds.indexOf(id) === -1 ? defaultEdition : id;
   }
   function syncEditionRow() {
+    // One edition is no choice, and the page renders no row for it.
+    if (!editionRow) return;
     editionRow.hidden = !document.documentElement.classList.contains("dev-mode");
     const active = currentEdition();
     for (const b of segments) {
