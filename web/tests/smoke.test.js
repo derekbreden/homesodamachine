@@ -24,7 +24,7 @@ import { start } from "../server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // The web app is rooted at .../web; the larger repo root holds hardware/,
-// posts/, etc. Tests need both paths.
+// tools/, etc. Tests need both paths.
 const WEB_ROOT  = path.resolve(__dirname, "..");
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
@@ -61,7 +61,6 @@ const routes = [
   { path: "/charts",   expect: 200, ct: "text/html" },
   { path: "/drawings", expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
-  { path: "/blog",     expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 
   // Legacy redirects (301). Don't pin Content-Type — express renders a
@@ -73,7 +72,6 @@ const routes = [
   { path: "/dev/settings", expect: 301 },
 
   // JSON APIs that don't touch Postgres
-  { path: "/blog/posts?offset=0", expect: 200, ct: "application/json" },
   { path: "/api/steps",           expect: 200, ct: "application/json" },
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/mermaid",         expect: 200, ct: "application/json" },
@@ -99,7 +97,6 @@ const routes = [
   { path: "/boot.js",             expect: 200, ct: "application/javascript" },
   { path: "/landing.js",          expect: 200, ct: "application/javascript" },
   { path: "/settings.js",         expect: 200, ct: "application/javascript" },
-  { path: "/blog.js",             expect: 200, ct: "application/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "application/javascript" },
   { path: "/content-viewer.js",   expect: 200, ct: "application/javascript" },
   { path: "/glass-animation.js",  expect: 200, ct: "application/javascript" },
@@ -145,31 +142,10 @@ test("WebSocket broadcasters emit frame types via the WS contract", () => {
     );
     assert.doesNotMatch(
       src,
-      /broadcast\(\s*\{\s*type:\s*["'](?:files-changed|posts-changed)["']/,
+      /broadcast\(\s*\{\s*type:\s*["']files-changed["']/,
       `${rel} broadcasts a frame type by literal instead of WS`,
     );
   }
-});
-
-// Blog infinite-scroll contract. /blog/posts hands the client rendered
-// HTML plus the cursor for the next request; the client appends html and
-// stops when hasMore goes false. Shape has to hold even on an empty tree
-// (no posts/ dir): html "", nextOffset 0, hasMore false.
-test("GET /blog/posts returns a paginated JSON page", async () => {
-  const res = await fetch(`${baseUrl}/blog/posts?offset=0`);
-  assert.equal(res.status, 200);
-  const data = await res.json();
-  assert.equal(typeof data.html, "string");
-  assert.equal(typeof data.nextOffset, "number");
-  assert.equal(typeof data.hasMore, "boolean");
-  // Any image in the feed must be lazy — that's the whole point of paging,
-  // and an eager <img> would drag the up-front payload back in.
-  if (data.html.includes("<img")) {
-    assert.match(data.html, /<img[^>]*loading="lazy"/);
-  }
-  // A negative/garbage offset must clamp to 0 rather than error.
-  const bad = await fetch(`${baseUrl}/blog/posts?offset=-5`);
-  assert.equal(bad.status, 200);
 });
 
 // WebSocket channel. Open a connection, wait for the initial `hello`

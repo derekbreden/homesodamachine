@@ -14,7 +14,7 @@
 //   node tools/render/render-step-side-by-side.js \
 //     printed-parts/cold-core/foam-bag-shell/foam-bag-shell.step \
 //     printed-parts/plan-b/foam-bag-shell-racetrack/foam-bag-shell-upper.step \
-//     public/post-images/2026-04-15-foam-shell-old-vs-new.png \
+//     /tmp/foam-shell-old-vs-new.png \
 //     --label-a="round (before)" --label-b="racetrack (after)" \
 //     --at-b archive-plan-b
 //

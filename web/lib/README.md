@@ -34,21 +34,20 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 |---|---|---|
 | [`shell.js`](/web/lib/shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
 | [`landing.js`](/web/lib/landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
-| [`blog.js`](/web/lib/blog.js) | `/blog` | Markdown posts from [`posts/`](/posts/), rendered into the index page (individual posts are `#post-<slug>` anchors). Inline JS in [`public/blog.js`](/web/public/blog.js). |
 | [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | Every page renders [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html), which loads `public/js/viewer/main.js`. Which one it shows — parts, charts, drawings + the assembly deck, or boards — is decided client-side by `currentSection()`. |
 | [`viewer-routes.js`](/web/lib/viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid,cards}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs), `/cards/*` (the assembly deck's pages + the assets they embed, loaded into the viewer's iframes). Walks `hardware/` via [`walk.js`](/web/lib/walk.js). |
 | [`settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |
 | [`events.js`](/web/lib/events.js) | `/ws` | WebSocket channel — one socket per page, owned by [`public/boot.js`](/web/public/boot.js). |
 | [`notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
-| [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `drawing_hashes`, `card_hashes`, `pcb_hashes`, `post_hashes`). |
+| [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `drawing_hashes`, `card_hashes`, `pcb_hashes`). |
 | [`walk.js`](/web/lib/walk.js) | — | `walkFiles(rootDir, exts)` and the per-kind walkers (`walkFilesUnderDir`, `walkPcbBoards`, `walkAssemblyCards`) — shared between `viewer-routes.js` and `push.js`. Every one of them skips a retired tree. |
 | [`retired.js`](/web/lib/retired.js) | — | The `.retired` marker: a directory holding that file, and everything under it, is source kept for reading. Read by `walk.js` (what the site browses) and [`dev-server/deps.js`](/web/dev-server/deps.js) (what the build rebuilds), from here so the two cannot disagree. |
-| [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper, clipboard, file). One source of truth for both nav and notification rows. |
+| [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, clipboard, file). One source of truth for both nav and notification rows. |
 | [`templates/`](/web/lib/templates/) | — | HTML fragments included by the page-render modules above. Currently just `viewer-body.html`. |
 
 ## Conventions
 
-- **Module-load side effects are minimal.** Imports may register module-level constants (`marked.use(...)` in `blog.js` is the one notable exception), but no module starts a server, opens a connection, or schedules a timer at import time. Wiring happens inside the exported `mountXxxRoutes` so server boot order is deterministic.
+- **Module-load side effects are minimal.** Imports may register module-level constants, but no module starts a server, opens a connection, or schedules a timer at import time. Wiring happens inside the exported `mountXxxRoutes` so server boot order is deterministic.
 - **DB optionality.** Modules that touch Postgres check `if (!pool) return [...empty...]` at the call boundary, so the dev server (no DATABASE_URL) and the smoke tests both work without a database.
 - **`window.__hsm` is reserved** for the `/3d` viewer's Puppeteer escape hatch (see [`tools/render/render-step.js`](/tools/render/render-step.js)). Don't write to it from server-side modules or `boot.js`.
 - **Inline JS in lib/ is a smell.** If a page needs more than ~10 lines of client-side code, extract to `public/<page>.js` linked via `<script src="..." defer>`. The exception is the synchronous pre-paint class flips in `shell.js` HEAD_TAGS, which must run during head parse to avoid FOUC.

@@ -28,7 +28,7 @@
 //   Boot the historical server from a throwaway git worktree at the resolved
 //   commit (most recent commit on `main` on or before <date> 23:59:59, or the
 //   literal SHA), then screenshot http://localhost:<ephemeral-port><path>.
-//   With --at, the first arg MUST be a path (e.g. "/", "/blog", "/3d"), not
+//   With --at, the first arg MUST be a path (e.g. "/", "/3d"), not
 //   a full URL — the tool prefixes baseUrl itself.
 //   Without --at, current behavior is preserved: the first arg is treated as
 //   a fully-qualified URL and puppeteer hits it directly.
@@ -87,7 +87,7 @@ if (!Number.isFinite(height) || height <= 0) usageAndExit("invalid --height");
 const looksLikeFullUrl = /^https?:\/\//i.test(target);
 if (at && looksLikeFullUrl) {
   usageAndExit(
-    "with --at, the first argument must be a path (e.g. '/', '/blog'), " +
+    "with --at, the first argument must be a path (e.g. '/', '/3d'), " +
       "not a full URL; the tool prefixes http://localhost:<port> itself",
   );
 }
