@@ -75,7 +75,8 @@ function renderPart(part, { hero = false } = {}) {
     .join("");
   card.innerHTML = thumbHtml(part) +
     `<div class="label">${dir ? `<span class="dir">${esc(dir)}</span>` : ""}` +
-    `${esc(part.name)}${chips ? `<span class="kinds">${chips}</span>` : ""}</div>`;
+    `<span class="name-row"><span class="name">${esc(part.name)}</span>` +
+    `${chips ? `<span class="kinds">${chips}</span>` : ""}</span></div>`;
 
   card.addEventListener("click", (e) => {
     // A chip opens its own representation; the card opens the primary.

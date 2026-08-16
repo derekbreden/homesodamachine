@@ -48,7 +48,7 @@ h1 {
 }
 /* Mobile-first: stacked, both controls full-width — same shape as the
    iOS onboarding "Scan for Hardware" / "Enter Demo Mode" pills in
-   ScanView.swift. Above ~480px there's room for them side-by-side, so
+   ScanView.swift. Above ~520px there's room for them side-by-side, so
    we promote the form to a row. */
 form {
   display: flex;
@@ -57,7 +57,7 @@ form {
   width: 100%;
   max-width: 24rem;
 }
-@media (min-width: 480px) {
+@media (min-width: 520px) {
   form {
     flex-direction: row;
     /* Wider on desktop so the button's full-sentence label sits next to
@@ -77,14 +77,19 @@ input[type="email"] {
   border-radius: 6px;
   transition: border-color 0.15s;
 }
-@media (min-width: 480px) {
+@media (min-width: 520px) {
   input[type="email"] { flex: 1 1 auto; width: auto; }
 }
-input[type="email"]::placeholder { color: var(--text-3); }
+/* The field's only visible label, in the tone body copy is set in. */
+input[type="email"]::placeholder { color: var(--text-2); }
 input[type="email"]:focus {
   outline: none;
   border-color: var(--accent);
 }
+/* Keyboard focus, on both controls. The button's ring is white — it stands on
+   the accent. */
+input[type="email"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.signup-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 .signup-btn {
   position: relative;
   width: 100%;
@@ -94,16 +99,19 @@ input[type="email"]:focus {
   font-weight: 500;
   background: var(--accent);
   color: #ffffff;
-  border: none;
+  /* 1px, transparent — the input spends the same on its border, and stacked
+     the two pills stand at one height. */
+  border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, transform 0.05s;
 }
-@media (min-width: 480px) {
-  .signup-btn { width: auto; min-width: 7rem; }
+@media (min-width: 520px) {
+  /* The label does not wrap, so the button must not be squeezed under it. */
+  .signup-btn { width: auto; min-width: 7rem; flex-shrink: 0; }
 }
-.signup-btn:hover { background: #5599ff; }
+.signup-btn:hover:not(:disabled) { background: #5599ff; }
 .signup-btn:active { transform: scale(0.97); }
 .signup-btn:disabled { cursor: default; }
 .signup-btn .label {
@@ -123,6 +131,7 @@ input[type="email"]:focus {
   border-top-color: #ffffff;
   border-radius: 50%;
   opacity: 0;
+  transition: opacity 0.15s;
   animation: signup-spin 0.7s linear infinite;
   pointer-events: none;
 }
@@ -172,6 +181,7 @@ const BODY = `<main>
       type="email"
       name="email"
       placeholder="you@example.com"
+      aria-label="Email address"
       required
       autocomplete="email"
     />

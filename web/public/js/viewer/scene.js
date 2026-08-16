@@ -133,11 +133,27 @@ addStudioLighting(scene);
 // that on every face. The pointer-events:none on the canvas passes empty
 // corners through to OrbitControls; the visible cube IS the touch
 // target, so growing the canvas grows the touch area too.
-const gizmoSize = window.innerWidth < 600 ? 140 : 180;
+function gizmoEdge() {
+  return window.matchMedia("(max-width: 600px)").matches ? 140 : 180;
+}
+let gizmoSize = gizmoEdge();
 const gizmoRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 gizmoRenderer.setPixelRatio(window.devicePixelRatio);
 gizmoRenderer.setSize(gizmoSize, gizmoSize);
 gizmoRenderer.setClearColor(0x000000, 0);
+// The panels that stand clear of the cube lay themselves out against
+// --cube-size, which is the edge the canvas is actually drawn at — so the
+// window can cross the breakpoint and the two stay in agreement.
+// resizeRenderer calls this on every observed box change.
+export function syncGizmoSize() {
+  const next = gizmoEdge();
+  if (next !== gizmoSize) {
+    gizmoSize = next;
+    gizmoRenderer.setSize(gizmoSize, gizmoSize);
+  }
+  document.documentElement.style.setProperty("--cube-size", gizmoSize + "px");
+}
+syncGizmoSize();
 export const gizmoCanvas = gizmoRenderer.domElement;
 gizmoCanvas.id = "gizmoCanvas";
 // .cad-gizmo: position:absolute inside the wrapper (top-right, safe-area
@@ -360,6 +376,7 @@ function renderGizmo() {
 // window size if the parent has no measured rect (e.g. headless tools that
 // drove openDetail and may inspect the canvas before layout settles).
 export function resizeRenderer() {
+  syncGizmoSize();
   const parent = renderer.domElement.parentElement;
   let w = 0, h = 0;
   if (parent && parent !== canvasHost) {

@@ -70,15 +70,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* The bar's own inset stops at the safe area; the rest of it belongs to the
+   links, which spend it as hit area (see .nav-icon). The gap closes as the bar
+   narrows, so nine icons in dev mode still land inside a phone's width and the
+   right cluster keeps its edge. */
 .site-nav {
   display: flex;
-  gap: 1.5rem;
+  gap: clamp(0.25rem, 2.2vw, 0.75rem);
   align-items: center;
   padding:
-    calc(env(safe-area-inset-top, 0px) + 0.625rem)
-    calc(env(safe-area-inset-right, 0px) + 1.25rem)
-    0.625rem
-    calc(env(safe-area-inset-left, 0px) + 1.25rem);
+    env(safe-area-inset-top, 0px)
+    calc(env(safe-area-inset-right, 0px) + 0.875rem)
+    0
+    calc(env(safe-area-inset-left, 0px) + 0.875rem);
   font-size: 0.875rem;
   line-height: 1.5;
   border-bottom: 1px solid var(--border);
@@ -93,11 +97,16 @@ body {
   letter-spacing: 0.01em;
   display: inline-flex;
   align-items: center;
+  transition: color 0.15s;
 }
 .site-nav a:hover { color: var(--text); }
-.site-nav a.active { color: var(--text); font-weight: 600; }
+/* The page you are on, in the accent — the colour nothing else in the bar
+   reaches, hover included. */
+.site-nav a.active { color: var(--accent); }
+/* The link fills the bar's height and takes the gap's other half, so the tap
+   lands on the icon rather than between two of them. */
 .site-nav a.nav-icon {
-  padding: 0.125rem 0;
+  padding: 0.75rem 0.375rem;
   position: relative;
 }
 .site-nav a.nav-icon svg {
@@ -113,7 +122,7 @@ body {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: clamp(0.25rem, 2.2vw, 0.75rem);
 }
 .site-nav .nav-bell {
   display: none; /* shown only when html.notifs-enabled */
@@ -182,6 +191,8 @@ html.dev-mode .site-nav-public a[data-nav="build"] {
 }
 .ios-toggle.on { background: var(--accent); }
 .ios-toggle.on::before { transform: translateX(20px); }
+.ios-toggle:hover:not(:disabled) { background: rgba(120,120,128,0.45); }
+.ios-toggle.on:hover:not(:disabled) { background: #5599ff; }
 .ios-toggle:disabled { cursor: default; }
 .ios-toggle .ios-toggle-spinner {
   position: absolute;
@@ -239,7 +250,9 @@ html.dev-mode .site-nav-public a[data-nav="build"] {
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 12px 14px;
+  /* The ✕ carries its own 8px of hit area, which completes the 14px the title
+     sits in on the other side. */
+  padding: 12px 6px 12px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -271,9 +284,10 @@ html.dev-mode .site-nav-public a[data-nav="build"] {
   color: var(--text-2);
   font-size: 18px;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 11px 8px;
   line-height: 1;
   flex-shrink: 0;
+  transition: color 0.15s;
 }
 .hsm-toast-close:hover { color: var(--text); }
 @keyframes hsm-toast-in {
@@ -311,7 +325,7 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")===
 <link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon-180.png">
 <meta name="theme-color" content="#1a1a2e">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Home Soda Machine">
+<meta name="apple-mobile-web-app-title" content="Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`;
 
 export function renderHead({ title, pageStyles = "", pageHead = "" }) {
