@@ -1,4 +1,10 @@
-"""The sub-assembly scenes the unit cards show — one picture per finished unit.
+"""Every picture the assembly cards show, and what each one is OF.
+
+TWO KINDS OF SUBJECT, ONE MECHANISM. A SCENE is a set of bodies the machine places — a finished
+sub-assembly, or a group a card names together. A PART SHOT is one STEP the tree already keeps.
+Both are drawn by `render_scenes.py` through `tools/render/render-step-posed.js`, and both leave
+a `.scene.json` beside the PNG holding the digest of the exact geometry drawn — so a part moving
+under its own picture is a fact the tree holds rather than something a reader has to notice.
 
 A SCENE IS A SUBSET OF THE MACHINE, NOT A FILE. `enclosure-back-top` with everything bolted,
 pressed and strapped to it is a real thing a person holds on the bench, and no STEP in this repo
@@ -19,8 +25,8 @@ mouths, or to the unit whose rib closes on it — which is how `fluid-14` is par
 core's finished state with its far end still hanging, and how the pump's two hose stubs come
 with the pump.
 
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py          # every one
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top # one
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py           # every one
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top  # one
 
 Nothing here is committed but the PNG and its fingerprint: the scene STEPs land in `out/`, which
 `.gitignore` holds. `//:render-scenes` runs the render when the assembly's STEP moves.
@@ -271,9 +277,144 @@ SCENES = (
              "that mouth for the front half to take. The tray is not in yet: it goes east into "
              "its sleeve through the −X wall, with the box standing.",
     ),
+    # TWO UNITS THAT ARE NOT BUILT ON A PIECE. Both of these are a group of bodies a card names
+    # together — the refrigeration stratum, the power column — and neither is a printed part or a
+    # file. `roots` takes the bodies themselves and the fastening table brings what hangs off
+    # them, which is how the compressor arrives carrying its own cutoff and clamp.
+    Scene(
+        "en04-stratum", "The refrigeration stratum",
+        roots=("compressor", "condenser+fan"), inner=(), flip=None, also=(), later=(),
+        # Off the front-left corner and above, which is the corner the pair presents to a
+        # bench: the can's own flank, the block beside it, and the joint drawn between them.
+        cam=(-0.9, -1.0, 0.55), up=(0, 0, 1), zoom=3.0, look="centre",
+        note="Compressor west, condenser + fan east, closed on the shell's own tangent with "
+             "the discharge joint made on that line — the pair as it stands on the floor slab.",
+    ),
+    Scene(
+        "en06-column", "The power column",
+        roots=("psu", "pcba", "relay-1", "relay-2", "ground-stack"),
+        inner=(), flip=None, also=(), later=(),
+        # Square on to the +X flank the column stands down, from inside the box.
+        cam=(-1.0, -0.25, 0.35), up=(0, 0, 1), zoom=2.8, look="centre",
+        note="Down the +X flank — the PSU aft, the controller board forward of it, both relays "
+             "and the ground stack, every mounting plane on the one seat.",
+    ),
 )
 
 SCENE_BY_ID = {s.id: s for s in SCENES}
+
+
+# --- a part on its own ------------------------------------------------------
+#
+# A SCENE IS A SUBSET OF THE MACHINE; A PART SHOT IS ONE STEP. The card that names a single part
+# shows that part with nothing standing on it, so its subject is a FILE rather than a set of
+# bodies — and the file is the one the tree already keeps for that part. `Scene` cannot say that:
+# five of these are not bodies the machine places at all, and `members` is right to raise on a
+# name no assembly has.
+#
+# WHAT IT SHARES WITH A SCENE IS THE WHOLE POINT. Same renderer, same sidecar, same `geometry`
+# digest of the exact bytes drawn — so a part shot goes stale the way a scene does, which is to
+# say it does not: `render_scenes` redraws it when its STEP moves and `//:render-scenes` declares
+# the picture it wrote.
+#
+# `id` IS THE CARD'S OWN FILE NAME. `img/<id>.png` is what the card's `<img src>` already reads,
+# so a part shot takes over the drawing of a file that is already there rather than adding one
+# beside it under a name nobody references.
+#
+# `step` is repo-relative. `cam`, `up` and `zoom` reach `render-step-posed.js` unchanged; it
+# targets the subject's own bounding-box centre and sizes the frame off its own radius, so an
+# entry wanting a plain three-quarter view states no pose at all.
+#
+# `solid` IS WHETHER THE WALLS ARE OPAQUE, and it is the one thing here a picture can get wrong
+# without failing. A part a hand holds is drawn solid, the way the hand meets it. A part whose
+# card is about what is INSIDE it — the packed machine, a shroud that is a cup — is drawn
+# through, and the viewer ghosts it.
+Part = namedtuple("Part", "id title step cam up zoom solid",
+                  defaults=((1.0, 1.0, 1.0), (0, 0, 1), 3.0, True))
+
+#   THREE OF THESE DRAW ONE STEP. `enclosure-back-top` is the wall a card looks at from outside,
+# the wall another looks along for its bosses, and the wall a third looks into for its wells —
+# one piece, three things to teach, three poses. What makes them three pictures is the camera,
+# which is why the camera is in the row.
+PARTS = (
+    Part("en01-shell", "Enclosure, four pieces",
+         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+         cam=(0.75, -1.0, 0.55)),
+    # The bare wall from OUTSIDE — the union bores in a rectangle, the C14 window under them.
+    Part("en02-rearwall", "Enclosure back top, rear wall",
+         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+         cam=(0.35, 1.0, 0.3)),
+    Part("en03-compressor", "Compressor",
+         "hardware/reference/compressor/compressor.step"),
+    Part("en05-coldcore", "Cold core",
+         "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+         cam=(0.8, -1.0, 0.5)),
+    Part("en08-drippan", "Drip pan",
+         "hardware/printed-parts/enclosure/drip-pan/drip-pan.step",
+         cam=(0.75, -1.0, 0.55)),
+    Part("en09-hopper", "Hopper funnel",
+         "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step"),
+    # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera
+    # stands across the box, and the walls between it and them are drawn through.
+    Part("es01-wall-bosses", "Enclosure back top, +X wall bosses",
+         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+         cam=(-1.0, -0.35, 0.3), zoom=2.6, solid=False),
+    # The wells are pockets in the wall itself, seen from the box's own side of it.
+    Part("wago-column", "Enclosure back top, Wago wells",
+         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+         cam=(-1.0, 0.45, 0.25), zoom=2.2, solid=False),
+    Part("asse1022-chain", "ASSE 1022 chain, made up",
+         "hardware/reference/asse1022-assembly/asse1022-assembly.step"),
+    # Through the walls: a pack is what is inside it.
+    Part("ip03-manifold-pack", "Flavour manifold, packed",
+         "hardware/manifold-layout/manifold-layout.step", solid=False),
+    Part("fu02-faucet", "Faucet, made up",
+         "hardware/faucet-layout/faucet-assembly.step"),
+    # Through the walls: the three pieces and the scarf seams between them.
+    Part("fu05-shell", "Touch-Flo shell, three pieces",
+         "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step", solid=False),
+    Part("water-split", "Tap-water split",
+         "hardware/reference/water-split/water-split.step"),
+    Part("coil-mandrel", "Coil mandrel",
+         "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step"),
+    # 185 mm of plug, 8.5 across. NEARLY DOWN ITS OWN AXIS is the only view of it that is not a
+    # line: what there is to see is the section, and the length foreshortens behind it.
+    Part("copper-plug", "Copper plug, port column",
+         "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
+         cam=(0.22, -0.28, 1.0), zoom=2.2),
+    # Through the walls: the card is about the pack, and this box is black PETG.
+    Part("enclosure-assembly", "The machine, packed",
+         "hardware/manifold-layout/enclosure-assembly.step",
+         cam=(0.85, -1.0, 0.5), solid=False),
+    # Through the walls: the stack IS the thing — top cap, shell, bottom cap, lids outermost.
+    Part("foam-assembly-stack", "Cold core, the stack",
+         "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+         cam=(1.0, -0.55, 0.35), solid=False),
+    Part("foam-cap-top", "Cold core, top cap",
+         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step"),
+    # Through the walls: the cavity is what this picture is of.
+    Part("foam-shell-cavity", "Cold core shell, the cavity",
+         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step", solid=False),
+    Part("pcba-assembly", "Controller board in its tray",
+         "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step"),
+    # Through the walls: what the shroud is, is the bore and the lip inside it.
+    Part("prv-shroud", "PRV shroud",
+         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step", solid=False),
+    Part("reservoir-body", "Flavour reservoir",
+         "hardware/printed-parts/cold-core/reservoir/reservoir-left.step"),
+    Part("reservoir-cap", "Flavour reservoir cap",
+         "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step"),
+)
+
+PART_BY_ID = {p.id: p for p in PARTS}
+
+
+def part_digest(part) -> str:
+    """A name for a part shot's own tuple — its subject and its pose."""
+    h = hashlib.blake2b(digest_size=16)
+    h.update(repr(tuple(part)).encode())
+    return h.hexdigest()
+
 
 # The scene that shows a unit BEFORE anything mounts to it. A pair listed here is drawn from the
 # same roots and differs only in what is allowed to stand on them, which is what makes the two
