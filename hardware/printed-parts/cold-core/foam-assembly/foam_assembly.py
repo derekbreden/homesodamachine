@@ -77,6 +77,7 @@ from _foam_cap import cap_face_z, lid_total_height, stack_floor_z
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 import _routing
+import _materials as _mat
 
 # The one figure whoever seats this assembly needs: how far the cap face stands over the floor
 # the stack is set down on. Both planes are `_foam_cap`'s, beside the lid whose faces they are.
@@ -91,18 +92,14 @@ RESERVOIR_DIR = _cold_core / "reservoir"
 RESERVOIRS = {"reservoir A": "reservoir-right", "reservoir B": "reservoir-left"}
 RESERVOIR_CAP_Z = routes.reservoir_cap_z
 
-# Translucent shell so the caps read through it; distinct flats per cap layer, each translucent
-# so the vessel and the lines standing inside the stack read through the cap that closes them.
-#
-# THESE ARE THE COLOURS THE FIVE FOAM BODIES CARRY EVERYWHERE. They are baked into
-# `foam-assembly.step` here, and `cold-core-layout/cold_core_assembly` reads them off this
-# module for the same five bodies it places itself.
-SHELL_COLOR = cq.Color(0.62, 0.78, 0.95, 0.25)
+# The five foam bodies' colours are `_materials`, which `foam_cap` and `foam_shell` bake into
+# each piece's own STEP and `cold_core_assembly` places them with.
+SHELL_COLOR = _mat.C_FOAM_SHELL
 COLORS = {
-    "foam-cap-top": cq.Color(0.90, 0.66, 0.32, 0.55),        # amber
-    "foam-cap-lid-top": cq.Color(0.97, 0.85, 0.55, 0.55),    # pale amber
-    "foam-cap-bottom": cq.Color(0.45, 0.70, 0.45, 0.55),     # green
-    "foam-cap-lid-bottom": cq.Color(0.66, 0.86, 0.62, 0.55), # pale green
+    "foam-cap-top": _mat.C_CAP_TOP,
+    "foam-cap-lid-top": _mat.C_CAP_LID_TOP,
+    "foam-cap-bottom": _mat.C_CAP_BOTTOM,
+    "foam-cap-lid-bottom": _mat.C_CAP_LID_BOTTOM,
 }
 
 # The spool each potted route is cut off, in `_routing.SPOOLS`' own keys — the same six rolls
