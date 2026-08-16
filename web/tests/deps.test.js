@@ -141,7 +141,34 @@ test("the build order respects every STEP-load edge (producers before consumers)
       }
     }
   }
-  assert.equal(bad.length, 0, `ordering violations:\n${bad.join("\n")}`);
+  // A CYCLE IS THE CAUSE THIS TEST KEEPS FINDING, so it is the cause this test names.
+  // `orderOf` degrades on one rather than throwing — it returns an order that is not
+  // topological and says nothing — so the only surfacing is an out-of-order pair here, and
+  // a pair alone does not say which loop put it there. The loop is read off the same map
+  // already in hand, so naming it costs nothing and it is what a reader has to find anyway.
+  const cycles = [];
+  const done = new Set();
+  const onStack = new Set();
+  const trail = [];
+  function walk(node) {
+    if (done.has(node)) return;
+    if (onStack.has(node)) {
+      cycles.push([...trail.slice(trail.indexOf(node)), node].map(rel).join(" -> "));
+      return;
+    }
+    onStack.add(node);
+    trail.push(node);
+    for (const dep of deps.get(node) || []) walk(dep);
+    trail.pop();
+    onStack.delete(node);
+    done.add(node);
+  }
+  for (const node of deps.keys()) walk(node);
+  const report = [
+    bad.length ? `ordering violations:\n${bad.join("\n")}` : "",
+    cycles.length ? `cycles (the usual cause):\n${cycles.join("\n")}` : "",
+  ].filter(Boolean).join("\n\n");
+  assert.equal(bad.length + cycles.length, 0, report);
 });
 
 test("short basenames don't substring-match longer step names (collision regression)", () => {
@@ -225,6 +252,53 @@ test("affectedBuildOrder: one edit's wave lists each script once, seeds first, p
   if (producer !== -1 && enclosureAssembly !== -1) {
     assert.ok(producer < enclosureAssembly,
       "foam_assembly.py must precede the enclosure assembly that loads its STEP");
+  }
+});
+
+test("a STEP named in a comment is prose, not a load (phantom-edge regression)", () => {
+  // A comment in a SHARED module is the costly case: the step it names resolves to every
+  // runnable that imports that module, so one sentence becomes an edge per importer, and one
+  // pointing back upstream closes a cycle that costs `buildOrder` its topological order.
+  //
+  // A STRING LITERAL STILL COUNTS, and must: a generator names its own outputs in code and in
+  // the `-> x.step` lines it prints, and `buildProducerMap` reads exactly those. That asymmetry
+  // is the point of the scanner — blanking strings alongside comments would lose the producer
+  // and every edge downstream of it.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "deps-comment-"));
+  try {
+    const partDir = path.join(root, "part");
+    fs.mkdirSync(partDir);
+    // The producer names its own output in a string, the way _cadq_export callers do.
+    fs.writeFileSync(
+      path.join(partDir, "part.py"),
+      'if __name__ == "__main__":\n    export(shape, "part.step")\n',
+    );
+    fs.writeFileSync(path.join(partDir, "part.step"), "ISO-10303-21;\n");
+
+    // A shared module that only MENTIONS the step, and a runnable that imports it.
+    fs.writeFileSync(path.join(root, "_notes.py"), "# TPU gasket per cap (part.step).\nVALUE = 1\n");
+    fs.writeFileSync(path.join(root, "importer.py"), 'import _notes\nif __name__ == "__main__":\n    pass\n');
+
+    // A genuine consumer: it loads the step in code.
+    fs.writeFileSync(
+      path.join(root, "real.py"),
+      'if __name__ == "__main__":\n    load("part.step")\n',
+    );
+
+    assert.equal(
+      path.basename(buildProducerMap([root]).get("part.step") || ""),
+      "part.py",
+      "a producer names its output in a string literal — stripping must not reach it",
+    );
+
+    const consumers = findScriptsConsumingStep("part.step", [root]).map((p) => path.basename(p));
+    assert.deepEqual(
+      consumers.sort(),
+      ["real.py"],
+      "a comment naming a step invented an edge (and, through a shared module, one per importer)",
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
   }
 });
 
