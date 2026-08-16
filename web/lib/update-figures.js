@@ -87,7 +87,7 @@ const WATER_PATH = `
     ${waterNode(380, "union tee", "1/4 · flavor")}
     ${waterNode(520, "pump", "moulded barbs")}
     <text x="335" y="118" class="uf-sub uf-live" text-anchor="middle">1/4 inch from the preventer to the pump</text>
-    <text x="495" y="42" class="uf-sub" text-anchor="middle">stub</text>
+    <text x="495" y="28" class="uf-sub" text-anchor="middle">stub</text>
   </g>
 </svg>`;
 
@@ -107,16 +107,16 @@ function pasteGrid(total, missing, cols, x0, y0, s, gap) {
 }
 const PASTE_PADS = `
 <svg viewBox="0 0 620 300" class="uf" role="img" aria-label="330 surface-mount lead pads drawn as squares. 148 of them, drawn hollow, had no opening in the exported paste layer.">
-  ${pasteGrid(330, 148, 22, 60, 40, 14, 6)}
-  <text x="60" y="26" class="uf-lab">330 surface-mount lead pads</text>
+  ${pasteGrid(330, 148, 30, 42, 40, 13, 5)}
+  <text x="42" y="26" class="uf-lab">330 surface-mount lead pads</text>
 
-  <g transform="translate(60,258)">
+  <g transform="translate(42,258)">
     <rect x="0" y="-10" width="13" height="13" rx="1" stroke="var(--warn)" stroke-width="1.2" fill="none"/>
     <text x="22" y="0" class="uf-lab">148 — no paste opening</text>
     <rect x="230" y="-10" width="13" height="13" rx="1" fill="var(--text-3)"/>
     <text x="252" y="0" class="uf-lab">182 — opening present</text>
   </g>
-  <text x="60" y="286" class="uf-sub">Nine integrated circuits would have been placed onto bare metal.</text>
+  <text x="42" y="286" class="uf-sub">Nine integrated circuits would have been placed onto bare metal.</text>
 </svg>`;
 
 // ── Three boards and a phone ─────────────────────────────────────────────────
@@ -173,9 +173,11 @@ const MANIFOLD_ABSORBED = `
   <text x="30" y="138" class="uf-lab">shipped on their own carriers.</text>
   <text x="30" y="170" class="uf-sub">Nothing ships under a valve now,</text>
   <text x="30" y="188" class="uf-sub">and nothing is billed for one.</text>
-  <text x="396" y="216" class="uf-sub">Printed wall to wall in the piece's own material.</text>
-  <text x="396" y="234" class="uf-sub">The manifold lifts out as one body, across eight</text>
-  <text x="396" y="252" class="uf-sub">parted joints, with the carbonator still pressurised.</text>
+  <text x="396" y="214" class="uf-sub">Printed wall to wall in the piece's</text>
+  <text x="396" y="230" class="uf-sub">own material. The manifold lifts out</text>
+  <text x="396" y="246" class="uf-sub">as one body, across eight parted</text>
+  <text x="396" y="262" class="uf-sub">joints, with the carbonator still</text>
+  <text x="396" y="278" class="uf-sub">pressurised.</text>
 </svg>`;
 
 // ── What the vessel was, six times ───────────────────────────────────────────
@@ -189,7 +191,7 @@ function vesselCell(cx, name, when, shape, live) {
     <text x="${cx}" y="168" class="uf-dim" text-anchor="middle">${when}</text>`;
 }
 const VESSEL_SHAPES = `
-<svg viewBox="0 0 620 210" class="uf" role="img" aria-label="Six vessel geometries in the order they were live: a welded round cylinder, an off-the-shelf air tank, a racetrack body rolled from sheet, a printed plastic sphere, two press-formed half-shells, and finally a commodity stainless tube capped with two laser-cut discs.">
+<svg viewBox="0 34 620 176" class="uf" role="img" aria-label="Six vessel geometries in the order they were live: a welded round cylinder, an off-the-shelf air tank, a racetrack body rolled from sheet, a printed plastic sphere, two press-formed half-shells, and finally a commodity stainless tube capped with two laser-cut discs.">
   ${vesselCell(62, "welded tube", "March", (x) => `<rect x="${x - 20}" y="52" width="40" height="66" rx="4"/><path d="M${x - 20} 62 Q${x} 70 ${x + 20} 62"/>`)}
   ${vesselCell(158, "air tank", "16 Apr", (x) => `<rect x="${x - 32}" y="68" width="64" height="34" rx="17"/><path d="M${x + 32} 85 L${x + 40} 85"/>`)}
   ${vesselCell(254, "racetrack", "Apr", (x) => `<rect x="${x - 34}" y="65" width="68" height="40" rx="20"/><path d="M${x - 14} 65 L${x - 14} 105 M${x + 14} 65 L${x + 14} 105"/>`)}
@@ -267,17 +269,21 @@ const MARKS = [
 const MONTHS_T = [[0, "Mar"], [25, "Apr"], [55, "May"], [86, "Jun"], [116, "Jul"], [147, "Aug"]];
 
 const TIMELINE = `
-<svg viewBox="0 0 620 200" class="uf" role="img" aria-label="A timeline from 7 March to 15 August 2026 marking eighteen events, from the workshop purchase through the first hand-tapped thread, the first watertight reservoir, the first boards ordered, and the controller board's first hour on a bench.">
+<svg viewBox="0 34 620 176" class="uf" role="img" aria-label="A timeline from 7 March to 15 August 2026 marking eighteen events, from the workshop purchase through the first hand-tapped thread, the first watertight reservoir, the first boards ordered, and the controller board's first hour on a bench.">
   <path d="M40 98 L580 98" stroke="var(--text-3)" stroke-width="1.5" stroke-linecap="round"/>
 
-  ${MARKS.map(([d, title, label, side]) => {
+  ${/* The plain days go down first. Two of them fall within a few days of a
+        labelled one, close enough that the dots touch, and a grey circle laid
+        over an accented one leaves a wedge of itself showing. */""}
+  ${MARKS.filter(([, , label]) => !label).map(([d, title]) =>
+    `<g><title>${title}</title>
+      <circle cx="${T_X(d)}" cy="98" r="3" fill="var(--text-3)"/></g>`).join("")}
+
+  ${MARKS.filter(([, , label]) => label).map(([d, title, label, side]) => {
     const x = T_X(d);
-    const big = !!label;
     const dot = `<g><title>${title}</title>
-      <circle cx="${x}" cy="98" r="${big ? 5 : 3}" fill="${big ? "var(--accent)" : "var(--text-3)"}"
-        stroke="var(--bg)" stroke-width="${big ? 2 : 0}"/></g>`;
-    if (!big) return dot;
-    const anchor = x > 545 ? "end" : x < 60 ? "start" : "middle";
+      <circle cx="${x}" cy="98" r="5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/></g>`;
+    const anchor = x > 590 ? "end" : x < 40 ? "start" : "middle";
     const tx = anchor === "end" ? x + 6 : x;
     return side === "up"
       ? `${dot}<path d="M${x} 91 L${x} 70" stroke="var(--accent)" stroke-width="1"/>
@@ -372,6 +378,9 @@ export const FIGURE_CSS = `
    drawn for the figure scrolls in its own track rather than shrinking them. */
 .up-fig-scroll { overflow-x: auto; overscroll-behavior-x: contain; max-width: 100%;
   border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+/* Once it actually scrolls it takes the tab order, and takes the site's ring
+   with it rather than the browser's own amber one. */
+.up-fig-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .up-fig svg.uf { width: 100%; min-width: 34rem; height: auto; display: block; padding: .5rem 0; }
 .up-fig img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--border); }
 .up-fig figcaption { margin: .6rem 0 0; font-size: .82rem; line-height: 1.5; color: var(--text-2); }
