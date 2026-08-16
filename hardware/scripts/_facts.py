@@ -66,6 +66,23 @@ DECLARED_RUN_NEIGHBOURS = (
     ("fluid-4", 6.0),
 )
 
+# The bodies whose ports a printed card holds its own sentence against — `assembly/cards/`,
+# which is the only reader of `card_ports`. A name here is a name a card asserts on; the
+# machine's other seventy-odd bodies present ports this file does not write down.
+# The two flavour bulkheads are not named in that source — the deck reaches them by walking
+# `constants["PANEL_X"]`, so a column added there needs a row here.
+CARD_PORT_BODIES = (
+    "asse1022-assembly",
+    "bulkhead-carb",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-b",
+    "bulkhead-water",
+    "digiten-flow",
+    "foam-assembly",
+    "vk-solenoid",
+    "water-split",
+)
+
 
 def _plain(v):
     """A value as JSON holds it. Namedtuples keep their field names; anything this does not
@@ -158,6 +175,24 @@ def gather(whole=None, module=None):
         import wr1110_regulator as _wr1110
         carried["wr1110.barrel"] = {"pos": _plain(carries["wr1110"](_wr1110.barrel()[0])[0])}
 
+    # THE PORTS THE PRINTED CARDS ARE HELD AGAINST, as the machine placed them, unrounded.
+    # `assembly/cards/_cards_ip.py` and `_cards_fs.py` assert a card's sentence against these:
+    # the core's three cap conduits opening upward, the union's inboard collet and the ASSE
+    # chain's inlet standing on one point, the split's branch axis, the meter against the carb
+    # union, V-K's outlet facing +Y, the vent tip facing down, and `bulkhead-water` presenting
+    # both collets. A BODY IS HERE BECAUSE A CARD NAMES IT — the rest of the machine's ports are
+    # not written down, and a card reaching for one gets a KeyError rather than a wrong sentence.
+    ports = {}
+    for _body in CARD_PORT_BODIES:
+        _fr = (getattr(a, "frames", {}) or {}).get(_body)
+        if _fr is None:
+            raise KeyError(
+                f"{_body!r} is recorded for the card deck to assert on and no placed body "
+                f"carries that name — rename it in assembly/cards/ too, or drop it from "
+                f"`CARD_PORT_BODIES`.")
+        ports[_body] = {n: {"pos": _plain(_pos), "axis": _plain(_ax), "diam": float(_d)}
+                        for n, (_pos, _ax, _d) in _fr.ports.items()}
+
     # The mouth a bulkhead presents, carried to where the machine stands it — the same station
     # `back_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
     import jg_bulkhead_union as _jg
@@ -237,6 +272,7 @@ def gather(whole=None, module=None):
         },
         "bodies": bodies,
         "mouths": mouths,
+        "card_ports": ports,
         "run_near": run_near,
         "runs": runs,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2)},
@@ -291,6 +327,15 @@ class _BB:
                 f"z[{self.zmin:.3f},{self.zmax:.3f}])")
 
 
+class _Frame:
+    """One placed body's ports, reachable the way the assembly's own frame is."""
+
+    __slots__ = ("ports",)
+
+    def __init__(self, d):
+        self.ports = {n: (tuple(v["pos"]), tuple(v["axis"]), v["diam"]) for n, v in d.items()}
+
+
 class _Row(dict):
     """A scorecard row, reachable by attribute so a driver reads `.length` and not `["length"]`."""
 
@@ -341,6 +386,13 @@ class Facts:
     @property
     def faces(self):
         return self._f["faces"]
+
+    @property
+    def card_ports(self):
+        """`card_ports[body].ports[name]` -> (pos, axis, diam), at the precision the machine
+        placed it. Read by `assembly/cards/_cards_ip.py` and `_cards_fs.py`, and holding only
+        the bodies those two name (`CARD_PORT_BODIES`)."""
+        return {b: _Frame(v) for b, v in self._f["card_ports"].items()}
 
     @property
     def carried_points(self):
