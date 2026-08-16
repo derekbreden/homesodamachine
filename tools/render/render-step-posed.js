@@ -128,9 +128,15 @@ async function renderOne({ stepRel, outAbs, opts }) {
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
     console.log("waiting for viewer module...");
+    // THIS DEADLINE IS THE ONE THAT FAILS BUILDS, and it was the shortest of the three for the
+    // work that is least bounded. Navigation gets 60 s and the occt parse below gets 120 s; this
+    // waits for the page's whole module graph — three.js, the viewer, occt-import-js in wasm — to
+    // import and execute, on a box that may be in swap with seven other actions beside it. There
+    // is nothing correct about 30 s: a page that is coming up slowly is not a page that is wrong,
+    // and the wait exists to catch one that will never come up at all.
     await page.waitForFunction(
       () => window.__hsm && window.__hsm.scene && window.__hsm.camera,
-      { timeout: 30000 },
+      { timeout: 120000 },
     );
 
     console.log("waiting for STEP to mount (occt-import-js parse)...");
