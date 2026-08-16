@@ -33,7 +33,10 @@
 
 // Scene GLBs stand under the assembly whose pieces they are a picture of.
 // hardware/assembly/scenes/_scenes.py states each scene's `roots`, and the
-// branch is which assembly those roots belong to.
+// branch is which assembly those roots belong to. This is the one list here
+// naming files rather than directories, so a scene added there is a line owed
+// here — the pre-commit gate "every file /3d browses is seated" is what says so,
+// and web/tests/parts-tree.test.js is what it runs.
 const SCENES = "assembly/scenes/glb";
 
 // `assembly/scenes/out/` is where render_scenes.py lays a scene down on its way
@@ -66,8 +69,11 @@ export const BRANCHES = [
         note: "How a valve is held on a printed face." },
       { id: "scenes", label: "Bench scenes",
         holds: [`${SCENES}/back-top.glb`, `${SCENES}/front-top.glb`,
-                `${SCENES}/back-half.glb`, `${SCENES}/hopper-drain.glb`],
-        note: "One finished unit per picture, as it stands on the bench that builds it." },
+                `${SCENES}/back-half.glb`, `${SCENES}/hopper-drain.glb`,
+                `${SCENES}/en04-stratum.glb`, `${SCENES}/en06-column.glb`],
+        note: "One unit per picture, as it stands on the bench that builds it — a printed " +
+              "piece carrying what fastens to it, or a group of bodies the bench names " +
+              "together." },
     ],
   },
   {
