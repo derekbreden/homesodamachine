@@ -3,6 +3,7 @@ title: One machine, and its first hour on a bench
 start: 2026-07-19
 end: 2026-08-15
 kind: period
+thumb: machine
 lede: Two machine designs ran side by side for eight days and the narrow one survived, and the controller board was powered up for the first time.
 ---
 

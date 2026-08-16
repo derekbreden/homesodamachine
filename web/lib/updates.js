@@ -12,7 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
-import { FIGURES, FIGURE_CSS } from "./update-figures.js";
+import { FIGURES, FIGURE_CSS, THUMBS } from "./update-figures.js";
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 function esc(s) {
@@ -160,6 +160,7 @@ export function readUpdates(updatesDir) {
       end: meta.end,
       kind: meta.kind === "week" ? "week" : "period",
       lede: meta.lede || "",
+      thumb: meta.thumb || "",
       body,
     });
   }
@@ -169,12 +170,18 @@ export function readUpdates(updatesDir) {
 // --- rendering -------------------------------------------------------------
 
 function renderCard(p) {
+  const thumb = THUMBS[p.thumb]
+    ? `<span class="up-thumb">${THUMBS[p.thumb]}</span>`
+    : `<span class="up-thumb up-thumb-blank"></span>`;
   return `<li class="up-item">
   <a href="/updates/${esc(p.slug)}">
-    <span class="up-meta"><span class="up-kind up-kind-${esc(p.kind)}">${esc(KIND_LABEL[p.kind])}</span>
-    <span class="up-range">${esc(fmtRange(p.start, p.end))}</span></span>
-    <span class="up-title">${esc(p.title)}</span>
-    ${p.lede ? `<span class="up-lede">${esc(p.lede)}</span>` : ""}
+    ${thumb}
+    <span class="up-text">
+      <span class="up-meta"><span class="up-kind up-kind-${esc(p.kind)}">${esc(KIND_LABEL[p.kind])}</span>
+      <span class="up-range">${esc(fmtRange(p.start, p.end))}</span></span>
+      <span class="up-title">${esc(p.title)}</span>
+      ${p.lede ? `<span class="up-lede">${esc(p.lede)}</span>` : ""}
+    </span>
   </a>
 </li>`;
 }
@@ -224,11 +231,18 @@ const UPDATES_CSS = `
 .up-item { border-top: 1px solid var(--border); }
 .up-item:last-child { border-bottom: 1px solid var(--border); }
 .up-item > a {
-  display: flex; flex-direction: column; gap: .3rem;
+  display: grid; grid-template-columns: 3.5rem 1fr; gap: .9rem; align-items: start;
   padding: .9rem .35rem; text-decoration: none; color: inherit;
 }
+.up-text { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.up-thumb {
+  width: 3.5rem; height: 3.5rem; border-radius: 8px; display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--border); color: var(--accent);
+}
+.up-thumb svg.uf-mark { width: 2.4rem; height: 2.4rem; display: block; }
 .up-item > a:hover { background: var(--surface); }
 .up-item > a:hover .up-title { color: var(--accent); }
+.up-item > a:hover .up-thumb { background: var(--surface-2); border-color: var(--accent); }
 
 .up-meta { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .up-kind {
