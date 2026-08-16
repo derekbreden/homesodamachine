@@ -684,9 +684,21 @@ def _queue_thumbnail(target_path, source=None):
     # A payload no older than the STEP, and of the version the page reads, was made from these
     # bytes by this format — `_atomic_write` leaves an unchanged target's mtime alone — so a
     # build that moved nothing re-tessellates nothing.
+    #
+    # EXCEPT WHERE NOBODY WILL EVER READ IT. All of the above is about the tree, where a payload
+    # older than its STEP is every reader drawing a model that has moved. An action holds a
+    # sandbox: `.step.mesh` is in no `outs`, so the one written here is discarded when the
+    # sandbox goes, and no reader in the tree is either helped or misled by it. That is a
+    # tessellation per exported solid — 103 of them across a full build — bought for nothing.
+    # HSM_SKIP_MESH_PAYLOAD says so. The tree's payloads stay the business of the runs that
+    # keep them: a hand run and the dev-server watcher, neither of which sets it.
+    #
+    # A run that needs a payload IN the action writes its own and does not come through here —
+    # `render_scenes.draw_part` calls `_write_mesh_payload` directly, because the viewer it
+    # stands really does read one.
     mesh = target.with_name(target.name + ".mesh")
     payload = None
-    if source is not None:
+    if source is not None and not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
         payload = str(mesh) if _payload_current(target, mesh) else _write_mesh_payload(target, source)
     if os.environ.get("HSM_SKIP_THUMBNAILS"):
         return

@@ -14,19 +14,39 @@ build --action_env=PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
 # by the serialized shape it came off, and `_realized` by that plus the digest of everything the
 # action holds. An action that finds one has been given the same thing twice.
 build --sandbox_add_mount_pair=/Users/derekbredensteiner/Developer/homesodamachine/.cache
-build --action_env=HSM_SKIP_VIEWS=1
 build --action_env=HSM_NO_BUILD_LOCK=1
-build --action_env=HSM_SKIP_SCENES=1
+
+# A `.step.mesh` IS WHAT THE PAGE READS INSTEAD OF PARSING THE STEP, and it is in no `outs`,
+# so the one an action tessellates goes when the sandbox goes. Sixty-eight generators export a
+# solid and a hundred and three solids come out of a full build, each paying a tessellation
+# nothing will ever read. The tree's payloads are kept by the runs that keep them — a hand run
+# and the dev-server watcher — and neither sets this. A run that reads a payload IN the action
+# writes its own: `render_scenes` calls `_write_mesh_payload` directly, for the viewer it stands.
+build --action_env=HSM_SKIP_MESH_PAYLOAD=1
 
 # BAZEL IS ONE SCHEDULER AND `_run_lock` IS THE OTHER, and what keeps them off each other is
 # that everything outside bazel shares the lock: one CAD generator at a time, beside a build.
 # An action cannot take that lock — eight of them each taking a global single-flight mutex is
 # a build that runs one action at a time.
 #
-# SO BAZEL TAKES THE BOX. Two of a hundred and eight generators start a browser, so an action
-# is a process; nine of them on eight cores is what a build plus a lock-holder comes to. And
-# a second build in this workspace waits on bazel's own lock rather than competing, so a build
-# given fewer cores is not a lighter build — it is the same work holding that lock longer,
-# with every other session queued behind it.
+# SO BAZEL TAKES THE BOX, and a second build in this workspace waits on bazel's own lock rather
+# than competing, so a build given fewer cores is not a lighter build — it is the same work
+# holding that lock longer, with every other session queued behind it.
+#
+# AN ACTION IS NOT A PROCESS. Counting the two generators that start a browser undercounts it
+# twice over: occt runs threaded inside one python, so FOUR actions carry a load of about
+# twenty, and one puppeteer browser is nine processes and ~800 MB resident. This box is 8 GB.
+# A full build sits in 3.4–4.2 GB of swap with a quarter of the machine in the kernel, and the
+# same work costs 6170 s of action time at eight jobs against 3814 s at four.
+#
+# CAPPING IT ANYWAY BUYS NOTHING BACK, WHICH IS WHY THIS STILL SAYS auto. Full build: 652 s and
+# 662 s at auto, against 617 s at four and one arm that died on a render timeout. Six heavy CAD
+# targets: 95 s and 118 s at auto, against 97 s and 102 s at four. Peak swap moves 5%. The knob
+# cannot reach what costs, because `//:render-scenes` is ONE serial action holding 92–98% of the
+# critical path and the memory peak with it — 33 pictures drawn by 33 sequential subprocesses is
+# a step whose duration is the sum of its parts where bazel could schedule the max.
+#
+# AND MIND THE NOISE FLOOR BEFORE BELIEVING A NUMBER HERE: identical work on this box ranges
+# 95–118 s on a ~100 s build. A single run does not separate two options that differ by less.
 build --jobs=auto
 test --test_output=errors
