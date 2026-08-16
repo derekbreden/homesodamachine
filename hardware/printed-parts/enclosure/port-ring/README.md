@@ -59,10 +59,10 @@ machine reads one typeface and not two.
 
 Behind the lettering a bar [0.16](WORD_TIE) mm thick lies across the letters' feet, which makes the
 word ONE body: one part to place on a plate rather than six, and one body for `words_hold` to read
-a width off. The plate stands the chip on its back with the recess up, so the bar and the letters
+a width off. A chip is laid on its back with the recess up, so the bar and the letters
 lie in different layers — in the layers the letters print, the second colour is six islands either
 way, and what the bar buys is in the CAD rather than in the print. Two layers of the
-[0.08](WORD_LAYER) mm these go at, which is as thin as the plate can hold it. It runs along the
+[0.08](WORD_LAYER) mm these go at, which is as thin as the slicer can hold it. It runs along the
 baseline and no higher, so it stays clear of the counters in O, A, P, R and D: a bar at mid-cap
 would cut those off the chip's own floor and leave them as islands too. It sits a whole
 [1](WORD_DEPTH) mm behind the face, inside the recess, so nothing of it shows on the assembled
