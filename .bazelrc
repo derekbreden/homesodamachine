@@ -13,7 +13,13 @@ build --action_env=PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
 # The kept work is not a declared input and not an output: `_boxes` and `_meshes` name an entry
 # by the serialized shape it came off, and `_realized` by that plus the digest of everything the
 # action holds. An action that finds one has been given the same thing twice.
-build --sandbox_add_mount_pair=/Users/derekbredensteiner/Developer/homesodamachine/.cache
+# WHERE THIS CHECKOUT IS IS THIS CHECKOUT'S TO SAY. The interpreter every action runs is not in
+# the workspace and an action runs in the execroot, so both are reached by absolute path — and
+# an absolute path here is one machine's, one directory's, and no worktree's. `gen_build.py`
+# writes `.bazelrc.paths` beside BUILD.bazel with the two flags that carry it, and `try-import`
+# is the one place bazel expands `%workspace%`. A tree that has not written one builds nothing,
+# and `gen_build.py --check` says so.
+try-import %workspace%/.bazelrc.paths
 build --action_env=HSM_NO_BUILD_LOCK=1
 
 # A `.step.mesh` IS WHAT THE PAGE READS INSTEAD OF PARSING THE STEP, and it is in no `outs`,

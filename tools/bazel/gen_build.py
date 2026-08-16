@@ -24,10 +24,20 @@ sys.path.insert(0, str(_HERE.parent))
 from inventory import inventory, tracked   # noqa: E402
 from trace_inputs import _selftests        # noqa: E402
 
-VENV = "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python"
+#: WHERE THIS CHECKOUT IS, NAMED ONCE, BY THE CHECKOUT. An action runs in the execroot and the
+#: interpreter is not in the workspace, so the only way to it is an absolute path — and an
+#: absolute path written into a tracked file is one machine's. `RC_PATHS` below carries it, out
+#: of the tree, and every cmd reads it from the environment. `$$` is the genrule escape: what
+#: the shell in the action sees is `$HSM_WORKSPACE`.
+_WS = "$$HSM_WORKSPACE"
+VENV = f"{_WS}/tools/cad-venv/bin/python"
 #: The kept work — shapes off BREP, tessellations, optimal boxes — held where every action
 #: reaches it. `.bazelignore` holds it out of the workspace and `.bazelrc` mounts it in.
-CACHE = "/Users/derekbredensteiner/Developer/homesodamachine/.cache"
+CACHE = f"{_WS}/.cache"
+
+#: The two lines that are this checkout's and no other's. `.bazelrc` takes it with `try-import`,
+#: which is the one place bazel expands `%workspace%`; `.gitignore` holds it out of the tree.
+RC_PATHS = _ROOT / ".bazelrc.paths"
 
 #: See the tag it earns in `render`.
 NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
@@ -270,6 +280,14 @@ def render_build(only: str = None) -> tuple:
     return head + "\n" + "\n\n".join(blocks) + "\n", inv
 
 
+def render_rc_paths() -> str:
+    """The flags that name this checkout, for `.bazelrc` to take with `try-import`."""
+    return ("# Written by tools/bazel/gen_build.py — this checkout's own paths, and no other\n"
+            "# checkout's. `.gitignore` holds it out of the tree.\n"
+            f"build --action_env=HSM_WORKSPACE={_ROOT}\n"
+            f"build --sandbox_add_mount_pair={_ROOT}/.cache\n")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--only", help="print one target, by generator path")
@@ -294,6 +312,15 @@ def main() -> int:
             print(f"  selftests.json names {f}, which answers to no selftest")
             red = True
 
+        # NO ACTION FINDS THE INTERPRETER WITHOUT THIS. Every cmd reads `$HSM_WORKSPACE`, and
+        # `.bazelrc` takes the file that sets it from this directory, so a checkout that has
+        # not written one builds nothing.
+        want_rc = render_rc_paths()
+        if not RC_PATHS.is_file() or RC_PATHS.read_text() != want_rc:
+            print(f"  {RC_PATHS.name} does not name this checkout"
+                  f"\n    tools/cad-venv/bin/python tools/bazel/gen_build.py")
+            red = True
+
         have = (_ROOT / "BUILD.bazel").read_text()
         if text != have:
             print("\n".join(difflib.unified_diff(
@@ -314,7 +341,9 @@ def main() -> int:
 
     text, inv = render_build()
     (_ROOT / "BUILD.bazel").write_text(text)
+    RC_PATHS.write_text(render_rc_paths())
     print(f"  {len(inv)} step(s) over {sum(len(k) for k in inv)} generators → BUILD.bazel")
+    print(f"  this checkout's paths → {RC_PATHS.name}")
     return 0
 
 
