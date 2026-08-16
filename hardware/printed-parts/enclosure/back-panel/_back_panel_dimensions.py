@@ -74,6 +74,18 @@ chip_word_colors = {
 }
 
 
+def chip_color(fluid):
+    """The colour one chip actually comes out — the filament it prints in, not the
+    identification colour it stands for.
+
+    `port_colors` is the SCHEME: what blue means on this wall, and the neoFlo
+    LLDPE the customer's tube is cut off. A chip printed to match one is Bambu
+    PETG Basic, a different product answering to the same name, and the two are
+    a few points apart. `enclosure_assembly.build_port_rings` draws the chip
+    from here and the drawings paint the scheme from `port_colors`."""
+    return chip_filaments[fluid][1]
+
+
 def word_color(fluid):
     """The colour a chip's WORD is lettered in — the one of black and white that reads against the
     filament that chip actually prints in. `port_ring` cuts the recess and this is what fills it."""
