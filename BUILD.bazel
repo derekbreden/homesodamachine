@@ -10687,6 +10687,17 @@ sh_test(
 )
 
 sh_test(
+    name = "check-thumbnails-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/scripts/check_thumbnails.py",
+    ],
+    args = ["hardware/scripts/check_thumbnails.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "fit-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
@@ -11741,6 +11752,17 @@ sh_test(
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/scripts/probe.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
+    name = "check-declared-imports-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "tools/bazel/check_declared_imports.py",
+    ],
+    args = ["tools/bazel/check_declared_imports.py"],
     size = "large",
     tags = ["local"],
 )

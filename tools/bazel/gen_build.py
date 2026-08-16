@@ -22,6 +22,7 @@ _ROOT = _HERE.parents[2]
 sys.path.insert(0, str(_HERE.parent))
 
 from inventory import inventory, tracked   # noqa: E402
+from trace_inputs import _selftests        # noqa: E402
 
 VENV = "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python"
 #: The kept work — shapes off BREP, tessellations, optimal boxes — held where every action
@@ -200,7 +201,7 @@ def render_build(only: str = None) -> tuple:
         + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
         + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
 
-    # A MODULE THAT CARRIES A `selftest` IS ONE NOBODY RUNS. Twenty-two of them state their own
+    # A MODULE THAT CARRIES A `selftest` IS ONE NOBODY RUNS. Twenty-five of them state their own
     # holds and every one is verified only when a person types the word — `sync_tree`'s ten
     # include the hold that a card's authored text survives a build handed stale figures, whose
     # failure is silent destruction. A test target is what runs it, and running one costs
@@ -278,17 +279,34 @@ def main() -> int:
 
     if args.check:
         text, inv = render_build()
+        red = False
+
+        # A TARGET IS RENDERED FROM THE REGISTRY, so a module that answers to `selftest` and is
+        # not a key writes no target and states its holds to nobody. `_selftests` is the reading
+        # `trace_inputs` writes the registry by; the tree is asked with it here.
+        registry = json.loads(SELFTESTS.read_text()) if SELFTESTS.is_file() else {}
+        holds = set(_selftests(tracked()))
+        for f in sorted(holds - set(registry)):
+            print(f"  {f} answers to selftest and selftests.json does not name it"
+                  f"\n    tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests {f}")
+            red = True
+        for f in sorted(set(registry) - holds):
+            print(f"  selftests.json names {f}, which answers to no selftest")
+            red = True
+
         have = (_ROOT / "BUILD.bazel").read_text()
-        if text == have:
-            print(f"  BUILD.bazel is what {len(inv)} step(s) write")
-            return 0
-        print("\n".join(difflib.unified_diff(
-            have.splitlines(), text.splitlines(),
-            "BUILD.bazel", "what gen_build.py writes now", lineterm="")))
-        print("\n  BUILD.bazel is not what gen_build.py writes."
-              "\n    tools/cad-venv/bin/python tools/bazel/trace_inputs.py <gen.py>  # re-read one"
-              "\n    tools/cad-venv/bin/python tools/bazel/gen_build.py              # write this")
-        return 1
+        if text != have:
+            print("\n".join(difflib.unified_diff(
+                have.splitlines(), text.splitlines(),
+                "BUILD.bazel", "what gen_build.py writes now", lineterm="")))
+            print("\n  BUILD.bazel is not what gen_build.py writes."
+                  "\n    tools/cad-venv/bin/python tools/bazel/trace_inputs.py <gen.py>  # re-read one"
+                  "\n    tools/cad-venv/bin/python tools/bazel/gen_build.py              # write this")
+            return 1
+        if red:
+            return 1
+        print(f"  BUILD.bazel is what {len(inv)} step(s) write")
+        return 0
 
     if args.only:
         print(render_build(args.only)[0])

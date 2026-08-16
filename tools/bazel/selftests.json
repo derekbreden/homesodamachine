@@ -288,6 +288,9 @@
   "hardware/scripts/_seating.py": [
     "hardware/scripts/_seating.py"
   ],
+  "hardware/scripts/check_thumbnails.py": [
+    "hardware/scripts/check_thumbnails.py"
+  ],
   "hardware/scripts/fit.py": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
@@ -629,6 +632,9 @@
     "hardware/scripts/_stated_bounds.py",
     "hardware/scripts/probe.py",
     "tools/docgen/__init__.py"
+  ],
+  "tools/bazel/check_declared_imports.py": [
+    "tools/bazel/check_declared_imports.py"
   ],
   "tools/bazel/sync_tree.py": [
     "hardware/assembly/cards/_cardgen.py",
