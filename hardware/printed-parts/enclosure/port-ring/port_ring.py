@@ -132,22 +132,22 @@ WORD_SIZE = 6.5
 # How deep the word's recess is cut into the chip's outboard face — half the chip, so the colour
 # behind the lettering is as thick as the lettering itself and neither side of the print is a skin.
 WORD_DEPTH = 1.0
-# The plate these print on: `0.08mm High Quality @BBL H2C 0.2 nozzle`, and the bead it lays. The
-# ORIFICE is `WORD_NOZZLE`; this is the width the profile asks for, and it is what a slicer divides
-# a feature by to decide how many perimeters fit in it. So it, and not the tip, is what a stroke
-# and a bridge are counted in.
+# The PROFILE these slice under — `0.08mm High Quality @BBL H2C 0.2 nozzle`, saved in the plate at
+# `port-ring-water.3mf` — and the bead it asks for. The ORIFICE is `WORD_NOZZLE`; this is the width
+# the profile lays at, and it is what a slicer divides a feature by to decide how many perimeters
+# fit in it. So it, and not the tip, is what a stroke and a bridge are counted in.
 WORD_LAYER = 0.08
 WORD_BEAD = 0.22
 # WHAT MAKES THE WORD ONE BODY: a bar across the letters' feet, one `WORD_DEPTH` behind the face,
 # where the chip's own material stands over it and nothing of it shows.
-#   WHAT IT IS WORTH IS ONE SOLID, which is a CAD fact and not a printed one. The plate stands the
-# chip on its back with the recess up, so the bar and the letters lie in DIFFERENT LAYERS — in
+#   WHAT IT IS WORTH IS ONE SOLID, which is a CAD fact and not a printed one. A chip is laid on its back with the
+# recess up, so the bar and the letters lie in DIFFERENT LAYERS — in
 # every layer the letters print, the second colour is six islands whether the bar is under them or
 # not. What one solid buys is one part to place in a slicer instead of six, and one body for
 # `words_hold` to read a width off.
 #   SO IT IS AS THIN AS THE PLATE CAN HOLD IT. Every layer it adds is a two-colour layer, and both
 # spools run through one nozzle, so a colour change is a filament change and is paid for in purge.
-# What it owes the plate is a FLOOR of two layers — `THICK - WORD_DEPTH` is not a whole number of
+# What it owes the slicer is a FLOOR of two layers — `THICK - WORD_DEPTH` is not a whole number of
 # them, so the recess floor lands mid-layer and a one-layer bar is a feature the slicer can round
 # away. `word-tie` is the two readings that hold it: whole layers, and at least two.
 #   IT IS ITS OWN FIGURE and not a multiple of `WORD_LAYER`. A product would say the bar is two
@@ -177,7 +177,7 @@ WORD_MIN_STROKE = 0.771
 # is FLAVOR's, between the L and the A. It scales with `WORD_SIZE`, so it is also the floor under
 # how small this lettering can be set.
 WORD_MIN_BRIDGE = 0.346
-# The tip these plates go on. The chips are the machine's first two-colour print and its finest
+# The tip these print through. The chips are the machine's first two-colour print and its finest
 # work; everything else in the box runs 0.4 and up (`ledger/machine-time.md`).
 WORD_NOZZLE = 0.2
 # What the word keeps off the flange below it and the chip's own top edge above. The band is
@@ -403,7 +403,7 @@ def words_hold():
             raise ValueError(
                 f"'{word}' leaves a {got:.3f} mm bridge of chip between two of its letters and "
                 f"`WORD_MIN_BRIDGE` claims {WORD_MIN_BRIDGE:.3f} is the narrowest — the lettering "
-                f"is set finer than the plate was measured for.")
+                f"is set finer than these figures were measured at.")
         if abs(bb.xlen - WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {WORD_WIDTHS[word]:.3f} mm across and {step.name} carries "
@@ -455,7 +455,7 @@ def selftest() -> int:
         fails.append(
             f"a word {WORD_DEPTH + WORD_TIE:g} deep is cut through a chip {THICK:g} thick, and "
             f"what is behind the lettering is the pocket floor rather than the colour")
-    # THE BAR IS READ TWICE, because what it owes the plate is a floor and a landing and neither is
+    # THE BAR IS READ TWICE, because what it owes the slicer is a floor and a landing and neither is
     # the other. Struck off a layer boundary it prints as whatever the slicer rounds it to; struck
     # under two layers it is a feature the slicer can drop.
     layers = WORD_TIE / WORD_LAYER
@@ -475,7 +475,7 @@ def selftest() -> int:
                       ("bridge of chip they leave standing", WORD_MIN_BRIDGE)):
         if got < WORD_BEAD + 1e-9:
             fails.append(
-                f"the narrowest {what} is {got:.3f} mm and the plate lays a {WORD_BEAD:g} bead — "
+                f"the narrowest {what} is {got:.3f} mm and the profile lays a {WORD_BEAD:g} bead — "
                 f"a feature under one bead wide is not a feature the slicer can fill")
     for which in STATIONS:
         got = min_stroke(build_word(which))
