@@ -145,14 +145,21 @@ WORD_BEAD = 0.22
 # every layer the letters print, the second colour is six islands whether the bar is under them or
 # not. What one solid buys is one part to place in a slicer instead of six, and one body for
 # `words_hold` to read a width off.
-#   SO IT IS AS THIN AS THE PLATE CAN HOLD IT. Two layers, because `THICK - WORD_DEPTH` is not a
-# whole number of them — the recess floor lands mid-layer, and a one-layer bar is a feature the
-# slicer can round away. Every layer it adds is a two-colour layer, and both spools run through one
-# nozzle, so a colour change is a filament change and is paid for in purge.
+#   SO IT IS AS THIN AS THE PLATE CAN HOLD IT. Every layer it adds is a two-colour layer, and both
+# spools run through one nozzle, so a colour change is a filament change and is paid for in purge.
+# What it owes the plate is a FLOOR of two layers — `THICK - WORD_DEPTH` is not a whole number of
+# them, so the recess floor lands mid-layer and a one-layer bar is a feature the slicer can round
+# away. `word-tie` is the two readings that hold it: whole layers, and at least two.
+#   IT IS ITS OWN FIGURE and not a multiple of `WORD_LAYER`. A product would say the bar is two
+# layers BECAUSE of the profile, so a draft re-slice would move the geometry and re-cut every chip
+# on the plate for a print nobody meant to change the part with — and it would state a floor as an
+# equality, leaving nothing to say if the bar ever wants thickness for a reason that is not layers.
 #   IT RUNS ALONG THE BASELINE and no higher. Every capital has stock at its foot, so a bar there
 # reaches all of them; a bar at mid-cap would cross the counters of O, A, P, R and D, and the chip
 # material inside those would come off the chip's floor and be islands of their own.
-WORD_TIE = 2.0 * WORD_LAYER
+WORD_TIE = 0.16
+# The least the bar may be and still survive a slicer: two layers.
+WORD_TIE_FLOOR_LAYERS = 2
 # How far up the letters' feet that bar reaches.
 WORD_TIE_H = 0.8
 # What the built words measure across, and the tallest cap among them. The face is the SYSTEM'S and
@@ -448,6 +455,20 @@ def selftest() -> int:
         fails.append(
             f"a word {WORD_DEPTH + WORD_TIE:g} deep is cut through a chip {THICK:g} thick, and "
             f"what is behind the lettering is the pocket floor rather than the colour")
+    # THE BAR IS READ TWICE, because what it owes the plate is a floor and a landing and neither is
+    # the other. Struck off a layer boundary it prints as whatever the slicer rounds it to; struck
+    # under two layers it is a feature the slicer can drop.
+    layers = WORD_TIE / WORD_LAYER
+    if abs(layers - round(layers)) > 1e-9:
+        fails.append(
+            f"the {WORD_TIE:g} mm tie is {layers:.3f} layers of the {WORD_LAYER:g} these print at "
+            f"— a bar that does not land on a layer boundary comes out whatever the slicer rounds "
+            f"it to")
+    if round(layers) < WORD_TIE_FLOOR_LAYERS:
+        fails.append(
+            f"the {WORD_TIE:g} mm tie is {round(layers)} layer(s) and owes "
+            f"{WORD_TIE_FLOOR_LAYERS} — a bar that thin is a feature the slicer can round away, "
+            f"and the word is six loose letters on the plate when it does")
     # BOTH FEATURES ARE COUNTED IN BEADS, and the bridge is the one that runs out first — a stroke
     # is the word's spool and a bridge is the chip's, but the same tip lays both at `WORD_BEAD`.
     for what, got in (("stroke these words carry", WORD_MIN_STROKE),
