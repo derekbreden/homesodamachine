@@ -278,6 +278,81 @@ test("GET /api/pcb-content/* serves an inner copper plane", async (t) => {
   assert.match(res.headers.get("content-type") || "", /^image\/svg\+xml/);
 });
 
+// The rest of the wildcard family. Each of these takes the whole tail of the URL
+// as one path relative to the edition root, and each is the only way its file type
+// reaches the page — /models/* alone carries every .glb the 3D grid draws. They are
+// tested here because the tail is the argument: a router that hands the route a
+// different shape than it expects fails on exactly these, and fails quietly, by
+// serving a 400 where a file should be.
+test("GET /models/* returns a GLB when one exists", async (t) => {
+  const rel = await firstFileWithExt(path.join(REPO_ROOT, "hardware"), ".glb");
+  if (!rel) return t.skip("no .glb files under hardware/");
+  const res = await fetch(`${baseUrl}/models/${rel}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^application\/octet-stream/);
+});
+
+// `.step.mesh` siblings are written by every export and are not committed, so a
+// fresh checkout has none — skip rather than fail.
+test("GET /meshes/* returns a tessellation when one exists", async (t) => {
+  const rel = await firstFileWithExt(path.join(REPO_ROOT, "hardware"), ".mesh");
+  if (!rel) return t.skip("no .mesh sidecars under hardware/ (not committed)");
+  const res = await fetch(`${baseUrl}/meshes/${rel}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^application\/octet-stream/);
+});
+
+test("GET /thumbs/* returns a PNG thumbnail when one exists", async (t) => {
+  const rel = await firstFileWithExt(path.join(REPO_ROOT, "hardware"), ".png");
+  if (!rel) return t.skip("no .png thumbnails under hardware/");
+  const res = await fetch(`${baseUrl}/thumbs/${rel}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^image\/png/);
+});
+
+// Pick data is advertised per board by /api/pcb; the route gates on the
+// `pcb/…/out/*.picks.json` shape rather than serving arbitrary JSON.
+test("GET /api/pcb-picks/* serves a board's pick data", async (t) => {
+  const boards = await fetch(`${baseUrl}/api/pcb`).then((r) => r.json());
+  const withPicks = boards.find((b) => b.picks);
+  if (!withPicks) return t.skip("no board advertises pick data");
+  const res = await fetch(`${baseUrl}/api/pcb-picks/${withPicks.picks}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^application\/json/);
+
+  const blocked = await fetch(`${baseUrl}/api/pcb-picks/ledger/bom.json`);
+  assert.equal(blocked.status, 400, "JSON outside a board's out/ is not pick data");
+});
+
+test("GET /api/step-scorecard/* serves a scorecard sidecar when one exists", async (t) => {
+  const rel = await firstFileWithExt(path.join(REPO_ROOT, "hardware"), ".scorecard.json");
+  if (!rel) return t.skip("no .scorecard.json sidecars under hardware/");
+  const res = await fetch(`${baseUrl}/api/step-scorecard/${rel}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^application\/json/);
+});
+
+// CONFINEMENT IS THE ONE BEHAVIOUR OF THE TAIL THAT MUST NOT MOVE. Every route above
+// resolves its tail against the edition root and must refuse to leave it, whether the
+// climb is written plainly or percent-encoded — the router decodes before the route
+// ever sees it, so both arrive as the same string and both have to be turned away.
+test("the wildcard routes stay inside the edition root", async () => {
+  const climbs = [
+    "../../etc/passwd.step",
+    "%2e%2e%2f%2e%2e%2fetc%2fpasswd.step",
+    "a/../../../../etc/passwd.step",
+  ];
+  for (const climb of climbs) {
+    for (const route of ["/steps", "/models", "/meshes", "/dxfs"]) {
+      const res = await fetch(`${baseUrl}${route}/${climb}`);
+      assert.ok(
+        res.status === 400 || res.status === 404,
+        `${route}/${climb} answered ${res.status}; a climb must be refused`,
+      );
+    }
+  }
+});
+
 // Phase 4 viewer split (/css/viewer.css, /js/viewer/*.js) is in flight on
 // a parallel branch. Test what's there today; skip what isn't so this
 // suite keeps passing while the split lands.
