@@ -194,7 +194,7 @@ async function renderMmd({ inputPath, outputPath }) {
     const buffer = await body.screenshot({ type: "png", omitBackground: false });
 
     // Trim mermaid's whitespace around the SVG, then add a uniform PADDING
-    // back so the diagram has a clean dark gutter on the blog post.
+    // back so the diagram sits in a clean dark gutter.
     const trimmed = await sharp(buffer).trim({ background: BG }).toBuffer();
     const padded = await sharp(trimmed)
       .extend({
