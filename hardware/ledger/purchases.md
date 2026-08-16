@@ -424,6 +424,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load. Order #114-1978684-7068269, placed April 20, 2026 | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | ACQUIRED |
+| VEVOR 72" adjustable garage workbench, heavy-duty. Orders #112-2273377-9628208 (Apr 6), #114-2214596-3435404 (Mar 22) | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 2 | $383.85 ea | ACQUIRED |
+| ForPro 99 % isopropyl alcohol, gallon — general shop solvent, separate from the §14 MG Chemicals 16 oz. Order #114-2214596-3435404, placed March 22, 2026 | [B00DT52Y98](https://www.amazon.com/dp/B00DT52Y98) | 1 | $12.86 | ACQUIRED |
 | NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions). Order #114-9764609-4555460, placed Mar 22, 2026 | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $27.23 | ACQUIRED (delivered Mar 24) |
 
 ## 13. Printing consumables
@@ -574,6 +576,7 @@ Storage and capture gear used to record print runs, fab work, and assembled-prod
 |---|---|---|---|---|
 | SanDisk Ultra Fit USB 3.1 256 GB low-profile flash drive (SDCZ430-256G-G46). Order #112-0147397-3280206, placed May 2, 2026 | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V) | 1 | $45.41 | ACQUIRED (delivered Mon May 4) |
 | SanDisk Ultra Fit USB 3.2 Gen 1 256 GB low-profile flash drive, 400 MB/s (SDCZ430-256G-GAM46) — second timelapse-capture drive. Order #112-1916518-0515440, placed Jun 13, 2026 | [B0BY2TT9TD](https://www.amazon.com/dp/B0BY2TT9TD) | 1 | $46.02 | ACQUIRED (delivered Jun 14) |
+| DJI Mic Mini wireless lavalier system (1 TX + 1 RX) — on-camera audio for the fab and assembled-product footage. Order #112-7291284-7101059, placed April 13, 2026 | [B0DDLCLFFX](https://www.amazon.com/dp/B0DDLCLFFX) | 1 | $48.26 | ACQUIRED |
 
 ## 20. McMaster-Carr direct
 
@@ -614,13 +617,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$30,119.04](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$30,947.86](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$35,556.58](LEDGER_ACQUIRED_COMBINED) |
+| ACQUIRED (combined) | [$36,385.40](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$1,348.12](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$36,947.59](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$37,776.41](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -637,13 +640,13 @@ ACQUIRED hardware by section:
 | 9 | Electronics — I/O, drivers, sensors, power | [$1,431.58](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
+| 12 | Shop / bench infrastructure | [$1,153.07](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,532.80](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,677.34](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$732.18](LEDGER_SEC17) |
-| 19 | Video / marketing capture | [$91.43](LEDGER_SEC19) |
+| 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
 | 21 | Silicone molding — Zone C hopper-funnel | [$364.11](LEDGER_SEC21) |
 
