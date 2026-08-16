@@ -46,7 +46,12 @@ def imports_of(text: str) -> set:
 
 
 def owed(graph: dict, tracked: set, sources: dict) -> list:
-    """Every (step, imported file) a step reads a source without declaring what it imports.
+    """Every (step, source, imported file) where a step reads a source and holds no module the
+    source imports.
+
+    THE SOURCE IS THE HALF THAT ANSWERS "WHY THIS STEP". Most steps named here import nothing
+    themselves — they read a file that does, so the module is theirs to hold and `from ... import`
+    appears nowhere in them. Reporting the pair is what makes that a fact rather than a hunt.
 
     `sources` is the staged text by path, so this is a pure reading of three records and can be
     held against known answers."""
@@ -68,7 +73,7 @@ def owed(graph: dict, tracked: set, sources: dict) -> list:
         for gen, entry in sorted(graph.items()):
             reads = set(entry.get("reads", ()))
             if src in reads:
-                out += [(gen, w) for w in sorted(wants - reads)]
+                out += [(gen, src, w) for w in sorted(wants - reads)]
     return sorted(set(out))
 
 
@@ -85,7 +90,7 @@ def selftest() -> int:
         print(f"  {'✓' if ok else '✗'} {label}" + ("" if ok else f" — {got!r} != {want!r}"))
 
     def named(text):
-        return [w for _g, w in owed(graph, tracked, {"src.py": text})]
+        return [w for _g, _s, w in owed(graph, tracked, {"src.py": text})]
 
     hold("an import the step does not declare is named", named("import unseen"), ["unseen.py"])
     hold("an import the step declares is silent", named("import seen"), [])
@@ -96,13 +101,18 @@ def selftest() -> int:
     hold("a name two tracked files share is left alone", named("import dup"), [])
     # A SOURCE NO STEP READS IS NOT THIS CHECK'S BUSINESS — nothing stages it either way.
     hold("a source no step reads is silent",
-         [w for _g, w in owed(graph, tracked | {"loose.py"},
-                              {"loose.py": "import unseen"})], [])
+         [w for _g, _s, w in owed(graph, tracked | {"loose.py"},
+                                  {"loose.py": "import unseen"})], [])
     hold("a source that is not tracked is silent",
-         [w for _g, w in owed(graph, tracked, {"untracked.py": "import unseen"})], [])
+         [w for _g, _s, w in owed(graph, tracked, {"untracked.py": "import unseen"})], [])
+    # THE STEP NAMED HERE IMPORTS NOTHING. It reads `src.py`, which is what imports the module,
+    # so the pair is what a reader needs and the step alone would send them hunting.
+    hold("the step is named with the file that imports",
+         owed(graph, tracked, {"src.py": "import unseen"}),
+         [("gen.py", "src.py", "unseen.py")])
 
-    print(f"check_declared_imports selftest {holds}/8")
-    return 0 if holds == 8 else 1
+    print(f"check_declared_imports selftest {holds}/9")
+    return 0 if holds == 9 else 1
 
 
 def main(argv) -> int:
@@ -125,9 +135,9 @@ def main(argv) -> int:
     if not missing:
         return 0
     print(f"{len(missing)} step(s) read a file importing a module the step does not hold:")
-    for gen, want in missing:
-        print(f"    {gen}\n      imports {want}")
-    gens = sorted({g for g, _ in missing})
+    for gen, src, want in missing:
+        print(f"    {gen}\n      reads {src}, which imports {want}")
+    gens = sorted({g for g, _s, _w in missing})
     print("  a read is recorded by watching a run:")
     print(f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py {' '.join(gens)}")
     print("    tools/cad-venv/bin/python tools/bazel/gen_build.py")
