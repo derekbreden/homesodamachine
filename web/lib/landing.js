@@ -18,10 +18,13 @@ main {
   /* Safe-area on sides (for iPhone landscape rounded corners) and bottom
      (for PWA home indicator). Top doesn't need it — the sticky nav above
      already eats safe-area-top. */
+  /* The bottom clears a notification toast, which is fixed 12px off the
+     bottom and about 67px tall — the status line under the form is the last
+     thing on the page and the toast arrives over it. */
   padding:
     2rem
     calc(env(safe-area-inset-right, 0px) + 1.5rem)
-    calc(env(safe-area-inset-bottom, 0px) + 3rem)
+    calc(env(safe-area-inset-bottom, 0px) + 7rem)
     calc(env(safe-area-inset-left, 0px) + 1.5rem);
   text-align: center;
 }
@@ -53,7 +56,9 @@ h1 {
 form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  /* Stacked, the field's focus ring stands in this gap — 0.5rem left it
+     resting on the button below. */
+  gap: 0.75rem;
   width: 100%;
   max-width: 24rem;
 }
@@ -88,7 +93,13 @@ input[type="email"]:focus {
 }
 /* Keyboard focus, on both controls. The button's ring is white — it stands on
    the accent. */
-input[type="email"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The ring is the whole indicator on a key press, so the border stands down —
+   two accent edges 1px apart read as one smeared edge. */
+input[type="email"]:focus-visible {
+  border-color: var(--border);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 .signup-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 .signup-btn {
   position: relative;

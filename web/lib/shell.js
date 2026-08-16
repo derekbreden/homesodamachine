@@ -109,6 +109,13 @@ body {
   padding: 0.75rem 0.375rem;
   position: relative;
 }
+/* The link's box runs to the top edge of a sticky bar, so the ring is drawn
+   inside it — outside, its top edge is off the window. */
+.site-nav a.nav-icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+  border-radius: 8px;
+}
 .site-nav a.nav-icon svg {
   width: 1.125rem;
   height: 1.125rem;
@@ -128,11 +135,14 @@ body {
   display: none; /* shown only when html.notifs-enabled */
 }
 html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
+/* On the bell's own top-right corner, which sits inside the link's hit area:
+   the link's padding is where the glyph starts, and the dot straddles the
+   corner from there. */
 .site-nav .nav-bell.has-unread::after {
   content: "";
   position: absolute;
-  top: -1px;
-  right: -3px;
+  top: calc(0.75rem - 3px);
+  right: calc(0.375rem - 3px);
   width: 8px;
   height: 8px;
   border-radius: 50%;
