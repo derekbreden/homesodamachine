@@ -80,9 +80,9 @@ const routes = [
   { path: "/api/firebase-config", expect: 200, ct: "application/json" },
 
   // Service worker variants — same body, three URLs (root, /3d, legacy /dev)
-  { path: "/firebase-messaging-sw.js",     expect: 200, ct: "application/javascript" },
-  { path: "/3d/firebase-messaging-sw.js",  expect: 200, ct: "application/javascript" },
-  { path: "/dev/firebase-messaging-sw.js", expect: 200, ct: "application/javascript" },
+  { path: "/firebase-messaging-sw.js",     expect: 200, ct: "text/javascript" },
+  { path: "/3d/firebase-messaging-sw.js",  expect: 200, ct: "text/javascript" },
+  { path: "/dev/firebase-messaging-sw.js", expect: 200, ct: "text/javascript" },
 
   // PWA / favicon images — express sets image/* content-type from extension.
   { path: "/apple-touch-icon.png",             expect: 200, ct: "image/png" },
@@ -94,20 +94,20 @@ const routes = [
   // imported by at least one HTML surface; if one disappears the page
   // breaks at runtime with a console-only error, so a 404 here is a
   // real regression. Content-Type comes from express's mime db.
-  { path: "/boot.js",             expect: 200, ct: "application/javascript" },
-  { path: "/landing.js",          expect: 200, ct: "application/javascript" },
-  { path: "/settings.js",         expect: 200, ct: "application/javascript" },
-  { path: "/pan-zoom.js",         expect: 200, ct: "application/javascript" },
-  { path: "/content-viewer.js",   expect: 200, ct: "application/javascript" },
-  { path: "/glass-animation.js",  expect: 200, ct: "application/javascript" },
+  { path: "/boot.js",             expect: 200, ct: "text/javascript" },
+  { path: "/landing.js",          expect: 200, ct: "text/javascript" },
+  { path: "/settings.js",         expect: 200, ct: "text/javascript" },
+  { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
+  { path: "/content-viewer.js",   expect: 200, ct: "text/javascript" },
+  { path: "/glass-animation.js",  expect: 200, ct: "text/javascript" },
 
   // Contract definitions served to the browser: web/contracts/ mounted at
   // /contracts. The viewer imports HSM_EVENTS + WS from these at runtime, so a
   // 404 here breaks boot.js and the pickers with a module-load error. (Only the
   // .js contracts are browser-imported; the .ts ones are builder-side.)
-  { path: "/contracts/client-events.js", expect: 200, ct: "application/javascript" },
-  { path: "/contracts/ws-frames.js",     expect: 200, ct: "application/javascript" },
-  { path: "/contracts/cards.js",         expect: 200, ct: "application/javascript" },
+  { path: "/contracts/client-events.js", expect: 200, ct: "text/javascript" },
+  { path: "/contracts/ws-frames.js",     expect: 200, ct: "text/javascript" },
+  { path: "/contracts/cards.js",         expect: 200, ct: "text/javascript" },
 ];
 
 for (const r of routes) {
@@ -369,7 +369,7 @@ test("GET /js/viewer/main.js", async (t) => {
   if (!fs.existsSync(file)) return t.skip("viewer/main.js not yet present");
   const res = await fetch(baseUrl + "/js/viewer/main.js");
   assert.equal(res.status, 200);
-  assert.match(res.headers.get("content-type") || "", /^application\/javascript/);
+  assert.match(res.headers.get("content-type") || "", /^text\/javascript/);
 });
 
 // Routes we deliberately don't test:
