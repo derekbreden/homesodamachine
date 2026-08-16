@@ -92,11 +92,12 @@ States"; this doc names the order they run in.
 out the gooseneck.
 
 **2. Lift the hopper funnel out.** Its throat is cut through the top wall of both top pieces
-(`enclosure._hopper_cut`), so the basin clears before the seam parts. Thumb the union's collet off
-the stub and the basin lifts away with its stub and clamp still on it. `fluid-4` stays on V-B, dry —
-it is the cycle's own air inlet.
+(`enclosure._hopper_cut`), so the basin clears before the seam parts. Release the union's collet
+with the 1/4" jaw of the JG collet quick-connect tool — square on the sleeve, the way the user does
+it weekly — and the basin lifts away with its stub and clamp still on it. `fluid-4` stays on V-B,
+dry — it is the cycle's own air inlet.
 
-**3. Break the [8](JOINT_COUNT_5) joints.** Press each collet ring and draw the tube out. Pull **`fluid-18` and
+**3. Break the [8](JOINT_COUNT_5) joints.** Press each collet ring — the same 1/4" jaw — and draw the tube out. Pull **`fluid-18` and
 `fluid-28` at the bulkheads**, not at V-G and V-J, so the two longest runs ride up with the quadrant
 instead of dangling; the rest release at whichever end reaches. Cloth under `fluid-3`, `fluid-16`
 and `fluid-26`.
