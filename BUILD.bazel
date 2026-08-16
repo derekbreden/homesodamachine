@@ -1834,6 +1834,72 @@ cp hardware/assembly/cards/tools/out/vc-vacuum-charge.png $$O13
 genrule(
     name = "render-scenes",
     srcs = [
+        "hardware/assembly/cards/img/asse1022-chain.png",
+        "hardware/assembly/cards/img/asse1022-chain.png.scene.json",
+        "hardware/assembly/cards/img/coil-mandrel.png",
+        "hardware/assembly/cards/img/coil-mandrel.png.scene.json",
+        "hardware/assembly/cards/img/copper-plug.png",
+        "hardware/assembly/cards/img/copper-plug.png.scene.json",
+        "hardware/assembly/cards/img/en01-shell.png",
+        "hardware/assembly/cards/img/en01-shell.png.scene.json",
+        "hardware/assembly/cards/img/en02-rearwall.png",
+        "hardware/assembly/cards/img/en02-rearwall.png.scene.json",
+        "hardware/assembly/cards/img/en03-compressor.png",
+        "hardware/assembly/cards/img/en03-compressor.png.scene.json",
+        "hardware/assembly/cards/img/en04-stratum.png",
+        "hardware/assembly/cards/img/en04-stratum.png.scene.json",
+        "hardware/assembly/cards/img/en05-coldcore.png",
+        "hardware/assembly/cards/img/en05-coldcore.png.scene.json",
+        "hardware/assembly/cards/img/en06-column.png",
+        "hardware/assembly/cards/img/en06-column.png.scene.json",
+        "hardware/assembly/cards/img/en08-drippan.png",
+        "hardware/assembly/cards/img/en08-drippan.png.scene.json",
+        "hardware/assembly/cards/img/en09-hopper.png",
+        "hardware/assembly/cards/img/en09-hopper.png.scene.json",
+        "hardware/assembly/cards/img/enclosure-assembly.png",
+        "hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
+        "hardware/assembly/cards/img/es01-wall-bosses.png",
+        "hardware/assembly/cards/img/es01-wall-bosses.png.scene.json",
+        "hardware/assembly/cards/img/foam-assembly-stack.png",
+        "hardware/assembly/cards/img/foam-assembly-stack.png.scene.json",
+        "hardware/assembly/cards/img/foam-cap-top.png",
+        "hardware/assembly/cards/img/foam-cap-top.png.scene.json",
+        "hardware/assembly/cards/img/foam-shell-cavity.png",
+        "hardware/assembly/cards/img/foam-shell-cavity.png.scene.json",
+        "hardware/assembly/cards/img/fu02-faucet.png",
+        "hardware/assembly/cards/img/fu02-faucet.png.scene.json",
+        "hardware/assembly/cards/img/fu05-shell.png",
+        "hardware/assembly/cards/img/fu05-shell.png.scene.json",
+        "hardware/assembly/cards/img/ip03-manifold-pack.png",
+        "hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json",
+        "hardware/assembly/cards/img/pcba-assembly.png",
+        "hardware/assembly/cards/img/pcba-assembly.png.scene.json",
+        "hardware/assembly/cards/img/prv-shroud.png",
+        "hardware/assembly/cards/img/prv-shroud.png.scene.json",
+        "hardware/assembly/cards/img/reservoir-body.png",
+        "hardware/assembly/cards/img/reservoir-body.png.scene.json",
+        "hardware/assembly/cards/img/reservoir-cap.png",
+        "hardware/assembly/cards/img/reservoir-cap.png.scene.json",
+        "hardware/assembly/cards/img/scene-back-half.png",
+        "hardware/assembly/cards/img/scene-back-half.png.scene.json",
+        "hardware/assembly/cards/img/scene-back-top.png",
+        "hardware/assembly/cards/img/scene-back-top.png.scene.json",
+        "hardware/assembly/cards/img/scene-cap-lid-fill.png",
+        "hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json",
+        "hardware/assembly/cards/img/scene-cap-lid.png",
+        "hardware/assembly/cards/img/scene-cap-lid.png.scene.json",
+        "hardware/assembly/cards/img/scene-cold-core-open.png",
+        "hardware/assembly/cards/img/scene-cold-core-open.png.scene.json",
+        "hardware/assembly/cards/img/scene-cold-core.png",
+        "hardware/assembly/cards/img/scene-cold-core.png.scene.json",
+        "hardware/assembly/cards/img/scene-front-top.png",
+        "hardware/assembly/cards/img/scene-front-top.png.scene.json",
+        "hardware/assembly/cards/img/scene-hopper-drain.png",
+        "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+        "hardware/assembly/cards/img/wago-column.png",
+        "hardware/assembly/cards/img/wago-column.png.scene.json",
+        "hardware/assembly/cards/img/water-split.png",
+        "hardware/assembly/cards/img/water-split.png.scene.json",
         "pysrc/hardware/assembly/scenes/_scenes.py",
         "pysrc/hardware/assembly/scenes/render_scenes.py",
         "pysrc/hardware/cold-core-layout/_bom.py",
@@ -1980,6 +2046,16 @@ genrule(
         ":node-packages",
     ],
     outs = [
+        "out/render-scenes/hardware/assembly/scenes/glb/back-half.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/back-top.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/cap-lid.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/cold-core-open.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/cold-core.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/en04-stratum.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/en06-column.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/front-top.glb",
+        "out/render-scenes/hardware/assembly/scenes/glb/hopper-drain.glb",
         "out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png",
         "out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png.scene.json",
         "out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png",
@@ -2046,96 +2122,86 @@ genrule(
         "out/render-scenes/hardware/assembly/cards/img/wago-column.png.scene.json",
         "out/render-scenes/hardware/assembly/cards/img/water-split.png",
         "out/render-scenes/hardware/assembly/cards/img/water-split.png.scene.json",
-        "out/render-scenes/hardware/assembly/scenes/glb/back-half.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/back-top.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/cap-lid.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/cold-core-open.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/cold-core.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/en04-stratum.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/en06-column.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/front-top.glb",
-        "out/render-scenes/hardware/assembly/scenes/glb/hopper-drain.glb",
     ],
     tags = ["local", "requires-network"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png)
-O1=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png.scene.json)
-O2=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png)
-O3=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png.scene.json)
-O4=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/copper-plug.png)
-O5=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/copper-plug.png.scene.json)
-O6=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en01-shell.png)
-O7=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en01-shell.png.scene.json)
-O8=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en02-rearwall.png)
-O9=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en02-rearwall.png.scene.json)
-O10=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en03-compressor.png)
-O11=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en03-compressor.png.scene.json)
-O12=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en04-stratum.png)
-O13=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en04-stratum.png.scene.json)
-O14=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en05-coldcore.png)
-O15=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en05-coldcore.png.scene.json)
-O16=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en06-column.png)
-O17=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en06-column.png.scene.json)
-O18=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en08-drippan.png)
-O19=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en08-drippan.png.scene.json)
-O20=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en09-hopper.png)
-O21=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en09-hopper.png.scene.json)
-O22=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/enclosure-assembly.png)
-O23=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/enclosure-assembly.png.scene.json)
-O24=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/es01-wall-bosses.png)
-O25=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/es01-wall-bosses.png.scene.json)
-O26=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-assembly-stack.png)
-O27=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json)
-O28=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-cap-top.png)
-O29=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-cap-top.png.scene.json)
-O30=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-shell-cavity.png)
-O31=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-shell-cavity.png.scene.json)
-O32=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu02-faucet.png)
-O33=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu02-faucet.png.scene.json)
-O34=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu05-shell.png)
-O35=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu05-shell.png.scene.json)
-O36=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/ip03-manifold-pack.png)
-O37=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json)
-O38=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/pcba-assembly.png)
-O39=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/pcba-assembly.png.scene.json)
-O40=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/prv-shroud.png)
-O41=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/prv-shroud.png.scene.json)
-O42=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-body.png)
-O43=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-body.png.scene.json)
-O44=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-cap.png)
-O45=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-cap.png.scene.json)
-O46=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png)
-O47=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png.scene.json)
-O48=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png)
-O49=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png.scene.json)
-O50=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png)
-O51=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json)
-O52=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png)
-O53=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png.scene.json)
-O54=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png)
-O55=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png.scene.json)
-O56=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png)
-O57=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
-O58=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png)
-O59=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png.scene.json)
-O60=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png)
-O61=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json)
-O62=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/wago-column.png)
-O63=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/wago-column.png.scene.json)
-O64=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/water-split.png)
-O65=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/water-split.png.scene.json)
-O66=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-half.glb)
-O67=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-top.glb)
-O68=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb)
-O69=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid.glb)
-O70=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core-open.glb)
-O71=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core.glb)
-O72=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/en04-stratum.glb)
-O73=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/en06-column.glb)
-O74=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/front-top.glb)
-O75=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/hopper-drain.glb)
+O0=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-half.glb)
+O1=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/back-top.glb)
+O2=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid-fill.glb)
+O3=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cap-lid.glb)
+O4=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core-open.glb)
+O5=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/cold-core.glb)
+O6=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/en04-stratum.glb)
+O7=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/en06-column.glb)
+O8=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/front-top.glb)
+O9=$$PWD/$(location out/render-scenes/hardware/assembly/scenes/glb/hopper-drain.glb)
+O10=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png)
+O11=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/asse1022-chain.png.scene.json)
+O12=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png)
+O13=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/coil-mandrel.png.scene.json)
+O14=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/copper-plug.png)
+O15=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/copper-plug.png.scene.json)
+O16=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en01-shell.png)
+O17=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en01-shell.png.scene.json)
+O18=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en02-rearwall.png)
+O19=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en02-rearwall.png.scene.json)
+O20=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en03-compressor.png)
+O21=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en03-compressor.png.scene.json)
+O22=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en04-stratum.png)
+O23=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en04-stratum.png.scene.json)
+O24=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en05-coldcore.png)
+O25=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en05-coldcore.png.scene.json)
+O26=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en06-column.png)
+O27=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en06-column.png.scene.json)
+O28=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en08-drippan.png)
+O29=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en08-drippan.png.scene.json)
+O30=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en09-hopper.png)
+O31=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/en09-hopper.png.scene.json)
+O32=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/enclosure-assembly.png)
+O33=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/enclosure-assembly.png.scene.json)
+O34=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/es01-wall-bosses.png)
+O35=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/es01-wall-bosses.png.scene.json)
+O36=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-assembly-stack.png)
+O37=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json)
+O38=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-cap-top.png)
+O39=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-cap-top.png.scene.json)
+O40=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-shell-cavity.png)
+O41=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/foam-shell-cavity.png.scene.json)
+O42=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu02-faucet.png)
+O43=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu02-faucet.png.scene.json)
+O44=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu05-shell.png)
+O45=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/fu05-shell.png.scene.json)
+O46=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/ip03-manifold-pack.png)
+O47=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json)
+O48=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/pcba-assembly.png)
+O49=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/pcba-assembly.png.scene.json)
+O50=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/prv-shroud.png)
+O51=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/prv-shroud.png.scene.json)
+O52=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-body.png)
+O53=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-body.png.scene.json)
+O54=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-cap.png)
+O55=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/reservoir-cap.png.scene.json)
+O56=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png)
+O57=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-half.png.scene.json)
+O58=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png)
+O59=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-back-top.png.scene.json)
+O60=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png)
+O61=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json)
+O62=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png)
+O63=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cap-lid.png.scene.json)
+O64=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png)
+O65=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core-open.png.scene.json)
+O66=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png)
+O67=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
+O68=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png)
+O69=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-front-top.png.scene.json)
+O70=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png)
+O71=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json)
+O72=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/wago-column.png)
+O73=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/wago-column.png.scene.json)
+O74=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/water-split.png)
+O75=$$PWD/$(location out/render-scenes/hardware/assembly/cards/img/water-split.png.scene.json)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -2148,82 +2214,82 @@ cd work
 ln -sfn /Users/derekbredensteiner/Developer/homesodamachine/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D /Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py > /dev/null
-cp hardware/assembly/cards/img/asse1022-chain.png $$O0
-cp hardware/assembly/cards/img/asse1022-chain.png.scene.json $$O1
-cp hardware/assembly/cards/img/coil-mandrel.png $$O2
-cp hardware/assembly/cards/img/coil-mandrel.png.scene.json $$O3
-cp hardware/assembly/cards/img/copper-plug.png $$O4
-cp hardware/assembly/cards/img/copper-plug.png.scene.json $$O5
-cp hardware/assembly/cards/img/en01-shell.png $$O6
-cp hardware/assembly/cards/img/en01-shell.png.scene.json $$O7
-cp hardware/assembly/cards/img/en02-rearwall.png $$O8
-cp hardware/assembly/cards/img/en02-rearwall.png.scene.json $$O9
-cp hardware/assembly/cards/img/en03-compressor.png $$O10
-cp hardware/assembly/cards/img/en03-compressor.png.scene.json $$O11
-cp hardware/assembly/cards/img/en04-stratum.png $$O12
-cp hardware/assembly/cards/img/en04-stratum.png.scene.json $$O13
-cp hardware/assembly/cards/img/en05-coldcore.png $$O14
-cp hardware/assembly/cards/img/en05-coldcore.png.scene.json $$O15
-cp hardware/assembly/cards/img/en06-column.png $$O16
-cp hardware/assembly/cards/img/en06-column.png.scene.json $$O17
-cp hardware/assembly/cards/img/en08-drippan.png $$O18
-cp hardware/assembly/cards/img/en08-drippan.png.scene.json $$O19
-cp hardware/assembly/cards/img/en09-hopper.png $$O20
-cp hardware/assembly/cards/img/en09-hopper.png.scene.json $$O21
-cp hardware/assembly/cards/img/enclosure-assembly.png $$O22
-cp hardware/assembly/cards/img/enclosure-assembly.png.scene.json $$O23
-cp hardware/assembly/cards/img/es01-wall-bosses.png $$O24
-cp hardware/assembly/cards/img/es01-wall-bosses.png.scene.json $$O25
-cp hardware/assembly/cards/img/foam-assembly-stack.png $$O26
-cp hardware/assembly/cards/img/foam-assembly-stack.png.scene.json $$O27
-cp hardware/assembly/cards/img/foam-cap-top.png $$O28
-cp hardware/assembly/cards/img/foam-cap-top.png.scene.json $$O29
-cp hardware/assembly/cards/img/foam-shell-cavity.png $$O30
-cp hardware/assembly/cards/img/foam-shell-cavity.png.scene.json $$O31
-cp hardware/assembly/cards/img/fu02-faucet.png $$O32
-cp hardware/assembly/cards/img/fu02-faucet.png.scene.json $$O33
-cp hardware/assembly/cards/img/fu05-shell.png $$O34
-cp hardware/assembly/cards/img/fu05-shell.png.scene.json $$O35
-cp hardware/assembly/cards/img/ip03-manifold-pack.png $$O36
-cp hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json $$O37
-cp hardware/assembly/cards/img/pcba-assembly.png $$O38
-cp hardware/assembly/cards/img/pcba-assembly.png.scene.json $$O39
-cp hardware/assembly/cards/img/prv-shroud.png $$O40
-cp hardware/assembly/cards/img/prv-shroud.png.scene.json $$O41
-cp hardware/assembly/cards/img/reservoir-body.png $$O42
-cp hardware/assembly/cards/img/reservoir-body.png.scene.json $$O43
-cp hardware/assembly/cards/img/reservoir-cap.png $$O44
-cp hardware/assembly/cards/img/reservoir-cap.png.scene.json $$O45
-cp hardware/assembly/cards/img/scene-back-half.png $$O46
-cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O47
-cp hardware/assembly/cards/img/scene-back-top.png $$O48
-cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O49
-cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O50
-cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O51
-cp hardware/assembly/cards/img/scene-cap-lid.png $$O52
-cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O53
-cp hardware/assembly/cards/img/scene-cold-core-open.png $$O54
-cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O55
-cp hardware/assembly/cards/img/scene-cold-core.png $$O56
-cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O57
-cp hardware/assembly/cards/img/scene-front-top.png $$O58
-cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O59
-cp hardware/assembly/cards/img/scene-hopper-drain.png $$O60
-cp hardware/assembly/cards/img/scene-hopper-drain.png.scene.json $$O61
-cp hardware/assembly/cards/img/wago-column.png $$O62
-cp hardware/assembly/cards/img/wago-column.png.scene.json $$O63
-cp hardware/assembly/cards/img/water-split.png $$O64
-cp hardware/assembly/cards/img/water-split.png.scene.json $$O65
-cp hardware/assembly/scenes/glb/back-half.glb $$O66
-cp hardware/assembly/scenes/glb/back-top.glb $$O67
-cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O68
-cp hardware/assembly/scenes/glb/cap-lid.glb $$O69
-cp hardware/assembly/scenes/glb/cold-core-open.glb $$O70
-cp hardware/assembly/scenes/glb/cold-core.glb $$O71
-cp hardware/assembly/scenes/glb/en04-stratum.glb $$O72
-cp hardware/assembly/scenes/glb/en06-column.glb $$O73
-cp hardware/assembly/scenes/glb/front-top.glb $$O74
-cp hardware/assembly/scenes/glb/hopper-drain.glb $$O75
+cp hardware/assembly/scenes/glb/back-half.glb $$O0
+cp hardware/assembly/scenes/glb/back-top.glb $$O1
+cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O2
+cp hardware/assembly/scenes/glb/cap-lid.glb $$O3
+cp hardware/assembly/scenes/glb/cold-core-open.glb $$O4
+cp hardware/assembly/scenes/glb/cold-core.glb $$O5
+cp hardware/assembly/scenes/glb/en04-stratum.glb $$O6
+cp hardware/assembly/scenes/glb/en06-column.glb $$O7
+cp hardware/assembly/scenes/glb/front-top.glb $$O8
+cp hardware/assembly/scenes/glb/hopper-drain.glb $$O9
+cp hardware/assembly/cards/img/asse1022-chain.png $$O10
+cp hardware/assembly/cards/img/asse1022-chain.png.scene.json $$O11
+cp hardware/assembly/cards/img/coil-mandrel.png $$O12
+cp hardware/assembly/cards/img/coil-mandrel.png.scene.json $$O13
+cp hardware/assembly/cards/img/copper-plug.png $$O14
+cp hardware/assembly/cards/img/copper-plug.png.scene.json $$O15
+cp hardware/assembly/cards/img/en01-shell.png $$O16
+cp hardware/assembly/cards/img/en01-shell.png.scene.json $$O17
+cp hardware/assembly/cards/img/en02-rearwall.png $$O18
+cp hardware/assembly/cards/img/en02-rearwall.png.scene.json $$O19
+cp hardware/assembly/cards/img/en03-compressor.png $$O20
+cp hardware/assembly/cards/img/en03-compressor.png.scene.json $$O21
+cp hardware/assembly/cards/img/en04-stratum.png $$O22
+cp hardware/assembly/cards/img/en04-stratum.png.scene.json $$O23
+cp hardware/assembly/cards/img/en05-coldcore.png $$O24
+cp hardware/assembly/cards/img/en05-coldcore.png.scene.json $$O25
+cp hardware/assembly/cards/img/en06-column.png $$O26
+cp hardware/assembly/cards/img/en06-column.png.scene.json $$O27
+cp hardware/assembly/cards/img/en08-drippan.png $$O28
+cp hardware/assembly/cards/img/en08-drippan.png.scene.json $$O29
+cp hardware/assembly/cards/img/en09-hopper.png $$O30
+cp hardware/assembly/cards/img/en09-hopper.png.scene.json $$O31
+cp hardware/assembly/cards/img/enclosure-assembly.png $$O32
+cp hardware/assembly/cards/img/enclosure-assembly.png.scene.json $$O33
+cp hardware/assembly/cards/img/es01-wall-bosses.png $$O34
+cp hardware/assembly/cards/img/es01-wall-bosses.png.scene.json $$O35
+cp hardware/assembly/cards/img/foam-assembly-stack.png $$O36
+cp hardware/assembly/cards/img/foam-assembly-stack.png.scene.json $$O37
+cp hardware/assembly/cards/img/foam-cap-top.png $$O38
+cp hardware/assembly/cards/img/foam-cap-top.png.scene.json $$O39
+cp hardware/assembly/cards/img/foam-shell-cavity.png $$O40
+cp hardware/assembly/cards/img/foam-shell-cavity.png.scene.json $$O41
+cp hardware/assembly/cards/img/fu02-faucet.png $$O42
+cp hardware/assembly/cards/img/fu02-faucet.png.scene.json $$O43
+cp hardware/assembly/cards/img/fu05-shell.png $$O44
+cp hardware/assembly/cards/img/fu05-shell.png.scene.json $$O45
+cp hardware/assembly/cards/img/ip03-manifold-pack.png $$O46
+cp hardware/assembly/cards/img/ip03-manifold-pack.png.scene.json $$O47
+cp hardware/assembly/cards/img/pcba-assembly.png $$O48
+cp hardware/assembly/cards/img/pcba-assembly.png.scene.json $$O49
+cp hardware/assembly/cards/img/prv-shroud.png $$O50
+cp hardware/assembly/cards/img/prv-shroud.png.scene.json $$O51
+cp hardware/assembly/cards/img/reservoir-body.png $$O52
+cp hardware/assembly/cards/img/reservoir-body.png.scene.json $$O53
+cp hardware/assembly/cards/img/reservoir-cap.png $$O54
+cp hardware/assembly/cards/img/reservoir-cap.png.scene.json $$O55
+cp hardware/assembly/cards/img/scene-back-half.png $$O56
+cp hardware/assembly/cards/img/scene-back-half.png.scene.json $$O57
+cp hardware/assembly/cards/img/scene-back-top.png $$O58
+cp hardware/assembly/cards/img/scene-back-top.png.scene.json $$O59
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png $$O60
+cp hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json $$O61
+cp hardware/assembly/cards/img/scene-cap-lid.png $$O62
+cp hardware/assembly/cards/img/scene-cap-lid.png.scene.json $$O63
+cp hardware/assembly/cards/img/scene-cold-core-open.png $$O64
+cp hardware/assembly/cards/img/scene-cold-core-open.png.scene.json $$O65
+cp hardware/assembly/cards/img/scene-cold-core.png $$O66
+cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O67
+cp hardware/assembly/cards/img/scene-front-top.png $$O68
+cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O69
+cp hardware/assembly/cards/img/scene-hopper-drain.png $$O70
+cp hardware/assembly/cards/img/scene-hopper-drain.png.scene.json $$O71
+cp hardware/assembly/cards/img/wago-column.png $$O72
+cp hardware/assembly/cards/img/wago-column.png.scene.json $$O73
+cp hardware/assembly/cards/img/water-split.png $$O74
+cp hardware/assembly/cards/img/water-split.png.scene.json $$O75
 """,
 )
 
