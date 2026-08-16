@@ -269,19 +269,13 @@ if staged "BUILD.bazel" "tools/bazel/graph.json" "tools/bazel/selftests.json" ||
        python3 "$root/tools/bazel/gen_build.py" --check
 fi
 
-# web/package-lock.json IS THE RECORD OF WHAT RUNS IN PRODUCTION. render.yaml installs it
-# with `npm ci`, which refuses to run at all when it disagrees with package.json — so a
-# commit that moves one and not the other is a commit that breaks the deploy at build time,
-# where the only reader is a Render log. Asked here instead, the same question costs ~1 s.
+# RENDER.YAML'S OWN INSTALL COMMAND, ASKED HERE. `npm ci` stops when the lockfile and
+# package.json disagree, so the pair moving apart is a deploy that fails at build time with
+# a Render log for its only reader. It catches an `overrides` edit too, which the lockfile
+# does not mirror in its root entry.
 #
-# `npm ci --dry-run` IS THE CHECK, because npm owns the definition of "in sync" and a
-# re-implementation of it here would drift from npm instead. It catches both shapes: a
-# dependency range with no matching entry, and an `overrides` edit — which the lockfile
-# does NOT mirror in its root entry, so nothing structural would have seen it.
-#
-# `--offline` keeps the registry out of the commit path: the sync comparison is local and
-# runs before any fetch, so the answer is the same and no commit waits on the network.
-# `--ignore-scripts` because a check does not run a package's install hooks.
+# `--offline` keeps the registry out of the commit path — the comparison is local and runs
+# ahead of any fetch. `--ignore-scripts` because a check does not run a package's install hooks.
 if staged "web/package.json" "web/package-lock.json"; then
   gate "web lockfile in sync with package.json" \
        sh -c "cd \"$root/web\" && npm ci --dry-run --omit=dev --offline --ignore-scripts"
