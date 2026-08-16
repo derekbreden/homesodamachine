@@ -206,6 +206,10 @@ def render_build(only: str = None) -> tuple:
     # failure is silent destruction. A test target is what runs it, and running one costs
     # nothing the second time: `bazel test` skips a test whose data has not moved.
     #
+    # `large` is a fifteen-minute ceiling. The slowest of these stands the machine and comes
+    # back in four minutes; `enormous` gave every one of them an hour, which is not headroom
+    # but the time a hung test would burn before anyone was told.
+    #
     # WHAT A TEST READS IS NOT WHAT ITS MODULE BUILDS. `graph.json` answers the second and has
     # no entry at all for `sync_tree.py`, because the machinery that writes the graph is not a
     # step in the graph it writes. So a selftest is watched the same way a generator is —
@@ -232,7 +236,7 @@ def render_build(only: str = None) -> tuple:
             + '    srcs = ["tools/bazel/selftest.sh"],\n    data = [\n'
             + "".join(f'        "{s}",\n' for s in sorted(want & held))
             + f'    ],\n    args = ["{gen}"],\n'
-            + '    size = "enormous",\n    tags = ["local"],\n)')
+            + '    size = "large",\n    tags = ["local"],\n)')
 
     head = (
         'load("@rules_shell//shell:sh_test.bzl", "sh_test")\n\n'
