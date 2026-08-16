@@ -277,20 +277,11 @@ FUNNEL_ROT = 0.0
 # carries and occt-import-js reads back the same three. The pack is read through X-RAY, a mode the
 # viewer enters over the whole model (web/public/js/viewer/xray.js). These say what a part looks
 # like with the lights on.
-M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
-M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
-M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
-M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
-# The Multiplex 19-0897's hex barrel (`reference/multiplex-asse1022`).
-M_BRASS = cq.Color(0.71, 0.56, 0.33)
-# The SF76E's tin-plated case, which its listing states as metal.
-M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
-# The one filament every black print on this machine comes off — the box, the pan, the clamp and
-# the cold core — MEASURED rather than named: `_back_panel_dimensions.chip_filaments` holds the
-# swatch the flavour chips are cut to.
-M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
-# Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
-M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
+# The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
+# bodies' own STEPs read too.
+from _materials import (M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,        # noqa: E402
+                        M_NEOFIT_ACETAL, M_PETG_BLACK, M_SILICONE_BLACK,
+                        M_STAINLESS, M_TINNED_STEEL)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
 # carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
