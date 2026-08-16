@@ -12,11 +12,19 @@
 // historical bytes; the renderer reads them via the live tools.
 //
 // atSpec can be:
-//   - a date string accepted by `git rev-list --before=...` (e.g.
-//     "2026-04-15"): we pin to "<date> 23:59:59" so HEAD-of-day commits
-//     are included.
-//   - a literal SHA: passed straight to `git worktree add` after a
-//     rev-parse to confirm it exists.
+//   - anything git resolves as a commit: a SHA, a branch, or a tag —
+//     `archive-plan-b` reaches the tagged commit, peeled through ^{commit}.
+//   - a date string (e.g. "2026-04-15"): we pin to "<date> 23:59:59" so
+//     HEAD-of-day commits are included.
+//
+// Refs are tried first, and a date is only accepted once git has been shown
+// to read it as one. `git rev-list --before` takes any string: approxidate
+// turns what it cannot read into "now" and exits 0, so an unchecked spec —
+// a tag, a typo, a SHA that is not in the repo — returns HEAD and renders
+// today's geometry under a historical caption.
+//
+// `node tools/render/temporal.js` runs those cases — what a spec must reach
+// and what it must be refused for.
 //
 // Cleanup: try/finally always runs `git worktree remove --force`. We also
 // register a process-exit hook so a hard crash (uncaught throw, SIGINT)
@@ -30,38 +38,93 @@ import path from "node:path";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
 
+import { closeServer } from "./browser.js";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
-// Look like a SHA? 7-40 hex chars. We resolve it to a real OID below.
+// Look like a SHA? 7-40 hex chars. Used to tell a mistyped object id from a
+// date, so the one gets an error and the other gets parsed.
 function looksLikeSha(s) {
   return /^[0-9a-f]{7,40}$/i.test(String(s || "").trim());
+}
+
+// The commit a ref or object id names, or null if git does not know it.
+// ^{commit} peels an annotated tag down to its commit, which is what
+// `git worktree add` wants.
+function commitForRef(spec) {
+  const r = spawnSync(
+    "git",
+    ["rev-parse", "--verify", "--quiet", `${spec}^{commit}`],
+    { cwd: REPO_ROOT, encoding: "utf-8" },
+  );
+  if (r.status !== 0) return null;
+  const out = String(r.stdout || "").trim();
+  return /^[0-9a-f]{40}$/.test(out) ? out : null;
+}
+
+// A calendar date, optionally with a time: 2026-04-15, 2026-04-15 09:30.
+const ISO_DATE =
+  /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?$/;
+
+// Whether git would read spec as the date it appears to be. The check is
+// ours rather than a probe of approxidate, because approxidate answers
+// "now" both for a string it cannot read and for today's own date — the
+// two are one instant, and one of them is a legitimate spec.
+//
+// Round-tripping through Date is what rejects 2026-13-45 and 2026-02-30;
+// git reads those as 2026-08-13 and 2026-03-02, silently, being helpful.
+function isCalendarDate(spec) {
+  const m = ISO_DATE.exec(spec);
+  if (!m) return false;
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const dt = new Date(Date.UTC(y, mo - 1, d));
+  if (
+    dt.getUTCFullYear() !== y ||
+    dt.getUTCMonth() !== mo - 1 ||
+    dt.getUTCDate() !== d
+  ) {
+    return false;
+  }
+  const [hh, mi, ss] = [m[4], m[5], m[6]].map((v) => (v === undefined ? 0 : Number(v)));
+  return hh <= 23 && mi <= 59 && ss <= 59;
+}
+
+// A date carrying its own time is pinned as given; a bare one is pinned to
+// end-of-day so the day's last commit is included.
+function hasTime(spec) {
+  const m = ISO_DATE.exec(spec);
+  return !!(m && m[4] !== undefined);
 }
 
 // Resolve atSpec to a full commit SHA on the current repo.
 function resolveSha(atSpec) {
   const spec = String(atSpec).trim();
+  if (!spec) throw new Error("resolveSha: atSpec is empty");
 
+  // A SHA, a branch, or a tag — whatever git already knows by that name.
+  const ref = commitForRef(spec);
+  if (ref) return ref;
+
+  // Something shaped like an object id that git does not have is a mistake,
+  // not a date to be parsed.
   if (looksLikeSha(spec)) {
-    // rev-parse to canonicalize and confirm it exists.
-    try {
-      const out = execFileSync("git", ["rev-parse", spec], {
-        cwd: REPO_ROOT,
-        encoding: "utf-8",
-      }).trim();
-      if (!/^[0-9a-f]{40}$/.test(out)) {
-        throw new Error(`git rev-parse returned non-SHA: ${out}`);
-      }
-      return out;
-    } catch (e) {
-      throw new Error(
-        `Could not resolve SHA "${spec}": ${e.message || e}`,
-      );
-    }
+    throw new Error(
+      `Could not resolve "${spec}": it looks like an object id, but no such ` +
+        `commit is in this repository.`,
+    );
   }
 
-  // Treat as a date. Pin to end-of-day so HEAD-of-day commits are kept.
-  const before = `${spec} 23:59:59`;
+  if (!isCalendarDate(spec)) {
+    throw new Error(
+      `--at "${spec}" is neither a commit git knows nor a calendar date. ` +
+        `Left to \`git rev-list --before\` it would resolve to now, i.e. ` +
+        `HEAD, and render today's geometry under a historical caption. ` +
+        `Pass a tag, a branch, a SHA, or a date like 2026-04-15.`,
+    );
+  }
+
+  const before = hasTime(spec) ? spec : `${spec} 23:59:59`;
   let out;
   try {
     out = execFileSync(
@@ -303,9 +366,76 @@ export async function withHistoricalServer(atSpec, callback) {
     try {
       return await callback({ baseUrl, server, worktreeDir, sha });
     } finally {
-      await new Promise((resolve) => server.close(() => resolve()));
+      await closeServer(server);
     }
   });
+}
+
+// `node tools/render/temporal.js` checks what resolveSha must accept and what
+// it must refuse. The refusals carry the weight: each one used to resolve to
+// now, i.e. HEAD, and render today's geometry under a historical caption.
+function selftest() {
+  const head = execFileSync("git", ["rev-parse", "HEAD"], {
+    cwd: REPO_ROOT,
+    encoding: "utf-8",
+  }).trim();
+  const someTag = execFileSync("git", ["tag", "--list"], {
+    cwd: REPO_ROOT,
+    encoding: "utf-8",
+  })
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean)[0];
+
+  const accepts = [
+    [someTag, "a tag"],
+    ["main", "a branch"],
+    [head.slice(0, 8), "a short sha"],
+    ["2026-04-15", "a date"],
+    [new Date().toISOString().slice(0, 10), "today"],
+    ["2026-04-15 09:30", "a date carrying a time"],
+  ].filter(([spec]) => spec);
+  const refuses = [
+    ["hsm-no-such-ref", "a name git does not know"],
+    ["2026-13-45", "a month and day that do not exist"],
+    ["2026-02-30", "a day not in that month"],
+    ["deadbeefdeadbeefdeadbeefdeadbeefdeadbeef", "an object id not in the repo"],
+    ["3 days ago", "a relative date git would read as a moving target"],
+    ["", "nothing"],
+  ];
+
+  let failed = 0;
+  for (const [spec, what] of accepts) {
+    try {
+      const sha = resolveSha(spec);
+      // A tag that resolved to HEAD is the bug this guards: the tag names an
+      // older commit, so landing on HEAD means the spec was read as a date.
+      const suspect = spec === someTag && sha === head && someTag !== "HEAD";
+      if (suspect) throw new Error("resolved to HEAD");
+      console.log(`  ok      accepts ${what}: ${spec} -> ${sha.slice(0, 8)}`);
+    } catch (e) {
+      failed++;
+      console.log(`  FAILED  accepts ${what}: ${spec} -> ${e.message}`);
+    }
+  }
+  for (const [spec, what] of refuses) {
+    let threw = false;
+    try {
+      resolveSha(spec);
+    } catch {
+      threw = true;
+    }
+    if (!threw) failed++;
+    console.log(
+      `  ${threw ? "ok     " : "FAILED "} refuses ${what}: ${JSON.stringify(spec)}`,
+    );
+  }
+  console.log(failed ? `\n${failed} failed` : "\nall pass");
+  return failed;
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  process.exit(selftest() ? 1 : 0);
 }
 
 // Tiny pathToFileURL — we keep our own to avoid pulling node:url into the

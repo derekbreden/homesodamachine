@@ -108,7 +108,7 @@
 //   --size WxH         default 1400x1100
 //   --bg #hex          default #1a1a2e (site navy)
 //   --edition id       which machine's tree the step path is in. Default kitchen.
-//   --at <date|sha>    read the STEP as it stood at that commit, out of a throwaway
+//   --at <date|ref>    read the STEP as it stood at that commit, out of a throwaway
 //                      worktree; the tooling stays at HEAD. The resolved SHA goes in
 //                      the legend. Uncommitted edits in the live tree are not in it.
 //
@@ -122,7 +122,7 @@ import sharp from "sharp";
 import { start } from "../../web/server.js";
 import { DEFAULT_EDITION, EDITION_IDS, editionById } from "../../web/lib/editions.js";
 import { withHistoricalTree } from "./temporal.js";
-import { PARSE_TIMEOUT, closeBrowser, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -1182,7 +1182,7 @@ async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
     return await fn(page);
   } finally {
     if (browser) await closeBrowser(browser);
-    await new Promise((resolve, reject) => server.close((err) => (err ? reject(err) : resolve())));
+    await closeServer(server);
   }
 }
 

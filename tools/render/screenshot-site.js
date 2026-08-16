@@ -4,7 +4,7 @@
 // Usage:
 //   node tools/render/screenshot-site.js <url-or-path> <output-png>
 //                                        [--width=390] [--height=844]
-//                                        [--at <date|sha>]
+//                                        [--at <date|ref>]
 //
 // Defaults to iPhone 13/14 viewport (390x844) at 2x DPR (so the PNG is 780x1688
 // and stays sharp on retina displays). Sends an iPhone Safari user agent so the
@@ -24,10 +24,10 @@
 // settle while remaining tolerant of any number of persistent streaming
 // connections.
 //
-// --at <date|sha>
+// --at <date|ref>
 //   Boot the historical server from a throwaway git worktree at the resolved
 //   commit (most recent commit on `main` on or before <date> 23:59:59, or the
-//   literal SHA), then screenshot http://localhost:<ephemeral-port><path>.
+//   a ref such as a tag), then screenshot http://localhost:<ephemeral-port><path>.
 //   With --at, the first arg MUST be a path (e.g. "/", "/3d"), not
 //   a full URL — the tool prefixes baseUrl itself.
 //   Without --at, current behavior is preserved: the first arg is treated as
@@ -67,7 +67,7 @@ function usageAndExit(message) {
   if (message) console.error(`error: ${message}`);
   console.error(
     "usage: node tools/render/screenshot-site.js <url-or-path> <output-png> " +
-      "[--width=390] [--height=844] [--at <date|sha>]",
+      "[--width=390] [--height=844] [--at <date|ref>]",
   );
   process.exit(message ? 1 : 0);
 }
