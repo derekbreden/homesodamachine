@@ -44,7 +44,7 @@ from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
 from OCP.TopExp import TopExp_Explorer
 from OCP.TopLoc import TopLoc_Location
 from OCP.TopoDS import TopoDS, TopoDS_Compound
-from _cadq_export import import_step
+from _cadq_export import _per_solid_color, import_step
 
 # What the viewer gets by calling ReadStepFile(buffer, null): a linear
 # deflection stated as a ratio of the model's size, and an angular deflection
@@ -172,25 +172,24 @@ def from_assembly(assembly):
     OCCT-IMPORT-JS SURFACES A COLOR ONLY WHERE A COMPONENT IS A SINGLE SOLID, and
     that reader is what the viewer runs — so it, and not the file, is what this
     has to match. The STEP itself carries a `styled_item` per
-    `manifold_solid_brep` whatever the component holds; reading the file and
-    concluding the color is there is the trap. Give a component several — the
-    reference sub-assemblies, the flavour pack, the valve coils — and the reader
-    hands those leaves back uncolored, so the viewer draws them default gray.
-    Colouring them here instead would repaint ~50 solids of the enclosure that
-    its detail view leaves gray, which is the one thing a handed-over
-    tessellation must not do. An ancestor's color never reaches a leaf through a
-    STEP either, and never reaches one here, because only a node's own color is
-    read.
+    `manifold_solid_brep` whatever the component holds. `export_assembly` restates
+    a multi-solid body as one component per solid before either route sees it
+    (`_per_solid_color` in _cadq_export.py); handed that, this keeps every color,
+    and handed an assembly as built it drops the ones the viewer would drop. An
+    ancestor's color never reaches a leaf through a STEP either, and never reaches
+    one here, because only a node's own color is read.
 
     `selftest`'s round trip is what holds all of this: it exports an assembly and
     reads it back THROUGH occt-import-js, so the rule answers to that
     implementation rather than to what this file believes about STEP.
 
-    occt-import-js names a mesh after its component (backfillMeshNames in
-    step.js walks the STEP's node tree to do it); the assembly knows the name
-    directly, so the leaf of its path is used.
+    A NAME IS HANDED OVER VERBATIM, index and all. occt-import-js reads a mesh's
+    name off the component's own label, falling back to the owning node's when the
+    leaf has none (backfillMeshNames in step.js walks the STEP's node tree to do
+    that) — both of which are the node's name as the assembly states it, so the
+    two routes name a solid alike. `bodyName` in step.js takes the index off both.
     """
-    placed = [(name.split("/")[-1], color if len(solids) == 1 else None, solid)
+    placed = [(name, color if len(solids) == 1 else None, solid)
               for name, color, solids in _placed(assembly) for solid in solids]
     meshed = _mesh_all([s for _, _, s in placed], deflection(assembly.toCompound().wrapped))
     return [m for (name, color, _), solid in zip(placed, meshed)
@@ -385,6 +384,24 @@ def _selftest():
                   sorted((tuple(round(c, 3) for c in m["color"]) if m["color"] else None
                           for m in meshes), key=str))
 
+        # And the assembly `export_assembly` actually writes: the same bodies,
+        # every multi-solid one restated as a component per solid, which is the
+        # structure that reader DOES take a color off. `pair` is the case — two
+        # solids under one green, gray above and green here. `leaf` is the case
+        # no split can reach, since the color it would want is its parent's and
+        # an ancestor's color reaches nothing.
+        with tempfile.TemporaryDirectory() as d:
+            step = os.path.join(d, "split.step")
+            _per_solid_color(assy).export(step)
+            got = occt(step)
+            check("a split body names its solids under itself",
+                  sorted(got["names"]), ["a", "b", "leaf", "pair/1", "pair/2"])
+            check("the split carries color onto every solid of a colored body",
+                  sorted((tuple(round(c, 3) for c in m["color"]) if m["color"] else None
+                          for m in got["colors"]), key=str),
+                  sorted([(0.692, 0.57, 0.342), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0),
+                          None, None], key=str))
+
     bad = [c for c in checks if not c[0]]
     print(f"\n{len(checks) - len(bad)}/{len(checks)} checks passed")
     return 1 if bad else 0
@@ -401,6 +418,7 @@ require('occt-import-js')().then((occt) => {
   console.log(JSON.stringify({ meshes: r.meshes.length,
     tris: r.meshes.reduce((s, m) => s + m.index.array.length / 3, 0),
     faces: r.meshes.reduce((s, m) => s + (m.brep_faces ? m.brep_faces.length : 0), 0),
+    names: r.meshes.map((m) => m.name || ''),
     colors: r.meshes.map((m) => ({ color: m.color || null })) }));
 });
 """
