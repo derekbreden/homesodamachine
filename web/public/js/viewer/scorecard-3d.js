@@ -1,15 +1,11 @@
-// The 3D viewer's scorecard bar + drill-down modal — the enclosure's requirements verdict,
+// The 3D viewer's checks badge + drill-down modal — the enclosure's requirements verdict,
 // mirroring the PCB board-checks UI (public/js/viewer/pcb.js) for the STEP viewer. Reads the
 // <model>.scorecard.json sidecar (contracts/scorecard-sidecar.js) written by the build's
-// _scorecard.py, and draws a thin bottom bar plus a modal that drills each gate/goal into its
-// detail rows. The sidecar's port inventory goes to port-markers.js, which draws each connector
-// on the model. One verdict, two surfaces: the same data the terminal prints.
+// _scorecard.py, and draws a badge at the bottom of the canvas that opens a modal drilling each
+// gate/goal into its detail rows. One verdict, two surfaces: the same data the terminal prints.
 
 import { scorecardPathFor, isScorecard, sizeText } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
-import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
-import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
-import { chipRow } from "./tool-rail.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•" };
 
@@ -167,63 +163,47 @@ function openModal(wrapper, sc, title) {
   wrapper.appendChild(modal);
 }
 
-// Watches the mounted bar's height for the phone layout; one at a time, since
-// one wrapper carries one bar.
-let barSize = null;
+// Watches the mounted badge's height for the phone layout; one at a time, since
+// one wrapper carries one badge.
+let badgeSize = null;
 
-function gateCounts(sc) {
-  const gates = sc.checks.filter((c) => c.kind === "gate");
-  return { pass: gates.filter((c) => c.status === "pass").length, total: gates.length,
-           fail: gates.filter((c) => c.status !== "pass").length };
-}
-
-function buildBar(wrapper, sc, title) {
+// The verdict in one word, and the count when it is a bad one. Everything behind it —
+// each gate, each goal's score, the sizes — is a click away in the modal.
+function buildBadge(wrapper, sc, title) {
   removeScorecard(wrapper);
-  const g = gateCounts(sc);
-  const bar = el("div", "sc-bar");
-  // The gates as one count, then each goal's score; the badge beside it carries the verdict.
-  bar.appendChild(el("span", "sc-bar-text",
-    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · routed ${sc.routed}%`));
-  const badge = el("button", "sc-badge" + (g.fail ? " has-issues" : ""),
-    g.fail ? `✗ ${g.fail} gate${g.fail === 1 ? "" : "s"}` : "✓ checks");
+  const fail = sc.checks.filter((c) => c.kind === "gate" && c.status !== "pass").length;
+  const badge = el("button", "sc-badge" + (fail ? " has-issues" : ""),
+    fail ? `✗ ${fail} gate${fail === 1 ? "" : "s"}` : "✓ checks");
   badge.type = "button";
   badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title); });
-  bar.appendChild(badge);
-  wrapper.appendChild(bar);
-  // How much room the bar takes at the bottom of the wrapper, published for the
-  // phone layout to stand the rail and Reset view on top of (viewer.css). The
-  // bar wraps to a second line on a narrow screen, so this is measured rather
-  // than assumed.
+  wrapper.appendChild(badge);
+  // How much room the badge takes at the bottom of the wrapper, published for the
+  // phone layout to stand the rail and Reset view on top of (viewer.css).
   //
   // Measured here and again on every resize. The first reading is taken inline
   // because offsetHeight forces the layout it reads, which holds in a tab that
   // is not being painted — a ResizeObserver in that tab does not run until the
-  // tab is looked at, and the rail would stand over the bar until then.
+  // tab is looked at, and the rail would stand over the badge until then.
   const publish = () => {
-    wrapper.style.setProperty("--sc-bar-lift", `${Math.ceil(bar.offsetHeight) + 8}px`);
+    wrapper.style.setProperty("--sc-badge-lift", `${Math.ceil(badge.offsetHeight) + 8}px`);
   };
   publish();
-  barSize = new ResizeObserver(publish);
-  barSize.observe(bar);
+  badgeSize = new ResizeObserver(publish);
+  badgeSize.observe(badge);
 }
 
-// Remove the bar, the port toggle, and any open modal — used before a re-mount (live reload) and
-// by teardown. The markers themselves belong to the model, and go with it (clearPorts).
+// Remove the badge and any open modal — used before a re-mount (live reload) and by teardown.
 export function removeScorecard(wrapper) {
   if (!wrapper) return;
-  if (barSize) { try { barSize.disconnect(); } catch {} barSize = null; }
-  wrapper.style.removeProperty("--sc-bar-lift");
-  const b = wrapper.querySelector(".sc-bar");
+  if (badgeSize) { try { badgeSize.disconnect(); } catch {} badgeSize = null; }
+  wrapper.style.removeProperty("--sc-badge-lift");
+  const b = wrapper.querySelector(".sc-badge");
   if (b) b.remove();
-  for (const sel of [".port-toggle", ".shape-box-toggle"]) {
-    const t = wrapper.querySelector(sel);
-    if (t) t.remove();
-  }
   closeModal(wrapper);
 }
 
-// Fetch the sidecar for `file` and mount the bar on `wrapper`. No sidecar (404 / malformed) =
-// no bar, silently — most STEP models don't carry a scorecard.
+// Fetch the sidecar for `file` and mount the badge on `wrapper`. No sidecar (404 / malformed) =
+// no badge, silently — most STEP models don't carry a scorecard.
 export async function mountScorecard(wrapper, file) {
   let sc = null;
   try {
@@ -235,18 +215,8 @@ export async function mountScorecard(wrapper, file) {
   // The modal may have closed (or reloaded to another model) while we fetched — bail if the
   // wrapper is no longer in the document.
   if (!wrapper.isConnected) return;
-  // The verdict is in, so whatever the last model left on screen goes — including when this
-  // model has no verdict at all, which is the case that would otherwise leave the previous
-  // model's gates and its dead port and box chips sitting over a model they don't describe.
+  // Whatever the last model left on screen goes, card or no card.
   removeScorecard(wrapper);
-  if (!sc || !isScorecard(sc)) { clearPorts(); clearShapeBoxes(); return; }
-  // The card is titled by the model it belongs to — more than one assembly writes one now.
-  buildBar(wrapper, sc, file.split("/").pop().replace(/\.step$/, ""));
-  const chips = chipRow(wrapper, "show");
-  const ports = Array.isArray(sc.ports) ? sc.ports : [];
-  if (ports.length && chips) chips.appendChild(makePortToggle(showPorts(ports, file)));
-  else clearPorts();
-  const shapes = Array.isArray(sc.shapes) ? sc.shapes : [];
-  if (shapes.length && chips) chips.appendChild(makeShapeBoxToggle(showShapeBoxes(shapes, file)));
-  else clearShapeBoxes();
+  if (!sc || !isScorecard(sc)) return;
+  buildBadge(wrapper, sc, file.split("/").pop().replace(/\.step$/, ""));
 }

@@ -1741,7 +1741,6 @@ class Scorecard:
     checks: list
     bends: list
     conns: list
-    ports: list
     shapes: list
     sizes: list
 
@@ -1780,30 +1779,13 @@ def _build(a) -> Scorecard:
     leads = port_leads(a, runs)
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
-    ports = []
-    for name, fr in sorted((getattr(a, "frames", {}) or {}).items()):
-        for port in sorted(fr.ports):
-            pos, face, diam = fr.ports[port]
-            ports.append({
-                "component": name, "name": port, "kind": "fluid",
-                "pos": None if pos is None else [round(v, 3) for v in pos],
-                # The FACE ITSELF and not a rendering of it: a body-face name where the port
-                # declares one, the outward normal where it is clocked off the world axes.
-                # `web/contracts/port-format.js` reads a direction out of this.
-                "face": face if isinstance(face, str) else [round(v, 6) for v in face],
-                "diam": diam,
-                "mates": ", ".join(sorted(r.id for r in runs
-                                          if f"{name}.{port}" in (r.frm, r.to))) or "—",
-                "status": "ok" if pos is not None and diam is not None else "no-pos",
-                "note": "",
-            })
     checks = [_coverage(a), _room_holds(a), _pack_closes(a), _lines_clear(a, runs),
               _port_leads(leads), _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(runs), _placed(a), _routed(conns), _located(a),
               _tube_anchored(a, runs)]
-    return Scorecard(checks, bends, conns, ports, shapes, size_rows(a))
+    return Scorecard(checks, bends, conns, shapes, size_rows(a))
 
 
 def to_dict(sc: Scorecard) -> dict:
@@ -1829,7 +1811,6 @@ def to_dict(sc: Scorecard) -> dict:
              "active": c.active and c.kind != "goal"}
             for c in sc.checks
         ],
-        "ports": sc.ports,
         "shapes": sc.shapes,
     }
 

@@ -69,7 +69,6 @@ def score(check: Check) -> int:
 class Scorecard:
     checks: list
     bends: list = field(default_factory=list)
-    ports: list = field(default_factory=list)
     shapes: list = field(default_factory=list)
 
     @property
@@ -90,7 +89,6 @@ def to_dict(sc: Scorecard) -> dict:
              "active": c.active and c.id in FOCUS_IDS if c.kind == "goal" else c.active}
             for c in sc.checks
         ],
-        "ports": sc.ports,
         "shapes": sc.shapes,
         # `_scenes.core_names` reads an `id` off every row here for the core's line names.
         "bends": sc.bends,

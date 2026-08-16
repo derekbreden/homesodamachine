@@ -50,19 +50,6 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
- * @typedef {Object} ScorecardPort  one connector in the audit-readable inventory
- * @property {string} component  the component name it sits on
- * @property {string} name       connector id, unique within its component
- * @property {"fluid"|"refrigerant"|"electrical"} kind
- * @property {number[]|null} pos [x, y, z] world mm, or null = not yet located
- * @property {string} face       body face it exits: x-/x+/y-/y+/z-/z+ ("" when unlocated)
- * @property {number|null} diam  nominal bore Ø mm (the mating dimension), or null = not yet sized
- * @property {string} mates      the other end, human-readable
- * @property {"ok"|"off-surface"|"no-pos"|"no-diam"} status
- * @property {string} note
- */
-
-/**
  * @typedef {Object} ScorecardCorner  one interior corner, graded on the radius IT turns at
  * @property {number} at      the corner's waypoint index along the run
  * @property {number} turn    how far it deflects, degrees
@@ -131,7 +118,6 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  *                               placed. Optional: an edition whose scorecard predates the
  *                               table omits it, and the card draws without a size block
  * @property {ScorecardCheck[]} checks
- * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
  * @property {ScorecardBend[]} [bends]  per routed run, the radius it turns at and its grade.
  *                               Optional: the cold core's card carries it for
@@ -178,22 +164,6 @@ export function isScorecard(o) {
       Array.isArray(c.detail),
   );
   if (!checksOk) return false;
-  // ports is the connector inventory. Present on current sidecars; validated when present so an
-  // older sidecar without it still reads (draws the bar, just no port table).
-  if (o.ports !== undefined) {
-    if (!Array.isArray(o.ports)) return false;
-    const portsOk = o.ports.every(
-      (p) =>
-        p &&
-        typeof p.component === "string" &&
-        typeof p.name === "string" &&
-        (p.pos === null || (Array.isArray(p.pos) && p.pos.length === 3 && p.pos.every((n) => typeof n === "number"))) &&
-        (p.diam === null || typeof p.diam === "number") &&
-        typeof p.mates === "string" &&
-        typeof p.status === "string",
-    );
-    if (!portsOk) return false;
-  }
   // size is the measured outside of the printed box and of the whole assembly. Present on
   // current sidecars; validated when present so an older sidecar without it still reads.
   if (o.size !== undefined) {

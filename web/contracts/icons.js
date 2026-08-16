@@ -65,10 +65,6 @@ export const ICON_INNER = {
   // A ticked rule — Rulers. The axis triad it draws is the truer picture and
   // reads as an abstract mark at 15px, where this reads as its own label.
   rulers: '<rect x="2" y="8" width="20" height="9" rx="2"></rect><path d="M7 8v4"></path><path d="M12 8v5"></path><path d="M17 8v4"></path>',
-  // A bore disc standing on the axis it exits along — the port markers.
-  ports: '<ellipse cx="12" cy="15.5" rx="8.5" ry="3.5"></ellipse><path d="M12 15.5V3.5"></path>',
-  // A box per solid — the shape boxes.
-  boxes: '<rect x="2.5" y="8" width="12" height="12" rx="1"></rect><rect x="9.5" y="4" width="12" height="12" rx="1"></rect>',
 };
 
 export function iconSvg(key, className = "") {
