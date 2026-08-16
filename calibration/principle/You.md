@@ -580,11 +580,11 @@ Let me look at what's actually been happening in the commits before I answer con
 
 Apologies for interrupting, but I wanted to redirect you, if you are interested in the commits, that the files in
 
-/posts/
+archive-blog:posts/
 
 starting with:
 
-/posts/2026-05-18-2352.md
+archive-blog:posts/2026-05-18-2352.md
 
 May actually give you a more succinct summary of where the focus actually has been in those commits - filtered by some agents that already read the diffs. It's basically a high level summary (agent generated) of "whats important" from the commits each day.
 

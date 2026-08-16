@@ -221,9 +221,9 @@ export function mountPushRoutes(app) {
 // Hash every viewable file under hardwareDir, compare to its hash table,
 // return paths whose hash changed since last boot.
 //
-// First-seen handling mirrors detectChangedPosts: a file seen for the first
-// time IS a publish event we want to notify on (a new part is part of the
-// project the same way a new post is). The only case we suppress is the
+// First-seen counts: a file seen for the first time IS a publish event we
+// want to notify on, since a new part is as much a change to the project as
+// an edit to an existing one. The only case we suppress is the
 // genuine bootstrap — first deploy after schema creation, when every
 // existing file is "first-seen" but is really backlog. Detect that by
 // checking whether the hash table is empty before iterating; if so, record
