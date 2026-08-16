@@ -1,8 +1,12 @@
-"""Draw the unit cards' pictures — one scene STEP and one PNG per finished sub-assembly.
+"""Draw the assembly cards' pictures — every scene and every part shot in `_scenes`.
 
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py            # all
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top   # one
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force    # anyway
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py             # all
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top    # one scene
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py en08-drippan # one part
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force     # anyway
+
+A PART SHOT COSTS NO APPLIANCE — its subject is a STEP — so a run asked for nothing but part
+shots stands no machine at all.
 
 THE MACHINE IS BUILT ONCE for however many scenes are asked for: a scene is a subset of that one
 assembly, so the cost of four pictures is the cost of one build plus four cuts. What lands in the
@@ -39,10 +43,19 @@ GLB_DIR = _HERE.parent / "glb"
 GLB_TOL = 0.5
 RENDERER = _ROOT / "tools" / "render" / "render-step-posed.js"
 SIZE = "1600x1200"
+# A part shot is drawn on the scenes' own canvas and then TRIMMED to its subject, so this is
+# what the render has to work with rather than what the card receives: the picture that comes
+# out is the subject's own projection, and the card scales it into a panel.
+PART_SIZE = SIZE
+
+
+# The eight scenes a card knows as `scene-<id>.png` keep that name; the two named for the card
+# whose picture they are take the card's own file name, the way a part shot does.
+_SCENE_PNG = {"en04-stratum": "en04-stratum.png", "en06-column": "en06-column.png"}
 
 
 def png_for(scene) -> Path:
-    return IMG_DIR / f"scene-{scene.id}.png"
+    return IMG_DIR / _SCENE_PNG.get(scene.id, f"scene-{scene.id}.png")
 
 
 # The core's own bodies, placed, for however many scenes in one run ask for them. Standing the
@@ -200,23 +213,88 @@ def draw(scene, assembly, force=False) -> Path:
     return png
 
 
+def part_png(part) -> Path:
+    return IMG_DIR / f"{part.id}.png"
+
+
+def draw_part(part, force=False) -> Path:
+    """One part shot: the STEP the tree already keeps for that part, posed, with the same
+    sidecar a scene gets.
+
+    NO MACHINE IS STOOD FOR THIS. The subject is a file, so the picture costs the render and
+    the digest of the bytes it drew — which is also what makes a part shot answerable on its
+    own: `render_scenes.py en08-drippan` needs no appliance."""
+    # THE RENDERER IS READ WHETHER OR NOT THIS RUN STARTS IT, and so is the STEP. A part whose
+    # geometry and pose both stand skips the browser, and a trace of that run would declare
+    # neither the file that draws every picture here nor the file it draws.
+    note_read(RENDERER)
+    step = _ROOT / part.step
+    note_read(step)
+    png = part_png(part)
+    note_write(png)
+
+    geometry = _scenes.digest_of(step)
+    if geometry is None:
+        raise FileNotFoundError(
+            f"part shot {part.id!r} draws {part.step}, which is not in the tree. A part shot's "
+            f"subject is a STEP some generator cuts; a name here with no file is that "
+            f"generator's output moving or being renamed.")
+    held = _scenes.held_record(png)
+    unchanged = (not force
+                 and held.get("geometry") == geometry
+                 and held.get("part") == _scenes.part_digest(part)
+                 and png.is_file()
+                 and held.get("image") == _scenes.image_fingerprint(png))
+
+    if unchanged:
+        print(f"   (geometry unchanged — {png.name} stands)")
+    else:
+        rel = step.relative_to(_HW).as_posix()      # the renderer takes a content-root path
+        cmd = [
+            "node", str(RENDERER), rel, str(png),
+            "--cam", ",".join(str(v) for v in part.cam),
+            "--up", ",".join(str(v) for v in part.up),
+            "--zoom", str(part.zoom),
+            "--size", PART_SIZE,
+            "--trim",
+        ] + (["--solid"] if part.solid else [])
+        print("   " + " ".join(cmd[1:]))
+        subprocess.run(cmd, cwd=str(_ROOT), check=True)
+
+    _scenes.sidecar_path(png).write_text(json.dumps({
+        "part": _scenes.part_digest(part),
+        "geometry": geometry,
+        "drawn": [part.step],
+        "image": _scenes.image_fingerprint(png),
+    }, indent=2, sort_keys=True) + "\n")
+    return png
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("scenes", nargs="*", help="scene ids; default every one")
+    ap.add_argument("scenes", nargs="*", help="scene or part-shot ids; default every one")
     ap.add_argument("--force", action="store_true",
                     help="redraw even where the geometry and the camera both stand")
     args = ap.parse_args()
 
-    wanted = args.scenes or [s.id for s in _scenes.SCENES]
-    unknown = [s for s in wanted if s not in _scenes.SCENE_BY_ID]
+    every = [s.id for s in _scenes.SCENES] + [p.id for p in _scenes.PARTS]
+    wanted = args.scenes or every
+    unknown = [s for s in wanted if s not in _scenes.SCENE_BY_ID and s not in _scenes.PART_BY_ID]
     if unknown:
-        ap.error(f"no such scene: {', '.join(unknown)} — have "
-                 f"{', '.join(s.id for s in _scenes.SCENES)}")
-    scenes = [_scenes.SCENE_BY_ID[s] for s in wanted]
+        ap.error(f"no such picture: {', '.join(unknown)} — have {', '.join(every)}")
+    scenes = [_scenes.SCENE_BY_ID[s] for s in wanted if s in _scenes.SCENE_BY_ID]
+    parts = [_scenes.PART_BY_ID[s] for s in wanted if s in _scenes.PART_BY_ID]
 
-    print(f"building the machine once for {len(scenes)} scene(s)…")
-    import enclosure_assembly as ea
-    draw_all(scenes, ea.build_enclosure_assembly(), force=args.force)
+    # THE PART SHOTS GO FIRST because they cost no appliance. A run asked for nothing but part
+    # shots never stands the machine at all.
+    for part in parts:
+        print(f"\n{part.id} — {part.title}: {part.step}")
+        print(f"-> {draw_part(part, force=args.force).relative_to(_ROOT)}")
+
+    if scenes:
+        print(f"\nbuilding the machine once for {len(scenes)} scene(s)…")
+        import enclosure_assembly as ea
+        draw_all(scenes, ea.build_enclosure_assembly(), force=args.force)
 
 
 def draw_all(scenes, assembly, force=False) -> list:

@@ -27,8 +27,11 @@ the reason a step is shaped the way it is. See [The gate](#the-gate).
   authored against a fixed 1800 × 1200 canvas (6 × 4 in at 300 dpi, landscape).
 - [`style.css`](style.css) — the shared card system. [`STYLE.md`](STYLE.md) — the
   design idioms the system implements, and the EcoTank print settings.
-- `img/` — CAD renders used by cards, produced by
-  [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js).
+- `img/` — every picture a card shows, cut by
+  [`../scenes/render_scenes.py`](/hardware/assembly/scenes/render_scenes.py) through
+  [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js). Each carries a
+  `.scene.json` naming the geometry it was drawn of, so a picture and the part it pictures
+  cannot drift apart quietly. A file here with no sidecar is one nothing draws.
 - `out/` — the printable deck: one PNG per card plus `deck.pdf` (6 × 4 in pages).
 - [`_build.py`](_build.py) — runs the gate, renders every card HTML to `out/`
   via [`tools/render/render-card.js`](/tools/render/render-card.js), and
