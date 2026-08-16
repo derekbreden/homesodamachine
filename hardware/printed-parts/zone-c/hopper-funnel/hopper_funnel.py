@@ -42,7 +42,8 @@ _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "worm-clamp"))
 sys.path.insert(0, str(_tools))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_SILICONE_BLACK, one_body
 from docgen import substitute_md
 # The bound this file states about its own collar, recorded at import for the machine's card.
 import _stated_bounds as _bounds
@@ -248,7 +249,9 @@ def build(drop=drop):
 def main():
     funnel, (w, d, total, end_z, fill) = build()
     out = _here.parent / "hopper-funnel.step"
-    export_step(funnel, str(out))
+    # The basin is cast in platinum-cure silicone, and the STEP says so — the card's own picture
+    # of it is drawn off this file, the machine's picture off the same colour.
+    export_assembly(one_body(funnel, "hopper-funnel", M_SILICONE_BLACK), str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
     print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f} (local; z 0 = brim underside)")
