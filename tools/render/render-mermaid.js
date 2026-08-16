@@ -228,7 +228,7 @@ async function renderMmd({ inputPath, outputPath }) {
 }
 
 async function main() {
-  sweepAbandonedBrowsers("render-mermaid");
+  await sweepAbandonedBrowsers("render-mermaid");
   const { positional, at } = parseArgs(process.argv.slice(2));
   const [inputArg, outputArg] = positional;
   if (!inputArg || !outputArg) {

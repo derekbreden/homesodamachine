@@ -180,7 +180,7 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
 }
 
 async function main() {
-  sweepAbandonedBrowsers("render-step");
+  await sweepAbandonedBrowsers("render-step");
   const { positional, at } = parseArgs(process.argv.slice(2));
   const [stepRel, outRel] = positional;
   if (!stepRel || !outRel) usage("missing arguments");

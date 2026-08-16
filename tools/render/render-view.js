@@ -1196,7 +1196,7 @@ async function main() {
   if (!stepRel) usage("missing <step-rel>");
   if (!opts.list && !outRel) usage("missing <out.png>");
 
-  sweepAbandonedBrowsers("render-view");
+  await sweepAbandonedBrowsers("render-view");
 
   if (opts.list) {
     const rows = await withViewer({ stepRel, opts }, (page) => page.evaluate(inPageList));

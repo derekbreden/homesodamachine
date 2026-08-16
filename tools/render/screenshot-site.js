@@ -103,7 +103,7 @@ fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
 // Capture one screenshot at `url` and write it to outputPath.
 async function capture(url) {
-  sweepAbandonedBrowsers("screenshot-site");
+  await sweepAbandonedBrowsers("screenshot-site");
   const browser = await launchBrowser({ protocolTimeout: 300_000 });
   try {
     const page = await browser.newPage();

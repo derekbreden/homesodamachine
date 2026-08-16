@@ -169,7 +169,7 @@ async function renderRootGroup(root, rels, payloads) {
 }
 
 async function main() {
-  sweepAbandonedBrowsers("render-thumbnails");
+  await sweepAbandonedBrowsers("render-thumbnails");
   const args = process.argv.slice(2);
   let targets = [];
 

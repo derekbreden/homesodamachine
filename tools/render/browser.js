@@ -30,14 +30,14 @@ import puppeteer from "puppeteer";
 // PUPPETEER_CACHE_DIR names itself, and so do the builds beside the current one
 // (an older version, chrome-headless-shell) that a leak can just as easily be.
 // Chrome installed for a person lives elsewhere and never matches.
-const BROWSER_ROOT = (() => {
+async function browserRoot() {
   try {
     // …/<cache>/chrome/<build>/chrome-mac-arm64/… — the segment before `chrome`.
-    const m = puppeteer.executablePath().match(/^(.*[/\\])chrome[/\\]/);
+    const m = (await puppeteer.executablePath()).match(/^(.*[/\\])chrome[/\\]/);
     if (m) return m[1];
   } catch { /* no browser installed — the sweep has nothing to find */ }
   return "/.cache/puppeteer/";
-})();
+}
 
 // How long a STEP parse gets. This is a fact about the file's size and the
 // machine — the enclosure assembly is a 20 MB STEP and occt-import-js runs it
@@ -120,7 +120,8 @@ for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) {
 // A live one never is — puppeteer's Chrome carries its node process as parent
 // for as long as that process exists — so ppid 1 under puppeteer's own cache
 // names a leak exactly, with no age threshold to trip over a slow peer render.
-export function sweepAbandonedBrowsers(tool = "render") {
+export async function sweepAbandonedBrowsers(tool = "render") {
+  const BROWSER_ROOT = await browserRoot();
   let out;
   try {
     out = execFileSync("/bin/ps", ["-Ao", "pid=,ppid=,command="], { encoding: "utf8", maxBuffer: 1 << 24 });

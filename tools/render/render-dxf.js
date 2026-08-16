@@ -157,7 +157,7 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
 }
 
 async function main() {
-  sweepAbandonedBrowsers("render-dxf");
+  await sweepAbandonedBrowsers("render-dxf");
   const { positional, at } = parseArgs(process.argv.slice(2));
   const [dxfRel, outRel] = positional;
   if (!dxfRel || !outRel) usage("missing arguments");

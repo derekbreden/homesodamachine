@@ -399,7 +399,7 @@ async function withSidePath(at, rel, inner) {
 }
 
 async function main() {
-  sweepAbandonedBrowsers("render-step-side-by-side");
+  await sweepAbandonedBrowsers("render-step-side-by-side");
   const { positional, opts } = parseArgs(process.argv.slice(2));
   const [stepA, stepB, outRel] = positional;
   if (!stepA || !stepB || !outRel) usage("missing arguments");
