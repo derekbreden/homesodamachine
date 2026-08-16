@@ -30,13 +30,15 @@ _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
 _ROOT = _HW.parent
 for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
-           _HW / "printed-parts" / "cold-core"):
+           _HW / "printed-parts" / "cold-core", _ROOT / "tools"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 import _scenes                                          # noqa: E402
+from docgen import note_rewritten                       # noqa: E402
 from _cadq_export import (export_assembly, import_step, note_read,   # noqa: E402
-                          note_write, _payload_current, _write_mesh_payload)
+                          note_write, _payload_current, _per_solid_color,
+                          _write_mesh_payload)
 
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
@@ -146,6 +148,16 @@ def draw(scene, assembly, force=False) -> Path:
     scene_assembly, target = cut(assembly, scene)
     export_assembly(scene_assembly, str(step))
 
+    # AND A MESH BESIDE IT, THE WAY A PART SHOT MAKES ITS OWN. `HSM_SKIP_MESH_PAYLOAD` is set on
+    # every build action, so `export_assembly` queues none; the renderer below opens this STEP in
+    # the viewer, where `loadStepFile` PREFERS a payload to the B-rep beside it, and a scene's
+    # B-rep through occt in wasm holds the page's own main thread for seconds.
+    #
+    # Tessellated from the per-solid-color restatement — the STEP above is written from that.
+    mesh = step.with_name(step.name + ".mesh")
+    if not _payload_current(step, mesh):
+        _write_mesh_payload(step, _per_solid_color(scene_assembly))
+
     # AND THE VIEWER'S OWN ARTIFACT. A scene's B-rep is 2–10 MB and would churn on every move of
     # any body in it; a mesh at viewer tolerance is a third of that, and /3d reads a `.glb` the
     # same way it reads a board's. Same bargain the PCB carrier already takes: the big drawing
@@ -166,6 +178,14 @@ def draw(scene, assembly, force=False) -> Path:
     # THE PICTURE IS DRAWN BY NODE, below Python, and the sidecar beside it is not. Both are
     # what this run makes, and this is the one place that holds either name.
     note_write(png)
+    # AND BOTH ARE READ BACK, which is what lets the skip below mean anything. A picture and its
+    # record are what this run COMPARES against before it decides to draw, so an action that is
+    # not handed them cannot skip: `held_record` comes back empty, `png.is_file()` is false, and
+    # every picture is redrawn whether or not a millimetre moved. THE PAIR TRAVELS TOGETHER —
+    # a picture staged without its record, or a record without its picture, is a guard that
+    # misses forever.
+    note_rewritten(png)
+    note_rewritten(_scenes.sidecar_path(png))
 
     # WHAT THE PICTURE IS OF IS THIS FILE. The scene's STEP is the exact geometry the renderer is
     # handed, and the scene's own tuple is the camera it is handed with — so two runs agreeing on
@@ -235,13 +255,16 @@ def draw_part(part, force=False) -> Path:
     # the STEP it stands for, and a subject of this size parsed from raw B-rep does not reach the
     # viewer inside the renderer's own wait — a missing payload is not a slower render, it is
     # `ERR_TIMED_OUT`. A payload is `.gitignore`d, so it is never staged and a sandbox always
-    # starts without one; a scene gets its own from `export_assembly` writing its STEP, and this
-    # is the same bargain for a STEP somebody else cut.
+    # starts without one; a scene cuts its own the same way in `draw`, and this is that bargain
+    # for a STEP somebody else cut.
     mesh = step.with_name(step.name + ".mesh")
     if not _payload_current(step, mesh):
         _write_mesh_payload(step, import_step(str(step)))
     png = part_png(part)
     note_write(png)
+    # Read back for the same reason `draw` reads its own: see there.
+    note_rewritten(png)
+    note_rewritten(_scenes.sidecar_path(png))
 
     geometry = _scenes.digest_of(step)
     if geometry is None:
