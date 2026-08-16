@@ -169,14 +169,22 @@ def from_assembly(assembly):
     """One mesh per solid of a cq.Assembly, in world position, colored the way
     the STEP the viewer reads carries the color.
 
-    A STEP carries an assembly's color only where a component is a single solid.
-    Give a component several — the reference sub-assemblies, the flavour
-    pack — and the color lands on a node whose leaves occt-import-js reports
-    uncolored, so the viewer draws them default gray. Colouring them here
-    instead would repaint ~50 solids of the enclosure that its detail view
-    leaves gray, which is the one thing a handed-over tessellation must not do.
-    An ancestor's color never reaches a leaf through a STEP either, and never
-    reaches one here, because only a node's own color is read.
+    OCCT-IMPORT-JS SURFACES A COLOR ONLY WHERE A COMPONENT IS A SINGLE SOLID, and
+    that reader is what the viewer runs — so it, and not the file, is what this
+    has to match. The STEP itself carries a `styled_item` per
+    `manifold_solid_brep` whatever the component holds; reading the file and
+    concluding the color is there is the trap. Give a component several — the
+    reference sub-assemblies, the flavour pack, the valve coils — and the reader
+    hands those leaves back uncolored, so the viewer draws them default gray.
+    Colouring them here instead would repaint ~50 solids of the enclosure that
+    its detail view leaves gray, which is the one thing a handed-over
+    tessellation must not do. An ancestor's color never reaches a leaf through a
+    STEP either, and never reaches one here, because only a node's own color is
+    read.
+
+    `selftest`'s round trip is what holds all of this: it exports an assembly and
+    reads it back THROUGH occt-import-js, so the rule answers to that
+    implementation rather than to what this file believes about STEP.
 
     occt-import-js names a mesh after its component (backfillMeshNames in
     step.js walks the STEP's node tree to do it); the assembly knows the name
