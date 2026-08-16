@@ -5,6 +5,11 @@ A scene is a **subset of the built machine**, posed: `enclosure-back-top` with e
 pressed and strapped to it is a real thing a person holds on the bench, and no STEP in this repo
 contains exactly it.
 
+Beside them, a **part shot** is one STEP posed — the card that names a single part, or a
+sub-assembly the tree already keeps a file for. Same renderer, same sidecar, same `geometry`
+digest; its subject is a file rather than a set of bodies, and it costs no appliance to draw.
+`_scenes.PARTS` is that table and `img/<id>.png` is the card's own file name.
+
 | scene | what it shows |
 |---|---|
 | `back-top` | The back top piece and the 38 bodies it carries, seen in through its own open faces |
