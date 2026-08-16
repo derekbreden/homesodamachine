@@ -25,7 +25,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_JG_BLACK_PP, one_body
 
 HEX_ACROSS_CORNERS = 25.67  # 7/8" hex (22.23 across flats), the size a 3/8" body takes
 HEX_LENGTH = 12.0           # wrench flats, at the threaded end and the widest part
@@ -142,7 +143,7 @@ def main():
               f"facing ({axis[0]:g}, {axis[1]:g}, {axis[2]:g})")
     print(f"  Solid valid: {part.isValid()}")
     out = _here.parent / "jg-pp451223w.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "jg-pp451223w", M_JG_BLACK_PP), str(out))
     print(f"-> {out.name}")
 
 

@@ -37,7 +37,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_step, import_step  # noqa: E402
+from _cadq_export import export_assembly, import_step
+from _materials import M_JG_BLACK_PP, one_body  # noqa: E402
 from _measuring import bores  # noqa: E402
 from world_workplane import xz_plane_y_up  # noqa: E402
 
@@ -188,7 +189,7 @@ def main():
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
           f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  Solid valid: {part.val().isValid()}")
-    export_step(part, str(STEP))
+    export_assembly(one_body(part, "neofit-bulkhead", M_JG_BLACK_PP), str(STEP))
     print(f"-> {STEP.name}")
 
 

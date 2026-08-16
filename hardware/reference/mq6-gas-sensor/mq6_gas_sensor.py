@@ -28,7 +28,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_MQ6, one_body
 
 PCB_X, PCB_Y, PCB_T = 32.0, 20.0, 1.6
 CAN_D, CAN_H = 19.0, 14.0            # MQ-6 sensor can (steel mesh cap)
@@ -95,7 +96,7 @@ def main():
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  PCB {PCB_X}×{PCB_Y}×{PCB_T}; can Ø{CAN_D}×{CAN_H}; {PIN_COUNT}-pin header × {PIN_LEN}")
     out = _here.parent / "mq6-gas-sensor.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "mq6-gas-sensor", C_MQ6), str(out))
     print(f"-> {out.name}")
 
 

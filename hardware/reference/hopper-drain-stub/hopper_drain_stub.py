@@ -33,7 +33,8 @@ for _p in (_hw / "scripts",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_PETG_BLACK, one_body
 import worm_clamp as _clamp
 import jg_pp0408w as _union
 import hopper_funnel as _funnel
@@ -142,7 +143,7 @@ def main():
     print(f"  Union:  {UNION_DROP:g} mm from the spout's face to where fluid-4 starts")
     print(f"  Canonical-frame bounding box: Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
 
-    export_step(stub, str(STEP))
+    export_assembly(one_body(stub, "hopper-drain-stub", M_PETG_BLACK), str(STEP))
     print(f"-> {STEP.name}")
 
 

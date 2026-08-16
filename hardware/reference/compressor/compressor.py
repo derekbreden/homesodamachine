@@ -52,7 +52,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step  # noqa: E402
+from _cadq_export import export_assembly
+from _materials import C_COMP, one_body  # noqa: E402
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 # --- Calipered off the donor ----------------------------------------------
@@ -419,7 +420,7 @@ def main():
           f"{MOUNT_LIGAMENT:g} of plate outboard of each")
 
     out = _here.parent / "compressor.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "compressor", C_COMP), str(out))
     print(f"-> {out.name}")
 
     variables = _docvars()

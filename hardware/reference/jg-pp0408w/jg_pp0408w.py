@@ -30,7 +30,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step, import_step
+from _cadq_export import export_assembly, import_step
+from _materials import C_PP0408W, one_body
 
 STEP = _here.parent / "jg-pp0408w.step"
 
@@ -135,7 +136,7 @@ def main():
           f"{INSERTION:g} mm of tube in each end")
     print(f"  Solid valid: {part.val().isValid()}")
 
-    export_step(part, str(STEP))
+    export_assembly(one_body(part, "jg-pp0408w", C_PP0408W), str(STEP))
     print(f"-> {STEP.name}")
     stations_hold()
 

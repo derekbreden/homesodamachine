@@ -21,7 +21,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_PSU, one_body
 
 # --- Measured / datasheet geometry ----------------------------------------
 width = 52.0           # X
@@ -93,7 +94,7 @@ def build():
 
 
 def main():
-    export_step(build(), str(_here.parent / "meanwell-irm90.step"))
+    export_assembly(one_body(build(), "meanwell-irm90", C_PSU), str(_here.parent / "meanwell-irm90.step"))
     print("-> meanwell-irm90.step")
 
 

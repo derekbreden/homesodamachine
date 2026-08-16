@@ -27,7 +27,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_STAINLESS, one_body
 
 STEP = _here.parent / "worm-clamp.step"
 
@@ -133,7 +134,7 @@ def main():
           f"{stand_off(nominal):.2f} mm off the axis")
     print(f"  Solid valid: {part.val().isValid()}")
 
-    export_step(part, str(STEP))
+    export_assembly(one_body(part, "worm-clamp", M_STAINLESS), str(STEP))
     print(f"-> {STEP.name}")
 
 

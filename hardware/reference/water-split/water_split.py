@@ -31,7 +31,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "tee-connector"))
-from _cadq_export import export_step, import_step
+from _cadq_export import export_assembly, import_step
+from _materials import M_JG_BLACK_PP, one_body
 import tee_connector as tee
 
 REACH = tee.RUN_HALF         # collet face from the body centre — run half-length and branch alike
@@ -110,7 +111,7 @@ def main():
     (station, r, length) = run_barrel()
     print(f"  run barrel: r {r:.3f}, {length:g} mm long, centred at {station[0]}")
     out = _here.parent / "water-split.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "water-split", M_JG_BLACK_PP), str(out))
     print(f"-> {out.name}")
 
 

@@ -43,7 +43,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step  # noqa: E402
+from _cadq_export import export_assembly
+from _materials import M_TINNED_STEEL, one_body  # noqa: E402
 
 # --- SF/E series outline (datasheet, mm) ----------------------------------
 BODY_D = 4.2           # case diameter, ±0.2
@@ -119,7 +120,7 @@ def main():
     print(f"  opens at {TF_C:g} °C, holds below {TH_C:g} °C, "
           f"{RATED_A:g} A / {RATED_V:g} V AC")
     out = _here.parent / "sf76e-thermal-fuse.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "sf76e-thermal-fuse", M_TINNED_STEEL), str(out))
     print(f"-> {out.name}")
 
 

@@ -279,51 +279,43 @@ FUNNEL_ROT = 0.0
 # like with the lights on.
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
-from _materials import (M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,        # noqa: E402
+from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
+                        C_DISPLAY, C_GND, C_MQ6, C_PLATE, C_PP0408W,
+                        C_PSU, C_RELAY, C_SEAFLO,
+                        M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
 # carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
-C_COMP = cq.Color(0.18, 0.18, 0.19)
-C_COND = cq.Color(0.76, 0.77, 0.78)
 # The cold core is shells, caps and lids, and every one of them comes off the black spool.
 C_FOAM = M_PETG_BLACK
 # SEAFLO's own orange, which is the head casting — the whole outside of the pump but the white
 # motor can behind it and the black feet under it.
-C_SEAFLO = cq.Color(0.89, 0.35, 0.13)
 # Cast platinum silicone, pigmented to hide concentrate staining.
 C_FUNNEL = M_SILICONE_BLACK
 # The basin's own length of tube, off the roll `fluid-4` carries on below the union.
 C_STUB = _routing.tube_color("fluid-4")
 # The LOKMAN band closing that spout, 304 SS by its own listing (`reference/worm-clamp.MATERIAL`).
 C_WORM = M_STAINLESS
-C_PP0408W = cq.Color(0.93, 0.93, 0.90)
 # Each pump-port chain is a made-up run of SS adapter, check valve and reinforced PVC, and it is
 # drawn as the metal that is most of it.
 C_SUCT = M_STAINLESS
-C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
 # The border over that glass, in the enclosure's own black stock.
 C_COVER = cq.Color(0.14, 0.14, 0.15)
 # And the soft ring under its lap, in the same TPU 90A as every other seal here.
 C_DGASKET = cq.Color(0.24, 0.22, 0.26)
-C_PSU = cq.Color(0.20, 0.20, 0.24)
 # `pcb/pcba/order.md` places the board at "black mask / white silk".
 C_PCBA = cq.Color(0.11, 0.11, 0.12)
 # The Teyleten board itself, which is green; the SRD can standing on it is the blue, and the
 # module is drawn as one envelope.
-C_RELAY = cq.Color(0.16, 0.42, 0.22)
 # WAGO 221 lever nuts, and the levers are the orange (`reference/wago-221`).
-C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
 # The bolted fan of ring terminals that IS the ground bus. The smseace #4 rings are sold in one
 # colour and it is red; the green in this corner is the bond wire, which is not drawn.
-C_GND = cq.Color(0.75, 0.13, 0.13)
 C_ASSE = M_BRASS
 C_PAN = M_PETG_BLACK
 # The Shutao module's conductivity plate — bare copper-clad, which its listing states as the brown
 # half of "Brown and Blue"; the blue is the LM393 board, which stays out of the pan.
-C_PLATE = cq.Color(0.63, 0.42, 0.24)
-C_MQ6 = cq.Color(0.25, 0.40, 0.70)             # the module's own blue board, under a steel can
 C_FUSE = M_TINNED_STEEL
 C_CLAMP = M_PETG_BLACK
 # The PP0208E union tee on the ASSE chain's outlet.
@@ -334,13 +326,11 @@ C_FLOWREG = M_NEOFIT_ACETAL
 C_VK = ml.C_VALVE
 # The four PP1208E unions the back wall clamps — the fittings the customer meets.
 C_BULKHEAD = M_JG_BLACK_PP
-C_C14 = cq.Color(0.18, 0.18, 0.20)
 # The ABU44-E the customer's CO2 tether pushes into, and the SS check one hop inboard of it.
 C_CO2_INLET = M_NEOFIT_ACETAL
 C_GASHER = M_STAINLESS
 C_WR1110 = M_ALUMINIUM
 # The meter's white rotor housing, the colour `reference/digiten-flow-sensor` draws it.
-C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
 Y_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 1, 0))

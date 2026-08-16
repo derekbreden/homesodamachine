@@ -29,7 +29,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_GND, one_body
 
 # --- Stack geometry (standard M3 hardware + insulated ring terminals) ------
 ring_count = 5          # one green bond per exposed-metal part + the C14 feed
@@ -109,7 +110,7 @@ def build():
 
 
 def main():
-    export_step(build(), str(_here.parent / "ground-ring-stack.step"))
+    export_assembly(one_body(build(), "ground-ring-stack", C_GND), str(_here.parent / "ground-ring-stack.step"))
     print("-> ground-ring-stack.step")
 
 

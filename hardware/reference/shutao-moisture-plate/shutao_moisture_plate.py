@@ -22,7 +22,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_PLATE, one_body
 
 PLATE_X, PLATE_Y, PLATE_T = 54.0, 40.0, 1.6
 HOLE_D = 1.2                 # lead solder holes
@@ -54,7 +55,7 @@ def main():
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  Plate {PLATE_X}×{PLATE_Y}×{PLATE_T}; 2 lead holes Ø{HOLE_D} at the -X edge")
     out = _here.parent / "shutao-moisture-plate.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "shutao-moisture-plate", C_PLATE), str(out))
     print(f"-> {out.name}")
 
 

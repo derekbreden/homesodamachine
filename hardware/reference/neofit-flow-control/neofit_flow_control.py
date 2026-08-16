@@ -32,7 +32,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_NEOFIT_ACETAL, one_body
 
 COLLET_D = 13.7      # 1/4" PTC collet OD — the pack's shared 1/4" PTC dimension
 REACH = 23.0         # collet face from the body centre; run length is twice this
@@ -112,7 +113,7 @@ def main():
                                ("adjuster", adjuster())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     out = _here.parent / "neofit-flow-control.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "neofit-flow-control", M_NEOFIT_ACETAL), str(out))
     print(f"-> {out.name}")
 
 

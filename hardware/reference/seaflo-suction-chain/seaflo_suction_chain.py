@@ -37,7 +37,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "seaflo-discharge-chain"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import M_STAINLESS, one_body
 import seaflo_discharge_chain as disch   # the same two fittings, off the same BOM lines
 
 # Both fittings are the parts the discharge chain already draws — the same MAACFLOW off the
@@ -117,7 +118,7 @@ def main():
     for label, (pos, axis) in (("barb-tip ", barb_tip()), ("tube-port", tube_port())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     out = _here.parent / "seaflo-suction-chain.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "seaflo-suction-chain", M_STAINLESS), str(out))
     print(f"-> {out.name}")
 
 

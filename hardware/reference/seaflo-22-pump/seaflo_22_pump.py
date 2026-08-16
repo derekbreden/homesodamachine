@@ -55,7 +55,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_SEAFLO, one_body
 
 # Labeled on the SEAFLO 22-Series drawing.
 OVERALL_L = 187.0        # 7.35in, motor rear to switch face
@@ -203,7 +204,7 @@ def main():
     for label, (pos, axis) in (("suction  ", suction()), ("discharge", discharge())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     out = _here.parent / "seaflo-22-pump.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "seaflo-22-pump", C_SEAFLO), str(out))
     print(f"-> {out.name}")
 
 
