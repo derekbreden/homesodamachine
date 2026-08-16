@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$14,682.55",
+    "TOOLS_TOTAL": "$14,805.53",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -37,7 +37,7 @@
     "T_HELPING_HANDS": "$9.64",
     "T_HEX_NIPPLE": "$12.86",
     "T_HOLE_SAW": "$19.19",
-    "T_HOTENDS": "$556.99",
+    "T_HOTENDS": "$559.88",
     "T_HUSKY": "\u2014",
     "T_HYDRO_PUMP": "$93.30",
     "T_KILL_A_WATT": "$34.31",
@@ -50,6 +50,7 @@
     "T_OVEN_THERMO": "$9.52",
     "T_PLIERS_WRENCH": "$57.06",
     "T_POLYDRYER": "$117.96",
+    "T_POLYDRYER_XL": "$120.09",
     "T_PRINTER": "\u2014",
     "T_PTFE_ADAPTER": "$15.98",
     "T_REGISTER_BIT": "$18.43",

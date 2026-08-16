@@ -151,8 +151,7 @@
 /* ── Tool rail ─────────────────────────────────────────────────────────────────
    The controls that change what the view shows and what a click does, in one
    bottom-left column laid out in flow. A control this file has no use for — the
-   dev-only editor segment, the port chip on a model carrying no ports — is
-   absent from the column.
+   dev-only editor segment — is absent from the column.
 
    A pill opens something: Find here, Reset view in the opposite corner. The
    segmented control holds the pick modes, which are mutually exclusive over
@@ -167,7 +166,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  /* Wide enough for the four overlays to stand in one row. */
+  /* Wide enough for the overlays to stand in one row. */
   max-width: min(390px, calc(100% - 32px));
 }
 
@@ -208,8 +207,8 @@
   color: var(--text-2);
   text-shadow: 0 0 4px var(--bg), 0 0 8px var(--bg);
 }
-/* A group holding no controls — DXF reaches the rail with neither pick modes
-   nor scorecard overlays — carries no caption either. */
+/* A group holding no controls — DXF reaches the rail with no pick modes —
+   carries no caption either. */
 .tool-group:not(:has(.tool-seg-btn)):not(:has(.tool-chip)) { display: none; }
 
 /* Same segmented control as .pcb-view-toggle on the board viewer. */
@@ -487,42 +486,6 @@
   margin: 0;
   cursor: pointer;
   accent-color: var(--text-2);
-}
-.edge-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 5px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-.edge-row-label {
-  flex: 0 0 60px;
-  color: var(--text-2);
-  padding-top: 2px;
-}
-.edge-row-val {
-  flex: 1 1 auto;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
-  line-height: 1.4;
-  word-break: break-word;
-  cursor: pointer;
-  user-select: text;
-}
-.edge-row-copy {
-  flex: 0 0 auto;
-  padding: 2px 7px;
-  background: rgba(58, 58, 90, 0.6);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 11px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.edge-row-copy:hover {
-  background: rgba(74, 74, 112, 0.9);
 }
 /* The whole copy blob, shown verbatim in a selectable box — readable at a
    glance and hand-selectable, with one Copy button below. (Replaced the
@@ -965,12 +928,6 @@ summary.branch-head:hover .branch-title::before {
 
 /* A part's extra representations, one chip each. `.name` takes the ellipsis and
    `.kinds` does not shrink, so the chips stay in the label at any name length. */
-.card .label .name-row {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  min-width: 0;
-}
 .card .label .name {
   overflow: hidden;
   text-overflow: ellipsis;

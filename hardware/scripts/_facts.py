@@ -158,13 +158,6 @@ def gather(whole=None, module=None):
         import wr1110_regulator as _wr1110
         carried["wr1110.barrel"] = {"pos": _plain(carries["wr1110"](_wr1110.barrel()[0])[0])}
 
-    # EVERY PORT AS THE MACHINE PLACED IT, unrounded. The card carries ports too, rounded for
-    # reading, and a comparison made on a rounded coordinate is a comparison of two machines.
-    ports = {}
-    for _body, _fr in getattr(a, "frames", {}).items():
-        ports[_body] = {n: {"pos": _plain(_pos), "axis": _plain(_ax), "diam": float(_d)}
-                        for n, (_pos, _ax, _d) in _fr.ports.items()}
-
     # The mouth a bulkhead presents, carried to where the machine stands it — the same station
     # `back_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
     import jg_bulkhead_union as _jg
@@ -223,15 +216,6 @@ def gather(whole=None, module=None):
     z_stations = _plain(_enc._z_stations(box.inner, box.y_joint))
     hopper_hole = _plain(_enc._hopper_hole(box.funnel))
 
-    # The strap that closes round a seated body and its rib, for every seat radius the machine
-    # actually stands one on — keyed by the radius, which is what a caller has.
-    seats = {round(float(s[-1]), 4)
-             for s in list(getattr(a, "tube_anchors", ()) or ())
-             + list(getattr(a, "body_anchors", ()) or ())
-             if s and isinstance(s[-1], (int, float))}
-    strap_loops = {f"{r:.4f}": round(float(_enc.tube_anchor_strap_loop(r)), 4)
-                   for r in sorted(seats)}
-
     return {
         "schema": SCHEMA,
         # THE CARD THIS WAS TAKEN BESIDE, by what it measured. One run writes the card and then
@@ -241,7 +225,6 @@ def gather(whole=None, module=None):
         "constants": constants,
         "z_stations": z_stations,
         "hopper_hole": hopper_hole,
-        "strap_loops": strap_loops,
         "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
         # What the two plate generators draw from. Both read their bodies out of a placed
         # machine by name, so they take this one rather than standing a second.
@@ -254,7 +237,6 @@ def gather(whole=None, module=None):
         },
         "bodies": bodies,
         "mouths": mouths,
-        "ports_placed": ports,
         "run_near": run_near,
         "runs": runs,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2)},
@@ -307,15 +289,6 @@ class _BB:
     def __repr__(self):
         return (f"_BB(x[{self.xmin:.3f},{self.xmax:.3f}] y[{self.ymin:.3f},{self.ymax:.3f}] "
                 f"z[{self.zmin:.3f},{self.zmax:.3f}])")
-
-
-class _Frame:
-    """One placed body's ports, reachable the way the assembly's own frame is."""
-
-    __slots__ = ("ports",)
-
-    def __init__(self, d):
-        self.ports = {n: (tuple(v["pos"]), tuple(v["axis"]), v["diam"]) for n, v in d.items()}
 
 
 class _Row(dict):
@@ -396,12 +369,6 @@ class Facts:
         return self._f["manifold_bodies"]
 
     @property
-    def frames(self):
-        """`frames[body].ports[name]` -> (pos, axis, diam), as the assembly hands it, at the
-        precision the machine placed it."""
-        return {b: _Frame(v) for b, v in self._f["ports_placed"].items()}
-
-    @property
     def mouths(self):
         """A bulkhead's mouth, carried to where the machine stands it."""
         return self._f["mouths"]
@@ -441,16 +408,6 @@ class Facts:
         if out is None:
             raise ValueError("no placed body matched — this measurement has nothing in it")
         return out
-
-    def strap_loop(self, seat_r: float) -> float:
-        """The strap that closes round a body seated on a rib of this radius."""
-        key = f"{round(float(seat_r), 4):.4f}"
-        try:
-            return self._f["strap_loops"][key]
-        except KeyError as exc:
-            raise KeyError(
-                f"no strap is recorded for a seat of {seat_r} — the machine stands one on "
-                f"{sorted(self._f['strap_loops'])}") from exc
 
     @property
     def runs(self):

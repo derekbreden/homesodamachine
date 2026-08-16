@@ -359,7 +359,6 @@ export function isComponentPickEnabled() { return enabled; }
 // pick-mode.js registers the segmented control's sync here.
 let toggleRefresh = null;
 export function setComponentToggleRefresh(fn) { toggleRefresh = fn; }
-export function syncComponentToggle() { if (toggleRefresh) toggleRefresh(); }
 
 // Another STEP tool armed itself — stand down if it wasn't us.
 window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
