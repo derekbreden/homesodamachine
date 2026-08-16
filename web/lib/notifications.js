@@ -98,12 +98,14 @@ export async function markSeen(pool, { token, ids, all }) {
   }
 }
 
+// THE BELL IS ON EVERY PAGE, so what it points at answers on every boot. `renderNav` puts
+// `/notifications` in the nav of each page the shell draws, and a boot with no DATABASE_URL —
+// which is every `npm run dev` — has no pool. A run with no pool holds no rows, and no rows is
+// the empty answer each of these already gives a caller who names no token.
 export function mountNotificationsRoutes(app, pool) {
-  if (!pool) return;
-
   app.get("/api/notifications", async (req, res) => {
     const token = String(req.query.token || "");
-    if (!token) return res.json({ items: [] });
+    if (!token || !pool) return res.json({ items: [] });
     try {
       const items = await listNotifications(pool, token);
       res.json({ items });
@@ -115,7 +117,7 @@ export function mountNotificationsRoutes(app, pool) {
 
   app.get("/api/notifications/unread-count", async (req, res) => {
     const token = String(req.query.token || "");
-    if (!token) return res.json({ count: 0 });
+    if (!token || !pool) return res.json({ count: 0 });
     try {
       const count = await countUnread(pool, token);
       res.json({ count });
@@ -130,6 +132,7 @@ export function mountNotificationsRoutes(app, pool) {
     const all = !!req.body?.all;
     const idsRaw = Array.isArray(req.body?.ids) ? req.body.ids : null;
     if (!token) return res.status(400).json({ error: "token required" });
+    if (!pool) return res.json({ ok: true });
     try {
       // Coerce ids to BigInt-compatible strings for pg's bigint[] cast.
       const ids = idsRaw
