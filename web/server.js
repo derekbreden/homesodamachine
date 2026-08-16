@@ -192,7 +192,7 @@ self.addEventListener("activate", (event) => {
   // served (in case an old SW registration is alive on a returning user)
   // but shouldn't be picked by new registrations.
   const swHandler = (_req, res) => {
-    res.set("Content-Type", "application/javascript");
+    res.set("Content-Type", "text/javascript");
     res.set("Cache-Control", "no-cache");
     res.set("Service-Worker-Allowed", "/");
     res.send(swSource(firebaseWebConfig()));

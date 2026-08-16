@@ -9,6 +9,8 @@ import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { editionRoot } from "./editions.js";
 
+const relOf = (req) => req.params.splat.join("/");
+
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
   const abs = path.join(rootDir, rel);
@@ -80,8 +82,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // browser lays the card out exactly as the print renderer does. Confined to
   // the deck directory and the asset types a card can reference; build
   // machinery in the same folder stays unreachable.
-  app.get("/cards/*", (req, res) => {
-    const rel = req.params[0];
+  app.get("/cards/*splat", (req, res) => {
+    const rel = relOf(req);
     if (!isCardAssetPath(rel)) return res.status(400).send("Not a card asset");
     const rootDir = rootFor(req);
     const abs = path.join(rootDir, rel);
@@ -107,8 +109,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
     res.json(paths.map((p) => ({ path: p, ...sidecarFields(readSidecar(rootDir, p)) })));
   });
 
-  app.get("/api/mermaid-content/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], ".mmd");
+  app.get("/api/mermaid-content/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), ".mmd");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
@@ -118,8 +120,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // PanZoom can wrap it directly (like mermaid does after render). Path
   // must be inside a `drawings/` directory (we don't expose arbitrary
   // SVGs that may live elsewhere in the tree).
-  app.get("/api/drawing-content/*", (req, res) => {
-    const rel = req.params[0];
+  app.get("/api/drawing-content/*splat", (req, res) => {
+    const rel = relOf(req);
     const abs = safeFile(rootFor(req), rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
     // Enforce the drawings/ directory convention so non-line-art SVGs
@@ -138,8 +140,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // directory are reachable — the fixed Top/Bottom/Overlay plus any inner
   // copper planes (inner1, inner2, …) — not arbitrary SVGs that may live
   // elsewhere in the tree.
-  app.get("/api/pcb-content/*", (req, res) => {
-    const rel = req.params[0];
+  app.get("/api/pcb-content/*splat", (req, res) => {
+    const rel = relOf(req);
     const abs = safeFile(rootFor(req), rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
     if (!VIEW_REQUEST_RE.test(rel)) {
@@ -159,8 +161,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // PCB pad-picker data — the distilled pads + identity for one board (see
   // hardware/pcb/pcba/pick-data.ts). Same `pcb/.../out/` confinement as the
   // view content, restricted to the `.picks.json` the distiller writes.
-  app.get("/api/pcb-picks/*", (req, res) => {
-    const rel = req.params[0];
+  app.get("/api/pcb-picks/*splat", (req, res) => {
+    const rel = relOf(req);
     const abs = safeFile(rootFor(req), rel, ".json");
     if (!abs) return res.status(400).send("Invalid path");
     if (!PICKS_REQUEST_RE.test(rel)) {
@@ -178,8 +180,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // the 3D viewer's scorecard bar + modal (public/js/viewer/scorecard-3d.js). Confined to
   // *.scorecard.json under the edition root; a 404 is normal — a model with no scorecard
   // just gets no bar. no-cache so a live regen isn't shown stale.
-  app.get("/api/step-scorecard/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], SCORECARD_SUFFIX);
+  app.get("/api/step-scorecard/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), SCORECARD_SUFFIX);
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
@@ -204,15 +206,15 @@ export function mountViewerRoutes(app, { editionDirs }) {
     });
   }
 
-  app.get("/steps/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], ".step");
+  app.get("/steps/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), ".step");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
   });
 
-  app.get("/models/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], ".glb");
+  app.get("/models/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), ".glb");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
@@ -222,8 +224,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // `<file>.step.mesh` by hardware/scripts/_cadq_export.py. The page reads these
   // instead of parsing the STEP through occt-import-js in wasm. Not committed —
   // a 404 here is normal, and step.js parses the STEP instead.
-  app.get("/meshes/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], ".mesh");
+  app.get("/meshes/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), ".mesh");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
@@ -236,8 +238,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // 404 path is normal — a STEP with no committed thumbnail yet falls back to
   // a client render in the grid. no-cache so a live regen or deploy is picked
   // up via ETag revalidation rather than a stale hit.
-  app.get("/thumbs/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], ".png");
+  app.get("/thumbs/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), ".png");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
@@ -248,8 +250,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
     });
   });
 
-  app.get("/dxfs/*", (req, res) => {
-    const abs = safeFile(rootFor(req), req.params[0], ".dxf");
+  app.get("/dxfs/*splat", (req, res) => {
+    const abs = safeFile(rootFor(req), relOf(req), ".dxf");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
