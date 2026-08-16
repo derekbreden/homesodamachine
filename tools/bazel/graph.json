@@ -3095,7 +3095,9 @@
       "hardware/printed-parts/electronics/pcba-tray/pcba-tray.step.png",
       "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
