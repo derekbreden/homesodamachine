@@ -949,6 +949,16 @@
    "active": true
   },
   {
+   "id": "bodies-colored",
+   "label": "Every body carries the colour of what it is made of",
+   "kind": "gate",
+   "status": "pass",
+   "value": "122/122 coloured",
+   "target": "every body coloured",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "z-seam-front-bed",
    "label": "The front Z seam leaves both its pieces on the H2C's bed",
    "kind": "gate",

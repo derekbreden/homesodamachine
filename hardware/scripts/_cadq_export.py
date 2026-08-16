@@ -745,11 +745,59 @@ def export_step(model, target_path):
     _queue_thumbnail(target_path, model)
 
 
+#: What separates a body from the index of one of its solids, in the names
+#: `_per_solid_color` mints. `bodyName` in web/public/js/viewer/step.js strips it
+#: back off, so the index reaches the STEP and never reaches a reader.
+#:
+#: `_canonicalize_step_entity_ids` above rewrites every `#<digits>` in a record as
+#: an entity reference, string literals included.
+SOLID_INDEX_SEP = "/"
+
+
+def _per_solid_color(assembly):
+    """`assembly` with every colored body of several solids restated as one
+    component per solid.
+
+    OCCT-IMPORT-JS READS A COLOR OFF A COMPONENT, NOT OFF A SOLID: the viewer's
+    reader looks the solid up in the shape tool (GetShapeColor in
+    occt-import-js/src/importer-xcaf.cpp), and a solid sitting as a subshape of a
+    multi-solid component has no label there to find. `_mesh_payload`'s selftest
+    exports both shapes and reads them back through that reader.
+
+    THE CALLER'S ASSEMBLY IS NOT TOUCHED — the split exists in the file, and every
+    reader that names a body by name (the scorecard's tables, the web aliases, a
+    `solid:` pick line) is handed the assembly as built. The index the split names
+    carry comes off at the seam both routes into the viewer meet.
+
+    An uncolored body is left whole."""
+    import cadquery as cq
+
+    obj, solids = assembly.obj, []
+    if obj is not None:
+        vals = obj.vals() if hasattr(obj, "vals") else [obj]
+        solids = [s for v in vals for s in v.Solids()]
+    split = assembly.color is not None and len(solids) > 1
+    out = cq.Assembly(None if split else obj, name=assembly.name, loc=assembly.loc,
+                      color=assembly.color, material=assembly.material,
+                      metadata=assembly.metadata)
+    if split:
+        for i, solid in enumerate(solids, 1):
+            out.add(solid, name=f"{assembly.name}{SOLID_INDEX_SEP}{i}", color=assembly.color)
+    for child in assembly.children:
+        out.add(_per_solid_color(child))
+    return out
+
+
 def export_assembly(assembly, target_path):
     """cq.Assembly.export with atomic write. (Assembly.save is its deprecated
-    alias — it just delegates to .export — and warns on every call.)"""
-    _atomic_write(target_path, lambda p: assembly.export(p))
-    _queue_thumbnail(target_path, assembly)
+    alias — it just delegates to .export — and warns on every call.)
+
+    What is written is the per-solid-color restatement, and the tessellation
+    handed over beside it is taken from that same assembly — the two routes into
+    the viewer have to agree, and agreeing on the uncolored one is not the way."""
+    colored = _per_solid_color(assembly)
+    _atomic_write(target_path, lambda p: colored.export(p))
+    _queue_thumbnail(target_path, colored)
 
 
 def export_dxf(doc, target_path):

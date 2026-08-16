@@ -270,38 +270,71 @@ SEAFLO_YAW = 90.0
 # the collar's own axes on the top wall's.
 FUNNEL_ROT = 0.0
 
-C_COMP = cq.Color(0.60, 0.62, 0.66)          # the enclosure pack's own three
-C_COND = cq.Color(0.78, 0.55, 0.35)
-C_FOAM = cq.Color(0.55, 0.75, 0.95, 0.55)
-C_SEAFLO = cq.Color(0.30, 0.45, 0.70)
-C_FUNNEL = cq.Color(0.90, 0.90, 0.92, 0.65)
+# THE MATERIAL IS THE COLOUR. `ledger/bom.md` is where each part is bought and what it says it is
+# made of, and every part of one material takes one constant here.
+#
+# A COLOUR IS THREE COMPONENTS by the time it is drawn: `_mesh_payload` hands over the RGB a STEP
+# carries and occt-import-js reads back the same three. The pack is read through X-RAY, a mode the
+# viewer enters over the whole model (web/public/js/viewer/xray.js). These say what a part looks
+# like with the lights on.
+M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
+M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
+M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
+M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
+# The Multiplex 19-0897's hex barrel (`reference/multiplex-asse1022`).
+M_BRASS = cq.Color(0.71, 0.56, 0.33)
+# The SF76E's tin-plated case, which its listing states as metal.
+M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
+# The one filament every black print on this machine comes off — the box, the pan, the clamp and
+# the cold core — MEASURED rather than named: `_back_panel_dimensions.chip_filaments` holds the
+# swatch the flavour chips are cut to.
+M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
+# Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
+M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
+# The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
+# a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
+# carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
+C_COMP = cq.Color(0.18, 0.18, 0.19)
+C_COND = cq.Color(0.76, 0.77, 0.78)
+# The cold core is shells, caps and lids, and every one of them comes off the black spool.
+C_FOAM = M_PETG_BLACK
+# SEAFLO's own orange, which is the head casting — the whole outside of the pump but the white
+# motor can behind it and the black feet under it.
+C_SEAFLO = cq.Color(0.89, 0.35, 0.13)
+# Cast platinum silicone, pigmented to hide concentrate staining.
+C_FUNNEL = M_SILICONE_BLACK
 # The basin's own length of tube, off the roll `fluid-4` carries on below the union.
 C_STUB = _routing.tube_color("fluid-4")
-C_WORM = cq.Color(0.62, 0.64, 0.68)
+# The LOKMAN band closing that spout, 304 SS by its own listing (`reference/worm-clamp.MATERIAL`).
+C_WORM = M_STAINLESS
 C_PP0408W = cq.Color(0.93, 0.93, 0.90)
-C_SUCT = cq.Color(0.72, 0.72, 0.76)
+# Each pump-port chain is a made-up run of SS adapter, check valve and reinforced PVC, and it is
+# drawn as the metal that is most of it.
+C_SUCT = M_STAINLESS
 C_DISPLAY = cq.Color(0.16, 0.17, 0.20)
 # The border over that glass, in the enclosure's own black stock.
 C_COVER = cq.Color(0.14, 0.14, 0.15)
 # And the soft ring under its lap, in the same TPU 90A as every other seal here.
 C_DGASKET = cq.Color(0.24, 0.22, 0.26)
 C_PSU = cq.Color(0.20, 0.20, 0.24)
-C_PCBA = cq.Color(0.15, 0.45, 0.25)
-C_RELAY = cq.Color(0.15, 0.35, 0.65)
+# `pcb/pcba/order.md` places the board at "black mask / white silk".
+C_PCBA = cq.Color(0.11, 0.11, 0.12)
+# The Teyleten board itself, which is green; the SRD can standing on it is the blue, and the
+# module is drawn as one envelope.
+C_RELAY = cq.Color(0.16, 0.42, 0.22)
+# WAGO 221 lever nuts, and the levers are the orange (`reference/wago-221`).
 C_AC_HUB = cq.Color(0.90, 0.55, 0.20)
-C_GND = cq.Color(0.55, 0.55, 0.58)
-C_ASSE = cq.Color(0.85, 0.78, 0.45)
-C_PAN = cq.Color(0.62, 0.66, 0.72)
-C_PLATE = cq.Color(0.20, 0.55, 0.35)
-C_MQ6 = cq.Color(0.25, 0.40, 0.70)
-C_FUSE = cq.Color(0.88, 0.72, 0.22)
-C_CLAMP = cq.Color(0.30, 0.32, 0.36)
-# THE MATERIAL IS THE COLOUR. `ledger/bom.md` is where each part is bought and what it says it is
-# made of, and every part of one material takes one constant here.
-M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
-M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
-M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
-M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
+# The bolted fan of ring terminals that IS the ground bus. The smseace #4 rings are sold in one
+# colour and it is red; the green in this corner is the bond wire, which is not drawn.
+C_GND = cq.Color(0.75, 0.13, 0.13)
+C_ASSE = M_BRASS
+C_PAN = M_PETG_BLACK
+# The Shutao module's conductivity plate — bare copper-clad, which its listing states as the brown
+# half of "Brown and Blue"; the blue is the LM393 board, which stays out of the pan.
+C_PLATE = cq.Color(0.63, 0.42, 0.24)
+C_MQ6 = cq.Color(0.25, 0.40, 0.70)             # the module's own blue board, under a steel can
+C_FUSE = M_TINNED_STEEL
+C_CLAMP = M_PETG_BLACK
 # The PP0208E union tee on the ASSE chain's outlet.
 C_SPLIT = M_JG_BLACK_PP
 # The ABCVU44-E flow-control bulkhead throttling the flavour leg.
@@ -315,6 +348,7 @@ C_C14 = cq.Color(0.18, 0.18, 0.20)
 C_CO2_INLET = M_NEOFIT_ACETAL
 C_GASHER = M_STAINLESS
 C_WR1110 = M_ALUMINIUM
+# The meter's white rotor housing, the colour `reference/digiten-flow-sensor` draws it.
 C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -4616,6 +4650,22 @@ def draw_runs(a: cq.Assembly, runs) -> None:
     a.frames = _lines.frames(a.pack_solids, a.carries)
 
 
+def check_bodies_colored(a: cq.Assembly) -> Bound:
+    """Whether every body in the machine says what it is made of.
+
+    A body carrying no colour is drawn in the viewer's own default gray. THE MATERIAL IS THE
+    COLOUR, so this reads the half that is stated here; what carries a stated colour through to
+    the viewer is `_cadq_export._per_solid_color`, and `_mesh_payload`'s selftest is what holds
+    it."""
+    drawn = _solids(a)
+    bare = sorted(n for n, (_s, color) in drawn.items() if color is None)
+    return record_bound(Bound(
+        "bodies-colored", "Every body carries the colour of what it is made of", not bare,
+        f"{len(drawn) - len(bare)}/{len(drawn)} coloured", "every body coloured",
+        [f"`{n}` names no colour and draws default gray. Give it the `M_*` constant for its own "
+         f"material, or state one for a material this file does not carry yet." for n in bare]))
+
+
 def _solids(a: cq.Assembly):
     """The assembly's children as world-placed solids, keyed by name — the shape a box
     reads a pack in."""
@@ -4704,13 +4754,13 @@ def check_through_wall_headroom(a, shell) -> Bound:
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
-# THE BOX PRINTS IN ONE FILAMENT, and it is the black the flavour chips are cut off too —
-# `_back_panel_dimensions.chip_filaments` carries the measured figure. Four near-black values on a
-# tight spread; the alpha is what the pack is read through.
-WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16, 0.30),
-               "front-top": cq.Color(0.19, 0.19, 0.21, 0.30),
-               "back-bottom": cq.Color(0.13, 0.13, 0.14, 0.30),
-               "back-top": cq.Color(0.17, 0.17, 0.18, 0.30)}
+# THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETG_BLACK` — the black the flavour chips are cut
+# off too. Four values on a tight spread either side of it, so a seam between two pieces is
+# tellable from a fold in one. The pack behind them is read through x-ray, not through the walls.
+WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16),
+               "front-top": cq.Color(0.19, 0.19, 0.21),
+               "back-bottom": cq.Color(0.13, 0.13, 0.14),
+               "back-top": cq.Color(0.17, 0.17, 0.18)}
 
 
 def funnel_centre(box):
@@ -4955,6 +5005,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_body_seated(a.pack_solids, pieces)
     # And every run the COLD CORE's cap is bored for, against the cap it lies on.
     check_run_seated(tubes, a.pack_solids["foam-assembly"])
+    # And every body against the material it is made of, now that the box's own four stand among
+    # them — the last body added is the last one that can be bare.
+    check_bodies_colored(a)
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
     # id to the end of the ledger each time it is entered, so reading `enclosure`'s ledger again
     # here — after the bodies the box seats have stated theirs — is what puts it there.
