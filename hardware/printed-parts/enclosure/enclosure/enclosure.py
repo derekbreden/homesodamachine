@@ -118,7 +118,8 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-panel"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
-from _cadq_export import export_step, export_assembly
+from _cadq_export import export_assembly
+from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _realized
@@ -3264,14 +3265,6 @@ def _report_levels(box):
               + ", ".join(f"{z:.0f}" for z in zs))
 
 
-PIECE_COLORS = {
-    "front-bottom": cq.Color(0.80, 0.84, 0.90),
-    "front-top":    cq.Color(0.86, 0.89, 0.94),
-    "back-bottom":  cq.Color(0.70, 0.74, 0.82),
-    "back-top":     cq.Color(0.76, 0.80, 0.87),
-}
-
-
 def build_pieces(box, stem="enclosure"):
     """The four printable pieces of one box, and the assembly of them in place
     with the seams intact. The appliance and its coupon come through here
@@ -3298,7 +3291,8 @@ def build_pieces(box, stem="enclosure"):
 
 def _export_pieces(pieces, assy, stem, note):
     for name, piece in pieces.items():
-        export_step(piece, str(_here.parent / f"{stem}-{name}.step"))
+        export_assembly(one_body(piece, f"{stem}-{name}", PIECE_COLORS[name]),
+                        str(_here.parent / f"{stem}-{name}.step"))
         print(f"-> {stem}-{name}.step{note}")
     export_assembly(assy, str(_here.parent / f"{stem}.step"))
     print(f"-> {stem}.step (assembled pieces){note}")

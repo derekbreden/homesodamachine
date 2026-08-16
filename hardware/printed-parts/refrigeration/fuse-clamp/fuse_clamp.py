@@ -79,7 +79,8 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_step  # noqa: E402
+from _cadq_export import export_assembly  # noqa: E402
+from _materials import M_PETG_BLACK, one_body  # noqa: E402
 import _overlap  # noqa: E402
 import _stated_bounds as _bounds  # noqa: E402
 import compressor as _comp  # noqa: E402
@@ -290,7 +291,7 @@ def main():
           f"no-bend zone, {SPLICE_FREE:g} of the short lead left for the splice")
     print(f"  volume  {part.Volume() / 1000.0:.2f} cm³")
     out = _here.parent / "fuse-clamp.step"
-    export_step(part, str(out))
+    export_assembly(one_body(part, "fuse-clamp", M_PETG_BLACK), str(out))
     print(f"-> {out.name}")
 
     variables = {
