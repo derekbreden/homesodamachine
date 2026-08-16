@@ -401,7 +401,6 @@
 .edge-panel.collapsed {
   width: max-content;
   max-width: min(calc(100% - 32px), 430px);
-  padding-bottom: 4px;
 }
 .edge-panel.collapsed .edge-panel-head { margin-bottom: 0; }
 /* The panel's own disclosure, the same bordered chevron the /3d branches carry
@@ -436,9 +435,12 @@
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
+/* One centre line through the row, so the title, the name, and the controls
+   beside them all sit on it — the controls are taller than the text, and a
+   shared baseline leaves each of them at a height of its own. */
 .edge-panel-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 7px;
   margin-bottom: 4px;
 }
@@ -460,6 +462,16 @@
   opacity: 0.85;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 11px;
+}
+/* The name is what fills the middle of the head, and that is what holds the
+   controls at the right edge. A panel with no name to show — the component
+   panel up for its hidden list alone, the Find box, which never has one — drops
+   it, gaps and all, and hands the job to the title. Otherwise a head with
+   nothing in the middle still pays for two gaps around the nothing, and a
+   collapsed panel, which is only as wide as its head, wears both of them. */
+.edge-panel-file:empty { display: none; }
+.edge-panel-head:not(:has(.edge-panel-file:not(:empty))) > .edge-panel-title {
+  flex: 1 1 auto;
 }
 .edge-panel-close {
   flex: 0 0 auto;
@@ -901,11 +913,14 @@ summary.branch-head:hover .branch-caret {
   line-height: 1.55;
   color: var(--text-2);
 }
+/* The head's hover ground fills the head's own box, so the body has to open
+   its own gap under it — otherwise the ground's lit edge lands on the first
+   group's caption while the pointer is on the row above. */
 .branch-body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
-  padding-bottom: 24px;
+  padding: 10px 0 24px;
 }
 .branch-body .subsection-header { opacity: 1; padding-top: 14px; }
 .branch-body .subsection-header:first-child { padding-top: 0; }
@@ -1416,9 +1431,6 @@ summary.branch-head:hover .branch-caret {
     align-items: center;
     justify-content: center;
   }
-  /* A thumb-sized control is taller than the title beside it, so the row centres
-     on it rather than sitting the two on one baseline. */
-  .edge-panel-head { align-items: center; }
   /* The checks card is read and dismissed with a thumb too. */
   .sc-x {
     min-width: 36px;
