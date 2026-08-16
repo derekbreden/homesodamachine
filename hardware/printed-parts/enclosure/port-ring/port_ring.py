@@ -119,11 +119,15 @@ WORD_SIZE = 6.5
 # How deep the word's recess is cut into the chip's outboard face — half the chip, so the colour
 # behind the lettering is as thick as the lettering itself and neither side of the print is a skin.
 WORD_DEPTH = 1.0
-# WHAT MAKES THE WORD ONE BODY. Letters are disjoint shapes, so a word left as its letterforms is
-# `FLAVOR` in six loose pieces on the plate — six islands the slicer starts and stops the second
-# colour for, and six things to lose off a 2 mm-thick chip. A bar this thick lying across their
-# feet, one `WORD_DEPTH` down where the chip's own material stands over it and nothing of it shows,
-# makes the second colour one connected run.
+# WHAT MAKES THE WORD ONE BODY, and it earns its place twice. Letters are disjoint shapes, so a
+# word left as its letterforms is `FLAVOR` in six loose pieces — six islands the slicer starts and
+# stops the second colour for, and six things to lose off a 2 mm chip. And occt-import-js, the
+# reader `/3d` runs, surfaces a colour only for a single-solid component: a word of six comes back
+# uncoloured and the viewer draws the lettering grey. (The STEP carries a style per solid either
+# way — the file is not what decides this, the reader is. `_mesh_payload.from_assembly` matches the
+# reader on purpose, and its selftest round-trips through it.)
+#   So the letters are tied BEHIND the face: a bar this thick across their feet, one `WORD_DEPTH`
+# down, where the chip's own material stands over it and nothing of it shows.
 #   IT RUNS ALONG THE BASELINE and no higher. Every capital has stock at its foot, so a bar there
 # reaches all of them; a bar at mid-cap would cross the counters of O, A, P, R and D, and the chip
 # material inside those would come off the chip's floor and be islands of their own.
@@ -302,7 +306,8 @@ def words_hold():
     why every word's width is carried in `WORD_WIDTHS` and read back off the solid here.
 
     AND EVERY WORD IS ONE SOLID. A word whose letters came apart is a plate of loose islands to
-    place and to lose. `WORD_TIE` is what holds them together and this is what reads it."""
+    place and to lose, and it is lettering the viewer draws grey — `/3d`'s reader surfaces a colour
+    only for a single-solid component. `WORD_TIE` is what holds them together and this reads it."""
     for which, step in WORD_STEPS.items():
         word = STATIONS[which].word
         solid = import_step(str(step)).val()

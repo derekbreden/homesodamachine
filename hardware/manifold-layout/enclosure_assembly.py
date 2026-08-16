@@ -296,13 +296,25 @@ C_PLATE = cq.Color(0.20, 0.55, 0.35)
 C_MQ6 = cq.Color(0.25, 0.40, 0.70)
 C_FUSE = cq.Color(0.88, 0.72, 0.22)
 C_CLAMP = cq.Color(0.30, 0.32, 0.36)
-C_SPLIT = cq.Color(0.80, 0.72, 0.40)
-C_FLOWREG = cq.Color(0.70, 0.60, 0.30)
-C_VK = cq.Color(0.45, 0.50, 0.58)
-C_BULKHEAD = cq.Color(0.86, 0.86, 0.89)
+# THE MATERIAL IS THE COLOUR. `ledger/bom.md` is where each part is bought and what it says it is
+# made of, and every part of one material takes one constant here.
+M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
+M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
+M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
+M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
+# The PP0208E union tee on the ASSE chain's outlet.
+C_SPLIT = M_JG_BLACK_PP
+# The ABCVU44-E flow-control bulkhead throttling the flavour leg.
+C_FLOWREG = M_NEOFIT_ACETAL
+# V-K is the same Beduan solenoid as the ten on the manifold, so it is the same body.
+C_VK = ml.C_VALVE
+# The four PP1208E unions the back wall clamps — the fittings the customer meets.
+C_BULKHEAD = M_JG_BLACK_PP
 C_C14 = cq.Color(0.18, 0.18, 0.20)
-C_CO2 = cq.Color(0.85, 0.35, 0.30)
-C_WR1110 = cq.Color(0.70, 0.30, 0.26)
+# The ABU44-E the customer's CO2 tether pushes into, and the SS check one hop inboard of it.
+C_CO2_INLET = M_NEOFIT_ACETAL
+C_GASHER = M_STAINLESS
+C_WR1110 = M_ALUMINIUM
 C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 Z_AXIS = (cq.Vector(0, 0, 0), cq.Vector(0, 0, 1))
 X_AXIS = (cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
@@ -2062,7 +2074,7 @@ def build_port_rings(stations):
         word, _wcarry = seat_body(import_step(str(_ring.WORD_STEPS[which])).val(), (),
                                   seat=word_name(which), station=station)
         out.append((ring_name(which), chip,
-                    cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))))
+                    cq.Color(*(c / 255.0 for c in _rear.chip_color(fluid)))))
         out.append((word_name(which), word,
                     cq.Color(*(c / 255.0 for c in _rear.word_color(fluid)))))
     return out
@@ -4481,9 +4493,9 @@ def build_pack() -> cq.Assembly:
     under_deck = [s for s, _c in _solids(a).values()]
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     co2in, co2in_carry = build_co2_inlet(a.deck_z)
-    a.add(co2in, name="co2-inlet", color=C_CO2)
+    a.add(co2in, name="co2-inlet", color=C_CO2_INLET)
     gasher, gasher_carry = build_gasher_co2(co2in_carry)
-    a.add(gasher, name="gasher-co2", color=C_CO2)
+    a.add(gasher, name="gasher-co2", color=C_GASHER)
     wr1110, wr1110_carry = build_wr1110(gasher_carry)
     a.add(wr1110, name="wr1110", color=C_WR1110)
     a.co2_inlet_carry = co2in_carry
@@ -4692,10 +4704,13 @@ def check_through_wall_headroom(a, shell) -> Bound:
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
-WALL_COLORS = {"front-bottom": cq.Color(0.72, 0.74, 0.78, 0.30),
-               "front-top": cq.Color(0.80, 0.82, 0.86, 0.30),
-               "back-bottom": cq.Color(0.66, 0.68, 0.72, 0.30),
-               "back-top": cq.Color(0.74, 0.76, 0.80, 0.30)}
+# THE BOX PRINTS IN ONE FILAMENT, and it is the black the flavour chips are cut off too —
+# `_back_panel_dimensions.chip_filaments` carries the measured figure. Four near-black values on a
+# tight spread; the alpha is what the pack is read through.
+WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16, 0.30),
+               "front-top": cq.Color(0.19, 0.19, 0.21, 0.30),
+               "back-bottom": cq.Color(0.13, 0.13, 0.14, 0.30),
+               "back-top": cq.Color(0.17, 0.17, 0.18, 0.30)}
 
 
 def funnel_centre(box):

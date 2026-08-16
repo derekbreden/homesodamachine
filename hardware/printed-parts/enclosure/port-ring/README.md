@@ -55,10 +55,11 @@ customer's quick-start sheet are already set in, so a customer holding that shee
 machine reads one typeface and not two.
 
 Behind the lettering a bar [0.3](WORD_TIE) mm thick lies across the letters' feet, which makes the
-word ONE body: the second colour is a single connected run rather than six loose islands per word
-to place and to lose. It runs along the baseline and no higher, so it stays clear of the counters
-in O, A, P, R and D — a bar at mid-cap would cut those off the chip's own floor and leave them as
-islands too.
+word ONE body. That earns its place twice: the second colour is a single connected run rather than
+six loose islands per word to place and to lose, and the reader `/3d` runs surfaces a colour only
+for a single-solid component, so an untied word is lettering the viewer draws grey. It runs along
+the baseline and no higher, so it stays clear of the counters in O, A, P, R and D — a bar at
+mid-cap would cut those off the chip's own floor and leave them as islands too.
 
 | | |
 |---|---|
