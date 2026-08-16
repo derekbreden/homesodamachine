@@ -58,6 +58,21 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // Fonts can land after networkidle0; block on the font readiness promise.
   await page.evaluate(() => document.fonts.ready);
 
+  // An image is fetched before it is decoded, and the capture reads decoded pixels.
+  await page.evaluate(() =>
+    Promise.all(
+      Array.from(document.images).map((img) =>
+        (img.complete
+          ? Promise.resolve()
+          : new Promise((done) => {
+              img.onload = done;
+              img.onerror = done;
+            })
+        ).then(() => (img.decode ? img.decode().catch(() => {}) : undefined)),
+      ),
+    ),
+  );
+
   // A card that scrolls is a card that will be cropped at print — and so is
   // one whose flex/grid children get clipped inside an overflow:hidden root
   // without ever growing scrollWidth/Height. Catch both: scan every element's
@@ -208,7 +223,6 @@ async function main() {
 
   await sweepAbandonedBrowsers("render-card");
   const browser = await launchBrowser({
-    args: ["--force-color-profile=srgb"],
     // A card is a local HTML file with local images and no script — it draws in
     // about a second, and puppeteer's 180 s default is a ceiling nothing here
     // can reach on purpose. Held down so a card that has stopped answering

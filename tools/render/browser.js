@@ -151,10 +151,31 @@ export async function sweepAbandonedBrowsers(tool = "render") {
 // property of the toolchain rather than of whichever tool remembered them.
 // `args` extends the shared set instead of replacing it; anything else passes
 // through to puppeteer.
+// A capture of one page reads the same pixels every time. The tree keeps these
+// pictures and `sync_tree` holds each against the one the build cuts, byte for byte.
+//
+// Text rasterises unhinted, without subpixel blending or subpixel positioning. An
+// image decodes before it is drawn. A tile is drawn whole. Skia takes one code path
+// rather than one chosen off the host's CPU. The compositor finishes every stage
+// before a capture reads it.
+const DETERMINISTIC = [
+  "--force-color-profile=srgb",
+  "--disable-lcd-text",
+  "--font-render-hinting=none",
+  "--disable-font-subpixel-positioning",
+  "--disable-checker-imaging",
+  "--disable-partial-raster",
+  "--disable-skia-runtime-opts",
+  "--disable-threaded-animation",
+  "--disable-image-animation-resync",
+  "--run-all-compositor-stages-before-draw",
+  "--hide-scrollbars",
+];
+
 export async function launchBrowser({ args = [], ...rest } = {}) {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-dev-shm-usage", ...args],
+    args: ["--no-sandbox", "--disable-dev-shm-usage", ...DETERMINISTIC, ...args],
     // Ties Chrome's life to this process's — see the block at the top.
     pipe: true,
     // Puppeteer's own signal handling closes over CDP, which is the slow path
