@@ -185,8 +185,10 @@ CARB_SEGMENTS = (
 # One row per body `enclosure_assembly` seats, as `(component, by, joint)`.
 #
 #   `by`    — the part whose PRINTED FEATURE fastens it. A boss a screw goes into, a socket a
-#             thread makes up in. `None` is a joint still to design, and every `None` here is
-#             one unit of the `mounted` axis's gap. IT IS THE ONLY FASTENING MEASURE: a body
+#             thread makes up in. `None` is no printed feature, which reads two ways: one unit
+#             of the `mounted` axis's gap, or — where `NEVER` names the row — a body nothing
+#             can fasten, which `never_holds` requires to be null. IT IS THE ONLY FASTENING
+#             MEASURE: a body
 #             resting on a crown is not mounted, because nothing about that survives the
 #             machine being picked up by one corner.
 #             A TUPLE IS TWO PIECES CLOSING ON ONE BODY, and the fastening is the pair: each
@@ -447,9 +449,9 @@ def fastened_by(name: str):
 
 # --- the rows nothing can fasten -------------------------------------------
 #
-# A null `by` in the table above is a joint still to design. A name here is a body already
-# fastened — by a clamp that ships with it, onto a donor the machine stands on grommets to hold
-# off itself. These rows come out of the axis's denominator, and their text goes out on the card.
+# A name here is a body already fastened — by a clamp that ships with it, onto a donor the
+# machine stands on grommets to hold off itself. Its row's `by` is null and `never_holds` keeps
+# it null. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
     # THE BASIN AND THE THREE BODIES ON ITS SPOUT'S COLUMN. The basin lifts out of the top wall
     # and goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the
