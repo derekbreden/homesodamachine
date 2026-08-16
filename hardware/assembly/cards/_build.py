@@ -34,7 +34,7 @@ HARDWARE = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 OUT_DIR = CARDS_DIR / "out"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import export_pdf  # noqa: E402
+from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
 # Deck order = the build order of /hardware/future.md "Build order" — which is the
 # procedure docs' own dependency chain, not their filename order. The three bench
@@ -109,10 +109,19 @@ def render_cards() -> int:
     overflows and a card the browser could not draw both come back non-zero,
     and both are things to look at on the printed deck — so the deck is still
     printed, from whatever rendered, and the status decides this build's own."""
+    # A PAGE IS DRAWN BY NODE, below Python, and the deck beside it is not. Only the deck was
+    # ever declared, so `sync_tree` carried `deck.pdf` and left a hundred and six pages of the
+    # tree at whatever the last hand run wrote — a green build and a clean carry beside a page
+    # showing a part that has since changed. The renderer is read whether or not this run
+    # reaches it; the pages are what the run makes.
+    renderer = REPO_ROOT / "tools" / "render" / "render-card.js"
+    note_read(renderer)
+    for stem in sorted(p.stem for p in CARDS_DIR.glob("*.html")):
+        note_write(OUT_DIR / f"{stem}.png")
     r = subprocess.run(
         [
             "node",
-            str(REPO_ROOT / "tools" / "render" / "render-card.js"),
+            str(renderer),
             "--batch",
             str(CARDS_DIR),
             str(OUT_DIR),
