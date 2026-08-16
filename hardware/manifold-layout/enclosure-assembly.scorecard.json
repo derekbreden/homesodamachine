@@ -40,9 +40,6 @@
    ]
   }
  ],
- "placed": 100,
- "located": 100,
- "routed": 100,
  "checks": [
   {
    "id": "coverage",

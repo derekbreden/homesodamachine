@@ -43,15 +43,13 @@ for _p in (_hw / "scripts", _here.parent):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import _boxes                                          # noqa: E402
+from _card import Check, GRADE_BANDS, grade_of, verdict  # noqa: E402
 import _clearing                                       # noqa: E402
 import _overlap                                        # noqa: E402
 import _routing as R                                   # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 
-# Grade bands on `radius ÷ the stock's minimum`. B is the requirement — a run AT its stock's
-# floor is buildable and nothing more; A is the room that survives a part moving a millimetre.
-GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
 BEND_GRADE_PASS = "B"       # the worst grade a run may carry and still clear the gate
 DETAIL_MAX = 8
 
@@ -69,10 +67,6 @@ def port_lead(bend: float, diam: float) -> float:
 # How far under its own stated band a MEASURED pose may read and still hold. A strike closes on
 # the band it states, so this is float noise across that closing and nothing else.
 ROOM_TOL = 1e-6
-
-
-def grade_of(ratio: float) -> str:
-    return next(g for lo, g in GRADE_BANDS if ratio >= lo)
 
 
 # The names a length of TUBE goes into the assembly under. `_lines.tubes` names each authored run
@@ -945,22 +939,6 @@ def bend_radii(runs) -> list[dict]:
 
 # --- the checks ------------------------------------------------------------
 
-@dataclass
-class Check:
-    id: str
-    label: str
-    kind: str            # "gate" | "goal"
-    status: str          # "pass" | "fail" | "warn"
-    value: str
-    target: str
-    detail: list = field(default_factory=list)
-    active: bool = True
-
-
-def _verdict(ok: bool) -> str:
-    return "pass" if ok else "fail"
-
-
 def _bounds(a) -> list:
     """One gate per bound the machine states about itself — every
     leg of the refrigerant loop closing, the vent's drip landing on
@@ -993,7 +971,7 @@ def _bounds(a) -> list:
 
     An assembly built by something that states no bounds contributes no rows rather than a
     silent pass: nothing measured is not the same claim as nothing wrong."""
-    return [Check(b.id, b.label, "gate", _verdict(b.ok), b.value, b.target, list(b.detail))
+    return [Check(b.id, b.label, "gate", verdict(b.ok), b.value, b.target, list(b.detail))
             for b in getattr(a, "bounds", ())]
 
 
@@ -1003,7 +981,7 @@ def _pack_closes(a) -> Check:
     detail = [f"{c.a} ∩ {c.b}   {c.volume:.1f} mm³, {c.where}" for c in bad]
     detail += [f"{ni} ? {nj}   {why}" for ni, nj, why in unanswered]
     return Check("pack-closes", "No two solids overlap (pack closes)", "gate",
-                 _verdict(not detail), f"{len(bad)} clash, {len(unanswered)} unanswered",
+                 verdict(not detail), f"{len(bad)} clash, {len(unanswered)} unanswered",
                  "0 clash, 0 unanswered", detail)
 
 
@@ -1022,7 +1000,7 @@ def _bed_fit(a) -> Check:
             short.append(f"{c.name}: {b.xlen:.1f} × {b.ylen:.1f} × {b.zlen:.1f} over "
                          f"{bed[0]:g} × {bed[1]:g} × {bed[2]:g}")
     return Check("bed-fit", "Every printed piece fits the bed", "gate",
-                 _verdict(not short), f"{sum(rows) - 0}/{len(rows)} on the bed",
+                 verdict(not short), f"{sum(rows) - 0}/{len(rows)} on the bed",
                  "every piece on the bed", short)
 
 
@@ -1080,7 +1058,7 @@ def _lines_clear(a, runs) -> Check:
             if v > _clearing.HIT_VOL:
                 detail.append(f"{i} ∩ {name}: {v:.1f} mm³")
     return Check("lines-clear", "No routed tube intersects a body, a piece or another tube",
-                 "gate", _verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
+                 "gate", verdict(not detail), f"{len(detail)} clash", "0 clash", detail)
 
 
 def port_leads(a, runs) -> list[dict]:
@@ -1163,7 +1141,7 @@ def _port_leads(rows) -> Check:
                f"{d['meets'] or 'nothing'} — opens to atmosphere, not gated"
                for d in rows if not d["gated"]]
     return Check("port-leads", "Every tube port has the straight a run off it needs", "gate",
-                 _verdict(not short), f"{len(gated) - len(short)}/{len(gated)} clear",
+                 verdict(not short), f"{len(gated) - len(short)}/{len(gated)} clear",
                  "all clear", detail)
 
 
@@ -1334,7 +1312,7 @@ def _clearance_floor(rows, lanes=()) -> Check:
                for x, y, g, ok in rows if (x, y, g) not in seen]
     tightest = min((r[2] for r in rows if not r[3]), default=None)
     return Check("clearance-floor", "Two things the machine does not seat together stand a "
-                 "millimetre apart", "gate", _verdict(not short),
+                 "millimetre apart", "gate", verdict(not short),
                  f"{len(short)} under, tightest {tightest:.3f} mm" if tightest is not None
                  else "no pair in reach", f"≥ {CLEARANCE_FLOOR:g} mm", detail)
 
@@ -1342,7 +1320,7 @@ def _clearance_floor(rows, lanes=()) -> Check:
 def _runs_drawn(runs) -> Check:
     short = [f"{cid}: {why}" for cid, why in sorted(R.BLOCKED.items())]
     return Check("runs-drawn", "Every authored run is drawn as its author asked", "gate",
-                 _verdict(not short), f"{len(runs) - len(short)}/{len(runs)} as drawn",
+                 verdict(not short), f"{len(runs) - len(short)}/{len(runs)} as drawn",
                  "0 short", short)
 
 
@@ -1377,7 +1355,7 @@ def _bend_radius(bends) -> Check:
                       f"R{d['radius']:.1f} against R{d['minBend']:g}{where}"
                       + need_clause(d["need"]))
     return Check("bend-radius", "Every routed tube turns at or above its stock's minimum radius",
-                 "gate", _verdict(worst <= limit),
+                 "gate", verdict(worst <= limit),
                  f"{[g for _lo, g in GRADE_BANDS][worst]} — {at_spec}/{corners} corners at spec",
                  f"every corner ≥ its stock's minimum ({BEND_GRADE_PASS})", detail)
 
@@ -1419,7 +1397,7 @@ def _routed(conns) -> Check:
     detail += [row(c) for c in done if c.made == "mate"]
     detail += [row(c) for c in done if c.made not in ("drawn", "mate")]
     return Check("routed", "Every tube connection the machine owes, made as a real 3-D path",
-                 "goal", _verdict(not missing), f"{len(done)}/{len(conns)} made",
+                 "goal", verdict(not missing), f"{len(done)}/{len(conns)} made",
                  "every connection made", detail)
 
 
@@ -1435,7 +1413,7 @@ def _located(a) -> Check:
             if not ok:
                 bad.append(f"{name}.{port}")
     return Check("located", "Every port a placed body declares is carried into world",
-                 "goal", _verdict(not bad), f"{sum(rows)}/{len(rows)} located",
+                 "goal", verdict(not bad), f"{sum(rows)}/{len(rows)} located",
                  "every declared port positioned and sized", bad)
 
 
@@ -1451,7 +1429,7 @@ def _coverage(a) -> Check:
     detail = [f"placed, undeclared: {n}" for n in sorted(placed - declared)]
     detail += [f"declared, unplaced: {n}" for n in sorted(declared - placed)]
     return Check("coverage", "Every placed body is declared in the fastening table",
-                 "gate", _verdict(not detail),
+                 "gate", verdict(not detail),
                  f"{len(placed & declared)}/{len(placed)} declared", "all declared", detail)
 
 
@@ -1482,7 +1460,7 @@ def _mounted(runs) -> Check:
     done = total - len(open_joints)
     return Check("mounted",
                  "A printed feature of another placed part fastens every body", "gate",
-                 _verdict(not open_joints),
+                 verdict(not open_joints),
                  f"{done}/{total} mounted, {len(RIDES)} part of another body, "
                  f"{len(NEVER)} nothing fastens",
                  "a printed joint per body", detail)
@@ -1549,7 +1527,7 @@ def _placed(a) -> Check:
     detail += [f"{name}: {what} was asked for {want:.4f} and reads {got:.4f} — {d:.2e} mm off"
                for name, what, want, got, d in sorted(off, key=lambda r: -r[4])]
     return Check("placed", "Every placement is stated as a rule, and the solid lands on it",
-                 "goal", _verdict(covered == set(bodies) and not off),
+                 "goal", verdict(covered == set(bodies) and not off),
                  f"{len(covered)}/{len(bodies)} stated",
                  "a stated rule per body, each landing on it", detail)
 
@@ -1581,7 +1559,7 @@ def _room_holds(a) -> Check:
               for name, what, want, got in
               sorted(rows, key=lambda r: (r[3] is None, 0.0 if r[3] is None else r[3] - r[2]))]
     return Check("room-holds", "Every derived pose has the room its own construction states",
-                 "gate", _verdict(not short),
+                 "gate", verdict(not short),
                  f"{len(rows) - len(short)}/{len(rows)} bands held"
                  + ("" if tightest is None else f", tightest {tightest:+.3f} mm"),
                  "every band held", detail)
@@ -1664,7 +1642,7 @@ def _tube_anchored(a, runs) -> Check:
     detail += [f"{rid}: {spans[rid]:.1f} mm unheld — left loose; {LOOSE[rid]}"
                for rid in sorted(LOOSE)]
     return Check("tube-anchored", "No run goes further than one span with nothing holding it",
-                 "goal", _verdict(not over),
+                 "goal", verdict(not over),
                  f"{len(spans) - len(over) - len(LOOSE)}/{len(spans) - len(LOOSE)} within span, "
                  f"{len(LOOSE)} left loose",
                  f"{cap:.0f} mm between held points", detail)
@@ -1722,16 +1700,6 @@ def _size_line(d: dict) -> str:
     mm = " × ".join(f"{v:.1f}" for v in d["mm"])
     inch = " × ".join(f"{v / MM_PER_INCH:.2f}" for v in d["mm"])
     return f"{mm} mm   {inch} in"
-
-
-def _score(check: Check) -> int:
-    lo, hi = check.value.split("/")[0], check.value.split("/")[-1]
-    try:
-        done = int(re.findall(r"(\d+)", lo)[-1])
-        total = int(re.findall(r"(\d+)", hi)[0])
-    except (IndexError, ValueError):
-        return 0
-    return 0 if not total else round(100.0 * done / total)
 
 
 # --- the card --------------------------------------------------------------
@@ -1795,15 +1763,11 @@ def to_dict(sc: Scorecard) -> dict:
     status` on it answers what moved: a scorecard that comes back dirty is a scorecard whose
     numbers changed, and whether it still describes the tree is what running the build says.
 
-    Every goal on this card is deferred, which the viewer renders gray. Each one still carries
-    its measured score, so the bar reads what it is rather than a zero."""
-    by_id = {c.id: c for c in sc.checks}
+    Every goal on this card is deferred, which the viewer renders gray. Each one carries its own
+    reading in its row."""
     return {
         "gatesPass": sc.gates_pass,
         "size": sc.sizes,
-        "placed": _score(by_id["placed"]),
-        "located": _score(by_id["located"]),
-        "routed": _score(by_id["routed"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail),

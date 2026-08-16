@@ -21,7 +21,6 @@ reading nobody sees at `/3d`.
 from __future__ import annotations
 
 import json
-import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -29,6 +28,9 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _repo = _hw.parent
+if str(_hw / "scripts") not in sys.path:
+    sys.path.insert(0, str(_hw / "scripts"))
+from _card import Check, verdict  # noqa: E402,F401 — the card's own row, re-exported
 
 DETAIL_MAX = 8
 FOCUS_DETAIL_MAX = 24
@@ -37,32 +39,6 @@ FOCUS_DETAIL_MAX = 24
 FOCUS_IDS = ("bom-covered", "mounted")
 # Two surfaces built to one nominal face meet at a sliver of this order.
 TOUCH_VOLUME = 0.1
-
-
-@dataclass
-class Check:
-    id: str
-    label: str
-    kind: str            # "gate" | "goal"
-    status: str          # "pass" | "fail" | "warn"
-    value: str
-    target: str
-    detail: list = field(default_factory=list)
-    active: bool = True
-
-
-def verdict(ok: bool) -> str:
-    return "pass" if ok else "fail"
-
-
-def score(check: Check) -> int:
-    lo, hi = check.value.split("/")[0], check.value.split("/")[-1]
-    try:
-        done = int(re.findall(r"(\d+)", lo)[-1])
-        total = int(re.findall(r"(\d+)", hi)[0])
-    except (IndexError, ValueError):
-        return 0
-    return 0 if not total else round(100.0 * done / total)
 
 
 @dataclass
@@ -77,12 +53,8 @@ class Scorecard:
 
 
 def to_dict(sc: Scorecard) -> dict:
-    by_id = {c.id: c for c in sc.checks}
     return {
         "gatesPass": sc.gates_pass,
-        "placed": score(by_id["placed"]),
-        "located": score(by_id["located"]),
-        "routed": score(by_id["routed"]),
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail),
