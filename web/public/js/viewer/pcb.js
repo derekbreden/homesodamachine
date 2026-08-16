@@ -444,7 +444,7 @@ function openChecksModal(wrapper, picks) {
     const ps = fab.partsSourced || { sourced: 0, total: 0 };
     const unsourced = Array.isArray(fab.unsourced) ? fab.unsourced : [];
     card.appendChild(makeRow("pcb-checks-row" + (unsourced.length ? " warn" : ""), "Parts sourced", `${ps.sourced} / ${ps.total}`));
-    if (unsourced.length) card.appendChild(makeRow("pcb-checks-row warn long-v", "Unsourced", unsourced.join(", ")));
+    if (unsourced.length) card.appendChild(makeRow("pcb-checks-row warn", "Unsourced", unsourced.join(", ")));
     if (fab.layers != null) card.appendChild(makeRow("pcb-checks-row", "Layers", String(fab.layers)));
     if (fab.minDrillMm != null) card.appendChild(makeRow("pcb-checks-row", "Min drill", `${fab.minDrillMm.toFixed(2)} mm`));
     if (fab.minAnnularMm != null) card.appendChild(makeRow("pcb-checks-row", "Min annular", `${fab.minAnnularMm.toFixed(2)} mm`));

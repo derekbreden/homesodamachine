@@ -1422,18 +1422,20 @@ details.branch > summary.branch-head:hover .branch-caret {
 /* The head is a div and so is every section caption, so the first caption is
    named by the head above it. */
 .pcb-checks-head + .pcb-checks-h { margin-top: 0; }
+/* The same two tracks the scorecard's rows stand in (.sc-row). */
 .pcb-checks-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38%;
   gap: 12px;
   padding: 3px 0;
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
 }
 .pcb-checks-row .k { color: var(--text); overflow-wrap: anywhere; }
-.pcb-checks-row .v { color: var(--text-2); white-space: nowrap; }
-/* A value that is a list rather than a figure — it wraps down the card's own
-   width instead of running off the side of it. */
-.pcb-checks-row.long-v .v { white-space: normal; text-align: right; overflow-wrap: anywhere; }
+.pcb-checks-row .v {
+  color: var(--text-2);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
 .pcb-checks-row.issue .k { color: var(--err); }
 .pcb-checks-row.issue .v { color: var(--text-3); text-transform: uppercase; font-size: 10px; align-self: center; }
 /* A decoupling cap past its budget — amber on both the label and the gap readout. */
@@ -1646,24 +1648,31 @@ details.branch > summary.branch-head:hover .branch-caret {
   margin: 12px 0 5px;
 }
 .sc-head + .sc-h { margin-top: 0; }
+/* Two tracks down the whole card, so every check splits from its reading at
+   the same place. Both sides wrap: a reading held on one line takes the width
+   it needs and leaves the check beside it a column one character wide. */
 .sc-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38%;
   gap: 12px;
   padding: 3px 0;
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
 }
 .sc-row .sc-k { color: var(--text); overflow-wrap: anywhere; }
-.sc-row .sc-v { color: var(--text-2); white-space: nowrap; }
+.sc-row .sc-v {
+  color: var(--text-2);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
 .sc-row.sub .sc-k { color: var(--text-2); }
 .sc-row.issue .sc-k { color: var(--err); }
-.sc-row.issue .sc-v { color: var(--err); white-space: nowrap; }
+.sc-row.issue .sc-v { color: var(--err); }
 .sc-row.warn .sc-k { color: var(--warn); }
 .sc-row.warn .sc-v { color: var(--warn); }
 .sc-row.gray .sc-k, .sc-row.gray .sc-v { color: var(--text-3); }
 /* Both units on one line where the card is wide enough, wrapping to two where it isn't. */
 .sc-row.size .sc-k { text-transform: uppercase; letter-spacing: 0.04em; font-size: 11px; }
-.sc-row.size .sc-v { white-space: normal; text-align: right; font-variant-numeric: tabular-nums; }
+.sc-row.size .sc-v { font-variant-numeric: tabular-nums; }
 /* A detail row that names solids in the scene — clickable, highlights them on the model. */
 .sc-row.clickable { cursor: pointer; }
 .sc-row.clickable:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
