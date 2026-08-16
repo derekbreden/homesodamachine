@@ -54,7 +54,7 @@ for _p in (_repo / "tools", _repo / "hardware" / "scripts",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-from docgen import substitute_md, substitute_mmd  # noqa: E402
+from docgen import note_rewritten, substitute_md, substitute_mmd  # noqa: E402
 import _facts                                     # noqa: E402
 import _lines                                     # noqa: E402
 import _scorecard                                 # noqa: E402
@@ -666,6 +666,13 @@ def main() -> int:
         print("fluid-topology ✓")
         return 0
 
+    # BOTH CHARTS ARE READ AND WRITTEN BACK, and only one of them says so on its own.
+    # `substitute_mmd` reports every file it touches, and `MANIFOLD` goes through it below;
+    # `CARBONATOR` carries no `[value](NAME)` marker, so its lines are edited and written
+    # here and nothing downstream would know it was ever read. Outside the tests below,
+    # because a run that lands on the text already there still read the file to decide that.
+    note_rewritten(MANIFOLD)
+    note_rewritten(CARBONATOR)
     if lines != before:
         MANIFOLD.write_text("\n".join(lines) + "\n")
     if carb_lines != carb_before:
