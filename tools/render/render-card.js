@@ -206,7 +206,7 @@ async function main() {
     jobs.push({ htmlAbs: path.resolve(inRel), outAbs });
   }
 
-  sweepAbandonedBrowsers("render-card");
+  await sweepAbandonedBrowsers("render-card");
   const browser = await launchBrowser({
     args: ["--force-color-profile=srgb"],
     // A card is a local HTML file with local images and no script — it draws in
