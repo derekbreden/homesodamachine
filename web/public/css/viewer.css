@@ -1357,6 +1357,12 @@ details.branch > summary.branch-head:hover .branch-caret {
     /* Its own row now, so the corners are no longer in the way. */
     max-width: calc(100% - 24px);
   }
+  /* The view toggle wraps to four rows at this width and stands centred, which
+     runs it under the top-right minimap; a centred box this tall clears that
+     corner at no width a phone has. The board fits the frame here, so the
+     toggle keeps the band and the indicator stands down. The fit reads its
+     obstacles off the live chrome, so it takes the room back. */
+  .pcb-wrapper > .pan-zoom-minimap { display: none; }
   .pcb-wrapper:has(.pcb-edit-toggle) > .pcb-dims {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px + 40px);
   }
