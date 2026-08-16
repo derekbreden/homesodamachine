@@ -168,6 +168,8 @@ const DETERMINISTIC = [
   "--disable-skia-runtime-opts",
   "--disable-threaded-animation",
   "--disable-image-animation-resync",
+  // The capture reads a frame the compositor has finished. Without this one a second run of
+  // `//:cards-build` over one source differs in 35 of 169 files; with it, 0.
   "--run-all-compositor-stages-before-draw",
   "--hide-scrollbars",
 ];
