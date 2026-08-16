@@ -51,7 +51,7 @@ Plate on head's crown, shoulder on boss's crown, bore on the boss's flanks — e
 
 ## Print
 
-Both trays come off the bed inside `enclosure-front-top`, which prints ceiling-down. The plate goes down first and everything above it — ramp, bore wall, shoulder — grows off its underside, so the only face that hangs is the plate's own. It is a soffit over the lane its pump hangs in, anchored along its whole width where it meets the wall, and it takes print support the way the tap-water trough's block and the drip tray's rails do. The pump is laid into it that way up, both straps threaded through their channels first — there is no reaching under a seated pump afterwards. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces row).
+Both trays come off the bed inside `enclosure-front-top`, which prints ceiling-down. The plate goes down first and everything above it — ramp, bore wall, shoulder — grows off its underside, so the only face that hangs is the plate's own. It is a soffit over the lane its pump hangs in, anchored along its whole width where it meets the wall, and it takes print support the way the tap-water trough's block and the drip tray's sleeve do. The pump is laid into it that way up, both straps threaded through their channels first — there is no reaching under a seated pump afterwards. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces row).
 
 ## Files
 

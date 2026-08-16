@@ -617,7 +617,8 @@ z_lip_y_margin = 2.0
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the drip tray's slot
 #   funnel        the placed hopper funnel's plan centre, or None for no throat
-#   pan_rails     the drip tray's carry, world boxes fused onto the −X wall
+#   pan_sleeve    the drip tray's carry, `(adds, cuts)` of world boxes — the solid block fused
+#                 onto the −X wall, and the berth cut back out of it
 #   c14           the mains inlet's heat-set stations on the back wall, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
 #   side_wells    the side walls' Wago wells, (side, y, z, size) — one press-fit pocket
@@ -663,7 +664,7 @@ z_lip_y_margin = 2.0
 #                 the chase's lip lands on, and the tube's own axis where it comes through
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
-           "funnel pan_rails c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
+           "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
            "cond_mount asse_cradle digiten_saddles tube_anchors port_field valve_panels "
            "pump_trays core_stops core_holds vent_chase")
 
@@ -673,12 +674,12 @@ Box = namedtuple(
 #   placed        {name: (solid, colour)} — the same shape a CadQuery assembly reads
 # The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
-    "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_rails c14 "
+    "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "asse_cradle digiten_saddles tube_anchors port_field valve_panels pump_trays "
             "core_stops core_holds vent_chase")
-Pack.__new__.__defaults__ = ((), (), (), (), None, (), (), (), (), (), (), (), (), (), (),
-                             (), (), None, (), (), (), (), ())
+Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
+                             (), (), (), (), None, (), (), (), (), ())
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1283,7 +1284,7 @@ def _dims(pack):
     _measure_wall_block(placed, inner, fy0, fy1, boss_in)
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
-               pack.funnel, pack.pan_rails, pack.c14, pack.east_bosses,
+               pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
                pack.cond_mount, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels,
@@ -2105,8 +2106,8 @@ def coupon_box():
 
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, (), (), (), (), (), (),
-               (), (), None, None, (), None, (), (), (), (), ())
+    return Box(inner, outer, y_joint, (zjf, zjb), (), (), (), (), None, ((), ()), (), (), (),
+               (), (), (), (), None, None, (), None, (), (), (), (), ())
 
 
 def build_front_half(box):
@@ -2179,25 +2180,29 @@ def build_back_half(box):
     for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
     back = _c14_bosses(back, inner, outer, box.c14, outer[4] - 1.0, outer[5] + 1.0)
-    # The drip tray's withdrawal slot through the −X wall, and the rail pair it rides. Cut the
-    # slot first: the rails stand on the wall the two rectangles leave between them.
+    # The drip tray's withdrawal slot through the −X wall, and the sleeve it lies in. The
+    # sleeve's own cuts reach back through this wall, so the slot is opened here and reopened
+    # there at the one shape.
     for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, inner[0] + 5.0):
         back = back.cut(cutter)
-    back = _pan_rails(back, box.pan_rails, outer[4] - 1.0, outer[5] + 1.0)
+    back = _pan_sleeve(back, box.pan_sleeve, outer[4] - 1.0, outer[5] + 1.0)
     return cq.Workplane(obj=back)
 
 
-def _pan_rails(solid, members, z0, z1):
-    """The drip tray's carry fused onto a −X wall, for the members whose top lies in `z0..z1`.
+def _pan_sleeve(solid, sleeve, z0, z1):
+    """The drip tray's sleeve fused onto a −X wall and its berth cut back out, for a piece whose
+    Z band holds the block's own top.
 
-    The pack states each member as a world box, rooted on the wall's inner face and running
-    east under the tray's rim, and closes their east ends with the bar the tray comes to
-    rest against. Three members and one U — the tray hangs
-    between the rails off its own flange, and nothing stands under its floor."""
-    for x0, x1, y0, y1, rz0, rz1 in members:
-        if not z0 <= rz1 <= z1:
-            continue
-        solid = solid.fuse(_ybox(x0, x1, y0, y1, rz0, rz1))
+    The pack states the block as one world box rooted on that wall's inner face, and the berth
+    as the two boxes the tray's own section makes. Fused THEN cut: the block closes the wall's
+    slot on its way past and the berth reopens it, so the opening a hand meets from outside is
+    the berth's own shape end to end."""
+    adds, cuts = sleeve
+    blocks = [b for b in adds if z0 <= b[5] <= z1]
+    for x0, x1, y0, y1, bz0, bz1 in blocks:
+        solid = solid.fuse(_ybox(x0, x1, y0, y1, bz0, bz1))
+    for x0, x1, y0, y1, cz0, cz1 in (cuts if blocks else ()):
+        solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
     return solid
 
 
