@@ -2,16 +2,20 @@
   "/hardware/printed-parts/enclosure/port-ring/port_ring.py": {
     "CO2_RING_BORE": "17.86",
     "CO2_RING_OD": "36.04",
-    "CO2_RING_VOL": "1.83",
+    "CO2_RING_VOL": "1.84",
     "RING_BORE": "18",
     "RING_OD": "36.96",
     "RING_TALL": "36.96",
     "RING_THICK": "2",
-    "RING_VOL": "1.85",
+    "RING_VOL": "1.87",
     "RING_W": "7.05",
     "TOP_TALL": "37.27",
-    "WORD_CAP": "5",
+    "WORD_CAP": "4.951",
     "WORD_DEPTH": "1",
-    "WORD_FONT": "Arial Black"
+    "WORD_FONT": "Helvetica",
+    "WORD_KIND": "bold",
+    "WORD_MIN_STROKE": "0.771",
+    "WORD_NOZZLE": "0.2",
+    "WORD_TIE": "0.3"
   }
 }

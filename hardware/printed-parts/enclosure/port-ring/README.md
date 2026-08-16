@@ -14,7 +14,7 @@ other.
 | fitting | John Guest PP1208E | neoFit ABU44 |
 | width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
 | bore | Ø[18](RING_BORE) | Ø[17.86](CO2_RING_BORE) |
-| volume | [1.85](RING_VOL) cm³ | [1.83](CO2_RING_VOL) cm³ |
+| volume | [1.87](RING_VOL) cm³ | [1.84](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|
@@ -49,14 +49,31 @@ either one and the manifold sorts them, so nothing on that face tells A from B.
 ## The word
 
 A second solid in a second colour, lying in a recess [1](WORD_DEPTH) mm into the chip's outboard
-face and filling it flush. [Arial Black](WORD_FONT) at a [5](WORD_CAP) mm cap, set in the band
-between the flange's edge and the top of the chip.
-[`_back_panel_dimensions.word_color`](../back-panel/_back_panel_dimensions.py) picks black or
-white off the chip's own luminance — white on TAP's, black on the other four.
+face and filling it flush. [Helvetica](WORD_FONT) [bold](WORD_KIND) at a [4.951](WORD_CAP) mm cap,
+set in the band between the flange's edge and the top of the chip — the face the build deck and the
+customer's quick-start sheet are already set in, so a customer holding that sheet beside the
+machine reads one typeface and not two.
+
+Behind the lettering a bar [0.3](WORD_TIE) mm thick lies across the letters' feet, which makes the
+word ONE body: the second colour is a single connected run rather than six loose islands per word
+to place and to lose. It runs along the baseline and no higher, so it stays clear of the counters
+in O, A, P, R and D — a bar at mid-cap would cut those off the chip's own floor and leave them as
+islands too.
+
+| | |
+|---|---|
+| narrowest stroke | [0.771](WORD_MIN_STROKE) mm, measured off the built letterforms |
+| nozzle | [0.2](WORD_NOZZLE) mm — about four beads to a stroke |
+
+Which of black and white each chip takes is
+[`_back_panel_dimensions.chip_word_colors`](../back-panel/_back_panel_dimensions.py), decided
+against the filament that chip actually prints in rather than against the tube colour it is named
+for. The two saturated hues do not answer alike: red 30201 takes **black** and navy 30604 takes
+**white**.
 
 `port_ring.WORD_WIDTHS` carries what each word measures across. The face is the system's, not this
 repo's, so a machine that resolves it to something else letters a different part; `words_hold`
-reads the built solid back against those figures.
+reads the built solid back against those figures, and against being one solid.
 
 ## Print
 
