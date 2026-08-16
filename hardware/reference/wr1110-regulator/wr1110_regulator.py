@@ -21,7 +21,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step, import_step
+from _cadq_export import export_assembly, import_step
+from _materials import M_ALUMINIUM, one_body
 
 STEP = _here.parent / "wr1110-regulator.step"
 
@@ -128,7 +129,7 @@ def main():
           f"body Ø{BODY_D} × {BODY_LENGTH:g} mm; total {TOTAL_LENGTH:g} mm")
     for label, (pos, axis) in (("inlet  (F)", inlet()), ("outlet (F)", outlet())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    export_step(part, str(STEP))
+    export_assembly(one_body(part, "wr1110-regulator", M_ALUMINIUM), str(STEP))
     print(f"-> {STEP.name}")
 
 

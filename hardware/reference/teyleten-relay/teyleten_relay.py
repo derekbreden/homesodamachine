@@ -23,7 +23,8 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly
+from _materials import C_RELAY, one_body
 
 # --- Calipered geometry ---------------------------------------------------
 length = 70.0          # X
@@ -101,7 +102,7 @@ def build():
 
 
 def main():
-    export_step(build(), str(_here.parent / "teyleten-relay.step"))
+    export_assembly(one_body(build(), "teyleten-relay", C_RELAY), str(_here.parent / "teyleten-relay.step"))
     print("-> teyleten-relay.step")
 
 
