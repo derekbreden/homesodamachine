@@ -3,22 +3,26 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "start": "node server.js",
     "dev": "node dev-server/server.js",
     "build": "node dev-server/build-all.js",
     "build:check": "node dev-server/build-all.js --check",
-    "test": "node --test 'tests/**/*.test.js'"
+    "test": "node --test 'tests/**/*.test.js'",
+    "audit": "npm audit --omit=dev"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "firebase-admin": "^13.8.0",
-    "pg": "^8.13.0",
-    "ws": "^8.18.0"
+    "express": "^4.22.2",
+    "firebase-admin": "^14.2.0",
+    "pg": "^8.23.0",
+    "ws": "^8.21.3"
   },
   "devDependencies": {
     "chokidar": "^4.0.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }

@@ -38,6 +38,9 @@
 #      - ledger/machine-time.md or bom.md   → _machine_time.py --check, for a §7 row
 #        with no print-rate group. GROUP_OF is the decision.
 #      - any staged *.py under hardware/    → check_build_exit.py.
+#      - web/package.json or its lockfile   → `npm ci --dry-run`, which is what render.yaml
+#        runs for real. The lockfile is the record of what the deployed site installs, so
+#        the two moving apart is a broken build waiting at the far end of a push.
 #      - BUILD.bazel, graph.json, selftests.json, or a staged add or delete
 #                                           → gen_build.py --check, which re-derives
 #        BUILD.bazel from the traced graph and holds it against the file in the tree.
@@ -264,6 +267,24 @@ if staged "BUILD.bazel" "tools/bazel/graph.json" "tools/bazel/selftests.json" ||
    git diff --cached --name-status | grep -q '^[AD]'; then
   gate "BUILD.bazel is what the traced graph writes" \
        python3 "$root/tools/bazel/gen_build.py" --check
+fi
+
+# web/package-lock.json IS THE RECORD OF WHAT RUNS IN PRODUCTION. render.yaml installs it
+# with `npm ci`, which refuses to run at all when it disagrees with package.json — so a
+# commit that moves one and not the other is a commit that breaks the deploy at build time,
+# where the only reader is a Render log. Asked here instead, the same question costs ~1 s.
+#
+# `npm ci --dry-run` IS THE CHECK, because npm owns the definition of "in sync" and a
+# re-implementation of it here would drift from npm instead. It catches both shapes: a
+# dependency range with no matching entry, and an `overrides` edit — which the lockfile
+# does NOT mirror in its root entry, so nothing structural would have seen it.
+#
+# `--offline` keeps the registry out of the commit path: the sync comparison is local and
+# runs before any fetch, so the answer is the same and no commit waits on the network.
+# `--ignore-scripts` because a check does not run a package's install hooks.
+if staged "web/package.json" "web/package-lock.json"; then
+  gate "web lockfile in sync with package.json" \
+       sh -c "cd \"$root/web\" && npm ci --dry-run --omit=dev --offline --ignore-scripts"
 fi
 
 if $touches_board; then
