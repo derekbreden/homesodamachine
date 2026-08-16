@@ -38,11 +38,7 @@ hardware/pcb/pcba/out/*.step
 .*.dxf.*.dxf
 .*.pdf.*.pdf
 
-# Lock files for the internal tools, which are installed by hand on one machine and
-# deploy nowhere. `web/package-lock.json` is deliberately absent from this list: web/ is
-# the deployed service, render.yaml installs it with `npm ci`, and the lockfile is
-# therefore the repo's record of what runs in production — tracked like bun.lock and
-# MODULE.bazel.lock, and read by the pre-commit gate that holds it against package.json.
+# The internal tools' lock files. Both are installed by hand on one machine.
 tools/render/package-lock.json
 marketing/video/remotion/package-lock.json
 

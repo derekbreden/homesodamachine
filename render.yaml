@@ -16,12 +16,8 @@ services:
     # stays at the repo root and is accessed via path.join("..",
     # "hardware") in web/server.js.
     rootDir: web
-    # `npm ci`, not `npm install`: it installs web/package-lock.json exactly and
-    # refuses to run at all when the lockfile and package.json disagree. `npm install`
-    # re-resolves the `^` ranges against the registry on every build, so two deploys of
-    # one commit can ship different code and nothing in the tree says which one is out
-    # there. The pre-commit gate keeps the two files in sync, so the hard failure here
-    # is one a commit cannot reach.
+    # Installs web/package-lock.json exactly, and stops when it disagrees with
+    # package.json. That lockfile is what this build ships; web/README.md carries it.
     buildCommand: npm ci --omit=dev
     startCommand: npm start
     healthCheckPath: /
