@@ -3118,7 +3118,9 @@
       "hardware/printed-parts/electronics/pcba-tray/pcba-tray.step.png",
       "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -3764,6 +3766,7 @@
   },
   "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
       "hardware/printed-parts/enclosure/drip-pan/README.md",
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step",
@@ -3771,6 +3774,7 @@
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
       "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -4417,6 +4421,7 @@
   },
   "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
@@ -4426,6 +4431,7 @@
       "hardware/reference/compressor/compressor.py",
       "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_meshes.py",
       "hardware/scripts/_overlap.py",

@@ -4770,10 +4770,7 @@ def check_through_wall_headroom(a, shell) -> Bound:
 # THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETG_BLACK` — the black the flavour chips are cut
 # off too. Four values on a tight spread either side of it, so a seam between two pieces is
 # tellable from a fold in one. The pack behind them is read through x-ray, not through the walls.
-WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16),
-               "front-top": cq.Color(0.19, 0.19, 0.21),
-               "back-bottom": cq.Color(0.13, 0.13, 0.14),
-               "back-top": cq.Color(0.17, 0.17, 0.18)}
+from _materials import WALL_COLORS                     # noqa: E402
 
 
 def funnel_centre(box):

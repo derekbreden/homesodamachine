@@ -52,6 +52,18 @@ C_RES_CAP = cq.Color(0.70, 0.74, 0.80, 0.55)
 # The platinum-cure silicone the gaskets and the dry seal are cast in.
 C_SILICONE = cq.Color(0.92, 0.92, 0.90, 0.60)
 C_SHROUD = cq.Color(0.30, 0.34, 0.40)
+
+# --- the enclosure's own bodies -----------------------------------------------
+# The four printed walls, in the one black filament, a shade apart so a seam between two of
+# them reads. `printed-parts/enclosure/enclosure` cuts them and `enclosure_assembly` stands
+# them, off these.
+WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16),
+               "front-top": cq.Color(0.19, 0.19, 0.21),
+               "back-bottom": cq.Color(0.13, 0.13, 0.14),
+               "back-top": cq.Color(0.17, 0.17, 0.18)}
+C_COVER = cq.Color(0.14, 0.14, 0.15)
+C_DGASKET = cq.Color(0.24, 0.22, 0.26)
+C_PCBA = cq.Color(0.11, 0.11, 0.12)
 C_REED = cq.Color(0.95, 0.55, 0.85)
 
 
