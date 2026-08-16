@@ -1751,9 +1751,20 @@ def seaflo_west_limit() -> float:
     return _enc.interior_x()[0] + _pan.PAN_X + 2.0 * _pan.FLANGE_W + FOOT_CLEAR
 
 
-def build_seaflo(foam):
+def seaflo_port_lane_limit() -> float:
+    """The westmost the pump's casting may reach on the NOZZLE UNIONS' OWN STOREY.
+
+    THE CASTING IS THE EAST FLANK OF THE PORT LANE. The two nozzle unions cross the back wall
+    between the rear seam's boss chain and this casting, `PORT_WEST_COLUMN` stands the pair off
+    that chain by one `PORT_LANE_CLEAR`, and this is the same millimetre owed on the other side.
+    Read off the east column and the union's own body — the station the field actually stands
+    on, which is where `check_port_pair` takes its own reading."""
+    return PANEL_X["bulkhead-flavor-a"] + _jg.BODY_D / 2.0 + PORT_LANE_CLEAR
+
+
+def build_seaflo(foam, gate: float):
     """The water pump at the machine's own `SEAFLO_YAW`, lying flat on the core's crown, its aft
-    face flush with the core's own back, and standing east of the tray beside it.
+    face flush with the core's own back, and standing east of both the tray and the port lane.
 
     IT IS SITED BY WHAT LIES WEST, not by the mirror plane. Centred, the pump left the tray
     whatever the −X wall happened to be, which made the tray's rim a function of the appliance's
@@ -1761,9 +1772,15 @@ def build_seaflo(foam):
     pump spends the air on its own east flank instead. `check_pan_lane` reads back the lip that
     leaves, and the pump stays centred wherever the lane is already wide enough.
 
-    The casting is measured over the storey the tray lies in — above its own feet and aft of the
-    discharge barb, the two places the box would answer for the whole part and be wrong (the
-    feet are 8 mm of a 72 mm casting, the barb one 10 mm band of a 187 mm one)."""
+    TWO ROOMS READ THE SAME CASTING and it is one body, so the shift is the wider of what they
+    ask. The tray lies alongside the pump at its own storey; the nozzle unions cross the wall
+    aft of it and a storey up, in the band `nozzle_storey` carries their barrels over the feet.
+    `check_port_pair` reads that second flank back off the placed body.
+
+    The casting is measured over each room's own four planes — above the feet and aft of the
+    discharge barb for the tray, in the rear band at the pair's own storey for the unions, the
+    places the box would answer for the whole part and be wrong (the feet are 8 mm of a 72 mm
+    casting, the barb one 10 mm band of a 187 mm one)."""
     b = box(foam)
     shape = import_step(str(SEAFLO_STEP)).val()
     turns = (((0, 0, 1), SEAFLO_YAW),)
@@ -1772,8 +1789,12 @@ def build_seaflo(foam):
     pb = box(probe)
     west = pump_west_face(probe, pb.zmin + _lines._pump.FOOT_T, pb.zmax,
                           pan_front_y(probe_carry), pb.ymax)
+    storey = nozzle_storey(gate, probe)
+    lane = pump_west_face(probe, storey - _jg.BODY_D / 2.0, storey + _jg.BODY_D / 2.0,
+                          bulkhead_mouth_y(), _enc.rear_plane_y)
     return seat_body(shape, turns, seat="seaflo-pump",
-                     cx=max(0.0, seaflo_west_limit() - west), **planes)
+                     cx=max(0.0, seaflo_west_limit() - west,
+                            seaflo_port_lane_limit() - lane), **planes)
 
 
 # --- the suction chain, lying in the lane beside the pump ------------------
@@ -1960,9 +1981,10 @@ def ring_name(which: str) -> str:
 
 # The slip a pad keeps around the ring that drops into it.
 PORT_RING_SLIP = 0.2
-# The rim of printed wall the pad keeps around each ring. What the pitch leaves between two
-# neighbouring rims is air, and `port-field-web` is where that is read.
-PORT_RING_RIM = 2.0
+# The rim of printed wall the pad keeps around each ring — the width of wall stock showing around
+# the colour, and the whole of a pad outboard of its pocket. What the pitch leaves between two
+# neighbouring rims is air of this same width; `port-field-web` is where that is read.
+PORT_RING_RIM = 3.0
 # How far the pad stands off the wall, and it is the ring's own thickness — so the rim fences the
 # whole of the ring it holds and their two faces come out one plane. It is the deepest a rim may
 # be: past this the ring lies in a well of its own rim, and the colour the wall is marked with
@@ -2063,9 +2085,16 @@ PORT_NUT_GAP = 7.0
 # own east corner and the meter's west face, and a bracket closing on either body reaches across
 # it — so the pitch buys a working lane between the two bodies and not just air between two nuts.
 PORT_DECK_EXTRA = 7.5
-# The pitch two columns stand at — each fitting's own panel footprint, the gap two nuts need, and
-# what the bodies hanging off them ask for over that.
-PORT_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
+# TWO DEMANDS STAND ON ONE PITCH, and the column takes the wider of them.
+#
+# What the HARDWARE asks, read at the nut on the inboard side: each fitting's own panel
+# footprint, the gap two nuts need, and what the bodies hanging off them ask for over that.
+PORT_HARDWARE_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
+# What the FIELD asks, read on the face the customer meets, where it is pads that stand beside
+# each other and not nuts: a whole pad, and one rim's width of air past it.
+PORT_FIELD_PITCH = port_pad_d() + PORT_RING_RIM
+# The pitch two columns stand at.
+PORT_PITCH = max(PORT_HARDWARE_PITCH, PORT_FIELD_PITCH)
 # WHAT THE PITCH LEAVES BETWEEN TWO PADS IS AIR, and a pad that runs into its neighbour stops
 # being a rim around one ring. `port_ring.RING_W` is what a ring spends the pitch on and
 # `PORT_RING_RIM` is what the pad spends around it, so the three are read against each other here
@@ -4332,7 +4361,11 @@ def build_pack() -> cq.Assembly:
     a.core_stops = core_stops(foam)
     a.core_holds = core_holds(foam)
     a.vent_chase = vent_chase(foam, foam_carry)
-    seaflo, seaflo_carry = build_seaflo(foam)
+    # The gate lane's own cruise, off the placed manifold — the plane the nozzle pair climbs to.
+    # Two bodies take it: `build_seaflo` carries it into `nozzle_storey` for the band its casting
+    # is measured over, and `a.gate_z` stands the pair itself on what that storey comes out at.
+    gate_cruise = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
+    seaflo, seaflo_carry = build_seaflo(foam, gate_cruise)
     a.add(seaflo, name="seaflo-pump", color=C_SEAFLO)
     chain, chain_carry = build_suction_chain(foam_carry, seaflo_carry(_lines._pump.suction()))
     a.add(chain, name="suction-chain", color=C_SUCT)
@@ -4396,8 +4429,7 @@ def build_pack() -> cq.Assembly:
     # split, the regulator and the drip tray all take station off the chain. NEITHER IS THE GAS
     # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
     # strike and answers to `deck_storey` the way the union row does.
-    a.gate_z = nozzle_storey(
-        _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2]), seaflo)
+    a.gate_z = nozzle_storey(gate_cruise, seaflo)
     under_deck = [s for s, _c in _solids(a).values()]
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     co2in, co2in_carry = build_co2_inlet(a.deck_z)
