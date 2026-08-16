@@ -1670,7 +1670,12 @@
   "114-9620011-1329056": {
    "ordered": "2026-02-25",
    "total": 71.1,
-   "project": true
+   "project": true,
+   "nonproject_amount": 40.37,
+   "why_mixed": "also carried $37.64 of Jonathan Green grass seed (yard)",
+   "subtotal": 66.3,
+   "shipping": 2.99,
+   "tax": 4.8
   },
   "114-0429960-0635402": {
    "ordered": "2026-02-25",

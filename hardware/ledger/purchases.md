@@ -116,7 +116,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | $67.56 | 114-7711911-5865013 | 2026-02-11 | — | ACQUIRED |
 | HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4" | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | $12.86 | 114-7711911-5865013 | 2026-02-11 | — | ACQUIRED |
 | GAGIRA 5Pcs 316L Stainless Steel Coupling, 3/8" NPT Female × 1/4" NPT Female, includes Teflon tape | [B0G2XJGZMQ](https://www.amazon.com/dp/B0G2XJGZMQ) | 1 pk | $18.22 | 114-6677442-9807460 | 2026-05-22 | 2026-05-24 | ACQUIRED |
-| LTWFITTING brass 3/8" × 1/4" FNPT reducing coupling (5-pk) | amazon.com (114-9960851-7517853) | 1 pk (5) | $8.56 | — | — | 2026-05-29 | ACQUIRED |
+| LTWFITTING brass 3/8" × 1/4" FNPT reducing coupling (5-pk) | [B00CHI2VRS](https://www.amazon.com/dp/B00CHI2VRS) | 1 pk (5) | $8.56 | 114-9960851-7517853 | 2026-05-27 | 2026-05-29 | ACQUIRED |
 | Lifevant 32.8 ft 1/4" OD water tubing + 12 quick-connects | [B0DKCZ5W66](https://www.amazon.com/dp/B0DKCZ5W66) | 1 | $10.71 | 114-5825243-4744249 | 2026-02-12 | — | ACQUIRED |
 | Fresh Water Systems order WEBFWS100673540 — black LLDPE tubing: 3/8" OD 25 ft + 1/4" OD 100 ft | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order | $43.29 | — | — | 2026-05-13 | ACQUIRED |
 | John Guest 1/4" OD × 1/8" NPT male push-fit | [B07V6XKZG9](https://www.amazon.com/dp/B07V6XKZG9) | 1 | $5.36 | 114-5825243-4744249 | 2026-02-12 | — | ACQUIRED |
@@ -156,8 +156,12 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $34.91 ea | 114-1015191-6799441, 112-0545074-9805025 | 2026-02-18 | — | ACQUIRED |
-| Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 6 | $9.64 ea | 114-3476722-1893810, 112-0933043-5526613, 112-9365343-6646655, 112-4838242-5164262 | 2026-02-22 | — | ACQUIRED |
+| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 1 | $34.91 | 114-1015191-6799441 | 2026-02-18 | — | ACQUIRED |
+| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 2 | $69.82 | 112-0545074-9805025 | 2026-02-23 | — | ACQUIRED |
+| Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 1 | $9.64 | 114-3476722-1893810 | 2026-02-22 | — | ACQUIRED |
+| Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 2 | $18.87 | 112-0933043-5526613 | 2026-02-23 | — | ACQUIRED |
+| Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 2 | $19.28 | 112-9365343-6646655 | 2026-03-14 | — | ACQUIRED |
+| Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 1 | $9.64 | 112-4838242-5164262 | 2026-03-14 | — | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | 112-3576572-8551422 | 2026-06-14 | 2026-06-17 | ACQUIRED (with 6 on hand, covers the 10-valve flavor manifold with 4 spare) |
 | Hosyond 5-pack MG90S 9 g metal-gear micro servo | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | 112-1012254-8551456 | 2026-06-01 | 2026-06-04 | ACQUIRED |
 | NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack) | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | 112-1012254-8551456 | 2026-06-01 | 2026-06-04 | ACQUIRED |
@@ -166,8 +170,9 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $16.46 | 114-5256389-4238639 | 2026-03-16 | — | ACQUIRED |
 | Platypus Platy 2 L collapsible bottle (bladder donor) | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 1 | $16.13 | 114-2469196-8024255 | 2026-02-15 | 2026-02-16 | ACQUIRED |
 | Platypus Platy 2 L collapsible bottle (bladder donor). placed Feb 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $17.33 ea | 112-9869315-7146643 | 2026-02-23 | — | ACQUIRED |
-| Platypus Platy 2 L collapsible bottle (bladder donor) | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $17.10 ea | 114-3163590-0127432 | 2026-03-08 | — | ACQUIRED |
-| Platypus Hoser hydration tube kit | [B07N1T6LNW](https://www.amazon.com/dp/B07N1T6LNW) | 3 | $26.76 ea | 114-2469196-8024255, 112-0545074-9805025 | 2026-02-15 | — | ACQUIRED |
+| Platypus Platy 2 L collapsible bottle (bladder donor) | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $16.35 ea | 114-3163590-0127432 | 2026-03-08 | — | ACQUIRED |
+| Platypus Hoser hydration tube kit | [B07N1T6LNW](https://www.amazon.com/dp/B07N1T6LNW) | 1 | $26.76 | 114-2469196-8024255 | 2026-02-15 | — | ACQUIRED |
+| Platypus Hoser hydration tube kit | [B07N1T6LNW](https://www.amazon.com/dp/B07N1T6LNW) | 2 | $53.52 | 112-0545074-9805025 | 2026-02-23 | — | ACQUIRED |
 | Platypus Hoser 1 L Hands-Free Hydration Reservoir, Fast Flow Valve | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | 2 | $51.24 | 112-4566389-9910625 | 2026-05-30 | 2026-06-03 | ACQUIRED |
 | JoyTube 3/8" ID food-grade silicone tubing, 10 ft | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | 1 | $12.86 | 114-4194868-8174607 | 2026-03-02 | — | ACQUIRED |
 | Metaland 3/8" ID food-grade silicone tubing | [B08L1RS757](https://www.amazon.com/dp/B08L1RS757) | 1 | $8.57 | 112-2018641-1609045 | 2026-03-15 | — | ACQUIRED |
@@ -178,7 +183,8 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | uxcell PP plastic bearing balls, 10 mm solid, 200 pc | [B0FHJ1X6ZP](https://www.amazon.com/dp/B0FHJ1X6ZP) | 1 pk (200) | $12.54 | 112-2018641-1609045 | 2026-03-15 | — | ACQUIRED |
 | uxcell PP plastic bearing balls, 8 mm solid, 100 pc | [B0FHKL2RQ1](https://www.amazon.com/dp/B0FHKL2RQ1) | 1 pk (100) | $7.18 | 112-2147768-5852208 | 2026-03-15 | — | ACQUIRED |
 | Pure silicone 3/8" ID × 1/2" OD high-temp tube, 10 ft | [B07XMGHHLK](https://www.amazon.com/dp/B07XMGHHLK) | 1 | $18.22 | 112-0019658-3684217 | 2026-04-04 | — | ACQUIRED |
-| ANPTGHT 1/8" ID × 1/4" OD black silicone tubing | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 3 | $13.93 ea | 112-9399398-0475445, 114-7711911-5865013 | 2026-02-11 | — | ACQUIRED |
+| ANPTGHT 1/8" ID × 1/4" OD black silicone tubing | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 1 | $13.93 | 114-7711911-5865013 | 2026-02-11 | — | ACQUIRED |
+| ANPTGHT 1/8" ID × 1/4" OD black silicone tubing | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 2 | $27.86 | 112-9399398-0475445 | 2026-02-23 | — | ACQUIRED |
 | Rebower brass hose barb 3/8" × 1/8" | [B0FP5JX2KS](https://www.amazon.com/dp/B0FP5JX2KS) | 1 | $5.35 | 114-4194868-8174607 | 2026-03-02 | — | ACQUIRED |
 | MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4 pk) | [B0DMP77B6S](https://www.amazon.com/dp/B0DMP77B6S) | 1 pk | $13.91 | 112-0019658-3684217 | 2026-04-04 | — | ACQUIRED |
 | YDS butterfly SS W2 hose clamp, 10–16 mm (10 pk) | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | 1 pk | $16.30 | 112-0019658-3684217 | 2026-04-04 | — | ACQUIRED |
@@ -200,10 +206,16 @@ Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders,
 | Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz kit | [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) | 1 kit (34 oz) | $26.80 | 112-8801016-4362651 | 2026-05-28 | 2026-05-29 | ACQUIRED |
 | Pinnacle Mercantile F-style HDPE bottle set | [B0CFP9RRSF](https://www.amazon.com/dp/B0CFP9RRSF) | 1 | $18.22 | 114-5825243-4744249 | 2026-02-12 | — | ACQUIRED |
 | SodaStream Diet Mountain Dew concentrate | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | 114-7739695-9309821 | 2026-02-01 | — | ACQUIRED |
-| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 6 | $156.82 | 114-0084687-6710639, 114-0749284-0433838, 114-7016001-0433834, 114-3163590-0127432, 114-1990143-8424226, 112-2287046-3621006 | 2026-02-24 | — | ACQUIRED |
-| SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 2 | $57.98 | 114-0069643-1757059, 114-3163590-0127432 | 2026-02-25 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.12 | 114-0749284-0433838 | 2026-02-24 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $29.74 | 114-3163590-0127432 | 2026-03-08 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $21.74 | 114-0084687-6710639 | 2026-04-26 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | 114-1990143-8424226 | 2026-05-16 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | 114-7016001-0433834 | 2026-06-10 | — | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $19.99 | 112-2287046-3621006 | 2026-07-26 | — | ACQUIRED |
+| SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | 114-0069643-1757059 | 2026-02-25 | — | ACQUIRED |
+| SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $29.74 | 114-3163590-0127432 | 2026-03-08 | — | ACQUIRED |
 | SodaStream Starry Zero 4-pack | [B0G4SGCGLN](https://www.amazon.com/dp/B0G4SGCGLN) | 1 | $28.99 | 112-3552935-4239455 | 2026-07-26 | 2026-07-27 | ACQUIRED |
-| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | 112-0933043-5526613 | 2026-02-23 | — | ACQUIRED |
+| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $19.82 | 112-0933043-5526613 | 2026-02-23 | — | ACQUIRED |
 | SodaStream Diet Pepsi Drink Mix 4-pack (cola syrup, 4 × 14.9 fl oz) | [B0G25QRMBP](https://www.amazon.com/dp/B0G25QRMBP) | 1 | $28.80 | 114-4609926-1663418 | 2026-06-22 | 2026-06-22 | ACQUIRED |
 | Magnetic pogo pin connector, 2-pin (2 pair) | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | 112-1533167-6762648 | 2026-04-17 | 2026-04-19 | ACQUIRED |
 
@@ -264,7 +276,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Beduan 304 SS compression ferrule sleeve, 1/8" OD | [B07V8RJJYJ](https://www.amazon.com/dp/B07V8RJJYJ) | 1 pk | $5.35 | 112-4247013-3054647 | 2026-04-23 | 2026-04-24 | ACQUIRED |
 | Pysrych 304 SS reducing compression union, 1/4" OD × 1/8" OD, 2 pk | [B0BM4394Z4](https://www.amazon.com/dp/B0BM4394Z4) | 1 pk | $9.64 | 112-5173995-8426610 | 2026-04-23 | 2026-04-25 | ACQUIRED |
 | Siptenk 1/4" OD brass tube stiffener insert, 100 pk | [B0FM77LLM1](https://www.amazon.com/dp/B0FM77LLM1) | 1 pk | $9.64 | 112-8579175-6021014 | 2026-04-24 | 2026-04-27 | ACQUIRED |
-| DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 4 | $10.18 ea | 114-4838401-4353060, 112-9633392-2520236 | 2026-02-12 | — | ACQUIRED |
+| DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 2 | $20.36 | 114-4838401-4353060 | 2026-02-12 | — | ACQUIRED |
+| DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 2 | $20.36 | 112-9633392-2520236 | 2026-02-23 | — | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow meter 0.3–6 L/min | [B07QS17S6Q](https://www.amazon.com/dp/B07QS17S6Q) | 1 | $10.18 | 114-0818390-2733826 | 2026-02-02 | — | ACQUIRED |
 | Eoiips polyethylene tubing 1/16" ID × 1/8" OD, 3.28 ft (1 m) | [B0BWJ3S5NM](https://www.amazon.com/dp/B0BWJ3S5NM) | 1 | $8.03 | 114-9634716-3126657 | 2026-04-29 | 2026-04-30 | ACQUIRED |
 | CARGEN Pipe Insulation Foam Tube | [B0D2XFK337](https://www.amazon.com/dp/B0D2XFK337) | 2 | $16.28 | 112-3935659-9563410 | 2026-05-15 | 2026-05-16 | ACQUIRED |
@@ -273,9 +286,11 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| ESP32-DevKitC-32E | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 3 | $11.80 ea | 114-0818390-2733826, 112-0933043-5526613 | 2026-02-02 | — | ACQUIRED |
+| ESP32-DevKitC-32E | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 1 | $11.80 | 114-0818390-2733826 | 2026-02-02 | — | ACQUIRED |
+| ESP32-DevKitC-32E | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.08 | 112-0933043-5526613 | 2026-02-23 | — | ACQUIRED |
 | ESP32-DevKitC-32E (repeat ASIN) | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | 112-2471492-3870616 | 2026-06-07 | 2026-06-08 | ACQUIRED |
-| Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | 114-9973455-6637052, 114-7373747-7178604 | 2026-03-08 | — | ACQUIRED |
+| Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 1 | $25.73 | 114-9973455-6637052 | 2026-03-08 | — | ACQUIRED |
+| Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 1 | $25.73 | 114-7373747-7178604 | 2026-03-09 | — | ACQUIRED |
 | Meshnology ESP32-S3 round rotary display 1.28" — prototype enclosure-front config display | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | $51.22 | 114-7373747-7178604 | 2026-03-09 | — | ACQUIRED |
 | Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | 112-5620567-3321809 | 2026-06-13 | 2026-06-15 | ACQUIRED |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | 112-7687617-6094631 | 2026-06-07 | 2026-06-09 | ACQUIRED |
@@ -313,7 +328,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Tandefio 1/8" × 12" 316 SS round rod (5 pk) | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | 112-7391312-2980226 | 2026-04-24 | 2026-04-26 | ACQUIRED |
 | 1/8" (3 mm) × 7.8" (200 mm) 316 SS round rod (10 pk) — level-sensing rod stock | [B0FYC63JCY](https://www.amazon.com/dp/B0FYC63JCY) | 2 pk (20) | $18.22 | 114-7801151-2777012 | 2026-06-17 | 2026-06-21 | ACQUIRED |
 | MECCANIXITY 1/8" (3 mm) × 9.84" (250 mm) 316 SS round rod (10 pk) — level-sensing rod stock | [B0FWZMZBY7](https://www.amazon.com/dp/B0FWZMZBY7) | 2 pk (20) | $17.78 | 114-2674264-1703446 | 2026-06-17 | 2026-06-20 | ACQUIRED |
-| 12 V 2 A DC power supply, 9-tip | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 2 | $21.42 | 114-1015191-6799441, 114-9620011-1329056 | 2026-02-18 | — | ACQUIRED |
+| 12 V 2 A DC power supply, 9-tip | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | $10.71 | 114-1015191-6799441 | 2026-02-18 | — | ACQUIRED |
+| 12 V 2 A DC power supply, 9-tip | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | $10.71 | 114-9620011-1329056 | 2026-02-25 | — | ACQUIRED |
 | 5 V 3 A AC/DC adapter, 11-tip | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $9.00 | 114-0818390-2733826 | 2026-02-02 | — | ACQUIRED |
 | Molence C45 PCB DIN-rail adapter clips (10 sets) | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $10.71 | 114-2582317-0018622 | 2026-02-26 | — | ACQUIRED |
 | VAMRONE 35 mm DIN rail, 4" (6 pk) | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $7.50 | 114-2582317-0018622 | 2026-02-26 | — | ACQUIRED |
@@ -332,7 +348,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | WAGO 221-420 Lever-Nuts 10-conductor splicing connector (box of 15) — 10-way lever nut for the >5-conductor PCB fan-outs: J1 MANIFOLD-A COM (8 valves), J2 MANIFOLD-B COM (4 valves + fan), J7 REEDS-B GND (6 reeds) | [B0H1MW1LCX](https://www.amazon.com/dp/B0H1MW1LCX) | 1 pk (15) | $28.90 | 112-1321519-4687432 | 2026-06-27 | 2026-06-30 | ACQUIRED |
 | WAGO 221-413 Lever-Nuts 3-conductor splicing connector (box of 50) — 3-way lever nut for the AC-hub mains distribution (H / N / G, one per pole); the Kitchen hub and the Lite tray are both cut for this part | [B07W7W91FX](https://www.amazon.com/dp/B07W7W91FX) | 1 pk (50) | $27.83 | 112-4898292-1807408 | 2026-06-27 | 2026-06-29 | ACQUIRED |
 | Dupont jumper wires (M/F, M/M, F/F) 20 cm | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | 114-5649971-6455418 | 2026-02-24 | — | ACQUIRED |
-| ELEGOO 120 pc Dupont jumper wire ribbon | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 2 | $7.49 ea | 114-0818390-2733826, 114-0077226-6463477 | 2026-02-02 | — | ACQUIRED |
+| ELEGOO 120 pc Dupont jumper wire ribbon | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 1 | $7.49 | 114-0818390-2733826 | 2026-02-02 | — | ACQUIRED |
+| ELEGOO 120 pc Dupont jumper wire ribbon | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 1 | $7.49 | 114-0077226-6463477 | 2026-02-24 | — | ACQUIRED |
 | Taiss Dupont crimp kit + SN-28B | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $23.58 | 114-3384762-6934634 | 2026-02-22 | — | ACQUIRED |
 | iCrimp SN-2549 ratcheting open-barrel crimper, AWG 28–18 (0.08–1.0 mm²) — dedicated die nests for JST PH 2.0 / ZH 1.5 / XH 2.5 / VH 3.96 / JWPS 4.0 + Dupont 2.54; crimps the JST-PH 2.0 terminals on the MCP23017 I²C link, which the SN-28B's nests fit only loosely | [B01N4L8QMW](https://www.amazon.com/dp/B01N4L8QMW) | 1 | $23.91 | 112-6248060-3106636 | 2026-06-14 | 2026-06-15 | ACQUIRED |
 | Waveshare MCP23017 I2C I/O expansion board (repeat ASIN) | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.93 | 112-2110462-6265038 | 2026-04-15 | 2026-04-27 | ACQUIRED |
@@ -424,7 +441,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | 114-1978684-7068269 | 2026-04-20 | 2026-04-27 | ACQUIRED |
-| VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 2 | $383.85 ea | 112-2273377-9628208, 114-2214596-3435404 | 2026-03-22 | — | ACQUIRED |
+| VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 112-2273377-9628208 | 2026-04-06 | — | ACQUIRED |
+| VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 114-2214596-3435404 | 2026-03-22 | — | ACQUIRED |
 | ForPro 99 % isopropyl alcohol, gallon — general shop solvent, separate from the §14 MG Chemicals 16 oz | [B00DT52Y98](https://www.amazon.com/dp/B00DT52Y98) | 1 | $12.86 | 114-2214596-3435404 | 2026-03-22 | — | ACQUIRED |
 | NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions) | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $27.23 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
 
@@ -633,10 +651,10 @@ ACQUIRED hardware by section:
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,834.42](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,380.73](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$1,381.25](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,891.95](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$961.25](LEDGER_SEC8) |
+| 8 | Electronics — controllers | [$960.73](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$1,431.58](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
