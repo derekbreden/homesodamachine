@@ -205,8 +205,9 @@ def _selftests(files: set) -> list:
     NOT `_generators`, and not `ELSEWHERE` either. That reading answers which modules BUILD
     this tree, and `tools/` is left out of it because the machinery that writes the graph is
     not a step in the graph it writes. What a test reads is a different question with a
-    different answer, and `sync_tree.py` is the one module where the two differ: it holds ten
-    holds, one of them that a card's authored text survives a build handed stale figures.
+    different answer, and two modules under `tools/` are where the two differ: `sync_tree.py`
+    holds ten, one of them that a card's authored text survives a build handed stale figures,
+    and `check_declared_imports.py` holds nine on the sources a step owes a declaration for.
     """
     out = []
     for f in sorted(files):
