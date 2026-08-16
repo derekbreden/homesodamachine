@@ -12,7 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
-import { FIGURES, FIGURE_CSS, THUMBS } from "./update-figures.js";
+import { FIGURES, FIGURE_CSS } from "./update-figures.js";
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 function esc(s) {
@@ -160,7 +160,8 @@ export function readUpdates(updatesDir) {
       end: meta.end,
       kind: meta.kind === "week" ? "week" : "period",
       lede: meta.lede || "",
-      thumb: meta.thumb || "",
+      image: meta.image || "",
+      image_alt: meta.image_alt || "",
       body,
     });
   }
@@ -169,13 +170,17 @@ export function readUpdates(updatesDir) {
 
 // --- rendering -------------------------------------------------------------
 
-function renderCard(p) {
-  const thumb = THUMBS[p.thumb]
-    ? `<span class="up-thumb">${THUMBS[p.thumb]}</span>`
-    : `<span class="up-thumb up-thumb-blank"></span>`;
+function renderCard(p, imageSize) {
+  // The picture stands only when its file is actually there, so a row whose
+  // image has not been made yet reads as text rather than a broken frame.
+  const size = p.image ? imageSize(p.image) : null;
+  const shot = size
+    ? `<span class="up-shot"><img src="${esc(p.image)}" alt="${esc(p.image_alt || p.title)}"` +
+      ` width="${size.w}" height="${size.h}" loading="lazy" decoding="async"></span>`
+    : "";
   return `<li class="up-item">
   <a href="/updates/${esc(p.slug)}">
-    ${thumb}
+    ${shot}
     <span class="up-text">
       <span class="up-meta"><span class="up-kind up-kind-${esc(p.kind)}">${esc(KIND_LABEL[p.kind])}</span>
       <span class="up-range">${esc(fmtRange(p.start, p.end))}</span></span>
@@ -186,7 +191,7 @@ function renderCard(p) {
 </li>`;
 }
 
-export function renderIndexBody(posts) {
+export function renderIndexBody(posts, imageSize = () => null) {
   if (!posts.length) {
     return `<main class="up-wrap"><h1 class="up-h1">Updates</h1>
   <p class="up-empty">No entries.</p></main>`;
@@ -199,7 +204,7 @@ export function renderIndexBody(posts) {
   Four-week entries cover a whole period; week entries cover the most recent one.</p>
   ${FIGURES.timeline ? `<figure class="up-fig"><div class="up-fig-scroll">${FIGURES.timeline.svg}</div><figcaption>${esc(FIGURES.timeline.caption)}</figcaption></figure>` : ""}
   <ul class="up-list">
-${posts.map(renderCard).join("\n")}
+${posts.map((p) => renderCard(p, imageSize)).join("\n")}
   </ul>
 </main>`;
 }
@@ -230,19 +235,25 @@ const UPDATES_CSS = `
 .up-list { list-style: none; margin: 0; padding: 0; }
 .up-item { border-top: 1px solid var(--border); }
 .up-item:last-child { border-bottom: 1px solid var(--border); }
+/* A row leads with the thing the entry is about, at the full width of the
+   column and its own aspect. These are x-ray drawings — hairline geometry on a
+   ground the same colour as the page — and the lines thin into that ground as
+   they scale down: the packed enclosure is legible near full size and gone by a
+   third of it. So the picture is never boxed to a common height; a tall subject
+   makes a tall row. */
 .up-item > a {
-  display: grid; grid-template-columns: 3.5rem 1fr; gap: .9rem; align-items: start;
-  padding: .9rem .35rem; text-decoration: none; color: inherit;
+  display: flex; flex-direction: column; gap: .7rem;
+  padding: 1rem .35rem 1.2rem; text-decoration: none; color: inherit;
 }
-.up-text { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
-.up-thumb {
-  width: 3.5rem; height: 3.5rem; border-radius: 8px; display: grid; place-items: center;
-  background: var(--surface); border: 1px solid var(--border); color: var(--accent);
+.up-text { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
+.up-shot {
+  display: block; width: 100%; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
 }
-.up-thumb svg.uf-mark { width: 2.4rem; height: 2.4rem; display: block; }
+.up-shot img { width: 100%; height: auto; display: block; }
 .up-item > a:hover { background: var(--surface); }
 .up-item > a:hover .up-title { color: var(--accent); }
-.up-item > a:hover .up-thumb { background: var(--surface-2); border-color: var(--accent); }
+.up-item > a:hover .up-shot { border-color: var(--accent); }
 
 .up-meta { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .up-kind {
@@ -297,7 +308,7 @@ export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
     res.send(
       renderHead({ title: "Updates — Home Soda Machine", pageStyles: UPDATES_CSS }) +
       renderNav({ surface, active: "updates" }) +
-      renderIndexBody(readUpdates(updatesDir)) +
+      renderIndexBody(readUpdates(updatesDir), imageSize) +
       renderFooter()
     );
   });

@@ -3,7 +3,8 @@ title: Two machines
 start: 2026-07-26
 end: 2026-08-01
 kind: week
-thumb: twin
+image: /update-images/2026-08-01-two-machines.png
+image_alt: The counter machine and the thin machine, side by side.
 lede: The hardware tree was forked into a second, taller and narrower appliance, and the stripped-down Lite edition was deleted.
 ---
 

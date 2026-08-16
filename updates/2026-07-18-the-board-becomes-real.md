@@ -3,7 +3,8 @@ title: The board becomes real
 start: 2026-06-21
 end: 2026-07-18
 kind: period
-thumb: board
+image: /update-images/2026-07-18-carrier-board.png
+image_alt: The through-hole carrier board, the first fab run.
 lede: Ten controller boards were ordered and the design behind them retired the next day, and a paste-layer defect was found two days before the assembled boards were paid for.
 ---
 

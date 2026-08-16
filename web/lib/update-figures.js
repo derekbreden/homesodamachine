@@ -366,49 +366,6 @@ export const FIGURES = {
   },
 };
 
-// ── Entry marks ──────────────────────────────────────────────────────────────
-// One per entry, drawn at the size the index shows them rather than shrunk from
-// the figure inside the post. Each is a silhouette the eye can tell from the
-// other nine at a glance: shape carries which entry this is, not colour.
-const M = 'stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"';
-const mark = (inner) =>
-  `<svg viewBox="0 0 48 48" class="uf-mark" aria-hidden="true"><g ${M}>${inner}</g></svg>`;
-
-export const THUMBS = {
-  // Three boards and a phone, wired together.
-  boards: mark(`<circle cx="12" cy="13" r="6"/><circle cx="36" cy="13" r="6"/>
-    <rect x="16" y="30" width="16" height="12" rx="3"/>
-    <path d="M14 19 L21 29 M34 19 L27 29"/>`),
-  // The vessel that was kept: a tube capped top and bottom.
-  vessel: mark(`<rect x="17" y="14" width="14" height="20"/>
-    <rect x="12" y="8" width="24" height="6" rx="1.5"/>
-    <rect x="12" y="34" width="24" height="6" rx="1.5"/>`),
-  // The faucet's gooseneck.
-  faucet: mark(`<path d="M11 42 L11 20 Q11 9 24 9 Q37 9 37 20 L37 29"/>
-    <path d="M6 42 L16 42"/>`),
-  // Water that stays in.
-  droplet: mark(`<path d="M24 7 C24 7 12 21 12 30 A12 12 0 0 0 36 30 C36 21 24 7 24 7 Z"/>`),
-  // A board, seen as its pad field.
-  board: mark(`<rect x="8" y="11" width="32" height="26" rx="3"/>
-    <circle cx="17" cy="20" r="1.8"/><circle cx="24" cy="20" r="1.8"/><circle cx="31" cy="20" r="1.8"/>
-    <circle cx="17" cy="28" r="1.8"/><circle cx="24" cy="28" r="1.8"/><circle cx="31" cy="28" r="1.8"/>`),
-  // The packed machine, tall and narrow.
-  machine: mark(`<rect x="15" y="6" width="18" height="36" rx="3"/>
-    <path d="M15 18 L33 18 M15 30 L33 30"/>`),
-  // The printed deck.
-  cards: mark(`<rect x="8" y="14" width="22" height="28" rx="2"/>
-    <path d="M15 10 L36 10 Q38 10 38 12 L38 36"/>`),
-  // Two machines, side by side and to scale.
-  twin: mark(`<rect x="6" y="16" width="17" height="24" rx="2"/>
-    <rect x="29" y="9" width="12" height="31" rx="2"/>`),
-  // What answered, and what did not.
-  bench: mark(`<path d="M7 23 L12 28 L21 15"/><path d="M29 17 L41 29 M41 17 L29 29"/>`),
-  // The front-top, carrying its panels and trays.
-  panel: mark(`<rect x="6" y="11" width="36" height="27" rx="3"/>
-    <rect x="11" y="16" width="12" height="8" rx="1"/><rect x="25" y="16" width="12" height="8" rx="1"/>
-    <rect x="11" y="28" width="12" height="6" rx="1"/><rect x="25" y="28" width="12" height="6" rx="1"/>`),
-};
-
 export const FIGURE_CSS = `
 .up-fig { margin: 1.8rem 0; padding: 0; }
 /* A drawing's type scales with its viewBox, so below the width the labels were
