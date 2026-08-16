@@ -308,7 +308,7 @@ Done looking. Two focused renders, the committed scorecard, and the pose derivat
 
 fluid-20 connects two mouths that stand on **the same column to the thousandth of a millimetre** — V-H-O at (137.03, 199.6, 267.7) and Y-F-2 at (137.03, 219.7, 320.9), 20 mm and one storey apart — and it takes 4 corners, 99 mm of path, and a detour of 1.74× to join them, at R5.52, grade F, 0.22×. The reason is visible in one plan view: **the tee's own body fills the column between them.** Y-F stands directly over the collet it serves, its aft run port opens aft, so the draw must climb the lane east of the fitting, come about behind it, jog west, and re-enter forward — a full U wrapped around the thing it's feeding.
 
-And here's the part I'd call the self-documented ugly: [`aft_lane_x`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:3252)'s own docstring says the tee stands over the collet *so that* "the draw is a **straight fall down one column** instead of a come-about across a corridor." The drawn geometry is precisely the come-about the sentence promises to have avoided. The pose optimized "same column" when the run needed "clear column" — the fitting is parked on the flow's own path.
+And here's the part I'd call the self-documented ugly: [`aft_lane_x`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3252)'s own docstring says the tee stands over the collet *so that* "the draw is a **straight fall down one column** instead of a come-about across a corridor." The drawn geometry is precisely the come-about the sentence promises to have avoided. The pose optimized "same column" when the run needed "clear column" — the fitting is parked on the flow's own path.
 
 One level up, the deeper shape. Y-F is channel B's suction junction: fluid-19 brings select water from V-D-O at (90.5, 156.5, **246.5**), fluid-20 brings the bag draw from z **267.7**, and fluid-21 carries the merge to the pump inlet at (114.2, 76.9, **180.9**). The junction sits at z **320.9** — 140 mm above and 123 mm aft of the pump it feeds, 74 mm above the select that feeds it. **Everything climbs to a summit whose only purpose is to be somewhere a fitting could stand** ("a fitting does not stand beside this plate at the port plane — what is open is the band OVER it"). The whole suction side pays:
 
@@ -360,7 +360,7 @@ This candidate is nearly free, reversible, and local — but it fixes the wrap, 
 
 ## The footnotes
 
-The **seat swap** (V-H ↔ V-I) does nothing alone — the wrap is relative to the tee and would simply follow — but composed with a bay-standing Y-F variant it points the draw at open bay instead of tray crown. Keep it in the deck as an enabler. **fluid-25** (the reservoir stem, F 0.38 across an 18 mm span) is a squeeze between the conduit column and the stem face — a nudge to take *with* whatever else moves, not a driver. And two stale-prose finds in passing, both the familiar disease: [`aft_row_tee_pos`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:3277) narrates an outcome the geometry doesn't deliver, and the pump-row block at [`_contents.py:3227`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:3227) still describes Y-G as "a TRIDENT and not a tee, outlets facing DOWN" — the placed component is a tee lying in the lane, ports fore and aft.
+The **seat swap** (V-H ↔ V-I) does nothing alone — the wrap is relative to the tee and would simply follow — but composed with a bay-standing Y-F variant it points the draw at open bay instead of tray crown. Keep it in the deck as an enabler. **fluid-25** (the reservoir stem, F 0.38 across an 18 mm span) is a squeeze between the conduit column and the stem face — a nudge to take *with* whatever else moves, not a driver. And two stale-prose finds in passing, both the familiar disease: [`aft_row_tee_pos`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3277) narrates an outcome the geometry doesn't deliver, and the pump-row block at [`_contents.py:3227`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3227) still describes Y-G as "a TRIDENT and not a tee, outlets facing DOWN" — the placed component is a tee lying in the lane, ports fore and aft.
 
 ## Where I land
 
@@ -431,7 +431,7 @@ Reservoir B is chilled and inside the insulation. Right now its syrup **leaves t
 
 **The free win:** fluid-17's corridor opens. Routes 14 already built and measured that re-author — **5 corners → 4, with two corners rising to full stock R25.40** — and had to throw it away only because it needed bag-b to move *east*, which broke water-3's fall. West doesn't touch water-3's column at all. The work is done; the obstacle is what you're removing.
 
-**The trap: Y-F follows the tray.** [`aft_lane_x()`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:3252) and [`aft_row_tee_pos()`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:3277) make Y-F's x *and* y literally V-H-O's station. So:
+**The trap: Y-F follows the tray.** [`aft_lane_x()`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3252) and [`aft_row_tee_pos()`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3277) make Y-F's x *and* y literally V-H-O's station. So:
 
 - fluid-19 breaks past ~26 mm of travel. Y-F's branch faces west at x 116.955 and V-D-O sits at x 90.5 — 26.5 mm of margin. Move the tray further than that and the branch ends up west of the select it's fed by, so fluid-19 has to wrap to enter it. Same disease, new run.
 - fluid-20's wrap survives untouched, since everything about it is relative. Your move doesn't fix last turn's tangle on its own.
@@ -444,7 +444,7 @@ A buried joint is unserviceable — so **if it's buried, don't bury a PTC collet
 
 **The single fit question I'm deliberately not scripting:** whether there's roughly 45 × 20 × 20 of clear space beneath the deck at x 10–45, y 200–235, alongside reservoir B's own pocket wall. Everything above is reasoning from committed geometry; that one is a look.
 
-One stale-prose find while I was in there — [`_lines.py:163`](hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:163) says *"Y-H stands over the PSU's crown instead,"* and explains Y-H's leaning legs by it. The PSU is at x 158.5–192, y 345.7+; Y-H is at x 21–60, y 209–224. It's the same PSU fiction Routes 10 killed for fluid-25, still live in the header narrative that teaches the next reader why this junction is shaped the way it is.
+One stale-prose find while I was in there — [`_lines.py:163`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L163) says *"Y-H stands over the PSU's crown instead,"* and explains Y-H's leaning legs by it. The PSU is at x 158.5–192, y 345.7+; Y-H is at x 21–60, y 209–224. It's the same PSU fiction Routes 10 killed for fluid-25, still live in the header narrative that teaches the next reader why this junction is shaped the way it is.
 
 Say the word and I'll drive it as committed states — I'd start with the tray west and Y-F decoupled, red or not, so you can see what the flank looks like empty before we settle what goes in the foam.
 
@@ -494,7 +494,7 @@ The 16 mm I was reasoning from is the **foam cap cavity** (279 × 177 × 16), an
 
 Your geometric point is the stronger one anyway, and it kills the idea outright: **a flat junction only works if the two lines stay separate until after they're down and turned horizontal.** That's two extra corners, each spending tangent, to reach a fitting whose only virtue was fitting a shallow space that isn't shallow. A vertical divider takes both descents in the direction they're already travelling — zero corners past the descent itself. And it's the part already in the machine (`PP2308E`, 1 per build).
 
-What makes this worth a moment: the flat-tee reasoning is real, it's just already been applied in the right place. [`internal-plumbing.md:39`](hardware/assembly/internal-plumbing.md:39) says reservoir **A**'s pair "takes a Tee: **the room ahead of it is a strip a fitting's own diameter deep**." So the machine already chose tee-for-shallow on one side and divider-for-open on the other. I was proposing to make B look like A on the one axis where B isn't constrained the way A is.
+What makes this worth a moment: the flat-tee reasoning is real, it's just already been applied in the right place. [`internal-plumbing.md:39`](/hardware/assembly/internal-plumbing.md:39) says reservoir **A**'s pair "takes a Tee: **the room ahead of it is a strip a fitting's own diameter deep**." So the machine already chose tee-for-shallow on one side and divider-for-open on the other. I was proposing to make B look like A on the one axis where B isn't constrained the way A is.
 
 ## 2 — Yes, an elbow really is more compact, but by less than I said
 
@@ -521,7 +521,7 @@ Reading the assembly docs changed my picture, and mostly in favor of the idea.
 
 **The reservoir is a printed part.** PETG translucent, closed with a TPU gasket and six M3 screws, with a PTFE membrane in a vent boss. Two consequences: **adding a second port is a print change, not a purchase** — which makes your two-port option far cheaper here than it would be against a bought vessel — and it is **vented to atmosphere**, so it can gravity-drain without vacuum-locking. Both of those had to be true for your idea to work and both are.
 
-**But "in the foam" is the pour band, not the pocket.** [`cold-core.md:115`](hardware/assembly/cold-core.md:115): the bag pockets "take no foam — each is occupied by its reservoir at 0.5 mm clearance on every side and at the top." There's no room beside the reservoir. The place a junction can go is the **pour band**, where the reservoir line and the reed cables already run and are "potted where it crosses." So potting a *tube* there is established practice; potting a *fitting* is one step further, and that step is the whole serviceability question.
+**But "in the foam" is the pour band, not the pocket.** [`cold-core.md:115`](/hardware/assembly/cold-core.md:115): the bag pockets "take no foam — each is occupied by its reservoir at 0.5 mm clearance on every side and at the top." There's no room beside the reservoir. The place a junction can go is the **pour band**, where the reservoir line and the reed cables already run and are "potted where it crosses." So potting a *tube* there is established practice; potting a *fitting* is one step further, and that step is the whole serviceability question.
 
 **And here's the part I'd lead with.** Reservoir B's line is a *riser* — it comes up through the cap to (11, 212.65, 253.4), and the valves sit at z 267.7, above it. So today the reservoir branch **climbs 14 mm out of the core and then runs flat**. Put the junction below the deck and it becomes: valve 267.7 → fall → junction → reservoir, **monotonic the whole way**. Air rises out of it into the valve; syrup drains back to the reservoir when idle. That's the gravity behaviour you're contemplating, and your move delivers it as a side effect rather than as a separate project. It's a better argument for the move than the flank space is.
 
@@ -529,7 +529,7 @@ Reading the assembly docs changed my picture, and mostly in favor of the idea.
 
 **One thing to weigh while you're deciding where junctions live.** Channel B's summit is **Y-F at z 320.86**, and fluid-19, fluid-20 and the pump feed all climb to it — so it's the collection point for any air on the *suction* side. Peristaltics are self-priming and will pass air, so this isn't a prime-loss failure. But a bubble through a peristaltic is a short syrup shot, and 1:20 with a weak first pour is exactly the thing this machine exists not to do. That summit has no reason to be a summit; it's there because a fitting needed somewhere to stand.
 
-Before I say more about gravity-only I'd want to read [`hardware/topology/fluid-topology.md`](hardware/topology/fluid-topology.md), which owns the circuit's intent — I've been reasoning from geometry and assembly steps, and the question of what the pumps are *for* in each direction is answered there, not in the placements.
+Before I say more about gravity-only I'd want to read [`hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md), which owns the circuit's intent — I've been reasoning from geometry and assembly steps, and the question of what the pumps are *for* in each direction is answered there, not in the placements.
 
 Want me to read that and come back on gravity specifically — or start putting the tray-west/Y-H-down state on main so you can see the empty flank while we argue about what goes in it?
 
@@ -567,13 +567,13 @@ Read: the fluid topology and its truth table, the reservoir's floor/bulkhead and
 
 ## The correction that reframes everything: "Bag B" is the reservoir
 
-There is no bag. [`fluid-topology.md`](hardware/topology/fluid-topology.md:53)'s "Bag B port" is `foam-assembly.reservoir-B` — the printed PETG reservoir nested in the foam, which `future.md` describes as filled "from a hopper on top for pouring concentrate." So Y-H isn't a bag junction. It is **the reservoir's single port doing fill and draw**, and segments 24/25/26 are that one port fanned out to two valves.
+There is no bag. [`fluid-topology.md`](/hardware/topology/fluid-topology.md:53)'s "Bag B port" is `foam-assembly.reservoir-B` — the printed PETG reservoir nested in the foam, which `future.md` describes as filled "from a hopper on top for pouring concentrate." So Y-H isn't a bag junction. It is **the reservoir's single port doing fill and draw**, and segments 24/25/26 are that one port fanned out to two valves.
 
 That matters for your proposal, because it means the thing you want to move is already half inside the foam.
 
 ## Reservoir B's line already climbs the shell's whole height, potted — because of Y-H
 
-[`_cold_core_interface.py:250`](hardware/printed-parts/cold-core/_cold_core_interface.py:250) is explicit:
+[`_cold_core_interface.py:250`](/hardware/printed-parts/cold-core/_cold_core_interface.py:250) is explicit:
 
 > *"Reservoir B is **NOT** here [the front port field]... its line leaves by the +Y band and the cap's own conduit, **because the fitting it feeds hangs in the loft directly over that band** and a station on this face would send it across the machine and back."*
 
@@ -611,10 +611,10 @@ Costs, stated honestly: the reservoir's port is a **purchased PureSec bulkhead**
 
 ## Doc drift found, all in this area
 
-1. [`fluid-topology.md:40`](hardware/topology/fluid-topology.md:40) — *"segment 25 climbs the whole front column to reach its stem."* fluid-25 is a 19.6 mm stub off the cap conduit. The full-height climb happens inside the foam, in the +Y band, and belongs to the cold core.
-2. [`fluid-topology.md:42`](hardware/topology/fluid-topology.md:42) — *"One line reaches each reservoir's port on the cold core's front face."* True for A; the interface says in as many words that B is not there.
-3. [`cold-core.md:104`](hardware/assembly/cold-core.md:104) — has both reservoir lines leaving through the **−Y** pocket wall to the front field. B crosses the **+Y** wall and leaves by the cap.
-4. [`_lines.py:163`](hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:163) — the Y-H-over-the-PSU claim from last turn.
+1. [`fluid-topology.md:40`](/hardware/topology/fluid-topology.md:40) — *"segment 25 climbs the whole front column to reach its stem."* fluid-25 is a 19.6 mm stub off the cap conduit. The full-height climb happens inside the foam, in the +Y band, and belongs to the cold core.
+2. [`fluid-topology.md:42`](/hardware/topology/fluid-topology.md:42) — *"One line reaches each reservoir's port on the cold core's front face."* True for A; the interface says in as many words that B is not there.
+3. [`cold-core.md:104`](/hardware/assembly/cold-core.md:104) — has both reservoir lines leaving through the **−Y** pocket wall to the front field. B crosses the **+Y** wall and leaves by the cap.
+4. [`_lines.py:163`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L163) — the Y-H-over-the-PSU claim from last turn.
 
 ## Where I'd go
 
@@ -749,7 +749,7 @@ So the cap fill port is *cheaper* than the existing port, not comparable to it. 
 
 **And one thing that falls out, which I'd want you to weigh.** If a dip tube inside the reservoir can reach the trough's low point, the *draw* moves to the cap too — and then the PureSec bulkhead, the ⌀16 hole, both face seals, the pocket-wall bore and the 213 mm potted band climb all disappear, replaced by two short vertical conduits side by side.
 
-That deletes the one feature the reservoir's own docs still flag as unresolved: [`floor-and-bulkhead.md`](hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md:11) lists *"the trough floor and walls are the reservoir's fluid barrier — the print has to hold syrup under working head with no weep"* as an open item, and that floor currently carries a ⌀16 hole with a seal on each face, at the lowest point of a 180 mm column of syrup. Moving both connections above the liquid line takes the riskiest penetration out of the riskiest surface.
+That deletes the one feature the reservoir's own docs still flag as unresolved: [`floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md:11) lists *"the trough floor and walls are the reservoir's fluid barrier — the print has to hold syrup under working head with no weep"* as an open item, and that floor currently carries a ⌀16 hole with a seal on each face, at the lowest point of a 180 mm column of syrup. Moving both connections above the liquid line takes the riskiest penetration out of the riskiest surface.
 
 Costs of that version: a printed dip tube standing in a cavity that already has a float rod and a float riding the far wall, and residual syrup below the dip tube's mouth instead of below the bulkhead's port axis — roughly the same dreg either way.
 
@@ -1099,7 +1099,7 @@ gates            10/11 — parity with HEAD; pack-closes 0, lines-clear 0, port-
 
 You were right about the bend — that corner was never hard. `lean_into` leans both mouths, so the 90° between a west-facing collet and a +Z bore never has to be turned square, and both runs came out D on the first solve. My "R14" was me computing a square corner the machine's own idiom doesn't draw.
 
-**What the change exposed, which is the part worth your eye.** fluid-17 climbed over Y-H's crown because [the corridor had negative width](hardware/printed-parts/enclosure/enclosure-assembly/_lines.py:1132) — the conduit's column wanted the lane east, the trident's flank wanted it west. With the trident gone, everything left in that band is a *column*, so the corridor is open the whole storey. fluid-17 now climbs once onto the gate's own port plane and holds it into the collet — the stratum over the band and the fall into the bay are both gone.
+**What the change exposed, which is the part worth your eye.** fluid-17 climbed over Y-H's crown because [the corridor had negative width](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L1132) — the conduit's column wanted the lane east, the trident's flank wanted it west. With the trident gone, everything left in that band is a *column*, so the corridor is open the whole storey. fluid-17 now climbs once onto the gate's own port plane and holds it into the collet — the stratum over the band and the fall into the bay are both gone.
 
 **One real fence, and I stated it in source rather than letting it fall out.** The draw's conduit is pinned over the shell's +Y band at x 11, which is *west* of fluid-17's lane — so fluid-26 has to pass under that lane before it climbs. Left to the solver, the roundest corner rose straight into it (53 mm³ of clash). `_drop_trials` now carries the crossing as a ceiling, so the lead is chosen by the crossing rather than by the radius.
 
@@ -1501,7 +1501,7 @@ water-5 holds at **B/A, R25.40, 1 corner** — the drop costs it nothing. Two sl
 
 ---
 
-Found it — and it's a real coupling, not a stale one: **the drip pan hangs off the chain** ([`drip_pan_seat`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:1943) — "the basin hangs off the chain, `drip_pan.VENT_GAP` of air between its rim and the placed chain's underside"), so my +20 aft carried the pan into the back wall. Testing the drop on its own:
+Found it — and it's a real coupling, not a stale one: **the drip pan hangs off the chain** ([`drip_pan_seat`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1943) — "the basin hangs off the chain, `drip_pan.VENT_GAP` of air between its rim and the placed chain's underside"), so my +20 aft carried the pan into the back wall. Testing the drop on its own:
 
 ---
 
@@ -1517,7 +1517,7 @@ The pan follows the chain, so **the pan is the real fence on the chain's Z, not 
 
 ---
 
-Wait — [`drip_pan_seat`](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:1958) reads `asse_underside()`, the **ASSE 1022** chain, not the SeaFlo discharge chain. Two different things both called "the chain," and I conflated them. So my move shouldn't touch the pan at all. Let me run the control.
+Wait — [`drip_pan_seat`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1958) reads `asse_underside()`, the **ASSE 1022** chain, not the SeaFlo discharge chain. Two different things both called "the chain," and I conflated them. So my move shouldn't touch the pan at all. Let me run the control.
 
 ---
 

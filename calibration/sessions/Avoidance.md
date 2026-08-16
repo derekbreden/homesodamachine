@@ -796,7 +796,7 @@ it's building a video presence. A person showing a real product in a
 real kitchen, consistently.
 
 The unboxing experience is a deliberate extension of that trust. The
-brief at [`unboxing-and-quickstart.md`](unboxing-and-quickstart.md)
+brief at [`unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)
 defines what the customer sees in what order from the moment the
 carton arrives — the design choices there (single flat quick-start
 sheet, three-color wayfinding, hard separation between install steps

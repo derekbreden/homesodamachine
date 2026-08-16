@@ -34,9 +34,8 @@ services:
     buildFilter:
       paths:
         - web/**
-        # one per edition (web/lib/editions.js): kitchen, thin
+        # one per edition (web/lib/editions.js): kitchen
         - hardware/**
-        - thin/**
         - render.yaml
     envVars:
       - key: DATABASE_URL

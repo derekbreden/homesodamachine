@@ -114,7 +114,7 @@ Matched "Instruction cards audit" (the only title with "audit"). Exporting it.
 
 Relayed in. Orientation first, plus one thing you need to know before I touch anything:
 
-**That session is live right now.** Its edits to [_contents.py](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) and [scorecard.py](hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py) are 4 minutes old and uncommitted. Those are exactly the two files a drip-tray repose has to edit.
+**That session is live right now.** Its edits to [_contents.py](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) and [scorecard.py](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py) are 4 minutes old and uncommitted. Those are exactly the two files a drip-tray repose has to edit.
 
 **What it was doing:** a full audit of the 93-card assembly deck, which turned up ~20 defects and five "the CAD doesn't exist yet" holes — so it spawned seven design spikes to close them. The drip pan was one: the spike found the aft strip behind the SeaFlo is only **55 mm** deep (`y` 326→381), so the old 130×66 basin never fit anywhere, and reshaped it to **100 × 30 × 22** centred on the vent column with a VHB'd cradle. Committed as `b063d8e1`. **Where it left off:** integrating the cold-core-ring spike (which lifts the whole deck 5 mm on `RING_SEAT`) and chasing four clashes at 6/7 gates.
 
@@ -154,7 +154,7 @@ Facts are in. Before I write anything, here's what the geometry says — includi
 | Z height | 22 | **14** | free choice — it costs capacity, and growing Y pays it back |
 | floor Z | 253.4 | **267.0** | derived: vent tip `z=285` − 4 mm splash gap − 14 mm basin |
 
-Capacity actually goes **up**: 95 × 45 × 11 = **47.0 mL** vs today's 45.1. Shorter, deeper, *and* it holds more. And you get **13.6 mm of clear deck** under the full 100 × 50 footprint — which is where [internal-plumbing.md:86](hardware/assembly/internal-plumbing.md:86) already wants to dress the C14 cordage.
+Capacity actually goes **up**: 95 × 45 × 11 = **47.0 mL** vs today's 45.1. Shorter, deeper, *and* it holds more. And you get **13.6 mm of clear deck** under the full 100 × 50 footprint — which is where [internal-plumbing.md:86](/hardware/assembly/internal-plumbing.md:86) already wants to dress the C14 cordage.
 
 **On raising the ASSE — it's nearly free for 2.4 mm, then you pay in cabinet height.**
 
@@ -162,7 +162,7 @@ Capacity actually goes **up**: 95 × 45 × 11 = **47.0 mL** vs today's 45.1. Sho
 asse1022-assembly  zmax 328.29   inner ceiling 331.72   → 3.43 mm
 vk-fill-valve      zmax 330.70   ← the actual height driver
 ```
-The ASSE can rise **2.41 mm** before it overtakes V-K as the tallest body inside; past that the ceiling tracks it 1:1 and the appliance grows. It also drags the rear-panel water bulkhead with it — `WATER_BACK_Z = ASSE1022_POS[2] + tube_in()[2]` at [_contents.py:720](hardware/printed-parts/enclosure/enclosure-assembly/_contents.py:720). 2.4 mm isn't worth that cascade; the 13.6 mm below the pan doesn't need it.
+The ASSE can rise **2.41 mm** before it overtakes V-K as the tallest body inside; past that the ceiling tracks it 1:1 and the appliance grows. It also drags the rear-panel water bulkhead with it — `WATER_BACK_Z = ASSE1022_POS[2] + tube_in()[2]` at [_contents.py:720](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L720). 2.4 mm isn't worth that cascade; the 13.6 mm below the pan doesn't need it.
 
 **On rolling it — I was wrong to expect this to fail. It fits.** Rolled about the flow axis (the pivot that keeps both fittings on their tube runs):
 
@@ -175,7 +175,7 @@ The ASSE can rise **2.41 mm** before it overtakes V-K as the tallest body inside
 
 At +45° every clearance stays positive, the tip **rises 8.5 mm** and moves 20.5 mm aft, and — the real prize — the assembly's *lowest point anywhere* goes 285.00 → **290.12**, deleting the local low spike over the vent column. That's 5.1 mm of extra pan ceiling.
 
-So it works geometrically. I still recommend against it, for one reason that isn't about fit: **at 45° the stub's exit is no longer its low point.** Water leaving the bore clings and runs down the outside of the stub to whatever the low point happens to be, instead of shedding off a clean annular tip. The drip is a *sensor input* — [future.md](hardware/future.md) "Backflow vent monitoring" — and you want its landing spot deterministic, not set by surface tension. Secondary: the vent port stops being the bottom of the intermediate chamber, so it no longer fully drains. I can't check Multiplex's installation spec from the repo, so treat that second point as reasoning, not a cited constraint.
+So it works geometrically. I still recommend against it, for one reason that isn't about fit: **at 45° the stub's exit is no longer its low point.** Water leaving the bore clings and runs down the outside of the stub to whatever the low point happens to be, instead of shedding off a clean annular tip. The drip is a *sensor input* — [future.md](/hardware/future.md) "Backflow vent monitoring" — and you want its landing spot deterministic, not set by surface tension. Secondary: the vent port stops being the bottom of the intermediate chamber, so it no longer fully drains. I can't check Multiplex's installation spec from the repo, so treat that second point as reasoning, not a cited constraint.
 
 And you don't need it: 4 mm of splash gap under a vertical tip already buys the full 13.6 mm below.
 
@@ -424,7 +424,7 @@ bulkhead-flavor-b  x[183.64,206.50] z[281.00,303.86]  dx +6.86  dz +1.50  CLASH
 
 The true interference is **zero** — the basin's rim tops out at 281.00 and that bulkhead starts at 281.00, exactly tangent. The 1.5 mm is my slot clearance eating into it. So the slot needs one of: the bulkhead moved up ~2 mm, the pan dropped ~2 mm out of its splash gap, or a notched corner.
 
-I stopped there rather than picking for you — moving a customer-facing umbilical bulkhead is a real decision, and the blue-ring-at-the-top-vertex identification rule in [back-panel/README.md](hardware/printed-parts/enclosure/back-panel/README.md) makes that cluster's geometry load-bearing for install. Which way do you want it?
+I stopped there rather than picking for you — moving a customer-facing umbilical bulkhead is a real decision, and the blue-ring-at-the-top-vertex identification rule in [back-panel/README.md](/hardware/printed-parts/enclosure/back-panel/README.md) makes that cluster's geometry load-bearing for install. Which way do you want it?
 
 One process note: a hook caught me writing justification into the seat function — explaining *why* the check exists and defending it against silently absorbing drift. I went back over everything I'd written this session in that light and cut it from four more places, including a "still holds more than the tall narrow one did" in the README that was a straight was-X-now-Y.
 
@@ -472,7 +472,7 @@ The plate **bridges on the coves 0.76 mm above the floor** — so a drip has to 
 
 ---
 
-The wall tracks content 1:1 — `iy1 = cymax + interior_clearance + rear_seam_clear` at [enclosure.py:564](hardware/printed-parts/enclosure/enclosure/enclosure.py:564). So growing the pan aft grows the appliance. The other direction is the pump. Let me measure both.
+The wall tracks content 1:1 — `iy1 = cymax + interior_clearance + rear_seam_clear` at [enclosure.py:564](/hardware/printed-parts/enclosure/enclosure/enclosure.py:564). So growing the pan aft grows the appliance. The other direction is the pump. Let me measure both.
 
 ---
 
@@ -488,7 +488,7 @@ The other session just landed the ring lift and integrated it *with* my pan rail
 
 ---
 
-The pump can't move forward without compressing `water-6` — its own discharge hose, which has a 15.9 mm minimum bend radius per [internal-plumbing.md:88](hardware/assembly/internal-plumbing.md:88). That's a re-route, not a nudge.
+The pump can't move forward without compressing `water-6` — its own discharge hose, which has a 15.9 mm minimum bend radius per [internal-plumbing.md:88](/hardware/assembly/internal-plumbing.md:88). That's a re-route, not a nudge.
 
 Let me get current roll numbers in the now-ring-lifted world before I ask you anything.
 
@@ -798,4 +798,4 @@ click: x=82.200 y=357.500 z=282.800
 
 **One trap bit me twice:** thumbnails only re-render when the STEP content *changes*, so writing a STEP under `HSM_SKIP_THUMBNAILS=1` and re-running without it renders nothing. I also stopped a running assembly build by launching the pan build concurrently — the lock caught it, but that was my error.
 
-Left undone deliberately: the rear-panel slot itself. It's specified as an open item in [back-panel/README.md](hardware/printed-parts/enclosure/back-panel/README.md) with the lane now clear — what's genuinely undecided is the bezel (part of the basin, separate cap, or hinged door), and that's a product call rather than a geometry one.
+Left undone deliberately: the rear-panel slot itself. It's specified as an open item in [back-panel/README.md](/hardware/printed-parts/enclosure/back-panel/README.md) with the lane now clear — what's genuinely undecided is the bezel (part of the basin, separate cap, or hinged door), and that's a product call rather than a geometry one.

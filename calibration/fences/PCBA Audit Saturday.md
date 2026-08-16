@@ -46,7 +46,7 @@ The snapshot landed. Committing and pushing per the repo's standing instruction.
 
 ---
 
-Audit complete — committed as [pcba-audit-2026-07-11.md](hardware/snapshots/pcba-audit-2026-07-11.md) (`26f71525`, pushed). One note on process: my first draft of the snapshot got caught by your calibration hook; I read `You.md`/`Framing.md` and rewrote it in the register `build-readiness-2026-04-26.md` demonstrates — facts, measurements, and open questions instead of verdicts and persuasion.
+Audit complete — committed as [pcba-audit-2026-07-11.md](/hardware/snapshots/pcba-audit-2026-07-11.md) (`26f71525`, pushed). One note on process: my first draft of the snapshot got caught by your calibration hook; I read `You.md`/`Framing.md` and rewrote it in the register `build-readiness-2026-04-26.md` demonstrates — facts, measurements, and open questions instead of verdicts and persuasion.
 
 The short version:
 
@@ -100,7 +100,7 @@ I agree with deferring the board's firmware, for a specific reason: the useful w
 
 There is one exception to "firmware work is counterproductive right now," and it's not about the future board — it's about the prototype running under your counter today. I verified it in source just now:
 
-`main.cpp` configures GPIO 15 as the flow interrupt (`pinMode(FLOW_PIN, INPUT_PULLUP)` + `attachInterrupt(..., FALLING)`) and then, later in the same `setup()`, hands pin 15 to `Serial1.begin(..., CONFIG_TX_PIN=15)` as the config-display UART TX. There is no `detachInterrupt` anywhere in the file. UART idle is high and every transmitted byte produces falling edges — a single 20-byte frame at 115200 is on the order of a hundred falling edges inside ~2 ms. And `flowPulses` is not cosmetic: [main.cpp:3622](firmware/src/main.cpp:3622) gates and paces syrup injection on it (`flowPulses >= FLOW_MIN_PULSES` → `computeCycleTiming(...)`).
+`main.cpp` configures GPIO 15 as the flow interrupt (`pinMode(FLOW_PIN, INPUT_PULLUP)` + `attachInterrupt(..., FALLING)`) and then, later in the same `setup()`, hands pin 15 to `Serial1.begin(..., CONFIG_TX_PIN=15)` as the config-display UART TX. There is no `detachInterrupt` anywhere in the file. UART idle is high and every transmitted byte produces falling edges — a single 20-byte frame at 115200 is on the order of a hundred falling edges inside ~2 ms. And `flowPulses` is not cosmetic: [main.cpp:3622](/firmware/src/main.cpp:3622) gates and paces syrup injection on it (`flowPulses >= FLOW_MIN_PULSES` → `computeCycleTiming(...)`).
 
 Whether the armed interrupt actually still fires after the pin is re-muxed to UART depends on how the core's `uartSetPins` leaves the GPIO's interrupt-enable bits, so I can't call it a live bug from source alone. The bench check is short: watch `flowPulses` (or the dispense log) while the config display link is chattering and no water is flowing. If it counts, the symptom range is syrup injection with no water during config traffic, or over-rich ratio whenever a real dispense coincides with UART TX — the second one would be easy to misattribute to pump calibration. If it doesn't count, the double-booking is still worth fixing in the prototype tree (move config TX off 15, or detach the ISR before `Serial1.begin`) so it isn't inherited by the port later.
 
