@@ -48,6 +48,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -131,19 +132,27 @@ WORD_SIZE = 6.5
 # How deep the word's recess is cut into the chip's outboard face — half the chip, so the colour
 # behind the lettering is as thick as the lettering itself and neither side of the print is a skin.
 WORD_DEPTH = 1.0
-# WHAT MAKES THE WORD ONE BODY, and it earns its place twice. Letters are disjoint shapes, so a
-# word left as its letterforms is `FLAVOR` in six loose pieces — six islands the slicer starts and
-# stops the second colour for, and six things to lose off a 2 mm chip. And occt-import-js, the
-# reader `/3d` runs, surfaces a colour only for a single-solid component: a word of six comes back
-# uncoloured and the viewer draws the lettering grey. (The STEP carries a style per solid either
-# way — the file is not what decides this, the reader is. `_mesh_payload.from_assembly` matches the
-# reader on purpose, and its selftest round-trips through it.)
-#   So the letters are tied BEHIND the face: a bar this thick across their feet, one `WORD_DEPTH`
-# down, where the chip's own material stands over it and nothing of it shows.
+# The plate these print on: `0.08mm High Quality @BBL H2C 0.2 nozzle`, and the bead it lays. The
+# ORIFICE is `WORD_NOZZLE`; this is the width the profile asks for, and it is what a slicer divides
+# a feature by to decide how many perimeters fit in it. So it, and not the tip, is what a stroke
+# and a bridge are counted in.
+WORD_LAYER = 0.08
+WORD_BEAD = 0.22
+# WHAT MAKES THE WORD ONE BODY: a bar across the letters' feet, one `WORD_DEPTH` behind the face,
+# where the chip's own material stands over it and nothing of it shows.
+#   WHAT IT IS WORTH IS ONE SOLID, which is a CAD fact and not a printed one. The plate stands the
+# chip on its back with the recess up, so the bar and the letters lie in DIFFERENT LAYERS — in
+# every layer the letters print, the second colour is six islands whether the bar is under them or
+# not. What one solid buys is one part to place in a slicer instead of six, and one body for
+# `words_hold` to read a width off.
+#   SO IT IS AS THIN AS THE PLATE CAN HOLD IT. Two layers, because `THICK - WORD_DEPTH` is not a
+# whole number of them — the recess floor lands mid-layer, and a one-layer bar is a feature the
+# slicer can round away. Every layer it adds is a two-colour layer, and both spools run through one
+# nozzle, so a colour change is a filament change and is paid for in purge.
 #   IT RUNS ALONG THE BASELINE and no higher. Every capital has stock at its foot, so a bar there
 # reaches all of them; a bar at mid-cap would cross the counters of O, A, P, R and D, and the chip
 # material inside those would come off the chip's floor and be islands of their own.
-WORD_TIE = 0.3
+WORD_TIE = 2.0 * WORD_LAYER
 # How far up the letters' feet that bar reaches.
 WORD_TIE_H = 0.8
 # What the built words measure across, and the tallest cap among them. The face is the SYSTEM'S and
@@ -155,6 +164,12 @@ WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952}
 # The narrowest stroke any of these words carries, taken off the built letterforms as twice a
 # glyph face's area over its perimeter.
 WORD_MIN_STROKE = 0.771
+# AND THE NARROWEST BRIDGE — the chip standing between two letters, which is the finer of the two
+# features by more than a factor of two. A stroke is the word's spool and a bridge is the chip's,
+# but both are laid at `WORD_BEAD` through the same tip, so the bridge is what runs out first. This
+# is FLAVOR's, between the L and the A. It scales with `WORD_SIZE`, so it is also the floor under
+# how small this lettering can be set.
+WORD_MIN_BRIDGE = 0.346
 # The tip these plates go on. The chips are the machine's first two-colour print and its finest
 # work; everything else in the box runs 0.4 and up (`ledger/machine-time.md`).
 WORD_NOZZLE = 0.2
@@ -283,9 +298,10 @@ def split(shape) -> tuple:
 
     The chip spans the whole of `THICK` and lands on the pocket's floor; the word stands in the
     recess and reaches nowhere near it. So the body touching the seating face is the chip, which is
-    the same face `seat` hands the wall."""
+    the same face `seat` hands the wall — and reading THAT face rather than the recess keeps this
+    answer independent of how thick the tie behind the lettering is."""
     solids = shape.Solids() if hasattr(shape, "Solids") else shape
-    floor = [s for s in solids if s.BoundingBox().ymin < THICK - WORD_DEPTH - WORD_TIE]
+    floor = [s for s in solids if abs(s.BoundingBox().ymin) < 1e-6]
     if len(solids) != 2 or len(floor) != 1:
         raise ValueError(
             f"a station's STEP is a chip and its word, and this one carries {len(solids)} "
@@ -335,6 +351,24 @@ def min_stroke(word_solid) -> float:
     return min(out) if out else 0.0
 
 
+def min_bridge(which: str) -> float:
+    """The narrowest bridge of CHIP one station's word leaves standing between two letters.
+
+    Measured between the letterforms before the tie fuses them, which is where the gap is a gap:
+    the pair nearest each other across the word's advance. `build_word` sets the same text at the
+    same size, so a font that resolves elsewhere is read here too."""
+    flat = cq.Workplane("XY").text(STATIONS[which].word, WORD_SIZE, WORD_DEPTH,
+                                   font=WORD_FONT, kind=WORD_KIND,
+                                   halign="center", valign="center").val()
+    letters = sorted(flat.Solids(), key=lambda s: s.BoundingBox().xmin)
+    gaps = []
+    for a, b in zip(letters, letters[1:]):
+        probe = BRepExtrema_DistShapeShape(a.wrapped, b.wrapped)
+        probe.Perform()
+        gaps.append(probe.Value())
+    return min(gaps) if gaps else 0.0
+
+
 def words_hold():
     """Hold the lettering to the figures carried here, off the built solids.
 
@@ -343,18 +377,26 @@ def words_hold():
     outline, different word entirely. Nothing about that shows up in a bore or an extent, which is
     why every word's width is carried in `WORD_WIDTHS` and read back off the solid here.
 
-    AND EVERY WORD IS ONE SOLID. Six loose letter islands are six things to place on a plate and
-    six to lose off it; one connected run is one. `WORD_TIE` is what holds them together and this
-    reads it."""
+    AND EVERY WORD IS ONE SOLID — one part to place on a plate rather than six, and one body to
+    read a width off. `WORD_TIE` is what holds them together and this reads it.
+
+    AND THE CHIP BETWEEN THE LETTERS is read the same way. A face that resolves elsewhere moves the
+    bridges as surely as it moves the widths, and the bridge is the finer feature of the two."""
     for which, step in STEPS.items():
         word = STATIONS[which].word
         _chip, solid = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
         if len(solid.Solids()) != 1:
             raise ValueError(
-                f"'{word}' is {len(solid.Solids())} solids in {step.name} and a word carries its "
-                f"colour only as one — the {WORD_TIE:g} mm tie across the letters' feet is not "
-                f"reaching all of them.")
+                f"'{word}' is {len(solid.Solids())} solids in {step.name} and a word is placed as "
+                f"one — the {WORD_TIE:g} mm tie across the letters' feet is not reaching all of "
+                f"them.")
+        got = min_bridge(which)
+        if abs(got - WORD_MIN_BRIDGE) > 1e-3 and got < WORD_MIN_BRIDGE:
+            raise ValueError(
+                f"'{word}' leaves a {got:.3f} mm bridge of chip between two of its letters and "
+                f"`WORD_MIN_BRIDGE` claims {WORD_MIN_BRIDGE:.3f} is the narrowest — the lettering "
+                f"is set finer than the plate was measured for.")
         if abs(bb.xlen - WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {WORD_WIDTHS[word]:.3f} mm across and {step.name} carries "
@@ -406,10 +448,14 @@ def selftest() -> int:
         fails.append(
             f"a word {WORD_DEPTH + WORD_TIE:g} deep is cut through a chip {THICK:g} thick, and "
             f"what is behind the lettering is the pocket floor rather than the colour")
-    if WORD_MIN_STROKE < WORD_NOZZLE + 1e-9:
-        fails.append(
-            f"the narrowest stroke these words carry is {WORD_MIN_STROKE:.3f} mm and the tip is "
-            f"{WORD_NOZZLE:g} — a stroke under one bead does not extrude")
+    # BOTH FEATURES ARE COUNTED IN BEADS, and the bridge is the one that runs out first — a stroke
+    # is the word's spool and a bridge is the chip's, but the same tip lays both at `WORD_BEAD`.
+    for what, got in (("stroke these words carry", WORD_MIN_STROKE),
+                      ("bridge of chip they leave standing", WORD_MIN_BRIDGE)):
+        if got < WORD_BEAD + 1e-9:
+            fails.append(
+                f"the narrowest {what} is {got:.3f} mm and the plate lays a {WORD_BEAD:g} bead — "
+                f"a feature under one bead wide is not a feature the slicer can fill")
     for which in STATIONS:
         got = min_stroke(build_word(which))
         if abs(got - WORD_MIN_STROKE) > 1e-3 and got < WORD_MIN_STROKE:
@@ -468,7 +514,10 @@ def main():
         "WORD_CAP": f"{WORD_CAP:g}",
         "WORD_DEPTH": f"{WORD_DEPTH:g}",
         "WORD_TIE": f"{WORD_TIE:g}",
+        "WORD_LAYER": f"{WORD_LAYER:g}",
+        "WORD_BEAD": f"{WORD_BEAD:g}",
         "WORD_MIN_STROKE": f"{WORD_MIN_STROKE:g}",
+        "WORD_MIN_BRIDGE": f"{WORD_MIN_BRIDGE:g}",
         "WORD_NOZZLE": f"{WORD_NOZZLE:g}",
         "WORD_VOL": f"{word_volumes['flavor-a']:.2f}",
     }
