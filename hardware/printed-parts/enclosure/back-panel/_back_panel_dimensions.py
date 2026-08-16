@@ -51,16 +51,33 @@ port_colors = {
 }
 
 
-def word_color(fluid):
-    """The colour a chip's WORD is lettered in — the one of black and white that
-    reads against the chip's own.
+# THE SPOOL EACH CHIP IS CUT OFF, and it is not the tube's own colour. `port_colors` is the
+# IDENTIFICATION scheme — neoFlo LLDPE, what the customer's tube is — and a chip printed to match
+# one is Bambu PETG Basic, a different product that happens to answer to the same name. These are
+# the filaments themselves, sampled off the store's own product photograph (`ledger/purchases.md`
+# buys White 30106, Navy Blue 30604 and Red 30201; black is the enclosure's own 30105 stock).
+chip_filaments = {
+    "water": ("PETG Basic White 30106", (255, 255, 255)),
+    "carb": ("PETG Basic Navy Blue 30604", (45, 113, 211)),
+    "co2": ("PETG Basic Red 30201", (227, 52, 49)),
+    "flavor": ("PETG Basic Black 30105", (38, 38, 41)),
+}
+# WHICH OF BLACK AND WHITE READS ON EACH, and the two saturated hues do not answer alike. Contrast
+# against a mid hue is a ratio, not a brightness: the crossover sits at a relative luminance of
+# 0.179, red 30201 lands at 0.190 and navy 30604 at 0.171, so they fall either side of it. Red
+# takes BLACK (4.80 against 4.37) and navy takes WHITE (4.76 against 4.41).
+chip_word_colors = {
+    "water": (0, 0, 0),
+    "carb": (255, 255, 255),
+    "co2": (0, 0, 0),
+    "flavor": (255, 255, 255),
+}
 
-    Struck off the chip's own luminance rather than listed per station, so a
-    colour that changes carries its lettering with it. `port_ring` cuts the
-    recess and this is what fills it."""
-    r, g, b = port_colors[fluid]
-    light = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0
-    return (0, 0, 0) if light > 0.5 else (255, 255, 255)
+
+def word_color(fluid):
+    """The colour a chip's WORD is lettered in — the one of black and white that reads against the
+    filament that chip actually prints in. `port_ring` cuts the recess and this is what fills it."""
+    return chip_word_colors[fluid]
 
 
 def port_color_hex(fluid):

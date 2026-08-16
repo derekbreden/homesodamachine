@@ -102,23 +102,46 @@ STATIONS = {
 STEPS = {name: _here.parent / f"port-ring-{name}.step" for name in STATIONS}
 WORD_STEPS = {name: _here.parent / f"port-ring-{name}-word.step" for name in STATIONS}
 
-# THE LETTERING IS STRUCK FOR THE NOZZLE THAT LAYS IT. Every stroke is an extrusion of the word's
-# own colour, and every counter and every gap between two letters is an extrusion of the chip's —
-# so both are held over the nozzle's width. At `WORD_CAP` this face runs its strokes about a fifth
-# of the cap height and its counters a little under that.
-WORD_FONT = "Arial Black"
+# THE FACE THE REST OF THE MACHINE'S PAPER IS SET IN. `assembly/cards/style.css` sets the build
+# deck's `--sans` to it and `quickstart/appliance_quickstart.py` sets the customer's sheet in it at
+# weight 600–700 — and that sheet is the page whose arrows point at these very ports. A customer
+# holding it beside the machine reads one typeface, not two. (The web surface's Montserrat is a
+# webfont, not installed, and nothing physical is set in it.)
+#   Bold is what the nozzle asks for. Every stroke is an extrusion of the word's own colour and
+# every counter and gap is an extrusion of the chip's, so both are held over the nozzle's width.
+# `WORD_MIN_STROKE` is what this weight turns out to be worth at `WORD_CAP`, measured off the built
+# letterforms rather than claimed, and `word-stroke` reads it against the tip.
+WORD_FONT = "Helvetica"
+WORD_KIND = "bold"
 # The em the word is set at. `WORD_CAP` is what that turns out to be worth in cap height, which is
 # the figure the band is actually spent on.
-WORD_SIZE = 6.75
+WORD_SIZE = 6.5
 # How deep the word's recess is cut into the chip's outboard face — half the chip, so the colour
 # behind the lettering is as thick as the lettering itself and neither side of the print is a skin.
 WORD_DEPTH = 1.0
-# What the built words measure across, longest first. The font is the SYSTEM'S and not this repo's,
-# so a machine that resolves `WORD_FONT` to something else letters a different chip — and the only
-# thing that catches it is a figure carried here and read back off the solid. `word-metrics` is
-# where that is read.
-WORD_CAP = 5.0
-WORD_WIDTHS = {"TAP": 14.100, "SODA": 20.491, "CO2": 14.759, "FLAVOR": 29.291}
+# WHAT MAKES THE WORD ONE BODY. Letters are disjoint shapes, so a word left as its letterforms is
+# `FLAVOR` in six loose pieces on the plate — six islands the slicer starts and stops the second
+# colour for, and six things to lose off a 2 mm-thick chip. A bar this thick lying across their
+# feet, one `WORD_DEPTH` down where the chip's own material stands over it and nothing of it shows,
+# makes the second colour one connected run.
+#   IT RUNS ALONG THE BASELINE and no higher. Every capital has stock at its foot, so a bar there
+# reaches all of them; a bar at mid-cap would cross the counters of O, A, P, R and D, and the chip
+# material inside those would come off the chip's floor and be islands of their own.
+WORD_TIE = 0.3
+# How far up the letters' feet that bar reaches.
+WORD_TIE_H = 0.8
+# What the built words measure across, and the tallest cap among them. The face is the SYSTEM'S and
+# not this repo's, so a machine that resolves `WORD_FONT` to something else letters a different chip
+# — and the only thing that catches it is a figure carried here and read back off the solid.
+# `words_hold` is where that is read.
+WORD_CAP = 4.951
+WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952}
+# The narrowest stroke any of these words carries, taken off the built letterforms as twice a
+# glyph face's area over its perimeter.
+WORD_MIN_STROKE = 0.771
+# The tip these plates go on. The chips are the machine's first two-colour print and its finest
+# work; everything else in the box runs 0.4 and up (`ledger/machine-time.md`).
+WORD_NOZZLE = 0.2
 # What the word keeps off the flange below it and the chip's own top edge above. The band is
 # `RING_W` tall and the cap stands in the middle of it, so this is what is left either side.
 WORD_MARGIN = 1.0
@@ -190,26 +213,33 @@ def word_band(which: str) -> tuple:
 
 
 def build_word(which: str):
-    """One station's word as a solid, standing in the recess it fills: `WORD_DEPTH` thick, its
-    outboard face flush with the chip's own.
+    """One station's word as ONE solid, standing in the recess it fills: `WORD_DEPTH` of lettering
+    with its outboard face flush with the chip's own, and `WORD_TIE` of bar behind that tying the
+    letters together.
 
     TURNED TO FACE THE CUSTOMER. The text is set flat in XY and carried onto the wall's plane by
     two turns — a quarter about X to stand it up, then a half about Z — which leaves it extruding
     OUTBOARD with its cap up and its advance along −X, the way a word reads to someone standing
     behind the machine."""
     flat = cq.Workplane("XY").text(STATIONS[which].word, WORD_SIZE, WORD_DEPTH,
-                                   font=WORD_FONT, halign="center", valign="center")
-    solid = (flat.rotate((0, 0, 0), (1, 0, 0), 90.0)
-                 .rotate((0, 0, 0), (0, 0, 1), 180.0).val())
+                                   font=WORD_FONT, kind=WORD_KIND,
+                                   halign="center", valign="center")
+    letters = (flat.rotate((0, 0, 0), (1, 0, 0), 90.0)
+                   .rotate((0, 0, 0), (0, 0, 1), 180.0).val())
     # `valign` centres on the font's own metrics and not on the cap box, so the cap is squared up
     # on the band here — off the solid that was actually built, which is also what a font that
     # resolved to something else would be caught by.
-    bb = solid.BoundingBox()
+    bb = letters.BoundingBox()
     lo, hi = word_band(which)
-    return solid.translate(cq.Vector(
+    letters = letters.translate(cq.Vector(
         -(bb.xmin + bb.xmax) / 2.0,
         THICK - WORD_DEPTH - bb.ymin,
         (lo + hi) / 2.0 - (bb.zmin + bb.zmax) / 2.0))
+    b = letters.BoundingBox()
+    tie = cq.Solid.makeBox(
+        b.xlen, WORD_TIE, WORD_TIE_H,
+        cq.Vector(b.xmin, THICK - WORD_DEPTH - WORD_TIE, b.zmin))
+    return letters.fuse(tie).clean()
 
 
 def build_ring(which: str):
@@ -248,26 +278,49 @@ def stations_hold():
                 f"under the wall's own figure closes on the barrel the wall passes.")
 
 
+def min_stroke(word_solid) -> float:
+    """The narrowest stroke a built word carries, off its own outboard faces.
+
+    Twice a face's area over its perimeter: for a stroke of width w and run L that is 2wL/2L, so
+    a letterform's thinnest limb is what the smallest of them reports."""
+    out = []
+    for f in word_solid.Faces():
+        if abs(f.Center().y - THICK) > 1e-6:
+            continue
+        perimeter = sum(e.Length() for e in f.Edges())
+        if perimeter > 0:
+            out.append(2.0 * f.Area() / perimeter)
+    return min(out) if out else 0.0
+
+
 def words_hold():
     """Hold the lettering to the figures carried here, off the built solids.
 
     THE FONT IS THE SYSTEM'S. `WORD_FONT` names a face this repo does not ship, so a machine that
     resolves it to something else letters a chip that is a different part — same colour, same
     outline, different word entirely. Nothing about that shows up in a bore or an extent, which is
-    why the width and the cap of every word are carried in `WORD_WIDTHS` and `WORD_CAP` and read
-    back off the solid here."""
+    why every word's width is carried in `WORD_WIDTHS` and read back off the solid here.
+
+    AND EVERY WORD IS ONE SOLID. A word whose letters came apart is a plate of loose islands to
+    place and to lose. `WORD_TIE` is what holds them together and this is what reads it."""
     for which, step in WORD_STEPS.items():
         word = STATIONS[which].word
-        bb = import_step(str(step)).val().BoundingBox()
+        solid = import_step(str(step)).val()
+        bb = solid.BoundingBox()
+        if len(solid.Solids()) != 1:
+            raise ValueError(
+                f"'{word}' is {len(solid.Solids())} solids in {step.name} and a word carries its "
+                f"colour only as one — the {WORD_TIE:g} mm tie across the letters' feet is not "
+                f"reaching all of them.")
         if abs(bb.xlen - WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {WORD_WIDTHS[word]:.3f} mm across and {step.name} carries "
                 f"{bb.xlen:.3f} — `{WORD_FONT}` did not resolve to the face these figures were "
                 f"struck on, and the chip is lettered in something else.")
-        if abs(bb.ylen - WORD_DEPTH) > 1e-6:
+        if abs(bb.ylen - WORD_DEPTH - WORD_TIE) > 1e-6:
             raise ValueError(
-                f"'{word}' stands {bb.ylen:.4f} mm out of its recess and the recess is "
-                f"{WORD_DEPTH:g} deep — the word and the chip do not come out one plane.")
+                f"'{word}' runs {bb.ylen:.4f} mm deep and the recess cut for it is "
+                f"{WORD_DEPTH + WORD_TIE:g} — the word and the chip do not come out one plane.")
 
 
 def selftest() -> int:
@@ -306,10 +359,20 @@ def selftest() -> int:
         fails.append(
             f"a chip {THICK:g} thick stands in the {_neo.PANEL_THREAD:.2f} mm of barrel the "
             f"ABU44 offers outboard of its flange, and leaves none of it for the wall")
-    if WORD_DEPTH >= THICK:
+    if WORD_DEPTH + WORD_TIE >= THICK:
         fails.append(
-            f"a word {WORD_DEPTH:g} deep is cut through a chip {THICK:g} thick, and what is "
-            f"behind the lettering is the pocket floor rather than the colour")
+            f"a word {WORD_DEPTH + WORD_TIE:g} deep is cut through a chip {THICK:g} thick, and "
+            f"what is behind the lettering is the pocket floor rather than the colour")
+    if WORD_MIN_STROKE < WORD_NOZZLE + 1e-9:
+        fails.append(
+            f"the narrowest stroke these words carry is {WORD_MIN_STROKE:.3f} mm and the tip is "
+            f"{WORD_NOZZLE:g} — a stroke under one bead does not extrude")
+    for which in STATIONS:
+        got = min_stroke(build_word(which))
+        if abs(got - WORD_MIN_STROKE) > 1e-3 and got < WORD_MIN_STROKE:
+            fails.append(
+                f"'{STATIONS[which].word}' carries a {got:.3f} mm stroke and `WORD_MIN_STROKE` "
+                f"claims {WORD_MIN_STROKE:.3f} is the narrowest of them")
     for what, fn in (("stations_hold", stations_hold), ("words_hold", words_hold)):
         try:
             fn()
@@ -358,8 +421,12 @@ def main():
         "CO2_RING_BORE": f"{bore_d('neofit'):g}",
         "CO2_RING_VOL": f"{volumes['co2']:.2f}",
         "WORD_FONT": WORD_FONT,
+        "WORD_KIND": WORD_KIND,
         "WORD_CAP": f"{WORD_CAP:g}",
         "WORD_DEPTH": f"{WORD_DEPTH:g}",
+        "WORD_TIE": f"{WORD_TIE:g}",
+        "WORD_MIN_STROKE": f"{WORD_MIN_STROKE:g}",
+        "WORD_NOZZLE": f"{WORD_NOZZLE:g}",
         "WORD_VOL": f"{word_volumes['flavor-a']:.2f}",
     }
     substitute_md(_here.parent / "README.md", variables=variables,
