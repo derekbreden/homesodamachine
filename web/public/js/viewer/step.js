@@ -14,8 +14,6 @@ import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { onStepReloaded } from "./component-edit.js";
-import { clearPortsExcept } from "./port-markers.js";
-import { clearShapeBoxesExcept } from "./shape-boxes.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -241,8 +239,6 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
     clearPickFind(); // stale find highlights reference the old geometry
     clearHighlight(); // and a stale scorecard part-highlight does too
-    clearPortsExcept(file); // port markers for another model don't belong on this one
-    clearShapeBoxesExcept(file); // nor its shape boxes
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file };

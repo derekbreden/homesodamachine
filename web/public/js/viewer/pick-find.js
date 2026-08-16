@@ -262,8 +262,8 @@ async function runFind() {
 
   // A file: line names where the picks live — go there first. step-nav.js
   // swaps the model inside the open modal and brings the rest of what the modal
-  // is showing with it (name, scorecard, ports, which file the editor writes
-  // to), rewriting the hash in place so close/back behave as if this file had
+  // is showing with it (name, scorecard, which file the editor writes to),
+  // rewriting the hash in place so close/back behave as if this file had
   // been opened directly.
   const wanted = files.length ? pickFileToViewerPath(files[0]) : null;
   if (wanted && wanted !== state.mountedDetail.file) {

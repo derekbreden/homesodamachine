@@ -677,20 +677,6 @@ def _shape_rows(placed: dict) -> list:
     return rows
 
 
-def _port_rows(mouths: dict) -> list:
-    return [{"component": comp, "name": port, "kind": "fluid",
-             "pos": [round(v, 3) for v in m.pos], "face": _face_of(m.axis),
-             "diam": round(m.diam, 3), "mates": mates, "status": "ok", "note": ""}
-            for comp, port, m, mates in mouths]
-
-
-def _face_of(axis) -> str:
-    for i, name in enumerate("xyz"):
-        if abs(axis[i]) > 0.9:
-            return f"{name}{'+' if axis[i] > 0 else '-'}"
-    return [round(v, 6) for v in axis]
-
-
 # Grade bands on `radius ÷ the stock's minimum`, the same ladder the enclosure's card uses.
 GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
 
@@ -785,7 +771,7 @@ def build_card(a) -> Scorecard:
               "a located joint per body",
               [f"{n}: {j}" for n, by, j in mounts if by is None]),
     ]
-    return Scorecard(checks, _bend_rows(fitted, a.points), _port_rows(mouths), shapes)
+    return Scorecard(checks, _bend_rows(fitted, a.points), shapes)
 
 
 def report(a) -> None:

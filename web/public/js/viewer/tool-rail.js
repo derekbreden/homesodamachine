@@ -1,8 +1,6 @@
 // The CAD modal's chrome: the bottom-left rail and the three control shapes it
 // holds, plus the collapse the readout panels share. cad-detail.js builds the
-// rail on open and fills the groups it can fill then; scorecard-3d.js reaches
-// the chip row later, once the sidecar it fetched says the model carries ports
-// or shape boxes.
+// rail on open, with the controls the open file carries.
 //
 // Each control here answers `read()` for its own state, so a rail rebuilt for a
 // second file shows what that file's tools are actually set to rather than what
@@ -52,22 +50,16 @@ export function makeToolGroup(label, body) {
   return group;
 }
 
-// The row of independent switches. `slot` names it for the modules that append
-// into it after the rail is already on screen.
-export function makeChipRow(slot) {
+// The row of independent switches.
+export function makeChipRow() {
   const row = document.createElement("div");
   row.className = "tool-chips";
-  row.dataset.slot = slot;
   return row;
-}
-
-export function chipRow(wrapper, slot) {
-  return wrapper ? wrapper.querySelector(`.tool-rail .tool-chips[data-slot="${slot}"]`) : null;
 }
 
 // One switch. `read` and `write` are the module's own state accessors, so the
 // chip carries no copy of what it is showing.
-export function makeToolChip({ className, label, icon, count = null, title, read, write }) {
+export function makeToolChip({ className, label, icon, title, read, write }) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "tool-chip" + (className ? " " + className : "");
@@ -78,12 +70,6 @@ export function makeToolChip({ className, label, icon, count = null, title, read
   text.textContent = label;
   btn.appendChild(text);
   prependIcon(btn, icon);
-  if (count != null) {
-    const badge = document.createElement("span");
-    badge.className = "tool-chip-count";
-    badge.textContent = String(count);
-    btn.appendChild(badge);
-  }
 
   function refresh() { btn.setAttribute("aria-pressed", read() ? "true" : "false"); }
   btn.addEventListener("click", () => { write(!read()); refresh(); });

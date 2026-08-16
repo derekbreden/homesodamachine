@@ -39,8 +39,6 @@ import { makePickModeControl } from "./pick-mode.js";
 import { resetTrail } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { clearHighlight } from "./part-highlight.js";
-import { clearPorts } from "./port-markers.js";
-import { clearShapeBoxes } from "./shape-boxes.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -154,7 +152,7 @@ export function openCadDetail(type, file, pushHistory = true) {
   // flat plate with nothing inside it and no reconstructable solid edges — so
   // a DXF reaches the rail carrying rulers alone.
   const rail = makeToolRail();
-  const chips = makeChipRow("show");
+  const chips = makeChipRow();
   if (type === "step") {
     rail.appendChild(makePickFindToggle());
     rail.appendChild(makeToolGroup("Select", makePickModeControl(file)));
@@ -244,8 +242,6 @@ export function openCadDetail(type, file, pushHistory = true) {
       clearComponentEdit();   // and the editor's gizmo + selection + preview
       closePickFind();   // drop find highlights, and shut the box with the modal
       clearHighlight();  // and any scorecard part-highlight overlay
-      clearPorts();      // and the port markers, which belong to the model just dropped
-      clearShapeBoxes(); // and its shape boxes
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;
