@@ -101,6 +101,25 @@ void linkBegin() {
 
 void linkService() { j9.service(); }
 
+void linkPing() {
+    size_t before = j9Stream.echoSwallowed();
+    uint32_t rxBefore = j9.framesRx;
+    const char *msg = "ping";
+    j9.send(MSG_TEXT, msg, strlen(msg));
+
+    unsigned long t0 = millis();
+    while (millis() - t0 < 1000) { j9.service(); delay(2); }
+
+    size_t echoed = j9Stream.echoSwallowed() - before;
+    Serial.printf("\nping — %u byte(s) went out and came back through U7\n", (unsigned)echoed);
+    if (!echoed)
+        Serial.println("  the frame did not return: IO32, U7, the pair, or R6");
+    else if (j9.framesRx > rxBefore)
+        Serial.println("  and the display answered");
+    else
+        Serial.println("  this board's half carries; nothing answered from the far end");
+}
+
 void linkReport() {
     Serial.printf("\nJ9  IO%d DI / IO%d RO @ %ld — frames rx %lu / tx %lu, bytes rx %lu / tx %lu\n",
                   PIN_485_DI, PIN_485_RO, RS485_BAUD,
