@@ -5,9 +5,12 @@ the board's **own** WROOM (U1) and answers one question — did the fab build wh
 [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — by talking to every on-board
 device and printing what it finds.
 
-This is **not** the production firmware, and it carries no appliance logic: no state
-machine, no persistence, no network. The firmware is [`main.cpp`](/firmware/src_pcba_bench/main.cpp);
-this README carries the intent, the wiring, and the tear-down.
+**The appliance's own firmware is [`/firmware/src_appliance/`](/firmware/src_appliance/README.md)** —
+that is the one that runs in a machine, and the one to reach for unless the question is
+about a bare board fresh from the fab. This rig carries no appliance logic: no state
+machine, no persistence, no network, and it never leaves the bench. The firmware is
+[`main.cpp`](/firmware/src_pcba_bench/main.cpp); this README carries the intent, the
+wiring, and the tear-down.
 
 ## Rig
 
