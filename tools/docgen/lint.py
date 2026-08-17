@@ -35,32 +35,46 @@ import tokenize
 from pathlib import Path
 
 if __package__:
-    from . import _LINK_RE
+    from . import _LINK_RE, _SOURCES_SECTION_RE
 else:
     # RUN AS A FILE AND NOT AS `-m docgen.lint`. `trace_inputs.py` watches a selftest by
     # running the module's path through `runpy`, which leaves no package for a relative
     # import to resolve against — so the one this needs is reached the way every generator
     # in the tree reaches docgen, by putting `tools/` on the path.
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    from docgen import _LINK_RE
+    from docgen import _LINK_RE, _SOURCES_SECTION_RE
 
 
 # Directory names that should never be descended into during a lint scan.
 SKIP_DIRS = {"cad-venv", "__pycache__", ".git", "node_modules"}
 
+# `NAME` IS THE NOTATION, NOT A NAME IN IT. Every doc and comment that explains the
+# convention spells it `[value](NAME)`, so the scan reads the placeholder out of the
+# explanation as though a script wrote it. No script does: nothing in the tree hands
+# `NAME` to a substituter and no figures sidecar carries it.
+SKIP_NAMES = {"NAME"}
+
 
 def _extract_from_text(text: str) -> list[tuple[str, str]]:
     """Return [(name, raw_value), ...] for every [value](NAME) in `text`."""
-    return [(m.group(2), m.group(1)) for m in _LINK_RE.finditer(text)]
+    return [(m.group(2), m.group(1)) for m in _LINK_RE.finditer(text)
+            if m.group(2) not in SKIP_NAMES]
 
 
 def _extract_from_md(md_path: Path) -> list[tuple[str, str]]:
-    """Extract every [value](NAME) from a markdown file."""
+    """Extract every [value](NAME) from a markdown file, above its Sources section.
+
+    THE SOURCES PREAMBLE IS NOT A MARKER. It reads `[value](NAME) texts are updated by:`,
+    which `_LINK_RE` matches like any other, so a scan of the whole text finds `NAME` in
+    every doc carrying a section and reports the one name no script writes. `substitute_md`
+    cuts the section off for the same reason.
+    """
     try:
         text = md_path.read_text()
     except (OSError, UnicodeDecodeError):
         return []
-    return _extract_from_text(text)
+    sources = _SOURCES_SECTION_RE.search(text)
+    return _extract_from_text(text[:sources.start()] if sources else text)
 
 
 def _extract_from_py(py_path: Path) -> list[tuple[str, str]]:

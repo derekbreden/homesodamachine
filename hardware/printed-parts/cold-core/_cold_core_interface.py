@@ -278,7 +278,7 @@ screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at eac
 # section under that, and the lid's outer face a plane.
 screw_head_height = 3.0  # DIN 912 M3 nominal
 head_seat_recess = 0.2  # how far under the lid's outer face the head lands
-head_cbore_radius = 3.075  # ⌀[6.15](HEAD_CBORE_D) over the ⌀5.5 head
+head_cbore_radius = 3.075  # ⌀[6.15 mm](HEAD_CBORE_D) over the ⌀5.5 head
 head_cbore_depth = screw_head_height + head_seat_recess
 # A pad as tall as the counterbore is deep leaves the land at one wall exactly.
 head_pad_height = head_cbore_depth
@@ -1568,7 +1568,7 @@ if __name__ == "__main__":
         "SCREW_BOSS_SIZE": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
         "SCREW_HEAD_H": f"{screw_head_height:.4g} mm",
         "HEAD_PAD_H": f"{head_pad_height:.4g} mm",
-        "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g}",
+        "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g} mm",
         "CAP_SCREW_L": f"{cap_screw_length:.4g}",
         "DECK_MOUNT_CAP_GAP": f"{deck_mount_cap_gap:.4g} mm",
         "VESSEL_PORT_PITCH": f"{2 * vessel_port_offset / 25.4:.4g}\"",

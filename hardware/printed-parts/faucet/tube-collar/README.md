@@ -13,10 +13,10 @@ the line rather than across the face.
 | tube | Ø[6.35](COLLAR_TUBE_OD) mm — 1/4" OD LLDPE, every line the customer meets |
 | bore | Ø[6.3](COLLAR_BORE) mm |
 | width | Ø[12](COLLAR_OD) mm |
-| height | [12](COLLAR_TALL) mm — [6](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
-| length | [30](COLLAR_LENGTH) mm along the tube |
+| height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
+| length | [30 mm](COLLAR_LENGTH) along the tube |
 | wall | [2.85](COLLAR_WALL) mm, with [1.85](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [2.87](COLLAR_VOL) cm³ + [0.06](COLLAR_WORD_VOL) cm³ of word |
+| volume | [3.19](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
 
 ## Where each one goes
 
@@ -42,8 +42,8 @@ the soft half of the pair — takes it. The tube is an extrusion held to about
 [0.13](COLLAR_LLDPE_TOL) mm, and one at the low end of that leaves [0.08](COLLAR_CLEARANCE) mm of
 diametral play. The collar threads on end-first over a tail that is still bare.
 
-That play over [30](COLLAR_LENGTH) mm of bore is [0.15](COLLAR_ROCK)° of cock, and
-[16](COLLAR_SWAY) µm at the flag's own face — the furthest anything on the collar stands from the
+That play over [30 mm](COLLAR_LENGTH) of bore is [0.15](COLLAR_ROCK)° of cock, and
+[19](COLLAR_SWAY) µm at the flag's own face — the furthest anything on the collar stands from the
 line it would turn about. The same play on a chip's [2](COLLAR_CHIP_THICK) mm is
 [2.29](COLLAR_CHIP_ROCK)°. `rock()` and `flag_sway()` are those figures, and `selftest` reads the
 pair against each other.

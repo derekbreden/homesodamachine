@@ -81,7 +81,11 @@ def main():
         # conduit added or dropped there moves this count, and the procedure's own
         # list of what it closes has to move with it. The cap's other two carry a
         # reed cable apiece, which is a lid this procedure never opens.
-        "CAP_CONDUITS": f"{len(cap_fluid_conduits)}",
+        #
+        # `CAP_CONDUITS` is the whole cap's count and is nine; this is the fluid
+        # subset, which `_enclosure_mechanical_sync` and the cards already call
+        # `CAP_FLUID_LINES`.
+        "CAP_FLUID_LINES": f"{len(cap_fluid_conduits)}",
         "CAP_CONDUIT_D": f"{2 * cap_conduit_bore_radius:.4g} mm",
         # The two pump-port stubs, and the corner the stock they are cut from holds.
         # The bend radius is the reinforced PVC's own floor as `_lines` reads it off

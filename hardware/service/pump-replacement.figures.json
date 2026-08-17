@@ -1,7 +1,7 @@
 {
   "/hardware/service/_pump_replacement_sync.py": {
     "CAP_VALVES": "3",
-    "CORE_CROWN": "268.6",
+    "CORE_BOX_TOP": "268.6",
     "DRAW_CREST": "281.3",
     "JOINT_COUNT_2": "8",
     "JOINT_COUNT_3": "8",

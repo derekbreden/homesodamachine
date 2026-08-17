@@ -161,7 +161,7 @@ def main():
             "BOSS_DIA": f"{2 * boss_radius:.4g}",
             "SOCKET_CLEAR": f"{socket_clearance:.4g} mm",
             "WALL": f"{wall:.4g} mm",
-            "CORNER_INSET": f"{corner_inset:.4g}",
+            "CORNER_INSET": f"{corner_inset:.4g} mm",
             "SEAT_TOP_Z": f"{seat_top_z:.4g}",
             "SOCKET_FLOOR_Z": f"{socket_floor_z:.4g}",
             "PORT_DIA": f"{2 * valve.port_radius:.4g}",

@@ -15,7 +15,7 @@ face to fuse on.
 
 | | |
 |---|---|
-| corner post | ⌀[6.8](POST_DIA) mm, [12.2](CORNER_INSET) mm inset from the footprint centre |
+| corner post | ⌀[6.8](POST_DIA) mm, [12.2 mm](CORNER_INSET) inset from the footprint centre |
 | socket | ⌀[7.2](SOCKET_DIA) mm — [0.2 mm](SOCKET_CLEAR) radial, the press fit |
 | boss | ⌀[13.2](BOSS_DIA) mm — the socket plus [3 mm](WALL) of wall |
 | boss top | z [6](SEAT_TOP_Z) mm, where the valve's round boss begins |

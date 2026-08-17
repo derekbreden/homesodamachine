@@ -35,7 +35,7 @@
     "NOZZLE_A_LEN": "445.5",
     "NOZZLE_B_LEN": "327.1",
     "OVERHANG_N": "22",
-    "PANEL_PITCH": "40.36",
+    "PANEL_PITCH": "40.36 mm",
     "PORT_ROW_Z": "336.2",
     "PUMP_CROWN": "320.4",
     "PUMP_FACE_CLEAR": "21.87",

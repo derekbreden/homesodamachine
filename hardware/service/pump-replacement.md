@@ -57,7 +57,7 @@ reservoir dry through the nozzle.
 
 **A reservoir does not siphon when its draw line is broken.** `fluid-16` and `fluid-26` crest at
 [281.3](DRAW_CREST) mm on the way to their valves and the cold core's crown is
-[268.6](CORE_CROWN) mm, so the crest stands [12.7](SIPHON_MARGIN) mm over the highest point liquid
+[268.6](CORE_BOX_TOP) mm, so the crest stands [12.7](SIPHON_MARGIN) mm over the highest point liquid
 inside the core reaches. A draw line is broken at the valve end whatever the reservoir holds, and
 what comes out is the descending leg.
 

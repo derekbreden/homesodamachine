@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/valve-seat/valve_seat.py": {
     "BOSS_DIA": "13.2",
-    "CORNER_INSET": "12.2",
+    "CORNER_INSET": "12.2 mm",
     "PORT_CLEARANCE": "0.210 mm",
     "PORT_DIA": "15",
     "POST_DIA": "6.8",
