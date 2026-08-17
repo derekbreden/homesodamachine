@@ -113,6 +113,7 @@ WHAT THESE ANSWERS DO NOT COVER:
 """
 
 import argparse
+import hashlib
 import heapq
 import itertools
 import json
@@ -196,10 +197,10 @@ SHORT_LEG = 1.0
 # centreline, every port's position and axis, and the interior the printed pieces leave.
 #
 # THE SNAPSHOT IS THE DEFAULT PATH AND A QUERY NEVER BUILDS. `snapshot --reload` is what pays the
-# two minutes; everything else reads the newest one on disk and states, on its way past, which
-# sources have moved under it. A reading off a moved tree is a reading about the machine in that
-# snapshot, which is legible; a query that silently spends two minutes rebuilding is a query
-# nobody runs twice.
+# two minutes; everything else reads the one already taken off this tree, and where the tree has
+# moved since, the newest on disk — stating on its way past which sources moved under it. A
+# reading off a moved tree is a reading about the machine in that snapshot, which is legible; a
+# query that silently spends two minutes rebuilding is a query nobody runs twice.
 
 _SOURCES = ("manifold-layout/enclosure_assembly.py", "manifold-layout/_lines.py",
             "manifold-layout/manifold_layout.py", "scripts/_routing.py",
@@ -218,8 +219,15 @@ def _stamps() -> dict:
 
 
 def _source_key(stamps: dict = None) -> str:
+    """A name for these stamps, which is what the snapshot's filename carries.
+
+    A DIGEST AND NOT `hash()`. The name is written by one process and read back by the next,
+    and CPython salts string hashing per process — so a key taken that way names a file that
+    never exists twice, and `snapshot` falls past its exact-match read every time, onto the
+    newest snapshot on disk whatever tree that one was taken off."""
     stamps = _stamps() if stamps is None else stamps
-    return str(abs(hash(tuple(f"{k}:{v}" for k, v in sorted(stamps.items())))))
+    blob = "|".join(f"{k}:{v}" for k, v in sorted(stamps.items()))
+    return hashlib.blake2b(blob.encode(), digest_size=8).hexdigest()
 
 
 def _cache_path() -> Path:
