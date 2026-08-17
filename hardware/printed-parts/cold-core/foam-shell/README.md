@@ -162,7 +162,7 @@ rather than drifts.
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
 matches the foam-shell outer height of [213.4 mm](OUTER_H).
-Outer footprint [283 mm](OUTER_X) × [181](FSHELL_OUTER_Y). The **short** axis is
+Outer footprint [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y). The **short** axis is
 the one that matters to the appliance: the foam assembly is yawed a quarter turn
 in the enclosure, so 181 is what sets the machine's width and the ±X faces are
 its front and back. The outboard foam-pour gap is split by direction: the ±Y
@@ -280,8 +280,8 @@ counterbored Ø[6.15 mm](HEAD_CBORE_D) from the lid's outer face and the
 head and the boss section it bears on. The outer face is a plane: the bottom
 cap's is what the whole core stands on.
 
-From under the head an M3 × [25](SCREW_LEN) crosses the land, the continuous
-pad-and-column section, and the gasket, reaching [6.2 mm](SCREW_REACH) past the
+From under the head an M3 × [25](CAP_SCREW_LEN) crosses the land, the continuous
+pad-and-column section, and the gasket, reaching [6.2 mm](CAP_SCREW_REACH) past the
 shell's face — the whole [4 mm](INSERT_LEN) of the insert, with
 [1.8 mm](TIP_CLEAR) of pocket under the tip. `_cold_core_interface.py` asserts
 both ends of that.

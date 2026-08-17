@@ -20,7 +20,7 @@ other.
 | | |
 |---|---|
 | thickness | [2](RING_THICK) mm — the depth the pocket is cut to, so the two faces come out one plane, and how far the fitting's flange bears outboard of the wall's stock |
-| colour showing past the flange | [7.05](RING_W) mm |
+| colour showing past the flange | [7.05](PORT_RING_W) mm |
 | rectangle above the axis | [18.789](RING_RISE) mm at every station |
 
 The top row stands close enough to the ceiling that a rectangle stopped on its own radius would

@@ -156,7 +156,7 @@ A finished cold core:
 - The carbonated-water outlet crossing the tank support ring at the ring's own 225° slot, with all four bearing segments whole
 - Reed columns dropped into the reed channels, their cables up those same channels and out the cap's two reed conduits — the −X wall carries the two lane slots and nothing else
 - Both foam caps seated over their TPU gaskets, six M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
-- External envelope ~[283 mm](OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and each face adds a cap and its gasket
+- External envelope ~[283 mm](SHELL_OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and each face adds a cap and its gasket
 
 ## Open items
 

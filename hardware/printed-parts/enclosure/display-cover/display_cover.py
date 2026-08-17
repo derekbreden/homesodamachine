@@ -87,19 +87,19 @@ glass_lap_air = glass_face_depth - display_inset_depth
 
 # THE HEAD LANDS UNDER THE 45° FACE AND THE PLANE CLOSES OVER IT. Same flat-bottomed
 # ⌀`head_cbore_dia` seat the foam cap's lids take, sunk `display_cover_seat_recess` under the
-# face — [3.2 mm](CBORE_DEPTH) of the pad's [5.2 mm](PAD_SEAT), which leaves the land under the
-# head at the bare border's own [2 mm](LAND) section.
+# face — [3.2 mm](COVER_CBORE_DEPTH) of the pad's [5.2 mm](PAD_SEAT), which leaves the land under the
+# head at the bare border's own [2 mm](COVER_LAND) section.
 cbore_dia = head_cbore_dia
 cbore_depth = display_cover_cbore_depth
-land_under_head = pad_seat_depth - cbore_depth                 # [2 mm](LAND)
+land_under_head = pad_seat_depth - cbore_depth                 # [2 mm](COVER_LAND)
 
 # WHAT THE SCREW HAS TO STAND IN, under the head: the land, then the bore the box cuts past it —
 # the ruthex M3 short's own thread and the relief under it, so a tip that runs past the insert
 # finds air rather than a floor.
-screw_reach = land_under_head + heatset_depth + mount_bore_relief   # [8.25 mm](SCREW_REACH)
+screw_reach = land_under_head + heatset_depth + mount_bore_relief   # [8.25 mm](COVER_SCREW_REACH)
 # DIN 912 states a length UNDER the head, the head standing proud of it — so this is the M3×8
 # the machine already buys, the longest stock length inside that reach.
-screw_len = 8.0                                                # [8 mm](SCREW_LEN)
+screw_len = 8.0                                                # [8 mm](COVER_SCREW_LEN)
 thread_engaged = min(screw_len - land_under_head, heatset_depth)  # [5.25 mm](THREAD_ENGAGED)
 
 
@@ -200,17 +200,17 @@ def main():
         "BORDER_X": f"{border_x:.4g} mm",
         "BORDER_SLOPE": f"{border_slope:.4g} mm",
         "INSET_LAP": f"{display_inset_lap:.4g} mm",
-        "PAD_D": f"{display_screw_pad_dia:.4g} mm",
-        "PAD_DEPTH": f"{display_screw_pad_depth:.4g} mm",
+        "COVER_PAD_D": f"{display_screw_pad_dia:.4g} mm",
+        "COVER_PAD_DEPTH": f"{display_screw_pad_depth:.4g} mm",
         "PAD_SEAT": f"{pad_seat_depth:.4g} mm",
         "PAD_X": f"{display_screw_x:.4g} mm",
         "SHANK_D": f"{screw_clear_dia:.4g} mm",
         "CBORE_D": f"{cbore_dia:.4g} mm",
-        "CBORE_DEPTH": f"{cbore_depth:.4g} mm",
+        "COVER_CBORE_DEPTH": f"{cbore_depth:.4g} mm",
         "SEAT_RECESS": f"{display_cover_seat_recess:.4g} mm",
-        "LAND": f"{land_under_head:.4g} mm",
-        "SCREW_LEN": f"{screw_len:.4g} mm",
-        "SCREW_REACH": f"{screw_reach:.4g} mm",
+        "COVER_LAND": f"{land_under_head:.4g} mm",
+        "COVER_SCREW_LEN": f"{screw_len:.4g} mm",
+        "COVER_SCREW_REACH": f"{screw_reach:.4g} mm",
         "THREAD_ENGAGED": f"{thread_engaged:.4g} mm",
         "HEATSET_DEPTH": f"{heatset_depth:.4g} mm",
         "GLASS_FACE_DEPTH": f"{glass_face_depth:.4g} mm",
