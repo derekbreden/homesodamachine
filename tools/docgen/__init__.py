@@ -152,11 +152,11 @@ def cells(row: str) -> list[str]:
 _SOURCES_HEADER = "## Sources"
 _SOURCES_PREAMBLE = "[value](NAME) texts are updated by:"
 # Matches an existing Sources section: header line, preamble line, then one
-# or more `- `…`` bullets. Caller normalizes text to end with \n first.
+# or more `- `…`` bullets, the last ending at a newline or at end of text.
 _SOURCES_SECTION_RE = re.compile(
     re.escape(_SOURCES_HEADER) + r"\n"
     + re.escape(_SOURCES_PREAMBLE) + r"\n"
-    + r"((?:- `[^`\n]+`\n)+)"
+    + r"((?:- `[^`\n]+`(?:\n|\Z))+)"
 )
 
 
@@ -327,12 +327,17 @@ def substitute_md(
 
     text = md_path.read_text()
 
+    # The Sources preamble carries a literal `[value](NAME)`, which `_LINK_RE` reads as a
+    # marker like any other. Substitution runs over the body above the section.
+    sources = _SOURCES_SECTION_RE.search(text)
+    body, tail = (text[:sources.start()], text[sources.start():]) if sources else (text, "")
+
     # The names this caller manages that the doc actually carries. Names that
     # appear in the markdown but aren't in `variables` are left alone — they
     # belong to some other script that contributes to this markdown.
     carried = {
         match.group(2)
-        for match in _LINK_RE.finditer(text)
+        for match in _LINK_RE.finditer(body)
         if match.group(2) in variables
     }
 
@@ -342,7 +347,7 @@ def substitute_md(
             return f"[{variables[name]}]({name})"
         return match.group(0)  # unknown — leave alone
 
-    new_text = _LINK_RE.sub(repl, text)
+    new_text = _LINK_RE.sub(repl, body) + tail
 
     # Maintain the Sources section at end of file. Auto-detects the
     # caller's repo path via the call stack; silently skips if the
