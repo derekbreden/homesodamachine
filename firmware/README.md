@@ -1,20 +1,22 @@
 # Firmware
 
-Six source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
+Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
 
 | Tree | Env | Runs on | Machine |
 |---|---|---|---|
 | `src_appliance/` | `appliance` | the controller PCBA's WROOM (U1) | the appliance |
-| `src_pcba_bench/` | `pcba_bench` | the controller PCBA's WROOM (U1) | the appliance |
+| `src_pcba_bench/` | `pcba_bench` | the controller PCBA's WROOM (U1) | none — a bare board on the bench |
 | `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the appliance |
 | `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance, and the prototype |
 | `src_prototype/` | `prototype` | an ESP32 dev module on L298N drivers | the prototype under the counter |
 | `src_config/` | `esp32s3_config` | Meshnology 1.28" round rotary display | the prototype under the counter |
 | `src_display/` | `rp2040_display` | Waveshare RP2040-LCD-0.99 | the prototype under the counter |
 
-Two of them run on the controller PCBA. `src_pcba_bench/` answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
+Two of them run on the controller PCBA, and only one of the two ships inside a machine.
 
-`src_appliance/` is the machine: the state machine, the thermal loop, the dispense, persistence, the links to both displays. It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9. What runs today is one flavor pump: a prime held from the 4.3B's glass, and `pump <a|b> [ms]` bounded from the console. `machine.cpp` owns every pin that reaches a load and the three constraints below are held there; `link.cpp` turns a J9 frame into a call on it. The two MCP23017s are untouched, so the eleven valves and the condenser fan stay high-Z and no reed is read — a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9. What runs today is one flavor pump: a prime held from the 4.3B's glass, and `pump <a|b> [ms]` bounded from the console. `machine.cpp` owns every pin that reaches a load and the three constraints below are held there; `link.cpp` turns a J9 frame into a call on it. The two MCP23017s are untouched, so the eleven valves and the condenser fan stay high-Z and no reed is read — a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+
+`src_pcba_bench/` is the bench rig for a **bare** board, one board per fab batch, and goes no further than the bench. It answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
 
 ## What the appliance firmware must hold
 
@@ -217,13 +219,17 @@ The wrapper `./tools/flash.sh <env>` handles every environment in [`/platformio.
 pio run -e appliance -t upload
 ```
 
+See [`src_appliance/README.md`](src_appliance/README.md) for its console.
+
 ### Flash that board's bring-up console instead
 
 ```bash
 pio run -e pcba_bench -t upload
 ```
 
-Over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3 auto-reset, so no button presses. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for the console's commands.
+For a bare board on the bench, not an assembled machine. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for its command table.
+
+Both go over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3 auto-reset, so no button presses.
 
 ### Flash the ESP32-S3 (4.3B front-face display)
 
