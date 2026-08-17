@@ -11,7 +11,7 @@ Matches the shell foot exactly — the foot circle plus the two lateral
 teardrop pods and the front D-pod — so the plate edge runs flush under the
 shell with no ledge. Built by reusing the shell's own outline geometry.
 
-- [4 mm](PLATE_T) thick; spans Z from [-4](PLATE_Z_BOTTOM) to 0, top face
+- [4 mm](MOUNTING_PLATE_T) thick; spans Z from [-4](PLATE_Z_BOTTOM) to 0, top face
   flush with the deck plane (= body bottom in the faucet-assembly).
 - Centered at world (0, +[3.175 mm](PLATE_Y)); body axis at world (0, 0).
 

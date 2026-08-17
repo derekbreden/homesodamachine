@@ -15,9 +15,9 @@ customer wipes closes at its edge.
 
 | | |
 |---|---|
-| outer | [113.5 mm](OUTER_X) × [77 mm](OUTER_SLOPE), the glass's own outline |
+| outer | [113.5 mm](GASKET_OUTER_X) × [77 mm](OUTER_SLOPE), the glass's own outline |
 | inner | [107.5 mm](INNER_X) × [71 mm](INNER_SLOPE), the cover plate's window |
-| width | [3 mm](RING_W) all round — the plate's lap |
+| width | [3 mm](GASKET_RING_W) all round — the plate's lap |
 | corners | r[2.5 mm](CORNER_R), the glass's own |
 | thickness | [1 mm](THICKNESS) |
 

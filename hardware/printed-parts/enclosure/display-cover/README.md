@@ -39,20 +39,20 @@ here is a depth below the face and reads directly against the depths
 One at each of x = ±[66.75 mm](PAD_X), y = 0 — the middle of the lateral land, the
 widest material the plate has.
 
-- **Pad** — ⌀[12 mm](PAD_D) standing [3.2 mm](PAD_DEPTH) below the plate's underside,
+- **Pad** — ⌀[12 mm](COVER_PAD_D) standing [3.2 mm](COVER_PAD_DEPTH) below the plate's underside,
   into the pocket `enclosure._display_cuts` sinks in the inset floor for it. The
   plate is [5.2 mm](PAD_SEAT) thick under each screw where the bare border is
   [2 mm](COVER_T).
 - **Head seat** — a flat-bottomed ⌀[6.15 mm](CBORE_D) counterbore struck
-  [3.2 mm](CBORE_DEPTH) down from the top face over a ⌀[3.9 mm](SHANK_D) shank
+  [3.2 mm](COVER_CBORE_DEPTH) down from the top face over a ⌀[3.9 mm](SHANK_D) shank
   clearance, the same seat the foam cap's lids take. The head lands
   [0.2 mm](SEAT_RECESS) under the 45° face and the plane closes over it. Under the
-  head is [2 mm](LAND) of land — the bare border's own section, which is what the pad
+  head is [2 mm](COVER_LAND) of land — the bare border's own section, which is what the pad
   exists to leave there.
-- **Fastener** — M3 × [8 mm](SCREW_LEN) DIN 912 socket head cap, into a ruthex M3
+- **Fastener** — M3 × [8 mm](COVER_SCREW_LEN) DIN 912 socket head cap, into a ruthex M3
   short in the [5.25 mm](HEATSET_DEPTH) bore under each pocket, [5.25 mm](THREAD_ENGAGED)
   of it in thread. DIN 912 states a length under the head, and what it has to stand in
-  is [8.25 mm](SCREW_REACH): the land, the insert, and the relief the box bores under
+  is [8.25 mm](COVER_SCREW_REACH): the land, the insert, and the relief the box bores under
   the insert so a tip that runs past it finds air rather than a floor.
 
 ## The lap

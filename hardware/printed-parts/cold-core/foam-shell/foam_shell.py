@@ -200,7 +200,7 @@ def main():
         _here / "README.md",
         variables={
             "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
-            "OUTER_X": f"{outer_shell_x_length:.4g} mm",
+            "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
             "FSHELL_OUTER_Y": f"{outer_shell_y_length:.4g}",
             "OUTER_GAP": f"{outer_shell_foam_gap:.4g} mm",
             "FSHELL_WALL_T": f"{wall_and_floor_thickness:.4g} mm",
@@ -231,11 +231,11 @@ def main():
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
             "INSERT_DEPTH": f"{insert_pocket_depth:.4g} mm",
-            "SCREW_LEN": f"{cap_screw_length:.4g}",
+            "CAP_SCREW_LEN": f"{cap_screw_length:.4g}",
             "SCREW_HEAD_H": f"{screw_head_height:.4g} mm",
             "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g} mm",
             "HEAD_PAD_H": f"{head_pad_height:.4g} mm",
-            "SCREW_REACH": f"{cap_screw_beyond_face:.4g} mm",
+            "CAP_SCREW_REACH": f"{cap_screw_beyond_face:.4g} mm",
             "INSERT_LEN": f"{insert_length:.4g} mm",
             "TIP_CLEAR": f"{insert_pocket_depth - cap_screw_beyond_face:.4g} mm",
             # CO2 inlet — the Y the bore starts at (the vessel bottom plate's own

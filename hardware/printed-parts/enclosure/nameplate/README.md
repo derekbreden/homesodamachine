@@ -1,7 +1,7 @@
 # Rear-Wall Nameplate
 
 The plate the machine is named and rated on: [104.53 mm](PLATE_W) × [66.07 mm](PLATE_H) ×
-[2 mm](PLATE_T), lying flush in a pocket of `enclosure-back-top`'s outer face, in the field
+[2 mm](NAMEPLATE_T), lying flush in a pocket of `enclosure-back-top`'s outer face, in the field
 east of the flavour chips. One plate per unit, serialized. Visible after install.
 
 Cut by [`nameplate.py`](nameplate.py) → `nameplate-NNN.step`; the pocket, the two screw bosses
@@ -41,9 +41,9 @@ port chip's construction at another size, printed in a second filament.
 
 | | |
 |---|---|
-| Head | M3×[8 mm](SCREW_LEN) DIN 912, in a Ø[6.15 mm](CBORE_D) flat counterbore [3 mm](CBORE_DEPTH) deep |
-| Land under it | [1.5 mm](LAND) — the plate thickens by [2.5 mm](PAD_DEPTH) over a Ø[9.15 mm](PAD_D) pad, and the wall is pocketed to take it |
-| Reach | [8 mm](SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
+| Head | M3×[8 mm](NAMEPLATE_SCREW_LEN) DIN 912, in a Ø[6.15 mm](CBORE_D) flat counterbore [3 mm](NAMEPLATE_CBORE_DEPTH) deep |
+| Land under it | [1.5 mm](NAMEPLATE_LAND) — the plate thickens by [2.5 mm](NAMEPLATE_PAD_DEPTH) over a Ø[9.15 mm](NAMEPLATE_PAD_D) pad, and the wall is pocketed to take it |
+| Reach | [8 mm](NAMEPLATE_SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
 | Boss | [8 mm](BOSS_REACH) inboard of the wall's inner face — Ø[14.75 mm](BOSS_COLLAR_D) round the pad's pocket, Ø[10 mm](BOSS_STEM_D) round the insert |
 
 **Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the

@@ -163,7 +163,7 @@ def main():
         # Reservoir-to-pocket clearance — why the pockets take no foam.
         "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────
-        "OUTER_X": f"{outer_shell_x_length:.4g} mm",
+        "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
         "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
         "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
         # Finished stack: the shell plus a cap + gasket on each face. The lid
