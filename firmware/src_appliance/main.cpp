@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "fw_version.h"
+#include "fw_build_time.h"   // churns every build; the banner is what reads it
 #include "link.h"
 #include "machine.h"
 #include "pins.h"
