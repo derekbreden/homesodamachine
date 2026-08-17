@@ -40,6 +40,7 @@
     "TAP_WATER_TEMP": "~20 \u00b0C",
     "THERMO_ACC": "\u00b10.5 \u00b0C",
     "THERMO_RANGE": "0\u201320 \u00b0C",
+    "VALVE_COUNT": "11",
     "WALL_BAND": "\u00b1 2 \u00b0C",
     "WALL_DISP_GATE": "4 \u00b0C",
     "WALL_SETPOINT": "2 \u00b0C",
