@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-9fb5ab5d614d3a0a.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9fb5ab5d614d3a0a.tar.gz"
+    "asset": "cad-0eecafc391c8d3b8.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-0eecafc391c8d3b8.tar.gz"
   },
   "bundle": {
-    "sha256": "9fb5ab5d614d3a0a0c64f9db893947bca21899788a0a7e32de2a7d3bd82a9a03",
-    "bytes": 30364255,
+    "sha256": "0eecafc391c8d3b8dbf8960f4e1e810ef81f18683837794aed6a313bfc4121af",
+    "bytes": 30364597,
     "solids": 103
   },
   "solids": {
@@ -62,11 +62,11 @@
     "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step": "7e9975c137e065e6092aee3b0931eb367678e2de9c3177b6fda1e893072a5f78",
     "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step": "365e94e49fdaf1e7cb7d456c01cc9eca1b03c8a69ebf94047c844b9534168ed6",
     "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step": "eb4aee2ea0d423c057495448f2e86c610ef9550b5a92885eb29aead52dbb1f34",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "fe6d6861e8ae574e065a036f8dd9fc4ec35381568b726105000ea03ce892528e",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "bda4891a8d58a6869d276e787d35a8c395379056671120fffdd97bc7c6090e10",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "cb2239e429280da8c63d30ade38a1d65d976263effeef0dae30ba5237ee1708f",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "9b6a8d4c080d4ebed0fe9e04038e14dd71c9ae60640af0cb6649d959ca2815c2",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "894e94fc2bf98ed526b7a12c422136aa68db398ac21dfe1d2c37e50e7c43a817",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "e10718b1b8056b85bda4a48a24f49b06032515b4d3dc1314815b1e2efcb04cfc",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "849632144d14f716b5a1a9ed93ea4f6bd78e472597fe0c1db8c35fe49d63e160",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "df82012031c2c2015cee13dc64f594fbca83790bbf52b4c4247a04f25ea46ae3",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "3bb46a4eaa4eee86ddfdd2c0f7d3934fa1b9fc897cb58006755bd7aea47a779b",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "72f093d8ff0e66020485ad4ee9f4e3b474010f8d732fa152aff62fdd229b3bc9",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step": "aa64bf7b9b2246a98e370c510f3cdf8b2fd94f4eab84a04c65d6b928470ba842",
     "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step": "1775d43e2b86c8166f5f641c4e4d84074cef0ec8b21ba1d860df6715e00a74b5",
     "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step": "d0646de6dd341b106cf0ec76c01dfa3b3c116a795f16b63b7dc0d8978c5a7aad",

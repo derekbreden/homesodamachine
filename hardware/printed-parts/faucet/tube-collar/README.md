@@ -11,12 +11,12 @@ the line rather than across the face.
 | | |
 |---|---|
 | tube | Ø[6.35](COLLAR_TUBE_OD) mm — 1/4" OD LLDPE, every line the customer meets |
-| bore | Ø[6.3](COLLAR_BORE) mm |
+| bore | Ø[6.73](COLLAR_BORE) mm modelled, Ø[6.63](COLLAR_BORE_PRINTED) mm printed |
 | width | Ø[12](COLLAR_OD) mm |
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
-| wall | [2.85](COLLAR_WALL) mm, with [1.85](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [3.13](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
+| wall | [2.635](COLLAR_WALL) mm, with [1.635](COLLAR_BACKING) mm of it behind the lettering |
+| volume | [3.00](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
 
 ## Where each one goes
 
@@ -37,15 +37,22 @@ two go in the install kit, for the two runs the customer cuts in their own kitch
 
 ## The bore
 
-Cut [0.08](COLLAR_CLEARANCE) mm under the tube, so at nominal the fit is an interference and LLDPE —
-the soft half of the pair — takes it. The tube is an extrusion held to about
-[0.13](COLLAR_LLDPE_TOL) mm, and one at the low end of that leaves [0.08](COLLAR_CLEARANCE) mm of
-diametral play. The collar threads on end-first over a tail that is still bare.
+Sized off the biggest tube a spool runs and not off the nominal. The extrusion is held to about
+[0.13](COLLAR_LLDPE_TOL) mm, so the tube the bench meets can be Ø[6.48](COLLAR_TUBE_HIGH), and
+[30 mm](COLLAR_LENGTH) of bore turns any interference at all into a collar that goes on with a
+mallet or not at all. It threads on end-first over a tail that is still bare, by hand.
 
-That play over [30 mm](COLLAR_LENGTH) of bore is [0.15](COLLAR_ROCK)° of cock, and
-[19](COLLAR_SWAY) µm at the flag's own face — the furthest anything on the collar stands from the
+The collar prints flat face down with the bore's axis along the bed, so the hole's crown is
+unsupported and sags into it: the printer takes [0.1](COLLAR_SHRINK) mm off the diameter, and the
+model carries that. Ø[6.73](COLLAR_BORE) goes to the slicer and Ø[6.63](COLLAR_BORE_PRINTED) comes
+off the plate — [0.15](COLLAR_SLIP) mm of slip on the biggest tube, which is the tightest a collar
+comes out, and [0.41](COLLAR_CLEARANCE) mm of diametral play on the smallest. LLDPE off a coil is
+oval enough to drag on either.
+
+That play over [30 mm](COLLAR_LENGTH) of bore is [0.78](COLLAR_ROCK)° of cock, and
+[96](COLLAR_SWAY) µm at the flag's own face — the furthest anything on the collar stands from the
 line it would turn about. The same play on a chip's [2](COLLAR_CHIP_THICK) mm is
-[2.29](COLLAR_CHIP_ROCK)°. `rock()` and `flag_sway()` are those figures, and `selftest` reads the
+[11.59](COLLAR_CHIP_ROCK)°. `rock()` and `flag_sway()` are those figures, and `selftest` reads the
 pair against each other.
 
 ## The word

@@ -76,13 +76,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "customer-tube-water \u2229 tube-collar-water   14.9 mm\u00b3, x[  -81.24,  -74.90] y[  484.50,  514.50] z[  333.04,  339.39]",
-    "customer-tube-co2 \u2229 tube-collar-co2   14.9 mm\u00b3, x[   -0.52,    5.82] y[  491.89,  521.89] z[  333.04,  339.39]"
-   ],
+   "detail": [],
    "active": true
   },
   {

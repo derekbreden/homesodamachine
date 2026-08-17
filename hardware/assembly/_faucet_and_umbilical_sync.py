@@ -70,7 +70,9 @@ def main():
         # Source: `printed-parts/faucet/tube-collar/tube_collar.py` through the assembly that
         # seats three of them, so the bench and the picture read one figure.
         "COLLAR_LENGTH": f"{faucet.tube_collar.LENGTH:.4g} mm",
-        "COLLAR_BORE": f"{faucet.tube_collar.BORE:.4g}",
+        # The bench holds a finished collar, so the figure §4 reads is the one off the plate and
+        # not the one the slicer was handed — `tube_collar.BORE_SHRINK` is the difference.
+        "COLLAR_BORE_PRINTED": f"{faucet.tube_collar.bore_printed():.4g}",
         "COLLAR_TUBE_OD": f"{faucet.tube_collar.TUBE_OD:.4g}",
         "COLLAR_SLEEVE_TAIL": f"{faucet.sleeve_tail / 25.4:.3g} in",
     }

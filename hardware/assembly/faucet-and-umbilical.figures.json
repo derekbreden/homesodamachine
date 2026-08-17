@@ -3,7 +3,7 @@
     "BODY_PORT_D": "10 mm",
     "BODY_SQUEEZE": "0.22 mm",
     "CAP_HOLE_D": "6.5 mm",
-    "COLLAR_BORE": "6.3",
+    "COLLAR_BORE_PRINTED": "6.63",
     "COLLAR_LENGTH": "30 mm",
     "COLLAR_SLEEVE_TAIL": "3 in",
     "COLLAR_TUBE_OD": "6.35",
