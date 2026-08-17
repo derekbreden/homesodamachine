@@ -35,6 +35,9 @@ _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
 
+sys.path.insert(0, str(_HERE.parent))
+from inventory import tracked as _inventory_tracked   # noqa: E402
+
 RUNNER = r'''
 import json, os, sys, runpy
 ROOT = %r
@@ -172,8 +175,16 @@ finally:
 
 
 def _tracked() -> set:
-    return set(subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
-                              capture_output=True, text=True, check=True).stdout.split())
+    """Every file this tree stands behind — `inventory.tracked`, which is git's index plus the
+    solids `hardware/cad-artifacts.lock.json` names.
+
+    A GENERATED SOLID IS IN NO INDEX AND A GENERATOR STILL OPENS IT. `_pump_replacement_sync`
+    loads `kamoer-kphm400.step` through `manifold_layout.build_pump`. A trace filtered by
+    `git ls-files` drops that read, the graph stops naming it, and the action built from the
+    graph holds no such file and dies on `STEP File could not be loaded` — a generator that
+    runs by hand and cannot run in the sandbox. `gen_build.py` reads the same function, so the
+    set a trace is filtered against and the set an action is filled from are one reading."""
+    return set(_inventory_tracked())
 
 
 def trace(gen: str, files: set, argv=()) -> dict:
