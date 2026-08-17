@@ -171,6 +171,12 @@ pack_flavor_depth = math.sqrt((foam_r + flavor_tube_r) ** 2 - flavor_tube_x_offs
 # absorbing the depth the pair comes forward by.
 umbilical_bend_radius = 12.0
 _umbilical_depth_offset = flavor_tube_depth_lower - pack_flavor_depth
+# WHERE `_flavor_path` STARTS, in the depth its own plane works in: the pack, which stands that
+# offset forward of the depth `build_flavor_tube` translates the run by. A SWEEP CARRIES ITS
+# PROFILE FROM WHERE THE PROFILE STANDS and not from the spine's first point, so the profile is
+# put here too. Every other sweep in this file draws a spine from (0, 0) and lands on its profile
+# by having nowhere else to be; this one does not, and the two are held together by one figure.
+_flavor_path_start_depth = -_umbilical_depth_offset
 # [0.5364 rad](UMBILICAL_BEND_THETA) — per-arc angle absorbing the gather.
 umbilical_bend_theta_rad = math.acos(
     1.0 - _umbilical_depth_offset / (2.0 * umbilical_bend_radius))
@@ -386,7 +392,7 @@ def _flavor_path(bottom_z):
          (gn_flavor_bend1_r / gn_flavor_bend2_r) on the outside of the
          gooseneck bend, staying tangent to the water tube.
     """
-    dx_pack = pack_flavor_depth - flavor_tube_depth_lower
+    dx_pack = _flavor_path_start_depth
     p_bottom = (dx_pack, 0.0)
     p_gather_start = (dx_pack, umbilical_z_bottom - bottom_z)
 
@@ -545,7 +551,9 @@ def build_flavor_tube(x_sign, bottom_z=None):
     which is another. Both leave the joining plane running straight down, so the two meet on one
     tangent and the fuse leaves no corner."""
     bottom_z = splay_top_z if bottom_z is None else bottom_z
-    profile = cq.Workplane(xy_plane_z_up).circle(flavor_tube_r)
+    profile = (cq.Workplane(xy_plane_z_up)
+               .center(0.0, _flavor_path_start_depth)
+               .circle(flavor_tube_r))
     tube = profile.sweep(_flavor_path(bottom_z), transition="round").translate((
         x_sign * flavor_tube_x_offset,
         +flavor_tube_depth_lower,
