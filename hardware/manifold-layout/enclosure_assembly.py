@@ -2094,6 +2094,29 @@ COLLAR_OFF_COLLET = 8.0
 COLLAR_TUBE_TAIL = 10.0
 
 
+def customer_tube_name(which: str) -> str:
+    """The body name one customer-cut tube goes into the assembly under.
+
+    IT CARRIES THE TUBE PREFIX BECAUSE IT IS TUBE. `_scorecard._split_placed` reads the placed
+    world into its three populations off these names, and what it asks of a body it does not ask
+    of a length of tube: a tube is fastened by the collet it seats in, so it owes no row in the
+    fastening table, it stands at 0.00 against the fitting it is pushed into by construction, and
+    it is not an obstruction in front of the port it leaves. Named outside the prefix it enrols
+    as a body and is charged all three."""
+    return f"tube-customer-{which}"
+
+
+def collar_name(which: str) -> str:
+    """The body name one collar goes into the assembly under."""
+    return f"tube-collar-{which}"
+
+
+def collar_word_name(which: str) -> str:
+    """The body name that collar's lettering goes in under — a second solid in a second colour,
+    lying in the flats the collar carries for it."""
+    return f"{collar_name(which)}-word"
+
+
 def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
     """The two customer-cut tubes outboard of the wall and the collar on each, as
     `(name, solid, colour)`.
@@ -2110,14 +2133,14 @@ def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
         length = COLLAR_OFF_COLLET + _collar.LENGTH + COLLAR_TUBE_TAIL
         # The spool by its own colour, so a stub cut off a table that moved has no spool at all.
         spool = next(s for s in _routing.SPOOLS.values() if s.rgb == _rear.port_colors[fluid])
-        out.append((f"customer-tube-{which}",
+        out.append((customer_tube_name(which),
                     cq.Solid.makeCylinder(_collar.TUBE_OD / 2.0, length,
                                           cq.Vector(x, y, z), cq.Vector(0.0, 1.0, 0.0)),
                     cq.Color(*(c / 255.0 for c in spool.rgb))))
         body, lettering = _collar.split(import_step(str(_collar.STEPS[which])).val())
-        for suffix, solid, rgb in (("", body, _rear.chip_color(fluid)),
-                                   ("-word", lettering, _rear.word_color(fluid))):
-            out.append((f"tube-collar-{which}{suffix}",
+        for name, solid, rgb in ((collar_name, body, _rear.chip_color(fluid)),
+                                 (collar_word_name, lettering, _rear.word_color(fluid))):
+            out.append((name(which),
                         solid.translate((x, y + COLLAR_OFF_COLLET, z)),
                         cq.Color(*(c / 255.0 for c in rgb))))
     return out
@@ -4961,13 +4984,24 @@ THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet",
 IN_THE_WALL = tuple(name(which)
                     for _m, _r, which, _fluid in BACK_WALL_FITTINGS.values()
                     for name in (ring_name, word_name))
+# And the bodies standing OUTBOARD of it: on two of the five crossings, the tube the customer cuts
+# in their own kitchen and the collar that carries the station's word out to the end they cut it
+# at. The wall's outer face is where the machine stops, so none of this is in the room the pack
+# stands in — it is the customer's own plumbing, drawn as far as the collar and no further
+# (`build_customer_tubes`). Left out of what the box is SIZED on for that reason: sized on it, the
+# depth the appliance states would be the depth of the appliance plus a stub of someone's kitchen,
+# and the back wall would be drawn out to enclose a tube that has to leave the box to be any use.
+OUTBOARD = tuple(name(BACK_WALL_FITTINGS[station][2])
+                 for station in CUSTOMER_TUBE_STATIONS
+                 for name in (customer_tube_name, collar_name, collar_word_name))
 
 
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
-    `THROUGH_WALL` and `IN_THE_WALL` are what that excludes, and the funnel is the same case
-    by a different route.
+    `THROUGH_WALL`, `IN_THE_WALL` and `OUTBOARD` are what that excludes — a body crossing the
+    wall, one lying in its thickness, and one standing beyond it — and the funnel is the same
+    case by a different route.
 
     `front_ports` is empty and stays empty. The box is four printed pieces and every face is a
     wall of one of them — there is no front panel to cut through — so that field is settled,
@@ -4976,7 +5010,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])
     west = west_interior_face()
-    outside = set(THROUGH_WALL) | set(IN_THE_WALL) | {NAMEPLATE, NAMEPLATE_INK}
+    outside = (set(THROUGH_WALL) | set(IN_THE_WALL) | set(OUTBOARD)
+               | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
