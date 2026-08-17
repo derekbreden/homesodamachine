@@ -671,6 +671,9 @@
   "tools/bazel/trace_inputs.py": [
     "tools/bazel/trace_inputs.py"
   ],
+  "tools/cad-artifacts/pack.py": [
+    "tools/cad-artifacts/pack.py"
+  ],
   "tools/docgen/lint.py": [
     "tools/docgen/__init__.py",
     "tools/docgen/lint.py"
