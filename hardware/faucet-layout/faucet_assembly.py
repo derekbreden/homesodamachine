@@ -33,6 +33,15 @@ The column, top to bottom:
     under-counter    Ø54.45 × 1.524 cut 316 SS,     Z = [-37.524, -36]
     supply tube      1/4" blue, on the shank's own compression port
 
+TWO STEPS COME OFF ONE MODEL. `faucet-assembly.step` is the column above, with the three tubes cut
+off on the plane they reach their bundle pack on — the faucet at faucet scale, which is what every
+picture of it is framed for. `umbilical-assembly.step` runs those same tubes their whole factory cut
+and carries the rest of what goes in the bag with them:
+
+    foam             CARGEN nitrile on the blue tube only, five 1-ft segments butted
+    sleeve           1" spiral wrap over the pack, stopping 3 in short of the tails
+    tube collars     SODA on the blue, FLAVOR on each black, on the bare tails at the wall
+
 Regenerate:
     tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py
 """
@@ -76,6 +85,12 @@ sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-plate"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-gasket"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-tpu-o-ring"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
+# The identification the tubes carry below the counter, and the filaments it prints in — one part
+# and one colour table, shared with the chips on the rear wall.
+sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "tube-collar"))
+sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "back-panel"))
+import tube_collar
+import _back_panel_dimensions as _rear
 import touch_flo_mounting_plate
 import touch_flo_mounting_gasket
 import touch_flo_tpu_o_ring
@@ -133,15 +148,37 @@ flavor_tube_r = flavor_tube_od / 2.0
 flavor_tube_depth_lower = body_r + flavor_tube_r
 flavor_tube_x_offset = flavor_tube_r  # ± — tangent to other tube at X=0
 
-# Below the plate the three tubes run together — the sleeve goes on just under
-# it and the umbilical runs 1.2 m to the rear wall (`faucet-and-umbilical.md`
-# §"Cut the three LLDPE tubes to length"). This is the stub of that run the
-# assembly draws, so all three leave on one plane.
+# Below the plate the three tubes leave on the faucet's own spacing and are gathered into the
+# triangular dense pack a sleeve makes of them (`faucet-and-umbilical.md` §4). The pack is struck on
+# tangency, and the flavour pair keeps the X it has carried since the body — `flavor_tube_x_offset`,
+# the two tangent to each other at X = 0 — so the gather is a move in DEPTH and nothing else, over
+# the run `umbilical_stub` gives it.
 umbilical_stub = 30.0
 umbilical_z_bottom = -shank_length - umbilical_stub  # [-80 mm](UMBILICAL_Z_BOTTOM)
 
-flavor_tube_z_bottom = umbilical_z_bottom
-flavor_tube_z_top = water_tube_z_top
+# CARGEN nitrile foam, 1/4" ID × 3/8" wall, on the blue tube only — the cold run. Its OD is what the
+# pack is built around and what does not pass the countertop hole, which is why the blue tube is
+# entirely below the counter.
+foam_od = 25.4
+foam_r = foam_od / 2.0
+# Where each flavour tube's axis stands in depth once it is tangent to that foam, at the X it
+# already has. Same Pythagorean tangency `flavor_tube_depth_upper` is struck on, one circle out.
+# [15.5543 mm](PACK_FLAVOR_DEPTH) — tangent to the foam on the blue tube.
+pack_flavor_depth = math.sqrt((foam_r + flavor_tube_r) ** 2 - flavor_tube_x_offset ** 2)
+# The gather, as the flavour S-bend is: two arcs of one radius sharing an angle, 2·R·(1 − cos θ)
+# absorbing the depth the pair comes forward by.
+umbilical_bend_radius = 12.0
+_umbilical_depth_offset = flavor_tube_depth_lower - pack_flavor_depth
+# [0.5364 rad](UMBILICAL_BEND_THETA) — per-arc angle absorbing the gather.
+umbilical_bend_theta_rad = math.acos(
+    1.0 - _umbilical_depth_offset / (2.0 * umbilical_bend_radius))
+
+# THE FACTORY CUT, off `faucet-and-umbilical.md` §1 — what the bench cuts and what the bagged
+# sub-assembly carries, installer-trim allowance included. The blue starts on the shank's bottom
+# face and the flavour pair at the printed tip, so one figure each is the whole of their length and
+# the assembly draws the tube that is actually in the bag.
+blue_cut_length = 1540.0
+flavor_cut_length = 1900.0
 
 # Carbonated water arrives at the OTHER port: the compression fitting on the
 # bottom of the shank, [44 mm](SUPPLY_BELOW_COUNTER) below the countertop's top
@@ -152,6 +189,15 @@ flavor_tube_z_top = water_tube_z_top
 supply_tube_od = flavor_tube_od
 supply_tube_r = supply_tube_od / 2.0
 supply_tube_z_top = -shank_length
+# [-1590 mm](SUPPLY_TUBE_Z_BOTTOM) — the blue tube's square-cut end.
+supply_tube_z_bottom = supply_tube_z_top - blue_cut_length
+
+# The foam's own run on that tube (`faucet-and-umbilical.md` §3): five 1-ft segments butted, bare
+# at the compression end and bare again at the wall.
+foam_bare_at_body = 40.0
+foam_length = 1425.0
+foam_z_top = supply_tube_z_top - foam_bare_at_body
+foam_z_bottom = foam_z_top - foam_length            # [-1515 mm](FOAM_Z_BOTTOM)
 
 # Upper depth is set by tangency to the water tube at the same X:
 #   (depth_upper - port_center_depth)² + x_offset² = (water_tube_r + flavor_tube_r)²
@@ -309,21 +355,38 @@ def build_water_dispense_tube():
     return tube.translate((0, +port_center_depth, water_tube_z_bottom))
 
 
-def _build_flavor_tube_at_origin():
-    """One bent flavor tube at the path origin. Path:
-      1. Vertical up to the S-bend start (pre_bend_z)
-      2. S-bend (CCW + CW pair) shifting depth by
+def _flavor_path(bottom_z):
+    """The flavor tube's centreline, in the path plane, for a tube cut off at `bottom_z`.
+
+    Bottom to tip, in the pack's own depth and up out of it:
+      1. Vertical at `pack_flavor_depth`, up the tail to the gather
+      2. Gather (CW + CCW pair) carrying the tube BACK to
+         flavor_tube_depth_lower, ending tangent to +Z inside
+         `umbilical_stub`
+      3. Vertical to the S-bend start (pre_bend_z)
+      4. S-bend (CCW + CW pair) shifting depth by
          flavor_tube_depth_lower − flavor_tube_depth_upper toward the
          water tube, ending tangent to +Z
-      3. Vertical from S-bend end up to the gooseneck start
+      5. Vertical from S-bend end up to the gooseneck start
          (Z = gn_bend1_start_z, in tube-local coords)
-      4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
+      6. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
          toward -Y. Each bend uses its own parallel-offset radius
          (gn_flavor_bend1_r / gn_flavor_bend2_r) on the outside of the
          gooseneck bend, staying tangent to the water tube.
     """
-    p_bottom = (0.0, 0.0)
-    p_s_bend_start = (0.0, pre_bend_z - flavor_tube_z_bottom)
+    dx_pack = pack_flavor_depth - flavor_tube_depth_lower
+    p_bottom = (dx_pack, 0.0)
+    p_gather_start = (dx_pack, umbilical_z_bottom - bottom_z)
+
+    # Gather (CW then CCW), ends tangent to +Z at the faucet's own depth.
+    g1_mid, g1_end, g1_tangent = _arc_from_tangent(
+        p_gather_start, (0.0, 1.0), umbilical_bend_radius, umbilical_bend_theta_rad, ccw=False
+    )
+    g2_mid, g2_end, _g2_tangent = _arc_from_tangent(
+        g1_end, g1_tangent, umbilical_bend_radius, umbilical_bend_theta_rad, ccw=True
+    )
+
+    p_s_bend_start = (0.0, pre_bend_z - bottom_z)
 
     # S-bend (CCW then CW), ends tangent to +Z.
     s1_mid, s1_end, s1_tangent = _arc_from_tangent(
@@ -334,15 +397,21 @@ def _build_flavor_tube_at_origin():
     )
 
     # Vertical to the gooseneck start, depth unchanged.
-    p_gn_start = (s2_end[0], gn_bend1_start_z - flavor_tube_z_bottom)
+    p_gn_start = (s2_end[0], gn_bend1_start_z - bottom_z)
 
     arc1, mid_end, arc2, tip_end = _gooseneck_segments(
         p_gn_start, s2_tangent, gn_flavor_bend1_r, gn_flavor_bend2_r
     )
 
-    path = (
-        cq.Workplane(tube_path_plane)
-        .moveTo(*p_bottom)
+    # The tail closes to nothing when the path is measured for its own run above the gather, and a
+    # line of no length is not an edge.
+    start = (cq.Workplane(tube_path_plane).moveTo(*p_bottom)
+             if abs(p_gather_start[1] - p_bottom[1]) < 1e-9
+             else cq.Workplane(tube_path_plane).moveTo(*p_bottom).lineTo(*p_gather_start))
+    return (
+        start
+        .threePointArc(g1_mid, g1_end)
+        .threePointArc(g2_mid, g2_end)
         .lineTo(*p_s_bend_start)
         .threePointArc(s1_mid, s1_end)
         .threePointArc(s2_mid, s2_end)
@@ -353,19 +422,75 @@ def _build_flavor_tube_at_origin():
         .lineTo(*tip_end)
     )
 
+
+def flavor_path_above_pack():
+    """How much of a flavor tube stands above the gather's own bottom — the printed tip down to
+    `umbilical_z_bottom`, along the centreline. Everything below that is straight tail, so this and
+    `flavor_cut_length` are what put the cut end where it is."""
+    return _flavor_path(umbilical_z_bottom).wire().val().Length()
+
+
+# WHERE THE FACTORY CUT LANDS. The flavor tube is measured from the printed tip, so its bottom is
+# what is left of `flavor_cut_length` once the run above the gather is spent; the blue is measured
+# from the shank's bottom face and runs straight. `main` prints the two against each other — the
+# bench cuts to figures that put all three tails on one plane, and a blue that does not reach the
+# bundle's end is a mis-cut visible before it is sleeved.
+# [-1569.32 mm](FLAVOR_TUBE_Z_BOTTOM) — the flavor pair's square-cut end.
+flavor_tube_z_bottom = umbilical_z_bottom - (flavor_cut_length - flavor_path_above_pack())
+flavor_tube_z_top = water_tube_z_top
+
+
+def bundle_circle():
+    """The smallest circle standing round the packed bundle, as `(center_y, radius)`.
+
+    Three circles on one plane of symmetry — the foam on the blue tube at the origin and the flavour
+    pair tangent to it — so the centre is on X = 0 and the radius is the larger of the two reaches
+    from it. Bisected on which of the two is larger, which changes over once between the foam's own
+    axis and the flavour pair's."""
+    def reaches(yc):
+        return (abs(yc) + foam_r,
+                math.hypot(flavor_tube_x_offset, pack_flavor_depth - yc) + flavor_tube_r)
+
+    lo, hi = 0.0, pack_flavor_depth
+    for _ in range(200):
+        mid = (lo + hi) / 2.0
+        if reaches(mid)[0] < reaches(mid)[1]:
+            lo = mid
+        else:
+            hi = mid
+    yc = (lo + hi) / 2.0
+    return yc, max(reaches(yc))
+
+
+# [3.2156 mm](SLEEVE_CENTER_Y) behind the body axis, and Ø[31.83 mm](SLEEVE_ID) across — the bundle
+# the 1" nominal spiral wrap is laid on (`ledger/bom.md` §11, SKU TBD; the wall below is the figure
+# the assembly draws it at).
+sleeve_center_y, sleeve_r = bundle_circle()
+sleeve_wall = 1.0
+# 3 in of bundle left bare at the wall end, for the installer to flex the three apart and push each
+# into its own union.
+sleeve_tail = 3.0 * 25.4
+sleeve_z_top = umbilical_z_bottom
+sleeve_z_bottom = max(supply_tube_z_bottom, flavor_tube_z_bottom) + sleeve_tail
+# WHERE THE THREE COLLARS HANG, level with each other, on the first plane clear of both the sleeve
+# and the foam — the blue tube's foam runs the lower of the two and no collar passes over it.
+collar_top_z = min(sleeve_z_bottom, foam_z_bottom)
+
+
+def build_flavor_tube(x_sign, bottom_z=None):
+    """One Ø 1/4" flavor tube at +Y behind the body axis. x_sign ∈ {±1} selects the lateral side;
+    the two tubes mirror across the X = 0 plane.
+
+    `bottom_z` is where the tube is cut off — `umbilical_z_bottom` for the faucet's own picture,
+    which is the first plane the three are in their pack on, and `flavor_tube_z_bottom` for the
+    whole factory cut."""
+    bottom_z = umbilical_z_bottom if bottom_z is None else bottom_z
     profile = cq.Workplane(xy_plane_z_up).circle(flavor_tube_r)
-    return profile.sweep(path, transition="round")
-
-
-def build_flavor_tube(x_sign):
-    """One Ø 1/4" flavor tube at +Y behind the body axis. x_sign ∈ {±1}
-    selects the lateral side; the two tubes mirror across the X = 0
-    plane."""
-    tube = _build_flavor_tube_at_origin()
+    tube = profile.sweep(_flavor_path(bottom_z), transition="round")
     return tube.translate((
         x_sign * flavor_tube_x_offset,
         +flavor_tube_depth_lower,
-        flavor_tube_z_bottom,
+        bottom_z,
     ))
 
 
@@ -692,22 +817,92 @@ def build_o_ring():
     ))
 
 
-def build_supply_tube():
-    """The blue 1/4" carbonated-water supply, butted on the shank's bottom face
-    and running down to the umbilical stub."""
+def build_supply_tube(bottom_z=None):
+    """The blue 1/4" carbonated-water supply, butted on the shank's bottom face and running down.
+    It is on the body's own axis the whole way, so it takes no part in the gather — the flavour
+    pair comes to IT."""
+    bottom_z = umbilical_z_bottom if bottom_z is None else bottom_z
     return (
-        cq.Workplane("XY").workplane(offset=umbilical_z_bottom)
+        cq.Workplane("XY").workplane(offset=bottom_z)
         .circle(supply_tube_r)
-        .extrude(supply_tube_z_top - umbilical_z_bottom)
+        .extrude(supply_tube_z_top - bottom_z)
     )
 
 
-def build_assembly():
-    """The full faucet assembly in the repo's +Z-up frame."""
+def build_foam():
+    """The CARGEN segments on the blue tube, drawn as the one sleeve their butts make.
+
+    Five 1-ft lengths butted end to end (`faucet-and-umbilical.md` §3), bare at the compression end
+    where the tube lands on the Westbrass body and bare again at the wall, where the installer's
+    trim takes a whole segment off in a nominal kitchen."""
+    return (
+        cq.Workplane("XY").workplane(offset=foam_z_bottom)
+        .circle(foam_r).circle(supply_tube_r)
+        .extrude(foam_length)
+    )
+
+
+def build_sleeve():
+    """The spiral wrap over the assembled bundle, from the gather's own bottom — the first plane the
+    three tubes are in their pack on — down to `sleeve_tail` short of the tails.
+
+    What it leaves bare at the bottom is what the installer flexes apart to reach three bulkheads
+    standing on one line, and it is where the collars ride."""
+    return (
+        cq.Workplane("XY").workplane(offset=sleeve_z_bottom)
+        .center(0.0, sleeve_center_y)
+        .circle(sleeve_r + sleeve_wall).circle(sleeve_r)
+        .extrude(sleeve_z_top - sleeve_z_bottom)
+    )
+
+
+def build_collar(which, x, y):
+    """One tube collar threaded onto the tube at `(x, y)`, as `(collar, word)`.
+
+    The part's own +Y is outboard along its tube, which here is DOWN toward the tail: a quarter turn
+    about X lays that on −Z and stands the flag on +Y, and a turn about Z then points the flag out
+    of the bundle, away from `sleeve_center_y`, so no two of the three face each other."""
+    bodies = tube_collar.split(import_step(str(tube_collar.STEPS[which])).val())
+    ux, uy = x - 0.0, y - sleeve_center_y
+    reach = math.hypot(ux, uy)
+    azimuth = math.degrees(math.atan2(-ux / reach, uy / reach))
+    return tuple(
+        body.rotate((0, 0, 0), (1, 0, 0), -90.0)
+            .rotate((0, 0, 0), (0, 0, 1), azimuth)
+            .translate((x, y, collar_top_z))
+        for body in bodies
+    )
+
+
+def umbilical_collars():
+    """The three collars the bench threads on, as `(name, solid, colour)` — one per tail, each in
+    the filament its chip on the rear wall prints in."""
+    out = []
+    for which, x, y in (("carb", 0.0, 0.0),
+                        ("flavor-a", +flavor_tube_x_offset, pack_flavor_depth),
+                        ("flavor-b", -flavor_tube_x_offset, pack_flavor_depth)):
+        fluid = tube_collar.STATIONS[which].fluid
+        collar, word = build_collar(which, x, y)
+        out.append((f"collar_{which.replace('-', '_')}", collar,
+                    cq.Color(*(c / 255.0 for c in _rear.chip_color(fluid)))))
+        out.append((f"collar_{which.replace('-', '_')}_word", word,
+                    cq.Color(*(c / 255.0 for c in _rear.word_color(fluid)))))
+    return out
+
+
+def build_assembly(umbilical=False):
+    """The faucet assembly in the repo's +Z-up frame.
+
+    TWO SUBJECTS, ONE MODEL. Bare, this is the column above the counter and the head of the
+    umbilical, cut off on the plane the three tubes reach their pack on — the faucet at faucet
+    scale, which is what every picture of it is framed for. With `umbilical`, the tubes run their
+    whole factory cut and the rest of the bagged sub-assembly comes with them: the foam on the cold
+    one, the sleeve over the lot, and the three collars on the bare tails at the wall end."""
     body = load_valve_body()
     water_tube = build_water_dispense_tube()
-    flavor_tube_pos_x = build_flavor_tube(+1)
-    flavor_tube_neg_x = build_flavor_tube(-1)
+    tube_bottom = flavor_tube_z_bottom if umbilical else umbilical_z_bottom
+    flavor_tube_pos_x = build_flavor_tube(+1, tube_bottom)
+    flavor_tube_neg_x = build_flavor_tube(-1, tube_bottom)
     lever = build_lever()
     mounting_plate = load_mounting_plate()
     mounting_gasket = load_mounting_gasket()
@@ -717,7 +912,7 @@ def build_assembly():
     display_screen = build_display_screen()
     countertop = build_countertop()
     under_counter_plate = build_under_counter_plate()
-    supply_tube = build_supply_tube()
+    supply_tube = build_supply_tube(supply_tube_z_bottom if umbilical else umbilical_z_bottom)
 
     silver = cq.Color(0.85, 0.85, 0.88)  # near-stainless silver
     petg_tan = _mat.C_PETG_TAN
@@ -727,6 +922,8 @@ def build_assembly():
     steel = cq.Color(0.72, 0.74, 0.78)  # 316 SS cut plate
     water_blue = cq.Color(0.25, 0.45, 0.80)  # blue LLDPE, the cold line
     stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab, not a part
+    foam_black = cq.Color(0.18, 0.18, 0.19)  # CARGEN nitrile, on the blue tube only
+    sleeve_black = cq.Color(0.10, 0.10, 0.11, 0.55)  # spiral wrap, over the lot
 
     assy = cq.Assembly(name="faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
@@ -745,14 +942,19 @@ def build_assembly():
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     assy.add(countertop, name="countertop", color=stone)
     assy.add(under_counter_plate, name="under_counter_plate", color=steel)
+    if umbilical:
+        assy.add(build_foam(), name="cold_line_foam", color=foam_black)
+        assy.add(build_sleeve(), name="umbilical_sleeve", color=sleeve_black)
+        for name, solid, color in umbilical_collars():
+            assy.add(solid, name=name, color=color)
     return assy
 
 
 def main():
-    assy = build_assembly()
-
     out = _assembly_dir / "faucet-assembly.step"
-    export_assembly(assy, str(out))
+    export_assembly(build_assembly(), str(out))
+    umbilical_out = _assembly_dir / "umbilical-assembly.step"
+    export_assembly(build_assembly(umbilical=True), str(umbilical_out))
 
     bend1_deg = math.degrees(gn_bend1_sweep_rad)
     bend2_deg = math.degrees(gn_bend2_sweep_rad)
@@ -784,8 +986,26 @@ def main():
     print(f"                         {gn_tip_straight_len} mm tip "
           f"({tip_below_horiz:.0f}° below horizontal)")
     print(f"  Carb supply tube:      Ø{supply_tube_od:.3f} mm, "
-          f"Z = {umbilical_z_bottom:.1f} → {supply_tube_z_top:.1f} "
-          f"(on the shank's bottom face)")
+          f"Z = {supply_tube_z_bottom:.1f} → {supply_tube_z_top:.1f} "
+          f"({blue_cut_length:g} mm factory cut, on the shank's bottom face)")
+    print(f"  Umbilical:             gather over {umbilical_stub:g} mm to Z = "
+          f"{umbilical_z_bottom:.1f}, flavour pair coming to depth "
+          f"{pack_flavor_depth:.4f} at X = ±{flavor_tube_x_offset:.4f}")
+    print(f"                         flavour cut {flavor_cut_length:g} mm — "
+          f"{flavor_path_above_pack():.1f} above the gather, tail to Z = "
+          f"{flavor_tube_z_bottom:.1f}")
+    print(f"                         the three tails land within "
+          f"{abs(supply_tube_z_bottom - flavor_tube_z_bottom):.1f} mm of one plane")
+    print(f"  Foam (blue only):      Ø{foam_od:g} × {foam_length:g} mm, Z = "
+          f"{foam_z_bottom:.1f} → {foam_z_top:.1f} "
+          f"({foam_bare_at_body:g} bare at the body, "
+          f"{foam_z_bottom - supply_tube_z_bottom:.0f} bare at the wall)")
+    print(f"  Sleeve:                Ø{2 * sleeve_r:.2f} bundle at Y = {sleeve_center_y:.4f}, "
+          f"Z = {sleeve_z_bottom:.1f} → {sleeve_z_top:.1f} "
+          f"({sleeve_tail:.1f} mm of bundle left bare)")
+    print(f"  Tube collars:          {tube_collar.OD:g} × {tube_collar.LENGTH:g}, "
+          f"Z = {collar_top_z - tube_collar.LENGTH:.1f} → {collar_top_z:.1f} — "
+          f"SODA on the blue, FLAVOR on each black")
     print(f"  TPU o-ring:            in the Ø{touch_flo_tpu_o_ring.body_port_diameter:.1f} mm top port, "
           f"Z = {water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness:.2f} → "
           f"{water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness + touch_flo_tpu_o_ring.total_height:.2f}")
@@ -803,7 +1023,8 @@ def main():
     print(f"  Under-counter plate:   {under_counter_plate_thickness} mm 316 SS off "
           f"{under_counter_dxf.name}, Z = "
           f"{countertop_bottom_z - under_counter_plate_thickness:.3f} → {countertop_bottom_z:.1f}")
-    print(f"-> {out.name}")
+    print(f"-> {out.name}  (the column, tubes cut on the pack's own plane)")
+    print(f"-> {umbilical_out.name}  (the bagged sub-assembly, whole)")
 
     substitute_py_comments(
         Path(__file__),
@@ -822,6 +1043,13 @@ def main():
             "GN_FLAVOR_BEND_ONE_R": f"{gn_flavor_bend1_r:.4f} mm",
             "GN_FLAVOR_BEND_TWO_R": f"{gn_flavor_bend2_r:.4f} mm",
             "UMBILICAL_Z_BOTTOM": f"{umbilical_z_bottom:.4g} mm",
+            "UMBILICAL_BEND_THETA": f"{umbilical_bend_theta_rad:.4f} rad",
+            "PACK_FLAVOR_DEPTH": f"{pack_flavor_depth:.4f} mm",
+            "SUPPLY_TUBE_Z_BOTTOM": f"{supply_tube_z_bottom:.5g} mm",
+            "FLAVOR_TUBE_Z_BOTTOM": f"{flavor_tube_z_bottom:.6g} mm",
+            "FOAM_Z_BOTTOM": f"{foam_z_bottom:.5g} mm",
+            "SLEEVE_CENTER_Y": f"{sleeve_center_y:.4f} mm",
+            "SLEEVE_ID": f"{2 * sleeve_r:.4g} mm",
             "SUPPLY_BELOW_COUNTER": f"{countertop_top_z - supply_tube_z_top:.4g} mm",
             "COUNTERTOP_TOP_Z": f"{countertop_top_z:.4g} mm",
             "COUNTERTOP_BOTTOM_Z": f"{countertop_bottom_z:.4g} mm",

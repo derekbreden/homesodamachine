@@ -116,6 +116,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "port-ring",
+           _hw / "printed-parts" / "enclosure" / "tube-collar",
            _hw / "printed-parts" / "enclosure" / "nameplate",
            _hw / "printed-parts" / "enclosure" / "valve-panel",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
@@ -161,6 +162,8 @@ import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import port_ring as _ring                             # noqa: E402
+# The same word and the same two filaments, on the customer's own tube outboard of the ring.
+import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
 import valve_panel as _panel                          # noqa: E402
 import pump_tray as _tray                             # noqa: E402
@@ -2072,6 +2075,52 @@ def back_wall_field(stations):
     return PortField(PORT_BOSS_PROUD, PORT_RING_RIM,
                      tuple((x, z, port_pocket_d(ring), port_pocket_rise())
                            for x, z, _fitting, ring, _which, _fluid in stations.values()))
+
+
+# TWO OF THE FIVE CROSSINGS TAKE A TUBE THE CUSTOMER CUTS, in their own kitchen and to their own
+# length: the tap-water run up to their angle stop, and the tether back to the regulator on their
+# cylinder. Each leaves by a collet on this wall and ends on hardware that carries no ring, so the
+# station's word goes out with it on a printed collar — `printed-parts/enclosure/tube-collar/`, the
+# chip's own outline bored for the tube. The collar's frame is the fitting's, so it seats down the
+# same axis with no turn of its own, exactly as the chip does.
+#
+# What is drawn outboard is the CUSTOMER'S TUBE and not a part of the machine, the way
+# `faucet_layout`'s slab is their countertop: enough of it to carry the collar and no more.
+CUSTOMER_TUBE_STATIONS = ("bulkhead-water", "co2-inlet")
+# Thumb room at the release ring before the collar starts — a collet is pushed in to let the tube
+# go, and a collar on the ring is a collar in the way of that.
+COLLAR_OFF_COLLET = 8.0
+# Tube drawn past the collar, so the stub reads as a run leaving and not as an end.
+COLLAR_TUBE_TAIL = 10.0
+
+
+def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
+    """The two customer-cut tubes outboard of the wall and the collar on each, as
+    `(name, solid, colour)`.
+
+    Both are read off the fitting's OUTBOARD collet — the same mouth `wall_stations` reads its
+    columns off, one end further along — so a stub and the fitting it leaves cannot land on two
+    different axes. The tube takes the identification colour off `_routing.SPOOLS`, the same spool
+    the run inboard of the ring is cut from; the collar takes the filaments its chip prints in."""
+    carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry}
+    out = []
+    for name in CUSTOMER_TUBE_STATIONS:
+        fitting, _ring, which, fluid = BACK_WALL_FITTINGS[name]
+        x, y, z = carries[name](fitting.port(+1.0))[0]
+        length = COLLAR_OFF_COLLET + _collar.LENGTH + COLLAR_TUBE_TAIL
+        # The spool by its own colour, so a stub cut off a table that moved has no spool at all.
+        spool = next(s for s in _routing.SPOOLS.values() if s.rgb == _rear.port_colors[fluid])
+        out.append((f"customer-tube-{which}",
+                    cq.Solid.makeCylinder(_collar.TUBE_OD / 2.0, length,
+                                          cq.Vector(x, y, z), cq.Vector(0.0, 1.0, 0.0)),
+                    cq.Color(*(c / 255.0 for c in spool.rgb))))
+        body, lettering = _collar.split(import_step(str(_collar.STEPS[which])).val())
+        for suffix, solid, rgb in (("", body, _rear.chip_color(fluid)),
+                                   ("-word", lettering, _rear.word_color(fluid))):
+            out.append((f"tube-collar-{which}{suffix}",
+                        solid.translate((x, y + COLLAR_OFF_COLLET, z)),
+                        cq.Color(*(c / 255.0 for c in rgb))))
+    return out
 
 
 def build_port_rings(stations):
@@ -4791,6 +4840,10 @@ def build_pack() -> cq.Assembly:
     # The rings go down after the fittings that trap them, on the same columns their pockets were
     # struck on. They lie OUTBOARD of the back wall's outer face, in the field the wall raises.
     for name, solid, colour in build_port_rings(a.wall_stations):
+        a.add(solid, name=name, color=colour)
+    # And outboard of two of them, the tube the customer cuts and the collar that carries the
+    # station's word out to the end they cut it at.
+    for name, solid, colour in build_customer_tubes(bulkhead_carry, panel_carries, co2in_carry):
         a.add(solid, name=name, color=colour)
     # And the nameplate, in the field those rings leave east of the flavour pair — the same
     # pocket floor, one plate's thickness inside the wall's outer face.
