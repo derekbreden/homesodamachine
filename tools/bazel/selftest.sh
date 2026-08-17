@@ -7,9 +7,7 @@
 # direction and the metal; a clearance only ever removes poses; a station stands on the solid
 # it was measured off; a chip fits the fitting it rings; a card's authored text survives a
 # build handed stale figures. Each is answered against a fixture the selftest builds itself,
-# and not one asserts a number the machine states — those move, and what is pinned to them is
-# re-pinned by hand every time they do. If you reach for a selftest on a module that holds no
-# such rule, ask why first.
+# and not one asserts a number the machine states.
 #
 # WHERE THESE WERE ALWAYS RUN IS THE TREE. `_realized.selftest` lays a temp package inside the
 # repo root to walk imports across a real path, which a read-only runfiles tree refuses. What
