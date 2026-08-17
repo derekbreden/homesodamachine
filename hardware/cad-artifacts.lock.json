@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-6a60dfaffad05a13.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6a60dfaffad05a13.tar.gz"
+    "asset": "cad-4aeee4b20cf951c6.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-4aeee4b20cf951c6.tar.gz"
   },
   "bundle": {
-    "sha256": "6a60dfaffad05a13bcdfc4d8553e9511e127e56f861061818ecd32bf72d31378",
-    "bytes": 26406031,
+    "sha256": "4aeee4b20cf951c60837de13357ebbc0e7c8495d8d85c2e1e589fae158bf9306",
+    "bytes": 26406368,
     "solids": 98
   },
   "solids": {
@@ -48,7 +48,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "1d4dc83861d716f8dd41060c9222e5daa6c54a6821eea79c4ea9b5657636393a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e50514fd675803eb35e935040d02f9f1948544de56107dddde30ccc8de9455ae",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "d3dd6de15555d40137901333f073289b987b8325490d39c7e7b81c0dd1d020b6",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "e9066cd526ca863436b240ea627f8842605cc56d135ddfb02777b62579df3243",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
     "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step": "17f01d9dbcc9aadd746e1d00b45f898a819c0e59aa20eb5b6712617740d9fb72",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
