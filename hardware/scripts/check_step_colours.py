@@ -14,13 +14,16 @@ green over it.
 `cq.exporters.export` writes geometry and no colour. `hardware/scripts/_materials.one_body` is
 what a generator wraps a solid in so `export_assembly` bakes the material in beside the geometry.
 
-`git ls-files` IS THE READING, and not the directory: a STEP the index does not hold is a STEP a
-fresh clone does not have, and a directory listing that finds it there is reading leftovers.
+`_solids.solids()` IS THE READING, and not the directory: it names the solids a fresh clone has —
+the lock's, which it fetches, and the index's — and a directory listing that finds another one
+there is reading leftovers.
 """
 
-import subprocess
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _solids import solids as _solids
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -33,10 +36,8 @@ _CHUNK = 1 << 20
 
 
 def _tracked_steps() -> list:
-    """Every `.step` the index holds under `hardware/`, repo-relative."""
-    out = subprocess.run(["git", "-C", str(_root), "ls-files", "hardware"],
-                         capture_output=True, text=True, check=True).stdout
-    return sorted(p for p in out.splitlines() if p.endswith(".step"))
+    """Every solid under `hardware/` this tree stands behind, repo-relative."""
+    return [p for p in _solids() if p.startswith("hardware/")]
 
 
 def carries_colour(path) -> bool:

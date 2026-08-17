@@ -278,8 +278,9 @@ for hw in $editions; do
 
   # The other half of `bodies-colored`: that gate rides the enclosure's card and asks whether
   # the ASSEMBLY painted each placed body. This asks what each body's OWN STEP carries, which
-  # is what its card and /3d draw. A STEP is the only thing that moves the answer.
-  if git diff --cached --name-only -- "$hw/" | grep -q '\.step$'; then
+  # is what its card and /3d draw. A STEP is the only thing that moves the answer, and the
+  # index carries the lock rather than the generated solids, so the lock is where the move shows.
+  if git diff --cached --name-only -- "$hw/" | grep -qE '\.step$|cad-artifacts\.lock\.json$'; then
     gate "$hw a solid's STEP names its material" \
          python3 "$root/$hw/scripts/check_step_colours.py"
   fi
@@ -327,9 +328,21 @@ fi
 # any other road brings the picture it had before, and `/3d`'s grid and every doc that embeds
 # one show a part that has moved. A stat per tracked solid names them; drawing them costs a
 # browser, which is the follow-up commit's work rather than this commit's.
-if git diff --cached --name-only | grep -q '\.step$'; then
+if git diff --cached --name-only | grep -qE '\.step$|cad-artifacts\.lock\.json$'; then
   gate "a solid's picture is the solid as it stands" \
        python3 "$root/hardware/scripts/check_thumbnails.py"
+fi
+
+# WHAT THE INDEX CARRIES OF THE GEOMETRY IS THE LOCK. A generator's run moves solids on this
+# disk and puts no `.step` in the index, so hardware/cad-artifacts.lock.json is where a move
+# shows — and a commit leaving it behind deploys a site serving the solids of the commit before.
+# `tools/cad-artifacts/pack.py --write` builds the bundle, puts it on the release and pins it.
+# This only reads: one sha256 per solid, and no bundle built unless one moved. Stdlib only, so
+# it wants no cad-venv.
+if git diff --cached --name-only \
+   | grep -qE '^hardware/.*\.py$|^hardware/cad-artifacts\.lock\.json$'; then
+  gate "the lock names the solids on this disk" \
+       python3 "$root/tools/cad-artifacts/pack.py" --check
 fi
 
 # A STEP HOLDS THE FILES IT DECLARED AND NOTHING ELSE, so a generator importing a module no

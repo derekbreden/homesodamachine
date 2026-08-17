@@ -17,9 +17,12 @@
 # gate rows are worth reading; ios/AppIcon.svg and tools/anim_frames/*.svg are small and
 # hand-shaped. They diff.
 
-# STEP IS ASCII, and a solid is 28 MB of it. 111 files, 89 MB, and enclosure-assembly.step
-# alone has been rewritten 235 times. The geometry is read by loading it — a reader who
-# wants to know what moved opens the part, never the patch.
+# STEP IS ASCII, and a solid is hundreds of kilobytes of it. Three are in the index — the elbow,
+# the tee and the y-divider, harvested solids with no builder here. The geometry is read by
+# loading it; a reader who wants to know what moved opens the part, never the patch.
+#
+# The generated solids are in no index. hardware/cad-artifacts.lock.json names them and the
+# release asset they arrive in, and web/scripts/fetch-cad-artifacts.mjs puts them on the disk.
 *.step  -diff linguist-generated=true
 
 # GIT DOES NOT DETECT THESE AS BINARY. A card deck's PDF carries no NUL byte inside the
