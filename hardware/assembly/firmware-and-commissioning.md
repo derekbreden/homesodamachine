@@ -75,7 +75,7 @@ From the repo root:
 
 The wrapper pauses the background serial logger, runs `pio run -e appliance -t upload` per [`/platformio.ini`](/platformio.ini), then resumes the logger. Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
 
-The board takes `./tools/flash.sh pcba_bench` today — the bring-up console of [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md), which reads every device on the board and drives none of them. Steps 3, 6, 7 and 9 are written against the appliance firmware, and the tree it lives in is the Open item below.
+`src_appliance/` boots, parks every actuator dark and idles today — the rest of this procedure is written against firmware that fills it in, and that is the Open item below.
 
 ### 4. Flash the ESP32-S3 config display
 
@@ -194,7 +194,7 @@ The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/ac
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **The `appliance` source tree and env do not exist.** [`/firmware/`](/firmware/) carries the under-counter prototype (`src_prototype/`, on L298N drivers and none of this board's peripherals), the three displays, and `src_pcba_bench/` — a bring-up console that reads the board and drives nothing. Steps 3, 6, 7 and 9 are the specification the appliance firmware gets written against, and every figure in them is settled; the tree it lands in is not. See [`/firmware/README.md`](/firmware/README.md).
+1. **`src_appliance/` boots, parks its actuators and idles — nothing below is implemented.** Steps 3, 6, 7 and 9 are the specification it gets written against, and every figure in them is settled. Until it walks the valves and answers the setpoint query, a unit reaching this station gets `./tools/flash.sh pcba_bench` and a console session against [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md)'s command table.
 2. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
 3. **Whether the firmware has a dedicated "factory test" mode separate from production mode.** The valve self-test (step 7), the firmware-override compressor cycle (step 8), and the setpoint query (step 9) currently run as ad-hoc serial commands against production firmware. Whether to split these into a separate build target (e.g. `appliance_factory`) with a dedicated test menu, gated by a build-time flag, or leave them in production firmware behind a serial command, is undecided. The latter is cheaper but ships factory commands in the customer-facing image; the former needs a second build env in [`/platformio.ini`](/platformio.ini).
 4. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.
