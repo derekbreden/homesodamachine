@@ -62,14 +62,11 @@ chip_filaments = {
     "co2": ("PETG Basic Red 30201", (227, 52, 49)),
     "flavor": ("PETG Basic Black 30105", (38, 38, 41)),
 }
-# WHICH OF BLACK AND WHITE READS ON EACH, and the two saturated hues do not answer alike. Contrast
-# against a mid hue is a ratio, not a brightness: the crossover sits at a relative luminance of
-# 0.179, red 30201 lands at 0.190 and navy 30604 at 0.171, so they fall either side of it. Red
-# takes BLACK (4.80 against 4.37) and navy takes WHITE (4.76 against 4.41).
+# Which of black and white a chip's word letters in, one entry per `chip_filaments` spool.
 chip_word_colors = {
     "water": (0, 0, 0),
     "carb": (255, 255, 255),
-    "co2": (0, 0, 0),
+    "co2": (255, 255, 255),
     "flavor": (255, 255, 255),
 }
 
