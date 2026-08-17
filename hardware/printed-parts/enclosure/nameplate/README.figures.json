@@ -7,5 +7,6 @@
     "LAYER_H_MAX": "0.12 mm",
     "LAYER_H_MIN": "0.08",
     "NAMEPLATE_NOZZLE_D": "0.2 mm"
-  }
+  },
+  "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {}
 }

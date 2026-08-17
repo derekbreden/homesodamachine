@@ -73,3 +73,4 @@ Run with `tools/cad-venv/bin/python` per the hardware context file.
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py`
+- `/hardware/printed-parts/enclosure/nameplate/nameplate.py`
