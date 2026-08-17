@@ -126,7 +126,12 @@ def figures():
             variables[mk] = standing if standing is not None else "—"
         else:
             variables[mk] = settle(standing, got)
-    orphans = sorted(g for g in seen if g not in carried)
+    # A GENERATOR SLOWER THAN EVERY ROW HERE IS THE ROW THIS FILE IS MISSING. Sixty-nine
+    # generators cut solids and this file carries the few a reader wants; an orphan under
+    # the slowest of them is one more of the many, and an orphan over it is the new
+    # slowest thing in the tree.
+    slowest = max((seen[g] for g in carried if g in seen), default=0.0)
+    orphans = sorted(g for g in seen if g not in carried and seen[g] > slowest)
     return variables, orphans
 
 

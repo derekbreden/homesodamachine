@@ -8780,6 +8780,18 @@ sh_test(
 )
 
 sh_test(
+    name = "build-time-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/scripts/_build_time.py",
+        "tools/docgen/__init__.py",
+    ],
+    args = ["hardware/scripts/_build_time.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "clearing-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
