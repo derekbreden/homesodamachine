@@ -1,5 +1,5 @@
 {
-  "/hardware/printed-parts/enclosure/tube-collar/tube_collar.py": {
+  "/hardware/printed-parts/faucet/tube-collar/tube_collar.py": {
     "COLLAR_BACKING": "1.85",
     "COLLAR_BAND_ACROSS": "10",
     "COLLAR_BAND_ALONG": "28",
