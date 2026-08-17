@@ -32,9 +32,12 @@ polarity is a pass — the head is bidirectional, so which way it turns carries 
 ## Use
 
 ```sh
-./tools/flash.sh pcba_bench
+PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-* pio run -e pcba_bench -t upload
 pio device monitor -e pcba_bench
 ```
+
+Naming the port matters whenever a 4.3B is also on USB: PlatformIO picks the S3
+otherwise, and esptool leaves that panel dark until it is reflashed.
 
 At boot it prints the command list, scans WiFi, and starts the continuity probe; then it idles as a console (`ACT` blinks as the heartbeat, and lights
 solid while a command runs). The first keystroke leaves the probe and calls the roll —
