@@ -73,10 +73,9 @@ spool and a bridge is the chip's, but the same tip lays both, so the finer of th
 with the margin. It scales with the em, which is what puts a floor under how small these words can
 be set.
 
-Which of black and white each chip takes is
-[`_back_panel_dimensions.chip_word_colors`](../back-panel/_back_panel_dimensions.py), decided
-against the filament that chip actually prints in rather than against the tube colour it is named
-for. The two saturated hues do not answer alike: red 30201 takes **black** and navy 30604 takes
+Which of black and white a chip's word letters in is
+[`_back_panel_dimensions.chip_word_colors`](../back-panel/_back_panel_dimensions.py), one entry per
+spool in `chip_filaments` beside it. The white chip takes **black**; the other three take
 **white**.
 
 `port_ring.WORD_WIDTHS` carries what each word measures across. The face is the system's, not this
