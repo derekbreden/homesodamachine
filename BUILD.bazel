@@ -41,6 +41,7 @@ genrule(
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
@@ -513,6 +514,7 @@ genrule(
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
@@ -1206,6 +1208,7 @@ genrule(
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
+        "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/render/render-card.js",
         ":node-packages",

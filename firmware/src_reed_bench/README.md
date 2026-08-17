@@ -73,7 +73,7 @@ The Adafruit MCP23017 Arduino Library is the obvious pick — PlatformIO Registr
 
 ## PlatformIO env
 
-Add this block to the root `platformio.ini` at the same time the firmware code lands (it doesn't need to exist while only this README is here). Pattern matches the three existing envs (`esp32dev`, `rp2040_display`, `esp32s3_config`):
+Add this block to the root `platformio.ini` at the same time the firmware code lands (it doesn't need to exist while only this README is here). Pattern matches the three existing envs (`prototype`, `rp2040_display`, `esp32s3_config`):
 
 ```ini
 [env:reed_bench]

@@ -15,9 +15,11 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
+sys.path.insert(0, str(_hw / "wiring"))
 
 import manifold_layout as _ml  # noqa: E402  — the manifold's own station census
 from reservoir import reservoir_count  # noqa: E402  — the physical vessel count is that part's, not this file's
+import _ac_wiring_schedule_sync as _ac  # noqa: E402  — the 12 V loads and the supply, where the run table states them
 from docgen import substitute_md  # noqa: E402
 
 
@@ -79,6 +81,16 @@ comp_off_temp_c = tank_target_c                  # = 2 — compressor turns off
 freeze_cutoff_c = -8        # Suction-line freeze-protect cutoff
 min_off_time_min = 3        # Compressor start-capacitor minimum off-time
 
+# ─── Firmware invariants the hardware imposes ─────────────────────────
+# The ceiling and both currents are `_ac_wiring_schedule_sync`'s, which
+# is the file the run table and the COM budget are written from.
+
+max_simultaneous_valves = _ac.max_simultaneous_valves
+board_peak_a = _ac.board_peak_a
+diaphragm_peak_a = _ac.diaphragm_peak_a
+psu_max_dc_a = _ac.psu_max_dc_a
+coincident_peak_a = _ac.coincident_peak_a
+
 
 def main():
     variables = {
@@ -118,6 +130,13 @@ def main():
         "MIN_OFF_TIME": f"{min_off_time_min:.4g}-minute",
         "MIN_OFF_TIME_HYPHEN": f"{min_off_time_min:.4g}-min",
         "MIN_OFF_TIME_BARE": f"{min_off_time_min:.4g} min",
+        # Invariants the hardware imposes.
+        "MAX_VALVES": f"{max_simultaneous_valves:d}",
+        "GPIO_RELAY2": f"GPIO {gpio_relay2:d}",
+        "BOARD_PEAK_A": f"{board_peak_a:.3g} A",
+        "DIAPHRAGM_A": f"{diaphragm_peak_a:.3g} A",
+        "COINCIDENT_A": f"{coincident_peak_a:.3g} A",
+        "PSU_MAX_A": f"{psu_max_dc_a:.3g} A",
     }
 
     substitute_md(

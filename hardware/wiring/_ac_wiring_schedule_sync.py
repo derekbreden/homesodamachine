@@ -55,6 +55,23 @@ pump_peak_a = 0.8
 # conductor per DC-8.
 fan_current_a = 0.35
 
+# One Beduan solenoid coil, cold, at 12 V: 5.5 W nameplate ÷ 12 V. The
+# winding heats and settles lower (`power.mmd` cites ~0.3 A sustained);
+# the cold figure is what the COM budget below is drawn against.
+solenoid_coil_a = 5.5 / 12
+
+# Valves open at once. `fluid-topology.md` "Operations — Valve States"
+# opens at most three, and at most three on one manifold.
+max_simultaneous_valves = 3
+
+# DC-4's board tally and what parallels it on the rail. The board figure
+# is both peristaltic pumps priming, `max_simultaneous_valves` coils and
+# the fan; the SeaFlo is DC-3, off relay #2 rather than through J10.
+board_peak_a = (
+    2 * pump_peak_a + max_simultaneous_valves * solenoid_coil_a + fan_current_a
+)
+coincident_peak_a = board_peak_a + diaphragm_peak_a
+
 # ─── Logic rails ──────────────────────────────────────────────────────
 # Both logic rails are made on the PCBA off its J10 12 V inlet: 5 V from
 # the K7805 buck (U10), 3.3 V from the AMS1117 LDO (U9, off the 5 V
@@ -75,9 +92,10 @@ ds18b20_pullup_kohm = 4.7
 compressor_wires_shelf_relay = 3
 compressor_wires_local_relay = 5
 
-# Beduan solenoid coils across both manifolds. Cited in DC-4's board
-# load list. The board carries 12 channels (J1 ×8, J2 ×4); the manifold
-# uses 10 — J2.OUT3/OUT4 are spare capacity, not a load.
+# Beduan solenoid coils on the manifold. Cited in DC-4's board load
+# list, where V-K is the term beside it. The board carries 12 channels
+# (J1 ×8, J2 ×4): the manifold takes 10, V-K takes J2.OUT3 on run DC-9,
+# and J2.OUT4 is the spare.
 solenoid_count = 10
 
 # ─── Run-length design targets ────────────────────────────────────────
@@ -88,6 +106,7 @@ len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap to
 len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to the peristaltic pumps
 len_manifold_mm = 300   # DC-6/DC-7 (shelf → manifold trunks)
 len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor on the unbroken SJOOW jacket), DC-8 (shelf → side-wall fan)
+len_aft_strip_mm = 500  # DC-9 (shelf → V-K at the aft strip, past the water bulkhead)
 len_cold_core_mm = 600  # SIG-1/2/3/10/11 (shelf → cold core), SIG-9 (drip pan), SIG-12 (rear cabinet floor)
 len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (front-face 4.3B config display, internal)
 
@@ -120,6 +139,10 @@ def main():
         "DIAPHRAGM_A": f"{diaphragm_peak_a:.4g} A",
         "PUMP_PEAK_A": f"{pump_peak_a:.4g} A",
         "FAN_A": f"{fan_current_a:.4g} A",
+        "COIL_A": f"{solenoid_coil_a:.2g} A",
+        "MAX_VALVES": f"{max_simultaneous_valves:d}",
+        "BOARD_PEAK_A": f"{board_peak_a:.3g} A",
+        "COINCIDENT_A": f"{coincident_peak_a:.3g} A",
         # Logic rails.
         "V_DC": f"{v_rail_dc:.4g} V",
         "V_LOGIC": f"{v_rail_logic:.4g} V",
@@ -136,6 +159,7 @@ def main():
         "LEN_PUMP": f"~{len_pump_mm:.4g} mm",
         "LEN_MANIFOLD": f"~{len_manifold_mm:.4g} mm",
         "LEN_COMPRESSOR": f"~{len_compressor_mm:.4g} mm",
+        "LEN_AFT_STRIP": f"~{len_aft_strip_mm:.4g} mm",
         "LEN_COLD_CORE": f"~{len_cold_core_mm:.4g} mm",
         "LEN_UMBILICAL": f"~{len_umbilical_m:.4g} m",
         # Connector pitch.
