@@ -9,22 +9,20 @@ import subprocess
 
 timestamp = time.strftime("%b %d %Y %H:%M:%S")
 
-# Determine output path based on environment. Paths are relative to
-# the project root (PlatformIO runs pre_build.py from there), and the
-# firmware source dirs live under firmware/ after the consolidation.
+# The source tree each environment builds, keyed by env name. Paths are
+# relative to the project root, which is where PlatformIO runs this from.
+# Every environment that names this script in extra_scripts is a key here.
+SRC_DIR = {
+    "prototype": "firmware/src_prototype",
+    "rp2040_display": "firmware/src_display",
+    "esp32s3_config": "firmware/src_config",
+    "esp32s3_faucet": "firmware/src_faucet",
+    "esp32s3_front": "firmware/src_front",
+    "pcba_bench": "firmware/src_pcba_bench",
+}
+
 env_name = env["PIOENV"]
-if env_name == "rp2040_display":
-    path = "firmware/src_display/fw_version.h"
-elif env_name == "esp32s3_config":
-    path = "firmware/src_config/fw_version.h"
-elif env_name == "esp32s3_faucet":
-    path = "firmware/src_faucet/fw_version.h"
-elif env_name == "esp32s3_front":
-    path = "firmware/src_front/fw_version.h"
-elif env_name == "pcba_bench":
-    path = "firmware/src_pcba_bench/fw_version.h"
-else:
-    path = "firmware/src/fw_version.h"
+path = f"{SRC_DIR[env_name]}/fw_version.h"
 
 def fw_version():
     """The complete version string: HEAD's commit date (YYYY.MM.DD) and

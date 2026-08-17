@@ -3,14 +3,15 @@
 # Flash wrapper that pauses the serial logger during upload.
 #
 # Usage:
-#   ./tools/flash.sh esp32dev          # flash ESP32 main controller
-#   ./tools/flash.sh esp32s3_config    # flash ESP32-S3 config display
-#   ./tools/flash.sh esp32s3_faucet    # flash ESP32-S3 faucet display
+#   ./tools/flash.sh pcba_bench        # flash the pcba controller board's bring-up console
 #   ./tools/flash.sh esp32s3_front     # flash ESP32-S3 4.3B front-face display
-#   ./tools/flash.sh rp2040_display    # flash RP2040 display
+#   ./tools/flash.sh esp32s3_faucet    # flash ESP32-S3 faucet display
+#   ./tools/flash.sh prototype         # flash the under-counter prototype's ESP32
+#   ./tools/flash.sh esp32s3_config    # flash the prototype's ESP32-S3 config display
+#   ./tools/flash.sh rp2040_display    # flash the prototype's RP2040 display
 #
 # Also supports build-only (no upload):
-#   ./tools/flash.sh esp32dev build    # build only, no flash
+#   ./tools/flash.sh pcba_bench build  # build only, no flash
 #
 
 set -e
@@ -19,7 +20,7 @@ PAUSE_FILE="/tmp/serial_logger_pause"
 
 if [ -z "$1" ]; then
     echo "Usage: $0 <env> [build]"
-    echo "  Environments: esp32dev, esp32s3_config, esp32s3_faucet, esp32s3_front, rp2040_display"
+    echo "  Environments: pcba_bench, esp32s3_front, esp32s3_faucet, prototype, esp32s3_config, rp2040_display"
     echo "  Add 'build' to build without flashing"
     exit 1
 fi
@@ -33,10 +34,10 @@ if [ "$ENV" = "rp2040_display" ] && [ "$BUILD_ONLY" != "build" ]; then
     echo "      Disconnect the UART line before flashing, then reconnect afterward."
 fi
 
-# Pre-flight: esp32dev and esp32s3_config depend on a sibling PersistentLog repo
+# Pre-flight: prototype and esp32s3_config depend on a sibling PersistentLog repo
 # (referenced as symlink://\${PROJECT_DIR}/../PersistentLog in platformio.ini).
 # pio's lib_deps error for this is opaque, so check explicitly.
-if [ "$ENV" = "esp32dev" ] || [ "$ENV" = "esp32s3_config" ]; then
+if [ "$ENV" = "prototype" ] || [ "$ENV" = "esp32s3_config" ]; then
     PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
     if [ ! -d "$PROJECT_DIR/../PersistentLog" ]; then
         echo "Error: missing dependency at $PROJECT_DIR/../PersistentLog" >&2
