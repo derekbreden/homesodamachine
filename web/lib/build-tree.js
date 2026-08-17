@@ -386,9 +386,7 @@ details.bt-step > summary:hover { background: rgba(255,255,255,.045); }
 `;
 
 // One content root serves both halves: the procedures under `assembly/` and the
-// deck under `assembly/cards/` are the same machine's documents, so the tree is
-// per-edition the moment there is a second edition and takes no resolver until
-// then.
+// deck under `assembly/cards/` are the same machine's documents.
 export function mountBuildRoutes(app, { hardwareDir }) {
   app.get("/api/build-tree", (_req, res) => {
     res.set("Cache-Control", "no-cache");

@@ -8,8 +8,8 @@
 //
 // The registry is EMPTY — an entry is only sound when its generator reads the
 // `.overrides.json` sidecar beside the .step, and no generator in the tree does.
-// So these pin the closed gate: nothing is editable, in any edition, and a write
-// that gets refused leaves no sidecar behind and starts no CAD build.
+// So these pin the closed gate: nothing is editable, and a write that gets
+// refused leaves no sidecar behind and starts no CAD build.
 
 import { test, before, after, beforeEach } from "node:test";
 import assert from "node:assert/strict";
@@ -19,34 +19,25 @@ import path from "node:path";
 import express from "express";
 
 import { mountStepEditorRoutes } from "../lib/step-editor-routes.js";
-import { EDITIONS } from "../lib/editions.js";
 
-// The assembly the viewer actually shows, as it references it: relative to a
+// The assembly the viewer actually shows, as it references it: relative to the
 // content root. This is the path a caller would reach for first, so it is the
 // one worth naming.
 const LIVE_STEP = "manifold-layout/enclosure-assembly.step";
 const SIDECAR = LIVE_STEP.replace(/\.step$/, ".overrides.json");
 
-// Every edition's id, plus one that names none — `editionRoot` falls back rather
-// than erroring on a stale cookie, and the gate has to close ahead of it either way.
-const COOKIES = [...EDITIONS.map((e) => `hsmEdition=${e.id}`), "hsmEdition=nonesuch", null];
-
-let tmp, editionDirs, server, baseUrl;
+let tmp, hardwareDir, server, baseUrl;
 let rebuilt; // generator paths handed to the rebuild, in order
 
 before(async () => {
   tmp = fs.mkdtempSync(path.join(os.tmpdir(), "hsm-step-editor-"));
-  editionDirs = Object.fromEntries(
-    EDITIONS.map((e) => [e.id, path.join(tmp, ...e.dir)]),
-  );
-  for (const root of Object.values(editionDirs)) {
-    fs.mkdirSync(path.join(root, path.dirname(LIVE_STEP)), { recursive: true });
-  }
+  hardwareDir = path.join(tmp, "hardware");
+  fs.mkdirSync(path.join(hardwareDir, path.dirname(LIVE_STEP)), { recursive: true });
 
   const app = express();
   app.use(express.json());
   rebuilt = [];
-  mountStepEditorRoutes(app, { editionDirs }, async (generatorPath) => {
+  mountStepEditorRoutes(app, { hardwareDir }, async (generatorPath) => {
     rebuilt.push(generatorPath);
     return { ok: true };
   });
@@ -64,31 +55,24 @@ beforeEach(() => {
   rebuilt = [];
 });
 
-const sidecars = () =>
-  Object.entries(editionDirs)
-    .filter(([, root]) => fs.existsSync(path.join(root, SIDECAR)))
-    .map(([id]) => id);
+const sidecarWritten = () => fs.existsSync(path.join(hardwareDir, SIDECAR));
 
-const headers = (cookie) => (cookie ? { cookie } : {});
-
-function get(file, cookie) {
-  return fetch(`${baseUrl}/api/step-editor/overrides?file=${encodeURIComponent(file)}`, {
-    headers: headers(cookie),
-  });
+function get(file) {
+  return fetch(`${baseUrl}/api/step-editor/overrides?file=${encodeURIComponent(file)}`);
 }
 
-function post(body, cookie) {
+function post(body) {
   return fetch(`${baseUrl}/api/step-editor/override`, {
     method: "POST",
-    headers: { "content-type": "application/json", ...headers(cookie) },
+    headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
   });
 }
 
-function del(body, cookie) {
+function del(body) {
   return fetch(`${baseUrl}/api/step-editor/overrides`, {
     method: "DELETE",
-    headers: { "content-type": "application/json", ...headers(cookie) },
+    headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
   });
 }
@@ -108,38 +92,32 @@ test("the live enclosure assembly is not editable", async () => {
   );
 });
 
-test("no file is editable, whatever edition the request names", async () => {
-  for (const cookie of COOKIES) {
-    for (const file of [LIVE_STEP, "printed-parts/other/other.step", "", "../../etc/passwd"]) {
-      const res = await get(file, cookie);
-      assert.equal(res.status, 404, `GET ${file} under ${cookie}`);
-    }
+test("no file is editable, whatever the request names", async () => {
+  for (const file of [LIVE_STEP, "printed-parts/other/other.step", "", "../../etc/passwd"]) {
+    const res = await get(file);
+    assert.equal(res.status, 404, `GET ${file}`);
   }
 });
 
 test("a refused write leaves no sidecar and starts no build", async () => {
-  for (const cookie of COOKIES) {
-    const res = await post({
-      file: LIVE_STEP,
-      component: "water-split",
-      translate: [-21.47, 0, 11.6],
-      rotate: { axis: [0, 1, 0], deg: 90 },
-    }, cookie);
+  const res = await post({
+    file: LIVE_STEP,
+    component: "water-split",
+    translate: [-21.47, 0, 11.6],
+    rotate: { axis: [0, 1, 0], deg: 90 },
+  });
 
-    assert.equal(res.status, 404, `POST under ${cookie}`);
-    assert.deepEqual(sidecars(), [], `POST under ${cookie} wrote a sidecar`);
-    assert.deepEqual(rebuilt, [], `POST under ${cookie} ran a generator`);
-  }
+  assert.equal(res.status, 404);
+  assert.equal(sidecarWritten(), false, "POST wrote a sidecar");
+  assert.deepEqual(rebuilt, [], "POST ran a generator");
 });
 
 test("a refused reset leaves no sidecar and starts no build", async () => {
-  for (const cookie of COOKIES) {
-    const res = await del({ file: LIVE_STEP }, cookie);
+  const res = await del({ file: LIVE_STEP });
 
-    assert.equal(res.status, 404, `DELETE under ${cookie}`);
-    assert.deepEqual(sidecars(), [], `DELETE under ${cookie} wrote a sidecar`);
-    assert.deepEqual(rebuilt, [], `DELETE under ${cookie} ran a generator`);
-  }
+  assert.equal(res.status, 404);
+  assert.equal(sidecarWritten(), false, "DELETE wrote a sidecar");
+  assert.deepEqual(rebuilt, [], "DELETE ran a generator");
 });
 
 test("the gate closes ahead of the request body, so a malformed one is still refused", async () => {

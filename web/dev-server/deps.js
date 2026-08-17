@@ -26,17 +26,15 @@
 import fs from "fs";
 import path from "path";
 
-import { EDITIONS } from "../lib/editions.js";
 import { holdsRetiredMarker } from "../lib/retired.js";
 
 export const MAIN_RE = /^if\s+__name__\s*==\s*["']__main__["']\s*:/m;
 
-// The content roots the viewer serves and the generators live under — one per
-// edition (lib/editions.js). Mirrors the dirs the server resolves, but derived
-// from the repo root so callers that don't boot the server (build-all, tests)
-// get the same set. A listed edition whose directory isn't there yet drops out.
+// The content root the viewer serves and the generators live under. Mirrors the
+// dir the server resolves, but derived from the repo root so callers that don't
+// boot the server (build-all, tests) get the same answer.
 export function contentRoots(projectRoot) {
-  return EDITIONS.map((e) => path.join(projectRoot, ...e.dir)).filter((d) => fs.existsSync(d));
+  return [path.join(projectRoot, "hardware")].filter((d) => fs.existsSync(d));
 }
 
 // --- Per-call memo --------------------------------------------------------
@@ -91,8 +89,7 @@ const rootsKey = (roots) => roots.join("\0");
 // not there. That answers what the scan is guessing at, for the generators it has watched.
 //
 // AN EDGE IS DROPPED ONLY WHERE THE TRACE POSITIVELY SAW ITS ABSENCE. No graph.json, no entry
-// for that generator, a module outside the tracked set, an edition carrying its own copy —
-// each of those keeps the scanned edge, because none of them is an observation. The one thing
+// for that generator, a module outside the tracked set — each of those keeps the scanned edge, because none of them is an observation. The one thing
 // that removes an edge is a watched run of that generator that did not open that file.
 //
 // WHAT GOES STALE HERE GOES RED AT THE COMMIT THAT STALES IT. `check_declared_imports.py`
@@ -236,8 +233,7 @@ function readStrippedSource(file) {
 // WITH — the export helper, the build lock, the geometry probe, the pin-map check. None of
 // them produce content, and the ones that take arguments have nothing to do when spawned
 // bare. Their imports still build the graph below, so editing one rebuilds the generators
-// that read it. Matched as a path suffix, so an edition that carries its own copy of the
-// tree (hardware/scripts) has its tooling excluded on the same rule.
+// that read it. Matched as a path suffix.
 const TOOLING_DIR = path.join("hardware", "scripts");
 
 // A command-line tool that lives beside the content it reads rather than in TOOLING_DIR —
@@ -329,20 +325,6 @@ function importersOf(changedPath, roots) {
   const dependents = new Set();
   const queue = [path.resolve(changedPath)];
 
-  // Which edition (content root) a file belongs to, and which module names each
-  // edition defines for itself. An importer in another edition that has its own
-  // copy of the module resolves to that copy, never to this one.
-  const absRoots = roots.map((r) => path.resolve(r));
-  const rootOf = (p) => absRoots.find((r) => {
-    const rp = path.relative(r, p);
-    return rp && !rp.startsWith("..") && !path.isAbsolute(rp);
-  });
-  const modulesByRoot = new Map(absRoots.map((r) => [r, new Set()]));
-  for (const f of allPyFiles) {
-    const r = rootOf(path.resolve(f));
-    if (r) modulesByRoot.get(r).add(path.basename(f, ".py"));
-  }
-
   while (queue.length > 0) {
     const modPath = queue.shift();
     if (visited.has(modPath)) continue;
@@ -363,26 +345,15 @@ function importersOf(changedPath, roots) {
       if (!importsIt && !runsViaBlender) continue;
       // Resolve `mod` the way Python will from this file: a sibling module in the
       // importer's own directory is sys.path[0] and wins. Follow the import edge
-      // only when that resolution IS the file that changed. Editions mirror each
-      // other's filenames — an edition is one machine, so both carry an
-      // `enclosure.py` and a `enclosure_assembly.py` — and a bare-name match rebuilt one
-      // machine for the other's edit, a whole second assembly competing for the
-      // same cores. With no sibling the module comes from a shared dir on sys.path
+      // only when that resolution IS the file that changed. With no sibling the
+      // module comes from a shared dir on sys.path
       // (hardware/scripts/_cadq_export.py), and that edge stands.
       let edge = runsViaBlender;
       if (importsIt) {
         // A sibling module in the importer's own directory is sys.path[0] and wins.
         const sibling = path.join(path.dirname(abs), `${mod}.py`);
         const siblingWins = fs.existsSync(sibling) && path.resolve(sibling) !== modPath;
-        // Otherwise, if the importer lives in a different edition that defines this
-        // module itself, it reaches its own copy through its own sys.path — not this
-        // one.
-        const changedRoot = rootOf(modPath);
-        const fileRoot = rootOf(abs);
-        const otherEdition =
-          fileRoot && changedRoot && fileRoot !== changedRoot &&
-          modulesByRoot.get(fileRoot).has(mod);
-        if (!siblingWins && !otherEdition) edge = true;
+        if (!siblingWins) edge = true;
       }
       if (!edge) continue;
       if (isRunnableScript(pyFile)) dependents.add(pyFile);
@@ -393,9 +364,8 @@ function importersOf(changedPath, roots) {
       // first runnable would leave those downstream trays stale when the root
       // module changes — and they can't be caught by the STEP-load cascade
       // either, since they import the tray's python, not its .step. Queue the
-      // file, not its basename, so the next hop resolves against this edition's
-      // copy rather than every tree that happens to share the name. `visited`
-      // dedupes.
+      // file, not its basename, so the next hop resolves against the file that
+      // changed rather than anything that shares its name. `visited` dedupes.
       queue.push(abs);
     }
   }
@@ -544,8 +514,7 @@ function consumersOfStep(stepBasename, roots, producerOf) {
       consumers.add(pyFile);
     } else {
       // A shared module names the step; the real consumers are the runnable
-      // scripts that import it — resolved from this file, so an edition only
-      // pulls in the importers that actually load its own copy.
+      // scripts that import it, resolved from this file.
       for (const dep of findRunnableScriptsTransitivelyImporting(pyFile, roots)) {
         if (dep !== producer) consumers.add(dep);
       }

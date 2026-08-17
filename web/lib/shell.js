@@ -22,7 +22,6 @@
 //            <body content> + renderFooter());
 
 import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, TREE_SVG, UPDATES_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
-import { EDITION_IDS, EDITION_DIRS, DEFAULT_EDITION } from "./editions.js";
 
 function escape(s) {
   return String(s)
@@ -318,16 +317,10 @@ html.dev-mode .site-nav-public a[data-nav="updates"] {
 //
 // Synchronous flicker-prevention only: the localStorage class flips for
 // dev-mode and notifs-enabled have to land before first paint, so they
-// stay inline. The Edition choice is mirrored here too:
-// localStorage is the source of truth, but the server picks the viewer's
-// content root from the `hsmEdition` cookie, so we write that cookie before
-// the viewer's main.js fires its /api fetches. The edition's own content root
-// (and every edition's) rides along, because the picker's copy blobs are
-// repo-relative and have to name the machine they came off — see
-// viewer/pick-format.js. Everything else (SW navigate
-// bridge, notifications state, live-update owner, toast) lives in public/boot.js
-// loaded as a module — see that file's docstring for the full architecture.
-const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");var eds=${JSON.stringify(EDITION_IDS)},ed=localStorage.getItem("hsmEdition");if(eds.indexOf(ed)===-1)ed=${JSON.stringify(DEFAULT_EDITION)};document.cookie="hsmEdition="+ed+";path=/;max-age=31536000;samesite=lax";document.documentElement.classList.add("edition-"+ed);window.__hsmEditionDirs=${JSON.stringify(EDITION_DIRS)};window.__hsmEditionDir=window.__hsmEditionDirs[ed];}catch(e){}})();</script>
+// stay inline. Everything else (SW navigate bridge, notifications state,
+// live-update owner, toast) lives in public/boot.js loaded as a module —
+// see that file's docstring for the full architecture.
+const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");}catch(e){}})();</script>
 <script type="module" src="/boot.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

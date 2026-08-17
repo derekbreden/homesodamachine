@@ -54,7 +54,7 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
-import { fnum, fpt, formatFace } from "./pick-format.js";
+import { fnum, fpt, formatFace, CONTENT_ROOT } from "./pick-format.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-edge-pick";
@@ -706,15 +706,11 @@ function selFaceTexts(sel) {
   return { a: formatFace(classifyFace(ids[0])), b: formatFace(classifyFace(ids[1])) };
 }
 
-// The open file as the viewer fetched it (edition-root-relative), plus the
+// The open file as the viewer fetched it (content-root-relative), plus the
 // repo-relative path for the Copy-all locator and the bare name for the header.
 function currentFile() { return (state.mountedDetail && state.mountedDetail.file) || null; }
 function repoPath(file) {
-  // The active edition's content root, mirrored into the page pre-paint from
-  // lib/editions.js (lib/shell.js). It has to be the CURRENT one: the editions
-  // mirror each other's filenames, so a blob carrying the wrong root reads as a
-  // real path into another machine rather than as a broken one.
-  return (window.__hsmEditionDir || "") + "/" + file;
+  return CONTENT_ROOT + "/" + file;
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
@@ -755,7 +751,7 @@ let panel = null;
 // default; a subtle header checkbox brings them back, panel + copy, for the cases
 // they earn their keep (a bore rim, two coincident edges). A FACE pick still shows
 // the face it selected — that's the pick, not a bordering face. Persisted across
-// loads/sessions like the edition choice.
+// loads/sessions in localStorage.
 const FACES_KEY = "hsmPickFaces";
 let showFaces = (() => { try { return localStorage.getItem(FACES_KEY) === "1"; } catch { return false; } })();
 
