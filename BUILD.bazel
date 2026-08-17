@@ -3589,17 +3589,15 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/README.figures.json",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display_cover.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step)
-O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.figures.json)
-O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md)
-O3=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display_cover.py)
+O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.figures.json)
+O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md)
+O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display_cover.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -3612,10 +3610,9 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py > /dev/null
-cp hardware/printed-parts/enclosure/display-cover/display-cover.step $$O0
-cp hardware/printed-parts/enclosure/display-cover/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/display-cover/README.md $$O2
-cp hardware/printed-parts/enclosure/display-cover/display_cover.py $$O3
+cp hardware/printed-parts/enclosure/display-cover/README.figures.json $$O0
+cp hardware/printed-parts/enclosure/display-cover/README.md $$O1
+cp hardware/printed-parts/enclosure/display-cover/display_cover.py $$O2
 """,
 )
 
@@ -3649,17 +3646,15 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.figures.json",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step)
-O1=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.figures.json)
-O2=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md)
-O3=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py)
+O0=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.figures.json)
+O1=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md)
+O2=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -3672,10 +3667,9 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-gasket/display_gasket.py > /dev/null
-cp hardware/printed-parts/enclosure/display-gasket/display-gasket.step $$O0
-cp hardware/printed-parts/enclosure/display-gasket/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/display-gasket/README.md $$O2
-cp hardware/printed-parts/enclosure/display-gasket/display_gasket.py $$O3
+cp hardware/printed-parts/enclosure/display-gasket/README.figures.json $$O0
+cp hardware/printed-parts/enclosure/display-gasket/README.md $$O1
+cp hardware/printed-parts/enclosure/display-gasket/display_gasket.py $$O2
 """,
 )
 
@@ -4063,15 +4057,13 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step)
-O1=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json)
-O2=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md)
+O0=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json)
+O1=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -4085,9 +4077,8 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py > /dev/null
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py > /dev/null
-cp hardware/printed-parts/enclosure/nameplate/nameplate-001.step $$O0
-cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/nameplate/README.md $$O2
+cp hardware/printed-parts/enclosure/nameplate/README.figures.json $$O0
+cp hardware/printed-parts/enclosure/nameplate/README.md $$O1
 """,
 )
 
