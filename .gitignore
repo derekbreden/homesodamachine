@@ -12,6 +12,8 @@ firmware/src_faucet/fw_version.h
 firmware/src_front/fw_version.h
 firmware/src_pcba_bench/fw_version.h
 firmware/src_prototype/fw_version.h
+firmware/src_appliance/fw_build_time.h
+firmware/src_prototype/fw_build_time.h
 **/xcuserdata/
 **/build/
 __pycache__/

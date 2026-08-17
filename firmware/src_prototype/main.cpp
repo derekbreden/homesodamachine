@@ -8,6 +8,7 @@
 #include <proto_link.h>
 #include <proto_msg.h>
 #include "fw_version.h"
+#include "fw_build_time.h"   // churns every build, which is what keys first-boot
 
 // ════════════════════════════════════════════════════════════
 //  Dual-Flavor Soda Maker
