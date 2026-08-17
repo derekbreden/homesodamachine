@@ -7,9 +7,13 @@ cut it, so it drops into the wall's pocket like any other chip.
 [6](CPN_N) chips, one plate: [115 × 77](CPN_PLATE) mm and [11.65](CPN_VOL) cm³. **Each one is a
 decision, not a step in a sweep.**
 
-## What is being recommended
+**The plate was printed and the proposal was not taken.** Nothing on it read better than what
+the part already stood at, so the part keeps its em and its recess and the word stays flush.
+The sections below are the case each chip was cut to make; the print is the answer to it.
 
-| | the part now | recommended |
+## What the plate proposed
+
+| | the part now | proposed |
 |---|---|---|
 | em | [6.5](CPN_PART_EM) → cap [4.951](CPN_PART_CAP), stroke [3.65](CPN_PART_BEADS) beads | **[7.127](CPN_EM)** → cap [5.429](CPN_CAP), stroke **[4](CPN_WALLS) whole beads** |
 | word stands | flush | **[0.16](CPN_RELIEF) mm proud — [2](CPN_RELIEF_L) layers** |

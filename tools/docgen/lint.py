@@ -11,9 +11,17 @@ Run as:
 
     tools/cad-venv/bin/python -m docgen.lint              # cwd
     tools/cad-venv/bin/python -m docgen.lint <directory>  # specific root
+    tools/cad-venv/bin/python tools/docgen/lint.py selftest
 
 Exit code is 0 if every NAME resolves consistently across the scanned
 tree, 1 if any collision was found.
+
+A NAME IS SCOPED TO THE FILE IT IS SUBSTITUTED IN, and a tree-wide scan is
+a question this repo answers `no` to in two different voices. Parts that
+share nothing but a variable name share a NAME here — `SCREW_LEN` is 25 on
+the foam shell and 8 mm on the display cover, and both are right. What the
+scan is worth reading for is the other kind: one quantity written down twice
+and disagreeing. Run it when a number looks wrong, not on a schedule.
 
 Normalization: values are stripped of surrounding whitespace before
 comparison. Numeric formatting differences ("32 mm" vs "32.0 mm") are
@@ -26,7 +34,15 @@ import sys
 import tokenize
 from pathlib import Path
 
-from . import _LINK_RE
+if __package__:
+    from . import _LINK_RE
+else:
+    # RUN AS A FILE AND NOT AS `-m docgen.lint`. `trace_inputs.py` watches a selftest by
+    # running the module's path through `runpy`, which leaves no package for a relative
+    # import to resolve against — so the one this needs is reached the way every generator
+    # in the tree reaches docgen, by putting `tools/` on the path.
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from docgen import _LINK_RE
 
 
 # Directory names that should never be descended into during a lint scan.
@@ -209,12 +225,13 @@ def main(argv: list[str] | None = None) -> int:
 
 
 # --------------------------------------------------------------------------
-# Self-test — run via `tools/cad-venv/bin/python -m docgen.lint --test`.
+# Selftest — run via `tools/cad-venv/bin/python tools/docgen/lint.py selftest`,
+# and by the target `gen_build.py` renders for every module that holds one.
 # Synthesizes a tiny on-disk tree, asserts the linter reports the right
 # collisions, then cleans up.
 
-def test_lint() -> None:
-    """Minimal self-test for collision detection. Raises on failure."""
+def selftest() -> int:
+    """Minimal selftest for collision detection. Raises on failure."""
     import tempfile
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -284,11 +301,11 @@ def test_lint() -> None:
         (root / "g.md").unlink()
         assert lint(root) == 0, "lint() must return 0 when no collisions"
 
-    print("test_lint: OK")
+    print("selftest: OK")
+    return 0
 
 
 if __name__ == "__main__":
-    if "--test" in sys.argv:
-        test_lint()
-        sys.exit(0)
+    if sys.argv[1:2] == ["selftest"]:
+        sys.exit(selftest())
     sys.exit(main())

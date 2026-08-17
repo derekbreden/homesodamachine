@@ -640,5 +640,9 @@
     "hardware/assembly/cards/_cardgen.py",
     "tools/bazel/graph.json",
     "tools/bazel/sync_tree.py"
+  ],
+  "tools/docgen/lint.py": [
+    "tools/docgen/__init__.py",
+    "tools/docgen/lint.py"
   ]
 }
