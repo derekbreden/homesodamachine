@@ -1,6 +1,6 @@
 """Tube collar — the port ring's word and colour, carried on the tube.
 
-`../port-ring/` marks the wall: a chip lying in a pocket of the back face, under a through-wall
+`../../enclosure/port-ring/` marks the wall: a chip lying in a pocket of the back face, under a through-wall
 fitting's flange, in the colour of the tube that goes into it. This is that chip bored for the tube
 instead of for the fitting's barrel, run along it, and turned a quarter so the word reads down the
 run. Same four colours, same five words, same two-filament print.
@@ -28,8 +28,8 @@ Coordinate frame — THE TUBE'S, the same one `port_ring` gives the fitting:
 It prints flat-face down, many to a bed, two colours to a plate.
 
 Run:
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/tube-collar/tube_collar.py
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/tube-collar/tube_collar.py selftest
+    tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py
+    tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py selftest
 """
 
 import collections

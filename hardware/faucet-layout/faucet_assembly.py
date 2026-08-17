@@ -87,7 +87,7 @@ sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-tpu-o-ring"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
 # The identification the tubes carry below the counter, and the filaments it prints in — one part
 # and one colour table, shared with the chips on the rear wall.
-sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "tube-collar"))
+sys.path.insert(0, str(_faucet_printed_dir / "tube-collar"))
 sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "back-panel"))
 import tube_collar
 import _back_panel_dimensions as _rear

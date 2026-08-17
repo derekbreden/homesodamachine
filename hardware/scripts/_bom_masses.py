@@ -83,11 +83,11 @@ PARTS = {
     # carrying the word the ring it goes through carries. Three go on at the umbilical bench and
     # two in the install kit, and the row prices all five.
     "Tube collar — one per rear-wall crossing": [
-        "enclosure/tube-collar/tube-collar-water.step",
-        "enclosure/tube-collar/tube-collar-carb.step",
-        "enclosure/tube-collar/tube-collar-flavor-a.step",
-        "enclosure/tube-collar/tube-collar-flavor-b.step",
-        "enclosure/tube-collar/tube-collar-co2.step",
+        "faucet/tube-collar/tube-collar-water.step",
+        "faucet/tube-collar/tube-collar-carb.step",
+        "faucet/tube-collar/tube-collar-flavor-a.step",
+        "faucet/tube-collar/tube-collar-flavor-b.step",
+        "faucet/tube-collar/tube-collar-co2.step",
     ],
     # ONE ROW AND ONE FILE, holding both bodies the way a port ring's does: the plate, and the
     # lettering standing in the recess cut into it. The file is unit 0001's; every unit's is the

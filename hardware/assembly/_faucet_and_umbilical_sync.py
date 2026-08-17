@@ -67,7 +67,7 @@ def main():
         "COUNTERTOP_HOLE_D": f"{faucet.countertop_hole_diameter:.4g} mm",
         "GASKET_COVER": f"{faucet.gasket_hole_cover():.4g} mm",
         # The collar the bench threads onto each tail, and where the sleeve above it stops — §4.
-        # Source: `printed-parts/enclosure/tube-collar/tube_collar.py` through the assembly that
+        # Source: `printed-parts/faucet/tube-collar/tube_collar.py` through the assembly that
         # seats three of them, so the bench and the picture read one figure.
         "COLLAR_LENGTH": f"{faucet.tube_collar.LENGTH:.4g} mm",
         "COLLAR_BORE": f"{faucet.tube_collar.BORE:.4g}",
