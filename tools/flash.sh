@@ -3,7 +3,8 @@
 # Flash wrapper that pauses the serial logger during upload.
 #
 # Usage:
-#   ./tools/flash.sh pcba_bench        # flash the pcba controller board's bring-up console
+#   ./tools/flash.sh appliance         # flash the appliance controller on the pcba
+#   ./tools/flash.sh pcba_bench        # flash that board's bring-up console instead
 #   ./tools/flash.sh esp32s3_front     # flash ESP32-S3 4.3B front-face display
 #   ./tools/flash.sh esp32s3_faucet    # flash ESP32-S3 faucet display
 #   ./tools/flash.sh prototype         # flash the under-counter prototype's ESP32
@@ -20,7 +21,7 @@ PAUSE_FILE="/tmp/serial_logger_pause"
 
 if [ -z "$1" ]; then
     echo "Usage: $0 <env> [build]"
-    echo "  Environments: pcba_bench, esp32s3_front, esp32s3_faucet, prototype, esp32s3_config, rp2040_display"
+    echo "  Environments: appliance, pcba_bench, esp32s3_front, esp32s3_faucet, prototype, esp32s3_config, rp2040_display"
     echo "  Add 'build' to build without flashing"
     exit 1
 fi

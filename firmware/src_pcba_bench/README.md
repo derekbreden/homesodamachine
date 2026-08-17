@@ -1,6 +1,6 @@
 # pcba bring-up console
 
-A throwaway rig for a bare, JLCPCB-assembled controller board on the bench. It runs on
+The bench rig for a bare, JLCPCB-assembled controller board — one per fab batch. It runs on
 the board's **own** WROOM (U1) and answers one question — did the fab build what
 [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — by talking to every on-board
 device and printing what it finds.

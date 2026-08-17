@@ -13,6 +13,7 @@ timestamp = time.strftime("%b %d %Y %H:%M:%S")
 # relative to the project root, which is where PlatformIO runs this from.
 # Every environment that names this script in extra_scripts is a key here.
 SRC_DIR = {
+    "appliance": "firmware/src_appliance",
     "prototype": "firmware/src_prototype",
     "rp2040_display": "firmware/src_display",
     "esp32s3_config": "firmware/src_config",
