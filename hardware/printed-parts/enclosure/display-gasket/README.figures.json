@@ -1,13 +1,13 @@
 {
   "/hardware/printed-parts/enclosure/display-gasket/display_gasket.py": {
     "CORNER_R": "2.5 mm",
+    "GASKET_OUTER_X": "113.5 mm",
+    "GASKET_RING_W": "3 mm",
     "GLASS_FACE_DEPTH": "3 mm",
     "INNER_SLOPE": "71 mm",
     "INNER_X": "107.5 mm",
     "OUTER_SLOPE": "77 mm",
-    "OUTER_X": "113.5 mm",
     "PLATE_UNDERSIDE": "2 mm",
-    "RING_W": "3 mm",
     "THICKNESS": "1 mm"
   }
 }

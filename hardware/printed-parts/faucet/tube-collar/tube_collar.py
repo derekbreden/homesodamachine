@@ -164,13 +164,17 @@ def _face_word(which: str, face: str):
     THE LETTERS ARE LOOSE, one solid each — `port_ring.build_word`'s construction. The part opens as
     one file carrying both bodies and the lettering is assigned the second filament.
 
-    `text` sets flat in XY with its advance on +X, its cap on +Y and its extrusion on +Z. Each face
-    is that block turned onto its own outward normal, by whole quarter turns, so no face is a mirror
-    of another and every one of them reads the right way round to somebody standing off it:
+    `text` sets flat in XY with its advance on +X, its cap on +Y and its extrusion on +Z, and each
+    face is that block turned onto its own outward normal:
 
-        top   a quarter about Z          advance +Y, cap −X, out +Z
-        +x    a quarter about X, then Z  advance +Y, cap +Z, out +X
-        −x    the same pair, reversed    advance −Y, cap +Z, out −X
+        top   a quarter about Z              advance +Y, cap −X, out +Z
+        +x    a quarter about X, then one Z  advance +Y, cap +Z, out +X
+        −x    THE +x FACE, HALF-TURNED ABOUT Z          advance −Y, cap +Z, out −X
+
+    THE TWO SIDES ARE ONE TURN APART and the second is struck off the first, not composed on its
+    own. A half turn about Z reverses the advance and the outward normal together and leaves the cap
+    standing, which is the whole of what the far side of a collar is; two independent compositions
+    that each look right on paper can differ in a sign nothing but a render shows.
     """
     letters = cq.Workplane("XY").text(STATIONS[which].word, _ring.WORD_SIZE, WORD_DEPTH,
                                       font=_ring.WORD_FONT, kind=_ring.WORD_KIND,
@@ -178,9 +182,10 @@ def _face_word(which: str, face: str):
     if face == "top":
         letters = letters.rotate((0, 0, 0), (0, 0, 1), 90.0)
     else:
-        turn = 90.0 if face == "+x" else -90.0
-        letters = (letters.rotate((0, 0, 0), (1, 0, 0), turn)
-                          .rotate((0, 0, 0), (0, 0, 1), turn))
+        letters = (letters.rotate((0, 0, 0), (1, 0, 0), 90.0)
+                          .rotate((0, 0, 0), (0, 0, 1), 90.0))
+        if face == "-x":
+            letters = letters.rotate((0, 0, 0), (0, 0, 1), 180.0)
     solid = letters.val()
     # `valign` centres on the font's own metrics rather than on the cap box, so the cap is squared up
     # on the flat here, off the solid that was actually built.
@@ -189,8 +194,10 @@ def _face_word(which: str, face: str):
     if face == "top":
         return solid.translate(cq.Vector(-(bb.xmin + bb.xmax) / 2.0, along,
                                          RISE - WORD_DEPTH - bb.zmin))
-    # The side flats stand from the axis up to `RISE`, so the cap is centred on half of that.
-    out = OD / 2.0 - WORD_DEPTH - bb.xmin if face == "+x" else -OD / 2.0 - bb.xmax
+    # EACH SIDE BY THE FACE ITS OWN LETTERS STAND OUT OF — `xmax` on the +x side and `xmin` on the
+    # −x, since the half turn carried the extrusion over with the advance. The side flats stand from
+    # the axis up to `RISE`, so the cap is centred on half of that.
+    out = (OD / 2.0 - bb.xmax) if face == "+x" else (-OD / 2.0 - bb.xmin)
     return solid.translate(cq.Vector(out, along, RISE / 2.0 - (bb.zmin + bb.zmax) / 2.0))
 
 
@@ -200,9 +207,9 @@ def build_word(which: str):
         [letter for face in FACES for letter in _face_word(which, face).Solids()])
 
 
-def build_collar(which: str):
-    """One station's collar: the outline run along the tube, its bore, and the word's recess taken
-    out of the flat.
+def build_blank():
+    """The outline run along the tube and its bore, with no lettering taken out of it — what a
+    station's own word is cut from, and what `letters_lie_in_it` weighs the cut against.
 
     Struck from primitives the way `port_ring.build_outline` strikes the chip's — a cylinder with
     everything above the axis taken off it, and a box standing on that same axis — so no plane's own
@@ -211,10 +218,14 @@ def build_collar(which: str):
     barrel = cq.Solid.makeCylinder(r, LENGTH, cq.Vector(0.0, 0.0, 0.0), cq.Vector(0.0, 1.0, 0.0))
     below = cq.Solid.makeBox(OD, LENGTH, r, cq.Vector(-r, 0.0, -r))
     above = cq.Solid.makeBox(OD, LENGTH, RISE, cq.Vector(-r, 0.0, 0.0))
-    body = barrel.intersect(below).fuse(above)
-    body = body.cut(cq.Solid.makeCylinder(BORE / 2.0, LENGTH,
-                                          cq.Vector(0.0, 0.0, 0.0), cq.Vector(0.0, 1.0, 0.0)))
-    return body.cut(build_word(which))
+    return (barrel.intersect(below).fuse(above)
+            .cut(cq.Solid.makeCylinder(BORE / 2.0, LENGTH,
+                                       cq.Vector(0.0, 0.0, 0.0), cq.Vector(0.0, 1.0, 0.0))))
+
+
+def build_collar(which: str):
+    """One station's collar: the blank, with the word's recess taken out of each of its flats."""
+    return build_blank().cut(build_word(which))
 
 
 def _filament(rgb) -> "cq.Color":
@@ -313,6 +324,31 @@ def words_hold():
                     f"{WORD_DEPTH:g} deep — the word and the flat do not come out one plane.")
 
 
+def letters_lie_in_it():
+    """Hold every face's lettering INSIDE the collar it is cut from.
+
+    A word is placed by turning a block onto a face's own outward normal, and a face whose normal
+    came out reversed puts its letters just off the flat instead of just inside it. Nothing about
+    that shows in a width, a depth or a count — the solids are all there and all the right size —
+    and the collar it is cut from comes back whole.
+
+    So it is weighed. What the cut takes off the blank is the volume of the lettering when every
+    letter is inside it, and less by exactly the strays when any are not.
+
+    The margin is a thousandth of the word. What this is here to catch is a whole face standing off
+    the collar, which is a THIRD of it, or one letter, which is a twelfth of the shortest of these
+    words — both of them three orders above the noise two booleans leave in a volume."""
+    for which in STATIONS:
+        blank, word = build_blank(), build_word(which)
+        took = blank.Volume() - blank.cut(word).Volume()
+        if abs(took - word.Volume()) > word.Volume() / 1000.0:
+            outside = word.Volume() - took
+            raise ValueError(
+                f"the {which} collar's lettering runs to {word.Volume():.3f} mm³ and cutting it "
+                f"off the blank takes {took:.3f} — {outside:.3f} mm³ of it stands outside the "
+                f"collar rather than in a recess in one of its flats.")
+
+
 def selftest() -> int:
     """Each collar against the tube it threads onto, the word it carries, and the chip on the wall."""
     fails = []
@@ -359,7 +395,8 @@ def selftest() -> int:
     if len(FACES) < 3:
         fails.append(
             f"{len(FACES)} lettered flat(s) leave a roll that shows a reader colour and no word")
-    for what, fn in (("stations_hold", stations_hold), ("words_hold", words_hold)):
+    for what, fn in (("stations_hold", stations_hold), ("words_hold", words_hold),
+                     ("letters_lie_in_it", letters_lie_in_it)):
         try:
             fn()
         except Exception as exc:                                 # noqa: BLE001

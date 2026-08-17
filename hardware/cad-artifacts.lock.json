@@ -2,19 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-33203ce2f13be956.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-33203ce2f13be956.tar.gz"
+    "asset": "cad-9fb5ab5d614d3a0a.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9fb5ab5d614d3a0a.tar.gz"
   },
   "bundle": {
-    "sha256": "33203ce2f13be956e3adb8e85397d9671d1f49622f56cb4e0d9e928d10fed5e3",
-    "bytes": 29945853,
+    "sha256": "9fb5ab5d614d3a0a0c64f9db893947bca21899788a0a7e32de2a7d3bd82a9a03",
+    "bytes": 30364255,
     "solids": 103
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
-    "hardware/faucet-layout/faucet-assembly.step": "afb8afaeac08e98b583da094262bf4bdc677612fc3786b4e5c4d1813a44f5e6d",
-    "hardware/manifold-layout/enclosure-assembly.step": "a35068ce1908cd91d2f5d6a8d437406a8be6a6b0d931671cd7b2f257bc92f246",
+    "hardware/faucet-layout/faucet-assembly.step": "7e3d378bc9f7ae766c7c054189bd86ca6cb844fa17582b2cdc47bb55e4e10096",
+    "hardware/manifold-layout/enclosure-assembly.step": "8b5d4e1373f0cd9e58364122c639c2883bb32d94d03e8d48dd683ae62ca4ef38",
     "hardware/manifold-layout/manifold-layout.step": "87e0da72a11fb13eae25f8e304844fc9095255028dfcf98eedf62c575fd36bc4",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "3930047b04cd73bcf0df827cd6d82312084a72f70cc439615899635198865e23",
@@ -62,11 +62,11 @@
     "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step": "7e9975c137e065e6092aee3b0931eb367678e2de9c3177b6fda1e893072a5f78",
     "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step": "365e94e49fdaf1e7cb7d456c01cc9eca1b03c8a69ebf94047c844b9534168ed6",
     "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step": "eb4aee2ea0d423c057495448f2e86c610ef9550b5a92885eb29aead52dbb1f34",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "e8bbdb2638ae8162c449d8499045f4968e07c78dd348826533caa05f0d77e8c9",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "bdf9059c16f943be39c0e620e05ff97c8c1ad1f745267eb9ba97ebf0281f3f51",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "ed63ab47b5b3e35b000a8c570d66904674ff0fa46587b205437794567da4f3c9",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "bf906ab667cbbd21902b3b5dffd2b3a38b6020a7b71839116378c3ca9bec9c0e",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "75e9d308a9ebee589491cff8c86c5095ed83644386ac03ac6f14c5872f533605",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "fe6d6861e8ae574e065a036f8dd9fc4ec35381568b726105000ea03ce892528e",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "bda4891a8d58a6869d276e787d35a8c395379056671120fffdd97bc7c6090e10",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "cb2239e429280da8c63d30ade38a1d65d976263effeef0dae30ba5237ee1708f",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "9b6a8d4c080d4ebed0fe9e04038e14dd71c9ae60640af0cb6649d959ca2815c2",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "894e94fc2bf98ed526b7a12c422136aa68db398ac21dfe1d2c37e50e7c43a817",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step": "aa64bf7b9b2246a98e370c510f3cdf8b2fd94f4eab84a04c65d6b928470ba842",
     "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step": "1775d43e2b86c8166f5f641c4e4d84074cef0ec8b21ba1d860df6715e00a74b5",
     "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step": "d0646de6dd341b106cf0ec76c01dfa3b3c116a795f16b63b7dc0d8978c5a7aad",

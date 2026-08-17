@@ -483,7 +483,7 @@ def main():
         print(f"-> {STEPS[which].name}")
 
     variables = {
-        "RING_W": f"{RING_W:g}",
+        "PORT_RING_W": f"{RING_W:g}",
         "RING_THICK": f"{THICK:g}",
         "RING_OD": f"{od('union'):g}",
         "RING_BORE": f"{bore_d('union'):g}",

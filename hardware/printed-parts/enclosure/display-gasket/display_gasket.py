@@ -43,7 +43,7 @@ from enclosure import (
 
 # THE RING IS THE LAP. Outer edge on the glass's own outline, inner edge on the cover plate's
 # window — so it lies under the border exactly, out of the screen and short of the bezel wall.
-outer_x = display_bezel_x                                     # [113.5 mm](OUTER_X)
+outer_x = display_bezel_x                                     # [113.5 mm](GASKET_OUTER_X)
 outer_slope = display_bezel_slope                             # [77 mm](OUTER_SLOPE)
 inner_x = display_bezel_x - 2.0 * display_inset_lap           # [107.5 mm](INNER_X)
 inner_slope = display_bezel_slope - 2.0 * display_inset_lap   # [71 mm](INNER_SLOPE)
@@ -94,11 +94,11 @@ def main():
           f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
 
     variables = {
-        "OUTER_X": f"{outer_x:.4g} mm",
+        "GASKET_OUTER_X": f"{outer_x:.4g} mm",
         "OUTER_SLOPE": f"{outer_slope:.4g} mm",
         "INNER_X": f"{inner_x:.4g} mm",
         "INNER_SLOPE": f"{inner_slope:.4g} mm",
-        "RING_W": f"{display_inset_lap:.4g} mm",
+        "GASKET_RING_W": f"{display_inset_lap:.4g} mm",
         "CORNER_R": f"{corner_r:.4g} mm",
         "THICKNESS": f"{thickness:.4g} mm",
         "GLASS_FACE_DEPTH": f"{glass_face_depth:.4g} mm",
