@@ -28,11 +28,11 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 | Item | Source / spec | Notes |
 |---|---|---|
 | Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor bolted down and grounded. |
-| Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `esp32dev`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini)). |
+| Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `appliance`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini) and [`/firmware/README.md`](/firmware/README.md)). The `appliance` tree is an Open item below. |
 | Flash wrapper | [`/tools/flash.sh`](/tools/flash.sh) | Pauses the serial logger during upload; pre-flights the sibling `PersistentLog` dependency. Invocation: `./tools/flash.sh <env>`. |
 | USB-C cable | Fits the PCBA's J14, the 4.3B, and the 1.47" faucet display | Build-bench stock; not per-unit consumable. |
 | Multimeter | Build-bench stock | DC-rail spot checks at [12 V](RAIL_12V) (J10 clamps), [5 V](RAIL_5V) + [3.3 V](RAIL_33V) (connector pins). |
-| Serial monitor | `pio device monitor -e esp32dev` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
+| Serial monitor | `pio device monitor -e appliance` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
 | Commissioning-log template | TBD — see Open items | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
 
 Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outlet feeding the C14 input, a current meter inline with the PSU output for the 12 V rail, USB hub on the bench host, the serial-logger background process from `tools/serial_logger.py`.
@@ -70,12 +70,12 @@ Plug the USB-C cable into the board's J14, flush on the west edge of the PCBA. T
 From the repo root:
 
 ```
-./tools/flash.sh esp32dev
+./tools/flash.sh appliance
 ```
 
-The wrapper pauses the background serial logger, runs `pio run -e esp32dev -t upload` per [`/platformio.ini`](/platformio.ini) `[env:esp32dev]`, then resumes the logger. Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
+The wrapper pauses the background serial logger, runs `pio run -e appliance -t upload` per [`/platformio.ini`](/platformio.ini), then resumes the logger. Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
 
-If the build fails on the `symlink://${PROJECT_DIR}/../PersistentLog` dependency, fix the sibling-repo placement before continuing — the wrapper pre-flights this and prints the exact remediation path.
+The board takes `./tools/flash.sh pcba_bench` today — the bring-up console of [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md), which reads every device on the board and drives none of them. Steps 3, 6, 7 and 9 are written against the appliance firmware, and the tree it lives in is the Open item below.
 
 ### 4. Flash the ESP32-S3 config display
 
@@ -102,7 +102,7 @@ Confirm the flavor UI renders after reset. The touch-toggle check lands in step 
 With both MCUs running their default firmware, open the serial monitor on the ESP32:
 
 ```
-pio device monitor -e esp32dev
+pio device monitor -e appliance
 ```
 
 The default firmware periodically prints a sensor-health frame. Step through each line:
@@ -158,6 +158,14 @@ Query the firmware over serial for its loaded setpoints. Expected:
 
 These are baked into the firmware on `main` as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
 
+Then query the three limits the hardware imposes. Each one is a part's rating, and the firmware is the only thing holding the machine inside it:
+
+- Valves energized at once: **at most [3](MAX_VALVES)**. Eight coils on MANIFOLD A cross J1's `COM` contact rating and land in one TBD62083 — [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
+- Refill gated on the dispense window: **relay #2 ([GPIO 2](GPIO_RELAY2)) de-energized while a dispense is open**. The board peaks at [3.33 A](BOARD_PEAK_A) and the SeaFlo at [5 A](DIAPHRAGM_A) on one [6.7 A](PSU_MAX_A) supply — [8.32 A](COINCIDENT_A) if they overlap. The low reed asserts mid-pour, so the refill it queues waits ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5).
+- Reed pull-ups: **`GPPU` written on both MCP23017s**. No loom carries a resistor and the board pulls none of these inputs ([`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)), so a reed with no pull-up floats and step 6's baselines are meaningless.
+
+A unit that walks step 7 and passes step 6 can still be failing all three — nothing here reads them off behavior. The query is the check.
+
 ### 10. Archive the per-serial commissioning log
 
 Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 tank / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, MQ-6 baseline, drip-pan baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification.
@@ -177,6 +185,7 @@ A commissioned unit is:
 - All [11](VALVE_COUNT) solenoid valves clicked individually under firmware self-test; both peristaltic pumps spun dry under DRV8870 drive; condenser fan spun briefly
 - Relay #1 verified switching the compressor's AC leg under firmware override; suction-line probe drops a few degrees within a couple of minutes; relay de-energizes cleanly and the [3-minute](MIN_OFF_TIME) guard re-arms
 - Factory-default setpoints ([2 °C](TANK_TARGET) target, [±2 °C](HYSTERESIS) hysteresis, [−8 °C](FREEZE_CUTOFF) freeze cutoff, [3-min](MIN_OFF_TIME_HYPHEN) minimum off-time, low-reed refill threshold) confirmed loaded
+- The three hardware limits confirmed held: [3](MAX_VALVES)-valve ceiling, refill gated on the dispense window, `GPPU` written on both expanders
 - Per-serial commissioning log archived
 
 The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md), which adds water + CO2 and runs the first wet thermal cycle.
@@ -185,9 +194,10 @@ The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/ac
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
-2. **Whether the firmware has a dedicated "factory test" mode separate from production mode.** The valve self-test (step 7), the firmware-override compressor cycle (step 8), and the setpoint query (step 9) currently run as ad-hoc serial commands against production firmware. Whether to split these into a separate build target (e.g. `esp32dev_factory`) with a dedicated test menu, gated by a build-time flag, or leave them in production firmware behind a serial command, is undecided. The latter is cheaper but ships factory commands in the customer-facing image; the former needs a second build env in [`/platformio.ini`](/platformio.ini).
-3. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.
+1. **The `appliance` source tree and env do not exist.** [`/firmware/`](/firmware/) carries the under-counter prototype (`src_prototype/`, on L298N drivers and none of this board's peripherals), the three displays, and `src_pcba_bench/` — a bring-up console that reads the board and drives nothing. Steps 3, 6, 7 and 9 are the specification the appliance firmware gets written against, and every figure in them is settled; the tree it lands in is not. See [`/firmware/README.md`](/firmware/README.md).
+2. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
+3. **Whether the firmware has a dedicated "factory test" mode separate from production mode.** The valve self-test (step 7), the firmware-override compressor cycle (step 8), and the setpoint query (step 9) currently run as ad-hoc serial commands against production firmware. Whether to split these into a separate build target (e.g. `appliance_factory`) with a dedicated test menu, gated by a build-time flag, or leave them in production firmware behind a serial command, is undecided. The latter is cheaper but ships factory commands in the customer-facing image; the former needs a second build env in [`/platformio.ini`](/platformio.ini).
+4. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -432,7 +432,7 @@ def build_data(manifest):
     """Generate data/ directory for PlatformIO uploadfs (brand-new ESP32 setup).
 
     Creates binary image files + metadata that can be flashed directly to
-    the ESP32's LittleFS partition via: pio run -e esp32dev -t uploadfs
+    the ESP32's LittleFS partition via: pio run -e prototype -t uploadfs
     """
     import shutil
 
@@ -501,7 +501,7 @@ def build_data(manifest):
 
     total_bytes = sum(f.stat().st_size for f in data_dir.iterdir())
     print(f"\ndata/ ready: {len(list(data_dir.iterdir()))} files, {total_bytes:,} bytes")
-    print(f"Flash with: ~/.platformio/penv/bin/pio run -e esp32dev -t uploadfs")
+    print(f"Flash with: ~/.platformio/penv/bin/pio run -e prototype -t uploadfs")
 
 
 def sync_via_store(ser, manifest):
