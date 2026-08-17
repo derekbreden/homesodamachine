@@ -13,3 +13,8 @@
 void linkBegin();
 void linkService();       // call every loop
 void linkReport();        // one console block: frames, bytes, echo, last rx
+
+// Put a frame on the pair and read the echo back. /RE is tied to GND, so the
+// echo returning through U7 to IO34 walks IO32 -> U7 -> the A/B pair and R6's
+// termination -> U7 -> IO34 without the far end taking any part.
+void linkPing();

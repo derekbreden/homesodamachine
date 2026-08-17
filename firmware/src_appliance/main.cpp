@@ -84,6 +84,7 @@ static void help() {
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  link              J9 frames, bytes, echo");
+    Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  help              this");
     Serial.println("\n  A prime is the display's: hold the pad and the pump turns under it. It");
     Serial.println("  arrives as MSG_PRIME_START and stops on the lift, on a stale tick, or at");
@@ -107,6 +108,7 @@ static void console(const String &line) {
     if (line == "help")        { help(); return; }
     if (line == "status")      { status(); return; }
     if (line == "link")        { linkReport(); return; }
+    if (line == "ping")        { linkPing(); return; }
     if (line == "stop")        { machineStop(); return; }
 
     if (line.startsWith("pump")) {
