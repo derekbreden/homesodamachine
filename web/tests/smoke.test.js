@@ -279,7 +279,7 @@ test("GET /api/pcb-content/* serves an inner copper plane", async (t) => {
 });
 
 // The rest of the wildcard family. Each of these takes the whole tail of the URL
-// as one path relative to the edition root, and each is the only way its file type
+// as one path relative to the content root, and each is the only way its file type
 // reaches the page — /models/* alone carries every .glb the 3D grid draws. They are
 // tested here because the tail is the argument: a router that hands the route a
 // different shape than it expects fails on exactly these, and fails quietly, by
@@ -333,10 +333,10 @@ test("GET /api/step-scorecard/* serves a scorecard sidecar when one exists", asy
 });
 
 // CONFINEMENT IS THE ONE BEHAVIOUR OF THE TAIL THAT MUST NOT MOVE. Every route above
-// resolves its tail against the edition root and must refuse to leave it, whether the
+// resolves its tail against the content root and must refuse to leave it, whether the
 // climb is written plainly or percent-encoded — the router decodes before the route
 // ever sees it, so both arrive as the same string and both have to be turned away.
-test("the wildcard routes stay inside the edition root", async () => {
+test("the wildcard routes stay inside the content root", async () => {
   const climbs = [
     "../../etc/passwd.step",
     "%2e%2e%2f%2e%2e%2fetc%2fpasswd.step",

@@ -76,7 +76,7 @@ export function scorecardPathFor(stepPath) {
  *           binding  the interior leg that sets `reach`: its index, its length, the tangent it
  *                    owes as a multiple of R, and its two endpoints in world mm
  * @property {ScorecardNeed} [need]  what the line CONNECTS, beside how well it turns. Optional:
- *                                   an edition whose scorecard predates the figure omits it.
+ *                                   a scorecard predating the figure omits it.
  */
 
 /**
@@ -100,8 +100,8 @@ export function scorecardPathFor(stepPath) {
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
  * @property {ScorecardSize[]} [size]  how big the thing is: the printed box, and everything
- *                               placed. Optional: an edition whose scorecard predates the
- *                               table omits it, and the card draws without a size block
+ *                               placed. Optional: a scorecard predating the table omits it,
+ *                               and the card draws without a size block
  * @property {ScorecardCheck[]} checks
  * @property {string[]} [bodies]  every body the assembly places, by name. Optional: the cold
  *                               core's card carries it for `_scenes.core_names`

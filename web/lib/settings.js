@@ -13,13 +13,8 @@
 //   3. Live-reload debug — only visible when dev mode is on. Flips the
 //      on-screen panel boot.js renders (socket health, build commit,
 //      deploy events) via window.__hsmLiveDebug + localStorage.
-//   4. Edition — only visible when dev mode is on. Picks which machine the
-//      viewer shows, one content root each (lib/editions.js). Stored in
-//      localStorage and mirrored to the hsmEdition cookie (shell.js), which
-//      the server reads per request.
 
 import { renderHead, renderNav, renderFooter } from "./shell.js";
-import { EDITIONS } from "./editions.js";
 
 const PAGE_STYLES = `
 .wrap {
@@ -36,42 +31,6 @@ const PAGE_STYLES = `
     calc(env(safe-area-inset-left, 0px) + 1.25rem);
 }
 header.page { margin-bottom: 1.5rem; }
-/* n-way sibling of .ios-toggle (shell.js): the Edition row picks one of
-   several content roots, which a two-state pill can't say. */
-.segmented {
-  display: flex;
-  align-items: stretch;
-  gap: 2px;
-  /* The height and corner .ios-toggle stands at, so the rows in the card line
-     up down their right edge and their top and bottom. */
-  height: 31px;
-  padding: 2px;
-  border-radius: 10px;
-  /* Same track as .ios-toggle (shell.js) so the two rows read as one control set. */
-  background: rgba(120,120,128,0.32);
-  flex-shrink: 0;
-}
-.segmented .segment {
-  appearance: none;
-  border: none;
-  cursor: pointer;
-  font: inherit;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text);
-  opacity: 0.65;
-  background: transparent;
-  padding: 0 0.7rem;
-  border-radius: 8px;
-  transition: background 0.15s, opacity 0.15s;
-}
-.segmented .segment:hover { opacity: 0.85; }
-.segmented .segment[aria-checked="true"] {
-  /* The same blue the toggles go when they're on. */
-  background: var(--accent);
-  color: #fff;
-  opacity: 1;
-}
 h1 {
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 600;
@@ -157,18 +116,6 @@ const BODY = `<div class="wrap">
       <button id="livedebug-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Live-reload debug"></button>
     </div>
 
-    ${EDITIONS.length < 2 ? "" : `
-    <div class="setting-row" id="row-edition" hidden>
-      <div>
-        <div class="setting-label">Edition</div>
-        <div class="setting-help" id="edition-help"></div>
-      </div>
-      <div class="segmented" id="edition-segmented" role="radiogroup" aria-label="Edition">
-        ${EDITIONS.map((e) => `
-        <button class="segment" type="button" role="radio" aria-checked="false"
-                data-edition="${e.id}" data-help="${e.help}">${e.label}</button>`).join("")}
-      </div>
-    </div>`}
   </div>
 </div>
 

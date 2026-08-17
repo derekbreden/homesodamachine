@@ -50,7 +50,7 @@ const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python")
 // deliberate gesture in the viewer, not a watcher, so they still work.
 const NO_WATCH = process.argv.includes("--no-watch");
 
-const { app, broadcast, hardwareDir: HARDWARE_DIR, editionDirs: EDITION_DIRS } = await start({ dev: true });
+const { app, broadcast, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
 
 // PCB editor API — dev-only, not reachable on the public site. Backs the
 // viewer's "Edit" toggle (web/public/js/viewer/pcb-edit.js): board component
@@ -125,18 +125,13 @@ async function rebuildStepAssembly(pyFilePath) {
   }
 }
 
-// Every edition's root, resolved per request against the viewer's own cookie —
-// the edit has to land in the tree the viewer is showing, and both editions
-// carry an assembly at the same relative path.
-mountStepEditorRoutes(app, { editionDirs: EDITION_DIRS }, rebuildStepAssembly);
+mountStepEditorRoutes(app, { hardwareDir: HARDWARE_DIR }, rebuildStepAssembly);
 
-// Content roots the viewer serves, and that we therefore watch, regenerate,
-// and broadcast for — one per edition (web/lib/editions.js), served when the
-// viewer's Edition selector picks it. The viewer fetches each file list
-// relative to whichever root the edition selects, so a change must be
-// broadcast with the path relative to the SAME root — the client's
-// files-changed handler matches by exact string.
-const CONTENT_ROOTS = Object.values(EDITION_DIRS).filter((d) => d && fs.existsSync(d));
+// The content root the viewer serves, and that we therefore watch, regenerate,
+// and broadcast for. The viewer fetches its file lists relative to this root, so
+// a change must be broadcast with the path relative to the SAME root — the
+// client's files-changed handler matches by exact string.
+const CONTENT_ROOTS = [HARDWARE_DIR].filter((d) => d && fs.existsSync(d));
 
 // Path of a watched file relative to the content root that contains it — the
 // form the viewer fetched it under, and therefore the form to broadcast.

@@ -107,12 +107,11 @@
 // Output:
 //   --size WxH         default 1400x1100
 //   --bg #hex          default #1a1a2e (site navy)
-//   --edition id       which machine's tree the step path is in. Default kitchen.
 //   --at <date|ref>    read the STEP as it stood at that commit, out of a throwaway
 //                      worktree; the tooling stays at HEAD. The resolved SHA goes in
 //                      the legend. Uncommitted edits in the live tree are not in it.
 //
-// The step path is relative to the edition's content root (matches /steps/*).
+// The step path is relative to hardware/ (matches /steps/*).
 
 import path from "path";
 import fs from "fs";
@@ -120,7 +119,6 @@ import { fileURLToPath } from "url";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
-import { DEFAULT_EDITION, EDITION_IDS, editionById } from "../../web/lib/editions.js";
 import { withHistoricalTree } from "./temporal.js";
 import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
@@ -190,7 +188,7 @@ function usage(msg) {
       "       [--target x,y,z] [--span mm] [--ortho] [--zoom f] [--label|--no-label]\n" +
       "       [--orbit x|y|z:from,to,step[,elev]] [--pick px,py] [--select globs]\n" +
       "       [--grid|--no-grid] [--clip x|y|z:lo,hi] [--caption text]\n" +
-      "       [--size WxH] [--bg #hex] [--edition id]\n" +
+      "       [--size WxH] [--bg #hex]\n" +
       "       node tools/render/render-view.js <step-rel> --list",
   );
   process.exit(1);
@@ -237,7 +235,6 @@ function parseArgs(argv) {
     width: 1400,
     height: 1100,
     bg: "#1a1a2e",
-    edition: DEFAULT_EDITION,
     at: null,
     list: false,
     views: [],
@@ -317,7 +314,6 @@ function parseArgs(argv) {
       opts.width = Number(m[1]);
       opts.height = Number(m[2]);
     } else if (a.startsWith("--bg")) opts.bg = val("bg");
-    else if (a.startsWith("--edition")) opts.edition = val("edition");
     else if (a.startsWith("--at")) opts.at = val("at");
     else positional.push(a);
   }
@@ -1130,15 +1126,13 @@ function inPageList() {
 }
 
 async function withViewer({ stepRel, opts }, fn) {
-  const edition = editionById(opts.edition);
-  if (!edition) usage(`unknown --edition ${opts.edition} (have ${EDITION_IDS.join(", ")})`);
   if (opts.at) {
     return withHistoricalTree(opts.at, (treeDir, sha) => {
       opts.atSha = sha;
-      return serveAndDrive(path.join(treeDir, ...edition.dir), stepRel, opts, fn);
+      return serveAndDrive(path.join(treeDir, "hardware"), stepRel, opts, fn);
     });
   }
-  return serveAndDrive(path.join(REPO_ROOT, ...edition.dir), stepRel, opts, fn);
+  return serveAndDrive(path.join(REPO_ROOT, "hardware"), stepRel, opts, fn);
 }
 
 async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
@@ -1233,7 +1227,7 @@ async function main() {
       // millimetre is the same length everywhere in the frame.
       const resolved = {
         ...shot,
-        title: `${opts.edition}/${stepRel}` + (opts.atSha ? `  @ ${opts.atSha.slice(0, 8)}` : ""),
+        title: `hardware/${stepRel}` + (opts.atSha ? `  @ ${opts.atSha.slice(0, 8)}` : ""),
       };
       if (resolved.label === null) resolved.label = !!opts.only;
       if (resolved.grid === null) resolved.grid = shot.ortho;

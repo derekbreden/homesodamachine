@@ -26,7 +26,6 @@ import {
 } from "./lib/push.js";
 import { mountNotificationsRoutes } from "./lib/notifications.js";
 import { WS } from "./contracts/ws-frames.js";
-import { EDITIONS, DEFAULT_EDITION } from "./lib/editions.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Web app lives at /web; hardware/ stays at the repo root because it's a
@@ -219,15 +218,6 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // instead of the live tree, so a render captures the source artifact as
   // it existed at a specific past commit.
   const HARDWARE_DIR = hardwareDir || DEFAULT_HARDWARE_DIR;
-  // Every edition's content root, keyed by id, served when the hidden Edition
-  // selector picks it (lib/editions.js). The default edition's root is
-  // HARDWARE_DIR itself so a worktree override lands exactly where the caller
-  // pointed; the rest hang off its parent, so the override carries them too.
-  const CONTENT_PARENT = path.join(HARDWARE_DIR, "..");
-  const EDITION_DIRS = Object.fromEntries(EDITIONS.map((e) => [
-    e.id, e.id === DEFAULT_EDITION ? HARDWARE_DIR : path.join(CONTENT_PARENT, ...e.dir),
-  ]));
-
   const app = express();
   app.use(express.json());
 
@@ -266,7 +256,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // and doesn't change any routes. The only behavioral differences in dev:
   //   - commit signal is "dev" instead of the deploy SHA
   //   - the boot-time push diff is skipped (no real deploy, no FCM)
-  mountViewerRoutes(app, { editionDirs: EDITION_DIRS });
+  mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountPushRoutes(app);
   mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);
@@ -345,7 +335,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     }
   });
 
-  return { app, server, broadcast, hardwareDir: HARDWARE_DIR, editionDirs: EDITION_DIRS };
+  return { app, server, broadcast, hardwareDir: HARDWARE_DIR };
 }
 
 // If run directly (i.e. by Render as `node server.js`), boot in production mode. A run that

@@ -73,7 +73,7 @@
 root=$(git rev-parse --show-toplevel) || exit 0
 pcba="$root/hardware/pcb/pcba"
 py="$root/tools/cad-venv/bin/python"
-editions="hardware"
+hw=hardware
 
 # The board gates and the GLB rebuild below run CadQuery. They take the CAD build lock
 # (so a stray rebuild is cleared off the machine) but must not be superseded by one — a
@@ -160,144 +160,142 @@ staged() {
   git diff --cached --name-only -- "$@" | grep -q .
 }
 
-for hw in $editions; do
-  # BOM <-> pinout <-> PCB drift. Reads the board source, the pinout diagram,
-  # bom.md, and the two assembly sync drivers — nothing else moves its answer.
-  if staged "$hw/pcb/pcba/pcba.tsx" "$hw/wiring/esp32-pinout.mmd" "$hw/ledger/bom.md" \
-            "$hw/assembly/_electronics_shelf_sync.py" \
-            "$hw/assembly/_firmware_and_commissioning_sync.py" \
-            "$hw/scripts/check_pinmap.py"; then
-    gate "$hw pin-map drift check" python3 "$root/$hw/scripts/check_pinmap.py"
+# BOM <-> pinout <-> PCB drift. Reads the board source, the pinout diagram,
+# bom.md, and the two assembly sync drivers — nothing else moves its answer.
+if staged "$hw/pcb/pcba/pcba.tsx" "$hw/wiring/esp32-pinout.mmd" "$hw/ledger/bom.md" \
+          "$hw/assembly/_electronics_shelf_sync.py" \
+          "$hw/assembly/_firmware_and_commissioning_sync.py" \
+          "$hw/scripts/check_pinmap.py"; then
+  gate "$hw pin-map drift check" python3 "$root/$hw/scripts/check_pinmap.py"
+fi
+
+# ── the ledger syncs, in the order the figures flow ─────────────────────
+# §7's masses come off the parts' own solids; the section and grand totals sum the
+# rows those masses price; the machine-hours ledger reads §7 to derive its print
+# hours, and its turnaround from those. A mass that moves has to reach all three,
+# so they run in that order and each sees the one before it.
+bom_md="$root/$hw/ledger/bom.md"
+
+touches_printed=false
+git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
+
+# bom.md §7 reads its masses off the parts' own solids, so a geometry change that
+# lands without carrying its mass leaves the ledger quoting a part that is not the
+# one that ships. The row and the STEP go in together. ~4 s, and it replaces the
+# --check that used to cost the same and then ask for this run anyway.
+#
+# A SYNC READS THE WORKING TREE AND STAGES WHAT IT WROTE, and those are two different
+# trees when somebody else is mid-edit. Only the file this sync moved is staged — but the
+# FIGURES in it came off whatever solids happen to be dirty, so a mass for a part nobody
+# has finished lands in this commit's diff under this commit's name. A solid held back is
+# a row that stays as it was, which the next commit to land that geometry re-derives.
+bom_synced=false
+if $touches_printed; then
+  _mid=$(git -C "$root" diff --name-only -- "$hw/printed-parts/" | grep '\.step$' | head -3)
+  if [ -n "$_mid" ]; then
+    echo "pre-commit: $hw bom printed masses — held, these solids are mid-edit and their" >&2
+    echo "pre-commit:   masses would be this commit's figures:" >&2
+    echo "$_mid" | sed 's/^/      /' >&2
+  elif [ -x "$py" ]; then
+    sync "$hw bom printed masses" "$bom_md" "$py" "$root/$hw/scripts/_bom_masses.py"
+    bom_synced=true
+  else
+    echo "pre-commit: no cad-venv — $hw bom printed masses skipped" >&2
   fi
+fi
 
-  # ── the ledger syncs, in the order the figures flow ─────────────────────
-  # §7's masses come off the parts' own solids; the section and grand totals sum the
-  # rows those masses price; the machine-hours ledger reads §7 to derive its print
-  # hours, and its turnaround from those. A mass that moves has to reach all three,
-  # so they run in that order and each sees the one before it.
-  bom_md="$root/$hw/ledger/bom.md"
+# The printed subtotals and the grand total sum the rows above them. They went
+# stale twice inside two days — a row's cost moved and the ledger's own total
+# disagreed with /cost, which sums the rows itself.
+if $bom_synced || staged "$hw/ledger/bom.md" "$hw/scripts/_bom_totals.py"; then
+  sync "$hw bom totals" "$bom_md" python3 "$root/$hw/scripts/_bom_totals.py"
+fi
 
-  touches_printed=false
-  git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
+# Cash-outlay ledger: section and grand totals summed off the purchase rows.
+# A row moving ON-ORDER → ACQUIRED moves two totals and touches neither by hand.
+if staged "$hw/ledger/purchases.md" "$hw/scripts/_ledger_totals.py"; then
+  sync "$hw ledger totals" "$root/$hw/ledger/purchases.md" \
+       python3 "$root/$hw/scripts/_ledger_totals.py"
+fi
 
-  # bom.md §7 reads its masses off the parts' own solids, so a geometry change that
-  # lands without carrying its mass leaves the ledger quoting a part that is not the
-  # one that ships. The row and the STEP go in together. ~4 s, and it replaces the
-  # --check that used to cost the same and then ask for this run anyway.
-  #
-  # A SYNC READS THE WORKING TREE AND STAGES WHAT IT WROTE, and those are two different
-  # trees when somebody else is mid-edit. Only the file this sync moved is staged — but the
-  # FIGURES in it came off whatever solids happen to be dirty, so a mass for a part nobody
-  # has finished lands in this commit's diff under this commit's name. A solid held back is
-  # a row that stays as it was, which the next commit to land that geometry re-derives.
-  bom_synced=false
-  if $touches_printed; then
-    _mid=$(git -C "$root" diff --name-only -- "$hw/printed-parts/" | grep '\.step$' | head -3)
-    if [ -n "$_mid" ]; then
-      echo "pre-commit: $hw bom printed masses — held, these solids are mid-edit and their" >&2
-      echo "pre-commit:   masses would be this commit's figures:" >&2
-      echo "$_mid" | sed 's/^/      /' >&2
-    elif [ -x "$py" ]; then
-      sync "$hw bom printed masses" "$bom_md" "$py" "$root/$hw/scripts/_bom_masses.py"
-      bom_synced=true
-    else
-      echo "pre-commit: no cad-venv — $hw bom printed masses skipped" >&2
-    fi
-  fi
+# Attended-minute ledger: subtotals summed off the rows.
+if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
+  sync "$hw labor totals" "$root/$hw/ledger/labor.md" \
+       python3 "$root/$hw/scripts/_labor_totals.py"
+fi
 
-  # The printed subtotals and the grand total sum the rows above them. They went
-  # stale twice inside two days — a row's cost moved and the ledger's own total
-  # disagreed with /cost, which sums the rows itself.
-  if $bom_synced || staged "$hw/ledger/bom.md" "$hw/scripts/_bom_totals.py"; then
-    sync "$hw bom totals" "$bom_md" python3 "$root/$hw/scripts/_bom_totals.py"
-  fi
+# Machine-hours ledger, keyed on bom.md too: it reads §7's masses for the print
+# hours, so a printed part that changes shape moves this ledger.
+if $bom_synced || staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" \
+                         "$hw/scripts/_machine_time.py"; then
+  sync "$hw machine-time totals" "$root/$hw/ledger/machine-time.md" \
+       python3 "$root/$hw/scripts/_machine_time.py"
+fi
 
-  # Cash-outlay ledger: section and grand totals summed off the purchase rows.
-  # A row moving ON-ORDER → ACQUIRED moves two totals and touches neither by hand.
-  if staged "$hw/ledger/purchases.md" "$hw/scripts/_ledger_totals.py"; then
-    sync "$hw ledger totals" "$root/$hw/ledger/purchases.md" \
-         python3 "$root/$hw/scripts/_ledger_totals.py"
-  fi
+# Seconds ledger. A reading is filed by a generator's own exit, so what moves this is a
+# run and not a file, and the key is a staged generator. 0.02 s — one JSON read and a
+# markdown rewrite, no venv and no build. A checkout carrying no readings moves nothing.
+if git diff --cached --name-only -- "$hw/" | grep -q '\.py$' ||
+   staged "$hw/ledger/build-time.md" "$hw/scripts/_build_time.py"; then
+  sync "$hw build-time figures" "$root/$hw/ledger/build-time.md" \
+       python3 "$root/$hw/scripts/_build_time.py"
+fi
 
-  # Attended-minute ledger: subtotals summed off the rows.
-  if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
-    sync "$hw labor totals" "$root/$hw/ledger/labor.md" \
-         python3 "$root/$hw/scripts/_labor_totals.py"
-  fi
+# ── the gates on what a sync cannot settle ──────────────────────────────
+# Every row carries a known category tag. There is no write mode: which section a
+# new row belongs in is a decision, so this one only ever reports.
+if staged "$hw/ledger/bom.md" "$hw/scripts/_bom_categories.py"; then
+  gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
+fi
 
-  # Machine-hours ledger, keyed on bom.md too: it reads §7's masses for the print
-  # hours, so a printed part that changes shape moves this ledger.
-  if $bom_synced || staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" \
-                           "$hw/scripts/_machine_time.py"; then
-    sync "$hw machine-time totals" "$root/$hw/ledger/machine-time.md" \
-         python3 "$root/$hw/scripts/_machine_time.py"
-  fi
+# An estimate off the believable-increment ladder — 30 or 45, never 37 — is a
+# number someone has to choose, so the sync above leaves it standing.
+if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
+  gate "$hw labor ladder" python3 "$root/$hw/scripts/_labor_totals.py" --check
+fi
 
-  # Seconds ledger. A reading is filed by a generator's own exit, so what moves this is a
-  # run and not a file, and the key is a staged generator. 0.02 s — one JSON read and a
-  # markdown rewrite, no venv and no build. A checkout carrying no readings moves nothing.
-  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$' ||
-     staged "$hw/ledger/build-time.md" "$hw/scripts/_build_time.py"; then
-    sync "$hw build-time figures" "$root/$hw/ledger/build-time.md" \
-         python3 "$root/$hw/scripts/_build_time.py"
-  fi
+# A generator reading slower than every row on the page is the row build-time.md is
+# missing. Which of the sixty-nine belong there is the decision the sync cannot make.
+if git diff --cached --name-only -- "$hw/" | grep -q '\.py$' ||
+   staged "$hw/ledger/build-time.md" "$hw/scripts/_build_time.py"; then
+  gate "$hw build-time rows" python3 "$root/$hw/scripts/_build_time.py" --check
+fi
 
-  # ── the gates on what a sync cannot settle ──────────────────────────────
-  # Every row carries a known category tag. There is no write mode: which section a
-  # new row belongs in is a decision, so this one only ever reports.
-  if staged "$hw/ledger/bom.md" "$hw/scripts/_bom_categories.py"; then
-    gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
-  fi
+# A §7 row with no print-rate group fails here rather than vanishing from the
+# turnaround and throughput figures. GROUP_OF is the decision the sync cannot make.
+if $bom_synced || staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" \
+                         "$hw/scripts/_machine_time.py"; then
+  gate "$hw machine-time groups" python3 "$root/$hw/scripts/_machine_time.py" --check
+fi
 
-  # An estimate off the believable-increment ladder — 30 or 45, never 37 — is a
-  # number someone has to choose, so the sync above leaves it standing.
-  if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
-    gate "$hw labor ladder" python3 "$root/$hw/scripts/_labor_totals.py" --check
-  fi
+# Walks every .py under hardware/ for `raise SystemExit` in a lock-taking
+# script, so only a staged Python file can change its answer. Pathspec can't
+# express "*.py at any depth" portably — filter the staged list instead.
+if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
+  gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
+fi
 
-  # A generator reading slower than every row on the page is the row build-time.md is
-  # missing. Which of the sixty-nine belong there is the decision the sync cannot make.
-  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$' ||
-     staged "$hw/ledger/build-time.md" "$hw/scripts/_build_time.py"; then
-    gate "$hw build-time rows" python3 "$root/$hw/scripts/_build_time.py" --check
-  fi
+# The other half of `bodies-colored`: that gate rides the enclosure's card and asks whether
+# the ASSEMBLY painted each placed body. This asks what each body's OWN STEP carries, which
+# is what its card and /3d draw. A STEP is the only thing that moves the answer, and the
+# index carries the lock rather than the generated solids, so the lock is where the move shows.
+if git diff --cached --name-only -- "$hw/" | grep -qE '\.step$|cad-artifacts\.lock\.json$'; then
+  gate "$hw a solid's STEP names its material" \
+       python3 "$root/$hw/scripts/check_step_colours.py"
+fi
 
-  # A §7 row with no print-rate group fails here rather than vanishing from the
-  # turnaround and throughput figures. GROUP_OF is the decision the sync cannot make.
-  if $bom_synced || staged "$hw/ledger/machine-time.md" "$hw/ledger/bom.md" \
-                           "$hw/scripts/_machine_time.py"; then
-    gate "$hw machine-time groups" python3 "$root/$hw/scripts/_machine_time.py" --check
-  fi
-
-  # Walks every .py under the edition for `raise SystemExit` in a lock-taking
-  # script, so only a staged Python file can change its answer. Pathspec can't
-  # express "*.py at any depth" portably — filter the staged list instead.
-  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
-    gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
-  fi
-
-  # The other half of `bodies-colored`: that gate rides the enclosure's card and asks whether
-  # the ASSEMBLY painted each placed body. This asks what each body's OWN STEP carries, which
-  # is what its card and /3d draw. A STEP is the only thing that moves the answer, and the
-  # index carries the lock rather than the generated solids, so the lock is where the move shows.
-  if git diff --cached --name-only -- "$hw/" | grep -qE '\.step$|cad-artifacts\.lock\.json$'; then
-    gate "$hw a solid's STEP names its material" \
-         python3 "$root/$hw/scripts/check_step_colours.py"
-  fi
-
-  # NOTHING HERE ASKS BAZEL ANYTHING. Whether the tree carries what the build cuts is a real
-  # question and `bazel build //:everything` then `tools/bazel/sync_tree.py` is how it is
-  # asked — but asking it HERE puts it in front of every commit, and one bazel command waits
-  # on the workspace lock whatever it then does. A commit is the wrong place to learn that a
-  # figure moved: the answer does not change what gets committed, it only delays it.
-  #
-  # AND THAT BOTH HALVES OF EVERY PAIR ARE IN THE INDEX. `git ls-files` and one read per doc,
-  # no import and no venv, which is the whole of what this can afford to be.
-  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
-    gate "$hw records are tracked beside what they describe" \
-         python3 "$root/$hw/scripts/check_tracked.py"
-  fi
-done
+# NOTHING HERE ASKS BAZEL ANYTHING. Whether the tree carries what the build cuts is a real
+# question and `bazel build //:everything` then `tools/bazel/sync_tree.py` is how it is
+# asked — but asking it HERE puts it in front of every commit, and one bazel command waits
+# on the workspace lock whatever it then does. A commit is the wrong place to learn that a
+# figure moved: the answer does not change what gets committed, it only delays it.
+#
+# AND THAT BOTH HALVES OF EVERY PAIR ARE IN THE INDEX. `git ls-files` and one read per doc,
+# no import and no venv, which is the whole of what this can afford to be.
+if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
+  gate "$hw records are tracked beside what they describe" \
+       python3 "$root/$hw/scripts/check_tracked.py"
+fi
 
 # BUILD.bazel is written from graph.json, selftests.json and `git ls-files`. A commit that
 # adds or deletes a tracked file moves the third; one that only edits a file does not.

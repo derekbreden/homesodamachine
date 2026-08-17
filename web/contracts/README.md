@@ -69,8 +69,6 @@ the page.
 
 ## Conventions (enforced in code, no shared module)
 
-- **edition cookie** `hsmEdition` — picks the content root (kitchen). `web/lib/viewer-routes.js`
-  reads it; `web/lib/shell.js` mirrors the localStorage choice into it.
 - **legacy redirects** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings` → 301. `web/lib/viewer-pages.js`.
 - **generator detection** — a `.py` is a live-rebuild generator when it calls
   `export_step` / `export_assembly` / `export_dxf` (from `_cadq_export`); STEP-load edges follow

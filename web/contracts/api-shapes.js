@@ -1,6 +1,6 @@
 // The /api surface the viewer fetches — mounted by web/lib/viewer-routes.js, consumed by
 // web/public/js/viewer/main.js (fetchFiles) and the per-type modules. List endpoints return
-// root-relative paths under the active content root (the edition cookie picks which root).
+// paths relative to the content root, hardware/.
 
 /** @typedef {string[]} PathList  /api/steps, /api/mermaid, /api/drawings — file paths, sorted client-side */
 /** @typedef {{ path: string, thickness_mm: number|null, material: string|null }} DxfItem  one /api/dxf entry (sidecar.js) */

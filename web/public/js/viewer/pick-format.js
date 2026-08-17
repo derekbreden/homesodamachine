@@ -61,17 +61,15 @@ function numAfter(text, re) {
   return m ? parseFloat(m[1]) : null;
 }
 
-// Copy-all `file:` lines carry an edition's content root (`hardware/`,
-// `hardware/`); the viewer's own paths are what is left after it. The roots come from lib/editions.js, mirrored into the page
-// pre-paint by lib/shell.js — `roots` is the seam node:test comes in through.
-// Longest first, so `hardware` is never shortened by `hardware`.
-export function pickFileToViewerPath(file, roots) {
+// The content root the viewer serves, as it stands in a repo-relative path.
+// Copy-all `file:` lines carry it; the viewer's own paths are what is left
+// after it.
+export const CONTENT_ROOT = "hardware";
+
+// `root` is the seam node:test comes in through.
+export function pickFileToViewerPath(file, root = CONTENT_ROOT) {
   const s = String(file).trim();
-  const dirs = roots || Object.values(globalThis.__hsmEditionDirs || {});
-  for (const d of [...dirs].sort((a, b) => b.length - a.length)) {
-    if (s.startsWith(d + "/")) return s.slice(d.length + 1);
-  }
-  return s;
+  return s.startsWith(root + "/") ? s.slice(root.length + 1) : s;
 }
 
 // A line carrying no coordinates at all is a name — what the user typed
