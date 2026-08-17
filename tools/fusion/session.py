@@ -247,3 +247,14 @@ def look(direction="iso-top-right", margin=1.06):
     view.refresh()
     adsk.doEvents()
     return direction
+
+
+def shot(path="/tmp/fusion.png", width=1400, height=1000):
+    """Write what the viewport shows to a PNG at `path`.
+
+    The viewport writes the file itself, so a shot arrives whether or not anything is proxying
+    Fusion's MCP server at the other end.
+    """
+    if not _app().activeViewport.saveAsImageFile(path, width, height):
+        raise RuntimeError(f"the viewport would not write {path}")
+    return path
