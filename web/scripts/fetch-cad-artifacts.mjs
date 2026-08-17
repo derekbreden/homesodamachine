@@ -7,6 +7,10 @@
 // tree at request time — web/lib/viewer-routes.js — and the tree a deploy clones carries the
 // lock rather than the solids, so this is the step that fills them in.
 //
+// It is also `prestart` in package.json, which is the same run under a service whose build
+// command is the dashboard's rather than render.yaml's. Whichever fires first leaves the tree
+// holding every locked solid, and the other reads 117 MB and finds nothing to do.
+//
 // THE LOCK IS THE AUTHORITY ON EVERY BYTE. The bundle is held to its sha256 before it is opened,
 // and each solid to its own after extraction. A hash that does not match ends the build, which
 // leaves the previous deploy serving.
