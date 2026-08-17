@@ -1,9 +1,10 @@
 # Firmware
 
-Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
+Eight source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
 
 | Tree | Env | Runs on | Machine |
 |---|---|---|---|
+| `src_appliance/` | `appliance` | the controller PCBA's WROOM (U1) | the appliance |
 | `src_pcba_bench/` | `pcba_bench` | the controller PCBA's WROOM (U1) | the appliance |
 | `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the appliance |
 | `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance, and the prototype |
@@ -12,7 +13,9 @@ Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/
 | `src_display/` | `rp2040_display` | Waveshare RP2040-LCD-0.99 | the prototype under the counter |
 | `src_servo_bench/`, `src_reed_bench/` | `servo_bench`, `reed_bench` | a spare ESP32 | neither — one peripheral on a bench |
 
-**The appliance's own controller firmware is unwritten.** `src_pcba_bench/` is a bring-up console: it talks to every device on the board and prints what it finds ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)), and it never writes `IODIR`, so nothing in this repo drives a valve, a pump, a relay or a reed on the appliance board. The board it runs on is batch 2, bench-validated — [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md). The bring-up procedure the appliance firmware is written against is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), and the pin map it answers to is [`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx).
+Two of them run on the controller PCBA. `src_pcba_bench/` answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
+
+`src_appliance/` is the machine: the state machine, the thermal loop, the dispense, persistence, the links to both displays. It boots, prints its build ID, parks every actuator dark and idles — the on-boot state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
 
 ## What the appliance firmware must hold
 
@@ -209,7 +212,13 @@ Boot order does not matter. The S3 retries `GET_CONFIG` until the ESP32 is ready
 
 The wrapper `./tools/flash.sh <env>` handles every environment in [`/platformio.ini`](/platformio.ini) — it pauses the background serial logger for the upload and resumes it after. The underlying PlatformIO commands work directly too:
 
-### Flash the pcba controller board (bring-up console)
+### Flash the appliance controller
+
+```bash
+pio run -e appliance -t upload
+```
+
+### Flash that board's bring-up console instead
 
 ```bash
 pio run -e pcba_bench -t upload

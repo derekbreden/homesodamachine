@@ -7,7 +7,7 @@
 - Render gates **11/11 pass** (clearance floor 0.15 mm, 0 opens, 0 DRC errors), score 100 % (115 pcbPath, 0 auto, 0 deferred), 79/79 parts carry a JLCPCB #. `silk-audit.py`: 0 findings. `part-orientation-audit.py`: 79 parts, 0 flagged.
 - **One measured board defect:** the V12 island void at mounting holes MH2/MH3 is r 2.2 mm from the hole centre; every fastener the mounting-hole comment anticipates (M3 head r ≈ 2.75, hex standoff r ≈ 3.2, washer r ≈ 3.5) reaches past it onto mask-covered 12 V copper. §Board findings. *Resolved later the same day — see item 1.*
 - **Three pre-fab electrical decisions open:** buzzer flyback diode, flow-sensor 5 V-domain input, moisture-sensor VCC vs. the pulse instruction in `bom.md`. §Board findings. *Moisture-sensor VCC resolved 2026-07-12 — see item 4.*
-- **Firmware:** `firmware/src/main.cpp` is the L298N prototype's. The only pins agreeing with this board are I²C IO21/IO22. §Firmware ↔ board.
+- **Firmware:** [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`b256c44e`; now `firmware/src_prototype/main.cpp`) is the L298N prototype's. The only pins agreeing with this board are I²C IO21/IO22. §Firmware ↔ board.
 - **The drift checker cannot read the board:** `check_pinmap.py` parses 0 GPIOs from the current trace syntax; `silk-audit.py` / `part-orientation-audit.py` run only by hand; the scorecard prints gates but fails nothing. §Checks.
 - Doc rows in `jlcpcb-parts.md`, `ledger/bom.md`, and `pcb/pcba/README.md` describe earlier board states. §Docs ↔ board.
 
@@ -56,7 +56,7 @@ To re-run: `bun render-board.ts pcba.tsx`, `python3 silk-audit.py`, `tools/cad-v
 
 ## Firmware ↔ board
 
-`firmware/src/main.cpp` (env `esp32dev`) targets the L298N under-sink prototype — its header says so (`main.cpp:16-18`). Against this board:
+[`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`b256c44e`, env `esp32dev`; now `firmware/src_prototype/main.cpp`, env `prototype`) targets the L298N under-sink prototype — its header says so (`main.cpp:16-18`). Against this board:
 
 - Pins agreeing: **IO21/IO22 (I²C) only.**
 - Prototype outputs IO5/IO18 land on board-unconnected pins; board peripherals IO2, IO14, IO36, IO39 have no firmware.

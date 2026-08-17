@@ -90,7 +90,7 @@ The faucet display is a stock Waveshare ESP32-S3-Touch-LCD-1.47 on a ~1 m umbili
 
 ## Firmware ↔ board
 
-Unchanged from the 2026-07-11 snapshot and out of scope for this pass: `firmware/src/main.cpp` is the L298N prototype's; the port encodes the interlock's assumed polarities, the GPPU enables, the ≤3-valve simultaneity, and the refill interlock. The board's wiring is self-consistent and boot-safe; nothing exercises it until a board exists.
+Unchanged from the 2026-07-11 snapshot and out of scope for this pass: [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`b256c44e`; now `firmware/src_prototype/main.cpp`) is the L298N prototype's; the port encodes the interlock's assumed polarities, the GPPU enables, the ≤3-valve simultaneity, and the refill interlock. The board's wiring is self-consistent and boot-safe; nothing exercises it until a board exists.
 
 ## Later 2026-07-13 — independent re-audit (F1 PPTC + order spec)
 
