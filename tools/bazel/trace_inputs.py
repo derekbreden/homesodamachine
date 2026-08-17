@@ -284,6 +284,7 @@ def main() -> int:
     gens = args.gen or _generators(files)
 
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}
+    shrank = []
     for i, gen in enumerate(gens, 1):
         seen = trace(gen, files)
         # `probe.py`, `fit.py` and `lanes.py` are instruments: they answer and write nothing,
@@ -298,8 +299,19 @@ def main() -> int:
         # A GENERATOR THAT RAISED WROTE NOTHING TOO, and the RUNNER is where the two part: it
         # names the exception. One that raised keeps the entry it had, and one with no entry
         # is named on its own line, because a build cannot cut what a red generator makes.
+        # AND A RUN THAT DID PART OF ITS WORK WROTE SOMETHING. The branch below reads any write
+        # as a whole run, so a generator that stopped halfway replaces its entry with the part
+        # it reached — `render_scenes` came back 38 read / 22 written where it stands at
+        # 210 / 76, and the reading that catches it is the entry already in hand. A shrink is
+        # not wrong on its own: a tracer that stops recording what a run never opened shrinks
+        # every entry it touches, on purpose. So this takes the reading and NAMES it, at the
+        # tail as well, where a sweep of a hundred generators cannot scroll it away.
         raised = seen.pop("raised", None)
         if seen["writes"]:
+            prior = graph.get(gen)
+            if prior and any(len(prior[k]) > len(seen[k]) for k in ("reads", "writes")):
+                shrank.append((gen, len(prior["reads"]), len(seen["reads"]),
+                               len(prior["writes"]), len(seen["writes"])))
             graph[gen] = seen
         elif raised and gen in graph:
             print(f"  [{i:3d}/{len(gens)}] {gen:60s} raised {raised} — keeping what it had")
@@ -317,6 +329,12 @@ def main() -> int:
               f"{len(seen['reads']):3d} read {len(seen['writes']):3d} written")
         GRAPH.write_text(json.dumps(graph, indent=2, sort_keys=True) + "\n")
     print(f"{len(graph)} generator(s) in the graph")
+    if shrank:
+        print(f"\n{len(shrank)} entr(y/ies) came back smaller than they stood:")
+        for gen, r0, r1, w0, w1 in shrank:
+            print(f"    {gen}\n      {r0:3d} -> {r1:3d} read   {w0:3d} -> {w1:3d} written")
+        print("  A run that stopped part way writes down the part it reached. Re-trace the one")
+        print("  generator and read it again; the second reading is the one to keep.")
     return 0
 
 
