@@ -42,9 +42,10 @@ _ROOT = _HERE.parents[2]
 _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
 #: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the four whose text is partly their own,
-#: each with a scope a substituter writes in and everything outside it authored; `_WHOLE` is
-#: the one a writer composes every byte of — a `.figures.json` holds figures and nothing a
-#: person typed.
+#: each with a scope a substituter writes in and everything outside it authored; `_WHOLE` names
+#: the two a writer composes every byte of — a `.figures.json` holds figures and nothing a
+#: person typed, and a card's `.png` is a photograph of a page, drawn whole by the run that
+#: names it on both sides of its step so a picture that has not moved is not redrawn.
 #:
 #: WHICH FILES ARE REWRITTEN IS `graph.json`'s `rewritten` and not these. A suffix answers how
 #: to carry a medium — the mechanisms differ per medium and no writer reports one — and cannot
@@ -52,7 +53,7 @@ _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 #: answer destroys: a medium missing from a list, copied whole, lands a stale build's text over
 #: a sentence somebody wrote. A rewritten medium in neither list is named and left alone.
 _SPLICE = (".md", ".mmd", ".py", ".html")
-_WHOLE = (".json",)
+_WHOLE = (".json", ".png")
 
 #: `docgen`'s own marker, and the section `substitute_md` maintains at the end of every markdown
 #: file it touches. Between them they are the whole of what a build writes into an authored
