@@ -6,7 +6,7 @@ This is the scope for moving part of [`web/`](/web/) into a standalone package, 
 
 ## Parity
 
-The behaviors are mapped in [`web/README.md`](/web/README.md) and checked by [`smoke.test.js`](/web/tests/smoke.test.js), [`deps.test.js`](/web/tests/deps.test.js), [`viewer.test.js`](/web/tests/viewer.test.js), [`pick-format.test.js`](/web/tests/pick-format.test.js), [`pcb-editor.test.js`](/web/tests/pcb-editor.test.js). The README, a green `cd web && npm test`, and the running site are the parity surface.
+The behaviors are mapped in [`web/README.md`](/web/README.md) and checked by [`smoke.test.js`](/web/tests/smoke.test.js), [`deps.test.js`](/web/tests/deps.test.js), [`pick-format.test.js`](/web/tests/pick-format.test.js), [`pcb-editor.test.js`](/web/tests/pcb-editor.test.js). The README, a green `cd web && npm test`, and the running site are the parity surface. [`browser/viewer.browser.js`](/web/tests/browser/viewer.browser.js) is the browser pass, run by `npm run test:browser`.
 
 The threads below reach past that surface — couplings that live outside `web/`, or that the tests don't exercise.
 

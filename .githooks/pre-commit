@@ -340,7 +340,8 @@ fi
 
 # THE SITE'S OWN TESTS. node --test over web/tests: the contracts /3d and /pcb are a browse
 # of, the walkers that feed them, the ledger and date readers. ~10 s, paid by a commit that
-# stages something under web/. The puppeteer tests skip themselves where it is not installed.
+# stages something under web/. It starts no browser: the browser pass is `npm run test:browser`,
+# over tests/browser/*.browser.js, outside this glob.
 if staged "web/"; then
   if command -v node >/dev/null 2>&1; then
     gate "web tests" sh -c "cd \"$root/web\" && npm test --silent"
