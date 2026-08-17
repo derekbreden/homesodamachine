@@ -3301,6 +3301,7 @@
     "writes": [
       "hardware/printed-parts/enclosure/display-cover/README.figures.json",
       "hardware/printed-parts/enclosure/display-cover/README.md",
+      "hardware/printed-parts/enclosure/display-cover/display-cover.step",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py"
     ]
   },
@@ -3340,6 +3341,7 @@
     "writes": [
       "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
       "hardware/printed-parts/enclosure/display-gasket/README.md",
+      "hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py"
     ]
   },
