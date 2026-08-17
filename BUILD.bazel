@@ -8954,6 +8954,7 @@ sh_test(
     srcs = ["tools/bazel/selftest.sh"],
     data = [
         "hardware/cold-core-layout/_cold_scorecard.py",
+        "hardware/scripts/_card.py",
         "hardware/scripts/_meshes.py",
         "hardware/scripts/_realized.py",
     ],
@@ -9189,6 +9190,7 @@ sh_test(
     name = "check-thumbnails-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "hardware/scripts/_solids.py",
         "hardware/scripts/check_thumbnails.py",
     ],
     args = ["hardware/scripts/check_thumbnails.py"],
@@ -9877,6 +9879,7 @@ sh_test(
     name = "trace-inputs-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
+        "tools/bazel/inventory.py",
         "tools/bazel/trace_inputs.py",
     ],
     args = ["tools/bazel/trace_inputs.py"],
