@@ -1,14 +1,41 @@
 # Firmware
 
-The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main controller), RP2040 (display), ESP32-S3 (config touchscreen + BLE bridge). A fourth board, the faucet display (Waveshare ESP32-S3 1.47" touch LCD), runs standalone flavor-selector firmware; in the integrated appliance it is the flavor display and touch toggle (no RP2040, no air switch). The product under development reuses the ESP32 + the two ESP32-S3s; the integrated-build hardware bring-up procedure lives in [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
+Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
 
-## Architecture
+| Tree | Env | Runs on | Machine |
+|---|---|---|---|
+| `src_pcba_bench/` | `pcba_bench` | the controller PCBA's WROOM (U1) | the appliance |
+| `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the appliance |
+| `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance, and the prototype |
+| `src_prototype/` | `prototype` | an ESP32 dev module on L298N drivers | the prototype under the counter |
+| `src_config/` | `esp32s3_config` | Meshnology 1.28" round rotary display | the prototype under the counter |
+| `src_display/` | `rp2040_display` | Waveshare RP2040-LCD-0.99 | the prototype under the counter |
+| `src_servo_bench/`, `src_reed_bench/` | `servo_bench`, `reed_bench` | a spare ESP32 | neither — one peripheral on a bench |
+
+**The appliance's own controller firmware is unwritten.** `src_pcba_bench/` is a bring-up console: it talks to every device on the board and prints what it finds ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)), and it never writes `IODIR`, so nothing in this repo drives a valve, a pump, a relay or a reed on the appliance board. The board it runs on is batch 2, bench-validated — [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md). The bring-up procedure the appliance firmware is written against is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), and the pin map it answers to is [`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx).
+
+## What the appliance firmware must hold
+
+Three constraints the board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
+
+- **At most 3 solenoid valves energized at once.** Eight coils on MANIFOLD A draw 2.4–3.7 A through J1's `COM` contact, rated ~3 A, and dissipate it in one SOIC-18 (U4). The canonical valve states open at most three ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)); the ceiling is [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
+- **Relay #2 (`IO2`) off while a dispense is open.** The board peaks near 3.3 A and the SeaFlo diaphragm pump near 5 A on the same 12 V rail, against a 6.7 A supply. The carbonator's low reed asserts mid-pour, so the refill it queues waits for the dispense window to close ([`/hardware/assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5). Nothing in hardware enforces this.
+- **`GPPU` written on both MCP23017s.** No loom carries a resistor and the board pulls none of the reed inputs ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), U2 GPB4-7 / U3 GPB6-7), so every reed reads its expander's internal pull-up or floats.
+
+## Appliance displays
+
+- **ESP32-S3 front-face display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance front-face config + interaction surface: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. `src_front/` brings up the RGB panel (driven through esp_lcd with a double framebuffer + bounce buffer for tear-free output) + LVGL, runs the animated loading logo on the theme background, and carries the RS485 link to the base on GPIO43/44 — one `RUN PUMP A` button sends `pump a 60 1` to the base's bench console and shows its reply. The interaction UX is the seam that remains. See [`src_front/README.md`](src_front/README.md).
+- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head, on both machines. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere toggles between the two flavors, and the selection persists in NVS. After a minute idle the backlight fades to an ember level; the first touch wakes it without toggling. Standalone for now — the UART/TinyProto link to the base ESP32 (flavor-state sync, names/artwork push) is the integration seam marked in `src_faucet/main.cpp`.
+
+The config UX the 4.3B carries in the appliance is the prototype's rotary-display UX below, and porting it is a pending integration seam.
+
+## Prototype architecture
+
+The machine under the counter: one ESP32 on L298N drivers, with the RP2040 and the 1.28" S3 hanging off it over TinyProto.
 
 - **ESP32** — Main controller. Reads the flow meter, drives pumps and valves via L298N motor drivers, manages the pump state machine, stores config in LittleFS, and coordinates the other boards over UART using TinyProto (HDLC full-duplex reliable delivery).
 - **RP2040** (Waveshare RP2040-LCD-0.99) — Display controller. Shows the selected flavor logo on a 128x115 round LCD. Reads the same physical toggle switch for instant visual feedback.
-- **ESP32-S3** (Meshnology 1.28" Round Rotary Display) — Config display. A 240x240 round touchscreen with a rotary encoder for changing flavor images and ratios at runtime. Also serves as a BLE bridge between the iOS app and ESP32. Syncs config to the ESP32 over UART. In the integrated appliance the front-face config + interaction surface is the Waveshare ESP32-S3-Touch-LCD-4.3B (see the front-face display below); porting the config UX onto it is a pending integration seam.
-- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere toggles between the two flavors, and the selection persists in NVS. After a minute idle the backlight fades to an ember level; the first touch wakes it without toggling. Standalone for now — the UART/TinyProto link to the ESP32 (flavor-state sync, names/artwork push) is the integration seam marked in `src_faucet/main.cpp`.
-- **ESP32-S3 front-face display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance front-face config + interaction surface: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. `src_front/` brings up the RGB panel (driven through esp_lcd with a double framebuffer + bounce buffer for tear-free output) + LVGL, runs the animated loading logo on the theme background, and carries the RS485 link to the base on GPIO43/44 — one `RUN PUMP A` button sends `pump a 60 1` to the base's bench console and shows its reply. The interaction UX is the seam that remains. See [`src_front/README.md`](src_front/README.md).
+- **ESP32-S3** (Meshnology 1.28" Round Rotary Display) — Config display. A 240x240 round touchscreen with a rotary encoder for changing flavor images and ratios at runtime. Also serves as a BLE bridge between the iOS app and ESP32. Syncs config to the ESP32 over UART.
 
 ```
                         ┌─────────────────────┐
@@ -49,7 +76,7 @@ This is further scaled by a per-flavor **ratio** parameter (configurable at runt
 
 ## Pin Assignments
 
-The assignments below are for the **prototype hardware** under Derek's sink — no compressor relay, no condenser fan, no MQ-6 hydrocarbon sensor, no reed-switch level sensing, no moisture sensor, no PRV monitor, none of the appliance-only inputs and outputs. Appliance pin assignments evolve with the integrated build and are tracked in [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
+The assignments below are `src_prototype/`'s, plus the three displays'. The appliance board's pin map is [`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) — a different ESP32 on different pins, with the compressor relay, condenser fan, MQ-6, reed level sensing, moisture sensor and both MCP23017 expanders the prototype has none of.
 
 ### ESP32
 
@@ -180,12 +207,26 @@ Boot order does not matter. The S3 retries `GET_CONFIG` until the ESP32 is ready
 
 ## Building and Flashing
 
-This is a [PlatformIO](https://platformio.org/) project with four build environments. The wrapper `./tools/flash.sh <env>` handles each one — envs are `esp32dev`, `rp2040_display`, `esp32s3_config`, `esp32s3_faucet`. The underlying PlatformIO commands work directly too:
+The wrapper `./tools/flash.sh <env>` handles every environment in [`/platformio.ini`](/platformio.ini) — it pauses the background serial logger for the upload and resumes it after. The underlying PlatformIO commands work directly too:
 
-### Flash the ESP32 (main controller)
+### Flash the pcba controller board (bring-up console)
 
 ```bash
-pio run -e esp32dev -t upload
+pio run -e pcba_bench -t upload
+```
+
+Over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3 auto-reset, so no button presses. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for the console's commands.
+
+### Flash the ESP32-S3 (4.3B front-face display)
+
+```bash
+pio run -e esp32s3_front -t upload
+```
+
+### Flash the prototype's ESP32
+
+```bash
+pio run -e prototype -t upload
 ```
 
 ### Flash the RP2040 (display)
@@ -241,7 +282,7 @@ To change config over USB serial (115200 baud), connect to the ESP32 and send te
 
 ### Compile-Time Tuning
 
-These control the pump duty cycle shape and generally don't need adjustment. They are `#define`s at the top of `firmware/src/main.cpp`:
+These control the pump duty cycle shape and generally don't need adjustment. They are `#define`s at the top of `firmware/src_prototype/main.cpp`:
 
 ```cpp
 #define PUMP_ON_MIN_MS     50    // minimum pump on-time
