@@ -1,6 +1,6 @@
 # Firmware
 
-Eight source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
+Six source trees, each its own PlatformIO environment in [`/platformio.ini`](/platformio.ini), each running on its own board.
 
 | Tree | Env | Runs on | Machine |
 |---|---|---|---|
@@ -11,7 +11,6 @@ Eight source trees, each its own PlatformIO environment in [`/platformio.ini`](/
 | `src_prototype/` | `prototype` | an ESP32 dev module on L298N drivers | the prototype under the counter |
 | `src_config/` | `esp32s3_config` | Meshnology 1.28" round rotary display | the prototype under the counter |
 | `src_display/` | `rp2040_display` | Waveshare RP2040-LCD-0.99 | the prototype under the counter |
-| `src_servo_bench/`, `src_reed_bench/` | `servo_bench`, `reed_bench` | a spare ESP32 | neither — one peripheral on a bench |
 
 Two of them run on the controller PCBA. `src_pcba_bench/` answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
 

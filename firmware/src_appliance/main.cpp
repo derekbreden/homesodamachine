@@ -25,6 +25,14 @@
 //      the board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.
 
+// The commissioning and service commands (firmware-and-commissioning.md
+// §6, §7, §9) are serial commands on this image. Each one asks the state
+// machine for a thing — `selftest valves` walks the census — so the three
+// limits above hold across a factory bench and a service call the same
+// way they hold across a pour. Nothing here writes a pin directly; that
+// surface is src_pcba_bench, which runs on a bare board with the
+// manifold unplugged.
+
 // ── Outputs that reach an actuator ────────────────────────────────────
 // Every one is parked as an input at boot. A DRV8870 IN1 coasts on the
 // driver's own pull-down, and a Teyleten opto with no drive holds its
