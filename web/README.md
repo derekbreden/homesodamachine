@@ -12,7 +12,8 @@ npm ci             # installs package-lock.json exactly — what Render runs
 npm start          # production server (port 3001 by default; PORT env overrides)
 npm run dev        # dev wrapper: chokidar + Python runner + WebSocket hot reload (port 3000)
 npm run dev -- --no-watch  # same server, no watchers: nothing rebuilds on save
-npm test           # smoke tests: route mount + Puppeteer viewer (no DB needed)
+npm test           # route mount, walkers, contracts — no browser, no DB
+npm run test:browser # the browser pass (tests/browser/), on demand
 npm run build      # rebuild every CAD generator + PCB board, producers first (minutes)
 npm run build:check # same, then exit 1 if a rebuild moved anything — the fix is left in the tree
 ```

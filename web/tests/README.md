@@ -42,8 +42,8 @@ credentials required.
   rendering — needs Firebase credentials and a real device. Not in
   scope.
 - **UI behavior.** The viewer's grid rendering, modal interactions, glass
-  animation physics — all client-side, all behind JS. A puppeteer pass
-  would catch some of this; the route smoke is the priority deliverable.
+  animation physics — all client-side, all behind JS. `npm run test:browser`
+  runs the browser pass in `browser/`; `npm test` does not reach it.
 - **Error paths.** Bad-input 400s on `/steps/../etc/passwd` and friends
   are exercised by the dev viewer in normal use; not pinned here.
 
