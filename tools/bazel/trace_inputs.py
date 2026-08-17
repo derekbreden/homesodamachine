@@ -330,7 +330,10 @@ def main() -> int:
         GRAPH.write_text(json.dumps(graph, indent=2, sort_keys=True) + "\n")
     print(f"{len(graph)} generator(s) in the graph")
     if shrank:
-        print(f"\n{len(shrank)} entr(y/ies) came back smaller than they stood:")
+        # Either side alone is the reading, so the line cannot say the entry came back smaller:
+        # a run can open more and still write less, which is the shape that gets past a guard
+        # comparing the pair in order.
+        print(f"\n{len(shrank)} entr(y/ies) gave up reads or writes they had:")
         for gen, r0, r1, w0, w1 in shrank:
             print(f"    {gen}\n      {r0:3d} -> {r1:3d} read   {w0:3d} -> {w1:3d} written")
         print("  A run that stopped part way writes down the part it reached. Re-trace the one")
