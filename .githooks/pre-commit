@@ -233,6 +233,15 @@ for hw in $editions; do
          python3 "$root/$hw/scripts/_machine_time.py"
   fi
 
+  # Seconds ledger. A reading is filed by a generator's own exit, so what moves this is a
+  # run and not a file, and the key is a staged generator. 0.02 s — one JSON read and a
+  # markdown rewrite, no venv and no build. A checkout carrying no readings moves nothing.
+  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$' ||
+     staged "$hw/ledger/build-time.md" "$hw/scripts/_build_time.py"; then
+    sync "$hw build-time figures" "$root/$hw/ledger/build-time.md" \
+         python3 "$root/$hw/scripts/_build_time.py"
+  fi
+
   # ── the gates on what a sync cannot settle ──────────────────────────────
   # Every row carries a known category tag. There is no write mode: which section a
   # new row belongs in is a decision, so this one only ever reports.
@@ -244,6 +253,13 @@ for hw in $editions; do
   # number someone has to choose, so the sync above leaves it standing.
   if staged "$hw/ledger/labor.md" "$hw/scripts/_labor_totals.py"; then
     gate "$hw labor ladder" python3 "$root/$hw/scripts/_labor_totals.py" --check
+  fi
+
+  # A generator reading slower than every row on the page is the row build-time.md is
+  # missing. Which of the sixty-nine belong there is the decision the sync cannot make.
+  if git diff --cached --name-only -- "$hw/" | grep -q '\.py$' ||
+     staged "$hw/ledger/build-time.md" "$hw/scripts/_build_time.py"; then
+    gate "$hw build-time rows" python3 "$root/$hw/scripts/_build_time.py" --check
   fi
 
   # A §7 row with no print-rate group fails here rather than vanishing from the
