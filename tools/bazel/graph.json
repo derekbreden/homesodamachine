@@ -335,7 +335,6 @@
       "hardware/assembly/_finish_pack_ship_sync.py",
       "hardware/assembly/finish-pack-ship.figures.json",
       "hardware/assembly/finish-pack-ship.md",
-      "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"
     ],

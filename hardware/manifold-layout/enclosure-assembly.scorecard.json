@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "88/88 declared",
+   "value": "90/90 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -132,6 +132,7 @@
     "port-ring-flavor-a \u2014 port-ring-flavor-a-word: 0.000 mm \u2014 seated against it",
     "port-ring-flavor-b \u2014 port-ring-flavor-b-word: 0.000 mm \u2014 seated against it",
     "port-ring-co2 \u2014 port-ring-co2-word: 0.000 mm \u2014 seated against it",
+    "nameplate \u2014 nameplate-ink: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-stub: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-clamp: 0.000 mm \u2014 seated against it",
     "hopper-funnel \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
@@ -918,6 +919,26 @@
    "active": true
   },
   {
+   "id": "nameplate-field",
+   "label": "The plate stands in the field this wall leaves it",
+   "kind": "gate",
+   "status": "pass",
+   "value": "104.53 x 66.07 at (38.23, 259.90), z 226.86..292.93",
+   "target": "inside x -19.03..95.50, z 197.70..317.53",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "nameplate-pocket",
+   "label": "The wall's pocket is the plate's own outline",
+   "kind": "gate",
+   "status": "pass",
+   "value": "104.53 x 66.07 and one 0.2 slip, on all four edges",
+   "target": "wall outside every edge, air inside it",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "chains-seated",
    "label": "Every made-up chain lies in its printed rib on the core's cap",
    "kind": "gate",
@@ -962,7 +983,7 @@
    "label": "Every body carries the colour of what it is made of",
    "kind": "gate",
    "status": "pass",
-   "value": "122/122 coloured",
+   "value": "124/124 coloured",
    "target": "every body coloured",
    "detail": [],
    "active": true
@@ -1126,7 +1147,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "57/57 mounted, 19 part of another body, 12 nothing fastens",
+   "value": "58/58 mounted, 20 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
@@ -1149,7 +1170,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "88/88 stated",
+   "value": "90/90 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false

@@ -116,6 +116,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "port-ring",
+           _hw / "printed-parts" / "enclosure" / "nameplate",
            _hw / "printed-parts" / "enclosure" / "valve-panel",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
            _hw / "printed-parts" / "enclosure" / "back-panel",
@@ -160,6 +161,7 @@ import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import port_ring as _ring                             # noqa: E402
+import nameplate as _np                               # noqa: E402
 import valve_panel as _panel                          # noqa: E402
 import pump_tray as _tray                             # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
@@ -2097,6 +2099,109 @@ def build_port_rings(stations):
     return out
 
 
+# --- the nameplate, in the field the port row leaves east of the flavour chips ---
+#
+# A plate lying flush in a pocket of this same wall, held by two M3 cap screws. The pocket and
+# the plate are `port_ring`'s construction at another size; what the screws need is depth behind
+# the wall, and that is the one thing this face is short of.
+#
+# WHAT THE WALL LEAVES IT is a rectangle on three struck edges: the flavour pair's own pocket
+# edge west, the flat rear face's tangent east, and the top row's pockets north. The fourth is
+# the back column's Z seam, which the box searches — so the plate is stood off the other three
+# and `nameplate-field` reads it back against the seam once the box is standing.
+NAMEPLATE_MARGIN = 5.0
+# What a boss keeps off the cold core's cap, on the radius. `nameplate.boss_stem_d` is the part
+# of the boss that reaches deep, so it is that one and not the collar the line is struck on.
+NAMEPLATE_BOSS_CLEAR = 1.5
+# The two bodies the plate goes into the assembly under — the part and the filament lying in it.
+NAMEPLATE = "nameplate"
+NAMEPLATE_INK = "nameplate-ink"
+# The field's own shape, as `enclosure.Box.nameplate`: the plate's centre and outline, the two
+# screw stations on it, and everything the wall has to cut and stand for one screw.
+Nameplate = collections.namedtuple(
+    "Nameplate", "x z width height corner slip thick screws pad_d pad_slip pad_depth "
+                 "collar_d stem_d reach bore_d bore_depth")
+
+
+def nameplate_field() -> tuple:
+    """The rectangle the wall leaves the plate, as `(west, east, north)`.
+
+    West is the flavour pair's own POCKET edge, not its chip's — what stands on the wall there is
+    the pocket. East is the flat rear face's tangent, the same plane `c14_flat_column` runs the
+    inlet's flange out on. North is the top row's pockets, read on the deck's own storey."""
+    return (PANEL_X["bulkhead-flavor-a"] + port_pocket_d() / 2.0,
+            _enc.interior_x()[1] - (_enc.corner_round - _enc.wall),
+            deck_storey() - port_pocket_d() / 2.0)
+
+
+def nameplate_screw_line(foam) -> float:
+    """The Z both screws stand on: the lowest a boss can, over the cold core's own cap.
+
+    The plate's boss reaches `nameplate.boss_reach` inboard and the core's foam stands
+    `enclosure.wall` off this wall for the whole of the field below — so a boss over the cap is a
+    boss in the core. This is the cap's face, half a stem, and the air past it."""
+    return cap_face(foam) + _np.boss_stem_d() / 2.0 + NAMEPLATE_BOSS_CLEAR
+
+
+def nameplate_station(foam) -> tuple:
+    """The plate's own centre on the wall, as `(x, z)` — centred across the field, and standing
+    ON the screw line, which is what puts its two screws at mid-height."""
+    west, east, _north = nameplate_field()
+    return ((west + east) / 2.0, nameplate_screw_line(foam))
+
+
+def nameplate_cut(foam) -> Nameplate:
+    """Everything the wall does for the plate, as `enclosure.Box.nameplate`."""
+    x, z = nameplate_station(foam)
+    return Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.SLIP,
+                     _np.THICK, _np.screw_stations(),
+                     _np.PAD_DIA, _np.PAD_SLIP, _np.PAD_DEPTH,
+                     _np.boss_collar_d(), _np.boss_stem_d(), _np.boss_reach(),
+                     _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
+
+
+def build_nameplate(foam, unit: int = 1):
+    """The plate and its lettering, two solids, seated on the pocket's own floor — one plate's
+    thickness inside the wall's outer face, so its face and the wall's come out one plane."""
+    x, z = nameplate_station(foam)
+    floor = _enc.rear_plane_y + _enc.wall - _np.THICK
+    plate, ink = _np.split(import_step(str(_np.step_path(unit))).val())
+    body, _c = seat_body(plate, (), seat="nameplate", station=(_np.seat(), (x, floor, z)))
+    letters, _w = seat_body(ink, (), seat="nameplate-ink",
+                            station=(_np.seat(), (x, floor, z)))
+    return ((NAMEPLATE, body, cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))),
+            (NAMEPLATE_INK, letters,
+             cq.Color(*(c / 255.0 for c in _rear.word_color("flavor")))))
+
+
+def check_nameplate(foam, box) -> Bound:
+    """The plate against the field the wall leaves it, and its screws against the line the cold
+    core's cap leaves them.
+
+    `nameplate.WIDTH` and `HEIGHT` are the part's own figures — it is sized on the type it
+    carries — and the field is this wall's. This is where the two are read against each other."""
+    west, east, north = nameplate_field()
+    seam = box.splits[1]
+    x, z = nameplate_station(foam)
+    rows = []
+    room = east - west - 2.0 * NAMEPLATE_MARGIN
+    if _np.WIDTH > room + 1e-6:
+        rows.append(f"the plate is {_np.WIDTH:g} across and the field between the flavour "
+                    f"pockets and the flat face's tangent leaves {room:.2f} inside its margins")
+    low = z - _np.HEIGHT / 2.0
+    if low < seam + NAMEPLATE_MARGIN - 1e-6:
+        rows.append(f"the plate's foot lands at z {low:.2f} and the back column's seam is at "
+                    f"{seam:.2f} — a plate crossing it is two prints")
+    high = z + _np.HEIGHT / 2.0
+    if high > north - NAMEPLATE_MARGIN + 1e-6:
+        rows.append(f"the plate's head reaches z {high:.2f} and the top row's pockets come down "
+                    f"to {north:.2f} — the two would meet with no wall between them")
+    return record_bound(Bound(
+        "nameplate-field", "The plate stands in the field this wall leaves it", not rows,
+        f"{_np.WIDTH:g} x {_np.HEIGHT:g} at ({x:.2f}, {z:.2f}), z {low:.2f}..{high:.2f}",
+        f"inside x {west:.2f}..{east:.2f}, z {seam:.2f}..{north:.2f}", rows))
+
+
 # --- the panel deck: the three unions the machine dispenses through ---------
 #
 # Everything the customer draws leaves by these: carbonated water to the faucet, and the two
@@ -2305,6 +2410,55 @@ def check_top_row(stations) -> Bound:
         "port-ring-top-row", "The top row's chips run out on the box's top face", not rows,
         f"{sum(1 for _n, s in stations.items() if _ring.STATIONS[s[4]].top_row)} chips flush "
         f"at z {top:.3f}", "no wall standing over the colour", rows))
+
+
+def check_nameplate_pocket(plate, pieces, foam) -> Bound:
+    """The pocket the wall CUT against the pocket the plate needs, read off the two solids.
+
+    `pack-closes` catches a pocket that is too SMALL — the plate cannot get into it, so the two
+    share volume. Nothing catches one that is too LARGE: a plate rattling in a pocket ten
+    millimetres too tall overlaps nothing, seats nowhere in particular, and every other reading
+    on this card comes back green. That is the case this one is here for.
+
+    THE READING IS THE POCKET'S OWN FOUR EDGES. At the depth the plate lies, the wall stands
+    where the plate's outline is not and gives way where it is — so each edge is asked twice, a
+    hair outside and a hair inside. A pocket cut to the wrong figure fails on whichever pair of
+    probes it moved past."""
+    wall = pieces.get("back-top")
+    if wall is None or plate is None:
+        return record_bound(Bound(
+            "nameplate-pocket", "The wall's pocket is the plate's own outline", False,
+            "no wall to read" if wall is None else "no plate to read", "both standing",
+            ["the nameplate or `enclosure-back-top` is not in this machine"]))
+    wall = wall.val() if hasattr(wall, "val") else wall
+    plate = plate.val() if hasattr(plate, "val") else plate
+    x, z = nameplate_station(foam)
+    y = _enc.rear_plane_y + _enc.wall - _np.THICK / 2.0
+    half_w = (_np.WIDTH + 2.0 * _np.SLIP) / 2.0
+    half_h = (_np.HEIGHT + 2.0 * _np.SLIP) / 2.0
+    # A probe small enough to sit inside the slip, offset by its own reach either side of an edge.
+    reach = 0.5
+
+    def stands(px, pz) -> bool:
+        cube = cq.Solid.makeBox(0.4, 0.4, 0.4, cq.Vector(px - 0.2, y - 0.2, pz - 0.2))
+        return _overlap.volume(cube, wall) > 1e-9
+
+    rows = []
+    for name, out, inn in (
+            ("west", (x - half_w - reach, z), (x - half_w + reach, z)),
+            ("east", (x + half_w + reach, z), (x + half_w - reach, z)),
+            ("foot", (x, z - half_h - reach), (x, z - half_h + reach)),
+            ("head", (x, z + half_h + reach), (x, z + half_h - reach))):
+        if not stands(*out):
+            rows.append(f"the wall gives way {reach:g} mm OUTSIDE the plate's {name} edge — the "
+                        f"pocket is cut wider than the plate that lies in it")
+        if stands(*inn):
+            rows.append(f"the wall stands {reach:g} mm INSIDE the plate's {name} edge — the "
+                        f"pocket is cut narrower than the plate that lies in it")
+    return record_bound(Bound(
+        "nameplate-pocket", "The wall's pocket is the plate's own outline", not rows,
+        f"{_np.WIDTH:g} x {_np.HEIGHT:g} and one {_np.SLIP:g} slip, on all four edges",
+        "wall outside every edge, air inside it", rows))
 
 
 def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
@@ -3030,6 +3184,7 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "co2-inlet", "gasher-co2", "wr1110",
+              "nameplate", "nameplate-ink",
               "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "digiten-flow")
 
 
@@ -4637,6 +4792,10 @@ def build_pack() -> cq.Assembly:
     # struck on. They lie OUTBOARD of the back wall's outer face, in the field the wall raises.
     for name, solid, colour in build_port_rings(a.wall_stations):
         a.add(solid, name=name, color=colour)
+    # And the nameplate, in the field those rings leave east of the flavour pair — the same
+    # pocket floor, one plate's thickness inside the wall's outer face.
+    for name, solid, colour in build_nameplate(foam):
+        a.add(solid, name=name, color=colour)
 
     # The runs between placed bodies. Their frames come off the poses above, so a waypoint
     # measured off a port moves when the body it is on moves.
@@ -4764,7 +4923,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     placed = _solids(a)
     pan = box(placed["drip-pan"][0])
     west = west_interior_face()
-    outside = set(THROUGH_WALL) | set(IN_THE_WALL)
+    outside = set(THROUGH_WALL) | set(IN_THE_WALL) | {NAMEPLATE, NAMEPLATE_INK}
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
                      back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
@@ -4776,6 +4935,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      port_field=back_wall_field(a.wall_stations),
+                     nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      valve_panels=a.valve_panels, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
                      vent_chase=a.vent_chase)
@@ -5050,6 +5210,13 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the top row against the ceiling it runs out on, which is the one figure `port_ring`
     # cannot derive for itself.
     check_top_row(a.wall_stations)
+    # And the nameplate against the field this wall leaves it — the one reading that can tell
+    # `nameplate.WIDTH`, `HEIGHT` and `SCREW_Z` from figures this wall would actually take.
+    check_nameplate(a.pack_solids["foam-assembly"], box)
+    # And the pocket the wall actually cut against the outline that plate has. `pack-closes`
+    # answers a pocket too small; this is the one that answers a pocket too large.
+    check_nameplate_pocket({n: s for n, (s, _c) in _solids(a).items()}.get(NAMEPLATE),
+                           pieces, a.pack_solids["foam-assembly"])
     # And both made-up chains against the cap they lie on, which needs no piece — the ribs are
     # printed in the core's own lid, so every solid in the reading is in the pack.
     check_chains_seated({n: a.pack_solids[n] for n in _cci.cap_anchors if n in a.pack_solids},

@@ -365,6 +365,13 @@ MOUNTS = (
     ("port-ring-co2-word", "port-ring-co2", "well"),
     ("port-ring-flavor-a-word", "port-ring-flavor-a", "well"),
     ("port-ring-flavor-b-word", "port-ring-flavor-b", "well"),
+    # AND THE NAMEPLATE LIES IN A POCKET OF THAT SAME WALL, by the same bargain with one
+    # difference: nothing places a flange over it, so two M3 cap screws do what a fitting's nut
+    # does for a chip. Each lands in a counterbore sunk into the plate's own local thickening and
+    # pulls down into a ruthex M3 short, set in a boss the wall stands behind the pocket
+    # (`enclosure._nameplate`) — so the head, the plate and the wall come out one plane.
+    ("nameplate", "enclosure-back-top", "screw"),
+    ("nameplate-ink", "nameplate", "well"),
     # THE METER HANGS IN TWO SADDLES OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
@@ -417,6 +424,7 @@ RIDES = {
        for p in ("a", "b") for part in ("boss", "motor")},
     **{f"port-ring-{w}-word": f"port-ring-{w}"
        for w in ("water", "carb", "co2", "flavor-a", "flavor-b")},
+    "nameplate-ink": "nameplate",
 }
 
 
@@ -709,6 +717,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # not two bodies closing on each other but one printed part in two colours.
     *((f"port-ring-{w}", f"port-ring-{w}-word")
       for w in ("water", "carb", "co2", "flavor-a", "flavor-b")),
+    # And the nameplate's lettering against the plate it is lettered into, the same print in the
+    # same two filaments at another size.
+    ("nameplate", "nameplate-ink"),
     # THE BASIN'S DISCONNECT, WHICH IS THREE CONTACTS ON ONE AXIS. The stub is inside the spout's
     # bore for the whole of the spout's land; the band lies on the spout's outer face and closes
     # the silicone between the two; and the union's collet face meets that same spout's exit

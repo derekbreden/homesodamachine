@@ -68,7 +68,7 @@ The C14 receptacle is recessed [3–5 mm](AC_RECESS_DEPTH) into the rear face wi
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8 — PP1208E umbilical line (3 on this wall); with the §3 water inlet the SKU is 4/build.
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 — water-inlet path (Waterdrop filter, Multiplex 19-0897 backflow, the PI4512F6S + PP061208W outlet stack, water-split PP0208E tee, PP1208E wall bulkhead, HAOCHEN install-kit tee).
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 and [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) — AC runs C14 inward.
-- [`../nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) — sister rear-face artifact (separately printed plaque).
+- [`../nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) — the plate that fills the field east of the flavour chips, and the two screw bosses the wall stands for it.
 
 ## Bulkhead array arrangement
 
@@ -88,7 +88,7 @@ The wall is not a moisture or vapor barrier — the appliance is not hermetic. E
 
 ## Status
 
-Design-in-progress. The through-holes are cut into the back-top enclosure piece by `enclosure.py`; the recess, bezels, and labels have no CAD yet. This README is the source-of-truth for the rear face's connection inventory; see `../nameplate/README.md` for the equivalent state on the sister rear-face artifact.
+Design-in-progress. The through-holes, the chips' pockets and the nameplate's pocket and bosses are all cut into the back-top enclosure piece by `enclosure.py`; the AC inlet's recess has no CAD yet. This README is the source-of-truth for the rear face's connection inventory; `../nameplate/README.md` carries the plate standing beside them.
 
 ## Sources
 [value](NAME) texts are updated by:
