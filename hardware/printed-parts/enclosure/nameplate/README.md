@@ -1,74 +1,79 @@
 # Rear-Wall Nameplate
 
-3D-printed serialized plaque mounted on the rear wall of `enclosure-back-top`. Visible after install. One plaque per unit.
+The plate the machine is named and rated on: [104.53 mm](PLATE_W) × [66.07 mm](PLATE_H) ×
+[2 mm](PLATE_T), lying flush in a pocket of `enclosure-back-top`'s outer face, in the field
+east of the flavour chips. One plate per unit, serialized. Visible after install.
 
-## What this does
+Cut by [`nameplate.py`](nameplate.py) → `nameplate-NNN.step`; the pocket, the two screw bosses
+and their heat-set bores are cut by `enclosure._nameplate` off the same figures.
 
-Three distinct jobs overlap onto the same artifact:
-
-1. **Safety communication.** The plaque states input voltage, frequency, and power rating, and carries a prominent "120V 60Hz only — not for 240V" warning to offset the "250V 10A" spec stamp molded into the C14 chassis inlet mounted below it.
-
-2. **Founder Edition identity.** Per `marketing/target-market.md`, units 001–[050](FOUNDER_EDITION_LAST) are hand-built, numbered, and signed by the founder. This plaque is where the number and signature live. The plaque is the physical proof that a specific person built this specific machine — the Founder Edition story made tangible.
-
-3. **Per-unit QR code + serialization.** Links the physical machine to a unique persistent URL, `homesodamachine.com/u/NNN` where NNN is the unit number, zero-padded (`001`, `002`, ..., `[050](FOUNDER_EDITION_LAST)`). The serial number printed on the plaque ties this specific unit to a support/warranty record we can look up by QR scan. What that URL resolves to is a future customer-portal decision — the QR is the binding, and the destination can evolve without changing the physical plaque.
-
-   **Note (2026-05-20):** The unboxing-and-quickstart brief at [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) makes this portal load-bearing in a new way. The brief commits to keeping the printed quick-start sheet to install steps only, with **everything else** (warranty, RMA, troubleshooting, BOM, support contact, ongoing care, owner's manual content) living at `/u/NNN`. The portal is no longer optional infrastructure — it is the home for every piece of information the customer needs that is not on the install sheet.
-
-Standard Edition (units [051](FOUNDER_EDITION_NEXT)+) is out of scope for this revision. Revisit if/when Founder Edition sells through.
-
-The Founder Edition is not UL-listed or ETL-listed. The plaque does
-not display a UL or ETL mark.
-
-## Content layout
-
-Content spec, not visual design. Final layout, typography, and dimensions TBD.
+## What it says
 
 ```
-HOME SODA MACHINE
-Founder Edition — No. 027 of [050](FOUNDER_EDITION_LAST)
-
-Signed: [handwritten signature]
-
-Model: SFI-1
-Serial: SFI1-FE-027
-Input: 120V AC  60Hz  5A  600W
-
-⚠ 120V 60Hz ONLY — not for 240V
-
-[QR code]   homesodamachine.com/u/027
+        HOME SODA MACHINE          ← the glass mark and the name, one lockup
+          SERIAL  0001
+       120V 60Hz 5A 600W
+        120V 60Hz ONLY
+         NOT FOR 240V
+   homesodamachine.com/u/0001      ← as wide as the lockup, and it sets that way at every unit
 ```
+
+The warning offsets the "250V 10A" spec stamp moulded into the C14 inlet standing above it on
+the same wall. The link is where everything not on the printed quick-start sheet lives —
+warranty, RMA, troubleshooting, BOM, support contact, ongoing care — per
+[`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
+
+Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
+
+## The type
+
+One face, `port_ring.WORD_FONT`, in two registers. The name and the block are set at
+[6.5](TITLE_EM) — `port_ring.WORD_SIZE`, the em the bulkhead chips beside this plate are
+lettered at. The link is set at [6.05](LINK_EM): the em that brings it out at
+[88.8 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
+marks that measure the same. Every serial is four digits and this face sets figures on one
+advance, so that holds from unit 0001 to 9999.
+
+The lettering lies in a recess [1 mm](INK_DEPTH) into the plate's face and fills it flush — the
+port chip's construction at another size, printed in a second filament.
+
+## The two screws
+
+| | |
+|---|---|
+| Head | M3×[8 mm](SCREW_LEN) DIN 912, in a Ø[6.15 mm](CBORE_D) flat counterbore [3 mm](CBORE_DEPTH) deep |
+| Land under it | [1.5 mm](LAND) — the plate thickens by [2.5 mm](PAD_DEPTH) over a Ø[9.15 mm](PAD_D) pad, and the wall is pocketed to take it |
+| Reach | [8 mm](SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
+| Boss | [8 mm](BOSS_REACH) inboard of the wall's inner face — Ø[14.75 mm](BOSS_COLLAR_D) round the pad's pocket, Ø[10 mm](BOSS_STEM_D) round the insert |
+
+**Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the
+SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall — so
+a boss anywhere else on this field is a boss in the core or in the pump. Between them the room
+is open from x −28 to 85, and the plate's own horizontal centreline stands on that line. That
+is what puts a screw at each end at mid-height. `enclosure_assembly.nameplate_screw_line` is
+the figure; `nameplate-field` on the build card is the reading.
 
 ## Print settings
 
-The nameplate is a separate print operation from the enclosure with its
-own settings.
+A separate print from the enclosure, with its own settings.
 
 - **Nozzle:** [0.2 mm](NAMEPLATE_NOZZLE_D) (bulk enclosure parts use [0.4 mm](BULK_NOZZLE_D))
 - **Layer height:** [0.08](LAYER_H_MIN)–[0.12 mm](LAYER_H_MAX)
-- **Contrast strategy:** two-color inlay — dark body with light recessed text and QR, or the inverse. Filament change at the text-surface layer. No paint; survives kitchen wipe-down.
-- **Signature:** laser-engrave onto the printed plaque after printing, preserving a pen-traced vector. Decision deferred until the first plaque prints.
+- **Two colours:** the plate in PETG Basic Black 30105 and the lettering in White 30106, a
+  filament change at the recess floor. No paint; survives kitchen wipe-down.
 
-## Per-unit generation (planned)
+## Per-unit generation
 
-The CadQuery script (to be written) will take these parameters:
+```
+tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 27
+```
 
-- `unit_number` — integer, 1 through [50](FOUNDER_EDITION_COUNT)
-- `qr_png_path` — QR code PNG generated by `qrcode` Python package from `https://homesodamachine.com/u/{unit_number:03d}`
-- `signature_svg_path` — placeholder flat-text rendering until the laser-engrave workflow is decided
+emits `nameplate-027.step` — the plate and its lettering as two bodies of one part, each in the
+filament it comes off. `nameplate-001.step` is the one the assembly stands.
 
-and emit a unit-specific STEP file. Generating all [50](FOUNDER_EDITION_COUNT) plaques up front is trivial; storage is negligible.
-
-## Mounting
-
-Interfaces with the rear wall of `enclosure-back-top` — the plaque is the only separately printed thing on that face, and where it lands among the wall's connections is not settled. Likely candidates: M3 countersunk screws through corner bosses, magnetic attachment over a recessed pocket, or an interference-fit dovetail recessed into the wall.
-
-## Files (planned)
-
-- `nameplate.py` — parametric generator (not yet written)
-- `nameplate-NNN.step` — per-unit outputs, generated on demand
-- `qrcodes/NNN.png` — per-unit QR code PNGs, generated alongside
-
-Run with `tools/cad-venv/bin/python` per the hardware context file.
+The signature the Founder Edition story asks for is not on the plate. Laser-engraving it onto
+the printed plate after the print is the open item, and the decision waits on the first plate
+off the bed.
 
 ## Sources
 [value](NAME) texts are updated by:

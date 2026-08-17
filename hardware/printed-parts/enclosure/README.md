@@ -59,7 +59,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 
 - [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — the rear wall's connection inventory. Not a separate part: the rear face is a wall of `enclosure-back-top`.
 - [`drip-pan/`](/hardware/printed-parts/enclosure/drip-pan/) — internal catch basin under the ASSE 1022 chain's atmospheric vent.
-- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear wall.
+- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the serialized plate the machine is named and rated on, lying flush in a pocket of the rear wall beside the port chips, held by two M3 cap screws.
 - [`port-ring/`](/hardware/printed-parts/enclosure/port-ring/) — the flat chip inset into the wall under each rear-wall fitting's flange, in the colour of the tube that goes into it and lettered with that port's name.
 - [`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
 - [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the two-piece pump case with its cylinder cut off, which is what each Kamoer hangs under: plate on the head's crown, octagon bore on the boss, shoulder on the boss's crown. Not a separate part either: both are that same piece's material, off the front wall.

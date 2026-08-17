@@ -15,12 +15,13 @@ sys.path.insert(
 )
 
 from docgen import substitute_md
-from _nameplate_dimensions import founder_edition_count  # type: ignore[import-not-found]
 
 
-# ─── Founder Edition pricing ──────────────────────────────────────────
-# Source: marketing/target-market.md.
+# ─── The Founder Edition run ──────────────────────────────────────────
+# Source: marketing/target-market.md — units 001-050 at $7,500, hand-built one at a time. This
+# bench is the per-unit repeatable one across that run, so both figures are read here.
 
+founder_edition_count = 50
 founder_edition_price_usd = 7500
 
 # ─── Drained-fluid masses (water + flavor concentrate) ────────────────

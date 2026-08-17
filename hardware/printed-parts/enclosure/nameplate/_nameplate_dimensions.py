@@ -12,16 +12,13 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from docgen import substitute_md
 
 
-# Founder Edition run size: units 1..N.
-founder_edition_count = 50
-
 # Print settings for the small text and QR code the nameplate carries.
 nameplate_nozzle_diameter = 0.2     # mm
 bulk_enclosure_nozzle_diameter = 0.4  # mm — owned by other enclosure parts
 layer_height_min = 0.08             # mm
 layer_height_max = 0.12             # mm
 
-# What the plate states. `nameplate.py` letters these and the README quotes them, so the plaque
+# What the plate states. `nameplate.py` letters these and the README quotes them, so the plate
 # a customer reads and the page describing it carry one set of strings.
 input_rating = "120V 60Hz 5A 600W"
 warning_line = "120V 60Hz ONLY"
@@ -40,16 +37,13 @@ def unit_url(unit: int) -> str:
     return f"https://{portal_host}/u/{serial_of(unit)}"
 
 
-def unit_url_lines(unit: int) -> tuple:
-    """That URL as the plate sets it: the host, and the path under it."""
-    return (portal_host, f"/u/{serial_of(unit)}")
+def unit_url_plain(unit: int) -> str:
+    """That URL as the plate letters it, for a reader who would rather type it."""
+    return f"{portal_host}/u/{serial_of(unit)}"
 
 
 def main():
     variables = {
-        "FOUNDER_EDITION_COUNT": f"{founder_edition_count}",
-        "FOUNDER_EDITION_LAST": f"{founder_edition_count:03d}",
-        "FOUNDER_EDITION_NEXT": f"{founder_edition_count + 1:03d}",
         "NAMEPLATE_NOZZLE_D": f"{nameplate_nozzle_diameter:.4g} mm",
         "BULK_NOZZLE_D": f"{bulk_enclosure_nozzle_diameter:.4g} mm",
         "LAYER_H_MIN": f"{layer_height_min:.4g}",

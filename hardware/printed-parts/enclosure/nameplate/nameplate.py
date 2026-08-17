@@ -71,12 +71,13 @@ SLIP = 0.2
 CORNER_R = 3.0
 # The quiet band inside the plate's edge that nothing is set in.
 MARGIN = 6.0
-# The plate across and up, in the field `enclosure_assembly.nameplate_station` leaves it, and
-# where its two screws stand on it — the screw line is the wall's, so it lands where it lands on
-# a plate the field's own height.
-WIDTH = 104.73
-HEIGHT = 110.03
-SCREW_Z = 2.285
+# The plate across and up. The width is the FIELD'S, less a margin at each end, so the plate runs
+# the whole of what the wall leaves it. The height is the stack standing on it plus HALF the
+# padding the width came out with — the plate is landscape and its quiet band is landscape with
+# it. `enclosure_assembly.check_nameplate` reads both back against the wall; `selftest` reads
+# them against the type.
+WIDTH = 104.53
+HEIGHT = 66.07
 
 
 # --- the two screws --------------------------------------------------------
@@ -143,8 +144,9 @@ def boss_stem_d() -> float:
 
 def screw_stations() -> tuple:
     """The two screw stations in the plate's own frame: on its horizontal centreline, one
-    `SCREW_INSET` in from each end."""
-    return ((WIDTH / 2.0 - SCREW_INSET, SCREW_Z), (-(WIDTH / 2.0 - SCREW_INSET), SCREW_Z))
+    `SCREW_INSET` in from each end. That centreline is the wall's own screw line, which is what
+    `enclosure_assembly.nameplate_station` stands the plate on."""
+    return ((WIDTH / 2.0 - SCREW_INSET, 0.0), (-(WIDTH / 2.0 - SCREW_INSET), 0.0))
 
 
 def seat() -> tuple:
@@ -162,6 +164,8 @@ FONT = _ring.WORD_FONT
 FONT_KIND = _ring.WORD_KIND
 TITLE_EM = _ring.WORD_SIZE
 BODY_EM = _ring.WORD_SIZE
+# The link is the one register under the chips' em — 26 characters at `BODY_EM` set wider than
+# the plate — and `link_em` is what it comes out at.
 # How deep the type's recess is cut into the plate's face — `port_ring.WORD_DEPTH`, half the
 # plate, so the colour behind the lettering is as thick as the lettering.
 INK_DEPTH = _ring.WORD_DEPTH
@@ -170,10 +174,10 @@ BEAD = _ring.WORD_BEAD
 NOZZLE = _ring.WORD_NOZZLE
 # Leading inside a block of lines, and the air between two blocks, both as multiples of the em.
 # Every line is caps and there are no descenders to clear.
-LEADING = 1.30
-BLOCK_GAP = 1.05
+LEADING = 1.14
+BLOCK_GAP = 0.62
 # The glass mark standing beside the name, the air between them, and its stroke.
-LOGO_H = 18.0
+LOGO_H = 15.0
 LOGO_STROKE = 0.9
 LOGO_GAP = 5.0
 
@@ -192,6 +196,20 @@ def text_width(s: str, em: float) -> float:
 def cap_height(em: float) -> float:
     """And how tall a cap stands at that em."""
     return _flat("HOME", em).BoundingBox().ylen
+
+
+def lockup_width() -> float:
+    """The brand lockup across: the glass mark, the air beside it, and the name."""
+    return logo_width() + LOGO_GAP + text_width(lines(1)["name"][0], TITLE_EM)
+
+
+def link_em() -> float:
+    """The em the link is set at: the one that brings it out exactly as wide as the lockup over
+    it, so the plate is bracketed by two marks of one width.
+
+    ONE FIGURE FOR THE WHOLE RUN. Every serial is four digits and this face sets figures on one
+    advance, so the link measures the same on unit 1 as on unit 9999."""
+    return BODY_EM * lockup_width() / text_width(lines(9999)["url"][0], BODY_EM)
 
 
 def _upright(shape):
@@ -290,31 +308,27 @@ def logo_width(height: float = LOGO_H, stroke: float = LOGO_STROKE) -> float:
 
 # --- the layout ------------------------------------------------------------
 
-def _blocks(unit: int) -> tuple:
-    """The plate's stack, top to bottom: each entry is the lines of one block, set solid, with
-    one `BLOCK_GAP` of air between blocks."""
-    text = lines(unit)
-    return (text["serial"], text["input"], text["warn"], text["url"])
-
-
 def build_ink(unit: int):
-    """Everything the plate says, as one solid in the second filament — a centred stack: the
-    brand lockup, then each block of lines under it, every line on the plate's own axis."""
-    blocks = _blocks(unit)
+    """Everything the plate says, as one solid in the second filament — three things, each
+    centred on the plate's axis: the brand lockup, the block of what it is, and the link."""
+    text = lines(unit)
+    block = text["serial"] + text["input"] + text["warn"]
     step = BODY_EM * LEADING
     gap = BODY_EM * BLOCK_GAP
+
     logo = _upright(build_logo())
     lb = logo.BoundingBox()
-    name = _upright(_flat(lines(unit)["name"][0], TITLE_EM))
+    name = _upright(_flat(text["name"][0], TITLE_EM))
     nb = name.BoundingBox()
     lock_w = lb.xlen + LOGO_GAP + nb.xlen
     lock_h = max(lb.zlen, nb.zlen)
+    link = text["url"][0]
+    link_h = cap_height(link_em())
 
-    tall = lock_h + gap + sum(len(b) * step for b in blocks) + gap * (len(blocks) - 1)
+    tall = lock_h + gap + len(block) * step + gap + link_h
     z = tall / 2.0
 
     parts = []
-    # the lockup, its whole width centred on the plate's axis
     lock_left = lock_w / 2.0
     parts.append(logo.translate(cq.Vector(lock_left - lb.xmax,
                                           THICK - INK_DEPTH - lb.ymin,
@@ -324,18 +338,18 @@ def build_ink(unit: int):
                                           z - lock_h / 2.0 - (nb.zmin + nb.zmax) / 2.0)))
     z -= lock_h + gap
 
-    for block in blocks:
-        for s in block:
-            parts.append(line(s, BODY_EM, text_width(s, BODY_EM) / 2.0, z - step / 2.0))
-            z -= step
-        z -= gap
+    for s in block:
+        parts.append(line(s, BODY_EM, text_width(s, BODY_EM) / 2.0, z - step / 2.0))
+        z -= step
+    z -= gap
+
+    parts.append(line(link, link_em(), text_width(link, link_em()) / 2.0, z - link_h / 2.0))
 
     ink = parts[0]
     for p in parts[1:]:
         ink = ink.fuse(p)
-    # THE STACK IS CENTRED ON WHAT IT INKS, not on the slots its lines stand in. A line's slot
-    # is one `LEADING`, its cap is shorter, and the two do not share a centre — so the plate is
-    # squared up on the built solid's own extent.
+    # THE STACK IS CENTRED ON WHAT IT INKS, not on the slots its lines stand in. A line's slot is
+    # one `LEADING` and its cap is shorter, so the plate is squared up on the built solid.
     bb = ink.BoundingBox()
     return ink.translate(cq.Vector(0.0, 0.0, -(bb.zmin + bb.zmax) / 2.0))
 
@@ -347,7 +361,7 @@ def lines(unit: int) -> dict:
         "serial": (f"SERIAL  {_plan.serial_of(unit)}",),
         "input": (_plan.input_rating,),
         "warn": (_plan.warning_line, _plan.warning_line_2),
-        "url": _plan.unit_url_lines(unit),
+        "url": (_plan.unit_url_plain(unit),),
     }
 
 
@@ -362,7 +376,9 @@ def build_plate(unit: int):
     body = (cq.Workplane("XY").workplane(offset=0.0)
             .rect(WIDTH, HEIGHT).extrude(THICK)
             .edges("|Z").fillet(CORNER_R).val())
-    body = body.rotate((0, 0, 0), (1, 0, 0), 90.0)
+    # A quarter about −X carries the outline onto the wall's plane with its thickness running
+    # OUTBOARD: the inboard face lands on y = 0, which is the face `seat` hands the pocket.
+    body = body.rotate((0, 0, 0), (1, 0, 0), -90.0)
     for sx, sz in screw_stations():
         body = body.fuse(cq.Solid.makeCylinder(
             PAD_DIA / 2.0, PAD_DEPTH, cq.Vector(sx, -PAD_DEPTH, sz), cq.Vector(0, 1, 0)))
@@ -427,7 +443,7 @@ def selftest() -> int:
     for sx, sz in screw_stations():
         if abs(sx) + PAD_DIA / 2.0 > WIDTH / 2.0 - 1e-9:
             fails.append(f"a pad at x {sx:g} reaches past the plate's own edge")
-    for em in (TITLE_EM, BODY_EM):
+    for em in (TITLE_EM, BODY_EM, link_em()):
         got = _min_stroke(_flat("MACHINE", em))
         if got < BEAD:
             fails.append(f"type at em {em:g} carries a {got:.3f} mm stroke and the profile lays "
@@ -435,7 +451,7 @@ def selftest() -> int:
     room = WIDTH - 2.0 * MARGIN
     for key, row in lines(1).items():
         for s in row:
-            em = TITLE_EM if key == "name" else BODY_EM
+            em = {"name": TITLE_EM, "url": link_em()}.get(key, BODY_EM)
             got = text_width(s, em)
             if got > room + 1e-9:
                 fails.append(f"'{s}' sets {got:.2f} mm wide and the plate's margins leave "
@@ -501,6 +517,8 @@ def main(unit: int):
         "BOSS_STEM_D": f"{boss_stem_d():g} mm",
         "TITLE_EM": f"{TITLE_EM:g}",
         "BODY_EM": f"{BODY_EM:g}",
+        "LINK_EM": f"{link_em():.3g}",
+        "LOCKUP_W": f"{lockup_width():.4g} mm",
         "INK_DEPTH": f"{INK_DEPTH:g} mm",
         "STACK_H": f"{_stack_height(unit):.4g} mm",
         "LOGO_H": f"{LOGO_H:g} mm",

@@ -71,6 +71,7 @@ GROUP_OF = [
     ("Drip pan",               "small"),
     ("Fuse clamp",             "small"),
     ("Port ring",              "small"),
+    ("Nameplate",              "small"),
 ]
 
 GROUP_MARKER = {"bulk": "BULK", "tight": "TIGHT", "small": "SMALL", "petcf": "PETCF"}
