@@ -70,6 +70,9 @@ a dispense is open; `GPPU` written on both MCP23017s.
 ## Build / flash
 
 ```bash
-./tools/flash.sh appliance build   # compile only
-./tools/flash.sh appliance         # build + flash
+pio run -e appliance              # compile only
+pio run -e appliance -t upload    # build + flash
 ```
+
+With the 4.3B also on USB, name the port — `PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-10`.
+PlatformIO otherwise picks the S3 and esptool leaves that panel dark.
