@@ -43,13 +43,46 @@ OUT = %r
 ARGV = %r
 read, wrote, scanned = set(), set(), set()
 
-def _keep(into, path):
+def _under(path):
     try:
         p = os.path.abspath(os.fspath(path))
     except (TypeError, ValueError):
-        return
-    if p.startswith(ROOT + os.sep):
-        into.add(os.path.relpath(p, ROOT))
+        return None
+    return os.path.relpath(p, ROOT) if p.startswith(ROOT + os.sep) else None
+
+def _keep(into, path):
+    rel = _under(path)
+    if rel is not None:
+        into.add(rel)
+
+# THE WRITE MACHINERY LOOKS AT ITS OWN DESTINATION, and neither look is a build input.
+# `_cadq_export._sweep_orphan_temps` globs the target's directory to unlink the temps a
+# SIGKILLed build left behind, and `_matches_existing_target` compares the target's bytes to
+# decide whether the rename is a no-op. A glob scans and a compare opens, so untold apart they
+# both arrive as reading — and the scan is the expensive half, because a scanned directory is
+# taken below as an input area whole. A generator would read the solid it writes, its own
+# thumbnail, the README beside it, and the sibling assembly shelved in the same folder.
+WRITE_MACHINERY = ("_sweep_orphan_temps", "_matches_existing_target")
+
+def _by_write_machinery():
+    """Whether `_cadq_export`'s write bookkeeping is what reached the disk here.
+
+    Both calls land under `glob` or `filecmp`, so the frame that raised the event never names
+    the one that meant it — the stack is walked to find it. Bounded, because both sit within a
+    few frames of the call they make, and entered only for a path inside this tree.
+    """
+    try:
+        f = sys._getframe(1)
+    except ValueError:
+        return False
+    for _ in range(8):
+        if f is None:
+            return False
+        code = f.f_code
+        if code.co_name in WRITE_MACHINERY and code.co_filename.endswith("_cadq_export.py"):
+            return True
+        f = f.f_back
+    return False
 
 def _hook(event, args):
     # `open` is most of it, and its mode says which side of the edge it is. `import` is the
@@ -57,7 +90,10 @@ def _hook(event, args):
     # dozen generators that way — is read by the loader, not by open().
     if event == "open" and args and isinstance(args[0], (str, bytes, os.PathLike)):
         mode = args[1] if len(args) > 1 and isinstance(args[1], str) else "r"
-        _keep(wrote if set(mode) & set("wxa+") else read, args[0])
+        if set(mode) & set("wxa+"):
+            _keep(wrote, args[0])
+        elif _under(args[0]) is not None and not _by_write_machinery():
+            _keep(read, args[0])
     # AN ATOMIC WRITE LANDS AS A RENAME. `_cadq_export._atomic_write` writes a sibling temp
     # and moves it over the target, so the name the tree carries is never opened for writing.
     elif event in ("os.rename", "os.replace") and len(args) > 1:
@@ -94,7 +130,8 @@ def _hook(event, args):
             by = sys._getframe(1).f_code.co_filename
         except ValueError:
             by = ""
-        if not (by.startswith("<frozen importlib") or "/importlib/" in by):
+        if not (by.startswith("<frozen importlib") or "/importlib/" in by) \
+                and not _by_write_machinery():
             _keep(scanned, args[0])
     elif event == "import" and len(args) > 1 and args[1]:
         _keep(read, args[1])
