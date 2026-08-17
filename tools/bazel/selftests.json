@@ -24,6 +24,8 @@
     "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py",
     "hardware/printed-parts/enclosure/port-ring/port_ring.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
     "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
@@ -68,6 +70,7 @@
     "hardware/scripts/_cadq_export.py",
     "hardware/scripts/_card.py",
     "hardware/scripts/_clearing.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_meshes.py",
     "hardware/scripts/_overlap.py",
@@ -104,6 +107,8 @@
     "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py",
     "hardware/printed-parts/enclosure/port-ring/port_ring.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
     "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
@@ -148,6 +153,7 @@
     "hardware/scripts/_cadq_export.py",
     "hardware/scripts/_card.py",
     "hardware/scripts/_clearing.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_meshes.py",
     "hardware/scripts/_overlap.py",
@@ -196,6 +202,7 @@
     "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
     "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
@@ -212,6 +219,7 @@
     "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
     "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
@@ -219,27 +227,33 @@
   "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": [
     "hardware/printed-parts/cadlib/snap.py",
     "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
     "hardware/printed-parts/flavor/pump-case/pump_case.py",
     "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
   "hardware/printed-parts/enclosure/valve-panel/valve_panel.py": [
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
     "hardware/printed-parts/valve-seat/valve_seat.py",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
   "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": [
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
     "hardware/reference/compressor/compressor.py",
     "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_meshes.py",
     "hardware/scripts/_overlap.py",
     "hardware/scripts/_realized.py",
@@ -248,8 +262,10 @@
     "tools/docgen/__init__.py"
   ],
   "hardware/reference/compressor/compressor.py": [
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/reference/compressor/compressor.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
@@ -258,11 +274,14 @@
   ],
   "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
     "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
-    "hardware/scripts/_run_lock.py"
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
   ],
   "hardware/reference/tee-connector/tee_connector.py": [
     "hardware/reference/tee-connector/tee-connector.step",
@@ -303,6 +322,7 @@
   ],
   "hardware/scripts/_meshes.py": [
     "hardware/cold-core-layout/_cold_scorecard.py",
+    "hardware/scripts/_card.py",
     "hardware/scripts/_meshes.py",
     "hardware/scripts/_realized.py"
   ],
@@ -322,6 +342,7 @@
     "hardware/scripts/_seating.py"
   ],
   "hardware/scripts/check_thumbnails.py": [
+    "hardware/scripts/_solids.py",
     "hardware/scripts/check_thumbnails.py"
   ],
   "hardware/scripts/fit.py": [
@@ -351,6 +372,9 @@
     "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step",
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step",
@@ -510,6 +534,7 @@
     "hardware/reference/y-divider/y-divider.step.png",
     "hardware/reference/y-divider/y_divider.py",
     "hardware/scripts/_boxes.py",
+    "hardware/scripts/_build_time.py",
     "hardware/scripts/_cadq_export.py",
     "hardware/scripts/_card.py",
     "hardware/scripts/_clearing.py",
@@ -543,7 +568,9 @@
     "hardware/reference/y-divider/y_divider.py",
     "hardware/scripts/_boxes.py",
     "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_card.py",
     "hardware/scripts/_clearing.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_meshes.py",
     "hardware/scripts/_overlap.py",
@@ -581,6 +608,9 @@
     "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step",
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step",
@@ -644,10 +674,12 @@
     "hardware/reference/wr1110-regulator/wr1110_regulator.py",
     "hardware/reference/y-divider/y_divider.py",
     "hardware/scripts/_boxes.py",
+    "hardware/scripts/_build_time.py",
     "hardware/scripts/_cadq_export.py",
     "hardware/scripts/_card.py",
     "hardware/scripts/_clearing.py",
     "hardware/scripts/_facts.py",
+    "hardware/scripts/_materials.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_mesh_payload.py",
     "hardware/scripts/_meshes.py",
@@ -669,6 +701,7 @@
     "tools/bazel/sync_tree.py"
   ],
   "tools/bazel/trace_inputs.py": [
+    "tools/bazel/inventory.py",
     "tools/bazel/trace_inputs.py"
   ],
   "tools/cad-artifacts/pack.py": [
