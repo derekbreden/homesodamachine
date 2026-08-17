@@ -1,5 +1,10 @@
 #include <Arduino.h>
+
 #include "fw_version.h"
+#include "link.h"
+#include "machine.h"
+#include "pins.h"
+#include "proto_msg.h"   // the channel numbers and the prime ceiling the glass uses
 
 // ════════════════════════════════════════════════════════════
 //  Home Soda Machine — appliance controller
@@ -24,43 +29,97 @@
 //   3. GPPU written on both MCP23017s. No loom carries a resistor and
 //      the board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.
+//
+// machine.cpp holds all three, and owns every pin that reaches a load. The
+// commissioning and service commands (firmware-and-commissioning.md §6, §7,
+// §9) ask it for a thing — `selftest valves` walks the census — and so does
+// the glass. The surface that writes a pin directly is src_pcba_bench, which
+// runs on a bare board with the manifold unplugged.
+//
+// ── What this build does ──────────────────────────────────────────────
+// One flavor pump turns, held from the glass or bounded from the console.
+// The two MCP23017s are untouched, so the eleven valves and the condenser
+// fan stay high-Z; neither relay is ever driven; no reed is read. A clean
+// cycle is answered MSG_ERR_UNSUPPORTED.
 
-// The commissioning and service commands (firmware-and-commissioning.md
-// §6, §7, §9) are serial commands on this image. Each one asks the state
-// machine for a thing — `selftest valves` walks the census — so the three
-// limits above hold across a factory bench and a service call the same
-// way they hold across a pour. Nothing here writes a pin directly; that
-// surface is src_pcba_bench, which runs on a bare board with the
-// manifold unplugged.
-
-// ── Outputs that reach an actuator ────────────────────────────────────
-// Every one is parked as an input at boot. A DRV8870 IN1 coasts on the
-// driver's own pull-down, and a Teyleten opto with no drive holds its
-// relay open, so the actuators are dark before setup() finishes and
-// stay dark through a brownout reset.
-static const int PIN_RELAY_COMPRESSOR = 19;  // U15 interlock -> J5 relay #1
-static const int PIN_RELAY_REFILL     = 2;   // J5 relay #2 -> SeaFlo 12 V gate
-static const int PIN_PUMP_A           = 17;  // U11 DRV8870 IN1 -> J13.AM1/AM2
-static const int PIN_PUMP_B           = 4;   // U12 DRV8870 IN1 -> J13.BM1/BM2
-static const int PIN_BUZZ             = 13;  // R5 -> Q1 -> U8
-
-static const int kActuators[] = {
-    PIN_RELAY_COMPRESSOR, PIN_RELAY_REFILL, PIN_PUMP_A, PIN_PUMP_B, PIN_BUZZ,
-};
-
-// The valves and the condenser fan hang off the two MCP23017s through
-// the TBD62083s. Their IODIR powers up all-input, which is dark, so
-// leaving both expanders untouched parks them.
+static void console(const String &line);
 
 void setup() {
-    for (int pin : kActuators) pinMode(pin, INPUT);
+    machineBegin();   // actuators parked before anything else runs
 
     Serial.begin(115200);
     while (!Serial && millis() < 2000) {}
     Serial.printf("\nhomesodamachine appliance  %s  (%s)\n", FW_VERSION, FW_BUILD_TIME);
-    Serial.println("idle — sensors unread, actuators dark");
+
+    linkBegin();
+    Serial.printf("J9 up on IO%d/IO%d @ %ld — the display's prime hold arrives here\n",
+                  PIN_485_DI, PIN_485_RO, RS485_BAUD);
+    Serial.println("idle — actuators dark, valves and sensors unimplemented");
+    Serial.println("type 'help' for what this build answers to\n");
+    Serial.print("> ");
 }
 
 void loop() {
-    delay(100);
+    linkService();      // frames in, replies out
+    machineService();   // the deadlines a held pump is measured against
+
+    static String line;
+    while (Serial.available()) {
+        char c = Serial.read();
+        if (c == '\r' || c == '\n') {
+            if (line.length()) { console(line); Serial.print("\n> "); }
+            line = "";
+        } else if (line.length() < 64) {
+            line += c;
+        }
+    }
+}
+
+// ── Console ───────────────────────────────────────────────────────────────
+// The same intents the glass reaches, from a keyboard. Every one of them goes
+// through machine.h; there is no command here that writes a pin.
+
+static void help() {
+    Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
+    Serial.println("  stop              end whatever is running");
+    Serial.println("  status            machine state, uptime, heap");
+    Serial.println("  link              J9 frames, bytes, echo");
+    Serial.println("  help              this");
+    Serial.println("\n  A prime is the display's: hold the pad and the pump turns under it. It");
+    Serial.println("  arrives as MSG_PRIME_START and stops on the lift, on a stale tick, or at");
+    Serial.printf("  the %lu s ceiling.\n", (unsigned long)(PRIME_MAX_MS / 1000));
+}
+
+static void status() {
+    Serial.printf("\n%s  %s\n", FW_VERSION, FW_BUILD_TIME);
+    Serial.printf("  state    %s", machineStateName());
+    if (machineState() == ST_PUMPING)
+        Serial.printf(" — pump %s, %lu ms in%s", machinePumpName(machinePumpChannel()),
+                      (unsigned long)machinePumpElapsedMs(),
+                      machineIsPriming() ? " (held from the glass)" : "");
+    Serial.printf("\n  uptime   %lu s\n", millis() / 1000);
+    Serial.printf("  heap     %lu bytes free\n", (unsigned long)ESP.getFreeHeap());
+    Serial.println("  valves   unimplemented — both MCP23017s untouched, manifold high-Z");
+    Serial.println("  relays   unimplemented — IO2 and IO19 parked as inputs");
+}
+
+static void console(const String &line) {
+    if (line == "help")        { help(); return; }
+    if (line == "status")      { status(); return; }
+    if (line == "link")        { linkReport(); return; }
+    if (line == "stop")        { machineStop(); return; }
+
+    if (line.startsWith("pump")) {
+        String rest = line.substring(4); rest.trim();
+        if (!rest.length()) { Serial.println("\nusage: pump <a|b> [ms]"); return; }
+        char which = rest[0] | 0x20;
+        if (which != 'a' && which != 'b') { Serial.println("\nusage: pump <a|b> [ms]"); return; }
+        String msArg = rest.substring(1); msArg.trim();
+        uint32_t ms = msArg.length() ? (uint32_t)msArg.toInt() : 2000;
+        if (!machinePumpRun(which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B, ms))
+            Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+
+    Serial.printf("\nunknown: '%s' — 'help' for the list\n", line.c_str());
 }
