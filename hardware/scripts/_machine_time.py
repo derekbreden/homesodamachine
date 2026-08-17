@@ -71,6 +71,7 @@ GROUP_OF = [
     ("Drip pan",               "small"),
     ("Fuse clamp",             "small"),
     ("Port ring",              "small"),
+    ("Tube collar",            "small"),
     ("Nameplate",              "small"),
 ]
 
