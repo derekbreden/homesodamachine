@@ -63,11 +63,11 @@ mountPcbEditorRoutes(app, HARDWARE_DIR);
 // (lib/step-editor-routes.js), where the pack composes it onto the moved body's
 // own seat, and this rebuild re-runs the
 // assembly generator, which broadcasts the new .step so the viewer hot-reloads
-// onto the real geometry. Under HSM_EDITOR (below) a clashing move is BUILT and
-// saved anyway — flagged not-build-ready in the scorecard — so you can see the
-// overlap you just made; only a genuine generator error exits non-zero, and its
-// stderr comes back for the panel to show. Absent in production, so the Edit
-// toggle never appears there.
+// onto the real geometry. A clashing move is BUILT and saved — flagged
+// not-build-ready by the scorecard's `pack-closes`, never refused — so you can
+// see the overlap you just made; only a genuine generator error exits non-zero,
+// and its stderr comes back for the panel to show. Absent in production, so the
+// Edit toggle never appears there.
 const editorRunning = new Map(); // generator path -> AbortController (supersede a slow rebuild)
 
 async function rebuildStepAssembly(pyFilePath) {
@@ -89,10 +89,7 @@ async function rebuildStepAssembly(pyFilePath) {
         stdio: ["ignore", "ignore", "pipe"],
         signal: ac.signal,
         killSignal: "SIGKILL",
-        // HSM_EDITOR: this is the interactive editor. The generator, under it, writes a clashing
-        // pack (flagged not-build-ready) instead of refusing — so the move you made is visible in
-        // the reloaded geometry. A headless build still hard-stops on a clash.
-        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_EDITOR: "1", HSM_BUILD_SOURCE: "dev-server (editor)" },
+        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_BUILD_SOURCE: "dev-server (editor)" },
       });
       proc.stderr.setEncoding("utf8");
       proc.stderr.on("data", (c) => { stderr += c; if (stderr.length > 8000) stderr = stderr.slice(-8000); });
