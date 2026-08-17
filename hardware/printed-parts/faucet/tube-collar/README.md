@@ -46,8 +46,12 @@ The collar prints flat face down with the bore's axis along the bed, so the hole
 unsupported and sags into it: the printer takes [0.1](COLLAR_SHRINK) mm off the diameter, and the
 model carries that. Ø[6.73](COLLAR_BORE) goes to the slicer and Ø[6.63](COLLAR_BORE_PRINTED) comes
 off the plate — [0.15](COLLAR_SLIP) mm of slip on the biggest tube, which is the tightest a collar
-comes out, and [0.41](COLLAR_CLEARANCE) mm of diametral play on the smallest. LLDPE off a coil is
-oval enough to drag on either.
+comes out, and [0.41](COLLAR_CLEARANCE) mm of diametral play on the smallest.
+
+WHAT HOLDS A COLLAR IS THE BEND THE TUBE CAME OFF THE SPOOL WITH, and not the bore. 1/4" LLDPE is
+never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends
+of one and the collar stays where it is put. Neither end of the play above is close to enough to
+let go of a tube that is not straight.
 
 That play over [30 mm](COLLAR_LENGTH) of bore is [0.78](COLLAR_ROCK)° of cock, and
 [96](COLLAR_SWAY) µm at the flag's own face — the furthest anything on the collar stands from the
