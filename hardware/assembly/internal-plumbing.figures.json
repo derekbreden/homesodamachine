@@ -1,7 +1,7 @@
 {
   "/hardware/assembly/_internal_plumbing_sync.py": {
-    "CAP_CONDUITS": "7",
     "CAP_CONDUIT_D": "6.5 mm",
+    "CAP_FLUID_LINES": "7",
     "CARB_1_LOOP": "40.1 mm",
     "DIGITEN_COLLET_FREE": "6 mm",
     "DISCHARGE_CHAIN_LEN": "83.4 mm",

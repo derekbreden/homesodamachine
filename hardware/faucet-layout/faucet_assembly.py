@@ -485,26 +485,76 @@ sleeve_wall = 1.0
 sleeve_tail = 3.0 * 25.4
 sleeve_z_top = umbilical_z_bottom
 sleeve_z_bottom = umbilical_tail_z + sleeve_tail
-# WHERE THE THREE COLLARS HANG, level with each other, on the first plane clear of both the sleeve
-# and the foam — the blue tube's foam runs the lower of the two and no collar passes over it.
-collar_top_z = min(sleeve_z_bottom, foam_z_bottom)
+# THE TAILS COME APART BEFORE THE COLLARS GO ON. The rear wall does not take this bundle as a
+# triangle — the installer flexes the three apart in the un-sleeved stretch and pushes each into its
+# own union (`faucet-and-umbilical.md` §5) — and the collars need the same room: two of them clear
+# when their tubes' axes stand further apart than the two reach. The flavour pair splays in X until
+# the TIGHTEST of the three pairs makes that, which is a flavour tube against the blue standing
+# forward of them, not the two flavours against each other.
+collar_air = 2.0
+_tails_clear = 2.0 * tube_collar.reach() + collar_air
+# [13.372 mm](TAIL_HALF_X) — each flavour tail's own X, off the body axis.
+tail_half_x = max(_tails_clear / 2.0,
+                  math.sqrt(max(0.0, _tails_clear ** 2 - pack_flavor_depth ** 2)))
+# The splay, as the gather and the S-bend are: two arcs of one radius sharing an angle.
+splay_bend_radius = 25.0
+# [0.6497 rad](SPLAY_THETA) — per-arc angle absorbing the lateral the pair comes out by.
+splay_theta_rad = math.acos(
+    1.0 - (tail_half_x - flavor_tube_x_offset) / (2.0 * splay_bend_radius))
+# What it spends of the un-sleeved stretch getting there.
+splay_rise = 2.0 * splay_bend_radius * math.sin(splay_theta_rad)
+
+# Where the sleeve lets go and the splay takes over — one plane, so nothing runs bare and straight
+# between them.
+splay_top_z = sleeve_z_bottom
+# WHERE THE THREE COLLARS HANG, level with each other, on the first plane below the splay — a bore
+# is straight and a tube coming out of a bend is not, so no collar stands in one.
+collar_top_z = splay_top_z - splay_rise
+
+
+# The splay's own plane: 2D x is world X and 2D y is world Z, so the pair comes apart across the
+# bundle while `tube_path_plane` above works in depth. Both are the S-bend, on their own axis.
+splay_path_plane = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, -1, 0))
+
+
+def _splay_path(x_sign):
+    """One flavour tail's centreline through the splay, in `splay_path_plane` and relative to the
+    tube's own X and to `splay_top_z`: straight down out of the sleeve is where it starts, two arcs
+    carry it out to `tail_half_x`, and it runs straight from there to the cut end."""
+    start = (0.0, 0.0)
+    a1_mid, a1_end, a1_tan = _arc_from_tangent(
+        start, (0.0, -1.0), splay_bend_radius, splay_theta_rad, ccw=(x_sign > 0))
+    a2_mid, a2_end, _a2_tan = _arc_from_tangent(
+        a1_end, a1_tan, splay_bend_radius, splay_theta_rad, ccw=(x_sign < 0))
+    foot = (a2_end[0], umbilical_tail_z - splay_top_z)
+    return (
+        cq.Workplane(splay_path_plane)
+        .moveTo(*start)
+        .threePointArc(a1_mid, a1_end)
+        .threePointArc(a2_mid, a2_end)
+        .lineTo(*foot)
+    )
 
 
 def build_flavor_tube(x_sign, bottom_z=None):
-    """One Ø 1/4" flavor tube at +Y behind the body axis. x_sign ∈ {±1} selects the lateral side;
-    the two tubes mirror across the X = 0 plane.
+    """One Ø 1/4" flavor tube at +Y behind the body axis, tip to square-cut tail. x_sign ∈ {±1}
+    selects the lateral side; the two tubes mirror across the X = 0 plane.
 
-    `bottom_z` is where the tube is cut off — `umbilical_z_bottom` for the faucet's own picture,
-    which is the first plane the three are in their pack on, and `flavor_tube_z_bottom` for the
-    whole factory cut."""
-    bottom_z = umbilical_tail_z if bottom_z is None else bottom_z
+    TWO SWEEPS, FUSED ON ONE TANGENT. Everything above the sleeve's end works in depth and nothing
+    else, which is the plane `_flavor_path` is drawn on; the splay below it works across the bundle,
+    which is another. Both leave the joining plane running straight down, so the two meet on one
+    tangent and the fuse leaves no corner."""
+    bottom_z = splay_top_z if bottom_z is None else bottom_z
     profile = cq.Workplane(xy_plane_z_up).circle(flavor_tube_r)
-    tube = profile.sweep(_flavor_path(bottom_z), transition="round")
-    return tube.translate((
+    tube = profile.sweep(_flavor_path(bottom_z), transition="round").translate((
         x_sign * flavor_tube_x_offset,
         +flavor_tube_depth_lower,
         bottom_z,
     ))
+    tail = (cq.Workplane(xy_plane_z_up).circle(flavor_tube_r)
+            .sweep(_splay_path(x_sign), transition="round")
+            .translate((x_sign * flavor_tube_x_offset, +pack_flavor_depth, splay_top_z)))
+    return tube.union(tail)
 
 
 # Lever pivot — axis parallel to world X at (Y = lever_pivot_y, Z = lever_pivot_z).
@@ -892,8 +942,8 @@ def umbilical_collars():
     the filament its chip on the rear wall prints in."""
     out = []
     for which, x, y in (("carb", 0.0, 0.0),
-                        ("flavor-a", +flavor_tube_x_offset, pack_flavor_depth),
-                        ("flavor-b", -flavor_tube_x_offset, pack_flavor_depth)):
+                        ("flavor-a", +tail_half_x, pack_flavor_depth),
+                        ("flavor-b", -tail_half_x, pack_flavor_depth)):
         fluid = tube_collar.STATIONS[which].fluid
         collar, word = build_collar(which, x, y)
         out.append((f"collar_{which.replace('-', '_')}", collar,

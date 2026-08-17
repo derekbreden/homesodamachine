@@ -76,7 +76,7 @@ PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
 # What a customer's line reaches. `enclosure_assembly.THROUGH_WALL` is the machine's own
 # list of bodies clamped IN a wall rather than standing inside one, so the
 # drawing carries exactly the fittings the machine presents to the room — the
-# three umbilical unions in one row at [20.18 mm](PANEL_PITCH) pitch, the tap-water
+# three umbilical unions on two columns at [40.36 mm](PANEL_PITCH) pitch, the tap-water
 # union on its own storey below them, the mains inlet, and the CO2 inlet under
 # it. All of them on the back wall, because that is where the machine puts them.
 FITTINGS = _ea.THROUGH_WALL
@@ -246,8 +246,12 @@ def anchors(view: str) -> list:
 
 def refresh_comments() -> None:
     """Refresh the [value](NAME) markdown links in this file's comments."""
-    pitch = ((max(_ea.PANEL_X.values()) - min(_ea.PANEL_X.values()))
-             / (len(_ea.PANEL_X) - 1))
+    # THE ROW STANDS ON COLUMNS AND TWO OF ITS UNIONS SHARE ONE, so the pitch is the gap
+    # between adjacent COLUMNS — the same reading `_enclosure_dimensions.PANEL_PITCH` takes.
+    # Divided by the unions instead, a shared column counts twice and the figure is half a
+    # gap that stands nowhere on the wall.
+    columns = sorted({round(x, 6) for x in _ea.PANEL_X.values()})
+    pitch = (columns[-1] - columns[0]) / (len(columns) - 1) if len(columns) > 1 else 0.0
     substitute_py_comments(
         Path(__file__),
         variables={

@@ -54,7 +54,7 @@ def _orient(solid, axis):
 # threads into the plate's own tapped 1/4"-18 NPT and the female socket turns the line 90° onto
 # its lateral axis, where a PP010822E collet, the SV-125 or the sparge barb makes up on it.
 #
-# The hex is sized by the ⌀[19](PRV_INNER_D) mm bore of `prv-shroud`, which the README there
+# The hex is sized by the ⌀19 mm bore of `prv-shroud`, which the README there
 # states the elbow seat enters: across corners has to clear it, so across flats stops at 5/8".
 # `_vessel.ELBOW_AXIS_OFFSET` is the male leg's standoff read off the shell's own storeys, and
 # `_vessel` passes it in rather than taking the catalog reach below.
