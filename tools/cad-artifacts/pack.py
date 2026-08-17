@@ -251,6 +251,8 @@ def main(argv) -> int:
         for rel in (moved + fresh + gone)[:8]:
             print(f"    {rel}")
     if not args.write:
+        print("  the bundle these belong in, on the release and pinned:")
+        print("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write")
         return 1 if args.check else 0
 
     with tempfile.TemporaryDirectory() as d:
