@@ -63,6 +63,17 @@ tools/cad-venv
 # when one is absent.
 *.step.mesh
 
+# The solids arrive in a release asset. hardware/cad-artifacts.lock.json names that asset and
+# every solid in it by sha256, tools/cad-artifacts/pack.py builds and pins one, and
+# web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy serves from. The lock is
+# what git carries.
+*.step
+# Except the harvested solids, which have no builder here — y_divider.py:3 says it of its own,
+# and manifold_layout.py places the elbow and the tee. `pack.py`'s HARVESTED names the same three.
+!hardware/reference/elbow-connector/elbow-connector.step
+!hardware/reference/tee-connector/tee-connector.step
+!hardware/reference/y-divider/y-divider.step
+
 # Solids drawn once and kept (hardware/scripts/_realized.py). A miss costs what the build
 # always cost; deleting this is always safe.
 .cache/

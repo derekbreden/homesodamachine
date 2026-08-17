@@ -25,6 +25,12 @@ The home soda machine's physical design — the integrated under-counter applian
 | [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, first-tap plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
 | [`scripts/`](/hardware/scripts/) | Project Python tooling. The instruments: [`probe.py`](/hardware/scripts/probe.py) asks the placed machine a geometry question instead of reasoning about it — where a body is, how close two come, what a volume runs into, how far a line runs, where there is room for one, what a pick copied out of the viewer names, and where a piece of a routed line can stand; [`fit.py`](/hardware/scripts/fit.py) asks the same of a body that is not placed yet, carried to a candidate pose; [`lanes.py`](/hardware/scripts/lanes.py) enumerates every corridor a run could take between its two fixed mouths at a stated clearance floor, holding every body still, and reports each one's tube, corners, tightest clearance, lowest z and the sub-assembly its legs lie on without ranking them. Each carries a `selftest`. Then `_cadq_export.py` (the shared atomic STEP/DXF/PDF export helper imported tree-wide) and the doc-sync / totals generators that maintain the `ledger/` docs. |
 
+## Where the solids are
+
+    node web/scripts/fetch-cad-artifacts.mjs              # the solids the lock names, onto this disk
+
+A generated `.step` is on this disk and in no index. [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each one by sha256 along with the release asset carrying them, [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and pins one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
+
 ## What a build costs
 
     bazelisk build //:everything                          # every generator whose inputs moved

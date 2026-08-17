@@ -9,24 +9,28 @@ and the picture is in no step's `outs`.
 
 So a STEP that reaches the tree by any other road arrives with the picture it had before. The
 comparison is the one `_cadq_export._current` makes: a picture older than the solid beside it
-was made from bytes that have since moved.
+was made from bytes that have since moved. A solid the deploy fetched reads as older than every
+picture — the bundle carries no mtime — which is the answer, the picture in the index having been
+drawn against the bytes the lock names.
 
 Naming them costs a stat each and nothing else. Drawing them costs a browser, which is a
 follow-up commit's work:
 
     node tools/render/render-thumbnails.js <step>...
 """
-import subprocess
 import sys
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _solids import solids as _solids
 
-def stale(root: Path, tracked: list) -> list:
-    """Every tracked `.step` whose `.step.png` is older than it, by name."""
+
+def stale(root: Path, named: list) -> list:
+    """Every named `.step` whose `.step.png` is older than it, by name."""
     out = []
-    for rel in tracked:
+    for rel in named:
         if not rel.endswith(".step"):
             continue
         step, png = root / rel, root / (rel + ".png")
@@ -72,9 +76,7 @@ def selftest() -> int:
 def main(argv) -> int:
     if argv and argv[0] == "selftest":
         return selftest()
-    tracked = subprocess.run(["git", "ls-files"], cwd=_ROOT,
-                             capture_output=True, text=True).stdout.split()
-    behind = stale(_ROOT, tracked)
+    behind = stale(_ROOT, _solids())
     if not behind:
         return 0
     print(f"{len(behind)} solid(s) carry a picture older than themselves:")

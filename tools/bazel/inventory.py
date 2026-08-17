@@ -25,9 +25,21 @@ GRAPH = _HERE.parent / "graph.json"
 #: chart's `%%` lines, a doc's figures sidecar, and a card's `data-gen` elements.
 
 
+#: The generated solids, which are on this disk and in no index — `hardware/cad-artifacts.lock.json`
+#: names them and the release asset they arrive in. A sandbox is filled from `srcs`, so a solid one
+#: generator cuts and the next loads has to be named there whichever side of the index it sits.
+LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
+
+
 def tracked() -> list:
-    return subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
-                          capture_output=True, text=True, check=True).stdout.split()
+    """Every file this tree stands behind: git's, and the solids the lock names."""
+    files = subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
+                           capture_output=True, text=True, check=True).stdout.split()
+    try:
+        files += json.loads(LOCK.read_text()).get("solids", {})
+    except (OSError, ValueError):
+        pass
+    return sorted(set(files))
 
 
 def _together(writes: dict) -> list:
