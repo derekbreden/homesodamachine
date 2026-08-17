@@ -49,11 +49,13 @@
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
-#      - hardware/ enclosure gates          → nothing. The enclosure assembly carries its
-#        own gates and runs them itself: hardware/manifold-layout/enclosure_assembly.py
-#        prints the scorecard at the tail of every run and writes
-#        enclosure-assembly.scorecard.json beside the STEP, so nothing here re-runs them,
-#        and a red row rides the card rather than stopping anything.
+#      - any staged hardware/              → the enclosure card's own gates
+#        (enclosure-assembly.scorecard.json gatesPass). The assembly runs those gates
+#        itself and writes them beside the STEP, so nothing here re-runs them — this
+#        READS the card that is already in the tree. It is keyed on any staged hardware
+#        file and not on the card, because a card goes red on the commit that moves the
+#        geometry and stays red on every one after, and those are the ones that need
+#        telling. Red does not hold the commit; it lands in the tail as work owed.
 #      - nothing asks bazel. `bazel build //:everything` and tools/bazel/sync_tree.py say
 #        whether the tree carries what its sources make, and they belong wherever somebody
 #        wants that answer — not in front of every commit. A red one does not hold a commit
@@ -273,6 +275,35 @@ fi
 # express "*.py at any depth" portably — filter the staged list instead.
 if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
   gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
+fi
+
+# THE ENCLOSURE'S CARD, READ. `enclosure_assembly.py` runs its own gates and writes them beside
+# the STEP, so the card in the tree is already the answer — nothing here re-runs anything, and
+# this stays one JSON read with no venv and no build.
+#
+# What it adds is a READER. A red row rode that card from the commit that opened it through
+# twenty more, because the file it is written in is not the file anyone opens next: the run that
+# wrote it printed the red to a terminal that had scrolled by, and every commit after was a
+# commit whose own output said nothing. This gate does not hold any of them — it puts the red
+# rows in the tail with the rest of what a commit owes, which is where the next session looks.
+#
+# The key is any staged hardware file, not the card itself. A card goes red on the commit that
+# moves the geometry and STAYS red on the ones after, and it is those that need telling.
+if staged "$hw/"; then
+  gate "$hw the enclosure's own card" python3 -c '
+import json, sys
+p = sys.argv[1]
+try:
+    sc = json.load(open(p))
+except Exception as e:
+    sys.exit("cannot read the enclosure card in " + p + " (" + repr(e) +
+             ") - run: tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py")
+if not sc["gatesPass"]:
+    for c in sc["checks"]:
+        if c.get("kind") == "gate" and c["status"] != "pass" and c.get("active", True):
+            print("  gate red:", c["label"], "-", c["value"], "(target", c["target"] + ")", file=sys.stderr)
+    sys.exit("THE ENCLOSURE ASSEMBLY IS NOT BUILD-READY per its own scorecard")
+' "$root/$hw/manifold-layout/enclosure-assembly.scorecard.json"
 fi
 
 # The other half of `bodies-colored`: that gate rides the enclosure's card and asks whether
