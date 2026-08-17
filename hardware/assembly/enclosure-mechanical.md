@@ -67,7 +67,7 @@ All six land in `enclosure-back-top`, on the bench, before that piece goes anywh
 |---|---|---|---|
 | Umbilical unions × 3 (PP1208E) | [-78.07 / -37.71 / -37.71](UMBILICAL_STATIONS) at z [336.2](PORT_ROW_Z) | Ø[18](PORT_HOLE_D) round | Flange on the OUTER face, threading through, nut clamped inside |
 | Tap-water union (PP1208E) | x [-78.07](WATER_BACK_X), z [336.2](WATER_BACK_Z) | Ø[18](PORT_HOLE_D) round | Same; its inboard collet is what the ASSE chain butts against |
-| C14 mains inlet | [x 54, z 330](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
+| C14 mains inlet | [x 72, z 336.2](C14_BACK) | Rounded rectangle | Flange on the INNER face, two M3 into its own bosses, shroud out through the cutout |
 | CO2 ABU44 bulkhead | [x 2.65, z 336.2](CO2_BACK) | Ø[17.86](CO2_HOLE_D) round | Flange on its red ring, panel nut inside; the GASHER stands one hop of tube ahead of its inboard collet in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) |
 
 **The CO2 comes in at the back wall**, not at the front — tank, tap and umbilical all land on the one face the customer reaches at install. Nothing at all is cut in the front wall.
