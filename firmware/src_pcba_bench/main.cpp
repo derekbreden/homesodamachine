@@ -1,9 +1,11 @@
 // pcba-bench — bring-up console for the JLCPCB-assembled controller board.
 //
-// A throwaway rig for exercising a bare board on the bench: no appliance logic,
-// no state machine, no persistence. It answers one question — did the fab build
-// what pcba.tsx describes — by talking to every on-board device and printing
-// what it finds.
+// The appliance's own firmware is firmware/src_appliance/. That is the one that
+// runs in a machine; this one runs a bare board on a bench, once per fab batch.
+//
+// A rig for exercising that bare board: no appliance logic, no state machine,
+// no persistence. It answers one question — did the fab build what pcba.tsx
+// describes — by talking to every on-board device and printing what it finds.
 //
 // Pin map is read off hardware/pcb/pcba/pcba.tsx (the canonical map).
 //
