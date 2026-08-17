@@ -298,7 +298,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | 112-7687617-6094631 | 2026-06-07 | 2026-06-09 | ACQUIRED |
 | JLCPCB order W2026062715518432 — controller carrier PCB (`mini.tsx`), 4-layer, 128 × 99 mm through-hole carrier; gerber set `mini.gerbers_Y2` (sub-order Y2-12927587A). $122.17 as-paid = $48.07 merch + $50.15 shipping + $16.82 customs duties/taxes + $7.13 sales tax. Placed Jun 27, 2026 | [jlcpcb.com](https://jlcpcb.com/) | 10 | $122.17 | W2026062715518432 | 2026-06-27 | 2026-07-03 | ACQUIRED |
 | JLCPCB order W2026071513250534 — controller PCBA (`pcb/pcba/pcba.tsx`), the first assembled batch: 10× 4-layer 85 × 72.8 mm, black mask / white silk, ENIG, POFV epoxy-filled-&-capped vias, Standard PCBA top-side SMT + wave-soldered THT, fabbed 85 × 82.8 with JLC-added N/S edge rails and **depaneled before delivery**. All 50 BOM lines matched (0 unselected), 94 placements/board. Sub-orders: Y5-12927587A (PCB, $60.13) + SMT026071560539 (assembly + parts, $377.79). $702.00 as-paid = $437.92 merch + $80.39 shipping (FedEx DDP) + $149.78 customs duties/taxes + $37.33 sales tax + $6.58 PayPal fee − $10.00 discount = **$70.20/board delivered**. Placed Jul 15, 2026; order parameters in [`pcb/pcba/order.md`](/hardware/pcb/pcba/order.md) | [jlcpcb.com](https://jlcpcb.com/) | 10 | $702.00 | W2026071513250534 | 2026-07-15 | — | ACQUIRED |
-| JLCPCB order W2026080412059985 — controller PCBA (`pcb/pcba/pcba.tsx`), second assembled batch: batch 1's board plus the four batch-2 deltas ([`pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md) — all 152 vias drilled, inner rings on the three barrels, D2/ERR anode-east, U13 = CH340B `C81010`) and R22 on `C100444` (`C25900` read a 20-piece shortfall on the order form). 10× 4-layer 85 × 72.8 mm, black mask / white silk, ENIG, POFV epoxy-filled-&-capped vias, Standard PCBA top-side SMT + wave-soldered THT, JLC-added N/S edge rails, depaneled before delivery. All 50 BOM lines matched (0 unselected), 94 placements/board. Sub-orders: Y6-12927587A (PCB, $60.13) + SMT026080460464 (assembly + parts, $368.98). $702.11 as-paid = $429.11 merch + $85.49 shipping (FedEx Express DDP) + $150.20 customs duties/taxes + $37.31 sales tax = **$70.21/board delivered**. Placed Aug 3, 2026; order parameters in [`pcb/pcba/order.md`](/hardware/pcb/pcba/order.md) | [jlcpcb.com](https://jlcpcb.com/) | 10 | $702.11 | W2026080412059985 | 2026-08-03 | — | ON-ORDER (shipped 2026-08-12, FedEx 875658417502; at the Omaha NE sort facility 2026-08-15) |
+| JLCPCB order W2026080412059985 — controller PCBA (`pcb/pcba/pcba.tsx`), second assembled batch: batch 1's board plus the four batch-2 deltas ([`pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md) — all 152 vias drilled, inner rings on the three barrels, D2/ERR anode-east, U13 = CH340B `C81010`) and R22 on `C100444` (`C25900` read a 20-piece shortfall on the order form). 10× 4-layer 85 × 72.8 mm, black mask / white silk, ENIG, POFV epoxy-filled-&-capped vias, Standard PCBA top-side SMT + wave-soldered THT, JLC-added N/S edge rails, depaneled before delivery. All 50 BOM lines matched (0 unselected), 94 placements/board. Sub-orders: Y6-12927587A (PCB, $60.13) + SMT026080460464 (assembly + parts, $368.98). $702.11 as-paid = $429.11 merch + $85.49 shipping (FedEx Express DDP) + $150.20 customs duties/taxes + $37.31 sales tax = **$70.21/board delivered**. Placed Aug 3, 2026; order parameters in [`pcb/pcba/order.md`](/hardware/pcb/pcba/order.md) | [jlcpcb.com](https://jlcpcb.com/) | 10 | $702.11 | W2026080412059985 | 2026-08-03 | 2026-08-17 | ACQUIRED |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
 
@@ -637,10 +637,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$31,070.03](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$31,772.14](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$36,507.57](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,225.95](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$37,209.68](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$523.84](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$37,776.41](LEDGER_GRAND_TOTAL) |
@@ -656,7 +656,7 @@ ACQUIRED hardware by section:
 | 5 | Flavor subsystem | [$1,381.25](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,891.95](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$1,082.90](LEDGER_SEC8) |
+| 8 | Electronics — controllers | [$1,785.01](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$1,431.58](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |

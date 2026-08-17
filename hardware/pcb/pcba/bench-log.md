@@ -140,9 +140,18 @@ path (gas-clear high on B, Y following A) — both need EN and R25 respectively.
 
 Batch 1 will not be bodged, so the rig carries nothing that only a bodged board would use.
 
-## Batch 2 deltas
+## Batch 2
 
-Three things differ from the board above. A batch-2 failure that is not on this list is
+JLCPCB order W2026080412059985, 10 boards, placed 2026-08-03, delivered 2026-08-17
+([`ledger/purchases.md`](/hardware/ledger/purchases.md)). One board exercised on the bench
+2026-08-17: 12 V into J10, USB-C into J14, a Kamoer KPHM400 on J13 and a 4.3B hanging on J9.
+
+`info` reads it as **ESP32-D0WD-V3 rev 301**, 2 cores @ 240 MHz, 4194304 bytes flash @
+40 MHz, eFuse MAC **`58:2a:bd:7a:fc:20`** — that MAC is which board this is.
+
+### Deltas from batch 1
+
+Five things differ from the board above. A batch-2 failure that is not on this list is
 new.
 
 1. **All 152 vias drilled** — 227 holes for 227 plated features. `assertFullyDrilled`
@@ -154,20 +163,68 @@ new.
 3. **D2 rotated**: anode to 3V3, cathode to R10. IO15/MTDO idles HIGH, so the ROM boot log
    prints and ERR idles dark. **Firmware lights ERR by driving IO15 LOW** — which is what
    the bench firmware already does, so ERR is correct on batch 2 and inverted on batch 1.
-4. **U13 is a CH340B (`C81010`), not a CH340C** — both CH340C codes sat pre-order-only at
-   order time. Every pin the board connects is identical; the two NC pins differ (B: RST,
-   TNOW) and stay unconnected. Same CH34x driver, same 460 kbit/s flash path. The DTR lane
-   moved 0.13 south with the B land's deeper pads ([`imports/CH340B.tsx`](imports/CH340B.tsx)).
+4. **U13 is a CH340B (`C81010`), not a CH340C.** Every pin the board connects is identical;
+   the two NC pins differ (B: RST, TNOW) and stay unconnected. The DTR lane moved 0.13 south
+   with the B land's deeper pads ([`imports/CH340B.tsx`](imports/CH340B.tsx)).
+5. **R22 rides `C100444`** — a 4.7 kΩ 0402 pull-up on the J4.IO25 node.
 
-First things to check on a batch-2 board, in order: does the ROM boot log print (proves
-#3); does `scan` find 0x20, 0x21, 0x68 (proves #1 and #2); does esptool flash with no
-buttons and does SW2 reset — the auto-reset pair has never once been demonstrated, on any
-board, because EN was severed here.
+### Operating facts for a batch-2 board
 
-**BT1's CR2032, once 0x68 answers.** The DS3231 latches OSF (status bit 7) on any
-oscillator stop and holds it until it is written to 0, so it says nothing until cleared;
-EOSC (control bit 7) decides whether the oscillator runs once Vcc falls to Vbat, and a set
-EOSC fails the test for a reason that is not the battery. `rtc set <YYYY-MM-DD>
-<HH:MM:SS>` writes the wall clock, clears EOSC and clears OSF. Then pull 12 V and USB,
-leave the board dark, restore power and run `rtc`: **OSF=0 with the time advanced by the
-dark interval is the cell carrying it; OSF=1 is the oscillator having stopped.**
+- **EN is reachable.** esptool flashes with no button presses at 475 kbit/s, and its closing
+  `Hard resetting via RTS pin` starts the app. Merely opening the serial port resets the
+  board: `info` reads a ~5 s uptime on the first command of every session, and the reset
+  cause is 1, which is what an external pull on EN reads as.
+- **The ROM boot log prints.** A board out of the box holds `0xffffffff` and boot-loops
+  reading `ets Jul 29 2019 12:21:46 / rst:0x10 (RTCWDT_RTC_RESET)` — IO15/MTDO idling high,
+  delta #3, before anything is flashed.
+
+### Answered
+
+| Subsystem | Method | Reading |
+| --- | --- | --- |
+| 12 V → K7805 → AMS1117 | U13 enumerates off board 3V3 | rails up |
+| ESP32, 40 MHz crystal, flash | `info`, esptool write + hash verify | as above, 475 kbit/s |
+| Q2/Q3 auto-reset → U1.EN | esptool flash, no buttons touched | pass |
+| USB-C, U14, CH340B | flash + verify | pass |
+| WiFi RF + board-edge antenna | `wifi` | 22–26 networks, best −50 dBm |
+| **I²C SDA and SCL** | `scan` | **3 devices — 0x20, 0x21, 0x68** |
+| **R19/R20 across J8's junction** | `bus` | both pins `hi-Z=1 with-45k-pulldown=1 recovers=1` |
+| **U2 + U3 MCP23017** | `mcp` | both answer; IODIR 0xFF, IOCON 0x00, GPPU 0x00, IPOL round-trip 0xA5 |
+| **U6 DS3231** | `rtc` | 24.5 °C die, EOSC=0, seconds advance; `rtc set` clears OSF |
+| RS485 — U7, the pair, R6's 120 Ω | `rs485` loopback | 6/6 |
+| J9 transmit haul | `pumpmsg`, then `link` | frames tx 1, bytes tx 8, echo swallowed 8, loop max 1 ms |
+| Gas dividers R1/R2, R3/R4 | `in` | IO39 142 mV, IO36 142 mV — both at the floor, J11 empty |
+| J3 · J4 signal pins | `in` | IO23·IO25·IO26·IO27·IO33 read 1, IO35 and IO34 read as their input-only selves |
+
+`scan` and `bus` are what the drill fix reads on. Batch 1 found 0 devices and read
+`with-45k-pulldown=0` on both pins.
+
+**One fact that is the rig's, not the board's.** The continuity probe borrows IO21/IO22 as
+plain GPIO and runs from power-on, so the I²C peripheral is detached from its pads until
+something attaches it. `rtc` on a freshly booted board read `bus is not initialized` and
+`ABSENT at 0x68` — a severed net's reading, from a bus that answers `scan` a second later.
+Every command that touches I²C now calls `wireAttach()` first.
+
+### Not exercised on batch 2
+
+The `in` readings on IO23 and IO36 are floating inputs at the ADC floor, which is what a
+severed net reads too — `watch` with a jumper is what separates them, and nobody has held
+one to these barrels yet. The four that carry the drill fix out to a connector are J4.IO23
+to GND, J8.SDA and J8.SCL to GND, and J11.DOUT to J11.V5. None of them are controls in the
+`watch` table any more.
+
+Also standing: SW2; the CR2032, whose OSF is cleared and waiting on a dark interval; U15's
+pass path, which needs B raised; the 12 valve outputs, the fan, and the 10 reed inputs
+behind the MCP23017s, whose pins the probe deliberately never drives; J3's faucet UART; and
+the J9 receive path — a 4.3B hung on J9 sent nothing back and never enumerated on USB.
+`walk`, `buzz`, `pump a` and `pump b` were driven and print their stages; only the room
+reports whether an LED lit, the buzzer sounded, or a head turned.
+
+**BT1's CR2032.** The DS3231 latches OSF (status bit 7) on any oscillator stop and holds it
+until it is written to 0, so it says nothing until cleared; EOSC (control bit 7) decides
+whether the oscillator runs once Vcc falls to Vbat, and a set EOSC fails the test for a
+reason that is not the battery. `rtc set <YYYY-MM-DD> <HH:MM:SS>` writes the wall clock,
+clears EOSC and clears OSF. This board reads EOSC=0 and OSF=0 with the clock set to
+2026-08-17 10:56:52. Pull 12 V and USB, leave the board dark, restore power and run `rtc`:
+**OSF=0 with the time advanced by the dark interval is the cell carrying it; OSF=1 is the
+oscillator having stopped.**
