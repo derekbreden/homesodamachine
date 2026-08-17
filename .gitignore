@@ -53,11 +53,6 @@ tools/flavor_preview.png
 # has a symlink here, and a trailing slash matches only a directory.
 tools/cad-venv
 
-# Enclosure scorecard cache — local, regenerable, opt-in (HSM_SCORECARD_CACHE)
-*.scorecard-cache.pkl
-*.scorecard-cache.pkl.tmp
-*.pack-cache/
-
 # Tessellation written beside each STEP for the viewer to read instead of parsing it
 # (hardware/scripts/_cadq_export.py). Rebuilt by every export; the page parses the STEP
 # when one is absent.

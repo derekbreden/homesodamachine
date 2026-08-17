@@ -26,7 +26,6 @@ off the same machine without importing the CAD.
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -519,5 +518,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    os.environ.setdefault("HSM_SKIP_VIEWS", "1")
     sys.exit(main(sys.argv[1:]) or 0)

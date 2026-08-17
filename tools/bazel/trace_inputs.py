@@ -198,8 +198,12 @@ def trace(gen: str, files: set, argv=()) -> dict:
     # to the one already going and hands back ITS exit status, so the generator's own `main`
     # never runs and the trace watches a process that opened nothing. A reading needs the run
     # to happen, so this one asks for the lock and refuses the shortcut.
-    env = dict(os.environ, HSM_SKIP_VIEWS="1", HSM_SKIP_SCENES="1",
-               HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
+    #
+    # A TRACE WATCHES THE RUN A BUILD MAKES. What it hands the generator is what the generator
+    # would have had anyway, bar the two the lock reads above — a flag that turned work off
+    # here would be a reading of a shorter run than the one an action performs, and the graph
+    # would name less than the sandbox has to hold.
+    env = dict(os.environ, HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
     subprocess.run([sys.executable, "-c",
                     RUNNER % (str(_ROOT), gen, str(out), tuple(argv))],
                    cwd=str(_ROOT), env=env, capture_output=True, text=True, timeout=1800)
