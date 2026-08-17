@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -30,12 +30,12 @@
    ],
    "max": [
     107.5,
-    483.891,
+    531.891,
     358.0
    ],
    "mm": [
     221.0,
-    478.891,
+    526.891,
     361.0
    ]
   }
@@ -45,10 +45,13 @@
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "pass",
-   "value": "90/90 declared",
+   "status": "fail",
+   "value": "90/92 declared",
    "target": "all declared",
-   "detail": [],
+   "detail": [
+    "placed, undeclared: customer-tube-co2",
+    "placed, undeclared: customer-tube-water"
+   ],
    "active": true
   },
   {
@@ -73,10 +76,13 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "2 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "customer-tube-water \u2229 tube-collar-water   14.9 mm\u00b3, x[  -81.24,  -74.90] y[  484.50,  514.50] z[  333.04,  339.39]",
+    "customer-tube-co2 \u2229 tube-collar-co2   14.9 mm\u00b3, x[   -0.52,    5.82] y[  491.89,  521.89] z[  333.04,  339.39]"
+   ],
    "active": true
   },
   {
@@ -93,11 +99,13 @@
    "id": "port-leads",
    "label": "Every tube port has the straight a run off it needs",
    "kind": "gate",
-   "status": "pass",
-   "value": "67/67 clear",
+   "status": "fail",
+   "value": "65/67 clear",
    "target": "all clear",
    "detail": [
     "a port needs the reach of a quarter turn off it \u2014 one bend radius of its line plus the tube's own half-diameter \u2014 clear of every body but the one its line joins it to",
+    "bulkhead-water.outboard: 0.00 mm to customer-tube-water, needs 17.18 \u2014 no run authored on it yet",
+    "co2-inlet.outboard: 0.00 mm to customer-tube-co2, needs 17.18 \u2014 no run authored on it yet",
     "asse1022-assembly.vent-tip: 17.70 mm to moisture-plate \u2014 opens to atmosphere, not gated"
    ],
    "active": true
@@ -106,11 +114,13 @@
    "id": "clearance-floor",
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 under, tightest 1.004 mm",
+   "status": "fail",
+   "value": "2 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "co2-inlet \u2014 customer-tube-co2: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "bulkhead-water \u2014 customer-tube-water: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -983,7 +993,7 @@
    "label": "Every body carries the colour of what it is made of",
    "kind": "gate",
    "status": "pass",
-   "value": "124/124 coloured",
+   "value": "130/130 coloured",
    "target": "every body coloured",
    "detail": [],
    "active": true
@@ -1052,10 +1062,12 @@
    "id": "box-depth",
    "label": "The pack stands inside the appliance's stated depth",
    "kind": "gate",
-   "status": "pass",
-   "value": "pack reaches y 464.00, back wall at 464.00",
+   "status": "fail",
+   "value": "pack reaches y 534.89, back wall at 464.00",
    "target": "ahead of `rear_plane_y` 464",
-   "detail": [],
+   "detail": [
+    "the pack reaches y 534.89 but the back wall stands at 464.00 \u2014 70.89 mm over. Raise `rear_plane_y` or repack forward"
+   ],
    "active": true
   },
   {
@@ -1169,10 +1181,13 @@
    "id": "placed",
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
-   "status": "pass",
-   "value": "90/90 stated",
+   "status": "fail",
+   "value": "90/92 stated",
    "target": "a stated rule per body, each landing on it",
-   "detail": [],
+   "detail": [
+    "customer-tube-co2: no seat states where it stands",
+    "customer-tube-water: no seat states where it stands"
+   ],
    "active": false
   },
   {

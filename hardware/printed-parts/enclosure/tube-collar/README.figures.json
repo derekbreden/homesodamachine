@@ -1,0 +1,23 @@
+{
+  "/hardware/printed-parts/enclosure/tube-collar/tube_collar.py": {
+    "COLLAR_BACKING": "1.85",
+    "COLLAR_BAND_ACROSS": "10",
+    "COLLAR_BAND_ALONG": "28",
+    "COLLAR_BORE": "6.3",
+    "COLLAR_CHIP_ROCK": "2.29",
+    "COLLAR_CHIP_THICK": "2",
+    "COLLAR_CLEARANCE": "0.08",
+    "COLLAR_LENGTH": "30",
+    "COLLAR_LLDPE_TOL": "0.13",
+    "COLLAR_OD": "12",
+    "COLLAR_RISE": "6",
+    "COLLAR_ROCK": "0.15",
+    "COLLAR_SWAY": "16",
+    "COLLAR_TALL": "12",
+    "COLLAR_TUBE_OD": "6.35",
+    "COLLAR_VOL": "2.87",
+    "COLLAR_WALL": "2.85",
+    "COLLAR_WORD_DEPTH": "1",
+    "COLLAR_WORD_VOL": "0.06"
+  }
+}

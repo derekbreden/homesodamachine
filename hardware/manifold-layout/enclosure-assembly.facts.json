@@ -152,6 +152,22 @@
    168.0,
    146.0
   ],
+  "customer-tube-co2": [
+   -0.5249999999999941,
+   483.891,
+   333.0355808375568,
+   5.8250000000000055,
+   531.8910000000001,
+   339.3855808375568
+  ],
+  "customer-tube-water": [
+   -81.24499999999999,
+   476.5,
+   333.0355808375568,
+   -74.895,
+   524.5,
+   339.3855808375568
+  ],
   "digiten-flow": [
    -50.709999999999994,
    360.21,
@@ -623,6 +639,38 @@
    80.6750001,
    334.7026,
    339.3855809375568
+  ],
+  "tube-collar-co2": [
+   -3.350000099999994,
+   491.8909999,
+   330.2105808375568,
+   8.650000100000005,
+   521.8910001,
+   342.21058103755684
+  ],
+  "tube-collar-co2-word": [
+   0.17441396250000568,
+   500.484627829688,
+   341.2105808375568,
+   5.125586037500006,
+   513.297372170312,
+   342.21058103755684
+  ],
+  "tube-collar-water": [
+   -84.07000009999999,
+   484.4999999,
+   330.2105808375568,
+   -72.0699999,
+   514.5000001,
+   342.21058103755684
+  ],
+  "tube-collar-water-word": [
+   -80.40911142812499,
+   493.17138666875,
+   341.2105808375568,
+   -75.730888571875,
+   505.82861333125004,
+   342.21058103755684
   ],
   "tube-fluid-1": [
    -95.17500009999999,
@@ -1654,7 +1702,7 @@
   ],
   "y_joint": 200.0
  },
- "card": "bab10569f673bc616e1b387976ee6684",
+ "card": "bfed43403c526e2d9edd05c5f94ee298",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2095,6 +2143,8 @@
   "coil-v-h",
   "coil-v-i",
   "coil-v-j",
+  "customer-tube-co2",
+  "customer-tube-water",
   "hopper-drain-clamp",
   "hopper-drain-stub",
   "hopper-drain-union",
@@ -2122,6 +2172,10 @@
   "tee-y-d",
   "tee-y-f",
   "tee-y-g",
+  "tube-collar-co2",
+  "tube-collar-co2-word",
+  "tube-collar-water",
+  "tube-collar-water-word",
   "tube-fluid-17",
   "tube-fluid-19",
   "tube-fluid-27",
@@ -2232,6 +2286,8 @@
    "coil-v-j",
    "compressor",
    "condenser+fan",
+   "customer-tube-co2",
+   "customer-tube-water",
    "digiten-flow",
    "discharge-chain",
    "flow-regulator",
@@ -2267,6 +2323,10 @@
    "tube-co2-0",
    "tube-co2-1",
    "tube-co2-2",
+   "tube-collar-co2",
+   "tube-collar-co2-word",
+   "tube-collar-water",
+   "tube-collar-water-word",
    "tube-fluid-1",
    "tube-fluid-14",
    "tube-fluid-16",
