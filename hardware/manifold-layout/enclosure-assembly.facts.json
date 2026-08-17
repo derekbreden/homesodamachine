@@ -152,22 +152,6 @@
    168.0,
    146.0
   ],
-  "customer-tube-co2": [
-   -0.5249999999999941,
-   483.891,
-   333.0355808375568,
-   5.8250000000000055,
-   531.8910000000001,
-   339.3855808375568
-  ],
-  "customer-tube-water": [
-   -81.24499999999999,
-   476.5,
-   333.0355808375568,
-   -74.895,
-   524.5,
-   339.3855808375568
-  ],
   "digiten-flow": [
    -50.709999999999994,
    360.21,
@@ -671,6 +655,22 @@
    -72.07,
    505.82861333125004,
    343.2605810375568
+  ],
+  "tube-customer-co2": [
+   -0.5249999999999941,
+   483.891,
+   333.0355808375568,
+   5.8250000000000055,
+   531.8910000000001,
+   339.3855808375568
+  ],
+  "tube-customer-water": [
+   -81.24499999999999,
+   476.5,
+   333.0355808375568,
+   -74.895,
+   524.5,
+   339.3855808375568
   ],
   "tube-fluid-1": [
    -95.17500009999999,
@@ -1702,7 +1702,7 @@
   ],
   "y_joint": 200.0
  },
- "card": "6eff8cb09b446bba4f39989b6bf68611",
+ "card": "58115c94dab72c73ebb3201b5461a7c1",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2143,8 +2143,6 @@
   "coil-v-h",
   "coil-v-i",
   "coil-v-j",
-  "customer-tube-co2",
-  "customer-tube-water",
   "hopper-drain-clamp",
   "hopper-drain-stub",
   "hopper-drain-union",
@@ -2176,6 +2174,8 @@
   "tube-collar-co2-word",
   "tube-collar-water",
   "tube-collar-water-word",
+  "tube-customer-co2",
+  "tube-customer-water",
   "tube-fluid-17",
   "tube-fluid-19",
   "tube-fluid-27",
@@ -2286,8 +2286,6 @@
    "coil-v-j",
    "compressor",
    "condenser+fan",
-   "customer-tube-co2",
-   "customer-tube-water",
    "digiten-flow",
    "discharge-chain",
    "flow-regulator",
@@ -2323,10 +2321,6 @@
    "tube-co2-0",
    "tube-co2-1",
    "tube-co2-2",
-   "tube-collar-co2",
-   "tube-collar-co2-word",
-   "tube-collar-water",
-   "tube-collar-water-word",
    "tube-fluid-1",
    "tube-fluid-14",
    "tube-fluid-16",
