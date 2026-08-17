@@ -9579,6 +9579,17 @@ sh_test(
 )
 
 sh_test(
+    name = "trace-inputs-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "tools/bazel/trace_inputs.py",
+    ],
+    args = ["tools/bazel/trace_inputs.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "lint-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [

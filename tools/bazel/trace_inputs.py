@@ -242,9 +242,10 @@ def _selftests(files: set) -> list:
     NOT `_generators`, and not `ELSEWHERE` either. That reading answers which modules BUILD
     this tree, and `tools/` is left out of it because the machinery that writes the graph is
     not a step in the graph it writes. What a test reads is a different question with a
-    different answer, and two modules under `tools/` are where the two differ: `sync_tree.py`
+    different answer, and three modules under `tools/` are where the two differ: `sync_tree.py`
     holds ten, one of them that a card's authored text survives a build handed stale figures,
-    and `check_declared_imports.py` holds nine on the sources a step owes a declaration for.
+    `check_declared_imports.py` holds nine on the sources a step owes a declaration for, and
+    this module holds seven on `gave_up`, which reads two entries and no run at all.
     """
     out = []
     for f in sorted(files):
@@ -262,7 +263,48 @@ def _selftests(files: set) -> list:
     return out
 
 
+def gave_up(prior: dict, seen: dict) -> bool:
+    """Whether a reading hands back fewer files than the one it replaces, on EITHER side.
+
+    Each side on its own, because a run can open MORE and write LESS — the inputs load, then it
+    dies before the exports land — and that reading has its reads intact, which is the one that
+    looks healthy. Asking it as an ordered pair against `(0, 0)` answers on the reads and never
+    reaches the writes: `(-1, 1)` is a run that gained four reads and lost two writes, and it
+    compares less-than on the first element and passes."""
+    return any(len(prior[side]) > len(seen[side]) for side in ("reads", "writes"))
+
+
+def selftest() -> int:
+    """Every shape the reading can take, against the answer. Two agents got this comparison
+    wrong before it was named — the trace is no part of it, so neither is a run."""
+    holds = 0
+
+    def hold(label, prior, seen, want):
+        nonlocal holds
+        got = gave_up({"reads": [0] * prior[0], "writes": [0] * prior[1]},
+                      {"reads": [0] * seen[0], "writes": [0] * seen[1]})
+        holds += got == want
+        print(f"  {'✓' if got == want else '✗'} {label}"
+              + ("" if got == want else f" — {got} != {want}"))
+
+    hold("both sides shrank", (9, 3), (5, 1), True)
+    hold("the reads shrank and the writes stood", (9, 3), (5, 3), True)
+    hold("the writes shrank and the reads stood", (9, 3), (9, 1), True)
+    hold("the reads shrank and the writes grew", (9, 1), (5, 3), True)
+    # THE ONE AN ORDERED PAIR WAVES THROUGH, and the one a part-way run most looks like.
+    hold("the reads GREW and the writes shrank", (5, 3), (9, 1), True)
+    hold("both sides grew", (5, 1), (9, 3), False)
+    hold("neither side moved", (9, 3), (9, 3), False)
+
+    print(f"trace_inputs selftest {holds}/7")
+    return 0 if holds == 7 else 1
+
+
 def main() -> int:
+    # `selftest` holds the reading above; `--selftests` watches every OTHER module's. The two
+    # words are one letter apart and answer different questions.
+    if sys.argv[1:] == ["selftest"]:
+        return selftest()
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("gen", nargs="*", help="generator paths; default every one")
     ap.add_argument("--selftests", action="store_true",
@@ -309,7 +351,7 @@ def main() -> int:
         raised = seen.pop("raised", None)
         if seen["writes"]:
             prior = graph.get(gen)
-            if prior and any(len(prior[k]) > len(seen[k]) for k in ("reads", "writes")):
+            if prior and gave_up(prior, seen):
                 shrank.append((gen, len(prior["reads"]), len(seen["reads"]),
                                len(prior["writes"]), len(seen["writes"])))
             graph[gen] = seen

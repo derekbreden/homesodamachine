@@ -641,6 +641,9 @@
     "tools/bazel/graph.json",
     "tools/bazel/sync_tree.py"
   ],
+  "tools/bazel/trace_inputs.py": [
+    "tools/bazel/trace_inputs.py"
+  ],
   "tools/docgen/lint.py": [
     "tools/docgen/__init__.py",
     "tools/docgen/lint.py"
