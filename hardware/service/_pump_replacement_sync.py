@@ -115,7 +115,10 @@ def main():
     lengths = {"LEN_3": src_len[3], "LEN_5": src_len[5],
                **{f"LEN_{n}": runs[f"fluid-{n}"].length for n in (14, 16, 18, 24, 26, 28)}}
 
-    draw_crest, core_crown = crest("tube-fluid-16"), f.bodies["foam-assembly"][5]
+    # THE WHOLE FOAM ASSEMBLY'S TOP, cradle rails and all, which is the bound a level inside
+    # the core cannot reach. `_enclosure_dimensions.CORE_CROWN` is a different height on the
+    # same body — the lid's outer face, which is where things standing on the core are placed.
+    draw_crest, core_box_top = crest("tube-fluid-16"), f.bodies["foam-assembly"][5]
     valves = [n for n in f.manifold_bodies if n.startswith("valve-v-")]
 
     variables = {
@@ -136,8 +139,8 @@ def main():
         # cold core, so no level inside one reaches it.
         "SOURCE_CREST":   f"{crest('step-fluid-3'):.1f}",
         "DRAW_CREST":     f"{draw_crest:.1f}",
-        "CORE_CROWN":     f"{core_crown:.1f}",
-        "SIPHON_MARGIN":  f"{draw_crest - core_crown:.1f}",
+        "CORE_BOX_TOP":   f"{core_box_top:.1f}",
+        "SIPHON_MARGIN":  f"{draw_crest - core_box_top:.1f}",
         # The stock, and the arithmetic the nominal bore allows on it.
         "TUBE_OD":     f"{od:.4g} mm",
         "JOINT_ML":    f"{mL(sum(lengths.values())):.0f}",

@@ -222,7 +222,7 @@ def main():
         # The back wall's own row.
         "PORT_ROW_Z": f"{PORT_ROW_Z:.4g}",
         "WATER_PORT_Z": f"{WATER_PORT_Z:.4g}",
-        "PANEL_PITCH": f"{PANEL_PITCH:.4g}",
+        "PANEL_PITCH": f"{PANEL_PITCH:.4g} mm",
         # The lines.
         "FILL_A_LEN": f"{FILL_A_LEN:.4g}",
         "DRAW_A_LEN": f"{DRAW_A_LEN:.4g}",

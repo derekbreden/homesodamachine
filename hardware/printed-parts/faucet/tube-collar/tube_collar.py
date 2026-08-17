@@ -61,13 +61,12 @@ TUBE_OD = 6.35
 # runs the whole of `LENGTH`.
 BORE = 6.30
 # The collar's width, and the diameter of the half circle below the axis. It leaves a `wall()` of
-# colour all round the tube — this part's answer to `port_ring.RING_W`, the band of colour a chip
-# shows past its flange.
+# colour between the bore and each of the three flats.
 OD = 12.0
-# HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS. Half the OD, which is `port_ring.RISE` over its own
-# OD to within a part in two hundred, so the outline comes out square the way a chip's does. The
-# flat it puts on top is the face the word is lettered in.
-RISE = OD / 2.0
+# HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, and so how tall the two side flats are. It is
+# `port_ring.RING_W` — the band a chip letters its own word in, between the flange's edge and the
+# top of the chip — so a word stands in one band whether it is read off the wall or off the tube.
+RISE = _ring.RING_W
 # THE RUN ALONG THE TUBE. It is the longest of the five words plus its margins, set at
 # `port_ring.WORD_SIZE` — the wall's lettering and the tube's are one size, and `selftest` holds
 # this to it.
@@ -102,9 +101,8 @@ STEPS = {name: _here.parent / f"tube-collar-{name}.step" for name in STATIONS}
 
 
 def wall() -> float:
-    """The colour standing between the bore and the outside — all round the tube below the axis, and
-    between the bore's crown and the flat above it. One figure because `RISE` is half the OD: the
-    rectangle stands as far over the axis as the half circle falls under it."""
+    """The colour standing between the bore and a side flat, which is the thinnest the collar gets —
+    the round below the axis stands the same off it and the top flat stands `RISE` off, further."""
     return (OD - BORE) / 2.0
 
 
@@ -112,6 +110,13 @@ def backing() -> float:
     """The colour left under the word's recess, between its floor and the bore's crown. `selftest`
     reads it against `WORD_DEPTH`."""
     return wall() - WORD_DEPTH
+
+
+def reach() -> float:
+    """The furthest a collar stands from its own tube's axis — the top flat's corners, and whichever
+    way the flag is turned they are what sweeps. Two collars on neighbouring tubes clear when the
+    axes are further apart than the two of them reach."""
+    return math.hypot(OD / 2.0, RISE)
 
 
 def clearance() -> float:
@@ -135,32 +140,64 @@ def flag_sway() -> float:
     return RISE * math.tan(math.radians(rock()))
 
 
-def word_band() -> tuple:
-    """The flat the word is lettered in, as `(along the tube, across it)` — the face less its
-    margins. The advance runs along the tube and the cap stands across it."""
-    return (LENGTH - 2.0 * WORD_MARGIN, OD - 2.0 * WORD_MARGIN)
+# THE THREE FLATS THE OUTLINE LEAVES, and every one of them carries the word. A collar on a tube
+# takes whatever roll the bundle gives it, so a word on one face is a word that is behind the tube
+# half the time — and what shows then is a coloured ring, which says nothing the tube's own colour
+# has not already said. Lettered at 0° and ±90° the collar cannot present a blank face to a reader
+# without presenting a lettered one to the same reader edge-on. The round below the axis takes no
+# lettering; it is what the hand meets and it stays round.
+FACES = ("top", "+x", "-x")
 
 
-def build_word(which: str):
-    """One station's word, standing in the recess it fills, its face flush with the flat's own.
+def word_band(face: str = "top") -> tuple:
+    """The flat a face letters in, as `(along the tube, across it)` — the face less its margins.
+
+    The advance runs along the tube on all three. The cap stands ACROSS the tube on the top flat,
+    which is `OD` wide, and UP the collar on the two sides, which are `RISE` tall."""
+    across = OD if face == "top" else RISE
+    return (LENGTH - 2.0 * WORD_MARGIN, across - 2.0 * WORD_MARGIN)
+
+
+def _face_word(which: str, face: str):
+    """One station's word on one of its flats, standing in the recess it fills.
 
     THE LETTERS ARE LOOSE, one solid each — `port_ring.build_word`'s construction. The part opens as
     one file carrying both bodies and the lettering is assigned the second filament.
 
-    TURNED TO READ ALONG THE TUBE. `text` sets flat in XY with its advance on +X and its cap on +Y;
-    a quarter turn about Z lays the advance on +Y, outboard, and stands the cap across the tube on
-    −X. The extrusion stays on +Z and the word drops until its face is level with the flat."""
-    flat = cq.Workplane("XY").text(STATIONS[which].word, _ring.WORD_SIZE, WORD_DEPTH,
-                                   font=_ring.WORD_FONT, kind=_ring.WORD_KIND,
-                                   halign="center", valign="center")
-    letters = flat.rotate((0, 0, 0), (0, 0, 1), 90.0).val()
+    `text` sets flat in XY with its advance on +X, its cap on +Y and its extrusion on +Z. Each face
+    is that block turned onto its own outward normal, by whole quarter turns, so no face is a mirror
+    of another and every one of them reads the right way round to somebody standing off it:
+
+        top   a quarter about Z          advance +Y, cap −X, out +Z
+        +x    a quarter about X, then Z  advance +Y, cap +Z, out +X
+        −x    the same pair, reversed    advance −Y, cap +Z, out −X
+    """
+    letters = cq.Workplane("XY").text(STATIONS[which].word, _ring.WORD_SIZE, WORD_DEPTH,
+                                      font=_ring.WORD_FONT, kind=_ring.WORD_KIND,
+                                      halign="center", valign="center")
+    if face == "top":
+        letters = letters.rotate((0, 0, 0), (0, 0, 1), 90.0)
+    else:
+        turn = 90.0 if face == "+x" else -90.0
+        letters = (letters.rotate((0, 0, 0), (1, 0, 0), turn)
+                          .rotate((0, 0, 0), (0, 0, 1), turn))
+    solid = letters.val()
     # `valign` centres on the font's own metrics rather than on the cap box, so the cap is squared up
     # on the flat here, off the solid that was actually built.
-    bb = letters.BoundingBox()
-    return letters.translate(cq.Vector(
-        -(bb.xmin + bb.xmax) / 2.0,
-        LENGTH / 2.0 - (bb.ymin + bb.ymax) / 2.0,
-        RISE - WORD_DEPTH - bb.zmin))
+    bb = solid.BoundingBox()
+    along = LENGTH / 2.0 - (bb.ymin + bb.ymax) / 2.0
+    if face == "top":
+        return solid.translate(cq.Vector(-(bb.xmin + bb.xmax) / 2.0, along,
+                                         RISE - WORD_DEPTH - bb.zmin))
+    # The side flats stand from the axis up to `RISE`, so the cap is centred on half of that.
+    out = OD / 2.0 - WORD_DEPTH - bb.xmin if face == "+x" else -OD / 2.0 - bb.xmax
+    return solid.translate(cq.Vector(out, along, RISE / 2.0 - (bb.zmin + bb.zmax) / 2.0))
+
+
+def build_word(which: str):
+    """One station's word on all three flats, as one compound — what the second filament lays."""
+    return cq.Compound.makeCompound(
+        [letter for face in FACES for letter in _face_word(which, face).Solids()])
 
 
 def build_collar(which: str):
@@ -254,20 +291,26 @@ def words_hold():
         word = STATIONS[which].word
         _collar, solid = split(import_step(str(step)).val())
         bb = solid.BoundingBox()
-        if len(solid.Solids()) != len(word):
+        if len(solid.Solids()) != len(FACES) * len(word):
             raise ValueError(
-                f"'{word}' is {len(solid.Solids())} solids in {step.name} and the word is "
-                f"{len(word)} letters — the lettering is not the word it is declared to be.")
+                f"'{word}' is {len(solid.Solids())} solids in {step.name} and {len(FACES)} flats "
+                f"of a {len(word)}-letter word is {len(FACES) * len(word)} — the lettering is not "
+                f"the word it is declared to be, on every face it is declared to be on.")
         if abs(bb.ylen - _ring.WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {_ring.WORD_WIDTHS[word]:.3f} mm along the tube and "
                 f"{step.name} carries {bb.ylen:.3f} — `{_ring.WORD_FONT}` did not resolve to the "
                 f"face the wall's own chips were struck on, and the collar is lettered in "
                 f"something else.")
-        if abs(bb.zlen - WORD_DEPTH) > 1e-6:
-            raise ValueError(
-                f"'{word}' stands {bb.zlen:.4f} mm out of a recess cut {WORD_DEPTH:g} deep — the "
-                f"word and the flat do not come out one plane.")
+        # AND EVERY FLAT ONE RECESS DEEP. Read off the built face rather than off the compound,
+        # which spans the collar and would hide a face lettered proud of its own flat.
+        for face in FACES:
+            fbb = _face_word(which, face).BoundingBox()
+            depth = fbb.zlen if face == "top" else fbb.xlen
+            if abs(depth - WORD_DEPTH) > 1e-6:
+                raise ValueError(
+                    f"'{word}' stands {depth:.4f} mm out of the {face} flat's recess, which is cut "
+                    f"{WORD_DEPTH:g} deep — the word and the flat do not come out one plane.")
 
 
 def selftest() -> int:
@@ -281,17 +324,18 @@ def selftest() -> int:
         fails.append(
             f"the word's recess is {WORD_DEPTH:g} deep and leaves {backing():.3f} mm of colour "
             f"between its floor and the bore's crown")
-    along, across = word_band()
     for which, collar in STATIONS.items():
         width = _ring.WORD_WIDTHS[collar.word]
-        if width > along + 1e-9:
-            fails.append(
-                f"'{collar.word}' runs {width:.3f} mm along a collar {LENGTH:g} mm long that "
-                f"leaves {along:.3f} mm between its own margins")
-        if _ring.WORD_CAP > across + 1e-9:
-            fails.append(
-                f"the {which} collar letters a {_ring.WORD_CAP:g} mm cap across a flat that "
-                f"leaves {across:.3f} mm between its margins")
+        for face in FACES:
+            along, across = word_band(face)
+            if width > along + 1e-9:
+                fails.append(
+                    f"'{collar.word}' runs {width:.3f} mm along a collar {LENGTH:g} mm long that "
+                    f"leaves {along:.3f} mm between its own margins")
+            if _ring.WORD_CAP > across + 1e-9:
+                fails.append(
+                    f"the {which} collar letters a {_ring.WORD_CAP:g} mm cap across its {face} "
+                    f"flat, which leaves {across:.3f} mm between its margins")
         if collar.word != _ring.STATIONS[which].word:
             fails.append(
                 f"the {which} collar says '{collar.word}' and the chip on the wall at that same "
@@ -310,10 +354,11 @@ def selftest() -> int:
             f"{_ring.THICK:g} mm cocks {chip_rock:.3f}°")
     if wall() <= 0.0:
         fails.append(f"a Ø{OD:g} collar bored Ø{BORE:g} leaves no wall around the tube")
-    if abs(RISE - OD / 2.0) > 1e-9:
+    # THE FACES ARE WHAT A ROLL CANNOT HIDE. Two of them leave a collar that can turn a blank flat
+    # square to a reader; three cannot.
+    if len(FACES) < 3:
         fails.append(
-            f"the rectangle stands {RISE:g} over an axis its own half circle reaches {OD / 2.0:g} "
-            f"below — the outline is not the chip's proportion")
+            f"{len(FACES)} lettered flat(s) leave a roll that shows a reader colour and no word")
     for what, fn in (("stations_hold", stations_hold), ("words_hold", words_hold)):
         try:
             fn()
@@ -360,7 +405,7 @@ def main():
         "COLLAR_OD": f"{OD:g}",
         "COLLAR_RISE": f"{RISE:g}",
         "COLLAR_TALL": f"{OD / 2.0 + RISE:g}",
-        "COLLAR_LENGTH": f"{LENGTH:g}",
+        "COLLAR_LENGTH": f"{LENGTH:g} mm",
         "COLLAR_WALL": f"{wall():g}",
         "COLLAR_BACKING": f"{backing():g}",
         "COLLAR_VOL": f"{volumes['flavor-a']:.2f}",
