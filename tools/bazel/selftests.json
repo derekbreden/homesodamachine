@@ -278,6 +278,10 @@
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py"
   ],
+  "hardware/scripts/_build_time.py": [
+    "hardware/scripts/_build_time.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/scripts/_clearing.py": [
     "hardware/scripts/_boxes.py",
     "hardware/scripts/_clearing.py",

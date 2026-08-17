@@ -67,6 +67,12 @@ tools/cad-venv
 # always cost; deleting this is always safe.
 .cache/
 
+# The seconds each generator's last runs took, on the machine that ran them
+# (hardware/scripts/_build_time.py). What ledger/build-time.md carries is the figure these
+# settle on; a checkout that has run nothing has no file here and moves no figure.
+hardware/ledger/.build-time.samples.json
+hardware/ledger/.build-time.samples.json.tmp
+
 # Scene STEPs are a rendering intermediate for the unit cards' pictures — a cut
 # of enclosure-assembly.step, regenerated on demand by
 # hardware/assembly/scenes/render_scenes.py. What is committed is the PNG in
