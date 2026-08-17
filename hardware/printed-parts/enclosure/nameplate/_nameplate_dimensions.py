@@ -21,6 +21,29 @@ bulk_enclosure_nozzle_diameter = 0.4  # mm — owned by other enclosure parts
 layer_height_min = 0.08             # mm
 layer_height_max = 0.12             # mm
 
+# What the plate states. `nameplate.py` letters these and the README quotes them, so the plaque
+# a customer reads and the page describing it carry one set of strings.
+input_rating = "120V 60Hz 5A 600W"
+warning_line = "120V 60Hz ONLY"
+warning_line_2 = "NOT FOR 240V"
+portal_host = "homesodamachine.com"
+
+
+def serial_of(unit: int) -> str:
+    """One unit's serial — the number, as it is lettered on the plate and as `logs/<serial>/`
+    is named."""
+    return f"{unit:04d}"
+
+
+def unit_url(unit: int) -> str:
+    """The unit's own page."""
+    return f"https://{portal_host}/u/{serial_of(unit)}"
+
+
+def unit_url_lines(unit: int) -> tuple:
+    """That URL as the plate sets it: the host, and the path under it."""
+    return (portal_host, f"/u/{serial_of(unit)}")
+
 
 def main():
     variables = {
