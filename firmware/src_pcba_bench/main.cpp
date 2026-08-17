@@ -25,6 +25,7 @@
 #include <Wire.h>
 #include <WiFi.h>
 #include "proto_link.h"
+#include "rs485_echo.h"
 #include "fw_version.h"
 
 // ── Status LEDs — active high, through 470R to GND (D2/D3/D4) ──────────────
@@ -369,37 +370,8 @@ static const int PIN_485_RO = 34;
 // ── The J9 link ────────────────────────────────────────────────────────────
 // The same two pins the loopback bit-bangs carry a UART out to J9, where the front-face
 // display hangs. Serial1 holds them while the link is up, so `rs485` and `drive io32`
-// take the link down and put it back.
-//
-// /RE is tied to GND, so U7's receiver runs while its driver does and every byte this
-// board drives onto the pair returns on its own RX. HDLC reads a stream, not lines, so
-// the echo is cancelled a layer below the protocol: EchoCancel counts what it writes and
-// swallows that many before anything reaches ProtoLink. The bus is half-duplex, so while
-// this board drives, nothing else is on the wire and the echo arrives contiguous and in
-// order ahead of any reply.
-//
-// (The 4.3B gates its receiver off while driving and has no echo to cancel — `RS485:LOOP`
-// there reads `no echo` in both pin orientations.)
-class EchoCancel : public Stream {
-public:
-    explicit EchoCancel(HardwareSerial &s) : ser(s) {}
-    size_t write(uint8_t b) override { pending++; return ser.write(b); }
-    size_t write(const uint8_t *b, size_t n) override { pending += n; return ser.write(b, n); }
-    int available() override { drain(); return ser.available(); }
-    int read() override      { drain(); return ser.read(); }
-    int peek() override      { drain(); return ser.peek(); }
-    void flush() override    { ser.flush(); }
-    size_t echoOutstanding() const { return pending; }
-    size_t echoSwallowed() const { return swallowed; }
-    size_t echoHighWater() const { return highWater; }
-private:
-    void drain() {
-        while (pending && ser.available()) { ser.read(); pending--; swallowed++; }
-        if (pending > highWater) highWater = pending;
-    }
-    HardwareSerial &ser;
-    size_t pending = 0, swallowed = 0, highWater = 0;
-};
+// take the link down and put it back. EchoCancel (rs485_echo.h) wraps it — `RS485:LOOP`
+// on the 4.3B reads `no echo` in both pin orientations, and this end reads its own.
 
 static const long RS485_BAUD = 115200;
 static bool rs485Up = false;
