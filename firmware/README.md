@@ -211,7 +211,13 @@ Boot order does not matter. The S3 retries `GET_CONFIG` until the ESP32 is ready
 
 ## Building and Flashing
 
-The wrapper `./tools/flash.sh <env>` handles every environment in [`/platformio.ini`](/platformio.ini) — it pauses the background serial logger for the upload and resumes it after. The underlying PlatformIO commands work directly too:
+Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -e <env>` and flashes with `-t upload`. `firmware/pre_build.py` runs first on all of them, stamping `fw_version.h` from the git rev so a board reports the commit it was built from.
+
+**With more than one board on USB, name the port.** PlatformIO picks one otherwise, and it picks the S3 — esptool opens that port, drops the display into download mode, and only then fails on the chip id, leaving the panel dark until it is reflashed ([`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md)).
+
+```bash
+PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-10 pio run -e appliance -t upload
+```
 
 ### Flash the appliance controller
 

@@ -4,11 +4,11 @@ The production procedure for first-time firmware flash and DC-side commissioning
 
 Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in the next station.
 
-Design intent and runtime behavior live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem" + "Level sensing". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The flash wrapper script and PlatformIO environment names live at the repo root.
+Design intent and runtime behavior live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem" + "Level sensing". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The PlatformIO environment names live at the repo root in [`/platformio.ini`](/platformio.ini).
 
 ## Scope
 
-In: a fully wired chassis fresh out of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — a USB-C cable (the PCBA's J14 programming port and both displays present USB-C), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
+In: a fully wired chassis fresh out of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — a USB-C cable (the PCBA's J14 programming port and both displays present USB-C), PlatformIO on the build host, and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
 
 Out:
 
@@ -29,13 +29,13 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 |---|---|---|
 | Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor bolted down and grounded. |
 | Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `appliance`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini) and [`/firmware/README.md`](/firmware/README.md)). The `appliance` tree is an Open item below. |
-| Flash wrapper | [`/tools/flash.sh`](/tools/flash.sh) | Pauses the serial logger during upload; pre-flights the sibling `PersistentLog` dependency. Invocation: `./tools/flash.sh <env>`. |
+| PlatformIO | On the build host | `pio run -e <env> -t upload` builds and flashes. One board on USB at a time, or name the port — PlatformIO picks the S3 otherwise and esptool leaves that panel dark. |
 | USB-C cable | Fits the PCBA's J14, the 4.3B, and the 1.47" faucet display | Build-bench stock; not per-unit consumable. |
 | Multimeter | Build-bench stock | DC-rail spot checks at [12 V](RAIL_12V) (J10 clamps), [5 V](RAIL_5V) + [3.3 V](RAIL_33V) (connector pins). |
 | Serial monitor | `pio device monitor -e appliance` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
 | Commissioning-log template | TBD — see Open items | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
 
-Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outlet feeding the C14 input, a current meter inline with the PSU output for the 12 V rail, USB hub on the bench host, the serial-logger background process from `tools/serial_logger.py`.
+Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outlet feeding the C14 input, a current meter inline with the PSU output for the 12 V rail, and a USB hub on the bench host.
 
 ## Procedure
 
@@ -70,19 +70,19 @@ Plug the USB-C cable into the board's J14, flush on the west edge of the PCBA. T
 From the repo root:
 
 ```
-./tools/flash.sh appliance
+pio run -e appliance -t upload
 ```
 
-The wrapper pauses the background serial logger, runs `pio run -e appliance -t upload` per [`/platformio.ini`](/platformio.ini), then resumes the logger. Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
+Per [`/platformio.ini`](/platformio.ini). Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
 
-`src_appliance/` boots, parks every actuator dark and idles today — the rest of this procedure is written against firmware that fills it in, and that is the Open item below.
+`src_appliance/` boots to that banner, parks every actuator dark and turns one flavor pump — the rest of this procedure is written against firmware that fills it in, and that is the Open item below.
 
 ### 4. Flash the ESP32-S3 config display
 
 Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the front-face config + interaction display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
 
 ```
-./tools/flash.sh esp32s3_front
+pio run -e esp32s3_front -t upload
 ```
 
 Confirm the LVGL splash renders on the 800×480 panel after reset.
@@ -92,7 +92,7 @@ Confirm the LVGL splash renders on the 800×480 panel after reset.
 Plug the USB-C cable into the 1.47" faucet flavor display on the gooseneck head. Same native USB-CDC boot as the 4.3B.
 
 ```
-./tools/flash.sh esp32s3_faucet
+pio run -e esp32s3_faucet -t upload
 ```
 
 Confirm the flavor UI renders after reset. The touch-toggle check lands in step 6, once the base ESP32 is broadcasting flavor frames over the SIG-6 UART.
@@ -194,7 +194,7 @@ The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/ac
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **`src_appliance/` runs one flavor pump and nothing else.** It boots to step 3's banner and idle state, brings up J9, and turns a pump — held from the front-face display's glass, or bounded from its own console ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). Steps 6, 7 and 9 are the specification the rest gets written against, and every figure in them is settled. Until it walks the valves, reads the reeds and answers the setpoint query, a unit reaching those steps gets `./tools/flash.sh pcba_bench` and a console session against [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md)'s command table — on a bare board, before the manifold is plugged in.
+1. **`src_appliance/` runs one flavor pump and nothing else.** It boots to step 3's banner and idle state, brings up J9, and turns a pump — held from the front-face display's glass, or bounded from its own console ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). Steps 6, 7 and 9 are the specification the rest gets written against, and every figure in them is settled. Until it walks the valves, reads the reeds and answers the setpoint query, a unit reaching those steps gets `pio run -e pcba_bench -t upload` and a console session against [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md)'s command table — on a bare board, before the manifold is plugged in.
 2. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
 3. **What the step-7 and step-9 commands are allowed to touch.** They run as serial commands against the one shipping image — there is no separate factory build. A command here asks the state machine to do a thing (`selftest valves` walks the census; `selftest pumps` turns both heads) and never writes a pin, because a command that writes a pin is outside the [3](MAX_VALVES)-valve ceiling and the refill interlock by construction, and step 9 is where those are confirmed held. `src_pcba_bench` is the surface that does write pins, and it runs on a bare board with the manifold unplugged.
 4. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.

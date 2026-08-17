@@ -29,10 +29,12 @@ the end.
 - **ERR (D2) reads inverted** under the current bench firmware, which drives IO15 LOW to
   light it — batch 1 wires D2 the other way up. Faint red at idle is `parkStraps()` holding
   MTDO on its ~45 kΩ internal pull-up, ~28 µA through the LED.
-- **With a 4.3B also on USB, name the port when flashing this board.** `tools/flash.sh`
-  lets PlatformIO pick, and it picks the S3: esptool opens that port, drops the display into
-  download mode, and only then fails on the chip id, leaving the panel dark until it is
-  reflashed. `PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-* pio run -e pcba_bench -t upload`.
+- **With a 4.3B also on USB, name the port when flashing this board.** The
+  [`tools/flash.sh`](https://github.com/derekbreden/homesodamachine/blob/acb5146c/tools/flash.sh)
+  wrapper in use that day (`acb5146c`, since retired) let PlatformIO pick, and it picks the
+  S3: esptool opens that port, drops the display into download mode, and only then fails on
+  the chip id, leaving the panel dark until it is reflashed. A bare `pio run -t upload`
+  picks the same way. `PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-* pio run -e pcba_bench -t upload`.
 
 ### Answered
 

@@ -80,8 +80,8 @@ at ~10 fps.
 ## Build / flash
 
 ```
-./tools/flash.sh esp32s3_front build   # compile only
-./tools/flash.sh esp32s3_front         # build + flash
+pio run -e esp32s3_front              # compile only
+pio run -e esp32s3_front -t upload    # build + flash
 ```
 
 The board enumerates over its own native USB, independent of the base ESP32's
