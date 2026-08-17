@@ -69,8 +69,6 @@ THICK = _ring.THICK
 SLIP = 0.2
 # The plate's corner round, and its pocket's.
 CORNER_R = 3.0
-# The quiet band inside the plate's edge that nothing is set in.
-MARGIN = 6.0
 # The plate across and up. The width is the FIELD'S, less a margin at each end, so the plate runs
 # the whole of what the wall leaves it. The height is the stack standing on it plus HALF the
 # padding the width came out with — the plate is landscape and its quiet band is landscape with
@@ -448,18 +446,20 @@ def selftest() -> int:
         if got < BEAD:
             fails.append(f"type at em {em:g} carries a {got:.3f} mm stroke and the profile lays "
                          f"a {BEAD:g} bead")
-    room = WIDTH - 2.0 * MARGIN
+    # The lockup is the widest mark set on the plate and `WIDTH` is the field's, so what a line
+    # has to fit inside is the lockup, not the plate — the block's lines and the warning are
+    # free text and this is where one set too long shows up.
+    room = lockup_width()
     for key, row in lines(1).items():
         for s in row:
             em = {"name": TITLE_EM, "url": link_em()}.get(key, BODY_EM)
             got = text_width(s, em)
             if got > room + 1e-9:
-                fails.append(f"'{s}' sets {got:.2f} mm wide and the plate's margins leave "
-                             f"{room:.2f}")
+                fails.append(f"'{s}' sets {got:.2f} mm wide and the lockup the plate is sized "
+                             f"on measures {room:.2f}")
     tall = _stack_height(1)
-    if tall > HEIGHT - 2.0 * MARGIN + 1e-9:
-        fails.append(f"the stack stands {tall:.2f} mm tall and the plate's margins leave "
-                     f"{HEIGHT - 2.0 * MARGIN:.2f}")
+    if tall > HEIGHT + 1e-9:
+        fails.append(f"the stack stands {tall:.2f} mm tall on a plate {HEIGHT:g} high")
     for f in fails:
         print(f"FAIL {f}")
     if not fails:
@@ -500,7 +500,6 @@ def main(unit: int):
         "PLATE_H": f"{HEIGHT:g} mm",
         "NAMEPLATE_T": f"{THICK:g} mm",
         "PLATE_CORNER": f"{CORNER_R:g} mm",
-        "PLATE_MARGIN": f"{MARGIN:g} mm",
         "PLATE_SLIP": f"{SLIP:g} mm",
         "SCREW_INSET": f"{SCREW_INSET:g} mm",
         "CBORE_D": f"{CBORE_DIA:g} mm",
