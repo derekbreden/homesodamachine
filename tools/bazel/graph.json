@@ -4934,24 +4934,6 @@
       "hardware/reference/water-split/water-split.step"
     ]
   },
-  "hardware/reference/water-test-cup/water_test_cup.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/reference/water-test-cup/water_test_cup.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/reference/water-test-cup/water_test_cup.py"
-    ],
-    "writes": [
-      "hardware/reference/water-test-cup/water-test-cup.step",
-      "hardware/reference/water-test-cup/water_test_cup.py"
-    ]
-  },
   "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {
     "reads": [
       "hardware/reference/waveshare-43b-display/README.figures.json",
