@@ -119,6 +119,16 @@ export const BRANCHES = [
                 "printed-parts/faucet/touch-flo-mounting-gasket",
                 "printed-parts/faucet/touch-flo-tpu-o-ring", "cut-parts/faucet"],
         note: "Plate, gasket and o-ring above the counter; the cut plate below it." },
+      // `faucet-layout` holds two solids off one model — the branch's own hero at
+      // faucet scale, claimed above, and the whole bagged sub-assembly here.
+      { id: "umbilical", label: "Umbilical", holds: ["faucet-layout"],
+        note: "The same three tubes at their factory cut, gathered into the pack a sleeve " +
+              "makes of them, foam on the cold one, and a collar on each bare tail at the " +
+              "wall end." },
+      { id: "collar", label: "Tube collars", holds: ["printed-parts/faucet/tube-collar"],
+        note: "One per rear-wall crossing, carrying that station's word and colour onto the " +
+              "tube itself. Three go on at the umbilical bench; the tap and CO2 pair ride in " +
+              "the install kit, for the runs the customer cuts." },
     ],
   },
 ];

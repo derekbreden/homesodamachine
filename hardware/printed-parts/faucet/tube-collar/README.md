@@ -1,7 +1,7 @@
 # Tube collar
 
 A printed collar threaded onto a 1/4" line, carrying the word and the colour of the port ring that
-line goes through. The chip in [`../port-ring/`](../port-ring/README.md) marks the wall; this marks
+line goes through. The chip in [`../../enclosure/port-ring/`](../../enclosure/port-ring/README.md) marks the wall; this marks
 the tube.
 
 The outline is the chip's — a half circle below the bore's axis, a rectangle above it where the word
@@ -51,7 +51,7 @@ pair against each other.
 ## The word
 
 A second solid in a second colour, lying in a recess [1](COLLAR_WORD_DEPTH) mm into the flat and
-filling it flush — [`../port-ring/`](../port-ring/README.md)'s own construction, at its own em, in
+filling it flush — [`../../enclosure/port-ring/`](../../enclosure/port-ring/README.md)'s own construction, at its own em, in
 its own face. The advance runs along the tube and the cap stands across it, in a flat that leaves
 [28](COLLAR_BAND_ALONG) mm one way and [10](COLLAR_BAND_ACROSS) mm the other. FLAVOR is the longest
 of the five and what `LENGTH` is set from.
@@ -74,4 +74,4 @@ enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/tube-collar/tube_collar.py`
+- `/hardware/printed-parts/faucet/tube-collar/tube_collar.py`

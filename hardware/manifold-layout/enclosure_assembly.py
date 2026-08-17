@@ -116,7 +116,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
            _hw / "printed-parts" / "enclosure" / "port-ring",
-           _hw / "printed-parts" / "enclosure" / "tube-collar",
+           _hw / "printed-parts" / "faucet" / "tube-collar",
            _hw / "printed-parts" / "enclosure" / "nameplate",
            _hw / "printed-parts" / "enclosure" / "valve-panel",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
@@ -2080,7 +2080,7 @@ def back_wall_field(stations):
 # TWO OF THE FIVE CROSSINGS TAKE A TUBE THE CUSTOMER CUTS, in their own kitchen and to their own
 # length: the tap-water run up to their angle stop, and the tether back to the regulator on their
 # cylinder. Each leaves by a collet on this wall and ends on hardware that carries no ring, so the
-# station's word goes out with it on a printed collar — `printed-parts/enclosure/tube-collar/`, the
+# station's word goes out with it on a printed collar — `printed-parts/faucet/tube-collar/`, the
 # chip's own outline bored for the tube. The collar's frame is the fitting's, so it seats down the
 # same axis with no turn of its own, exactly as the chip does.
 #
