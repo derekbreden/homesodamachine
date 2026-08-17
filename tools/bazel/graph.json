@@ -1793,6 +1793,7 @@
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
       "hardware/topology/fluid-topology.md",
+      "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
