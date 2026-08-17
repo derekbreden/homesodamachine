@@ -288,6 +288,22 @@ if staged "BUILD.bazel" "tools/bazel/graph.json" "tools/bazel/selftests.json" ||
    git diff --cached --name-status | grep -q '^[AD]'; then
   gate "BUILD.bazel is what the traced graph writes" \
        python3 "$root/tools/bazel/gen_build.py" --check
+
+  # THE THREE ARE ONE UNIT AND `--check` READS THE TREE. It re-derives BUILD.bazel from the
+  # graph.json and selftests.json on disk and holds it against the BUILD.bazel on disk — so a
+  # commit taking one of them while another sits dirty beside it is answered green about a
+  # state nobody commits. One session's regenerated BUILD.bazel staged without the graph.json
+  # it came from lands a tree whose own gate is red on checkout. Path-scoped staging is what
+  # splits them, so the reading that catches it is of the index against the tree.
+  unit="BUILD.bazel tools/bazel/graph.json tools/bazel/selftests.json"
+  taking=$(git diff --cached --name-only -- $unit)
+  left=$(git diff --name-only -- $unit)
+  if [ -n "$taking" ] && [ -n "$left" ]; then
+    gate "BUILD.bazel and the files it is written from move together" \
+         sh -c "echo '  this commit takes:'; echo '$taking' | sed 's/^/    /'; \
+                echo '  and leaves changed in the tree:'; echo '$left' | sed 's/^/    /'; \
+                echo '  git add the rest, or commit none of the three'; false"
+  fi
 fi
 
 # A THUMBNAIL IS DRAWN BESIDE A STEP BY THE RUN THAT EXPORTED IT, and a bazel action draws
