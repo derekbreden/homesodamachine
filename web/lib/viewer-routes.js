@@ -7,7 +7,6 @@ import { isCardAssetPath } from "../contracts/cards.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
-import { editionRoot } from "./editions.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -32,38 +31,33 @@ function readSidecar(rootDir, rel) {
   }
 }
 
-// The viewer serves one edition's content root per request, chosen by the
-// hidden Edition selector (Settings, dev-mode only). The roots, their ids and
-// the per-request resolver are lib/editions.js — shared with the dev-only
-// editors, which must land their write-back in the same tree the viewer is
-// showing.
+// The viewer serves hardware/, and every path below resolves against it.
 //
 // Endpoints + response shapes: web/contracts/api-shapes.js.
-export function mountViewerRoutes(app, { editionDirs }) {
-  const rootFor = (req) => editionRoot(req, editionDirs);
+export function mountViewerRoutes(app, { hardwareDir }) {
 
   app.get("/api/steps", (req, res) => {
-    res.json(walkFiles(rootFor(req), ".step"));
+    res.json(walkFiles(hardwareDir, ".step"));
   });
 
   app.get("/api/glbs", (req, res) => {
-    res.json(walkFiles(rootFor(req), ".glb"));
+    res.json(walkFiles(hardwareDir, ".glb"));
   });
 
   app.get("/api/mermaid", (req, res) => {
-    res.json(walkFiles(rootFor(req), ".mmd"));
+    res.json(walkFiles(hardwareDir, ".mmd"));
   });
 
   // Line-art drawings: SVGs that live in any directory named `drawings/`
   // under the active root. The generator is tools/line-art/line_art.py; the
   // drawing scripts and outputs colocate with the part they describe.
   app.get("/api/drawings", (req, res) => {
-    res.json(walkFilesUnderDir(rootFor(req), ".svg", "drawings"));
+    res.json(walkFilesUnderDir(hardwareDir, ".svg", "drawings"));
   });
 
   // PCB boards with their three rendered copper views (see walkPcbBoards).
   app.get("/api/pcb", (req, res) => {
-    res.json(walkPcbBoards(rootFor(req)));
+    res.json(walkPcbBoards(hardwareDir));
   });
 
   // Assembly instruction cards: the printable 4×6 deck under assembly/cards/,
@@ -73,7 +67,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // to the deck appears on the next list with no build step.
   app.get("/api/cards", (req, res) => {
     res.set("Cache-Control", "no-cache");
-    res.json(walkAssemblyCards(rootFor(req)));
+    res.json(walkAssemblyCards(hardwareDir));
   });
 
   // Card assets — the page itself plus the shared stylesheet and the renders it
@@ -85,9 +79,8 @@ export function mountViewerRoutes(app, { editionDirs }) {
   app.get("/cards/*splat", (req, res) => {
     const rel = relOf(req);
     if (!isCardAssetPath(rel)) return res.status(400).send("Not a card asset");
-    const rootDir = rootFor(req);
-    const abs = path.join(rootDir, rel);
-    if (!abs.startsWith(rootDir + path.sep)) return res.status(400).send("Invalid path");
+    const abs = path.join(hardwareDir, rel);
+    if (!abs.startsWith(hardwareDir + path.sep)) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     // Cards are edited live while the deck is being written; revalidate so a
     // reload never shows a stale card (same reasoning as the drawing and PCB
@@ -101,16 +94,15 @@ export function mountViewerRoutes(app, { editionDirs }) {
   });
 
   app.get("/api/dxf", (req, res) => {
-    const rootDir = rootFor(req);
-    const paths = walkFiles(rootDir, ".dxf");
+    const paths = walkFiles(hardwareDir, ".dxf");
     // Return enriched objects so the client gets the sidecar metadata
     // (thickness_mm, material, etc.) in the same round-trip — the
     // viewer needs thickness to extrude. See hardware/README.md.
-    res.json(paths.map((p) => ({ path: p, ...sidecarFields(readSidecar(rootDir, p)) })));
+    res.json(paths.map((p) => ({ path: p, ...sidecarFields(readSidecar(hardwareDir, p)) })));
   });
 
   app.get("/api/mermaid-content/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), ".mmd");
+    const abs = safeFile(hardwareDir, relOf(req), ".mmd");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
@@ -122,7 +114,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // SVGs that may live elsewhere in the tree).
   app.get("/api/drawing-content/*splat", (req, res) => {
     const rel = relOf(req);
-    const abs = safeFile(rootFor(req), rel, ".svg");
+    const abs = safeFile(hardwareDir, rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
     // Enforce the drawings/ directory convention so non-line-art SVGs
     // (logos, hand-drawn diagrams) aren't reachable through this endpoint.
@@ -142,7 +134,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // elsewhere in the tree.
   app.get("/api/pcb-content/*splat", (req, res) => {
     const rel = relOf(req);
-    const abs = safeFile(rootFor(req), rel, ".svg");
+    const abs = safeFile(hardwareDir, rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
     if (!VIEW_REQUEST_RE.test(rel)) {
       return res.status(400).send("Not a board view");
@@ -163,7 +155,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // view content, restricted to the `.picks.json` the distiller writes.
   app.get("/api/pcb-picks/*splat", (req, res) => {
     const rel = relOf(req);
-    const abs = safeFile(rootFor(req), rel, ".json");
+    const abs = safeFile(hardwareDir, rel, ".json");
     if (!abs) return res.status(400).send("Invalid path");
     if (!PICKS_REQUEST_RE.test(rel)) {
       return res.status(400).send("Not pick data");
@@ -178,10 +170,10 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // The 3D-model scorecard sidecar — the requirements verdict beside a STEP
   // (e.g. enclosure-assembly.scorecard.json, written by enclosure_assembly.py). Read by
   // the 3D viewer's scorecard bar + modal (public/js/viewer/scorecard-3d.js). Confined to
-  // *.scorecard.json under the edition root; a 404 is normal — a model with no scorecard
+  // *.scorecard.json under hardware/; a 404 is normal — a model with no scorecard
   // just gets no bar. no-cache so a live regen isn't shown stale.
   app.get("/api/step-scorecard/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), SCORECARD_SUFFIX);
+    const abs = safeFile(hardwareDir, relOf(req), SCORECARD_SUFFIX);
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
@@ -207,14 +199,14 @@ export function mountViewerRoutes(app, { editionDirs }) {
   }
 
   app.get("/steps/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), ".step");
+    const abs = safeFile(hardwareDir, relOf(req), ".step");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
   });
 
   app.get("/models/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), ".glb");
+    const abs = safeFile(hardwareDir, relOf(req), ".glb");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
@@ -225,7 +217,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // instead of parsing the STEP through occt-import-js in wasm. Not committed —
   // a 404 here is normal, and step.js parses the STEP instead.
   app.get("/meshes/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), ".mesh");
+    const abs = safeFile(hardwareDir, relOf(req), ".mesh");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
@@ -239,7 +231,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   // a client render in the grid. no-cache so a live regen or deploy is picked
   // up via ETag revalidation rather than a stale hit.
   app.get("/thumbs/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), ".png");
+    const abs = safeFile(hardwareDir, relOf(req), ".png");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
@@ -251,7 +243,7 @@ export function mountViewerRoutes(app, { editionDirs }) {
   });
 
   app.get("/dxfs/*splat", (req, res) => {
-    const abs = safeFile(rootFor(req), relOf(req), ".dxf");
+    const abs = safeFile(hardwareDir, relOf(req), ".dxf");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);

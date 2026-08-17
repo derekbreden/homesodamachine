@@ -26,20 +26,15 @@ import {
   dependencyGraph,
   buildOrder,
 } from "../dev-server/deps.js";
-import { EDITIONS } from "../lib/editions.js";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const ROOTS = contentRoots(REPO_ROOT);
 const rel = (p) => path.relative(REPO_ROOT, p);
 const ends = (suffix) => (c) => rel(c).split(path.sep).join("/").endsWith(suffix);
 
-test("content roots resolve to the declared editions", () => {
-  assert.ok(ROOTS.length >= 1, "expected at least the hardware/ root");
+test("the content root is hardware/", () => {
   const names = ROOTS.map((r) => rel(r).split(path.sep).join("/"));
-  for (const e of EDITIONS) {
-    const dir = e.dir.join("/");
-    assert.ok(names.includes(dir), `editions.js declares ${e.id} (${dir}) but it is not a content root`);
-  }
+  assert.deepEqual(names, ["hardware"]);
 });
 
 test("an edge goes only where a watched run did not open the file", () => {

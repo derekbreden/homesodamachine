@@ -20,8 +20,8 @@ import {
   formatFace,
   fpt,
   pickFileToViewerPath,
+  CONTENT_ROOT,
 } from "../public/js/viewer/pick-format.js";
-import { EDITION_DIRS } from "../lib/editions.js";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
@@ -290,35 +290,20 @@ test("pick_text.py composer output round-trips through the parser", (t) => {
   assert.equal(picks.length, out.trim().split("\n").length);
 });
 
-test("pickFileToViewerPath strips the repo prefix per edition", () => {
-  const roots = Object.values(EDITION_DIRS);
+test("pickFileToViewerPath strips the content root", () => {
   assert.equal(
-    pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step", roots),
+    pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step"),
     "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
   );
   assert.equal(
-    pickFileToViewerPath("hardware/manifold-layout/enclosure-assembly.step", roots),
+    pickFileToViewerPath("hardware/manifold-layout/enclosure-assembly.step"),
     "manifold-layout/enclosure-assembly.step",
   );
-  assert.equal(pickFileToViewerPath("reference/a/b.step", roots), "reference/a/b.step");
+  assert.equal(pickFileToViewerPath("reference/a/b.step"), "reference/a/b.step");
 });
 
-test("a nested content root is stripped WHOLE, not shortened by the one above it", () => {
-  // The roots are matched longest-first. Where one root sits inside another, the
-  // outer name must not claim the pick, or it opens the same filename in the wrong
-  // tree. Roots are the caller's argument, so this pins the rule on its own.
-  const nested = ["hardware", "extra/hardware"];
+test("the content root round-trips a copy blob", () => {
+  // What the picker composes (`<root>/<viewer path>`) is what the Find box takes apart.
   const viewerPath = "manifold-layout/enclosure-assembly.step";
-  assert.equal(pickFileToViewerPath(`extra/hardware/${viewerPath}`, nested), viewerPath);
-  assert.equal(pickFileToViewerPath(`hardware/${viewerPath}`, nested), viewerPath);
-});
-
-test("every edition's content root round-trips a copy blob", () => {
-  // What the picker composes (`<root>/<viewer path>`) is what the Find box takes
-  // apart. Adding an edition must not need this test edited — it walks the list.
-  const roots = Object.values(EDITION_DIRS);
-  for (const dir of roots) {
-    const viewerPath = "manifold-layout/enclosure-assembly.step";
-    assert.equal(pickFileToViewerPath(`${dir}/${viewerPath}`, roots), viewerPath, dir);
-  }
+  assert.equal(pickFileToViewerPath(`${CONTENT_ROOT}/${viewerPath}`), viewerPath);
 });

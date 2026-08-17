@@ -40,8 +40,7 @@ runs `npm test` on every commit that stages something under `web/`.
   or on the reference shelf; `build-tree` and `deps` pin the rebuild
   ordering the dev-server and `build-all` walk.
 - **Text-only readers.** `updates` parses the feed's frontmatter and order,
-  `pick-format` the edge-picker's copy blobs, `editions` the edition list
-  and per-request root resolver.
+  `pick-format` the edge-picker's copy blobs.
 - **Dev-only editors.** `step-editor` and `pcb-editor` gate the write-back
   routes that only exist under `npm run dev`.
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # look.sh — see a body in the pack, from the three orthographic directions, in one command.
 #
-# render-view.js takes an edition, a step path relative to THAT edition's root, an output path,
-# a projection, a context mode and a size — six arguments with one right answer each, where a
-# wrong path root fails silently (it resolves against the kitchen tree and reports "step file not
+# render-view.js takes a step path relative to hardware/, an output path,
+# a projection, a context mode and a size — five arguments with one right answer each, where a
+# wrong path root fails silently (it resolves against hardware/ and reports "step file not
 # found"). This fixes every argument that has a right answer and leaves the ones a caller
 # actually chooses: which bodies to look at, and what to ask about them.
 #
@@ -48,7 +48,6 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-EDITION="kitchen"
 STEP="manifold-layout/enclosure-assembly.step"
 VIEWS="top,front,right"
 SIZE="1600x1200"
@@ -78,8 +77,6 @@ while [[ $# -gt 0 ]]; do
     --vs=*)    vs="${1#*=}"; shift ;;
     --views)   VIEWS="$2"; shift 2 ;;
     --views=*) VIEWS="${1#*=}"; shift ;;
-    --edition) EDITION="$2"; shift 2 ;;
-    --edition=*) EDITION="${1#*=}"; shift ;;
     --step)    STEP="$2"; shift 2 ;;
     --step=*)  STEP="${1#*=}"; shift ;;
     --size)    SIZE="$2"; shift 2 ;;
@@ -94,7 +91,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -n "$list" ]]; then
-  exec node "$VIEW_JS" "$STEP" --edition "$EDITION" --list
+  exec node "$VIEW_JS" "$STEP" --list
 fi
 
 if [[ -n "$check" ]]; then
@@ -128,7 +125,7 @@ plan_frames() {
 # solid set — a neighbourhood, or a second body at the same scale — is spanned off these numbers.
 boxes=""
 box_table() {
-  if [[ -z "$boxes" ]]; then boxes="$(node "$VIEW_JS" "$STEP" --edition "$EDITION" --list)"; fi
+  if [[ -z "$boxes" ]]; then boxes="$(node "$VIEW_JS" "$STEP" --list)"; fi
 }
 
 # `<half-span> <centre>` for one named body, the half-span grown by the margin given. The row is
@@ -151,7 +148,7 @@ also=()
 
 if [[ -n "$near" ]]; then
   stem="$(stem_for "$near-near")"
-  command_line="tools/look.sh --near $near --within $within --views $VIEWS --size $SIZE --edition $EDITION --step $STEP"
+  command_line="tools/look.sh --near $near --within $within --views $VIEWS --size $SIZE --step $STEP"
   also=(--also hardware/scripts/probe.py)
 
   # THE FRAME IS THE BALL THE QUERY ASKED ABOUT — the subject's own box grown by the radius, so a
@@ -175,7 +172,7 @@ if [[ -n "$near" ]]; then
     }' <<<"$found")"
 
   plan_frames "$stem"
-  node "$VIEW_JS" "$STEP" "$stem" --edition "$EDITION" --views "$VIEWS" \
+  node "$VIEW_JS" "$STEP" "$stem" --views "$VIEWS" \
     --span "$span" --target "$target" --size "$SIZE" \
     --only "${ranked:+$ranked,}$near" --xray "enclosure-*" --select "$near" \
     --caption "within $within mm: $legend" "${extra[@]+"${extra[@]}"}"
@@ -184,7 +181,7 @@ elif [[ -n "$vs" ]]; then
   IFS=, read -r a b rest <<<"$vs"
   [[ -n "$a" && -n "$b" && -z "$rest" ]] || die "--vs takes exactly two body names: --vs a,b"
   stem="$(stem_for "$a-vs-$b")"
-  command_line="tools/look.sh --vs $a,$b --views $VIEWS --size $SIZE --edition $EDITION --step $STEP"
+  command_line="tools/look.sh --vs $a,$b --views $VIEWS --size $SIZE --step $STEP"
   also=(--also tools/render/twin.js)
 
   # ONE SPAN FOR BOTH HALVES. A render fits the frame to its own subject, so two subjects rendered
@@ -201,7 +198,7 @@ elif [[ -n "$vs" ]]; then
   trap 'rm -rf "$work"' EXIT
   for side in "a:$a:$b" "b:$b:$a"; do
     IFS=: read -r tag me other <<<"$side"
-    node "$VIEW_JS" "$STEP" "$work/$tag.png" --edition "$EDITION" --views "$VIEWS" \
+    node "$VIEW_JS" "$STEP" "$work/$tag.png" --views "$VIEWS" \
       --span "$span" --only "$me" --xray "enclosure-*" --size "$SIZE" \
       --caption "twin at one span — this half is $me, beside it $other" \
       "${extra[@]+"${extra[@]}"}"
@@ -214,13 +211,13 @@ elif [[ -n "$vs" ]]; then
 
 else
   stem="$(stem_for "$only")"
-  command_line="tools/look.sh '$only' --views $VIEWS --size $SIZE --edition $EDITION --step $STEP"
+  command_line="tools/look.sh '$only' --views $VIEWS --size $SIZE --step $STEP"
   plan_frames "$stem"
-  node "$VIEW_JS" "$STEP" "$stem" --edition "$EDITION" --views "$VIEWS" --ortho \
+  node "$VIEW_JS" "$STEP" "$stem" --views "$VIEWS" --ortho \
     --only "$only" --xray "enclosure-*" --size "$SIZE" "${extra[@]+"${extra[@]}"}"
 fi
 
-node "$REPO/tools/look-record.js" write --edition "$EDITION" --step "$STEP" \
+node "$REPO/tools/look-record.js" write --step "$STEP" \
   --command "$command_line" "${also[@]+"${also[@]}"}" "${frames[@]}"
 
 echo

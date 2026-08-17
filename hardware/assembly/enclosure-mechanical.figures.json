@@ -25,7 +25,7 @@
     "FOAM_SHELL_X": "283",
     "FOAM_SHELL_Y": "181",
     "GROMMET_SQUEEZE": "0.4",
-    "HOPPER_GATE_STATUS": "currently passes",
+    "HOPPER_GATE_STATUS": "currently reports red",
     "HOPPER_LANE_SIDE": "4.043 mm",
     "HOPPER_NEAR_A": "valve-v-d",
     "HOPPER_NEAR_B": "tee-y-a",

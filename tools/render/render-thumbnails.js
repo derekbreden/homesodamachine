@@ -28,8 +28,7 @@
 // thumbnail and a STEP thumbnail differ only in where the triangles came from.
 //
 // <step-path> may be absolute or repo-relative, and is matched against the
-// content roots — one per edition, taken from web/lib/editions.js, which is the
-// single source. The output is written next to the STEP as `<file>.step.png`.
+// content root. The output is written next to the STEP as `<file>.step.png`.
 // Files are grouped by root so the viewer is booted once per root; rendering
 // reuses one browser page across all of a root's files.
 //
@@ -44,18 +43,13 @@ import sharp from "sharp";
 import { PARSE_TIMEOUT, closeBrowser, closeServer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 import { start } from "../../web/server.js";
-import { EDITIONS } from "../../web/lib/editions.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
-// Content roots the viewer can serve, in match order. Each STEP belongs to
-// exactly one; the viewer is booted with hardwareDir set to that root so
-// /steps/<rel> resolves against it. Read from the editions registry rather than
-// listed here: a root this tool does not know about is a root whose thumbnails
-// silently never render, and nothing downstream notices — the STEP is written,
-// the card shows the last edition's picture, and the export exits 0.
-const ROOTS = EDITIONS.map((e) => ({ name: e.id, dir: path.join(REPO_ROOT, ...e.dir) }))
+// The content root the viewer serves. The viewer is booted with hardwareDir set
+// to it so /steps/<rel> resolves against it.
+const ROOTS = [{ name: "hardware", dir: path.join(REPO_ROOT, "hardware") }]
   .filter((r) => fs.existsSync(r.dir));
 
 function isHidden(rel) {

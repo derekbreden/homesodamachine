@@ -5,7 +5,7 @@
 // from is rebuilt many times an hour, and between two builds a frame goes on showing whatever
 // the last render found — geometry that looks like a reading and is a memory of one.
 //
-//   node tools/look-record.js write --step <rel> [--edition id] [--also path]… \
+//   node tools/look-record.js write --step <rel> [--also path]… \
 //        --command "<the line that redraws it>" <png>…
 //   node tools/look-record.js check <dir>            (0 = current, 1 = stale)
 //
@@ -22,8 +22,6 @@ import crypto from "crypto";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-
-import { EDITION_DIRS } from "../web/lib/editions.js";
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SIDECAR = ".scene.json";
@@ -75,15 +73,13 @@ function walk(roots) {
   return seen;
 }
 
-function sources({ step, edition, also }) {
+function sources({ step, also }) {
   const files = walk(ROOTS);
   for (const rel of [...LEAVES, ...also]) {
     const abs = path.isAbsolute(rel) ? rel : path.join(REPO, rel);
     if (fs.existsSync(abs)) files.add(abs);
   }
-  const dir = EDITION_DIRS[edition];
-  if (!dir) throw new Error(`unknown edition ${edition} (have ${Object.keys(EDITION_DIRS).join(", ")})`);
-  const stepAbs = path.join(REPO, dir, step);
+  const stepAbs = path.join(REPO, "hardware", step);
   if (!fs.existsSync(stepAbs)) throw new Error(`no STEP at ${stepAbs}`);
   files.add(stepAbs);
 
@@ -93,12 +89,11 @@ function sources({ step, edition, also }) {
 }
 
 function write(argv) {
-  const opts = { edition: "kitchen", step: null, command: "", also: [] };
+  const opts = { step: null, command: "", also: [] };
   const pngs = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === "--edition") opts.edition = argv[++i];
-    else if (a === "--step") opts.step = argv[++i];
+    if (a === "--step") opts.step = argv[++i];
     else if (a === "--command") opts.command = argv[++i];
     else if (a === "--also") opts.also.push(argv[++i]);
     else pngs.push(a);
@@ -167,7 +162,7 @@ try {
   if (verb === "write") write(rest);
   else if (verb === "check") process.exit(check(rest[0]));
   else {
-    console.error("usage: node tools/look-record.js write --step <rel> [--edition id] " +
+    console.error("usage: node tools/look-record.js write --step <rel> " +
                   "[--also path]… --command <line> <png>…\n" +
                   "       node tools/look-record.js check <dir>");
     process.exit(1);

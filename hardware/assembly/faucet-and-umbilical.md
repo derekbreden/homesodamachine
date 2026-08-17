@@ -111,7 +111,7 @@ Slide one printed collar down each tube from its bare rear-wall end: `carb` on t
 
 Run each collar up the tube until it lands where the sleeve in step 5 will stop — [3 in](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. The three come out level. The installer's second cut is below all of them, so a trimmed tube keeps its collar.
 
-The whole run, the sleeve over it, and the three collars on the bare tails are drawn in [`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py) and exported as `umbilical-assembly.step`.
+The bundle, the sleeve over it and the three collars on the bare tails are drawn in [`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py), which carries the terminated end at full size and the metre and a half of straight between it and the faucet as a figure rather than a length.
 
 ### 5. Sleeve the three tubes + signal cable into one bundle
 

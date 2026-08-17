@@ -22,6 +22,7 @@
 
 import { state } from "./state.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { CONTENT_ROOT } from "./pick-format.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const LS_KEY = "pcb-pad-pick";
@@ -329,9 +330,8 @@ function drawHighlight(sel) {
 // --- text (panel rows + copy blob) ---
 
 function repoPath(source) {
-  // The active edition's content root — same locator the edge picker composes,
-  // same reason it must name the current machine (viewer/edge-picker.js).
-  return (window.__hsmEditionDir || "") + "/" + source;
+  // Same locator the edge picker composes (viewer/edge-picker.js).
+  return CONTENT_ROOT + "/" + source;
 }
 function fnum(n) {
   const s = Number(n).toFixed(3);

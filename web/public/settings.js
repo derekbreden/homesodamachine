@@ -7,9 +7,6 @@
 //      a global subscription. Off DELETEs the subscription.
 //   3. Live-reload debug — dev-mode-only. Flips boot.js's on-screen panel
 //      via window.__hsmLiveDebug (localStorage hsmLiveDebug).
-//   4. Edition — dev-mode-only. Picks which machine's content root the
-//      viewer serves (lib/editions.js) via localStorage hsmEdition + the
-//      mirrored hsmEdition cookie the server reads.
 
 (function () {
   // --- Dev mode (always shown) ---
@@ -30,7 +27,6 @@
     try { localStorage.setItem("devMode", next ? "1" : "0"); } catch {}
     syncDevToggle();
     syncLiveDebugRow();
-    syncEditionRow();
   });
 
   // --- Live-reload debug (dev-mode only) ---
@@ -63,50 +59,6 @@
     }
     syncLiveDebugRow();
   });
-
-  // --- Edition (dev-mode only) ---
-  // Picks which machine the viewer shows — one content root each. The segments
-  // are rendered server-side from lib/editions.js, so this code never names an
-  // edition: it reads the ids off the buttons. localStorage hsmEdition is the
-  // source of truth; the pre-paint head script (shell.js) mirrors it into the
-  // hsmEdition cookie the server reads to pick the root. We also write the
-  // cookie here so the choice is live on the next viewer navigation without
-  // waiting for that script to re-run. Hidden unless dev mode is on, like the
-  // live-debug row — and rendered at all only where lib/editions.js declares
-  // more than one, so everything below reads a row that may not be there.
-  const editionRow = document.getElementById("row-edition");
-  const editionHelp = document.getElementById("edition-help");
-  const segments = Array.from(document.querySelectorAll("#edition-segmented .segment"));
-  const editionIds = segments.map((b) => b.dataset.edition);
-  const defaultEdition = editionIds[0];
-  function currentEdition() {
-    let id = null;
-    try { id = localStorage.getItem("hsmEdition"); } catch (e) {}
-    return editionIds.indexOf(id) === -1 ? defaultEdition : id;
-  }
-  function syncEditionRow() {
-    // One edition is no choice, and the page renders no row for it.
-    if (!editionRow) return;
-    editionRow.hidden = !document.documentElement.classList.contains("dev-mode");
-    const active = currentEdition();
-    for (const b of segments) {
-      const on = b.dataset.edition === active;
-      b.setAttribute("aria-checked", on ? "true" : "false");
-      if (on) editionHelp.textContent = b.dataset.help || "";
-    }
-  }
-  syncEditionRow();
-  for (const b of segments) {
-    b.addEventListener("click", () => {
-      const value = b.dataset.edition;
-      try { localStorage.setItem("hsmEdition", value); } catch (e) {}
-      try { document.cookie = "hsmEdition=" + value + ";path=/;max-age=31536000;samesite=lax"; } catch (e) {}
-      for (const id of editionIds) {
-        document.documentElement.classList.toggle("edition-" + id, id === value);
-      }
-      syncEditionRow();
-    });
-  }
 
   // --- Notifications (PWA-only) ---
   function pushSupported() {
