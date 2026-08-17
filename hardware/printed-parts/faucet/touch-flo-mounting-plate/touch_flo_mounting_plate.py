@@ -22,7 +22,7 @@ sys.path.insert(0, str(_here.parent))  # for _touch_flo_interface
 sys.path.insert(0, str(_here.parent / "touch-flo-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
-from _materials import C_PETG_TAN, one_body
+from _materials import C_PETCF_BLACK, one_body
 from _touch_flo_interface import (
     flavor_tube_depth,
     pill_length_x,
@@ -135,7 +135,7 @@ def main():
     plate = build_mounting_plate()
 
     out = _here / "touch-flo-mounting-plate.step"
-    export_assembly(one_body(plate, out.stem, C_PETG_TAN), str(out))
+    export_assembly(one_body(plate, out.stem, C_PETCF_BLACK), str(out))
     print(f"-> {out.name}")
 
     variables = {
