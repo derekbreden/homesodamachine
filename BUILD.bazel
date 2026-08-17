@@ -6007,42 +6007,6 @@ cp hardware/reference/water-split/water-split.step $$O0
 )
 
 genrule(
-    name = "water-test-cup",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/reference/water-test-cup/water_test_cup.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/water-test-cup/hardware/reference/water-test-cup/water-test-cup.step",
-        "out/water-test-cup/hardware/reference/water-test-cup/water_test_cup.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/water-test-cup/hardware/reference/water-test-cup/water-test-cup.step)
-O1=$$PWD/$(location out/water-test-cup/hardware/reference/water-test-cup/water_test_cup.py)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/water-test-cup/water_test_cup.py > /dev/null
-cp hardware/reference/water-test-cup/water-test-cup.step $$O0
-cp hardware/reference/water-test-cup/water_test_cup.py $$O1
-""",
-)
-
-genrule(
     name = "waveshare-43b-display",
     srcs = [
         "hardware/reference/waveshare-43b-display/README.figures.json",
@@ -9142,12 +9106,6 @@ sh_test(
         "hardware/reference/water-split/water-split.step",
         "hardware/reference/water-split/water-split.step.png",
         "hardware/reference/water-split/water_split.py",
-        "hardware/reference/water-test-cup/README.md",
-        "hardware/reference/water-test-cup/print-log.md",
-        "hardware/reference/water-test-cup/water-test-cup.3mf",
-        "hardware/reference/water-test-cup/water-test-cup.step",
-        "hardware/reference/water-test-cup/water-test-cup.step.png",
-        "hardware/reference/water-test-cup/water_test_cup.py",
         "hardware/reference/waveshare-43b-display/README.figures.json",
         "hardware/reference/waveshare-43b-display/README.md",
         "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
@@ -9704,7 +9662,6 @@ filegroup(
         ":valve-body-reference",
         ":wago-221",
         ":water-split",
-        ":water-test-cup",
         ":waveshare-43b-display",
         ":worm-clamp",
         ":wr1110-regulator",
