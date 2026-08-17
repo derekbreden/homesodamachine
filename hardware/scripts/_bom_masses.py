@@ -79,6 +79,12 @@ PARTS = {
         "enclosure/port-ring/port-ring-flavor-b.step",
         "enclosure/port-ring/port-ring-co2.step",
     ],
+    # ONE ROW AND ONE FILE, holding both bodies the way a port ring's does: the plate, and the
+    # lettering standing in the recess cut into it. The file is unit 0001's; every unit's is the
+    # same plate with four different figures in it, so one mass prices the run.
+    "Nameplate — one per unit, serialized": [
+        "enclosure/nameplate/nameplate-001.step",
+    ],
     "Drip pan": [
         "enclosure/drip-pan/drip-pan.step",
     ],

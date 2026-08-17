@@ -642,6 +642,10 @@ z_lip_y_margin = 2.0
 #                 axis and a rectangle above it, so it takes its chip one way up and no other.
 #                 The boss is that shape one rim larger, and makes back exactly what the pocket
 #                 took, so the wall keeps its whole thickness under every chip
+#   nameplate     the plate's own pocket on that same face, and the two screw bosses behind it —
+#                 its station and outline, the two stations on it, and everything one screw
+#                 costs the wall: the pad's pocket, the collar round it, the stem under that and
+#                 the insert's bore through both
 #   valve_panels  the flavour manifold's decks, one (plane, sign, seats) each — the world Y a
 #                 deck's valves stand their mounting faces on, which way their own +Z runs off
 #                 it, and one (x, z) per valve. A panel is a plate wall to wall carrying one
@@ -660,8 +664,8 @@ z_lip_y_margin = 2.0
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
-           "cond_mount asse_cradle digiten_saddles tube_anchors port_field valve_panels "
-           "pump_trays core_stops core_holds vent_chase")
+           "cond_mount asse_cradle digiten_saddles tube_anchors port_field nameplate "
+           "valve_panels pump_trays core_stops core_holds vent_chase")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -671,8 +675,8 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
-            "asse_cradle digiten_saddles tube_anchors port_field valve_panels pump_trays "
-            "core_stops core_holds vent_chase")
+            "asse_cradle digiten_saddles tube_anchors port_field nameplate valve_panels "
+            "pump_trays core_stops core_holds vent_chase")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
                              (), (), (), (), None, (), (), (), (), ())
 
@@ -1282,8 +1286,9 @@ def _dims(pack):
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
                pack.cond_mount, pack.asse_cradle,
-               pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.valve_panels,
-               pack.pump_trays, pack.core_stops, pack.core_holds, pack.vent_chase)
+               pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.nameplate,
+               pack.valve_panels, pack.pump_trays, pack.core_stops, pack.core_holds,
+               pack.vent_chase)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1488,6 +1493,38 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     cut = (cq.Workplane("XY").box(x1 - x0, wy, wz)
            .translate(((x0 + x1) / 2.0, hy, hz)))
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
+
+
+def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
+    """The nameplate's pocket, cut into a ±Y wall's outer face, and the two screw bosses standing
+    behind it on the inner one.
+
+    THE POCKET TAKES THE PLATE'S WHOLE THICKNESS and the wall keeps what is left under it. At each
+    screw it goes one `pad_depth` deeper for the plate's own local thickening, and the boss behind
+    that pocket is what the insert is set in: a collar as wide as the pocket needs a wall round it,
+    and under it a stem round the insert alone.
+
+    The plate lies wholly on one piece — `nameplate-field` is the reading that keeps it off the
+    seam — so the station's own Z decides which piece carries all of it."""
+    if plate is None or not (zlo <= plate.z <= zhi):
+        return solid
+    y_inner = y_outer - wall
+    floor = y_outer - plate.thick - plate.pad_depth
+    for dx, dz in plate.screws:
+        sx, sz = plate.x + dx, plate.z + dz
+        solid = solid.fuse(_ycyl(plate.collar_d / 2.0, sx, sz, floor, y_inner))
+        solid = solid.fuse(_ycyl(plate.stem_d / 2.0, sx, sz, floor - plate.bore_depth, floor))
+    solid = solid.cut(_rect_cut_y(plate.x, plate.z,
+                                  plate.width + 2.0 * plate.slip,
+                                  plate.height + 2.0 * plate.slip,
+                                  plate.corner + plate.slip,
+                                  y_outer - plate.thick, y_outer + 1.0))
+    for dx, dz in plate.screws:
+        sx, sz = plate.x + dx, plate.z + dz
+        solid = solid.cut(_ycyl((plate.pad_d + 2.0 * plate.pad_slip) / 2.0, sx, sz,
+                                floor, y_outer + 1.0))
+        solid = solid.cut(_ycyl(plate.bore_d / 2.0, sx, sz, floor - plate.bore_depth, floor))
+    return solid
 
 
 def _port_chip(px, pz, width, rise, y0, y1):
@@ -3044,6 +3081,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # meets is flush. The bosses carry the face's own through-holes across their depth, so a
         # bore that crosses the wall crosses them too.
         piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi)
+        # And the nameplate's own pocket on that same face, with its two screw bosses behind it.
+        # After the field, so a boss standing on this wall stands on a wall the field has already
+        # finished with.
+        piece = _nameplate(piece, box.nameplate, outer, oy1, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))

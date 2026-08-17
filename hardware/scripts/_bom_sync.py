@@ -30,6 +30,7 @@ import manifold_layout as ml
 import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
+import nameplate as _np  # likewise
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
@@ -221,6 +222,17 @@ cond_inserts_per_build = len(_cond_bosses)
 # the same screw the shelf's sixteen are.
 cond_screws_per_build = cond_inserts_per_build
 
+# Nameplate hardware (assembly/finish-pack-ship.md §3). `enclosure._nameplate` stands ONE BOSS
+# PER SCREW STATION the plate declares, each bored for a ruthex short — so this count is the
+# plate's the way the shelf's is the pack's.
+nameplate_inserts_per_build = len(_np.screw_stations())
+# One M3 × 8 in from outside through each counterbore into its boss's insert — 1:1 with the
+# bosses, and the same screw the shelf's sixteen and the condenser's two are.
+nameplate_screws_per_build = nameplate_inserts_per_build
+# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair and the plate's.
+m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
+                  + nameplate_screws_per_build)
+
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
@@ -228,6 +240,7 @@ total_m3_inserts_per_build = (
     + touchflo_inserts_per_build
     + shelf_inserts_per_build
     + cond_inserts_per_build
+    + nameplate_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
 
@@ -241,6 +254,7 @@ total_m3_screws_per_build = (
     + touchflo_screws_per_build
     + shelf_screws_per_build
     + cond_screws_per_build
+    + nameplate_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -287,7 +301,9 @@ def main():
         "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
         "COND_INSERTS": f"{cond_inserts_per_build:.4g}",
         "COND_SCREWS": f"{cond_screws_per_build:.4g}",
-        "M3X8_TOTAL": f"{shelf_short_screws_per_build + cond_screws_per_build:.4g}",
+        "M3X8_TOTAL": f"{m3x8_per_build:.4g}",
+        "NAMEPLATE_INSERTS": f"{nameplate_inserts_per_build:.4g}",
+        "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
@@ -348,6 +364,7 @@ def main():
             "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
+            "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",
         },

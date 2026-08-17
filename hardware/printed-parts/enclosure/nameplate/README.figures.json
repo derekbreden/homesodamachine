@@ -1,12 +1,28 @@
 {
   "/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
     "BULK_NOZZLE_D": "0.4 mm",
-    "FOUNDER_EDITION_COUNT": "50",
-    "FOUNDER_EDITION_LAST": "050",
-    "FOUNDER_EDITION_NEXT": "051",
     "LAYER_H_MAX": "0.12 mm",
     "LAYER_H_MIN": "0.08",
     "NAMEPLATE_NOZZLE_D": "0.2 mm"
   },
-  "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {}
+  "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {
+    "BORE_RELIEF": "1.25 mm",
+    "BOSS_COLLAR_D": "14.75 mm",
+    "BOSS_REACH": "8 mm",
+    "BOSS_STEM_D": "10 mm",
+    "CBORE_D": "6.15 mm",
+    "CBORE_DEPTH": "3 mm",
+    "INK_DEPTH": "1 mm",
+    "LAND": "1.5 mm",
+    "LINK_EM": "6.05",
+    "LOCKUP_W": "88.8 mm",
+    "PAD_D": "9.15 mm",
+    "PAD_DEPTH": "2.5 mm",
+    "PLATE_H": "66.07 mm",
+    "PLATE_T": "2 mm",
+    "PLATE_W": "104.53 mm",
+    "SCREW_LEN": "8 mm",
+    "SCREW_REACH": "8 mm",
+    "TITLE_EM": "6.5"
+  }
 }
