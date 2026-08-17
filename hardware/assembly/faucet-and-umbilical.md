@@ -107,9 +107,9 @@ Segment count for the standard build is **five**, covering 1425 mm of the blue t
 
 ### 4. Thread a collar onto each tail
 
-Slide one printed collar down each tube from its bare rear-wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black. The bore is Ø[6.3](COLLAR_BORE) on Ø[6.35](COLLAR_TUBE_OD) LLDPE, so each goes on with a push and a twist and stays where it is put.
+Slide one printed collar down each tube from its bare rear-wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black. A collar comes off the plate bored Ø[6.63](COLLAR_BORE_PRINTED) on Ø[6.35](COLLAR_TUBE_OD) LLDPE, so each goes on by hand down the whole [30 mm](COLLAR_LENGTH) of it, dragging on the tube's own oval. Nothing goes on with force here: a collar that needs it is bored under its figure, and forcing it scores the same stretch of tube that has to seal in the union.
 
-Run each collar up the tube until it lands where the sleeve in step 5 will stop — [3 in](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. The three come out level. The installer's second cut is below all of them, so a trimmed tube keeps its collar.
+Run each collar up the tube until it lands where the sleeve in step 5 will stop — [3 in](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. The three come out level. The sleeve butts up under them in step 5 and is what they sit on; above, the tail is open until the installer pushes it into its union. The installer's second cut is below all of them, so a trimmed tube keeps its collar.
 
 The bundle, the sleeve over it and the three collars on the bare tails are drawn in [`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py), which carries the terminated end at full size and the metre and a half of straight between it and the faucet as a figure rather than a length.
 

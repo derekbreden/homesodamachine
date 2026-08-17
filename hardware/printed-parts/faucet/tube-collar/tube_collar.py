@@ -9,8 +9,8 @@ run. Same four colours, same five words, same two-filament print.
     `RISE` tall over an OD twice that. It is not a shape that turns: the flat lies one way up and
     the word stands level on it without anything holding it there.
 
-THE BORE IS CLOSED AND CUT UNDER THE TUBE, and the collar threads on end-first, over a tail that is
-still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's three tubes and §4 sleeves
+THE BORE IS CLOSED AND SLIPS OVER THE TUBE, and the collar threads on end-first, over a tail that
+is still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's three tubes and §4 sleeves
 them; the collars go on between. The tap run and the CO2 tether are the customer's own cuts, and
 their collars ride in the install kit.
 
@@ -55,11 +55,23 @@ import port_ring as _ring  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
 # THE ONE TUBE SIZE ON THIS MACHINE. Every line the customer meets is 1/4" OD LLDPE, off one of the
-# four neoFlo spools in `ledger/bom.md` §3.
+# four neoFlo spools in `ledger/bom.md` §3. It is the nominal and not a bench figure: the tube on
+# the bench calipers Ø6.5, which is the top of the band below.
 TUBE_OD = 6.35
-# The bore, cut under it. LLDPE is the soft half of the pair and takes the five hundredths; the grip
-# runs the whole of `LENGTH`.
-BORE = 6.30
+# What 1/4" OD LLDPE holds its diameter to on the spool. THE BORE IS SIZED OFF THE TOP OF THAT BAND
+# and not off the nominal — a spool running high is the tube a collar still has to go onto, and one
+# running low only leaves play. `clearance()` and `rock()` are the answers about the low end.
+LLDPE_TOL = 0.13
+# WHAT THE PRINTER TAKES OFF THE BORE'S DIAMETER, calipered on a finished collar. It lies flat face
+# down with the bore's axis along the bed, so the hole's crown is unsupported and sags into it.
+# `BORE` is the figure the slicer is handed; `bore_printed()` is the one the tube meets.
+BORE_SHRINK = 0.10
+# AND WHAT IS LEFT OVER THE BIGGEST TUBE once the sag has had it. `LENGTH` of bore turns any
+# interference at all into a collar that goes on with a mallet or not at all, and this one goes on
+# by hand over a bare tail. LLDPE off a coil is oval enough to drag on a slip this size.
+SLIP = 0.15
+# THE BORE, AS THE SLICER IS HANDED IT: the top of the tube's band, the sag, and the slip.
+BORE = TUBE_OD + LLDPE_TOL + BORE_SHRINK + SLIP
 # The collar's width, and the diameter of the half circle below the axis. It leaves a `wall()` of
 # colour between the bore and each of the three flats.
 OD = 12.0
@@ -75,9 +87,6 @@ LENGTH = 30.0
 # `port_ring`'s.
 WORD_DEPTH = _ring.WORD_DEPTH
 WORD_MARGIN = _ring.WORD_MARGIN
-# What 1/4" OD LLDPE holds its diameter to on the spool. `clearance()` and `rock()` are answers
-# about a tube at the low end of it.
-LLDPE_TOL = 0.13
 
 # ONE COLLAR PER CHIP. The five keys are `port_ring.STATIONS`' own, and each takes its word and its
 # spool from the chip at that station — a word changed on the wall is changed on the tube by the
@@ -100,6 +109,12 @@ STATIONS = {
 STEPS = {name: _here.parent / f"tube-collar-{name}.step" for name in STATIONS}
 
 
+def bore_printed() -> float:
+    """The bore a caliper reads on a finished collar, and the one the tube is threaded into —
+    `BORE` less what the crown's sag takes back out of it."""
+    return BORE - BORE_SHRINK
+
+
 def wall() -> float:
     """The colour standing between the bore and a side flat, which is the thinnest the collar gets —
     the round below the axis stands the same off it and the top flat stands `RISE` off, further."""
@@ -120,12 +135,12 @@ def reach() -> float:
 
 
 def clearance() -> float:
-    """The diametral play a collar has on the loosest tube its spool runs.
+    """The diametral play a collar has on the loosest tube its spool runs — the printed bore over
+    an extrusion at the low end of `LLDPE_TOL`.
 
-    The bore is cut under the tube, so at nominal there is none and the fit is an interference. The
-    tube is an extrusion held to `LLDPE_TOL`, and one at the low end of that is the case with any
-    play in it at all."""
-    return LLDPE_TOL - (TUBE_OD - BORE)
+    On one at the high end it is `SLIP`, which is the figure the bore is sized to leave and the
+    tightest a collar comes out. Everything below is a tube that ran under nominal."""
+    return bore_printed() - (TUBE_OD - LLDPE_TOL)
 
 
 def rock() -> float:
@@ -352,10 +367,14 @@ def letters_lie_in_it():
 def selftest() -> int:
     """Each collar against the tube it threads onto, the word it carries, and the chip on the wall."""
     fails = []
-    if BORE >= TUBE_OD:
+    # THE TUBE THE BORE IS ANSWERED AGAINST IS THE BIGGEST ONE A SPOOL RUNS, not the nominal. A
+    # bore sized on the nominal meets a tube `LLDPE_TOL` over it and does not go on, and the sag
+    # takes `BORE_SHRINK` more off before it ever meets one.
+    if bore_printed() < TUBE_OD + LLDPE_TOL:
         fails.append(
-            f"a bore of Ø{BORE:g} on a Ø{TUBE_OD:g} tube is clearance at nominal, and the collar "
-            f"is held by nothing but the tube's own tolerance")
+            f"a collar prints Ø{bore_printed():g} and a spool running high hands the bench "
+            f"Ø{TUBE_OD + LLDPE_TOL:g} of tube — {LENGTH:g} mm of bore on that is a part that goes "
+            f"on with a mallet or not at all")
     if backing() < WORD_DEPTH - 1e-9:
         fails.append(
             f"the word's recess is {WORD_DEPTH:g} deep and leaves {backing():.3f} mm of colour "
@@ -406,8 +425,9 @@ def selftest() -> int:
     if not fails:
         print("ok  tube-collar  " + ", ".join(
             f"{w} {STATIONS[w].word}" for w in STATIONS)
-            + f" — Ø{OD:g} × {LENGTH:g} on Ø{TUBE_OD:g} tube, bore Ø{BORE:g}, "
-              f"cocks {rock():.3f}° ({flag_sway() * 1000:.0f} µm at the flag)")
+            + f" — Ø{OD:g} × {LENGTH:g} on Ø{TUBE_OD:g} tube, bore Ø{BORE:g} modelled and "
+              f"Ø{bore_printed():g} printed, cocks {rock():.3f}° "
+              f"({flag_sway() * 1000:.0f} µm at the flag)")
     return 1 if fails else 0
 
 
@@ -420,7 +440,7 @@ def main():
         bb = collar.BoundingBox()
         print(f"Tube collar — {which} station, '{STATIONS[which].word}'")
         print(f"  Ø{OD:g} wide × {OD / 2.0 + RISE:g} tall × {LENGTH:g} along the tube / "
-              f"bore Ø{BORE:g} on Ø{TUBE_OD:g} LLDPE")
+              f"bore Ø{BORE:g} modelled, Ø{bore_printed():g} printed, on Ø{TUBE_OD:g} LLDPE")
         print(f"  Wall {wall():g} mm, {backing():g} mm of colour behind the lettering")
         print(f"  Canonical-frame bounding box: "
               f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
@@ -431,6 +451,7 @@ def main():
         print(f"-> {STEPS[which].name}")
 
     chip_rock = math.degrees(math.atan2(clearance(), _ring.THICK))
+    print(f"  Slips {SLIP:g} mm on the biggest tube a spool runs (Ø{TUBE_OD + LLDPE_TOL:g})")
     print(f"  Cocks {rock():.4f}° on its loosest tube "
           f"({clearance():.3f} mm of play over {LENGTH:g} mm of bore), "
           f"{flag_sway() * 1000:.0f} µm at the flag's face")
@@ -438,7 +459,11 @@ def main():
 
     substitute_md(_here.parent / "README.md", variables={
         "COLLAR_TUBE_OD": f"{TUBE_OD:g}",
+        "COLLAR_TUBE_HIGH": f"{TUBE_OD + LLDPE_TOL:g}",
         "COLLAR_BORE": f"{BORE:g}",
+        "COLLAR_BORE_PRINTED": f"{bore_printed():g}",
+        "COLLAR_SHRINK": f"{BORE_SHRINK:g}",
+        "COLLAR_SLIP": f"{SLIP:g}",
         "COLLAR_OD": f"{OD:g}",
         "COLLAR_RISE": f"{RISE:g}",
         "COLLAR_TALL": f"{OD / 2.0 + RISE:g}",
