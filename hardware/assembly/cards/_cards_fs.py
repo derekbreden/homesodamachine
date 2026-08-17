@@ -289,7 +289,7 @@ def _figures():
         "REEDS_RSVR_ALL": f"{_rsv.reservoir_count * _fc.reeds_per_reservoir}",
         "REEDS_PER_RSVR": f"{_fc.reeds_per_reservoir}",
         "PROBE_COUNT": f"{_fc.ds18b20_count}",
-        "SOLENOID_COUNT": f"{_fc.valve_count}",
+        "VALVE_COUNT": f"{_fc.valve_count}",
         "RAIL_12V": f"{_fc.rail_12v_nominal:.4g} V",
         "RAIL_5V": f"{_fc.rail_5v_nominal:.4g} V",
         "RAIL_33V": f"{_fc.rail_33v_nominal:.4g} V",
@@ -351,7 +351,7 @@ def _figures():
             "RAIL_33V_TOL", "WALL_BOSSES"},
         "fc-03-sensor-health": {
             "PROBE_COUNT", "REEDS_TOTAL", "REEDS_CARB", "REEDS_PER_RSVR"},
-        "fc-04-valve-pump-self-test": {"SOLENOID_COUNT", "MANIFOLD_VALVES"},
+        "fc-04-valve-pump-self-test": {"VALVE_COUNT", "MANIFOLD_VALVES"},
         "fc-05-compressor-smoke-test": {
             "TANK_TARGET", "HYSTERESIS", "COMP_ON_OFF", "FREEZE_CUTOUT", "MIN_OFF"},
         # AB — the bench rig stands behind the machine.

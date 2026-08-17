@@ -43,7 +43,7 @@ Both ends of that range assume a syrup viscosity near 10 cP and surface tension 
 
 Sixty millilitres of pump work in ten seconds is **~360 mL/min**, three to four times a KPHM400.
 
-**Dispense duty.** At 360–500 mL/min, 17 mL over a pour lands near 14–19% duty; each 50 ms injection is 0.3–0.4 mL, forty-odd of them into a 355 mL glass, above the `PUMP_ON_MIN_MS` floor in [`/firmware/src/main.cpp`](/firmware/src/main.cpp). A 1:6 bag-in-box ratio lands near 40–55%.
+**Dispense duty.** At 360–500 mL/min, 17 mL over a pour lands near 14–19% duty; each 50 ms injection is 0.3–0.4 mL, forty-odd of them into a 355 mL glass, above the `PUMP_ON_MIN_MS` floor in [`/firmware/src_prototype/main.cpp`](/firmware/src_prototype/main.cpp). A 1:6 bag-in-box ratio lands near 40–55%.
 
 **Head duty.** One head carries both flavors' dispensing and 60 mL per switch. Four switches a day is ~240 mL/day of purge against perhaps 100 mL of dispensing, on a single silicone tube. A larger head at lower rpm delivers the same flow.
 

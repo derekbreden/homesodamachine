@@ -31,6 +31,7 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -383,6 +384,7 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -1078,6 +1080,7 @@
       "hardware/scripts/_seating.py",
       "hardware/scripts/_stated_bounds.py",
       "hardware/topology/fluid-topology.md",
+      "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py",
       "tools/render/render-card.js"
     ],

@@ -44,7 +44,7 @@
   <div class="col" style="flex:none; width:780px">
     <div class="settings" style="grid-template-columns:1fr; gap:18px">
       <div class="s"><div class="k">1 &#183; Controller PCBA &mdash; J14</div>
-        <div class="v">./tools/flash.sh esp32dev</div></div>
+        <div class="v">./tools/flash.sh appliance</div></div>
       <div class="s"><div class="k">2 &#183; Config display 4.3B</div>
         <div class="v">./tools/flash.sh esp32s3_front</div></div>
       <div class="s"><div class="k">3 &#183; Faucet display 1.47&Prime;</div>
@@ -53,7 +53,7 @@
 
     <table class="spec" style="margin-top:24px">
       <tr><th>Env</th><th>Port</th><th>Proof</th></tr>
-      <tr><td class="v">esp32dev</td><td>J14 &#183; CH340C U13</td>
+      <tr><td class="v">appliance</td><td>J14 &#183; CH340C U13</td>
         <td>boot banner + build ID</td></tr>
       <tr><td class="v">esp32s3_front</td><td>native CDC</td>
         <td>LVGL splash &#183; 800&times;480</td></tr>
@@ -65,7 +65,7 @@
       <b>Under the hood:</b> the wrapper runs
       <span class="dim">pio run -e &lt;env&gt; -t upload</span> per
       /platformio.ini, logger paused, then resumed. Monitor:
-      <span class="dim">pio device monitor -e esp32dev</span>.
+      <span class="dim">pio device monitor -e appliance</span>.
     </div>
   </div>
 </main>

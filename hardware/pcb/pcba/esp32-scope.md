@@ -1,13 +1,13 @@
 # ESP32 — what the base controller uses
 
-Board `esp32dev` (ESP32-WROOM-32E), firmware `firmware/src/main.cpp`. A wired GPIO +
+Board `esp32dev` (ESP32-WROOM-32E), firmware `firmware/src_prototype/main.cpp`. A wired GPIO +
 UART hub:
 
 - No WiFi, no BLE — the base firmware links no radio. BLE is on the separate ESP32-S3
   config display (`firmware/src_config`); the faucet display is another S3. The base
   ESP32 reaches both over wired UART (RS485 to the config display, TTL UART to the
   faucet).
-- Flashed over serial (`pio run -e esp32dev -t upload`): UART0 + EN/IO0.
+- Flashed over serial (`pio run -e prototype -t upload`): UART0 + EN/IO0.
 
 ## Connected pins (`pcba.tsx`)
 
