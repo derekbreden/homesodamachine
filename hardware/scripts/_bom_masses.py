@@ -29,6 +29,9 @@ from pathlib import Path
 from _cadq_export import import_step
 
 REPO = next(p for p in Path(__file__).resolve().parents if (p / "hardware").is_dir())
+sys.path.insert(0, str(REPO / "tools"))
+from docgen import cells                                        # noqa: E402
+
 BOM = REPO / "hardware" / "ledger" / "bom.md"
 PARTS_DIR = REPO / "hardware" / "printed-parts"
 
@@ -96,10 +99,6 @@ PARTS = {
 
 PRINTED = "<!--@printed-->"
 _VOLUMES: dict[str, float] = {}
-
-
-def cells(line):
-    return [c.strip() for c in line.strip().strip("|").split("|")]
 
 
 def volume_cm3(rel):
