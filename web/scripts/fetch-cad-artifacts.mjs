@@ -12,11 +12,16 @@
 // holding every locked solid, and the other reads 117 MB and finds nothing to do.
 //
 // THE LOCK IS THE AUTHORITY ON EVERY BYTE. The bundle is held to its sha256 before it is opened,
-// and each solid to its own after extraction. A hash that does not match ends the build, which
+// and each extracted solid to its own after. A hash that does not match ends the build, which
 // leaves the previous deploy serving.
 //
 // A tree that already holds every solid at its locked hash downloads nothing, so a dev machine
 // that cut the solids itself runs this to completion without reaching the network.
+//
+// ONLY A SOLID THAT IS ABSENT IS WRITTEN. A solid present and carrying other bytes is a generator's
+// fresh cut waiting to be packed, and this is `prestart` — it runs on `npm start` on the machine
+// doing that cutting. So drift is reported and left standing, and `pack.py --write` is what settles
+// it. A deploy clone has no solids at all, which is the case this fills.
 
 import { createHash } from "node:crypto";
 import { createReadStream, createWriteStream } from "node:fs";
@@ -46,20 +51,19 @@ async function present(rel) {
   }
 }
 
-// Which solids this disk does not already hold at the hash the lock names. Absence is settled by
-// a stat and costs nothing; what survives that is read in full, because a solid of the right size
-// and the wrong bytes is the case the hash is here for.
+// What this disk is missing, and what it holds under other bytes. Absence is settled by a stat;
+// only what survives that is read in full.
 async function wanted(solids) {
   const missing = [];
+  const here = [];
   for (const rel of Object.keys(solids)) {
-    if (!(await present(rel))) missing.push(rel);
+    (await present(rel) ? here : missing).push(rel);
   }
-  if (missing.length) return { missing, stale: [] };
-  const stale = [];
-  for (const [rel, want] of Object.entries(solids)) {
-    if ((await sha256(path.join(ROOT, rel))) !== want) stale.push(rel);
+  const drifted = [];
+  for (const rel of here) {
+    if ((await sha256(path.join(ROOT, rel))) !== solids[rel]) drifted.push(rel);
   }
-  return { missing: [], stale };
+  return { missing, drifted };
 }
 
 async function download(url, dest) {
@@ -75,21 +79,28 @@ if (!lock) {
 }
 
 const solids = lock.solids ?? {};
-const { missing, stale } = await wanted(solids);
-const count = missing.length + stale.length;
+const { missing, drifted } = await wanted(solids);
 
-if (count === 0) {
-  console.log(`[cad-artifacts] ${Object.keys(solids).length} solid(s) already at the locked hash`);
-  process.exit(0);
+// Named either way: a solid carrying other bytes is what `pack.py --write` is for, and saying so
+// is the whole of what happens to it here.
+if (drifted.length) {
+  console.log(`[cad-artifacts] ${drifted.length} solid(s) hold bytes the lock does not name, left as they are:`);
+  for (const rel of drifted.slice(0, 8)) console.log(`    ${rel}`);
+  console.log("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write");
+}
+
+if (missing.length === 0) {
+  console.log(`[cad-artifacts] ${Object.keys(solids).length - drifted.length} solid(s) at the locked hash`);
+  process.exit(drifted.length && CHECK ? 1 : 0);
 }
 if (CHECK) {
-  console.error(`[cad-artifacts] ${missing.length} missing, ${stale.length} not the locked bytes`);
-  for (const rel of [...missing, ...stale].slice(0, 8)) console.error(`    ${rel}`);
+  console.error(`[cad-artifacts] ${missing.length} solid(s) missing`);
+  for (const rel of missing.slice(0, 8)) console.error(`    ${rel}`);
   process.exit(1);
 }
 
 const { url, asset } = lock.release;
-console.log(`[cad-artifacts] ${count} solid(s) to fetch — ${asset} (${(lock.bundle.bytes / 1e6).toFixed(1)} MB)`);
+console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch — ${asset} (${(lock.bundle.bytes / 1e6).toFixed(1)} MB)`);
 
 const work = await mkdtemp(path.join(tmpdir(), "cad-artifacts."));
 try {
@@ -101,21 +112,22 @@ try {
     throw new Error(`${asset} is not the locked bundle\n  locked ${lock.bundle.sha256}\n  got    ${got}`);
   }
 
-  // Members are repo-relative, so the tree is where they land, and they land at the epoch: the
-  // bundle carries no mtime. What reads one is `_cadq_export._current` and check_thumbnails.py,
-  // both asking whether `<file>.step.png` was drawn from the solid beside it. That picture is in
-  // git, committed against these exact bytes, so a solid arriving older than it is the true
-  // answer — a solid stamped `now` would say every fetched picture wants redrawing.
-  execFileSync("tar", ["-xzf", bundle, "-C", ROOT], { stdio: "inherit" });
+  // The missing ones by name, so a drifted solid beside them keeps its bytes. Members are
+  // repo-relative, so the tree is where they land, and they land at the epoch: the bundle carries
+  // no mtime. What reads one is `_cadq_export._current` and check_thumbnails.py, both asking
+  // whether `<file>.step.png` was drawn from the solid beside it. That picture is in git,
+  // committed against these exact bytes, so a solid arriving older than it is the true answer —
+  // a solid stamped `now` would say every fetched picture wants redrawing.
+  execFileSync("tar", ["-xzf", bundle, "-C", ROOT, "--", ...missing], { stdio: "inherit" });
 
   const bad = [];
-  for (const [rel, want] of Object.entries(solids)) {
+  for (const rel of missing) {
     if (!(await present(rel))) bad.push(`${rel} — not in the bundle`);
-    else if ((await sha256(path.join(ROOT, rel))) !== want) bad.push(`${rel} — not the locked bytes`);
+    else if ((await sha256(path.join(ROOT, rel))) !== solids[rel]) bad.push(`${rel} — not the locked bytes`);
   }
   if (bad.length) throw new Error(`extracted tree disagrees with the lock:\n  ${bad.join("\n  ")}`);
 
-  console.log(`[cad-artifacts] ${Object.keys(solids).length} solid(s) in place`);
+  console.log(`[cad-artifacts] ${missing.length} solid(s) in place`);
 } catch (err) {
   console.error(`[cad-artifacts] ${err.message}`);
   process.exit(1);
