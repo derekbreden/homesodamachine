@@ -26,13 +26,7 @@ See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patte
 
 ## Firmware
 
-The appliance's controller is `firmware/src_appliance/`, on the PCBA's own WROOM. Its
-front-face display is `firmware/src_front/`, and the two talk over J9. `src_pcba_bench/`
-runs on that same WROOM to answer a different question — did the fab build the board —
-once per batch, on a bare board with the manifold unplugged. Seven trees, one per board:
-`firmware/README.md` says which runs where.
-
-Flash with `tools/flash.sh`.
+The appliance's controller is `firmware/src_appliance/`, on the PCBA's own WROOM. Its front-face display is `firmware/src_front/`, and the two talk over J9. Seven trees, one per board: `firmware/README.md` says which runs where.
 
 ## tscircuit forks
 
