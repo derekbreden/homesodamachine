@@ -31,17 +31,34 @@ def _git(*args) -> list:
 
 
 def imports_of(text: str) -> set:
-    """The top-level module names a source imports."""
+    """The module names a source imports AT IMPORT TIME.
+
+    A FUNCTION-LOCAL IMPORT IS NOT AN IMPORT-TIME FACT, and this check's whole subject is the
+    module that is missing when an action opens the file. `_facts.py` reaches five modules from
+    inside functions and `_scorecard.py` reaches `enclosure_assembly` from inside three; a step
+    that touches none of those paths loads none of them, so no such file is owed and the action
+    runs. Whether a run gets there is precisely what `trace_inputs.py` answers by watching, and
+    a guess here is the name rule this graph exists to stop making.
+
+    So the walk does not enter a function. A CLASS BODY RUNS AT IMPORT and is walked; so is an
+    import a module-level `if` or `try` guards, which runs at import like any other statement."""
     try:
         tree = ast.parse(text)
     except SyntaxError:
         return set()
     names = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Import):
-            names |= {a.name.split(".")[0] for a in node.names}
-        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
-            names.add(node.module.split(".")[0])
+
+    def visit(node):
+        for child in ast.iter_child_nodes(node):
+            if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda)):
+                continue
+            if isinstance(child, ast.Import):
+                names.update(a.name.split(".")[0] for a in child.names)
+            elif isinstance(child, ast.ImportFrom) and child.level == 0 and child.module:
+                names.add(child.module.split(".")[0])
+            visit(child)
+
+    visit(tree)
     return names
 
 
@@ -110,9 +127,21 @@ def selftest() -> int:
     hold("the step is named with the file that imports",
          owed(graph, tracked, {"src.py": "import unseen"}),
          [("gen.py", "src.py", "unseen.py")])
+    # AN IMPORT A FUNCTION MAKES IS A RUN'S FACT, and the run is watched. A step that never
+    # calls the function never loads the module, so the action owes no such file.
+    hold("an import inside a function is the trace's to answer",
+         named("def draw():\n    import unseen\n"), [])
+    hold("an import inside a method reads the same",
+         named("class A:\n    def draw(self):\n        import unseen\n"), [])
+    # WHAT RUNS AT IMPORT IS OWED HOWEVER IT IS SPELLED. A class body executes, and a guard
+    # around an import does not defer it.
+    hold("an import a class body makes runs at import",
+         named("class A:\n    import unseen\n"), ["unseen.py"])
+    hold("an import a module-level try guards runs at import",
+         named("try:\n    import unseen\nexcept ImportError:\n    unseen = None\n"), ["unseen.py"])
 
-    print(f"check_declared_imports selftest {holds}/9")
-    return 0 if holds == 9 else 1
+    print(f"check_declared_imports selftest {holds}/13")
+    return 0 if holds == 13 else 1
 
 
 def main(argv) -> int:
