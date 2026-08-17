@@ -88,6 +88,12 @@ static const uint8_t RTC_TEMP    = 0x11;
 
 // ───────────────────────────────────────────────────────────────────────────
 
+// The continuity probe borrows IO21/IO22 as plain GPIO, and it runs from power-on — so
+// between boot and the first `scan` the I2C peripheral is detached from its pads. Every
+// command that touches the bus attaches it first. Skipping this reads as `bus is not
+// initialized` and `ABSENT at 0x68`, which is indistinguishable from a severed net.
+static void wireAttach() { Wire.begin(PIN_SDA, PIN_SCL, 100000); }
+
 static bool i2cRead(uint8_t addr, uint8_t reg, uint8_t *buf, size_t n) {
     Wire.beginTransmission(addr);
     Wire.write(reg);
@@ -116,7 +122,7 @@ static void printBin8(uint8_t v) {
 // ── Commands ───────────────────────────────────────────────────────────────
 
 static void cmdScan() {
-    Wire.begin(PIN_SDA, PIN_SCL, 100000);   // the probe borrows IO21/IO22 as plain GPIO
+    wireAttach();
     Serial.println("\n-- I2C scan (SDA=IO21, SCL=IO22) --");
     int found = 0;
     for (uint8_t a = 0x08; a < 0x78; a++) {
@@ -152,6 +158,7 @@ static void cmdWifi() {
 }
 
 static void cmdRtc() {
+    wireAttach();
     Serial.println("\n-- U6 DS3231SN --");
     if (!i2cPresent(ADDR_RTC)) { Serial.println("  ABSENT at 0x68"); return; }
 
@@ -209,6 +216,7 @@ static void cmdRtcSet(const String &line) {
         Serial.println("usage: rtc set YYYY-MM-DD HH:MM:SS");
         return;
     }
+    wireAttach();
     Serial.println("\n-- U6 DS3231SN — set --");
     if (!i2cPresent(ADDR_RTC)) { Serial.println("  ABSENT at 0x68"); return; }
 
@@ -239,6 +247,7 @@ static void cmdRtcSet(const String &line) {
 }
 
 static void probeMcp(uint8_t addr, const char *who) {
+    wireAttach();
     Serial.printf("\n-- %s MCP23017 @ 0x%02X --\n", who, addr);
     if (!i2cPresent(addr)) { Serial.println("  ABSENT"); return; }
 
@@ -347,7 +356,7 @@ static void cmdBus() {
         else               Serial.printf("      dead low: no pull-up reaches this pin — junction OPEN (or line shorted low)\n");
     }
     Serial.print("  re-attaching the I2C peripheral ... "); Serial.flush();
-    Wire.begin(PIN_SDA, PIN_SCL, 100000);
+    wireAttach();
     Serial.println("returned");
 }
 
@@ -454,14 +463,15 @@ static void beep(int hz, int ms) {
 //              touching a 3V3 pin beeps. 5V would reach it through R27's 220R and
 //              the pin is not 5V tolerant, so 3V3 is the only safe source.
 //   ANALOG     the MQ-6 dividers, beeping when their millivolts leave the floor.
-//              J11.AOUT to J11.V5 is the live one; J11.DOUT is severed and stays quiet.
+//              J11.AOUT and J11.DOUT both reach J11.V5 through their own divider.
 //
 // IO2 is DRIVEN low rather than sensed, which turns J5.IO2 into a ground source: a beep
 // from touching it to any GND-side pin walks the relay net out to the connector AND back,
 // proving the ESP32 drives it, not merely that copper joins.
 //
-// The nets whose vias went undrilled are in the table as controls. Silence on those is
-// the reading, not a miss.
+// Every net in the table is expected to answer. The four that stood as controls while
+// their vias went undrilled — J4.IO23, J8.SDA, J8.SCL, J11.DOUT — are drilled, so silence
+// on any of them is a miss like any other.
 struct Probe { const char *name; int gpio; bool expect; bool activeHigh; };
 static const Probe kProbe[] = {
     {"J4.IO25  SENSORS", 25, true,  false},
@@ -469,16 +479,16 @@ static const Probe kProbe[] = {
     {"J4.IO27  SENSORS", 27, true,  false},
     {"J3.IO33  FAUCET",  33, true,  false},
     {"J3.IO35  FAUCET",  35, true,  true },   // to a 3V3 pin, never 5V
-    {"J4.IO23  SENSORS", 23, false, false},   // via undrilled
-    {"J8.SDA   I2C",     21, false, false},   // via undrilled
-    {"J8.SCL   I2C",     22, false, false},   // via undrilled
+    {"J4.IO23  SENSORS", 23, true,  false},
+    {"J8.SDA   I2C",     21, true,  false},
+    {"J8.SCL   I2C",     22, true,  false},
 };
 static const int PROBE_N = sizeof(kProbe) / sizeof(kProbe[0]);
 
 struct Analog { const char *name; int gpio; bool expect; };
 static const Analog kAnalog[] = {
-    {"J11.AOUT GAS", PIN_GAS_AOUT, true },
-    {"J11.DOUT GAS", PIN_GAS_DOUT, false},   // divider severed at R3->R4
+    {"J11.AOUT GAS", PIN_GAS_AOUT, true},
+    {"J11.DOUT GAS", PIN_GAS_DOUT, true},
 };
 static const int ANALOG_N = 2;
 static const int ANALOG_MV = 800;            // floor sits ~142 mV with J11 empty
@@ -498,14 +508,12 @@ static void probeBegin() {
         delay(2);
         pStable[i] = pPending[i] = digitalRead(kProbe[i].gpio);
         pSince[i] = millis();
-        Serial.printf("     %-18s IO%-2d  touch %-8s %s\n", kProbe[i].name, kProbe[i].gpio,
-                      kProbe[i].activeHigh ? "3V3" : "GND",
-                      kProbe[i].expect ? "" : "(control — undrilled via, expect silence)");
+        Serial.printf("     %-18s IO%-2d  touch %s\n", kProbe[i].name, kProbe[i].gpio,
+                      kProbe[i].activeHigh ? "3V3" : "GND");
     }
     for (int i = 0; i < ANALOG_N; i++) {
         aLatch[i] = false;
-        Serial.printf("     %-18s IO%-2d  touch %-8s %s\n", kAnalog[i].name, kAnalog[i].gpio,
-                      "J11.V5", kAnalog[i].expect ? "" : "(control — divider severed, expect silence)");
+        Serial.printf("     %-18s IO%-2d  touch %s\n", kAnalog[i].name, kAnalog[i].gpio, "J11.V5");
     }
     // J5.IO2 becomes a ground source: driving it proves the path, not just the copper.
     pinMode(2, OUTPUT); digitalWrite(2, LOW);

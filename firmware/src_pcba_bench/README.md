@@ -59,7 +59,8 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 jumper, which is the check no view of the model can stand in for. It answers through the
 board's own buzzer at one pitch per net, so probing needs no screen and no timing: touch and
 hold until it sounds. A contact has to hold 40 ms to register, and the serial log names
-whichever net answered. GPIO34–39 carry no internal pull-up, so IO34/IO35 stay out of it.
+whichever net answered. GPIO34–39 carry no internal pull-up, so IO35 idles low and answers to
+a 3V3 pin rather than a GND one, and IO34 stays out of the table.
 
 ## Actuator outputs
 
