@@ -2537,14 +2537,22 @@
       "hardware/faucet-layout/faucet_assembly.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-carb.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-flavor-a.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-flavor-b.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube_collar.py",
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
       "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
       "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
+      "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
@@ -2554,7 +2562,8 @@
     ],
     "writes": [
       "hardware/faucet-layout/faucet-assembly.step",
-      "hardware/faucet-layout/faucet_assembly.py"
+      "hardware/faucet-layout/faucet_assembly.py",
+      "hardware/faucet-layout/umbilical-assembly.step"
     ]
   },
   "hardware/manifold-layout/enclosure_assembly.py": {
@@ -2596,6 +2605,9 @@
       "hardware/printed-parts/enclosure/port-ring/port-ring-water.step",
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-co2.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-water.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube_collar.py",
       "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
       "hardware/printed-parts/flavor/pump-case/pump_case.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
@@ -4052,6 +4064,38 @@
     "writes": [
       "hardware/printed-parts/enclosure/pump-tray/README.figures.json",
       "hardware/printed-parts/enclosure/pump-tray/README.md"
+    ]
+  },
+  "hardware/printed-parts/enclosure/tube-collar/tube_collar.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+      "hardware/printed-parts/enclosure/tube-collar/README.figures.json",
+      "hardware/printed-parts/enclosure/tube-collar/README.md",
+      "hardware/printed-parts/enclosure/tube-collar/tube_collar.py",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_measuring.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/enclosure/tube-collar/README.figures.json",
+      "hardware/printed-parts/enclosure/tube-collar/README.md"
+    ],
+    "writes": [
+      "hardware/printed-parts/enclosure/tube-collar/README.figures.json",
+      "hardware/printed-parts/enclosure/tube-collar/README.md",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-carb.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-co2.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-flavor-a.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-flavor-b.step",
+      "hardware/printed-parts/enclosure/tube-collar/tube-collar-water.step"
     ]
   },
   "hardware/printed-parts/enclosure/valve-panel/valve_panel.py": {

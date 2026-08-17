@@ -4,12 +4,12 @@
     "BT_BUILD": "123",
     "BT_ENCLOSURE": "16",
     "BT_ENCLOSURE_ASSEMBLY": "47",
-    "BT_FAUCET_ASSEMBLY": "9.2",
+    "BT_FAUCET_ASSEMBLY": "10",
     "BT_FOAM_ASSEMBLY": "2.0",
     "BT_FUSE_CLAMP": "0.1",
     "BT_MANIFOLD_LAYOUT": "8.5",
     "BT_PUMP_CASE": "2.1",
-    "BT_RENDER_SCENES": "80",
+    "BT_RENDER_SCENES": "7.7",
     "BT_RESERVOIR": "2.8",
     "BT_WINDOW": "5"
   }

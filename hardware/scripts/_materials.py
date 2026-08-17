@@ -83,7 +83,10 @@ C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
 
 # --- the faucet's own bodies ---------------------------------------------------
 # `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them.
-C_PETG_TAN = cq.Color(0.85, 0.78, 0.62)      # the printed-part tan the shell stack comes off
+# Polymaker Fiberon PET-CF17, the faucet stack's own stock (`ledger/bom.md` §7) — the shell's three
+# pieces and the mounting plate. Carbon fill takes the gloss off, so it stands a shade lighter than
+# the PETG black the box is printed in and reads matte beside the donor's matte-black metal.
+C_PETCF_BLACK = cq.Color(0.19, 0.19, 0.20)
 C_TPU_BLACK = cq.Color(0.15, 0.15, 0.15)     # TPU 90A black, the gasket and the o-ring
 C_VALVE = cq.Color(0.93, 0.93, 0.91)         # the touch-flo valve body's own white acetal
 C_REED = cq.Color(0.95, 0.55, 0.85)

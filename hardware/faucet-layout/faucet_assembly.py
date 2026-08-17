@@ -914,30 +914,38 @@ def build_assembly(umbilical=False):
     under_counter_plate = build_under_counter_plate()
     supply_tube = build_supply_tube(supply_tube_z_bottom if umbilical else umbilical_z_bottom)
 
-    silver = cq.Color(0.85, 0.85, 0.88)  # near-stainless silver
-    petg_tan = _mat.C_PETG_TAN
+    # EVERY TUBE IS THE COLOUR OF WHAT IT CARRIES, off the one table that says what a colour means
+    # on this machine — `_back_panel_dimensions.port_colors`, the same read the rear wall's rings,
+    # the runs inside the cabinet and the collars on these three tails all take. So the blue in
+    # this picture is the blue of the union at the other end of it.
+    def spool(fluid):
+        return cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))
+
+    # The donor faucet is matte black (`ledger/bom.md` §9, Westbrass A2031-NL-62) and the printed
+    # stack around it is PET-CF; what a hand meets above the counter is one colour end to end.
+    donor_black = cq.Color(0.13, 0.13, 0.14)
+    petcf_black = _mat.C_PETCF_BLACK
     tpu_black = _mat.C_TPU_BLACK
     display_slate = cq.Color(0.12, 0.13, 0.18)  # dark display module
     display_glass = cq.Color(0.20, 0.55, 0.85)  # lit-screen blue
     steel = cq.Color(0.72, 0.74, 0.78)  # 316 SS cut plate
-    water_blue = cq.Color(0.25, 0.45, 0.80)  # blue LLDPE, the cold line
     stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab, not a part
     foam_black = cq.Color(0.18, 0.18, 0.19)  # CARGEN nitrile, on the blue tube only
     sleeve_black = cq.Color(0.10, 0.10, 0.11, 0.55)  # spiral wrap, over the lot
 
     assy = cq.Assembly(name="faucet-assembly")
-    assy.add(body, name="valve_body", color=cq.Color("black"))
-    assy.add(water_tube, name="water_dispense_tube", color=silver)
+    assy.add(body, name="valve_body", color=donor_black)
+    assy.add(water_tube, name="water_dispense_tube", color=spool("carb"))
     assy.add(o_ring, name="tpu_o_ring", color=tpu_black)
-    assy.add(flavor_tube_pos_x, name="flavor_tube_pos_x", color=silver)
-    assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=silver)
-    assy.add(supply_tube, name="carb_supply_tube", color=water_blue)
-    assy.add(lever, name="lever", color=silver)
-    assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
+    assy.add(flavor_tube_pos_x, name="flavor_tube_pos_x", color=spool("flavor"))
+    assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=spool("flavor"))
+    assy.add(supply_tube, name="carb_supply_tube", color=spool("carb"))
+    assy.add(lever, name="lever", color=donor_black)
+    assy.add(mounting_plate, name="mounting_plate", color=petcf_black)
     assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
-    assy.add(shell_bottom, name="shell_bottom", color=petg_tan)
-    assy.add(shell_middle, name="shell_middle", color=petg_tan)
-    assy.add(shell_top, name="shell_top", color=petg_tan)
+    assy.add(shell_bottom, name="shell_bottom", color=petcf_black)
+    assy.add(shell_middle, name="shell_middle", color=petcf_black)
+    assy.add(shell_top, name="shell_top", color=petcf_black)
     assy.add(display_body, name="faucet_display", color=display_slate)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     assy.add(countertop, name="countertop", color=stone)
