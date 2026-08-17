@@ -101,11 +101,19 @@ At the rear-wall end of all three tubes: **leave them bare and square-cut.** The
 
 Per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) "Umbilical bundle construction": **foam goes on the blue tube only.** The carbonated-water tube is the temperature-critical run.
 
-Slide CARGEN 1-ft segments onto the blue tube end-to-end. The segments are sized as a snug interference fit over 1/4" OD LLDPE; lubricate with a wipe of water if friction is high (no solvents — nitrile is solvent-sensitive). Butt the segments together along the run with no gap; the braided sleeve installed in step 4 holds the butts compressed.
+Slide CARGEN 1-ft segments onto the blue tube end-to-end. The segments are sized as a snug interference fit over 1/4" OD LLDPE; lubricate with a wipe of water if friction is high (no solvents — nitrile is solvent-sensitive). Butt the segments together along the run with no gap; the sleeve installed in step 5 holds the butts compressed.
 
 Segment count for the standard build is **five**, covering 1425 mm of the blue tube's 1540 mm — bare 40 mm at the compression end and the last 75 mm at the wall. A nominal kitchen keeps four; the installer pulls one whole segment off with the trim, which is what the 1-ft granularity buys. Foam OD is 25.4 mm — it does not pass the countertop hole and does not need to, since the blue tube is entirely below the counter.
 
-### 4. Sleeve the three tubes + signal cable into one bundle
+### 4. Thread a collar onto each tail
+
+Slide one printed collar down each tube from its bare rear-wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black. The bore is [Ø6.3](COLLAR_BORE) on Ø6.35 LLDPE, so each goes on with a push and a twist and stays where it is put.
+
+Run each collar up the tube until it lands where the sleeve in step 5 will stop — [3"](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. The three come out level. The installer's second cut is below all of them, so a trimmed tube keeps its collar.
+
+The whole run, the sleeve over it, and the three collars on the bare tails are drawn in [`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py) and exported as `umbilical-assembly.step`.
+
+### 5. Sleeve the three tubes + signal cable into one bundle
 
 Bundle the three LLDPE tubes (one foamed blue + two bare black) into the natural triangular dense-pack arrangement — three round tubes in a sleeve pack no other way. The three PP1208E bulkheads stand on **one line** across the rear wall, so the bundle does not present to them as a triangle: the installer flexes the three tubes apart at the un-sleeved end and pushes each into its own union. What the blue (foamed) tube carries is identification, not orientation — it goes into the blue-ringed union, which is the east end of the row.
 
@@ -113,7 +121,7 @@ Run the umbilical signal cable alongside the three-tube triangle, sitting in the
 
 Lay the spiral wrap (1" nominal) on over the full length of the bundle, winding it around radially. It is spiral and not braid because both ends of the bundle are already terminated when this step runs — the faucet body at the top, the SIG-6 ribbon's break-out at the bottom — so braid could only be threaded up from the wall end over five butted foam segments, which is the one thing the sleeve exists to prevent. Sleeve runs from just above the under-counter plate (top end, where the bundle emerges out the bottom of the faucet body's pill slot) to ~3" above the rear-wall end (bottom end, where the installer trims to fit). Leaving the last 3" un-sleeved at the rear-wall end is so the installer can flex the three tubes apart by a few inches for the three-bulkhead push-connect.
 
-### 5. Bag the sub-assembly with installer kit
+### 6. Bag the sub-assembly with installer kit
 
 Lay the bundled umbilical down with the faucet body at one end and the three bare tube tails + signal-cable unterminated end at the other. Coil the umbilical loosely (8–12" loop diameter).
 
@@ -144,7 +152,7 @@ A bagged sub-assembly that is:
 Procedure-level gaps that need answers before unit 1 ships:
 
 1. ~~**Umbilical design length.**~~ **CLOSED.** Factory cut is **1900 mm** per black flavor tube and **1540 mm** for the blue, each carrying a **350 mm** installer-trim allowance; the stack-up and the basis of every term are in §1. The CARGEN segment count falls out at five. One real install settles the four assumed terms — tape-measure the sink base, set the appliance where it will live, and measure faucet hole → bulkhead with a string.
-2. ~~**Cable sleeve selection.**~~ **CLOSED — spiral wrap, 1" nominal.** Both ends of the bundle are already terminated when step 4 runs, so braid could only be threaded up from the wall end, over five butted foam segments — the one thing the sleeve exists to prevent. Spiral lays on radially over an assembled ~⌀32 mm bundle, unwinds for the SIG-6 break-out at [`wiring.md`](/hardware/assembly/wiring.md), and unwinds again past the installer's trim. ~2.5–3 m per build.
+2. ~~**Cable sleeve selection.**~~ **CLOSED — spiral wrap, 1" nominal.** Both ends of the bundle are already terminated when step 5 runs, so braid could only be threaded up from the wall end, over five butted foam segments — the one thing the sleeve exists to prevent. Spiral lays on radially over an assembled ~⌀32 mm bundle, unwinds for the SIG-6 break-out at [`wiring.md`](/hardware/assembly/wiring.md), and unwinds again past the installer's trim. ~2.5–3 m per build.
 3. ~~**Blue LLDPE small-spool sourcing.**~~ **CLOSED.** John Guest blue 1/4" OD LLDPE, 100 ft, FWS `WEBFWS100677333` — [`bom.md`](/hardware/ledger/bom.md) §3 at ~5 ft per build, [`purchases.md`](/hardware/ledger/purchases.md) §3.
 4. **Umbilical cable strain relief through the countertop.** The Ø [34.93 mm](COUNTERTOP_HOLE_D) countertop hole carries the shank, the two flavor tubes and the umbilical signal cable through one opening. Whether the cable needs a separate grommet, a printed strain-relief collar, or just rides loose through the gasket's pill-slot region is undefined — and the flavor pair is already what sets the faucet back in the hole, so anything added rides in what is left forward of the shank.
 
