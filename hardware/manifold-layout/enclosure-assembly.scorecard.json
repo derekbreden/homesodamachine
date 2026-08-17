@@ -638,6 +638,16 @@
    "active": true
   },
   {
+   "id": "wago-row-on-brick",
+   "label": "The lever-nut row lies over the brick it stands on",
+   "kind": "gate",
+   "status": "pass",
+   "value": "row spans y 355.60..429.00, crown 351.50..460.50",
+   "target": "every lug over the crown",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "east-band",
    "label": "The +X wall's column stands in the depth that wall states",
    "kind": "gate",
@@ -776,7 +786,7 @@
    "label": "Every body seated through a wall stands under the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest reaches z 348.34, ceiling 352.00",
+   "value": "tallest reaches z 350.79, ceiling 352.00",
    "target": "every body under the ceiling",
    "detail": [],
    "active": true

@@ -2880,12 +2880,31 @@ def deck_z(placed, gate: float):
 # reaches out through the cutout. Its own frame already faces the mating axis down +Y with the
 # seating plane on Y = 0, which is what the back wall gives it, so it takes no turn either.
 C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
-# Where it sits on that wall. The receptacle's wires reach the Wago row, so it wants that row's
-# height and as much of its column as the pack leaves — and the pack leaves very little: the
-# power block fills the +X flank from the cap to z 361.79, and the housing is 22 mm of body
-# reaching inboard off the wall. Swept over the wall in 6 mm steps, the eastmost station whose
-# housing clears every placed body at this height is this one.
-C14_STATION = (54.0, 330.0)
+
+
+def c14_flat_column() -> float:
+    """The eastmost column the inlet can stand on: the one that leaves its FLANGE — the widest
+    thing it has, and the face that bears — wholly on the wall's own flat rear face.
+
+    `enclosure.corner_round` relieves the box's standing verticals for the bed, so the rear face
+    is flat only between the two tangents and rolls away to the side walls past them. The inner
+    round is one `enclosure.wall` smaller about the same axis, so both tangents stand on one X and
+    this reads off either. A flange carried past it is a flange bearing on curve."""
+    return (_enc.interior_x()[1] - (_enc.corner_round - _enc.wall)) - _c14.FLANGE_W / 2.0
+
+
+# WHERE IT SITS ON THAT WALL IS STRUCK ON BOTH AXES, and neither figure is its own.
+#
+# THE STOREY IS THE PORT ROW'S. `deck_storey` is the plane the three top-row unions cross this
+# wall on, so the inlet crosses it on that same one and the four mating axes the customer meets
+# stand on one line — the cord goes in level with the tubes rather than under them.
+#
+# THE COLUMN IS THE END OF THE FLAT FACE. What the wall carries runs out on its own tangent at
+# each end: `PORT_WEST_COLUMN` puts the tap-water chip's edge on the west one, and this puts the
+# inlet's flange on the east one. The two ends are not the same distance from the side walls,
+# because a chip is Ø`port_ring.od` and this flange is `iec_c14_inlet.FLANGE_W` — the moulding is
+# wider than the chip and eats the difference. The face they both run out on is the shared figure.
+C14_STATION = (c14_flat_column(), deck_storey())
 # A printed cutout to the moulded shroud that passes it, on each side.
 C14_CUTOUT_SLIP = 0.5
 
@@ -3237,13 +3256,44 @@ def build_relay2(psu, foam, wall_seat):
                      x1=wall_seat, y1=box(psu).ymin - WIRED_CLEAR, z0=cap_face(foam))
 
 
-def build_wago_row(psu, wall_seat):
+def wago_row_reach() -> float:
+    """How far aft the last lug of a five-wide 221-413 row reaches from the row's own origin —
+    four pitches, the well wall the first lug starts past, and one lug's own height."""
+    return 4.0 * _enc.wago_pitch + _enc.wago_well_wall + _enc.wago_stand("413")[0]
+
+
+def check_wago_row(lugs, psu) -> Bound:
+    """The row against the crown it lies on. It is drawn forward off centre by the inlet, and
+    what it may not do is walk off the brick: a lug hanging past the brick's own front face is a
+    body over air, and the wall's well is holding it there on its own."""
+    pb = box(psu)
+    lo = min(box(s).ymin for _n, s, _c in lugs)
+    hi = max(box(s).ymax for _n, s, _c in lugs)
+    ok = lo >= pb.ymin - 1e-6 and hi <= pb.ymax + 1e-6
+    return record_bound(Bound(
+        "wago-row-on-brick", "The lever-nut row lies over the brick it stands on", ok,
+        f"row spans y {lo:.2f}..{hi:.2f}, crown {pb.ymin:.2f}..{pb.ymax:.2f}",
+        "every lug over the crown",
+        ([] if ok else [
+            f"the row spans y {lo:.2f}..{hi:.2f} and the brick's crown runs {pb.ymin:.2f}.."
+            f"{pb.ymax:.2f}. The C14's housing is what draws the row forward of centre, so what "
+            f"is out of room is the brick's depth against `wago_row_reach` and `WIRED_CLEAR`."])))
+
+
+def build_wago_row(psu, wall_seat, inlet):
     """The five 221-413 lever nuts on the brick's crown, as `[(name, solid, carry)]`.
 
     They are the only bodies on this flank that no boss holds: each presses into a well printed
     on the wall itself (`enclosure._side_wells`), so what locates them is the wall, and what this
-    places is the lug that goes in it. The row runs fore and aft on the brick's own depth,
-    CENTRED on it, one `WAGO_CLEAR` over its crown.
+    places is the lug that goes in it. The row runs fore and aft on the brick's own depth, one
+    `WAGO_CLEAR` over its crown.
+
+    WHERE ON THAT CROWN IS THE INLET'S TO SAY. Centred is where five wells sit squarest on the
+    body under them, and that is where the row goes — unless the C14 reaches into the span, and
+    it does: the receptacle whose live, neutral and earth these lugs splice is 22 mm of housing
+    off a back wall the brick runs the whole way to. So the row is centred, or drawn forward
+    until its last lug stands one `WIRED_CLEAR` ahead of that housing, whichever is further
+    forward. `check_wago_row` reads the forward end back against the crown.
 
     THEY SEAT ON THE WALL AND NOT ON `east_wall_seat`. Every other body on this flank stands its
     outer face on a boss TIP, one `mount_boss_out` inboard of the wall, because a boss is what
@@ -3252,7 +3302,8 @@ def build_wago_row(psu, wall_seat):
     floating that same `mount_boss_out` clear of the well built to receive it."""
     pb = box(psu)
     span = 5 * _enc.wago_pitch
-    y0 = (pb.ymin + pb.ymax) / 2.0 - span / 2.0
+    y0 = min((pb.ymin + pb.ymax) / 2.0 - span / 2.0,
+             box(inlet).ymin - WIRED_CLEAR - wago_row_reach())
     out = []
     for i, name in enumerate(WAGO_POLES):
         solid, carry = seat_body(import_step(str(wago_step("413"))).val(), WAGO_TURN,
@@ -3260,6 +3311,7 @@ def build_wago_row(psu, wall_seat):
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
                                  z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
         out.append((name, solid, carry))
+    check_wago_row(out, psu)
     return out
 
 
@@ -4476,7 +4528,13 @@ def build_pack() -> cq.Assembly:
     a.add(relay2, name="relay-2", color=C_RELAY)
     pcba, pcba_carry = build_pcba(foam, relay2, wall_seat)
     a.add(pcba, name="pcba", color=C_PCBA)
-    wagos = build_wago_row(psu, wall_seat)
+    # The inlet stands before the row that splices it: `build_wago_row` is drawn forward off the
+    # brick's centre by this housing, so the receptacle has to be in world before the lugs are.
+    # It answers to two stated planes and nothing on the floor, so it can be placed here as
+    # readily as anywhere.
+    c14, _c14_carry = build_c14()
+    a.add(c14, name="c14-inlet", color=C_C14)
+    wagos = build_wago_row(psu, wall_seat, c14)
     for name, solid, _carry in wagos:
         a.add(solid, name=name, color=C_AC_HUB)
     stack = build_stack(psu, pcba, wagos, wall_seat)
@@ -4518,8 +4576,6 @@ def build_pack() -> cq.Assembly:
     # the bracket's pad, both taken back into the frame the cap is authored in.
     a.pump_mount = pump_mount_rows(foam_carry, seaflo_carry)
     check_pump_mount(a.pump_mount)
-    c14, _c14_carry = build_c14()
-    a.add(c14, name="c14-inlet", color=C_C14)
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
