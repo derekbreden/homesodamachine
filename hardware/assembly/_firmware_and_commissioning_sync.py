@@ -33,7 +33,7 @@ gpio_relay2 = 2             # Teyleten relay #2 (diaphragm pump 12 V refill)
 # 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
 
 mcp_valves_addr = 0x20      # MCP23017: 8 valves on PA[0:7] -> TBD62083 U4, Rsvr A reeds on PB[0:3]
-mcp_reservoirs_addr = 0x21  # MCP23017: 2 valves PA[6:7] + cond-fan PA3 -> TBD62083 U5 (PA[4:5] spare); Rsvr B reeds PB[0:3], carbonator reeds PB[4:5]
+mcp_reservoirs_addr = 0x21  # MCP23017: 3 valves PA[5:7] + cond-fan PA3 -> TBD62083 U5 (PA[0:2] + PA4 spare); Rsvr B reeds PB[0:3], carbonator reeds PB[4:5]
 rtc_addr = 0x68             # DS3231 RTC
 
 # Carbonator reeds ride the 0x21 MCP23017 on its internal pull-ups (no externals).
@@ -42,12 +42,14 @@ reed_high_loc = "0x21 PB5"  # Carbonator reed high (full threshold)
 
 # ─── Sensor inventory ─────────────────────────────────────────────────
 
-# The Beduan solenoids the firmware drives, off the manifold that stands them: one
-# V- station is one valve, and it is the same census `_cards_ip` puts on IP-03 and
-# `_internal_plumbing_sync` puts in the procedure's parts table. HOW they divide
-# across the two expanders — 8 on 0x20 + 2 on 0x21 (PA[4:5] spare) → TBD62083 U4/U5 —
-# is the pin map's, and `check_pinmap.py` is what holds that against the board.
-valve_count = sum(1 for _n in _ml.P if _n.startswith("V-"))
+# The Beduan solenoids the firmware's self-test walks, in two terms. One V- station
+# on the manifold is one valve, the same census `_cards_ip` puts on IP-03 and
+# `_internal_plumbing_sync` puts in the procedure's parts table. V-K stands off the
+# manifold, on the cold core's crown, and is the other term. Which expander bit each
+# one hangs off is `valve-control.mmd`'s.
+manifold_valves = sum(1 for _n in _ml.P if _n.startswith("V-"))
+off_manifold_valves = 1     # V-K, the water-supply fill/shutoff
+valve_count = manifold_valves + off_manifold_valves
 reeds_per_reservoir = 4     # Float-rod reeds per reservoir
 reeds_carbonator = 2        # Carbonator low + high reeds
 reeds_total = (

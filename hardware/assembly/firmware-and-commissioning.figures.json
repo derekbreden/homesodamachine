@@ -28,6 +28,6 @@
     "RSVR_COUNT": "2",
     "RTC_ADDR": "0x68",
     "TANK_TARGET": "2 \u00b0C",
-    "VALVE_COUNT": "10"
+    "VALVE_COUNT": "11"
   }
 }

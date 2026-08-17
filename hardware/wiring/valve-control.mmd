@@ -49,7 +49,7 @@ flowchart LR
     direction TB
     RTC["DS3231 RTC\n0x68"]
     MCP0["MCP23017\n0x20 (8 valves + 4 reed inputs)"]
-    MCP1["MCP23017\n0x21 (2 valves + fan + 6 reed inputs)"]
+    MCP1["MCP23017\n0x21 (3 valves + fan + 6 reed inputs)"]
   end
 
   subgraph Expander0["MCP23017 0x20 — 16 GPIO"]
