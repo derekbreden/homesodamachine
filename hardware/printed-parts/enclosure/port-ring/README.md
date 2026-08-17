@@ -31,6 +31,8 @@ same, so a chip on one family is one height wherever it stands, and every word i
 same band over its own bore. A chip's height is that rise plus its own half circle, which is why
 the CO2 station's is the shorter of the two.
 
+The same outline bored for the tube instead of the fitting, and run along it, is [`../tube-collar/`](../tube-collar/README.md) — one collar per chip, carrying that station's word out to the end of the tube.
+
 ## Where each one goes
 
 | station | word | fitting | colour |
