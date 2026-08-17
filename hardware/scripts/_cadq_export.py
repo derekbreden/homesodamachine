@@ -38,6 +38,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -49,19 +50,28 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 
+# WHERE THIS RUN'S SECONDS START. Every generator imports this module before it cuts
+# anything. The interpreter's own start and CadQuery's import stand ahead of this line,
+# and `build-time.md` counts a generator's seconds from here.
+_STARTED = time.perf_counter()
+
 from _run_lock import acquire as _acquire_build_lock
+
+# WHAT THIS RUN IS, named once. The lock says it to whoever it supersedes, and
+# `build-time.md` files this run's seconds under it.
+_ENTRY = None
+if sys.argv and sys.argv[0].endswith(".py"):
+    _entry = Path(sys.argv[0]).resolve()
+    try:
+        _ENTRY = _entry.relative_to(_ROOT).as_posix()
+    except ValueError:
+        _ENTRY = _entry.name
 
 # A BUILD THAT SCHEDULES ITS OWN ACTIONS HOLDS NO MUTEX. The lock is single-flight for a
 # machine where anyone may start a generator by hand; under Bazel the graph decides what runs
 # beside what, and a lock taken at import would serialize every action on one another.
-if sys.argv and sys.argv[0].endswith(".py") and not os.environ.get("HSM_NO_BUILD_LOCK"):
-    _entry = Path(sys.argv[0]).resolve()
-    _root = Path(__file__).resolve().parent.parent.parent
-    try:
-        _label = str(_entry.relative_to(_root))
-    except ValueError:
-        _label = _entry.name
-    _acquire_build_lock(_label)
+if _ENTRY is not None and not os.environ.get("HSM_NO_BUILD_LOCK"):
+    _acquire_build_lock(_ENTRY)
 
 # The lock's own test for whether a pid is still running, reused by the temp sweep
 # to tell an abandoned file from one a live build is still writing.
@@ -523,6 +533,26 @@ def note_write(path):
         _WRITE_TARGETS.add(Path(path).resolve().relative_to(_ROOT).as_posix())
     except ValueError:
         pass                             # a file outside this repo is nothing this tree cuts
+
+
+# --- What this run cost ------------------------------------------------------
+#
+# `ledger/build-time.md` carries the seconds a generator takes. This files one reading of
+# them under the entry script's name, on the way out — see `_build_time.py`.
+#
+# A run that cut nothing files nothing: an import that raised, a build superseded off the
+# machine, a script that only measured. `_WRITE_TARGETS` is what `_atomic_write` was handed.
+def _file_elapsed():
+    if _ENTRY is None or not _WRITE_TARGETS:
+        return
+    try:
+        import _build_time
+        _build_time.record(_ENTRY, time.perf_counter() - _STARTED)
+    except Exception:
+        pass                             # a reading that does not land costs the ledger one run
+
+
+atexit.register(_file_elapsed)
 
 
 def import_step(path):
