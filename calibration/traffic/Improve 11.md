@@ -100,7 +100,7 @@ Now I have hard numbers. Let me pin down the last few facts before I write this 
 
 ---
 
-This is the key finding — the repo **already** articulates this exact policy at [.gitignore:76](.gitignore:76), applied selectively. Let me check feasibility of the missing piece.
+This is the key finding — the repo **already** articulates this exact policy at [.gitignore:76](/.gitignore:76), applied selectively. Let me check feasibility of the missing piece.
 
 ---
 
@@ -133,11 +133,11 @@ I aggregated every blob in the pack by extension:
 
 ## Why they're in git
 
-The repo answers this itself, in two places. [tools/bazel/sync_tree.py:8](tools/bazel/sync_tree.py:8): *"this repo commits its solids and its docs, because a reader at `/3d` and a shop printing a part both take them off the tree rather than off a build."*
+The repo answers this itself, in two places. [tools/bazel/sync_tree.py:8](/tools/bazel/sync_tree.py:8): *"this repo commits its solids and its docs, because a reader at `/3d` and a shop printing a part both take them off the tree rather than off a build."*
 
-That's the whole reason, and it reduces to one mechanism: **Render deploys by cloning the repo.** [render.yaml](render.yaml) sets `rootDir: web`, `buildCommand: npm ci --omit=dev` — there is no build step that could produce a STEP, and there's no CadQuery on Render. [web/lib/viewer-routes.js:209](web/lib/viewer-routes.js:209) `sendFile`s them straight off the clone. Git is being used as the artifact transport.
+That's the whole reason, and it reduces to one mechanism: **Render deploys by cloning the repo.** [render.yaml](/render.yaml) sets `rootDir: web`, `buildCommand: npm ci --omit=dev` — there is no build step that could produce a STEP, and there's no CadQuery on Render. [web/lib/viewer-routes.js:209](/web/lib/viewer-routes.js:209) `sendFile`s them straight off the clone. Git is being used as the artifact transport.
 
-The decisive detail: **you already made this exact call, and wrote down the reasoning.** [.gitignore:76](.gitignore:76) excludes `hardware/assembly/scenes/out/` — 35 MB of STEP — because *"the STEPs would churn on every move of any body they contain, which is exactly the commit cost the pictures must not add."* Same for `*.step.mesh`. The policy exists. It stopped at the 101 files the viewer serves, because those had nowhere else to live.
+The decisive detail: **you already made this exact call, and wrote down the reasoning.** [.gitignore:76](/.gitignore:76) excludes `hardware/assembly/scenes/out/` — 35 MB of STEP — because *"the STEPs would churn on every move of any body they contain, which is exactly the commit cost the pictures must not add."* Same for `*.step.mesh`. The policy exists. It stopped at the 101 files the viewer serves, because those had nowhere else to live.
 
 ## The plan
 
@@ -145,7 +145,7 @@ The decisive detail: **you already made this exact call, and wrote down the reas
 
 Two facts make this need nothing from you: **`gh` is already authenticated** for `derekbreden` with `repo` scope, so the release is the same account and the same host you already push to — no new service, no credentials for me to handle. And the bundle is small: **113 MB of STEP gzips to 26.8 MB.** That's a couple of seconds on a Render build, and it's also the answer for a fresh clone — 27 MB instead of a full CAD rebuild.
 
-**Phase 2 — stop the bleed.** I classified the 101 against `graph.json`: **97 are declared Bazel outputs**, provably generated. Of the other four, `nameplate-001.step` is generated too (it's in your uncommitted work, so the graph hasn't caught up). The remaining three — `elbow-connector`, `tee-connector`, `y-divider`, **1.5 MB total** — are harvested vendor solids read as *inputs* (`y_divider.py:3`: *"there is no builder here"*). Those stay in git; they're source. So: 98 leave, 3 stay. Then `git rm --cached`, `.gitignore` the generated set, and update the two checks that read `git ls-files '*.step'` ([check_step_colours.py:35](hardware/scripts/check_step_colours.py:35), [check_thumbnails.py:27](hardware/scripts/check_thumbnails.py:27)) to read the tracked manifest instead. That preserves the principle in `check_tracked.py` — *"git ls-files IS THE READING, and not the directory"* — because the manifest is a tracked record; it just replaces the solids as the index entry.
+**Phase 2 — stop the bleed.** I classified the 101 against `graph.json`: **97 are declared Bazel outputs**, provably generated. Of the other four, `nameplate-001.step` is generated too (it's in your uncommitted work, so the graph hasn't caught up). The remaining three — `elbow-connector`, `tee-connector`, `y-divider`, **1.5 MB total** — are harvested vendor solids read as *inputs* (`y_divider.py:3`: *"there is no builder here"*). Those stay in git; they're source. So: 98 leave, 3 stay. Then `git rm --cached`, `.gitignore` the generated set, and update the two checks that read `git ls-files '*.step'` ([check_step_colours.py:35](/hardware/scripts/check_step_colours.py:35), [check_thumbnails.py:27](/hardware/scripts/check_thumbnails.py:27)) to read the tracked manifest instead. That preserves the principle in `check_tracked.py` — *"git ls-files IS THE READING, and not the directory"* — because the manifest is a tracked record; it just replaces the solids as the index entry.
 
 **Phase 3 — expunge.** `git filter-repo` over the 98 paths, then `gc --prune=now`. Expected **5.37 GiB → ~2.1 GiB**.
 
@@ -573,9 +573,9 @@ Phases 1 and 2 are done, pushed, and verified in production. Here's where it sta
 
 Four commits on `main`, ending at [`c00c7ed49`](https://github.com/derekbreden/homesodamachine/commit/c00c7ed49):
 
-- [`tools/cad-artifacts/pack.py`](tools/cad-artifacts/pack.py) — walks the generated solids, builds a deterministic `tar.gz`, uploads it as a GitHub Release asset, pins it. 117 MB → **26.4 MB**.
-- [`web/scripts/fetch-cad-artifacts.mjs`](web/scripts/fetch-cad-artifacts.mjs) — downloads, verifies the bundle hash *before* extracting, then each solid's own.
-- [`hardware/cad-artifacts.lock.json`](hardware/cad-artifacts.lock.json) — 98 solids by sha256 + the asset. This is what git carries now.
+- [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) — walks the generated solids, builds a deterministic `tar.gz`, uploads it as a GitHub Release asset, pins it. 117 MB → **26.4 MB**.
+- [`web/scripts/fetch-cad-artifacts.mjs`](/web/scripts/fetch-cad-artifacts.mjs) — downloads, verifies the bundle hash *before* extracting, then each solid's own.
+- [`hardware/cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) — 98 solids by sha256 + the asset. This is what git carries now.
 - **98 solids left the index.** The 3 harvested ones under `reference/` stay — they have no builder here.
 
 ## Verified in production

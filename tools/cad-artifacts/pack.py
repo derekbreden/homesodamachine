@@ -45,7 +45,6 @@ NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/pcb/pcba/out",                 # the on-demand full B-rep; out/<board>.glb is the artifact
     "hardware/assembly/scenes/out",          # a rendering intermediate for the unit cards' pictures
-    "hardware/cartridge/scripts/output",     # cartridge script output
 )
 
 #: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads
