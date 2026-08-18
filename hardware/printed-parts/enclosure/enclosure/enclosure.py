@@ -174,7 +174,7 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 # lens stands off its cusp instead (`_z_front_station_y`).
 column_round = corner_round - wall
 # The corners that carry one, as the (x, y) signs of the interior corner each stands in.
-column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
+column_corners = ((-1, -1),)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -834,22 +834,19 @@ def _column_arcs(inner, sx, sy):
 def _corner_column(inner, sx, sy, grow, z):
     """One corner column as a solid over the height span `z`, grown `grow` into the room.
 
-    The lens between the two arcs: inside the one swung from the corner, outside the one
-    the cavity turns there. Growing swells the first and shrinks the second, which is the
-    one offset read on each arc's own side of the material.
+    THE LENS IS WHAT THE TWO DISCS SHARE. Both arcs bound it from OUTSIDE — the cavity's
+    own arc holds it off the corner, the arc swung from the corner holds it out of the
+    room — so the column is the intersection and not the difference. Take the difference
+    and what comes back is the crescent on the far side of the cove, which is the wall's
+    material already and cuts nothing out of the air.
 
-    Two whole circles leave a crescent as well as a lens, and the crescent is the arm that
-    runs off round the corner into the wall — so the pair is clipped to the quadrant the
-    column stands in, out through both faces it springs from. What comes back is the lens
-    alone, cusps on those faces."""
+    Two circles of one radius meet in exactly two points whatever their centres, and here
+    those are the cusps, one on each inner face. Growing swells both discs, which is the
+    one offset read on each arc's own side."""
     (px, py), (qx, qy) = _column_arcs(inner, sx, sy)
     z0, z1 = z
-    reach = column_round + grow
-    lens = _zcyl(reach, px, py, z0, z1).cut(
-        _zcyl(column_round - grow, qx, qy, z0 - 1.0, z1 + 1.0))
-    qx0, qx1 = (px - wall, px + reach) if sx < 0 else (px - reach, px + wall)
-    qy0, qy1 = (py - wall, py + reach) if sy < 0 else (py - reach, py + wall)
-    return lens.intersect(_ybox(qx0, qx1, qy0, qy1, z0, z1))
+    r = column_round + grow
+    return _zcyl(r, px, py, z0, z1).intersect(_zcyl(r, qx, qy, z0 - 1.0, z1 + 1.0))
 
 
 def _column_along():
@@ -1127,8 +1124,8 @@ def _bed_band(inner):
     return oz1 - H2C_Z, oz0 + H2C_Z - lip_len
 
 
-def _lip_denied(placed, inner):
-    """The seam heights the pack denies a Z seam, as z spans.
+def _lip_denied(placed, inner, y_span):
+    """The seam heights the pack denies ONE Y column's Z seam, as z spans.
 
     The lip is the one part of a Z seam whose position rides the seam height: a
     one-`wall` ring inset from the cavity, running from its fusion shoulder
@@ -1136,13 +1133,29 @@ def _lip_denied(placed, inner):
     it, in the ±X boss-chain bands the lip's own side segments run down, so they
     occupy the same lane wherever the seam lands.
 
+    A Z SEAM IS PER Y COLUMN AND SO IS ITS LIP. The front pair joins at one height and
+    the back pair at another, and `_z_lip`'s band is intersected with the piece's own
+    column before it is fused — so each piece carries a 3-sided lip over its own half of
+    the box and nothing over the other half. A body is measured against the ring of the
+    column being searched and no other; charging the back column's search for a body
+    standing in the front is a denial the back seam never had to answer for.
+
+    `y_span` is that column's half, cut at the Y joint. Nothing is filtered by which
+    column a body's centre falls in — the ring is the column's own and the intersection
+    says the rest, so a body spanning the joint is charged to both, as it should be. The
+    span is a hair wider than the lip it stands for, since `_z_lip` also drops a gap
+    around the joint that this does not model; that is conservative in the direction
+    that denies more.
+
     So this measures the ring: what reaches into it, and the seam heights that reach
     would put the lip on. What holds the rest of the ring open is the pack's own
     standoffs — one `wall` at the front and back walls (`front_seam_clear`,
     `rear_seam_clear`) and one boss chain at the sides (`side_band_inset`)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    cy0, cy1 = y_span
     ring = _ybox(ix0, ix1, iy0, iy1, iz0, iz1).cut(
         _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, iz0 - 1.0, iz1 + 1.0))
+    ring = ring.intersect(_ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
     out = []
     for solid, _c in placed.values():
         hit = ring.intersect(solid)
@@ -1211,7 +1224,8 @@ def _z_joints(placed, inner, front):
     whole = _clipped(_open_bands(spans["back"], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
     _z_seam_passes["front"] = None                 # stated, so there is nothing to report
     _z_seam_passes["back"] = not whole
-    bands = whole or _open_bands(_lip_denied(placed, inner), bed_lo, bed_hi, 0.0)
+    bands = whole or _open_bands(
+        _lip_denied(placed, inner, (y_seam, inner[3])), bed_lo, bed_hi, 0.0)
     record_bound(Bound(
         "z-seam-back-band", "The back column leaves the bed a height its seam can take",
         bool(bands),
