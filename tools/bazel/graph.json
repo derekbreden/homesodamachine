@@ -2231,7 +2231,6 @@
       "hardware/reference/wago-221/wago-221-415.step",
       "hardware/reference/wago-221/wago-221-420.step",
       "hardware/reference/wago-221/wago_221.py",
-      "hardware/reference/water-split/water-split.step",
       "hardware/reference/water-split/water_split.py",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
       "hardware/reference/worm-clamp/worm_clamp.py",
@@ -4654,25 +4653,6 @@
       "hardware/reference/ground-ring-stack/ground-ring-stack.step"
     ]
   },
-  "hardware/reference/hopper-drain-stub/hopper_drain_stub.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
-      "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
-      "hardware/reference/jg-pp0408w/jg_pp0408w.py",
-      "hardware/reference/worm-clamp/worm_clamp.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/hopper-drain-stub/hopper-drain-stub.step"
-    ]
-  },
   "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -5011,24 +4991,6 @@
       "hardware/reference/wago-221/wago-221-413.step",
       "hardware/reference/wago-221/wago-221-415.step",
       "hardware/reference/wago-221/wago-221-420.step"
-    ]
-  },
-  "hardware/reference/water-split/water_split.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/reference/tee-connector/tee-connector.step",
-      "hardware/reference/tee-connector/tee_connector.py",
-      "hardware/reference/water-split/water_split.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_measuring.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/water-split/water-split.step"
     ]
   },
   "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {

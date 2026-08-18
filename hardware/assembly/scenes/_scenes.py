@@ -375,8 +375,12 @@ PARTS = (
     # Through the walls: the three pieces and the scarf seams between them.
     Part("fu05-shell", "Touch-Flo shell, three pieces",
          "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step", solid=False),
+    # The tee in the attitude the split stands in — the run fore-and-aft and the branch
+    # rolled to look down. `water_split._TURNS` is that turn, so the camera is the default
+    # one carried back through it rather than a second copy of the fitting on disk.
     Part("water-split", "Tap-water split",
-         "hardware/reference/water-split/water-split.step"),
+         "hardware/reference/tee-connector/tee-connector.step",
+         cam=(-1.0, -1.0, 1.0), up=(-1, 0, 0)),
     Part("coil-mandrel", "Coil mandrel",
          "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step"),
     # 185 mm of plug, 8.5 across. NEARLY DOWN ITS OWN AXIS is the only view of it that is not a
