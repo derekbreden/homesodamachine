@@ -71,11 +71,10 @@ exterior walls, which are already relieved, so the chamfer runs out into their
 own rounds.
 
 Inside those same verticals stand the COLUMNS, and each is that relief MIRRORED —
-the outer arc folded across its own chord, the same radius the other way off the
-same two points on the same two faces, its centre landing on the exterior corner.
-So the section is a LENS with the WALL RUNNING THROUGH ITS MIDDLE: the first
-`wall` of its depth is the wall's own material and what stands in the room is the
-rest, from the cove inward, floor slab to ceiling. They are the cavity's own shape (`_cavity`), so everything held inside
+congruent with it, a QUARTER TURN of the same radius, swung from the interior
+corner because that is the only place such a turn fits with its ends on the two
+inner faces. Two sharp corners and one arc between them, the corner behind it
+solid, floor slab to ceiling. They are the cavity's own shape (`_cavity`), so everything held inside
 it meets a column the way it meets a wall: a Z seam's lip wraps the face and
 telescopes on it, a pod's collar is clipped by it, and a mount inside the
 footprint is the column's material with only its bore left. Where a lens would
@@ -153,27 +152,22 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 
 # --- the standing corners' columns ------------------------------------------
 #
-# THE COLUMN IS A LENS AND THE WALL RUNS THROUGH THE MIDDLE OF IT. Each standing vertical is
-# relieved `corner_round` outside, an arc springing from a point on each outer face. FOLD THAT
-# ARC ACROSS ITS OWN CHORD and the lens is what the two make between them: the same radius
-# curving the other way, off the same two points on the same two faces, its centre landing on
-# the exterior corner — which is what mirroring an arc does to the centre it was struck on.
+# THE COLUMN IS THE RELIEF MIRRORED, AND A MIRROR IS CONGRUENT OR IT IS NOT ONE. Each
+# standing vertical is relieved `corner_round` outside — a QUARTER TURN tangent to both outer
+# faces — so the column's face is a quarter turn of the same radius, the same arc and the same
+# length. The only place such a turn fits inside the cavity with its ends on the two inner
+# faces is swung from the corner they meet at, and that is the whole of it: one radius, one
+# centre, the interior corner.
 #
-# A MIRROR IS CONGRUENT OR IT IS NOT A MIRROR. The relief outside is a QUARTER TURN, so the
-# column's face is a quarter turn of the same radius — same arc, same length — and the one
-# place such a turn fits inside the cavity with its ends on the two inner faces is swung from
-# the corner they meet at. Its cusps stand [12 mm](COLUMN_ALONG) along each face and the
-# section closes to [7.03 mm](COLUMN_DEPTH) across the diagonal.
+# It lands on each face at 90°, so the corner presents TWO SHARP CORNERS opposite each other,
+# [12 mm](COLUMN_ALONG) along each face, with the arc between them. The section stands
+# [8.27 mm](COLUMN_DEPTH) out of the cove at the corner's diagonal.
 #
-# The two arcs meet at 90° where they land, so the section is a LENS — two SHARP corners
-# opposite each other on the two faces, and two ROUND sides opposite each other. Nothing is
-# tangent to a wall but the back arc at its cusps, and nothing is filled in.
-#
-# IT STANDS OFF THE COVE and that is the price. The cavity's own corner is a quarter turn one
-# `wall` smaller, so the two curves cannot coincide: the back arc runs
-# [1.24 mm](COLUMN_STANDOFF) outside the cove at the diagonal, closing onto it at each cusp.
-# The column is joined to the box along those two cusp lines and what is behind it is a
-# through slot its whole height.
+# THE CORNER BEHIND IT IS SOLID. The face is the column's only free surface: a second arc back
+# there — the mirror's own mirror — would leave a through slot the column's whole height, so
+# the column is everything within the radius and `_cavity` hands the wall the rest. The cove
+# the wall had turned stops being a surface at all; what the room meets at a standing vertical
+# is one arc, congruent with the one it meets outside.
 #
 # It is a pillar and not a feature at a station: it runs floor slab to ceiling, so every Z
 # seam crosses it and the seam's own lip wraps its face the way it wraps a wall (`_cavity`).
@@ -839,45 +833,31 @@ def _round_z(solid, r):
     return cq.Workplane(obj=solid).edges("|Z").fillet(r).val()
 
 
-def _column_arcs(inner, sx, sy):
-    """The two centres one corner column's two arcs are struck on: the INTERIOR CORNER,
-    which the mirrored arc is swung from, and a centre one `column_round` in from each inner
-    face, which the arc back off it is turned on.
+def _column_arc(inner, sx, sy):
+    """The centre one corner column's face arc is swung from — the INTERIOR CORNER.
 
-    THE COLUMN IS THE RELIEF'S CONGRUENT TWIN and that is what fixes both. The relief outside
-    is a QUARTER TURN of `corner_round` tangent to both outer faces; a mirror is congruent or
-    it is not a mirror, so the column's face is a quarter turn of the same radius — same arc,
-    same length — and the only place a quarter turn of `column_round` fits inside the cavity
-    with its ends on the two inner faces is swung from the corner they meet at. Mirroring it
-    across its own chord puts the second centre one radius in from each face, where that arc
-    stands tangent to both."""
+    THE COLUMN IS THE RELIEF'S CONGRUENT TWIN. The relief outside is a QUARTER TURN of
+    `corner_round` tangent to both outer faces; a mirror is congruent or it is not a mirror,
+    so the face is a quarter turn of the same radius — same arc, same length — and the only
+    place such a turn fits inside the cavity with its ends on the two inner faces is swung
+    from the corner they meet at."""
     ix0, ix1, iy0, iy1, _iz0, _iz1 = inner
-    px = ix0 if sx < 0 else ix1
-    py = iy0 if sy < 0 else iy1
-    return (px, py), (px + (column_round if sx < 0 else -column_round),
-                      py + (column_round if sy < 0 else -column_round))
+    return (ix0 if sx < 0 else ix1), (iy0 if sy < 0 else iy1)
 
 
 def _corner_column(inner, sx, sy, grow, z):
     """One corner column as a solid over the height span `z`, grown `grow` into the room.
 
-    THE LENS IS WHAT THE TWO DISCS SHARE. Both arcs bound it from OUTSIDE — the wall's own
-    outer surface holds it off the corner, its mirror holds it out of the room — so the
-    column is the intersection and not the difference. Take the difference and what comes
-    back is a crescent lying outside the box entirely.
+    THE ARC IS THE WHOLE OF IT AND THE CORNER BEHIND IT IS SOLID. The column is everything
+    within `column_round` of the interior corner; `_cavity` takes the difference, so what
+    becomes material is that disc's share of the AIR and the wall keeps the rest. Nothing
+    stands between the column and the cove it rises out of — a second arc back there would
+    be a through slot the column's whole height, and its only free surface is the face.
 
-    IT STANDS CLEAR OF THE COVE BEHIND IT. The relief's twin is a quarter turn of
-    `column_round` and the cavity's own cove is a quarter turn of one `wall` less, so the two
-    cannot be the same curve — the lens's back arc runs `wall * (sqrt2 - 1)` outside the
-    cove at the corner's diagonal and closes onto it at each cusp. That standoff is the
-    price of a congruent mirror and it is a through slot, open at both ends of the column's
-    own height. Two circles of one radius meet in exactly two points whatever their centres,
-    and here those are the cusps, one on each inner face. Growing swells both discs, which is
-    the one offset read on each arc's own side."""
-    (px, py), (qx, qy) = _column_arcs(inner, sx, sy)
+    Growing swells the disc, which is the offset read on that one surface."""
+    px, py = _column_arc(inner, sx, sy)
     z0, z1 = z
-    r = column_round + grow
-    return _zcyl(r, px, py, z0, z1).intersect(_zcyl(r, qx, qy, z0 - 1.0, z1 + 1.0))
+    return _zcyl(column_round + grow, px, py, z0, z1)
 
 
 def _column_along():
@@ -904,22 +884,11 @@ def wall_flat_from_corner():
 
 
 def _column_depth():
-    """How thick a column is at its deepest — across the corner's own diagonal, where the
-    two arcs stand furthest apart.
+    """How far a column reaches out of the cove it rises from, across the corner's diagonal.
 
-    Both are swung one radius from their own centre and the centres lie a diagonal apart, so
-    the section closes to `column_round * (2 - sqrt2)` there and to nothing at each cusp."""
-    return column_round * (2.0 - math.sqrt(2.0))
-
-
-def _column_standoff():
-    """The air between a column's back arc and the cove behind it, at the same diagonal.
-
-    Two quarter turns off the same corner, one `wall` apart in radius, so what separates them
-    across the diagonal is that difference taken the same way — the cavity's own arc being the
-    relief carried one wall in. A through slot the column's whole height, open at both ends,
-    closing onto the cove at each cusp."""
-    return wall * (math.sqrt(2.0) - 1.0)
+    The face stands one radius off the corner there; the cove the wall already turned stands
+    `(corner_round - wall) * (sqrt2 - 1)` off it, and the column is everything between."""
+    return column_round - (corner_round - wall) * (math.sqrt(2.0) - 1.0)
 
 
 def _cavity(inner, inset=0.0, z=None):
@@ -3629,7 +3598,6 @@ def main():
         "COLUMN_ARC": f"{column_round:.3g} mm",
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
-        "COLUMN_STANDOFF": f"{_column_standoff():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
