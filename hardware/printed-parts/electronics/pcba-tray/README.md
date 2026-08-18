@@ -8,7 +8,8 @@ the board's own MH1–MH4 pattern and carried through its placement
 `pcba-board.step` is the body the machine carries. What lives here is the board
 datum every one of those mounts is derived from — the outline, the MH1–MH4
 rectangle, the thickness, and the component heights read off the fab model — plus
-the tray itself as bench geometry.
+the tray itself as bench geometry, which stands in `pcba-assembly.step` rather than
+as a solid of its own.
 
 Built by the shared
 [`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine:
@@ -46,7 +47,8 @@ growth). Keep the west and east edges unobstructed on the shelf: the USB-C
 programming port (J14) is flush on the west edge, and the J10 12 V screw
 throats face east.
 
-`pcba_tray.py` → `pcba-tray.step`; `pcba_assembly.py` → `pcba-assembly.step`
+`pcba_tray.py` carries the datum and the mount stations and writes no solid;
+`pcba_assembly.py` → `pcba-assembly.step` (tray + board) and `pcba-board.step`
 (the board as a simplified populated model — the outline slab + one box per
 component at its placed footprint and an approximate height, read from
 `hardware/pcb/pcba/out/pcba.circuit.json`; the full component 3D is
