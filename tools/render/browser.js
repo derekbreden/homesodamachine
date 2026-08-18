@@ -84,12 +84,31 @@ function killBrowserNow(browser) {
   }
 }
 
+// How long a teardown negotiates before it stops asking. The render is over by the time either
+// of these runs — the PNG is written — so what is left is the process going away, and every
+// second past this one buys nothing a SIGKILL does not.
+const TEARDOWN_GRACE = 10000;
+
+// Resolve when `work` does, or when the grace runs out, whichever comes first. A `catch` bounds
+// a rejection and not a wait: an await that never settles is an await the line after it never
+// reaches, so a teardown that only catches is a teardown that runs its kill only when it did
+// not need it.
+function within(ms, work) {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, ms);
+    Promise.resolve(work).catch(() => {}).then(() => {
+      clearTimeout(timer);
+      resolve();
+    });
+  });
+}
+
 export async function closeBrowser(browser) {
   if (!browser) return;
   LIVE_BROWSERS.delete(browser);
   // close() negotiates over CDP, which a page still holding the main thread can
   // stall; the kill is what makes "the process is gone" true rather than likely.
-  try { await browser.close(); } catch { /* fall through to the kill */ }
+  await within(TEARDOWN_GRACE, browser.close());
   killBrowserNow(browser);
 }
 
@@ -103,9 +122,51 @@ export async function closeBrowser(browser) {
 export async function closeServer(server) {
   if (!server) return;
   server.closeAllConnections?.();
-  await new Promise((resolve, reject) =>
+  await within(TEARDOWN_GRACE, new Promise((resolve, reject) =>
     server.close((err) => (err ? reject(err) : resolve())),
-  );
+  ));
+}
+
+// What the teardown holds, on fixtures rather than on Chrome:
+//
+//     node tools/render/browser.js selftest
+//
+// A stalled close is the case that matters and the one a live browser will not stage on demand,
+// so both halves are stood up here as objects that never settle.
+export async function selftest() {
+  let holds = 0;
+  const hold = (label, ok, got) => {
+    holds += ok ? 1 : 0;
+    console.log(`  ${ok ? "\u2713" : "\u2717"} ${label}${ok ? "" : ` \u2014 ${got}`}`);
+  };
+
+  let killed = null;
+  const stalled = {
+    close: () => new Promise(() => {}),
+    process: () => ({ exitCode: null, kill: (sig) => { killed = sig; } }),
+  };
+  let t = Date.now();
+  await closeBrowser(stalled);
+  const stalledMs = Date.now() - t;
+  hold("a close that never settles still hands back", stalledMs < TEARDOWN_GRACE * 2, `${stalledMs} ms`);
+  hold("and the process is killed rather than asked again", killed === "SIGKILL", String(killed));
+
+  t = Date.now();
+  await closeServer({ closeAllConnections: () => {}, close: () => {} });
+  const srvMs = Date.now() - t;
+  hold("a server whose close never calls back hands back", srvMs < TEARDOWN_GRACE * 2, `${srvMs} ms`);
+
+  t = Date.now();
+  await closeBrowser({ close: async () => {}, process: () => ({ exitCode: 0, kill: () => {} }) });
+  const cleanMs = Date.now() - t;
+  hold("a close that settles costs the grace nothing", cleanMs < 1000, `${cleanMs} ms`);
+
+  console.log(`browser selftest ${holds}/4`);
+  return holds === 4 ? 0 : 1;
+}
+
+if (process.argv[1] && process.argv[1].endsWith("browser.js") && process.argv[2] === "selftest") {
+  process.exit(await selftest());
 }
 
 for (const sig of ["SIGINT", "SIGTERM", "SIGHUP"]) {
