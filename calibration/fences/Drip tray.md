@@ -114,7 +114,7 @@ Matched "Instruction cards audit" (the only title with "audit"). Exporting it.
 
 Relayed in. Orientation first, plus one thing you need to know before I touch anything:
 
-**That session is live right now.** Its edits to [_contents.py](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) and [scorecard.py](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py) are 4 minutes old and uncommitted. Those are exactly the two files a drip-tray repose has to edit.
+**That session is live right now.** Its edits to [_contents.py](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) and [scorecard.py](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py) are 4 minutes old and uncommitted. Those are exactly the two files a drip-tray repose has to edit.
 
 **What it was doing:** a full audit of the 93-card assembly deck, which turned up ~20 defects and five "the CAD doesn't exist yet" holes — so it spawned seven design spikes to close them. The drip pan was one: the spike found the aft strip behind the SeaFlo is only **55 mm** deep (`y` 326→381), so the old 130×66 basin never fit anywhere, and reshaped it to **100 × 30 × 22** centred on the vent column with a VHB'd cradle. Committed as `b063d8e1`. **Where it left off:** integrating the cold-core-ring spike (which lifts the whole deck 5 mm on `RING_SEAT`) and chasing four clashes at 6/7 gates.
 
@@ -162,7 +162,7 @@ Capacity actually goes **up**: 95 × 45 × 11 = **47.0 mL** vs today's 45.1. Sho
 asse1022-assembly  zmax 328.29   inner ceiling 331.72   → 3.43 mm
 vk-fill-valve      zmax 330.70   ← the actual height driver
 ```
-The ASSE can rise **2.41 mm** before it overtakes V-K as the tallest body inside; past that the ceiling tracks it 1:1 and the appliance grows. It also drags the rear-panel water bulkhead with it — `WATER_BACK_Z = ASSE1022_POS[2] + tube_in()[2]` at [_contents.py:720](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L720). 2.4 mm isn't worth that cascade; the 13.6 mm below the pan doesn't need it.
+The ASSE can rise **2.41 mm** before it overtakes V-K as the tallest body inside; past that the ceiling tracks it 1:1 and the appliance grows. It also drags the rear-panel water bulkhead with it — `WATER_BACK_Z = ASSE1022_POS[2] + tube_in()[2]` at [_contents.py:720](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L720). 2.4 mm isn't worth that cascade; the 13.6 mm below the pan doesn't need it.
 
 **On rolling it — I was wrong to expect this to fail. It fits.** Rolled about the flow axis (the pivot that keeps both fittings on their tube runs):
 

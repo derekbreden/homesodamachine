@@ -102,7 +102,7 @@ Two more quick reads to size the remaining work — the route-hints doc referenc
 
 ---
 
-I've read everything: the full Engineered PCB transcript, both commits (plus `dc665a26`, the companion to yours), [requirements.md](/hardware/pcb/pcba/requirements.md), [routing-procedure.md](https://github.com/derekbreden/homesodamachine/blob/40fa5b9c/hardware/pcb/pcba/routing-procedure.md), [hand-routing.md](/hardware/pcb/pcba/hand-routing.md), [route-hints.md](https://github.com/derekbreden/homesodamachine/blob/40fa5b9c/hardware/pcb/pcba/route-hints.md), and the live scorecard (11/11 gates, 90% hand-routed, 10 nets on the autorouter, 8 deferred). Here are the three answers.
+I've read everything: the full Engineered PCB transcript, both commits (plus `dc665a26`, the companion to yours), [requirements.md](/hardware/pcb/pcba/requirements.md), [routing-procedure.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/routing-procedure.md), [hand-routing.md](/hardware/pcb/pcba/hand-routing.md), [route-hints.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/route-hints.md), and the live scorecard (11/11 gates, 90% hand-routed, 10 nets on the autorouter, 8 deferred). Here are the three answers.
 
 ## 1. Do I understand your goals?
 
@@ -132,7 +132,7 @@ The honest residue: "does this read like a competent EE laid it out" will keep a
 
 Before touching copper (I can get all of these myself):
 - **[pcba.tsx](/hardware/pcb/pcba/pcba.tsx) end-to-end** — I've read it in fragments; before owning a region I'd read all 898 lines: every placement, every helper, every commented block and the reason recorded on it.
-- **The design-intent docs I haven't opened**: [README.md](/hardware/pcb/pcba/README.md), [esp32-scope.md](/hardware/pcb/pcba/esp32-scope.md), [plane-stitching.md](/hardware/pcb/pcba/plane-stitching.md), [uln2803.md](/hardware/pcb/pcba/uln2803.md), [autorouter-coexistence.md](https://github.com/derekbreden/homesodamachine/blob/40fa5b9c/hardware/pcb/pcba/autorouter-coexistence.md) — routing the programming corner well means knowing what the nets *do*, not just where the pads are.
+- **The design-intent docs I haven't opened**: [README.md](/hardware/pcb/pcba/README.md), [esp32-scope.md](/hardware/pcb/pcba/esp32-scope.md), [plane-stitching.md](/hardware/pcb/pcba/plane-stitching.md), [uln2803.md](/hardware/pcb/pcba/uln2803.md), [autorouter-coexistence.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/autorouter-coexistence.md) — routing the programming corner well means knowing what the nets *do*, not just where the pads are.
 - **The fork's manual-trace and comb code** (`~/Developer/tscircuit-forks`, via FORKS.md) — the capability envelope constrains the principles: can `pcbPath` set per-segment width, route on bottom, and what exactly does `pcbComb` emit? I'd verify before proposing width-by-net-class or orthogonal-comb tooling.
 - **The Failure session transcript** — I've only seen it summarized secondhand. It's the canonical statement of the failure mode this whole effort exists to end, and I'd want the primary source to mine for failure patterns the scorecard doesn't yet make impossible.
 - **The Foundation session transcript** — for the tooling roadmap already weighed there (geometry query interface, golden-file region locks) and what was deliberately deferred, so I don't re-litigate settled decisions.

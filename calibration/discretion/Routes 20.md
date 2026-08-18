@@ -308,7 +308,7 @@ Done looking. Two focused renders, the committed scorecard, and the pose derivat
 
 fluid-20 connects two mouths that stand on **the same column to the thousandth of a millimetre** — V-H-O at (137.03, 199.6, 267.7) and Y-F-2 at (137.03, 219.7, 320.9), 20 mm and one storey apart — and it takes 4 corners, 99 mm of path, and a detour of 1.74× to join them, at R5.52, grade F, 0.22×. The reason is visible in one plan view: **the tee's own body fills the column between them.** Y-F stands directly over the collet it serves, its aft run port opens aft, so the draw must climb the lane east of the fitting, come about behind it, jog west, and re-enter forward — a full U wrapped around the thing it's feeding.
 
-And here's the part I'd call the self-documented ugly: [`aft_lane_x`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3252)'s own docstring says the tee stands over the collet *so that* "the draw is a **straight fall down one column** instead of a come-about across a corridor." The drawn geometry is precisely the come-about the sentence promises to have avoided. The pose optimized "same column" when the run needed "clear column" — the fitting is parked on the flow's own path.
+And here's the part I'd call the self-documented ugly: [`aft_lane_x`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3252)'s own docstring says the tee stands over the collet *so that* "the draw is a **straight fall down one column** instead of a come-about across a corridor." The drawn geometry is precisely the come-about the sentence promises to have avoided. The pose optimized "same column" when the run needed "clear column" — the fitting is parked on the flow's own path.
 
 One level up, the deeper shape. Y-F is channel B's suction junction: fluid-19 brings select water from V-D-O at (90.5, 156.5, **246.5**), fluid-20 brings the bag draw from z **267.7**, and fluid-21 carries the merge to the pump inlet at (114.2, 76.9, **180.9**). The junction sits at z **320.9** — 140 mm above and 123 mm aft of the pump it feeds, 74 mm above the select that feeds it. **Everything climbs to a summit whose only purpose is to be somewhere a fitting could stand** ("a fitting does not stand beside this plate at the port plane — what is open is the band OVER it"). The whole suction side pays:
 
@@ -360,7 +360,7 @@ This candidate is nearly free, reversible, and local — but it fixes the wrap, 
 
 ## The footnotes
 
-The **seat swap** (V-H ↔ V-I) does nothing alone — the wrap is relative to the tee and would simply follow — but composed with a bay-standing Y-F variant it points the draw at open bay instead of tray crown. Keep it in the deck as an enabler. **fluid-25** (the reservoir stem, F 0.38 across an 18 mm span) is a squeeze between the conduit column and the stem face — a nudge to take *with* whatever else moves, not a driver. And two stale-prose finds in passing, both the familiar disease: [`aft_row_tee_pos`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3277) narrates an outcome the geometry doesn't deliver, and the pump-row block at [`_contents.py:3227`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3227) still describes Y-G as "a TRIDENT and not a tee, outlets facing DOWN" — the placed component is a tee lying in the lane, ports fore and aft.
+The **seat swap** (V-H ↔ V-I) does nothing alone — the wrap is relative to the tee and would simply follow — but composed with a bay-standing Y-F variant it points the draw at open bay instead of tray crown. Keep it in the deck as an enabler. **fluid-25** (the reservoir stem, F 0.38 across an 18 mm span) is a squeeze between the conduit column and the stem face — a nudge to take *with* whatever else moves, not a driver. And two stale-prose finds in passing, both the familiar disease: [`aft_row_tee_pos`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3277) narrates an outcome the geometry doesn't deliver, and the pump-row block at [`_contents.py:3227`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3227) still describes Y-G as "a TRIDENT and not a tee, outlets facing DOWN" — the placed component is a tee lying in the lane, ports fore and aft.
 
 ## Where I land
 
@@ -431,7 +431,7 @@ Reservoir B is chilled and inside the insulation. Right now its syrup **leaves t
 
 **The free win:** fluid-17's corridor opens. Routes 14 already built and measured that re-author — **5 corners → 4, with two corners rising to full stock R25.40** — and had to throw it away only because it needed bag-b to move *east*, which broke water-3's fall. West doesn't touch water-3's column at all. The work is done; the obstacle is what you're removing.
 
-**The trap: Y-F follows the tray.** [`aft_lane_x()`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3252) and [`aft_row_tee_pos()`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3277) make Y-F's x *and* y literally V-H-O's station. So:
+**The trap: Y-F follows the tray.** [`aft_lane_x()`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3252) and [`aft_row_tee_pos()`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L3277) make Y-F's x *and* y literally V-H-O's station. So:
 
 - fluid-19 breaks past ~26 mm of travel. Y-F's branch faces west at x 116.955 and V-D-O sits at x 90.5 — 26.5 mm of margin. Move the tray further than that and the branch ends up west of the select it's fed by, so fluid-19 has to wrap to enter it. Same disease, new run.
 - fluid-20's wrap survives untouched, since everything about it is relative. Your move doesn't fix last turn's tangle on its own.
@@ -444,7 +444,7 @@ A buried joint is unserviceable — so **if it's buried, don't bury a PTC collet
 
 **The single fit question I'm deliberately not scripting:** whether there's roughly 45 × 20 × 20 of clear space beneath the deck at x 10–45, y 200–235, alongside reservoir B's own pocket wall. Everything above is reasoning from committed geometry; that one is a look.
 
-One stale-prose find while I was in there — [`_lines.py:163`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L163) says *"Y-H stands over the PSU's crown instead,"* and explains Y-H's leaning legs by it. The PSU is at x 158.5–192, y 345.7+; Y-H is at x 21–60, y 209–224. It's the same PSU fiction Routes 10 killed for fluid-25, still live in the header narrative that teaches the next reader why this junction is shaped the way it is.
+One stale-prose find while I was in there — [`_lines.py:163`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L163) says *"Y-H stands over the PSU's crown instead,"* and explains Y-H's leaning legs by it. The PSU is at x 158.5–192, y 345.7+; Y-H is at x 21–60, y 209–224. It's the same PSU fiction Routes 10 killed for fluid-25, still live in the header narrative that teaches the next reader why this junction is shaped the way it is.
 
 Say the word and I'll drive it as committed states — I'd start with the tray west and Y-F decoupled, red or not, so you can see what the flank looks like empty before we settle what goes in the foam.
 
@@ -614,7 +614,7 @@ Costs, stated honestly: the reservoir's port is a **purchased PureSec bulkhead**
 1. [`fluid-topology.md:40`](/hardware/topology/fluid-topology.md:40) — *"segment 25 climbs the whole front column to reach its stem."* fluid-25 is a 19.6 mm stub off the cap conduit. The full-height climb happens inside the foam, in the +Y band, and belongs to the cold core.
 2. [`fluid-topology.md:42`](/hardware/topology/fluid-topology.md:42) — *"One line reaches each reservoir's port on the cold core's front face."* True for A; the interface says in as many words that B is not there.
 3. [`cold-core.md:104`](/hardware/assembly/cold-core.md:104) — has both reservoir lines leaving through the **−Y** pocket wall to the front field. B crosses the **+Y** wall and leaves by the cap.
-4. [`_lines.py:163`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L163) — the Y-H-over-the-PSU claim from last turn.
+4. [`_lines.py:163`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L163) — the Y-H-over-the-PSU claim from last turn.
 
 ## Where I'd go
 
@@ -1099,7 +1099,7 @@ gates            10/11 — parity with HEAD; pack-closes 0, lines-clear 0, port-
 
 You were right about the bend — that corner was never hard. `lean_into` leans both mouths, so the 90° between a west-facing collet and a +Z bore never has to be turned square, and both runs came out D on the first solve. My "R14" was me computing a square corner the machine's own idiom doesn't draw.
 
-**What the change exposed, which is the part worth your eye.** fluid-17 climbed over Y-H's crown because [the corridor had negative width](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L1132) — the conduit's column wanted the lane east, the trident's flank wanted it west. With the trident gone, everything left in that band is a *column*, so the corridor is open the whole storey. fluid-17 now climbs once onto the gate's own port plane and holds it into the collet — the stratum over the band and the fall into the bay are both gone.
+**What the change exposed, which is the part worth your eye.** fluid-17 climbed over Y-H's crown because [the corridor had negative width](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L1132) — the conduit's column wanted the lane east, the trident's flank wanted it west. With the trident gone, everything left in that band is a *column*, so the corridor is open the whole storey. fluid-17 now climbs once onto the gate's own port plane and holds it into the collet — the stratum over the band and the fall into the bay are both gone.
 
 **One real fence, and I stated it in source rather than letting it fall out.** The draw's conduit is pinned over the shell's +Y band at x 11, which is *west* of fluid-17's lane — so fluid-26 has to pass under that lane before it climbs. Left to the solver, the roundest corner rose straight into it (53 mm³ of clash). `_drop_trials` now carries the crossing as a ceiling, so the lead is chosen by the crossing rather than by the radius.
 
@@ -1501,7 +1501,7 @@ water-5 holds at **B/A, R25.40, 1 corner** — the drop costs it nothing. Two sl
 
 ---
 
-Found it — and it's a real coupling, not a stale one: **the drip pan hangs off the chain** ([`drip_pan_seat`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1943) — "the basin hangs off the chain, `drip_pan.VENT_GAP` of air between its rim and the placed chain's underside"), so my +20 aft carried the pan into the back wall. Testing the drop on its own:
+Found it — and it's a real coupling, not a stale one: **the drip pan hangs off the chain** ([`drip_pan_seat`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1943) — "the basin hangs off the chain, `drip_pan.VENT_GAP` of air between its rim and the placed chain's underside"), so my +20 aft carried the pan into the back wall. Testing the drop on its own:
 
 ---
 
@@ -1517,7 +1517,7 @@ The pan follows the chain, so **the pan is the real fence on the chain's Z, not 
 
 ---
 
-Wait — [`drip_pan_seat`](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1958) reads `asse_underside()`, the **ASSE 1022** chain, not the SeaFlo discharge chain. Two different things both called "the chain," and I conflated them. So my move shouldn't touch the pan at all. Let me run the control.
+Wait — [`drip_pan_seat`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1958) reads `asse_underside()`, the **ASSE 1022** chain, not the SeaFlo discharge chain. Two different things both called "the chain," and I conflated them. So my move shouldn't touch the pan at all. Let me run the control.
 
 ---
 

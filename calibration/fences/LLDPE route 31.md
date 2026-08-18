@@ -441,7 +441,7 @@ What you give up is the switched-VCC anti-electroplating trick. Worth questionin
 - No electrode touches the liquid. A foil pad *under* the printed pan floor senses water above it through the PETG. No corrosion, no plating, no wetted connector, nothing to service.
 - No DC, so no polarization and no drifting reading.
 - Off-board on `J8`, and the sleeves use only pairs of its twelve electrodes. **Zero board change.**
-- The repo already proves the technique — [cap-sense-sleeve](https://github.com/derekbreden/homesodamachine/blob/41f0b566/hardware/printed-parts/flavor/cap-sense-sleeve/README.md) reads water through a tube wall on this same controller.
+- The repo already proves the technique — [cap-sense-sleeve](https://github.com/derekbreden/homesodamachine/blob/422c9d9e/hardware/printed-parts/flavor/cap-sense-sleeve/README.md) reads water through a tube wall on this same controller.
 
 The catch is lead length: MPR121 electrodes want short runs, and it's specced to mount at the manifold in the front column, while the cup is on the foam cap and the base pan is the floor. Either it moves, or a second MPR121 joins the bus — it has four addresses (0x5A–0x5D). Still zero board change.
 

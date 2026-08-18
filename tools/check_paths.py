@@ -479,13 +479,13 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
         for m in BLOB_URL_RE.finditer(body):
             sha, path = m.group(1), m.group(2)
             line = body[:m.start()].count("\n") + 1
-            # A SHA THIS CLONE DOES NOT HAVE IS NOT ANSWERABLE HERE. The history was
-            # rewritten (`calibration/traffic/CO2 white.md`, "44/44 tags now inside the new
-            # history … restored them from the mirror at their rewritten SHAs"), so every
-            # pin taken before that names a commit this repo dropped. Whether GitHub still
-            # serves it is a question about the remote, not about this tree, and a check
-            # that cannot answer a question does not get to fail it.
+            # A SHA THIS REPO DOES NOT HAVE IS A DEAD LINK. The history was rewritten and
+            # every pin taken before 2026-08-17 names a commit that was dropped — but the
+            # old → new table survived, at `tools/git-history/commit-map`, so the pin is
+            # answerable and a URL still carrying an old SHA is one nobody repinned.
             if not _is_commit(sha):
+                bad.append(f"{rel}:{line} — blob URL pinned to {sha}, a commit this repo "
+                           f"does not have; tools/git-history/commit-map names its successor")
                 continue
             if not _resolves_at(sha, path):
                 bad.append(f"{rel}:{line} — {path} is not at {sha}, which its blob URL pins it to")
