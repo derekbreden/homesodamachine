@@ -470,7 +470,7 @@ PP451223W verified — hex at the thread end, stepped collet at the PTC end, 36 
 
 ---
 
-Useful precedent found while waiting: the scorecard already has a category for exactly this kind of part — [scorecard.py:128](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L128), *"In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)"*, covering `tee-y-c`, `tee-y-f`, the Y-dividers and the elbows. The MTB tee and its two adapters are the same species: fittings that hang in a run rather than mount to anything. That's real evidence the tee should be its own placed component in the enclosure pack rather than folded into the `asse1022-assembly` reference model — I'll weigh it against the arrangement verdicts when they land.
+Useful precedent found while waiting: the scorecard already has a category for exactly this kind of part — [scorecard.py:128](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L128), *"In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)"*, covering `tee-y-c`, `tee-y-f`, the Y-dividers and the elbows. The MTB tee and its two adapters are the same species: fittings that hang in a run rather than mount to anything. That's real evidence the tee should be its own placed component in the enclosure pack rather than folded into the `asse1022-assembly` reference model — I'll weigh it against the arrangement verdicts when they land.
 
 Three agents still out: the tee's dimensions, the reducer stem's, and both arrangement reads.
 
@@ -1602,7 +1602,7 @@ I misread a stale scorecard a moment ago — the clash is real and still there. 
 
 Two of the six done. Where things stand:
 
-**Electronics are out.** `power-tray`, `pcba` and `dc-dist` are no longer placed — they stay declared in the scorecard registry as components without a station, so they read as work still owed rather than vanishing. One real coupling had to be cut: [_lines.py:392](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L392) used the PCBA's board height as a datum for the nozzle-lane clearance guard, so that guard now checks each body it actually crosses instead of assuming the shelf is there.
+**Electronics are out.** `power-tray`, `pcba` and `dc-dist` are no longer placed — they stay declared in the scorecard registry as components without a station, so they read as work still owed rather than vanishing. One real coupling had to be cut: [_lines.py:392](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L392) used the PCBA's board height as a datum for the nozzle-lane clearance guard, so that guard now checks each body it actually crosses instead of assuming the shelf is there.
 
 **C14 is in the west corner** at x[6.75, 37.25] — was x[74.75, 105.25]. That's it out of the drip pan's ground (x 63–133) entirely, so mains conductors and the backflow vent's deliberate drip no longer share a volume.
 
@@ -1733,7 +1733,7 @@ The build completed and printed the full scorecard, but the sidecar mtime never 
 
 ---
 
-Now the behavior makes sense and it's deliberate: [enclosure_assembly.py:319](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L319) hard-exits on a failing gate *before* writing anything, so a headless build never writes an invalid pack. The sidecar on disk is the last valid one. So I can't refresh artifacts until the pack closes.
+Now the behavior makes sense and it's deliberate: [enclosure_assembly.py:319](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L319) hard-exits on a failing gate *before* writing anything, so a headless build never writes an invalid pack. The sidecar on disk is the last valid one. So I can't refresh artifacts until the pack closes.
 
 Let me test a layout with the probe before spending more builds on it:
 
@@ -1762,7 +1762,7 @@ That constrains the pump in **Y** as well as X: usable depth between the CO2 col
 
 Reported to the packing agent. While it works, one thing I found in the build machinery that you should know about, because it's how my last commit got through:
 
-[enclosure_assembly.py:317](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L317) says of a failing pack — *"the sidecar records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and blocks the commit — an invalid pack can be inspected but can never land."*
+[enclosure_assembly.py:317](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L317) says of a failing pack — *"the sidecar records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and blocks the commit — an invalid pack can be inspected but can never land."*
 
 That holds under `HSM_EDITOR`. Headless it doesn't: line 319 exits *before* the write, so the sidecar keeps the **last valid** verdict — `gatesPass: true`, describing a pack that no longer exists. The pre-commit hook then reads a passing sidecar and only emits a soft warning (`sidecar may be behind _contents.py`), so the commit lands. That's exactly what happened with `5c5ad1e1`, and it's also what made me misreport the gates twice — I was reading a scorecard from 20:23 against source edited at 20:42.
 

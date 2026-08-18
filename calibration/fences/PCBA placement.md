@@ -142,7 +142,7 @@ Line 707 already declares an electronics shelf. Let me read what's actually spec
 
 ---
 
-Now the crux — [_contents.py:1306](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1306):
+Now the crux — [_contents.py:1306](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L1306):
 
 > *The power assembly, the PCBA and the DC block are carried in the BOM and built as trays; their STEPs are the three paths above, **unplaced**.*
 
@@ -210,7 +210,7 @@ One question decides your whole "bosses printed right on the cap" idea — is th
 
 ---
 
-Now a genuinely important catch. [_contents.py:54](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L54) declares a **CO2 entry down through the foam-cap top at (141.5, 199.8)** — and x=141.5 is dead inside the SeaFlo's span, 0.2 mm forward of where you want its front face. Let me check whether that riser is modeled or just declared.
+Now a genuinely important catch. [_contents.py:54](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L54) declares a **CO2 entry down through the foam-cap top at (141.5, 199.8)** — and x=141.5 is dead inside the SeaFlo's span, 0.2 mm forward of where you want its front face. Let me check whether that riser is modeled or just declared.
 
 ---
 
@@ -261,7 +261,7 @@ Going *further* than the foam edge: the only bodies forward of y=200 are `water-
 
 The two trays exceed the best-case west column by 453 mm² — *before any clearance, boss, or hand access*. And the aft strip can't absorb the overflow: it's 83 mm deep, and the ASSE chain + pan/rails + V-K occupy x[66, 251.5] continuously, leaving free spans of only 66 mm and 31.5 mm. The power tray needs 151.1; the PCBA needs 90.82. **Neither tray fits the aft strip in any orientation.**
 
-There's also a conflict you'll want to know about: the scorecard already declares a PCBA home at world x[~191,276] y[~192,265] — the **east** pocket. Pushing the SeaFlo +X drives straight into it. That position is explicitly provisional ([requirements.md:220](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md#L220) wants its Z re-solved), so it's the one that should move — but it means +X and "PCBA on the cap" pull against each other.
+There's also a conflict you'll want to know about: the scorecard already declares a PCBA home at world x[~191,276] y[~192,265] — the **east** pocket. Pushing the SeaFlo +X drives straight into it. That position is explicitly provisional ([requirements.md:220](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md#L220) wants its Z re-solved), so it's the one that should move — but it means +X and "PCBA on the cap" pull against each other.
 
 ## What I recommend
 
@@ -674,7 +674,7 @@ Watcher is running. It checks every 45 s and will wake me on any of three outcom
 I won't touch the repo until then. The moment it fires, the sequence is:
 
 1. Re-derive the SeaFlo pose against whatever world they land on — their 273 nudge and any further moves change my 6.88 mm number, so I'll re-run `fit.py search` rather than reuse it.
-2. Set `SEAFLO_POS` to the front-edge/east pose, and follow `DISCH_CHAIN_POS` — the discharge chain is placed independently at [_contents.py:315](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L315) and will not move on its own.
+2. Set `SEAFLO_POS` to the front-edge/east pose, and follow `DISCH_CHAIN_POS` — the discharge chain is placed independently at [_contents.py:315](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L315) and will not move on its own.
 3. Place the PSU and the PCBA in the pack so they render in `enclosure-assembly.step` for you to look at.
 4. Author the printed cap mount — short bosses for the PSU, tall posts *beside* it carrying the board bridge.
 5. Build, check the scorecard, commit and push.
@@ -993,7 +993,7 @@ Now the electronics. Finding the PSU's best pose with exact clearances.
 
 ---
 
-PSU fits at **x[0, 52]** with 3.50 mm to the pump across a range of y. Placing it aft shortens the C14 cordage, which [_contents.py](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) says "runs forward along the west wall to the AC hub". Before I place it, let me see what declaring a new body requires — the coverage gate is 36/36.
+PSU fits at **x[0, 52]** with 3.50 mm to the pump across a range of y. Placing it aft shortens the C14 cordage, which [_contents.py](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) says "runs forward along the west wall to the AC hub". Before I place it, let me see what declaring a new body requires — the coverage gate is 36/36.
 
 ---
 
@@ -1041,7 +1041,7 @@ The move east needed the discharge chain to stop being a fixed number: `water-6`
 
 **Two things block finishing the placement, both real:**
 
-1. **The board has no home on the cap.** I swept three Z bands for its 73.3 × 90.8 footprint — nothing over the cap fits, because the pump still bounds the width at 55.5 up to z=330.4 and the ceiling is 335.7. The only rectangle big enough is x[−14, 109.6] y[−3, 220.4] z[292, 320] — *forward* of the foam, which is the channel [_lines.py](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py) already names as carrying "the electronics shelf's board", under the hopper funnel's basin. That's a legitimate home, but it isn't the void you were pointing at.
+1. **The board has no home on the cap.** I swept three Z bands for its 73.3 × 90.8 footprint — nothing over the cap fits, because the pump still bounds the width at 55.5 up to z=330.4 and the ceiling is 335.7. The only rectangle big enough is x[−14, 109.6] y[−3, 220.4] z[292, 320] — *forward* of the foam, which is the channel [_lines.py](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py) already names as carrying "the electronics shelf's board", under the hopper funnel's basin. That's a legitimate home, but it isn't the void you were pointing at.
 
 2. **The power tray can't follow the PSU.** The Teyleten relay is **70 × 17**; the column is 55.5 wide, so it doesn't fit in *either* orientation. The tray as designed is a wide/shallow 151 × 74 and the column is tall/narrow. The PSU fits alone; the tray does not.
 
@@ -1127,7 +1127,7 @@ Let me do the tube raise first since it's self-contained. Reading how they're au
 Two things the code tells me that change the plan:
 
 - `deck_z = f["bulkhead-flavor-a"].at("tube-in")[2]` — the lane height **is** the flavor bulkheads' collet height, so raising the lanes means raising those bulkheads. The guard even says so: *"lower {what}, or raise the bulkheads."*
-- [_lines.py:477](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L477): *"The water chain — the flow regulator, the split and V-K — stands down the east pocket at the deck height these lanes would otherwise run at. The lanes dip UNDER the whole column."*
+- [_lines.py:477](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L477): *"The water chain — the flow regulator, the split and V-K — stands down the east pocket at the deck height these lanes would otherwise run at. The lanes dip UNDER the whole column."*
 
 So the east pocket holds a stack of three free-placement components, and the nozzle lanes contort around them. That stack — not the tubes — is what's really parked where the pump wants to go, and it's also what forces `water-4` to leave westward. Moving those three is the unlock.
 
@@ -1181,7 +1181,7 @@ You're right — I was wrong, and it removes the domino entirely.
 
 There is no blocker. I was wrong.
 
-The evidence is in the route itself — [_lines.py:492](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L492):
+The evidence is in the route itself — [_lines.py:492](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L492):
 
 ```
 {"z": deck_z},      # up out of the pocket

@@ -143,7 +143,7 @@ Dispatched. While they run, here's the frame I built for them — and one thing 
 
 ## What I checked before briefing anyone
 
-**The electronics were never placed at all.** `POWER_ASSEMBLY` and `PCBA_ASSEMBLY` are declared at [_contents.py:194](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L194) and never seated with `_at`. And [scorecard.py:696](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L696) still carries a full J1–J14 port table mapped to world by `(x+258.8, y+228.8)`, z=292.5 — putting the board at roughly x[190.8, 275.8] y[192.5, 265.3]. The pump now occupies x[96,283] y[200,298]. **That port table points into the middle of the SeaFlo.** It's a fossil of a pose that predates two re-lays, and it's been quietly sitting in the scorecard.
+**The electronics were never placed at all.** `POWER_ASSEMBLY` and `PCBA_ASSEMBLY` are declared at [_contents.py:194](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L194) and never seated with `_at`. And [scorecard.py:696](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L696) still carries a full J1–J14 port table mapped to world by `(x+258.8, y+228.8)`, z=292.5 — putting the board at roughly x[190.8, 275.8] y[192.5, 265.3]. The pump now occupies x[96,283] y[200,298]. **That port table points into the middle of the SeaFlo.** It's a fossil of a pose that predates two re-lays, and it's been quietly sitting in the scorecard.
 
 So this isn't "place a part in the void that opened." It's "the world has moved twice under a placement that was never made."
 
@@ -253,7 +253,7 @@ Two things the relay gave me that are worth more than the orientation:
 
 **A measurement trap that would have corrupted every geometry answer.** `fit.py try` at default clearance records **bounding-box** gaps, not solid distances — session 1 read 0.63 mm to a tube run, nearly redesigned around it, and the exact `probe gap` was **58.2 mm**. Long diagonal tube runs have boxes that are mostly air. All three agents now have that warning.
 
-**An unmodeled keep-out sitting on your mounting surface.** [_contents.py:54](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L54) declares a CO2 entry down through the foam-cap top at **(141.5, 199.8)**. It isn't modeled — probing that column finds only cap slab. So no clearance check defends it, and an agent surveying the cap would mount straight through it. Session 1 also found it's probably *removable*: the foam's front face already carries a shared slot at world x=141.5 for the evaporator stubs, water inlet and PRV vent. I've handed that to the constraint agent and asked it to sweep for **other** declared-but-unmodeled keep-outs, since that's the class of thing the other three will walk through unseeing.
+**An unmodeled keep-out sitting on your mounting surface.** [_contents.py:54](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L54) declares a CO2 entry down through the foam-cap top at **(141.5, 199.8)**. It isn't modeled — probing that column finds only cap slab. So no clearance check defends it, and an agent surveying the cap would mount straight through it. Session 1 also found it's probably *removable*: the foam's front face already carries a shared slot at world x=141.5 for the evaporator stubs, water inlet and PRV vent. I've handed that to the constraint agent and asked it to sweep for **other** declared-but-unmodeled keep-outs, since that's the class of thing the other three will walk through unseeing.
 
 One caveat on reusing session 1's verified arrangement: those numbers predate the east re-lay and the 5 mm `RING_SEAT` rise. It solved against a **55.5–96 mm** west column; the column is now **107.7 × 147.6 × 77.3**. The conclusion "side-by-side is impossible" was true at 96 mm and needs re-deriving at 107.7 — bare arithmetic still says no (52 + 73.3 = 125.3 across, 109 + 90.8 = 199.8 deep), but that's box arithmetic, which is exactly the reasoning you've twice had to correct.
 
@@ -451,7 +451,7 @@ Both defects verified independently. Reporting.
 
 ## Two live defects at HEAD
 
-**1. The SeaFlo is sitting on the CO2 riser.** The cap-top CO2 entry is at (141.5, **217.8**, 262.9) — [scorecard.py:521](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L521). My earlier coordinate was wrong because the docstring block at [_contents.py:43](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L43) is **18 mm stale in Y throughout** (it still quotes a front face of 182 against the real 200.0). Confirmed:
+**1. The SeaFlo is sitting on the CO2 riser.** The cap-top CO2 entry is at (141.5, **217.8**, 262.9) — [scorecard.py:521](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L521). My earlier coordinate was wrong because the docstring block at [_contents.py:43](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py#L43) is **18 mm stale in Y throughout** (it still quotes a front face of 182 against the real 200.0). Confirmed:
 
 ```
 probe cast 141.5,217.8,259.0 0,0,1 --dia 6.35
@@ -462,11 +462,11 @@ probe hits --x 133.5,149.5 --y 209.8,225.8 --z 258.4,340
 
 The pump's base is flat on the cap directly over the bore. `_contents.py` still claims the pose leaves the CO2 entry "in open air ahead of it." Nothing catches it: the CO2 segment is unrouted, and the port scores `ok` only because `_on_surface`'s tolerance exceeds the 4.5 mm it floats above the cap.
 
-**2. `discharge-chain` is declared twice** — [scorecard.py:127](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L127) and `:128`, two `_c(...)` rows with differing notes. `reg` dedupes to 36 but `total = len(COMPONENTS)` is 37, so **every goal denominator is inflated by one** and `parts-sourced` reads 37/37 over a pack holding 36 bodies.
+**2. `discharge-chain` is declared twice** — [scorecard.py:127](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py#L127) and `:128`, two `_c(...)` rows with differing notes. `reg` dedupes to 36 but `total = len(COMPONENTS)` is 37, so **every goal denominator is inflated by one** and `parts-sourced` reads 37/37 over a pack holding 36 bodies.
 
 ## The finding that matters most
 
-There is a hard ceiling on the board's crown that nobody knew about — [_lines.py:474](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L474):
+There is a hard ceiling on the board's crown that nobody knew about — [_lines.py:474](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L474):
 
 ```python
 if "pcba" in f:
@@ -478,7 +478,7 @@ for what, crown in crossings:
 
 With `deck_z = 292.43`, `od = 6.35`, `LANE_CLEAR = 5.65`, the maximum board crown is **283.605 mm**. The `pcba-assembly` is 27.10 tall, so **flat on the foam cap it raises the build — by 1.895 mm.** It reads the board's *global* bbox zmax with **no X/Y overlap test**, so it fires wherever the board sits.
 
-**And your idea is what clears it.** That 27.10 includes the tray's own `floor_t = 3.0` ([power_tray.py:51](https://github.com/derekbreden/homesodamachine/blob/d025bf95/hardware/printed-parts/electronics/power-tray/power_tray.py#L51)). Print the bosses into the cap and the floor disappears: board underside at 258.40 + 5.0 standoff = 263.40, crown at **282.50** — inside the limit by 1.105 mm. The tray isn't just surplus; it's the 3 mm that breaks the build. I've asked the pose agent to verify that against real geometry rather than my arithmetic.
+**And your idea is what clears it.** That 27.10 includes the tray's own `floor_t = 3.0` ([power_tray.py:51](https://github.com/derekbreden/homesodamachine/blob/f4b40831/hardware/printed-parts/electronics/power-tray/power_tray.py#L51)). Print the bosses into the cap and the floor disappears: board underside at 258.40 + 5.0 standoff = 263.40, crown at **282.50** — inside the limit by 1.105 mm. The tray isn't just surplus; it's the 3 mm that breaks the build. I've asked the pose agent to verify that against real geometry rather than my arithmetic.
 
 ## What the audit settled
 
@@ -1040,7 +1040,7 @@ Four agents, four fences, ~950k tokens. The net:
 
 ## The one thing I want your call on
 
-The board must sit low to clear the lane gate — which is why it takes the cap column and the PSU goes elsewhere. **But that gate is over-broad by its own documented intent.** [_lines.py:474](https://github.com/derekbreden/homesodamachine/blob/67dc4e83/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L474) tests the board's *global* bbox zmax with no X/Y overlap check, while its comment says it measures "against every placed part it **crosses**." `fluid-18`/`28` run at x ≥ 199; the west column is x ≤ 96. They never meet.
+The board must sit low to clear the lane gate — which is why it takes the cap column and the PSU goes elsewhere. **But that gate is over-broad by its own documented intent.** [_lines.py:474](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py#L474) tests the board's *global* bbox zmax with no X/Y overlap check, while its comment says it measures "against every placed part it **crosses**." `fluid-18`/`28` run at x ≥ 199; the west column is x ≤ 96. They never meet.
 
 Fixing that check is defensible on the merits — but it also happens to unlock poses for me, so I'd rather do it as its own change with the reasoning visible than quietly bundle it into a placement. Two paths:
 
