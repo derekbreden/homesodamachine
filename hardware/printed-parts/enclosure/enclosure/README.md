@@ -48,10 +48,14 @@ body straddles the seam and neither does whatever holds it, and a body standing 
 above one is a body the seam passes under. This column has no such band inside the
 bed's: the cold core stands from the floor slab and the whole service bay stands on
 its lid, so the column runs solid to the bay's crown and what it leaves open is above
-all of it. So that seam runs **through** its column, on the lane its lip needs — a
-one-`wall` ring inset from the cavity, held open at every height by the standoffs the
-pack is packed to, one wall off the front and back walls and one boss chain off the
-sides, which `_lip_denied` measures. The four station collars ride with that ring, in
+all of it. So that seam runs **through** its column, on the lane its lip needs — the cavity's
+own one-`wall` skin (`_lip_band`, the same shape `_z_lip` fuses onto a piece), held open at
+every height by the standoffs the pack is packed to, one wall off the front and back walls
+and one boss chain off the sides. Being the skin and not a box, it **wraps every column
+standing in a vertical**, and that wrap stands a whole `column_round` inboard of any wall
+segment — so a body clear of all four walls can still be in the lip's way there, as the
+PSU's aft corner is at the X+/Y+ column. `_lip_denied` measures that lane over the column
+being searched and no other, each seam answering for its own half of the box. The four station collars ride with that ring, in
 the ±X boss-chain bands its own side segments run down, so a seam height carries the
 lip and the collars together. The cold core spans that
 seam, as it spans the front column's on the other side of the Y joint.
