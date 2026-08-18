@@ -70,14 +70,18 @@ The full-width facet raises no new standing vertical: it ends on the ±X
 exterior walls, which are already relieved, so the chamfer runs out into their
 own rounds.
 
-Inside those same verticals stand the COLUMNS — the outer relief mirrored, a
-`column_round` bulge tangent to both inner faces with the corner behind it solid,
-running floor slab to ceiling. They are the cavity's own shape (`_cavity`), so
-everything held inside it meets a column the way it meets a wall: a Z seam's lip
-wraps the face and telescopes on it, a pod's collar is clipped by it, and a mount
-inside the footprint is the column's material with only its bore left. Where the
-column takes a corner the seam's own station there stands off it
-(`_z_front_station_y`) — a pillar for a screw.
+Inside those same verticals stand the COLUMNS, and each is that relief MIRRORED.
+The wall carries its round through as a cove one `wall` in — the arc the cavity
+turns from one inner face round to the other — and the column is that arc folded
+across its own chord: the same radius the other way, off the same two points on
+the same two faces. So the section is a LENS, two sharp corners opposite each
+other on the walls and two round sides opposite each other, and it runs floor slab
+to ceiling. They are the cavity's own shape (`_cavity`), so everything held inside
+it meets a column the way it meets a wall: a Z seam's lip wraps the face and
+telescopes on it, a pod's collar is clipped by it, and a mount inside the
+footprint is the column's material with only its bore left. Where a lens would
+hole the collar at a seam station, the station stands off its cusp instead
+(`_z_front_station_y`).
 
 A plug is the wall it drives through and the reach it needs past it: the first
 `wall` of its length is that wall's own material and the rest a stub off it, its
@@ -150,18 +154,25 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 
 # --- the standing corners' columns ------------------------------------------
 #
-# THE COLUMN IS THE OUTER ROUND'S MIRROR. Outside, the wall leaves each standing vertical
-# on a `corner_round` arc tangent to both outer faces, curving away from the corner.
-# Inside, a column curves the same radius the other way — a cylinder tangent to both INNER
-# faces, with the quadrant behind it solid — so the corner reads as one round from either
-# side and the box gains a pillar down its whole height where it was carrying a cove.
+# THE COLUMN IS A LENS, and the lens is the wall's own rounding MIRRORED. Each standing
+# vertical is relieved `corner_round` outside and carries that relief through the wall as a
+# cove one `wall` in — the arc the cavity turns from one inner face round to the other,
+# springing from a point on each. FOLD THAT ARC ACROSS ITS OWN CHORD and the column is what
+# comes back: the same radius curving the other way, off the same two points on the same two
+# faces. Its centre lands on the interior corner itself, which is what mirroring that arc
+# does to the centre it was struck on.
 #
-# It is a pillar and not a feature at a station: it runs floor slab to ceiling, so every
-# Z seam crosses it and the seam's own lip wraps its face the way it wraps a wall
-# (`_cavity`). What stands in a corner is ABSORBED — a boss inside the footprint is the
-# column's own material and keeps only its bore, and a seam station whose collar has no
-# room left to stand in stands off it instead (`_z_front_station_y`).
-column_round = corner_round
+# The two arcs meet at 90° where they land, so the section is a LENS — two SHARP corners
+# opposite each other, one on each wall, and two ROUND sides opposite each other: the cove
+# it seats in behind, and that cove's mirror bulging into the room ahead. Nothing is tangent
+# and nothing is filled in; the column is the fold and no more.
+#
+# It is a pillar and not a feature at a station: it runs floor slab to ceiling, so every Z
+# seam crosses it and the seam's own lip wraps its face the way it wraps a wall (`_cavity`).
+# What stands in a corner is ABSORBED — a boss inside the footprint is the column's own
+# material and keeps only its bore — and a seam station whose collar would be holed by the
+# lens stands off its cusp instead (`_z_front_station_y`).
+column_round = corner_round - wall
 # The corners that carry one, as the (x, y) signs of the interior corner each stands in.
 column_corners = ((-1, -1),)
 
@@ -805,42 +816,49 @@ def _round_z(solid, r):
     return cq.Workplane(obj=solid).edges("|Z").fillet(r).val()
 
 
-def _column_axis(inner, sx, sy):
-    """One corner column's axis — one `column_round` in from each of the two inner faces
-    it stands on, which is what makes it tangent to both."""
+def _column_arcs(inner, sx, sy):
+    """The two centres one corner column's two arcs are struck on: the INTERIOR CORNER,
+    which the mirrored arc is swung from, and the centre the cavity turns its own corner
+    on, one `column_round` in from each of the two inner faces.
+
+    Mirroring an arc across its chord mirrors the centre with it, and for a quarter turn
+    between two faces that lands the image on the corner the two faces meet at. So one
+    radius and these two points are the whole of the lens."""
     ix0, ix1, iy0, iy1, _iz0, _iz1 = inner
-    return ((ix0 + column_round) if sx < 0 else (ix1 - column_round),
-            (iy0 + column_round) if sy < 0 else (iy1 - column_round))
+    px = ix0 if sx < 0 else ix1
+    py = iy0 if sy < 0 else iy1
+    return (px, py), (px + (column_round if sx < 0 else -column_round),
+                      py + (column_round if sy < 0 else -column_round))
 
 
 def _corner_column(inner, sx, sy, grow, z):
-    """One corner column as a solid over the height span `z`, its bulge grown `grow` into
-    the room.
+    """One corner column as a solid over the height span `z`, grown `grow` into the room.
 
-    The pillar is the bulge AND the corner behind it: the cylinder alone would leave a
-    lens of air between its face and the cove the cavity already rounds there, so the
-    quadrant from the axis out through both walls is filled with it. Growing moves the
-    bulge only — the quadrant is buried in the wall, where an offset has nothing to say."""
-    ix0, ix1, iy0, iy1, _iz0, _iz1 = inner
-    ax, ay = _column_axis(inner, sx, sy)
+    The lens between the two arcs: inside the one swung from the corner, outside the one
+    the cavity turns there. Growing swells the first and shrinks the second, which is the
+    one offset read on each arc's own side of the material.
+
+    Two whole circles leave a crescent as well as a lens, and the crescent is the arm that
+    runs off round the corner into the wall — so the pair is clipped to the quadrant the
+    column stands in, out through both faces it springs from. What comes back is the lens
+    alone, cusps on those faces."""
+    (px, py), (qx, qy) = _column_arcs(inner, sx, sy)
     z0, z1 = z
-    qx0, qx1 = (ix0 - 1.0, ax) if sx < 0 else (ax, ix1 + 1.0)
-    qy0, qy1 = (iy0 - 1.0, ay) if sy < 0 else (ay, iy1 + 1.0)
-    return _zcyl(column_round + grow, ax, ay, z0, z1).fuse(
-        _ybox(qx0, qx1, qy0, qy1, z0, z1))
+    reach = column_round + grow
+    lens = _zcyl(reach, px, py, z0, z1).cut(
+        _zcyl(column_round - grow, qx, qy, z0 - 1.0, z1 + 1.0))
+    qx0, qx1 = (px - wall, px + reach) if sx < 0 else (px - reach, px + wall)
+    qy0, qy1 = (py - wall, py + reach) if sy < 0 else (py - reach, py + wall)
+    return lens.intersect(_ybox(qx0, qx1, qy0, qy1, z0, z1))
 
 
-def _column_along(reach):
-    """How far along a wall, from the interior corner, a column stands in the way of a
-    feature that reaches anywhere out to `reach` inboard of that wall's inner face.
+def _column_along():
+    """How far along a wall, from the interior corner, a column reaches.
 
-    A feature is a body over its whole reach, not a probe at the end of it, so what it has
-    to clear is the widest the bulge gets anywhere inside that band. Past one radius that
-    is the bulge's own diameter and reaching further inboard buys no more room."""
-    r = column_round
-    if reach >= r:
-        return 2.0 * r
-    return r + math.sqrt(r * r - (r - reach) * (r - reach))
+    Its CUSP stands on that wall's inner face, one radius from the corner, and the lens
+    closes back toward the corner from there — so a feature standing anywhere on the wall
+    meets the cusp and nothing of the column is further along than it."""
+    return column_round
 
 
 def _cavity(inner, inset=0.0, z=None):
@@ -985,14 +1003,14 @@ def _z_front_station_y(iy0):
 
     THE COLUMN TAKES THIS CORNER. With nothing standing there the collar's own −Y face lies
     on the front wall's inner face and the station is one bore radius behind it. Where the
-    standing vertical carries a column, the collar has no room in the cavity to stand in —
-    the pillar is the cavity there — so the station stands one socket_r behind the column's
-    own reach along the wall, which is the same clearance the aft station keeps from the
-    lip's Y gap. What the corner loses in seam furniture it gains in pillar."""
+    standing vertical carries a column, the lens runs up that wall to its cusp and would be
+    a leaf-shaped hole through the collar's root — so the station stands one socket_r behind
+    that cusp, which is the same clearance the aft station keeps from the lip's Y gap. The
+    collar comes out whole and the corner keeps its pillar."""
     plain = iy0 + wall + socket_bore_dia / 2.0
     if not any(sy < 0 for _sx, sy in column_corners):
         return plain
-    return max(plain, iy0 + _column_along(boss_in) + socket_r)
+    return max(plain, iy0 + _column_along() + socket_r)
 
 
 def front_band_free_y(front_face, z0=None, z1=None):
