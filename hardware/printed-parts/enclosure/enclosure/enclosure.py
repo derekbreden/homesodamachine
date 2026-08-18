@@ -893,6 +893,18 @@ def _cavity(inner, inset=0.0, z=None):
 # function that reads the placed parts), keyed by the footprint and depth probed,
 # and read by `_level_clear` to ask whether one particular height is usable. A
 # wall with nothing in the way gets no entry.
+#
+# THIS DICT IS EMPTY IN THE RUN THAT EXPORTS THE PIECES, and what makes that safe is that a
+# missing key is a reading here: `_level_clear` answers True on one, which is "nothing known
+# to be in the way". Run this module directly and it is `__main__`; `machine_of` then imports
+# `enclosure_assembly`, which imports `enclosure` — a SECOND copy of this file — so `_dims`
+# fills that copy's dict while `main()` builds the pieces out of this one's. Both boxes come
+# out the same today, measured piece by piece, because the one entry the pack puts here
+# changes no level's verdict.
+#
+# SO NOTHING THAT DOES NOT DEGRADE THAT WAY MAY LIVE HERE. A record whose absence would
+# silently drop a cut — a relief, a pocket, a station — rides the `Box` instead, which is
+# built in one copy and passed to the other. `Box.column_reliefs` is here for that reason.
 _wall_block = {}
 
 # Air round a body where a column is cut back for it, per side. The pocket is struck on the
