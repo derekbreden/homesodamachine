@@ -572,9 +572,13 @@ def east_lane_free(cond) -> float:
     the block's east flank — so the lane the block may take is the lane that leaves the fin one
     printable `enclosure.wall` of section. The block answers to the thing that holds it.
 
-    AND THE FIN ROOTS ON THE FACE THAT IS THERE. The block stands wholly under the front Z seam,
-    and a flank under a seam carries its lip's own wall down to the slab — so the fin's root is
-    `lip_face_x` and the lane stops one `wall` short of where a one-wall flank would put it."""
+    AND THAT FIN IS THE WALL. The block stands wholly under the front Z seam, and a flank under a
+    seam carries its lip's own wall down to the slab (`enclosure._lip_underwall`) — `2 * wall` of
+    it. So the section the fin needs is section the wall already has: what the lane leaves is one
+    `enclosure.cond_mount_clear` of air off `lip_face_x`, and the fingers root on the flank
+    itself. The two readings come to the same plane and the block does not move for the
+    thickening — which is what keeps its liquid line the one straight length across the lane
+    `_lines._refrig_2` draws."""
     b = box(cond)
     collar_z = _enc.front_band_collar_z()[0]
     # The block's own front face is what goes in: the fore end of the run comes back struck on
@@ -587,7 +591,7 @@ def east_lane_free(cond) -> float:
             f"band the front column leaves empty — under z {collar_z:g}, forward of y "
             f"{band_aft:g}. A block that meets that collar answers to the chain's whole reach "
             f"and not to its own fin, so it stands off `enclosure.side_band_inset` instead.")
-    return (_enc.lip_face_x()[1] - _enc.cond_mount_clear - _enc.wall) - b.xmax
+    return (_enc.lip_face_x()[1] - _enc.cond_mount_clear) - b.xmax
 
 
 def slide_east(solid, carry, dx: float):
