@@ -3113,10 +3113,11 @@ def c14_flat_column() -> float:
     thing it has, and the face that bears — wholly on the wall's own flat rear face.
 
     `enclosure.corner_round` relieves the box's standing verticals for the bed, so the rear face
-    is flat only between the two tangents and rolls away to the side walls past them. The inner
-    round is one `enclosure.wall` smaller about the same axis, so both tangents stand on one X and
-    this reads off either. A flange carried past it is a flange bearing on curve."""
-    return (_enc.interior_x()[1] - (_enc.corner_round - _enc.wall)) - _c14.FLANGE_W / 2.0
+    is flat only between the two tangents and rolls away to the side walls past them — and where
+    a standing vertical carries a COLUMN the flat ends at its cusp instead, further in again.
+    `enclosure.wall_flat_from_corner` is whichever of those the wall actually presents. A flange
+    carried past it is a flange bearing on curve."""
+    return (_enc.interior_x()[1] - _enc.wall_flat_from_corner()) - _c14.FLANGE_W / 2.0
 
 
 # WHERE IT SITS ON THAT WALL IS STRUCK ON BOTH AXES, and neither figure is its own.

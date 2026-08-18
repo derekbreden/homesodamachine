@@ -2,9 +2,10 @@
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
     "APPLIANCE_HEIGHT": "358 mm",
     "BOX_SIZE": "215 \u00d7 462 \u00d7 358 mm",
-    "COLUMN_ALONG": "8.62 mm",
+    "COLUMN_ALONG": "12 mm",
     "COLUMN_ARC": "12 mm",
-    "COLUMN_DEPTH": "4.03 mm",
+    "COLUMN_DEPTH": "7.03 mm",
+    "COLUMN_STANDOFF": "1.24 mm",
     "CORE_HOLD_LAND": "8 mm",
     "CORE_HOLD_REACH": "12 mm",
     "CORE_HOLD_RISE": "40 mm",
