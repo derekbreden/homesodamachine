@@ -25,7 +25,7 @@ that sizes it. A consumer reading this module's STEP gets the pump.
 The pump's two outlet barbs sit on the body's +Y face (`body_y_face`) at the
 arch-notch positions and reach out toward the case wall (`y_face`); this model
 draws no tubing — `barb(i)` is each as a station in the pump's own frame, for
-whatever seats the pump and attaches downstream (see `pump_assembly.py`).
+whatever seats the pump and attaches downstream.
 """
 
 import sys

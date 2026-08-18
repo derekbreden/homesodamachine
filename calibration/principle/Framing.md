@@ -77,7 +77,7 @@ UIKit reads `LaunchScreen.storyboard` from the bundle **before the app process i
 
 **Shared faucet-stack geometry** ([_touch_flo_interface.py](/hardware/printed-parts/faucet/_touch_flo_interface.py)). Shell, mounting plate, TPU gasket, and under-counter plate all import the same shank diameter, pill dimensions, and flavor-tube X offset. The customer cannot find misalignment at install because the four parts are guaranteed concentric by construction, not by tolerance.
 
-**Cartridge buckle visibility** ([flavor/buckle/discussion.md:48-50](/hardware/printed-parts/flavor/buckle/discussion.md:48)). Lever arms live on the *cartridge*, not the dock — "when the cartridge is out of the dock, it's obvious how it works. The user can see the arms, see where they hook. No hidden mechanism inside the dock to figure out." Ski-boot lever geometry. Still-open question in the doc: "How to make the buckle obvious to a first-time user without instructions."
+**Cartridge buckle visibility** ([flavor/buckle/discussion.md:48-50](https://github.com/derekbreden/homesodamachine/blob/cfd73a7a/hardware/printed-parts/flavor/buckle/discussion.md#L48)). Lever arms live on the *cartridge*, not the dock — "when the cartridge is out of the dock, it's obvious how it works. The user can see the arms, see where they hook. No hidden mechanism inside the dock to figure out." Ski-boot lever geometry. Still-open question in the doc: "How to make the buckle obvious to a first-time user without instructions."
 
 ## Read on the level of polish
 
