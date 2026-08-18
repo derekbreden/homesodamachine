@@ -892,19 +892,14 @@ def _cavity(inner, inset=0.0, z=None):
 # follows the contents instead of drifting from them. Filled by _dims() (the one
 # function that reads the placed parts), keyed by the footprint and depth probed,
 # and read by `_level_clear` to ask whether one particular height is usable. A
-# wall with nothing in the way gets no entry.
+# wall with nothing in the way gets no entry, and `_level_clear` reads that absence as
+# "nothing known to be in the way".
 #
-# THIS DICT IS EMPTY IN THE RUN THAT EXPORTS THE PIECES, and what makes that safe is that a
-# missing key is a reading here: `_level_clear` answers True on one, which is "nothing known
-# to be in the way". Run this module directly and it is `__main__`; `machine_of` then imports
-# `enclosure_assembly`, which imports `enclosure` — a SECOND copy of this file — so `_dims`
-# fills that copy's dict while `main()` builds the pieces out of this one's. Both boxes come
-# out the same today, measured piece by piece, because the one entry the pack puts here
-# changes no level's verdict.
-#
-# SO NOTHING THAT DOES NOT DEGRADE THAT WAY MAY LIVE HERE. A record whose absence would
-# silently drop a cut — a relief, a pocket, a station — rides the `Box` instead, which is
-# built in one copy and passed to the other. `Box.column_reliefs` is here for that reason.
+# THE MODULE STATE HERE IS ONE COPY'S, which is what the `__main__` guard's alias at the foot
+# of this file is for: `_dims` fills this dict and `_level_clear` reads it, and a run that
+# exported the pieces out of a second copy of this module would read an empty one. What a
+# measurement wants instead is the `Box`, which is struck once and passed to whatever builds
+# from it — `Box.column_reliefs` is a measurement for that reason and not a dict here.
 _wall_block = {}
 
 # Air round a body where a column is cut back for it, per side. The pocket is struck on the
