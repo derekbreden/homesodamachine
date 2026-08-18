@@ -30,43 +30,35 @@ placed by
 The refrigeration stratum stands on the floor at the front and the cold core sits
 behind it, front face mated flush against the stratum's aft plane.
 
-Each column takes its bottom↔top seam at its own height, inside the band both its
-pieces print in (`_bed_band`): the piece under a seam runs the floor slab to the lip
-rim, the piece over it the seam to the top wall, and both stand on the bed.
+Both columns take their bottom↔top seam on **one stated plane**, `enclosure.z_seam`,
+inside the band both of a column's pieces print in (`_bed_band`): the piece under the
+seam runs the floor slab to the lip rim, the piece over it the seam to the top wall,
+and all four stand on the bed. The seam line runs level round the box, and the four
+pieces meet at a four-way corner on each side wall.
 
-The FRONT column's seam is a **stated** plane, `enclosure.front_z_seam` — which
-pieces the box comes apart into is a decision about the pieces, and this one stands
-over the refrigeration stratum's crown, so the compressor and the condenser
-beside it are one piece's whole cargo and the front-top piece carries nothing on the
-floor.
+Neither column leaves the plane an **open band** — a range with `z_joint_clear` of air
+on either side of it, read off the pack, where no body straddles the seam and neither
+does whatever holds one. The refrigeration stratum and the flavour deck run the front
+column solid; the cold core stands from the floor slab and the whole service bay
+stands on its lid in the back. So the seam runs **through** both columns, on the lane
+each lip needs — the cavity's own one-`wall` skin (`_lip_band`, the same shape `_z_lip`
+fuses onto a piece), held open at every height by the standoffs the pack is packed to,
+one wall off the front and back walls and one boss chain off the sides. Being the skin
+and not a box, it **wraps every column standing in a vertical**, and that wrap stands a
+whole `column_round` inboard of any wall segment — so a body clear of all four walls
+can still be in the lip's way there, as the PSU's aft corner is at the X+/Y+ column.
+`_lip_denied` measures that lane per column, each seam answering for its own half of
+the box (`z-seam-front-lane`, `z-seam-back-lane`). The four station collars ride with
+that ring, in the ±X boss-chain bands its own side segments run down, so the seam
+height carries the lip and the collars together. The cold core spans the seam in both
+columns.
 
-The BACK column's is **searched** instead. A searched seam wants the box's own
-half-height — the split that leaves both pieces their best chance on the bed — and
-takes the nearest height in an **open band** of its column: a range with
-`z_joint_clear` of air on either side of it, read off the pack (`_z_joints`). There no
-body straddles the seam and neither does whatever holds it, and a body standing clear
-above one is a body the seam passes under. This column has no such band inside the
-bed's: the cold core stands from the floor slab and the whole service bay stands on
-its lid, so the column runs solid to the bay's crown and what it leaves open is above
-all of it. So that seam runs **through** its column, on the lane its lip needs — the cavity's
-own one-`wall` skin (`_lip_band`, the same shape `_z_lip` fuses onto a piece), held open at
-every height by the standoffs the pack is packed to, one wall off the front and back walls
-and one boss chain off the sides. Being the skin and not a box, it **wraps every column
-standing in a vertical**, and that wrap stands a whole `column_round` inboard of any wall
-segment — so a body clear of all four walls can still be in the lip's way there, as the
-PSU's aft corner is at the X+/Y+ column. `_lip_denied` measures that lane over the column
-being searched and no other, each seam answering for its own half of the box. The four station collars ride with that ring, in
-the ±X boss-chain bands its own side segments run down, so a seam height carries the
-lip and the collars together. The cold core spans that
-seam, as it spans the front column's on the other side of the Y joint.
-
-The two stand `z_joint_pitch` apart — closer and the Y seam quietly comes out with
-fewer cross-pins than it has levels for — so the back column's search runs around the
-front's stated plane, and the `z-seam-pitch` gate reds when every height it has is
-inside that pitch. The pitch is what gives way there and the band is not: the seam
-still lands, in its own open band. They land
-far apart, which is why they stagger like a brick bond. `main()` prints each seam, how
-it landed, and the band the bed allowed it.
+The plane stands where the seam's own machinery fits the pack: the lip's fusion
+shoulder over the condenser's fin crown, the rim under the forward valve panel's plate
+(`z-seam-under-deck` — a plate roots on a wall only above the rim), and the rim
+crossing the pump heads' band on the air the pack stands them off the lip's face
+(`enclosure_assembly.PACK_Y`, `pumps-pass-lip`). `main()` prints each seam, how it
+landed, and the band the bed allowed it.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
@@ -93,22 +85,18 @@ possible: the lip's side segments pass in the ±X chain bands, its ceiling segme
 under the top wall, and the floor's shiplap inside the slab, so none of the three
 meets the core at all.
 
-That seam runs the box's whole height, so it is pinned at **six levels** per side
-wall, not once near the top — a wall above the floor, one under each Z seam, one
-over each of their lip rims, and one under the ceiling, so every piece crossing
-it is pinned at both ends of its own span. Because the Z seams stagger, a level
-pairs whichever front and back piece meet at that height — the brick bond. That
-ladder is also what sets the two Z seams' **offset**: `_bosses` drops a level
-landing within two socket collars of one already placed, so seams too close
-together silently cost the Y seam a fastener. The front seam's over-rim level and
-the back seam's under-seam level are the pair that meet, and the offset holds them
-a collar pitch apart.
+That seam runs the box's whole height, so it is pinned at **[4](Y_LEVELS) levels** per
+side wall, not once near the top — a wall above the floor, one under the Z-seam plane, one
+over its lip rim, and one under the ceiling, so every piece crossing it is pinned at
+both ends of its own span: the under-seam level pins the two bottom pieces, the
+over-rim level the two tops. `_bosses` drops a level landing within two socket
+collars of one already placed, so the ladder carries one level per distinct height it
+is owed.
 
-Bottom↔top, per column: the same joint rotated 90°, at `z_joint_front` and
-`z_joint_back` — the bottom pieces carry a 3-sided lip + socket collars, the top
-pieces carry the pins, more X-axis screws crossing
-each seam. The front pair joins, the back pair joins, then the front assembly
-telescopes into the back as one.
+Bottom↔top, per column: the same joint rotated 90°, at `enclosure.z_seam` — the
+bottom pieces carry a 3-sided lip + socket collars, the top pieces carry the pins,
+more X-axis screws crossing each seam. The front pair joins, the back pair joins,
+then the front assembly telescopes into the back as one.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
 the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
@@ -174,7 +162,7 @@ stays inside the slab, so the seat is square and there is nothing standing there
 clear.
 
 So the pack seats flush against the **seams**, not against the walls, and both
-walls carry all six levels at full section.
+walls carry all [4](Y_LEVELS) levels at full section.
 
 The Y seam is a stated plane, `enclosure.y_seam`, checked against those bands
 rather than derived from them: which pieces the box comes apart into is a decision

@@ -32,7 +32,7 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     proud tongue cannot, a shiplap within the slab (`_floor_lap`), so every seam
     laps and none butts — and four interlocking screw
     bosses cross the seam — one per ±X side wall per level, the bottom pair
-    tucked just under the front Z seam (so it pins the two bottom pieces),
+    tucked just under the Z-seam plane (so it pins the two bottom pieces),
     the top pair under the ceiling. Each boss is on an X axis: the screw
     drives in from the left/right EXTERIOR face. The BACK piece carries the
     PLUG (faucet mounting-plate idiom): a cylinder reaching inward from the
@@ -40,9 +40,9 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     FRONT piece's lip carries the SOCKET (faucet shell-bottom idiom): a
     collar bored to receive the plug, open on its +Y face so the plug drops
     in as the pieces close, with a ruthex M3 heat-set at the deep end.
-  * A bottom↔top split per column — the same joint rotated 90°, at a
-    different height each side of the Y seam (the seams stagger like a
-    brick bond; the front pair joins, the back pair joins, then the front
+  * A bottom↔top split per column — the same joint rotated 90°, at ONE
+    stated height both sides of the Y seam (`z_seam`, one level line round
+    the box; the front pair joins, the back pair joins, then the front
     assembly telescopes into the back). The BOTTOM pieces carry the lip — a
     3-sided band (their outer ±Y wall + both side walls, stopping short of
     the Y-seam overlap) telescoping +Z into the top pieces — with the
@@ -97,10 +97,11 @@ A level stands where its socket has a body to be bored into (`_level_clear`).
 
 Each seam is pinned at BOTH ends of every piece that crosses it, so nothing can
 hinge open at its far end: the Z seams at both ends of their column, and the Y
-seam at a level for each end of each piece — which, with two staggered Z seams,
-is six levels rather than one pair near the top. Levels are searched per side
-wall against what stands against it, so the two walls need not carry the same
-ones; main() prints what each ended up with.
+seam at a level for each end of each piece — with one seam plane that is four
+levels, the under-seam level pinning the two bottom pieces and the over-rim
+level the two tops. Levels are searched per side wall against what stands
+against it, so the two walls need not carry the same ones; main() prints what
+each ended up with.
 
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
@@ -609,51 +610,26 @@ rear_plane_y = 464.0
 # `housing_back_y` aft too, so what it spends is `hopper_front_ledge`.
 front_plane_y = 8.0
 
-# Where the box splits front from back, and where the front column splits bottom from
+# Where the box splits front from back, and where both columns split bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
 # about the pieces — what each has to carry, and what a hand reaches when the front
 # assembly is off — and the depth and height each piece comes to is what the plane
-# leaves. `_dims` measures them against the facet, the bed and the pack, and records what
-# it reads (`y-seam-clears-facet`, `z-seam-front-bed`, `z-seam-two-pieces`).
-#
-# The BACK column's Z seam is the one that is searched (`_z_joints`): the cold core
-# stands from the floor slab and the service bay stands on its lid, so that column runs
-# solid and its seam has to take whatever height the bed and the lip's own ring allow.
+# leaves. `_dims` measures them against the facet, the bed, the pack and each column's
+# own lip lane, and records what it reads (`y-seam-clears-facet`, `z-seam-bed`,
+# `z-seam-two-pieces`, `z-seam-front-lane`, `z-seam-back-lane`, `z-seam-under-deck`).
 y_seam = 200.0
-# The front column's seam stands clear UNDER the flavour pack's two pumps. Its lip carries
-# `lip_len` up into the cavity one wall proud of the interior face, and a pump head's front
-# face is on that face — so the plane is struck low enough that the lip's rim passes beneath
-# the head rather than against it (`z-seam-under-pumps`).
-front_z_seam = 150.0
+# The bottom↔top seam: ONE plane, both Y columns — the seam line runs level round the box
+# and the four pieces meet at a four-way corner on each side wall. The plane stands where
+# its own machinery fits the pack: the lip's fusion shoulder over the condenser's fin
+# crown (`z-seam-front-lane`), the rim under the forward valve panel's plate
+# (`z-seam-under-deck`), and the rim crossing the pump heads' band on the air the pack
+# stands them off the lip's face (`pumps-pass-lip`, `enclosure_assembly.PACK_Y`).
+z_seam = 160.0
 
-# The bottom↔top seam planes, one per Y column. The seam machinery (a one-wall lip
-# + the cross-pin pods) protrudes into the cavity at the walls, and every body in the
-# box stands inboard of it — the cold core one boss chain off each side wall, the
-# refrigeration stratum the same — so a lip segment and a pod run at full section at
-# any height, and what picks these two numbers is the pack and the print bed. A 400 mm
-# column split in two leaves each piece around half the height on its bed face against
-# the H2C's 320, so a seam takes the height nearest the half-height that its own
-# column leaves open, inside the band that leaves both its pieces on the bed
-# (`_bed_band`). Where a column leaves no such height, the seam takes the nearest one
-# the bed allows and runs its lip through the clearance the standoffs open
-# (`_lip_denied`). They STAGGER — the front pair joins, the back pair joins, then
-# the front assembly telescopes into the back — so a single plane never runs the box's
-# whole depth, and the offset between them is at least one cross-pin pitch, so neither
-# column's stations crowd the other's across the Y overlap. main() prints each piece's
-# bed face and the fit.
-# A seam landing in an open band keeps one `z_joint_clear` off every body in its own
-# column, so every body there lands whole in one piece and its mounts have one piece to
-# stand on — and a body standing clear ABOVE such a seam is one it passes under, the way
-# the front seam passes under the hopper funnel. `_dims` reads both off the pack
-# (`_z_joints`).
+# A seam landing in an open band keeps this much air off every body in its own column,
+# so a body there lands whole in one piece and its mounts have one piece to stand on.
+# `_z_joints` reads each column's open bands against it for `_report_seams`.
 z_joint_clear = 3.0
-# Each Y-seam level stands one (wall + bore radius) clear of a seam plane or a lip
-# rim, and `_bosses` DROPS a level landing within 2*socket_r of one already placed —
-# so two seams closer than this silently cost the Y seam a fastener. The front seam's
-# OVER-rim level and the back seam's UNDER-seam level are the pair that meet.
-# `_z_joints` picks the pair to clear it — the column with the least room to move goes
-# first and the other stands off it; main() prints what each wall got.
-z_joint_pitch = lip_len + 4.0 * socket_r + 2.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
@@ -1061,11 +1037,11 @@ def east_band_free_y():
     (`wall_band_corner_y` at a wall seat's reach), which is the one thing on this flank that
     stands at every height.
 
-    THE Z-SEAM STATIONS ARE NOT IN IT. Each is a collar `2 * socket_r` tall at the height its
-    own seam lands on, and that height is searched rather than stated (`_z_joints`) — so a
-    body standing clear of it in z passes it, and whether one does is a question about a
-    placed pack. `enclosure_assembly.check_east_band` asks that against `seam_bosses`, which
-    carries each boss's height as well as its station.
+    THE Z-SEAM STATIONS ARE NOT IN IT. Each is a collar `2 * socket_r` tall at the stated
+    plane's own height (`z_seam`) — so a body standing clear of it in z passes it, and
+    whether one does is a question about a placed pack. `enclosure_assembly.check_east_band`
+    asks that against `seam_bosses`, which carries each boss's height as well as its
+    station.
 
     Struck off the stated planes alone, `y_seam` and `rear_plane_y` — so a body reads it
     before the box that carries it has been sized, the same way it reads the wall itself
@@ -1077,11 +1053,11 @@ def front_band_collar_z():
     """The FRONT column's collars in height, as `(z0, z1)` — the only thing the seam stands in
     a ±X boss-chain band forward of the Y seam's own station.
 
-    THIS SEAM'S HEIGHT IS STATED where the back column's is searched (`front_z_seam`,
-    `_z_joints`), so the one boss the front half's bands carry has a height a body can be
-    placed against BEFORE the box is sized. `front_band_free_y` turns it into a depth; a caller
-    that wants to stand under it rather than beside it asks for it directly."""
-    zc = _z_pin_z(front_z_seam)
+    THE SEAM'S HEIGHT IS STATED (`z_seam`), so the one boss the front half's bands carry has
+    a height a body can be placed against BEFORE the box is sized. `front_band_free_y` turns
+    it into a depth; a caller that wants to stand under it rather than beside it asks for it
+    directly."""
+    zc = _z_pin_z(z_seam)
     return (zc - socket_r, zc + socket_r)
 
 
@@ -1107,8 +1083,8 @@ def front_band_free_y(front_face, z0=None, z1=None):
     """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
     `east_band_free_y` says this half has and is not.
 
-    The front column's two Z stations are its ends, and this seam's height IS stated
-    (`front_z_seam`), so a caller that says what height it stands at gets the answer for that
+    The front column's two Z stations are its ends, and the seam's height IS stated
+    (`z_seam`), so a caller that says what height it stands at gets the answer for that
     height: a body clear of the collars in z has the column from the front wall to the Y
     seam's own bosses. A caller that names no height gets the run with both collars standing.
 
@@ -1193,19 +1169,6 @@ def _clipped(bands, lo, hi):
     return [(a, b) for a, b in out if b >= a - 1e-9]
 
 
-def _outside(bands, lo, hi):
-    """`bands` with the OPEN interval `(lo, hi)` taken out — the heights left to a
-    seam once the other column's has taken one. The ends stay: `z_joint_pitch` is a
-    minimum, so a seam standing exactly that far off is far enough."""
-    out = []
-    for a, b in bands:
-        if a < lo:
-            out.append((a, min(b, lo)))
-        if b > hi:
-            out.append((max(a, hi), b))
-    return out
-
-
 def _bed_band(inner):
     """The heights a Z seam may take and leave both its pieces printable.
 
@@ -1285,43 +1248,27 @@ def _lip_denied(placed, inner, y_span):
 _z_seam_passes = {}
 
 
-def _z_joints(placed, inner, front):
-    """The bottom↔top seam height per Y column: `(front, back)`.
+def _z_joints(placed, inner, stated):
+    """The bottom↔top seam height per Y column: `(front, back)` — the one stated plane,
+    both.
 
-    `front` is the stated plane. It is checked against the bed — both its pieces have
-    to print — and then the BACK column is searched around it.
-
-    `_bed_band` is the band both of a column's pieces print inside; a seam lands in
-    it. Within it a seam wants the box's own half-height — the split that leaves both
-    pieces their best chance on the bed — and takes the nearest height in an OPEN BAND
-    of its own column, where no body straddles the seam and neither does whatever
-    holds one, and a body standing clear ABOVE the seam is one it passes under. A
-    column with nothing in it is one open band.
-
-    The back column has no open band inside the bed's: the cold core stands from the
-    floor slab and the whole service bay stands on its lid, so the column runs solid
-    to the bay's crown and what it leaves open is above all of it. That seam runs
-    THROUGH its column, on the lane its lip needs (`_lip_denied`).
-
-    The two stand `z_joint_pitch` apart, or the Y seam quietly comes out with fewer
-    cross-pins than it has levels for.
-
-    Four bounds are measured here and none of them stops the search: whatever the readings
-    say, both seam heights come back and the box is cut on them. A seam that has to run
-    through its column runs through it, and the pieces show that."""
+    `stated` is `z_seam`, and what is measured here is what it lands in: the band the bed
+    leaves a column's two pieces (`_bed_band`), each column's own lip lane — the heights
+    the pack leaves the lip's ring (`_lip_denied`) — and the open bands the column's
+    bodies leave, which is what `_report_seams` reads. None of the bounds stops the cut:
+    whatever the readings say, both seam heights come back and the box is cut on them."""
     iz0, iz1 = inner[4], inner[5]
     y_mid = (inner[2] + inner[3]) / 2.0
-    z_mid = (iz0 + iz1) / 2.0
     bed_lo, bed_hi = _bed_band(inner)
-    on_bed = bed_lo - 1e-9 <= front <= bed_hi + 1e-9
+    on_bed = bed_lo - 1e-9 <= stated <= bed_hi + 1e-9
     record_bound(Bound(
-        "z-seam-front-bed", "The front Z seam leaves both its pieces on the H2C's bed", on_bed,
-        f"seam at {front:.2f}, band {bed_lo:.2f}..{bed_hi:.2f}",
+        "z-seam-bed", "The Z seam leaves every piece on the H2C's bed", on_bed,
+        f"seam at {stated:.2f}, band {bed_lo:.2f}..{bed_hi:.2f}",
         f"inside the H2C's {H2C_Z:g} mm Z",
         ([] if on_bed else [
-            f"the front Z seam at {front:.2f} leaves a piece off the H2C's {H2C_Z:g} mm bed: "
-            f"the top piece wants it at or below {bed_hi:.2f} and the bottom at or above "
-            f"{bed_lo:.2f}. Move `front_z_seam` into that band"])))
+            f"the Z seam at {stated:.2f} leaves a piece off the H2C's {H2C_Z:g} mm bed: "
+            f"the top pieces want it at or below {bed_hi:.2f} and the bottoms at or above "
+            f"{bed_lo:.2f}. Move `z_seam` into that band"])))
     record_bound(Bound(
         "z-seam-two-pieces", "A column splits into two pieces the H2C can print",
         bed_hi >= bed_lo,
@@ -1336,43 +1283,23 @@ def _z_joints(placed, inner, front):
         b = _boxes.boxed(solid)
         col = "front" if (b.ymin + b.ymax) / 2.0 < y_mid else "back"
         spans[col].append((b.zmin, b.zmax))
-    whole = _clipped(_open_bands(spans["back"], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
-    _z_seam_passes["front"] = None                 # stated, so there is nothing to report
-    _z_seam_passes["back"] = not whole
-    bands = whole or _open_bands(
-        _lip_denied(placed, inner, (y_seam, inner[3])), bed_lo, bed_hi, 0.0)
-    record_bound(Bound(
-        "z-seam-back-band", "The back column leaves the bed a height its seam can take",
-        bool(bands),
-        f"{len(bands)} band(s) inside {bed_lo:.2f}..{bed_hi:.2f}", "at least one",
-        ([] if bands else [
-            f"the back column has no seam height the bed allows: inside "
-            f"{bed_lo:.2f}..{bed_hi:.2f} its bodies leave no band "
-            f"{2 * z_joint_clear:.2f} mm clear, and something stands in the lip's own "
-            f"ring at every height there. Repack, or split this column in three"])))
-    # THE SEAM STILL HAS TO LAND. With no band open it takes the bed's whole span, so the box
-    # is split where the bed allows and the lip runs through whatever stands in its ring —
-    # a clash in `pack-closes`, standing next to the row above.
-    bands = bands or [(min(bed_lo, bed_hi), max(bed_lo, bed_hi))]
-    # Nearest reachable height to the half-height, band by band; ties take the lower —
-    # and a full `z_joint_pitch` clear of the stated front seam, or the Y seam quietly
-    # comes out with fewer cross-pins than it has levels for.
-    left = _outside(bands, front - z_joint_pitch, front + z_joint_pitch)
-    # The pitch gives way and the band does not: a seam off its own column's open band cuts a
-    # body, and one too near the front's only costs the Y seam cross-pins it has levels for.
-    back = min((min(max(z_mid, lo), hi) for lo, hi in (left or bands)),
-               key=lambda z: (abs(z - z_mid), z))
-    record_bound(Bound(
-        "z-seam-pitch", "The two Z seams stand the pitch two Y-seam levels need apart",
-        bool(left),
-        f"back seam at {back:.2f}, {abs(back - front):.2f} mm off the front's {front:.2f}",
-        f"at least {z_joint_pitch:.2f} mm apart",
-        ([] if left else [
-            f"the back column's Z seam cannot stand the {z_joint_pitch:.2f} mm two Y-seam "
-            f"levels need off the front's stated {front:.2f}: every height it has "
-            f"({', '.join(f'{lo:.2f}..{hi:.2f}' for lo, hi in bands)}) is inside that pitch — "
-            f"move `front_z_seam`, or the back column's bodies have to leave a band elsewhere"])))
-    return front, back
+    for col, y_span in (("front", (inner[2], y_seam)), ("back", (y_seam, inner[3]))):
+        whole = _clipped(_open_bands(spans[col], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
+        _z_seam_passes[col] = not any(lo - 1e-9 <= stated <= hi + 1e-9 for lo, hi in whole)
+        lanes = _open_bands(_lip_denied(placed, inner, y_span), bed_lo, bed_hi, 0.0)
+        in_lane = any(lo - 1e-9 <= stated <= hi + 1e-9 for lo, hi in lanes)
+        record_bound(Bound(
+            f"z-seam-{col}-lane", f"The {col} column's lip ring is clear at the seam height",
+            in_lane,
+            f"seam at {stated:.2f}, lane "
+            + (", ".join(f"{lo:.2f}..{hi:.2f}" for lo, hi in lanes) or "nowhere"),
+            "a lane containing it",
+            ([] if in_lane else [
+                f"the {col} column's lip cannot run at {stated:.2f}: what reaches into its "
+                f"ring leaves "
+                + (", ".join(f"{lo:.2f}..{hi:.2f}" for lo, hi in lanes) or "no height")
+                + " — move `z_seam`, or repack what stands in the ring"])))
+    return stated, stated
 
 
 def _dims(pack):
@@ -1406,7 +1333,28 @@ def _dims(pack):
     iz1 = (iz0 - wall) + appliance_height - wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     y_joint = y_seam
-    splits = _z_joints(placed, inner, front_z_seam)
+    splits = _z_joints(placed, inner, z_seam)
+    # THE RIM'S OWN CEILING. Wall-rooted furniture stands on a piece's wall, and below the
+    # rim the wall's inner face is the bottom piece's lip — so the flavour deck's plates
+    # (the valve panels wall to wall, the pump trays' storey with its webs) stand whole
+    # above the rim. The lip's ring cannot read them: they are printed material, not pack,
+    # and a plate standing ON the rim is a touch with no volume in it. This reads their
+    # storeys off the same stations the pieces build them from.
+    rim = max(splits) + lip_len
+    decks = [mz - _panel.height() / 2.0
+             for _plane, _sign, seats in pack.valve_panels
+             for mz in [(min(z for _x, z in seats) + max(z for _x, z in seats)) / 2.0]]
+    decks += [cz for _cx, _cy, cz in pack.pump_trays]
+    deck_floor = min(decks) if decks else iz1
+    record_bound(Bound(
+        "z-seam-under-deck", "The Z-seam rim stays under the flavour deck's lowest plate",
+        rim < deck_floor - stated_bound_tol,
+        f"rim at {rim:.2f}, deck floor at {deck_floor:.2f}",
+        "air between them",
+        ([] if rim < deck_floor - stated_bound_tol else [
+            f"the lip's rim at {rim:.2f} reaches the deck's lowest wall-rooted plate at "
+            f"{deck_floor:.2f} — a plate roots on a wall only above the rim. Lower "
+            f"`z_seam`, or raise the deck"])))
     band_bosses = seam_bosses(inner, y_joint, splits)
     # What the pack still has to earn is the clearance. A body on the slab is held one
     # `side_band_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
@@ -2048,14 +1996,12 @@ def _bosses(inner, splits, y_joint):
     inboard, and the bore-axis height.
 
     The Y seam runs the box's whole height and BOTH columns cross it, so it is
-    pinned at a level for each end of each piece that crosses it — which means
-    both Z seams count, not just one. `splits` is every Z-seam height; each
-    contributes a level just under it and one just over its lip rim, and the
-    floor and ceiling close the ends. With the two staggered seams that is six
-    levels, and every piece then carries a level at each end of its own span:
-    the front pieces meet at the front seam, the back pieces at the back seam,
-    and the stagger pairs whichever front and back piece share a height — the
-    brick bond.
+    pinned at a level for each end of each piece that crosses it. `splits` is
+    every Z-seam height; each DISTINCT height contributes a level just under it
+    and one just over its lip rim, and the floor and ceiling close the ends.
+    With one seam plane that is four levels, and every piece carries a level at
+    each end of its own span: the under-seam level pins the two bottom pieces,
+    the over-rim level the two tops.
 
     A level sits as near the end it pins as its OWN wall allows — the two walls
     are independent screws, so each is searched separately and they need not
@@ -2074,7 +2020,7 @@ def _bosses(inner, splits, y_joint):
         at = (lambda want, away, limit, x=x_in, s=sx:
               _seam_level(inner, fy0, fy1, want, away, limit, x, s, boss_in))
         wanted = [(zf, +1.0, zt)]                                  # a wall above the floor
-        for sp in sorted(splits):
+        for sp in sorted(set(splits)):
             wanted.append((sp - wall - r, -1.0, zf))               # just under that Z seam
             wanted.append((sp + lip_len + wall + r, +1.0, zt))     # just over its lip rim
         wanted.append((zt, -1.0, zf))                              # under the ceiling
@@ -2611,7 +2557,8 @@ vent_ramp_rise = 40.0          # over which the floor runs back out and turns th
 
 
 def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
-    """The PRV vent's chase on a −X wall PIECE, for the station inside the band it owns.
+    """The PRV vent's chase on a −X wall PIECE, for the station whose DISCHARGE opens
+    through the wall this piece owns.
 
     One station, `(x, y, z)`: the core's own west flank and the tube's own axis where it comes
     through, in the machine's own frame. A RIB is fused up the wall's inner face OUT TO THAT
@@ -2620,12 +2567,21 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     of the wall is still standing outboard of it. The mouth is `vent_channel_w` square, on the
     tube's own axis, and its lip is the rib's east face — the face that lands on the core.
 
+    THE DISCHARGE IS THE OWNER. The passage opens through the wall at the ramp's foot, so
+    the chase goes on the piece whose band holds that foot — the bottom piece wherever the
+    Z seam crosses the chase — and the rib stands proud past that piece's own rim the way
+    the lip does, into the cavity the descending top wall closes: above the rim the duct's
+    west face is that wall's own inner face, pressed on the rib the way every telescope
+    face in this box is, and the groove's through-wall band above the seam stays walled by
+    it.
+
     THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
     down as that floor is still inboard of what the skin alone stands `vent_rib_wall` behind.
     Under that the ramp is cutting skin the wall already had, and the rib ends on the ramp's
     own slope."""
     for sx, sy, sz in stations:
-        if not (y0 <= sy <= y1 and z0 <= sz <= z1):
+        vent = sz - vent_duct_drop - vent_groove_drop - vent_ramp_rise
+        if not (y0 <= sy <= y1 and z0 <= vent <= z1):
             continue
         half = vent_channel_w / 2.0 + vent_rib_wall
         rib_x = sx                                  # the lip, on the core's own flank
@@ -3400,10 +3356,11 @@ def _c14_bosses(solid, inner, outer, stations, z0, z1):
 
 def build_piece(box, y_side, z_side, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
-    its own seam (`box.splits` — the staggered pair), the bottom taking the Z
-    lip + socket collars, the top taking the pins + X-axis screw bores.
-    The Y-seam bosses' bottom pair sits under the LOWER seam (the front's), so
-    it lands in — and pins — the two bottom pieces."""
+    its seam (`box.splits` — the one stated plane, both columns), the bottom
+    taking the Z lip + socket collars, the top taking the pins + X-axis screw
+    bores. The Y-seam bosses' under-seam level sits under that plane, so it
+    lands in — and pins — the two bottom pieces; the over-rim level the two
+    tops."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     zj = box.splits[0] if y_side == "front" else box.splits[1]
@@ -3727,6 +3684,10 @@ def main():
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
+        # The Y-seam ladder as the walls came out — per wall, and one figure when they agree.
+        "Y_LEVELS": "/".join(str(c) for c in sorted({
+            sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.splits, box.y_joint)
+                if s == sx) for sx in (+1.0, -1.0)})),
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",

@@ -4,7 +4,7 @@
     "APPLIANCE_W": "215 mm",
     "BODY_COUNT": "90",
     "BOX_SIZE": "215 \u00d7 462 \u00d7 358 mm",
-    "C14_BACK": "x 72, z 336.2",
+    "C14_BACK": "x 69, z 336.2",
     "C14_FLANGE_W": "47",
     "CAP_CONDUITS": "9",
     "CAP_FLUID_LINES": "7",
@@ -26,7 +26,7 @@
     "FOAM_SHELL_Y": "181",
     "GROMMET_SQUEEZE": "0.4",
     "HOPPER_GATE_STATUS": "currently passes",
-    "HOPPER_LANE_SIDE": "4.043 mm",
+    "HOPPER_LANE_SIDE": "3.050 mm",
     "HOPPER_NEAR_A": "valve-v-d",
     "HOPPER_NEAR_B": "tee-y-a",
     "HOPPER_TUBE_D": "\u00d86.35",
@@ -39,7 +39,7 @@
     "REAR_SEAM_CLEAR": "3 mm",
     "SIDE_BAND": "14 mm",
     "SOCKET_OD": "16.3 mm",
-    "STRATUM_X": "180",
+    "STRATUM_X": "177",
     "UMBILICAL_CARB_X": "-37.71",
     "UMBILICAL_PITCH": "40.36 mm",
     "UMBILICAL_STATIONS": "-78.07 / -37.71 / -37.71",
@@ -47,7 +47,6 @@
     "WATER_BACK_X": "-78.07",
     "WATER_BACK_Z": "336.2",
     "Y_SEAM": "200",
-    "Z_SEAM_BACK": "197.7",
-    "Z_SEAM_FRONT": "150"
+    "Z_SEAM_FRONT": "160"
   }
 }
