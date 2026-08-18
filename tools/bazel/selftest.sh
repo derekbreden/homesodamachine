@@ -13,11 +13,10 @@
 # repo root to walk imports across a real path, which a read-only runfiles tree refuses. What
 # the test is cached on is still its declared data; what it runs in is the workspace.
 #
-# AND ITS TMPDIR IS ITS OWN. `lanes.py` keeps a snapshot of the standing machine under
-# `tempfile.gettempdir()` and `held()` hands back ANY `hsm-lanes-*.json` there, newest first —
-# so a test reading one is reading a file nobody declared, which may describe a machine that
-# has since moved. It prints `TAKEN BEFORE … MOVED` and passes or fails without reading its
-# own warning. A directory of its own means it finds nothing and builds what it measures.
+# AND ITS TMPDIR IS ITS OWN, so what a selftest leaves in one goes when the test does. A hold
+# that reads the world reads it under `lanes.snapshot(exact=True)`, which answers with the
+# snapshot this tree's own sources name and stands the machine when there is none — the
+# eight-minute build, kept in `.cache/lanes/` where the next reader finds it.
 #
 # AND THE TREE IT RUNS IN IS THE TREE BAZEL STAGED. The path below names one checkout, while
 # a worktree of this repo is a second one that bazel serves from its own workspace — where
