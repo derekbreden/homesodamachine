@@ -7,6 +7,7 @@
     "POST_DIA": "6.8",
     "SEAT_TOP_Z": "6",
     "SOCKET_CLEAR": "0.2 mm",
+    "SOCKET_DEPTH": "7",
     "SOCKET_DIA": "7.2",
     "SOCKET_FLOOR_Z": "-1",
     "WALL": "3 mm"

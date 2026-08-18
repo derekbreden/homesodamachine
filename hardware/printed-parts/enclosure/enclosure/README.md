@@ -543,7 +543,9 @@ plate's own band, so the storey comes out **one plate wall to wall** rather than
 tongues in air. None of the four is a typed span: the three across are the remainder
 between the interior faces and the flanks the trays already have, and the aft one reads
 the panel's own near face, taking the nearest panel plate that crosses this band and
-leaving the aft deck's to its own storey.
+leaving the aft deck's to its own storey. That near face is the plate's own — the valve
+panels carry their seats **sunk**, so nothing stands off one for a web to run into
+([`../valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)).
 
 Printed ceiling-down the plate goes on the bed first and everything over it — ramp,
 bore wall, shoulder — grows off its underside, so the only face that hangs is the

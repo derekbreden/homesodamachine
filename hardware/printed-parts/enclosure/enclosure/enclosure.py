@@ -3047,37 +3047,55 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 
 # --- the flavour manifold's valve panels ------------------------------------
 #
-# A PANEL IS A PLATE WALL TO WALL, carrying one four-boss `valve_seat` per valve on the deck it
-# stands under. `valve_panel` states its thickness, its margin and its seat height and draws one
-# in its own frame; this turns that onto the deck's own plane and fuses it into the piece, the
-# way `_asse_cradle` fuses the trough and `_digiten_saddles` the meter's two Vs.
+# A PANEL IS A PLATE WALL TO WALL, with one four-socket `valve_seat` SUNK into it per valve on
+# the deck it stands under. `valve_panel` states its thickness, its margin and its seat height
+# and draws one in its own frame; this turns that onto the deck's own plane and fuses the plate
+# into the piece, the way `_asse_cradle` fuses the trough and `_digiten_saddles` the meter's two
+# Vs — and then cuts the seats and the ports' channels out of it.
+#
+# THE PLATE IS THE BOSS. A boss is material round a socket, and a plate one socket and one wall
+# thick is that material: a seat sunk into it leaves nothing standing off its face. Which is the
+# whole point on this piece — it prints the plate VERTICAL, so a boss on it would be a Ø13.2
+# cylinder cantilevered into air with its own underside to bridge, and there are thirty-two of
+# them. Sunk, the seat is a blind hole in solid material and the port's channel a notch running
+# up the plate's own section: no overhang in the feature and no support in it to pick out.
 #
 # NOTHING FASTENS A VALVE TO IT. The four corner posts press into their sockets and the valve's
-# own round body boss lands on the boss tops, which is what sets its height — the same bargain
-# the cold core's cap lid strikes under its own three valves.
+# own round body boss lands on the plate's face, which is what sets its height — the same
+# bargain the cold core's cap lid strikes under its own three valves, whose thinner lid stands
+# the bosses instead.
 def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
     """Every valve panel whose deck falls in the depth and height band this piece owns.
 
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
     faces on, which way their own +Z runs off it, and one `(x, z)` per valve. The plate's own
     extent is the seats' — wall to wall across, and one `valve_panel.reach` plus a margin either
-    way along — so nothing here is a dimension this module chose."""
+    way along — so nothing here is a dimension this module chose.
+
+    THE SEATS ARE SUNK AND SO IS THE PORT'S OWN CHANNEL. The plate is a socket and a wall thick
+    (`valve_panel.THICK`), which is the material a boss would have been, so nothing is fused onto
+    its face: the sockets and the channel are CUT, and the face itself is the plane the valve's
+    round body boss lands on. Everything is struck in the valve's own frame at `plane`, its
+    mounting plane, and turned onto the deck — the plate's face follows from `SEAT` and is not
+    the datum anything here is placed on."""
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
         half = _panel.height() / 2.0
         if not (y0 <= plane <= y1 and z0 <= mid_z <= z1):
             continue
-        # The plate: its valve-side face on the deck's own plane, its back one `THICK` outboard.
+        # The plate: its valve-side face on the plane the valve lands on, its back one `THICK`
+        # outboard of that.
         face = plane - sign * _panel.SEAT
         near, far = sorted((face, face - sign * _panel.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
-        # And a seat under each valve, drawn in the valve's own frame and turned onto the deck.
+        turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
+                           -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
-            seat = _seat.build_seat(_panel.SEAT).val()
-            seat = seat.moved(cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
-                                          -90.0 if sign > 0 else 90.0))
-            solid = solid.fuse(seat.moved(cq.Location(cq.Vector(sx, face, sz))))
+            at = cq.Location(cq.Vector(sx, plane, sz))
+            solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
+            solid = solid.cut(_panel.build_port_channel(_panel.height() + 2.0)
+                              .val().moved(turn).moved(at))
     return solid
 
 
