@@ -2,13 +2,13 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-0b6f5f5b3837d6fb.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-0b6f5f5b3837d6fb.tar.gz"
+    "asset": "cad-6b27d0e2da2368b2.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6b27d0e2da2368b2.tar.gz"
   },
   "bundle": {
-    "sha256": "0b6f5f5b3837d6fba1154ed8a92716a969961d7f0a8a9283203b726e8aa4203f",
-    "bytes": 30372640,
-    "solids": 103
+    "sha256": "6b27d0e2da2368b2e0258973edfde5c225e292097987db8eeeefae7a398bfbe5",
+    "bytes": 29284937,
+    "solids": 100
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
@@ -39,7 +39,6 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "fc4a77f86798089ca75428c0dfdb2a97d14ea4e35b8f9149546219f6cda142e7",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": "b135cd5c6d164064578a9e5176de14e86861554bc91c472c5c1b00506a0880c5",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "000f33bb97e0e8743d3e8f3b66ea26ffe0bab9babbe038ef59c00bb53d4d6e7e",
-    "hardware/printed-parts/electronics/pcba-tray/pcba-tray.step": "f8d7c4a9800beadbac4a28855dffad7b4a721b9d88114c8014afc7d0945ac588",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "e3d72908f5a50380b340b629dcdb695a49bde18abbd23acaca518bd81145c4d4",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "7df79e752237e00ad1809a7fd7ce4be750dc82d3fdaac413157c237340c709d8",
     "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "daac242aef30ecfe48661b607cca972418134167b1a33ca77421d5c5e3ec983a",
@@ -49,7 +48,6 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e50514fd675803eb35e935040d02f9f1948544de56107dddde30ccc8de9455ae",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "d3dd6de15555d40137901333f073289b987b8325490d39c7e7b81c0dd1d020b6",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step": "17f01d9dbcc9aadd746e1d00b45f898a819c0e59aa20eb5b6712617740d9fb72",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step": "d6e87c36b7e9ee925f3ad847e31e84b7ec9db3985112f9b777b43f22a9373d59",
@@ -67,7 +65,6 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "df82012031c2c2015cee13dc64f594fbca83790bbf52b4c4247a04f25ea46ae3",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "3bb46a4eaa4eee86ddfdd2c0f7d3934fa1b9fc897cb58006755bd7aea47a779b",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "72f093d8ff0e66020485ad4ee9f4e3b474010f8d732fa152aff62fdd229b3bc9",
-    "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step": "aa64bf7b9b2246a98e370c510f3cdf8b2fd94f4eab84a04c65d6b928470ba842",
     "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step": "1775d43e2b86c8166f5f641c4e4d84074cef0ec8b21ba1d860df6715e00a74b5",
     "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step": "d0646de6dd341b106cf0ec76c01dfa3b3c116a795f16b63b7dc0d8978c5a7aad",
     "hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step": "a26c3ff8dc5977714c2c3c350456e68debb459361f6d8b2a06b826924f8ee1c2",

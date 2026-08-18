@@ -3316,21 +3316,14 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/pcba-tray/hardware/printed-parts/electronics/pcba-tray/pcba-tray.step",
         "out/pcba-tray/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/pcba-tray/hardware/printed-parts/electronics/pcba-tray/pcba-tray.step)
-O1=$$PWD/$(location out/pcba-tray/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py)
+O0=$$PWD/$(location out/pcba-tray/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -3343,8 +3336,7 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/electronics/pcba-tray/pcba_tray.py > /dev/null
-cp hardware/printed-parts/electronics/pcba-tray/pcba-tray.step $$O0
-cp hardware/printed-parts/electronics/pcba-tray/pcba_tray.py $$O1
+cp hardware/printed-parts/electronics/pcba-tray/pcba_tray.py $$O0
 """,
 )
 
@@ -4119,53 +4111,6 @@ cp hardware/printed-parts/enclosure/nameplate/README.md $$O2
 )
 
 genrule(
-    name = "port-ring-coupons",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
-        "hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-        "pysrc/hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
-        "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
-        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step",
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
-        "out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step)
-O1=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json)
-O2=$$PWD/$(location out/port-ring-coupons/hardware/printed-parts/enclosure/port-ring/coupons/README.md)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py > /dev/null
-cp hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step $$O0
-cp hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/port-ring/coupons/README.md $$O2
-""",
-)
-
-genrule(
     name = "port-ring",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -4642,42 +4587,6 @@ cp hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step $$O3
 cp hardware/printed-parts/faucet/tube-collar/tube-collar-water.step $$O4
 cp hardware/printed-parts/faucet/tube-collar/README.figures.json $$O5
 cp hardware/printed-parts/faucet/tube-collar/README.md $$O6
-""",
-)
-
-genrule(
-    name = "peristaltic-tube",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/peristaltic-tube/hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
-        "out/peristaltic-tube/hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/peristaltic-tube/hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step)
-O1=$$PWD/$(location out/peristaltic-tube/hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py > /dev/null
-cp hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step $$O0
-cp hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py $$O1
 """,
 )
 
@@ -6835,7 +6744,6 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "hardware/printed-parts/enclosure/nameplate/nameplate.py",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
         "hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
@@ -6989,7 +6897,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
-        "pysrc/hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
@@ -7650,203 +7557,6 @@ sh_test(
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/printed-parts/enclosure/nameplate/nameplate.py"],
-    size = "large",
-    tags = ["local"],
-)
-
-sh_test(
-    name = "port-ring-coupons-selftest",
-    srcs = ["tools/bazel/selftest.sh"],
-    data = [
-        "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
-        "hardware/manifold-layout/README.figures.json",
-        "hardware/manifold-layout/README.md",
-        "hardware/manifold-layout/_lines.py",
-        "hardware/manifold-layout/_scorecard.py",
-        "hardware/manifold-layout/enclosure-assembly.facts.json",
-        "hardware/manifold-layout/enclosure-assembly.scorecard.json",
-        "hardware/manifold-layout/enclosure_assembly.py",
-        "hardware/manifold-layout/manifold_layout.py",
-        "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
-        "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
-        "hardware/printed-parts/cadlib/snap.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "hardware/printed-parts/cold-core/_foam_cap.py",
-        "hardware/printed-parts/cold-core/_foam_shell.py",
-        "hardware/printed-parts/cold-core/_internal_routes.py",
-        "hardware/printed-parts/cold-core/_outer_shell.py",
-        "hardware/printed-parts/cold-core/_port_cuts.py",
-        "hardware/printed-parts/cold-core/_reed_channels.py",
-        "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
-        "hardware/printed-parts/cold-core/_reservoir_supports.py",
-        "hardware/printed-parts/cold-core/_support_ring.py",
-        "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
-        "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
-        "hardware/printed-parts/cold-core/foam-shell/README.md",
-        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-        "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
-        "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
-        "hardware/printed-parts/cold-core/prv-shroud/README.md",
-        "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-        "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
-        "hardware/printed-parts/cold-core/reed-bridge/README.md",
-        "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
-        "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json",
-        "hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md",
-        "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
-        "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
-        "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-        "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-        "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-        "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-        "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-        "hardware/printed-parts/cold-core/reservoir/vent.figures.json",
-        "hardware/printed-parts/cold-core/reservoir/vent.md",
-        "hardware/printed-parts/electronics/module_tray.py",
-        "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
-        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "hardware/printed-parts/enclosure/back-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/back-panel/README.md",
-        "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/enclosure/display-cover/README.figures.json",
-        "hardware/printed-parts/enclosure/display-cover/README.md",
-        "hardware/printed-parts/enclosure/display-cover/display_cover.py",
-        "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
-        "hardware/printed-parts/enclosure/display-gasket/README.md",
-        "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
-        "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
-        "hardware/printed-parts/enclosure/drip-pan/README.md",
-        "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
-        "hardware/printed-parts/enclosure/enclosure/README.figures.json",
-        "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "hardware/printed-parts/enclosure/nameplate/README.figures.json",
-        "hardware/printed-parts/enclosure/nameplate/README.md",
-        "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
-        "hardware/printed-parts/enclosure/nameplate/nameplate.py",
-        "hardware/printed-parts/enclosure/port-ring/README.figures.json",
-        "hardware/printed-parts/enclosure/port-ring/README.md",
-        "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
-        "hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step",
-        "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
-        "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step",
-        "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step",
-        "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step",
-        "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-b.step",
-        "hardware/printed-parts/enclosure/port-ring/port-ring-water.step",
-        "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-        "hardware/printed-parts/enclosure/pump-tray/README.figures.json",
-        "hardware/printed-parts/enclosure/pump-tray/README.md",
-        "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-        "hardware/printed-parts/faucet/tube-collar/README.figures.json",
-        "hardware/printed-parts/faucet/tube-collar/README.md",
-        "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
-        "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
-        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "hardware/printed-parts/flavor/pump-case/pump_case.py",
-        "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
-        "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
-        "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
-        "hardware/printed-parts/valve-seat/README.figures.json",
-        "hardware/printed-parts/valve-seat/README.md",
-        "hardware/printed-parts/valve-seat/valve_seat.py",
-        "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
-        "hardware/printed-parts/zone-c/hopper-funnel/README.md",
-        "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
-        "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
-        "hardware/reference/asse1022-assembly/README.figures.json",
-        "hardware/reference/asse1022-assembly/README.md",
-        "hardware/reference/asse1022-assembly/asse1022_assembly.py",
-        "hardware/reference/beduan-solenoid/README.figures.json",
-        "hardware/reference/beduan-solenoid/README.md",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "hardware/reference/compressor/README.figures.json",
-        "hardware/reference/compressor/README.md",
-        "hardware/reference/compressor/compressor.py",
-        "hardware/reference/condenser-block/condenser_block.py",
-        "hardware/reference/digiten-flow-sensor/README.figures.json",
-        "hardware/reference/digiten-flow-sensor/README.md",
-        "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
-        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "hardware/reference/flare38-14ptc/flare38_14ptc.py",
-        "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
-        "hardware/reference/gasher-check-valve/gasher-check-valve.step",
-        "hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "hardware/reference/ground-ring-stack/ground-ring-stack.step",
-        "hardware/reference/ground-ring-stack/ground_ring_stack.py",
-        "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
-        "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
-        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
-        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "hardware/reference/jg-pp010822e/jg_pp010822e.py",
-        "hardware/reference/jg-pp0408w/jg-pp0408w.step",
-        "hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
-        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "hardware/reference/meanwell-irm90/meanwell-irm90.step",
-        "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
-        "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-        "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        "hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
-        "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-        "hardware/reference/neofit-flow-control/neofit_flow_control.py",
-        "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
-        "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
-        "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
-        "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
-        "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
-        "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "hardware/reference/tee-connector/tee-connector.step",
-        "hardware/reference/tee-connector/tee_connector.py",
-        "hardware/reference/teyleten-relay/teyleten-relay.step",
-        "hardware/reference/teyleten-relay/teyleten_relay.py",
-        "hardware/reference/wago-221/wago-221-413.step",
-        "hardware/reference/wago-221/wago-221-415.step",
-        "hardware/reference/wago-221/wago-221-420.step",
-        "hardware/reference/wago-221/wago_221.py",
-        "hardware/reference/water-split/water_split.py",
-        "hardware/reference/waveshare-43b-display/README.figures.json",
-        "hardware/reference/waveshare-43b-display/README.md",
-        "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
-        "hardware/reference/worm-clamp/worm_clamp.py",
-        "hardware/reference/wr1110-regulator/wr1110-regulator.step",
-        "hardware/reference/wr1110-regulator/wr1110_regulator.py",
-        "hardware/reference/y-divider/y_divider.py",
-        "hardware/scripts/_boxes.py",
-        "hardware/scripts/_build_time.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_card.py",
-        "hardware/scripts/_clearing.py",
-        "hardware/scripts/_facts.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_measuring.py",
-        "hardware/scripts/_mesh_payload.py",
-        "hardware/scripts/_meshes.py",
-        "hardware/scripts/_overlap.py",
-        "hardware/scripts/_realized.py",
-        "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_seating.py",
-        "hardware/scripts/_stated_bounds.py",
-        "hardware/topology/fluid-topology.md",
-        "tools/docgen/__init__.py",
-    ],
-    args = ["hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py"],
     size = "large",
     tags = ["local"],
 )
@@ -10335,7 +10045,6 @@ filegroup(
         ":drip-pan",
         ":enclosure",
         ":nameplate-dimensions",
-        ":port-ring-coupons",
         ":port-ring",
         ":pump-tray",
         ":valve-panel",
@@ -10343,7 +10052,6 @@ filegroup(
         ":touch-flo-mounting-plate",
         ":touch-flo-tpu-o-ring",
         ":tube-collar",
-        ":peristaltic-tube",
         ":pump-case",
         ":pump-case-assembly",
         ":fuse-clamp",

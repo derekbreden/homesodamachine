@@ -193,20 +193,6 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
-  "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py": [
-    "hardware/printed-parts/cadlib/world_workplane.py",
-    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step",
-    "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
-    "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-    "hardware/scripts/_cadq_export.py",
-    "hardware/scripts/_materials.py",
-    "hardware/scripts/_measuring.py",
-    "hardware/scripts/_run_lock.py",
-    "tools/docgen/__init__.py"
-  ],
   "hardware/printed-parts/enclosure/port-ring/port_ring.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
