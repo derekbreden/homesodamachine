@@ -2,13 +2,13 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-6b27d0e2da2368b2.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6b27d0e2da2368b2.tar.gz"
+    "asset": "cad-2fcc1a07f8c8e3e0.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2fcc1a07f8c8e3e0.tar.gz"
   },
   "bundle": {
-    "sha256": "6b27d0e2da2368b2e0258973edfde5c225e292097987db8eeeefae7a398bfbe5",
-    "bytes": 29284937,
-    "solids": 100
+    "sha256": "2fcc1a07f8c8e3e0f5e860cbfcbe8c93a9fbbc589c9ed1d4cb5642961af04ffb",
+    "bytes": 29123260,
+    "solids": 98
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
@@ -83,7 +83,6 @@
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "eaa27722728ef4191bd13e9d15b6f6ec34f1e8e8b66ea5dfec6e4c0563c173f8",
     "hardware/reference/gasher-check-valve/gasher-check-valve.step": "25d6da051de05b0c881d6b831604c4d72c444e84a2f131adda69bb0a6f31c31a",
     "hardware/reference/ground-ring-stack/ground-ring-stack.step": "4cb96d52ed97d4c00579e4346b24d16aff811da62f8b2518096e6d2eb28b681e",
-    "hardware/reference/hopper-drain-stub/hopper-drain-stub.step": "81de851e43750a2b5f48a2f1b3ddfa2c18bcfcaac7e4426e927ca4612a2ceb09",
     "hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "097a227df9464bd81ae49637c79c8cb79e45a691e8fb10500679b6912d0f84f5",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "123a0d5b2edbdb0abf5b9c50fdbe1fc58ebbeb5bcff14af4a4f81fdc2d8452d4",
     "hardware/reference/jg-pp010822e/jg-pp010822e.step": "037097eaafba43dc73fdf34b36b1586e13d6a1da6ed06133bbad4a90e06bd306",
@@ -107,7 +106,6 @@
     "hardware/reference/wago-221/wago-221-413.step": "6bd0e3485302ed809ca71aea12feaea0948b70b86d056c3f6f810b9e8037ef31",
     "hardware/reference/wago-221/wago-221-415.step": "c75ffe261806db3907d10f3efff58f54acc868692ce2ce92eb8c342bac03e33d",
     "hardware/reference/wago-221/wago-221-420.step": "fab2fa3e31eb94eaa01ad97383fa2dc87eb8362add836e1d15b45f2372912f6e",
-    "hardware/reference/water-split/water-split.step": "1ca0fd614f52246d6b804e2506fae4ff2536e8597f7c287162b1c99a9ee8178a",
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": "4a16899d7033c6d335880b33bae9c41b5111e22f7a6fbfa0656866cc0816925f",
     "hardware/reference/worm-clamp/worm-clamp.step": "487d0d426df2628d033471683dcb358d5b3eff37f66d190cb0a48079c45f7d58",
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": "341af9353d03f238af50d00c90f1860fd6d6624ce0e27da1089477e165052a31"

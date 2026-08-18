@@ -10,6 +10,12 @@ The stub is hidden at both ends. `FUNNEL_ENGAGEMENT` of it stands inside the
 silicone and `UNION_INSERTION` inside the union, and the union's collet face
 meets the spout's own exit face, so nothing of it is in the room between them.
 
+THIS FILE WRITES NO SOLID. The stub is a cut length of the same 1/4" LLDPE every
+water-side run is drawn from, so it is stock and not a part: `build_stub()` hands
+it to the assembly that seats it, the way any other run is drawn. What is a part
+here is the JOINT — the three figures it stands on and the checks `joint_holds()`
+reads them against.
+
 Frame:
   Origin = the spout's exit face, on the spout's axis — the plane the funnel's
       silicone ends and the union's collet begins.
@@ -17,7 +23,7 @@ Frame:
       `+FUNNEL_ENGAGEMENT`; the union hangs at z ≤ 0.
 
 Run:
-    tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py
+    tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py selftest
 """
 
 import sys
@@ -33,13 +39,9 @@ for _p in (_hw / "scripts",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
-from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, one_body
 import worm_clamp as _clamp
 import jg_pp0408w as _union
 import hopper_funnel as _funnel
-
-STEP = _here.parent / "hopper-drain-stub.step"
 
 # --- the stub ---------------------------------------------------------------
 
@@ -119,33 +121,18 @@ def build_union():
     return _union.build_jg_pp0408w().translate((0, 0, -_union.reach()))
 
 
-def build_joint():
-    """Funnel spout, stub and clamp as one assembly — what leaves the bench closed up, and
-    what the customer's hand holds. The union is not in it: that is the joint that parts."""
+# --- controls -------------------------------------------------------------
+
+def selftest():
     joint_holds()
-    a = cq.Assembly(name="hopper-drain-stub")
-    a.add(build_stub(), name="hopper-drain-stub", color=cq.Color(0.92, 0.93, 0.95))
-    a.add(build_clamp(), name="hopper-drain-clamp", color=cq.Color(0.62, 0.64, 0.68))
-    return a
-
-
-def main():
-    joint_holds()
-    stub = build_stub()
-    bb = stub.val().BoundingBox()
-    print("Hopper drain stub — 1/4\" LLDPE, worm-clamped in the basin's silicone spout")
-    print(f"  Stub:   Ø{STUB_OD:g} × Ø{STUB_ID:g} bore, {LENGTH:.2f} mm long")
-    print(f"          {FUNNEL_ENGAGEMENT:.2f} up the spout, {UNION_INSERTION:g} into the union")
-    print(f"  Spout:  Ø{SPOUT_OD:.2f}, band on as moulded — {CLAMP_RESERVE:.2f} mm of screw "
-          f"travel left on a {_funnel.spout_wall:g} mm wall")
-    print(f"  Clamp:  {_clamp.BAND_W:g} mm band on a {FUNNEL_ENGAGEMENT:.2f} mm land, "
-          f"{CLAMP_SHOULDER:.2f} mm of shoulder either side")
-    print(f"  Union:  {UNION_DROP:g} mm from the spout's face to where fluid-4 starts")
-    print(f"  Canonical-frame bounding box: Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-
-    export_assembly(one_body(stub, "hopper-drain-stub", M_PETG_BLACK), str(STEP))
-    print(f"-> {STEP.name}")
+    return ["  the band lands on round silicone, the clamp reaches it, and the stub is "
+            "inside the spout and the union at once"]
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+        for line in selftest():
+            print(line)
+        print("hopper_drain_stub selftest OK")
+    else:
+        print(__doc__)
