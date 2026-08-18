@@ -125,7 +125,7 @@ Note: my `rg -ril` flag was parsed as `--replace il` — that's why the output r
 
 ---
 
-Found it — `chip_word_colors` in [_back_panel_dimensions.py:69](hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py:69). Let me find everything that consumes it before editing.
+Found it — `chip_word_colors` in [_back_panel_dimensions.py:69](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py:69). Let me find everything that consumes it before editing.
 
 ---
 
@@ -380,13 +380,13 @@ The session has a live peer channel — using that instead of the file mailbox.
 
 ---
 
-Done — change is committed and pushed as [7fc6de2ff](hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py).
+Done — change is committed and pushed as [7fc6de2ff](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py).
 
 **Nameplate session** (relayed in, read-only): building the rear-face nameplate — a 2 mm screw-mounted plate in the field east of the flavour chips. It fixed the C14 outlet's placement, cut the plate's pocket and two heat-set bosses into `enclosure-back-top`, sized the plate to 104.53 × 66.07 mm, and updated the ledgers and assembly docs. It left off mid-rebuild, re-running geometry after a peer changed how generated solids reach the repo.
 
 **Your change.** The CO2 chip's word now letters in white:
 
-- [`_back_panel_dimensions.py:69`](hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py:69) — `chip_word_colors["co2"]` is `(255, 255, 255)`. Everything letters from this one dict, so the chip, the coupons, the assembly and the drawings all follow it.
+- [`_back_panel_dimensions.py:69`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py:69) — `chip_word_colors["co2"]` is `(255, 255, 255)`. Everything letters from this one dict, so the chip, the coupons, the assembly and the drawings all follow it.
 - Rebuilt and verified: `port-ring-co2.step` carries red body + white word, and the thumbnail shows it. `check_step_colours.py` green at 101/101.
 
 Two things worth telling you:

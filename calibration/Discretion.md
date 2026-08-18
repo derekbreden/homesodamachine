@@ -112,7 +112,7 @@ He has described how he reads, precisely, and it is not linear:
 > between 1 and 8 words at the start of each paragraph. I found a couple points throughout
 > there to stop and look at a collection of ~8 words in the middle or end of a paragraph. I
 > then looked at a bit of the end. Then I started typing this message.
-> — [`sessions/Comments are a code smell.md`](sessions/<Comments are a code smell.md>)
+> — [`sessions/Comments are a code smell.md`](<sessions/Comments are a code smell.md>)
 
 It is not a complaint he keeps to himself, either: *"I couldn't read more than a few words
 of what you said, so please don't take my response as affirming anything you said."* *"Look,

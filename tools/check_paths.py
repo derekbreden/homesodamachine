@@ -57,8 +57,11 @@ file — so `git ls-files` is read on NEWLINES. Splitting it on whitespace drops
 file, and a scan that drops files reports clean.
 """
 
+import bisect
+import itertools
 import json
 import re
+from functools import lru_cache
 import subprocess
 import sys
 from pathlib import Path
@@ -83,7 +86,17 @@ SOURCE_PATH_RE = re.compile(r"(?<![\w./-])(/?[A-Za-z0-9_][A-Za-z0-9_.-]*(?:/[A-Z
 REF_WORD_RE = re.compile(r"(?<![\w/-])((?:archive|superseded|pattern)[\w./-]*|[\w.-]*-last-known)(?![\w-])")
 REVISION_RE = re.compile(r"(?<![\w/:-])([\w.][\w./-]*):([\w][\w./-]*\.[\w]+|[\w][\w./-]*/)(?![\w/-])")
 
+# THE DOMINANT ARCHIVE FORM IN THIS TREE. A path that HEAD no longer has is written as a
+# blob URL pinned to the commit that still holds it —
+#   https://github.com/<owner>/<repo>/blob/<sha>/hardware/…/scorecard.py#L472
+# — and the sha is the whole point of it. A pin at a sha where the path is not actually
+# there reads as a working citation and is not one, so the sha is asked.
+BLOB_URL_RE = re.compile(
+    r"https://github\.com/[\w.-]+/[\w.-]+/blob/([0-9a-f]{7,40})/([^)\s#\"'<>]+)")
+
 # Ways of writing "a path" that are not paths.
+SHA_RE = re.compile(r"(?<![\w/])([0-9a-f]{8,40})(?![\w/])")
+
 PLACEHOLDER_SEGMENTS = {"foo", "bar", "baz", "qux", "path", "to", "NAME", "name",
                         "<board>", "<name>", "<dir>", "<n>", "a", "b", "x", "y"}
 PLACEHOLDER_MARKS = ("...", "*", "{", "}", "$", "%s", "XX", "NN", "_N.")
@@ -139,6 +152,14 @@ def _tags() -> set:
     return {ln for ln in _git("tag", "-l").split("\n") if ln}
 
 
+@lru_cache(maxsize=None)
+def _is_commit(ref: str) -> bool:
+    r = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--verify", "--quiet", f"{ref}^{{commit}}"],
+                       capture_output=True, text=True, check=False)
+    return r.returncode == 0
+
+
+@lru_cache(maxsize=None)
 def _resolves_at(ref: str, path: str) -> bool:
     r = subprocess.run(["git", "-C", str(ROOT), "cat-file", "-e", f"{ref}:{path}"],
                        capture_output=True, text=True, check=False)
@@ -162,6 +183,21 @@ def _is_placeholder(path: str) -> bool:
            and not s[1:-1].endswith(KNOWN_SUFFIXES) for s in segs):
         return True
     return any(s in PLACEHOLDER_SEGMENTS for s in segs)
+
+
+def _line_index(text: str) -> list:
+    """Offsets of every newline, so a match's line is a bisect and not a re-count.
+
+    `text[:m.start()].count("\n")` walks the whole prefix for EVERY match, which on an
+    80 KB transcript with hundreds of links is the scan's whole cost.
+    """
+    # accumulate over line lengths, not a step per character: the newline before line n+1
+    # sits at (sum of the first n line lengths) + n.
+    return list(itertools.accumulate((len(ln) + 1 for ln in text.split("\n")), initial=-1))[1:]
+
+
+def _line_of(index: list, pos: int) -> int:
+    return bisect.bisect_right(index, pos) + 1
 
 
 def _strip_fences(text: str) -> str:
@@ -205,8 +241,11 @@ def _md_targets(text: str) -> list[tuple[int, str]]:
     """
     sources = _SOURCES_SECTION_RE.search(text)
     body = _strip_fences(text[:sources.start()] if sources else text)
-    out = []
-    for m in MD_LINK_RE.finditer(body):
+    matches = list(MD_LINK_RE.finditer(body))
+    if not matches:
+        return []
+    idx, out = _line_index(body), []
+    for m in matches:
         target = m.group(2).strip()
         if target.startswith("<") and target.endswith(">"):
             target = target[1:-1]
@@ -214,8 +253,13 @@ def _md_targets(text: str) -> list[tuple[int, str]]:
             continue
         if _DOCGEN_MARKER_RE.fullmatch(m.group(0)):
             continue
-        out.append((body[:m.start()].count("\n") + 1, target))
+        out.append((_line_of(idx, m.start()), target))
     return out
+
+
+_SCAN_C = re.compile(r'''"(?:[^"\\\\]|\\\\.)*"?|'(?:[^'\\\\]|\\\\.)*'?|`(?:[^`\\\\]|\\\\.)*`?|//|/\\*''')
+_SCAN_HASH = re.compile(r'''"(?:[^"\\\\]|\\\\.)*"?|'(?:[^'\\\\]|\\\\.)*'?|#''')
+_SCAN_PCT = re.compile(r'''"(?:[^"\\\\]|\\\\.)*"?|'(?:[^'\\\\]|\\\\.)*'?|%%''')
 
 
 def _outside_strings(line: str, marks: tuple) -> int:
@@ -223,23 +267,15 @@ def _outside_strings(line: str, marks: tuple) -> int:
 
     `"https://…"` carries a `//` and `"/*"` carries a block open; a scanner that finds them
     by `str.find` reads the rest of the file as commentary and every string in it as prose.
+
+    ONE REGEX PASS, NOT ONE PYTHON STEP PER CHARACTER. The alternation eats whole string
+    literals first, so any mark it returns is one no string covered — and the walk happens
+    in the regex engine rather than in a loop over 58 million `startswith` calls.
     """
-    i, quote = 0, ""
-    while i < len(line):
-        c = line[i]
-        if quote:
-            if c == "\\":
-                i += 2
-                continue
-            if c == quote:
-                quote = ""
-        elif c in "\"'`":
-            quote = c
-        else:
-            for m in marks:
-                if line.startswith(m, i):
-                    return i
-        i += 1
+    scan = _SCAN_HASH if marks == ("#",) else (_SCAN_PCT if marks == ("%%",) else _SCAN_C)
+    for m in scan.finditer(line):
+        if m.group(0) in marks:
+            return m.start()
     return -1
 
 
@@ -307,14 +343,17 @@ def _comment_spans(rel: str, text: str) -> str:
 def _source_targets(rel: str, text: str, topdirs: set) -> list[tuple[int, str]]:
     """(line, target) for every repo path a source file's COMMENTS name."""
     body = _comment_spans(rel, text)
-    out = []
-    for m in SOURCE_PATH_RE.finditer(body):
+    matches = list(SOURCE_PATH_RE.finditer(body))
+    if not matches:
+        return []
+    idx, out = _line_index(body), []
+    for m in matches:
         # A PATH THAT ENDS A SENTENCE ENDS WITH THE SENTENCE. `see hardware/a.md.` carries
         # a full stop the regex is happy to eat, and the file kind is then `.md.` — which
         # matches nothing, so the reference is dropped instead of read.
         target = m.group(1).rstrip(".,;:)\"'`")
         if target.endswith(KNOWN_SUFFIXES):
-            out.append((body[:m.start()].count("\n") + 1, target))
+            out.append((_line_of(idx, m.start()), target))
     return out
 
 
@@ -330,9 +369,14 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
     topdirs = {d for d in (p.split("/")[0] for p in files) if "." not in d}
     held = files | dirs | solids
 
+    # THIS FILE IS THE NOTATION, NOT A USE OF IT. Every rule above is written down beside
+    # the case that earned it — `images/anim_00.h`, `hardware/a.md`, a tag family's prefix —
+    # so a scan of this file reports the examples as though something meant them. Nothing
+    # does. `docgen.lint` skips `NAME` for the same reason and says so in the same breath.
     for rel in sorted(f for f in files
                       if f.endswith((".md",) + SOURCE_SUFFIXES)
-                      and not f.startswith(SKIP_TREES)):
+                      and not f.startswith(SKIP_TREES)
+                      and f != "tools/check_paths.py"):
         try:
             text = (ROOT / rel).read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
@@ -344,6 +388,7 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
         if not targets:
             continue
         blocks = _blocks(body)
+        bidx = None
 
         # A NAMED TAG THAT DOES NOT EXIST is a promise with nothing behind it, and it is
         # wrong whether or not the path beside it happens to land.
@@ -353,7 +398,8 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
             # anything but a tag are reported missing; a `pattern/` ref counts when known.
             if word.startswith(("archive-", "superseded-")) or word.endswith("-last-known"):
                 if word not in tags:
-                    line = body[:m.start()].count("\n") + 1
+                    bidx = _line_index(body) if bidx is None else bidx
+                    line = _line_of(bidx, m.start())
                     bad.append(f"{rel}:{line} — `{word}` is named as a tag; no such tag")
 
         for line, target in targets:
@@ -396,6 +442,7 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
             # Not at HEAD. Before it is wrong, ask every ref named in its own block.
             block = next((b for st, b in reversed(blocks) if st <= line), "")
             refs = {w.rstrip(".,;:`") for w in REF_WORD_RE.findall(block)} & tags
+            refs |= {h for h in SHA_RE.findall(block) if _is_commit(h)}
             if any(_resolves_at(r, c) for r in refs for c in cands):
                 continue
             # A tag reaches a tree HEAD does not have, so the reading that got closest is
@@ -426,13 +473,31 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
             else:
                 bad.append(f"{rel}:{line} — {cand} is held nowhere, and no tag is named for it")
 
+        # A blob URL carries its commit in the URL. The sha has to be one this clone has
+        # before the path can be asked of it — a pin at a commit nobody fetched is its own
+        # kind of dead reference.
+        for m in BLOB_URL_RE.finditer(body):
+            sha, path = m.group(1), m.group(2)
+            line = body[:m.start()].count("\n") + 1
+            # A SHA THIS CLONE DOES NOT HAVE IS NOT ANSWERABLE HERE. The history was
+            # rewritten (`calibration/traffic/CO2 white.md`, "44/44 tags now inside the new
+            # history … restored them from the mirror at their rewritten SHAs"), so every
+            # pin taken before that names a commit this repo dropped. Whether GitHub still
+            # serves it is a question about the remote, not about this tree, and a check
+            # that cannot answer a question does not get to fail it.
+            if not _is_commit(sha):
+                continue
+            if not _resolves_at(sha, path):
+                bad.append(f"{rel}:{line} — {path} is not at {sha}, which its blob URL pins it to")
+
         # The gitrevision form, `archive-blog:posts/…`, carries its own ref.
         for m in REVISION_RE.finditer(body):
             ref, path = m.group(1), m.group(2).rstrip("/")
             if ref not in tags or _is_placeholder(path):
                 continue
             if not _resolves_at(ref, path):
-                line = body[:m.start()].count("\n") + 1
+                bidx = _line_index(body) if bidx is None else bidx
+                line = _line_of(bidx, m.start())
                 bad.append(f"{rel}:{line} — {ref}:{path} does not resolve at that tag")
     return bad
 

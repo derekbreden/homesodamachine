@@ -24,8 +24,6 @@ logs/*.log
 node_modules
 
 # CAD script output (generated STEP/STL files)
-hardware/cartridge/scripts/output/*.step
-hardware/cartridge/scripts/output/*.stl
 
 # board-3d.py: the component-model download cache (manufacturer STEPs keyed by
 # LCSC) and the on-demand full B-rep assembly are regenerable and large. The
