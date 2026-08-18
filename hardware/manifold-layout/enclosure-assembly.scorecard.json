@@ -1013,7 +1013,7 @@
    "label": "The back column leaves the bed a height its seam can take",
    "kind": "gate",
    "status": "pass",
-   "value": "2 band(s) inside 35.00..303.90",
+   "value": "1 band(s) inside 35.00..303.90",
    "target": "at least one",
    "detail": [],
    "active": true
