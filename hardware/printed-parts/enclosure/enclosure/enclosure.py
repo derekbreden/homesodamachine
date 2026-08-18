@@ -48,7 +48,12 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     the Y-seam overlap) telescoping +Z into the top pieces — with the
     socket collars; the TOP pieces carry the pins. Four X-axis screws cross
     each seam (one per side wall per Y column: front pins at the front-wall
-    corners, back pins just behind the Y-seam mouth).
+    corners, back pins just behind the Y-seam mouth). A WALL THAT LIP STANDS
+    ON IS `2 * wall` THICK, floor slab to lip rim (`_lip_underwall`): the lip
+    is a skin standing proud of the interior face, and a skin that began at
+    the seam would land its underside in air — a soffit round three sides of
+    a piece that prints floor-down. Carried to the slab it is a wall instead,
+    and there is nothing in a bottom piece for the bed to bridge.
 
 The walls stand off the bodies rather than on them — one boss chain at the ±X
 walls, one wall at the back — because a body on the floor spans the interior wall
@@ -583,6 +588,17 @@ def interior_x():
     these and every body seated on a flank reads them through the same call, so the wall and
     the things that stand against it cannot come apart."""
     return (-(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall)
+
+
+def lip_face_x():
+    """The ±X interior faces BELOW a Z seam, one `wall` inboard of `interior_x`.
+
+    A wall a Z-seam lip stands on is `2 * wall` thick from the floor slab to the lip rim
+    (`_lip_underwall`), so what a body seated low on a flank meets is this plane and not
+    the other one. The MQ-6's card bottoms on it (`_west_cradle`), which is the whole of
+    what holds the card in X."""
+    ix0, ix1 = interior_x()
+    return (ix0 + wall, ix1 - wall)
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
@@ -700,7 +716,7 @@ z_lip_y_margin = 2.0
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
-#   column_reliefs what the standing corners' COLUMNS give up to the pack standing in them, one
+#   column_reliefs what the standing corners' PILLARS give up to the pack standing in them, one
 #                 (sx, sy, name, room) per body — the corner's own signs, whose body it is, and
 #                 the world box the column is cut back to, as the six plain bounds
 #                 `(x0, x1, y0, y1, z0, z1)` every other station on this tuple is written in.
@@ -858,6 +874,25 @@ def _corner_column(inner, sx, sy, grow, z):
     px, py = _column_arc(inner, sx, sy)
     z0, z1 = z
     return _zcyl(column_round + grow, px, py, z0, z1)
+
+
+def _column_pillar(inner, sx, sy, zj):
+    """One column AND the lip's own skin where it wraps it — the whole of what a body meets
+    at a standing vertical, and the whole of what gives way to one.
+
+    The lip and the wall under it are struck as the cavity's skin (`_lip_band`), so at a
+    vertical they do not stop at the column: they WRAP its face and stand one `wall` further
+    inboard than the pillar does, floor slab to rim. A body reaching into a corner meets that
+    wrap before it meets the column, and a relief measured on the column alone is a relief
+    that leaves the thing actually in the way standing.
+
+    `zj` is that Y column's own seam, so the wrap ends where its lip's rim does. Above it the
+    pillar is the column and nothing else."""
+    z = (inner[4] - 1.0, inner[5] + 1.0)
+    post = _corner_column(inner, sx, sy, 0.0, z)
+    wrap = _lip_band(inner, (inner[4], zj + lip_len)).intersect(
+        _corner_column(inner, sx, sy, wall, z))
+    return post.fuse(wrap)
 
 
 def _column_along():
@@ -1492,13 +1527,49 @@ def _dims(pack):
     # The plug opposite it stands within that same footprint at a shallower reach.
     fy0, fy1 = _y_corner(inner, y_joint)
     _measure_wall_block(placed, inner, fy0, fy1, boss_in)
+    # WHAT EACH LIP'S OWN WALL COSTS THE CAVITY. A flank under a Z seam is `2 * wall` thick
+    # from the slab to the rim (`_lip_underwall`), so on three sides of each bottom piece the
+    # room stops one `wall` inboard of `inner`. The pack already stands that far off every one
+    # of them — `front_seam_clear` and `rear_seam_clear` at the ±Y walls, `side_band_inset` at
+    # the ±X ones — and the MQ-6, the one body that touches a flank at all, is seated on this
+    # skin's own face (`lip_face_x`). A body that stands in it anyway is a body the wall is
+    # drawn through, which is a reading and not an assumption.
+    #
+    # WHAT IS MEASURED IS THE FLAT WALL AND NOT THE PILLARS. This skin wraps every column
+    # standing in a vertical, and a pillar GIVES WAY to a body standing in it — the wrap with
+    # the column, since a body meets the two as one thing (`_column_pillar`). Charging a body
+    # for the corner it is already relieved out of would report a clash the box does not build,
+    # so the pillars come out and `_report_columns` says what they gave.
+    under = []
+    for zj, (cy0, cy1) in ((splits[0], (iz0 - 1.0, y_joint)),
+                           (splits[1], (y_joint, iy1 + 1.0))):
+        band = _lip_underwall(inner, y_joint, zj).intersect(
+            _ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
+        for sx, sy in column_corners:
+            band = band.cut(_column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1]))
+        for name, (solid, _c) in placed.items():
+            hit = band.intersect(solid)
+            if hit.Volume() > 1e-3:
+                b = hit.BoundingBox()
+                under.append((name, hit.Volume(), b.zmin, b.zmax))
+    record_bound(Bound(
+        "wall-under-lip", "The pack stands clear of the wall under each Z-seam lip",
+        not under,
+        (f"{len(under)} bodies in it" if under else "clear on all three sides of both pieces"),
+        f"one `wall` ({wall:g} mm) off the ±Y walls and the ±X ones below each seam",
+        ([] if not under else
+         [f"{name} stands {vol:.1f} mm³ inside it, z {z0:.1f}..{z1:.1f}"
+          for name, vol, z0, z1 in under]
+         + ["the lip's wall carries to the slab so its shoulder is not a soffit, so a body "
+            "against a flank down there is a body the wall runs through. Repack it inboard, "
+            "or seat it on `lip_face_x` the way the MQ-6's card is"])))
     # WHAT THE COLUMNS GIVE UP. Measured here with everything else the placed pack decides,
     # against the same `inner` the columns are struck on.
     reliefs = []
     for sx, sy in column_corners:
-        post = _corner_column(inner, sx, sy, 0.0, (iz0 - 1.0, iz1 + 1.0))
+        pillar = _column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1])
         for name, (solid, _c) in placed.items():
-            hit = post.intersect(solid)
+            hit = pillar.intersect(solid)
             if hit.Volume() <= 1e-6:
                 continue
             # ONE POCKET PER LUMP THE BODY ACTUALLY STANDS IN, and not one for its whole
@@ -2215,6 +2286,18 @@ def _z_stations(inner, y_joint):
     return out
 
 
+def _lip_ring(inner, y_joint, z0, z1):
+    """One `_lip_band` skin over a height span, less the segment crossing the Y-seam
+    overlap — the shape both the lip and the wall under it are cut from, so the two come
+    out of one figure and fuse into one wall with no step where they meet."""
+    ix0, ix1 = inner[0], inner[1]
+    ring = _lip_band(inner, (z0, z1))
+    gap = _ybox(ix0 - 1.0, ix1 + 1.0,
+                y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
+                z0 - 1.0, z1 + 1.0)
+    return ring.cut(gap)
+
+
 def _z_lip(inner, y_joint, zj):
     """The bottom pieces' seam lip: a full-wall band whose outer faces are
     flush with the body's inner walls, running one wall down into the body
@@ -2232,14 +2315,32 @@ def _z_lip(inner, y_joint, zj):
     own one-`wall` skin (`_cavity`) rather than as a box: square corners would
     bite the rounded top-piece wall, and where a standing vertical carries a
     COLUMN the band wraps that column's face too — the pillar telescopes into the
-    piece above it on the same one wall of overlap every other face uses."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    z0, z1 = zj - wall, zj + lip_len
-    ring = _lip_band(inner, (z0, z1))
-    gap = _ybox(ix0 - 1.0, ix1 + 1.0,
-                y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
-                z0 - 1.0, z1 + 1.0)
-    return ring.cut(gap)
+    piece above it on the same one wall of overlap every other face uses.
+
+    THIS BAND IS THE TOP OF A WALL AND NOT A LEDGE ON ONE. What carries it down to the
+    floor slab is `_lip_underwall`, which is why the fusion shoulder is a shoulder and
+    not a soffit."""
+    return _lip_ring(inner, y_joint, zj - wall, zj + lip_len)
+
+
+def _lip_underwall(inner, y_joint, zj):
+    """The wall under a bottom piece's lip: the same skin, floor slab to the fusion
+    shoulder, so the wall is `2 * wall` thick from the slab to the lip rim.
+
+    THE LIP'S UNDERSIDE WOULD OTHERWISE BE A SOFFIT — one `wall` wide, pointing at the
+    bed, running three sides of a piece that prints floor-down, with nothing under it to
+    print on. A band fused onto a one-`wall` wall is a ledge; a band the wall has been
+    that thick all the way up to is a wall. This is the material that makes it the second
+    one, and the piece comes off the bed with no bridge in it and no support to pick out.
+
+    IT IS NOT PART OF THE SEAM. The lip's own band rides the seam height, which is what
+    `_lip_denied` reasons about and what the search moves; this stands between the floor
+    and that band wherever the band ends up. What has to be clear of it is the pack, and
+    the pack already stands one `wall` off both ±Y walls (`front_seam_clear`,
+    `rear_seam_clear`) and one boss chain off both ±X ones (`side_band_inset`) — every
+    face this skin is on. `wall-under-lip` measures that rather than assuming it, and
+    `lip_face_x` is the flank a body down there meets."""
+    return _lip_ring(inner, y_joint, inner[4], zj - wall)
 
 
 def _z_station_y(ys):
@@ -2572,12 +2673,17 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     THE BACK CHEEK IS CUT ACROSS THE HEADER. The pins face the card's back and the loom lands
     on them there, so a cheek running unbroken past them is a cheek nothing can reach through.
     The cut is struck on the pin field's own reach off the wall and runs both rails, because
-    which of the two the header ends up in is the card's turn to state and not this slot's."""
+    which of the two the header ends up in is the card's turn to state and not this slot's.
+
+    THE WALL IT BOTTOMS ON IS THE ONE THAT IS THERE. The card stands as low as a 32 mm card
+    stands, which is under a Z seam, and a flank under a seam carries its lip's own wall down
+    to the slab — so the datum is `lip_face_x` and not `interior_x`, `2 * wall` of flank and
+    not one. `enclosure_assembly.build_mq6` seats the board on the same call."""
     span, _off = _mq6.header_span()
     for sy, sz in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        cx0, cx1 = inner[0], inner[0] + mq6_card_x
+        cx0, cx1 = lip_face_x()[0], lip_face_x()[0] + mq6_card_x
         gy0 = sy - mq6_card_y / 2.0 - mq6_slot_press
         gy1 = sy + mq6_card_y / 2.0 + mq6_slot_press
         ry0, ry1 = gy0 - mq6_rail_wall, gy1 + mq6_rail_wall
@@ -3300,6 +3406,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     y_joint if y_side == "front" else oy1 + 1.0,
                     oz0 - 1.0, oz1 + 1.0)
         piece = piece.fuse(_z_lip(inner, y_joint, zj).intersect(col))
+        # And the wall that carries that lip down to the slab, so its fusion shoulder is a
+        # shoulder and not a soffit. Fused here with the lip and before every pocket, so a
+        # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
+        piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
@@ -3376,11 +3486,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
-    # Clipped to the column itself, so what a pocket can ever take is the pillar and never the
-    # wall behind it or the boss beside it.
+    # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
+    # so what a pocket can ever take is that and never the wall behind it or the boss beside it.
     for sx, sy, _name, room in box.column_reliefs:
-        post = _corner_column(inner, sx, sy, 0.0, (inner[4] - 1.0, inner[5] + 1.0))
-        piece = piece.cut(_ybox(*room).intersect(post))
+        pillar = _column_pillar(inner, sx, sy, box.splits[0] if sy < 0 else box.splits[1])
+        piece = piece.cut(_ybox(*room).intersect(pillar))
     return cq.Workplane(obj=piece)
 
 

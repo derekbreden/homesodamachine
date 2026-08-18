@@ -110,6 +110,19 @@ pieces carry the pins, more X-axis screws crossing
 each seam. The front pair joins, the back pair joins, then the front assembly
 telescopes into the back as one.
 
+**A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
+the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
+began at the seam would land its underside in air: a one-`wall` soffit round three
+sides of a piece that prints floor-down, with nothing under it to print on.
+`_lip_underwall` carries that same skin from the shoulder down to the slab, so the
+two fuse into one wall with no step in it and the bottom pieces come off the bed with
+no bridge in them. What it spends is the cavity, one `wall` off three sides of each
+bottom piece — which is what the pack already stands off them (`front_seam_clear`,
+`rear_seam_clear`, `side_band_inset`), measured rather than assumed by
+`wall-under-lip`. `lip_face_x` is the flank a body down there meets: the MQ-6's card
+bottoms on it, the condenser's aft fin roots on it, and the compressor's suction lane
+is struck from it.
+
 A Z seam is pinned at **both ends of its column**, not just one, or the far end
 hinges open. The front column takes the front-wall corner and the aft end of its
 own lip; the back column takes one just behind the Y-seam mouth and one in the
