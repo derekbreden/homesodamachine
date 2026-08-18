@@ -265,19 +265,39 @@ test("the build order respects every STEP-load edge (producers before consumers)
 });
 
 test("short basenames don't substring-match longer step names (collision regression)", () => {
-  // The bare "assembly.step" token is a substring of "source-select-assembly.step",
-  // "pump-case-assembly.step", "foam-assembly.step", etc. Matching it as a
-  // token must NOT pull in scripts that only reference those longer names — that
+  // The bare "assembly.step" token is a substring of "foam-assembly.step",
+  // "pcba-assembly.step", "hopper-funnel-mold-assembly.step" and the rest. Matching it
+  // as a token must NOT pull in scripts that only reference those longer names — that
   // invented reverse edges and cycles.
+  //
+  // THE WITNESSES HAVE TO EXIST. This test was written against source_select_assembly.py
+  // and pump_case_assembly.py, and went vacuous when both parts were deleted — it asserted
+  // that two absent files were absent. Name generators this tree still holds.
+  // A POSITIVE CONTROL FIRST. The bare token's answer is zero, and zero is also what a
+  // matcher that has stopped matching anything returns — so hold the full name against a
+  // live consumer set before reading the bare one's emptiness as a pass.
+  assert.ok(
+    findScriptsConsumingStep("foam-assembly.step", ROOTS).length > 0,
+    "the full name foam-assembly.step must still find its consumers, or the zero below means nothing",
+  );
+
   const consumers = findScriptsConsumingStep("assembly.step", ROOTS);
-  assert.ok(
-    !consumers.some(ends("source-select-tray/source_select_assembly.py")),
-    `tray assembly only names *-assembly.step, not the bare assembly.step; got:\n${consumers.map(rel).join("\n")}`,
-  );
-  assert.ok(
-    !consumers.some(ends("flavor/pump-case/pump_case_assembly.py")),
-    "pump-case assembly only names pump-case-assembly.step",
-  );
+  assert.equal(consumers.length, 0,
+    `nothing loads a file called assembly.step; got:\n${consumers.map(rel).join("\n")}`);
+  for (const witness of [
+    "cold-core/foam-assembly/foam_assembly.py",
+    "electronics/pcba-tray/pcba_assembly.py",
+    "zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
+  ]) {
+    assert.ok(
+      findGenerateScripts(ROOTS).some(ends(witness)),
+      `${witness} is the witness this regression is held by and it is not in the tree`,
+    );
+    assert.ok(
+      !consumers.some(ends(witness)),
+      `${witness} only names a *-assembly.step, not the bare assembly.step; got:\n${consumers.map(rel).join("\n")}`,
+    );
+  }
 });
 
 test("the import walk continues THROUGH a generator that doubles as a base module (regression)", () => {
