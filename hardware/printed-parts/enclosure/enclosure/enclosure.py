@@ -702,11 +702,11 @@ z_lip_y_margin = 2.0
 #                 (sx, sy, name, room) per body — the corner's own signs, whose body it is, and
 #                 the world box the column is cut back to, as the six plain bounds
 #                 `(x0, x1, y0, y1, z0, z1)` every other station on this tuple is written in.
-#                 A STATION IS NUMBERS. `_facts` serialises this whole Box for the eight doc
-#                 drivers that read it, so a field carrying a solid stops the build at
-#                 `_plain`; `build_piece` strikes the box when it cuts. Struck by `_dims` off
-#                 the placed parts rather than passed in by the pack, because it is the one
-#                 question that needs the bodies AND the walls at once; main() prints each.
+#                 A STATION IS NUMBERS: `_facts` serialises this whole Box for the eight doc
+#                 drivers that read it, and `build_piece` strikes the box where it cuts.
+#                 Struck by `_dims` off the placed parts rather than passed in by the pack,
+#                 because it is the one question that needs the bodies AND the walls at once;
+#                 main() prints each.
 #
 #                 A COLUMN GIVES WAY TO A BODY AND NOT THE OTHER WAY ROUND. It is a print-corner
 #                 feature — what it buys is a fat vertical on the bed, and it buys that over the
