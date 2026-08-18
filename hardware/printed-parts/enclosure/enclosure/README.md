@@ -255,17 +255,20 @@ So the section is a **lens**: **two sharp corners** opposite each other, one sta
 on each wall where the arcs meet at 90°, and **two round sides** opposite each other —
 the cove it seats flush against behind, and that cove's mirror bulging into the room
 ahead. Nothing is tangent and nothing is filled in; the column is the fold and no more,
-about 46 mm² of section running the box's whole height.
-`enclosure.column_corners` says which verticals have one.
+about 46 mm² of section running the box's whole height. All four standing verticals
+carry one (`enclosure.column_corners`), so each quadrant prints the two its own two
+exterior arrises stand behind.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
 Z-seam lip wraps its face and telescopes on it, a socket collar is clipped by it, and
 anything standing inside its footprint is **absorbed** — the boss becomes the column's
 own material and keeps only its bore. What a column cannot absorb is a seam station:
-the lens runs up the wall to its cusp and would be a leaf-shaped hole through a socket
-collar's root, so the front Z seam's front-wall station stands one collar radius behind
-that cusp instead (`enclosure._z_front_station_y`) and the collar comes out whole.
+the lens runs along the wall to its cusp and would be a leaf-shaped hole through a socket
+collar's root, so a station landing there stands one collar radius clear of that cusp
+instead and the collar comes out whole — the front column's front-wall station
+(`enclosure._z_front_station_y`) and the back column's rear-wall one
+(`enclosure._z_back_station_y`), which are the two ends that sit in a standing corner.
 
 The rest of the seam furniture follows the orientation rule: the Z-seam lip is a
 *horizontal* band that telescopes straight through those verticals, so it is struck as
