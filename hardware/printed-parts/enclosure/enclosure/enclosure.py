@@ -174,7 +174,7 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 # lens stands off its cusp instead (`_z_front_station_y`).
 column_round = corner_round - wall
 # The corners that carry one, as the (x, y) signs of the interior corner each stands in.
-column_corners = ((-1, -1), (1, -1), (-1, 1))
+column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -698,11 +698,22 @@ z_lip_y_margin = 2.0
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
+#   column_reliefs what the standing corners' COLUMNS give up to the pack standing in them, one
+#                 (sx, sy, name, room) per body — the corner's own signs, whose body it is, and
+#                 the world box the column is cut back to. Struck by `_dims` off the placed
+#                 parts rather than passed in by the pack, because it is the one question that
+#                 needs the bodies AND the walls at once; main() prints every one of them.
+#
+#                 A COLUMN GIVES WAY TO A BODY AND NOT THE OTHER WAY ROUND. It is a print-corner
+#                 feature — what it buys is a fat vertical on the bed, and it buys that over the
+#                 height it does have. A body hung on a wall answers to the boss that holds it
+#                 and to whatever the pack packed it against, and by the time one reaches a
+#                 corner both of those are already spent.
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
            "cond_mount asse_cradle digiten_saddles tube_anchors port_field nameplate "
-           "valve_panels pump_trays core_stops core_holds vent_chase")
+           "valve_panels pump_trays core_stops core_holds vent_chase column_reliefs")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -883,6 +894,12 @@ def _cavity(inner, inset=0.0, z=None):
 # and read by `_level_clear` to ask whether one particular height is usable. A
 # wall with nothing in the way gets no entry.
 _wall_block = {}
+
+# Air round a body where a column is cut back for it, per side. The pocket is struck on the
+# body's own BOX and not its solid: what stands in a column is a body's corner, a corner is
+# what a hand has to get past, and a pocket that hugged a casting's every feature would be a
+# pocket nothing could be lowered into.
+column_relief_slip = 1.0
 
 
 def _block_key(x_in, sx, y0, y1, depth):
@@ -1424,6 +1441,33 @@ def _dims(pack):
     # The plug opposite it stands within that same footprint at a shallower reach.
     fy0, fy1 = _y_corner(inner, y_joint)
     _measure_wall_block(placed, inner, fy0, fy1, boss_in)
+    # WHAT THE COLUMNS GIVE UP. Measured here with everything else the placed pack decides,
+    # against the same `inner` the columns are struck on.
+    reliefs = []
+    for sx, sy in column_corners:
+        post = _corner_column(inner, sx, sy, 0.0, (iz0 - 1.0, iz1 + 1.0))
+        for name, (solid, _c) in placed.items():
+            hit = post.intersect(solid)
+            if hit.Volume() <= 1e-6:
+                continue
+            # ONE POCKET PER LUMP THE BODY ACTUALLY STANDS IN, and not one for its whole
+            # envelope. A brick's box is the brick; a condenser block's box is mostly air, and
+            # a pocket struck on it would hollow the column over its whole height for the two
+            # sheet flanges that are really in there. Each lump the intersection comes back in
+            # gets its own box, so what a column gives up is what a body occupies.
+            for lump in hit.Solids():
+                b = lump.BoundingBox()
+                # NO SLIP TOWARD THE TWO WALLS THIS COLUMN STANDS ON. A body in a corner has
+                # its own standoff from each of them already — on the ±X wall that standoff IS
+                # the tip of the boss it seats on, and a millimetre of air taken there is a
+                # millimetre off the seat. The slip is for the faces a hand comes at.
+                reliefs.append((sx, sy, name, _ybox(
+                    b.xmin - (0.0 if sx < 0 else column_relief_slip),
+                    b.xmax + (0.0 if sx > 0 else column_relief_slip),
+                    b.ymin - (0.0 if sy < 0 else column_relief_slip),
+                    b.ymax + (0.0 if sy > 0 else column_relief_slip),
+                    b.zmin - column_relief_slip, b.zmax + column_relief_slip)))
+
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
@@ -1431,7 +1475,7 @@ def _dims(pack):
                pack.cond_mount, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.nameplate,
                pack.valve_panels, pack.pump_trays, pack.core_stops, pack.core_holds,
-               pack.vent_chase)
+               pack.vent_chase, tuple(reliefs))
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -3279,6 +3323,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
+    # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
+    # last of everything: a relief is air, and air a later step fuses back in is not a relief.
+    # Clipped to the column itself, so what a pocket can ever take is the pillar and never the
+    # wall behind it or the boss beside it.
+    for sx, sy, _name, room in box.column_reliefs:
+        post = _corner_column(inner, sx, sy, 0.0, (inner[4] - 1.0, inner[5] + 1.0))
+        piece = piece.cut(room.intersect(post))
     return cq.Workplane(obj=piece)
 
 
@@ -3411,6 +3462,22 @@ def machine_of():
     return pack, box
 
 
+def _report_columns(box):
+    """Each standing corner's column, and what it gave up to the pack standing in it.
+
+    A relief is a decision the pack made for the box, so it is printed rather than assumed:
+    a column quietly hollowed over most of its height is one to look at."""
+    for sx, sy in column_corners:
+        label = f"{'X-' if sx < 0 else 'X+'}/{'Y-' if sy < 0 else 'Y+'}"
+        gave = [(n, r) for csx, csy, n, r in box.column_reliefs if (csx, csy) == (sx, sy)]
+        if not gave:
+            print(f"  column {label}:   whole")
+            continue
+        print(f"  column {label}:   relieved for " +
+              ", ".join(f"{n} (z {r.BoundingBox().zmin:.1f}..{r.BoundingBox().zmax:.1f})"
+                        for n, r in gave))
+
+
 def _report_bounds():
     """Every bound in the ledger that is open, and nothing when they all hold.
 
@@ -3436,6 +3503,7 @@ def main():
     _export_pieces(pieces, assy)
 
     print("enclosure:")
+    _report_columns(box)
     _report_facet(pieces["front-top"], box)
     _report_seams(box)
     _report_levels(box)

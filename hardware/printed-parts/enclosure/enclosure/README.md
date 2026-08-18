@@ -255,14 +255,32 @@ So the section is a **lens**: **two sharp corners** opposite each other, one sta
 on each wall where the arcs meet at 90°, and **two round sides** opposite each other —
 the cove it seats flush against behind, and that cove's mirror bulging into the room
 ahead. Nothing is tangent and nothing is filled in; the column is the fold and no more,
-about 46 mm² of section running the box's whole height.
-`enclosure.column_corners` says which verticals have one.
+about 46 mm² of section running the box's whole height. All four standing verticals
+carry one (`enclosure.column_corners`), so each quadrant prints the two its own two
+exterior arrises stand behind.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
 Z-seam lip wraps its face and telescopes on it, a socket collar is clipped by it, and
 anything standing inside its footprint is **absorbed** — the boss becomes the column's
-own material and keeps only its bore. What a column cannot absorb is a seam station:
+own material and keeps only its bore.
+
+Where what stands there is a **body** rather than a boss, the column is the one that gives:
+`_dims` measures every placed body against every column and hands `build_piece` a pocket per
+lump one actually reaches into (`Box.column_reliefs`), cut last of all and clipped to the
+pillar so it can never take the wall behind it or the boss beside it. A column is a
+print-corner feature — what it buys is a fat vertical on the bed, and it buys that over the
+height it does have; a body hung on a wall has already answered to the boss that holds it and
+to whatever the pack packed it against. Two corners are relieved today, and `main()` prints
+every one so a hollowed column is never silent:
+
+- **X+/Y-** — the condenser's two sheet flanges, at z 8.0–10.4 and 144.6–147.0. The pocket
+  is nearly a no-op: those flanges already slide into a groove the cradle rail cuts through
+  the same material, and the rail's east end and the lens print as one body.
+- **X+/Y+** — the PSU's aft-east corner, over z 252.4–306.4, about a millimetre deep at its
+  widest. The brick cannot give ground instead: its rear mount hole is on the aftmost boss
+  station, the relay and the controller board are packed one `WIRED_CLEAR` at a time ahead of
+  it, and the front of that stack stands ~1.3 mm off `carb-1`. What a column cannot absorb is a seam station:
 the lens runs along the wall to its cusp and would be a leaf-shaped hole through a socket
 collar's root, so a station landing there stands one collar radius clear of that cusp
 instead and the collar comes out whole — the front column's front-wall station

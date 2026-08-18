@@ -877,11 +877,11 @@
    "value": "8/8 standing",
    "target": "a groove standing open at each fore flange and a bored boss under each aft one",
    "detail": [
-    "fore flange at z   9.000, under its groove   standing   (100.0% of the probe)",
-    "fore flange at z   9.000, over its groove    standing   (100.0% of the probe)",
+    "fore flange at z   9.000, under its groove   standing   (99.9% of the probe)",
+    "fore flange at z   9.000, over its groove    standing   (99.9% of the probe)",
     "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
-    "fore flange at z 145.600, under its groove   standing   (100.0% of the probe)",
-    "fore flange at z 145.600, over its groove    standing   (100.0% of the probe)",
+    "fore flange at z 145.600, under its groove   standing   (99.9% of the probe)",
+    "fore flange at z 145.600, over its groove    standing   (99.9% of the probe)",
     "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
