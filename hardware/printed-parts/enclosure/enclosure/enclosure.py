@@ -174,7 +174,7 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 # lens stands off its cusp instead (`_z_front_station_y`).
 column_round = corner_round - wall
 # The corners that carry one, as the (x, y) signs of the interior corner each stands in.
-column_corners = ((-1, -1), (1, -1))
+column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -2057,9 +2057,17 @@ def _z_back_station_y(iy1, y_joint):
     z_lip_y_margin) by a full socket_r — the same clearance the front column's aft station
     keeps from that gap on its side. Drop the z_lip_y_margin term and the pod's −Y wall
     pinches to (wall − z_lip_y_margin) against the gap, too thin to telescope into the top
-    piece; with it the pod keeps a full wall each side of its bore."""
+    piece; with it the pod keeps a full wall each side of its bore.
+
+    AT THE REAR WALL the collar's own +Y face lies on that wall's inner face — unless the
+    standing corner there carries a column, and then the lens runs forward to its cusp and
+    would hole the collar's root. So that end answers the way the front column's front-wall
+    station does (`_z_front_station_y`): one socket_r ahead of the cusp."""
     r = socket_bore_dia / 2.0
-    return (y_joint + lip_len + z_lip_y_margin + wall + r, iy1 - wall - r)
+    plain = iy1 - wall - r
+    if any(sy > 0 for _sx, sy in column_corners):
+        plain = min(plain, iy1 - _column_along() - socket_r)
+    return (y_joint + lip_len + z_lip_y_margin + wall + r, plain)
 
 
 def _z_stations(inner, y_joint):
