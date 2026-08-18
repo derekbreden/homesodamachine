@@ -700,9 +700,13 @@ z_lip_y_margin = 2.0
 #                 the chase's lip lands on, and the tube's own axis where it comes through
 #   column_reliefs what the standing corners' COLUMNS give up to the pack standing in them, one
 #                 (sx, sy, name, room) per body — the corner's own signs, whose body it is, and
-#                 the world box the column is cut back to. Struck by `_dims` off the placed
-#                 parts rather than passed in by the pack, because it is the one question that
-#                 needs the bodies AND the walls at once; main() prints every one of them.
+#                 the world box the column is cut back to, as the six plain bounds
+#                 `(x0, x1, y0, y1, z0, z1)` every other station on this tuple is written in.
+#                 A STATION IS NUMBERS. `_facts` serialises this whole Box for the eight doc
+#                 drivers that read it, so a field carrying a solid stops the build at
+#                 `_plain`; `build_piece` strikes the box when it cuts. Struck by `_dims` off
+#                 the placed parts rather than passed in by the pack, because it is the one
+#                 question that needs the bodies AND the walls at once; main() prints each.
 #
 #                 A COLUMN GIVES WAY TO A BODY AND NOT THE OTHER WAY ROUND. It is a print-corner
 #                 feature — what it buys is a fat vertical on the bed, and it buys that over the
@@ -1490,7 +1494,7 @@ def _dims(pack):
                 # its own standoff from each of them already — on the ±X wall that standoff IS
                 # the tip of the boss it seats on, and a millimetre of air taken there is a
                 # millimetre off the seat. The slip is for the faces a hand comes at.
-                reliefs.append((sx, sy, name, _ybox(
+                reliefs.append((sx, sy, name, (
                     b.xmin - (0.0 if sx < 0 else column_relief_slip),
                     b.xmax + (0.0 if sx > 0 else column_relief_slip),
                     b.ymin - (0.0 if sy < 0 else column_relief_slip),
@@ -3358,7 +3362,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # wall behind it or the boss beside it.
     for sx, sy, _name, room in box.column_reliefs:
         post = _corner_column(inner, sx, sy, 0.0, (inner[4] - 1.0, inner[5] + 1.0))
-        piece = piece.cut(room.intersect(post))
+        piece = piece.cut(_ybox(*room).intersect(post))
     return cq.Workplane(obj=piece)
 
 
@@ -3503,8 +3507,7 @@ def _report_columns(box):
             print(f"  column {label}:   whole")
             continue
         print(f"  column {label}:   relieved for " +
-              ", ".join(f"{n} (z {r.BoundingBox().zmin:.1f}..{r.BoundingBox().zmax:.1f})"
-                        for n, r in gave))
+              ", ".join(f"{n} (z {r[4]:.1f}..{r[5]:.1f})" for n, r in gave))
 
 
 def _report_bounds():
