@@ -243,11 +243,27 @@ front-to-back arrises — side-wall↔floor and side-wall↔ceiling — are squa
 The display facet raises no fifth standing vertical: running wall to wall, it ends
 on the ±X exterior walls and runs out into their own rounds.
 
-The seam furniture follows the same rule: the Z-seam lip is a *horizontal* band
-that telescopes straight through those verticals, so its corners are relieved on
-Z concentric with the cavity it enters, and a socket collar standing in one of them
-is held inside that same cavity; the Y-seam lip sits mid-wall where there is no
-vertical arris, so it stays square.
+Inside those verticals stand the **columns** — that outer round **mirrored**. Where
+the wall outside leaves the corner on a 12 mm arc tangent to both outer faces,
+curving away, a column curves the same radius the other way: a cylinder tangent to
+both *inner* faces with the quadrant behind it filled solid, so the corner reads as
+one round from either side and the box carries a pillar down its whole height where
+it was carrying a cove. `enclosure.column_corners` says which verticals have one.
+
+A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
+it, so everything held inside the cavity meets one the way it meets a wall: the
+Z-seam lip wraps its face and telescopes on it, a socket collar is clipped by it, and
+anything standing inside its footprint is **absorbed** — the boss becomes the column's
+own material and keeps only its bore. What a column cannot absorb is a seam station,
+whose collar needs cavity to stand in; the front Z seam's front-wall station therefore
+stands off the column instead (`enclosure._z_front_station_y`), and the corner trades
+a screw for a pillar.
+
+The rest of the seam furniture follows the orientation rule: the Z-seam lip is a
+*horizontal* band that telescopes straight through those verticals, so it is struck as
+the cavity's own one-wall skin — corners relieved on Z, columns wrapped — and a socket
+collar standing in one of them is held inside that same cavity; the Y-seam lip sits
+mid-wall where there is no vertical arris, so it stays square.
 
 The Y-seam lip is the one joint the orientation costs something. Its ceiling
 tongue juts one overlap past the body into the space the back piece's ceiling
