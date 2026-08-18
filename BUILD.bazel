@@ -10019,6 +10019,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/scripts/lanes.py",
         "hardware/topology/fluid-topology.md",
+        "tools/bazel/graph.json",
         "tools/docgen/__init__.py",
     ],
     args = ["hardware/scripts/lanes.py"],
