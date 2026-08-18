@@ -2,19 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-7c5c6ff7ef1b421f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-7c5c6ff7ef1b421f.tar.gz"
+    "asset": "cad-bc2d3dad7a330699.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-bc2d3dad7a330699.tar.gz"
   },
   "bundle": {
-    "sha256": "7c5c6ff7ef1b421fded766fc85bcb4f785f0ec96c5226a0257ecf2ca652c639e",
-    "bytes": 27469366,
+    "sha256": "bc2d3dad7a330699f22195c335ed4720d4c64d2691e1e8eb69e1f1cbb2e57f9a",
+    "bytes": 27617598,
     "solids": 94
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "16f7a93bd006104b23d9a2ad01b7a6da2c103eb9f36ea451004279f7bb44df9a",
-    "hardware/manifold-layout/enclosure-assembly.step": "e5361f2f0b89256384c912835a05fa035af21ce23bfb8d428c6206e89444ac5e",
+    "hardware/manifold-layout/enclosure-assembly.step": "edf56638d09799e874e11ca13a567e4eca16731590aa401d055d653146273446",
     "hardware/manifold-layout/manifold-layout.step": "87e0da72a11fb13eae25f8e304844fc9095255028dfcf98eedf62c575fd36bc4",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "3930047b04cd73bcf0df827cd6d82312084a72f70cc439615899635198865e23",
@@ -42,11 +42,11 @@
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "e3d72908f5a50380b340b629dcdb695a49bde18abbd23acaca518bd81145c4d4",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "7df79e752237e00ad1809a7fd7ce4be750dc82d3fdaac413157c237340c709d8",
     "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "daac242aef30ecfe48661b607cca972418134167b1a33ca77421d5c5e3ec983a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "28c19f9556c132c30a457f92cecb778dd07beacbda8ee7afe32c2d96b2d70d08",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "9671fdadbd1eb3fcf96e07754c4969b62d49c80def62e7f2eaf55e524257ff1b",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2aea4bd61dd69fee24882915e314a2d048d2a6f04d9ed9fe6606b8b1fa0569d3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "36842811333a7b9d884304813d2158be42ca3ef791dc27873f86cc439f3cb918",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "0ad48e66cf64b241e2e1a21189d05a40652a92ab31fc29167373171c53d93920",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "1118f8beb74dfbd4b66c2cb527d08411aed5bedc4fe3a28c26e1d9808b897cf4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ccb5d10b980944e60c6a998a66f704d84494715aa6eed4c894e0e204717ccedc",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "177db4327fea4349b6c59fab36954091b37f0d093c24eb5d516971229749ec71",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "171dde8d806c723159bb7a58ac2b0f810f2703a95096c98cc6e0e971d6240ba1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "2260afcc758c05573e6f0bf5ad678f6867c48ec25ba62ff47b50682279014590",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
