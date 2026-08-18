@@ -58,7 +58,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "reference" / "kamoer-kphm400",
-           _hw / "printed-parts" / "flavor" / "pump-case"):
+           _here.parent):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))

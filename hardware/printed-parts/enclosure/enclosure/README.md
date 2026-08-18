@@ -436,7 +436,7 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 The front wall carries one per Kamoer (`_pump_trays`, off
 `enclosure_assembly.pump_tray_stations`), and it is **the two-piece pump case with its
-cylinder cut off**. `printed-parts/flavor/pump-case/` draws that case; its base is a
+cylinder cut off**. `pump-tray/pump_case.py` draws that case; its base is a
 plate on the head's crown, a 45° ramp off the plate, an octagon bore wall standing in
 the ramp, and a cylindrical tower over the bore. Cut the tower off above the bore and
 cut down to one shoulder over it, and the four surfaces that were fitted on the part

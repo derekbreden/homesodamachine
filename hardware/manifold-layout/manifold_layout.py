@@ -100,7 +100,7 @@ for _p in (_hw / "scripts",
            _hw / "reference" / "y-divider",
            _hw / "reference" / "kamoer-kphm400",
            _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "flavor" / "pump-case"):
+           _hw / "printed-parts" / "enclosure" / "pump-tray"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly, import_step              # noqa: E402

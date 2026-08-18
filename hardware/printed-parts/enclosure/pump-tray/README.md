@@ -1,6 +1,6 @@
 # Pump tray
 
-**The pump case with its cylinder cut off.** [`../../flavor/pump-case/`](/hardware/printed-parts/flavor/pump-case/) draws a two-piece case for the Kamoer; its base is a plate on the pump head's crown, a 45° ramp off that plate, an octagonal bore wall standing in the ramp, and a cylindrical tower over the bore that the motor can turns in. Cut the tower off above the bore, cut down to one [3](SHOULDER) mm shoulder over it, and what is left is the tray — the same four surfaces, conforming to the same pump.
+**The pump case with its cylinder cut off.** [`pump_case.py`](/hardware/printed-parts/enclosure/pump-tray/pump_case.py) draws a two-piece case for the Kamoer — the body this tray is cut from, and no part of its own; its base is a plate on the pump head's crown, a 45° ramp off that plate, an octagonal bore wall standing in the ramp, and a cylindrical tower over the bore that the motor can turns in. Cut the tower off above the bore, cut down to one [3](SHOULDER) mm shoulder over it, and what is left is the tray — the same four surfaces, conforming to the same pump.
 
 **It is not a part.** It is `enclosure-front-top`'s own material, fused the way the tap-water trough, the flow meter's saddles and the valve panels are — `enclosure._pump_trays` stands one, off the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps. Nothing ships under a pump and nothing is billed for one.
 
