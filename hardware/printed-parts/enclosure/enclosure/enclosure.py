@@ -3597,8 +3597,12 @@ if __name__ == "__main__":
     # `enclosure_assembly` carries for itself, and for the same reason. Run as a script this
     # is `__main__`, so `machine_of`'s `enclosure_assembly` does `import enclosure` and gets a
     # SECOND copy: `_dims` fills that one's module state and `main()` builds the pieces out of
-    # this one's. `_wall_block` survives the split only because a missing key reads as "nothing
-    # known in the way", and nothing else may be asked to degrade that way. One name, one
-    # module, one box.
+    # this one's. `_wall_block` survives that because a missing key reads as "nothing known in
+    # the way"; `_z_seam_passes` did not — `main()` reads it with `.get`, so the empty copy
+    # answered None for every seam and the run printed the back one as landing "in an open
+    # band" when it runs through its column, which is what the README beside this file has
+    # said all along. A record that degrades quietly is the exception here and not the rule,
+    # and a REPORT that degrades quietly is what a person reads to decide the box is sound.
+    # One name, one module, one box.
     sys.modules.setdefault(__name__ if __name__ != "__main__" else "enclosure", sys.modules[__name__])
     main()
