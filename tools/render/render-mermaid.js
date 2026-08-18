@@ -18,7 +18,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { withHistoricalTree } from "./temporal.js";
@@ -258,7 +258,10 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error(err.message || err);
-  process.exit(1);
-});
+main().then(
+  () => finish(0),
+  (err) => {
+    console.error(err.message || err);
+    finish(1);
+  },
+);

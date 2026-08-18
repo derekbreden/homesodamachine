@@ -120,7 +120,7 @@ import sharp from "sharp";
 
 import { start } from "../../web/server.js";
 import { withHistoricalTree } from "./temporal.js";
-import { PARSE_TIMEOUT, closeBrowser, closeServer, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -1289,7 +1289,10 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error(err.stack || err.message || err);
-  process.exit(1);
-});
+main().then(
+  () => finish(0),
+  (err) => {
+    console.error(err.stack || err.message || err);
+    finish(1);
+  },
+);
