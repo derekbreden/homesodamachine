@@ -525,8 +525,13 @@ def suction_lane_x() -> float:
 
     Struck on the wall and not on the pair's combined box. Centred as a pair, the can's lane was
     whatever the condenser's width left over — so a condenser measured again moved the can, its
-    four floor posts and this leg together, and narrowing the appliance took the lane away."""
-    return _enc.interior_x()[0] + _lines.CU_SUCTION_LANE
+    four floor posts and this leg together, and narrowing the appliance took the lane away.
+
+    IT IS THE FACE THAT IS THERE AT THIS HEIGHT. The can stands on the slab, under a Z seam, and
+    a flank under a seam carries its lip's own wall down to the floor — so the lane is measured
+    off `lip_face_x` and not `interior_x`, and the leg keeps its turn against the face the copper
+    actually meets."""
+    return _enc.lip_face_x()[0] + _lines.CU_SUCTION_LANE
 
 
 def build_compressor():
@@ -565,7 +570,11 @@ def east_lane_free(cond) -> float:
     WHAT IS THERE IS ITS OWN AFT MOUNT. The block hangs off a fin fused to the wall's inner face
     (`condenser_mount`, `enclosure._cond_mount`), standing one `enclosure.cond_mount_clear` off
     the block's east flank — so the lane the block may take is the lane that leaves the fin one
-    printable `enclosure.wall` of section. The block answers to the thing that holds it."""
+    printable `enclosure.wall` of section. The block answers to the thing that holds it.
+
+    AND THE FIN ROOTS ON THE FACE THAT IS THERE. The block stands wholly under the front Z seam,
+    and a flank under a seam carries its lip's own wall down to the slab — so the fin's root is
+    `lip_face_x` and the lane stops one `wall` short of where a one-wall flank would put it."""
     b = box(cond)
     collar_z = _enc.front_band_collar_z()[0]
     # The block's own front face is what goes in: the fore end of the run comes back struck on
@@ -578,7 +587,7 @@ def east_lane_free(cond) -> float:
             f"band the front column leaves empty — under z {collar_z:g}, forward of y "
             f"{band_aft:g}. A block that meets that collar answers to the chain's whole reach "
             f"and not to its own fin, so it stands off `enclosure.side_band_inset` instead.")
-    return (_enc.interior_x()[1] - _enc.cond_mount_clear - _enc.wall) - b.xmax
+    return (_enc.lip_face_x()[1] - _enc.cond_mount_clear - _enc.wall) - b.xmax
 
 
 def slide_east(solid, carry, dx: float):
@@ -731,6 +740,8 @@ def build_mq6(comp, cond):
     WEST on the wall's own inner face, not on the boss plane every body on the other flank
     stands on — nothing bolts this card down, it slides into a slot printed on the wall
     (`enclosure._west_cradle`) and bottoms on the wall itself, so the wall is where it goes.
+    That face is `lip_face_x` and not `interior_x`: the card stands under a Z seam, and a
+    flank under a seam carries its lip's own wall down to the slab, `2 * wall` of it.
 
     FORE one `MQ6_FORE_CLEAR` behind the front Z seam's aft cross-pin station, which stands in
     this band at its own depth — `enclosure.front_band_free_y` is where the band reopens
@@ -743,7 +754,7 @@ def build_mq6(comp, cond):
     body = import_step(str(MQ6_STEP)).val()
     fore, _aft = _enc.front_band_free_y(min(box(comp).ymin, box(cond).ymin))
     return seat_body(body, MQ6_TURN, seat="mq6-sensor",
-                     x0=_enc.interior_x()[0], y0=fore + MQ6_FORE_CLEAR,
+                     x0=_enc.lip_face_x()[0], y0=fore + MQ6_FORE_CLEAR,
                      z0=box(comp).zmin + _enc.mq6_rail_wall)
 
 
