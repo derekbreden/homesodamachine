@@ -127,6 +127,17 @@ export async function closeServer(server) {
   ));
 }
 
+// THE WORK IS THE FILE, AND THE FILE IS WRITTEN. A one-shot render exits when its PNG is on
+// disk; the event loop's remaining handles — a listening socket, a socket the page left open,
+// a child whose pipes are still up — outlive that and hold a process with nothing left to do.
+// `uv_run` idling on `kevent` for an hour is what that looks like from outside.
+//
+// stdout is flushed first, so a caller reading this through a pipe is handed what the run said.
+export function finish(code = 0) {
+  process.exitCode = code;
+  process.stdout.write("", () => process.exit(code));
+}
+
 // What the teardown holds, on fixtures rather than on Chrome:
 //
 //     node tools/render/browser.js selftest

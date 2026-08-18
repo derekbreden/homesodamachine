@@ -20,7 +20,7 @@
 import path from "path";
 import fs from "fs";
 import { pathToFileURL } from "url";
-import { closeBrowser, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 function usage(msg) {
   if (msg) console.error(`render-card: ${msg}`);
@@ -313,7 +313,10 @@ async function recycle(browser, page, opts) {
   }
 }
 
-main().catch((err) => {
-  console.error(err.message || err);
-  process.exit(1);
-});
+main().then(
+  () => finish(0),
+  (err) => {
+    console.error(err.message || err);
+    finish(1);
+  },
+);
