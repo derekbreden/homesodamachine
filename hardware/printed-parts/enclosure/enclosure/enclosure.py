@@ -174,7 +174,7 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 # lens stands off its cusp instead (`_z_front_station_y`).
 column_round = corner_round - wall
 # The corners that carry one, as the (x, y) signs of the interior corner each stands in.
-column_corners = ((-1, -1), (1, -1))
+column_corners = ((-1, -1), (1, -1), (-1, 1))
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -936,7 +936,14 @@ def wall_band_corner_y(reach):
     so at a back corner the wall leaves the body's plane along an arc. This is where the arc
     crosses that plane — and unlike a boss it is a bound at EVERY height, which makes it the
     aft end of what the band has to give. A body reaching further inboard than the radius is
-    clear of the arc entirely and answers to the rear wall itself."""
+    clear of the arc entirely and answers to the rear wall itself.
+
+    WHERE THAT CORNER CARRIES A COLUMN the arc is no longer what a body meets first: the lens
+    stands in the air the arc left open, and its room-facing side is swung from the corner. The
+    −X wall's back corner carries one and this still reads the arc, because nothing on that
+    flank comes near either — the tap-water cradle stands 9.9 mm off the wall where the lens
+    reaches 9, and every body aft of it stops 20 mm short of the rear plane. The reading this
+    owes a column is owed on the flank whose bodies are IN it."""
     r = corner_round - wall
     if reach >= r:
         return rear_plane_y
@@ -954,7 +961,12 @@ def wall_boss_aft_limit():
     relief running the box's full standing depth.
 
     A mounting pattern answers to this; an envelope answers to `wall_band_corner_y`, which is
-    where the same arc crosses the plane the BODY stands on, further aft."""
+    where the same arc crosses the plane the BODY stands on, further aft.
+
+    A COLUMN IN THAT CORNER DOES NOT MOVE THIS. A boss is printed material and so is a lens,
+    so a boss standing inside one comes out of the print as one body with it and keeps only
+    its bore — absorbed, the way the condenser's cradle rail is. What a lens does fence is the
+    BODY hung on that boss, whose own overhang is in air; that is `wall_band_corner_y`."""
     return rear_plane_y - (corner_round - wall)
 
 
