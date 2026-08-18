@@ -120,7 +120,6 @@ import json
 import math
 import os
 import sys
-import tempfile
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -192,28 +191,60 @@ SHORT_LEG = 1.0
 
 # --- the snapshot ---------------------------------------------------------
 #
-# One `build_enclosure_assembly()` is two minutes, and a scan wants the same world thousands of
+# One `build_enclosure_assembly()` is eight minutes, and a scan wants the same world thousands of
 # times. So the world is taken ONCE and written down flat: every body's box, every routed run's
 # centreline, every port's position and axis, and the interior the printed pieces leave.
 #
 # THE SNAPSHOT IS THE DEFAULT PATH AND A QUERY NEVER BUILDS. `snapshot --reload` is what pays the
-# two minutes; everything else reads the one already taken off this tree, and where the tree has
+# eight minutes; everything else reads the one already taken off this tree, and where the tree has
 # moved since, the newest on disk — stating on its way past which sources moved under it. A
 # reading off a moved tree is a reading about the machine in that snapshot, which is legible; a
-# query that silently spends two minutes rebuilding is a query nobody runs twice.
+# query that silently spends eight minutes rebuilding is a query nobody runs twice.
 
-_SOURCES = ("manifold-layout/enclosure_assembly.py", "manifold-layout/_lines.py",
-            "manifold-layout/manifold_layout.py", "scripts/_routing.py",
-            "printed-parts/enclosure/enclosure/enclosure.py")
+#: WHAT DECIDES THE WORLD IS WHAT THE RUN WAS WATCHED READING. `take()` stands the machine by
+#: running `enclosure_assembly`, so a snapshot's sources are that generator's traced reads —
+#: `graph.json`, the same record `gen_build.py` fills an action's sandbox from. Eighty-four files:
+#: the geometry modules, every bought part's module, and the helpers each of them imports.
+#:
+#: A MODULE CAN BE BOUND BY A NAME NO WALK RESOLVES TO A FILE. `kamoer_kphm400`, `pump_case` and
+#: `snap` are reached through a `sys.path` insert into a hyphenated directory, so their import
+#: statements name modules that stand in no package. What a run opens is answered by watching it.
+_FALLBACK_SOURCES = ("manifold-layout/enclosure_assembly.py", "manifold-layout/_lines.py",
+                     "manifold-layout/manifold_layout.py", "scripts/_routing.py",
+                     "printed-parts/enclosure/enclosure/enclosure.py")
+
+_ROOT = _HW.parent
+_GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
+_WORLD = "hardware/manifold-layout/enclosure_assembly.py"
+
+
+def _sources() -> tuple:
+    """Every file of this repo whose text can decide the world a snapshot holds, repo-relative.
+
+    A tree with no `graph.json` falls back to the five that are certainly in it — enough to name
+    a snapshot, and `measured` says what it is reading off."""
+    try:
+        entry = json.loads(_GRAPH.read_text())[_WORLD]
+    except (OSError, ValueError, KeyError):
+        return tuple(f"hardware/{rel}" for rel in _FALLBACK_SOURCES)
+    return tuple(sorted(p for p in entry.get("reads", ()) if p.endswith(".py")))
+
 
 _SNAP: dict = {}
 
 
 def _stamps() -> dict:
-    """Each source's size and mtime — what decides whether a snapshot is still the tree's."""
+    """Each source's size and mtime — what decides whether a snapshot is still the tree's.
+
+    ON THE FAST PATH. A key is read before every snapshot not already in hand, and `stat` over
+    these sources is half a millisecond. An edit that moves only a comment moves the stamp."""
     out = {}
-    for rel in _SOURCES:
-        st = (_HW / rel).stat()
+    for rel in _sources():
+        try:
+            st = (_ROOT / rel).stat()
+        except OSError:
+            out[rel] = "gone"
+            continue
         out[rel] = f"{st.st_size}:{int(st.st_mtime)}"
     return out
 
@@ -230,21 +261,33 @@ def _source_key(stamps: dict = None) -> str:
     return hashlib.blake2b(blob.encode(), digest_size=8).hexdigest()
 
 
+#: WHERE A TAKEN WORLD IS KEPT. `.cache/` is this tree's place for what a build can always cut
+#: again — gitignored, regenerable, safe to delete — and it is where `_realized` keeps its solids.
+#: A snapshot is eight minutes of standing the machine and every reader wants the same one, so it
+#: is kept beside them, in a directory that stands. `tools/bazel/selftest.sh` hands each selftest
+#: a `TMPDIR` of its own and removes it on the way out.
+_CACHE = _ROOT / ".cache" / "lanes"
+
+
 def _cache_path() -> Path:
-    return Path(tempfile.gettempdir()) / f"hsm-lanes-{_source_key()}.json"
+    return _CACHE / f"{_source_key()}.json"
 
 
 def held() -> tuple:
     """Every snapshot on disk, newest first."""
-    d = Path(tempfile.gettempdir())
-    return tuple(sorted(d.glob("hsm-lanes-*.json"), key=lambda p: p.stat().st_mtime,
-                        reverse=True))
+    try:
+        return tuple(sorted(_CACHE.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True))
+    except OSError:
+        return ()
 
 
 def moved(snap: dict) -> tuple:
-    """Which of the sources have moved since this snapshot was taken, by name."""
+    """Which of the sources have moved since this snapshot was taken, by name.
+
+    Over both readings' names: a source the tree has gained or lost since stands on one side
+    only, and is named as moved."""
     now, was = _stamps(), snap.get("sources") or {}
-    return tuple(rel for rel in _SOURCES if now.get(rel) != was.get(rel))
+    return tuple(rel for rel in sorted(set(now) | set(was)) if now.get(rel) != was.get(rel))
 
 
 def measured(snap: dict) -> str:
@@ -259,7 +302,12 @@ def measured(snap: dict) -> str:
     gone = moved(snap)
     if not gone:
         return f"{head} — the tree has not moved under it"
-    return (f"{head}\nTAKEN BEFORE {', '.join(Path(g).name for g in gone)} MOVED — this reading "
+    # Eighty-four sources stand behind a snapshot, so a reading taken off an older tree can name
+    # most of them. The first few are what tells a reader which machine this is about.
+    named = ", ".join(Path(g).name for g in gone[:4])
+    if len(gone) > 4:
+        named += f" and {len(gone) - 4} more"
+    return (f"{head}\nTAKEN BEFORE {named} MOVED — this reading "
             f"is about the machine in that snapshot,\nnot the one in the tree. Re-take it with "
             f"`lanes.py snapshot --reload`.")
 
@@ -377,32 +425,45 @@ def _tag(name: str) -> str:
     return {"display": "display", "hopper-funnel": "funnel"}.get(name, "component")
 
 
-def snapshot(reload: bool = False, build: bool = None) -> dict:
+def snapshot(reload: bool = False, build: bool = None, exact: bool = False) -> dict:
     """The world as a flat table, read off disk.
 
     A QUERY DOES NOT BUILD. The exact snapshot for this tree is taken if it is there; otherwise
     the newest one on disk is read and `measured` says which sources moved under it. Only
-    `reload=True` — `snapshot --reload` — pays the two minutes, and only a machine with no
+    `reload=True` — `snapshot --reload` — pays the eight minutes, and only a machine with no
     snapshot at all builds without being asked.
 
     `build=True` restores the other bargain: rebuild whenever the tree has moved. It is for a
     caller who would rather wait than read a stale world, and it is never the default, because
     the default is what somebody runs at the top of a session to see whether the instrument says
-    anything at all."""
-    if _SNAP and not reload:
+    anything at all.
+
+    `exact=True` takes the snapshot this tree's own sources name, or stands the machine. It is
+    for a caller that asserts about the machine that exists — the newest snapshot on disk was
+    taken off whatever tree was standing then, and a hold read against it reports on that one."""
+    # A TRACE WATCHES THE RUN A BUILD MAKES. `trace_inputs.py` records what a run opens, and a
+    # snapshot read off disk opens none of the eighty-four sources `take()` does — so a traced
+    # run that answered from the cache would declare a step that loads nothing, and the action
+    # built from it would hold nothing to stand the machine with.
+    traced = os.environ.get("HSM_BUILD_SOURCE") == "trace"
+    # A WORLD ALREADY IN HAND IS THE ONE THIS PROCESS HAS BEEN READING. An `exact` caller asks
+    # about the tree, so it asks that of the snapshot in hand too: one taken off a tree that has
+    # since moved answers about the tree it was taken off, whichever side of the cache it is on.
+    if _SNAP and not reload and (not exact or not moved(_SNAP)):
         return _SNAP
     cache = _cache_path()
-    if cache.exists() and not reload:
+    if cache.exists() and not reload and not traced:
         _SNAP.update(json.loads(cache.read_text()))
         return _SNAP
     on_disk = held()
-    if on_disk and not reload and not build:
+    if on_disk and not reload and not build and not exact and not traced:
         _SNAP.update(json.loads(on_disk[0].read_text()))
         return _SNAP
-    if not reload and not on_disk:
-        print("lanes: no snapshot on disk — building the world once, about two minutes. "
+    if not reload and (exact or not on_disk):
+        print("lanes: standing the machine to take a snapshot, about eight minutes. "
               "`lanes.py snapshot --reload` is what re-takes it.", file=sys.stderr)
     snap = take()
+    cache.parent.mkdir(parents=True, exist_ok=True)
     cache.write_text(json.dumps(snap))
     _SNAP.clear()
     _SNAP.update(snap)
@@ -1508,7 +1569,7 @@ def verify(lane: Lane, clearance: float = 0.0, skip=()) -> str:
     box-blocked lane standing 0.2 mm off the rib it lies in is clear here. This is the one that
     counts. It holds out exactly what the search held out, and for the same reason.
 
-    It builds `probe`'s world, which is the two minutes the snapshot exists to avoid — so it is
+    It builds `probe`'s world, which is the eight minutes the snapshot exists to avoid — so it is
     asked of ONE lane, after the enumeration has chosen which one is worth asking about."""
     import probe
     import _clearing
@@ -1665,7 +1726,10 @@ def selftest() -> int:
           _seg_seg((0, 0, 0), (0, 0, 0), (3, 4, 0), (3, 4, 0)), 5.0)
 
     print("the world — the machine that exists, through the same filter")
-    snap = snapshot()
+    # THE MACHINE THAT EXISTS IS THE ONE IN THIS TREE. Every hold below reads the snapshot and
+    # reports on the tree it was taken off, so the one that answers here is the one this tree's
+    # own sources name.
+    snap = snapshot(exact=True)
     print(f"       {measured(snap)}")
     check("the snapshot holds the whole machine", len(snap["bodies"]) >= 80, True)
     check("and every routed run", len(snap["runs"]) >= 19, True)
