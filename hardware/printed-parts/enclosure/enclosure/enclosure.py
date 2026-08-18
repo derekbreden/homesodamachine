@@ -70,6 +70,15 @@ The full-width facet raises no new standing vertical: it ends on the ±X
 exterior walls, which are already relieved, so the chamfer runs out into their
 own rounds.
 
+Inside those same verticals stand the COLUMNS — the outer relief mirrored, a
+`column_round` bulge tangent to both inner faces with the corner behind it solid,
+running floor slab to ceiling. They are the cavity's own shape (`_cavity`), so
+everything held inside it meets a column the way it meets a wall: a Z seam's lip
+wraps the face and telescopes on it, a pod's collar is clipped by it, and a mount
+inside the footprint is the column's material with only its bore left. Where the
+column takes a corner the seam's own station there stands off it
+(`_z_front_station_y`) — a pillar for a screw.
+
 A plug is the wall it drives through and the reach it needs past it: the first
 `wall` of its length is that wall's own material and the rest a stub off it, its
 mouth-side face on the mouth that receives it. A socket is a pipe round that plug —
@@ -138,6 +147,23 @@ rear_seam_clear = 3.0
 # front segment behind the refrigeration stratum instead of giving it up.
 front_seam_clear = 3.0
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
+
+# --- the standing corners' columns ------------------------------------------
+#
+# THE COLUMN IS THE OUTER ROUND'S MIRROR. Outside, the wall leaves each standing vertical
+# on a `corner_round` arc tangent to both outer faces, curving away from the corner.
+# Inside, a column curves the same radius the other way — a cylinder tangent to both INNER
+# faces, with the quadrant behind it solid — so the corner reads as one round from either
+# side and the box gains a pillar down its whole height where it was carrying a cove.
+#
+# It is a pillar and not a feature at a station: it runs floor slab to ceiling, so every
+# Z seam crosses it and the seam's own lip wraps its face the way it wraps a wall
+# (`_cavity`). What stands in a corner is ABSORBED — a boss inside the footprint is the
+# column's own material and keeps only its bore, and a seam station whose collar has no
+# room left to stand in stands off it instead (`_z_front_station_y`).
+column_round = corner_round
+# The corners that carry one, as the (x, y) signs of the interior corner each stands in.
+column_corners = ((-1, -1),)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -779,6 +805,61 @@ def _round_z(solid, r):
     return cq.Workplane(obj=solid).edges("|Z").fillet(r).val()
 
 
+def _column_axis(inner, sx, sy):
+    """One corner column's axis — one `column_round` in from each of the two inner faces
+    it stands on, which is what makes it tangent to both."""
+    ix0, ix1, iy0, iy1, _iz0, _iz1 = inner
+    return ((ix0 + column_round) if sx < 0 else (ix1 - column_round),
+            (iy0 + column_round) if sy < 0 else (iy1 - column_round))
+
+
+def _corner_column(inner, sx, sy, grow, z):
+    """One corner column as a solid over the height span `z`, its bulge grown `grow` into
+    the room.
+
+    The pillar is the bulge AND the corner behind it: the cylinder alone would leave a
+    lens of air between its face and the cove the cavity already rounds there, so the
+    quadrant from the axis out through both walls is filled with it. Growing moves the
+    bulge only — the quadrant is buried in the wall, where an offset has nothing to say."""
+    ix0, ix1, iy0, iy1, _iz0, _iz1 = inner
+    ax, ay = _column_axis(inner, sx, sy)
+    z0, z1 = z
+    qx0, qx1 = (ix0 - 1.0, ax) if sx < 0 else (ax, ix1 + 1.0)
+    qy0, qy1 = (iy0 - 1.0, ay) if sy < 0 else (ay, iy1 + 1.0)
+    return _zcyl(column_round + grow, ax, ay, z0, z1).fuse(
+        _ybox(qx0, qx1, qy0, qy1, z0, z1))
+
+
+def _column_along(reach):
+    """How far along a wall, from the interior corner, a column stands in the way of a
+    feature that reaches anywhere out to `reach` inboard of that wall's inner face.
+
+    A feature is a body over its whole reach, not a probe at the end of it, so what it has
+    to clear is the widest the bulge gets anywhere inside that band. Past one radius that
+    is the bulge's own diameter and reaching further inboard buys no more room."""
+    r = column_round
+    if reach >= r:
+        return 2.0 * r
+    return r + math.sqrt(r * r - (r - reach) * (r - reach))
+
+
+def _cavity(inner, inset=0.0, z=None):
+    """The box's AIR at `inset` in from every interior face — the rounded cavity less the
+    columns standing in its corners.
+
+    Everything that has to stand inside the cavity is held inside this, so a collar or a
+    lip segment meets a column exactly the way it meets a wall. The wall rounds shrink with
+    the inset (square once one reaches zero) and the columns grow by it: one offset, read
+    from the two sides of the same surface."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    z0, z1 = (iz0, iz1) if z is None else z
+    air = _round_z(_ybox(ix0 + inset, ix1 - inset, iy0 + inset, iy1 - inset, z0, z1),
+                   corner_round - wall - inset)
+    for sx, sy in column_corners:
+        air = air.cut(_corner_column(inner, sx, sy, inset, (z0 - 1.0, z1 + 1.0)))
+    return air
+
+
 # --- box dimensions, driven by the placed contents -------------------------
 
 # What stands in each ±X wall's Y-seam corner, measured — not tabulated — so it
@@ -896,6 +977,24 @@ def front_band_collar_z():
     return (zc - socket_r, zc + socket_r)
 
 
+def _z_front_station_y(iy0):
+    """The FRONT column's front X-pin station in Y — the front-wall corner.
+
+    Its own function because it is read twice, the way `_z_back_station_y` is: once to build
+    the stations and once by `front_band_free_y`, which answers before there is a box.
+
+    THE COLUMN TAKES THIS CORNER. With nothing standing there the collar's own −Y face lies
+    on the front wall's inner face and the station is one bore radius behind it. Where the
+    standing vertical carries a column, the collar has no room in the cavity to stand in —
+    the pillar is the cavity there — so the station stands one socket_r behind the column's
+    own reach along the wall, which is the same clearance the aft station keeps from the
+    lip's Y gap. What the corner loses in seam furniture it gains in pillar."""
+    plain = iy0 + wall + socket_bore_dia / 2.0
+    if not any(sy < 0 for _sx, sy in column_corners):
+        return plain
+    return max(plain, iy0 + _column_along(boss_in) + socket_r)
+
+
 def front_band_free_y(front_face, z0=None, z1=None):
     """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
     `east_band_free_y` says this half has and is not.
@@ -911,7 +1010,7 @@ def front_band_free_y(front_face, z0=None, z1=None):
     is sized has to say what that is. Everything after it is the same stated chain `_dims`
     builds the wall on."""
     iy0 = front_face - interior_clearance - front_seam_clear
-    yf = iy0 + wall + socket_bore_dia / 2.0
+    yf = _z_front_station_y(iy0)
     yfr = y_seam - wall - z_lip_y_margin - socket_r
     cz0, cz1 = front_band_collar_z()
     if z0 is not None and (z1 <= cz0 or z0 >= cz1):
@@ -1377,7 +1476,7 @@ def _shell_with_facet(inner, outer):
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
 
-    inner_box = _round_z(_ybox(ix0, ix1, iy0, iy1, iz0, iz1), corner_round - wall)
+    inner_box = _cavity(inner)
     outer_chamfered = _rounded_outer(outer)
 
     back_origin = (origin[0] - display_facet_thickness * normal[0],
@@ -1950,7 +2049,8 @@ def _z_stations(inner, y_joint):
     at each END of that column's seam, so a seam pinned only at one end cannot
     hinge open at the other.
 
-    Front column: the front-wall corner and the aft end of its own lip, just
+    Front column: the front-wall corner — or, where that corner carries a column,
+    behind it (`_z_front_station_y`) — and the aft end of its own lip, just
     ahead of where the Y-seam furniture starts. Back column: just behind the
     Y-seam mouth (where the telescoped front lip stops) and the rear-wall
     corner. Every station stands in the ±X band the walls' standoff opens off
@@ -1958,8 +2058,7 @@ def _z_stations(inner, y_joint):
     hands a body hung on that wall. Each column's stations ride that column's own
     seam height."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    r = socket_bore_dia / 2.0
-    yf = iy0 + wall + r                             # front column, front wall
+    yf = _z_front_station_y(iy0)                    # front column, front wall
     yfr = y_joint - wall - z_lip_y_margin - socket_r  # front column, aft end of its lip
     yb, ybr = _z_back_station_y(iy1, y_joint)
     out = []
@@ -1982,16 +2081,14 @@ def _z_lip(inner, y_joint, zj):
     it (`_dims`), not the segment that is given up.
 
     Unlike the Y-seam lip, this band is horizontal and telescopes +Z straight
-    THROUGH the box's standing-vertical arrises, so its corners are relieved on
-    |Z concentric with the cavity it enters — outer one wall in (matching the
-    body's rounded inner wall), inner one wall further — or its square corners
-    would bite the rounded top-piece wall."""
+    THROUGH the box's standing-vertical arrises, so it is struck as the cavity's
+    own one-`wall` skin (`_cavity`) rather than as a box: square corners would
+    bite the rounded top-piece wall, and where a standing vertical carries a
+    COLUMN the band wraps that column's face too — the pillar telescopes into the
+    piece above it on the same one wall of overlap every other face uses."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     z0, z1 = zj - wall, zj + lip_len
-    outer = _round_z(_ybox(ix0, ix1, iy0, iy1, z0, z1), corner_round - wall)
-    cavity = _round_z(_ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, z0 - 1.0, z1 + 1.0),
-                      corner_round - 2.0 * wall)
-    ring = outer.cut(cavity)
+    ring = _cavity(inner, 0.0, (z0, z1)).cut(_cavity(inner, wall, (z0 - 1.0, z1 + 1.0)))
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
                 y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
                 z0 - 1.0, z1 + 1.0)
@@ -2014,14 +2111,13 @@ def _z_pod(x_in, x_ext, sx, ys, inner, zj):
 
     Its upper half telescopes into the top piece, and a station abutting a wall sits
     in one of the box's rounded verticals — so the collar is held inside the cavity
-    that piece rounds, concentric with it."""
+    that piece rounds, concentric with it, and clear of whatever column stands in
+    that cavity's corners."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     collar = _xcyl(socket_r, ys, _z_pin_z(zj), xa, xb)
-    cavity = _round_z(_ybox(ix0, ix1, iy0, iy1, iz0 - 1.0, iz1 + 1.0),
-                      corner_round - wall)
-    return collar.intersect(cavity)
+    return collar.intersect(_cavity(inner, 0.0, (iz0 - 1.0, iz1 + 1.0)))
 
 
 def _z_pin(x_ext, sx, ys, zj):
