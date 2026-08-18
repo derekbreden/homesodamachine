@@ -2232,16 +2232,16 @@ def _z_stations(inner, y_joint):
     return out
 
 
-def _lip_ring(inner, y_joint, z0, z1):
-    """One `_lip_band` skin over a height span, less the segment crossing the Y-seam
-    overlap — the shape both the lip and the wall under it are cut from, so the two come
-    out of one figure and fuse into one wall with no step where they meet."""
+def _lip_ring(inner, gap, z0, z1):
+    """One `_lip_band` skin over a height span, less the `gap` y-span — the shape both the
+    lip and the wall under it are cut from, so the two come out of one figure and fuse into
+    one wall with no step where they meet.
+
+    THE TWO ASK FOR DIFFERENT GAPS, which is the whole reason this takes one rather than
+    striking it. A gap is room for a telescope, and only the lip is one."""
     ix0, ix1 = inner[0], inner[1]
     ring = _lip_band(inner, (z0, z1))
-    gap = _ybox(ix0 - 1.0, ix1 + 1.0,
-                y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
-                z0 - 1.0, z1 + 1.0)
-    return ring.cut(gap)
+    return ring.cut(_ybox(ix0 - 1.0, ix1 + 1.0, gap[0], gap[1], z0 - 1.0, z1 + 1.0))
 
 
 def _z_lip(inner, y_joint, zj):
@@ -2265,8 +2265,16 @@ def _z_lip(inner, y_joint, zj):
 
     THIS BAND IS THE TOP OF A WALL AND NOT A LEDGE ON ONE. What carries it down to the
     floor slab is `_lip_underwall`, which is why the fusion shoulder is a shoulder and
-    not a soffit."""
-    return _lip_ring(inner, y_joint, zj - wall, zj + lip_len)
+    not a soffit.
+
+    ITS GAP IS OPENED BOTH WAYS off the joint. Aft, for the other piece's Y lip to pass;
+    FORWARD, because this band is proud on the same wall surface its own piece's Y lip is
+    proud on, and two telescopes that meet on one surface have nowhere to go — the front
+    piece's Z lip would rise into the front-TOP piece's Y lip. `z_lip_y_margin` is the air
+    either side of that."""
+    return _lip_ring(inner,
+                     (y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin),
+                     zj - wall, zj + lip_len)
 
 
 def _lip_underwall(inner, y_joint, zj):
@@ -2285,8 +2293,21 @@ def _lip_underwall(inner, y_joint, zj):
     the pack already stands one `wall` off both ±Y walls (`front_seam_clear`,
     `rear_seam_clear`) and one boss chain off both ±X ones (`side_band_inset`) — every
     face this skin is on. `wall-under-lip` measures that rather than assuming it, and
-    `lip_face_x` is the flank a body down there meets."""
-    return _lip_ring(inner, y_joint, inner[4], zj - wall)
+    `lip_face_x` is the flank a body down there meets.
+
+    AND ITS GAP IS OPENED ONE WAY, which is where it parts from the lip's. This is wall,
+    not a telescope: nothing it meets has to slide anywhere, so the only thing it owes room
+    to is the OTHER piece's Y lip, aft of the joint. Carried to the joint on its own side it
+    simply fuses into its own piece's Y lip and the flank comes out one unbroken `2 * wall`
+    from the front wall to the Y rim. Opened the lip's way instead — off the joint in BOTH
+    directions — it would stop `wall + z_lip_y_margin` short of a tongue that starts one
+    `wall` short, and what stands between the two is nothing: a `z_lip_y_margin`-wide,
+    one-`wall`-deep channel running the flank's whole height, blind on the slab and open
+    only at the rim. That is not a gap for anything, it is a slit down the piece's most
+    loaded corner, and it is narrower than two extrusions of the nozzle this box prints
+    with."""
+    return _lip_ring(inner, (y_joint, y_joint + lip_len + z_lip_y_margin),
+                     inner[4], zj - wall)
 
 
 def _z_station_y(ys):
