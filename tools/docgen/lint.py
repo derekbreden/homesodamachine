@@ -9,9 +9,9 @@ has more than one distinct value across the tree.
 
 Run as:
 
-    tools/cad-venv/bin/python -m docgen.lint              # cwd
-    tools/cad-venv/bin/python -m docgen.lint <directory>  # specific root
-    tools/cad-venv/bin/python tools/docgen/lint.py selftest
+    python3 tools/docgen/lint.py              # cwd
+    python3 tools/docgen/lint.py <directory>  # specific root
+    python3 tools/docgen/lint.py selftest
 
 Exit code is 0 if every NAME resolves consistently across the scanned
 tree, 1 if any collision was found.

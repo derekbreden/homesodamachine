@@ -9,14 +9,19 @@
 //   node tools/render/render-step-side-by-side.js <step-a> <step-b> <output-png> \
 //        [--label-a=<txt>] [--label-b=<txt>] \
 //        [--at <date|ref>] [--at-a <date|ref>] [--at-b <date|ref>]
-// Example (the racetrack STEP lives only at the archive-plan-b tag now,
-// so STEP B is pinned to that tag while STEP A stays at HEAD):
+// A PINNED SIDE READS A COMMITTED SOLID. The pin checks out the tag's tree and reads the
+// file from it — nothing is generated in there — so the solid has to be one that tag had
+// in the index. Generated solids are not: they are fetched against
+// hardware/cad-artifacts.lock.json, so at a tag they are simply absent. The harvested
+// reference solids ARE committed, and those are what a pinned side can name.
+//
+// Example (the same part at HEAD and as enclosure-v1 had it):
 //   node tools/render/render-step-side-by-side.js \
-//     printed-parts/cold-core/foam-shell/foam-shell.step \
-//     printed-parts/plan-b/foam-bag-shell-racetrack/foam-bag-shell-upper.step \
-//     /tmp/foam-shell-old-vs-new.png \
-//     --label-a="round (before)" --label-b="racetrack (after)" \
-//     --at-b archive-plan-b
+//     reference/elbow-connector/elbow-connector.step \
+//     reference/elbow-connector/elbow-connector.step \
+//     /tmp/elbow-old-vs-new.png \
+//     --label-a="now" --label-b="enclosure-v1" \
+//     --at-b enclosure-v1
 //
 // STEP paths are relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.

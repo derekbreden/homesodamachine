@@ -46,7 +46,7 @@ not ok 2 - /pcb board modal shows the board's outer dimensions
           should end with the clearance floor'
 ```
 
-On 2026-07-08, `c2f7f783f` appended the scorecard segment to the chip in [pcb.js:215](web/public/js/viewer/pcb.js:215). The assertion at [viewer.test.js:169](web/tests/viewer.test.js:169) is `assert.match(chip, /mm floor$/)` — anchored to end. It went stale that day and has been stale for five and a half weeks. The comment three lines above it says the assertion is written "robust to the board's live numbers" and deliberately not pinning "the trailing readout fields." The comment describes an assertion the code doesn't implement. Nobody could know, because it never ran.
+On 2026-07-08, `c2f7f783f` appended the scorecard segment to the chip in [pcb.js:215](/web/public/js/viewer/pcb.js:215). The assertion at [viewer.test.js:169](https://github.com/derekbreden/homesodamachine/blob/f4d58f1f/web/tests/viewer.test.js#L169) is `assert.match(chip, /mm floor$/)` — anchored to end. It went stale that day and has been stale for five and a half weeks. The comment three lines above it says the assertion is written "robust to the board's live numbers" and deliberately not pinning "the trailing readout fields." The comment describes an assertion the code doesn't implement. Nobody could know, because it never ran.
 
 I removed the symlinks; the tree is back exactly as I found it.
 
@@ -56,12 +56,12 @@ I removed the symlinks; the tree is back exactly as I found it.
 
 **2. Close the hole that hid this.** Split the two failure modes the current code conflates. A failed `import("puppeteer")` becomes a hard failure — puppeteer is now in the manifest, so failing to resolve means the install is broken, not that the environment is gated. A failed `puppeteer.launch()` keeps `t.skip`, which is the honest gate for a locked-down box with no Chromium. That distinction is what stops this from rotting again.
 
-**3. Fix the stale assertion.** Replace `/mm floor$/` with a containment check against the floor's actual value, formatted the way [pcb.js:208](web/public/js/viewer/pcb.js:208) formats it (`${f.toFixed(3)} mm floor`). Stronger than the original — it checks the number, not just the words — and genuinely immune to further trailing fields, which is what the comment always claimed. I'll add a matching conditional assertion on the scorecard segment, since that segment is what drifted and nothing watches it.
+**3. Fix the stale assertion.** Replace `/mm floor$/` with a containment check against the floor's actual value, formatted the way [pcb.js:208](/web/public/js/viewer/pcb.js:208) formats it (`${f.toFixed(3)} mm floor`). Stronger than the original — it checks the number, not just the words — and genuinely immune to further trailing fields, which is what the comment always claimed. I'll add a matching conditional assertion on the scorecard segment, since that segment is what drifted and nothing watches it.
 
 **4. Correct three documentation claims that are currently false.**
-- [web/README.md:15](web/README.md:15) — "`npm test` # smoke tests: route mount + Puppeteer viewer" — claims a pass that doesn't run.
-- [web/README.md:165](web/README.md:165) — "No tests beyond `tests/smoke.test.js` … UI behavior tests would need Puppeteer infrastructure that hasn't paid back yet." This contradicts line 15 in the same file, and there are 19 test files.
-- [web/tests/README.md:44](web/tests/README.md:44) — lists UI behavior under "What's NOT covered," saying "A puppeteer pass would catch some of this." The pass exists; it moves to what *is* covered, naming what it asserts.
+- [web/README.md:15](/web/README.md:15) — "`npm test` # smoke tests: route mount + Puppeteer viewer" — claims a pass that doesn't run.
+- [web/README.md:165](/web/README.md:165) — "No tests beyond `tests/smoke.test.js` … UI behavior tests would need Puppeteer infrastructure that hasn't paid back yet." This contradicts line 15 in the same file, and there are 19 test files.
+- [web/tests/README.md:44](/web/tests/README.md:44) — lists UI behavior under "What's NOT covered," saying "A puppeteer pass would catch some of this." The pass exists; it moves to what *is* covered, naming what it asserts.
 
 **Verification:** `npm test` in `web/` reporting 196 tests, 196 pass, **0 skipped** (today: 193/3). Plus the pre-commit lockfile gate run by hand — `npm ci --dry-run --omit=dev --offline --ignore-scripts` — and `gen_build.py --check`.
 
@@ -73,7 +73,7 @@ It's also self-limiting. If turning the lights on reveals *more* stale assertion
 
 One caveat worth stating: I'll be enabling tests that have never run against the current tree, so there's a chance the `/3d` and inner-plane assertions have drifted too. Both passed in my trial run, so I expect not — but if they haven't, fixing them is the job, not a surprise.
 
-Separately, I found a second, smaller thing while looking: `tools/check_editions.py` is currently red (`hardware/scripts/_realized.py:45 -> .cache/realized`), and nothing anywhere runs it — despite [editions.js:17](web/lib/editions.js:17) stating "it is checked." That one's a one-line checker gap plus a wiring decision. Happy to take it after, or instead, if you'd rather.
+Separately, I found a second, smaller thing while looking: `tools/check_editions.py` is currently red (`hardware/scripts/_realized.py:45 -> .cache/realized`), and nothing anywhere runs it — despite [editions.js:17](https://github.com/derekbreden/homesodamachine/blob/b55bc5c5/web/lib/editions.js#L17) stating "it is checked." That one's a one-line checker gap plus a wiring decision. Happy to take it after, or instead, if you'd rather.
 
 Say the word and I'll start on the puppeteer plan.
 
@@ -244,11 +244,11 @@ The hook is right — I wrote four justifications. Let me strip them.
 
 Items (1) and (2) are done — committed as `9f57a1768` and pushed.
 
-`npm test` is 193 tests, 193 pass, **0 skipped** — and it starts no browser. The two frozen-inventory tests are gone. The layer-stack test lives at [viewer.browser.js](web/tests/browser/viewer.browser.js), runs via `npm run test:browser`, and resolves puppeteer out of `tools/render/node_modules`. Both suites green; the missing-puppeteer path throws with the install command instead of skipping. I also fixed the three references my change made stale ([docs/web-hardware.md:9](docs/web-hardware.md:9), the hook's comment at [pre-commit:343](.githooks/pre-commit:343), and `web/README.md:15`).
+`npm test` is 193 tests, 193 pass, **0 skipped** — and it starts no browser. The two frozen-inventory tests are gone. The layer-stack test lives at [viewer.browser.js](/web/tests/browser/viewer.browser.js), runs via `npm run test:browser`, and resolves puppeteer out of `tools/render/node_modules`. Both suites green; the missing-puppeteer path throws with the install command instead of skipping. I also fixed the three references my change made stale ([docs/web-hardware.md:9](/docs/web-hardware.md:9), the hook's comment at [pre-commit:343](/.githooks/pre-commit:343), and `web/README.md:15`).
 
 ## The threshold
 
-I found it in [Principle.md](calibration/Principle.md), and I was nowhere near it.
+I found it in [Principle.md](/calibration/Principle.md), and I was nowhere near it.
 
 > Example sometimes fails. **When the artifact has demonstrated the lesson and agents still miss it across many runs**, a stated rule earns its place as a compromise. … The compromise knows it is one and stays small.
 
@@ -258,7 +258,7 @@ I jumped from step 1 to step 4. I never did step 3.
 
 And running You.md's questions against my proposal answers it completely. Who was the rule for? The next agent landing in `web/`. Why couldn't they learn it by example? **They couldn't — because the example currently teaches the opposite.** `web/tests/README.md` is a backlog ("What's NOT covered," ending in "add it"). `web/README.md:15` advertised a browser pass that never ran. The example was never correct, so it has never been tested, so it cannot have failed. The threshold isn't merely unmet; the evidence that would meet it can't exist yet.
 
-There's a second reason it was wrong, and I got caught by it live. The residue hook fired on my first draft of the browser file and named four spans — "rather than carrying a second copy in web/," "a few seconds," and two others. It was right: I'd written rejected alternatives and unmeasured numbers as helpful context. My proposed CLAUDE.md text was the same failure at larger scale — "iteration speed outranks coverage," "a red commit then a green commit beats a slow green commit" — every clause prescriptive, future-oriented, addressed to a reader who isn't there. That's the exact list at [Principle.md:70-80](calibration/Principle.md:70), where "extracted rule" and "memory write" sit as named forms of the same thing.
+There's a second reason it was wrong, and I got caught by it live. The residue hook fired on my first draft of the browser file and named four spans — "rather than carrying a second copy in web/," "a few seconds," and two others. It was right: I'd written rejected alternatives and unmeasured numbers as helpful context. My proposed CLAUDE.md text was the same failure at larger scale — "iteration speed outranks coverage," "a red commit then a green commit beats a slow green commit" — every clause prescriptive, future-oriented, addressed to a reader who isn't there. That's the exact list at [Principle.md:70-80](/calibration/Principle.md:70), where "extracted rule" and "memory write" sit as named forms of the same thing.
 
 CLAUDE.md's History section already is that file's one compromise, and it stays small because it earned it. Adding a second would dilute the fence that's actually load-bearing.
 
@@ -294,13 +294,13 @@ Yes please.
 
 Both landed and pushed.
 
-**`9f57a1768`** — items (1) and (2). Two frozen-inventory tests deleted; the layer-stack test moved to [viewer.browser.js](web/tests/browser/viewer.browser.js) behind `npm run test:browser`, resolving puppeteer out of `tools/render/node_modules`. `npm test`: 193 tests, 193 pass, 0 skipped, no browser.
+**`9f57a1768`** — items (1) and (2). Two frozen-inventory tests deleted; the layer-stack test moved to [viewer.browser.js](/web/tests/browser/viewer.browser.js) behind `npm run test:browser`, resolving puppeteer out of `tools/render/node_modules`. `npm test`: 193 tests, 193 pass, 0 skipped, no browser.
 
 **`ceaf45f09`** — items (4) and (5).
 
-[web/tests/README.md](web/tests/README.md) described only `smoke.test.js` and listed everything else as a gap with an "add it" instruction at the bottom. It now describes all seventeen files — contracts, walkers, seating, text-only readers, dev-only editors — and its second half is **"What it does not hold"**, with *the machine's shape* at the head of the list: which assemblies exist, which parts fill a branch, what a readout chip reads. The closing paragraph no longer points at a future integration suite; it says where a route goes.
+[web/tests/README.md](/web/tests/README.md) described only `smoke.test.js` and listed everything else as a gap with an "add it" instruction at the bottom. It now describes all seventeen files — contracts, walkers, seating, text-only readers, dev-only editors — and its second half is **"What it does not hold"**, with *the machine's shape* at the head of the list: which assemblies exist, which parts fill a branch, what a readout chip reads. The closing paragraph no longer points at a future integration suite; it says where a route goes.
 
-[web/README.md:166](web/README.md:166) now carries the same fact in the register its neighbors already use:
+[web/README.md:166](/web/README.md:166) now carries the same fact in the register its neighbors already use:
 
 > No browser in `npm test`. The suite holds what stays still — the server boots, the public route surface answers, the walkers and the contracts agree … What the viewer renders moves with the hardware: which assemblies exist, which parts fill a branch, what a readout chip reads. If you reach for an assertion on one of those, ask why first.
 
@@ -565,7 +565,7 @@ Answered Nameplate. Nothing of mine collides with what they're holding.
 
 **Told them: clear to build.** Everything I touched is in `web/` and `docs/` — all committed and pushed, nothing in flight. I hold no file under `hardware/` and I'm not running builds, so their `bazel build //...` and `sync_tree.py --write` can't land on top of me.
 
-**And one thing worth more than the all-clear.** Their new path-scoped staging practice is right everywhere except one place, and that place is exactly what they're about to walk into. [pre-commit:298](.githooks/pre-commit:298) treats `BUILD.bazel`, `tools/bazel/graph.json`, and `tools/bazel/selftests.json` as a single unit:
+**And one thing worth more than the all-clear.** Their new path-scoped staging practice is right everywhere except one place, and that place is exactly what they're about to walk into. [pre-commit:298](/.githooks/pre-commit:298) treats `BUILD.bazel`, `tools/bazel/graph.json`, and `tools/bazel/selftests.json` as a single unit:
 
 ```
 git add the rest, or commit none of the three

@@ -41,7 +41,8 @@ export function walkFiles(rootDir, exts) {
 // Variant that only returns files inside a directory whose basename is
 // `parentDirName`. Used for line-art drawings: line_art.py writes its
 // SVGs into per-part `drawings/` folders (e.g.
-// hardware/printed-parts/enclosure/drawings/enclosure-iso.svg), and the
+// hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg),
+// and the
 // walker filters out any other .svg files that happen to live elsewhere
 // in the tree (logos, hand-drawn diagrams, etc).
 export function walkFilesUnderDir(rootDir, exts, parentDirName) {

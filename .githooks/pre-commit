@@ -38,6 +38,12 @@
 #      - ledger/machine-time.md or bom.md   → _machine_time.py --check, for a §7 row
 #        with no print-rate group. GROUP_OF is the decision.
 #      - any staged *.py under hardware/    → check_build_exit.py.
+#      - any staged doc or source, or any add/delete/rename
+#                                           → check_paths.py, which asks whether every path
+#        this tree NAMES is one something holds — the index, the solids lock, or the tag or
+#        sha a reference names when the path is one HEAD no longer has. Keyed wide on
+#        purpose: a rename breaks links in files it never touched, so the commit that moves
+#        a path is the one that has to look everywhere.
 #      - web/package.json or its lockfile   → `npm ci --dry-run`, which is what render.yaml
 #        runs for real. The lockfile is the record of what the deployed site installs, so
 #        the two moving apart is a broken build waiting at the far end of a push.
@@ -326,6 +332,21 @@ fi
 if git diff --cached --name-only -- "$hw/" | grep -q '\.py$'; then
   gate "$hw records are tracked beside what they describe" \
        python3 "$root/$hw/scripts/check_tracked.py"
+fi
+
+# EVERY PATH THIS TREE NAMES, AGAINST WHAT SOMETHING HOLDS. The other gates guard a number
+# or a record; this one guards the other half of a doc — the link, which no script derives
+# and which a rename breaks in files the rename never touched. So the key is wide and the
+# scan is whole-tree: a commit that MOVES a path is exactly the commit whose damage is
+# somewhere else. It resolves against the index, against cad-artifacts.lock.json for the
+# solids that are fetched and not committed, and against a tag or sha when the reference
+# names one — the archive convention, where a deleted path keeps its reference and says
+# where it still stands. ~3 s, stdlib, no venv and no lock.
+if git diff --cached --name-only | grep -qE '\.(md|py|js|mjs|ts|tsx|cpp|c|h|hpp|sh|swift|kt|mmd)$' ||
+   git diff --cached --name-status | grep -q '^[ADR]' ||
+   staged "hardware/cad-artifacts.lock.json" "tools/check_paths.py"; then
+  gate "every path this tree names is one something holds" \
+       python3 "$root/tools/check_paths.py"
 fi
 
 # BUILD.bazel is written from graph.json, selftests.json and `git ls-files`. A commit that

@@ -2,7 +2,7 @@
 //
 // render-board.ts renders each pcb/<dir>/<name>.tsx into sibling out/ files: the copper views
 // out/<name>.{top,bottom,overlay}.svg (+ out/<name>.inner<N>.svg on a multi-layer board) and
-// out/<name>.picks.json (pick-data.ts, shape in hardware/pcb/pcba/picks-schema.ts). walk.js
+// out/<name>.picks.json (pick-data.ts, shape in web/contracts/picks-schema.ts). walk.js
 // builds these paths when it lists boards; viewer-routes.js confines the /api/pcb-content and
 // /api/pcb-picks routes to them. One definition so the naming stays in lockstep across readers.
 

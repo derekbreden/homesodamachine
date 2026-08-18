@@ -83,8 +83,8 @@ reports any NAME with more than one distinct value across files.
 
 Invoke as:
 
-    tools/cad-venv/bin/python -m docgen.lint              # scan cwd
-    tools/cad-venv/bin/python -m docgen.lint <directory>  # scan a root
+    python3 tools/docgen/lint.py              # scan cwd
+    python3 tools/docgen/lint.py <directory>  # scan a root
 
 Exit code is 0 if no collisions are found, 1 otherwise.
 """
