@@ -250,27 +250,24 @@ on the ±X exterior walls and runs out into their own rounds.
 Inside those verticals stand the **columns**, and each one is that relief
 **mirrored** — congruent, which is what fixes it. The relief outside is a **quarter turn**
 of [12 mm](COLUMN_ARC); a mirror is congruent or it is not a mirror, so the column's face is
-a quarter turn of the same radius — the **same arc and the same length**. The one place such
+a quarter turn of the same radius — the **same arc and the same length**. The only place such
 a turn fits inside the cavity with its ends on the two inner faces is swung from the corner
-they meet at, and folding it across its own chord puts the second centre one radius in from
-each face. One radius and two centres is the whole construction.
+they meet at, and that is the whole construction: one radius, one centre.
 
-So the section is a **lens**: **two sharp corners** opposite each other, standing
-[12 mm](COLUMN_ALONG) along each inner face where the two arcs land at 90°, and **two round
-sides** opposite each other, the section closing to [7.03 mm](COLUMN_DEPTH) across the
-diagonal. Nothing is tangent to a wall but the back arc at its cusps, and nothing is filled
-in.
+It lands on each face at 90°, so a standing vertical presents **two sharp corners** opposite
+each other, [12 mm](COLUMN_ALONG) along each inner face, with the arc between them. The
+section stands [8.27 mm](COLUMN_DEPTH) out of the cove at the corner's diagonal.
 
-**It stands off the cove behind it**, and that is the price of congruence. The cavity's own
-corner is a quarter turn one wall smaller, so the two curves cannot coincide: the back arc
-runs [1.24 mm](COLUMN_STANDOFF) outside the cove at the diagonal and closes onto it at each
-cusp. The column is joined to the box along those two cusp lines, and behind it is a through
-slot its whole height. All four standing verticals carry one (`enclosure.column_corners`),
-so each quadrant prints the two its own two exterior arrises stand behind.
+**The corner behind it is solid.** The face is the column's only free surface — a second arc
+back there would leave a through slot the column's whole height — so the column is everything
+within the radius and the wall keeps the rest. The cove the wall had turned stops being a
+surface at all: what the room meets at a standing vertical is **one arc, congruent with the
+one it meets outside**. All four verticals carry one (`enclosure.column_corners`), so each
+quadrant prints the two its own two exterior arrises stand behind.
 
-A wall's inner face is **flat only past the cusp**, so anything BEARING on that face answers
-to `enclosure.wall_flat_from_corner` rather than to the relief's own tangent — the C14
-inlet's flange is the one that does.
+A wall's inner face is **flat only past that landing**, so anything BEARING on it answers to
+`enclosure.wall_flat_from_corner` rather than to the relief's own tangent — the C14 inlet's
+flange is the one that does.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
