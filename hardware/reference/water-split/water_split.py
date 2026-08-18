@@ -6,10 +6,11 @@ V-K (the fill/shutoff on the way to the SeaFlo suction) and to the flavor tap
 reducers, because the water reaches it at 1/4" and leaves at 1/4"
 ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2).
 
-The solid is `reference/tee-connector`'s — the same harvested fitting the manifold's six
-junctions are built from, turned into the frame below. Its figures are measured off that STEP
-and held to it at import, so the barrel a rib closes on and the collet faces a tube pushes into
-are the fitting's own and not a drawing of one.
+THE SOLID IS `reference/tee-connector`'s — the same harvested fitting the manifold's six
+junctions are built from, turned into the frame below. This file writes none of its own: a
+turned copy of a solid is that solid, and `build()` hands the caller the turn. Its figures are
+measured off that STEP and held to it, so the barrel a rib closes on and the collet faces a tube
+pushes into are the fitting's own and not a drawing of one.
 
 Frame: the run along ±Y, the supply at +Y and the flavor tap at −Y, and the branch along −X at a
 right angle to both. Centre at the origin, the three collet faces in the Z = 0 plane. Which of the
@@ -19,7 +20,7 @@ branch is the port that turn is FOR: it is the only one of the three that can be
 its own.
 
 Run:
-    tools/cad-venv/bin/python hardware/reference/water-split/water_split.py
+    tools/cad-venv/bin/python hardware/reference/water-split/water_split.py selftest
 """
 
 import sys
@@ -31,8 +32,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "tee-connector"))
-from _cadq_export import export_assembly, import_step
-from _materials import M_JG_BLACK_PP, one_body
+from _cadq_export import import_step
 import tee_connector as tee
 
 REACH = tee.RUN_HALF         # collet face from the body centre — run half-length and branch alike
@@ -97,23 +97,18 @@ def stations_hold():
                 f"at {actual:.4f} — the frame this file states is not the frame `_TURNS` builds.")
 
 
-def main():
+# --- controls -------------------------------------------------------------
+
+def selftest():
     tee.stations_hold()
     stations_hold()
-    part = build()
-    bb = part.BoundingBox()
-    print("1/4\" PTC union tee — water split (ASSE outlet -> V-K + flavor tap)")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    for label, (pos, axis) in (("supply   ", supply()), ("to-vk    ", to_vk()),
-                               ("to-flavor", to_flavor())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    (station, r, length) = run_barrel()
-    print(f"  run barrel: r {r:.3f}, {length:g} mm long, centred at {station[0]}")
-    out = _here.parent / "water-split.step"
-    export_assembly(one_body(part, "water-split", M_JG_BLACK_PP), str(out))
-    print(f"-> {out.name}")
+    return ["  the three declared stations stand on the turned solid they name"]
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+        for line in selftest():
+            print(line)
+        print("water_split selftest OK")
+    else:
+        print(__doc__)

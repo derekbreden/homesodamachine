@@ -271,6 +271,18 @@
   "hardware/reference/condenser-block/condenser_block.py": [
     "hardware/reference/condenser-block/condenser_block.py"
   ],
+  "hardware/reference/hopper-drain-stub/hopper_drain_stub.py": [
+    "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+    "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+    "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py",
+    "hardware/reference/worm-clamp/worm_clamp.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/_stated_bounds.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
@@ -285,6 +297,14 @@
   "hardware/reference/tee-connector/tee_connector.py": [
     "hardware/reference/tee-connector/tee-connector.step",
     "hardware/reference/tee-connector/tee_connector.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_run_lock.py"
+  ],
+  "hardware/reference/water-split/water_split.py": [
+    "hardware/reference/tee-connector/tee-connector.step",
+    "hardware/reference/tee-connector/tee_connector.py",
+    "hardware/reference/water-split/water_split.py",
     "hardware/scripts/_cadq_export.py",
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py"
@@ -382,6 +402,9 @@
     "hardware/printed-parts/enclosure/port-ring/port_ring.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
     "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
     "hardware/printed-parts/flavor/pump-case/pump_case.py",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
     "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -432,8 +455,6 @@
     "hardware/reference/ground-ring-stack/ground-ring-stack.step",
     "hardware/reference/ground-ring-stack/ground-ring-stack.step.png",
     "hardware/reference/ground-ring-stack/ground_ring_stack.py",
-    "hardware/reference/hopper-drain-stub/hopper-drain-stub.step",
-    "hardware/reference/hopper-drain-stub/hopper-drain-stub.step.png",
     "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
     "hardware/reference/ice-maker/README.md",
     "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
@@ -514,8 +535,6 @@
     "hardware/reference/wago-221/wago-221-420.step",
     "hardware/reference/wago-221/wago-221-420.step.png",
     "hardware/reference/wago-221/wago_221.py",
-    "hardware/reference/water-split/water-split.step",
-    "hardware/reference/water-split/water-split.step.png",
     "hardware/reference/water-split/water_split.py",
     "hardware/reference/waveshare-43b-display/README.figures.json",
     "hardware/reference/waveshare-43b-display/README.md",
