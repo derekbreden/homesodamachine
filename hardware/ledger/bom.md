@@ -212,7 +212,7 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | [BNTECHGO 22 AWG silicone, 250 ft black spool](https://www.amazon.com/dp/B06Y2PNW41) | Bulk all-black cut-to-length hookup for every board-driven DC actuator (pump leads DC-5, manifold trunks + valve fan-outs DC-6/DC-7, condenser fan DC-8) and every sensor / reed / display / logic signal run (SIG-1…12 except the §9 umbilical ribbon SIG-6, plus relay control LV-1/2/3). Lands on XH / Wago / screw terminals for signals, spade disconnects for the actuators. Single-color black per the all-black convention — color is reserved for the AC mains only (see [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). Stranded tinned-copper silicone, 600 V. $27.86/250 ft = $0.111/ft; ~30 ft/build | ~30 ft | $0.11/ft | $3.34 <!--@wiring--> |
 | [Alex Tech PET expandable braided sleeve, black — 1/4" + 1/2" + 3/4"](https://www.amazon.com/dp/B074GMNW7T) | Bundling for the in-cabinet harnesses, threaded on before either end is terminated, ends finished with heat-shrink. 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs. ([3/4"](https://www.amazon.com/dp/B074GMCGZX), [1/4"](https://www.amazon.com/dp/B071JH14WZ).) Blended ~$0.19/ft | ~8 ft (mixed) | $0.19/ft | $1.52 <!--@cable-mgmt--> |
 | Insulated bootlace ferrules, 16/22 AWG (from the Preciva kit) | Conductor landings into the Wago 221 lever nuts + screw terminals — DIN-style insulated cord-end ferrules. The crimper is tooling ([tools.md](/hardware/ledger/tools.md)); the 950-ferrule stock comes with it, so per-unit ferrule cost is negligible. | ~35 (of 950) | — | $0.50 <!--@wiring--> |
-| Umbilical sleeve — spiral wrap, 1" nominal | **SKU TBD.** Wound on radially over the assembled bundle after both ends are terminated, from just above the under-counter plate to ~3" above the rear-wall bulkheads, per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §4. ~2.5–3 m per build | 1 | — | — <!--@cable-mgmt--> |
+| [Umbilical sleeve — Alex Tech 1" PET expandable braided sleeve, black/blue, 100 ft](https://www.amazon.com/dp/B075VRDS53) | Over all three tubes and the SIG-6 ribbon, in **five 1-ft segments** — one goes over each CARGEN foam segment as that segment seats, on the foam's own run, per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3, so the installer's field trim takes one foam segment and its braid segment together. 1" nominal expanding 50%, and the pack opens it to Ø31.66 mm (1.25"). Amazon 112-1380657 Aug 17: $24.99/100 ft = $0.25/ft | ~5 ft (of 100 ft) | $0.25/ft | $1.25 <!--@cable-mgmt--> |
 
 ## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
 
@@ -295,11 +295,11 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 8. Flavor subsystem | [$203.99](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$29.90](BOM_SEC11) |
+| 11. Wiring | [$31.15](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$11.82](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,284.86](BOM_GRAND)** |
+| **Total** | **[$1,286.11](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

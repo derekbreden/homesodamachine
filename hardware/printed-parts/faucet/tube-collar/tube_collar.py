@@ -10,9 +10,9 @@ run. Same four colours, same five words, same two-filament print.
     the word stands level on it without anything holding it there.
 
 THE BORE IS CLOSED AND SLIPS OVER THE TUBE, and the collar threads on end-first, over a tail that
-is still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's three tubes and §4 sleeves
-them; the collars go on between. The tap run and the CO2 tether are the customer's own cuts, and
-their collars ride in the install kit.
+is still bare. `assembly/faucet-and-umbilical.md` §1 cuts the umbilical's three tubes and §3 sleeves
+them; the collars go on at §4, up to the braid's own end. The tap run and the CO2 tether are the
+customer's own cuts, and their collars ride in the install kit.
 
 THE LENGTH IS THE BORE'S. `rock()` is the angle a collar can cock on its loosest tube — a bore of
 length L with diametral play c binds at two diagonal corners, leaving atan(c/L) — and `flag_sway()`
@@ -68,7 +68,9 @@ LLDPE_TOL = 0.13
 BORE_SHRINK = 0.10
 # AND WHAT IS LEFT OVER THE BIGGEST TUBE once the sag has had it. `LENGTH` of bore turns any
 # interference at all into a collar that goes on with a mallet or not at all, and this one goes on
-# by hand over a bare tail. LLDPE off a coil is oval enough to drag on a slip this size.
+# by hand over a bare tail. What holds it where it is put is the bend the tube came off the spool
+# with: 1/4" LLDPE is never straight through `LENGTH` of bore and stands against the wall at both
+# ends of one.
 SLIP = 0.15
 # THE BORE, AS THE SLICER IS HANDED IT: the top of the tube's band, the sag, and the slip.
 BORE = TUBE_OD + LLDPE_TOL + BORE_SHRINK + SLIP

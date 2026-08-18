@@ -74,7 +74,11 @@ def main():
         # not the one the slicer was handed — `tube_collar.BORE_SHRINK` is the difference.
         "COLLAR_BORE_PRINTED": f"{faucet.tube_collar.bore_printed():.4g}",
         "COLLAR_TUBE_OD": f"{faucet.tube_collar.TUBE_OD:.4g}",
-        "COLLAR_SLEEVE_TAIL": f"{faucet.sleeve_tail / 25.4:.3g} in",
+        "COLLAR_SLEEVE_TAIL": f"{faucet.foam_bare_at_wall:.3g} mm",
+        # The braid over the pack — §3 and open item 2. It is bought by what it opens to.
+        "SLEEVE_GIRTH": f"{faucet.bundle_girth():.4g} mm",
+        "SLEEVE_BORE": f"{faucet.bundle_bore():.4g} mm",
+        "SLEEVE_BORE_IN": f'{faucet.bundle_bore() / 25.4:.3g}"',
     }
 
     substitute_md(

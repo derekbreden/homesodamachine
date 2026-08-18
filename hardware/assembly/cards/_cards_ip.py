@@ -314,8 +314,5 @@ def internal_plumbing(m):
         "ip-06-witness-tidy": {"PUMP_CLAMPS", "VENT_GAP"},
         "wr-04-cabinet-12v-runs": {"VK_SIDE"},
         "wr-05-signal-looms": {"CARB_2_LEN", "METER_BOSS"},
-        "fu-04-sleeve-the-bundle": {
-            "UMBILICAL_UNIONS", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
-            "FLAVOR_B_END"},
     }
     return facts, cards
