@@ -1153,14 +1153,37 @@ def _bed_band(inner):
     return oz1 - H2C_Z, oz0 + H2C_Z - lip_len
 
 
+def _lip_band(inner, z):
+    """The Z-seam lip's own shape over a height span: the cavity's one-`wall` skin.
+
+    THE LIP IS NOT A BOX. It is struck as the cavity's skin (`_cavity`), so it carries the
+    wall rounds at the standing verticals and WRAPS whatever column stands in one — the
+    pillar telescopes into the piece above on the same one wall of overlap every other face
+    uses. A rectangular band drawn to the same figures is neither: it reaches into corners
+    the cavity has rounded away, and it misses the wrap entirely, which is the part that
+    stands furthest inboard.
+
+    `_z_lip` fuses this onto a piece and `_lip_denied` measures what stands in its way, and
+    they have to be the same shape or the second is answering about a lip the box does not
+    build."""
+    z0, z1 = z
+    return _cavity(inner, 0.0, (z0, z1)).cut(_cavity(inner, wall, (z0 - 1.0, z1 + 1.0)))
+
+
 def _lip_denied(placed, inner, y_span):
     """The seam heights the pack denies ONE Y column's Z seam, as z spans.
 
-    The lip is the one part of a Z seam whose position rides the seam height: a
-    one-`wall` ring inset from the cavity, running from its fusion shoulder
+    The lip is the one part of a Z seam whose position rides the seam height: the
+    cavity's own one-`wall` skin (`_lip_band`), running from its fusion shoulder
     (`zj − wall`) up to its rim (`zj + lip_len`). The four station collars ride with
     it, in the ±X boss-chain bands the lip's own side segments run down, so they
     occupy the same lane wherever the seam lands.
+
+    IT IS THE SKIN AND NOT A BOX, so it WRAPS every column standing in a vertical, and
+    that wrap stands a whole `column_round` further inboard than any wall segment does.
+    A body clear of all four walls can still be in the lip's way there — the PSU's aft
+    corner is, at the X+/Y+ column — and a rectangular ring drawn to the cavity's own
+    figures cannot see it.
 
     A Z SEAM IS PER Y COLUMN AND SO IS ITS LIP. The front pair joins at one height and
     the back pair at another, and `_z_lip`'s band is intersected with the piece's own
@@ -1180,11 +1203,10 @@ def _lip_denied(placed, inner, y_span):
     would put the lip on. What holds the rest of the ring open is the pack's own
     standoffs — one `wall` at the front and back walls (`front_seam_clear`,
     `rear_seam_clear`) and one boss chain at the sides (`side_band_inset`)."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     cy0, cy1 = y_span
-    ring = _ybox(ix0, ix1, iy0, iy1, iz0, iz1).cut(
-        _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, iz0 - 1.0, iz1 + 1.0))
-    ring = ring.intersect(_ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
+    ring = _lip_band(inner, (iz0, iz1)).intersect(
+        _ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
     out = []
     for solid, _c in placed.values():
         hit = ring.intersect(solid)
@@ -2184,7 +2206,7 @@ def _z_lip(inner, y_joint, zj):
     piece above it on the same one wall of overlap every other face uses."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     z0, z1 = zj - wall, zj + lip_len
-    ring = _cavity(inner, 0.0, (z0, z1)).cut(_cavity(inner, wall, (z0 - 1.0, z1 + 1.0)))
+    ring = _lip_band(inner, (z0, z1))
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
                 y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
                 z0 - 1.0, z1 + 1.0)
