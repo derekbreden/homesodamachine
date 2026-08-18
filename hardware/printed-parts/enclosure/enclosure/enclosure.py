@@ -3598,4 +3598,12 @@ def main():
 
 
 if __name__ == "__main__":
+    # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY — the same line
+    # `enclosure_assembly` carries for itself, and for the same reason. Run as a script this
+    # is `__main__`, so `machine_of`'s `enclosure_assembly` does `import enclosure` and gets a
+    # SECOND copy: `_dims` fills that one's module state and `main()` builds the pieces out of
+    # this one's. `_wall_block` survives the split only because a missing key reads as "nothing
+    # known in the way", and nothing else may be asked to degrade that way. One name, one
+    # module, one box.
+    sys.modules.setdefault(__name__ if __name__ != "__main__" else "enclosure", sys.modules[__name__])
     main()
