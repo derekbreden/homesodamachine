@@ -5,7 +5,7 @@
     "CAP_HOLE_D": "6.5 mm",
     "COLLAR_BORE_PRINTED": "6.63",
     "COLLAR_LENGTH": "30 mm",
-    "COLLAR_SLEEVE_TAIL": "3 in",
+    "COLLAR_SLEEVE_TAIL": "75 mm",
     "COLLAR_TUBE_OD": "6.35",
     "COUNTERTOP_HOLE_D": "34.93 mm",
     "CYL_L": "13.5 mm",
@@ -21,6 +21,9 @@
     "PILL_W": "7.05 mm",
     "PLATE_D": "54.45 mm",
     "SHANK_HOLE_D": "12.6 mm",
+    "SLEEVE_BORE": "31.66 mm",
+    "SLEEVE_BORE_IN": "1.25\"",
+    "SLEEVE_GIRTH": "99.47 mm",
     "TOTAL_H": "15.6 mm"
   }
 }

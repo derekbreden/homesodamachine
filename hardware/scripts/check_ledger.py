@@ -207,7 +207,6 @@ GENERIC = [
     (r"\bRTV\b", "rtv"),
     (r"VHB", "vhb"),
     (r"slip coupling", "slip coupling"),
-    (r"spiral wrap", "spiral wrap"),
     (r"braided sleeve|PET braid", "braided sleeve"),
     (r"bootlace ferrule|ferrules? (?:at|into|under)", "ferrule"),
     (r"zip[- ]tie", "zip tie"),

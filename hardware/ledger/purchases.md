@@ -386,6 +386,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Alex Tech 1/2" black PET expandable braided sleeve, 100 ft — primary harness bundling (replaces spiral wrap) | [B074GMNW7T](https://www.amazon.com/dp/B074GMNW7T) | 1 (100 ft) | $17.15 | 112-6043616-7501828 | 2026-06-28 | 2026-06-29 | ACQUIRED |
 | Alex Tech 3/4" black PET expandable braided sleeve, 100 ft — harness bundling, large trunks (manifold cable) | [B074GMCGZX](https://www.amazon.com/dp/B074GMCGZX) | 1 (100 ft) | $22.51 | 112-9748313-5465028 | 2026-06-28 | 2026-06-29 | ACQUIRED |
 | Alex Tech 1/4" black PET expandable braided sleeve, 25 ft — harness bundling, thin runs | [B071JH14WZ](https://www.amazon.com/dp/B071JH14WZ) | 1 (25 ft) | $8.57 | 112-1902778-9631456 | 2026-06-28 | 2026-06-29 | ACQUIRED |
+| Alex Tech 1" black/blue PET expandable braided sleeve, 100 ft — the umbilical sleeve, five 1-ft segments per build over the foam's own | [B075VRDS53](https://www.amazon.com/dp/B075VRDS53) | 1 (100 ft) | $24.99 | 112-1380657-5901013 | 2026-08-17 | — | ON-ORDER |
 | Preciva ferrule crimping tool kit — AWG 28–5 quad-indent ratcheting crimper + 950 pcs insulated bootlace ferrules; for the Wago 221 conductor landings + screw terminals (closes the wire-ferrule gap) | [B0DS622GKN](https://www.amazon.com/dp/B0DS622GKN) | 1 kit | $48.25 | 112-4262778-1489854 | 2026-06-28 | 2026-06-29 | ACQUIRED |
 | GEARit 25 ft 18/3 SJOOW portable cord, 18 AWG 300 V — rubber-jacketed 3-conductor compressor lead, shelf to terminal block and foot bond (AC-4/5/6) | [B0BKQ2H9BZ](https://www.amazon.com/dp/B0BKQ2H9BZ) | 1 (25 ft) | $20.37 | 112-9256032-0146608 | 2026-06-28 | 2026-06-30 | ACQUIRED |
 | ~~Biaungdo 1/2" NPT stainless-steel cable gland, adjustable 6–12 mm, 2-pack~~ — designed out; the SJOOW jacket runs unbroken from the shelf to the compressor and is its own strain relief, so the lead crosses no panel to be clamped at | [B0F2HP5FWB](https://www.amazon.com/dp/B0F2HP5FWB) | 1 pk (2) | $7.63 | 112-5404430-0862635 | 2026-06-28 | 2026-06-29 | ACQUIRED |
@@ -640,10 +641,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$31,772.14](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$37,209.68](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$523.84](LEDGER_ON_ORDER) |
+| ON-ORDER | [$548.83](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$37,776.41](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$37,801.40](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
