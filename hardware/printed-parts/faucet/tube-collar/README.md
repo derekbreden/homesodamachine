@@ -32,7 +32,7 @@ One collar per chip, on the same five stations, off the same five words and four
 `port_ring.STATIONS` and `_back_panel_dimensions.chip_filaments` are what both read.
 
 The three on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
-§4, between the cut and the sleeve, and ride to the rear wall in the un-sleeved last 3". The other
+§4, up to the braid's own end, and ride to the rear wall on the un-sleeved tail. The other
 two go in the install kit, for the two runs the customer cuts in their own kitchen.
 
 ## The bore

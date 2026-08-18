@@ -37,7 +37,8 @@ AND BELOW THE PLATE, THE UMBILICAL — the same three tubes gathered into the pa
 them, down to the end the installer pushes into the rear wall:
 
     foam             CARGEN nitrile on the blue tube only, five 1-ft segments butted
-    sleeve           1" spiral wrap over the pack, stopping 3 in short of the tails
+    sleeve           PET braid over the pack, a segment to each of the foam's, on the
+                     foam's own two planes
     tube collars     SODA on the blue, FLAVOR on each black, on the bare tails at the wall
 
 Its run is drawn to `umbilical_drawn` rather than to the factory cut: the metre and a half between
@@ -48,6 +49,7 @@ Regenerate:
     tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py
 """
 
+import functools
 import math
 import sys
 from pathlib import Path
@@ -151,7 +153,7 @@ flavor_tube_depth_lower = body_r + flavor_tube_r
 flavor_tube_x_offset = flavor_tube_r  # ± — tangent to other tube at X=0
 
 # Below the plate the three tubes leave on the faucet's own spacing and are gathered into the
-# triangular dense pack a sleeve makes of them (`faucet-and-umbilical.md` §4). The pack is struck on
+# triangular dense pack a sleeve makes of them (`faucet-and-umbilical.md` §3). The pack is struck on
 # tangency, and the flavour pair keeps the X it has carried since the body — `flavor_tube_x_offset`,
 # the two tangent to each other at X = 0 — so the gather is a move in DEPTH and nothing else, over
 # the run `umbilical_stub` gives it.
@@ -459,41 +461,63 @@ flavor_tube_z_bottom = umbilical_tail_z
 flavor_tube_z_top = water_tube_z_top
 
 
-def bundle_circle():
-    """The smallest circle standing round the packed bundle, as `(center_y, radius)`.
-
-    Three circles on one plane of symmetry — the foam on the blue tube at the origin and the flavour
-    pair tangent to it — so the centre is on X = 0 and the radius is the larger of the two reaches
-    from it. Bisected on which of the two is larger, which changes over once between the foam's own
-    axis and the flavour pair's."""
-    def reaches(yc):
-        return (abs(yc) + foam_r,
-                math.hypot(flavor_tube_x_offset, pack_flavor_depth - yc) + flavor_tube_r)
-
-    lo, hi = 0.0, pack_flavor_depth
-    for _ in range(200):
-        mid = (lo + hi) / 2.0
-        if reaches(mid)[0] < reaches(mid)[1]:
-            lo = mid
-        else:
-            hi = mid
-    yc = (lo + hi) / 2.0
-    return yc, max(reaches(yc))
-
-
-# [3.2156 mm](SLEEVE_CENTER_Y) behind the body axis, and Ø[31.83 mm](SLEEVE_ID) across — the bundle
-# the 1" nominal spiral wrap is laid on (`ledger/bom.md` §11, SKU TBD; the wall below is the figure
-# the assembly draws it at).
-sleeve_center_y, sleeve_r = bundle_circle()
+# The lane the SIG-6 ribbon rides in, between the tube pack and the braid's inner face. The braid
+# stands off every tube in the pack by it.
+#
+# ASSUMED, NOT MEASURED — one 28 AWG silicone conductor's OD. The ribbon is on the shelf
+# (`ledger/purchases.md`, B07PNPHWMG) and modelled nowhere; a caliper across it replaces this.
+cable_lane = 1.5
 sleeve_wall = 1.0
-# 3 in of bundle left bare at the wall end, for the installer to flex the three apart and push each
-# into its own union.
-sleeve_tail = 3.0 * 25.4
-sleeve_z_top = umbilical_z_bottom
-sleeve_z_bottom = umbilical_tail_z + sleeve_tail
+
+
+def bundle_hull(grow: float = 0.0) -> cq.Sketch:
+    """The pack's outline, standing `grow` off every tube in it.
+
+    A braid lies on the tubes it is drawn over and bridges tangent between them: its inner face is
+    this outline at `cable_lane` and its outer the same at `cable_lane` plus `sleeve_wall`.
+
+    Growing every circle by `grow` offsets the hull by it — the boundary is arcs and the tangents
+    between them, and a common growth carries each arc out and leaves each tangent where it lies."""
+    return (
+        cq.Sketch()
+        .arc((0.0, 0.0), foam_r + grow, 0.0, 360.0)
+        .arc((+flavor_tube_x_offset, pack_flavor_depth), flavor_tube_r + grow, 0.0, 360.0)
+        .arc((-flavor_tube_x_offset, pack_flavor_depth), flavor_tube_r + grow, 0.0, 360.0)
+        .hull()
+    )
+
+
+@functools.lru_cache(maxsize=None)
+def _hull_face(grow: float):
+    """`bundle_hull(grow)` as one planar face, read off the floor of a prism raised on it."""
+    return (cq.Workplane(xy_plane_z_up).placeSketch(bundle_hull(grow))
+            .extrude(1.0).faces("<Z").val())
+
+
+def bundle_girth(grow: float = None) -> float:
+    """The perimeter the braid closes on, and the figure a braid is bought by."""
+    return max(w.Length() for w in _hull_face(cable_lane if grow is None else grow).Wires())
+
+
+def bundle_bore() -> float:
+    """That perimeter as the diameter of the circle carrying it — the size a braid opens to."""
+    return bundle_girth() / math.pi
+
+
+# [2.4541 mm](SLEEVE_CENTER_Y) behind the body axis — the pack's own centre of area, which is what
+# a collar's flag is turned away from. Ø[31.66 mm](SLEEVE_BORE) is what the braid opens to over it
+# — a 1" nominal PET braid that expands 50% (`ledger/bom.md` §11; the wall above is the figure the
+# assembly draws it at).
+sleeve_center_y = _hull_face(cable_lane).Center().y
+# THE BRAID'S RUN IS THE FOAM'S. One braid segment goes over each foam segment as that segment
+# seats (`faucet-and-umbilical.md` §3), so the two start and stop on one pair of planes and the
+# installer's trim takes one of each. What that leaves bare at the wall is `foam_bare_at_wall`,
+# where the installer flexes the three apart and pushes each into its own union.
+sleeve_z_top = foam_z_top
+sleeve_z_bottom = foam_z_bottom
 # THE TAILS COME APART BEFORE THE COLLARS GO ON. The rear wall does not take this bundle as a
 # triangle — the installer flexes the three apart in the un-sleeved stretch and pushes each into its
-# own union (`faucet-and-umbilical.md` §5) — and the collars need the same room: two of them clear
+# own union (`faucet-and-umbilical.md` §3) — and the collars need the same room: two of them clear
 # when their tubes' axes stand further apart than the two reach. The flavour pair splays in X until
 # the TIGHTEST of the three pairs makes that, which is a flavour tube against the blue standing
 # forward of them, not the two flavours against each other.
@@ -914,17 +938,18 @@ def build_foam():
 
 
 def build_sleeve():
-    """The spiral wrap over the assembled bundle, from the gather's own bottom — the first plane the
-    three tubes are in their pack on — down to `sleeve_tail` short of the tails.
+    """The braid over the assembled bundle, on the foam's own two planes.
 
     What it leaves bare at the bottom is what the installer flexes apart to reach three bulkheads
-    standing on one line, and it is where the collars ride."""
-    return (
-        cq.Workplane("XY").workplane(offset=sleeve_z_bottom)
-        .center(0.0, sleeve_center_y)
-        .circle(sleeve_r + sleeve_wall).circle(sleeve_r)
-        .extrude(sleeve_z_top - sleeve_z_bottom)
-    )
+    standing on one line, and it is where the collars ride.
+
+    DRAWN AS ONE RUN AND FITTED IN SEGMENTS — five of them, one to each of the foam's. What is
+    drawn is `umbilical_drawn`, shorter than any one of them."""
+    z_bottom, z_top = sleeve_z_bottom, sleeve_z_top
+    def prism(grow):
+        return (cq.Workplane(xy_plane_z_up).workplane(offset=z_bottom)
+                .placeSketch(bundle_hull(grow)).extrude(z_top - z_bottom))
+    return prism(cable_lane + sleeve_wall).cut(prism(cable_lane))
 
 
 def build_collar(which, x, y):
@@ -996,7 +1021,7 @@ def build_assembly():
     steel = cq.Color(0.72, 0.74, 0.78)  # 316 SS cut plate
     stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab, not a part
     foam_black = cq.Color(0.18, 0.18, 0.19)  # CARGEN nitrile, on the blue tube only
-    sleeve_black = cq.Color(0.10, 0.10, 0.11, 0.55)  # spiral wrap, over the lot
+    sleeve_black = cq.Color(0.10, 0.10, 0.11, 0.55)  # PET braid, over the lot
 
     assy = cq.Assembly(name="faucet-assembly")
     assy.add(body, name="valve_body", color=donor_black)
@@ -1071,9 +1096,10 @@ def main():
           f"Z = {foam_z_bottom:.1f} → {foam_z_top:.1f} "
           f"({foam_bare_at_body:g} bare at the body, "
           f"{foam_bare_at_wall:g} bare at the wall)")
-    print(f"  Sleeve:                Ø{2 * sleeve_r:.2f} bundle at Y = {sleeve_center_y:.4f}, "
+    print(f"  Sleeve:                {bundle_girth():.2f} mm of girth, Ø{bundle_bore():.2f} opened, "
+          f"at Y = {sleeve_center_y:.4f}, "
           f"Z = {sleeve_z_bottom:.1f} → {sleeve_z_top:.1f} "
-          f"({sleeve_tail:.1f} mm of bundle left bare)")
+          f"({foam_bare_at_wall:.1f} mm of bundle left bare, five segments over the foam's)")
     print(f"  Tube collars:          {tube_collar.OD:g} × {tube_collar.LENGTH:g}, "
           f"Z = {collar_top_z - tube_collar.LENGTH:.1f} → {collar_top_z:.1f} — "
           f"SODA on the blue, FLAVOR on each black")
@@ -1119,7 +1145,8 @@ def main():
             "TAILS_APART": f"{tails_apart:.4g} mm",
             "FOAM_Z_BOTTOM": f"{foam_z_bottom:.4g} mm",
             "SLEEVE_CENTER_Y": f"{sleeve_center_y:.4f} mm",
-            "SLEEVE_ID": f"{2 * sleeve_r:.4g} mm",
+            "SLEEVE_GIRTH": f"{bundle_girth():.4g} mm",
+            "SLEEVE_BORE": f"{bundle_bore():.4g} mm",
             "SUPPLY_BELOW_COUNTER": f"{countertop_top_z - supply_tube_z_top:.4g} mm",
             "COUNTERTOP_TOP_Z": f"{countertop_top_z:.4g} mm",
             "COUNTERTOP_BOTTOM_Z": f"{countertop_bottom_z:.4g} mm",

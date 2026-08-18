@@ -51,12 +51,12 @@ Blue naming carbonated water is what makes the other two fall out: the umbilical
 
 ## Umbilical bundle construction
 
-The 3-tube umbilical from the faucet down to the rear face is bundled into a single sleeved run, wound in 1" nominal spiral wrap after both ends are terminated, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §4.
+The 3-tube umbilical from the faucet down to the rear face is bundled into a single sleeved run, in PET braid segments laid over the foam's own, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3.
 
 **Foam insulation on the carbonated-water tube only.** The two flavor tubes carry ambient-temperature syrup at low duty cycle (a few mL per dispense) — warm-in, warm-out, no thermal benefit from insulation. The carbonated-water tube is the temperature-critical run: a multi-meter cold-line carrying chilled CO2-saturated water from the cold-core reservoir up to the faucet, where every degree of warm-up costs dissolved-CO2 retention. Insulating that one tube (and leaving the flavor tubes bare inside the sleeve) is the right thermal allocation.
 
 - **Foam:** CARGEN nitrile rubber pipe insulation, 1/4" ID × 3/8" wall (`B0D2XFK337`, `bom.md §9`). Sized to slip over 1/4" OD LLDPE with a snug interference fit.
-- **Foam ships as 1-ft segments.** Install procedure: slide five segments onto the carbonated-water tube and butt them together along the run. The spiral wrap over the bundle holds segments butted.
+- **Foam ships as 1-ft segments.** Install procedure: slide five segments onto the carbonated-water tube and butt them together along the run, laying a braid segment over each as it seats.
 - **Tube cutting:** the three LLDPE tubes are cut once each, to length, using the kit's Mudder PEX/PE tube cutter (`bom.md §14`), then pushed into the rear wall's PP1208E bulkheads.
 - **Foam segment count and total length:** five 1-ft CARGEN segments, 1425 mm total, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1.
 
