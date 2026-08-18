@@ -478,7 +478,7 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 # taken off this — and `two_arc_floor` says the pair runs out of shape well before the travel
 # runs out. WHAT SPANS LESS HERE IS A LONGER TUBE, NOT A SHORTER ONE, and a run that never
 # heads backward cannot be longer than the straight line between its ends.
-SOURCE_TRAVEL = 26.42
+SOURCE_TRAVEL = 25.42
 SOURCE_JOG = 14.0
 # The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
 # VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run

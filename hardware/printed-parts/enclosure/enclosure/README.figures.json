@@ -18,6 +18,7 @@
     "LOOP_WR1110": "84.1 mm",
     "PLUG_DIA": "9.9 mm",
     "SOCKET_BORE": "10.3 mm",
-    "SOCKET_OD": "16.3 mm"
+    "SOCKET_OD": "16.3 mm",
+    "Y_LEVELS": "4"
   }
 }

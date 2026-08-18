@@ -4631,7 +4631,13 @@ def place_base(seated, names=()):
 # behind where it started, and the less travel there is the more of it the hairpin has to hand
 # back. `manifold_layout.hairpin_flat` is why a route can do that at all, and
 # `manifold_layout.HAIRPIN_TILT` is the lane it spends doing it in.
-PACK_Y = 11.0
+#
+# THE FIGURE: `enclosure.front_plane_y` plus one `enclosure.wall` is the skin plane the
+# Z-seam lip stands proud on, and the pump heads ride ONE MILLIMETRE of air past it — the
+# pass-by that lets the lip's rim rise through the heads' own band instead of stopping
+# beneath them (`enclosure.z_seam`'s window is struck on it, and `pumps-pass-lip` reads it
+# off the placed heads).
+PACK_Y = 12.0
 
 
 def pose_manifold(shape):
@@ -5232,6 +5238,34 @@ def _seated(box):
     return _enc.with_funnel(box, funnel_centre(box))
 
 
+def check_pumps_pass_lip(placed: dict) -> Bound:
+    """Whether the Z-seam lip can rise past the pump heads' faces.
+
+    The heads face the front wall's skin plane and the lip is that skin standing proud:
+    wherever the lip's band crosses a head's own, the head stands off the plane by the
+    air `PACK_Y` spends. A touch has no volume, so `pack-closes` cannot see one; this
+    reads the air off the placed heads."""
+    skin = _enc.front_plane_y + _enc.wall
+    lip0, rim = _enc.z_seam - _enc.wall, _enc.z_seam + _enc.lip_len
+    rows = []
+    for n in ("pump-a-head", "pump-b-head"):
+        b = box(placed[n][0])
+        if lip0 < b.zmax and rim > b.zmin:
+            rows.append((n, b.ymin - skin))
+    ok = all(gap > 1e-6 for _n, gap in rows)
+    return record_bound(Bound(
+        "pumps-pass-lip", "The pump heads stand off the lip's face where its band crosses theirs",
+        ok,
+        (f"least air {min(g for _n, g in rows):.2f} mm" if rows
+         else f"rim at {rim:.2f}, under the heads"),
+        "air between the faces",
+        ([] if ok else [
+            f"{n} stands {gap:.3f} mm off the lip's plane while the lip's band crosses its "
+            f"own — the lip cannot rise past a face it is touching. Spend the air in "
+            f"`PACK_Y`, or keep `enclosure.z_seam`'s rim beneath the heads"
+            for n, gap in rows if gap <= 1e-6])))
+
+
 def machine():
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
@@ -5240,6 +5274,7 @@ def machine():
     whether or not a wall is ever cut from this box."""
     a = build_pack()
     p = pack(a)
+    check_pumps_pass_lip(p.placed)
     box = _seated(_enc.stated_box(p))
     carry_enclosure_bounds()
     check_through_wall_headroom(a, box)
