@@ -1,17 +1,22 @@
 {
   "/hardware/printed-parts/enclosure/valve-panel/valve_panel.py": {
-    "BOSS_DIA": "13.2",
+    "CHANNEL_DEPTH": "3.20",
+    "CHANNEL_DIA": "17",
+    "CHANNEL_FLOOR": "6.80",
     "PANEL_COUNT": "2",
     "PANEL_D": "10",
     "PANEL_H": "43.6",
     "PANEL_MARGIN": "3",
     "PANEL_REACH": "18.8",
-    "PANEL_SEAT": "1",
+    "PANEL_SEAT": "-6",
     "PANEL_SEATS": "4",
-    "PANEL_T": "3",
-    "PANEL_VOL": "76.21",
+    "PANEL_T": "10",
+    "PANEL_VOL": "162.79",
     "PANEL_W": "209",
-    "PORT_GAP": "4.80",
-    "SOCKET_DIA": "7.2"
+    "PORT_DROP": "2.20",
+    "PORT_SLIP": "1",
+    "SOCKET_DEPTH": "7",
+    "SOCKET_DIA": "7.2",
+    "SOCKET_FLOOR": "3"
   }
 }

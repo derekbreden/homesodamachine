@@ -1,7 +1,9 @@
-"""A VALVE SEAT IS FOUR BOSSES. There is nothing between them.
+"""A VALVE SEAT IS FOUR SOCKETS, and four bosses where the face is too thin to hold them.
 
-One boss under each of the Beduan solenoid's four corner posts, each carrying a blind socket
-the post presses into. THE POSTS IN THEIR SOCKETS ARE THE WHOLE OF THE RETENTION — nothing
+One blind socket under each of the Beduan solenoid's four corner posts, the post pressed into
+it. A face `socket_depth` deep and one wall over takes them sunk (`build_sockets`) and the
+valve lands on that face; a thinner one stands a boss round each instead (`build_seat`) and the
+valve lands on the four boss tops. THE POSTS IN THEIR SOCKETS ARE THE WHOLE OF THE RETENTION — nothing
 bolts a valve down in this machine, nothing is bonded, and the valve's own round body boss
 lands on the boss tops, which is what sets its height.
 
@@ -62,6 +64,38 @@ assert corner_inset >= boss_radius, (
     f"bosses that meet are a plate with scallops in it, and this seat has no plate")
 
 
+def socket_depth():
+    """How deep one socket runs: the post's whole grip over the mounting plane, and the
+    millimetre of air under its tip. The same hole whether a boss carries it or a face does."""
+    return seat_top_z - socket_floor_z
+
+
+def build_sockets():
+    """The four SOCKETS of one seat, in the valve's own frame — nothing else.
+
+    A BOSS IS MATERIAL ROUND A SOCKET. A face already thick enough to hold one IS that material,
+    so what such a face needs is the hole and nothing else: same `socket_radius`, same
+    `socket_floor_z` to `seat_top_z`, opening on the face the valve lands on. The post grips the
+    same depth, bottoms on the same nothing, and the round body boss lands on the face rather
+    than on four boss tops.
+
+    A consumer CUTS this where it would FUSE `build_seat` — the two are the same seat, sunk or
+    stood, and a face that can take one does not want the other. `valve_panel` sinks; the cold
+    core's cap lid, whose own lid is thinner than a socket is deep, stands."""
+    sockets = None
+    for sx in (-1.0, 1.0):
+        for sy in (-1.0, 1.0):
+            socket = (
+                cq.Workplane("XY")
+                .workplane(offset=socket_floor_z)
+                .center(sx * corner_inset, sy * corner_inset)
+                .circle(socket_radius)
+                .extrude(seat_top_z - socket_floor_z + 1.0)
+            )
+            sockets = socket if sockets is None else sockets.union(socket)
+    return sockets
+
+
 def build_seat(seat):
     """The four bosses of one valve seat, in the valve's own frame.
 
@@ -83,16 +117,8 @@ def build_seat(seat):
                 .circle(boss_radius)
                 .extrude(seat + seat_top_z)
             )
-            socket = (
-                cq.Workplane("XY")
-                .workplane(offset=socket_floor_z)
-                .center(sx * corner_inset, sy * corner_inset)
-                .circle(socket_radius)
-                .extrude(seat_top_z - socket_floor_z + 1.0)
-            )
-            boss = boss.cut(socket)
             bosses = boss if bosses is None else bosses.union(boss)
-    return bosses
+    return bosses.cut(build_sockets())
 
 
 def seat_volume(seat):
@@ -164,6 +190,7 @@ def main():
             "CORNER_INSET": f"{corner_inset:.4g} mm",
             "SEAT_TOP_Z": f"{seat_top_z:.4g}",
             "SOCKET_FLOOR_Z": f"{socket_floor_z:.4g}",
+            "SOCKET_DEPTH": f"{socket_depth():.4g}",
             "PORT_DIA": f"{2 * valve.port_radius:.4g}",
             "PORT_CLEARANCE": f"{gap:.3f} mm",
         },

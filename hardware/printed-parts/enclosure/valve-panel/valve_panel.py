@@ -1,7 +1,9 @@
 """A VALVE PANEL IS A PLATE OF VALVE SEATS, and it is a wall of the enclosure.
 
-One `valve_seat` per valve — four bosses, each with a blind socket a corner post presses into —
-standing on a flat plate that runs from side wall to side wall of `enclosure-front-top`. It is
+One `valve_seat` per valve — four blind sockets a corner post presses into — SUNK into a flat
+plate that runs from side wall to side wall of `enclosure-front-top`. The plate is one socket
+and one wall thick, so it is the boss: nothing stands off it, the valve lands on its face, and
+the only thing it opens for is each valve's own port, on a channel out both ends. It is
 that piece's own material, fused in the way the tap-water trough, the meter's saddles and every
 tube rib are: `enclosure._valve_panels` stands one per deck, off the stations
 `enclosure_assembly.valve_panel_stations` reads off the placed valves. NO PANEL SHIPS AS A PART,
@@ -18,22 +20,26 @@ the retention, the same bargain the cold core's cap lid strikes under its three 
 This module states the panel's own figures and draws one in its own frame; `enclosure` turns it
 onto a deck and fuses it. The frame is `valve_seat`'s carried onto a plate:
   Z = out of the valve-side face, the direction a valve's own +Z runs. `z = 0` IS THAT FACE, so
-      the plate spans z = −`THICK` to 0 and every seat stands on zero, the way a cradle stands
-      on the cap lid's outer face.
+      the plate spans z = −`THICK` to 0 and every seat is sunk from zero. That face is the plane
+      the valve's own round body boss lands on, so a valve stands ON the plate and not on four
+      boss tops — `SEAT` is negative here, and that is the whole of the difference.
   X = across the plate. Y = along it. Origin is the plate's centre in both.
 
 A SEAT'S FOUR BOSSES ARE SQUARE, so a quarter turn carries one onto itself: a valve's yaw
 locates it and never turns the print.
 
-In the piece's own print orientation the plate stands vertical, wall to wall, and each boss is a
-horizontal cylinder off it — the same cantilever the +X wall's mounting bosses print
-(`enclosure._east_bosses`).
+In the piece's own print orientation the plate stands vertical, wall to wall, and NOTHING
+stands off it: a socket is a blind hole in solid material and a port channel is a notch that
+runs up the plate's own section. There is no overhang in this part and no support in it to pick
+out — which is what the thickness buys, a boss on a standing plate being a cylinder cantilevered
+into air.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py selftest
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -54,14 +60,29 @@ from docgen import substitute_md                          # noqa: E402
 
 # --- what the panel adds over the seats it carries ---------------------------
 #
-# The plate's thickness, and it is the box's own wall.
-THICK = 3.0
-# Material carried past a boss's own outer edge, so the last boss is not a scallop in the
+# THE SEAT IS SUNK IN THE PLATE AND NOT STOOD ON IT. A boss is material round a socket, and a
+# plate thick enough to hold the socket is that material already — so this plate carries the
+# holes and nothing else (`valve_seat.build_sockets`), and its own face is the plane the valve's
+# round body boss lands on. What the plate spends is thickness, and what it buys back is the
+# print: `enclosure-front-top` stands this plate vertical, so a boss on it is a Ø13.2 cylinder
+# cantilevered off a wall into air, with its own underside to bridge and its root standing on
+# nothing. A socket bored into a face is a hole in solid material and has neither.
+#
+# The plate's thickness: one socket, and one wall of floor behind it.
+THICK = _seat.socket_depth() + _seat.wall
+# Material carried past a socket's own boss circle, so the last seat is not a scallop in the
 # plate's end. One wall, the same figure `valve_seat` puts around each socket.
 MARGIN = 3.0
-# The seat: every socket floor lands on the plate's own face, so a boss is the shortest column
-# that still takes a post and the plate bores through nowhere.
-SEAT = -_seat.socket_floor_z
+# The seat: the face IS where the valve lands, so its mounting plane stands `seat_top_z` UNDER
+# the face and nothing protrudes. Negative, and that is the whole difference from a stood seat.
+SEAT = -_seat.seat_top_z
+# Air round the valve's PORT where the plate opens for it. The port hangs under the face the
+# valve lands on (`port_drop`), so a solid plate would bury it: the plate takes a channel on its
+# own Y instead, the port's barrel and this slip, straight across and out both ends. The barrel
+# is longer than the plate is high, so the channel is open at both — in the piece's own print
+# orientation it runs UP the standing plate and prints as a notch in the section, nothing
+# bridged and nothing to pick out. One millimetre is the box's own figure for air round a body.
+PORT_SLIP = 1.0
 
 
 def reach() -> float:
@@ -80,8 +101,38 @@ def seat_pitch_floor() -> float:
     return 2.0 * reach()
 
 
+def port_drop() -> float:
+    """How far the valve's PORT hangs under the face the valve lands on.
+
+    The face is that landing plane (`valve_seat.seat_top_z`), and the port's barrel hangs
+    `beduan_solenoid.port_center_z` over the mounting plane with `port_radius` of itself under
+    that — so the barrel reaches this far inside a plate whose face is the landing plane. It is
+    why the plate opens a channel and not why the plate is thick: the sockets set the thickness
+    and the channel is cut back out of it."""
+    return _seat.seat_top_z - (_valve.port_center_z - _valve.port_radius)
+
+
+def port_channel_depth() -> float:
+    """How deep that channel cuts below the face — the port's drop and its slip."""
+    return port_drop() + PORT_SLIP
+
+
+def build_port_channel(length: float):
+    """One valve's port channel, in the valve's own frame: the barrel and its slip, run `length`
+    along the plate's own Y and open at both ends.
+
+    A CYLINDER AND NOT A SLOT. The port is round and the channel closes on it all the way round
+    at one slip, the way the meter's saddles take a barrel — a square slot to the same width
+    would take the plate's whole depth at the corners for air the port is nowhere near."""
+    return (cq.Workplane("XZ")
+            .center(0.0, _valve.port_center_z)
+            .circle(_valve.port_radius + PORT_SLIP)
+            .extrude(length / 2.0, both=True))
+
+
 def build_valve_panel(width: float, seats):
-    """One panel: the plate, and one `valve_seat` standing on it per station in `seats`.
+    """One panel: the plate, with one `valve_seat`'s sockets and one port channel sunk into it
+    per station in `seats`.
 
     `seats` is `(x, y)` per valve in the plate's own frame — where that valve's footprint centre
     lands. A station carries no yaw and no height: the seat is square, and every valve on one
@@ -103,46 +154,74 @@ def build_valve_panel(width: float, seats):
     panel = (cq.Workplane("XY")
              .workplane(offset=-THICK)
              .box(width, height(), THICK, centered=(True, True, False)))
+    # A station is where the valve's own frame lands: `SEAT` under the face, which is where the
+    # sockets and the channel are both struck from. Cut, not fused — the plate is the boss.
     for x, y in seats:
-        panel = panel.union(_seat.build_seat(SEAT).translate((x, y, SEAT)))
+        panel = panel.cut(_seat.build_sockets().translate((x, y, SEAT)))
+        panel = panel.cut(build_port_channel(height() + 2.0).translate((x, y, SEAT)))
     return panel
 
 
+def _segment_area(radius: float, over: float) -> float:
+    """The area a circle of `radius` whose centre stands `over` a plane leaves BELOW it."""
+    if over >= radius:
+        return 0.0
+    return (radius ** 2 * math.acos(over / radius)
+            - over * math.sqrt(radius ** 2 - over ** 2))
+
+
 def panel_volume(width: float, n_seats: int) -> float:
-    """One panel's material, in closed form — the plate plus one seat apiece.
+    """One panel's material, in closed form — the plate, less one seat's four sockets and one
+    port channel apiece.
 
-    A seat's four bosses stand clear of one another, each stands ON the plate's face rather than
-    into it, and every socket floor lands on that same face: the fuse adds a plane and no
-    volume, and the sockets take nothing out of the plate."""
-    return width * height() * THICK + n_seats * _seat.seat_volume(SEAT)
+    Exact, and that is a reading and not a convenience: the four sockets stand clear of one
+    another and clear of the channel between them (`selftest` measures both), the channel runs
+    straight out of both ends of the plate, and neither reaches the plate's back. So every cut
+    is a whole prism of known section, and a panel that measures anything else has a socket in
+    its channel or a channel out of its back."""
+    socket = math.pi * _seat.socket_radius ** 2 * _seat.socket_depth()
+    channel = height() * _segment_area(_valve.port_radius + PORT_SLIP,
+                                       _valve.port_center_z - _seat.seat_top_z)
+    return width * height() * THICK - n_seats * (4.0 * socket + channel)
 
 
-def seat_face_gap() -> float:
-    """The air between the plate's face and the valve's own port, at the port's lowest.
-
-    The port hangs `beduan_solenoid.port_center_z` over the mounting plane and the plane stands
-    `SEAT` over the face, so this is what a tube butted into a collet has under it."""
-    return SEAT + _valve.port_center_z - _valve.port_radius
+def channel_floor() -> float:
+    """What the plate keeps under a port channel at its deepest. The channel's own floor is the
+    thinnest section on the plate — thinner than the socket floors, or the channel would be the
+    thing that sets `THICK`."""
+    return THICK - port_channel_depth()
 
 
 def depth() -> float:
-    """The plate's whole run along its own Z — the plate under the face and the bosses over it.
-    What the enclosure has to leave clear on a deck's plane."""
-    return THICK + SEAT + _seat.seat_top_z
+    """The plate's whole run along its own Z — what the enclosure has to leave clear on a
+    deck's plane. Nothing stands over the face, so it is the plate and only the plate."""
+    return THICK
 
 
 def selftest() -> int:
     """The panel against the valve it holds and the seat it carries."""
     fails = []
-    if seat_face_gap() <= 0.0:
-        fails.append(f"the plate's face stands {seat_face_gap():.3f} mm under the valve's port "
-                     f"— the plate is in the tube's way")
-    if SEAT < -_seat.socket_floor_z:
-        fails.append(f"a seat of {SEAT:g} mm bores its sockets out through the plate's back")
-    if THICK <= -_seat.socket_floor_z:
-        fails.append(f"a plate {THICK:g} mm thick is no deeper than the "
-                     f"{-_seat.socket_floor_z:g} mm a socket floor drops below the face it "
-                     f"stands on")
+    if THICK - _seat.socket_depth() < _seat.wall - 1e-9:
+        fails.append(f"a plate {THICK:g} mm thick keeps "
+                     f"{THICK - _seat.socket_depth():.3f} mm behind a socket "
+                     f"{_seat.socket_depth():g} deep, under the {_seat.wall:g} mm wall every "
+                     f"socket in this machine is floored on")
+    if channel_floor() <= _seat.wall - 1e-9:
+        fails.append(f"a port channel {port_channel_depth():.3f} mm deep leaves "
+                     f"{channel_floor():.3f} mm of plate under it, under one {_seat.wall:g} mm "
+                     f"wall — the channel is what sets the plate's thinnest section and it has "
+                     f"outrun the sockets")
+    if port_drop() <= 0.0:
+        fails.append(f"the valve's port stands {-port_drop():.3f} mm CLEAR of the face it lands "
+                     f"on, so the plate needs no channel and this one cuts a groove for air")
+    # The channel's own half-width where it opens on the face, against the nearest socket's.
+    open_half = math.sqrt(max((_valve.port_radius + PORT_SLIP) ** 2
+                              - (_valve.port_center_z - _seat.seat_top_z) ** 2, 0.0))
+    if open_half >= _seat.corner_inset - _seat.socket_radius - 1e-9:
+        fails.append(f"the port channel opens {open_half:.3f} mm either side of the valve's centre "
+                     f"and the nearest socket wall stands at "
+                     f"{_seat.corner_inset - _seat.socket_radius:.3f} — the channel is in the "
+                     f"socket, and a socket open down its side holds no post")
     # A synthetic row of four at the closest pitch the part takes, so the construction is
     # measured here as well as where the machine stands its valves.
     pitch = seat_pitch_floor() + 1.0
@@ -173,8 +252,9 @@ def selftest() -> int:
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print(f"ok  valve-panel  {height():g} mm high x {THICK:g} thick, seat {SEAT:g}, "
-              f"reach {reach():g}, {seat_face_gap():.3f} mm under the port")
+        print(f"ok  valve-panel  {height():g} mm high x {THICK:g} thick, seat {SEAT:g} (sunk), "
+              f"reach {reach():g}, port channel {port_channel_depth():.3f} deep on "
+              f"{channel_floor():.3f} of floor")
     return 1 if fails else 0
 
 
@@ -224,9 +304,14 @@ def main():
             "PANEL_SEATS": f"{len(seats)}",
             "PANEL_COUNT": f"{len(panels)}",
             "PANEL_VOL": f"{total / 1000.0:.2f}",
-            "PORT_GAP": f"{seat_face_gap():.2f}",
             "SOCKET_DIA": f"{2 * _seat.socket_radius:.4g}",
-            "BOSS_DIA": f"{2 * _seat.boss_radius:.4g}",
+            "SOCKET_DEPTH": f"{_seat.socket_depth():g}",
+            "SOCKET_FLOOR": f"{THICK - _seat.socket_depth():g}",
+            "CHANNEL_DIA": f"{2 * (_valve.port_radius + PORT_SLIP):.4g}",
+            "CHANNEL_DEPTH": f"{port_channel_depth():.2f}",
+            "CHANNEL_FLOOR": f"{channel_floor():.2f}",
+            "PORT_DROP": f"{port_drop():.2f}",
+            "PORT_SLIP": f"{PORT_SLIP:g}",
         },
     )
     print("-> README.md")
