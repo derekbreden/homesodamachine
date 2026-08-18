@@ -161,8 +161,8 @@
     "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
     "foam-assembly \u2014 wago-sensors: 1.600 mm",
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
-    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 seaflo-pump: 1.756 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm"
    ],
@@ -783,6 +783,16 @@
    "active": true
   },
   {
+   "id": "pumps-pass-lip",
+   "label": "The pump heads stand off the lip's face where its band crosses theirs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "least air 1.00 mm",
+   "target": "air between the faces",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "wall-headroom",
    "label": "Every body seated through a wall stands under the ceiling",
    "kind": "gate",
@@ -830,14 +840,14 @@
    "value": "8/8 valves seated, furthest off 0.000 mm",
    "target": "every valve within 0.2 mm of the plate under it",
    "detail": [
-    "valve-panel-aft    valve-v-c    y-plane  164.380 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-d    y-plane  164.380 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-g    y-plane  164.380 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-j    y-plane  164.380 -Z   off 0.0000",
-    "valve-panel-fore   valve-v-e    y-plane   82.380 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-f    y-plane   82.380 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-h    y-plane   82.380 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-i    y-plane   82.380 +Z   off 0.0000"
+    "valve-panel-aft    valve-v-c    y-plane  165.380 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-d    y-plane  165.380 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-g    y-plane  165.380 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-j    y-plane  165.380 -Z   off 0.0000",
+    "valve-panel-fore   valve-v-e    y-plane   83.380 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-f    y-plane   83.380 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-h    y-plane   83.380 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-i    y-plane   83.380 +Z   off 0.0000"
    ],
    "active": true
   },
@@ -849,8 +859,8 @@
    "value": "2/2 pumps seated, furthest off 0.000 mm",
    "target": "every pump within 0.2 mm of the plate on it",
    "detail": [
-    "pump-a-head    axis (  48.570,   42.305) face z  216.745   off 0.0000",
-    "pump-b-head    axis ( -48.570,   42.305) face z  216.745   off 0.0000"
+    "pump-a-head    axis (  48.570,   43.305) face z  216.745   off 0.0000",
+    "pump-b-head    axis ( -48.570,   43.305) face z  216.745   off 0.0000"
    ],
    "active": true
   },
@@ -924,7 +934,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "104.53 x 66.07 at (38.23, 259.90), z 226.86..292.93",
-   "target": "inside x -19.03..95.50, z 197.70..317.53",
+   "target": "inside x -19.03..95.50, z 160.00..317.53",
    "detail": [],
    "active": true
   },
@@ -989,11 +999,11 @@
    "active": true
   },
   {
-   "id": "z-seam-front-bed",
-   "label": "The front Z seam leaves both its pieces on the H2C's bed",
+   "id": "z-seam-bed",
+   "label": "The Z seam leaves every piece on the H2C's bed",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 150.00, band 35.00..303.90",
+   "value": "seam at 160.00, band 35.00..303.90",
    "target": "inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
@@ -1009,22 +1019,32 @@
    "active": true
   },
   {
-   "id": "z-seam-back-band",
-   "label": "The back column leaves the bed a height its seam can take",
+   "id": "z-seam-front-lane",
+   "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "1 band(s) inside 35.00..303.90",
-   "target": "at least one",
+   "value": "seam at 160.00, lane 149.00..252.90",
+   "target": "a lane containing it",
    "detail": [],
    "active": true
   },
   {
-   "id": "z-seam-pitch",
-   "label": "The two Z seams stand the pitch two Y-seam levels need apart",
+   "id": "z-seam-back-lane",
+   "label": "The back column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "back seam at 197.70, 47.70 mm off the front's 150.00",
-   "target": "at least 47.70 mm apart",
+   "value": "seam at 160.00, lane 35.00..240.30",
+   "target": "a lane containing it",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-seam-under-deck",
+   "label": "The Z-seam rim stays under the flavour deck's lowest plate",
+   "kind": "gate",
+   "status": "pass",
+   "value": "rim at 173.10, deck floor at 175.88",
+   "target": "air between them",
    "detail": [],
    "active": true
   },
@@ -1234,10 +1254,10 @@
    "value": "20/21 within span, 1 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 445.5 mm unheld, 245.5 over",
+    "fluid-18: 444.8 mm unheld, 244.8 over",
     "carb-1: 144.5 mm, held at its anchor",
     "co2-2: 114.2 mm, held at its anchor",
-    "fluid-28: 167.7 mm, held at its anchor",
+    "fluid-28: 167.2 mm, held at its anchor",
     "fluid-4: 290.1 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
