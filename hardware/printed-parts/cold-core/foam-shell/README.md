@@ -174,6 +174,15 @@ its reed channel against the shell wall, and the foam that would otherwise sit
 outboard of the reed has moved to the cylinder side. Those two ±Y bands are what
 every penetration travels along — see §Port lane.
 
+**Each ±Y wall carries a corner-boss slot** (`_cold_core_interface.corner_boss_slots`):
+an inward emboss over the band the enclosure's four-corner screw boss sweeps as the
+front assembly telescopes aft along the flank — the boss's socket stands
+`enclosure.corner_core_reach` past the 14 mm chain the flanks are packed to. The void
+is lined a full wall behind and beside it, so the pour stays sealed; its fore end
+stands where the corner round's own recession already clears the boss, and
+`enclosure_assembly.check_corner_slot` reads the built boss's swept band against the
+placed core (`corner-slot-lands`).
+
 The four vertical corners are rounded — the exterior wall is a true
 [12 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
 face concentric one wall-thickness inboard — so the warp-prone sharp
@@ -683,11 +692,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1040422.277 mm³](FSHELL_VOLUME) |
+| volume | [1040423.903 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.704722, 0.438955, 87.536613) mm](CENTROID) |
+| centroid | [(0.715808, 0.438954, 87.536693) mm](CENTROID) |
 
 Quick reproduction:
 
