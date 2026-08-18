@@ -2,13 +2,13 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-2fcc1a07f8c8e3e0.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2fcc1a07f8c8e3e0.tar.gz"
+    "asset": "cad-67f115fbd1a3f821.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-67f115fbd1a3f821.tar.gz"
   },
   "bundle": {
-    "sha256": "2fcc1a07f8c8e3e0f5e860cbfcbe8c93a9fbbc589c9ed1d4cb5642961af04ffb",
-    "bytes": 29123260,
-    "solids": 98
+    "sha256": "67f115fbd1a3f8215d64f426b5619c68e8f8d246241bedc8fcd02e53a02e364d",
+    "bytes": 28066179,
+    "solids": 94
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
@@ -65,9 +65,6 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "df82012031c2c2015cee13dc64f594fbca83790bbf52b4c4247a04f25ea46ae3",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "3bb46a4eaa4eee86ddfdd2c0f7d3934fa1b9fc897cb58006755bd7aea47a779b",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "72f093d8ff0e66020485ad4ee9f4e3b474010f8d732fa152aff62fdd229b3bc9",
-    "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step": "1775d43e2b86c8166f5f641c4e4d84074cef0ec8b21ba1d860df6715e00a74b5",
-    "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step": "d0646de6dd341b106cf0ec76c01dfa3b3c116a795f16b63b7dc0d8978c5a7aad",
-    "hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step": "a26c3ff8dc5977714c2c3c350456e68debb459361f6d8b2a06b826924f8ee1c2",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "12ac87813ea14287662e104f6fb60d28819ae86ef76f9fe7d02535599767d1fa",
     "hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-assembly.step": "7d8467c20a1ee42451b9601d12037e102badb77eeffe9ebb82d223bfd0ffe5dd",
     "hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-cavity.step": "29af742404b1cf4710528eaa6a6a6e62dcff994e45d9e9dbf79d6ae25cf7bfd9",
@@ -90,7 +87,6 @@
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": "d4a12cacdf1fc6ac55b5c75e8ce4cf6bf0c431f58e3d7e428c959608e4e5867e",
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": "989374c283ac692fc3012a92715fa13ba84f5c014a19e547007e1fef206a50bb",
     "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "7c6707c210efe5c6843d0c1cb6f82d05e9d67128a78afa4e16e5b7944adf19c8",
-    "hardware/reference/kamoer-kphm400/pump-assembly.step": "7e6b3af57660b606409447d3a3b7b62fda619622594435d86c95350216b2ee44",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "e928899b83055e2497f020cbbb2adc7c07f494d68243bd02ecfb2c69bc7a21a6",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "86e59e5017c27c2446590329892233b82a0a50a2acccd3ddfa8b739b74a3e3d4",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "ca7b8f69506947f6c551b6aa251caca9ccac33d220c18b0e53c995bc0a14cfe1",

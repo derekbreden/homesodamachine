@@ -19,11 +19,10 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 | [`faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py) | the faucet stack on its counter | [12](BT_FAUCET_ASSEMBLY) |
 | [`manifold-layout/manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) | the fittings and the runs between them | [8.5](BT_MANIFOLD_LAYOUT) |
 | [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | both flavor reservoirs and their caps | [2.8](BT_RESERVOIR) |
-| [`printed-parts/flavor/pump-case/pump_case.py`](/hardware/printed-parts/flavor/pump-case/pump_case.py) | the pump case, base and cap | [2.1](BT_PUMP_CASE) |
 | [`printed-parts/cold-core/foam-assembly/foam_assembly.py`](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py) | the foam shell and its four cap pieces | [2.0](BT_FOAM_ASSEMBLY) |
 | [`printed-parts/refrigeration/fuse-clamp/fuse_clamp.py`](/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py) | the thermal fuse's clamp | [0.1](BT_FUSE_CLAMP) |
 
-Sixty-nine generators cut solids, and two more draw what the rest of them made — the cards and their pictures, which is why those two head the table. The rows here are hand-kept, as bom.md's are. `_build_time.py --check` names a generator whose readings come in slower than every row on this page.
+Sixty-two generators cut solids, and two more draw what the rest of them made — the cards and their pictures, which is why those two head the table. The rows here are hand-kept, as bom.md's are. `_build_time.py --check` names a generator whose readings come in slower than every row on this page.
 
 ## What a figure moves
 

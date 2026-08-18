@@ -4302,39 +4302,14 @@
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/flavor/pump-case/pump_case.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/flavor/pump-case/pump_case.py"
     ],
     "writes": [
-      "hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step",
-      "hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step",
       "hardware/printed-parts/flavor/pump-case/pump_case.py"
-    ]
-  },
-  "hardware/printed-parts/flavor/pump-case/pump_case_assembly.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/snap.py",
-      "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/flavor/pump-case/pump_case.py",
-      "hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/printed-parts/flavor/pump-case/pump-case-assembly.step"
     ]
   },
   "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
@@ -4751,11 +4726,9 @@
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/flavor/pump-case/pump_case.py",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
@@ -4764,27 +4737,6 @@
     "rewritten": [],
     "writes": [
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step"
-    ]
-  },
-  "hardware/reference/kamoer-kphm400/pump_assembly.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/snap.py",
-      "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/flavor/pump-case/pump_case.py",
-      "hardware/reference/elbow-connector/elbow-connector.step",
-      "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-      "hardware/reference/kamoer-kphm400/pump_assembly.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [],
-    "writes": [
-      "hardware/reference/kamoer-kphm400/pump-assembly.step"
     ]
   },
   "hardware/reference/meanwell-irm90/meanwell_irm90.py": {

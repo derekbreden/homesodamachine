@@ -4594,24 +4594,15 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "hardware/printed-parts/flavor/pump-case/pump_case.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/pump-case/hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step",
-        "out/pump-case/hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step",
         "out/pump-case/hardware/printed-parts/flavor/pump-case/pump_case.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/pump-case/hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step)
-O1=$$PWD/$(location out/pump-case/hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step)
-O2=$$PWD/$(location out/pump-case/hardware/printed-parts/flavor/pump-case/pump_case.py)
+O0=$$PWD/$(location out/pump-case/hardware/printed-parts/flavor/pump-case/pump_case.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -4624,45 +4615,7 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case.py > /dev/null
-cp hardware/printed-parts/flavor/pump-case/pump-case-base-cadquery.step $$O0
-cp hardware/printed-parts/flavor/pump-case/pump-case-cap-cadquery.step $$O1
-cp hardware/printed-parts/flavor/pump-case/pump_case.py $$O2
-""",
-)
-
-genrule(
-    name = "pump-case-assembly",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/snap.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/printed-parts/flavor/pump-case/pump_case.py",
-        "pysrc/hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/pump-case-assembly/hardware/printed-parts/flavor/pump-case/pump-case-assembly.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/pump-case-assembly/hardware/printed-parts/flavor/pump-case/pump-case-assembly.step)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/flavor/pump-case/pump_case_assembly.py > /dev/null
-cp hardware/printed-parts/flavor/pump-case/pump-case-assembly.step $$O0
+cp hardware/printed-parts/flavor/pump-case/pump_case.py $$O0
 """,
 )
 
@@ -5473,11 +5426,9 @@ genrule(
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/flavor/pump-case/pump_case.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -5502,45 +5453,6 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/kamoer_kphm400.py > /dev/null
 cp hardware/reference/kamoer-kphm400/kamoer-kphm400.step $$O0
-""",
-)
-
-genrule(
-    name = "pump-assembly",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/snap.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/printed-parts/flavor/pump-case/pump_case.py",
-        "hardware/reference/elbow-connector/elbow-connector.step",
-        "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "pysrc/hardware/reference/kamoer-kphm400/pump_assembly.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/pump-assembly/hardware/reference/kamoer-kphm400/pump-assembly.step",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/pump-assembly/hardware/reference/kamoer-kphm400/pump-assembly.step)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/kamoer-kphm400/pump_assembly.py > /dev/null
-cp hardware/reference/kamoer-kphm400/pump-assembly.step $$O0
 """,
 )
 
@@ -6680,7 +6592,6 @@ genrule(
         "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
         "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "hardware/printed-parts/flavor/pump-case/pump_case.py",
-        "hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
         "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "hardware/printed-parts/valve-seat/valve_seat.py",
         "hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
@@ -6704,7 +6615,6 @@ genrule(
         "hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "hardware/reference/jg-pp451223w/jg_pp451223w.py",
         "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "hardware/reference/kamoer-kphm400/pump_assembly.py",
         "hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -6833,7 +6743,6 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/flavor/pump-case/pump_case.py",
-        "pysrc/hardware/printed-parts/flavor/pump-case/pump_case_assembly.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
@@ -6857,7 +6766,6 @@ genrule(
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
         "pysrc/hardware/reference/jg-pp451223w/jg_pp451223w.py",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "pysrc/hardware/reference/kamoer-kphm400/pump_assembly.py",
         "pysrc/hardware/reference/meanwell-irm90/meanwell_irm90.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
@@ -9574,9 +9482,6 @@ sh_test(
         "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.png",
         "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "hardware/reference/kamoer-kphm400/pump-assembly.step",
-        "hardware/reference/kamoer-kphm400/pump-assembly.step.png",
-        "hardware/reference/kamoer-kphm400/pump_assembly.py",
         "hardware/reference/meanwell-irm90/README.md",
         "hardware/reference/meanwell-irm90/meanwell-irm90.step",
         "hardware/reference/meanwell-irm90/meanwell-irm90.step.png",
@@ -10184,7 +10089,6 @@ filegroup(
         ":touch-flo-tpu-o-ring",
         ":tube-collar",
         ":pump-case",
-        ":pump-case-assembly",
         ":fuse-clamp",
         ":valve-seat",
         ":hopper-funnel-mold",
@@ -10207,7 +10111,6 @@ filegroup(
         ":jg-pp061208w",
         ":jg-pp451223w",
         ":kamoer-kphm400",
-        ":pump-assembly",
         ":meanwell-irm90",
         ":mq6-gas-sensor",
         ":multiplex-asse1022",
