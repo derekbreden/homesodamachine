@@ -41,6 +41,7 @@ import _realized                                                        # noqa: 
 
 ARTIFACT = _HW / "manifold-layout" / "enclosure-assembly.facts.json"
 SCORECARD = _HW / "manifold-layout" / "enclosure-assembly.scorecard.json"
+STEP = _HW / "manifold-layout" / "enclosure-assembly.step"
 SCHEMA = 1
 
 # The pairs whose exact distance a document states and the card does not carry. The card
@@ -255,6 +256,9 @@ def gather(whole=None, module=None):
         # THE CARD THIS WAS TAKEN BESIDE, by what it measured. One run writes the card and then
         # this, so a reader holding both can tell whether they came off the same machine.
         "card": _realized.code_digest(SCORECARD),
+        # AND THE SOLID IT WAS MEASURED OFF. The run writes the STEP, then the card, then
+        # this, so each digest here names one of the two that went before it.
+        "step": _realized.code_digest(STEP),
         "box": _plain(box),
         "constants": constants,
         "z_stations": z_stations,
@@ -475,6 +479,38 @@ class Facts:
     def agrees_with_card(self) -> bool:
         """Whether the card beside this artifact is the one it was taken beside."""
         return self._f.get("card") == _realized.code_digest(SCORECARD)
+
+    def agrees_with_step(self) -> bool:
+        """Whether the solid beside this artifact is the one it was measured off.
+
+        None when the STEP is not on this disk: it is fetched from the bundle rather than
+        committed."""
+        here = _realized.code_digest(STEP)
+        return None if here is None else self._f.get("step") == here
+
+    def stale(self) -> list:
+        """What this artifact names that the tree no longer holds, as lines a reader can act
+        on. Empty is current.
+
+        A digest it does not carry and a digest that names something else are two readings,
+        and each says so: the first stands for an artifact older than the datum, the second
+        for one off another run."""
+        out = []
+        if not self.agrees_with_card():
+            out.append(_disagrees(SCORECARD.name, "taken beside",
+                                  self._f.get("card"), _realized.code_digest(SCORECARD)))
+        if self.agrees_with_step() is False:
+            out.append(_disagrees(STEP.name, "measured off",
+                                  self._f.get("step"), _realized.code_digest(STEP)))
+        return out
+
+
+def _disagrees(other: str, verb: str, held, here) -> str:
+    """One line naming what the facts carry for another artifact against what is beside them."""
+    if held is None:
+        return f"{ARTIFACT.name} carries no digest for {other}; {other} here is {here}"
+    return (f"{ARTIFACT.name} was {verb} a different {other} — "
+            f"it holds {held}, {other} here is {here}")
 
 
 def read() -> Facts:

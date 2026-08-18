@@ -312,6 +312,13 @@ if not sc["gatesPass"]:
 ' "$root/$hw/manifold-layout/enclosure-assembly.scorecard.json"
 fi
 
+# AND THE FACTS BESIDE THAT CARD. One run writes the STEP, then the card, then the facts, and
+# the facts carry a digest of each of the two written before them. Eight doc drivers read them.
+if staged "$hw/"; then
+  gate "$hw the facts came off the card's own run" \
+       python3 "$root/$hw/scripts/check_facts_current.py"
+fi
+
 # The other half of `bodies-colored`: that gate rides the enclosure's card and asks whether
 # the ASSEMBLY painted each placed body. This asks what each body's OWN STEP carries, which
 # is what its card and /3d draw. A STEP is the only thing that moves the answer, and the
