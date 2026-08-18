@@ -3047,18 +3047,12 @@
     "reads": [
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py"
     ],
     "writes": [
-      "hardware/printed-parts/electronics/pcba-tray/pcba-tray.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py"
     ]
   },
@@ -3933,34 +3927,6 @@
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step"
     ]
   },
-  "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
-      "hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-      "hardware/printed-parts/enclosure/port-ring/coupons/port_ring_coupons.py",
-      "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_measuring.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
-      "hardware/printed-parts/enclosure/port-ring/coupons/README.md"
-    ],
-    "writes": [
-      "hardware/printed-parts/enclosure/port-ring/coupons/README.figures.json",
-      "hardware/printed-parts/enclosure/port-ring/coupons/README.md",
-      "hardware/printed-parts/enclosure/port-ring/coupons/port-ring-coupons.step"
-    ]
-  },
   "hardware/printed-parts/enclosure/port-ring/port_ring.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -4331,24 +4297,6 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step"
-    ]
-  },
-  "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py"
-    ],
-    "writes": [
-      "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
-      "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py"
     ]
   },
   "hardware/printed-parts/flavor/pump-case/pump_case.py": {

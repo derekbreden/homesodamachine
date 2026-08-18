@@ -34,10 +34,7 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from _cadq_export import export_assembly
-from _materials import C_PCBA, one_body
 from docgen import substitute_py_comments
-import module_tray as mt
 from module_tray import Mount
 
 # Board datum — pcba.tsx <board outline> + the MH1–MH4 <platedhole>s.
@@ -167,16 +164,7 @@ def stations_hold():
             f"{_thickness:g} up from 0 — every connector station is off the mating face.")
 
 
-def build_pcba_tray():
-    return mt.build_module_tray(MOUNTS)
-
-
 def main():
-    tray = build_pcba_tray()
-    export_assembly(one_body(tray, "pcba-tray", C_PCBA),
-                    str(_here.parent / "pcba-tray.step"))
-    print("-> pcba-tray.step (%.1f cm3)" % (tray.val().Volume() / 1000.0))
-
     substitute_py_comments(
         _here,
         variables={"PCBA_SIZE": f"{board.length:.4g} × {board.width:.4g} mm"},
