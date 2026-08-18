@@ -248,20 +248,22 @@ The display facet raises no fifth standing vertical: running wall to wall, it en
 on the ±X exterior walls and runs out into their own rounds.
 
 Inside those verticals stand the **columns**, and each one is that relief
-**mirrored**. The wall carries its 12 mm round through to the cavity as a cove one
-wall in — the arc the cavity turns from one inner face round to the other, springing
-from a point on each. Fold that arc across its own chord and the column is what comes
-back: the same radius curving the other way, off those same two points. Mirroring the
-arc mirrors its centre too, onto the interior corner itself, which is the whole
-construction — one radius and two centres.
+**mirrored**. Take the 12 mm arc the outer corner is relieved on — the one springing
+from a point on each outer face — and fold it across its own chord. What comes back is
+the same radius curving the other way, off those same two points. Mirroring the arc
+mirrors its centre too, onto the **exterior corner** itself, and that is the whole
+construction: one radius and two centres.
 
-So the section is a **lens**: **two sharp corners** opposite each other, one standing
-on each wall where the arcs meet at 90°, and **two round sides** opposite each other —
-the cove it seats flush against behind, and that cove's mirror bulging into the room
-ahead. Nothing is tangent and nothing is filled in; the column is the fold and no more,
-about 46 mm² of section running the box's whole height. All four standing verticals
-carry one (`enclosure.column_corners`), so each quadrant prints the two its own two
-exterior arrises stand behind.
+So the section is a **lens** with **the wall running through the middle of it**. Its own
+first wall of depth is the wall's own material; what stands in the room is the rest, from
+the cove inward — a [12 mm](COLUMN_ARC) arc standing [4.03 mm](COLUMN_DEPTH) proud at the
+corner's diagonal and reaching [8.62 mm](COLUMN_ALONG) along each inner face. Two **sharp
+corners** opposite each other and two **round sides** opposite each other, with the cusps
+out on the outer faces where the fold puts them, so what the room meets is the chord the
+inner faces cut across the lens. Nothing is tangent and nothing is filled in; the column is
+the fold and no more. All four standing verticals carry one
+(`enclosure.column_corners`), so each quadrant prints the two its own two exterior arrises
+stand behind.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
